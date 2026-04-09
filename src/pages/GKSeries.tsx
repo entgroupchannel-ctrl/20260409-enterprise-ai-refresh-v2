@@ -652,7 +652,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
               image: model.image,
               href: `/gk-series#${model.id}`,
               specs: `${model.screenSize} ${model.resolution} ${model.platform}`,
-            }}
+            }}>
             className="absolute top-4 right-4"
           />
           {model.gallery && model.gallery.length > 0 ? (

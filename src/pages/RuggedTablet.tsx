@@ -541,7 +541,7 @@ const RuggedTablet = () => {
                 <Monitor className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
                 <h3 className="text-lg font-bold text-foreground mb-2">ไม่พบสินค้า</h3>
                 <p className="text-sm text-muted-foreground mb-4">ลองปรับตัวกรองหรือคำค้นหาใหม่</p>
-                <Button variant="outline" onClick={() => { setSearch(""); setFilters({ ...defaultTabletFilters }); }}
+                <Button variant="outline" onClick={() => { setSearch(""); setFilters({ ...defaultTabletFilters }); }}>
 
                   ล้างตัวกรองทั้งหมด
                 </Button>

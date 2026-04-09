@@ -166,7 +166,7 @@ const HeroSection = () => {
 
             <h1
               className="text-4xl md:text-6xl lg:text-7xl font-display font-black leading-[1.1] mb-6 animate-fade-up text-white"
-              style={{ animationDelay: "0.1s" }}
+              style={{ animationDelay: "0.1s" }}>
             >
               โซลูชัน <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-[hsl(var(--accent))]">Industrial Computing</span>
               <br />
@@ -175,7 +175,7 @@ const HeroSection = () => {
 
             <p
               className="text-lg md:text-xl text-white/70 max-w-xl mb-10 animate-fade-up leading-relaxed"
-              style={{ animationDelay: "0.2s" }}
+              style={{ animationDelay: "0.2s" }}>
             >
               พันธมิตรธุรกิจที่คุณไว้วางใจ — Mini PC, Panel PC, Rugged Device และซอฟต์แวร์ครบวงจร สำหรับงานโรงงาน งานประมูล และงานโครงการ
             </p>
@@ -190,7 +190,7 @@ const HeroSection = () => {
                   onChange={(e) => {
                     setSearchQuery(e.target.value);
                     setSearchOpen(true);
-                  }}
+                  }}>
                   onFocus={() => setSearchOpen(true)}
                   onKeyDown={handleSearchKeyDown}
                   className="flex-1 bg-transparent px-4 py-4 text-white placeholder:text-white/40 outline-none text-sm md:text-base"
@@ -214,7 +214,7 @@ const HeroSection = () => {
                         navigate(item.href);
                         setSearchQuery("");
                         setSearchOpen(false);
-                      }}
+                      }}>
                       className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-primary/10 transition-colors border-b border-border/50 last:border-0"
                     >
                       <Search size={14} className="text-muted-foreground shrink-0" />

@@ -145,7 +145,7 @@ const CaseStudyDetail = () => {
                       width="100%"
 
                       height="100%"
-                      style={{ border: "none", overflow: "hidden" }}
+                      style={{ border: "none", overflow: "hidden" }}>
                       scrolling="no"
                       allowFullScreen
                       allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"

@@ -42,7 +42,7 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
           )}
         </div>
         <button
-          onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleSelect(product.name); }}
+          onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleSelect(product.name); }}>
           className="absolute top-3 right-3 z-10"
         >
           <Checkbox checked={isSelected} className="h-5 w-5" />

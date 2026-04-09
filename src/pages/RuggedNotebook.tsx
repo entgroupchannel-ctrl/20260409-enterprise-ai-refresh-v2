@@ -284,7 +284,7 @@ const RuggedNotebookPage = () => {
                 <Laptop className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
                 <h3 className="text-lg font-bold text-foreground mb-2">ไม่พบสินค้า</h3>
                 <p className="text-sm text-muted-foreground mb-4">ลองปรับตัวกรองหรือคำค้นหาใหม่</p>
-                <Button variant="outline" onClick={() => { setSearch(""); setFilters({ ...defaultNotebookFilters }); }}
+                <Button variant="outline" onClick={() => { setSearch(""); setFilters({ ...defaultNotebookFilters }); }}>
 
                   ล้างตัวกรองทั้งหมด
                 </Button>
@@ -451,7 +451,7 @@ const NotebookCard = ({ product, selected, onToggleSelect }: { product: RuggedNo
             {product.configs.map((c, i) => (
               <button
                 key={i}
-                onClick={(e) => { e.preventDefault(); setSelectedCfg(i); }}
+                onClick={(e) => { e.preventDefault(); setSelectedCfg(i); }}>
                 className={`w-full text-left p-2.5 rounded-lg border text-xs transition-all ${
                   i === selectedCfg ? "border-primary bg-primary/5 ring-1 ring-primary/20" : "border-border hover:border-primary/30"
                 }`}>

@@ -777,7 +777,7 @@ const GTSeries = () => {
                 onClick={() => {
                   const el = document.getElementById("comparison");
                   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                }}
+                }}>
                 className="inline-flex items-center justify-center gap-2 px-5 md:px-6 py-3 md:py-3.5 rounded-full border-2 border-white/30 text-white font-bold text-sm hover:bg-white/10 transition-all group">
                 <Filter size={16} />
                 <span>เปรียบเทียบสเปก</span>
@@ -6031,7 +6031,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
     <div className="relative bg-secondary/50 p-6 flex items-center justify-center min-h-[200px]">
       {onToggleSelect && (
         <button
-          onClick={(e) => { e.stopPropagation(); onToggleSelect(model.name); }}
+          onClick={(e) => { e.stopPropagation(); onToggleSelect(model.name); }}>
           className="absolute top-3 left-12 z-10">
           <Checkbox checked={selected} className="h-5 w-5" />
         </button>
@@ -6052,7 +6052,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
           image: model.image,
           href: `/gt-series?tab=${model.name}`,
           specs: model.tagline,
-        }}
+        }}>
         className="absolute top-3 right-3"
       />
       <img

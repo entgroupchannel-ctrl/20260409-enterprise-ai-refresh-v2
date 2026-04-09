@@ -16,7 +16,7 @@ const FloatingContact = () => {
               onClick={() => {
                 setShowLineDialog(true);
                 setOpen(false);
-              }}
+              }}>
               className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#06C755] text-white shadow-lg hover:opacity-90 transition-opacity text-left"
             >
               <LineSvgIcon className="w-5 h-5 shrink-0" />

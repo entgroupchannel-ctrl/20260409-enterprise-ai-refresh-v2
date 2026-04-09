@@ -56,7 +56,7 @@ const AIOCard = ({
           image: product.image,
           href: `/aio`,
           specs: product.title,
-        }}
+        }}>
         className="absolute top-3 right-3"
       />
       <button
@@ -281,7 +281,7 @@ const AllInOnePC = () => {
                 className="underline hover:no-underline"
                 onClick={() => {
                   setQuoteProduct(Array.from(selectedProducts).join(", "));
-                }}
+                }}>
                 ขอใบเสนอราคารวม
               </button>
             </span>
@@ -331,7 +331,7 @@ const AllInOnePC = () => {
               onClick={() => {
                 setOsFilter("all");
                 setCatFilter("all");
-              }}
+              }}>
               รีเซ็ตตัวกรอง
             </Button>
           </div>

@@ -401,7 +401,7 @@ const IBoxSeries = () => {
                 <ScanLine className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
                 <h3 className="text-lg font-bold text-foreground mb-2">ไม่พบสินค้า</h3>
                 <p className="text-sm text-muted-foreground mb-4">ลองปรับตัวกรองหรือคำค้นหาใหม่</p>
-                <Button variant="outline" onClick={() => { setSearch(""); setFilters({ ...defaultFilters }); }}
+                <Button variant="outline" onClick={() => { setSearch(""); setFilters({ ...defaultFilters }); }}>
 
                   ล้างตัวกรองทั้งหมด
                 </Button>
@@ -431,7 +431,7 @@ const IBoxSeries = () => {
                           image: model.image,
                           href: "/ibox-series",
                           specs: model.cpu,
-                        }}
+                        }}>
                         className="absolute top-3 right-3"
                       />
                       <img

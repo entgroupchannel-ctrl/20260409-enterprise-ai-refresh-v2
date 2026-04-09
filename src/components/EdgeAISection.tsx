@@ -81,16 +81,16 @@ const EdgeAISection = () => {
 
               onTouchStart={(e) => {
                 touchStartX.current = e.touches[0].clientX;
-              }}
+              }}>
               onTouchMove={(e) => {
                 touchEndX.current = e.touches[0].clientX;
-              }}
+              }}>
               onTouchEnd={() => {
                 const diff = touchStartX.current - touchEndX.current;
                 if (Math.abs(diff) > 50) {
                   diff > 0 ? next() : prev();
                 }
-              }}
+              }}>
             >
               {slides.map((slide, i) => (
                 <div
@@ -99,7 +99,7 @@ const EdgeAISection = () => {
                   style={{
                     opacity: i === current ? 1 : 0,
                     transform: i === current ? "scale(1)" : "scale(1.05)",
-                  }}
+                  }}>
                 >
                   <img
                     src={slide.src}
