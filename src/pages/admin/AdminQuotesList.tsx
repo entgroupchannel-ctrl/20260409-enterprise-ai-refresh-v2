@@ -240,6 +240,7 @@ export default function AdminQuotesList() {
                       </div>
                       <div className="flex flex-wrap items-center gap-3 text-sm">
                         {getStatusBadge(quote.status)}
+                        <QuoteStatusFlow status={quote.status} mini />
                         <span className="text-muted-foreground flex items-center gap-1">
                           <Clock className="w-3 h-3" />
                           {formatDistanceToNow(new Date(quote.created_at), { addSuffix: true, locale: th })}
