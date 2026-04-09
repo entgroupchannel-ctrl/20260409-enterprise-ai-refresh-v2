@@ -76,7 +76,7 @@ const RuggedNotebookDetail = () => {
         collectionUrl={`/rugged-notebook/${nb.id}`}
         products={[{ name: nb.title, image: nb.image, price: nb.priceStart?.replace(/[฿,]/g, ""), description: nb.cpu, category: "Rugged Notebook" }]}
       />
-      <BreadcrumbJsonLd items={[>
+      <BreadcrumbJsonLd items={[
         { name: "สินค้า", path: "/" },
         { name: "Rugged Notebook", path: "/rugged-notebook" },
         { name: nb.model, path: `/rugged-notebook/${nb.id}` },

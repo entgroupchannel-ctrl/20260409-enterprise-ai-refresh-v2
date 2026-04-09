@@ -79,7 +79,7 @@ const AIODetail = () => {
         collectionUrl={`/aio/${product.id}`}
         products={[{ name: product.title, image: product.image, price: product.price?.replace(/[฿,]/g, ""), description: product.cpu, category: "All-in-One PC" }]}
       />
-      <BreadcrumbJsonLd items={[>
+      <BreadcrumbJsonLd items={[
         { name: "สินค้า", path: "/" },
         { name: "All-in-One PC", path: "/aio" },
         { name: product.model, path: `/aio/${product.id}` },
