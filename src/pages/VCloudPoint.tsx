@@ -227,8 +227,11 @@ const VCloudPoint = () => {
       <SEOHead title="vCloudPoint Zero Client — Thin Client ประหยัดต้นทุน" description="vCloudPoint Zero Client ลดต้นทุนฮาร์ดแวร์ ประหยัดไฟ 80% ใช้คอมเครื่องเดียวแชร์ได้หลายจุด สำหรับสำนักงาน โรงเรียน โรงแรม" path="/vcloudpoint" />
       <ProductJsonLd
         collectionName="vCloudPoint Zero Client"
+
         collectionDescription="vCloudPoint Zero Client ลดต้นทุนฮาร์ดแวร์ ประหยัดไฟ 80% ใช้คอมเครื่องเดียวแชร์ได้หลายจุด"
+
         collectionUrl="/vcloudpoint"
+
         products={[{ name: "vCloudPoint S100", description: "Zero Client for vMatrix", category: "Zero Client" }]}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "vCloudPoint", path: "/vcloudpoint" }]} />
@@ -317,6 +320,7 @@ const VCloudPoint = () => {
                 src="/images/wix/0597a3_2ecc578ac2fa4e14b33ded599f607670_de783198.png"
                 alt="vCloudPoint Zero Client"
                 className="relative w-full rounded-2xl"
+
                 loading="eager"
               />
               <div className="mt-4">
@@ -324,6 +328,7 @@ const VCloudPoint = () => {
                   src="/images/wix/0597a3_cbb51860864645c59b77aaa661958cdc_8fbba592.png"
                   alt="vCloudPoint System Diagram"
                   className="w-full rounded-2xl"
+
                   loading="eager"
                 />
               </div>
@@ -341,7 +346,7 @@ const VCloudPoint = () => {
               <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">
                 อุปกรณ์<span className="text-primary">ขนาดเล็ก</span> พลังยิ่งใหญ่
               </h2>
-              <p className="text-muted-foreground leading-relaxed mb-6">
+              <p className="text-muted-foreground leading-relaxed mb-6"
                 vCloudPoint เป็น Zero Client ขนานแท้ — ตัดส่วนประกอบไม่จำเป็นออกหมด ขนาดเล็กพอๆ กับมือถือ ไม่มี Moving Part ไม่มี Local Storage ปลอดภัยสูงสุด เสียบจอ เมาส์ คีย์บอร์ด ก็พร้อมใช้งานทันที
               </p>
               <div className="grid grid-cols-2 gap-3">
@@ -394,10 +399,13 @@ const VCloudPoint = () => {
             <div className="relative aspect-video rounded-2xl overflow-hidden shadow-xl border border-border">
               <iframe
                 src="https://www.youtube.com/embed/kogDEEuUns4?rel=0"
+
                 title="10 เรื่องที่คุณยังไม่รู้เกี่ยวกับ vCloudPoint Zero Client"
+
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 className="absolute inset-0 w-full h-full"
+
                 loading="lazy"
               />
             </div>
@@ -486,7 +494,7 @@ const VCloudPoint = () => {
             <h2 className="text-3xl md:text-4xl font-black text-foreground mb-2">
               ควบคุม<span className="text-primary">จากจุดเดียว</span>
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-muted-foreground max-w-2xl mx-auto"
               vMatrix Server ทำงานบน Windows 7/8/10/11 รองรับผู้ใช้สูงสุด 30 คน พร้อมระบบจัดการ User, สิทธิ์, Broadcasting หน้าจอ และ Chatting Room
             </p>
           </div>
@@ -498,6 +506,7 @@ const VCloudPoint = () => {
                 src="/images/wix/0597a3_4370580a88c646c88a88dcdf9e7b6dd7_cfa390fb.jpg"
                 alt="vMatrix Server Software"
                 className="w-full h-56 md:h-64 object-cover object-top"
+
                 loading="lazy"
               />
             </div>
@@ -506,6 +515,7 @@ const VCloudPoint = () => {
                 src="/images/wix/0597a3_f4c88e348b9e4916a08c834a965cc703_70b9fc48.jpg"
                 alt="vMatrix Control Panel"
                 className="w-full h-56 md:h-64 object-cover object-top"
+
                 loading="lazy"
               />
             </div>
@@ -667,6 +677,7 @@ const VCloudPoint = () => {
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen
                                 className="absolute inset-0 w-full h-full"
+
                                 loading="lazy"
                               />
                             </div>
@@ -687,7 +698,7 @@ const VCloudPoint = () => {
               <Award size={20} className="text-primary" />
               <span className="text-xs font-bold uppercase tracking-wider text-primary">Global Trust</span>
             </div>
-            <h3 className="text-xl md:text-2xl font-black text-foreground mb-2">
+            <h3 className="text-xl md:text-2xl font-black text-foreground mb-2"
               vCloudPoint ได้รับความไว้วางใจจากองค์กร<span className="text-primary">ทั่วโลก</span>
             </h3>
             <p className="text-sm text-muted-foreground max-w-xl mx-auto mb-4">
@@ -753,3 +764,4 @@ const VCloudPoint = () => {
 
 
 export default VCloudPoint;
+

@@ -259,8 +259,11 @@ const PanelPC = () => {
       <SEOHead title="GTY/GTG Panel PC — จอสัมผัสอุตสาหกรรม" description="GTY/GTG Panel PC จอสัมผัสอุตสาหกรรม 8-21 นิ้ว เลือก CPU ได้ Fanless IP65 สำหรับโรงงาน POS SCADA HMI" path="/panel-pc-gtg" />
       <ProductJsonLd
         collectionName="GTY/GTG Panel PC จอสัมผัสอุตสาหกรรม"
+
         collectionDescription="Panel PC จอสัมผัสอุตสาหกรรม 8-21 นิ้ว Fanless IP65 สำหรับโรงงาน POS SCADA HMI"
+
         collectionUrl="/panel-pc-gtg"
+
         products={panelModels.map(m => ({ name: m.name, description: `${m.screen} ${m.resolution}`, category: "Industrial Panel PC" }))}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "Panel PC GTG", path: "/panel-pc-gtg" }]} />
@@ -423,7 +426,7 @@ const PanelPC = () => {
                 displayType === "wide"
                   ? "border-primary bg-primary/10 shadow-lg shadow-primary/10"
                   : "border-border bg-background hover:border-primary/30"
-              }`}
+              }`}>
               <RectangleHorizontal size={28} className={displayType === "wide" ? "text-primary" : "text-muted-foreground"} />
               <div className="text-left">
                 <p className={`font-bold ${displayType === "wide" ? "text-primary" : "text-foreground"}`}>Widescreen (16:9)</p>
@@ -436,7 +439,7 @@ const PanelPC = () => {
                 displayType === "square"
                   ? "border-primary bg-primary/10 shadow-lg shadow-primary/10"
                   : "border-border bg-background hover:border-primary/30"
-              }`}
+              }`}>
               <Square size={28} className={displayType === "square" ? "text-primary" : "text-muted-foreground"} />
               <div className="text-left">
                 <p className={`font-bold ${displayType === "square" ? "text-primary" : "text-foreground"}`}>Square (4:3 / 5:4)</p>
@@ -451,6 +454,7 @@ const PanelPC = () => {
               src={displayType === "wide" ? panelpcWideLineup : panelpcSquareLineup}
               alt={`Panel PC ${displayType === "wide" ? "Widescreen" : "Square"} Lineup`}
               className="max-h-[350px] mx-auto object-contain mb-6"
+
               loading="lazy"
             />
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
@@ -617,7 +621,7 @@ import FooterCompact from "@/components/FooterCompact";
                       activeCpu === tab.id
                         ? "bg-primary text-primary-foreground"
                         : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
-                    }`}
+                    }`}>
                     {tab.label}
                   </button>
                 ))}
@@ -843,3 +847,4 @@ import FooterCompact from "@/components/FooterCompact";
 };
 
 export default PanelPC;
+

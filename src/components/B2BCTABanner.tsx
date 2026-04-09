@@ -79,3 +79,4 @@ const B2BCTABanner = ({ variant = "full" }: B2BCTABannerProps) => {
 };
 
 export default B2BCTABanner;
+

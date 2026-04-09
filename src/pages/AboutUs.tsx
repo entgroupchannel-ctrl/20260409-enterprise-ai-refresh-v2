@@ -96,6 +96,7 @@ const AboutUs = () => {
           src={heroGrowth}
           alt="ENTGroup Growth"
           className="absolute inset-0 w-full h-full object-cover"
+
           width={1920}
           height={640}
         />
@@ -129,6 +130,7 @@ const AboutUs = () => {
                 src={entLogoFull}
                 alt="ENT Group Logo"
                 className="w-32 md:w-40 h-auto"
+
                 loading="lazy"
               />
             </div>
@@ -312,3 +314,4 @@ const AboutUs = () => {
 };
 
 export default AboutUs;
+

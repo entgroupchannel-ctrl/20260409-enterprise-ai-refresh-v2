@@ -110,6 +110,7 @@ const HeroSection = () => {
           src={heroIndustrial}
           alt="Industrial Computing Production Line"
           className="w-full h-full object-cover"
+
           width={1920}
           height={900}
         />
@@ -165,8 +166,7 @@ const HeroSection = () => {
 
             <h1
               className="text-4xl md:text-6xl lg:text-7xl font-display font-black leading-[1.1] mb-6 animate-fade-up text-white"
-              style={{ animationDelay: "0.1s" }}
-            >
+              style={{ animationDelay: "0.1s" }}>
               โซลูชัน <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-[hsl(var(--accent))]">Industrial Computing</span>
               <br />
               สำหรับประเทศไทย
@@ -174,8 +174,7 @@ const HeroSection = () => {
 
             <p
               className="text-lg md:text-xl text-white/70 max-w-xl mb-10 animate-fade-up leading-relaxed"
-              style={{ animationDelay: "0.2s" }}
-            >
+              style={{ animationDelay: "0.2s" }}>
               พันธมิตรธุรกิจที่คุณไว้วางใจ — Mini PC, Panel PC, Rugged Device และซอฟต์แวร์ครบวงจร สำหรับงานโรงงาน งานประมูล และงานโครงการ
             </p>
 
@@ -189,7 +188,7 @@ const HeroSection = () => {
                   onChange={(e) => {
                     setSearchQuery(e.target.value);
                     setSearchOpen(true);
-                  }}
+                  }}>
                   onFocus={() => setSearchOpen(true)}
                   onKeyDown={handleSearchKeyDown}
                   className="flex-1 bg-transparent px-4 py-4 text-white placeholder:text-white/40 outline-none text-sm md:text-base"
@@ -254,6 +253,7 @@ const HeroSection = () => {
               type="button"
               onClick={() => setTagsExpanded((prev) => !prev)}
               className="flex items-center justify-center w-7 shrink-0 rounded-l-xl bg-white/10 backdrop-blur-md border border-r-0 border-white/15 text-white/50 hover:text-white hover:bg-white/20 transition-colors"
+
               title="สินค้ายอดนิยม"
             >
               <ChevronDown size={14} className={`transition-transform duration-300 ${tagsExpanded ? "rotate-90" : "-rotate-90"}`} />
@@ -298,3 +298,4 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+

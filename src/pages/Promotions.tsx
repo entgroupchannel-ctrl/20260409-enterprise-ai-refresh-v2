@@ -290,7 +290,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
           {/* Highlights */}
           <button
             onClick={() => setExpanded(!expanded)}
-            className="flex items-center gap-1 text-xs text-primary font-medium mb-3 hover:underline"
+            className="flex items-center gap-1 text-xs text-primary font-medium mb-3 hover:underline">
             {expanded ? "ซ่อนรายละเอียด" : "ดูรายละเอียดเพิ่มเติม"}
             <ChevronDown size={14} className={`transition-transform duration-200 ${expanded ? "rotate-180" : ""}`} />
           </button>
@@ -322,7 +322,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
                   promo.status === "active"
                     ? "bg-primary text-primary-foreground"
                     : "bg-secondary text-foreground"
-                }`}
+                }`}>
                 {promo.ctaLabel}
               </LineQRButton>
             ) : (
@@ -334,7 +334,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
                   promo.status === "active"
                     ? "bg-primary text-primary-foreground"
                     : "bg-secondary text-foreground"
-                }`}
+                }`}>
                 {promo.ctaLabel}
               </a>
             )}
@@ -343,7 +343,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
                 href={promo.downloadHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium border border-border bg-card text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium border border-border bg-card text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors">
                 <FileDown size={14} /> PDF
               </a>
             )}
@@ -375,6 +375,7 @@ const Promotions = () => {
           src={promotionsHeroBg}
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
+
           width={1920}
           height={768}
         />
@@ -537,3 +538,4 @@ const Promotions = () => {
 
 
 export default Promotions;
+

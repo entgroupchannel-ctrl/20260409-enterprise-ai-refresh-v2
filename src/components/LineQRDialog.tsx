@@ -26,7 +26,6 @@ const LineQRDialog = ({ open, onClose }: LineQRDialogProps) => {
       <div
         className="bg-gradient-to-b from-white to-gray-100 dark:from-[hsl(220,20%,18%)] dark:to-[hsl(220,15%,12%)] rounded-2xl border border-border shadow-2xl p-6 max-w-sm w-full text-center space-y-4 animate-in fade-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}>
-
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
             <MessageCircle size={20} className="text-[#06C755]" />
@@ -66,3 +65,4 @@ const LineQRDialog = ({ open, onClose }: LineQRDialogProps) => {
 
 export { LineQRDialog, LineSvgIcon, LINE_QR_URL, LINE_ADD_URL };
 export default LineQRDialog;
+

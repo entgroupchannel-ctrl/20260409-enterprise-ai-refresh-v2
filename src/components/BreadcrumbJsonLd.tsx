@@ -34,3 +34,4 @@ const BreadcrumbJsonLd = ({ items }: BreadcrumbJsonLdProps) => {
 };
 
 export default BreadcrumbJsonLd;
+

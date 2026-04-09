@@ -124,8 +124,11 @@ const Volktek = () => {
       <SEOHead title="Volktek Industrial Ethernet Switch" description="Volktek Industrial Ethernet Switch Managed/Unmanaged PoE สำหรับโรงงาน ระบบกล้องวงจรปิด และโครงข่ายอุตสาหกรรม" path="/volktek" />
       <ProductJsonLd
         collectionName="Volktek Industrial Ethernet Switch"
+
         collectionDescription="Volktek Industrial Ethernet Switch Managed/Unmanaged PoE สำหรับโรงงานและระบบกล้องวงจรปิด"
+
         collectionUrl="/volktek"
+
         products={productCategories.map(c => ({ name: c.title, description: c.desc, category: "Industrial Ethernet Switch" }))}
       />
 
@@ -161,7 +164,6 @@ const Volktek = () => {
                 </a>
               </Button>
               <Button size="sm" onClick={() => setQuoteProduct("Volktek Switch")}>
-
                 <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
               </Button>
             </div>
@@ -244,6 +246,7 @@ const Volktek = () => {
                 src="/images/wix/0597a3_d5a5792c655647a392507ede27ec62a6_63339b10.png"
                 alt="Factory Automation Diagram"
                 className="w-full h-auto rounded-lg"
+
                 loading="lazy"
               />
             </div>
@@ -323,10 +326,13 @@ const Volktek = () => {
             <div className="relative aspect-video">
               <iframe
                 src="https://www.youtube.com/embed/6Y6eEitc-yQ"
+
                 title="Volktek Industrial Switch — รีวิวและแนะนำ"
+
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 className="absolute inset-0 w-full h-full"
+
                 loading="lazy"
               />
             </div>
@@ -335,7 +341,7 @@ const Volktek = () => {
                 href="https://youtu.be/6Y6eEitc-yQ"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm text-primary font-semibold hover:underline"
+                className="inline-flex items-center gap-2 text-sm text-primary font-semibold hover:underline">
                 <Youtube size={16} /> ดูบน YouTube
               </a>
               <ShareButtons url="https://youtu.be/6Y6eEitc-yQ" title="Volktek Industrial Switch — รีวิวและแนะนำ" compact />
@@ -354,7 +360,6 @@ const Volktek = () => {
               </a>
             </Button>
             <Button onClick={() => setQuoteProduct("Volktek Switch")}>
-
               <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
             </Button>
           </div>
@@ -367,3 +372,4 @@ const Volktek = () => {
 
 
 export default Volktek;
+

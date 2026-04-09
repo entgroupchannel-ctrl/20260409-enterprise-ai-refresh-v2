@@ -20,3 +20,4 @@ const LineQRButton = ({ children, className = "" }: LineQRButtonProps) => {
 };
 
 export default LineQRButton;
+

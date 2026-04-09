@@ -365,8 +365,8 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                     filterCom === n
                       ? "bg-primary text-primary-foreground shadow-md"
                       : "bg-background border border-border text-muted-foreground hover:border-primary/40"
-                  }`}
-                  ≥{n}
+                  }`}>
+                  >{n}
                 </button>
               ))}
             </div>
@@ -381,7 +381,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                 filterGpio === true
                   ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40"
                   : "bg-background border border-border text-muted-foreground hover:border-primary/40"
-              }`}
+              }`}>
               {filterGpio === true ? "✓ มี GPIO" : "มี GPIO"}
             </button>
           </div>
@@ -395,7 +395,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                 filterSim === true
                   ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40"
                   : "bg-background border border-border text-muted-foreground hover:border-primary/40"
-              }`}
+              }`}>
               {filterSim === true ? "✓ รองรับ SIM" : "รองรับ SIM"}
             </button>
           </div>
@@ -406,7 +406,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
             <select
               value={filterGen || ""}
               onChange={(e) => setFilterGen(e.target.value || null)}
-              className="w-full py-2 px-3 rounded-lg bg-background border border-border text-sm text-foreground outline-none focus:ring-2 focus:ring-primary/30"
+              className="w-full py-2 px-3 rounded-lg bg-background border border-border text-sm text-foreground outline-none focus:ring-2 focus:ring-primary/30">
               <option value="">ทั้งหมด</option>
               {genOptions.map((g) => (
                 <option key={g} value={g}>{g}</option>
@@ -489,7 +489,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                   <tr
                     key={row.name}
                     className={`border-b border-border/50 transition-colors cursor-pointer ${catStyle}`}
-                    onClick={() => handleTabChange(row.name.toLowerCase())}
+                    onClick={() => handleTabChange(row.name.toLowerCase())}>
                     <td className="p-4 sticky left-0 font-bold text-foreground" style={{ background: 'inherit' }}>
 
                       <div className="flex flex-col gap-1">
@@ -676,8 +676,11 @@ const GTSeries = () => {
       <SEOHead title="GT Series — Industrial Fanless Mini PC 12 รุ่น" description="GT Series คอมพิวเตอร์อุตสาหกรรม Fanless ทนร้อน ทนฝุ่น 12 รุ่น รองรับ Intel N100 ถึง Core i7 สำหรับโรงงาน IoT Edge Computing ประเทศไทย" path="/gt-series" />
       <ProductJsonLd
         collectionName="GT Series Industrial Fanless Mini PC"
+
         collectionDescription="คอมพิวเตอร์อุตสาหกรรม Fanless 12 รุ่น รองรับ Intel Celeron ถึง Core i7 สำหรับโรงงาน IoT Edge Computing"
+
         collectionUrl="/gt-series"
+
         products={gtModels.map(m => ({ name: m.name, price: m.price, image: typeof m.image === 'string' ? m.image : undefined, description: m.tagline, category: "Industrial Fanless Mini PC" }))}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "GT Series", path: "/gt-series" }]} />
@@ -707,6 +710,7 @@ const GTSeries = () => {
             src={gtSeriesHeroBg}
             alt="Industrial factory production line with fanless computers"
             className="w-full h-full object-cover"
+
             width={1920}
             height={900}
           />
@@ -735,7 +739,7 @@ const GTSeries = () => {
               ].map((item) => (
                 <span
                   key={item.word}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 text-white font-bold text-base tracking-wide"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 text-white font-bold text-base tracking-wide">
                   <item.Icon size={18} className="text-primary" />
                   {item.word}
                 </span>
@@ -766,7 +770,7 @@ const GTSeries = () => {
             <div className="flex flex-col sm:flex-row gap-3">
               <button
                 onClick={() => handleTabChange("overview")}
-                className="inline-flex items-center justify-center gap-2 px-6 md:px-8 py-3 md:py-3.5 rounded-full bg-primary text-primary-foreground font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-primary/25"
+                className="inline-flex items-center justify-center gap-2 px-6 md:px-8 py-3 md:py-3.5 rounded-full bg-primary text-primary-foreground font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-primary/25">
                 ดูรุ่นทั้งหมด <ArrowLeft size={16} className="rotate-180" />
               </button>
               <button
@@ -774,7 +778,7 @@ const GTSeries = () => {
                   const el = document.getElementById("comparison");
                   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
                 }}
-                className="inline-flex items-center justify-center gap-2 px-5 md:px-6 py-3 md:py-3.5 rounded-full border-2 border-white/30 text-white font-bold text-sm hover:bg-white/10 transition-all group"
+                className="inline-flex items-center justify-center gap-2 px-5 md:px-6 py-3 md:py-3.5 rounded-full border-2 border-white/30 text-white font-bold text-sm hover:bg-white/10 transition-all group">
                 <Filter size={16} />
                 <span>เปรียบเทียบสเปก</span>
                 <span className="hidden sm:inline px-2 py-0.5 rounded-full bg-white/15 text-[10px] font-bold tracking-wide uppercase group-hover:bg-white/25 transition-colors">Smart Filter</span>
@@ -831,7 +835,7 @@ const GTSeries = () => {
                   activeTab === tab.id
                     ? "bg-primary text-primary-foreground shadow-lg"
                     : "bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground border border-border"
-                }`}
+                }`}>
                 {tab.label}
                 {tab.id === "gt1400" && (
                   <span className="ml-1.5 px-1.5 py-0.5 rounded-full bg-primary-foreground/20 text-[10px]">NEW</span>
@@ -849,7 +853,7 @@ const GTSeries = () => {
                   <button
                     key={model.name}
                     onClick={() => model.tab ? handleTabChange(model.tab) : undefined}
-                    className={`group card-surface overflow-hidden hover:border-primary/30 transition-all hover:-translate-y-1 text-left cursor-pointer ${selectedProducts.has(model.name) ? "ring-2 ring-primary border-primary/50" : ""}`}
+                    className={`group card-surface overflow-hidden hover:border-primary/30 transition-all hover:-translate-y-1 text-left cursor-pointer ${selectedProducts.has(model.name) ? "ring-2 ring-primary border-primary/50" : ""}`}>
                     <ModelCard model={model} onQuote={setQuoteProduct} selected={selectedProducts.has(model.name)} onToggleSelect={toggleSelect} />
                   </button>
                 ))}
@@ -951,6 +955,7 @@ const GTSeries = () => {
                       src="/images/wezhan/5874413.jpg"
                       alt="GT1000 ด้านหน้า — 2 LAN, HDMI, VGA, MIC, SPK"
                       className="w-full object-contain p-2"
+
                       loading="lazy"
                     />
                   </div>
@@ -1065,6 +1070,7 @@ const GTSeries = () => {
                     src="/images/wix/3e5003_d438441c66734588bf92c3cb77e08aae_c34db0a8.jpg"
                     alt="GT1000 Connectivity Diagram"
                     className="w-full rounded-lg"
+
                     loading="lazy"
                   />
                 </div>
@@ -1073,6 +1079,7 @@ const GTSeries = () => {
                     src="/images/wix/0597a3_813ed70f44da4e72b1f8d881cd8b30d9_e508c44a.png"
                     alt="GT1000 Port Layout"
                     className="w-full rounded-lg"
+
                     loading="lazy"
                   />
                 </div>
@@ -1204,10 +1211,13 @@ const GTSeries = () => {
                     <div className="relative w-full aspect-video rounded-xl overflow-hidden">
                       <iframe
                         src="https://www.youtube.com/embed/7wE6fxMpJB4"
+
                         title="GT1000 Intro"
+
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         className="absolute inset-0 w-full h-full"
+
                         loading="lazy"
                       />
                     </div>
@@ -1233,6 +1243,7 @@ const GTSeries = () => {
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                               allowFullScreen
                               className="absolute inset-0 w-full h-full"
+
                               loading="lazy"
                             />
                           </div>
@@ -1250,7 +1261,7 @@ const GTSeries = () => {
                     href="https://www.youtube.com/@ENTGROUP-TH"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-4 rounded-xl border border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition-colors group"
+                    className="flex items-center gap-3 p-4 rounded-xl border border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition-colors group">
                     <div className="shrink-0 w-10 h-10 rounded-full bg-red-600 flex items-center justify-center">
                       <Play className="text-white ml-0.5" size={18} fill="white" />
                     </div>
@@ -1276,7 +1287,7 @@ const GTSeries = () => {
                   href="/datasheets/GT1000.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
                   <Download size={16} /> ดาวน์โหลด Datasheet GT1000
                 </a>
               </div>
@@ -1364,10 +1375,13 @@ const GTSeries = () => {
                     <div className="relative w-full aspect-video">
                       <iframe
                         src="https://www.youtube.com/embed/Z4hTYAIDs2s"
+
                         title="GT2000 สาธิตการใช้งาน"
+
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         className="absolute inset-0 w-full h-full"
+
                         loading="lazy"
                       />
                     </div>
@@ -1423,6 +1437,7 @@ const GTSeries = () => {
                       src="/images/wix/3e5003_6bf58ba61ae245ea82f96cb2171fb9b7_16926587.jpg"
                       alt="GT2000 Chassis Cooling"
                       className="w-full rounded-lg"
+
                       loading="lazy"
                     />
                   </div>
@@ -1440,6 +1455,7 @@ const GTSeries = () => {
                       src="/images/wix/0597a3_2f4f2a02ac1542fb8ce44f6b78f5c5f9_98c59f5e.png"
                       alt="GT2000 CPU Detail"
                       className="w-full"
+
                       loading="lazy"
                     />
                   </div>
@@ -1467,6 +1483,7 @@ const GTSeries = () => {
                       src="/images/wix/0597a3_126df8ab2d554a9a8b4a6074fe4f7647_c1e10423.png"
                       alt="GT2000 I/O Ports Front"
                       className="w-full rounded-lg"
+
                       loading="lazy"
                     />
                   </div>
@@ -1475,6 +1492,7 @@ const GTSeries = () => {
                       src="/images/wix/0597a3_dac94b90d7444622918e2fe4f69de597_c78e860e.png"
                       alt="GT2000 I/O Ports Rear"
                       className="w-full rounded-lg"
+
                       loading="lazy"
                     />
                   </div>
@@ -1502,6 +1520,7 @@ const GTSeries = () => {
                   src="/images/wix/0597a3_4843a18b6dfe4330bd22479aadd69b1d_771d3c49.png"
                   alt="GT2000 Full Port Diagram"
                   className="w-full max-w-2xl mx-auto rounded-lg"
+
                   loading="lazy"
                 />
               </div>
@@ -1527,6 +1546,7 @@ const GTSeries = () => {
                       src="/images/wix/0597a3_b5efadfa0e7b40619c90fec704966b11_8fec62ed.png"
                       alt="GT2000 OS Support"
                       className="w-full"
+
                       loading="lazy"
                     />
                   </div>
@@ -1543,6 +1563,7 @@ const GTSeries = () => {
                   src="/images/wix/0597a3_46573ca6a9a644e29b30118c4f839098_da7c5153.png"
                   alt="GT2000 Dimensions"
                   className="max-w-sm mx-auto rounded-lg"
+
                   loading="lazy"
                 />
               </div>
@@ -1554,6 +1575,7 @@ const GTSeries = () => {
                     src="/images/wix/0597a3_8cc69bc674294dc9907277ccf8235ad1_e11caf5f.png"
                     alt="GT2000 Spec Summary"
                     className="w-full max-w-xl mx-auto rounded-lg"
+
                     loading="lazy"
                   />
                 </div>
@@ -1644,10 +1666,13 @@ const GTSeries = () => {
                     <div className="relative w-full aspect-video rounded-xl overflow-hidden">
                       <iframe
                         src="https://www.youtube.com/embed/XLhFAF_8Da4"
+
                         title="GT2000 Intro"
+
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         className="absolute inset-0 w-full h-full"
+
                         loading="lazy"
                       />
                     </div>
@@ -1673,6 +1698,7 @@ const GTSeries = () => {
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                               allowFullScreen
                               className="absolute inset-0 w-full h-full"
+
                               loading="lazy"
                             />
                           </div>
@@ -1690,7 +1716,7 @@ const GTSeries = () => {
                     href="https://www.youtube.com/@ENTGROUP-TH"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-4 rounded-xl border border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition-colors group"
+                    className="flex items-center gap-3 p-4 rounded-xl border border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition-colors group">
                     <div className="shrink-0 w-10 h-10 rounded-full bg-red-600 flex items-center justify-center">
                       <Play className="text-white ml-0.5" size={18} fill="white" />
                     </div>
@@ -1711,14 +1737,14 @@ const GTSeries = () => {
                   href="/datasheets/GT2000_Celeron.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
                   <Download size={16} /> Datasheet GT2000 Celeron
                 </a>
                 <a
                   href="/datasheets/GT2000_i5.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-surface-hover transition-colors"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-surface-hover transition-colors">
                   <Download size={16} /> Datasheet GT2000 Core i5
                 </a>
               </div>
@@ -1813,6 +1839,7 @@ const GTSeries = () => {
                       src="/images/wezhan/5874079.jpg"
                       alt="GT3000 ด้านหน้า — USB3.0, LAN, VGA, HDMI, COM"
                       className="w-full object-contain p-2"
+
                       loading="lazy"
                     />
                   </div>
@@ -1911,6 +1938,7 @@ const GTSeries = () => {
                     src={gt3000CpuOptions}
                     alt="GT3000 CPU Options — Celeron, Core i3, i5, i7"
                     className="w-full rounded-lg"
+
                     loading="lazy"
                   />
                 </div>
@@ -1919,6 +1947,7 @@ const GTSeries = () => {
                     src="/images/wix/3e5003_fadd401364de4b7d9e31669c96695798_a2019e77.jpg"
                     alt="GT3000 Connectivity"
                     className="w-full rounded-lg"
+
                     loading="lazy"
                   />
                 </div>
@@ -1947,6 +1976,7 @@ const GTSeries = () => {
                       src="/images/wezhan/5874076.jpg"
                       alt="GT3000 Heatsink Side View"
                       className="w-full"
+
                       loading="lazy"
                     />
                   </div>
@@ -2015,10 +2045,13 @@ const GTSeries = () => {
                     <div className="relative w-full aspect-video rounded-xl overflow-hidden">
                       <iframe
                         src="https://www.youtube.com/embed/31SEStppvKw"
+
                         title="GT3000 Intro"
+
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         className="absolute inset-0 w-full h-full"
+
                         loading="lazy"
                       />
                     </div>
@@ -2044,6 +2077,7 @@ const GTSeries = () => {
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                               allowFullScreen
                               className="absolute inset-0 w-full h-full"
+
                               loading="lazy"
                             />
                           </div>
@@ -2061,7 +2095,7 @@ const GTSeries = () => {
                     href="https://www.youtube.com/@ENTGROUP-TH"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-4 rounded-xl border border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition-colors group"
+                    className="flex items-center gap-3 p-4 rounded-xl border border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition-colors group">
                     <div className="shrink-0 w-10 h-10 rounded-full bg-red-600 flex items-center justify-center">
                       <Play className="text-white ml-0.5" size={18} fill="white" />
                     </div>
@@ -2141,7 +2175,7 @@ const GTSeries = () => {
                               p === gt3000PricePage
                                 ? "bg-primary text-primary-foreground"
                                 : "bg-muted/50 text-muted-foreground hover:bg-muted"
-                            }`}
+                            }`}>
                             {p + 1}
                           </button>
                         ))}
@@ -2165,7 +2199,7 @@ const GTSeries = () => {
                   href="/datasheets/GT3000.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
                   <Download size={16} /> ดาวน์โหลด Datasheet GT3000
                 </a>
               </div>
@@ -2256,6 +2290,7 @@ const GTSeries = () => {
                       src="/images/gt4000/front.jpg"
                       alt="GT4000 ด้านหน้า — 6 COM, USB, LAN, VGA, HDMI"
                       className="w-full object-contain p-2"
+
                       loading="lazy"
                     />
                   </div>
@@ -2354,6 +2389,7 @@ const GTSeries = () => {
                     src="/images/wix/3e5003_a4726520b0df4492b73e8646990df9ce_c6843bc4.jpg"
                     alt="GT4000 Port Overview"
                     className="w-full rounded-lg"
+
                     loading="lazy"
                   />
                 </div>
@@ -2362,6 +2398,7 @@ const GTSeries = () => {
                     src="/images/wix/3e5003_91111c3b2ffb41c39bb2978c36ccd01c_4c9424b9.jpg"
                     alt="GT4000 Port Detail"
                     className="w-full rounded-lg"
+
                     loading="lazy"
                   />
                 </div>
@@ -2436,10 +2473,13 @@ const GTSeries = () => {
                 <div className="aspect-video">
                   <iframe
                     src="https://www.youtube.com/embed/o221BRlwyFc"
+
                     title="GT4000 Intro"
+
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     className="w-full h-full"
+
                     loading="lazy"
                   />
                 </div>
@@ -2464,6 +2504,7 @@ const GTSeries = () => {
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         className="w-full h-full"
+
                         loading="lazy"
                       />
                     </div>
@@ -2604,6 +2645,7 @@ const GTSeries = () => {
                       src="/images/gt5000/main.jpg"
                       alt="GT5000 ภาพหลัก — ด้านหน้า"
                       className="w-full object-contain p-2"
+
                       loading="lazy"
                     />
                   </div>
@@ -2974,10 +3016,13 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 <div className="aspect-video">
                   <iframe
                     src="https://www.youtube.com/embed/AfWfNNtEG74"
+
                     title="GT5000 Intro"
+
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     className="w-full h-full"
+
                     loading="lazy"
                   />
                 </div>
@@ -3002,6 +3047,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         className="w-full h-full"
+
                         loading="lazy"
                       />
                     </div>
@@ -3130,6 +3176,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       src="/images/gt6000/main.jpg"
                       alt="GT6000 ภาพหลัก — ด้านหน้า"
                       className="w-full object-contain p-2"
+
                       loading="lazy"
                     />
                   </div>
@@ -3310,7 +3357,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                               p === gt6000PricePage
                                 ? "bg-primary text-primary-foreground"
                                 : "bg-muted/50 text-muted-foreground hover:bg-muted"
-                            }`}
+                            }`}>
                             {p + 1}
                           </button>
                         ))}
@@ -3333,10 +3380,13 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 <div className="aspect-video">
                   <iframe
                     src="https://www.youtube.com/embed/AfWfNNtEG74"
+
                     title="GT6000 Intro"
+
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     className="w-full h-full"
+
                     loading="lazy"
                   />
                 </div>
@@ -3361,6 +3411,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         className="w-full h-full"
+
                         loading="lazy"
                       />
                     </div>
@@ -3494,6 +3545,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       src="/images/gt7000/main.jpg"
                       alt="GT7000 ภาพหลัก"
                       className="w-full object-contain p-2"
+
                       loading="lazy"
                     />
                   </div>
@@ -3716,10 +3768,13 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 <div className="aspect-video">
                   <iframe
                     src="https://www.youtube.com/embed/glN3-DBdwpc"
+
                     title="GT7000 Intro"
+
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     className="w-full h-full"
+
                     loading="lazy"
                   />
                 </div>
@@ -3744,6 +3799,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         className="w-full h-full"
+
                         loading="lazy"
                       />
                     </div>
@@ -3899,6 +3955,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       src="/images/gt8000/main.jpg"
                       alt="GT8000 ภาพหลัก"
                       className="w-full object-contain p-2"
+
                       loading="lazy"
                     />
                   </div>
@@ -4050,10 +4107,13 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 <div className="aspect-video">
                   <iframe
                     src="https://www.youtube.com/embed/eODzBXj4w4Q"
+
                     title="GT8000 Intro"
+
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     className="w-full h-full"
+
                     loading="lazy"
                   />
                 </div>
@@ -4079,6 +4139,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         className="w-full h-full"
+
                         loading="lazy"
                       />
                     </div>
@@ -4162,7 +4223,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       GT<span className="text-gradient">9000</span>
                     </h3>
                     <p className="text-muted-foreground leading-relaxed">
-                      GT9000 ตัวเครื่องสีดำผลิตจากอลูมิเนียมอัลลอยด์ขัดเงา (Brushed Full Aluminum Alloy)
+                      GT9000 ตัวเครื่องสีดำผลิตจากอลูมิเนียมอัลลอยด์ขัดเงา (Brushed Full Aluminum Alloy)>
                       ปราศจากพัดลมระบายอากาศ ทำงานเงียบ 24 ชั่วโมงต่อเนื่อง รองรับ 4G Module พร้อมช่อง SIM Card,
                       Dual-Band WiFi พร้อมเสาอากาศภายนอก, 6 COM Port (RS232/RS422/RS485) และ Triple Display
                       ผ่าน 3× HDMI 1.4 แสดงผล 3 จอพร้อมกัน ติดตั้ง M-SATA SSD + 2.5" SATA HDD + M.2 2280 NVMe ได้พร้อมกัน
@@ -4276,6 +4337,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   src="/images/wix/0597a3_b68e0174e2b54d39b0bdf80ae71118e5_dbbc6602.png"
                   alt="GT9000 Product Overview"
                   className="w-full rounded-lg"
+
                   loading="lazy"
                 />
               </div>
@@ -4408,10 +4470,13 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 <div className="aspect-video">
                   <iframe
                     src="https://www.youtube.com/embed/nxapqTEi1lU"
+
                     title="GT9000 Intro"
+
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     className="w-full h-full"
+
                     loading="lazy"
                   />
                 </div>
@@ -4436,6 +4501,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         className="w-full h-full"
+
                         loading="lazy"
                       />
                     </div>
@@ -4579,6 +4645,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       src="/images/wix/0597a3_aea4cee9a1cb431b90886aa5b64e1f96_60f4ae42.png"
                       alt="GT4500 Front"
                       className="w-full object-contain p-4"
+
                       loading="lazy"
                     />
                   </div>
@@ -4587,6 +4654,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       src="/images/wix/0597a3_2901e68aa51b482697a1d4c4fa9fc320_8f38391a.png"
                       alt="GT4500 Rear Ports"
                       className="w-full object-contain p-4"
+
                       loading="lazy"
                     />
                   </div>
@@ -4622,6 +4690,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   src={gt4500CpuOptions}
                   alt="GT4500 CPU Options"
                   className="w-full rounded-lg"
+
                   loading="lazy"
                 />
               </div>
@@ -4649,6 +4718,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       src="/images/wix/0597a3_840c03acd28147a89285de218f3a0a25_25c7410d.png"
                       alt="GT4500 Software"
                       className="w-full"
+
                       loading="lazy"
                     />
                   </div>
@@ -4666,6 +4736,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   src="/images/wix/3e5003_5146d29438c1469084384085311877b6_98f6e0e9.jpg"
                   alt="GT4500 Heatsink"
                   className="w-full rounded-lg"
+
                   loading="lazy"
                 />
               </div>
@@ -4677,6 +4748,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   src="/images/wix/3e5003_fa1b7c0241e1439796bca055fb8c927d_880a3b61.jpg"
                   alt="GT4500 Port Layout"
                   className="w-full rounded-lg mb-4"
+
                   loading="lazy"
                 />
                 <div className="grid md:grid-cols-3 gap-4 px-2">
@@ -4706,12 +4778,14 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     src="/images/wix/3e5003_b7535d8168ab4f7d8d657a3eef999b12_d9722688.jpg"
                     alt="GT4500 Dimensions"
                     className="rounded-lg w-full"
+
                     loading="lazy"
                   />
                   <img
                     src="/images/wix/0597a3_c6c89af9190c48b992640615c77efcee_341c4637.png"
                     alt="GT4500 VESA Mount"
                     className="rounded-lg w-full"
+
                     loading="lazy"
                   />
                 </div>
@@ -4803,6 +4877,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       src={src}
                       alt={`GT4500 การใช้งานจริง ${idx + 1}`}
                       className="w-full h-auto rounded-lg hover:scale-105 transition-transform duration-300"
+
                       loading="lazy"
                     />
                   ))}
@@ -4821,10 +4896,13 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 <div className="aspect-video">
                   <iframe
                     src="https://www.youtube.com/embed/ou3yHel3ijU"
+
                     title="GT4500 Intro"
+
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     className="w-full h-full"
+
                     loading="lazy"
                   />
                 </div>
@@ -4850,6 +4928,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         className="w-full h-full"
+
                         loading="lazy"
                       />
                     </div>
@@ -5115,10 +5194,13 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 <div className="aspect-video">
                   <iframe
                     src="https://www.youtube.com/embed/ocai7eLpMOY"
+
                     title="GT1400 Intro"
+
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     className="w-full h-full"
+
                     loading="lazy"
                   />
                 </div>
@@ -5143,6 +5225,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         className="w-full h-full"
+
                         loading="lazy"
                       />
                     </div>
@@ -5215,7 +5298,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       GT<span className="text-gradient">1300</span>
                     </h3>
                     <p className="text-muted-foreground leading-relaxed">
-                      GT1300 คอมพิวเตอร์อุตสาหกรรมระดับสูง รองรับ CPU H-Series Gen 8/9/10 (TDP 45W)
+                      GT1300 คอมพิวเตอร์อุตสาหกรรมระดับสูง รองรับ CPU H-Series Gen 8/9/10 (TDP 45W)>
                       พร้อม 3× HDMI 1.4 Triple Display, 6 COM Port (2 ตัวเปลี่ยนเป็น RS422/RS485 ผ่าน BIOS),
                       GPIO 14 ช่อง (7 IN / 7 OUT), 2× Intel i225V 2.5G LAN,
                       ไฟเข้า 9–36V กว้าง เหมาะสำหรับ Industrial Robotics, Factory Automation, Surveillance
@@ -5380,10 +5463,13 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 <div className="aspect-video">
                   <iframe
                     src="https://www.youtube.com/embed/ocai7eLpMOY"
+
                     title="GT1300 Intro"
+
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     className="w-full h-full"
+
                     loading="lazy"
                   />
                 </div>
@@ -5408,6 +5494,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         className="w-full h-full"
+
                         loading="lazy"
                       />
                     </div>
@@ -5651,7 +5738,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                               p === gt1200PricePage
                                 ? "bg-primary text-primary-foreground"
                                 : "bg-muted/50 text-muted-foreground hover:bg-muted"
-                            }`}
+                            }`}>
                             {p + 1}
                           </button>
                         ))}
@@ -5679,10 +5766,13 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 <div className="aspect-video">
                   <iframe
                     src="https://www.youtube.com/embed/S-plrWGzUl8"
+
                     title="GT1200 Intro"
+
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     className="w-full h-full"
+
                     loading="lazy"
                   />
                 </div>
@@ -5707,6 +5797,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         className="w-full h-full"
+
                         loading="lazy"
                       />
                     </div>
@@ -5820,6 +5911,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               src="/images/wix/3e5003_9a0970ee1f4f4d9aa2f4f3fef18faeb5_b40f0eb8.jpg"
               alt="GT Series รวม"
               className="w-full h-auto"
+
               loading="lazy"
             />
           </div>
@@ -5967,6 +6059,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
         src={model.image}
         alt={model.name}
         className="max-h-[160px] object-contain group-hover:scale-105 transition-transform duration-300"
+
         loading="lazy"
       />
     </div>
@@ -6005,3 +6098,4 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
 );
 
 export default GTSeries;
+

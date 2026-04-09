@@ -120,7 +120,7 @@ const SidebarProvider = React.forwardRef<
           }
           className={cn("group/sidebar-wrapper flex min-h-svh w-full has-[[data-variant=inset]]:bg-sidebar", className)}
           ref={ref}>
-          {...props}
+          {...props}>
           {children}
         </div>
       </TooltipProvider>
@@ -144,7 +144,7 @@ const Sidebar = React.forwardRef<
       <div
         className={cn("flex h-full w-[--sidebar-width] flex-col bg-sidebar text-sidebar-foreground", className)}
         ref={ref}>
-        {...props}
+        {...props}>
         {children}
       </div>
     );
@@ -201,7 +201,7 @@ const Sidebar = React.forwardRef<
             : "group-data-[collapsible=icon]:w-[--sidebar-width-icon] group-data-[side=left]:border-r group-data-[side=right]:border-l",
           className,
         )}
-        {...props}
+        {...props}>
         <div
           data-sidebar="sidebar"
           className="flex h-full w-full flex-col bg-sidebar group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow">
@@ -227,8 +227,8 @@ const SidebarTrigger = React.forwardRef<React.ElementRef<typeof Button>, React.C
         onClick={(event) => {
           onClick?.(event);
           toggleSidebar();
-        }}
-        {...props}
+        }}>
+        {...props}>
         <PanelLeft />
         <span className="sr-only">Toggle Sidebar</span>
       </Button>
@@ -246,6 +246,7 @@ const SidebarRail = React.forwardRef<HTMLButtonElement, React.ComponentProps<"bu
         ref={ref}
         data-sidebar="rail"
         aria-label="Toggle Sidebar"
+
         tabIndex={-1}
         onClick={toggleSidebar}
         title="Toggle Sidebar"
@@ -314,7 +315,7 @@ const SidebarSeparator = React.forwardRef<React.ElementRef<typeof Separator>, Re
         ref={ref}
         data-sidebar="separator"
         className={cn("mx-2 w-auto bg-sidebar-border", className)}
-        {{...props}}
+        {...props}
       />
     );
   },
@@ -342,7 +343,7 @@ const SidebarGroup = React.forwardRef<HTMLDivElement, React.ComponentProps<"div"
       ref={ref}
       data-sidebar="group"
       className={cn("relative flex w-full min-w-0 flex-col p-2", className)}
-      {{...props}}
+      {...props}
     />
   );
 });
@@ -447,7 +448,7 @@ const SidebarMenuButton = React.forwardRef<
       data-size={size}
       data-active={isActive}
       className={cn(sidebarMenuButtonVariants({ variant, size }), className)}
-      {{...props}}
+      {...props}
     />
   );
 
@@ -536,8 +537,8 @@ const SidebarMenuSkeleton = React.forwardRef<
     <div
       ref={ref}
       data-sidebar="menu-skeleton"
-      className={cn("flex h-8 items-center gap-2 rounded-md px-2", className)}>
-      {...props}
+      className={cn("flex h-8 items-center gap-2 rounded-md px-2", className)}
+      {...props}>
       {showIcon && <Skeleton className="size-4 rounded-md" data-sidebar="menu-skeleton-icon" />}>
 
       <Skeleton
@@ -631,3 +632,4 @@ export {
   SidebarTrigger,
   useSidebar,
 };
+

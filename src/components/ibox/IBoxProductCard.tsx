@@ -25,6 +25,7 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
           src={product.image}
           alt={product.nameTH}
           className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300"
+
           loading="lazy"
         />
         <div className="absolute top-3 left-3 flex flex-col gap-2">
@@ -105,3 +106,4 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
 };
 
 export default IBoxProductCard;
+

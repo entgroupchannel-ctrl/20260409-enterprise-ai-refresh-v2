@@ -29,6 +29,7 @@ const ProductGallery = ({ images, alt, autoPlayInterval = 4000 }: ProductGallery
   return (
     <div
       className="relative group"
+
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -37,6 +38,7 @@ const ProductGallery = ({ images, alt, autoPlayInterval = 4000 }: ProductGallery
           src={images[current]}
           alt={`${alt} - ${current + 1}`}
           className="max-h-[240px] object-contain transition-opacity duration-500"
+
           loading="lazy"
         />
 
@@ -99,3 +101,4 @@ const ProductGallery = ({ images, alt, autoPlayInterval = 4000 }: ProductGallery
 };
 
 export default ProductGallery;
+

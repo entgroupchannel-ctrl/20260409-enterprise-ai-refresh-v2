@@ -528,7 +528,7 @@ const FirewallComparisonTable = () => {
                     filterLanSpeed === s
                       ? "bg-primary text-primary-foreground shadow-md"
                       : "bg-background border border-border text-muted-foreground hover:border-primary/40"
-                  }`}
+                  }`}>
                   {s}
                 </button>
               ))}
@@ -547,8 +547,8 @@ const FirewallComparisonTable = () => {
                     filterMinLan === n
                       ? "bg-primary text-primary-foreground shadow-md"
                       : "bg-background border border-border text-muted-foreground hover:border-primary/40"
-                  }`}
-                  ≥{n}
+                  }`}>
+                  >{n}
                 </button>
               ))}
             </div>
@@ -563,7 +563,7 @@ const FirewallComparisonTable = () => {
                 filterFanless === true
                   ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40"
                   : "bg-background border border-border text-muted-foreground hover:border-primary/40"
-              }`}
+              }`}>
               {filterFanless ? "✓ Fanless เท่านั้น" : "Fanless เท่านั้น"}
             </button>
           </div>
@@ -577,7 +577,7 @@ const FirewallComparisonTable = () => {
                 filterAesni === true
                   ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40"
                   : "bg-background border border-border text-muted-foreground hover:border-primary/40"
-              }`}
+              }`}>
               {filterAesni ? "✓ รองรับ AES-NI" : "รองรับ AES-NI"}
             </button>
           </div>
@@ -757,8 +757,11 @@ const MiniPCFirewall = () => {
       <SEOHead title="Mini PC Firewall — pfSense OPNsense Router" description="Mini PC Firewall สำหรับ pfSense OPNsense VPN Gateway รองรับ 2-6 LAN Ports Fanless Intel Celeron ถึง Core i7" path="/mini-pc-firewall" />
       <ProductJsonLd
         collectionName="Mini PC Firewall pfSense OPNsense"
+
         collectionDescription="Mini PC Firewall สำหรับ pfSense OPNsense VPN Gateway รองรับ 2-6 LAN Ports"
+
         collectionUrl="/mini-pc-firewall"
+
         products={models.map(m => ({ name: m.name, description: m.tagline, category: "Mini PC Firewall" }))}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "Mini PC Firewall", path: "/mini-pc-firewall" }]} />
@@ -789,7 +792,7 @@ const MiniPCFirewall = () => {
               <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-destructive/10 text-destructive border border-destructive/30">
                 Network Security
               </span>
-              <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border border-border text-muted-foreground">
+              <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border border-border text-muted-foreground"
                 pfSense / OPNsense Ready
               </span>
             </div>
@@ -914,7 +917,7 @@ const MiniPCFirewall = () => {
                     activeTier === t
                       ? `${meta.bg} ${meta.color} border ${meta.border}`
                       : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border"
-                  }`}
+                  }`}>
                   {meta.label} ({count})
                 </button>
               );
@@ -1055,6 +1058,7 @@ const MiniPCFirewall = () => {
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     className="absolute inset-0 w-full h-full"
+
                     loading="lazy"
                   />
                 </div>
@@ -1101,3 +1105,4 @@ const MiniPCFirewall = () => {
 
 
 export default MiniPCFirewall;
+

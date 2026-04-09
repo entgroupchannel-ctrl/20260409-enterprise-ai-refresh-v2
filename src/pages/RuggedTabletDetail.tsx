@@ -166,7 +166,6 @@ const RuggedTabletDetail = () => {
             {/* CTA */}
             <div className="flex flex-wrap gap-3 pt-4 border-t border-border">
               <Button size="lg" variant="outline" onClick={() => setQuoteOpen(true)}>
-
                 <FileText className="w-5 h-5 mr-2" /> ขอราคาด่วน
               </Button>
               <LineQRButton className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 rounded-md border border-input bg-background text-foreground font-medium text-sm hover:bg-accent hover:text-accent-foreground transition-colors">
@@ -374,7 +373,6 @@ const RuggedTabletDetail = () => {
 
                 <div className="border-t border-border pt-4 flex flex-wrap gap-3">
                   <Button onClick={() => setQuoteOpen(true)}>
-
                     <FileText className="w-4 h-4 mr-2" /> ขอใบเสนอราคา
                   </Button>
                   <LineQRButton className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-md border border-input bg-background text-foreground font-medium text-sm hover:bg-accent hover:text-accent-foreground transition-colors">
@@ -391,8 +389,7 @@ const RuggedTabletDetail = () => {
           <div className="mt-16">
             <h2 className="text-xl font-bold mb-6">สินค้าที่เกี่ยวข้อง</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {related.map((r) => <RelatedCard key={r.id} product={r} />)}>
-
+              {related.map((r) => <RelatedCard key={r.id} product={r} />)}
             </div>
           </div>
         )}
@@ -403,3 +400,4 @@ const RuggedTabletDetail = () => {
 };
 
 export default RuggedTabletDetail;
+

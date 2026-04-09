@@ -308,7 +308,8 @@ const MegaMenu = ({
       {active && (
         <div
           className="absolute left-1/2 -translate-x-1/2 top-full mt-2 z-50 w-[min(900px,90vw)]"
-          onMouseEnter={() => { if (timeoutRef.current) clearTimeout(timeoutRef.current); }}
+
+          onMouseEnter={() => { if (timeoutRef.current) clearTimeout(timeoutRef.current); }}>
           onMouseLeave={handleLeave}>
           {/* Panel */}
           <div className="rounded-xl bg-gradient-to-b from-white via-gray-50 to-gray-100 dark:from-[hsl(220,20%,13%)] dark:via-[hsl(220,18%,10%)] dark:to-[hsl(220,20%,8%)] border border-gray-200 dark:border-white/10 shadow-2xl animate-fade-in overflow-y-auto max-h-[80vh]">
@@ -336,6 +337,7 @@ const MegaMenu = ({
                           src={active.featured.image}
                           alt={active.featured.title}
                           className="h-16 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
+
                           loading="lazy"
                         />
                       </div>
@@ -416,6 +418,7 @@ const MegaMenu = ({
                       src={promo.image}
                       alt={promo.title}
                       className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
@@ -511,3 +514,4 @@ export const MobileMegaMenu = ({ onNavigate }: { onNavigate?: () => void }) => {
 };
 
 export default MegaMenu;
+

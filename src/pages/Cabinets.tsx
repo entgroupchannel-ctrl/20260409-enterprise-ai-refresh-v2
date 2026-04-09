@@ -153,8 +153,11 @@ const Cabinets = () => {
       <SEOHead title="ตู้ Rack & Cabinet อุตสาหกรรม" description="ตู้ Rack, ตู้ Cabinet อุตสาหกรรม สั่งผลิตขนาดพิเศษ วัสดุ Steel/SUS304/SUS316 มาตรฐาน IP65 พร้อมบริการออกแบบและติดตั้ง" path="/cabinets" />
       <ProductJsonLd
         collectionName="ตู้ Rack & Cabinet อุตสาหกรรม"
+
         collectionDescription="ตู้ Rack, ตู้ Cabinet อุตสาหกรรม สั่งผลิตขนาดพิเศษ วัสดุ Steel/SUS304/SUS316 มาตรฐาน IP65"
+
         collectionUrl="/cabinets"
+
         products={[{ name: "Custom Industrial Cabinet", category: "ตู้ Rack & Cabinet" }]}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "ตู้ Rack & Cabinet", path: "/cabinets" }]} />
@@ -232,6 +235,7 @@ const Cabinets = () => {
                     src={model.image}
                     alt={model.name}
                     className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+
                     loading="lazy"
                   />
                 </div>
@@ -262,7 +266,6 @@ const Cabinets = () => {
                     </Button>
                   </div>
                   <Button size="sm" className="w-full" onClick={() => setQuoteProduct(model.name)}>
-
                     <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
                   </Button>
                 </div>
@@ -339,7 +342,7 @@ const Cabinets = () => {
             ))}
           </div>
           <div className="text-center">
-            <Button size="lg" onClick={() => { setCustomOpen(true); setCustomSubmitted(false); }}
+            <Button size="lg" onClick={() => { setCustomOpen(true); setCustomSubmitted(false); }}>
 
               <Settings className="w-4 h-4 mr-2" /> ขอใบเสนอราคา Custom Cabinet
             </Button>
@@ -351,14 +354,13 @@ const Cabinets = () => {
           <h2 className="text-2xl font-display font-bold text-foreground mb-3">สนใจตู้ Panel PC Cabinet?</h2>
           <p className="text-muted-foreground mb-6">ปรึกษาผู้เชี่ยวชาญเพื่อเลือกขนาดและรุ่นที่เหมาะกับงานของคุณ</p>
           <Button size="lg" onClick={() => setQuoteProduct("Panel PC Cabinet")}>
-
             <FileText className="w-4 h-4 mr-2" /> ขอใบเสนอราคา
           </Button>
         </div>
       </div>
 
       {/* Custom Cabinet Dialog */}
-      <Dialog open={customOpen} onOpenChange={(o) => { if (!o) { setCustomOpen(false); setTimeout(() => setCustomSubmitted(false), 300); } }}
+      <Dialog open={customOpen} onOpenChange={(o) => { if (!o) { setCustomOpen(false); setTimeout(() => setCustomSubmitted(false), 300); } }}>
 
         <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
           <DialogHeader>
@@ -476,3 +478,4 @@ const Cabinets = () => {
 };
 
 export default Cabinets;
+

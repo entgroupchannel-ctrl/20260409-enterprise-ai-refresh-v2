@@ -185,7 +185,7 @@ const IBoxProductFilter = ({
                     isActive ? "bg-primary text-primary-foreground font-medium shadow-sm" : "hover:bg-muted/70 text-foreground"
                   }`}
                 >
-                  {Icon && <Icon className={`w-4 h-4 shrink-0 transition-colors ${isActive ? "" : "text-muted-foreground group-hover/item:text-primary"}`} />}
+                  {Icon && <Icon className={`w-4 h-4 shrink-0 transition-colors ${isActive ? "" : "text-muted-foreground group-hover/item:text-primary"}`} />}>
                   <span className="flex-1">{option.name}</span>
                   <span className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md ${isActive ? "bg-primary-foreground/20" : "bg-muted text-muted-foreground"}`}>{count}</span>
                 </button>
@@ -366,3 +366,4 @@ const IBoxProductFilter = ({
 };
 
 export default IBoxProductFilter;
+

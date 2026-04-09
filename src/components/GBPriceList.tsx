@@ -348,3 +348,4 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
 };
 
 export default GBPriceList;
+

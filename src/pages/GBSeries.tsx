@@ -320,8 +320,11 @@ const GBSeries = () => {
       <SEOHead title="GB Series — Compact Mini PC สำนักงาน" description="GB Series Mini PC ขนาดกะทัดรัด รองรับ Intel N100 ถึง Core i7 สำหรับสำนักงาน Digital Signage และ Thin Client ราคาจากโรงงาน" path="/gb-series" />
       <ProductJsonLd
         collectionName="GB Series Compact Mini PC"
+
         collectionDescription="GB Series Mini PC ขนาดกะทัดรัด รองรับ Intel N100 ถึง Core i7 สำหรับสำนักงาน Digital Signage และ Thin Client"
+
         collectionUrl="/gb-series"
+
         products={models.map(m => ({ name: m.name, description: m.tagline, category: "Compact Mini PC" }))}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "GB Series", path: "/gb-series" }]} />
@@ -395,7 +398,7 @@ const GBSeries = () => {
 
               <button
                 onClick={() => setQuoteOpen(true)}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity">
                 <FileText size={18} /> ขอใบเสนอราคา {current.name}
 
               </button>
@@ -592,7 +595,7 @@ const GBSeries = () => {
                         isActive
                           ? "bg-primary text-primary-foreground border-primary shadow-sm"
                           : "bg-card text-muted-foreground border-border hover:border-primary/50"
-                      }`}
+                      }`}>
                       {m.name}
                     </button>
                   );
@@ -644,19 +647,19 @@ const GBSeries = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={() => setQuoteOpen(true)}
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-lg hover:opacity-90 transition-opacity"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-lg hover:opacity-90 transition-opacity">
               <FileText size={18} /> ขอใบเสนอราคา
             </button>
             <button
               onClick={() => setShowLineQR(true)}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[hsl(142,70%,45%)] text-white font-bold text-lg hover:opacity-90 transition-opacity"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[hsl(142,70%,45%)] text-white font-bold text-lg hover:opacity-90 transition-opacity">
               LINE @entgroup
             </button>
             <a
               href="/datasheets/0597a3_7775cf506c644020a3239be2ef131caa.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border border-border bg-card text-foreground font-bold hover:bg-secondary/50 transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border border-border bg-card text-foreground font-bold hover:bg-secondary/50 transition-colors">
               <ExternalLink size={18} /> ดาวน์โหลดภาพรวมผลิตภัณฑ์
             </a>
           </div>
@@ -670,3 +673,4 @@ const GBSeries = () => {
 };
 
 export default GBSeries;
+

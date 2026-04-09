@@ -127,7 +127,9 @@ const RuggedNotebookPage = () => {
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       <SEOHead
         title="Rugged Notebook — โน้ตบุ๊กมาตรฐานทหาร MIL-STD"
+
         description="โน้ตบุ๊คทนทานเกรดทหาร MIL-STD-810G/H กันน้ำ IP65-IP67 Intel AI, Core i5/i7 สำหรับงานภาคสนาม โรงงาน โลจิสติกส์ จำหน่ายโดย ENT Group"
+
         path="/rugged-notebook"
       />
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/" }, { name: "Rugged Notebook", path: "/rugged-notebook" }]} />
@@ -141,7 +143,9 @@ const RuggedNotebookPage = () => {
           category: "Rugged Notebook",
         }))}
         collectionName="Rugged Notebook"
+
         collectionDescription="โน้ตบุ๊คทนทานเกรดทหาร MIL-STD กันน้ำ กันกระแทก"
+
         collectionUrl="/rugged-notebook"
       />
 
@@ -197,7 +201,7 @@ const RuggedNotebookPage = () => {
                 onClick={() => setFilters({ ...filters, os: tab.id })}
                 className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all shrink-0 ${
                   filters.os === tab.id ? "bg-primary text-primary-foreground shadow-sm" : "bg-muted hover:bg-muted/80 text-foreground"
-                }`}
+                }`}>
                 {tab.label}
                 <span className={`text-[10px] font-mono ${filters.os === tab.id ? "text-primary-foreground/70" : "text-muted-foreground"}`}
 
@@ -217,7 +221,7 @@ const RuggedNotebookPage = () => {
                 onClick={qf.toggle}
                 className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all border shrink-0 ${
                   qf.active ? "bg-primary text-primary-foreground border-primary shadow-sm" : "bg-card border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
-                }`}
+                }`}>
                 {qf.label}
               </button>
             ))}
@@ -247,7 +251,6 @@ const RuggedNotebookPage = () => {
                 </div>
                 <div className="flex gap-2">
                   <Button variant="outline" size="icon" className="lg:hidden" onClick={() => setIsMobileFilterOpen(true)}>
-
                     <SlidersHorizontal className="w-4 h-4" />
                   </Button>
                   <Select value={sortBy} onValueChange={setSortBy}>
@@ -281,7 +284,7 @@ const RuggedNotebookPage = () => {
                 <Laptop className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
                 <h3 className="text-lg font-bold text-foreground mb-2">ไม่พบสินค้า</h3>
                 <p className="text-sm text-muted-foreground mb-4">ลองปรับตัวกรองหรือคำค้นหาใหม่</p>
-                <Button variant="outline" onClick={() => { setSearch(""); setFilters({ ...defaultNotebookFilters }); }}
+                <Button variant="outline" onClick={() => { setSearch(""); setFilters({ ...defaultNotebookFilters }); }}>
 
                   ล้างตัวกรองทั้งหมด
                 </Button>
@@ -365,7 +368,6 @@ const RuggedNotebookPage = () => {
             <span className="font-bold text-sm">{selectedProducts.size} รุ่น</span>
           </div>
           <Button size="sm" variant="secondary" className="rounded-full font-bold" onClick={() => setShowMultiQuote(true)}>
-
             <FileText className="w-4 h-4 mr-1.5" /> ขอใบเสนอราคารวม
           </Button>
           <button onClick={clearSelection} className="p-1 hover:bg-primary-foreground/20 rounded-full transition-colors">
@@ -452,7 +454,7 @@ const NotebookCard = ({ product, selected, onToggleSelect }: { product: RuggedNo
                 onClick={(e) => { e.preventDefault(); setSelectedCfg(i); }}
                 className={`w-full text-left p-2.5 rounded-lg border text-xs transition-all ${
                   i === selectedCfg ? "border-primary bg-primary/5 ring-1 ring-primary/20" : "border-border hover:border-primary/30"
-                }`}
+                }`}>
                 <div className="font-bold">{c.label}</div>
                 <div className="text-muted-foreground">{c.cpu}</div>
                 <div className="text-muted-foreground">{c.ram}</div>
@@ -476,3 +478,4 @@ const NotebookCard = ({ product, selected, onToggleSelect }: { product: RuggedNo
 };
 
 export default RuggedNotebookPage;
+

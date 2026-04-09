@@ -253,8 +253,11 @@ const IBoxSeries = () => {
       <SEOHead title="iBox Series — Embedded Fanless Industrial PC" description="iBox Series คอมพิวเตอร์อุตสาหกรรมแบบ Fanless ขนาดกะทัดรัด รองรับ Intel N-Series ถึง Core i7 สำหรับ Edge Computing, IoT Gateway, Digital Signage" path="/ibox-series" />
       <ProductJsonLd
         collectionName="iBox Series Embedded Fanless Industrial PC"
+
         collectionDescription="iBox Series คอมพิวเตอร์อุตสาหกรรม Fanless ขนาดกะทัดรัด สำหรับ Edge Computing, IoT Gateway, Digital Signage"
+
         collectionUrl="/ibox-series"
+
         products={iboxProducts.map(m => ({ name: m.name, image: m.image, description: m.specs.cpu, category: "Embedded Fanless Industrial PC" }))}
       />
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "iBox Series", path: "/ibox-series" }]} />
@@ -295,7 +298,7 @@ const IBoxSeries = () => {
                   filters.category === cat.id
                     ? "bg-primary text-primary-foreground shadow-sm"
                     : "bg-muted hover:bg-muted/80 text-foreground"
-                }`}
+                }`}>
                 <cat.icon className="w-3.5 h-3.5" />
                 {cat.name}
               </button>
@@ -335,7 +338,7 @@ const IBoxSeries = () => {
                     qf.active
                       ? "bg-primary text-primary-foreground border-primary shadow-sm"
                       : "bg-card border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
-                  }`}
+                  }`}>
                   {qf.label}
                 </button>
               ))}
@@ -359,7 +362,6 @@ const IBoxSeries = () => {
                     size="icon"
                     className="lg:hidden"
                     onClick={() => setIsMobileFilterOpen(true)}>
-
                     <SlidersHorizontal className="w-4 h-4" />
                   </Button>
                   <Select value={sortBy} onValueChange={setSortBy}>
@@ -399,7 +401,7 @@ const IBoxSeries = () => {
                 <ScanLine className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
                 <h3 className="text-lg font-bold text-foreground mb-2">ไม่พบสินค้า</h3>
                 <p className="text-sm text-muted-foreground mb-4">ลองปรับตัวกรองหรือคำค้นหาใหม่</p>
-                <Button variant="outline" onClick={() => { setSearch(""); setFilters({ ...defaultFilters }); }}
+                <Button variant="outline" onClick={() => { setSearch(""); setFilters({ ...defaultFilters }); }}>
 
                   ล้างตัวกรองทั้งหมด
                 </Button>
@@ -436,6 +438,7 @@ const IBoxSeries = () => {
                         src={model.image}
                         alt={model.name}
                         className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+
                         loading="lazy"
                       />
                     </div>
@@ -458,7 +461,6 @@ const IBoxSeries = () => {
                           </a>
                         </Button>
                         <Button size="sm" className="flex-1" onClick={() => setQuoteProduct(model.name)}>
-
                           <FileText className="w-3.5 h-3.5 mr-1" /> ขอราคา
                         </Button>
                       </div>
@@ -516,7 +518,6 @@ const IBoxSeries = () => {
               <h2 className="text-2xl font-display font-bold text-foreground mb-3">สนใจ iBox Series?</h2>
               <p className="text-muted-foreground mb-6">ปรึกษาผู้เชี่ยวชาญเพื่อเลือกรุ่นและสเปกที่เหมาะกับงานของคุณ</p>
               <Button size="lg" onClick={() => setQuoteProduct("iBox Series")}>
-
                 <FileText className="w-4 h-4 mr-2" /> ขอใบเสนอราคา
               </Button>
             </div>
@@ -585,3 +586,4 @@ const IBoxSeries = () => {
 };
 
 export default IBoxSeries;
+

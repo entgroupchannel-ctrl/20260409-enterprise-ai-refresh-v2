@@ -680,7 +680,7 @@ const ProductCard = ({ model, onQuote }: { model: any; onQuote?: (name: string) 
       <Tabs defaultValue="specs" className="w-full">
         <TabsList className="w-full justify-start bg-secondary/50 overflow-x-auto">
           <TabsTrigger value="specs" className="text-xs md:text-sm">►Specification</TabsTrigger>
-          {model.gallery && <TabsTrigger value="gallery" className="text-xs md:text-sm">►Gallery</TabsTrigger>}>
+          {model.gallery && <TabsTrigger value="gallery" className="text-xs md:text-sm">►Gallery</TabsTrigger>}
 
         </TabsList>
         <TabsContent value="specs">
@@ -716,7 +716,6 @@ const ProductCard = ({ model, onQuote }: { model: any; onQuote?: (name: string) 
           </Button>
         )}
         <Button size="sm" onClick={() => onQuote?.(model.name)}>
-
           <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
         </Button>
       </div>
@@ -739,8 +738,7 @@ const CategorySection = ({ id, title, subtitle, icon: Icon, models, onQuote }: {
       </div>
     </div>
     <div className="space-y-6">
-      {models.map((m) => <ProductCard key={m.id} model={m} onQuote={onQuote} />)}>
-
+      {models.map((m) => <ProductCard key={m.id} model={m} onQuote={onQuote} />)}
     </div>
   </section>
 );
@@ -821,8 +819,11 @@ const MiniPC = () => {
       <SEOHead title="Mini PC Series — คอมพิวเตอร์ขนาดเล็กสมรรถนะสูง" description="Mini PC จากโรงงานผู้ผลิตโดยตรง ครอบคลุมทุกการใช้งานตั้งแต่ Entry-Level จนถึง Workstation Class ราคาเริ่มต้น 8,190 บาท" path="/mini-pc" />
       <ProductJsonLd
         collectionName="Mini PC Series"
+
         collectionDescription="คอมพิวเตอร์ขนาดเล็กสมรรถนะสูง จากโรงงานผู้ผลิตโดยตรง ราคาเริ่มต้น 8,190 บาท"
+
         collectionUrl="/mini-pc"
+
         products={[
           { name: "K6-F1 Mini PC", price: "4,900", category: "Mini PC" },
           { name: "K6-F17H Mini PC", price: "5,500", category: "Mini PC" },
@@ -874,10 +875,9 @@ const MiniPC = () => {
           </div>
           <div className="flex flex-wrap gap-3">
             <Button onClick={() => setQuoteProduct("Mini PC")}>
-
               <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
             </Button>
-            <Button variant="outline" onClick={() => document.getElementById("pricelist")?.scrollIntoView({ behavior: "smooth" })}
+            <Button variant="outline" onClick={() => document.getElementById("pricelist")?.scrollIntoView({ behavior: "smooth" })}>
 
               ดูตารางราคา
             </Button>
@@ -916,7 +916,7 @@ const MiniPC = () => {
                   activeCategory === cat.id
                     ? "bg-primary text-primary-foreground border-primary"
                     : "bg-secondary/50 text-foreground/70 border-border hover:border-primary/30"
-                }`}
+                }`}>
                 <div>{cat.label}</div>
                 <div className="text-[10px] opacity-70">{cat.desc}</div>
               </a>
@@ -964,7 +964,7 @@ const MiniPC = () => {
                   <select
                     value={filterCat}
                     onChange={(e) => handleFilterCat(e.target.value)}
-                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none"
+                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none">
                     {priceCategories.map((c) => <option key={c} value={c}>{c}</option>)}
 
                   </select>
@@ -975,7 +975,7 @@ const MiniPC = () => {
                   <select
                     value={filterCpu}
                     onChange={(e) => handleFilterCpu(e.target.value)}
-                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none"
+                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none">
                     {cpuLevels.map((c) => <option key={c} value={c}>{c}</option>)}
 
                   </select>
@@ -986,7 +986,7 @@ const MiniPC = () => {
                   <select
                     value={filterPrice}
                     onChange={(e) => handleFilterPrice(Number(e.target.value))}
-                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none"
+                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none">
                     {priceRanges.map((r, i) => <option key={i} value={i}>{r.label}</option>)}
 
                   </select>
@@ -1030,7 +1030,6 @@ const MiniPC = () => {
                           <TableCell className="text-right font-semibold text-foreground">{r.price}</TableCell>
                           <TableCell className="text-right">
                             <Button size="sm" variant="ghost" className="text-xs text-primary" onClick={() => setQuoteProduct(r.model)}>
-
                               <FileText className="w-3 h-3 mr-1" /> ขอราคา
                             </Button>
                           </TableCell>
@@ -1049,7 +1048,7 @@ const MiniPC = () => {
                     size="sm"
                     disabled={currentPage === 1}
                     onClick={() => setCurrentPage((p) => p - 1)}
-                    className="text-xs"
+                    className="text-xs">
                     ← ก่อนหน้า
                   </Button>
                   {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
@@ -1060,7 +1059,7 @@ const MiniPC = () => {
                         currentPage === page
                           ? "bg-primary text-primary-foreground"
                           : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
-                      }`}
+                      }`}>
                       {page}
                     </button>
                   ))}
@@ -1069,7 +1068,7 @@ const MiniPC = () => {
                     size="sm"
                     disabled={currentPage === totalPages}
                     onClick={() => setCurrentPage((p) => p + 1)}
-                    className="text-xs"
+                    className="text-xs">
                     ถัดไป →
                   </Button>
                 </div>
@@ -1101,7 +1100,6 @@ const MiniPC = () => {
             ))}
           </div>
           <Button onClick={() => setQuoteProduct("Mini PC")}>
-
             <FileText className="w-3.5 h-3.5 mr-1.5" /> ปรึกษาผู้เชี่ยวชาญ — ขอใบเสนอราคา
           </Button>
         </div>
@@ -1114,3 +1112,4 @@ const MiniPC = () => {
 
 
 export default MiniPC;
+

@@ -36,7 +36,7 @@ const RelatedCard = ({ product, onQuote }: { product: ReturnType<typeof getHandh
             <Badge key={b} variant="outline" className="text-[10px]">{b}</Badge>
           ))}
         </div>
-        <Button size="sm" className="w-full mt-2" onClick={(e) => { e.preventDefault(); onQuote(product.model); }}
+        <Button size="sm" className="w-full mt-2" onClick={(e) => { e.preventDefault(); onQuote(product.model); }}>
 
           <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอราคา
         </Button>
@@ -96,7 +96,7 @@ const RuggedHandheldDetail = () => {
         collectionUrl={`/handheld/${product.id}`}
         products={[{ name: product.name, image: product.image, description: product.specs.cpu, category: "Rugged Handheld" }]}
       />
-      <BreadcrumbJsonLd items={[>
+      <BreadcrumbJsonLd items={[
         { name: "สินค้า", path: "/products" },
         { name: "Handheld & PDA", path: "/handheld" },
         { name: product.model, path: `/handheld/${product.id}` },
@@ -217,7 +217,6 @@ const RuggedHandheldDetail = () => {
             {/* CTA */}
             <div className="flex flex-wrap gap-3 pt-4 border-t border-border">
               <Button size="lg" variant="outline" onClick={() => setQuoteProduct(product.model)}>
-
                 <FileText className="w-5 h-5 mr-2" /> ขอราคาด่วน
               </Button>
               <LineQRButton className="flex-1 h-11 text-base">
@@ -310,3 +309,4 @@ const RuggedHandheldDetail = () => {
 };
 
 export default RuggedHandheldDetail;
+

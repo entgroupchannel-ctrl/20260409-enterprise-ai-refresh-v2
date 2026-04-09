@@ -13,13 +13,17 @@ const Blog = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="บทความเทคนิค | Blog — ENT Group"
+
         description="บทความให้ความรู้เกี่ยวกับ Industrial IoT, Panel PC, Rugged Tablet และเทคโนโลยีสำหรับโรงงานอุตสาหกรรม"
+
         path="/blog"
       />
 
       <PageBanner
         title="บทความเทคนิค"
+
         subtitle="เรื่องเล่าจากประสบการณ์จริง เคล็ดลับจากทีมวิศวกร เพื่อช่วยคุณตัดสินใจเลือกเทคโนโลยีที่เหมาะสม"
+
         image="/images/unsplash/1504868584819-f8e8b4_w1200.jpg"
       />
 
@@ -37,6 +41,7 @@ const Blog = () => {
                     src={post.image}
                     alt={post.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+
                     loading="lazy"
                   />
                   <Badge className="absolute top-3 left-3 bg-primary/90 text-primary-foreground text-xs">
@@ -91,3 +96,4 @@ const Blog = () => {
 };
 
 export default Blog;
+

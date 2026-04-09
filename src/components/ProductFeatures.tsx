@@ -102,3 +102,4 @@ const ProductFeatures = ({ title = "Products Features", features, columns = 2 }:
 };
 
 export default ProductFeatures;
+
