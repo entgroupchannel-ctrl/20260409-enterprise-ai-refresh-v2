@@ -75,7 +75,7 @@ export default function MyQuoteDetail() {
         .single();
 
       if (error) throw error;
-      setQuote(data);
+      setQuote(data as any);
     } catch (error: any) {
       toast({
         title: 'เกิดข้อผิดพลาด',
