@@ -58,6 +58,9 @@ const AdminQuoteCreate = lazy(() => import("./pages/admin/AdminQuoteCreate"));
 const QuoteRequestForm = lazy(() => import("./pages/customer/QuoteRequestForm"));
 const MyQuotes = lazy(() => import("./pages/customer/MyQuotes"));
 const MyQuoteDetail = lazy(() => import("./pages/customer/MyQuoteDetail"));
+const Cart = lazy(() => import("./pages/customer/Cart"));
+const UserProfile = lazy(() => import("./pages/customer/UserProfile"));
+const MyQuoteDetail = lazy(() => import("./pages/customer/MyQuoteDetail"));
 
 /* ── Loading fallback ── */
 const PageLoader = () => (
