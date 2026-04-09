@@ -36,6 +36,7 @@ export default function QuoteRequestForm() {
   const { toast } = useToast();
 
   const [submitting, setSubmitting] = useState(false);
+  const submitGuard = useRef(false);
   const [profileLoaded, setProfileLoaded] = useState(false);
   const [formData, setFormData] = useState({
     customer_name: '',
