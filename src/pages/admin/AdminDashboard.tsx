@@ -15,8 +15,7 @@ import {
   Eye,
   CheckCheck,
 } from 'lucide-react';
-import { formatDistanceToNow } from 'date-fns';
-import { th } from 'date-fns/locale';
+import { formatRelativeTime } from '@/lib/format';
 
 interface QuoteMetrics {
   pending: number;
@@ -217,7 +216,7 @@ export default function AdminDashboard() {
                     </div>
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
                       {getStatusBadge(quote.status)}
-                      <span>{formatDistanceToNow(new Date(quote.created_at), { addSuffix: true, locale: th })}</span>
+                      <span>{formatRelativeTime(quote.created_at)}</span>
                     </div>
                   </div>
                   <div className="text-right">

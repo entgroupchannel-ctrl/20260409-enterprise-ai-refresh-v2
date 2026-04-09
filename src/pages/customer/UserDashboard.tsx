@@ -28,8 +28,7 @@ import {
   ChevronRight, Package, Phone, Mail, Upload, Send,
   Paperclip, Calendar, MessageSquare, Pencil, X, Building2,
 } from 'lucide-react';
-import { formatDistanceToNow, format } from 'date-fns';
-import { th } from 'date-fns/locale';
+import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
 // ─── Types ───
 interface Quote {
@@ -562,7 +561,7 @@ export default function UserDashboard() {
                                   <QuoteTimelineBadge currentStatus={q.status} />
                                 </div>
                                 <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                                  <span><Clock className="w-3 h-3 inline mr-1" />{formatDistanceToNow(new Date(q.created_at), { addSuffix: true, locale: th })}</span>
+                                  <span><Clock className="w-3 h-3 inline mr-1" />{formatRelativeTime(q.created_at)}</span>
                                   <span>{q.products?.length || 0} รายการ</span>
                                 </div>
                               </div>
@@ -591,7 +590,7 @@ export default function UserDashboard() {
                       <div>
                         <h2 className="text-xl font-bold">{selectedQuote.quote_number}</h2>
                         <p className="text-xs text-muted-foreground">
-                          สร้างเมื่อ {format(new Date(selectedQuote.created_at), 'dd MMMM yyyy HH:mm', { locale: th })}
+                          สร้างเมื่อ {formatShortDateTime(selectedQuote.created_at)}
                         </p>
                       </div>
                     </div>
@@ -788,7 +787,7 @@ export default function UserDashboard() {
                                       <FileText className="w-6 h-6 text-primary" />
                                       <div>
                                         <p className="text-sm font-medium">{file.file_name}</p>
-                                        <p className="text-[10px] text-muted-foreground">{format(new Date(file.uploaded_at), 'dd MMM yyyy HH:mm', { locale: th })}</p>
+                                        <p className="text-[10px] text-muted-foreground">{formatShortDateTime(file.uploaded_at)}</p>
                                       </div>
                                     </div>
                                     <Button size="sm" variant="outline" asChild>
@@ -809,7 +808,7 @@ export default function UserDashboard() {
                                       <FileText className="w-6 h-6 text-green-600" />
                                       <div>
                                         <p className="text-sm font-medium">{file.file_name}</p>
-                                        <p className="text-[10px] text-muted-foreground">{format(new Date(file.uploaded_at), 'dd MMM yyyy HH:mm', { locale: th })}</p>
+                                        <p className="text-[10px] text-muted-foreground">{formatShortDateTime(file.uploaded_at)}</p>
                                       </div>
                                     </div>
                                     <Button size="sm" variant="outline" asChild>
@@ -852,7 +851,7 @@ export default function UserDashboard() {
                                       {msg.sender_role === 'customer' ? 'คุณ' : msg.sender_role === 'system' ? 'ระบบ' : msg.sender_name}
                                     </span>
                                     <span className="text-[10px] text-muted-foreground">
-                                      {formatDistanceToNow(new Date(msg.created_at), { addSuffix: true, locale: th })}
+                                      {formatRelativeTime(msg.created_at)}
                                     </span>
                                   </div>
                                   <p className="text-sm leading-relaxed">{msg.content}</p>
@@ -899,7 +898,7 @@ export default function UserDashboard() {
                           {selectedQuote.valid_until && (
                             <div>
                               <Label className="text-xs text-muted-foreground">ใช้ได้ถึง</Label>
-                              <p className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5 text-muted-foreground" />{format(new Date(selectedQuote.valid_until), 'dd MMMM yyyy', { locale: th })}</p>
+                              <p className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5 text-muted-foreground" />{formatFullDate(selectedQuote.valid_until)}</p>
                             </div>
                           )}
                           {selectedQuote.payment_terms && (

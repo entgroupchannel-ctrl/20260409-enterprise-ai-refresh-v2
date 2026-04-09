@@ -47,8 +47,7 @@ import {
   AlertCircle,
   Eye,
 } from 'lucide-react';
-import { formatDistanceToNow, format } from 'date-fns';
-import { th } from 'date-fns/locale';
+import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
 interface Quote {
   id: string;
@@ -360,7 +359,7 @@ export default function AdminQuoteDetail() {
             <div>
               <h1 className="text-2xl font-bold">{quote.quote_number}</h1>
               <p className="text-gray-600 text-sm mt-1">
-                สร้างเมื่อ {format(new Date(quote.created_at), 'dd MMMM yyyy HH:mm', { locale: th })}
+                สร้างเมื่อ {formatShortDateTime(quote.created_at)}
               </p>
             </div>
           </div>
@@ -663,9 +662,7 @@ export default function AdminQuoteDetail() {
                               <div>
                                 <p className="font-medium">{file.file_name}</p>
                                 <p className="text-xs text-gray-500">
-                                  {format(new Date(file.uploaded_at), 'dd MMM yyyy HH:mm', {
-                                    locale: th,
-                                  })}
+                                  {formatShortDateTime(file.uploaded_at)}
                                 </p>
                               </div>
                             </div>
@@ -695,9 +692,7 @@ export default function AdminQuoteDetail() {
                               <div>
                                 <p className="font-medium">{file.file_name}</p>
                                 <p className="text-xs text-gray-500">
-                                  {format(new Date(file.uploaded_at), 'dd MMM yyyy HH:mm', {
-                                    locale: th,
-                                  })}
+                                  {formatShortDateTime(file.uploaded_at)}
                                 </p>
                               </div>
                             </div>
@@ -741,10 +736,7 @@ export default function AdminQuoteDetail() {
                         <div className="flex items-center justify-between mb-1">
                           <span className="text-xs font-semibold">{msg.sender_name}</span>
                           <span className="text-xs text-gray-500">
-                            {formatDistanceToNow(new Date(msg.created_at), {
-                              addSuffix: true,
-                              locale: th,
-                            })}
+                            {formatRelativeTime(msg.created_at)}
                           </span>
                         </div>
                         <p className="text-sm">{msg.content}</p>
@@ -786,7 +778,7 @@ export default function AdminQuoteDetail() {
                     <Label className="text-gray-500">ใช้ได้ถึง</Label>
                     <p className="flex items-center gap-2">
                       <Calendar className="w-4 h-4 text-gray-400" />
-                      {format(new Date(quote.valid_until), 'dd MMMM yyyy', { locale: th })}
+                      {formatFullDate(quote.valid_until)}
                     </p>
                   </div>
                 )}

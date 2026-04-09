@@ -20,8 +20,7 @@ import {
   Upload,
 } from 'lucide-react';
 import QuoteTimeline from '@/components/rfq/QuoteTimeline';
-import { formatDistanceToNow, format } from 'date-fns';
-import { th } from 'date-fns/locale';
+import { formatShortDateTime, formatRelativeTime } from '@/lib/format';
 
 interface Quote {
   id: string;
@@ -236,7 +235,7 @@ export default function MyQuotes() {
                             <div className="flex items-center gap-1">
                               <Calendar className="w-3 h-3" />
                               <span>
-                                {format(new Date(quote.created_at), 'dd MMM yyyy', { locale: th })}
+                                {formatShortDateTime(quote.created_at)}
                               </span>
                             </div>
                             <div className="flex items-center gap-1">
@@ -246,10 +245,7 @@ export default function MyQuotes() {
                             <div className="flex items-center gap-1">
                               <Clock className="w-3 h-3" />
                               <span>
-                                {formatDistanceToNow(new Date(quote.created_at), {
-                                  addSuffix: true,
-                                  locale: th,
-                                })}
+                                {formatRelativeTime(quote.created_at)}
                               </span>
                             </div>
                           </div>

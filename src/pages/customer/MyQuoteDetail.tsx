@@ -21,8 +21,7 @@ import {
   ShieldCheck,
   CheckCircle2,
 } from 'lucide-react';
-import { formatDistanceToNow, format } from 'date-fns';
-import { th } from 'date-fns/locale';
+import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
 interface Quote {
   id: string;
@@ -249,7 +248,7 @@ export default function MyQuoteDetail() {
               <div>
                 <h1 className="font-bold text-foreground">{quote.quote_number}</h1>
                 <p className="text-xs text-muted-foreground">
-                  {format(new Date(quote.created_at), 'dd MMM yyyy, HH:mm', { locale: th })}
+                  {formatShortDateTime(quote.created_at)}
                 </p>
               </div>
             </div>
@@ -422,7 +421,7 @@ export default function MyQuoteDetail() {
                   {quote.valid_until && (
                     <div>
                       <p className="text-xs text-muted-foreground mb-1">ใบเสนอราคามีผลถึง</p>
-                      <p className="text-foreground">{format(new Date(quote.valid_until), 'dd MMM yyyy', { locale: th })}</p>
+                      <p className="text-foreground">{formatFullDate(quote.valid_until)}</p>
                     </div>
                   )}
                 </CardContent>
@@ -468,7 +467,7 @@ export default function MyQuoteDetail() {
                             <p className="font-medium text-foreground truncate">{file.file_name}</p>
                             <div className="flex items-center gap-3 text-xs text-muted-foreground mt-1">
                               <span>
-                                {format(new Date(file.uploaded_at), 'dd MMM yyyy HH:mm', { locale: th })}
+                                {formatShortDateTime(file.uploaded_at)}
                               </span>
                               {file.file_size && <span>{formatFileSize(file.file_size)}</span>}
                             </div>
@@ -575,10 +574,7 @@ export default function MyQuoteDetail() {
                             {msg.sender_role === 'customer' ? 'คุณ' : msg.sender_role === 'admin' || msg.sender_role === 'sales' ? 'ทีมขาย' : msg.sender_name}
                           </span>
                           <span className="text-xs text-muted-foreground">
-                            {formatDistanceToNow(new Date(msg.created_at), {
-                              addSuffix: true,
-                              locale: th,
-                            })}
+                            {formatRelativeTime(msg.created_at)}
                           </span>
                         </div>
                         <p className="text-sm text-foreground whitespace-pre-wrap">{msg.content}</p>

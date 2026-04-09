@@ -27,8 +27,7 @@ import {
   AlertCircle,
   Clock,
 } from 'lucide-react';
-import { formatDistanceToNow } from 'date-fns';
-import { th } from 'date-fns/locale';
+import { formatRelativeTime } from '@/lib/format';
 
 interface Quote {
   id: string;
@@ -246,7 +245,7 @@ export default function AdminQuotesList() {
                         <QuoteStatusFlow status={quote.status} mini />
                         <span className="text-muted-foreground flex items-center gap-1">
                           <Clock className="w-3 h-3" />
-                          {formatDistanceToNow(new Date(quote.created_at), { addSuffix: true, locale: th })}
+                          {formatRelativeTime(quote.created_at)}
                         </span>
                         {slaTime && (
                           <span className={`flex items-center gap-1 font-medium ${slaTime.isOverdue ? 'text-destructive' : slaTime.isUrgent ? 'text-orange-600' : 'text-muted-foreground'}`}>
