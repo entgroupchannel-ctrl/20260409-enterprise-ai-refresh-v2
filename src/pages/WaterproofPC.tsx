@@ -300,7 +300,7 @@ const WaterproofPC = () => {
                     <div className="md:w-2/3">
                       <div className="flex items-center gap-3 mb-2">
                         <h3 className="text-xl md:text-2xl font-display font-bold text-foreground">{m.name}</h3>
-                        {m.badge && <Badge className="bg-primary text-primary-foreground text-xs">{m.badge}</Badge>}>
+                        {m.badge && <Badge className="bg-primary text-primary-foreground text-xs">{m.badge}</Badge>}
 
                       </div>
                       <p className="text-sm text-muted-foreground mb-4">{m.model}</p>
