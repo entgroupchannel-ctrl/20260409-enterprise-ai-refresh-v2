@@ -108,7 +108,7 @@ export default function ProductSearchPanel({ selectedModels, relatedProducts, on
       ) : (
         <div className="space-y-2">
           <div className="flex items-center gap-2 text-sm mb-3">
-            <Lightbulb className="w-4 h-4 text-amber-500" />
+            <Lightbulb className="w-4 h-4 text-primary" />
             <span className="font-medium">แนะนำสินค้า</span>
           </div>
           {relatedProducts.map((product) => (
