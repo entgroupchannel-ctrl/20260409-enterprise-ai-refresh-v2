@@ -178,11 +178,14 @@ export default function AdminQuoteDetail() {
 
     setSendingMessage(true);
     try {
+      const { data: { user: authUser } } = await supabase.auth.getUser();
       const { error } = await supabase.from('quote_messages').insert({
         quote_id: id,
+        sender_id: authUser?.id || null,
         sender_name: 'Admin',
         sender_role: 'admin',
         content: messageText,
+        message_type: 'text',
       });
 
       if (error) throw error;
