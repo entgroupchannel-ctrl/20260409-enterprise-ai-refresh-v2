@@ -141,7 +141,7 @@ export default function AdminQuoteDetail() {
         .single();
 
       if (quoteError) throw quoteError;
-      setQuote(quoteData as unknown as Quote);
+      setQuote(quoteData);
 
       // Load files
       const { data: filesData, error: filesError } = await supabase
