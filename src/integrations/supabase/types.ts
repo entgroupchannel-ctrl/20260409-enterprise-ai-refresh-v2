@@ -909,6 +909,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_next_po_version: { Args: { p_quote_id: string }; Returns: number }
       get_user_role: { Args: { _user_id: string }; Returns: string }
     }
     Enums: {
