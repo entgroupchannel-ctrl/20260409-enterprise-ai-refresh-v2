@@ -1,4 +1,5 @@
 import SEOHead from "@/components/SEOHead";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import B2BCTABanner from "@/components/B2BCTABanner";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
@@ -950,8 +951,21 @@ const GTSeries = () => {
                           {uc}
                         </span>
                       ))}
-                    </div>
                   </div>
+
+                  {/* Quick Quote CTA */}
+                  <div className="card-surface p-5 bg-primary/5 border-primary/20 flex items-center justify-between gap-4">
+                    <div>
+                      <p className="font-bold text-sm text-foreground">สนใจ GT1000?</p>
+                      <p className="text-xs text-muted-foreground">ขอใบเสนอราคาตอนนี้</p>
+                    </div>
+                    <QuoteRequestButton
+                      productModel="GT1000"
+                      productName="Intel Celeron N2920 Industrial Mini PC"
+                      size="sm"
+                    />
+                  </div>
+                </div>
                 </div>
 
                 {/* Product Images Gallery — ภาพจริงจากโรงงาน */}
@@ -5875,6 +5889,12 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
             ให้ทีมผู้เชี่ยวชาญช่วยเลือกรุ่นที่เหมาะกับงานของคุณ
           </p>
           <div className="flex flex-wrap justify-center gap-4">
+            <QuoteRequestButton
+              productModel="GT Series"
+              productName="Mini PC Industrial Computer"
+              size="lg"
+              className="px-8 py-4 text-lg font-bold"
+            />
             <button
               onClick={() => setShowLineQR(true)}
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[hsl(142,70%,45%)] text-white font-bold text-lg hover:opacity-90 transition-opacity">
