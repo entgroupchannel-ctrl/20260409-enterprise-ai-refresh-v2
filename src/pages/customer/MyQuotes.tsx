@@ -20,8 +20,7 @@ import {
   Upload,
 } from 'lucide-react';
 import QuoteTimeline from '@/components/rfq/QuoteTimeline';
-import { formatDistanceToNow, format } from 'date-fns';
-import { th } from 'date-fns/locale';
+import { formatShortDateTime, formatRelativeTime } from '@/lib/format';
 
 interface Quote {
   id: string;

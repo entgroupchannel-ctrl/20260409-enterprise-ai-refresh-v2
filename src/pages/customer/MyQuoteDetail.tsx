@@ -21,8 +21,7 @@ import {
   ShieldCheck,
   CheckCircle2,
 } from 'lucide-react';
-import { formatDistanceToNow, format } from 'date-fns';
-import { th } from 'date-fns/locale';
+import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
 interface Quote {
   id: string;

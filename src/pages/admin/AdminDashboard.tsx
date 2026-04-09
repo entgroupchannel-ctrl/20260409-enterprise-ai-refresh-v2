@@ -15,8 +15,7 @@ import {
   Eye,
   CheckCheck,
 } from 'lucide-react';
-import { formatDistanceToNow } from 'date-fns';
-import { th } from 'date-fns/locale';
+import { formatRelativeTime } from '@/lib/format';
 
 interface QuoteMetrics {
   pending: number;

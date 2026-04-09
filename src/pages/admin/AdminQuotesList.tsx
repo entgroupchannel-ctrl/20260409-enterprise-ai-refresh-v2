@@ -27,8 +27,7 @@ import {
   AlertCircle,
   Clock,
 } from 'lucide-react';
-import { formatDistanceToNow } from 'date-fns';
-import { th } from 'date-fns/locale';
+import { formatRelativeTime } from '@/lib/format';
 
 interface Quote {
   id: string;
