@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Search, Menu, X, ChevronDown } from "lucide-react";
+import { Search, Menu, X, ChevronDown, LogIn, UserCircle, LayoutDashboard, LogOut } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 import MegaMenu, { MobileMegaMenu } from "@/components/MegaMenu";
+import { useAuth } from "@/hooks/useAuth";
 import heroIndustrial from "@/assets/hero-industrial.jpg";
 import logo from "@/assets/logo-entgroup.avif";
 
@@ -57,6 +58,7 @@ const HeroSection = () => {
   const [tagsExpanded, setTagsExpanded] = useState(true);
   const navigate = useNavigate();
   const searchRef = useRef<HTMLDivElement>(null);
+  const { user, profile, signOut, loading: authLoading } = useAuth();
 
   useEffect(() => {
     const timer = setTimeout(() => setTagsExpanded(false), 10000);
@@ -135,6 +137,31 @@ const HeroSection = () => {
           ))}
           <div className="w-px h-6 bg-white/10 mx-1" />
           <ThemeToggle />
+          {!authLoading && (
+            user ? (
+              <div className="relative group">
+                <button className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-colors">
+                  <UserCircle size={18} />
+                  <span className="max-w-[100px] truncate">{profile?.full_name || user.email?.split('@')[0]}</span>
+                  <ChevronDown size={14} />
+                </button>
+                <div className="absolute right-0 top-full mt-1 w-48 bg-card border border-border rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+                  {(profile?.role === 'admin' || profile?.role === 'sales') && (
+                    <Link to="/admin/dashboard" className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors rounded-t-lg">
+                      <LayoutDashboard size={16} /> แดชบอร์ด
+                    </Link>
+                  )}
+                  <button onClick={() => signOut()} className="flex items-center gap-2 px-4 py-2.5 text-sm text-destructive hover:bg-muted transition-colors w-full text-left rounded-b-lg">
+                    <LogOut size={16} /> ออกจากระบบ
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <Link to="/login" className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-white bg-primary/80 hover:bg-primary transition-colors">
+                <LogIn size={16} /> เข้าสู่ระบบ
+              </Link>
+            )
+          )}
         </div>
 
         <button
@@ -152,6 +179,24 @@ const HeroSection = () => {
           <MobileMegaMenu onNavigate={() => setMobileMenuOpen(false)} />
           <div className="flex items-center gap-2 mt-4 pt-4 border-t border-border">
             <ThemeToggle />
+            {!authLoading && (
+              user ? (
+                <div className="flex flex-col gap-2 flex-1">
+                  {(profile?.role === 'admin' || profile?.role === 'sales') && (
+                    <Link to="/admin/dashboard" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-muted transition-colors">
+                      <LayoutDashboard size={16} /> แดชบอร์ด
+                    </Link>
+                  )}
+                  <button onClick={() => { signOut(); setMobileMenuOpen(false); }} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-destructive hover:bg-muted transition-colors">
+                    <LogOut size={16} /> ออกจากระบบ
+                  </button>
+                </div>
+              ) : (
+                <Link to="/login" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
+                  <LogIn size={16} /> เข้าสู่ระบบ
+                </Link>
+              )
+            )}
           </div>
         </div>
       )}
