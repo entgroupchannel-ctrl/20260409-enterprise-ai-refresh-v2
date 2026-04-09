@@ -1,7 +1,23 @@
 import {
-  Cpu, Network, Cable, Monitor, CircuitBoard, MemoryStick,
-  HardDrive, Fan, Zap, Timer, Wifi, Shield, Box, Antenna,
-  ScanLine, Thermometer, Weight, Ruler, type LucideIcon
+  Cpu,
+  Network,
+  Cable,
+  Monitor,
+  CircuitBoard,
+  MemoryStick,
+  HardDrive,
+  Fan,
+  Zap,
+  Timer,
+  Wifi,
+  Shield,
+  Box,
+  Antenna,
+  ScanLine,
+  Thermometer,
+  Weight,
+  Ruler,
+  type LucideIcon,
 } from "lucide-react";
 
 export type FeatureItem = {
@@ -10,7 +26,6 @@ export type FeatureItem = {
   detail?: string;
 };
 
-/** Map keywords to best-fit icons */
 const iconMap: [RegExp, LucideIcon][] = [
   [/cpu|intel|celeron|core i|processor|h-series|tdp/i, Cpu],
   [/lan|ethernet|rj45|i225v|2\.5g/i, Network],
@@ -39,7 +54,6 @@ function pickIcon(text: string): LucideIcon {
   return Shield;
 }
 
-/** Auto-assign icons from plain text features */
 export function autoFeatures(items: string[]): FeatureItem[] {
   return items.map((text) => ({
     icon: pickIcon(text),
@@ -55,9 +69,7 @@ interface ProductFeaturesProps {
 
 const ProductFeatures = ({ title = "Products Features", features, columns = 2 }: ProductFeaturesProps) => {
   const resolved: FeatureItem[] =
-    typeof features[0] === "string"
-      ? autoFeatures(features as string[])
-      : (features as FeatureItem[]);
+    typeof features[0] === "string" ? autoFeatures(features as string[]) : (features as FeatureItem[]);
 
   return (
     <div className="card-surface overflow-hidden">
@@ -65,7 +77,6 @@ const ProductFeatures = ({ title = "Products Features", features, columns = 2 }:
         <h4 className="font-display font-bold text-foreground text-lg">{title}</h4>
       </div>
       <div className={`grid gap-0 divide-y divide-border ${columns === 2 ? "md:grid-cols-2 md:divide-y-0" : ""}`}>
-
         {resolved.map((feat, i) => {
           const Icon = feat.icon;
           return (
@@ -74,14 +85,13 @@ const ProductFeatures = ({ title = "Products Features", features, columns = 2 }:
               className={`flex items-start gap-3 px-5 py-3.5 transition-colors hover:bg-secondary/30 ${
                 columns === 2 && i % 2 === 0 ? "md:border-r md:border-border" : ""
               } ${columns === 2 && i >= 2 ? "md:border-t md:border-border" : ""}`}
+            >
               <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center mt-0.5">
                 <Icon size={18} className="text-primary" />
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-foreground leading-snug">{feat.label}</p>
-                {feat.detail && (
-                  <p className="text-xs text-muted-foreground mt-0.5">{feat.detail}</p>
-                )}
+                {feat.detail && <p className="text-xs text-muted-foreground mt-0.5">{feat.detail}</p>}
               </div>
             </div>
           );

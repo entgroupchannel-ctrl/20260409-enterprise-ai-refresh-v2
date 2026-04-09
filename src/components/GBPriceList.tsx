@@ -198,6 +198,7 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
                   ? "bg-foreground text-background border-foreground shadow-lg"
                   : "bg-card text-foreground border-border hover:border-primary/50"
               }`}
+            >
               {tab.label}
             </button>
           ))}
@@ -231,6 +232,7 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
                     ? "bg-primary text-primary-foreground border-primary"
                     : "bg-secondary/50 text-muted-foreground border-border hover:border-primary/40"
                 }`}
+              >
                 {cpu}
               </button>
             ))}
@@ -308,6 +310,7 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
                       ? "bg-primary text-primary-foreground"
                       : "hover:bg-secondary text-muted-foreground"
                   }`}
+                >
                   {p}
                 </button>
               ))}
