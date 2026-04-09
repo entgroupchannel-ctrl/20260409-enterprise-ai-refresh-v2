@@ -12,15 +12,22 @@ Deno.serve(async (req) => {
 
   try {
     const authHeader = req.headers.get("Authorization");
+    const importKey = req.headers.get("x-import-key");
     let authorized = false;
 
-    // Method 1: Service role key in bearer token
     const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    
+    // Method 1: Service role key in bearer token
     if (authHeader === `Bearer ${serviceKey}`) {
       authorized = true;
     }
 
-    // Method 2: Authenticated admin user
+    // Method 2: Import key matches service key
+    if (!authorized && importKey === serviceKey) {
+      authorized = true;
+    }
+
+    // Method 3: Authenticated admin user
     if (!authorized && authHeader) {
       const anonClient = createClient(
         Deno.env.get("SUPABASE_URL")!,
@@ -33,7 +40,7 @@ Deno.serve(async (req) => {
           .from("users")
           .select("role")
           .eq("id", user.id)
-          .single();
+          .maybeSingle();
         if (userData && ["admin", "sales"].includes(userData.role)) {
           authorized = true;
         }
