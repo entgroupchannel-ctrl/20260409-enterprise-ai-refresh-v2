@@ -71,7 +71,7 @@ export default function MyQuoteDetail() {
   const [showPOUpload, setShowPOUpload] = useState(false);
   const [messageText, setMessageText] = useState('');
   const [sendingMessage, setSendingMessage] = useState(false);
-  // confirming state removed — po_uploaded = confirmed
+  const [confirming, setConfirming] = useState(false);
 
   useEffect(() => {
     if (id && user) {
@@ -181,7 +181,41 @@ export default function MyQuoteDetail() {
     }
   };
 
-  // handleConfirmPO removed — upload PO = confirmed automatically
+  const handleConfirmPO = async () => {
+    if (confirming) return;
+    setConfirming(true);
+    try {
+      const { error } = await supabase
+        .from('quote_requests')
+        .update({ status: 'po_confirmed' } as any)
+        .eq('id', id!);
+
+      if (error) throw error;
+
+      await supabase.from('quote_messages').insert({
+        quote_id: id,
+        sender_name: user?.email || 'ลูกค้า',
+        sender_role: 'customer',
+        content: 'ยืนยันคำสั่งซื้อแล้ว — พร้อมดำเนินการ',
+        message_type: 'system',
+      });
+
+      toast({
+        title: 'ยืนยันคำสั่งซื้อสำเร็จ',
+        description: 'ทีมงานจะดำเนินการจัดส่งสินค้าโดยเร็วที่สุด',
+      });
+      loadQuote();
+      loadMessages();
+    } catch (error: any) {
+      toast({
+        title: 'เกิดข้อผิดพลาด',
+        description: error.message,
+        variant: 'destructive',
+      });
+    } finally {
+      setConfirming(false);
+    }
+  };
 
   const formatCurrency = (amount: number) =>
     new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', minimumFractionDigits: 2 }).format(amount);
@@ -394,11 +428,25 @@ export default function MyQuoteDetail() {
                   </div>
                 ))}
               </div>
-              {(quote.status === 'po_uploaded' || quote.status === 'po_confirmed') && (
-                <div className="mt-4 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-800 text-center space-y-2">
-                  <Upload className="w-10 h-10 text-purple-600 dark:text-purple-400 mx-auto" />
-                  <p className="font-semibold text-purple-900 dark:text-purple-100">ส่ง PO เข้าระบบแล้ว</p>
-                  <p className="text-sm text-purple-700 dark:text-purple-300">ทีมงานกำลังตรวจสอบและจะแจ้งผลการอนุมัติให้ทราบโดยเร็วที่สุด</p>
+              {quote.status === 'po_uploaded' && (
+                <div className="mt-4 p-4 bg-primary/5 rounded-lg border border-primary/20 text-center space-y-3">
+                  <ShieldCheck className="w-10 h-10 text-primary mx-auto" />
+                  <div>
+                    <p className="font-semibold text-foreground">อัปโหลด PO สำเร็จแล้ว</p>
+                    <p className="text-sm text-muted-foreground">กรุณายืนยันคำสั่งซื้อเพื่อให้ทีมงานดำเนินการต่อ</p>
+                  </div>
+                  <Button onClick={handleConfirmPO} disabled={confirming} className="w-full">
+                    <CheckCircle2 className="w-4 h-4 mr-2" />
+                    {confirming ? 'กำลังยืนยัน...' : 'ยืนยันคำสั่งซื้อ'}
+                  </Button>
+                  <p className="text-xs text-muted-foreground">เมื่อกดยืนยันแล้ว ทีมงานจะเริ่มเตรียมสินค้าและจัดส่งให้ทันที</p>
+                </div>
+              )}
+              {quote.status === 'po_confirmed' && (
+                <div className="mt-4 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800 text-center space-y-2">
+                  <CheckCircle2 className="w-10 h-10 text-green-600 dark:text-green-400 mx-auto" />
+                  <p className="font-semibold text-green-900 dark:text-green-100">ยืนยันคำสั่งซื้อแล้ว</p>
+                  <p className="text-sm text-green-700 dark:text-green-300">ทีมงานกำลังเตรียมสินค้าและจัดส่งให้คุณ</p>
                 </div>
               )}
               {(quote.status === 'po_approved' || quote.status === 'completed') && (

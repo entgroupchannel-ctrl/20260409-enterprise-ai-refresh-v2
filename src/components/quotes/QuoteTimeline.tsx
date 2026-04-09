@@ -1,24 +1,14 @@
-import { Check, Clock, Send, Upload, ThumbsUp } from "lucide-react";
+import { Check, Clock, FileText, Send, Upload, ThumbsUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { getStatusColor, getStatusLabel } from "@/lib/quote-utils";
 
 const steps = [
   { key: "pending", label: "รอตอบกลับ", icon: Clock },
   { key: "quote_sent", label: "ส่งราคาแล้ว", icon: Send },
-  { key: "po_uploaded", label: "ส่ง PO แล้ว", icon: Upload },
+  { key: "po_uploaded", label: "อัปโหลด PO", icon: Upload },
   { key: "po_approved", label: "อนุมัติแล้ว", icon: ThumbsUp },
   { key: "completed", label: "เสร็จสิ้น", icon: Check },
 ];
-
-const statusOrderMap: Record<string, number> = {
-  pending: 0,
-  quote_sent: 1,
-  po_uploaded: 2,
-  po_confirmed: 2, // alias
-  po_approved: 3,
-  completed: 4,
-  rejected: -1,
-};
 
 interface QuoteTimelineProps {
   currentStatus: string;
@@ -26,7 +16,7 @@ interface QuoteTimelineProps {
 }
 
 const QuoteTimeline = ({ currentStatus, className }: QuoteTimelineProps) => {
-  const currentIdx = statusOrderMap[currentStatus] ?? 0;
+  const currentIdx = steps.findIndex((s) => s.key === currentStatus);
   const isRejected = currentStatus === "rejected";
 
   return (
