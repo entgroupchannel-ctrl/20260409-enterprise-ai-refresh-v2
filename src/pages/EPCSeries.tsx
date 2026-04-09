@@ -419,10 +419,10 @@ const EPCSeries = () => {
             {/* Product Image */}
             <div className="md:w-2/5 flex justify-center">
               <img
-                src={epcHeroPanelPC}
+                src={epcHeroPanelPC}>
                 alt="EPC Industrial Panel PC with Touchscreen"
-                className="w-full max-w-md h-auto rounded-xl shadow-2xl border border-white/10"
-                width={896}
+                className="w-full max-w-md h-auto rounded-xl shadow-2xl border border-white/10">
+                width={896}>
                 height={1024}
               />
             </div>
@@ -450,8 +450,8 @@ const EPCSeries = () => {
           <div className="flex gap-1 overflow-x-auto py-2 scrollbar-hide">
             {categories.map((cat) => (
               <a
-                key={cat.id}
-                href={`#${cat.id}`}
+                key={cat.id}>
+                href={`#${cat.id}`}>
                 onClick={() => setActiveCategory(cat.id)}
                 className={`shrink-0 px-3 py-2 rounded-lg text-xs font-medium transition-all ${
                   activeCategory === cat.id
@@ -472,9 +472,9 @@ const EPCSeries = () => {
         <section id="overview">
           <div className="card-surface overflow-hidden">
             <img
-              src="/images/wix/0597a3_7c3f2bd701f340ee993f725c168c1bec_e05257e7.png"
+              src="/images/wix/0597a3_7c3f2bd701f340ee993f725c168c1bec_e05257e7.png">
               alt="CESIPC Certifications"
-              className="w-full h-auto p-6"
+              className="w-full h-auto p-6">
               loading="lazy"
             />
           </div>

@@ -139,7 +139,7 @@ const Volktek = () => {
           </Link>
           <div className="card-surface overflow-hidden mb-8">
             <img
-              src="/images/wix/0597a3_acc5fb9c15d549868644c80cf3d94d4f_1179ee4b.png"
+              src="/images/wix/0597a3_acc5fb9c15d549868644c80cf3d94d4f_1179ee4b.png">
               alt="Volktek Industrial Ethernet"
               className="w-full h-auto"
             />
@@ -240,9 +240,9 @@ const Volktek = () => {
             </div>
             <div className="md:w-1/2">
               <img
-                src="/images/wix/0597a3_d5a5792c655647a392507ede27ec62a6_63339b10.png"
+                src="/images/wix/0597a3_d5a5792c655647a392507ede27ec62a6_63339b10.png">
                 alt="Factory Automation Diagram"
-                className="w-full h-auto rounded-lg"
+                className="w-full h-auto rounded-lg">
                 loading="lazy"
               />
             </div>
@@ -258,7 +258,7 @@ const Volktek = () => {
           <div className="flex gap-2 overflow-x-auto pb-4 mb-6 scrollbar-hide">
             {productCategories.map((cat) => (
               <a
-                key={cat.id}
+                key={cat.id}>
                 href={`#${cat.id}`}
                 className="shrink-0 px-3 py-2 rounded-lg text-xs font-medium bg-secondary/50 text-foreground/70 border border-border hover:border-primary/30 transition-all"
               >
@@ -322,18 +322,18 @@ const Volktek = () => {
           <div className="card-surface rounded-xl overflow-hidden max-w-2xl mx-auto">
             <div className="relative aspect-video">
               <iframe
-                src="https://www.youtube.com/embed/6Y6eEitc-yQ"
-                title="Volktek Industrial Switch — รีวิวและแนะนำ"
+                src="https://www.youtube.com/embed/6Y6eEitc-yQ">
+                title="Volktek Industrial Switch — รีวิวและแนะนำ">
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
-                className="absolute inset-0 w-full h-full"
+                className="absolute inset-0 w-full h-full">
                 loading="lazy"
               />
             </div>
             <div className="p-4 flex items-center justify-between">
               <a
-                href="https://youtu.be/6Y6eEitc-yQ"
-                target="_blank"
+                href="https://youtu.be/6Y6eEitc-yQ">
+                target="_blank">
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-sm text-primary font-semibold hover:underline"
               >

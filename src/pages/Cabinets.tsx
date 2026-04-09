@@ -229,9 +229,9 @@ const Cabinets = () => {
               <div key={model.id} className="card-surface overflow-hidden group hover:border-primary/30 transition-all">
                 <div className="relative bg-secondary/30 p-6 flex items-center justify-center h-56">
                   <img
-                    src={model.image}
+                    src={model.image}>
                     alt={model.name}
-                    className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                    className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
                     loading="lazy"
                   />
                 </div>
@@ -405,21 +405,21 @@ const Cabinets = () => {
                     <label className="block text-xs font-medium text-foreground mb-1">วัสดุ</label>
                     <select name="material" value={customForm.material} onChange={handleCustomChange} className={inputClass}>
                       <option value="">เลือกวัสดุ</option>
-                      {materialOptions.map((m) => <option key={m} value={m}>{m}</option>)}
+                      {materialOptions.map((m) => <option key={m} value={m}>{m}</option>)}>
                     </select>
                   </div>
                   <div>
                     <label className="block text-xs font-medium text-foreground mb-1">รูปแบบติดตั้ง</label>
                     <select name="installation" value={customForm.installation} onChange={handleCustomChange} className={inputClass}>
                       <option value="">เลือกรูปแบบ</option>
-                      {installOptions.map((o) => <option key={o} value={o}>{o}</option>)}
+                      {installOptions.map((o) => <option key={o} value={o}>{o}</option>)}>
                     </select>
                   </div>
                   <div>
                     <label className="block text-xs font-medium text-foreground mb-1">กุญแจ / ล็อก</label>
                     <select name="lock" value={customForm.lock} onChange={handleCustomChange} className={inputClass}>
                       <option value="">เลือกประเภทกุญแจ</option>
-                      {lockOptions.map((l) => <option key={l} value={l}>{l}</option>)}
+                      {lockOptions.map((l) => <option key={l} value={l}>{l}</option>)}>
                     </select>
                   </div>
                   <div>
@@ -449,7 +449,7 @@ const Cabinets = () => {
               </div>
 
               <Button type="submit" className="w-full" disabled={customLoading}>
-                {customLoading ? <Loader2 size={16} className="animate-spin mr-2" /> : <Send size={16} className="mr-2" />}
+                {customLoading ? <Loader2 size={16} className="animate-spin mr-2" /> : <Send size={16} className="mr-2" />}>
                 ส่งคำขอ Custom Cabinet
               </Button>
             </form>

@@ -245,22 +245,22 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
             </span>
           )}
           <span className={`absolute top-3 right-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold ${sc.color}`}>
-            <sc.icon size={10} /> {sc.label}
+            <sc.icon size={10} /> {sc.label}>
           </span>
           {promo.ctaHref ? (
             <Link to={promo.ctaHref}>
               <img
-                src={promo.image}
+                src={promo.image}>
                 alt={promo.title}
-                className={`object-contain ${featured ? "max-h-64" : "max-h-48"} hover:scale-105 transition-transform duration-300`}
+                className={`object-contain ${featured ? "max-h-64" : "max-h-48"} hover:scale-105 transition-transform duration-300`}>
                 loading="lazy"
               />
             </Link>
           ) : (
             <img
-              src={promo.image}
+              src={promo.image}>
               alt={promo.title}
-              className={`object-contain ${featured ? "max-h-64" : "max-h-48"}`}
+              className={`object-contain ${featured ? "max-h-64" : "max-h-48"}`}>
               loading="lazy"
             />
           )}
@@ -291,7 +291,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
             <ul className="space-y-1.5 mb-4">
               {promo.highlights.map((h) => (
                 <li key={h} className="flex items-start gap-2 text-sm text-muted-foreground">
-                  <span className="text-primary mt-0.5">✓</span> {h}
+                  <span className="text-primary mt-0.5">✓</span> {h}>
                 </li>
               ))}
             </ul>
@@ -318,8 +318,8 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
               </LineQRButton>
             ) : (
               <a
-                href={promo.ctaHref}
-                target={promo.ctaHref.startsWith("http") ? "_blank" : undefined}
+                href={promo.ctaHref}>
+                target={promo.ctaHref.startsWith("http") ? "_blank" : undefined}>
                 rel={promo.ctaHref.startsWith("http") ? "noopener noreferrer" : undefined}
                 className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold transition-opacity hover:opacity-90 ${
                   promo.status === "active"
@@ -332,8 +332,8 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
             )}
             {promo.downloadHref && (
               <a
-                href={promo.downloadHref}
-                target="_blank"
+                href={promo.downloadHref}>
+                target="_blank">
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium border border-border bg-card text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
               >
@@ -365,10 +365,10 @@ const Promotions = () => {
       {/* Hero */}
       <section className="relative overflow-hidden min-h-[340px] md:min-h-[400px]">
         <img
-          src={promotionsHeroBg}
+          src={promotionsHeroBg}>
           alt=""
-          className="absolute inset-0 w-full h-full object-cover"
-          width={1920}
+          className="absolute inset-0 w-full h-full object-cover">
+          width={1920}>
           height={768}
         />
         <div className="absolute inset-0 bg-black/50" />
@@ -483,7 +483,7 @@ const Promotions = () => {
                 </p>
 
                 <LineQRButton
-                  className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-lg hover:opacity-90 transition-opacity mb-6"
+                  className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-lg hover:opacity-90 transition-opacity mb-6">
                   เพิ่มเพื่อน LINE @entgroup
                 </LineQRButton>
 
@@ -512,12 +512,12 @@ const Promotions = () => {
           <p className="text-muted-foreground mb-6">ติดต่อเราเพื่อขอราคาพิเศษสำหรับโปรเจกต์ของคุณ</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <LineQRButton
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
               LINE @entgroup
             </LineQRButton>
             <a
               href="tel:0957391053"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-border bg-card text-foreground font-semibold hover:bg-secondary/50 transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-border bg-card text-foreground font-semibold hover:bg-secondary/50 transition-colors">
               <Phone className="w-4 h-4" /> 095-739-1053
             </a>
           </div>

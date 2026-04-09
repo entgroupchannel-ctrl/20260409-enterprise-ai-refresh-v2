@@ -680,7 +680,7 @@ const ProductCard = ({ model, onQuote }: { model: any; onQuote?: (name: string) 
       <Tabs defaultValue="specs" className="w-full">
         <TabsList className="w-full justify-start bg-secondary/50 overflow-x-auto">
           <TabsTrigger value="specs" className="text-xs md:text-sm">►Specification</TabsTrigger>
-          {model.gallery && <TabsTrigger value="gallery" className="text-xs md:text-sm">►Gallery</TabsTrigger>}
+          {model.gallery && <TabsTrigger value="gallery" className="text-xs md:text-sm">►Gallery</TabsTrigger>}>
         </TabsList>
         <TabsContent value="specs">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mt-4">
@@ -737,7 +737,7 @@ const CategorySection = ({ id, title, subtitle, icon: Icon, models, onQuote }: {
       </div>
     </div>
     <div className="space-y-6">
-      {models.map((m) => <ProductCard key={m.id} model={m} onQuote={onQuote} />)}
+      {models.map((m) => <ProductCard key={m.id} model={m} onQuote={onQuote} />)}>
     </div>
   </section>
 );
@@ -904,8 +904,8 @@ const MiniPC = () => {
           <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
             {categories.map((cat) => (
               <a
-                key={cat.id}
-                href={`#${cat.id}`}
+                key={cat.id}>
+                href={`#${cat.id}`}>
                 onClick={() => setActiveCategory(cat.id)}
                 className={`shrink-0 px-3 py-2 rounded-lg text-xs font-medium transition-all border ${
                   activeCategory === cat.id
@@ -958,33 +958,33 @@ const MiniPC = () => {
                 <div>
                   <label className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-1 block">หมวดหมู่</label>
                   <select
-                    value={filterCat}
+                    value={filterCat}>
                     onChange={(e) => handleFilterCat(e.target.value)}
                     className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none"
                   >
-                    {priceCategories.map((c) => <option key={c} value={c}>{c}</option>)}
+                    {priceCategories.map((c) => <option key={c} value={c}>{c}</option>)}>
                   </select>
                 </div>
                 {/* CPU Level Filter */}
                 <div>
                   <label className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-1 block">ระดับ CPU</label>
                   <select
-                    value={filterCpu}
+                    value={filterCpu}>
                     onChange={(e) => handleFilterCpu(e.target.value)}
                     className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none"
                   >
-                    {cpuLevels.map((c) => <option key={c} value={c}>{c}</option>)}
+                    {cpuLevels.map((c) => <option key={c} value={c}>{c}</option>)}>
                   </select>
                 </div>
                 {/* Price Range Filter */}
                 <div>
                   <label className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-1 block">ช่วงราคา</label>
                   <select
-                    value={filterPrice}
+                    value={filterPrice}>
                     onChange={(e) => handleFilterPrice(Number(e.target.value))}
                     className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none"
                   >
-                    {priceRanges.map((r, i) => <option key={i} value={i}>{r.label}</option>)}
+                    {priceRanges.map((r, i) => <option key={i} value={i}>{r.label}</option>)}>
                   </select>
                 </div>
               </div>
@@ -1039,9 +1039,9 @@ const MiniPC = () => {
               {totalPages > 1 && (
                 <div className="flex items-center justify-center gap-2 p-4 border-t border-border">
                   <Button
-                    variant="outline"
-                    size="sm"
-                    disabled={currentPage === 1}
+                    variant="outline">
+                    size="sm">
+                    disabled={currentPage === 1}>
                     onClick={() => setCurrentPage((p) => p - 1)}
                     className="text-xs"
                   >
@@ -1049,7 +1049,7 @@ const MiniPC = () => {
                   </Button>
                   {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
                     <button
-                      key={page}
+                      key={page}>
                       onClick={() => setCurrentPage(page)}
                       className={`w-8 h-8 rounded-lg text-xs font-bold transition-all ${
                         currentPage === page
@@ -1061,9 +1061,9 @@ const MiniPC = () => {
                     </button>
                   ))}
                   <Button
-                    variant="outline"
-                    size="sm"
-                    disabled={currentPage === totalPages}
+                    variant="outline">
+                    size="sm">
+                    disabled={currentPage === totalPages}>
                     onClick={() => setCurrentPage((p) => p + 1)}
                     className="text-xs"
                   >

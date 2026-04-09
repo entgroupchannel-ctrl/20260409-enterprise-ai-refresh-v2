@@ -191,7 +191,7 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
         <div className="flex flex-wrap gap-2 justify-center mb-6">
           {tabs.map((tab) => (
             <button
-              key={tab.id}
+              key={tab.id}>
               onClick={() => setActiveTab(tab.id)}
               className={`px-4 py-2.5 rounded-full text-sm font-bold transition-all border ${
                 activeTab === tab.id
@@ -208,9 +208,9 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
           <div className="relative flex-1 max-w-md">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
             <input
-              type="text"
-              value={search}
-              onChange={(e) => { setSearch(e.target.value); setPage(1); }}
+              type="text">
+              value={search}>
+              onChange={(e) => { setSearch(e.target.value); setPage(1); }}>
               placeholder="ค้นหา CPU, RAM, SSD..."
               className="w-full pl-9 pr-9 py-2.5 rounded-lg border border-border bg-background text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40"
             />
@@ -224,7 +224,7 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
             <span className="text-xs text-muted-foreground mr-1">CPU:</span>
             {cpuChips.map((cpu) => (
               <button
-                key={cpu}
+                key={cpu}>
                 onClick={() => { setSearch(search === cpu ? "" : cpu); setPage(1); }}
                 className={`px-2.5 py-1 rounded-full text-xs font-medium border transition-all ${
                   search === cpu
@@ -268,7 +268,7 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
                 {pagedData.map((item, idx) => (
                   <tr
                     key={idx}
-                    className={`transition-colors hover:bg-primary/5 ${idx % 2 === 1 ? "bg-secondary/20" : ""}`}
+                    className={`transition-colors hover:bg-primary/5 ${idx % 2 === 1 ? "bg-secondary/20" : ""}`}>
                     <td className="px-4 py-2.5 font-medium text-foreground whitespace-nowrap">{item.processor}</td>
                     <td className="px-4 py-2.5 text-foreground">{item.config}</td>
                     <td className="px-4 py-2.5 text-right font-bold text-primary whitespace-nowrap">
@@ -287,20 +287,20 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
           {totalPages > 1 && (
             <div className="flex items-center justify-end gap-1 px-4 py-3 border-t border-border bg-secondary/20">
               <button
-                onClick={() => setPage(1)}
+                onClick={() => setPage(1)}>
                 disabled={currentPage === 1}
-                className="p-1.5 rounded hover:bg-secondary disabled:opacity-30 disabled:cursor-not-allowed"
+                className="p-1.5 rounded hover:bg-secondary disabled:opacity-30 disabled:cursor-not-allowed">
                 <ChevronsLeft size={16} />
               </button>
               <button
-                onClick={() => setPage(Math.max(1, currentPage - 1))}
+                onClick={() => setPage(Math.max(1, currentPage - 1))}>
                 disabled={currentPage === 1}
-                className="p-1.5 rounded hover:bg-secondary disabled:opacity-30 disabled:cursor-not-allowed"
+                className="p-1.5 rounded hover:bg-secondary disabled:opacity-30 disabled:cursor-not-allowed">
                 <ChevronLeft size={16} />
               </button>
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
                 <button
-                  key={p}
+                  key={p}>
                   onClick={() => setPage(p)}
                   className={`w-8 h-8 rounded text-sm font-bold transition-colors ${
                     p === currentPage
@@ -311,15 +311,15 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
                 </button>
               ))}
               <button
-                onClick={() => setPage(Math.min(totalPages, currentPage + 1))}
+                onClick={() => setPage(Math.min(totalPages, currentPage + 1))}>
                 disabled={currentPage === totalPages}
-                className="p-1.5 rounded hover:bg-secondary disabled:opacity-30 disabled:cursor-not-allowed"
+                className="p-1.5 rounded hover:bg-secondary disabled:opacity-30 disabled:cursor-not-allowed">
                 <ChevronRight size={16} />
               </button>
               <button
-                onClick={() => setPage(totalPages)}
+                onClick={() => setPage(totalPages)}>
                 disabled={currentPage === totalPages}
-                className="p-1.5 rounded hover:bg-secondary disabled:opacity-30 disabled:cursor-not-allowed"
+                className="p-1.5 rounded hover:bg-secondary disabled:opacity-30 disabled:cursor-not-allowed">
                 <ChevronsRight size={16} />
               </button>
             </div>
@@ -332,8 +332,8 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
           {onRequestQuote && (
             <button
               onClick={() => onRequestQuote(`GB Series — ${currentTab.label}`)}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity"
-              <FileText size={16} /> ขอใบเสนอราคา {currentTab.label.replace(" Price List", "")}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity">
+              <FileText size={16} /> ขอใบเสนอราคา {currentTab.label.replace(" Price List", "")}>
             </button>
           )}
         </div>

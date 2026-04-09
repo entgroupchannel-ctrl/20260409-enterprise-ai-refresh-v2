@@ -277,12 +277,12 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
       {/* Nav bar */}
       <div className="container max-w-6xl mx-auto px-6 py-3 border-b border-border flex items-center justify-between">
         <Link to="/" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors">
-          <ArrowLeft size={14} /> {i.backHome}
+          <ArrowLeft size={14} /> {i.backHome}>
         </Link>
         <button
           onClick={() => setLang(lang === "th" ? "en" : "th")}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border text-xs font-semibold text-muted-foreground hover:text-foreground hover:border-primary/30 transition-all"
-          <Globe size={14} /> {lang === "th" ? "EN" : "TH"}
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border text-xs font-semibold text-muted-foreground hover:text-foreground hover:border-primary/30 transition-all">
+          <Globe size={14} /> {lang === "th" ? "EN" : "TH"}>
         </button>
       </div>
 
@@ -341,7 +341,7 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
                     <h3 className="text-sm font-bold text-foreground mb-2">{i.lineOfficial}</h3>
                     <div className="flex items-center gap-4">
                       <img
-                        src="https://nvidia-jetson.com/images/line-qr.png"
+                        src="https://nvidia-jetson.com/images/line-qr.png">
                         alt="LINE QR Code @entgroup"
                         className="w-24 h-24 rounded-lg border border-border bg-white p-1"
                       />
@@ -355,14 +355,14 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
 
               <div className="card-surface rounded-xl overflow-hidden">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3872.5!2d100.4793839!3d13.9320709!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e2839e781a7a99%3A0xfae548f49721eb09!2sENT%20GROUP%20Co.%2CLtd.!5e0!3m2!1sth!2sth!4v1"
-                  width="100%" height="220" style={{ border: 0 }} allowFullScreen loading="lazy"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3872.5!2d100.4793839!3d13.9320709!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e2839e781a7a99%3A0xfae548f49721eb09!2sENT%20GROUP%20Co.%2CLtd.!5e0!3m2!1sth!2sth!4v1">
+                  width="100%" height="220" style={{ border: 0 }} allowFullScreen loading="lazy">
                   referrerPolicy="no-referrer-when-downgrade" title="ENTGroup Office Location" className="w-full"
                 />
                 <div className="p-3">
                   <a href="https://maps.app.goo.gl/vuvJHVwy2n2G3o7e6" target="_blank" rel="noopener noreferrer"
                     className="text-xs text-primary hover:underline flex items-center gap-1">
-                    <MapPin size={11} /> {i.openGoogleMaps}
+                    <MapPin size={11} /> {i.openGoogleMaps}>
                   </a>
                 </div>
               </div>
@@ -380,14 +380,14 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
                   {cardPreview ? (
                     <div className="space-y-3">
                       <div className="flex items-center gap-2 text-sm font-medium text-foreground">
-                        <CreditCard size={16} className="text-primary" /> {i.uploadedCard}
+                        <CreditCard size={16} className="text-primary" /> {i.uploadedCard}>
                       </div>
                       <div className="relative rounded-lg overflow-hidden border border-border">
                         <img src={cardPreview} alt="Business card" className="w-full h-auto max-h-48 object-contain bg-white" />
                         {scanning && (
                           <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
                             <div className="flex items-center gap-2 text-white text-sm font-medium bg-black/60 px-4 py-2 rounded-lg">
-                              <Loader2 size={16} className="animate-spin" /> {i.scanning}
+                              <Loader2 size={16} className="animate-spin" /> {i.scanning}>
                             </div>
                           </div>
                         )}
@@ -481,7 +481,7 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
                     </label>
                     <button type="submit" disabled={loading}
                       className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground text-sm font-bold hover:bg-primary/90 transition-colors disabled:opacity-50">
-                      {loading ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />} {i.submit}
+                      {loading ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />} {i.submit}>
                     </button>
                   </form>
                 )}

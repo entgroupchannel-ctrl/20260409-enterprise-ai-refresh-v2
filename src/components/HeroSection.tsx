@@ -102,10 +102,10 @@ const HeroSection = () => {
       {/* Full-bleed background image */}
       <div className="absolute inset-0 z-0">
         <img
-          src={heroIndustrial}
+          src={heroIndustrial}>
           alt="Industrial Computing Production Line"
-          className="w-full h-full object-cover"
-          width={1920}
+          className="w-full h-full object-cover">
+          width={1920}>
           height={900}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/65 to-black/45" />
@@ -128,7 +128,7 @@ const HeroSection = () => {
           <ThemeToggle />
         </div>
         <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden text-white">
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}>
         </button>
       </nav>
 
@@ -167,17 +167,17 @@ const HeroSection = () => {
               <div className="flex items-center bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl overflow-hidden focus-within:ring-2 focus-within:ring-primary/50 transition-shadow">
                 <Search className="ml-4 text-white/50" size={20} />
                 <input
-                  type="text"
-                  placeholder="บอกความต้องการ เช่น Mini PC โรงงาน, Firewall SME..."
-                  value={searchQuery}
-                  onChange={(e) => { setSearchQuery(e.target.value); setSearchOpen(true); }}
+                  type="text">
+                  placeholder="บอกความต้องการ เช่น Mini PC โรงงาน, Firewall SME...">
+                  value={searchQuery}>
+                  onChange={(e) => { setSearchQuery(e.target.value); setSearchOpen(true); }}>
                   onFocus={() => setSearchOpen(true)}
                   onKeyDown={handleSearchKeyDown}
                   className="flex-1 bg-transparent px-4 py-4 text-white placeholder:text-white/40 outline-none text-sm md:text-base"
                 />
                 <button
                   onClick={handleSearch}
-                  className="px-6 py-4 bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity"
+                  className="px-6 py-4 bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity">
                   ค้นเลย
                 </button>
               </div>
@@ -186,9 +186,9 @@ const HeroSection = () => {
                 <div className="absolute top-full left-0 right-0 mt-2 bg-background/95 backdrop-blur-xl border border-border rounded-xl shadow-2xl overflow-hidden z-50 animate-fade-in">
                   {searchResults.map((item, i) => (
                     <button
-                      key={i}
+                      key={i}>
                       onClick={() => { navigate(item.href); setSearchQuery(""); setSearchOpen(false); }}
-                      className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-primary/10 transition-colors border-b border-border/50 last:border-0"
+                      className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-primary/10 transition-colors border-b border-border/50 last:border-0">
                       <Search size={14} className="text-muted-foreground shrink-0" />
                       <span className="text-sm text-foreground">{item.label}</span>
                     </button>
@@ -201,12 +201,12 @@ const HeroSection = () => {
             <div className="flex flex-wrap items-center gap-3 animate-fade-up" style={{ animationDelay: "0.35s" }}>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20">
                 ปรึกษาผู้เชี่ยวชาญ
               </Link>
               <Link
                 to="/promotions"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/20 text-white/80 text-sm hover:bg-white/10 transition-colors backdrop-blur-sm"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/20 text-white/80 text-sm hover:bg-white/10 transition-colors backdrop-blur-sm">
                 ดูโปรโมชั่น
               </Link>
             </div>
@@ -226,15 +226,15 @@ const HeroSection = () => {
           <div className={`hidden lg:flex fixed right-0 top-1/2 -translate-y-1/2 z-30 transition-all duration-500 ease-in-out ${tagsExpanded ? "translate-x-0" : "translate-x-[calc(100%-28px)]"}`}>
             <button
               onClick={() => setTagsExpanded(!tagsExpanded)}
-              className="flex items-center justify-center w-7 shrink-0 rounded-l-xl bg-white/10 backdrop-blur-md border border-r-0 border-white/15 text-white/50 hover:text-white hover:bg-white/20 transition-colors"
-              title="สินค้ายอดนิยม"
+              className="flex items-center justify-center w-7 shrink-0 rounded-l-xl bg-white/10 backdrop-blur-md border border-r-0 border-white/15 text-white/50 hover:text-white hover:bg-white/20 transition-colors">
+              title="สินค้ายอดนิยม">
               <ChevronDown size={14} className={`transition-transform duration-300 ${tagsExpanded ? "rotate-90" : "-rotate-90"}`} />
             </button>
             <div className="flex flex-col gap-2 p-3 rounded-l-xl bg-black/40 backdrop-blur-xl border border-r-0 border-white/10">
               <p className="text-[10px] font-semibold tracking-widest uppercase text-white/40">สินค้ายอดนิยม</p>
               {searchTags.map((tag) => (
                 <button
-                  key={tag.label}
+                  key={tag.label}>
                   onClick={() => navigate(tag.href)}
                   className="text-left px-3 py-2 rounded-lg bg-white/5 text-white/80 text-xs border border-white/10 hover:bg-white/15 hover:border-white/25 hover:text-white transition-all whitespace-nowrap"
                   {tag.label}
@@ -247,7 +247,7 @@ const HeroSection = () => {
           <div className="flex flex-wrap gap-2 lg:hidden animate-fade-up" style={{ animationDelay: "0.4s" }}>
             {searchTags.map((tag) => (
               <button
-                key={tag.label}
+                key={tag.label}>
                 onClick={() => navigate(tag.href)}
                 className="px-3 py-1.5 rounded-full bg-white/10 text-white/80 text-xs border border-white/10 hover:bg-white/20 hover:border-white/30 transition-all backdrop-blur-sm"
                 {tag.label}

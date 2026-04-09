@@ -51,7 +51,7 @@ const ProductImageGallery = ({
           <Badge className="absolute top-4 left-4 z-10">NEW</Badge>
         )}
         <img
-          src={allImages[selectedIndex].src}
+          src={allImages[selectedIndex].src}>
           alt={`${productName} - ${allImages[selectedIndex].label}`}
           className="w-full h-full object-contain p-8 transition-opacity duration-300"
         />
@@ -78,7 +78,7 @@ const ProductImageGallery = ({
                       : "border-border hover:border-primary/50"
                   )}
                   <img
-                    src={image.src}
+                    src={image.src}>
                     alt={`${productName} - ${image.label}`}
                     className="w-full h-full object-contain p-2 bg-secondary/30"
                   />
@@ -95,7 +95,7 @@ const ProductImageGallery = ({
       <div className="flex flex-wrap gap-2 justify-center">
         {allImages.map((image, index) => (
           <button
-            key={index}
+            key={index}>
             onClick={() => setSelectedIndex(index)}
             className={cn(
               "px-3 py-1.5 text-xs rounded-full transition-all",

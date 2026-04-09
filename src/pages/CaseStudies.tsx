@@ -60,7 +60,7 @@ const ClientTrustSection = () => {
             onClick={() => setIsOpen(!isOpen)}
             className="inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 transition-colors font-medium"
             {isOpen ? "ซ่อนรายชื่อ" : "ดูรายชื่อบางส่วน"}
-            {isOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+            {isOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}>
           </button>
         </div>
 
@@ -96,14 +96,14 @@ const CaseStudies = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="กรณีศึกษา | Case Studies — ENT Group"
+        title="กรณีศึกษา | Case Studies — ENT Group">
         description="ตัวอย่างลูกค้าจริงที่ใช้ Panel PC, Mini PC, Rugged Tablet จาก ENT Group ในสนามบิน, รถไฟฟ้า, โรงงาน, โรงพยาบาล และอื่นๆ"
         path="/case-studies"
       />
 
       <PageBanner
-        title="กรณีศึกษาและผลงาน"
-        subtitle="ลูกค้าจากหลากหลายอุตสาหกรรมไว้วางใจ ENT Group — จากสนามบิน รถไฟฟ้า โรงงาน ไปจนถึงสนามกอล์ฟ"
+        title="กรณีศึกษาและผลงาน">
+        subtitle="ลูกค้าจากหลากหลายอุตสาหกรรมไว้วางใจ ENT Group — จากสนามบิน รถไฟฟ้า โรงงาน ไปจนถึงสนามกอล์ฟ">
         image="/images/unsplash/1581091226825-a6a2a5_w1200.jpg"
       />
 
@@ -134,9 +134,9 @@ const CaseStudies = () => {
               <Card className="group overflow-hidden h-full hover:shadow-xl transition-all duration-300 border-border/60 hover:border-primary/30">
                 <div className="relative h-44 overflow-hidden">
                   <img
-                    src={cs.image}
+                    src={cs.image}>
                     alt={cs.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
@@ -185,10 +185,10 @@ const CaseStudies = () => {
             <Play className="w-5 h-5 text-primary" />
             <h2 className="text-lg font-bold text-foreground">วิดีโอจากลูกค้าจริง</h2>
             <a
-              href="https://www.facebook.com/entgroup.th/"
-              target="_blank"
+              href="https://www.facebook.com/entgroup.th/">
+              target="_blank">
               rel="noopener noreferrer"
-              className="ml-auto text-xs text-primary hover:underline"
+              className="ml-auto text-xs text-primary hover:underline">
               ดูทั้งหมดบน Facebook →
             </a>
           </div>
@@ -197,10 +197,10 @@ const CaseStudies = () => {
               <div key={v.videoId} className="rounded-xl overflow-hidden border border-border/60 bg-card">
                 <div className="aspect-video">
                   <iframe
-                    src={`https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fentgroup.th%2Fvideos%2F${v.videoId}%2F&show_text=0&width=560`}
-                    width="100%"
-                    height="100%"
-                    style={{ border: "none", overflow: "hidden" }}
+                    src={`https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fentgroup.th%2Fvideos%2F${v.videoId}%2F&show_text=0&width=560`}>
+                    width="100%">
+                    height="100%">
+                    style={{ border: "none", overflow: "hidden" }}>
                     scrolling="no"
                     allowFullScreen
                     allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"

@@ -136,14 +136,14 @@ const PriceTable = ({ title, icon: Icon, models, subTitle }: {
     <div className="card-surface rounded-xl overflow-hidden">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between p-5 hover:bg-secondary/30 transition-colors"
+        className="w-full flex items-center justify-between p-5 hover:bg-secondary/30 transition-colors">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
             <Icon className="text-primary" size={20} />
           </div>
           <div className="text-left">
             <h3 className="font-bold text-foreground">{title}</h3>
-            {subTitle && <p className="text-xs text-primary/70">{subTitle}</p>}
+            {subTitle && <p className="text-xs text-primary/70">{subTitle}</p>}>
           </div>
         </div>
         <ChevronDown className={`text-muted-foreground transition-transform duration-200 ${open ? "rotate-180" : ""}`} size={18} />
@@ -179,11 +179,11 @@ const PriceTable = ({ title, icon: Icon, models, subTitle }: {
                     </td>
                     <td className="py-3 px-3 text-center">
                       <a
-                        href={m.pdf}
-                        target="_blank"
+                        href={m.pdf}>
+                        target="_blank">
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center w-8 h-8 rounded-md hover:bg-primary/10 text-primary transition-colors"
-                        title={`Download ${m.model} Datasheet`}
+                        className="inline-flex items-center justify-center w-8 h-8 rounded-md hover:bg-primary/10 text-primary transition-colors">
+                        title={`Download ${m.model} Datasheet`}>
                         <Download size={14} />
                       </a>
                     </td>
@@ -266,10 +266,10 @@ const UTCSeries = () => {
                   ดูราคาสินค้า <ChevronDown size={16} />
                 </a>
                 <a
-                  href="/datasheets/0597a3_91d82f50189a421e97ce9b88530df22c.pdf"
-                  target="_blank"
+                  href="/datasheets/0597a3_91d82f50189a421e97ce9b88530df22c.pdf">
+                  target="_blank">
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold text-sm hover:bg-secondary transition-colors"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold text-sm hover:bg-secondary transition-colors">
                   <Download size={16} /> ดาวน์โหลดวารสาร
                 </a>
               </div>
@@ -279,9 +279,9 @@ const UTCSeries = () => {
             <div className="relative flex items-center justify-center">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-3xl" />
               <img
-                src="/images/wix/0597a3_1045620b437c41d6ae8a1f76c791ca01_782dc747.png"
+                src="/images/wix/0597a3_1045620b437c41d6ae8a1f76c791ca01_782dc747.png">
                 alt="UTC Series Industrial Panel PC"
-                className="relative w-full max-w-lg mx-auto drop-shadow-xl"
+                className="relative w-full max-w-lg mx-auto drop-shadow-xl">
                 loading="eager"
               />
             </div>
@@ -343,9 +343,9 @@ const UTCSeries = () => {
                   </div>
                 </div>
                 <img
-                  src="/images/wix/0597a3_48b4b6dd4b0844f1996977be9733e597_a37ce2a5.png"
+                  src="/images/wix/0597a3_48b4b6dd4b0844f1996977be9733e597_a37ce2a5.png">
                   alt="UTC Square Screen Models"
-                  className="w-full rounded-lg mb-4"
+                  className="w-full rounded-lg mb-4">
                   loading="lazy"
                 />
                 <ul className="space-y-2 text-sm text-muted-foreground">
@@ -372,9 +372,9 @@ const UTCSeries = () => {
                   </div>
                 </div>
                 <img
-                  src="/images/wix/0597a3_52951cbca38c439f8abc10f9e94fa03f_b157e1d3.png"
+                  src="/images/wix/0597a3_52951cbca38c439f8abc10f9e94fa03f_b157e1d3.png">
                   alt="UTC Wide Screen Models"
-                  className="w-full rounded-lg mb-4"
+                  className="w-full rounded-lg mb-4">
                   loading="lazy"
                 />
                 <ul className="space-y-2 text-sm text-muted-foreground">
@@ -397,9 +397,9 @@ const UTCSeries = () => {
               </div>
             </div>
             <img
-              src="/images/wix/0597a3_48fd1fb952d44775b7bbc10381cd8233_354919d7.png"
+              src="/images/wix/0597a3_48fd1fb952d44775b7bbc10381cd8233_354919d7.png">
               alt="UTC Multi-Display Setup"
-              className="w-full rounded-lg"
+              className="w-full rounded-lg">
               loading="lazy"
             />
           </div>
@@ -452,13 +452,13 @@ const UTCSeries = () => {
 
             <TabsContent value="square" className="space-y-5">
               <PriceTable
-                title="Square Screen — Standard Platform"
+                title="Square Screen — Standard Platform">
                 icon={Square}
                 models={squareModels}
                 subTitle="Celeron J1900 / Core i3-i7 7th Gen / 10th Gen"
               />
               <PriceTable
-                title="Square Screen — J6412 Processor"
+                title="Square Screen — J6412 Processor">
                 icon={Cpu}
                 models={squareJ6412Models}
                 subTitle="Intel Celeron J6412 (New Platform)"
@@ -467,13 +467,13 @@ const UTCSeries = () => {
 
             <TabsContent value="wide" className="space-y-5">
               <PriceTable
-                title="Wide Screen — Standard Platform"
+                title="Wide Screen — Standard Platform">
                 icon={RectangleHorizontal}
                 models={wideModels}
                 subTitle="Celeron J1900 / Core i3-i7 7th Gen / 10th Gen"
               />
               <PriceTable
-                title="Wide Screen — J6412 Processor"
+                title="Wide Screen — J6412 Processor">
                 icon={Cpu}
                 models={wideJ6412Models}
                 subTitle="Intel Celeron J6412 (New Platform)"
@@ -571,10 +571,10 @@ const UTCSeries = () => {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             <a
-              href="/datasheets/0597a3_91d82f50189a421e97ce9b88530df22c.pdf"
-              target="_blank"
+              href="/datasheets/0597a3_91d82f50189a421e97ce9b88530df22c.pdf">
+              target="_blank">
               rel="noopener noreferrer"
-              className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group"
+              className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                   <Download className="text-primary" size={18} />
@@ -587,10 +587,10 @@ const UTCSeries = () => {
             </a>
 
             <a
-              href="/datasheets/0597a3_2a650be4cb524d18ba2a439fe81eaaf7.pdf"
-              target="_blank"
+              href="/datasheets/0597a3_2a650be4cb524d18ba2a439fe81eaaf7.pdf">
+              target="_blank">
               rel="noopener noreferrer"
-              className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group"
+              className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                   <Download className="text-primary" size={18} />
@@ -603,10 +603,10 @@ const UTCSeries = () => {
             </a>
 
             <a
-              href="/datasheets/0597a3_b86ee419c0294b45b787de0c21876dc4.pdf"
-              target="_blank"
+              href="/datasheets/0597a3_b86ee419c0294b45b787de0c21876dc4.pdf">
+              target="_blank">
               rel="noopener noreferrer"
-              className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group"
+              className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                   <Download className="text-primary" size={18} />
@@ -619,10 +619,10 @@ const UTCSeries = () => {
             </a>
 
             <a
-              href="/datasheets/0597a3_a3d623f8d63d4b66a03bfc2621d41795.pdf"
-              target="_blank"
+              href="/datasheets/0597a3_a3d623f8d63d4b66a03bfc2621d41795.pdf">
+              target="_blank">
               rel="noopener noreferrer"
-              className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group"
+              className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                   <Award className="text-primary" size={18} />
@@ -635,10 +635,10 @@ const UTCSeries = () => {
             </a>
 
             <a
-              href="/datasheets/0597a3_57b8d6f11f5e44549d532c1d9c0135ad.pdf"
-              target="_blank"
+              href="/datasheets/0597a3_57b8d6f11f5e44549d532c1d9c0135ad.pdf">
+              target="_blank">
               rel="noopener noreferrer"
-              className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group"
+              className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                   <Award className="text-primary" size={18} />
@@ -652,7 +652,7 @@ const UTCSeries = () => {
 
             <Link
               to="/quote?category=UTC+Series"
-              className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group flex items-center gap-3"
+              className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                 <ShoppingCart className="text-primary" size={18} />
               </div>
@@ -664,7 +664,7 @@ const UTCSeries = () => {
 
             <Link
               to="/"
-              className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group flex items-center gap-3"
+              className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                 <ArrowLeft className="text-primary" size={18} />
               </div>

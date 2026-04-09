@@ -60,14 +60,14 @@ const AIOCard = ({
       />
       <button
         onClick={() => onToggleSelect(product.model)}
-        className="absolute top-3 left-3 z-10"
+        className="absolute top-3 left-3 z-10">
         <Checkbox checked={selected} className="h-5 w-5" />
       </button>
       <Link to={`/aio/${product.id}`} className="flex items-center justify-center w-full h-full">
         <img
-          src={product.image}
+          src={product.image}>
           alt={product.model}
-          className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300 cursor-pointer"
+          className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300 cursor-pointer">
           loading="lazy"
         />
       </Link>
@@ -117,8 +117,8 @@ const AIOCard = ({
         </Button>
         <Button
           size="sm"
-          className="flex-1"
-          onClick={() => onQuote(product.model)}
+          className="flex-1">
+          onClick={() => onQuote(product.model)}>
           <FileText className="w-3.5 h-3.5 mr-1.5" /> สอบถามราคา
         </Button>
       </div>
@@ -157,7 +157,7 @@ const AllInOnePC = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead
-        title="All-in-One PC อุตสาหกรรม — Box PC, Panel PC, AIO Desktop"
+        title="All-in-One PC อุตสาหกรรม — Box PC, Panel PC, AIO Desktop">
         description="คอมพิวเตอร์ All-in-One สำหรับอุตสาหกรรม จอสัมผัส ประหยัดพื้นที่ VESA/Panel Mount — 15 รุ่น Windows & Android"
         path="/aio"
       />
@@ -178,7 +178,7 @@ const AllInOnePC = () => {
         <div className="container max-w-7xl mx-auto px-4 py-12 md:py-20 relative z-10">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-6"
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-6">
             <ArrowLeft className="w-4 h-4" /> กลับหน้าหลัก
           </Link>
 
@@ -234,7 +234,7 @@ const AllInOnePC = () => {
             <div className="flex gap-1 overflow-x-auto scrollbar-hide">
               {osFilters.map((f) => (
                 <button
-                  key={f.value}
+                  key={f.value}>
                   onClick={() => setOsFilter(f.value)}
                   className={`shrink-0 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                     osFilter === f.value
@@ -249,7 +249,7 @@ const AllInOnePC = () => {
             <div className="flex gap-1 overflow-x-auto scrollbar-hide sm:ml-auto">
               {catFilters.map((f) => (
                 <button
-                  key={f.value}
+                  key={f.value}>
                   onClick={() => setCatFilter(f.value)}
                   className={`shrink-0 px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 ${
                     catFilter === f.value
@@ -273,7 +273,7 @@ const AllInOnePC = () => {
             <span className="ml-3 text-primary font-medium">
               เลือกแล้ว {selectedProducts.size} รุ่น —{" "}
               <button
-                className="underline hover:no-underline"
+                className="underline hover:no-underline">
                 onClick={() => {
                   setQuoteProduct(Array.from(selectedProducts).join(", "));
                 }}
@@ -303,7 +303,7 @@ const AllInOnePC = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {items.map((p) => (
                   <AIOCard
-                    key={p.id}
+                    key={p.id}>
                     product={p}
                     onQuote={setQuoteProduct}
                     selected={selectedProducts.has(p.model)}
@@ -320,9 +320,9 @@ const AllInOnePC = () => {
             <Monitor className="w-12 h-12 text-muted-foreground/30 mx-auto mb-4" />
             <p className="text-muted-foreground">ไม่พบสินค้าที่ตรงกับตัวกรอง</p>
             <Button
-              variant="outline"
+              variant="outline">
               size="sm"
-              className="mt-3"
+              className="mt-3">
               onClick={() => {
                 setOsFilter("all");
                 setCatFilter("all");

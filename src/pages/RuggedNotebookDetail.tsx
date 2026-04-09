@@ -27,7 +27,7 @@ const RelatedCard = ({ nb }: { nb: RuggedNotebook }) => (
       <p className="font-mono text-xs text-muted-foreground">{nb.model}</p>
       <h3 className="text-sm font-bold line-clamp-2">{nb.title}</h3>
       <div className="flex flex-wrap gap-1">
-        {nb.badges.slice(0, 2).map((b) => <Badge key={b} variant="outline" className="text-[10px]">{b}</Badge>)}
+        {nb.badges.slice(0, 2).map((b) => <Badge key={b} variant="outline" className="text-[10px]">{b}</Badge>)}>
       </div>
       {nb.priceStart ? (
         <p className="text-primary font-bold text-sm">{nb.priceStart}</p>
@@ -65,7 +65,7 @@ const RuggedNotebookDetail = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title={`${nb.model} — ${nb.title}`}
+        title={`${nb.model} — ${nb.title}`}>
         description={`${nb.titleTH} | ${nb.cpu} | ${nb.protection}`}
         path={`/rugged-notebook/${nb.id}`}
       />
@@ -105,7 +105,7 @@ const RuggedNotebookDetail = () => {
             <div className="flex flex-wrap gap-2">
               <Badge variant="secondary">{nb.os}</Badge>
               <Badge variant="outline">{nb.screenSize}</Badge>
-              {nb.badges.map((b) => <Badge key={b} variant="outline" className="text-xs">{b}</Badge>)}
+              {nb.badges.map((b) => <Badge key={b} variant="outline" className="text-xs">{b}</Badge>)}>
             </div>
           </div>
 
@@ -149,7 +149,7 @@ const RuggedNotebookDetail = () => {
               <div className="flex flex-wrap gap-2 mt-3">
                 <button
                   onClick={() => setQuoteOpen(true)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-sm font-medium cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-sm font-medium cursor-pointer">
                   <Mail className="w-4 h-4" /> sales@entgroup.co.th
                 </button>
                 <a href="tel:020456104" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary hover:bg-secondary/80 transition-colors text-sm">
@@ -324,7 +324,7 @@ const RuggedNotebookDetail = () => {
           <div className="mt-16">
             <h2 className="text-xl font-bold mb-6">สินค้าที่เกี่ยวข้อง</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {related.map((r) => <RelatedCard key={r.id} nb={r} />)}
+              {related.map((r) => <RelatedCard key={r.id} nb={r} />)}>
             </div>
           </div>
         )}

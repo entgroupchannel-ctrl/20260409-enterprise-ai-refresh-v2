@@ -85,7 +85,7 @@ const RuggedHandheldDetail = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title={`${product.model} — ${product.name}`}
+        title={`${product.model} — ${product.name}`}>
         description={`${product.nameTH} | ${product.specs.cpu} | ${product.specs.protection}`}
         path={`/handheld/${product.id}`}
       />
@@ -124,7 +124,7 @@ const RuggedHandheldDetail = () => {
             <div className="flex flex-wrap gap-2">
               <Badge variant="secondary">{product.category === "windows" ? "Windows" : "Android"}</Badge>
               <Badge variant="outline">{product.screenSize}</Badge>
-              {product.specs.scanner && <Badge className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20">Scanner</Badge>}
+              {product.specs.scanner && <Badge className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20">Scanner</Badge>}>
             </div>
           </div>
 
@@ -150,7 +150,7 @@ const RuggedHandheldDetail = () => {
               <div className="flex flex-wrap gap-2 text-sm">
                 <button
                   onClick={() => setQuoteProduct(product.model)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-medium cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-medium cursor-pointer">
                   <Mail className="w-4 h-4" /> sales@entgroup.co.th
                 </button>
                 <a href="tel:020456104" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary hover:bg-secondary/80 transition-colors">
@@ -245,7 +245,7 @@ const RuggedHandheldDetail = () => {
                     <TableRow key={key}>
                       <TableCell className="font-medium">
                         <div className="flex items-center gap-2">
-                          <Icon className="w-4 h-4 text-primary" /> {label}
+                          <Icon className="w-4 h-4 text-primary" /> {label}>
                         </div>
                       </TableCell>
                       <TableCell>{String(value)}</TableCell>

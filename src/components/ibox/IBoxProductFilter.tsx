@@ -159,10 +159,10 @@ const IBoxProductFilter = ({
         </h3>
         {hasActiveFilters && (
           <Button
-            variant="ghost"
-            size="sm"
+            variant="ghost">
+            size="sm">
             onClick={clearFilters}
-            className="text-destructive hover:text-destructive/80 text-xs h-7 px-2"
+            className="text-destructive hover:text-destructive/80 text-xs h-7 px-2">
             <X className="w-3 h-3 mr-1" />
             ล้างทั้งหมด
           </Button>
@@ -177,7 +177,7 @@ const IBoxProductFilter = ({
       </div>
 
       <Accordion
-        type="multiple"
+        type="multiple">
         defaultValue={["category", "formFactor", "performance", "cpu", "ports", "features"]}
         className="space-y-1.5"
         {/* Category */}
@@ -191,14 +191,14 @@ const IBoxProductFilter = ({
               const isActive = filters.category === option.id;
               return (
                 <button
-                  key={option.id}
+                  key={option.id}>
                   onClick={() => onFilterChange({ ...filters, category: option.id })}
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center gap-2 group/item ${
                     isActive
                       ? "bg-primary text-primary-foreground font-medium shadow-sm"
                       : "hover:bg-muted/70 text-foreground"
                   }`}
-                  {option.icon && <option.icon className={`w-4 h-4 shrink-0 transition-colors ${isActive ? "" : "text-muted-foreground group-hover/item:text-primary"}`} />}
+                  {option.icon && <option.icon className={`w-4 h-4 shrink-0 transition-colors ${isActive ? "" : "text-muted-foreground group-hover/item:text-primary"}`} />}>
                   <span className="flex-1">{option.name}</span>
                   <span className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md ${
                     isActive ? "bg-primary-foreground/20" : "bg-muted text-muted-foreground"
@@ -220,7 +220,7 @@ const IBoxProductFilter = ({
               const isActive = filters.formFactor === option.id;
               return (
                 <button
-                  key={option.id}
+                  key={option.id}>
                   onClick={() => onFilterChange({ ...filters, formFactor: option.id })}
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
                     isActive
@@ -248,7 +248,7 @@ const IBoxProductFilter = ({
               const isActive = filters.performance === option.id;
               return (
                 <button
-                  key={option.id}
+                  key={option.id}>
                   onClick={() => onFilterChange({ ...filters, performance: option.id })}
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
                     isActive
@@ -279,7 +279,7 @@ const IBoxProductFilter = ({
               const isActive = filters.cpuGen === gen.id;
               return (
                 <button
-                  key={gen.id}
+                  key={gen.id}>
                   onClick={() => onFilterChange({ ...filters, cpuGen: gen.id })}
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
                     isActive
@@ -288,7 +288,7 @@ const IBoxProductFilter = ({
                       ? "text-muted-foreground/50 cursor-not-allowed"
                       : "hover:bg-muted/70 text-foreground"
                   }`}
-                  disabled={count === 0 && gen.id !== "all"}
+                  disabled={count === 0 && gen.id !== "all"}>
                   <span className="truncate mr-2">{gen.name}</span>
                   <span className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md shrink-0 ${
                     isActive ? "bg-primary-foreground/20" : "bg-muted text-muted-foreground"
@@ -313,7 +313,7 @@ const IBoxProductFilter = ({
               <div className="flex flex-wrap gap-1.5">
                 {portFilters.comPorts.map((port) => (
                   <button
-                    key={port.id}
+                    key={port.id}>
                     onClick={() => onFilterChange({ ...filters, comPorts: port.id })}
                     className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                       filters.comPorts === port.id
@@ -330,7 +330,7 @@ const IBoxProductFilter = ({
               <div className="flex flex-wrap gap-1.5">
                 {portFilters.lanPorts.map((port) => (
                   <button
-                    key={port.id}
+                    key={port.id}>
                     onClick={() => onFilterChange({ ...filters, lanPorts: port.id })}
                     className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                       filters.lanPorts === port.id
@@ -397,7 +397,7 @@ const IBoxProductFilter = ({
       {isMobileOpen && (
         <>
           <div
-            className="fixed inset-0 bg-foreground/50 z-40 lg:hidden animate-in fade-in duration-200"
+            className="fixed inset-0 bg-foreground/50 z-40 lg:hidden animate-in fade-in duration-200">
             onClick={onMobileClose}
           />
           <aside className="fixed inset-y-0 left-0 w-80 max-w-[90vw] bg-card z-50 lg:hidden overflow-y-auto animate-in slide-in-from-left duration-300">
@@ -406,7 +406,7 @@ const IBoxProductFilter = ({
                 <h2 className="text-lg font-bold">ตัวกรองสินค้า</h2>
                 <button
                   onClick={onMobileClose}
-                  className="p-2 hover:bg-muted rounded-lg transition-colors"
+                  className="p-2 hover:bg-muted rounded-lg transition-colors">
                   <X className="w-5 h-5" />
                 </button>
               </div>

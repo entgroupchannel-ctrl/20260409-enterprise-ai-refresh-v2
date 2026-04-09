@@ -289,7 +289,7 @@ const IBoxSeries = () => {
               { id: "Machine Vision", name: "Machine Vision", icon: Eye },
             ].map((cat) => (
               <button
-                key={cat.id}
+                key={cat.id}>
                 onClick={() => setFilters({ ...filters, category: cat.id })}
                 className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all shrink-0 ${
                   filters.category === cat.id
@@ -329,7 +329,7 @@ const IBoxSeries = () => {
                 { label: "High-perf", active: filters.performance === "high", toggle: () => setFilters({ ...filters, performance: filters.performance === "high" ? "all" : "high" }) },
               ].map((qf) => (
                 <button
-                  key={qf.label}
+                  key={qf.label}>
                   onClick={qf.toggle}
                   className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all border ${
                     qf.active
@@ -347,18 +347,18 @@ const IBoxSeries = () => {
                 <div className="relative flex-1">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
-                    placeholder="ค้นหาสินค้า... (ชื่อ, รุ่น, CPU)"
-                    value={search}
+                    placeholder="ค้นหาสินค้า... (ชื่อ, รุ่น, CPU)">
+                    value={search}>
                     onChange={(e) => setSearch(e.target.value)}
                     className="pl-10"
                   />
                 </div>
                 <div className="flex gap-2">
                   <Button
-                    variant="outline"
+                    variant="outline">
                     size="icon"
-                    className="lg:hidden"
-                    onClick={() => setIsMobileFilterOpen(true)}
+                    className="lg:hidden">
+                    onClick={() => setIsMobileFilterOpen(true)}>
                     <SlidersHorizontal className="w-4 h-4" />
                   </Button>
                   <Select value={sortBy} onValueChange={setSortBy}>
@@ -384,7 +384,7 @@ const IBoxSeries = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
                 {filteredProducts.map((product) => (
                   <IBoxProductCard
-                    key={product.id}
+                    key={product.id}>
                     product={product}
                     selectedProducts={selectedProducts}
                     toggleSelect={toggleSelect}
@@ -429,9 +429,9 @@ const IBoxSeries = () => {
                         className="absolute top-3 right-3"
                       />
                       <img
-                        src={model.image}
+                        src={model.image}>
                         alt={model.name}
-                        className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                        className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
                         loading="lazy"
                       />
                     </div>

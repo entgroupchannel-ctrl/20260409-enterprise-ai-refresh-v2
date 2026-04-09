@@ -344,9 +344,9 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
             <div className="relative">
               <Search size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
               <input
-                type="text"
-                placeholder="รุ่น, CPU..."
-                value={searchText}
+                type="text">
+                placeholder="รุ่น, CPU...">
+                value={searchText}>
                 onChange={(e) => setSearchText(e.target.value)}
                 className="w-full pl-8 pr-3 py-2 rounded-lg bg-background border border-border text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:ring-2 focus:ring-primary/30"
               />
@@ -359,7 +359,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
             <div className="flex gap-1">
               {comOptions.map((n) => (
                 <button
-                  key={n}
+                  key={n}>
                   onClick={() => setFilterCom(filterCom === n ? null : n)}
                   className={`flex-1 py-2 rounded-lg text-xs font-bold transition-all ${
                     filterCom === n
@@ -407,7 +407,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
           <div className="col-span-2 md:col-span-1">
             <label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-1 block">CPU Generation</label>
             <select
-              value={filterGen || ""}
+              value={filterGen || ""}>
               onChange={(e) => setFilterGen(e.target.value || null)}
               className="w-full py-2 px-3 rounded-lg bg-background border border-border text-sm text-foreground outline-none focus:ring-2 focus:ring-primary/30"
             >
@@ -491,7 +491,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                 return (
                   <tr
                     key={row.name}
-                    className={`border-b border-border/50 transition-colors cursor-pointer ${catStyle}`}
+                    className={`border-b border-border/50 transition-colors cursor-pointer ${catStyle}`}>
                     onClick={() => handleTabChange(row.name.toLowerCase())}
                   >
                     <td className="p-4 sticky left-0 font-bold text-foreground" style={{ background: 'inherit' }}>
@@ -705,10 +705,10 @@ const GTSeries = () => {
         {/* Full-bleed background image */}
         <div className="absolute inset-0 z-0">
           <img
-            src={gtSeriesHeroBg}
+            src={gtSeriesHeroBg}>
             alt="Industrial factory production line with fanless computers"
-            className="w-full h-full object-cover"
-            width={1920}
+            className="w-full h-full object-cover">
+            width={1920}>
             height={900}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/30" />
@@ -829,7 +829,7 @@ const GTSeries = () => {
           <div className="flex flex-wrap justify-center gap-2 mb-10">
             {modelTabs.map((tab) => (
               <button
-                key={tab.id}
+                key={tab.id}>
                 onClick={() => handleTabChange(tab.id)}
                 className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${
                   activeTab === tab.id
@@ -852,7 +852,7 @@ const GTSeries = () => {
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {gtModels.map((model) => (
                   <button
-                    key={model.name}
+                    key={model.name}>
                     onClick={() => model.tab ? handleTabChange(model.tab) : undefined}
                     className={`group card-surface overflow-hidden hover:border-primary/30 transition-all hover:-translate-y-1 text-left cursor-pointer ${selectedProducts.has(model.name) ? "ring-2 ring-primary border-primary/50" : ""}`}
                   >
@@ -877,7 +877,7 @@ const GTSeries = () => {
               {/* Hero Banner */}
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
                 <img
-                  src={gt1000Banner}
+                  src={gt1000Banner}>
                   alt="GT1000 Industrial PC"
                   className="absolute inset-0 w-full h-full object-cover"
                 />
@@ -954,9 +954,9 @@ const GTSeries = () => {
                 <div className="lg:col-span-2 space-y-4">
                   <div className="card-surface overflow-hidden rounded-xl bg-muted/30">
                     <img
-                      src="/images/wezhan/5874413.jpg"
+                      src="/images/wezhan/5874413.jpg">
                       alt="GT1000 ด้านหน้า — 2 LAN, HDMI, VGA, MIC, SPK"
-                      className="w-full object-contain p-2"
+                      className="w-full object-contain p-2">
                       loading="lazy"
                     />
                   </div>
@@ -1068,17 +1068,17 @@ const GTSeries = () => {
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
                   <img
-                    src="/images/wix/3e5003_d438441c66734588bf92c3cb77e08aae_c34db0a8.jpg"
+                    src="/images/wix/3e5003_d438441c66734588bf92c3cb77e08aae_c34db0a8.jpg">
                     alt="GT1000 Connectivity Diagram"
-                    className="w-full rounded-lg"
+                    className="w-full rounded-lg">
                     loading="lazy"
                   />
                 </div>
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
                   <img
-                    src="/images/wix/0597a3_813ed70f44da4e72b1f8d881cd8b30d9_e508c44a.png"
+                    src="/images/wix/0597a3_813ed70f44da4e72b1f8d881cd8b30d9_e508c44a.png">
                     alt="GT1000 Port Layout"
-                    className="w-full rounded-lg"
+                    className="w-full rounded-lg">
                     loading="lazy"
                   />
                 </div>
@@ -1209,11 +1209,11 @@ const GTSeries = () => {
                     <h4 className="text-sm font-bold text-foreground mb-2">GT1000 Intro</h4>
                     <div className="relative w-full aspect-video rounded-xl overflow-hidden">
                       <iframe
-                        src="https://www.youtube.com/embed/7wE6fxMpJB4"
-                        title="GT1000 Intro"
+                        src="https://www.youtube.com/embed/7wE6fxMpJB4">
+                        title="GT1000 Intro">
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="absolute inset-0 w-full h-full"
+                        className="absolute inset-0 w-full h-full">
                         loading="lazy"
                       />
                     </div>
@@ -1234,11 +1234,11 @@ const GTSeries = () => {
                         <div key={video.id} className="space-y-2">
                           <div className="relative w-full aspect-video rounded-lg overflow-hidden">
                             <iframe
-                              src={`https://www.youtube.com/embed/${video.id}`}
-                              title={video.title}
+                              src={`https://www.youtube.com/embed/${video.id}`}>
+                              title={video.title}>
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                               allowFullScreen
-                              className="absolute inset-0 w-full h-full"
+                              className="absolute inset-0 w-full h-full">
                               loading="lazy"
                             />
                           </div>
@@ -1253,8 +1253,8 @@ const GTSeries = () => {
 
                   {/* YouTube Channel CTA */}
                   <a
-                    href="https://www.youtube.com/@ENTGROUP-TH"
-                    target="_blank"
+                    href="https://www.youtube.com/@ENTGROUP-TH">
+                    target="_blank">
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-4 rounded-xl border border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition-colors group"
                   >
@@ -1280,8 +1280,8 @@ const GTSeries = () => {
               {/* Datasheet CTA */}
               <div className="text-center">
                 <a
-                  href="/datasheets/GT1000.pdf"
-                  target="_blank"
+                  href="/datasheets/GT1000.pdf">
+                  target="_blank">
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
                 >
@@ -1297,7 +1297,7 @@ const GTSeries = () => {
               {/* Hero Banner */}
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
                 <img
-                  src={gt2000Banner}
+                  src={gt2000Banner}>
                   alt="GT2000 Industrial PC"
                   className="absolute inset-0 w-full h-full object-cover"
                 />
@@ -1371,11 +1371,11 @@ const GTSeries = () => {
                   <div className="card-surface overflow-hidden rounded-xl">
                     <div className="relative w-full aspect-video">
                       <iframe
-                        src="https://www.youtube.com/embed/Z4hTYAIDs2s"
-                        title="GT2000 สาธิตการใช้งาน"
+                        src="https://www.youtube.com/embed/Z4hTYAIDs2s">
+                        title="GT2000 สาธิตการใช้งาน">
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="absolute inset-0 w-full h-full"
+                        className="absolute inset-0 w-full h-full">
                         loading="lazy"
                       />
                     </div>
@@ -1428,9 +1428,9 @@ const GTSeries = () => {
                   </div>
                   <div className="card-surface overflow-hidden">
                     <img
-                      src="/images/wix/3e5003_6bf58ba61ae245ea82f96cb2171fb9b7_16926587.jpg"
+                      src="/images/wix/3e5003_6bf58ba61ae245ea82f96cb2171fb9b7_16926587.jpg">
                       alt="GT2000 Chassis Cooling"
-                      className="w-full rounded-lg"
+                      className="w-full rounded-lg">
                       loading="lazy"
                     />
                   </div>
@@ -1445,9 +1445,9 @@ const GTSeries = () => {
                 <div className="grid md:grid-cols-2 gap-6 items-center">
                   <div className="overflow-hidden rounded-lg">
                     <img
-                      src="/images/wix/0597a3_2f4f2a02ac1542fb8ce44f6b78f5c5f9_98c59f5e.png"
+                      src="/images/wix/0597a3_2f4f2a02ac1542fb8ce44f6b78f5c5f9_98c59f5e.png">
                       alt="GT2000 CPU Detail"
-                      className="w-full"
+                      className="w-full">
                       loading="lazy"
                     />
                   </div>
@@ -1472,17 +1472,17 @@ const GTSeries = () => {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <img
-                      src="/images/wix/0597a3_126df8ab2d554a9a8b4a6074fe4f7647_c1e10423.png"
+                      src="/images/wix/0597a3_126df8ab2d554a9a8b4a6074fe4f7647_c1e10423.png">
                       alt="GT2000 I/O Ports Front"
-                      className="w-full rounded-lg"
+                      className="w-full rounded-lg">
                       loading="lazy"
                     />
                   </div>
                   <div>
                     <img
-                      src="/images/wix/0597a3_dac94b90d7444622918e2fe4f69de597_c78e860e.png"
+                      src="/images/wix/0597a3_dac94b90d7444622918e2fe4f69de597_c78e860e.png">
                       alt="GT2000 I/O Ports Rear"
-                      className="w-full rounded-lg"
+                      className="w-full rounded-lg">
                       loading="lazy"
                     />
                   </div>
@@ -1507,9 +1507,9 @@ const GTSeries = () => {
               {/* Port Diagram Full */}
               <div className="card-surface p-4 overflow-hidden">
                 <img
-                  src="/images/wix/0597a3_4843a18b6dfe4330bd22479aadd69b1d_771d3c49.png"
+                  src="/images/wix/0597a3_4843a18b6dfe4330bd22479aadd69b1d_771d3c49.png">
                   alt="GT2000 Full Port Diagram"
-                  className="w-full max-w-2xl mx-auto rounded-lg"
+                  className="w-full max-w-2xl mx-auto rounded-lg">
                   loading="lazy"
                 />
               </div>
@@ -1532,9 +1532,9 @@ const GTSeries = () => {
                   </div>
                   <div className="overflow-hidden rounded-lg">
                     <img
-                      src="/images/wix/0597a3_b5efadfa0e7b40619c90fec704966b11_8fec62ed.png"
+                      src="/images/wix/0597a3_b5efadfa0e7b40619c90fec704966b11_8fec62ed.png">
                       alt="GT2000 OS Support"
-                      className="w-full"
+                      className="w-full">
                       loading="lazy"
                     />
                   </div>
@@ -1548,9 +1548,9 @@ const GTSeries = () => {
                   เพียง 23.4 × 15 × 4.8 cm น้ำหนัก 1.5 kg — ประมาณขนาดหนังสือเล่มใหญ่ ประหยัดพื้นที่ติดตั้ง wall mount ได้ เคลื่อนย้ายสะดวก
                 </p>
                 <img
-                  src="/images/wix/0597a3_46573ca6a9a644e29b30118c4f839098_da7c5153.png"
+                  src="/images/wix/0597a3_46573ca6a9a644e29b30118c4f839098_da7c5153.png">
                   alt="GT2000 Dimensions"
-                  className="max-w-sm mx-auto rounded-lg"
+                  className="max-w-sm mx-auto rounded-lg">
                   loading="lazy"
                 />
               </div>
@@ -1559,9 +1559,9 @@ const GTSeries = () => {
               <div className="card-surface overflow-hidden">
                 <div className="p-4 overflow-hidden">
                   <img
-                    src="/images/wix/0597a3_8cc69bc674294dc9907277ccf8235ad1_e11caf5f.png"
+                    src="/images/wix/0597a3_8cc69bc674294dc9907277ccf8235ad1_e11caf5f.png">
                     alt="GT2000 Spec Summary"
-                    className="w-full max-w-xl mx-auto rounded-lg"
+                    className="w-full max-w-xl mx-auto rounded-lg">
                     loading="lazy"
                   />
                 </div>
@@ -1651,11 +1651,11 @@ const GTSeries = () => {
                     <h4 className="text-sm font-bold text-foreground mb-2">GT2000 Intro</h4>
                     <div className="relative w-full aspect-video rounded-xl overflow-hidden">
                       <iframe
-                        src="https://www.youtube.com/embed/XLhFAF_8Da4"
-                        title="GT2000 Intro"
+                        src="https://www.youtube.com/embed/XLhFAF_8Da4">
+                        title="GT2000 Intro">
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="absolute inset-0 w-full h-full"
+                        className="absolute inset-0 w-full h-full">
                         loading="lazy"
                       />
                     </div>
@@ -1676,11 +1676,11 @@ const GTSeries = () => {
                         <div key={video.id} className="space-y-2">
                           <div className="relative w-full aspect-video rounded-lg overflow-hidden">
                             <iframe
-                              src={`https://www.youtube.com/embed/${video.id}`}
-                              title={video.title}
+                              src={`https://www.youtube.com/embed/${video.id}`}>
+                              title={video.title}>
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                               allowFullScreen
-                              className="absolute inset-0 w-full h-full"
+                              className="absolute inset-0 w-full h-full">
                               loading="lazy"
                             />
                           </div>
@@ -1695,8 +1695,8 @@ const GTSeries = () => {
 
                   {/* YouTube Channel CTA */}
                   <a
-                    href="https://www.youtube.com/@ENTGROUP-TH"
-                    target="_blank"
+                    href="https://www.youtube.com/@ENTGROUP-TH">
+                    target="_blank">
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-4 rounded-xl border border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition-colors group"
                   >
@@ -1717,16 +1717,16 @@ const GTSeries = () => {
               {/* Datasheet CTA */}
               <div className="flex flex-wrap justify-center gap-4">
                 <a
-                  href="/datasheets/GT2000_Celeron.pdf"
-                  target="_blank"
+                  href="/datasheets/GT2000_Celeron.pdf">
+                  target="_blank">
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
                 >
                   <Download size={16} /> Datasheet GT2000 Celeron
                 </a>
                 <a
-                  href="/datasheets/GT2000_i5.pdf"
-                  target="_blank"
+                  href="/datasheets/GT2000_i5.pdf">
+                  target="_blank">
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-surface-hover transition-colors"
                 >
@@ -1742,7 +1742,7 @@ const GTSeries = () => {
               {/* Hero Banner */}
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
                 <img
-                  src={gt3000Banner}
+                  src={gt3000Banner}>
                   alt="GT3000 Industrial PC"
                   className="absolute inset-0 w-full h-full object-cover"
                 />
@@ -1821,9 +1821,9 @@ const GTSeries = () => {
                 <div className="lg:col-span-2 space-y-4">
                   <div className="card-surface overflow-hidden rounded-xl bg-muted/30">
                     <img
-                      src="/images/wezhan/5874079.jpg"
+                      src="/images/wezhan/5874079.jpg">
                       alt="GT3000 ด้านหน้า — USB3.0, LAN, VGA, HDMI, COM"
-                      className="w-full object-contain p-2"
+                      className="w-full object-contain p-2">
                       loading="lazy"
                     />
                   </div>
@@ -1919,17 +1919,17 @@ const GTSeries = () => {
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
                   <img
-                    src={gt3000CpuOptions}
+                    src={gt3000CpuOptions}>
                     alt="GT3000 CPU Options — Celeron, Core i3, i5, i7"
-                    className="w-full rounded-lg"
+                    className="w-full rounded-lg">
                     loading="lazy"
                   />
                 </div>
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
                   <img
-                    src="/images/wix/3e5003_fadd401364de4b7d9e31669c96695798_a2019e77.jpg"
+                    src="/images/wix/3e5003_fadd401364de4b7d9e31669c96695798_a2019e77.jpg">
                     alt="GT3000 Connectivity"
-                    className="w-full rounded-lg"
+                    className="w-full rounded-lg">
                     loading="lazy"
                   />
                 </div>
@@ -1955,9 +1955,9 @@ const GTSeries = () => {
                   </div>
                   <div className="overflow-hidden rounded-lg bg-muted/30">
                     <img
-                      src="/images/wezhan/5874076.jpg"
+                      src="/images/wezhan/5874076.jpg">
                       alt="GT3000 Heatsink Side View"
-                      className="w-full"
+                      className="w-full">
                       loading="lazy"
                     />
                   </div>
@@ -2025,11 +2025,11 @@ const GTSeries = () => {
                     <h4 className="text-sm font-bold text-foreground mb-2">GT3000 Intro</h4>
                     <div className="relative w-full aspect-video rounded-xl overflow-hidden">
                       <iframe
-                        src="https://www.youtube.com/embed/31SEStppvKw"
-                        title="GT3000 Intro"
+                        src="https://www.youtube.com/embed/31SEStppvKw">
+                        title="GT3000 Intro">
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="absolute inset-0 w-full h-full"
+                        className="absolute inset-0 w-full h-full">
                         loading="lazy"
                       />
                     </div>
@@ -2050,11 +2050,11 @@ const GTSeries = () => {
                         <div key={video.id} className="space-y-2">
                           <div className="relative w-full aspect-video rounded-lg overflow-hidden">
                             <iframe
-                              src={`https://www.youtube.com/embed/${video.id}`}
-                              title={video.title}
+                              src={`https://www.youtube.com/embed/${video.id}`}>
+                              title={video.title}>
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                               allowFullScreen
-                              className="absolute inset-0 w-full h-full"
+                              className="absolute inset-0 w-full h-full">
                               loading="lazy"
                             />
                           </div>
@@ -2069,8 +2069,8 @@ const GTSeries = () => {
 
                   {/* YouTube Channel CTA */}
                   <a
-                    href="https://www.youtube.com/@ENTGROUP-TH"
-                    target="_blank"
+                    href="https://www.youtube.com/@ENTGROUP-TH">
+                    target="_blank">
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-4 rounded-xl border border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition-colors group"
                   >
@@ -2146,7 +2146,7 @@ const GTSeries = () => {
                       <div className="flex gap-1">
                         {Array.from({ length: totalPages }, (_, p) => (
                           <button
-                            key={p}
+                            key={p}>
                             onClick={() => setGt3000PricePage(p)}
                             className={`w-8 h-8 rounded-md text-xs font-bold transition-colors ${
                               p === gt3000PricePage
@@ -2174,8 +2174,8 @@ const GTSeries = () => {
               {/* Datasheet CTA */}
               <div className="text-center">
                 <a
-                  href="/datasheets/GT3000.pdf"
-                  target="_blank"
+                  href="/datasheets/GT3000.pdf">
+                  target="_blank">
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
                 >
@@ -2266,9 +2266,9 @@ const GTSeries = () => {
                 <div className="lg:col-span-2 space-y-4">
                   <div className="card-surface overflow-hidden rounded-xl bg-muted/30">
                     <img
-                      src="/images/gt4000/front.jpg"
+                      src="/images/gt4000/front.jpg">
                       alt="GT4000 ด้านหน้า — 6 COM, USB, LAN, VGA, HDMI"
-                      className="w-full object-contain p-2"
+                      className="w-full object-contain p-2">
                       loading="lazy"
                     />
                   </div>
@@ -2364,17 +2364,17 @@ const GTSeries = () => {
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
                   <img
-                    src="/images/wix/3e5003_a4726520b0df4492b73e8646990df9ce_c6843bc4.jpg"
+                    src="/images/wix/3e5003_a4726520b0df4492b73e8646990df9ce_c6843bc4.jpg">
                     alt="GT4000 Port Overview"
-                    className="w-full rounded-lg"
+                    className="w-full rounded-lg">
                     loading="lazy"
                   />
                 </div>
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
                   <img
-                    src="/images/wix/3e5003_91111c3b2ffb41c39bb2978c36ccd01c_4c9424b9.jpg"
+                    src="/images/wix/3e5003_91111c3b2ffb41c39bb2978c36ccd01c_4c9424b9.jpg">
                     alt="GT4000 Port Detail"
-                    className="w-full rounded-lg"
+                    className="w-full rounded-lg">
                     loading="lazy"
                   />
                 </div>
@@ -2448,11 +2448,11 @@ const GTSeries = () => {
                 </div>
                 <div className="aspect-video">
                   <iframe
-                    src="https://www.youtube.com/embed/o221BRlwyFc"
-                    title="GT4000 Intro"
+                    src="https://www.youtube.com/embed/o221BRlwyFc">
+                    title="GT4000 Intro">
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="w-full h-full"
+                    className="w-full h-full">
                     loading="lazy"
                   />
                 </div>
@@ -2472,11 +2472,11 @@ const GTSeries = () => {
                   <div key={v.id} className="card-surface overflow-hidden rounded-xl">
                     <div className="aspect-video">
                       <iframe
-                        src={`https://www.youtube.com/embed/${v.id}`}
-                        title={v.label}
+                        src={`https://www.youtube.com/embed/${v.id}`}>
+                        title={v.label}>
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="w-full h-full"
+                        className="w-full h-full">
                         loading="lazy"
                       />
                     </div>
@@ -2510,17 +2510,17 @@ const GTSeries = () => {
               {/* Datasheet CTA */}
               <div className="flex flex-wrap justify-center gap-4">
                 <a
-                  href="/datasheets/GT4000_i5.pdf"
-                  target="_blank"
+                  href="/datasheets/GT4000_i5.pdf">
+                  target="_blank">
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
                   <Download size={16} /> Datasheet GT4000 Core i5
                 </a>
                 <a
-                  href="/datasheets/GT4000_i7.pdf"
-                  target="_blank"
+                  href="/datasheets/GT4000_i7.pdf">
+                  target="_blank">
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-secondary/50 transition-colors"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-secondary/50 transition-colors">
                   <Download size={16} /> Datasheet GT4000 Core i7
                 </a>
               </div>
@@ -2533,7 +2533,7 @@ const GTSeries = () => {
               {/* Hero Banner */}
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
                 <img
-                  src={gt5000Banner}
+                  src={gt5000Banner}>
                   alt="GT5000 Industrial PC"
                   className="absolute inset-0 w-full h-full object-cover"
                 />
@@ -2614,9 +2614,9 @@ const GTSeries = () => {
                 <div className="lg:col-span-2 space-y-4">
                   <div className="card-surface overflow-hidden rounded-xl bg-muted/30">
                     <img
-                      src="/images/gt5000/main.jpg"
+                      src="/images/gt5000/main.jpg">
                       alt="GT5000 ภาพหลัก — ด้านหน้า"
-                      className="w-full object-contain p-2"
+                      className="w-full object-contain p-2">
                       loading="lazy"
                     />
                   </div>
@@ -2772,7 +2772,7 @@ const GTSeries = () => {
                       { icon: Bot, title: "Robot & Automation", desc: "Handshake กับ PLC, Robot Controller ผ่าน Digital I/O ไม่ต้องใช้ fieldbus ราคาแพง" },
                     ].map((item, i) => (
                       <div key={i} className="p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors border border-border/50">
-                        {typeof item.icon === "string" ? <span className="text-2xl">{item.icon}</span> : <item.icon size={24} className="text-primary" />}
+                        {typeof item.icon === "string" ? <span className="text-2xl">{item.icon}</span> : <item.icon size={24} className="text-primary" />}>
                         <h4 className="font-bold text-foreground text-sm mt-2">{item.title}</h4>
                         <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{item.desc}</p>
                       </div>
@@ -2897,7 +2897,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <span className="font-mono text-sm font-bold text-primary w-16">{g.ch}</span>
                         <div className="flex-1 h-3 bg-muted rounded-full overflow-hidden">
                           <div
-                            className={`h-full rounded-full transition-all ${g.type === "OUT" ? "bg-emerald-500" : "bg-amber-400"}`}
+                            className={`h-full rounded-full transition-all ${g.type === "OUT" ? "bg-emerald-500" : "bg-amber-400"}`}>
                             style={{ width: `${g.level}%` }}
                           />
                         </div>
@@ -2980,11 +2980,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 </div>
                 <div className="aspect-video">
                   <iframe
-                    src="https://www.youtube.com/embed/AfWfNNtEG74"
-                    title="GT5000 Intro"
+                    src="https://www.youtube.com/embed/AfWfNNtEG74">
+                    title="GT5000 Intro">
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="w-full h-full"
+                    className="w-full h-full">
                     loading="lazy"
                   />
                 </div>
@@ -3004,11 +3004,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   <div key={v.id} className="card-surface overflow-hidden rounded-xl">
                     <div className="aspect-video">
                       <iframe
-                        src={`https://www.youtube.com/embed/${v.id}`}
-                        title={v.label}
+                        src={`https://www.youtube.com/embed/${v.id}`}>
+                        title={v.label}>
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="w-full h-full"
+                        className="w-full h-full">
                         loading="lazy"
                       />
                     </div>
@@ -3060,7 +3060,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Hero Banner */}
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
                 <img
-                  src={gt6000Banner}
+                  src={gt6000Banner}>
                   alt="GT6000 Industrial PC"
                   className="absolute inset-0 w-full h-full object-cover"
                 />
@@ -3134,9 +3134,9 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 <div className="lg:col-span-2 space-y-4">
                   <div className="card-surface overflow-hidden rounded-xl bg-muted/30">
                     <img
-                      src="/images/gt6000/main.jpg"
+                      src="/images/gt6000/main.jpg">
                       alt="GT6000 ภาพหลัก — ด้านหน้า"
-                      className="w-full object-contain p-2"
+                      className="w-full object-contain p-2">
                       loading="lazy"
                     />
                   </div>
@@ -3311,7 +3311,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       <div className="flex gap-1">
                         {Array.from({ length: totalPages }, (_, p) => (
                           <button
-                            key={p}
+                            key={p}>
                             onClick={() => setGt6000PricePage(p)}
                             className={`w-8 h-8 rounded-md text-xs font-bold transition-colors ${
                               p === gt6000PricePage
@@ -3339,11 +3339,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 </div>
                 <div className="aspect-video">
                   <iframe
-                    src="https://www.youtube.com/embed/AfWfNNtEG74"
-                    title="GT6000 Intro"
+                    src="https://www.youtube.com/embed/AfWfNNtEG74">
+                    title="GT6000 Intro">
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="w-full h-full"
+                    className="w-full h-full">
                     loading="lazy"
                   />
                 </div>
@@ -3363,11 +3363,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   <div key={v.id} className="card-surface overflow-hidden rounded-xl">
                     <div className="aspect-video">
                       <iframe
-                        src={`https://www.youtube.com/embed/${v.id}`}
-                        title={v.label}
+                        src={`https://www.youtube.com/embed/${v.id}`}>
+                        title={v.label}>
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="w-full h-full"
+                        className="w-full h-full">
                         loading="lazy"
                       />
                     </div>
@@ -3399,10 +3399,10 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Datasheet CTA */}
               <div className="text-center">
                 <a
-                  href="/datasheets/GT6000.pdf"
-                  target="_blank"
+                  href="/datasheets/GT6000.pdf">
+                  target="_blank">
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
                   <Download size={16} /> ดาวน์โหลด Datasheet GT6000
                 </a>
               </div>
@@ -3415,7 +3415,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Hero Banner */}
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
                 <img
-                  src={gt7000Banner}
+                  src={gt7000Banner}>
                   alt="GT7000 Industrial PC"
                   className="absolute inset-0 w-full h-full object-cover"
                 />
@@ -3498,9 +3498,9 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 <div className="lg:col-span-2 space-y-4">
                   <div className="card-surface overflow-hidden rounded-xl bg-muted/30">
                     <img
-                      src="/images/gt7000/main.jpg"
+                      src="/images/gt7000/main.jpg">
                       alt="GT7000 ภาพหลัก"
-                      className="w-full object-contain p-2"
+                      className="w-full object-contain p-2">
                       loading="lazy"
                     />
                   </div>
@@ -3722,11 +3722,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 </div>
                 <div className="aspect-video">
                   <iframe
-                    src="https://www.youtube.com/embed/glN3-DBdwpc"
-                    title="GT7000 Intro"
+                    src="https://www.youtube.com/embed/glN3-DBdwpc">
+                    title="GT7000 Intro">
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="w-full h-full"
+                    className="w-full h-full">
                     loading="lazy"
                   />
                 </div>
@@ -3746,11 +3746,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   <div key={v.id} className="card-surface overflow-hidden rounded-xl">
                     <div className="aspect-video">
                       <iframe
-                        src={`https://www.youtube.com/embed/${v.id}`}
-                        title={v.label}
+                        src={`https://www.youtube.com/embed/${v.id}`}>
+                        title={v.label}>
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="w-full h-full"
+                        className="w-full h-full">
                         loading="lazy"
                       />
                     </div>
@@ -3789,10 +3789,10 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Datasheet CTA */}
               <div className="text-center">
                 <a
-                  href="/datasheets/GT7000.pdf"
-                  target="_blank"
+                  href="/datasheets/GT7000.pdf">
+                  target="_blank">
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
                   <Download size={16} /> ดาวน์โหลด Datasheet GT7000
                 </a>
               </div>
@@ -3805,7 +3805,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Hero Banner */}
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
                 <img
-                  src={gt8000Banner}
+                  src={gt8000Banner}>
                   alt="GT8000 Industrial PC"
                   className="absolute inset-0 w-full h-full object-cover"
                 />
@@ -3903,9 +3903,9 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 <div className="lg:col-span-2 space-y-4">
                   <div className="card-surface overflow-hidden rounded-xl bg-muted/30">
                     <img
-                      src="/images/gt8000/main.jpg"
+                      src="/images/gt8000/main.jpg">
                       alt="GT8000 ภาพหลัก"
-                      className="w-full object-contain p-2"
+                      className="w-full object-contain p-2">
                       loading="lazy"
                     />
                   </div>
@@ -4056,11 +4056,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 </div>
                 <div className="aspect-video">
                   <iframe
-                    src="https://www.youtube.com/embed/eODzBXj4w4Q"
-                    title="GT8000 Intro"
+                    src="https://www.youtube.com/embed/eODzBXj4w4Q">
+                    title="GT8000 Intro">
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="w-full h-full"
+                    className="w-full h-full">
                     loading="lazy"
                   />
                 </div>
@@ -4081,11 +4081,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   <div key={v.id} className="card-surface overflow-hidden rounded-xl">
                     <div className="aspect-video">
                       <iframe
-                        src={`https://www.youtube.com/embed/${v.id}`}
-                        title={v.label}
+                        src={`https://www.youtube.com/embed/${v.id}`}>
+                        title={v.label}>
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="w-full h-full"
+                        className="w-full h-full">
                         loading="lazy"
                       />
                     </div>
@@ -4124,10 +4124,10 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Datasheet CTA */}
               <div className="text-center">
                 <a
-                  href="/datasheets/GT8000.pdf"
-                  target="_blank"
+                  href="/datasheets/GT8000.pdf">
+                  target="_blank">
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
                   <Download size={16} /> ดาวน์โหลด Datasheet GT8000
                 </a>
               </div>
@@ -4140,7 +4140,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Hero Banner */}
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
                 <img
-                  src={gt9000Banner}
+                  src={gt9000Banner}>
                   alt="GT9000 Industrial PC"
                   className="absolute inset-0 w-full h-full object-cover"
                 />
@@ -4280,9 +4280,9 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Wix Detail Images — Overview & Spec Diagrams */}
               <div className="card-surface p-4 overflow-hidden">
                 <img
-                  src="/images/wix/0597a3_b68e0174e2b54d39b0bdf80ae71118e5_dbbc6602.png"
+                  src="/images/wix/0597a3_b68e0174e2b54d39b0bdf80ae71118e5_dbbc6602.png">
                   alt="GT9000 Product Overview"
-                  className="w-full rounded-lg"
+                  className="w-full rounded-lg">
                   loading="lazy"
                 />
               </div>
@@ -4414,11 +4414,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 </div>
                 <div className="aspect-video">
                   <iframe
-                    src="https://www.youtube.com/embed/nxapqTEi1lU"
-                    title="GT9000 Intro"
+                    src="https://www.youtube.com/embed/nxapqTEi1lU">
+                    title="GT9000 Intro">
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="w-full h-full"
+                    className="w-full h-full">
                     loading="lazy"
                   />
                 </div>
@@ -4438,11 +4438,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   <div key={v.id} className="card-surface overflow-hidden rounded-xl">
                     <div className="aspect-video">
                       <iframe
-                        src={`https://www.youtube.com/embed/${v.id}`}
-                        title={v.label}
+                        src={`https://www.youtube.com/embed/${v.id}`}>
+                        title={v.label}>
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="w-full h-full"
+                        className="w-full h-full">
                         loading="lazy"
                       />
                     </div>
@@ -4482,24 +4482,24 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Datasheet CTAs */}
               <div className="flex flex-wrap justify-center gap-4">
                 <a
-                  href="/datasheets/GT9000_Gen12.pdf"
-                  target="_blank"
+                  href="/datasheets/GT9000_Gen12.pdf">
+                  target="_blank">
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
                   <Download size={16} /> Datasheet GT9000 (Gen 12)
                 </a>
                 <a
-                  href="/datasheets/GT9000_Gen10.pdf"
-                  target="_blank"
+                  href="/datasheets/GT9000_Gen10.pdf">
+                  target="_blank">
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-secondary/50 transition-colors"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-secondary/50 transition-colors">
                   <Download size={16} /> Datasheet GT9000 (Gen 10)
                 </a>
                 <a
-                  href="/datasheets/GT9000_extra.pdf"
-                  target="_blank"
+                  href="/datasheets/GT9000_extra.pdf">
+                  target="_blank">
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-secondary/50 transition-colors"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-secondary/50 transition-colors">
                   <Download size={16} /> GT9000 Product Overview
                 </a>
               </div>
@@ -4512,7 +4512,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Hero Banner */}
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
                 <img
-                  src={gt4500Banner}
+                  src={gt4500Banner}>
                   alt="GT4500 Industrial PC"
                   className="absolute inset-0 w-full h-full object-cover"
                 />
@@ -4583,17 +4583,17 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 <div className="lg:col-span-2 space-y-4">
                   <div className="card-surface overflow-hidden">
                     <img
-                      src="/images/wix/0597a3_aea4cee9a1cb431b90886aa5b64e1f96_60f4ae42.png"
+                      src="/images/wix/0597a3_aea4cee9a1cb431b90886aa5b64e1f96_60f4ae42.png">
                       alt="GT4500 Front"
-                      className="w-full object-contain p-4"
+                      className="w-full object-contain p-4">
                       loading="lazy"
                     />
                   </div>
                   <div className="card-surface overflow-hidden">
                     <img
-                      src="/images/wix/0597a3_2901e68aa51b482697a1d4c4fa9fc320_8f38391a.png"
+                      src="/images/wix/0597a3_2901e68aa51b482697a1d4c4fa9fc320_8f38391a.png">
                       alt="GT4500 Rear Ports"
-                      className="w-full object-contain p-4"
+                      className="w-full object-contain p-4">
                       loading="lazy"
                     />
                   </div>
@@ -4626,9 +4626,9 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               <div className="card-surface p-4 overflow-hidden">
                 <h4 className="text-lg font-display font-bold text-foreground mb-4 px-2"><Cpu size={18} className="inline mr-1 text-primary" />เลือก CPU ได้ถึง 4 รุ่น — จ่ายตามความต้องการ</h4>
                 <img
-                  src={gt4500CpuOptions}
+                  src={gt4500CpuOptions}>
                   alt="GT4500 CPU Options"
-                  className="w-full rounded-lg"
+                  className="w-full rounded-lg">
                   loading="lazy"
                 />
               </div>
@@ -4653,9 +4653,9 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   </div>
                   <div className="overflow-hidden rounded-lg">
                     <img
-                      src="/images/wix/0597a3_840c03acd28147a89285de218f3a0a25_25c7410d.png"
+                      src="/images/wix/0597a3_840c03acd28147a89285de218f3a0a25_25c7410d.png">
                       alt="GT4500 Software"
-                      className="w-full"
+                      className="w-full">
                       loading="lazy"
                     />
                   </div>
@@ -4670,9 +4670,9 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   ไม่ใช้พัดลม ไม่มีเสียงรบกวน ป้องกันฝุ่นเข้าตัวเครื่อง
                 </p>
                 <img
-                  src="/images/wix/3e5003_5146d29438c1469084384085311877b6_98f6e0e9.jpg"
+                  src="/images/wix/3e5003_5146d29438c1469084384085311877b6_98f6e0e9.jpg">
                   alt="GT4500 Heatsink"
-                  className="w-full rounded-lg"
+                  className="w-full rounded-lg">
                   loading="lazy"
                 />
               </div>
@@ -4681,9 +4681,9 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               <div className="card-surface p-4 overflow-hidden">
                 <h4 className="text-lg font-display font-bold text-foreground mb-4 px-2"><Plug size={18} className="inline mr-1 text-primary" />พอร์ตเชื่อมต่อครบครัน</h4>
                 <img
-                  src="/images/wix/3e5003_fa1b7c0241e1439796bca055fb8c927d_880a3b61.jpg"
+                  src="/images/wix/3e5003_fa1b7c0241e1439796bca055fb8c927d_880a3b61.jpg">
                   alt="GT4500 Port Layout"
-                  className="w-full rounded-lg mb-4"
+                  className="w-full rounded-lg mb-4">
                   loading="lazy"
                 />
                 <div className="grid md:grid-cols-3 gap-4 px-2">
@@ -4710,15 +4710,15 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 </p>
                 <div className="grid md:grid-cols-2 gap-4 items-center">
                   <img
-                    src="/images/wix/3e5003_b7535d8168ab4f7d8d657a3eef999b12_d9722688.jpg"
+                    src="/images/wix/3e5003_b7535d8168ab4f7d8d657a3eef999b12_d9722688.jpg">
                     alt="GT4500 Dimensions"
-                    className="rounded-lg w-full"
+                    className="rounded-lg w-full">
                     loading="lazy"
                   />
                   <img
-                    src="/images/wix/0597a3_c6c89af9190c48b992640615c77efcee_341c4637.png"
+                    src="/images/wix/0597a3_c6c89af9190c48b992640615c77efcee_341c4637.png">
                     alt="GT4500 VESA Mount"
-                    className="rounded-lg w-full"
+                    className="rounded-lg w-full">
                     loading="lazy"
                   />
                 </div>
@@ -4750,7 +4750,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <tr key={i} className={`hover:bg-muted/30 transition-colors ${item.tag ? "bg-primary/5" : ""}`}>
                           <td className="p-3 font-medium text-foreground">
                             {item.cpu}
-                            {item.tag && <span className="ml-2 text-xs text-primary font-bold">{item.tag}</span>}
+                            {item.tag && <span className="ml-2 text-xs text-primary font-bold">{item.tag}</span>}>
                           </td>
                           <td className="p-3 text-muted-foreground">{item.spec}</td>
                           <td className="p-3 text-muted-foreground text-xs">{item.highlight}</td>
@@ -4804,10 +4804,10 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     "/images/wix/005637_6c42aac9d6d747d08022f03a3979e64c_b8b5eee1.jpg",
                   ].map((src, idx) => (
                     <img
-                      key={idx}
-                      src={src}
+                      key={idx}>
+                      src={src}>
                       alt={`GT4500 การใช้งานจริง ${idx + 1}`}
-                      className="w-full h-auto rounded-lg hover:scale-105 transition-transform duration-300"
+                      className="w-full h-auto rounded-lg hover:scale-105 transition-transform duration-300">
                       loading="lazy"
                     />
                   ))}
@@ -4825,11 +4825,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 </div>
                 <div className="aspect-video">
                   <iframe
-                    src="https://www.youtube.com/embed/ou3yHel3ijU"
-                    title="GT4500 Intro"
+                    src="https://www.youtube.com/embed/ou3yHel3ijU">
+                    title="GT4500 Intro">
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="w-full h-full"
+                    className="w-full h-full">
                     loading="lazy"
                   />
                 </div>
@@ -4850,11 +4850,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   <div key={v.id} className="card-surface overflow-hidden rounded-xl">
                     <div className="aspect-video">
                       <iframe
-                        src={`https://www.youtube.com/embed/${v.id}`}
-                        title={v.label}
+                        src={`https://www.youtube.com/embed/${v.id}`}>
+                        title={v.label}>
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="w-full h-full"
+                        className="w-full h-full">
                         loading="lazy"
                       />
                     </div>
@@ -4869,17 +4869,17 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Datasheet CTA */}
               <div className="flex flex-wrap justify-center gap-4">
                 <a
-                  href="/datasheets/GT4500.pdf"
-                  target="_blank"
+                  href="/datasheets/GT4500.pdf">
+                  target="_blank">
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
                   <Download size={16} /> ดาวน์โหลด Datasheet GT4500
                 </a>
                 <a
-                  href="/datasheets/GT4500_extra.pdf"
-                  target="_blank"
+                  href="/datasheets/GT4500_extra.pdf">
+                  target="_blank">
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-surface-hover transition-colors"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-surface-hover transition-colors">
                   <Download size={16} /> วารสาร / Journal GT4500
                 </a>
               </div>
@@ -5119,11 +5119,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 </div>
                 <div className="aspect-video">
                   <iframe
-                    src="https://www.youtube.com/embed/ocai7eLpMOY"
-                    title="GT1400 Intro"
+                    src="https://www.youtube.com/embed/ocai7eLpMOY">
+                    title="GT1400 Intro">
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="w-full h-full"
+                    className="w-full h-full">
                     loading="lazy"
                   />
                 </div>
@@ -5143,11 +5143,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   <div key={v.id} className="card-surface overflow-hidden rounded-xl">
                     <div className="aspect-video">
                       <iframe
-                        src={`https://www.youtube.com/embed/${v.id}`}
-                        title={v.label}
+                        src={`https://www.youtube.com/embed/${v.id}`}>
+                        title={v.label}>
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="w-full h-full"
+                        className="w-full h-full">
                         loading="lazy"
                       />
                     </div>
@@ -5179,10 +5179,10 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Datasheet CTA */}
               <div className="text-center">
                 <a
-                  href="/datasheets/GT1400.pdf"
-                  target="_blank"
+                  href="/datasheets/GT1400.pdf">
+                  target="_blank">
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
                   <Download size={16} /> ดาวน์โหลด Datasheet GT1400
                 </a>
               </div>
@@ -5366,10 +5366,10 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Datasheet CTA */}
               <div className="text-center">
                 <a
-                  href="http://www.greenthinpc.com/productinfo/954397.html"
-                  target="_blank"
+                  href="http://www.greenthinpc.com/productinfo/954397.html">
+                  target="_blank">
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
                   <ExternalLink size={16} /> ดูข้อมูลเพิ่มเติม GT1300 (Manufacturer)
                 </a>
               </div>
@@ -5384,11 +5384,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 </div>
                 <div className="aspect-video">
                   <iframe
-                    src="https://www.youtube.com/embed/ocai7eLpMOY"
-                    title="GT1300 Intro"
+                    src="https://www.youtube.com/embed/ocai7eLpMOY">
+                    title="GT1300 Intro">
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="w-full h-full"
+                    className="w-full h-full">
                     loading="lazy"
                   />
                 </div>
@@ -5408,11 +5408,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   <div key={v.id} className="card-surface overflow-hidden rounded-xl">
                     <div className="aspect-video">
                       <iframe
-                        src={`https://www.youtube.com/embed/${v.id}`}
-                        title={v.label}
+                        src={`https://www.youtube.com/embed/${v.id}`}>
+                        title={v.label}>
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="w-full h-full"
+                        className="w-full h-full">
                         loading="lazy"
                       />
                     </div>
@@ -5650,7 +5650,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       <div className="flex gap-1">
                         {Array.from({ length: totalPages }, (_, p) => (
                           <button
-                            key={p}
+                            key={p}>
                             onClick={() => setGt1200PricePage(p)}
                             className={`w-8 h-8 rounded-md text-xs font-bold transition-colors ${
                               p === gt1200PricePage
@@ -5683,11 +5683,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 </div>
                 <div className="aspect-video">
                   <iframe
-                    src="https://www.youtube.com/embed/S-plrWGzUl8"
-                    title="GT1200 Intro"
+                    src="https://www.youtube.com/embed/S-plrWGzUl8">
+                    title="GT1200 Intro">
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="w-full h-full"
+                    className="w-full h-full">
                     loading="lazy"
                   />
                 </div>
@@ -5707,11 +5707,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   <div key={v.id} className="card-surface overflow-hidden rounded-xl">
                     <div className="aspect-video">
                       <iframe
-                        src={`https://www.youtube.com/embed/${v.id}`}
-                        title={v.label}
+                        src={`https://www.youtube.com/embed/${v.id}`}>
+                        title={v.label}>
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="w-full h-full"
+                        className="w-full h-full">
                         loading="lazy"
                       />
                     </div>
@@ -5750,10 +5750,10 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Datasheet CTA */}
               <div className="text-center">
                 <a
-                  href="/datasheets/GT1200.pdf"
-                  target="_blank"
+                  href="/datasheets/GT1200.pdf">
+                  target="_blank">
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
                   <Download size={16} /> ดาวน์โหลด Datasheet GT1200
                 </a>
               </div>
@@ -5822,9 +5822,9 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
         <div className="container max-w-7xl mx-auto">
           <div className="card-surface overflow-hidden">
             <img
-              src="/images/wix/3e5003_9a0970ee1f4f4d9aa2f4f3fef18faeb5_b40f0eb8.jpg"
+              src="/images/wix/3e5003_9a0970ee1f4f4d9aa2f4f3fef18faeb5_b40f0eb8.jpg">
               alt="GT Series รวม"
-              className="w-full h-auto"
+              className="w-full h-auto">
               loading="lazy"
             />
           </div>
@@ -5844,12 +5844,12 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
           <div className="flex flex-wrap justify-center gap-4">
             <button
               onClick={() => setShowLineQR(true)}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[hsl(142,70%,45%)] text-white font-bold text-lg hover:opacity-90 transition-opacity"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[hsl(142,70%,45%)] text-white font-bold text-lg hover:opacity-90 transition-opacity">
               LINE @entgroup
             </button>
             <Link
               to="/"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-border text-foreground font-bold text-lg hover:bg-surface-hover transition-colors"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-border text-foreground font-bold text-lg hover:bg-surface-hover transition-colors">
               <ArrowLeft size={18} /> กลับหน้าหลัก
             </Link>
           </div>
@@ -5905,7 +5905,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 <div className="flex gap-0.5 mb-3">
                   {Array.from({ length: 5 }, (_, s) => (
                     <Star
-                      key={s}
+                      key={s}>
                       size={16}
                       className={s < review.stars ? "text-amber-400 fill-amber-400" : "text-muted-foreground/30"}
                     />
@@ -5945,7 +5945,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
       {onToggleSelect && (
         <button
           onClick={(e) => { e.stopPropagation(); onToggleSelect(model.name); }}
-          className="absolute top-3 left-12 z-10"
+          className="absolute top-3 left-12 z-10">
           <Checkbox checked={selected} className="h-5 w-5" />
         </button>
       )}
@@ -5969,9 +5969,9 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
         className="absolute top-3 right-3"
       />
       <img
-        src={model.image}
+        src={model.image}>
         alt={model.name}
-        className="max-h-[160px] object-contain group-hover:scale-105 transition-transform duration-300"
+        className="max-h-[160px] object-contain group-hover:scale-105 transition-transform duration-300">
         loading="lazy"
       />
     </div>
@@ -5979,7 +5979,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
       <h3 className="text-xl font-display font-bold text-foreground mb-1 group-hover:text-primary transition-colors flex items-center gap-2">
         {model.name}
         {model.tab && <span className="text-xs text-primary font-normal">ดูรายละเอียด →</span>}
-        {!model.tab && <ExternalLink size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />}
+        {!model.tab && <ExternalLink size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />}>
       </h3>
       <p className="text-xs font-semibold text-primary mb-3">"{model.tagline}"</p>
       <div className="space-y-2 text-sm">

@@ -63,9 +63,9 @@ const ProductBanners = () => {
               {banner.backgroundImage ? (
                 <div className="relative h-44 overflow-hidden">
                   <img
-                    src={banner.backgroundImage}
+                    src={banner.backgroundImage}>
                     alt={banner.title}
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
@@ -73,9 +73,9 @@ const ProductBanners = () => {
               ) : (
                 <div className="h-44 flex items-center justify-center bg-secondary/20 overflow-hidden p-4">
                   <img
-                    src={banner.productImage}
+                    src={banner.productImage}>
                     alt={banner.title}
-                    className="max-h-full max-w-full object-contain drop-shadow-lg group-hover:scale-105 transition-transform duration-500"
+                    className="max-h-full max-w-full object-contain drop-shadow-lg group-hover:scale-105 transition-transform duration-500">
                     loading="lazy"
                   />
                 </div>
@@ -93,7 +93,7 @@ const ProductBanners = () => {
                 <div className="mt-auto flex flex-wrap gap-2">
                   {banner.links.map((link) => (
                     <Link
-                      key={link.label}
+                      key={link.label}>
                       to={link.href}
                       className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border text-xs font-medium transition-all ${
                         banner.hot

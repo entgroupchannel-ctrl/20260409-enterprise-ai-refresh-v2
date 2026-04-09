@@ -333,7 +333,7 @@ const GBSeries = () => {
           <h1 className="text-sm font-bold">GB Series Industrial PC</h1>
           <button
             onClick={() => setQuoteOpen(true)}
-            className="text-xs px-3 py-1.5 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity"
+            className="text-xs px-3 py-1.5 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity">
             ขอใบเสนอราคา
           >
           </button>
@@ -388,7 +388,7 @@ const GBSeries = () => {
               <ul className="space-y-2 mb-6">
                 {current.features.map((f) => (
                   <li key={f} className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <span className="text-primary mt-0.5">✓</span> {f}
+                    <span className="text-primary mt-0.5">✓</span> {f}>
                   </li>
                 ))}
               </ul>
@@ -397,7 +397,7 @@ const GBSeries = () => {
                 onClick={() => setQuoteOpen(true)}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity"
               >
-                <FileText size={18} /> ขอใบเสนอราคา {current.name}
+                <FileText size={18} /> ขอใบเสนอราคา {current.name}>
               </button>
             </div>
 
@@ -442,7 +442,7 @@ const GBSeries = () => {
                           <td className="px-4 py-3 text-center">
                             <button
                               onClick={() => setQuoteOpen(true)}
-                              className="text-xs px-3 py-1.5 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity"
+                              className="text-xs px-3 py-1.5 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity">
                               ขอราคา
                             >
                             </button>
@@ -576,7 +576,7 @@ const GBSeries = () => {
                   const isActive = compareFilter.includes(i);
                   return (
                     <button
-                      key={m.id}
+                      key={m.id}>
                       onClick={() => {
                         setCompareFilter(prev => {
                           if (prev.includes(i)) {
@@ -598,7 +598,7 @@ const GBSeries = () => {
                 })}
                 <button
                   onClick={() => setCompareFilter(models.map((_, i) => i))}
-                  className="px-3 py-1.5 rounded-full text-xs font-medium text-primary hover:bg-primary/10 border border-primary/30 transition-colors"
+                  className="px-3 py-1.5 rounded-full text-xs font-medium text-primary hover:bg-primary/10 border border-primary/30 transition-colors">
                   เลือกทั้งหมด
                 >
                 </button>
@@ -655,8 +655,8 @@ const GBSeries = () => {
               LINE @entgroup
             </button>
             <a
-              href="/datasheets/0597a3_7775cf506c644020a3239be2ef131caa.pdf"
-              target="_blank"
+              href="/datasheets/0597a3_7775cf506c644020a3239be2ef131caa.pdf">
+              target="_blank">
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border border-border bg-card text-foreground font-bold hover:bg-secondary/50 transition-colors"
             >

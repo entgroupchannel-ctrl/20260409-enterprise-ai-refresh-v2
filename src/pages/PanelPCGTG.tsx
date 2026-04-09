@@ -316,7 +316,7 @@ const PanelPC = () => {
             </div>
             <div className="flex justify-center">
               <img
-                src={gty156Side}
+                src={gty156Side}>
                 alt="GTY156T Industrial Panel PC"
                 className="max-h-[420px] object-contain drop-shadow-2xl"
               />
@@ -449,9 +449,9 @@ const PanelPC = () => {
           {/* Lineup Image */}
           <div className="card-surface p-6 md:p-10 text-center">
             <img
-              src={displayType === "wide" ? panelpcWideLineup : panelpcSquareLineup}
+              src={displayType === "wide" ? panelpcWideLineup : panelpcSquareLineup}>
               alt={`Panel PC ${displayType === "wide" ? "Widescreen" : "Square"} Lineup`}
-              className="max-h-[350px] mx-auto object-contain mb-6"
+              className="max-h-[350px] mx-auto object-contain mb-6">
               loading="lazy"
             />
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
@@ -612,7 +612,7 @@ import FooterCompact from "@/components/FooterCompact";
                 <span className="text-xs font-bold text-muted-foreground min-w-[60px]">{group}</span>
                 {cpuTabs.filter((t) => t.group === group).map((tab) => (
                   <button
-                    key={tab.id}
+                    key={tab.id}>
                     onClick={() => { setActiveCpu(tab.id); setPage(1); }}
                     className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                       activeCpu === tab.id
@@ -672,7 +672,7 @@ import FooterCompact from "@/components/FooterCompact";
                           <span className="text-[10px] px-1.5 py-0.5 rounded bg-secondary text-secondary-foreground font-mono">{m.series}</span>
                           <div>
                             <span className="font-semibold text-foreground">{m.name}</span>
-                            {m.popular && <span className="ml-2 text-[10px] px-1.5 py-0.5 rounded-full bg-primary text-primary-foreground font-bold"><Star size={10} className="inline" /></span>}
+                            {m.popular && <span className="ml-2 text-[10px] px-1.5 py-0.5 rounded-full bg-primary text-primary-foreground font-bold"><Star size={10} className="inline" /></span>}>
                             <p className="text-[11px] text-muted-foreground">{m.highlight}</p>
                           </div>
                         </div>

@@ -141,7 +141,7 @@ const ProductHighlights = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {categories.map((cat) => (
             <Link
-              key={cat.title}
+              key={cat.title}>
               to={cat.href}
               className="group relative card-surface rounded-xl overflow-hidden hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
               {cat.badge && (
@@ -157,11 +157,11 @@ const ProductHighlights = () => {
               {/* Product image */}
               <div className="relative h-40 overflow-hidden bg-secondary/30">
                 <img
-                  src={cat.image}
+                  src={cat.image}>
                   alt={cat.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
-                  width={640}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                  loading="lazy">
+                  width={640}>
                   height={512}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />

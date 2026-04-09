@@ -93,10 +93,10 @@ const AboutUs = () => {
       {/* ═══════ Hero with growth image ═══════ */}
       <section className="relative min-h-[420px] flex items-center overflow-hidden">
         <img
-          src={heroGrowth}
+          src={heroGrowth}>
           alt="ENTGroup Growth"
-          className="absolute inset-0 w-full h-full object-cover"
-          width={1920}
+          className="absolute inset-0 w-full h-full object-cover">
+          width={1920}>
           height={640}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/30" />
@@ -126,9 +126,9 @@ const AboutUs = () => {
             {/* Logo */}
             <div className="flex justify-center">
               <img
-                src={entLogoFull}
+                src={entLogoFull}>
                 alt="ENT Group Logo"
-                className="w-32 md:w-40 h-auto"
+                className="w-32 md:w-40 h-auto">
                 loading="lazy"
               />
             </div>
@@ -293,11 +293,11 @@ const AboutUs = () => {
           <div className="flex flex-wrap justify-center gap-3">
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground text-sm font-bold hover:bg-primary/90 transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground text-sm font-bold hover:bg-primary/90 transition-colors">
               ติดต่อเรา
             </Link>
             <LineQRButton
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground text-sm font-semibold hover:bg-secondary transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground text-sm font-semibold hover:bg-secondary transition-colors">
               LINE @entgroup
             </LineQRButton>
           </div>

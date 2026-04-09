@@ -606,7 +606,7 @@ const PaginatedPriceTable = ({ rows, perPage, totalPages }: {
           <div className="flex items-center gap-1">
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
               <button
-                key={p}
+                key={p}>
                 onClick={() => setPage(p)}
                 className={`h-7 w-7 rounded text-xs font-medium transition-colors ${
                   p === page ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground hover:bg-muted"
@@ -657,9 +657,9 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
             <ProductGallery images={model.gallery} alt={model.name} />
           ) : (
             <img
-              src={model.image}
+              src={model.image}>
               alt={model.name}
-              className="max-h-[240px] object-contain mb-4"
+              className="max-h-[240px] object-contain mb-4">
               loading="lazy"
             />
           )}
@@ -667,9 +667,9 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
             <div className="flex flex-wrap gap-2 mt-4 justify-center">
               {model.datasheetUrls.map((ds, i) => (
                 <a
-                  key={i}
-                  href={ds.url}
-                  target="_blank"
+                  key={i}>
+                  href={ds.url}>
+                  target="_blank">
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity"
                 >
@@ -690,7 +690,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
             onClick={() => onQuote(model.name)}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors mb-6"
           >
-            <ExternalLink size={14} /> ขอใบเสนอราคา {model.name}
+            <ExternalLink size={14} /> ขอใบเสนอราคา {model.name}>
           </button>
 
           {/* Highlights */}
@@ -839,9 +839,9 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
             <TabsContent value="video" className="mt-0 p-6">
               <div className="aspect-video max-w-2xl mx-auto rounded-xl overflow-hidden border border-border">
                 <iframe
-                  src={`https://www.youtube.com/embed/${model.youtubeId}`}
+                  src={`https://www.youtube.com/embed/${model.youtubeId}`}>
                   title={`${model.name} Video`}
-                  className="w-full h-full"
+                  className="w-full h-full">
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 />
@@ -1009,7 +1009,7 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
           <div className="grid border-b border-border" style={{ gridTemplateColumns: `180px repeat(${visibleIndices.length}, 1fr)` }}>
             <div className="px-4 py-4 bg-primary/10 flex items-center">
               <span className="text-sm font-bold text-foreground">
-                {viewMode === "specs" ? <><FileText size={14} className="inline mr-1" /> สเปก</> : viewMode === "price" ? <><DollarSign size={14} className="inline mr-1" /> ราคา</> : <><BarChart3 size={14} className="inline mr-1" /> ความคุ้มค่า</>}
+                {viewMode === "specs" ? <><FileText size={14} className="inline mr-1" /> สเปก</> : viewMode === "price" ? <><DollarSign size={14} className="inline mr-1" /> ราคา</> : <><BarChart3 size={14} className="inline mr-1" /> ความคุ้มค่า</>}>
               </span>
             </div>
             {visibleIndices.map(i => (
@@ -1024,7 +1024,7 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
           {/* Data Rows */}
           <div className="divide-y divide-border">
             {Object.entries(data).map(([label, values], rowIdx) => (
-              <div key={label} className={`grid items-center ${rowIdx % 2 === 0 ? "bg-muted/10" : ""}`}
+              <div key={label} className={`grid items-center ${rowIdx % 2 === 0 ? "bg-muted/10" : ""}`}>
                 style={{ gridTemplateColumns: `180px repeat(${visibleIndices.length}, 1fr)` }}>
                 <div className="px-4 py-3 text-sm font-medium text-foreground">{label}</div>
                 {visibleIndices.map(i => (
@@ -1043,7 +1043,7 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
           </div>
 
           {/* Quote Buttons Row */}
-          <div className="grid border-t border-border bg-muted/20"
+          <div className="grid border-t border-border bg-muted/20">
             style={{ gridTemplateColumns: `180px repeat(${visibleIndices.length}, 1fr)` }}>
             <div className="px-4 py-4 text-sm font-medium text-foreground flex items-center">ขอใบเสนอราคา</div>
             {visibleIndices.map(i => (
@@ -1118,10 +1118,10 @@ const GKSeries = () => {
         {/* Background image */}
         <div className="absolute inset-0">
           <img
-            src={gkHeroBanner}
+            src={gkHeroBanner}>
             alt="GK Series Panel PC in harsh industrial environment"
-            className="w-full h-full object-cover"
-            width={1920}
+            className="w-full h-full object-cover">
+            width={1920}>
             height={800}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/40" />
@@ -1158,8 +1158,8 @@ const GKSeries = () => {
 
             <div className="flex flex-wrap gap-3">
               <a
-                href="/datasheets/0597a3_b7e91a40254040a3b28e20e2641312cd.pdf"
-                target="_blank"
+                href="/datasheets/0597a3_b7e91a40254040a3b28e20e2641312cd.pdf">
+                target="_blank">
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
               >
@@ -1167,7 +1167,7 @@ const GKSeries = () => {
               </a>
               <a
                 href="#comparison"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-background/60 backdrop-blur-sm border border-border text-foreground font-semibold hover:bg-muted transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-background/60 backdrop-blur-sm border border-border text-foreground font-semibold hover:bg-muted transition-colors">
                 เปรียบเทียบรุ่น
               >
               </a>
@@ -1225,7 +1225,7 @@ const GKSeries = () => {
             <span className="text-sm text-muted-foreground shrink-0 mr-2">รุ่น:</span>
             {gkModels.map((m) => (
               <a
-                key={m.id}
+                key={m.id}>
                 href={`#${m.id}`}
                 className="shrink-0 px-4 py-2 rounded-lg text-sm font-medium border border-border hover:border-primary/50 hover:bg-primary/5 text-foreground transition-all"
               >
@@ -1354,7 +1354,7 @@ const GKSeries = () => {
               <div className="flex flex-wrap justify-center gap-2 mb-8">
                 {tabKeys.map((tab) => (
                   <button
-                    key={tab}
+                    key={tab}>
                     onClick={() => setActiveVideoTab(tab)}
                     className={`px-4 py-2 rounded-lg text-sm font-semibold border transition-all ${
                       activeVideoTab === tab
@@ -1371,9 +1371,9 @@ const GKSeries = () => {
                   <div key={v.id} className="card-surface overflow-hidden">
                     <div className="aspect-video">
                       <iframe
-                        src={`https://www.youtube.com/embed/${v.id}`}
+                        src={`https://www.youtube.com/embed/${v.id}`}>
                         title={v.title}
-                        className="w-full h-full"
+                        className="w-full h-full">
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         loading="lazy"
@@ -1443,9 +1443,9 @@ const GKSeries = () => {
               </div>
               <div className="flex justify-center">
                 <img
-                  src="/images/wix/005637_9307d91084e2433eb766e611c65c7518_d90cd4b5.jpg"
+                  src="/images/wix/005637_9307d91084e2433eb766e611c65c7518_d90cd4b5.jpg">
                   alt="GK Series SIM slot"
-                  className="rounded-xl max-w-full"
+                  className="rounded-xl max-w-full">
                   loading="lazy"
                 />
               </div>
@@ -1503,7 +1503,7 @@ const GKSeries = () => {
                 <div className="flex gap-0.5 mb-3">
                   {Array.from({ length: 5 }, (_, s) => (
                     <Star
-                      key={s}
+                      key={s}>
                       size={16}
                       className={s < review.stars ? "text-amber-400 fill-amber-400" : "text-muted-foreground/30"}
                     />

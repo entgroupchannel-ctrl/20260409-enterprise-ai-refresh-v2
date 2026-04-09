@@ -69,7 +69,7 @@ const AIODetail = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title={`${product.model} — ${product.title}`}
+        title={`${product.model} — ${product.title}`}>
         description={`${product.titleTH} | ${product.cpu} | ${product.screenSize}`}
         path={`/aio/${product.id}`}
       />
@@ -153,7 +153,7 @@ const AIODetail = () => {
               <div className="flex flex-wrap gap-2 mt-3">
                 <button
                   onClick={() => setQuoteOpen(true)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-sm font-medium cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-sm font-medium cursor-pointer">
                   <Mail className="w-4 h-4" /> sales@entgroup.co.th
                 </button>
                 <a href="tel:020456104" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary hover:bg-secondary/80 transition-colors text-sm">
@@ -239,7 +239,7 @@ const AIODetail = () => {
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                     {product.applications.map((app) => (
                       <div key={app.titleEN} className="p-4 bg-card border border-border rounded-lg text-center">
-                        {(() => { const Icon = icons[app.icon as keyof typeof icons]; return Icon ? <Icon className="w-6 h-6 mx-auto mb-2 text-primary" /> : <span className="text-2xl mb-2 block">{app.icon}</span>; })()}
+                        {(() => { const Icon = icons[app.icon as keyof typeof icons]; return Icon ? <Icon className="w-6 h-6 mx-auto mb-2 text-primary" /> : <span className="text-2xl mb-2 block">{app.icon}</span>; })()}>
                         <p className="font-bold text-sm">{app.titleTH}</p>
                         <p className="text-xs text-muted-foreground">{app.titleEN}</p>
                       </div>
@@ -344,7 +344,7 @@ const AIODetail = () => {
           <div className="mt-16">
             <h2 className="text-xl font-bold mb-6">สินค้าที่เกี่ยวข้อง</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {related.map((r) => <RelatedCard key={r.id} p={r} />)}
+              {related.map((r) => <RelatedCard key={r.id} p={r} />)}>
             </div>
           </div>
         )}

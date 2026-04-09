@@ -63,9 +63,9 @@ const HandheldCard = ({
         <Checkbox checked={selected} className="h-5 w-5" />
       </button>
       <img
-        src={product.image}
+        src={product.image}>
         alt={product.model}
-        className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+        className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
         loading="lazy"
       />
     </div>
@@ -117,7 +117,7 @@ const Handheld = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead
-        title="Rugged Handheld & PDA กันน้ำ สแกนบาร์โค้ด"
+        title="Rugged Handheld & PDA กันน้ำ สแกนบาร์โค้ด">
         description="Rugged Handheld, PDA และมือถืออุตสาหกรรม กันน้ำ กันกระแทก IP65-IP68 พร้อม 2D Scanner, NFC, 5G สำหรับคลังสินค้า โลจิสติกส์ และงานภาคสนาม"
         path="/handheld"
       />
@@ -181,7 +181,7 @@ const Handheld = () => {
           <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide py-2">
             {filterOptions.map((opt) => (
               <button
-                key={opt.id}
+                key={opt.id}>
                 onClick={() => setFilter(opt.id)}
                 className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all ${
                   filter === opt.id
@@ -220,7 +220,7 @@ const Handheld = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {filtered.map((p) => (
               <HandheldCard
-                key={p.id}
+                key={p.id}>
                 product={p}
                 selected={selectedProducts.has(p.model)}
                 onToggleSelect={toggleSelect}
@@ -255,7 +255,7 @@ const Handheld = () => {
           <Button
             size="sm"
             variant="secondary"
-            className="rounded-full font-bold"
+            className="rounded-full font-bold">
             onClick={() => setShowMultiQuote(true)}
           >
             <FileText className="w-4 h-4 mr-1.5" /> ขอใบเสนอราคารวม
