@@ -167,7 +167,6 @@ const HeroSection = () => {
             <h1
               className="text-4xl md:text-6xl lg:text-7xl font-display font-black leading-[1.1] mb-6 animate-fade-up text-white"
               style={{ animationDelay: "0.1s" }}>
-            >
               โซลูชัน <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-[hsl(var(--accent))]">Industrial Computing</span>
               <br />
               สำหรับประเทศไทย
@@ -176,7 +175,6 @@ const HeroSection = () => {
             <p
               className="text-lg md:text-xl text-white/70 max-w-xl mb-10 animate-fade-up leading-relaxed"
               style={{ animationDelay: "0.2s" }}>
-            >
               พันธมิตรธุรกิจที่คุณไว้วางใจ — Mini PC, Panel PC, Rugged Device และซอฟต์แวร์ครบวงจร สำหรับงานโรงงาน งานประมูล และงานโครงการ
             </p>
 

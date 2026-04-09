@@ -84,7 +84,6 @@ const Carousel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
           canScrollPrev,
           canScrollNext,
         }}>
-      >
         <div
           ref={ref}
           onKeyDownCapture={handleKeyDown}

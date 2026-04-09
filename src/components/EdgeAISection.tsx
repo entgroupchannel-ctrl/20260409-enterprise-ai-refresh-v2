@@ -91,7 +91,6 @@ const EdgeAISection = () => {
                   diff > 0 ? next() : prev();
                 }
               }}>
-            >
               {slides.map((slide, i) => (
                 <div
                   key={i}
@@ -100,7 +99,6 @@ const EdgeAISection = () => {
                     opacity: i === current ? 1 : 0,
                     transform: i === current ? "scale(1)" : "scale(1.05)",
                   }}>
-                >
                   <img
                     src={slide.src}
                     alt={slide.alt}
