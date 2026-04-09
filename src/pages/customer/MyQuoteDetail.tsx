@@ -256,16 +256,6 @@ export default function MyQuoteDetail() {
               <Button variant="outline" size="sm" onClick={() => window.print()}>
                 <Printer className="w-4 h-4 mr-2" />พิมพ์
               </Button>
-              {quote.status !== 'pending' && (
-                <Button variant="outline" size="sm">
-                  <Download className="w-4 h-4 mr-2" />ดาวน์โหลด PDF
-                </Button>
-              )}
-              {quote.status === 'quote_sent' && (
-                <Button size="sm" onClick={() => setShowPOUpload(true)}>
-                  <Upload className="w-4 h-4 mr-2" />อัปโหลด PO
-                </Button>
-              )}
             </div>
           </div>
         </div>
@@ -443,8 +433,8 @@ export default function MyQuoteDetail() {
               </Card>
             )}
 
-            {/* PO Files */}
-            {poFiles.length > 0 && (
+            {/* PO Section */}
+            {(quote.status !== 'pending') && (
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
@@ -453,66 +443,70 @@ export default function MyQuoteDetail() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3">
-                    {poFiles.map((file) => (
-                      <div
-                        key={file.id}
-                        className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors"
-                      >
-                        <div className="flex items-center gap-3 flex-1 min-w-0">
-                          <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center shrink-0">
-                            <FileText className="w-6 h-6 text-primary" />
-                          </div>
-                          <div className="min-w-0 flex-1">
-                            <p className="font-medium text-foreground truncate">{file.file_name}</p>
-                            <div className="flex items-center gap-3 text-xs text-muted-foreground mt-1">
-                              <span>
-                                {formatShortDateTime(file.uploaded_at)}
-                              </span>
-                              {file.file_size && <span>{formatFileSize(file.file_size)}</span>}
+                  {poFiles.length > 0 && (
+                    <div className="space-y-3 mb-4">
+                      {poFiles.map((file) => (
+                        <div
+                          key={file.id}
+                          className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors"
+                        >
+                          <div className="flex items-center gap-3 flex-1 min-w-0">
+                            <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center shrink-0">
+                              <FileText className="w-6 h-6 text-primary" />
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <p className="font-medium text-foreground truncate">{file.file_name}</p>
+                              <div className="flex items-center gap-3 text-xs text-muted-foreground mt-1">
+                                <span>{formatShortDateTime(file.uploaded_at)}</span>
+                                {file.file_size && <span>{formatFileSize(file.file_size)}</span>}
+                              </div>
                             </div>
                           </div>
+                          <Button variant="outline" size="sm" onClick={() => window.open(file.file_url, '_blank')}>
+                            <Download className="w-4 h-4 mr-2" />ดาวน์โหลด
+                          </Button>
                         </div>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => window.open(file.file_url, '_blank')}
-                        >
-                          <Download className="w-4 h-4 mr-2" />
-                          ดาวน์โหลด
-                        </Button>
-                      </div>
-                    ))}
-                  </div>
+                      ))}
+                    </div>
+                  )}
+
                   {(quote.status === 'quote_sent' || quote.status === 'po_uploaded') && (
-                    <div className="mt-4 p-4 bg-primary/5 rounded-lg border border-primary/20 text-center space-y-3">
+                    <div className="p-4 bg-primary/5 rounded-lg border border-primary/20 text-center space-y-3">
                       <Send className="w-10 h-10 text-primary mx-auto" />
                       <div>
-                        <p className="font-semibold text-foreground">พร้อมส่ง PO ให้ทีมงานตรวจสอบ</p>
-                        <p className="text-sm text-muted-foreground">กดปุ่มด้านล่างเพื่อส่ง PO ทั้งหมดให้ทีมงาน</p>
+                        <p className="font-semibold text-foreground">
+                          {poFiles.length > 0 ? 'พร้อมส่ง PO ให้ทีมงานตรวจสอบ' : 'อัปโหลดใบสั่งซื้อ (PO) ของท่าน'}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          {poFiles.length > 0 ? 'กดปุ่มด้านล่างเพื่อส่ง PO ทั้งหมดให้ทีมงาน' : 'แนบไฟล์ PO เพื่อดำเนินการสั่งซื้อ'}
+                        </p>
                       </div>
                       <div className="flex gap-2">
                         <Button variant="outline" className="flex-1" onClick={() => setShowPOUpload(true)}>
                           <Upload className="w-4 h-4 mr-2" />
-                          แนบไฟล์เพิ่ม
+                          {poFiles.length > 0 ? 'แนบไฟล์เพิ่ม' : 'อัปโหลด PO'}
                         </Button>
-                        <Button onClick={handleSendPO} disabled={confirming} className="flex-1">
-                          <Send className="w-4 h-4 mr-2" />
-                          {confirming ? 'กำลังส่ง...' : 'ส่ง PO'}
-                        </Button>
+                        {poFiles.length > 0 && (
+                          <Button onClick={handleSendPO} disabled={confirming} className="flex-1">
+                            <Send className="w-4 h-4 mr-2" />
+                            {confirming ? 'กำลังส่ง...' : 'ส่ง PO'}
+                          </Button>
+                        )}
                       </div>
                       <p className="text-xs text-muted-foreground">เมื่อกดส่งแล้ว ทีมงานจะตรวจสอบและอนุมัติให้เร็วที่สุด</p>
                     </div>
                   )}
+
                   {quote.status === 'po_confirmed' && (
-                    <div className="mt-4 p-4 bg-primary/5 rounded-lg border border-primary/20 text-center space-y-2">
+                    <div className="p-4 bg-primary/5 rounded-lg border border-primary/20 text-center space-y-2">
                       <CheckCircle2 className="w-10 h-10 text-primary mx-auto" />
                       <p className="font-semibold text-foreground">ส่ง PO แล้ว</p>
-                      <p className="text-sm text-muted-foreground">ทีมงานกำลังตรวจสอบและดำเนินการ</p>
+                      <p className="text-sm text-muted-foreground">ทีมงานกำลังตรวจสอบและดำเนินการให้เร็วที่สุด</p>
                     </div>
                   )}
+
                   {(quote.status === 'po_approved' || quote.status === 'completed') && (
-                    <div className="mt-4 p-3 bg-primary/5 rounded-lg border border-primary/20">
+                    <div className="p-3 bg-primary/5 rounded-lg border border-primary/20">
                       <p className="text-sm text-foreground">
                         <span className="font-semibold">สถานะ:</span>{' '}
                         {quote.status === 'po_approved' && 'PO ได้รับการอนุมัติแล้ว'}
@@ -524,25 +518,6 @@ export default function MyQuoteDetail() {
               </Card>
             )}
 
-            {/* Action Buttons */}
-            {(quote.status === 'quote_sent' || quote.status === 'po_uploaded') && (
-              <div className="flex gap-3 justify-center print:hidden">
-                <Button variant="outline" size="lg">
-                  <Download className="w-4 h-4 mr-2" />
-                  ดาวน์โหลด PDF
-                </Button>
-                <Button size="lg" onClick={() => setShowPOUpload(true)}>
-                  <Upload className="w-4 h-4 mr-2" />
-                  อัปโหลด PO
-                </Button>
-                {poFiles.length > 0 && (
-                  <Button size="lg" variant="default" onClick={handleSendPO} disabled={confirming}>
-                    <Send className="w-4 h-4 mr-2" />
-                    {confirming ? 'กำลังส่ง...' : 'ส่ง PO'}
-                  </Button>
-                )}
-              </div>
-            )}
           </div>
 
           {/* Right Column - Chat & PO Upload */}
@@ -611,23 +586,6 @@ export default function MyQuoteDetail() {
               </CardContent>
             </Card>
 
-            {/* PO Upload Button */}
-            {(quote.status === 'quote_sent' || quote.status === 'po_uploaded') && (
-              <Card>
-                <CardContent className="pt-6">
-                  <Button className="w-full" size="lg" onClick={() => setShowPOUpload(true)}>
-                    <Upload className="w-4 h-4 mr-2" />
-                    แนบไฟล์ PO
-                  </Button>
-                  {poFiles.length > 0 && (
-                    <Button className="w-full mt-2" size="lg" variant="default" onClick={handleSendPO} disabled={confirming}>
-                      <Send className="w-4 h-4 mr-2" />
-                      {confirming ? 'กำลังส่ง...' : `ส่ง PO (${poFiles.length} ไฟล์)`}
-                    </Button>
-                  )}
-                </CardContent>
-              </Card>
-            )}
           </div>
         </div>
       </div>
