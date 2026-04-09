@@ -1,4 +1,4 @@
-import { useState, ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import LineQRDialog from "./LineQRDialog";
 
 interface LineQRButtonProps {
@@ -11,8 +11,7 @@ const LineQRButton = ({ children, className = "" }: LineQRButtonProps) => {
 
   return (
     <>
-      <button type="button" onClick={() => setOpen(true)} className={className}
-
+      <button type="button" onClick={() => setOpen(true)} className={className}>
         {children}
       </button>
       <LineQRDialog open={open} onClose={() => setOpen(false)} />

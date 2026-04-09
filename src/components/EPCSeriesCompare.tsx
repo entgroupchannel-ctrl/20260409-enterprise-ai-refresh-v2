@@ -122,6 +122,7 @@ const EPCSeriesCompare = ({ onQuote }: Props) => {
                   ? "bg-primary text-primary-foreground shadow-sm"
                   : "text-muted-foreground hover:text-foreground"
               }`}
+            >
               <v.icon size={12} />
               {v.label}
             </button>
@@ -253,7 +254,7 @@ const EPCSeriesCompare = ({ onQuote }: Props) => {
                     className={`w-7 h-7 flex items-center justify-center rounded text-[11px] font-medium transition-colors ${
                       p === page ? "bg-primary text-primary-foreground" : "border border-border text-muted-foreground hover:bg-muted"
                     }`}
-
+                  >
                     {p}
                   </button>
                 ))}

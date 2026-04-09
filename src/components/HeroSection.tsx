@@ -53,15 +53,15 @@ const heroStats = [
 const HeroSection = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const navigate = useNavigate();
   const [searchOpen, setSearchOpen] = useState(false);
   const [tagsExpanded, setTagsExpanded] = useState(true);
+  const navigate = useNavigate();
+  const searchRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setTagsExpanded(false), 10000);
     return () => clearTimeout(timer);
   }, []);
-  const searchRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -69,15 +69,18 @@ const HeroSection = () => {
         setSearchOpen(false);
       }
     };
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const searchResults = searchQuery.trim().length >= 1
-    ? searchIndex.filter((item) => {
-        const q = searchQuery.toLowerCase();
-        return item.label.toLowerCase().includes(q) || item.keywords.some((k) => k.includes(q));
-      }).slice(0, 8)
+    ? searchIndex
+        .filter((item) => {
+          const q = searchQuery.toLowerCase();
+          return item.label.toLowerCase().includes(q) || item.keywords.some((keyword) => keyword.includes(q));
+        })
+        .slice(0, 8)
     : [];
 
   const handleSearch = () => {
@@ -85,7 +88,10 @@ const HeroSection = () => {
       navigate(searchResults[0].href);
       setSearchQuery("");
       setSearchOpen(false);
-    } else if (searchQuery.trim()) {
+      return;
+    }
+
+    if (searchQuery.trim()) {
       navigate(`/contact?q=${encodeURIComponent(searchQuery)}`);
       setSearchQuery("");
       setSearchOpen(false);
@@ -99,7 +105,6 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex flex-col">
-      {/* Full-bleed background image */}
       <div className="absolute inset-0 z-0">
         <img
           src={heroIndustrial}
@@ -112,28 +117,36 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-background/30 via-transparent to-black/40" />
       </div>
 
-      {/* Nav */}
       <nav className="relative z-20 flex items-center justify-between px-6 md:px-12 py-5">
-        <a href="#" className="flex items-center gap-3">
+        <Link to="/" className="flex items-center gap-3">
           <img src={logo} alt="ENT GROUP" className="h-10 w-auto" />
-        </a>
+        </Link>
+
         <div className="hidden md:flex items-center gap-2">
           <MegaMenu />
-          {navLinks.map((l) => (
-            <Link key={l.label} to={l.href} className="px-3 py-2 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-colors">
-              {l.label}
+          {navLinks.map((link) => (
+            <Link
+              key={link.label}
+              to={link.href}
+              className="px-3 py-2 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-colors"
+            >
+              {link.label}
             </Link>
           ))}
           <div className="w-px h-6 bg-white/10 mx-1" />
           <ThemeToggle />
         </div>
-        <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden text-white">
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}>
 
+        <button
+          type="button"
+          onClick={() => setMobileMenuOpen((prev) => !prev)}
+          className="md:hidden text-white"
+          aria-label="Toggle menu"
+        >
+          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </nav>
 
-      {/* Mobile menu */}
       {mobileMenuOpen && (
         <div className="md:hidden absolute top-16 left-0 right-0 z-30 bg-card border-b border-border p-6 animate-fade-in max-h-[80vh] overflow-y-auto">
           <MobileMegaMenu onNavigate={() => setMobileMenuOpen(false)} />
@@ -143,45 +156,49 @@ const HeroSection = () => {
         </div>
       )}
 
-      {/* Hero Content */}
       <div className="relative z-10 flex-1 flex items-center px-6 md:px-12 lg:px-20">
         <div className="w-full flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10 py-16 md:py-0">
           <div className="max-w-2xl">
             <p className="text-sm md:text-base text-primary font-semibold tracking-widest uppercase mb-4 animate-fade-up">
               B2B Industrial Platform — แพลตฟอร์มจัดซื้ออุตสาหกรรมแบบครบวงจร
             </p>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-black leading-[1.1] mb-6 animate-fade-up text-white" style={{ animationDelay: "0.1s" }}
 
-              โซลูชัน{" "}>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-[hsl(var(--accent))]">
-                Industrial Computing
-              </span>
+            <h1
+              className="text-4xl md:text-6xl lg:text-7xl font-display font-black leading-[1.1] mb-6 animate-fade-up text-white"
+              style={{ animationDelay: "0.1s" }}
+            >
+              โซลูชัน <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-[hsl(var(--accent))]">Industrial Computing</span>
               <br />
               สำหรับประเทศไทย
             </h1>
-            <p className="text-lg md:text-xl text-white/70 max-w-xl mb-10 animate-fade-up leading-relaxed" style={{ animationDelay: "0.2s" }}
 
-              พันธมิตรธุรกิจที่คุณไว้วางใจ — Mini PC, Panel PC, Rugged Device
-              และซอฟต์แวร์ครบวงจร สำหรับงานโรงงาน งานประมูล และงานโครงการ
+            <p
+              className="text-lg md:text-xl text-white/70 max-w-xl mb-10 animate-fade-up leading-relaxed"
+              style={{ animationDelay: "0.2s" }}
+            >
+              พันธมิตรธุรกิจที่คุณไว้วางใจ — Mini PC, Panel PC, Rugged Device และซอฟต์แวร์ครบวงจร สำหรับงานโรงงาน งานประมูล และงานโครงการ
             </p>
 
-            {/* Search */}
             <div ref={searchRef} className="relative max-w-xl mb-8 animate-fade-up" style={{ animationDelay: "0.3s" }}>
-
               <div className="flex items-center bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl overflow-hidden focus-within:ring-2 focus-within:ring-primary/50 transition-shadow">
                 <Search className="ml-4 text-white/50" size={20} />
                 <input
                   type="text"
                   placeholder="บอกความต้องการ เช่น Mini PC โรงงาน, Firewall SME..."
                   value={searchQuery}
-                  onChange={(e) => { setSearchQuery(e.target.value); setSearchOpen(true); }}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    setSearchOpen(true);
+                  }}
                   onFocus={() => setSearchOpen(true)}
                   onKeyDown={handleSearchKeyDown}
                   className="flex-1 bg-transparent px-4 py-4 text-white placeholder:text-white/40 outline-none text-sm md:text-base"
                 />
                 <button
+                  type="button"
                   onClick={handleSearch}
-                  className="px-6 py-4 bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity">
+                  className="px-6 py-4 bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity"
+                >
                   ค้นเลย
                 </button>
               </div>
@@ -191,8 +208,14 @@ const HeroSection = () => {
                   {searchResults.map((item, i) => (
                     <button
                       key={i}
-                      onClick={() => { navigate(item.href); setSearchQuery(""); setSearchOpen(false); }}
-                      className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-primary/10 transition-colors border-b border-border/50 last:border-0">
+                      type="button"
+                      onClick={() => {
+                        navigate(item.href);
+                        setSearchQuery("");
+                        setSearchOpen(false);
+                      }}
+                      className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-primary/10 transition-colors border-b border-border/50 last:border-0"
+                    >
                       <Search size={14} className="text-muted-foreground shrink-0" />
                       <span className="text-sm text-foreground">{item.label}</span>
                     </button>
@@ -201,41 +224,38 @@ const HeroSection = () => {
               )}
             </div>
 
-            {/* CTA */}
             <div className="flex flex-wrap items-center gap-3 animate-fade-up" style={{ animationDelay: "0.35s" }}>
-
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20">
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20"
+              >
                 ปรึกษาผู้เชี่ยวชาญ
               </Link>
               <Link
                 to="/promotions"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/20 text-white/80 text-sm hover:bg-white/10 transition-colors backdrop-blur-sm">
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/20 text-white/80 text-sm hover:bg-white/10 transition-colors backdrop-blur-sm"
+              >
                 ดูโปรโมชั่น
               </Link>
             </div>
 
-            {/* Stats bar */}
             <div className="flex flex-wrap gap-8 mt-12 animate-fade-up" style={{ animationDelay: "0.5s" }}>
-
-              {heroStats.map((s) => (
-                <div key={s.label}>
-
-                  <p className="text-2xl md:text-3xl font-display font-black text-primary">{s.value}</p>
-                  <p className="text-xs text-white/50">{s.label}</p>
+              {heroStats.map((stat) => (
+                <div key={stat.label}>
+                  <p className="text-2xl md:text-3xl font-display font-black text-primary">{stat.value}</p>
+                  <p className="text-xs text-white/50">{stat.label}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Right: Search Tags */}
           <div className={`hidden lg:flex fixed right-0 top-1/2 -translate-y-1/2 z-30 transition-all duration-500 ease-in-out ${tagsExpanded ? "translate-x-0" : "translate-x-[calc(100%-28px)]"}`}>
-
             <button
-              onClick={() => setTagsExpanded(!tagsExpanded)}
+              type="button"
+              onClick={() => setTagsExpanded((prev) => !prev)}
               className="flex items-center justify-center w-7 shrink-0 rounded-l-xl bg-white/10 backdrop-blur-md border border-r-0 border-white/15 text-white/50 hover:text-white hover:bg-white/20 transition-colors"
-              title="สินค้ายอดนิยม">
+              title="สินค้ายอดนิยม"
+            >
               <ChevronDown size={14} className={`transition-transform duration-300 ${tagsExpanded ? "rotate-90" : "-rotate-90"}`} />
             </button>
             <div className="flex flex-col gap-2 p-3 rounded-l-xl bg-black/40 backdrop-blur-xl border border-r-0 border-white/10">
@@ -243,22 +263,24 @@ const HeroSection = () => {
               {searchTags.map((tag) => (
                 <button
                   key={tag.label}
+                  type="button"
                   onClick={() => navigate(tag.href)}
-                  className="text-left px-3 py-2 rounded-lg bg-white/5 text-white/80 text-xs border border-white/10 hover:bg-white/15 hover:border-white/25 hover:text-white transition-all whitespace-nowrap">
+                  className="text-left px-3 py-2 rounded-lg bg-white/5 text-white/80 text-xs border border-white/10 hover:bg-white/15 hover:border-white/25 hover:text-white transition-all whitespace-nowrap"
+                >
                   {tag.label}
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Mobile: Tags inline */}
           <div className="flex flex-wrap gap-2 lg:hidden animate-fade-up" style={{ animationDelay: "0.4s" }}>
-
             {searchTags.map((tag) => (
               <button
                 key={tag.label}
+                type="button"
                 onClick={() => navigate(tag.href)}
-                className="px-3 py-1.5 rounded-full bg-white/10 text-white/80 text-xs border border-white/10 hover:bg-white/20 hover:border-white/30 transition-all backdrop-blur-sm">
+                className="px-3 py-1.5 rounded-full bg-white/10 text-white/80 text-xs border border-white/10 hover:bg-white/20 hover:border-white/30 transition-all backdrop-blur-sm"
+              >
                 {tag.label}
               </button>
             ))}
@@ -266,9 +288,8 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Scroll indicator */}
       <div className="relative z-10 flex justify-center pb-8 animate-bounce">
-        <a href="#products" className="text-white/40 hover:text-white/70 transition-colors">
+        <a href="#products" className="text-white/40 hover:text-white/70 transition-colors" aria-label="Scroll to products">
           <ChevronDown size={28} />
         </a>
       </div>
