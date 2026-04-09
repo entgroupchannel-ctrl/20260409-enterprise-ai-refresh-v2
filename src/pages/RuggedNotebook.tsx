@@ -410,7 +410,7 @@ const NotebookCard = ({ product, selected, onToggleSelect }: { product: RuggedNo
   const cfg = product.configs[selectedCfg];
 
   return (
-    <div className={`group bg-card border border-border rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col ${selected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"}`}
+    <div className={`group bg-card border border-border rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col ${selected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"}`}>
 
       {/* Image */}
       <Link to={`/rugged-notebook/${product.id}`} className="relative bg-gradient-to-b from-muted/30 to-transparent p-6 flex items-center justify-center min-h-[200px]">

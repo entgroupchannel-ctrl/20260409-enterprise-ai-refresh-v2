@@ -961,7 +961,7 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
             <div className="flex flex-wrap gap-1.5">
               {filterOptions.screenSize.map(opt => (
                 <button key={opt} onClick={() => setScreenFilter(opt)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${screenFilter === opt ? "bg-primary text-primary-foreground border-primary" : "border-border text-muted-foreground hover:border-primary/50"}`}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${screenFilter === opt ? "bg-primary text-primary-foreground border-primary" : "border-border text-muted-foreground hover:border-primary/50"}`}>
 
                   {opt}
                 </button>
@@ -973,7 +973,7 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
             <div className="flex flex-wrap gap-1.5">
               {filterOptions.cpu.map(opt => (
                 <button key={opt} onClick={() => setCpuFilter(opt)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${cpuFilter === opt ? "bg-primary text-primary-foreground border-primary" : "border-border text-muted-foreground hover:border-primary/50"}`}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${cpuFilter === opt ? "bg-primary text-primary-foreground border-primary" : "border-border text-muted-foreground hover:border-primary/50"}`}>
 
                   {opt}
                 </button>
@@ -985,7 +985,7 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
             <div className="flex flex-wrap gap-1.5">
               {filterOptions.budget.map(opt => (
                 <button key={opt} onClick={() => setBudgetFilter(opt)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${budgetFilter === opt ? "bg-primary text-primary-foreground border-primary" : "border-border text-muted-foreground hover:border-primary/50"}`}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${budgetFilter === opt ? "bg-primary text-primary-foreground border-primary" : "border-border text-muted-foreground hover:border-primary/50"}`}>
 
                   {opt}
                 </button>

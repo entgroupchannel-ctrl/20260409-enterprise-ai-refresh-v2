@@ -415,10 +415,10 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
     <div className="card-surface overflow-hidden" id={series.id}
 
       {/* Header with image and features */}
-      <div className={`grid lg:grid-cols-5 gap-0`}
+      <div className={`grid lg:grid-cols-5 gap-0`}>
 
         {/* Image side - 2 cols */}
-        <div className={`lg:col-span-2 relative bg-secondary/30 p-8 flex flex-col items-center justify-center ${isReversed ? "lg:order-2" : ""}`}
+        <div className={`lg:col-span-2 relative bg-secondary/30 p-8 flex flex-col items-center justify-center ${isReversed ? "lg:order-2" : ""}`}>
 
           {series.badge ? (
             <span className="absolute top-4 right-4 px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-bold">
@@ -630,7 +630,7 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
             <div className="flex flex-wrap gap-1.5">
               {epcFilterOpts.formFactor.map(opt => (
                 <button key={opt} onClick={() => setFormFilter(opt)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${formFilter === opt ? "bg-primary text-primary-foreground border-primary" : "border-border text-muted-foreground hover:border-primary/50"}`}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${formFilter === opt ? "bg-primary text-primary-foreground border-primary" : "border-border text-muted-foreground hover:border-primary/50"}`}>
 
                   {opt}
                 </button>
@@ -642,7 +642,7 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
             <div className="flex flex-wrap gap-1.5">
               {epcFilterOpts.budget.map(opt => (
                 <button key={opt} onClick={() => setBudgetFilter(opt)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${budgetFilter === opt ? "bg-primary text-primary-foreground border-primary" : "border-border text-muted-foreground hover:border-primary/50"}`}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${budgetFilter === opt ? "bg-primary text-primary-foreground border-primary" : "border-border text-muted-foreground hover:border-primary/50"}`}>
 
                   {opt}
                 </button>

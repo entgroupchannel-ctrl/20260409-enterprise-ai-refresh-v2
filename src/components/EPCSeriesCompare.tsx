@@ -188,7 +188,7 @@ const EPCSeriesCompare = ({ onQuote }: Props) => {
                       <td className="px-3 py-2.5">
                         <div className="flex items-center gap-1.5">
                           <span className="font-mono font-semibold text-foreground">{m.name}</span>
-                          <Badge className={`text-[9px] px-1 py-0 ${m.tierColor} bg-transparent border ${m.cpuTier === "entry" ? "border-emerald-500/30" : m.cpuTier === "mid" ? "border-sky-500/30" : "border-amber-500/30"}`}
+                          <Badge className={`text-[9px] px-1 py-0 ${m.tierColor} bg-transparent border ${m.cpuTier === "entry" ? "border-emerald-500/30" : m.cpuTier === "mid" ? "border-sky-500/30" : "border-amber-500/30"}`}>
 
                             {m.tierLabel}
                           </Badge>

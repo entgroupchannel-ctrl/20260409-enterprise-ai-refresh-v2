@@ -272,13 +272,13 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: Firewa
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div className={`card-surface rounded-xl overflow-hidden border ${tier.border} transition-all duration-300 ${selected ? "ring-2 ring-primary" : "hover:shadow-lg"}`}
+    <div className={`card-surface rounded-xl overflow-hidden border ${tier.border} transition-all duration-300 ${selected ? "ring-2 ring-primary" : "hover:shadow-lg"}`}>
 
       {/* Header */}
       <div className="p-5">
         <div className="flex items-start justify-between mb-3">
           <div className="flex items-center gap-2">
-            <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${tier.bg} ${tier.color}`}
+            <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${tier.bg} ${tier.color}`}>
 
               {tier.label}
             </span>
@@ -597,7 +597,7 @@ const FirewallComparisonTable = () => {
         {(Object.keys(tierMeta) as Tier[]).map((t) => {
           const m = tierMeta[t];
           return (
-            <span key={t} className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${m.border} ${m.bg} ${m.color}`}
+            <span key={t} className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${m.border} ${m.bg} ${m.color}`}>
 
               {m.label} — {m.desc}
             </span>
@@ -645,7 +645,7 @@ const FirewallComparisonTable = () => {
 
                       <div className="flex flex-col gap-1">
                         <span className="text-base">{row.name}</span>
-                        <span className={`inline-block w-fit px-2 py-0.5 rounded-full text-[10px] font-bold ${ts.badge}`}
+                        <span className={`inline-block w-fit px-2 py-0.5 rounded-full text-[10px] font-bold ${ts.badge}`}>
 
                           {tm.label}
                         </span>

@@ -233,7 +233,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
       promo.status === "active" ? "border-primary/30 shadow-lg" : ""
     } ${featured ? "md:col-span-2" : ""}`}
 
-      <div className={`flex flex-col ${featured ? "md:flex-row" : ""}`}
+      <div className={`flex flex-col ${featured ? "md:flex-row" : ""}`}>
 
         {/* Image */}
         <div className={`relative bg-secondary/30 flex items-center justify-center p-6 ${
@@ -280,7 +280,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
             <Calendar size={14} className="text-primary" />
             <span className="text-xs text-muted-foreground font-medium">{promo.period}</span>
           </div>
-          <h3 className={`font-bold text-foreground mb-1 ${featured ? "text-xl md:text-2xl" : "text-lg"}`}
+          <h3 className={`font-bold text-foreground mb-1 ${featured ? "text-xl md:text-2xl" : "text-lg"}`}>
 
             {promo.title}
           </h3>

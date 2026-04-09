@@ -227,7 +227,7 @@ const AboutUs = () => {
 
                     {/* Year */}
                     <div className="flex items-center gap-1 mb-1">
-                      <span className={`text-sm font-display font-black ${item.current ? "text-primary" : "text-foreground"}`}
+                      <span className={`text-sm font-display font-black ${item.current ? "text-primary" : "text-foreground"}`}>
 
                         {item.year}
                       </span>

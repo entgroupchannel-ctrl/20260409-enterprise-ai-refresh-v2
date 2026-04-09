@@ -632,7 +632,7 @@ import FooterCompact from "@/components/FooterCompact";
           <div className="flex flex-wrap gap-2 mb-6 justify-center">
             {([["all", "ทั้งหมด"], ["FANLESS", "FANLESS"], ["FAN", "FAN (GTG)"]] as const).map(([val, label]) => (
               <button key={val} onClick={() => { setCoolingFilter(val); setPage(1); }}
-                className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${coolingFilter === val ? "bg-primary/20 text-primary border border-primary/30" : "bg-secondary/50 text-muted-foreground hover:bg-secondary"}`}
+                className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${coolingFilter === val ? "bg-primary/20 text-primary border border-primary/30" : "bg-secondary/50 text-muted-foreground hover:bg-secondary"}`}>
 
                 {label}
               </button>
@@ -640,7 +640,7 @@ import FooterCompact from "@/components/FooterCompact";
             <span className="text-muted-foreground mx-1">|</span>
             {([["all", "ทุกขนาด"], ["small", "เล็ก (10–12\")"], ["medium", "กลาง (13–19\")"], ["large", "ใหญ่ (21–32\")"]] as const).map(([val, label]) => (
               <button key={val} onClick={() => { setSizeFilter(val); setPage(1); }}
-                className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${sizeFilter === val ? "bg-primary/20 text-primary border border-primary/30" : "bg-secondary/50 text-muted-foreground hover:bg-secondary"}`}
+                className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${sizeFilter === val ? "bg-primary/20 text-primary border border-primary/30" : "bg-secondary/50 text-muted-foreground hover:bg-secondary"}`}>
 
                 {label}
               </button>
@@ -686,7 +686,7 @@ import FooterCompact from "@/components/FooterCompact";
                         {m.screen}<br /><span className="text-[10px] text-muted-foreground">{m.resolution}</span>
                       </td>
                       <td className="text-center p-3">
-                        <span className={`text-xs px-2 py-1 rounded-full ${m.cooling === "FANLESS" ? "bg-blue-500/10 text-blue-600 dark:text-blue-400" : "bg-orange-500/10 text-orange-600 dark:text-orange-400"}`}
+                        <span className={`text-xs px-2 py-1 rounded-full ${m.cooling === "FANLESS" ? "bg-blue-500/10 text-blue-600 dark:text-blue-400" : "bg-orange-500/10 text-orange-600 dark:text-orange-400"}`}>
 
                           {m.cooling === "FANLESS" ? "FANLESS" : "FAN"}
                         </span>

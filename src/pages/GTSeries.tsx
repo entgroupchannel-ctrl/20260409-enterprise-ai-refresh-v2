@@ -437,7 +437,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
           { color: "bg-amber-500/20 text-amber-600 dark:text-amber-400 border-amber-500/30", label: "สเปกสูง / งานหนัก" },
           { color: "bg-purple-500/20 text-purple-600 dark:text-purple-400 border-purple-500/30", label: "Premium / ล่าสุด" },
         ].map((cat) => (
-          <span key={cat.label} className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${cat.color}`}
+          <span key={cat.label} className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${cat.color}`}>
 
             {cat.label}
           </span>
@@ -499,7 +499,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
 
                       <div className="flex flex-col gap-1">
                         <span className="text-base">{row.name}</span>
-                        <span className={`inline-block w-fit px-2 py-0.5 rounded-full text-[10px] font-bold ${catBadge}`}
+                        <span className={`inline-block w-fit px-2 py-0.5 rounded-full text-[10px] font-bold ${catBadge}`}>
 
                           {row.gen}
                         </span>
@@ -562,7 +562,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                       <span className="text-xs text-muted-foreground">{row.display}</span>
                     </td>
                     <td className="p-4 text-right">
-                      <span className={`font-bold text-sm ${row.price === "สอบถาม" ? "text-muted-foreground" : "text-primary"}`}
+                      <span className={`font-bold text-sm ${row.price === "สอบถาม" ? "text-muted-foreground" : "text-primary"}`}>
 
                         {row.price === "สอบถาม" ? "สอบถาม" : `฿${row.price}`}
                       </span>
@@ -2831,7 +2831,7 @@ const GTSeries = () => {
                             <td className="p-3 text-muted-foreground">{g.high}</td>
                             <td className="p-3 text-muted-foreground">{g.low}</td>
                             <td className="p-3 text-center">
-                              <span className={`px-2 py-0.5 rounded text-xs font-bold ${g.type === "Output" ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400" : "bg-amber-500/20 text-amber-600 dark:text-amber-400"}`}
+                              <span className={`px-2 py-0.5 rounded text-xs font-bold ${g.type === "Output" ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400" : "bg-amber-500/20 text-amber-600 dark:text-amber-400"}`}>
 
                                 {g.type}
                               </span>
@@ -2911,7 +2911,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                             style={{ width: `${g.level}%` }}
                           />
                         </div>
-                        <span className={`text-xs font-mono w-10 text-right ${g.type === "OUT" ? "text-emerald-500" : "text-amber-500"}`}
+                        <span className={`text-xs font-mono w-10 text-right ${g.type === "OUT" ? "text-emerald-500" : "text-amber-500"}`}>
 
                           {g.type}
                         </span>

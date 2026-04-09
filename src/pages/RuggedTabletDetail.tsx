@@ -216,7 +216,7 @@ const RuggedTabletDetail = () => {
                     <Shield className="w-5 h-5 text-primary" /> จุดเด่นของผลิตภัณฑ์
                   </h2>
                   {product.overviewSections.map((sec, i) => (
-                    <div key={i} className={`grid md:grid-cols-2 gap-6 items-center ${i % 2 === 1 ? "md:[direction:rtl]" : ""}`}
+                    <div key={i} className={`grid md:grid-cols-2 gap-6 items-center ${i % 2 === 1 ? "md:[direction:rtl]" : ""}`}>
 
                       {sec.image && (
                         <div className={`rounded-xl overflow-hidden bg-secondary/30 ${i % 2 === 1 ? "md:[direction:ltr]" : ""}`}>

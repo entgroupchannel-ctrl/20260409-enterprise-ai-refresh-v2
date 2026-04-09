@@ -609,7 +609,7 @@ const VCloudPoint = () => {
                       </div>
                       <div className="flex-1">
                         <div className="flex flex-wrap items-center gap-2 mb-1">
-                          <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${cs.borderColor} ${cs.accentColor}`}
+                          <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${cs.borderColor} ${cs.accentColor}`}>
 
                             {cs.tag}
                           </span>
@@ -656,7 +656,7 @@ const VCloudPoint = () => {
                       <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-3 flex items-center gap-1.5">
                         <Play size={12} className="text-primary" /> วิดีโอจากงานจริง
                       </p>
-                      <div className={`grid gap-3 ${cs.videos.length === 1 ? "grid-cols-1 max-w-lg" : cs.videos.length === 2 ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1 sm:grid-cols-3"}`}
+                      <div className={`grid gap-3 ${cs.videos.length === 1 ? "grid-cols-1 max-w-lg" : cs.videos.length === 2 ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1 sm:grid-cols-3"}`}>
 
                         {cs.videos.map((v: { id: string; label: string }) => (
                           <div key={v.id} className="space-y-1.5">

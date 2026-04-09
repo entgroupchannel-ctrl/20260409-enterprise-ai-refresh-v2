@@ -352,7 +352,7 @@ const MegaMenu = ({
                 </div>
 
                 {/* Product columns — right */}
-                <div className={`col-span-9 grid grid-cols-3 gap-4`}
+                <div className={`col-span-9 grid grid-cols-3 gap-4`}>
 
                   {active.columns.map((col) => (
                     <div key={col.heading}>

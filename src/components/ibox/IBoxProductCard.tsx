@@ -16,7 +16,7 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
   const isSelected = selectedProducts.has(product.name);
 
   return (
-    <div className={`card-surface overflow-hidden group transition-all flex flex-col ${isSelected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"}`}
+    <div className={`card-surface overflow-hidden group transition-all flex flex-col ${isSelected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"}`}>
 
       {/* Image */}
       <Link
