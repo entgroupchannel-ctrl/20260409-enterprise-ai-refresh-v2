@@ -662,9 +662,7 @@ export default function AdminQuoteDetail() {
                               <div>
                                 <p className="font-medium">{file.file_name}</p>
                                 <p className="text-xs text-gray-500">
-                                  {formatShortDateTime(file.uploaded_at)
-                                    locale: th,
-                                  })}
+                                  {formatShortDateTime(file.uploaded_at)}
                                 </p>
                               </div>
                             </div>
@@ -694,9 +692,7 @@ export default function AdminQuoteDetail() {
                               <div>
                                 <p className="font-medium">{file.file_name}</p>
                                 <p className="text-xs text-gray-500">
-                                  {formatShortDateTime(file.uploaded_at)
-                                    locale: th,
-                                  })}
+                                  {formatShortDateTime(file.uploaded_at)}
                                 </p>
                               </div>
                             </div>
@@ -740,10 +736,7 @@ export default function AdminQuoteDetail() {
                         <div className="flex items-center justify-between mb-1">
                           <span className="text-xs font-semibold">{msg.sender_name}</span>
                           <span className="text-xs text-gray-500">
-                            {formatDistanceToNow(new Date(msg.created_at), {
-                              addSuffix: true,
-                              locale: th,
-                            })}
+                            {formatRelativeTime(msg.created_at)}
                           </span>
                         </div>
                         <p className="text-sm">{msg.content}</p>
