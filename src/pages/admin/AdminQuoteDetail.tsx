@@ -357,6 +357,7 @@ export default function AdminQuoteDetail() {
     }
   };
 
+  const handleUpdateProducts = async (updatedProducts: any[]) => {
     try {
       const subtotal = updatedProducts.reduce((sum: number, p: any) => sum + (p.line_total || 0), 0);
       const vatAmount = subtotal * 0.07;
