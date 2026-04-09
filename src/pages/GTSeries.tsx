@@ -604,8 +604,15 @@ const GTSeries = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [activeTab, setActiveTab] = useState(searchParams.get("tab") || "overview");
   const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
-
+  const [selectedProducts, setSelectedProducts] = useState<Set<string>>(new Set());
   const [showLineQR, setShowLineQR] = useState(false);
+  const toggleSelect = useCallback((name: string) => {
+    setSelectedProducts((prev) => {
+      const next = new Set(prev);
+      next.has(name) ? next.delete(name) : next.add(name);
+      return next;
+    });
+  }, []);
   const [gt1200PricePage, setGt1200PricePage] = useState(0);
   const [gt6000PricePage, setGt6000PricePage] = useState(0);
   const [gt9000PricePage, setGt9000PricePage] = useState(0);
@@ -5984,16 +5991,6 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
           {model.highlight}
         </span>
       )}
-        item={{
-          id: model.name.toLowerCase().replace(/\s+/g, "-"),
-          name: model.name,
-          category: "GT Series — Industrial Mini PC",
-          image: model.image,
-          href: `/gt-series?tab=${model.name}`,
-          specs: model.tagline,
-        }}
-        className="absolute top-3 right-3"
-      />
       <img
         src={model.image}
         alt={model.name}

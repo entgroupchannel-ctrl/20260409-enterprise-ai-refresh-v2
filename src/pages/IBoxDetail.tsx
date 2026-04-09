@@ -31,14 +31,10 @@ const IBoxDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
-
+  const product = id ? getIBoxProduct(id) : undefined;
   const relatedProducts = id ? getRelatedProducts(id) : [];
-
-  // ── Engagement Tracking: product view ──
-  useEffect(() => {
-    if (product) {
-    }
-  }, [product?.id]);
+  const [selectedProducts] = useState<Set<string>>(new Set());
+  const toggleSelect = () => {};
 
   if (!product) {
     return (

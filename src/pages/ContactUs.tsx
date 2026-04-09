@@ -168,17 +168,6 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
   const [extractedCardData, setExtractedCardData] = useState<Record<string, string> | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    if (user) {
-      setForm((prev) => ({
-        ...prev,
-        name: prev.name || user.user_metadata?.full_name || "",
-        email: prev.email || user.email || "",
-        phone: prev.phone || user.user_metadata?.phone || "",
-        company: prev.company || user.user_metadata?.company || "",
-      }));
-    }
-  }, [user]);
 
   const handleCardUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

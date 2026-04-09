@@ -177,11 +177,18 @@ const useCasesData = [
 /* ═══════ Component ═══════ */
 const IBoxSeries = () => {
   const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
-
+  const [selectedProducts, setSelectedProducts] = useState<Set<string>>(new Set());
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("popular");
   const [filters, setFilters] = useState<IBoxFilterState>({ ...defaultFilters });
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+  const toggleSelect = (name: string) => {
+    setSelectedProducts((prev) => {
+      const next = new Set(prev);
+      next.has(name) ? next.delete(name) : next.add(name);
+      return next;
+    });
+  };
 
   const filteredProducts = useMemo(() => {
     let result = [...iboxProducts];
@@ -424,17 +431,6 @@ const IBoxSeries = () => {
                       <button onClick={() => toggleSelect(model.name)} className="absolute top-3 left-3 z-10">
                         <Checkbox checked={selectedProducts.has(model.name)} className="h-5 w-5" />
                       </button>
-                      <ShareButtons
-                        item={{
-                          id: model.id,
-                          name: model.name,
-                          category: "iBox Series",
-                          image: model.image,
-                          href: "/ibox-series",
-                          specs: model.cpu,
-                        }}
-                        className="absolute top-3 right-3"
-                      />
                       <img
                         src={model.image}
                         alt={model.name}

@@ -344,7 +344,7 @@ const VCloudPoint = () => {
               <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">
                 อุปกรณ์<span className="text-primary">ขนาดเล็ก</span> พลังยิ่งใหญ่
               </h2>
-              <p className="text-muted-foreground leading-relaxed mb-6"
+              <p className="text-muted-foreground leading-relaxed mb-6">
                 vCloudPoint เป็น Zero Client ขนานแท้ — ตัดส่วนประกอบไม่จำเป็นออกหมด ขนาดเล็กพอๆ กับมือถือ ไม่มี Moving Part ไม่มี Local Storage ปลอดภัยสูงสุด เสียบจอ เมาส์ คีย์บอร์ด ก็พร้อมใช้งานทันที
               </p>
               <div className="grid grid-cols-2 gap-3">
@@ -491,7 +491,7 @@ const VCloudPoint = () => {
             <h2 className="text-3xl md:text-4xl font-black text-foreground mb-2">
               ควบคุม<span className="text-primary">จากจุดเดียว</span>
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto"
+            <p className="text-muted-foreground max-w-2xl mx-auto">
               vMatrix Server ทำงานบน Windows 7/8/10/11 รองรับผู้ใช้สูงสุด 30 คน พร้อมระบบจัดการ User, สิทธิ์, Broadcasting หน้าจอ และ Chatting Room
             </p>
           </div>
@@ -692,7 +692,7 @@ const VCloudPoint = () => {
               <Award size={20} className="text-primary" />
               <span className="text-xs font-bold uppercase tracking-wider text-primary">Global Trust</span>
             </div>
-            <h3 className="text-xl md:text-2xl font-black text-foreground mb-2"
+            <h3 className="text-xl md:text-2xl font-black text-foreground mb-2">
               vCloudPoint ได้รับความไว้วางใจจากองค์กร<span className="text-primary">ทั่วโลก</span>
             </h3>
             <p className="text-sm text-muted-foreground max-w-xl mx-auto mb-4">

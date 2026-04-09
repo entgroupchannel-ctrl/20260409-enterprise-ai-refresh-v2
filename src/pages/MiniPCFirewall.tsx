@@ -548,7 +548,7 @@ const FirewallComparisonTable = () => {
                       ? "bg-primary text-primary-foreground shadow-md"
                       : "bg-background border border-border text-muted-foreground hover:border-primary/40"
                   }`}>
-                  >{n}
+                  ≥{n}
                 </button>
               ))}
             </div>
@@ -792,7 +792,7 @@ const MiniPCFirewall = () => {
               <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-destructive/10 text-destructive border border-destructive/30">
                 Network Security
               </span>
-              <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border border-border text-muted-foreground"
+              <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border border-border text-muted-foreground">
                 pfSense / OPNsense Ready
               </span>
             </div>
@@ -903,7 +903,7 @@ const MiniPCFirewall = () => {
               onClick={() => setActiveTier("all")}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTier === "all" ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border"
-              }`}
+              }`}>
               ทั้งหมด ({models.length})
             </button>
             {(Object.keys(tierMeta) as Tier[]).map((t) => {
