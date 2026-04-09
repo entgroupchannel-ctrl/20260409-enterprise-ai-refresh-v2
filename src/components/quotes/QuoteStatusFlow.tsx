@@ -51,11 +51,9 @@ export default function QuoteStatusFlow({ status, className }: QuoteStatusFlowPr
                 className={cn(
                   'w-8 h-8 rounded-full flex items-center justify-center border-2 transition-all',
                   isCompleted
-                    ? 'bg-emerald-500 border-emerald-500 text-white'
+                    ? 'bg-primary border-primary text-primary-foreground'
                     : isCurrent
                     ? 'bg-primary/10 border-primary text-primary'
-                    : isRejected && index > 0
-                    ? 'bg-muted border-border text-muted-foreground'
                     : 'bg-muted border-border text-muted-foreground'
                 )}
               >
