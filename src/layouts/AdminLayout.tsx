@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
@@ -20,8 +20,10 @@ import {
   Bell,
   Shield,
   ShoppingCart,
+  ClipboardList,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { supabase } from '@/integrations/supabase/client';
 import ThemeToggle from '@/components/ThemeToggle';
 import LangToggle from '@/components/LangToggle';
 
@@ -33,6 +35,23 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const { profile, signOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const [pendingRequestsCount, setPendingRequestsCount] = useState(0);
+
+  useEffect(() => {
+    const loadPendingCount = async () => {
+      try {
+        const { count } = await supabase
+          .from('po_change_requests')
+          .select('id', { count: 'exact', head: true })
+          .eq('status', 'pending');
+        setPendingRequestsCount(count || 0);
+      } catch {}
+    };
+
+    loadPendingCount();
+    const interval = setInterval(loadPendingCount, 60000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleSignOut = async () => {
     await signOut();
@@ -43,6 +62,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     { label: 'Dashboard', icon: LayoutDashboard, path: '/admin/dashboard' },
     { label: 'ใบเสนอราคา', icon: FileText, path: '/admin/quotes' },
     { label: 'ยอดขาย / Order', icon: ShoppingCart, path: '/admin/sale-orders' },
+    { label: 'คำขอ', icon: ClipboardList, path: '/admin/requests', badge: true },
     { label: 'ผู้ติดต่อ', icon: Users, path: '/admin/contacts' },
     { label: 'เอกสาร', icon: FileArchive, path: '/admin/documents' },
     { label: 'สิทธิ์', icon: Shield, path: '/admin/permissions' },
@@ -64,12 +84,17 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
               <nav className="hidden md:flex items-center gap-1">
                 {navItems.map((item) => {
                   const Icon = item.icon;
-                  const isActive = location.pathname === item.path;
+                  const isActive = location.pathname === item.path || location.pathname.startsWith(item.path + '/');
                   return (
                     <Link key={item.path} to={item.path}>
                       <Button variant={isActive ? 'secondary' : 'ghost'} className="gap-2">
                         <Icon className="w-4 h-4" />
                         {item.label}
+                        {item.badge && pendingRequestsCount > 0 && (
+                          <Badge variant="destructive" className="ml-1 px-1.5 py-0 text-xs">
+                            {pendingRequestsCount}
+                          </Badge>
+                        )}
                       </Button>
                     </Link>
                   );
@@ -80,11 +105,18 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             <div className="flex items-center gap-2">
               <LangToggle variant="compact" />
               <ThemeToggle />
-              <Button variant="ghost" size="icon" className="relative">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="relative"
+                onClick={() => navigate('/admin/requests')}
+              >
                 <Bell className="w-5 h-5" />
-                <Badge variant="destructive" className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center p-0 text-xs">
-                  3
-                </Badge>
+                {pendingRequestsCount > 0 && (
+                  <Badge variant="destructive" className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center p-0 text-xs">
+                    {pendingRequestsCount}
+                  </Badge>
+                )}
               </Button>
 
               <DropdownMenu>
@@ -129,6 +161,11 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                   <Button variant={isActive ? 'secondary' : 'ghost'} size="sm" className="gap-2 whitespace-nowrap">
                     <Icon className="w-4 h-4" />
                     {item.label}
+                    {item.badge && pendingRequestsCount > 0 && (
+                      <Badge variant="destructive" className="ml-1 px-1 py-0 text-[10px]">
+                        {pendingRequestsCount}
+                      </Badge>
+                    )}
                   </Button>
                 </Link>
               );
