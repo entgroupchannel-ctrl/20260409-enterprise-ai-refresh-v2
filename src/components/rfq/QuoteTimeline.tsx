@@ -4,8 +4,7 @@ import { Check, Clock, FileText, Send, Package, CheckCircle2, XCircle, ShieldChe
 const steps = [
   { key: "pending", label: "รอใบเสนอราคา", icon: Clock },
   { key: "quote_sent", label: "ได้รับราคาแล้ว", icon: Send },
-  { key: "po_uploaded", label: "ส่ง PO แล้ว", icon: FileText },
-  { key: "po_confirmed", label: "ยืนยัน PO", icon: ShieldCheck },
+  { key: "po_confirmed", label: "ส่ง PO แล้ว", icon: FileText },
   { key: "po_approved", label: "อนุมัติแล้ว", icon: Check },
   { key: "completed", label: "เสร็จสิ้น", icon: Package },
 ];
@@ -13,10 +12,10 @@ const steps = [
 const statusOrder: Record<string, number> = {
   pending: 0,
   quote_sent: 1,
-  po_uploaded: 2,
-  po_confirmed: 3,
-  po_approved: 4,
-  completed: 5,
+  po_uploaded: 1, // same as quote_sent (files uploaded but not sent yet)
+  po_confirmed: 2,
+  po_approved: 3,
+  completed: 4,
   rejected: -1,
 };
 
