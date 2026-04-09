@@ -111,6 +111,10 @@ export default function AdminQuoteDetail() {
   const [messageText, setMessageText] = useState('');
   const [sendingMessage, setSendingMessage] = useState(false);
 
+  // User role
+  const [userRole, setUserRole] = useState<'super_admin' | 'admin' | 'sales'>('admin');
+  const [userEmail, setUserEmail] = useState('');
+
   // Dialog states
   const [showApproveDialog, setShowApproveDialog] = useState(false);
   const [showRejectDialog, setShowRejectDialog] = useState(false);
