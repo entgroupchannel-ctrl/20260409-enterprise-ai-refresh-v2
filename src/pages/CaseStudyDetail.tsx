@@ -116,8 +116,7 @@ const CaseStudyDetail = () => {
                           allowFullScreen
                           className="w-full h-full"
 
-                          loading="lazy"
-                        />
+                          loading="lazy"></iframe>
                       </div>
                       <p className="text-sm font-medium text-foreground p-3">{v.title}</p>
                     </div>

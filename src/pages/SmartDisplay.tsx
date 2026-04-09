@@ -1134,8 +1134,7 @@ const SmartDisplay = () => {
                       title={v.title}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
-                      loading="lazy"
-                    />
+                      loading="lazy"></iframe>
                   </div>
                 </div>
               ))}
@@ -1155,8 +1154,7 @@ const SmartDisplay = () => {
 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    loading="lazy"
-                  />
+                    loading="lazy"></iframe>
                 </div>
               </div>
             </div>

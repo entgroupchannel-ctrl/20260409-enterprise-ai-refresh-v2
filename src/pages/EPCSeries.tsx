@@ -778,7 +778,7 @@ const EPCSeries = () => {
                 <span className="font-bold text-foreground text-xs">วิดีโอแนะนำ EPC Panel PC</span>
               </div>
               <div className="aspect-video">
-                <iframe src="https://www.youtube.com/embed/mtamL6vkDv8" title="EPC Panel PC Introduction" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="w-full h-full" loading="lazy" />
+                <iframe src="https://www.youtube.com/embed/mtamL6vkDv8" title="EPC Panel PC Introduction" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="w-full h-full" loading="lazy"></iframe>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3">

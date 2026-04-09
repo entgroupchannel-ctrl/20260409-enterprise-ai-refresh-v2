@@ -629,8 +629,7 @@ const RuggedTablet = () => {
 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    loading="lazy"
-                  />
+                    loading="lazy"></iframe>
                 </div>
                 <div className="p-4 flex items-center justify-between">
                   <p className="font-bold text-foreground text-sm">Rugged Tablet — ทดสอบความทนทาน</p>
@@ -658,8 +657,7 @@ const RuggedTablet = () => {
                         title={v.title}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between gap-2">
                       <p className="font-semibold text-foreground text-xs line-clamp-1">{v.title}</p>

@@ -530,8 +530,7 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
                     allowFullScreen
                     className="w-full h-full"
 
-                    loading="lazy"
-                  />
+                    loading="lazy"></iframe>
                 </div>
               </div>
             </div>
@@ -1055,8 +1054,7 @@ const EPCBoxSeries = () => {
                   allowFullScreen
                   className="w-full h-full"
 
-                  loading="lazy"
-                />
+                  loading="lazy"></iframe>
               </div>
             </div>
           </div>
@@ -1083,8 +1081,7 @@ const EPCBoxSeries = () => {
                       allowFullScreen
                       className="w-full h-full"
 
-                      loading="lazy"
-                    />
+                      loading="lazy"></iframe>
                   </div>
                   <div className="p-3">
                     <p className="text-sm font-medium text-foreground">{video.title}</p>

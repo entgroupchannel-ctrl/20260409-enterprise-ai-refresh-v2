@@ -332,8 +332,7 @@ const Volktek = () => {
                 allowFullScreen
                 className="absolute inset-0 w-full h-full"
 
-                loading="lazy"
-              />
+                loading="lazy"></iframe>
             </div>
             <div className="p-4 flex items-center justify-between">
               <a

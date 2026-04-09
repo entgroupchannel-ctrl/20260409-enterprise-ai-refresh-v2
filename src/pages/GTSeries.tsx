@@ -1214,8 +1214,7 @@ const GTSeries = () => {
                         allowFullScreen
                         className="absolute inset-0 w-full h-full"
 
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="mt-3">
                       <ShareButtons url="https://youtu.be/7wE6fxMpJB4" title="GT1000 Intro — ENT GROUP" />
@@ -1240,8 +1239,7 @@ const GTSeries = () => {
                               allowFullScreen
                               className="absolute inset-0 w-full h-full"
 
-                              loading="lazy"
-                            />
+                              loading="lazy"></iframe>
                           </div>
                           <div className="flex items-center justify-between">
                             <p className="text-xs text-muted-foreground font-medium">{video.title}</p>
@@ -1378,8 +1376,7 @@ const GTSeries = () => {
                         allowFullScreen
                         className="absolute inset-0 w-full h-full"
 
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="p-3">
                       <ShareButtons url="https://youtu.be/Z4hTYAIDs2s" title="GT2000 สาธิตการใช้งาน — ENT GROUP" />
@@ -1661,8 +1658,7 @@ const GTSeries = () => {
                         allowFullScreen
                         className="absolute inset-0 w-full h-full"
 
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="mt-3">
                       <ShareButtons url="https://youtu.be/XLhFAF_8Da4" title="GT2000 Intro — ENT GROUP" />
@@ -1687,8 +1683,7 @@ const GTSeries = () => {
                               allowFullScreen
                               className="absolute inset-0 w-full h-full"
 
-                              loading="lazy"
-                            />
+                              loading="lazy"></iframe>
                           </div>
                           <div className="flex items-center justify-between">
                             <p className="text-xs text-muted-foreground font-medium">{video.title}</p>
@@ -2036,8 +2031,7 @@ const GTSeries = () => {
                         allowFullScreen
                         className="absolute inset-0 w-full h-full"
 
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="mt-3">
                       <ShareButtons url="https://youtu.be/31SEStppvKw" title="GT3000 Intro — ENT GROUP" />
@@ -2062,8 +2056,7 @@ const GTSeries = () => {
                               allowFullScreen
                               className="absolute inset-0 w-full h-full"
 
-                              loading="lazy"
-                            />
+                              loading="lazy"></iframe>
                           </div>
                           <div className="flex items-center justify-between">
                             <p className="text-xs text-muted-foreground font-medium">{video.title}</p>
@@ -2461,8 +2454,7 @@ const GTSeries = () => {
                     allowFullScreen
                     className="w-full h-full"
 
-                    loading="lazy"
-                  />
+                    loading="lazy"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT4000 Introduction</span>
@@ -2486,8 +2478,7 @@ const GTSeries = () => {
                         allowFullScreen
                         className="w-full h-full"
 
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>
@@ -3003,8 +2994,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     allowFullScreen
                     className="w-full h-full"
 
-                    loading="lazy"
-                  />
+                    loading="lazy"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT5000 Introduction</span>
@@ -3028,8 +3018,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         allowFullScreen
                         className="w-full h-full"
 
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>
@@ -3366,8 +3355,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     allowFullScreen
                     className="w-full h-full"
 
-                    loading="lazy"
-                  />
+                    loading="lazy"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT6000 Introduction</span>
@@ -3391,8 +3379,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         allowFullScreen
                         className="w-full h-full"
 
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>
@@ -3753,8 +3740,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     allowFullScreen
                     className="w-full h-full"
 
-                    loading="lazy"
-                  />
+                    loading="lazy"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT7000 Introduction</span>
@@ -3778,8 +3764,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         allowFullScreen
                         className="w-full h-full"
 
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>
@@ -4091,8 +4076,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     allowFullScreen
                     className="w-full h-full"
 
-                    loading="lazy"
-                  />
+                    loading="lazy"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT8000 Introduction</span>
@@ -4117,8 +4101,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         allowFullScreen
                         className="w-full h-full"
 
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>
@@ -4453,8 +4436,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     allowFullScreen
                     className="w-full h-full"
 
-                    loading="lazy"
-                  />
+                    loading="lazy"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT9000 Introduction</span>
@@ -4478,8 +4460,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         allowFullScreen
                         className="w-full h-full"
 
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>
@@ -4870,8 +4851,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     allowFullScreen
                     className="w-full h-full"
 
-                    loading="lazy"
-                  />
+                    loading="lazy"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT4500 Introduction</span>
@@ -4896,8 +4876,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         allowFullScreen
                         className="w-full h-full"
 
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>
@@ -5168,8 +5147,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     allowFullScreen
                     className="w-full h-full"
 
-                    loading="lazy"
-                  />
+                    loading="lazy"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT1400 Introduction</span>
@@ -5193,8 +5171,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         allowFullScreen
                         className="w-full h-full"
 
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>
@@ -5437,8 +5414,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     allowFullScreen
                     className="w-full h-full"
 
-                    loading="lazy"
-                  />
+                    loading="lazy"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT1300 Introduction</span>
@@ -5462,8 +5438,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         allowFullScreen
                         className="w-full h-full"
 
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>
@@ -5740,8 +5715,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     allowFullScreen
                     className="w-full h-full"
 
-                    loading="lazy"
-                  />
+                    loading="lazy"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT1200 Introduction</span>
@@ -5765,8 +5739,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         allowFullScreen
                         className="w-full h-full"
 
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>

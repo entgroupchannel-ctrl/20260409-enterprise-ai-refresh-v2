@@ -842,8 +842,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                   className="w-full h-full"
 
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
+                  allowFullScreen></iframe>
               </div>
             </TabsContent>
           )}
@@ -1383,8 +1382,7 @@ const GKSeries = () => {
 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="p-4 flex items-center justify-between">
                       <p className="font-semibold text-foreground text-sm">{v.title}</p>

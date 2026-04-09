@@ -404,8 +404,7 @@ const VCloudPoint = () => {
                 allowFullScreen
                 className="absolute inset-0 w-full h-full"
 
-                loading="lazy"
-              />
+                loading="lazy"></iframe>
             </div>
           </div>
         </div>
@@ -674,8 +673,7 @@ const VCloudPoint = () => {
                                 allowFullScreen
                                 className="absolute inset-0 w-full h-full"
 
-                                loading="lazy"
-                              />
+                                loading="lazy"></iframe>
                             </div>
                             <p className="text-[11px] text-muted-foreground font-medium">{v.label}</p>
                           </div>
