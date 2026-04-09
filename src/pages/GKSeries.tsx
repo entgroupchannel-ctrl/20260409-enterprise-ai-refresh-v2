@@ -842,7 +842,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                   title={`${model.name} Video`}
                   className="w-full h-full"
 
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 />
               </div>
@@ -1383,7 +1383,7 @@ const GKSeries = () => {
                         title={v.title}
                         className="w-full h-full"
 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         loading="lazy"
                       />

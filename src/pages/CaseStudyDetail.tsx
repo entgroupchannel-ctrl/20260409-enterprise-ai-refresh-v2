@@ -112,7 +112,7 @@ const CaseStudyDetail = () => {
                         <iframe
                           src={`https://www.youtube.com/embed/${v.videoId}`}
                           title={v.title}
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                           allowFullScreen
                           className="w-full h-full"
 
@@ -146,7 +146,7 @@ const CaseStudyDetail = () => {
 
                       height="100%"
                       style={{ border: "none", overflow: "hidden" }}
-                      scrolling="no">
+                      scrolling="no"
                       allowFullScreen
                       allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
 

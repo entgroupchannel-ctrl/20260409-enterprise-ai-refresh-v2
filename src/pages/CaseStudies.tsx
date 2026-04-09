@@ -209,7 +209,7 @@ const CaseStudies = () => {
 
                     height="100%"
                     style={{ border: "none", overflow: "hidden" }}
-                    scrolling="no">
+                    scrolling="no"
                     allowFullScreen
                     allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
 

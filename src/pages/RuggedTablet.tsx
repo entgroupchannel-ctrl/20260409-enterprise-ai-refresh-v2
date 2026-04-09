@@ -627,7 +627,7 @@ const RuggedTablet = () => {
 
                     title="Rugged Tablet — Featured Video"
 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     loading="lazy"
                   />
@@ -656,7 +656,7 @@ const RuggedTablet = () => {
                         className="absolute inset-0 w-full h-full"
                         src={`https://www.youtube.com/embed/${v.id}`}
                         title={v.title}
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         loading="lazy"
                       />
