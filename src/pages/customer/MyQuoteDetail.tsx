@@ -10,6 +10,7 @@ import { Separator } from '@/components/ui/separator';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import QuoteTimeline from '@/components/rfq/QuoteTimeline';
+import POUploadDialog from '@/components/quotes/POUploadDialog';
 import {
   ArrowLeft,
   Download,
@@ -58,6 +59,7 @@ export default function MyQuoteDetail() {
 
   const [quote, setQuote] = useState<Quote | null>(null);
   const [loading, setLoading] = useState(true);
+  const [showPOUpload, setShowPOUpload] = useState(false);
   const isPrintMode = searchParams.get('print') === 'true';
 
   useEffect(() => {
@@ -98,7 +100,7 @@ export default function MyQuoteDetail() {
   };
 
   const handleUploadPO = () => {
-    toast({ title: 'อัปโหลด PO', description: 'ฟีเจอร์นี้กำลังพัฒนา' });
+    setShowPOUpload(true);
   };
 
   const formatCurrency = (amount: number) =>
@@ -315,6 +317,15 @@ export default function MyQuoteDetail() {
           </div>
         )}
       </div>
+
+      <POUploadDialog
+        open={showPOUpload}
+        onOpenChange={setShowPOUpload}
+        quoteId={quote.id}
+        quoteNumber={quote.quote_number}
+        customerName={quote.customer_name}
+        onSuccess={loadQuote}
+      />
     </div>
   );
 }
