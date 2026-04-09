@@ -17,7 +17,6 @@ import ProductJsonLd from "@/components/ProductJsonLd";
 import FooterCompact from "@/components/FooterCompact";
 import B2BCTABanner from "@/components/B2BCTABanner";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
-import QuoteButton from "@/components/QuoteButton";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -466,7 +465,6 @@ const NotebookCard = ({ product, selected, onToggleSelect }: { product: RuggedNo
               <span className="text-sm font-semibold text-muted-foreground">สอบถามราคา</span>
             )}
           </div>
-          <QuoteButton productName={product.model} productCategory="Rugged Notebook" variant="compact" />
         </div>
       </div>
     </div>

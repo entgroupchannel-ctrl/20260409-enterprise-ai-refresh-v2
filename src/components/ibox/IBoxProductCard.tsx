@@ -51,7 +51,6 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
         </button>
 
         {/* Wishlist */}
-        <WishlistHeart
           item={{
             id: product.id,
             name: product.name,

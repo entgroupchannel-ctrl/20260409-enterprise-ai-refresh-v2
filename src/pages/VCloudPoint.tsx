@@ -4,7 +4,6 @@ import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import { Link } from "react-router-dom";
 import LineQRButton from "@/components/LineQRButton";
-import DemoRequestDialog from "@/components/DemoRequestDialog";
 import {
   ArrowLeft, Monitor, Cpu, Shield, Zap, Users, Server, ChevronDown,
   ExternalLink, Factory, Building2, GraduationCap, HeadphonesIcon,
@@ -196,7 +195,6 @@ const DemoCTA = ({ variant = "primary" }: { variant?: "primary" | "secondary" })
       วิศวกรติดตั้งให้ฟรี (Remote Support) · Training ฟรีพร้อมคู่มือ · ไม่พอใจคืนเงิน 100%
     </p>
     <div className="flex flex-wrap justify-center gap-3 mb-6">
-      <DemoRequestDialog>
         <button className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-primary text-primary-foreground font-bold text-sm hover:bg-primary/90 transition-all hover:scale-[1.02] shadow-lg shadow-primary/20">
           <Phone size={16} /> ขอทดลองใช้ฟรี
         </button>
@@ -296,14 +294,12 @@ const VCloudPoint = () => {
                 ))}
               </div>
               <div className="flex items-center gap-3 mb-6">
-                <WishlistHeart
                   item={{ id: "vcloudpoint-zero-client", name: "vCloudPoint Zero Client", category: "vCloudPoint", image: "https://vcloudpoint.info/assets/zero-client-1-D2hOci6Y.jpg", href: "/vcloudpoint", specs: "Shared Computing — 1 PC 30 Users" }}
                 />
                 <span className="text-xs text-muted-foreground">เพิ่มในรายการถูกใจ</span>
               </div>
 
               <div className="flex flex-wrap gap-3">
-                <DemoRequestDialog>
                   <button className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-primary text-primary-foreground font-bold text-sm hover:bg-primary/90 transition-all hover:scale-[1.02] shadow-lg shadow-primary/20">
                     <Play size={16} /> ขอเดโม่ฟรี 30 วัน
                   </button>

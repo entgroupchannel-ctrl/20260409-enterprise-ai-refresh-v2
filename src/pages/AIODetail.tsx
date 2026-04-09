@@ -104,7 +104,6 @@ const AIODetail = () => {
           {/* Gallery */}
           <div className="space-y-4">
             <div className="relative">
-              <WishlistHeart
                 item={{ id: product.id, name: product.model, category: "All-in-One PC", image: product.image, href: `/aio/${product.id}`, specs: product.titleTH }}
                 className="absolute top-3 right-3 z-10"
               />

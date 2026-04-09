@@ -177,7 +177,7 @@ const useCasesData = [
 /* ═══════ Component ═══════ */
 const IBoxSeries = () => {
   const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
-  const { selectedProducts, toggleSelect, clearSelection } = useMultiSelect();
+
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("popular");
   const [filters, setFilters] = useState<IBoxFilterState>({ ...defaultFilters });
@@ -421,7 +421,6 @@ const IBoxSeries = () => {
                       <button onClick={() => toggleSelect(model.name)} className="absolute top-3 left-3 z-10">
                         <Checkbox checked={selectedProducts.has(model.name)} className="h-5 w-5" />
                       </button>
-                      <WishlistHeart
                         item={{
                           id: model.id,
                           name: model.name,

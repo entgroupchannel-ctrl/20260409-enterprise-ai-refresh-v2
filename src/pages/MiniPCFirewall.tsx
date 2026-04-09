@@ -299,7 +299,6 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: Firewa
               <Checkbox checked={selected} className="h-5 w-5" />
             </button>
           )}
-          <WishlistHeart
             item={{ id: model.id, name: model.name, category: "Mini PC Firewall", image: model.image, href: "/mini-pc-firewall", specs: model.tagline }}
             className="absolute top-2 right-2 z-10"
           />
@@ -749,7 +748,7 @@ const FirewallComparisonTable = () => {
 const MiniPCFirewall = () => {
   const [activeTier, setActiveTier] = useState<Tier | "all">("all");
   const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
-  const { selectedProducts, toggleSelect, clearSelection } = useMultiSelect();
+
   const filtered = activeTier === "all" ? models : models.filter((m) => m.tier === activeTier);
 
   return (

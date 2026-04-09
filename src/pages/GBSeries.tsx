@@ -302,7 +302,6 @@ const ModelCard = ({ model, isActive, onClick }: { model: typeof models[0]; isAc
       }`}>{model.badge}</span>
     )}
     <img src={model.image} alt={model.name} className="w-20 h-20 object-contain mb-2" loading="lazy" />
-    <WishlistHeart
       item={{ id: model.id, name: model.name, category: "GB Series", image: model.image, href: "/gb-series", specs: model.tagline }}
       className="absolute top-2 left-2"
       size={14}

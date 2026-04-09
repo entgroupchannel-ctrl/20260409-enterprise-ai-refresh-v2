@@ -643,7 +643,6 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
               </span>
             )}
           </div>
-          <WishlistHeart
             item={{
               id: model.id,
               name: model.name,

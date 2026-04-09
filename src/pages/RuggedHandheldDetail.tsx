@@ -119,7 +119,6 @@ const RuggedHandheldDetail = () => {
           {/* Image + Badges */}
           <div className="space-y-4">
             <div className="relative">
-              <WishlistHeart
                 item={{ id: product.id, name: product.model, category: "Rugged Handheld", image: product.image, href: `/handheld/${product.id}`, specs: product.nameTH }}
                 className="absolute top-3 right-3 z-10"
               />

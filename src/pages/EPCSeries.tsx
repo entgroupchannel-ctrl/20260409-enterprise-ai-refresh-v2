@@ -316,7 +316,6 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
           <Checkbox checked={selected} className="h-5 w-5" />
         </button>
       )}
-      <WishlistHeart
         item={{ id: model.id, name: model.name, category: "EPC Series", image: model.image, href: "/epc-series", specs: `${model.size} (${model.ratio})` }}
         className="absolute top-3 right-3"
       />
@@ -349,7 +348,7 @@ const EPCSeries = () => {
   const [squarePage, setSquarePage] = useState(1);
   const [widePage, setWidePage] = useState(1);
   const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
-  const { selectedProducts, toggleSelect, clearSelection } = useMultiSelect();
+
 
   return (
     <div className="min-h-screen bg-background flex flex-col">

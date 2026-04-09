@@ -669,7 +669,6 @@ const SmartDisplay = () => {
                 ].map((k) => (
                   <div key={k.title} className="card-surface p-5 hover:border-primary/30 transition-all hover:-translate-y-1 group">
                     <div className="relative bg-secondary/30 rounded-xl p-4 mb-4 flex items-center justify-center h-52 overflow-hidden">
-                      <WishlistHeart
                         item={{ id: k.title.toLowerCase().replace(/\s+/g, "-"), name: k.title, category: "Smart Display KIOSK", image: k.image, href: "/smart-display", specs: k.desc }}
                         className="absolute top-2 right-2 z-10"
                       />

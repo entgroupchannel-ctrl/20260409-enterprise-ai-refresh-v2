@@ -125,7 +125,6 @@ const SoftwareSection = () => {
 
             {/* CTA */}
             <div className="flex flex-wrap gap-4">
-              <SoftwareInquiryDialog>
                 <button className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-all duration-200 hover:shadow-lg hover:shadow-primary/25">
                   <Rocket size={16} className="group-hover:animate-[bounce_0.6s_ease-in-out]" />
                   สอบถามบริการซอฟต์แวร์

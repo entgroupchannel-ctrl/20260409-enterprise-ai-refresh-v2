@@ -31,7 +31,7 @@ const IBoxDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
-  const { selectedProducts, toggleSelect, clearSelection } = useMultiSelect();  const product = id ? getIBoxProduct(id) : undefined;
+
   const relatedProducts = id ? getRelatedProducts(id) : [];
 
   // ── Engagement Tracking: product view ──

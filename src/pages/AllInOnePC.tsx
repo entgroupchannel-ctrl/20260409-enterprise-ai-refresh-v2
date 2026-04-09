@@ -49,7 +49,6 @@ const AIOCard = ({
   >
     {/* Image */}
     <div className="relative bg-secondary/30 p-4 flex items-center justify-center h-52">
-      <WishlistHeart
         item={{
           id: product.id,
           name: product.model,

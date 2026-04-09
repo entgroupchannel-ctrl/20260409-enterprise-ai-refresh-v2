@@ -654,7 +654,6 @@ const ProductCard = ({ model, onQuote }: { model: any; onQuote?: (name: string) 
       <div className="flex flex-col md:flex-row gap-6 mb-6">
         <div className="md:w-1/3 flex items-center justify-center">
           <div className="relative bg-secondary/50 rounded-xl p-4 w-full flex items-center justify-center min-h-[200px]">
-            <WishlistHeart
               item={{ id: model.id, name: model.name, category: "Mini PC", image: model.image, href: "/mini-pc", specs: model.tagline }}
               className="absolute top-3 right-3"
             />

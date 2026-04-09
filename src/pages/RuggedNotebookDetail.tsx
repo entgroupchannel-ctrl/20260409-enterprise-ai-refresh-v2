@@ -15,7 +15,6 @@ import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import FooterCompact from "@/components/FooterCompact";
 import ProductGallery from "@/components/ProductGallery";
-import QuoteButton from "@/components/QuoteButton";
 import { getNotebook, getRelatedNotebooks, type RuggedNotebook } from "@/data/rugged-notebook-products";
 
 /* ───── Related Card ───── */
@@ -101,7 +100,6 @@ const RuggedNotebookDetail = () => {
           {/* Gallery */}
           <div className="space-y-4">
             <div className="relative">
-              <WishlistHeart
                 item={{ id: nb.id, name: nb.model, category: "Rugged Notebook", image: nb.image, href: `/rugged-notebook/${nb.id}`, specs: nb.titleTH }}
                 className="absolute top-3 right-3 z-10"
               />

@@ -605,7 +605,7 @@ const GTSeries = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [activeTab, setActiveTab] = useState(searchParams.get("tab") || "overview");
   const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
-  const { selectedProducts, toggleSelect, clearSelection } = useMultiSelect();
+
   const [showLineQR, setShowLineQR] = useState(false);
   const [gt1200PricePage, setGt1200PricePage] = useState(0);
   const [gt6000PricePage, setGt6000PricePage] = useState(0);
@@ -5976,7 +5976,6 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
           {model.highlight}
         </span>
       )}
-      <WishlistHeart
         item={{
           id: model.name.toLowerCase().replace(/\s+/g, "-"),
           name: model.name,

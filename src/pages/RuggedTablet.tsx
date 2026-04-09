@@ -231,7 +231,6 @@ const TabletCard = ({
 }) => (
   <div className={`card-surface overflow-hidden group transition-all ${selected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"}`}>
     <Link to={`/rugged-tablet/${product.id}`} className="relative bg-secondary/30 p-4 flex items-center justify-center h-52 cursor-pointer">
-      <WishlistHeart
         item={{ id: product.id, name: product.name, category: "Rugged Tablet", image: product.image, href: "/rugged-tablet", specs: product.cpu }}
         className="absolute top-3 right-3"
       />

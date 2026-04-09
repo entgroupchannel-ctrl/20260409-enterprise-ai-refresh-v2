@@ -357,7 +357,6 @@ const PanelPC = () => {
           {/* Product Image Grid */}
           <div className="grid md:grid-cols-3 gap-6 mb-8">
             <div className="card-surface p-4 flex flex-col items-center gap-3 relative">
-              <WishlistHeart
                 item={{ id: "gty121t", name: "GTY121T", category: "Panel PC GTY/GTG", image: gty121Front, href: "/panel-pc-gtg", specs: "12.1\" XGA Touch Panel PC" }}
                 className="absolute top-3 right-3"
               />
@@ -368,7 +367,6 @@ const PanelPC = () => {
               </div>
             </div>
             <div className="card-surface p-4 flex flex-col items-center gap-3 justify-end relative">
-              <WishlistHeart
                 item={{ id: "gty156t", name: "GTY156T", category: "Panel PC GTY/GTG", image: gty156Front, href: "/panel-pc-gtg", specs: "15.6\" FHD Touch Panel PC" }}
                 className="absolute top-3 right-3"
               />
@@ -807,7 +805,6 @@ import FooterCompact from "@/components/FooterCompact";
             <button onClick={() => setQuoteOpen(true)} className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:bg-primary/90 transition-colors">
               ขอใบเสนอราคา
             </button>
-            <QuoteDialog open={quoteOpen} onClose={() => setQuoteOpen(false)} productCategory="Panel PC GTG/GTY" />
             <a href="tel:020456104" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-secondary transition-colors">
               <Phone size={18} /> 02-045-6104
             </a>
