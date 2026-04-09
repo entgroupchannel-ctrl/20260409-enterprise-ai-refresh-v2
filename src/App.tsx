@@ -55,6 +55,7 @@ const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
 const AdminQuotesList = lazy(() => import("./pages/admin/AdminQuotesList"));
 const AdminQuoteDetail = lazy(() => import("./pages/admin/AdminQuoteDetail"));
 const AdminQuoteCreate = lazy(() => import("./pages/admin/AdminQuoteCreate"));
+const AdminPermissions = lazy(() => import("./pages/admin/AdminPermissions"));
 const QuoteRequestForm = lazy(() => import("./pages/customer/QuoteRequestForm"));
 const MyQuotes = lazy(() => import("./pages/customer/MyQuotes"));
 const MyQuoteDetail = lazy(() => import("./pages/customer/MyQuoteDetail"));
@@ -139,6 +140,7 @@ const App = () => (
                   <Route path="/admin/quotes/:id" element={<ProtectedRoute requireSales><AdminQuoteDetail /></ProtectedRoute>} />
                   <Route path="/admin/contacts" element={<ProtectedRoute requireSales><AdminDashboard /></ProtectedRoute>} />
                   <Route path="/admin/documents" element={<ProtectedRoute requireSales><AdminDashboard /></ProtectedRoute>} />
+                  <Route path="/admin/permissions" element={<ProtectedRoute requireAdmin><AdminPermissions /></ProtectedRoute>} />
                   <Route path="/request-quote" element={<QuoteRequestForm />} />
                   <Route path="/my-quotes" element={<ProtectedRoute><MyQuotes /></ProtectedRoute>} />
                   <Route path="/my-quotes/:id" element={<ProtectedRoute><MyQuoteDetail /></ProtectedRoute>} />

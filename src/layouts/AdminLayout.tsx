@@ -18,6 +18,7 @@ import {
   LogOut,
   User,
   Bell,
+  Shield,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
