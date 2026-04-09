@@ -62,6 +62,7 @@ const AdminSaleOrders = lazyRetry(() => import("./pages/admin/AdminSaleOrders"))
 const AdminRequests = lazyRetry(() => import("./pages/admin/AdminRequests"));
 const ProductsList = lazyRetry(() => import("./pages/admin/ProductsList"));
 const ProductImport = lazyRetry(() => import("./pages/admin/ProductImport"));
+const ProductDetail = lazyRetry(() => import("./pages/ProductDetail"));
 const QuoteRequestForm = lazyRetry(() => import("./pages/customer/QuoteRequestForm"));
 const MyQuotes = lazyRetry(() => import("./pages/customer/MyQuotes"));
 const MyQuoteDetail = lazyRetry(() => import("./pages/customer/MyQuoteDetail"));
@@ -106,6 +107,7 @@ const App = () => (
                   <Routes>
                     <Route path="/" element={<Index />} />
                     <Route path="/gt-series" element={<GTSeries />} />
+                    <Route path="/products/:slug" element={<ProductDetail />} />
                     <Route path="/gb-series" element={<GBSeries />} />
                     <Route path="/epc-box-series" element={<EPCBoxSeries />} />
                     <Route path="/gk-series" element={<GKSeries />} />
