@@ -19,6 +19,7 @@ import {
   XCircle,
   Upload,
 } from 'lucide-react';
+import QuoteTimeline from '@/components/rfq/QuoteTimeline';
 import { formatDistanceToNow, format } from 'date-fns';
 import { th } from 'date-fns/locale';
 
