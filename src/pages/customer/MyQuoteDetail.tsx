@@ -19,7 +19,7 @@ import {
   Send,
   MessageSquare,
 } from 'lucide-react';
-import { format } from 'date-fns';
+import { formatDistanceToNow, format } from 'date-fns';
 import { th } from 'date-fns/locale';
 
 interface Quote {
@@ -410,33 +410,35 @@ export default function MyQuoteDetail() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4 mb-4 max-h-[400px] overflow-y-auto">
-              {messages.length === 0 ? (
-                <p className="text-center text-muted-foreground py-8 text-sm">
-                  ยังไม่มีข้อความ
-                </p>
-              ) : (
+            <div className="space-y-3 max-h-[400px] overflow-y-auto mb-4">
+              {messages.length > 0 ? (
                 messages.map((msg) => (
                   <div
                     key={msg.id}
-                    className={`flex ${
-                      msg.sender_role === 'customer' ? 'justify-end' : 'justify-start'
+                    className={`p-3 rounded-lg ${
+                      msg.sender_role === 'customer'
+                        ? 'bg-primary/10 ml-4'
+                        : msg.sender_role === 'system'
+                        ? 'bg-muted'
+                        : 'bg-accent/50 mr-4'
                     }`}
                   >
-                    <div
-                      className={`max-w-[70%] rounded-lg px-4 py-2 ${
-                        msg.sender_role === 'customer'
-                          ? 'bg-primary text-primary-foreground'
-                          : 'bg-muted text-foreground'
-                      }`}
-                    >
-                      <p className="text-sm">{msg.content}</p>
-                      <p className="text-xs opacity-70 mt-1">
-                        {format(new Date(msg.created_at), 'HH:mm', { locale: th })}
-                      </p>
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-xs font-semibold text-foreground">
+                        {msg.sender_role === 'customer' ? 'คุณ' : msg.sender_role === 'admin' || msg.sender_role === 'sales' ? 'ทีมขาย' : msg.sender_name}
+                      </span>
+                      <span className="text-xs text-muted-foreground">
+                        {formatDistanceToNow(new Date(msg.created_at), {
+                          addSuffix: true,
+                          locale: th,
+                        })}
+                      </span>
                     </div>
+                    <p className="text-sm text-foreground">{msg.content}</p>
                   </div>
                 ))
+              ) : (
+                <p className="text-center text-muted-foreground py-8">ยังไม่มีข้อความ</p>
               )}
             </div>
 
