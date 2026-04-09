@@ -86,6 +86,7 @@ export default function AdminQuoteCreate() {
     company: '',
     address: '',
     tax_id: '',
+    line_id: '',
   });
 
   const [products, setProducts] = useState<ProductLine[]>([
