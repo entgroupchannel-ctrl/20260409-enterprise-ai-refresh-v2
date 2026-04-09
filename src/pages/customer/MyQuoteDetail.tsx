@@ -649,12 +649,10 @@ export default function MyQuoteDetail() {
                           <RefreshCw className="w-3.5 h-3.5" />
                         </Button>
                       )}
-                      {poFiles.length > 0 && (
-                        <Button size="sm" onClick={handleSendPO} disabled={confirming} className="flex-1">
-                          <Send className="w-3.5 h-3.5 mr-1.5" />
-                          {confirming ? 'กำลังส่ง...' : 'ส่ง PO'}
-                        </Button>
-                      )}
+                      <Button size="sm" onClick={handleSendPO} disabled={confirming || poFiles.length === 0} className="flex-1">
+                        <Send className="w-3.5 h-3.5 mr-1.5" />
+                        {confirming ? 'กำลังส่ง...' : 'ส่ง PO'}
+                      </Button>
                     </div>
                     <p className="text-[10px] text-muted-foreground">ทีมงานจะตรวจสอบและอนุมัติให้เร็วที่สุด</p>
                   </div>
