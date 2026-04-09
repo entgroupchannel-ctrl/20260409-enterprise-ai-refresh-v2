@@ -5,7 +5,6 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Separator } from '@/components/ui/separator';
 import {
   Dialog,
   DialogContent,
@@ -38,11 +37,71 @@ import {
   X,
   FileText,
   Download,
-  Upload,
   Clock,
 } from 'lucide-react';
 import { formatShortDateTime } from '@/lib/format';
 
+// ==========================================
+// Security Constants & Helpers
+// ==========================================
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+const MAX_FILES = 5;
+const ALLOWED_TYPES = ['application/pdf', 'image/png', 'image/jpeg'];
+const ALLOWED_EXTENSIONS = ['.pdf', '.png', '.jpg', '.jpeg'];
+const DANGEROUS_EXTENSIONS = ['.exe', '.sh', '.bat', '.cmd', '.scr', '.js', '.vbs', '.ps1'];
+const MAX_REASON_LENGTH = 1000;
+
+const validateFiles = (files: FileList | null): string | null => {
+  if (!files || files.length === 0) return null;
+  if (files.length > MAX_FILES) {
+    return `สามารถอัปโหลดได้สูงสุด ${MAX_FILES} ไฟล์`;
+  }
+  for (const file of Array.from(files)) {
+    if (file.size > MAX_FILE_SIZE) {
+      return `ไฟล์ ${file.name} ใหญ่เกิน 10MB`;
+    }
+    if (!ALLOWED_TYPES.includes(file.type)) {
+      return `ไฟล์ ${file.name} ไม่ได้รับอนุญาต (รับเฉพาะ PDF, PNG, JPG)`;
+    }
+    const ext = file.name.toLowerCase().substring(file.name.lastIndexOf('.'));
+    if (DANGEROUS_EXTENSIONS.includes(ext)) {
+      return `ไม่อนุญาตไฟล์ประเภท ${ext}`;
+    }
+    if (!ALLOWED_EXTENSIONS.includes(ext)) {
+      return `ไฟล์ ${file.name} นามสกุลไม่ถูกต้อง`;
+    }
+    if (file.name.includes('../') || file.name.includes('..\\')) {
+      return 'ชื่อไฟล์ไม่ถูกต้อง';
+    }
+  }
+  return null;
+};
+
+const sanitizeInput = (input: string): string => {
+  return input
+    .trim()
+    .replace(/<script[^>]*>.*?<\/script>/gi, '')
+    .replace(/<[^>]+>/g, '')
+    .substring(0, MAX_REASON_LENGTH);
+};
+
+const sanitizeFilename = (filename: string): string => {
+  return filename
+    .replace(/[^a-zA-Z0-9._\-\u0E00-\u0E7F]/g, '_')
+    .replace(/\.+/g, '.')
+    .substring(0, 100);
+};
+
+const generateSecurePath = (quoteId: string, originalName: string): string => {
+  const sanitized = sanitizeFilename(originalName);
+  const timestamp = Date.now();
+  const random = Math.random().toString(36).substring(2, 8);
+  return `${quoteId}/${timestamp}_${random}_${sanitized}`;
+};
+
+// ==========================================
+// Types
+// ==========================================
 interface POFile {
   id: string;
   file_url: string;
@@ -123,74 +182,136 @@ export default function POActionsMenu({
 
   const pendingCount = changeRequests.filter((r) => r.status === 'pending').length;
 
+  // Validated file change handler
+  const handleFileChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    setter: (files: FileList | null) => void
+  ) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) {
+      setter(null);
+      return;
+    }
+    const error = validateFiles(files);
+    if (error) {
+      toast({ title: 'ไฟล์ไม่ถูกต้อง', description: error, variant: 'destructive' });
+      e.target.value = '';
+      setter(null);
+      return;
+    }
+    setter(files);
+  };
+
+  // Secure file upload helper
+  const secureUploadFile = async (targetQuoteId: string, file: File, prefix = '') => {
+    const fileName = prefix + generateSecurePath(targetQuoteId, file.name);
+    const { data: uploadData, error } = await supabase.storage
+      .from('quote-files')
+      .upload(fileName, file);
+
+    if (error || !uploadData) {
+      throw new Error(`อัปโหลดไฟล์ ${file.name} ไม่สำเร็จ: ${error?.message}`);
+    }
+
+    const { data: { publicUrl } } = supabase.storage.from('quote-files').getPublicUrl(fileName);
+
+    return { publicUrl, fileName, originalName: file.name, size: file.size, storagePath: fileName };
+  };
+
+  // Get next version number via RPC (uses advisory lock)
+  const getNextVersion = async (): Promise<number> => {
+    const { data, error } = await supabase.rpc('get_next_po_version', { p_quote_id: quoteId });
+    if (error) throw new Error('ไม่สามารถสร้างเวอร์ชันใหม่: ' + error.message);
+    return data as number;
+  };
+
   // ==========================================
   // Super Admin: Edit PO directly
   // ==========================================
   const handleEditPO = async () => {
+    // Validate new files
+    const fileError = validateFiles(newFiles);
+    if (fileError) {
+      toast({ title: 'ไฟล์ไม่ถูกต้อง', description: fileError, variant: 'destructive' });
+      return;
+    }
+
     setProcessing(true);
+    const rollbackActions: (() => Promise<void>)[] = [];
+
     try {
-      // 1. Save current version
-      const { data: existingVersions } = await (supabase.from as any)('po_versions')
-        .select('version_number')
-        .eq('quote_id', quoteId)
-        .order('version_number', { ascending: false })
-        .limit(1);
+      // 1. Get safe version number via DB function
+      const nextVersion = await getNextVersion();
 
-      const nextVersion = (existingVersions?.[0]?.version_number || 0) + 1;
-
-      await (supabase.from as any)('po_versions').insert({
+      // 2. Save version WITH VERIFICATION
+      const versionPayload = {
         quote_id: quoteId,
         version_number: nextVersion,
         files: poFiles.map((f) => ({ id: f.id, file_url: f.file_url, file_name: f.file_name })),
         created_by: userEmail,
-        change_reason: editReason,
+        change_reason: sanitizeInput(editReason) || 'แก้ไข PO',
+      };
+
+      const { data: versionData, error: versionError } = await (supabase.from as any)('po_versions')
+        .insert(versionPayload)
+        .select()
+        .single();
+
+      if (versionError || !versionData) {
+        throw new Error('ไม่สามารถบันทึก version สำรอง: ' + (versionError?.message || 'unknown'));
+      }
+
+      // Verify backup integrity
+      const savedFiles = versionData.files as any[];
+      if (!savedFiles || savedFiles.length !== poFiles.length) {
+        await (supabase.from as any)('po_versions').delete().eq('id', versionData.id);
+        throw new Error('การตรวจสอบ version สำรองไม่ผ่าน — ยกเลิกการแก้ไข');
+      }
+
+      rollbackActions.push(async () => {
+        await (supabase.from as any)('po_versions').delete().eq('id', versionData.id);
       });
 
-      // 2. Delete removed files
+      // 3. Delete removed files (DB records only — storage files kept as backup)
       const filesToDelete = poFiles.filter((f) => !selectedFilesToKeep.includes(f.id));
       for (const file of filesToDelete) {
         await supabase.from('quote_files').delete().eq('id', file.id);
       }
 
-      // 3. Upload new files
+      // 4. Upload new files with secure paths
       if (newFiles && newFiles.length > 0) {
         for (const file of Array.from(newFiles)) {
-          const fileName = `${quoteId}/${Date.now()}_${file.name}`;
-          const { data: uploadData } = await supabase.storage
-            .from('quote-files')
-            .upload(fileName, file);
+          const uploaded = await secureUploadFile(quoteId, file);
 
-          if (uploadData) {
-            const {
-              data: { publicUrl },
-            } = supabase.storage.from('quote-files').getPublicUrl(fileName);
-
-            await supabase.from('quote_files').insert({
-              quote_id: quoteId,
-              file_url: publicUrl,
-              file_name: file.name,
-              file_size: file.size,
-              category: 'po',
-              uploaded_by: userEmail,
-            } as any);
-          }
+          await supabase.from('quote_files').insert({
+            quote_id: quoteId,
+            file_url: uploaded.publicUrl,
+            file_name: file.name,
+            file_size: file.size,
+            category: 'po',
+            uploaded_by: userEmail,
+          } as any);
         }
       }
 
-      // 4. System message
+      // 5. System message
       await supabase.from('quote_messages').insert({
         quote_id: quoteId,
         sender_role: 'system',
         sender_name: 'System',
-        content: `PO ถูกแก้ไขโดย ${userEmail} — ${editReason || 'ไม่ระบุเหตุผล'}`,
+        content: `PO ถูกแก้ไขโดย ${userEmail} — ${sanitizeInput(editReason) || 'ไม่ระบุเหตุผล'} (v${nextVersion})`,
       });
 
-      toast({ title: 'แก้ไข PO สำเร็จ' });
+      toast({ title: 'แก้ไข PO สำเร็จ', description: `บันทึกเวอร์ชัน ${nextVersion} เรียบร้อย` });
       setShowEditDialog(false);
       setEditReason('');
       setNewFiles(null);
       onRefresh();
     } catch (error: any) {
+      // Rollback in reverse order
+      for (const rollback of rollbackActions.reverse()) {
+        try { await rollback(); } catch (e) { console.error('Rollback failed:', e); }
+      }
       toast({ title: 'เกิดข้อผิดพลาด', description: error.message, variant: 'destructive' });
     } finally {
       setProcessing(false);
@@ -201,26 +322,32 @@ export default function POActionsMenu({
   // Super Admin: Cancel PO directly
   // ==========================================
   const handleCancelPO = async () => {
+    if (!cancelReason.trim()) {
+      toast({ title: 'กรุณาระบุเหตุผล', variant: 'destructive' });
+      return;
+    }
+
     setProcessing(true);
     try {
-      // Save version before cancel
-      const { data: existingVersions } = await (supabase.from as any)('po_versions')
-        .select('version_number')
-        .eq('quote_id', quoteId)
-        .order('version_number', { ascending: false })
-        .limit(1);
+      // 1. Save version before cancel
+      const nextVersion = await getNextVersion();
 
-      const nextVersion = (existingVersions?.[0]?.version_number || 0) + 1;
+      const { data: versionData, error: versionError } = await (supabase.from as any)('po_versions')
+        .insert({
+          quote_id: quoteId,
+          version_number: nextVersion,
+          files: poFiles.map((f) => ({ id: f.id, file_url: f.file_url, file_name: f.file_name })),
+          created_by: userEmail,
+          change_reason: `ยกเลิก PO: ${sanitizeInput(cancelReason)}`,
+        })
+        .select()
+        .single();
 
-      await (supabase.from as any)('po_versions').insert({
-        quote_id: quoteId,
-        version_number: nextVersion,
-        files: poFiles.map((f) => ({ id: f.id, file_url: f.file_url, file_name: f.file_name })),
-        created_by: userEmail,
-        change_reason: `ยกเลิก PO: ${cancelReason}`,
-      });
+      if (versionError || !versionData) {
+        throw new Error('ไม่สามารถบันทึก version สำรอง');
+      }
 
-      // Revert quote status
+      // 2. Revert quote status
       await supabase
         .from('quote_requests')
         .update({ status: 'quote_sent' } as any)
@@ -231,12 +358,12 @@ export default function POActionsMenu({
         await supabase.from('quote_files').delete().eq('id', file.id);
       }
 
-      // System message
+      // 4. System message
       await supabase.from('quote_messages').insert({
         quote_id: quoteId,
         sender_role: 'system',
         sender_name: 'System',
-        content: `PO ถูกยกเลิกโดย ${userEmail} — ${cancelReason}`,
+        content: `PO ถูกยกเลิกโดย ${userEmail} — ${sanitizeInput(cancelReason)} (v${nextVersion})`,
       });
 
       toast({ title: 'ยกเลิก PO สำเร็จ' });
@@ -260,28 +387,27 @@ export default function POActionsMenu({
       return;
     }
 
+    // Validate files for edit requests
+    if (type === 'edit') {
+      const fileError = validateFiles(requestFiles);
+      if (fileError) {
+        toast({ title: 'ไฟล์ไม่ถูกต้อง', description: fileError, variant: 'destructive' });
+        return;
+      }
+    }
+
     setProcessing(true);
     try {
       let uploadedFiles: any[] = [];
 
       if (type === 'edit' && requestFiles && requestFiles.length > 0) {
         for (const file of Array.from(requestFiles)) {
-          const fileName = `temp/${quoteId}/${Date.now()}_${file.name}`;
-          const { data: uploadData } = await supabase.storage
-            .from('quote-files')
-            .upload(fileName, file);
-
-          if (uploadData) {
-            const {
-              data: { publicUrl },
-            } = supabase.storage.from('quote-files').getPublicUrl(fileName);
-
-            uploadedFiles.push({
-              file_url: publicUrl,
-              file_name: file.name,
-              file_size: file.size,
-            });
-          }
+          const uploaded = await secureUploadFile(quoteId, file, 'temp/');
+          uploadedFiles.push({
+            file_url: uploaded.publicUrl,
+            file_name: file.name,
+            file_size: file.size,
+          });
         }
       }
 
@@ -290,16 +416,15 @@ export default function POActionsMenu({
         request_type: type,
         requested_by: userEmail,
         requested_by_role: userRole,
-        request_reason: reason,
+        request_reason: sanitizeInput(reason),
         new_files: uploadedFiles.length > 0 ? uploadedFiles : null,
       });
 
-      // System message
       await supabase.from('quote_messages').insert({
         quote_id: quoteId,
         sender_role: 'system',
         sender_name: 'System',
-        content: `${userEmail} ขอ${type === 'edit' ? 'แก้ไข' : 'ยกเลิก'} PO — ${reason}`,
+        content: `${userEmail} ขอ${type === 'edit' ? 'แก้ไข' : 'ยกเลิก'} PO — ${sanitizeInput(reason)}`,
       });
 
       toast({ title: 'ส่งคำขอสำเร็จ', description: 'รอ Super Admin อนุมัติ' });
@@ -340,7 +465,6 @@ export default function POActionsMenu({
 
       const request = changeRequests.find((r) => r.id === requestId);
 
-      // If approved and is cancel request, revert quote
       if (action === 'approved' && request?.request_type === 'cancel') {
         await supabase
           .from('quote_requests')
@@ -352,26 +476,22 @@ export default function POActionsMenu({
         }
       }
 
-      // If approved and has new files, replace PO
       if (action === 'approved' && request?.request_type === 'edit' && request.new_files) {
-        // Save version
-        const { data: existingVersions } = await (supabase.from as any)('po_versions')
-          .select('version_number')
-          .eq('quote_id', quoteId)
-          .order('version_number', { ascending: false })
-          .limit(1);
+        const nextVersion = await getNextVersion();
 
-        const nextVersion = (existingVersions?.[0]?.version_number || 0) + 1;
+        const { error: versionError } = await (supabase.from as any)('po_versions')
+          .insert({
+            quote_id: quoteId,
+            version_number: nextVersion,
+            files: poFiles.map((f) => ({ id: f.id, file_url: f.file_url, file_name: f.file_name })),
+            created_by: userEmail,
+            change_reason: `อนุมัติคำขอแก้ไข: ${request.request_reason}`,
+          });
 
-        await (supabase.from as any)('po_versions').insert({
-          quote_id: quoteId,
-          version_number: nextVersion,
-          files: poFiles.map((f) => ({ id: f.id, file_url: f.file_url, file_name: f.file_name })),
-          created_by: userEmail,
-          change_reason: `อนุมัติคำขอแก้ไข: ${request.request_reason}`,
-        });
+        if (versionError) {
+          throw new Error('ไม่สามารถบันทึก version: ' + versionError.message);
+        }
 
-        // Add new files
         for (const f of request.new_files) {
           await supabase.from('quote_files').insert({
             quote_id: quoteId,
@@ -384,7 +504,6 @@ export default function POActionsMenu({
         }
       }
 
-      // System message
       await supabase.from('quote_messages').insert({
         quote_id: quoteId,
         sender_role: 'system',
@@ -408,7 +527,6 @@ export default function POActionsMenu({
     <>
       {/* Action Buttons */}
       <div className="flex items-center gap-2 flex-wrap">
-        {/* Super Admin: Direct actions */}
         {userRole === 'super_admin' && (
           <>
             <Button variant="outline" size="sm" onClick={() => setShowEditDialog(true)}>
@@ -427,7 +545,6 @@ export default function POActionsMenu({
           </>
         )}
 
-        {/* Admin/Sales: Request actions */}
         {(userRole === 'admin' || userRole === 'sales') && (
           <>
             <Button variant="outline" size="sm" onClick={() => setShowRequestEditDialog(true)}>
@@ -446,7 +563,6 @@ export default function POActionsMenu({
           </>
         )}
 
-        {/* Pending requests badge */}
         {pendingCount > 0 && (
           <Button variant="ghost" size="sm" onClick={() => setShowRequestsDialog(true)}>
             <List className="w-3.5 h-3.5 mr-1.5" />
@@ -455,9 +571,7 @@ export default function POActionsMenu({
         )}
       </div>
 
-      {/* ==========================================
-          Super Admin: Edit PO Dialog
-          ========================================== */}
+      {/* Super Admin: Edit PO Dialog */}
       <Dialog open={showEditDialog} onOpenChange={setShowEditDialog}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
@@ -466,7 +580,6 @@ export default function POActionsMenu({
           </DialogHeader>
 
           <div className="space-y-4">
-            {/* Current Files */}
             <div>
               <Label className="text-sm">ไฟล์ PO ปัจจุบัน</Label>
               <div className="border border-border rounded-lg p-3 mt-1.5 bg-muted/30 space-y-2">
@@ -500,29 +613,33 @@ export default function POActionsMenu({
               </div>
             </div>
 
-            {/* Upload New */}
             <div>
               <Label className="text-sm">อัปโหลดไฟล์ใหม่</Label>
               <Input
                 type="file"
                 multiple
                 accept=".pdf,.png,.jpg,.jpeg"
-                onChange={(e) => setNewFiles(e.target.files)}
+                onChange={(e) => handleFileChange(e, setNewFiles)}
                 className="mt-1.5"
               />
-              <p className="text-xs text-muted-foreground mt-1">รองรับ PDF, PNG, JPG (ไฟล์ละไม่เกิน 10MB)</p>
+              <p className="text-xs text-muted-foreground mt-1">
+                รองรับ PDF, PNG, JPG (ไฟล์ละไม่เกิน 10MB, สูงสุด {MAX_FILES} ไฟล์)
+              </p>
             </div>
 
-            {/* Reason */}
             <div>
               <Label className="text-sm">เหตุผลในการแก้ไข</Label>
               <Textarea
                 value={editReason}
-                onChange={(e) => setEditReason(e.target.value)}
+                onChange={(e) => setEditReason(e.target.value.substring(0, MAX_REASON_LENGTH))}
                 rows={3}
                 placeholder="ระบุเหตุผล..."
                 className="mt-1.5"
+                maxLength={MAX_REASON_LENGTH}
               />
+              <p className="text-xs text-muted-foreground text-right mt-0.5">
+                {editReason.length}/{MAX_REASON_LENGTH}
+              </p>
             </div>
           </div>
 
@@ -538,9 +655,7 @@ export default function POActionsMenu({
         </DialogContent>
       </Dialog>
 
-      {/* ==========================================
-          Super Admin: Cancel PO Dialog
-          ========================================== */}
+      {/* Super Admin: Cancel PO Dialog */}
       <AlertDialog open={showCancelDialog} onOpenChange={setShowCancelDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -553,10 +668,11 @@ export default function POActionsMenu({
             <Label className="text-sm">เหตุผลในการยกเลิก *</Label>
             <Textarea
               value={cancelReason}
-              onChange={(e) => setCancelReason(e.target.value)}
+              onChange={(e) => setCancelReason(e.target.value.substring(0, MAX_REASON_LENGTH))}
               rows={3}
               placeholder="ระบุเหตุผล..."
               className="mt-1.5"
+              maxLength={MAX_REASON_LENGTH}
             />
           </div>
           <AlertDialogFooter>
@@ -572,9 +688,7 @@ export default function POActionsMenu({
         </AlertDialogContent>
       </AlertDialog>
 
-      {/* ==========================================
-          Admin: Request Edit Dialog
-          ========================================== */}
+      {/* Admin: Request Edit Dialog */}
       <Dialog open={showRequestEditDialog} onOpenChange={setShowRequestEditDialog}>
         <DialogContent className="max-w-xl">
           <DialogHeader>
@@ -601,18 +715,22 @@ export default function POActionsMenu({
                 type="file"
                 multiple
                 accept=".pdf,.png,.jpg,.jpeg"
-                onChange={(e) => setRequestFiles(e.target.files)}
+                onChange={(e) => handleFileChange(e, setRequestFiles)}
                 className="mt-1.5"
               />
+              <p className="text-xs text-muted-foreground mt-1">
+                รองรับ PDF, PNG, JPG (ไฟล์ละไม่เกิน 10MB, สูงสุด {MAX_FILES} ไฟล์)
+              </p>
             </div>
             <div>
               <Label className="text-sm">เหตุผลในการขอแก้ไข *</Label>
               <Textarea
                 value={requestReason}
-                onChange={(e) => setRequestReason(e.target.value)}
+                onChange={(e) => setRequestReason(e.target.value.substring(0, MAX_REASON_LENGTH))}
                 rows={4}
                 placeholder="กรุณาระบุเหตุผลอย่างละเอียด..."
                 className="mt-1.5"
+                maxLength={MAX_REASON_LENGTH}
               />
             </div>
           </div>
@@ -629,9 +747,7 @@ export default function POActionsMenu({
         </DialogContent>
       </Dialog>
 
-      {/* ==========================================
-          Admin: Request Cancel Dialog
-          ========================================== */}
+      {/* Admin: Request Cancel Dialog */}
       <Dialog open={showRequestCancelDialog} onOpenChange={setShowRequestCancelDialog}>
         <DialogContent className="max-w-xl">
           <DialogHeader>
@@ -656,10 +772,11 @@ export default function POActionsMenu({
               <Label className="text-sm">เหตุผลในการขอยกเลิก *</Label>
               <Textarea
                 value={cancelReason}
-                onChange={(e) => setCancelReason(e.target.value)}
+                onChange={(e) => setCancelReason(e.target.value.substring(0, MAX_REASON_LENGTH))}
                 rows={4}
                 placeholder="กรุณาระบุเหตุผลอย่างละเอียด..."
                 className="mt-1.5"
+                maxLength={MAX_REASON_LENGTH}
               />
             </div>
           </div>
@@ -680,9 +797,7 @@ export default function POActionsMenu({
         </DialogContent>
       </Dialog>
 
-      {/* ==========================================
-          Pending Requests List (Super Admin)
-          ========================================== */}
+      {/* Pending Requests List */}
       <Dialog open={showRequestsDialog} onOpenChange={setShowRequestsDialog}>
         <DialogContent className="max-w-3xl">
           <DialogHeader>
@@ -746,7 +861,6 @@ export default function POActionsMenu({
                       </p>
                     </div>
 
-                    {/* Approve/Reject buttons (Super Admin only, pending only) */}
                     {userRole === 'super_admin' && request.status === 'pending' && (
                       <div className="flex gap-2 shrink-0">
                         <Button
