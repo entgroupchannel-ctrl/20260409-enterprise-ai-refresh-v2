@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
-import { useAutoSubmitPendingQuote } from '@/hooks/usePendingQuote';
+import { getPendingQuote } from '@/hooks/usePendingQuote';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -17,9 +17,17 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const { user, signIn } = useAuth();
   const { toast } = useToast();
+  const navigate = useNavigate();
 
-  // Auto-submit pending quote after login
-  useAutoSubmitPendingQuote(user?.id);
+  // After login, if there's a pending quote, redirect to request-quote page
+  useEffect(() => {
+    if (user) {
+      const pending = getPendingQuote();
+      if (pending && pending.products.length > 0) {
+        navigate('/request-quote?action=continue', { replace: true });
+      }
+    }
+  }, [user]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
-import { useAutoSubmitPendingQuote } from '@/hooks/usePendingQuote';
+import { getPendingQuote } from '@/hooks/usePendingQuote';
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -20,9 +20,6 @@ export default function Register() {
   const { user, signUp } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
-
-  // Auto-submit pending quote after registration + auto-login
-  useAutoSubmitPendingQuote(user?.id);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
