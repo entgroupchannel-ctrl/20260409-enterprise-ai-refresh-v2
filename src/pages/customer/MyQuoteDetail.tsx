@@ -33,6 +33,8 @@ import {
   Edit,
   AlertCircle,
   RefreshCw,
+  X,
+  Loader2,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
@@ -95,6 +97,7 @@ export default function MyQuoteDetail() {
   const [requestReason, setRequestReason] = useState('');
   const [requestFiles, setRequestFiles] = useState<FileList | null>(null);
   const [requestProcessing, setRequestProcessing] = useState(false);
+  const [deletingFileId, setDeletingFileId] = useState<string | null>(null);
 
   useEffect(() => {
     if (id && user) {
@@ -174,6 +177,36 @@ export default function MyQuoteDetail() {
       }
     } catch (error) {
       console.error('Error loading PO files:', error);
+    }
+  };
+
+  const handleDeletePOFile = async (fileId: string, fileName: string) => {
+    const confirmed = window.confirm(`ต้องการลบไฟล์ "${fileName}" ใช่หรือไม่?`);
+    if (!confirmed) return;
+
+    setDeletingFileId(fileId);
+    try {
+      // Get file URL to extract storage path
+      const fileRecord = poFiles.find(f => f.id === fileId);
+      if (fileRecord) {
+        try {
+          const url = new URL(fileRecord.file_url);
+          const pathMatch = url.pathname.match(/\/storage\/v1\/object\/public\/quote-files\/(.+)$/);
+          if (pathMatch) {
+            await supabase.storage.from('quote-files').remove([pathMatch[1]]);
+          }
+        } catch { /* storage cleanup best-effort */ }
+      }
+
+      const { error } = await supabase.from('quote_files').delete().eq('id', fileId);
+      if (error) throw error;
+
+      setPoFiles(prev => prev.filter(f => f.id !== fileId));
+      toast({ title: 'ลบไฟล์แล้ว', description: `ลบ "${fileName}" เรียบร้อย` });
+    } catch (error: any) {
+      toast({ title: 'ลบไฟล์ไม่สำเร็จ', description: error.message, variant: 'destructive' });
+    } finally {
+      setDeletingFileId(null);
     }
   };
 
@@ -581,17 +614,36 @@ export default function MyQuoteDetail() {
                 <CardContent>
                   <div className="space-y-1.5">
                     {poFiles.map((file) => (
-                      <a
+                      <div
                         key={file.id}
-                        href={file.file_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-2.5 py-1.5 rounded-md border border-border hover:border-primary hover:bg-primary/5 transition-colors group"
+                        className="flex items-center gap-2 px-2.5 py-1.5 rounded-md border border-border hover:border-primary transition-colors group"
                       >
                         <FileText className="w-3.5 h-3.5 text-primary shrink-0" />
-                        <span className="text-xs font-medium text-foreground truncate flex-1">{file.file_name}</span>
-                        <Download className="w-3 h-3 text-muted-foreground group-hover:text-primary shrink-0" />
-                      </a>
+                        <a
+                          href={file.file_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs font-medium text-foreground truncate flex-1 hover:underline"
+                        >
+                          {file.file_name}
+                        </a>
+                        <a href={file.file_url} download className="p-1 hover:bg-primary/10 rounded" title="ดาวน์โหลด">
+                          <Download className="w-3 h-3 text-muted-foreground group-hover:text-primary shrink-0" />
+                        </a>
+                        {(quote.status === 'quote_sent' || quote.status === 'po_uploaded') && (
+                          <button
+                            onClick={() => handleDeletePOFile(file.id, file.file_name)}
+                            disabled={deletingFileId === file.id}
+                            className="p-1 hover:bg-destructive/10 rounded disabled:opacity-50"
+                            title="ลบไฟล์"
+                          >
+                            {deletingFileId === file.id
+                              ? <Loader2 className="w-3 h-3 animate-spin text-muted-foreground" />
+                              : <X className="w-3 h-3 text-destructive" />
+                            }
+                          </button>
+                        )}
+                      </div>
                     ))}
                    </div>
 
