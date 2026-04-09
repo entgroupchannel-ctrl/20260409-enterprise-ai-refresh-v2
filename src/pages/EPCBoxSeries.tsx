@@ -322,13 +322,13 @@ const SpecTable = ({ series }: { series: SeriesData }) => (
         <tr className="hover:bg-muted/30 transition-colors">
           <td className="px-4 py-3 font-semibold text-foreground bg-muted/20" rowSpan={2}>I/O Ports</td>
           <td className="px-4 py-3 text-muted-foreground">
-            <span className="font-medium text-foreground">USB2.0:</span> {series.usbPorts.usb2}
+            <span className="font-medium text-foreground">USB2.0:</span> {series.usbPorts.usb2}>
 
           </td>
         </tr>
         <tr className="hover:bg-muted/30 transition-colors">
           <td className="px-4 py-3 text-muted-foreground">
-            <span className="font-medium text-foreground">USB3.0:</span> {series.usbPorts.usb3}
+            <span className="font-medium text-foreground">USB3.0:</span> {series.usbPorts.usb3}>
 
           </td>
         </tr>
@@ -461,7 +461,7 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
         </div>
 
         {/* Content side - 3 cols */}
-        <div className={`lg:col-span-3 p-8 lg:p-10 ${isReversed ? "lg:order-1" : ""}`}
+        <div className={`lg:col-span-3 p-8 lg:p-10 ${isReversed ? "lg:order-1" : ""}`}>
 
           <p className="text-xs font-semibold tracking-widest uppercase text-primary mb-2">{series.tagline}</p>
           <h3 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-2">{series.name}</h3>
@@ -656,7 +656,7 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
       <div className="flex items-center justify-center gap-2">
         {viewTabs.map(tab => (
           <button key={tab.key} onClick={() => setViewMode(tab.key)}
-            className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold border transition-all ${viewMode === tab.key ? "bg-primary text-primary-foreground border-primary shadow-lg" : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"}`}
+            className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold border transition-all ${viewMode === tab.key ? "bg-primary text-primary-foreground border-primary shadow-lg" : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"}`}>
 
             <tab.icon size={16} />
             {tab.label}
@@ -676,7 +676,7 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
 
               <div className="px-4 py-4 bg-primary/10 flex items-center">
                 <span className="text-sm font-bold text-foreground">
-                  {viewMode === "specs" ? <><SlidersHorizontal size={14} className="inline mr-1" /> สเปก</> : viewMode === "price" ? <><DollarSign size={14} className="inline mr-1" /> ราคา</> : <><BarChart3 size={14} className="inline mr-1" /> ความคุ้มค่า</>}
+                  {viewMode === "specs" ? <><SlidersHorizontal size={14} className="inline mr-1" /> สเปก</> : viewMode === "price" ? <><DollarSign size={14} className="inline mr-1" /> ราคา</> : <><BarChart3 size={14} className="inline mr-1" /> ความคุ้มค่า</>}>
 
                 </span>
               </div>
@@ -737,7 +737,7 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
           <button key={item.id} onClick={() => {
             const el = document.getElementById(item.id);
             if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-          }} className={`p-5 rounded-xl border ${item.color} text-left hover:scale-[1.02] transition-transform`}
+          }} className={`p-5 rounded-xl border ${item.color} text-left hover:scale-[1.02] transition-transform`}>
 
             <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-2"><item.Icon size={22} className="text-primary" /></div>
             <p className="font-bold text-foreground text-sm mb-1">{item.title}</p>
@@ -903,7 +903,7 @@ const EPCBoxSeries = () => {
           <div className="grid sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
             {certifications.map((c, i) => (
               <div key={i} className="card-surface p-5 flex items-start gap-4 hover:border-primary/30 transition-colors">
-                <div className={`shrink-0 w-11 h-11 rounded-xl bg-background flex items-center justify-center border border-border ${c.color}`}
+                <div className={`shrink-0 w-11 h-11 rounded-xl bg-background flex items-center justify-center border border-border ${c.color}`}>
 
                   <c.icon size={22} />
                 </div>

@@ -51,18 +51,18 @@ const ShareButtons = ({ url, title, compact = false, productId, productCategory 
       {/* Like */}
       <button
         onClick={() => setLiked(!liked)}
-        className={`${btnClass} ${liked ? "text-primary border-primary/30 bg-primary/5" : ""}`}
+        className={`${btnClass} ${liked ? "text-primary border-primary/30 bg-primary/5" : ""}`}>
 
         <ThumbsUp size={iconSize} className={liked ? "fill-current" : ""} />
         {!compact && (liked ? "ถูกใจแล้ว" : "ถูกใจ")}
       </button>
 
       {/* Share dropdown */}
-      <div className="relative" ref={menuRef}
+      <div className="relative" ref={menuRef}>
 
         <button
           onClick={() => setShowMenu(!showMenu)}
-          className={btnClass}
+          className={btnClass}>
 
           <Share2 size={iconSize} />
           {!compact && "แชร์"}

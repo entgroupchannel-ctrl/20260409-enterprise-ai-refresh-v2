@@ -432,7 +432,7 @@ const SmartDisplay = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-sm font-medium text-foreground hover:bg-secondary hover:border-primary/30 transition-all">
-                        <Download size={12} /> {d.model}
+                        <Download size={12} /> {d.model}>
 
                       </a>
                     ))}
@@ -598,7 +598,7 @@ const SmartDisplay = () => {
                     { image: kioskBrand, title: "Brand & Promotion", desc: "จอโฆษณาแบบอินเทอร์แอคทีฟ — ค้าปลีก งานอีเวนต์ โชว์รูม", color: "bg-pink-50 dark:bg-pink-950/20 border-pink-200 dark:border-pink-900/30" },
                     { image: kioskCheckin, title: "Document & Check-in", desc: "เช็คอิน ลงทะเบียน กรอกเอกสาร — โรงแรม คลินิก สัมมนา", color: "bg-teal-50 dark:bg-teal-950/20 border-teal-200 dark:border-teal-900/30" },
                   ].map((uc) => (
-                    <div key={uc.title} className={`rounded-xl overflow-hidden border ${uc.color} hover:shadow-md transition-shadow`}
+                    <div key={uc.title} className={`rounded-xl overflow-hidden border ${uc.color} hover:shadow-md transition-shadow`}>
 
                       <div className="aspect-[3/2] overflow-hidden">
                         <img src={uc.image} alt={uc.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />

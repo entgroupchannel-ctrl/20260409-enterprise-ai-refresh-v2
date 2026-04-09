@@ -268,7 +268,7 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
                 {pagedData.map((item, idx) => (
                   <tr
                     key={idx}
-                    className={`transition-colors hover:bg-primary/5 ${idx % 2 === 1 ? "bg-secondary/20" : ""}`}
+                    className={`transition-colors hover:bg-primary/5 ${idx % 2 === 1 ? "bg-secondary/20" : ""}`}>
 
                     <td className="px-4 py-2.5 font-medium text-foreground whitespace-nowrap">{item.processor}</td>
                     <td className="px-4 py-2.5 text-foreground">{item.config}</td>
@@ -334,7 +334,7 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
             <button
               onClick={() => onRequestQuote(`GB Series — ${currentTab.label}`)}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity">
-              <FileText size={16} /> ขอใบเสนอราคา {currentTab.label.replace(" Price List", "")}
+              <FileText size={16} /> ขอใบเสนอราคา {currentTab.label.replace(" Price List", "")}>
 
             </button>
           )}

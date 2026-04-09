@@ -330,7 +330,7 @@ const PanelPC = () => {
         <div className="container max-w-7xl mx-auto px-6 py-8">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-6 text-center">
             {stats.map((s) => (
-              <div key={s.sub}
+              <div key={s.sub}>
 
                 <div className="text-3xl md:text-4xl font-display font-black text-primary">
                   {s.value}<span className="text-lg font-semibold text-foreground ml-1">{s.label}</span>
@@ -669,14 +669,14 @@ import FooterCompact from "@/components/FooterCompact";
                 {paged.map((m) => {
                   const prices = cpuPrices[m.id] || [0, 0, 0];
                   return (
-                    <tr key={m.id} className={`border-b border-border/50 hover:bg-secondary/30 transition-colors ${m.popular ? "bg-primary/5" : ""}`}
+                    <tr key={m.id} className={`border-b border-border/50 hover:bg-secondary/30 transition-colors ${m.popular ? "bg-primary/5" : ""}`}>
 
                       <td className="p-3">
                         <div className="flex items-center gap-2">
                           <span className="text-[10px] px-1.5 py-0.5 rounded bg-secondary text-secondary-foreground font-mono">{m.series}</span>
                           <div>
                             <span className="font-semibold text-foreground">{m.name}</span>
-                            {m.popular && <span className="ml-2 text-[10px] px-1.5 py-0.5 rounded-full bg-primary text-primary-foreground font-bold"><Star size={10} className="inline" /></span>}
+                            {m.popular && <span className="ml-2 text-[10px] px-1.5 py-0.5 rounded-full bg-primary text-primary-foreground font-bold"><Star size={10} className="inline" /></span>}>
 
                             <p className="text-[11px] text-muted-foreground">{m.highlight}</p>
                           </div>

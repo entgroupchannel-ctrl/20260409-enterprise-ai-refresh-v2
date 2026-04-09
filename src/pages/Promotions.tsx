@@ -248,13 +248,13 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
               {promo.badge}
             </span>
           )}
-          <span className={`absolute top-3 right-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold ${sc.color}`}
+          <span className={`absolute top-3 right-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold ${sc.color}`}>
 
-            <sc.icon size={10} /> {sc.label}
+            <sc.icon size={10} /> {sc.label}>
 
           </span>
           {promo.ctaHref ? (
-            <Link to={promo.ctaHref}
+            <Link to={promo.ctaHref}>
 
               <img
                 src={promo.image}
@@ -274,7 +274,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
         </div>
 
         {/* Content */}
-        <div className={`flex-1 p-5 ${featured ? "md:p-8" : ""}`}
+        <div className={`flex-1 p-5 ${featured ? "md:p-8" : ""}`}>
 
           <div className="flex items-center gap-2 mb-2">
             <Calendar size={14} className="text-primary" />
@@ -296,12 +296,12 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
             <ChevronDown size={14} className={`transition-transform duration-200 ${expanded ? "rotate-180" : ""}`} />
           </button>
 
-          <div className={`overflow-hidden transition-[max-height] duration-300 ${expanded ? "max-h-[500px]" : "max-h-0"}`}
+          <div className={`overflow-hidden transition-[max-height] duration-300 ${expanded ? "max-h-[500px]" : "max-h-0"}`}>
 
             <ul className="space-y-1.5 mb-4">
               {promo.highlights.map((h) => (
                 <li key={h} className="flex items-start gap-2 text-sm text-muted-foreground">
-                  <span className="text-primary mt-0.5">✓</span> {h}
+                  <span className="text-primary mt-0.5">✓</span> {h}>
 
                 </li>
               ))}

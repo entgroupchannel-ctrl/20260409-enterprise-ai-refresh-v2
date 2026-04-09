@@ -2134,7 +2134,7 @@ const GTSeries = () => {
                         </thead>
                         <tbody>
                           {pageItems.map((row, i) => (
-                            <tr key={i} className={`border-b border-border/50 ${i % 2 === 1 ? "bg-muted/20" : ""}`}
+                            <tr key={i} className={`border-b border-border/50 ${i % 2 === 1 ? "bg-muted/20" : ""}`}>
 
                               <td className="p-3 font-bold text-foreground">{row.model}</td>
                               <td className="p-3 text-muted-foreground">{row.config}</td>
@@ -2685,7 +2685,7 @@ const GTSeries = () => {
                           { label: "SIM", value: "1× Micro SIM (PUSH)" },
                           { label: "Audio I/O", value: "1× MIC + 1× SPK" },
                         ].map((s, i) => (
-                          <tr key={i} className={i % 2 === 1 ? "bg-muted/20" : ""}
+                          <tr key={i} className={i % 2 === 1 ? "bg-muted/20" : ""}>
 
                             <td className="p-3 font-bold text-foreground w-1/3 align-top">{s.label}</td>
                             <td className="p-3 text-muted-foreground text-xs whitespace-pre-line">{s.value}</td>
@@ -2717,7 +2717,7 @@ const GTSeries = () => {
                           { label: "Switch", value: "1× Power On/Off" },
                           { label: "Package", value: "1× Mini PC\n1× Power Adapter\n1× Power Cord\n1× Screws Bag" },
                         ].map((s, i) => (
-                          <tr key={i} className={i % 2 === 1 ? "bg-muted/20" : ""}
+                          <tr key={i} className={i % 2 === 1 ? "bg-muted/20" : ""}>
 
                             <td className="p-3 font-bold text-foreground w-1/3 align-top">{s.label}</td>
                             <td className="p-3 text-muted-foreground text-xs whitespace-pre-line">{s.value}</td>
@@ -2779,7 +2779,7 @@ const GTSeries = () => {
                       { icon: Bot, title: "Robot & Automation", desc: "Handshake กับ PLC, Robot Controller ผ่าน Digital I/O ไม่ต้องใช้ fieldbus ราคาแพง" },
                     ].map((item, i) => (
                       <div key={i} className="p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors border border-border/50">
-                        {typeof item.icon === "string" ? <span className="text-2xl">{item.icon}</span> : <item.icon size={24} className="text-primary" />}
+                        {typeof item.icon === "string" ? <span className="text-2xl">{item.icon}</span> : <item.icon size={24} className="text-primary" />}>
 
                         <h4 className="font-bold text-foreground text-sm mt-2">{item.title}</h4>
                         <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{item.desc}</p>
@@ -2824,7 +2824,7 @@ const GTSeries = () => {
                           { ch: "GPIO6", reg: "0xA02", high: "0x40", low: "0xBF", type: "Output" },
                           { ch: "GPIO7", reg: "0xA02", high: "0x80", low: "0x7F", type: "Input" },
                         ].map((g, i) => (
-                          <tr key={i} className={i % 2 === 1 ? "bg-muted/20" : ""}
+                          <tr key={i} className={i % 2 === 1 ? "bg-muted/20" : ""}>
 
                             <td className="p-3 font-bold text-primary">{g.ch}</td>
                             <td className="p-3 text-muted-foreground">{g.reg}</td>
@@ -4758,11 +4758,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         { cpu: "Intel Core i5-8250U", spec: "8GB DDR4 + SSD 256GB", highlight: "Gen 8 แรงขึ้น 40%", price: "23,900", tag: "" },
                         { cpu: "Intel Core i7-8550U", spec: "8GB DDR4 + SSD 256GB", highlight: "ท็อปสุด วิเคราะห์ข้อมูลหนัก", price: "25,900", tag: "" },
                       ].map((item, i) => (
-                        <tr key={i} className={`hover:bg-muted/30 transition-colors ${item.tag ? "bg-primary/5" : ""}`}
+                        <tr key={i} className={`hover:bg-muted/30 transition-colors ${item.tag ? "bg-primary/5" : ""}`}>
 
                           <td className="p-3 font-medium text-foreground">
                             {item.cpu}
-                            {item.tag && <span className="ml-2 text-xs text-primary font-bold">{item.tag}</span>}
+                            {item.tag && <span className="ml-2 text-xs text-primary font-bold">{item.tag}</span>}>
 
                           </td>
                           <td className="p-3 text-muted-foreground">{item.spec}</td>
@@ -5992,7 +5992,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
       <h3 className="text-xl font-display font-bold text-foreground mb-1 group-hover:text-primary transition-colors flex items-center gap-2">
         {model.name}
         {model.tab && <span className="text-xs text-primary font-normal">ดูรายละเอียด →</span>}>
-        {!model.tab && <ExternalLink size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />}
+        {!model.tab && <ExternalLink size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />}>
 
       </h3>
       <p className="text-xs font-semibold text-primary mb-3">"{model.tagline}"</p>

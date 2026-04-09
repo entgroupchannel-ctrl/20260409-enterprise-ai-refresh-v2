@@ -74,7 +74,7 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
       {/* Content */}
       <div className="p-4 flex-1 flex flex-col">
         <p className="text-xs font-mono text-primary font-semibold mb-1">{product.id}</p>
-        <Link to={`/ibox-series/${product.id}`}
+        <Link to={`/ibox-series/${product.id}`}>
 
           <h3 className="font-display font-bold text-foreground line-clamp-2 group-hover:text-primary transition-colors mb-1 text-sm">
             {product.name}
@@ -115,7 +115,7 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
               รายละเอียด
             </Button>
           </Link>
-          <Button size="sm" className="flex-1 text-xs" onClick={() => onQuote(product.name)}
+          <Button size="sm" className="flex-1 text-xs" onClick={() => onQuote(product.name)}>
 
             <FileText className="w-3.5 h-3.5 mr-1" />
             ขอราคา

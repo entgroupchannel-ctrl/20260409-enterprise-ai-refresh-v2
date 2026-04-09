@@ -309,7 +309,7 @@ const SpecTable = ({ model }: { model: typeof squareModels[0] }) => (
 
 /* ───── Model Card ───── */
 const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof squareModels[0]; onQuote?: (name: string) => void; selected?: boolean; onToggleSelect?: (name: string) => void }) => (
-  <div className={`card-surface overflow-hidden group transition-all ${selected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"}`}
+  <div className={`card-surface overflow-hidden group transition-all ${selected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"}`}>
 
     <div className="relative bg-secondary/30 p-6 flex items-center justify-center">
       {onToggleSelect && (
@@ -330,7 +330,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
             <Download className="w-3.5 h-3.5 mr-1.5" /> Datasheet
           </a>
         </Button>
-        <Button size="sm" className="flex-1" onClick={() => onQuote?.(model.name)}
+        <Button size="sm" className="flex-1" onClick={() => onQuote?.(model.name)}>
 
           <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
         </Button>
@@ -407,7 +407,7 @@ const EPCSeries = () => {
                     <ExternalLink className="w-3.5 h-3.5 mr-1.5" /> Product Overview
                   </a>
                 </Button>
-                <Button size="sm" onClick={() => setQuoteProduct("EPC Series")}
+                <Button size="sm" onClick={() => setQuoteProduct("EPC Series")}>
 
                   <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
                 </Button>
@@ -595,7 +595,7 @@ const EPCSeries = () => {
               ))}
             </TabsList>
             {[...squareModels, ...wideModels].map((m) => (
-              <TabsContent key={m.id} value={m.id}
+              <TabsContent key={m.id} value={m.id}>
 
                 <div className="card-surface overflow-hidden">
                   <SpecTable model={m} />
@@ -627,7 +627,7 @@ const EPCSeries = () => {
               const paginatedData = data.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
 
               return (
-                <TabsContent key={tabValue} value={tabValue}
+                <TabsContent key={tabValue} value={tabValue}>
 
                   <div className="card-surface overflow-hidden">
                     <div className="overflow-x-auto">
@@ -644,7 +644,7 @@ const EPCSeries = () => {
                         </TableHeader>
                         <TableBody>
                           {paginatedData.map((row, i) => (
-                            <TableRow key={i}
+                            <TableRow key={i}>
 
                               <TableCell>{row.size}</TableCell>
                               <TableCell>{row.res}</TableCell>
@@ -695,7 +695,7 @@ const EPCSeries = () => {
                     </TableHeader>
                     <TableBody>
                       {optionsList.map((row) => (
-                        <TableRow key={row.no}
+                        <TableRow key={row.no}>
 
                           <TableCell className="font-medium">{row.no}</TableCell>
                           <TableCell>{row.product}</TableCell>
@@ -817,7 +817,7 @@ const EPCSeries = () => {
                 { title: "วิธีเลือก EPC ให้เหมาะกับงาน", desc: "แนะนำการเลือกขนาดหน้าจอ 10–24 นิ้ว", src: "/podcasts/epc-how-to-choose.wav", duration: "2:39" },
                 { title: "EPC-S10X2A — ตัวเล็ก สเปกไม่เล็ก", desc: "รีวิวเจาะลึก Panel PC 10 นิ้ว 9 รุ่นย่อย", src: "/podcasts/epc-s10x2a.wav", duration: "2:27" },
               ].map((pod, i) => (
-                <div key={i} className={`p-3 hover:bg-muted/30 transition-colors ${i >= 2 ? "md:border-t-0" : ""}`}
+                <div key={i} className={`p-3 hover:bg-muted/30 transition-colors ${i >= 2 ? "md:border-t-0" : ""}`}>
 
                   <div className="flex items-start gap-3">
                     <div className="shrink-0 w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-xs">
@@ -890,7 +890,7 @@ const EPCSeries = () => {
                 <ExternalLink className="w-4 h-4 mr-1.5" /> ดาวน์โหลด E-Catalog
               </a>
             </Button>
-            <Button onClick={() => setQuoteProduct("EPC Series")}
+            <Button onClick={() => setQuoteProduct("EPC Series")}>
 
               <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
             </Button>

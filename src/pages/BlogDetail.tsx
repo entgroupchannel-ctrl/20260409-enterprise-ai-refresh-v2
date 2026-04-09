@@ -101,7 +101,7 @@ const BlogDetail = () => {
                   <div className="space-y-2">
                     {post.relatedProducts.map((p) => (
                       <Link key={p.path} to={p.path} className="flex items-center gap-2 text-sm text-primary hover:underline">
-                        <ExternalLink className="w-3.5 h-3.5" /> {p.name}
+                        <ExternalLink className="w-3.5 h-3.5" /> {p.name}>
 
                       </Link>
                     ))}

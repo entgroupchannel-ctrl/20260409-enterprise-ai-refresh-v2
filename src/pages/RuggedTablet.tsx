@@ -229,7 +229,7 @@ const TabletCard = ({
   selected: boolean;
   onToggleSelect: (name: string) => void;
 }) => (
-  <div className={`card-surface overflow-hidden group transition-all ${selected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"}`}
+  <div className={`card-surface overflow-hidden group transition-all ${selected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"}`}>
 
     <Link to={`/rugged-tablet/${product.id}`} className="relative bg-secondary/30 p-4 flex items-center justify-center h-52 cursor-pointer">
       <button onClick={(e) => { e.preventDefault(); e.stopPropagation(); onToggleSelect(product.model); }} className="absolute top-3 left-3 z-10">
@@ -267,12 +267,12 @@ const TabletCard = ({
       )}
       <div className="flex flex-wrap gap-2 pt-1">
         <Button variant="outline" size="sm" asChild className="flex-1">
-          <Link to={`/rugged-tablet/${product.id}`}
+          <Link to={`/rugged-tablet/${product.id}`}>
 
             <Monitor className="w-3.5 h-3.5 mr-1.5" /> ดูสเปก
           </Link>
         </Button>
-        <Button size="sm" className="flex-1" onClick={() => onQuote(product.model)}
+        <Button size="sm" className="flex-1" onClick={() => onQuote(product.model)}>
 
           <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอราคา
         </Button>
@@ -498,7 +498,7 @@ const RuggedTablet = () => {
                   />
                 </div>
                 <div className="flex gap-2">
-                  <Button variant="outline" size="icon" className="lg:hidden" onClick={() => setIsMobileFilterOpen(true)}
+                  <Button variant="outline" size="icon" className="lg:hidden" onClick={() => setIsMobileFilterOpen(true)}>
 
                     <SlidersHorizontal className="w-4 h-4" />
                   </Button>
@@ -686,7 +686,7 @@ const RuggedTablet = () => {
                 <Button variant="outline" asChild>
                   <Link to="/contact">ติดต่อเรา</Link>
                 </Button>
-                <Button onClick={() => setQuoteProduct("Rugged Tablet")}
+                <Button onClick={() => setQuoteProduct("Rugged Tablet")}>
 
                   <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
                 </Button>
@@ -703,7 +703,7 @@ const RuggedTablet = () => {
             <ShoppingCart className="w-5 h-5" />
             <span className="font-bold text-sm">{selectedProducts.size} รุ่น</span>
           </div>
-          <Button size="sm" variant="secondary" className="rounded-full font-bold" onClick={() => setShowMultiQuote(true)}
+          <Button size="sm" variant="secondary" className="rounded-full font-bold" onClick={() => setShowMultiQuote(true)}>
 
             <FileText className="w-4 h-4 mr-1.5" /> ขอใบเสนอราคารวม
           </Button>

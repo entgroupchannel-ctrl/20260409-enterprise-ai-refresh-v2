@@ -261,7 +261,7 @@ const Cabinets = () => {
                       </a>
                     </Button>
                   </div>
-                  <Button size="sm" className="w-full" onClick={() => setQuoteProduct(model.name)}
+                  <Button size="sm" className="w-full" onClick={() => setQuoteProduct(model.name)}>
 
                     <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
                   </Button>
@@ -350,7 +350,7 @@ const Cabinets = () => {
         <div className="card-surface p-8 text-center">
           <h2 className="text-2xl font-display font-bold text-foreground mb-3">สนใจตู้ Panel PC Cabinet?</h2>
           <p className="text-muted-foreground mb-6">ปรึกษาผู้เชี่ยวชาญเพื่อเลือกขนาดและรุ่นที่เหมาะกับงานของคุณ</p>
-          <Button size="lg" onClick={() => setQuoteProduct("Panel PC Cabinet")}
+          <Button size="lg" onClick={() => setQuoteProduct("Panel PC Cabinet")}>
 
             <FileText className="w-4 h-4 mr-2" /> ขอใบเสนอราคา
           </Button>
@@ -407,34 +407,34 @@ const Cabinets = () => {
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <label className="block text-xs font-medium text-foreground mb-1">วัสดุ</label>
-                    <select name="material" value={customForm.material} onChange={handleCustomChange} className={inputClass}
+                    <select name="material" value={customForm.material} onChange={handleCustomChange} className={inputClass}>
 
                       <option value="">เลือกวัสดุ</option>
-                      {materialOptions.map((m) => <option key={m} value={m}>{m}</option>)}
+                      {materialOptions.map((m) => <option key={m} value={m}>{m}</option>)}>
 
                     </select>
                   </div>
                   <div>
                     <label className="block text-xs font-medium text-foreground mb-1">รูปแบบติดตั้ง</label>
-                    <select name="installation" value={customForm.installation} onChange={handleCustomChange} className={inputClass}
+                    <select name="installation" value={customForm.installation} onChange={handleCustomChange} className={inputClass}>
 
                       <option value="">เลือกรูปแบบ</option>
-                      {installOptions.map((o) => <option key={o} value={o}>{o}</option>)}
+                      {installOptions.map((o) => <option key={o} value={o}>{o}</option>)}>
 
                     </select>
                   </div>
                   <div>
                     <label className="block text-xs font-medium text-foreground mb-1">กุญแจ / ล็อก</label>
-                    <select name="lock" value={customForm.lock} onChange={handleCustomChange} className={inputClass}
+                    <select name="lock" value={customForm.lock} onChange={handleCustomChange} className={inputClass}>
 
                       <option value="">เลือกประเภทกุญแจ</option>
-                      {lockOptions.map((l) => <option key={l} value={l}>{l}</option>)}
+                      {lockOptions.map((l) => <option key={l} value={l}>{l}</option>)}>
 
                     </select>
                   </div>
                   <div>
                     <label className="block text-xs font-medium text-foreground mb-1">ระดับป้องกัน</label>
-                    <select name="protection" value={customForm.protection} onChange={handleCustomChange} className={inputClass}
+                    <select name="protection" value={customForm.protection} onChange={handleCustomChange} className={inputClass}>
 
                       <option value="IP54">IP54</option>
                       <option value="IP65">IP65</option>
@@ -446,7 +446,7 @@ const Cabinets = () => {
 
                 <div>
                   <label className="block text-xs font-medium text-foreground mb-1">เพลทยึดอุปกรณ์</label>
-                  <select name="plateCount" value={customForm.plateCount} onChange={handleCustomChange} className={inputClass}
+                  <select name="plateCount" value={customForm.plateCount} onChange={handleCustomChange} className={inputClass}>
 
                     <option value="1">1 ชั้น</option>
                     <option value="2">2 ชั้น</option>

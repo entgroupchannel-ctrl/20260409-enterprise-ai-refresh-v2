@@ -25,7 +25,7 @@ const CaseStudiesSection = () => {
 
         <div className="grid gap-6 md:grid-cols-3">
           {featured.map((cs) => (
-            <Link key={cs.id} to={`/case-studies/${cs.id}`}
+            <Link key={cs.id} to={`/case-studies/${cs.id}`}>
 
               <Card className="group overflow-hidden h-full hover:shadow-lg transition-all duration-300 border-border/60 hover:border-primary/30">
                 <div className="relative h-44 overflow-hidden">

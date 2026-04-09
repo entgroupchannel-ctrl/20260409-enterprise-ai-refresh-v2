@@ -259,7 +259,7 @@ const CollapsibleSection = ({ title, children, defaultOpen = false }: { title: s
         <h3 className="font-bold text-foreground text-left">{title}</h3>
         <ChevronDown className={`text-muted-foreground transition-transform duration-200 ${open ? "rotate-180" : ""}`} size={18} />
       </button>
-      <div className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${open ? "max-h-[3000px]" : "max-h-0"}`}
+      <div className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${open ? "max-h-[3000px]" : "max-h-0"}`}>
 
         <div className="px-5 pb-5">{children}</div>
       </div>
@@ -353,7 +353,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: Firewa
       </div>
 
       {/* Expanded specs */}
-      <div className={`overflow-hidden transition-[max-height] duration-300 ${expanded ? "max-h-[600px]" : "max-h-0"}`}
+      <div className={`overflow-hidden transition-[max-height] duration-300 ${expanded ? "max-h-[600px]" : "max-h-0"}`}>
 
         <div className="px-5 pb-5 pt-0 border-t border-border">
           <table className="w-full text-xs mt-3">
@@ -378,7 +378,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: Firewa
             <ul className="space-y-1">
               {model.extra.map((e) => (
                 <li key={e} className="text-xs text-muted-foreground flex items-start gap-1.5">
-                  <span className="text-primary mt-0.5">•</span>{e}
+                  <span className="text-primary mt-0.5">•</span>{e}>
 
                 </li>
               ))}
@@ -639,7 +639,7 @@ const FirewallComparisonTable = () => {
                 const ts = tierStyle(row.tier);
                 const tm = tierMeta[row.tier];
                 return (
-                  <tr key={row.name} className={`border-b border-border/50 transition-colors ${ts.row}`}
+                  <tr key={row.name} className={`border-b border-border/50 transition-colors ${ts.row}`}>
 
                     <td className="p-4 sticky left-0 font-bold text-foreground" style={{ background: 'inherit' }}
 
@@ -871,7 +871,7 @@ const MiniPCFirewall = () => {
             {decisionHelper.map((d) => {
               const t = tierMeta[d.tier];
               return (
-                <div key={d.need} className={`card-surface rounded-xl p-5 border ${t.border}`}
+                <div key={d.need} className={`card-surface rounded-xl p-5 border ${t.border}`}>
 
                   <p className="text-sm text-foreground font-medium mb-2">"{d.need}"</p>
                   <div className="flex items-center gap-2">

@@ -388,7 +388,7 @@ const GBSeries = () => {
               <ul className="space-y-2 mb-6">
                 {current.features.map((f) => (
                   <li key={f} className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <span className="text-primary mt-0.5">✓</span> {f}
+                    <span className="text-primary mt-0.5">✓</span> {f}>
 
                   </li>
                 ))}
@@ -398,7 +398,7 @@ const GBSeries = () => {
                 onClick={() => setQuoteOpen(true)}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity"
               >
-                <FileText size={18} /> ขอใบเสนอราคา {current.name}
+                <FileText size={18} /> ขอใบเสนอราคา {current.name}>
 
               </button>
             </div>
@@ -484,7 +484,7 @@ const GBSeries = () => {
                         <tbody className="divide-y divide-border">
                           {col.map((section) => (
                             <>
-                              <tr key={section.cat}
+                              <tr key={section.cat}>
 
                                 <td colSpan={2} className="px-4 py-2 bg-secondary/40 font-bold text-xs uppercase tracking-wider text-primary">{section.cat}</td>
                               </tr>

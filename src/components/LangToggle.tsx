@@ -23,7 +23,7 @@ const LangToggle = ({ variant = "compact", className = "" }: LangToggleProps) =>
 
   if (variant === "full") {
     return (
-      <div className={`inline-flex rounded-lg border border-border bg-background p-0.5 ${className}`}
+      <div className={`inline-flex rounded-lg border border-border bg-background p-0.5 ${className}`}>
 
         <button
           onClick={() => lang !== "th" && toggleLang()}
@@ -48,7 +48,7 @@ const LangToggle = ({ variant = "compact", className = "" }: LangToggleProps) =>
     <button
       onClick={toggleLang}
       className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors ${className}`}
-      title={lang === "th" ? "Switch to English" : "เปลี่ยนเป็นภาษาไทย"}
+      title={lang === "th" ? "Switch to English" : "เปลี่ยนเป็นภาษาไทย"}>
 
       <Globe size={12} />
       {lang === "th" ? "EN" : "ไทย"}

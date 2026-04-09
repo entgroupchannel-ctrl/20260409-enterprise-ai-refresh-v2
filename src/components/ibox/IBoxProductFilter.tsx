@@ -198,7 +198,7 @@ const IBoxProductFilter = ({
                       ? "bg-primary text-primary-foreground font-medium shadow-sm"
                       : "hover:bg-muted/70 text-foreground"
                   }`}
-                  {option.icon && <option.icon className={`w-4 h-4 shrink-0 transition-colors ${isActive ? "" : "text-muted-foreground group-hover/item:text-primary"}`} />}
+                  {option.icon && <option.icon className={`w-4 h-4 shrink-0 transition-colors ${isActive ? "" : "text-muted-foreground group-hover/item:text-primary"}`} />}>
 
                   <span className="flex-1">{option.name}</span>
                   <span className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md ${
@@ -289,7 +289,7 @@ const IBoxProductFilter = ({
                       ? "text-muted-foreground/50 cursor-not-allowed"
                       : "hover:bg-muted/70 text-foreground"
                   }`}
-                  disabled={count === 0 && gen.id !== "all"}
+                  disabled={count === 0 && gen.id !== "all"}>
 
                   <span className="truncate mr-2">{gen.name}</span>
                   <span className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md shrink-0 ${

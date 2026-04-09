@@ -633,7 +633,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
       {/* Header area */}
       <div className="grid lg:grid-cols-5 gap-0">
         {/* Image side */}
-        <div className={`lg:col-span-2 relative bg-secondary/30 p-8 flex flex-col items-center justify-center ${isReversed ? "lg:order-2" : ""}`}
+        <div className={`lg:col-span-2 relative bg-secondary/30 p-8 flex flex-col items-center justify-center ${isReversed ? "lg:order-2" : ""}`}>
 
           <div className="absolute top-4 left-4 flex items-center gap-2">
       
@@ -684,7 +684,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
         </div>
 
         {/* Content side */}
-        <div className={`lg:col-span-3 p-8 lg:p-10 ${isReversed ? "lg:order-1" : ""}`}
+        <div className={`lg:col-span-3 p-8 lg:p-10 ${isReversed ? "lg:order-1" : ""}`}>
 
           <p className="text-xs font-semibold tracking-widest uppercase text-primary mb-2">{model.tagline}</p>
           <h3 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-1">{model.name}</h3>
@@ -694,7 +694,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
             onClick={() => onQuote(model.name)}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors mb-6"
           >
-            <ExternalLink size={14} /> ขอใบเสนอราคา {model.name}
+            <ExternalLink size={14} /> ขอใบเสนอราคา {model.name}>
 
           </button>
 
@@ -999,7 +999,7 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
       <div className="flex items-center justify-center gap-2">
         {viewTabs.map(tab => (
           <button key={tab.key} onClick={() => setViewMode(tab.key)}
-            className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold border transition-all ${viewMode === tab.key ? "bg-primary text-primary-foreground border-primary shadow-lg" : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"}`}
+            className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold border transition-all ${viewMode === tab.key ? "bg-primary text-primary-foreground border-primary shadow-lg" : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"}`}>
 
             <tab.icon size={16} />
             {tab.label}
@@ -1019,7 +1019,7 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
 
             <div className="px-4 py-4 bg-primary/10 flex items-center">
               <span className="text-sm font-bold text-foreground">
-                {viewMode === "specs" ? <><FileText size={14} className="inline mr-1" /> สเปก</> : viewMode === "price" ? <><DollarSign size={14} className="inline mr-1" /> ราคา</> : <><BarChart3 size={14} className="inline mr-1" /> ความคุ้มค่า</>}
+                {viewMode === "specs" ? <><FileText size={14} className="inline mr-1" /> สเปก</> : viewMode === "price" ? <><DollarSign size={14} className="inline mr-1" /> ราคา</> : <><BarChart3 size={14} className="inline mr-1" /> ความคุ้มค่า</>}>
 
               </span>
             </div>
@@ -1081,7 +1081,7 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
           <button key={item.model} onClick={() => {
             const el = document.getElementById(gkModels.find(m => m.name === item.model)?.id || "");
             if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-          }} className={`p-5 rounded-xl border ${item.color} text-left hover:scale-[1.02] transition-transform`}
+          }} className={`p-5 rounded-xl border ${item.color} text-left hover:scale-[1.02] transition-transform`}>
 
             <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-2"><item.Icon size={22} className="text-primary" /></div>
             <p className="font-bold text-foreground text-sm mb-1">{item.title}</p>

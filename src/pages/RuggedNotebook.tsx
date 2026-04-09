@@ -246,7 +246,7 @@ const RuggedNotebookPage = () => {
                   <Input placeholder="ค้นหา... (ชื่อ, รุ่น, CPU)" value={search} onChange={(e) => setSearch(e.target.value)} className="pl-10" />
                 </div>
                 <div className="flex gap-2">
-                  <Button variant="outline" size="icon" className="lg:hidden" onClick={() => setIsMobileFilterOpen(true)}
+                  <Button variant="outline" size="icon" className="lg:hidden" onClick={() => setIsMobileFilterOpen(true)}>
 
                     <SlidersHorizontal className="w-4 h-4" />
                   </Button>
@@ -364,7 +364,7 @@ const RuggedNotebookPage = () => {
             <ShoppingCart className="w-5 h-5" />
             <span className="font-bold text-sm">{selectedProducts.size} รุ่น</span>
           </div>
-          <Button size="sm" variant="secondary" className="rounded-full font-bold" onClick={() => setShowMultiQuote(true)}
+          <Button size="sm" variant="secondary" className="rounded-full font-bold" onClick={() => setShowMultiQuote(true)}>
 
             <FileText className="w-4 h-4 mr-1.5" /> ขอใบเสนอราคารวม
           </Button>
@@ -426,7 +426,7 @@ const NotebookCard = ({ product, selected, onToggleSelect }: { product: RuggedNo
       {/* Info */}
       <div className="p-5 flex flex-col flex-1">
         <p className="text-xs font-mono text-muted-foreground tracking-wider mb-1">{product.model}</p>
-        <Link to={`/rugged-notebook/${product.id}`}
+        <Link to={`/rugged-notebook/${product.id}`}>
 
           <h3 className="font-bold text-sm leading-snug mb-2 line-clamp-2 hover:text-primary transition-colors">{product.title}</h3>
         </Link>

@@ -111,7 +111,7 @@ const AIOCard = ({
 
       <div className="flex gap-2 pt-1">
         <Button variant="outline" size="sm" asChild className="flex-1">
-          <Link to={`/aio/${product.id}`}
+          <Link to={`/aio/${product.id}`}>
 
             <Monitor className="w-3.5 h-3.5 mr-1.5" /> ดูรายละเอียด
           </Link>
@@ -119,7 +119,7 @@ const AIOCard = ({
         <Button
           size="sm"
           className="flex-1"
-          onClick={() => onQuote(product.model)}
+          onClick={() => onQuote(product.model)}>
 
           <FileText className="w-3.5 h-3.5 mr-1.5" /> สอบถามราคา
         </Button>
@@ -195,7 +195,7 @@ const AllInOnePC = () => {
             </p>
 
             <div className="flex flex-wrap gap-3 mb-8">
-              <Button size="sm" onClick={() => setQuoteProduct("All-in-One PC")}
+              <Button size="sm" onClick={() => setQuoteProduct("All-in-One PC")}>
 
                 <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
               </Button>

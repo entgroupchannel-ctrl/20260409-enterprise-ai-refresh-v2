@@ -128,7 +128,7 @@ const HeroSection = () => {
           <ThemeToggle />
         </div>
         <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden text-white">
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}>
 
         </button>
       </nav>
@@ -220,7 +220,7 @@ const HeroSection = () => {
             <div className="flex flex-wrap gap-8 mt-12 animate-fade-up" style={{ animationDelay: "0.5s" }}
 
               {heroStats.map((s) => (
-                <div key={s.label}
+                <div key={s.label}>
 
                   <p className="text-2xl md:text-3xl font-display font-black text-primary">{s.value}</p>
                   <p className="text-xs text-white/50">{s.label}</p>
@@ -230,7 +230,7 @@ const HeroSection = () => {
           </div>
 
           {/* Right: Search Tags */}
-          <div className={`hidden lg:flex fixed right-0 top-1/2 -translate-y-1/2 z-30 transition-all duration-500 ease-in-out ${tagsExpanded ? "translate-x-0" : "translate-x-[calc(100%-28px)]"}`}
+          <div className={`hidden lg:flex fixed right-0 top-1/2 -translate-y-1/2 z-30 transition-all duration-500 ease-in-out ${tagsExpanded ? "translate-x-0" : "translate-x-[calc(100%-28px)]"}`}>
 
             <button
               onClick={() => setTagsExpanded(!tagsExpanded)}

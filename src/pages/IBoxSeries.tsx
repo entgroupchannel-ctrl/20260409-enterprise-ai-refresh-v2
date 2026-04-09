@@ -358,7 +358,7 @@ const IBoxSeries = () => {
                     variant="outline"
                     size="icon"
                     className="lg:hidden"
-                    onClick={() => setIsMobileFilterOpen(true)}
+                    onClick={() => setIsMobileFilterOpen(true)}>
 
                     <SlidersHorizontal className="w-4 h-4" />
                   </Button>
@@ -416,7 +416,7 @@ const IBoxSeries = () => {
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {iboxModels.map((model) => (
-                  <div key={model.id} className={`card-surface overflow-hidden group transition-all ${selectedProducts.has(model.name) ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"}`}
+                  <div key={model.id} className={`card-surface overflow-hidden group transition-all ${selectedProducts.has(model.name) ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"}`}>
 
                     <div className="relative bg-secondary/30 p-6 flex items-center justify-center h-52">
                       <button onClick={() => toggleSelect(model.name)} className="absolute top-3 left-3 z-10">
@@ -457,7 +457,7 @@ const IBoxSeries = () => {
                             <Download className="w-3.5 h-3.5 mr-1" /> Datasheet
                           </a>
                         </Button>
-                        <Button size="sm" className="flex-1" onClick={() => setQuoteProduct(model.name)}
+                        <Button size="sm" className="flex-1" onClick={() => setQuoteProduct(model.name)}>
 
                           <FileText className="w-3.5 h-3.5 mr-1" /> ขอราคา
                         </Button>
@@ -515,7 +515,7 @@ const IBoxSeries = () => {
             <div className="card-surface p-8 text-center">
               <h2 className="text-2xl font-display font-bold text-foreground mb-3">สนใจ iBox Series?</h2>
               <p className="text-muted-foreground mb-6">ปรึกษาผู้เชี่ยวชาญเพื่อเลือกรุ่นและสเปกที่เหมาะกับงานของคุณ</p>
-              <Button size="lg" onClick={() => setQuoteProduct("iBox Series")}
+              <Button size="lg" onClick={() => setQuoteProduct("iBox Series")}>
 
                 <FileText className="w-4 h-4 mr-2" /> ขอใบเสนอราคา
               </Button>

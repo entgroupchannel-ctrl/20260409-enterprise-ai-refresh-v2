@@ -30,7 +30,7 @@ const CaseStudyDetail = () => {
         <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10">
           <div className="container mx-auto">
             <Badge className="mb-3 bg-primary/90 text-primary-foreground">
-              <Factory className="w-3 h-3 mr-1" /> {cs.industry}
+              <Factory className="w-3 h-3 mr-1" /> {cs.industry}>
 
             </Badge>
             <h1 className="text-2xl md:text-3xl font-bold text-white max-w-3xl">{cs.title}</h1>
@@ -170,7 +170,7 @@ const CaseStudyDetail = () => {
                 <div className="flex flex-wrap gap-2">
                   {cs.products.map((p) =>
                     p.path ? (
-                      <Link key={p.name} to={p.path}
+                      <Link key={p.name} to={p.path}>
 
                         <Badge variant="secondary" className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors">{p.name}</Badge>
                       </Link>
@@ -189,10 +189,10 @@ const CaseStudyDetail = () => {
                   <h3 className="font-bold text-foreground">ลิงก์ที่เกี่ยวข้อง</h3>
                   <div className="space-y-2">
                     {cs.internalLinks?.map((link) => (
-                      <Link key={link.path} to={link.path}
+                      <Link key={link.path} to={link.path}>
 
                         <Button variant="outline" size="sm" className="w-full justify-start">
-                          <ArrowRight className="w-4 h-4 mr-2" /> {link.label}
+                          <ArrowRight className="w-4 h-4 mr-2" /> {link.label}>
 
                         </Button>
                       </Link>
@@ -200,7 +200,7 @@ const CaseStudyDetail = () => {
                     {cs.externalLinks?.map((link) => (
                       <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer">
                         <Button variant="outline" size="sm" className="w-full justify-start">
-                          <ExternalLink className="w-4 h-4 mr-2" /> {link.label}
+                          <ExternalLink className="w-4 h-4 mr-2" /> {link.label}>
 
                         </Button>
                       </a>
@@ -214,7 +214,7 @@ const CaseStudyDetail = () => {
               <CardContent className="p-5 space-y-4">
                 <h3 className="font-bold text-foreground">สนใจโซลูชันนี้?</h3>
                 <p className="text-sm text-muted-foreground">ทีมวิศวกรพร้อมให้คำปรึกษาและออกแบบระบบตามความต้องการ</p>
-                <Button className="w-full" onClick={() => setShowQuote(true)}
+                <Button className="w-full" onClick={() => setShowQuote(true)}>
 
                   <FileText className="w-4 h-4 mr-2" /> ขอใบเสนอราคา
                 </Button>

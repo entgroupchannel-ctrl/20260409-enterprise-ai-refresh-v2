@@ -184,13 +184,13 @@ const trackRecord = [
 
 /* ═══════ Demo CTA Component ═══════ */
 const DemoCTA = ({ variant = "primary" }: { variant?: "primary" | "secondary" }) => (
-  <div className={`rounded-2xl p-8 md:p-10 text-center ${variant === "primary" ? "bg-gradient-to-br from-primary/15 via-primary/5 to-transparent border-2 border-primary/30" : "card-surface"}`}
+  <div className={`rounded-2xl p-8 md:p-10 text-center ${variant === "primary" ? "bg-gradient-to-br from-primary/15 via-primary/5 to-transparent border-2 border-primary/30" : "card-surface"}`}>
 
     <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider mb-4">
       <Play size={12} /> ทดลองใช้ฟรี 30 วัน
     </div>
     <h3 className="text-2xl md:text-3xl font-black text-foreground mb-3">
-      {variant === "primary" ? "จะได้รู้ว่าเหมาะกับคุณหรือเปล่า?" : "พร้อมเริ่มต้นแล้วหรือยัง?"}
+      {variant === "primary" ? "จะได้รู้ว่าเหมาะกับคุณหรือเปล่า?" : "พร้อมเริ่มต้นแล้วหรือยัง?"}>
 
     </h3>
     <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
@@ -518,7 +518,7 @@ const VCloudPoint = () => {
               <ChevronDown size={14} className={`transition-transform ${showVmatrix ? "rotate-180" : ""}`} />
             </button>
 
-            <div className={`overflow-hidden transition-[max-height] duration-300 ${showVmatrix ? "max-h-[500px]" : "max-h-0"}`}
+            <div className={`overflow-hidden transition-[max-height] duration-300 ${showVmatrix ? "max-h-[500px]" : "max-h-0"}`}>
 
               <div className="grid sm:grid-cols-2 gap-x-6 gap-y-2 text-left mb-6">
                 {vmatrixFeatures.map((f) => (
@@ -596,14 +596,14 @@ const VCloudPoint = () => {
           {/* Case Study Cards */}
           <div className="space-y-6">
             {caseStudies.map((cs) => (
-              <div key={cs.title} className={`card-surface rounded-2xl overflow-hidden border ${cs.borderColor} hover:shadow-lg transition-all duration-300`}
+              <div key={cs.title} className={`card-surface rounded-2xl overflow-hidden border ${cs.borderColor} hover:shadow-lg transition-all duration-300`}>
 
-                <div className={`bg-gradient-to-r ${cs.color} p-6 md:p-8`}
+                <div className={`bg-gradient-to-r ${cs.color} p-6 md:p-8`}>
 
                   <div className="flex flex-col md:flex-row md:items-start gap-6">
                     {/* Left: Icon + Meta */}
                     <div className="flex items-start gap-4 flex-1">
-                      <div className={`w-14 h-14 rounded-xl bg-background/80 border border-border flex items-center justify-center shrink-0`}
+                      <div className={`w-14 h-14 rounded-xl bg-background/80 border border-border flex items-center justify-center shrink-0`}>
 
                         <cs.icon className={cs.accentColor} size={26} />
                       </div>

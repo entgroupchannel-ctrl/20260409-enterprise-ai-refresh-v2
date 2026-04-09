@@ -160,7 +160,7 @@ const Volktek = () => {
                   <ExternalLink className="w-3.5 h-3.5 mr-1.5" /> Datasheet
                 </a>
               </Button>
-              <Button size="sm" onClick={() => setQuoteProduct("Volktek Switch")}
+              <Button size="sm" onClick={() => setQuoteProduct("Volktek Switch")}>
 
                 <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
               </Button>
@@ -355,7 +355,7 @@ const Volktek = () => {
                 <ExternalLink className="w-4 h-4 mr-1.5" /> ดาวน์โหลด Catalog
               </a>
             </Button>
-            <Button onClick={() => setQuoteProduct("Volktek Switch")}
+            <Button onClick={() => setQuoteProduct("Volktek Switch")}>
 
               <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
             </Button>

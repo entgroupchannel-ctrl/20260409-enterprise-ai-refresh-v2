@@ -27,7 +27,7 @@ const RelatedCard = ({ nb }: { nb: RuggedNotebook }) => (
       <p className="font-mono text-xs text-muted-foreground">{nb.model}</p>
       <h3 className="text-sm font-bold line-clamp-2">{nb.title}</h3>
       <div className="flex flex-wrap gap-1">
-        {nb.badges.slice(0, 2).map((b) => <Badge key={b} variant="outline" className="text-[10px]">{b}</Badge>)}
+        {nb.badges.slice(0, 2).map((b) => <Badge key={b} variant="outline" className="text-[10px]">{b}</Badge>)}>
 
       </div>
       {nb.priceStart ? (
@@ -106,7 +106,7 @@ const RuggedNotebookDetail = () => {
             <div className="flex flex-wrap gap-2">
               <Badge variant="secondary">{nb.os}</Badge>
               <Badge variant="outline">{nb.screenSize}</Badge>
-              {nb.badges.map((b) => <Badge key={b} variant="outline" className="text-xs">{b}</Badge>)}
+              {nb.badges.map((b) => <Badge key={b} variant="outline" className="text-xs">{b}</Badge>)}>
 
             </div>
           </div>
@@ -162,7 +162,7 @@ const RuggedNotebookDetail = () => {
 
             {/* CTA */}
             <div className="flex flex-wrap gap-3 pt-4 border-t border-border">
-              <Button size="lg" variant="outline" onClick={() => setQuoteOpen(true)}
+              <Button size="lg" variant="outline" onClick={() => setQuoteOpen(true)}>
 
                 <FileText className="w-5 h-5 mr-2" /> ขอราคาด่วน
               </Button>
@@ -217,12 +217,12 @@ const RuggedNotebookDetail = () => {
                       key={i}
                       className={`grid md:grid-cols-2 gap-6 items-center ${i % 2 === 1 ? "md:[direction:rtl]" : ""}`}>
                       {h.image && (
-                        <div className={`rounded-xl overflow-hidden bg-secondary/30 ${i % 2 === 1 ? "md:[direction:ltr]" : ""}`}
+                        <div className={`rounded-xl overflow-hidden bg-secondary/30 ${i % 2 === 1 ? "md:[direction:ltr]" : ""}`}>
 
                           <img src={h.image} alt={h.titleEN} className="w-full h-auto object-cover max-h-[300px]" loading="lazy" />
                         </div>
                       )}
-                      <div className={i % 2 === 1 ? "md:[direction:ltr]" : ""}
+                      <div className={i % 2 === 1 ? "md:[direction:ltr]" : ""}>
 
                         <h3 className="text-lg font-bold mb-1">{h.titleTH}</h3>
                         <p className="text-xs text-primary font-medium mb-2">{h.titleEN}</p>
@@ -262,7 +262,7 @@ const RuggedNotebookDetail = () => {
                     <Table>
                       <TableBody>
                         {group.items.map((item) => (
-                          <TableRow key={item.label}
+                          <TableRow key={item.label}>
 
                             <TableCell className="font-medium w-1/3 text-sm">{item.label}</TableCell>
                             <TableCell className="text-sm">
@@ -314,7 +314,7 @@ const RuggedNotebookDetail = () => {
                 </div>
 
                 <div className="border-t border-border pt-4 flex flex-wrap gap-3">
-                  <Button onClick={() => setQuoteOpen(true)}
+                  <Button onClick={() => setQuoteOpen(true)}>
 
                     <FileText className="w-4 h-4 mr-2" /> ขอใบเสนอราคา
                   </Button>
@@ -332,7 +332,7 @@ const RuggedNotebookDetail = () => {
           <div className="mt-16">
             <h2 className="text-xl font-bold mb-6">สินค้าที่เกี่ยวข้อง</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {related.map((r) => <RelatedCard key={r.id} nb={r} />)}
+              {related.map((r) => <RelatedCard key={r.id} nb={r} />)}>
 
             </div>
           </div>
