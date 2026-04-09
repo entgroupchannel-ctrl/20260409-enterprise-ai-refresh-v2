@@ -134,6 +134,9 @@ const App = () => (
                   <Route path="/admin/quotes/:id" element={<ProtectedRoute requireSales><AdminQuoteDetail /></ProtectedRoute>} />
                   <Route path="/admin/contacts" element={<ProtectedRoute requireSales><AdminDashboard /></ProtectedRoute>} />
                   <Route path="/admin/documents" element={<ProtectedRoute requireSales><AdminDashboard /></ProtectedRoute>} />
+                  <Route path="/request-quote" element={<QuoteRequestForm />} />
+                  <Route path="/my-quotes" element={<ProtectedRoute><MyQuotes /></ProtectedRoute>} />
+                  <Route path="/my-quotes/:id" element={<ProtectedRoute><MyQuoteDetail /></ProtectedRoute>} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
