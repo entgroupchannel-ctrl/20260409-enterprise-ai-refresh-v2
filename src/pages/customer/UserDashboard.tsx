@@ -280,15 +280,23 @@ export default function UserDashboard() {
     if (!messageText.trim() || !quoteId) return;
     setSendingMessage(true);
     try {
-      const { error } = await supabase.from('quote_messages').insert({
+      const newMsg = {
         quote_id: quoteId,
         sender_id: user?.id || null,
         sender_name: authProfile?.full_name || user?.email || 'ลูกค้า',
         sender_role: 'customer',
         content: messageText,
         message_type: 'text',
-      });
+      };
+      const { data, error } = await supabase.from('quote_messages').insert(newMsg).select().single();
       if (error) throw error;
+      // Optimistic: add to local state immediately if realtime hasn't delivered it
+      if (data) {
+        setQuoteMessages(prev => {
+          if (prev.some((m: any) => m.id === (data as any).id)) return prev;
+          return [...prev, data as any];
+        });
+      }
       setMessageText('');
     } catch (err: any) {
       toast({ title: 'ส่งไม่สำเร็จ', description: err.message, variant: 'destructive' });
