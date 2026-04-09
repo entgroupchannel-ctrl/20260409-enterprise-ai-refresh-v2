@@ -199,9 +199,24 @@ const HeroSection = () => {
               user ? (
                 <div className="flex flex-col gap-2 flex-1">
                   {(profile?.role === 'admin' || profile?.role === 'sales') && (
-                    <Link to="/admin/dashboard" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-muted transition-colors">
-                      <LayoutDashboard size={16} /> แดชบอร์ด
-                    </Link>
+                    <>
+                      <Link to="/admin/dashboard" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-muted transition-colors">
+                        <LayoutDashboard size={16} /> แดชบอร์ด
+                      </Link>
+                      <Link to="/admin/quotes" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-muted transition-colors">
+                        <FileText size={16} /> จัดการใบเสนอราคา
+                      </Link>
+                    </>
+                  )}
+                  {profile?.role === 'member' && (
+                    <>
+                      <Link to="/my-quotes" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-muted transition-colors">
+                        <FileText size={16} /> ใบเสนอราคาของฉัน
+                      </Link>
+                      <Link to="/request-quote" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-muted transition-colors">
+                        <Plus size={16} /> ขอใบเสนอราคาใหม่
+                      </Link>
+                    </>
                   )}
                   <button onClick={() => { signOut(); setMobileMenuOpen(false); }} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-destructive hover:bg-muted transition-colors">
                     <LogOut size={16} /> ออกจากระบบ
