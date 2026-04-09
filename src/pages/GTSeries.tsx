@@ -366,6 +366,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                       ? "bg-primary text-primary-foreground shadow-md"
                       : "bg-background border border-border text-muted-foreground hover:border-primary/40"
                   }`}
+                >
                   ≥{n}
                 </button>
               ))}
@@ -382,6 +383,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                   ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40"
                   : "bg-background border border-border text-muted-foreground hover:border-primary/40"
               }`}
+            >
               {filterGpio === true ? "✓ มี GPIO" : "มี GPIO"}
             </button>
           </div>

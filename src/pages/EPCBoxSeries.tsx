@@ -439,6 +439,7 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
                   className={`w-16 h-16 object-contain rounded-lg p-1 border-2 transition-all cursor-pointer ${
                     i === activeImg ? "border-primary bg-primary/10" : "border-transparent bg-background/50 hover:border-primary/40"
                   }`}
+                >
                   <img src={img} alt="" className="w-full h-full object-contain" loading="lazy" />
                 </button>
               ))}
@@ -449,6 +450,7 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
             target="_blank"
             rel="noopener noreferrer"
             className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity"
+          >
             Datasheet <ExternalLink size={14} />
           </a>
         </div>
@@ -798,6 +800,7 @@ const EPCBoxSeries = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+                >
                   CESIPC E-Catalog <ExternalLink size={16} />
                 </a>
                 <a

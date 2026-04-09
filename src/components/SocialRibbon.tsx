@@ -27,6 +27,7 @@ const SocialRibbon = () => {
     <div
       className="fixed left-0 top-1/2 -translate-y-1/2 z-40 transition-transform duration-500 ease-in-out"
       style={{ transform: `translateY(-50%) translateX(${expanded ? "0" : "-100%"})` }}
+    >
       <div className="flex flex-col gap-0.5">
         {socials.map((s, i) => (
           <a
@@ -35,6 +36,7 @@ const SocialRibbon = () => {
             target="_blank"
             rel="noopener noreferrer"
             className={`flex items-center gap-2.5 px-3 py-2.5 ${s.bg} text-white rounded-r-lg shadow-md hover:pr-5 transition-all duration-200 text-xs font-medium`}
+          >
             <span className="shrink-0">{s.icon}</span>
             <span className="whitespace-nowrap">{s.label}</span>
           </a>
@@ -49,9 +51,11 @@ const SocialRibbon = () => {
         className="absolute top-1/2 -translate-y-1/2 w-7 h-14 rounded-r-lg bg-[#1a1a2e] text-white flex items-center justify-center shadow-lg border border-white/10 hover:bg-[#16213e] transition-colors"
         style={{ right: "-28px" }}
         aria-label={expanded ? "ซ่อน" : "แสดง Social"}
+      >
         <svg
           width="10" height="16" viewBox="0 0 10 16" fill="none"
           className={`transition-transform duration-300 ${expanded ? "" : "rotate-180"}`}
+        >
           <path d="M8 2L2 8L8 14" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>
