@@ -280,6 +280,7 @@ export default function MyQuoteDetail() {
   };
 
 
+  const formatCurrency = (amount: number) =>
     new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', minimumFractionDigits: 2 }).format(amount);
 
   const formatFileSize = (bytes: number): string => {
