@@ -181,7 +181,7 @@ export default function MyQuoteDetail() {
     }
   };
 
-  const handleConfirmPO = async () => {
+  const handleSendPO = async () => {
     if (confirming) return;
     setConfirming(true);
     try {
@@ -196,8 +196,18 @@ export default function MyQuoteDetail() {
         quote_id: id,
         sender_name: user?.email || 'ลูกค้า',
         sender_role: 'customer',
-        content: 'ยืนยันคำสั่งซื้อแล้ว — พร้อมดำเนินการ',
+        content: '📎 ส่ง PO เรียบร้อยแล้ว — รอทีมงานตรวจสอบ',
         message_type: 'system',
+      });
+
+      toast({ title: 'ส่ง PO สำเร็จ', description: 'ทีมงานจะตรวจสอบและดำเนินการให้เร็วที่สุด' });
+      loadQuote();
+    } catch (error: any) {
+      toast({ title: 'เกิดข้อผิดพลาด', description: error.message, variant: 'destructive' });
+    } finally {
+      setConfirming(false);
+    }
+  };
       });
 
       toast({
