@@ -138,6 +138,7 @@ const HeroSection = () => {
           ))}
           <div className="w-px h-6 bg-white/10 mx-1" />
           <ThemeToggle />
+          <CartBadge className="text-white/70 hover:text-white transition-colors p-2" />
           {!authLoading && (
             user ? (
               <div className="relative group">
