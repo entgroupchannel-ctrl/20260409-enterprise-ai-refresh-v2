@@ -438,35 +438,31 @@ export default function UserDashboard() {
           </div>
         </header>
 
-        <div className="flex flex-1">
-          {/* Sidebar */}
-          <aside className="w-56 shrink-0 border-r border-border bg-card hidden md:block">
-            <nav className="p-3 space-y-1">
-              {menuItems.map(item => (
-                <button
-                  key={item.key}
-                  onClick={() => setSection(item.key)}
-                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${
-                    activeSection === item.key || (item.key === 'quotes' && activeSection === 'quote-detail')
-                      ? 'bg-primary/10 text-primary font-medium'
-                      : 'text-muted-foreground hover:bg-muted hover:text-foreground'
-                  }`}
-                >
-                  <item.icon className="w-4 h-4" />
-                  <span className="flex-1 text-left">{item.label}</span>
-                  {item.badge > 0 && (
-                    <Badge variant="secondary" className="text-xs px-1.5 py-0">{item.badge}</Badge>
-                  )}
-                </button>
-              ))}
-            </nav>
-            <Separator className="mx-3" />
-            <div className="p-3">
-              <Button variant="outline" size="sm" className="w-full" onClick={() => navigate('/request-quote')}>
-                <Plus className="w-4 h-4 mr-1" /> ขอใบเสนอราคา
-              </Button>
-            </div>
-          </aside>
+        <div className="flex flex-col flex-1">
+          {/* Desktop tab bar */}
+          <div className="hidden md:flex items-center gap-2 px-4 py-2 border-b border-border bg-card">
+            {menuItems.map(item => (
+              <button
+                key={item.key}
+                onClick={() => setSection(item.key)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition-colors ${
+                  activeSection === item.key || (item.key === 'quotes' && activeSection === 'quote-detail')
+                    ? 'bg-primary/10 text-primary font-medium'
+                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                }`}
+              >
+                <item.icon className="w-4 h-4" />
+                <span>{item.label}</span>
+                {item.badge > 0 && (
+                  <Badge variant="secondary" className="text-xs px-1.5 py-0">{item.badge}</Badge>
+                )}
+              </button>
+            ))}
+            <div className="flex-1" />
+            <Button variant="outline" size="sm" onClick={() => navigate('/request-quote')}>
+              <Plus className="w-4 h-4 mr-1" /> ขอใบเสนอราคา
+            </Button>
+          </div>
 
           {/* Mobile bottom nav */}
           <div className="md:hidden fixed bottom-0 left-0 right-0 bg-card border-t border-border z-20 flex">
@@ -492,7 +488,7 @@ export default function UserDashboard() {
 
           {/* Main content */}
           <main className="flex-1 overflow-y-auto pb-20 md:pb-0">
-            <div className="max-w-6xl mx-auto p-4 sm:p-6">
+            <div className="max-w-5xl mx-auto p-4 sm:p-6">
 
               {/* ═══ QUOTES LIST ═══ */}
               {activeSection === 'quotes' && (
