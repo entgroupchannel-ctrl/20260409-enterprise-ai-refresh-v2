@@ -334,6 +334,7 @@ const GBSeries = () => {
           <button
             onClick={() => setQuoteOpen(true)}
             className="text-xs px-3 py-1.5 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity"
+          >
             ขอใบเสนอราคา
           </button>
         </div>
