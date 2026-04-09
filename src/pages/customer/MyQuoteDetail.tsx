@@ -433,88 +433,9 @@ export default function MyQuoteDetail() {
               </Card>
             )}
 
-            {/* PO Section */}
-            {(quote.status !== 'pending') && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <FileText className="w-5 h-5" />
-                    เอกสาร Purchase Order (PO)
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {poFiles.length > 0 && (
-                    <div className="space-y-1.5 mb-4">
-                      {poFiles.map((file) => (
-                        <a
-                          key={file.id}
-                          href={file.file_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2.5 px-3 py-2 rounded-md border border-border hover:bg-muted/50 transition-colors group"
-                        >
-                          <FileText className="w-4 h-4 text-primary shrink-0" />
-                          <span className="text-sm font-medium text-foreground truncate flex-1">{file.file_name}</span>
-                          <span className="text-[11px] text-muted-foreground shrink-0">
-                            {file.file_size ? formatFileSize(file.file_size) : ''}
-                          </span>
-                          <Download className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary shrink-0" />
-                        </a>
-                      ))}
-                    </div>
-                  )}
-
-                  {(quote.status === 'quote_sent' || quote.status === 'po_uploaded') && (
-                    <div className="p-4 bg-primary/5 rounded-lg border border-primary/20 text-center space-y-3">
-                      <Send className="w-10 h-10 text-primary mx-auto" />
-                      <div>
-                        <p className="font-semibold text-foreground">
-                          {poFiles.length > 0 ? 'พร้อมส่ง PO ให้ทีมงานตรวจสอบ' : 'อัปโหลดใบสั่งซื้อ (PO) ของท่าน'}
-                        </p>
-                        <p className="text-sm text-muted-foreground">
-                          {poFiles.length > 0 ? 'กดปุ่มด้านล่างเพื่อส่ง PO ทั้งหมดให้ทีมงาน' : 'แนบไฟล์ PO เพื่อดำเนินการสั่งซื้อ'}
-                        </p>
-                      </div>
-                      <div className="flex gap-2">
-                        <Button variant="outline" className="flex-1" onClick={() => setShowPOUpload(true)}>
-                          <Upload className="w-4 h-4 mr-2" />
-                          {poFiles.length > 0 ? 'แนบไฟล์เพิ่ม' : 'อัปโหลด PO'}
-                        </Button>
-                        {poFiles.length > 0 && (
-                          <Button onClick={handleSendPO} disabled={confirming} className="flex-1">
-                            <Send className="w-4 h-4 mr-2" />
-                            {confirming ? 'กำลังส่ง...' : 'ส่ง PO'}
-                          </Button>
-                        )}
-                      </div>
-                      <p className="text-xs text-muted-foreground">เมื่อกดส่งแล้ว ทีมงานจะตรวจสอบและอนุมัติให้เร็วที่สุด</p>
-                    </div>
-                  )}
-
-                  {quote.status === 'po_confirmed' && (
-                    <div className="p-4 bg-primary/5 rounded-lg border border-primary/20 text-center space-y-2">
-                      <CheckCircle2 className="w-10 h-10 text-primary mx-auto" />
-                      <p className="font-semibold text-foreground">ส่ง PO แล้ว</p>
-                      <p className="text-sm text-muted-foreground">ทีมงานกำลังตรวจสอบและดำเนินการให้เร็วที่สุด</p>
-                    </div>
-                  )}
-
-                  {(quote.status === 'po_approved' || quote.status === 'completed') && (
-                    <div className="p-3 bg-primary/5 rounded-lg border border-primary/20">
-                      <p className="text-sm text-foreground">
-                        <span className="font-semibold">สถานะ:</span>{' '}
-                        {quote.status === 'po_approved' && 'PO ได้รับการอนุมัติแล้ว'}
-                        {quote.status === 'completed' && 'เสร็จสิ้น'}
-                      </p>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            )}
-
           </div>
 
-          {/* Right Column - Chat & PO Upload */}
+          {/* Right Column - Chat & Files */}
           <div className="space-y-6">
             {/* Chat Section */}
             <Card>
@@ -579,6 +500,89 @@ export default function MyQuoteDetail() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* PO Files - Compact */}
+            {poFiles.length > 0 && (
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <FileText className="w-4 h-4" />
+                    ไฟล์แนบ ({poFiles.length})
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-1.5">
+                    {poFiles.map((file) => (
+                      <a
+                        key={file.id}
+                        href={file.file_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 px-2.5 py-1.5 rounded-md border border-border hover:border-primary hover:bg-primary/5 transition-colors group"
+                      >
+                        <FileText className="w-3.5 h-3.5 text-primary shrink-0" />
+                        <span className="text-xs font-medium text-foreground truncate flex-1">{file.file_name}</span>
+                        <Download className="w-3 h-3 text-muted-foreground group-hover:text-primary shrink-0" />
+                      </a>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* PO Upload Action */}
+            {(quote.status === 'quote_sent' || quote.status === 'po_uploaded') && (
+              <Card>
+                <CardContent className="pt-5">
+                  <div className="text-center space-y-3">
+                    <Send className="w-8 h-8 text-primary mx-auto" />
+                    <div>
+                      <p className="font-semibold text-foreground text-sm">
+                        {poFiles.length > 0 ? 'พร้อมส่ง PO ให้ทีมงาน' : 'อัปโหลดใบสั่งซื้อ (PO)'}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {poFiles.length > 0 ? 'กดส่ง PO ทั้งหมดให้ทีมงาน' : 'แนบไฟล์ PO เพื่อดำเนินการสั่งซื้อ'}
+                      </p>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" className="flex-1" onClick={() => setShowPOUpload(true)}>
+                        <Upload className="w-3.5 h-3.5 mr-1.5" />
+                        {poFiles.length > 0 ? 'แนบเพิ่ม' : 'อัปโหลด PO'}
+                      </Button>
+                      {poFiles.length > 0 && (
+                        <Button size="sm" onClick={handleSendPO} disabled={confirming} className="flex-1">
+                          <Send className="w-3.5 h-3.5 mr-1.5" />
+                          {confirming ? 'กำลังส่ง...' : 'ส่ง PO'}
+                        </Button>
+                      )}
+                    </div>
+                    <p className="text-[10px] text-muted-foreground">ทีมงานจะตรวจสอบและอนุมัติให้เร็วที่สุด</p>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {quote.status === 'po_confirmed' && (
+              <Card>
+                <CardContent className="pt-5 text-center space-y-2">
+                  <CheckCircle2 className="w-8 h-8 text-primary mx-auto" />
+                  <p className="font-semibold text-foreground text-sm">ส่ง PO แล้ว</p>
+                  <p className="text-xs text-muted-foreground">ทีมงานกำลังตรวจสอบและดำเนินการให้เร็วที่สุด</p>
+                </CardContent>
+              </Card>
+            )}
+
+            {(quote.status === 'po_approved' || quote.status === 'completed') && (
+              <Card>
+                <CardContent className="pt-5">
+                  <p className="text-sm text-foreground">
+                    <span className="font-semibold">สถานะ:</span>{' '}
+                    {quote.status === 'po_approved' && 'PO ได้รับการอนุมัติแล้ว'}
+                    {quote.status === 'completed' && '✅ เสร็จสิ้น'}
+                  </p>
+                </CardContent>
+              </Card>
+            )}
 
           </div>
         </div>
