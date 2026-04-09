@@ -255,30 +255,24 @@ export default function AdminQuotesList() {
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3">
                       <div className="text-right">
                         <div className="text-xs text-muted-foreground mb-1">ยอดรวม</div>
                         <div className="text-xl font-bold text-primary">{formatCurrency(quote.grand_total || 0)}</div>
                       </div>
-                      <div className="flex gap-2">
-                        <Button size="sm" variant="outline" onClick={(e) => { e.stopPropagation(); navigate(`/admin/quotes/${quote.id}`); }}>
-                          <Eye className="w-4 h-4 mr-1" /> ดู
-                        </Button>
-                        {quote.status === 'po_uploaded' && (
-                          <>
-                            <Button size="sm" onClick={(e) => { e.stopPropagation(); navigate(`/admin/quotes/${quote.id}?action=approve`); }}>
-                              <CheckCircle2 className="w-4 h-4 mr-1" /> อนุมัติ
-                            </Button>
-                            <Button size="sm" variant="destructive" onClick={(e) => { e.stopPropagation(); navigate(`/admin/quotes/${quote.id}?action=reject`); }}>
-                              <XCircle className="w-4 h-4 mr-1" /> ปฏิเสธ
-                            </Button>
-                          </>
-                        )}
-                        {quote.status === 'pending' && (
-                          <Button size="sm" onClick={(e) => { e.stopPropagation(); navigate(`/admin/quotes/${quote.id}?action=send`); }}>
-                            <FileText className="w-4 h-4 mr-1" /> ส่งราคา
-                          </Button>
-                        )}
+                      <div onClick={(e) => e.stopPropagation()} className="min-w-[220px]">
+                        <QuoteStatusDropdown
+                          quoteId={quote.id}
+                          currentStatus={quote.status}
+                          onStatusChange={() => loadQuotes()}
+                        />
+                      </div>
+                      <div onClick={(e) => e.stopPropagation()}>
+                        <QuoteActionsMenu
+                          quoteId={quote.id}
+                          quoteNumber={quote.quote_number}
+                          status={quote.status}
+                        />
                       </div>
                     </div>
                   </div>
