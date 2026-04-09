@@ -117,9 +117,7 @@ export default function QuoteRequestForm() {
     submitGuard.current = true;
     setSubmitting(true);
     try {
-      const { data, error } = await supabase
-        .from('quote_requests')
-        .insert([{
+      const insertPayload = {
           customer_name: formData.customer_name,
           customer_email: formData.customer_email,
           customer_phone: formData.customer_phone || null,
@@ -131,13 +129,15 @@ export default function QuoteRequestForm() {
           products: validProducts.map(p => ({
             model: p.model, description: p.description, qty: p.qty,
             unit_price: 0, discount_percent: 0, line_total: 0,
-          })) as any,
+          })),
           status: 'pending',
           subtotal: 0,
           vat_amount: 0,
           grand_total: 0,
           created_by: user?.id || null,
-        }])
+        };
+      const { data, error } = await (supabase.from('quote_requests') as any)
+        .insert([insertPayload])
         .select().single();
 
       if (error) throw error;
