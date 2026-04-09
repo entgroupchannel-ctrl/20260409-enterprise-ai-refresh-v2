@@ -314,7 +314,7 @@ const SidebarSeparator = React.forwardRef<React.ElementRef<typeof Separator>, Re
         ref={ref}
         data-sidebar="separator"
         className={cn("mx-2 w-auto bg-sidebar-border", className)}
-        {{...props}}
+        {...props}
       />
     );
   },
@@ -342,7 +342,7 @@ const SidebarGroup = React.forwardRef<HTMLDivElement, React.ComponentProps<"div"
       ref={ref}
       data-sidebar="group"
       className={cn("relative flex w-full min-w-0 flex-col p-2", className)}
-      {{...props}}
+      {...props}
     />
   );
 });
@@ -447,7 +447,7 @@ const SidebarMenuButton = React.forwardRef<
       data-size={size}
       data-active={isActive}
       className={cn(sidebarMenuButtonVariants({ variant, size }), className)}
-      {{...props}}
+      {...props}
     />
   );
 
