@@ -172,7 +172,6 @@ const RuggedNotebookPage = () => {
                 <div className="text-xs text-muted-foreground">{s.label}</div>
               </div>
             ))}
-            >
           </div>
         </div>
       </section>
@@ -199,14 +198,12 @@ const RuggedNotebookPage = () => {
                 className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all shrink-0 ${
                   filters.os === tab.id ? "bg-primary text-primary-foreground shadow-sm" : "bg-muted hover:bg-muted/80 text-foreground"
                 }`}
-                >
                 {tab.label}
                 <span className={`text-[10px] font-mono ${filters.os === tab.id ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
                   ({tab.id === "all" ? ruggedNotebooks.length : ruggedNotebooks.filter((p) => p.os === tab.id).length})
                 </span>
               </button>
             ))}
-            >
             <div className="w-px h-5 bg-border mx-1 shrink-0" />
             {[
               { label: "AI (Ultra)", active: filters.cpuBrand === "Ultra", toggle: () => setFilters({ ...filters, cpuBrand: filters.cpuBrand === "Ultra" ? "all" : "Ultra" }) },
@@ -220,11 +217,9 @@ const RuggedNotebookPage = () => {
                 className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all border shrink-0 ${
                   qf.active ? "bg-primary text-primary-foreground border-primary shadow-sm" : "bg-card border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
                 }`}
-                >
                 {qf.label}
               </button>
             ))}
-            >
           </div>
         </div>
       </div>
@@ -277,7 +272,6 @@ const RuggedNotebookPage = () => {
                 {filtered.map((nb) => (
                   <NotebookCard key={nb.id} product={nb} selected={selectedProducts.has(nb.model)} onToggleSelect={toggleSelect} />
                 ))}
-                >
               </div>
             ) : (
               <div className="card-surface p-12 text-center">
@@ -327,7 +321,6 @@ const RuggedNotebookPage = () => {
               </div>
             </div>
           ))}
-          >
         </div>
 
         {/* Facebook Reels — compact row */}
@@ -356,7 +349,6 @@ const RuggedNotebookPage = () => {
               </div>
             </a>
           ))}
-          >
         </div>
       </section>
 
@@ -376,7 +368,6 @@ const RuggedNotebookPage = () => {
           </button>
         </div>
       )}
-      >
       {/* Related Categories */}
       <section className="max-w-7xl mx-auto px-4 pb-10 space-y-3">
         <h2 className="text-lg font-display font-bold text-foreground mb-2">หมวดหมู่ที่เกี่ยวข้อง</h2>
@@ -401,7 +392,6 @@ const RuggedNotebookPage = () => {
             </div>
           </Link>
         ))}
-        >
       </section>
       <B2BCTABanner variant="compact" />
       <FooterCompact />
@@ -438,7 +428,6 @@ const NotebookCard = ({ product, selected, onToggleSelect }: { product: RuggedNo
           {product.badges.map((b) => (
             <span key={b} className="text-[10px] px-2 py-0.5 rounded-full bg-accent/50 text-accent-foreground font-medium">{b}</span>
           ))}
-          >
         </div>
 
         <div className="text-xs text-muted-foreground space-y-1 mb-3">
@@ -457,13 +446,11 @@ const NotebookCard = ({ product, selected, onToggleSelect }: { product: RuggedNo
                 className={`w-full text-left p-2.5 rounded-lg border text-xs transition-all ${
                   i === selectedCfg ? "border-primary bg-primary/5 ring-1 ring-primary/20" : "border-border hover:border-primary/30"
                 }`}
-                >
                 <div className="font-bold">{c.label}</div>
                 <div className="text-muted-foreground">{c.cpu}</div>
                 <div className="text-muted-foreground">{c.ram}</div>
               </button>
             ))}
-            >
           </div>
         )}
 
@@ -474,7 +461,6 @@ const NotebookCard = ({ product, selected, onToggleSelect }: { product: RuggedNo
             ) : (
               <span className="text-sm font-semibold text-muted-foreground">สอบถามราคา</span>
             )}
-            >
           </div>
         </div>
       </div>

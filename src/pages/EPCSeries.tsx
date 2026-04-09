@@ -316,7 +316,6 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
           <Checkbox checked={selected} className="h-5 w-5" />
         </button>
       )}
-      >
       <img src={model.image} alt={model.name} className="max-h-44 object-contain group-hover:scale-105 transition-transform duration-300" loading="lazy" />
     </div>
     <div className="p-5 space-y-3">
@@ -398,7 +397,6 @@ const EPCSeries = () => {
                     <p className="text-[10px] text-white/60">{stat.label}</p>
                   </div>
                 ))}
-                >
               </div>
 
               <div className="flex gap-3 flex-wrap">
@@ -454,18 +452,16 @@ const EPCSeries = () => {
               <a
                 key={cat.id}
                 href={`#${cat.id}`}
-                >
                 onClick={() => setActiveCategory(cat.id)}
                 className={`shrink-0 px-3 py-2 rounded-lg text-xs font-medium transition-all ${
                   activeCategory === cat.id
                     ? "bg-primary text-primary-foreground"
                     : "bg-secondary/50 text-foreground/70 hover:bg-secondary"
                 }`}
-                >
+              >
                 {cat.label}
               </a>
             ))}
-            >
           </div>
         </div>
       </div>
@@ -517,7 +513,6 @@ const EPCSeries = () => {
                 <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
               </div>
             ))}
-            >
           </div>
         </section>
 
@@ -537,7 +532,6 @@ const EPCSeries = () => {
                 <span className="text-xs font-semibold text-foreground leading-tight">{item.label}</span>
               </div>
             ))}
-            >
           </div>
         </section>
 
@@ -553,7 +547,6 @@ const EPCSeries = () => {
                 <p className="text-xs text-muted-foreground leading-relaxed">{f.desc}</p>
               </div>
             ))}
-            >
           </div>
         </section>
 
@@ -569,7 +562,6 @@ const EPCSeries = () => {
             {squareModels.map((model) => (
               <ModelCard key={model.id} model={model} onQuote={(name) => setQuoteProduct(name)} selected={selectedProducts.has(model.name)} onToggleSelect={toggleSelect} />
             ))}
-            >
           </div>
         </section>
 
@@ -585,7 +577,6 @@ const EPCSeries = () => {
             {wideModels.map((model) => (
               <ModelCard key={model.id} model={model} onQuote={(name) => setQuoteProduct(name)} selected={selectedProducts.has(model.name)} onToggleSelect={toggleSelect} />
             ))}
-            >
           </div>
         </section>
 
@@ -599,7 +590,6 @@ const EPCSeries = () => {
                   {m.size} {m.ratio === "4:3" ? "□" : "▬"}
                 </TabsTrigger>
               ))}
-              >
             </TabsList>
             {[...squareModels, ...wideModels].map((m) => (
               <TabsContent key={m.id} value={m.id}>
@@ -608,7 +598,6 @@ const EPCSeries = () => {
                 </div>
               </TabsContent>
             ))}
-            >
           </Tabs>
         </section>
 
@@ -658,7 +647,6 @@ const EPCSeries = () => {
                               <TableCell className="text-right font-bold text-primary">{row.price}</TableCell>
                             </TableRow>
                           ))}
-                          >
                         </TableBody>
                       </Table>
                     </div>
@@ -676,14 +664,12 @@ const EPCSeries = () => {
                               {p}
                             </Button>
                           ))}
-                          >
                           <Button variant="outline" size="sm" onClick={() => setPage(Math.min(totalPages, page + 1))} disabled={page === totalPages} className="h-8 w-8 p-0">
                             <ChevronRight className="w-4 h-4" />
                           </Button>
                         </div>
                       </div>
                     )}
-                    >
                   </div>
                 </TabsContent>
               );
@@ -708,7 +694,6 @@ const EPCSeries = () => {
                           <TableCell className="text-right font-bold text-primary">{row.price}</TableCell>
                         </TableRow>
                       ))}
-                      >
                     </TableBody>
                   </Table>
                 </div>
@@ -736,7 +721,6 @@ const EPCSeries = () => {
                 <span className="text-[10px] text-muted-foreground ml-auto shrink-0">PDF</span>
               </a>
             ))}
-            >
           </div>
         </section>
 
@@ -765,7 +749,6 @@ const EPCSeries = () => {
                 </div>
               </div>
             ))}
-            >
           </div>
         </section>
 
@@ -811,7 +794,6 @@ const EPCSeries = () => {
                   </div>
                 </a>
               ))}
-              >
             </div>
           </div>
 
@@ -845,7 +827,6 @@ const EPCSeries = () => {
                   </div>
                 </div>
               ))}
-              >
             </div>
           </div>
         </section>
@@ -873,7 +854,6 @@ const EPCSeries = () => {
                   {Array.from({ length: 5 }).map((_, s) => (
                     <Star key={s} size={14} className={s < review.stars ? "text-amber-400 fill-amber-400" : "text-muted-foreground/20"} />
                   ))}
-                  >
                 </div>
                 <p className="text-sm text-foreground leading-relaxed">"{review.text}"</p>
                 <div className="pt-2 border-t border-border/50">
@@ -882,7 +862,6 @@ const EPCSeries = () => {
                 </div>
               </div>
             ))}
-            >
           </div>
 
           <div className="card-surface rounded-lg p-4 bg-muted/30 border-dashed">

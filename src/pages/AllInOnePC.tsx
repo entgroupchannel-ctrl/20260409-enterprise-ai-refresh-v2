@@ -46,7 +46,6 @@ const AIOCard = ({
     className={`card-surface overflow-hidden group transition-all ${
       selected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"
     }`}
-    >
     {/* Image */}
     <div className="relative bg-secondary/30 p-4 flex items-center justify-center h-52">
         item={{
@@ -62,7 +61,6 @@ const AIOCard = ({
       <button
         onClick={() => onToggleSelect(product.model)}
         className="absolute top-3 left-3 z-10"
-      >
         <Checkbox checked={selected} className="h-5 w-5" />
       </button>
       <Link to={`/aio/${product.id}`} className="flex items-center justify-center w-full h-full">
@@ -89,11 +87,9 @@ const AIOCard = ({
                 ? "border-green-500/30 text-green-500"
                 : "border-orange-500/30 text-orange-500"
             }`}
-            >
             {o}
           </Badge>
         ))}
-        >
         <Badge variant="secondary" className="text-[10px]">
           {product.screenSize}
         </Badge>
@@ -111,7 +107,6 @@ const AIOCard = ({
             </li>
           )
         )}
-        >
       </ul>
 
       <div className="flex gap-2 pt-1">
@@ -124,7 +119,6 @@ const AIOCard = ({
           size="sm"
           className="flex-1"
           onClick={() => onQuote(product.model)}
-        >
           <FileText className="w-3.5 h-3.5 mr-1.5" /> สอบถามราคา
         </Button>
       </div>
@@ -185,7 +179,6 @@ const AllInOnePC = () => {
           <Link
             to="/"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-6"
-          >
             <ArrowLeft className="w-4 h-4" /> กลับหน้าหลัก
           </Link>
 
@@ -222,7 +215,6 @@ const AllInOnePC = () => {
                   <p className="text-[10px] text-muted-foreground">{s.label}</p>
                 </div>
               ))}
-              >
             </div>
           </div>
         </div>
@@ -249,11 +241,9 @@ const AllInOnePC = () => {
                       ? "bg-primary text-primary-foreground"
                       : "bg-secondary/50 text-foreground/70 hover:bg-secondary"
                   }`}
-                  >
                   {f.label}
                 </button>
               ))}
-              >
             </div>
             {/* Category filter */}
             <div className="flex gap-1 overflow-x-auto scrollbar-hide sm:ml-auto">
@@ -266,12 +256,10 @@ const AllInOnePC = () => {
                       ? "bg-primary text-primary-foreground"
                       : "bg-secondary/50 text-foreground/70 hover:bg-secondary"
                   }`}
-                  >
                   <f.icon size={12} />
                   {f.label}
                 </button>
               ))}
-              >
             </div>
           </div>
         </div>
@@ -293,7 +281,6 @@ const AllInOnePC = () => {
               </button>
             </span>
           )}
-          >
         </p>
 
         {/* Group by category */}
@@ -323,7 +310,6 @@ const AllInOnePC = () => {
                     onToggleSelect={toggleSelect}
                   />
                 ))}
-                >
               </div>
             </div>
           );
@@ -373,7 +359,6 @@ const AllInOnePC = () => {
             </div>
           </Link>
         ))}
-        >
       </section>
       <B2BCTABanner variant="compact" />
       <FooterCompact />

@@ -66,7 +66,6 @@ const Delivery = () => {
                 <p className="text-[10px] text-muted-foreground leading-snug">{item.desc}</p>
               </div>
             ))}
-            >
           </div>
         </div>
 
@@ -83,7 +82,6 @@ const Delivery = () => {
                 {note}
               </li>
             ))}
-            >
           </ul>
         </div>
 

@@ -76,7 +76,6 @@ const Payment = () => {
                 <p className="text-xl font-bold text-foreground tracking-wider mt-1">{bank.account}</p>
               </div>
             ))}
-            >
           </div>
         </div>
 
@@ -93,7 +92,6 @@ const Payment = () => {
                 {note}
               </li>
             ))}
-            >
           </ul>
         </div>
 

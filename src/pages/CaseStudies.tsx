@@ -37,7 +37,6 @@ const ClientTrustSection = () => {
               <p className="text-[10px] text-muted-foreground leading-tight">{s.label}</p>
             </div>
           ))}
-          >
         </div>
 
         {/* Marquee — auto-scrolling client names */}
@@ -49,11 +48,9 @@ const ClientTrustSection = () => {
               <span
                 key={`${name}-${i}`}
                 className="shrink-0 px-3 py-1.5 rounded-full bg-card border border-border/50 text-[11px] text-foreground/80 whitespace-nowrap"
-              >
                 {name}
               </span>
             ))}
-            >
           </div>
         </div>
 
@@ -62,7 +59,6 @@ const ClientTrustSection = () => {
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 transition-colors font-medium"
-          >
             {isOpen ? "ซ่อนรายชื่อ" : "ดูรายชื่อบางส่วน"}
             {isOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
           </button>
@@ -77,7 +73,6 @@ const ClientTrustSection = () => {
                   {name}
                 </div>
               ))}
-              >
             </div>
             <p className="text-[10px] text-muted-foreground text-center mt-3">
               * แสดงเพียงบางส่วน — ฐานข้อมูลลูกค้าจริงกว่า 8,000 รายชื่อ
@@ -124,7 +119,6 @@ const CaseStudies = () => {
               <img src={img.src} alt={img.alt} className="w-full h-auto object-cover" loading="lazy" />
             </div>
           ))}
-          >
         </div>
       </section>
 
@@ -157,7 +151,6 @@ const CaseStudies = () => {
                       </Badge>
                     </div>
                   )}
-                  >
                 </div>
                 <CardContent className="p-4 space-y-2">
                   <h3 className="font-bold text-foreground text-sm line-clamp-2 group-hover:text-primary transition-colors">
@@ -168,7 +161,6 @@ const CaseStudies = () => {
                     {cs.products.slice(0, 2).map((p) => (
                       <Badge key={p.name} variant="outline" className="text-[10px]">{p.name}</Badge>
                     ))}
-                    >
                   </div>
                   {cs.testimonial && (
                     <p className="text-[11px] text-muted-foreground italic line-clamp-2 pt-1 border-t border-border/50">
@@ -176,7 +168,6 @@ const CaseStudies = () => {
                       {cs.testimonial}
                     </p>
                   )}
-                  >
                   <div className="flex items-center text-xs text-primary font-medium pt-1">
                     อ่านเพิ่มเติม <ArrowRight className="w-3.5 h-3.5 ml-1" />
                   </div>
@@ -184,7 +175,6 @@ const CaseStudies = () => {
               </Card>
             </Link>
           ))}
-          >
         </div>
       </section>
 
@@ -199,7 +189,6 @@ const CaseStudies = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="ml-auto text-xs text-primary hover:underline"
-            >
               ดูทั้งหมดบน Facebook →
             </a>
           </div>
@@ -209,7 +198,6 @@ const CaseStudies = () => {
                 <div className="aspect-video">
                   <iframe
                     src={`https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fentgroup.th%2Fvideos%2F${v.videoId}%2F&show_text=0&width=560`}
-                    >
                     width="100%"
                     height="100%"
                     style={{ border: "none", overflow: "hidden" }}
@@ -224,7 +212,6 @@ const CaseStudies = () => {
                 </div>
               </div>
             ))}
-            >
           </div>
         </div>
       </section>
@@ -244,7 +231,6 @@ const CaseStudies = () => {
               <img src={img.src} alt={img.alt} className="w-full h-auto object-cover" loading="lazy" />
             </div>
           ))}
-          >
         </div>
       </section>
 

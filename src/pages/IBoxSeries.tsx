@@ -296,12 +296,10 @@ const IBoxSeries = () => {
                     ? "bg-primary text-primary-foreground shadow-sm"
                     : "bg-muted hover:bg-muted/80 text-foreground"
                 }`}
-                >
                 <cat.icon className="w-3.5 h-3.5" />
                 {cat.name}
               </button>
             ))}
-            >
           </div>
         </div>
       </div>
@@ -338,11 +336,9 @@ const IBoxSeries = () => {
                       ? "bg-primary text-primary-foreground border-primary shadow-sm"
                       : "bg-card border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
                   }`}
-                  >
                   {qf.label}
                 </button>
               ))}
-              >
             </div>
 
             {/* Toolbar */}
@@ -363,7 +359,6 @@ const IBoxSeries = () => {
                     size="icon"
                     className="lg:hidden"
                     onClick={() => setIsMobileFilterOpen(true)}
-                  >
                     <SlidersHorizontal className="w-4 h-4" />
                   </Button>
                   <Select value={sortBy} onValueChange={setSortBy}>
@@ -396,7 +391,6 @@ const IBoxSeries = () => {
                     onQuote={setQuoteProduct}
                   />
                 ))}
-                >
               </div>
             ) : (
               <div className="card-surface p-12 text-center">
@@ -466,7 +460,6 @@ const IBoxSeries = () => {
                     </div>
                   </div>
                 ))}
-                >
               </div>
             </section>
 
@@ -480,7 +473,6 @@ const IBoxSeries = () => {
                     <span className="text-sm text-foreground">{feat}</span>
                   </div>
                 ))}
-                >
               </div>
             </section>
 
@@ -510,7 +502,6 @@ const IBoxSeries = () => {
                     </div>
                   </div>
                 ))}
-                >
               </div>
             </section>
 
@@ -572,7 +563,6 @@ const IBoxSeries = () => {
               </div>
             </div>
           ))}
-          >
         </div>
 
         {/* Channel CTA */}

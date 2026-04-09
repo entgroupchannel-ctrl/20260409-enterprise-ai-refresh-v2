@@ -300,7 +300,6 @@ const SpecTable = ({ series }: { series: SeriesData }) => (
               {sharedSpecs.cpu.map((c, i) => (
                 <div key={i} className="text-sm">{c}</div>
               ))}
-              >
             </div>
           </td>
         </tr>
@@ -392,7 +391,6 @@ const ProductSelectionTable = ({ products }: { products: typeof productSelection
             <td className="px-4 py-3 text-muted-foreground">{p.storage}</td>
           </tr>
         ))}
-        >
       </tbody>
     </table>
   </div>
@@ -426,7 +424,6 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
               {series.highlight}
             </span>
           )}
-          >
           <img
             src={allImages[activeImg]}
             alt={series.name}
@@ -446,10 +443,8 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
                   <img src={img} alt="" className="w-full h-full object-contain" loading="lazy" />
                 </button>
               ))}
-              >
             </div>
           )}
-          >
           <a
             href={series.datasheetUrl}
             target="_blank"
@@ -480,11 +475,9 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
                       {p}
                     </li>
                   ))}
-                  >
                 </ul>
               </div>
             ))}
-            >
           </div>
 
           {/* Applications */}
@@ -494,7 +487,6 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
                 {app}
               </span>
             ))}
-            >
           </div>
         </div>
       </div>
@@ -520,7 +512,6 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
                 <ProductSelectionTable products={series.productSelection} />
               </div>
             )}
-            >
             <div className="mt-auto">
               <div className="px-6 py-3 bg-muted/20 border-y border-border">
                 <span className="text-sm font-bold text-foreground flex items-center gap-1"><Play size={14} className="text-primary" /> Video</span>
@@ -637,7 +628,6 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
                   {opt}
                 </button>
               ))}
-              >
             </div>
           </div>
           <div>
@@ -649,7 +639,6 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
                   {opt}
                 </button>
               ))}
-              >
             </div>
           </div>
         </div>
@@ -664,7 +653,6 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
             {tab.label}
           </button>
         ))}
-        >
       </div>
 
       {/* Comparison Table */}
@@ -687,7 +675,6 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
                   <p className="text-[10px] text-muted-foreground">{tierLabels[i]}</p>
                 </div>
               ))}
-              >
             </div>
 
             <div className="divide-y divide-border">
@@ -704,13 +691,10 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
                       ) : (
                         values[i]
                       )}
-                      >
                     </div>
                   ))}
-                  >
                 </div>
               ))}
-              >
             </div>
 
             <div className="grid border-t border-border bg-muted/20"
@@ -724,7 +708,6 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
                   </button>
                 </div>
               ))}
-              >
             </div>
           </div>
         </div>
@@ -748,7 +731,6 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
             <p className="text-xs font-bold text-primary mt-2">→ ดู {item.id.toUpperCase()}</p>
           </button>
         ))}
-        >
       </div>
     </div>
   );
@@ -824,8 +806,8 @@ const EPCBoxSeries = () => {
                 <a
                   href="#pricing"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold hover:bg-muted transition-colors"
-                >
                   ดูราคาสินค้า
+                >
                 </a>
                 <a
                   href="#10xa"
@@ -878,7 +860,6 @@ const EPCBoxSeries = () => {
                 <p className="text-sm text-muted-foreground">{f.desc}</p>
               </div>
             ))}
-            >
           </div>
         </div>
       </section>
@@ -914,7 +895,6 @@ const EPCBoxSeries = () => {
                 <p className="text-sm text-muted-foreground leading-relaxed pt-1">{c.text}</p>
               </div>
             ))}
-            >
           </div>
         </div>
       </section>
@@ -931,15 +911,13 @@ const EPCBoxSeries = () => {
                 className="shrink-0 px-4 py-2 rounded-lg text-sm font-medium border border-border hover:border-primary/50 hover:bg-primary/5 text-foreground transition-all"
               >
                 {s.name.replace(" Series", "")}
-                >
               </a>
             ))}
-            >
             <a
               href="#pricing"
               className="shrink-0 px-4 py-2 rounded-lg text-sm font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
-            >
               ราคา
+            >
             </a>
           </div>
         </div>
@@ -962,7 +940,6 @@ const EPCBoxSeries = () => {
             {epcSeries.map((series, idx) => (
               <SeriesSection key={series.id} series={series} index={idx} />
             ))}
-            >
           </div>
         </div>
       </section>
@@ -1002,7 +979,6 @@ const EPCBoxSeries = () => {
                       <td className="px-6 py-3 text-right font-bold text-primary text-lg">{item.price}</td>
                     </tr>
                   ))}
-                  >
                 </tbody>
               </table>
             </div>
@@ -1030,7 +1006,6 @@ const EPCBoxSeries = () => {
                       <td className="px-6 py-3 text-right font-semibold text-primary">{opt.price}</td>
                     </tr>
                   ))}
-                  >
                 </tbody>
               </table>
             </div>
@@ -1087,7 +1062,6 @@ const EPCBoxSeries = () => {
                   <div className="aspect-video">
                     <iframe
                       src={`https://www.youtube.com/embed/${video.id}`}
-                      >
                       title={video.title}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
@@ -1100,7 +1074,6 @@ const EPCBoxSeries = () => {
                   </div>
                 </div>
               ))}
-              >
             </div>
           </div>
 
@@ -1134,7 +1107,6 @@ const EPCBoxSeries = () => {
                   </audio>
                 </div>
               ))}
-              >
             </div>
           </div>
         </div>

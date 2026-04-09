@@ -663,7 +663,6 @@ const ProductCard = ({ model, onQuote }: { model: any; onQuote?: (name: string) 
             {model.badge && (
               <Badge className="bg-primary text-primary-foreground text-xs">{model.badge}</Badge>
             )}
-            >
           </div>
           <p className="text-sm text-muted-foreground mb-4">{model.tagline}</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -673,7 +672,6 @@ const ProductCard = ({ model, onQuote }: { model: any; onQuote?: (name: string) 
                 <span className="text-foreground/80">{h}</span>
               </div>
             ))}
-            >
           </div>
         </div>
       </div>
@@ -692,7 +690,6 @@ const ProductCard = ({ model, onQuote }: { model: any; onQuote?: (name: string) 
                 <div className="text-sm font-medium text-foreground leading-snug">{val as string}</div>
               </div>
             ))}
-            >
           </div>
         </TabsContent>
         {model.gallery && (
@@ -703,11 +700,9 @@ const ProductCard = ({ model, onQuote }: { model: any; onQuote?: (name: string) 
                   <img src={img} alt={`${model.name} ${i + 1}`} className="w-full h-auto object-contain" loading="lazy" />
                 </div>
               ))}
-              >
             </div>
           </TabsContent>
         )}
-        >
       </Tabs>
 
       {/* Action Buttons */}
@@ -719,7 +714,6 @@ const ProductCard = ({ model, onQuote }: { model: any; onQuote?: (name: string) 
             </a>
           </Button>
         )}
-        >
         <Button size="sm" onClick={() => onQuote?.(model.name)}>
           <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
         </Button>
@@ -744,7 +738,6 @@ const CategorySection = ({ id, title, subtitle, icon: Icon, models, onQuote }: {
     </div>
     <div className="space-y-6">
       {models.map((m) => <ProductCard key={m.id} model={m} onQuote={onQuote} />)}
-      >
     </div>
   </section>
 );
@@ -875,7 +868,6 @@ const MiniPC = () => {
                 <p className="text-xs text-muted-foreground">{s.label}</p>
               </div>
             ))}
-            >
           </div>
           <div className="flex flex-wrap gap-3">
             <Button onClick={() => setQuoteProduct("Mini PC")}>
@@ -905,7 +897,6 @@ const MiniPC = () => {
               <p className="text-sm text-muted-foreground">{f.desc}</p>
             </div>
           ))}
-          >
         </div>
 
         {/* Category Quick Nav */}
@@ -915,7 +906,6 @@ const MiniPC = () => {
               <a
                 key={cat.id}
                 href={`#${cat.id}`}
-                >
                 onClick={() => setActiveCategory(cat.id)}
                 className={`shrink-0 px-3 py-2 rounded-lg text-xs font-medium transition-all border ${
                   activeCategory === cat.id
@@ -927,7 +917,6 @@ const MiniPC = () => {
                 <div className="text-[10px] opacity-70">{cat.desc}</div>
               </a>
             ))}
-            >
           </div>
         </div>
 
@@ -963,7 +952,6 @@ const MiniPC = () => {
                     <X size={12} /> ล้างตัวกรอง
                   </button>
                 )}
-                >
               </div>
               <div className="grid sm:grid-cols-3 gap-3">
                 {/* Category Filter */}
@@ -975,7 +963,6 @@ const MiniPC = () => {
                     className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none"
                   >
                     {priceCategories.map((c) => <option key={c} value={c}>{c}</option>)}
-                    >
                   </select>
                 </div>
                 {/* CPU Level Filter */}
@@ -987,7 +974,6 @@ const MiniPC = () => {
                     className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none"
                   >
                     {cpuLevels.map((c) => <option key={c} value={c}>{c}</option>)}
-                    >
                   </select>
                 </div>
                 {/* Price Range Filter */}
@@ -999,13 +985,11 @@ const MiniPC = () => {
                     className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none"
                   >
                     {priceRanges.map((r, i) => <option key={i} value={i}>{r.label}</option>)}
-                    >
                   </select>
                 </div>
               </div>
               <p className="text-xs text-muted-foreground mt-2">
                 แสดง {filteredPriceItems.length} จาก {allPriceItems.length} รุ่น {totalPages > 1 && `(หน้า ${currentPage}/${totalPages})`}
-                >
               </p>
             </div>
 
@@ -1047,7 +1031,6 @@ const MiniPC = () => {
                         </TableRow>
                       ))
                     )}
-                    >
                   </TableBody>
                 </Table>
               </div>
@@ -1073,11 +1056,10 @@ const MiniPC = () => {
                           ? "bg-primary text-primary-foreground"
                           : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                       }`}
-                      >
+                    >
                       {page}
                     </button>
                   ))}
-                  >
                   <Button
                     variant="outline"
                     size="sm"
@@ -1114,7 +1096,6 @@ const MiniPC = () => {
             ].map((u) => (
               <span key={u} className="px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium">{u}</span>
             ))}
-            >
           </div>
           <Button onClick={() => setQuoteProduct("Mini PC")}>
             <FileText className="w-3.5 h-3.5 mr-1.5" /> ปรึกษาผู้เชี่ยวชาญ — ขอใบเสนอราคา

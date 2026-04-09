@@ -28,14 +28,12 @@ const RelatedCard = ({ product }: { product: TabletDetailProduct }) => (
       <h3 className="text-sm font-bold line-clamp-2">{product.nameTH}</h3>
       <div className="flex flex-wrap gap-1">
         {product.badges.slice(0, 2).map((b) => <Badge key={b} variant="outline" className="text-[10px]">{b}</Badge>)}
-        >
       </div>
       {product.price ? (
         <p className="text-primary font-bold text-sm">{product.price}</p>
       ) : (
         <p className="text-muted-foreground text-xs">สอบถามราคา</p>
       )}
-      >
     </div>
   </Link>
 );
@@ -95,7 +93,6 @@ const RuggedTabletDetail = () => {
               <Badge variant="secondary">{product.os}</Badge>
               <Badge variant="outline">{product.screenSize}</Badge>
               {product.badges.map((b) => <Badge key={b} variant="outline" className="text-xs">{b}</Badge>)}
-              >
             </div>
           </div>
 
@@ -115,7 +112,6 @@ const RuggedTabletDetail = () => {
                   <p className="text-xs font-bold text-foreground">{qs.value}</p>
                 </div>
               ))}
-              >
             </div>
 
             {/* Config selector */}
@@ -139,7 +135,6 @@ const RuggedTabletDetail = () => {
                     {c.note && <p className="text-[10px] text-primary mt-1">{c.note}</p>}
                   </div>
                 ))}
-                >
               </div>
             )}
 
@@ -151,13 +146,11 @@ const RuggedTabletDetail = () => {
               ) : (
                 <p className="text-xl font-bold text-primary mb-1">สอบถามราคา</p>
               )}
-              >
               <p className="text-xs text-muted-foreground">จัดส่ง: {product.delivery}</p>
               <div className="flex flex-wrap gap-2 mt-3">
                 <button
                   onClick={() => setQuoteOpen(true)}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-sm font-medium cursor-pointer"
-                >
                   <Mail className="w-4 h-4" /> sales@entgroup.co.th
                 </button>
                 <a href="tel:020456104" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary hover:bg-secondary/80 transition-colors text-sm">
@@ -207,7 +200,6 @@ const RuggedTabletDetail = () => {
                       <span className="text-sm">{feat}</span>
                     </div>
                   ))}
-                  >
                 </div>
               </div>
 
@@ -224,7 +216,6 @@ const RuggedTabletDetail = () => {
                           <img src={sec.image} alt={sec.titleTH} className="w-full h-auto object-cover max-h-[300px]" loading="lazy" />
                         </div>
                       )}
-                      >
                       <div className={i % 2 === 1 ? "md:[direction:ltr]" : ""}>
                         <h3 className="text-lg font-bold mb-1">{sec.titleTH}</h3>
                         {sec.titleEN && <p className="text-xs text-primary font-medium mb-2">{sec.titleEN}</p>}
@@ -237,10 +228,8 @@ const RuggedTabletDetail = () => {
                                 <p className="text-[10px] text-muted-foreground">{s.label}</p>
                               </div>
                             ))}
-                            >
                           </div>
                         )}
-                        >
                         {sec.bullets && (
                           <ul className="space-y-1 mt-2">
                             {sec.bullets.map((b) => (
@@ -248,14 +237,11 @@ const RuggedTabletDetail = () => {
                                 <Zap className="w-3 h-3 text-primary shrink-0 mt-0.5" /> {b}
                               </li>
                             ))}
-                            >
                           </ul>
                         )}
-                        >
                       </div>
                     </div>
                   ))}
-                  >
                 </div>
               )}
 
@@ -267,7 +253,6 @@ const RuggedTabletDetail = () => {
                     {product.applications.map((a) => (
                       <Badge key={a} variant="secondary" className="text-sm px-3 py-1">{a}</Badge>
                     ))}
-                    >
                   </div>
                 </div>
               )}
@@ -283,7 +268,6 @@ const RuggedTabletDetail = () => {
                         <p className="font-bold text-sm">{c}</p>
                       </div>
                     ))}
-                    >
                   </div>
                 </div>
               )}
@@ -301,11 +285,9 @@ const RuggedTabletDetail = () => {
                         <p className="text-[10px] text-muted-foreground mt-1">{acc.desc}</p>
                       </div>
                     ))}
-                    >
                   </div>
                 </div>
               )}
-              >
             </TabsContent>
 
             {/* ── Specifications ── */}
@@ -327,12 +309,10 @@ const RuggedTabletDetail = () => {
                             <TableCell className="text-sm whitespace-pre-line">{item.value}</TableCell>
                           </TableRow>
                         ))}
-                        >
                       </TableBody>
                     </Table>
                   </div>
                 ))}
-                >
               </div>
             </TabsContent>
 
@@ -366,7 +346,6 @@ const RuggedTabletDetail = () => {
                         </div>
                       </div>
                     ))}
-                    >
                   </div>
                 </div>
 
@@ -399,11 +378,9 @@ const RuggedTabletDetail = () => {
             <h2 className="text-xl font-bold mb-6">สินค้าที่เกี่ยวข้อง</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {related.map((r) => <RelatedCard key={r.id} product={r} />)}
-              >
             </div>
           </div>
         )}
-        >
       </div>
       <FooterCompact />
     </div>

@@ -282,7 +282,6 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
         <button
           onClick={() => setLang(lang === "th" ? "en" : "th")}
           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border text-xs font-semibold text-muted-foreground hover:text-foreground hover:border-primary/30 transition-all"
-        >
           <Globe size={14} /> {lang === "th" ? "EN" : "TH"}
         </button>
       </div>
@@ -392,7 +391,6 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
                             </div>
                           </div>
                         )}
-                        >
                       </div>
                       <button type="button" onClick={() => { setCardPreview(null); fileInputRef.current && (fileInputRef.current.value = ""); }}
                         className="text-xs text-muted-foreground hover:text-destructive transition-colors">{i.removeCard}</button>
@@ -408,7 +406,6 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
                       </div>
                     </button>
                   )}
-                  >
                 </div>
 
                 {submitted ? (
@@ -462,7 +459,6 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
                           {i.categories.map((c, idx) => (
                             <option key={c} value={idx === 0 ? "" : c}>{c}</option>
                           ))}
-                          >
                         </select>
                       </div>
                       <div>
@@ -471,7 +467,6 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
                           {i.callbackTimes.map((ct, idx) => (
                             <option key={ct} value={idx === 0 ? "" : ct}>{ct}</option>
                           ))}
-                          >
                         </select>
                       </div>
                     </div>
@@ -490,7 +485,6 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
                     </button>
                   </form>
                 )}
-                >
               </div>
 
               {/* Sales Team */}
@@ -514,7 +508,6 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
                       <p className="text-[10px] text-muted-foreground">{person.role}</p>
                     </div>
                   ))}
-                  >
                 </div>
               </div>
 

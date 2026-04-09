@@ -35,7 +35,6 @@ const RelatedCard = ({ product, onQuote }: { product: ReturnType<typeof getHandh
           {product.badges.map((b) => (
             <Badge key={b} variant="outline" className="text-[10px]">{b}</Badge>
           ))}
-          >
         </div>
         <Button size="sm" className="w-full mt-2" onClick={(e) => { e.preventDefault(); onQuote(product.model); }}>
           <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอราคา
@@ -87,16 +86,13 @@ const RuggedHandheldDetail = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title={`${product.model} — ${product.name}`}
-        >
         description={`${product.nameTH} | ${product.specs.cpu} | ${product.specs.protection}`}
-        >
         path={`/handheld/${product.id}`}
       />
       <ProductJsonLd
         collectionName={product.name}
         collectionDescription={product.nameTH}
         collectionUrl={`/handheld/${product.id}`}
-        >
         products={[{ name: product.name, image: product.image, description: product.specs.cpu, category: "Rugged Handheld" }]}
       />
       <BreadcrumbJsonLd items={[
@@ -145,7 +141,6 @@ const RuggedHandheldDetail = () => {
               {product.badges.map((b) => (
                 <Badge key={b} variant="default" className="text-sm px-3 py-1">{b}</Badge>
               ))}
-              >
             </div>
 
             {/* Price / Contact */}
@@ -156,7 +151,6 @@ const RuggedHandheldDetail = () => {
                 <button
                   onClick={() => setQuoteProduct(product.model)}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-medium cursor-pointer"
-                >
                   <Mail className="w-4 h-4" /> sales@entgroup.co.th
                 </button>
                 <a href="tel:020456104" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary hover:bg-secondary/80 transition-colors">
@@ -182,7 +176,6 @@ const RuggedHandheldDetail = () => {
                     </div>
                   </div>
                 ))}
-                >
               </div>
             </div>
 
@@ -216,7 +209,6 @@ const RuggedHandheldDetail = () => {
                 {product.applications.map((app) => (
                   <Badge key={app} variant="outline">{app}</Badge>
                 ))}
-                >
               </div>
             </div>
 
@@ -260,7 +252,6 @@ const RuggedHandheldDetail = () => {
                     </TableRow>
                   );
                 })}
-                >
                 {/* Connectivity */}
                 <TableRow>
                   <TableCell className="font-medium">
@@ -273,7 +264,6 @@ const RuggedHandheldDetail = () => {
                       {product.specs.connectivity.map((c) => (
                         <Badge key={c} variant="outline" className="text-xs">{c}</Badge>
                       ))}
-                      >
                     </div>
                   </TableCell>
                 </TableRow>
@@ -294,7 +284,6 @@ const RuggedHandheldDetail = () => {
                 <span className="text-sm text-foreground">{feat}</span>
               </div>
             ))}
-            >
           </div>
         </div>
 
@@ -306,11 +295,9 @@ const RuggedHandheldDetail = () => {
               {related.map((p) => (
                 <RelatedCard key={p.id} product={p} onQuote={setQuoteProduct} />
               ))}
-              >
             </div>
           </div>
         )}
-        >
       </div>
       <FooterCompact />
     </div>

@@ -54,18 +54,8 @@ const HandheldCard = ({
     className={`card-surface overflow-hidden group transition-all block ${
       selected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"
     }`}
-    >
+  >
     <div className="relative bg-secondary/30 p-4 flex items-center justify-center h-52">
-        item={{
-          id: product.id,
-          name: product.model,
-          category: "Rugged Handheld",
-          image: product.image,
-          href: `/handheld/${product.id}`,
-          specs: product.nameTH,
-        }}
-        className="absolute top-3 right-3"
-      />
       <button
         onClick={(e) => { e.preventDefault(); e.stopPropagation(); onToggleSelect(product.model); }}
         className="absolute top-3 left-3 z-10"
@@ -89,7 +79,6 @@ const HandheldCard = ({
         {product.badges.map((b) => (
           <Badge key={b} variant="outline" className="text-[10px]">{b}</Badge>
         ))}
-        >
       </div>
       <div className="flex gap-2 pt-1">
         <Button variant="outline" size="sm" className="flex-1" asChild>
@@ -176,7 +165,6 @@ const Handheld = () => {
                 <p className="font-bold text-foreground text-sm">{s.value}</p>
               </div>
             ))}
-            >
           </div>
         </div>
       </div>
@@ -200,11 +188,10 @@ const Handheld = () => {
                     ? "bg-primary text-primary-foreground shadow-sm"
                     : "bg-muted text-muted-foreground hover:bg-muted/80"
                 }`}
-                >
+              >
                 {opt.label}
               </button>
             ))}
-            >
           </div>
         </div>
       </div>
@@ -222,7 +209,6 @@ const Handheld = () => {
                 <p className="text-xs text-muted-foreground leading-relaxed">{f.desc}</p>
               </div>
             ))}
-            >
           </div>
         </section>
 
@@ -241,7 +227,6 @@ const Handheld = () => {
                 onQuote={setQuoteProduct}
               />
             ))}
-            >
           </div>
         </section>
 
@@ -312,7 +297,6 @@ const Handheld = () => {
               </div>
             </div>
           ))}
-          >
         </div>
       </section>
 
@@ -340,7 +324,6 @@ const Handheld = () => {
             </div>
           </Link>
         ))}
-        >
       </section>
       <B2BCTABanner variant="compact" />
       <FooterCompact />

@@ -55,12 +55,10 @@ const FooterCompact = () => {
                 key={link.label}
                 to={link.href}
                 className="inline-flex items-center gap-1 text-[11px] text-[hsl(215,15%,55%)] hover:text-primary transition-colors"
-              >
                 <link.icon size={10} />
                 {link.label}
               </Link>
             ))}
-            >
           </div>
 
           {/* Socials */}
@@ -73,14 +71,11 @@ const FooterCompact = () => {
                 rel="noopener noreferrer"
                 className="w-7 h-7 rounded-full bg-[hsl(220,15%,18%)] flex items-center justify-center text-[hsl(215,15%,55%)] hover:text-primary hover:bg-[hsl(220,15%,22%)] transition-colors"
                 aria-label={s.label}
-              >
                 <s.icon size={12} />
               </a>
             ))}
-            >
             <LineQRButton
               className="ml-1 px-3 py-1.5 rounded-lg bg-primary/10 text-primary text-[10px] font-bold hover:bg-primary/20 transition-colors flex items-center gap-1"
-            >
               LINE @entgroup
             </LineQRButton>
           </div>

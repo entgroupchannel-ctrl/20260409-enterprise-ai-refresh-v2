@@ -49,7 +49,6 @@ const CaseStudiesSection = () => {
                       {cs.testimonial}
                     </p>
                   )}
-                  >
                   <div className="flex items-center text-xs text-primary font-medium pt-1">
                     อ่านเพิ่มเติม <ArrowRight className="w-3.5 h-3.5 ml-1" />
                   </div>
@@ -57,7 +56,6 @@ const CaseStudiesSection = () => {
               </Card>
             </Link>
           ))}
-          >
         </div>
 
         <div className="text-center mt-8">

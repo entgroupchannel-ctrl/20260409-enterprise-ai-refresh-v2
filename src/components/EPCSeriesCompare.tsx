@@ -122,12 +122,10 @@ const EPCSeriesCompare = ({ onQuote }: Props) => {
                   ? "bg-primary text-primary-foreground shadow-sm"
                   : "text-muted-foreground hover:text-foreground"
               }`}
-              >
               <v.icon size={12} />
               {v.label}
             </button>
           ))}
-          >
         </div>
 
         <div className="flex items-center gap-2 flex-wrap">
@@ -135,12 +133,10 @@ const EPCSeriesCompare = ({ onQuote }: Props) => {
           <select value={displayFilter} onChange={(e) => setDisplayFilter(e.target.value)}
             className="text-[11px] border border-border rounded-md px-2 py-1 bg-background text-foreground">
             {displayTypes.map((d) => <option key={d} value={d}>{d === "ทั้งหมด" ? "ทุกประเภทจอ" : d}</option>)}
-            >
           </select>
           <select value={cpuFilter} onChange={(e) => setCpuFilter(e.target.value)}
             className="text-[11px] border border-border rounded-md px-2 py-1 bg-background text-foreground">
             {cpuTiers.map((t) => <option key={t} value={t}>{cpuTierLabels[t]}</option>)}
-            >
           </select>
           <span className="text-[10px] text-muted-foreground">{filtered.length}/{allModels.length} รายการ</span>
         </div>
@@ -165,14 +161,12 @@ const EPCSeriesCompare = ({ onQuote }: Props) => {
                       <th className="text-left px-3 py-2 font-semibold text-foreground">Config</th>
                     </>
                   )}
-                  >
                   {viewMode === "price" && (
                     <>
                       <th className="text-left px-3 py-2 font-semibold text-foreground">Config</th>
                       <th className="text-right px-3 py-2 font-semibold text-foreground">ราคา</th>
                     </>
                   )}
-                  >
                   {viewMode === "value" && (
                     <>
                       <th className="text-right px-3 py-2 font-semibold text-foreground">ราคา</th>
@@ -180,7 +174,6 @@ const EPCSeriesCompare = ({ onQuote }: Props) => {
                       <th className="text-center px-3 py-2 font-semibold text-foreground">ความคุ้มค่า</th>
                     </>
                   )}
-                  >
                   <th className="px-3 py-2 w-10"></th>
                 </tr>
               </thead>
@@ -210,14 +203,12 @@ const EPCSeriesCompare = ({ onQuote }: Props) => {
                           <td className="px-3 py-2.5 text-muted-foreground">{m.config}</td>
                         </>
                       )}
-                      >
                       {viewMode === "price" && (
                         <>
                           <td className="px-3 py-2.5 text-muted-foreground">{m.config}</td>
                           <td className="px-3 py-2.5 text-right font-bold text-primary whitespace-nowrap">{m.priceLabel}</td>
                         </>
                       )}
-                      >
                       {viewMode === "value" && (
                         <>
                           <td className="px-3 py-2.5 text-right font-medium text-primary whitespace-nowrap">{m.priceLabel}</td>
@@ -227,7 +218,6 @@ const EPCSeriesCompare = ({ onQuote }: Props) => {
                               {Array.from({ length: 5 }).map((_, i) => (
                                 <Star key={i} size={10} className={i < stars ? "text-amber-400 fill-amber-400" : "text-muted-foreground/20"} />
                               ))}
-                              >
                             </div>
                           </td>
                         </>
@@ -241,7 +231,6 @@ const EPCSeriesCompare = ({ onQuote }: Props) => {
                     </tr>
                   );
                 })}
-                >
               </tbody>
             </table>
           </div>
@@ -264,7 +253,6 @@ const EPCSeriesCompare = ({ onQuote }: Props) => {
                     {p}
                   </button>
                 ))}
-                >
                 <button onClick={() => setPage(Math.min(totalPages, page + 1))} disabled={page === totalPages}
                   className="w-7 h-7 flex items-center justify-center rounded border border-border text-muted-foreground hover:bg-muted disabled:opacity-30 transition-colors">
                   <ChevronRight size={14} />
@@ -272,10 +260,8 @@ const EPCSeriesCompare = ({ onQuote }: Props) => {
               </div>
             </div>
           )}
-          >
         </div>
       )}
-      >
     </div>
   );
 };

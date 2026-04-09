@@ -284,14 +284,12 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: Firewa
                 {model.badge}
               </span>
             )}
-            >
           </div>
           {model.pdf && (
             <a href={model.pdf} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 transition-colors" title="Download Datasheet">
               <Download size={16} />
             </a>
           )}
-          >
         </div>
 
         {/* Image */}
@@ -301,7 +299,6 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: Firewa
               <Checkbox checked={selected} className="h-5 w-5" />
             </button>
           )}
-          >
           <img src={model.image} alt={model.name} className="max-h-full max-w-full object-contain" loading="lazy" />
         </div>
 
@@ -336,7 +333,6 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: Firewa
               {uc}
             </span>
           ))}
-          >
         </div>
 
         {/* Actions */}
@@ -350,7 +346,6 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: Firewa
               <FileText size={12} /> ขอราคา
             </button>
           )}
-          >
         </div>
       </div>
 
@@ -372,7 +367,6 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: Firewa
                   <td className="py-2 text-foreground">{val}</td>
                 </tr>
               ))}
-              >
             </tbody>
           </table>
           <div className="mt-3">
@@ -383,7 +377,6 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: Firewa
                   <span className="text-primary mt-0.5">•</span>{e}
                 </li>
               ))}
-              >
             </ul>
           </div>
         </div>
@@ -486,7 +479,6 @@ const FirewallComparisonTable = () => {
               <X size={14} /> ล้างตัวกรอง
             </button>
           )}
-          >
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
@@ -512,12 +504,10 @@ const FirewallComparisonTable = () => {
               value={filterTier || ""}
               onChange={(e) => setFilterTier((e.target.value as Tier) || null)}
               className="w-full py-2 px-3 rounded-lg bg-background border border-border text-sm text-foreground outline-none focus:ring-2 focus:ring-primary/30"
-            >
               <option value="">ทั้งหมด</option>
               {(Object.keys(tierMeta) as Tier[]).map((t) => (
                 <option key={t} value={t}>{tierMeta[t].label} — {tierMeta[t].desc}</option>
               ))}
-              >
             </select>
           </div>
 
@@ -534,11 +524,9 @@ const FirewallComparisonTable = () => {
                       ? "bg-primary text-primary-foreground shadow-md"
                       : "bg-background border border-border text-muted-foreground hover:border-primary/40"
                   }`}
-                  >
                   {s}
                 </button>
               ))}
-              >
             </div>
           </div>
 
@@ -558,7 +546,6 @@ const FirewallComparisonTable = () => {
                   ≥{n}
                 </button>
               ))}
-              >
             </div>
           </div>
 
@@ -572,7 +559,6 @@ const FirewallComparisonTable = () => {
                   ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40"
                   : "bg-background border border-border text-muted-foreground hover:border-primary/40"
               }`}
-              >
               {filterFanless ? "✓ Fanless เท่านั้น" : "Fanless เท่านั้น"}
             </button>
           </div>
@@ -587,7 +573,6 @@ const FirewallComparisonTable = () => {
                   ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40"
                   : "bg-background border border-border text-muted-foreground hover:border-primary/40"
               }`}
-              >
               {filterAesni ? "✓ รองรับ AES-NI" : "รองรับ AES-NI"}
             </button>
           </div>
@@ -600,7 +585,6 @@ const FirewallComparisonTable = () => {
             <span className="text-xs text-muted-foreground">จาก {compRows.length} รุ่น</span>
           </div>
         )}
-        >
       </div>
 
       {/* Category Legend */}
@@ -613,7 +597,6 @@ const FirewallComparisonTable = () => {
             </span>
           );
         })}
-        >
       </div>
 
       {/* Table */}
@@ -689,7 +672,6 @@ const FirewallComparisonTable = () => {
                           🌀 Fan
                         </span>
                       )}
-                      >
                     </td>
                     <td className="p-4 text-center">
                       {row.aesni ? (
@@ -697,7 +679,6 @@ const FirewallComparisonTable = () => {
                       ) : (
                         <span className="text-muted-foreground/40">—</span>
                       )}
-                      >
                     </td>
                     <td className="p-4 text-center">
                       {row.sim ? (
@@ -705,7 +686,6 @@ const FirewallComparisonTable = () => {
                       ) : (
                         <span className="text-muted-foreground/40">—</span>
                       )}
-                      >
                     </td>
                     <td className="p-4 text-center">
                       <span className="text-xs text-muted-foreground">{row.display}</span>
@@ -721,12 +701,10 @@ const FirewallComparisonTable = () => {
                       ) : (
                         <span className="text-muted-foreground/40">—</span>
                       )}
-                      >
                     </td>
                   </tr>
                 );
               })}
-              >
             </tbody>
           </table>
         </div>
@@ -744,7 +722,6 @@ const FirewallComparisonTable = () => {
                 </div>
               );
             })}
-            >
           </div>
         </div>
       </div>
@@ -829,7 +806,6 @@ const MiniPCFirewall = () => {
                   <p className="text-xs text-muted-foreground">{s.label}</p>
                 </div>
               ))}
-              >
             </div>
 
             <div className="flex flex-wrap gap-3">
@@ -868,7 +844,6 @@ const MiniPCFirewall = () => {
                 <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
               </div>
             ))}
-            >
           </div>
         </div>
       </section>
@@ -895,7 +870,6 @@ const MiniPCFirewall = () => {
                 </div>
               );
             })}
-            >
           </div>
         </div>
       </section>
@@ -917,7 +891,6 @@ const MiniPCFirewall = () => {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTier === "all" ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border"
               }`}
-              >
               ทั้งหมด ({models.length})
             </button>
             {(Object.keys(tierMeta) as Tier[]).map((t) => {
@@ -932,12 +905,10 @@ const MiniPCFirewall = () => {
                       ? `${meta.bg} ${meta.color} border ${meta.border}`
                       : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border"
                   }`}
-                  >
                   {meta.label} ({count})
                 </button>
               );
             })}
-            >
           </div>
 
           {/* Cards */}
@@ -945,7 +916,6 @@ const MiniPCFirewall = () => {
             {filtered.map((m) => (
               <ModelCard key={m.id} model={m} onQuote={setQuoteProduct} />
             ))}
-            >
           </div>
         </div>
       </section>
@@ -986,7 +956,6 @@ const MiniPCFirewall = () => {
                       <td className="py-3 px-3 text-muted-foreground">{m.psu}</td>
                     </tr>
                   ))}
-                  >
                 </tbody>
               </table>
             </div>
@@ -1010,7 +979,6 @@ const MiniPCFirewall = () => {
                 <p className="text-xs font-semibold text-foreground">{sw}</p>
               </div>
             ))}
-            >
           </div>
         </div>
       </section>
@@ -1039,7 +1007,6 @@ const MiniPCFirewall = () => {
                 <p className="text-[11px] text-muted-foreground">{uc.desc}</p>
               </div>
             ))}
-            >
           </div>
         </div>
       </section>
@@ -1060,7 +1027,6 @@ const MiniPCFirewall = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-destructive text-destructive-foreground text-xs font-bold hover:opacity-90 transition-opacity"
-            >
               <Youtube size={16} /> Subscribe
             </a>
           </div>
@@ -1074,7 +1040,6 @@ const MiniPCFirewall = () => {
                 <div className="relative aspect-video">
                   <iframe
                     src={`https://www.youtube.com/embed/${v.id}`}
-                    >
                     title={v.title}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
@@ -1088,11 +1053,9 @@ const MiniPCFirewall = () => {
                     <div className="flex items-center gap-3">
                       <a
                         href={`https://youtu.be/${v.id}`}
-                        >
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1 text-xs text-primary font-medium hover:underline"
-                      >
                         <ThumbsUp size={12} /> Like & Share
                       </a>
                     </div>
@@ -1101,7 +1064,6 @@ const MiniPCFirewall = () => {
                 </div>
               </div>
             ))}
-            >
           </div>
         </div>
       </section>

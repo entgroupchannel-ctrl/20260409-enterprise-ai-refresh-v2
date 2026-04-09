@@ -19,7 +19,6 @@ const CaseStudyDetail = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title={`${cs.title} — กรณีศึกษา | ENT Group`}
-        >
         description={cs.challenge}
         path={`/case-studies/${cs.id}`}
       />
@@ -76,7 +75,6 @@ const CaseStudyDetail = () => {
                     <span className="text-foreground">{r}</span>
                   </li>
                 ))}
-                >
               </ul>
             </section>
 
@@ -94,10 +92,8 @@ const CaseStudyDetail = () => {
                       {cs.testimonialRole && (
                         <span className="text-muted-foreground"> — {cs.testimonialRole}</span>
                       )}
-                      >
                     </div>
                   )}
-                  >
                 </CardContent>
               </Card>
             )}
@@ -114,7 +110,6 @@ const CaseStudyDetail = () => {
                       <div className="aspect-video">
                         <iframe
                           src={`https://www.youtube.com/embed/${v.videoId}`}
-                          >
                           title={v.title}
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                           allowFullScreen
@@ -125,19 +120,16 @@ const CaseStudyDetail = () => {
                       <p className="text-sm font-medium text-foreground p-3">{v.title}</p>
                     </div>
                   ))}
-                  >
                 </div>
                 <a
                   href="https://www.youtube.com/@ENTGROUP-TH"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-sm text-primary font-medium mt-3 hover:underline"
-                >
                   <Play className="w-4 h-4" /> ดูวิดีโอทั้งหมดบน YouTube Channel
                 </a>
               </section>
             )}
-            >
             {/* Facebook Video */}
             {cs.facebookVideoId && (
               <section>
@@ -148,7 +140,6 @@ const CaseStudyDetail = () => {
                   <div className="aspect-video">
                     <iframe
                       src={`https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fentgroup.th%2Fvideos%2F${cs.facebookVideoId}%2F&show_text=0&width=560`}
-                      >
                       width="100%"
                       height="100%"
                       style={{ border: "none", overflow: "hidden" }}
@@ -164,12 +155,10 @@ const CaseStudyDetail = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-sm text-primary font-medium mt-3 hover:underline"
-                >
                   ดูวิดีโอทั้งหมดบน Facebook →
                 </a>
               </section>
             )}
-            >
           </div>
 
           {/* Sidebar */}
@@ -187,7 +176,6 @@ const CaseStudyDetail = () => {
                       <Badge key={p.name} variant="secondary">{p.name}</Badge>
                     )
                   )}
-                  >
                 </div>
               </CardContent>
             </Card>
@@ -205,7 +193,6 @@ const CaseStudyDetail = () => {
                         </Button>
                       </Link>
                     ))}
-                    >
                     {cs.externalLinks?.map((link) => (
                       <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer">
                         <Button variant="outline" size="sm" className="w-full justify-start">
@@ -213,7 +200,6 @@ const CaseStudyDetail = () => {
                         </Button>
                       </a>
                     ))}
-                    >
                   </div>
                 </CardContent>
               </Card>
