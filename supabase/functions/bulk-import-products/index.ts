@@ -2,7 +2,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-import-key",
 };
 
 Deno.serve(async (req) => {
@@ -11,45 +11,44 @@ Deno.serve(async (req) => {
   }
 
   try {
+    // Accept either auth token or service role key as x-import-key
+    const importKey = req.headers.get("x-import-key");
+    const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const authHeader = req.headers.get("Authorization");
-    if (!authHeader) {
+
+    let authorized = false;
+
+    if (importKey === serviceKey) {
+      authorized = true;
+    } else if (authHeader) {
+      const anonClient = createClient(
+        Deno.env.get("SUPABASE_URL")!,
+        Deno.env.get("SUPABASE_ANON_KEY")!,
+        { global: { headers: { Authorization: authHeader } } }
+      );
+      const { data: { user } } = await anonClient.auth.getUser();
+      if (user) {
+        const { data: userData } = await anonClient
+          .from("users")
+          .select("role")
+          .eq("id", user.id)
+          .single();
+        if (userData && ["admin", "sales"].includes(userData.role)) {
+          authorized = true;
+        }
+      }
+    }
+
+    if (!authorized) {
       return new Response(JSON.stringify({ error: "Unauthorized" }), {
         status: 401,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
-    // Verify caller is admin
-    const anonClient = createClient(
-      Deno.env.get("SUPABASE_URL")!,
-      Deno.env.get("SUPABASE_ANON_KEY")!,
-      { global: { headers: { Authorization: authHeader } } }
-    );
-    const { data: { user } } = await anonClient.auth.getUser();
-    if (!user) {
-      return new Response(JSON.stringify({ error: "Invalid token" }), {
-        status: 401,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
-
-    const { data: userData } = await anonClient
-      .from("users")
-      .select("role")
-      .eq("id", user.id)
-      .single();
-
-    if (!userData || !["admin", "sales"].includes(userData.role)) {
-      return new Response(JSON.stringify({ error: "Admin only" }), {
-        status: 403,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
-
-    // Use service role for insert
     const serviceClient = createClient(
       Deno.env.get("SUPABASE_URL")!,
-      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+      serviceKey
     );
 
     const { products } = await req.json();
@@ -60,7 +59,6 @@ Deno.serve(async (req) => {
       });
     }
 
-    // Upsert by SKU
     const { data, error } = await serviceClient
       .from("products")
       .upsert(products, { onConflict: "sku" })
