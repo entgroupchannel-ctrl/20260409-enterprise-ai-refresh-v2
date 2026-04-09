@@ -298,8 +298,8 @@ export default function AdminQuoteDetail() {
     const config: Record<string, { label: string; variant: any; color: string }> = {
       pending: { label: 'รอตอบกลับ', variant: 'secondary', color: 'bg-yellow-100 text-yellow-800' },
       quote_sent: { label: 'ส่งราคาแล้ว', variant: 'default', color: 'bg-blue-100 text-blue-800' },
-      po_uploaded: { label: 'รอยืนยัน PO', variant: 'destructive', color: 'bg-purple-100 text-purple-800' },
-      po_confirmed: { label: 'ยืนยันคำสั่งซื้อแล้ว', variant: 'default', color: 'bg-indigo-100 text-indigo-800' },
+      po_uploaded: { label: 'ส่ง PO แล้ว', variant: 'destructive', color: 'bg-purple-100 text-purple-800' },
+      po_confirmed: { label: 'ส่ง PO แล้ว', variant: 'destructive', color: 'bg-purple-100 text-purple-800' },
       po_approved: { label: 'อนุมัติแล้ว', variant: 'default', color: 'bg-green-100 text-green-800' },
       completed: { label: 'เสร็จสิ้น', variant: 'default', color: 'bg-gray-100 text-gray-800' },
       rejected: { label: 'ปฏิเสธ', variant: 'destructive', color: 'bg-red-100 text-red-800' },
@@ -385,7 +385,7 @@ export default function AdminQuoteDetail() {
                   <AlertCircle className="w-8 h-8 text-orange-600" />
                   <div>
                     <h3 className="font-semibold text-orange-900">
-                      {quote.status === 'po_confirmed' ? 'ลูกค้ายืนยัน PO แล้ว' : 'มี PO รอตรวจสอบ'}
+                      ลูกค้าส่ง PO แล้ว — รอตรวจสอบและอนุมัติ
                     </h3>
                     <p className="text-sm text-orange-700">กรุณาตรวจสอบและอนุมัติ PO</p>
                   </div>
