@@ -22,6 +22,8 @@ import {
   ShoppingCart,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import ThemeToggle from '@/components/ThemeToggle';
+import LangToggle from '@/components/LangToggle';
 
 interface AdminLayoutProps {
   children: ReactNode;
