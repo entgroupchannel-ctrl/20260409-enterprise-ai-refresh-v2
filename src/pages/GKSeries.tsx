@@ -611,7 +611,6 @@ const PaginatedPriceTable = ({ rows, perPage, totalPages }: {
                 className={`h-7 w-7 rounded text-xs font-medium transition-colors ${
                   p === page ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground hover:bg-muted"
                 }`}
-              >
                 {p}
               </button>
             ))}
@@ -1361,7 +1360,6 @@ const GKSeries = () => {
                         ? "bg-primary text-primary-foreground border-primary"
                         : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"
                     }`}
-                  >
                     {tab}
                   </button>
                 ))}

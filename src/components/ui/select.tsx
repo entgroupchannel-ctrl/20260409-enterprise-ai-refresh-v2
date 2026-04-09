@@ -21,7 +21,6 @@ const SelectTrigger = React.forwardRef<
       className,
     )}
     {...props}
-  >
     {children}
     <SelectPrimitive.Icon asChild>
       <ChevronDown className="h-4 w-4 opacity-50" />
@@ -38,7 +37,6 @@ const SelectScrollUpButton = React.forwardRef<
     ref={ref}
     className={cn("flex cursor-default items-center justify-center py-1", className)}
     {...props}
-  >
     <ChevronUp className="h-4 w-4" />
   </SelectPrimitive.ScrollUpButton>
 ));
@@ -52,7 +50,6 @@ const SelectScrollDownButton = React.forwardRef<
     ref={ref}
     className={cn("flex cursor-default items-center justify-center py-1", className)}
     {...props}
-  >
     <ChevronDown className="h-4 w-4" />
   </SelectPrimitive.ScrollDownButton>
 ));
@@ -73,7 +70,6 @@ const SelectContent = React.forwardRef<
       )}
       position={position}
       {...props}
-    >
       <SelectScrollUpButton />
       <SelectPrimitive.Viewport
         className={cn(
@@ -81,7 +77,6 @@ const SelectContent = React.forwardRef<
           position === "popper" &&
             "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]",
         )}
-      >
         {children}
       </SelectPrimitive.Viewport>
       <SelectScrollDownButton />
@@ -109,7 +104,6 @@ const SelectItem = React.forwardRef<
       className,
     )}
     {...props}
-  >
     <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
       <SelectPrimitive.ItemIndicator>
         <Check className="h-4 w-4" />

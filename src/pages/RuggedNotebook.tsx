@@ -198,7 +198,6 @@ const RuggedNotebookPage = () => {
                 className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all shrink-0 ${
                   filters.os === tab.id ? "bg-primary text-primary-foreground shadow-sm" : "bg-muted hover:bg-muted/80 text-foreground"
                 }`}
-              >
                 {tab.label}
                 <span className={`text-[10px] font-mono ${filters.os === tab.id ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
                   ({tab.id === "all" ? ruggedNotebooks.length : ruggedNotebooks.filter((p) => p.os === tab.id).length})
@@ -218,7 +217,6 @@ const RuggedNotebookPage = () => {
                 className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all border shrink-0 ${
                   qf.active ? "bg-primary text-primary-foreground border-primary shadow-sm" : "bg-card border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
                 }`}
-              >
                 {qf.label}
               </button>
             ))}
@@ -448,7 +446,6 @@ const NotebookCard = ({ product, selected, onToggleSelect }: { product: RuggedNo
                 className={`w-full text-left p-2.5 rounded-lg border text-xs transition-all ${
                   i === selectedCfg ? "border-primary bg-primary/5 ring-1 ring-primary/20" : "border-border hover:border-primary/30"
                 }`}
-              >
                 <div className="font-bold">{c.label}</div>
                 <div className="text-muted-foreground">{c.cpu}</div>
                 <div className="text-muted-foreground">{c.ram}</div>

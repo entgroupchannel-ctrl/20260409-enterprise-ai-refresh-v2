@@ -46,7 +46,6 @@ const AIOCard = ({
     className={`card-surface overflow-hidden group transition-all ${
       selected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"
     }`}
-  >
     {/* Image */}
     <div className="relative bg-secondary/30 p-4 flex items-center justify-center h-52">
         item={{
@@ -89,7 +88,6 @@ const AIOCard = ({
                 ? "border-green-500/30 text-green-500"
                 : "border-orange-500/30 text-orange-500"
             }`}
-          >
             {o}
           </Badge>
         ))}
@@ -246,7 +244,6 @@ const AllInOnePC = () => {
                       ? "bg-primary text-primary-foreground"
                       : "bg-secondary/50 text-foreground/70 hover:bg-secondary"
                   }`}
-                >
                   {f.label}
                 </button>
               ))}
@@ -262,7 +259,6 @@ const AllInOnePC = () => {
                       ? "bg-primary text-primary-foreground"
                       : "bg-secondary/50 text-foreground/70 hover:bg-secondary"
                   }`}
-                >
                   <f.icon size={12} />
                   {f.label}
                 </button>
@@ -284,7 +280,6 @@ const AllInOnePC = () => {
                 onClick={() => {
                   setQuoteProduct(Array.from(selectedProducts).join(", "));
                 }}
-              >
                 ขอใบเสนอราคารวม
               </button>
             </span>
@@ -335,7 +330,6 @@ const AllInOnePC = () => {
                 setOsFilter("all");
                 setCatFilter("all");
               }}
-            >
               รีเซ็ตตัวกรอง
             </Button>
           </div>

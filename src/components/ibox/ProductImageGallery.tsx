@@ -77,7 +77,6 @@ const ProductImageGallery = ({
                       ? "border-primary ring-2 ring-primary/20"
                       : "border-border hover:border-primary/50"
                   )}
-                >
                   <img
                     src={image.src}
                     alt={`${productName} - ${image.label}`}
@@ -104,7 +103,6 @@ const ProductImageGallery = ({
                 ? "bg-primary text-primary-foreground"
                 : "bg-secondary text-muted-foreground hover:bg-secondary/80"
             )}
-          >
             {image.label}
           </button>
         ))}

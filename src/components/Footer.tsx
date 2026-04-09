@@ -149,7 +149,6 @@ const CollapsibleSection = ({ title, links }: { title: string; links: typeof foo
         className={`overflow-hidden transition-[max-height] duration-300 ease-in-out md:!max-h-[500px] md:mt-3 ${
           open ? "max-h-[500px] pb-3" : "max-h-0"
         }`}
-      >
         {links.map((link) => (
           <li key={link.label} className="mb-1.5">
             {link.external ? (

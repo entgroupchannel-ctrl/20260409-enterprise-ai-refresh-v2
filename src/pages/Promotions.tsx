@@ -313,7 +313,6 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
                     ? "bg-primary text-primary-foreground"
                     : "bg-secondary text-foreground"
                 }`}
-              >
                 {promo.ctaLabel}
               </LineQRButton>
             ) : (
@@ -326,7 +325,6 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
                     ? "bg-primary text-primary-foreground"
                     : "bg-secondary text-foreground"
                 }`}
-              >
                 {promo.ctaLabel}
               </a>
             )}

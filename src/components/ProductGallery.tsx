@@ -68,7 +68,6 @@ const ProductGallery = ({ images, alt, autoPlayInterval = 4000 }: ProductGallery
                 ? "border-primary ring-2 ring-primary/30 scale-105"
                 : "border-transparent opacity-60 hover:opacity-100"
             }`}
-          >
             <img src={img} alt="" className="w-full h-full object-contain bg-background/50 p-0.5" loading="lazy" />
           </button>
         ))}

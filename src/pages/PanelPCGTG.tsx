@@ -429,7 +429,6 @@ const PanelPC = () => {
                   ? "border-primary bg-primary/10 shadow-lg shadow-primary/10"
                   : "border-border bg-background hover:border-primary/30"
               }`}
-            >
               <RectangleHorizontal size={28} className={displayType === "wide" ? "text-primary" : "text-muted-foreground"} />
               <div className="text-left">
                 <p className={`font-bold ${displayType === "wide" ? "text-primary" : "text-foreground"}`}>Widescreen (16:9)</p>
@@ -443,7 +442,6 @@ const PanelPC = () => {
                   ? "border-primary bg-primary/10 shadow-lg shadow-primary/10"
                   : "border-border bg-background hover:border-primary/30"
               }`}
-            >
               <Square size={28} className={displayType === "square" ? "text-primary" : "text-muted-foreground"} />
               <div className="text-left">
                 <p className={`font-bold ${displayType === "square" ? "text-primary" : "text-foreground"}`}>Square (4:3 / 5:4)</p>
@@ -625,7 +623,6 @@ import FooterCompact from "@/components/FooterCompact";
                         ? "bg-primary text-primary-foreground"
                         : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                     }`}
-                  >
                     {tab.label}
                   </button>
                 ))}

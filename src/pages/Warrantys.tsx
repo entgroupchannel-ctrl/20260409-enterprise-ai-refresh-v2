@@ -102,7 +102,6 @@ const Warrantys = () => {
                     ? "bg-green-50 border-green-200 dark:bg-green-950/20 dark:border-green-900/30"
                     : "bg-destructive/5 border-destructive/10"
                 }`}
-              >
                 {item.type === "covered" ? (
                   <CheckCircle size={20} className="text-green-600 dark:text-green-400 shrink-0 mt-0.5" />
                 ) : (
@@ -133,7 +132,6 @@ const Warrantys = () => {
                     ? "bg-blue-50 border-blue-200 dark:bg-blue-950/20 dark:border-blue-900/30"
                     : "bg-destructive/5 border-destructive/10"
                 }`}
-              >
                 {item.type === "info" ? (
                   <CheckCircle size={20} className="text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
                 ) : (

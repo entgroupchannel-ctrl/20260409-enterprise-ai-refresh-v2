@@ -438,7 +438,6 @@ const RuggedTablet = () => {
                     ? "bg-primary text-primary-foreground shadow-sm"
                     : "bg-muted hover:bg-muted/80 text-foreground"
                 }`}
-              >
                 {tab.label}
                 <span className={`text-[10px] font-mono ${filters.os === tab.id ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
                   ({tab.id === "all" ? tablets.length : tablets.filter((t) => t.os === tab.id).length})
@@ -461,7 +460,6 @@ const RuggedTablet = () => {
                     ? "bg-primary text-primary-foreground border-primary shadow-sm"
                     : "bg-card border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
                 }`}
-              >
                 {qf.label}
               </button>
             ))}
