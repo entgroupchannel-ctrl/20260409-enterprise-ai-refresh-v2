@@ -46,6 +46,7 @@ import {
   AlertCircle,
   Eye,
 } from 'lucide-react';
+import QuoteStatusFlow from '@/components/quotes/QuoteStatusFlow';
 import { formatDistanceToNow, format } from 'date-fns';
 import { th } from 'date-fns/locale';
 
@@ -141,7 +142,7 @@ export default function AdminQuoteDetail() {
         .single();
 
       if (quoteError) throw quoteError;
-      setQuote(quoteData);
+      setQuote(quoteData as unknown as Quote);
 
       // Load files
       const { data: filesData, error: filesError } = await supabase
@@ -370,6 +371,13 @@ export default function AdminQuoteDetail() {
             )}
           </div>
         </div>
+
+        {/* Quote Status Flow */}
+        <Card>
+          <CardContent className="pt-6 pb-4">
+            <QuoteStatusFlow status={quote.status} />
+          </CardContent>
+        </Card>
 
         {/* Action Buttons */}
         {quote.status === 'po_uploaded' && (
