@@ -4,25 +4,12 @@ import { LineQRDialog, LineSvgIcon } from "./LineQRDialog";
 
 const FloatingContact = () => {
   const [open, setOpen] = useState(false);
-  const [showLineDialog, setShowLineDialog] = useState(false);  const handleToggle = () => {
-    if (open) {
-      setOpen(false);
-    } else {
-      setOpen(true);
-      forceShow();
-    }
-  };
-
-  // Button visible when auto-show is active OR open
-  const showButton = visible || open;
+  const [showLineDialog, setShowLineDialog] = useState(false);
 
   return (
     <>
       <div
-        className={`fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3 transition-all duration-500 ${
-          showButton ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0 pointer-events-none"
-        }`}
-        onMouseEnter={onInteraction}
+        className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3"
       >
         {open && (
           <div className="flex flex-col gap-2 mb-1 animate-in fade-in slide-in-from-bottom-2 duration-200">
@@ -36,7 +23,6 @@ const FloatingContact = () => {
                 <p className="text-xs opacity-80">แชทกับทีมขาย</p>
               </div>
             </button>
-
             <a
               href="tel:02-026-3854"
               className="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-primary-foreground shadow-lg hover:opacity-90 transition-opacity"
@@ -49,9 +35,8 @@ const FloatingContact = () => {
             </a>
           </div>
         )}
-
         <button
-          onClick={handleToggle}
+          onClick={() => setOpen(!open)}
           className={`w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-200 ${
             open ? "bg-muted text-foreground" : "bg-primary text-primary-foreground"
           }`}
@@ -59,7 +44,6 @@ const FloatingContact = () => {
           {open ? <X size={24} /> : <MessageCircle size={24} />}
         </button>
       </div>
-
       <LineQRDialog open={showLineDialog} onClose={() => setShowLineDialog(false)} />
     </>
   );
