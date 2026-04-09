@@ -108,19 +108,7 @@ export default function AdminQuotesList() {
     setFilteredQuotes(result);
   };
 
-  const getStatusBadge = (status: string) => {
-    const variants: Record<string, { label: string; variant: 'secondary' | 'default' | 'destructive' }> = {
-      pending: { label: 'รอตอบกลับ', variant: 'secondary' },
-      quote_sent: { label: 'ส่งราคาแล้ว', variant: 'default' },
-      po_uploaded: { label: 'อัปโหลด PO แล้ว', variant: 'secondary' },
-      po_confirmed: { label: 'ลูกค้าส่ง PO แล้ว', variant: 'destructive' },
-      po_approved: { label: 'อนุมัติแล้ว', variant: 'default' },
-      completed: { label: 'เสร็จสิ้น', variant: 'secondary' },
-      rejected: { label: 'ปฏิเสธ', variant: 'destructive' },
-    };
-    const config = variants[status] || { label: status, variant: 'default' as const };
-    return <Badge variant={config.variant}>{config.label}</Badge>;
-  };
+  // StatusBadge is now imported from @/components/ui/StatusBadge
 
   const formatCurrency = (amount: number) =>
     new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', minimumFractionDigits: 0 }).format(amount);
