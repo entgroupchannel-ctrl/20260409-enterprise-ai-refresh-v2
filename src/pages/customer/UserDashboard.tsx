@@ -91,7 +91,7 @@ const emptyProfile: ProfileData = {
   payment_terms: '', delivery_method: '', notes: '',
 };
 
-type Section = 'quotes' | 'quote-detail' | 'cart' | 'profile';
+type Section = 'quotes' | 'quote-detail' | 'cart' | 'orders' | 'profile';
 
 // Memoized field
 const ProfileField = memo(({ label, value, onChange, type = 'text', placeholder = '' }: {
@@ -159,6 +159,10 @@ export default function UserDashboard() {
   // ─── Cart submission ───
   const [submitting, setSubmitting] = useState(false);
   const [showPOUpload, setShowPOUpload] = useState(false);
+
+  // ─── Orders state ───
+  const [orders, setOrders] = useState<any[]>([]);
+  const [ordersLoading, setOrdersLoading] = useState(false);
 
   // Load quotes
   useEffect(() => {
@@ -283,8 +287,32 @@ export default function UserDashboard() {
   };
 
 
-  const handleSendMessage = async () => {
-    if (!messageText.trim() || !quoteId) return;
+  // Load orders
+  const loadOrders = async () => {
+    setOrdersLoading(true);
+    try {
+      const { data: { user: authUser } } = await supabase.auth.getUser();
+      if (!authUser) return;
+      const { data, error } = await supabase
+        .from('sale_orders')
+        .select('*, quote_requests!inner(quote_number, customer_name, customer_email, grand_total, payment_terms, delivery_terms)')
+        .eq('quote_requests.customer_email', authUser.email!)
+        .order('created_at', { ascending: false });
+      if (error) throw error;
+      setOrders((data || []).map((o: any) => ({ ...o, quote: o.quote_requests })));
+    } catch (err: any) {
+      console.error('Load orders error:', err);
+    } finally {
+      setOrdersLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (user && activeSection === 'orders') loadOrders();
+  }, [user, activeSection]);
+
+
+    const handleSendMessage = async () => {
     setSendingMessage(true);
     try {
       const newMsg = {
@@ -407,6 +435,7 @@ export default function UserDashboard() {
   // ─── Sidebar menu items ───
   const menuItems = [
     { key: 'quotes' as Section, label: 'ใบเสนอราคา', icon: FileText, badge: quotes.length },
+    { key: 'orders' as Section, label: 'คำสั่งซื้อ', icon: Package, badge: orders.length },
     { key: 'cart' as Section, label: 'ตะกร้าสินค้า', icon: ShoppingCart, badge: count },
     { key: 'profile' as Section, label: 'โปรไฟล์', icon: User, badge: 0 },
   ];
@@ -993,6 +1022,162 @@ export default function UserDashboard() {
                           </div>
                         </CardContent>
                       </Card>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* ═══ ORDERS ═══ */}
+              {activeSection === 'orders' && (
+                <div className="space-y-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h2 className="text-xl font-bold flex items-center gap-2">
+                        <Package className="w-5 h-5 text-primary" />
+                        คำสั่งซื้อของฉัน
+                      </h2>
+                      <p className="text-sm text-muted-foreground">ติดตามสถานะคำสั่งซื้อและการจัดส่ง</p>
+                    </div>
+                    <Button variant="outline" size="sm" onClick={loadOrders} disabled={ordersLoading}>
+                      <Send className={`w-4 h-4 mr-1 ${ordersLoading ? 'animate-spin' : ''}`} />
+                      รีเฟรช
+                    </Button>
+                  </div>
+
+                  {ordersLoading && orders.length === 0 ? (
+                    <div className="flex items-center justify-center py-12">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
+                    </div>
+                  ) : orders.length === 0 ? (
+                    <Card>
+                      <CardContent className="flex flex-col items-center justify-center py-16 text-center">
+                        <Package className="w-16 h-16 text-muted-foreground mb-4 opacity-30" />
+                        <h3 className="text-lg font-semibold mb-2">ยังไม่มีคำสั่งซื้อ</h3>
+                        <p className="text-sm text-muted-foreground">เมื่อ PO ได้รับการอนุมัติจะแสดงที่นี่</p>
+                      </CardContent>
+                    </Card>
+                  ) : (
+                    <div className="space-y-4">
+                      {/* In-progress orders */}
+                      {(() => {
+                        const inProgress = orders.filter(o => ['confirmed', 'preparing', 'ready_to_ship', 'shipped'].includes(o.status));
+                        const completed = orders.filter(o => ['delivered', 'completed'].includes(o.status));
+                        const cancelled = orders.filter(o => o.status === 'cancelled');
+                        const soSteps = ['confirmed', 'preparing', 'shipped', 'delivered', 'completed'];
+                        const getProgress = (status: string) => {
+                          const idx = soSteps.indexOf(status);
+                          if (status === 'ready_to_ship') return 1;
+                          return idx >= 0 ? idx : 0;
+                        };
+                        const soStatusLabel: Record<string, string> = {
+                          confirmed: 'ยืนยันแล้ว', preparing: 'กำลังจัดเตรียม', ready_to_ship: 'พร้อมจัดส่ง',
+                          shipped: 'จัดส่งแล้ว', delivered: 'ส่งมอบแล้ว', completed: 'เสร็จสมบูรณ์', cancelled: 'ยกเลิก',
+                        };
+                        return (
+                          <>
+                            {inProgress.length > 0 && (
+                              <div>
+                                <h3 className="text-sm font-semibold text-muted-foreground mb-3">กำลังดำเนินการ ({inProgress.length})</h3>
+                                <div className="space-y-3">
+                                  {inProgress.map(order => {
+                                    const progress = getProgress(order.status);
+                                    return (
+                                      <Card key={order.id} className="hover:shadow-md transition-shadow cursor-pointer" onClick={() => navigate(`/my-orders/${order.id}`)}>
+                                        <CardContent className="pt-5 pb-4">
+                                          <div className="flex items-start justify-between mb-4">
+                                            <div>
+                                              <div className="flex items-center gap-2 mb-1">
+                                                <h4 className="font-bold">{order.so_number}</h4>
+                                                <Badge variant="secondary">{soStatusLabel[order.status] || order.status}</Badge>
+                                              </div>
+                                              <p className="text-xs text-muted-foreground">
+                                                {order.quote?.quote_number && `ใบเสนอราคา: ${order.quote.quote_number}`}
+                                              </p>
+                                            </div>
+                                            <div className="text-right">
+                                              <p className="font-bold text-primary">{formatCurrency(order.grand_total || order.quote?.grand_total || 0)}</p>
+                                              <p className="text-xs text-muted-foreground">{formatShortDateTime(order.created_at)}</p>
+                                            </div>
+                                          </div>
+                                          {/* Mini SO Timeline */}
+                                          <div className="flex items-center">
+                                            {soSteps.map((step, i) => (
+                                              <div key={step} className="flex items-center flex-1 min-w-0">
+                                                <div className="flex flex-col items-center shrink-0">
+                                                  <div className={`w-7 h-7 rounded-full flex items-center justify-center border-2 text-xs font-bold ${
+                                                    i < progress ? 'bg-primary border-primary text-primary-foreground'
+                                                    : i === progress ? 'bg-primary/10 border-primary text-primary'
+                                                    : 'bg-background border-muted-foreground/30 text-muted-foreground'
+                                                  }`}>
+                                                    {i < progress ? '✓' : i + 1}
+                                                  </div>
+                                                  <span className="text-[9px] mt-1 text-muted-foreground text-center hidden sm:block">
+                                                    {['ยืนยัน', 'จัดเตรียม', 'จัดส่ง', 'ส่งมอบ', 'เสร็จ'][i]}
+                                                  </span>
+                                                </div>
+                                                {i < soSteps.length - 1 && (
+                                                  <div className="flex-1 px-0.5 self-start pt-[12px]">
+                                                    <div className={`h-0.5 w-full rounded-full ${i < progress ? 'bg-primary' : 'bg-muted-foreground/20'}`} />
+                                                  </div>
+                                                )}
+                                              </div>
+                                            ))}
+                                          </div>
+                                        </CardContent>
+                                      </Card>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+                            )}
+
+                            {completed.length > 0 && (
+                              <div>
+                                <h3 className="text-sm font-semibold text-muted-foreground mb-3">เสร็จสมบูรณ์ ({completed.length})</h3>
+                                <div className="space-y-2">
+                                  {completed.map(order => (
+                                    <Card key={order.id} className="hover:shadow-sm transition-shadow cursor-pointer opacity-80" onClick={() => navigate(`/my-orders/${order.id}`)}>
+                                      <CardContent className="py-4">
+                                        <div className="flex items-center justify-between">
+                                          <div>
+                                            <div className="flex items-center gap-2 mb-0.5">
+                                              <h4 className="font-semibold text-sm">{order.so_number}</h4>
+                                              <Badge variant="outline" className="text-xs">{soStatusLabel[order.status]}</Badge>
+                                            </div>
+                                            <p className="text-xs text-muted-foreground">{formatShortDateTime(order.created_at)}</p>
+                                          </div>
+                                          <p className="font-semibold">{formatCurrency(order.grand_total || order.quote?.grand_total || 0)}</p>
+                                        </div>
+                                      </CardContent>
+                                    </Card>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+
+                            {cancelled.length > 0 && (
+                              <div>
+                                <h3 className="text-sm font-semibold text-destructive mb-3">ยกเลิก ({cancelled.length})</h3>
+                                <div className="space-y-2">
+                                  {cancelled.map(order => (
+                                    <Card key={order.id} className="hover:shadow-sm transition-shadow cursor-pointer opacity-60" onClick={() => navigate(`/my-orders/${order.id}`)}>
+                                      <CardContent className="py-4">
+                                        <div className="flex items-center justify-between">
+                                          <div className="flex items-center gap-2">
+                                            <h4 className="font-semibold text-sm line-through">{order.so_number}</h4>
+                                            <Badge variant="destructive" className="text-xs">ยกเลิก</Badge>
+                                          </div>
+                                          <p className="font-semibold text-muted-foreground">{formatCurrency(order.grand_total || 0)}</p>
+                                        </div>
+                                      </CardContent>
+                                    </Card>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                          </>
+                        );
+                      })()}
                     </div>
                   )}
                 </div>
