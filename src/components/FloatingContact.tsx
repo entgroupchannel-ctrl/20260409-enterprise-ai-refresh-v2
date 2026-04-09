@@ -25,7 +25,6 @@ const FloatingContact = () => {
               href="tel:02-026-3854"
               className="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-primary-foreground shadow-lg hover:opacity-90 transition-opacity"
               >
-            >
               <Phone size={20} className="shrink-0" />
               <div className="text-sm">
                 <p className="font-semibold">02-026-3854</p>

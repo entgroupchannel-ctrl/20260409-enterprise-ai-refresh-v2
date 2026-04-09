@@ -206,12 +206,10 @@ const ProductLineup = () => {
           ref={scrollRef}
           className="flex gap-5 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-4 -mx-4 px-4"
           >
-          >
           {lineupCategories.map((cat) => (
             <div
               key={cat.title}
               className="card-surface rounded-xl overflow-hidden snap-start shrink-0 w-[320px] sm:w-[340px] flex flex-col"
-              >
               >
               {/* Image banner */}
               <Link to={cat.href} className="relative h-36 overflow-hidden block group">

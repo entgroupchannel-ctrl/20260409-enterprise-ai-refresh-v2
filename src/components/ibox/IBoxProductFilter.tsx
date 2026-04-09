@@ -417,7 +417,6 @@ const IBoxProductFilter = ({
                   onClick={onMobileClose}
                   className="p-2 hover:bg-muted rounded-lg transition-colors"
                   >
-                  >
                   <X className="w-5 h-5" />
                 </button>
               </div>

@@ -81,7 +81,6 @@ const PromoBanners = () => {
           to={featured.link || "/promotions"}
           className="card-surface overflow-hidden group hover:border-primary/30 transition-all mb-6 flex flex-col md:flex-row"
           >
-          >
           <div className="relative bg-secondary/20 flex items-center justify-center p-8 md:w-2/5">
             {featured.badge && (
               <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-destructive text-destructive-foreground inline-flex items-center gap-1">
@@ -184,7 +183,6 @@ const PromoBanners = () => {
           <Link
             to="/promotions"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
-            >
             >
             <Sparkles size={16} /> ดูโปรโมชั่นทั้งหมด
           </Link>

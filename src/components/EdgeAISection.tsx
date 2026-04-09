@@ -61,7 +61,6 @@ const EdgeAISection = () => {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
                 >
-              >
                 ดูเว็บไซต์ <ExternalLink size={16} />
               </a>
               <a
@@ -70,7 +69,6 @@ const EdgeAISection = () => {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold hover:bg-surface-hover transition-colors"
                 >
-              >
                 ดูสินค้าทั้งหมด
               </a>
             </div>
@@ -99,7 +97,6 @@ const EdgeAISection = () => {
                     transform: i === current ? "scale(1)" : "scale(1.05)",
                   }}
                   >
-                >
                   <img
                     src={slide.src}
                     alt={slide.alt}
@@ -119,14 +116,12 @@ const EdgeAISection = () => {
                 onClick={prev}
                 className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-background/70 border border-border/50 flex items-center justify-center text-foreground opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity hover:bg-background"
                 >
-              >
                 <ChevronLeft size={18} />
               </button>
               <button
                 onClick={next}
                 className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-background/70 border border-border/50 flex items-center justify-center text-foreground opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity hover:bg-background"
                 >
-              >
                 <ChevronRight size={18} />
               </button>
             </div>

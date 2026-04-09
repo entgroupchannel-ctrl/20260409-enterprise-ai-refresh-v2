@@ -498,7 +498,6 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                     className={`border-b border-border/50 transition-colors cursor-pointer ${catStyle}`}
                     onClick={() => handleTabChange(row.name.toLowerCase())}
                     >
-                  >
                     <td className="p-4 sticky left-0 font-bold text-foreground" style={{ background: 'inherit' }}>
                       <div className="flex flex-col gap-1">
                         <span className="text-base">{row.name}</span>
@@ -751,7 +750,6 @@ const GTSeries = () => {
                   key={item.word}
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 text-white font-bold text-base tracking-wide"
                   >
-                >
                   <item.Icon size={18} className="text-primary" />
                   {item.word}
                   >
@@ -1287,7 +1285,6 @@ const GTSeries = () => {
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-4 rounded-xl border border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition-colors group"
                     >
-                    >
                     <div className="shrink-0 w-10 h-10 rounded-full bg-red-600 flex items-center justify-center">
                       <Play className="text-white ml-0.5" size={18} fill="white" />
                     </div>
@@ -1314,7 +1311,6 @@ const GTSeries = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
-                  >
                   >
                   <Download size={16} /> ดาวน์โหลด Datasheet GT1000
                 </a>
@@ -1748,7 +1744,6 @@ const GTSeries = () => {
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-4 rounded-xl border border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition-colors group"
                     >
-                    >
                     <div className="shrink-0 w-10 h-10 rounded-full bg-red-600 flex items-center justify-center">
                       <Play className="text-white ml-0.5" size={18} fill="white" />
                     </div>
@@ -1771,7 +1766,6 @@ const GTSeries = () => {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
                   >
-                  >
                   <Download size={16} /> Datasheet GT2000 Celeron
                 </a>
                 <a
@@ -1779,7 +1773,6 @@ const GTSeries = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-surface-hover transition-colors"
-                  >
                   >
                   <Download size={16} /> Datasheet GT2000 Core i5
                 </a>
@@ -2138,7 +2131,6 @@ const GTSeries = () => {
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-4 rounded-xl border border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition-colors group"
                     >
-                    >
                     <div className="shrink-0 w-10 h-10 rounded-full bg-red-600 flex items-center justify-center">
                       <Play className="text-white ml-0.5" size={18} fill="white" />
                     </div>
@@ -2243,7 +2235,6 @@ const GTSeries = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
-                  >
                   >
                   <Download size={16} /> ดาวน์โหลด Datasheet GT3000
                 </a>
@@ -2590,7 +2581,6 @@ const GTSeries = () => {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
                   >
-                  >
                   <Download size={16} /> Datasheet GT4000 Core i5
                 </a>
                 <a
@@ -2598,7 +2588,6 @@ const GTSeries = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-secondary/50 transition-colors"
-                  >
                   >
                   <Download size={16} /> Datasheet GT4000 Core i7
                 </a>
@@ -3505,7 +3494,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
                   >
-                  >
                   <Download size={16} /> ดาวน์โหลด Datasheet GT6000
                 </a>
               </div>
@@ -3904,7 +3892,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
                   >
-                  >
                   <Download size={16} /> ดาวน์โหลด Datasheet GT7000
                 </a>
               </div>
@@ -4249,7 +4236,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
-                  >
                   >
                   <Download size={16} /> ดาวน์โหลด Datasheet GT8000
                 </a>
@@ -4619,7 +4605,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
                   >
-                  >
                   <Download size={16} /> Datasheet GT9000 (Gen 12)
                 </a>
                 <a
@@ -4628,7 +4613,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-secondary/50 transition-colors"
                   >
-                  >
                   <Download size={16} /> Datasheet GT9000 (Gen 10)
                 </a>
                 <a
@@ -4636,7 +4620,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-secondary/50 transition-colors"
-                  >
                   >
                   <Download size={16} /> GT9000 Product Overview
                 </a>
@@ -5028,7 +5011,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
                   >
-                  >
                   <Download size={16} /> ดาวน์โหลด Datasheet GT4500
                 </a>
                 <a
@@ -5036,7 +5018,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-surface-hover transition-colors"
-                  >
                   >
                   <Download size={16} /> วารสาร / Journal GT4500
                 </a>
@@ -5348,7 +5329,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
                   >
-                  >
                   <Download size={16} /> ดาวน์โหลด Datasheet GT1400
                 </a>
               </div>
@@ -5538,7 +5518,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
-                  >
                   >
                   <ExternalLink size={16} /> ดูข้อมูลเพิ่มเติม GT1300 (Manufacturer)
                 </a>
@@ -5935,7 +5914,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
                   >
-                  >
                   <Download size={16} /> ดาวน์โหลด Datasheet GT1200
                 </a>
               </div>
@@ -6035,7 +6013,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
             <Link
               to="/"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-border text-foreground font-bold text-lg hover:bg-surface-hover transition-colors"
-              >
               >
               <ArrowLeft size={18} /> กลับหน้าหลัก
             </Link>

@@ -294,7 +294,6 @@ const ModelCard = ({ model, isActive, onClick }: { model: typeof models[0]; isAc
       isActive ? "border-primary bg-primary/5 shadow-lg scale-[1.02]" : "border-border bg-card hover:border-primary/30 hover:-translate-y-1"
     }`}
     >
-  >
     {model.badge && (
       <span className={`absolute -top-2 right-2 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${
         model.badge === "Premium" ? "bg-amber-500 text-white"
@@ -674,7 +673,6 @@ const GBSeries = () => {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border border-border bg-card text-foreground font-bold hover:bg-secondary/50 transition-colors"
               >
-            >
               <ExternalLink size={18} /> ดาวน์โหลดภาพรวมผลิตภัณฑ์
             </a>
           </div>

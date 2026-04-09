@@ -346,7 +346,6 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium border border-border bg-card text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
                 >
-                >
                 <FileDown size={14} /> PDF
               </a>
             )}
@@ -502,7 +501,6 @@ const Promotions = () => {
                 <LineQRButton
                   className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-lg hover:opacity-90 transition-opacity mb-6"
                   >
-                  >
                   เพิ่มเพื่อน LINE @entgroup
                 </LineQRButton>
 
@@ -533,13 +531,11 @@ const Promotions = () => {
             <LineQRButton
               className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
               >
-              >
               LINE @entgroup
             </LineQRButton>
             <a
               href="tel:0957391053"
               className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-border bg-card text-foreground font-semibold hover:bg-secondary/50 transition-colors"
-              >
               >
               <Phone className="w-4 h-4" /> 095-739-1053
             </a>

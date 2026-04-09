@@ -1049,7 +1049,6 @@ const MiniPCFirewall = () => {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-destructive text-destructive-foreground text-xs font-bold hover:opacity-90 transition-opacity"
               >
-              >
               <Youtube size={16} /> Subscribe
             </a>
           </div>
@@ -1081,7 +1080,6 @@ const MiniPCFirewall = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1 text-xs text-primary font-medium hover:underline"
-                        >
                         >
                         <ThumbsUp size={12} /> Like & Share
                       </a>

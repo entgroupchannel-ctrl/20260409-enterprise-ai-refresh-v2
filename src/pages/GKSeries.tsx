@@ -678,7 +678,6 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity"
                   >
-                  >
                   {ds.label} <ExternalLink size={10} />
                 </a>
               ))}
@@ -1189,7 +1188,6 @@ const GKSeries = () => {
                 href="#comparison"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-background/60 backdrop-blur-sm border border-border text-foreground font-semibold hover:bg-muted transition-colors"
                 >
-                >
                 เปรียบเทียบรุ่น
               </a>
               <a
@@ -1577,7 +1575,6 @@ const GKSeries = () => {
             <Link
               to="/"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-border text-foreground font-bold text-lg hover:bg-muted transition-colors"
-              >
               >
               <ArrowLeft size={18} /> กลับหน้าหลัก
             </Link>

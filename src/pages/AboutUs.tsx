@@ -306,12 +306,10 @@ const AboutUs = () => {
               to="/contact"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground text-sm font-bold hover:bg-primary/90 transition-colors"
               >
-              >
               ติดต่อเรา
             </Link>
             <LineQRButton
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground text-sm font-semibold hover:bg-secondary transition-colors"
-              >
               >
               LINE @entgroup
             </LineQRButton>

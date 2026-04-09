@@ -268,7 +268,6 @@ const Volktek = () => {
                 href={`#${cat.id}`}
                 className="shrink-0 px-3 py-2 rounded-lg text-xs font-medium bg-secondary/50 text-foreground/70 border border-border hover:border-primary/30 transition-all"
                 >
-              >
                 {cat.title}
               </a>
             ))}
@@ -347,7 +346,6 @@ const Volktek = () => {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-sm text-primary font-semibold hover:underline"
                 >
-              >
                 <Youtube size={16} /> ดูบน YouTube
               </a>
               <ShareButtons url="https://youtu.be/6Y6eEitc-yQ" title="Volktek Industrial Switch — รีวิวและแนะนำ" compact />

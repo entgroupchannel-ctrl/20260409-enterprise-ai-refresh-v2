@@ -489,7 +489,6 @@ export const MobileMegaMenu = ({ onNavigate }: { onNavigate?: () => void }) => {
                 onClick={onNavigate}
                 className="block p-3 rounded-lg bg-primary/10 border border-primary/20 mb-2"
                 >
-                >
                 <span className="text-[9px] font-bold uppercase text-primary">{cat.featured.badge}</span>
                 <p className="text-sm font-bold text-foreground">{cat.featured.title}</p>
                 <p className="text-xs text-muted-foreground">{cat.featured.desc}</p>
@@ -521,7 +520,6 @@ export const MobileMegaMenu = ({ onNavigate }: { onNavigate?: () => void }) => {
         to="/promotions"
         onClick={onNavigate}
         className="flex items-center gap-2 py-3 px-2 text-foreground font-medium rounded-lg hover:bg-secondary/50"
-        >
         >
         <Sparkles size={16} className="text-primary" />
         โปรโมชั่น

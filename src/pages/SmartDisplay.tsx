@@ -444,7 +444,6 @@ const SmartDisplay = () => {
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-sm font-medium text-foreground hover:bg-secondary hover:border-primary/30 transition-all"
                         >
-                        >
                         <Download size={12} /> {d.model}
                       </a>
                     ))}
@@ -773,7 +772,6 @@ const SmartDisplay = () => {
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-secondary text-secondary-foreground text-sm font-semibold hover:opacity-90 transition-opacity"
                         >
-                        >
                         <Download size={16} /> GK2101 KIOSK PDF
                       </a>
                       <a
@@ -781,7 +779,6 @@ const SmartDisplay = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border text-foreground text-sm font-semibold hover:bg-secondary transition-colors"
-                        >
                         >
                         <Download size={16} /> Datasheet
                       </a>
@@ -1110,7 +1107,6 @@ const SmartDisplay = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="card-surface p-5 flex items-center gap-4 hover:border-primary/30 transition-all group"
-                >
                 >
                 <Download className="text-primary shrink-0 group-hover:scale-110 transition-transform" size={24} />
                 <div>

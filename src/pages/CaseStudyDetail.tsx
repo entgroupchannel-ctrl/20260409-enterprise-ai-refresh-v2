@@ -134,7 +134,6 @@ const CaseStudyDetail = () => {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-sm text-primary font-medium mt-3 hover:underline"
                   >
-                  >
                   <Play className="w-4 h-4" /> ดูวิดีโอทั้งหมดบน YouTube Channel
                 </a>
               </section>
@@ -166,7 +165,6 @@ const CaseStudyDetail = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-sm text-primary font-medium mt-3 hover:underline"
-                  >
                   >
                   ดูวิดีโอทั้งหมดบน Facebook →
                 </a>

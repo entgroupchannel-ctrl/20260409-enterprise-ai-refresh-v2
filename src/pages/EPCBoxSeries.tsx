@@ -459,7 +459,6 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
             rel="noopener noreferrer"
             className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity"
             >
-          >
             Datasheet <ExternalLink size={14} />
           </a>
         </div>
@@ -822,13 +821,11 @@ const EPCBoxSeries = () => {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
                   >
-                >
                   CESIPC E-Catalog <ExternalLink size={16} />
                 </a>
                 <a
                   href="#pricing"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold hover:bg-muted transition-colors"
-                  >
                   >
                   ดูราคาสินค้า
                 >
@@ -837,7 +834,6 @@ const EPCBoxSeries = () => {
                   href="#10xa"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold hover:bg-muted transition-colors"
                   >
-                >
                   ดูสินค้าทั้งหมด <ChevronDown size={16} />
                 </a>
               </div>
@@ -937,14 +933,12 @@ const EPCBoxSeries = () => {
                 href={`#${s.id}`}
                 className="shrink-0 px-4 py-2 rounded-lg text-sm font-medium border border-border hover:border-primary/50 hover:bg-primary/5 text-foreground transition-all"
                 >
-              >
                 {s.name.replace(" Series", "")}
               </a>
             ))}
             <a
               href="#pricing"
               className="shrink-0 px-4 py-2 rounded-lg text-sm font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
-              >
               >
               ราคา
             >
@@ -1171,7 +1165,6 @@ const EPCBoxSeries = () => {
               to="/"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-border text-foreground font-bold text-lg hover:bg-muted transition-colors"
               >
-            >
               <ArrowLeft size={18} /> กลับหน้าหลัก
             </Link>
           </div>

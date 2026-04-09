@@ -197,7 +197,6 @@ const ProductHighlights = () => {
                       key={model}
                       className="px-2 py-0.5 text-[10px] font-medium rounded-md bg-secondary border border-border text-muted-foreground"
                       >
-                      >
                       {model}
                     </span>
                   ))}

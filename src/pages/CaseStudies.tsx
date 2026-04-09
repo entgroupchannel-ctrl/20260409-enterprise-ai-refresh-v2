@@ -50,7 +50,6 @@ const ClientTrustSection = () => {
                 key={`${name}-${i}`}
                 className="shrink-0 px-3 py-1.5 rounded-full bg-card border border-border/50 text-[11px] text-foreground/80 whitespace-nowrap"
                 >
-                >
                 {name}
               </span>
             ))}
@@ -201,7 +200,6 @@ const CaseStudies = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="ml-auto text-xs text-primary hover:underline"
-              >
               >
               ดูทั้งหมดบน Facebook →
             </a>

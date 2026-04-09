@@ -42,7 +42,6 @@ const NewsletterForm = () => {
       <input
         type="email"
         >
-        >
         required
         value={email}
         onChange={(e) => setEmail(e.target.value)}
@@ -163,14 +162,12 @@ const CollapsibleSection = ({ title, links }: { title: string; links: typeof foo
                 rel="noopener noreferrer"
                 className="text-sm text-gray-600 dark:text-[hsl(215,15%,55%)] hover:text-primary transition-colors"
                 >
-                >
                 {link.label}
               </a>
             ) : (
               <Link
                 to={link.href}
                 className="text-sm text-gray-600 dark:text-[hsl(215,15%,55%)] hover:text-primary transition-colors"
-                >
                 >
                 {link.label}
               </Link>

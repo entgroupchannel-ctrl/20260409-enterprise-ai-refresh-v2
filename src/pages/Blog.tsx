@@ -80,7 +80,6 @@ const Blog = () => {
                     url={`https://ent-vision.lovable.app/blog/${post.id}`}
                     title={post.title}
                     >
-                    >
                     compact
                   />
                 </div>
