@@ -22,6 +22,8 @@ import {
   ShoppingCart,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import ThemeToggle from '@/components/ThemeToggle';
+import LangToggle from '@/components/LangToggle';
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -76,6 +78,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             </div>
 
             <div className="flex items-center gap-2">
+              <LangToggle variant="compact" />
+              <ThemeToggle />
               <Button variant="ghost" size="icon" className="relative">
                 <Bell className="w-5 h-5" />
                 <Badge variant="destructive" className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center p-0 text-xs">
