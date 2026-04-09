@@ -235,7 +235,6 @@ const WaterproofPC = () => {
                 src="/images/wix/0597a3_0ad34056abce4284bb55ec5a2fb4ea1b_f03de733.png"
                 alt="IP67 Protection"
                 className="w-full h-auto rounded-lg"
-
                 loading="lazy"
               />
             </div>
@@ -362,7 +361,6 @@ const WaterproofPC = () => {
             src="/images/wix/0597a3_ffe271d4f86b4f699e9760cb18da5733_29923812.png"
             alt="Waterproof PC Applications"
             className="w-full h-auto"
-
             loading="lazy"
           />
         </section>

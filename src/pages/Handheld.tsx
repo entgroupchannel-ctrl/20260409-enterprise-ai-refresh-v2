@@ -64,7 +64,6 @@ const HandheldCard = ({
         src={product.image}
         alt={product.model}
         className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
-
         loading="lazy"
       />
     </div>

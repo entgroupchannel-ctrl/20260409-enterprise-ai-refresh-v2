@@ -426,7 +426,6 @@ const EPCSeries = () => {
                 src={epcHeroPanelPC}
                 alt="EPC Industrial Panel PC with Touchscreen"
                 className="w-full max-w-md h-auto rounded-xl shadow-2xl border border-white/10"
-
                 width={896}
                 height={1024}
               />
@@ -479,7 +478,6 @@ const EPCSeries = () => {
               src="/images/wix/0597a3_7c3f2bd701f340ee993f725c168c1bec_e05257e7.png"
               alt="CESIPC Certifications"
               className="w-full h-auto p-6"
-
               loading="lazy"
             />
           </div>

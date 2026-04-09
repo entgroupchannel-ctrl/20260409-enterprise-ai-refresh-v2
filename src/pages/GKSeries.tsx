@@ -662,7 +662,6 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
               src={model.image}
               alt={model.name}
               className="max-h-[240px] object-contain mb-4"
-
               loading="lazy"
             />
           )}
@@ -1133,7 +1132,6 @@ const GKSeries = () => {
             src={gkHeroBanner}
             alt="GK Series Panel PC in harsh industrial environment"
             className="w-full h-full object-cover"
-
             width={1920}
             height={800}
           />
@@ -1455,7 +1453,6 @@ const GKSeries = () => {
                   src="/images/wix/005637_9307d91084e2433eb766e611c65c7518_d90cd4b5.jpg"
                   alt="GK Series SIM slot"
                   className="rounded-xl max-w-full"
-
                   loading="lazy"
                 />
               </div>

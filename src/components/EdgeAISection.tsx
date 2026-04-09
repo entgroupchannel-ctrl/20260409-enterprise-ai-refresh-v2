@@ -103,9 +103,7 @@ const EdgeAISection = () => {
                     src={slide.src}
                     alt={slide.alt}
                     className="w-full h-full object-cover"
-
                     loading="lazy"
-
                     width={1024}
                     height={768}
                   />

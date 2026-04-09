@@ -161,9 +161,7 @@ const ProductHighlights = () => {
                   src={cat.image}
                   alt={cat.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-
                   loading="lazy"
-
                   width={640}
                   height={512}
                 />

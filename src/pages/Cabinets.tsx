@@ -235,7 +235,6 @@ const Cabinets = () => {
                     src={model.image}
                     alt={model.name}
                     className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
-
                     loading="lazy"
                   />
                 </div>

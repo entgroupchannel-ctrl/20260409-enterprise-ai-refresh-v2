@@ -320,7 +320,6 @@ const VCloudPoint = () => {
                 src="/images/wix/0597a3_2ecc578ac2fa4e14b33ded599f607670_de783198.png"
                 alt="vCloudPoint Zero Client"
                 className="relative w-full rounded-2xl"
-
                 loading="eager"
               />
               <div className="mt-4">
@@ -328,7 +327,6 @@ const VCloudPoint = () => {
                   src="/images/wix/0597a3_cbb51860864645c59b77aaa661958cdc_8fbba592.png"
                   alt="vCloudPoint System Diagram"
                   className="w-full rounded-2xl"
-
                   loading="eager"
                 />
               </div>
@@ -506,7 +504,6 @@ const VCloudPoint = () => {
                 src="/images/wix/0597a3_4370580a88c646c88a88dcdf9e7b6dd7_cfa390fb.jpg"
                 alt="vMatrix Server Software"
                 className="w-full h-56 md:h-64 object-cover object-top"
-
                 loading="lazy"
               />
             </div>
@@ -515,7 +512,6 @@ const VCloudPoint = () => {
                 src="/images/wix/0597a3_f4c88e348b9e4916a08c834a965cc703_70b9fc48.jpg"
                 alt="vMatrix Control Panel"
                 className="w-full h-56 md:h-64 object-cover object-top"
-
                 loading="lazy"
               />
             </div>

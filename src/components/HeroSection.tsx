@@ -110,7 +110,6 @@ const HeroSection = () => {
           src={heroIndustrial}
           alt="Industrial Computing Production Line"
           className="w-full h-full object-cover"
-
           width={1920}
           height={900}
         />
@@ -185,7 +184,7 @@ const HeroSection = () => {
                   type="text"
                   placeholder="บอกความต้องการ เช่น Mini PC โรงงาน, Firewall SME..."
                   value={searchQuery}
-                  onChange={(e) => {
+                  onChange={(e) = /> {
                     setSearchQuery(e.target.value);
                     setSearchOpen(true);
                   }}>

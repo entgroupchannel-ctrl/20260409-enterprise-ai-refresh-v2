@@ -67,7 +67,6 @@ const ProductBanners = () => {
                     src={banner.backgroundImage}
                     alt={banner.title}
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
@@ -78,7 +77,6 @@ const ProductBanners = () => {
                     src={banner.productImage}
                     alt={banner.title}
                     className="max-h-full max-w-full object-contain drop-shadow-lg group-hover:scale-105 transition-transform duration-500"
-
                     loading="lazy"
                   />
                 </div>

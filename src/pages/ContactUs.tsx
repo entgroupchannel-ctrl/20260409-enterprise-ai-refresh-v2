@@ -483,7 +483,7 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
                       <textarea name="message" required rows={5} value={form.message} onChange={handleChange} placeholder={i.phMessage} className={`${inputClass} resize-none`} />
                     </div>
                     <label className="flex items-center gap-2 cursor-pointer">
-                      <input type="checkbox" checked={form.subscribe} onChange={(e) => setForm({ ...form, subscribe: e.target.checked })}
+                      <input type="checkbox" checked={form.subscribe} onChange={(e) = /> setForm({ ...form, subscribe: e.target.checked })}
                         className="rounded border-border text-primary focus:ring-primary/30 w-4 h-4" />
                       <span className="text-xs text-muted-foreground">{i.subscribe}</span>
                     </label>

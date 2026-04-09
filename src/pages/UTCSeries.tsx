@@ -289,7 +289,6 @@ const UTCSeries = () => {
                 src="/images/wix/0597a3_1045620b437c41d6ae8a1f76c791ca01_782dc747.png"
                 alt="UTC Series Industrial Panel PC"
                 className="relative w-full max-w-lg mx-auto drop-shadow-xl"
-
                 loading="eager"
               />
             </div>
@@ -354,7 +353,6 @@ const UTCSeries = () => {
                   src="/images/wix/0597a3_48b4b6dd4b0844f1996977be9733e597_a37ce2a5.png"
                   alt="UTC Square Screen Models"
                   className="w-full rounded-lg mb-4"
-
                   loading="lazy"
                 />
                 <ul className="space-y-2 text-sm text-muted-foreground">
@@ -384,7 +382,6 @@ const UTCSeries = () => {
                   src="/images/wix/0597a3_52951cbca38c439f8abc10f9e94fa03f_b157e1d3.png"
                   alt="UTC Wide Screen Models"
                   className="w-full rounded-lg mb-4"
-
                   loading="lazy"
                 />
                 <ul className="space-y-2 text-sm text-muted-foreground">
@@ -410,7 +407,6 @@ const UTCSeries = () => {
               src="/images/wix/0597a3_48fd1fb952d44775b7bbc10381cd8233_354919d7.png"
               alt="UTC Multi-Display Setup"
               className="w-full rounded-lg"
-
               loading="lazy"
             />
           </div>

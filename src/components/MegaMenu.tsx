@@ -337,7 +337,6 @@ const MegaMenu = ({
                           src={active.featured.image}
                           alt={active.featured.title}
                           className="h-16 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
-
                           loading="lazy"
                         />
                       </div>
@@ -418,7 +417,6 @@ const MegaMenu = ({
                       src={promo.image}
                       alt={promo.title}
                       className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
