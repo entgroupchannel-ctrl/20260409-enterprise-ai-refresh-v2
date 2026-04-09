@@ -282,9 +282,11 @@ export default function UserDashboard() {
     try {
       const { error } = await supabase.from('quote_messages').insert({
         quote_id: quoteId,
+        sender_id: user?.id || null,
         sender_name: authProfile?.full_name || user?.email || 'ลูกค้า',
         sender_role: 'customer',
         content: messageText,
+        message_type: 'text',
       });
       if (error) throw error;
       setMessageText('');
