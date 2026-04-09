@@ -1,7 +1,7 @@
 // src/pages/customer/QuoteRequestForm.tsx
 // Auto-fills from user profile when logged in, compact layout
 
-import { useState, useEffect, memo } from 'react';
+import { useState, useEffect, useRef, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
