@@ -1,5 +1,5 @@
 // src/pages/customer/QuoteRequestForm.tsx
-// Auto-fills from user profile when logged in, compact layout
+// Auto-fills from user profile + cart items when logged in
 
 import { useState, useEffect, useRef, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -8,16 +8,18 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
-import { Plus, Trash2, Send, ArrowLeft, CheckCircle2, Building, User, Package } from 'lucide-react';
+import { useCart } from '@/hooks/useCart';
+import { Plus, Trash2, Send, ArrowLeft, CheckCircle2, Building, User, Package, ShoppingCart, Database } from 'lucide-react';
 
 interface ProductItem {
   model: string;
   description: string;
   qty: number;
+  specs: string; // placeholder สำหรับเชื่อมคลังสินค้าอนาคต
+  fromCart: boolean;
 }
 
 const CompactField = memo(({ label, value, onChange, type = 'text', placeholder = '', required = false, disabled = false }: {
@@ -32,6 +34,7 @@ CompactField.displayName = 'CompactField';
 
 export default function QuoteRequestForm() {
   const { user, profile: authProfile } = useAuth();
+  const { items: cartItems, clearCart } = useCart();
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -45,6 +48,7 @@ export default function QuoteRequestForm() {
   const [submitting, setSubmitting] = useState(false);
   const submitGuard = useRef(false);
   const [profileLoaded, setProfileLoaded] = useState(false);
+  const [cartLoaded, setCartLoaded] = useState(false);
   const [formData, setFormData] = useState({
     customer_name: '',
     customer_email: '',
@@ -56,9 +60,7 @@ export default function QuoteRequestForm() {
     notes: '',
   });
 
-  const [products, setProducts] = useState<ProductItem[]>([
-    { model: '', description: '', qty: 1 },
-  ]);
+  const [products, setProducts] = useState<ProductItem[]>([]);
 
   // Auto-fill from user_profiles when logged in
   useEffect(() => {
@@ -91,6 +93,24 @@ export default function QuoteRequestForm() {
     })();
   }, [user, authProfile]);
 
+  // Pre-fill products from cart
+  useEffect(() => {
+    if (cartLoaded) return;
+    if (cartItems.length > 0) {
+      const cartProducts: ProductItem[] = cartItems.map(item => ({
+        model: item.product_model,
+        description: item.product_name || item.product_description || '',
+        qty: item.quantity,
+        specs: '', // TODO: ดึงจากระบบคลังสินค้า
+        fromCart: true,
+      }));
+      setProducts(cartProducts);
+      setCartLoaded(true);
+    } else if (products.length === 0) {
+      setProducts([{ model: '', description: '', qty: 1, specs: '', fromCart: false }]);
+    }
+  }, [cartItems, cartLoaded]);
+
   const handleFormChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
@@ -101,7 +121,7 @@ export default function QuoteRequestForm() {
     setProducts(updated);
   };
 
-  const addProduct = () => setProducts([...products, { model: '', description: '', qty: 1 }]);
+  const addProduct = () => setProducts([...products, { model: '', description: '', qty: 1, specs: '', fromCart: false }]);
 
   const removeProduct = (index: number) => {
     if (products.length === 1) return;
@@ -125,29 +145,36 @@ export default function QuoteRequestForm() {
     setSubmitting(true);
     try {
       const insertPayload = {
-          customer_name: formData.customer_name,
-          customer_email: formData.customer_email,
-          customer_phone: formData.customer_phone || null,
-          customer_company: formData.customer_company || null,
-          customer_address: formData.customer_address || null,
-          customer_tax_id: formData.customer_tax_id || null,
-          customer_line: formData.customer_line || null,
-          notes: formData.notes || null,
-          products: validProducts.map(p => ({
-            model: p.model, description: p.description, qty: p.qty,
-            unit_price: 0, discount_percent: 0, line_total: 0,
-          })),
-          status: 'pending',
-          subtotal: 0,
-          vat_amount: 0,
-          grand_total: 0,
-          created_by: user?.id || null,
-        };
+        customer_name: formData.customer_name,
+        customer_email: formData.customer_email,
+        customer_phone: formData.customer_phone || null,
+        customer_company: formData.customer_company || null,
+        customer_address: formData.customer_address || null,
+        customer_tax_id: formData.customer_tax_id || null,
+        customer_line: formData.customer_line || null,
+        notes: formData.notes || null,
+        products: validProducts.map(p => ({
+          model: p.model, description: p.description, qty: p.qty,
+          specs: p.specs || null,
+          unit_price: 0, discount_percent: 0, line_total: 0,
+        })),
+        status: 'pending',
+        subtotal: 0,
+        vat_amount: 0,
+        grand_total: 0,
+        created_by: user?.id || null,
+      };
       const { data, error } = await (supabase.from('quote_requests') as any)
         .insert([insertPayload])
         .select().single();
 
       if (error) throw error;
+
+      // Clear cart after successful submission
+      if (cartItems.length > 0) {
+        await clearCart();
+      }
+
       toast({ title: 'ส่งคำขอสำเร็จ', description: `เลขที่ ${data.quote_number}` });
       navigate(user ? '/my-quotes' : '/');
     } catch (error: any) {
@@ -159,6 +186,7 @@ export default function QuoteRequestForm() {
   };
 
   const isLoggedIn = !!user;
+  const hasCartItems = products.some(p => p.fromCart);
 
   // Show loading while checking auth
   if (!user) {
@@ -190,7 +218,6 @@ export default function QuoteRequestForm() {
 
           {/* Left: Customer info */}
           <div className="space-y-4">
-            {/* Profile summary (logged in) */}
             {isLoggedIn && profileLoaded && (
               <div className="flex items-center gap-2 p-2 bg-primary/5 border border-primary/20 rounded-lg">
                 <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
@@ -229,9 +256,16 @@ export default function QuoteRequestForm() {
             <Card>
               <CardContent className="pt-4 pb-3">
                 <div className="flex items-center justify-between mb-3">
-                  <p className="text-xs font-semibold text-muted-foreground flex items-center gap-1">
-                    <Package className="w-3 h-3" /> รายการสินค้า
-                  </p>
+                  <div className="flex items-center gap-2">
+                    <p className="text-xs font-semibold text-muted-foreground flex items-center gap-1">
+                      <Package className="w-3 h-3" /> รายการสินค้า
+                    </p>
+                    {hasCartItems && (
+                      <span className="inline-flex items-center gap-1 text-[10px] text-primary bg-primary/10 px-1.5 py-0.5 rounded">
+                        <ShoppingCart className="w-2.5 h-2.5" /> จากตะกร้า
+                      </span>
+                    )}
+                  </div>
                   <Button type="button" variant="outline" size="sm" onClick={addProduct} className="h-7 text-xs">
                     <Plus className="w-3 h-3 mr-1" /> เพิ่ม
                   </Button>
@@ -241,16 +275,19 @@ export default function QuoteRequestForm() {
                   {/* Header */}
                   <div className="grid grid-cols-12 gap-2 text-[10px] text-muted-foreground font-medium px-1">
                     <span className="col-span-1">#</span>
-                    <span className="col-span-4">รุ่น/Model *</span>
-                    <span className="col-span-5">รายละเอียด</span>
+                    <span className="col-span-3">รุ่น/Model *</span>
+                    <span className="col-span-3">รายละเอียด</span>
+                    <span className="col-span-3 flex items-center gap-0.5">
+                      <Database className="w-2.5 h-2.5" /> สเปก
+                    </span>
                     <span className="col-span-1 text-center">จำนวน</span>
                     <span className="col-span-1" />
                   </div>
 
                   {products.map((product, index) => (
-                    <div key={index} className="grid grid-cols-12 gap-2 items-center">
+                    <div key={index} className={`grid grid-cols-12 gap-2 items-center ${product.fromCart ? 'bg-primary/5 rounded-md p-1 -mx-1' : ''}`}>
                       <span className="col-span-1 text-xs text-muted-foreground text-center">{index + 1}</span>
-                      <div className="col-span-4">
+                      <div className="col-span-3">
                         <Input
                           value={product.model}
                           onChange={e => handleProductChange(index, 'model', e.target.value)}
@@ -259,12 +296,21 @@ export default function QuoteRequestForm() {
                           required
                         />
                       </div>
-                      <div className="col-span-5">
+                      <div className="col-span-3">
                         <Input
                           value={product.description}
                           onChange={e => handleProductChange(index, 'description', e.target.value)}
-                          placeholder="รายละเอียดเพิ่มเติม..."
+                          placeholder="รายละเอียด..."
                           className="h-8 text-sm"
+                        />
+                      </div>
+                      <div className="col-span-3">
+                        <Input
+                          value={product.specs}
+                          onChange={e => handleProductChange(index, 'specs', e.target.value)}
+                          placeholder="รอเชื่อมระบบคลัง..."
+                          className="h-8 text-sm text-muted-foreground"
+                          disabled
                         />
                       </div>
                       <div className="col-span-1">
@@ -287,6 +333,12 @@ export default function QuoteRequestForm() {
                     </div>
                   ))}
                 </div>
+
+                {/* Future integration note */}
+                <div className="mt-3 flex items-center gap-1.5 text-[10px] text-muted-foreground/60">
+                  <Database className="w-3 h-3" />
+                  <span>คอลัมน์ "สเปก" จะเชื่อมกับระบบคลังสินค้าอัตโนมัติในอนาคต</span>
+                </div>
               </CardContent>
             </Card>
 
@@ -308,6 +360,7 @@ export default function QuoteRequestForm() {
             <div className="flex items-center justify-between bg-card border border-border rounded-lg p-3">
               <div className="text-xs text-muted-foreground">
                 {products.filter(p => p.model.trim()).length} รายการสินค้า
+                {hasCartItems && <span className="ml-1 text-primary">(จากตะกร้า)</span>}
               </div>
               <div className="flex gap-2">
                 <Button type="button" variant="ghost" size="sm" onClick={() => navigate(-1)} disabled={submitting}>ยกเลิก</Button>
