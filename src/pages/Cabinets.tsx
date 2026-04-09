@@ -339,7 +339,7 @@ const Cabinets = () => {
             ))}
           </div>
           <div className="text-center">
-            <Button size="lg" onClick={() => { setCustomOpen(true); setCustomSubmitted(false); }}>
+            <Button size="lg" onClick={() => { setCustomOpen(true); setCustomSubmitted(false); }}
 
               <Settings className="w-4 h-4 mr-2" /> ขอใบเสนอราคา Custom Cabinet
             </Button>
@@ -410,7 +410,7 @@ const Cabinets = () => {
                     <select name="material" value={customForm.material} onChange={handleCustomChange} className={inputClass}>
 
                       <option value="">เลือกวัสดุ</option>
-                      {materialOptions.map((m) => <option key={m} value={m}>{m}</option>)}>
+                      {materialOptions.map((m) => <option key={m} value={m}>{m}</option>)}
 
                     </select>
                   </div>
@@ -419,7 +419,7 @@ const Cabinets = () => {
                     <select name="installation" value={customForm.installation} onChange={handleCustomChange} className={inputClass}>
 
                       <option value="">เลือกรูปแบบ</option>
-                      {installOptions.map((o) => <option key={o} value={o}>{o}</option>)}>
+                      {installOptions.map((o) => <option key={o} value={o}>{o}</option>)}
 
                     </select>
                   </div>
@@ -428,7 +428,7 @@ const Cabinets = () => {
                     <select name="lock" value={customForm.lock} onChange={handleCustomChange} className={inputClass}>
 
                       <option value="">เลือกประเภทกุญแจ</option>
-                      {lockOptions.map((l) => <option key={l} value={l}>{l}</option>)}>
+                      {lockOptions.map((l) => <option key={l} value={l}>{l}</option>)}
 
                     </select>
                   </div>

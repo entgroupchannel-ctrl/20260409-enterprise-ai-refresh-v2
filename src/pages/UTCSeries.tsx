@@ -143,7 +143,7 @@ const PriceTable = ({ title, icon: Icon, models, subTitle }: {
           </div>
           <div className="text-left">
             <h3 className="font-bold text-foreground">{title}</h3>
-            {subTitle && <p className="text-xs text-primary/70">{subTitle}</p>}>
+            {subTitle && <p className="text-xs text-primary/70">{subTitle}</p>}
 
           </div>
         </div>

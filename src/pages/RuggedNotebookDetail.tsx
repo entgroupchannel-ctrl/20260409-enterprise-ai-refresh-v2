@@ -27,7 +27,7 @@ const RelatedCard = ({ nb }: { nb: RuggedNotebook }) => (
       <p className="font-mono text-xs text-muted-foreground">{nb.model}</p>
       <h3 className="text-sm font-bold line-clamp-2">{nb.title}</h3>
       <div className="flex flex-wrap gap-1">
-        {nb.badges.slice(0, 2).map((b) => <Badge key={b} variant="outline" className="text-[10px]">{b}</Badge>)}>
+        {nb.badges.slice(0, 2).map((b) => <Badge key={b} variant="outline" className="text-[10px]">{b}</Badge>)}
 
       </div>
       {nb.priceStart ? (
@@ -106,7 +106,7 @@ const RuggedNotebookDetail = () => {
             <div className="flex flex-wrap gap-2">
               <Badge variant="secondary">{nb.os}</Badge>
               <Badge variant="outline">{nb.screenSize}</Badge>
-              {nb.badges.map((b) => <Badge key={b} variant="outline" className="text-xs">{b}</Badge>)}>
+              {nb.badges.map((b) => <Badge key={b} variant="outline" className="text-xs">{b}</Badge>)}
 
             </div>
           </div>

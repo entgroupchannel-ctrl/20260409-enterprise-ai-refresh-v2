@@ -917,7 +917,6 @@ const MiniPC = () => {
                     ? "bg-primary text-primary-foreground border-primary"
                     : "bg-secondary/50 text-foreground/70 border-border hover:border-primary/30"
                 }`}
-              >
                 <div>{cat.label}</div>
                 <div className="text-[10px] opacity-70">{cat.desc}</div>
               </a>
@@ -966,8 +965,7 @@ const MiniPC = () => {
                     value={filterCat}
                     onChange={(e) => handleFilterCat(e.target.value)}
                     className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none"
-                  >
-                    {priceCategories.map((c) => <option key={c} value={c}>{c}</option>)}>
+                    {priceCategories.map((c) => <option key={c} value={c}>{c}</option>)}
 
                   </select>
                 </div>
@@ -978,8 +976,7 @@ const MiniPC = () => {
                     value={filterCpu}
                     onChange={(e) => handleFilterCpu(e.target.value)}
                     className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none"
-                  >
-                    {cpuLevels.map((c) => <option key={c} value={c}>{c}</option>)}>
+                    {cpuLevels.map((c) => <option key={c} value={c}>{c}</option>)}
 
                   </select>
                 </div>
@@ -990,8 +987,7 @@ const MiniPC = () => {
                     value={filterPrice}
                     onChange={(e) => handleFilterPrice(Number(e.target.value))}
                     className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none"
-                  >
-                    {priceRanges.map((r, i) => <option key={i} value={i}>{r.label}</option>)}>
+                    {priceRanges.map((r, i) => <option key={i} value={i}>{r.label}</option>)}
 
                   </select>
                 </div>
@@ -1054,7 +1050,6 @@ const MiniPC = () => {
                     disabled={currentPage === 1}
                     onClick={() => setCurrentPage((p) => p - 1)}
                     className="text-xs"
-                  >
                     ← ก่อนหน้า
                   </Button>
                   {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
@@ -1066,7 +1061,6 @@ const MiniPC = () => {
                           ? "bg-primary text-primary-foreground"
                           : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                       }`}
-                    >
                       {page}
                     </button>
                   ))}
@@ -1076,7 +1070,6 @@ const MiniPC = () => {
                     disabled={currentPage === totalPages}
                     onClick={() => setCurrentPage((p) => p + 1)}
                     className="text-xs"
-                  >
                     ถัดไป →
                   </Button>
                 </div>

@@ -82,7 +82,7 @@ const PromoBanners = () => {
           <div className="relative bg-secondary/20 flex items-center justify-center p-8 md:w-2/5">
             {featured.badge && (
               <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-destructive text-destructive-foreground inline-flex items-center gap-1">
-                <Flame size={10} /> {featured.badge}>
+                <Flame size={10} /> {featured.badge}
 
               </span>
             )}
@@ -106,7 +106,7 @@ const PromoBanners = () => {
             <ul className="space-y-1 mb-4">
               {featured.highlights.map((h) => (
                 <li key={h} className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <span className="text-primary">✓</span> {h}>
+                  <span className="text-primary">✓</span> {h}
 
                 </li>
               ))}
@@ -160,7 +160,7 @@ const PromoBanners = () => {
                 <ul className="space-y-0.5 mb-3">
                   {promo.highlights.slice(0, 2).map((h) => (
                     <li key={h} className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                      <span className="text-primary text-[10px]">✓</span> {h}>
+                      <span className="text-primary text-[10px]">✓</span> {h}
 
                     </li>
                   ))}

@@ -54,11 +54,11 @@ const Blog = () => {
                 <p className="text-sm text-muted-foreground line-clamp-2">{post.excerpt}</p>
                 <div className="flex items-center gap-4 text-xs text-muted-foreground">
                   <span className="flex items-center gap-1">
-                    <Clock className="w-3 h-3" /> {post.readTime}>
+                    <Clock className="w-3 h-3" /> {post.readTime}
 
                   </span>
                   <span className="flex items-center gap-1">
-                    <User className="w-3 h-3" /> {post.author}>
+                    <User className="w-3 h-3" /> {post.author}
 
                   </span>
                 </div>

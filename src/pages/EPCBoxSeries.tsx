@@ -444,7 +444,6 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
                   className={`w-16 h-16 object-contain rounded-lg p-1 border-2 transition-all cursor-pointer ${
                     i === activeImg ? "border-primary bg-primary/10" : "border-transparent bg-background/50 hover:border-primary/40"
                   }`}
-                >
                   <img src={img} alt="" className="w-full h-full object-contain" loading="lazy" />
                 </button>
               ))}
@@ -455,7 +454,6 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
             target="_blank"
             rel="noopener noreferrer"
             className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity"
-          >
             Datasheet <ExternalLink size={14} />
           </a>
         </div>
@@ -737,7 +735,7 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
           <button key={item.id} onClick={() => {
             const el = document.getElementById(item.id);
             if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-          }} className={`p-5 rounded-xl border ${item.color} text-left hover:scale-[1.02] transition-transform`}>
+          }} className={`p-5 rounded-xl border ${item.color} text-left hover:scale-[1.02] transition-transform`}
 
             <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-2"><item.Icon size={22} className="text-primary" /></div>
             <p className="font-bold text-foreground text-sm mb-1">{item.title}</p>
@@ -814,19 +812,16 @@ const EPCBoxSeries = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
-                >
                   CESIPC E-Catalog <ExternalLink size={16} />
                 </a>
                 <a
                   href="#pricing"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold hover:bg-muted transition-colors">
                   ดูราคาสินค้า
-                >
                 </a>
                 <a
                   href="#10xa"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold hover:bg-muted transition-colors"
-                >
                   ดูสินค้าทั้งหมด <ChevronDown size={16} />
                 </a>
               </div>
@@ -924,7 +919,6 @@ const EPCBoxSeries = () => {
                 key={s.id}
                 href={`#${s.id}`}
                 className="shrink-0 px-4 py-2 rounded-lg text-sm font-medium border border-border hover:border-primary/50 hover:bg-primary/5 text-foreground transition-all"
-              >
                 {s.name.replace(" Series", "")}
               </a>
             ))}
@@ -932,7 +926,6 @@ const EPCBoxSeries = () => {
               href="#pricing"
               className="shrink-0 px-4 py-2 rounded-lg text-sm font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-opacity">
               ราคา
-            >
             </a>
           </div>
         </div>
@@ -1144,13 +1137,11 @@ const EPCBoxSeries = () => {
             <button
               onClick={() => setShowLineQR(true)}
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[hsl(142,70%,45%)] text-white font-bold text-lg hover:opacity-90 transition-opacity"
-            >
               LINE @entgroup
             </button>
             <Link
               to="/"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-border text-foreground font-bold text-lg hover:bg-muted transition-colors"
-            >
               <ArrowLeft size={18} /> กลับหน้าหลัก
             </Link>
           </div>

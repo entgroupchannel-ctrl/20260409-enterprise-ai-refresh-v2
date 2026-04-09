@@ -378,7 +378,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: Firewa
             <ul className="space-y-1">
               {model.extra.map((e) => (
                 <li key={e} className="text-xs text-muted-foreground flex items-start gap-1.5">
-                  <span className="text-primary mt-0.5">•</span>{e}>
+                  <span className="text-primary mt-0.5">•</span>{e}
 
                 </li>
               ))}

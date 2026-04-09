@@ -366,7 +366,6 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                       ? "bg-primary text-primary-foreground shadow-md"
                       : "bg-background border border-border text-muted-foreground hover:border-primary/40"
                   }`}
-                >
                   ≥{n}
                 </button>
               ))}
@@ -383,7 +382,6 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                   ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40"
                   : "bg-background border border-border text-muted-foreground hover:border-primary/40"
               }`}
-            >
               {filterGpio === true ? "✓ มี GPIO" : "มี GPIO"}
             </button>
           </div>
@@ -398,7 +396,6 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                   ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40"
                   : "bg-background border border-border text-muted-foreground hover:border-primary/40"
               }`}
-            >
               {filterSim === true ? "✓ รองรับ SIM" : "รองรับ SIM"}
             </button>
           </div>
@@ -410,7 +407,6 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
               value={filterGen || ""}
               onChange={(e) => setFilterGen(e.target.value || null)}
               className="w-full py-2 px-3 rounded-lg bg-background border border-border text-sm text-foreground outline-none focus:ring-2 focus:ring-primary/30"
-            >
               <option value="">ทั้งหมด</option>
               {genOptions.map((g) => (
                 <option key={g} value={g}>{g}</option>
@@ -494,7 +490,6 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                     key={row.name}
                     className={`border-b border-border/50 transition-colors cursor-pointer ${catStyle}`}
                     onClick={() => handleTabChange(row.name.toLowerCase())}
-                  >
                     <td className="p-4 sticky left-0 font-bold text-foreground" style={{ background: 'inherit' }}>
 
                       <div className="flex flex-col gap-1">
@@ -741,7 +736,6 @@ const GTSeries = () => {
                 <span
                   key={item.word}
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 text-white font-bold text-base tracking-wide"
-                >
                   <item.Icon size={18} className="text-primary" />
                   {item.word}
                 </span>
@@ -773,7 +767,6 @@ const GTSeries = () => {
               <button
                 onClick={() => handleTabChange("overview")}
                 className="inline-flex items-center justify-center gap-2 px-6 md:px-8 py-3 md:py-3.5 rounded-full bg-primary text-primary-foreground font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-primary/25"
-              >
                 ดูรุ่นทั้งหมด <ArrowLeft size={16} className="rotate-180" />
               </button>
               <button
@@ -782,7 +775,6 @@ const GTSeries = () => {
                   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
                 }}
                 className="inline-flex items-center justify-center gap-2 px-5 md:px-6 py-3 md:py-3.5 rounded-full border-2 border-white/30 text-white font-bold text-sm hover:bg-white/10 transition-all group"
-              >
                 <Filter size={16} />
                 <span>เปรียบเทียบสเปก</span>
                 <span className="hidden sm:inline px-2 py-0.5 rounded-full bg-white/15 text-[10px] font-bold tracking-wide uppercase group-hover:bg-white/25 transition-colors">Smart Filter</span>
@@ -840,7 +832,6 @@ const GTSeries = () => {
                     ? "bg-primary text-primary-foreground shadow-lg"
                     : "bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground border border-border"
                 }`}
-              >
                 {tab.label}
                 {tab.id === "gt1400" && (
                   <span className="ml-1.5 px-1.5 py-0.5 rounded-full bg-primary-foreground/20 text-[10px]">NEW</span>
@@ -859,7 +850,6 @@ const GTSeries = () => {
                     key={model.name}
                     onClick={() => model.tab ? handleTabChange(model.tab) : undefined}
                     className={`group card-surface overflow-hidden hover:border-primary/30 transition-all hover:-translate-y-1 text-left cursor-pointer ${selectedProducts.has(model.name) ? "ring-2 ring-primary border-primary/50" : ""}`}
-                  >
                     <ModelCard model={model} onQuote={setQuoteProduct} selected={selectedProducts.has(model.name)} onToggleSelect={toggleSelect} />
                   </button>
                 ))}
@@ -1261,7 +1251,6 @@ const GTSeries = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-4 rounded-xl border border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition-colors group"
-                  >
                     <div className="shrink-0 w-10 h-10 rounded-full bg-red-600 flex items-center justify-center">
                       <Play className="text-white ml-0.5" size={18} fill="white" />
                     </div>
@@ -1288,7 +1277,6 @@ const GTSeries = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
-                >
                   <Download size={16} /> ดาวน์โหลด Datasheet GT1000
                 </a>
               </div>
@@ -1703,7 +1691,6 @@ const GTSeries = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-4 rounded-xl border border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition-colors group"
-                  >
                     <div className="shrink-0 w-10 h-10 rounded-full bg-red-600 flex items-center justify-center">
                       <Play className="text-white ml-0.5" size={18} fill="white" />
                     </div>
@@ -1725,7 +1712,6 @@ const GTSeries = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
-                >
                   <Download size={16} /> Datasheet GT2000 Celeron
                 </a>
                 <a
@@ -1733,7 +1719,6 @@ const GTSeries = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-surface-hover transition-colors"
-                >
                   <Download size={16} /> Datasheet GT2000 Core i5
                 </a>
               </div>
@@ -2077,7 +2062,6 @@ const GTSeries = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-4 rounded-xl border border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition-colors group"
-                  >
                     <div className="shrink-0 w-10 h-10 rounded-full bg-red-600 flex items-center justify-center">
                       <Play className="text-white ml-0.5" size={18} fill="white" />
                     </div>
@@ -2158,7 +2142,6 @@ const GTSeries = () => {
                                 ? "bg-primary text-primary-foreground"
                                 : "bg-muted/50 text-muted-foreground hover:bg-muted"
                             }`}
-                          >
                             {p + 1}
                           </button>
                         ))}
@@ -2183,7 +2166,6 @@ const GTSeries = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
-                >
                   <Download size={16} /> ดาวน์โหลด Datasheet GT3000
                 </a>
               </div>
@@ -2779,7 +2761,7 @@ const GTSeries = () => {
                       { icon: Bot, title: "Robot & Automation", desc: "Handshake กับ PLC, Robot Controller ผ่าน Digital I/O ไม่ต้องใช้ fieldbus ราคาแพง" },
                     ].map((item, i) => (
                       <div key={i} className="p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors border border-border/50">
-                        {typeof item.icon === "string" ? <span className="text-2xl">{item.icon}</span> : <item.icon size={24} className="text-primary" />}>
+                        {typeof item.icon === "string" ? <span className="text-2xl">{item.icon}</span> : <item.icon size={24} className="text-primary" />}
 
                         <h4 className="font-bold text-foreground text-sm mt-2">{item.title}</h4>
                         <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{item.desc}</p>
@@ -4762,7 +4744,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
 
                           <td className="p-3 font-medium text-foreground">
                             {item.cpu}
-                            {item.tag && <span className="ml-2 text-xs text-primary font-bold">{item.tag}</span>}>
+                            {item.tag && <span className="ml-2 text-xs text-primary font-bold">{item.tag}</span>}
 
                           </td>
                           <td className="p-3 text-muted-foreground">{item.spec}</td>

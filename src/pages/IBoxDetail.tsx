@@ -226,7 +226,7 @@ const IBoxDetail = () => {
 
                       <TableCell className="font-medium">
                         <div className="flex items-center gap-2">
-                          <Icon className="w-4 h-4 text-primary" /> {label}>
+                          <Icon className="w-4 h-4 text-primary" /> {label}
 
                         </div>
                       </TableCell>

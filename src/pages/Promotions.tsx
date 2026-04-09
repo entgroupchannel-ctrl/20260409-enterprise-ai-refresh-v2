@@ -250,7 +250,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
           )}
           <span className={`absolute top-3 right-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold ${sc.color}`}>
 
-            <sc.icon size={10} /> {sc.label}>
+            <sc.icon size={10} /> {sc.label}
 
           </span>
           {promo.ctaHref ? (
@@ -291,7 +291,6 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
           <button
             onClick={() => setExpanded(!expanded)}
             className="flex items-center gap-1 text-xs text-primary font-medium mb-3 hover:underline"
-          >
             {expanded ? "ซ่อนรายละเอียด" : "ดูรายละเอียดเพิ่มเติม"}
             <ChevronDown size={14} className={`transition-transform duration-200 ${expanded ? "rotate-180" : ""}`} />
           </button>
@@ -301,7 +300,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
             <ul className="space-y-1.5 mb-4">
               {promo.highlights.map((h) => (
                 <li key={h} className="flex items-start gap-2 text-sm text-muted-foreground">
-                  <span className="text-primary mt-0.5">✓</span> {h}>
+                  <span className="text-primary mt-0.5">✓</span> {h}
 
                 </li>
               ))}
@@ -324,7 +323,6 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
                     ? "bg-primary text-primary-foreground"
                     : "bg-secondary text-foreground"
                 }`}
-              >
                 {promo.ctaLabel}
               </LineQRButton>
             ) : (
@@ -337,7 +335,6 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
                     ? "bg-primary text-primary-foreground"
                     : "bg-secondary text-foreground"
                 }`}
-              >
                 {promo.ctaLabel}
               </a>
             )}
@@ -347,7 +344,6 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium border border-border bg-card text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
-              >
                 <FileDown size={14} /> PDF
               </a>
             )}

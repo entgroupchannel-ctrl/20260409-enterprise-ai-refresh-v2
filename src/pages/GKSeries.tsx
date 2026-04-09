@@ -612,7 +612,6 @@ const PaginatedPriceTable = ({ rows, perPage, totalPages }: {
                 className={`h-7 w-7 rounded text-xs font-medium transition-colors ${
                   p === page ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground hover:bg-muted"
                 }`}
-              >
                 {p}
               </button>
             ))}
@@ -675,7 +674,6 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity"
-                >
                   {ds.label} <ExternalLink size={10} />
                 </a>
               ))}
@@ -693,8 +691,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
           <button
             onClick={() => onQuote(model.name)}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors mb-6"
-          >
-            <ExternalLink size={14} /> ขอใบเสนอราคา {model.name}>
+            <ExternalLink size={14} /> ขอใบเสนอราคา {model.name}
 
           </button>
 
@@ -741,14 +738,12 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
             <TabsTrigger
               value="spec"
               className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none px-6 py-3 text-sm font-semibold shrink-0"
-            >
               ►Specification
             </TabsTrigger>
             {model.priceTable.length > 0 && (
               <TabsTrigger
                 value="price"
                 className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none px-6 py-3 text-sm font-semibold shrink-0"
-              >
                 ►ราคา
               </TabsTrigger>
             )}
@@ -756,7 +751,6 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
               <TabsTrigger
                 value="video"
                 className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none px-6 py-3 text-sm font-semibold shrink-0"
-              >
                 ►Video
               </TabsTrigger>
             )}
@@ -833,7 +827,6 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                 <button
                   onClick={() => onQuote(model.name)}
                   className="shrink-0 ml-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"
-                >
                   <ExternalLink size={14} /> ขอใบเสนอราคา
                 </button>
               </div>
@@ -1081,7 +1074,7 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
           <button key={item.model} onClick={() => {
             const el = document.getElementById(gkModels.find(m => m.name === item.model)?.id || "");
             if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-          }} className={`p-5 rounded-xl border ${item.color} text-left hover:scale-[1.02] transition-transform`}>
+          }} className={`p-5 rounded-xl border ${item.color} text-left hover:scale-[1.02] transition-transform`}
 
             <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-2"><item.Icon size={22} className="text-primary" /></div>
             <p className="font-bold text-foreground text-sm mb-1">{item.title}</p>
@@ -1176,19 +1169,16 @@ const GKSeries = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
-              >
                 Product Overview <ExternalLink size={16} />
               </a>
               <a
                 href="#comparison"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-background/60 backdrop-blur-sm border border-border text-foreground font-semibold hover:bg-muted transition-colors">
                 เปรียบเทียบรุ่น
-              >
               </a>
               <a
                 href="#gk1004"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-background/60 backdrop-blur-sm border border-border text-foreground font-semibold hover:bg-muted transition-colors"
-              >
                 ดูสินค้าทั้งหมด <ChevronDown size={16} />
               </a>
             </div>
@@ -1242,7 +1232,6 @@ const GKSeries = () => {
                 key={m.id}
                 href={`#${m.id}`}
                 className="shrink-0 px-4 py-2 rounded-lg text-sm font-medium border border-border hover:border-primary/50 hover:bg-primary/5 text-foreground transition-all"
-              >
                 {m.name} <span className="text-muted-foreground text-xs">({m.screenSize})</span>
               </a>
             ))}
@@ -1375,7 +1364,6 @@ const GKSeries = () => {
                         ? "bg-primary text-primary-foreground border-primary"
                         : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"
                     }`}
-                  >
                     {tab}
                   </button>
                 ))}
@@ -1559,13 +1547,11 @@ const GKSeries = () => {
             <button
               onClick={() => setShowLineQR(true)}
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[hsl(142,70%,45%)] text-white font-bold text-lg hover:opacity-90 transition-opacity"
-            >
               LINE @entgroup
             </button>
             <Link
               to="/"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-border text-foreground font-bold text-lg hover:bg-muted transition-colors"
-            >
               <ArrowLeft size={18} /> กลับหน้าหลัก
             </Link>
           </div>

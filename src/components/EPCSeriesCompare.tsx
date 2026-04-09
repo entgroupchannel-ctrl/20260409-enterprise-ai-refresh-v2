@@ -132,12 +132,12 @@ const EPCSeriesCompare = ({ onQuote }: Props) => {
           <Filter size={12} className="text-muted-foreground" />
           <select value={displayFilter} onChange={(e) => setDisplayFilter(e.target.value)}
             className="text-[11px] border border-border rounded-md px-2 py-1 bg-background text-foreground">
-            {displayTypes.map((d) => <option key={d} value={d}>{d === "ทั้งหมด" ? "ทุกประเภทจอ" : d}</option>)}>
+            {displayTypes.map((d) => <option key={d} value={d}>{d === "ทั้งหมด" ? "ทุกประเภทจอ" : d}</option>)}
 
           </select>
           <select value={cpuFilter} onChange={(e) => setCpuFilter(e.target.value)}
             className="text-[11px] border border-border rounded-md px-2 py-1 bg-background text-foreground">
-            {cpuTiers.map((t) => <option key={t} value={t}>{cpuTierLabels[t]}</option>)}>
+            {cpuTiers.map((t) => <option key={t} value={t}>{cpuTierLabels[t]}</option>)}
 
           </select>
           <span className="text-[10px] text-muted-foreground">{filtered.length}/{allModels.length} รายการ</span>

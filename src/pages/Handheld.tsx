@@ -54,12 +54,10 @@ const HandheldCard = ({
     className={`card-surface overflow-hidden group transition-all block ${
       selected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"
     }`}
-  >
     <div className="relative bg-secondary/30 p-4 flex items-center justify-center h-52">
       <button
         onClick={(e) => { e.preventDefault(); e.stopPropagation(); onToggleSelect(product.model); }}
         className="absolute top-3 left-3 z-10"
-      >
         <Checkbox checked={selected} className="h-5 w-5" />
       </button>
       <img
@@ -84,7 +82,7 @@ const HandheldCard = ({
         <Button variant="outline" size="sm" className="flex-1" asChild>
           <span><Smartphone className="w-3.5 h-3.5 mr-1.5" /> ดูสเปก</span>
         </Button>
-        <Button size="sm" className="flex-1" onClick={(e) => { e.preventDefault(); e.stopPropagation(); onQuote(product.model); }}>
+        <Button size="sm" className="flex-1" onClick={(e) => { e.preventDefault(); e.stopPropagation(); onQuote(product.model); }}
 
           <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอราคา
         </Button>
@@ -189,7 +187,6 @@ const Handheld = () => {
                     ? "bg-primary text-primary-foreground shadow-sm"
                     : "bg-muted text-muted-foreground hover:bg-muted/80"
                 }`}
-              >
                 {opt.label}
               </button>
             ))}
@@ -259,7 +256,6 @@ const Handheld = () => {
             variant="secondary"
             className="rounded-full font-bold"
             onClick={() => setShowMultiQuote(true)}
-          >
             <FileText className="w-4 h-4 mr-1.5" /> ขอใบเสนอราคารวม
           </Button>
           <button onClick={clearSelection} className="p-1 hover:bg-primary-foreground/20 rounded-full transition-colors">

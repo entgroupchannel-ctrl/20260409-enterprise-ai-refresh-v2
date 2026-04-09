@@ -334,7 +334,7 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
             <button
               onClick={() => onRequestQuote(`GB Series — ${currentTab.label}`)}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity">
-              <FileText size={16} /> ขอใบเสนอราคา {currentTab.label.replace(" Price List", "")}>
+              <FileText size={16} /> ขอใบเสนอราคา {currentTab.label.replace(" Price List", "")}
 
             </button>
           )}

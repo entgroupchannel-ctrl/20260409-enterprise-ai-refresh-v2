@@ -21,7 +21,7 @@ const PageBanner = ({ image, title, subtitle }: PageBannerProps) => {
         <div className="absolute inset-0 flex items-center">
           <div className="container max-w-7xl mx-auto px-6">
             <h1 className="text-2xl md:text-4xl font-bold text-white mb-1">{title}</h1>
-            {subtitle && <p className="text-sm md:text-base text-white/80">{subtitle}</p>}>
+            {subtitle && <p className="text-sm md:text-base text-white/80">{subtitle}</p>}
 
           </div>
         </div>

@@ -27,7 +27,7 @@ const RelatedCard = ({ product }: { product: TabletDetailProduct }) => (
       <p className="font-mono text-xs text-muted-foreground">{product.model}</p>
       <h3 className="text-sm font-bold line-clamp-2">{product.nameTH}</h3>
       <div className="flex flex-wrap gap-1">
-        {product.badges.slice(0, 2).map((b) => <Badge key={b} variant="outline" className="text-[10px]">{b}</Badge>)}>
+        {product.badges.slice(0, 2).map((b) => <Badge key={b} variant="outline" className="text-[10px]">{b}</Badge>)}
 
       </div>
       {product.price ? (
@@ -93,7 +93,7 @@ const RuggedTabletDetail = () => {
             <div className="flex flex-wrap gap-2">
               <Badge variant="secondary">{product.os}</Badge>
               <Badge variant="outline">{product.screenSize}</Badge>
-              {product.badges.map((b) => <Badge key={b} variant="outline" className="text-xs">{b}</Badge>)}>
+              {product.badges.map((b) => <Badge key={b} variant="outline" className="text-xs">{b}</Badge>)}
 
             </div>
           </div>
@@ -135,7 +135,7 @@ const RuggedTabletDetail = () => {
                       <span>Storage: {c.storage}</span>
                       <span>Network: {c.network}</span>
                     </div>
-                    {c.note && <p className="text-[10px] text-primary mt-1">{c.note}</p>}>
+                    {c.note && <p className="text-[10px] text-primary mt-1">{c.note}</p>}
 
                   </div>
                 ))}
@@ -227,7 +227,7 @@ const RuggedTabletDetail = () => {
                       <div className={i % 2 === 1 ? "md:[direction:ltr]" : ""}>
 
                         <h3 className="text-lg font-bold mb-1">{sec.titleTH}</h3>
-                        {sec.titleEN && <p className="text-xs text-primary font-medium mb-2">{sec.titleEN}</p>}>
+                        {sec.titleEN && <p className="text-xs text-primary font-medium mb-2">{sec.titleEN}</p>}
 
                         <p className="text-sm text-muted-foreground mb-2">{sec.descTH}</p>
                         {sec.stats && (
@@ -244,7 +244,7 @@ const RuggedTabletDetail = () => {
                           <ul className="space-y-1 mt-2">
                             {sec.bullets.map((b) => (
                               <li key={b} className="flex items-start gap-2 text-xs text-muted-foreground">
-                                <Zap className="w-3 h-3 text-primary shrink-0 mt-0.5" /> {b}>
+                                <Zap className="w-3 h-3 text-primary shrink-0 mt-0.5" /> {b}
 
                               </li>
                             ))}

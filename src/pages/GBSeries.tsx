@@ -293,7 +293,6 @@ const ModelCard = ({ model, isActive, onClick }: { model: typeof models[0]; isAc
     className={`relative flex flex-col items-center p-4 rounded-xl border-2 transition-all duration-300 text-center ${
       isActive ? "border-primary bg-primary/5 shadow-lg scale-[1.02]" : "border-border bg-card hover:border-primary/30 hover:-translate-y-1"
     }`}
-  >
     {model.badge && (
       <span className={`absolute -top-2 right-2 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${
         model.badge === "Premium" ? "bg-amber-500 text-white"
@@ -335,7 +334,6 @@ const GBSeries = () => {
             onClick={() => setQuoteOpen(true)}
             className="text-xs px-3 py-1.5 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity">
             ขอใบเสนอราคา
-          >
           </button>
         </div>
       </div>
@@ -388,7 +386,7 @@ const GBSeries = () => {
               <ul className="space-y-2 mb-6">
                 {current.features.map((f) => (
                   <li key={f} className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <span className="text-primary mt-0.5">✓</span> {f}>
+                    <span className="text-primary mt-0.5">✓</span> {f}
 
                   </li>
                 ))}
@@ -397,8 +395,7 @@ const GBSeries = () => {
               <button
                 onClick={() => setQuoteOpen(true)}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity"
-              >
-                <FileText size={18} /> ขอใบเสนอราคา {current.name}>
+                <FileText size={18} /> ขอใบเสนอราคา {current.name}
 
               </button>
             </div>
@@ -446,7 +443,6 @@ const GBSeries = () => {
                               onClick={() => setQuoteOpen(true)}
                               className="text-xs px-3 py-1.5 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity">
                               ขอราคา
-                            >
                             </button>
                           </td>
                         </tr>
@@ -596,7 +592,6 @@ const GBSeries = () => {
                           ? "bg-primary text-primary-foreground border-primary shadow-sm"
                           : "bg-card text-muted-foreground border-border hover:border-primary/50"
                       }`}
-                    >
                       {m.name}
                     </button>
                   );
@@ -605,7 +600,6 @@ const GBSeries = () => {
                   onClick={() => setCompareFilter(models.map((_, i) => i))}
                   className="px-3 py-1.5 rounded-full text-xs font-medium text-primary hover:bg-primary/10 border border-primary/30 transition-colors">
                   เลือกทั้งหมด
-                >
                 </button>
               </div>
               {/* Table */}
@@ -650,13 +644,11 @@ const GBSeries = () => {
             <button
               onClick={() => setQuoteOpen(true)}
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-lg hover:opacity-90 transition-opacity"
-            >
               <FileText size={18} /> ขอใบเสนอราคา
             </button>
             <button
               onClick={() => setShowLineQR(true)}
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[hsl(142,70%,45%)] text-white font-bold text-lg hover:opacity-90 transition-opacity"
-            >
               LINE @entgroup
             </button>
             <a
@@ -664,7 +656,6 @@ const GBSeries = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border border-border bg-card text-foreground font-bold hover:bg-secondary/50 transition-colors"
-            >
               <ExternalLink size={18} /> ดาวน์โหลดภาพรวมผลิตภัณฑ์
             </a>
           </div>

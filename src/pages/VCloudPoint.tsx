@@ -190,7 +190,7 @@ const DemoCTA = ({ variant = "primary" }: { variant?: "primary" | "secondary" })
       <Play size={12} /> ทดลองใช้ฟรี 30 วัน
     </div>
     <h3 className="text-2xl md:text-3xl font-black text-foreground mb-3">
-      {variant === "primary" ? "จะได้รู้ว่าเหมาะกับคุณหรือเปล่า?" : "พร้อมเริ่มต้นแล้วหรือยัง?"}>
+      {variant === "primary" ? "จะได้รู้ว่าเหมาะกับคุณหรือเปล่า?" : "พร้อมเริ่มต้นแล้วหรือยัง?"}
 
     </h3>
     <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
