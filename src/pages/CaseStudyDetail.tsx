@@ -18,7 +18,7 @@ const CaseStudyDetail = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title={`${cs.title} — กรณีศึกษา | ENT Group`}>
+        title={`${cs.title} — กรณีศึกษา | ENT Group`}
         description={cs.challenge}
         path={`/case-studies/${cs.id}`}
       />
@@ -109,11 +109,11 @@ const CaseStudyDetail = () => {
                     <div key={v.videoId} className="rounded-lg overflow-hidden border border-border/60">
                       <div className="aspect-video">
                         <iframe
-                          src={`https://www.youtube.com/embed/${v.videoId}`}>
-                          title={v.title}>
+                          src={`https://www.youtube.com/embed/${v.videoId}`}
+                          title={v.title}
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                           allowFullScreen
-                          className="w-full h-full">
+                          className="w-full h-full"
                           loading="lazy"
                         />
                       </div>
@@ -122,8 +122,8 @@ const CaseStudyDetail = () => {
                   ))}
                 </div>
                 <a
-                  href="https://www.youtube.com/@ENTGROUP-TH">
-                  target="_blank">
+                  href="https://www.youtube.com/@ENTGROUP-TH"
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-sm text-primary font-medium mt-3 hover:underline">
                   <Play className="w-4 h-4" /> ดูวิดีโอทั้งหมดบน YouTube Channel
@@ -139,10 +139,10 @@ const CaseStudyDetail = () => {
                 <div className="rounded-lg overflow-hidden border border-border/60">
                   <div className="aspect-video">
                     <iframe
-                      src={`https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fentgroup.th%2Fvideos%2F${cs.facebookVideoId}%2F&show_text=0&width=560`}>
-                      width="100%">
-                      height="100%">
-                      style={{ border: "none", overflow: "hidden" }}>
+                      src={`https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fentgroup.th%2Fvideos%2F${cs.facebookVideoId}%2F&show_text=0&width=560`}
+                      width="100%"
+                      height="100%"
+                      style={{ border: "none", overflow: "hidden" }}
                       scrolling="no"
                       allowFullScreen
                       allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
@@ -151,8 +151,8 @@ const CaseStudyDetail = () => {
                   </div>
                 </div>
                 <a
-                  href="https://www.facebook.com/entgroup.th/">
-                  target="_blank">
+                  href="https://www.facebook.com/entgroup.th/"
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-sm text-primary font-medium mt-3 hover:underline">
                   ดูวิดีโอทั้งหมดบน Facebook →

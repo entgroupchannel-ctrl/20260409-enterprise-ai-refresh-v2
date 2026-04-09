@@ -89,7 +89,7 @@ const ActiveFilterChips = ({ filters, onFilterChange }: ActiveFilterChipsProps) 
       <span className="text-xs text-muted-foreground shrink-0">ตัวกรอง:</span>
       {chips.map((chip) => (
         <button
-          key={chip.label}>
+          key={chip.label}
           onClick={chip.onRemove}
           className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors group"
           {chip.label}

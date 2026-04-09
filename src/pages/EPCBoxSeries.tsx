@@ -425,16 +425,16 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
             </span>
           )}
           <img
-            src={allImages[activeImg]}>
+            src={allImages[activeImg]}
             alt={series.name}
-            className="max-h-[220px] object-contain mb-4 transition-opacity duration-500">
+            className="max-h-[220px] object-contain mb-4 transition-opacity duration-500"
             loading="lazy"
           />
           {allImages.length > 1 && (
             <div className="flex gap-2 mt-2">
               {allImages.map((img, i) => (
                 <button
-                  key={i}>
+                  key={i}
                   onClick={() => setActiveImg(i)}
                   className={`w-16 h-16 object-contain rounded-lg p-1 border-2 transition-all cursor-pointer ${
                     i === activeImg ? "border-primary bg-primary/10" : "border-transparent bg-background/50 hover:border-primary/40"
@@ -446,8 +446,8 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
             </div>
           )}
           <a
-            href={series.datasheetUrl}>
-            target="_blank">
+            href={series.datasheetUrl}
+            target="_blank"
             rel="noopener noreferrer"
             className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity"
           >
@@ -519,11 +519,11 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
               <div className="p-4">
                 <div className="aspect-video rounded-lg overflow-hidden">
                   <iframe
-                    src="https://www.youtube.com/embed/n_AVEOTjeAA">
-                    title={`EPC Box ${series.name} Video`}>
+                    src="https://www.youtube.com/embed/n_AVEOTjeAA"
+                    title={`EPC Box ${series.name} Video`}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="w-full h-full">
+                    className="w-full h-full"
                     loading="lazy"
                   />
                 </div>
@@ -679,7 +679,7 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
 
             <div className="divide-y divide-border">
               {Object.entries(data).map(([label, values], rowIdx) => (
-                <div key={label} className={`grid items-center ${rowIdx % 2 === 0 ? "bg-muted/10" : ""}`}>
+                <div key={label} className={`grid items-center ${rowIdx % 2 === 0 ? "bg-muted/10" : ""}`}
                   style={{ gridTemplateColumns: `180px repeat(${visibleIndices.length}, 1fr)` }}>
                   <div className="px-4 py-3 text-sm font-medium text-foreground">{label}</div>
                   {visibleIndices.map(i => (
@@ -697,7 +697,7 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
               ))}
             </div>
 
-            <div className="grid border-t border-border bg-muted/20">
+            <div className="grid border-t border-border bg-muted/20"
               style={{ gridTemplateColumns: `180px repeat(${visibleIndices.length}, 1fr)` }}>
               <div className="px-4 py-4 text-sm font-medium text-foreground flex items-center">ขอใบเสนอราคา</div>
               {visibleIndices.map(i => (
@@ -796,8 +796,8 @@ const EPCBoxSeries = () => {
               </p>
               <div className="flex flex-wrap gap-4">
                 <a
-                  href="/datasheets/0597a3_9dad5caa6c4d4410a723cab33c3177bf.pdf">
-                  target="_blank">
+                  href="/datasheets/0597a3_9dad5caa6c4d4410a723cab33c3177bf.pdf"
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
                 >
@@ -819,7 +819,7 @@ const EPCBoxSeries = () => {
             </div>
             <div className="card-surface p-6 flex items-center justify-center">
               <img
-                src="/images/wix/0597a3_390ed059c959423d9c40be95b414b68f_fc93c220.png">
+                src="/images/wix/0597a3_390ed059c959423d9c40be95b414b68f_fc93c220.png"
                 alt="EPC Box Series"
                 className="max-w-full"
               />
@@ -832,9 +832,9 @@ const EPCBoxSeries = () => {
       <section className="py-8 border-y border-border">
         <div className="container max-w-7xl mx-auto px-6">
           <img
-            src="/images/wix/0597a3_7c3f2bd701f340ee993f725c168c1bec_e05257e7.png">
+            src="/images/wix/0597a3_7c3f2bd701f340ee993f725c168c1bec_e05257e7.png"
             alt="Trusted by global industries"
-            className="w-full max-w-3xl mx-auto h-auto opacity-70">
+            className="w-full max-w-3xl mx-auto h-auto opacity-70"
             loading="lazy"
           />
           <p className="text-center text-sm text-muted-foreground mt-4">
@@ -906,7 +906,7 @@ const EPCBoxSeries = () => {
             <span className="text-sm text-muted-foreground shrink-0 mr-2">Quick Nav:</span>
             {epcSeries.map((s) => (
               <a
-                key={s.id}>
+                key={s.id}
                 href={`#${s.id}`}
                 className="shrink-0 px-4 py-2 rounded-lg text-sm font-medium border border-border hover:border-primary/50 hover:bg-primary/5 text-foreground transition-all"
               >
@@ -1034,11 +1034,11 @@ const EPCBoxSeries = () => {
               </div>
               <div className="aspect-video">
                 <iframe
-                  src="https://www.youtube.com/embed/n_AVEOTjeAA">
-                  title="EPC Box Series Overview">
+                  src="https://www.youtube.com/embed/n_AVEOTjeAA"
+                  title="EPC Box Series Overview"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
-                  className="w-full h-full">
+                  className="w-full h-full"
                   loading="lazy"
                 />
               </div>
@@ -1061,11 +1061,11 @@ const EPCBoxSeries = () => {
                 <div key={video.id} className="card-surface overflow-hidden group hover:border-primary/30 transition-colors">
                   <div className="aspect-video">
                     <iframe
-                      src={`https://www.youtube.com/embed/${video.id}`}>
-                      title={video.title}>
+                      src={`https://www.youtube.com/embed/${video.id}`}
+                      title={video.title}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
-                      className="w-full h-full">
+                      className="w-full h-full"
                       loading="lazy"
                     />
                   </div>

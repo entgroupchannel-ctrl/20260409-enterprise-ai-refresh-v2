@@ -198,7 +198,7 @@ const WaterproofPC = () => {
             </div>
             <div className="md:w-1/2">
               <img
-                src="/images/wix/0597a3_af08675d14124a59a86c4be31805907a_2f9d6714.png">
+                src="/images/wix/0597a3_af08675d14124a59a86c4be31805907a_2f9d6714.png"
                 alt="Waterproof Panel PC Banner"
                 className="w-full h-auto rounded-xl"
               />
@@ -229,9 +229,9 @@ const WaterproofPC = () => {
           <div className="flex flex-col md:flex-row gap-6">
             <div className="md:w-1/2">
               <img
-                src="/images/wix/0597a3_0ad34056abce4284bb55ec5a2fb4ea1b_f03de733.png">
+                src="/images/wix/0597a3_0ad34056abce4284bb55ec5a2fb4ea1b_f03de733.png"
                 alt="IP67 Protection"
-                className="w-full h-auto rounded-lg">
+                className="w-full h-auto rounded-lg"
                 loading="lazy"
               />
             </div>
@@ -277,7 +277,7 @@ const WaterproofPC = () => {
           <div className="flex gap-2 overflow-x-auto pb-4 mb-6 scrollbar-hide">
             {models.map((m) => (
               <a
-                key={m.id}>
+                key={m.id}
                 href={`#${m.id}`}
                 className="shrink-0 px-3 py-2 rounded-lg text-xs font-medium bg-secondary/50 text-foreground/70 border border-border hover:border-primary/30 transition-all"
               >
@@ -354,9 +354,9 @@ const WaterproofPC = () => {
         {/* Application Images */}
         <section className="card-surface overflow-hidden">
           <img
-            src="/images/wix/0597a3_ffe271d4f86b4f699e9760cb18da5733_29923812.png">
+            src="/images/wix/0597a3_ffe271d4f86b4f699e9760cb18da5733_29923812.png"
             alt="Waterproof PC Applications"
-            className="w-full h-auto">
+            className="w-full h-auto"
             loading="lazy"
           />
         </section>

@@ -29,9 +29,9 @@ const CaseStudiesSection = () => {
               <Card className="group overflow-hidden h-full hover:shadow-lg transition-all duration-300 border-border/60 hover:border-primary/30">
                 <div className="relative h-44 overflow-hidden">
                   <img
-                    src={cs.image}>
+                    src={cs.image}
                     alt={cs.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />

@@ -54,15 +54,15 @@ const SoftwareSection = () => {
           {highlights.map((h, i) => (
             <div
               key={h.label}
-              className="group card-surface overflow-hidden hover:border-primary/30 transition-all duration-300 hover:-translate-y-1">
+              className="group card-surface overflow-hidden hover:border-primary/30 transition-all duration-300 hover:-translate-y-1"
               style={{ animationDelay: `${i * 100}ms` }}>
               <div className="h-28 overflow-hidden">
                 <img
-                  src={h.img}>
+                  src={h.img}
                   alt={h.label}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                  loading="lazy">
-                  width={640}>
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                  width={640}
                   height={512}
                 />
               </div>
@@ -85,11 +85,11 @@ const SoftwareSection = () => {
               <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative card-surface p-2 overflow-hidden">
                 <img
-                  src="/images/wix/0597a3_9e1fa56a9a7c40f9813a78e9e8b4edce_18a08837.jpg">
+                  src="/images/wix/0597a3_9e1fa56a9a7c40f9813a78e9e8b4edce_18a08837.jpg"
                   alt="ทีมพัฒนาซอฟต์แวร์"
-                  className="w-full rounded-lg transition-transform duration-500 group-hover:scale-[1.02]">
-                  loading="lazy">
-                  width={600}>
+                  className="w-full rounded-lg transition-transform duration-500 group-hover:scale-[1.02]"
+                  loading="lazy"
+                  width={600}
                   height={450}
                 />
                 {/* Floating badge */}
@@ -110,11 +110,11 @@ const SoftwareSection = () => {
             <div className="flex flex-wrap gap-2 mb-8">
               {softwareExamples.map((ex, i) => (
                 <a
-                  key={ex.label}>
-                  href={ex.href}>
-                  target="_blank">
+                  key={ex.label}
+                  href={ex.href}
+                  target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-secondary text-secondary-foreground text-xs font-medium border border-border hover:border-primary/40 hover:bg-primary/10 hover:text-primary hover:-translate-y-0.5 transition-all duration-200">
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-secondary text-secondary-foreground text-xs font-medium border border-border hover:border-primary/40 hover:bg-primary/10 hover:text-primary hover:-translate-y-0.5 transition-all duration-200"
                   style={{ animationDelay: `${i * 50}ms` }}
                   {ex.label} <ExternalLink size={10} />
                 </a>

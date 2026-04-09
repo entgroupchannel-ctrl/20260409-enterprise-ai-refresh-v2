@@ -152,7 +152,7 @@ const TabletProductFilter = ({
               const isActive = filters.os === option.id;
               return (
                 <button
-                  key={option.id}>
+                  key={option.id}
                   onClick={() => onFilterChange({ ...filters, os: option.id })}
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
                     isActive ? "bg-primary text-primary-foreground font-medium shadow-sm" : "hover:bg-muted/70 text-foreground"
@@ -179,7 +179,7 @@ const TabletProductFilter = ({
               const isActive = filters.screenSize === option.id;
               return (
                 <button
-                  key={option.id}>
+                  key={option.id}
                   onClick={() => onFilterChange({ ...filters, screenSize: option.id })}
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
                     isActive ? "bg-primary text-primary-foreground font-medium shadow-sm" : count === 0 && option.id !== "all" ? "text-muted-foreground/50 cursor-not-allowed" : "hover:bg-muted/70 text-foreground"
@@ -207,7 +207,7 @@ const TabletProductFilter = ({
               const isActive = filters.cpuBrand === option.id;
               return (
                 <button
-                  key={option.id}>
+                  key={option.id}
                   onClick={() => onFilterChange({ ...filters, cpuBrand: option.id })}
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
                     isActive ? "bg-primary text-primary-foreground font-medium shadow-sm" : count === 0 && option.id !== "all" ? "text-muted-foreground/50 cursor-not-allowed" : "hover:bg-muted/70 text-foreground"
@@ -234,7 +234,7 @@ const TabletProductFilter = ({
               const isActive = filters.priceRange === option.id;
               return (
                 <button
-                  key={option.id}>
+                  key={option.id}
                   onClick={() => onFilterChange({ ...filters, priceRange: option.id })}
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${
                     isActive ? "bg-primary text-primary-foreground font-medium shadow-sm" : "hover:bg-muted/70 text-foreground"
@@ -317,7 +317,7 @@ export const TabletActiveFilterChips = ({
       <span className="text-xs text-muted-foreground shrink-0">ตัวกรอง:</span>
       {chips.map((chip) => (
         <button
-          key={chip.label}>
+          key={chip.label}
           onClick={chip.onRemove}
           className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors group"
           {chip.label}

@@ -229,9 +229,9 @@ const Cabinets = () => {
               <div key={model.id} className="card-surface overflow-hidden group hover:border-primary/30 transition-all">
                 <div className="relative bg-secondary/30 p-6 flex items-center justify-center h-56">
                   <img
-                    src={model.image}>
+                    src={model.image}
                     alt={model.name}
-                    className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
+                    className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
                   />
                 </div>

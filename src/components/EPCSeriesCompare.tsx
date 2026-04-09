@@ -115,7 +115,7 @@ const EPCSeriesCompare = ({ onQuote }: Props) => {
         <div className="flex gap-1 bg-secondary/50 rounded-lg p-0.5">
           {viewModes.map((v) => (
             <button
-              key={v.id}>
+              key={v.id}
               onClick={() => setViewMode(v.id)}
               className={`flex items-center gap-1 px-2.5 py-1.5 rounded-md text-[11px] font-medium transition-all ${
                 viewMode === v.id

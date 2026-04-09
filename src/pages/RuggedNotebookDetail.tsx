@@ -65,7 +65,7 @@ const RuggedNotebookDetail = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title={`${nb.model} — ${nb.title}`}>
+        title={`${nb.model} — ${nb.title}`}
         description={`${nb.titleTH} | ${nb.cpu} | ${nb.protection}`}
         path={`/rugged-notebook/${nb.id}`}
       />

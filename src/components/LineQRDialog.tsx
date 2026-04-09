@@ -22,7 +22,7 @@ const LineQRDialog = ({ open, onClose }: LineQRDialogProps) => {
   return createPortal(
     <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 backdrop-blur-sm px-4" onClick={onClose}>
       <div
-        className="bg-gradient-to-b from-white to-gray-100 dark:from-[hsl(220,20%,18%)] dark:to-[hsl(220,15%,12%)] rounded-2xl border border-border shadow-2xl p-6 max-w-sm w-full text-center space-y-4 animate-in fade-in zoom-in-95 duration-200">
+        className="bg-gradient-to-b from-white to-gray-100 dark:from-[hsl(220,20%,18%)] dark:to-[hsl(220,15%,12%)] rounded-2xl border border-border shadow-2xl p-6 max-w-sm w-full text-center space-y-4 animate-in fade-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
@@ -38,7 +38,7 @@ const LineQRDialog = ({ open, onClose }: LineQRDialogProps) => {
 
         <div className="bg-white rounded-xl p-3 inline-block">
           <img
-            src={LINE_QR_URL}>
+            src={LINE_QR_URL}
             alt="LINE QR Code @entgroup"
             className="w-48 h-48 object-contain"
           />
@@ -48,8 +48,8 @@ const LineQRDialog = ({ open, onClose }: LineQRDialogProps) => {
         <p className="text-lg font-bold text-[#06C755]">@entgroup</p>
 
         <a
-          href={LINE_ADD_URL}>
-          target="_blank">
+          href={LINE_ADD_URL}
+          target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-[#06C755] text-white font-semibold text-sm hover:opacity-90 transition-opacity">
           <LineSvgIcon />

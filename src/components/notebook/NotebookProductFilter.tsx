@@ -107,7 +107,7 @@ const FilterOption = ({
   disabled?: boolean;
 }) => (
   <button
-    onClick={onClick}>
+    onClick={onClick}
     disabled={disabled}
     className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
       isActive
@@ -216,7 +216,7 @@ const NotebookProductFilter = ({
           <AccordionContent className="pb-3 space-y-0.5">
             {nbPriceOptions.map((o) => (
               <button
-                key={o.id}>
+                key={o.id}
                 onClick={() => onFilterChange({ ...filters, priceRange: o.id })}
                 className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${
                   filters.priceRange === o.id ? "bg-primary text-primary-foreground font-medium shadow-sm" : "hover:bg-muted/70 text-foreground"

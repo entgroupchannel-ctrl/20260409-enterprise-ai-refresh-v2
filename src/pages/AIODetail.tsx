@@ -69,7 +69,7 @@ const AIODetail = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title={`${product.model} — ${product.title}`}>
+        title={`${product.model} — ${product.title}`}
         description={`${product.titleTH} | ${product.cpu} | ${product.screenSize}`}
         path={`/aio/${product.id}`}
       />

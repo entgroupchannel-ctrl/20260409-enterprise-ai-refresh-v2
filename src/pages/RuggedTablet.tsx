@@ -359,7 +359,7 @@ const RuggedTablet = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead
-        title="Rugged Tablet กันน้ำ กันกระแทก — 15 รุ่น">
+        title="Rugged Tablet กันน้ำ กันกระแทก — 15 รุ่น"
         description="Rugged Tablet ทนทาน กันน้ำ IP65-IP68 กันกระแทก MIL-STD-810G สำหรับงานภาคสนาม ทหาร โลจิสติกส์ — Windows & Android 15 รุ่น"
         path="/rugged-tablet"
       />
@@ -428,7 +428,7 @@ const RuggedTablet = () => {
               { id: "Android", label: `Android` },
             ].map((tab) => (
               <button
-                key={tab.id}>
+                key={tab.id}
                 onClick={() => setFilters({ ...filters, os: tab.id })}
                 className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all shrink-0 ${
                   filters.os === tab.id
@@ -451,7 +451,7 @@ const RuggedTablet = () => {
               { label: "< ฿20k", active: filters.priceRange === "under20k", toggle: () => setFilters({ ...filters, priceRange: filters.priceRange === "under20k" ? "all" : "under20k" }) },
             ].map((qf) => (
               <button
-                key={qf.label}>
+                key={qf.label}
                 onClick={qf.toggle}
                 className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all border shrink-0 ${
                   qf.active
@@ -486,8 +486,8 @@ const RuggedTablet = () => {
                 <div className="relative flex-1">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
-                    placeholder="ค้นหา... (ชื่อ, รุ่น, CPU)">
-                    value={search}>
+                    placeholder="ค้นหา... (ชื่อ, รุ่น, CPU)"
+                    value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     className="pl-10"
                   />
@@ -520,7 +520,7 @@ const RuggedTablet = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
                 {filtered.map((p) => (
                   <TabletCard
-                    key={p.id}>
+                    key={p.id}
                     product={p}
                     onQuote={setQuoteProduct}
                     selected={selectedProducts.has(p.model)}
@@ -612,9 +612,9 @@ const RuggedTablet = () => {
               <div className="card-surface rounded-2xl overflow-hidden">
                 <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
                   <iframe
-                    className="absolute inset-0 w-full h-full">
-                    src="https://www.youtube.com/embed/4b5kFnaEEN4">
-                    title="Rugged Tablet — Featured Video">
+                    className="absolute inset-0 w-full h-full"
+                    src="https://www.youtube.com/embed/4b5kFnaEEN4"
+                    title="Rugged Tablet — Featured Video"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     loading="lazy"
@@ -640,9 +640,9 @@ const RuggedTablet = () => {
                   <div key={v.id} className="card-surface rounded-xl overflow-hidden group hover:shadow-lg transition-shadow">
                     <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
                       <iframe
-                        className="absolute inset-0 w-full h-full">
-                        src={`https://www.youtube.com/embed/${v.id}`}>
-                        title={v.title}>
+                        className="absolute inset-0 w-full h-full"
+                        src={`https://www.youtube.com/embed/${v.id}`}
+                        title={v.title}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         loading="lazy"
@@ -658,8 +658,8 @@ const RuggedTablet = () => {
 
               <div className="text-center">
                 <a
-                  href="https://www.youtube.com/playlist?list=PLnaSAPIEkz1frFK93ge_0MUHXJ1P3edE9">
-                  target="_blank">
+                  href="https://www.youtube.com/playlist?list=PLnaSAPIEkz1frFK93ge_0MUHXJ1P3edE9"
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-destructive hover:bg-destructive/90 text-destructive-foreground font-bold text-sm transition-colors shadow-lg hover:shadow-xl"
                 >

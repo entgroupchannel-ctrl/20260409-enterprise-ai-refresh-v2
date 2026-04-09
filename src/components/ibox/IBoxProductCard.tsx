@@ -22,9 +22,9 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
         to={`/ibox-series/${product.id}`}
         className="block relative aspect-[4/3] bg-gradient-to-b from-secondary/50 to-secondary/20 overflow-hidden cursor-pointer">
         <img
-          src={product.image}>
+          src={product.image}
           alt={product.nameTH}
-          className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300">
+          className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300"
           loading="lazy"
         />
 

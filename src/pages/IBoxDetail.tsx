@@ -56,7 +56,7 @@ const IBoxDetail = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title={`${product.id} — ${product.name}`}>
+        title={`${product.id} — ${product.name}`}
         description={`${product.nameTH} | ${product.specs.cpu} | ${product.specs.ram}`}
         path={`/ibox-series/${product.id}`}
       />
@@ -266,7 +266,7 @@ const IBoxDetail = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {relatedProducts.map((p) => (
                 <IBoxProductCard
-                  key={p.id}>
+                  key={p.id}
                   product={p}
                   selectedProducts={selectedProducts}
                   toggleSelect={toggleSelect}

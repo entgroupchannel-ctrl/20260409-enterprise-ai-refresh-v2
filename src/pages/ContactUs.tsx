@@ -341,7 +341,7 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
                     <h3 className="text-sm font-bold text-foreground mb-2">{i.lineOfficial}</h3>
                     <div className="flex items-center gap-4">
                       <img
-                        src="https://nvidia-jetson.com/images/line-qr.png">
+                        src="https://nvidia-jetson.com/images/line-qr.png"
                         alt="LINE QR Code @entgroup"
                         className="w-24 h-24 rounded-lg border border-border bg-white p-1"
                       />
@@ -355,8 +355,8 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
 
               <div className="card-surface rounded-xl overflow-hidden">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3872.5!2d100.4793839!3d13.9320709!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e2839e781a7a99%3A0xfae548f49721eb09!2sENT%20GROUP%20Co.%2CLtd.!5e0!3m2!1sth!2sth!4v1">
-                  width="100%" height="220" style={{ border: 0 }} allowFullScreen loading="lazy">
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3872.5!2d100.4793839!3d13.9320709!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e2839e781a7a99%3A0xfae548f49721eb09!2sENT%20GROUP%20Co.%2CLtd.!5e0!3m2!1sth!2sth!4v1"
+                  width="100%" height="220" style={{ border: 0 }} allowFullScreen loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade" title="ENTGroup Office Location" className="w-full"
                 />
                 <div className="p-3">

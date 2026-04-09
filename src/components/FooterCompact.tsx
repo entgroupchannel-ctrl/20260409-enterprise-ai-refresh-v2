@@ -52,7 +52,7 @@ const FooterCompact = () => {
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5">
             {quickLinks.map((link) => (
               <Link
-                key={link.label}>
+                key={link.label}
                 to={link.href}
                 className="inline-flex items-center gap-1 text-[11px] text-[hsl(215,15%,55%)] hover:text-primary transition-colors">
                 <link.icon size={10} />
@@ -65,11 +65,11 @@ const FooterCompact = () => {
           <div className="flex items-center gap-2">
             {socials.map((s) => (
               <a
-                key={s.label}>
-                href={s.href}>
-                target="_blank">
+                key={s.label}
+                href={s.href}
+                target="_blank"
                 rel="noopener noreferrer"
-                className="w-7 h-7 rounded-full bg-[hsl(220,15%,18%)] flex items-center justify-center text-[hsl(215,15%,55%)] hover:text-primary hover:bg-[hsl(220,15%,22%)] transition-colors">
+                className="w-7 h-7 rounded-full bg-[hsl(220,15%,18%)] flex items-center justify-center text-[hsl(215,15%,55%)] hover:text-primary hover:bg-[hsl(220,15%,22%)] transition-colors"
                 aria-label={s.label}
                 <s.icon size={12} />
               </a>

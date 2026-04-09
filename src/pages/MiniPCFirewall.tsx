@@ -488,9 +488,9 @@ const FirewallComparisonTable = () => {
             <div className="relative">
               <Search size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
               <input
-                type="text">
-                placeholder="รุ่น, CPU...">
-                value={searchText}>
+                type="text"
+                placeholder="รุ่น, CPU..."
+                value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
                 className="w-full pl-8 pr-3 py-2 rounded-lg bg-background border border-border text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:ring-2 focus:ring-primary/30"
               />
@@ -501,7 +501,7 @@ const FirewallComparisonTable = () => {
           <div>
             <label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-1 block">ระดับ</label>
             <select
-              value={filterTier || ""}>
+              value={filterTier || ""}
               onChange={(e) => setFilterTier((e.target.value as Tier) || null)}
               className="w-full py-2 px-3 rounded-lg bg-background border border-border text-sm text-foreground outline-none focus:ring-2 focus:ring-primary/30">
               <option value="">ทั้งหมด</option>
@@ -517,7 +517,7 @@ const FirewallComparisonTable = () => {
             <div className="flex gap-1">
               {lanSpeedOptions.map((s) => (
                 <button
-                  key={s}>
+                  key={s}
                   onClick={() => setFilterLanSpeed(filterLanSpeed === s ? null : s)}
                   className={`flex-1 py-2 rounded-lg text-[10px] font-bold transition-all ${
                     filterLanSpeed === s
@@ -536,7 +536,7 @@ const FirewallComparisonTable = () => {
             <div className="flex gap-1">
               {lanCountOptions.map((n) => (
                 <button
-                  key={n}>
+                  key={n}
                   onClick={() => setFilterMinLan(filterMinLan === n ? null : n)}
                   className={`flex-1 py-2 rounded-lg text-xs font-bold transition-all ${
                     filterMinLan === n
@@ -898,7 +898,7 @@ const MiniPCFirewall = () => {
               const count = models.filter((m) => m.tier === t).length;
               return (
                 <button
-                  key={t}>
+                  key={t}
                   onClick={() => setActiveTier(t)}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                     activeTier === t
@@ -1023,8 +1023,8 @@ const MiniPCFirewall = () => {
               <p className="text-sm text-muted-foreground mt-1">ดูการติดตั้ง pfSense / OPNsense และรีวิวจริงจากทีมงาน</p>
             </div>
             <a
-              href="https://www.youtube.com/@entgroup">
-              target="_blank">
+              href="https://www.youtube.com/@entgroup"
+              target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-destructive text-destructive-foreground text-xs font-bold hover:opacity-90 transition-opacity">
               <Youtube size={16} /> Subscribe
@@ -1039,11 +1039,11 @@ const MiniPCFirewall = () => {
               <div key={v.id} className="card-surface rounded-xl overflow-hidden group">
                 <div className="relative aspect-video">
                   <iframe
-                    src={`https://www.youtube.com/embed/${v.id}`}>
-                    title={v.title}>
+                    src={`https://www.youtube.com/embed/${v.id}`}
+                    title={v.title}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="absolute inset-0 w-full h-full">
+                    className="absolute inset-0 w-full h-full"
                     loading="lazy"
                   />
                 </div>
@@ -1052,8 +1052,8 @@ const MiniPCFirewall = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <a
-                        href={`https://youtu.be/${v.id}`}>
-                        target="_blank">
+                        href={`https://youtu.be/${v.id}`}
+                        target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1 text-xs text-primary font-medium hover:underline">
                         <ThumbsUp size={12} /> Like & Share

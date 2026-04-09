@@ -576,7 +576,7 @@ const GBSeries = () => {
                   const isActive = compareFilter.includes(i);
                   return (
                     <button
-                      key={m.id}>
+                      key={m.id}
                       onClick={() => {
                         setCompareFilter(prev => {
                           if (prev.includes(i)) {
@@ -655,8 +655,8 @@ const GBSeries = () => {
               LINE @entgroup
             </button>
             <a
-              href="/datasheets/0597a3_7775cf506c644020a3239be2ef131caa.pdf">
-              target="_blank">
+              href="/datasheets/0597a3_7775cf506c644020a3239be2ef131caa.pdf"
+              target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border border-border bg-card text-foreground font-bold hover:bg-secondary/50 transition-colors"
             >

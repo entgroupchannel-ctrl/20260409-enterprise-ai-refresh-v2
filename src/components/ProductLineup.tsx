@@ -182,16 +182,16 @@ const ProductLineup = () => {
           {/* Navigation arrows */}
           <div className="hidden sm:flex items-center gap-2">
             <button
-              onClick={() => scroll("left")}>
+              onClick={() => scroll("left")}
               disabled={!canScrollLeft}
-              className="w-9 h-9 rounded-full border border-border bg-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all disabled:opacity-30 disabled:pointer-events-none">
+              className="w-9 h-9 rounded-full border border-border bg-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all disabled:opacity-30 disabled:pointer-events-none"
               aria-label="เลื่อนไปทางซ้าย"
               <ChevronLeft size={18} />
             </button>
             <button
-              onClick={() => scroll("right")}>
+              onClick={() => scroll("right")}
               disabled={!canScrollRight}
-              className="w-9 h-9 rounded-full border border-border bg-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all disabled:opacity-30 disabled:pointer-events-none">
+              className="w-9 h-9 rounded-full border border-border bg-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all disabled:opacity-30 disabled:pointer-events-none"
               aria-label="เลื่อนไปทางขวา"
               <ChevronRight size={18} />
             </button>
@@ -209,9 +209,9 @@ const ProductLineup = () => {
               {/* Image banner */}
               <Link to={cat.href} className="relative h-36 overflow-hidden block group">
                 <img
-                  src={cat.image}>
+                  src={cat.image}
                   alt={cat.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
@@ -229,7 +229,7 @@ const ProductLineup = () => {
                 <div className="flex gap-2 mb-3">
                   {cat.cta.map((c) => (
                     <Link
-                      key={c.label}>
+                      key={c.label}
                       to={c.href}
                       className={`flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
                         c.primary
@@ -245,7 +245,7 @@ const ProductLineup = () => {
                 <div className="flex flex-wrap gap-1.5 mt-auto">
                   {cat.models.map((model) => (
                     <Link
-                      key={model.name}>
+                      key={model.name}
                       to={model.href}
                       className="relative inline-flex items-center gap-1 px-2.5 py-1 rounded-md border border-border text-[11px] font-medium text-muted-foreground hover:text-foreground hover:border-primary/30 hover:bg-primary/5 transition-all"
                       {model.name}
@@ -265,16 +265,16 @@ const ProductLineup = () => {
         {/* Mobile bottom arrows */}
         <div className="flex sm:hidden items-center justify-end gap-2 mt-3">
           <button
-            onClick={() => scroll("left")}>
+            onClick={() => scroll("left")}
             disabled={!canScrollLeft}
-            className="w-8 h-8 rounded-full border border-border bg-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all disabled:opacity-30 disabled:pointer-events-none">
+            className="w-8 h-8 rounded-full border border-border bg-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all disabled:opacity-30 disabled:pointer-events-none"
             aria-label="เลื่อนไปทางซ้าย"
             <ChevronLeft size={16} />
           </button>
           <button
-            onClick={() => scroll("right")}>
+            onClick={() => scroll("right")}
             disabled={!canScrollRight}
-            className="w-8 h-8 rounded-full border border-border bg-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all disabled:opacity-30 disabled:pointer-events-none">
+            className="w-8 h-8 rounded-full border border-border bg-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all disabled:opacity-30 disabled:pointer-events-none"
             aria-label="เลื่อนไปทางขวา"
             <ChevronRight size={16} />
           </button>

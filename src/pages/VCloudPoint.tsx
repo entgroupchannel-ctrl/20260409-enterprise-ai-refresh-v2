@@ -199,8 +199,8 @@ const DemoCTA = ({ variant = "primary" }: { variant?: "primary" | "secondary" })
           <Phone size={16} /> ขอทดลองใช้ฟรี
         </button>
 <a
-        href="https://vcloudpoint.info/">
-        target="_blank">
+        href="https://vcloudpoint.info/"
+        target="_blank"
         rel="noopener noreferrer"
         className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl border-2 border-border text-foreground font-bold text-sm hover:bg-secondary transition-colors">
         ดูรายละเอียดเพิ่มเติม <ExternalLink size={14} />
@@ -300,8 +300,8 @@ const VCloudPoint = () => {
                     <Play size={16} /> ขอเดโม่ฟรี 30 วัน
                   </button>
 <a
-                  href="https://vcloudpoint.info/">
-                  target="_blank">
+                  href="https://vcloudpoint.info/"
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-border text-foreground font-semibold text-sm hover:bg-secondary transition-colors">
                   ดูรายละเอียดเพิ่มเติม <ExternalLink size={14} />
@@ -312,16 +312,16 @@ const VCloudPoint = () => {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-3xl" />
               <img
-                src="/images/wix/0597a3_2ecc578ac2fa4e14b33ded599f607670_de783198.png">
+                src="/images/wix/0597a3_2ecc578ac2fa4e14b33ded599f607670_de783198.png"
                 alt="vCloudPoint Zero Client"
-                className="relative w-full rounded-2xl">
+                className="relative w-full rounded-2xl"
                 loading="eager"
               />
               <div className="mt-4">
                 <img
-                  src="/images/wix/0597a3_cbb51860864645c59b77aaa661958cdc_8fbba592.png">
+                  src="/images/wix/0597a3_cbb51860864645c59b77aaa661958cdc_8fbba592.png"
                   alt="vCloudPoint System Diagram"
-                  className="w-full rounded-2xl">
+                  className="w-full rounded-2xl"
                   loading="eager"
                 />
               </div>
@@ -391,11 +391,11 @@ const VCloudPoint = () => {
             </div>
             <div className="relative aspect-video rounded-2xl overflow-hidden shadow-xl border border-border">
               <iframe
-                src="https://www.youtube.com/embed/kogDEEuUns4?rel=0">
-                title="10 เรื่องที่คุณยังไม่รู้เกี่ยวกับ vCloudPoint Zero Client">
+                src="https://www.youtube.com/embed/kogDEEuUns4?rel=0"
+                title="10 เรื่องที่คุณยังไม่รู้เกี่ยวกับ vCloudPoint Zero Client"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
-                className="absolute inset-0 w-full h-full">
+                className="absolute inset-0 w-full h-full"
                 loading="lazy"
               />
             </div>
@@ -493,17 +493,17 @@ const VCloudPoint = () => {
           <div className="grid sm:grid-cols-2 gap-4 mb-8 max-w-4xl mx-auto">
             <div className="rounded-xl overflow-hidden border border-border bg-secondary/30">
               <img
-                src="/images/wix/0597a3_4370580a88c646c88a88dcdf9e7b6dd7_cfa390fb.jpg">
+                src="/images/wix/0597a3_4370580a88c646c88a88dcdf9e7b6dd7_cfa390fb.jpg"
                 alt="vMatrix Server Software"
-                className="w-full h-56 md:h-64 object-cover object-top">
+                className="w-full h-56 md:h-64 object-cover object-top"
                 loading="lazy"
               />
             </div>
             <div className="rounded-xl overflow-hidden border border-border bg-secondary/30">
               <img
-                src="/images/wix/0597a3_f4c88e348b9e4916a08c834a965cc703_70b9fc48.jpg">
+                src="/images/wix/0597a3_f4c88e348b9e4916a08c834a965cc703_70b9fc48.jpg"
                 alt="vMatrix Control Panel"
-                className="w-full h-56 md:h-64 object-cover object-top">
+                className="w-full h-56 md:h-64 object-cover object-top"
                 loading="lazy"
               />
             </div>
@@ -528,8 +528,8 @@ const VCloudPoint = () => {
             </div>
 
             <a
-              href="https://vcloudpoint.info/">
-              target="_blank">
+              href="https://vcloudpoint.info/"
+              target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm text-primary font-semibold hover:underline">
               ดาวน์โหลด vMatrix <Download size={14} />
@@ -654,11 +654,11 @@ const VCloudPoint = () => {
                           <div key={v.id} className="space-y-1.5">
                             <div className="relative aspect-video rounded-lg overflow-hidden bg-secondary/50">
                               <iframe
-                                src={`https://www.youtube.com/embed/${v.id}?rel=0`}>
-                                title={v.label}>
+                                src={`https://www.youtube.com/embed/${v.id}?rel=0`}
+                                title={v.label}
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen
-                                className="absolute inset-0 w-full h-full">
+                                className="absolute inset-0 w-full h-full"
                                 loading="lazy"
                               />
                             </div>

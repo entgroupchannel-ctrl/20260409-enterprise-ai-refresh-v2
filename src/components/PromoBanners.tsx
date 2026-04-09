@@ -89,9 +89,9 @@ const PromoBanners = () => {
               <Zap size={10} /> กำลังจัด
             </span>
             <img
-              src={featured.image}>
+              src={featured.image}
               alt={featured.title}
-              className="max-h-56 object-contain group-hover:scale-105 transition-transform duration-500">
+              className="max-h-56 object-contain group-hover:scale-105 transition-transform duration-500"
               loading="lazy"
             />
           </div>
@@ -119,7 +119,7 @@ const PromoBanners = () => {
         <div className="grid sm:grid-cols-3 gap-4 mb-8">
           {rest.map((promo) => (
             <Link
-              key={promo.id}>
+              key={promo.id}
               to={promo.link || "/promotions"}
               className="card-surface overflow-hidden group hover:border-primary/30 transition-all flex flex-col">
               <div className="relative bg-secondary/20 flex items-center justify-center p-6 h-44">
@@ -140,9 +140,9 @@ const PromoBanners = () => {
                   {promo.status === "active" ? "กำลังจัด" : "จัดประจำ"}
                 </span>
                 <img
-                  src={promo.image}>
+                  src={promo.image}
                   alt={promo.title}
-                  className="max-h-32 object-contain group-hover:scale-105 transition-transform duration-500">
+                  className="max-h-32 object-contain group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
                 />
               </div>

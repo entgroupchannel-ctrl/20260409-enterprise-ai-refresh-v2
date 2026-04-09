@@ -55,9 +55,9 @@ const ProductSections = () => {
         {sections.map((section) => (
           <div key={section.title} className="card-surface overflow-hidden relative rounded-2xl min-h-[340px] flex items-end">
             <img
-              src={section.image}>
+              src={section.image}
               alt={section.title}
-              className="absolute inset-0 w-full h-full object-cover">
+              className="absolute inset-0 w-full h-full object-cover"
               loading="lazy"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
@@ -76,7 +76,7 @@ const ProductSections = () => {
                     )}
                     {section.links.map((link) => (
                       <Link
-                        key={link.label}>
+                        key={link.label}
                         to={link.href}
                         className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-white/30 text-white text-sm font-semibold hover:bg-white/20 hover:border-white/50 backdrop-blur-sm transition-all"
                         {link.label} <ArrowRight size={14} />

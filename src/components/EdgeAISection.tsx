@@ -29,7 +29,7 @@ const EdgeAISection = () => {
   return (
     <section className="section-padding relative overflow-hidden" id="edge-ai">
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.12] dark:opacity-[0.08]">
+        className="absolute inset-0 pointer-events-none opacity-[0.12] dark:opacity-[0.08]"
         style={{
           backgroundImage: `url(${thaiPattern})`,
           backgroundSize: "420px",
@@ -54,15 +54,15 @@ const EdgeAISection = () => {
             </p>
             <div className="flex flex-wrap gap-4">
               <a
-                href="https://nvidia-jetson.com/">
-                target="_blank">
+                href="https://nvidia-jetson.com/"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
                 ดูเว็บไซต์ <ExternalLink size={16} />
               </a>
               <a
-                href="https://nvidia-jetson.com/products">
-                target="_blank">
+                href="https://nvidia-jetson.com/products"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold hover:bg-surface-hover transition-colors">
                 ดูสินค้าทั้งหมด
@@ -71,11 +71,11 @@ const EdgeAISection = () => {
           </div>
 
           <div
-            className="relative group">
+            className="relative group"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             <div
-              className="card-surface rounded-2xl overflow-hidden relative aspect-[4/3]">
+              className="card-surface rounded-2xl overflow-hidden relative aspect-[4/3]"
               onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
               onTouchMove={(e) => { touchEndX.current = e.touches[0].clientX; }}
               onTouchEnd={() => {
@@ -85,17 +85,17 @@ const EdgeAISection = () => {
               {slides.map((slide, i) => (
                 <div
                   key={i}
-                  className="absolute inset-0 transition-all duration-700 ease-in-out">
+                  className="absolute inset-0 transition-all duration-700 ease-in-out"
                   style={{
                     opacity: i === current ? 1 : 0,
                     transform: i === current ? "scale(1)" : "scale(1.05)",
                   }}
                   <img
-                    src={slide.src}>
+                    src={slide.src}
                     alt={slide.alt}
-                    className="w-full h-full object-cover">
-                    loading="lazy">
-                    width={1024}>
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                    width={1024}
                     height={768}
                   />
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent p-4 pt-10">
@@ -119,7 +119,7 @@ const EdgeAISection = () => {
             <div className="flex justify-center gap-2 mt-4">
               {slides.map((_, i) => (
                 <button
-                  key={i}>
+                  key={i}
                   onClick={() => setCurrent(i)}
                   className={`h-2 rounded-full transition-all duration-300 ${
                     i === current

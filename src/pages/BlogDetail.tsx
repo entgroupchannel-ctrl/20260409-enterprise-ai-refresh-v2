@@ -22,7 +22,7 @@ const BlogDetail = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title={`${post.title} — ENT Group Blog`}>
+        title={`${post.title} — ENT Group Blog`}
         description={post.excerpt}
         path={`/blog/${post.id}`}
       />

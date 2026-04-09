@@ -250,17 +250,17 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
           {promo.ctaHref ? (
             <Link to={promo.ctaHref}>
               <img
-                src={promo.image}>
+                src={promo.image}
                 alt={promo.title}
-                className={`object-contain ${featured ? "max-h-64" : "max-h-48"} hover:scale-105 transition-transform duration-300`}>
+                className={`object-contain ${featured ? "max-h-64" : "max-h-48"} hover:scale-105 transition-transform duration-300`}
                 loading="lazy"
               />
             </Link>
           ) : (
             <img
-              src={promo.image}>
+              src={promo.image}
               alt={promo.title}
-              className={`object-contain ${featured ? "max-h-64" : "max-h-48"}`}>
+              className={`object-contain ${featured ? "max-h-64" : "max-h-48"}`}
               loading="lazy"
             />
           )}
@@ -318,8 +318,8 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
               </LineQRButton>
             ) : (
               <a
-                href={promo.ctaHref}>
-                target={promo.ctaHref.startsWith("http") ? "_blank" : undefined}>
+                href={promo.ctaHref}
+                target={promo.ctaHref.startsWith("http") ? "_blank" : undefined}
                 rel={promo.ctaHref.startsWith("http") ? "noopener noreferrer" : undefined}
                 className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold transition-opacity hover:opacity-90 ${
                   promo.status === "active"
@@ -332,8 +332,8 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
             )}
             {promo.downloadHref && (
               <a
-                href={promo.downloadHref}>
-                target="_blank">
+                href={promo.downloadHref}
+                target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium border border-border bg-card text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
               >
@@ -365,10 +365,10 @@ const Promotions = () => {
       {/* Hero */}
       <section className="relative overflow-hidden min-h-[340px] md:min-h-[400px]">
         <img
-          src={promotionsHeroBg}>
+          src={promotionsHeroBg}
           alt=""
-          className="absolute inset-0 w-full h-full object-cover">
-          width={1920}>
+          className="absolute inset-0 w-full h-full object-cover"
+          width={1920}
           height={768}
         />
         <div className="absolute inset-0 bg-black/50" />

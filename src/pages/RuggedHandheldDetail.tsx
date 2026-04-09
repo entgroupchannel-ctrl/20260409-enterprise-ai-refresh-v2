@@ -85,7 +85,7 @@ const RuggedHandheldDetail = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title={`${product.model} — ${product.name}`}>
+        title={`${product.model} — ${product.name}`}
         description={`${product.nameTH} | ${product.specs.cpu} | ${product.specs.protection}`}
         path={`/handheld/${product.id}`}
       />

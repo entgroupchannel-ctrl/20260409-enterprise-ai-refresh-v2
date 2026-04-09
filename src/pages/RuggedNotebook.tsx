@@ -126,7 +126,7 @@ const RuggedNotebookPage = () => {
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       <SEOHead
-        title="Rugged Notebook — โน้ตบุ๊กมาตรฐานทหาร MIL-STD">
+        title="Rugged Notebook — โน้ตบุ๊กมาตรฐานทหาร MIL-STD"
         description="โน้ตบุ๊คทนทานเกรดทหาร MIL-STD-810G/H กันน้ำ IP65-IP67 Intel AI, Core i5/i7 สำหรับงานภาคสนาม โรงงาน โลจิสติกส์ จำหน่ายโดย ENT Group"
         path="/rugged-notebook"
       />
@@ -193,7 +193,7 @@ const RuggedNotebookPage = () => {
               { id: "Linux", label: "Linux" },
             ].map((tab) => (
               <button
-                key={tab.id}>
+                key={tab.id}
                 onClick={() => setFilters({ ...filters, os: tab.id })}
                 className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all shrink-0 ${
                   filters.os === tab.id ? "bg-primary text-primary-foreground shadow-sm" : "bg-muted hover:bg-muted/80 text-foreground"
@@ -212,7 +212,7 @@ const RuggedNotebookPage = () => {
               { label: "< ฿50k", active: filters.priceRange === "under50k", toggle: () => setFilters({ ...filters, priceRange: filters.priceRange === "under50k" ? "all" : "under50k" }) },
             ].map((qf) => (
               <button
-                key={qf.label}>
+                key={qf.label}
                 onClick={qf.toggle}
                 className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all border shrink-0 ${
                   qf.active ? "bg-primary text-primary-foreground border-primary shadow-sm" : "bg-card border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
@@ -441,7 +441,7 @@ const NotebookCard = ({ product, selected, onToggleSelect }: { product: RuggedNo
             <p className="text-xs font-semibold text-muted-foreground">เลือกคอนฟิก:</p>
             {product.configs.map((c, i) => (
               <button
-                key={i}>
+                key={i}
                 onClick={(e) => { e.preventDefault(); setSelectedCfg(i); }}
                 className={`w-full text-left p-2.5 rounded-lg border text-xs transition-all ${
                   i === selectedCfg ? "border-primary bg-primary/5 ring-1 ring-primary/20" : "border-border hover:border-primary/30"

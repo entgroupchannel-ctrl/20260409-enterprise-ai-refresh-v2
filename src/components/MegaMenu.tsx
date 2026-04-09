@@ -290,7 +290,7 @@ const MegaMenu = ({
       <div className="flex items-center gap-1">
         {menuCategories.map((cat) => (
           <button
-            key={cat.id}>
+            key={cat.id}
             onMouseEnter={() => handleEnter(cat.id)}
             onClick={() => setActiveMenu(activeMenu === cat.id ? null : cat.id)}
             className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
@@ -306,7 +306,7 @@ const MegaMenu = ({
       {/* Mega dropdown overlay */}
       {active && (
         <div
-          className="absolute left-1/2 -translate-x-1/2 top-full mt-2 z-50 w-[min(900px,90vw)]">
+          className="absolute left-1/2 -translate-x-1/2 top-full mt-2 z-50 w-[min(900px,90vw)]"
           onMouseEnter={() => { if (timeoutRef.current) clearTimeout(timeoutRef.current); }}
           onMouseLeave={handleLeave}
           {/* Panel */}
@@ -323,7 +323,7 @@ const MegaMenu = ({
                 {/* Featured card — left (compact) */}
                 <div className="col-span-3">
                   <Link
-                    to={active.featured.href}>
+                    to={active.featured.href}
                     onClick={() => { setActiveMenu(null); onNavigate?.(); }}
                     className="group block rounded-xl bg-gradient-to-br from-primary/15 via-primary/5 to-transparent border border-primary/20 p-4 hover:border-primary/40 transition-all duration-300 h-full">
                     <span className="px-1.5 py-0.5 rounded-full text-[8px] font-bold uppercase tracking-wider bg-primary text-primary-foreground">
@@ -332,9 +332,9 @@ const MegaMenu = ({
                     {active.featured.image && (
                       <div className="flex justify-center my-3">
                         <img
-                          src={active.featured.image}>
+                          src={active.featured.image}
                           alt={active.featured.title}
-                          className="h-16 w-auto object-contain group-hover:scale-105 transition-transform duration-300">
+                          className="h-16 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
                           loading="lazy"
                         />
                       </div>
@@ -362,7 +362,7 @@ const MegaMenu = ({
                         {col.links.map((link) => (
                           <li key={link.href + link.label}>
                             <Link
-                              to={link.href}>
+                              to={link.href}
                               onClick={() => { setActiveMenu(null); onNavigate?.(); }}
                               className="group flex items-center gap-1.5 py-1.5 px-2 -mx-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors">
                               <ChevronRight size={10} className="text-muted-foreground/40 group-hover:text-primary transition-colors" />
@@ -385,7 +385,7 @@ const MegaMenu = ({
                     const BannerIcon = banner.icon;
                     return (
                       <Link
-                        to="/about-us">
+                        to="/about-us"
                         onClick={() => { setActiveMenu(null); onNavigate?.(); }}
                         className="group col-span-1 rounded-lg bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/15 p-3 flex flex-col justify-center hover:border-primary/30 transition-all">
                         <BannerIcon size={18} className="text-primary mb-2" />
@@ -405,13 +405,13 @@ const MegaMenu = ({
                 const promo = promoBanners[active.id];
                 return (
                   <Link
-                    to={promo.href}>
+                    to={promo.href}
                     onClick={() => { setActiveMenu(null); onNavigate?.(); }}
                     className="group mt-4 block rounded-xl overflow-hidden border border-border hover:border-primary/40 transition-all duration-300 relative h-24">
                     <img
-                      src={promo.image}>
+                      src={promo.image}
                       alt={promo.title}
-                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
@@ -468,7 +468,7 @@ export const MobileMegaMenu = ({ onNavigate }: { onNavigate?: () => void }) => {
             <div className="pl-6 pb-3 space-y-1 animate-fade-in">
               {/* Featured */}
               <Link
-                to={cat.featured.href}>
+                to={cat.featured.href}
                 onClick={onNavigate}
                 className="block p-3 rounded-lg bg-primary/10 border border-primary/20 mb-2">
                 <span className="text-[9px] font-bold uppercase text-primary">{cat.featured.badge}</span>
@@ -478,8 +478,8 @@ export const MobileMegaMenu = ({ onNavigate }: { onNavigate?: () => void }) => {
               {cat.columns.map((col) =>
                 col.links.map((link) => (
                   <Link
-                    key={link.href}>
-                    to={link.href}>
+                    key={link.href}
+                    to={link.href}
                     onClick={onNavigate}
                     className="flex items-center gap-2 py-2 px-2 text-sm text-muted-foreground hover:text-foreground rounded-lg hover:bg-secondary/50 transition-colors">
                     <ChevronRight size={10} className="text-primary/50" />
@@ -495,7 +495,7 @@ export const MobileMegaMenu = ({ onNavigate }: { onNavigate?: () => void }) => {
         </div>
       ))}
       <Link
-        to="/promotions">
+        to="/promotions"
         onClick={onNavigate}
         className="flex items-center gap-2 py-3 px-2 text-foreground font-medium rounded-lg hover:bg-secondary/50">
         <Sparkles size={16} className="text-primary" />

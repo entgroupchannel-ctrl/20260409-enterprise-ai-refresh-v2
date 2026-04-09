@@ -13,7 +13,7 @@ const PageBanner = ({ image, title, subtitle }: PageBannerProps) => {
       {/* Banner Image */}
       <div className="relative h-48 md:h-64 overflow-hidden">
         <img
-          src={image}>
+          src={image}
           alt={title}
           className="w-full h-full object-cover"
         />
