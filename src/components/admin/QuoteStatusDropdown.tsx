@@ -18,18 +18,19 @@ interface QuoteStatusDropdownProps {
 }
 
 const statusOptions = [
-  { value: 'pending', label: 'รอตอบกลับ', color: 'text-yellow-700' },
-  { value: 'quote_sent', label: 'ส่งใบเสนอราคา/ใบแจ้งหนี้', color: 'text-blue-700' },
-  { value: 'po_uploaded', label: 'ส่งใบสั่งซื้อ/ใบกำกับภาษี', color: 'text-orange-700' },
-  { value: 'po_approved', label: 'ส่งใบกำกับภาษี/ใบเสร็จรับเงิน (ดึงสด)', color: 'text-green-700' },
-  { value: 'completed', label: 'ส่งสิ้งซื้อ', color: 'text-gray-700' },
-  { value: 'awaiting_invoice', label: 'แบงค์จ่ายใบวางบิล/ใบแจ้งหนี้', color: 'text-purple-700' },
-  { value: 'awaiting_tax', label: 'แบงค์จ่ายใบสั่งซื้อ/ใบกำกับภาษี', color: 'text-indigo-700' },
-  { value: 'awaiting_receipt', label: 'แบงค์จ่ายใบกำกับภาษี/ใบเสร็จรับเงิน (ดึงสด)', color: 'text-teal-700' },
-  { value: 'partial_invoice', label: 'มัดจำใบวางบิล/ใบแจ้งหนี้', color: 'text-cyan-700' },
-  { value: 'partial_tax', label: 'มัดจำใบสั่งซื้อ/ใบกำกับภาษี', color: 'text-sky-700' },
-  { value: 'partial_receipt', label: 'มัดจำใบกำกับภาษี/ใบเสร็จรับเงิน (ดึงสด)', color: 'text-emerald-700' },
-  { value: 'rejected', label: 'ไม่อนุมัติ', color: 'text-red-700' },
+  { value: 'pending', label: 'รออนุมัติ', color: 'text-yellow-700', group: '' },
+  { value: 'approved', label: 'อนุมัติ', color: 'text-green-700', group: '' },
+  { value: 'create_invoice', label: 'สร้างใบวางบิล/ใบแจ้งหนี้', color: 'text-blue-700', group: 'สร้างเอกสาร' },
+  { value: 'create_tax', label: 'สร้างใบส่งสินค้า/ใบกำกับภาษี', color: 'text-blue-600', group: 'สร้างเอกสาร' },
+  { value: 'create_receipt', label: 'สร้างใบกำกับภาษี/ใบเสร็จรับเงิน (เงินสด)', color: 'text-blue-500', group: 'สร้างเอกสาร' },
+  { value: 'create_po', label: 'สร้างใบสั่งซื้อ', color: 'text-blue-400', group: 'สร้างเอกสาร' },
+  { value: 'split_invoice', label: 'แบ่งจ่ายใบวางบิล/ใบแจ้งหนี้', color: 'text-purple-700', group: 'แบ่งจ่าย' },
+  { value: 'split_tax', label: 'แบ่งจ่ายใบส่งสินค้า/ใบกำกับภาษี', color: 'text-purple-600', group: 'แบ่งจ่าย' },
+  { value: 'split_receipt', label: 'แบ่งจ่ายใบกำกับภาษี/ใบเสร็จรับเงิน (เงินสด)', color: 'text-purple-500', group: 'แบ่งจ่าย' },
+  { value: 'deposit_invoice', label: 'มัดจำใบวางบิล/ใบแจ้งหนี้', color: 'text-cyan-700', group: 'มัดจำ' },
+  { value: 'deposit_tax', label: 'มัดจำใบส่งสินค้า/ใบกำกับภาษี', color: 'text-cyan-600', group: 'มัดจำ' },
+  { value: 'deposit_receipt', label: 'มัดจำใบกำกับภาษี/ใบเสร็จรับเงิน (เงินสด)', color: 'text-cyan-500', group: 'มัดจำ' },
+  { value: 'rejected', label: 'ไม่อนุมัติ', color: 'text-red-700', group: '' },
 ];
 
 export default function QuoteStatusDropdown({
@@ -103,42 +104,25 @@ export default function QuoteStatusDropdown({
         </SelectValue>
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="pending">
-          <span className="text-yellow-700">อนุมัติ</span>
-        </SelectItem>
-        <SelectItem value="quote_sent">
-          <span className="text-blue-700">ส่งใบวางบิล/ใบแจ้งหนี้</span>
-        </SelectItem>
-        <SelectItem value="po_uploaded">
-          <span className="text-orange-700">ส่งใบสั่งซื้อ/ใบกำกับภาษี</span>
-        </SelectItem>
-        <SelectItem value="po_approved">
-          <span className="text-green-700">ส่งใบกำกับภาษี/ใบเสร็จรับเงิน (ดึงสด)</span>
-        </SelectItem>
-        <SelectItem value="completed">
-          <span className="text-gray-700">ส่งสิ้งซื้อ</span>
-        </SelectItem>
-        <SelectItem value="awaiting_invoice">
-          <span className="text-purple-700">แบงค์จ่ายใบวางบิล/ใบแจ้งหนี้</span>
-        </SelectItem>
-        <SelectItem value="awaiting_tax">
-          <span className="text-indigo-700">แบงค์จ่ายใบสั่งซื้อ/ใบกำกับภาษี</span>
-        </SelectItem>
-        <SelectItem value="awaiting_receipt">
-          <span className="text-teal-700">แบงค์จ่ายใบกำกับภาษี/ใบเสร็จรับเงิน (ดึงสด)</span>
-        </SelectItem>
-        <SelectItem value="partial_invoice">
-          <span className="text-cyan-700">มัดจำใบวางบิล/ใบแจ้งหนี้</span>
-        </SelectItem>
-        <SelectItem value="partial_tax">
-          <span className="text-sky-700">มัดจำใบสั่งซื้อ/ใบกำกับภาษี</span>
-        </SelectItem>
-        <SelectItem value="partial_receipt">
-          <span className="text-emerald-700">มัดจำใบกำกับภาษี/ใบเสร็จรับเงิน (ดึงสด)</span>
-        </SelectItem>
-        <SelectItem value="rejected">
-          <span className="text-red-700">ไม่อนุมัติ</span>
-        </SelectItem>
+        {(() => {
+          let lastGroup = '';
+          return statusOptions.map((opt) => {
+            const showSeparator = opt.group && opt.group !== lastGroup;
+            lastGroup = opt.group;
+            return (
+              <div key={opt.value}>
+                {showSeparator && (
+                  <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground border-t mt-1 pt-1">
+                    {opt.group}
+                  </div>
+                )}
+                <SelectItem value={opt.value}>
+                  <span className={opt.color}>{opt.label}</span>
+                </SelectItem>
+              </div>
+            );
+          });
+        })()}
       </SelectContent>
     </Select>
   );
