@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ShoppingCart, Plus, Minus } from 'lucide-react';
+import { FileText, Plus, Minus } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useCart } from '@/hooks/useCart';
 
@@ -61,8 +61,8 @@ export default function AddToCartButton({
         </div>
       )}
       <Button variant={variant} size={size} onClick={handleAdd} disabled={adding}>
-        <ShoppingCart className="w-4 h-4 mr-2" />
-        {adding ? 'กำลังเพิ่ม...' : 'เพิ่มเข้าตะกร้า'}
+        <FileText className="w-4 h-4 mr-2" />
+        {adding ? 'กำลังเพิ่ม...' : 'เพิ่มลงในใบเสนอราคา'}
       </Button>
     </div>
   );
