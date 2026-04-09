@@ -46,7 +46,6 @@ const AIOCard = ({
     className={`card-surface overflow-hidden group transition-all ${
       selected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"
     }`}
-    >
     {/* Image */}
     <div className="relative bg-secondary/30 p-4 flex items-center justify-center h-52">
         item={{
@@ -62,7 +61,6 @@ const AIOCard = ({
       <button
         onClick={() => onToggleSelect(product.model)}
         className="absolute top-3 left-3 z-10"
-        >
         <Checkbox checked={selected} className="h-5 w-5" />
       </button>
       <Link to={`/aio/${product.id}`} className="flex items-center justify-center w-full h-full">
@@ -89,7 +87,6 @@ const AIOCard = ({
                 ? "border-green-500/30 text-green-500"
                 : "border-orange-500/30 text-orange-500"
             }`}
-            >
             {o}
           </Badge>
         ))}
@@ -182,7 +179,6 @@ const AllInOnePC = () => {
           <Link
             to="/"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-6"
-            >
             <ArrowLeft className="w-4 h-4" /> กลับหน้าหลัก
           </Link>
 
@@ -245,7 +241,6 @@ const AllInOnePC = () => {
                       ? "bg-primary text-primary-foreground"
                       : "bg-secondary/50 text-foreground/70 hover:bg-secondary"
                   }`}
-                  >
                   {f.label}
                 </button>
               ))}
@@ -261,7 +256,6 @@ const AllInOnePC = () => {
                       ? "bg-primary text-primary-foreground"
                       : "bg-secondary/50 text-foreground/70 hover:bg-secondary"
                   }`}
-                  >
                   <f.icon size={12} />
                   {f.label}
                 </button>

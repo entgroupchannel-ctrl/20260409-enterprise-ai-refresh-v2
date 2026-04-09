@@ -298,7 +298,6 @@ const MegaMenu = ({
                 ? "text-white bg-white/10"
                 : "text-white/70 hover:text-white hover:bg-white/5"
             }`}
-            >
             {cat.label}
           </button>
         ))}
@@ -327,7 +326,6 @@ const MegaMenu = ({
                     to={active.featured.href}
                     onClick={() => { setActiveMenu(null); onNavigate?.(); }}
                     className="group block rounded-xl bg-gradient-to-br from-primary/15 via-primary/5 to-transparent border border-primary/20 p-4 hover:border-primary/40 transition-all duration-300 h-full"
-                    >
                     <span className="px-1.5 py-0.5 rounded-full text-[8px] font-bold uppercase tracking-wider bg-primary text-primary-foreground">
                       {active.featured.badge}
                     </span>
@@ -367,7 +365,6 @@ const MegaMenu = ({
                               to={link.href}
                               onClick={() => { setActiveMenu(null); onNavigate?.(); }}
                               className="group flex items-center gap-1.5 py-1.5 px-2 -mx-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
-                              >
                               <ChevronRight size={10} className="text-muted-foreground/40 group-hover:text-primary transition-colors" />
                               <span className="text-xs font-medium">{link.label}</span>
                               {link.hot && (
@@ -391,7 +388,6 @@ const MegaMenu = ({
                         to="/about-us"
                         onClick={() => { setActiveMenu(null); onNavigate?.(); }}
                         className="group col-span-1 rounded-lg bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/15 p-3 flex flex-col justify-center hover:border-primary/30 transition-all"
-                        >
                         <BannerIcon size={18} className="text-primary mb-2" />
                         <p className="text-xs font-bold text-foreground mb-1">{banner.title}</p>
                         <p className="text-[10px] text-muted-foreground leading-relaxed mb-2">{banner.desc}</p>
@@ -412,7 +408,6 @@ const MegaMenu = ({
                     to={promo.href}
                     onClick={() => { setActiveMenu(null); onNavigate?.(); }}
                     className="group mt-4 block rounded-xl overflow-hidden border border-border hover:border-primary/40 transition-all duration-300 relative h-24"
-                    >
                     <img
                       src={promo.image}
                       alt={promo.title}
@@ -460,7 +455,6 @@ export const MobileMegaMenu = ({ onNavigate }: { onNavigate?: () => void }) => {
           <button
             onClick={() => setExpanded(expanded === cat.id ? null : cat.id)}
             className="w-full flex items-center justify-between py-3 px-2 text-foreground font-medium rounded-lg hover:bg-secondary/50 transition-colors"
-            >
             <span className="flex items-center gap-2">
               <cat.icon size={16} className="text-primary" />
               {cat.label}
@@ -477,7 +471,6 @@ export const MobileMegaMenu = ({ onNavigate }: { onNavigate?: () => void }) => {
                 to={cat.featured.href}
                 onClick={onNavigate}
                 className="block p-3 rounded-lg bg-primary/10 border border-primary/20 mb-2"
-                >
                 <span className="text-[9px] font-bold uppercase text-primary">{cat.featured.badge}</span>
                 <p className="text-sm font-bold text-foreground">{cat.featured.title}</p>
                 <p className="text-xs text-muted-foreground">{cat.featured.desc}</p>
@@ -489,7 +482,6 @@ export const MobileMegaMenu = ({ onNavigate }: { onNavigate?: () => void }) => {
                     to={link.href}
                     onClick={onNavigate}
                     className="flex items-center gap-2 py-2 px-2 text-sm text-muted-foreground hover:text-foreground rounded-lg hover:bg-secondary/50 transition-colors"
-                    >
                     <ChevronRight size={10} className="text-primary/50" />
                     {link.label}
                     {link.hot && (
@@ -506,7 +498,6 @@ export const MobileMegaMenu = ({ onNavigate }: { onNavigate?: () => void }) => {
         to="/promotions"
         onClick={onNavigate}
         className="flex items-center gap-2 py-3 px-2 text-foreground font-medium rounded-lg hover:bg-secondary/50"
-        >
         <Sparkles size={16} className="text-primary" />
         โปรโมชั่น
       </Link>

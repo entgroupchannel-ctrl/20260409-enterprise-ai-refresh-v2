@@ -144,7 +144,6 @@ const ProductHighlights = () => {
               key={cat.title}
               to={cat.href}
               className="group relative card-surface rounded-xl overflow-hidden hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-              >
               {cat.badge && (
                 <span className={`absolute top-3 right-3 z-10 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
                   cat.badge === "Hot" 
@@ -190,7 +189,6 @@ const ProductHighlights = () => {
                     <span
                       key={model}
                       className="px-2 py-0.5 text-[10px] font-medium rounded-md bg-secondary border border-border text-muted-foreground"
-                      >
                       {model}
                     </span>
                   ))}

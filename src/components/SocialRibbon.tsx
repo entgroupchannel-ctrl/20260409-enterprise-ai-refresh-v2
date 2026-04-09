@@ -35,7 +35,6 @@ const SocialRibbon = () => {
             target="_blank"
             rel="noopener noreferrer"
             className={`flex items-center gap-2.5 px-3 py-2.5 ${s.bg} text-white rounded-r-lg shadow-md hover:pr-5 transition-all duration-200 text-xs font-medium`}
-            >
             <span className="shrink-0">{s.icon}</span>
             <span className="whitespace-nowrap">{s.label}</span>
           </a>
@@ -53,7 +52,6 @@ const SocialRibbon = () => {
         <svg
           width="10" height="16" viewBox="0 0 10 16" fill="none"
           className={`transition-transform duration-300 ${expanded ? "" : "rotate-180"}`}
-          >
           <path d="M8 2L2 8L8 14" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>

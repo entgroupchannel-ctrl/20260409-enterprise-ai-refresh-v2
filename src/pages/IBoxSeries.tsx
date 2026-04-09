@@ -296,7 +296,6 @@ const IBoxSeries = () => {
                     ? "bg-primary text-primary-foreground shadow-sm"
                     : "bg-muted hover:bg-muted/80 text-foreground"
                 }`}
-                >
                 <cat.icon className="w-3.5 h-3.5" />
                 {cat.name}
               </button>
@@ -337,7 +336,6 @@ const IBoxSeries = () => {
                       ? "bg-primary text-primary-foreground border-primary shadow-sm"
                       : "bg-card border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
                   }`}
-                  >
                   {qf.label}
                 </button>
               ))}

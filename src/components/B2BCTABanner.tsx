@@ -59,7 +59,6 @@ const B2BCTABanner = ({ variant = "full" }: B2BCTABannerProps) => {
               key={item.href}
               to={item.href}
               className="group flex items-start gap-3 p-4 rounded-xl bg-card border border-border/60 hover:border-primary/30 hover:shadow-md transition-all"
-              >
               <div className={`p-2 rounded-lg bg-background ${item.color}`}>
                 <item.icon className="w-5 h-5" />
               </div>

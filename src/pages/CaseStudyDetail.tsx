@@ -85,7 +85,6 @@ const CaseStudyDetail = () => {
                   <Quote className="w-8 h-8 text-primary/40 mb-3" />
                   <p className="text-foreground italic text-lg leading-relaxed mb-4">
                     "{cs.testimonial}"
-                    >
                   </p>
                   {cs.testimonialAuthor && (
                     <div className="text-sm">
@@ -127,7 +126,6 @@ const CaseStudyDetail = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-sm text-primary font-medium mt-3 hover:underline"
-                  >
                   <Play className="w-4 h-4" /> ดูวิดีโอทั้งหมดบน YouTube Channel
                 </a>
               </section>

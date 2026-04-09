@@ -242,7 +242,6 @@ const SmartDisplay = () => {
                       ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
                       : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                   }`}
-                  >
                   <cat.icon size={16} />
                   {cat.label}
                 </button>
@@ -273,7 +272,6 @@ const SmartDisplay = () => {
                     <button
                       onClick={() => setQuoteOpen(true)}
                       className="mt-4 w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity"
-                      >
                       <FileText size={14} /> ขอใบเสนอราคา
                     </button>
                   </div>
@@ -410,7 +408,6 @@ const SmartDisplay = () => {
                               <button
                                 onClick={() => setQuoteOpen(true)}
                                 className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity"
-                                >
                                 <FileText size={12} /> ขอราคา
                               </button>
                             </td>
@@ -433,7 +430,6 @@ const SmartDisplay = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-sm font-medium text-foreground hover:bg-secondary hover:border-primary/30 transition-all"
-                        >
                         <Download size={12} /> {d.model}
                       </a>
                     ))}
@@ -499,7 +495,6 @@ const SmartDisplay = () => {
                     <button
                       onClick={() => setQuoteOpen(true)}
                       className="mt-2 w-full inline-flex items-center justify-center gap-1 px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity"
-                      >
                       <FileText size={12} /> ขอใบเสนอราคา
                     </button>
                   </div>
@@ -567,13 +562,11 @@ const SmartDisplay = () => {
                       <button
                         onClick={() => setQuoteOpen(true)}
                         className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity"
-                        >
                         <FileText size={18} /> ขอใบเสนอราคา KIOSK
                       </button>
                       <button
                         onClick={() => setShowLineQR(true)}
                         className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-bold hover:bg-secondary transition-colors"
-                        >
                         <MessageCircle size={18} /> สอบถามทาง LINE
                       </button>
                     </div>
@@ -676,7 +669,6 @@ const SmartDisplay = () => {
                     <button
                       onClick={() => setQuoteOpen(true)}
                       className="w-full inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity"
-                      >
                       <FileText size={14} /> ขอใบเสนอราคา
                     </button>
                   </div>
@@ -757,7 +749,6 @@ const SmartDisplay = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-secondary text-secondary-foreground text-sm font-semibold hover:opacity-90 transition-opacity"
-                        >
                         <Download size={16} /> GK2101 KIOSK PDF
                       </a>
                       <a
@@ -765,7 +756,6 @@ const SmartDisplay = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border text-foreground text-sm font-semibold hover:bg-secondary transition-colors"
-                        >
                         <Download size={16} /> Datasheet
                       </a>
                     </div>
@@ -807,7 +797,6 @@ const SmartDisplay = () => {
                         <button
                           onClick={() => setQuoteOpen(true)}
                           className="inline-flex items-center gap-2 text-sm text-primary font-semibold hover:underline"
-                          >
                           <FileText size={14} /> ขอใบเสนอราคา
                         </button>
                       </div>
@@ -922,7 +911,6 @@ const SmartDisplay = () => {
                   <button
                     onClick={() => setQuoteOpen(true)}
                     className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-lg hover:opacity-90 transition-opacity"
-                    >
                     <FileText size={20} /> ขอใบเสนอราคา KIOSK
                   </button>
                   <a href="tel:020456104" className="inline-flex items-center gap-2 px-6 py-4 rounded-xl border border-border text-foreground font-bold hover:bg-secondary transition-colors">
@@ -958,7 +946,6 @@ const SmartDisplay = () => {
                     <button
                       onClick={() => setQuoteOpen(true)}
                       className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-bold hover:opacity-90 transition-opacity"
-                      >
                       <FileText size={16} /> ขอใบเสนอราคา
                     </button>
                   </div>
@@ -1085,7 +1072,6 @@ const SmartDisplay = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="card-surface p-5 flex items-center gap-4 hover:border-primary/30 transition-all group"
-                >
                 <Download className="text-primary shrink-0 group-hover:scale-110 transition-transform" size={24} />
                 <div>
                   <p className="font-bold text-foreground text-sm">{p.label}</p>
@@ -1121,7 +1107,6 @@ const SmartDisplay = () => {
                     ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
                     : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                 }`}
-                >
                 {t.label}
               </button>
             ))}
@@ -1194,7 +1179,6 @@ const SmartDisplay = () => {
                     ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
                     : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                 }`}
-                >
                 {t.label}
               </button>
             ))}

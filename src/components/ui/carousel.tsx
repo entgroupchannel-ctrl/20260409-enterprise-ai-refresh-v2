@@ -120,7 +120,6 @@ const Carousel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
           className={cn("relative", className)}
           role="region"
           aria-roledescription="carousel"
-          >
           {...props}
           {children}
         </div>

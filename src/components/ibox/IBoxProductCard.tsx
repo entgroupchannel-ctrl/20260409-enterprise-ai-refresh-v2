@@ -21,7 +21,6 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
       <Link
         to={`/ibox-series/${product.id}`}
         className="block relative aspect-[4/3] bg-gradient-to-b from-secondary/50 to-secondary/20 overflow-hidden cursor-pointer"
-        >
         <img
           src={product.image}
           alt={product.nameTH}
@@ -46,7 +45,6 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
         <button
           onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleSelect(product.name); }}
           className="absolute top-3 right-12 z-10"
-          >
           <Checkbox checked={isSelected} className="h-5 w-5" />
         </button>
 
