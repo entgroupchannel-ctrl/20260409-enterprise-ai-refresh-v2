@@ -51,11 +51,11 @@ const QuoteChatThread = ({ quoteId, currentUserId, currentUserName, currentUserR
   }, [messages]);
 
   const loadMessages = async () => {
-    const { data } = await (supabase.from as any)("quote_messages")
-      .select("*")
-      .eq("quote_id", quoteId)
-      .order("created_at", { ascending: true });
-    if (data) setMessages(data);
+    const { data } = await supabase.from('quote_messages')
+      .select('*')
+      .eq('quote_id', quoteId)
+      .order('created_at', { ascending: true });
+    if (data) setMessages(data as any as Message[]);
   };
 
   const handleSend = async () => {
