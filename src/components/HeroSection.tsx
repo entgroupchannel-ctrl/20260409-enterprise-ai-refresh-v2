@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Search, Menu, X, ChevronDown, LogIn, UserCircle, LayoutDashboard, LogOut } from "lucide-react";
+import { Search, Menu, X, ChevronDown, LogIn, UserCircle, LayoutDashboard, LogOut, FileText, Plus } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 import MegaMenu, { MobileMegaMenu } from "@/components/MegaMenu";
 import { useAuth } from "@/hooks/useAuth";
@@ -145,12 +145,28 @@ const HeroSection = () => {
                   <span className="max-w-[100px] truncate">{profile?.full_name || user.email?.split('@')[0]}</span>
                   <ChevronDown size={14} />
                 </button>
-                <div className="absolute right-0 top-full mt-1 w-48 bg-card border border-border rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+                <div className="absolute right-0 top-full mt-1 w-56 bg-card border border-border rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
                   {(profile?.role === 'admin' || profile?.role === 'sales') && (
-                    <Link to="/admin/dashboard" className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors rounded-t-lg">
-                      <LayoutDashboard size={16} /> แดชบอร์ด
-                    </Link>
+                    <>
+                      <Link to="/admin/dashboard" className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors rounded-t-lg">
+                        <LayoutDashboard size={16} /> แดชบอร์ด
+                      </Link>
+                      <Link to="/admin/quotes" className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors">
+                        <FileText size={16} /> จัดการใบเสนอราคา
+                      </Link>
+                    </>
                   )}
+                  {profile?.role === 'member' && (
+                    <>
+                      <Link to="/my-quotes" className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors rounded-t-lg">
+                        <FileText size={16} /> ใบเสนอราคาของฉัน
+                      </Link>
+                      <Link to="/request-quote" className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors">
+                        <Plus size={16} /> ขอใบเสนอราคาใหม่
+                      </Link>
+                    </>
+                  )}
+                  <div className="border-t border-border" />
                   <button onClick={() => signOut()} className="flex items-center gap-2 px-4 py-2.5 text-sm text-destructive hover:bg-muted transition-colors w-full text-left rounded-b-lg">
                     <LogOut size={16} /> ออกจากระบบ
                   </button>
@@ -183,9 +199,24 @@ const HeroSection = () => {
               user ? (
                 <div className="flex flex-col gap-2 flex-1">
                   {(profile?.role === 'admin' || profile?.role === 'sales') && (
-                    <Link to="/admin/dashboard" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-muted transition-colors">
-                      <LayoutDashboard size={16} /> แดชบอร์ด
-                    </Link>
+                    <>
+                      <Link to="/admin/dashboard" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-muted transition-colors">
+                        <LayoutDashboard size={16} /> แดชบอร์ด
+                      </Link>
+                      <Link to="/admin/quotes" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-muted transition-colors">
+                        <FileText size={16} /> จัดการใบเสนอราคา
+                      </Link>
+                    </>
+                  )}
+                  {profile?.role === 'member' && (
+                    <>
+                      <Link to="/my-quotes" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-muted transition-colors">
+                        <FileText size={16} /> ใบเสนอราคาของฉัน
+                      </Link>
+                      <Link to="/request-quote" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-muted transition-colors">
+                        <Plus size={16} /> ขอใบเสนอราคาใหม่
+                      </Link>
+                    </>
                   )}
                   <button onClick={() => { signOut(); setMobileMenuOpen(false); }} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-destructive hover:bg-muted transition-colors">
                     <LogOut size={16} /> ออกจากระบบ
