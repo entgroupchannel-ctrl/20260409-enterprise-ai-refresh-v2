@@ -443,7 +443,7 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
                   onClick={() => setActiveImg(i)}
                   className={`w-16 h-16 object-contain rounded-lg p-1 border-2 transition-all cursor-pointer ${
                     i === activeImg ? "border-primary bg-primary/10" : "border-transparent bg-background/50 hover:border-primary/40"
-                  }`}
+                  }`}>
                   <img src={img} alt="" className="w-full h-full object-contain" loading="lazy" />
                 </button>
               ))}
