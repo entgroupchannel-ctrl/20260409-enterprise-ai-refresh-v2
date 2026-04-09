@@ -344,8 +344,6 @@ const UTCSeries = () => {
                       <p className="text-xs text-primary/70 font-medium">หน้าจอสี่เหลี่ยมจตุรัส</p>
                     </div>
                   </div>
-                    item={{ id: "utc-square", name: "UTC Square Screen", category: "UTC Series", image: "/images/wix/0597a3_48b4b6dd4b0844f1996977be9733e597_baf8b2cc.png", href: "/utc-series", specs: "4:3 / 5:4 Touch Monitor" }}
-                  />
                 </div>
                 <img
                   src="/images/wix/0597a3_48b4b6dd4b0844f1996977be9733e597_a37ce2a5.png"
@@ -375,8 +373,6 @@ const UTCSeries = () => {
                       <p className="text-xs text-primary/70 font-medium">หน้าจอสี่เหลี่ยมผืนผ้า</p>
                     </div>
                   </div>
-                    item={{ id: "utc-wide", name: "UTC Wide Screen", category: "UTC Series", image: "/images/wix/0597a3_52951cbca38c439f8abc10f9e94fa03f_69408504.png", href: "/utc-series", specs: "16:9 Touch Monitor" }}
-                  />
                 </div>
                 <img
                   src="/images/wix/0597a3_52951cbca38c439f8abc10f9e94fa03f_b157e1d3.png"

@@ -100,9 +100,6 @@ const RuggedNotebookDetail = () => {
           {/* Gallery */}
           <div className="space-y-4">
             <div className="relative">
-                item={{ id: nb.id, name: nb.model, category: "Rugged Notebook", image: nb.image, href: `/rugged-notebook/${nb.id}`, specs: nb.titleTH }}
-                className="absolute top-3 right-3 z-10"
-              />
               <ProductGallery images={nb.gallery} alt={nb.model} />
             </div>
             <div className="flex flex-wrap gap-2">

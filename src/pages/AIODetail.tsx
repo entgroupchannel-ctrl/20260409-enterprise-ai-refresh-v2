@@ -104,9 +104,6 @@ const AIODetail = () => {
           {/* Gallery */}
           <div className="space-y-4">
             <div className="relative">
-                item={{ id: product.id, name: product.model, category: "All-in-One PC", image: product.image, href: `/aio/${product.id}`, specs: product.titleTH }}
-                className="absolute top-3 right-3 z-10"
-              />
               <ProductGallery images={product.gallery} alt={product.model} />
             </div>
             <div className="flex flex-wrap gap-2">

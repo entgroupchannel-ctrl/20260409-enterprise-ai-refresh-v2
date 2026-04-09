@@ -231,9 +231,6 @@ const TabletCard = ({
 }) => (
   <div className={`card-surface overflow-hidden group transition-all ${selected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"}`}>
     <Link to={`/rugged-tablet/${product.id}`} className="relative bg-secondary/30 p-4 flex items-center justify-center h-52 cursor-pointer">
-        item={{ id: product.id, name: product.name, category: "Rugged Tablet", image: product.image, href: "/rugged-tablet", specs: product.cpu }}
-        className="absolute top-3 right-3"
-      />
       <button onClick={(e) => { e.preventDefault(); e.stopPropagation(); onToggleSelect(product.model); }} className="absolute top-3 left-3 z-10">
         <Checkbox checked={selected} className="h-5 w-5" />
       </button>

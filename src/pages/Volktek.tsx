@@ -273,8 +273,6 @@ const Volktek = () => {
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-1">
                     <h3 className="text-lg font-display font-bold text-foreground">{cat.title}</h3>
-                      item={{ id: cat.id, name: cat.title, category: "Volktek", image: cat.image, href: "/volktek", specs: cat.desc }}
-                    />
                   </div>
                   <p className="text-sm text-muted-foreground mb-4">{cat.desc}</p>
                   <div className="space-y-4">

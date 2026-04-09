@@ -316,9 +316,6 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
           <Checkbox checked={selected} className="h-5 w-5" />
         </button>
       )}
-        item={{ id: model.id, name: model.name, category: "EPC Series", image: model.image, href: "/epc-series", specs: `${model.size} (${model.ratio})` }}
-        className="absolute top-3 right-3"
-      />
       <img src={model.image} alt={model.name} className="max-h-44 object-contain group-hover:scale-105 transition-transform duration-300" loading="lazy" />
     </div>
     <div className="p-5 space-y-3">

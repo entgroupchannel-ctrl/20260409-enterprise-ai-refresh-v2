@@ -228,9 +228,6 @@ const Cabinets = () => {
             {cabinetModels.map((model) => (
               <div key={model.id} className="card-surface overflow-hidden group hover:border-primary/30 transition-all">
                 <div className="relative bg-secondary/30 p-6 flex items-center justify-center h-56">
-                    item={{ id: model.id, name: model.name, category: "Cabinets", image: model.image, href: "/cabinets", specs: model.protection }}
-                    className="absolute top-3 right-3"
-                  />
                   <img
                     src={model.image}
                     alt={model.name}

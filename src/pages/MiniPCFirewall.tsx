@@ -299,9 +299,6 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: Firewa
               <Checkbox checked={selected} className="h-5 w-5" />
             </button>
           )}
-            item={{ id: model.id, name: model.name, category: "Mini PC Firewall", image: model.image, href: "/mini-pc-firewall", specs: model.tagline }}
-            className="absolute top-2 right-2 z-10"
-          />
           <img src={model.image} alt={model.name} className="max-h-full max-w-full object-contain" loading="lazy" />
         </div>
 
