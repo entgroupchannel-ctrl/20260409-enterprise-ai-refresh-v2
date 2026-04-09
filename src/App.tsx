@@ -47,6 +47,8 @@ const CaseStudyDetail = lazy(() => import("./pages/CaseStudyDetail.tsx"));
 const Blog = lazy(() => import("./pages/Blog.tsx"));
 const BlogDetail = lazy(() => import("./pages/BlogDetail.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
+const Login = lazy(() => import("./pages/auth/Login.tsx"));
+const Register = lazy(() => import("./pages/auth/Register.tsx"));
 
 /* ── Loading fallback ── */
 const PageLoader = () => (
