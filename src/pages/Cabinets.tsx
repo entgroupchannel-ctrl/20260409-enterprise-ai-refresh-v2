@@ -385,7 +385,7 @@ const Cabinets = () => {
                 <h4 className="text-sm font-bold text-foreground">ข้อมูลติดต่อ</h4>
                 <div className="grid grid-cols-2 gap-3">
                   <input name="name" placeholder="ชื่อ-นามสกุล *" required value={customForm.name} onChange={handleCustomChange} className={inputClass} />
-                  <input name="email" type="email" placeholder="อีเมล *" required value={customForm.email || user?.email || ""} onChange={handleCustomChange} className={inputClass} />
+                  <input name="email" type="email" placeholder="อีเมล *" required value={customForm.email || ""} onChange={handleCustomChange} className={inputClass} />
                   <input name="phone" placeholder="เบอร์โทร" value={customForm.phone} onChange={handleCustomChange} className={inputClass} />
                   <input name="company" placeholder="บริษัท" value={customForm.company} onChange={handleCustomChange} className={inputClass} />
                 </div>

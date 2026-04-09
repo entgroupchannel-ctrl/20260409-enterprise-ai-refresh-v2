@@ -346,6 +346,14 @@ const EPCSeries = () => {
   const [squarePage, setSquarePage] = useState(1);
   const [widePage, setWidePage] = useState(1);
   const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
+  const [selectedProducts, setSelectedProducts] = useState<Set<string>>(new Set());
+  const toggleSelect = (name: string) => {
+    setSelectedProducts((prev) => {
+      const next = new Set(prev);
+      next.has(name) ? next.delete(name) : next.add(name);
+      return next;
+    });
+  };
 
 
   return (

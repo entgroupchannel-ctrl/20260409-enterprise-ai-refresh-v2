@@ -177,11 +177,18 @@ const useCasesData = [
 /* ═══════ Component ═══════ */
 const IBoxSeries = () => {
   const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
-
+  const [selectedProducts, setSelectedProducts] = useState<Set<string>>(new Set());
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("popular");
   const [filters, setFilters] = useState<IBoxFilterState>({ ...defaultFilters });
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+  const toggleSelect = (name: string) => {
+    setSelectedProducts((prev) => {
+      const next = new Set(prev);
+      next.has(name) ? next.delete(name) : next.add(name);
+      return next;
+    });
+  };
 
   const filteredProducts = useMemo(() => {
     let result = [...iboxProducts];
