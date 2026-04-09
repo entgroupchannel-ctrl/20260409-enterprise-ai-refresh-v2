@@ -79,7 +79,6 @@ const App = () => (
             <BrowserRouter>
               <ScrollToTop />
               <Suspense fallback={<PageLoader />}>
-
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/gt-series" element={<GTSeries />} />

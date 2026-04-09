@@ -125,7 +125,7 @@ const RuggedHandheldDetail = () => {
             <div className="flex flex-wrap gap-2">
               <Badge variant="secondary">{product.category === "windows" ? "Windows" : "Android"}</Badge>
               <Badge variant="outline">{product.screenSize}</Badge>
-              {product.specs.scanner && <Badge className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20">Scanner</Badge>}>
+              {product.specs.scanner && <Badge className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20">Scanner</Badge>}
 
             </div>
           </div>

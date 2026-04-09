@@ -81,10 +81,10 @@ const EdgeAISection = () => {
 
               onTouchStart={(e) => {
                 touchStartX.current = e.touches[0].clientX;
-              }}>
+              }}
               onTouchMove={(e) => {
                 touchEndX.current = e.touches[0].clientX;
-              }}>
+              }}
               onTouchEnd={() => {
                 const diff = touchStartX.current - touchEndX.current;
                 if (Math.abs(diff) > 50) {
@@ -103,9 +103,7 @@ const EdgeAISection = () => {
                     src={slide.src}
                     alt={slide.alt}
                     className="w-full h-full object-cover"
-
                     loading="lazy"
-
                     width={1024}
                     height={768}
                   />

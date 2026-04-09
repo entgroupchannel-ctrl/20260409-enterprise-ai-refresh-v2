@@ -433,7 +433,6 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
             src={allImages[activeImg]}
             alt={series.name}
             className="max-h-[220px] object-contain mb-4 transition-opacity duration-500"
-
             loading="lazy"
           />
           {allImages.length > 1 && (
@@ -531,8 +530,7 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
                     allowFullScreen
                     className="w-full h-full"
 
-                    loading="lazy"
-                  />
+                    loading="lazy"></iframe>
                 </div>
               </div>
             </div>
@@ -850,7 +848,6 @@ const EPCBoxSeries = () => {
             src="/images/wix/0597a3_7c3f2bd701f340ee993f725c168c1bec_e05257e7.png"
             alt="Trusted by global industries"
             className="w-full max-w-3xl mx-auto h-auto opacity-70"
-
             loading="lazy"
           />
           <p className="text-center text-sm text-muted-foreground mt-4">
@@ -1057,8 +1054,7 @@ const EPCBoxSeries = () => {
                   allowFullScreen
                   className="w-full h-full"
 
-                  loading="lazy"
-                />
+                  loading="lazy"></iframe>
               </div>
             </div>
           </div>
@@ -1085,8 +1081,7 @@ const EPCBoxSeries = () => {
                       allowFullScreen
                       className="w-full h-full"
 
-                      loading="lazy"
-                    />
+                      loading="lazy"></iframe>
                   </div>
                   <div className="p-3">
                     <p className="text-sm font-medium text-foreground">{video.title}</p>

@@ -1059,8 +1059,7 @@ const MiniPCFirewall = () => {
                     allowFullScreen
                     className="absolute inset-0 w-full h-full"
 
-                    loading="lazy"
-                  />
+                    loading="lazy"></iframe>
                 </div>
                 <div className="p-4">
                   <h3 className="text-sm font-bold text-foreground mb-2 leading-tight">{v.title}</h3>

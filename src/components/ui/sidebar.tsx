@@ -119,8 +119,9 @@ const SidebarProvider = React.forwardRef<
             } as React.CSSProperties
           }
           className={cn("group/sidebar-wrapper flex min-h-svh w-full has-[[data-variant=inset]]:bg-sidebar", className)}
-          ref={ref}>
-          {...props}>
+          ref={ref}
+          {...props}
+          >
           {children}
         </div>
       </TooltipProvider>
@@ -143,8 +144,9 @@ const Sidebar = React.forwardRef<
     return (
       <div
         className={cn("flex h-full w-[--sidebar-width] flex-col bg-sidebar text-sidebar-foreground", className)}
-        ref={ref}>
-        {...props}>
+        ref={ref}
+        {...props}
+        >
         {children}
       </div>
     );
@@ -227,8 +229,9 @@ const SidebarTrigger = React.forwardRef<React.ElementRef<typeof Button>, React.C
         onClick={(event) => {
           onClick?.(event);
           toggleSidebar();
-        }}>
-        {...props}>
+        }}
+        {...props}
+        >
         <PanelLeft />
         <span className="sr-only">Toggle Sidebar</span>
       </Button>
@@ -538,8 +541,9 @@ const SidebarMenuSkeleton = React.forwardRef<
       ref={ref}
       data-sidebar="menu-skeleton"
       className={cn("flex h-8 items-center gap-2 rounded-md px-2", className)}
-      {...props}>
-      {showIcon && <Skeleton className="size-4 rounded-md" data-sidebar="menu-skeleton-icon" />}>
+      {...props}
+    >
+      {showIcon && <Skeleton className="size-4 rounded-md" data-sidebar="menu-skeleton-icon" />}
 
       <Skeleton
         className="h-4 max-w-[--skeleton-width] flex-1"

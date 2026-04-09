@@ -60,7 +60,7 @@ const ClientTrustSection = () => {
             onClick={() => setIsOpen(!isOpen)}
             className="inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 transition-colors font-medium">
             {isOpen ? "ซ่อนรายชื่อ" : "ดูรายชื่อบางส่วน"}
-            {isOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}>
+            {isOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
 
           </button>
         </div>
@@ -143,7 +143,6 @@ const CaseStudies = () => {
                     src={cs.image}
                     alt={cs.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
@@ -206,15 +205,13 @@ const CaseStudies = () => {
                   <iframe
                     src={`https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fentgroup.th%2Fvideos%2F${v.videoId}%2F&show_text=0&width=560`}
                     width="100%"
-
                     height="100%"
-                    style={{ border: "none", overflow: "hidden" }}>
+                    style={{ border: "none", overflow: "hidden" }}
                     scrolling="no"
                     allowFullScreen
                     allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-
                     title={v.title}
-                  />
+                  ></iframe>
                 </div>
                 <div className="p-3">
                   <p className="text-sm font-medium text-foreground">{v.title}</p>

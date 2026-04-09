@@ -454,7 +454,6 @@ const PanelPC = () => {
               src={displayType === "wide" ? panelpcWideLineup : panelpcSquareLineup}
               alt={`Panel PC ${displayType === "wide" ? "Widescreen" : "Square"} Lineup`}
               className="max-h-[350px] mx-auto object-contain mb-6"
-
               loading="lazy"
             />
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
@@ -677,7 +676,7 @@ import FooterCompact from "@/components/FooterCompact";
                           <span className="text-[10px] px-1.5 py-0.5 rounded bg-secondary text-secondary-foreground font-mono">{m.series}</span>
                           <div>
                             <span className="font-semibold text-foreground">{m.name}</span>
-                            {m.popular && <span className="ml-2 text-[10px] px-1.5 py-0.5 rounded-full bg-primary text-primary-foreground font-bold"><Star size={10} className="inline" /></span>}>
+                            {m.popular && <span className="ml-2 text-[10px] px-1.5 py-0.5 rounded-full bg-primary text-primary-foreground font-bold"><Star size={10} className="inline" /></span>}
 
                             <p className="text-[11px] text-muted-foreground">{m.highlight}</p>
                           </div>

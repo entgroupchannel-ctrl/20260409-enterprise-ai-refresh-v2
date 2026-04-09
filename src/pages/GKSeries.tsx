@@ -662,7 +662,6 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
               src={model.image}
               alt={model.name}
               className="max-h-[240px] object-contain mb-4"
-
               loading="lazy"
             />
           )}
@@ -843,8 +842,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                   className="w-full h-full"
 
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
+                  allowFullScreen></iframe>
               </div>
             </TabsContent>
           )}
@@ -1014,7 +1012,7 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
 
             <div className="px-4 py-4 bg-primary/10 flex items-center">
               <span className="text-sm font-bold text-foreground">
-                {viewMode === "specs" ? <><FileText size={14} className="inline mr-1" /> สเปก</> : viewMode === "price" ? <><DollarSign size={14} className="inline mr-1" /> ราคา</> : <><BarChart3 size={14} className="inline mr-1" /> ความคุ้มค่า</>}>
+                {viewMode === "specs" ? <><FileText size={14} className="inline mr-1" /> สเปก</> : viewMode === "price" ? <><DollarSign size={14} className="inline mr-1" /> ราคา</> : <><BarChart3 size={14} className="inline mr-1" /> ความคุ้มค่า</>}
 
               </span>
             </div>
@@ -1133,7 +1131,6 @@ const GKSeries = () => {
             src={gkHeroBanner}
             alt="GK Series Panel PC in harsh industrial environment"
             className="w-full h-full object-cover"
-
             width={1920}
             height={800}
           />
@@ -1385,8 +1382,7 @@ const GKSeries = () => {
 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="p-4 flex items-center justify-between">
                       <p className="font-semibold text-foreground text-sm">{v.title}</p>
@@ -1455,7 +1451,6 @@ const GKSeries = () => {
                   src="/images/wix/005637_9307d91084e2433eb766e611c65c7518_d90cd4b5.jpg"
                   alt="GK Series SIM slot"
                   className="rounded-xl max-w-full"
-
                   loading="lazy"
                 />
               </div>

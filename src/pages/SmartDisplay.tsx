@@ -318,7 +318,6 @@ const SmartDisplay = () => {
                     src="/images/wix/0597a3_7ae90fd5a4fd425d9cc9efad0a31c636_44990981.png"
                     alt="FPM Series Industrial Touch Monitor"
                     className="w-full object-contain"
-
                     loading="lazy"
                   />
                 </div>
@@ -330,7 +329,6 @@ const SmartDisplay = () => {
                       src="/images/wix/0597a3_171a07409e364dd4b23631e28628341f_839b524c.png"
                       alt="Wide Screen & Square Screen options"
                       className="w-full object-contain"
-
                       loading="lazy"
                     />
                   </div>
@@ -339,7 +337,6 @@ const SmartDisplay = () => {
                       src="/images/wix/0597a3_2b37f8b836bf40e983200b7d2c7eec55_d29d91f9.png"
                       alt="FPM size options 8-24 inch"
                       className="w-full object-contain"
-
                       loading="lazy"
                     />
                   </div>
@@ -352,7 +349,6 @@ const SmartDisplay = () => {
                       src="/images/wix/0597a3_bd712d6f658443bbb2190fda091ee8b1_de7fec1c.png"
                       alt="Industrial Grade Computer + Touch Screen"
                       className="w-full object-contain rounded-lg mb-4"
-
                       loading="lazy"
                     />
                     <p className="text-sm text-muted-foreground">ส่งมอบประสบการณ์ที่แข็งแกร่ง กับการเลือกใช้ Industrial Grade Computer ร่วมกับหน้าจอ Touch Screen เกรดอุตสาหกรรม</p>
@@ -362,7 +358,6 @@ const SmartDisplay = () => {
                       src="/images/wix/0597a3_099390617863452cb42bc0e2eeca3ab2_45701297.png"
                       alt="Easy connection USB + HDMI"
                       className="w-full object-contain rounded-lg mb-4"
-
                       loading="lazy"
                     />
                     <p className="text-sm text-muted-foreground">เพียงเสียบสายไฟ USB และ HDMI — เปลี่ยนระบบการทำงานเป็นแบบสัมผัส พร้อมใช้งานทันที</p>
@@ -375,7 +370,6 @@ const SmartDisplay = () => {
                     src="/images/wix/0597a3_c6e92eb018a04ed78ef653433323ccc4_23264789.png"
                     alt="FPM17 Special Edition"
                     className="w-full object-contain"
-
                     loading="lazy"
                   />
                 </div>
@@ -386,7 +380,6 @@ const SmartDisplay = () => {
                     src="/images/wix/0597a3_5bbc918177214812816fca9cac808de6_3497905f.png"
                     alt="VESA Mounting options"
                     className="w-full object-contain"
-
                     loading="lazy"
                   />
                 </div>
@@ -489,7 +482,6 @@ const SmartDisplay = () => {
                     src="/images/wix/0597a3_4b83ca4062e04f0285200f3eba338ebc_8fa8824b.png"
                     alt="Outdoor Monitor 1600 Nits"
                     className="max-h-[380px] object-contain drop-shadow-xl"
-
                     loading="lazy"
                   />
                 </div>
@@ -588,7 +580,6 @@ const SmartDisplay = () => {
                       src="/images/wix/0597a3_f8734b5a7dd9417bb93b82c09df3eccd_307dc478.png"
                       alt="KIOSK สำเร็จรูป"
                       className="max-h-[400px] object-contain drop-shadow-2xl"
-
                       loading="lazy"
                     />
                   </div>
@@ -779,14 +770,12 @@ const SmartDisplay = () => {
                       src="/images/wix/005637_bf1ac53c95244bfc9806b0757ab39272_604a8d91.png"
                       alt="KIOSK-GK2101 ด้านหน้า"
                       className="max-h-[400px] object-contain drop-shadow-xl"
-
                       loading="lazy"
                     />
                     <img
                       src="/images/wix/005637_b48ec7c382e549ad853ae993207d740e_4c97c30b.png"
                       alt="KIOSK-GK2101 ด้านหลัง"
                       className="max-h-[400px] object-contain drop-shadow-xl"
-
                       loading="lazy"
                     />
                   </div>
@@ -849,7 +838,6 @@ const SmartDisplay = () => {
                       src="/images/wix/0597a3_841bc593914c47cfa538b4dd7b57a27e_dad76eaa.png"
                       alt="Kiosk enclosures"
                       className="max-h-[350px] object-contain"
-
                       loading="lazy"
                     />
                   </div>
@@ -971,7 +959,6 @@ const SmartDisplay = () => {
                       src="/images/wix/0597a3_25107590998d467abb1b5b0f603701f3_2f9ce164.png"
                       alt="Window Display"
                       className="max-h-[350px] object-contain"
-
                       loading="lazy"
                     />
                   </div>
@@ -994,7 +981,6 @@ const SmartDisplay = () => {
                   src="/images/wix/0597a3_394e2528ac014a72a46412c83b1d9acb_e7c706ab.png"
                   alt="Stretched bar display range"
                   className="w-full object-cover"
-
                   loading="lazy"
                 />
               </div>
@@ -1026,7 +1012,6 @@ const SmartDisplay = () => {
                   src="/images/wix/0597a3_75d6d2e9ade74554add617fef3ccca16_387324f9.png"
                   alt="Windows 10 Pro option"
                   className="max-h-[260px] object-contain rounded-lg"
-
                   loading="lazy"
                 />
               </div>
@@ -1149,8 +1134,7 @@ const SmartDisplay = () => {
                       title={v.title}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
-                      loading="lazy"
-                    />
+                      loading="lazy"></iframe>
                   </div>
                 </div>
               ))}
@@ -1170,8 +1154,7 @@ const SmartDisplay = () => {
 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    loading="lazy"
-                  />
+                    loading="lazy"></iframe>
                 </div>
               </div>
             </div>

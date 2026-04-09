@@ -366,7 +366,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                       ? "bg-primary text-primary-foreground shadow-md"
                       : "bg-background border border-border text-muted-foreground hover:border-primary/40"
                   }`}>
-                  >{n}
+                  {n}
                 </button>
               ))}
             </div>
@@ -710,7 +710,6 @@ const GTSeries = () => {
             src={gtSeriesHeroBg}
             alt="Industrial factory production line with fanless computers"
             className="w-full h-full object-cover"
-
             width={1920}
             height={900}
           />
@@ -955,7 +954,6 @@ const GTSeries = () => {
                       src="/images/wezhan/5874413.jpg"
                       alt="GT1000 ด้านหน้า — 2 LAN, HDMI, VGA, MIC, SPK"
                       className="w-full object-contain p-2"
-
                       loading="lazy"
                     />
                   </div>
@@ -1070,7 +1068,6 @@ const GTSeries = () => {
                     src="/images/wix/3e5003_d438441c66734588bf92c3cb77e08aae_c34db0a8.jpg"
                     alt="GT1000 Connectivity Diagram"
                     className="w-full rounded-lg"
-
                     loading="lazy"
                   />
                 </div>
@@ -1079,7 +1076,6 @@ const GTSeries = () => {
                     src="/images/wix/0597a3_813ed70f44da4e72b1f8d881cd8b30d9_e508c44a.png"
                     alt="GT1000 Port Layout"
                     className="w-full rounded-lg"
-
                     loading="lazy"
                   />
                 </div>
@@ -1218,8 +1214,7 @@ const GTSeries = () => {
                         allowFullScreen
                         className="absolute inset-0 w-full h-full"
 
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="mt-3">
                       <ShareButtons url="https://youtu.be/7wE6fxMpJB4" title="GT1000 Intro — ENT GROUP" />
@@ -1244,8 +1239,7 @@ const GTSeries = () => {
                               allowFullScreen
                               className="absolute inset-0 w-full h-full"
 
-                              loading="lazy"
-                            />
+                              loading="lazy"></iframe>
                           </div>
                           <div className="flex items-center justify-between">
                             <p className="text-xs text-muted-foreground font-medium">{video.title}</p>
@@ -1382,8 +1376,7 @@ const GTSeries = () => {
                         allowFullScreen
                         className="absolute inset-0 w-full h-full"
 
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="p-3">
                       <ShareButtons url="https://youtu.be/Z4hTYAIDs2s" title="GT2000 สาธิตการใช้งาน — ENT GROUP" />
@@ -1437,7 +1430,6 @@ const GTSeries = () => {
                       src="/images/wix/3e5003_6bf58ba61ae245ea82f96cb2171fb9b7_16926587.jpg"
                       alt="GT2000 Chassis Cooling"
                       className="w-full rounded-lg"
-
                       loading="lazy"
                     />
                   </div>
@@ -1455,7 +1447,6 @@ const GTSeries = () => {
                       src="/images/wix/0597a3_2f4f2a02ac1542fb8ce44f6b78f5c5f9_98c59f5e.png"
                       alt="GT2000 CPU Detail"
                       className="w-full"
-
                       loading="lazy"
                     />
                   </div>
@@ -1483,7 +1474,6 @@ const GTSeries = () => {
                       src="/images/wix/0597a3_126df8ab2d554a9a8b4a6074fe4f7647_c1e10423.png"
                       alt="GT2000 I/O Ports Front"
                       className="w-full rounded-lg"
-
                       loading="lazy"
                     />
                   </div>
@@ -1492,7 +1482,6 @@ const GTSeries = () => {
                       src="/images/wix/0597a3_dac94b90d7444622918e2fe4f69de597_c78e860e.png"
                       alt="GT2000 I/O Ports Rear"
                       className="w-full rounded-lg"
-
                       loading="lazy"
                     />
                   </div>
@@ -1520,7 +1509,6 @@ const GTSeries = () => {
                   src="/images/wix/0597a3_4843a18b6dfe4330bd22479aadd69b1d_771d3c49.png"
                   alt="GT2000 Full Port Diagram"
                   className="w-full max-w-2xl mx-auto rounded-lg"
-
                   loading="lazy"
                 />
               </div>
@@ -1546,7 +1534,6 @@ const GTSeries = () => {
                       src="/images/wix/0597a3_b5efadfa0e7b40619c90fec704966b11_8fec62ed.png"
                       alt="GT2000 OS Support"
                       className="w-full"
-
                       loading="lazy"
                     />
                   </div>
@@ -1563,7 +1550,6 @@ const GTSeries = () => {
                   src="/images/wix/0597a3_46573ca6a9a644e29b30118c4f839098_da7c5153.png"
                   alt="GT2000 Dimensions"
                   className="max-w-sm mx-auto rounded-lg"
-
                   loading="lazy"
                 />
               </div>
@@ -1575,7 +1561,6 @@ const GTSeries = () => {
                     src="/images/wix/0597a3_8cc69bc674294dc9907277ccf8235ad1_e11caf5f.png"
                     alt="GT2000 Spec Summary"
                     className="w-full max-w-xl mx-auto rounded-lg"
-
                     loading="lazy"
                   />
                 </div>
@@ -1673,8 +1658,7 @@ const GTSeries = () => {
                         allowFullScreen
                         className="absolute inset-0 w-full h-full"
 
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="mt-3">
                       <ShareButtons url="https://youtu.be/XLhFAF_8Da4" title="GT2000 Intro — ENT GROUP" />
@@ -1699,8 +1683,7 @@ const GTSeries = () => {
                               allowFullScreen
                               className="absolute inset-0 w-full h-full"
 
-                              loading="lazy"
-                            />
+                              loading="lazy"></iframe>
                           </div>
                           <div className="flex items-center justify-between">
                             <p className="text-xs text-muted-foreground font-medium">{video.title}</p>
@@ -1839,7 +1822,6 @@ const GTSeries = () => {
                       src="/images/wezhan/5874079.jpg"
                       alt="GT3000 ด้านหน้า — USB3.0, LAN, VGA, HDMI, COM"
                       className="w-full object-contain p-2"
-
                       loading="lazy"
                     />
                   </div>
@@ -1938,7 +1920,6 @@ const GTSeries = () => {
                     src={gt3000CpuOptions}
                     alt="GT3000 CPU Options — Celeron, Core i3, i5, i7"
                     className="w-full rounded-lg"
-
                     loading="lazy"
                   />
                 </div>
@@ -1947,7 +1928,6 @@ const GTSeries = () => {
                     src="/images/wix/3e5003_fadd401364de4b7d9e31669c96695798_a2019e77.jpg"
                     alt="GT3000 Connectivity"
                     className="w-full rounded-lg"
-
                     loading="lazy"
                   />
                 </div>
@@ -1976,7 +1956,6 @@ const GTSeries = () => {
                       src="/images/wezhan/5874076.jpg"
                       alt="GT3000 Heatsink Side View"
                       className="w-full"
-
                       loading="lazy"
                     />
                   </div>
@@ -2052,8 +2031,7 @@ const GTSeries = () => {
                         allowFullScreen
                         className="absolute inset-0 w-full h-full"
 
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="mt-3">
                       <ShareButtons url="https://youtu.be/31SEStppvKw" title="GT3000 Intro — ENT GROUP" />
@@ -2078,8 +2056,7 @@ const GTSeries = () => {
                               allowFullScreen
                               className="absolute inset-0 w-full h-full"
 
-                              loading="lazy"
-                            />
+                              loading="lazy"></iframe>
                           </div>
                           <div className="flex items-center justify-between">
                             <p className="text-xs text-muted-foreground font-medium">{video.title}</p>
@@ -2290,7 +2267,6 @@ const GTSeries = () => {
                       src="/images/gt4000/front.jpg"
                       alt="GT4000 ด้านหน้า — 6 COM, USB, LAN, VGA, HDMI"
                       className="w-full object-contain p-2"
-
                       loading="lazy"
                     />
                   </div>
@@ -2389,7 +2365,6 @@ const GTSeries = () => {
                     src="/images/wix/3e5003_a4726520b0df4492b73e8646990df9ce_c6843bc4.jpg"
                     alt="GT4000 Port Overview"
                     className="w-full rounded-lg"
-
                     loading="lazy"
                   />
                 </div>
@@ -2398,7 +2373,6 @@ const GTSeries = () => {
                     src="/images/wix/3e5003_91111c3b2ffb41c39bb2978c36ccd01c_4c9424b9.jpg"
                     alt="GT4000 Port Detail"
                     className="w-full rounded-lg"
-
                     loading="lazy"
                   />
                 </div>
@@ -2480,8 +2454,7 @@ const GTSeries = () => {
                     allowFullScreen
                     className="w-full h-full"
 
-                    loading="lazy"
-                  />
+                    loading="lazy"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT4000 Introduction</span>
@@ -2505,8 +2478,7 @@ const GTSeries = () => {
                         allowFullScreen
                         className="w-full h-full"
 
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>
@@ -2645,7 +2617,6 @@ const GTSeries = () => {
                       src="/images/gt5000/main.jpg"
                       alt="GT5000 ภาพหลัก — ด้านหน้า"
                       className="w-full object-contain p-2"
-
                       loading="lazy"
                     />
                   </div>
@@ -3023,8 +2994,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     allowFullScreen
                     className="w-full h-full"
 
-                    loading="lazy"
-                  />
+                    loading="lazy"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT5000 Introduction</span>
@@ -3048,8 +3018,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         allowFullScreen
                         className="w-full h-full"
 
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>
@@ -3176,7 +3145,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       src="/images/gt6000/main.jpg"
                       alt="GT6000 ภาพหลัก — ด้านหน้า"
                       className="w-full object-contain p-2"
-
                       loading="lazy"
                     />
                   </div>
@@ -3387,8 +3355,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     allowFullScreen
                     className="w-full h-full"
 
-                    loading="lazy"
-                  />
+                    loading="lazy"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT6000 Introduction</span>
@@ -3412,8 +3379,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         allowFullScreen
                         className="w-full h-full"
 
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>
@@ -3545,7 +3511,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       src="/images/gt7000/main.jpg"
                       alt="GT7000 ภาพหลัก"
                       className="w-full object-contain p-2"
-
                       loading="lazy"
                     />
                   </div>
@@ -3775,8 +3740,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     allowFullScreen
                     className="w-full h-full"
 
-                    loading="lazy"
-                  />
+                    loading="lazy"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT7000 Introduction</span>
@@ -3800,8 +3764,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         allowFullScreen
                         className="w-full h-full"
 
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>
@@ -3955,7 +3918,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       src="/images/gt8000/main.jpg"
                       alt="GT8000 ภาพหลัก"
                       className="w-full object-contain p-2"
-
                       loading="lazy"
                     />
                   </div>
@@ -4114,8 +4076,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     allowFullScreen
                     className="w-full h-full"
 
-                    loading="lazy"
-                  />
+                    loading="lazy"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT8000 Introduction</span>
@@ -4140,8 +4101,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         allowFullScreen
                         className="w-full h-full"
 
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>
@@ -4223,7 +4183,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       GT<span className="text-gradient">9000</span>
                     </h3>
                     <p className="text-muted-foreground leading-relaxed">
-                      GT9000 ตัวเครื่องสีดำผลิตจากอลูมิเนียมอัลลอยด์ขัดเงา (Brushed Full Aluminum Alloy)>
+                      GT9000 ตัวเครื่องสีดำผลิตจากอลูมิเนียมอัลลอยด์ขัดเงา (Brushed Full Aluminum Alloy)
                       ปราศจากพัดลมระบายอากาศ ทำงานเงียบ 24 ชั่วโมงต่อเนื่อง รองรับ 4G Module พร้อมช่อง SIM Card,
                       Dual-Band WiFi พร้อมเสาอากาศภายนอก, 6 COM Port (RS232/RS422/RS485) และ Triple Display
                       ผ่าน 3× HDMI 1.4 แสดงผล 3 จอพร้อมกัน ติดตั้ง M-SATA SSD + 2.5" SATA HDD + M.2 2280 NVMe ได้พร้อมกัน
@@ -4337,7 +4297,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   src="/images/wix/0597a3_b68e0174e2b54d39b0bdf80ae71118e5_dbbc6602.png"
                   alt="GT9000 Product Overview"
                   className="w-full rounded-lg"
-
                   loading="lazy"
                 />
               </div>
@@ -4477,8 +4436,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     allowFullScreen
                     className="w-full h-full"
 
-                    loading="lazy"
-                  />
+                    loading="lazy"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT9000 Introduction</span>
@@ -4502,8 +4460,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         allowFullScreen
                         className="w-full h-full"
 
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>
@@ -4645,7 +4602,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       src="/images/wix/0597a3_aea4cee9a1cb431b90886aa5b64e1f96_60f4ae42.png"
                       alt="GT4500 Front"
                       className="w-full object-contain p-4"
-
                       loading="lazy"
                     />
                   </div>
@@ -4654,7 +4610,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       src="/images/wix/0597a3_2901e68aa51b482697a1d4c4fa9fc320_8f38391a.png"
                       alt="GT4500 Rear Ports"
                       className="w-full object-contain p-4"
-
                       loading="lazy"
                     />
                   </div>
@@ -4690,7 +4645,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   src={gt4500CpuOptions}
                   alt="GT4500 CPU Options"
                   className="w-full rounded-lg"
-
                   loading="lazy"
                 />
               </div>
@@ -4718,7 +4672,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       src="/images/wix/0597a3_840c03acd28147a89285de218f3a0a25_25c7410d.png"
                       alt="GT4500 Software"
                       className="w-full"
-
                       loading="lazy"
                     />
                   </div>
@@ -4736,7 +4689,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   src="/images/wix/3e5003_5146d29438c1469084384085311877b6_98f6e0e9.jpg"
                   alt="GT4500 Heatsink"
                   className="w-full rounded-lg"
-
                   loading="lazy"
                 />
               </div>
@@ -4748,7 +4700,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   src="/images/wix/3e5003_fa1b7c0241e1439796bca055fb8c927d_880a3b61.jpg"
                   alt="GT4500 Port Layout"
                   className="w-full rounded-lg mb-4"
-
                   loading="lazy"
                 />
                 <div className="grid md:grid-cols-3 gap-4 px-2">
@@ -4778,14 +4729,12 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     src="/images/wix/3e5003_b7535d8168ab4f7d8d657a3eef999b12_d9722688.jpg"
                     alt="GT4500 Dimensions"
                     className="rounded-lg w-full"
-
                     loading="lazy"
                   />
                   <img
                     src="/images/wix/0597a3_c6c89af9190c48b992640615c77efcee_341c4637.png"
                     alt="GT4500 VESA Mount"
                     className="rounded-lg w-full"
-
                     loading="lazy"
                   />
                 </div>
@@ -4877,7 +4826,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       src={src}
                       alt={`GT4500 การใช้งานจริง ${idx + 1}`}
                       className="w-full h-auto rounded-lg hover:scale-105 transition-transform duration-300"
-
                       loading="lazy"
                     />
                   ))}
@@ -4903,8 +4851,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     allowFullScreen
                     className="w-full h-full"
 
-                    loading="lazy"
-                  />
+                    loading="lazy"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT4500 Introduction</span>
@@ -4929,8 +4876,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         allowFullScreen
                         className="w-full h-full"
 
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>
@@ -5201,8 +5147,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     allowFullScreen
                     className="w-full h-full"
 
-                    loading="lazy"
-                  />
+                    loading="lazy"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT1400 Introduction</span>
@@ -5226,8 +5171,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         allowFullScreen
                         className="w-full h-full"
 
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>
@@ -5298,7 +5242,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       GT<span className="text-gradient">1300</span>
                     </h3>
                     <p className="text-muted-foreground leading-relaxed">
-                      GT1300 คอมพิวเตอร์อุตสาหกรรมระดับสูง รองรับ CPU H-Series Gen 8/9/10 (TDP 45W)>
+                      GT1300 คอมพิวเตอร์อุตสาหกรรมระดับสูง รองรับ CPU H-Series Gen 8/9/10 (TDP 45W)
                       พร้อม 3× HDMI 1.4 Triple Display, 6 COM Port (2 ตัวเปลี่ยนเป็น RS422/RS485 ผ่าน BIOS),
                       GPIO 14 ช่อง (7 IN / 7 OUT), 2× Intel i225V 2.5G LAN,
                       ไฟเข้า 9–36V กว้าง เหมาะสำหรับ Industrial Robotics, Factory Automation, Surveillance
@@ -5470,8 +5414,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     allowFullScreen
                     className="w-full h-full"
 
-                    loading="lazy"
-                  />
+                    loading="lazy"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT1300 Introduction</span>
@@ -5495,8 +5438,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         allowFullScreen
                         className="w-full h-full"
 
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>
@@ -5773,8 +5715,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     allowFullScreen
                     className="w-full h-full"
 
-                    loading="lazy"
-                  />
+                    loading="lazy"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT1200 Introduction</span>
@@ -5798,8 +5739,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         allowFullScreen
                         className="w-full h-full"
 
-                        loading="lazy"
-                      />
+                        loading="lazy"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>
@@ -5911,7 +5851,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               src="/images/wix/3e5003_9a0970ee1f4f4d9aa2f4f3fef18faeb5_b40f0eb8.jpg"
               alt="GT Series รวม"
               className="w-full h-auto"
-
               loading="lazy"
             />
           </div>
@@ -6059,15 +5998,14 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
         src={model.image}
         alt={model.name}
         className="max-h-[160px] object-contain group-hover:scale-105 transition-transform duration-300"
-
         loading="lazy"
       />
     </div>
     <div className="p-5">
       <h3 className="text-xl font-display font-bold text-foreground mb-1 group-hover:text-primary transition-colors flex items-center gap-2">
         {model.name}
-        {model.tab && <span className="text-xs text-primary font-normal">ดูรายละเอียด →</span>}>
-        {!model.tab && <ExternalLink size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />}>
+        {model.tab && <span className="text-xs text-primary font-normal">ดูรายละเอียด →</span>}
+        {!model.tab && <ExternalLink size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />}
 
       </h3>
       <p className="text-xs font-semibold text-primary mb-3">"{model.tagline}"</p>
@@ -6091,7 +6029,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
             <span className="text-sm text-muted-foreground">เริ่มต้น </span>
             <span className="font-bold text-foreground">{model.price.startsWith("สอบถาม") ? model.price : `฿${model.price}`}</span>
           </div>
-        ) : <div />}>
+        ) : <div />}
       </div>
     </div>
   </>

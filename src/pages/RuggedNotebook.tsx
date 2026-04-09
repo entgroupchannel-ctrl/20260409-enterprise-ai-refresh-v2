@@ -203,8 +203,7 @@ const RuggedNotebookPage = () => {
                   filters.os === tab.id ? "bg-primary text-primary-foreground shadow-sm" : "bg-muted hover:bg-muted/80 text-foreground"
                 }`}>
                 {tab.label}
-                <span className={`text-[10px] font-mono ${filters.os === tab.id ? "text-primary-foreground/70" : "text-muted-foreground"}`}
-
+                <span className={`text-[10px] font-mono ${filters.os === tab.id ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
                   ({tab.id === "all" ? ruggedNotebooks.length : ruggedNotebooks.filter((p) => p.os === tab.id).length})
                 </span>
               </button>
@@ -320,7 +319,7 @@ const RuggedNotebookPage = () => {
           ].map((v) => (
             <div key={v.id} className="card-surface rounded-xl overflow-hidden">
               <div className="relative w-full pb-[56.25%]">
-                <iframe src={`https://www.youtube.com/embed/${v.id}`} title={v.title} className="absolute inset-0 w-full h-full" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+                <iframe src={`https://www.youtube.com/embed/${v.id}`} title={v.title} className="absolute inset-0 w-full h-full" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
               </div>
               <div className="p-2.5 flex items-center justify-between">
                 <p className="font-semibold text-xs text-foreground line-clamp-1">{v.title}</p>

@@ -125,7 +125,7 @@ const RuggedTabletDetail = () => {
                     <div className="flex items-center justify-between mb-1">
                       <div className="flex items-center gap-2">
                         <p className="font-bold text-sm">{c.label}</p>
-                        {c.inStock && <Badge className="bg-green-500/20 text-green-600 border-green-500/30 text-[10px]">พร้อมส่ง</Badge>}>
+                        {c.inStock && <Badge className="bg-green-500/20 text-green-600 border-green-500/30 text-[10px]">พร้อมส่ง</Badge>}
 
                       </div>
                       <span className="text-primary font-extrabold text-lg">{c.price}</span>
@@ -289,7 +289,7 @@ const RuggedTabletDetail = () => {
                   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
                     {product.accessories.map((acc) => (
                       <div key={acc.nameEN} className="bg-card border border-border rounded-lg p-3 text-center">
-                        {acc.image && <img src={acc.image} alt={acc.name} className="w-full h-24 object-contain mb-2" loading="lazy" />}>
+                        {acc.image && <img src={acc.image} alt={acc.name} className="w-full h-24 object-contain mb-2" loading="lazy" />}
 
                         <p className="text-xs font-bold text-foreground">{acc.name}</p>
                         <p className="text-[10px] text-muted-foreground">{acc.nameEN}</p>

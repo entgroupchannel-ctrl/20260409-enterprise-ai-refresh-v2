@@ -110,7 +110,6 @@ const HeroSection = () => {
           src={heroIndustrial}
           alt="Industrial Computing Production Line"
           className="w-full h-full object-cover"
-
           width={1920}
           height={900}
         />
@@ -188,7 +187,7 @@ const HeroSection = () => {
                   onChange={(e) => {
                     setSearchQuery(e.target.value);
                     setSearchOpen(true);
-                  }}>
+                  }}
                   onFocus={() => setSearchOpen(true)}
                   onKeyDown={handleSearchKeyDown}
                   className="flex-1 bg-transparent px-4 py-4 text-white placeholder:text-white/40 outline-none text-sm md:text-base"

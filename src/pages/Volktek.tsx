@@ -246,7 +246,6 @@ const Volktek = () => {
                 src="/images/wix/0597a3_d5a5792c655647a392507ede27ec62a6_63339b10.png"
                 alt="Factory Automation Diagram"
                 className="w-full h-auto rounded-lg"
-
                 loading="lazy"
               />
             </div>
@@ -333,8 +332,7 @@ const Volktek = () => {
                 allowFullScreen
                 className="absolute inset-0 w-full h-full"
 
-                loading="lazy"
-              />
+                loading="lazy"></iframe>
             </div>
             <div className="p-4 flex items-center justify-between">
               <a

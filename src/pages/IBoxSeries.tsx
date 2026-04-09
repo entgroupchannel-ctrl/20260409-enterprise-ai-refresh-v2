@@ -423,7 +423,8 @@ const IBoxSeries = () => {
                     <div className="relative bg-secondary/30 p-6 flex items-center justify-center h-52">
                       <button onClick={() => toggleSelect(model.name)} className="absolute top-3 left-3 z-10">
                         <Checkbox checked={selectedProducts.has(model.name)} className="h-5 w-5" />
-                      </button
+                      </button>
+                      <ShareButtons
                         item={{
                           id: model.id,
                           name: model.name,
@@ -438,7 +439,6 @@ const IBoxSeries = () => {
                         src={model.image}
                         alt={model.name}
                         className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
-
                         loading="lazy"
                       />
                     </div>
@@ -542,7 +542,7 @@ const IBoxSeries = () => {
         {/* Featured video */}
         <div className="card-surface rounded-xl overflow-hidden mb-4">
           <div className="relative w-full pb-[56.25%] max-h-[420px]">
-            <iframe src="https://www.youtube.com/embed/TU80kmBXrYM" title="iBox Series — Fanless Industrial PC Review" className="absolute inset-0 w-full h-full" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+            <iframe src="https://www.youtube.com/embed/TU80kmBXrYM" title="iBox Series — Fanless Industrial PC Review" className="absolute inset-0 w-full h-full" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
           </div>
           <div className="p-3 flex items-center justify-between">
             <div>
@@ -562,7 +562,7 @@ const IBoxSeries = () => {
           ].map((v) => (
             <div key={v.id} className="card-surface rounded-xl overflow-hidden group">
               <div className="relative w-full pb-[56.25%]">
-                <iframe src={`https://www.youtube.com/embed/${v.id}`} title={v.title} className="absolute inset-0 w-full h-full" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+                <iframe src={`https://www.youtube.com/embed/${v.id}`} title={v.title} className="absolute inset-0 w-full h-full" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
               </div>
               <div className="p-2.5 flex items-center justify-between">
                 <p className="font-semibold text-xs text-foreground line-clamp-1">{v.title}</p>
