@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import {
@@ -14,7 +14,17 @@ import { Textarea } from '@/components/ui/textarea';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { FileText, Send, Loader2, Package } from 'lucide-react';
+import { FileText, Send, Loader2, Package, Plus, Minus, X, Check, ShoppingBag } from 'lucide-react';
+import { getRelatedCatalogProducts, type CatalogProduct } from '@/lib/product-catalog';
+
+interface QuoteProduct {
+  model: string;
+  description: string;
+  qty: number;
+  unit_price: number;
+  discount_percent: number;
+  line_total: number;
+}
 
 interface QuoteRequestButtonProps {
   productModel?: string;
@@ -47,9 +57,16 @@ export default function QuoteRequestButton({
     customer_email: user?.email || '',
     customer_phone: '',
     customer_company: '',
-    qty: 1,
     notes: '',
   });
+
+  const [products, setProducts] = useState<QuoteProduct[]>([]);
+
+  // Related products for upselling
+  const relatedProducts = useMemo(() => {
+    if (!productModel) return [];
+    return getRelatedCatalogProducts(productModel, 3);
+  }, [productModel]);
 
   // Auto-fill from user profile when dialog opens
   useEffect(() => {
@@ -58,18 +75,30 @@ export default function QuoteRequestButton({
     }
   }, [showDialog, user]);
 
+  // Initialize products when dialog opens
+  useEffect(() => {
+    if (showDialog && productModel && products.length === 0) {
+      setProducts([{
+        model: productModel,
+        description: productName || '',
+        qty: 1,
+        unit_price: 0,
+        discount_percent: 0,
+        line_total: 0,
+      }]);
+    }
+  }, [showDialog, productModel]);
+
   const loadUserProfile = async () => {
     if (!user) return;
     setLoadingProfile(true);
     try {
-      // Fetch from users table
       const { data: userData } = await supabase
         .from('users')
         .select('full_name, phone, company, email')
         .eq('id', user.id)
         .maybeSingle();
 
-      // Fetch from user_profiles table
       const { data: profileData } = await supabase
         .from('user_profiles')
         .select('contact_name, contact_phone, company_name, contact_email')
@@ -90,28 +119,58 @@ export default function QuoteRequestButton({
     }
   };
 
-  const handleFormChange = (field: string, value: string | number) => {
+  const handleFormChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleQuickRequest = () => {
     if (productModel) {
       setFormData((prev) => ({ ...prev, customer_email: user?.email || prev.customer_email }));
+      setProducts([]);  // Reset so useEffect reinitializes
       setShowDialog(true);
     } else {
       navigate('/request-quote');
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  /* ── Product list management ── */
+  const handleAddRelatedProduct = (product: CatalogProduct) => {
+    const exists = products.find((p) => p.model === product.model);
+    if (exists) {
+      toast({ title: 'เพิ่มแล้ว', description: `${product.model} อยู่ในรายการแล้ว` });
+      return;
+    }
+    setProducts((prev) => [...prev, {
+      model: product.model,
+      description: product.name,
+      qty: 1,
+      unit_price: 0,
+      discount_percent: 0,
+      line_total: 0,
+    }]);
+    toast({ title: 'เพิ่มสินค้าแล้ว', description: `${product.model}` });
+  };
 
+  const handleRemoveProduct = (index: number) => {
+    if (products.length <= 1) {
+      toast({ title: 'ไม่สามารถลบได้', description: 'ต้องมีสินค้าอย่างน้อย 1 รายการ', variant: 'destructive' });
+      return;
+    }
+    setProducts((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleUpdateQty = (index: number, qty: number) => {
+    setProducts((prev) => prev.map((p, i) => i === index ? { ...p, qty: Math.max(1, qty) } : p));
+  };
+
+  /* ── Submit ── */
+  const handleSubmit = async () => {
     if (!formData.customer_name || !formData.customer_email) {
-      toast({
-        title: 'กรุณากรอกข้อมูลให้ครบ',
-        description: 'ชื่อและอีเมลเป็นข้อมูลที่จำเป็น',
-        variant: 'destructive',
-      });
+      toast({ title: 'กรุณากรอกข้อมูลให้ครบ', description: 'ชื่อและอีเมลเป็นข้อมูลที่จำเป็น', variant: 'destructive' });
+      return;
+    }
+    if (products.length === 0) {
+      toast({ title: 'กรุณาเลือกสินค้า', description: 'ต้องมีสินค้าอย่างน้อย 1 รายการ', variant: 'destructive' });
       return;
     }
 
@@ -125,16 +184,7 @@ export default function QuoteRequestButton({
           customer_phone: formData.customer_phone || null,
           customer_company: formData.customer_company || null,
           notes: formData.notes || null,
-          products: [
-            {
-              model: productModel || '',
-              description: productName || '',
-              qty: formData.qty,
-              unit_price: 0,
-              discount_percent: 0,
-              line_total: 0,
-            },
-          ],
+          products: products,
           status: 'pending',
           subtotal: 0,
           vat_amount: 0,
@@ -147,16 +197,16 @@ export default function QuoteRequestButton({
 
       toast({
         title: 'ส่งคำขอสำเร็จ',
-        description: `เลขที่ ${data.quote_number} — เราจะติดต่อกลับภายใน 24 ชม.`,
+        description: `เลขที่ ${data.quote_number} — ${products.length} รายการ — เราจะติดต่อกลับภายใน 24 ชม.`,
       });
 
       setShowDialog(false);
+      setProducts([]);
       setFormData({
         customer_name: '',
         customer_email: user?.email || '',
         customer_phone: '',
         customer_company: '',
-        qty: 1,
         notes: '',
       });
 
@@ -164,11 +214,7 @@ export default function QuoteRequestButton({
         setTimeout(() => navigate('/my-quotes'), 1500);
       }
     } catch (error: any) {
-      toast({
-        title: 'เกิดข้อผิดพลาด',
-        description: error.message,
-        variant: 'destructive',
-      });
+      toast({ title: 'เกิดข้อผิดพลาด', description: error.message, variant: 'destructive' });
     } finally {
       setSubmitting(false);
     }
@@ -187,144 +233,151 @@ export default function QuoteRequestButton({
       </Button>
 
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-hidden flex flex-col">
           <DialogHeader>
             <DialogTitle>ขอใบเสนอราคา</DialogTitle>
-            <DialogDescription asChild>
-              <div>
-                {productModel && (
-                  <div className="flex items-center gap-3 mt-2 p-3 rounded-lg border border-border bg-muted/30">
-                    {productImage ? (
-                      <img
-                        src={productImage}
-                        alt={productModel}
-                        className="w-14 h-14 object-contain rounded-md border border-border bg-background"
-                      />
-                    ) : (
-                      <div className="w-14 h-14 rounded-md border border-border bg-background flex items-center justify-center">
-                        <Package className="w-6 h-6 text-muted-foreground" />
-                      </div>
-                    )}
-                    <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-sm text-foreground">{productModel}</p>
-                      {productName && (
-                        <p className="text-xs text-muted-foreground truncate">{productName}</p>
-                      )}
-                    </div>
-                  </div>
-                )}
-              </div>
-            </DialogDescription>
+            <DialogDescription>กรอกข้อมูลและเลือกสินค้าที่ต้องการ</DialogDescription>
           </DialogHeader>
 
-          {loadingProfile ? (
-            <div className="flex items-center justify-center py-8 gap-2 text-muted-foreground">
-              <Loader2 className="w-4 h-4 animate-spin" />
-              <span className="text-sm">กำลังโหลดข้อมูล...</span>
+          <div className="flex-1 overflow-y-auto space-y-5 pr-1">
+            {/* Customer Info */}
+            {loadingProfile ? (
+              <div className="flex items-center justify-center py-6 gap-2 text-muted-foreground">
+                <Loader2 className="w-4 h-4 animate-spin" />
+                <span className="text-sm">กำลังโหลดข้อมูล...</span>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                <h3 className="font-semibold text-sm text-foreground">ข้อมูลติดต่อ</h3>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="col-span-2 space-y-1.5">
+                    <Label>ชื่อ-นามสกุล <span className="text-destructive">*</span></Label>
+                    <Input value={formData.customer_name} onChange={(e) => handleFormChange('customer_name', e.target.value)} placeholder="สมชาย ใจดี" required />
+                  </div>
+                  <div className="col-span-2 space-y-1.5">
+                    <Label>อีเมล <span className="text-destructive">*</span></Label>
+                    <Input type="email" value={formData.customer_email} onChange={(e) => handleFormChange('customer_email', e.target.value)} placeholder="example@email.com" required disabled={!!user} />
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label>เบอร์โทร</Label>
+                    <Input value={formData.customer_phone} onChange={(e) => handleFormChange('customer_phone', e.target.value)} placeholder="081-234-5678" />
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label>บริษัท</Label>
+                    <Input value={formData.customer_company} onChange={(e) => handleFormChange('customer_company', e.target.value)} placeholder="บริษัท ABC จำกัด" />
+                  </div>
+                  <div className="col-span-2 space-y-1.5">
+                    <Label>หมายเหตุ</Label>
+                    <Textarea value={formData.notes} onChange={(e) => handleFormChange('notes', e.target.value)} placeholder="ระบุความต้องการเพิ่มเติม..." rows={2} />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Selected Products */}
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <h3 className="font-semibold text-sm text-foreground">สินค้าที่เลือก ({products.length})</h3>
+              </div>
+
+              <div className="space-y-2">
+                {products.map((product, index) => (
+                  <div key={index} className="flex items-center gap-3 p-3 border border-border rounded-lg bg-muted/30">
+                    <div className="flex-1 min-w-0">
+                      <p className="font-semibold text-sm">{product.model}</p>
+                      {product.description && (
+                        <p className="text-xs text-muted-foreground truncate">{product.description}</p>
+                      )}
+                    </div>
+
+                    {/* Quantity */}
+                    <div className="flex items-center gap-1">
+                      <Button type="button" variant="outline" size="icon" className="h-7 w-7" onClick={() => handleUpdateQty(index, product.qty - 1)}>
+                        <Minus className="w-3 h-3" />
+                      </Button>
+                      <Input type="number" min="1" value={product.qty} onChange={(e) => handleUpdateQty(index, parseInt(e.target.value) || 1)} className="w-14 h-7 text-center text-sm" />
+                      <Button type="button" variant="outline" size="icon" className="h-7 w-7" onClick={() => handleUpdateQty(index, product.qty + 1)}>
+                        <Plus className="w-3 h-3" />
+                      </Button>
+                    </div>
+
+                    {products.length > 1 && (
+                      <Button type="button" variant="ghost" size="icon" className="h-7 w-7" onClick={() => handleRemoveProduct(index)}>
+                        <X className="w-3 h-3 text-destructive" />
+                      </Button>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-1.5">
-                <Label>ชื่อ-นามสกุล <span className="text-destructive">*</span></Label>
-                <Input
-                  value={formData.customer_name}
-                  onChange={(e) => handleFormChange('customer_name', e.target.value)}
-                  placeholder="สมชาย ใจดี"
-                  required
-                />
-              </div>
-              <div className="space-y-1.5">
-                <Label>อีเมล <span className="text-destructive">*</span></Label>
-                <Input
-                  type="email"
-                  value={formData.customer_email}
-                  onChange={(e) => handleFormChange('customer_email', e.target.value)}
-                  placeholder="example@email.com"
-                  required
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="space-y-1.5">
-                  <Label>เบอร์โทร</Label>
-                  <Input
-                    value={formData.customer_phone}
-                    onChange={(e) => handleFormChange('customer_phone', e.target.value)}
-                    placeholder="081-234-5678"
-                  />
-                </div>
-                <div className="space-y-1.5">
-                  <Label>บริษัท</Label>
-                  <Input
-                    value={formData.customer_company}
-                    onChange={(e) => handleFormChange('customer_company', e.target.value)}
-                    placeholder="บริษัท ABC จำกัด"
-                  />
-                </div>
-              </div>
-              <div className="space-y-1.5">
-                <Label>จำนวน <span className="text-destructive">*</span></Label>
+
+            {/* Related Products - Upselling */}
+            {relatedProducts.length > 0 && (
+              <div className="space-y-3">
                 <div className="flex items-center gap-2">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="icon"
-                    className="h-9 w-9 shrink-0"
-                    onClick={() => handleFormChange('qty', Math.max(1, formData.qty - 1))}
-                  >
-                    −
-                  </Button>
-                  <Input
-                    type="number"
-                    min="1"
-                    value={formData.qty}
-                    onChange={(e) => handleFormChange('qty', parseInt(e.target.value) || 1)}
-                    className="text-center"
-                    required
-                  />
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="icon"
-                    className="h-9 w-9 shrink-0"
-                    onClick={() => handleFormChange('qty', formData.qty + 1)}
-                  >
-                    +
-                  </Button>
+                  <ShoppingBag className="w-4 h-4 text-primary" />
+                  <h3 className="font-semibold text-sm text-foreground">สินค้าที่เกี่ยวข้อง</h3>
+                </div>
+
+                <div className="space-y-2">
+                  {relatedProducts.map((rp) => {
+                    const isAdded = products.some((p) => p.model === rp.model);
+                    return (
+                      <div key={rp.model} className="flex items-center gap-3 p-2.5 border border-border rounded-lg hover:border-primary/50 transition-colors">
+                        {rp.image ? (
+                          <img src={rp.image} alt={rp.model} className="w-10 h-10 object-contain rounded border border-border bg-background" />
+                        ) : (
+                          <div className="w-10 h-10 rounded border border-border bg-background flex items-center justify-center">
+                            <Package className="w-4 h-4 text-muted-foreground" />
+                          </div>
+                        )}
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium text-sm">{rp.model}</p>
+                          <p className="text-xs text-muted-foreground truncate">{rp.name}</p>
+                          {rp.price && (
+                            <p className="text-xs text-primary font-semibold">{rp.price}</p>
+                          )}
+                        </div>
+                        <Button
+                          type="button"
+                          variant={isAdded ? 'secondary' : 'outline'}
+                          size="sm"
+                          onClick={() => !isAdded && handleAddRelatedProduct(rp)}
+                          disabled={isAdded}
+                          className="shrink-0"
+                        >
+                          {isAdded ? (
+                            <><Check className="w-3 h-3 mr-1" /> เพิ่มแล้ว</>
+                          ) : (
+                            <><Plus className="w-3 h-3 mr-1" /> เพิ่ม</>
+                          )}
+                        </Button>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
-              <div className="space-y-1.5">
-                <Label>หมายเหตุ</Label>
-                <Textarea
-                  value={formData.notes}
-                  onChange={(e) => handleFormChange('notes', e.target.value)}
-                  placeholder="ระบุความต้องการเพิ่มเติม..."
-                  rows={3}
-                />
-              </div>
+            )}
+          </div>
 
-              <div className="flex gap-3 justify-end pt-2">
-                <Button type="button" variant="outline" onClick={() => setShowDialog(false)} disabled={submitting}>
-                  ยกเลิก
-                </Button>
-                <Button type="submit" disabled={submitting}>
-                  <Send className="w-4 h-4 mr-2" />
-                  {submitting ? 'กำลังส่ง...' : 'ส่งคำขอ'}
-                </Button>
-              </div>
-            </form>
-          )}
-
-          <div className="pt-3 border-t border-border text-center">
-            <p className="text-sm text-muted-foreground">
-              หรือ{' '}
-              <button
-                type="button"
-                className="text-primary hover:underline font-medium"
-                onClick={() => { setShowDialog(false); navigate('/request-quote'); }}
-              >
-                กรอกฟอร์มแบบเต็ม
-              </button>
-            </p>
+          {/* Footer */}
+          <div className="flex gap-3 justify-between items-center pt-4 border-t border-border">
+            <button
+              type="button"
+              className="text-sm text-primary hover:underline font-medium"
+              onClick={() => { setShowDialog(false); navigate('/request-quote'); }}
+            >
+              กรอกฟอร์มแบบเต็ม
+            </button>
+            <div className="flex gap-3">
+              <Button type="button" variant="outline" onClick={() => setShowDialog(false)} disabled={submitting}>
+                ยกเลิก
+              </Button>
+              <Button onClick={handleSubmit} disabled={submitting || products.length === 0}>
+                <Send className="w-4 h-4 mr-2" />
+                {submitting ? 'กำลังส่ง...' : `ส่งคำขอ (${products.length} รายการ)`}
+              </Button>
+            </div>
           </div>
         </DialogContent>
       </Dialog>
