@@ -1086,6 +1086,16 @@ export default function UserDashboard() {
           </main>
         </div>
       </div>
+      {selectedQuote && (
+        <POUploadDialog
+          open={showPOUpload}
+          onOpenChange={setShowPOUpload}
+          quoteId={selectedQuote.id}
+          quoteNumber={selectedQuote.quote_number}
+          customerName={selectedQuote.customer_name}
+          onSuccess={() => { loadQuotes(); loadQuoteDetail(selectedQuote.id); }}
+        />
+      )}
     </>
   );
 }
