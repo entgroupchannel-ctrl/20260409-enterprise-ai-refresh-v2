@@ -2,7 +2,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-import-key",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 Deno.serve(async (req) => {
@@ -11,16 +11,17 @@ Deno.serve(async (req) => {
   }
 
   try {
-    // Accept either auth token or service role key as x-import-key
-    const importKey = req.headers.get("x-import-key");
-    const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const authHeader = req.headers.get("Authorization");
-
     let authorized = false;
 
-    if (importKey === serviceKey) {
+    // Method 1: Service role key in bearer token
+    const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    if (authHeader === `Bearer ${serviceKey}`) {
       authorized = true;
-    } else if (authHeader) {
+    }
+
+    // Method 2: Authenticated admin user
+    if (!authorized && authHeader) {
       const anonClient = createClient(
         Deno.env.get("SUPABASE_URL")!,
         Deno.env.get("SUPABASE_ANON_KEY")!,
@@ -65,7 +66,7 @@ Deno.serve(async (req) => {
       .select("id");
 
     if (error) {
-      return new Response(JSON.stringify({ error: error.message }), {
+      return new Response(JSON.stringify({ error: error.message, detail: JSON.stringify(error) }), {
         status: 500,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
