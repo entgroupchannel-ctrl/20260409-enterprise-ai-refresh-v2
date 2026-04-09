@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import CreateSaleOrderDialog from '@/components/admin/CreateSaleOrderDialog';
 import POActionsMenu from '@/components/admin/POActionsMenu';
+import POVersionHistory from '@/components/admin/POVersionHistory';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import AdminLayout from '@/layouts/AdminLayout';
 import { Button } from '@/components/ui/button';
@@ -798,6 +799,11 @@ export default function AdminQuoteDetail() {
                 userEmail={userEmail}
                 onRefresh={loadQuoteDetails}
               />
+            )}
+
+            {/* PO Version History */}
+            {poFiles.length > 0 && (
+              <POVersionHistory quoteId={quote.id} currentFiles={poFiles} />
             )}
           </div>
         </div>
