@@ -181,6 +181,42 @@ export default function MyQuoteDetail() {
     }
   };
 
+  const handleConfirmPO = async () => {
+    if (confirming) return;
+    setConfirming(true);
+    try {
+      const { error } = await supabase
+        .from('quote_requests')
+        .update({ status: 'po_confirmed' } as any)
+        .eq('id', id!);
+
+      if (error) throw error;
+
+      await supabase.from('quote_messages').insert({
+        quote_id: id,
+        sender_name: user?.email || 'ลูกค้า',
+        sender_role: 'customer',
+        content: 'ยืนยันคำสั่งซื้อแล้ว — พร้อมดำเนินการ',
+        message_type: 'system',
+      });
+
+      toast({
+        title: 'ยืนยันคำสั่งซื้อสำเร็จ',
+        description: 'ทีมงานจะดำเนินการจัดส่งสินค้าโดยเร็วที่สุด',
+      });
+      loadQuote();
+      loadMessages();
+    } catch (error: any) {
+      toast({
+        title: 'เกิดข้อผิดพลาด',
+        description: error.message,
+        variant: 'destructive',
+      });
+    } finally {
+      setConfirming(false);
+    }
+  };
+
   const formatCurrency = (amount: number) =>
     new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', minimumFractionDigits: 2 }).format(amount);
 
