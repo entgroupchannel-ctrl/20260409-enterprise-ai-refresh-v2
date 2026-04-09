@@ -230,8 +230,56 @@ export default function MyQuoteDetail() {
       setConfirming(false);
     }
   };
+  const handleCustomerRequestEdit = async () => {
+    if (!requestReason.trim()) {
+      toast({ title: 'กรุณาระบุเหตุผล', variant: 'destructive' });
+      return;
+    }
+    setRequestProcessing(true);
+    try {
+      let uploadedFiles: any[] = [];
+      if (requestFiles && requestFiles.length > 0) {
+        for (const file of Array.from(requestFiles)) {
+          const fileName = `temp/${id}/${Date.now()}_${file.name}`;
+          const { data: uploadData } = await supabase.storage
+            .from('quote-files')
+            .upload(fileName, file);
+          if (uploadData) {
+            const { data: { publicUrl } } = supabase.storage.from('quote-files').getPublicUrl(fileName);
+            uploadedFiles.push({ file_url: publicUrl, file_name: file.name, file_size: file.size });
+          }
+        }
+      }
 
-  const formatCurrency = (amount: number) =>
+      await (supabase.from as any)('po_change_requests').insert({
+        quote_id: id,
+        request_type: 'edit',
+        requested_by: user?.email || 'customer',
+        requested_by_role: 'customer',
+        request_reason: requestReason,
+        new_files: uploadedFiles.length > 0 ? uploadedFiles : null,
+      });
+
+      await supabase.from('quote_messages').insert({
+        quote_id: id,
+        sender_name: user?.email || 'ลูกค้า',
+        sender_role: 'customer',
+        content: `ขอแก้ไข PO — ${requestReason}`,
+        message_type: 'text',
+      });
+
+      toast({ title: 'ส่งคำขอสำเร็จ', description: 'ทีมงานจะตรวจสอบคำขอของคุณ' });
+      setShowRequestEdit(false);
+      setRequestReason('');
+      setRequestFiles(null);
+    } catch (error: any) {
+      toast({ title: 'เกิดข้อผิดพลาด', description: error.message, variant: 'destructive' });
+    } finally {
+      setRequestProcessing(false);
+    }
+  };
+
+
     new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', minimumFractionDigits: 2 }).format(amount);
 
   const formatFileSize = (bytes: number): string => {
