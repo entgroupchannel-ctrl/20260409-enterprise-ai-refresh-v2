@@ -71,6 +71,7 @@ export default function MyQuoteDetail() {
   const [showPOUpload, setShowPOUpload] = useState(false);
   const [messageText, setMessageText] = useState('');
   const [sendingMessage, setSendingMessage] = useState(false);
+  const [confirming, setConfirming] = useState(false);
 
   useEffect(() => {
     if (id && user) {
