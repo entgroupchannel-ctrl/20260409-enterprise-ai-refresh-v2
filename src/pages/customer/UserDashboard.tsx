@@ -1,8 +1,9 @@
 // src/pages/customer/UserDashboard.tsx
-// Unified single-page dashboard — Quotes, Cart, Profile all in one view
+// Unified single-page dashboard — Quotes, Cart, Profile, Chat all in one view
+// Matches admin layout style with 3-column quote detail, chat, files
 
-import { useState, useEffect, useCallback, memo } from 'react';
-import { useNavigate, useSearchParams, Link } from 'react-router-dom';
+import { useState, useEffect, useRef, memo } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { useCart } from '@/hooks/useCart';
 import { supabase } from '@/integrations/supabase/client';
@@ -11,6 +12,7 @@ import SEOHead from '@/components/SEOHead';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
@@ -20,14 +22,11 @@ import { QuoteTimelineBadge } from '@/components/rfq/QuoteTimeline';
 import QuoteTimeline from '@/components/rfq/QuoteTimeline';
 import {
   FileText, ShoppingCart, User, Building, MapPin, Truck,
-  Plus, Search, Clock, Eye, MoreVertical, Download, Printer,
-  Share2, ArrowLeft, Save, Trash2, Minus, Home, LogOut,
-  ChevronRight, Package, Phone, Mail, Upload,
+  Plus, Search, Clock, Eye, Download, Printer,
+  ArrowLeft, Save, Trash2, Minus, Home, LogOut,
+  ChevronRight, Package, Phone, Mail, Upload, Send,
+  Paperclip, Calendar, MessageSquare, Pencil, X, Building2,
 } from 'lucide-react';
-import {
-  DropdownMenu, DropdownMenuContent, DropdownMenuItem,
-  DropdownMenuSeparator, DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import { formatDistanceToNow, format } from 'date-fns';
 import { th } from 'date-fns/locale';
 
@@ -47,12 +46,31 @@ interface Quote {
   customer_company: string;
   customer_address: string;
   customer_tax_id: string;
+  customer_line: string | null;
   notes: string;
   subtotal: number;
   vat_amount: number;
+  discount_amount: number;
   payment_terms: string;
   delivery_terms: string;
   warranty_terms: string;
+}
+
+interface QuoteFile {
+  id: string;
+  file_url: string;
+  file_name: string;
+  file_size: number | null;
+  category: string;
+  uploaded_at: string;
+}
+
+interface QuoteMessage {
+  id: string;
+  sender_name: string;
+  sender_role: string;
+  content: string;
+  created_at: string;
 }
 
 interface ProfileData {
@@ -75,7 +93,7 @@ const emptyProfile: ProfileData = {
 
 type Section = 'quotes' | 'quote-detail' | 'cart' | 'profile';
 
-// Memoized field — prevents full re-render on every keystroke
+// Memoized field
 const ProfileField = memo(({ label, value, onChange, type = 'text', placeholder = '' }: {
   label: string; value: string; onChange: (v: string) => void; type?: string; placeholder?: string;
 }) => (
@@ -86,14 +104,27 @@ const ProfileField = memo(({ label, value, onChange, type = 'text', placeholder 
 ));
 ProfileField.displayName = 'ProfileField';
 
+// ─── Helpers ───
+const formatCurrency = (amount: number) => {
+  if (!amount) return '-';
+  return new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', minimumFractionDigits: 0 }).format(amount);
+};
+
+const getStatusLabel = (status: string) => {
+  const m: Record<string, string> = { pending: 'รอใบเสนอราคา', quote_sent: 'ได้รับราคาแล้ว', po_uploaded: 'ส่ง PO แล้ว', po_approved: 'อนุมัติแล้ว', completed: 'เสร็จสิ้น', rejected: 'ไม่อนุมัติ' };
+  return m[status] || status;
+};
+
+// ═══════════════════════════════════════
+// MAIN COMPONENT
+// ═══════════════════════════════════════
 export default function UserDashboard() {
   const { user, profile: authProfile, signOut } = useAuth();
-  const { items, count, loading: cartLoading, updateQuantity, removeItem, clearCart } = useCart();
+  const { items, count, updateQuantity, removeItem, clearCart } = useCart();
   const navigate = useNavigate();
   const { toast } = useToast();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // Active section from URL
   const sectionParam = (searchParams.get('tab') || 'quotes') as Section;
   const quoteId = searchParams.get('id');
   const activeSection = quoteId ? 'quote-detail' : sectionParam;
@@ -110,6 +141,15 @@ export default function UserDashboard() {
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [selectedQuote, setSelectedQuote] = useState<Quote | null>(null);
+
+  // ─── Quote detail extras ───
+  const [quoteFiles, setQuoteFiles] = useState<QuoteFile[]>([]);
+  const [quoteMessages, setQuoteMessages] = useState<QuoteMessage[]>([]);
+  const [messageText, setMessageText] = useState('');
+  const [sendingMessage, setSendingMessage] = useState(false);
+  const [editingCustomer, setEditingCustomer] = useState(false);
+  const [editForm, setEditForm] = useState<Record<string, string>>({});
+  const chatEndRef = useRef<HTMLDivElement>(null);
 
   // ─── Profile state ───
   const [profileForm, setProfileForm] = useState<ProfileData>(emptyProfile);
@@ -159,16 +199,27 @@ export default function UserDashboard() {
     })();
   }, [user, authProfile]);
 
-  // Load quote detail when id changes
+  // Load quote detail + files + messages when quoteId changes
   useEffect(() => {
     if (quoteId) {
       const found = quotes.find(q => q.id === quoteId);
       if (found) setSelectedQuote(found);
       else loadQuoteDetail(quoteId);
+      loadQuoteFiles(quoteId);
+      loadQuoteMessages(quoteId);
+      subscribeToMessages(quoteId);
     } else {
       setSelectedQuote(null);
+      setQuoteFiles([]);
+      setQuoteMessages([]);
+      setEditingCustomer(false);
     }
   }, [quoteId, quotes]);
+
+  // Scroll chat to bottom
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [quoteMessages]);
 
   // Filter quotes
   useEffect(() => {
@@ -202,19 +253,76 @@ export default function UserDashboard() {
 
   const loadQuoteDetail = async (id: string) => {
     const { data } = await supabase.from('quote_requests').select('*').eq('id', id).maybeSingle();
-    if (data) setSelectedQuote(data as any);
+    if (data) setSelectedQuote({ ...data, products: (data.products as any) || [] } as any);
+  };
+
+  const loadQuoteFiles = async (id: string) => {
+    const { data } = await supabase.from('quote_files').select('*').eq('quote_id', id).order('uploaded_at', { ascending: false });
+    setQuoteFiles((data as any[]) || []);
+  };
+
+  const loadQuoteMessages = async (id: string) => {
+    const { data } = await supabase.from('quote_messages').select('*').eq('quote_id', id).order('created_at', { ascending: true });
+    setQuoteMessages((data as any[]) || []);
+  };
+
+  const subscribeToMessages = (id: string) => {
+    const channel = supabase
+      .channel(`quote_msgs_${id}`)
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'quote_messages', filter: `quote_id=eq.${id}` }, (payload) => {
+        setQuoteMessages(prev => [...prev, payload.new as any]);
+      })
+      .subscribe();
+    return () => { channel.unsubscribe(); };
+  };
+
+  const handleSendMessage = async () => {
+    if (!messageText.trim() || !quoteId) return;
+    setSendingMessage(true);
+    try {
+      const { error } = await supabase.from('quote_messages').insert({
+        quote_id: quoteId,
+        sender_name: authProfile?.full_name || user?.email || 'ลูกค้า',
+        sender_role: 'customer',
+        content: messageText,
+      });
+      if (error) throw error;
+      setMessageText('');
+    } catch (err: any) {
+      toast({ title: 'ส่งไม่สำเร็จ', description: err.message, variant: 'destructive' });
+    } finally {
+      setSendingMessage(false);
+    }
   };
 
   const openQuote = (id: string) => setSearchParams({ id });
 
-  const formatCurrency = (amount: number) => {
-    if (!amount) return '-';
-    return new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', minimumFractionDigits: 0 }).format(amount);
+  // ─── Edit customer info ───
+  const startEditCustomer = () => {
+    if (!selectedQuote) return;
+    setEditForm({
+      customer_name: selectedQuote.customer_name || '',
+      customer_email: selectedQuote.customer_email || '',
+      customer_phone: selectedQuote.customer_phone || '',
+      customer_company: selectedQuote.customer_company || '',
+      customer_address: selectedQuote.customer_address || '',
+      customer_tax_id: selectedQuote.customer_tax_id || '',
+      customer_line: selectedQuote.customer_line || '',
+    });
+    setEditingCustomer(true);
   };
 
-  const getStatusLabel = (status: string) => {
-    const m: Record<string, string> = { pending: 'รอใบเสนอราคา', quote_sent: 'ได้รับราคาแล้ว', po_uploaded: 'ส่ง PO แล้ว', po_approved: 'อนุมัติแล้ว', completed: 'เสร็จสิ้น', rejected: 'ไม่อนุมัติ' };
-    return m[status] || status;
+  const saveCustomerEdit = async () => {
+    if (!quoteId) return;
+    try {
+      const { error } = await supabase.from('quote_requests').update(editForm as any).eq('id', quoteId);
+      if (error) throw error;
+      setSelectedQuote(prev => prev ? { ...prev, ...editForm } as any : null);
+      setEditingCustomer(false);
+      toast({ title: 'บันทึกสำเร็จ' });
+    } catch (err: any) {
+      toast({ title: 'เกิดข้อผิดพลาด', description: err.message, variant: 'destructive' });
+    }
   };
 
   // ─── Profile save ───
@@ -286,7 +394,8 @@ export default function UserDashboard() {
     { key: 'profile' as Section, label: 'โปรไฟล์', icon: User, badge: 0 },
   ];
 
-  // Field component is defined outside the render — see ProfileField below
+  const poFiles = quoteFiles.filter(f => f.category === 'customer_po');
+  const pdfFiles = quoteFiles.filter(f => f.category === 'quote_pdf');
 
   return (
     <>
@@ -333,7 +442,6 @@ export default function UserDashboard() {
                 </button>
               ))}
             </nav>
-
             <Separator className="mx-3" />
             <div className="p-3">
               <Button variant="outline" size="sm" className="w-full" onClick={() => navigate('/request-quote')}>
@@ -366,9 +474,9 @@ export default function UserDashboard() {
 
           {/* Main content */}
           <main className="flex-1 overflow-y-auto pb-20 md:pb-0">
-            <div className="max-w-5xl mx-auto p-4 sm:p-6">
+            <div className="max-w-6xl mx-auto p-4 sm:p-6">
 
-              {/* ─── QUOTES LIST ─── */}
+              {/* ═══ QUOTES LIST ═══ */}
               {activeSection === 'quotes' && (
                 <div className="space-y-6">
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -453,98 +561,366 @@ export default function UserDashboard() {
                 </div>
               )}
 
-              {/* ─── QUOTE DETAIL ─── */}
+              {/* ═══ QUOTE DETAIL — Admin-matching layout ═══ */}
               {activeSection === 'quote-detail' && selectedQuote && (
-                <div className="space-y-6">
-                  <div className="flex items-center gap-3">
-                    <Button variant="ghost" size="sm" onClick={() => setSearchParams({})}>
-                      <ArrowLeft className="w-4 h-4 mr-1" /> กลับ
-                    </Button>
-                    <div>
-                      <h2 className="text-xl font-bold">{selectedQuote.quote_number}</h2>
-                      <p className="text-xs text-muted-foreground">
-                        สร้างเมื่อ {format(new Date(selectedQuote.created_at), 'd MMM yyyy HH:mm', { locale: th })}
-                      </p>
+                <div className="space-y-4">
+                  {/* Header */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <Button variant="outline" size="sm" onClick={() => setSearchParams({})}>
+                        <ArrowLeft className="w-4 h-4" />
+                      </Button>
+                      <div>
+                        <h2 className="text-xl font-bold">{selectedQuote.quote_number}</h2>
+                        <p className="text-xs text-muted-foreground">
+                          สร้างเมื่อ {format(new Date(selectedQuote.created_at), 'dd MMMM yyyy HH:mm', { locale: th })}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <QuoteTimelineBadge currentStatus={selectedQuote.status} />
                     </div>
                   </div>
 
                   {/* Timeline */}
-                  <Card><CardContent className="py-6"><QuoteTimeline currentStatus={selectedQuote.status} size="lg" /></CardContent></Card>
+                  <Card><CardContent className="py-4"><QuoteTimeline currentStatus={selectedQuote.status} size="lg" /></CardContent></Card>
 
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    {/* Left: Items */}
+                  {/* 3-column grid matching admin */}
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                    {/* Left: Customer + Products + Files */}
                     <div className="lg:col-span-2 space-y-4">
+
+                      {/* Customer Info */}
                       <Card>
-                        <CardHeader><CardTitle className="text-base flex items-center gap-2"><Package className="w-4 h-4" /> รายการสินค้า</CardTitle></CardHeader>
-                        <CardContent>
-                          <div className="overflow-x-auto">
-                            <table className="w-full text-sm">
-                              <thead><tr className="border-b text-xs text-muted-foreground">
-                                <th className="text-left py-2 pr-2">#</th>
-                                <th className="text-left py-2">รุ่น / รายละเอียด</th>
-                                <th className="text-right py-2 px-2">จำนวน</th>
-                                <th className="text-right py-2 px-2">ราคา/หน่วย</th>
-                                <th className="text-right py-2">รวม</th>
-                              </tr></thead>
-                              <tbody>
-                                {selectedQuote.products?.map((p: any, i: number) => (
-                                  <tr key={i} className="border-b last:border-0">
-                                    <td className="py-2 pr-2 text-muted-foreground">{i + 1}</td>
-                                    <td className="py-2">
-                                      <p className="font-medium">{p.model}</p>
-                                      {p.description && <p className="text-xs text-muted-foreground">{p.description}</p>}
-                                    </td>
-                                    <td className="text-right py-2 px-2">{p.qty}</td>
-                                    <td className="text-right py-2 px-2">{formatCurrency(p.unit_price)}</td>
-                                    <td className="text-right py-2 font-medium">{formatCurrency(p.line_total || p.unit_price * p.qty)}</td>
-                                  </tr>
-                                ))}
-                              </tbody>
-                            </table>
+                        <CardHeader className="pb-3">
+                          <div className="flex items-center justify-between">
+                            <CardTitle className="text-base flex items-center gap-2">
+                              <User className="w-4 h-4" /> ข้อมูลลูกค้า
+                            </CardTitle>
+                            {!editingCustomer ? (
+                              <Button variant="ghost" size="sm" onClick={startEditCustomer}>
+                                <Pencil className="w-3 h-3 mr-1" /> แก้ไข
+                              </Button>
+                            ) : (
+                              <div className="flex gap-1">
+                                <Button variant="ghost" size="sm" onClick={() => setEditingCustomer(false)}>
+                                  <X className="w-3 h-3 mr-1" /> ยกเลิก
+                                </Button>
+                                <Button size="sm" onClick={saveCustomerEdit}>
+                                  <Save className="w-3 h-3 mr-1" /> บันทึก
+                                </Button>
+                              </div>
+                            )}
                           </div>
+                        </CardHeader>
+                        <CardContent>
+                          {editingCustomer ? (
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                              <div className="space-y-1">
+                                <Label className="text-xs text-muted-foreground">ชื่อลูกค้า</Label>
+                                <Input className="h-8 text-sm" value={editForm.customer_name} onChange={e => setEditForm(p => ({ ...p, customer_name: e.target.value }))} />
+                              </div>
+                              <div className="space-y-1">
+                                <Label className="text-xs text-muted-foreground">บริษัท</Label>
+                                <Input className="h-8 text-sm" value={editForm.customer_company} onChange={e => setEditForm(p => ({ ...p, customer_company: e.target.value }))} />
+                              </div>
+                              <div className="space-y-1">
+                                <Label className="text-xs text-muted-foreground">อีเมล</Label>
+                                <Input className="h-8 text-sm" value={editForm.customer_email} onChange={e => setEditForm(p => ({ ...p, customer_email: e.target.value }))} />
+                              </div>
+                              <div className="space-y-1">
+                                <Label className="text-xs text-muted-foreground">โทรศัพท์</Label>
+                                <Input className="h-8 text-sm" value={editForm.customer_phone} onChange={e => setEditForm(p => ({ ...p, customer_phone: e.target.value }))} />
+                              </div>
+                              <div className="space-y-1">
+                                <Label className="text-xs text-muted-foreground">LINE ID</Label>
+                                <Input className="h-8 text-sm" value={editForm.customer_line} onChange={e => setEditForm(p => ({ ...p, customer_line: e.target.value }))} />
+                              </div>
+                              <div className="space-y-1">
+                                <Label className="text-xs text-muted-foreground">เลขผู้เสียภาษี</Label>
+                                <Input className="h-8 text-sm" value={editForm.customer_tax_id} onChange={e => setEditForm(p => ({ ...p, customer_tax_id: e.target.value }))} />
+                              </div>
+                              <div className="md:col-span-2 space-y-1">
+                                <Label className="text-xs text-muted-foreground">ที่อยู่</Label>
+                                <Input className="h-8 text-sm" value={editForm.customer_address} onChange={e => setEditForm(p => ({ ...p, customer_address: e.target.value }))} />
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div>
+                                <Label className="text-xs text-muted-foreground">ชื่อลูกค้า</Label>
+                                <p className="font-medium text-sm">{selectedQuote.customer_name}</p>
+                              </div>
+                              {selectedQuote.customer_company && (
+                                <div>
+                                  <Label className="text-xs text-muted-foreground">บริษัท</Label>
+                                  <p className="font-medium text-sm flex items-center gap-1.5">
+                                    <Building2 className="w-3.5 h-3.5 text-muted-foreground" />
+                                    {selectedQuote.customer_company}
+                                  </p>
+                                </div>
+                              )}
+                              <div>
+                                <Label className="text-xs text-muted-foreground">อีเมล</Label>
+                                <p className="text-sm flex items-center gap-1.5">
+                                  <Mail className="w-3.5 h-3.5 text-muted-foreground" />
+                                  {selectedQuote.customer_email}
+                                </p>
+                              </div>
+                              {selectedQuote.customer_phone && (
+                                <div>
+                                  <Label className="text-xs text-muted-foreground">โทรศัพท์</Label>
+                                  <p className="text-sm flex items-center gap-1.5">
+                                    <Phone className="w-3.5 h-3.5 text-muted-foreground" />
+                                    {selectedQuote.customer_phone}
+                                  </p>
+                                </div>
+                              )}
+                              {selectedQuote.customer_line && (
+                                <div>
+                                  <Label className="text-xs text-muted-foreground">LINE</Label>
+                                  <p className="text-sm">{selectedQuote.customer_line}</p>
+                                </div>
+                              )}
+                              {selectedQuote.customer_tax_id && (
+                                <div>
+                                  <Label className="text-xs text-muted-foreground">เลขผู้เสียภาษี</Label>
+                                  <p className="text-sm">{selectedQuote.customer_tax_id}</p>
+                                </div>
+                              )}
+                              {selectedQuote.customer_address && (
+                                <div className="md:col-span-2">
+                                  <Label className="text-xs text-muted-foreground">ที่อยู่</Label>
+                                  <p className="text-sm">{selectedQuote.customer_address}</p>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </CardContent>
+                      </Card>
+
+                      {/* Products table */}
+                      <Card>
+                        <CardHeader className="pb-3">
+                          <CardTitle className="text-base">รายการสินค้า</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="space-y-3">
+                            {selectedQuote.products?.length > 0 ? (
+                              selectedQuote.products.map((p: any, i: number) => (
+                                <div key={i} className="p-3 border border-border rounded-lg hover:bg-muted/30 transition-colors">
+                                  <div className="flex justify-between items-start mb-1">
+                                    <div className="flex-1">
+                                      <h4 className="font-semibold text-sm">{p.model || 'N/A'}</h4>
+                                      {p.description && <p className="text-xs text-muted-foreground">{p.description}</p>}
+                                    </div>
+                                    <span className="font-semibold text-sm text-primary ml-4">
+                                      {formatCurrency(p.line_total || 0)}
+                                    </span>
+                                  </div>
+                                  <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                                    <span>จำนวน: {p.qty || 0}</span>
+                                    <span>ราคา/หน่วย: {formatCurrency(p.unit_price || 0)}</span>
+                                    {p.discount_percent > 0 && (
+                                      <span className="text-green-600">ส่วนลด {p.discount_percent}%</span>
+                                    )}
+                                  </div>
+                                </div>
+                              ))
+                            ) : (
+                              <p className="text-muted-foreground text-center py-6 text-sm">ไม่มีรายการสินค้า</p>
+                            )}
+                          </div>
+
                           {selectedQuote.grand_total > 0 && (
                             <>
-                              <Separator className="my-3" />
-                              <div className="space-y-1 text-sm">
-                                <div className="flex justify-between"><span className="text-muted-foreground">ราคาก่อน VAT</span><span>{formatCurrency(selectedQuote.subtotal)}</span></div>
+                              <Separator className="my-4" />
+                              <div className="space-y-1.5 text-sm">
+                                <div className="flex justify-between"><span className="text-muted-foreground">ยอดรวม</span><span>{formatCurrency(selectedQuote.subtotal)}</span></div>
+                                {selectedQuote.discount_amount > 0 && (
+                                  <div className="flex justify-between text-green-600"><span>ส่วนลด</span><span>-{formatCurrency(selectedQuote.discount_amount)}</span></div>
+                                )}
                                 <div className="flex justify-between"><span className="text-muted-foreground">VAT 7%</span><span>{formatCurrency(selectedQuote.vat_amount)}</span></div>
-                                <div className="flex justify-between font-bold text-base pt-1"><span>ยอดรวมสุทธิ</span><span className="text-primary">{formatCurrency(selectedQuote.grand_total)}</span></div>
+                                <Separator />
+                                <div className="flex justify-between text-base font-bold pt-1">
+                                  <span>ยอดรวมทั้งสิ้น</span>
+                                  <span className="text-primary">{formatCurrency(selectedQuote.grand_total)}</span>
+                                </div>
                               </div>
                             </>
                           )}
                         </CardContent>
                       </Card>
-                    </div>
 
-                    {/* Right: Info */}
-                    <div className="space-y-4">
-                      <Card>
-                        <CardHeader><CardTitle className="text-base flex items-center gap-2"><Building className="w-4 h-4" /> ข้อมูลลูกค้า</CardTitle></CardHeader>
-                        <CardContent className="text-sm space-y-2">
-                          <p className="font-medium">{selectedQuote.customer_company || selectedQuote.customer_name}</p>
-                          {selectedQuote.customer_tax_id && <p className="text-muted-foreground">Tax ID: {selectedQuote.customer_tax_id}</p>}
-                          <div className="flex items-center gap-2 text-muted-foreground"><Mail className="w-3 h-3" />{selectedQuote.customer_email}</div>
-                          {selectedQuote.customer_phone && <div className="flex items-center gap-2 text-muted-foreground"><Phone className="w-3 h-3" />{selectedQuote.customer_phone}</div>}
-                          {selectedQuote.customer_address && <div className="flex items-center gap-2 text-muted-foreground"><MapPin className="w-3 h-3" />{selectedQuote.customer_address}</div>}
-                        </CardContent>
-                      </Card>
-
-                      {(selectedQuote.payment_terms || selectedQuote.delivery_terms || selectedQuote.warranty_terms) && (
+                      {/* Files */}
+                      {quoteFiles.length > 0 && (
                         <Card>
-                          <CardHeader><CardTitle className="text-base">เงื่อนไข</CardTitle></CardHeader>
-                          <CardContent className="text-sm space-y-2">
-                            {selectedQuote.payment_terms && <div><span className="text-muted-foreground">การชำระ:</span> {selectedQuote.payment_terms}</div>}
-                            {selectedQuote.delivery_terms && <div><span className="text-muted-foreground">การจัดส่ง:</span> {selectedQuote.delivery_terms}</div>}
-                            {selectedQuote.warranty_terms && <div><span className="text-muted-foreground">รับประกัน:</span> {selectedQuote.warranty_terms}</div>}
-                            {selectedQuote.valid_until && <div><span className="text-muted-foreground">ใช้ได้ถึง:</span> {format(new Date(selectedQuote.valid_until), 'd MMM yyyy', { locale: th })}</div>}
+                          <CardHeader className="pb-3">
+                            <CardTitle className="text-base flex items-center gap-2">
+                              <Paperclip className="w-4 h-4" /> ไฟล์แนบ
+                            </CardTitle>
+                          </CardHeader>
+                          <CardContent className="space-y-2">
+                            {poFiles.length > 0 && (
+                              <div>
+                                <p className="text-xs font-semibold text-muted-foreground mb-2">PO จากลูกค้า</p>
+                                {poFiles.map(file => (
+                                  <div key={file.id} className="flex items-center justify-between p-2.5 border border-border rounded-lg hover:bg-muted/30">
+                                    <div className="flex items-center gap-2">
+                                      <FileText className="w-6 h-6 text-primary" />
+                                      <div>
+                                        <p className="text-sm font-medium">{file.file_name}</p>
+                                        <p className="text-[10px] text-muted-foreground">{format(new Date(file.uploaded_at), 'dd MMM yyyy HH:mm', { locale: th })}</p>
+                                      </div>
+                                    </div>
+                                    <Button size="sm" variant="outline" asChild>
+                                      <a href={file.file_url} target="_blank" rel="noopener noreferrer">
+                                        <Eye className="w-3 h-3 mr-1" /> ดู
+                                      </a>
+                                    </Button>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+                            {pdfFiles.length > 0 && (
+                              <div>
+                                <p className="text-xs font-semibold text-muted-foreground mb-2">ใบเสนอราคา PDF</p>
+                                {pdfFiles.map(file => (
+                                  <div key={file.id} className="flex items-center justify-between p-2.5 border border-border rounded-lg hover:bg-muted/30">
+                                    <div className="flex items-center gap-2">
+                                      <FileText className="w-6 h-6 text-green-600" />
+                                      <div>
+                                        <p className="text-sm font-medium">{file.file_name}</p>
+                                        <p className="text-[10px] text-muted-foreground">{format(new Date(file.uploaded_at), 'dd MMM yyyy HH:mm', { locale: th })}</p>
+                                      </div>
+                                    </div>
+                                    <Button size="sm" variant="outline" asChild>
+                                      <a href={file.file_url} download><Download className="w-3 h-3 mr-1" /> ดาวน์โหลด</a>
+                                    </Button>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
                           </CardContent>
                         </Card>
                       )}
+                    </div>
 
-                      {selectedQuote.notes && (
-                        <Card>
-                          <CardHeader><CardTitle className="text-base">หมายเหตุ</CardTitle></CardHeader>
-                          <CardContent className="text-sm text-muted-foreground">{selectedQuote.notes}</CardContent>
+                    {/* Right: Chat + Info */}
+                    <div className="space-y-4">
+                      {/* Chat — matching admin */}
+                      <Card className="flex flex-col">
+                        <CardHeader className="pb-2">
+                          <CardTitle className="text-base flex items-center gap-2">
+                            <MessageSquare className="w-4 h-4" /> สนทนา
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent className="flex flex-col flex-1">
+                          <div className="space-y-2 max-h-[350px] overflow-y-auto mb-3 pr-1">
+                            {quoteMessages.length > 0 ? (
+                              quoteMessages.map(msg => (
+                                <div
+                                  key={msg.id}
+                                  className={`p-2.5 rounded-lg text-sm ${
+                                    msg.sender_role === 'customer'
+                                      ? 'bg-primary/10 ml-4'
+                                      : msg.sender_role === 'system'
+                                      ? 'bg-muted text-muted-foreground'
+                                      : 'bg-muted/50 mr-4'
+                                  }`}
+                                >
+                                  <div className="flex items-center justify-between mb-0.5">
+                                    <span className="text-[11px] font-semibold">
+                                      {msg.sender_role === 'customer' ? 'คุณ' : msg.sender_role === 'system' ? 'ระบบ' : msg.sender_name}
+                                    </span>
+                                    <span className="text-[10px] text-muted-foreground">
+                                      {formatDistanceToNow(new Date(msg.created_at), { addSuffix: true, locale: th })}
+                                    </span>
+                                  </div>
+                                  <p className="text-sm leading-relaxed">{msg.content}</p>
+                                </div>
+                              ))
+                            ) : (
+                              <div className="text-center py-8">
+                                <MessageSquare className="w-8 h-8 text-muted-foreground/20 mx-auto mb-2" />
+                                <p className="text-xs text-muted-foreground">ยังไม่มีข้อความ</p>
+                                <p className="text-[10px] text-muted-foreground">ส่งข้อความถึงทีมขายได้เลย</p>
+                              </div>
+                            )}
+                            <div ref={chatEndRef} />
+                          </div>
+
+                          <div className="space-y-2">
+                            <Textarea
+                              placeholder="พิมพ์ข้อความถึงทีมขาย..."
+                              value={messageText}
+                              onChange={e => setMessageText(e.target.value)}
+                              rows={2}
+                              className="text-sm resize-none"
+                              onKeyDown={e => {
+                                if (e.key === 'Enter' && !e.shiftKey) {
+                                  e.preventDefault();
+                                  handleSendMessage();
+                                }
+                              }}
+                            />
+                            <Button onClick={handleSendMessage} disabled={sendingMessage || !messageText.trim()} className="w-full" size="sm">
+                              <Send className="w-3.5 h-3.5 mr-1.5" />
+                              {sendingMessage ? 'กำลังส่ง...' : 'ส่งข้อความ'}
+                            </Button>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Quote info */}
+                      <Card>
+                        <CardHeader className="pb-2">
+                          <CardTitle className="text-base">ข้อมูลเพิ่มเติม</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-3 text-sm">
+                          {selectedQuote.valid_until && (
+                            <div>
+                              <Label className="text-xs text-muted-foreground">ใช้ได้ถึง</Label>
+                              <p className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5 text-muted-foreground" />{format(new Date(selectedQuote.valid_until), 'dd MMMM yyyy', { locale: th })}</p>
+                            </div>
+                          )}
+                          {selectedQuote.payment_terms && (
+                            <div>
+                              <Label className="text-xs text-muted-foreground">เงื่อนไขการชำระเงิน</Label>
+                              <p>{selectedQuote.payment_terms}</p>
+                            </div>
+                          )}
+                          {selectedQuote.delivery_terms && (
+                            <div>
+                              <Label className="text-xs text-muted-foreground">เงื่อนไขการจัดส่ง</Label>
+                              <p>{selectedQuote.delivery_terms}</p>
+                            </div>
+                          )}
+                          {selectedQuote.warranty_terms && (
+                            <div>
+                              <Label className="text-xs text-muted-foreground">การรับประกัน</Label>
+                              <p>{selectedQuote.warranty_terms}</p>
+                            </div>
+                          )}
+                          {selectedQuote.notes && (
+                            <div>
+                              <Label className="text-xs text-muted-foreground">หมายเหตุ</Label>
+                              <p className="text-muted-foreground">{selectedQuote.notes}</p>
+                            </div>
+                          )}
+                        </CardContent>
+                      </Card>
+
+                      {/* Action: Upload PO */}
+                      {selectedQuote.status === 'quote_sent' && (
+                        <Card className="border-primary/30 bg-primary/5">
+                          <CardContent className="pt-4 pb-3 text-center space-y-2">
+                            <p className="text-sm font-medium">พร้อมส่ง PO?</p>
+                            <p className="text-xs text-muted-foreground">อัปโหลด PO เพื่อดำเนินการสั่งซื้อ</p>
+                            <Button size="sm" className="w-full">
+                              <Upload className="w-3.5 h-3.5 mr-1" /> อัปโหลด PO
+                            </Button>
+                          </CardContent>
                         </Card>
                       )}
                     </div>
@@ -552,7 +928,7 @@ export default function UserDashboard() {
                 </div>
               )}
 
-              {/* ─── CART ─── */}
+              {/* ═══ CART ═══ */}
               {activeSection === 'cart' && (
                 <div className="space-y-6">
                   <div>
@@ -605,7 +981,7 @@ export default function UserDashboard() {
                 </div>
               )}
 
-              {/* ─── PROFILE ─── */}
+              {/* ═══ PROFILE ═══ */}
               {activeSection === 'profile' && (
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
@@ -616,7 +992,6 @@ export default function UserDashboard() {
                   </div>
 
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                    {/* Left column: Company + Contact */}
                     <div className="space-y-4">
                       <Card>
                         <CardContent className="pt-4 pb-3 space-y-3">
@@ -629,7 +1004,6 @@ export default function UserDashboard() {
                           <ProfileField label="โทรศัพท์" value={profileForm.company_phone} onChange={v => updateField('company_phone', v)} placeholder="02-XXX-XXXX" />
                         </CardContent>
                       </Card>
-
                       <Card>
                         <CardContent className="pt-4 pb-3 space-y-3">
                           <p className="text-xs font-semibold text-muted-foreground flex items-center gap-1"><User className="w-3 h-3" /> ผู้ติดต่อ</p>
@@ -645,8 +1019,6 @@ export default function UserDashboard() {
                         </CardContent>
                       </Card>
                     </div>
-
-                    {/* Right column: Billing + Shipping */}
                     <div className="space-y-4">
                       <Card>
                         <CardContent className="pt-4 pb-3 space-y-3">
@@ -663,7 +1035,6 @@ export default function UserDashboard() {
                           </div>
                         </CardContent>
                       </Card>
-
                       <Card>
                         <CardContent className="pt-4 pb-3 space-y-3">
                           <div className="flex items-center justify-between">
