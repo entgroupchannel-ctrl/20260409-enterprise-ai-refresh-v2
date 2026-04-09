@@ -208,24 +208,6 @@ export default function MyQuoteDetail() {
       setConfirming(false);
     }
   };
-      });
-
-      toast({
-        title: 'ยืนยันคำสั่งซื้อสำเร็จ',
-        description: 'ทีมงานจะดำเนินการจัดส่งสินค้าโดยเร็วที่สุด',
-      });
-      loadQuote();
-      loadMessages();
-    } catch (error: any) {
-      toast({
-        title: 'เกิดข้อผิดพลาด',
-        description: error.message,
-        variant: 'destructive',
-      });
-    } finally {
-      setConfirming(false);
-    }
-  };
 
   const formatCurrency = (amount: number) =>
     new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', minimumFractionDigits: 2 }).format(amount);
