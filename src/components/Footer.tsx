@@ -62,7 +62,7 @@ const NewsletterForm = () => {
         type="email"
         required
         value={email}
-        onChange={(e) = /> setEmail(e.target.value)}
+        onChange={(e) => setEmail(e.target.value)}
         placeholder="กรอกอีเมลของคุณ"
         className="flex-1 px-4 py-2.5 rounded-lg bg-white/80 border border-gray-300 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary dark:bg-[hsl(220,15%,15%)] dark:border-[hsl(220,15%,22%)] dark:text-white dark:placeholder:text-[hsl(215,15%,40%)]"
         disabled={loading}

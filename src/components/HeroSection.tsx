@@ -184,7 +184,7 @@ const HeroSection = () => {
                   type="text"
                   placeholder="บอกความต้องการ เช่น Mini PC โรงงาน, Firewall SME..."
                   value={searchQuery}
-                  onChange={(e) = /> {
+                  onChange={(e) => {
                     setSearchQuery(e.target.value);
                     setSearchOpen(true);
                   }}

@@ -496,7 +496,7 @@ const FirewallComparisonTable = () => {
                 type="text"
                 placeholder="รุ่น, CPU..."
                 value={searchText}
-                onChange={(e) = /> setSearchText(e.target.value)}
+                onChange={(e) => setSearchText(e.target.value)}
                 className="w-full pl-8 pr-3 py-2 rounded-lg bg-background border border-border text-sm text-foreground placeholder:text-muted-foreground/50 outline-none focus:ring-2 focus:ring-primary/30"
               />
             </div>
