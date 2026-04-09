@@ -28,8 +28,7 @@ import {
   ChevronRight, Package, Phone, Mail, Upload, Send,
   Paperclip, Calendar, MessageSquare, Pencil, X, Building2,
 } from 'lucide-react';
-import { formatDistanceToNow, format } from 'date-fns';
-import { th } from 'date-fns/locale';
+import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
 // ─── Types ───
 interface Quote {

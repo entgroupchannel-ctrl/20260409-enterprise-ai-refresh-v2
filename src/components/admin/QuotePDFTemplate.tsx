@@ -1,6 +1,5 @@
 // src/components/admin/QuotePDFTemplate.tsx
-import { format } from 'date-fns';
-import { th } from 'date-fns/locale';
+import { formatFullDate, formatShortDateTime } from '@/lib/format';
 
 interface Product {
   model: string;
