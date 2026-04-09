@@ -903,7 +903,7 @@ const MiniPCFirewall = () => {
               onClick={() => setActiveTier("all")}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTier === "all" ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border"
-              }`}
+              }`}>
               ทั้งหมด ({models.length})
             </button>
             {(Object.keys(tierMeta) as Tier[]).map((t) => {

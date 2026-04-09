@@ -5984,16 +5984,6 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
           {model.highlight}
         </span>
       )}
-        item={{
-          id: model.name.toLowerCase().replace(/\s+/g, "-"),
-          name: model.name,
-          category: "GT Series — Industrial Mini PC",
-          image: model.image,
-          href: `/gt-series?tab=${model.name}`,
-          specs: model.tagline,
-        }}
-        className="absolute top-3 right-3"
-      />
       <img
         src={model.image}
         alt={model.name}

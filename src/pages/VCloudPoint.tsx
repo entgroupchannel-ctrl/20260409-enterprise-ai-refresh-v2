@@ -692,7 +692,7 @@ const VCloudPoint = () => {
               <Award size={20} className="text-primary" />
               <span className="text-xs font-bold uppercase tracking-wider text-primary">Global Trust</span>
             </div>
-            <h3 className="text-xl md:text-2xl font-black text-foreground mb-2"
+            <h3 className="text-xl md:text-2xl font-black text-foreground mb-2">
               vCloudPoint ได้รับความไว้วางใจจากองค์กร<span className="text-primary">ทั่วโลก</span>
             </h3>
             <p className="text-sm text-muted-foreground max-w-xl mx-auto mb-4">
