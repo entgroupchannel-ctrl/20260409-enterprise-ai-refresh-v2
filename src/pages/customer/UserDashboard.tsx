@@ -315,7 +315,7 @@ export default function UserDashboard() {
   const saveCustomerEdit = async () => {
     if (!quoteId) return;
     try {
-      const { error } = await supabase.from('quote_requests').update(editForm).eq('id', quoteId);
+      const { error } = await supabase.from('quote_requests').update(editForm as any).eq('id', quoteId);
       if (error) throw error;
       setSelectedQuote(prev => prev ? { ...prev, ...editForm } as any : null);
       setEditingCustomer(false);
