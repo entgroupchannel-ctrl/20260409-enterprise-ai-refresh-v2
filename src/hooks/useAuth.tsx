@@ -59,11 +59,29 @@ export const useAuth = () => {
 
     if (data) {
       setProfile(data as unknown as UserProfile);
-
       await supabase
         .from('users')
         .update({ last_login: new Date().toISOString() })
         .eq('id', userId);
+    } else {
+      // Fallback: create profile from auth metadata if trigger didn't fire
+      const { data: { user: authUser } } = await supabase.auth.getUser();
+      if (authUser) {
+        const meta = authUser.user_metadata || {};
+        const newProfile = {
+          id: authUser.id,
+          email: authUser.email || '',
+          full_name: meta.full_name || '',
+          phone: meta.phone || null,
+          company: meta.company || null,
+          role: 'member',
+          is_active: true,
+        };
+        const { error: insertErr } = await supabase.from('users').insert(newProfile);
+        if (!insertErr) {
+          setProfile(newProfile as UserProfile);
+        }
+      }
     }
 
     setLoading(false);
