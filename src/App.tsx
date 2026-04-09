@@ -60,6 +60,7 @@ const MyQuotes = lazy(() => import("./pages/customer/MyQuotes"));
 const MyQuoteDetail = lazy(() => import("./pages/customer/MyQuoteDetail"));
 const Cart = lazy(() => import("./pages/customer/Cart"));
 const UserProfile = lazy(() => import("./pages/customer/UserProfile"));
+const UserDashboard = lazy(() => import("./pages/customer/UserDashboard"));
 
 /* ── Loading fallback ── */
 const PageLoader = () => (
@@ -139,9 +140,11 @@ const App = () => (
                   <Route path="/admin/contacts" element={<ProtectedRoute requireSales><AdminDashboard /></ProtectedRoute>} />
                   <Route path="/admin/documents" element={<ProtectedRoute requireSales><AdminDashboard /></ProtectedRoute>} />
                   <Route path="/request-quote" element={<QuoteRequestForm />} />
-                  <Route path="/my-quotes" element={<ProtectedRoute><MyQuotes /></ProtectedRoute>} />
+                  <Route path="/my-quotes" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
                   <Route path="/my-quotes/:id" element={<ProtectedRoute><MyQuoteDetail /></ProtectedRoute>} />
-                  <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+                  <Route path="/cart" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
+                  <Route path="/profile" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
+                  <Route path="/dashboard" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
                   <Route path="/profile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
