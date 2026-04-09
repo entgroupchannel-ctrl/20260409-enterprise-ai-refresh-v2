@@ -2,7 +2,7 @@
 // Auto-fills from user profile when logged in, compact layout
 
 import { useState, useEffect, useRef, memo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -13,6 +13,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
 import { Plus, Trash2, Send, ArrowLeft, CheckCircle2, Building, User, Package } from 'lucide-react';
+import { getPendingQuote, clearPendingQuote } from '@/hooks/usePendingQuote';
 
 interface ProductItem {
   model: string;
@@ -33,6 +34,7 @@ CompactField.displayName = 'CompactField';
 export default function QuoteRequestForm() {
   const { user, profile: authProfile } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
 
   const [submitting, setSubmitting] = useState(false);
@@ -52,6 +54,27 @@ export default function QuoteRequestForm() {
   const [products, setProducts] = useState<ProductItem[]>([
     { model: '', description: '', qty: 1 },
   ]);
+
+  // Restore pending products after login redirect
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (user && params.get('action') === 'continue') {
+      const pending = getPendingQuote();
+      if (pending && pending.products.length > 0) {
+        setProducts(pending.products.map(p => ({
+          model: p.model,
+          description: p.description,
+          qty: p.qty,
+        })));
+        clearPendingQuote();
+        toast({
+          title: 'ยินดีต้อนรับ!',
+          description: `คุณมี ${pending.products.length} รายการรอดำเนินการ — เพิ่มสินค้าหรือส่งคำขอได้เลย`,
+        });
+        window.history.replaceState({}, '', location.pathname);
+      }
+    }
+  }, [user, location.search]);
 
   // Auto-fill from user_profiles when logged in
   useEffect(() => {

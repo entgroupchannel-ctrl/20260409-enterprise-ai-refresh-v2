@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import {
   Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter,
@@ -9,7 +9,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { FileText, ShoppingBag, Lock, LogIn, UserPlus, Check, Package } from 'lucide-react';
 import { getRelatedCatalogProducts, type CatalogProduct } from '@/lib/product-catalog';
-import { savePendingQuote, type PendingQuoteData } from '@/hooks/usePendingQuote';
+import { savePendingQuote, getPendingQuote, clearPendingQuote, type PendingQuoteData } from '@/hooks/usePendingQuote';
 import ContactFormPanel from './quote-dialog/ContactFormPanel';
 import ProductSearchPanel from './quote-dialog/ProductSearchPanel';
 import SelectedProductsPanel from './quote-dialog/SelectedProductsPanel';
@@ -39,6 +39,7 @@ export default function QuoteRequestButton({
 }: QuoteRequestButtonProps) {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
 
   // Phase: 'product-selection' (compact) → 'full-form' (3-column)
@@ -71,6 +72,25 @@ export default function QuoteRequestButton({
       setShowDialog(true);
     }
   }, [user, showAuthGuard]);
+
+  // Restore pending products after login redirect (?action=continue)
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (user && params.get('action') === 'continue') {
+      const pending = getPendingQuote();
+      if (pending && pending.products.length > 0) {
+        setProducts(pending.products);
+        clearPendingQuote();
+        setPhase('full-form');
+        setShowDialog(true);
+        toast({
+          title: 'ยินดีต้อนรับ!',
+          description: `คุณมี ${pending.products.length} รายการรอดำเนินการ — เพิ่มสินค้าหรือส่งคำขอได้เลย`,
+        });
+        window.history.replaceState({}, '', location.pathname);
+      }
+    }
+  }, [user, location.search]);
 
   const loadUserProfile = async () => {
     if (!user) return;
