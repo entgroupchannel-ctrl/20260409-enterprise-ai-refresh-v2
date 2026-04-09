@@ -197,6 +197,7 @@ const Volktek = () => {
                 </div>
               </div>
             ))}
+            >
           </div>
         </section>
 
@@ -221,6 +222,7 @@ const Volktek = () => {
                 <p className="text-xs text-muted-foreground leading-relaxed">{f.desc}</p>
               </div>
             ))}
+            >
           </div>
         </section>
 
@@ -265,6 +267,7 @@ const Volktek = () => {
                 {cat.title}
               </a>
             ))}
+            >
           </div>
 
           <div className="space-y-8">
@@ -280,10 +283,12 @@ const Volktek = () => {
                     {cat.modelImage && (
                       <img src={`${cat.modelImage}`} alt={`${cat.title} models`} className="w-full h-auto rounded-lg" loading="lazy" />
                     )}
+                    >
                   </div>
                 </div>
               </div>
             ))}
+            >
           </div>
         </section>
 
@@ -296,6 +301,7 @@ const Volktek = () => {
                 <img src={img} alt={`Volktek Product ${i + 1}`} className="w-full h-auto object-contain" loading="lazy" />
               </div>
             ))}
+            >
           </div>
         </section>
 
@@ -308,6 +314,7 @@ const Volktek = () => {
                 <img src={img} alt={`Application ${i + 1}`} className="w-full h-auto object-contain" loading="lazy" />
               </div>
             ))}
+            >
           </div>
         </section>
 

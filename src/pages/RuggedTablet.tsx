@@ -240,6 +240,7 @@ const TabletCard = ({
       {product.badge && (
         <Badge className="absolute bottom-3 left-3 bg-primary text-primary-foreground text-[10px]">{product.badge}</Badge>
       )}
+      >
       <img src={product.image} alt={product.name} className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300" loading="lazy" />
     </Link>
     <div className="p-5 space-y-3">
@@ -259,10 +260,12 @@ const TabletCard = ({
         {product.highlights.map((h) => (
           <span key={h} className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-secondary text-foreground/70">{h}</span>
         ))}
+        >
       </div>
       {product.price && (
         <p className="text-base font-bold text-primary">{product.price}</p>
       )}
+      >
       <div className="flex flex-wrap gap-2 pt-1">
         <Button variant="outline" size="sm" asChild className="flex-1">
           <Link to={`/rugged-tablet/${product.id}`}>
@@ -405,6 +408,7 @@ const RuggedTablet = () => {
                 <div className="text-xs text-muted-foreground">{s.label}</div>
               </div>
             ))}
+            >
           </div>
         </div>
       </div>
@@ -442,6 +446,7 @@ const RuggedTablet = () => {
                 </span>
               </button>
             ))}
+            >
             <div className="w-px h-5 bg-border mx-1 shrink-0" />
             {/* Quick filter pills */}
             {[
@@ -462,6 +467,7 @@ const RuggedTablet = () => {
                 {qf.label}
               </button>
             ))}
+            >
           </div>
         </div>
       </div>
@@ -527,6 +533,7 @@ const RuggedTablet = () => {
                     onToggleSelect={toggleSelect}
                   />
                 ))}
+                >
               </div>
             ) : (
               <div className="card-surface p-12 text-center">
@@ -551,6 +558,7 @@ const RuggedTablet = () => {
                     <p className="text-xs text-muted-foreground leading-relaxed">{f.desc}</p>
                   </div>
                 ))}
+                >
               </div>
             </section>
 
@@ -578,6 +586,7 @@ const RuggedTablet = () => {
                   </div>
                 </Link>
               ))}
+              >
             </section>
 
             {/* Downloads */}
@@ -593,6 +602,7 @@ const RuggedTablet = () => {
                     </div>
                   </a>
                 ))}
+                >
               </div>
             </section>
 
@@ -655,6 +665,7 @@ const RuggedTablet = () => {
                     </div>
                   </div>
                 ))}
+                >
               </div>
 
               <div className="text-center">
@@ -701,6 +712,7 @@ const RuggedTablet = () => {
           </button>
         </div>
       )}
+      >
       <B2BCTABanner variant="compact" />
       <FooterCompact />
     </div>

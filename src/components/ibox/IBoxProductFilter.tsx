@@ -168,6 +168,7 @@ const IBoxProductFilter = ({
             ล้างทั้งหมด
           </Button>
         )}
+        >
       </div>
 
       {/* Result Count */}
@@ -209,6 +210,7 @@ const IBoxProductFilter = ({
                 </button>
               );
             })}
+            >
           </AccordionContent>
         </AccordionItem>
 
@@ -238,6 +240,7 @@ const IBoxProductFilter = ({
                 </button>
               );
             })}
+            >
           </AccordionContent>
         </AccordionItem>
 
@@ -267,6 +270,7 @@ const IBoxProductFilter = ({
                 </button>
               );
             })}
+            >
           </AccordionContent>
         </AccordionItem>
 
@@ -303,6 +307,7 @@ const IBoxProductFilter = ({
                 </button>
               );
             })}
+            >
           </AccordionContent>
         </AccordionItem>
 
@@ -331,6 +336,7 @@ const IBoxProductFilter = ({
                     {port.name}
                   </button>
                 ))}
+                >
               </div>
             </div>
             <div>
@@ -349,6 +355,7 @@ const IBoxProductFilter = ({
                     {port.name}
                   </button>
                 ))}
+                >
               </div>
             </div>
           </AccordionContent>
@@ -430,6 +437,7 @@ const IBoxProductFilter = ({
           </aside>
         </>
       )}
+      >
     </>
   );
 };

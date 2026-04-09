@@ -62,6 +62,7 @@ const Blog = () => {
                   {post.tags.slice(0, 3).map((t) => (
                     <Badge key={t} variant="outline" className="text-xs">{t}</Badge>
                   ))}
+                  >
                 </div>
                 <div className="flex-1" />
                 <div className="flex items-center justify-between pt-2 border-t border-border/40">
@@ -78,6 +79,7 @@ const Blog = () => {
               </CardContent>
             </Card>
           ))}
+          >
         </div>
       </section>
 

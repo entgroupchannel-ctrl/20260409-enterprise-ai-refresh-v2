@@ -28,12 +28,14 @@ const RelatedCard = ({ nb }: { nb: RuggedNotebook }) => (
       <h3 className="text-sm font-bold line-clamp-2">{nb.title}</h3>
       <div className="flex flex-wrap gap-1">
         {nb.badges.slice(0, 2).map((b) => <Badge key={b} variant="outline" className="text-[10px]">{b}</Badge>)}
+        >
       </div>
       {nb.priceStart ? (
         <p className="text-primary font-bold text-sm">{nb.priceStart}</p>
       ) : (
         <p className="text-muted-foreground text-xs">สอบถามราคา</p>
       )}
+      >
     </div>
   </Link>
 );
@@ -109,6 +111,7 @@ const RuggedNotebookDetail = () => {
               <Badge variant="secondary">{nb.os}</Badge>
               <Badge variant="outline">{nb.screenSize}</Badge>
               {nb.badges.map((b) => <Badge key={b} variant="outline" className="text-xs">{b}</Badge>)}
+              >
             </div>
           </div>
 
@@ -137,6 +140,7 @@ const RuggedNotebookDetail = () => {
                     </div>
                   </div>
                 ))}
+                >
               </div>
             )}
 
@@ -148,6 +152,7 @@ const RuggedNotebookDetail = () => {
               ) : (
                 <p className="text-xl font-bold text-primary mb-1">สอบถามราคา</p>
               )}
+              >
               <p className="text-xs text-muted-foreground">{nb.warranty.note}</p>
               <div className="flex flex-wrap gap-2 mt-3">
                 <button
@@ -203,6 +208,7 @@ const RuggedNotebookDetail = () => {
                       <span className="text-sm">{feat}</span>
                     </div>
                   ))}
+                  >
                 </div>
               </div>
 
@@ -222,6 +228,7 @@ const RuggedNotebookDetail = () => {
                           <img src={h.image} alt={h.titleEN} className="w-full h-auto object-cover max-h-[300px]" loading="lazy" />
                         </div>
                       )}
+                      >
                       <div className={i % 2 === 1 ? "md:[direction:ltr]" : ""}>
                         <h3 className="text-lg font-bold mb-1">{h.titleTH}</h3>
                         <p className="text-xs text-primary font-medium mb-2">{h.titleEN}</p>
@@ -230,6 +237,7 @@ const RuggedNotebookDetail = () => {
                       </div>
                     </div>
                   ))}
+                  >
                 </div>
               )}
 
@@ -243,6 +251,7 @@ const RuggedNotebookDetail = () => {
                       <p className="font-bold text-sm">{c}</p>
                     </div>
                   ))}
+                  >
                 </div>
               </div>
             </TabsContent>
@@ -268,13 +277,16 @@ const RuggedNotebookDetail = () => {
                               {item.note && (
                                 <span className="block text-xs text-primary mt-0.5"><Sparkles className="inline w-3 h-3 mr-0.5" /> {item.note}</span>
                               )}
+                              >
                             </TableCell>
                           </TableRow>
                         ))}
+                        >
                       </TableBody>
                     </Table>
                   </div>
                 ))}
+                >
               </div>
             </TabsContent>
 
@@ -298,6 +310,7 @@ const RuggedNotebookDetail = () => {
                     {nb.certifications.map((c) => (
                       <Badge key={c} variant="secondary" className="text-sm px-3 py-1">{c}</Badge>
                     ))}
+                    >
                   </div>
                 </div>
 
@@ -330,9 +343,11 @@ const RuggedNotebookDetail = () => {
             <h2 className="text-xl font-bold mb-6">สินค้าที่เกี่ยวข้อง</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {related.map((r) => <RelatedCard key={r.id} nb={r} />)}
+              >
             </div>
           </div>
         )}
+        >
       </div>
       <FooterCompact />
     </div>

@@ -128,6 +128,7 @@ const TabletProductFilter = ({
             ล้างทั้งหมด
           </Button>
         )}
+        >
       </div>
 
       {/* Result Count */}
@@ -163,6 +164,7 @@ const TabletProductFilter = ({
                 </button>
               );
             })}
+            >
           </AccordionContent>
         </AccordionItem>
 
@@ -193,6 +195,7 @@ const TabletProductFilter = ({
                 </button>
               );
             })}
+            >
           </AccordionContent>
         </AccordionItem>
 
@@ -223,6 +226,7 @@ const TabletProductFilter = ({
                 </button>
               );
             })}
+            >
           </AccordionContent>
         </AccordionItem>
 
@@ -249,6 +253,7 @@ const TabletProductFilter = ({
                 </button>
               );
             })}
+            >
           </AccordionContent>
         </AccordionItem>
       </Accordion>
@@ -286,6 +291,7 @@ const TabletProductFilter = ({
           </aside>
         </>
       )}
+      >
     </>
   );
 };
@@ -331,6 +337,7 @@ export const TabletActiveFilterChips = ({
           <X className="w-3 h-3 opacity-60 group-hover:opacity-100 transition-opacity" />
         </button>
       ))}
+      >
       <button onClick={() => onFilterChange({ ...defaultTabletFilters })} className="text-xs text-destructive hover:text-destructive/80 transition-colors underline underline-offset-2">
         ล้างทั้งหมด
       </button>

@@ -284,12 +284,14 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: Firewa
                 {model.badge}
               </span>
             )}
+            >
           </div>
           {model.pdf && (
             <a href={model.pdf} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 transition-colors" title="Download Datasheet">
               <Download size={16} />
             </a>
           )}
+          >
         </div>
 
         {/* Image */}
@@ -299,6 +301,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: Firewa
               <Checkbox checked={selected} className="h-5 w-5" />
             </button>
           )}
+          >
           <img src={model.image} alt={model.name} className="max-h-full max-w-full object-contain" loading="lazy" />
         </div>
 
@@ -333,6 +336,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: Firewa
               {uc}
             </span>
           ))}
+          >
         </div>
 
         {/* Actions */}
@@ -346,6 +350,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: Firewa
               <FileText size={12} /> ขอราคา
             </button>
           )}
+          >
         </div>
       </div>
 
@@ -367,6 +372,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: Firewa
                   <td className="py-2 text-foreground">{val}</td>
                 </tr>
               ))}
+              >
             </tbody>
           </table>
           <div className="mt-3">
@@ -377,6 +383,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: Firewa
                   <span className="text-primary mt-0.5">•</span>{e}
                 </li>
               ))}
+              >
             </ul>
           </div>
         </div>
@@ -479,6 +486,7 @@ const FirewallComparisonTable = () => {
               <X size={14} /> ล้างตัวกรอง
             </button>
           )}
+          >
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
@@ -509,6 +517,7 @@ const FirewallComparisonTable = () => {
               {(Object.keys(tierMeta) as Tier[]).map((t) => (
                 <option key={t} value={t}>{tierMeta[t].label} — {tierMeta[t].desc}</option>
               ))}
+              >
             </select>
           </div>
 
@@ -529,6 +538,7 @@ const FirewallComparisonTable = () => {
                   {s}
                 </button>
               ))}
+              >
             </div>
           </div>
 
@@ -548,6 +558,7 @@ const FirewallComparisonTable = () => {
                   ≥{n}
                 </button>
               ))}
+              >
             </div>
           </div>
 
@@ -589,6 +600,7 @@ const FirewallComparisonTable = () => {
             <span className="text-xs text-muted-foreground">จาก {compRows.length} รุ่น</span>
           </div>
         )}
+        >
       </div>
 
       {/* Category Legend */}
@@ -601,6 +613,7 @@ const FirewallComparisonTable = () => {
             </span>
           );
         })}
+        >
       </div>
 
       {/* Table */}
@@ -676,6 +689,7 @@ const FirewallComparisonTable = () => {
                           🌀 Fan
                         </span>
                       )}
+                      >
                     </td>
                     <td className="p-4 text-center">
                       {row.aesni ? (
@@ -683,6 +697,7 @@ const FirewallComparisonTable = () => {
                       ) : (
                         <span className="text-muted-foreground/40">—</span>
                       )}
+                      >
                     </td>
                     <td className="p-4 text-center">
                       {row.sim ? (
@@ -690,6 +705,7 @@ const FirewallComparisonTable = () => {
                       ) : (
                         <span className="text-muted-foreground/40">—</span>
                       )}
+                      >
                     </td>
                     <td className="p-4 text-center">
                       <span className="text-xs text-muted-foreground">{row.display}</span>
@@ -705,10 +721,12 @@ const FirewallComparisonTable = () => {
                       ) : (
                         <span className="text-muted-foreground/40">—</span>
                       )}
+                      >
                     </td>
                   </tr>
                 );
               })}
+              >
             </tbody>
           </table>
         </div>
@@ -726,6 +744,7 @@ const FirewallComparisonTable = () => {
                 </div>
               );
             })}
+            >
           </div>
         </div>
       </div>
@@ -810,6 +829,7 @@ const MiniPCFirewall = () => {
                   <p className="text-xs text-muted-foreground">{s.label}</p>
                 </div>
               ))}
+              >
             </div>
 
             <div className="flex flex-wrap gap-3">
@@ -848,6 +868,7 @@ const MiniPCFirewall = () => {
                 <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -874,6 +895,7 @@ const MiniPCFirewall = () => {
                 </div>
               );
             })}
+            >
           </div>
         </div>
       </section>
@@ -915,6 +937,7 @@ const MiniPCFirewall = () => {
                 </button>
               );
             })}
+            >
           </div>
 
           {/* Cards */}
@@ -922,6 +945,7 @@ const MiniPCFirewall = () => {
             {filtered.map((m) => (
               <ModelCard key={m.id} model={m} onQuote={setQuoteProduct} />
             ))}
+            >
           </div>
         </div>
       </section>
@@ -962,6 +986,7 @@ const MiniPCFirewall = () => {
                       <td className="py-3 px-3 text-muted-foreground">{m.psu}</td>
                     </tr>
                   ))}
+                  >
                 </tbody>
               </table>
             </div>
@@ -985,6 +1010,7 @@ const MiniPCFirewall = () => {
                 <p className="text-xs font-semibold text-foreground">{sw}</p>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -1013,6 +1039,7 @@ const MiniPCFirewall = () => {
                 <p className="text-[11px] text-muted-foreground">{uc.desc}</p>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -1074,6 +1101,7 @@ const MiniPCFirewall = () => {
                 </div>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>

@@ -221,6 +221,7 @@ const WaterproofPC = () => {
                 <p className="text-xs text-muted-foreground leading-relaxed">{f.desc}</p>
               </div>
             ))}
+            >
           </div>
         </section>
 
@@ -252,6 +253,7 @@ const WaterproofPC = () => {
                     <span className="text-muted-foreground leading-relaxed pt-1">{item.text}</span>
                   </li>
                 ))}
+                >
               </ul>
             </div>
           </div>
@@ -264,6 +266,7 @@ const WaterproofPC = () => {
             {useCases.map((u) => (
               <span key={u} className="px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium">{u}</span>
             ))}
+            >
           </div>
         </section>
 
@@ -284,6 +287,7 @@ const WaterproofPC = () => {
                 {m.name}
               </a>
             ))}
+            >
           </div>
 
           <div className="space-y-6">
@@ -315,6 +319,7 @@ const WaterproofPC = () => {
                                 <div className="text-sm font-medium text-foreground leading-snug">{val}</div>
                               </div>
                             ))}
+                            >
                           </div>
                         </TabsContent>
                       </Tabs>
@@ -334,6 +339,7 @@ const WaterproofPC = () => {
                 </div>
               </div>
             ))}
+            >
           </div>
         </section>
 
@@ -348,6 +354,7 @@ const WaterproofPC = () => {
                 <img src={img} alt={`Waterproof PC ${i + 1}`} className="w-full h-auto object-contain" loading="lazy" />
               </div>
             ))}
+            >
           </div>
         </section>
 

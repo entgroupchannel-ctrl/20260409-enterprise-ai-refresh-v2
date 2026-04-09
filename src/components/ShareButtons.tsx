@@ -55,6 +55,7 @@ const ShareButtons = ({ url, title, compact = false, productId, productCategory 
       >
         <ThumbsUp size={iconSize} className={liked ? "fill-current" : ""} />
         {!compact && (liked ? "ถูกใจแล้ว" : "ถูกใจ")}
+        >
       </button>
 
       {/* Share dropdown */}
@@ -92,6 +93,7 @@ const ShareButtons = ({ url, title, compact = false, productId, productCategory 
             </button>
           </div>
         )}
+        >
       </div>
     </div>
   );

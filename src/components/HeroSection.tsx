@@ -124,6 +124,7 @@ const HeroSection = () => {
               {l.label}
             </Link>
           ))}
+          >
           <div className="w-px h-6 bg-white/10 mx-1" />
           <ThemeToggle />
         </div>
@@ -195,8 +196,10 @@ const HeroSection = () => {
                       <span className="text-sm text-foreground">{item.label}</span>
                     </button>
                   ))}
+                  >
                 </div>
               )}
+              >
             </div>
 
             {/* CTA */}
@@ -223,6 +226,7 @@ const HeroSection = () => {
                   <p className="text-xs text-white/50">{s.label}</p>
                 </div>
               ))}
+              >
             </div>
           </div>
 
@@ -246,6 +250,7 @@ const HeroSection = () => {
                   {tag.label}
                 </button>
               ))}
+              >
             </div>
           </div>
 
@@ -260,6 +265,7 @@ const HeroSection = () => {
                 {tag.label}
               </button>
             ))}
+            >
           </div>
         </div>
       </div>

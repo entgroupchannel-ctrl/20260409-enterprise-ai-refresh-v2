@@ -37,9 +37,11 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
               NEW
             </Badge>
           )}
+          >
           {product.isHot && (
             <Badge variant="destructive" className="text-xs"><Flame className="inline w-3 h-3 mr-0.5" /> HOT</Badge>
           )}
+          >
         </div>
 
         {/* Checkbox */}
@@ -70,6 +72,7 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
             </Badge>
           </div>
         )}
+        >
       </Link>
 
       {/* Content */}
@@ -98,6 +101,7 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
               </span>
             </div>
           )}
+          >
           <div className="flex items-center gap-2 text-xs">
             <Thermometer className="w-3.5 h-3.5 text-primary shrink-0" />
             <span className="text-muted-foreground">{product.specs.temp}</span>

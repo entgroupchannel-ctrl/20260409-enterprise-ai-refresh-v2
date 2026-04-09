@@ -169,8 +169,10 @@ const CollapsibleSection = ({ title, links }: { title: string; links: typeof foo
                 {link.label}
               </Link>
             )}
+            >
           </li>
         ))}
+        >
       </ul>
     </div>
   );
@@ -221,6 +223,7 @@ const Footer = () => {
                     <s.icon size={14} />
                   </a>
                 ))}
+                >
               </div>
             </div>
 
@@ -228,6 +231,7 @@ const Footer = () => {
             {footerSections.map((section) => (
               <CollapsibleSection key={section.title} title={section.title} links={section.links} />
             ))}
+            >
           </div>
         </div>
 
@@ -260,6 +264,7 @@ const Footer = () => {
                 {i < arr.length - 1 && <span className="text-muted-foreground/40 mx-1">|</span>}
               </span>
             ))}
+            >
           </div>
         </div>
 

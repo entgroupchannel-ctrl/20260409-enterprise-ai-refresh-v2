@@ -36,8 +36,10 @@ const SEOHead = ({ title, description, path = "/", image, type = "website", json
       {jsonLd && (
         <script type="application/ld+json">
           {JSON.stringify(jsonLd)}
+          >
         </script>
       )}
+      >
     </Helmet>
   );
 };

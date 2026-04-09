@@ -35,6 +35,7 @@ const FloatingContact = () => {
             </a>
           </div>
         )}
+        >
         <button
           onClick={() => setOpen(!open)}
           className={`w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-200 ${

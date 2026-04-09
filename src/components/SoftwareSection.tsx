@@ -76,6 +76,7 @@ const SoftwareSection = () => {
               </div>
             </div>
           ))}
+          >
         </div>
 
         {/* Main content: image + examples */}
@@ -121,6 +122,7 @@ const SoftwareSection = () => {
                   {ex.label} <ExternalLink size={10} />
                 </a>
               ))}
+              >
             </div>
 
             {/* CTA */}

@@ -91,6 +91,7 @@ const ProductBanners = () => {
                     {banner.description}
                   </p>
                 )}
+                >
                 <div className="mt-auto flex flex-wrap gap-2">
                   {banner.links.map((link) => (
                     <Link
@@ -105,10 +106,12 @@ const ProductBanners = () => {
                       {link.label} <ArrowRight size={11} />
                     </Link>
                   ))}
+                  >
                 </div>
               </div>
             </div>
           ))}
+          >
         </div>
       </div>
     </section>

@@ -196,6 +196,7 @@ const Cabinets = () => {
                 <p className="text-sm text-muted-foreground leading-relaxed">{adv.desc}</p>
               </div>
             ))}
+            >
           </div>
         </section>
 
@@ -216,6 +217,7 @@ const Cabinets = () => {
                 <span className="text-sm text-foreground">{feat}</span>
               </div>
             ))}
+            >
           </div>
         </section>
 
@@ -267,6 +269,7 @@ const Cabinets = () => {
                 </div>
               </div>
             ))}
+            >
           </div>
         </section>
 
@@ -283,6 +286,7 @@ const Cabinets = () => {
                 <p className="text-xs text-muted-foreground">{type.desc}</p>
               </div>
             ))}
+            >
           </div>
         </section>
 
@@ -300,6 +304,7 @@ const Cabinets = () => {
                 <img src={img} alt={`ตัวอย่างผลงาน ${i + 1}`} className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
               </div>
             ))}
+            >
           </div>
           <div className="text-center mt-6">
             <Button variant="outline" asChild>
@@ -336,6 +341,7 @@ const Cabinets = () => {
                 <p className="text-xs text-muted-foreground">{item.desc}</p>
               </div>
             ))}
+            >
           </div>
           <div className="text-center">
             <Button size="lg" onClick={() => { setCustomOpen(true); setCustomSubmitted(false); }}>
@@ -406,6 +412,7 @@ const Cabinets = () => {
                     <select name="material" value={customForm.material} onChange={handleCustomChange} className={inputClass}>
                       <option value="">เลือกวัสดุ</option>
                       {materialOptions.map((m) => <option key={m} value={m}>{m}</option>)}
+                      >
                     </select>
                   </div>
                   <div>
@@ -413,6 +420,7 @@ const Cabinets = () => {
                     <select name="installation" value={customForm.installation} onChange={handleCustomChange} className={inputClass}>
                       <option value="">เลือกรูปแบบ</option>
                       {installOptions.map((o) => <option key={o} value={o}>{o}</option>)}
+                      >
                     </select>
                   </div>
                   <div>
@@ -420,6 +428,7 @@ const Cabinets = () => {
                     <select name="lock" value={customForm.lock} onChange={handleCustomChange} className={inputClass}>
                       <option value="">เลือกประเภทกุญแจ</option>
                       {lockOptions.map((l) => <option key={l} value={l}>{l}</option>)}
+                      >
                     </select>
                   </div>
                   <div>
@@ -454,6 +463,7 @@ const Cabinets = () => {
               </Button>
             </form>
           )}
+          >
         </DialogContent>
       </Dialog>
       <FooterCompact />

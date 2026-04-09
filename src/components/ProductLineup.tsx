@@ -244,6 +244,7 @@ const ProductLineup = () => {
                       <c.icon size={13} /> {c.label}
                     </Link>
                   ))}
+                  >
                 </div>
 
                 {/* Model chips */}
@@ -260,12 +261,15 @@ const ProductLineup = () => {
                           {(model as any).badge}
                         </span>
                       )}
+                      >
                     </Link>
                   ))}
+                  >
                 </div>
               </div>
             </div>
           ))}
+          >
         </div>
 
         {/* Mobile bottom arrows */}

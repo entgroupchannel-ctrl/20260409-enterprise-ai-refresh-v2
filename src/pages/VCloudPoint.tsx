@@ -291,6 +291,7 @@ const VCloudPoint = () => {
                     <p className="text-[10px] text-muted-foreground font-medium">{s.label}</p>
                   </div>
                 ))}
+                >
               </div>
               <div className="flex items-center gap-3 mb-6">
                 <span className="text-xs text-muted-foreground">เพิ่มในรายการถูกใจ</span>
@@ -356,6 +357,7 @@ const VCloudPoint = () => {
                     <span>{f.text}</span>
                   </div>
                 ))}
+                >
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
@@ -389,6 +391,7 @@ const VCloudPoint = () => {
                     {q}
                   </li>
                 ))}
+                >
               </ul>
             </div>
             <div className="relative aspect-video rounded-2xl overflow-hidden shadow-xl border border-border">
@@ -426,6 +429,7 @@ const VCloudPoint = () => {
                 <p className="text-sm text-muted-foreground leading-relaxed">{b.desc}</p>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -457,8 +461,10 @@ const VCloudPoint = () => {
                 {i < 3 && (
                   <ArrowRight className="hidden lg:block absolute top-1/2 -right-3 text-primary/30" size={20} />
                 )}
+                >
               </div>
             ))}
+            >
           </div>
 
           {/* Ratio visual */}
@@ -526,6 +532,7 @@ const VCloudPoint = () => {
                     {f}
                   </div>
                 ))}
+                >
               </div>
             </div>
 
@@ -563,6 +570,7 @@ const VCloudPoint = () => {
                 <p className="text-sm text-muted-foreground">{uc.desc}</p>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -591,6 +599,7 @@ const VCloudPoint = () => {
                 <p className="text-[10px] text-muted-foreground mt-0.5">{t.desc}</p>
               </div>
             ))}
+            >
           </div>
 
           {/* Case Study Cards */}
@@ -623,6 +632,7 @@ const VCloudPoint = () => {
                           <p className="text-[10px] text-muted-foreground font-medium">{s.label}</p>
                         </div>
                       ))}
+                      >
                     </div>
                   </div>
                 </div>
@@ -644,6 +654,7 @@ const VCloudPoint = () => {
                         {h}
                       </span>
                     ))}
+                    >
                   </div>
 
                   {/* Video Embeds */}
@@ -669,12 +680,15 @@ const VCloudPoint = () => {
                             <p className="text-[11px] text-muted-foreground font-medium">{v.label}</p>
                           </div>
                         ))}
+                        >
                       </div>
                     </div>
                   )}
+                  >
                 </div>
               </div>
             ))}
+            >
           </div>
 
           {/* Global proof — vCloudPoint worldwide */}
@@ -695,6 +709,7 @@ const VCloudPoint = () => {
                   {c}
                 </span>
               ))}
+              >
             </div>
           </div>
         </div>
@@ -732,6 +747,7 @@ const VCloudPoint = () => {
                 {cert}
               </span>
             ))}
+            >
           </div>
         </div>
       </section>

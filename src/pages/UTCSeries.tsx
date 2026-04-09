@@ -177,6 +177,7 @@ const PriceTable = ({ title, icon: Icon, models, subTitle }: {
                       ) : (
                         <>฿{m.price}</>
                       )}
+                      >
                     </td>
                     <td className="py-3 px-3 text-center">
                       <a
@@ -191,6 +192,7 @@ const PriceTable = ({ title, icon: Icon, models, subTitle }: {
                     </td>
                   </tr>
                 ))}
+                >
               </tbody>
             </table>
           </div>
@@ -261,6 +263,7 @@ const UTCSeries = () => {
                     {tag}
                   </span>
                 ))}
+                >
               </div>
 
               <div className="flex flex-wrap gap-3">
@@ -316,6 +319,7 @@ const UTCSeries = () => {
                 <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -426,6 +430,7 @@ const UTCSeries = () => {
                 <p className="text-[11px] text-muted-foreground">{uc.desc}</p>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -515,6 +520,7 @@ const UTCSeries = () => {
                         <td className="py-3 px-3 text-right font-bold text-foreground">{opt.price}</td>
                       </tr>
                     ))}
+                    >
                   </tbody>
                 </table>
               </div>
@@ -546,6 +552,7 @@ const UTCSeries = () => {
                 <img src={src} alt={`UTC Installation ${i + 1}`} className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
               </div>
             ))}
+            >
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
@@ -558,6 +565,7 @@ const UTCSeries = () => {
                 <img src={src} alt={`UTC Factory ${i + 1}`} className="w-full h-44 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
               </div>
             ))}
+            >
           </div>
         </div>
       </section>

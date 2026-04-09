@@ -91,6 +91,7 @@ const BlogDetail = () => {
                   {post.tags.map((t) => (
                     <Badge key={t} variant="secondary">{t}</Badge>
                   ))}
+                  >
                 </div>
               </CardContent>
             </Card>
@@ -105,6 +106,7 @@ const BlogDetail = () => {
                         <ExternalLink className="w-3.5 h-3.5" /> {p.name}
                       </Link>
                     ))}
+                    >
                   </div>
                 </CardContent>
               </Card>
@@ -121,6 +123,7 @@ const BlogDetail = () => {
                       </p>
                     </Link>
                   ))}
+                  >
                 </CardContent>
               </Card>
             )}

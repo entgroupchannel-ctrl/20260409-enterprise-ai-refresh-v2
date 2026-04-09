@@ -337,6 +337,7 @@ const PanelPC = () => {
                 <p className="text-xs text-muted-foreground mt-1">{s.sub}</p>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -469,6 +470,7 @@ const PanelPC = () => {
                       <p className="text-xs font-medium text-foreground mt-1">{d.use}</p>
                     </div>
                   ))}
+                  >
                 </>
               ) : (
                 <>
@@ -484,8 +486,10 @@ const PanelPC = () => {
                       <p className="text-xs font-medium text-foreground mt-1">{d.use}</p>
                     </div>
                   ))}
+                  >
                 </>
               )}
+              >
             </div>
           </div>
         </div>
@@ -525,11 +529,13 @@ const PanelPC = () => {
                     {item.tags.map((tag) => (
                       <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-primary/10 text-primary font-medium">{tag}</span>
                     ))}
+                    >
                   </div>
                   <p className="text-xs font-semibold text-primary">{item.rec}</p>
                 </div>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -552,6 +558,7 @@ import FooterCompact from "@/components/FooterCompact";
                 <p className="text-sm text-muted-foreground">{f.desc}</p>
               </div>
             ))}
+            >
           </div>
           {/* Windows 11 Free */}
           <div className="card-surface p-6 flex flex-col md:flex-row items-center gap-6 border-primary/20">
@@ -623,8 +630,10 @@ import FooterCompact from "@/components/FooterCompact";
                     {tab.label}
                   </button>
                 ))}
+                >
               </div>
             ))}
+            >
           </div>
 
           {/* Filters */}
@@ -635,6 +644,7 @@ import FooterCompact from "@/components/FooterCompact";
                 {label}
               </button>
             ))}
+            >
             <span className="text-muted-foreground mx-1">|</span>
             {([["all", "ทุกขนาด"], ["small", "เล็ก (10–12\")"], ["medium", "กลาง (13–19\")"], ["large", "ใหญ่ (21–32\")"]] as const).map(([val, label]) => (
               <button key={val} onClick={() => { setSizeFilter(val); setPage(1); }}
@@ -642,6 +652,7 @@ import FooterCompact from "@/components/FooterCompact";
                 {label}
               </button>
             ))}
+            >
           </div>
 
           {/* Price heading */}
@@ -660,6 +671,7 @@ import FooterCompact from "@/components/FooterCompact";
                   {currentTab.cols.map((col) => (
                     <th key={col} className="text-center p-3 text-muted-foreground font-medium whitespace-nowrap">{col}</th>
                   ))}
+                  >
                 </tr>
               </thead>
               <tbody>
@@ -692,11 +704,14 @@ import FooterCompact from "@/components/FooterCompact";
                           ) : (
                             <span className="text-primary">฿{fmt(p)}</span>
                           )}
+                          >
                         </td>
                       ))}
+                      >
                     </tr>
                   );
                 })}
+                >
               </tbody>
             </table>
           </div>
@@ -739,6 +754,7 @@ import FooterCompact from "@/components/FooterCompact";
                 <span className="text-xs text-muted-foreground">{s.value}</span>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -764,6 +780,7 @@ import FooterCompact from "@/components/FooterCompact";
                 </div>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -783,6 +800,7 @@ import FooterCompact from "@/components/FooterCompact";
                 <p className="text-sm text-muted-foreground">{w.desc}</p>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -817,6 +835,7 @@ import FooterCompact from "@/components/FooterCompact";
                 <p className="text-xs text-muted-foreground">{lt.time}</p>
               </div>
             ))}
+            >
           </div>
           <div className="text-xs text-muted-foreground space-y-1">
             <p>* สินค้าส่งตรงจากโรงงาน ระยะเวลาขนส่ง 15 วันหลัง Order</p>

@@ -89,6 +89,7 @@ const HandheldCard = ({
         {product.badges.map((b) => (
           <Badge key={b} variant="outline" className="text-[10px]">{b}</Badge>
         ))}
+        >
       </div>
       <div className="flex gap-2 pt-1">
         <Button variant="outline" size="sm" className="flex-1" asChild>
@@ -175,6 +176,7 @@ const Handheld = () => {
                 <p className="font-bold text-foreground text-sm">{s.value}</p>
               </div>
             ))}
+            >
           </div>
         </div>
       </div>
@@ -202,6 +204,7 @@ const Handheld = () => {
                 {opt.label}
               </button>
             ))}
+            >
           </div>
         </div>
       </div>
@@ -219,6 +222,7 @@ const Handheld = () => {
                 <p className="text-xs text-muted-foreground leading-relaxed">{f.desc}</p>
               </div>
             ))}
+            >
           </div>
         </section>
 
@@ -237,6 +241,7 @@ const Handheld = () => {
                 onQuote={setQuoteProduct}
               />
             ))}
+            >
           </div>
         </section>
 
@@ -307,6 +312,7 @@ const Handheld = () => {
               </div>
             </div>
           ))}
+          >
         </div>
       </section>
 
@@ -334,6 +340,7 @@ const Handheld = () => {
             </div>
           </Link>
         ))}
+        >
       </section>
       <B2BCTABanner variant="compact" />
       <FooterCompact />

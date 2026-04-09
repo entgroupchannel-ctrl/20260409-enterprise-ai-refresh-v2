@@ -80,6 +80,7 @@ const Warrantys = () => {
                 <p className="text-sm text-foreground leading-relaxed">{item}</p>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -108,9 +109,11 @@ const Warrantys = () => {
                 ) : (
                   <XCircle size={20} className="text-destructive shrink-0 mt-0.5" />
                 )}
+                >
                 <p className="text-sm text-foreground leading-relaxed">{item.text}</p>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -139,9 +142,11 @@ const Warrantys = () => {
                 ) : (
                   <XCircle size={20} className="text-destructive shrink-0 mt-0.5" />
                 )}
+                >
                 <p className="text-sm text-foreground leading-relaxed">{item.text}</p>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -162,6 +167,7 @@ const Warrantys = () => {
                 <p className="text-sm text-foreground leading-relaxed">{item}</p>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>

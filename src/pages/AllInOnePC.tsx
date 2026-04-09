@@ -93,6 +93,7 @@ const AIOCard = ({
             {o}
           </Badge>
         ))}
+        >
         <Badge variant="secondary" className="text-[10px]">
           {product.screenSize}
         </Badge>
@@ -110,6 +111,7 @@ const AIOCard = ({
             </li>
           )
         )}
+        >
       </ul>
 
       <div className="flex gap-2 pt-1">
@@ -220,6 +222,7 @@ const AllInOnePC = () => {
                   <p className="text-[10px] text-muted-foreground">{s.label}</p>
                 </div>
               ))}
+              >
             </div>
           </div>
         </div>
@@ -250,6 +253,7 @@ const AllInOnePC = () => {
                   {f.label}
                 </button>
               ))}
+              >
             </div>
             {/* Category filter */}
             <div className="flex gap-1 overflow-x-auto scrollbar-hide sm:ml-auto">
@@ -267,6 +271,7 @@ const AllInOnePC = () => {
                   {f.label}
                 </button>
               ))}
+              >
             </div>
           </div>
         </div>
@@ -288,6 +293,7 @@ const AllInOnePC = () => {
               </button>
             </span>
           )}
+          >
         </p>
 
         {/* Group by category */}
@@ -317,6 +323,7 @@ const AllInOnePC = () => {
                     onToggleSelect={toggleSelect}
                   />
                 ))}
+                >
               </div>
             </div>
           );
@@ -366,6 +373,7 @@ const AllInOnePC = () => {
             </div>
           </Link>
         ))}
+        >
       </section>
       <B2BCTABanner variant="compact" />
       <FooterCompact />

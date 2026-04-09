@@ -247,6 +247,7 @@ const SmartDisplay = () => {
                   {cat.label}
                 </button>
               ))}
+              >
             </div>
           </div>
         </div>
@@ -278,6 +279,7 @@ const SmartDisplay = () => {
                     </button>
                   </div>
                 ))}
+                >
               </div>
 
               {/* Indoor gallery */}
@@ -416,6 +418,7 @@ const SmartDisplay = () => {
                             </td>
                           </tr>
                         ))}
+                        >
                       </tbody>
                     </table>
                   </div>
@@ -437,6 +440,7 @@ const SmartDisplay = () => {
                         <Download size={12} /> {d.model}
                       </a>
                     ))}
+                    >
                   </div>
                 </div>
 
@@ -456,6 +460,7 @@ const SmartDisplay = () => {
                       <img src={src} alt={`FPM installation ${i + 1}`} className="w-full h-44 object-cover" loading="lazy" />
                     </div>
                   ))}
+                  >
                 </div>
               </div>
             </div>
@@ -504,6 +509,7 @@ const SmartDisplay = () => {
                     </button>
                   </div>
                 ))}
+                >
               </div>
 
               {/* Outdoor features */}
@@ -515,6 +521,7 @@ const SmartDisplay = () => {
                     <p className="text-sm text-muted-foreground">{f.desc}</p>
                   </div>
                 ))}
+                >
               </div>
 
               {/* Outdoor gallery */}
@@ -530,6 +537,7 @@ const SmartDisplay = () => {
                     <img src={src} alt={`Outdoor installation ${i + 1}`} className="w-full h-full object-cover" loading="lazy" />
                   </div>
                 ))}
+                >
               </div>
             </div>
           )}
@@ -562,6 +570,7 @@ const SmartDisplay = () => {
                       {["ร้านอาหาร", "โรงพยาบาล", "ธนาคาร", "ค้าปลีก", "อีเวนต์", "ราชการ", "โรงแรม", "สนามบิน"].map((t) => (
                         <span key={t} className="text-xs px-3 py-1 rounded-full bg-primary/10 text-primary font-medium">{t}</span>
                       ))}
+                      >
                     </div>
                     <div className="flex flex-wrap gap-3">
                       <button
@@ -612,6 +621,7 @@ const SmartDisplay = () => {
                       </div>
                     </div>
                   ))}
+                  >
                 </div>
               </div>
 
@@ -630,6 +640,7 @@ const SmartDisplay = () => {
                       <img src={img} alt={`KIOSK ผลงานจริง ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
                     </div>
                   ))}
+                  >
                 </div>
               </div>
 
@@ -656,6 +667,7 @@ const SmartDisplay = () => {
                       </div>
                     </div>
                   ))}
+                  >
                 </div>
               </div>
 
@@ -681,6 +693,7 @@ const SmartDisplay = () => {
                     </button>
                   </div>
                 ))}
+                >
               </div>
 
               {/* Why Kiosk — จุดเด่น */}
@@ -701,6 +714,7 @@ const SmartDisplay = () => {
                       <p className="text-xs text-muted-foreground leading-relaxed">{f.desc}</p>
                     </div>
                   ))}
+                  >
                 </div>
               </div>
 
@@ -721,6 +735,7 @@ const SmartDisplay = () => {
                       <span className="text-sm text-foreground">{feat}</span>
                     </div>
                   ))}
+                  >
                 </div>
               </div>
 
@@ -750,6 +765,7 @@ const SmartDisplay = () => {
                           <span className="text-sm text-foreground">{spec}</span>
                         </div>
                       ))}
+                      >
                     </div>
                     <div className="flex flex-wrap gap-3">
                       <a
@@ -813,6 +829,7 @@ const SmartDisplay = () => {
                       </div>
                     </div>
                   ))}
+                  >
                 </div>
               </div>
 
@@ -837,6 +854,7 @@ const SmartDisplay = () => {
                       {["7\"", "8\"", "10\"", "15.6\"", "21.5\"", "23.8\"", "32\"", "43\"", "55\"", "65\""].map((s) => (
                         <span key={s} className="text-xs px-3 py-1.5 rounded-lg bg-primary/10 text-primary font-bold">{s}</span>
                       ))}
+                      >
                     </div>
                   </div>
                   <div className="flex justify-center">
@@ -864,6 +882,7 @@ const SmartDisplay = () => {
                     <p className="text-xs text-muted-foreground">{t.desc}</p>
                   </div>
                 ))}
+                >
               </div>
 
               {/* Installation Gallery */}
@@ -878,6 +897,7 @@ const SmartDisplay = () => {
                       <img src={img} alt={`ตัวอย่างการติดตั้ง ${i + 1}`} className="w-full h-48 md:h-56 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
                     </div>
                   ))}
+                  >
                 </div>
               </div>
 
@@ -902,6 +922,7 @@ const SmartDisplay = () => {
                         <p className="text-xs text-muted-foreground">{s.label}</p>
                       </div>
                     ))}
+                    >
                   </div>
                   <p className="text-sm text-muted-foreground">
                     เชื่อมต่อกับระบบ HIS ของโรงพยาบาล วางไว้ที่ล็อบบี้ ห้องตรวจ และแผนกต่างๆ
@@ -954,6 +975,7 @@ const SmartDisplay = () => {
                       {applications.map((app) => (
                         <span key={app} className="text-[11px] px-2.5 py-1 rounded-full bg-secondary text-secondary-foreground">{app}</span>
                       ))}
+                      >
                     </div>
                     <button
                       onClick={() => setQuoteOpen(true)}
@@ -994,6 +1016,7 @@ const SmartDisplay = () => {
               </div>
             </div>
           )}
+          >
         </div>
       </section>
 
@@ -1049,6 +1072,7 @@ const SmartDisplay = () => {
                 <p className="text-xs text-muted-foreground">{f.desc}</p>
               </div>
             ))}
+            >
           </div>
 
           {/* Software screenshots */}
@@ -1093,6 +1117,7 @@ const SmartDisplay = () => {
                 </div>
               </a>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -1125,6 +1150,7 @@ const SmartDisplay = () => {
                 {t.label}
               </button>
             ))}
+            >
           </div>
 
           {videoTab === "smart-display" && (
@@ -1149,6 +1175,7 @@ const SmartDisplay = () => {
                   </div>
                 </div>
               ))}
+              >
             </div>
           )}
 
@@ -1168,6 +1195,7 @@ const SmartDisplay = () => {
               </div>
             </div>
           )}
+          >
         </div>
       </section>
 
@@ -1199,6 +1227,7 @@ const SmartDisplay = () => {
                 {t.label}
               </button>
             ))}
+            >
           </div>
 
           {podcastTab === "smart-display" && (
@@ -1216,6 +1245,7 @@ const SmartDisplay = () => {
                   </audio>
                 </div>
               ))}
+              >
             </div>
           )}
 
@@ -1234,8 +1264,10 @@ const SmartDisplay = () => {
                   </audio>
                 </div>
               ))}
+              >
             </div>
           )}
+          >
         </div>
       </section>
 

@@ -161,6 +161,7 @@ const IBoxDetail = () => {
                   <p className="text-sm font-medium text-foreground">{product.specs.lanPorts} Ports {product.specs.poe ? "(PoE)" : ""}</p>
                 </div>
               )}
+              >
               {product.specs.comPorts !== undefined && product.specs.comPorts > 0 && (
                 <div className="p-3 bg-secondary/50 rounded-lg">
                   <div className="flex items-center gap-2 mb-1">
@@ -170,6 +171,7 @@ const IBoxDetail = () => {
                   <p className="text-sm font-medium text-foreground">{product.specs.comPorts} Ports</p>
                 </div>
               )}
+              >
             </div>
 
             {/* Features */}
@@ -184,6 +186,7 @@ const IBoxDetail = () => {
                     <span className="text-foreground">{feat}</span>
                   </li>
                 ))}
+                >
               </ul>
             </div>
 
@@ -194,6 +197,7 @@ const IBoxDetail = () => {
                 {product.applications.map((app) => (
                   <Badge key={app} variant="outline">{app}</Badge>
                 ))}
+                >
               </div>
             </div>
 
@@ -234,6 +238,7 @@ const IBoxDetail = () => {
                     </TableRow>
                   );
                 })}
+                >
                 {product.specs.comPorts !== undefined && (
                   <TableRow>
                     <TableCell className="font-medium">
@@ -242,6 +247,7 @@ const IBoxDetail = () => {
                     <TableCell>{product.specs.comPorts} ports</TableCell>
                   </TableRow>
                 )}
+                >
                 {product.specs.lanPorts !== undefined && (
                   <TableRow>
                     <TableCell className="font-medium">
@@ -250,6 +256,7 @@ const IBoxDetail = () => {
                     <TableCell>{product.specs.lanPorts} ports{product.specs.poe && " (PoE+ Support)"}</TableCell>
                   </TableRow>
                 )}
+                >
                 {product.specs.usbPorts !== undefined && (
                   <TableRow>
                     <TableCell className="font-medium">
@@ -258,6 +265,7 @@ const IBoxDetail = () => {
                     <TableCell>{product.specs.usbPorts} ports</TableCell>
                   </TableRow>
                 )}
+                >
               </TableBody>
             </Table>
           </div>
@@ -277,9 +285,11 @@ const IBoxDetail = () => {
                   onQuote={setQuoteProduct}
                 />
               ))}
+              >
             </div>
           </div>
         )}
+        >
       </div>
       <FooterCompact />
     </div>

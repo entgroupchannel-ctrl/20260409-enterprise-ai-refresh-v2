@@ -82,10 +82,12 @@ const ProductFeatures = ({ title = "Products Features", features, columns = 2 }:
                 {feat.detail && (
                   <p className="text-xs text-muted-foreground mt-0.5">{feat.detail}</p>
                 )}
+                >
               </div>
             </div>
           );
         })}
+        >
       </div>
     </div>
   );

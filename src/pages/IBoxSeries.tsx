@@ -301,6 +301,7 @@ const IBoxSeries = () => {
                 {cat.name}
               </button>
             ))}
+            >
           </div>
         </div>
       </div>
@@ -341,6 +342,7 @@ const IBoxSeries = () => {
                   {qf.label}
                 </button>
               ))}
+              >
             </div>
 
             {/* Toolbar */}
@@ -394,6 +396,7 @@ const IBoxSeries = () => {
                     onQuote={setQuoteProduct}
                   />
                 ))}
+                >
               </div>
             ) : (
               <div className="card-surface p-12 text-center">
@@ -463,6 +466,7 @@ const IBoxSeries = () => {
                     </div>
                   </div>
                 ))}
+                >
               </div>
             </section>
 
@@ -476,6 +480,7 @@ const IBoxSeries = () => {
                     <span className="text-sm text-foreground">{feat}</span>
                   </div>
                 ))}
+                >
               </div>
             </section>
 
@@ -505,6 +510,7 @@ const IBoxSeries = () => {
                     </div>
                   </div>
                 ))}
+                >
               </div>
             </section>
 
@@ -566,6 +572,7 @@ const IBoxSeries = () => {
               </div>
             </div>
           ))}
+          >
         </div>
 
         {/* Channel CTA */}

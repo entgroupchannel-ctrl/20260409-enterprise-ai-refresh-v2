@@ -35,6 +35,7 @@ const RelatedCard = ({ product, onQuote }: { product: ReturnType<typeof getHandh
           {product.badges.map((b) => (
             <Badge key={b} variant="outline" className="text-[10px]">{b}</Badge>
           ))}
+          >
         </div>
         <Button size="sm" className="w-full mt-2" onClick={(e) => { e.preventDefault(); onQuote(product.model); }}>
           <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอราคา
@@ -144,6 +145,7 @@ const RuggedHandheldDetail = () => {
               {product.badges.map((b) => (
                 <Badge key={b} variant="default" className="text-sm px-3 py-1">{b}</Badge>
               ))}
+              >
             </div>
 
             {/* Price / Contact */}
@@ -180,6 +182,7 @@ const RuggedHandheldDetail = () => {
                     </div>
                   </div>
                 ))}
+                >
               </div>
             </div>
 
@@ -213,6 +216,7 @@ const RuggedHandheldDetail = () => {
                 {product.applications.map((app) => (
                   <Badge key={app} variant="outline">{app}</Badge>
                 ))}
+                >
               </div>
             </div>
 
@@ -256,6 +260,7 @@ const RuggedHandheldDetail = () => {
                     </TableRow>
                   );
                 })}
+                >
                 {/* Connectivity */}
                 <TableRow>
                   <TableCell className="font-medium">
@@ -268,6 +273,7 @@ const RuggedHandheldDetail = () => {
                       {product.specs.connectivity.map((c) => (
                         <Badge key={c} variant="outline" className="text-xs">{c}</Badge>
                       ))}
+                      >
                     </div>
                   </TableCell>
                 </TableRow>
@@ -288,6 +294,7 @@ const RuggedHandheldDetail = () => {
                 <span className="text-sm text-foreground">{feat}</span>
               </div>
             ))}
+            >
           </div>
         </div>
 
@@ -299,9 +306,11 @@ const RuggedHandheldDetail = () => {
               {related.map((p) => (
                 <RelatedCard key={p.id} product={p} onQuote={setQuoteProduct} />
               ))}
+              >
             </div>
           </div>
         )}
+        >
       </div>
       <FooterCompact />
     </div>

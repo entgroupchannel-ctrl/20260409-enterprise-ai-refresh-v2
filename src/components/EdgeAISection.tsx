@@ -140,6 +140,7 @@ className="relative group"
                   }`}
                 />
               ))}
+              >
             </div>
 
             {/* Glow */}

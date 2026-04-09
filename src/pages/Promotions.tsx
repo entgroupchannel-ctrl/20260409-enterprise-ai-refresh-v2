@@ -244,6 +244,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
               {promo.badge}
             </span>
           )}
+          >
           <span className={`absolute top-3 right-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold ${sc.color}`}>
             <sc.icon size={10} /> {sc.label}
           </span>
@@ -266,6 +267,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
               loading="lazy"
             />
           )}
+          >
         </div>
 
         {/* Content */}
@@ -296,6 +298,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
                   <span className="text-primary mt-0.5">✓</span> {h}
                 </li>
               ))}
+              >
             </ul>
             <div className="flex flex-wrap gap-1.5 mb-4">
               {promo.products.map((p) => (
@@ -303,6 +306,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
                   {p}
                 </span>
               ))}
+              >
             </div>
           </div>
 
@@ -332,6 +336,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
                 {promo.ctaLabel}
               </a>
             )}
+            >
             {promo.downloadHref && (
               <a
                 href={promo.downloadHref}
@@ -342,6 +347,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
                 <FileDown size={14} /> PDF
               </a>
             )}
+            >
           </div>
         </div>
       </div>
@@ -436,6 +442,7 @@ const Promotions = () => {
                     {activePromos.map((p, i) => (
                       <PromoCard key={p.id} promo={p} featured={i === 0} />
                     ))}
+                    >
                   </div>
                 </div>
               )}
@@ -449,6 +456,7 @@ const Promotions = () => {
                     {recurringPromos.map((p) => (
                       <PromoCard key={p.id} promo={p} />
                     ))}
+                    >
                   </div>
                 </div>
               )}
@@ -460,6 +468,7 @@ const Promotions = () => {
                   <p className="text-muted-foreground">โปรโมชั่นใหม่ๆ กำลังจะมาเร็วๆ นี้ แอดไลน์เพื่อรับแจ้งเตือนก่อนใคร</p>
                 </div>
               )}
+              >
             </TabsContent>
 
             {/* Past Promos */}
@@ -472,6 +481,7 @@ const Promotions = () => {
                 {endedPromos.map((p) => (
                   <PromoCard key={p.id} promo={p} />
                 ))}
+                >
               </div>
             </TabsContent>
 
@@ -501,6 +511,7 @@ const Promotions = () => {
                       <p className="text-xs text-muted-foreground font-medium">{item.text}</p>
                     </div>
                   ))}
+                  >
                 </div>
               </div>
             </TabsContent>

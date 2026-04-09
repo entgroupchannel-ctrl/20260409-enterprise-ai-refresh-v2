@@ -68,12 +68,14 @@ const ProductSections = () => {
                   {section.description && (
                     <p className="text-white/80 text-sm md:text-base mb-4">{section.description}</p>
                   )}
+                  >
                   <div className="flex flex-wrap items-center gap-3">
                     {section.price && (
                       <span className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-bold">
                         {section.price}
                       </span>
                     )}
+                    >
                     {section.links.map((link) => (
                       <Link
                         key={link.label}
@@ -83,12 +85,14 @@ const ProductSections = () => {
                         {link.label} <ArrowRight size={14} />
                       </Link>
                     ))}
+                    >
                   </div>
                 </div>
               </div>
             </div>
           </div>
         ))}
+        >
       </div>
     </section>
   );

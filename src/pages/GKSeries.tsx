@@ -590,11 +590,13 @@ const PaginatedPriceTable = ({ rows, perPage, totalPages }: {
                     {r.cpu}
                   </td>
                 )}
+                >
                 <td className="px-4 py-3 text-muted-foreground">{r.ram}</td>
                 <td className="px-4 py-3 text-muted-foreground">{r.ssd}</td>
                 <td className="px-4 py-3 text-right font-bold text-primary text-lg">{r.price}</td>
               </tr>
             ))}
+            >
           </tbody>
         </table>
       </div>
@@ -615,9 +617,11 @@ const PaginatedPriceTable = ({ rows, perPage, totalPages }: {
                 {p}
               </button>
             ))}
+            >
           </div>
         </div>
       )}
+      >
     </div>
   );
 };
@@ -642,6 +646,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                 Full HD
               </span>
             )}
+            >
           </div>
             item={{
               id: model.id,
@@ -663,6 +668,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
               loading="lazy"
             />
           )}
+          >
           {model.datasheetUrls.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-4 justify-center">
               {model.datasheetUrls.map((ds, i) => (
@@ -676,8 +682,10 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                   {ds.label} <ExternalLink size={10} />
                 </a>
               ))}
+              >
             </div>
           )}
+          >
         </div>
 
         {/* Content side */}
@@ -701,6 +709,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                 {h}
               </li>
             ))}
+            >
           </ul>
 
           {/* CPU Options */}
@@ -712,6 +721,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                   {cpu}
                 </span>
               ))}
+              >
             </div>
           </div>
 
@@ -724,6 +734,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                   {app}
                 </span>
               ))}
+              >
             </div>
           </div>
         </div>
@@ -747,6 +758,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                 ►ราคา
               </TabsTrigger>
             )}
+            >
             {model.youtubeId && (
               <TabsTrigger
                 value="video"
@@ -755,6 +767,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                 ►Video
               </TabsTrigger>
             )}
+            >
           </TabsList>
 
           <TabsContent value="spec" className="mt-0 p-0">
@@ -772,6 +785,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                             <td className="px-4 py-3 text-muted-foreground whitespace-pre-line">{s.value}</td>
                           </tr>
                         ))}
+                        >
                       </tbody>
                     </table>
                   </div>
@@ -791,6 +805,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                             <td className="px-4 py-2.5 text-muted-foreground text-xs whitespace-pre-line">{s.value}</td>
                           </tr>
                         ))}
+                        >
                       </tbody>
                     </table>
                   </div>
@@ -803,12 +818,14 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                             <td className="px-4 py-2.5 text-muted-foreground text-xs whitespace-pre-line">{s.value}</td>
                           </tr>
                         ))}
+                        >
                       </tbody>
                     </table>
                   </div>
                 </div>
               );
             })()}
+            >
           </TabsContent>
 
           {model.priceTable.length > 0 && (
@@ -823,6 +840,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                   <PaginatedPriceTable rows={allRows} perPage={PRICE_PER_PAGE} totalPages={totalPricePages} />
                 );
               })()}
+              >
               <div className="flex items-center justify-between p-4 border-t border-border bg-muted/20">
                 <PriceDisclaimer />
                 <button
@@ -849,6 +867,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
               </div>
             </TabsContent>
           )}
+          >
         </Tabs>
       </div>
     </div>
@@ -961,6 +980,7 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
                   {opt}
                 </button>
               ))}
+              >
             </div>
           </div>
           <div>
@@ -972,6 +992,7 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
                   {opt}
                 </button>
               ))}
+              >
             </div>
           </div>
           <div>
@@ -983,6 +1004,7 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
                   {opt}
                 </button>
               ))}
+              >
             </div>
           </div>
         </div>
@@ -997,6 +1019,7 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
             {tab.label}
           </button>
         ))}
+        >
       </div>
 
       {/* Comparison Table */}
@@ -1020,6 +1043,7 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
                 <p className="text-xs text-muted-foreground mt-0.5">({comparisonData.specs["ขนาดจอ"][i]})</p>
               </div>
             ))}
+            >
           </div>
 
           {/* Data Rows */}
@@ -1037,10 +1061,13 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
                     ) : (
                       values[i]
                     )}
+                    >
                   </div>
                 ))}
+                >
               </div>
             ))}
+            >
           </div>
 
           {/* Quote Buttons Row */}
@@ -1055,6 +1082,7 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
                 </button>
               </div>
             ))}
+            >
           </div>
         </div>
       )}
@@ -1076,6 +1104,7 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
             <p className="text-xs font-bold text-primary mt-2">→ ดู {item.model}</p>
           </button>
         ))}
+        >
       </div>
     </div>
   );
@@ -1155,6 +1184,7 @@ const GKSeries = () => {
                   <p className="text-xs text-muted-foreground">{stat.label}</p>
                 </div>
               ))}
+              >
             </div>
 
             <div className="flex flex-wrap gap-3">
@@ -1201,6 +1231,7 @@ const GKSeries = () => {
                 <p className="text-sm text-muted-foreground">{c.desc}</p>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -1233,6 +1264,7 @@ const GKSeries = () => {
                 {m.name} <span className="text-muted-foreground text-xs">({m.screenSize})</span>
               </a>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -1254,6 +1286,7 @@ const GKSeries = () => {
             {gkModels.map((model, idx) => (
               <ModelSection key={model.id} model={model} index={idx} onQuote={(name) => { setQuoteProduct(name); setQuoteOpen(true); }} />
             ))}
+            >
           </div>
         </div>
       </section>
@@ -1280,6 +1313,7 @@ const GKSeries = () => {
             ].map((img, i) => (
               <img key={i} src={img} alt="GK Series installation" className="w-full aspect-square object-cover rounded-xl" loading="lazy" />
             ))}
+            >
           </div>
         </div>
       </section>
@@ -1366,6 +1400,7 @@ const GKSeries = () => {
                     {tab}
                   </button>
                 ))}
+                >
               </div>
               <div className="grid md:grid-cols-2 gap-6">
                 {currentVideos.map((v) => (
@@ -1387,6 +1422,7 @@ const GKSeries = () => {
                     </div>
                   </div>
                 ))}
+                >
               </div>
             </div>
           </section>
@@ -1425,6 +1461,7 @@ const GKSeries = () => {
                 </audio>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -1510,6 +1547,7 @@ const GKSeries = () => {
                       className={s < review.stars ? "text-amber-400 fill-amber-400" : "text-muted-foreground/30"}
                     />
                   ))}
+                  >
                 </div>
                 <p className="text-sm text-foreground leading-relaxed mb-4">"{review.text}"</p>
                 <div className="border-t border-border pt-3">
@@ -1518,6 +1556,7 @@ const GKSeries = () => {
                 </div>
               </div>
             ))}
+            >
           </div>
 
           {/* PDPA Disclaimer */}

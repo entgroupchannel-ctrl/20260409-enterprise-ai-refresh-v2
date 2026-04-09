@@ -10,6 +10,7 @@ const InputOTP = React.forwardRef<React.ElementRef<typeof OTPInput>, React.Compo
       ref={ref}
       containerClassName={cn("flex items-center gap-2 has-[:disabled]:opacity-50", containerClassName)}
       className={cn("disabled:cursor-not-allowed", className)}
+      >
       {...props}
     />
   ),
@@ -36,6 +37,7 @@ const InputOTPSlot = React.forwardRef<
         isActive && "z-10 ring-2 ring-ring ring-offset-background",
         className,
       )}
+      >
       {...props}
       {char}
       {hasFakeCaret && (
@@ -43,6 +45,7 @@ const InputOTPSlot = React.forwardRef<
           <div className="animate-caret-blink h-4 w-px bg-foreground duration-1000" />
         </div>
       )}
+      >
     </div>
   );
 });

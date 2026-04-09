@@ -72,6 +72,7 @@ const ProductGallery = ({ images, alt, autoPlayInterval = 4000 }: ProductGallery
             <img src={img} alt="" className="w-full h-full object-contain bg-background/50 p-0.5" loading="lazy" />
           </button>
         ))}
+        >
       </div>
 
       {/* Progress dots */}
@@ -87,6 +88,7 @@ const ProductGallery = ({ images, alt, autoPlayInterval = 4000 }: ProductGallery
             aria-label={`Slide ${i + 1}`}
           />
         ))}
+        >
       </div>
     </div>
   );
