@@ -287,7 +287,31 @@ export default function UserDashboard() {
   };
 
 
-  const handleSendMessage = async () => {
+  // Load orders
+  const loadOrders = async () => {
+    setOrdersLoading(true);
+    try {
+      const { data: { user: authUser } } = await supabase.auth.getUser();
+      if (!authUser) return;
+      const { data, error } = await supabase
+        .from('sale_orders')
+        .select('*, quote_requests!inner(quote_number, customer_name, customer_email, grand_total, payment_terms, delivery_terms)')
+        .eq('quote_requests.customer_email', authUser.email!)
+        .order('created_at', { ascending: false });
+      if (error) throw error;
+      setOrders((data || []).map((o: any) => ({ ...o, quote: o.quote_requests })));
+    } catch (err: any) {
+      console.error('Load orders error:', err);
+    } finally {
+      setOrdersLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (user && activeSection === 'orders') loadOrders();
+  }, [user, activeSection]);
+
+
     if (!messageText.trim() || !quoteId) return;
     setSendingMessage(true);
     try {
