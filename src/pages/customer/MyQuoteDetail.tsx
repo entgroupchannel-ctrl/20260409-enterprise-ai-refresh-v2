@@ -32,6 +32,7 @@ import {
   CheckCircle2,
   Edit,
   AlertCircle,
+  RefreshCw,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
@@ -634,6 +635,20 @@ export default function MyQuoteDetail() {
                         <Upload className="w-3.5 h-3.5 mr-1.5" />
                         {poFiles.length > 0 ? 'แนบเพิ่ม' : 'อัปโหลด PO'}
                       </Button>
+                      {quote.status === 'po_uploaded' && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => {
+                            loadQuote();
+                            loadPOFiles();
+                            toast({ title: 'รีเฟรชแล้ว' });
+                          }}
+                          title="รีเฟรชข้อมูล"
+                        >
+                          <RefreshCw className="w-3.5 h-3.5" />
+                        </Button>
+                      )}
                       {poFiles.length > 0 && (
                         <Button size="sm" onClick={handleSendPO} disabled={confirming} className="flex-1">
                           <Send className="w-3.5 h-3.5 mr-1.5" />
