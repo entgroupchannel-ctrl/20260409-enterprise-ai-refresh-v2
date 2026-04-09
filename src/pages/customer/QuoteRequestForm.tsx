@@ -1,7 +1,7 @@
 // src/pages/customer/QuoteRequestForm.tsx
 // Auto-fills from user profile when logged in, compact layout
 
-import { useState, useEffect, memo } from 'react';
+import { useState, useEffect, useRef, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -36,6 +36,7 @@ export default function QuoteRequestForm() {
   const { toast } = useToast();
 
   const [submitting, setSubmitting] = useState(false);
+  const submitGuard = useRef(false);
   const [profileLoaded, setProfileLoaded] = useState(false);
   const [formData, setFormData] = useState({
     customer_name: '',
@@ -102,6 +103,7 @@ export default function QuoteRequestForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (submitGuard.current || submitting) return;
     if (!formData.customer_name || !formData.customer_email) {
       toast({ title: 'กรุณากรอกชื่อและอีเมล', variant: 'destructive' });
       return;
@@ -112,11 +114,10 @@ export default function QuoteRequestForm() {
       return;
     }
 
+    submitGuard.current = true;
     setSubmitting(true);
     try {
-      const { data, error } = await supabase
-        .from('quote_requests')
-        .insert([{
+      const insertPayload = {
           customer_name: formData.customer_name,
           customer_email: formData.customer_email,
           customer_phone: formData.customer_phone || null,
@@ -128,17 +129,22 @@ export default function QuoteRequestForm() {
           products: validProducts.map(p => ({
             model: p.model, description: p.description, qty: p.qty,
             unit_price: 0, discount_percent: 0, line_total: 0,
-          })) as any,
-          status: 'pending', subtotal: 0, vat_amount: 0, grand_total: 0,
-          quote_number: '',
+          })),
+          status: 'pending',
+          subtotal: 0,
+          vat_amount: 0,
+          grand_total: 0,
           created_by: user?.id || null,
-        }])
+        };
+      const { data, error } = await (supabase.from('quote_requests') as any)
+        .insert([insertPayload])
         .select().single();
 
       if (error) throw error;
       toast({ title: 'ส่งคำขอสำเร็จ', description: `เลขที่ ${data.quote_number}` });
       navigate(user ? '/my-quotes' : '/');
     } catch (error: any) {
+      submitGuard.current = false;
       toast({ title: 'เกิดข้อผิดพลาด', description: error.message, variant: 'destructive' });
     } finally {
       setSubmitting(false);
