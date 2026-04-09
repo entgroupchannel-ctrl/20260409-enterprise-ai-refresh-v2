@@ -184,6 +184,7 @@ const PriceTable = ({ title, icon: Icon, models, subTitle }: {
                         rel="noopener noreferrer"
                         className="inline-flex items-center justify-center w-8 h-8 rounded-md hover:bg-primary/10 text-primary transition-colors"
                         title={`Download ${m.model} Datasheet`}
+                        >
                         <Download size={14} />
                       </a>
                     </td>

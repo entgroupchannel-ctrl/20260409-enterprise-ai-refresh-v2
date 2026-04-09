@@ -846,6 +846,7 @@ const GTSeries = () => {
                     key={model.name}
                     onClick={() => model.tab ? handleTabChange(model.tab) : undefined}
                     className={`group card-surface overflow-hidden hover:border-primary/30 transition-all hover:-translate-y-1 text-left cursor-pointer ${selectedProducts.has(model.name) ? "ring-2 ring-primary border-primary/50" : ""}`}
+                    >
                     <ModelCard model={model} onQuote={setQuoteProduct} selected={selectedProducts.has(model.name)} onToggleSelect={toggleSelect} />
                   </button>
                 ))}

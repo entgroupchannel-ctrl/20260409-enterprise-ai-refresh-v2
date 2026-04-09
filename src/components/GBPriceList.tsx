@@ -269,6 +269,7 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
                   <tr
                     key={idx}
                     className={`transition-colors hover:bg-primary/5 ${idx % 2 === 1 ? "bg-secondary/20" : ""}`}
+                    >
                     <td className="px-4 py-2.5 font-medium text-foreground whitespace-nowrap">{item.processor}</td>
                     <td className="px-4 py-2.5 text-foreground">{item.config}</td>
                     <td className="px-4 py-2.5 text-right font-bold text-primary whitespace-nowrap">

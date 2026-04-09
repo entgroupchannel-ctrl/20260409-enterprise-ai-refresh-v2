@@ -212,6 +212,7 @@ const RuggedNotebookDetail = () => {
                     <div
                       key={i}
                       className={`grid md:grid-cols-2 gap-6 items-center ${i % 2 === 1 ? "md:[direction:rtl]" : ""}`}
+                      >
                       {h.image && (
                         <div className={`rounded-xl overflow-hidden bg-secondary/30 ${i % 2 === 1 ? "md:[direction:ltr]" : ""}`}>
                           <img src={h.image} alt={h.titleEN} className="w-full h-auto object-cover max-h-[300px]" loading="lazy" />

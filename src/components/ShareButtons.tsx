@@ -52,6 +52,7 @@ const ShareButtons = ({ url, title, compact = false, productId, productCategory 
       <button
         onClick={() => setLiked(!liked)}
         className={`${btnClass} ${liked ? "text-primary border-primary/30 bg-primary/5" : ""}`}
+        >
         <ThumbsUp size={iconSize} className={liked ? "fill-current" : ""} />
         {!compact && (liked ? "ถูกใจแล้ว" : "ถูกใจ")}
       </button>
