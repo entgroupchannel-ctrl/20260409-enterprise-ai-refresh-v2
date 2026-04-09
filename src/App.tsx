@@ -90,6 +90,7 @@ const App = () => (
             <Toaster />
             <Sonner />
             <BrowserRouter>
+              <CartProvider>
               <ScrollToTop />
               <Suspense fallback={<PageLoader />}>
                 <Routes>
@@ -140,10 +141,13 @@ const App = () => (
                   <Route path="/request-quote" element={<QuoteRequestForm />} />
                   <Route path="/my-quotes" element={<ProtectedRoute><MyQuotes /></ProtectedRoute>} />
                   <Route path="/my-quotes/:id" element={<ProtectedRoute><MyQuoteDetail /></ProtectedRoute>} />
+                  <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+                  <Route path="/profile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
               <SocialRibbon />
+              </CartProvider>
             </BrowserRouter>
           </TooltipProvider>
         </I18nProvider>
