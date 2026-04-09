@@ -122,6 +122,11 @@ const App = () => (
                   <Route path="/blog/:id" element={<BlogDetail />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
+                  <Route path="/admin/dashboard" element={<ProtectedRoute requireSales><AdminDashboard /></ProtectedRoute>} />
+                  <Route path="/admin/quotes" element={<ProtectedRoute requireSales><AdminDashboard /></ProtectedRoute>} />
+                  <Route path="/admin/quotes/:id" element={<ProtectedRoute requireSales><AdminDashboard /></ProtectedRoute>} />
+                  <Route path="/admin/contacts" element={<ProtectedRoute requireSales><AdminDashboard /></ProtectedRoute>} />
+                  <Route path="/admin/documents" element={<ProtectedRoute requireSales><AdminDashboard /></ProtectedRoute>} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
