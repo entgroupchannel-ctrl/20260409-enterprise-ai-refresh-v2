@@ -248,6 +248,10 @@ export default function AdminQuoteCreate() {
                 <Label>เลขประจำตัวผู้เสียภาษี</Label>
                 <Input value={customer.tax_id} onChange={(e) => setCustomer({ ...customer, tax_id: e.target.value })} placeholder="เลข 13 หลัก" />
               </div>
+              <div>
+                <Label>LINE ID</Label>
+                <Input value={customer.line_id} onChange={(e) => setCustomer({ ...customer, line_id: e.target.value })} placeholder="@line_id" />
+              </div>
             </div>
           </CardContent>
         </Card>
