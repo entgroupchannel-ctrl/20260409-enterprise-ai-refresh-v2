@@ -170,7 +170,7 @@ export default function AdminDashboard() {
                           <span className="font-medium text-primary">{formatCurrency(quote.grand_total || 0)}</span>
                         </div>
                         <div className="flex items-center gap-4 text-sm">
-                          {getStatusBadge(quote.status)}
+                          <StatusBadge status={quote.status} />
                           <span className={timeRemaining.isOverdue ? 'text-destructive font-semibold' : 'text-muted-foreground'}>
                             ⏰ เหลือเวลา: {timeRemaining.text}
                           </span>
@@ -206,7 +206,7 @@ export default function AdminDashboard() {
                       <span className="text-muted-foreground text-sm">{quote.customer_company || quote.customer_name}</span>
                     </div>
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      {getStatusBadge(quote.status)}
+                      <StatusBadge status={quote.status} />
                       <span>{formatRelativeTime(quote.created_at)}</span>
                     </div>
                   </div>

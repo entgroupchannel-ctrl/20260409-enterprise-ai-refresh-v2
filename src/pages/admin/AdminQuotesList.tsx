@@ -230,7 +230,7 @@ export default function AdminQuotesList() {
                         <span className="text-muted-foreground">{quote.customer_email}</span>
                       </div>
                       <div className="flex flex-wrap items-center gap-3 text-sm">
-                        {getStatusBadge(quote.status)}
+                        <StatusBadge status={quote.status} />
                         <QuoteStatusFlow status={quote.status} mini />
                         <span className="text-muted-foreground flex items-center gap-1">
                           <Clock className="w-3 h-3" />

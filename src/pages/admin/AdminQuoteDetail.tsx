@@ -392,7 +392,7 @@ export default function AdminQuoteDetail() {
           </div>
 
           <div className="flex items-center gap-2">
-            {getStatusBadge(quote.status)}
+            <StatusBadge status={quote.status} />
             {quote.sla_breached && (
               <Badge variant="destructive" className="gap-1">
                 <AlertCircle className="w-3 h-3" />
