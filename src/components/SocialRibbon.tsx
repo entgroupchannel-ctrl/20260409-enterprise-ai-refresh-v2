@@ -18,16 +18,7 @@ const socials = [
 
 const SocialRibbon = () => {
   const location = useLocation();
-  const isPortalPage = location.pathname.startsWith("/my-account") || location.pathname.startsWith("/admin");
-
-  const { visible, onInteraction, forceShow, forceHide } = useAutoHideWidget({
-    initialDelay: 1000,
-    hideAfter: 10000,
-    showInterval: 35000,
-    showDuration: 5000,
-  });
-
-  const [manualExpanded, setManualExpanded] = useState<boolean | null>(null);
+  const isPortalPage = location.pathname.startsWith("/my-account") || location.pathname.startsWith("/admin");  const [manualExpanded, setManualExpanded] = useState<boolean | null>(null);
   const expanded = manualExpanded ?? visible;
 
   const handleToggle = () => {

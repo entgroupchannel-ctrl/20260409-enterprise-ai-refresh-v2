@@ -773,7 +773,6 @@ const MiniPCFirewall = () => {
             <div className="w-px h-6 bg-border" />
             <img src={logo} alt="ENT GROUP" className="h-7 w-auto dark:invert" />
           </div>
-          <QuoteCartButton />
             <ThemeToggle />
         </div>
       </nav>
@@ -1097,13 +1096,6 @@ const MiniPCFirewall = () => {
           </div>
         </div>
       </section>
-      <QuoteDialog
-        open={!!quoteProduct}
-        onClose={() => setQuoteProduct(null)}
-        productName={quoteProduct || ""}
-        productCategory="Mini PC Firewall"
-      />
-      <MultiSelectQuoteBar selectedProducts={selectedProducts} onClear={clearSelection} productCategory="Mini PC Firewall" />
       <FooterCompact />
     </div>
   );

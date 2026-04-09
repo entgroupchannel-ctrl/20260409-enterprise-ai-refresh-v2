@@ -220,13 +220,6 @@ const CaseStudyDetail = () => {
         </div>
       </article>
 
-      <QuoteDialog
-        open={showQuote}
-        onClose={() => setShowQuote(false)}
-        productCategory={cs.industry}
-        initialProducts={cs.products.map((p) => ({ category: cs.industry, model: p.name, qty: 1 }))}
-      />
-
       <Footer />
     </div>
   );

@@ -4,15 +4,7 @@ import { LineQRDialog, LineSvgIcon } from "./LineQRDialog";
 
 const FloatingContact = () => {
   const [open, setOpen] = useState(false);
-  const [showLineDialog, setShowLineDialog] = useState(false);
-  const { visible, onInteraction, forceShow, forceHide } = useAutoHideWidget({
-    initialDelay: 2000,
-    hideAfter: 8000,
-    showInterval: 25000,
-    showDuration: 4000,
-  });
-
-  const handleToggle = () => {
+  const [showLineDialog, setShowLineDialog] = useState(false);  const handleToggle = () => {
     if (open) {
       setOpen(false);
     } else {

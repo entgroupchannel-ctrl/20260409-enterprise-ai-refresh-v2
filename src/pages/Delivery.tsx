@@ -31,7 +31,6 @@ const Delivery = () => {
             <Link to="/" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors">
               <ArrowLeft size={14} /> หน้าแรก
             </Link>
-            <QuoteCartButton />
             <ThemeToggle />
           </div>
           <div className="flex items-center gap-3">

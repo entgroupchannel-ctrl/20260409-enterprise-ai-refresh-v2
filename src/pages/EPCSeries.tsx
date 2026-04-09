@@ -891,14 +891,6 @@ const EPCSeries = () => {
           </div>
         </div>
       </div>
-      <QuoteDialog
-        open={!!quoteProduct}
-        onClose={() => setQuoteProduct(null)}
-        productName={quoteProduct || ""}
-        productCategory="EPC Series"
-      />
-      <MultiSelectQuoteBar selectedProducts={selectedProducts} onClear={clearSelection} productCategory="EPC Series" />
-      <PlatformInviteBanner variant="compact" />
       <B2BCTABanner variant="compact" />
       <FooterCompact />
     </div>

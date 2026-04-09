@@ -249,7 +249,6 @@ const VCloudPoint = () => {
             <a href="https://vcloudpoint.info/" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors">
               vcloudpoint.info <ExternalLink size={12} />
             </a>
-            <QuoteCartButton />
             <ThemeToggle />
           </div>
         </div>
@@ -750,12 +749,6 @@ const VCloudPoint = () => {
           <DemoCTA variant="secondary" />
         </div>
       </section>
-      <QuoteDialog
-        open={!!quoteProduct}
-        onClose={() => setQuoteProduct(null)}
-        productName={quoteProduct || ""}
-        productCategory="vCloudPoint"
-      />
       <FooterCompact />
     </div>
   );

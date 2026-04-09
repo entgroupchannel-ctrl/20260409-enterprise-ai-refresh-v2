@@ -765,7 +765,6 @@ const EPCBoxSeries = () => {
             <span className="text-sm font-semibold text-foreground">EPC Box Series</span>
           </div>
           <div className="flex items-center gap-3">
-            <QuoteCartButton />
             <ThemeToggle />
             <Link to="/" className="hidden md:inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
               <ArrowLeft size={16} /> กลับหน้าหลัก
@@ -1131,7 +1130,6 @@ const EPCBoxSeries = () => {
             <button onClick={() => setQuoteOpen(true)} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-lg hover:bg-primary/90 transition-colors">
               ขอใบเสนอราคา
             </button>
-            <QuoteDialog open={quoteOpen} onClose={() => { setQuoteOpen(false); setQuoteProduct(""); }} productCategory="EPC Box Series" productName={quoteProduct} />
             <button
               onClick={() => setShowLineQR(true)}
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[hsl(142,70%,45%)] text-white font-bold text-lg hover:opacity-90 transition-opacity"

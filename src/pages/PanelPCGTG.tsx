@@ -275,7 +275,6 @@ const PanelPC = () => {
             <span className="text-sm font-semibold text-foreground">GTY/GTG Panel PC</span>
           </div>
           <div className="flex items-center gap-3">
-            <QuoteCartButton />
             <ThemeToggle />
             <Link to="/" className="hidden md:inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
               <ArrowLeft size={16} /> กลับหน้าหลัก

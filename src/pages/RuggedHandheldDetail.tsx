@@ -62,21 +62,12 @@ const specRows = [
 /* ───── Main Component ───── */
 const RuggedHandheldDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
-  const { trackEvent } = useEngagementTracker();
-
-  const product = id ? getHandheldProduct(id) : undefined;
+  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);  const product = id ? getHandheldProduct(id) : undefined;
   const related = id ? getRelatedHandhelds(id) : [];
 
   // ── Engagement Tracking: product view ──
   useEffect(() => {
     if (product) {
-      trackEvent({
-        eventType: "product_view",
-        productId: product.id,
-        productCategory: "Rugged Handheld",
-        productName: product.model,
-      });
     }
   }, [product?.id]);
 
@@ -228,11 +219,6 @@ const RuggedHandheldDetail = () => {
 
             {/* CTA */}
             <div className="flex flex-wrap gap-3 pt-4 border-t border-border">
-              <AddToQuoteButton
-                model={product.model}
-                category="Rugged Handheld"
-                productName={product.model}
-              />
               <Button size="lg" variant="outline" onClick={() => setQuoteProduct(product.model)}>
                 <FileText className="w-5 h-5 mr-2" /> ขอราคาด่วน
               </Button>
@@ -318,13 +304,6 @@ const RuggedHandheldDetail = () => {
           </div>
         )}
       </div>
-
-      <QuoteDialog
-        open={!!quoteProduct}
-        onClose={() => setQuoteProduct(null)}
-        productName={quoteProduct || ""}
-        productCategory="Rugged Handheld & PDA"
-      />
       <FooterCompact />
     </div>
   );

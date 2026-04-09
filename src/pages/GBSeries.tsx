@@ -672,7 +672,6 @@ const GBSeries = () => {
       </section>
 
       <FooterCompact />
-      <QuoteDialog open={quoteOpen} onClose={() => setQuoteOpen(false)} productCategory={`GB Series — ${current.name}`} />
       <LineQRDialog open={showLineQR} onClose={() => setShowLineQR(false)} />
     </div>
   );

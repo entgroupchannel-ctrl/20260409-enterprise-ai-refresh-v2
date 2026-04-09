@@ -1106,13 +1106,6 @@ const MiniPC = () => {
           </Button>
         </div>
       </div>
-      <QuoteDialog
-        open={!!quoteProduct}
-        onClose={() => setQuoteProduct(null)}
-        productName={quoteProduct || ""}
-        productCategory="GT Series — Mini PC"
-      />
-      <PlatformInviteBanner variant="compact" />
       <B2BCTABanner variant="compact" />
       <FooterCompact />
     </div>

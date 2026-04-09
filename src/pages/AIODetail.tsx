@@ -46,21 +46,12 @@ const RelatedCard = ({ p }: { p: AIOProduct }) => (
 const AIODetail = () => {
   const { id } = useParams<{ id: string }>();
   const [quoteOpen, setQuoteOpen] = useState(false);
-  const [tab, setTab] = useState("overview");
-  const { trackEvent } = useEngagementTracker();
-
-  const product = id ? getAIOProduct(id) : undefined;
+  const [tab, setTab] = useState("overview");  const product = id ? getAIOProduct(id) : undefined;
   const related = id ? getRelatedAIO(id) : [];
 
   // ── Engagement Tracking: product view ──
   useEffect(() => {
     if (product) {
-      trackEvent({
-        eventType: "product_view",
-        productId: product.id,
-        productCategory: "All-in-One PC",
-        productName: product.model,
-      });
     }
   }, [product?.id]);
 
@@ -178,11 +169,6 @@ const AIODetail = () => {
 
             {/* CTA */}
             <div className="flex flex-wrap gap-3 pt-4 border-t border-border">
-              <AddToQuoteButton
-                model={product.model}
-                category="All-in-One PC"
-                productName={product.model}
-              />
               <Button size="lg" variant="outline" onClick={() => setQuoteOpen(true)}>
                 <FileText className="w-5 h-5 mr-2" /> ขอราคาด่วน
               </Button>
@@ -369,13 +355,6 @@ const AIODetail = () => {
           </div>
         )}
       </div>
-
-      <QuoteDialog
-        open={quoteOpen}
-        onClose={() => setQuoteOpen(false)}
-        productName={product.model}
-        productCategory="All-in-One PC"
-      />
       <FooterCompact />
     </div>
   );

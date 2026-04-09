@@ -371,14 +371,6 @@ const RuggedNotebookPage = () => {
           </button>
         </div>
       )}
-
-      <QuoteDialog open={!!quoteProduct} onClose={() => setQuoteProduct(null)} productName={quoteProduct || ""} productCategory="Rugged Notebook" />
-      <QuoteDialog
-        open={showMultiQuote}
-        onClose={() => { setShowMultiQuote(false); clearSelection(); }}
-        productCategory="Rugged Notebook"
-        initialProducts={Array.from(selectedProducts).map((model) => ({ category: "Rugged Notebook", model, qty: 1 }))}
-      />
       {/* Related Categories */}
       <section className="max-w-7xl mx-auto px-4 pb-10 space-y-3">
         <h2 className="text-lg font-display font-bold text-foreground mb-2">หมวดหมู่ที่เกี่ยวข้อง</h2>
@@ -404,8 +396,6 @@ const RuggedNotebookPage = () => {
           </Link>
         ))}
       </section>
-
-      <PlatformInviteBanner variant="compact" />
       <B2BCTABanner variant="compact" />
       <FooterCompact />
     </div>

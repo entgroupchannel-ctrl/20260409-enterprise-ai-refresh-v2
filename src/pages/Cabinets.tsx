@@ -99,9 +99,7 @@ const lockOptions = ["กุญแจแบบเด้ง", "กุญแจแ
 /* ═══════ Component ═══════ */
 const Cabinets = () => {
   const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
-  const [customOpen, setCustomOpen] = useState(false);
-  const { user } = useAuth();
-  const { toast } = useToast();
+  const [customOpen, setCustomOpen] = useState(false);  const { toast } = useToast();
   const [customLoading, setCustomLoading] = useState(false);
   const [customSubmitted, setCustomSubmitted] = useState(false);
   const [customForm, setCustomForm] = useState({
@@ -462,13 +460,6 @@ const Cabinets = () => {
           )}
         </DialogContent>
       </Dialog>
-
-      <QuoteDialog
-        open={!!quoteProduct}
-        onClose={() => setQuoteProduct(null)}
-        productName={quoteProduct || ""}
-        productCategory="GK Series — Panel PC"
-      />
       <FooterCompact />
     </div>
   );

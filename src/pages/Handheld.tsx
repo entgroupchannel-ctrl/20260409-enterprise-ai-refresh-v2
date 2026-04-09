@@ -277,23 +277,6 @@ const Handheld = () => {
         </div>
       )}
 
-      <QuoteDialog
-        open={!!quoteProduct}
-        onClose={() => setQuoteProduct(null)}
-        productName={quoteProduct || ""}
-        productCategory="Rugged Handheld & PDA"
-      />
-      <QuoteDialog
-        open={showMultiQuote}
-        onClose={() => { setShowMultiQuote(false); clearSelection(); }}
-        productCategory="Rugged Handheld & PDA"
-        initialProducts={Array.from(selectedProducts).map((name) => ({
-          category: "Rugged Handheld & PDA",
-          model: name,
-          qty: 1,
-        }))}
-      />
-
       {/* ─── Media Center ─── */}
       <section className="max-w-7xl mx-auto px-4 py-10">
         <div className="flex items-center justify-between mb-6">
@@ -353,8 +336,6 @@ const Handheld = () => {
           </Link>
         ))}
       </section>
-
-      <PlatformInviteBanner variant="compact" />
       <B2BCTABanner variant="compact" />
       <FooterCompact />
     </div>

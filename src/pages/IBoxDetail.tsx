@@ -31,21 +31,12 @@ const IBoxDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
-  const { selectedProducts, toggleSelect, clearSelection } = useMultiSelect();
-  const { trackEvent } = useEngagementTracker();
-
-  const product = id ? getIBoxProduct(id) : undefined;
+  const { selectedProducts, toggleSelect, clearSelection } = useMultiSelect();  const product = id ? getIBoxProduct(id) : undefined;
   const relatedProducts = id ? getRelatedProducts(id) : [];
 
   // ── Engagement Tracking: product view ──
   useEffect(() => {
     if (product) {
-      trackEvent({
-        eventType: "product_view",
-        productId: product.id,
-        productCategory: product.subcategory || "iBox Series",
-        productName: product.name,
-      });
     }
   }, [product?.id]);
 
@@ -205,11 +196,6 @@ const IBoxDetail = () => {
 
             {/* Actions */}
             <div className="flex flex-wrap gap-3 pt-4 border-t border-border">
-              <AddToQuoteButton
-                model={product.name}
-                category={product.subcategory || "iBox Series"}
-                productName={product.name}
-              />
               <Button size="lg" variant="outline" onClick={() => setQuoteProduct(product.name)}>
                 <FileText className="w-5 h-5 mr-2" /> ขอราคาด่วน
               </Button>
@@ -292,13 +278,6 @@ const IBoxDetail = () => {
           </div>
         )}
       </div>
-
-      <QuoteDialog
-        open={!!quoteProduct}
-        onClose={() => setQuoteProduct(null)}
-        productName={quoteProduct || ""}
-        productCategory="iBox Series"
-      />
       <FooterCompact />
     </div>
   );

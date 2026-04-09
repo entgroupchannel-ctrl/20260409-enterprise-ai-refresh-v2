@@ -522,14 +522,6 @@ const IBoxSeries = () => {
         </div>
       </div>
 
-      <QuoteDialog
-        open={!!quoteProduct}
-        onClose={() => setQuoteProduct(null)}
-        productName={quoteProduct || ""}
-        productCategory="iBox Series"
-      />
-      <MultiSelectQuoteBar selectedProducts={selectedProducts} onClear={clearSelection} productCategory="iBox Series" />
-
       {/* ─── YouTube Section ─── */}
       <section className="max-w-7xl mx-auto px-4 py-10">
         <div className="flex items-center justify-between mb-6">
@@ -584,8 +576,6 @@ const IBoxSeries = () => {
           </a>
         </div>
       </section>
-
-      <PlatformInviteBanner variant="compact" />
       <B2BCTABanner variant="compact" />
       <FooterCompact />
     </div>

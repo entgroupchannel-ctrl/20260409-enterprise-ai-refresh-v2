@@ -374,12 +374,6 @@ const WaterproofPC = () => {
           </Button>
         </div>
       </div>
-      <QuoteDialog
-        open={!!quoteProduct}
-        onClose={() => setQuoteProduct(null)}
-        productName={quoteProduct || ""}
-        productCategory="Waterproof PC IP69K"
-      />
       <FooterCompact />
     </div>
   );

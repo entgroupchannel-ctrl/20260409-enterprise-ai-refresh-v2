@@ -370,17 +370,10 @@ const AllInOnePC = () => {
           </Link>
         ))}
       </section>
-
-      <PlatformInviteBanner variant="compact" />
       <B2BCTABanner variant="compact" />
       <FooterCompact />
 
       {/* Quote Dialog */}
-      <QuoteDialog
-        open={!!quoteProduct}
-        onClose={() => setQuoteProduct(null)}
-        productName={quoteProduct || ""}
-      />
     </div>
   );
 };

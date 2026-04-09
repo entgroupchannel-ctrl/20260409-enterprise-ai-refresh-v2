@@ -224,7 +224,6 @@ const UTCSeries = () => {
             <img src={logo} alt="ENT GROUP" className="h-7 w-auto dark:invert" />
           </div>
           <div className="flex items-center gap-3">
-            <QuoteCartButton />
             <ThemeToggle />
           </div>
         </div>

@@ -704,15 +704,6 @@ const RuggedTablet = () => {
           </button>
         </div>
       )}
-
-      <QuoteDialog open={!!quoteProduct} onClose={() => setQuoteProduct(null)} productName={quoteProduct || ""} productCategory="Rugged Tablet" />
-      <QuoteDialog
-        open={showMultiQuote}
-        onClose={() => { setShowMultiQuote(false); clearSelection(); }}
-        productCategory="Rugged Tablet"
-        initialProducts={Array.from(selectedProducts).map((model) => ({ category: "Rugged Tablet", model, qty: 1 }))}
-      />
-      <PlatformInviteBanner variant="compact" />
       <B2BCTABanner variant="compact" />
       <FooterCompact />
     </div>
