@@ -644,7 +644,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                 Full HD
               </span>
             )}
-          </div
+          </div>
             item={{
               id: model.id,
               name: model.name,
