@@ -60,6 +60,8 @@ const AdminQuoteCreate = lazyRetry(() => import("./pages/admin/AdminQuoteCreate"
 const AdminPermissions = lazyRetry(() => import("./pages/admin/AdminPermissions"));
 const AdminSaleOrders = lazyRetry(() => import("./pages/admin/AdminSaleOrders"));
 const AdminRequests = lazyRetry(() => import("./pages/admin/AdminRequests"));
+const ProductsList = lazyRetry(() => import("./pages/admin/ProductsList"));
+const ProductImport = lazyRetry(() => import("./pages/admin/ProductImport"));
 const QuoteRequestForm = lazyRetry(() => import("./pages/customer/QuoteRequestForm"));
 const MyQuotes = lazyRetry(() => import("./pages/customer/MyQuotes"));
 const MyQuoteDetail = lazyRetry(() => import("./pages/customer/MyQuoteDetail"));
@@ -150,6 +152,8 @@ const App = () => (
                     <Route path="/admin/sale-orders" element={<ProtectedRoute requireSales><AdminSaleOrders /></ProtectedRoute>} />
                     <Route path="/admin/sale-orders/:id" element={<ProtectedRoute requireSales><AdminSaleOrders /></ProtectedRoute>} />
                     <Route path="/admin/requests" element={<ProtectedRoute requireAdmin><AdminRequests /></ProtectedRoute>} />
+                    <Route path="/admin/products" element={<ProtectedRoute requireSales><ProductsList /></ProtectedRoute>} />
+                    <Route path="/admin/products/import" element={<ProtectedRoute requireSales><ProductImport /></ProtectedRoute>} />
                     <Route path="/request-quote" element={<QuoteRequestForm />} />
                     <Route path="/my-quotes" element={<ProtectedRoute><MyQuotes /></ProtectedRoute>} />
                     <Route path="/my-quotes/:id" element={<ProtectedRoute><MyQuoteDetail /></ProtectedRoute>} />
