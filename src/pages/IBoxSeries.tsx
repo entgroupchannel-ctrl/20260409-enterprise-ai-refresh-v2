@@ -423,7 +423,8 @@ const IBoxSeries = () => {
                     <div className="relative bg-secondary/30 p-6 flex items-center justify-center h-52">
                       <button onClick={() => toggleSelect(model.name)} className="absolute top-3 left-3 z-10">
                         <Checkbox checked={selectedProducts.has(model.name)} className="h-5 w-5" />
-                      </button
+                      </button>
+                      <ShareButtons
                         item={{
                           id: model.id,
                           name: model.name,

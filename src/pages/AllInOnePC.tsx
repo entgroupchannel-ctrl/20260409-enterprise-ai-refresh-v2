@@ -47,8 +47,8 @@ const AIOCard = ({
       selected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"
     }`}>
     {/* Image */}
-    <div className="relative bg-secondary/30 p-4 flex items-center justify-center h-52"
-
+    <div className="relative bg-secondary/30 p-4 flex items-center justify-center h-52">
+      <ShareButtons
         item={{
           id: product.id,
           name: product.model,

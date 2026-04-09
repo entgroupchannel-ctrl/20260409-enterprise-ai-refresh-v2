@@ -205,15 +205,13 @@ const CaseStudies = () => {
                   <iframe
                     src={`https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fentgroup.th%2Fvideos%2F${v.videoId}%2F&show_text=0&width=560`}
                     width="100%"
-
                     height="100%"
-                    style={{ border: "none", overflow: "hidden" }}>
+                    style={{ border: "none", overflow: "hidden" }}
                     scrolling="no"
                     allowFullScreen
                     allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-
                     title={v.title}
-                  />
+                  ></iframe>
                 </div>
                 <div className="p-3">
                   <p className="text-sm font-medium text-foreground">{v.title}</p>
