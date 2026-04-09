@@ -241,7 +241,7 @@ const SmartDisplay = () => {
                     activeTab === cat.id
                       ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
                       : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
-                  }`}
+                  }`}>
                   <cat.icon size={16} />
                   {cat.label}
                 </button>

@@ -295,7 +295,7 @@ const IBoxSeries = () => {
                   filters.category === cat.id
                     ? "bg-primary text-primary-foreground shadow-sm"
                     : "bg-muted hover:bg-muted/80 text-foreground"
-                }`}
+                }`}>
                 <cat.icon className="w-3.5 h-3.5" />
                 {cat.name}
               </button>

@@ -916,7 +916,7 @@ const MiniPC = () => {
                   activeCategory === cat.id
                     ? "bg-primary text-primary-foreground border-primary"
                     : "bg-secondary/50 text-foreground/70 border-border hover:border-primary/30"
-                }`}
+                }`}>
                 <div>{cat.label}</div>
                 <div className="text-[10px] opacity-70">{cat.desc}</div>
               </a>

@@ -258,7 +258,7 @@ const AllInOnePC = () => {
                     catFilter === f.value
                       ? "bg-primary text-primary-foreground"
                       : "bg-secondary/50 text-foreground/70 hover:bg-secondary"
-                  }`}
+                  }`}>
                   <f.icon size={12} />
                   {f.label}
                 </button>
