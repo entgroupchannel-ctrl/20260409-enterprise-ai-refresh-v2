@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import {
   Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter,
@@ -9,7 +9,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { FileText, ShoppingBag, Lock, LogIn, UserPlus, Check, Package } from 'lucide-react';
 import { getRelatedCatalogProducts, type CatalogProduct } from '@/lib/product-catalog';
-import { savePendingQuote, type PendingQuoteData } from '@/hooks/usePendingQuote';
+import { savePendingQuote, getPendingQuote, clearPendingQuote, type PendingQuoteData } from '@/hooks/usePendingQuote';
 import ContactFormPanel from './quote-dialog/ContactFormPanel';
 import ProductSearchPanel from './quote-dialog/ProductSearchPanel';
 import SelectedProductsPanel from './quote-dialog/SelectedProductsPanel';
