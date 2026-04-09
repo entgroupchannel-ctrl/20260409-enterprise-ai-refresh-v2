@@ -951,8 +951,21 @@ const GTSeries = () => {
                           {uc}
                         </span>
                       ))}
-                    </div>
                   </div>
+
+                  {/* Quick Quote CTA */}
+                  <div className="card-surface p-5 bg-primary/5 border-primary/20 flex items-center justify-between gap-4">
+                    <div>
+                      <p className="font-bold text-sm text-foreground">สนใจ GT1000?</p>
+                      <p className="text-xs text-muted-foreground">ขอใบเสนอราคาตอนนี้</p>
+                    </div>
+                    <QuoteRequestButton
+                      productModel="GT1000"
+                      productName="Intel Celeron N2920 Industrial Mini PC"
+                      size="sm"
+                    />
+                  </div>
+                </div>
                 </div>
 
                 {/* Product Images Gallery — ภาพจริงจากโรงงาน */}
