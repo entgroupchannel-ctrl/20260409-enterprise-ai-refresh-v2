@@ -103,6 +103,7 @@ export default function QuoteRequestForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (submitGuard.current || submitting) return;
     if (!formData.customer_name || !formData.customer_email) {
       toast({ title: 'กรุณากรอกชื่อและอีเมล', variant: 'destructive' });
       return;
@@ -113,6 +114,7 @@ export default function QuoteRequestForm() {
       return;
     }
 
+    submitGuard.current = true;
     setSubmitting(true);
     try {
       const { data, error } = await supabase
@@ -130,8 +132,10 @@ export default function QuoteRequestForm() {
             model: p.model, description: p.description, qty: p.qty,
             unit_price: 0, discount_percent: 0, line_total: 0,
           })) as any,
-          status: 'pending', subtotal: 0, vat_amount: 0, grand_total: 0,
-          quote_number: '',
+          status: 'pending',
+          subtotal: 0,
+          vat_amount: 0,
+          grand_total: 0,
           created_by: user?.id || null,
         }])
         .select().single();
@@ -140,6 +144,7 @@ export default function QuoteRequestForm() {
       toast({ title: 'ส่งคำขอสำเร็จ', description: `เลขที่ ${data.quote_number}` });
       navigate(user ? '/my-quotes' : '/');
     } catch (error: any) {
+      submitGuard.current = false;
       toast({ title: 'เกิดข้อผิดพลาด', description: error.message, variant: 'destructive' });
     } finally {
       setSubmitting(false);
