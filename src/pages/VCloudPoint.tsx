@@ -491,7 +491,7 @@ const VCloudPoint = () => {
             <h2 className="text-3xl md:text-4xl font-black text-foreground mb-2">
               ควบคุม<span className="text-primary">จากจุดเดียว</span>
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto"
+            <p className="text-muted-foreground max-w-2xl mx-auto">
               vMatrix Server ทำงานบน Windows 7/8/10/11 รองรับผู้ใช้สูงสุด 30 คน พร้อมระบบจัดการ User, สิทธิ์, Broadcasting หน้าจอ และ Chatting Room
             </p>
           </div>
