@@ -312,7 +312,51 @@ export default function AdminQuoteDetail() {
     }
   };
 
-  const handleUpdateProducts = async (updatedProducts: any[]) => {
+  const startEditCustomer = () => {
+    if (!quote) return;
+    setCustomerForm({
+      customer_name: quote.customer_name || '',
+      customer_email: quote.customer_email || '',
+      customer_phone: quote.customer_phone || '',
+      customer_company: quote.customer_company || '',
+      customer_address: quote.customer_address || '',
+      customer_tax_id: quote.customer_tax_id || '',
+      customer_line: quote.customer_line || '',
+    });
+    setEditingCustomer(true);
+  };
+
+  const handleSaveCustomer = async () => {
+    if (!customerForm.customer_name || !customerForm.customer_email) {
+      toast({ title: 'กรุณากรอกชื่อและอีเมล', variant: 'destructive' });
+      return;
+    }
+    setSavingCustomer(true);
+    try {
+      const { error } = await supabase
+        .from('quote_requests')
+        .update({
+          customer_name: customerForm.customer_name,
+          customer_email: customerForm.customer_email,
+          customer_phone: customerForm.customer_phone || null,
+          customer_company: customerForm.customer_company || null,
+          customer_address: customerForm.customer_address || null,
+          customer_tax_id: customerForm.customer_tax_id || null,
+          customer_line: customerForm.customer_line || null,
+        })
+        .eq('id', id);
+
+      if (error) throw error;
+      setEditingCustomer(false);
+      await loadQuoteDetails();
+      toast({ title: 'บันทึกข้อมูลลูกค้าสำเร็จ' });
+    } catch (error: any) {
+      toast({ title: 'บันทึกไม่สำเร็จ', description: error.message, variant: 'destructive' });
+    } finally {
+      setSavingCustomer(false);
+    }
+  };
+
     try {
       const subtotal = updatedProducts.reduce((sum: number, p: any) => sum + (p.line_total || 0), 0);
       const vatAmount = subtotal * 0.07;
