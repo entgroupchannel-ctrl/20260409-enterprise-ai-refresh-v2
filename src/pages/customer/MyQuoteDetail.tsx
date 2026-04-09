@@ -20,6 +20,8 @@ import {
   MessageSquare,
   ShieldCheck,
   CheckCircle2,
+  Edit,
+  AlertCircle,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
