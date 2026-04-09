@@ -877,7 +877,7 @@ const MiniPC = () => {
             <Button onClick={() => setQuoteProduct("Mini PC")}>
               <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
             </Button>
-            <Button variant="outline" onClick={() => document.getElementById("pricelist")?.scrollIntoView({ behavior: "smooth" })}
+            <Button variant="outline" onClick={() => document.getElementById("pricelist")?.scrollIntoView({ behavior: "smooth" })}>
 
               ดูตารางราคา
             </Button>
