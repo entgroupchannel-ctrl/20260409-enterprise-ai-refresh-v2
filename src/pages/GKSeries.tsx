@@ -645,16 +645,6 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
               </span>
             )}
           </div>
-            item={{
-              id: model.id,
-              name: model.name,
-              category: "GK Series — Panel PC",
-              image: model.image,
-              href: `/gk-series#${model.id}`,
-              specs: `${model.screenSize} ${model.resolution} ${model.platform}`,
-            }}
-            className="absolute top-4 right-4"
-          />
           {model.gallery && model.gallery.length > 0 ? (
             <ProductGallery images={model.gallery} alt={model.name} />
           ) : (
