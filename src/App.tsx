@@ -63,6 +63,7 @@ const MyQuoteDetail = lazy(() => import("./pages/customer/MyQuoteDetail"));
 const Cart = lazy(() => import("./pages/customer/Cart"));
 const UserProfile = lazy(() => import("./pages/customer/UserProfile"));
 const UserDashboard = lazy(() => import("./pages/customer/UserDashboard"));
+const CustomerSODetail = lazy(() => import("./pages/customer/CustomerSODetail"));
 
 /* ── Loading fallback ── */
 const PageLoader = () => (
