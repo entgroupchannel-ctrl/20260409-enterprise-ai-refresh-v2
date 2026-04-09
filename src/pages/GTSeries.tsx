@@ -1,4 +1,5 @@
 import SEOHead from "@/components/SEOHead";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import B2BCTABanner from "@/components/B2BCTABanner";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
