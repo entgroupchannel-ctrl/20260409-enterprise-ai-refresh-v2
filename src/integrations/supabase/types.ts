@@ -14,6 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
+      cart_items: {
+        Row: {
+          added_at: string
+          estimated_price: number | null
+          id: string
+          product_description: string | null
+          product_model: string
+          product_name: string | null
+          quantity: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          added_at?: string
+          estimated_price?: number | null
+          id?: string
+          product_description?: string | null
+          product_model: string
+          product_name?: string | null
+          quantity?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          added_at?: string
+          estimated_price?: number | null
+          id?: string
+          product_description?: string | null
+          product_model?: string
+          product_name?: string | null
+          quantity?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       contact_submissions: {
         Row: {
           assigned_to: string | null
@@ -538,6 +574,102 @@ export type Database = {
           email?: string
           id?: string
           source?: string | null
+        }
+        Relationships: []
+      }
+      user_profiles: {
+        Row: {
+          billing_address: string | null
+          billing_city: string | null
+          billing_country: string | null
+          billing_district: string | null
+          billing_postal_code: string | null
+          billing_province: string | null
+          company_address: string | null
+          company_name: string | null
+          company_phone: string | null
+          company_tax_id: string | null
+          contact_email: string | null
+          contact_line: string | null
+          contact_name: string | null
+          contact_phone: string | null
+          contact_position: string | null
+          created_at: string
+          delivery_method: string | null
+          id: string
+          notes: string | null
+          payment_terms: string | null
+          shipping_address: string | null
+          shipping_city: string | null
+          shipping_country: string | null
+          shipping_district: string | null
+          shipping_postal_code: string | null
+          shipping_province: string | null
+          shipping_same_as_billing: boolean | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          billing_address?: string | null
+          billing_city?: string | null
+          billing_country?: string | null
+          billing_district?: string | null
+          billing_postal_code?: string | null
+          billing_province?: string | null
+          company_address?: string | null
+          company_name?: string | null
+          company_phone?: string | null
+          company_tax_id?: string | null
+          contact_email?: string | null
+          contact_line?: string | null
+          contact_name?: string | null
+          contact_phone?: string | null
+          contact_position?: string | null
+          created_at?: string
+          delivery_method?: string | null
+          id?: string
+          notes?: string | null
+          payment_terms?: string | null
+          shipping_address?: string | null
+          shipping_city?: string | null
+          shipping_country?: string | null
+          shipping_district?: string | null
+          shipping_postal_code?: string | null
+          shipping_province?: string | null
+          shipping_same_as_billing?: boolean | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          billing_address?: string | null
+          billing_city?: string | null
+          billing_country?: string | null
+          billing_district?: string | null
+          billing_postal_code?: string | null
+          billing_province?: string | null
+          company_address?: string | null
+          company_name?: string | null
+          company_phone?: string | null
+          company_tax_id?: string | null
+          contact_email?: string | null
+          contact_line?: string | null
+          contact_name?: string | null
+          contact_phone?: string | null
+          contact_position?: string | null
+          created_at?: string
+          delivery_method?: string | null
+          id?: string
+          notes?: string | null
+          payment_terms?: string | null
+          shipping_address?: string | null
+          shipping_city?: string | null
+          shipping_country?: string | null
+          shipping_district?: string | null
+          shipping_postal_code?: string | null
+          shipping_province?: string | null
+          shipping_same_as_billing?: boolean | null
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }

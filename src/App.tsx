@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/hooks/use-theme";
 import { I18nProvider } from "@/contexts/I18nContext";
+import { CartProvider } from "@/hooks/useCart";
 import Index from "./pages/Index.tsx";
 import ScrollToTop from "./components/ScrollToTop.tsx";
 import SocialRibbon from "./components/SocialRibbon.tsx";
@@ -57,6 +58,8 @@ const AdminQuoteCreate = lazy(() => import("./pages/admin/AdminQuoteCreate"));
 const QuoteRequestForm = lazy(() => import("./pages/customer/QuoteRequestForm"));
 const MyQuotes = lazy(() => import("./pages/customer/MyQuotes"));
 const MyQuoteDetail = lazy(() => import("./pages/customer/MyQuoteDetail"));
+const Cart = lazy(() => import("./pages/customer/Cart"));
+const UserProfile = lazy(() => import("./pages/customer/UserProfile"));
 
 /* ── Loading fallback ── */
 const PageLoader = () => (
@@ -87,6 +90,7 @@ const App = () => (
             <Toaster />
             <Sonner />
             <BrowserRouter>
+              <CartProvider>
               <ScrollToTop />
               <Suspense fallback={<PageLoader />}>
                 <Routes>
@@ -137,10 +141,13 @@ const App = () => (
                   <Route path="/request-quote" element={<QuoteRequestForm />} />
                   <Route path="/my-quotes" element={<ProtectedRoute><MyQuotes /></ProtectedRoute>} />
                   <Route path="/my-quotes/:id" element={<ProtectedRoute><MyQuoteDetail /></ProtectedRoute>} />
+                  <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+                  <Route path="/profile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
               <SocialRibbon />
+              </CartProvider>
             </BrowserRouter>
           </TooltipProvider>
         </I18nProvider>

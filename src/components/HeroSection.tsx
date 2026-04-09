@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Search, Menu, X, ChevronDown, LogIn, UserCircle, LayoutDashboard, LogOut, FileText, Plus } from "lucide-react";
+import { Search, Menu, X, ChevronDown, LogIn, UserCircle, LayoutDashboard, LogOut, FileText, Plus, User } from "lucide-react";
+import CartBadge from "@/components/CartBadge";
 import ThemeToggle from "@/components/ThemeToggle";
 import MegaMenu, { MobileMegaMenu } from "@/components/MegaMenu";
 import { useAuth } from "@/hooks/useAuth";
@@ -137,6 +138,7 @@ const HeroSection = () => {
           ))}
           <div className="w-px h-6 bg-white/10 mx-1" />
           <ThemeToggle />
+          <CartBadge className="text-white/70 hover:text-white transition-colors p-2" />
           {!authLoading && (
             user ? (
               <div className="relative group">
@@ -158,7 +160,13 @@ const HeroSection = () => {
                   )}
                   {profile?.role === 'member' && (
                     <>
-                      <Link to="/my-quotes" className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors rounded-t-lg">
+                      <Link to="/profile" className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors rounded-t-lg">
+                        <User size={16} /> โปรไฟล์ของฉัน
+                      </Link>
+                      <Link to="/cart" className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors">
+                        <FileText size={16} /> ตะกร้าสินค้า
+                      </Link>
+                      <Link to="/my-quotes" className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors">
                         <FileText size={16} /> ใบเสนอราคาของฉัน
                       </Link>
                       <Link to="/request-quote" className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors">
@@ -210,6 +218,12 @@ const HeroSection = () => {
                   )}
                   {profile?.role === 'member' && (
                     <>
+                      <Link to="/profile" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-muted transition-colors">
+                        <User size={16} /> โปรไฟล์ของฉัน
+                      </Link>
+                      <Link to="/cart" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-muted transition-colors">
+                        <FileText size={16} /> ตะกร้าสินค้า
+                      </Link>
                       <Link to="/my-quotes" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-muted transition-colors">
                         <FileText size={16} /> ใบเสนอราคาของฉัน
                       </Link>
