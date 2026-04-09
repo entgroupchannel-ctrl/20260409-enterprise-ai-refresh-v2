@@ -1,0 +1,6 @@
+INSERT INTO products (product_code,sku,model,series,name,description,category,cpu,ram_gb,storage_gb,storage_type,has_wifi,has_4g,os,unit_price,unit_price_vat,buy_price,buy_price_vat,is_active,stock_status,slug,tags) VALUES
+('Mini PC GT4000 i5/4GB RAM/128SSD/Wifi - Industrial Grade','gt4000-i54200u-4gb-4gb-wifi-4g','GT4000','GT Series','Mini PC GT4000 i5/4GB RAM/256SSD/Wifi - Industrial Grade','CPU Intel Core i5 4200U 2 cores 4 threads 1.6GHz','Mini PC','I5 4200U',4,4,'SSD',true,true,'Linux',16900.0,18083.0,0.0,0.0,true,'available','gt4000-i54200u-4gb-4gb-wifi-4g',ARRAY['GT Series','GT4000','WiFi','4G','SSD']::text[]),
+('Mini PC - GT770 i7 (8GB/512GB/Wifi)','gt770-i74500u-8gb-wifi','GT770','GT Series','Mini PC - GT770 i7 (8GB/512GB/Wifi)','CPU Intel i7 4500u 1.8GHz Turbo 3.0GHz','Mini PC','I7 4500U',NULL,8,'SSD',true,false,'Windows 10',15900.0,17013.0,0.0,0.0,true,'available','gt770-i74500u-8gb-wifi',ARRAY['GT Series','GT770','WiFi','SSD']::text[])
+ON CONFLICT (sku) DO UPDATE SET name=EXCLUDED.name, unit_price=EXCLUDED.unit_price, description=EXCLUDED.description;
+
+-- NOTE: This is a sample of 2 products. The full 1,389 products will be imported via edge function.
