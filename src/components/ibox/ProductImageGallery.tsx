@@ -53,7 +53,6 @@ const ProductImageGallery = ({
         <img
           src={allImages[selectedIndex].src}
           alt={`${productName} - ${allImages[selectedIndex].label}`}
-          >
           className="w-full h-full object-contain p-8 transition-opacity duration-300"
         />
         <div className="absolute bottom-4 right-4 bg-background/80 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-border">
@@ -81,7 +80,6 @@ const ProductImageGallery = ({
                   <img
                     src={image.src}
                     alt={`${productName} - ${image.label}`}
-                    >
                     className="w-full h-full object-contain p-2 bg-secondary/30"
                   />
                 </button>

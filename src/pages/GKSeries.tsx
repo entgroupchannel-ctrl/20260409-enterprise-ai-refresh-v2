@@ -842,7 +842,6 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                   src={`https://www.youtube.com/embed/${model.youtubeId}`}
                   >
                   title={`${model.name} Video`}
-                  >
                   className="w-full h-full"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
@@ -1027,7 +1026,6 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
           <div className="divide-y divide-border">
             {Object.entries(data).map(([label, values], rowIdx) => (
               <div key={label} className={`grid items-center ${rowIdx % 2 === 0 ? "bg-muted/10" : ""}`}
-              >
                 style={{ gridTemplateColumns: `180px repeat(${visibleIndices.length}, 1fr)` }}>
                 <div className="px-4 py-3 text-sm font-medium text-foreground">{label}</div>
                 {visibleIndices.map(i => (
@@ -1230,7 +1228,6 @@ const GKSeries = () => {
               <a
                 key={m.id}
                 href={`#${m.id}`}
-                >
                 className="shrink-0 px-4 py-2 rounded-lg text-sm font-medium border border-border hover:border-primary/50 hover:bg-primary/5 text-foreground transition-all"
               >
                 {m.name} <span className="text-muted-foreground text-xs">({m.screenSize})</span>

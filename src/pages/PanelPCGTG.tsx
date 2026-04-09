@@ -451,7 +451,6 @@ const PanelPC = () => {
             <img
               src={displayType === "wide" ? panelpcWideLineup : panelpcSquareLineup}
               alt={`Panel PC ${displayType === "wide" ? "Widescreen" : "Square"} Lineup`}
-              >
               className="max-h-[350px] mx-auto object-contain mb-6"
               loading="lazy"
             />

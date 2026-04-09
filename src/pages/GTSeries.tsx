@@ -2906,7 +2906,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <div className="flex-1 h-3 bg-muted rounded-full overflow-hidden">
                           <div
                             className={`h-full rounded-full transition-all ${g.type === "OUT" ? "bg-emerald-500" : "bg-amber-400"}`}
-                            >
                             style={{ width: `${g.level}%` }}
                           />
                         </div>
@@ -4828,7 +4827,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       key={idx}
                       src={src}
                       alt={`GT4500 การใช้งานจริง ${idx + 1}`}
-                      >
                       className="w-full h-auto rounded-lg hover:scale-105 transition-transform duration-300"
                       loading="lazy"
                     />
