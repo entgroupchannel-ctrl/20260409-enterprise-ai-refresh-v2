@@ -180,6 +180,36 @@ export default function MyQuoteDetail() {
     }
   };
 
+  const handleDeletePOFile = async (fileId: string, fileName: string) => {
+    const confirmed = window.confirm(`ต้องการลบไฟล์ "${fileName}" ใช่หรือไม่?`);
+    if (!confirmed) return;
+
+    setDeletingFileId(fileId);
+    try {
+      // Get file URL to extract storage path
+      const fileRecord = poFiles.find(f => f.id === fileId);
+      if (fileRecord) {
+        try {
+          const url = new URL(fileRecord.file_url);
+          const pathMatch = url.pathname.match(/\/storage\/v1\/object\/public\/quote-files\/(.+)$/);
+          if (pathMatch) {
+            await supabase.storage.from('quote-files').remove([pathMatch[1]]);
+          }
+        } catch { /* storage cleanup best-effort */ }
+      }
+
+      const { error } = await supabase.from('quote_files').delete().eq('id', fileId);
+      if (error) throw error;
+
+      setPoFiles(prev => prev.filter(f => f.id !== fileId));
+      toast({ title: 'ลบไฟล์แล้ว', description: `ลบ "${fileName}" เรียบร้อย` });
+    } catch (error: any) {
+      toast({ title: 'ลบไฟล์ไม่สำเร็จ', description: error.message, variant: 'destructive' });
+    } finally {
+      setDeletingFileId(null);
+    }
+  };
+
   const handleSendMessage = async () => {
     if (!messageText.trim()) return;
 
