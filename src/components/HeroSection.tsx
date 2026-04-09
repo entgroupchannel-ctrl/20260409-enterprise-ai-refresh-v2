@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Search, Menu, X, ChevronDown } from "lucide-react";
+import { Search, Menu, X, ChevronDown, LogIn, UserCircle, LayoutDashboard, LogOut } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 import MegaMenu, { MobileMegaMenu } from "@/components/MegaMenu";
+import { useAuth } from "@/hooks/useAuth";
 import heroIndustrial from "@/assets/hero-industrial.jpg";
 import logo from "@/assets/logo-entgroup.avif";
 
