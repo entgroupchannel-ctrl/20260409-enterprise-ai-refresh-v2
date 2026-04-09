@@ -621,7 +621,7 @@ import FooterCompact from "@/components/FooterCompact";
                       activeCpu === tab.id
                         ? "bg-primary text-primary-foreground"
                         : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
-                    }`}
+                    }`}>
                     {tab.label}
                   </button>
                 ))}

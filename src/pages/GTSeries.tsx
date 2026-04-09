@@ -381,7 +381,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                 filterGpio === true
                   ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40"
                   : "bg-background border border-border text-muted-foreground hover:border-primary/40"
-              }`}
+              }`}>
               {filterGpio === true ? "✓ มี GPIO" : "มี GPIO"}
             </button>
           </div>
@@ -395,7 +395,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                 filterSim === true
                   ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40"
                   : "bg-background border border-border text-muted-foreground hover:border-primary/40"
-              }`}
+              }`}>
               {filterSim === true ? "✓ รองรับ SIM" : "รองรับ SIM"}
             </button>
           </div>
@@ -835,7 +835,7 @@ const GTSeries = () => {
                   activeTab === tab.id
                     ? "bg-primary text-primary-foreground shadow-lg"
                     : "bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground border border-border"
-                }`}
+                }`}>
                 {tab.label}
                 {tab.id === "gt1400" && (
                   <span className="ml-1.5 px-1.5 py-0.5 rounded-full bg-primary-foreground/20 text-[10px]">NEW</span>
@@ -2175,7 +2175,7 @@ const GTSeries = () => {
                               p === gt3000PricePage
                                 ? "bg-primary text-primary-foreground"
                                 : "bg-muted/50 text-muted-foreground hover:bg-muted"
-                            }`}
+                            }`}>
                             {p + 1}
                           </button>
                         ))}
@@ -3357,7 +3357,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                               p === gt6000PricePage
                                 ? "bg-primary text-primary-foreground"
                                 : "bg-muted/50 text-muted-foreground hover:bg-muted"
-                            }`}
+                            }`}>
                             {p + 1}
                           </button>
                         ))}
@@ -5738,7 +5738,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                               p === gt1200PricePage
                                 ? "bg-primary text-primary-foreground"
                                 : "bg-muted/50 text-muted-foreground hover:bg-muted"
-                            }`}
+                            }`}>
                             {p + 1}
                           </button>
                         ))}

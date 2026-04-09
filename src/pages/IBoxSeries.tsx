@@ -338,7 +338,7 @@ const IBoxSeries = () => {
                     qf.active
                       ? "bg-primary text-primary-foreground border-primary shadow-sm"
                       : "bg-card border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
-                  }`}
+                  }`}>
                   {qf.label}
                 </button>
               ))}

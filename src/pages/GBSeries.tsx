@@ -595,7 +595,7 @@ const GBSeries = () => {
                         isActive
                           ? "bg-primary text-primary-foreground border-primary shadow-sm"
                           : "bg-card text-muted-foreground border-border hover:border-primary/50"
-                      }`}
+                      }`}>
                       {m.name}
                     </button>
                   );

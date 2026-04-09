@@ -192,7 +192,7 @@ const Handheld = () => {
                   filter === opt.id
                     ? "bg-primary text-primary-foreground shadow-sm"
                     : "bg-muted text-muted-foreground hover:bg-muted/80"
-                }`}
+                }`}>
                 {opt.label}
               </button>
             ))}

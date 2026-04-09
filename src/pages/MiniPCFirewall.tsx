@@ -528,7 +528,7 @@ const FirewallComparisonTable = () => {
                     filterLanSpeed === s
                       ? "bg-primary text-primary-foreground shadow-md"
                       : "bg-background border border-border text-muted-foreground hover:border-primary/40"
-                  }`}
+                  }`}>
                   {s}
                 </button>
               ))}
@@ -563,7 +563,7 @@ const FirewallComparisonTable = () => {
                 filterFanless === true
                   ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40"
                   : "bg-background border border-border text-muted-foreground hover:border-primary/40"
-              }`}
+              }`}>
               {filterFanless ? "✓ Fanless เท่านั้น" : "Fanless เท่านั้น"}
             </button>
           </div>
@@ -577,7 +577,7 @@ const FirewallComparisonTable = () => {
                 filterAesni === true
                   ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40"
                   : "bg-background border border-border text-muted-foreground hover:border-primary/40"
-              }`}
+              }`}>
               {filterAesni ? "✓ รองรับ AES-NI" : "รองรับ AES-NI"}
             </button>
           </div>
@@ -917,7 +917,7 @@ const MiniPCFirewall = () => {
                     activeTier === t
                       ? `${meta.bg} ${meta.color} border ${meta.border}`
                       : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border"
-                  }`}
+                  }`}>
                   {meta.label} ({count})
                 </button>
               );

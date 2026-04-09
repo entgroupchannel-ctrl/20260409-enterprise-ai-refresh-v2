@@ -1126,7 +1126,7 @@ const SmartDisplay = () => {
                   videoTab === t.key
                     ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
                     : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
-                }`}
+                }`}>
                 {t.label}
               </button>
             ))}
@@ -1202,7 +1202,7 @@ const SmartDisplay = () => {
                   podcastTab === t.key
                     ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
                     : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
-                }`}
+                }`}>
                 {t.label}
               </button>
             ))}

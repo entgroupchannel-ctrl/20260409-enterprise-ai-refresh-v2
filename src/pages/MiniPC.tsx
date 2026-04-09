@@ -1059,7 +1059,7 @@ const MiniPC = () => {
                         currentPage === page
                           ? "bg-primary text-primary-foreground"
                           : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
-                      }`}
+                      }`}>
                       {page}
                     </button>
                   ))}
