@@ -221,7 +221,6 @@ const WaterproofPC = () => {
                 <p className="text-xs text-muted-foreground leading-relaxed">{f.desc}</p>
               </div>
             ))}
-            >
           </div>
         </section>
 
