@@ -179,6 +179,24 @@ const HeroSection = () => {
           <MobileMegaMenu onNavigate={() => setMobileMenuOpen(false)} />
           <div className="flex items-center gap-2 mt-4 pt-4 border-t border-border">
             <ThemeToggle />
+            {!authLoading && (
+              user ? (
+                <div className="flex flex-col gap-2 flex-1">
+                  {(profile?.role === 'admin' || profile?.role === 'sales') && (
+                    <Link to="/admin/dashboard" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-muted transition-colors">
+                      <LayoutDashboard size={16} /> แดชบอร์ด
+                    </Link>
+                  )}
+                  <button onClick={() => { signOut(); setMobileMenuOpen(false); }} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-destructive hover:bg-muted transition-colors">
+                    <LogOut size={16} /> ออกจากระบบ
+                  </button>
+                </div>
+              ) : (
+                <Link to="/login" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
+                  <LogIn size={16} /> เข้าสู่ระบบ
+                </Link>
+              )
+            )}
           </div>
         </div>
       )}
