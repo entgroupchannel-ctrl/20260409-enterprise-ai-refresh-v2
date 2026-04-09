@@ -122,7 +122,11 @@ export default function POUploadDialog({
       setFiles([]);
       setNotes('');
       onOpenChange(false);
-      onSuccess();
+
+      // Force reload with delay to ensure data is committed
+      setTimeout(() => {
+        onSuccess();
+      }, 500);
     } catch (error: any) {
       toast({ title: 'อัปโหลดไม่สำเร็จ', description: error.message, variant: 'destructive' });
     } finally {
