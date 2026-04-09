@@ -690,7 +690,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
           <p className="text-muted-foreground mb-4 leading-relaxed">{model.desc}</p>
           <button
             onClick={() => onQuote(model.name)}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors mb-6"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors mb-6">
             <ExternalLink size={14} /> ขอใบเสนอราคา {model.name}
 
           </button>
@@ -826,7 +826,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                 <PriceDisclaimer />
                 <button
                   onClick={() => onQuote(model.name)}
-                  className="shrink-0 ml-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"
+                  className="shrink-0 ml-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">
                   <ExternalLink size={14} /> ขอใบเสนอราคา
                 </button>
               </div>
@@ -1551,7 +1551,7 @@ const GKSeries = () => {
             </button>
             <Link
               to="/"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-border text-foreground font-bold text-lg hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-border text-foreground font-bold text-lg hover:bg-muted transition-colors">
               <ArrowLeft size={18} /> กลับหน้าหลัก
             </Link>
           </div>

@@ -1141,7 +1141,7 @@ const EPCBoxSeries = () => {
             </button>
             <Link
               to="/"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-border text-foreground font-bold text-lg hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-border text-foreground font-bold text-lg hover:bg-muted transition-colors">
               <ArrowLeft size={18} /> กลับหน้าหลัก
             </Link>
           </div>

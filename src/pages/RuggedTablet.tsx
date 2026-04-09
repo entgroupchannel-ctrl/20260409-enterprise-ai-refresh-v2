@@ -669,7 +669,7 @@ const RuggedTablet = () => {
                   href="https://www.youtube.com/playlist?list=PLnaSAPIEkz1frFK93ge_0MUHXJ1P3edE9"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-destructive hover:bg-destructive/90 text-destructive-foreground font-bold text-sm transition-colors shadow-lg hover:shadow-xl"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-destructive hover:bg-destructive/90 text-destructive-foreground font-bold text-sm transition-colors shadow-lg hover:shadow-xl">
                   <Play className="w-4 h-4" /> ดูวิดีโอทั้งหมดบน YouTube
                 </a>
               </div>

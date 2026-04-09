@@ -343,7 +343,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
                 href={promo.downloadHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium border border-border bg-card text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium border border-border bg-card text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors">
                 <FileDown size={14} /> PDF
               </a>
             )}
