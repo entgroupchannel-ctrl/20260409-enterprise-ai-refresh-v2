@@ -293,10 +293,12 @@ const ModelCard = ({ model, isActive, onClick }: { model: typeof models[0]; isAc
     className={`relative flex flex-col items-center p-4 rounded-xl border-2 transition-all duration-300 text-center ${
       isActive ? "border-primary bg-primary/5 shadow-lg scale-[1.02]" : "border-border bg-card hover:border-primary/30 hover:-translate-y-1"
     }`}
+    >
   >
     {model.badge && (
       <span className={`absolute -top-2 right-2 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${
         model.badge === "Premium" ? "bg-amber-500 text-white"
+        >
         : model.badge === "Best Seller" ? "bg-destructive text-destructive-foreground"
         : "bg-primary text-primary-foreground"
       }`}>{model.badge}</span>
@@ -320,6 +322,7 @@ const GBSeries = () => {
       <SEOHead title="GB Series — Compact Mini PC สำนักงาน" description="GB Series Mini PC ขนาดกะทัดรัด รองรับ Intel N100 ถึง Core i7 สำหรับสำนักงาน Digital Signage และ Thin Client ราคาจากโรงงาน" path="/gb-series" />
       <ProductJsonLd
         collectionName="GB Series Compact Mini PC"
+        >
         collectionDescription="GB Series Mini PC ขนาดกะทัดรัด รองรับ Intel N100 ถึง Core i7 สำหรับสำนักงาน Digital Signage และ Thin Client"
         collectionUrl="/gb-series"
         products={models.map(m => ({ name: m.name, description: m.tagline, category: "Compact Mini PC" }))}      />
@@ -359,6 +362,7 @@ const GBSeries = () => {
             {models.map((m, i) => (
               <ModelCard key={m.id} model={m} isActive={i === activeModel} onClick={() => setActiveModel(i)} />
             ))}
+            >
           </div>
         </div>
       </section>
@@ -390,6 +394,7 @@ const GBSeries = () => {
                 {current.features.map((f) => (
                   <li key={f} className="flex items-start gap-2 text-sm text-muted-foreground">
                     <span className="text-primary mt-0.5">✓</span> {f}
+                    >
                   </li>
                 ))}
               </ul>
@@ -457,6 +462,7 @@ const GBSeries = () => {
                 <div className="p-4 bg-secondary/20 border-t border-border">
                   <p className="text-xs text-muted-foreground">
                     <Zap size={14} className="inline mr-1 text-primary" /> สามารถ Customize สเปกได้ตามต้องการ • Windows License เพิ่มเติมได้ • ประกัน 1 ปี (ซื้อเพิ่มสูงสุด 3 ปี)
+                    >
                   </p>
                   <PriceDisclaimer />
                 </div>
@@ -572,6 +578,7 @@ const GBSeries = () => {
           <CollapsibleSpec title="เปรียบเทียบทุกรุ่น GB Series (5 รุ่น)" defaultOpen={true}>
             <div className="p-4 space-y-4">
               {/* Model Filter Chips */}
+              >
               <div className="flex flex-wrap gap-2 items-center">
                 <span className="text-xs font-semibold text-muted-foreground mr-1">เลือกรุ่นที่ต้องการเปรียบเทียบ:</span>
                 {models.map((m, i) => {
@@ -616,6 +623,7 @@ const GBSeries = () => {
                       {compareFilter.sort((a, b) => a - b).map((idx) => (
                         <th key={models[idx].id} className="px-4 py-3 text-center font-bold text-foreground whitespace-nowrap">{models[idx].name}</th>
                       ))}
+                      >
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-border">
@@ -625,6 +633,7 @@ const GBSeries = () => {
                         {compareFilter.sort((a, b) => a - b).map((idx) => (
                           <td key={idx} className="px-4 py-2.5 text-center text-foreground text-xs">{row.values[idx]}</td>
                         ))}
+                        >
                       </tr>
                     ))}
                   </tbody>
@@ -639,6 +648,7 @@ const GBSeries = () => {
       <GBPriceList onRequestQuote={(product) => setQuoteOpen(true)} />
 
       {/* CTA */}
+      >
       <section className="border-t border-border">
         <div className="container max-w-3xl mx-auto px-6 py-16 text-center">
           <h2 className="text-3xl font-display font-bold mb-3">
@@ -663,6 +673,7 @@ const GBSeries = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border border-border bg-card text-foreground font-bold hover:bg-secondary/50 transition-colors"
+              >
             >
               <ExternalLink size={18} /> ดาวน์โหลดภาพรวมผลิตภัณฑ์
             </a>

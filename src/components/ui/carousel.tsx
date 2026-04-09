@@ -114,8 +114,10 @@ const Carousel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
           canScrollPrev,
           canScrollNext,
         }}
+        >
         <div
           ref={ref}
+          >
           onKeyDownCapture={handleKeyDown}
           className={cn("relative", className)}
           role="region"
@@ -138,6 +140,7 @@ const CarouselContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
         <div
           ref={ref}
           className={cn("flex", orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col", className)}
+          >
           {...props}
         />
       </div>
@@ -154,6 +157,7 @@ const CarouselItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLD
       <div
         ref={ref}
         role="group"
+        >
         aria-roledescription="slide"
         className={cn("min-w-0 shrink-0 grow-0 basis-full", orientation === "horizontal" ? "pl-4" : "pt-4", className)}
         {...props}
@@ -170,6 +174,7 @@ const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProp
     return (
       <Button
         ref={ref}
+        >
         variant={variant}
         size={size}
         className={cn(
@@ -197,6 +202,7 @@ const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<ty
     return (
       <Button
         ref={ref}
+        >
         variant={variant}
         size={size}
         className={cn(

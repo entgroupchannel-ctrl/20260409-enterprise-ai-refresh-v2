@@ -24,6 +24,7 @@ const ClientTrustSection = () => {
     <section className="bg-muted/20 border-y border-border/50 overflow-hidden">
       <div className="container mx-auto px-4 py-8">
         {/* Header + Stats */}
+        >
         <div className="text-center mb-6">
           <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-1">Trusted by Enterprises</p>
           <h2 className="text-lg font-bold text-foreground">ลูกค้าที่ไว้วางใจ ENT Group</h2>
@@ -49,6 +50,7 @@ const ClientTrustSection = () => {
                 key={`${name}-${i}`}
                 className="shrink-0 px-3 py-1.5 rounded-full bg-card border border-border/50 text-[11px] text-foreground/80 whitespace-nowrap"
                 >
+                >
                 {name}
               </span>
             ))}
@@ -73,6 +75,7 @@ const ClientTrustSection = () => {
                 <div key={name} className="flex items-center gap-2 px-3 py-2 rounded-lg bg-card border border-border/50 text-xs text-foreground">
                   <div className="w-1.5 h-1.5 rounded-full bg-primary/50 shrink-0" />
                   {name}
+                  >
                 </div>
               ))}
             </div>
@@ -99,12 +102,14 @@ const CaseStudies = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="กรณีศึกษา | Case Studies — ENT Group"
+        >
         description="ตัวอย่างลูกค้าจริงที่ใช้ Panel PC, Mini PC, Rugged Tablet จาก ENT Group ในสนามบิน, รถไฟฟ้า, โรงงาน, โรงพยาบาล และอื่นๆ"
         path="/case-studies"
       />
 
       <PageBanner
         title="กรณีศึกษาและผลงาน"
+        >
         subtitle="ลูกค้าจากหลากหลายอุตสาหกรรมไว้วางใจ ENT Group — จากสนามบิน รถไฟฟ้า โรงงาน ไปจนถึงสนามกอล์ฟ"
         image="/images/unsplash/1581091226825-a6a2a5_w1200.jpg"
       />
@@ -140,11 +145,13 @@ const CaseStudies = () => {
                     alt={cs.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
+                    >
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                   <Badge className="absolute top-3 left-3 bg-primary/90 text-primary-foreground text-xs">
                     <Factory className="w-3 h-3 mr-1" />
                     {cs.industry}
+                    >
                   </Badge>
                   {cs.facebookVideoId && (
                     <div className="absolute top-3 right-3">
@@ -157,17 +164,20 @@ const CaseStudies = () => {
                 <CardContent className="p-4 space-y-2">
                   <h3 className="font-bold text-foreground text-sm line-clamp-2 group-hover:text-primary transition-colors">
                     {cs.title}
+                    >
                   </h3>
                   <p className="text-xs text-muted-foreground line-clamp-2">{cs.challenge}</p>
                   <div className="flex flex-wrap gap-1">
                     {cs.products.slice(0, 2).map((p) => (
                       <Badge key={p.name} variant="outline" className="text-[10px]">{p.name}</Badge>
                     ))}
+                    >
                   </div>
                   {cs.testimonial && (
                     <p className="text-[11px] text-muted-foreground italic line-clamp-2 pt-1 border-t border-border/50">
                       <Quote className="w-3 h-3 inline mr-1 text-primary" />
                       {cs.testimonial}
+                      >
                     </p>
                   )}
                   <div className="flex items-center text-xs text-primary font-medium pt-1">
@@ -192,6 +202,7 @@ const CaseStudies = () => {
               rel="noopener noreferrer"
               className="ml-auto text-xs text-primary hover:underline"
               >
+              >
               ดูทั้งหมดบน Facebook →
             </a>
           </div>
@@ -204,6 +215,7 @@ const CaseStudies = () => {
                     width="100%"
                     height="100%"
                     style={{ border: "none", overflow: "hidden" }}
+                    >
                     scrolling="no"
                     >
                     allowFullScreen
@@ -242,6 +254,7 @@ const CaseStudies = () => {
       <ClientTrustSection />
 
       {/* CTA */}
+      >
       <section className="container mx-auto px-4 py-10 text-center">
         <h2 className="text-xl font-bold text-foreground mb-2">สนใจโซลูชันสำหรับองค์กร?</h2>
         <p className="text-sm text-muted-foreground mb-5">ทีมวิศวกร ENT Group พร้อมให้คำปรึกษาฟรี ไม่มีค่าใช้จ่าย</p>

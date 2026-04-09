@@ -37,6 +37,7 @@ const ProductGallery = ({ images, alt, autoPlayInterval = 4000 }: ProductGallery
           alt={`${alt} - ${current + 1}`}
           className="max-h-[240px] object-contain transition-opacity duration-500"
           loading="lazy"
+          >
         />
 
         {/* Navigation arrows */}

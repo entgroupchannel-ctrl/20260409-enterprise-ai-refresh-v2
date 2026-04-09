@@ -39,6 +39,7 @@ const Warrantys = () => {
       <PageBanner image={bannerImg} title="เงื่อนไขการรับประกัน" subtitle="Warranty Policy — ENT Group" />
 
       {/* Header */}
+      >
       <section className="py-12 md:py-16 bg-gradient-to-b from-primary/5 to-background">
         <div className="container max-w-5xl mx-auto px-6 text-center">
           <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold mb-6">
@@ -57,6 +58,7 @@ const Warrantys = () => {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition-opacity"
+            >
             >
             <FileDown size={18} />
             ดาวน์โหลดเอกสารแจ้งซ่อม
@@ -99,6 +101,7 @@ const Warrantys = () => {
                 key={i}
                 className={`flex gap-3 p-4 rounded-xl border ${
                   item.type === "covered"
+                  >
                     ? "bg-green-50 border-green-200 dark:bg-green-950/20 dark:border-green-900/30"
                     : "bg-destructive/5 border-destructive/10"
                 }`}
@@ -107,6 +110,7 @@ const Warrantys = () => {
                 ) : (
                   <XCircle size={20} className="text-destructive shrink-0 mt-0.5" />
                 )}
+                >
                 <p className="text-sm text-foreground leading-relaxed">{item.text}</p>
               </div>
             ))}
@@ -129,6 +133,7 @@ const Warrantys = () => {
                 key={i}
                 className={`flex gap-3 p-4 rounded-xl border ${
                   item.type === "info"
+                  >
                     ? "bg-blue-50 border-blue-200 dark:bg-blue-950/20 dark:border-blue-900/30"
                     : "bg-destructive/5 border-destructive/10"
                 }`}
@@ -137,6 +142,7 @@ const Warrantys = () => {
                 ) : (
                   <XCircle size={20} className="text-destructive shrink-0 mt-0.5" />
                 )}
+                >
                 <p className="text-sm text-foreground leading-relaxed">{item.text}</p>
               </div>
             ))}

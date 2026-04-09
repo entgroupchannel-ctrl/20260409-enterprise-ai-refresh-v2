@@ -57,11 +57,13 @@ const IBoxDetail = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title={`${product.id} — ${product.name}`}
+        >
         description={`${product.nameTH} | ${product.specs.cpu} | ${product.specs.ram}`}
         path={`/ibox-series/${product.id}`}
       />
       <ProductJsonLd
         collectionName={product.name}
+        >
         collectionDescription={product.nameTH}
         collectionUrl={`/ibox-series/${product.id}`}
         products={[{ name: product.name, image: product.image, description: product.specs.cpu, category: product.subcategory }]}
@@ -72,6 +74,7 @@ const IBoxDetail = () => {
           { name: "iBox Series", path: "/ibox-series" },
           { name: product.id, path: `/ibox-series/${product.id}` },
         ]}
+        >
       />
 
       {/* Sticky Breadcrumb */}
@@ -90,9 +93,11 @@ const IBoxDetail = () => {
       <div className="container max-w-6xl mx-auto px-4 py-8">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Image Gallery */}
+          >
           <div className="space-y-4">
             <ProductImageGallery
               mainImage={product.image}
+              >
               gallery={product.gallery}
               dimensionImage={product.dimensionImage}
               productName={product.nameTH}
@@ -102,6 +107,7 @@ const IBoxDetail = () => {
               <Badge variant="secondary">{product.category}</Badge>
               <Badge variant="outline">{product.subcategory}</Badge>
               {product.specs.poe && <Badge className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20">PoE+ Support</Badge>}
+              >
               {product.specs.pcie && <Badge variant="outline">PCIe Expansion</Badge>}
             </div>
           </div>
@@ -191,6 +197,7 @@ const IBoxDetail = () => {
                 {product.applications.map((app) => (
                   <Badge key={app} variant="outline">{app}</Badge>
                 ))}
+                >
               </div>
             </div>
 
@@ -225,6 +232,7 @@ const IBoxDetail = () => {
                       <TableCell className="font-medium">
                         <div className="flex items-center gap-2">
                           <Icon className="w-4 h-4 text-primary" /> {label}
+                          >
                         </div>
                       </TableCell>
                       <TableCell>{String(value)}</TableCell>
@@ -268,6 +276,7 @@ const IBoxDetail = () => {
               {relatedProducts.map((p) => (
                 <IBoxProductCard
                   key={p.id}
+                  >
                   product={p}
                   selectedProducts={selectedProducts}
                   toggleSelect={toggleSelect}

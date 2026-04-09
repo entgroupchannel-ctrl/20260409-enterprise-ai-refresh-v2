@@ -39,6 +39,7 @@ const B2BCTABanner = ({ variant = "full" }: B2BCTABannerProps) => {
             <Button variant="outline" size="sm" className="gap-1.5 text-xs">
               <item.icon className={`w-3.5 h-3.5 ${item.color}`} />
               {item.title}
+              >
               <ArrowRight className="w-3 h-3" />
             </Button>
           </Link>
@@ -57,6 +58,7 @@ const B2BCTABanner = ({ variant = "full" }: B2BCTABannerProps) => {
           {items.map((item) => (
             <Link
               key={item.href}
+              >
               to={item.href}
               className="group flex items-start gap-3 p-4 rounded-xl bg-card border border-border/60 hover:border-primary/30 hover:shadow-md transition-all"
               >
@@ -66,6 +68,7 @@ const B2BCTABanner = ({ variant = "full" }: B2BCTABannerProps) => {
               <div className="flex-1 min-w-0">
                 <h3 className="text-sm font-bold text-foreground group-hover:text-primary transition-colors">
                   {item.title}
+                  >
                 </h3>
                 <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">{item.desc}</p>
               </div>

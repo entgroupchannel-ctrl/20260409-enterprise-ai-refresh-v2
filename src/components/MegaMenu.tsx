@@ -287,6 +287,7 @@ const MegaMenu = ({
   return (
     <div ref={menuRef} className="relative">
       {/* Nav items */}
+      >
       <div className="flex items-center gap-1">
         {menuCategories.map((cat) => (
           <button
@@ -313,6 +314,7 @@ const MegaMenu = ({
           <div className="rounded-xl bg-gradient-to-b from-white via-gray-50 to-gray-100 dark:from-[hsl(220,20%,13%)] dark:via-[hsl(220,18%,10%)] dark:to-[hsl(220,20%,8%)] border border-gray-200 dark:border-white/10 shadow-2xl animate-fade-in overflow-y-auto max-h-[80vh]">
             <div className="p-5">
               {/* Category header */}
+              >
               <div className="flex items-center gap-2 mb-4">
                 <active.icon size={16} className="text-primary" />
                 <h3 className="text-foreground font-bold text-sm">{active.label}</h3>
@@ -321,6 +323,7 @@ const MegaMenu = ({
 
               <div className="grid grid-cols-12 gap-5">
                 {/* Featured card — left (compact) */}
+                >
                 <div className="col-span-3">
                   <Link
                     to={active.featured.href}
@@ -329,6 +332,7 @@ const MegaMenu = ({
                     >
                     <span className="px-1.5 py-0.5 rounded-full text-[8px] font-bold uppercase tracking-wider bg-primary text-primary-foreground">
                       {active.featured.badge}
+                      >
                     </span>
                     {active.featured.image && (
                       <div className="flex justify-center my-3">
@@ -337,14 +341,17 @@ const MegaMenu = ({
                           alt={active.featured.title}
                           className="h-16 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
                           loading="lazy"
+                          >
                         />
                       </div>
                     )}
                     <h4 className="text-sm font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
                       {active.featured.title}
+                      >
                     </h4>
                     <p className="text-[11px] text-muted-foreground leading-relaxed mb-2 line-clamp-2">
                       {active.featured.desc}
+                      >
                     </p>
                     <span className="inline-flex items-center gap-1 text-primary text-xs font-semibold group-hover:gap-1.5 transition-all">
                       ดูเพิ่มเติม <ArrowRight size={11} />
@@ -358,6 +365,7 @@ const MegaMenu = ({
                     <div key={col.heading}>
                       <h5 className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 mb-2">
                         {col.heading}
+                        >
                       </h5>
                       <ul className="space-y-0.5">
                         {col.links.map((link) => (
@@ -417,6 +425,7 @@ const MegaMenu = ({
                       alt={promo.title}
                       className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
+                      >
                     />
                     <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
                     <div className="relative z-10 flex items-center justify-between h-full px-5">
@@ -463,19 +472,23 @@ export const MobileMegaMenu = ({ onNavigate }: { onNavigate?: () => void }) => {
             <span className="flex items-center gap-2">
               <cat.icon size={16} className="text-primary" />
               {cat.label}
+              >
             </span>
             <ChevronRight
               size={14}
               className={`text-muted-foreground transition-transform duration-200 ${expanded === cat.id ? "rotate-90" : ""}`}
+              >
             />
           </button>
           {expanded === cat.id && (
             <div className="pl-6 pb-3 space-y-1 animate-fade-in">
               {/* Featured */}
+              >
               <Link
                 to={cat.featured.href}
                 onClick={onNavigate}
                 className="block p-3 rounded-lg bg-primary/10 border border-primary/20 mb-2"
+                >
                 >
                 <span className="text-[9px] font-bold uppercase text-primary">{cat.featured.badge}</span>
                 <p className="text-sm font-bold text-foreground">{cat.featured.title}</p>
@@ -485,15 +498,18 @@ export const MobileMegaMenu = ({ onNavigate }: { onNavigate?: () => void }) => {
                 col.links.map((link) => (
                   <Link
                     key={link.href}
+                    >
                     to={link.href}
                     onClick={onNavigate}
                     className="flex items-center gap-2 py-2 px-2 text-sm text-muted-foreground hover:text-foreground rounded-lg hover:bg-secondary/50 transition-colors"
                     >
                     <ChevronRight size={10} className="text-primary/50" />
                     {link.label}
+                    >
                     {link.hot && (
                       <span className="px-1 py-0.5 rounded text-[7px] font-bold bg-red-500/20 text-red-400">Hot</span>
                     )}
+                    >
                   </Link>
                 ))
               )}
@@ -505,6 +521,7 @@ export const MobileMegaMenu = ({ onNavigate }: { onNavigate?: () => void }) => {
         to="/promotions"
         onClick={onNavigate}
         className="flex items-center gap-2 py-3 px-2 text-foreground font-medium rounded-lg hover:bg-secondary/50"
+        >
         >
         <Sparkles size={16} className="text-primary" />
         โปรโมชั่น

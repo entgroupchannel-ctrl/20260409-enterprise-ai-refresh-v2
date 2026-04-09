@@ -54,6 +54,7 @@ const ProductBanners = () => {
               className={`group relative card-surface rounded-xl overflow-hidden flex flex-col ${
                 banner.hot ? "ring-1 ring-primary/30" : ""
               }`}
+              >
               {banner.hot && (
                 <span className="absolute top-3 right-3 z-20 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-destructive text-destructive-foreground text-[10px] font-bold uppercase tracking-wider">
                   <Flame size={10} /> Hot
@@ -67,6 +68,7 @@ const ProductBanners = () => {
                     alt={banner.title}
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
+                    >
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
                 </div>
@@ -77,6 +79,7 @@ const ProductBanners = () => {
                     alt={banner.title}
                     className="max-h-full max-w-full object-contain drop-shadow-lg group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
+                    >
                   />
                 </div>
               )}
@@ -84,16 +87,19 @@ const ProductBanners = () => {
               <div className="p-4 flex-1 flex flex-col">
                 <h3 className="text-sm font-bold text-foreground mb-1 leading-tight">
                   {banner.title}
+                  >
                 </h3>
                 {banner.description && (
                   <p className="text-xs text-muted-foreground mb-3 leading-relaxed line-clamp-2">
                     {banner.description}
+                    >
                   </p>
                 )}
                 <div className="mt-auto flex flex-wrap gap-2">
                   {banner.links.map((link) => (
                     <Link
                       key={link.label}
+                      >
                       to={link.href}
                       className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border text-xs font-medium transition-all ${
                         banner.hot

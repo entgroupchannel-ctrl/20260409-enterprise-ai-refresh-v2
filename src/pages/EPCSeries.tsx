@@ -286,6 +286,7 @@ const SpecTable = ({ model }: { model: typeof squareModels[0] }) => (
         <TableRow>
           <TableHead colSpan={2} className="text-center bg-primary/10 text-primary font-bold text-base">
             {model.name} Industrial Panel PC — {model.size} ({model.ratio})
+            >
           </TableHead>
         </TableRow>
       </TableHeader>
@@ -352,14 +353,17 @@ const EPCSeries = () => {
       <SEOHead title="EPC Series — Industrial Panel PC จอสัมผัส" description="EPC Series Panel PC อุตสาหกรรม จอสัมผัส IP65 Fanless ขนาด 10-21 นิ้ว สำหรับโรงงาน POS SCADA และงานควบคุม" path="/epc-series" />
       <ProductJsonLd
         collectionName="EPC Series Industrial Panel PC"
+        >
         collectionDescription="Panel PC อุตสาหกรรม จอสัมผัส IP65 Fanless ขนาด 10-21 นิ้ว สำหรับโรงงาน POS SCADA"
         collectionUrl="/epc-series"
         products={priceListSquare.map(m => ({ name: m.model, price: m.price, description: m.config, category: "Industrial Panel PC" }))}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "EPC Series", path: "/epc-series" }]} />
       {/* Hero */}
+      >
       <div className="relative overflow-hidden min-h-[480px] md:min-h-[520px]">
         {/* Background Image */}
+        >
         <img src={epcHeroFactory} alt="Industrial factory environment" className="absolute inset-0 w-full h-full object-cover" width={1920} height={768} />
         <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/40" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
@@ -371,6 +375,7 @@ const EPCSeries = () => {
 
           <div className="flex flex-col md:flex-row gap-8 items-center">
             {/* Text Content */}
+            >
             <div className="md:w-3/5">
               <Badge className="bg-white/10 text-white border-white/20 backdrop-blur-sm mb-4">CESIPC Industrial Panel PC</Badge>
               <h1 className="text-3xl md:text-5xl font-display font-bold text-white mb-3 leading-tight">
@@ -424,6 +429,7 @@ const EPCSeries = () => {
                 className="w-full max-w-md h-auto rounded-xl shadow-2xl border border-white/10"
                 width={896}
                 height={1024}
+                >
               />
             </div>
           </div>
@@ -469,6 +475,7 @@ const EPCSeries = () => {
       <div className="container max-w-7xl mx-auto px-4 py-10 space-y-16">
 
         {/* Overview / Certifications */}
+        >
         <section id="overview">
           <div className="card-surface overflow-hidden">
             <img
@@ -476,6 +483,7 @@ const EPCSeries = () => {
               alt="CESIPC Certifications"
               className="w-full h-auto p-6"
               loading="lazy"
+              >
             />
           </div>
           <p className="text-sm text-muted-foreground text-center mt-3">สินค้าของเราได้รับการยอมรับและติดตั้งใช้งานกับอุตสาหกรรมระดับโลก</p>
@@ -562,6 +570,7 @@ const EPCSeries = () => {
             {squareModels.map((model) => (
               <ModelCard key={model.id} model={model} onQuote={(name) => setQuoteProduct(name)} selected={selectedProducts.has(model.name)} onToggleSelect={toggleSelect} />
             ))}
+            >
           </div>
         </section>
 
@@ -577,6 +586,7 @@ const EPCSeries = () => {
             {wideModels.map((model) => (
               <ModelCard key={model.id} model={model} onQuote={(name) => setQuoteProduct(name)} selected={selectedProducts.has(model.name)} onToggleSelect={toggleSelect} />
             ))}
+            >
           </div>
         </section>
 
@@ -588,6 +598,7 @@ const EPCSeries = () => {
               {[...squareModels, ...wideModels].map((m) => (
                 <TabsTrigger key={m.id} value={m.id} className="text-xs px-3 py-1.5">
                   {m.size} {m.ratio === "4:3" ? "□" : "▬"}
+                  >
                 </TabsTrigger>
               ))}
             </TabsList>
@@ -662,6 +673,7 @@ const EPCSeries = () => {
                           {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
                             <Button key={p} variant={p === page ? "default" : "outline"} size="sm" onClick={() => setPage(p)} className="h-8 w-8 p-0 text-xs">
                               {p}
+                              >
                             </Button>
                           ))}
                           <Button variant="outline" size="sm" onClick={() => setPage(Math.min(totalPages, page + 1))} disabled={page === totalPages} className="h-8 w-8 p-0">
@@ -813,6 +825,7 @@ const EPCSeries = () => {
                   <div className="flex items-start gap-3">
                     <div className="shrink-0 w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-xs">
                       {i + 1}
+                      >
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-1.5 mb-0.5">
@@ -854,6 +867,7 @@ const EPCSeries = () => {
                   {Array.from({ length: 5 }).map((_, s) => (
                     <Star key={s} size={14} className={s < review.stars ? "text-amber-400 fill-amber-400" : "text-muted-foreground/20"} />
                   ))}
+                  >
                 </div>
                 <p className="text-sm text-foreground leading-relaxed">"{review.text}"</p>
                 <div className="pt-2 border-t border-border/50">

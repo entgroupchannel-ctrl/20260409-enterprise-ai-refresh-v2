@@ -273,15 +273,18 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: Firewa
   return (
     <div className={`card-surface rounded-xl overflow-hidden border ${tier.border} transition-all duration-300 ${selected ? "ring-2 ring-primary" : "hover:shadow-lg"}`}>
       {/* Header */}
+      >
       <div className="p-5">
         <div className="flex items-start justify-between mb-3">
           <div className="flex items-center gap-2">
             <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${tier.bg} ${tier.color}`}>
               {tier.label}
+              >
             </span>
             {model.badge && (
               <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-primary text-primary-foreground">
                 {model.badge}
+                >
               </span>
             )}
           </div>
@@ -307,6 +310,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: Firewa
         <p className="text-xs text-primary/70 font-medium mb-2">{model.tagline}</p>
 
         {/* Quick Specs */}
+        >
         <div className="grid grid-cols-2 gap-2 text-xs mb-3">
           <div className="flex items-center gap-1.5 text-muted-foreground">
             <Cpu size={12} className="text-primary shrink-0" />
@@ -331,6 +335,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: Firewa
           {model.useCases.map((uc) => (
             <span key={uc} className="px-2 py-0.5 text-[10px] font-medium rounded-md bg-secondary border border-border text-muted-foreground">
               {uc}
+              >
             </span>
           ))}
         </div>
@@ -339,6 +344,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: Firewa
         <div className="flex items-center gap-2">
           <button onClick={() => setExpanded(!expanded)} className="text-xs text-primary font-medium flex items-center gap-1 hover:underline">
             {expanded ? "ซ่อนรายละเอียด" : "ดูสเปกเต็ม"}
+            >
             <ChevronDown size={12} className={`transition-transform ${expanded ? "rotate-180" : ""}`} />
           </button>
           {onQuote && (
@@ -375,6 +381,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: Firewa
               {model.extra.map((e) => (
                 <li key={e} className="text-xs text-muted-foreground flex items-start gap-1.5">
                   <span className="text-primary mt-0.5">•</span>{e}
+                  >
                 </li>
               ))}
             </ul>
@@ -484,6 +491,7 @@ const FirewallComparisonTable = () => {
 
         <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
           {/* Search */}
+          >
           <div className="col-span-2 md:col-span-1">
             <label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-1 block">ค้นหา</label>
             <div className="relative">
@@ -510,6 +518,7 @@ const FirewallComparisonTable = () => {
               {(Object.keys(tierMeta) as Tier[]).map((t) => (
                 <option key={t} value={t}>{tierMeta[t].label} — {tierMeta[t].desc}</option>
               ))}
+              >
             </select>
           </div>
 
@@ -597,6 +606,7 @@ const FirewallComparisonTable = () => {
           return (
             <span key={t} className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${m.border} ${m.bg} ${m.color}`}>
               {m.label} — {m.desc}
+              >
             </span>
           );
         })}
@@ -642,6 +652,7 @@ const FirewallComparisonTable = () => {
                         <span className="text-base">{row.name}</span>
                         <span className={`inline-block w-fit px-2 py-0.5 rounded-full text-[10px] font-bold ${ts.badge}`}>
                           {tm.label}
+                          >
                         </span>
                       </div>
                     </td>
@@ -682,6 +693,7 @@ const FirewallComparisonTable = () => {
                       ) : (
                         <span className="text-muted-foreground/40">—</span>
                       )}
+                      >
                     </td>
                     <td className="p-4 text-center">
                       {row.sim ? (
@@ -689,6 +701,7 @@ const FirewallComparisonTable = () => {
                       ) : (
                         <span className="text-muted-foreground/40">—</span>
                       )}
+                      >
                     </td>
                     <td className="p-4 text-center">
                       <span className="text-xs text-muted-foreground">{row.display}</span>
@@ -704,6 +717,7 @@ const FirewallComparisonTable = () => {
                       ) : (
                         <span className="text-muted-foreground/40">—</span>
                       )}
+                      >
                     </td>
                   </tr>
                 );
@@ -751,12 +765,14 @@ const MiniPCFirewall = () => {
       <SEOHead title="Mini PC Firewall — pfSense OPNsense Router" description="Mini PC Firewall สำหรับ pfSense OPNsense VPN Gateway รองรับ 2-6 LAN Ports Fanless Intel Celeron ถึง Core i7" path="/mini-pc-firewall" />
       <ProductJsonLd
         collectionName="Mini PC Firewall pfSense OPNsense"
+        >
         collectionDescription="Mini PC Firewall สำหรับ pfSense OPNsense VPN Gateway รองรับ 2-6 LAN Ports"
         collectionUrl="/mini-pc-firewall"
         products={models.map(m => ({ name: m.name, description: m.tagline, category: "Mini PC Firewall" }))}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "Mini PC Firewall", path: "/mini-pc-firewall" }]} />
       {/* Sticky Nav */}
+      >
       <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
         <div className="container max-w-7xl mx-auto flex items-center justify-between px-6 h-16">
           <div className="flex items-center gap-4">
@@ -920,6 +936,7 @@ const MiniPCFirewall = () => {
             {filtered.map((m) => (
               <ModelCard key={m.id} model={m} onQuote={setQuoteProduct} />
             ))}
+            >
           </div>
         </div>
       </section>
@@ -1032,6 +1049,7 @@ const MiniPCFirewall = () => {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-destructive text-destructive-foreground text-xs font-bold hover:opacity-90 transition-opacity"
               >
+              >
               <Youtube size={16} /> Subscribe
             </a>
           </div>
@@ -1046,6 +1064,7 @@ const MiniPCFirewall = () => {
                   <iframe
                     src={`https://www.youtube.com/embed/${v.id}`}
                     title={v.title}
+                    >
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     >
                     allowFullScreen
@@ -1062,6 +1081,7 @@ const MiniPCFirewall = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1 text-xs text-primary font-medium hover:underline"
+                        >
                         >
                         <ThumbsUp size={12} /> Like & Share
                       </a>

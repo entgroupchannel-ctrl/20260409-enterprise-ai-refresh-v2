@@ -59,6 +59,7 @@ const ProductSections = () => {
               alt={section.title}
               className="absolute inset-0 w-full h-full object-cover"
               loading="lazy"
+              >
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
             <div className="relative z-10 p-8 md:p-10 w-full">
@@ -68,15 +69,18 @@ const ProductSections = () => {
                   {section.description && (
                     <p className="text-white/80 text-sm md:text-base mb-4">{section.description}</p>
                   )}
+                  >
                   <div className="flex flex-wrap items-center gap-3">
                     {section.price && (
                       <span className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-bold">
                         {section.price}
+                        >
                       </span>
                     )}
                     {section.links.map((link) => (
                       <Link
                         key={link.label}
+                        >
                         to={link.href}
                         className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-white/30 text-white text-sm font-semibold hover:bg-white/20 hover:border-white/50 backdrop-blur-sm transition-all"
                         >

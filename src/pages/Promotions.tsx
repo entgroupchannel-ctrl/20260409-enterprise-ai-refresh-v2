@@ -234,6 +234,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
     } ${featured ? "md:col-span-2" : ""}`}>
       <div className={`flex flex-col ${featured ? "md:flex-row" : ""}`}>
         {/* Image */}
+        >
         <div className={`relative bg-secondary/30 flex items-center justify-center p-6 ${
           featured ? "md:w-2/5" : ""
         }`}>
@@ -246,6 +247,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
           )}
           <span className={`absolute top-3 right-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold ${sc.color}`}>
             <sc.icon size={10} /> {sc.label}
+            >
           </span>
           {promo.ctaHref ? (
             <Link to={promo.ctaHref}>
@@ -254,6 +256,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
                 alt={promo.title}
                 className={`object-contain ${featured ? "max-h-64" : "max-h-48"} hover:scale-105 transition-transform duration-300`}
                 loading="lazy"
+                >
               />
             </Link>
           ) : (
@@ -262,6 +265,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
               alt={promo.title}
               className={`object-contain ${featured ? "max-h-64" : "max-h-48"}`}
               loading="lazy"
+              >
             />
           )}
         </div>
@@ -274,11 +278,13 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
           </div>
           <h3 className={`font-bold text-foreground mb-1 ${featured ? "text-xl md:text-2xl" : "text-lg"}`}>
             {promo.title}
+            >
           </h3>
           <p className={`text-primary font-medium mb-3 ${featured ? "text-sm" : "text-xs"}`}>{promo.subtitle}</p>
           <p className="text-sm text-muted-foreground leading-relaxed mb-4">{promo.description}</p>
 
           {/* Highlights */}
+          >
           <button
             onClick={() => setExpanded(!expanded)}
             className="flex items-center gap-1 text-xs text-primary font-medium mb-3 hover:underline"
@@ -292,6 +298,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
               {promo.highlights.map((h) => (
                 <li key={h} className="flex items-start gap-2 text-sm text-muted-foreground">
                   <span className="text-primary mt-0.5">✓</span> {h}
+                  >
                 </li>
               ))}
             </ul>
@@ -299,6 +306,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
               {promo.products.map((p) => (
                 <span key={p} className="px-2 py-0.5 text-[10px] font-medium rounded-md bg-secondary border border-border text-muted-foreground">
                   {p}
+                  >
                 </span>
               ))}
             </div>
@@ -310,6 +318,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
               <LineQRButton
                 className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold transition-opacity hover:opacity-90 ${
                   promo.status === "active"
+                  >
                     ? "bg-primary text-primary-foreground"
                     : "bg-secondary text-foreground"
                 }`}
@@ -323,6 +332,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
                 rel={promo.ctaHref.startsWith("http") ? "noopener noreferrer" : undefined}
                 className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold transition-opacity hover:opacity-90 ${
                   promo.status === "active"
+                  >
                     ? "bg-primary text-primary-foreground"
                     : "bg-secondary text-foreground"
                 }`}
@@ -335,6 +345,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium border border-border bg-card text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
+                >
                 >
                 <FileDown size={14} /> PDF
               </a>
@@ -351,6 +362,7 @@ const Promotions = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* Nav */}
+      >
       <div className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
         <div className="container max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
@@ -369,6 +381,7 @@ const Promotions = () => {
           className="absolute inset-0 w-full h-full object-cover"
           width={1920}
           height={768}
+          >
         />
         <div className="absolute inset-0 bg-black/50" />
         <div className="container max-w-5xl mx-auto px-6 py-16 relative text-center text-white">
@@ -413,9 +426,11 @@ const Promotions = () => {
             <TabsList className="w-full justify-start bg-secondary/30 p-1 h-auto flex-wrap">
               <TabsTrigger value="current" className="text-xs sm:text-sm gap-1.5">
                 <Zap size={14} /> กำลังจัด ({activePromos.length + recurringPromos.length})
+                >
               </TabsTrigger>
               <TabsTrigger value="past" className="text-xs sm:text-sm gap-1.5">
                 <Clock size={14} /> โปรที่ผ่านมา ({endedPromos.length})
+                >
               </TabsTrigger>
               <TabsTrigger value="notify" className="text-xs sm:text-sm gap-1.5">
                 <Bell size={14} /> รับแจ้งเตือน
@@ -433,6 +448,7 @@ const Promotions = () => {
                     {activePromos.map((p, i) => (
                       <PromoCard key={p.id} promo={p} featured={i === 0} />
                     ))}
+                    >
                   </div>
                 </div>
               )}
@@ -446,6 +462,7 @@ const Promotions = () => {
                     {recurringPromos.map((p) => (
                       <PromoCard key={p.id} promo={p} />
                     ))}
+                    >
                   </div>
                 </div>
               )}
@@ -469,6 +486,7 @@ const Promotions = () => {
                 {endedPromos.map((p) => (
                   <PromoCard key={p.id} promo={p} />
                 ))}
+                >
               </div>
             </TabsContent>
 
@@ -483,6 +501,7 @@ const Promotions = () => {
 
                 <LineQRButton
                   className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-lg hover:opacity-90 transition-opacity mb-6"
+                  >
                   >
                   เพิ่มเพื่อน LINE @entgroup
                 </LineQRButton>
@@ -514,11 +533,13 @@ const Promotions = () => {
             <LineQRButton
               className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
               >
+              >
               LINE @entgroup
             </LineQRButton>
             <a
               href="tel:0957391053"
               className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-border bg-card text-foreground font-semibold hover:bg-secondary/50 transition-colors"
+              >
               >
               <Phone className="w-4 h-4" /> 095-739-1053
             </a>

@@ -46,6 +46,7 @@ const AIOCard = ({
     className={`card-surface overflow-hidden group transition-all ${
       selected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"
     }`}
+    >
     {/* Image */}
     <div className="relative bg-secondary/30 p-4 flex items-center justify-center h-52">
         item={{
@@ -57,6 +58,7 @@ const AIOCard = ({
           specs: product.title,
         }}
         className="absolute top-3 right-3"
+        >
       />
       <button
         onClick={() => onToggleSelect(product.model)}
@@ -70,6 +72,7 @@ const AIOCard = ({
           alt={product.model}
           className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300 cursor-pointer"
           loading="lazy"
+          >
         />
       </Link>
     </div>
@@ -80,6 +83,7 @@ const AIOCard = ({
         {product.os.map((o) => (
           <Badge
             key={o}
+            >
             variant="outline"
             className={`text-[10px] ${
               o === "Windows"
@@ -93,6 +97,7 @@ const AIOCard = ({
         ))}
         <Badge variant="secondary" className="text-[10px]">
           {product.screenSize}
+          >
         </Badge>
       </div>
 
@@ -105,6 +110,7 @@ const AIOCard = ({
             <li key={i} className="text-[11px] text-muted-foreground flex items-start gap-1.5">
               <ChevronRight size={10} className="text-primary/50 mt-0.5 shrink-0" />
               {line}
+              >
             </li>
           )
         )}
@@ -120,6 +126,7 @@ const AIOCard = ({
           size="sm"
           className="flex-1"
           onClick={() => onQuote(product.model)}
+          >
           <FileText className="w-3.5 h-3.5 mr-1.5" /> สอบถามราคา
         </Button>
       </div>
@@ -159,6 +166,7 @@ const AllInOnePC = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead
         title="All-in-One PC อุตสาหกรรม — Box PC, Panel PC, AIO Desktop"
+        >
         description="คอมพิวเตอร์ All-in-One สำหรับอุตสาหกรรม จอสัมผัส ประหยัดพื้นที่ VESA/Panel Mount — 15 รุ่น Windows & Android"
         path="/aio"
       />
@@ -167,6 +175,7 @@ const AllInOnePC = () => {
           { name: "สินค้า", path: "/products" },
           { name: "All-in-One PC", path: "/aio" },
         ]}
+        >
       />
 
       {/* ── Hero ── */}
@@ -180,6 +189,7 @@ const AllInOnePC = () => {
           <Link
             to="/"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-6"
+            >
             >
             <ArrowLeft className="w-4 h-4" /> กลับหน้าหลัก
           </Link>
@@ -233,6 +243,7 @@ const AllInOnePC = () => {
           </div>
           <div className="flex flex-col sm:flex-row gap-2 py-2">
             {/* OS filter */}
+            >
             <div className="flex gap-1 overflow-x-auto scrollbar-hide">
               {osFilters.map((f) => (
                 <button
@@ -260,6 +271,7 @@ const AllInOnePC = () => {
                   }`}
                   <f.icon size={12} />
                   {f.label}
+                  >
                 </button>
               ))}
             </div>
@@ -274,6 +286,7 @@ const AllInOnePC = () => {
           {selectedProducts.size > 0 && (
             <span className="ml-3 text-primary font-medium">
               เลือกแล้ว {selectedProducts.size} รุ่น —{" "}
+              >
               <button
                 className="underline hover:no-underline"
                 onClick={() => {
@@ -297,9 +310,11 @@ const AllInOnePC = () => {
             <div key={cat} className="mb-12">
               <h2 className="text-xl font-display font-bold text-foreground mb-1">
                 {categoryLabels[cat]}
+                >
               </h2>
               <p className="text-xs text-muted-foreground mb-4">
                 {cat === "box-pc" && "Box PC อุตสาหกรรม จอสัมผัส พร้อมติดตั้ง VESA / Desktop / Wall Mount"}
+                >
                 {cat === "aio-desktop" && "All-in-One PC จอสัมผัส สำหรับโต๊ะทำงานและติดผนัง"}
                 {cat === "panel-pc" && "Panel PC อุตสาหกรรม สำหรับฝังตู้คอนโทรล Panel Mount / VESA"}
               </p>
@@ -307,6 +322,7 @@ const AllInOnePC = () => {
                 {items.map((p) => (
                   <AIOCard
                     key={p.id}
+                    >
                     product={p}
                     onQuote={setQuoteProduct}
                     selected={selectedProducts.has(p.model)}
@@ -324,6 +340,7 @@ const AllInOnePC = () => {
             <p className="text-muted-foreground">ไม่พบสินค้าที่ตรงกับตัวกรอง</p>
             <Button
               variant="outline"
+              >
               size="sm"
               className="mt-3"
               onClick={() => {
@@ -368,6 +385,7 @@ const AllInOnePC = () => {
       <FooterCompact />
 
       {/* Quote Dialog */}
+      >
     </div>
   );
 };

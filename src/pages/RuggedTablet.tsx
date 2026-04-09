@@ -236,10 +236,12 @@ const TabletCard = ({
       </button>
       <Badge className={`absolute top-3 left-12 text-[10px] ${product.os === "Windows" ? "bg-blue-500/20 text-blue-400 border-blue-500/30" : "bg-green-500/20 text-green-400 border-green-500/30"}`}>
         {product.os}
+        >
       </Badge>
       {product.badge && (
         <Badge className="absolute bottom-3 left-3 bg-primary text-primary-foreground text-[10px]">{product.badge}</Badge>
       )}
+      >
       <img src={product.image} alt={product.name} className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300" loading="lazy" />
     </Link>
     <div className="p-5 space-y-3">
@@ -259,10 +261,12 @@ const TabletCard = ({
         {product.highlights.map((h) => (
           <span key={h} className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-secondary text-foreground/70">{h}</span>
         ))}
+        >
       </div>
       {product.price && (
         <p className="text-base font-bold text-primary">{product.price}</p>
       )}
+      >
       <div className="flex flex-wrap gap-2 pt-1">
         <Button variant="outline" size="sm" asChild className="flex-1">
           <Link to={`/rugged-tablet/${product.id}`}>
@@ -360,11 +364,13 @@ const RuggedTablet = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead
         title="Rugged Tablet กันน้ำ กันกระแทก — 15 รุ่น"
+        >
         description="Rugged Tablet ทนทาน กันน้ำ IP65-IP68 กันกระแทก MIL-STD-810G สำหรับงานภาคสนาม ทหาร โลจิสติกส์ — Windows & Android 15 รุ่น"
         path="/rugged-tablet"
       />
       <ProductJsonLd
         collectionName="Rugged Tablet กันน้ำ กันกระแทก"
+        >
         collectionDescription="Rugged Tablet ทนทาน กันน้ำ IP65-IP68 กันกระแทก MIL-STD-810G — 15 รุ่น Windows & Android"
         collectionUrl="/rugged-tablet"
         products={tablets.filter((t) => t.price).map((t) => ({ name: t.name, price: t.price, category: "Rugged Tablet" }))}
@@ -372,6 +378,7 @@ const RuggedTablet = () => {
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "Rugged Tablet", path: "/rugged-tablet" }]} />
 
       {/* ── Hero ── */}
+      >
       <div className="relative overflow-hidden min-h-[420px] md:min-h-[480px]">
         <div className="absolute inset-0">
           <img src={tabletHero} alt="Rugged Tablet ใช้งานในโรงงาน" className="w-full h-full object-cover" width={1920} height={800} />
@@ -413,6 +420,7 @@ const RuggedTablet = () => {
       <div className="sticky top-0 z-30 bg-background/90 backdrop-blur-md border-b border-border">
         <div className="container max-w-7xl mx-auto px-4">
           {/* Back to Home row */}
+          >
           <div className="flex items-center justify-between py-1.5 border-b border-border/50">
             <Link to="/" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors">
               <ArrowLeft className="w-3.5 h-3.5" /> กลับหน้าหลัก
@@ -439,11 +447,13 @@ const RuggedTablet = () => {
                 {tab.label}
                 <span className={`text-[10px] font-mono ${filters.os === tab.id ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
                   ({tab.id === "all" ? tablets.length : tablets.filter((t) => t.os === tab.id).length})
+                  >
                 </span>
               </button>
             ))}
             <div className="w-px h-5 bg-border mx-1 shrink-0" />
             {/* Quick filter pills */}
+            >
             {[
               { label: '8"', active: filters.screenSize === '8"', toggle: () => setFilters({ ...filters, screenSize: filters.screenSize === '8"' ? "all" : '8"' }) },
               { label: '10"+', active: filters.screenSize === '10"' || filters.screenSize === '10.1"', toggle: () => setFilters({ ...filters, screenSize: filters.screenSize === '10.1"' ? "all" : '10.1"' }) },
@@ -456,6 +466,7 @@ const RuggedTablet = () => {
                 className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all border shrink-0 ${
                   qf.active
                     ? "bg-primary text-primary-foreground border-primary shadow-sm"
+                    >
                     : "bg-card border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
                 }`}
               >
@@ -469,8 +480,10 @@ const RuggedTablet = () => {
       <div className="container max-w-7xl mx-auto px-4 py-8">
         <div className="flex gap-6">
           {/* Sidebar Filter */}
+          >
           <TabletProductFilter
             filters={filters}
+            >
             onFilterChange={setFilters}
             isMobileOpen={isMobileFilterOpen}
             onMobileClose={() => setIsMobileFilterOpen(false)}
@@ -481,6 +494,7 @@ const RuggedTablet = () => {
           {/* Main Content */}
           <div className="flex-1 min-w-0 space-y-6">
             {/* Toolbar */}
+            >
             <div className="card-surface p-4">
               <div className="flex flex-col sm:flex-row gap-3">
                 <div className="relative flex-1">
@@ -516,11 +530,13 @@ const RuggedTablet = () => {
             <TabletActiveFilterChips filters={filters} onFilterChange={setFilters} />
 
             {/* Product Grid */}
+            >
             {filtered.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
                 {filtered.map((p) => (
                   <TabletCard
                     key={p.id}
+                    >
                     product={p}
                     onQuote={setQuoteProduct}
                     selected={selectedProducts.has(p.model)}
@@ -599,6 +615,7 @@ const RuggedTablet = () => {
             <PriceDisclaimer />
 
             {/* ── YouTube Media Center ── */}
+            >
             <section className="space-y-6">
               <div className="text-center">
                 <span className="text-xs font-semibold tracking-widest uppercase text-primary mb-2 block">📺 Media Center</span>
@@ -615,6 +632,7 @@ const RuggedTablet = () => {
                     className="absolute inset-0 w-full h-full"
                     src="https://www.youtube.com/embed/4b5kFnaEEN4"
                     title="Rugged Tablet — Featured Video"
+                    >
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     >
                     allowFullScreen
@@ -644,6 +662,7 @@ const RuggedTablet = () => {
                         className="absolute inset-0 w-full h-full"
                         src={`https://www.youtube.com/embed/${v.id}`}
                         title={v.title}
+                        >
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         >
                         allowFullScreen
@@ -664,6 +683,7 @@ const RuggedTablet = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-destructive hover:bg-destructive/90 text-destructive-foreground font-bold text-sm transition-colors shadow-lg hover:shadow-xl"
+                  >
                 >
                   <Play className="w-4 h-4" /> ดูวิดีโอทั้งหมดบน YouTube
                 </a>

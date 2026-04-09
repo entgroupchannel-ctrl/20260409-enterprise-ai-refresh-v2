@@ -263,6 +263,7 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
       <SEOHead title={i.seoTitle} description={i.seoDesc} path="/contact" />
 
       {/* Banner */}
+      >
       <div className="relative h-48 md:h-64 overflow-hidden">
         <img src={bannerContact} alt={i.bannerTitle} className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
@@ -278,6 +279,7 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
       <div className="container max-w-6xl mx-auto px-6 py-3 border-b border-border flex items-center justify-between">
         <Link to="/" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors">
           <ArrowLeft size={14} /> {i.backHome}
+          >
         </Link>
         <button
           onClick={() => setLang(lang === "th" ? "en" : "th")}
@@ -292,6 +294,7 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
         <div className="container max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-5 gap-8">
             {/* Left — Contact info + Map */}
+            >
             <div className="lg:col-span-2 space-y-5">
               <div className="card-surface rounded-xl p-5">
                 <div className="flex items-start gap-3">
@@ -345,9 +348,11 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
                         src="https://nvidia-jetson.com/images/line-qr.png"
                         alt="LINE QR Code @entgroup"
                         className="w-24 h-24 rounded-lg border border-border bg-white p-1"
+                        >
                       />
                       <LineQRButton className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[hsl(120,60%,40%)] text-white text-xs font-bold hover:bg-[hsl(120,60%,35%)] transition-colors">
                         {i.addLine}
+                        >
                       </LineQRButton>
                     </div>
                   </div>
@@ -358,6 +363,7 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3872.5!2d100.4793839!3d13.9320709!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e2839e781a7a99%3A0xfae548f49721eb09!2sENT%20GROUP%20Co.%2CLtd.!5e0!3m2!1sth!2sth!4v1"
                   width="100%" height="220" style={{ border: 0 }} allowFullScreen loading="lazy"
+                  >
                   referrerPolicy="no-referrer-when-downgrade" title="ENTGroup Office Location" className="w-full"
                 />
                 <div className="p-3">
@@ -376,12 +382,14 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
                 <p className="text-xs text-muted-foreground mb-4">{i.formSub}</p>
 
                 {/* Business Card Scanner */}
+                >
                 <div className="mb-6 p-4 rounded-xl border-2 border-dashed border-primary/30 bg-primary/5 hover:border-primary/50 transition-colors">
                   <input ref={fileInputRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={handleCardUpload} />
                   {cardPreview ? (
                     <div className="space-y-3">
                       <div className="flex items-center gap-2 text-sm font-medium text-foreground">
                         <CreditCard size={16} className="text-primary" /> {i.uploadedCard}
+                        >
                       </div>
                       <div className="relative rounded-lg overflow-hidden border border-border">
                         <img src={cardPreview} alt="Business card" className="w-full h-auto max-h-48 object-contain bg-white" />
@@ -389,6 +397,7 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
                           <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
                             <div className="flex items-center gap-2 text-white text-sm font-medium bg-black/60 px-4 py-2 rounded-lg">
                               <Loader2 size={16} className="animate-spin" /> {i.scanning}
+                              >
                             </div>
                           </div>
                         )}
@@ -460,6 +469,7 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
                           {i.categories.map((c, idx) => (
                             <option key={c} value={idx === 0 ? "" : c}>{c}</option>
                           ))}
+                          >
                         </select>
                       </div>
                       <div>
@@ -468,6 +478,7 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
                           {i.callbackTimes.map((ct, idx) => (
                             <option key={ct} value={idx === 0 ? "" : ct}>{ct}</option>
                           ))}
+                          >
                         </select>
                       </div>
                     </div>

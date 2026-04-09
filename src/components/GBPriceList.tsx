@@ -241,6 +241,7 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
         {search && (
           <p className="text-xs text-muted-foreground mb-2">
             พบ {filteredData.length} รายการ {filteredData.length !== currentTab.data.length && `จาก ${currentTab.data.length}`}
+            >
           </p>
         )}
 
@@ -252,9 +253,11 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
                 <tr className="bg-secondary/50 border-b-2 border-primary/30">
                   <th className="px-4 py-3 text-left font-semibold text-muted-foreground w-[140px]">
                     {activeTab === "windows" ? "ประเภท" : "Processor"}
+                    >
                   </th>
                   <th className="px-4 py-3 text-left font-semibold text-muted-foreground">
                     {activeTab === "gb1000"
+                    >
                       ? `Industrial MINI PC GB1000 (DDR4 RAM)`
                       : "Configuration"}
                   </th>
@@ -262,6 +265,7 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
                   {currentTab.hasRemark && (
                     <th className="px-4 py-3 text-left font-semibold text-muted-foreground w-[160px]">Remark</th>
                   )}
+                  >
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
@@ -269,14 +273,17 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
                   <tr
                     key={idx}
                     className={`transition-colors hover:bg-primary/5 ${idx % 2 === 1 ? "bg-secondary/20" : ""}`}
+                    >
                     <td className="px-4 py-2.5 font-medium text-foreground whitespace-nowrap">{item.processor}</td>
                     <td className="px-4 py-2.5 text-foreground">{item.config}</td>
                     <td className="px-4 py-2.5 text-right font-bold text-primary whitespace-nowrap">
                       {formatPrice(item.price)}
+                      >
                     </td>
                     {currentTab.hasRemark && (
                       <td className="px-4 py-2.5 text-muted-foreground text-xs">{item.remark || ""}</td>
                     )}
+                    >
                   </tr>
                 ))}
               </tbody>

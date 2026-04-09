@@ -166,6 +166,7 @@ const ProductLineup = () => {
     <section className="py-12 md:py-16 px-4 md:px-8 bg-surface/50">
       <div className="container max-w-7xl mx-auto">
         {/* Header + Nav arrows */}
+        >
         <div className="flex items-end justify-between mb-8">
           <div>
             <span className="text-xs font-semibold tracking-widest uppercase text-primary mb-2 block">
@@ -205,10 +206,12 @@ const ProductLineup = () => {
           ref={scrollRef}
           className="flex gap-5 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-4 -mx-4 px-4"
           >
+          >
           {lineupCategories.map((cat) => (
             <div
               key={cat.title}
               className="card-surface rounded-xl overflow-hidden snap-start shrink-0 w-[320px] sm:w-[340px] flex flex-col"
+              >
               >
               {/* Image banner */}
               <Link to={cat.href} className="relative h-36 overflow-hidden block group">
@@ -217,6 +220,7 @@ const ProductLineup = () => {
                   alt={cat.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
+                  >
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
                 <div className="absolute bottom-3 left-4 z-10">
@@ -230,10 +234,12 @@ const ProductLineup = () => {
 
               <div className="p-4 flex flex-col flex-1">
                 {/* CTAs */}
+                >
                 <div className="flex gap-2 mb-3">
                   {cat.cta.map((c) => (
                     <Link
                       key={c.label}
+                      >
                       to={c.href}
                       className={`flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
                         c.primary
@@ -250,6 +256,7 @@ const ProductLineup = () => {
                   {cat.models.map((model) => (
                     <Link
                       key={model.name}
+                      >
                       to={model.href}
                       className="relative inline-flex items-center gap-1 px-2.5 py-1 rounded-md border border-border text-[11px] font-medium text-muted-foreground hover:text-foreground hover:border-primary/30 hover:bg-primary/5 transition-all"
                       >
@@ -257,6 +264,7 @@ const ProductLineup = () => {
                       {"badge" in model && (model as any).badge && (
                         <span className="px-1 py-0.5 rounded text-[9px] font-bold bg-primary text-primary-foreground leading-none">
                           {(model as any).badge}
+                          >
                         </span>
                       )}
                     </Link>

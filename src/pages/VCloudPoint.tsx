@@ -190,6 +190,7 @@ const DemoCTA = ({ variant = "primary" }: { variant?: "primary" | "secondary" })
     </div>
     <h3 className="text-2xl md:text-3xl font-black text-foreground mb-3">
       {variant === "primary" ? "จะได้รู้ว่าเหมาะกับคุณหรือเปล่า?" : "พร้อมเริ่มต้นแล้วหรือยัง?"}
+      >
     </h3>
     <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
       วิศวกรติดตั้งให้ฟรี (Remote Support) · Training ฟรีพร้อมคู่มือ · ไม่พอใจคืนเงิน 100%
@@ -203,6 +204,7 @@ const DemoCTA = ({ variant = "primary" }: { variant?: "primary" | "secondary" })
         target="_blank"
         rel="noopener noreferrer"
         className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl border-2 border-border text-foreground font-bold text-sm hover:bg-secondary transition-colors"
+        >
         ดูรายละเอียดเพิ่มเติม <ExternalLink size={14} />
       </a>
     </div>
@@ -225,12 +227,14 @@ const VCloudPoint = () => {
       <SEOHead title="vCloudPoint Zero Client — Thin Client ประหยัดต้นทุน" description="vCloudPoint Zero Client ลดต้นทุนฮาร์ดแวร์ ประหยัดไฟ 80% ใช้คอมเครื่องเดียวแชร์ได้หลายจุด สำหรับสำนักงาน โรงเรียน โรงแรม" path="/vcloudpoint" />
       <ProductJsonLd
         collectionName="vCloudPoint Zero Client"
+        >
         collectionDescription="vCloudPoint Zero Client ลดต้นทุนฮาร์ดแวร์ ประหยัดไฟ 80% ใช้คอมเครื่องเดียวแชร์ได้หลายจุด"
         collectionUrl="/vcloudpoint"
         products={[{ name: "vCloudPoint S100", description: "Zero Client for vMatrix", category: "Zero Client" }]}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "vCloudPoint", path: "/vcloudpoint" }]} />
       {/* Sticky Nav */}
+      >
       <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
         <div className="container max-w-7xl mx-auto flex items-center justify-between px-6 h-16">
           <div className="flex items-center gap-4">
@@ -304,6 +308,7 @@ const VCloudPoint = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-border text-foreground font-semibold text-sm hover:bg-secondary transition-colors"
+                  >
                   ดูรายละเอียดเพิ่มเติม <ExternalLink size={14} />
                 </a>
               </div>
@@ -316,6 +321,7 @@ const VCloudPoint = () => {
                 alt="vCloudPoint Zero Client"
                 className="relative w-full rounded-2xl"
                 loading="eager"
+                >
               />
               <div className="mt-4">
                 <img
@@ -323,6 +329,7 @@ const VCloudPoint = () => {
                   alt="vCloudPoint System Diagram"
                   className="w-full rounded-2xl"
                   loading="eager"
+                  >
                 />
               </div>
             </div>
@@ -385,6 +392,7 @@ const VCloudPoint = () => {
                   <li key={q} className="flex items-center gap-2">
                     <CheckCircle2 size={13} className="text-primary shrink-0" />
                     {q}
+                    >
                   </li>
                 ))}
               </ul>
@@ -393,6 +401,7 @@ const VCloudPoint = () => {
               <iframe
                 src="https://www.youtube.com/embed/kogDEEuUns4?rel=0"
                 title="10 เรื่องที่คุณยังไม่รู้เกี่ยวกับ vCloudPoint Zero Client"
+                >
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 >
                 allowFullScreen
@@ -450,12 +459,14 @@ const VCloudPoint = () => {
               <div key={h.step} className="card-surface rounded-xl p-6 relative">
                 <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-black text-lg mb-4">
                   {h.step}
+                  >
                 </div>
                 <h3 className="font-bold text-foreground mb-1">{h.title}</h3>
                 <p className="text-sm text-muted-foreground">{h.desc}</p>
                 {i < 3 && (
                   <ArrowRight className="hidden lg:block absolute top-1/2 -right-3 text-primary/30" size={20} />
                 )}
+                >
               </div>
             ))}
           </div>
@@ -498,6 +509,7 @@ const VCloudPoint = () => {
                 alt="vMatrix Server Software"
                 className="w-full h-56 md:h-64 object-cover object-top"
                 loading="lazy"
+                >
               />
             </div>
             <div className="rounded-xl overflow-hidden border border-border bg-secondary/30">
@@ -506,6 +518,7 @@ const VCloudPoint = () => {
                 alt="vMatrix Control Panel"
                 className="w-full h-56 md:h-64 object-cover object-top"
                 loading="lazy"
+                >
               />
             </div>
           </div>
@@ -514,6 +527,7 @@ const VCloudPoint = () => {
           <div className="max-w-2xl mx-auto text-center">
             <button onClick={() => setShowVmatrix(!showVmatrix)} className="text-sm text-primary font-semibold flex items-center gap-1 mx-auto mb-4 hover:underline">
               {showVmatrix ? "ซ่อนความสามารถ" : "ดูความสามารถทั้งหมด"}
+              >
               <ChevronDown size={14} className={`transition-transform ${showVmatrix ? "rotate-180" : ""}`} />
             </button>
 
@@ -523,6 +537,7 @@ const VCloudPoint = () => {
                   <div key={f} className="flex items-start gap-2 text-sm text-muted-foreground">
                     <CheckCircle2 size={14} className="text-primary shrink-0 mt-0.5" />
                     {f}
+                    >
                   </div>
                 ))}
               </div>
@@ -533,6 +548,7 @@ const VCloudPoint = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm text-primary font-semibold hover:underline"
+              >
               ดาวน์โหลด vMatrix <Download size={14} />
             </a>
           </div>
@@ -569,6 +585,7 @@ const VCloudPoint = () => {
       <section className="py-16 md:py-24">
         <div className="container max-w-7xl mx-auto px-6">
           {/* Header */}
+          >
           <div className="text-center mb-6">
             <span className="text-xs font-semibold tracking-widest uppercase text-primary mb-3 block">Success Stories</span>
             <h2 className="text-3xl md:text-4xl font-black text-foreground">
@@ -598,6 +615,7 @@ const VCloudPoint = () => {
                 <div className={`bg-gradient-to-r ${cs.color} p-6 md:p-8`}>
                   <div className="flex flex-col md:flex-row md:items-start gap-6">
                     {/* Left: Icon + Meta */}
+                    >
                     <div className="flex items-start gap-4 flex-1">
                       <div className={`w-14 h-14 rounded-xl bg-background/80 border border-border flex items-center justify-center shrink-0`}>
                         <cs.icon className={cs.accentColor} size={26} />
@@ -606,6 +624,7 @@ const VCloudPoint = () => {
                         <div className="flex flex-wrap items-center gap-2 mb-1">
                           <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${cs.borderColor} ${cs.accentColor}`}>
                             {cs.tag}
+                            >
                           </span>
                           <span className="text-[10px] text-muted-foreground">{cs.sector}</span>
                         </div>
@@ -627,10 +646,12 @@ const VCloudPoint = () => {
 
                 <div className="p-6 md:px-8">
                   {/* Quote */}
+                  >
                   <div className="flex gap-3 mb-5">
                     <Quote size={20} className="text-primary/30 shrink-0 mt-0.5" />
                     <p className="text-sm text-muted-foreground leading-relaxed italic">
                       {cs.quote}
+                      >
                     </p>
                   </div>
 
@@ -640,6 +661,7 @@ const VCloudPoint = () => {
                       <span key={h} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-secondary/60 text-xs text-foreground font-medium border border-border/50">
                         <CheckCircle2 size={11} className={cs.accentColor} />
                         {h}
+                        >
                       </span>
                     ))}
                   </div>
@@ -657,6 +679,7 @@ const VCloudPoint = () => {
                               <iframe
                                 src={`https://www.youtube.com/embed/${v.id}?rel=0`}
                                 title={v.label}
+                                >
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 >
                                 allowFullScreen
@@ -691,6 +714,7 @@ const VCloudPoint = () => {
               {["FCC", "CE", "RoHS", "ISO 9001:2015", "ISO 14001:2015"].map((c) => (
                 <span key={c} className="px-3 py-1 rounded-lg text-[10px] font-medium bg-secondary text-secondary-foreground border border-border">
                   {c}
+                  >
                 </span>
               ))}
             </div>
@@ -728,6 +752,7 @@ const VCloudPoint = () => {
             {["FCC Class A&B", "CE", "CCC", "RoHS", "BIS", "NOM", "ISO 9001:2015", "ISO 14001:2015"].map((cert) => (
               <span key={cert} className="px-3 py-1.5 rounded-lg text-xs font-medium bg-secondary text-secondary-foreground border border-border">
                 {cert}
+                >
               </span>
             ))}
           </div>

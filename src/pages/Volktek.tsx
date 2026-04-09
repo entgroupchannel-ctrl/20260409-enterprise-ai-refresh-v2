@@ -124,6 +124,7 @@ const Volktek = () => {
       <SEOHead title="Volktek Industrial Ethernet Switch" description="Volktek Industrial Ethernet Switch Managed/Unmanaged PoE สำหรับโรงงาน ระบบกล้องวงจรปิด และโครงข่ายอุตสาหกรรม" path="/volktek" />
       <ProductJsonLd
         collectionName="Volktek Industrial Ethernet Switch"
+        >
         collectionDescription="Volktek Industrial Ethernet Switch Managed/Unmanaged PoE สำหรับโรงงานและระบบกล้องวงจรปิด"
         collectionUrl="/volktek"
         products={productCategories.map(c => ({ name: c.title, description: c.desc, category: "Industrial Ethernet Switch" }))}
@@ -131,6 +132,7 @@ const Volktek = () => {
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "Volktek", path: "/volktek" }]} />
       {/* Hero */}
+      >
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-accent/5" />
         <div className="container max-w-7xl mx-auto px-4 py-6 relative z-10">
@@ -142,6 +144,7 @@ const Volktek = () => {
               src="/images/wix/0597a3_acc5fb9c15d549868644c80cf3d94d4f_1179ee4b.png"
               alt="Volktek Industrial Ethernet"
               className="w-full h-auto"
+              >
             />
           </div>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
@@ -170,6 +173,7 @@ const Volktek = () => {
 
       <div className="container max-w-7xl mx-auto px-4 py-10 space-y-16">
         {/* About Cards */}
+        >
         <section>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
@@ -244,6 +248,7 @@ const Volktek = () => {
                 alt="Factory Automation Diagram"
                 className="w-full h-auto rounded-lg"
                 loading="lazy"
+                >
               />
             </div>
           </div>
@@ -255,12 +260,14 @@ const Volktek = () => {
           <p className="text-muted-foreground mb-6">Powering Next Generation Automation Network Solutions</p>
 
           {/* Quick Nav */}
+          >
           <div className="flex gap-2 overflow-x-auto pb-4 mb-6 scrollbar-hide">
             {productCategories.map((cat) => (
               <a
                 key={cat.id}
                 href={`#${cat.id}`}
                 className="shrink-0 px-3 py-2 rounded-lg text-xs font-medium bg-secondary/50 text-foreground/70 border border-border hover:border-primary/30 transition-all"
+                >
               >
                 {cat.title}
               </a>
@@ -280,6 +287,7 @@ const Volktek = () => {
                     {cat.modelImage && (
                       <img src={`${cat.modelImage}`} alt={`${cat.title} models`} className="w-full h-auto rounded-lg" loading="lazy" />
                     )}
+                    >
                   </div>
                 </div>
               </div>
@@ -324,6 +332,7 @@ const Volktek = () => {
               <iframe
                 src="https://www.youtube.com/embed/6Y6eEitc-yQ"
                 title="Volktek Industrial Switch — รีวิวและแนะนำ"
+                >
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 >
                 allowFullScreen
@@ -337,6 +346,7 @@ const Volktek = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-sm text-primary font-semibold hover:underline"
+                >
               >
                 <Youtube size={16} /> ดูบน YouTube
               </a>

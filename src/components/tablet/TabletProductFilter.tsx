@@ -115,6 +115,7 @@ const TabletProductFilter = ({
   const FilterContent = () => (
     <div className="space-y-4">
       {/* Header */}
+      >
       <div className="flex items-center justify-between pb-3 border-b border-border">
         <h3 className="text-base font-bold text-foreground flex items-center gap-2">
           <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -139,6 +140,7 @@ const TabletProductFilter = ({
 
       <Accordion type="multiple" defaultValue={["os", "screen", "cpu", "price"]} className="space-y-1.5">
         {/* OS */}
+        >
         <AccordionItem value="os" className="border border-border rounded-lg px-3 transition-colors data-[state=open]:border-primary/20 data-[state=open]:bg-primary/[0.02]">
           <AccordionTrigger className="py-3 text-sm font-semibold hover:no-underline">
             <span className="flex items-center gap-2">
@@ -274,6 +276,7 @@ const TabletProductFilter = ({
               <div className="mt-4 pt-4 border-t border-border">
                 <Button onClick={onMobileClose} className="w-full">
                   ดูผลลัพธ์ ({resultCount} รายการ)
+                  >
                 </Button>
               </div>
             </div>
@@ -320,6 +323,7 @@ export const TabletActiveFilterChips = ({
           key={chip.label}
           onClick={chip.onRemove}
           className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors group"
+          >
           >
           {chip.label}
           <X className="w-3 h-3 opacity-60 group-hover:opacity-100 transition-opacity" />
