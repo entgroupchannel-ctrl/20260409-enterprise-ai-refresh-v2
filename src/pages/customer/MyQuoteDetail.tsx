@@ -1,6 +1,4 @@
 // src/pages/customer/MyQuoteDetail.tsx
-// Complete Quote Detail - Full UX with Print, Download, Navigation
-
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
@@ -60,10 +58,14 @@ export default function MyQuoteDetail() {
   const [quote, setQuote] = useState<Quote | null>(null);
   const [loading, setLoading] = useState(true);
   const [showPOUpload, setShowPOUpload] = useState(false);
+  const [poFiles, setPoFiles] = useState<any[]>([]);
   const isPrintMode = searchParams.get('print') === 'true';
 
   useEffect(() => {
-    if (id && user) loadQuote();
+    if (id && user) {
+      loadQuote();
+      loadPOFiles();
+    }
   }, [id, user]);
 
   useEffect(() => {
@@ -90,6 +92,23 @@ export default function MyQuoteDetail() {
       navigate('/my-quotes');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const loadPOFiles = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('quote_files')
+        .select('*')
+        .eq('quote_id', id!)
+        .eq('category', 'po')
+        .order('uploaded_at', { ascending: false });
+
+      if (!error && data) {
+        setPoFiles(data);
+      }
+    } catch (error) {
+      console.error('Error loading PO files:', error);
     }
   };
 
@@ -297,6 +316,67 @@ export default function MyQuoteDetail() {
           </CardContent>
         </Card>
 
+        {/* PO Files Section */}
+        {poFiles.length > 0 && (
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <FileText className="w-5 h-5" />
+                เอกสาร Purchase Order (PO)
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {poFiles.map((file) => (
+                  <div
+                    key={file.id}
+                    className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors"
+                  >
+                    <div className="flex items-center gap-3 flex-1 min-w-0">
+                      <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center shrink-0">
+                        <FileText className="w-6 h-6 text-primary" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="font-medium text-foreground truncate">
+                          {file.file_name}
+                        </p>
+                        <div className="flex items-center gap-3 text-xs text-muted-foreground mt-1">
+                          <span>
+                            {format(new Date(file.uploaded_at), 'dd MMM yyyy HH:mm', {
+                              locale: th,
+                            })}
+                          </span>
+                          {file.file_size && (
+                            <span>
+                              {(file.file_size / (1024 * 1024)).toFixed(2)} MB
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => window.open(file.file_url, '_blank')}
+                    >
+                      <Download className="w-4 h-4 mr-2" />
+                      ดาวน์โหลด
+                    </Button>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-4 p-3 bg-primary/5 rounded-lg border border-primary/20">
+                <p className="text-sm text-foreground">
+                  <span className="font-semibold">สถานะ:</span>{' '}
+                  {quote.status === 'po_uploaded' && 'ทีมงานกำลังตรวจสอบ PO ของคุณ'}
+                  {quote.status === 'po_approved' && 'PO ได้รับการอนุมัติแล้ว'}
+                  {quote.status === 'completed' && 'เสร็จสิ้น'}
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         {quote.notes && (
           <Card className="mb-6">
             <CardHeader><CardTitle>หมายเหตุ</CardTitle></CardHeader>
@@ -323,8 +403,10 @@ export default function MyQuoteDetail() {
         onOpenChange={setShowPOUpload}
         quoteId={quote.id}
         quoteNumber={quote.quote_number}
-        customerName={quote.customer_name}
-        onSuccess={loadQuote}
+        onSuccess={() => {
+          loadQuote();
+          loadPOFiles();
+        }}
       />
     </div>
   );
