@@ -7,7 +7,7 @@ import {
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { FileText, ShoppingBag, Lock, LogIn, UserPlus, AlertTriangle, Info } from 'lucide-react';
+import { FileText, ShoppingBag, Lock, LogIn, UserPlus, Check, Package } from 'lucide-react';
 import { getRelatedCatalogProducts, type CatalogProduct } from '@/lib/product-catalog';
 import { savePendingQuote, type PendingQuoteData } from '@/hooks/usePendingQuote';
 import ContactFormPanel from './quote-dialog/ContactFormPanel';
@@ -41,9 +41,10 @@ export default function QuoteRequestButton({
   const navigate = useNavigate();
   const { toast } = useToast();
 
+  // Phase: 'product-selection' (compact) → 'full-form' (3-column)
+  const [phase, setPhase] = useState<'product-selection' | 'full-form'>('product-selection');
   const [showDialog, setShowDialog] = useState(false);
   const [showAuthGuard, setShowAuthGuard] = useState(false);
-  const [pendingQuote, setPendingQuote] = useState<PendingQuoteData | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [loadingProfile, setLoadingProfile] = useState(false);
   const [formData, setFormData] = useState({
@@ -57,26 +58,19 @@ export default function QuoteRequestButton({
     return getRelatedCatalogProducts(productModel, 6);
   }, [productModel]);
 
+  // Load profile when entering full-form phase
   useEffect(() => {
-    if (showDialog && user) loadUserProfile();
-  }, [showDialog, user]);
+    if (phase === 'full-form' && user) loadUserProfile();
+  }, [phase, user]);
 
+  // If user logs in while auth guard is shown, proceed to full form
   useEffect(() => {
-    if (showDialog && productModel && products.length === 0) {
-      setProducts([{
-        model: productModel, description: productName || '',
-        qty: 1, unit_price: 0, discount_percent: 0, line_total: 0,
-      }]);
+    if (user && showAuthGuard) {
+      setShowAuthGuard(false);
+      setPhase('full-form');
+      setShowDialog(true);
     }
-  }, [showDialog, productModel]);
-
-  // Auto-submit pending quote when user logs in while component is mounted
-  useEffect(() => {
-    if (user && pendingQuote) {
-      toast({ title: 'กำลังส่งคำขอใบเสนอราคา...', description: 'กรุณารอสักครู่' });
-      submitQuote(pendingQuote);
-    }
-  }, [user, pendingQuote]);
+  }, [user, showAuthGuard]);
 
   const loadUserProfile = async () => {
     if (!user) return;
@@ -103,21 +97,44 @@ export default function QuoteRequestButton({
     if (productModel) {
       setFormData((prev) => ({ ...prev, customer_email: user?.email || prev.customer_email }));
       setProducts([]);
+      // If user is already logged in, skip product-selection phase → go to full form
+      setPhase(user ? 'full-form' : 'product-selection');
       setShowDialog(true);
     } else {
       navigate('/request-quote');
     }
   };
 
+  // Called when user adds a product from the search panel
   const handleAddProduct = (product: CatalogProduct) => {
     if (products.find((p) => p.model === product.model)) {
       toast({ title: 'เพิ่มแล้ว', description: `${product.model} อยู่ในรายการแล้ว` });
       return;
     }
-    setProducts((prev) => [...prev, {
+
+    const priceNum = product.price ? parseFloat(product.price.replace(/[^\d.]/g, '')) || 0 : 0;
+    const newProduct: QuoteProduct = {
       model: product.model, description: product.name,
-      qty: 1, unit_price: 0, discount_percent: 0, line_total: 0,
-    }]);
+      qty: 1, unit_price: priceNum, discount_percent: 0, line_total: priceNum,
+    };
+
+    // Phase 1 (product-selection) + guest → trigger auth guard after first add
+    if (phase === 'product-selection' && !user) {
+      setProducts((prev) => [...prev, newProduct]);
+      setShowDialog(false);
+      setShowAuthGuard(true);
+      return;
+    }
+
+    // Phase 1 + logged in → add product and transition to full form
+    if (phase === 'product-selection' && user) {
+      setProducts((prev) => [...prev, newProduct]);
+      setPhase('full-form');
+      return;
+    }
+
+    // Phase 2 (full-form) → just add
+    setProducts((prev) => [...prev, newProduct]);
     toast({ title: 'เพิ่มสินค้าแล้ว', description: product.model });
   };
 
@@ -147,16 +164,6 @@ export default function QuoteRequestButton({
       toast({ title: 'กรุณาเลือกสินค้า', description: 'ต้องมีสินค้าอย่างน้อย 1 รายการ', variant: 'destructive' });
       return;
     }
-
-    // Auth Guard: if not logged in, prompt login/register
-    if (!user) {
-      const quoteData = buildQuoteData();
-      setPendingQuote(quoteData);
-      setShowDialog(false);
-      setShowAuthGuard(true);
-      return;
-    }
-
     await submitQuote();
   };
 
@@ -184,7 +191,7 @@ export default function QuoteRequestButton({
       setShowDialog(false);
       setShowAuthGuard(false);
       setProducts([]);
-      setPendingQuote(null);
+      setPhase('product-selection');
       setFormData({ customer_name: '', customer_email: user?.email || '', customer_phone: '', customer_company: '', notes: '' });
       if (user) setTimeout(() => navigate('/my-quotes'), 1500);
     } catch (error: any) {
@@ -193,16 +200,11 @@ export default function QuoteRequestButton({
   };
 
   const handleAuthRedirect = (path: '/login' | '/register') => {
-    if (pendingQuote) {
-      savePendingQuote(pendingQuote);
-    }
+    // Save pending products to localStorage
+    const quoteData = buildQuoteData();
+    savePendingQuote(quoteData);
     setShowAuthGuard(false);
     navigate(`${path}?redirect=/my-quotes`);
-  };
-
-  const handleSubmitAnonymous = async () => {
-    setShowAuthGuard(false);
-    await submitQuote(pendingQuote || undefined);
   };
 
   const selectedModels = products.map((p) => p.model);
@@ -216,39 +218,65 @@ export default function QuoteRequestButton({
       </Button>
 
       {/* Main Quote Dialog */}
-      <Dialog open={showDialog} onOpenChange={setShowDialog}>
-        <DialogContent className="max-w-7xl max-h-[90vh] overflow-hidden flex flex-col">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <ShoppingBag className="w-5 h-5" />
-              ขอใบเสนอราคา
-            </DialogTitle>
-            <DialogDescription>ค้นหาและเลือกสินค้า กรอกข้อมูล แล้วส่งคำขอ</DialogDescription>
-          </DialogHeader>
+      <Dialog open={showDialog} onOpenChange={(open) => {
+        setShowDialog(open);
+        if (!open) setPhase('product-selection');
+      }}>
+        {phase === 'product-selection' ? (
+          /* Phase 1: Product Selection Only (compact) */
+          <DialogContent className="max-w-2xl max-h-[85vh] overflow-hidden flex flex-col">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <ShoppingBag className="w-5 h-5" />
+                ขอใบเสนอราคา
+              </DialogTitle>
+              <DialogDescription>เริ่มต้นด้วยการเลือกสินค้าที่คุณสนใจ</DialogDescription>
+            </DialogHeader>
 
-          <div className="flex-1 overflow-hidden">
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-4 h-[65vh]">
-              <div className="md:col-span-3">
-                <ContactFormPanel formData={formData} onChange={handleFormChange} loading={loadingProfile} emailDisabled={!!user} />
-              </div>
-              <div className="md:col-span-5">
-                <ProductSearchPanel selectedModels={selectedModels} relatedProducts={relatedProducts} onAddProduct={handleAddProduct} />
-              </div>
-              <div className="md:col-span-4">
-                <SelectedProductsPanel products={products} onUpdateQty={handleUpdateQty} onRemove={handleRemoveProduct} onClearAll={() => setProducts([])} onSubmit={handleSubmit} submitting={submitting} canSubmit={canSubmit} />
+            <div className="flex-1 overflow-hidden">
+              <ProductSearchPanel
+                selectedModels={selectedModels}
+                relatedProducts={relatedProducts}
+                onAddProduct={handleAddProduct}
+                compact
+              />
+            </div>
+          </DialogContent>
+        ) : (
+          /* Phase 2: Full 3-Column Form (after login) */
+          <DialogContent className="max-w-7xl max-h-[90vh] overflow-hidden flex flex-col">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <ShoppingBag className="w-5 h-5" />
+                ขอใบเสนอราคา
+              </DialogTitle>
+              <DialogDescription>กรอกข้อมูลและเลือกสินค้าที่ต้องการ</DialogDescription>
+            </DialogHeader>
+
+            <div className="flex-1 overflow-hidden">
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-4 h-[65vh]">
+                <div className="md:col-span-3">
+                  <ContactFormPanel formData={formData} onChange={handleFormChange} loading={loadingProfile} emailDisabled={!!user} />
+                </div>
+                <div className="md:col-span-5">
+                  <ProductSearchPanel selectedModels={selectedModels} relatedProducts={relatedProducts} onAddProduct={handleAddProduct} />
+                </div>
+                <div className="md:col-span-4">
+                  <SelectedProductsPanel products={products} onUpdateQty={handleUpdateQty} onRemove={handleRemoveProduct} onClearAll={() => setProducts([])} onSubmit={handleSubmit} submitting={submitting} canSubmit={canSubmit} />
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="flex gap-3 justify-between items-center pt-4 border-t border-border md:hidden">
-            <button type="button" className="text-sm text-primary hover:underline font-medium" onClick={() => { setShowDialog(false); navigate('/request-quote'); }}>
-              กรอกฟอร์มแบบเต็ม
-            </button>
-            <Button onClick={handleSubmit} disabled={submitting || !canSubmit} size="sm">
-              {submitting ? 'กำลังส่ง...' : `ส่งคำขอ (${products.length})`}
-            </Button>
-          </div>
-        </DialogContent>
+            <div className="flex gap-3 justify-between items-center pt-4 border-t border-border md:hidden">
+              <button type="button" className="text-sm text-primary hover:underline font-medium" onClick={() => { setShowDialog(false); navigate('/request-quote'); }}>
+                กรอกฟอร์มแบบเต็ม
+              </button>
+              <Button onClick={handleSubmit} disabled={submitting || !canSubmit} size="sm">
+                {submitting ? 'กำลังส่ง...' : `ส่งคำขอ (${products.length})`}
+              </Button>
+            </div>
+          </DialogContent>
+        )}
       </Dialog>
 
       {/* Auth Guard Dialog */}
@@ -257,35 +285,38 @@ export default function QuoteRequestButton({
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Lock className="w-5 h-5 text-primary" />
-              กรุณาเข้าสู่ระบบก่อนส่งคำขอ
+              ยืนยันตัวตนเพื่อดำเนินการต่อ
             </DialogTitle>
             <DialogDescription>
-              เพื่อติดตามสถานะใบเสนอราคาและจัดการคำสั่งซื้อของคุณ
+              เพื่อความสะดวกในการติดตามและจัดการคำสั่งซื้อ
             </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-4">
-            {/* Summary */}
-            <div className="p-4 bg-muted rounded-lg space-y-2">
-              <p className="text-sm font-medium">ข้อมูลที่จะส่ง:</p>
-              <div className="space-y-1 text-sm text-muted-foreground">
-                <p>📧 อีเมล: {pendingQuote?.customer_email}</p>
-                <p>👤 ชื่อ: {pendingQuote?.customer_name}</p>
-                <p>📦 สินค้า: {pendingQuote?.products?.length || 0} รายการ</p>
-                {pendingQuote?.customer_company && <p>🏢 บริษัท: {pendingQuote.customer_company}</p>}
+            {/* Selected Product Preview */}
+            <div className="p-4 bg-primary/5 border border-primary/20 rounded-lg">
+              <p className="text-sm font-medium mb-3 text-primary">คุณได้เลือก:</p>
+              <div className="space-y-2">
+                {products.map((product, index) => (
+                  <div key={index} className="flex items-center gap-3 p-3 bg-background rounded-lg">
+                    <div className="w-12 h-12 bg-muted rounded flex items-center justify-center shrink-0">
+                      <Package className="w-6 h-6 text-muted-foreground" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-semibold text-sm">{product.model}</p>
+                      <p className="text-xs text-muted-foreground truncate">{product.description}</p>
+                      {product.unit_price > 0 && (
+                        <p className="text-sm font-semibold text-primary mt-0.5">
+                          ฿{product.unit_price.toLocaleString()}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
 
-            <div className="p-3 bg-primary/5 border border-primary/20 rounded-lg">
-              <div className="flex items-start gap-2">
-                <Info className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                <p className="text-xs text-muted-foreground">
-                  ข้อมูลจะถูกบันทึกไว้ และส่งอัตโนมัติหลังจากที่คุณเข้าสู่ระบบหรือสมัครสมาชิก
-                </p>
-              </div>
-            </div>
-
-            {/* Actions */}
+            {/* Login/Register Buttons */}
             <div className="grid grid-cols-2 gap-3">
               <Button onClick={() => handleAuthRedirect('/login')} className="w-full">
                 <LogIn className="w-4 h-4 mr-2" />
@@ -297,17 +328,26 @@ export default function QuoteRequestButton({
               </Button>
             </div>
 
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center"><span className="w-full border-t" /></div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">หรือ</span>
+            {/* Benefits */}
+            <div className="space-y-2 pt-2 border-t">
+              <p className="text-xs font-medium text-muted-foreground">
+                💡 หลังเข้าสู่ระบบแล้ว คุณสามารถ:
+              </p>
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <Check className="w-3 h-3 text-green-500" />
+                  <span>เพิ่มสินค้าอื่นๆ ได้อีกหลายรายการ</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <Check className="w-3 h-3 text-green-500" />
+                  <span>กรอกข้อมูลติดต่อและส่งคำขอ</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <Check className="w-3 h-3 text-green-500" />
+                  <span>ติดตามสถานะใบเสนอราคาได้ทันที</span>
+                </div>
               </div>
             </div>
-
-            <Button onClick={handleSubmitAnonymous} variant="ghost" className="w-full text-muted-foreground" disabled={submitting}>
-              <AlertTriangle className="w-4 h-4 mr-2" />
-              ส่งแบบไม่ login (ไม่แนะนำ - ไม่สามารถติดตามสถานะได้)
-            </Button>
           </div>
 
           <DialogFooter className="text-center pt-2 border-t">
