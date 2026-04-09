@@ -130,9 +130,9 @@ const Cabinets = () => {
       ].filter(Boolean).join("\n");
 
       const { error } = await (supabase.from as any)("quote_requests").insert({
-        user_id: user?.id || null,
+        user_id: null,
         name: customForm.name,
-        email: customForm.email || user?.email || "",
+        email: customForm.email || "",
         phone: customForm.phone || null,
         company: customForm.company || null,
         products: [{ category: "Custom Cabinet", model: customForm.panelModel, qty: 1 }],
