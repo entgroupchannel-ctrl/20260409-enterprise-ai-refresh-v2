@@ -55,7 +55,7 @@ const SoftwareSection = () => {
             <div
               key={h.label}
               className="group card-surface overflow-hidden hover:border-primary/30 transition-all duration-300 hover:-translate-y-1"
-              style={{ animationDelay: `${i * 100}ms` }}
+              style={{ animationDelay: `${i * 100}ms` }}>
 
               <div className="h-28 overflow-hidden">
                 <img

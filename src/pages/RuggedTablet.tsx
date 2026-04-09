@@ -618,7 +618,7 @@ const RuggedTablet = () => {
 
               {/* Featured Video */}
               <div className="card-surface rounded-2xl overflow-hidden">
-                <div className="relative w-full" style={{ paddingBottom: "56.25%" }}
+                <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
 
                   <iframe
                     className="absolute inset-0 w-full h-full"
@@ -647,7 +647,7 @@ const RuggedTablet = () => {
                   { id: "wWgkc51GW_I", title: "Rugged Tablet สำหรับงานโลจิสติกส์" },
                 ].map((v) => (
                   <div key={v.id} className="card-surface rounded-xl overflow-hidden group hover:shadow-lg transition-shadow">
-                    <div className="relative w-full" style={{ paddingBottom: "56.25%" }}
+                    <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
 
                       <iframe
                         className="absolute inset-0 w-full h-full"

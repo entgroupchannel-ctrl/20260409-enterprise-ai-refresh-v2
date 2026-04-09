@@ -1125,7 +1125,7 @@ const SmartDisplay = () => {
                 { id: "kuBRO1LFtdo", title: "Smart Display Demo 4" },
               ].map((v) => (
                 <div key={v.id} className="card-surface rounded-xl overflow-hidden">
-                  <div className="relative w-full" style={{ paddingBottom: "56.25%" }}
+                  <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
 
                     <iframe
                       className="absolute inset-0 w-full h-full"
@@ -1144,7 +1144,7 @@ const SmartDisplay = () => {
           {videoTab === "fpm" && (
             <div className="max-w-2xl mx-auto">
               <div className="card-surface rounded-xl overflow-hidden">
-                <div className="relative w-full" style={{ paddingBottom: "56.25%" }}
+                <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
 
                   <iframe
                     className="absolute inset-0 w-full h-full"

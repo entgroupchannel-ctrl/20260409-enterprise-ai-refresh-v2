@@ -495,7 +495,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                     className={`border-b border-border/50 transition-colors cursor-pointer ${catStyle}`}
                     onClick={() => handleTabChange(row.name.toLowerCase())}
                   >
-                    <td className="p-4 sticky left-0 font-bold text-foreground" style={{ background: 'inherit' }}
+                    <td className="p-4 sticky left-0 font-bold text-foreground" style={{ background: 'inherit' }}>
 
                       <div className="flex flex-col gap-1">
                         <span className="text-base">{row.name}</span>

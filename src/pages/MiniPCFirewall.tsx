@@ -641,7 +641,7 @@ const FirewallComparisonTable = () => {
                 return (
                   <tr key={row.name} className={`border-b border-border/50 transition-colors ${ts.row}`}>
 
-                    <td className="p-4 sticky left-0 font-bold text-foreground" style={{ background: 'inherit' }}
+                    <td className="p-4 sticky left-0 font-bold text-foreground" style={{ background: 'inherit' }}>
 
                       <div className="flex flex-col gap-1">
                         <span className="text-base">{row.name}</span>

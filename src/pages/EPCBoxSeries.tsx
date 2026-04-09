@@ -672,7 +672,7 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
       ) : (
         <div className="card-surface overflow-hidden overflow-x-auto">
           <div className="min-w-[600px]">
-            <div className="grid border-b border-border" style={{ gridTemplateColumns: `180px repeat(${visibleIndices.length}, 1fr)` }}
+            <div className="grid border-b border-border" style={{ gridTemplateColumns: `180px repeat(${visibleIndices.length}, 1fr)` }}>
 
               <div className="px-4 py-4 bg-primary/10 flex items-center">
                 <span className="text-sm font-bold text-foreground">
@@ -691,7 +691,7 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
             <div className="divide-y divide-border">
               {Object.entries(data).map(([label, values], rowIdx) => (
                 <div key={label} className={`grid items-center ${rowIdx % 2 === 0 ? "bg-muted/10" : ""}`}
-                  style={{ gridTemplateColumns: `180px repeat(${visibleIndices.length}, 1fr)` }}
+                  style={{ gridTemplateColumns: `180px repeat(${visibleIndices.length}, 1fr)` }}>
 
                   <div className="px-4 py-3 text-sm font-medium text-foreground">{label}</div>
                   {visibleIndices.map(i => (
@@ -710,7 +710,7 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
             </div>
 
             <div className="grid border-t border-border bg-muted/20"
-              style={{ gridTemplateColumns: `180px repeat(${visibleIndices.length}, 1fr)` }}
+              style={{ gridTemplateColumns: `180px repeat(${visibleIndices.length}, 1fr)` }}>
 
               <div className="px-4 py-4 text-sm font-medium text-foreground flex items-center">ขอใบเสนอราคา</div>
               {visibleIndices.map(i => (

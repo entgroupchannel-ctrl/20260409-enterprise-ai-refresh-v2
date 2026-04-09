@@ -339,7 +339,7 @@ const Cabinets = () => {
             ))}
           </div>
           <div className="text-center">
-            <Button size="lg" onClick={() => { setCustomOpen(true); setCustomSubmitted(false); }}
+            <Button size="lg" onClick={() => { setCustomOpen(true); setCustomSubmitted(false); }}>
 
               <Settings className="w-4 h-4 mr-2" /> ขอใบเสนอราคา Custom Cabinet
             </Button>

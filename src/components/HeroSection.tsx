@@ -166,7 +166,7 @@ const HeroSection = () => {
             </p>
 
             {/* Search */}
-            <div ref={searchRef} className="relative max-w-xl mb-8 animate-fade-up" style={{ animationDelay: "0.3s" }}
+            <div ref={searchRef} className="relative max-w-xl mb-8 animate-fade-up" style={{ animationDelay: "0.3s" }}>
 
               <div className="flex items-center bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl overflow-hidden focus-within:ring-2 focus-within:ring-primary/50 transition-shadow">
                 <Search className="ml-4 text-white/50" size={20} />
@@ -202,7 +202,7 @@ const HeroSection = () => {
             </div>
 
             {/* CTA */}
-            <div className="flex flex-wrap items-center gap-3 animate-fade-up" style={{ animationDelay: "0.35s" }}
+            <div className="flex flex-wrap items-center gap-3 animate-fade-up" style={{ animationDelay: "0.35s" }}>
 
               <Link
                 to="/contact"
