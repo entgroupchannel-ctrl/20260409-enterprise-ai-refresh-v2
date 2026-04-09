@@ -252,9 +252,9 @@ const IBoxSeries = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="iBox Series — Embedded Fanless Industrial PC" description="iBox Series คอมพิวเตอร์อุตสาหกรรมแบบ Fanless ขนาดกะทัดรัด รองรับ Intel N-Series ถึง Core i7 สำหรับ Edge Computing, IoT Gateway, Digital Signage" path="/ibox-series" />
       <ProductJsonLd
-        collectionName="iBox Series Embedded Fanless Industrial PC"
-        collectionDescription="iBox Series คอมพิวเตอร์อุตสาหกรรม Fanless ขนาดกะทัดรัด สำหรับ Edge Computing, IoT Gateway, Digital Signage"
-        collectionUrl="/ibox-series"
+        collectionName="iBox Series Embedded Fanless Industrial PC">
+        collectionDescription="iBox Series คอมพิวเตอร์อุตสาหกรรม Fanless ขนาดกะทัดรัด สำหรับ Edge Computing, IoT Gateway, Digital Signage">
+        collectionUrl="/ibox-series">
         products={iboxProducts.map(m => ({ name: m.name, image: m.image, description: m.specs.cpu, category: "Embedded Fanless Industrial PC" }))}
       />
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "iBox Series", path: "/ibox-series" }]} />
@@ -435,7 +435,7 @@ const IBoxSeries = () => {
                       <img
                         src={model.image}
                         alt={model.name}
-                        className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                        className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
                         loading="lazy"
                       />
                     </div>

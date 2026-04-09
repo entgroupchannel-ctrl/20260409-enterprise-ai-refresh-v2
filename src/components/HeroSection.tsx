@@ -109,7 +109,7 @@ const HeroSection = () => {
         <img
           src={heroIndustrial}
           alt="Industrial Computing Production Line"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover">
           width={1920}
           height={900}
         />
@@ -253,7 +253,7 @@ const HeroSection = () => {
             <button
               type="button"
               onClick={() => setTagsExpanded((prev) => !prev)}
-              className="flex items-center justify-center w-7 shrink-0 rounded-l-xl bg-white/10 backdrop-blur-md border border-r-0 border-white/15 text-white/50 hover:text-white hover:bg-white/20 transition-colors"
+              className="flex items-center justify-center w-7 shrink-0 rounded-l-xl bg-white/10 backdrop-blur-md border border-r-0 border-white/15 text-white/50 hover:text-white hover:bg-white/20 transition-colors">
               title="สินค้ายอดนิยม"
             >
               <ChevronDown size={14} className={`transition-transform duration-300 ${tagsExpanded ? "rotate-90" : "-rotate-90"}`} />

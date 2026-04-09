@@ -63,7 +63,7 @@ const HandheldCard = ({
       <img
         src={product.image}
         alt={product.model}
-        className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+        className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
         loading="lazy"
       />
     </div>
@@ -116,14 +116,14 @@ const Handheld = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead
-        title="Rugged Handheld & PDA กันน้ำ สแกนบาร์โค้ด"
-        description="Rugged Handheld, PDA และมือถืออุตสาหกรรม กันน้ำ กันกระแทก IP65-IP68 พร้อม 2D Scanner, NFC, 5G สำหรับคลังสินค้า โลจิสติกส์ และงานภาคสนาม"
+        title="Rugged Handheld & PDA กันน้ำ สแกนบาร์โค้ด">
+        description="Rugged Handheld, PDA และมือถืออุตสาหกรรม กันน้ำ กันกระแทก IP65-IP68 พร้อม 2D Scanner, NFC, 5G สำหรับคลังสินค้า โลจิสติกส์ และงานภาคสนาม">
         path="/handheld"
       />
       <ProductJsonLd
-        collectionName="Rugged Handheld & PDA"
-        collectionDescription="มือถือและ PDA มาตรฐานอุตสาหกรรม กันน้ำ กันกระแทก"
-        collectionUrl="/handheld"
+        collectionName="Rugged Handheld & PDA">
+        collectionDescription="มือถือและ PDA มาตรฐานอุตสาหกรรม กันน้ำ กันกระแทก">
+        collectionUrl="/handheld">
         products={handheldProducts.map((p) => ({ name: p.name, image: p.image, category: "Rugged Handheld" }))}
       />
       <BreadcrumbJsonLd items={[>

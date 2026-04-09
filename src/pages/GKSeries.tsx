@@ -661,7 +661,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
             <img
               src={model.image}
               alt={model.name}
-              className="max-h-[240px] object-contain mb-4"
+              className="max-h-[240px] object-contain mb-4">
               loading="lazy"
             />
           )}
@@ -673,7 +673,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                   href={ds.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity">
                   {ds.label} <ExternalLink size={10} />
                 </a>
               ))}
@@ -839,8 +839,8 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                 <iframe
                   src={`https://www.youtube.com/embed/${model.youtubeId}`}
                   title={`${model.name} Video`}
-                  className="w-full h-full"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  className="w-full h-full">
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                   allowFullScreen
                 />
               </div>
@@ -1096,9 +1096,9 @@ const GKSeries = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="GK Series — Industrial Panel PC จอสัมผัสอุตสาหกรรม" description="GK Series Panel PC อุตสาหกรรม จอสัมผัส 10.4-21 นิ้ว เลือก CPU ได้ตามใจ ทนร้อน ทนฝุ่น สำหรับโรงงาน POS และงานควบคุม" path="/gk-series" />
       <ProductJsonLd
-        collectionName="GK Series Industrial Panel PC"
-        collectionDescription="Panel PC อุตสาหกรรม จอสัมผัส 10.4-21 นิ้ว IP65 เลือก CPU ได้ สำหรับโรงงาน POS และงานควบคุม"
-        collectionUrl="/gk-series"
+        collectionName="GK Series Industrial Panel PC">
+        collectionDescription="Panel PC อุตสาหกรรม จอสัมผัส 10.4-21 นิ้ว IP65 เลือก CPU ได้ สำหรับโรงงาน POS และงานควบคุม">
+        collectionUrl="/gk-series">
         products={gkModels.map(m => ({ name: m.name, price: m.priceTable?.[0]?.configs?.[0]?.price, image: m.image, description: `${m.screenSize} ${m.tagline}`, category: "Industrial Panel PC" }))}
       />
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "GK Series", path: "/gk-series" }]} />
@@ -1127,7 +1127,7 @@ const GKSeries = () => {
           <img
             src={gkHeroBanner}
             alt="GK Series Panel PC in harsh industrial environment"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover">
             width={1920}
             height={800}
           />
@@ -1168,7 +1168,7 @@ const GKSeries = () => {
                 href="/datasheets/0597a3_b7e91a40254040a3b28e20e2641312cd.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
                 Product Overview <ExternalLink size={16} />
               </a>
               <a
@@ -1178,7 +1178,7 @@ const GKSeries = () => {
               </a>
               <a
                 href="#gk1004"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-background/60 backdrop-blur-sm border border-border text-foreground font-semibold hover:bg-muted transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-background/60 backdrop-blur-sm border border-border text-foreground font-semibold hover:bg-muted transition-colors">
                 ดูสินค้าทั้งหมด <ChevronDown size={16} />
               </a>
             </div>
@@ -1231,7 +1231,7 @@ const GKSeries = () => {
               <a
                 key={m.id}
                 href={`#${m.id}`}
-                className="shrink-0 px-4 py-2 rounded-lg text-sm font-medium border border-border hover:border-primary/50 hover:bg-primary/5 text-foreground transition-all"
+                className="shrink-0 px-4 py-2 rounded-lg text-sm font-medium border border-border hover:border-primary/50 hover:bg-primary/5 text-foreground transition-all">
                 {m.name} <span className="text-muted-foreground text-xs">({m.screenSize})</span>
               </a>
             ))}
@@ -1375,8 +1375,8 @@ const GKSeries = () => {
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
                         title={v.title}
-                        className="w-full h-full"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        className="w-full h-full">
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                         allowFullScreen
                         loading="lazy"
                       />
@@ -1447,7 +1447,7 @@ const GKSeries = () => {
                 <img
                   src="/images/wix/005637_9307d91084e2433eb766e611c65c7518_d90cd4b5.jpg"
                   alt="GK Series SIM slot"
-                  className="rounded-xl max-w-full"
+                  className="rounded-xl max-w-full">
                   loading="lazy"
                 />
               </div>
@@ -1546,7 +1546,7 @@ const GKSeries = () => {
             </button>
             <button
               onClick={() => setShowLineQR(true)}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[hsl(142,70%,45%)] text-white font-bold text-lg hover:opacity-90 transition-opacity"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[hsl(142,70%,45%)] text-white font-bold text-lg hover:opacity-90 transition-opacity">
               LINE @entgroup
             </button>
             <Link

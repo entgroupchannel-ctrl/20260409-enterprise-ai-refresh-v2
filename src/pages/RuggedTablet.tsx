@@ -363,14 +363,14 @@ const RuggedTablet = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead
-        title="Rugged Tablet กันน้ำ กันกระแทก — 15 รุ่น"
-        description="Rugged Tablet ทนทาน กันน้ำ IP65-IP68 กันกระแทก MIL-STD-810G สำหรับงานภาคสนาม ทหาร โลจิสติกส์ — Windows & Android 15 รุ่น"
+        title="Rugged Tablet กันน้ำ กันกระแทก — 15 รุ่น">
+        description="Rugged Tablet ทนทาน กันน้ำ IP65-IP68 กันกระแทก MIL-STD-810G สำหรับงานภาคสนาม ทหาร โลจิสติกส์ — Windows & Android 15 รุ่น">
         path="/rugged-tablet"
       />
       <ProductJsonLd
-        collectionName="Rugged Tablet กันน้ำ กันกระแทก"
-        collectionDescription="Rugged Tablet ทนทาน กันน้ำ IP65-IP68 กันกระแทก MIL-STD-810G — 15 รุ่น Windows & Android"
-        collectionUrl="/rugged-tablet"
+        collectionName="Rugged Tablet กันน้ำ กันกระแทก">
+        collectionDescription="Rugged Tablet ทนทาน กันน้ำ IP65-IP68 กันกระแทก MIL-STD-810G — 15 รุ่น Windows & Android">
+        collectionUrl="/rugged-tablet">
         products={tablets.filter((t) => t.price).map((t) => ({ name: t.name, price: t.price, category: "Rugged Tablet" }))}
       />
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "Rugged Tablet", path: "/rugged-tablet" }]} />
@@ -620,9 +620,9 @@ const RuggedTablet = () => {
 
                   <iframe
                     className="absolute inset-0 w-full h-full"
-                    src="https://www.youtube.com/embed/4b5kFnaEEN4"
-                    title="Rugged Tablet — Featured Video"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    src="https://www.youtube.com/embed/4b5kFnaEEN4">
+                    title="Rugged Tablet — Featured Video">
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                     allowFullScreen
                     loading="lazy"
                   />
@@ -651,7 +651,7 @@ const RuggedTablet = () => {
                         className="absolute inset-0 w-full h-full"
                         src={`https://www.youtube.com/embed/${v.id}`}
                         title={v.title}
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                         allowFullScreen
                         loading="lazy"
                       />

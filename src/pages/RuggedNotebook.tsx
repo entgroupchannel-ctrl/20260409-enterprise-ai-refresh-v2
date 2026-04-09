@@ -126,8 +126,8 @@ const RuggedNotebookPage = () => {
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       <SEOHead
-        title="Rugged Notebook — โน้ตบุ๊กมาตรฐานทหาร MIL-STD"
-        description="โน้ตบุ๊คทนทานเกรดทหาร MIL-STD-810G/H กันน้ำ IP65-IP67 Intel AI, Core i5/i7 สำหรับงานภาคสนาม โรงงาน โลจิสติกส์ จำหน่ายโดย ENT Group"
+        title="Rugged Notebook — โน้ตบุ๊กมาตรฐานทหาร MIL-STD">
+        description="โน้ตบุ๊คทนทานเกรดทหาร MIL-STD-810G/H กันน้ำ IP65-IP67 Intel AI, Core i5/i7 สำหรับงานภาคสนาม โรงงาน โลจิสติกส์ จำหน่ายโดย ENT Group">
         path="/rugged-notebook"
       />
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/" }, { name: "Rugged Notebook", path: "/rugged-notebook" }]} />
@@ -140,8 +140,8 @@ const RuggedNotebookPage = () => {
           brand: "ENT Group",
           category: "Rugged Notebook",
         }))}
-        collectionName="Rugged Notebook"
-        collectionDescription="โน้ตบุ๊คทนทานเกรดทหาร MIL-STD กันน้ำ กันกระแทก"
+        collectionName="Rugged Notebook">
+        collectionDescription="โน้ตบุ๊คทนทานเกรดทหาร MIL-STD กันน้ำ กันกระแทก">
         collectionUrl="/rugged-notebook"
       />
 

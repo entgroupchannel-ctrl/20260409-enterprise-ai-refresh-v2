@@ -97,14 +97,14 @@ const CaseStudies = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="กรณีศึกษา | Case Studies — ENT Group"
-        description="ตัวอย่างลูกค้าจริงที่ใช้ Panel PC, Mini PC, Rugged Tablet จาก ENT Group ในสนามบิน, รถไฟฟ้า, โรงงาน, โรงพยาบาล และอื่นๆ"
+        title="กรณีศึกษา | Case Studies — ENT Group">
+        description="ตัวอย่างลูกค้าจริงที่ใช้ Panel PC, Mini PC, Rugged Tablet จาก ENT Group ในสนามบิน, รถไฟฟ้า, โรงงาน, โรงพยาบาล และอื่นๆ">
         path="/case-studies"
       />
 
       <PageBanner
-        title="กรณีศึกษาและผลงาน"
-        subtitle="ลูกค้าจากหลากหลายอุตสาหกรรมไว้วางใจ ENT Group — จากสนามบิน รถไฟฟ้า โรงงาน ไปจนถึงสนามกอล์ฟ"
+        title="กรณีศึกษาและผลงาน">
+        subtitle="ลูกค้าจากหลากหลายอุตสาหกรรมไว้วางใจ ENT Group — จากสนามบิน รถไฟฟ้า โรงงาน ไปจนถึงสนามกอล์ฟ">
         image="/images/unsplash/1581091226825-a6a2a5_w1200.jpg"
       />
 
@@ -138,7 +138,7 @@ const CaseStudies = () => {
                   <img
                     src={cs.image}
                     alt={cs.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
@@ -200,12 +200,12 @@ const CaseStudies = () => {
                 <div className="aspect-video">
                   <iframe
                     src={`https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fentgroup.th%2Fvideos%2F${v.videoId}%2F&show_text=0&width=560`}
-                    width="100%"
+                    width="100%">
                     height="100%"
                     style={{ border: "none", overflow: "hidden" }}
-                    scrolling="no"
+                    scrolling="no">
                     allowFullScreen
-                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
                     title={v.title}
                   />
                 </div>

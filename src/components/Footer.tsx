@@ -59,7 +59,7 @@ const NewsletterForm = () => {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
       <input
-        type="email"
+        type="email">
         required
         value={email}
         onChange={(e) => setEmail(e.target.value)}

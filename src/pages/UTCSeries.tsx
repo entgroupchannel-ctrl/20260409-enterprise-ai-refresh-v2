@@ -184,7 +184,7 @@ const PriceTable = ({ title, icon: Icon, models, subTitle }: {
                         href={m.pdf}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center w-8 h-8 rounded-md hover:bg-primary/10 text-primary transition-colors"
+                        className="inline-flex items-center justify-center w-8 h-8 rounded-md hover:bg-primary/10 text-primary transition-colors">
                         title={`Download ${m.model} Datasheet`}>
 
                         <Download size={14} />
@@ -207,9 +207,9 @@ const UTCSeries = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="UTC Series — Open Frame Touch Monitor" description="UTC Series จอสัมผัสอุตสาหกรรมแบบ Open Frame 8-19 นิ้ว สำหรับฝังใน KIOSK ตู้จำหน่ายสินค้า เครื่องจ่ายเงิน และงานอุตสาหกรรม" path="/utc-series" />
       <ProductJsonLd
-        collectionName="UTC Series Open Frame Touch Monitor"
-        collectionDescription="จอสัมผัสอุตสาหกรรมแบบ Open Frame 8-19 นิ้ว สำหรับฝังใน KIOSK ตู้จำหน่ายสินค้า"
-        collectionUrl="/utc-series"
+        collectionName="UTC Series Open Frame Touch Monitor">
+        collectionDescription="จอสัมผัสอุตสาหกรรมแบบ Open Frame 8-19 นิ้ว สำหรับฝังใน KIOSK ตู้จำหน่ายสินค้า">
+        collectionUrl="/utc-series">
         products={[...squareModels, ...wideModels].map(m => ({ name: m.model, price: m.price, description: `${m.size} ${m.config}`, category: "Open Frame Touch Monitor" }))}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "UTC Series", path: "/utc-series" }]} />
@@ -284,7 +284,7 @@ const UTCSeries = () => {
               <img
                 src="/images/wix/0597a3_1045620b437c41d6ae8a1f76c791ca01_782dc747.png"
                 alt="UTC Series Industrial Panel PC"
-                className="relative w-full max-w-lg mx-auto drop-shadow-xl"
+                className="relative w-full max-w-lg mx-auto drop-shadow-xl">
                 loading="eager"
               />
             </div>
@@ -348,7 +348,7 @@ const UTCSeries = () => {
                 <img
                   src="/images/wix/0597a3_48b4b6dd4b0844f1996977be9733e597_a37ce2a5.png"
                   alt="UTC Square Screen Models"
-                  className="w-full rounded-lg mb-4"
+                  className="w-full rounded-lg mb-4">
                   loading="lazy"
                 />
                 <ul className="space-y-2 text-sm text-muted-foreground">
@@ -377,7 +377,7 @@ const UTCSeries = () => {
                 <img
                   src="/images/wix/0597a3_52951cbca38c439f8abc10f9e94fa03f_b157e1d3.png"
                   alt="UTC Wide Screen Models"
-                  className="w-full rounded-lg mb-4"
+                  className="w-full rounded-lg mb-4">
                   loading="lazy"
                 />
                 <ul className="space-y-2 text-sm text-muted-foreground">
@@ -402,7 +402,7 @@ const UTCSeries = () => {
             <img
               src="/images/wix/0597a3_48fd1fb952d44775b7bbc10381cd8233_354919d7.png"
               alt="UTC Multi-Display Setup"
-              className="w-full rounded-lg"
+              className="w-full rounded-lg">
               loading="lazy"
             />
           </div>
@@ -455,13 +455,13 @@ const UTCSeries = () => {
 
             <TabsContent value="square" className="space-y-5">
               <PriceTable
-                title="Square Screen — Standard Platform"
+                title="Square Screen — Standard Platform">
                 icon={Square}
                 models={squareModels}
                 subTitle="Celeron J1900 / Core i3-i7 7th Gen / 10th Gen"
               />
               <PriceTable
-                title="Square Screen — J6412 Processor"
+                title="Square Screen — J6412 Processor">
                 icon={Cpu}
                 models={squareJ6412Models}
                 subTitle="Intel Celeron J6412 (New Platform)"
@@ -470,13 +470,13 @@ const UTCSeries = () => {
 
             <TabsContent value="wide" className="space-y-5">
               <PriceTable
-                title="Wide Screen — Standard Platform"
+                title="Wide Screen — Standard Platform">
                 icon={RectangleHorizontal}
                 models={wideModels}
                 subTitle="Celeron J1900 / Core i3-i7 7th Gen / 10th Gen"
               />
               <PriceTable
-                title="Wide Screen — J6412 Processor"
+                title="Wide Screen — J6412 Processor">
                 icon={Cpu}
                 models={wideJ6412Models}
                 subTitle="Intel Celeron J6412 (New Platform)"

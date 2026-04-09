@@ -71,12 +71,12 @@ const EdgeAISection = () => {
           </div>
 
           <div
-            className="relative group"
+            className="relative group">
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
             <div
-              className="card-surface rounded-2xl overflow-hidden relative aspect-[4/3]"
+              className="card-surface rounded-2xl overflow-hidden relative aspect-[4/3]">
               onTouchStart={(e) => {
                 touchStartX.current = e.touches[0].clientX;
               }}
@@ -102,8 +102,8 @@ const EdgeAISection = () => {
                   <img
                     src={slide.src}
                     alt={slide.alt}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
+                    className="w-full h-full object-cover">
+                    loading="lazy">
                     width={1024}
                     height={768}
                   />

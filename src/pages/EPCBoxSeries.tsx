@@ -432,7 +432,7 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
           <img
             src={allImages[activeImg]}
             alt={series.name}
-            className="max-h-[220px] object-contain mb-4 transition-opacity duration-500"
+            className="max-h-[220px] object-contain mb-4 transition-opacity duration-500">
             loading="lazy"
           />
           {allImages.length > 1 && (
@@ -453,7 +453,7 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
             href={series.datasheetUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity"
+            className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity">
             Datasheet <ExternalLink size={14} />
           </a>
         </div>
@@ -523,11 +523,11 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
               <div className="p-4">
                 <div className="aspect-video rounded-lg overflow-hidden">
                   <iframe
-                    src="https://www.youtube.com/embed/n_AVEOTjeAA"
+                    src="https://www.youtube.com/embed/n_AVEOTjeAA">
                     title={`EPC Box ${series.name} Video`}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                     allowFullScreen
-                    className="w-full h-full"
+                    className="w-full h-full">
                     loading="lazy"
                   />
                 </div>
@@ -756,9 +756,9 @@ const EPCBoxSeries = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="EPC Box Series — Fanless Modular Industrial PC" description="EPC Box Series คอมพิวเตอร์อุตสาหกรรม Fanless แบบ Modular LEGO MODE รองรับ Intel N100 ถึง Core i7 สำหรับโรงงานและ IoT" path="/epc-box-series" />
       <ProductJsonLd
-        collectionName="EPC Box Series Fanless Modular Industrial PC"
-        collectionDescription="EPC Box Series คอมพิวเตอร์อุตสาหกรรม Fanless แบบ Modular สำหรับโรงงานและ IoT"
-        collectionUrl="/epc-box-series"
+        collectionName="EPC Box Series Fanless Modular Industrial PC">
+        collectionDescription="EPC Box Series คอมพิวเตอร์อุตสาหกรรม Fanless แบบ Modular สำหรับโรงงานและ IoT">
+        collectionUrl="/epc-box-series">
         products={priceList.map(m => ({ name: m.model, price: m.price, description: m.spec, category: "Fanless Modular Industrial PC" }))}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "EPC Box Series", path: "/epc-box-series" }]} />
@@ -811,7 +811,7 @@ const EPCBoxSeries = () => {
                   href="/datasheets/0597a3_9dad5caa6c4d4410a723cab33c3177bf.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
                   CESIPC E-Catalog <ExternalLink size={16} />
                 </a>
                 <a
@@ -821,7 +821,7 @@ const EPCBoxSeries = () => {
                 </a>
                 <a
                   href="#10xa"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold hover:bg-muted transition-colors"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold hover:bg-muted transition-colors">
                   ดูสินค้าทั้งหมด <ChevronDown size={16} />
                 </a>
               </div>
@@ -843,7 +843,7 @@ const EPCBoxSeries = () => {
           <img
             src="/images/wix/0597a3_7c3f2bd701f340ee993f725c168c1bec_e05257e7.png"
             alt="Trusted by global industries"
-            className="w-full max-w-3xl mx-auto h-auto opacity-70"
+            className="w-full max-w-3xl mx-auto h-auto opacity-70">
             loading="lazy"
           />
           <p className="text-center text-sm text-muted-foreground mt-4">
@@ -918,7 +918,7 @@ const EPCBoxSeries = () => {
               <a
                 key={s.id}
                 href={`#${s.id}`}
-                className="shrink-0 px-4 py-2 rounded-lg text-sm font-medium border border-border hover:border-primary/50 hover:bg-primary/5 text-foreground transition-all"
+                className="shrink-0 px-4 py-2 rounded-lg text-sm font-medium border border-border hover:border-primary/50 hover:bg-primary/5 text-foreground transition-all">
                 {s.name.replace(" Series", "")}
               </a>
             ))}
@@ -1042,11 +1042,11 @@ const EPCBoxSeries = () => {
               </div>
               <div className="aspect-video">
                 <iframe
-                  src="https://www.youtube.com/embed/n_AVEOTjeAA"
-                  title="EPC Box Series Overview"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  src="https://www.youtube.com/embed/n_AVEOTjeAA">
+                  title="EPC Box Series Overview">
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                   allowFullScreen
-                  className="w-full h-full"
+                  className="w-full h-full">
                   loading="lazy"
                 />
               </div>
@@ -1071,9 +1071,9 @@ const EPCBoxSeries = () => {
                     <iframe
                       src={`https://www.youtube.com/embed/${video.id}`}
                       title={video.title}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                       allowFullScreen
-                      className="w-full h-full"
+                      className="w-full h-full">
                       loading="lazy"
                     />
                   </div>
@@ -1136,7 +1136,7 @@ const EPCBoxSeries = () => {
             </button>
             <button
               onClick={() => setShowLineQR(true)}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[hsl(142,70%,45%)] text-white font-bold text-lg hover:opacity-90 transition-opacity"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[hsl(142,70%,45%)] text-white font-bold text-lg hover:opacity-90 transition-opacity">
               LINE @entgroup
             </button>
             <Link

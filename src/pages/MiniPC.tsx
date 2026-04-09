@@ -820,9 +820,9 @@ const MiniPC = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="Mini PC Series — คอมพิวเตอร์ขนาดเล็กสมรรถนะสูง" description="Mini PC จากโรงงานผู้ผลิตโดยตรง ครอบคลุมทุกการใช้งานตั้งแต่ Entry-Level จนถึง Workstation Class ราคาเริ่มต้น 8,190 บาท" path="/mini-pc" />
       <ProductJsonLd
-        collectionName="Mini PC Series"
-        collectionDescription="คอมพิวเตอร์ขนาดเล็กสมรรถนะสูง จากโรงงานผู้ผลิตโดยตรง ราคาเริ่มต้น 8,190 บาท"
-        collectionUrl="/mini-pc"
+        collectionName="Mini PC Series">
+        collectionDescription="คอมพิวเตอร์ขนาดเล็กสมรรถนะสูง จากโรงงานผู้ผลิตโดยตรง ราคาเริ่มต้น 8,190 บาท">
+        collectionUrl="/mini-pc">
         products={[
           { name: "K6-F1 Mini PC", price: "4,900", category: "Mini PC" },
           { name: "K6-F17H Mini PC", price: "5,500", category: "Mini PC" },
@@ -964,7 +964,7 @@ const MiniPC = () => {
                   <select
                     value={filterCat}
                     onChange={(e) => handleFilterCat(e.target.value)}
-                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none"
+                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none">
                     {priceCategories.map((c) => <option key={c} value={c}>{c}</option>)}
 
                   </select>
@@ -975,7 +975,7 @@ const MiniPC = () => {
                   <select
                     value={filterCpu}
                     onChange={(e) => handleFilterCpu(e.target.value)}
-                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none"
+                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none">
                     {cpuLevels.map((c) => <option key={c} value={c}>{c}</option>)}
 
                   </select>
@@ -986,7 +986,7 @@ const MiniPC = () => {
                   <select
                     value={filterPrice}
                     onChange={(e) => handleFilterPrice(Number(e.target.value))}
-                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none"
+                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none">
                     {priceRanges.map((r, i) => <option key={i} value={i}>{r.label}</option>)}
 
                   </select>
@@ -1069,7 +1069,7 @@ const MiniPC = () => {
                     size="sm"
                     disabled={currentPage === totalPages}
                     onClick={() => setCurrentPage((p) => p + 1)}
-                    className="text-xs"
+                    className="text-xs">
                     ถัดไป →
                   </Button>
                 </div>

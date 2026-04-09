@@ -47,7 +47,7 @@ const AIOCard = ({
       selected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"
     }`}
     {/* Image */}
-    <div className="relative bg-secondary/30 p-4 flex items-center justify-center h-52"
+    <div className="relative bg-secondary/30 p-4 flex items-center justify-center h-52">
         item={{
           id: product.id,
           name: product.model,
@@ -67,7 +67,7 @@ const AIOCard = ({
         <img
           src={product.image}
           alt={product.model}
-          className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300 cursor-pointer"
+          className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300 cursor-pointer">
           loading="lazy"
         />
       </Link>
@@ -159,8 +159,8 @@ const AllInOnePC = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead
-        title="All-in-One PC อุตสาหกรรม — Box PC, Panel PC, AIO Desktop"
-        description="คอมพิวเตอร์ All-in-One สำหรับอุตสาหกรรม จอสัมผัส ประหยัดพื้นที่ VESA/Panel Mount — 15 รุ่น Windows & Android"
+        title="All-in-One PC อุตสาหกรรม — Box PC, Panel PC, AIO Desktop">
+        description="คอมพิวเตอร์ All-in-One สำหรับอุตสาหกรรม จอสัมผัส ประหยัดพื้นที่ VESA/Panel Mount — 15 รุ่น Windows & Android">
         path="/aio"
       />
       <BreadcrumbJsonLd

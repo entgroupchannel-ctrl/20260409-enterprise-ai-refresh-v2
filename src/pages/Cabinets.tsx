@@ -152,9 +152,9 @@ const Cabinets = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="ตู้ Rack & Cabinet อุตสาหกรรม" description="ตู้ Rack, ตู้ Cabinet อุตสาหกรรม สั่งผลิตขนาดพิเศษ วัสดุ Steel/SUS304/SUS316 มาตรฐาน IP65 พร้อมบริการออกแบบและติดตั้ง" path="/cabinets" />
       <ProductJsonLd
-        collectionName="ตู้ Rack & Cabinet อุตสาหกรรม"
-        collectionDescription="ตู้ Rack, ตู้ Cabinet อุตสาหกรรม สั่งผลิตขนาดพิเศษ วัสดุ Steel/SUS304/SUS316 มาตรฐาน IP65"
-        collectionUrl="/cabinets"
+        collectionName="ตู้ Rack & Cabinet อุตสาหกรรม">
+        collectionDescription="ตู้ Rack, ตู้ Cabinet อุตสาหกรรม สั่งผลิตขนาดพิเศษ วัสดุ Steel/SUS304/SUS316 มาตรฐาน IP65">
+        collectionUrl="/cabinets">
         products={[{ name: "Custom Industrial Cabinet", category: "ตู้ Rack & Cabinet" }]}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "ตู้ Rack & Cabinet", path: "/cabinets" }]} />
@@ -231,7 +231,7 @@ const Cabinets = () => {
                   <img
                     src={model.image}
                     alt={model.name}
-                    className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                    className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
                     loading="lazy"
                   />
                 </div>

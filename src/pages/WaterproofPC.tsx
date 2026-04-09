@@ -162,9 +162,9 @@ const WaterproofPC = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="Waterproof Panel PC — IP67 IP69K กันน้ำ" description="Waterproof Panel PC มาตรฐาน IP67 IP69K กันน้ำ กันฝุ่น Stainless Steel SUS316 สำหรับอุตสาหกรรมอาหาร ยา และห้องคลีนรูม" path="/waterproof-pc" />
       <ProductJsonLd
-        collectionName="Waterproof Panel PC IP67 IP69K"
-        collectionDescription="Waterproof Panel PC มาตรฐาน IP67 IP69K กันน้ำ กันฝุ่น Stainless Steel สำหรับอุตสาหกรรมอาหารและยา"
-        collectionUrl="/waterproof-pc"
+        collectionName="Waterproof Panel PC IP67 IP69K">
+        collectionDescription="Waterproof Panel PC มาตรฐาน IP67 IP69K กันน้ำ กันฝุ่น Stainless Steel สำหรับอุตสาหกรรมอาหารและยา">
+        collectionUrl="/waterproof-pc">
         products={models.map(m => ({ name: m.name, image: m.image, description: `${m.model} Waterproof Panel PC`, category: "Waterproof Panel PC" }))}
       />
 
@@ -232,7 +232,7 @@ const WaterproofPC = () => {
               <img
                 src="/images/wix/0597a3_0ad34056abce4284bb55ec5a2fb4ea1b_f03de733.png"
                 alt="IP67 Protection"
-                className="w-full h-auto rounded-lg"
+                className="w-full h-auto rounded-lg">
                 loading="lazy"
               />
             </div>
@@ -359,7 +359,7 @@ const WaterproofPC = () => {
           <img
             src="/images/wix/0597a3_ffe271d4f86b4f699e9760cb18da5733_29923812.png"
             alt="Waterproof PC Applications"
-            className="w-full h-auto"
+            className="w-full h-auto">
             loading="lazy"
           />
         </section>

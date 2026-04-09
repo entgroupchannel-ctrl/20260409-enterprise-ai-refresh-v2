@@ -319,9 +319,9 @@ const GBSeries = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="GB Series — Compact Mini PC สำนักงาน" description="GB Series Mini PC ขนาดกะทัดรัด รองรับ Intel N100 ถึง Core i7 สำหรับสำนักงาน Digital Signage และ Thin Client ราคาจากโรงงาน" path="/gb-series" />
       <ProductJsonLd
-        collectionName="GB Series Compact Mini PC"
-        collectionDescription="GB Series Mini PC ขนาดกะทัดรัด รองรับ Intel N100 ถึง Core i7 สำหรับสำนักงาน Digital Signage และ Thin Client"
-        collectionUrl="/gb-series"
+        collectionName="GB Series Compact Mini PC">
+        collectionDescription="GB Series Mini PC ขนาดกะทัดรัด รองรับ Intel N100 ถึง Core i7 สำหรับสำนักงาน Digital Signage และ Thin Client">
+        collectionUrl="/gb-series">
         products={models.map(m => ({ name: m.name, description: m.tagline, category: "Compact Mini PC" }))}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "GB Series", path: "/gb-series" }]} />
@@ -649,7 +649,7 @@ const GBSeries = () => {
             </button>
             <button
               onClick={() => setShowLineQR(true)}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[hsl(142,70%,45%)] text-white font-bold text-lg hover:opacity-90 transition-opacity"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[hsl(142,70%,45%)] text-white font-bold text-lg hover:opacity-90 transition-opacity">
               LINE @entgroup
             </button>
             <a

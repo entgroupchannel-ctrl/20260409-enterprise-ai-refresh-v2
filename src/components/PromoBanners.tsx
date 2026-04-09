@@ -89,7 +89,7 @@ const PromoBanners = () => {
             <img
               src={featured.image}
               alt={featured.title}
-              className="max-h-56 object-contain group-hover:scale-105 transition-transform duration-500"
+              className="max-h-56 object-contain group-hover:scale-105 transition-transform duration-500">
               loading="lazy"
             />
           </div>
@@ -144,7 +144,7 @@ const PromoBanners = () => {
                 <img
                   src={promo.image}
                   alt={promo.title}
-                  className="max-h-32 object-contain group-hover:scale-105 transition-transform duration-500"
+                  className="max-h-32 object-contain group-hover:scale-105 transition-transform duration-500">
                   loading="lazy"
                 />
               </div>

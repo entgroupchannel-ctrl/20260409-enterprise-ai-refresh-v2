@@ -353,9 +353,9 @@ const EPCSeries = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="EPC Series — Industrial Panel PC จอสัมผัส" description="EPC Series Panel PC อุตสาหกรรม จอสัมผัส IP65 Fanless ขนาด 10-21 นิ้ว สำหรับโรงงาน POS SCADA และงานควบคุม" path="/epc-series" />
       <ProductJsonLd
-        collectionName="EPC Series Industrial Panel PC"
-        collectionDescription="Panel PC อุตสาหกรรม จอสัมผัส IP65 Fanless ขนาด 10-21 นิ้ว สำหรับโรงงาน POS SCADA"
-        collectionUrl="/epc-series"
+        collectionName="EPC Series Industrial Panel PC">
+        collectionDescription="Panel PC อุตสาหกรรม จอสัมผัส IP65 Fanless ขนาด 10-21 นิ้ว สำหรับโรงงาน POS SCADA">
+        collectionUrl="/epc-series">
         products={priceListSquare.map(m => ({ name: m.model, price: m.price, description: m.config, category: "Industrial Panel PC" }))}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "EPC Series", path: "/epc-series" }]} />
@@ -424,7 +424,7 @@ const EPCSeries = () => {
               <img
                 src={epcHeroPanelPC}
                 alt="EPC Industrial Panel PC with Touchscreen"
-                className="w-full max-w-md h-auto rounded-xl shadow-2xl border border-white/10"
+                className="w-full max-w-md h-auto rounded-xl shadow-2xl border border-white/10">
                 width={896}
                 height={1024}
               />
@@ -476,7 +476,7 @@ const EPCSeries = () => {
             <img
               src="/images/wix/0597a3_7c3f2bd701f340ee993f725c168c1bec_e05257e7.png"
               alt="CESIPC Certifications"
-              className="w-full h-auto p-6"
+              className="w-full h-auto p-6">
               loading="lazy"
             />
           </div>
