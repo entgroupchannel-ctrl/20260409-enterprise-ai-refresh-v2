@@ -1,7 +1,7 @@
 // src/pages/customer/UserDashboard.tsx
 // Unified single-page dashboard — Quotes, Cart, Profile all in one view
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, memo } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { useCart } from '@/hooks/useCart';
