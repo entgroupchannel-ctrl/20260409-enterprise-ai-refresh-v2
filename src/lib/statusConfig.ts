@@ -88,9 +88,14 @@ export const soStatusConfig: Record<string, StatusConfig> = {
     en: 'Confirmed',
     color: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400',
   },
-  processing: {
-    th: 'กำลังดำเนินการ',
-    en: 'Processing',
+  preparing: {
+    th: 'กำลังจัดเตรียม',
+    en: 'Preparing',
+    color: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400',
+  },
+  ready_to_ship: {
+    th: 'พร้อมจัดส่ง',
+    en: 'Ready to Ship',
     color: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400',
   },
   shipped: {
@@ -99,14 +104,29 @@ export const soStatusConfig: Record<string, StatusConfig> = {
     color: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-400',
   },
   delivered: {
-    th: 'ส่งถึงแล้ว',
+    th: 'ส่งมอบแล้ว',
     en: 'Delivered',
     color: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
+  },
+  completed: {
+    th: 'เสร็จสมบูรณ์',
+    en: 'Completed',
+    color: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400',
   },
   cancelled: {
     th: 'ยกเลิก',
     en: 'Cancelled',
     color: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
+  },
+  in_production: {
+    th: 'กำลังจัดเตรียม',
+    en: 'In Production',
+    color: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400',
+  },
+  processing: {
+    th: 'กำลังดำเนินการ',
+    en: 'Processing',
+    color: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400',
   },
 };
 
