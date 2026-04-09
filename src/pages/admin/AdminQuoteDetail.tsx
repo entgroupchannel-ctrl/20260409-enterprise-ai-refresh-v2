@@ -115,6 +115,7 @@ export default function AdminQuoteDetail() {
   const [showRejectDialog, setShowRejectDialog] = useState(false);
   const [rejectReason, setRejectReason] = useState('');
   const [processing, setProcessing] = useState(false);
+  const [showCreateSO, setShowCreateSO] = useState(false);
 
   useEffect(() => {
     if (id) {
