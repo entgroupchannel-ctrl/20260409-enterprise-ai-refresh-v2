@@ -20,8 +20,8 @@ const Menubar = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <MenubarPrimitive.Root
     ref={ref}
-    className={cn("flex h-10 items-center space-x-1 rounded-md border bg-background p-1", className)}>
-    {...props}
+    className={cn("flex h-10 items-center space-x-1 rounded-md border bg-background p-1", className)}
+    {{...props}}
   />
 ));
 Menubar.displayName = MenubarPrimitive.Root.displayName;
@@ -165,8 +165,8 @@ const MenubarLabel = React.forwardRef<
 >(({ className, inset, ...props }, ref) => (
   <MenubarPrimitive.Label
     ref={ref}
-    className={cn("px-2 py-1.5 text-sm font-semibold", inset && "pl-8", className)}>
-    {...props}
+    className={cn("px-2 py-1.5 text-sm font-semibold", inset && "pl-8", className)}
+    {{...props}}
   />
 ));
 MenubarLabel.displayName = MenubarPrimitive.Label.displayName;
