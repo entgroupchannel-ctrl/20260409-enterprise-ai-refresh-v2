@@ -10,6 +10,7 @@ import { I18nProvider } from "@/contexts/I18nContext";
 import Index from "./pages/Index.tsx";
 import ScrollToTop from "./components/ScrollToTop.tsx";
 import SocialRibbon from "./components/SocialRibbon.tsx";
+import ProtectedRoute from "./components/ProtectedRoute.tsx";
 
 /* ── Lazy-loaded pages ── */
 const GTSeries = lazy(() => import("./pages/GTSeries.tsx"));
