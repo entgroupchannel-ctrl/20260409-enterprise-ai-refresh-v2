@@ -344,7 +344,7 @@ export default function AdminQuoteDetail() {
     );
   }
 
-  const poFiles = files.filter((f) => f.category === 'customer_po' || f.category === 'attachment');
+  const poFiles = files.filter((f) => f.category === 'po' || f.category === 'customer_po');
   const quoteFiles = files.filter((f) => f.category === 'quote_pdf');
 
   return (
