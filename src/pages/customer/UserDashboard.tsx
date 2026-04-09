@@ -270,7 +270,11 @@ export default function UserDashboard() {
     const channel = supabase
       .channel(`quote_msgs_${id}`)
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'quote_messages', filter: `quote_id=eq.${id}` }, (payload) => {
-        setQuoteMessages(prev => [...prev, payload.new as any]);
+        setQuoteMessages(prev => {
+          const newMsg = payload.new as any;
+          if (prev.some((m: any) => m.id === newMsg.id)) return prev;
+          return [...prev, newMsg];
+        });
       })
       .subscribe();
     return () => { channel.unsubscribe(); };
