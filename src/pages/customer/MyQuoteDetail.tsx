@@ -517,11 +517,6 @@ export default function MyQuoteDetail() {
                 </CardContent>
               </Card>
             )}
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            )}
 
           </div>
 
