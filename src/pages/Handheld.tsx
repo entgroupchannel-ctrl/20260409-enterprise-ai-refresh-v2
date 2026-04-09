@@ -65,6 +65,29 @@ const HandheldCard = ({
           specs: product.nameTH,
         }}
         className="absolute top-3 right-3"
+    >
+    >
+    >
+    >
+    >
+    >
+    >
+    >
+    >
+    >
+    >
+    >
+    >
+    >
+    >
+    >
+    >
+    >
+    >
+    >
+    >
+    >
+    >
       />
       <button
         onClick={(e) => { e.preventDefault(); e.stopPropagation(); onToggleSelect(product.model); }}

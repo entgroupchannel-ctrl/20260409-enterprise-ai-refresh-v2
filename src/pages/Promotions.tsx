@@ -282,6 +282,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
           <button
             onClick={() => setExpanded(!expanded)}
             className="flex items-center gap-1 text-xs text-primary font-medium mb-3 hover:underline"
+          >
             {expanded ? "ซ่อนรายละเอียด" : "ดูรายละเอียดเพิ่มเติม"}
             <ChevronDown size={14} className={`transition-transform duration-200 ${expanded ? "rotate-180" : ""}`} />
           </button>
@@ -312,6 +313,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
                     ? "bg-primary text-primary-foreground"
                     : "bg-secondary text-foreground"
                 }`}
+              >
                 {promo.ctaLabel}
               </LineQRButton>
             ) : (

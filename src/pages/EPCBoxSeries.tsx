@@ -807,10 +807,12 @@ const EPCBoxSeries = () => {
                   href="#pricing"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold hover:bg-muted transition-colors"
                   ดูราคาสินค้า
+                >
                 </a>
                 <a
                   href="#10xa"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold hover:bg-muted transition-colors"
+                >
                   ดูสินค้าทั้งหมด <ChevronDown size={16} />
                 </a>
               </div>
@@ -907,6 +909,7 @@ const EPCBoxSeries = () => {
                 key={s.id}
                 href={`#${s.id}`}
                 className="shrink-0 px-4 py-2 rounded-lg text-sm font-medium border border-border hover:border-primary/50 hover:bg-primary/5 text-foreground transition-all"
+              >
                 {s.name.replace(" Series", "")}
               </a>
             ))}
@@ -914,6 +917,7 @@ const EPCBoxSeries = () => {
               href="#pricing"
               className="shrink-0 px-4 py-2 rounded-lg text-sm font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
               ราคา
+            >
             </a>
           </div>
         </div>
@@ -1125,11 +1129,13 @@ const EPCBoxSeries = () => {
             <button
               onClick={() => setShowLineQR(true)}
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[hsl(142,70%,45%)] text-white font-bold text-lg hover:opacity-90 transition-opacity"
+            >
               LINE @entgroup
             </button>
             <Link
               to="/"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-border text-foreground font-bold text-lg hover:bg-muted transition-colors"
+            >
               <ArrowLeft size={18} /> กลับหน้าหลัก
             </Link>
           </div>

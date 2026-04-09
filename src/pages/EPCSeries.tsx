@@ -458,6 +458,7 @@ const EPCSeries = () => {
                     ? "bg-primary text-primary-foreground"
                     : "bg-secondary/50 text-foreground/70 hover:bg-secondary"
                 }`}
+              >
                 {cat.label}
               </a>
             ))}
