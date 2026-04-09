@@ -39,6 +39,7 @@ export default function QuoteRequestButton({
 }: QuoteRequestButtonProps) {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
 
   // Phase: 'product-selection' (compact) → 'full-form' (3-column)
