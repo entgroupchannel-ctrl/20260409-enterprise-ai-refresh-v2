@@ -521,7 +521,6 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
                   <iframe
                     src="https://www.youtube.com/embed/n_AVEOTjeAA"
                     title={`EPC Box ${series.name} Video`}
-                    >
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     className="w-full h-full"
