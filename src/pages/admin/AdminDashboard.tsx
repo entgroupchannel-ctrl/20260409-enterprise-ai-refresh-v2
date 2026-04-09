@@ -5,6 +5,7 @@ import MetricsCard from '@/components/admin/MetricsCard';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { StatusBadge } from '@/components/ui/StatusBadge';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import {
@@ -100,17 +101,7 @@ export default function AdminDashboard() {
     }
   };
 
-  const getStatusBadge = (status: string) => {
-    const variants: Record<string, { label: string; variant: 'secondary' | 'default' | 'destructive' }> = {
-      pending: { label: 'รอตอบกลับ', variant: 'secondary' },
-      quote_sent: { label: 'ส่งราคาแล้ว', variant: 'default' },
-      po_uploaded: { label: 'รอตรวจ PO', variant: 'destructive' },
-      po_approved: { label: 'อนุมัติแล้ว', variant: 'default' },
-      completed: { label: 'เสร็จสิ้น', variant: 'default' },
-    };
-    const config = variants[status] || { label: status, variant: 'default' as const };
-    return <Badge variant={config.variant}>{config.label}</Badge>;
-  };
+  // StatusBadge is now imported from @/components/ui/StatusBadge
 
   const formatCurrency = (amount: number) =>
     new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', minimumFractionDigits: 0 }).format(amount);
@@ -179,7 +170,7 @@ export default function AdminDashboard() {
                           <span className="font-medium text-primary">{formatCurrency(quote.grand_total || 0)}</span>
                         </div>
                         <div className="flex items-center gap-4 text-sm">
-                          {getStatusBadge(quote.status)}
+                          <StatusBadge status={quote.status} />
                           <span className={timeRemaining.isOverdue ? 'text-destructive font-semibold' : 'text-muted-foreground'}>
                             ⏰ เหลือเวลา: {timeRemaining.text}
                           </span>
@@ -215,7 +206,7 @@ export default function AdminDashboard() {
                       <span className="text-muted-foreground text-sm">{quote.customer_company || quote.customer_name}</span>
                     </div>
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      {getStatusBadge(quote.status)}
+                      <StatusBadge status={quote.status} />
                       <span>{formatRelativeTime(quote.created_at)}</span>
                     </div>
                   </div>

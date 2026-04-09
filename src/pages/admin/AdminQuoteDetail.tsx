@@ -6,6 +6,7 @@ import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import AdminLayout from '@/layouts/AdminLayout';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { StatusBadge } from '@/components/ui/StatusBadge';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
@@ -332,20 +333,7 @@ export default function AdminQuoteDetail() {
     }
   };
 
-  const getStatusBadge = (status: string) => {
-    const config: Record<string, { label: string; variant: any; color: string }> = {
-      pending: { label: 'รอตอบกลับ', variant: 'secondary', color: 'bg-yellow-100 text-yellow-800' },
-      quote_sent: { label: 'ส่งราคาแล้ว', variant: 'default', color: 'bg-blue-100 text-blue-800' },
-      po_uploaded: { label: 'อัปโหลด PO แล้ว', variant: 'destructive', color: 'bg-purple-100 text-purple-800' },
-      po_confirmed: { label: 'ลูกค้าส่ง PO แล้ว', variant: 'default', color: 'bg-indigo-100 text-indigo-800' },
-      po_approved: { label: 'อนุมัติแล้ว', variant: 'default', color: 'bg-green-100 text-green-800' },
-      completed: { label: 'เสร็จสิ้น', variant: 'default', color: 'bg-gray-100 text-gray-800' },
-      rejected: { label: 'ปฏิเสธ', variant: 'destructive', color: 'bg-red-100 text-red-800' },
-    };
-
-    const conf = config[status] || { label: status, variant: 'default', color: 'bg-gray-100' };
-    return <Badge className={conf.color}>{conf.label}</Badge>;
-  };
+  // StatusBadge is now imported from @/components/ui/StatusBadge
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('th-TH', {
@@ -404,7 +392,7 @@ export default function AdminQuoteDetail() {
           </div>
 
           <div className="flex items-center gap-2">
-            {getStatusBadge(quote.status)}
+            <StatusBadge status={quote.status} />
             {quote.sla_breached && (
               <Badge variant="destructive" className="gap-1">
                 <AlertCircle className="w-3 h-3" />

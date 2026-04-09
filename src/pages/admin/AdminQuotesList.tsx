@@ -7,6 +7,7 @@ import AdminLayout from '@/layouts/AdminLayout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { StatusBadge } from '@/components/ui/StatusBadge';
 import { Card, CardContent } from '@/components/ui/card';
 import {
   Select,
@@ -108,19 +109,7 @@ export default function AdminQuotesList() {
     setFilteredQuotes(result);
   };
 
-  const getStatusBadge = (status: string) => {
-    const variants: Record<string, { label: string; variant: 'secondary' | 'default' | 'destructive' }> = {
-      pending: { label: 'รอตอบกลับ', variant: 'secondary' },
-      quote_sent: { label: 'ส่งราคาแล้ว', variant: 'default' },
-      po_uploaded: { label: 'อัปโหลด PO แล้ว', variant: 'secondary' },
-      po_confirmed: { label: 'ลูกค้าส่ง PO แล้ว', variant: 'destructive' },
-      po_approved: { label: 'อนุมัติแล้ว', variant: 'default' },
-      completed: { label: 'เสร็จสิ้น', variant: 'secondary' },
-      rejected: { label: 'ปฏิเสธ', variant: 'destructive' },
-    };
-    const config = variants[status] || { label: status, variant: 'default' as const };
-    return <Badge variant={config.variant}>{config.label}</Badge>;
-  };
+  // StatusBadge is now imported from @/components/ui/StatusBadge
 
   const formatCurrency = (amount: number) =>
     new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', minimumFractionDigits: 0 }).format(amount);
@@ -241,7 +230,7 @@ export default function AdminQuotesList() {
                         <span className="text-muted-foreground">{quote.customer_email}</span>
                       </div>
                       <div className="flex flex-wrap items-center gap-3 text-sm">
-                        {getStatusBadge(quote.status)}
+                        <StatusBadge status={quote.status} />
                         <QuoteStatusFlow status={quote.status} mini />
                         <span className="text-muted-foreground flex items-center gap-1">
                           <Clock className="w-3 h-3" />
