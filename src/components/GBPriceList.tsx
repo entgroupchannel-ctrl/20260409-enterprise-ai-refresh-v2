@@ -211,7 +211,7 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
             <input
               type="text"
               value={search}
-              onChange={(e) => { setSearch(e.target.value); setPage(1); }}>
+              onChange={(e) => { setSearch(e.target.value); setPage(1); }}
               placeholder="ค้นหา CPU, RAM, SSD..."
               className="w-full pl-9 pr-9 py-2.5 rounded-lg border border-border bg-background text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40"
             />
@@ -226,7 +226,7 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
             {cpuChips.map((cpu) => (
               <button
                 key={cpu}
-                onClick={() => { setSearch(search === cpu ? "" : cpu); setPage(1); }}>
+                onClick={() => { setSearch(search === cpu ? "" : cpu); setPage(1); }}
                 className={`px-2.5 py-1 rounded-full text-xs font-medium border transition-all ${
                   search === cpu
                     ? "bg-primary text-primary-foreground border-primary"

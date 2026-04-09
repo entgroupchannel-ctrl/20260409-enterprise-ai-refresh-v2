@@ -214,7 +214,7 @@ const HeroSection = () => {
                         navigate(item.href);
                         setSearchQuery("");
                         setSearchOpen(false);
-                      }}>
+                      }}
                       className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-primary/10 transition-colors border-b border-border/50 last:border-0"
                     >
                       <Search size={14} className="text-muted-foreground shrink-0" />

@@ -56,7 +56,7 @@ const AIOCard = ({
           image: product.image,
           href: `/aio`,
           specs: product.title,
-        }}>
+        }}
         className="absolute top-3 right-3"
       />
       <button

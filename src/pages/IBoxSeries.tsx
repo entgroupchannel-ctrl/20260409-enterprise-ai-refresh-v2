@@ -431,7 +431,7 @@ const IBoxSeries = () => {
                           image: model.image,
                           href: "/ibox-series",
                           specs: model.cpu,
-                        }}>
+                        }}
                         className="absolute top-3 right-3"
                       />
                       <img

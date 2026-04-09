@@ -326,7 +326,7 @@ const MegaMenu = ({
                 <div className="col-span-3">
                   <Link
                     to={active.featured.href}
-                    onClick={() => { setActiveMenu(null); onNavigate?.(); }}>
+                    onClick={() => { setActiveMenu(null); onNavigate?.(); }}
                     className="group block rounded-xl bg-gradient-to-br from-primary/15 via-primary/5 to-transparent border border-primary/20 p-4 hover:border-primary/40 transition-all duration-300 h-full">
                     <span className="px-1.5 py-0.5 rounded-full text-[8px] font-bold uppercase tracking-wider bg-primary text-primary-foreground">
                       {active.featured.badge}
@@ -369,7 +369,7 @@ const MegaMenu = ({
 
                             <Link
                               to={link.href}
-                              onClick={() => { setActiveMenu(null); onNavigate?.(); }}>
+                              onClick={() => { setActiveMenu(null); onNavigate?.(); }}
                               className="group flex items-center gap-1.5 py-1.5 px-2 -mx-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors">
                               <ChevronRight size={10} className="text-muted-foreground/40 group-hover:text-primary transition-colors" />
                               <span className="text-xs font-medium">{link.label}</span>
@@ -392,7 +392,7 @@ const MegaMenu = ({
                     return (
                       <Link
                         to="/about-us"
-                        onClick={() => { setActiveMenu(null); onNavigate?.(); }}>
+                        onClick={() => { setActiveMenu(null); onNavigate?.(); }}
                         className="group col-span-1 rounded-lg bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/15 p-3 flex flex-col justify-center hover:border-primary/30 transition-all">
                         <BannerIcon size={18} className="text-primary mb-2" />
                         <p className="text-xs font-bold text-foreground mb-1">{banner.title}</p>
@@ -412,7 +412,7 @@ const MegaMenu = ({
                 return (
                   <Link
                     to={promo.href}
-                    onClick={() => { setActiveMenu(null); onNavigate?.(); }}>
+                    onClick={() => { setActiveMenu(null); onNavigate?.(); }}
                     className="group mt-4 block rounded-xl overflow-hidden border border-border hover:border-primary/40 transition-all duration-300 relative h-24">
                     <img
                       src={promo.image}

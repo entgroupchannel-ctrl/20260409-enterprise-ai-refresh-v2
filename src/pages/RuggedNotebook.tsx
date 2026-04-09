@@ -451,7 +451,7 @@ const NotebookCard = ({ product, selected, onToggleSelect }: { product: RuggedNo
             {product.configs.map((c, i) => (
               <button
                 key={i}
-                onClick={(e) => { e.preventDefault(); setSelectedCfg(i); }}>
+                onClick={(e) => { e.preventDefault(); setSelectedCfg(i); }}
                 className={`w-full text-left p-2.5 rounded-lg border text-xs transition-all ${
                   i === selectedCfg ? "border-primary bg-primary/5 ring-1 ring-primary/20" : "border-border hover:border-primary/30"
                 }`}>

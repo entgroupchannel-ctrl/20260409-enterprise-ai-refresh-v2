@@ -398,7 +398,7 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
                           </div>
                         )}
                       </div>
-                      <button type="button" onClick={() => { setCardPreview(null); fileInputRef.current && (fileInputRef.current.value = ""); }}>
+                      <button type="button" onClick={() => { setCardPreview(null); fileInputRef.current && (fileInputRef.current.value = ""); }}
                         className="text-xs text-muted-foreground hover:text-destructive transition-colors">{i.removeCard}</button>
                     </div>
                   ) : (
