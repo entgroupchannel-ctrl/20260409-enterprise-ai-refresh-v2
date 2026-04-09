@@ -114,6 +114,19 @@ export default function AdminQuoteDetail() {
   const [messageText, setMessageText] = useState('');
   const [sendingMessage, setSendingMessage] = useState(false);
 
+  // Customer editing
+  const [editingCustomer, setEditingCustomer] = useState(false);
+  const [customerForm, setCustomerForm] = useState({
+    customer_name: '',
+    customer_email: '',
+    customer_phone: '',
+    customer_company: '',
+    customer_address: '',
+    customer_tax_id: '',
+    customer_line: '',
+  });
+  const [savingCustomer, setSavingCustomer] = useState(false);
+
   // Dialog states
   const [showApproveDialog, setShowApproveDialog] = useState(false);
   const [showRejectDialog, setShowRejectDialog] = useState(false);
