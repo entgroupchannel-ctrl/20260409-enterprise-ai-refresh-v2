@@ -34,7 +34,7 @@ interface Quote {
   customer_phone: string | null;
   customer_company: string | null;
   customer_address: string | null;
-  products: any[];
+  products: any;
   subtotal: number;
   vat_amount: number;
   grand_total: number;
