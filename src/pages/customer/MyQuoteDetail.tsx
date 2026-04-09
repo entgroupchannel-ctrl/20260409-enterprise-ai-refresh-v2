@@ -256,16 +256,6 @@ export default function MyQuoteDetail() {
               <Button variant="outline" size="sm" onClick={() => window.print()}>
                 <Printer className="w-4 h-4 mr-2" />พิมพ์
               </Button>
-              {quote.status !== 'pending' && (
-                <Button variant="outline" size="sm">
-                  <Download className="w-4 h-4 mr-2" />ดาวน์โหลด PDF
-                </Button>
-              )}
-              {quote.status === 'quote_sent' && (
-                <Button size="sm" onClick={() => setShowPOUpload(true)}>
-                  <Upload className="w-4 h-4 mr-2" />อัปโหลด PO
-                </Button>
-              )}
             </div>
           </div>
         </div>
