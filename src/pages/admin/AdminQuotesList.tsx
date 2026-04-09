@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import QuoteStatusFlow from '@/components/quotes/QuoteStatusFlow';
+import QuoteTimeline from '@/components/quotes/QuoteTimeline';
 import QuoteStatusDropdown from '@/components/admin/QuoteStatusDropdown';
 import QuoteActionsMenu from '@/components/admin/QuoteActionsMenu';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -229,18 +229,20 @@ export default function AdminQuotesList() {
                         <span className="text-foreground">{quote.customer_company || quote.customer_name}</span>
                         <span className="text-muted-foreground">{quote.customer_email}</span>
                       </div>
-                      <div className="flex flex-wrap items-center gap-3 text-sm">
-                        <StatusBadge status={quote.status} />
-                        <QuoteStatusFlow status={quote.status} mini />
-                        <span className="text-muted-foreground flex items-center gap-1">
-                          <Clock className="w-3 h-3" />
-                          {formatRelativeTime(quote.created_at)}
-                        </span>
-                        {slaTime && (
-                          <span className={`flex items-center gap-1 font-medium ${slaTime.isOverdue ? 'text-destructive' : slaTime.isUrgent ? 'text-orange-600' : 'text-muted-foreground'}`}>
-                            <AlertCircle className="w-3 h-3" /> SLA: {slaTime.text}
+                      <div className="space-y-2">
+                        <div className="flex flex-wrap items-center gap-3 text-sm">
+                          <StatusBadge status={quote.status} />
+                          <span className="text-muted-foreground flex items-center gap-1">
+                            <Clock className="w-3 h-3" />
+                            {formatRelativeTime(quote.created_at)}
                           </span>
-                        )}
+                          {slaTime && (
+                            <span className={`flex items-center gap-1 font-medium ${slaTime.isOverdue ? 'text-destructive' : slaTime.isUrgent ? 'text-orange-600' : 'text-muted-foreground'}`}>
+                              <AlertCircle className="w-3 h-3" /> SLA: {slaTime.text}
+                            </span>
+                          )}
+                        </div>
+                        <QuoteTimeline currentStatus={quote.status} />
                       </div>
                     </div>
 
