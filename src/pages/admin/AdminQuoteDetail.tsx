@@ -817,6 +817,14 @@ export default function AdminQuoteDetail() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Create Sale Order Dialog */}
+      <CreateSaleOrderDialog
+        open={showCreateSO}
+        onOpenChange={setShowCreateSO}
+        quote={quote}
+        onSuccess={loadQuoteDetails}
+      />
     </AdminLayout>
   );
 }
