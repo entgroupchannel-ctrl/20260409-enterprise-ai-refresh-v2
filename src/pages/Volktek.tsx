@@ -197,7 +197,6 @@ const Volktek = () => {
                 </div>
               </div>
             ))}
-            >
           </div>
         </section>
 
@@ -222,7 +221,6 @@ const Volktek = () => {
                 <p className="text-xs text-muted-foreground leading-relaxed">{f.desc}</p>
               </div>
             ))}
-            >
           </div>
         </section>
 
@@ -263,11 +261,9 @@ const Volktek = () => {
                 key={cat.id}
                 href={`#${cat.id}`}
                 className="shrink-0 px-3 py-2 rounded-lg text-xs font-medium bg-secondary/50 text-foreground/70 border border-border hover:border-primary/30 transition-all"
-              >
                 {cat.title}
               </a>
             ))}
-            >
           </div>
 
           <div className="space-y-8">
@@ -283,12 +279,10 @@ const Volktek = () => {
                     {cat.modelImage && (
                       <img src={`${cat.modelImage}`} alt={`${cat.title} models`} className="w-full h-auto rounded-lg" loading="lazy" />
                     )}
-                    >
                   </div>
                 </div>
               </div>
             ))}
-            >
           </div>
         </section>
 
@@ -301,7 +295,6 @@ const Volktek = () => {
                 <img src={img} alt={`Volktek Product ${i + 1}`} className="w-full h-auto object-contain" loading="lazy" />
               </div>
             ))}
-            >
           </div>
         </section>
 
@@ -314,7 +307,6 @@ const Volktek = () => {
                 <img src={img} alt={`Application ${i + 1}`} className="w-full h-auto object-contain" loading="lazy" />
               </div>
             ))}
-            >
           </div>
         </section>
 
@@ -343,7 +335,6 @@ const Volktek = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-sm text-primary font-semibold hover:underline"
-              >
                 <Youtube size={16} /> ดูบน YouTube
               </a>
               <ShareButtons url="https://youtu.be/6Y6eEitc-yQ" title="Volktek Industrial Switch — รีวิวและแนะนำ" compact />

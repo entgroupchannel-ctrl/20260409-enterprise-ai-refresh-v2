@@ -590,13 +590,11 @@ const PaginatedPriceTable = ({ rows, perPage, totalPages }: {
                     {r.cpu}
                   </td>
                 )}
-                >
                 <td className="px-4 py-3 text-muted-foreground">{r.ram}</td>
                 <td className="px-4 py-3 text-muted-foreground">{r.ssd}</td>
                 <td className="px-4 py-3 text-right font-bold text-primary text-lg">{r.price}</td>
               </tr>
             ))}
-            >
           </tbody>
         </table>
       </div>
@@ -613,15 +611,12 @@ const PaginatedPriceTable = ({ rows, perPage, totalPages }: {
                 className={`h-7 w-7 rounded text-xs font-medium transition-colors ${
                   p === page ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground hover:bg-muted"
                 }`}
-                >
                 {p}
               </button>
             ))}
-            >
           </div>
         </div>
       )}
-      >
     </div>
   );
 };
@@ -646,7 +641,6 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                 Full HD
               </span>
             )}
-            >
           </div>
             item={{
               id: model.id,
@@ -668,7 +662,6 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
               loading="lazy"
             />
           )}
-          >
           {model.datasheetUrls.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-4 justify-center">
               {model.datasheetUrls.map((ds, i) => (
@@ -678,14 +671,11 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity"
-                >
                   {ds.label} <ExternalLink size={10} />
                 </a>
               ))}
-              >
             </div>
           )}
-          >
         </div>
 
         {/* Content side */}
@@ -697,7 +687,6 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
           <button
             onClick={() => onQuote(model.name)}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors mb-6"
-          >
             <ExternalLink size={14} /> ขอใบเสนอราคา {model.name}
           </button>
 
@@ -709,7 +698,6 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                 {h}
               </li>
             ))}
-            >
           </ul>
 
           {/* CPU Options */}
@@ -721,7 +709,6 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                   {cpu}
                 </span>
               ))}
-              >
             </div>
           </div>
 
@@ -734,7 +721,6 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                   {app}
                 </span>
               ))}
-              >
             </div>
           </div>
         </div>
@@ -747,27 +733,22 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
             <TabsTrigger
               value="spec"
               className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none px-6 py-3 text-sm font-semibold shrink-0"
-            >
               ►Specification
             </TabsTrigger>
             {model.priceTable.length > 0 && (
               <TabsTrigger
                 value="price"
                 className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none px-6 py-3 text-sm font-semibold shrink-0"
-              >
                 ►ราคา
               </TabsTrigger>
             )}
-            >
             {model.youtubeId && (
               <TabsTrigger
                 value="video"
                 className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none px-6 py-3 text-sm font-semibold shrink-0"
-              >
                 ►Video
               </TabsTrigger>
             )}
-            >
           </TabsList>
 
           <TabsContent value="spec" className="mt-0 p-0">
@@ -785,7 +766,6 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                             <td className="px-4 py-3 text-muted-foreground whitespace-pre-line">{s.value}</td>
                           </tr>
                         ))}
-                        >
                       </tbody>
                     </table>
                   </div>
@@ -805,7 +785,6 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                             <td className="px-4 py-2.5 text-muted-foreground text-xs whitespace-pre-line">{s.value}</td>
                           </tr>
                         ))}
-                        >
                       </tbody>
                     </table>
                   </div>
@@ -818,14 +797,12 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                             <td className="px-4 py-2.5 text-muted-foreground text-xs whitespace-pre-line">{s.value}</td>
                           </tr>
                         ))}
-                        >
                       </tbody>
                     </table>
                   </div>
                 </div>
               );
             })()}
-            >
           </TabsContent>
 
           {model.priceTable.length > 0 && (
@@ -840,13 +817,11 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                   <PaginatedPriceTable rows={allRows} perPage={PRICE_PER_PAGE} totalPages={totalPricePages} />
                 );
               })()}
-              >
               <div className="flex items-center justify-between p-4 border-t border-border bg-muted/20">
                 <PriceDisclaimer />
                 <button
                   onClick={() => onQuote(model.name)}
                   className="shrink-0 ml-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"
-                >
                   <ExternalLink size={14} /> ขอใบเสนอราคา
                 </button>
               </div>
@@ -858,7 +833,6 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
               <div className="aspect-video max-w-2xl mx-auto rounded-xl overflow-hidden border border-border">
                 <iframe
                   src={`https://www.youtube.com/embed/${model.youtubeId}`}
-                  >
                   title={`${model.name} Video`}
                   className="w-full h-full"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -867,7 +841,6 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
               </div>
             </TabsContent>
           )}
-          >
         </Tabs>
       </div>
     </div>
@@ -980,7 +953,6 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
                   {opt}
                 </button>
               ))}
-              >
             </div>
           </div>
           <div>
@@ -992,7 +964,6 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
                   {opt}
                 </button>
               ))}
-              >
             </div>
           </div>
           <div>
@@ -1004,7 +975,6 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
                   {opt}
                 </button>
               ))}
-              >
             </div>
           </div>
         </div>
@@ -1019,7 +989,6 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
             {tab.label}
           </button>
         ))}
-        >
       </div>
 
       {/* Comparison Table */}
@@ -1043,7 +1012,6 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
                 <p className="text-xs text-muted-foreground mt-0.5">({comparisonData.specs["ขนาดจอ"][i]})</p>
               </div>
             ))}
-            >
           </div>
 
           {/* Data Rows */}
@@ -1061,13 +1029,10 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
                     ) : (
                       values[i]
                     )}
-                    >
                   </div>
                 ))}
-                >
               </div>
             ))}
-            >
           </div>
 
           {/* Quote Buttons Row */}
@@ -1082,7 +1047,6 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
                 </button>
               </div>
             ))}
-            >
           </div>
         </div>
       )}
@@ -1104,7 +1068,6 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
             <p className="text-xs font-bold text-primary mt-2">→ ดู {item.model}</p>
           </button>
         ))}
-        >
       </div>
     </div>
   );
@@ -1184,7 +1147,6 @@ const GKSeries = () => {
                   <p className="text-xs text-muted-foreground">{stat.label}</p>
                 </div>
               ))}
-              >
             </div>
 
             <div className="flex flex-wrap gap-3">
@@ -1193,19 +1155,16 @@ const GKSeries = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
-              >
                 Product Overview <ExternalLink size={16} />
               </a>
               <a
                 href="#comparison"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-background/60 backdrop-blur-sm border border-border text-foreground font-semibold hover:bg-muted transition-colors"
-              >
                 เปรียบเทียบรุ่น
               </a>
               <a
                 href="#gk1004"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-background/60 backdrop-blur-sm border border-border text-foreground font-semibold hover:bg-muted transition-colors"
-              >
                 ดูสินค้าทั้งหมด <ChevronDown size={16} />
               </a>
             </div>
@@ -1231,7 +1190,6 @@ const GKSeries = () => {
                 <p className="text-sm text-muted-foreground">{c.desc}</p>
               </div>
             ))}
-            >
           </div>
         </div>
       </section>
@@ -1260,11 +1218,9 @@ const GKSeries = () => {
                 key={m.id}
                 href={`#${m.id}`}
                 className="shrink-0 px-4 py-2 rounded-lg text-sm font-medium border border-border hover:border-primary/50 hover:bg-primary/5 text-foreground transition-all"
-              >
                 {m.name} <span className="text-muted-foreground text-xs">({m.screenSize})</span>
               </a>
             ))}
-            >
           </div>
         </div>
       </section>
@@ -1286,7 +1242,6 @@ const GKSeries = () => {
             {gkModels.map((model, idx) => (
               <ModelSection key={model.id} model={model} index={idx} onQuote={(name) => { setQuoteProduct(name); setQuoteOpen(true); }} />
             ))}
-            >
           </div>
         </div>
       </section>
@@ -1313,7 +1268,6 @@ const GKSeries = () => {
             ].map((img, i) => (
               <img key={i} src={img} alt="GK Series installation" className="w-full aspect-square object-cover rounded-xl" loading="lazy" />
             ))}
-            >
           </div>
         </div>
       </section>
@@ -1396,11 +1350,9 @@ const GKSeries = () => {
                         ? "bg-primary text-primary-foreground border-primary"
                         : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"
                     }`}
-                    >
                     {tab}
                   </button>
                 ))}
-                >
               </div>
               <div className="grid md:grid-cols-2 gap-6">
                 {currentVideos.map((v) => (
@@ -1408,7 +1360,6 @@ const GKSeries = () => {
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
-                        >
                         title={v.title}
                         className="w-full h-full"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -1422,7 +1373,6 @@ const GKSeries = () => {
                     </div>
                   </div>
                 ))}
-                >
               </div>
             </div>
           </section>
@@ -1461,7 +1411,6 @@ const GKSeries = () => {
                 </audio>
               </div>
             ))}
-            >
           </div>
         </div>
       </section>
@@ -1547,7 +1496,6 @@ const GKSeries = () => {
                       className={s < review.stars ? "text-amber-400 fill-amber-400" : "text-muted-foreground/30"}
                     />
                   ))}
-                  >
                 </div>
                 <p className="text-sm text-foreground leading-relaxed mb-4">"{review.text}"</p>
                 <div className="border-t border-border pt-3">
@@ -1556,7 +1504,6 @@ const GKSeries = () => {
                 </div>
               </div>
             ))}
-            >
           </div>
 
           {/* PDPA Disclaimer */}
@@ -1586,13 +1533,11 @@ const GKSeries = () => {
             <button
               onClick={() => setShowLineQR(true)}
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[hsl(142,70%,45%)] text-white font-bold text-lg hover:opacity-90 transition-opacity"
-            >
               LINE @entgroup
             </button>
             <Link
               to="/"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-border text-foreground font-bold text-lg hover:bg-muted transition-colors"
-            >
               <ArrowLeft size={18} /> กลับหน้าหลัก
             </Link>
           </div>

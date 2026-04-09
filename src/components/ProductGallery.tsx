@@ -30,7 +30,6 @@ const ProductGallery = ({ images, alt, autoPlayInterval = 4000 }: ProductGallery
       className="relative group"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
-    >
       {/* Main image */}
       <div className="relative overflow-hidden rounded-xl bg-background/30 flex items-center justify-center min-h-[200px]">
         <img
@@ -45,14 +44,12 @@ const ProductGallery = ({ images, alt, autoPlayInterval = 4000 }: ProductGallery
           onClick={(e) => { e.stopPropagation(); prev(); }}
           className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-background/80 backdrop-blur-sm border border-border flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background"
           aria-label="Previous"
-        >
           <ChevronLeft size={16} className="text-foreground" />
         </button>
         <button
           onClick={(e) => { e.stopPropagation(); next(); }}
           className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-background/80 backdrop-blur-sm border border-border flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background"
           aria-label="Next"
-        >
           <ChevronRight size={16} className="text-foreground" />
         </button>
       </div>
@@ -68,11 +65,9 @@ const ProductGallery = ({ images, alt, autoPlayInterval = 4000 }: ProductGallery
                 ? "border-primary ring-2 ring-primary/30 scale-105"
                 : "border-transparent opacity-60 hover:opacity-100"
             }`}
-            >
             <img src={img} alt="" className="w-full h-full object-contain bg-background/50 p-0.5" loading="lazy" />
           </button>
         ))}
-        >
       </div>
 
       {/* Progress dots */}
@@ -84,11 +79,9 @@ const ProductGallery = ({ images, alt, autoPlayInterval = 4000 }: ProductGallery
             className={`h-1.5 rounded-full transition-all duration-300 ${
               i === current ? "w-6 bg-primary" : "w-1.5 bg-muted-foreground/30"
             }`}
-            >
             aria-label={`Slide ${i + 1}`}
           />
         ))}
-        >
       </div>
     </div>
   );

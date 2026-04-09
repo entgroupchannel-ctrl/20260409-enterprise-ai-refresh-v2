@@ -335,7 +335,6 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
               <X size={14} /> ล้างตัวกรอง
             </button>
           )}
-          >
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
@@ -370,7 +369,6 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                   ≥{n}
                 </button>
               ))}
-              >
             </div>
           </div>
 
@@ -384,7 +382,6 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                   ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40"
                   : "bg-background border border-border text-muted-foreground hover:border-primary/40"
               }`}
-              >
               {filterGpio === true ? "✓ มี GPIO" : "มี GPIO"}
             </button>
           </div>
@@ -399,7 +396,6 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                   ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40"
                   : "bg-background border border-border text-muted-foreground hover:border-primary/40"
               }`}
-              >
               {filterSim === true ? "✓ รองรับ SIM" : "รองรับ SIM"}
             </button>
           </div>
@@ -411,12 +407,10 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
               value={filterGen || ""}
               onChange={(e) => setFilterGen(e.target.value || null)}
               className="w-full py-2 px-3 rounded-lg bg-background border border-border text-sm text-foreground outline-none focus:ring-2 focus:ring-primary/30"
-            >
               <option value="">ทั้งหมด</option>
               {genOptions.map((g) => (
                 <option key={g} value={g}>{g}</option>
               ))}
-              >
             </select>
           </div>
         </div>
@@ -429,7 +423,6 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
             <span className="text-xs text-muted-foreground">จาก {comparisonRows.length} รุ่น</span>
           </div>
         )}
-        >
       </div>
 
       {/* Category Legend */}
@@ -444,7 +437,6 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
             {cat.label}
           </span>
         ))}
-        >
       </div>
 
       <div className="card-surface overflow-hidden rounded-2xl">
@@ -496,9 +488,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                   <tr
                     key={row.name}
                     className={`border-b border-border/50 transition-colors cursor-pointer ${catStyle}`}
-                    >
                     onClick={() => handleTabChange(row.name.toLowerCase())}
-                  >
                     <td className="p-4 sticky left-0 font-bold text-foreground" style={{ background: 'inherit' }}>
                       <div className="flex flex-col gap-1">
                         <span className="text-base">{row.name}</span>
@@ -526,7 +516,6 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                           <Fan size={12} className="inline mr-0.5" />มีพัดลม
                         </span>
                       )}
-                      >
                     </td>
                     <td className="p-4 text-center">
                       <span className={`inline-flex items-center justify-center w-7 h-7 rounded-full text-xs font-bold ${
@@ -553,7 +542,6 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                       ) : (
                         <span className="text-muted-foreground/40">—</span>
                       )}
-                      >
                     </td>
                     <td className="p-4 text-center">
                       {row.sim ? (
@@ -561,7 +549,6 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                       ) : (
                         <span className="text-muted-foreground/40">—</span>
                       )}
-                      >
                     </td>
                     <td className="p-4 text-center">
                       <span className="text-xs text-muted-foreground">{row.display}</span>
@@ -569,13 +556,11 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                     <td className="p-4 text-right">
                       <span className={`font-bold text-sm ${row.price === "สอบถาม" ? "text-muted-foreground" : "text-primary"}`}>
                         {row.price === "สอบถาม" ? "สอบถาม" : `฿${row.price}`}
-                        >
                       </span>
                     </td>
                   </tr>
                 );
               })}
-              >
             </tbody>
           </table>
         </div>
@@ -638,7 +623,6 @@ const GTSeries = () => {
                 <img src={img} alt={`GT Series สีสัน ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
               </div>
             ))}
-            >
           </div>
         </div>
       </div>
@@ -672,7 +656,6 @@ const GTSeries = () => {
               </div>
             </div>
           ))}
-          >
         </div>
       </div>
     </div>
@@ -749,12 +732,10 @@ const GTSeries = () => {
                 <span
                   key={item.word}
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 text-white font-bold text-base tracking-wide"
-                >
                   <item.Icon size={18} className="text-primary" />
                   {item.word}
                 </span>
               ))}
-              >
             </div>
 
             <p className="text-white/70 leading-relaxed max-w-lg text-sm md:text-base">
@@ -782,7 +763,6 @@ const GTSeries = () => {
               <button
                 onClick={() => handleTabChange("overview")}
                 className="inline-flex items-center justify-center gap-2 px-6 md:px-8 py-3 md:py-3.5 rounded-full bg-primary text-primary-foreground font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-primary/25"
-              >
                 ดูรุ่นทั้งหมด <ArrowLeft size={16} className="rotate-180" />
               </button>
               <button
@@ -791,7 +771,6 @@ const GTSeries = () => {
                   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
                 }}
                 className="inline-flex items-center justify-center gap-2 px-5 md:px-6 py-3 md:py-3.5 rounded-full border-2 border-white/30 text-white font-bold text-sm hover:bg-white/10 transition-all group"
-              >
                 <Filter size={16} />
                 <span>เปรียบเทียบสเปก</span>
                 <span className="hidden sm:inline px-2 py-0.5 rounded-full bg-white/15 text-[10px] font-bold tracking-wide uppercase group-hover:bg-white/25 transition-colors">Smart Filter</span>
@@ -815,14 +794,12 @@ const GTSeries = () => {
                 </div>
               </div>
             ))}
-            >
             {useCases.map((uc) => (
               <div key={uc.label} className="flex items-center gap-2 p-3 rounded-lg bg-card border border-border">
                 <uc.icon className="text-primary shrink-0" size={18} />
                 <span className="text-xs font-bold text-foreground">{uc.label}</span>
               </div>
             ))}
-            >
           </div>
         </div>
       </section>
@@ -851,15 +828,12 @@ const GTSeries = () => {
                     ? "bg-primary text-primary-foreground shadow-lg"
                     : "bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground border border-border"
                 }`}
-                >
                 {tab.label}
                 {tab.id === "gt1400" && (
                   <span className="ml-1.5 px-1.5 py-0.5 rounded-full bg-primary-foreground/20 text-[10px]">NEW</span>
                 )}
-                >
               </button>
             ))}
-            >
           </div>
 
           {/* Tab: Overview - All Models Grid */}
@@ -872,11 +846,9 @@ const GTSeries = () => {
                     key={model.name}
                     onClick={() => model.tab ? handleTabChange(model.tab) : undefined}
                     className={`group card-surface overflow-hidden hover:border-primary/30 transition-all hover:-translate-y-1 text-left cursor-pointer ${selectedProducts.has(model.name) ? "ring-2 ring-primary border-primary/50" : ""}`}
-                  >
                     <ModelCard model={model} onQuote={setQuoteProduct} selected={selectedProducts.has(model.name)} onToggleSelect={toggleSelect} />
                   </button>
                 ))}
-                >
               </div>
 
               {/* Use Cases & Branding */}
@@ -953,7 +925,6 @@ const GTSeries = () => {
                         <div className="text-[11px] text-muted-foreground/70 mt-0.5">{f.sub}</div>
                       </div>
                     ))}
-                    >
                   </div>
 
                   {/* Use Cases */}
@@ -965,7 +936,6 @@ const GTSeries = () => {
                           {uc}
                         </span>
                       ))}
-                      >
                     </div>
                   </div>
                 </div>
@@ -991,7 +961,6 @@ const GTSeries = () => {
                         <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
                       </div>
                     ))}
-                    >
                   </div>
                 </div>
               </div>
@@ -1035,10 +1004,8 @@ const GTSeries = () => {
                                 <td className="p-3 text-muted-foreground text-xs whitespace-pre-line">{spec.value}</td>
                               </tr>
                             ))}
-                            >
                           </>
                         ))}
-                        >
                       </tbody>
                     </table>
                   </div>
@@ -1079,10 +1046,8 @@ const GTSeries = () => {
                                 <td className="p-3 text-muted-foreground text-xs whitespace-pre-line">{spec.value}</td>
                               </tr>
                             ))}
-                            >
                           </>
                         ))}
-                        >
                       </tbody>
                     </table>
                   </div>
@@ -1143,7 +1108,6 @@ const GTSeries = () => {
                           <td className="p-3 text-xs text-muted-foreground">{item.remark}</td>
                         </tr>
                       ))}
-                      >
                     </tbody>
                   </table>
                 </div>
@@ -1175,7 +1139,6 @@ const GTSeries = () => {
                     <img src={img.src} alt={img.alt} className="w-full aspect-square object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
                   </div>
                 ))}
-                >
               </div>
 
               {/* Podcast Section */}
@@ -1262,7 +1225,6 @@ const GTSeries = () => {
                           <div className="relative w-full aspect-video rounded-lg overflow-hidden">
                             <iframe
                               src={`https://www.youtube.com/embed/${video.id}`}
-                              >
                               title={video.title}
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                               allowFullScreen
@@ -1276,7 +1238,6 @@ const GTSeries = () => {
                           </div>
                         </div>
                       ))}
-                      >
                     </div>
                   </div>
 
@@ -1286,7 +1247,6 @@ const GTSeries = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-4 rounded-xl border border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition-colors group"
-                  >
                     <div className="shrink-0 w-10 h-10 rounded-full bg-red-600 flex items-center justify-center">
                       <Play className="text-white ml-0.5" size={18} fill="white" />
                     </div>
@@ -1313,7 +1273,6 @@ const GTSeries = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
-                >
                   <Download size={16} /> ดาวน์โหลด Datasheet GT1000
                 </a>
               </div>
@@ -1422,7 +1381,6 @@ const GTSeries = () => {
                         <img src={img} alt={`GT2000 มุมมอง ${i + 2}`} className="w-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
                       </div>
                     ))}
-                    >
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
@@ -1433,7 +1391,6 @@ const GTSeries = () => {
                         <img src={img} alt={`GT2000 ติดตั้งจริง ${i + 1}`} className="w-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
                       </div>
                     ))}
-                    >
                   </div>
                 </div>
               </div>
@@ -1532,7 +1489,6 @@ const GTSeries = () => {
                       <div className="text-xs text-muted-foreground">{item.desc}</div>
                     </div>
                   ))}
-                  >
                 </div>
               </div>
 
@@ -1631,7 +1587,6 @@ const GTSeries = () => {
                           <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
                         </tr>
                       ))}
-                      >
                     </tbody>
                    </table>
                 </div>
@@ -1668,7 +1623,6 @@ const GTSeries = () => {
                         </div>
                       </div>
                     ))}
-                    >
                   </div>
                 </div>
               </div>
@@ -1711,7 +1665,6 @@ const GTSeries = () => {
                           <div className="relative w-full aspect-video rounded-lg overflow-hidden">
                             <iframe
                               src={`https://www.youtube.com/embed/${video.id}`}
-                              >
                               title={video.title}
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                               allowFullScreen
@@ -1725,7 +1678,6 @@ const GTSeries = () => {
                           </div>
                         </div>
                       ))}
-                      >
                     </div>
                   </div>
 
@@ -1735,7 +1687,6 @@ const GTSeries = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-4 rounded-xl border border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition-colors group"
-                  >
                     <div className="shrink-0 w-10 h-10 rounded-full bg-red-600 flex items-center justify-center">
                       <Play className="text-white ml-0.5" size={18} fill="white" />
                     </div>
@@ -1757,7 +1708,6 @@ const GTSeries = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
-                >
                   <Download size={16} /> Datasheet GT2000 Celeron
                 </a>
                 <a
@@ -1765,7 +1715,6 @@ const GTSeries = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-surface-hover transition-colors"
-                >
                   <Download size={16} /> Datasheet GT2000 Core i5
                 </a>
               </div>
@@ -1838,7 +1787,6 @@ const GTSeries = () => {
                         <div className="text-[11px] text-muted-foreground/70 mt-0.5">{f.sub}</div>
                       </div>
                     ))}
-                    >
                   </div>
 
                   {/* Use Cases */}
@@ -1850,7 +1798,6 @@ const GTSeries = () => {
                           {uc}
                         </span>
                       ))}
-                      >
                     </div>
                   </div>
                 </div>
@@ -1876,7 +1823,6 @@ const GTSeries = () => {
                         <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
                       </div>
                     ))}
-                    >
                   </div>
                 </div>
               </div>
@@ -1904,7 +1850,6 @@ const GTSeries = () => {
                             <td className="p-2.5 text-muted-foreground text-xs whitespace-pre-line">{s.value}</td>
                           </tr>
                         ))}
-                        >
                         <tr className="bg-secondary/40"><td colSpan={2} className="p-3 font-bold text-foreground text-xs tracking-widest uppercase">I/O Ports</td></tr>
                         {[
                           { label: "COM", value: "2× RS232 (DB9)" },
@@ -1919,7 +1864,6 @@ const GTSeries = () => {
                             <td className="p-2.5 text-muted-foreground text-xs whitespace-pre-line">{s.value}</td>
                           </tr>
                         ))}
-                        >
                       </tbody>
                     </table>
                   </div>
@@ -1939,7 +1883,6 @@ const GTSeries = () => {
                             <td className="p-2.5 text-muted-foreground text-xs whitespace-pre-line">{s.value}</td>
                           </tr>
                         ))}
-                        >
                         <tr className="bg-secondary/40"><td colSpan={2} className="p-3 font-bold text-foreground text-xs tracking-widest uppercase">Dimension</td></tr>
                         {[
                           { label: "Size", value: "150 × 217 × 52 mm" },
@@ -1951,7 +1894,6 @@ const GTSeries = () => {
                             <td className="p-2.5 text-muted-foreground text-xs whitespace-pre-line">{s.value}</td>
                           </tr>
                         ))}
-                        >
                       </tbody>
                     </table>
                   </div>
@@ -2021,7 +1963,6 @@ const GTSeries = () => {
                       <img src={img} alt={`GT3000 ติดตั้งจริง ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
                     </div>
                   ))}
-                  >
                 </div>
               </div>
 
@@ -2095,7 +2036,6 @@ const GTSeries = () => {
                           <div className="relative w-full aspect-video rounded-lg overflow-hidden">
                             <iframe
                               src={`https://www.youtube.com/embed/${video.id}`}
-                              >
                               title={video.title}
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                               allowFullScreen
@@ -2109,7 +2049,6 @@ const GTSeries = () => {
                           </div>
                         </div>
                       ))}
-                      >
                     </div>
                   </div>
 
@@ -2119,7 +2058,6 @@ const GTSeries = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-4 rounded-xl border border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition-colors group"
-                  >
                     <div className="shrink-0 w-10 h-10 rounded-full bg-red-600 flex items-center justify-center">
                       <Play className="text-white ml-0.5" size={18} fill="white" />
                     </div>
@@ -2182,7 +2120,6 @@ const GTSeries = () => {
                               <td className="p-3 text-right font-bold text-primary">{row.price}</td>
                             </tr>
                           ))}
-                          >
                         </tbody>
                       </table>
                     </div>
@@ -2200,11 +2137,9 @@ const GTSeries = () => {
                                 ? "bg-primary text-primary-foreground"
                                 : "bg-muted/50 text-muted-foreground hover:bg-muted"
                             }`}
-                            >
                             {p + 1}
                           </button>
                         ))}
-                        >
                       </div>
                     </div>
                     <div className="p-3 text-xs text-muted-foreground bg-muted/10 border-t border-border">
@@ -2226,7 +2161,6 @@ const GTSeries = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
-                >
                   <Download size={16} /> ดาวน์โหลด Datasheet GT3000
                 </a>
               </div>
@@ -2295,7 +2229,6 @@ const GTSeries = () => {
                         <div className="text-[11px] text-muted-foreground/70 mt-0.5">{f.sub}</div>
                       </div>
                     ))}
-                    >
                   </div>
 
                   {/* Use Cases */}
@@ -2307,7 +2240,6 @@ const GTSeries = () => {
                           {uc}
                         </span>
                       ))}
-                      >
                     </div>
                   </div>
                 </div>
@@ -2333,7 +2265,6 @@ const GTSeries = () => {
                         <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
                       </div>
                     ))}
-                    >
                   </div>
                 </div>
               </div>
@@ -2360,7 +2291,6 @@ const GTSeries = () => {
                             <td className="p-2.5 text-muted-foreground text-xs whitespace-pre-line">{s.value}</td>
                           </tr>
                         ))}
-                        >
                         <tr className="bg-secondary/40"><td colSpan={2} className="p-3 font-bold text-foreground text-xs tracking-widest uppercase">I/O Ports</td></tr>
                         {[
                           { label: "COM", value: "6× RS232 (DB9)" },
@@ -2376,7 +2306,6 @@ const GTSeries = () => {
                             <td className="p-2.5 text-muted-foreground text-xs whitespace-pre-line">{s.value}</td>
                           </tr>
                         ))}
-                        >
                       </tbody>
                     </table>
                   </div>
@@ -2396,7 +2325,6 @@ const GTSeries = () => {
                             <td className="p-2.5 text-muted-foreground text-xs whitespace-pre-line">{s.value}</td>
                           </tr>
                         ))}
-                        >
                         <tr className="bg-secondary/40"><td colSpan={2} className="p-3 font-bold text-foreground text-xs tracking-widest uppercase">Dimension</td></tr>
                         {[
                           { label: "Size", value: "177 × 217 × 52 mm" },
@@ -2408,7 +2336,6 @@ const GTSeries = () => {
                             <td className="p-2.5 text-muted-foreground text-xs whitespace-pre-line">{s.value}</td>
                           </tr>
                         ))}
-                        >
                       </tbody>
                     </table>
                   </div>
@@ -2469,7 +2396,6 @@ const GTSeries = () => {
                           <td className="p-3 text-right font-bold text-primary whitespace-nowrap">฿{item.price}</td>
                         </tr>
                       ))}
-                      >
                     </tbody>
                    </table>
                 </div>
@@ -2490,7 +2416,6 @@ const GTSeries = () => {
                       <img src={img} alt={`GT4000 ติดตั้งจริง ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
                     </div>
                   ))}
-                  >
                 </div>
               </div>
 
@@ -2530,7 +2455,6 @@ const GTSeries = () => {
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
-                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -2544,7 +2468,6 @@ const GTSeries = () => {
                     </div>
                   </div>
                 ))}
-                >
               </div>
 
               {/* Podcast */}
@@ -2573,7 +2496,6 @@ const GTSeries = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
-                >
                   <Download size={16} /> Datasheet GT4000 Core i5
                 </a>
                 <a
@@ -2581,7 +2503,6 @@ const GTSeries = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-secondary/50 transition-colors"
-                >
                   <Download size={16} /> Datasheet GT4000 Core i7
                 </a>
               </div>
@@ -2692,7 +2613,6 @@ const GTSeries = () => {
                         <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
                       </div>
                     ))}
-                    >
                   </div>
                 </div>
               </div>
@@ -2708,7 +2628,6 @@ const GTSeries = () => {
                     <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
                   </div>
                 ))}
-                >
               </div>
 
 
@@ -2748,7 +2667,6 @@ const GTSeries = () => {
                             <td className="p-3 text-muted-foreground text-xs whitespace-pre-line">{s.value}</td>
                           </tr>
                         ))}
-                        >
                       </tbody>
                     </table>
                   </div>
@@ -2780,7 +2698,6 @@ const GTSeries = () => {
                             <td className="p-3 text-muted-foreground text-xs whitespace-pre-line">{s.value}</td>
                           </tr>
                         ))}
-                        >
                       </tbody>
                     </table>
                   </div>
@@ -2842,7 +2759,6 @@ const GTSeries = () => {
                         <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{item.desc}</p>
                       </div>
                     ))}
-                    >
                   </div>
                 </div>
 
@@ -2894,7 +2810,6 @@ const GTSeries = () => {
                             </td>
                           </tr>
                         ))}
-                        >
                       </tbody>
                     </table>
                   </div>
@@ -2932,7 +2847,6 @@ printf("GPIO3 = %s\\n", gpio3_state ? "HIGH" : "LOW");
 // ─── ตัวอย่าง: สั่งเปิด Relay + อ่าน Sensor ───
 outb_p((inb_p(0xA04) & 0xFD) | 0x02, 0xA04);  // GPIO4 → Relay ON
 int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`}
->
                       </code>
                     </pre>
                   </div>
@@ -2975,7 +2889,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <span className="font-mono text-xs text-muted-foreground w-14 text-right">{g.reg}</span>
                       </div>
                     ))}
-                    >
                   </div>
                 </div>
 
@@ -3032,7 +2945,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                           <td className="p-3 text-xs text-muted-foreground">{item.remark}</td>
                         </tr>
                       ))}
-                      >
                     </tbody>
                    </table>
                 </div>
@@ -3075,7 +2987,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
-                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -3089,7 +3000,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     </div>
                   </div>
                 ))}
-                >
               </div>
 
               {/* Podcast */}
@@ -3114,7 +3024,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       </div>
                     </div>
                   ))}
-                  >
                 </div>
               </div>
 
@@ -3224,7 +3133,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
                       </div>
                     ))}
-                    >
                   </div>
                 </div>
               </div>
@@ -3252,7 +3160,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       <div className="text-xs text-muted-foreground">{item.desc}</div>
                     </div>
                   ))}
-                  >
                 </div>
               </div>
 
@@ -3267,7 +3174,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
                   </div>
                 ))}
-                >
               </div>
 
               {/* More Factory Images */}
@@ -3282,7 +3188,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
                   </div>
                 ))}
-                >
               </div>
 
               {/* Spec Table — Full Detail */}
@@ -3304,7 +3209,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         ].map(([k, v], i) => (
                           <tr key={i}><td className="p-3 font-medium text-foreground w-1/3 align-top">{k}</td><td className="p-3 text-muted-foreground whitespace-pre-line">{v}</td></tr>
                         ))}
-                        >
                       </tbody>
                     </table>
                   </div>
@@ -3324,7 +3228,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         ].map(([k, v], i) => (
                           <tr key={i}><td className="p-3 font-medium text-foreground w-1/3 align-top">{k}</td><td className="p-3 text-muted-foreground whitespace-pre-line">{v}</td></tr>
                         ))}
-                        >
                       </tbody>
                     </table>
                   </div>
@@ -3380,7 +3283,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                               <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
                             </tr>
                           ))}
-                          >
                         </tbody>
                       </table>
                     </div>
@@ -3398,11 +3300,9 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                                 ? "bg-primary text-primary-foreground"
                                 : "bg-muted/50 text-muted-foreground hover:bg-muted"
                             }`}
-                            >
                             {p + 1}
                           </button>
                         ))}
-                        >
                       </div>
                     </div>
                     <div className="p-4 border-t border-border text-center">
@@ -3446,7 +3346,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
-                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -3460,7 +3359,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     </div>
                   </div>
                 ))}
-                >
               </div>
 
               {/* Podcast */}
@@ -3487,7 +3385,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
-                >
                   <Download size={16} /> ดาวน์โหลด Datasheet GT6000
                 </a>
               </div>
@@ -3600,7 +3497,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
                       </div>
                     ))}
-                    >
                   </div>
                 </div>
               </div>
@@ -3671,7 +3567,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       <div className="text-xs text-muted-foreground">{item.desc}</div>
                     </div>
                   ))}
-                  >
                 </div>
               </div>
 
@@ -3726,7 +3621,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <div className="w-2/3 p-3 text-xs text-muted-foreground whitespace-pre-line">{value}</div>
                       </div>
                     ))}
-                    >
                   </div>
                   <div className="divide-y divide-border">
                     {[
@@ -3744,7 +3638,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <div className="w-2/3 p-3 text-xs text-muted-foreground whitespace-pre-line">{value}</div>
                       </div>
                     ))}
-                    >
                   </div>
                 </div>
               </div>
@@ -3793,7 +3686,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                           <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
                         </tr>
                       ))}
-                      >
                     </tbody>
                   </table>
                 </div>
@@ -3837,7 +3729,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
-                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -3851,7 +3742,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     </div>
                   </div>
                 ))}
-                >
               </div>
 
               {/* Podcast */}
@@ -3875,7 +3765,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       </div>
                     </div>
                   ))}
-                  >
                 </div>
               </div>
 
@@ -3886,7 +3775,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
-                >
                   <Download size={16} /> ดาวน์โหลด Datasheet GT7000
                 </a>
               </div>
@@ -4014,7 +3902,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
                       </div>
                     ))}
-                    >
                   </div>
                 </div>
               </div>
@@ -4045,7 +3932,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       <div className="text-xs text-muted-foreground">{item.desc}</div>
                     </div>
                   ))}
-                  >
                 </div>
               </div>
 
@@ -4068,7 +3954,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         ].map(([k, v], i) => (
                           <tr key={i}><td className="p-3 font-medium text-foreground w-1/3">{k}</td><td className="p-3 text-muted-foreground">{v}</td></tr>
                         ))}
-                        >
                       </tbody>
                     </table>
                   </div>
@@ -4084,7 +3969,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         ].map(([k, v], i) => (
                           <tr key={i}><td className="p-3 font-medium text-foreground w-1/3">{k}</td><td className="p-3 text-muted-foreground">{v}</td></tr>
                         ))}
-                        >
                       </tbody>
                     </table>
                   </div>
@@ -4127,7 +4011,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                           <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
                         </tr>
                       ))}
-                      >
                     </tbody>
                   </table>
                 </div>
@@ -4181,7 +4064,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
-                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -4195,7 +4077,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     </div>
                   </div>
                 ))}
-                >
               </div>
 
               {/* Podcast */}
@@ -4219,7 +4100,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       </div>
                     </div>
                   ))}
-                  >
                 </div>
               </div>
 
@@ -4230,7 +4110,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
-                >
                   <Download size={16} /> ดาวน์โหลด Datasheet GT8000
                 </a>
               </div>
@@ -4331,7 +4210,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <img src={img.src} alt={img.alt} className="w-full h-32 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
                       </div>
                     ))}
-                    >
                   </div>
                 </div>
               </div>
@@ -4358,7 +4236,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <div className="w-2/3 p-3 text-xs text-muted-foreground whitespace-pre-line">{value}</div>
                       </div>
                     ))}
-                    >
                   </div>
                   <div className="divide-y divide-border">
                     {[
@@ -4378,7 +4255,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <div className="w-2/3 p-3 text-xs text-muted-foreground whitespace-pre-line">{value}</div>
                       </div>
                     ))}
-                    >
                   </div>
                 </div>
               </div>
@@ -4411,7 +4287,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <img src={img} alt={`GT9000 Detail ${i + 1}`} className="w-full rounded-lg" loading="lazy" />
                   </div>
                 ))}
-                >
               </div>
 
               {/* Real-world Photos */}
@@ -4426,7 +4301,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <img src={img} alt={`GT9000 ใช้งานจริง ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
                   </div>
                 ))}
-                >
               </div>
 
               {/* GT9000 Price Table */}
@@ -4489,7 +4363,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                                         <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
                                       </tr>
                                     ))}
-                                    >
                                   </tbody>
                                 </table>
                               </div>
@@ -4499,21 +4372,17 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                                   {Array.from({ length: totalPages }, (_, idx) => (
                                     <button key={idx} onClick={() => setGt9000PricePage(idx)} className={`w-8 h-8 rounded-lg text-xs font-bold transition-colors ${idx === gt9000PricePage ? "bg-primary text-primary-foreground" : "hover:bg-secondary/50 text-muted-foreground"}`}>{idx + 1}</button>
                                   ))}
-                                  >
                                   <button onClick={() => setGt9000PricePage(Math.min(totalPages - 1, gt9000PricePage + 1))} disabled={gt9000PricePage === totalPages - 1} className="px-3 py-1.5 rounded-lg text-xs font-medium border border-border hover:bg-secondary/50 disabled:opacity-40 transition-colors">ถัดไป</button>
                                 </div>
                               )}
-                              >
                             </>
                           );
                         })()}
-                        >
                       </CollapsibleContent>
                     </div>
                   </Collapsible>
                 );
               })()}
-              >
               <div className="text-center">
               </div>
 
@@ -4552,7 +4421,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
-                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -4566,7 +4434,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     </div>
                   </div>
                 ))}
-                >
               </div>
 
               {/* Podcast */}
@@ -4591,7 +4458,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       </div>
                     </div>
                   ))}
-                  >
                 </div>
               </div>
 
@@ -4602,7 +4468,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
-                >
                   <Download size={16} /> Datasheet GT9000 (Gen 12)
                 </a>
                 <a
@@ -4610,7 +4475,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-secondary/50 transition-colors"
-                >
                   <Download size={16} /> Datasheet GT9000 (Gen 10)
                 </a>
                 <a
@@ -4618,7 +4482,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-secondary/50 transition-colors"
-                >
                   <Download size={16} /> GT9000 Product Overview
                 </a>
               </div>
@@ -4876,7 +4739,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                           <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
                         </tr>
                       ))}
-                      >
                     </tbody>
                   </table>
                 </div>
@@ -4931,7 +4793,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       loading="lazy"
                     />
                   ))}
-                  >
                 </div>
               </div>
 
@@ -4972,7 +4833,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
-                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -4986,7 +4846,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     </div>
                   </div>
                 ))}
-                >
               </div>
 
               {/* Datasheet CTA */}
@@ -4996,7 +4855,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
-                >
                   <Download size={16} /> ดาวน์โหลด Datasheet GT4500
                 </a>
                 <a
@@ -5004,7 +4862,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-surface-hover transition-colors"
-                >
                   <Download size={16} /> วารสาร / Journal GT4500
                 </a>
               </div>
@@ -5102,7 +4959,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <img src={img.src} alt={img.alt} className="w-full h-32 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
                       </div>
                     ))}
-                    >
                   </div>
                 </div>
               </div>
@@ -5140,7 +4996,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <div className="w-2/3 p-3 text-xs text-muted-foreground whitespace-pre-line">{value}</div>
                       </div>
                     ))}
-                    >
                   </div>
                   <div className="divide-y divide-border">
                     {[
@@ -5159,7 +5014,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <div className="w-2/3 p-3 text-xs text-muted-foreground whitespace-pre-line">{value}</div>
                       </div>
                     ))}
-                    >
                   </div>
                 </div>
               </div>
@@ -5214,7 +5068,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                                   <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
                                 </tr>
                               ))}
-                              >
                             </tbody>
                           </table>
                         </div>
@@ -5224,18 +5077,15 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                             {Array.from({ length: totalPages }, (_, idx) => (
                               <button key={idx} onClick={() => setGt1400PricePage(idx)} className={`w-8 h-8 rounded-lg text-xs font-bold transition-colors ${idx === gt1400PricePage ? "bg-primary text-primary-foreground" : "hover:bg-secondary/50 text-muted-foreground"}`}>{idx + 1}</button>
                             ))}
-                            >
                             <button onClick={() => setGt1400PricePage(Math.min(totalPages - 1, gt1400PricePage + 1))} disabled={gt1400PricePage === totalPages - 1} className="px-3 py-1.5 rounded-lg text-xs font-medium border border-border hover:bg-secondary/50 disabled:opacity-40 transition-colors">ถัดไป</button>
                           </div>
                         )}
-                        >
                         <p className="text-xs text-muted-foreground text-center py-3 border-t border-border"><AlertTriangle size={14} className="inline mr-1 text-amber-500" /> ราคาอาจมีการเปลี่ยนแปลง กรุณาติดต่อพนักงานขายโดยตรงเพื่อยืนยันราคาที่ถูกต้อง โทร. 095-739-1053 · Line: @entgroup</p>
                       </CollapsibleContent>
                     </div>
                   </Collapsible>
                 );
               })()}
-              >
               <div className="text-center">
               </div>
 
@@ -5276,7 +5126,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
-                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -5290,7 +5139,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     </div>
                   </div>
                 ))}
-                >
               </div>
 
               {/* Podcast */}
@@ -5317,7 +5165,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
-                >
                   <Download size={16} /> ดาวน์โหลด Datasheet GT1400
                 </a>
               </div>
@@ -5419,7 +5266,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <img src={img.src} alt={img.alt} className="w-full h-32 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
                       </div>
                     ))}
-                    >
                   </div>
                 </div>
               </div>
@@ -5476,7 +5322,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <div className="w-2/3 p-3 text-xs text-muted-foreground whitespace-pre-line">{value}</div>
                       </div>
                     ))}
-                    >
                   </div>
                   <div className="divide-y divide-border">
                     {[
@@ -5496,7 +5341,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <div className="w-2/3 p-3 text-xs text-muted-foreground whitespace-pre-line">{value}</div>
                       </div>
                     ))}
-                    >
                   </div>
                 </div>
               </div>
@@ -5508,7 +5352,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
-                >
                   <ExternalLink size={16} /> ดูข้อมูลเพิ่มเติม GT1300 (Manufacturer)
                 </a>
               </div>
@@ -5548,7 +5391,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
-                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -5562,7 +5404,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     </div>
                   </div>
                 ))}
-                >
               </div>
             </div>
           )}
@@ -5657,7 +5498,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <img src={img.src} alt={img.alt} className="w-full h-32 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
                       </div>
                     ))}
-                    >
                   </div>
                 </div>
               </div>
@@ -5695,7 +5535,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <div className="w-2/3 p-3 text-xs text-muted-foreground whitespace-pre-line">{value}</div>
                       </div>
                     ))}
-                    >
                   </div>
                   <div className="divide-y divide-border">
                     {[
@@ -5715,7 +5554,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <div className="w-2/3 p-3 text-xs text-muted-foreground whitespace-pre-line">{value}</div>
                       </div>
                     ))}
-                    >
                   </div>
                 </div>
               </div>
@@ -5783,7 +5621,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                               <td className="p-3 text-right font-bold text-primary">{item.price === "Call" ? "Call" : `฿${item.price}`}</td>
                             </tr>
                           ))}
-                          >
                         </tbody>
                       </table>
                     </div>
@@ -5802,11 +5639,9 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                                 ? "bg-primary text-primary-foreground"
                                 : "bg-muted/50 text-muted-foreground hover:bg-muted"
                             }`}
-                            >
                             {p + 1}
                           </button>
                         ))}
-                        >
                       </div>
                     </div>
                     <div className="px-5 py-3 border-t border-border bg-muted/30">
@@ -5817,7 +5652,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   </div>
                 );
               })()}
-              >
               <div className="text-center">
               </div>
 
@@ -5856,7 +5690,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
-                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -5870,7 +5703,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     </div>
                   </div>
                 ))}
-                >
               </div>
 
               {/* Podcast */}
@@ -5894,7 +5726,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       </div>
                     </div>
                   ))}
-                  >
                 </div>
               </div>
 
@@ -5905,13 +5736,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
-                >
                   <Download size={16} /> ดาวน์โหลด Datasheet GT1200
                 </a>
               </div>
             </div>
           )}
-          >
         </div>
       </section>
 
@@ -5942,7 +5771,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <span className="text-xs font-bold text-primary">{item.price}</span>
                   </div>
                 ))}
-                >
               </div>
             </div>
             {/* Hardware Options */}
@@ -5964,7 +5792,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <span className="text-xs font-bold text-primary">{item.price}</span>
                   </div>
                 ))}
-                >
               </div>
             </div>
           </div>
@@ -6000,13 +5827,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
             <button
               onClick={() => setShowLineQR(true)}
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[hsl(142,70%,45%)] text-white font-bold text-lg hover:opacity-90 transition-opacity"
-            >
               LINE @entgroup
             </button>
             <Link
               to="/"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-border text-foreground font-bold text-lg hover:bg-surface-hover transition-colors"
-            >
               <ArrowLeft size={18} /> กลับหน้าหลัก
             </Link>
           </div>
@@ -6067,7 +5892,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       className={s < review.stars ? "text-amber-400 fill-amber-400" : "text-muted-foreground/30"}
                     />
                   ))}
-                  >
                 </div>
                 <p className="text-sm text-foreground leading-relaxed mb-4">"{review.text}"</p>
                 <div className="border-t border-border pt-3">
@@ -6076,7 +5900,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 </div>
               </div>
             ))}
-            >
           </div>
 
           {/* PDPA Disclaimer */}
@@ -6105,11 +5928,9 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
         <button
           onClick={(e) => { e.stopPropagation(); onToggleSelect(model.name); }}
           className="absolute top-3 left-12 z-10"
-        >
           <Checkbox checked={selected} className="h-5 w-5" />
         </button>
       )}
-      >
       {model.badge ? (
         <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-primary text-primary-foreground text-[11px] font-bold border border-primary/20 animate-pulse">
           {model.highlight}

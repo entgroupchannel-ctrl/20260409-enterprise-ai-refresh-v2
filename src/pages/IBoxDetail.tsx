@@ -57,16 +57,13 @@ const IBoxDetail = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title={`${product.id} — ${product.name}`}
-        >
         description={`${product.nameTH} | ${product.specs.cpu} | ${product.specs.ram}`}
-        >
         path={`/ibox-series/${product.id}`}
       />
       <ProductJsonLd
         collectionName={product.name}
         collectionDescription={product.nameTH}
         collectionUrl={`/ibox-series/${product.id}`}
-        >
         products={[{ name: product.name, image: product.image, description: product.specs.cpu, category: product.subcategory }]}
       />
       <BreadcrumbJsonLd
@@ -127,7 +124,6 @@ const IBoxDetail = () => {
                 <button
                   onClick={() => setQuoteProduct(product.id)}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-medium cursor-pointer"
-                >
                   <Mail className="w-4 h-4" /> sales@entgroup.co.th
                 </button>
                 <a href="tel:020456104" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary hover:bg-secondary/80 transition-colors">
@@ -161,7 +157,6 @@ const IBoxDetail = () => {
                   <p className="text-sm font-medium text-foreground">{product.specs.lanPorts} Ports {product.specs.poe ? "(PoE)" : ""}</p>
                 </div>
               )}
-              >
               {product.specs.comPorts !== undefined && product.specs.comPorts > 0 && (
                 <div className="p-3 bg-secondary/50 rounded-lg">
                   <div className="flex items-center gap-2 mb-1">
@@ -171,7 +166,6 @@ const IBoxDetail = () => {
                   <p className="text-sm font-medium text-foreground">{product.specs.comPorts} Ports</p>
                 </div>
               )}
-              >
             </div>
 
             {/* Features */}
@@ -186,7 +180,6 @@ const IBoxDetail = () => {
                     <span className="text-foreground">{feat}</span>
                   </li>
                 ))}
-                >
               </ul>
             </div>
 
@@ -197,7 +190,6 @@ const IBoxDetail = () => {
                 {product.applications.map((app) => (
                   <Badge key={app} variant="outline">{app}</Badge>
                 ))}
-                >
               </div>
             </div>
 
@@ -238,7 +230,6 @@ const IBoxDetail = () => {
                     </TableRow>
                   );
                 })}
-                >
                 {product.specs.comPorts !== undefined && (
                   <TableRow>
                     <TableCell className="font-medium">
@@ -247,7 +238,6 @@ const IBoxDetail = () => {
                     <TableCell>{product.specs.comPorts} ports</TableCell>
                   </TableRow>
                 )}
-                >
                 {product.specs.lanPorts !== undefined && (
                   <TableRow>
                     <TableCell className="font-medium">
@@ -256,7 +246,6 @@ const IBoxDetail = () => {
                     <TableCell>{product.specs.lanPorts} ports{product.specs.poe && " (PoE+ Support)"}</TableCell>
                   </TableRow>
                 )}
-                >
                 {product.specs.usbPorts !== undefined && (
                   <TableRow>
                     <TableCell className="font-medium">
@@ -265,7 +254,6 @@ const IBoxDetail = () => {
                     <TableCell>{product.specs.usbPorts} ports</TableCell>
                   </TableRow>
                 )}
-                >
               </TableBody>
             </Table>
           </div>
@@ -285,11 +273,9 @@ const IBoxDetail = () => {
                   onQuote={setQuoteProduct}
                 />
               ))}
-              >
             </div>
           </div>
         )}
-        >
       </div>
       <FooterCompact />
     </div>

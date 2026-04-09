@@ -54,7 +54,6 @@ const ProductBanners = () => {
               className={`group relative card-surface rounded-xl overflow-hidden flex flex-col ${
                 banner.hot ? "ring-1 ring-primary/30" : ""
               }`}
-              >
               {banner.hot && (
                 <span className="absolute top-3 right-3 z-20 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-destructive text-destructive-foreground text-[10px] font-bold uppercase tracking-wider">
                   <Flame size={10} /> Hot
@@ -91,7 +90,6 @@ const ProductBanners = () => {
                     {banner.description}
                   </p>
                 )}
-                >
                 <div className="mt-auto flex flex-wrap gap-2">
                   {banner.links.map((link) => (
                     <Link
@@ -102,16 +100,13 @@ const ProductBanners = () => {
                           ? "border-primary/40 text-primary hover:bg-primary hover:text-primary-foreground"
                           : "border-border text-muted-foreground hover:text-foreground hover:border-primary/30"
                       }`}
-                      >
                       {link.label} <ArrowRight size={11} />
                     </Link>
                   ))}
-                  >
                 </div>
               </div>
             </div>
           ))}
-          >
         </div>
       </div>
     </section>

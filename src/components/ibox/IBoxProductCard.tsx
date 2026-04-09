@@ -21,7 +21,6 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
       <Link
         to={`/ibox-series/${product.id}`}
         className="block relative aspect-[4/3] bg-gradient-to-b from-secondary/50 to-secondary/20 overflow-hidden cursor-pointer"
-      >
         <img
           src={product.image}
           alt={product.nameTH}
@@ -37,18 +36,15 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
               NEW
             </Badge>
           )}
-          >
           {product.isHot && (
             <Badge variant="destructive" className="text-xs"><Flame className="inline w-3 h-3 mr-0.5" /> HOT</Badge>
           )}
-          >
         </div>
 
         {/* Checkbox */}
         <button
           onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleSelect(product.name); }}
           className="absolute top-3 right-12 z-10"
-        >
           <Checkbox checked={isSelected} className="h-5 w-5" />
         </button>
 
@@ -72,7 +68,6 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
             </Badge>
           </div>
         )}
-        >
       </Link>
 
       {/* Content */}
@@ -101,7 +96,6 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
               </span>
             </div>
           )}
-          >
           <div className="flex items-center gap-2 text-xs">
             <Thermometer className="w-3.5 h-3.5 text-primary shrink-0" />
             <span className="text-muted-foreground">{product.specs.temp}</span>
