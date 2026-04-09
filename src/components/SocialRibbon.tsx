@@ -18,7 +18,8 @@ const socials = [
 
 const SocialRibbon = () => {
   const location = useLocation();
-  const isHiddenPage = location.pathname.startsWith("/admin");
+  const p = location.pathname;
+  const isHiddenPage = p.startsWith("/admin") || p.startsWith("/dashboard") || p.startsWith("/profile") || p.startsWith("/cart") || p.startsWith("/my-quotes") || p.startsWith("/my-orders") || p.startsWith("/request-quote") || p.startsWith("/login") || p.startsWith("/register");
   const [expanded, setExpanded] = useState(true);
 
   if (isHiddenPage) return null;
