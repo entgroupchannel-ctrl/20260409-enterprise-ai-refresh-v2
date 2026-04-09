@@ -431,6 +431,7 @@ export type Database = {
           discount_amount: number | null
           discount_percent: number | null
           grand_total: number | null
+          has_sale_order: boolean | null
           id: string
           internal_notes: string | null
           metadata: Json | null
@@ -444,6 +445,7 @@ export type Database = {
           sla_breached: boolean | null
           sla_po_review_due: string | null
           sla_response_due: string | null
+          so_created_at: string | null
           status: string
           subtotal: number | null
           updated_at: string
@@ -472,6 +474,7 @@ export type Database = {
           discount_amount?: number | null
           discount_percent?: number | null
           grand_total?: number | null
+          has_sale_order?: boolean | null
           id?: string
           internal_notes?: string | null
           metadata?: Json | null
@@ -485,6 +488,7 @@ export type Database = {
           sla_breached?: boolean | null
           sla_po_review_due?: string | null
           sla_response_due?: string | null
+          so_created_at?: string | null
           status?: string
           subtotal?: number | null
           updated_at?: string
@@ -513,6 +517,7 @@ export type Database = {
           discount_amount?: number | null
           discount_percent?: number | null
           grand_total?: number | null
+          has_sale_order?: boolean | null
           id?: string
           internal_notes?: string | null
           metadata?: Json | null
@@ -526,6 +531,7 @@ export type Database = {
           sla_breached?: boolean | null
           sla_po_review_due?: string | null
           sla_response_due?: string | null
+          so_created_at?: string | null
           status?: string
           subtotal?: number | null
           updated_at?: string
@@ -555,6 +561,86 @@ export type Database = {
             columns: ["created_by"]
             isOneToOne: false
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sale_orders: {
+        Row: {
+          confirmed_at: string | null
+          created_at: string
+          created_by: string | null
+          customer_notes: string | null
+          delivered_at: string | null
+          expected_delivery_date: string | null
+          grand_total: number | null
+          id: string
+          internal_notes: string | null
+          production_notes: string | null
+          products: Json
+          quote_id: string
+          shipped_at: string | null
+          shipping_address: string | null
+          shipping_method: string | null
+          so_number: string
+          status: string
+          subtotal: number | null
+          tracking_number: string | null
+          updated_at: string
+          vat_amount: number | null
+        }
+        Insert: {
+          confirmed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          customer_notes?: string | null
+          delivered_at?: string | null
+          expected_delivery_date?: string | null
+          grand_total?: number | null
+          id?: string
+          internal_notes?: string | null
+          production_notes?: string | null
+          products?: Json
+          quote_id: string
+          shipped_at?: string | null
+          shipping_address?: string | null
+          shipping_method?: string | null
+          so_number?: string
+          status?: string
+          subtotal?: number | null
+          tracking_number?: string | null
+          updated_at?: string
+          vat_amount?: number | null
+        }
+        Update: {
+          confirmed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          customer_notes?: string | null
+          delivered_at?: string | null
+          expected_delivery_date?: string | null
+          grand_total?: number | null
+          id?: string
+          internal_notes?: string | null
+          production_notes?: string | null
+          products?: Json
+          quote_id?: string
+          shipped_at?: string | null
+          shipping_address?: string | null
+          shipping_method?: string | null
+          so_number?: string
+          status?: string
+          subtotal?: number | null
+          tracking_number?: string | null
+          updated_at?: string
+          vat_amount?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sale_orders_quote_id_fkey"
+            columns: ["quote_id"]
+            isOneToOne: false
+            referencedRelation: "quote_requests"
             referencedColumns: ["id"]
           },
         ]

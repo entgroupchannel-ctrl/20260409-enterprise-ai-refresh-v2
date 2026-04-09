@@ -1,5 +1,6 @@
 // src/pages/admin/AdminQuoteDetail.tsx
 import { useEffect, useState } from 'react';
+import CreateSaleOrderDialog from '@/components/admin/CreateSaleOrderDialog';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import AdminLayout from '@/layouts/AdminLayout';
 import { Button } from '@/components/ui/button';
@@ -114,6 +115,7 @@ export default function AdminQuoteDetail() {
   const [showRejectDialog, setShowRejectDialog] = useState(false);
   const [rejectReason, setRejectReason] = useState('');
   const [processing, setProcessing] = useState(false);
+  const [showCreateSO, setShowCreateSO] = useState(false);
 
   useEffect(() => {
     if (id) {
@@ -399,6 +401,47 @@ export default function AdminQuoteDetail() {
                     อนุมัติ PO
                   </Button>
                 </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* SO Action Banner */}
+        {quote.status === 'po_approved' && !(quote as any).has_sale_order && (
+          <Card className="border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-900/20">
+            <CardContent className="pt-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <CheckCircle2 className="w-8 h-8 text-green-600" />
+                  <div>
+                    <h3 className="font-semibold text-green-900 dark:text-green-200">PO อนุมัติแล้ว</h3>
+                    <p className="text-sm text-green-700 dark:text-green-400">สร้าง Sale Order เพื่อดำเนินการต่อ</p>
+                  </div>
+                </div>
+                <Button onClick={() => setShowCreateSO(true)}>
+                  <FileText className="w-4 h-4 mr-2" />
+                  สร้าง Sale Order
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {(quote as any).has_sale_order && (
+          <Card className="border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-900/20">
+            <CardContent className="pt-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <CheckCircle2 className="w-8 h-8 text-blue-600" />
+                  <div>
+                    <h3 className="font-semibold text-blue-900 dark:text-blue-200">สร้าง Sale Order แล้ว</h3>
+                    <p className="text-sm text-blue-700 dark:text-blue-400">กระบวนการขายเสร็จสิ้น</p>
+                  </div>
+                </div>
+                <Button variant="outline" onClick={() => navigate('/admin/sale-orders')}>
+                  <Eye className="w-4 h-4 mr-2" />
+                  ดู Sale Order
+                </Button>
               </div>
             </CardContent>
           </Card>
@@ -774,6 +817,14 @@ export default function AdminQuoteDetail() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Create Sale Order Dialog */}
+      <CreateSaleOrderDialog
+        open={showCreateSO}
+        onOpenChange={setShowCreateSO}
+        quote={quote}
+        onSuccess={loadQuoteDetails}
+      />
     </AdminLayout>
   );
 }
