@@ -107,13 +107,6 @@ export default function POUploadDialog({
         );
       if (insertError) throw insertError;
 
-      // Update quote status
-      const { error: updateError } = await supabase
-        .from('quote_requests')
-        .update({ status: 'po_uploaded' })
-        .eq('id', quoteId);
-      if (updateError) throw updateError;
-
       // Add message if notes provided
       if (notes.trim()) {
         await supabase.from('quote_messages').insert({

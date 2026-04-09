@@ -36,8 +36,8 @@ interface Quote {
 const statusConfig: Record<string, { label: string; color: string; icon: any }> = {
   pending: { label: 'รอตอบกลับ', color: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400', icon: Clock },
   quote_sent: { label: 'ส่งราคาแล้ว', color: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400', icon: FileText },
-  po_uploaded: { label: 'รอยืนยัน PO', color: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400', icon: Upload },
-  po_confirmed: { label: 'ยืนยันคำสั่งซื้อแล้ว', color: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-400', icon: CheckCircle2 },
+  po_uploaded: { label: 'อัปโหลด PO แล้ว', color: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400', icon: Upload },
+  po_confirmed: { label: 'ส่ง PO แล้ว', color: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-400', icon: CheckCircle2 },
   po_approved: { label: 'อนุมัติแล้ว', color: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400', icon: CheckCircle2 },
   completed: { label: 'เสร็จสิ้น', color: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400', icon: CheckCircle2 },
   rejected: { label: 'ปฏิเสธ', color: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400', icon: XCircle },
