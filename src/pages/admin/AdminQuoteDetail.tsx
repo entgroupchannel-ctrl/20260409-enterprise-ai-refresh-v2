@@ -373,8 +373,14 @@ export default function AdminQuoteDetail() {
           </div>
         </div>
 
+        {/* Quote Status Flow */}
+        <Card>
+          <CardContent className="pt-6 pb-4">
+            <QuoteStatusFlow status={quote.status} />
+          </CardContent>
+        </Card>
+
         {/* Action Buttons */}
-        {quote.status === 'po_uploaded' && (
           <Card className="border-orange-200 bg-orange-50">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
