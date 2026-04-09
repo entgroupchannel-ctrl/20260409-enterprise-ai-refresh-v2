@@ -9,9 +9,11 @@ interface ProductSearchPanelProps {
   selectedModels: string[];
   relatedProducts: CatalogProduct[];
   onAddProduct: (product: CatalogProduct) => void;
+  /** Compact mode for phase-1 (no borders, full width) */
+  compact?: boolean;
 }
 
-export default function ProductSearchPanel({ selectedModels, relatedProducts, onAddProduct }: ProductSearchPanelProps) {
+export default function ProductSearchPanel({ selectedModels, relatedProducts, onAddProduct, compact }: ProductSearchPanelProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<CatalogProduct[]>([]);
   const [isSearching, setIsSearching] = useState(false);
@@ -47,8 +49,12 @@ export default function ProductSearchPanel({ selectedModels, relatedProducts, on
     return () => clearTimeout(timerRef.current);
   }, [searchQuery, selectedCategory, doSearch]);
 
+  const containerClass = compact
+    ? 'overflow-y-auto max-h-[60vh]'
+    : 'overflow-y-auto pr-2 border-x border-border px-4';
+
   return (
-    <div className="overflow-y-auto pr-2 border-x border-border px-4">
+    <div className={containerClass}>
       <div className="sticky top-0 bg-background pb-3 mb-3 space-y-3 z-10">
         <h3 className="font-semibold text-sm flex items-center gap-2">
           <Search className="w-4 h-4" />
@@ -109,7 +115,7 @@ export default function ProductSearchPanel({ selectedModels, relatedProducts, on
         <div className="space-y-2">
           <div className="flex items-center gap-2 text-sm mb-3">
             <Lightbulb className="w-4 h-4 text-primary" />
-            <span className="font-medium">แนะนำสินค้า</span>
+            <span className="font-medium">สินค้าแนะนำ</span>
           </div>
           {relatedProducts.map((product) => (
             <ProductSearchCard
