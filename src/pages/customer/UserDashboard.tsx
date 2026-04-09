@@ -435,6 +435,7 @@ export default function UserDashboard() {
   // ─── Sidebar menu items ───
   const menuItems = [
     { key: 'quotes' as Section, label: 'ใบเสนอราคา', icon: FileText, badge: quotes.length },
+    { key: 'orders' as Section, label: 'คำสั่งซื้อ', icon: Package, badge: orders.length },
     { key: 'cart' as Section, label: 'ตะกร้าสินค้า', icon: ShoppingCart, badge: count },
     { key: 'profile' as Section, label: 'โปรไฟล์', icon: User, badge: 0 },
   ];
