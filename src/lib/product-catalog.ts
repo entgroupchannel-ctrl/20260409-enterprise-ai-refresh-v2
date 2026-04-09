@@ -58,7 +58,7 @@ function buildCatalog(): CatalogProduct[] {
   for (const p of handheldProducts) {
     catalog.push({
       model: p.model,
-      name: p.titleTH || p.title,
+      name: p.name,
       category: 'Handheld',
       image: p.image,
     });
