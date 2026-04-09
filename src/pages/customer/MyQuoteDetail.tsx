@@ -592,7 +592,25 @@ export default function MyQuoteDetail() {
                         <Download className="w-3 h-3 text-muted-foreground group-hover:text-primary shrink-0" />
                       </a>
                     ))}
-                  </div>
+                   </div>
+
+                  {/* Customer: Request Edit PO */}
+                  {(quote.status === 'po_uploaded' || quote.status === 'po_confirmed') && (
+                    <div className="mt-3 pt-3 border-t border-border">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="w-full"
+                        onClick={() => setShowRequestEdit(true)}
+                      >
+                        <Edit className="w-3.5 h-3.5 mr-1.5" />
+                        ขอแก้ไข PO
+                      </Button>
+                      <p className="text-[10px] text-muted-foreground mt-1.5 text-center">
+                        หากต้องการแก้ไขไฟล์ PO กรุณาส่งคำขอให้ทีมงาน
+                      </p>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             )}
