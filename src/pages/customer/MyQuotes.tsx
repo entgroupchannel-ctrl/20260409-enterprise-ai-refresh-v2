@@ -213,8 +213,9 @@ export default function MyQuotes() {
                         </span>
                       </div>
 
-                      <div className="pt-2">
-                        <QuoteTimeline currentStatus={quote.status} size="sm" />
+                      {/* Timeline - Prominent section */}
+                      <div className="pt-3 mt-3 border-t border-border">
+                        <QuoteTimeline currentStatus={quote.status} size="lg" />
                       </div>
                     </div>
 
