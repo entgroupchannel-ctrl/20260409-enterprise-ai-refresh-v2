@@ -528,7 +528,7 @@ export default function MyQuoteDetail() {
         </Card>
 
         {/* Action Buttons */}
-        {quote.status === 'quote_sent' && (
+        {(quote.status === 'quote_sent' || quote.status === 'po_uploaded') && (
           <div className="flex gap-3 justify-center print:hidden">
             <Button variant="outline" size="lg">
               <Download className="w-4 h-4 mr-2" />
@@ -538,6 +538,12 @@ export default function MyQuoteDetail() {
               <Upload className="w-4 h-4 mr-2" />
               อัปโหลด PO
             </Button>
+            {poFiles.length > 0 && (
+              <Button size="lg" variant="default" onClick={handleSendPO} disabled={confirming}>
+                <Send className="w-4 h-4 mr-2" />
+                {confirming ? 'กำลังส่ง...' : 'ส่ง PO'}
+              </Button>
+            )}
           </div>
         )}
       </div>
