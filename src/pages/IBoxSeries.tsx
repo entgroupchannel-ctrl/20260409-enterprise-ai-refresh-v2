@@ -252,9 +252,12 @@ const IBoxSeries = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="iBox Series — Embedded Fanless Industrial PC" description="iBox Series คอมพิวเตอร์อุตสาหกรรมแบบ Fanless ขนาดกะทัดรัด รองรับ Intel N-Series ถึง Core i7 สำหรับ Edge Computing, IoT Gateway, Digital Signage" path="/ibox-series" />
       <ProductJsonLd
-        collectionName="iBox Series Embedded Fanless Industrial PC">
-        collectionDescription="iBox Series คอมพิวเตอร์อุตสาหกรรม Fanless ขนาดกะทัดรัด สำหรับ Edge Computing, IoT Gateway, Digital Signage">
-        collectionUrl="/ibox-series">
+        collectionName="iBox Series Embedded Fanless Industrial PC"
+
+        collectionDescription="iBox Series คอมพิวเตอร์อุตสาหกรรม Fanless ขนาดกะทัดรัด สำหรับ Edge Computing, IoT Gateway, Digital Signage"
+
+        collectionUrl="/ibox-series"
+
         products={iboxProducts.map(m => ({ name: m.name, image: m.image, description: m.specs.cpu, category: "Embedded Fanless Industrial PC" }))}
       />
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "iBox Series", path: "/ibox-series" }]} />
@@ -358,8 +361,7 @@ const IBoxSeries = () => {
                     variant="outline"
                     size="icon"
                     className="lg:hidden"
-                    onClick={() => setIsMobileFilterOpen(true)}>
-
+                    onClick={() => setIsMobileFilterOpen(true)}
                     <SlidersHorizontal className="w-4 h-4" />
                   </Button>
                   <Select value={sortBy} onValueChange={setSortBy}>
@@ -435,7 +437,8 @@ const IBoxSeries = () => {
                       <img
                         src={model.image}
                         alt={model.name}
-                        className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
+                        className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+
                         loading="lazy"
                       />
                     </div>
@@ -457,8 +460,7 @@ const IBoxSeries = () => {
                             <Download className="w-3.5 h-3.5 mr-1" /> Datasheet
                           </a>
                         </Button>
-                        <Button size="sm" className="flex-1" onClick={() => setQuoteProduct(model.name)}>
-
+                        <Button size="sm" className="flex-1" onClick={() => setQuoteProduct(model.name)}
                           <FileText className="w-3.5 h-3.5 mr-1" /> ขอราคา
                         </Button>
                       </div>
@@ -515,8 +517,7 @@ const IBoxSeries = () => {
             <div className="card-surface p-8 text-center">
               <h2 className="text-2xl font-display font-bold text-foreground mb-3">สนใจ iBox Series?</h2>
               <p className="text-muted-foreground mb-6">ปรึกษาผู้เชี่ยวชาญเพื่อเลือกรุ่นและสเปกที่เหมาะกับงานของคุณ</p>
-              <Button size="lg" onClick={() => setQuoteProduct("iBox Series")}>
-
+              <Button size="lg" onClick={() => setQuoteProduct("iBox Series")}
                 <FileText className="w-4 h-4 mr-2" /> ขอใบเสนอราคา
               </Button>
             </div>

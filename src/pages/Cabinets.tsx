@@ -152,9 +152,12 @@ const Cabinets = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="ตู้ Rack & Cabinet อุตสาหกรรม" description="ตู้ Rack, ตู้ Cabinet อุตสาหกรรม สั่งผลิตขนาดพิเศษ วัสดุ Steel/SUS304/SUS316 มาตรฐาน IP65 พร้อมบริการออกแบบและติดตั้ง" path="/cabinets" />
       <ProductJsonLd
-        collectionName="ตู้ Rack & Cabinet อุตสาหกรรม">
-        collectionDescription="ตู้ Rack, ตู้ Cabinet อุตสาหกรรม สั่งผลิตขนาดพิเศษ วัสดุ Steel/SUS304/SUS316 มาตรฐาน IP65">
-        collectionUrl="/cabinets">
+        collectionName="ตู้ Rack & Cabinet อุตสาหกรรม"
+
+        collectionDescription="ตู้ Rack, ตู้ Cabinet อุตสาหกรรม สั่งผลิตขนาดพิเศษ วัสดุ Steel/SUS304/SUS316 มาตรฐาน IP65"
+
+        collectionUrl="/cabinets"
+
         products={[{ name: "Custom Industrial Cabinet", category: "ตู้ Rack & Cabinet" }]}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "ตู้ Rack & Cabinet", path: "/cabinets" }]} />
@@ -231,7 +234,8 @@ const Cabinets = () => {
                   <img
                     src={model.image}
                     alt={model.name}
-                    className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
+                    className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+
                     loading="lazy"
                   />
                 </div>
@@ -261,8 +265,7 @@ const Cabinets = () => {
                       </a>
                     </Button>
                   </div>
-                  <Button size="sm" className="w-full" onClick={() => setQuoteProduct(model.name)}>
-
+                  <Button size="sm" className="w-full" onClick={() => setQuoteProduct(model.name)}
                     <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
                   </Button>
                 </div>
@@ -350,8 +353,7 @@ const Cabinets = () => {
         <div className="card-surface p-8 text-center">
           <h2 className="text-2xl font-display font-bold text-foreground mb-3">สนใจตู้ Panel PC Cabinet?</h2>
           <p className="text-muted-foreground mb-6">ปรึกษาผู้เชี่ยวชาญเพื่อเลือกขนาดและรุ่นที่เหมาะกับงานของคุณ</p>
-          <Button size="lg" onClick={() => setQuoteProduct("Panel PC Cabinet")}>
-
+          <Button size="lg" onClick={() => setQuoteProduct("Panel PC Cabinet")}
             <FileText className="w-4 h-4 mr-2" /> ขอใบเสนอราคา
           </Button>
         </div>

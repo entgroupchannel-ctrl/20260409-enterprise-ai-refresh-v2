@@ -24,7 +24,8 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
         <img
           src={product.image}
           alt={product.nameTH}
-          className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300">
+          className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300"
+
           loading="lazy"
         />
         <div className="absolute top-3 left-3 flex flex-col gap-2">
@@ -94,7 +95,7 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
               รายละเอียด
             </Button>
           </Link>
-          <Button size="sm" className="flex-1 text-xs" onClick={() => onQuote(product.name)}>
+          <Button size="sm" className="flex-1 text-xs" onClick={() => onQuote(product.name)}
             <FileText className="w-3.5 h-3.5 mr-1" />
             ขอราคา
           </Button>

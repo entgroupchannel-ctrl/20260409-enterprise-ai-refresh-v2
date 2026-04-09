@@ -374,7 +374,8 @@ const Promotions = () => {
         <img
           src={promotionsHeroBg}
           alt=""
-          className="absolute inset-0 w-full h-full object-cover">
+          className="absolute inset-0 w-full h-full object-cover"
+
           width={1920}
           height={768}
         />

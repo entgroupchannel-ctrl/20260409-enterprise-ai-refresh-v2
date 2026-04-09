@@ -61,8 +61,10 @@ const SoftwareSection = () => {
                 <img
                   src={h.img}
                   alt={h.label}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                  loading="lazy">
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+
+                  loading="lazy"
+
                   width={640}
                   height={512}
                 />
@@ -88,8 +90,10 @@ const SoftwareSection = () => {
                 <img
                   src="/images/wix/0597a3_9e1fa56a9a7c40f9813a78e9e8b4edce_18a08837.jpg"
                   alt="ทีมพัฒนาซอฟต์แวร์"
-                  className="w-full rounded-lg transition-transform duration-500 group-hover:scale-[1.02]">
-                  loading="lazy">
+                  className="w-full rounded-lg transition-transform duration-500 group-hover:scale-[1.02]"
+
+                  loading="lazy"
+
                   width={600}
                   height={450}
                 />

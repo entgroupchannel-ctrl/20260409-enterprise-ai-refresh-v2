@@ -307,7 +307,8 @@ const MegaMenu = ({
       {/* Mega dropdown overlay */}
       {active && (
         <div
-          className="absolute left-1/2 -translate-x-1/2 top-full mt-2 z-50 w-[min(900px,90vw)]">
+          className="absolute left-1/2 -translate-x-1/2 top-full mt-2 z-50 w-[min(900px,90vw)]"
+
           onMouseEnter={() => { if (timeoutRef.current) clearTimeout(timeoutRef.current); }}
           onMouseLeave={handleLeave}>
           {/* Panel */}
@@ -335,7 +336,8 @@ const MegaMenu = ({
                         <img
                           src={active.featured.image}
                           alt={active.featured.title}
-                          className="h-16 w-auto object-contain group-hover:scale-105 transition-transform duration-300">
+                          className="h-16 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
+
                           loading="lazy"
                         />
                       </div>
@@ -415,7 +417,8 @@ const MegaMenu = ({
                     <img
                       src={promo.image}
                       alt={promo.title}
-                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />

@@ -226,9 +226,12 @@ const VCloudPoint = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="vCloudPoint Zero Client — Thin Client ประหยัดต้นทุน" description="vCloudPoint Zero Client ลดต้นทุนฮาร์ดแวร์ ประหยัดไฟ 80% ใช้คอมเครื่องเดียวแชร์ได้หลายจุด สำหรับสำนักงาน โรงเรียน โรงแรม" path="/vcloudpoint" />
       <ProductJsonLd
-        collectionName="vCloudPoint Zero Client">
-        collectionDescription="vCloudPoint Zero Client ลดต้นทุนฮาร์ดแวร์ ประหยัดไฟ 80% ใช้คอมเครื่องเดียวแชร์ได้หลายจุด">
-        collectionUrl="/vcloudpoint">
+        collectionName="vCloudPoint Zero Client"
+
+        collectionDescription="vCloudPoint Zero Client ลดต้นทุนฮาร์ดแวร์ ประหยัดไฟ 80% ใช้คอมเครื่องเดียวแชร์ได้หลายจุด"
+
+        collectionUrl="/vcloudpoint"
+
         products={[{ name: "vCloudPoint S100", description: "Zero Client for vMatrix", category: "Zero Client" }]}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "vCloudPoint", path: "/vcloudpoint" }]} />
@@ -316,14 +319,16 @@ const VCloudPoint = () => {
               <img
                 src="/images/wix/0597a3_2ecc578ac2fa4e14b33ded599f607670_de783198.png"
                 alt="vCloudPoint Zero Client"
-                className="relative w-full rounded-2xl">
+                className="relative w-full rounded-2xl"
+
                 loading="eager"
               />
               <div className="mt-4">
                 <img
                   src="/images/wix/0597a3_cbb51860864645c59b77aaa661958cdc_8fbba592.png"
                   alt="vCloudPoint System Diagram"
-                  className="w-full rounded-2xl">
+                  className="w-full rounded-2xl"
+
                   loading="eager"
                 />
               </div>
@@ -393,11 +398,14 @@ const VCloudPoint = () => {
             </div>
             <div className="relative aspect-video rounded-2xl overflow-hidden shadow-xl border border-border">
               <iframe
-                src="https://www.youtube.com/embed/kogDEEuUns4?rel=0">
-                title="10 เรื่องที่คุณยังไม่รู้เกี่ยวกับ vCloudPoint Zero Client">
+                src="https://www.youtube.com/embed/kogDEEuUns4?rel=0"
+
+                title="10 เรื่องที่คุณยังไม่รู้เกี่ยวกับ vCloudPoint Zero Client"
+
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                 allowFullScreen
-                className="absolute inset-0 w-full h-full">
+                className="absolute inset-0 w-full h-full"
+
                 loading="lazy"
               />
             </div>
@@ -497,7 +505,8 @@ const VCloudPoint = () => {
               <img
                 src="/images/wix/0597a3_4370580a88c646c88a88dcdf9e7b6dd7_cfa390fb.jpg"
                 alt="vMatrix Server Software"
-                className="w-full h-56 md:h-64 object-cover object-top">
+                className="w-full h-56 md:h-64 object-cover object-top"
+
                 loading="lazy"
               />
             </div>
@@ -505,7 +514,8 @@ const VCloudPoint = () => {
               <img
                 src="/images/wix/0597a3_f4c88e348b9e4916a08c834a965cc703_70b9fc48.jpg"
                 alt="vMatrix Control Panel"
-                className="w-full h-56 md:h-64 object-cover object-top">
+                className="w-full h-56 md:h-64 object-cover object-top"
+
                 loading="lazy"
               />
             </div>
@@ -666,7 +676,8 @@ const VCloudPoint = () => {
                                 title={v.label}
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                                 allowFullScreen
-                                className="absolute inset-0 w-full h-full">
+                                className="absolute inset-0 w-full h-full"
+
                                 loading="lazy"
                               />
                             </div>

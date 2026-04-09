@@ -258,9 +258,12 @@ const PanelPC = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="GTY/GTG Panel PC — จอสัมผัสอุตสาหกรรม" description="GTY/GTG Panel PC จอสัมผัสอุตสาหกรรม 8-21 นิ้ว เลือก CPU ได้ Fanless IP65 สำหรับโรงงาน POS SCADA HMI" path="/panel-pc-gtg" />
       <ProductJsonLd
-        collectionName="GTY/GTG Panel PC จอสัมผัสอุตสาหกรรม">
-        collectionDescription="Panel PC จอสัมผัสอุตสาหกรรม 8-21 นิ้ว Fanless IP65 สำหรับโรงงาน POS SCADA HMI">
-        collectionUrl="/panel-pc-gtg">
+        collectionName="GTY/GTG Panel PC จอสัมผัสอุตสาหกรรม"
+
+        collectionDescription="Panel PC จอสัมผัสอุตสาหกรรม 8-21 นิ้ว Fanless IP65 สำหรับโรงงาน POS SCADA HMI"
+
+        collectionUrl="/panel-pc-gtg"
+
         products={panelModels.map(m => ({ name: m.name, description: `${m.screen} ${m.resolution}`, category: "Industrial Panel PC" }))}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "Panel PC GTG", path: "/panel-pc-gtg" }]} />
@@ -450,7 +453,8 @@ const PanelPC = () => {
             <img
               src={displayType === "wide" ? panelpcWideLineup : panelpcSquareLineup}
               alt={`Panel PC ${displayType === "wide" ? "Widescreen" : "Square"} Lineup`}
-              className="max-h-[350px] mx-auto object-contain mb-6">
+              className="max-h-[350px] mx-auto object-contain mb-6"
+
               loading="lazy"
             />
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">

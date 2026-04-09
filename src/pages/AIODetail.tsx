@@ -164,8 +164,7 @@ const AIODetail = () => {
 
             {/* CTA */}
             <div className="flex flex-wrap gap-3 pt-4 border-t border-border">
-              <Button size="lg" variant="outline" onClick={() => setQuoteOpen(true)}>
-
+              <Button size="lg" variant="outline" onClick={() => setQuoteOpen(true)}
                 <FileText className="w-5 h-5 mr-2" /> ขอราคาด่วน
               </Button>
               <LineQRButton className="flex-1 h-11 text-base">
@@ -333,8 +332,7 @@ const AIODetail = () => {
                 </div>
 
                 <div className="border-t border-border pt-4 flex flex-wrap gap-3">
-                  <Button onClick={() => setQuoteOpen(true)}>
-
+                  <Button onClick={() => setQuoteOpen(true)}
                     <FileText className="w-4 h-4 mr-2" /> ขอใบเสนอราคา
                   </Button>
                   <LineQRButton>
@@ -351,8 +349,7 @@ const AIODetail = () => {
           <div className="mt-16">
             <h2 className="text-xl font-bold mb-6">สินค้าที่เกี่ยวข้อง</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {related.map((r) => <RelatedCard key={r.id} p={r} />)}>
-
+              {related.map((r) => <RelatedCard key={r.id} p={r} />)}
             </div>
           </div>
         )}

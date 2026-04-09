@@ -661,7 +661,8 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
             <img
               src={model.image}
               alt={model.name}
-              className="max-h-[240px] object-contain mb-4">
+              className="max-h-[240px] object-contain mb-4"
+
               loading="lazy"
             />
           )}
@@ -839,7 +840,8 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                 <iframe
                   src={`https://www.youtube.com/embed/${model.youtubeId}`}
                   title={`${model.name} Video`}
-                  className="w-full h-full">
+                  className="w-full h-full"
+
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                   allowFullScreen
                 />
@@ -1096,9 +1098,12 @@ const GKSeries = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="GK Series — Industrial Panel PC จอสัมผัสอุตสาหกรรม" description="GK Series Panel PC อุตสาหกรรม จอสัมผัส 10.4-21 นิ้ว เลือก CPU ได้ตามใจ ทนร้อน ทนฝุ่น สำหรับโรงงาน POS และงานควบคุม" path="/gk-series" />
       <ProductJsonLd
-        collectionName="GK Series Industrial Panel PC">
-        collectionDescription="Panel PC อุตสาหกรรม จอสัมผัส 10.4-21 นิ้ว IP65 เลือก CPU ได้ สำหรับโรงงาน POS และงานควบคุม">
-        collectionUrl="/gk-series">
+        collectionName="GK Series Industrial Panel PC"
+
+        collectionDescription="Panel PC อุตสาหกรรม จอสัมผัส 10.4-21 นิ้ว IP65 เลือก CPU ได้ สำหรับโรงงาน POS และงานควบคุม"
+
+        collectionUrl="/gk-series"
+
         products={gkModels.map(m => ({ name: m.name, price: m.priceTable?.[0]?.configs?.[0]?.price, image: m.image, description: `${m.screenSize} ${m.tagline}`, category: "Industrial Panel PC" }))}
       />
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "GK Series", path: "/gk-series" }]} />
@@ -1127,7 +1132,8 @@ const GKSeries = () => {
           <img
             src={gkHeroBanner}
             alt="GK Series Panel PC in harsh industrial environment"
-            className="w-full h-full object-cover">
+            className="w-full h-full object-cover"
+
             width={1920}
             height={800}
           />
@@ -1375,7 +1381,8 @@ const GKSeries = () => {
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
                         title={v.title}
-                        className="w-full h-full">
+                        className="w-full h-full"
+
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                         allowFullScreen
                         loading="lazy"
@@ -1447,7 +1454,8 @@ const GKSeries = () => {
                 <img
                   src="/images/wix/005637_9307d91084e2433eb766e611c65c7518_d90cd4b5.jpg"
                   alt="GK Series SIM slot"
-                  className="rounded-xl max-w-full">
+                  className="rounded-xl max-w-full"
+
                   loading="lazy"
                 />
               </div>

@@ -432,7 +432,8 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
           <img
             src={allImages[activeImg]}
             alt={series.name}
-            className="max-h-[220px] object-contain mb-4 transition-opacity duration-500">
+            className="max-h-[220px] object-contain mb-4 transition-opacity duration-500"
+
             loading="lazy"
           />
           {allImages.length > 1 && (
@@ -523,11 +524,13 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
               <div className="p-4">
                 <div className="aspect-video rounded-lg overflow-hidden">
                   <iframe
-                    src="https://www.youtube.com/embed/n_AVEOTjeAA">
+                    src="https://www.youtube.com/embed/n_AVEOTjeAA"
+
                     title={`EPC Box ${series.name} Video`}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                     allowFullScreen
-                    className="w-full h-full">
+                    className="w-full h-full"
+
                     loading="lazy"
                   />
                 </div>
@@ -756,9 +759,12 @@ const EPCBoxSeries = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="EPC Box Series — Fanless Modular Industrial PC" description="EPC Box Series คอมพิวเตอร์อุตสาหกรรม Fanless แบบ Modular LEGO MODE รองรับ Intel N100 ถึง Core i7 สำหรับโรงงานและ IoT" path="/epc-box-series" />
       <ProductJsonLd
-        collectionName="EPC Box Series Fanless Modular Industrial PC">
-        collectionDescription="EPC Box Series คอมพิวเตอร์อุตสาหกรรม Fanless แบบ Modular สำหรับโรงงานและ IoT">
-        collectionUrl="/epc-box-series">
+        collectionName="EPC Box Series Fanless Modular Industrial PC"
+
+        collectionDescription="EPC Box Series คอมพิวเตอร์อุตสาหกรรม Fanless แบบ Modular สำหรับโรงงานและ IoT"
+
+        collectionUrl="/epc-box-series"
+
         products={priceList.map(m => ({ name: m.model, price: m.price, description: m.spec, category: "Fanless Modular Industrial PC" }))}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "EPC Box Series", path: "/epc-box-series" }]} />
@@ -843,7 +849,8 @@ const EPCBoxSeries = () => {
           <img
             src="/images/wix/0597a3_7c3f2bd701f340ee993f725c168c1bec_e05257e7.png"
             alt="Trusted by global industries"
-            className="w-full max-w-3xl mx-auto h-auto opacity-70">
+            className="w-full max-w-3xl mx-auto h-auto opacity-70"
+
             loading="lazy"
           />
           <p className="text-center text-sm text-muted-foreground mt-4">
@@ -1042,11 +1049,14 @@ const EPCBoxSeries = () => {
               </div>
               <div className="aspect-video">
                 <iframe
-                  src="https://www.youtube.com/embed/n_AVEOTjeAA">
-                  title="EPC Box Series Overview">
+                  src="https://www.youtube.com/embed/n_AVEOTjeAA"
+
+                  title="EPC Box Series Overview"
+
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                   allowFullScreen
-                  className="w-full h-full">
+                  className="w-full h-full"
+
                   loading="lazy"
                 />
               </div>
@@ -1073,7 +1083,8 @@ const EPCBoxSeries = () => {
                       title={video.title}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                       allowFullScreen
-                      className="w-full h-full">
+                      className="w-full h-full"
+
                       loading="lazy"
                     />
                   </div>

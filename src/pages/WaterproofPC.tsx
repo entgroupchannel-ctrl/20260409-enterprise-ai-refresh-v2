@@ -162,9 +162,12 @@ const WaterproofPC = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="Waterproof Panel PC — IP67 IP69K กันน้ำ" description="Waterproof Panel PC มาตรฐาน IP67 IP69K กันน้ำ กันฝุ่น Stainless Steel SUS316 สำหรับอุตสาหกรรมอาหาร ยา และห้องคลีนรูม" path="/waterproof-pc" />
       <ProductJsonLd
-        collectionName="Waterproof Panel PC IP67 IP69K">
-        collectionDescription="Waterproof Panel PC มาตรฐาน IP67 IP69K กันน้ำ กันฝุ่น Stainless Steel สำหรับอุตสาหกรรมอาหารและยา">
-        collectionUrl="/waterproof-pc">
+        collectionName="Waterproof Panel PC IP67 IP69K"
+
+        collectionDescription="Waterproof Panel PC มาตรฐาน IP67 IP69K กันน้ำ กันฝุ่น Stainless Steel สำหรับอุตสาหกรรมอาหารและยา"
+
+        collectionUrl="/waterproof-pc"
+
         products={models.map(m => ({ name: m.name, image: m.image, description: `${m.model} Waterproof Panel PC`, category: "Waterproof Panel PC" }))}
       />
 
@@ -186,8 +189,7 @@ const WaterproofPC = () => {
                 คอมพิวเตอร์อุตสาหกรรมกันน้ำ กันฝุ่น IP67/IP69K สแตนเลส SUS304 เกรดอาหาร ออกแบบไร้พัดลม เหมาะสำหรับอุตสาหกรรมอาหาร เครื่องดื่ม ยา และพื้นที่ที่ต้องล้างทำความสะอาดได้
               </p>
               <div className="flex gap-3">
-                <Button onClick={() => setQuoteProduct("Waterproof PC IP69K")}>
-
+                <Button onClick={() => setQuoteProduct("Waterproof PC IP69K")}
                   <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
                 </Button>
                 <Button variant="outline" asChild>
@@ -232,7 +234,8 @@ const WaterproofPC = () => {
               <img
                 src="/images/wix/0597a3_0ad34056abce4284bb55ec5a2fb4ea1b_f03de733.png"
                 alt="IP67 Protection"
-                className="w-full h-auto rounded-lg">
+                className="w-full h-auto rounded-lg"
+
                 loading="lazy"
               />
             </div>
@@ -329,8 +332,7 @@ const WaterproofPC = () => {
                         <ExternalLink className="w-3.5 h-3.5 mr-1.5" /> Datasheet
                       </a>
                     </Button>
-                    <Button size="sm" onClick={() => setQuoteProduct("Waterproof PC IP69K")}>
-
+                    <Button size="sm" onClick={() => setQuoteProduct("Waterproof PC IP69K")}
                       <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
                     </Button>
                   </div>
@@ -359,7 +361,8 @@ const WaterproofPC = () => {
           <img
             src="/images/wix/0597a3_ffe271d4f86b4f699e9760cb18da5733_29923812.png"
             alt="Waterproof PC Applications"
-            className="w-full h-auto">
+            className="w-full h-auto"
+
             loading="lazy"
           />
         </section>
@@ -368,8 +371,7 @@ const WaterproofPC = () => {
         <div className="card-surface p-8 text-center">
           <h2 className="text-2xl font-display font-bold text-foreground mb-3">สนใจ Waterproof Panel PC?</h2>
           <p className="text-muted-foreground mb-6">ปรึกษาผู้เชี่ยวชาญเพื่อเลือกรุ่นที่เหมาะกับอุตสาหกรรมของคุณ</p>
-          <Button size="lg" onClick={() => setQuoteProduct("Waterproof PC IP69K")}>
-
+          <Button size="lg" onClick={() => setQuoteProduct("Waterproof PC IP69K")}
             <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
           </Button>
         </div>

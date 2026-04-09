@@ -330,8 +330,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
             <Download className="w-3.5 h-3.5 mr-1.5" /> Datasheet
           </a>
         </Button>
-        <Button size="sm" className="flex-1" onClick={() => onQuote?.(model.name)}>
-
+        <Button size="sm" className="flex-1" onClick={() => onQuote?.(model.name)}
           <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
         </Button>
       </div>
@@ -353,9 +352,12 @@ const EPCSeries = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="EPC Series — Industrial Panel PC จอสัมผัส" description="EPC Series Panel PC อุตสาหกรรม จอสัมผัส IP65 Fanless ขนาด 10-21 นิ้ว สำหรับโรงงาน POS SCADA และงานควบคุม" path="/epc-series" />
       <ProductJsonLd
-        collectionName="EPC Series Industrial Panel PC">
-        collectionDescription="Panel PC อุตสาหกรรม จอสัมผัส IP65 Fanless ขนาด 10-21 นิ้ว สำหรับโรงงาน POS SCADA">
-        collectionUrl="/epc-series">
+        collectionName="EPC Series Industrial Panel PC"
+
+        collectionDescription="Panel PC อุตสาหกรรม จอสัมผัส IP65 Fanless ขนาด 10-21 นิ้ว สำหรับโรงงาน POS SCADA"
+
+        collectionUrl="/epc-series"
+
         products={priceListSquare.map(m => ({ name: m.model, price: m.price, description: m.config, category: "Industrial Panel PC" }))}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "EPC Series", path: "/epc-series" }]} />
@@ -407,8 +409,7 @@ const EPCSeries = () => {
                     <ExternalLink className="w-3.5 h-3.5 mr-1.5" /> Product Overview
                   </a>
                 </Button>
-                <Button size="sm" onClick={() => setQuoteProduct("EPC Series")}>
-
+                <Button size="sm" onClick={() => setQuoteProduct("EPC Series")}
                   <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
                 </Button>
                 <Button size="sm" className="bg-amber-500 text-black hover:bg-amber-400 font-bold" asChild>
@@ -424,7 +425,8 @@ const EPCSeries = () => {
               <img
                 src={epcHeroPanelPC}
                 alt="EPC Industrial Panel PC with Touchscreen"
-                className="w-full max-w-md h-auto rounded-xl shadow-2xl border border-white/10">
+                className="w-full max-w-md h-auto rounded-xl shadow-2xl border border-white/10"
+
                 width={896}
                 height={1024}
               />
@@ -476,7 +478,8 @@ const EPCSeries = () => {
             <img
               src="/images/wix/0597a3_7c3f2bd701f340ee993f725c168c1bec_e05257e7.png"
               alt="CESIPC Certifications"
-              className="w-full h-auto p-6">
+              className="w-full h-auto p-6"
+
               loading="lazy"
             />
           </div>
@@ -889,8 +892,7 @@ const EPCSeries = () => {
                 <ExternalLink className="w-4 h-4 mr-1.5" /> ดาวน์โหลด E-Catalog
               </a>
             </Button>
-            <Button onClick={() => setQuoteProduct("EPC Series")}>
-
+            <Button onClick={() => setQuoteProduct("EPC Series")}
               <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
             </Button>
           </div>

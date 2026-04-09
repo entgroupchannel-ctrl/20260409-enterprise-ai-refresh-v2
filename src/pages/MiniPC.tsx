@@ -715,8 +715,7 @@ const ProductCard = ({ model, onQuote }: { model: any; onQuote?: (name: string) 
             </a>
           </Button>
         )}
-        <Button size="sm" onClick={() => onQuote?.(model.name)}>
-
+        <Button size="sm" onClick={() => onQuote?.(model.name)}
           <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
         </Button>
       </div>
@@ -739,8 +738,7 @@ const CategorySection = ({ id, title, subtitle, icon: Icon, models, onQuote }: {
       </div>
     </div>
     <div className="space-y-6">
-      {models.map((m) => <ProductCard key={m.id} model={m} onQuote={onQuote} />)}>
-
+      {models.map((m) => <ProductCard key={m.id} model={m} onQuote={onQuote} />)}
     </div>
   </section>
 );
@@ -820,9 +818,12 @@ const MiniPC = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="Mini PC Series — คอมพิวเตอร์ขนาดเล็กสมรรถนะสูง" description="Mini PC จากโรงงานผู้ผลิตโดยตรง ครอบคลุมทุกการใช้งานตั้งแต่ Entry-Level จนถึง Workstation Class ราคาเริ่มต้น 8,190 บาท" path="/mini-pc" />
       <ProductJsonLd
-        collectionName="Mini PC Series">
-        collectionDescription="คอมพิวเตอร์ขนาดเล็กสมรรถนะสูง จากโรงงานผู้ผลิตโดยตรง ราคาเริ่มต้น 8,190 บาท">
-        collectionUrl="/mini-pc">
+        collectionName="Mini PC Series"
+
+        collectionDescription="คอมพิวเตอร์ขนาดเล็กสมรรถนะสูง จากโรงงานผู้ผลิตโดยตรง ราคาเริ่มต้น 8,190 บาท"
+
+        collectionUrl="/mini-pc"
+
         products={[
           { name: "K6-F1 Mini PC", price: "4,900", category: "Mini PC" },
           { name: "K6-F17H Mini PC", price: "5,500", category: "Mini PC" },
@@ -873,8 +874,7 @@ const MiniPC = () => {
             ))}
           </div>
           <div className="flex flex-wrap gap-3">
-            <Button onClick={() => setQuoteProduct("Mini PC")}>
-
+            <Button onClick={() => setQuoteProduct("Mini PC")}
               <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
             </Button>
             <Button variant="outline" onClick={() => document.getElementById("pricelist")?.scrollIntoView({ behavior: "smooth" })}
@@ -1029,8 +1029,7 @@ const MiniPC = () => {
                           <TableCell className="text-muted-foreground text-sm">{r.storage}</TableCell>
                           <TableCell className="text-right font-semibold text-foreground">{r.price}</TableCell>
                           <TableCell className="text-right">
-                            <Button size="sm" variant="ghost" className="text-xs text-primary" onClick={() => setQuoteProduct(r.model)}>
-
+                            <Button size="sm" variant="ghost" className="text-xs text-primary" onClick={() => setQuoteProduct(r.model)}
                               <FileText className="w-3 h-3 mr-1" /> ขอราคา
                             </Button>
                           </TableCell>
@@ -1100,8 +1099,7 @@ const MiniPC = () => {
               <span key={u} className="px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium">{u}</span>
             ))}
           </div>
-          <Button onClick={() => setQuoteProduct("Mini PC")}>
-
+          <Button onClick={() => setQuoteProduct("Mini PC")}
             <FileText className="w-3.5 h-3.5 mr-1.5" /> ปรึกษาผู้เชี่ยวชาญ — ขอใบเสนอราคา
           </Button>
         </div>

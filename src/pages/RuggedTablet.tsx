@@ -272,8 +272,7 @@ const TabletCard = ({
             <Monitor className="w-3.5 h-3.5 mr-1.5" /> ดูสเปก
           </Link>
         </Button>
-        <Button size="sm" className="flex-1" onClick={() => onQuote(product.model)}>
-
+        <Button size="sm" className="flex-1" onClick={() => onQuote(product.model)}
           <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอราคา
         </Button>
       </div>
@@ -363,14 +362,19 @@ const RuggedTablet = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead
-        title="Rugged Tablet กันน้ำ กันกระแทก — 15 รุ่น">
-        description="Rugged Tablet ทนทาน กันน้ำ IP65-IP68 กันกระแทก MIL-STD-810G สำหรับงานภาคสนาม ทหาร โลจิสติกส์ — Windows & Android 15 รุ่น">
+        title="Rugged Tablet กันน้ำ กันกระแทก — 15 รุ่น"
+
+        description="Rugged Tablet ทนทาน กันน้ำ IP65-IP68 กันกระแทก MIL-STD-810G สำหรับงานภาคสนาม ทหาร โลจิสติกส์ — Windows & Android 15 รุ่น"
+
         path="/rugged-tablet"
       />
       <ProductJsonLd
-        collectionName="Rugged Tablet กันน้ำ กันกระแทก">
-        collectionDescription="Rugged Tablet ทนทาน กันน้ำ IP65-IP68 กันกระแทก MIL-STD-810G — 15 รุ่น Windows & Android">
-        collectionUrl="/rugged-tablet">
+        collectionName="Rugged Tablet กันน้ำ กันกระแทก"
+
+        collectionDescription="Rugged Tablet ทนทาน กันน้ำ IP65-IP68 กันกระแทก MIL-STD-810G — 15 รุ่น Windows & Android"
+
+        collectionUrl="/rugged-tablet"
+
         products={tablets.filter((t) => t.price).map((t) => ({ name: t.name, price: t.price, category: "Rugged Tablet" }))}
       />
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "Rugged Tablet", path: "/rugged-tablet" }]} />
@@ -496,8 +500,7 @@ const RuggedTablet = () => {
                   />
                 </div>
                 <div className="flex gap-2">
-                  <Button variant="outline" size="icon" className="lg:hidden" onClick={() => setIsMobileFilterOpen(true)}>
-
+                  <Button variant="outline" size="icon" className="lg:hidden" onClick={() => setIsMobileFilterOpen(true)}
                     <SlidersHorizontal className="w-4 h-4" />
                   </Button>
                   <Select value={sortBy} onValueChange={setSortBy}>
@@ -620,8 +623,10 @@ const RuggedTablet = () => {
 
                   <iframe
                     className="absolute inset-0 w-full h-full"
-                    src="https://www.youtube.com/embed/4b5kFnaEEN4">
-                    title="Rugged Tablet — Featured Video">
+                    src="https://www.youtube.com/embed/4b5kFnaEEN4"
+
+                    title="Rugged Tablet — Featured Video"
+
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                     allowFullScreen
                     loading="lazy"
@@ -683,8 +688,7 @@ const RuggedTablet = () => {
                 <Button variant="outline" asChild>
                   <Link to="/contact">ติดต่อเรา</Link>
                 </Button>
-                <Button onClick={() => setQuoteProduct("Rugged Tablet")}>
-
+                <Button onClick={() => setQuoteProduct("Rugged Tablet")}
                   <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
                 </Button>
               </div>
@@ -700,8 +704,7 @@ const RuggedTablet = () => {
             <ShoppingCart className="w-5 h-5" />
             <span className="font-bold text-sm">{selectedProducts.size} รุ่น</span>
           </div>
-          <Button size="sm" variant="secondary" className="rounded-full font-bold" onClick={() => setShowMultiQuote(true)}>
-
+          <Button size="sm" variant="secondary" className="rounded-full font-bold" onClick={() => setShowMultiQuote(true)}
             <FileText className="w-4 h-4 mr-1.5" /> ขอใบเสนอราคารวม
           </Button>
           <button onClick={clearSelection} className="p-1 hover:bg-primary-foreground/20 rounded-full transition-colors">

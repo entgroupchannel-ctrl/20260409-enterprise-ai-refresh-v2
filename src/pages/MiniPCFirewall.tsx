@@ -756,9 +756,12 @@ const MiniPCFirewall = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="Mini PC Firewall — pfSense OPNsense Router" description="Mini PC Firewall สำหรับ pfSense OPNsense VPN Gateway รองรับ 2-6 LAN Ports Fanless Intel Celeron ถึง Core i7" path="/mini-pc-firewall" />
       <ProductJsonLd
-        collectionName="Mini PC Firewall pfSense OPNsense">
-        collectionDescription="Mini PC Firewall สำหรับ pfSense OPNsense VPN Gateway รองรับ 2-6 LAN Ports">
-        collectionUrl="/mini-pc-firewall">
+        collectionName="Mini PC Firewall pfSense OPNsense"
+
+        collectionDescription="Mini PC Firewall สำหรับ pfSense OPNsense VPN Gateway รองรับ 2-6 LAN Ports"
+
+        collectionUrl="/mini-pc-firewall"
+
         products={models.map(m => ({ name: m.name, description: m.tagline, category: "Mini PC Firewall" }))}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "Mini PC Firewall", path: "/mini-pc-firewall" }]} />
@@ -1054,7 +1057,8 @@ const MiniPCFirewall = () => {
                     title={v.title}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
                     allowFullScreen
-                    className="absolute inset-0 w-full h-full">
+                    className="absolute inset-0 w-full h-full"
+
                     loading="lazy"
                   />
                 </div>
