@@ -12,12 +12,13 @@ export const formatCurrency = (amount: number): string =>
 /** Status color tokens */
 export const getStatusColor = (status: string) => {
   const colors: Record<string, { bg: string; text: string; border: string }> = {
-    pending:     { bg: "bg-blue-50",   text: "text-blue-700",   border: "border-blue-200" },
-    quote_sent:  { bg: "bg-purple-50", text: "text-purple-700", border: "border-purple-200" },
-    po_uploaded: { bg: "bg-orange-50", text: "text-orange-700", border: "border-orange-200" },
-    po_approved: { bg: "bg-green-50",  text: "text-green-700",  border: "border-green-200" },
-    completed:   { bg: "bg-teal-50",   text: "text-teal-700",   border: "border-teal-200" },
-    rejected:    { bg: "bg-red-50",    text: "text-red-700",    border: "border-red-200" },
+    pending:      { bg: "bg-blue-50",   text: "text-blue-700",   border: "border-blue-200" },
+    quote_sent:   { bg: "bg-purple-50", text: "text-purple-700", border: "border-purple-200" },
+    po_uploaded:  { bg: "bg-orange-50", text: "text-orange-700", border: "border-orange-200" },
+    po_confirmed: { bg: "bg-orange-50", text: "text-orange-700", border: "border-orange-200" },
+    po_approved:  { bg: "bg-green-50",  text: "text-green-700",  border: "border-green-200" },
+    completed:    { bg: "bg-teal-50",   text: "text-teal-700",   border: "border-teal-200" },
+    rejected:     { bg: "bg-red-50",    text: "text-red-700",    border: "border-red-200" },
   };
   return colors[status] || colors.pending;
 };
@@ -27,7 +28,8 @@ export const getStatusLabel = (status: string): string => {
   const labels: Record<string, string> = {
     pending: "รอตอบกลับ",
     quote_sent: "ส่งราคาแล้ว",
-    po_uploaded: "รอตรวจ PO",
+    po_uploaded: "ส่ง PO แล้ว",
+    po_confirmed: "ส่ง PO แล้ว",
     po_approved: "อนุมัติแล้ว",
     completed: "เสร็จสิ้น",
     rejected: "ปฏิเสธ",
