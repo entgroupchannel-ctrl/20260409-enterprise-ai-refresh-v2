@@ -547,8 +547,8 @@ const FirewallComparisonTable = () => {
                     filterMinLan === n
                       ? "bg-primary text-primary-foreground shadow-md"
                       : "bg-background border border-border text-muted-foreground hover:border-primary/40"
-                  }`}
-                  ≥{n}
+                  }`}>
+                  >{n}
                 </button>
               ))}
             </div>
