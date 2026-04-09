@@ -1048,7 +1048,7 @@ const MiniPC = () => {
                     size="sm"
                     disabled={currentPage === 1}
                     onClick={() => setCurrentPage((p) => p - 1)}
-                    className="text-xs"
+                    className="text-xs">
                     ← ก่อนหน้า
                   </Button>
                   {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (

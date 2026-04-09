@@ -738,20 +738,20 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
           <TabsList className="w-full justify-start rounded-none h-auto border-b border-border bg-muted/30 p-0 overflow-x-auto">
             <TabsTrigger
               value="spec"
-              className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none px-6 py-3 text-sm font-semibold shrink-0"
+              className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none px-6 py-3 text-sm font-semibold shrink-0">
               ►Specification
             </TabsTrigger>
             {model.priceTable.length > 0 && (
               <TabsTrigger
                 value="price"
-                className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none px-6 py-3 text-sm font-semibold shrink-0"
+                className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none px-6 py-3 text-sm font-semibold shrink-0">
                 ►ราคา
               </TabsTrigger>
             )}
             {model.youtubeId && (
               <TabsTrigger
                 value="video"
-                className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none px-6 py-3 text-sm font-semibold shrink-0"
+                className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none px-6 py-3 text-sm font-semibold shrink-0">
                 ►Video
               </TabsTrigger>
             )}
