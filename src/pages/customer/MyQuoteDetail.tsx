@@ -1,10 +1,10 @@
-// src/pages/customer/MyQuoteDetail.tsx
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+import { Textarea } from '@/components/ui/textarea';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import QuoteTimeline from '@/components/rfq/QuoteTimeline';
@@ -15,12 +15,9 @@ import {
   Printer,
   Upload,
   FileText,
-  Building2,
-  User,
-  Phone,
-  Mail,
-  MapPin,
   Package,
+  Send,
+  MessageSquare,
 } from 'lucide-react';
 import { format } from 'date-fns';
 import { th } from 'date-fns/locale';
@@ -34,43 +31,70 @@ interface Quote {
   customer_phone: string;
   customer_company: string;
   customer_address: string;
-  customer_tax_id: string;
   products: any[];
   notes: string;
   subtotal: number;
   vat_amount: number;
   grand_total: number;
-  payment_terms: string;
-  delivery_terms: string;
-  warranty_terms: string;
   created_at: string;
   sent_at: string | null;
-  valid_until: string | null;
+}
+
+interface Message {
+  id: string;
+  sender_name: string;
+  sender_role: string;
+  content: string;
+  created_at: string;
+}
+
+interface POFile {
+  id: string;
+  file_url: string;
+  file_name: string;
+  file_size: number | null;
+  uploaded_at: string;
 }
 
 export default function MyQuoteDetail() {
   const { id } = useParams();
-  const [searchParams] = useSearchParams();
   const { user } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
 
   const [quote, setQuote] = useState<Quote | null>(null);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [poFiles, setPoFiles] = useState<POFile[]>([]);
   const [loading, setLoading] = useState(true);
   const [showPOUpload, setShowPOUpload] = useState(false);
-  const [poFiles, setPoFiles] = useState<any[]>([]);
-  const isPrintMode = searchParams.get('print') === 'true';
+  const [messageText, setMessageText] = useState('');
+  const [sendingMessage, setSendingMessage] = useState(false);
 
   useEffect(() => {
     if (id && user) {
       loadQuote();
+      loadMessages();
       loadPOFiles();
     }
   }, [id, user]);
 
+  // Realtime subscription for messages
   useEffect(() => {
-    if (isPrintMode && quote) setTimeout(() => window.print(), 500);
-  }, [isPrintMode, quote]);
+    if (!id) return;
+    const channel = supabase
+      .channel(`customer-chat-${id}`)
+      .on('postgres_changes', {
+        event: 'INSERT',
+        schema: 'public',
+        table: 'quote_messages',
+        filter: `quote_id=eq.${id}`,
+      }, (payload) => {
+        setMessages((prev) => [...prev, payload.new as Message]);
+      })
+      .subscribe();
+
+    return () => { channel.unsubscribe(); };
+  }, [id]);
 
   const loadQuote = async () => {
     try {
@@ -81,17 +105,32 @@ export default function MyQuoteDetail() {
         .single();
 
       if (error) throw error;
-      if (!data) {
-        toast({ title: 'ไม่พบข้อมูล', description: 'ไม่พบใบเสนอราคานี้หรือคุณไม่มีสิทธิ์เข้าถึง', variant: 'destructive' });
-        navigate('/my-quotes');
-        return;
-      }
       setQuote({ ...data, products: (data.products as any) || [] } as any);
     } catch (error: any) {
-      toast({ title: 'เกิดข้อผิดพลาด', description: error.message, variant: 'destructive' });
+      toast({
+        title: 'เกิดข้อผิดพลาด',
+        description: error.message,
+        variant: 'destructive',
+      });
       navigate('/my-quotes');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const loadMessages = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('quote_messages')
+        .select('*')
+        .eq('quote_id', id!)
+        .order('created_at', { ascending: true });
+
+      if (!error && data) {
+        setMessages(data);
+      }
+    } catch (error) {
+      console.error('Error loading messages:', error);
     }
   };
 
@@ -112,18 +151,41 @@ export default function MyQuoteDetail() {
     }
   };
 
-  const handlePrint = () => window.print();
+  const handleSendMessage = async () => {
+    if (!messageText.trim()) return;
 
-  const handleDownloadPDF = () => {
-    toast({ title: 'กำลังดาวน์โหลด', description: 'กรุณารอสักครู่...' });
-  };
+    setSendingMessage(true);
+    try {
+      const { error } = await supabase.from('quote_messages').insert({
+        quote_id: id,
+        sender_name: user?.email || 'ลูกค้า',
+        sender_role: 'customer',
+        content: messageText,
+        message_type: 'text',
+      });
 
-  const handleUploadPO = () => {
-    setShowPOUpload(true);
+      if (error) throw error;
+
+      setMessageText('');
+    } catch (error: any) {
+      toast({
+        title: 'ส่งข้อความไม่สำเร็จ',
+        description: error.message,
+        variant: 'destructive',
+      });
+    } finally {
+      setSendingMessage(false);
+    }
   };
 
   const formatCurrency = (amount: number) =>
     new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', minimumFractionDigits: 2 }).format(amount);
+
+  const formatFileSize = (bytes: number): string => {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+  };
 
   if (loading) {
     return (
@@ -140,114 +202,78 @@ export default function MyQuoteDetail() {
 
   return (
     <div className="min-h-screen bg-background">
-      {!isPrintMode && (
-        <div className="bg-card border-b border-border sticky top-0 z-10 print:hidden">
-          <div className="container max-w-6xl mx-auto px-4 py-3">
-            <div className="flex items-center justify-between">
-              <Button variant="ghost" size="sm" onClick={() => navigate('/my-quotes')}>
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                กลับรายการ
+      {/* Header */}
+      <div className="bg-card border-b border-border sticky top-0 z-10 print:hidden">
+        <div className="container max-w-6xl mx-auto px-4 py-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Button variant="ghost" size="icon" onClick={() => navigate('/my-quotes')}>
+                <ArrowLeft className="w-4 h-4" />
               </Button>
-              <div className="flex items-center gap-2">
-                <Button variant="outline" size="sm" onClick={handlePrint}>
-                  <Printer className="w-4 h-4 mr-2" />พิมพ์
-                </Button>
-                {quote.status !== 'pending' && (
-                  <Button variant="outline" size="sm" onClick={handleDownloadPDF}>
-                    <Download className="w-4 h-4 mr-2" />ดาวน์โหลด PDF
-                  </Button>
-                )}
-                {quote.status === 'quote_sent' && (
-                  <Button size="sm" onClick={handleUploadPO}>
-                    <Upload className="w-4 h-4 mr-2" />อัปโหลด PO
-                  </Button>
-                )}
+              <div>
+                <h1 className="font-bold text-foreground">{quote.quote_number}</h1>
+                <p className="text-xs text-muted-foreground">
+                  {format(new Date(quote.created_at), 'dd MMM yyyy, HH:mm', { locale: th })}
+                </p>
               </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <Button variant="outline" size="sm" onClick={() => window.print()}>
+                <Printer className="w-4 h-4 mr-2" />พิมพ์
+              </Button>
+              {quote.status !== 'pending' && (
+                <Button variant="outline" size="sm">
+                  <Download className="w-4 h-4 mr-2" />ดาวน์โหลด PDF
+                </Button>
+              )}
+              {quote.status === 'quote_sent' && (
+                <Button size="sm" onClick={() => setShowPOUpload(true)}>
+                  <Upload className="w-4 h-4 mr-2" />อัปโหลด PO
+                </Button>
+              )}
             </div>
           </div>
         </div>
-      )}
+      </div>
 
-      <div className="container max-w-6xl mx-auto px-4 py-8">
-        <div className="mb-6">
-          <h1 className="text-3xl font-bold mb-2">{quote.quote_number}</h1>
-          <p className="text-muted-foreground">
-            สร้างเมื่อ {format(new Date(quote.created_at), 'dd MMMM yyyy, HH:mm', { locale: th })}
-          </p>
-        </div>
-
-        <Card className="mb-6 print:hidden">
+      <div className="container max-w-6xl mx-auto px-4 py-6">
+        {/* Timeline */}
+        <Card className="mb-6">
           <CardContent className="pt-6">
-            <QuoteTimeline currentStatus={quote.status} size="lg" />
+            <QuoteTimeline currentStatus={quote.status} />
           </CardContent>
         </Card>
 
+        {/* Customer Info */}
         <Card className="mb-6">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <User className="w-5 h-5" />
-              ข้อมูลผู้ขอใบเสนอราคา
-            </CardTitle>
+            <CardTitle>ข้อมูลผู้ขอใบเสนอราคา</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-3">
-                <div className="flex items-start gap-3">
-                  <User className="w-4 h-4 text-muted-foreground mt-1" />
-                  <div>
-                    <p className="text-xs text-muted-foreground">ชื่อ-นามสกุล</p>
-                    <p className="font-semibold">{quote.customer_name}</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Mail className="w-4 h-4 text-muted-foreground mt-1" />
-                  <div>
-                    <p className="text-xs text-muted-foreground">อีเมล</p>
-                    <p className="font-semibold">{quote.customer_email}</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Phone className="w-4 h-4 text-muted-foreground mt-1" />
-                  <div>
-                    <p className="text-xs text-muted-foreground">โทรศัพท์</p>
-                    <p className="font-semibold">{quote.customer_phone || '-'}</p>
-                  </div>
-                </div>
+            <div className="grid grid-cols-2 gap-x-8 gap-y-3">
+              <div>
+                <p className="text-xs text-muted-foreground">ชื่อ-นามสกุล</p>
+                <p className="font-semibold text-foreground">{quote.customer_name}</p>
               </div>
-
               {quote.customer_company && (
-                <div className="space-y-3">
-                  <div className="flex items-start gap-3">
-                    <Building2 className="w-4 h-4 text-muted-foreground mt-1" />
-                    <div>
-                      <p className="text-xs text-muted-foreground">บริษัท</p>
-                      <p className="font-semibold">{quote.customer_company}</p>
-                    </div>
-                  </div>
-                  {quote.customer_address && (
-                    <div className="flex items-start gap-3">
-                      <MapPin className="w-4 h-4 text-muted-foreground mt-1" />
-                      <div>
-                        <p className="text-xs text-muted-foreground">ที่อยู่</p>
-                        <p className="font-semibold">{quote.customer_address}</p>
-                      </div>
-                    </div>
-                  )}
-                  {quote.customer_tax_id && (
-                    <div className="flex items-start gap-3">
-                      <FileText className="w-4 h-4 text-muted-foreground mt-1" />
-                      <div>
-                        <p className="text-xs text-muted-foreground">เลขผู้เสียภาษี</p>
-                        <p className="font-semibold">{quote.customer_tax_id}</p>
-                      </div>
-                    </div>
-                  )}
+                <div>
+                  <p className="text-xs text-muted-foreground">บริษัท</p>
+                  <p className="font-semibold text-foreground">{quote.customer_company}</p>
                 </div>
               )}
+              <div>
+                <p className="text-xs text-muted-foreground">อีเมล</p>
+                <p className="text-sm text-foreground">{quote.customer_email}</p>
+              </div>
+              <div>
+                <p className="text-xs text-muted-foreground">โทรศัพท์</p>
+                <p className="text-sm text-foreground">{quote.customer_phone}</p>
+              </div>
             </div>
           </CardContent>
         </Card>
 
+        {/* Products */}
         <Card className="mb-6">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -274,17 +300,23 @@ export default function MyQuoteDetail() {
                   </tr>
                 </thead>
                 <tbody>
-                  {quote.products?.map((product: any, index: number) => (
+                  {quote.products && quote.products.map((product: any, index: number) => (
                     <tr key={index} className="border-b border-border">
                       <td className="px-4 py-3 text-sm">{index + 1}</td>
-                      <td className="px-4 py-3 font-semibold">{product.model}</td>
+                      <td className="px-4 py-3 text-sm font-medium">{product.model}</td>
                       <td className="px-4 py-3 text-sm text-muted-foreground">{product.description}</td>
-                      <td className="px-4 py-3 text-right">{product.qty}</td>
+                      <td className="px-4 py-3 text-sm text-right">{product.qty}</td>
                       {quote.status !== 'pending' && (
                         <>
-                          <td className="px-4 py-3 text-right">{formatCurrency(product.unit_price || 0)}</td>
-                          <td className="px-4 py-3 text-right">{product.discount_percent || 0}%</td>
-                          <td className="px-4 py-3 text-right font-semibold">{formatCurrency(product.line_total || 0)}</td>
+                          <td className="px-4 py-3 text-sm text-right">
+                            {formatCurrency(product.unit_price || 0)}
+                          </td>
+                          <td className="px-4 py-3 text-sm text-right">
+                            {product.discount_percent > 0 ? `${product.discount_percent}%` : '-'}
+                          </td>
+                          <td className="px-4 py-3 text-sm text-right font-semibold">
+                            {formatCurrency(product.line_total || 0)}
+                          </td>
                         </>
                       )}
                     </tr>
@@ -316,7 +348,7 @@ export default function MyQuoteDetail() {
           </CardContent>
         </Card>
 
-        {/* PO Files Section */}
+        {/* PO Files */}
         {poFiles.length > 0 && (
           <Card className="mb-6">
             <CardHeader>
@@ -337,20 +369,12 @@ export default function MyQuoteDetail() {
                         <FileText className="w-6 h-6 text-primary" />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <p className="font-medium text-foreground truncate">
-                          {file.file_name}
-                        </p>
+                        <p className="font-medium text-foreground truncate">{file.file_name}</p>
                         <div className="flex items-center gap-3 text-xs text-muted-foreground mt-1">
                           <span>
-                            {format(new Date(file.uploaded_at), 'dd MMM yyyy HH:mm', {
-                              locale: th,
-                            })}
+                            {format(new Date(file.uploaded_at), 'dd MMM yyyy HH:mm', { locale: th })}
                           </span>
-                          {file.file_size && (
-                            <span>
-                              {(file.file_size / (1024 * 1024)).toFixed(2)} MB
-                            </span>
-                          )}
+                          {file.file_size && <span>{formatFileSize(file.file_size)}</span>}
                         </div>
                       </div>
                     </div>
@@ -377,27 +401,87 @@ export default function MyQuoteDetail() {
           </Card>
         )}
 
-        {quote.notes && (
-          <Card className="mb-6">
-            <CardHeader><CardTitle>หมายเหตุ</CardTitle></CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground whitespace-pre-wrap">{quote.notes}</p>
-            </CardContent>
-          </Card>
-        )}
+        {/* Chat Section */}
+        <Card className="mb-6">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <MessageSquare className="w-5 h-5" />
+              ข้อความ
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4 mb-4 max-h-[400px] overflow-y-auto">
+              {messages.length === 0 ? (
+                <p className="text-center text-muted-foreground py-8 text-sm">
+                  ยังไม่มีข้อความ
+                </p>
+              ) : (
+                messages.map((msg) => (
+                  <div
+                    key={msg.id}
+                    className={`flex ${
+                      msg.sender_role === 'customer' ? 'justify-end' : 'justify-start'
+                    }`}
+                  >
+                    <div
+                      className={`max-w-[70%] rounded-lg px-4 py-2 ${
+                        msg.sender_role === 'customer'
+                          ? 'bg-primary text-primary-foreground'
+                          : 'bg-muted text-foreground'
+                      }`}
+                    >
+                      <p className="text-sm">{msg.content}</p>
+                      <p className="text-xs opacity-70 mt-1">
+                        {format(new Date(msg.created_at), 'HH:mm', { locale: th })}
+                      </p>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
 
-        {!isPrintMode && quote.status === 'quote_sent' && (
+            <div className="space-y-2">
+              <Textarea
+                placeholder="พิมพ์ข้อความ..."
+                value={messageText}
+                onChange={(e) => setMessageText(e.target.value)}
+                rows={3}
+                className="text-foreground bg-background border-border"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSendMessage();
+                  }
+                }}
+              />
+              <Button
+                onClick={handleSendMessage}
+                disabled={sendingMessage || !messageText.trim()}
+                className="w-full"
+              >
+                <Send className="w-4 h-4 mr-2" />
+                {sendingMessage ? 'กำลังส่ง...' : 'ส่งข้อความ'}
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Action Buttons */}
+        {quote.status === 'quote_sent' && (
           <div className="flex gap-3 justify-center print:hidden">
-            <Button variant="outline" size="lg" onClick={handleDownloadPDF}>
-              <Download className="w-4 h-4 mr-2" />ดาวน์โหลด PDF
+            <Button variant="outline" size="lg">
+              <Download className="w-4 h-4 mr-2" />
+              ดาวน์โหลด PDF
             </Button>
-            <Button size="lg" onClick={handleUploadPO}>
-              <Upload className="w-4 h-4 mr-2" />อัปโหลด PO
+            <Button size="lg" onClick={() => setShowPOUpload(true)}>
+              <Upload className="w-4 h-4 mr-2" />
+              อัปโหลด PO
             </Button>
           </div>
         )}
       </div>
 
+      {/* PO Upload Dialog */}
       <POUploadDialog
         open={showPOUpload}
         onOpenChange={setShowPOUpload}
