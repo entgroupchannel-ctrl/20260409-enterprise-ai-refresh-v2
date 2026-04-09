@@ -54,6 +54,9 @@ const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
 const AdminQuotesList = lazy(() => import("./pages/admin/AdminQuotesList"));
 const AdminQuoteDetail = lazy(() => import("./pages/admin/AdminQuoteDetail"));
 const AdminQuoteCreate = lazy(() => import("./pages/admin/AdminQuoteCreate"));
+const QuoteRequestForm = lazy(() => import("./pages/customer/QuoteRequestForm"));
+const MyQuotes = lazy(() => import("./pages/customer/MyQuotes"));
+const MyQuoteDetail = lazy(() => import("./pages/customer/MyQuoteDetail"));
 
 /* ── Loading fallback ── */
 const PageLoader = () => (
