@@ -582,23 +582,6 @@ export default function MyQuoteDetail() {
               </CardContent>
             </Card>
 
-            {/* PO Upload Button */}
-            {(quote.status === 'quote_sent' || quote.status === 'po_uploaded') && (
-              <Card>
-                <CardContent className="pt-6">
-                  <Button className="w-full" size="lg" onClick={() => setShowPOUpload(true)}>
-                    <Upload className="w-4 h-4 mr-2" />
-                    แนบไฟล์ PO
-                  </Button>
-                  {poFiles.length > 0 && (
-                    <Button className="w-full mt-2" size="lg" variant="default" onClick={handleSendPO} disabled={confirming}>
-                      <Send className="w-4 h-4 mr-2" />
-                      {confirming ? 'กำลังส่ง...' : `ส่ง PO (${poFiles.length} ไฟล์)`}
-                    </Button>
-                  )}
-                </CardContent>
-              </Card>
-            )}
           </div>
         </div>
       </div>
