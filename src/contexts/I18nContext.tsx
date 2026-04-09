@@ -90,6 +90,7 @@ export const I18nProvider = ({ children }: { children: ReactNode }) => {
   return (
     <I18nContext.Provider value={{ lang, setLang, toggleLang, t }}>
       {children}
+    >
     </I18nContext.Provider>
   );
 };

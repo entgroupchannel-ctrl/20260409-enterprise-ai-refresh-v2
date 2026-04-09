@@ -30,6 +30,7 @@ const EdgeAISection = () => {
   return (
     <section className="section-padding relative overflow-hidden" id="edge-ai">
       {/* Thai Suphannahong pattern background */}
+    >
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.12] dark:opacity-[0.08]"
         style={{
@@ -43,12 +44,14 @@ const EdgeAISection = () => {
       <div className="container max-w-7xl mx-auto relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Text */}
+        >
           <div>
             <span className="text-xs font-semibold tracking-widest uppercase text-primary mb-4 block">
               NVIDIA Jetson Partner
             </span>
             <h2 className="text-3xl md:text-5xl font-display font-bold mb-6 leading-tight">
               โซลูชัน Edge AI{" "}
+            >
               <span className="text-gradient">สำหรับประเทศไทย</span>
             </h2>
             <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
@@ -78,6 +81,7 @@ const EdgeAISection = () => {
 className="relative group"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
+          >
             <div
               className="card-surface rounded-2xl overflow-hidden relative aspect-[4/3]"
               onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
@@ -86,6 +90,7 @@ className="relative group"
                 const diff = touchStartX.current - touchEndX.current;
                 if (Math.abs(diff) > 50) { diff > 0 ? next() : prev(); }
               }}
+            >
               {slides.map((slide, i) => (
                 <div
                   key={i}
@@ -94,6 +99,7 @@ className="relative group"
                     opacity: i === current ? 1 : 0,
                     transform: i === current ? "scale(1)" : "scale(1.05)",
                   }}
+                >
                   <img
                     src={slide.src}
                     alt={slide.alt}
@@ -113,11 +119,13 @@ className="relative group"
               <button
                 onClick={prev}
                 className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-background/70 border border-border/50 flex items-center justify-center text-foreground opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity hover:bg-background"
+              >
                 <ChevronLeft size={18} />
               </button>
               <button
                 onClick={next}
                 className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-background/70 border border-border/50 flex items-center justify-center text-foreground opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity hover:bg-background"
+              >
                 <ChevronRight size={18} />
               </button>
             </div>

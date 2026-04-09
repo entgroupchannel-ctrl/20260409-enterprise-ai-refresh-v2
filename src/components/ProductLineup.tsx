@@ -166,6 +166,7 @@ const ProductLineup = () => {
     <section className="py-12 md:py-16 px-4 md:px-8 bg-surface/50">
       <div className="container max-w-7xl mx-auto">
         {/* Header + Nav arrows */}
+      >
         <div className="flex items-end justify-between mb-8">
           <div>
             <span className="text-xs font-semibold tracking-widest uppercase text-primary mb-2 block">
@@ -186,6 +187,7 @@ const ProductLineup = () => {
               disabled={!canScrollLeft}
               className="w-9 h-9 rounded-full border border-border bg-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all disabled:opacity-30 disabled:pointer-events-none"
               aria-label="เลื่อนไปทางซ้าย"
+            >
               <ChevronLeft size={18} />
             </button>
             <button
@@ -193,6 +195,7 @@ const ProductLineup = () => {
               disabled={!canScrollRight}
               className="w-9 h-9 rounded-full border border-border bg-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all disabled:opacity-30 disabled:pointer-events-none"
               aria-label="เลื่อนไปทางขวา"
+            >
               <ChevronRight size={18} />
             </button>
           </div>
@@ -202,10 +205,12 @@ const ProductLineup = () => {
         <div
           ref={scrollRef}
           className="flex gap-5 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-4 -mx-4 px-4"
+        >
           {lineupCategories.map((cat) => (
             <div
               key={cat.title}
               className="card-surface rounded-xl overflow-hidden snap-start shrink-0 w-[320px] sm:w-[340px] flex flex-col"
+            >
               {/* Image banner */}
               <Link to={cat.href} className="relative h-36 overflow-hidden block group">
                 <img
@@ -226,6 +231,7 @@ const ProductLineup = () => {
 
               <div className="p-4 flex flex-col flex-1">
                 {/* CTAs */}
+              >
                 <div className="flex gap-2 mb-3">
                   {cat.cta.map((c) => (
                     <Link
@@ -236,7 +242,9 @@ const ProductLineup = () => {
                           ? "bg-primary text-primary-foreground hover:bg-primary/90"
                           : "border border-primary/30 text-primary hover:bg-primary/10"
                       }`}
+                    >
                       <c.icon size={13} /> {c.label}
+                    >
                     </Link>
                   ))}
                 </div>
@@ -248,10 +256,12 @@ const ProductLineup = () => {
                       key={model.name}
                       to={model.href}
                       className="relative inline-flex items-center gap-1 px-2.5 py-1 rounded-md border border-border text-[11px] font-medium text-muted-foreground hover:text-foreground hover:border-primary/30 hover:bg-primary/5 transition-all"
+                    >
                       {model.name}
                       {"badge" in model && (model as any).badge && (
                         <span className="px-1 py-0.5 rounded text-[9px] font-bold bg-primary text-primary-foreground leading-none">
                           {(model as any).badge}
+                        >
                         </span>
                       )}
                     </Link>
@@ -269,6 +279,7 @@ const ProductLineup = () => {
             disabled={!canScrollLeft}
             className="w-8 h-8 rounded-full border border-border bg-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all disabled:opacity-30 disabled:pointer-events-none"
             aria-label="เลื่อนไปทางซ้าย"
+          >
             <ChevronLeft size={16} />
           </button>
           <button
@@ -276,6 +287,7 @@ const ProductLineup = () => {
             disabled={!canScrollRight}
             className="w-8 h-8 rounded-full border border-border bg-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all disabled:opacity-30 disabled:pointer-events-none"
             aria-label="เลื่อนไปทางขวา"
+          >
             <ChevronRight size={16} />
           </button>
         </div>

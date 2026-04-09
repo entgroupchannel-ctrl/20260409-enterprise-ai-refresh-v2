@@ -29,12 +29,14 @@ const SoftwareSection = () => {
   return (
     <section className="section-padding relative isolate overflow-hidden" id="services">
       {/* Background decoration — z-0 so they stay behind all content */}
+    >
       <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/5 via-background to-accent/5 pointer-events-none" />
       <div className="absolute top-0 right-0 -z-10 w-[500px] h-[500px] rounded-full bg-primary/5 blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/4" />
       <div className="absolute bottom-0 left-0 -z-10 w-[400px] h-[400px] rounded-full bg-accent/5 blur-3xl pointer-events-none translate-y-1/2 -translate-x-1/4" />
 
       <div className="container max-w-7xl mx-auto relative">
         {/* Header */}
+      >
         <div className="text-center mb-12 animate-fade-in">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-semibold mb-4">
             <Code2 size={16} />
@@ -42,6 +44,7 @@ const SoftwareSection = () => {
           </div>
           <h2 className="text-3xl md:text-5xl font-display font-bold mb-4 leading-tight">
             เป็นเจ้าของ{" "}
+          >
             <span className="text-gradient">ซอฟต์แวร์</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
@@ -56,6 +59,7 @@ const SoftwareSection = () => {
               key={h.label}
               className="group card-surface overflow-hidden hover:border-primary/30 transition-all duration-300 hover:-translate-y-1"
               style={{ animationDelay: `${i * 100}ms` }}
+            >
               <div className="h-28 overflow-hidden">
                 <img
                   src={h.img}
@@ -80,6 +84,7 @@ const SoftwareSection = () => {
         {/* Main content: image + examples */}
         <div className="grid lg:grid-cols-2 gap-10 items-center">
           {/* Image */}
+        >
           <div className="order-2 lg:order-1">
             <div className="relative group">
               <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -116,6 +121,7 @@ const SoftwareSection = () => {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-secondary text-secondary-foreground text-xs font-medium border border-border hover:border-primary/40 hover:bg-primary/10 hover:text-primary hover:-translate-y-0.5 transition-all duration-200"
                   style={{ animationDelay: `${i * 50}ms` }}
+                >
                   {ex.label} <ExternalLink size={10} />
                 </a>
               ))}

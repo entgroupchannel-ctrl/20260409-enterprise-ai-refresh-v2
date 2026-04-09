@@ -54,6 +54,7 @@ const HandheldCard = ({
     className={`card-surface overflow-hidden group transition-all block ${
       selected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"
     }`}
+  >
     <div className="relative bg-secondary/30 p-4 flex items-center justify-center h-52">
         item={{
           id: product.id,
@@ -68,6 +69,7 @@ const HandheldCard = ({
       <button
         onClick={(e) => { e.preventDefault(); e.stopPropagation(); onToggleSelect(product.model); }}
         className="absolute top-3 left-3 z-10"
+      >
         <Checkbox checked={selected} className="h-5 w-5" />
       </button>
       <img
@@ -87,6 +89,7 @@ const HandheldCard = ({
         {product.badges.map((b) => (
           <Badge key={b} variant="outline" className="text-[10px]">{b}</Badge>
         ))}
+      >
       </div>
       <div className="flex gap-2 pt-1">
         <Button variant="outline" size="sm" className="flex-1" asChild>
@@ -196,6 +199,7 @@ const Handheld = () => {
                     ? "bg-primary text-primary-foreground shadow-sm"
                     : "bg-muted text-muted-foreground hover:bg-muted/80"
                 }`}
+              >
                 {opt.label}
               </button>
             ))}
@@ -205,6 +209,7 @@ const Handheld = () => {
 
       <div className="container max-w-7xl mx-auto px-4 py-10 space-y-16">
         {/* Features */}
+      >
         <section>
           <h2 className="text-2xl font-display font-bold text-foreground mb-2 text-center">คุณสมบัติเด่น</h2>
           <p className="text-muted-foreground text-center mb-8 text-sm">ทนทาน พกพาง่าย สแกนเร็ว พร้อมลุยทุกสถานการณ์</p>
@@ -264,6 +269,7 @@ const Handheld = () => {
             variant="secondary"
             className="rounded-full font-bold"
             onClick={() => setShowMultiQuote(true)}
+          >
             <FileText className="w-4 h-4 mr-1.5" /> ขอใบเสนอราคารวม
           </Button>
           <button onClick={clearSelection} className="p-1 hover:bg-primary-foreground/20 rounded-full transition-colors">

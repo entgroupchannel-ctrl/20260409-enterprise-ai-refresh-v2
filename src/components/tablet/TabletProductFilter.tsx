@@ -115,6 +115,7 @@ const TabletProductFilter = ({
   const FilterContent = () => (
     <div className="space-y-4">
       {/* Header */}
+    >
       <div className="flex items-center justify-between pb-3 border-b border-border">
         <h3 className="text-base font-bold text-foreground flex items-center gap-2">
           <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -139,6 +140,7 @@ const TabletProductFilter = ({
 
       <Accordion type="multiple" defaultValue={["os", "screen", "cpu", "price"]} className="space-y-1.5">
         {/* OS */}
+      >
         <AccordionItem value="os" className="border border-border rounded-lg px-3 transition-colors data-[state=open]:border-primary/20 data-[state=open]:bg-primary/[0.02]">
           <AccordionTrigger className="py-3 text-sm font-semibold hover:no-underline">
             <span className="flex items-center gap-2">
@@ -157,6 +159,7 @@ const TabletProductFilter = ({
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
                     isActive ? "bg-primary text-primary-foreground font-medium shadow-sm" : "hover:bg-muted/70 text-foreground"
                   }`}
+                >
                   <span>{option.name}</span>
                   <span className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md ${isActive ? "bg-primary-foreground/20" : "bg-muted text-muted-foreground"}`}>{count}</span>
                 </button>
@@ -185,6 +188,7 @@ const TabletProductFilter = ({
                     isActive ? "bg-primary text-primary-foreground font-medium shadow-sm" : count === 0 && option.id !== "all" ? "text-muted-foreground/50 cursor-not-allowed" : "hover:bg-muted/70 text-foreground"
                   }`}
                   disabled={count === 0 && option.id !== "all"}
+                >
                   <span>{option.name}</span>
                   <span className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md ${isActive ? "bg-primary-foreground/20" : "bg-muted text-muted-foreground"}`}>{count}</span>
                 </button>
@@ -213,6 +217,7 @@ const TabletProductFilter = ({
                     isActive ? "bg-primary text-primary-foreground font-medium shadow-sm" : count === 0 && option.id !== "all" ? "text-muted-foreground/50 cursor-not-allowed" : "hover:bg-muted/70 text-foreground"
                   }`}
                   disabled={count === 0 && option.id !== "all"}
+                >
                   <span>{option.name}</span>
                   <span className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md ${isActive ? "bg-primary-foreground/20" : "bg-muted text-muted-foreground"}`}>{count}</span>
                 </button>
@@ -239,6 +244,7 @@ const TabletProductFilter = ({
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${
                     isActive ? "bg-primary text-primary-foreground font-medium shadow-sm" : "hover:bg-muted/70 text-foreground"
                   }`}
+                >
                   {option.name}
                 </button>
               );
@@ -252,6 +258,7 @@ const TabletProductFilter = ({
   return (
     <>
       {/* Desktop Filter */}
+    >
       <aside className="hidden lg:block w-72 flex-shrink-0">
         <div className="sticky top-24 card-surface p-4 max-h-[calc(100vh-120px)] overflow-y-auto scrollbar-hide">
           <FilterContent />
@@ -320,6 +327,7 @@ export const TabletActiveFilterChips = ({
           key={chip.label}
           onClick={chip.onRemove}
           className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors group"
+        >
           {chip.label}
           <X className="w-3 h-3 opacity-60 group-hover:opacity-100 transition-opacity" />
         </button>

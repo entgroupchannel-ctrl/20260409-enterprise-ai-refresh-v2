@@ -339,6 +339,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
 
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
           {/* Search */}
+        >
           <div className="col-span-2 md:col-span-1">
             <label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-1 block">ค้นหา</label>
             <div className="relative">
@@ -367,6 +368,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                       : "bg-background border border-border text-muted-foreground hover:border-primary/40"
                   }`}
                   ≥{n}
+                >
                 </button>
               ))}
             </div>
@@ -382,6 +384,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                   ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40"
                   : "bg-background border border-border text-muted-foreground hover:border-primary/40"
               }`}
+            >
               {filterGpio === true ? "✓ มี GPIO" : "มี GPIO"}
             </button>
           </div>
@@ -396,6 +399,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                   ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40"
                   : "bg-background border border-border text-muted-foreground hover:border-primary/40"
               }`}
+            >
               {filterSim === true ? "✓ รองรับ SIM" : "รองรับ SIM"}
             </button>
           </div>
@@ -407,10 +411,12 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
               value={filterGen || ""}
               onChange={(e) => setFilterGen(e.target.value || null)}
               className="w-full py-2 px-3 rounded-lg bg-background border border-border text-sm text-foreground outline-none focus:ring-2 focus:ring-primary/30"
+            >
               <option value="">ทั้งหมด</option>
               {genOptions.map((g) => (
                 <option key={g} value={g}>{g}</option>
               ))}
+            >
             </select>
           </div>
         </div>
@@ -435,6 +441,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
         ].map((cat) => (
           <span key={cat.label} className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${cat.color}`}>
             {cat.label}
+          >
           </span>
         ))}
       </div>
@@ -489,11 +496,13 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                     key={row.name}
                     className={`border-b border-border/50 transition-colors cursor-pointer ${catStyle}`}
                     onClick={() => handleTabChange(row.name.toLowerCase())}
+                  >
                     <td className="p-4 sticky left-0 font-bold text-foreground" style={{ background: 'inherit' }}>
                       <div className="flex flex-col gap-1">
                         <span className="text-base">{row.name}</span>
                         <span className={`inline-block w-fit px-2 py-0.5 rounded-full text-[10px] font-bold ${catBadge}`}>
                           {row.gen}
+                        >
                         </span>
                       </div>
                     </td>
@@ -542,6 +551,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                       ) : (
                         <span className="text-muted-foreground/40">—</span>
                       )}
+                    >
                     </td>
                     <td className="p-4 text-center">
                       {row.sim ? (
@@ -549,6 +559,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                       ) : (
                         <span className="text-muted-foreground/40">—</span>
                       )}
+                    >
                     </td>
                     <td className="p-4 text-center">
                       <span className="text-xs text-muted-foreground">{row.display}</span>
@@ -556,6 +567,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                     <td className="p-4 text-right">
                       <span className={`font-bold text-sm ${row.price === "สอบถาม" ? "text-muted-foreground" : "text-primary"}`}>
                         {row.price === "สอบถาม" ? "สอบถาม" : `฿${row.price}`}
+                      >
                       </span>
                     </td>
                   </tr>
@@ -611,6 +623,7 @@ const GTSeries = () => {
   const useCasesGrid = (
     <div className="space-y-6">
       {/* Custom Branding Section */}
+    >
       <div className="card-surface rounded-xl overflow-hidden">
         <div className="p-6 border-b border-border">
           <h3 className="text-xl font-display font-bold text-foreground mb-2"><Palette size={18} className="inline mr-1.5 text-primary" />เพิ่มสีสันสดใส ด้วยการทำสีใหม่ให้กับสินค้าของคุณ</h3>
@@ -698,6 +711,7 @@ const GTSeries = () => {
       {/* Hero — Bold Industrial */}
       <section className="relative overflow-hidden min-h-[480px] md:min-h-[560px] flex items-center">
         {/* Full-bleed background image */}
+      >
         <div className="absolute inset-0 z-0">
           <img
             src={gtSeriesHeroBg}
@@ -732,8 +746,10 @@ const GTSeries = () => {
                 <span
                   key={item.word}
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 text-white font-bold text-base tracking-wide"
+                >
                   <item.Icon size={18} className="text-primary" />
                   {item.word}
+                >
                 </span>
               ))}
             </div>
@@ -771,6 +787,7 @@ const GTSeries = () => {
                   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
                 }}
                 className="inline-flex items-center justify-center gap-2 px-5 md:px-6 py-3 md:py-3.5 rounded-full border-2 border-white/30 text-white font-bold text-sm hover:bg-white/10 transition-all group"
+              >
                 <Filter size={16} />
                 <span>เปรียบเทียบสเปก</span>
                 <span className="hidden sm:inline px-2 py-0.5 rounded-full bg-white/15 text-[10px] font-bold tracking-wide uppercase group-hover:bg-white/25 transition-colors">Smart Filter</span>
@@ -784,6 +801,7 @@ const GTSeries = () => {
       <section className="py-8 bg-surface/50 border-y border-border">
         <div className="container max-w-7xl mx-auto px-6">
           {/* Features + Use Cases in one row */}
+        >
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
             {features.map((f) => (
               <div key={f.title} className="flex items-center gap-2 p-3 rounded-lg bg-card border border-border">
@@ -828,10 +846,12 @@ const GTSeries = () => {
                     ? "bg-primary text-primary-foreground shadow-lg"
                     : "bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground border border-border"
                 }`}
+              >
                 {tab.label}
                 {tab.id === "gt1400" && (
                   <span className="ml-1.5 px-1.5 py-0.5 rounded-full bg-primary-foreground/20 text-[10px]">NEW</span>
                 )}
+              >
               </button>
             ))}
           </div>
@@ -840,6 +860,7 @@ const GTSeries = () => {
           {activeTab === "overview" && (
             <div className="space-y-16">
               {/* Model Cards Grid */}
+            >
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {gtModels.map((model) => (
                   <button
@@ -866,6 +887,7 @@ const GTSeries = () => {
           {activeTab === "gt1000" && (
             <div className="space-y-8 animate-fade-in">
               {/* Hero Banner */}
+            >
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
                 <img
                   src={gt1000Banner}
@@ -935,6 +957,7 @@ const GTSeries = () => {
                       {["โรงงานอุตสาหกรรม", "Factory Automation", "IOT Gateway", "KIOSK", "HMI", "Digital Signage", "Queue System", "ATM/Bank", "Transportation", "ตู้คอนโทรล", "โรงเรียน/มหาวิทยาลัย", "Telecom"].map((uc) => (
                         <span key={uc} className="px-3 py-1 rounded-full bg-secondary/50 text-muted-foreground text-xs border border-border">
                           {uc}
+                        >
                         </span>
                       ))}
                     </div>
@@ -974,6 +997,7 @@ const GTSeries = () => {
                 </div>
                 <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-border">
                   {/* Left Column */}
+                >
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm">
                       <tbody className="divide-y divide-border">
@@ -1151,6 +1175,7 @@ const GTSeries = () => {
                 <div className="p-5">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* Episode 1 — Introduction */}
+                  >
                     <div className="flex items-start gap-4 p-4 rounded-xl bg-secondary/40 border border-border">
                       <div className="shrink-0 w-16 h-16 rounded-lg bg-primary/10 flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><polygon points="5 3 19 12 5 21 5 3"/></svg>
@@ -1196,6 +1221,7 @@ const GTSeries = () => {
                 </div>
                 <div className="p-5 space-y-6">
                   {/* Intro Video — Hero */}
+                >
                   <div>
                     <h4 className="text-sm font-bold text-foreground mb-2">GT1000 Intro</h4>
                     <div className="relative w-full aspect-video rounded-xl overflow-hidden">
@@ -1248,6 +1274,7 @@ const GTSeries = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-4 rounded-xl border border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition-colors group"
+                  >
                     <div className="shrink-0 w-10 h-10 rounded-full bg-red-600 flex items-center justify-center">
                       <Play className="text-white ml-0.5" size={18} fill="white" />
                     </div>
@@ -1274,6 +1301,7 @@ const GTSeries = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+                >
                   <Download size={16} /> ดาวน์โหลด Datasheet GT1000
                 </a>
               </div>
@@ -1284,6 +1312,7 @@ const GTSeries = () => {
           {activeTab === "gt2000" && (
             <div className="space-y-8 animate-fade-in">
               {/* Hero Banner */}
+            >
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
                 <img
                   src={gt2000Banner}
@@ -1636,6 +1665,7 @@ const GTSeries = () => {
                 </div>
                 <div className="p-5 space-y-6">
                   {/* Intro Video — Hero */}
+                >
                   <div>
                     <h4 className="text-sm font-bold text-foreground mb-2">GT2000 Intro</h4>
                     <div className="relative w-full aspect-video rounded-xl overflow-hidden">
@@ -1688,6 +1718,7 @@ const GTSeries = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-4 rounded-xl border border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition-colors group"
+                  >
                     <div className="shrink-0 w-10 h-10 rounded-full bg-red-600 flex items-center justify-center">
                       <Play className="text-white ml-0.5" size={18} fill="white" />
                     </div>
@@ -1709,6 +1740,7 @@ const GTSeries = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+                >
                   <Download size={16} /> Datasheet GT2000 Celeron
                 </a>
                 <a
@@ -1716,6 +1748,7 @@ const GTSeries = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-surface-hover transition-colors"
+                >
                   <Download size={16} /> Datasheet GT2000 Core i5
                 </a>
               </div>
@@ -1726,6 +1759,7 @@ const GTSeries = () => {
           {activeTab === "gt3000" && (
             <div className="space-y-8 animate-fade-in">
               {/* Hero Banner */}
+            >
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
                 <img
                   src={gt3000Banner}
@@ -1797,6 +1831,7 @@ const GTSeries = () => {
                       {["Bank ATM", "Factory Automation", "Digital Signage", "Robot Control", "Transportation", "Telecom", "KIOSK", "PLC Control"].map((uc) => (
                         <span key={uc} className="px-3 py-1 rounded-full bg-secondary/50 text-muted-foreground text-xs border border-border">
                           {uc}
+                        >
                         </span>
                       ))}
                     </div>
@@ -1836,6 +1871,7 @@ const GTSeries = () => {
                 </div>
                 <div className="grid md:grid-cols-2 md:divide-x divide-border">
                   {/* Left Column */}
+                >
                   <div>
                     <table className="w-full text-sm">
                       <tbody className="divide-y divide-border">
@@ -2007,6 +2043,7 @@ const GTSeries = () => {
                 </div>
                 <div className="p-5 space-y-6">
                   {/* Intro Video — Hero */}
+                >
                   <div>
                     <h4 className="text-sm font-bold text-foreground mb-2">GT3000 Intro</h4>
                     <div className="relative w-full aspect-video rounded-xl overflow-hidden">
@@ -2059,6 +2096,7 @@ const GTSeries = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-4 rounded-xl border border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition-colors group"
+                  >
                     <div className="shrink-0 w-10 h-10 rounded-full bg-red-600 flex items-center justify-center">
                       <Play className="text-white ml-0.5" size={18} fill="white" />
                     </div>
@@ -2127,6 +2165,7 @@ const GTSeries = () => {
                     <div className="flex items-center justify-between px-5 py-3 border-t border-border">
                       <span className="text-xs text-muted-foreground">
                         หน้า {gt3000PricePage + 1} / {totalPages}
+                      >
                       </span>
                       <div className="flex gap-1">
                         {Array.from({ length: totalPages }, (_, p) => (
@@ -2138,6 +2177,7 @@ const GTSeries = () => {
                                 ? "bg-primary text-primary-foreground"
                                 : "bg-muted/50 text-muted-foreground hover:bg-muted"
                             }`}
+                          >
                             {p + 1}
                           </button>
                         ))}
@@ -2162,6 +2202,7 @@ const GTSeries = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+                >
                   <Download size={16} /> ดาวน์โหลด Datasheet GT3000
                 </a>
               </div>
@@ -2172,6 +2213,7 @@ const GTSeries = () => {
           {activeTab === "gt4000" && (
             <div className="space-y-8 animate-fade-in">
               {/* Hero Banner */}
+            >
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
                 <img src={gt4000Banner} alt="GT4000 Industrial PC" className="absolute inset-0 w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
@@ -2239,6 +2281,7 @@ const GTSeries = () => {
                       {["Scada", "IOT", "Factory Automation", "KIOSK", "Control Cabinet", "ระบบเครื่องชั่ง", "ควบคุมเครื่องจักร", "Bank ATM"].map((uc) => (
                         <span key={uc} className="px-3 py-1 rounded-full bg-secondary/50 text-muted-foreground text-xs border border-border">
                           {uc}
+                        >
                         </span>
                       ))}
                     </div>
@@ -2497,6 +2540,7 @@ const GTSeries = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+                >
                   <Download size={16} /> Datasheet GT4000 Core i5
                 </a>
                 <a
@@ -2504,6 +2548,7 @@ const GTSeries = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-secondary/50 transition-colors"
+                >
                   <Download size={16} /> Datasheet GT4000 Core i7
                 </a>
               </div>
@@ -2514,6 +2559,7 @@ const GTSeries = () => {
           {activeTab === "gt5000" && (
             <div className="space-y-8 animate-fade-in">
               {/* Hero Banner */}
+            >
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
                 <img
                   src={gt5000Banner}
@@ -2709,6 +2755,7 @@ const GTSeries = () => {
               {/* ═══════ GT5000 GPIO Deep Dive ═══════ */}
               <div className="space-y-6">
                 {/* Hero Banner */}
+              >
                 <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-8 lg:p-12">
                   <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(56,189,148,0.15) 20px, rgba(56,189,148,0.15) 21px)" }} />
                   <div className="relative z-10">
@@ -2756,6 +2803,7 @@ const GTSeries = () => {
                     ].map((item, i) => (
                       <div key={i} className="p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors border border-border/50">
                         {typeof item.icon === "string" ? <span className="text-2xl">{item.icon}</span> : <item.icon size={24} className="text-primary" />}
+                      >
                         <h4 className="font-bold text-foreground text-sm mt-2">{item.title}</h4>
                         <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{item.desc}</p>
                       </div>
@@ -2807,6 +2855,7 @@ const GTSeries = () => {
                             <td className="p-3 text-center">
                               <span className={`px-2 py-0.5 rounded text-xs font-bold ${g.type === "Output" ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400" : "bg-amber-500/20 text-amber-600 dark:text-amber-400"}`}>
                                 {g.type}
+                              >
                               </span>
                             </td>
                           </tr>
@@ -2886,6 +2935,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         </div>
                         <span className={`text-xs font-mono w-10 text-right ${g.type === "OUT" ? "text-emerald-500" : "text-amber-500"}`}>
                           {g.type}
+                        >
                         </span>
                         <span className="font-mono text-xs text-muted-foreground w-14 text-right">{g.reg}</span>
                       </div>
@@ -3041,6 +3091,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
           {activeTab === "gt6000" && (
             <div className="space-y-8 animate-fade-in">
               {/* Hero Banner */}
+            >
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
                 <img
                   src={gt6000Banner}
@@ -3210,6 +3261,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         ].map(([k, v], i) => (
                           <tr key={i}><td className="p-3 font-medium text-foreground w-1/3 align-top">{k}</td><td className="p-3 text-muted-foreground whitespace-pre-line">{v}</td></tr>
                         ))}
+                      >
                       </tbody>
                     </table>
                   </div>
@@ -3229,6 +3281,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         ].map(([k, v], i) => (
                           <tr key={i}><td className="p-3 font-medium text-foreground w-1/3 align-top">{k}</td><td className="p-3 text-muted-foreground whitespace-pre-line">{v}</td></tr>
                         ))}
+                      >
                       </tbody>
                     </table>
                   </div>
@@ -3290,6 +3343,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="flex items-center justify-between px-5 py-3 border-t border-border">
                       <span className="text-xs text-muted-foreground">
                         หน้า {gt6000PricePage + 1} / {totalPages}
+                      >
                       </span>
                       <div className="flex gap-1">
                         {Array.from({ length: totalPages }, (_, p) => (
@@ -3301,6 +3355,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                                 ? "bg-primary text-primary-foreground"
                                 : "bg-muted/50 text-muted-foreground hover:bg-muted"
                             }`}
+                          >
                             {p + 1}
                           </button>
                         ))}
@@ -3386,6 +3441,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+                >
                   <Download size={16} /> ดาวน์โหลด Datasheet GT6000
                 </a>
               </div>
@@ -3396,6 +3452,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
           {activeTab === "gt7000" && (
             <div className="space-y-8 animate-fade-in">
               {/* Hero Banner */}
+            >
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
                 <img
                   src={gt7000Banner}
@@ -3776,6 +3833,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+                >
                   <Download size={16} /> ดาวน์โหลด Datasheet GT7000
                 </a>
               </div>
@@ -3786,6 +3844,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
           {activeTab === "gt8000" && (
             <div className="space-y-8 animate-fade-in">
               {/* Hero Banner */}
+            >
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
                 <img
                   src={gt8000Banner}
@@ -3955,6 +4014,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         ].map(([k, v], i) => (
                           <tr key={i}><td className="p-3 font-medium text-foreground w-1/3">{k}</td><td className="p-3 text-muted-foreground">{v}</td></tr>
                         ))}
+                      >
                       </tbody>
                     </table>
                   </div>
@@ -3970,6 +4030,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         ].map(([k, v], i) => (
                           <tr key={i}><td className="p-3 font-medium text-foreground w-1/3">{k}</td><td className="p-3 text-muted-foreground">{v}</td></tr>
                         ))}
+                      >
                       </tbody>
                     </table>
                   </div>
@@ -4111,6 +4172,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+                >
                   <Download size={16} /> ดาวน์โหลด Datasheet GT8000
                 </a>
               </div>
@@ -4121,6 +4183,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
           {activeTab === "gt9000" && (
             <div className="space-y-8 animate-fade-in">
               {/* Hero Banner */}
+            >
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
                 <img
                   src={gt9000Banner}
@@ -4373,6 +4436,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                                   {Array.from({ length: totalPages }, (_, idx) => (
                                     <button key={idx} onClick={() => setGt9000PricePage(idx)} className={`w-8 h-8 rounded-lg text-xs font-bold transition-colors ${idx === gt9000PricePage ? "bg-primary text-primary-foreground" : "hover:bg-secondary/50 text-muted-foreground"}`}>{idx + 1}</button>
                                   ))}
+                                >
                                   <button onClick={() => setGt9000PricePage(Math.min(totalPages - 1, gt9000PricePage + 1))} disabled={gt9000PricePage === totalPages - 1} className="px-3 py-1.5 rounded-lg text-xs font-medium border border-border hover:bg-secondary/50 disabled:opacity-40 transition-colors">ถัดไป</button>
                                 </div>
                               )}
@@ -4469,6 +4533,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+                >
                   <Download size={16} /> Datasheet GT9000 (Gen 12)
                 </a>
                 <a
@@ -4476,6 +4541,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-secondary/50 transition-colors"
+                >
                   <Download size={16} /> Datasheet GT9000 (Gen 10)
                 </a>
                 <a
@@ -4483,6 +4549,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-secondary/50 transition-colors"
+                >
                   <Download size={16} /> GT9000 Product Overview
                 </a>
               </div>
@@ -4493,6 +4560,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
           {activeTab === "gt4500" && (
             <div className="space-y-8 animate-fade-in">
               {/* Hero Banner */}
+            >
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
                 <img
                   src={gt4500Banner}
@@ -4733,6 +4801,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <tr key={i} className={`hover:bg-muted/30 transition-colors ${item.tag ? "bg-primary/5" : ""}`}>
                           <td className="p-3 font-medium text-foreground">
                             {item.cpu}
+                          >
                             {item.tag && <span className="ml-2 text-xs text-primary font-bold">{item.tag}</span>}
                           </td>
                           <td className="p-3 text-muted-foreground">{item.spec}</td>
@@ -4856,6 +4925,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+                >
                   <Download size={16} /> ดาวน์โหลด Datasheet GT4500
                 </a>
                 <a
@@ -4863,6 +4933,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-surface-hover transition-colors"
+                >
                   <Download size={16} /> วารสาร / Journal GT4500
                 </a>
               </div>
@@ -4873,6 +4944,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
           {activeTab === "gt1400" && (
             <div className="space-y-8 animate-fade-in">
               {/* Hero Banner */}
+            >
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
                 <img src="/images/gt1400/main.jpg" alt="GT1400 Industrial PC" className="absolute inset-0 w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
@@ -5078,6 +5150,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                             {Array.from({ length: totalPages }, (_, idx) => (
                               <button key={idx} onClick={() => setGt1400PricePage(idx)} className={`w-8 h-8 rounded-lg text-xs font-bold transition-colors ${idx === gt1400PricePage ? "bg-primary text-primary-foreground" : "hover:bg-secondary/50 text-muted-foreground"}`}>{idx + 1}</button>
                             ))}
+                          >
                             <button onClick={() => setGt1400PricePage(Math.min(totalPages - 1, gt1400PricePage + 1))} disabled={gt1400PricePage === totalPages - 1} className="px-3 py-1.5 rounded-lg text-xs font-medium border border-border hover:bg-secondary/50 disabled:opacity-40 transition-colors">ถัดไป</button>
                           </div>
                         )}
@@ -5166,6 +5239,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+                >
                   <Download size={16} /> ดาวน์โหลด Datasheet GT1400
                 </a>
               </div>
@@ -5176,6 +5250,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
           {activeTab === "gt1300" && (
             <div className="space-y-8 animate-fade-in">
               {/* Hero Banner */}
+            >
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
                 <img src="/images/gt1300/main.jpg" alt="GT1300 Industrial PC" className="absolute inset-0 w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
@@ -5353,6 +5428,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+                >
                   <ExternalLink size={16} /> ดูข้อมูลเพิ่มเติม GT1300 (Manufacturer)
                 </a>
               </div>
@@ -5413,6 +5489,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
           {activeTab === "gt1200" && (
             <div className="space-y-8 animate-fade-in">
               {/* Hero Banner */}
+            >
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
                 <img src="/images/gt1200/main.jpg" alt="GT1200 Industrial PC" className="absolute inset-0 w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
@@ -5629,6 +5706,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="flex items-center justify-between px-5 py-3 border-t border-border">
                       <span className="text-xs text-muted-foreground">
                         หน้า {gt1200PricePage + 1} / {totalPages}
+                      >
                       </span>
                       <div className="flex gap-1">
                         {Array.from({ length: totalPages }, (_, p) => (
@@ -5640,6 +5718,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                                 ? "bg-primary text-primary-foreground"
                                 : "bg-muted/50 text-muted-foreground hover:bg-muted"
                             }`}
+                          >
                             {p + 1}
                           </button>
                         ))}
@@ -5737,6 +5816,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+                >
                   <Download size={16} /> ดาวน์โหลด Datasheet GT1200
                 </a>
               </div>
@@ -5756,6 +5836,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
           </div>
           <div className="grid md:grid-cols-2 gap-4">
             {/* Windows License */}
+          >
             <div className="card-surface overflow-hidden">
               <div className="p-3 border-b border-border bg-primary/5">
                 <h3 className="text-sm font-display font-bold text-foreground"><Laptop size={16} className="inline mr-1 text-primary" />Windows License</h3>
@@ -5833,6 +5914,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
             <Link
               to="/"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-border text-foreground font-bold text-lg hover:bg-surface-hover transition-colors"
+            >
               <ArrowLeft size={18} /> กลับหน้าหลัก
             </Link>
           </div>
@@ -5929,16 +6011,19 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
         <button
           onClick={(e) => { e.stopPropagation(); onToggleSelect(model.name); }}
           className="absolute top-3 left-12 z-10"
+        >
           <Checkbox checked={selected} className="h-5 w-5" />
         </button>
       )}
       {model.badge ? (
         <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-primary text-primary-foreground text-[11px] font-bold border border-primary/20 animate-pulse">
           {model.highlight}
+        >
         </span>
       ) : (
         <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-secondary text-secondary-foreground text-[11px] font-medium border border-border">
           {model.highlight}
+        >
         </span>
       )}
         item={{
@@ -5961,6 +6046,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
     <div className="p-5">
       <h3 className="text-xl font-display font-bold text-foreground mb-1 group-hover:text-primary transition-colors flex items-center gap-2">
         {model.name}
+      >
         {model.tab && <span className="text-xs text-primary font-normal">ดูรายละเอียด →</span>}
         {!model.tab && <ExternalLink size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />}
       </h3>

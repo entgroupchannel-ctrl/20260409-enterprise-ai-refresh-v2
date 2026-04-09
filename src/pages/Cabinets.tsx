@@ -174,6 +174,7 @@ const Cabinets = () => {
 
       <div className="container max-w-6xl mx-auto px-4 py-10 space-y-16">
         {/* Intro */}
+      >
         <section className="text-center max-w-3xl mx-auto">
           <p className="text-muted-foreground leading-relaxed">
             ตู้หน้าจอสัมผัสของเราได้รับการออกแบบและผลิตโดยผู้เชี่ยวชาญ สามารถกำหนดขนาดตู้ได้เหมาะสมกับตัวเครื่อง
@@ -376,6 +377,7 @@ const Cabinets = () => {
           ) : (
             <form onSubmit={handleCustomSubmit} className="space-y-4">
               {/* Contact Info */}
+            >
               <div className="space-y-3">
                 <h4 className="text-sm font-bold text-foreground">ข้อมูลติดต่อ</h4>
                 <div className="grid grid-cols-2 gap-3">
@@ -406,6 +408,7 @@ const Cabinets = () => {
                     <select name="material" value={customForm.material} onChange={handleCustomChange} className={inputClass}>
                       <option value="">เลือกวัสดุ</option>
                       {materialOptions.map((m) => <option key={m} value={m}>{m}</option>)}
+                    >
                     </select>
                   </div>
                   <div>
@@ -413,6 +416,7 @@ const Cabinets = () => {
                     <select name="installation" value={customForm.installation} onChange={handleCustomChange} className={inputClass}>
                       <option value="">เลือกรูปแบบ</option>
                       {installOptions.map((o) => <option key={o} value={o}>{o}</option>)}
+                    >
                     </select>
                   </div>
                   <div>
@@ -420,6 +424,7 @@ const Cabinets = () => {
                     <select name="lock" value={customForm.lock} onChange={handleCustomChange} className={inputClass}>
                       <option value="">เลือกประเภทกุญแจ</option>
                       {lockOptions.map((l) => <option key={l} value={l}>{l}</option>)}
+                    >
                     </select>
                   </div>
                   <div>

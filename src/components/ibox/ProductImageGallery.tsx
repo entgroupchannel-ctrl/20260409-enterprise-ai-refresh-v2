@@ -38,6 +38,7 @@ const ProductImageGallery = ({
         {isNew && (
           <Badge className="absolute top-4 left-4 z-10">NEW</Badge>
         )}
+      >
         <img src={mainImage} alt={productName} className="w-full h-full object-contain p-8" />
       </div>
     );
@@ -46,10 +47,12 @@ const ProductImageGallery = ({
   return (
     <div className="space-y-4">
       {/* Main Image */}
+    >
       <div className="aspect-square bg-gradient-to-b from-secondary/50 to-secondary/20 rounded-2xl overflow-hidden relative border border-border">
         {isNew && (
           <Badge className="absolute top-4 left-4 z-10">NEW</Badge>
         )}
+      >
         <img
           src={allImages[selectedIndex].src}
           alt={`${productName} - ${allImages[selectedIndex].label}`}
@@ -77,6 +80,7 @@ const ProductImageGallery = ({
                       ? "border-primary ring-2 ring-primary/20"
                       : "border-border hover:border-primary/50"
                   )}
+                >
                   <img
                     src={image.src}
                     alt={`${productName} - ${image.label}`}
@@ -103,6 +107,7 @@ const ProductImageGallery = ({
                 ? "bg-primary text-primary-foreground"
                 : "bg-secondary text-muted-foreground hover:bg-secondary/80"
             )}
+          >
             {image.label}
           </button>
         ))}

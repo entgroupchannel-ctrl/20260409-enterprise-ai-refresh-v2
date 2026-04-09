@@ -147,6 +147,7 @@ const ProductJsonLd = ({
       {productSchemas.length > 1 && (
         <script type="application/ld+json">{JSON.stringify(itemListSchema)}</script>
       )}
+    >
     </Helmet>
   );
 };

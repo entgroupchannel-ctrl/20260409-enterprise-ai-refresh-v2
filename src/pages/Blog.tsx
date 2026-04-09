@@ -40,6 +40,7 @@ const Blog = () => {
                   />
                   <Badge className="absolute top-3 left-3 bg-primary/90 text-primary-foreground text-xs">
                     {post.category}
+                  >
                   </Badge>
                 </div>
               </Link>
@@ -47,21 +48,25 @@ const Blog = () => {
                 <Link to={`/blog/${post.id}`}>
                   <h3 className="font-bold text-foreground line-clamp-2 group-hover:text-primary transition-colors">
                     {post.title}
+                  >
                   </h3>
                 </Link>
                 <p className="text-sm text-muted-foreground line-clamp-2">{post.excerpt}</p>
                 <div className="flex items-center gap-4 text-xs text-muted-foreground">
                   <span className="flex items-center gap-1">
                     <Clock className="w-3 h-3" /> {post.readTime}
+                  >
                   </span>
                   <span className="flex items-center gap-1">
                     <User className="w-3 h-3" /> {post.author}
+                  >
                   </span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {post.tags.slice(0, 3).map((t) => (
                     <Badge key={t} variant="outline" className="text-xs">{t}</Badge>
                   ))}
+                >
                 </div>
                 <div className="flex-1" />
                 <div className="flex items-center justify-between pt-2 border-t border-border/40">

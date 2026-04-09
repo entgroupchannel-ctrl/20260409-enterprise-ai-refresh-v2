@@ -57,6 +57,7 @@ const BlogDetail = () => {
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
 
             {/* Bottom Share + CTA */}
+          >
             <div className="not-prose mt-8 pt-6 border-t border-border space-y-4">
               <div className="flex items-center justify-between flex-wrap gap-3">
                 <p className="text-sm text-muted-foreground">บทความนี้มีประโยชน์? แชร์ให้เพื่อนร่วมงานของคุณ</p>
@@ -90,6 +91,7 @@ const BlogDetail = () => {
                   {post.tags.map((t) => (
                     <Badge key={t} variant="secondary">{t}</Badge>
                   ))}
+                >
                 </div>
               </CardContent>
             </Card>
@@ -102,6 +104,7 @@ const BlogDetail = () => {
                     {post.relatedProducts.map((p) => (
                       <Link key={p.path} to={p.path} className="flex items-center gap-2 text-sm text-primary hover:underline">
                         <ExternalLink className="w-3.5 h-3.5" /> {p.name}
+                      >
                       </Link>
                     ))}
                   </div>
@@ -117,6 +120,7 @@ const BlogDetail = () => {
                     <Link key={r.id} to={`/blog/${r.id}`} className="block group">
                       <p className="text-sm text-muted-foreground group-hover:text-primary transition-colors line-clamp-2">
                         {r.title}
+                      >
                       </p>
                     </Link>
                   ))}

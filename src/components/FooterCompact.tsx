@@ -32,6 +32,7 @@ const FooterCompact = () => {
       <div className="container max-w-7xl mx-auto px-6 py-8">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           {/* Logo + Contact */}
+        >
           <div className="flex items-center gap-4">
             <img src={logo} alt="ENT GROUP" className="h-8 w-auto" />
             <div className="w-px h-8 bg-[hsl(220,15%,20%)]" />
@@ -55,8 +56,10 @@ const FooterCompact = () => {
                 key={link.label}
                 to={link.href}
                 className="inline-flex items-center gap-1 text-[11px] text-[hsl(215,15%,55%)] hover:text-primary transition-colors"
+              >
                 <link.icon size={10} />
                 {link.label}
+              >
               </Link>
             ))}
           </div>
@@ -71,6 +74,7 @@ const FooterCompact = () => {
                 rel="noopener noreferrer"
                 className="w-7 h-7 rounded-full bg-[hsl(220,15%,18%)] flex items-center justify-center text-[hsl(215,15%,55%)] hover:text-primary hover:bg-[hsl(220,15%,22%)] transition-colors"
                 aria-label={s.label}
+              >
                 <s.icon size={12} />
               </a>
             ))}

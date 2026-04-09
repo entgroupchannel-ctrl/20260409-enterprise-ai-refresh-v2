@@ -29,6 +29,7 @@ const RelatedCard = ({ p }: { p: AIOProduct }) => (
         {p.os.map((o) => (
           <Badge key={o} variant="outline" className="text-[10px]">{o}</Badge>
         ))}
+      >
         <Badge variant="secondary" className="text-[10px]">{p.screenSize}</Badge>
       </div>
       <h3 className="text-sm font-bold line-clamp-2">{p.model}</h3>
@@ -38,6 +39,7 @@ const RelatedCard = ({ p }: { p: AIOProduct }) => (
       ) : (
         <p className="text-muted-foreground text-xs">สอบถามราคา</p>
       )}
+    >
     </div>
   </Link>
 );
@@ -102,6 +104,7 @@ const AIODetail = () => {
       <div className="container max-w-6xl mx-auto px-4 py-8">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Gallery */}
+        >
           <div className="space-y-4">
             <div className="relative">
               <ProductGallery images={product.gallery} alt={product.model} />
@@ -110,11 +113,13 @@ const AIODetail = () => {
               {product.os.map((o) => (
                 <Badge key={o} variant="secondary">{o}</Badge>
               ))}
+            >
               <Badge variant="outline">{product.screenSize}</Badge>
               <Badge variant="outline">{categoryLabels[product.category]}</Badge>
               {product.certifications.map((c) => (
                 <Badge key={c} variant="outline" className="text-xs">{c}</Badge>
               ))}
+            >
             </div>
           </div>
 
@@ -149,11 +154,13 @@ const AIODetail = () => {
               ) : (
                 <p className="text-xl font-bold text-primary mb-1">สอบถามราคา</p>
               )}
+            >
               <p className="text-xs text-muted-foreground">{product.warranty.note}</p>
               <div className="flex flex-wrap gap-2 mt-3">
                 <button
                   onClick={() => setQuoteOpen(true)}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-sm font-medium cursor-pointer"
+                >
                   <Mail className="w-4 h-4" /> sales@entgroup.co.th
                 </button>
                 <a href="tel:020456104" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary hover:bg-secondary/80 transition-colors text-sm">
@@ -192,6 +199,7 @@ const AIODetail = () => {
             {/* ── Overview ── */}
             <TabsContent value="overview" className="mt-6 space-y-10">
               {/* Key Features */}
+            >
               <div>
                 <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
                   <Zap className="w-5 h-5 text-primary" /> จุดเด่นพิเศษ / Key Features
@@ -241,6 +249,7 @@ const AIODetail = () => {
                     {product.applications.map((app) => (
                       <div key={app.titleEN} className="p-4 bg-card border border-border rounded-lg text-center">
                         {(() => { const Icon = icons[app.icon as keyof typeof icons]; return Icon ? <Icon className="w-6 h-6 mx-auto mb-2 text-primary" /> : <span className="text-2xl mb-2 block">{app.icon}</span>; })()}
+                      >
                         <p className="font-bold text-sm">{app.titleTH}</p>
                         <p className="text-xs text-muted-foreground">{app.titleEN}</p>
                       </div>
@@ -281,9 +290,11 @@ const AIODetail = () => {
                             <TableCell className="font-medium w-1/3 text-sm">{item.label}</TableCell>
                             <TableCell className="text-sm whitespace-pre-line">
                               {item.value}
+                            >
                               {item.note && (
                                 <span className="block text-xs text-primary mt-0.5"><Sparkles className="inline w-3 h-3 mr-0.5" /> {item.note}</span>
                               )}
+                            >
                             </TableCell>
                           </TableRow>
                         ))}
@@ -314,6 +325,7 @@ const AIODetail = () => {
                     {product.certifications.map((c) => (
                       <Badge key={c} variant="secondary" className="text-sm px-3 py-1">{c}</Badge>
                     ))}
+                  >
                   </div>
                 </div>
 
@@ -346,6 +358,7 @@ const AIODetail = () => {
             <h2 className="text-xl font-bold mb-6">สินค้าที่เกี่ยวข้อง</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {related.map((r) => <RelatedCard key={r.id} p={r} />)}
+            >
             </div>
           </div>
         )}

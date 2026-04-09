@@ -260,6 +260,7 @@ const IBoxSeries = () => {
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "iBox Series", path: "/ibox-series" }]} />
 
       {/* Banner */}
+    >
       <div className="relative h-48 md:h-64 overflow-hidden">
         <img src={bannerIBox} alt="iBox Series — Industrial Mini PC" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
@@ -296,8 +297,10 @@ const IBoxSeries = () => {
                     ? "bg-primary text-primary-foreground shadow-sm"
                     : "bg-muted hover:bg-muted/80 text-foreground"
                 }`}
+              >
                 <cat.icon className="w-3.5 h-3.5" />
                 {cat.name}
+              >
               </button>
             ))}
           </div>
@@ -307,6 +310,7 @@ const IBoxSeries = () => {
       <div className="container max-w-7xl mx-auto px-4 py-8">
         <div className="flex gap-6">
           {/* Filter Sidebar */}
+        >
           <IBoxProductFilter
             filters={filters}
             onFilterChange={setFilters}
@@ -319,6 +323,7 @@ const IBoxSeries = () => {
           {/* Main Content */}
           <div className="flex-1 min-w-0 space-y-6">
             {/* Quick Filters */}
+          >
             <div className="flex items-center gap-2 flex-wrap">
               <span className="text-xs text-muted-foreground shrink-0 inline-flex items-center gap-1"><Zap size={12} className="text-primary" /> Quick:</span>
               {[
@@ -336,6 +341,7 @@ const IBoxSeries = () => {
                       ? "bg-primary text-primary-foreground border-primary shadow-sm"
                       : "bg-card border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
                   }`}
+                >
                   {qf.label}
                 </button>
               ))}
@@ -359,6 +365,7 @@ const IBoxSeries = () => {
                     size="icon"
                     className="lg:hidden"
                     onClick={() => setIsMobileFilterOpen(true)}
+                  >
                     <SlidersHorizontal className="w-4 h-4" />
                   </Button>
                   <Select value={sortBy} onValueChange={setSortBy}>
@@ -380,6 +387,7 @@ const IBoxSeries = () => {
             <ActiveFilterChips filters={filters} onFilterChange={setFilters} />
 
             {/* Product Grid */}
+          >
             {filteredProducts.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
                 {filteredProducts.map((product) => (
