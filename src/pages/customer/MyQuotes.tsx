@@ -73,7 +73,7 @@ export default function MyQuotes() {
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setQuotes(data || []);
+      setQuotes((data as any) || []);
     } catch (error: any) {
       toast({
         title: 'เกิดข้อผิดพลาด',

@@ -90,14 +90,14 @@ export default function QuoteRequestForm() {
     try {
       const { data, error } = await supabase
         .from('quote_requests')
-        .insert({
+        .insert([{
           customer_name: formData.customer_name,
           customer_email: formData.customer_email,
-          customer_phone: formData.customer_phone,
-          customer_company: formData.customer_company,
-          customer_address: formData.customer_address,
-          customer_tax_id: formData.customer_tax_id,
-          notes: formData.notes,
+          customer_phone: formData.customer_phone || null,
+          customer_company: formData.customer_company || null,
+          customer_address: formData.customer_address || null,
+          customer_tax_id: formData.customer_tax_id || null,
+          notes: formData.notes || null,
           products: products
             .filter((p) => p.model.trim() !== '')
             .map((p) => ({
@@ -107,12 +107,13 @@ export default function QuoteRequestForm() {
               unit_price: 0,
               discount_percent: 0,
               line_total: 0,
-            })),
+            })) as any,
           status: 'pending',
           subtotal: 0,
           vat_amount: 0,
           grand_total: 0,
-        })
+          quote_number: '',
+        }])
         .select()
         .single();
 

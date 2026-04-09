@@ -160,7 +160,7 @@ export default function MyQuoteDetail() {
           {/* Progress Timeline */}
           <Card>
             <CardContent className="pt-6">
-              <QuoteProgressStepper status={quote.status} />
+              <QuoteStatusFlow status={quote.status} />
             </CardContent>
           </Card>
 
