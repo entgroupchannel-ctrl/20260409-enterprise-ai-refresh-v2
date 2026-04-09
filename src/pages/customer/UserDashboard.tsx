@@ -207,7 +207,6 @@ export default function UserDashboard() {
       else loadQuoteDetail(quoteId);
       loadQuoteFiles(quoteId);
       loadQuoteMessages(quoteId);
-      subscribeToMessages(quoteId);
     } else {
       setSelectedQuote(null);
       setQuoteFiles([]);
@@ -215,6 +214,22 @@ export default function UserDashboard() {
       setEditingCustomer(false);
     }
   }, [quoteId, quotes]);
+
+  // Realtime subscription for chat messages (separate effect with cleanup)
+  useEffect(() => {
+    if (!quoteId) return;
+    const channel = supabase
+      .channel(`quote_msgs_${quoteId}_${Date.now()}`)
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'quote_messages', filter: `quote_id=eq.${quoteId}` }, (payload) => {
+        setQuoteMessages(prev => {
+          const newMsg = payload.new as any;
+          if (prev.some((m: any) => m.id === newMsg.id)) return prev;
+          return [...prev, newMsg];
+        });
+      })
+      .subscribe();
+    return () => { supabase.removeChannel(channel); };
+  }, [quoteId]);
 
   // Scroll chat to bottom
   useEffect(() => {
