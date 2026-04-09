@@ -91,7 +91,7 @@ const emptyProfile: ProfileData = {
   payment_terms: '', delivery_method: '', notes: '',
 };
 
-type Section = 'quotes' | 'quote-detail' | 'cart' | 'profile';
+type Section = 'quotes' | 'quote-detail' | 'cart' | 'orders' | 'profile';
 
 // Memoized field
 const ProfileField = memo(({ label, value, onChange, type = 'text', placeholder = '' }: {
