@@ -154,18 +154,11 @@ export default function ProductsList() {
         activeTab={statusFilter}
         onTabChange={setStatusFilter}
         resultsCount={filteredProducts.length}
-        headerActions={
-          <div className="flex gap-2">
-            <Button variant="outline" onClick={() => navigate('/admin/products/import')}>
-              <Upload className="w-4 h-4 mr-2" />
-              Import Excel
-            </Button>
-            <Button onClick={() => toast({ title: 'เร็วๆ นี้', description: 'ฟีเจอร์เพิ่มสินค้าด้วยตนเองจะมาเร็วๆ นี้' })}>
-              <Plus className="w-4 h-4 mr-2" />
-              เพิ่มสินค้า
-            </Button>
-          </div>
-        }
+        actionButton={{
+          label: 'Import Excel',
+          icon: <Upload className="w-4 h-4 mr-2" />,
+          onClick: () => navigate('/admin/products/import'),
+        }}
       >
         {filteredProducts.length === 0 ? (
           <EmptyState
@@ -175,8 +168,7 @@ export default function ProductsList() {
               ? 'ยังไม่มีสินค้าในระบบ เริ่มต้นด้วยการ Import จาก Excel'
               : 'ไม่พบสินค้าที่ตรงกับเงื่อนไข'
             }
-            actionLabel={products.length === 0 ? 'Import จาก Excel' : undefined}
-            onAction={products.length === 0 ? () => navigate('/admin/products/import') : undefined}
+            action={products.length === 0 ? { label: 'Import จาก Excel', onClick: () => navigate('/admin/products/import') } : undefined}
           />
         ) : (
           <div className="border rounded-lg overflow-x-auto">
