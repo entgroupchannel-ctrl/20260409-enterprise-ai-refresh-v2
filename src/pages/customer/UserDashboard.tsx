@@ -312,7 +312,7 @@ export default function UserDashboard() {
   }, [user, activeSection]);
 
 
-    if (!messageText.trim() || !quoteId) return;
+    const handleSendMessage = async () => {
     setSendingMessage(true);
     try {
       const newMsg = {
