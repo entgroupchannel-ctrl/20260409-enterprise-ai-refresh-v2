@@ -428,14 +428,36 @@ export default function MyQuoteDetail() {
                   </div>
                 ))}
               </div>
-              <div className="mt-4 p-3 bg-primary/5 rounded-lg border border-primary/20">
-                <p className="text-sm text-foreground">
-                  <span className="font-semibold">สถานะ:</span>{' '}
-                  {quote.status === 'po_uploaded' && 'ทีมงานกำลังตรวจสอบ PO ของคุณ'}
-                  {quote.status === 'po_approved' && 'PO ได้รับการอนุมัติแล้ว'}
-                  {quote.status === 'completed' && 'เสร็จสิ้น'}
-                </p>
-              </div>
+              {quote.status === 'po_uploaded' && (
+                <div className="mt-4 p-4 bg-primary/5 rounded-lg border border-primary/20 text-center space-y-3">
+                  <ShieldCheck className="w-10 h-10 text-primary mx-auto" />
+                  <div>
+                    <p className="font-semibold text-foreground">อัปโหลด PO สำเร็จแล้ว</p>
+                    <p className="text-sm text-muted-foreground">กรุณายืนยันคำสั่งซื้อเพื่อให้ทีมงานดำเนินการต่อ</p>
+                  </div>
+                  <Button onClick={handleConfirmPO} disabled={confirming} className="w-full">
+                    <CheckCircle2 className="w-4 h-4 mr-2" />
+                    {confirming ? 'กำลังยืนยัน...' : 'ยืนยันคำสั่งซื้อ'}
+                  </Button>
+                  <p className="text-xs text-muted-foreground">เมื่อกดยืนยันแล้ว ทีมงานจะเริ่มเตรียมสินค้าและจัดส่งให้ทันที</p>
+                </div>
+              )}
+              {quote.status === 'po_confirmed' && (
+                <div className="mt-4 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800 text-center space-y-2">
+                  <CheckCircle2 className="w-10 h-10 text-green-600 dark:text-green-400 mx-auto" />
+                  <p className="font-semibold text-green-900 dark:text-green-100">ยืนยันคำสั่งซื้อแล้ว</p>
+                  <p className="text-sm text-green-700 dark:text-green-300">ทีมงานกำลังเตรียมสินค้าและจัดส่งให้คุณ</p>
+                </div>
+              )}
+              {(quote.status === 'po_approved' || quote.status === 'completed') && (
+                <div className="mt-4 p-3 bg-primary/5 rounded-lg border border-primary/20">
+                  <p className="text-sm text-foreground">
+                    <span className="font-semibold">สถานะ:</span>{' '}
+                    {quote.status === 'po_approved' && 'PO ได้รับการอนุมัติแล้ว'}
+                    {quote.status === 'completed' && 'เสร็จสิ้น'}
+                  </p>
+                </div>
+              )}
             </CardContent>
           </Card>
         )}
