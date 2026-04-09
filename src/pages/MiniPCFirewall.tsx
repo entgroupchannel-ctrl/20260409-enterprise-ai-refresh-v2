@@ -792,7 +792,7 @@ const MiniPCFirewall = () => {
               <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-destructive/10 text-destructive border border-destructive/30">
                 Network Security
               </span>
-              <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border border-border text-muted-foreground"
+              <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border border-border text-muted-foreground">
                 pfSense / OPNsense Ready
               </span>
             </div>
