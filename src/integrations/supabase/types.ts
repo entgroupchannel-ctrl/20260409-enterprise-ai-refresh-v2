@@ -394,6 +394,286 @@ export type Database = {
           },
         ]
       }
+      product_categories: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          icon: string | null
+          id: string
+          image_url: string | null
+          is_active: boolean | null
+          name: string
+          parent_id: string | null
+          slug: string
+          sort_order: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          icon?: string | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          name: string
+          parent_id?: string | null
+          slug: string
+          sort_order?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          icon?: string | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          name?: string
+          parent_id?: string | null
+          slug?: string
+          sort_order?: number | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_categories_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "product_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      product_tags: {
+        Row: {
+          color: string | null
+          created_at: string | null
+          description: string | null
+          icon: string | null
+          id: string
+          name: string
+          slug: string
+          usage_count: number | null
+        }
+        Insert: {
+          color?: string | null
+          created_at?: string | null
+          description?: string | null
+          icon?: string | null
+          id?: string
+          name: string
+          slug: string
+          usage_count?: number | null
+        }
+        Update: {
+          color?: string | null
+          created_at?: string | null
+          description?: string | null
+          icon?: string | null
+          id?: string
+          name?: string
+          slug?: string
+          usage_count?: number | null
+        }
+        Relationships: []
+      }
+      product_variants: {
+        Row: {
+          cpu: string | null
+          created_at: string | null
+          has_4g: boolean | null
+          has_wifi: boolean | null
+          id: string
+          is_active: boolean | null
+          is_default: boolean | null
+          os: string | null
+          product_id: string
+          ram_gb: number | null
+          sku: string
+          stock_quantity: number | null
+          stock_status: string | null
+          storage_gb: number | null
+          storage_type: string | null
+          unit_price: number
+          unit_price_vat: number | null
+          updated_at: string | null
+          variant_name: string
+        }
+        Insert: {
+          cpu?: string | null
+          created_at?: string | null
+          has_4g?: boolean | null
+          has_wifi?: boolean | null
+          id?: string
+          is_active?: boolean | null
+          is_default?: boolean | null
+          os?: string | null
+          product_id: string
+          ram_gb?: number | null
+          sku: string
+          stock_quantity?: number | null
+          stock_status?: string | null
+          storage_gb?: number | null
+          storage_type?: string | null
+          unit_price: number
+          unit_price_vat?: number | null
+          updated_at?: string | null
+          variant_name: string
+        }
+        Update: {
+          cpu?: string | null
+          created_at?: string | null
+          has_4g?: boolean | null
+          has_wifi?: boolean | null
+          id?: string
+          is_active?: boolean | null
+          is_default?: boolean | null
+          os?: string | null
+          product_id?: string
+          ram_gb?: number | null
+          sku?: string
+          stock_quantity?: number | null
+          stock_status?: string | null
+          storage_gb?: number | null
+          storage_type?: string | null
+          unit_price?: number
+          unit_price_vat?: number | null
+          updated_at?: string | null
+          variant_name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_variants_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      products: {
+        Row: {
+          buy_price: number | null
+          buy_price_vat: number | null
+          category: string | null
+          cpu: string | null
+          created_at: string | null
+          created_by: string | null
+          description: string | null
+          form_factor: string | null
+          gallery_urls: string[] | null
+          has_4g: boolean | null
+          has_wifi: boolean | null
+          id: string
+          image_url: string | null
+          is_active: boolean | null
+          is_featured: boolean | null
+          max_stock_level: number | null
+          min_stock_level: number | null
+          model: string
+          name: string
+          os: string | null
+          product_code: string | null
+          ram_gb: number | null
+          reorder_point: number | null
+          search_vector: unknown
+          series: string | null
+          sku: string
+          slug: string
+          sort_order: number | null
+          stock_quantity: number | null
+          stock_status: string | null
+          storage_gb: number | null
+          storage_type: string | null
+          tags: string[] | null
+          thumbnail_url: string | null
+          unit_price: number
+          unit_price_vat: number | null
+          updated_at: string | null
+          updated_by: string | null
+        }
+        Insert: {
+          buy_price?: number | null
+          buy_price_vat?: number | null
+          category?: string | null
+          cpu?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          form_factor?: string | null
+          gallery_urls?: string[] | null
+          has_4g?: boolean | null
+          has_wifi?: boolean | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          is_featured?: boolean | null
+          max_stock_level?: number | null
+          min_stock_level?: number | null
+          model: string
+          name: string
+          os?: string | null
+          product_code?: string | null
+          ram_gb?: number | null
+          reorder_point?: number | null
+          search_vector?: unknown
+          series?: string | null
+          sku: string
+          slug: string
+          sort_order?: number | null
+          stock_quantity?: number | null
+          stock_status?: string | null
+          storage_gb?: number | null
+          storage_type?: string | null
+          tags?: string[] | null
+          thumbnail_url?: string | null
+          unit_price: number
+          unit_price_vat?: number | null
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Update: {
+          buy_price?: number | null
+          buy_price_vat?: number | null
+          category?: string | null
+          cpu?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          form_factor?: string | null
+          gallery_urls?: string[] | null
+          has_4g?: boolean | null
+          has_wifi?: boolean | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          is_featured?: boolean | null
+          max_stock_level?: number | null
+          min_stock_level?: number | null
+          model?: string
+          name?: string
+          os?: string | null
+          product_code?: string | null
+          ram_gb?: number | null
+          reorder_point?: number | null
+          search_vector?: unknown
+          series?: string | null
+          sku?: string
+          slug?: string
+          sort_order?: number | null
+          stock_quantity?: number | null
+          stock_status?: string | null
+          storage_gb?: number | null
+          storage_type?: string | null
+          tags?: string[] | null
+          thumbnail_url?: string | null
+          unit_price?: number
+          unit_price_vat?: number | null
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       quote_files: {
         Row: {
           category: string

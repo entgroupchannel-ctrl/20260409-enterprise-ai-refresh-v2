@@ -21,6 +21,7 @@ import {
   Shield,
   ShoppingCart,
   ClipboardList,
+  Package,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { supabase } from '@/integrations/supabase/client';
@@ -62,6 +63,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     { label: 'Dashboard', icon: LayoutDashboard, path: '/admin/dashboard' },
     { label: 'ใบเสนอราคา', icon: FileText, path: '/admin/quotes' },
     { label: 'ยอดขาย / Order', icon: ShoppingCart, path: '/admin/sale-orders' },
+    { label: 'คลังสินค้า', icon: Package, path: '/admin/products' },
     { label: 'คำขอ', icon: ClipboardList, path: '/admin/requests', badge: true },
     { label: 'ผู้ติดต่อ', icon: Users, path: '/admin/contacts' },
     { label: 'เอกสาร', icon: FileArchive, path: '/admin/documents' },
