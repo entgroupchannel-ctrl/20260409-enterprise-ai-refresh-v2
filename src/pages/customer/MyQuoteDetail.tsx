@@ -35,11 +35,16 @@ interface Quote {
   customer_address: string;
   products: any[];
   notes: string;
+  internal_notes: string;
   subtotal: number;
   vat_amount: number;
   grand_total: number;
   created_at: string;
   sent_at: string | null;
+  payment_terms: string | null;
+  delivery_terms: string | null;
+  warranty_terms: string | null;
+  valid_until: string | null;
 }
 
 interface Message {
