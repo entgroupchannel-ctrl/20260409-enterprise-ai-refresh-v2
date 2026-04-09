@@ -132,7 +132,7 @@ const PromoBanners = () => {
                       : "bg-amber-500 text-white"
                   }`}
 
-                    {(promo as any).badgeIcon === "flame" && <Flame size={8} />}
+                    {(promo as any).badgeIcon === "flame" && <Flame size={8} />}>
                     {promo.badge}
                   </span>
                 )}
@@ -140,7 +140,7 @@ const PromoBanners = () => {
                   promo.status === "active" ? "bg-green-500 text-white" : "bg-amber-500 text-white"
                 }`}
 
-                  {promo.status === "active" ? <Zap size={10} /> : <Bell size={10} />}
+                  {promo.status === "active" ? <Zap size={10} /> : <Bell size={10} />}>
                   {promo.status === "active" ? "กำลังจัด" : "จัดประจำ"}
                 </span>
                 <img
