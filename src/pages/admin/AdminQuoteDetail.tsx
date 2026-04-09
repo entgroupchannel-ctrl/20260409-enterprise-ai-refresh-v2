@@ -377,14 +377,16 @@ export default function AdminQuoteDetail() {
         </div>
 
         {/* Action Buttons */}
-        {quote.status === 'po_uploaded' && (
+        {(quote.status === 'po_uploaded' || quote.status === 'po_confirmed') && (
           <Card className="border-orange-200 bg-orange-50">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <AlertCircle className="w-8 h-8 text-orange-600" />
                   <div>
-                    <h3 className="font-semibold text-orange-900">มี PO รอตรวจสอบ</h3>
+                    <h3 className="font-semibold text-orange-900">
+                      {quote.status === 'po_confirmed' ? 'ลูกค้ายืนยัน PO แล้ว' : 'มี PO รอตรวจสอบ'}
+                    </h3>
                     <p className="text-sm text-orange-700">กรุณาตรวจสอบและอนุมัติ PO</p>
                   </div>
                 </div>
