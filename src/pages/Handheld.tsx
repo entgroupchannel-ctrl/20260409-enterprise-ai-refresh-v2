@@ -126,7 +126,7 @@ const Handheld = () => {
         collectionUrl="/handheld"
         products={handheldProducts.map((p) => ({ name: p.name, image: p.image, category: "Rugged Handheld" }))}
       />
-      <BreadcrumbJsonLd items={[
+      <BreadcrumbJsonLd items={[>
         { name: "สินค้า", path: "/products" },
         { name: "Handheld & PDA", path: "/handheld" },
       ]} />

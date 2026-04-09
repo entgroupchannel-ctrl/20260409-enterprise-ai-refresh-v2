@@ -460,7 +460,7 @@ const Cabinets = () => {
                 <textarea name="details" rows={3} placeholder="เช่น ต้องการช่องเดินสายเพิ่ม, สีพิเศษ, โลโก้บริษัท ฯลฯ" value={customForm.details} onChange={handleCustomChange} className={inputClass} />
               </div>
 
-              <Button type="submit" className="w-full" disabled={customLoading}
+              <Button type="submit" className="w-full" disabled={customLoading}>
 
                 {customLoading ? <Loader2 size={16} className="animate-spin mr-2" /> : <Send size={16} className="mr-2" />}
 

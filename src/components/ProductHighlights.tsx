@@ -149,7 +149,7 @@ const ProductHighlights = () => {
                   cat.badge === "Hot" 
                     ? "bg-destructive text-destructive-foreground" 
                     : "bg-primary text-primary-foreground"
-                }`}
+                }`}>
 
                   {cat.badge}
                 </span>

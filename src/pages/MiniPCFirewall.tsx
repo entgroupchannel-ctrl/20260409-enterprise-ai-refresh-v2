@@ -940,7 +940,7 @@ const MiniPCFirewall = () => {
       {/* ── IPC090 Xeon Comparison ── */}
       <section className="py-16">
         <div className="container max-w-7xl mx-auto px-6">
-          <CollapsibleSection title="IPC090 Xeon — เปรียบเทียบ 4 รุ่นย่อย" defaultOpen={false}
+          <CollapsibleSection title="IPC090 Xeon — เปรียบเทียบ 4 รุ่นย่อย" defaultOpen={false}>
 
             <div className="overflow-x-auto">
               <table className="w-full text-sm">

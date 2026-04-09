@@ -586,7 +586,7 @@ const PaginatedPriceTable = ({ rows, perPage, totalPages }: {
             {renderRows.map((r, i) => (
               <tr key={i} className="hover:bg-muted/30 transition-colors">
                 {r.isFirst && (
-                  <td className="px-4 py-3 font-medium text-foreground align-top" rowSpan={r.rowSpan}
+                  <td className="px-4 py-3 font-medium text-foreground align-top" rowSpan={r.rowSpan}>
 
                     {r.cpu}
                   </td>
@@ -627,7 +627,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
   const isReversed = index % 2 === 1;
 
   return (
-    <div className="card-surface overflow-hidden" id={model.id}
+    <div className="card-surface overflow-hidden" id={model.id}>
 
       {/* Header area */}
       <div className="grid lg:grid-cols-5 gap-0">

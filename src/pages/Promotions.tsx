@@ -231,19 +231,19 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
   return (
     <div className={`card-surface overflow-hidden transition-all duration-300 ${
       promo.status === "active" ? "border-primary/30 shadow-lg" : ""
-    } ${featured ? "md:col-span-2" : ""}`}
+    } ${featured ? "md:col-span-2" : ""}`}>
 
       <div className={`flex flex-col ${featured ? "md:flex-row" : ""}`}>
 
         {/* Image */}
         <div className={`relative bg-secondary/30 flex items-center justify-center p-6 ${
           featured ? "md:w-2/5" : ""
-        }`}
+        }`}>
 
           {promo.badge && (
             <span className={`absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
               promo.status === "active" ? "bg-destructive text-destructive-foreground" : "bg-primary text-primary-foreground"
-            }`}
+            }`}>
 
               {promo.badge}
             </span>

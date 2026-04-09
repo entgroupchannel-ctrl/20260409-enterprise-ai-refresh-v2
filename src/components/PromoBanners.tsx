@@ -130,7 +130,7 @@ const PromoBanners = () => {
                     promo.status === "active"
                       ? "bg-destructive text-destructive-foreground"
                       : "bg-amber-500 text-white"
-                  }`}
+                  }`}>
 
                     {(promo as any).badgeIcon === "flame" && <Flame size={8} />}>
                     {promo.badge}
@@ -138,7 +138,7 @@ const PromoBanners = () => {
                 )}
                 <span className={`absolute top-2 right-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold ${
                   promo.status === "active" ? "bg-green-500 text-white" : "bg-amber-500 text-white"
-                }`}
+                }`}>
 
                   {promo.status === "active" ? <Zap size={10} /> : <Bell size={10} />}>
                   {promo.status === "active" ? "กำลังจัด" : "จัดประจำ"}

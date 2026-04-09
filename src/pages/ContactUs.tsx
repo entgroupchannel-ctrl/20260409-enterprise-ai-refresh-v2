@@ -460,7 +460,7 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-xs font-medium text-foreground mb-1.5">{i.lblCategory}</label>
-                        <select name="category" value={form.category} onChange={handleChange} className={inputClass}
+                        <select name="category" value={form.category} onChange={handleChange} className={inputClass}>
 
                           {i.categories.map((c, idx) => (
                             <option key={c} value={idx === 0 ? "" : c}>{c}</option>
@@ -469,7 +469,7 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
                       </div>
                       <div>
                         <label className="block text-xs font-medium text-foreground mb-1.5">{i.lblCallback}</label>
-                        <select name="callbackTime" value={form.callbackTime} onChange={handleChange} className={inputClass}
+                        <select name="callbackTime" value={form.callbackTime} onChange={handleChange} className={inputClass}>
 
                           {i.callbackTimes.map((ct, idx) => (
                             <option key={ct} value={idx === 0 ? "" : ct}>{ct}</option>

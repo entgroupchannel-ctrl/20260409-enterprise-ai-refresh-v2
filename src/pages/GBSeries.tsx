@@ -512,7 +512,7 @@ const GBSeries = () => {
       {/* GB4000 v1 vs v2 Comparison */}
       <section className="border-t border-border bg-secondary/10">
         <div className="container max-w-7xl mx-auto px-6 py-12">
-          <CollapsibleSpec title="⚔️ เปรียบเทียบ GB4000 v1 vs v2 — เหมือนหรือต่างกันอย่างไร?" defaultOpen={true}
+          <CollapsibleSpec title="⚔️ เปรียบเทียบ GB4000 v1 vs v2 — เหมือนหรือต่างกันอย่างไร?" defaultOpen={true}>
 
             <div className="p-6 space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
@@ -567,7 +567,7 @@ const GBSeries = () => {
       {/* Full Comparison Table with Filter */}
       <section className="border-t border-border bg-secondary/20">
         <div className="container max-w-7xl mx-auto px-6 py-12">
-          <CollapsibleSpec title="เปรียบเทียบทุกรุ่น GB Series (5 รุ่น)" defaultOpen={true}
+          <CollapsibleSpec title="เปรียบเทียบทุกรุ่น GB Series (5 รุ่น)" defaultOpen={true}>
 
             <div className="p-4 space-y-4">
               {/* Model Filter Chips */}

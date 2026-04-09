@@ -96,7 +96,7 @@ const RuggedHandheldDetail = () => {
         collectionUrl={`/handheld/${product.id}`}
         products={[{ name: product.name, image: product.image, description: product.specs.cpu, category: "Rugged Handheld" }]}
       />
-      <BreadcrumbJsonLd items={[
+      <BreadcrumbJsonLd items={[>
         { name: "สินค้า", path: "/products" },
         { name: "Handheld & PDA", path: "/handheld" },
         { name: product.model, path: `/handheld/${product.id}` },

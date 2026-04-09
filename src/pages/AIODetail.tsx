@@ -79,7 +79,7 @@ const AIODetail = () => {
         collectionUrl={`/aio/${product.id}`}
         products={[{ name: product.title, image: product.image, price: product.price?.replace(/[฿,]/g, ""), description: product.cpu, category: "All-in-One PC" }]}
       />
-      <BreadcrumbJsonLd items={[
+      <BreadcrumbJsonLd items={[>
         { name: "สินค้า", path: "/" },
         { name: "All-in-One PC", path: "/aio" },
         { name: product.model, path: `/aio/${product.id}` },
@@ -177,7 +177,7 @@ const AIODetail = () => {
 
         {/* ─── Tabs ─── */}
         <div className="mt-12">
-          <Tabs value={tab} onValueChange={setTab}
+          <Tabs value={tab} onValueChange={setTab}>
 
             <TabsList className="bg-muted/50 w-full justify-start h-12 rounded-xl p-1">
               <TabsTrigger value="overview" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-6 font-bold">

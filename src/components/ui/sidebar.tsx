@@ -106,9 +106,9 @@ const SidebarProvider = React.forwardRef<
   );
 
   return (
-    <SidebarContext.Provider value={contextValue}
+    <SidebarContext.Provider value={contextValue}>
 
-      <TooltipProvider delayDuration={0}
+      <TooltipProvider delayDuration={0}>
 
         <div
           style={
@@ -152,7 +152,7 @@ const Sidebar = React.forwardRef<
 
   if (isMobile) {
     return (
-      <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}
+      <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
 
         <SheetContent
           data-sidebar="sidebar"

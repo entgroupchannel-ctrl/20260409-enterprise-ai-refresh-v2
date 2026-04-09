@@ -152,7 +152,7 @@ const HeroSection = () => {
             </p>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-black leading-[1.1] mb-6 animate-fade-up text-white" style={{ animationDelay: "0.1s" }}
 
-              โซลูชัน{" "}
+              โซลูชัน{" "}>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-[hsl(var(--accent))]">
                 Industrial Computing
               </span>
@@ -217,7 +217,7 @@ const HeroSection = () => {
             </div>
 
             {/* Stats bar */}
-            <div className="flex flex-wrap gap-8 mt-12 animate-fade-up" style={{ animationDelay: "0.5s" }}
+            <div className="flex flex-wrap gap-8 mt-12 animate-fade-up" style={{ animationDelay: "0.5s" }}>
 
               {heroStats.map((s) => (
                 <div key={s.label}>
@@ -252,7 +252,7 @@ const HeroSection = () => {
           </div>
 
           {/* Mobile: Tags inline */}
-          <div className="flex flex-wrap gap-2 lg:hidden animate-fade-up" style={{ animationDelay: "0.4s" }}
+          <div className="flex flex-wrap gap-2 lg:hidden animate-fade-up" style={{ animationDelay: "0.4s" }}>
 
             {searchTags.map((tag) => (
               <button

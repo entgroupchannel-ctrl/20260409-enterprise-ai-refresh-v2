@@ -220,7 +220,7 @@ const AboutUs = () => {
                       item.current
                         ? "bg-primary border-primary shadow-lg shadow-primary/30"
                         : "bg-background border-primary/40 hover:border-primary/70"
-                    }`}
+                    }`}>
 
                       <item.icon size={18} className={item.current ? "text-primary-foreground" : "text-primary/70"} />
                     </div>

@@ -250,7 +250,7 @@ const RuggedNotebookPage = () => {
 
                     <SlidersHorizontal className="w-4 h-4" />
                   </Button>
-                  <Select value={sortBy} onValueChange={setSortBy}
+                  <Select value={sortBy} onValueChange={setSortBy}>
 
                     <SelectTrigger className="w-[160px]">
                       <ArrowUpDown className="w-4 h-4 mr-2" />
