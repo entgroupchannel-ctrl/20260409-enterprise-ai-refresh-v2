@@ -771,6 +771,13 @@ export default function AdminQuoteDetail() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Print Preview */}
+      <PrintPreviewDialog
+        open={showPrintPreview}
+        onOpenChange={setShowPrintPreview}
+        quoteData={quote}
+      />
     </AdminLayout>
   );
 }
