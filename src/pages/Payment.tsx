@@ -35,7 +35,6 @@ const Payment = () => {
       <SEOHead title="วิธีการชำระเงิน — ENT Group" description="ช่องทางชำระเงินและข้อมูลบัญชีธนาคาร บริษัท อี เอ็นที กรุ๊ป จำกัด" />
 
       {/* Compact Header */}
-      >
       <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-background border-b border-border">
         <div className="container max-w-5xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-3">
@@ -59,7 +58,6 @@ const Payment = () => {
       <div className="container max-w-5xl mx-auto px-4 py-5 space-y-5">
 
         {/* Company Info + Bank Accounts */}
-        >
         <div className="rounded-xl border border-border bg-card p-4">
           <div className="flex items-center gap-2 text-xs text-muted-foreground mb-4 px-1">
             <Building2 size={14} className="text-primary shrink-0" />
@@ -73,7 +71,6 @@ const Payment = () => {
               <div key={i} className="rounded-lg border border-border bg-background p-4">
                 <span className={`inline-block px-2.5 py-0.5 rounded-full bg-gradient-to-r ${bank.color} text-white text-[10px] font-bold mb-2`}>
                   {bank.bank}
-                  >
                 </span>
                 <p className="text-[11px] text-muted-foreground">{bank.branch} · {bank.type}</p>
                 <p className="text-xl font-bold text-foreground tracking-wider mt-1">{bank.account}</p>
@@ -93,7 +90,6 @@ const Payment = () => {
               <li key={i} className="flex gap-2 text-xs text-foreground/80 leading-relaxed">
                 <AlertCircle size={12} className="text-amber-400 shrink-0 mt-0.5" />
                 {note}
-                >
               </li>
             ))}
           </ul>

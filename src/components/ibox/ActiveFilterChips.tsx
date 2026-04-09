@@ -92,7 +92,6 @@ const ActiveFilterChips = ({ filters, onFilterChange }: ActiveFilterChipsProps) 
           key={chip.label}
           onClick={chip.onRemove}
           className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors group"
-          >
           {chip.label}
           <X className="w-3 h-3 opacity-60 group-hover:opacity-100 transition-opacity" />
         </button>
@@ -100,7 +99,6 @@ const ActiveFilterChips = ({ filters, onFilterChange }: ActiveFilterChipsProps) 
       <button
         onClick={() => onFilterChange({ ...defaultFilters })}
         className="text-xs text-destructive hover:text-destructive/80 transition-colors underline underline-offset-2"
-        >
         ล้างทั้งหมด
       </button>
     </div>

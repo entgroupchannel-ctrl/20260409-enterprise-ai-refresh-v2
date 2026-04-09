@@ -28,14 +28,12 @@ const RelatedCard = ({ nb }: { nb: RuggedNotebook }) => (
       <h3 className="text-sm font-bold line-clamp-2">{nb.title}</h3>
       <div className="flex flex-wrap gap-1">
         {nb.badges.slice(0, 2).map((b) => <Badge key={b} variant="outline" className="text-[10px]">{b}</Badge>)}
-        >
       </div>
       {nb.priceStart ? (
         <p className="text-primary font-bold text-sm">{nb.priceStart}</p>
       ) : (
         <p className="text-muted-foreground text-xs">สอบถามราคา</p>
       )}
-      >
     </div>
   </Link>
 );
@@ -68,13 +66,11 @@ const RuggedNotebookDetail = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title={`${nb.model} — ${nb.title}`}
-        >
         description={`${nb.titleTH} | ${nb.cpu} | ${nb.protection}`}
         path={`/rugged-notebook/${nb.id}`}
       />
       <ProductJsonLd
         collectionName={nb.model}
-        >
         collectionDescription={nb.titleTH}
         collectionUrl={`/rugged-notebook/${nb.id}`}
         products={[{ name: nb.title, image: nb.image, price: nb.priceStart?.replace(/[฿,]/g, ""), description: nb.cpu, category: "Rugged Notebook" }]}
@@ -102,7 +98,6 @@ const RuggedNotebookDetail = () => {
       <div className="container max-w-6xl mx-auto px-4 py-8">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Gallery */}
-          >
           <div className="space-y-4">
             <div className="relative">
               <ProductGallery images={nb.gallery} alt={nb.model} />
@@ -111,7 +106,6 @@ const RuggedNotebookDetail = () => {
               <Badge variant="secondary">{nb.os}</Badge>
               <Badge variant="outline">{nb.screenSize}</Badge>
               {nb.badges.map((b) => <Badge key={b} variant="outline" className="text-xs">{b}</Badge>)}
-              >
             </div>
           </div>
 
@@ -151,13 +145,11 @@ const RuggedNotebookDetail = () => {
               ) : (
                 <p className="text-xl font-bold text-primary mb-1">สอบถามราคา</p>
               )}
-              >
               <p className="text-xs text-muted-foreground">{nb.warranty.note}</p>
               <div className="flex flex-wrap gap-2 mt-3">
                 <button
                   onClick={() => setQuoteOpen(true)}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-sm font-medium cursor-pointer"
-                  >
                   <Mail className="w-4 h-4" /> sales@entgroup.co.th
                 </button>
                 <a href="tel:020456104" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary hover:bg-secondary/80 transition-colors text-sm">
@@ -196,7 +188,6 @@ const RuggedNotebookDetail = () => {
             {/* ── Overview ── */}
             <TabsContent value="overview" className="mt-6 space-y-10">
               {/* Key Features */}
-              >
               <div>
                 <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
                   <Zap className="w-5 h-5 text-primary" /> จุดเด่นพิเศษ
@@ -221,7 +212,6 @@ const RuggedNotebookDetail = () => {
                     <div
                       key={i}
                       className={`grid md:grid-cols-2 gap-6 items-center ${i % 2 === 1 ? "md:[direction:rtl]" : ""}`}
-                      >
                       {h.image && (
                         <div className={`rounded-xl overflow-hidden bg-secondary/30 ${i % 2 === 1 ? "md:[direction:ltr]" : ""}`}>
                           <img src={h.image} alt={h.titleEN} className="w-full h-auto object-cover max-h-[300px]" loading="lazy" />
@@ -270,11 +260,9 @@ const RuggedNotebookDetail = () => {
                             <TableCell className="font-medium w-1/3 text-sm">{item.label}</TableCell>
                             <TableCell className="text-sm">
                               {item.value}
-                              >
                               {item.note && (
                                 <span className="block text-xs text-primary mt-0.5"><Sparkles className="inline w-3 h-3 mr-0.5" /> {item.note}</span>
                               )}
-                              >
                             </TableCell>
                           </TableRow>
                         ))}
@@ -305,7 +293,6 @@ const RuggedNotebookDetail = () => {
                     {nb.certifications.map((c) => (
                       <Badge key={c} variant="secondary" className="text-sm px-3 py-1">{c}</Badge>
                     ))}
-                    >
                   </div>
                 </div>
 
@@ -338,7 +325,6 @@ const RuggedNotebookDetail = () => {
             <h2 className="text-xl font-bold mb-6">สินค้าที่เกี่ยวข้อง</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {related.map((r) => <RelatedCard key={r.id} nb={r} />)}
-              >
             </div>
           </div>
         )}

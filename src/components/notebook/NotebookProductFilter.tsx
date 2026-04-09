@@ -112,7 +112,6 @@ const FilterOption = ({
     className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
       isActive
         ? "bg-primary text-primary-foreground font-medium shadow-sm"
-        >
         : disabled
         ? "text-muted-foreground/50 cursor-not-allowed"
         : "hover:bg-muted/70 text-foreground"
@@ -122,7 +121,6 @@ const FilterOption = ({
       className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md ${
         isActive ? "bg-primary-foreground/20" : "bg-muted text-muted-foreground"
       }`}
-      >
       {count}
     </span>
   </button>
@@ -175,7 +173,6 @@ const NotebookProductFilter = ({
             {nbOsOptions.map((o) => (
               <FilterOption key={o.id} label={o.name} count={counts.os[o.id] || 0} isActive={filters.os === o.id} onClick={() => onFilterChange({ ...filters, os: o.id })} />
             ))}
-            >
           </AccordionContent>
         </AccordionItem>
 
@@ -187,7 +184,6 @@ const NotebookProductFilter = ({
             {nbScreenOptions.map((o) => (
               <FilterOption key={o.id} label={o.name} count={counts.screen[o.id] || 0} isActive={filters.screenSize === o.id} onClick={() => onFilterChange({ ...filters, screenSize: o.id })} disabled={o.id !== "all" && (counts.screen[o.id] || 0) === 0} />
             ))}
-            >
           </AccordionContent>
         </AccordionItem>
 
@@ -199,7 +195,6 @@ const NotebookProductFilter = ({
             {nbCpuOptions.map((o) => (
               <FilterOption key={o.id} label={o.name} count={counts.cpu[o.id] || 0} isActive={filters.cpuBrand === o.id} onClick={() => onFilterChange({ ...filters, cpuBrand: o.id })} disabled={o.id !== "all" && (counts.cpu[o.id] || 0) === 0} />
             ))}
-            >
           </AccordionContent>
         </AccordionItem>
 
@@ -211,7 +206,6 @@ const NotebookProductFilter = ({
             {nbProtectionOptions.map((o) => (
               <FilterOption key={o.id} label={o.name} count={counts.prot[o.id] || 0} isActive={filters.protection === o.id} onClick={() => onFilterChange({ ...filters, protection: o.id })} disabled={o.id !== "all" && (counts.prot[o.id] || 0) === 0} />
             ))}
-            >
           </AccordionContent>
         </AccordionItem>
 
@@ -302,7 +296,6 @@ export const NotebookActiveFilterChips = ({
       {chips.map((chip) => (
         <button key={chip.label} onClick={chip.onRemove} className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors group">
           {chip.label}
-          >
           <X className="w-3 h-3 opacity-60 group-hover:opacity-100 transition-opacity" />
         </button>
       ))}

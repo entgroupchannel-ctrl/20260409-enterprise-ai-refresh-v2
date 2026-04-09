@@ -13,7 +13,6 @@ const LineQRButton = ({ children, className = "" }: LineQRButtonProps) => {
     <>
       <button type="button" onClick={() => setOpen(true)} className={className}>
         {children}
-        >
       </button>
       <LineQRDialog open={open} onClose={() => setOpen(false)} />
     </>

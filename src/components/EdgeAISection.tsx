@@ -35,7 +35,6 @@ const EdgeAISection = () => {
           backgroundSize: "420px",
           backgroundRepeat: "repeat",
         }}
-        >
       />
       <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.02] via-transparent to-[hsl(40,55%,55%)]/[0.03] pointer-events-none" />
 
@@ -47,7 +46,6 @@ const EdgeAISection = () => {
             </span>
             <h2 className="text-3xl md:text-5xl font-display font-bold mb-6 leading-tight">
               โซลูชัน Edge AI{" "}
-              >
               <span className="text-gradient">สำหรับประเทศไทย</span>
             </h2>
             <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
@@ -60,7 +58,6 @@ const EdgeAISection = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
-                >
                 ดูเว็บไซต์ <ExternalLink size={16} />
               </a>
               <a
@@ -68,7 +65,6 @@ const EdgeAISection = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold hover:bg-surface-hover transition-colors"
-                >
                 ดูสินค้าทั้งหมด
               </a>
             </div>
@@ -78,7 +74,6 @@ const EdgeAISection = () => {
             className="relative group"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-          >
             <div
               className="card-surface rounded-2xl overflow-hidden relative aspect-[4/3]"
               onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
@@ -87,7 +82,6 @@ const EdgeAISection = () => {
                 const diff = touchStartX.current - touchEndX.current;
                 if (Math.abs(diff) > 50) { diff > 0 ? next() : prev(); }
               }}
-            >
               {slides.map((slide, i) => (
                 <div
                   key={i}
@@ -96,7 +90,6 @@ const EdgeAISection = () => {
                     opacity: i === current ? 1 : 0,
                     transform: i === current ? "scale(1)" : "scale(1.05)",
                   }}
-                  >
                   <img
                     src={slide.src}
                     alt={slide.alt}
@@ -104,7 +97,6 @@ const EdgeAISection = () => {
                     loading="lazy"
                     width={1024}
                     height={768}
-                    >
                   />
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent p-4 pt-10">
                     <p className="text-white text-sm font-medium">{slide.caption}</p>
@@ -115,13 +107,11 @@ const EdgeAISection = () => {
               <button
                 onClick={prev}
                 className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-background/70 border border-border/50 flex items-center justify-center text-foreground opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity hover:bg-background"
-                >
                 <ChevronLeft size={18} />
               </button>
               <button
                 onClick={next}
                 className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-background/70 border border-border/50 flex items-center justify-center text-foreground opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity hover:bg-background"
-                >
                 <ChevronRight size={18} />
               </button>
             </div>

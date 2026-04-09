@@ -107,7 +107,6 @@ function useFilterCounts(allProducts: IBoxProduct[]) {
       if (p.specs.poe) poeCount++;
       if (p.specs.pcie) pcieCount++;
     }
-    >
     cat["all"] = allProducts.length;
     cpu["all"] = allProducts.length;
     ff["all"] = allProducts.length;
@@ -151,7 +150,6 @@ const IBoxProductFilter = ({
   const FilterContent = () => (
     <div className="space-y-4">
       {/* Header */}
-      >
       <div className="flex items-center justify-between pb-3 border-b border-border">
         <h3 className="text-base font-bold text-foreground flex items-center gap-2">
           <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -162,11 +160,9 @@ const IBoxProductFilter = ({
         {hasActiveFilters && (
           <Button
             variant="ghost"
-            >
             size="sm"
             onClick={clearFilters}
             className="text-destructive hover:text-destructive/80 text-xs h-7 px-2"
-            >
             <X className="w-3 h-3 mr-1" />
             ล้างทั้งหมด
           </Button>
@@ -182,10 +178,8 @@ const IBoxProductFilter = ({
 
       <Accordion
         type="multiple"
-        >
         defaultValue={["category", "formFactor", "performance", "cpu", "ports", "features"]}
         className="space-y-1.5"
-        >
         {/* Category */}
         <AccordionItem value="category" className="border border-border rounded-lg px-3 transition-colors data-[state=open]:border-primary/20 data-[state=open]:bg-primary/[0.02]">
           <AccordionTrigger className="py-3 text-sm font-semibold hover:no-underline">
@@ -367,7 +361,6 @@ const IBoxProductFilter = ({
               </div>
               <Switch
                 checked={filters.poe === true}
-                >
                 onCheckedChange={(checked) =>
                   onFilterChange({ ...filters, poe: checked ? true : null })
                 }
@@ -380,7 +373,6 @@ const IBoxProductFilter = ({
               </div>
               <Switch
                 checked={filters.pcie === true}
-                >
                 onCheckedChange={(checked) =>
                   onFilterChange({ ...filters, pcie: checked ? true : null })
                 }
@@ -407,7 +399,6 @@ const IBoxProductFilter = ({
           <div
             className="fixed inset-0 bg-foreground/50 z-40 lg:hidden animate-in fade-in duration-200"
             onClick={onMobileClose}
-            >
           />
           <aside className="fixed inset-y-0 left-0 w-80 max-w-[90vw] bg-card z-50 lg:hidden overflow-y-auto animate-in slide-in-from-left duration-300">
             <div className="p-4">
@@ -416,7 +407,6 @@ const IBoxProductFilter = ({
                 <button
                   onClick={onMobileClose}
                   className="p-2 hover:bg-muted rounded-lg transition-colors"
-                  >
                   <X className="w-5 h-5" />
                 </button>
               </div>
@@ -424,7 +414,6 @@ const IBoxProductFilter = ({
               <div className="mt-4 pt-4 border-t border-border">
                 <Button onClick={onMobileClose} className="w-full">
                   ดูผลลัพธ์ ({resultCount} รายการ)
-                  >
                 </Button>
               </div>
             </div>

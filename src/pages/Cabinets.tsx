@@ -153,7 +153,6 @@ const Cabinets = () => {
       <SEOHead title="ตู้ Rack & Cabinet อุตสาหกรรม" description="ตู้ Rack, ตู้ Cabinet อุตสาหกรรม สั่งผลิตขนาดพิเศษ วัสดุ Steel/SUS304/SUS316 มาตรฐาน IP65 พร้อมบริการออกแบบและติดตั้ง" path="/cabinets" />
       <ProductJsonLd
         collectionName="ตู้ Rack & Cabinet อุตสาหกรรม"
-        >
         collectionDescription="ตู้ Rack, ตู้ Cabinet อุตสาหกรรม สั่งผลิตขนาดพิเศษ วัสดุ Steel/SUS304/SUS316 มาตรฐาน IP65"
         collectionUrl="/cabinets"
         products={[{ name: "Custom Industrial Cabinet", category: "ตู้ Rack & Cabinet" }]}      />
@@ -175,7 +174,6 @@ const Cabinets = () => {
 
       <div className="container max-w-6xl mx-auto px-4 py-10 space-y-16">
         {/* Intro */}
-        >
         <section className="text-center max-w-3xl mx-auto">
           <p className="text-muted-foreground leading-relaxed">
             ตู้หน้าจอสัมผัสของเราได้รับการออกแบบและผลิตโดยผู้เชี่ยวชาญ สามารถกำหนดขนาดตู้ได้เหมาะสมกับตัวเครื่อง
@@ -235,7 +233,6 @@ const Cabinets = () => {
                     alt={model.name}
                     className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
-                    >
                   />
                 </div>
                 <div className="p-5 space-y-3">
@@ -379,7 +376,6 @@ const Cabinets = () => {
           ) : (
             <form onSubmit={handleCustomSubmit} className="space-y-4">
               {/* Contact Info */}
-              >
               <div className="space-y-3">
                 <h4 className="text-sm font-bold text-foreground">ข้อมูลติดต่อ</h4>
                 <div className="grid grid-cols-2 gap-3">
@@ -410,7 +406,6 @@ const Cabinets = () => {
                     <select name="material" value={customForm.material} onChange={handleCustomChange} className={inputClass}>
                       <option value="">เลือกวัสดุ</option>
                       {materialOptions.map((m) => <option key={m} value={m}>{m}</option>)}
-                      >
                     </select>
                   </div>
                   <div>
@@ -418,7 +413,6 @@ const Cabinets = () => {
                     <select name="installation" value={customForm.installation} onChange={handleCustomChange} className={inputClass}>
                       <option value="">เลือกรูปแบบ</option>
                       {installOptions.map((o) => <option key={o} value={o}>{o}</option>)}
-                      >
                     </select>
                   </div>
                   <div>
@@ -426,7 +420,6 @@ const Cabinets = () => {
                     <select name="lock" value={customForm.lock} onChange={handleCustomChange} className={inputClass}>
                       <option value="">เลือกประเภทกุญแจ</option>
                       {lockOptions.map((l) => <option key={l} value={l}>{l}</option>)}
-                      >
                     </select>
                   </div>
                   <div>
@@ -457,7 +450,6 @@ const Cabinets = () => {
 
               <Button type="submit" className="w-full" disabled={customLoading}>
                 {customLoading ? <Loader2 size={16} className="animate-spin mr-2" /> : <Send size={16} className="mr-2" />}
-                >
                 ส่งคำขอ Custom Cabinet
               </Button>
             </form>

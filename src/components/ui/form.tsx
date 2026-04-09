@@ -90,7 +90,6 @@ const FormControl = React.forwardRef<React.ElementRef<typeof Slot>, React.Compon
       <Slot
         ref={ref}
         id={formItemId}
-        >
         aria-describedby={!error ? `${formDescriptionId}` : `${formDescriptionId} ${formMessageId}`}
         aria-invalid={!!error}
         {...props}
@@ -121,7 +120,6 @@ const FormMessage = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<
     return (
       <p ref={ref} id={formMessageId} className={cn("text-sm font-medium text-destructive", className)} {...props}>
         {body}
-        >
       </p>
     );
   },

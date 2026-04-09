@@ -100,7 +100,6 @@ const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex flex-col">
       {/* Full-bleed background image */}
-      >
       <div className="absolute inset-0 z-0">
         <img
           src={heroIndustrial}
@@ -108,7 +107,6 @@ const HeroSection = () => {
           className="w-full h-full object-cover"
           width={1920}
           height={900}
-          >
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/65 to-black/45" />
         <div className="absolute inset-0 bg-gradient-to-t from-background/30 via-transparent to-black/40" />
@@ -124,7 +122,6 @@ const HeroSection = () => {
           {navLinks.map((l) => (
             <Link key={l.label} to={l.href} className="px-3 py-2 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-colors">
               {l.label}
-              >
             </Link>
           ))}
           <div className="w-px h-6 bg-white/10 mx-1" />
@@ -132,7 +129,6 @@ const HeroSection = () => {
         </div>
         <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden text-white">
           {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          >
         </button>
       </nav>
 
@@ -155,7 +151,6 @@ const HeroSection = () => {
             </p>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-black leading-[1.1] mb-6 animate-fade-up text-white" style={{ animationDelay: "0.1s" }}>
               โซลูชัน{" "}
-              >
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-[hsl(var(--accent))]">
                 Industrial Computing
               </span>
@@ -183,7 +178,6 @@ const HeroSection = () => {
                 <button
                   onClick={handleSearch}
                   className="px-6 py-4 bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity"
-                  >
                   ค้นเลย
                 </button>
               </div>
@@ -195,7 +189,6 @@ const HeroSection = () => {
                       key={i}
                       onClick={() => { navigate(item.href); setSearchQuery(""); setSearchOpen(false); }}
                       className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-primary/10 transition-colors border-b border-border/50 last:border-0"
-                      >
                       <Search size={14} className="text-muted-foreground shrink-0" />
                       <span className="text-sm text-foreground">{item.label}</span>
                     </button>
@@ -209,13 +202,11 @@ const HeroSection = () => {
               <Link
                 to="/contact"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20"
-                >
                 ปรึกษาผู้เชี่ยวชาญ
               </Link>
               <Link
                 to="/promotions"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/20 text-white/80 text-sm hover:bg-white/10 transition-colors backdrop-blur-sm"
-                >
                 ดูโปรโมชั่น
               </Link>
             </div>
@@ -237,7 +228,6 @@ const HeroSection = () => {
               onClick={() => setTagsExpanded(!tagsExpanded)}
               className="flex items-center justify-center w-7 shrink-0 rounded-l-xl bg-white/10 backdrop-blur-md border border-r-0 border-white/15 text-white/50 hover:text-white hover:bg-white/20 transition-colors"
               title="สินค้ายอดนิยม"
-              >
               <ChevronDown size={14} className={`transition-transform duration-300 ${tagsExpanded ? "rotate-90" : "-rotate-90"}`} />
             </button>
             <div className="flex flex-col gap-2 p-3 rounded-l-xl bg-black/40 backdrop-blur-xl border border-r-0 border-white/10">
@@ -247,7 +237,6 @@ const HeroSection = () => {
                   key={tag.label}
                   onClick={() => navigate(tag.href)}
                   className="text-left px-3 py-2 rounded-lg bg-white/5 text-white/80 text-xs border border-white/10 hover:bg-white/15 hover:border-white/25 hover:text-white transition-all whitespace-nowrap"
-                  >
                   {tag.label}
                 </button>
               ))}
@@ -261,7 +250,6 @@ const HeroSection = () => {
                 key={tag.label}
                 onClick={() => navigate(tag.href)}
                 className="px-3 py-1.5 rounded-full bg-white/10 text-white/80 text-xs border border-white/10 hover:bg-white/20 hover:border-white/30 transition-all backdrop-blur-sm"
-                >
                 {tag.label}
               </button>
             ))}

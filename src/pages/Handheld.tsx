@@ -54,7 +54,7 @@ const HandheldCard = ({
     className={`card-surface overflow-hidden group transition-all block ${
       selected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"
     }`}
-    >
+  >
     <div className="relative bg-secondary/30 p-4 flex items-center justify-center h-52">
       <button
         onClick={(e) => { e.preventDefault(); e.stopPropagation(); onToggleSelect(product.model); }}
@@ -67,7 +67,6 @@ const HandheldCard = ({
         alt={product.model}
         className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
         loading="lazy"
-        >
       />
     </div>
     <div className="p-5 space-y-3">
@@ -80,7 +79,6 @@ const HandheldCard = ({
         {product.badges.map((b) => (
           <Badge key={b} variant="outline" className="text-[10px]">{b}</Badge>
         ))}
-        >
       </div>
       <div className="flex gap-2 pt-1">
         <Button variant="outline" size="sm" className="flex-1" asChild>
@@ -120,13 +118,11 @@ const Handheld = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead
         title="Rugged Handheld & PDA กันน้ำ สแกนบาร์โค้ด"
-        >
         description="Rugged Handheld, PDA และมือถืออุตสาหกรรม กันน้ำ กันกระแทก IP65-IP68 พร้อม 2D Scanner, NFC, 5G สำหรับคลังสินค้า โลจิสติกส์ และงานภาคสนาม"
         path="/handheld"
       />
       <ProductJsonLd
         collectionName="Rugged Handheld & PDA"
-        >
         collectionDescription="มือถือและ PDA มาตรฐานอุตสาหกรรม กันน้ำ กันกระแทก"
         collectionUrl="/handheld"
         products={handheldProducts.map((p) => ({ name: p.name, image: p.image, category: "Rugged Handheld" }))}
@@ -202,7 +198,6 @@ const Handheld = () => {
 
       <div className="container max-w-7xl mx-auto px-4 py-10 space-y-16">
         {/* Features */}
-        >
         <section>
           <h2 className="text-2xl font-display font-bold text-foreground mb-2 text-center">คุณสมบัติเด่น</h2>
           <p className="text-muted-foreground text-center mb-8 text-sm">ทนทาน พกพาง่าย สแกนเร็ว พร้อมลุยทุกสถานการณ์</p>
@@ -226,7 +221,6 @@ const Handheld = () => {
             {filtered.map((p) => (
               <HandheldCard
                 key={p.id}
-                >
                 product={p}
                 selected={selectedProducts.has(p.model)}
                 onToggleSelect={toggleSelect}
@@ -260,10 +254,10 @@ const Handheld = () => {
           </div>
           <Button
             size="sm"
-            >
             variant="secondary"
             className="rounded-full font-bold"
             onClick={() => setShowMultiQuote(true)}
+          >
             <FileText className="w-4 h-4 mr-1.5" /> ขอใบเสนอราคารวม
           </Button>
           <button onClick={clearSelection} className="p-1 hover:bg-primary-foreground/20 rounded-full transition-colors">

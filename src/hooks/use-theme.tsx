@@ -19,7 +19,6 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
       if (saved) return saved;
       return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
     }
-    >
     return "light";
   });
 
@@ -34,7 +33,6 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}
-      >
     </ThemeContext.Provider>
   );
 };

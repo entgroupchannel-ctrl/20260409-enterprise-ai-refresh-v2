@@ -137,7 +137,6 @@ const PriceTable = ({ title, icon: Icon, models, subTitle }: {
       <button
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between p-5 hover:bg-secondary/30 transition-colors"
-        >
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
             <Icon className="text-primary" size={20} />
@@ -145,7 +144,6 @@ const PriceTable = ({ title, icon: Icon, models, subTitle }: {
           <div className="text-left">
             <h3 className="font-bold text-foreground">{title}</h3>
             {subTitle && <p className="text-xs text-primary/70">{subTitle}</p>}
-            >
           </div>
         </div>
         <ChevronDown className={`text-muted-foreground transition-transform duration-200 ${open ? "rotate-180" : ""}`} size={18} />
@@ -186,7 +184,6 @@ const PriceTable = ({ title, icon: Icon, models, subTitle }: {
                         rel="noopener noreferrer"
                         className="inline-flex items-center justify-center w-8 h-8 rounded-md hover:bg-primary/10 text-primary transition-colors"
                         title={`Download ${m.model} Datasheet`}
-                        >
                         <Download size={14} />
                       </a>
                     </td>
@@ -208,14 +205,12 @@ const UTCSeries = () => {
       <SEOHead title="UTC Series — Open Frame Touch Monitor" description="UTC Series จอสัมผัสอุตสาหกรรมแบบ Open Frame 8-19 นิ้ว สำหรับฝังใน KIOSK ตู้จำหน่ายสินค้า เครื่องจ่ายเงิน และงานอุตสาหกรรม" path="/utc-series" />
       <ProductJsonLd
         collectionName="UTC Series Open Frame Touch Monitor"
-        >
         collectionDescription="จอสัมผัสอุตสาหกรรมแบบ Open Frame 8-19 นิ้ว สำหรับฝังใน KIOSK ตู้จำหน่ายสินค้า"
         collectionUrl="/utc-series"
         products={[...squareModels, ...wideModels].map(m => ({ name: m.model, price: m.price, description: `${m.size} ${m.config}`, category: "Open Frame Touch Monitor" }))}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "UTC Series", path: "/utc-series" }]} />
       {/* Sticky Nav */}
-      >
       <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
         <div className="container max-w-7xl mx-auto flex items-center justify-between px-6 h-16">
           <div className="flex items-center gap-4">
@@ -238,7 +233,6 @@ const UTCSeries = () => {
         <div className="container max-w-7xl mx-auto px-6 py-16 md:py-24 relative">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Left */}
-            >
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-primary text-primary-foreground">
@@ -263,7 +257,6 @@ const UTCSeries = () => {
                 {["Touch Screen 8\"–24\"", "Fanless Design", "Modular CPU", "IP65 Front"].map((tag) => (
                   <span key={tag} className="px-3 py-1.5 rounded-lg text-xs font-medium bg-secondary text-secondary-foreground border border-border">
                     {tag}
-                    >
                   </span>
                 ))}
               </div>
@@ -277,7 +270,6 @@ const UTCSeries = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold text-sm hover:bg-secondary transition-colors"
-                  >
                   <Download size={16} /> ดาวน์โหลดวารสาร
                 </a>
               </div>
@@ -291,7 +283,6 @@ const UTCSeries = () => {
                 alt="UTC Series Industrial Panel PC"
                 className="relative w-full max-w-lg mx-auto drop-shadow-xl"
                 loading="eager"
-                >
               />
             </div>
           </div>
@@ -338,7 +329,6 @@ const UTCSeries = () => {
 
           <div className="grid md:grid-cols-2 gap-6">
             {/* Square */}
-            >
             <div className="card-surface rounded-xl overflow-hidden">
               <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
@@ -357,7 +347,6 @@ const UTCSeries = () => {
                   alt="UTC Square Screen Models"
                   className="w-full rounded-lg mb-4"
                   loading="lazy"
-                  >
                 />
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li className="flex items-start gap-2"><span className="text-primary mt-0.5">✓</span> พื้นที่แนวตั้งมาก — เหมาะกับ List, Portrait</li>
@@ -387,7 +376,6 @@ const UTCSeries = () => {
                   alt="UTC Wide Screen Models"
                   className="w-full rounded-lg mb-4"
                   loading="lazy"
-                  >
                 />
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li className="flex items-start gap-2"><span className="text-primary mt-0.5">✓</span> พื้นที่แสดงผลกว้างขวาง — ข้อมูลหลายชุดพร้อมกัน</li>
@@ -413,7 +401,6 @@ const UTCSeries = () => {
               alt="UTC Multi-Display Setup"
               className="w-full rounded-lg"
               loading="lazy"
-              >
             />
           </div>
         </div>
@@ -466,14 +453,12 @@ const UTCSeries = () => {
             <TabsContent value="square" className="space-y-5">
               <PriceTable
                 title="Square Screen — Standard Platform"
-                >
                 icon={Square}
                 models={squareModels}
                 subTitle="Celeron J1900 / Core i3-i7 7th Gen / 10th Gen"
               />
               <PriceTable
                 title="Square Screen — J6412 Processor"
-                >
                 icon={Cpu}
                 models={squareJ6412Models}
                 subTitle="Intel Celeron J6412 (New Platform)"
@@ -483,14 +468,12 @@ const UTCSeries = () => {
             <TabsContent value="wide" className="space-y-5">
               <PriceTable
                 title="Wide Screen — Standard Platform"
-                >
                 icon={RectangleHorizontal}
                 models={wideModels}
                 subTitle="Celeron J1900 / Core i3-i7 7th Gen / 10th Gen"
               />
               <PriceTable
                 title="Wide Screen — J6412 Processor"
-                >
                 icon={Cpu}
                 models={wideJ6412Models}
                 subTitle="Intel Celeron J6412 (New Platform)"
@@ -592,7 +575,6 @@ const UTCSeries = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group"
-              >
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                   <Download className="text-primary" size={18} />
@@ -609,7 +591,6 @@ const UTCSeries = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group"
-              >
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                   <Download className="text-primary" size={18} />
@@ -626,7 +607,6 @@ const UTCSeries = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group"
-              >
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                   <Download className="text-primary" size={18} />
@@ -643,7 +623,6 @@ const UTCSeries = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group"
-              >
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                   <Award className="text-primary" size={18} />
@@ -660,7 +639,6 @@ const UTCSeries = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group"
-              >
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                   <Award className="text-primary" size={18} />
@@ -675,7 +653,6 @@ const UTCSeries = () => {
             <Link
               to="/quote?category=UTC+Series"
               className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group flex items-center gap-3"
-              >
               <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                 <ShoppingCart className="text-primary" size={18} />
               </div>
@@ -688,7 +665,6 @@ const UTCSeries = () => {
             <Link
               to="/"
               className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group flex items-center gap-3"
-              >
               <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                 <ArrowLeft className="text-primary" size={18} />
               </div>

@@ -171,7 +171,6 @@ const SmartDisplay = () => {
       <SEOHead title="Smart Display, KIOSK & Digital Signage" description="จอ Smart Display, ตู้ KIOSK สำเร็จรูป และ Digital Signage สำหรับร้านค้า โรงแรม โรงพยาบาล สำนักงาน พร้อมซอฟต์แวร์ครบวงจร" path="/smart-display" />
       <ProductJsonLd
         collectionName="Smart Display, KIOSK & Digital Signage"
-        >
         collectionDescription="จอ Smart Display, ตู้ KIOSK สำเร็จรูป และ Digital Signage สำหรับร้านค้า โรงแรม โรงพยาบาล สำนักงาน"
         collectionUrl="/smart-display"
         products={fpmTouchMonitors.map(m => ({ name: m.model, price: m.price, description: m.config, category: "Smart Display & Touch Monitor" }))}      />
@@ -243,9 +242,9 @@ const SmartDisplay = () => {
                       ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
                       : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                   }`}
+                >
                   <cat.icon size={16} />
                   {cat.label}
-                  >
                 </button>
               ))}
             </div>
@@ -258,7 +257,6 @@ const SmartDisplay = () => {
         <div className="container max-w-7xl mx-auto">
 
           {/* Indoor Products */}
-          >
           {activeTab === "indoor" && (
             <div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -275,7 +273,7 @@ const SmartDisplay = () => {
                     <button
                       onClick={() => setQuoteOpen(true)}
                       className="mt-4 w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity"
-                      >
+                    >
                       <FileText size={14} /> ขอใบเสนอราคา
                     </button>
                   </div>
@@ -320,7 +318,6 @@ const SmartDisplay = () => {
                     alt="FPM Series Industrial Touch Monitor"
                     className="w-full object-contain"
                     loading="lazy"
-                    >
                   />
                 </div>
 
@@ -332,7 +329,6 @@ const SmartDisplay = () => {
                       alt="Wide Screen & Square Screen options"
                       className="w-full object-contain"
                       loading="lazy"
-                      >
                     />
                   </div>
                   <div className="card-surface overflow-hidden rounded-xl">
@@ -341,7 +337,6 @@ const SmartDisplay = () => {
                       alt="FPM size options 8-24 inch"
                       className="w-full object-contain"
                       loading="lazy"
-                      >
                     />
                   </div>
                 </div>
@@ -354,7 +349,6 @@ const SmartDisplay = () => {
                       alt="Industrial Grade Computer + Touch Screen"
                       className="w-full object-contain rounded-lg mb-4"
                       loading="lazy"
-                      >
                     />
                     <p className="text-sm text-muted-foreground">ส่งมอบประสบการณ์ที่แข็งแกร่ง กับการเลือกใช้ Industrial Grade Computer ร่วมกับหน้าจอ Touch Screen เกรดอุตสาหกรรม</p>
                   </div>
@@ -364,7 +358,6 @@ const SmartDisplay = () => {
                       alt="Easy connection USB + HDMI"
                       className="w-full object-contain rounded-lg mb-4"
                       loading="lazy"
-                      >
                     />
                     <p className="text-sm text-muted-foreground">เพียงเสียบสายไฟ USB และ HDMI — เปลี่ยนระบบการทำงานเป็นแบบสัมผัส พร้อมใช้งานทันที</p>
                   </div>
@@ -377,7 +370,6 @@ const SmartDisplay = () => {
                     alt="FPM17 Special Edition"
                     className="w-full object-contain"
                     loading="lazy"
-                    >
                   />
                 </div>
 
@@ -388,7 +380,6 @@ const SmartDisplay = () => {
                     alt="VESA Mounting options"
                     className="w-full object-contain"
                     loading="lazy"
-                    >
                   />
                 </div>
 
@@ -419,7 +410,6 @@ const SmartDisplay = () => {
                               <button
                                 onClick={() => setQuoteOpen(true)}
                                 className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity"
-                                >
                                 <FileText size={12} /> ขอราคา
                               </button>
                             </td>
@@ -432,7 +422,6 @@ const SmartDisplay = () => {
                 <PriceDisclaimer />
 
                 {/* Datasheet downloads */}
-                >
                 <div className="mt-6">
                   <h4 className="font-bold text-foreground mb-3 flex items-center gap-2"><Download size={16} /> ดาวน์โหลด Datasheet</h4>
                   <div className="flex flex-wrap gap-2">
@@ -443,7 +432,6 @@ const SmartDisplay = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-sm font-medium text-foreground hover:bg-secondary hover:border-primary/30 transition-all"
-                        >
                         <Download size={12} /> {d.model}
                       </a>
                     ))}
@@ -493,7 +481,6 @@ const SmartDisplay = () => {
                     alt="Outdoor Monitor 1600 Nits"
                     className="max-h-[380px] object-contain drop-shadow-xl"
                     loading="lazy"
-                    >
                   />
                 </div>
               </div>
@@ -510,7 +497,6 @@ const SmartDisplay = () => {
                     <button
                       onClick={() => setQuoteOpen(true)}
                       className="mt-2 w-full inline-flex items-center justify-center gap-1 px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity"
-                      >
                       <FileText size={12} /> ขอใบเสนอราคา
                     </button>
                   </div>
@@ -549,7 +535,6 @@ const SmartDisplay = () => {
           {activeTab === "kiosk" && (
             <div>
               {/* Hero Banner */}
-              >
               <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[hsl(var(--primary)/0.12)] via-background to-[hsl(var(--destructive)/0.08)] border-2 border-primary/20 p-8 md:p-12 mb-10">
                 <div className="absolute top-4 right-4 z-10">
                   <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-destructive text-destructive-foreground text-sm font-bold animate-pulse shadow-lg">
@@ -574,19 +559,16 @@ const SmartDisplay = () => {
                       {["ร้านอาหาร", "โรงพยาบาล", "ธนาคาร", "ค้าปลีก", "อีเวนต์", "ราชการ", "โรงแรม", "สนามบิน"].map((t) => (
                         <span key={t} className="text-xs px-3 py-1 rounded-full bg-primary/10 text-primary font-medium">{t}</span>
                       ))}
-                      >
                     </div>
                     <div className="flex flex-wrap gap-3">
                       <button
                         onClick={() => setQuoteOpen(true)}
                         className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity"
-                        >
                         <FileText size={18} /> ขอใบเสนอราคา KIOSK
                       </button>
                       <button
                         onClick={() => setShowLineQR(true)}
                         className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-bold hover:bg-secondary transition-colors"
-                        >
                         <MessageCircle size={18} /> สอบถามทาง LINE
                       </button>
                     </div>
@@ -597,7 +579,6 @@ const SmartDisplay = () => {
                       alt="KIOSK สำเร็จรูป"
                       className="max-h-[400px] object-contain drop-shadow-2xl"
                       loading="lazy"
-                      >
                     />
                   </div>
                 </div>
@@ -690,7 +671,6 @@ const SmartDisplay = () => {
                     <button
                       onClick={() => setQuoteOpen(true)}
                       className="w-full inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity"
-                      >
                       <FileText size={14} /> ขอใบเสนอราคา
                     </button>
                   </div>
@@ -771,7 +751,6 @@ const SmartDisplay = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-secondary text-secondary-foreground text-sm font-semibold hover:opacity-90 transition-opacity"
-                        >
                         <Download size={16} /> GK2101 KIOSK PDF
                       </a>
                       <a
@@ -779,7 +758,6 @@ const SmartDisplay = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border text-foreground text-sm font-semibold hover:bg-secondary transition-colors"
-                        >
                         <Download size={16} /> Datasheet
                       </a>
                     </div>
@@ -790,14 +768,12 @@ const SmartDisplay = () => {
                       alt="KIOSK-GK2101 ด้านหน้า"
                       className="max-h-[400px] object-contain drop-shadow-xl"
                       loading="lazy"
-                      >
                     />
                     <img
                       src="/images/wix/005637_b48ec7c382e549ad853ae993207d740e_4c97c30b.png"
                       alt="KIOSK-GK2101 ด้านหลัง"
                       className="max-h-[400px] object-contain drop-shadow-xl"
                       loading="lazy"
-                      >
                     />
                   </div>
                 </div>
@@ -823,7 +799,6 @@ const SmartDisplay = () => {
                         <button
                           onClick={() => setQuoteOpen(true)}
                           className="inline-flex items-center gap-2 text-sm text-primary font-semibold hover:underline"
-                          >
                           <FileText size={14} /> ขอใบเสนอราคา
                         </button>
                       </div>
@@ -853,7 +828,6 @@ const SmartDisplay = () => {
                       {["7\"", "8\"", "10\"", "15.6\"", "21.5\"", "23.8\"", "32\"", "43\"", "55\"", "65\""].map((s) => (
                         <span key={s} className="text-xs px-3 py-1.5 rounded-lg bg-primary/10 text-primary font-bold">{s}</span>
                       ))}
-                      >
                     </div>
                   </div>
                   <div className="flex justify-center">
@@ -862,7 +836,6 @@ const SmartDisplay = () => {
                       alt="Kiosk enclosures"
                       className="max-h-[350px] object-contain"
                       loading="lazy"
-                      >
                     />
                   </div>
                 </div>
@@ -940,7 +913,6 @@ const SmartDisplay = () => {
                   <button
                     onClick={() => setQuoteOpen(true)}
                     className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-lg hover:opacity-90 transition-opacity"
-                    >
                     <FileText size={20} /> ขอใบเสนอราคา KIOSK
                   </button>
                   <a href="tel:020456104" className="inline-flex items-center gap-2 px-6 py-4 rounded-xl border border-border text-foreground font-bold hover:bg-secondary transition-colors">
@@ -972,12 +944,10 @@ const SmartDisplay = () => {
                       {applications.map((app) => (
                         <span key={app} className="text-[11px] px-2.5 py-1 rounded-full bg-secondary text-secondary-foreground">{app}</span>
                       ))}
-                      >
                     </div>
                     <button
                       onClick={() => setQuoteOpen(true)}
                       className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-bold hover:opacity-90 transition-opacity"
-                      >
                       <FileText size={16} /> ขอใบเสนอราคา
                     </button>
                   </div>
@@ -987,7 +957,6 @@ const SmartDisplay = () => {
                       alt="Window Display"
                       className="max-h-[350px] object-contain"
                       loading="lazy"
-                      >
                     />
                   </div>
                 </div>
@@ -1010,7 +979,6 @@ const SmartDisplay = () => {
                   alt="Stretched bar display range"
                   className="w-full object-cover"
                   loading="lazy"
-                  >
                 />
               </div>
             </div>
@@ -1042,7 +1010,6 @@ const SmartDisplay = () => {
                   alt="Windows 10 Pro option"
                   className="max-h-[260px] object-contain rounded-lg"
                   loading="lazy"
-                  >
                 />
               </div>
             </div>
@@ -1107,7 +1074,6 @@ const SmartDisplay = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="card-surface p-5 flex items-center gap-4 hover:border-primary/30 transition-all group"
-                >
                 <Download className="text-primary shrink-0 group-hover:scale-110 transition-transform" size={24} />
                 <div>
                   <p className="font-bold text-foreground text-sm">{p.label}</p>
@@ -1162,9 +1128,7 @@ const SmartDisplay = () => {
                       className="absolute inset-0 w-full h-full"
                       src={`https://www.youtube.com/embed/${v.id}`}
                       title={v.title}
-                      >
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      >
                       allowFullScreen
                       loading="lazy"
                     />
@@ -1182,9 +1146,7 @@ const SmartDisplay = () => {
                     className="absolute inset-0 w-full h-full"
                     src="https://www.youtube.com/embed/gz9E7ls-QwQ"
                     title="FPM Touch Monitor"
-                    >
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    >
                     allowFullScreen
                     loading="lazy"
                   />

@@ -33,24 +33,20 @@ const CaseStudiesSection = () => {
                     alt={cs.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
-                    >
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                   <Badge className="absolute top-3 left-3 bg-primary/90 text-primary-foreground text-xs">
                     {cs.industry}
-                    >
                   </Badge>
                 </div>
                 <CardContent className="p-4 space-y-2">
                   <h3 className="font-bold text-sm text-foreground line-clamp-2 group-hover:text-primary transition-colors">
                     {cs.title}
-                    >
                   </h3>
                   {cs.testimonial && (
                     <p className="text-xs text-muted-foreground italic line-clamp-2">
                       <Quote className="w-3 h-3 inline mr-1 text-primary" />
                       {cs.testimonial}
-                      >
                     </p>
                   )}
                   <div className="flex items-center text-xs text-primary font-medium pt-1">

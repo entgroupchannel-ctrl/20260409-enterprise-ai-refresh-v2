@@ -300,7 +300,6 @@ const SpecTable = ({ series }: { series: SeriesData }) => (
               {sharedSpecs.cpu.map((c, i) => (
                 <div key={i} className="text-sm">{c}</div>
               ))}
-              >
             </div>
           </td>
         </tr>
@@ -324,13 +323,11 @@ const SpecTable = ({ series }: { series: SeriesData }) => (
           <td className="px-4 py-3 font-semibold text-foreground bg-muted/20" rowSpan={2}>I/O Ports</td>
           <td className="px-4 py-3 text-muted-foreground">
             <span className="font-medium text-foreground">USB2.0:</span> {series.usbPorts.usb2}
-            >
           </td>
         </tr>
         <tr className="hover:bg-muted/30 transition-colors">
           <td className="px-4 py-3 text-muted-foreground">
             <span className="font-medium text-foreground">USB3.0:</span> {series.usbPorts.usb3}
-            >
           </td>
         </tr>
         <tr className="hover:bg-muted/30 transition-colors">
@@ -415,20 +412,16 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
   return (
     <div className="card-surface overflow-hidden" id={series.id}>
       {/* Header with image and features */}
-      >
       <div className={`grid lg:grid-cols-5 gap-0`}>
         {/* Image side - 2 cols */}
-        >
         <div className={`lg:col-span-2 relative bg-secondary/30 p-8 flex flex-col items-center justify-center ${isReversed ? "lg:order-2" : ""}`}>
           {series.badge ? (
             <span className="absolute top-4 right-4 px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-bold">
               {series.highlight}
-              >
             </span>
           ) : (
             <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-xs font-medium border border-border">
               {series.highlight}
-              >
             </span>
           )}
           <img
@@ -436,7 +429,6 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
             alt={series.name}
             className="max-h-[220px] object-contain mb-4 transition-opacity duration-500"
             loading="lazy"
-            >
           />
           {allImages.length > 1 && (
             <div className="flex gap-2 mt-2">
@@ -458,7 +450,7 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
             target="_blank"
             rel="noopener noreferrer"
             className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity"
-            >
+          >
             Datasheet <ExternalLink size={14} />
           </a>
         </div>
@@ -471,7 +463,6 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
           <p className="text-muted-foreground mb-6 leading-relaxed">{series.desc}</p>
 
           {/* Feature cards */}
-          >
           <div className="grid sm:grid-cols-2 gap-3 mb-4">
             {series.features.map((f, i) => (
               <div key={i} className="rounded-lg border border-border p-4 hover:border-primary/30 transition-colors bg-background/50">
@@ -482,7 +473,6 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
                     <li key={j} className="text-xs text-muted-foreground flex items-start gap-1.5">
                       <Zap size={10} className="text-primary mt-0.5 shrink-0" />
                       {p}
-                      >
                     </li>
                   ))}
                 </ul>
@@ -495,7 +485,6 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
             {series.applications.map((app, i) => (
               <span key={i} className="text-xs px-3 py-1 rounded-full bg-primary/10 text-primary font-medium">
                 {app}
-                >
               </span>
             ))}
           </div>
@@ -506,7 +495,6 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
       <div className="border-t border-border">
         <div className="grid lg:grid-cols-2 gap-0 divide-y lg:divide-y-0 lg:divide-x divide-border">
           {/* Left: Specification */}
-          >
           <div>
             <div className="px-6 py-3 bg-primary/10 border-b border-border">
               <span className="text-sm font-bold text-foreground flex items-center gap-1"><SlidersHorizontal size={14} className="text-primary" /> Specification</span>
@@ -533,9 +521,7 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
                   <iframe
                     src="https://www.youtube.com/embed/n_AVEOTjeAA"
                     title={`EPC Box ${series.name} Video`}
-                    >
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    >
                     allowFullScreen
                     className="w-full h-full"
                     loading="lazy"
@@ -627,7 +613,6 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
   return (
     <div className="space-y-6">
       {/* Filter Bar */}
-      >
       <div className="card-surface p-4">
         <div className="flex items-center gap-2 mb-3">
           <Filter size={16} className="text-primary" />
@@ -666,7 +651,6 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
             className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold border transition-all ${viewMode === tab.key ? "bg-primary text-primary-foreground border-primary shadow-lg" : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"}`}>
             <tab.icon size={16} />
             {tab.label}
-            >
           </button>
         ))}
       </div>
@@ -683,7 +667,6 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
               <div className="px-4 py-4 bg-primary/10 flex items-center">
                 <span className="text-sm font-bold text-foreground">
                   {viewMode === "specs" ? <><SlidersHorizontal size={14} className="inline mr-1" /> สเปก</> : viewMode === "price" ? <><DollarSign size={14} className="inline mr-1" /> ราคา</> : <><BarChart3 size={14} className="inline mr-1" /> ความคุ้มค่า</>}
-                  >
                 </span>
               </div>
               {visibleIndices.map(i => (
@@ -708,7 +691,6 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
                       ) : (
                         values[i]
                       )}
-                      >
                     </div>
                   ))}
                 </div>
@@ -763,14 +745,12 @@ const EPCBoxSeries = () => {
       <SEOHead title="EPC Box Series — Fanless Modular Industrial PC" description="EPC Box Series คอมพิวเตอร์อุตสาหกรรม Fanless แบบ Modular LEGO MODE รองรับ Intel N100 ถึง Core i7 สำหรับโรงงานและ IoT" path="/epc-box-series" />
       <ProductJsonLd
         collectionName="EPC Box Series Fanless Modular Industrial PC"
-        >
         collectionDescription="EPC Box Series คอมพิวเตอร์อุตสาหกรรม Fanless แบบ Modular สำหรับโรงงานและ IoT"
         collectionUrl="/epc-box-series"
         products={priceList.map(m => ({ name: m.model, price: m.price, description: m.spec, category: "Fanless Modular Industrial PC" }))}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "EPC Box Series", path: "/epc-box-series" }]} />
       {/* Nav */}
-      >
       <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
         <div className="container max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
           <div className="flex items-center gap-4">
@@ -820,20 +800,19 @@ const EPCBoxSeries = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
-                  >
+                >
                   CESIPC E-Catalog <ExternalLink size={16} />
                 </a>
                 <a
                   href="#pricing"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold hover:bg-muted transition-colors"
-                  >
                   ดูราคาสินค้า
                 >
                 </a>
                 <a
                   href="#10xa"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold hover:bg-muted transition-colors"
-                  >
+                >
                   ดูสินค้าทั้งหมด <ChevronDown size={16} />
                 </a>
               </div>
@@ -843,7 +822,6 @@ const EPCBoxSeries = () => {
                 src="/images/wix/0597a3_390ed059c959423d9c40be95b414b68f_fc93c220.png"
                 alt="EPC Box Series"
                 className="max-w-full"
-                >
               />
             </div>
           </div>
@@ -858,7 +836,6 @@ const EPCBoxSeries = () => {
             alt="Trusted by global industries"
             className="w-full max-w-3xl mx-auto h-auto opacity-70"
             loading="lazy"
-            >
           />
           <p className="text-center text-sm text-muted-foreground mt-4">
             สินค้าของเราได้รับการยอมรับและติดตั้งใช้งานกับอุตสาหกรรมระดับโลก
@@ -932,14 +909,13 @@ const EPCBoxSeries = () => {
                 key={s.id}
                 href={`#${s.id}`}
                 className="shrink-0 px-4 py-2 rounded-lg text-sm font-medium border border-border hover:border-primary/50 hover:bg-primary/5 text-foreground transition-all"
-                >
+              >
                 {s.name.replace(" Series", "")}
               </a>
             ))}
             <a
               href="#pricing"
               className="shrink-0 px-4 py-2 rounded-lg text-sm font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
-              >
               ราคา
             >
             </a>
@@ -964,7 +940,6 @@ const EPCBoxSeries = () => {
             {epcSeries.map((series, idx) => (
               <SeriesSection key={series.id} series={series} index={idx} />
             ))}
-            >
           </div>
         </div>
       </section>
@@ -1061,9 +1036,7 @@ const EPCBoxSeries = () => {
                 <iframe
                   src="https://www.youtube.com/embed/n_AVEOTjeAA"
                   title="EPC Box Series Overview"
-                  >
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  >
                   allowFullScreen
                   className="w-full h-full"
                   loading="lazy"
@@ -1090,9 +1063,7 @@ const EPCBoxSeries = () => {
                     <iframe
                       src={`https://www.youtube.com/embed/${video.id}`}
                       title={video.title}
-                      >
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      >
                       allowFullScreen
                       className="w-full h-full"
                       loading="lazy"
@@ -1164,7 +1135,7 @@ const EPCBoxSeries = () => {
             <Link
               to="/"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-border text-foreground font-bold text-lg hover:bg-muted transition-colors"
-              >
+            >
               <ArrowLeft size={18} /> กลับหน้าหลัก
             </Link>
           </div>
