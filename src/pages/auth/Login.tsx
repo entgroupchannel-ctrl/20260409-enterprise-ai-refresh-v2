@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -19,8 +19,19 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const { signIn } = useAuth();
+  const { signIn, user } = useAuth();
   const { toast } = useToast();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  const redirectUrl = searchParams.get('redirect') || '/dashboard';
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (user) {
+      navigate(redirectUrl, { replace: true });
+    }
+  }, [user, navigate, redirectUrl]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,6 +43,7 @@ export default function Login() {
         title: 'เข้าสู่ระบบสำเร็จ',
         description: 'ยินดีต้อนรับกลับ!',
       });
+      navigate(redirectUrl, { replace: true });
     } catch (error: unknown) {
       const msg = error instanceof Error ? error.message : 'กรุณาตรวจสอบอีเมลและรหัสผ่าน';
       toast({
