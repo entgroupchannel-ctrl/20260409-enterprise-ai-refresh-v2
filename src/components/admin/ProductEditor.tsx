@@ -118,7 +118,7 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
         <div key={index}>
           {editingIndex === index ? (
             // Edit Mode
-            <Card className="border-blue-200 bg-blue-50">
+            <Card className="border-primary/30 bg-primary/5">
               <CardContent className="pt-6 space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
@@ -206,34 +206,34 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
             </Card>
           ) : (
             // View Mode
-            <div className="p-4 border rounded-lg hover:bg-gray-50 transition-colors group">
+            <div className="p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors group">
               <div className="flex justify-between items-start mb-2">
                 <div className="flex-1">
-                  <h4 className="font-semibold flex items-center gap-2">
+                  <h4 className="font-semibold flex items-center gap-2 text-foreground">
                     {product.model || 'N/A'}
-                    <span className="text-xs text-gray-500 font-normal">x{product.qty}</span>
+                    <span className="text-xs text-muted-foreground font-normal">x{product.qty}</span>
                   </h4>
-                  <p className="text-sm text-gray-600">{product.description}</p>
+                  <p className="text-sm text-muted-foreground">{product.description}</p>
                   {product.notes && (
-                    <p className="text-sm text-blue-600 mt-1">หมายเหตุ: {product.notes}</p>
+                    <p className="text-sm text-primary mt-1">หมายเหตุ: {product.notes}</p>
                   )}
                 </div>
                 <div className="text-right ml-4">
-                  <p className="font-semibold text-blue-600">
+                  <p className="font-semibold text-primary">
                     {formatCurrency(product.line_total || 0)}
                   </p>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-muted-foreground">
                     {formatCurrency(product.unit_price)} / หน่วย
                   </p>
                 </div>
               </div>
               
-              <div className="flex items-center justify-between text-sm text-gray-600 mt-2">
+              <div className="flex items-center justify-between text-sm text-muted-foreground mt-2">
                 <div className="flex items-center gap-4">
                   <span>จำนวน: {product.qty}</span>
                   <span>ราคา/หน่วย: {formatCurrency(product.unit_price)}</span>
                   {product.discount_percent > 0 && (
-                    <span className="text-green-600">ส่วนลด {product.discount_percent}%</span>
+                    <span className="text-green-600 dark:text-green-400">ส่วนลด {product.discount_percent}%</span>
                   )}
                 </div>
                 
@@ -338,7 +338,7 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
               <Input
                 value={formatCurrency(editForm.line_total)}
                 disabled
-                className="bg-gray-100"
+                className="bg-muted"
               />
             </div>
             <div className="md:col-span-2">

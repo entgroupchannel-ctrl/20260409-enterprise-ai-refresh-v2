@@ -29,6 +29,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import ProductEditor from '@/components/admin/ProductEditor';
 import {
   ArrowLeft,
   CheckCircle2,
@@ -465,42 +466,60 @@ export default function AdminQuoteDetail() {
                 <CardTitle>รายการสินค้า</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-3">
-                  {quote.products && quote.products.length > 0 ? (
-                    quote.products.map((product: any, index: number) => (
-                      <div
-                        key={index}
-                        className="p-4 border rounded-lg hover:bg-gray-50 transition-colors"
-                      >
-                        <div className="flex justify-between items-start mb-2">
-                          <div className="flex-1">
-                            <h4 className="font-semibold">{product.model || 'N/A'}</h4>
-                            <p className="text-sm text-gray-600">{product.description}</p>
-                            {product.notes && (
-                              <p className="text-sm text-blue-600 mt-1">หมายเหตุ: {product.notes}</p>
+                {quote.status === 'pending' ? (
+                  <ProductEditor
+                    products={quote.products || []}
+                    onUpdate={async (updatedProducts) => {
+                      const { error } = await supabase
+                        .from('quote_requests')
+                        .update({ products: updatedProducts })
+                        .eq('id', id);
+                      
+                      if (!error) {
+                        setQuote({ ...quote, products: updatedProducts });
+                        toast({ title: 'บันทึกสินค้าแล้ว' });
+                      }
+                    }}
+                    disabled={false}
+                  />
+                ) : (
+                  <div className="space-y-3">
+                    {quote.products && quote.products.length > 0 ? (
+                      quote.products.map((product: any, index: number) => (
+                        <div
+                          key={index}
+                          className="p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors"
+                        >
+                          <div className="flex justify-between items-start mb-2">
+                            <div className="flex-1">
+                              <h4 className="font-semibold text-foreground">{product.model || 'N/A'}</h4>
+                              <p className="text-sm text-muted-foreground">{product.description}</p>
+                              {product.notes && (
+                                <p className="text-sm text-primary mt-1">หมายเหตุ: {product.notes}</p>
+                              )}
+                            </div>
+                            <div className="text-right ml-4">
+                              <p className="font-semibold text-primary">
+                                {formatCurrency(product.line_total || 0)}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                            <span>จำนวน: {product.qty || 0}</span>
+                            <span>ราคา/หน่วย: {formatCurrency(product.unit_price || 0)}</span>
+                            {product.discount_percent > 0 && (
+                              <span className="text-green-600 dark:text-green-400">
+                                ส่วนลด {product.discount_percent}%
+                              </span>
                             )}
                           </div>
-                          <div className="text-right ml-4">
-                            <p className="font-semibold text-blue-600">
-                              {formatCurrency(product.line_total || 0)}
-                            </p>
-                          </div>
                         </div>
-                        <div className="flex items-center gap-4 text-sm text-gray-600">
-                          <span>จำนวน: {product.qty || 0}</span>
-                          <span>ราคา/หน่วย: {formatCurrency(product.unit_price || 0)}</span>
-                          {product.discount_percent > 0 && (
-                            <span className="text-green-600">
-                              ส่วนลด {product.discount_percent}%
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    ))
-                  ) : (
-                    <p className="text-gray-500 text-center py-8">ไม่มีรายการสินค้า</p>
-                  )}
-                </div>
+                      ))
+                    ) : (
+                      <p className="text-muted-foreground text-center py-8">ไม่มีรายการสินค้า</p>
+                    )}
+                  </div>
+                )}
 
                 <Separator className="my-4" />
 
@@ -523,9 +542,56 @@ export default function AdminQuoteDetail() {
                   <Separator />
                   <div className="flex justify-between text-lg font-bold">
                     <span>ยอดรวมทั้งสิ้น</span>
-                    <span className="text-blue-600">{formatCurrency(quote.grand_total || 0)}</span>
+                    <span className="text-primary">{formatCurrency(quote.grand_total || 0)}</span>
                   </div>
                 </div>
+
+                {/* Send Quote Button - Only show when pending */}
+                {quote.status === 'pending' && (
+                  <div className="mt-6 pt-4 border-t border-border">
+                    <Button
+                      className="w-full"
+                      size="lg"
+                      onClick={async () => {
+                        try {
+                          // Calculate totals
+                          const subtotal = quote.products.reduce((sum: number, p: any) => sum + (p.line_total || 0), 0);
+                          const vatAmount = subtotal * 0.07;
+                          const grandTotal = subtotal + vatAmount;
+
+                          const { error } = await supabase
+                            .from('quote_requests')
+                            .update({
+                              status: 'quote_sent',
+                              subtotal,
+                              vat_amount: vatAmount,
+                              grand_total: grandTotal,
+                              sent_at: new Date().toISOString(),
+                            })
+                            .eq('id', id);
+
+                          if (error) throw error;
+
+                          toast({
+                            title: 'ส่งใบเสนอราคาสำเร็จ',
+                            description: 'ส่งใบเสนอราคาไปยังลูกค้าแล้ว',
+                          });
+
+                          await loadQuoteDetails();
+                        } catch (error: any) {
+                          toast({
+                            title: 'เกิดข้อผิดพลาด',
+                            description: error.message,
+                            variant: 'destructive',
+                          });
+                        }
+                      }}
+                    >
+                      <Send className="w-5 h-5 mr-2" />
+                      บันทึกและส่งใบเสนอราคา
+                    </Button>
+                  </div>
+                )}
               </CardContent>
             </Card>
 
@@ -651,6 +717,7 @@ export default function AdminQuoteDetail() {
                     value={messageText}
                     onChange={(e) => setMessageText(e.target.value)}
                     rows={3}
+                    className="text-foreground bg-background border-border"
                   />
                   <Button
                     onClick={handleSendMessage}
