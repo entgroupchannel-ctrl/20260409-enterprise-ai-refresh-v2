@@ -664,11 +664,18 @@ export type Database = {
       }
       sale_orders: {
         Row: {
+          actual_delivery_date: string | null
+          cancel_reason: string | null
+          cancelled_at: string | null
+          completed_at: string | null
           confirmed_at: string | null
           created_at: string
           created_by: string | null
           customer_notes: string | null
+          customer_notified_delivered: boolean | null
+          customer_notified_shipping: boolean | null
           delivered_at: string | null
+          delivery_notes: string | null
           expected_delivery_date: string | null
           grand_total: number | null
           id: string
@@ -676,10 +683,14 @@ export type Database = {
           production_notes: string | null
           products: Json
           quote_id: string
+          sale_person_email: string | null
+          sale_person_name: string | null
           shipped_at: string | null
           shipping_address: string | null
           shipping_method: string | null
+          shipping_provider: string | null
           so_number: string
+          standard_lead_time_days: number | null
           status: string
           subtotal: number | null
           tracking_number: string | null
@@ -687,11 +698,18 @@ export type Database = {
           vat_amount: number | null
         }
         Insert: {
+          actual_delivery_date?: string | null
+          cancel_reason?: string | null
+          cancelled_at?: string | null
+          completed_at?: string | null
           confirmed_at?: string | null
           created_at?: string
           created_by?: string | null
           customer_notes?: string | null
+          customer_notified_delivered?: boolean | null
+          customer_notified_shipping?: boolean | null
           delivered_at?: string | null
+          delivery_notes?: string | null
           expected_delivery_date?: string | null
           grand_total?: number | null
           id?: string
@@ -699,10 +717,14 @@ export type Database = {
           production_notes?: string | null
           products?: Json
           quote_id: string
+          sale_person_email?: string | null
+          sale_person_name?: string | null
           shipped_at?: string | null
           shipping_address?: string | null
           shipping_method?: string | null
+          shipping_provider?: string | null
           so_number?: string
+          standard_lead_time_days?: number | null
           status?: string
           subtotal?: number | null
           tracking_number?: string | null
@@ -710,11 +732,18 @@ export type Database = {
           vat_amount?: number | null
         }
         Update: {
+          actual_delivery_date?: string | null
+          cancel_reason?: string | null
+          cancelled_at?: string | null
+          completed_at?: string | null
           confirmed_at?: string | null
           created_at?: string
           created_by?: string | null
           customer_notes?: string | null
+          customer_notified_delivered?: boolean | null
+          customer_notified_shipping?: boolean | null
           delivered_at?: string | null
+          delivery_notes?: string | null
           expected_delivery_date?: string | null
           grand_total?: number | null
           id?: string
@@ -722,10 +751,14 @@ export type Database = {
           production_notes?: string | null
           products?: Json
           quote_id?: string
+          sale_person_email?: string | null
+          sale_person_name?: string | null
           shipped_at?: string | null
           shipping_address?: string | null
           shipping_method?: string | null
+          shipping_provider?: string | null
           so_number?: string
+          standard_lead_time_days?: number | null
           status?: string
           subtotal?: number | null
           tracking_number?: string | null

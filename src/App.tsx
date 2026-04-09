@@ -63,6 +63,7 @@ const MyQuoteDetail = lazy(() => import("./pages/customer/MyQuoteDetail"));
 const Cart = lazy(() => import("./pages/customer/Cart"));
 const UserProfile = lazy(() => import("./pages/customer/UserProfile"));
 const UserDashboard = lazy(() => import("./pages/customer/UserDashboard"));
+const CustomerSODetail = lazy(() => import("./pages/customer/CustomerSODetail"));
 
 /* ── Loading fallback ── */
 const PageLoader = () => (
@@ -148,6 +149,7 @@ const App = () => (
                   <Route path="/my-quotes" element={<ProtectedRoute><MyQuotes /></ProtectedRoute>} />
                   <Route path="/my-quotes/:id" element={<ProtectedRoute><MyQuoteDetail /></ProtectedRoute>} />
                   <Route path="/cart" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
+                  <Route path="/my-orders/:id" element={<ProtectedRoute><CustomerSODetail /></ProtectedRoute>} />
                   <Route path="/profile" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
                   <Route path="/dashboard" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
                   <Route path="/profile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
