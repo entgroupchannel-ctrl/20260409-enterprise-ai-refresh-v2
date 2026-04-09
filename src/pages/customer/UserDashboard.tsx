@@ -275,14 +275,7 @@ export default function UserDashboard() {
     { key: 'profile' as Section, label: 'โปรไฟล์', icon: User, badge: 0 },
   ];
 
-  const Field = ({ label, field, type = 'text', placeholder = '' }: { label: string; field: keyof ProfileData; type?: string; placeholder?: string }) => (
-    <div className="space-y-1.5">
-      <Label className="text-xs">{label}</Label>
-      <Input type={type} value={(profileForm[field] as string) || ''} onChange={e => updateField(field, e.target.value)} placeholder={placeholder} />
-    </div>
-  );
-
-  return (
+  // Field component is defined outside the render to avoid re-creation — see ProfileField below
     <>
       <SEOHead title="แดชบอร์ดของฉัน | ENT Group" description="จัดการใบเสนอราคา ตะกร้า และโปรไฟล์" />
       <div className="min-h-screen bg-background flex flex-col">
