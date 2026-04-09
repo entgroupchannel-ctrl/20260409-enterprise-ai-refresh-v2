@@ -69,7 +69,7 @@ export default function QuoteStatusFlow({ status, className }: QuoteStatusFlowPr
                 className={cn(
                   'text-xs mt-2 font-medium text-center',
                   isCompleted
-                    ? 'text-emerald-600'
+                    ? 'text-primary'
                     : isCurrent
                     ? 'text-primary'
                     : 'text-muted-foreground'
