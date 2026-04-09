@@ -19,6 +19,7 @@ import {
   XCircle,
   Upload,
 } from 'lucide-react';
+import QuoteTimeline from '@/components/rfq/QuoteTimeline';
 import { formatDistanceToNow, format } from 'date-fns';
 import { th } from 'date-fns/locale';
 
@@ -295,6 +296,11 @@ export default function MyQuotes() {
                           </div>
                         </div>
                       )}
+
+                      {/* Timeline Milestone */}
+                      <div className="pt-3 border-t border-border">
+                        <QuoteTimeline currentStatus={quote.status} size="sm" />
+                      </div>
                     </div>
                   );
                 })}
