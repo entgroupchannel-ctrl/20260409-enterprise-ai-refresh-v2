@@ -680,7 +680,7 @@ const ProductCard = ({ model, onQuote }: { model: any; onQuote?: (name: string) 
       <Tabs defaultValue="specs" className="w-full">
         <TabsList className="w-full justify-start bg-secondary/50 overflow-x-auto">
           <TabsTrigger value="specs" className="text-xs md:text-sm">►Specification</TabsTrigger>
-          {model.gallery && <TabsTrigger value="gallery" className="text-xs md:text-sm">►Gallery</TabsTrigger>}>
+          {model.gallery && <TabsTrigger value="gallery" className="text-xs md:text-sm">►Gallery</TabsTrigger>}
 
         </TabsList>
         <TabsContent value="specs">
