@@ -1,4 +1,4 @@
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, XCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const STEPS = [
@@ -19,12 +19,53 @@ const STATUS_TO_STEP: Record<string, number> = {
 
 interface QuoteStatusFlowProps {
   status: string;
+  mini?: boolean;
   className?: string;
 }
 
-export default function QuoteStatusFlow({ status, className }: QuoteStatusFlowProps) {
+export default function QuoteStatusFlow({ status, mini = false, className }: QuoteStatusFlowProps) {
   const currentStep = STATUS_TO_STEP[status] ?? 0;
   const isRejected = status === 'rejected';
+
+  if (mini) {
+    return (
+      <div className={cn('flex items-center gap-1', className)}>
+        {STEPS.map((step, index) => {
+          const isCompleted = !isRejected && currentStep > index;
+          const isCurrent = !isRejected && currentStep === index;
+
+          return (
+            <div key={step.key} className="flex items-center gap-1">
+              {index > 0 && (
+                <div className={cn('w-4 h-0.5', isCompleted ? 'bg-primary' : 'bg-border')} />
+              )}
+              <div
+                className={cn(
+                  'w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold border',
+                  isCompleted
+                    ? 'bg-primary border-primary text-primary-foreground'
+                    : isCurrent
+                    ? 'bg-primary/10 border-primary text-primary'
+                    : isRejected
+                    ? 'bg-destructive/10 border-destructive/30 text-destructive'
+                    : 'bg-muted border-border text-muted-foreground'
+                )}
+                title={step.label}
+              >
+                {isCompleted ? (
+                  <CheckCircle2 className="w-3 h-3" />
+                ) : isRejected && index === 0 ? (
+                  <XCircle className="w-3 h-3" />
+                ) : (
+                  index + 1
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
 
   return (
     <div className={cn('w-full', className)}>
@@ -35,7 +76,6 @@ export default function QuoteStatusFlow({ status, className }: QuoteStatusFlowPr
 
           return (
             <div key={step.key} className="flex flex-col items-center relative z-10 flex-1">
-              {/* Connector line (before circle) */}
               {index > 0 && (
                 <div
                   className={cn(
@@ -45,8 +85,6 @@ export default function QuoteStatusFlow({ status, className }: QuoteStatusFlowPr
                   style={{ zIndex: -1 }}
                 />
               )}
-
-              {/* Circle */}
               <div
                 className={cn(
                   'w-8 h-8 rounded-full flex items-center justify-center border-2 transition-all',
@@ -63,16 +101,10 @@ export default function QuoteStatusFlow({ status, className }: QuoteStatusFlowPr
                   <span className="text-xs font-semibold">{index + 1}</span>
                 )}
               </div>
-
-              {/* Label */}
               <span
                 className={cn(
                   'text-xs mt-2 font-medium text-center',
-                  isCompleted
-                    ? 'text-primary'
-                    : isCurrent
-                    ? 'text-primary'
-                    : 'text-muted-foreground'
+                  isCompleted || isCurrent ? 'text-primary' : 'text-muted-foreground'
                 )}
               >
                 {step.label}
@@ -82,7 +114,6 @@ export default function QuoteStatusFlow({ status, className }: QuoteStatusFlowPr
         })}
       </div>
 
-      {/* Status message */}
       <p className="text-sm text-muted-foreground mt-3 text-center">
         {isRejected
           ? 'ใบเสนอราคาถูกปฏิเสธ'
