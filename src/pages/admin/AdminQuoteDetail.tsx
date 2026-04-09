@@ -484,7 +484,7 @@ export default function AdminQuoteDetail() {
                     onUpdate={async (updatedProducts) => {
                       const { error } = await supabase
                         .from('quote_requests')
-                        .update({ products: updatedProducts })
+                        .update({ products: updatedProducts as any })
                         .eq('id', id);
                       
                       if (!error) {
