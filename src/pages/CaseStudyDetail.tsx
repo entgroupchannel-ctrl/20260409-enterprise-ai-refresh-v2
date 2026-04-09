@@ -217,7 +217,7 @@ const CaseStudyDetail = () => {
               <CardContent className="p-5 space-y-4">
                 <h3 className="font-bold text-foreground">สนใจโซลูชันนี้?</h3>
                 <p className="text-sm text-muted-foreground">ทีมวิศวกรพร้อมให้คำปรึกษาและออกแบบระบบตามความต้องการ</p>
-                <Button className="w-full" onClick={() => setShowQuote(true)}
+                <Button className="w-full" onClick={() => setShowQuote(true)}>
                   <FileText className="w-4 h-4 mr-2" /> ขอใบเสนอราคา
                 </Button>
               </CardContent>

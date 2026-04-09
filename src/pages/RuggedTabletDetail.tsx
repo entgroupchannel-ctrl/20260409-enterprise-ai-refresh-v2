@@ -165,7 +165,7 @@ const RuggedTabletDetail = () => {
 
             {/* CTA */}
             <div className="flex flex-wrap gap-3 pt-4 border-t border-border">
-              <Button size="lg" variant="outline" onClick={() => setQuoteOpen(true)}
+              <Button size="lg" variant="outline" onClick={() => setQuoteOpen(true)}>
                 <FileText className="w-5 h-5 mr-2" /> ขอราคาด่วน
               </Button>
               <LineQRButton className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 rounded-md border border-input bg-background text-foreground font-medium text-sm hover:bg-accent hover:text-accent-foreground transition-colors">
@@ -372,7 +372,7 @@ const RuggedTabletDetail = () => {
                 </div>
 
                 <div className="border-t border-border pt-4 flex flex-wrap gap-3">
-                  <Button onClick={() => setQuoteOpen(true)}
+                  <Button onClick={() => setQuoteOpen(true)}>
                     <FileText className="w-4 h-4 mr-2" /> ขอใบเสนอราคา
                   </Button>
                   <LineQRButton className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-md border border-input bg-background text-foreground font-medium text-sm hover:bg-accent hover:text-accent-foreground transition-colors">

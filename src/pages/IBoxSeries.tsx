@@ -361,7 +361,7 @@ const IBoxSeries = () => {
                     variant="outline"
                     size="icon"
                     className="lg:hidden"
-                    onClick={() => setIsMobileFilterOpen(true)}
+                    onClick={() => setIsMobileFilterOpen(true)}>
                     <SlidersHorizontal className="w-4 h-4" />
                   </Button>
                   <Select value={sortBy} onValueChange={setSortBy}>
@@ -460,7 +460,7 @@ const IBoxSeries = () => {
                             <Download className="w-3.5 h-3.5 mr-1" /> Datasheet
                           </a>
                         </Button>
-                        <Button size="sm" className="flex-1" onClick={() => setQuoteProduct(model.name)}
+                        <Button size="sm" className="flex-1" onClick={() => setQuoteProduct(model.name)}>
                           <FileText className="w-3.5 h-3.5 mr-1" /> ขอราคา
                         </Button>
                       </div>
@@ -517,7 +517,7 @@ const IBoxSeries = () => {
             <div className="card-surface p-8 text-center">
               <h2 className="text-2xl font-display font-bold text-foreground mb-3">สนใจ iBox Series?</h2>
               <p className="text-muted-foreground mb-6">ปรึกษาผู้เชี่ยวชาญเพื่อเลือกรุ่นและสเปกที่เหมาะกับงานของคุณ</p>
-              <Button size="lg" onClick={() => setQuoteProduct("iBox Series")}
+              <Button size="lg" onClick={() => setQuoteProduct("iBox Series")}>
                 <FileText className="w-4 h-4 mr-2" /> ขอใบเสนอราคา
               </Button>
             </div>

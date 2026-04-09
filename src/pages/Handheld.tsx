@@ -242,7 +242,7 @@ const Handheld = () => {
             <Button variant="outline" asChild>
               <Link to="/rugged-tablet">ดู Rugged Tablet & Notebook</Link>
             </Button>
-            <Button onClick={() => setQuoteProduct("Rugged Handheld & PDA")}
+            <Button onClick={() => setQuoteProduct("Rugged Handheld & PDA")}>
               <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
             </Button>
           </div>
@@ -260,7 +260,7 @@ const Handheld = () => {
             size="sm"
             variant="secondary"
             className="rounded-full font-bold"
-            onClick={() => setShowMultiQuote(true)}
+            onClick={() => setShowMultiQuote(true)}>
             <FileText className="w-4 h-4 mr-1.5" /> ขอใบเสนอราคารวม
           </Button>
           <button onClick={clearSelection} className="p-1 hover:bg-primary-foreground/20 rounded-full transition-colors">

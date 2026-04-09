@@ -189,7 +189,7 @@ const WaterproofPC = () => {
                 คอมพิวเตอร์อุตสาหกรรมกันน้ำ กันฝุ่น IP67/IP69K สแตนเลส SUS304 เกรดอาหาร ออกแบบไร้พัดลม เหมาะสำหรับอุตสาหกรรมอาหาร เครื่องดื่ม ยา และพื้นที่ที่ต้องล้างทำความสะอาดได้
               </p>
               <div className="flex gap-3">
-                <Button onClick={() => setQuoteProduct("Waterproof PC IP69K")}
+                <Button onClick={() => setQuoteProduct("Waterproof PC IP69K")}>
                   <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
                 </Button>
                 <Button variant="outline" asChild>
@@ -332,7 +332,7 @@ const WaterproofPC = () => {
                         <ExternalLink className="w-3.5 h-3.5 mr-1.5" /> Datasheet
                       </a>
                     </Button>
-                    <Button size="sm" onClick={() => setQuoteProduct("Waterproof PC IP69K")}
+                    <Button size="sm" onClick={() => setQuoteProduct("Waterproof PC IP69K")}>
                       <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
                     </Button>
                   </div>
@@ -371,7 +371,7 @@ const WaterproofPC = () => {
         <div className="card-surface p-8 text-center">
           <h2 className="text-2xl font-display font-bold text-foreground mb-3">สนใจ Waterproof Panel PC?</h2>
           <p className="text-muted-foreground mb-6">ปรึกษาผู้เชี่ยวชาญเพื่อเลือกรุ่นที่เหมาะกับอุตสาหกรรมของคุณ</p>
-          <Button size="lg" onClick={() => setQuoteProduct("Waterproof PC IP69K")}
+          <Button size="lg" onClick={() => setQuoteProduct("Waterproof PC IP69K")}>
             <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
           </Button>
         </div>

@@ -330,7 +330,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
             <Download className="w-3.5 h-3.5 mr-1.5" /> Datasheet
           </a>
         </Button>
-        <Button size="sm" className="flex-1" onClick={() => onQuote?.(model.name)}
+        <Button size="sm" className="flex-1" onClick={() => onQuote?.(model.name)}>
           <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
         </Button>
       </div>
@@ -409,7 +409,7 @@ const EPCSeries = () => {
                     <ExternalLink className="w-3.5 h-3.5 mr-1.5" /> Product Overview
                   </a>
                 </Button>
-                <Button size="sm" onClick={() => setQuoteProduct("EPC Series")}
+                <Button size="sm" onClick={() => setQuoteProduct("EPC Series")}>
                   <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
                 </Button>
                 <Button size="sm" className="bg-amber-500 text-black hover:bg-amber-400 font-bold" asChild>
@@ -892,7 +892,7 @@ const EPCSeries = () => {
                 <ExternalLink className="w-4 h-4 mr-1.5" /> ดาวน์โหลด E-Catalog
               </a>
             </Button>
-            <Button onClick={() => setQuoteProduct("EPC Series")}
+            <Button onClick={() => setQuoteProduct("EPC Series")}>
               <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
             </Button>
           </div>

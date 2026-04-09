@@ -265,7 +265,7 @@ const Cabinets = () => {
                       </a>
                     </Button>
                   </div>
-                  <Button size="sm" className="w-full" onClick={() => setQuoteProduct(model.name)}
+                  <Button size="sm" className="w-full" onClick={() => setQuoteProduct(model.name)}>
                     <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
                   </Button>
                 </div>
@@ -353,7 +353,7 @@ const Cabinets = () => {
         <div className="card-surface p-8 text-center">
           <h2 className="text-2xl font-display font-bold text-foreground mb-3">สนใจตู้ Panel PC Cabinet?</h2>
           <p className="text-muted-foreground mb-6">ปรึกษาผู้เชี่ยวชาญเพื่อเลือกขนาดและรุ่นที่เหมาะกับงานของคุณ</p>
-          <Button size="lg" onClick={() => setQuoteProduct("Panel PC Cabinet")}
+          <Button size="lg" onClick={() => setQuoteProduct("Panel PC Cabinet")}>
             <FileText className="w-4 h-4 mr-2" /> ขอใบเสนอราคา
           </Button>
         </div>

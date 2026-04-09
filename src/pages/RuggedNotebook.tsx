@@ -250,7 +250,7 @@ const RuggedNotebookPage = () => {
                   <Input placeholder="ค้นหา... (ชื่อ, รุ่น, CPU)" value={search} onChange={(e) => setSearch(e.target.value)} className="pl-10" />
                 </div>
                 <div className="flex gap-2">
-                  <Button variant="outline" size="icon" className="lg:hidden" onClick={() => setIsMobileFilterOpen(true)}
+                  <Button variant="outline" size="icon" className="lg:hidden" onClick={() => setIsMobileFilterOpen(true)}>
                     <SlidersHorizontal className="w-4 h-4" />
                   </Button>
                   <Select value={sortBy} onValueChange={setSortBy}>
@@ -367,7 +367,7 @@ const RuggedNotebookPage = () => {
             <ShoppingCart className="w-5 h-5" />
             <span className="font-bold text-sm">{selectedProducts.size} รุ่น</span>
           </div>
-          <Button size="sm" variant="secondary" className="rounded-full font-bold" onClick={() => setShowMultiQuote(true)}
+          <Button size="sm" variant="secondary" className="rounded-full font-bold" onClick={() => setShowMultiQuote(true)}>
             <FileText className="w-4 h-4 mr-1.5" /> ขอใบเสนอราคารวม
           </Button>
           <button onClick={clearSelection} className="p-1 hover:bg-primary-foreground/20 rounded-full transition-colors">
