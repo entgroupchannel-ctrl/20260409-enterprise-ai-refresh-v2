@@ -293,6 +293,7 @@ const ModelCard = ({ model, isActive, onClick }: { model: typeof models[0]; isAc
     className={`relative flex flex-col items-center p-4 rounded-xl border-2 transition-all duration-300 text-center ${
       isActive ? "border-primary bg-primary/5 shadow-lg scale-[1.02]" : "border-border bg-card hover:border-primary/30 hover:-translate-y-1"
     }`}
+  >
     {model.badge && (
       <span className={`absolute -top-2 right-2 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${
         model.badge === "Premium" ? "bg-amber-500 text-white"
