@@ -107,6 +107,7 @@ const App = () => (
                   <Routes>
                     <Route path="/" element={<Index />} />
                     <Route path="/gt-series" element={<GTSeries />} />
+                    <Route path="/products/:slug" element={<ProductDetail />} />
                     <Route path="/gb-series" element={<GBSeries />} />
                     <Route path="/epc-box-series" element={<EPCBoxSeries />} />
                     <Route path="/gk-series" element={<GKSeries />} />
