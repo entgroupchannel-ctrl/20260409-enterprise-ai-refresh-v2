@@ -7,6 +7,7 @@ import { aioProducts } from '@/data/aio-products';
 import { iboxProducts } from '@/data/ibox-products';
 import { ruggedNotebooks } from '@/data/rugged-notebook-products';
 import { handheldProducts } from '@/data/rugged-handheld-products';
+import { getAllTabletProducts } from '@/data/rugged-tablet-products';
 
 export interface CatalogProduct {
   model: string;
