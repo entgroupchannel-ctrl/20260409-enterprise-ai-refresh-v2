@@ -48,17 +48,6 @@ const AIOCard = ({
     }`}>
     {/* Image */}
     <div className="relative bg-secondary/30 p-4 flex items-center justify-center h-52">
-      <ShareButtons
-        item={{
-          id: product.id,
-          name: product.model,
-          category: "All-in-One PC",
-          image: product.image,
-          href: `/aio`,
-          specs: product.title,
-        }}
-        className="absolute top-3 right-3"
-      />
       <button
         onClick={() => onToggleSelect(product.model)}
         className="absolute top-3 left-3 z-10">

@@ -431,17 +431,6 @@ const IBoxSeries = () => {
                       <button onClick={() => toggleSelect(model.name)} className="absolute top-3 left-3 z-10">
                         <Checkbox checked={selectedProducts.has(model.name)} className="h-5 w-5" />
                       </button>
-                      <ShareButtons
-                        item={{
-                          id: model.id,
-                          name: model.name,
-                          category: "iBox Series",
-                          image: model.image,
-                          href: "/ibox-series",
-                          specs: model.cpu,
-                        }}
-                        className="absolute top-3 right-3"
-                      />
                       <img
                         src={model.image}
                         alt={model.name}
