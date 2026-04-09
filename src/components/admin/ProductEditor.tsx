@@ -172,7 +172,7 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
                     <Input
                       value={formatCurrency(editForm.line_total)}
                       disabled
-                      className="bg-gray-100"
+                      className="bg-muted"
                     />
                   </div>
                   <div className="md:col-span-2">
