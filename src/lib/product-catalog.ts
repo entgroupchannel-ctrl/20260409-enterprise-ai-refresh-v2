@@ -113,13 +113,25 @@ export function getRelatedCatalogProducts(
 }
 
 /**
- * Search products by keyword
+ * Get unique categories from catalog
  */
-export function searchCatalogProducts(query: string, limit = 10): CatalogProduct[] {
+export function getCatalogCategories(): string[] {
+  const catalog = buildCatalog();
+  return [...new Set(catalog.map((p) => p.category))];
+}
+
+/**
+ * Search products by keyword with optional category filter
+ */
+export function searchCatalogProducts(query: string, limit = 10, category?: string): CatalogProduct[] {
   if (!query.trim()) return [];
   const catalog = buildCatalog();
   const q = query.toLowerCase();
-  return catalog
+  let filtered = catalog;
+  if (category && category !== 'all') {
+    filtered = filtered.filter((p) => p.category === category);
+  }
+  return filtered
     .filter((p) => p.model.toLowerCase().includes(q) || p.name.toLowerCase().includes(q))
     .slice(0, limit);
 }
