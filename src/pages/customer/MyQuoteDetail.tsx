@@ -32,6 +32,7 @@ import {
   CheckCircle2,
   Edit,
   AlertCircle,
+  RefreshCw,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
