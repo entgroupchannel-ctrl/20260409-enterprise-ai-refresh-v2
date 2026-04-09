@@ -37,7 +37,7 @@ interface Quote {
   grand_total: number;
   created_at: string;
   sent_at: string | null;
-  products: any[];
+  products: any;
 }
 
 export default function MyQuotes() {
