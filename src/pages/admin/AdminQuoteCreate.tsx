@@ -167,6 +167,7 @@ export default function AdminQuoteCreate() {
           customer_company: customer.company || null,
           customer_address: customer.address || null,
           customer_tax_id: customer.tax_id || null,
+          customer_line: customer.line_id || null,
           products: products as any,
           subtotal: subtotalAfterItemDiscount,
           discount_percent: terms.discount_percent,
