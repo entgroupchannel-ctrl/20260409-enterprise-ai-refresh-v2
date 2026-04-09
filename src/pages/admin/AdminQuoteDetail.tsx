@@ -799,6 +799,18 @@ export default function AdminQuoteDetail() {
                 </CardContent>
               </Card>
             )}
+
+            {/* PO Actions Menu */}
+            {poFiles.length > 0 && (
+              <POActionsMenu
+                quoteId={quote.id}
+                quoteNumber={quote.quote_number}
+                poFiles={poFiles}
+                userRole={userRole}
+                userEmail={userEmail}
+                onRefresh={loadQuoteDetails}
+              />
+            )}
           </div>
         </div>
       </div>
