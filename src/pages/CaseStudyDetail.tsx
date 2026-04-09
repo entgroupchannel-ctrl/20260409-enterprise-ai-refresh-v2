@@ -31,6 +31,7 @@ const CaseStudyDetail = () => {
           <div className="container mx-auto">
             <Badge className="mb-3 bg-primary/90 text-primary-foreground">
               <Factory className="w-3 h-3 mr-1" /> {cs.industry}
+
             </Badge>
             <h1 className="text-2xl md:text-3xl font-bold text-white max-w-3xl">{cs.title}</h1>
             <p className="text-white/70 mt-1">{cs.client}</p>
@@ -125,7 +126,7 @@ const CaseStudyDetail = () => {
                   href="https://www.youtube.com/@ENTGROUP-TH"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-sm text-primary font-medium mt-3 hover:underline"
+                  className="inline-flex items-center gap-1.5 text-sm text-primary font-medium mt-3 hover:underline">
                   <Play className="w-4 h-4" /> ดูวิดีโอทั้งหมดบน YouTube Channel
                 </a>
               </section>
@@ -154,7 +155,7 @@ const CaseStudyDetail = () => {
                   href="https://www.facebook.com/entgroup.th/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-sm text-primary font-medium mt-3 hover:underline"
+                  className="inline-flex items-center gap-1.5 text-sm text-primary font-medium mt-3 hover:underline">
                   ดูวิดีโอทั้งหมดบน Facebook →
                 </a>
               </section>
@@ -170,6 +171,7 @@ const CaseStudyDetail = () => {
                   {cs.products.map((p) =>
                     p.path ? (
                       <Link key={p.name} to={p.path}>
+
                         <Badge variant="secondary" className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors">{p.name}</Badge>
                       </Link>
                     ) : (
@@ -188,8 +190,10 @@ const CaseStudyDetail = () => {
                   <div className="space-y-2">
                     {cs.internalLinks?.map((link) => (
                       <Link key={link.path} to={link.path}>
+
                         <Button variant="outline" size="sm" className="w-full justify-start">
                           <ArrowRight className="w-4 h-4 mr-2" /> {link.label}
+
                         </Button>
                       </Link>
                     ))}
@@ -197,6 +201,7 @@ const CaseStudyDetail = () => {
                       <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer">
                         <Button variant="outline" size="sm" className="w-full justify-start">
                           <ExternalLink className="w-4 h-4 mr-2" /> {link.label}
+
                         </Button>
                       </a>
                     ))}
@@ -210,6 +215,7 @@ const CaseStudyDetail = () => {
                 <h3 className="font-bold text-foreground">สนใจโซลูชันนี้?</h3>
                 <p className="text-sm text-muted-foreground">ทีมวิศวกรพร้อมให้คำปรึกษาและออกแบบระบบตามความต้องการ</p>
                 <Button className="w-full" onClick={() => setShowQuote(true)}>
+
                   <FileText className="w-4 h-4 mr-2" /> ขอใบเสนอราคา
                 </Button>
               </CardContent>

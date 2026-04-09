@@ -230,11 +230,13 @@ const TabletCard = ({
   onToggleSelect: (name: string) => void;
 }) => (
   <div className={`card-surface overflow-hidden group transition-all ${selected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"}`}>
+
     <Link to={`/rugged-tablet/${product.id}`} className="relative bg-secondary/30 p-4 flex items-center justify-center h-52 cursor-pointer">
       <button onClick={(e) => { e.preventDefault(); e.stopPropagation(); onToggleSelect(product.model); }} className="absolute top-3 left-3 z-10">
         <Checkbox checked={selected} className="h-5 w-5" />
       </button>
       <Badge className={`absolute top-3 left-12 text-[10px] ${product.os === "Windows" ? "bg-blue-500/20 text-blue-400 border-blue-500/30" : "bg-green-500/20 text-green-400 border-green-500/30"}`}>
+
         {product.os}
       </Badge>
       {product.badge && (
@@ -266,10 +268,12 @@ const TabletCard = ({
       <div className="flex flex-wrap gap-2 pt-1">
         <Button variant="outline" size="sm" asChild className="flex-1">
           <Link to={`/rugged-tablet/${product.id}`}>
+
             <Monitor className="w-3.5 h-3.5 mr-1.5" /> ดูสเปก
           </Link>
         </Button>
         <Button size="sm" className="flex-1" onClick={() => onQuote(product.model)}>
+
           <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอราคา
         </Button>
       </div>
@@ -435,9 +439,9 @@ const RuggedTablet = () => {
                     ? "bg-primary text-primary-foreground shadow-sm"
                     : "bg-muted hover:bg-muted/80 text-foreground"
                 }`}
-              >
                 {tab.label}
-                <span className={`text-[10px] font-mono ${filters.os === tab.id ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
+                <span className={`text-[10px] font-mono ${filters.os === tab.id ? "text-primary-foreground/70" : "text-muted-foreground"}`}
+
                   ({tab.id === "all" ? tablets.length : tablets.filter((t) => t.os === tab.id).length})
                 </span>
               </button>
@@ -458,7 +462,6 @@ const RuggedTablet = () => {
                     ? "bg-primary text-primary-foreground border-primary shadow-sm"
                     : "bg-card border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
                 }`}
-              >
                 {qf.label}
               </button>
             ))}
@@ -494,9 +497,11 @@ const RuggedTablet = () => {
                 </div>
                 <div className="flex gap-2">
                   <Button variant="outline" size="icon" className="lg:hidden" onClick={() => setIsMobileFilterOpen(true)}>
+
                     <SlidersHorizontal className="w-4 h-4" />
                   </Button>
                   <Select value={sortBy} onValueChange={setSortBy}>
+
                     <SelectTrigger className="w-[160px]">
                       <ArrowUpDown className="w-4 h-4 mr-2" />
                       <SelectValue />
@@ -533,7 +538,8 @@ const RuggedTablet = () => {
                 <Monitor className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
                 <h3 className="text-lg font-bold text-foreground mb-2">ไม่พบสินค้า</h3>
                 <p className="text-sm text-muted-foreground mb-4">ลองปรับตัวกรองหรือคำค้นหาใหม่</p>
-                <Button variant="outline" onClick={() => { setSearch(""); setFilters({ ...defaultTabletFilters }); }}>
+                <Button variant="outline" onClick={() => { setSearch(""); setFilters({ ...defaultTabletFilters }); }}
+
                   ล้างตัวกรองทั้งหมด
                 </Button>
               </div>
@@ -611,6 +617,7 @@ const RuggedTablet = () => {
               {/* Featured Video */}
               <div className="card-surface rounded-2xl overflow-hidden">
                 <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+
                   <iframe
                     className="absolute inset-0 w-full h-full"
                     src="https://www.youtube.com/embed/4b5kFnaEEN4"
@@ -639,6 +646,7 @@ const RuggedTablet = () => {
                 ].map((v) => (
                   <div key={v.id} className="card-surface rounded-xl overflow-hidden group hover:shadow-lg transition-shadow">
                     <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+
                       <iframe
                         className="absolute inset-0 w-full h-full"
                         src={`https://www.youtube.com/embed/${v.id}`}
@@ -662,7 +670,6 @@ const RuggedTablet = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-destructive hover:bg-destructive/90 text-destructive-foreground font-bold text-sm transition-colors shadow-lg hover:shadow-xl"
-                >
                   <Play className="w-4 h-4" /> ดูวิดีโอทั้งหมดบน YouTube
                 </a>
               </div>
@@ -677,6 +684,7 @@ const RuggedTablet = () => {
                   <Link to="/contact">ติดต่อเรา</Link>
                 </Button>
                 <Button onClick={() => setQuoteProduct("Rugged Tablet")}>
+
                   <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
                 </Button>
               </div>
@@ -693,6 +701,7 @@ const RuggedTablet = () => {
             <span className="font-bold text-sm">{selectedProducts.size} รุ่น</span>
           </div>
           <Button size="sm" variant="secondary" className="rounded-full font-bold" onClick={() => setShowMultiQuote(true)}>
+
             <FileText className="w-4 h-4 mr-1.5" /> ขอใบเสนอราคารวม
           </Button>
           <button onClick={clearSelection} className="p-1 hover:bg-primary-foreground/20 rounded-full transition-colors">

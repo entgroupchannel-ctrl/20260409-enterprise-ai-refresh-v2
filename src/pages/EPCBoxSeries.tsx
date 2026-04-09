@@ -323,11 +323,13 @@ const SpecTable = ({ series }: { series: SeriesData }) => (
           <td className="px-4 py-3 font-semibold text-foreground bg-muted/20" rowSpan={2}>I/O Ports</td>
           <td className="px-4 py-3 text-muted-foreground">
             <span className="font-medium text-foreground">USB2.0:</span> {series.usbPorts.usb2}
+
           </td>
         </tr>
         <tr className="hover:bg-muted/30 transition-colors">
           <td className="px-4 py-3 text-muted-foreground">
             <span className="font-medium text-foreground">USB3.0:</span> {series.usbPorts.usb3}
+
           </td>
         </tr>
         <tr className="hover:bg-muted/30 transition-colors">
@@ -411,10 +413,13 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
 
   return (
     <div className="card-surface overflow-hidden" id={series.id}>
+
       {/* Header with image and features */}
       <div className={`grid lg:grid-cols-5 gap-0`}>
+
         {/* Image side - 2 cols */}
         <div className={`lg:col-span-2 relative bg-secondary/30 p-8 flex flex-col items-center justify-center ${isReversed ? "lg:order-2" : ""}`}>
+
           {series.badge ? (
             <span className="absolute top-4 right-4 px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-bold">
               {series.highlight}
@@ -438,8 +443,7 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
                   onClick={() => setActiveImg(i)}
                   className={`w-16 h-16 object-contain rounded-lg p-1 border-2 transition-all cursor-pointer ${
                     i === activeImg ? "border-primary bg-primary/10" : "border-transparent bg-background/50 hover:border-primary/40"
-                  }`}
-                >
+                  }`}>
                   <img src={img} alt="" className="w-full h-full object-contain" loading="lazy" />
                 </button>
               ))}
@@ -450,13 +454,13 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
             target="_blank"
             rel="noopener noreferrer"
             className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity"
-          >
             Datasheet <ExternalLink size={14} />
           </a>
         </div>
 
         {/* Content side - 3 cols */}
         <div className={`lg:col-span-3 p-8 lg:p-10 ${isReversed ? "lg:order-1" : ""}`}>
+
           <p className="text-xs font-semibold tracking-widest uppercase text-primary mb-2">{series.tagline}</p>
           <h3 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-2">{series.name}</h3>
           <p className="text-sm text-muted-foreground italic mb-4">{series.taglineEn}</p>
@@ -625,6 +629,7 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
               {epcFilterOpts.formFactor.map(opt => (
                 <button key={opt} onClick={() => setFormFilter(opt)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${formFilter === opt ? "bg-primary text-primary-foreground border-primary" : "border-border text-muted-foreground hover:border-primary/50"}`}>
+
                   {opt}
                 </button>
               ))}
@@ -636,6 +641,7 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
               {epcFilterOpts.budget.map(opt => (
                 <button key={opt} onClick={() => setBudgetFilter(opt)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${budgetFilter === opt ? "bg-primary text-primary-foreground border-primary" : "border-border text-muted-foreground hover:border-primary/50"}`}>
+
                   {opt}
                 </button>
               ))}
@@ -649,6 +655,7 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
         {viewTabs.map(tab => (
           <button key={tab.key} onClick={() => setViewMode(tab.key)}
             className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold border transition-all ${viewMode === tab.key ? "bg-primary text-primary-foreground border-primary shadow-lg" : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"}`}>
+
             <tab.icon size={16} />
             {tab.label}
           </button>
@@ -664,9 +671,11 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
         <div className="card-surface overflow-hidden overflow-x-auto">
           <div className="min-w-[600px]">
             <div className="grid border-b border-border" style={{ gridTemplateColumns: `180px repeat(${visibleIndices.length}, 1fr)` }}>
+
               <div className="px-4 py-4 bg-primary/10 flex items-center">
                 <span className="text-sm font-bold text-foreground">
-                  {viewMode === "specs" ? <><SlidersHorizontal size={14} className="inline mr-1" /> สเปก</> : viewMode === "price" ? <><DollarSign size={14} className="inline mr-1" /> ราคา</> : <><BarChart3 size={14} className="inline mr-1" /> ความคุ้มค่า</>}
+                  {viewMode === "specs" ? <><SlidersHorizontal size={14} className="inline mr-1" /> สเปก</> : viewMode === "price" ? <><DollarSign size={14} className="inline mr-1" /> ราคา</> : <><BarChart3 size={14} className="inline mr-1" /> ความคุ้มค่า</>}>
+
                 </span>
               </div>
               {visibleIndices.map(i => (
@@ -681,6 +690,7 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
               {Object.entries(data).map(([label, values], rowIdx) => (
                 <div key={label} className={`grid items-center ${rowIdx % 2 === 0 ? "bg-muted/10" : ""}`}
                   style={{ gridTemplateColumns: `180px repeat(${visibleIndices.length}, 1fr)` }}>
+
                   <div className="px-4 py-3 text-sm font-medium text-foreground">{label}</div>
                   {visibleIndices.map(i => (
                     <div key={i} className="px-3 py-3 text-center text-sm text-muted-foreground border-l border-border">
@@ -699,6 +709,7 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
 
             <div className="grid border-t border-border bg-muted/20"
               style={{ gridTemplateColumns: `180px repeat(${visibleIndices.length}, 1fr)` }}>
+
               <div className="px-4 py-4 text-sm font-medium text-foreground flex items-center">ขอใบเสนอราคา</div>
               {visibleIndices.map(i => (
                 <div key={i} className="px-3 py-4 text-center border-l border-border">
@@ -724,7 +735,8 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
           <button key={item.id} onClick={() => {
             const el = document.getElementById(item.id);
             if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-          }} className={`p-5 rounded-xl border ${item.color} text-left hover:scale-[1.02] transition-transform`}>
+          }} className={`p-5 rounded-xl border ${item.color} text-left hover:scale-[1.02] transition-transform`}
+
             <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-2"><item.Icon size={22} className="text-primary" /></div>
             <p className="font-bold text-foreground text-sm mb-1">{item.title}</p>
             <p className="text-xs text-muted-foreground">{item.desc}</p>
@@ -800,19 +812,16 @@ const EPCBoxSeries = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
-                >
                   CESIPC E-Catalog <ExternalLink size={16} />
                 </a>
                 <a
                   href="#pricing"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold hover:bg-muted transition-colors"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold hover:bg-muted transition-colors">
                   ดูราคาสินค้า
-                >
                 </a>
                 <a
                   href="#10xa"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold hover:bg-muted transition-colors"
-                >
                   ดูสินค้าทั้งหมด <ChevronDown size={16} />
                 </a>
               </div>
@@ -890,6 +899,7 @@ const EPCBoxSeries = () => {
             {certifications.map((c, i) => (
               <div key={i} className="card-surface p-5 flex items-start gap-4 hover:border-primary/30 transition-colors">
                 <div className={`shrink-0 w-11 h-11 rounded-xl bg-background flex items-center justify-center border border-border ${c.color}`}>
+
                   <c.icon size={22} />
                 </div>
                 <p className="text-sm text-muted-foreground leading-relaxed pt-1">{c.text}</p>
@@ -909,15 +919,13 @@ const EPCBoxSeries = () => {
                 key={s.id}
                 href={`#${s.id}`}
                 className="shrink-0 px-4 py-2 rounded-lg text-sm font-medium border border-border hover:border-primary/50 hover:bg-primary/5 text-foreground transition-all"
-              >
                 {s.name.replace(" Series", "")}
               </a>
             ))}
             <a
               href="#pricing"
-              className="shrink-0 px-4 py-2 rounded-lg text-sm font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
+              className="shrink-0 px-4 py-2 rounded-lg text-sm font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-opacity">
               ราคา
-            >
             </a>
           </div>
         </div>
@@ -1129,13 +1137,11 @@ const EPCBoxSeries = () => {
             <button
               onClick={() => setShowLineQR(true)}
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[hsl(142,70%,45%)] text-white font-bold text-lg hover:opacity-90 transition-opacity"
-            >
               LINE @entgroup
             </button>
             <Link
               to="/"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-border text-foreground font-bold text-lg hover:bg-muted transition-colors"
-            >
               <ArrowLeft size={18} /> กลับหน้าหลัก
             </Link>
           </div>

@@ -36,6 +36,7 @@ const B2BCTABanner = ({ variant = "full" }: B2BCTABannerProps) => {
       <div className="flex flex-wrap gap-2 justify-center py-4">
         {items.map((item) => (
           <Link key={item.href} to={item.href}>
+
             <Button variant="outline" size="sm" className="gap-1.5 text-xs">
               <item.icon className={`w-3.5 h-3.5 ${item.color}`} />
               {item.title}
@@ -58,8 +59,9 @@ const B2BCTABanner = ({ variant = "full" }: B2BCTABannerProps) => {
             <Link
               key={item.href}
               to={item.href}
-              className="group flex items-start gap-3 p-4 rounded-xl bg-card border border-border/60 hover:border-primary/30 hover:shadow-md transition-all"
+              className="group flex items-start gap-3 p-4 rounded-xl bg-card border border-border/60 hover:border-primary/30 hover:shadow-md transition-all">
               <div className={`p-2 rounded-lg bg-background ${item.color}`}>
+
                 <item.icon className="w-5 h-5" />
               </div>
               <div className="flex-1 min-w-0">

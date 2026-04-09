@@ -79,7 +79,7 @@ const AIODetail = () => {
         collectionUrl={`/aio/${product.id}`}
         products={[{ name: product.title, image: product.image, price: product.price?.replace(/[฿,]/g, ""), description: product.cpu, category: "All-in-One PC" }]}
       />
-      <BreadcrumbJsonLd items={[
+      <BreadcrumbJsonLd items={[>
         { name: "สินค้า", path: "/" },
         { name: "All-in-One PC", path: "/aio" },
         { name: product.model, path: `/aio/${product.id}` },
@@ -153,7 +153,7 @@ const AIODetail = () => {
               <div className="flex flex-wrap gap-2 mt-3">
                 <button
                   onClick={() => setQuoteOpen(true)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-sm font-medium cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-sm font-medium cursor-pointer">
                   <Mail className="w-4 h-4" /> sales@entgroup.co.th
                 </button>
                 <a href="tel:020456104" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary hover:bg-secondary/80 transition-colors text-sm">
@@ -165,6 +165,7 @@ const AIODetail = () => {
             {/* CTA */}
             <div className="flex flex-wrap gap-3 pt-4 border-t border-border">
               <Button size="lg" variant="outline" onClick={() => setQuoteOpen(true)}>
+
                 <FileText className="w-5 h-5 mr-2" /> ขอราคาด่วน
               </Button>
               <LineQRButton className="flex-1 h-11 text-base">
@@ -177,6 +178,7 @@ const AIODetail = () => {
         {/* ─── Tabs ─── */}
         <div className="mt-12">
           <Tabs value={tab} onValueChange={setTab}>
+
             <TabsList className="bg-muted/50 w-full justify-start h-12 rounded-xl p-1">
               <TabsTrigger value="overview" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-6 font-bold">
                 ภาพรวมผลิตภัณฑ์
@@ -215,13 +217,15 @@ const AIODetail = () => {
                   {product.overviewSections.map((h, i) => (
                     <div
                       key={i}
-                      className={`grid md:grid-cols-2 gap-6 items-center ${i % 2 === 1 ? "md:[direction:rtl]" : ""}`}
+                      className={`grid md:grid-cols-2 gap-6 items-center ${i % 2 === 1 ? "md:[direction:rtl]" : ""}`}>
                       {h.image && (
                         <div className={`rounded-xl overflow-hidden bg-secondary/30 ${i % 2 === 1 ? "md:[direction:ltr]" : ""}`}>
+
                           <img src={h.image} alt={h.titleEN} className="w-full h-auto object-cover max-h-[300px]" loading="lazy" />
                         </div>
                       )}
                       <div className={i % 2 === 1 ? "md:[direction:ltr]" : ""}>
+
                         <h3 className="text-lg font-bold mb-1">{h.titleTH}</h3>
                         <p className="text-xs text-primary font-medium mb-2">{h.titleEN}</p>
                         <p className="text-sm text-muted-foreground mb-1">{h.descTH}</p>
@@ -240,6 +244,7 @@ const AIODetail = () => {
                     {product.applications.map((app) => (
                       <div key={app.titleEN} className="p-4 bg-card border border-border rounded-lg text-center">
                         {(() => { const Icon = icons[app.icon as keyof typeof icons]; return Icon ? <Icon className="w-6 h-6 mx-auto mb-2 text-primary" /> : <span className="text-2xl mb-2 block">{app.icon}</span>; })()}
+
                         <p className="font-bold text-sm">{app.titleTH}</p>
                         <p className="text-xs text-muted-foreground">{app.titleEN}</p>
                       </div>
@@ -277,6 +282,7 @@ const AIODetail = () => {
                       <TableBody>
                         {group.items.map((item) => (
                           <TableRow key={item.label}>
+
                             <TableCell className="font-medium w-1/3 text-sm">{item.label}</TableCell>
                             <TableCell className="text-sm whitespace-pre-line">
                               {item.value}
@@ -328,6 +334,7 @@ const AIODetail = () => {
 
                 <div className="border-t border-border pt-4 flex flex-wrap gap-3">
                   <Button onClick={() => setQuoteOpen(true)}>
+
                     <FileText className="w-4 h-4 mr-2" /> ขอใบเสนอราคา
                   </Button>
                   <LineQRButton>
@@ -344,7 +351,8 @@ const AIODetail = () => {
           <div className="mt-16">
             <h2 className="text-xl font-bold mb-6">สินค้าที่เกี่ยวข้อง</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {related.map((r) => <RelatedCard key={r.id} p={r} />)}
+              {related.map((r) => <RelatedCard key={r.id} p={r} />)}>
+
             </div>
           </div>
         )}

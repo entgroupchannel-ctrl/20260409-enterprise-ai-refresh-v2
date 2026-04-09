@@ -331,6 +331,7 @@ const PanelPC = () => {
           <div className="grid grid-cols-2 md:grid-cols-5 gap-6 text-center">
             {stats.map((s) => (
               <div key={s.sub}>
+
                 <div className="text-3xl md:text-4xl font-display font-black text-primary">
                   {s.value}<span className="text-lg font-semibold text-foreground ml-1">{s.label}</span>
                 </div>
@@ -423,7 +424,6 @@ const PanelPC = () => {
                   ? "border-primary bg-primary/10 shadow-lg shadow-primary/10"
                   : "border-border bg-background hover:border-primary/30"
               }`}
-            >
               <RectangleHorizontal size={28} className={displayType === "wide" ? "text-primary" : "text-muted-foreground"} />
               <div className="text-left">
                 <p className={`font-bold ${displayType === "wide" ? "text-primary" : "text-foreground"}`}>Widescreen (16:9)</p>
@@ -437,7 +437,6 @@ const PanelPC = () => {
                   ? "border-primary bg-primary/10 shadow-lg shadow-primary/10"
                   : "border-border bg-background hover:border-primary/30"
               }`}
-            >
               <Square size={28} className={displayType === "square" ? "text-primary" : "text-muted-foreground"} />
               <div className="text-left">
                 <p className={`font-bold ${displayType === "square" ? "text-primary" : "text-foreground"}`}>Square (4:3 / 5:4)</p>
@@ -619,7 +618,6 @@ import FooterCompact from "@/components/FooterCompact";
                         ? "bg-primary text-primary-foreground"
                         : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                     }`}
-                  >
                     {tab.label}
                   </button>
                 ))}
@@ -632,6 +630,7 @@ import FooterCompact from "@/components/FooterCompact";
             {([["all", "ทั้งหมด"], ["FANLESS", "FANLESS"], ["FAN", "FAN (GTG)"]] as const).map(([val, label]) => (
               <button key={val} onClick={() => { setCoolingFilter(val); setPage(1); }}
                 className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${coolingFilter === val ? "bg-primary/20 text-primary border border-primary/30" : "bg-secondary/50 text-muted-foreground hover:bg-secondary"}`}>
+
                 {label}
               </button>
             ))}
@@ -639,6 +638,7 @@ import FooterCompact from "@/components/FooterCompact";
             {([["all", "ทุกขนาด"], ["small", "เล็ก (10–12\")"], ["medium", "กลาง (13–19\")"], ["large", "ใหญ่ (21–32\")"]] as const).map(([val, label]) => (
               <button key={val} onClick={() => { setSizeFilter(val); setPage(1); }}
                 className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${sizeFilter === val ? "bg-primary/20 text-primary border border-primary/30" : "bg-secondary/50 text-muted-foreground hover:bg-secondary"}`}>
+
                 {label}
               </button>
             ))}
@@ -667,12 +667,14 @@ import FooterCompact from "@/components/FooterCompact";
                   const prices = cpuPrices[m.id] || [0, 0, 0];
                   return (
                     <tr key={m.id} className={`border-b border-border/50 hover:bg-secondary/30 transition-colors ${m.popular ? "bg-primary/5" : ""}`}>
+
                       <td className="p-3">
                         <div className="flex items-center gap-2">
                           <span className="text-[10px] px-1.5 py-0.5 rounded bg-secondary text-secondary-foreground font-mono">{m.series}</span>
                           <div>
                             <span className="font-semibold text-foreground">{m.name}</span>
-                            {m.popular && <span className="ml-2 text-[10px] px-1.5 py-0.5 rounded-full bg-primary text-primary-foreground font-bold"><Star size={10} className="inline" /></span>}
+                            {m.popular && <span className="ml-2 text-[10px] px-1.5 py-0.5 rounded-full bg-primary text-primary-foreground font-bold"><Star size={10} className="inline" /></span>}>
+
                             <p className="text-[11px] text-muted-foreground">{m.highlight}</p>
                           </div>
                         </div>
@@ -682,6 +684,7 @@ import FooterCompact from "@/components/FooterCompact";
                       </td>
                       <td className="text-center p-3">
                         <span className={`text-xs px-2 py-1 rounded-full ${m.cooling === "FANLESS" ? "bg-blue-500/10 text-blue-600 dark:text-blue-400" : "bg-orange-500/10 text-orange-600 dark:text-orange-400"}`}>
+
                           {m.cooling === "FANLESS" ? "FANLESS" : "FAN"}
                         </span>
                       </td>

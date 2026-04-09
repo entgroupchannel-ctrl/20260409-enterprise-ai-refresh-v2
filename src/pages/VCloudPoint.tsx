@@ -185,11 +185,13 @@ const trackRecord = [
 /* ═══════ Demo CTA Component ═══════ */
 const DemoCTA = ({ variant = "primary" }: { variant?: "primary" | "secondary" }) => (
   <div className={`rounded-2xl p-8 md:p-10 text-center ${variant === "primary" ? "bg-gradient-to-br from-primary/15 via-primary/5 to-transparent border-2 border-primary/30" : "card-surface"}`}>
+
     <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider mb-4">
       <Play size={12} /> ทดลองใช้ฟรี 30 วัน
     </div>
     <h3 className="text-2xl md:text-3xl font-black text-foreground mb-3">
       {variant === "primary" ? "จะได้รู้ว่าเหมาะกับคุณหรือเปล่า?" : "พร้อมเริ่มต้นแล้วหรือยัง?"}
+
     </h3>
     <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
       วิศวกรติดตั้งให้ฟรี (Remote Support) · Training ฟรีพร้อมคู่มือ · ไม่พอใจคืนเงิน 100%
@@ -202,7 +204,7 @@ const DemoCTA = ({ variant = "primary" }: { variant?: "primary" | "secondary" })
         href="https://vcloudpoint.info/"
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl border-2 border-border text-foreground font-bold text-sm hover:bg-secondary transition-colors"
+        className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl border-2 border-border text-foreground font-bold text-sm hover:bg-secondary transition-colors">
         ดูรายละเอียดเพิ่มเติม <ExternalLink size={14} />
       </a>
     </div>
@@ -303,7 +305,7 @@ const VCloudPoint = () => {
                   href="https://vcloudpoint.info/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-border text-foreground font-semibold text-sm hover:bg-secondary transition-colors"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-border text-foreground font-semibold text-sm hover:bg-secondary transition-colors">
                   ดูรายละเอียดเพิ่มเติม <ExternalLink size={14} />
                 </a>
               </div>
@@ -517,6 +519,7 @@ const VCloudPoint = () => {
             </button>
 
             <div className={`overflow-hidden transition-[max-height] duration-300 ${showVmatrix ? "max-h-[500px]" : "max-h-0"}`}>
+
               <div className="grid sm:grid-cols-2 gap-x-6 gap-y-2 text-left mb-6">
                 {vmatrixFeatures.map((f) => (
                   <div key={f} className="flex items-start gap-2 text-sm text-muted-foreground">
@@ -531,7 +534,7 @@ const VCloudPoint = () => {
               href="https://vcloudpoint.info/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm text-primary font-semibold hover:underline"
+              className="inline-flex items-center gap-2 text-sm text-primary font-semibold hover:underline">
               ดาวน์โหลด vMatrix <Download size={14} />
             </a>
           </div>
@@ -594,16 +597,20 @@ const VCloudPoint = () => {
           <div className="space-y-6">
             {caseStudies.map((cs) => (
               <div key={cs.title} className={`card-surface rounded-2xl overflow-hidden border ${cs.borderColor} hover:shadow-lg transition-all duration-300`}>
+
                 <div className={`bg-gradient-to-r ${cs.color} p-6 md:p-8`}>
+
                   <div className="flex flex-col md:flex-row md:items-start gap-6">
                     {/* Left: Icon + Meta */}
                     <div className="flex items-start gap-4 flex-1">
                       <div className={`w-14 h-14 rounded-xl bg-background/80 border border-border flex items-center justify-center shrink-0`}>
+
                         <cs.icon className={cs.accentColor} size={26} />
                       </div>
                       <div className="flex-1">
                         <div className="flex flex-wrap items-center gap-2 mb-1">
                           <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${cs.borderColor} ${cs.accentColor}`}>
+
                             {cs.tag}
                           </span>
                           <span className="text-[10px] text-muted-foreground">{cs.sector}</span>
@@ -650,6 +657,7 @@ const VCloudPoint = () => {
                         <Play size={12} className="text-primary" /> วิดีโอจากงานจริง
                       </p>
                       <div className={`grid gap-3 ${cs.videos.length === 1 ? "grid-cols-1 max-w-lg" : cs.videos.length === 2 ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1 sm:grid-cols-3"}`}>
+
                         {cs.videos.map((v: { id: string; label: string }) => (
                           <div key={v.id} className="space-y-1.5">
                             <div className="relative aspect-video rounded-lg overflow-hidden bg-secondary/50">

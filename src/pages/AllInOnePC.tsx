@@ -47,7 +47,7 @@ const AIOCard = ({
       selected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"
     }`}
     {/* Image */}
-    <div className="relative bg-secondary/30 p-4 flex items-center justify-center h-52">
+    <div className="relative bg-secondary/30 p-4 flex items-center justify-center h-52"
         item={{
           id: product.id,
           name: product.model,
@@ -60,7 +60,7 @@ const AIOCard = ({
       />
       <button
         onClick={() => onToggleSelect(product.model)}
-        className="absolute top-3 left-3 z-10"
+        className="absolute top-3 left-3 z-10">
         <Checkbox checked={selected} className="h-5 w-5" />
       </button>
       <Link to={`/aio/${product.id}`} className="flex items-center justify-center w-full h-full">
@@ -112,13 +112,15 @@ const AIOCard = ({
       <div className="flex gap-2 pt-1">
         <Button variant="outline" size="sm" asChild className="flex-1">
           <Link to={`/aio/${product.id}`}>
+
             <Monitor className="w-3.5 h-3.5 mr-1.5" /> ดูรายละเอียด
           </Link>
         </Button>
         <Button
           size="sm"
           className="flex-1"
-          onClick={() => onQuote(product.model)}
+          onClick={() => onQuote(product.model)}>
+
           <FileText className="w-3.5 h-3.5 mr-1.5" /> สอบถามราคา
         </Button>
       </div>
@@ -178,7 +180,7 @@ const AllInOnePC = () => {
         <div className="container max-w-7xl mx-auto px-4 py-12 md:py-20 relative z-10">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-6"
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-6">
             <ArrowLeft className="w-4 h-4" /> กลับหน้าหลัก
           </Link>
 
@@ -194,6 +196,7 @@ const AllInOnePC = () => {
 
             <div className="flex flex-wrap gap-3 mb-8">
               <Button size="sm" onClick={() => setQuoteProduct("All-in-One PC")}>
+
                 <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
               </Button>
               <Button size="sm" variant="outline" asChild>

@@ -70,6 +70,7 @@ const Payment = () => {
             {bankAccounts.map((bank, i) => (
               <div key={i} className="rounded-lg border border-border bg-background p-4">
                 <span className={`inline-block px-2.5 py-0.5 rounded-full bg-gradient-to-r ${bank.color} text-white text-[10px] font-bold mb-2`}>
+
                   {bank.bank}
                 </span>
                 <p className="text-[11px] text-muted-foreground">{bank.branch} · {bank.type}</p>

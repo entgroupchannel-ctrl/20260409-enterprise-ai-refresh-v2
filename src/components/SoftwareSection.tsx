@@ -55,7 +55,8 @@ const SoftwareSection = () => {
             <div
               key={h.label}
               className="group card-surface overflow-hidden hover:border-primary/30 transition-all duration-300 hover:-translate-y-1"
-              style={{ animationDelay: `${i * 100}ms` }}
+              style={{ animationDelay: `${i * 100}ms` }}>
+
               <div className="h-28 overflow-hidden">
                 <img
                   src={h.img}
@@ -115,7 +116,7 @@ const SoftwareSection = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-secondary text-secondary-foreground text-xs font-medium border border-border hover:border-primary/40 hover:bg-primary/10 hover:text-primary hover:-translate-y-0.5 transition-all duration-200"
-                  style={{ animationDelay: `${i * 50}ms` }}
+                  style={{ animationDelay: `${i * 50}ms` }}>
                   {ex.label} <ExternalLink size={10} />
                 </a>
               ))}
@@ -128,7 +129,7 @@ const SoftwareSection = () => {
                   สอบถามบริการซอฟต์แวร์
                 </button>
 <LineQRButton
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-surface-hover hover:border-primary/30 transition-all duration-200"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-surface-hover hover:border-primary/30 transition-all duration-200">
                 เพิ่มเพื่อนขอรายละเอียด
               </LineQRButton>
             </div>

@@ -31,6 +31,7 @@ const Blog = () => {
           {blogPosts.map((post) => (
             <Card key={post.id} className="group overflow-hidden h-full hover:shadow-xl transition-all duration-300 border-border/60 hover:border-primary/30 flex flex-col">
               <Link to={`/blog/${post.id}`}>
+
                 <div className="relative h-48 overflow-hidden">
                   <img
                     src={post.image}
@@ -45,6 +46,7 @@ const Blog = () => {
               </Link>
               <CardContent className="p-5 space-y-3 flex-1 flex flex-col">
                 <Link to={`/blog/${post.id}`}>
+
                   <h3 className="font-bold text-foreground line-clamp-2 group-hover:text-primary transition-colors">
                     {post.title}
                   </h3>
@@ -53,9 +55,11 @@ const Blog = () => {
                 <div className="flex items-center gap-4 text-xs text-muted-foreground">
                   <span className="flex items-center gap-1">
                     <Clock className="w-3 h-3" /> {post.readTime}
+
                   </span>
                   <span className="flex items-center gap-1">
                     <User className="w-3 h-3" /> {post.author}
+
                   </span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
@@ -71,6 +75,7 @@ const Blog = () => {
                   <ShareButtons
                     url={`https://ent-vision.lovable.app/blog/${post.id}`}
                     title={post.title}
+
                     compact
                   />
                 </div>

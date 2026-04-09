@@ -136,7 +136,7 @@ const PriceTable = ({ title, icon: Icon, models, subTitle }: {
     <div className="card-surface rounded-xl overflow-hidden">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between p-5 hover:bg-secondary/30 transition-colors"
+        className="w-full flex items-center justify-between p-5 hover:bg-secondary/30 transition-colors">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
             <Icon className="text-primary" size={20} />
@@ -144,12 +144,14 @@ const PriceTable = ({ title, icon: Icon, models, subTitle }: {
           <div className="text-left">
             <h3 className="font-bold text-foreground">{title}</h3>
             {subTitle && <p className="text-xs text-primary/70">{subTitle}</p>}
+
           </div>
         </div>
         <ChevronDown className={`text-muted-foreground transition-transform duration-200 ${open ? "rotate-180" : ""}`} size={18} />
       </button>
 
       <div className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${open ? "max-h-[2000px]" : "max-h-0"}`}>
+
         <div className="px-5 pb-5">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -183,7 +185,8 @@ const PriceTable = ({ title, icon: Icon, models, subTitle }: {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center justify-center w-8 h-8 rounded-md hover:bg-primary/10 text-primary transition-colors"
-                        title={`Download ${m.model} Datasheet`}
+                        title={`Download ${m.model} Datasheet`}>
+
                         <Download size={14} />
                       </a>
                     </td>
@@ -269,7 +272,7 @@ const UTCSeries = () => {
                   href="/datasheets/0597a3_91d82f50189a421e97ce9b88530df22c.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold text-sm hover:bg-secondary transition-colors"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold text-sm hover:bg-secondary transition-colors">
                   <Download size={16} /> ดาวน์โหลดวารสาร
                 </a>
               </div>
@@ -574,7 +577,7 @@ const UTCSeries = () => {
               href="/datasheets/0597a3_91d82f50189a421e97ce9b88530df22c.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group"
+              className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                   <Download className="text-primary" size={18} />
@@ -590,7 +593,7 @@ const UTCSeries = () => {
               href="/datasheets/0597a3_2a650be4cb524d18ba2a439fe81eaaf7.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group"
+              className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                   <Download className="text-primary" size={18} />
@@ -606,7 +609,7 @@ const UTCSeries = () => {
               href="/datasheets/0597a3_b86ee419c0294b45b787de0c21876dc4.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group"
+              className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                   <Download className="text-primary" size={18} />
@@ -622,7 +625,7 @@ const UTCSeries = () => {
               href="/datasheets/0597a3_a3d623f8d63d4b66a03bfc2621d41795.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group"
+              className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                   <Award className="text-primary" size={18} />
@@ -638,7 +641,7 @@ const UTCSeries = () => {
               href="/datasheets/0597a3_57b8d6f11f5e44549d532c1d9c0135ad.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group"
+              className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                   <Award className="text-primary" size={18} />
@@ -652,7 +655,7 @@ const UTCSeries = () => {
 
             <Link
               to="/quote?category=UTC+Series"
-              className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group flex items-center gap-3"
+              className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                 <ShoppingCart className="text-primary" size={18} />
               </div>
@@ -664,7 +667,7 @@ const UTCSeries = () => {
 
             <Link
               to="/"
-              className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group flex items-center gap-3"
+              className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                 <ArrowLeft className="text-primary" size={18} />
               </div>

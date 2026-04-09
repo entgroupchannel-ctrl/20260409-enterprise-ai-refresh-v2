@@ -17,10 +17,11 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
 
   return (
     <div className={`card-surface overflow-hidden group transition-all flex flex-col ${isSelected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"}`}>
+
       {/* Image */}
       <Link
         to={`/ibox-series/${product.id}`}
-        className="block relative aspect-[4/3] bg-gradient-to-b from-secondary/50 to-secondary/20 overflow-hidden cursor-pointer"
+        className="block relative aspect-[4/3] bg-gradient-to-b from-secondary/50 to-secondary/20 overflow-hidden cursor-pointer">
         <img
           src={product.image}
           alt={product.nameTH}
@@ -44,7 +45,7 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
         {/* Checkbox */}
         <button
           onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleSelect(product.name); }}
-          className="absolute top-3 right-12 z-10"
+          className="absolute top-3 right-12 z-10">
           <Checkbox checked={isSelected} className="h-5 w-5" />
         </button>
 
@@ -74,6 +75,7 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
       <div className="p-4 flex-1 flex flex-col">
         <p className="text-xs font-mono text-primary font-semibold mb-1">{product.id}</p>
         <Link to={`/ibox-series/${product.id}`}>
+
           <h3 className="font-display font-bold text-foreground line-clamp-2 group-hover:text-primary transition-colors mb-1 text-sm">
             {product.name}
           </h3>
@@ -114,6 +116,7 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
             </Button>
           </Link>
           <Button size="sm" className="flex-1 text-xs" onClick={() => onQuote(product.name)}>
+
             <FileText className="w-3.5 h-3.5 mr-1" />
             ขอราคา
           </Button>

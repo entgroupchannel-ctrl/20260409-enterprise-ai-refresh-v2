@@ -268,7 +268,8 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
                 {pagedData.map((item, idx) => (
                   <tr
                     key={idx}
-                    className={`transition-colors hover:bg-primary/5 ${idx % 2 === 1 ? "bg-secondary/20" : ""}`}
+                    className={`transition-colors hover:bg-primary/5 ${idx % 2 === 1 ? "bg-secondary/20" : ""}`}>
+
                     <td className="px-4 py-2.5 font-medium text-foreground whitespace-nowrap">{item.processor}</td>
                     <td className="px-4 py-2.5 text-foreground">{item.config}</td>
                     <td className="px-4 py-2.5 text-right font-bold text-primary whitespace-nowrap">
@@ -289,13 +290,13 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
               <button
                 onClick={() => setPage(1)}
                 disabled={currentPage === 1}
-                className="p-1.5 rounded hover:bg-secondary disabled:opacity-30 disabled:cursor-not-allowed"
+                className="p-1.5 rounded hover:bg-secondary disabled:opacity-30 disabled:cursor-not-allowed">
                 <ChevronsLeft size={16} />
               </button>
               <button
                 onClick={() => setPage(Math.max(1, currentPage - 1))}
                 disabled={currentPage === 1}
-                className="p-1.5 rounded hover:bg-secondary disabled:opacity-30 disabled:cursor-not-allowed"
+                className="p-1.5 rounded hover:bg-secondary disabled:opacity-30 disabled:cursor-not-allowed">
                 <ChevronLeft size={16} />
               </button>
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
@@ -313,13 +314,13 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
               <button
                 onClick={() => setPage(Math.min(totalPages, currentPage + 1))}
                 disabled={currentPage === totalPages}
-                className="p-1.5 rounded hover:bg-secondary disabled:opacity-30 disabled:cursor-not-allowed"
+                className="p-1.5 rounded hover:bg-secondary disabled:opacity-30 disabled:cursor-not-allowed">
                 <ChevronRight size={16} />
               </button>
               <button
                 onClick={() => setPage(totalPages)}
                 disabled={currentPage === totalPages}
-                className="p-1.5 rounded hover:bg-secondary disabled:opacity-30 disabled:cursor-not-allowed"
+                className="p-1.5 rounded hover:bg-secondary disabled:opacity-30 disabled:cursor-not-allowed">
                 <ChevronsRight size={16} />
               </button>
             </div>
@@ -332,8 +333,9 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
           {onRequestQuote && (
             <button
               onClick={() => onRequestQuote(`GB Series — ${currentTab.label}`)}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity">
               <FileText size={16} /> ขอใบเสนอราคา {currentTab.label.replace(" Price List", "")}
+
             </button>
           )}
         </div>

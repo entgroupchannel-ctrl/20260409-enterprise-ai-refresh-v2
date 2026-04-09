@@ -65,6 +65,7 @@ const ProductFeatures = ({ title = "Products Features", features, columns = 2 }:
         <h4 className="font-display font-bold text-foreground text-lg">{title}</h4>
       </div>
       <div className={`grid gap-0 divide-y divide-border ${columns === 2 ? "md:grid-cols-2 md:divide-y-0" : ""}`}>
+
         {resolved.map((feat, i) => {
           const Icon = feat.icon;
           return (

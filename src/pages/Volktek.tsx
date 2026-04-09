@@ -161,6 +161,7 @@ const Volktek = () => {
                 </a>
               </Button>
               <Button size="sm" onClick={() => setQuoteProduct("Volktek Switch")}>
+
                 <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
               </Button>
             </div>
@@ -260,8 +261,7 @@ const Volktek = () => {
               <a
                 key={cat.id}
                 href={`#${cat.id}`}
-                className="shrink-0 px-3 py-2 rounded-lg text-xs font-medium bg-secondary/50 text-foreground/70 border border-border hover:border-primary/30 transition-all"
-              >
+                className="shrink-0 px-3 py-2 rounded-lg text-xs font-medium bg-secondary/50 text-foreground/70 border border-border hover:border-primary/30 transition-all">
                 {cat.title}
               </a>
             ))}
@@ -336,7 +336,6 @@ const Volktek = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-sm text-primary font-semibold hover:underline"
-              >
                 <Youtube size={16} /> ดูบน YouTube
               </a>
               <ShareButtons url="https://youtu.be/6Y6eEitc-yQ" title="Volktek Industrial Switch — รีวิวและแนะนำ" compact />
@@ -355,6 +354,7 @@ const Volktek = () => {
               </a>
             </Button>
             <Button onClick={() => setQuoteProduct("Volktek Switch")}>
+
               <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
             </Button>
           </div>

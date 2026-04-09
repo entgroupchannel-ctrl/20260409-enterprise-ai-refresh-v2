@@ -36,7 +36,8 @@ const RelatedCard = ({ product, onQuote }: { product: ReturnType<typeof getHandh
             <Badge key={b} variant="outline" className="text-[10px]">{b}</Badge>
           ))}
         </div>
-        <Button size="sm" className="w-full mt-2" onClick={(e) => { e.preventDefault(); onQuote(product.model); }}>
+        <Button size="sm" className="w-full mt-2" onClick={(e) => { e.preventDefault(); onQuote(product.model); }}
+
           <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอราคา
         </Button>
       </div>
@@ -95,7 +96,7 @@ const RuggedHandheldDetail = () => {
         collectionUrl={`/handheld/${product.id}`}
         products={[{ name: product.name, image: product.image, description: product.specs.cpu, category: "Rugged Handheld" }]}
       />
-      <BreadcrumbJsonLd items={[
+      <BreadcrumbJsonLd items={[>
         { name: "สินค้า", path: "/products" },
         { name: "Handheld & PDA", path: "/handheld" },
         { name: product.model, path: `/handheld/${product.id}` },
@@ -124,7 +125,8 @@ const RuggedHandheldDetail = () => {
             <div className="flex flex-wrap gap-2">
               <Badge variant="secondary">{product.category === "windows" ? "Windows" : "Android"}</Badge>
               <Badge variant="outline">{product.screenSize}</Badge>
-              {product.specs.scanner && <Badge className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20">Scanner</Badge>}
+              {product.specs.scanner && <Badge className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20">Scanner</Badge>}>
+
             </div>
           </div>
 
@@ -150,7 +152,7 @@ const RuggedHandheldDetail = () => {
               <div className="flex flex-wrap gap-2 text-sm">
                 <button
                   onClick={() => setQuoteProduct(product.model)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-medium cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-medium cursor-pointer">
                   <Mail className="w-4 h-4" /> sales@entgroup.co.th
                 </button>
                 <a href="tel:020456104" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary hover:bg-secondary/80 transition-colors">
@@ -215,6 +217,7 @@ const RuggedHandheldDetail = () => {
             {/* CTA */}
             <div className="flex flex-wrap gap-3 pt-4 border-t border-border">
               <Button size="lg" variant="outline" onClick={() => setQuoteProduct(product.model)}>
+
                 <FileText className="w-5 h-5 mr-2" /> ขอราคาด่วน
               </Button>
               <LineQRButton className="flex-1 h-11 text-base">
@@ -243,9 +246,11 @@ const RuggedHandheldDetail = () => {
                   if (!value) return null;
                   return (
                     <TableRow key={key}>
+
                       <TableCell className="font-medium">
                         <div className="flex items-center gap-2">
                           <Icon className="w-4 h-4 text-primary" /> {label}
+
                         </div>
                       </TableCell>
                       <TableCell>{String(value)}</TableCell>

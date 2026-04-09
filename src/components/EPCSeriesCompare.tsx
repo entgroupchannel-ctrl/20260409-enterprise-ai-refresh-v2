@@ -133,10 +133,12 @@ const EPCSeriesCompare = ({ onQuote }: Props) => {
           <select value={displayFilter} onChange={(e) => setDisplayFilter(e.target.value)}
             className="text-[11px] border border-border rounded-md px-2 py-1 bg-background text-foreground">
             {displayTypes.map((d) => <option key={d} value={d}>{d === "ทั้งหมด" ? "ทุกประเภทจอ" : d}</option>)}
+
           </select>
           <select value={cpuFilter} onChange={(e) => setCpuFilter(e.target.value)}
             className="text-[11px] border border-border rounded-md px-2 py-1 bg-background text-foreground">
             {cpuTiers.map((t) => <option key={t} value={t}>{cpuTierLabels[t]}</option>)}
+
           </select>
           <span className="text-[10px] text-muted-foreground">{filtered.length}/{allModels.length} รายการ</span>
         </div>
@@ -187,6 +189,7 @@ const EPCSeriesCompare = ({ onQuote }: Props) => {
                         <div className="flex items-center gap-1.5">
                           <span className="font-mono font-semibold text-foreground">{m.name}</span>
                           <Badge className={`text-[9px] px-1 py-0 ${m.tierColor} bg-transparent border ${m.cpuTier === "entry" ? "border-emerald-500/30" : m.cpuTier === "mid" ? "border-sky-500/30" : "border-amber-500/30"}`}>
+
                             {m.tierLabel}
                           </Badge>
                         </div>
@@ -249,7 +252,8 @@ const EPCSeriesCompare = ({ onQuote }: Props) => {
                   <button key={p} onClick={() => setPage(p)}
                     className={`w-7 h-7 flex items-center justify-center rounded text-[11px] font-medium transition-colors ${
                       p === page ? "bg-primary text-primary-foreground" : "border border-border text-muted-foreground hover:bg-muted"
-                    }`}>
+                    }`}
+
                     {p}
                   </button>
                 ))}

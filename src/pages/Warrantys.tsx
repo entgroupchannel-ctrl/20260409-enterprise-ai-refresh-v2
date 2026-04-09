@@ -56,7 +56,7 @@ const Warrantys = () => {
             href="/datasheets/0597a3_8bd7ef8b2e2b46bc889bc0f70700a2be.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition-opacity"
+            className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition-opacity">
             <FileDown size={18} />
             ดาวน์โหลดเอกสารแจ้งซ่อม
           </a>

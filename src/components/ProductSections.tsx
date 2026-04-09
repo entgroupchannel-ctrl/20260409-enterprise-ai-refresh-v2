@@ -78,7 +78,7 @@ const ProductSections = () => {
                       <Link
                         key={link.label}
                         to={link.href}
-                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-white/30 text-white text-sm font-semibold hover:bg-white/20 hover:border-white/50 backdrop-blur-sm transition-all"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-white/30 text-white text-sm font-semibold hover:bg-white/20 hover:border-white/50 backdrop-blur-sm transition-all">
                         {link.label} <ArrowRight size={14} />
                       </Link>
                     ))}

@@ -47,7 +47,7 @@ const ClientTrustSection = () => {
             {[...clientList, ...clientList].map((name, i) => (
               <span
                 key={`${name}-${i}`}
-                className="shrink-0 px-3 py-1.5 rounded-full bg-card border border-border/50 text-[11px] text-foreground/80 whitespace-nowrap"
+                className="shrink-0 px-3 py-1.5 rounded-full bg-card border border-border/50 text-[11px] text-foreground/80 whitespace-nowrap">
                 {name}
               </span>
             ))}
@@ -58,9 +58,10 @@ const ClientTrustSection = () => {
         <div className="text-center mt-5">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 transition-colors font-medium"
+            className="inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 transition-colors font-medium">
             {isOpen ? "ซ่อนรายชื่อ" : "ดูรายชื่อบางส่วน"}
-            {isOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+            {isOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}>
+
           </button>
         </div>
 
@@ -131,6 +132,7 @@ const CaseStudies = () => {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {caseStudies.map((cs) => (
             <Link key={cs.id} to={`/case-studies/${cs.id}`}>
+
               <Card className="group overflow-hidden h-full hover:shadow-xl transition-all duration-300 border-border/60 hover:border-primary/30">
                 <div className="relative h-44 overflow-hidden">
                   <img
@@ -188,7 +190,7 @@ const CaseStudies = () => {
               href="https://www.facebook.com/entgroup.th/"
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-auto text-xs text-primary hover:underline"
+              className="ml-auto text-xs text-primary hover:underline">
               ดูทั้งหมดบน Facebook →
             </a>
           </div>

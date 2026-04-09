@@ -221,12 +221,14 @@ const AboutUs = () => {
                         ? "bg-primary border-primary shadow-lg shadow-primary/30"
                         : "bg-background border-primary/40 hover:border-primary/70"
                     }`}>
+
                       <item.icon size={18} className={item.current ? "text-primary-foreground" : "text-primary/70"} />
                     </div>
 
                     {/* Year */}
                     <div className="flex items-center gap-1 mb-1">
                       <span className={`text-sm font-display font-black ${item.current ? "text-primary" : "text-foreground"}`}>
+
                         {item.year}
                       </span>
                       {item.current && (
@@ -293,11 +295,11 @@ const AboutUs = () => {
           <div className="flex flex-wrap justify-center gap-3">
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground text-sm font-bold hover:bg-primary/90 transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground text-sm font-bold hover:bg-primary/90 transition-colors">
               ติดต่อเรา
             </Link>
             <LineQRButton
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground text-sm font-semibold hover:bg-secondary transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground text-sm font-semibold hover:bg-secondary transition-colors">
               LINE @entgroup
             </LineQRButton>
           </div>

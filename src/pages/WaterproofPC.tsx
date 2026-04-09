@@ -187,6 +187,7 @@ const WaterproofPC = () => {
               </p>
               <div className="flex gap-3">
                 <Button onClick={() => setQuoteProduct("Waterproof PC IP69K")}>
+
                   <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
                 </Button>
                 <Button variant="outline" asChild>
@@ -280,7 +281,6 @@ const WaterproofPC = () => {
                 key={m.id}
                 href={`#${m.id}`}
                 className="shrink-0 px-3 py-2 rounded-lg text-xs font-medium bg-secondary/50 text-foreground/70 border border-border hover:border-primary/30 transition-all"
-              >
                 {m.name}
               </a>
             ))}
@@ -300,6 +300,7 @@ const WaterproofPC = () => {
                       <div className="flex items-center gap-3 mb-2">
                         <h3 className="text-xl md:text-2xl font-display font-bold text-foreground">{m.name}</h3>
                         {m.badge && <Badge className="bg-primary text-primary-foreground text-xs">{m.badge}</Badge>}
+
                       </div>
                       <p className="text-sm text-muted-foreground mb-4">{m.model}</p>
 
@@ -328,6 +329,7 @@ const WaterproofPC = () => {
                       </a>
                     </Button>
                     <Button size="sm" onClick={() => setQuoteProduct("Waterproof PC IP69K")}>
+
                       <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
                     </Button>
                   </div>
@@ -366,6 +368,7 @@ const WaterproofPC = () => {
           <h2 className="text-2xl font-display font-bold text-foreground mb-3">สนใจ Waterproof Panel PC?</h2>
           <p className="text-muted-foreground mb-6">ปรึกษาผู้เชี่ยวชาญเพื่อเลือกรุ่นที่เหมาะกับอุตสาหกรรมของคุณ</p>
           <Button size="lg" onClick={() => setQuoteProduct("Waterproof PC IP69K")}>
+
             <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
           </Button>
         </div>
