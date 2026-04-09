@@ -639,78 +639,6 @@ export default function AdminQuoteDetail() {
               </CardContent>
             </Card>
 
-            {/* Files */}
-            {files.length > 0 && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Paperclip className="w-5 h-5" />
-                    ไฟล์แนบ
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2">
-                    {poFiles.length > 0 && (
-                      <div>
-                        <h4 className="text-sm font-semibold mb-2 text-gray-700">PO จากลูกค้า</h4>
-                        {poFiles.map((file) => (
-                          <div
-                            key={file.id}
-                            className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50"
-                          >
-                            <div className="flex items-center gap-3">
-                              <FileText className="w-8 h-8 text-blue-600" />
-                              <div>
-                                <p className="font-medium">{file.file_name}</p>
-                                <p className="text-xs text-gray-500">
-                                  {formatShortDateTime(file.uploaded_at)}
-                                </p>
-                              </div>
-                            </div>
-                            <Button size="sm" variant="outline" asChild>
-                              <a href={file.file_url} target="_blank" rel="noopener noreferrer">
-                                <Eye className="w-4 h-4 mr-2" />
-                                ดู
-                              </a>
-                            </Button>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-
-                    {quoteFiles.length > 0 && (
-                      <div className="mt-4">
-                        <h4 className="text-sm font-semibold mb-2 text-gray-700">
-                          ใบเสนอราคา PDF
-                        </h4>
-                        {quoteFiles.map((file) => (
-                          <div
-                            key={file.id}
-                            className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50"
-                          >
-                            <div className="flex items-center gap-3">
-                              <FileText className="w-8 h-8 text-green-600" />
-                              <div>
-                                <p className="font-medium">{file.file_name}</p>
-                                <p className="text-xs text-gray-500">
-                                  {formatShortDateTime(file.uploaded_at)}
-                                </p>
-                              </div>
-                            </div>
-                            <Button size="sm" variant="outline" asChild>
-                              <a href={file.file_url} download>
-                                <Download className="w-4 h-4 mr-2" />
-                                ดาวน์โหลด
-                              </a>
-                            </Button>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            )}
           </div>
 
           {/* Right Column - Chat & Timeline */}
@@ -791,52 +719,6 @@ export default function AdminQuoteDetail() {
                 </CardContent>
               </Card>
             )}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">ข้อมูลเพิ่มเติม</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3 text-sm">
-                {quote.valid_until && (
-                  <div>
-                    <Label className="text-gray-500">ใช้ได้ถึง</Label>
-                    <p className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4 text-gray-400" />
-                      {formatFullDate(quote.valid_until)}
-                    </p>
-                  </div>
-                )}
-                {quote.payment_terms && (
-                  <div>
-                    <Label className="text-gray-500">เงื่อนไขการชำระเงิน</Label>
-                    <p>{quote.payment_terms}</p>
-                  </div>
-                )}
-                {quote.delivery_terms && (
-                  <div>
-                    <Label className="text-gray-500">เงื่อนไขการจัดส่ง</Label>
-                    <p>{quote.delivery_terms}</p>
-                  </div>
-                )}
-                {quote.warranty_terms && (
-                  <div>
-                    <Label className="text-gray-500">การรับประกัน</Label>
-                    <p>{quote.warranty_terms}</p>
-                  </div>
-                )}
-                {quote.notes && (
-                  <div>
-                    <Label className="text-gray-500">หมายเหตุ</Label>
-                    <p>{quote.notes}</p>
-                  </div>
-                )}
-                {quote.internal_notes && (
-                  <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-                    <Label className="text-yellow-800">หมายเหตุภายใน (Admin เท่านั้น)</Label>
-                    <p className="text-yellow-900">{quote.internal_notes}</p>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
           </div>
         </div>
       </div>
