@@ -55,6 +55,17 @@ function buildCatalog(): CatalogProduct[] {
     });
   }
 
+  // Rugged Tablets
+  for (const p of getAllTabletProducts()) {
+    catalog.push({
+      model: p.model,
+      name: p.nameTH || p.name,
+      category: 'Rugged Tablet',
+      image: p.image,
+      price: p.price,
+    });
+  }
+
   // Handheld
   for (const p of handheldProducts) {
     catalog.push({
