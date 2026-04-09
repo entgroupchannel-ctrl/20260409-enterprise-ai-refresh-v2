@@ -137,6 +137,31 @@ const HeroSection = () => {
           ))}
           <div className="w-px h-6 bg-white/10 mx-1" />
           <ThemeToggle />
+          {!authLoading && (
+            user ? (
+              <div className="relative group">
+                <button className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-colors">
+                  <UserCircle size={18} />
+                  <span className="max-w-[100px] truncate">{profile?.full_name || user.email?.split('@')[0]}</span>
+                  <ChevronDown size={14} />
+                </button>
+                <div className="absolute right-0 top-full mt-1 w-48 bg-card border border-border rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+                  {(profile?.role === 'admin' || profile?.role === 'sales') && (
+                    <Link to="/admin/dashboard" className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors rounded-t-lg">
+                      <LayoutDashboard size={16} /> แดชบอร์ด
+                    </Link>
+                  )}
+                  <button onClick={() => signOut()} className="flex items-center gap-2 px-4 py-2.5 text-sm text-destructive hover:bg-muted transition-colors w-full text-left rounded-b-lg">
+                    <LogOut size={16} /> ออกจากระบบ
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <Link to="/login" className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-white bg-primary/80 hover:bg-primary transition-colors">
+                <LogIn size={16} /> เข้าสู่ระบบ
+              </Link>
+            )
+          )}
         </div>
 
         <button
