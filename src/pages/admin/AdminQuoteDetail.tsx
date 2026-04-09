@@ -380,6 +380,7 @@ export default function AdminQuoteDetail() {
         </Card>
 
         {/* Action Buttons */}
+        {quote.status === 'po_uploaded' && (
           <Card className="border-orange-200 bg-orange-50">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
