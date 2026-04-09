@@ -501,65 +501,34 @@ export default function AdminQuoteDetail() {
                 <CardTitle>รายการสินค้า</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-3">
-                  {quote.products && quote.products.length > 0 ? (
-                    quote.products.map((product: any, index: number) => (
-                      <div
-                        key={index}
-                        className="p-4 border rounded-lg hover:bg-gray-50 transition-colors"
-                      >
-                        <div className="flex justify-between items-start mb-2">
-                          <div className="flex-1">
-                            <h4 className="font-semibold">{product.model || 'N/A'}</h4>
-                            <p className="text-sm text-gray-600">{product.description}</p>
-                            {product.notes && (
-                              <p className="text-sm text-blue-600 mt-1">หมายเหตุ: {product.notes}</p>
-                            )}
-                          </div>
-                          <div className="text-right ml-4">
-                            <p className="font-semibold text-blue-600">
-                              {formatCurrency(product.line_total || 0)}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-4 text-sm text-gray-600">
-                          <span>จำนวน: {product.qty || 0}</span>
-                          <span>ราคา/หน่วย: {formatCurrency(product.unit_price || 0)}</span>
-                          {product.discount_percent > 0 && (
-                            <span className="text-green-600">
-                              ส่วนลด {product.discount_percent}%
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    ))
-                  ) : (
-                    <p className="text-gray-500 text-center py-8">ไม่มีรายการสินค้า</p>
-                  )}
-                </div>
+                <ProductEditor
+                  products={quote.products || []}
+                  onUpdate={handleUpdateProducts}
+                  disabled={quote.status === 'completed' || quote.status === 'rejected'}
+                />
 
                 <Separator className="my-4" />
 
                 {/* Summary */}
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">ยอดรวม</span>
+                    <span className="text-muted-foreground">ยอดรวม</span>
                     <span>{formatCurrency(quote.subtotal || 0)}</span>
                   </div>
                   {quote.discount_amount > 0 && (
-                    <div className="flex justify-between text-sm text-green-600">
+                    <div className="flex justify-between text-sm text-destructive">
                       <span>ส่วนลด</span>
                       <span>-{formatCurrency(quote.discount_amount)}</span>
                     </div>
                   )}
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">VAT 7%</span>
+                    <span className="text-muted-foreground">VAT 7%</span>
                     <span>{formatCurrency(quote.vat_amount || 0)}</span>
                   </div>
                   <Separator />
                   <div className="flex justify-between text-lg font-bold">
                     <span>ยอดรวมทั้งสิ้น</span>
-                    <span className="text-blue-600">{formatCurrency(quote.grand_total || 0)}</span>
+                    <span className="text-primary">{formatCurrency(quote.grand_total || 0)}</span>
                   </div>
                 </div>
               </CardContent>
