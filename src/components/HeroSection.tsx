@@ -160,7 +160,13 @@ const HeroSection = () => {
                   )}
                   {profile?.role === 'member' && (
                     <>
-                      <Link to="/my-quotes" className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors rounded-t-lg">
+                      <Link to="/profile" className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors rounded-t-lg">
+                        <User size={16} /> โปรไฟล์ของฉัน
+                      </Link>
+                      <Link to="/cart" className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors">
+                        <FileText size={16} /> ตะกร้าสินค้า
+                      </Link>
+                      <Link to="/my-quotes" className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors">
                         <FileText size={16} /> ใบเสนอราคาของฉัน
                       </Link>
                       <Link to="/request-quote" className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors">
