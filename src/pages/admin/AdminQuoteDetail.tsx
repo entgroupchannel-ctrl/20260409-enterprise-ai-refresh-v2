@@ -404,30 +404,6 @@ export default function AdminQuoteDetail() {
           </Card>
         )}
 
-        {/* PO Files — always visible when files exist */}
-        {poFiles.length > 0 && (
-          <Card>
-            <CardContent className="pt-5 pb-4">
-              <p className="text-xs font-semibold text-muted-foreground mb-2">📎 เอกสาร PO จากลูกค้า ({poFiles.length} ไฟล์)</p>
-              <div className="space-y-1.5">
-                {poFiles.map((file) => (
-                  <a
-                    key={file.id}
-                    href={file.file_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2.5 px-3 py-2 rounded-md border border-border hover:border-primary hover:bg-primary/5 transition-colors group"
-                  >
-                    <FileText className="w-4 h-4 text-primary shrink-0" />
-                    <span className="text-sm font-medium text-foreground truncate flex-1">{file.file_name}</span>
-                    <span className="text-[11px] text-muted-foreground shrink-0">{formatShortDateTime(file.uploaded_at)}</span>
-                    <Download className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary shrink-0" />
-                  </a>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left Column - Customer & Products */}
@@ -792,7 +768,29 @@ export default function AdminQuoteDetail() {
               </CardContent>
             </Card>
 
-            {/* Quote Info */}
+            {/* PO Files — compact below chat */}
+            {poFiles.length > 0 && (
+              <Card>
+                <CardContent className="pt-4 pb-3">
+                  <p className="text-xs font-semibold text-muted-foreground mb-2">📎 PO จากลูกค้า ({poFiles.length})</p>
+                  <div className="space-y-1">
+                    {poFiles.map((file) => (
+                      <a
+                        key={file.id}
+                        href={file.file_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 px-2.5 py-1.5 rounded-md border border-border hover:border-primary hover:bg-primary/5 transition-colors group"
+                      >
+                        <FileText className="w-3.5 h-3.5 text-primary shrink-0" />
+                        <span className="text-xs font-medium text-foreground truncate flex-1">{file.file_name}</span>
+                        <Download className="w-3 h-3 text-muted-foreground group-hover:text-primary shrink-0" />
+                      </a>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
             <Card>
               <CardHeader>
                 <CardTitle className="text-lg">ข้อมูลเพิ่มเติม</CardTitle>
