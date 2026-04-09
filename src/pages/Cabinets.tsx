@@ -342,7 +342,7 @@ const Cabinets = () => {
             ))}
           </div>
           <div className="text-center">
-            <Button size="lg" onClick={() => { setCustomOpen(true); setCustomSubmitted(false); }}
+            <Button size="lg" onClick={() => { setCustomOpen(true); setCustomSubmitted(false); }}>
 
               <Settings className="w-4 h-4 mr-2" /> ขอใบเสนอราคา Custom Cabinet
             </Button>
@@ -360,7 +360,7 @@ const Cabinets = () => {
       </div>
 
       {/* Custom Cabinet Dialog */}
-      <Dialog open={customOpen} onOpenChange={(o) => { if (!o) { setCustomOpen(false); setTimeout(() => setCustomSubmitted(false), 300); } }}
+      <Dialog open={customOpen} onOpenChange={(o) => { if (!o) { setCustomOpen(false); setTimeout(() => setCustomSubmitted(false), 300); } }}>
 
         <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
           <DialogHeader>

@@ -613,7 +613,7 @@ const EPCSeries = () => {
             Price List <span className="text-gradient">ราคาสินค้า</span>
           </h2>
 
-          <Tabs defaultValue="square-price" className="w-full" onValueChange={() => { setSquarePage(1); setWidePage(1); }}
+          <Tabs defaultValue="square-price" className="w-full" onValueChange={() => { setSquarePage(1); setWidePage(1); }}>
 
             <TabsList className="grid w-full grid-cols-3 mb-6">
               <TabsTrigger value="square-price">จอแบบสี่เหลี่ยมจตุรัส</TabsTrigger>

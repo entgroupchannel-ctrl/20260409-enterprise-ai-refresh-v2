@@ -36,7 +36,7 @@ const RelatedCard = ({ product, onQuote }: { product: ReturnType<typeof getHandh
             <Badge key={b} variant="outline" className="text-[10px]">{b}</Badge>
           ))}
         </div>
-        <Button size="sm" className="w-full mt-2" onClick={(e) => { e.preventDefault(); onQuote(product.model); }}
+        <Button size="sm" className="w-full mt-2" onClick={(e) => { e.preventDefault(); onQuote(product.model); }}>
 
           <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอราคา
         </Button>
