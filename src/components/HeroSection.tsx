@@ -218,6 +218,12 @@ const HeroSection = () => {
                   )}
                   {profile?.role === 'member' && (
                     <>
+                      <Link to="/profile" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-muted transition-colors">
+                        <User size={16} /> โปรไฟล์ของฉัน
+                      </Link>
+                      <Link to="/cart" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-muted transition-colors">
+                        <FileText size={16} /> ตะกร้าสินค้า
+                      </Link>
                       <Link to="/my-quotes" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-muted transition-colors">
                         <FileText size={16} /> ใบเสนอราคาของฉัน
                       </Link>
