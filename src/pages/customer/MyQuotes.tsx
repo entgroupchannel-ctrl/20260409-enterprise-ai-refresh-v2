@@ -296,6 +296,11 @@ export default function MyQuotes() {
                           </div>
                         </div>
                       )}
+
+                      {/* Timeline Milestone */}
+                      <div className="pt-3 border-t border-border">
+                        <QuoteTimeline currentStatus={quote.status} size="sm" />
+                      </div>
                     </div>
                   );
                 })}
