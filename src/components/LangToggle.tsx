@@ -15,7 +15,7 @@ const LangToggle = ({ variant = "compact", className = "" }: LangToggleProps) =>
         onClick={toggleLang}
         className={`p-2 rounded-lg hover:bg-secondary transition-colors text-muted-foreground hover:text-foreground ${className}`}
         title={lang === "th" ? "Switch to English" : "เปลี่ยนเป็นภาษาไทย"}
-        aria-label="Toggle language"
+        aria-label="Toggle language">
         <Globe size={16} />
       </button>
     );

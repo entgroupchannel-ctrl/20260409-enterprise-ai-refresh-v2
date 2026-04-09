@@ -5991,7 +5991,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
     <div className="p-5">
       <h3 className="text-xl font-display font-bold text-foreground mb-1 group-hover:text-primary transition-colors flex items-center gap-2">
         {model.name}
-        {model.tab && <span className="text-xs text-primary font-normal">ดูรายละเอียด →</span>}
+        {model.tab && <span className="text-xs text-primary font-normal">ดูรายละเอียด →</span>}>
         {!model.tab && <ExternalLink size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />}
 
       </h3>
@@ -6016,7 +6016,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
             <span className="text-sm text-muted-foreground">เริ่มต้น </span>
             <span className="font-bold text-foreground">{model.price.startsWith("สอบถาม") ? model.price : `฿${model.price}`}</span>
           </div>
-        ) : <div />}
+        ) : <div />}>
       </div>
     </div>
   </>

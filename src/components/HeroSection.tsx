@@ -244,7 +244,7 @@ const HeroSection = () => {
                 <button
                   key={tag.label}
                   onClick={() => navigate(tag.href)}
-                  className="text-left px-3 py-2 rounded-lg bg-white/5 text-white/80 text-xs border border-white/10 hover:bg-white/15 hover:border-white/25 hover:text-white transition-all whitespace-nowrap"
+                  className="text-left px-3 py-2 rounded-lg bg-white/5 text-white/80 text-xs border border-white/10 hover:bg-white/15 hover:border-white/25 hover:text-white transition-all whitespace-nowrap">
                   {tag.label}
                 </button>
               ))}
@@ -258,7 +258,7 @@ const HeroSection = () => {
               <button
                 key={tag.label}
                 onClick={() => navigate(tag.href)}
-                className="px-3 py-1.5 rounded-full bg-white/10 text-white/80 text-xs border border-white/10 hover:bg-white/20 hover:border-white/30 transition-all backdrop-blur-sm"
+                className="px-3 py-1.5 rounded-full bg-white/10 text-white/80 text-xs border border-white/10 hover:bg-white/20 hover:border-white/30 transition-all backdrop-blur-sm">
                 {tag.label}
               </button>
             ))}

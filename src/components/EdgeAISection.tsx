@@ -73,7 +73,7 @@ const EdgeAISection = () => {
           <div
             className="relative group"
             onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            onMouseLeave={() => setIsHovered(false)}>
             <div
               className="card-surface rounded-2xl overflow-hidden relative aspect-[4/3]"
               onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}

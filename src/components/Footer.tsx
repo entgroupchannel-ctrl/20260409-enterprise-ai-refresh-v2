@@ -51,7 +51,7 @@ const NewsletterForm = () => {
       <button
         type="submit"
         disabled={loading}
-        className="px-6 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-2 disabled:opacity-50"
+        className="px-6 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-2 disabled:opacity-50">
         {loading ? <Loader2 size={16} className="animate-spin" /> : success ? <><CheckCircle size={16} /> สำเร็จ!</> : "สมัคร"}
 
       </button>
@@ -155,13 +155,13 @@ const CollapsibleSection = ({ title, links }: { title: string; links: typeof foo
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-gray-600 dark:text-[hsl(215,15%,55%)] hover:text-primary transition-colors"
+                className="text-sm text-gray-600 dark:text-[hsl(215,15%,55%)] hover:text-primary transition-colors">
                 {link.label}
               </a>
             ) : (
               <Link
                 to={link.href}
-                className="text-sm text-gray-600 dark:text-[hsl(215,15%,55%)] hover:text-primary transition-colors"
+                className="text-sm text-gray-600 dark:text-[hsl(215,15%,55%)] hover:text-primary transition-colors">
                 {link.label}
               </Link>
             )}
@@ -212,7 +212,7 @@ const Footer = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 hover:text-primary hover:bg-gray-300 transition-colors dark:bg-[hsl(220,15%,18%)] dark:text-[hsl(215,15%,55%)] dark:hover:bg-[hsl(220,15%,22%)]"
-                    aria-label={s.label}
+                    aria-label={s.label}>
                     <s.icon size={14} />
                   </a>
                 ))}

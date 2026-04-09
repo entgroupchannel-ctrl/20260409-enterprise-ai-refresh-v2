@@ -217,7 +217,7 @@ const AIODetail = () => {
                   {product.overviewSections.map((h, i) => (
                     <div
                       key={i}
-                      className={`grid md:grid-cols-2 gap-6 items-center ${i % 2 === 1 ? "md:[direction:rtl]" : ""}`}
+                      className={`grid md:grid-cols-2 gap-6 items-center ${i % 2 === 1 ? "md:[direction:rtl]" : ""}`}>
                       {h.image && (
                         <div className={`rounded-xl overflow-hidden bg-secondary/30 ${i % 2 === 1 ? "md:[direction:ltr]" : ""}`}
 

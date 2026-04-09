@@ -47,7 +47,7 @@ const ClientTrustSection = () => {
             {[...clientList, ...clientList].map((name, i) => (
               <span
                 key={`${name}-${i}`}
-                className="shrink-0 px-3 py-1.5 rounded-full bg-card border border-border/50 text-[11px] text-foreground/80 whitespace-nowrap"
+                className="shrink-0 px-3 py-1.5 rounded-full bg-card border border-border/50 text-[11px] text-foreground/80 whitespace-nowrap">
                 {name}
               </span>
             ))}
@@ -58,7 +58,7 @@ const ClientTrustSection = () => {
         <div className="text-center mt-5">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 transition-colors font-medium"
+            className="inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 transition-colors font-medium">
             {isOpen ? "ซ่อนรายชื่อ" : "ดูรายชื่อบางส่วน"}
             {isOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
 

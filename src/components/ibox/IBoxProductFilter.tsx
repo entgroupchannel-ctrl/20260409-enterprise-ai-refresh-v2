@@ -179,7 +179,7 @@ const IBoxProductFilter = ({
       <Accordion
         type="multiple"
         defaultValue={["category", "formFactor", "performance", "cpu", "ports", "features"]}
-        className="space-y-1.5"
+        className="space-y-1.5">
         {/* Category */}
         <AccordionItem value="category" className="border border-border rounded-lg px-3 transition-colors data-[state=open]:border-primary/20 data-[state=open]:bg-primary/[0.02]">
           <AccordionTrigger className="py-3 text-sm font-semibold hover:no-underline">
