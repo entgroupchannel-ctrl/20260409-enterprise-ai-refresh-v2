@@ -7,6 +7,16 @@ import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import QuoteTimeline from '@/components/rfq/QuoteTimeline';
 import POUploadDialog from '@/components/quotes/POUploadDialog';
 import {
@@ -20,6 +30,8 @@ import {
   MessageSquare,
   ShieldCheck,
   CheckCircle2,
+  Edit,
+  AlertCircle,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
@@ -76,6 +88,12 @@ export default function MyQuoteDetail() {
   const [messageText, setMessageText] = useState('');
   const [sendingMessage, setSendingMessage] = useState(false);
   const [confirming, setConfirming] = useState(false);
+
+  // Customer PO edit request
+  const [showRequestEdit, setShowRequestEdit] = useState(false);
+  const [requestReason, setRequestReason] = useState('');
+  const [requestFiles, setRequestFiles] = useState<FileList | null>(null);
+  const [requestProcessing, setRequestProcessing] = useState(false);
 
   useEffect(() => {
     if (id && user) {
@@ -212,6 +230,55 @@ export default function MyQuoteDetail() {
       setConfirming(false);
     }
   };
+  const handleCustomerRequestEdit = async () => {
+    if (!requestReason.trim()) {
+      toast({ title: 'กรุณาระบุเหตุผล', variant: 'destructive' });
+      return;
+    }
+    setRequestProcessing(true);
+    try {
+      let uploadedFiles: any[] = [];
+      if (requestFiles && requestFiles.length > 0) {
+        for (const file of Array.from(requestFiles)) {
+          const fileName = `temp/${id}/${Date.now()}_${file.name}`;
+          const { data: uploadData } = await supabase.storage
+            .from('quote-files')
+            .upload(fileName, file);
+          if (uploadData) {
+            const { data: { publicUrl } } = supabase.storage.from('quote-files').getPublicUrl(fileName);
+            uploadedFiles.push({ file_url: publicUrl, file_name: file.name, file_size: file.size });
+          }
+        }
+      }
+
+      await (supabase.from as any)('po_change_requests').insert({
+        quote_id: id,
+        request_type: 'edit',
+        requested_by: user?.email || 'customer',
+        requested_by_role: 'customer',
+        request_reason: requestReason,
+        new_files: uploadedFiles.length > 0 ? uploadedFiles : null,
+      });
+
+      await supabase.from('quote_messages').insert({
+        quote_id: id,
+        sender_name: user?.email || 'ลูกค้า',
+        sender_role: 'customer',
+        content: `ขอแก้ไข PO — ${requestReason}`,
+        message_type: 'text',
+      });
+
+      toast({ title: 'ส่งคำขอสำเร็จ', description: 'ทีมงานจะตรวจสอบคำขอของคุณ' });
+      setShowRequestEdit(false);
+      setRequestReason('');
+      setRequestFiles(null);
+    } catch (error: any) {
+      toast({ title: 'เกิดข้อผิดพลาด', description: error.message, variant: 'destructive' });
+    } finally {
+      setRequestProcessing(false);
+    }
+  };
+
 
   const formatCurrency = (amount: number) =>
     new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', minimumFractionDigits: 2 }).format(amount);
@@ -525,7 +592,25 @@ export default function MyQuoteDetail() {
                         <Download className="w-3 h-3 text-muted-foreground group-hover:text-primary shrink-0" />
                       </a>
                     ))}
-                  </div>
+                   </div>
+
+                  {/* Customer: Request Edit PO */}
+                  {(quote.status === 'po_uploaded' || quote.status === 'po_confirmed') && (
+                    <div className="mt-3 pt-3 border-t border-border">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="w-full"
+                        onClick={() => setShowRequestEdit(true)}
+                      >
+                        <Edit className="w-3.5 h-3.5 mr-1.5" />
+                        ขอแก้ไข PO
+                      </Button>
+                      <p className="text-[10px] text-muted-foreground mt-1.5 text-center">
+                        หากต้องการแก้ไขไฟล์ PO กรุณาส่งคำขอให้ทีมงาน
+                      </p>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             )}
@@ -599,6 +684,58 @@ export default function MyQuoteDetail() {
           loadPOFiles();
         }}
       />
+
+      {/* Customer Request Edit PO Dialog */}
+      <Dialog open={showRequestEdit} onOpenChange={setShowRequestEdit}>
+        <DialogContent className="max-w-xl">
+          <DialogHeader>
+            <DialogTitle>ขอแก้ไข PO</DialogTitle>
+            <DialogDescription>ส่งคำขอแก้ไขไฟล์ PO ให้ทีมงานตรวจสอบ</DialogDescription>
+          </DialogHeader>
+
+          <div className="rounded-lg border border-orange-200 bg-orange-50 dark:border-orange-800 dark:bg-orange-900/20 p-3">
+            <div className="flex items-start gap-2">
+              <AlertCircle className="w-4 h-4 text-orange-600 mt-0.5" />
+              <p className="text-xs text-orange-700 dark:text-orange-400">
+                คำขอนี้จะถูกส่งให้ทีมงานพิจารณา — จะแจ้งผลให้ทราบทางข้อความ
+              </p>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <div>
+              <Label className="text-sm">ไฟล์ PO ใหม่ (ถ้ามี)</Label>
+              <Input
+                type="file"
+                multiple
+                accept=".pdf,.png,.jpg,.jpeg"
+                onChange={(e) => setRequestFiles(e.target.files)}
+                className="mt-1.5"
+              />
+            </div>
+            <div>
+              <Label className="text-sm">เหตุผลในการขอแก้ไข *</Label>
+              <Textarea
+                value={requestReason}
+                onChange={(e) => setRequestReason(e.target.value)}
+                rows={4}
+                placeholder="กรุณาระบุเหตุผลอย่างละเอียด..."
+                className="mt-1.5"
+              />
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowRequestEdit(false)} disabled={requestProcessing}>
+              ยกเลิก
+            </Button>
+            <Button onClick={handleCustomerRequestEdit} disabled={requestProcessing || !requestReason.trim()}>
+              <Send className="w-4 h-4 mr-2" />
+              {requestProcessing ? 'กำลังส่ง...' : 'ส่งคำขอ'}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

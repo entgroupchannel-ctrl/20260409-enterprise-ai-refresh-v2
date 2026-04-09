@@ -1,6 +1,7 @@
 // src/pages/admin/AdminQuoteDetail.tsx
 import { useEffect, useState } from 'react';
 import CreateSaleOrderDialog from '@/components/admin/CreateSaleOrderDialog';
+import POActionsMenu from '@/components/admin/POActionsMenu';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import AdminLayout from '@/layouts/AdminLayout';
 import { Button } from '@/components/ui/button';
@@ -110,6 +111,10 @@ export default function AdminQuoteDetail() {
   const [messageText, setMessageText] = useState('');
   const [sendingMessage, setSendingMessage] = useState(false);
 
+  // User role
+  const [userRole, setUserRole] = useState<'super_admin' | 'admin' | 'sales'>('admin');
+  const [userEmail, setUserEmail] = useState('');
+
   // Dialog states
   const [showApproveDialog, setShowApproveDialog] = useState(false);
   const [showRejectDialog, setShowRejectDialog] = useState(false);
@@ -120,6 +125,7 @@ export default function AdminQuoteDetail() {
   useEffect(() => {
     if (id) {
       loadQuoteDetails();
+      loadUserRole();
     }
   }, [id]);
 
@@ -132,6 +138,37 @@ export default function AdminQuoteDetail() {
       setShowRejectDialog(true);
     }
   }, [searchParams]);
+
+  const loadUserRole = async () => {
+    try {
+      const { data: { user: authUser } } = await supabase.auth.getUser();
+      if (!authUser) return;
+      setUserEmail(authUser.email || '');
+
+      // Check user_roles table for super_admin
+      const { data: roleData } = await (supabase.from as any)('user_roles')
+        .select('role')
+        .eq('user_id', authUser.id);
+
+      if (roleData && roleData.some((r: any) => r.role === 'super_admin')) {
+        setUserRole('super_admin');
+        return;
+      }
+
+      // Fall back to users table
+      const { data: userData } = await supabase
+        .from('users')
+        .select('role')
+        .eq('id', authUser.id)
+        .single();
+
+      if (userData) {
+        setUserRole(userData.role === 'sales' ? 'sales' : 'admin');
+      }
+    } catch (e) {
+      console.error('Error loading user role:', e);
+    }
+  };
 
   const loadQuoteDetails = async () => {
     try {
@@ -761,6 +798,18 @@ export default function AdminQuoteDetail() {
                   </div>
                 </CardContent>
               </Card>
+            )}
+
+            {/* PO Actions Menu */}
+            {poFiles.length > 0 && (
+              <POActionsMenu
+                quoteId={quote.id}
+                quoteNumber={quote.quote_number}
+                poFiles={poFiles}
+                userRole={userRole}
+                userEmail={userEmail}
+                onRefresh={loadQuoteDetails}
+              />
             )}
           </div>
         </div>
