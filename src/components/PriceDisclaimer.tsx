@@ -5,6 +5,7 @@ const PriceDisclaimer = () => (
     <AlertTriangle className="text-amber-500 shrink-0 mt-0.5" size={16} />
     <p className="text-xs text-muted-foreground leading-relaxed">
       <span className="font-semibold text-foreground">ราคาอาจมีการเปลี่ยนแปลงโดยมิต้องแจ้งให้ทราบล่วงหน้า</span>{" "}
+      >
       กรุณาสอบถามราคากับแอดมินเพื่อความถูกต้อง{" "}
       <a href="tel:0957391053" className="inline-flex items-center gap-1 text-primary hover:underline font-medium">
         <Phone size={12} /> 095-739-1053

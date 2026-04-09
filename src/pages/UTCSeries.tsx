@@ -137,6 +137,7 @@ const PriceTable = ({ title, icon: Icon, models, subTitle }: {
       <button
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between p-5 hover:bg-secondary/30 transition-colors"
+        >
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
             <Icon className="text-primary" size={20} />
@@ -270,6 +271,7 @@ const UTCSeries = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold text-sm hover:bg-secondary transition-colors"
+                  >
                   <Download size={16} /> ดาวน์โหลดวารสาร
                 </a>
               </div>
@@ -575,6 +577,7 @@ const UTCSeries = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group"
+              >
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                   <Download className="text-primary" size={18} />
@@ -591,6 +594,7 @@ const UTCSeries = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group"
+              >
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                   <Download className="text-primary" size={18} />
@@ -607,6 +611,7 @@ const UTCSeries = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group"
+              >
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                   <Download className="text-primary" size={18} />
@@ -623,6 +628,7 @@ const UTCSeries = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group"
+              >
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                   <Award className="text-primary" size={18} />
@@ -639,6 +645,7 @@ const UTCSeries = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group"
+              >
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                   <Award className="text-primary" size={18} />
@@ -653,6 +660,7 @@ const UTCSeries = () => {
             <Link
               to="/quote?category=UTC+Series"
               className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group flex items-center gap-3"
+              >
               <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                 <ShoppingCart className="text-primary" size={18} />
               </div>
@@ -665,6 +673,7 @@ const UTCSeries = () => {
             <Link
               to="/"
               className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group flex items-center gap-3"
+              >
               <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                 <ArrowLeft className="text-primary" size={18} />
               </div>

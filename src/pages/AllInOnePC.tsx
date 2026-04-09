@@ -61,6 +61,7 @@ const AIOCard = ({
       <button
         onClick={() => onToggleSelect(product.model)}
         className="absolute top-3 left-3 z-10"
+        >
         <Checkbox checked={selected} className="h-5 w-5" />
       </button>
       <Link to={`/aio/${product.id}`} className="flex items-center justify-center w-full h-full">
@@ -179,6 +180,7 @@ const AllInOnePC = () => {
           <Link
             to="/"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-6"
+            >
             <ArrowLeft className="w-4 h-4" /> กลับหน้าหลัก
           </Link>
 
@@ -277,6 +279,7 @@ const AllInOnePC = () => {
                 onClick={() => {
                   setQuoteProduct(Array.from(selectedProducts).join(", "));
                 }}
+                >
                 ขอใบเสนอราคารวม
               </button>
             </span>
@@ -327,6 +330,7 @@ const AllInOnePC = () => {
                 setOsFilter("all");
                 setCatFilter("all");
               }}
+              >
               รีเซ็ตตัวกรอง
             </Button>
           </div>

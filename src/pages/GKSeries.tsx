@@ -671,6 +671,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity"
+                  >
                   {ds.label} <ExternalLink size={10} />
                 </a>
               ))}
@@ -687,6 +688,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
           <button
             onClick={() => onQuote(model.name)}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors mb-6"
+            >
             <ExternalLink size={14} /> ขอใบเสนอราคา {model.name}
           </button>
 
@@ -822,6 +824,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                 <button
                   onClick={() => onQuote(model.name)}
                   className="shrink-0 ml-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"
+                  >
                   <ExternalLink size={14} /> ขอใบเสนอราคา
                 </button>
               </div>
@@ -836,6 +839,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
                   title={`${model.name} Video`}
                   className="w-full h-full"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  >
                   allowFullScreen
                 />
               </div>
@@ -1160,6 +1164,7 @@ const GKSeries = () => {
               <a
                 href="#comparison"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-background/60 backdrop-blur-sm border border-border text-foreground font-semibold hover:bg-muted transition-colors"
+                >
                 เปรียบเทียบรุ่น
               </a>
               <a
@@ -1363,6 +1368,7 @@ const GKSeries = () => {
                         title={v.title}
                         className="w-full h-full"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        >
                         allowFullScreen
                         loading="lazy"
                       />
@@ -1533,11 +1539,13 @@ const GKSeries = () => {
             <button
               onClick={() => setShowLineQR(true)}
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[hsl(142,70%,45%)] text-white font-bold text-lg hover:opacity-90 transition-opacity"
+              >
               LINE @entgroup
             </button>
             <Link
               to="/"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-border text-foreground font-bold text-lg hover:bg-muted transition-colors"
+              >
               <ArrowLeft size={18} /> กลับหน้าหลัก
             </Link>
           </div>

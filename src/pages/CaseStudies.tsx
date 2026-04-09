@@ -48,6 +48,7 @@ const ClientTrustSection = () => {
               <span
                 key={`${name}-${i}`}
                 className="shrink-0 px-3 py-1.5 rounded-full bg-card border border-border/50 text-[11px] text-foreground/80 whitespace-nowrap"
+                >
                 {name}
               </span>
             ))}
@@ -59,6 +60,7 @@ const ClientTrustSection = () => {
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 transition-colors font-medium"
+            >
             {isOpen ? "ซ่อนรายชื่อ" : "ดูรายชื่อบางส่วน"}
             {isOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
           </button>
@@ -189,6 +191,7 @@ const CaseStudies = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="ml-auto text-xs text-primary hover:underline"
+              >
               ดูทั้งหมดบน Facebook →
             </a>
           </div>
@@ -202,6 +205,7 @@ const CaseStudies = () => {
                     height="100%"
                     style={{ border: "none", overflow: "hidden" }}
                     scrolling="no"
+                    >
                     allowFullScreen
                     allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
                     title={v.title}

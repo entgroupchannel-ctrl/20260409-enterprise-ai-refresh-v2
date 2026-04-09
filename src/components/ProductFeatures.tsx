@@ -36,6 +36,7 @@ function pickIcon(text: string): LucideIcon {
   for (const [re, Icon] of iconMap) {
     if (re.test(text)) return Icon;
   }
+  >
   return Shield;
 }
 

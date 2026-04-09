@@ -79,6 +79,7 @@ export const I18nProvider = ({ children }: { children: ReactNode }) => {
             }
             return typeof thCur === "string" ? thCur : (fallback ?? key);
           }
+          >
           return fallback ?? key;
         }
       }

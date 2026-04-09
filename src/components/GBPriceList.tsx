@@ -290,12 +290,14 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
                 onClick={() => setPage(1)}
                 disabled={currentPage === 1}
                 className="p-1.5 rounded hover:bg-secondary disabled:opacity-30 disabled:cursor-not-allowed"
+                >
                 <ChevronsLeft size={16} />
               </button>
               <button
                 onClick={() => setPage(Math.max(1, currentPage - 1))}
                 disabled={currentPage === 1}
                 className="p-1.5 rounded hover:bg-secondary disabled:opacity-30 disabled:cursor-not-allowed"
+                >
                 <ChevronLeft size={16} />
               </button>
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
@@ -314,12 +316,14 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
                 onClick={() => setPage(Math.min(totalPages, currentPage + 1))}
                 disabled={currentPage === totalPages}
                 className="p-1.5 rounded hover:bg-secondary disabled:opacity-30 disabled:cursor-not-allowed"
+                >
                 <ChevronRight size={16} />
               </button>
               <button
                 onClick={() => setPage(totalPages)}
                 disabled={currentPage === totalPages}
                 className="p-1.5 rounded hover:bg-secondary disabled:opacity-30 disabled:cursor-not-allowed"
+                >
                 <ChevronsRight size={16} />
               </button>
             </div>
@@ -333,6 +337,7 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
             <button
               onClick={() => onRequestQuote(`GB Series — ${currentTab.label}`)}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity"
+              >
               <FileText size={16} /> ขอใบเสนอราคา {currentTab.label.replace(" Price List", "")}
             </button>
           )}

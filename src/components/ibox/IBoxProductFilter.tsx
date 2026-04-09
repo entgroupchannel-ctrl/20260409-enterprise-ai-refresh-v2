@@ -107,6 +107,7 @@ function useFilterCounts(allProducts: IBoxProduct[]) {
       if (p.specs.poe) poeCount++;
       if (p.specs.pcie) pcieCount++;
     }
+    >
     cat["all"] = allProducts.length;
     cpu["all"] = allProducts.length;
     ff["all"] = allProducts.length;
@@ -163,6 +164,7 @@ const IBoxProductFilter = ({
             size="sm"
             onClick={clearFilters}
             className="text-destructive hover:text-destructive/80 text-xs h-7 px-2"
+            >
             <X className="w-3 h-3 mr-1" />
             ล้างทั้งหมด
           </Button>
@@ -180,6 +182,7 @@ const IBoxProductFilter = ({
         type="multiple"
         defaultValue={["category", "formFactor", "performance", "cpu", "ports", "features"]}
         className="space-y-1.5"
+        >
         {/* Category */}
         <AccordionItem value="category" className="border border-border rounded-lg px-3 transition-colors data-[state=open]:border-primary/20 data-[state=open]:bg-primary/[0.02]">
           <AccordionTrigger className="py-3 text-sm font-semibold hover:no-underline">
@@ -407,6 +410,7 @@ const IBoxProductFilter = ({
                 <button
                   onClick={onMobileClose}
                   className="p-2 hover:bg-muted rounded-lg transition-colors"
+                  >
                   <X className="w-5 h-5" />
                 </button>
               </div>

@@ -394,6 +394,7 @@ const VCloudPoint = () => {
                 src="https://www.youtube.com/embed/kogDEEuUns4?rel=0"
                 title="10 เรื่องที่คุณยังไม่รู้เกี่ยวกับ vCloudPoint Zero Client"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                >
                 allowFullScreen
                 className="absolute inset-0 w-full h-full"
                 loading="lazy"
@@ -657,6 +658,7 @@ const VCloudPoint = () => {
                                 src={`https://www.youtube.com/embed/${v.id}?rel=0`}
                                 title={v.label}
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                >
                                 allowFullScreen
                                 className="absolute inset-0 w-full h-full"
                                 loading="lazy"

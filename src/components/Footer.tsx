@@ -41,6 +41,7 @@ const NewsletterForm = () => {
     <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
       <input
         type="email"
+        >
         required
         value={email}
         onChange={(e) => setEmail(e.target.value)}
@@ -135,6 +136,7 @@ const CollapsibleSection = ({ title, links }: { title: string; links: typeof foo
       <button
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between py-3 md:py-0 md:pointer-events-none md:cursor-default text-left"
+        >
         <h3 className="text-sm font-bold text-gray-900 dark:text-white">{title}</h3>
         <ChevronDown
           size={16}
@@ -155,12 +157,14 @@ const CollapsibleSection = ({ title, links }: { title: string; links: typeof foo
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm text-gray-600 dark:text-[hsl(215,15%,55%)] hover:text-primary transition-colors"
+                >
                 {link.label}
               </a>
             ) : (
               <Link
                 to={link.href}
                 className="text-sm text-gray-600 dark:text-[hsl(215,15%,55%)] hover:text-primary transition-colors"
+                >
                 {link.label}
               </Link>
             )}
@@ -263,6 +267,7 @@ const Footer = () => {
             <button
               onClick={() => document.getElementById('pdpa-content')?.classList.toggle('hidden')}
               className="flex items-center gap-2 text-xs font-bold text-foreground hover:text-primary transition-colors"
+              >
               <Lock size={14} className="text-primary" />
               การคุ้มครองข้อมูลส่วนบุคคล (PDPA)
               <ChevronDown size={14} className="text-muted-foreground" />

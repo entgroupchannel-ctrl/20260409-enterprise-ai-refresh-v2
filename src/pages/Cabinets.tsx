@@ -450,6 +450,7 @@ const Cabinets = () => {
 
               <Button type="submit" className="w-full" disabled={customLoading}>
                 {customLoading ? <Loader2 size={16} className="animate-spin mr-2" /> : <Send size={16} className="mr-2" />}
+                >
                 ส่งคำขอ Custom Cabinet
               </Button>
             </form>

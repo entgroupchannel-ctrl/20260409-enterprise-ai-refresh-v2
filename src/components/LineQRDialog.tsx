@@ -32,6 +32,7 @@ const LineQRDialog = ({ open, onClose }: LineQRDialogProps) => {
           <button
             onClick={onClose}
             className="w-8 h-8 rounded-full hover:bg-muted flex items-center justify-center text-muted-foreground"
+            >
             <X size={18} />
           </button>
         </div>
@@ -52,6 +53,7 @@ const LineQRDialog = ({ open, onClose }: LineQRDialogProps) => {
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-[#06C755] text-white font-semibold text-sm hover:opacity-90 transition-opacity"
+          >
           <LineSvgIcon />
           เพิ่มเพื่อนใน LINE
         </a>

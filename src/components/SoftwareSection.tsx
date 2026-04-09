@@ -129,6 +129,7 @@ const SoftwareSection = () => {
                 </button>
 <LineQRButton
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-surface-hover hover:border-primary/30 transition-all duration-200"
+                >
                 เพิ่มเพื่อนขอรายละเอียด
               </LineQRButton>
             </div>

@@ -112,6 +112,7 @@ const CaseStudyDetail = () => {
                           src={`https://www.youtube.com/embed/${v.videoId}`}
                           title={v.title}
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          >
                           allowFullScreen
                           className="w-full h-full"
                           loading="lazy"
@@ -126,6 +127,7 @@ const CaseStudyDetail = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-sm text-primary font-medium mt-3 hover:underline"
+                  >
                   <Play className="w-4 h-4" /> ดูวิดีโอทั้งหมดบน YouTube Channel
                 </a>
               </section>
@@ -144,6 +146,7 @@ const CaseStudyDetail = () => {
                       height="100%"
                       style={{ border: "none", overflow: "hidden" }}
                       scrolling="no"
+                      >
                       allowFullScreen
                       allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
                       title="Facebook Video"
@@ -155,6 +158,7 @@ const CaseStudyDetail = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-sm text-primary font-medium mt-3 hover:underline"
+                  >
                   ดูวิดีโอทั้งหมดบน Facebook →
                 </a>
               </section>

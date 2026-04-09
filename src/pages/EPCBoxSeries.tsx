@@ -522,6 +522,7 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
                     src="https://www.youtube.com/embed/n_AVEOTjeAA"
                     title={`EPC Box ${series.name} Video`}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    >
                     allowFullScreen
                     className="w-full h-full"
                     loading="lazy"
@@ -806,6 +807,7 @@ const EPCBoxSeries = () => {
                 <a
                   href="#pricing"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold hover:bg-muted transition-colors"
+                  >
                   ดูราคาสินค้า
                 >
                 </a>
@@ -916,6 +918,7 @@ const EPCBoxSeries = () => {
             <a
               href="#pricing"
               className="shrink-0 px-4 py-2 rounded-lg text-sm font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
+              >
               ราคา
             >
             </a>
@@ -1037,6 +1040,7 @@ const EPCBoxSeries = () => {
                   src="https://www.youtube.com/embed/n_AVEOTjeAA"
                   title="EPC Box Series Overview"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  >
                   allowFullScreen
                   className="w-full h-full"
                   loading="lazy"
@@ -1064,6 +1068,7 @@ const EPCBoxSeries = () => {
                       src={`https://www.youtube.com/embed/${video.id}`}
                       title={video.title}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      >
                       allowFullScreen
                       className="w-full h-full"
                       loading="lazy"

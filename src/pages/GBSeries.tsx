@@ -334,6 +334,7 @@ const GBSeries = () => {
           <button
             onClick={() => setQuoteOpen(true)}
             className="text-xs px-3 py-1.5 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity"
+            >
             ขอใบเสนอราคา
           >
           </button>
@@ -443,6 +444,7 @@ const GBSeries = () => {
                             <button
                               onClick={() => setQuoteOpen(true)}
                               className="text-xs px-3 py-1.5 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity"
+                              >
                               ขอราคา
                             >
                             </button>
@@ -583,6 +585,7 @@ const GBSeries = () => {
                             if (prev.length <= 2) return prev; // ต้องเลือกอย่างน้อย 2 รุ่น
                             return prev.filter(x => x !== i);
                           }
+                          >
                           return [...prev, i];
                         });
                       }}
@@ -599,6 +602,7 @@ const GBSeries = () => {
                 <button
                   onClick={() => setCompareFilter(models.map((_, i) => i))}
                   className="px-3 py-1.5 rounded-full text-xs font-medium text-primary hover:bg-primary/10 border border-primary/30 transition-colors"
+                  >
                   เลือกทั้งหมด
                 >
                 </button>

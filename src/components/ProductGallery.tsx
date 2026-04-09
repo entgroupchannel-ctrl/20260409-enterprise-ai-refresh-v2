@@ -44,12 +44,14 @@ const ProductGallery = ({ images, alt, autoPlayInterval = 4000 }: ProductGallery
           onClick={(e) => { e.stopPropagation(); prev(); }}
           className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-background/80 backdrop-blur-sm border border-border flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background"
           aria-label="Previous"
+          >
           <ChevronLeft size={16} className="text-foreground" />
         </button>
         <button
           onClick={(e) => { e.stopPropagation(); next(); }}
           className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-background/80 backdrop-blur-sm border border-border flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background"
           aria-label="Next"
+          >
           <ChevronRight size={16} className="text-foreground" />
         </button>
       </div>

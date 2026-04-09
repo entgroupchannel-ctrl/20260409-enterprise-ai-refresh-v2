@@ -449,6 +449,7 @@ const FirewallComparisonTable = () => {
       const q = searchText.toLowerCase();
       if (!row.name.toLowerCase().includes(q) && !row.cpu.toLowerCase().includes(q)) return false;
     }
+    >
     return true;
   });
 
@@ -504,6 +505,7 @@ const FirewallComparisonTable = () => {
               value={filterTier || ""}
               onChange={(e) => setFilterTier((e.target.value as Tier) || null)}
               className="w-full py-2 px-3 rounded-lg bg-background border border-border text-sm text-foreground outline-none focus:ring-2 focus:ring-primary/30"
+              >
               <option value="">ทั้งหมด</option>
               {(Object.keys(tierMeta) as Tier[]).map((t) => (
                 <option key={t} value={t}>{tierMeta[t].label} — {tierMeta[t].desc}</option>
@@ -543,6 +545,7 @@ const FirewallComparisonTable = () => {
                       ? "bg-primary text-primary-foreground shadow-md"
                       : "bg-background border border-border text-muted-foreground hover:border-primary/40"
                   }`}
+                  >
                   ≥{n}
                 </button>
               ))}
@@ -891,6 +894,7 @@ const MiniPCFirewall = () => {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTier === "all" ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border"
               }`}
+              >
               ทั้งหมด ({models.length})
             </button>
             {(Object.keys(tierMeta) as Tier[]).map((t) => {
@@ -1027,6 +1031,7 @@ const MiniPCFirewall = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-destructive text-destructive-foreground text-xs font-bold hover:opacity-90 transition-opacity"
+              >
               <Youtube size={16} /> Subscribe
             </a>
           </div>
@@ -1042,6 +1047,7 @@ const MiniPCFirewall = () => {
                     src={`https://www.youtube.com/embed/${v.id}`}
                     title={v.title}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    >
                     allowFullScreen
                     className="absolute inset-0 w-full h-full"
                     loading="lazy"
@@ -1056,6 +1062,7 @@ const MiniPCFirewall = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1 text-xs text-primary font-medium hover:underline"
+                        >
                         <ThumbsUp size={12} /> Like & Share
                       </a>
                     </div>
