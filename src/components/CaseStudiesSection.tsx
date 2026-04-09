@@ -15,9 +15,7 @@ const CaseStudiesSection = () => {
           <Badge variant="outline" className="mb-3 text-primary border-primary/30">
             <Factory className="w-3.5 h-3.5 mr-1.5" /> Case Studies
           </Badge>
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-            กรณีศึกษาจากลูกค้าจริง
-          </h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground">กรณีศึกษาจากลูกค้าจริง</h2>
           <p className="text-muted-foreground mt-2 max-w-xl mx-auto">
             ตัวอย่างการนำ Industrial Computer ไปใช้งานจริงในหลากหลายอุตสาหกรรม
           </p>
@@ -26,7 +24,6 @@ const CaseStudiesSection = () => {
         <div className="grid gap-6 md:grid-cols-3">
           {featured.map((cs) => (
             <Link key={cs.id} to={`/case-studies/${cs.id}`}>
-
               <Card className="group overflow-hidden h-full hover:shadow-lg transition-all duration-300 border-border/60 hover:border-primary/30">
                 <div className="relative h-44 overflow-hidden">
                   <img
