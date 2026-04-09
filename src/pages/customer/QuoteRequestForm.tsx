@@ -55,6 +55,27 @@ export default function QuoteRequestForm() {
     { model: '', description: '', qty: 1 },
   ]);
 
+  // Restore pending products after login redirect
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (user && params.get('action') === 'continue') {
+      const pending = getPendingQuote();
+      if (pending && pending.products.length > 0) {
+        setProducts(pending.products.map(p => ({
+          model: p.model,
+          description: p.description,
+          qty: p.qty,
+        })));
+        clearPendingQuote();
+        toast({
+          title: 'ยินดีต้อนรับ!',
+          description: `คุณมี ${pending.products.length} รายการรอดำเนินการ — เพิ่มสินค้าหรือส่งคำขอได้เลย`,
+        });
+        window.history.replaceState({}, '', location.pathname);
+      }
+    }
+  }, [user, location.search]);
+
   // Auto-fill from user_profiles when logged in
   useEffect(() => {
     if (!user) return;
