@@ -322,13 +322,13 @@ const SpecTable = ({ series }: { series: SeriesData }) => (
         <tr className="hover:bg-muted/30 transition-colors">
           <td className="px-4 py-3 font-semibold text-foreground bg-muted/20" rowSpan={2}>I/O Ports</td>
           <td className="px-4 py-3 text-muted-foreground">
-            <span className="font-medium text-foreground">USB2.0:</span> {series.usbPorts.usb2}>
+            <span className="font-medium text-foreground">USB2.0:</span> {series.usbPorts.usb2}
 
           </td>
         </tr>
         <tr className="hover:bg-muted/30 transition-colors">
           <td className="px-4 py-3 text-muted-foreground">
-            <span className="font-medium text-foreground">USB3.0:</span> {series.usbPorts.usb3}>
+            <span className="font-medium text-foreground">USB3.0:</span> {series.usbPorts.usb3}
 
           </td>
         </tr>
@@ -412,7 +412,7 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
   }, [allImages.length]);
 
   return (
-    <div className="card-surface overflow-hidden" id={series.id}
+    <div className="card-surface overflow-hidden" id={series.id}>
 
       {/* Header with image and features */}
       <div className={`grid lg:grid-cols-5 gap-0`}>
