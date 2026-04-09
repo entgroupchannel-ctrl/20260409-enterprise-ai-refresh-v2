@@ -114,7 +114,6 @@ const TabletProductFilter = ({
 
   const FilterContent = () => (
     <div className="space-y-4">
-      {/* Header */}
       <div className="flex items-center justify-between pb-3 border-b border-border">
         <h3 className="text-base font-bold text-foreground flex items-center gap-2">
           <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -130,7 +129,6 @@ const TabletProductFilter = ({
         )}
       </div>
 
-      {/* Result Count */}
       <div className="px-3 py-2.5 bg-primary/5 rounded-lg border border-primary/10">
         <p className="text-sm font-semibold text-primary">
           พบ <span className="text-lg">{resultCount}</span> รายการ
@@ -138,13 +136,9 @@ const TabletProductFilter = ({
       </div>
 
       <Accordion type="multiple" defaultValue={["os", "screen", "cpu", "price"]} className="space-y-1.5">
-        {/* OS */}
         <AccordionItem value="os" className="border border-border rounded-lg px-3 transition-colors data-[state=open]:border-primary/20 data-[state=open]:bg-primary/[0.02]">
           <AccordionTrigger className="py-3 text-sm font-semibold hover:no-underline">
-            <span className="flex items-center gap-2">
-              <Smartphone className="w-4 h-4 text-primary" />
-              ระบบปฏิบัติการ
-            </span>
+            <span className="flex items-center gap-2"><Smartphone className="w-4 h-4 text-primary" /> ระบบปฏิบัติการ</span>
           </AccordionTrigger>
           <AccordionContent className="pb-3 space-y-0.5">
             {osOptions.map((option) => {
@@ -157,6 +151,7 @@ const TabletProductFilter = ({
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
                     isActive ? "bg-primary text-primary-foreground font-medium shadow-sm" : "hover:bg-muted/70 text-foreground"
                   }`}
+                >
                   <span>{option.name}</span>
                   <span className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md ${isActive ? "bg-primary-foreground/20" : "bg-muted text-muted-foreground"}`}>{count}</span>
                 </button>
@@ -165,13 +160,9 @@ const TabletProductFilter = ({
           </AccordionContent>
         </AccordionItem>
 
-        {/* Screen Size */}
         <AccordionItem value="screen" className="border border-border rounded-lg px-3 transition-colors data-[state=open]:border-primary/20 data-[state=open]:bg-primary/[0.02]">
           <AccordionTrigger className="py-3 text-sm font-semibold hover:no-underline">
-            <span className="flex items-center gap-2">
-              <Monitor className="w-4 h-4 text-primary" />
-              ขนาดหน้าจอ
-            </span>
+            <span className="flex items-center gap-2"><Monitor className="w-4 h-4 text-primary" /> ขนาดหน้าจอ</span>
           </AccordionTrigger>
           <AccordionContent className="pb-3 space-y-0.5">
             {screenSizeOptions.map((option) => {
@@ -184,8 +175,8 @@ const TabletProductFilter = ({
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
                     isActive ? "bg-primary text-primary-foreground font-medium shadow-sm" : count === 0 && option.id !== "all" ? "text-muted-foreground/50 cursor-not-allowed" : "hover:bg-muted/70 text-foreground"
                   }`}
-                  disabled={count === 0 && option.id !== "all"}>
-
+                  disabled={count === 0 && option.id !== "all"}
+                >
                   <span>{option.name}</span>
                   <span className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md ${isActive ? "bg-primary-foreground/20" : "bg-muted text-muted-foreground"}`}>{count}</span>
                 </button>
@@ -194,13 +185,9 @@ const TabletProductFilter = ({
           </AccordionContent>
         </AccordionItem>
 
-        {/* CPU Brand */}
         <AccordionItem value="cpu" className="border border-border rounded-lg px-3 transition-colors data-[state=open]:border-primary/20 data-[state=open]:bg-primary/[0.02]">
           <AccordionTrigger className="py-3 text-sm font-semibold hover:no-underline">
-            <span className="flex items-center gap-2">
-              <Cpu className="w-4 h-4 text-primary" />
-              Processor
-            </span>
+            <span className="flex items-center gap-2"><Cpu className="w-4 h-4 text-primary" /> Processor</span>
           </AccordionTrigger>
           <AccordionContent className="pb-3 space-y-0.5">
             {cpuBrandOptions.map((option) => {
@@ -213,8 +200,8 @@ const TabletProductFilter = ({
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
                     isActive ? "bg-primary text-primary-foreground font-medium shadow-sm" : count === 0 && option.id !== "all" ? "text-muted-foreground/50 cursor-not-allowed" : "hover:bg-muted/70 text-foreground"
                   }`}
-                  disabled={count === 0 && option.id !== "all"}>
-
+                  disabled={count === 0 && option.id !== "all"}
+                >
                   <span>{option.name}</span>
                   <span className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md ${isActive ? "bg-primary-foreground/20" : "bg-muted text-muted-foreground"}`}>{count}</span>
                 </button>
@@ -223,13 +210,9 @@ const TabletProductFilter = ({
           </AccordionContent>
         </AccordionItem>
 
-        {/* Price / Features */}
         <AccordionItem value="price" className="border border-border rounded-lg px-3 transition-colors data-[state=open]:border-primary/20 data-[state=open]:bg-primary/[0.02]">
           <AccordionTrigger className="py-3 text-sm font-semibold hover:no-underline">
-            <span className="flex items-center gap-2">
-              <Zap className="w-4 h-4 text-primary" />
-              ช่วงราคา
-            </span>
+            <span className="flex items-center gap-2"><Zap className="w-4 h-4 text-primary" /> ช่วงราคา</span>
           </AccordionTrigger>
           <AccordionContent className="pb-3 space-y-0.5">
             {priceRangeOptions.map((option) => {
@@ -241,6 +224,7 @@ const TabletProductFilter = ({
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${
                     isActive ? "bg-primary text-primary-foreground font-medium shadow-sm" : "hover:bg-muted/70 text-foreground"
                   }`}
+                >
                   {option.name}
                 </button>
               );
@@ -253,14 +237,12 @@ const TabletProductFilter = ({
 
   return (
     <>
-      {/* Desktop Filter */}
       <aside className="hidden lg:block w-72 flex-shrink-0">
         <div className="sticky top-24 card-surface p-4 max-h-[calc(100vh-120px)] overflow-y-auto scrollbar-hide">
           <FilterContent />
         </div>
       </aside>
 
-      {/* Mobile Filter Drawer */}
       {isMobileOpen && (
         <>
           <div className="fixed inset-0 bg-foreground/50 z-40 lg:hidden animate-in fade-in duration-200" onClick={onMobileClose} />
@@ -288,7 +270,6 @@ const TabletProductFilter = ({
 
 export default TabletProductFilter;
 
-/* ═══════ Active Filter Chips ═══════ */
 export const TabletActiveFilterChips = ({
   filters,
   onFilterChange,
@@ -321,7 +302,8 @@ export const TabletActiveFilterChips = ({
         <button
           key={chip.label}
           onClick={chip.onRemove}
-          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors group">
+          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors group"
+        >
           {chip.label}
           <X className="w-3 h-3 opacity-60 group-hover:opacity-100 transition-opacity" />
         </button>

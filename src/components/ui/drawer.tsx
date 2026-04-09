@@ -9,9 +9,7 @@ const Drawer = ({ shouldScaleBackground = true, ...props }: React.ComponentProps
 Drawer.displayName = "Drawer";
 
 const DrawerTrigger = DrawerPrimitive.Trigger;
-
 const DrawerPortal = DrawerPrimitive.Portal;
-
 const DrawerClose = DrawerPrimitive.Close;
 
 const DrawerOverlay = React.forwardRef<
@@ -35,6 +33,7 @@ const DrawerContent = React.forwardRef<
         className,
       )}
       {...props}
+    >
       <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted" />
       {children}
     </DrawerPrimitive.Content>
@@ -58,7 +57,7 @@ const DrawerTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DrawerPrimitive.Title
     ref={ref}
-    className={cn("text-lg font-semibold leading-none tracking-tight", className)}>
+    className={cn("text-lg font-semibold leading-none tracking-tight", className)}
     {...props}
   />
 ));
@@ -73,14 +72,6 @@ const DrawerDescription = React.forwardRef<
 DrawerDescription.displayName = DrawerPrimitive.Description.displayName;
 
 export {
-  Drawer,
-  DrawerPortal,
-  DrawerOverlay,
-  DrawerTrigger,
-  DrawerClose,
-  DrawerContent,
-  DrawerHeader,
-  DrawerFooter,
-  DrawerTitle,
-  DrawerDescription,
+  Drawer, DrawerPortal, DrawerOverlay, DrawerTrigger, DrawerClose,
+  DrawerContent, DrawerHeader, DrawerFooter, DrawerTitle, DrawerDescription,
 };

@@ -110,17 +110,15 @@ const FilterOption = ({
     onClick={onClick}
     disabled={disabled}
     className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
-      isActive
-        ? "bg-primary text-primary-foreground font-medium shadow-sm"
-        : disabled
-        ? "text-muted-foreground/50 cursor-not-allowed"
-        : "hover:bg-muted/70 text-foreground"
+      isActive ? "bg-primary text-primary-foreground font-medium shadow-sm" : disabled ? "text-muted-foreground/50 cursor-not-allowed" : "hover:bg-muted/70 text-foreground"
     }`}
+  >
     <span>{label}</span>
     <span
       className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md ${
         isActive ? "bg-primary-foreground/20" : "bg-muted text-muted-foreground"
       }`}
+    >
       {count}
     </span>
   </button>
@@ -210,9 +208,7 @@ const NotebookProductFilter = ({
         </AccordionItem>
 
         <AccordionItem value="price" className="border border-border rounded-lg px-3 transition-colors data-[state=open]:border-primary/20 data-[state=open]:bg-primary/[0.02]">
-          <AccordionTrigger className="py-3 text-sm font-semibold hover:no-underline">
-            ช่วงราคา
-          </AccordionTrigger>
+          <AccordionTrigger className="py-3 text-sm font-semibold hover:no-underline">ช่วงราคา</AccordionTrigger>
           <AccordionContent className="pb-3 space-y-0.5">
             {nbPriceOptions.map((o) => (
               <button
@@ -221,6 +217,7 @@ const NotebookProductFilter = ({
                 className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${
                   filters.priceRange === o.id ? "bg-primary text-primary-foreground font-medium shadow-sm" : "hover:bg-muted/70 text-foreground"
                 }`}
+              >
                 {o.name}
               </button>
             ))}
@@ -261,7 +258,6 @@ const NotebookProductFilter = ({
 
 export default NotebookProductFilter;
 
-/* ═══════ Active Filter Chips ═══════ */
 export const NotebookActiveFilterChips = ({
   filters,
   onFilterChange,

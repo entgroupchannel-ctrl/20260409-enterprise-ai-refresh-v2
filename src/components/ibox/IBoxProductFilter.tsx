@@ -89,7 +89,6 @@ export const portFilters = {
   ],
 };
 
-/** Compute how many products match each option value */
 function useFilterCounts(allProducts: IBoxProduct[]) {
   return useMemo(() => {
     const cat: Record<string, number> = {};
@@ -149,7 +148,6 @@ const IBoxProductFilter = ({
 
   const FilterContent = () => (
     <div className="space-y-4">
-      {/* Header */}
       <div className="flex items-center justify-between pb-3 border-b border-border">
         <h3 className="text-base font-bold text-foreground flex items-center gap-2">
           <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -158,63 +156,46 @@ const IBoxProductFilter = ({
           ตัวกรองสินค้า
         </h3>
         {hasActiveFilters && (
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={clearFilters}
-            className="text-destructive hover:text-destructive/80 text-xs h-7 px-2">
+          <Button variant="ghost" size="sm" onClick={clearFilters} className="text-destructive hover:text-destructive/80 text-xs h-7 px-2">
             <X className="w-3 h-3 mr-1" />
             ล้างทั้งหมด
           </Button>
         )}
       </div>
 
-      {/* Result Count */}
       <div className="px-3 py-2.5 bg-primary/5 rounded-lg border border-primary/10">
         <p className="text-sm font-semibold text-primary">
           พบ <span className="text-lg">{resultCount}</span> รายการ
         </p>
       </div>
 
-      <Accordion
-        type="multiple"
-        defaultValue={["category", "formFactor", "performance", "cpu", "ports", "features"]}
-        className="space-y-1.5">
-        {/* Category */}
+      <Accordion type="multiple" defaultValue={["category", "formFactor", "performance", "cpu", "ports", "features"]} className="space-y-1.5">
         <AccordionItem value="category" className="border border-border rounded-lg px-3 transition-colors data-[state=open]:border-primary/20 data-[state=open]:bg-primary/[0.02]">
-          <AccordionTrigger className="py-3 text-sm font-semibold hover:no-underline">
-            หมวดสินค้า
-          </AccordionTrigger>
+          <AccordionTrigger className="py-3 text-sm font-semibold hover:no-underline">หมวดสินค้า</AccordionTrigger>
           <AccordionContent className="pb-3 space-y-0.5">
             {categoryOptions.map((option) => {
               const count = counts.cat[option.id] || 0;
               const isActive = filters.category === option.id;
+              const Icon = option.icon;
               return (
                 <button
                   key={option.id}
                   onClick={() => onFilterChange({ ...filters, category: option.id })}
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center gap-2 group/item ${
-                    isActive
-                      ? "bg-primary text-primary-foreground font-medium shadow-sm"
-                      : "hover:bg-muted/70 text-foreground"
+                    isActive ? "bg-primary text-primary-foreground font-medium shadow-sm" : "hover:bg-muted/70 text-foreground"
                   }`}
-                  {option.icon && <option.icon className={`w-4 h-4 shrink-0 transition-colors ${isActive ? "" : "text-muted-foreground group-hover/item:text-primary"}`} />}>
-
+                >
+                  {Icon && <Icon className={`w-4 h-4 shrink-0 transition-colors ${isActive ? "" : "text-muted-foreground group-hover/item:text-primary"}`} />}
                   <span className="flex-1">{option.name}</span>
-                  <span className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md ${
-                    isActive ? "bg-primary-foreground/20" : "bg-muted text-muted-foreground"
-                  }`}>{count}</span>
+                  <span className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md ${isActive ? "bg-primary-foreground/20" : "bg-muted text-muted-foreground"}`}>{count}</span>
                 </button>
               );
             })}
           </AccordionContent>
         </AccordionItem>
 
-        {/* Form Factor */}
         <AccordionItem value="formFactor" className="border border-border rounded-lg px-3 transition-colors data-[state=open]:border-primary/20 data-[state=open]:bg-primary/[0.02]">
-          <AccordionTrigger className="py-3 text-sm font-semibold hover:no-underline">
-            ตาม Form Factor
-          </AccordionTrigger>
+          <AccordionTrigger className="py-3 text-sm font-semibold hover:no-underline">ตาม Form Factor</AccordionTrigger>
           <AccordionContent className="pb-3 space-y-0.5">
             {formFactorOptions.map((option) => {
               const count = counts.ff[option.id] || 0;
@@ -224,25 +205,19 @@ const IBoxProductFilter = ({
                   key={option.id}
                   onClick={() => onFilterChange({ ...filters, formFactor: option.id })}
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
-                    isActive
-                      ? "bg-primary text-primary-foreground font-medium shadow-sm"
-                      : "hover:bg-muted/70 text-foreground"
+                    isActive ? "bg-primary text-primary-foreground font-medium shadow-sm" : "hover:bg-muted/70 text-foreground"
                   }`}
+                >
                   <span>{option.name}</span>
-                  <span className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md ${
-                    isActive ? "bg-primary-foreground/20" : "bg-muted text-muted-foreground"
-                  }`}>{count}</span>
+                  <span className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md ${isActive ? "bg-primary-foreground/20" : "bg-muted text-muted-foreground"}`}>{count}</span>
                 </button>
               );
             })}
           </AccordionContent>
         </AccordionItem>
 
-        {/* Performance */}
         <AccordionItem value="performance" className="border border-border rounded-lg px-3 transition-colors data-[state=open]:border-primary/20 data-[state=open]:bg-primary/[0.02]">
-          <AccordionTrigger className="py-3 text-sm font-semibold hover:no-underline">
-            ตามระดับประสิทธิภาพ
-          </AccordionTrigger>
+          <AccordionTrigger className="py-3 text-sm font-semibold hover:no-underline">ตามระดับประสิทธิภาพ</AccordionTrigger>
           <AccordionContent className="pb-3 space-y-0.5">
             {performanceOptions.map((option) => {
               const count = counts.perf[option.id] || 0;
@@ -252,27 +227,20 @@ const IBoxProductFilter = ({
                   key={option.id}
                   onClick={() => onFilterChange({ ...filters, performance: option.id })}
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
-                    isActive
-                      ? "bg-primary text-primary-foreground font-medium shadow-sm"
-                      : "hover:bg-muted/70 text-foreground"
+                    isActive ? "bg-primary text-primary-foreground font-medium shadow-sm" : "hover:bg-muted/70 text-foreground"
                   }`}
+                >
                   <span>{option.name}</span>
-                  <span className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md ${
-                    isActive ? "bg-primary-foreground/20" : "bg-muted text-muted-foreground"
-                  }`}>{count}</span>
+                  <span className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md ${isActive ? "bg-primary-foreground/20" : "bg-muted text-muted-foreground"}`}>{count}</span>
                 </button>
               );
             })}
           </AccordionContent>
         </AccordionItem>
 
-        {/* CPU Generation */}
         <AccordionItem value="cpu" className="border border-border rounded-lg px-3 transition-colors data-[state=open]:border-primary/20 data-[state=open]:bg-primary/[0.02]">
           <AccordionTrigger className="py-3 text-sm font-semibold hover:no-underline">
-            <span className="flex items-center gap-2">
-              <Cpu className="w-4 h-4 text-primary" />
-              Processor
-            </span>
+            <span className="flex items-center gap-2"><Cpu className="w-4 h-4 text-primary" /> Processor</span>
           </AccordionTrigger>
           <AccordionContent className="pb-3 space-y-0.5 max-h-52 overflow-y-auto">
             {cpuGenerations.map((gen) => {
@@ -283,31 +251,21 @@ const IBoxProductFilter = ({
                   key={gen.id}
                   onClick={() => onFilterChange({ ...filters, cpuGen: gen.id })}
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
-                    isActive
-                      ? "bg-primary text-primary-foreground font-medium shadow-sm"
-                      : count === 0 && gen.id !== "all"
-                      ? "text-muted-foreground/50 cursor-not-allowed"
-                      : "hover:bg-muted/70 text-foreground"
+                    isActive ? "bg-primary text-primary-foreground font-medium shadow-sm" : count === 0 && gen.id !== "all" ? "text-muted-foreground/50 cursor-not-allowed" : "hover:bg-muted/70 text-foreground"
                   }`}
-                  disabled={count === 0 && gen.id !== "all"}>
-
+                  disabled={count === 0 && gen.id !== "all"}
+                >
                   <span className="truncate mr-2">{gen.name}</span>
-                  <span className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md shrink-0 ${
-                    isActive ? "bg-primary-foreground/20" : "bg-muted text-muted-foreground"
-                  }`}>{count}</span>
+                  <span className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md shrink-0 ${isActive ? "bg-primary-foreground/20" : "bg-muted text-muted-foreground"}`}>{count}</span>
                 </button>
               );
             })}
           </AccordionContent>
         </AccordionItem>
 
-        {/* Ports */}
         <AccordionItem value="ports" className="border border-border rounded-lg px-3 transition-colors data-[state=open]:border-primary/20 data-[state=open]:bg-primary/[0.02]">
           <AccordionTrigger className="py-3 text-sm font-semibold hover:no-underline">
-            <span className="flex items-center gap-2">
-              <Network className="w-4 h-4 text-primary" />
-              I/O Ports
-            </span>
+            <span className="flex items-center gap-2"><Network className="w-4 h-4 text-primary" /> I/O Ports</span>
           </AccordionTrigger>
           <AccordionContent className="pb-3 space-y-4">
             <div>
@@ -318,10 +276,9 @@ const IBoxProductFilter = ({
                     key={port.id}
                     onClick={() => onFilterChange({ ...filters, comPorts: port.id })}
                     className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                      filters.comPorts === port.id
-                        ? "bg-primary text-primary-foreground shadow-sm"
-                        : "bg-muted hover:bg-muted/80 text-foreground"
+                      filters.comPorts === port.id ? "bg-primary text-primary-foreground shadow-sm" : "bg-muted hover:bg-muted/80 text-foreground"
                     }`}
+                  >
                     {port.name}
                   </button>
                 ))}
@@ -335,10 +292,9 @@ const IBoxProductFilter = ({
                     key={port.id}
                     onClick={() => onFilterChange({ ...filters, lanPorts: port.id })}
                     className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                      filters.lanPorts === port.id
-                        ? "bg-primary text-primary-foreground shadow-sm"
-                        : "bg-muted hover:bg-muted/80 text-foreground"
+                      filters.lanPorts === port.id ? "bg-primary text-primary-foreground shadow-sm" : "bg-muted hover:bg-muted/80 text-foreground"
                     }`}
+                  >
                     {port.name}
                   </button>
                 ))}
@@ -347,13 +303,9 @@ const IBoxProductFilter = ({
           </AccordionContent>
         </AccordionItem>
 
-        {/* Features */}
         <AccordionItem value="features" className="border border-border rounded-lg px-3 transition-colors data-[state=open]:border-primary/20 data-[state=open]:bg-primary/[0.02]">
           <AccordionTrigger className="py-3 text-sm font-semibold hover:no-underline">
-            <span className="flex items-center gap-2">
-              <Zap className="w-4 h-4 text-primary" />
-              คุณสมบัติพิเศษ
-            </span>
+            <span className="flex items-center gap-2"><Zap className="w-4 h-4 text-primary" /> คุณสมบัติพิเศษ</span>
           </AccordionTrigger>
           <AccordionContent className="pb-3 space-y-3">
             <div className="flex items-center justify-between px-1">
@@ -363,9 +315,7 @@ const IBoxProductFilter = ({
               </div>
               <Switch
                 checked={filters.poe === true}
-                onCheckedChange={(checked) =>
-                  onFilterChange({ ...filters, poe: checked ? true : null })
-                }
+                onCheckedChange={(checked) => onFilterChange({ ...filters, poe: checked ? true : null })}
               />
             </div>
             <div className="flex items-center justify-between px-1">
@@ -375,9 +325,7 @@ const IBoxProductFilter = ({
               </div>
               <Switch
                 checked={filters.pcie === true}
-                onCheckedChange={(checked) =>
-                  onFilterChange({ ...filters, pcie: checked ? true : null })
-                }
+                onCheckedChange={(checked) => onFilterChange({ ...filters, pcie: checked ? true : null })}
               />
             </div>
           </AccordionContent>
@@ -388,35 +336,26 @@ const IBoxProductFilter = ({
 
   return (
     <>
-      {/* Desktop Filter */}
       <aside className="hidden lg:block w-72 flex-shrink-0">
         <div className="sticky top-24 card-surface p-4 max-h-[calc(100vh-120px)] overflow-y-auto scrollbar-hide">
           <FilterContent />
         </div>
       </aside>
 
-      {/* Mobile Filter Drawer */}
       {isMobileOpen && (
         <>
-          <div
-            className="fixed inset-0 bg-foreground/50 z-40 lg:hidden animate-in fade-in duration-200"
-            onClick={onMobileClose}
-          />
+          <div className="fixed inset-0 bg-foreground/50 z-40 lg:hidden animate-in fade-in duration-200" onClick={onMobileClose} />
           <aside className="fixed inset-y-0 left-0 w-80 max-w-[90vw] bg-card z-50 lg:hidden overflow-y-auto animate-in slide-in-from-left duration-300">
             <div className="p-4">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg font-bold">ตัวกรองสินค้า</h2>
-                <button
-                  onClick={onMobileClose}
-                  className="p-2 hover:bg-muted rounded-lg transition-colors">
+                <button onClick={onMobileClose} className="p-2 hover:bg-muted rounded-lg transition-colors">
                   <X className="w-5 h-5" />
                 </button>
               </div>
               <FilterContent />
               <div className="mt-4 pt-4 border-t border-border">
-                <Button onClick={onMobileClose} className="w-full">
-                  ดูผลลัพธ์ ({resultCount} รายการ)
-                </Button>
+                <Button onClick={onMobileClose} className="w-full">ดูผลลัพธ์ ({resultCount} รายการ)</Button>
               </div>
             </div>
           </aside>
