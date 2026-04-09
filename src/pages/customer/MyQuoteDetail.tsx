@@ -614,17 +614,36 @@ export default function MyQuoteDetail() {
                 <CardContent>
                   <div className="space-y-1.5">
                     {poFiles.map((file) => (
-                      <a
+                      <div
                         key={file.id}
-                        href={file.file_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-2.5 py-1.5 rounded-md border border-border hover:border-primary hover:bg-primary/5 transition-colors group"
+                        className="flex items-center gap-2 px-2.5 py-1.5 rounded-md border border-border hover:border-primary transition-colors group"
                       >
                         <FileText className="w-3.5 h-3.5 text-primary shrink-0" />
-                        <span className="text-xs font-medium text-foreground truncate flex-1">{file.file_name}</span>
-                        <Download className="w-3 h-3 text-muted-foreground group-hover:text-primary shrink-0" />
-                      </a>
+                        <a
+                          href={file.file_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs font-medium text-foreground truncate flex-1 hover:underline"
+                        >
+                          {file.file_name}
+                        </a>
+                        <a href={file.file_url} download className="p-1 hover:bg-primary/10 rounded" title="ดาวน์โหลด">
+                          <Download className="w-3 h-3 text-muted-foreground group-hover:text-primary shrink-0" />
+                        </a>
+                        {(quote.status === 'quote_sent' || quote.status === 'po_uploaded') && (
+                          <button
+                            onClick={() => handleDeletePOFile(file.id, file.file_name)}
+                            disabled={deletingFileId === file.id}
+                            className="p-1 hover:bg-destructive/10 rounded disabled:opacity-50"
+                            title="ลบไฟล์"
+                          >
+                            {deletingFileId === file.id
+                              ? <Loader2 className="w-3 h-3 animate-spin text-muted-foreground" />
+                              : <X className="w-3 h-3 text-destructive" />
+                            }
+                          </button>
+                        )}
+                      </div>
                     ))}
                    </div>
 
