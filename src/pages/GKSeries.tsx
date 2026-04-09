@@ -1076,7 +1076,7 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
           <button key={item.model} onClick={() => {
             const el = document.getElementById(gkModels.find(m => m.name === item.model)?.id || "");
             if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-          }} className={`p-5 rounded-xl border ${item.color} text-left hover:scale-[1.02] transition-transform`}
+          }} className={`p-5 rounded-xl border ${item.color} text-left hover:scale-[1.02] transition-transform`}>
 
             <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-2"><item.Icon size={22} className="text-primary" /></div>
             <p className="font-bold text-foreground text-sm mb-1">{item.title}</p>
