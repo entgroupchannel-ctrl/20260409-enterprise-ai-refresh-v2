@@ -11,6 +11,7 @@ import { CartProvider } from "@/hooks/useCart";
 import Index from "./pages/Index.tsx";
 import ScrollToTop from "./components/ScrollToTop.tsx";
 import SocialRibbon from "./components/SocialRibbon.tsx";
+import FloatingCartBadge from "./components/FloatingCartBadge.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 
 /* ── Lazy-loaded pages ── */
