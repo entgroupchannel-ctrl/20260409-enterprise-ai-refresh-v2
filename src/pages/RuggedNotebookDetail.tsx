@@ -14,13 +14,9 @@ import SEOHead from "@/components/SEOHead";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import FooterCompact from "@/components/FooterCompact";
-import QuoteDialog from "@/components/QuoteDialog";
-import AddToQuoteButton from "@/components/AddToQuoteButton";
-import WishlistHeart from "@/components/WishlistHeart";
 import ProductGallery from "@/components/ProductGallery";
 import QuoteButton from "@/components/QuoteButton";
 import { getNotebook, getRelatedNotebooks, type RuggedNotebook } from "@/data/rugged-notebook-products";
-import { useEngagementTracker } from "@/hooks/useEngagementTracker";
 
 /* ───── Related Card ───── */
 const RelatedCard = ({ nb }: { nb: RuggedNotebook }) => (

@@ -3,7 +3,6 @@ import SEOHead from "@/components/SEOHead";
 import heroMiniPC from "@/assets/hero-minipc-desk.jpg";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
-import WishlistHeart from "@/components/WishlistHeart";
 import { ArrowLeft, ExternalLink, Cpu, Zap, Shield, Monitor, Wifi, ThermometerSun, HardDrive, Server, ChevronRight, FileText, CircleCheck, Filter, X, MessageSquare } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -12,9 +11,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import FooterCompact from "@/components/FooterCompact";
 import B2BCTABanner from "@/components/B2BCTABanner";
-import PlatformInviteBanner from "@/components/PlatformInviteBanner";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
-import QuoteDialog from "@/components/QuoteDialog";
 import LineQRButton from "@/components/LineQRButton";
 
 /* ── Category Navigation ── */

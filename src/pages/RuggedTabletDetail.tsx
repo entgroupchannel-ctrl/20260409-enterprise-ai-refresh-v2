@@ -13,13 +13,9 @@ import SEOHead from "@/components/SEOHead";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import FooterCompact from "@/components/FooterCompact";
-import QuoteDialog from "@/components/QuoteDialog";
-import AddToQuoteButton from "@/components/AddToQuoteButton";
 import LineQRButton from "@/components/LineQRButton";
-import WishlistHeart from "@/components/WishlistHeart";
 import ProductGallery from "@/components/ProductGallery";
 import { getTabletProduct, getRelatedTablets, type TabletDetailProduct } from "@/data/rugged-tablet-products";
-import { useEngagementTracker } from "@/hooks/useEngagementTracker";
 
 /* ───── Related Card ───── */
 const RelatedCard = ({ product }: { product: TabletDetailProduct }) => (

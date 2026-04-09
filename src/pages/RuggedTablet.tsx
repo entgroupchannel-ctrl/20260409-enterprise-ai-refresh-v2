@@ -1,7 +1,6 @@
 import SEOHead from "@/components/SEOHead";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
-import WishlistHeart from "@/components/WishlistHeart";
 import { useState, useCallback, useMemo } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -23,9 +22,7 @@ import {
 } from "@/components/ui/select";
 import FooterCompact from "@/components/FooterCompact";
 import B2BCTABanner from "@/components/B2BCTABanner";
-import PlatformInviteBanner from "@/components/PlatformInviteBanner";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
-import QuoteDialog from "@/components/QuoteDialog";
 import TabletProductFilter, {
   type TabletFilterState,
   defaultTabletFilters,

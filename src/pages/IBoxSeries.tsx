@@ -3,7 +3,6 @@ import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import WishlistHeart from "@/components/WishlistHeart";
 import {
   ArrowLeft, Cpu, Thermometer, Shield, Usb, Wifi, Download, Search,
   FileText, ChevronRight, Layers, HardDrive, Monitor, Zap, Box,
@@ -24,10 +23,7 @@ import {
 } from "@/components/ui/select";
 import FooterCompact from "@/components/FooterCompact";
 import B2BCTABanner from "@/components/B2BCTABanner";
-import PlatformInviteBanner from "@/components/PlatformInviteBanner";
 import ShareButtons from "@/components/ShareButtons";
-import QuoteDialog from "@/components/QuoteDialog";
-import MultiSelectQuoteBar, { useMultiSelect } from "@/components/MultiSelectQuoteBar";
 import IBoxProductCard from "@/components/ibox/IBoxProductCard";
 import IBoxProductFilter, { type IBoxFilterState, defaultFilters, portFilters } from "@/components/ibox/IBoxProductFilter";
 import ActiveFilterChips from "@/components/ibox/ActiveFilterChips";

@@ -6,7 +6,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEOHead from "@/components/SEOHead";
 import Footer from "@/components/Footer";
-import QuoteDialog from "@/components/QuoteDialog";
 import { useState } from "react";
 
 const CaseStudyDetail = () => {

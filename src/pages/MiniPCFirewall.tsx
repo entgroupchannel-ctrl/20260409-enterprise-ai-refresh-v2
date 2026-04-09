@@ -5,7 +5,6 @@ import { Play, Youtube, ThumbsUp, ExternalLink as ExtLink } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
-import WishlistHeart from "@/components/WishlistHeart";
 import { Link } from "react-router-dom";
 import {
   ArrowLeft, Shield, Wifi, Network, Cpu, Wind, Zap, Server,
@@ -15,11 +14,8 @@ import {
 } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import ThemeToggle from "@/components/ThemeToggle";
-import QuoteCartButton from "@/components/QuoteCartButton";
 import logo from "@/assets/logo-entgroup.avif";
 import FooterCompact from "@/components/FooterCompact";
-import QuoteDialog from "@/components/QuoteDialog";
-import MultiSelectQuoteBar, { useMultiSelect } from "@/components/MultiSelectQuoteBar";
 
 /* ═══════════════════════════════════════════
    TIER SYSTEM — like GT Series

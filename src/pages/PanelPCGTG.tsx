@@ -3,7 +3,6 @@ import { useState } from "react";
 import SEOHead from "@/components/SEOHead";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
-import WishlistHeart from "@/components/WishlistHeart";
 import { Link } from "react-router-dom";
 import {
   ArrowLeft, ExternalLink, Shield, Wind, Monitor, Cpu, Zap, Factory,
@@ -11,11 +10,9 @@ import {
   HardDrive, MemoryStick, Layers, RectangleHorizontal, Square
 } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
-import QuoteCartButton from "@/components/QuoteCartButton";
 import logo from "@/assets/logo-entgroup.avif";
 import FooterCompact from "@/components/FooterCompact";
 import { LineQRDialog } from "@/components/LineQRDialog";
-import QuoteDialog from "@/components/QuoteDialog";
 import gty121Front from "@/assets/gty121-front.jpg";
 import gty121Rear from "@/assets/gty121-rear.png";
 import gty156Side from "@/assets/gty156-side.jpg";

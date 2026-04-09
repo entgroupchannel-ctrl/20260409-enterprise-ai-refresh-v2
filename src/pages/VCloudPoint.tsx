@@ -2,10 +2,8 @@ import { useState } from "react";
 import SEOHead from "@/components/SEOHead";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
-import WishlistHeart from "@/components/WishlistHeart";
 import { Link } from "react-router-dom";
 import LineQRButton from "@/components/LineQRButton";
-import QuoteDialog from "@/components/QuoteDialog";
 import DemoRequestDialog from "@/components/DemoRequestDialog";
 import {
   ArrowLeft, Monitor, Cpu, Shield, Zap, Users, Server, ChevronDown,
@@ -15,7 +13,6 @@ import {
   Clock, TrendingUp, Award, Quote, MapPin, Calendar
 } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
-import QuoteCartButton from "@/components/QuoteCartButton";
 import logo from "@/assets/logo-entgroup.avif";
 import FooterCompact from "@/components/FooterCompact";
 

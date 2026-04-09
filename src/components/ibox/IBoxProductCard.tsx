@@ -3,9 +3,7 @@ import { Eye, Cpu, Network, Thermometer, Sparkles, FileText, Download, Flame } f
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
-import WishlistHeart from "@/components/WishlistHeart";
 import { IBoxProduct } from "@/data/ibox-products";
-import { useMultiSelect } from "@/components/MultiSelectQuoteBar";
 
 interface IBoxProductCardProps {
   product: IBoxProduct;

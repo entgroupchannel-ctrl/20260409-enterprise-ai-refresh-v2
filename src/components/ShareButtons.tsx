@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import { Share2, Facebook, Link2, ThumbsUp } from "lucide-react";
-import { useEngagementTracker } from "@/hooks/useEngagementTracker";
 
 interface ShareButtonsProps {
   url: string;

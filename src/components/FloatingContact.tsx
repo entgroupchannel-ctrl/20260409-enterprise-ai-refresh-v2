@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { MessageCircle, Phone, X } from "lucide-react";
 import { LineQRDialog, LineSvgIcon } from "./LineQRDialog";
-import { useAutoHideWidget } from "@/hooks/useAutoHideWidget";
 
 const FloatingContact = () => {
   const [open, setOpen] = useState(false);

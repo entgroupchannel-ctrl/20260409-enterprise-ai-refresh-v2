@@ -12,10 +12,6 @@ import {
   Phone, Mail, MapPin, ArrowLeft, Send, MessageCircle, Users, Camera, Upload, Loader2, CreditCard, Globe,
 } from "lucide-react";
 import FooterCompact from "@/components/FooterCompact";
-import PlatformInviteBanner from "@/components/PlatformInviteBanner";
-import QuoteDialog from "@/components/QuoteDialog";
-import { useAuth } from "@/hooks/useAuth";
-import { useEngagementTracker } from "@/hooks/useEngagementTracker";
 
 /* ═══════════════════════════════════════════
    i18n — TH / EN

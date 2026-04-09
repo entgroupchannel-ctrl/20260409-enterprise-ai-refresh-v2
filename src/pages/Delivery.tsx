@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import FooterCompact from "@/components/FooterCompact";
 import SEOHead from "@/components/SEOHead";
 import ThemeToggle from "@/components/ThemeToggle";
-import QuoteCartButton from "@/components/QuoteCartButton";
 
 const deliverySteps = [
   { step: 1, title: "ยืนยันคำสั่งซื้อ", desc: "ตรวจสอบรายการสินค้าและเอกสารการชำระเงิน", icon: ClipboardCheck },

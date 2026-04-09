@@ -1,6 +1,5 @@
 import { ExternalLink, Code2, Rocket, Shield, Cpu, Palette, BarChart3 } from "lucide-react";
 import LineQRButton from "@/components/LineQRButton";
-import SoftwareInquiryDialog from "@/components/SoftwareInquiryDialog";
 import softwareFastImg from "@/assets/software-fast.jpg";
 import softwareSecureImg from "@/assets/software-secure.jpg";
 import softwareDesignImg from "@/assets/software-design.jpg";

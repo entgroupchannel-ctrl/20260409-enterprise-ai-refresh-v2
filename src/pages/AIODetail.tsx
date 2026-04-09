@@ -15,12 +15,8 @@ import SEOHead from "@/components/SEOHead";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import FooterCompact from "@/components/FooterCompact";
-import QuoteDialog from "@/components/QuoteDialog";
-import AddToQuoteButton from "@/components/AddToQuoteButton";
-import WishlistHeart from "@/components/WishlistHeart";
 import ProductGallery from "@/components/ProductGallery";
 import { getAIOProduct, getRelatedAIO, categoryLabels, type AIOProduct } from "@/data/aio-products";
-import { useEngagementTracker } from "@/hooks/useEngagementTracker";
 
 /* ── Related Card ── */
 const RelatedCard = ({ p }: { p: AIOProduct }) => (

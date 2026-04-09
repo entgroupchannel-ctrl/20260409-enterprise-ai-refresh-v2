@@ -13,14 +13,9 @@ import SEOHead from "@/components/SEOHead";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import FooterCompact from "@/components/FooterCompact";
-import QuoteDialog from "@/components/QuoteDialog";
-import AddToQuoteButton from "@/components/AddToQuoteButton";
-import WishlistHeart from "@/components/WishlistHeart";
 import ProductImageGallery from "@/components/ibox/ProductImageGallery";
 import IBoxProductCard from "@/components/ibox/IBoxProductCard";
 import { getIBoxProduct, getRelatedProducts } from "@/data/ibox-products";
-import { useMultiSelect } from "@/components/MultiSelectQuoteBar";
-import { useEngagementTracker } from "@/hooks/useEngagementTracker";
 
 const specItems = [
   { key: "cpu", label: "Processor", icon: Cpu },
