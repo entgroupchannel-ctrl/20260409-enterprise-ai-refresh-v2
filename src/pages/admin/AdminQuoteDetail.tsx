@@ -125,6 +125,7 @@ export default function AdminQuoteDetail() {
   useEffect(() => {
     if (id) {
       loadQuoteDetails();
+      loadUserRole();
     }
   }, [id]);
 
@@ -137,6 +138,37 @@ export default function AdminQuoteDetail() {
       setShowRejectDialog(true);
     }
   }, [searchParams]);
+
+  const loadUserRole = async () => {
+    try {
+      const { data: { user: authUser } } = await supabase.auth.getUser();
+      if (!authUser) return;
+      setUserEmail(authUser.email || '');
+
+      // Check user_roles table for super_admin
+      const { data: roleData } = await (supabase.from as any)('user_roles')
+        .select('role')
+        .eq('user_id', authUser.id);
+
+      if (roleData && roleData.some((r: any) => r.role === 'super_admin')) {
+        setUserRole('super_admin');
+        return;
+      }
+
+      // Fall back to users table
+      const { data: userData } = await supabase
+        .from('users')
+        .select('role')
+        .eq('id', authUser.id)
+        .single();
+
+      if (userData) {
+        setUserRole(userData.role === 'sales' ? 'sales' : 'admin');
+      }
+    } catch (e) {
+      console.error('Error loading user role:', e);
+    }
+  };
 
   const loadQuoteDetails = async () => {
     try {
