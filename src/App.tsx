@@ -52,6 +52,8 @@ const Login = lazy(() => import("./pages/auth/Login"));
 const Register = lazy(() => import("./pages/auth/Register"));
 const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
 const AdminQuotesList = lazy(() => import("./pages/admin/AdminQuotesList"));
+const AdminQuoteDetail = lazy(() => import("./pages/admin/AdminQuoteDetail"));
+const AdminQuoteCreate = lazy(() => import("./pages/admin/AdminQuoteCreate"));
 
 /* ── Loading fallback ── */
 const PageLoader = () => (
