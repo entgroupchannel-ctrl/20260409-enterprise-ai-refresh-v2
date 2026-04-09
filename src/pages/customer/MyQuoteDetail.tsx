@@ -444,28 +444,22 @@ export default function MyQuoteDetail() {
                 </CardHeader>
                 <CardContent>
                   {poFiles.length > 0 && (
-                    <div className="space-y-3 mb-4">
+                    <div className="space-y-1.5 mb-4">
                       {poFiles.map((file) => (
-                        <div
+                        <a
                           key={file.id}
-                          className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors"
+                          href={file.file_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2.5 px-3 py-2 rounded-md border border-border hover:bg-muted/50 transition-colors group"
                         >
-                          <div className="flex items-center gap-3 flex-1 min-w-0">
-                            <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center shrink-0">
-                              <FileText className="w-6 h-6 text-primary" />
-                            </div>
-                            <div className="min-w-0 flex-1">
-                              <p className="font-medium text-foreground truncate">{file.file_name}</p>
-                              <div className="flex items-center gap-3 text-xs text-muted-foreground mt-1">
-                                <span>{formatShortDateTime(file.uploaded_at)}</span>
-                                {file.file_size && <span>{formatFileSize(file.file_size)}</span>}
-                              </div>
-                            </div>
-                          </div>
-                          <Button variant="outline" size="sm" onClick={() => window.open(file.file_url, '_blank')}>
-                            <Download className="w-4 h-4 mr-2" />ดาวน์โหลด
-                          </Button>
-                        </div>
+                          <FileText className="w-4 h-4 text-primary shrink-0" />
+                          <span className="text-sm font-medium text-foreground truncate flex-1">{file.file_name}</span>
+                          <span className="text-[11px] text-muted-foreground shrink-0">
+                            {file.file_size ? formatFileSize(file.file_size) : ''}
+                          </span>
+                          <Download className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary shrink-0" />
+                        </a>
                       ))}
                     </div>
                   )}
