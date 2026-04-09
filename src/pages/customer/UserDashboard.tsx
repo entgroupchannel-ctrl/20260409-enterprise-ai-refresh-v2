@@ -1,7 +1,7 @@
 // src/pages/customer/UserDashboard.tsx
 // Unified single-page dashboard — Quotes, Cart, Profile all in one view
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, memo } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { useCart } from '@/hooks/useCart';
@@ -74,6 +74,17 @@ const emptyProfile: ProfileData = {
 };
 
 type Section = 'quotes' | 'quote-detail' | 'cart' | 'profile';
+
+// Memoized field — prevents full re-render on every keystroke
+const ProfileField = memo(({ label, value, onChange, type = 'text', placeholder = '' }: {
+  label: string; value: string; onChange: (v: string) => void; type?: string; placeholder?: string;
+}) => (
+  <div className="space-y-1">
+    <Label className="text-[11px] text-muted-foreground">{label}</Label>
+    <Input type={type} value={value || ''} onChange={e => onChange(e.target.value)} placeholder={placeholder} className="h-8 text-sm" />
+  </div>
+));
+ProfileField.displayName = 'ProfileField';
 
 export default function UserDashboard() {
   const { user, profile: authProfile, signOut } = useAuth();
@@ -275,12 +286,7 @@ export default function UserDashboard() {
     { key: 'profile' as Section, label: 'โปรไฟล์', icon: User, badge: 0 },
   ];
 
-  const Field = ({ label, field, type = 'text', placeholder = '' }: { label: string; field: keyof ProfileData; type?: string; placeholder?: string }) => (
-    <div className="space-y-1.5">
-      <Label className="text-xs">{label}</Label>
-      <Input type={type} value={(profileForm[field] as string) || ''} onChange={e => updateField(field, e.target.value)} placeholder={placeholder} />
-    </div>
-  );
+  // Field component is defined outside the render — see ProfileField below
 
   return (
     <>
@@ -601,83 +607,90 @@ export default function UserDashboard() {
 
               {/* ─── PROFILE ─── */}
               {activeSection === 'profile' && (
-                <div className="space-y-6">
+                <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <div>
-                      <h2 className="text-2xl font-bold">👤 โปรไฟล์ของฉัน</h2>
-                      <p className="text-sm text-muted-foreground mt-1">ข้อมูลบริษัทและที่อยู่สำหรับออกเอกสาร</p>
-                    </div>
-                    <Button onClick={handleSaveProfile} disabled={saving}>
-                      <Save size={16} className="mr-2" />{saving ? 'กำลังบันทึก...' : 'บันทึก'}
+                    <h2 className="text-lg font-bold">👤 โปรไฟล์ของฉัน</h2>
+                    <Button size="sm" onClick={handleSaveProfile} disabled={saving}>
+                      <Save size={14} className="mr-1" />{saving ? 'กำลังบันทึก...' : 'บันทึก'}
                     </Button>
                   </div>
 
-                  {/* Company */}
-                  <Card>
-                    <CardHeader><CardTitle className="text-base flex items-center gap-2"><Building className="w-4 h-4" /> ข้อมูลบริษัท</CardTitle></CardHeader>
-                    <CardContent className="space-y-4">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <Field label="ชื่อบริษัท *" field="company_name" placeholder="บริษัท ABC จำกัด" />
-                        <Field label="เลขผู้เสียภาษี" field="company_tax_id" placeholder="0105XXXXXXXXX" />
-                      </div>
-                      <Field label="ที่อยู่บริษัท" field="company_address" placeholder="123 ถ.สุขุมวิท..." />
-                      <Field label="โทรศัพท์บริษัท" field="company_phone" placeholder="02-XXX-XXXX" />
-                    </CardContent>
-                  </Card>
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    {/* Left column: Company + Contact */}
+                    <div className="space-y-4">
+                      <Card>
+                        <CardContent className="pt-4 pb-3 space-y-3">
+                          <p className="text-xs font-semibold text-muted-foreground flex items-center gap-1"><Building className="w-3 h-3" /> ข้อมูลบริษัท</p>
+                          <div className="grid grid-cols-2 gap-2">
+                            <ProfileField label="ชื่อบริษัท *" value={profileForm.company_name} onChange={v => updateField('company_name', v)} placeholder="บริษัท ABC จำกัด" />
+                            <ProfileField label="เลขผู้เสียภาษี" value={profileForm.company_tax_id} onChange={v => updateField('company_tax_id', v)} placeholder="0105XXXXXXXXX" />
+                          </div>
+                          <ProfileField label="ที่อยู่บริษัท" value={profileForm.company_address} onChange={v => updateField('company_address', v)} placeholder="123 ถ.สุขุมวิท..." />
+                          <ProfileField label="โทรศัพท์" value={profileForm.company_phone} onChange={v => updateField('company_phone', v)} placeholder="02-XXX-XXXX" />
+                        </CardContent>
+                      </Card>
 
-                  {/* Contact */}
-                  <Card>
-                    <CardHeader><CardTitle className="text-base flex items-center gap-2"><User className="w-4 h-4" /> ข้อมูลผู้ติดต่อ</CardTitle></CardHeader>
-                    <CardContent className="space-y-4">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <Field label="ชื่อ-นามสกุล" field="contact_name" placeholder="สมชาย ใจดี" />
-                        <Field label="ตำแหน่ง" field="contact_position" placeholder="ผู้จัดการฝ่ายจัดซื้อ" />
-                      </div>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <Field label="โทรศัพท์" field="contact_phone" placeholder="081-XXX-XXXX" />
-                        <Field label="อีเมล" field="contact_email" type="email" placeholder="example@email.com" />
-                        <Field label="LINE ID" field="contact_line" placeholder="@lineid" />
-                      </div>
-                    </CardContent>
-                  </Card>
+                      <Card>
+                        <CardContent className="pt-4 pb-3 space-y-3">
+                          <p className="text-xs font-semibold text-muted-foreground flex items-center gap-1"><User className="w-3 h-3" /> ผู้ติดต่อ</p>
+                          <div className="grid grid-cols-2 gap-2">
+                            <ProfileField label="ชื่อ-นามสกุล" value={profileForm.contact_name} onChange={v => updateField('contact_name', v)} placeholder="สมชาย ใจดี" />
+                            <ProfileField label="ตำแหน่ง" value={profileForm.contact_position} onChange={v => updateField('contact_position', v)} placeholder="ผู้จัดการฝ่ายจัดซื้อ" />
+                          </div>
+                          <div className="grid grid-cols-3 gap-2">
+                            <ProfileField label="โทรศัพท์" value={profileForm.contact_phone} onChange={v => updateField('contact_phone', v)} placeholder="081-XXX-XXXX" />
+                            <ProfileField label="อีเมล" value={profileForm.contact_email} onChange={v => updateField('contact_email', v)} type="email" placeholder="example@email.com" />
+                            <ProfileField label="LINE ID" value={profileForm.contact_line} onChange={v => updateField('contact_line', v)} placeholder="@lineid" />
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
 
-                  {/* Billing */}
-                  <Card>
-                    <CardHeader><CardTitle className="text-base flex items-center gap-2"><MapPin className="w-4 h-4" /> ที่อยู่ออกใบกำกับภาษี</CardTitle></CardHeader>
-                    <CardContent className="space-y-4">
-                      <Field label="ที่อยู่" field="billing_address" placeholder="123 ถ.สุขุมวิท..." />
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <Field label="แขวง/ตำบล" field="billing_district" />
-                        <Field label="เขต/อำเภอ" field="billing_city" />
-                        <Field label="จังหวัด" field="billing_province" />
-                        <Field label="รหัสไปรษณีย์" field="billing_postal_code" />
-                      </div>
-                    </CardContent>
-                  </Card>
+                    {/* Right column: Billing + Shipping */}
+                    <div className="space-y-4">
+                      <Card>
+                        <CardContent className="pt-4 pb-3 space-y-3">
+                          <p className="text-xs font-semibold text-muted-foreground flex items-center gap-1"><MapPin className="w-3 h-3" /> ที่อยู่ออกใบกำกับภาษี</p>
+                          <ProfileField label="ที่อยู่" value={profileForm.billing_address} onChange={v => updateField('billing_address', v)} placeholder="123 ถ.สุขุมวิท..." />
+                          <div className="grid grid-cols-2 gap-2">
+                            <ProfileField label="แขวง/ตำบล" value={profileForm.billing_district} onChange={v => updateField('billing_district', v)} />
+                            <ProfileField label="เขต/อำเภอ" value={profileForm.billing_city} onChange={v => updateField('billing_city', v)} />
+                          </div>
+                          <div className="grid grid-cols-3 gap-2">
+                            <ProfileField label="จังหวัด" value={profileForm.billing_province} onChange={v => updateField('billing_province', v)} />
+                            <ProfileField label="รหัสไปรษณีย์" value={profileForm.billing_postal_code} onChange={v => updateField('billing_postal_code', v)} />
+                            <ProfileField label="ประเทศ" value={profileForm.billing_country} onChange={v => updateField('billing_country', v)} />
+                          </div>
+                        </CardContent>
+                      </Card>
 
-                  {/* Shipping */}
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="text-base flex items-center justify-between">
-                        <span className="flex items-center gap-2"><Truck className="w-4 h-4" /> ที่อยู่จัดส่ง</span>
-                        <div className="flex items-center gap-2">
-                          <Label className="text-xs font-normal">เหมือนที่อยู่ออกบิล</Label>
-                          <Switch checked={profileForm.shipping_same_as_billing} onCheckedChange={v => updateField('shipping_same_as_billing', v)} />
-                        </div>
-                      </CardTitle>
-                    </CardHeader>
-                    {!profileForm.shipping_same_as_billing && (
-                      <CardContent className="space-y-4">
-                        <Field label="ที่อยู่จัดส่ง" field="shipping_address" />
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                          <Field label="แขวง/ตำบล" field="shipping_district" />
-                          <Field label="เขต/อำเภอ" field="shipping_city" />
-                          <Field label="จังหวัด" field="shipping_province" />
-                          <Field label="รหัสไปรษณีย์" field="shipping_postal_code" />
-                        </div>
-                      </CardContent>
-                    )}
-                  </Card>
+                      <Card>
+                        <CardContent className="pt-4 pb-3 space-y-3">
+                          <div className="flex items-center justify-between">
+                            <p className="text-xs font-semibold text-muted-foreground flex items-center gap-1"><Truck className="w-3 h-3" /> ที่อยู่จัดส่ง</p>
+                            <div className="flex items-center gap-1.5">
+                              <Label className="text-[10px] font-normal text-muted-foreground">เหมือนที่อยู่ออกบิล</Label>
+                              <Switch checked={profileForm.shipping_same_as_billing} onCheckedChange={v => updateField('shipping_same_as_billing', v)} />
+                            </div>
+                          </div>
+                          {!profileForm.shipping_same_as_billing && (
+                            <>
+                              <ProfileField label="ที่อยู่จัดส่ง" value={profileForm.shipping_address} onChange={v => updateField('shipping_address', v)} />
+                              <div className="grid grid-cols-2 gap-2">
+                                <ProfileField label="แขวง/ตำบล" value={profileForm.shipping_district} onChange={v => updateField('shipping_district', v)} />
+                                <ProfileField label="เขต/อำเภอ" value={profileForm.shipping_city} onChange={v => updateField('shipping_city', v)} />
+                              </div>
+                              <div className="grid grid-cols-3 gap-2">
+                                <ProfileField label="จังหวัด" value={profileForm.shipping_province} onChange={v => updateField('shipping_province', v)} />
+                                <ProfileField label="รหัสไปรษณีย์" value={profileForm.shipping_postal_code} onChange={v => updateField('shipping_postal_code', v)} />
+                                <ProfileField label="ประเทศ" value={profileForm.shipping_country} onChange={v => updateField('shipping_country', v)} />
+                              </div>
+                            </>
+                          )}
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
