@@ -4223,7 +4223,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       GT<span className="text-gradient">9000</span>
                     </h3>
                     <p className="text-muted-foreground leading-relaxed">
-                      GT9000 ตัวเครื่องสีดำผลิตจากอลูมิเนียมอัลลอยด์ขัดเงา (Brushed Full Aluminum Alloy)
+                      GT9000 ตัวเครื่องสีดำผลิตจากอลูมิเนียมอัลลอยด์ขัดเงา (Brushed Full Aluminum Alloy)>
                       ปราศจากพัดลมระบายอากาศ ทำงานเงียบ 24 ชั่วโมงต่อเนื่อง รองรับ 4G Module พร้อมช่อง SIM Card,
                       Dual-Band WiFi พร้อมเสาอากาศภายนอก, 6 COM Port (RS232/RS422/RS485) และ Triple Display
                       ผ่าน 3× HDMI 1.4 แสดงผล 3 จอพร้อมกัน ติดตั้ง M-SATA SSD + 2.5" SATA HDD + M.2 2280 NVMe ได้พร้อมกัน
@@ -5298,7 +5298,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       GT<span className="text-gradient">1300</span>
                     </h3>
                     <p className="text-muted-foreground leading-relaxed">
-                      GT1300 คอมพิวเตอร์อุตสาหกรรมระดับสูง รองรับ CPU H-Series Gen 8/9/10 (TDP 45W)
+                      GT1300 คอมพิวเตอร์อุตสาหกรรมระดับสูง รองรับ CPU H-Series Gen 8/9/10 (TDP 45W)>
                       พร้อม 3× HDMI 1.4 Triple Display, 6 COM Port (2 ตัวเปลี่ยนเป็น RS422/RS485 ผ่าน BIOS),
                       GPIO 14 ช่อง (7 IN / 7 OUT), 2× Intel i225V 2.5G LAN,
                       ไฟเข้า 9–36V กว้าง เหมาะสำหรับ Industrial Robotics, Factory Automation, Surveillance

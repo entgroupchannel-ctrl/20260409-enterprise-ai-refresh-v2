@@ -241,7 +241,7 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
         }).then(() => {});
       }
 
-      // Send auto-reply email (best-effort, don't block on failure)
+      // Send auto-reply email (best-effort, don't block on failure)>
       supabase.functions.invoke('send-auto-reply', {
         body: { type: 'contact', name: form.name, email: form.email },
       }).catch((err) => console.warn('Auto-reply email failed:', err));
