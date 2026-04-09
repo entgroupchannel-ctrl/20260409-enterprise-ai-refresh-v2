@@ -69,7 +69,7 @@ const queryClient = new QueryClient({
 
 const App = () => (
   <HelmetProvider>
-    <QueryClientProvider client={queryClient}
+    <QueryClientProvider client={queryClient}>
 
       <ThemeProvider>
         <I18nProvider>
