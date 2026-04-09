@@ -122,26 +122,6 @@ export default function AdminQuoteDetail() {
     }
   }, [id]);
 
-  // Real-time chat subscription
-  useEffect(() => {
-    if (!id) return;
-    const channel = supabase
-      .channel(`admin-quote-msgs-${id}-${Date.now()}`)
-      .on('postgres_changes', {
-        event: 'INSERT',
-        schema: 'public',
-        table: 'quote_messages',
-        filter: `quote_id=eq.${id}`,
-      }, (payload) => {
-        setMessages((prev) => {
-          if (prev.some((m) => m.id === (payload.new as any).id)) return prev;
-          return [...prev, payload.new as QuoteMessage];
-        });
-      })
-      .subscribe();
-    return () => { supabase.removeChannel(channel); };
-  }, [id]);
-
   useEffect(() => {
     // Check for action in URL params
     const action = searchParams.get('action');
@@ -320,11 +300,11 @@ export default function AdminQuoteDetail() {
       quote_sent: { label: 'ส่งราคาแล้ว', variant: 'default', color: 'bg-blue-100 text-blue-800' },
       po_uploaded: { label: 'รอตรวจ PO', variant: 'destructive', color: 'bg-red-100 text-red-800' },
       po_approved: { label: 'อนุมัติแล้ว', variant: 'default', color: 'bg-green-100 text-green-800' },
-      completed: { label: 'เสร็จสิ้น', variant: 'default', color: 'bg-muted text-gray-800' },
+      completed: { label: 'เสร็จสิ้น', variant: 'default', color: 'bg-gray-100 text-gray-800' },
       rejected: { label: 'ปฏิเสธ', variant: 'destructive', color: 'bg-red-100 text-red-800' },
     };
 
-    const conf = config[status] || { label: status, variant: 'default', color: 'bg-muted' };
+    const conf = config[status] || { label: status, variant: 'default', color: 'bg-gray-100' };
     return <Badge className={conf.color}>{conf.label}</Badge>;
   };
 
@@ -341,8 +321,8 @@ export default function AdminQuoteDetail() {
       <AdminLayout>
         <div className="flex items-center justify-center h-64">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-            <p className="text-muted-foreground">กำลังโหลดข้อมูล...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p className="text-gray-600">กำลังโหลดข้อมูล...</p>
           </div>
         </div>
       </AdminLayout>
@@ -353,7 +333,7 @@ export default function AdminQuoteDetail() {
     return (
       <AdminLayout>
         <div className="text-center py-12">
-          <FileText className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+          <FileText className="w-16 h-16 mx-auto mb-4 text-gray-300" />
           <h2 className="text-xl font-semibold mb-2">ไม่พบใบเสนอราคา</h2>
           <Button onClick={() => navigate('/admin/quotes')} className="mt-4">
             <ArrowLeft className="w-4 h-4 mr-2" />
@@ -378,7 +358,7 @@ export default function AdminQuoteDetail() {
             </Button>
             <div>
               <h1 className="text-2xl font-bold">{quote.quote_number}</h1>
-              <p className="text-muted-foreground text-sm mt-1">
+              <p className="text-gray-600 text-sm mt-1">
                 สร้างเมื่อ {format(new Date(quote.created_at), 'dd MMMM yyyy HH:mm', { locale: th })}
               </p>
             </div>
@@ -397,14 +377,14 @@ export default function AdminQuoteDetail() {
 
         {/* Action Buttons */}
         {quote.status === 'po_uploaded' && (
-          <Card className="border-orange-500/30 bg-orange-500/10">
+          <Card className="border-orange-200 bg-orange-50">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <AlertCircle className="w-8 h-8 text-orange-500" />
+                  <AlertCircle className="w-8 h-8 text-orange-600" />
                   <div>
-                    <h3 className="font-semibold text-foreground">มี PO รอตรวจสอบ</h3>
-                    <p className="text-sm text-muted-foreground">กรุณาตรวจสอบและอนุมัติ PO</p>
+                    <h3 className="font-semibold text-orange-900">มี PO รอตรวจสอบ</h3>
+                    <p className="text-sm text-orange-700">กรุณาตรวจสอบและอนุมัติ PO</p>
                   </div>
                 </div>
                 <div className="flex gap-2">
@@ -428,54 +408,66 @@ export default function AdminQuoteDetail() {
             {/* Customer Information */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex items-center gap-2 text-foreground">
                   <User className="w-5 h-5" />
                   ข้อมูลลูกค้า
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <CardContent className="space-y-3">
+                <div className="grid grid-cols-1 gap-3">
                   <div>
-                    <Label className="text-muted-foreground">ชื่อลูกค้า</Label>
-                    <p className="font-medium">{quote.customer_name}</p>
+                    <Label className="text-xs text-muted-foreground">ชื่อลูกค้า</Label>
+                    <p className="font-semibold text-foreground">{quote.customer_name}</p>
                   </div>
-                  {quote.customer_company && (
-                    <div>
-                      <Label className="text-muted-foreground">บริษัท</Label>
-                      <p className="font-medium flex items-center gap-2">
-                        <Building2 className="w-4 h-4 text-muted-foreground" />
-                        {quote.customer_company}
-                      </p>
-                    </div>
-                  )}
+                  
                   <div>
-                    <Label className="text-muted-foreground">อีเมล</Label>
-                    <p className="font-medium flex items-center gap-2">
-                      <Mail className="w-4 h-4 text-muted-foreground" />
-                      {quote.customer_email}
+                    <Label className="text-xs text-muted-foreground">ที่อยู่</Label>
+                    <p className="text-sm text-foreground whitespace-pre-wrap">
+                      {quote.customer_address || '-'}
                     </p>
                   </div>
-                  {quote.customer_phone && (
+
+                  <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <Label className="text-muted-foreground">โทรศัพท์</Label>
-                      <p className="font-medium flex items-center gap-2">
-                        <Phone className="w-4 h-4 text-muted-foreground" />
-                        {quote.customer_phone}
+                      <Label className="text-xs text-muted-foreground">รหัสไปรษณีย์</Label>
+                      <p className="text-sm text-foreground">
+                        {quote.customer_address?.match(/\d{5}$/)?.[0] || '-'}
                       </p>
                     </div>
-                  )}
-                  {quote.customer_tax_id && (
                     <div>
-                      <Label className="text-muted-foreground">เลขประจำตัวผู้เสียภาษี</Label>
-                      <p className="font-medium">{quote.customer_tax_id}</p>
+                      <Label className="text-xs text-muted-foreground">เลขประจำตัวผู้เสียภาษี</Label>
+                      <p className="text-sm text-foreground">{quote.customer_tax_id || '-'}</p>
                     </div>
-                  )}
-                  {quote.customer_address && (
-                    <div className="md:col-span-2">
-                      <Label className="text-muted-foreground">ที่อยู่</Label>
-                      <p className="font-medium">{quote.customer_address}</p>
+                  </div>
+
+                  <div>
+                    <Label className="text-xs text-muted-foreground">สำนักงานใหญ่</Label>
+                    <p className="text-sm text-foreground">
+                      {quote.customer_company ? 'สำนักงานใหญ่' : '-'}
+                    </p>
+                  </div>
+
+                  <div className="pt-3 border-t border-border">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Phone className="w-3 h-3 text-muted-foreground" />
+                      <Label className="text-xs text-muted-foreground">แก้ไข</Label>
                     </div>
-                  )}
+                  </div>
+
+                  <div>
+                    <Label className="text-xs text-muted-foreground">ผู้ติดต่อ:</Label>
+                    <p className="font-semibold text-foreground">{quote.customer_name}</p>
+                  </div>
+
+                  <div>
+                    <Label className="text-xs text-muted-foreground">อีเมล:</Label>
+                    <p className="text-sm text-foreground">{quote.customer_email}</p>
+                  </div>
+
+                  <div>
+                    <Label className="text-xs text-muted-foreground">ที่ตั้งธุรกิจ:</Label>
+                    <p className="text-sm text-foreground">ไทย</p>
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -492,7 +484,7 @@ export default function AdminQuoteDetail() {
                     onUpdate={async (updatedProducts) => {
                       const { error } = await supabase
                         .from('quote_requests')
-                        .update({ products: updatedProducts as any })
+                        .update({ products: updatedProducts })
                         .eq('id', id);
                       
                       if (!error) {
@@ -528,7 +520,7 @@ export default function AdminQuoteDetail() {
                             <span>จำนวน: {product.qty || 0}</span>
                             <span>ราคา/หน่วย: {formatCurrency(product.unit_price || 0)}</span>
                             {product.discount_percent > 0 && (
-                              <span className="text-green-600 dark:text-green-400 dark:text-green-400">
+                              <span className="text-green-600 dark:text-green-400">
                                 ส่วนลด {product.discount_percent}%
                               </span>
                             )}
@@ -541,13 +533,38 @@ export default function AdminQuoteDetail() {
                   </div>
                 )}
 
+                {/* Internal Notes - Below Products */}
+                {quote.status === 'pending' && (
+                  <div className="mt-6 pt-4 border-t border-border">
+                    <Label className="text-sm font-medium text-foreground mb-2 block">
+                      หมายเหตุภายใน
+                    </Label>
+                    <Textarea
+                      placeholder="โน้ตภายในสำหรับทีม (ลูกค้าไม่เห็น)"
+                      rows={4}
+                      className="text-foreground bg-background border-border"
+                      defaultValue={quote.notes || ''}
+                      onBlur={async (e) => {
+                        const { error } = await supabase
+                          .from('quote_requests')
+                          .update({ notes: e.target.value })
+                          .eq('id', id);
+                        
+                        if (!error) {
+                          toast({ title: 'บันทึกหมายเหตุแล้ว' });
+                        }
+                      }}
+                    />
+                  </div>
+                )}
+
                 <Separator className="my-4" />
 
                 {/* Summary */}
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">ยอดรวม</span>
-                    <span>{formatCurrency(quote.subtotal || 0)}</span>
+                    <span className="text-muted-foreground">รวมเป็นเงิน</span>
+                    <span className="text-foreground">{formatCurrency(quote.subtotal || 0)}</span>
                   </div>
                   {quote.discount_amount > 0 && (
                     <div className="flex justify-between text-sm text-green-600 dark:text-green-400">
@@ -556,12 +573,16 @@ export default function AdminQuoteDetail() {
                     </div>
                   )}
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">VAT 7%</span>
-                    <span>{formatCurrency(quote.vat_amount || 0)}</span>
+                    <span className="text-muted-foreground">ราคาหลังหักส่วนลด</span>
+                    <span className="text-foreground">{formatCurrency(quote.subtotal || 0)}</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">ภาษีมูลค่าเพิ่ม 7%</span>
+                    <span className="text-foreground">{formatCurrency(quote.vat_amount || 0)}</span>
                   </div>
                   <Separator />
                   <div className="flex justify-between text-lg font-bold">
-                    <span>ยอดรวมทั้งสิ้น</span>
+                    <span className="text-foreground">จำนวนเงินรวมทั้งสิ้น</span>
                     <span className="text-primary">{formatCurrency(quote.grand_total || 0)}</span>
                   </div>
                 </div>
@@ -628,17 +649,17 @@ export default function AdminQuoteDetail() {
                   <div className="space-y-2">
                     {poFiles.length > 0 && (
                       <div>
-                        <h4 className="text-sm font-semibold mb-2 text-muted-foreground">PO จากลูกค้า</h4>
+                        <h4 className="text-sm font-semibold mb-2 text-gray-700">PO จากลูกค้า</h4>
                         {poFiles.map((file) => (
                           <div
                             key={file.id}
-                            className="flex items-center justify-between p-3 border rounded-lg hover:bg-muted/50"
+                            className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50"
                           >
                             <div className="flex items-center gap-3">
-                              <FileText className="w-8 h-8 text-primary" />
+                              <FileText className="w-8 h-8 text-blue-600" />
                               <div>
                                 <p className="font-medium">{file.file_name}</p>
-                                <p className="text-xs text-muted-foreground">
+                                <p className="text-xs text-gray-500">
                                   {format(new Date(file.uploaded_at), 'dd MMM yyyy HH:mm', {
                                     locale: th,
                                   })}
@@ -658,19 +679,19 @@ export default function AdminQuoteDetail() {
 
                     {quoteFiles.length > 0 && (
                       <div className="mt-4">
-                        <h4 className="text-sm font-semibold mb-2 text-muted-foreground">
+                        <h4 className="text-sm font-semibold mb-2 text-gray-700">
                           ใบเสนอราคา PDF
                         </h4>
                         {quoteFiles.map((file) => (
                           <div
                             key={file.id}
-                            className="flex items-center justify-between p-3 border rounded-lg hover:bg-muted/50"
+                            className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50"
                           >
                             <div className="flex items-center gap-3">
-                              <FileText className="w-8 h-8 text-green-600 dark:text-green-400" />
+                              <FileText className="w-8 h-8 text-green-600" />
                               <div>
                                 <p className="font-medium">{file.file_name}</p>
-                                <p className="text-xs text-muted-foreground">
+                                <p className="text-xs text-gray-500">
                                   {format(new Date(file.uploaded_at), 'dd MMM yyyy HH:mm', {
                                     locale: th,
                                   })}
@@ -708,15 +729,15 @@ export default function AdminQuoteDetail() {
                         key={msg.id}
                         className={`p-3 rounded-lg ${
                           msg.sender_role === 'admin' || msg.sender_role === 'sales'
-                            ? 'bg-primary/10 ml-4'
+                            ? 'bg-blue-50 ml-4'
                             : msg.sender_role === 'system'
-                            ? 'bg-muted'
-                            : 'bg-green-500/10 mr-4'
+                            ? 'bg-gray-100'
+                            : 'bg-green-50 mr-4'
                         }`}
                       >
                         <div className="flex items-center justify-between mb-1">
                           <span className="text-xs font-semibold">{msg.sender_name}</span>
-                          <span className="text-xs text-muted-foreground">
+                          <span className="text-xs text-gray-500">
                             {formatDistanceToNow(new Date(msg.created_at), {
                               addSuffix: true,
                               locale: th,
@@ -727,7 +748,7 @@ export default function AdminQuoteDetail() {
                       </div>
                     ))
                   ) : (
-                    <p className="text-center text-muted-foreground py-8">ยังไม่มีข้อความ</p>
+                    <p className="text-center text-gray-500 py-8">ยังไม่มีข้อความ</p>
                   )}
                 </div>
 
@@ -759,34 +780,34 @@ export default function AdminQuoteDetail() {
               <CardContent className="space-y-3 text-sm">
                 {quote.valid_until && (
                   <div>
-                    <Label className="text-muted-foreground">ใช้ได้ถึง</Label>
+                    <Label className="text-gray-500">ใช้ได้ถึง</Label>
                     <p className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4 text-muted-foreground" />
+                      <Calendar className="w-4 h-4 text-gray-400" />
                       {format(new Date(quote.valid_until), 'dd MMMM yyyy', { locale: th })}
                     </p>
                   </div>
                 )}
                 {quote.payment_terms && (
                   <div>
-                    <Label className="text-muted-foreground">เงื่อนไขการชำระเงิน</Label>
+                    <Label className="text-gray-500">เงื่อนไขการชำระเงิน</Label>
                     <p>{quote.payment_terms}</p>
                   </div>
                 )}
                 {quote.delivery_terms && (
                   <div>
-                    <Label className="text-muted-foreground">เงื่อนไขการจัดส่ง</Label>
+                    <Label className="text-gray-500">เงื่อนไขการจัดส่ง</Label>
                     <p>{quote.delivery_terms}</p>
                   </div>
                 )}
                 {quote.warranty_terms && (
                   <div>
-                    <Label className="text-muted-foreground">การรับประกัน</Label>
+                    <Label className="text-gray-500">การรับประกัน</Label>
                     <p>{quote.warranty_terms}</p>
                   </div>
                 )}
                 {quote.notes && (
                   <div>
-                    <Label className="text-muted-foreground">หมายเหตุ</Label>
+                    <Label className="text-gray-500">หมายเหตุ</Label>
                     <p>{quote.notes}</p>
                   </div>
                 )}
