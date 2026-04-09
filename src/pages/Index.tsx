@@ -16,7 +16,6 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="ENT Group — Mini PC, Panel PC, Industrial Computer ประเทศไทย"
-        >
         description="ผู้นำเข้าและจำหน่าย Mini PC, Panel PC, Rugged Tablet, Industrial Computer จากโรงงานโดยตรง บริการครบวงจรสำหรับโรงงาน สำนักงาน และงานโครงการทั่วประเทศไทย"
         path="/"
       />
