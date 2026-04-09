@@ -319,6 +319,7 @@ export default function AdminQuoteDetail() {
     }
   };
 
+  const getStatusBadge = (status: string) => {
     const config: Record<string, { label: string; variant: any; color: string }> = {
       pending: { label: 'รอตอบกลับ', variant: 'secondary', color: 'bg-yellow-100 text-yellow-800' },
       quote_sent: { label: 'ส่งราคาแล้ว', variant: 'default', color: 'bg-blue-100 text-blue-800' },
