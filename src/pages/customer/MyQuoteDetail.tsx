@@ -18,6 +18,8 @@ import {
   Package,
   Send,
   MessageSquare,
+  ShieldCheck,
+  CheckCircle2,
 } from 'lucide-react';
 import { formatDistanceToNow, format } from 'date-fns';
 import { th } from 'date-fns/locale';
