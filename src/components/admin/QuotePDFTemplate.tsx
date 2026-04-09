@@ -117,12 +117,12 @@ export default function QuotePDFTemplate({ data, companyInfo }: QuotePDFTemplate
             <p><strong>เลขที่:</strong> {data.quote_number}</p>
             <p>
               <strong>วันที่:</strong>{' '}
-              {format(new Date(data.created_at), 'dd MMMM yyyy', { locale: th })}
+              {formatFullDate(data.created_at)}
             </p>
             {data.valid_until && (
               <p>
                 <strong>ใช้ได้ถึง:</strong>{' '}
-                {format(new Date(data.valid_until), 'dd MMMM yyyy', { locale: th })}
+                {formatFullDate(data.valid_until)}
               </p>
             )}
           </div>
@@ -238,7 +238,7 @@ export default function QuotePDFTemplate({ data, companyInfo }: QuotePDFTemplate
           <div className="border-b border-gray-400 mb-2 pb-12"></div>
           <p className="text-sm">ผู้เสนอราคา</p>
           <p className="text-xs text-gray-600 mt-1">
-            วันที่: {format(new Date(), 'dd/MM/yyyy')}
+            วันที่: {formatShortDateTime(new Date())}
           </p>
         </div>
         <div className="text-center">

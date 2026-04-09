@@ -359,7 +359,7 @@ export default function AdminQuoteDetail() {
             <div>
               <h1 className="text-2xl font-bold">{quote.quote_number}</h1>
               <p className="text-gray-600 text-sm mt-1">
-                สร้างเมื่อ {format(new Date(quote.created_at), 'dd MMMM yyyy HH:mm', { locale: th })}
+                สร้างเมื่อ {formatShortDateTime(quote.created_at)}
               </p>
             </div>
           </div>
@@ -662,7 +662,7 @@ export default function AdminQuoteDetail() {
                               <div>
                                 <p className="font-medium">{file.file_name}</p>
                                 <p className="text-xs text-gray-500">
-                                  {format(new Date(file.uploaded_at), 'dd MMM yyyy HH:mm', {
+                                  {formatShortDateTime(file.uploaded_at)
                                     locale: th,
                                   })}
                                 </p>
@@ -694,7 +694,7 @@ export default function AdminQuoteDetail() {
                               <div>
                                 <p className="font-medium">{file.file_name}</p>
                                 <p className="text-xs text-gray-500">
-                                  {format(new Date(file.uploaded_at), 'dd MMM yyyy HH:mm', {
+                                  {formatShortDateTime(file.uploaded_at)
                                     locale: th,
                                   })}
                                 </p>
@@ -785,7 +785,7 @@ export default function AdminQuoteDetail() {
                     <Label className="text-gray-500">ใช้ได้ถึง</Label>
                     <p className="flex items-center gap-2">
                       <Calendar className="w-4 h-4 text-gray-400" />
-                      {format(new Date(quote.valid_until), 'dd MMMM yyyy', { locale: th })}
+                      {formatFullDate(quote.valid_until)}
                     </p>
                   </div>
                 )}
