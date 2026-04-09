@@ -51,6 +51,7 @@ const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 const Login = lazy(() => import("./pages/auth/Login.tsx"));
 const Register = lazy(() => import("./pages/auth/Register.tsx"));
 const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard.tsx"));
+const AdminQuotesList = lazy(() => import("./pages/admin/AdminQuotesList.tsx"));
 
 /* ── Loading fallback ── */
 const PageLoader = () => (
