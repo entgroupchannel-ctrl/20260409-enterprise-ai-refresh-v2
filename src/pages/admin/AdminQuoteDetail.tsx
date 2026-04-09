@@ -118,7 +118,7 @@ export default function AdminQuoteDetail() {
   const [showRejectDialog, setShowRejectDialog] = useState(false);
   const [rejectReason, setRejectReason] = useState('');
   const [processing, setProcessing] = useState(false);
-
+  const [showPrintPreview, setShowPrintPreview] = useState(false);
   useEffect(() => {
     if (id) {
       loadQuoteDetails();
