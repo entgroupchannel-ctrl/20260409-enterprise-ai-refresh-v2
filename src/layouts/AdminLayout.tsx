@@ -19,6 +19,7 @@ import {
   User,
   Bell,
   Shield,
+  ShoppingCart,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
@@ -39,6 +40,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const navItems = [
     { label: 'Dashboard', icon: LayoutDashboard, path: '/admin/dashboard' },
     { label: 'ใบเสนอราคา', icon: FileText, path: '/admin/quotes' },
+    { label: 'ยอดขาย / Order', icon: ShoppingCart, path: '/admin/sale-orders' },
     { label: 'ผู้ติดต่อ', icon: Users, path: '/admin/contacts' },
     { label: 'เอกสาร', icon: FileArchive, path: '/admin/documents' },
     { label: 'สิทธิ์', icon: Shield, path: '/admin/permissions' },
