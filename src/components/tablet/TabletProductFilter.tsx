@@ -157,6 +157,7 @@ const TabletProductFilter = ({
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
                     isActive ? "bg-primary text-primary-foreground font-medium shadow-sm" : "hover:bg-muted/70 text-foreground"
                   }`}
+                  >
                   <span>{option.name}</span>
                   <span className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md ${isActive ? "bg-primary-foreground/20" : "bg-muted text-muted-foreground"}`}>{count}</span>
                 </button>
@@ -184,6 +185,7 @@ const TabletProductFilter = ({
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
                     isActive ? "bg-primary text-primary-foreground font-medium shadow-sm" : count === 0 && option.id !== "all" ? "text-muted-foreground/50 cursor-not-allowed" : "hover:bg-muted/70 text-foreground"
                   }`}
+                  >
                   disabled={count === 0 && option.id !== "all"}
                 >
                   <span>{option.name}</span>
@@ -213,6 +215,7 @@ const TabletProductFilter = ({
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
                     isActive ? "bg-primary text-primary-foreground font-medium shadow-sm" : count === 0 && option.id !== "all" ? "text-muted-foreground/50 cursor-not-allowed" : "hover:bg-muted/70 text-foreground"
                   }`}
+                  >
                   disabled={count === 0 && option.id !== "all"}
                 >
                   <span>{option.name}</span>
@@ -241,6 +244,7 @@ const TabletProductFilter = ({
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${
                     isActive ? "bg-primary text-primary-foreground font-medium shadow-sm" : "hover:bg-muted/70 text-foreground"
                   }`}
+                  >
                   {option.name}
                 </button>
               );

@@ -19,6 +19,7 @@ const CaseStudyDetail = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title={`${cs.title} — กรณีศึกษา | ENT Group`}
+        >
         description={cs.challenge}
         path={`/case-studies/${cs.id}`}
       />
@@ -110,6 +111,7 @@ const CaseStudyDetail = () => {
                       <div className="aspect-video">
                         <iframe
                           src={`https://www.youtube.com/embed/${v.videoId}`}
+                          >
                           title={v.title}
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                           allowFullScreen
@@ -141,6 +143,7 @@ const CaseStudyDetail = () => {
                   <div className="aspect-video">
                     <iframe
                       src={`https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fentgroup.th%2Fvideos%2F${cs.facebookVideoId}%2F&show_text=0&width=560`}
+                      >
                       width="100%"
                       height="100%"
                       style={{ border: "none", overflow: "hidden" }}

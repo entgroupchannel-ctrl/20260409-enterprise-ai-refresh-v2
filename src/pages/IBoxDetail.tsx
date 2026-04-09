@@ -57,13 +57,16 @@ const IBoxDetail = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title={`${product.id} — ${product.name}`}
+        >
         description={`${product.nameTH} | ${product.specs.cpu} | ${product.specs.ram}`}
+        >
         path={`/ibox-series/${product.id}`}
       />
       <ProductJsonLd
         collectionName={product.name}
         collectionDescription={product.nameTH}
         collectionUrl={`/ibox-series/${product.id}`}
+        >
         products={[{ name: product.name, image: product.image, description: product.specs.cpu, category: product.subcategory }]}
       />
       <BreadcrumbJsonLd

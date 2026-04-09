@@ -47,6 +47,7 @@ const ClientTrustSection = () => {
             {[...clientList, ...clientList].map((name, i) => (
               <span
                 key={`${name}-${i}`}
+                >
                 className="shrink-0 px-3 py-1.5 rounded-full bg-card border border-border/50 text-[11px] text-foreground/80 whitespace-nowrap"
               >
                 {name}
@@ -201,6 +202,7 @@ const CaseStudies = () => {
                 <div className="aspect-video">
                   <iframe
                     src={`https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fentgroup.th%2Fvideos%2F${v.videoId}%2F&show_text=0&width=560`}
+                    >
                     width="100%"
                     height="100%"
                     style={{ border: "none", overflow: "hidden" }}

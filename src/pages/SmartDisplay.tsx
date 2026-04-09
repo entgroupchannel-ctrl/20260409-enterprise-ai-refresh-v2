@@ -242,6 +242,7 @@ const SmartDisplay = () => {
                       ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
                       : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                   }`}
+                  >
                   <cat.icon size={16} />
                   {cat.label}
                 </button>
@@ -1120,6 +1121,7 @@ const SmartDisplay = () => {
                     ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
                     : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                 }`}
+                >
                 {t.label}
               </button>
             ))}
@@ -1138,6 +1140,7 @@ const SmartDisplay = () => {
                     <iframe
                       className="absolute inset-0 w-full h-full"
                       src={`https://www.youtube.com/embed/${v.id}`}
+                      >
                       title={v.title}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
@@ -1192,6 +1195,7 @@ const SmartDisplay = () => {
                     ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
                     : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                 }`}
+                >
                 {t.label}
               </button>
             ))}

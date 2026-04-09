@@ -298,6 +298,7 @@ const MegaMenu = ({
                 ? "text-white bg-white/10"
                 : "text-white/70 hover:text-white hover:bg-white/5"
             }`}
+            >
             {cat.label}
           </button>
         ))}

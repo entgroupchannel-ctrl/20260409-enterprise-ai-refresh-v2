@@ -40,6 +40,7 @@ const FloatingContact = () => {
           className={`w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-200 ${
             open ? "bg-muted text-foreground" : "bg-primary text-primary-foreground"
           }`}
+          >
           {open ? <X size={24} /> : <MessageCircle size={24} />}
         </button>
       </div>

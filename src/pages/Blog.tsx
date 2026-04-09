@@ -70,6 +70,7 @@ const Blog = () => {
                   </Link>
                   <ShareButtons
                     url={`https://ent-vision.lovable.app/blog/${post.id}`}
+                    >
                     title={post.title}
                     compact
                   />

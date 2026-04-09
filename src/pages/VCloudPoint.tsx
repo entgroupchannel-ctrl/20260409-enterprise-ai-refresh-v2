@@ -658,6 +658,7 @@ const VCloudPoint = () => {
                             <div className="relative aspect-video rounded-lg overflow-hidden bg-secondary/50">
                               <iframe
                                 src={`https://www.youtube.com/embed/${v.id}?rel=0`}
+                                >
                                 title={v.label}
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen

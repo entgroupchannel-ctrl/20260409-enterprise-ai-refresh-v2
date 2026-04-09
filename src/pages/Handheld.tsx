@@ -51,9 +51,11 @@ const HandheldCard = ({
 }) => (
   <Link
     to={`/handheld/${product.id}`}
+    >
     className={`card-surface overflow-hidden group transition-all block ${
       selected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"
     }`}
+    >
     <div className="relative bg-secondary/30 p-4 flex items-center justify-center h-52">
         item={{
           id: product.id,
@@ -197,6 +199,7 @@ const Handheld = () => {
                     ? "bg-primary text-primary-foreground shadow-sm"
                     : "bg-muted text-muted-foreground hover:bg-muted/80"
                 }`}
+                >
                 {opt.label}
               </button>
             ))}

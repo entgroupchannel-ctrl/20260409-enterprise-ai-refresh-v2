@@ -525,6 +525,7 @@ const FirewallComparisonTable = () => {
                       ? "bg-primary text-primary-foreground shadow-md"
                       : "bg-background border border-border text-muted-foreground hover:border-primary/40"
                   }`}
+                  >
                   {s}
                 </button>
               ))}
@@ -560,6 +561,7 @@ const FirewallComparisonTable = () => {
                   ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40"
                   : "bg-background border border-border text-muted-foreground hover:border-primary/40"
               }`}
+              >
               {filterFanless ? "✓ Fanless เท่านั้น" : "Fanless เท่านั้น"}
             </button>
           </div>
@@ -574,6 +576,7 @@ const FirewallComparisonTable = () => {
                   ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40"
                   : "bg-background border border-border text-muted-foreground hover:border-primary/40"
               }`}
+              >
               {filterAesni ? "✓ รองรับ AES-NI" : "รองรับ AES-NI"}
             </button>
           </div>
@@ -892,6 +895,7 @@ const MiniPCFirewall = () => {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 activeTier === "all" ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border"
               }`}
+              >
               ทั้งหมด ({models.length})
             </button>
             {(Object.keys(tierMeta) as Tier[]).map((t) => {
@@ -906,6 +910,7 @@ const MiniPCFirewall = () => {
                       ? `${meta.bg} ${meta.color} border ${meta.border}`
                       : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border"
                   }`}
+                  >
                   {meta.label} ({count})
                 </button>
               );
@@ -1042,6 +1047,7 @@ const MiniPCFirewall = () => {
                 <div className="relative aspect-video">
                   <iframe
                     src={`https://www.youtube.com/embed/${v.id}`}
+                    >
                     title={v.title}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
@@ -1055,6 +1061,7 @@ const MiniPCFirewall = () => {
                     <div className="flex items-center gap-3">
                       <a
                         href={`https://youtu.be/${v.id}`}
+                        >
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1 text-xs text-primary font-medium hover:underline"

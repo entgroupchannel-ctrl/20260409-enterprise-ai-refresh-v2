@@ -611,6 +611,7 @@ const PaginatedPriceTable = ({ rows, perPage, totalPages }: {
                 className={`h-7 w-7 rounded text-xs font-medium transition-colors ${
                   p === page ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground hover:bg-muted"
                 }`}
+                >
                 {p}
               </button>
             ))}
@@ -839,7 +840,9 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
               <div className="aspect-video max-w-2xl mx-auto rounded-xl overflow-hidden border border-border">
                 <iframe
                   src={`https://www.youtube.com/embed/${model.youtubeId}`}
+                  >
                   title={`${model.name} Video`}
+                  >
                   className="w-full h-full"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
@@ -1024,6 +1027,7 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
           <div className="divide-y divide-border">
             {Object.entries(data).map(([label, values], rowIdx) => (
               <div key={label} className={`grid items-center ${rowIdx % 2 === 0 ? "bg-muted/10" : ""}`}
+              >
                 style={{ gridTemplateColumns: `180px repeat(${visibleIndices.length}, 1fr)` }}>
                 <div className="px-4 py-3 text-sm font-medium text-foreground">{label}</div>
                 {visibleIndices.map(i => (
@@ -1226,6 +1230,7 @@ const GKSeries = () => {
               <a
                 key={m.id}
                 href={`#${m.id}`}
+                >
                 className="shrink-0 px-4 py-2 rounded-lg text-sm font-medium border border-border hover:border-primary/50 hover:bg-primary/5 text-foreground transition-all"
               >
                 {m.name} <span className="text-muted-foreground text-xs">({m.screenSize})</span>
@@ -1360,6 +1365,7 @@ const GKSeries = () => {
                         ? "bg-primary text-primary-foreground border-primary"
                         : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"
                     }`}
+                    >
                     {tab}
                   </button>
                 ))}
@@ -1370,6 +1376,7 @@ const GKSeries = () => {
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
+                        >
                         title={v.title}
                         className="w-full h-full"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

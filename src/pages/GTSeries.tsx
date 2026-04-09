@@ -382,6 +382,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                   ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40"
                   : "bg-background border border-border text-muted-foreground hover:border-primary/40"
               }`}
+              >
               {filterGpio === true ? "✓ มี GPIO" : "มี GPIO"}
             </button>
           </div>
@@ -396,6 +397,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                   ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40"
                   : "bg-background border border-border text-muted-foreground hover:border-primary/40"
               }`}
+              >
               {filterSim === true ? "✓ รองรับ SIM" : "รองรับ SIM"}
             </button>
           </div>
@@ -489,6 +491,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                   <tr
                     key={row.name}
                     className={`border-b border-border/50 transition-colors cursor-pointer ${catStyle}`}
+                    >
                     onClick={() => handleTabChange(row.name.toLowerCase())}
                   >
                     <td className="p-4 sticky left-0 font-bold text-foreground" style={{ background: 'inherit' }}>
@@ -558,6 +561,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                     <td className="p-4 text-right">
                       <span className={`font-bold text-sm ${row.price === "สอบถาม" ? "text-muted-foreground" : "text-primary"}`}>
                         {row.price === "สอบถาม" ? "สอบถาม" : `฿${row.price}`}
+                        >
                       </span>
                     </td>
                   </tr>
@@ -833,6 +837,7 @@ const GTSeries = () => {
                     ? "bg-primary text-primary-foreground shadow-lg"
                     : "bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground border border-border"
                 }`}
+                >
                 {tab.label}
                 {tab.id === "gt1400" && (
                   <span className="ml-1.5 px-1.5 py-0.5 rounded-full bg-primary-foreground/20 text-[10px]">NEW</span>
@@ -1231,6 +1236,7 @@ const GTSeries = () => {
                           <div className="relative w-full aspect-video rounded-lg overflow-hidden">
                             <iframe
                               src={`https://www.youtube.com/embed/${video.id}`}
+                              >
                               title={video.title}
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                               allowFullScreen
@@ -1673,6 +1679,7 @@ const GTSeries = () => {
                           <div className="relative w-full aspect-video rounded-lg overflow-hidden">
                             <iframe
                               src={`https://www.youtube.com/embed/${video.id}`}
+                              >
                               title={video.title}
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                               allowFullScreen
@@ -2047,6 +2054,7 @@ const GTSeries = () => {
                           <div className="relative w-full aspect-video rounded-lg overflow-hidden">
                             <iframe
                               src={`https://www.youtube.com/embed/${video.id}`}
+                              >
                               title={video.title}
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                               allowFullScreen
@@ -2149,6 +2157,7 @@ const GTSeries = () => {
                                 ? "bg-primary text-primary-foreground"
                                 : "bg-muted/50 text-muted-foreground hover:bg-muted"
                             }`}
+                            >
                             {p + 1}
                           </button>
                         ))}
@@ -2468,6 +2477,7 @@ const GTSeries = () => {
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
+                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -2862,6 +2872,7 @@ printf("GPIO3 = %s\\n", gpio3_state ? "HIGH" : "LOW");
 // ─── ตัวอย่าง: สั่งเปิด Relay + อ่าน Sensor ───
 outb_p((inb_p(0xA04) & 0xFD) | 0x02, 0xA04);  // GPIO4 → Relay ON
 int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`}
+>
                       </code>
                     </pre>
                   </div>
@@ -2895,6 +2906,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <div className="flex-1 h-3 bg-muted rounded-full overflow-hidden">
                           <div
                             className={`h-full rounded-full transition-all ${g.type === "OUT" ? "bg-emerald-500" : "bg-amber-400"}`}
+                            >
                             style={{ width: `${g.level}%` }}
                           />
                         </div>
@@ -3002,6 +3014,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
+                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -3315,6 +3328,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                                 ? "bg-primary text-primary-foreground"
                                 : "bg-muted/50 text-muted-foreground hover:bg-muted"
                             }`}
+                            >
                             {p + 1}
                           </button>
                         ))}
@@ -3361,6 +3375,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
+                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -3745,6 +3760,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
+                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -4081,6 +4097,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
+                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -4439,6 +4456,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
+                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -4810,6 +4828,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       key={idx}
                       src={src}
                       alt={`GT4500 การใช้งานจริง ${idx + 1}`}
+                      >
                       className="w-full h-auto rounded-lg hover:scale-105 transition-transform duration-300"
                       loading="lazy"
                     />
@@ -4854,6 +4873,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
+                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -5149,6 +5169,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
+                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -5416,6 +5437,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
+                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -5664,6 +5686,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                                 ? "bg-primary text-primary-foreground"
                                 : "bg-muted/50 text-muted-foreground hover:bg-muted"
                             }`}
+                            >
                             {p + 1}
                           </button>
                         ))}
@@ -5715,6 +5738,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
+                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen

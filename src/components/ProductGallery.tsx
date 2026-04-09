@@ -36,6 +36,7 @@ const ProductGallery = ({ images, alt, autoPlayInterval = 4000 }: ProductGallery
         <img
           src={images[current]}
           alt={`${alt} - ${current + 1}`}
+          >
           className="max-h-[240px] object-contain transition-opacity duration-500"
           loading="lazy"
         />
@@ -68,6 +69,7 @@ const ProductGallery = ({ images, alt, autoPlayInterval = 4000 }: ProductGallery
                 ? "border-primary ring-2 ring-primary/30 scale-105"
                 : "border-transparent opacity-60 hover:opacity-100"
             }`}
+            >
             <img src={img} alt="" className="w-full h-full object-contain bg-background/50 p-0.5" loading="lazy" />
           </button>
         ))}
@@ -82,6 +84,7 @@ const ProductGallery = ({ images, alt, autoPlayInterval = 4000 }: ProductGallery
             className={`h-1.5 rounded-full transition-all duration-300 ${
               i === current ? "w-6 bg-primary" : "w-1.5 bg-muted-foreground/30"
             }`}
+            >
             aria-label={`Slide ${i + 1}`}
           />
         ))}

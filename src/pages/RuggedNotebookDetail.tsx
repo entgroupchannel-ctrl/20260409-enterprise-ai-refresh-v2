@@ -66,13 +66,16 @@ const RuggedNotebookDetail = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title={`${nb.model} — ${nb.title}`}
+        >
         description={`${nb.titleTH} | ${nb.cpu} | ${nb.protection}`}
+        >
         path={`/rugged-notebook/${nb.id}`}
       />
       <ProductJsonLd
         collectionName={nb.model}
         collectionDescription={nb.titleTH}
         collectionUrl={`/rugged-notebook/${nb.id}`}
+        >
         products={[{ name: nb.title, image: nb.image, price: nb.priceStart?.replace(/[฿,]/g, ""), description: nb.cpu, category: "Rugged Notebook" }]}
       />
       <BreadcrumbJsonLd items={[

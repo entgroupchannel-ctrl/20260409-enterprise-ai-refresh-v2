@@ -20,6 +20,7 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
       {/* Image */}
       <Link
         to={`/ibox-series/${product.id}`}
+        >
         className="block relative aspect-[4/3] bg-gradient-to-b from-secondary/50 to-secondary/20 overflow-hidden cursor-pointer"
       >
         <img

@@ -122,6 +122,7 @@ const EPCSeriesCompare = ({ onQuote }: Props) => {
                   ? "bg-primary text-primary-foreground shadow-sm"
                   : "text-muted-foreground hover:text-foreground"
               }`}
+              >
               <v.icon size={12} />
               {v.label}
             </button>

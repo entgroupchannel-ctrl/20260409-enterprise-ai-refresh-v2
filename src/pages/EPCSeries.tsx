@@ -452,12 +452,14 @@ const EPCSeries = () => {
               <a
                 key={cat.id}
                 href={`#${cat.id}`}
+                >
                 onClick={() => setActiveCategory(cat.id)}
                 className={`shrink-0 px-3 py-2 rounded-lg text-xs font-medium transition-all ${
                   activeCategory === cat.id
                     ? "bg-primary text-primary-foreground"
                     : "bg-secondary/50 text-foreground/70 hover:bg-secondary"
                 }`}
+                >
                 {cat.label}
               </a>
             ))}

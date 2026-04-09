@@ -70,13 +70,16 @@ const AIODetail = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title={`${product.model} — ${product.title}`}
+        >
         description={`${product.titleTH} | ${product.cpu} | ${product.screenSize}`}
+        >
         path={`/aio/${product.id}`}
       />
       <ProductJsonLd
         collectionName={product.model}
         collectionDescription={product.titleTH}
         collectionUrl={`/aio/${product.id}`}
+        >
         products={[{ name: product.title, image: product.image, price: product.price?.replace(/[฿,]/g, ""), description: product.cpu, category: "All-in-One PC" }]}
       />
       <BreadcrumbJsonLd items={[

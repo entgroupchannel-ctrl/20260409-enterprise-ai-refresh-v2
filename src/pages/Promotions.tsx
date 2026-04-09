@@ -253,6 +253,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
                 src={promo.image}
                 alt={promo.title}
                 className={`object-contain ${featured ? "max-h-64" : "max-h-48"} hover:scale-105 transition-transform duration-300`}
+                >
                 loading="lazy"
               />
             </Link>
@@ -261,6 +262,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
               src={promo.image}
               alt={promo.title}
               className={`object-contain ${featured ? "max-h-64" : "max-h-48"}`}
+              >
               loading="lazy"
             />
           )}
@@ -313,6 +315,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
                     ? "bg-primary text-primary-foreground"
                     : "bg-secondary text-foreground"
                 }`}
+                >
                 {promo.ctaLabel}
               </LineQRButton>
             ) : (
@@ -325,6 +328,7 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
                     ? "bg-primary text-primary-foreground"
                     : "bg-secondary text-foreground"
                 }`}
+                >
                 {promo.ctaLabel}
               </a>
             )}

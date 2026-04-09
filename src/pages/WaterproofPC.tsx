@@ -279,6 +279,7 @@ const WaterproofPC = () => {
               <a
                 key={m.id}
                 href={`#${m.id}`}
+                >
                 className="shrink-0 px-3 py-2 rounded-lg text-xs font-medium bg-secondary/50 text-foreground/70 border border-border hover:border-primary/30 transition-all"
               >
                 {m.name}
