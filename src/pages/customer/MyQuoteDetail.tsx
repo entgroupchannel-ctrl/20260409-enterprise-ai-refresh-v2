@@ -19,7 +19,7 @@ import {
   Send,
   MessageSquare,
 } from 'lucide-react';
-import { format } from 'date-fns';
+import { formatDistanceToNow, format } from 'date-fns';
 import { th } from 'date-fns/locale';
 
 interface Quote {
