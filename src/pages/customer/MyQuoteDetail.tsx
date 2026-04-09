@@ -684,6 +684,58 @@ export default function MyQuoteDetail() {
           loadPOFiles();
         }}
       />
+
+      {/* Customer Request Edit PO Dialog */}
+      <Dialog open={showRequestEdit} onOpenChange={setShowRequestEdit}>
+        <DialogContent className="max-w-xl">
+          <DialogHeader>
+            <DialogTitle>ขอแก้ไข PO</DialogTitle>
+            <DialogDescription>ส่งคำขอแก้ไขไฟล์ PO ให้ทีมงานตรวจสอบ</DialogDescription>
+          </DialogHeader>
+
+          <div className="rounded-lg border border-orange-200 bg-orange-50 dark:border-orange-800 dark:bg-orange-900/20 p-3">
+            <div className="flex items-start gap-2">
+              <AlertCircle className="w-4 h-4 text-orange-600 mt-0.5" />
+              <p className="text-xs text-orange-700 dark:text-orange-400">
+                คำขอนี้จะถูกส่งให้ทีมงานพิจารณา — จะแจ้งผลให้ทราบทางข้อความ
+              </p>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <div>
+              <Label className="text-sm">ไฟล์ PO ใหม่ (ถ้ามี)</Label>
+              <Input
+                type="file"
+                multiple
+                accept=".pdf,.png,.jpg,.jpeg"
+                onChange={(e) => setRequestFiles(e.target.files)}
+                className="mt-1.5"
+              />
+            </div>
+            <div>
+              <Label className="text-sm">เหตุผลในการขอแก้ไข *</Label>
+              <Textarea
+                value={requestReason}
+                onChange={(e) => setRequestReason(e.target.value)}
+                rows={4}
+                placeholder="กรุณาระบุเหตุผลอย่างละเอียด..."
+                className="mt-1.5"
+              />
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowRequestEdit(false)} disabled={requestProcessing}>
+              ยกเลิก
+            </Button>
+            <Button onClick={handleCustomerRequestEdit} disabled={requestProcessing || !requestReason.trim()}>
+              <Send className="w-4 h-4 mr-2" />
+              {requestProcessing ? 'กำลังส่ง...' : 'ส่งคำขอ'}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
