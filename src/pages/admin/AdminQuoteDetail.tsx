@@ -122,6 +122,26 @@ export default function AdminQuoteDetail() {
     }
   }, [id]);
 
+  // Real-time chat subscription
+  useEffect(() => {
+    if (!id) return;
+    const channel = supabase
+      .channel(`admin-quote-msgs-${id}-${Date.now()}`)
+      .on('postgres_changes', {
+        event: 'INSERT',
+        schema: 'public',
+        table: 'quote_messages',
+        filter: `quote_id=eq.${id}`,
+      }, (payload) => {
+        setMessages((prev) => {
+          if (prev.some((m) => m.id === (payload.new as any).id)) return prev;
+          return [...prev, payload.new as QuoteMessage];
+        });
+      })
+      .subscribe();
+    return () => { supabase.removeChannel(channel); };
+  }, [id]);
+
   useEffect(() => {
     // Check for action in URL params
     const action = searchParams.get('action');
