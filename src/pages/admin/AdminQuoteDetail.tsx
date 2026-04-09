@@ -45,15 +45,7 @@ import {
   Calendar,
   AlertCircle,
   Eye,
-  Printer,
-  Pencil,
-  Save,
-  X,
-  MessageCircle,
 } from 'lucide-react';
-import QuoteStatusFlow from '@/components/quotes/QuoteStatusFlow';
-import ProductEditor from '@/components/admin/ProductEditor';
-import PrintPreviewDialog from '@/components/admin/PrintPreviewDialog';
 import { formatDistanceToNow, format } from 'date-fns';
 import { th } from 'date-fns/locale';
 
@@ -66,7 +58,6 @@ interface Quote {
   customer_company: string | null;
   customer_address: string | null;
   customer_tax_id: string | null;
-  customer_line: string | null;
   products: any[];
   subtotal: number;
   discount_amount: number;
@@ -118,25 +109,12 @@ export default function AdminQuoteDetail() {
   const [messageText, setMessageText] = useState('');
   const [sendingMessage, setSendingMessage] = useState(false);
 
-  // Customer editing
-  const [editingCustomer, setEditingCustomer] = useState(false);
-  const [customerForm, setCustomerForm] = useState({
-    customer_name: '',
-    customer_email: '',
-    customer_phone: '',
-    customer_company: '',
-    customer_address: '',
-    customer_tax_id: '',
-    customer_line: '',
-  });
-  const [savingCustomer, setSavingCustomer] = useState(false);
-
   // Dialog states
   const [showApproveDialog, setShowApproveDialog] = useState(false);
   const [showRejectDialog, setShowRejectDialog] = useState(false);
   const [rejectReason, setRejectReason] = useState('');
   const [processing, setProcessing] = useState(false);
-  const [showPrintPreview, setShowPrintPreview] = useState(false);
+
   useEffect(() => {
     if (id) {
       loadQuoteDetails();
@@ -163,7 +141,7 @@ export default function AdminQuoteDetail() {
         .single();
 
       if (quoteError) throw quoteError;
-      setQuote(quoteData as unknown as Quote);
+      setQuote({ ...quoteData, products: (quoteData.products as any) || [] } as Quote);
 
       // Load files
       const { data: filesData, error: filesError } = await supabase
@@ -312,76 +290,6 @@ export default function AdminQuoteDetail() {
     }
   };
 
-  const startEditCustomer = () => {
-    if (!quote) return;
-    setCustomerForm({
-      customer_name: quote.customer_name || '',
-      customer_email: quote.customer_email || '',
-      customer_phone: quote.customer_phone || '',
-      customer_company: quote.customer_company || '',
-      customer_address: quote.customer_address || '',
-      customer_tax_id: quote.customer_tax_id || '',
-      customer_line: quote.customer_line || '',
-    });
-    setEditingCustomer(true);
-  };
-
-  const handleSaveCustomer = async () => {
-    if (!customerForm.customer_name || !customerForm.customer_email) {
-      toast({ title: 'กรุณากรอกชื่อและอีเมล', variant: 'destructive' });
-      return;
-    }
-    setSavingCustomer(true);
-    try {
-      const { error } = await supabase
-        .from('quote_requests')
-        .update({
-          customer_name: customerForm.customer_name,
-          customer_email: customerForm.customer_email,
-          customer_phone: customerForm.customer_phone || null,
-          customer_company: customerForm.customer_company || null,
-          customer_address: customerForm.customer_address || null,
-          customer_tax_id: customerForm.customer_tax_id || null,
-          customer_line: customerForm.customer_line || null,
-        })
-        .eq('id', id);
-
-      if (error) throw error;
-      setEditingCustomer(false);
-      await loadQuoteDetails();
-      toast({ title: 'บันทึกข้อมูลลูกค้าสำเร็จ' });
-    } catch (error: any) {
-      toast({ title: 'บันทึกไม่สำเร็จ', description: error.message, variant: 'destructive' });
-    } finally {
-      setSavingCustomer(false);
-    }
-  };
-
-  const handleUpdateProducts = async (updatedProducts: any[]) => {
-    try {
-      const subtotal = updatedProducts.reduce((sum: number, p: any) => sum + (p.line_total || 0), 0);
-      const vatAmount = subtotal * 0.07;
-      const grandTotal = subtotal + vatAmount;
-
-      const { error } = await supabase
-        .from('quote_requests')
-        .update({
-          products: updatedProducts as any,
-          subtotal,
-          vat_amount: vatAmount,
-          grand_total: grandTotal,
-        })
-        .eq('id', id);
-
-      if (error) throw error;
-
-      await loadQuoteDetails();
-      toast({ title: 'อัปเดตรายการสินค้าสำเร็จ' });
-    } catch (error: any) {
-      toast({ title: 'อัปเดตไม่สำเร็จ', description: error.message, variant: 'destructive' });
-    }
-  };
-
   const getStatusBadge = (status: string) => {
     const config: Record<string, { label: string; variant: any; color: string }> = {
       pending: { label: 'รอตอบกลับ', variant: 'secondary', color: 'bg-yellow-100 text-yellow-800' },
@@ -453,9 +361,6 @@ export default function AdminQuoteDetail() {
           </div>
 
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" onClick={() => setShowPrintPreview(true)}>
-              <Printer className="w-4 h-4 mr-1" /> พิมพ์ / PDF
-            </Button>
             {getStatusBadge(quote.status)}
             {quote.sla_breached && (
               <Badge variant="destructive" className="gap-1">
@@ -465,13 +370,6 @@ export default function AdminQuoteDetail() {
             )}
           </div>
         </div>
-
-        {/* Quote Status Flow */}
-        <Card>
-          <CardContent className="pt-6 pb-4">
-            <QuoteStatusFlow status={quote.status} />
-          </CardContent>
-        </Card>
 
         {/* Action Buttons */}
         {quote.status === 'po_uploaded' && (
@@ -506,113 +404,55 @@ export default function AdminQuoteDetail() {
             {/* Customer Information */}
             <Card>
               <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle className="flex items-center gap-2">
-                    <User className="w-5 h-5" />
-                    ข้อมูลลูกค้า
-                  </CardTitle>
-                  {!editingCustomer ? (
-                    <Button variant="ghost" size="sm" onClick={startEditCustomer}>
-                      <Pencil className="w-4 h-4 mr-1" /> แก้ไข
-                    </Button>
-                  ) : (
-                    <div className="flex gap-2">
-                      <Button variant="ghost" size="sm" onClick={() => setEditingCustomer(false)} disabled={savingCustomer}>
-                        <X className="w-4 h-4 mr-1" /> ยกเลิก
-                      </Button>
-                      <Button size="sm" onClick={handleSaveCustomer} disabled={savingCustomer}>
-                        <Save className="w-4 h-4 mr-1" /> {savingCustomer ? 'กำลังบันทึก...' : 'บันทึก'}
-                      </Button>
+                <CardTitle className="flex items-center gap-2">
+                  <User className="w-5 h-5" />
+                  ข้อมูลลูกค้า
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label className="text-gray-500">ชื่อลูกค้า</Label>
+                    <p className="font-medium">{quote.customer_name}</p>
+                  </div>
+                  {quote.customer_company && (
+                    <div>
+                      <Label className="text-gray-500">บริษัท</Label>
+                      <p className="font-medium flex items-center gap-2">
+                        <Building2 className="w-4 h-4 text-gray-400" />
+                        {quote.customer_company}
+                      </p>
+                    </div>
+                  )}
+                  <div>
+                    <Label className="text-gray-500">อีเมล</Label>
+                    <p className="font-medium flex items-center gap-2">
+                      <Mail className="w-4 h-4 text-gray-400" />
+                      {quote.customer_email}
+                    </p>
+                  </div>
+                  {quote.customer_phone && (
+                    <div>
+                      <Label className="text-gray-500">โทรศัพท์</Label>
+                      <p className="font-medium flex items-center gap-2">
+                        <Phone className="w-4 h-4 text-gray-400" />
+                        {quote.customer_phone}
+                      </p>
+                    </div>
+                  )}
+                  {quote.customer_tax_id && (
+                    <div>
+                      <Label className="text-gray-500">เลขประจำตัวผู้เสียภาษี</Label>
+                      <p className="font-medium">{quote.customer_tax_id}</p>
+                    </div>
+                  )}
+                  {quote.customer_address && (
+                    <div className="md:col-span-2">
+                      <Label className="text-gray-500">ที่อยู่</Label>
+                      <p className="font-medium">{quote.customer_address}</p>
                     </div>
                   )}
                 </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {editingCustomer ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <Label>ชื่อ-นามสกุล *</Label>
-                      <Input value={customerForm.customer_name} onChange={(e) => setCustomerForm({ ...customerForm, customer_name: e.target.value })} />
-                    </div>
-                    <div>
-                      <Label>บริษัท</Label>
-                      <Input value={customerForm.customer_company} onChange={(e) => setCustomerForm({ ...customerForm, customer_company: e.target.value })} />
-                    </div>
-                    <div>
-                      <Label>อีเมล *</Label>
-                      <Input type="email" value={customerForm.customer_email} onChange={(e) => setCustomerForm({ ...customerForm, customer_email: e.target.value })} />
-                    </div>
-                    <div>
-                      <Label>เบอร์โทร</Label>
-                      <Input value={customerForm.customer_phone} onChange={(e) => setCustomerForm({ ...customerForm, customer_phone: e.target.value })} />
-                    </div>
-                    <div>
-                      <Label>LINE ID</Label>
-                      <Input value={customerForm.customer_line} onChange={(e) => setCustomerForm({ ...customerForm, customer_line: e.target.value })} placeholder="@line_id" />
-                    </div>
-                    <div>
-                      <Label>เลขประจำตัวผู้เสียภาษี</Label>
-                      <Input value={customerForm.customer_tax_id} onChange={(e) => setCustomerForm({ ...customerForm, customer_tax_id: e.target.value })} placeholder="เลข 13 หลัก" />
-                    </div>
-                    <div className="md:col-span-2">
-                      <Label>ที่อยู่</Label>
-                      <Textarea value={customerForm.customer_address} onChange={(e) => setCustomerForm({ ...customerForm, customer_address: e.target.value })} rows={2} />
-                    </div>
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <Label className="text-muted-foreground">ชื่อลูกค้า</Label>
-                      <p className="font-medium">{quote.customer_name}</p>
-                    </div>
-                    {quote.customer_company && (
-                      <div>
-                        <Label className="text-muted-foreground">บริษัท</Label>
-                        <p className="font-medium flex items-center gap-2">
-                          <Building2 className="w-4 h-4 text-muted-foreground" />
-                          {quote.customer_company}
-                        </p>
-                      </div>
-                    )}
-                    <div>
-                      <Label className="text-muted-foreground">อีเมล</Label>
-                      <p className="font-medium flex items-center gap-2">
-                        <Mail className="w-4 h-4 text-muted-foreground" />
-                        {quote.customer_email}
-                      </p>
-                    </div>
-                    {quote.customer_phone && (
-                      <div>
-                        <Label className="text-muted-foreground">โทรศัพท์</Label>
-                        <p className="font-medium flex items-center gap-2">
-                          <Phone className="w-4 h-4 text-muted-foreground" />
-                          {quote.customer_phone}
-                        </p>
-                      </div>
-                    )}
-                    {quote.customer_line && (
-                      <div>
-                        <Label className="text-muted-foreground">LINE</Label>
-                        <p className="font-medium flex items-center gap-2">
-                          <MessageCircle className="w-4 h-4 text-muted-foreground" />
-                          {quote.customer_line}
-                        </p>
-                      </div>
-                    )}
-                    {quote.customer_tax_id && (
-                      <div>
-                        <Label className="text-muted-foreground">เลขประจำตัวผู้เสียภาษี</Label>
-                        <p className="font-medium">{quote.customer_tax_id}</p>
-                      </div>
-                    )}
-                    {quote.customer_address && (
-                      <div className="md:col-span-2">
-                        <Label className="text-muted-foreground">ที่อยู่</Label>
-                        <p className="font-medium">{quote.customer_address}</p>
-                      </div>
-                    )}
-                  </div>
-                )}
               </CardContent>
             </Card>
 
@@ -622,34 +462,65 @@ export default function AdminQuoteDetail() {
                 <CardTitle>รายการสินค้า</CardTitle>
               </CardHeader>
               <CardContent>
-                <ProductEditor
-                  products={quote.products || []}
-                  onUpdate={handleUpdateProducts}
-                  disabled={quote.status === 'completed' || quote.status === 'rejected'}
-                />
+                <div className="space-y-3">
+                  {quote.products && quote.products.length > 0 ? (
+                    quote.products.map((product: any, index: number) => (
+                      <div
+                        key={index}
+                        className="p-4 border rounded-lg hover:bg-gray-50 transition-colors"
+                      >
+                        <div className="flex justify-between items-start mb-2">
+                          <div className="flex-1">
+                            <h4 className="font-semibold">{product.model || 'N/A'}</h4>
+                            <p className="text-sm text-gray-600">{product.description}</p>
+                            {product.notes && (
+                              <p className="text-sm text-blue-600 mt-1">หมายเหตุ: {product.notes}</p>
+                            )}
+                          </div>
+                          <div className="text-right ml-4">
+                            <p className="font-semibold text-blue-600">
+                              {formatCurrency(product.line_total || 0)}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-4 text-sm text-gray-600">
+                          <span>จำนวน: {product.qty || 0}</span>
+                          <span>ราคา/หน่วย: {formatCurrency(product.unit_price || 0)}</span>
+                          {product.discount_percent > 0 && (
+                            <span className="text-green-600">
+                              ส่วนลด {product.discount_percent}%
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-gray-500 text-center py-8">ไม่มีรายการสินค้า</p>
+                  )}
+                </div>
 
                 <Separator className="my-4" />
 
                 {/* Summary */}
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">ยอดรวม</span>
+                    <span className="text-gray-600">ยอดรวม</span>
                     <span>{formatCurrency(quote.subtotal || 0)}</span>
                   </div>
                   {quote.discount_amount > 0 && (
-                    <div className="flex justify-between text-sm text-destructive">
+                    <div className="flex justify-between text-sm text-green-600">
                       <span>ส่วนลด</span>
                       <span>-{formatCurrency(quote.discount_amount)}</span>
                     </div>
                   )}
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">VAT 7%</span>
+                    <span className="text-gray-600">VAT 7%</span>
                     <span>{formatCurrency(quote.vat_amount || 0)}</span>
                   </div>
                   <Separator />
                   <div className="flex justify-between text-lg font-bold">
                     <span>ยอดรวมทั้งสิ้น</span>
-                    <span className="text-primary">{formatCurrency(quote.grand_total || 0)}</span>
+                    <span className="text-blue-600">{formatCurrency(quote.grand_total || 0)}</span>
                   </div>
                 </div>
               </CardContent>
@@ -892,13 +763,6 @@ export default function AdminQuoteDetail() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-
-      {/* Print Preview */}
-      <PrintPreviewDialog
-        open={showPrintPreview}
-        onOpenChange={setShowPrintPreview}
-        quoteData={quote}
-      />
     </AdminLayout>
   );
 }
