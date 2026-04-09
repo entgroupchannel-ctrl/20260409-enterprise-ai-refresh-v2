@@ -89,6 +89,12 @@ export default function MyQuoteDetail() {
   const [sendingMessage, setSendingMessage] = useState(false);
   const [confirming, setConfirming] = useState(false);
 
+  // Customer PO edit request
+  const [showRequestEdit, setShowRequestEdit] = useState(false);
+  const [requestReason, setRequestReason] = useState('');
+  const [requestFiles, setRequestFiles] = useState<FileList | null>(null);
+  const [requestProcessing, setRequestProcessing] = useState(false);
+
   useEffect(() => {
     if (id && user) {
       loadQuote();
