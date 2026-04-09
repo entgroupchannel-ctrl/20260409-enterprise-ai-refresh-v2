@@ -275,7 +275,9 @@ export default function UserDashboard() {
     { key: 'profile' as Section, label: 'โปรไฟล์', icon: User, badge: 0 },
   ];
 
-  // Field component is defined outside the render to avoid re-creation — see ProfileField below
+  // Field component is defined outside the render — see ProfileField below
+
+  return (
     <>
       <SEOHead title="แดชบอร์ดของฉัน | ENT Group" description="จัดการใบเสนอราคา ตะกร้า และโปรไฟล์" />
       <div className="min-h-screen bg-background flex flex-col">
