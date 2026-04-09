@@ -113,7 +113,8 @@ export default function AdminQuotesList() {
     const variants: Record<string, { label: string; variant: 'secondary' | 'default' | 'destructive' }> = {
       pending: { label: 'รอตอบกลับ', variant: 'secondary' },
       quote_sent: { label: 'ส่งราคาแล้ว', variant: 'default' },
-      po_uploaded: { label: 'รอตรวจ PO', variant: 'destructive' },
+      po_uploaded: { label: 'อัปโหลด PO แล้ว', variant: 'secondary' },
+      po_confirmed: { label: 'ลูกค้าส่ง PO แล้ว', variant: 'destructive' },
       po_approved: { label: 'อนุมัติแล้ว', variant: 'default' },
       completed: { label: 'เสร็จสิ้น', variant: 'secondary' },
       rejected: { label: 'ปฏิเสธ', variant: 'destructive' },
