@@ -58,6 +58,7 @@ const HeroSection = () => {
   const [tagsExpanded, setTagsExpanded] = useState(true);
   const navigate = useNavigate();
   const searchRef = useRef<HTMLDivElement>(null);
+  const { user, profile, signOut, loading: authLoading } = useAuth();
 
   useEffect(() => {
     const timer = setTimeout(() => setTagsExpanded(false), 10000);
