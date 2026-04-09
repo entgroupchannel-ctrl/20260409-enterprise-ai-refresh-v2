@@ -34,6 +34,7 @@ CompactField.displayName = 'CompactField';
 export default function QuoteRequestForm() {
   const { user, profile: authProfile } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
 
   const [submitting, setSubmitting] = useState(false);
