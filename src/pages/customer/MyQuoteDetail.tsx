@@ -97,6 +97,7 @@ export default function MyQuoteDetail() {
   const [requestReason, setRequestReason] = useState('');
   const [requestFiles, setRequestFiles] = useState<FileList | null>(null);
   const [requestProcessing, setRequestProcessing] = useState(false);
+  const [deletingFileId, setDeletingFileId] = useState<string | null>(null);
 
   useEffect(() => {
     if (id && user) {
