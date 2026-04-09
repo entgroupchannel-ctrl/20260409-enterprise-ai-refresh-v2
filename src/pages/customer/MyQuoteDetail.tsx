@@ -420,25 +420,31 @@ export default function MyQuoteDetail() {
                   </div>
                 ))}
               </div>
-              {quote.status === 'po_uploaded' && (
+              {(quote.status === 'quote_sent' || quote.status === 'po_uploaded') && (
                 <div className="mt-4 p-4 bg-primary/5 rounded-lg border border-primary/20 text-center space-y-3">
-                  <ShieldCheck className="w-10 h-10 text-primary mx-auto" />
+                  <Send className="w-10 h-10 text-primary mx-auto" />
                   <div>
-                    <p className="font-semibold text-foreground">อัปโหลด PO สำเร็จแล้ว</p>
-                    <p className="text-sm text-muted-foreground">กรุณายืนยันคำสั่งซื้อเพื่อให้ทีมงานดำเนินการต่อ</p>
+                    <p className="font-semibold text-foreground">พร้อมส่ง PO ให้ทีมงานตรวจสอบ</p>
+                    <p className="text-sm text-muted-foreground">กดปุ่มด้านล่างเพื่อส่ง PO ทั้งหมดให้ทีมงาน</p>
                   </div>
-                  <Button onClick={handleConfirmPO} disabled={confirming} className="w-full">
-                    <CheckCircle2 className="w-4 h-4 mr-2" />
-                    {confirming ? 'กำลังยืนยัน...' : 'ยืนยันคำสั่งซื้อ'}
-                  </Button>
-                  <p className="text-xs text-muted-foreground">เมื่อกดยืนยันแล้ว ทีมงานจะเริ่มเตรียมสินค้าและจัดส่งให้ทันที</p>
+                  <div className="flex gap-2">
+                    <Button variant="outline" className="flex-1" onClick={() => setShowPOUpload(true)}>
+                      <Upload className="w-4 h-4 mr-2" />
+                      แนบไฟล์เพิ่ม
+                    </Button>
+                    <Button onClick={handleSendPO} disabled={confirming} className="flex-1">
+                      <Send className="w-4 h-4 mr-2" />
+                      {confirming ? 'กำลังส่ง...' : 'ส่ง PO'}
+                    </Button>
+                  </div>
+                  <p className="text-xs text-muted-foreground">เมื่อกดส่งแล้ว ทีมงานจะตรวจสอบและอนุมัติให้เร็วที่สุด</p>
                 </div>
               )}
               {quote.status === 'po_confirmed' && (
-                <div className="mt-4 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800 text-center space-y-2">
-                  <CheckCircle2 className="w-10 h-10 text-green-600 dark:text-green-400 mx-auto" />
-                  <p className="font-semibold text-green-900 dark:text-green-100">ยืนยันคำสั่งซื้อแล้ว</p>
-                  <p className="text-sm text-green-700 dark:text-green-300">ทีมงานกำลังเตรียมสินค้าและจัดส่งให้คุณ</p>
+                <div className="mt-4 p-4 bg-primary/5 rounded-lg border border-primary/20 text-center space-y-2">
+                  <CheckCircle2 className="w-10 h-10 text-primary mx-auto" />
+                  <p className="font-semibold text-foreground">ส่ง PO แล้ว</p>
+                  <p className="text-sm text-muted-foreground">ทีมงานกำลังตรวจสอบและดำเนินการ</p>
                 </div>
               )}
               {(quote.status === 'po_approved' || quote.status === 'completed') && (
