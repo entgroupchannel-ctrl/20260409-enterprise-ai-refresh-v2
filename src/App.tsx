@@ -10,6 +10,7 @@ import { I18nProvider } from "@/contexts/I18nContext";
 import Index from "./pages/Index.tsx";
 import ScrollToTop from "./components/ScrollToTop.tsx";
 import SocialRibbon from "./components/SocialRibbon.tsx";
+import ProtectedRoute from "./components/ProtectedRoute.tsx";
 
 /* ── Lazy-loaded pages ── */
 const GTSeries = lazy(() => import("./pages/GTSeries.tsx"));
@@ -49,6 +50,7 @@ const BlogDetail = lazy(() => import("./pages/BlogDetail.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 const Login = lazy(() => import("./pages/auth/Login.tsx"));
 const Register = lazy(() => import("./pages/auth/Register.tsx"));
+const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard.tsx"));
 
 /* ── Loading fallback ── */
 const PageLoader = () => (
@@ -120,6 +122,11 @@ const App = () => (
                   <Route path="/blog/:id" element={<BlogDetail />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
+                  <Route path="/admin/dashboard" element={<ProtectedRoute requireSales><AdminDashboard /></ProtectedRoute>} />
+                  <Route path="/admin/quotes" element={<ProtectedRoute requireSales><AdminDashboard /></ProtectedRoute>} />
+                  <Route path="/admin/quotes/:id" element={<ProtectedRoute requireSales><AdminDashboard /></ProtectedRoute>} />
+                  <Route path="/admin/contacts" element={<ProtectedRoute requireSales><AdminDashboard /></ProtectedRoute>} />
+                  <Route path="/admin/documents" element={<ProtectedRoute requireSales><AdminDashboard /></ProtectedRoute>} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
