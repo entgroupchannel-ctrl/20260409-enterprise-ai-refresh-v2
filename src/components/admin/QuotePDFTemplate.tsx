@@ -103,6 +103,9 @@ export default function QuotePDFTemplate({ data, companyInfo }: QuotePDFTemplate
               <p><strong>โทรศัพท์:</strong> {data.customer_phone}</p>
             )}
             <p><strong>อีเมล:</strong> {data.customer_email}</p>
+            {(data as any).customer_line && (
+              <p><strong>LINE:</strong> {(data as any).customer_line}</p>
+            )}
             {data.customer_tax_id && (
               <p><strong>เลขประจำตัวผู้เสียภาษี:</strong> {data.customer_tax_id}</p>
             )}

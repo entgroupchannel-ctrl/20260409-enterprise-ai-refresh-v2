@@ -1,0 +1,1 @@
+ALTER TABLE public.quote_requests ADD COLUMN customer_line character varying DEFAULT NULL;

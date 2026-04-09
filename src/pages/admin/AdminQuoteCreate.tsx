@@ -86,6 +86,7 @@ export default function AdminQuoteCreate() {
     company: '',
     address: '',
     tax_id: '',
+    line_id: '',
   });
 
   const [products, setProducts] = useState<ProductLine[]>([
@@ -166,6 +167,7 @@ export default function AdminQuoteCreate() {
           customer_company: customer.company || null,
           customer_address: customer.address || null,
           customer_tax_id: customer.tax_id || null,
+          customer_line: customer.line_id || null,
           products: products as any,
           subtotal: subtotalAfterItemDiscount,
           discount_percent: terms.discount_percent,
@@ -245,6 +247,10 @@ export default function AdminQuoteCreate() {
               <div>
                 <Label>เลขประจำตัวผู้เสียภาษี</Label>
                 <Input value={customer.tax_id} onChange={(e) => setCustomer({ ...customer, tax_id: e.target.value })} placeholder="เลข 13 หลัก" />
+              </div>
+              <div>
+                <Label>LINE ID</Label>
+                <Input value={customer.line_id} onChange={(e) => setCustomer({ ...customer, line_id: e.target.value })} placeholder="@line_id" />
               </div>
             </div>
           </CardContent>

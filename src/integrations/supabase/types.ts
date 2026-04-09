@@ -386,6 +386,7 @@ export type Database = {
           customer_address: string | null
           customer_company: string | null
           customer_email: string
+          customer_line: string | null
           customer_name: string
           customer_phone: string | null
           customer_tax_id: string | null
@@ -425,6 +426,7 @@ export type Database = {
           customer_address?: string | null
           customer_company?: string | null
           customer_email: string
+          customer_line?: string | null
           customer_name: string
           customer_phone?: string | null
           customer_tax_id?: string | null
@@ -464,6 +466,7 @@ export type Database = {
           customer_address?: string | null
           customer_company?: string | null
           customer_email?: string
+          customer_line?: string | null
           customer_name?: string
           customer_phone?: string | null
           customer_tax_id?: string | null
