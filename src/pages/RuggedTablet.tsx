@@ -444,7 +444,7 @@ const RuggedTablet = () => {
                     : "bg-muted hover:bg-muted/80 text-foreground"
                 }`}>
                 {tab.label}
-                <span className={`text-[10px] font-mono ${filters.os === tab.id ? "text-primary-foreground/70" : "text-muted-foreground"}`}
+                <span className={`text-[10px] font-mono ${filters.os === tab.id ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
 
                   ({tab.id === "all" ? tablets.length : tablets.filter((t) => t.os === tab.id).length})
                 </span>
@@ -654,7 +654,7 @@ const RuggedTablet = () => {
 
                       <iframe
                         className="absolute inset-0 w-full h-full"
-                        src={`https://www.youtube.com/embed/${v.id}`}
+                        src={`https://www.youtube.com/embed/${v.id}`}>
                         title={v.title}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
