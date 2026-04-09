@@ -160,6 +160,10 @@ export default function UserDashboard() {
   const [submitting, setSubmitting] = useState(false);
   const [showPOUpload, setShowPOUpload] = useState(false);
 
+  // ─── Orders state ───
+  const [orders, setOrders] = useState<any[]>([]);
+  const [ordersLoading, setOrdersLoading] = useState(false);
+
   // Load quotes
   useEffect(() => {
     if (!user) return;
