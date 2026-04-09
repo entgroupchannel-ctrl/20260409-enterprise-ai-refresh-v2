@@ -4200,7 +4200,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       GT<span className="text-gradient">9000</span>
                     </h3>
                     <p className="text-muted-foreground leading-relaxed">
-                      GT9000 ตัวเครื่องสีดำผลิตจากอลูมิเนียมอัลลอยด์ขัดเงา (Brushed Full Aluminum Alloy)>
+                      GT9000 ตัวเครื่องสีดำผลิตจากอลูมิเนียมอัลลอยด์ขัดเงา (Brushed Full Aluminum Alloy)
                       ปราศจากพัดลมระบายอากาศ ทำงานเงียบ 24 ชั่วโมงต่อเนื่อง รองรับ 4G Module พร้อมช่อง SIM Card,
                       Dual-Band WiFi พร้อมเสาอากาศภายนอก, 6 COM Port (RS232/RS422/RS485) และ Triple Display
                       ผ่าน 3× HDMI 1.4 แสดงผล 3 จอพร้อมกัน ติดตั้ง M-SATA SSD + 2.5" SATA HDD + M.2 2280 NVMe ได้พร้อมกัน
@@ -6031,8 +6031,8 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
     <div className="p-5">
       <h3 className="text-xl font-display font-bold text-foreground mb-1 group-hover:text-primary transition-colors flex items-center gap-2">
         {model.name}
-        {model.tab && <span className="text-xs text-primary font-normal">ดูรายละเอียด →</span>}>
-        {!model.tab && <ExternalLink size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />}>
+        {model.tab && <span className="text-xs text-primary font-normal">ดูรายละเอียด →</span>}
+        {!model.tab && <ExternalLink size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />}
 
       </h3>
       <p className="text-xs font-semibold text-primary mb-3">"{model.tagline}"</p>
@@ -6056,7 +6056,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
             <span className="text-sm text-muted-foreground">เริ่มต้น </span>
             <span className="font-bold text-foreground">{model.price.startsWith("สอบถาม") ? model.price : `฿${model.price}`}</span>
           </div>
-        ) : <div />}>
+        ) : <div />}
       </div>
     </div>
   </>

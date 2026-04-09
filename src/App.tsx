@@ -78,7 +78,7 @@ const App = () => (
             <Sonner />
             <BrowserRouter>
               <ScrollToTop />
-              <Suspense fallback={<PageLoader />}>
+              <Suspense fallback={<PageLoader />}
 
                 <Routes>
                   <Route path="/" element={<Index />} />

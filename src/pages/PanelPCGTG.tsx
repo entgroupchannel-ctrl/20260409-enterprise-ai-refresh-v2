@@ -676,7 +676,7 @@ import FooterCompact from "@/components/FooterCompact";
                           <span className="text-[10px] px-1.5 py-0.5 rounded bg-secondary text-secondary-foreground font-mono">{m.series}</span>
                           <div>
                             <span className="font-semibold text-foreground">{m.name}</span>
-                            {m.popular && <span className="ml-2 text-[10px] px-1.5 py-0.5 rounded-full bg-primary text-primary-foreground font-bold"><Star size={10} className="inline" /></span>}>
+                            {m.popular && <span className="ml-2 text-[10px] px-1.5 py-0.5 rounded-full bg-primary text-primary-foreground font-bold"><Star size={10} className="inline" /></span>}
 
                             <p className="text-[11px] text-muted-foreground">{m.highlight}</p>
                           </div>

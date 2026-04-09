@@ -101,8 +101,8 @@ const IBoxDetail = () => {
             <div className="flex flex-wrap gap-2">
               <Badge variant="secondary">{product.category}</Badge>
               <Badge variant="outline">{product.subcategory}</Badge>
-              {product.specs.poe && <Badge className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20">PoE+ Support</Badge>}>
-              {product.specs.pcie && <Badge variant="outline">PCIe Expansion</Badge>}>
+              {product.specs.poe && <Badge className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20">PoE+ Support</Badge>}
+              {product.specs.pcie && <Badge variant="outline">PCIe Expansion</Badge>}
 
             </div>
           </div>

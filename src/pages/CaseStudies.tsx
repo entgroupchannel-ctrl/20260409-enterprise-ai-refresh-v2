@@ -60,7 +60,7 @@ const ClientTrustSection = () => {
             onClick={() => setIsOpen(!isOpen)}
             className="inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 transition-colors font-medium">
             {isOpen ? "ซ่อนรายชื่อ" : "ดูรายชื่อบางส่วน"}
-            {isOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}>
+            {isOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
 
           </button>
         </div>

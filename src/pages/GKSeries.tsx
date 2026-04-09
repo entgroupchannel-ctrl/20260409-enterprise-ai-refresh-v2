@@ -1013,7 +1013,7 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
 
             <div className="px-4 py-4 bg-primary/10 flex items-center">
               <span className="text-sm font-bold text-foreground">
-                {viewMode === "specs" ? <><FileText size={14} className="inline mr-1" /> สเปก</> : viewMode === "price" ? <><DollarSign size={14} className="inline mr-1" /> ราคา</> : <><BarChart3 size={14} className="inline mr-1" /> ความคุ้มค่า</>}>
+                {viewMode === "specs" ? <><FileText size={14} className="inline mr-1" /> สเปก</> : viewMode === "price" ? <><DollarSign size={14} className="inline mr-1" /> ราคา</> : <><BarChart3 size={14} className="inline mr-1" /> ความคุ้มค่า</>}
 
               </span>
             </div>
