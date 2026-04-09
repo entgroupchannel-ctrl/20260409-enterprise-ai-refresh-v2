@@ -416,6 +416,7 @@ export type Database = {
           approved_at: string | null
           assigned_to: string | null
           completed_at: string | null
+          confirmed_at: string | null
           contact_id: string | null
           created_at: string
           created_by: string | null
@@ -456,6 +457,7 @@ export type Database = {
           approved_at?: string | null
           assigned_to?: string | null
           completed_at?: string | null
+          confirmed_at?: string | null
           contact_id?: string | null
           created_at?: string
           created_by?: string | null
@@ -496,6 +498,7 @@ export type Database = {
           approved_at?: string | null
           assigned_to?: string | null
           completed_at?: string | null
+          confirmed_at?: string | null
           contact_id?: string | null
           created_at?: string
           created_by?: string | null
