@@ -344,7 +344,7 @@ const VCloudPoint = () => {
               <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">
                 อุปกรณ์<span className="text-primary">ขนาดเล็ก</span> พลังยิ่งใหญ่
               </h2>
-              <p className="text-muted-foreground leading-relaxed mb-6"
+              <p className="text-muted-foreground leading-relaxed mb-6">
                 vCloudPoint เป็น Zero Client ขนานแท้ — ตัดส่วนประกอบไม่จำเป็นออกหมด ขนาดเล็กพอๆ กับมือถือ ไม่มี Moving Part ไม่มี Local Storage ปลอดภัยสูงสุด เสียบจอ เมาส์ คีย์บอร์ด ก็พร้อมใช้งานทันที
               </p>
               <div className="grid grid-cols-2 gap-3">
