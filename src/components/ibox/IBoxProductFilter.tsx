@@ -366,3 +366,4 @@ const IBoxProductFilter = ({
 };
 
 export default IBoxProductFilter;
+

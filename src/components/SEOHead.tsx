@@ -43,3 +43,4 @@ const SEOHead = ({ title, description, path = "/", image, type = "website", json
 };
 
 export default SEOHead;
+

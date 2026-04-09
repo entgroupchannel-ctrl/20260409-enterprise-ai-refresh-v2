@@ -843,3 +843,4 @@ import FooterCompact from "@/components/FooterCompact";
 };
 
 export default PanelPC;
+

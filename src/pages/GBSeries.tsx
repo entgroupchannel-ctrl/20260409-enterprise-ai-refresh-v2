@@ -670,3 +670,4 @@ const GBSeries = () => {
 };
 
 export default GBSeries;
+

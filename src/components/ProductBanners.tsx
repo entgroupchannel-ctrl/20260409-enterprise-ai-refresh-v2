@@ -114,3 +114,4 @@ const ProductBanners = () => {
 };
 
 export default ProductBanners;
+

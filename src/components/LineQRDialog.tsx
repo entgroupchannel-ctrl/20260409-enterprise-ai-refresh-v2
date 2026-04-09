@@ -66,3 +66,4 @@ const LineQRDialog = ({ open, onClose }: LineQRDialogProps) => {
 
 export { LineQRDialog, LineSvgIcon, LINE_QR_URL, LINE_ADD_URL };
 export default LineQRDialog;
+

@@ -286,3 +286,4 @@ const ProductLineup = () => {
 };
 
 export default ProductLineup;
+

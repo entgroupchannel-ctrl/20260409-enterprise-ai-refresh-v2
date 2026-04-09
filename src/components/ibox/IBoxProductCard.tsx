@@ -105,3 +105,4 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
 };
 
 export default IBoxProductCard;
+

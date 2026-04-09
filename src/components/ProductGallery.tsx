@@ -99,3 +99,4 @@ const ProductGallery = ({ images, alt, autoPlayInterval = 4000 }: ProductGallery
 };
 
 export default ProductGallery;
+

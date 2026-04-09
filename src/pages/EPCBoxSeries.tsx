@@ -1154,3 +1154,4 @@ const EPCBoxSeries = () => {
 };
 
 export default EPCBoxSeries;
+

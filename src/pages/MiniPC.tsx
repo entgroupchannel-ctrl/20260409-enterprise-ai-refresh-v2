@@ -1114,3 +1114,4 @@ const MiniPC = () => {
 
 
 export default MiniPC;
+

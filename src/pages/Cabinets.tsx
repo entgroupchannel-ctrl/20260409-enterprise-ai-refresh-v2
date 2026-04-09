@@ -476,3 +476,4 @@ const Cabinets = () => {
 };
 
 export default Cabinets;
+

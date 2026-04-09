@@ -716,3 +716,4 @@ const RuggedTablet = () => {
 };
 
 export default RuggedTablet;
+

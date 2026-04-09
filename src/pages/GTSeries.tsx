@@ -6005,3 +6005,4 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
 );
 
 export default GTSeries;
+

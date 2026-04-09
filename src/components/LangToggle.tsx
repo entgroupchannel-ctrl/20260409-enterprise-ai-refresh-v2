@@ -63,3 +63,4 @@ const LangToggle = ({ variant = "compact", className = "" }: LangToggleProps) =>
 };
 
 export default LangToggle;
+

@@ -102,3 +102,4 @@ const FooterCompact = () => {
 };
 
 export default FooterCompact;
+

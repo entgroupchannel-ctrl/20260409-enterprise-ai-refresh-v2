@@ -585,3 +585,4 @@ const IBoxSeries = () => {
 };
 
 export default IBoxSeries;
+

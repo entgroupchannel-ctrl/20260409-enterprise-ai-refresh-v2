@@ -344,3 +344,4 @@ const RuggedNotebookDetail = () => {
 };
 
 export default RuggedNotebookDetail;
+

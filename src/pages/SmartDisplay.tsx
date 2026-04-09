@@ -1259,3 +1259,4 @@ const SmartDisplay = () => {
 
 
 export default SmartDisplay;
+

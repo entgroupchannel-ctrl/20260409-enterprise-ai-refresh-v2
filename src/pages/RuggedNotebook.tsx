@@ -476,3 +476,4 @@ const NotebookCard = ({ product, selected, onToggleSelect }: { product: RuggedNo
 };
 
 export default RuggedNotebookPage;
+

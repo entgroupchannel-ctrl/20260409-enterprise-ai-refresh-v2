@@ -215,3 +215,4 @@ const ProductHighlights = () => {
 };
 
 export default ProductHighlights;
+

@@ -538,3 +538,4 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
 };
 
 export default ContactUs;
+

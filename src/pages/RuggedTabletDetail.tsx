@@ -403,3 +403,4 @@ const RuggedTabletDetail = () => {
 };
 
 export default RuggedTabletDetail;
+

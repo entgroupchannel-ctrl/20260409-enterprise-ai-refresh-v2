@@ -310,3 +310,4 @@ const RuggedHandheldDetail = () => {
 };
 
 export default RuggedHandheldDetail;
+

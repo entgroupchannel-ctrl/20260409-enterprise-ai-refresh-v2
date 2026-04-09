@@ -190,3 +190,4 @@ const Warrantys = () => {
 };
 
 export default Warrantys;
+

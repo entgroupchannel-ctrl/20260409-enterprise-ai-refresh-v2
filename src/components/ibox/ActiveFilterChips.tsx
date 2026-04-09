@@ -106,3 +106,4 @@ const ActiveFilterChips = ({ filters, onFilterChange }: ActiveFilterChipsProps) 
 };
 
 export default ActiveFilterChips;
+

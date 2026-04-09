@@ -230,3 +230,4 @@ const CaseStudyDetail = () => {
 };
 
 export default CaseStudyDetail;
+

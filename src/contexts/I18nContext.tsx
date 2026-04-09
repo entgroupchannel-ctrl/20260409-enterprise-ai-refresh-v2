@@ -94,3 +94,4 @@ export const I18nProvider = ({ children }: { children: ReactNode }) => {
     </I18nContext.Provider>
   );
 };
+

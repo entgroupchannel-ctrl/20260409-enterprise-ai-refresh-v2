@@ -287,3 +287,4 @@ const IBoxDetail = () => {
 };
 
 export default IBoxDetail;
+

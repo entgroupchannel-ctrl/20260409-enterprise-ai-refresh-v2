@@ -272,3 +272,4 @@ const EPCSeriesCompare = ({ onQuote }: Props) => {
 };
 
 export default EPCSeriesCompare;
+
