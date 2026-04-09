@@ -151,6 +151,7 @@ const App = () => (
                 </Routes>
               </Suspense>
               <SocialRibbon />
+              <FloatingCartBadge />
               </CartProvider>
             </BrowserRouter>
           </TooltipProvider>
