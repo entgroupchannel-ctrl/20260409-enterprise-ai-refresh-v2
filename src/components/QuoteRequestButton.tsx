@@ -53,13 +53,6 @@ export default function QuoteRequestButton({
   };
 
   const handleQuickRequest = () => {
-    // Check login first
-    if (!user) {
-      const currentPath = window.location.pathname;
-      navigate('/login?redirect=' + encodeURIComponent(currentPath));
-      return;
-    }
-
     if (productModel) {
       setFormData((prev) => ({ ...prev, customer_email: user?.email || prev.customer_email }));
       setShowDialog(true);
