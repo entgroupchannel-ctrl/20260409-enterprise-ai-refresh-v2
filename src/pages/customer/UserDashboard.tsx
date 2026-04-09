@@ -75,6 +75,17 @@ const emptyProfile: ProfileData = {
 
 type Section = 'quotes' | 'quote-detail' | 'cart' | 'profile';
 
+// Memoized field — prevents full re-render on every keystroke
+const ProfileField = memo(({ label, value, onChange, type = 'text', placeholder = '' }: {
+  label: string; value: string; onChange: (v: string) => void; type?: string; placeholder?: string;
+}) => (
+  <div className="space-y-1">
+    <Label className="text-[11px] text-muted-foreground">{label}</Label>
+    <Input type={type} value={value || ''} onChange={e => onChange(e.target.value)} placeholder={placeholder} className="h-8 text-sm" />
+  </div>
+));
+ProfileField.displayName = 'ProfileField';
+
 export default function UserDashboard() {
   const { user, profile: authProfile, signOut } = useAuth();
   const { items, count, loading: cartLoading, updateQuantity, removeItem, clearCart } = useCart();
