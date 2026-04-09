@@ -113,11 +113,13 @@ className="relative group"
               <button
                 onClick={prev}
                 className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-background/70 border border-border/50 flex items-center justify-center text-foreground opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity hover:bg-background"
+                >
                 <ChevronLeft size={18} />
               </button>
               <button
                 onClick={next}
                 className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-background/70 border border-border/50 flex items-center justify-center text-foreground opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity hover:bg-background"
+                >
                 <ChevronRight size={18} />
               </button>
             </div>

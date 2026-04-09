@@ -423,6 +423,7 @@ const PanelPC = () => {
                   ? "border-primary bg-primary/10 shadow-lg shadow-primary/10"
                   : "border-border bg-background hover:border-primary/30"
               }`}
+              >
               <RectangleHorizontal size={28} className={displayType === "wide" ? "text-primary" : "text-muted-foreground"} />
               <div className="text-left">
                 <p className={`font-bold ${displayType === "wide" ? "text-primary" : "text-foreground"}`}>Widescreen (16:9)</p>
@@ -436,6 +437,7 @@ const PanelPC = () => {
                   ? "border-primary bg-primary/10 shadow-lg shadow-primary/10"
                   : "border-border bg-background hover:border-primary/30"
               }`}
+              >
               <Square size={28} className={displayType === "square" ? "text-primary" : "text-muted-foreground"} />
               <div className="text-left">
                 <p className={`font-bold ${displayType === "square" ? "text-primary" : "text-foreground"}`}>Square (4:3 / 5:4)</p>
@@ -573,6 +575,7 @@ import FooterCompact from "@/components/FooterCompact";
                 </span>
                 <h3 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-4">
                   GTG 23.8" / 27" / 32"
+                  >
                 </h3>
                 <p className="text-muted-foreground mb-4">
                   หน้าจอใหญ่ ผลิตจากโลหะ Metal Sheet พร้อมพัดลมระบายความร้อนในตัว รองรับ CPU ประสิทธิภาพสูง
@@ -617,6 +620,7 @@ import FooterCompact from "@/components/FooterCompact";
                         ? "bg-primary text-primary-foreground"
                         : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                     }`}
+                    >
                     {tab.label}
                   </button>
                 ))}

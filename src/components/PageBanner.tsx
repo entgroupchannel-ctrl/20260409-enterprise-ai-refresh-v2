@@ -31,6 +31,7 @@ const PageBanner = ({ image, title, subtitle }: PageBannerProps) => {
         <Link
           to="/"
           className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors"
+          >
           <ArrowLeft size={14} />
           กลับหน้าหลัก
         </Link>

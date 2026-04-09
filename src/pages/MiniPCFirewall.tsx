@@ -504,6 +504,7 @@ const FirewallComparisonTable = () => {
               value={filterTier || ""}
               onChange={(e) => setFilterTier((e.target.value as Tier) || null)}
               className="w-full py-2 px-3 rounded-lg bg-background border border-border text-sm text-foreground outline-none focus:ring-2 focus:ring-primary/30"
+              >
               <option value="">ทั้งหมด</option>
               {(Object.keys(tierMeta) as Tier[]).map((t) => (
                 <option key={t} value={t}>{tierMeta[t].label} — {tierMeta[t].desc}</option>
@@ -524,6 +525,7 @@ const FirewallComparisonTable = () => {
                       ? "bg-primary text-primary-foreground shadow-md"
                       : "bg-background border border-border text-muted-foreground hover:border-primary/40"
                   }`}
+                  >
                   {s}
                 </button>
               ))}
@@ -559,6 +561,7 @@ const FirewallComparisonTable = () => {
                   ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40"
                   : "bg-background border border-border text-muted-foreground hover:border-primary/40"
               }`}
+              >
               {filterFanless ? "✓ Fanless เท่านั้น" : "Fanless เท่านั้น"}
             </button>
           </div>
@@ -573,6 +576,7 @@ const FirewallComparisonTable = () => {
                   ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40"
                   : "bg-background border border-border text-muted-foreground hover:border-primary/40"
               }`}
+              >
               {filterAesni ? "✓ รองรับ AES-NI" : "รองรับ AES-NI"}
             </button>
           </div>
@@ -905,6 +909,7 @@ const MiniPCFirewall = () => {
                       ? `${meta.bg} ${meta.color} border ${meta.border}`
                       : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border"
                   }`}
+                  >
                   {meta.label} ({count})
                 </button>
               );
@@ -1027,6 +1032,7 @@ const MiniPCFirewall = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-destructive text-destructive-foreground text-xs font-bold hover:opacity-90 transition-opacity"
+              >
               <Youtube size={16} /> Subscribe
             </a>
           </div>
@@ -1056,6 +1062,7 @@ const MiniPCFirewall = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1 text-xs text-primary font-medium hover:underline"
+                        >
                         <ThumbsUp size={12} /> Like & Share
                       </a>
                     </div>

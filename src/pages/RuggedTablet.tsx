@@ -435,6 +435,7 @@ const RuggedTablet = () => {
                     ? "bg-primary text-primary-foreground shadow-sm"
                     : "bg-muted hover:bg-muted/80 text-foreground"
                 }`}
+                >
                 {tab.label}
                 <span className={`text-[10px] font-mono ${filters.os === tab.id ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
                   ({tab.id === "all" ? tablets.length : tablets.filter((t) => t.os === tab.id).length})
@@ -457,6 +458,7 @@ const RuggedTablet = () => {
                     ? "bg-primary text-primary-foreground border-primary shadow-sm"
                     : "bg-card border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
                 }`}
+                >
                 {qf.label}
               </button>
             ))}
@@ -660,6 +662,7 @@ const RuggedTablet = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-destructive hover:bg-destructive/90 text-destructive-foreground font-bold text-sm transition-colors shadow-lg hover:shadow-xl"
+                  >
                   <Play className="w-4 h-4" /> ดูวิดีโอทั้งหมดบน YouTube
                 </a>
               </div>
