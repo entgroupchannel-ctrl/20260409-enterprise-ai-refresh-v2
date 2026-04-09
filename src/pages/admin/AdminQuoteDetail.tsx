@@ -404,6 +404,13 @@ export default function AdminQuoteDetail() {
           </div>
         </div>
 
+        {/* Quote Timeline */}
+        <Card>
+          <CardContent className="pt-6">
+            <QuoteTimeline status={quote.status} />
+          </CardContent>
+        </Card>
+
         {/* PO Action Banner (review needed) */}
         {(quote.status === 'po_uploaded' || quote.status === 'po_confirmed') && (
           <Card className="border-orange-200 bg-orange-50">
