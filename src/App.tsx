@@ -65,6 +65,7 @@ const Cart = lazy(() => import("./pages/customer/Cart"));
 const UserProfile = lazy(() => import("./pages/customer/UserProfile"));
 const UserDashboard = lazy(() => import("./pages/customer/UserDashboard"));
 const CustomerSODetail = lazy(() => import("./pages/customer/CustomerSODetail"));
+const CustomerOrders = lazy(() => import("./pages/customer/CustomerOrders"));
 
 /* ── Loading fallback ── */
 const PageLoader = () => (
