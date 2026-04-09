@@ -37,8 +37,8 @@ function buildCatalog(): CatalogProduct[] {
   // iBox Mini PC
   for (const p of iboxProducts) {
     catalog.push({
-      model: p.model,
-      name: p.titleTH || p.title,
+      model: p.id,
+      name: p.name,
       category: 'Mini PC',
       image: p.image,
     });
