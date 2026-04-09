@@ -20,7 +20,6 @@ const EdgeAISection = () => {
   const next = useCallback(() => setCurrent((p) => (p + 1) % slides.length), []);
   const prev = useCallback(() => setCurrent((p) => (p - 1 + slides.length) % slides.length), []);
 
-  // Auto-play
   useEffect(() => {
     if (isHovered) return;
     const timer = setInterval(next, 4000);
@@ -29,7 +28,6 @@ const EdgeAISection = () => {
 
   return (
     <section className="section-padding relative overflow-hidden" id="edge-ai">
-      {/* Thai Suphannahong pattern background */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.12] dark:opacity-[0.08]"
         style={{
@@ -42,7 +40,6 @@ const EdgeAISection = () => {
 
       <div className="container max-w-7xl mx-auto relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Text */}
           <div>
             <span className="text-xs font-semibold tracking-widest uppercase text-primary mb-4 block">
               NVIDIA Jetson Partner
@@ -61,6 +58,7 @@ const EdgeAISection = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+              >
                 ดูเว็บไซต์ <ExternalLink size={16} />
               </a>
               <a
@@ -68,16 +66,17 @@ const EdgeAISection = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold hover:bg-surface-hover transition-colors"
+              >
                 ดูสินค้าทั้งหมด
               </a>
             </div>
           </div>
 
-          {/* Image Carousel */}
           <div
-className="relative group"
+            className="relative group"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
+          >
             <div
               className="card-surface rounded-2xl overflow-hidden relative aspect-[4/3]"
               onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
@@ -86,6 +85,7 @@ className="relative group"
                 const diff = touchStartX.current - touchEndX.current;
                 if (Math.abs(diff) > 50) { diff > 0 ? next() : prev(); }
               }}
+            >
               {slides.map((slide, i) => (
                 <div
                   key={i}
@@ -94,6 +94,7 @@ className="relative group"
                     opacity: i === current ? 1 : 0,
                     transform: i === current ? "scale(1)" : "scale(1.05)",
                   }}
+                >
                   <img
                     src={slide.src}
                     alt={slide.alt}
@@ -102,27 +103,26 @@ className="relative group"
                     width={1024}
                     height={768}
                   />
-                  {/* Caption overlay */}
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent p-4 pt-10">
                     <p className="text-white text-sm font-medium">{slide.caption}</p>
                   </div>
                 </div>
               ))}
 
-              {/* Navigation arrows — always visible on mobile */}
               <button
                 onClick={prev}
                 className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-background/70 border border-border/50 flex items-center justify-center text-foreground opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity hover:bg-background"
+              >
                 <ChevronLeft size={18} />
               </button>
               <button
                 onClick={next}
                 className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-background/70 border border-border/50 flex items-center justify-center text-foreground opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity hover:bg-background"
+              >
                 <ChevronRight size={18} />
               </button>
             </div>
 
-            {/* Dots */}
             <div className="flex justify-center gap-2 mt-4">
               {slides.map((_, i) => (
                 <button
@@ -137,7 +137,6 @@ className="relative group"
               ))}
             </div>
 
-            {/* Glow */}
             <div className="absolute -bottom-4 -right-4 w-24 h-24 rounded-full bg-primary/10 blur-2xl" />
           </div>
         </div>
