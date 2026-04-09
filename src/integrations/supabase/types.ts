@@ -297,6 +297,103 @@ export type Database = {
           },
         ]
       }
+      po_change_requests: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          id: string
+          metadata: Json | null
+          new_files: Json | null
+          quote_id: string
+          request_reason: string | null
+          request_type: string
+          requested_by: string
+          requested_by_role: string
+          review_notes: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          new_files?: Json | null
+          quote_id: string
+          request_reason?: string | null
+          request_type: string
+          requested_by: string
+          requested_by_role: string
+          review_notes?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          new_files?: Json | null
+          quote_id?: string
+          request_reason?: string | null
+          request_type?: string
+          requested_by?: string
+          requested_by_role?: string
+          review_notes?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "po_change_requests_quote_id_fkey"
+            columns: ["quote_id"]
+            isOneToOne: false
+            referencedRelation: "quote_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      po_versions: {
+        Row: {
+          change_reason: string | null
+          created_at: string
+          created_by: string | null
+          files: Json
+          id: string
+          quote_id: string
+          version_number: number
+        }
+        Insert: {
+          change_reason?: string | null
+          created_at?: string
+          created_by?: string | null
+          files: Json
+          id?: string
+          quote_id: string
+          version_number: number
+        }
+        Update: {
+          change_reason?: string | null
+          created_at?: string
+          created_by?: string | null
+          files?: Json
+          id?: string
+          quote_id?: string
+          version_number?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "po_versions_quote_id_fkey"
+            columns: ["quote_id"]
+            isOneToOne: false
+            referencedRelation: "quote_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       quote_files: {
         Row: {
           category: string
