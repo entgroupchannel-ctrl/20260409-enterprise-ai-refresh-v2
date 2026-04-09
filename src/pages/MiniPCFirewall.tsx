@@ -259,7 +259,8 @@ const CollapsibleSection = ({ title, children, defaultOpen = false }: { title: s
         <h3 className="font-bold text-foreground text-left">{title}</h3>
         <ChevronDown className={`text-muted-foreground transition-transform duration-200 ${open ? "rotate-180" : ""}`} size={18} />
       </button>
-      <div className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${open ? "max-h-[3000px]" : "max-h-0"}`}>
+      <div className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${open ? "max-h-[3000px]" : "max-h-0"}`}
+
         <div className="px-5 pb-5">{children}</div>
       </div>
     </div>
@@ -271,12 +272,14 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: Firewa
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div className={`card-surface rounded-xl overflow-hidden border ${tier.border} transition-all duration-300 ${selected ? "ring-2 ring-primary" : "hover:shadow-lg"}`}>
+    <div className={`card-surface rounded-xl overflow-hidden border ${tier.border} transition-all duration-300 ${selected ? "ring-2 ring-primary" : "hover:shadow-lg"}`}
+
       {/* Header */}
       <div className="p-5">
         <div className="flex items-start justify-between mb-3">
           <div className="flex items-center gap-2">
-            <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${tier.bg} ${tier.color}`}>
+            <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${tier.bg} ${tier.color}`}
+
               {tier.label}
             </span>
             {model.badge && (
@@ -350,7 +353,8 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: Firewa
       </div>
 
       {/* Expanded specs */}
-      <div className={`overflow-hidden transition-[max-height] duration-300 ${expanded ? "max-h-[600px]" : "max-h-0"}`}>
+      <div className={`overflow-hidden transition-[max-height] duration-300 ${expanded ? "max-h-[600px]" : "max-h-0"}`}
+
         <div className="px-5 pb-5 pt-0 border-t border-border">
           <table className="w-full text-xs mt-3">
             <tbody>
@@ -374,7 +378,8 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: Firewa
             <ul className="space-y-1">
               {model.extra.map((e) => (
                 <li key={e} className="text-xs text-muted-foreground flex items-start gap-1.5">
-                  <span className="text-primary mt-0.5">•</span>{e}>
+                  <span className="text-primary mt-0.5">•</span>{e}
+
                 </li>
               ))}
             </ul>
@@ -592,7 +597,8 @@ const FirewallComparisonTable = () => {
         {(Object.keys(tierMeta) as Tier[]).map((t) => {
           const m = tierMeta[t];
           return (
-            <span key={t} className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${m.border} ${m.bg} ${m.color}`}>
+            <span key={t} className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${m.border} ${m.bg} ${m.color}`}
+
               {m.label} — {m.desc}
             </span>
           );
@@ -633,11 +639,14 @@ const FirewallComparisonTable = () => {
                 const ts = tierStyle(row.tier);
                 const tm = tierMeta[row.tier];
                 return (
-                  <tr key={row.name} className={`border-b border-border/50 transition-colors ${ts.row}`}>
-                    <td className="p-4 sticky left-0 font-bold text-foreground" style={{ background: 'inherit' }}>
+                  <tr key={row.name} className={`border-b border-border/50 transition-colors ${ts.row}`}
+
+                    <td className="p-4 sticky left-0 font-bold text-foreground" style={{ background: 'inherit' }}
+
                       <div className="flex flex-col gap-1">
                         <span className="text-base">{row.name}</span>
-                        <span className={`inline-block w-fit px-2 py-0.5 rounded-full text-[10px] font-bold ${ts.badge}`}>
+                        <span className={`inline-block w-fit px-2 py-0.5 rounded-full text-[10px] font-bold ${ts.badge}`}
+
                           {tm.label}
                         </span>
                       </div>
@@ -862,7 +871,8 @@ const MiniPCFirewall = () => {
             {decisionHelper.map((d) => {
               const t = tierMeta[d.tier];
               return (
-                <div key={d.need} className={`card-surface rounded-xl p-5 border ${t.border}`}>
+                <div key={d.need} className={`card-surface rounded-xl p-5 border ${t.border}`}
+
                   <p className="text-sm text-foreground font-medium mb-2">"{d.need}"</p>
                   <div className="flex items-center gap-2">
                     <span className={`text-xs font-bold ${t.color}`}>→ {d.rec}</span>
@@ -930,7 +940,8 @@ const MiniPCFirewall = () => {
       {/* ── IPC090 Xeon Comparison ── */}
       <section className="py-16">
         <div className="container max-w-7xl mx-auto px-6">
-          <CollapsibleSection title="IPC090 Xeon — เปรียบเทียบ 4 รุ่นย่อย" defaultOpen={false}>
+          <CollapsibleSection title="IPC090 Xeon — เปรียบเทียบ 4 รุ่นย่อย" defaultOpen={false}
+
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>

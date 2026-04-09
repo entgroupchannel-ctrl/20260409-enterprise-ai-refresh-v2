@@ -277,12 +277,14 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
       {/* Nav bar */}
       <div className="container max-w-6xl mx-auto px-6 py-3 border-b border-border flex items-center justify-between">
         <Link to="/" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors">
-          <ArrowLeft size={14} /> {i.backHome}>
+          <ArrowLeft size={14} /> {i.backHome}
+
         </Link>
         <button
           onClick={() => setLang(lang === "th" ? "en" : "th")}
           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border text-xs font-semibold text-muted-foreground hover:text-foreground hover:border-primary/30 transition-all">
-          <Globe size={14} /> {lang === "th" ? "EN" : "TH"}>
+          <Globe size={14} /> {lang === "th" ? "EN" : "TH"}
+
         </button>
       </div>
 
@@ -362,7 +364,8 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
                 <div className="p-3">
                   <a href="https://maps.app.goo.gl/vuvJHVwy2n2G3o7e6" target="_blank" rel="noopener noreferrer"
                     className="text-xs text-primary hover:underline flex items-center gap-1">
-                    <MapPin size={11} /> {i.openGoogleMaps}>
+                    <MapPin size={11} /> {i.openGoogleMaps}
+
                   </a>
                 </div>
               </div>
@@ -380,14 +383,16 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
                   {cardPreview ? (
                     <div className="space-y-3">
                       <div className="flex items-center gap-2 text-sm font-medium text-foreground">
-                        <CreditCard size={16} className="text-primary" /> {i.uploadedCard}>
+                        <CreditCard size={16} className="text-primary" /> {i.uploadedCard}
+
                       </div>
                       <div className="relative rounded-lg overflow-hidden border border-border">
                         <img src={cardPreview} alt="Business card" className="w-full h-auto max-h-48 object-contain bg-white" />
                         {scanning && (
                           <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
                             <div className="flex items-center gap-2 text-white text-sm font-medium bg-black/60 px-4 py-2 rounded-lg">
-                              <Loader2 size={16} className="animate-spin" /> {i.scanning}>
+                              <Loader2 size={16} className="animate-spin" /> {i.scanning}
+
                             </div>
                           </div>
                         )}
@@ -455,7 +460,8 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-xs font-medium text-foreground mb-1.5">{i.lblCategory}</label>
-                        <select name="category" value={form.category} onChange={handleChange} className={inputClass}>
+                        <select name="category" value={form.category} onChange={handleChange} className={inputClass}
+
                           {i.categories.map((c, idx) => (
                             <option key={c} value={idx === 0 ? "" : c}>{c}</option>
                           ))}
@@ -463,7 +469,8 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
                       </div>
                       <div>
                         <label className="block text-xs font-medium text-foreground mb-1.5">{i.lblCallback}</label>
-                        <select name="callbackTime" value={form.callbackTime} onChange={handleChange} className={inputClass}>
+                        <select name="callbackTime" value={form.callbackTime} onChange={handleChange} className={inputClass}
+
                           {i.callbackTimes.map((ct, idx) => (
                             <option key={ct} value={idx === 0 ? "" : ct}>{ct}</option>
                           ))}
@@ -481,7 +488,8 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
                     </label>
                     <button type="submit" disabled={loading}
                       className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground text-sm font-bold hover:bg-primary/90 transition-colors disabled:opacity-50">
-                      {loading ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />} {i.submit}>
+                      {loading ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />} {i.submit}
+
                     </button>
                   </form>
                 )}

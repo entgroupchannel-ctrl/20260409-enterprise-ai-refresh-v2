@@ -352,15 +352,18 @@ const MegaMenu = ({
                 </div>
 
                 {/* Product columns — right */}
-                <div className={`col-span-9 grid grid-cols-3 gap-4`}>
+                <div className={`col-span-9 grid grid-cols-3 gap-4`}
+
                   {active.columns.map((col) => (
-                    <div key={col.heading}>
+                    <div key={col.heading}
+
                       <h5 className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 mb-2">
                         {col.heading}
                       </h5>
                       <ul className="space-y-0.5">
                         {col.links.map((link) => (
-                          <li key={link.href + link.label}>
+                          <li key={link.href + link.label}
+
                             <Link
                               to={link.href}
                               onClick={() => { setActiveMenu(null); onNavigate?.(); }}
@@ -451,7 +454,8 @@ export const MobileMegaMenu = ({ onNavigate }: { onNavigate?: () => void }) => {
   return (
     <div className="space-y-1">
       {menuCategories.map((cat) => (
-        <div key={cat.id}>
+        <div key={cat.id}
+
           <button
             onClick={() => setExpanded(expanded === cat.id ? null : cat.id)}
             className="w-full flex items-center justify-between py-3 px-2 text-foreground font-medium rounded-lg hover:bg-secondary/50 transition-colors">

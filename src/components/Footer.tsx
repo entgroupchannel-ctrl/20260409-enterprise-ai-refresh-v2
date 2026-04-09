@@ -52,7 +52,8 @@ const NewsletterForm = () => {
         type="submit"
         disabled={loading}
         className="px-6 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-2 disabled:opacity-50"
-        {loading ? <Loader2 size={16} className="animate-spin" /> : success ? <><CheckCircle size={16} /> สำเร็จ!</> : "สมัคร"}>
+        {loading ? <Loader2 size={16} className="animate-spin" /> : success ? <><CheckCircle size={16} /> สำเร็จ!</> : "สมัคร"}
+
       </button>
     </form>
   );
@@ -251,7 +252,8 @@ const Footer = () => {
                 <a href={site.href} target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-primary transition-colors">
                   {site.label}
                 </a>
-                {i < arr.length - 1 && <span className="text-muted-foreground/40 mx-1">|</span>}>
+                {i < arr.length - 1 && <span className="text-muted-foreground/40 mx-1">|</span>}
+
               </span>
             ))}
           </div>

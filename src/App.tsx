@@ -69,7 +69,8 @@ const queryClient = new QueryClient({
 
 const App = () => (
   <HelmetProvider>
-    <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}
+
       <ThemeProvider>
         <I18nProvider>
           <TooltipProvider>
@@ -77,7 +78,8 @@ const App = () => (
             <Sonner />
             <BrowserRouter>
               <ScrollToTop />
-              <Suspense fallback={<PageLoader />}>
+              <Suspense fallback={<PageLoader />}
+
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/gt-series" element={<GTSeries />} />

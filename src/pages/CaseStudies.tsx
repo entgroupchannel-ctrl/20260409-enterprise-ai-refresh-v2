@@ -60,7 +60,8 @@ const ClientTrustSection = () => {
             onClick={() => setIsOpen(!isOpen)}
             className="inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 transition-colors font-medium"
             {isOpen ? "ซ่อนรายชื่อ" : "ดูรายชื่อบางส่วน"}
-            {isOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}>
+            {isOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+
           </button>
         </div>
 
@@ -130,7 +131,8 @@ const CaseStudies = () => {
         </div>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {caseStudies.map((cs) => (
-            <Link key={cs.id} to={`/case-studies/${cs.id}`}>
+            <Link key={cs.id} to={`/case-studies/${cs.id}`}
+
               <Card className="group overflow-hidden h-full hover:shadow-xl transition-all duration-300 border-border/60 hover:border-primary/30">
                 <div className="relative h-44 overflow-hidden">
                   <img

@@ -84,7 +84,8 @@ const HandheldCard = ({
         <Button variant="outline" size="sm" className="flex-1" asChild>
           <span><Smartphone className="w-3.5 h-3.5 mr-1.5" /> ดูสเปก</span>
         </Button>
-        <Button size="sm" className="flex-1" onClick={(e) => { e.preventDefault(); e.stopPropagation(); onQuote(product.model); }}>
+        <Button size="sm" className="flex-1" onClick={(e) => { e.preventDefault(); e.stopPropagation(); onQuote(product.model); }}
+
           <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอราคา
         </Button>
       </div>
@@ -238,7 +239,8 @@ const Handheld = () => {
             <Button variant="outline" asChild>
               <Link to="/rugged-tablet">ดู Rugged Tablet & Notebook</Link>
             </Button>
-            <Button onClick={() => setQuoteProduct("Rugged Handheld & PDA")}>
+            <Button onClick={() => setQuoteProduct("Rugged Handheld & PDA")}
+
               <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
             </Button>
           </div>

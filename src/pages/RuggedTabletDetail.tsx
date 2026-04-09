@@ -27,7 +27,8 @@ const RelatedCard = ({ product }: { product: TabletDetailProduct }) => (
       <p className="font-mono text-xs text-muted-foreground">{product.model}</p>
       <h3 className="text-sm font-bold line-clamp-2">{product.nameTH}</h3>
       <div className="flex flex-wrap gap-1">
-        {product.badges.slice(0, 2).map((b) => <Badge key={b} variant="outline" className="text-[10px]">{b}</Badge>)}>
+        {product.badges.slice(0, 2).map((b) => <Badge key={b} variant="outline" className="text-[10px]">{b}</Badge>)}
+
       </div>
       {product.price ? (
         <p className="text-primary font-bold text-sm">{product.price}</p>
@@ -92,7 +93,8 @@ const RuggedTabletDetail = () => {
             <div className="flex flex-wrap gap-2">
               <Badge variant="secondary">{product.os}</Badge>
               <Badge variant="outline">{product.screenSize}</Badge>
-              {product.badges.map((b) => <Badge key={b} variant="outline" className="text-xs">{b}</Badge>)}>
+              {product.badges.map((b) => <Badge key={b} variant="outline" className="text-xs">{b}</Badge>)}
+
             </div>
           </div>
 
@@ -123,7 +125,8 @@ const RuggedTabletDetail = () => {
                     <div className="flex items-center justify-between mb-1">
                       <div className="flex items-center gap-2">
                         <p className="font-bold text-sm">{c.label}</p>
-                        {c.inStock && <Badge className="bg-green-500/20 text-green-600 border-green-500/30 text-[10px]">พร้อมส่ง</Badge>}>
+                        {c.inStock && <Badge className="bg-green-500/20 text-green-600 border-green-500/30 text-[10px]">พร้อมส่ง</Badge>}
+
                       </div>
                       <span className="text-primary font-extrabold text-lg">{c.price}</span>
                     </div>
@@ -132,7 +135,8 @@ const RuggedTabletDetail = () => {
                       <span>Storage: {c.storage}</span>
                       <span>Network: {c.network}</span>
                     </div>
-                    {c.note && <p className="text-[10px] text-primary mt-1">{c.note}</p>}>
+                    {c.note && <p className="text-[10px] text-primary mt-1">{c.note}</p>}
+
                   </div>
                 ))}
               </div>
@@ -161,7 +165,8 @@ const RuggedTabletDetail = () => {
 
             {/* CTA */}
             <div className="flex flex-wrap gap-3 pt-4 border-t border-border">
-              <Button size="lg" variant="outline" onClick={() => setQuoteOpen(true)}>
+              <Button size="lg" variant="outline" onClick={() => setQuoteOpen(true)}
+
                 <FileText className="w-5 h-5 mr-2" /> ขอราคาด่วน
               </Button>
               <LineQRButton className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 rounded-md border border-input bg-background text-foreground font-medium text-sm hover:bg-accent hover:text-accent-foreground transition-colors">
@@ -173,7 +178,8 @@ const RuggedTabletDetail = () => {
 
         {/* ─── Tabs ─── */}
         <div className="mt-12">
-          <Tabs value={tab} onValueChange={setTab}>
+          <Tabs value={tab} onValueChange={setTab}
+
             <TabsList className="bg-muted/50 w-full justify-start h-12 rounded-xl p-1">
               <TabsTrigger value="overview" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-6 font-bold">
                 ภาพรวมผลิตภัณฑ์
@@ -210,15 +216,19 @@ const RuggedTabletDetail = () => {
                     <Shield className="w-5 h-5 text-primary" /> จุดเด่นของผลิตภัณฑ์
                   </h2>
                   {product.overviewSections.map((sec, i) => (
-                    <div key={i} className={`grid md:grid-cols-2 gap-6 items-center ${i % 2 === 1 ? "md:[direction:rtl]" : ""}`}>
+                    <div key={i} className={`grid md:grid-cols-2 gap-6 items-center ${i % 2 === 1 ? "md:[direction:rtl]" : ""}`}
+
                       {sec.image && (
-                        <div className={`rounded-xl overflow-hidden bg-secondary/30 ${i % 2 === 1 ? "md:[direction:ltr]" : ""}`}>
+                        <div className={`rounded-xl overflow-hidden bg-secondary/30 ${i % 2 === 1 ? "md:[direction:ltr]" : ""}`}
+
                           <img src={sec.image} alt={sec.titleTH} className="w-full h-auto object-cover max-h-[300px]" loading="lazy" />
                         </div>
                       )}
-                      <div className={i % 2 === 1 ? "md:[direction:ltr]" : ""}>
+                      <div className={i % 2 === 1 ? "md:[direction:ltr]" : ""}
+
                         <h3 className="text-lg font-bold mb-1">{sec.titleTH}</h3>
-                        {sec.titleEN && <p className="text-xs text-primary font-medium mb-2">{sec.titleEN}</p>}>
+                        {sec.titleEN && <p className="text-xs text-primary font-medium mb-2">{sec.titleEN}</p>}
+
                         <p className="text-sm text-muted-foreground mb-2">{sec.descTH}</p>
                         {sec.stats && (
                           <div className="flex flex-wrap gap-3">
@@ -234,7 +244,8 @@ const RuggedTabletDetail = () => {
                           <ul className="space-y-1 mt-2">
                             {sec.bullets.map((b) => (
                               <li key={b} className="flex items-start gap-2 text-xs text-muted-foreground">
-                                <Zap className="w-3 h-3 text-primary shrink-0 mt-0.5" /> {b}>
+                                <Zap className="w-3 h-3 text-primary shrink-0 mt-0.5" /> {b}
+
                               </li>
                             ))}
                           </ul>
@@ -279,7 +290,8 @@ const RuggedTabletDetail = () => {
                   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
                     {product.accessories.map((acc) => (
                       <div key={acc.nameEN} className="bg-card border border-border rounded-lg p-3 text-center">
-                        {acc.image && <img src={acc.image} alt={acc.name} className="w-full h-24 object-contain mb-2" loading="lazy" />}>
+                        {acc.image && <img src={acc.image} alt={acc.name} className="w-full h-24 object-contain mb-2" loading="lazy" />}
+
                         <p className="text-xs font-bold text-foreground">{acc.name}</p>
                         <p className="text-[10px] text-muted-foreground">{acc.nameEN}</p>
                         <p className="text-[10px] text-muted-foreground mt-1">{acc.desc}</p>
@@ -304,7 +316,8 @@ const RuggedTabletDetail = () => {
                     <Table>
                       <TableBody>
                         {group.items.map((item) => (
-                          <TableRow key={item.label}>
+                          <TableRow key={item.label}
+
                             <TableCell className="font-medium w-1/3 text-sm">{item.label}</TableCell>
                             <TableCell className="text-sm whitespace-pre-line">{item.value}</TableCell>
                           </TableRow>
@@ -360,7 +373,8 @@ const RuggedTabletDetail = () => {
                 </div>
 
                 <div className="border-t border-border pt-4 flex flex-wrap gap-3">
-                  <Button onClick={() => setQuoteOpen(true)}>
+                  <Button onClick={() => setQuoteOpen(true)}
+
                     <FileText className="w-4 h-4 mr-2" /> ขอใบเสนอราคา
                   </Button>
                   <LineQRButton className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-md border border-input bg-background text-foreground font-medium text-sm hover:bg-accent hover:text-accent-foreground transition-colors">
@@ -377,7 +391,8 @@ const RuggedTabletDetail = () => {
           <div className="mt-16">
             <h2 className="text-xl font-bold mb-6">สินค้าที่เกี่ยวข้อง</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {related.map((r) => <RelatedCard key={r.id} product={r} />)}>
+              {related.map((r) => <RelatedCard key={r.id} product={r} />)}
+
             </div>
           </div>
         )}

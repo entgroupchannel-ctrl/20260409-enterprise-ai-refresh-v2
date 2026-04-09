@@ -102,7 +102,8 @@ const IBoxDetail = () => {
               <Badge variant="secondary">{product.category}</Badge>
               <Badge variant="outline">{product.subcategory}</Badge>
               {product.specs.poe && <Badge className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20">PoE+ Support</Badge>}
-              {product.specs.pcie && <Badge variant="outline">PCIe Expansion</Badge>}>
+              {product.specs.pcie && <Badge variant="outline">PCIe Expansion</Badge>}
+
             </div>
           </div>
 
@@ -195,7 +196,8 @@ const IBoxDetail = () => {
 
             {/* Actions */}
             <div className="flex flex-wrap gap-3 pt-4 border-t border-border">
-              <Button size="lg" variant="outline" onClick={() => setQuoteProduct(product.name)}>
+              <Button size="lg" variant="outline" onClick={() => setQuoteProduct(product.name)}
+
                 <FileText className="w-5 h-5 mr-2" /> ขอราคาด่วน
               </Button>
             </div>
@@ -220,10 +222,12 @@ const IBoxDetail = () => {
                   const value = product.specs[key as keyof typeof product.specs];
                   if (!value || value === "N/A") return null;
                   return (
-                    <TableRow key={key}>
+                    <TableRow key={key}
+
                       <TableCell className="font-medium">
                         <div className="flex items-center gap-2">
-                          <Icon className="w-4 h-4 text-primary" /> {label}>
+                          <Icon className="w-4 h-4 text-primary" /> {label}
+
                         </div>
                       </TableCell>
                       <TableCell>{String(value)}</TableCell>

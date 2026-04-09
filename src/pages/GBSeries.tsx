@@ -388,7 +388,8 @@ const GBSeries = () => {
               <ul className="space-y-2 mb-6">
                 {current.features.map((f) => (
                   <li key={f} className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <span className="text-primary mt-0.5">✓</span> {f}>
+                    <span className="text-primary mt-0.5">✓</span> {f}
+
                   </li>
                 ))}
               </ul>
@@ -397,7 +398,8 @@ const GBSeries = () => {
                 onClick={() => setQuoteOpen(true)}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity"
               >
-                <FileText size={18} /> ขอใบเสนอราคา {current.name}>
+                <FileText size={18} /> ขอใบเสนอราคา {current.name}
+
               </button>
             </div>
 
@@ -482,7 +484,8 @@ const GBSeries = () => {
                         <tbody className="divide-y divide-border">
                           {col.map((section) => (
                             <>
-                              <tr key={section.cat}>
+                              <tr key={section.cat}
+
                                 <td colSpan={2} className="px-4 py-2 bg-secondary/40 font-bold text-xs uppercase tracking-wider text-primary">{section.cat}</td>
                               </tr>
                               {section.rows.map(([label, value]) => (
@@ -513,7 +516,8 @@ const GBSeries = () => {
       {/* GB4000 v1 vs v2 Comparison */}
       <section className="border-t border-border bg-secondary/10">
         <div className="container max-w-7xl mx-auto px-6 py-12">
-          <CollapsibleSpec title="⚔️ เปรียบเทียบ GB4000 v1 vs v2 — เหมือนหรือต่างกันอย่างไร?" defaultOpen={true}>
+          <CollapsibleSpec title="⚔️ เปรียบเทียบ GB4000 v1 vs v2 — เหมือนหรือต่างกันอย่างไร?" defaultOpen={true}
+
             <div className="p-6 space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="p-5 rounded-xl border border-border bg-card">
@@ -567,7 +571,8 @@ const GBSeries = () => {
       {/* Full Comparison Table with Filter */}
       <section className="border-t border-border bg-secondary/20">
         <div className="container max-w-7xl mx-auto px-6 py-12">
-          <CollapsibleSpec title="เปรียบเทียบทุกรุ่น GB Series (5 รุ่น)" defaultOpen={true}>
+          <CollapsibleSpec title="เปรียบเทียบทุกรุ่น GB Series (5 รุ่น)" defaultOpen={true}
+
             <div className="p-4 space-y-4">
               {/* Model Filter Chips */}
               <div className="flex flex-wrap gap-2 items-center">

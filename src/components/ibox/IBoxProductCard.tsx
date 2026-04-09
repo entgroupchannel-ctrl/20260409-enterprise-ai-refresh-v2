@@ -16,7 +16,8 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
   const isSelected = selectedProducts.has(product.name);
 
   return (
-    <div className={`card-surface overflow-hidden group transition-all flex flex-col ${isSelected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"}`}>
+    <div className={`card-surface overflow-hidden group transition-all flex flex-col ${isSelected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"}`}
+
       {/* Image */}
       <Link
         to={`/ibox-series/${product.id}`}
@@ -73,7 +74,8 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
       {/* Content */}
       <div className="p-4 flex-1 flex flex-col">
         <p className="text-xs font-mono text-primary font-semibold mb-1">{product.id}</p>
-        <Link to={`/ibox-series/${product.id}`}>
+        <Link to={`/ibox-series/${product.id}`}
+
           <h3 className="font-display font-bold text-foreground line-clamp-2 group-hover:text-primary transition-colors mb-1 text-sm">
             {product.name}
           </h3>
@@ -113,7 +115,8 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
               รายละเอียด
             </Button>
           </Link>
-          <Button size="sm" className="flex-1 text-xs" onClick={() => onQuote(product.name)}>
+          <Button size="sm" className="flex-1 text-xs" onClick={() => onQuote(product.name)}
+
             <FileText className="w-3.5 h-3.5 mr-1" />
             ขอราคา
           </Button>

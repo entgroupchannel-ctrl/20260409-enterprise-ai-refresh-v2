@@ -143,13 +143,15 @@ const PriceTable = ({ title, icon: Icon, models, subTitle }: {
           </div>
           <div className="text-left">
             <h3 className="font-bold text-foreground">{title}</h3>
-            {subTitle && <p className="text-xs text-primary/70">{subTitle}</p>}>
+            {subTitle && <p className="text-xs text-primary/70">{subTitle}</p>}
+
           </div>
         </div>
         <ChevronDown className={`text-muted-foreground transition-transform duration-200 ${open ? "rotate-180" : ""}`} size={18} />
       </button>
 
-      <div className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${open ? "max-h-[2000px]" : "max-h-0"}`}>
+      <div className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${open ? "max-h-[2000px]" : "max-h-0"}`}
+
         <div className="px-5 pb-5">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -183,7 +185,8 @@ const PriceTable = ({ title, icon: Icon, models, subTitle }: {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center justify-center w-8 h-8 rounded-md hover:bg-primary/10 text-primary transition-colors"
-                        title={`Download ${m.model} Datasheet`}>
+                        title={`Download ${m.model} Datasheet`}
+
                         <Download size={14} />
                       </a>
                     </td>

@@ -128,7 +128,8 @@ const HeroSection = () => {
           <ThemeToggle />
         </div>
         <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden text-white">
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}>
+          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+
         </button>
       </nav>
 
@@ -149,7 +150,8 @@ const HeroSection = () => {
             <p className="text-sm md:text-base text-primary font-semibold tracking-widest uppercase mb-4 animate-fade-up">
               B2B Industrial Platform — แพลตฟอร์มจัดซื้ออุตสาหกรรมแบบครบวงจร
             </p>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-black leading-[1.1] mb-6 animate-fade-up text-white" style={{ animationDelay: "0.1s" }}>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-black leading-[1.1] mb-6 animate-fade-up text-white" style={{ animationDelay: "0.1s" }}
+
               โซลูชัน{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-[hsl(var(--accent))]">
                 Industrial Computing
@@ -157,13 +159,15 @@ const HeroSection = () => {
               <br />
               สำหรับประเทศไทย
             </h1>
-            <p className="text-lg md:text-xl text-white/70 max-w-xl mb-10 animate-fade-up leading-relaxed" style={{ animationDelay: "0.2s" }}>
+            <p className="text-lg md:text-xl text-white/70 max-w-xl mb-10 animate-fade-up leading-relaxed" style={{ animationDelay: "0.2s" }}
+
               พันธมิตรธุรกิจที่คุณไว้วางใจ — Mini PC, Panel PC, Rugged Device
               และซอฟต์แวร์ครบวงจร สำหรับงานโรงงาน งานประมูล และงานโครงการ
             </p>
 
             {/* Search */}
-            <div ref={searchRef} className="relative max-w-xl mb-8 animate-fade-up" style={{ animationDelay: "0.3s" }}>
+            <div ref={searchRef} className="relative max-w-xl mb-8 animate-fade-up" style={{ animationDelay: "0.3s" }}
+
               <div className="flex items-center bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl overflow-hidden focus-within:ring-2 focus-within:ring-primary/50 transition-shadow">
                 <Search className="ml-4 text-white/50" size={20} />
                 <input
@@ -198,7 +202,8 @@ const HeroSection = () => {
             </div>
 
             {/* CTA */}
-            <div className="flex flex-wrap items-center gap-3 animate-fade-up" style={{ animationDelay: "0.35s" }}>
+            <div className="flex flex-wrap items-center gap-3 animate-fade-up" style={{ animationDelay: "0.35s" }}
+
               <Link
                 to="/contact"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20">
@@ -212,9 +217,11 @@ const HeroSection = () => {
             </div>
 
             {/* Stats bar */}
-            <div className="flex flex-wrap gap-8 mt-12 animate-fade-up" style={{ animationDelay: "0.5s" }}>
+            <div className="flex flex-wrap gap-8 mt-12 animate-fade-up" style={{ animationDelay: "0.5s" }}
+
               {heroStats.map((s) => (
-                <div key={s.label}>
+                <div key={s.label}
+
                   <p className="text-2xl md:text-3xl font-display font-black text-primary">{s.value}</p>
                   <p className="text-xs text-white/50">{s.label}</p>
                 </div>
@@ -223,7 +230,8 @@ const HeroSection = () => {
           </div>
 
           {/* Right: Search Tags */}
-          <div className={`hidden lg:flex fixed right-0 top-1/2 -translate-y-1/2 z-30 transition-all duration-500 ease-in-out ${tagsExpanded ? "translate-x-0" : "translate-x-[calc(100%-28px)]"}`}>
+          <div className={`hidden lg:flex fixed right-0 top-1/2 -translate-y-1/2 z-30 transition-all duration-500 ease-in-out ${tagsExpanded ? "translate-x-0" : "translate-x-[calc(100%-28px)]"}`}
+
             <button
               onClick={() => setTagsExpanded(!tagsExpanded)}
               className="flex items-center justify-center w-7 shrink-0 rounded-l-xl bg-white/10 backdrop-blur-md border border-r-0 border-white/15 text-white/50 hover:text-white hover:bg-white/20 transition-colors"
@@ -244,7 +252,8 @@ const HeroSection = () => {
           </div>
 
           {/* Mobile: Tags inline */}
-          <div className="flex flex-wrap gap-2 lg:hidden animate-fade-up" style={{ animationDelay: "0.4s" }}>
+          <div className="flex flex-wrap gap-2 lg:hidden animate-fade-up" style={{ animationDelay: "0.4s" }}
+
             {searchTags.map((tag) => (
               <button
                 key={tag.label}

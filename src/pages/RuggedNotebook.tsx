@@ -199,7 +199,8 @@ const RuggedNotebookPage = () => {
                   filters.os === tab.id ? "bg-primary text-primary-foreground shadow-sm" : "bg-muted hover:bg-muted/80 text-foreground"
                 }`}
                 {tab.label}
-                <span className={`text-[10px] font-mono ${filters.os === tab.id ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
+                <span className={`text-[10px] font-mono ${filters.os === tab.id ? "text-primary-foreground/70" : "text-muted-foreground"}`}
+
                   ({tab.id === "all" ? ruggedNotebooks.length : ruggedNotebooks.filter((p) => p.os === tab.id).length})
                 </span>
               </button>
@@ -245,10 +246,12 @@ const RuggedNotebookPage = () => {
                   <Input placeholder="ค้นหา... (ชื่อ, รุ่น, CPU)" value={search} onChange={(e) => setSearch(e.target.value)} className="pl-10" />
                 </div>
                 <div className="flex gap-2">
-                  <Button variant="outline" size="icon" className="lg:hidden" onClick={() => setIsMobileFilterOpen(true)}>
+                  <Button variant="outline" size="icon" className="lg:hidden" onClick={() => setIsMobileFilterOpen(true)}
+
                     <SlidersHorizontal className="w-4 h-4" />
                   </Button>
-                  <Select value={sortBy} onValueChange={setSortBy}>
+                  <Select value={sortBy} onValueChange={setSortBy}
+
                     <SelectTrigger className="w-[160px]">
                       <ArrowUpDown className="w-4 h-4 mr-2" />
                       <SelectValue />
@@ -278,7 +281,8 @@ const RuggedNotebookPage = () => {
                 <Laptop className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
                 <h3 className="text-lg font-bold text-foreground mb-2">ไม่พบสินค้า</h3>
                 <p className="text-sm text-muted-foreground mb-4">ลองปรับตัวกรองหรือคำค้นหาใหม่</p>
-                <Button variant="outline" onClick={() => { setSearch(""); setFilters({ ...defaultNotebookFilters }); }}>
+                <Button variant="outline" onClick={() => { setSearch(""); setFilters({ ...defaultNotebookFilters }); }}
+
                   ล้างตัวกรองทั้งหมด
                 </Button>
               </div>
@@ -360,7 +364,8 @@ const RuggedNotebookPage = () => {
             <ShoppingCart className="w-5 h-5" />
             <span className="font-bold text-sm">{selectedProducts.size} รุ่น</span>
           </div>
-          <Button size="sm" variant="secondary" className="rounded-full font-bold" onClick={() => setShowMultiQuote(true)}>
+          <Button size="sm" variant="secondary" className="rounded-full font-bold" onClick={() => setShowMultiQuote(true)}
+
             <FileText className="w-4 h-4 mr-1.5" /> ขอใบเสนอราคารวม
           </Button>
           <button onClick={clearSelection} className="p-1 hover:bg-primary-foreground/20 rounded-full transition-colors">
@@ -405,7 +410,8 @@ const NotebookCard = ({ product, selected, onToggleSelect }: { product: RuggedNo
   const cfg = product.configs[selectedCfg];
 
   return (
-    <div className={`group bg-card border border-border rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col ${selected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"}`}>
+    <div className={`group bg-card border border-border rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col ${selected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"}`}
+
       {/* Image */}
       <Link to={`/rugged-notebook/${product.id}`} className="relative bg-gradient-to-b from-muted/30 to-transparent p-6 flex items-center justify-center min-h-[200px]">
         <button onClick={(e) => { e.preventDefault(); e.stopPropagation(); onToggleSelect(product.model); }} className="absolute top-3 left-3 z-10">
@@ -420,7 +426,8 @@ const NotebookCard = ({ product, selected, onToggleSelect }: { product: RuggedNo
       {/* Info */}
       <div className="p-5 flex flex-col flex-1">
         <p className="text-xs font-mono text-muted-foreground tracking-wider mb-1">{product.model}</p>
-        <Link to={`/rugged-notebook/${product.id}`}>
+        <Link to={`/rugged-notebook/${product.id}`}
+
           <h3 className="font-bold text-sm leading-snug mb-2 line-clamp-2 hover:text-primary transition-colors">{product.title}</h3>
         </Link>
 

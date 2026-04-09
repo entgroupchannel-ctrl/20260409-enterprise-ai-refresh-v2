@@ -231,24 +231,31 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
   return (
     <div className={`card-surface overflow-hidden transition-all duration-300 ${
       promo.status === "active" ? "border-primary/30 shadow-lg" : ""
-    } ${featured ? "md:col-span-2" : ""}`}>
-      <div className={`flex flex-col ${featured ? "md:flex-row" : ""}`}>
+    } ${featured ? "md:col-span-2" : ""}`}
+
+      <div className={`flex flex-col ${featured ? "md:flex-row" : ""}`}
+
         {/* Image */}
         <div className={`relative bg-secondary/30 flex items-center justify-center p-6 ${
           featured ? "md:w-2/5" : ""
-        }`}>
+        }`}
+
           {promo.badge && (
             <span className={`absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
               promo.status === "active" ? "bg-destructive text-destructive-foreground" : "bg-primary text-primary-foreground"
-            }`}>
+            }`}
+
               {promo.badge}
             </span>
           )}
-          <span className={`absolute top-3 right-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold ${sc.color}`}>
-            <sc.icon size={10} /> {sc.label}>
+          <span className={`absolute top-3 right-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold ${sc.color}`}
+
+            <sc.icon size={10} /> {sc.label}
+
           </span>
           {promo.ctaHref ? (
-            <Link to={promo.ctaHref}>
+            <Link to={promo.ctaHref}
+
               <img
                 src={promo.image}
                 alt={promo.title}
@@ -267,12 +274,14 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
         </div>
 
         {/* Content */}
-        <div className={`flex-1 p-5 ${featured ? "md:p-8" : ""}`}>
+        <div className={`flex-1 p-5 ${featured ? "md:p-8" : ""}`}
+
           <div className="flex items-center gap-2 mb-2">
             <Calendar size={14} className="text-primary" />
             <span className="text-xs text-muted-foreground font-medium">{promo.period}</span>
           </div>
-          <h3 className={`font-bold text-foreground mb-1 ${featured ? "text-xl md:text-2xl" : "text-lg"}`}>
+          <h3 className={`font-bold text-foreground mb-1 ${featured ? "text-xl md:text-2xl" : "text-lg"}`}
+
             {promo.title}
           </h3>
           <p className={`text-primary font-medium mb-3 ${featured ? "text-sm" : "text-xs"}`}>{promo.subtitle}</p>
@@ -287,11 +296,13 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
             <ChevronDown size={14} className={`transition-transform duration-200 ${expanded ? "rotate-180" : ""}`} />
           </button>
 
-          <div className={`overflow-hidden transition-[max-height] duration-300 ${expanded ? "max-h-[500px]" : "max-h-0"}`}>
+          <div className={`overflow-hidden transition-[max-height] duration-300 ${expanded ? "max-h-[500px]" : "max-h-0"}`}
+
             <ul className="space-y-1.5 mb-4">
               {promo.highlights.map((h) => (
                 <li key={h} className="flex items-start gap-2 text-sm text-muted-foreground">
-                  <span className="text-primary mt-0.5">✓</span> {h}>
+                  <span className="text-primary mt-0.5">✓</span> {h}
+
                 </li>
               ))}
             </ul>

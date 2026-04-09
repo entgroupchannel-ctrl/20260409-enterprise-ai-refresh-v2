@@ -220,13 +220,15 @@ const AboutUs = () => {
                       item.current
                         ? "bg-primary border-primary shadow-lg shadow-primary/30"
                         : "bg-background border-primary/40 hover:border-primary/70"
-                    }`}>
+                    }`}
+
                       <item.icon size={18} className={item.current ? "text-primary-foreground" : "text-primary/70"} />
                     </div>
 
                     {/* Year */}
                     <div className="flex items-center gap-1 mb-1">
-                      <span className={`text-sm font-display font-black ${item.current ? "text-primary" : "text-foreground"}`}>
+                      <span className={`text-sm font-display font-black ${item.current ? "text-primary" : "text-foreground"}`}
+
                         {item.year}
                       </span>
                       {item.current && (

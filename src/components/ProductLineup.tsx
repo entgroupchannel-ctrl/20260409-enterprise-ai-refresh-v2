@@ -236,7 +236,8 @@ const ProductLineup = () => {
                           ? "bg-primary text-primary-foreground hover:bg-primary/90"
                           : "border border-primary/30 text-primary hover:bg-primary/10"
                       }`}
-                      <c.icon size={13} /> {c.label}>
+                      <c.icon size={13} /> {c.label}
+
                     </Link>
                   ))}
                 </div>

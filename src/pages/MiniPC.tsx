@@ -680,7 +680,8 @@ const ProductCard = ({ model, onQuote }: { model: any; onQuote?: (name: string) 
       <Tabs defaultValue="specs" className="w-full">
         <TabsList className="w-full justify-start bg-secondary/50 overflow-x-auto">
           <TabsTrigger value="specs" className="text-xs md:text-sm">►Specification</TabsTrigger>
-          {model.gallery && <TabsTrigger value="gallery" className="text-xs md:text-sm">►Gallery</TabsTrigger>}>
+          {model.gallery && <TabsTrigger value="gallery" className="text-xs md:text-sm">►Gallery</TabsTrigger>}
+
         </TabsList>
         <TabsContent value="specs">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mt-4">
@@ -714,7 +715,8 @@ const ProductCard = ({ model, onQuote }: { model: any; onQuote?: (name: string) 
             </a>
           </Button>
         )}
-        <Button size="sm" onClick={() => onQuote?.(model.name)}>
+        <Button size="sm" onClick={() => onQuote?.(model.name)}
+
           <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
         </Button>
       </div>
@@ -737,7 +739,8 @@ const CategorySection = ({ id, title, subtitle, icon: Icon, models, onQuote }: {
       </div>
     </div>
     <div className="space-y-6">
-      {models.map((m) => <ProductCard key={m.id} model={m} onQuote={onQuote} />)}>
+      {models.map((m) => <ProductCard key={m.id} model={m} onQuote={onQuote} />)}
+
     </div>
   </section>
 );
@@ -870,10 +873,12 @@ const MiniPC = () => {
             ))}
           </div>
           <div className="flex flex-wrap gap-3">
-            <Button onClick={() => setQuoteProduct("Mini PC")}>
+            <Button onClick={() => setQuoteProduct("Mini PC")}
+
               <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
             </Button>
-            <Button variant="outline" onClick={() => document.getElementById("pricelist")?.scrollIntoView({ behavior: "smooth" })}>
+            <Button variant="outline" onClick={() => document.getElementById("pricelist")?.scrollIntoView({ behavior: "smooth" })}
+
               ดูตารางราคา
             </Button>
             <LineQRButton className="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-[#06C755] text-[#06C755] font-medium text-sm hover:bg-[#06C755]/10 transition-colors">
@@ -962,7 +967,8 @@ const MiniPC = () => {
                     onChange={(e) => handleFilterCat(e.target.value)}
                     className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none"
                   >
-                    {priceCategories.map((c) => <option key={c} value={c}>{c}</option>)}>
+                    {priceCategories.map((c) => <option key={c} value={c}>{c}</option>)}
+
                   </select>
                 </div>
                 {/* CPU Level Filter */}
@@ -973,7 +979,8 @@ const MiniPC = () => {
                     onChange={(e) => handleFilterCpu(e.target.value)}
                     className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none"
                   >
-                    {cpuLevels.map((c) => <option key={c} value={c}>{c}</option>)}>
+                    {cpuLevels.map((c) => <option key={c} value={c}>{c}</option>)}
+
                   </select>
                 </div>
                 {/* Price Range Filter */}
@@ -984,7 +991,8 @@ const MiniPC = () => {
                     onChange={(e) => handleFilterPrice(Number(e.target.value))}
                     className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none"
                   >
-                    {priceRanges.map((r, i) => <option key={i} value={i}>{r.label}</option>)}>
+                    {priceRanges.map((r, i) => <option key={i} value={i}>{r.label}</option>)}
+
                   </select>
                 </div>
               </div>
@@ -1016,7 +1024,8 @@ const MiniPC = () => {
                       </TableRow>
                     ) : (
                       paginatedItems.map((r) => (
-                        <TableRow key={r.model}>
+                        <TableRow key={r.model}
+
                           <TableCell className="font-medium text-foreground">{r.model}</TableCell>
                           <TableCell><Badge variant="outline" className="text-[10px]">{r.category}</Badge></TableCell>
                           <TableCell className="text-muted-foreground text-sm">{r.cpu}</TableCell>
@@ -1024,7 +1033,8 @@ const MiniPC = () => {
                           <TableCell className="text-muted-foreground text-sm">{r.storage}</TableCell>
                           <TableCell className="text-right font-semibold text-foreground">{r.price}</TableCell>
                           <TableCell className="text-right">
-                            <Button size="sm" variant="ghost" className="text-xs text-primary" onClick={() => setQuoteProduct(r.model)}>
+                            <Button size="sm" variant="ghost" className="text-xs text-primary" onClick={() => setQuoteProduct(r.model)}
+
                               <FileText className="w-3 h-3 mr-1" /> ขอราคา
                             </Button>
                           </TableCell>
@@ -1097,7 +1107,8 @@ const MiniPC = () => {
               <span key={u} className="px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium">{u}</span>
             ))}
           </div>
-          <Button onClick={() => setQuoteProduct("Mini PC")}>
+          <Button onClick={() => setQuoteProduct("Mini PC")}
+
             <FileText className="w-3.5 h-3.5 mr-1.5" /> ปรึกษาผู้เชี่ยวชาญ — ขอใบเสนอราคา
           </Button>
         </div>
