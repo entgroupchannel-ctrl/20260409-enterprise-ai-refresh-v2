@@ -14,6 +14,7 @@ const LangToggle = ({ variant = "compact", className = "" }: LangToggleProps) =>
       <button
         onClick={toggleLang}
         className={`p-2 rounded-lg hover:bg-secondary transition-colors text-muted-foreground hover:text-foreground ${className}`}
+        >
         title={lang === "th" ? "Switch to English" : "เปลี่ยนเป็นภาษาไทย"}
         aria-label="Toggle language"
       >
@@ -30,7 +31,7 @@ const LangToggle = ({ variant = "compact", className = "" }: LangToggleProps) =>
           className={`px-3 py-1.5 text-xs font-medium rounded transition-colors ${
             lang === "th" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
           }`}
-        >
+          >
           ไทย
         </button>
         <button
@@ -38,7 +39,7 @@ const LangToggle = ({ variant = "compact", className = "" }: LangToggleProps) =>
           className={`px-3 py-1.5 text-xs font-medium rounded transition-colors ${
             lang === "en" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
           }`}
-        >
+          >
           EN
         </button>
       </div>
@@ -50,6 +51,7 @@ const LangToggle = ({ variant = "compact", className = "" }: LangToggleProps) =>
     <button
       onClick={toggleLang}
       className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors ${className}`}
+      >
       title={lang === "th" ? "Switch to English" : "เปลี่ยนเป็นภาษาไทย"}
     >
       <Globe size={12} />

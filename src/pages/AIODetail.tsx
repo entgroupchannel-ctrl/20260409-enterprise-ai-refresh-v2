@@ -15,12 +15,8 @@ import SEOHead from "@/components/SEOHead";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import FooterCompact from "@/components/FooterCompact";
-import QuoteDialog from "@/components/QuoteDialog";
-import AddToQuoteButton from "@/components/AddToQuoteButton";
-import WishlistHeart from "@/components/WishlistHeart";
 import ProductGallery from "@/components/ProductGallery";
 import { getAIOProduct, getRelatedAIO, categoryLabels, type AIOProduct } from "@/data/aio-products";
-import { useEngagementTracker } from "@/hooks/useEngagementTracker";
 
 /* ── Related Card ── */
 const RelatedCard = ({ p }: { p: AIOProduct }) => (
@@ -33,6 +29,7 @@ const RelatedCard = ({ p }: { p: AIOProduct }) => (
         {p.os.map((o) => (
           <Badge key={o} variant="outline" className="text-[10px]">{o}</Badge>
         ))}
+        >
         <Badge variant="secondary" className="text-[10px]">{p.screenSize}</Badge>
       </div>
       <h3 className="text-sm font-bold line-clamp-2">{p.model}</h3>
@@ -42,6 +39,7 @@ const RelatedCard = ({ p }: { p: AIOProduct }) => (
       ) : (
         <p className="text-muted-foreground text-xs">สอบถามราคา</p>
       )}
+      >
     </div>
   </Link>
 );
@@ -50,21 +48,12 @@ const RelatedCard = ({ p }: { p: AIOProduct }) => (
 const AIODetail = () => {
   const { id } = useParams<{ id: string }>();
   const [quoteOpen, setQuoteOpen] = useState(false);
-  const [tab, setTab] = useState("overview");
-  const { trackEvent } = useEngagementTracker();
-
-  const product = id ? getAIOProduct(id) : undefined;
+  const [tab, setTab] = useState("overview");  const product = id ? getAIOProduct(id) : undefined;
   const related = id ? getRelatedAIO(id) : [];
 
   // ── Engagement Tracking: product view ──
   useEffect(() => {
     if (product) {
-      trackEvent({
-        eventType: "product_view",
-        productId: product.id,
-        productCategory: "All-in-One PC",
-        productName: product.model,
-      });
     }
   }, [product?.id]);
 
@@ -83,13 +72,16 @@ const AIODetail = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title={`${product.model} — ${product.title}`}
+        >
         description={`${product.titleTH} | ${product.cpu} | ${product.screenSize}`}
+        >
         path={`/aio/${product.id}`}
       />
       <ProductJsonLd
         collectionName={product.model}
         collectionDescription={product.titleTH}
         collectionUrl={`/aio/${product.id}`}
+        >
         products={[{ name: product.title, image: product.image, price: product.price?.replace(/[฿,]/g, ""), description: product.cpu, category: "All-in-One PC" }]}
       />
       <BreadcrumbJsonLd items={[
@@ -117,21 +109,19 @@ const AIODetail = () => {
           {/* Gallery */}
           <div className="space-y-4">
             <div className="relative">
-              <WishlistHeart
-                item={{ id: product.id, name: product.model, category: "All-in-One PC", image: product.image, href: `/aio/${product.id}`, specs: product.titleTH }}
-                className="absolute top-3 right-3 z-10"
-              />
               <ProductGallery images={product.gallery} alt={product.model} />
             </div>
             <div className="flex flex-wrap gap-2">
               {product.os.map((o) => (
                 <Badge key={o} variant="secondary">{o}</Badge>
               ))}
+              >
               <Badge variant="outline">{product.screenSize}</Badge>
               <Badge variant="outline">{categoryLabels[product.category]}</Badge>
               {product.certifications.map((c) => (
                 <Badge key={c} variant="outline" className="text-xs">{c}</Badge>
               ))}
+              >
             </div>
           </div>
 
@@ -156,6 +146,7 @@ const AIODetail = () => {
                   <p className="text-sm font-medium text-foreground">{s.value}</p>
                 </div>
               ))}
+              >
             </div>
 
             {/* Price / Contact */}
@@ -166,6 +157,7 @@ const AIODetail = () => {
               ) : (
                 <p className="text-xl font-bold text-primary mb-1">สอบถามราคา</p>
               )}
+              >
               <p className="text-xs text-muted-foreground">{product.warranty.note}</p>
               <div className="flex flex-wrap gap-2 mt-3">
                 <button
@@ -182,11 +174,6 @@ const AIODetail = () => {
 
             {/* CTA */}
             <div className="flex flex-wrap gap-3 pt-4 border-t border-border">
-              <AddToQuoteButton
-                model={product.model}
-                category="All-in-One PC"
-                productName={product.model}
-              />
               <Button size="lg" variant="outline" onClick={() => setQuoteOpen(true)}>
                 <FileText className="w-5 h-5 mr-2" /> ขอราคาด่วน
               </Button>
@@ -226,6 +213,7 @@ const AIODetail = () => {
                       <span className="text-sm">{feat}</span>
                     </div>
                   ))}
+                  >
                 </div>
               </div>
 
@@ -245,6 +233,7 @@ const AIODetail = () => {
                           <img src={h.image} alt={h.titleEN} className="w-full h-auto object-cover max-h-[300px]" loading="lazy" />
                         </div>
                       )}
+                      >
                       <div className={i % 2 === 1 ? "md:[direction:ltr]" : ""}>
                         <h3 className="text-lg font-bold mb-1">{h.titleTH}</h3>
                         <p className="text-xs text-primary font-medium mb-2">{h.titleEN}</p>
@@ -253,6 +242,7 @@ const AIODetail = () => {
                       </div>
                     </div>
                   ))}
+                  >
                 </div>
               )}
 
@@ -264,10 +254,12 @@ const AIODetail = () => {
                     {product.applications.map((app) => (
                       <div key={app.titleEN} className="p-4 bg-card border border-border rounded-lg text-center">
                         {(() => { const Icon = icons[app.icon as keyof typeof icons]; return Icon ? <Icon className="w-6 h-6 mx-auto mb-2 text-primary" /> : <span className="text-2xl mb-2 block">{app.icon}</span>; })()}
+                        >
                         <p className="font-bold text-sm">{app.titleTH}</p>
                         <p className="text-xs text-muted-foreground">{app.titleEN}</p>
                       </div>
                     ))}
+                    >
                   </div>
                 </div>
               )}
@@ -282,6 +274,7 @@ const AIODetail = () => {
                       <p className="font-bold text-sm">{c}</p>
                     </div>
                   ))}
+                  >
                 </div>
               </div>
             </TabsContent>
@@ -307,13 +300,16 @@ const AIODetail = () => {
                               {item.note && (
                                 <span className="block text-xs text-primary mt-0.5"><Sparkles className="inline w-3 h-3 mr-0.5" /> {item.note}</span>
                               )}
+                              >
                             </TableCell>
                           </TableRow>
                         ))}
+                        >
                       </TableBody>
                     </Table>
                   </div>
                 ))}
+                >
               </div>
             </TabsContent>
 
@@ -337,6 +333,7 @@ const AIODetail = () => {
                     {product.certifications.map((c) => (
                       <Badge key={c} variant="secondary" className="text-sm px-3 py-1">{c}</Badge>
                     ))}
+                    >
                   </div>
                 </div>
 
@@ -369,17 +366,12 @@ const AIODetail = () => {
             <h2 className="text-xl font-bold mb-6">สินค้าที่เกี่ยวข้อง</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {related.map((r) => <RelatedCard key={r.id} p={r} />)}
+              >
             </div>
           </div>
         )}
+        >
       </div>
-
-      <QuoteDialog
-        open={quoteOpen}
-        onClose={() => setQuoteOpen(false)}
-        productName={product.model}
-        productCategory="All-in-One PC"
-      />
       <FooterCompact />
     </div>
   );

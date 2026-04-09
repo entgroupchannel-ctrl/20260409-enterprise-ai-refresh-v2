@@ -6,7 +6,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import SEOHead from "@/components/SEOHead";
 import Footer from "@/components/Footer";
-import QuoteDialog from "@/components/QuoteDialog";
 import { useState } from "react";
 
 const CaseStudyDetail = () => {
@@ -20,6 +19,7 @@ const CaseStudyDetail = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title={`${cs.title} — กรณีศึกษา | ENT Group`}
+        >
         description={cs.challenge}
         path={`/case-studies/${cs.id}`}
       />
@@ -76,6 +76,7 @@ const CaseStudyDetail = () => {
                     <span className="text-foreground">{r}</span>
                   </li>
                 ))}
+                >
               </ul>
             </section>
 
@@ -93,8 +94,10 @@ const CaseStudyDetail = () => {
                       {cs.testimonialRole && (
                         <span className="text-muted-foreground"> — {cs.testimonialRole}</span>
                       )}
+                      >
                     </div>
                   )}
+                  >
                 </CardContent>
               </Card>
             )}
@@ -111,6 +114,7 @@ const CaseStudyDetail = () => {
                       <div className="aspect-video">
                         <iframe
                           src={`https://www.youtube.com/embed/${v.videoId}`}
+                          >
                           title={v.title}
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                           allowFullScreen
@@ -121,6 +125,7 @@ const CaseStudyDetail = () => {
                       <p className="text-sm font-medium text-foreground p-3">{v.title}</p>
                     </div>
                   ))}
+                  >
                 </div>
                 <a
                   href="https://www.youtube.com/@ENTGROUP-TH"
@@ -132,6 +137,7 @@ const CaseStudyDetail = () => {
                 </a>
               </section>
             )}
+            >
             {/* Facebook Video */}
             {cs.facebookVideoId && (
               <section>
@@ -142,6 +148,7 @@ const CaseStudyDetail = () => {
                   <div className="aspect-video">
                     <iframe
                       src={`https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fentgroup.th%2Fvideos%2F${cs.facebookVideoId}%2F&show_text=0&width=560`}
+                      >
                       width="100%"
                       height="100%"
                       style={{ border: "none", overflow: "hidden" }}
@@ -162,6 +169,7 @@ const CaseStudyDetail = () => {
                 </a>
               </section>
             )}
+            >
           </div>
 
           {/* Sidebar */}
@@ -179,6 +187,7 @@ const CaseStudyDetail = () => {
                       <Badge key={p.name} variant="secondary">{p.name}</Badge>
                     )
                   )}
+                  >
                 </div>
               </CardContent>
             </Card>
@@ -196,6 +205,7 @@ const CaseStudyDetail = () => {
                         </Button>
                       </Link>
                     ))}
+                    >
                     {cs.externalLinks?.map((link) => (
                       <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer">
                         <Button variant="outline" size="sm" className="w-full justify-start">
@@ -203,6 +213,7 @@ const CaseStudyDetail = () => {
                         </Button>
                       </a>
                     ))}
+                    >
                   </div>
                 </CardContent>
               </Card>
@@ -220,13 +231,6 @@ const CaseStudyDetail = () => {
           </aside>
         </div>
       </article>
-
-      <QuoteDialog
-        open={showQuote}
-        onClose={() => setShowQuote(false)}
-        productCategory={cs.industry}
-        initialProducts={cs.products.map((p) => ({ category: cs.industry, model: p.name, qty: 1 }))}
-      />
 
       <Footer />
     </div>

@@ -2,11 +2,8 @@ import { useState } from "react";
 import SEOHead from "@/components/SEOHead";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
-import WishlistHeart from "@/components/WishlistHeart";
 import { Link } from "react-router-dom";
 import LineQRButton from "@/components/LineQRButton";
-import QuoteDialog from "@/components/QuoteDialog";
-import DemoRequestDialog from "@/components/DemoRequestDialog";
 import {
   ArrowLeft, Monitor, Cpu, Shield, Zap, Users, Server, ChevronDown,
   ExternalLink, Factory, Building2, GraduationCap, HeadphonesIcon,
@@ -15,7 +12,6 @@ import {
   Clock, TrendingUp, Award, Quote, MapPin, Calendar
 } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
-import QuoteCartButton from "@/components/QuoteCartButton";
 import logo from "@/assets/logo-entgroup.avif";
 import FooterCompact from "@/components/FooterCompact";
 
@@ -199,12 +195,10 @@ const DemoCTA = ({ variant = "primary" }: { variant?: "primary" | "secondary" })
       วิศวกรติดตั้งให้ฟรี (Remote Support) · Training ฟรีพร้อมคู่มือ · ไม่พอใจคืนเงิน 100%
     </p>
     <div className="flex flex-wrap justify-center gap-3 mb-6">
-      <DemoRequestDialog>
         <button className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-primary text-primary-foreground font-bold text-sm hover:bg-primary/90 transition-all hover:scale-[1.02] shadow-lg shadow-primary/20">
           <Phone size={16} /> ขอทดลองใช้ฟรี
         </button>
-      </DemoRequestDialog>
-      <a
+<a
         href="https://vcloudpoint.info/"
         target="_blank"
         rel="noopener noreferrer"
@@ -252,7 +246,6 @@ const VCloudPoint = () => {
             <a href="https://vcloudpoint.info/" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors">
               vcloudpoint.info <ExternalLink size={12} />
             </a>
-            <QuoteCartButton />
             <ThemeToggle />
           </div>
         </div>
@@ -298,21 +291,17 @@ const VCloudPoint = () => {
                     <p className="text-[10px] text-muted-foreground font-medium">{s.label}</p>
                   </div>
                 ))}
+                >
               </div>
               <div className="flex items-center gap-3 mb-6">
-                <WishlistHeart
-                  item={{ id: "vcloudpoint-zero-client", name: "vCloudPoint Zero Client", category: "vCloudPoint", image: "https://vcloudpoint.info/assets/zero-client-1-D2hOci6Y.jpg", href: "/vcloudpoint", specs: "Shared Computing — 1 PC 30 Users" }}
-                />
                 <span className="text-xs text-muted-foreground">เพิ่มในรายการถูกใจ</span>
               </div>
 
               <div className="flex flex-wrap gap-3">
-                <DemoRequestDialog>
                   <button className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-primary text-primary-foreground font-bold text-sm hover:bg-primary/90 transition-all hover:scale-[1.02] shadow-lg shadow-primary/20">
                     <Play size={16} /> ขอเดโม่ฟรี 30 วัน
                   </button>
-                </DemoRequestDialog>
-                <a
+<a
                   href="https://vcloudpoint.info/"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -368,6 +357,7 @@ const VCloudPoint = () => {
                     <span>{f.text}</span>
                   </div>
                 ))}
+                >
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
@@ -401,6 +391,7 @@ const VCloudPoint = () => {
                     {q}
                   </li>
                 ))}
+                >
               </ul>
             </div>
             <div className="relative aspect-video rounded-2xl overflow-hidden shadow-xl border border-border">
@@ -438,6 +429,7 @@ const VCloudPoint = () => {
                 <p className="text-sm text-muted-foreground leading-relaxed">{b.desc}</p>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -469,8 +461,10 @@ const VCloudPoint = () => {
                 {i < 3 && (
                   <ArrowRight className="hidden lg:block absolute top-1/2 -right-3 text-primary/30" size={20} />
                 )}
+                >
               </div>
             ))}
+            >
           </div>
 
           {/* Ratio visual */}
@@ -538,6 +532,7 @@ const VCloudPoint = () => {
                     {f}
                   </div>
                 ))}
+                >
               </div>
             </div>
 
@@ -575,6 +570,7 @@ const VCloudPoint = () => {
                 <p className="text-sm text-muted-foreground">{uc.desc}</p>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -603,6 +599,7 @@ const VCloudPoint = () => {
                 <p className="text-[10px] text-muted-foreground mt-0.5">{t.desc}</p>
               </div>
             ))}
+            >
           </div>
 
           {/* Case Study Cards */}
@@ -635,6 +632,7 @@ const VCloudPoint = () => {
                           <p className="text-[10px] text-muted-foreground font-medium">{s.label}</p>
                         </div>
                       ))}
+                      >
                     </div>
                   </div>
                 </div>
@@ -656,6 +654,7 @@ const VCloudPoint = () => {
                         {h}
                       </span>
                     ))}
+                    >
                   </div>
 
                   {/* Video Embeds */}
@@ -670,6 +669,7 @@ const VCloudPoint = () => {
                             <div className="relative aspect-video rounded-lg overflow-hidden bg-secondary/50">
                               <iframe
                                 src={`https://www.youtube.com/embed/${v.id}?rel=0`}
+                                >
                                 title={v.label}
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen
@@ -680,12 +680,15 @@ const VCloudPoint = () => {
                             <p className="text-[11px] text-muted-foreground font-medium">{v.label}</p>
                           </div>
                         ))}
+                        >
                       </div>
                     </div>
                   )}
+                  >
                 </div>
               </div>
             ))}
+            >
           </div>
 
           {/* Global proof — vCloudPoint worldwide */}
@@ -706,6 +709,7 @@ const VCloudPoint = () => {
                   {c}
                 </span>
               ))}
+              >
             </div>
           </div>
         </div>
@@ -743,6 +747,7 @@ const VCloudPoint = () => {
                 {cert}
               </span>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -753,12 +758,6 @@ const VCloudPoint = () => {
           <DemoCTA variant="secondary" />
         </div>
       </section>
-      <QuoteDialog
-        open={!!quoteProduct}
-        onClose={() => setQuoteProduct(null)}
-        productName={quoteProduct || ""}
-        productCategory="vCloudPoint"
-      />
       <FooterCompact />
     </div>
   );

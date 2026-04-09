@@ -1,10 +1,8 @@
 import SEOHead from "@/components/SEOHead";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
-import WishlistHeart from "@/components/WishlistHeart";
 import { useState, useEffect } from "react";
 import { LineQRDialog } from "@/components/LineQRDialog";
-import QuoteDialog from "@/components/QuoteDialog";
 import { Link, useSearchParams } from "react-router-dom";
 import {
   ArrowLeft, Sun, Shield, Monitor, Cpu, Phone, MessageCircle,
@@ -12,7 +10,6 @@ import {
   Filter, Star, Building2, Maximize, Lightbulb, Headphones
 } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
-import QuoteCartButton from "@/components/QuoteCartButton";
 import logo from "@/assets/logo-entgroup.avif";
 import smartDisplayHero from "@/assets/smart-display-hero.jpg";
 import FooterCompact from "@/components/FooterCompact";
@@ -189,7 +186,6 @@ const SmartDisplay = () => {
             <span className="text-sm font-semibold text-foreground">Smart Display</span>
           </div>
           <div className="flex items-center gap-3">
-            <QuoteCartButton />
             <ThemeToggle />
             <Link to="/" className="hidden md:inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
               <ArrowLeft size={16} /> กลับหน้าแรก
@@ -246,11 +242,12 @@ const SmartDisplay = () => {
                       ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
                       : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                   }`}
-                >
+                  >
                   <cat.icon size={16} />
                   {cat.label}
                 </button>
               ))}
+              >
             </div>
           </div>
         </div>
@@ -282,6 +279,7 @@ const SmartDisplay = () => {
                     </button>
                   </div>
                 ))}
+                >
               </div>
 
               {/* Indoor gallery */}
@@ -420,6 +418,7 @@ const SmartDisplay = () => {
                             </td>
                           </tr>
                         ))}
+                        >
                       </tbody>
                     </table>
                   </div>
@@ -441,6 +440,7 @@ const SmartDisplay = () => {
                         <Download size={12} /> {d.model}
                       </a>
                     ))}
+                    >
                   </div>
                 </div>
 
@@ -460,6 +460,7 @@ const SmartDisplay = () => {
                       <img src={src} alt={`FPM installation ${i + 1}`} className="w-full h-44 object-cover" loading="lazy" />
                     </div>
                   ))}
+                  >
                 </div>
               </div>
             </div>
@@ -508,6 +509,7 @@ const SmartDisplay = () => {
                     </button>
                   </div>
                 ))}
+                >
               </div>
 
               {/* Outdoor features */}
@@ -519,6 +521,7 @@ const SmartDisplay = () => {
                     <p className="text-sm text-muted-foreground">{f.desc}</p>
                   </div>
                 ))}
+                >
               </div>
 
               {/* Outdoor gallery */}
@@ -534,6 +537,7 @@ const SmartDisplay = () => {
                     <img src={src} alt={`Outdoor installation ${i + 1}`} className="w-full h-full object-cover" loading="lazy" />
                   </div>
                 ))}
+                >
               </div>
             </div>
           )}
@@ -566,6 +570,7 @@ const SmartDisplay = () => {
                       {["ร้านอาหาร", "โรงพยาบาล", "ธนาคาร", "ค้าปลีก", "อีเวนต์", "ราชการ", "โรงแรม", "สนามบิน"].map((t) => (
                         <span key={t} className="text-xs px-3 py-1 rounded-full bg-primary/10 text-primary font-medium">{t}</span>
                       ))}
+                      >
                     </div>
                     <div className="flex flex-wrap gap-3">
                       <button
@@ -616,6 +621,7 @@ const SmartDisplay = () => {
                       </div>
                     </div>
                   ))}
+                  >
                 </div>
               </div>
 
@@ -634,6 +640,7 @@ const SmartDisplay = () => {
                       <img src={img} alt={`KIOSK ผลงานจริง ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
                     </div>
                   ))}
+                  >
                 </div>
               </div>
 
@@ -660,6 +667,7 @@ const SmartDisplay = () => {
                       </div>
                     </div>
                   ))}
+                  >
                 </div>
               </div>
 
@@ -673,10 +681,6 @@ const SmartDisplay = () => {
                 ].map((k) => (
                   <div key={k.title} className="card-surface p-5 hover:border-primary/30 transition-all hover:-translate-y-1 group">
                     <div className="relative bg-secondary/30 rounded-xl p-4 mb-4 flex items-center justify-center h-52 overflow-hidden">
-                      <WishlistHeart
-                        item={{ id: k.title.toLowerCase().replace(/\s+/g, "-"), name: k.title, category: "Smart Display KIOSK", image: k.image, href: "/smart-display", specs: k.desc }}
-                        className="absolute top-2 right-2 z-10"
-                      />
                       <img src={k.image} alt={k.title} className="max-h-full object-contain group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                     </div>
                     <h3 className="font-bold text-foreground mb-1">{k.title}</h3>
@@ -689,6 +693,7 @@ const SmartDisplay = () => {
                     </button>
                   </div>
                 ))}
+                >
               </div>
 
               {/* Why Kiosk — จุดเด่น */}
@@ -709,6 +714,7 @@ const SmartDisplay = () => {
                       <p className="text-xs text-muted-foreground leading-relaxed">{f.desc}</p>
                     </div>
                   ))}
+                  >
                 </div>
               </div>
 
@@ -729,6 +735,7 @@ const SmartDisplay = () => {
                       <span className="text-sm text-foreground">{feat}</span>
                     </div>
                   ))}
+                  >
                 </div>
               </div>
 
@@ -758,6 +765,7 @@ const SmartDisplay = () => {
                           <span className="text-sm text-foreground">{spec}</span>
                         </div>
                       ))}
+                      >
                     </div>
                     <div className="flex flex-wrap gap-3">
                       <a
@@ -821,6 +829,7 @@ const SmartDisplay = () => {
                       </div>
                     </div>
                   ))}
+                  >
                 </div>
               </div>
 
@@ -845,6 +854,7 @@ const SmartDisplay = () => {
                       {["7\"", "8\"", "10\"", "15.6\"", "21.5\"", "23.8\"", "32\"", "43\"", "55\"", "65\""].map((s) => (
                         <span key={s} className="text-xs px-3 py-1.5 rounded-lg bg-primary/10 text-primary font-bold">{s}</span>
                       ))}
+                      >
                     </div>
                   </div>
                   <div className="flex justify-center">
@@ -872,6 +882,7 @@ const SmartDisplay = () => {
                     <p className="text-xs text-muted-foreground">{t.desc}</p>
                   </div>
                 ))}
+                >
               </div>
 
               {/* Installation Gallery */}
@@ -886,6 +897,7 @@ const SmartDisplay = () => {
                       <img src={img} alt={`ตัวอย่างการติดตั้ง ${i + 1}`} className="w-full h-48 md:h-56 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
                     </div>
                   ))}
+                  >
                 </div>
               </div>
 
@@ -910,6 +922,7 @@ const SmartDisplay = () => {
                         <p className="text-xs text-muted-foreground">{s.label}</p>
                       </div>
                     ))}
+                    >
                   </div>
                   <p className="text-sm text-muted-foreground">
                     เชื่อมต่อกับระบบ HIS ของโรงพยาบาล วางไว้ที่ล็อบบี้ ห้องตรวจ และแผนกต่างๆ
@@ -962,6 +975,7 @@ const SmartDisplay = () => {
                       {applications.map((app) => (
                         <span key={app} className="text-[11px] px-2.5 py-1 rounded-full bg-secondary text-secondary-foreground">{app}</span>
                       ))}
+                      >
                     </div>
                     <button
                       onClick={() => setQuoteOpen(true)}
@@ -1002,6 +1016,7 @@ const SmartDisplay = () => {
               </div>
             </div>
           )}
+          >
         </div>
       </section>
 
@@ -1057,6 +1072,7 @@ const SmartDisplay = () => {
                 <p className="text-xs text-muted-foreground">{f.desc}</p>
               </div>
             ))}
+            >
           </div>
 
           {/* Software screenshots */}
@@ -1101,6 +1117,7 @@ const SmartDisplay = () => {
                 </div>
               </a>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -1129,10 +1146,11 @@ const SmartDisplay = () => {
                     ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
                     : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                 }`}
-              >
+                >
                 {t.label}
               </button>
             ))}
+            >
           </div>
 
           {videoTab === "smart-display" && (
@@ -1148,6 +1166,7 @@ const SmartDisplay = () => {
                     <iframe
                       className="absolute inset-0 w-full h-full"
                       src={`https://www.youtube.com/embed/${v.id}`}
+                      >
                       title={v.title}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
@@ -1156,6 +1175,7 @@ const SmartDisplay = () => {
                   </div>
                 </div>
               ))}
+              >
             </div>
           )}
 
@@ -1175,6 +1195,7 @@ const SmartDisplay = () => {
               </div>
             </div>
           )}
+          >
         </div>
       </section>
 
@@ -1202,10 +1223,11 @@ const SmartDisplay = () => {
                     ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
                     : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                 }`}
-              >
+                >
                 {t.label}
               </button>
             ))}
+            >
           </div>
 
           {podcastTab === "smart-display" && (
@@ -1223,6 +1245,7 @@ const SmartDisplay = () => {
                   </audio>
                 </div>
               ))}
+              >
             </div>
           )}
 
@@ -1241,8 +1264,10 @@ const SmartDisplay = () => {
                   </audio>
                 </div>
               ))}
+              >
             </div>
           )}
+          >
         </div>
       </section>
 
@@ -1257,7 +1282,6 @@ const SmartDisplay = () => {
             <button onClick={() => setQuoteOpen(true)} className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:bg-primary/90 transition-colors">
               ขอใบเสนอราคา
             </button>
-            <QuoteDialog open={quoteOpen} onClose={() => setQuoteOpen(false)} productCategory="Smart Display & KIOSK" />
             <a href="tel:020456104" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-secondary transition-colors">
               <Phone size={18} /> 02-045-6104
             </a>

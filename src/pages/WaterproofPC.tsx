@@ -2,14 +2,12 @@ import { useState } from "react";
 import SEOHead from "@/components/SEOHead";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
-import WishlistHeart from "@/components/WishlistHeart";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ExternalLink, Droplets, Shield, ThermometerSun, Cpu, Monitor, FileText, ShieldCheck, Waves, SprayCanIcon, Fan, Cog } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import FooterCompact from "@/components/FooterCompact";
-import QuoteDialog from "@/components/QuoteDialog";
 
 const models = [
   {
@@ -254,6 +252,7 @@ const WaterproofPC = () => {
                     <span className="text-muted-foreground leading-relaxed pt-1">{item.text}</span>
                   </li>
                 ))}
+                >
               </ul>
             </div>
           </div>
@@ -266,6 +265,7 @@ const WaterproofPC = () => {
             {useCases.map((u) => (
               <span key={u} className="px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium">{u}</span>
             ))}
+            >
           </div>
         </section>
 
@@ -286,6 +286,7 @@ const WaterproofPC = () => {
                 {m.name}
               </a>
             ))}
+            >
           </div>
 
           <div className="space-y-6">
@@ -295,10 +296,6 @@ const WaterproofPC = () => {
                   <div className="flex flex-col md:flex-row gap-6 mb-6">
                     <div className="md:w-1/3 flex items-center justify-center">
                       <div className="relative bg-secondary/50 rounded-xl p-4 w-full flex items-center justify-center min-h-[200px]">
-                        <WishlistHeart
-                          item={{ id: m.id, name: m.name, category: "Waterproof PC", image: m.image, href: "/waterproof-pc", specs: m.model }}
-                          className="absolute top-3 right-3"
-                        />
                         <img src={m.image} alt={m.name} className="max-w-full max-h-[220px] object-contain" loading="lazy" />
                       </div>
                     </div>
@@ -321,6 +318,7 @@ const WaterproofPC = () => {
                                 <div className="text-sm font-medium text-foreground leading-snug">{val}</div>
                               </div>
                             ))}
+                            >
                           </div>
                         </TabsContent>
                       </Tabs>
@@ -340,6 +338,7 @@ const WaterproofPC = () => {
                 </div>
               </div>
             ))}
+            >
           </div>
         </section>
 
@@ -354,6 +353,7 @@ const WaterproofPC = () => {
                 <img src={img} alt={`Waterproof PC ${i + 1}`} className="w-full h-auto object-contain" loading="lazy" />
               </div>
             ))}
+            >
           </div>
         </section>
 
@@ -376,12 +376,6 @@ const WaterproofPC = () => {
           </Button>
         </div>
       </div>
-      <QuoteDialog
-        open={!!quoteProduct}
-        onClose={() => setQuoteProduct(null)}
-        productName={quoteProduct || ""}
-        productCategory="Waterproof PC IP69K"
-      />
       <FooterCompact />
     </div>
   );

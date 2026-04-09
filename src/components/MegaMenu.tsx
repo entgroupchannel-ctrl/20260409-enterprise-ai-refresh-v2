@@ -298,10 +298,11 @@ const MegaMenu = ({
                 ? "text-white bg-white/10"
                 : "text-white/70 hover:text-white hover:bg-white/5"
             }`}
-          >
+            >
             {cat.label}
           </button>
         ))}
+        >
       </div>
 
       {/* Mega dropdown overlay */}
@@ -342,6 +343,7 @@ const MegaMenu = ({
                         />
                       </div>
                     )}
+                    >
                     <h4 className="text-sm font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
                       {active.featured.title}
                     </h4>
@@ -376,9 +378,11 @@ const MegaMenu = ({
                                   Hot
                                 </span>
                               )}
+                              >
                             </Link>
                           </li>
                         ))}
+                        >
                       </ul>
                     </div>
                   ))}
@@ -402,6 +406,7 @@ const MegaMenu = ({
                       </Link>
                     );
                   })()}
+                  >
                 </div>
               </div>
 
@@ -446,6 +451,7 @@ const MegaMenu = ({
           </div>
         </div>
       )}
+      >
     </div>
   );
 };
@@ -496,13 +502,17 @@ export const MobileMegaMenu = ({ onNavigate }: { onNavigate?: () => void }) => {
                     {link.hot && (
                       <span className="px-1 py-0.5 rounded text-[7px] font-bold bg-red-500/20 text-red-400">Hot</span>
                     )}
+                    >
                   </Link>
                 ))
               )}
+              >
             </div>
           )}
+          >
         </div>
       ))}
+      >
       <Link
         to="/promotions"
         onClick={onNavigate}

@@ -89,7 +89,6 @@ className="relative group"
                 const diff = touchStartX.current - touchEndX.current;
                 if (Math.abs(diff) > 50) { diff > 0 ? next() : prev(); }
               }}
-            >
               {slides.map((slide, i) => (
                 <div
                   key={i}
@@ -98,7 +97,6 @@ className="relative group"
                     opacity: i === current ? 1 : 0,
                     transform: i === current ? "scale(1)" : "scale(1.05)",
                   }}
-                >
                   <img
                     src={slide.src}
                     alt={slide.alt}
@@ -142,6 +140,7 @@ className="relative group"
                   }`}
                 />
               ))}
+              >
             </div>
 
             {/* Glow */}

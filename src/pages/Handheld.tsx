@@ -17,9 +17,6 @@ import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import FooterCompact from "@/components/FooterCompact";
 import B2BCTABanner from "@/components/B2BCTABanner";
-import PlatformInviteBanner from "@/components/PlatformInviteBanner";
-import QuoteDialog from "@/components/QuoteDialog";
-import WishlistHeart from "@/components/WishlistHeart";
 import ShareButtons from "@/components/ShareButtons";
 import { handheldProducts, type HandheldProduct } from "@/data/rugged-handheld-products";
 
@@ -57,9 +54,8 @@ const HandheldCard = ({
     className={`card-surface overflow-hidden group transition-all block ${
       selected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"
     }`}
-  >
+    >
     <div className="relative bg-secondary/30 p-4 flex items-center justify-center h-52">
-      <WishlistHeart
         item={{
           id: product.id,
           name: product.model,
@@ -93,6 +89,7 @@ const HandheldCard = ({
         {product.badges.map((b) => (
           <Badge key={b} variant="outline" className="text-[10px]">{b}</Badge>
         ))}
+        >
       </div>
       <div className="flex gap-2 pt-1">
         <Button variant="outline" size="sm" className="flex-1" asChild>
@@ -179,6 +176,7 @@ const Handheld = () => {
                 <p className="font-bold text-foreground text-sm">{s.value}</p>
               </div>
             ))}
+            >
           </div>
         </div>
       </div>
@@ -202,10 +200,11 @@ const Handheld = () => {
                     ? "bg-primary text-primary-foreground shadow-sm"
                     : "bg-muted text-muted-foreground hover:bg-muted/80"
                 }`}
-              >
+                >
                 {opt.label}
               </button>
             ))}
+            >
           </div>
         </div>
       </div>
@@ -223,6 +222,7 @@ const Handheld = () => {
                 <p className="text-xs text-muted-foreground leading-relaxed">{f.desc}</p>
               </div>
             ))}
+            >
           </div>
         </section>
 
@@ -241,6 +241,7 @@ const Handheld = () => {
                 onQuote={setQuoteProduct}
               />
             ))}
+            >
           </div>
         </section>
 
@@ -280,23 +281,6 @@ const Handheld = () => {
         </div>
       )}
 
-      <QuoteDialog
-        open={!!quoteProduct}
-        onClose={() => setQuoteProduct(null)}
-        productName={quoteProduct || ""}
-        productCategory="Rugged Handheld & PDA"
-      />
-      <QuoteDialog
-        open={showMultiQuote}
-        onClose={() => { setShowMultiQuote(false); clearSelection(); }}
-        productCategory="Rugged Handheld & PDA"
-        initialProducts={Array.from(selectedProducts).map((name) => ({
-          category: "Rugged Handheld & PDA",
-          model: name,
-          qty: 1,
-        }))}
-      />
-
       {/* ─── Media Center ─── */}
       <section className="max-w-7xl mx-auto px-4 py-10">
         <div className="flex items-center justify-between mb-6">
@@ -328,6 +312,7 @@ const Handheld = () => {
               </div>
             </div>
           ))}
+          >
         </div>
       </section>
 
@@ -355,9 +340,8 @@ const Handheld = () => {
             </div>
           </Link>
         ))}
+        >
       </section>
-
-      <PlatformInviteBanner variant="compact" />
       <B2BCTABanner variant="compact" />
       <FooterCompact />
     </div>

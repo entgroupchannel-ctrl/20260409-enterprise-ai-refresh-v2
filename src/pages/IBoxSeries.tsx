@@ -3,7 +3,6 @@ import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import WishlistHeart from "@/components/WishlistHeart";
 import {
   ArrowLeft, Cpu, Thermometer, Shield, Usb, Wifi, Download, Search,
   FileText, ChevronRight, Layers, HardDrive, Monitor, Zap, Box,
@@ -24,10 +23,7 @@ import {
 } from "@/components/ui/select";
 import FooterCompact from "@/components/FooterCompact";
 import B2BCTABanner from "@/components/B2BCTABanner";
-import PlatformInviteBanner from "@/components/PlatformInviteBanner";
 import ShareButtons from "@/components/ShareButtons";
-import QuoteDialog from "@/components/QuoteDialog";
-import MultiSelectQuoteBar, { useMultiSelect } from "@/components/MultiSelectQuoteBar";
 import IBoxProductCard from "@/components/ibox/IBoxProductCard";
 import IBoxProductFilter, { type IBoxFilterState, defaultFilters, portFilters } from "@/components/ibox/IBoxProductFilter";
 import ActiveFilterChips from "@/components/ibox/ActiveFilterChips";
@@ -181,7 +177,7 @@ const useCasesData = [
 /* ═══════ Component ═══════ */
 const IBoxSeries = () => {
   const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
-  const { selectedProducts, toggleSelect, clearSelection } = useMultiSelect();
+
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("popular");
   const [filters, setFilters] = useState<IBoxFilterState>({ ...defaultFilters });
@@ -300,11 +296,12 @@ const IBoxSeries = () => {
                     ? "bg-primary text-primary-foreground shadow-sm"
                     : "bg-muted hover:bg-muted/80 text-foreground"
                 }`}
-              >
+                >
                 <cat.icon className="w-3.5 h-3.5" />
                 {cat.name}
               </button>
             ))}
+            >
           </div>
         </div>
       </div>
@@ -341,10 +338,11 @@ const IBoxSeries = () => {
                       ? "bg-primary text-primary-foreground border-primary shadow-sm"
                       : "bg-card border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
                   }`}
-                >
+                  >
                   {qf.label}
                 </button>
               ))}
+              >
             </div>
 
             {/* Toolbar */}
@@ -398,6 +396,7 @@ const IBoxSeries = () => {
                     onQuote={setQuoteProduct}
                   />
                 ))}
+                >
               </div>
             ) : (
               <div className="card-surface p-12 text-center">
@@ -425,7 +424,6 @@ const IBoxSeries = () => {
                       <button onClick={() => toggleSelect(model.name)} className="absolute top-3 left-3 z-10">
                         <Checkbox checked={selectedProducts.has(model.name)} className="h-5 w-5" />
                       </button>
-                      <WishlistHeart
                         item={{
                           id: model.id,
                           name: model.name,
@@ -468,6 +466,7 @@ const IBoxSeries = () => {
                     </div>
                   </div>
                 ))}
+                >
               </div>
             </section>
 
@@ -481,6 +480,7 @@ const IBoxSeries = () => {
                     <span className="text-sm text-foreground">{feat}</span>
                   </div>
                 ))}
+                >
               </div>
             </section>
 
@@ -510,6 +510,7 @@ const IBoxSeries = () => {
                     </div>
                   </div>
                 ))}
+                >
               </div>
             </section>
 
@@ -525,14 +526,6 @@ const IBoxSeries = () => {
           </div>
         </div>
       </div>
-
-      <QuoteDialog
-        open={!!quoteProduct}
-        onClose={() => setQuoteProduct(null)}
-        productName={quoteProduct || ""}
-        productCategory="iBox Series"
-      />
-      <MultiSelectQuoteBar selectedProducts={selectedProducts} onClear={clearSelection} productCategory="iBox Series" />
 
       {/* ─── YouTube Section ─── */}
       <section className="max-w-7xl mx-auto px-4 py-10">
@@ -579,6 +572,7 @@ const IBoxSeries = () => {
               </div>
             </div>
           ))}
+          >
         </div>
 
         {/* Channel CTA */}
@@ -588,8 +582,6 @@ const IBoxSeries = () => {
           </a>
         </div>
       </section>
-
-      <PlatformInviteBanner variant="compact" />
       <B2BCTABanner variant="compact" />
       <FooterCompact />
     </div>

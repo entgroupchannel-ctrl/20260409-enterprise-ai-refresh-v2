@@ -3,9 +3,7 @@ import { Eye, Cpu, Network, Thermometer, Sparkles, FileText, Download, Flame } f
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
-import WishlistHeart from "@/components/WishlistHeart";
 import { IBoxProduct } from "@/data/ibox-products";
-import { useMultiSelect } from "@/components/MultiSelectQuoteBar";
 
 interface IBoxProductCardProps {
   product: IBoxProduct;
@@ -39,9 +37,11 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
               NEW
             </Badge>
           )}
+          >
           {product.isHot && (
             <Badge variant="destructive" className="text-xs"><Flame className="inline w-3 h-3 mr-0.5" /> HOT</Badge>
           )}
+          >
         </div>
 
         {/* Checkbox */}
@@ -53,7 +53,6 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
         </button>
 
         {/* Wishlist */}
-        <WishlistHeart
           item={{
             id: product.id,
             name: product.name,
@@ -73,6 +72,7 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
             </Badge>
           </div>
         )}
+        >
       </Link>
 
       {/* Content */}
@@ -101,6 +101,7 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
               </span>
             </div>
           )}
+          >
           <div className="flex items-center gap-2 text-xs">
             <Thermometer className="w-3.5 h-3.5 text-primary shrink-0" />
             <span className="text-muted-foreground">{product.specs.temp}</span>

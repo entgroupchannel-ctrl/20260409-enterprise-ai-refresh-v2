@@ -1,20 +1,14 @@
 import SEOHead from "@/components/SEOHead";
 import B2BCTABanner from "@/components/B2BCTABanner";
-import PlatformInviteBanner from "@/components/PlatformInviteBanner";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
-import WishlistHeart from "@/components/WishlistHeart";
 import { useState, useCallback } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { ArrowLeft, ExternalLink, Cpu, Thermometer, Wind, Shield, Zap, Server, Factory, Building, Home, Monitor, Download, Play, Filter, X, Search, FileText, Headphones, ChevronDown, Code, Phone, Star, Quote, Target, Palette, Plug, AlertTriangle, Ruler, DollarSign, Wrench, Package, Flame, Fan, Lightbulb, BarChart3, Battery, Bot, Radio, ThermometerSun, Laptop, CircuitBoard } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Checkbox } from "@/components/ui/checkbox";
-import QuoteDialog from "@/components/QuoteDialog";
-import AddToQuoteButton from "@/components/AddToQuoteButton";
-import MultiSelectQuoteBar, { useMultiSelect } from "@/components/MultiSelectQuoteBar";
 import { LineQRDialog } from "@/components/LineQRDialog";
 import ThemeToggle from "@/components/ThemeToggle";
-import QuoteCartButton from "@/components/QuoteCartButton";
 import ShareButtons from "@/components/ShareButtons";
 import logo from "@/assets/logo-entgroup.avif";
 import gt4500CpuOptions from "@/assets/gt4500-cpu-options.png";
@@ -341,6 +335,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
               <X size={14} /> ล้างตัวกรอง
             </button>
           )}
+          >
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
@@ -372,10 +367,10 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                       ? "bg-primary text-primary-foreground shadow-md"
                       : "bg-background border border-border text-muted-foreground hover:border-primary/40"
                   }`}
-                >
                   ≥{n}
                 </button>
               ))}
+              >
             </div>
           </div>
 
@@ -389,7 +384,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                   ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40"
                   : "bg-background border border-border text-muted-foreground hover:border-primary/40"
               }`}
-            >
+              >
               {filterGpio === true ? "✓ มี GPIO" : "มี GPIO"}
             </button>
           </div>
@@ -404,7 +399,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                   ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40"
                   : "bg-background border border-border text-muted-foreground hover:border-primary/40"
               }`}
-            >
+              >
               {filterSim === true ? "✓ รองรับ SIM" : "รองรับ SIM"}
             </button>
           </div>
@@ -421,6 +416,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
               {genOptions.map((g) => (
                 <option key={g} value={g}>{g}</option>
               ))}
+              >
             </select>
           </div>
         </div>
@@ -433,6 +429,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
             <span className="text-xs text-muted-foreground">จาก {comparisonRows.length} รุ่น</span>
           </div>
         )}
+        >
       </div>
 
       {/* Category Legend */}
@@ -447,6 +444,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
             {cat.label}
           </span>
         ))}
+        >
       </div>
 
       <div className="card-surface overflow-hidden rounded-2xl">
@@ -498,6 +496,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                   <tr
                     key={row.name}
                     className={`border-b border-border/50 transition-colors cursor-pointer ${catStyle}`}
+                    >
                     onClick={() => handleTabChange(row.name.toLowerCase())}
                   >
                     <td className="p-4 sticky left-0 font-bold text-foreground" style={{ background: 'inherit' }}>
@@ -527,6 +526,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                           <Fan size={12} className="inline mr-0.5" />มีพัดลม
                         </span>
                       )}
+                      >
                     </td>
                     <td className="p-4 text-center">
                       <span className={`inline-flex items-center justify-center w-7 h-7 rounded-full text-xs font-bold ${
@@ -553,6 +553,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                       ) : (
                         <span className="text-muted-foreground/40">—</span>
                       )}
+                      >
                     </td>
                     <td className="p-4 text-center">
                       {row.sim ? (
@@ -560,6 +561,7 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                       ) : (
                         <span className="text-muted-foreground/40">—</span>
                       )}
+                      >
                     </td>
                     <td className="p-4 text-center">
                       <span className="text-xs text-muted-foreground">{row.display}</span>
@@ -567,11 +569,13 @@ const ComparisonTable = ({ handleTabChange }: { handleTabChange: (tab: string) =
                     <td className="p-4 text-right">
                       <span className={`font-bold text-sm ${row.price === "สอบถาม" ? "text-muted-foreground" : "text-primary"}`}>
                         {row.price === "สอบถาม" ? "สอบถาม" : `฿${row.price}`}
+                        >
                       </span>
                     </td>
                   </tr>
                 );
               })}
+              >
             </tbody>
           </table>
         </div>
@@ -611,7 +615,7 @@ const GTSeries = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [activeTab, setActiveTab] = useState(searchParams.get("tab") || "overview");
   const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
-  const { selectedProducts, toggleSelect, clearSelection } = useMultiSelect();
+
   const [showLineQR, setShowLineQR] = useState(false);
   const [gt1200PricePage, setGt1200PricePage] = useState(0);
   const [gt6000PricePage, setGt6000PricePage] = useState(0);
@@ -634,6 +638,7 @@ const GTSeries = () => {
                 <img src={img} alt={`GT Series สีสัน ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
               </div>
             ))}
+            >
           </div>
         </div>
       </div>
@@ -667,6 +672,7 @@ const GTSeries = () => {
               </div>
             </div>
           ))}
+          >
         </div>
       </div>
     </div>
@@ -698,7 +704,6 @@ const GTSeries = () => {
             <span className="text-sm font-semibold text-foreground">GT Series</span>
           </div>
           <div className="flex items-center gap-3">
-            <QuoteCartButton />
             <ThemeToggle />
             <Link to="/" className="hidden md:inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
               <ArrowLeft size={16} /> กลับหน้าหลัก
@@ -749,6 +754,7 @@ const GTSeries = () => {
                   {item.word}
                 </span>
               ))}
+              >
             </div>
 
             <p className="text-white/70 leading-relaxed max-w-lg text-sm md:text-base">
@@ -809,12 +815,14 @@ const GTSeries = () => {
                 </div>
               </div>
             ))}
+            >
             {useCases.map((uc) => (
               <div key={uc.label} className="flex items-center gap-2 p-3 rounded-lg bg-card border border-border">
                 <uc.icon className="text-primary shrink-0" size={18} />
                 <span className="text-xs font-bold text-foreground">{uc.label}</span>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -843,13 +851,15 @@ const GTSeries = () => {
                     ? "bg-primary text-primary-foreground shadow-lg"
                     : "bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground border border-border"
                 }`}
-              >
+                >
                 {tab.label}
                 {tab.id === "gt1400" && (
                   <span className="ml-1.5 px-1.5 py-0.5 rounded-full bg-primary-foreground/20 text-[10px]">NEW</span>
                 )}
+                >
               </button>
             ))}
+            >
           </div>
 
           {/* Tab: Overview - All Models Grid */}
@@ -866,6 +876,7 @@ const GTSeries = () => {
                     <ModelCard model={model} onQuote={setQuoteProduct} selected={selectedProducts.has(model.name)} onToggleSelect={toggleSelect} />
                   </button>
                 ))}
+                >
               </div>
 
               {/* Use Cases & Branding */}
@@ -942,6 +953,7 @@ const GTSeries = () => {
                         <div className="text-[11px] text-muted-foreground/70 mt-0.5">{f.sub}</div>
                       </div>
                     ))}
+                    >
                   </div>
 
                   {/* Use Cases */}
@@ -953,6 +965,7 @@ const GTSeries = () => {
                           {uc}
                         </span>
                       ))}
+                      >
                     </div>
                   </div>
                 </div>
@@ -978,6 +991,7 @@ const GTSeries = () => {
                         <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
                       </div>
                     ))}
+                    >
                   </div>
                 </div>
               </div>
@@ -1021,8 +1035,10 @@ const GTSeries = () => {
                                 <td className="p-3 text-muted-foreground text-xs whitespace-pre-line">{spec.value}</td>
                               </tr>
                             ))}
+                            >
                           </>
                         ))}
+                        >
                       </tbody>
                     </table>
                   </div>
@@ -1063,8 +1079,10 @@ const GTSeries = () => {
                                 <td className="p-3 text-muted-foreground text-xs whitespace-pre-line">{spec.value}</td>
                               </tr>
                             ))}
+                            >
                           </>
                         ))}
+                        >
                       </tbody>
                     </table>
                   </div>
@@ -1125,11 +1143,11 @@ const GTSeries = () => {
                           <td className="p-3 text-xs text-muted-foreground">{item.remark}</td>
                         </tr>
                       ))}
+                      >
                     </tbody>
                   </table>
                 </div>
                 <div className="p-4 border-t border-border text-center">
-                  <AddToQuoteButton model="GT1000" category="GT Series — Mini PC" productName="GT1000 Mini PC" />
                 </div>
               </div>
 
@@ -1157,6 +1175,7 @@ const GTSeries = () => {
                     <img src={img.src} alt={img.alt} className="w-full aspect-square object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
                   </div>
                 ))}
+                >
               </div>
 
               {/* Podcast Section */}
@@ -1243,6 +1262,7 @@ const GTSeries = () => {
                           <div className="relative w-full aspect-video rounded-lg overflow-hidden">
                             <iframe
                               src={`https://www.youtube.com/embed/${video.id}`}
+                              >
                               title={video.title}
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                               allowFullScreen
@@ -1256,6 +1276,7 @@ const GTSeries = () => {
                           </div>
                         </div>
                       ))}
+                      >
                     </div>
                   </div>
 
@@ -1401,6 +1422,7 @@ const GTSeries = () => {
                         <img src={img} alt={`GT2000 มุมมอง ${i + 2}`} className="w-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
                       </div>
                     ))}
+                    >
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
@@ -1411,6 +1433,7 @@ const GTSeries = () => {
                         <img src={img} alt={`GT2000 ติดตั้งจริง ${i + 1}`} className="w-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
                       </div>
                     ))}
+                    >
                   </div>
                 </div>
               </div>
@@ -1509,6 +1532,7 @@ const GTSeries = () => {
                       <div className="text-xs text-muted-foreground">{item.desc}</div>
                     </div>
                   ))}
+                  >
                 </div>
               </div>
 
@@ -1607,11 +1631,11 @@ const GTSeries = () => {
                           <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
                         </tr>
                       ))}
+                      >
                     </tbody>
                    </table>
                 </div>
                 <div className="p-4 border-t border-border text-center">
-                  <AddToQuoteButton model="GT2000" category="GT Series — Mini PC" productName="GT2000 Mini PC" />
                 </div>
               </div>
 
@@ -1644,6 +1668,7 @@ const GTSeries = () => {
                         </div>
                       </div>
                     ))}
+                    >
                   </div>
                 </div>
               </div>
@@ -1686,6 +1711,7 @@ const GTSeries = () => {
                           <div className="relative w-full aspect-video rounded-lg overflow-hidden">
                             <iframe
                               src={`https://www.youtube.com/embed/${video.id}`}
+                              >
                               title={video.title}
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                               allowFullScreen
@@ -1699,6 +1725,7 @@ const GTSeries = () => {
                           </div>
                         </div>
                       ))}
+                      >
                     </div>
                   </div>
 
@@ -1811,6 +1838,7 @@ const GTSeries = () => {
                         <div className="text-[11px] text-muted-foreground/70 mt-0.5">{f.sub}</div>
                       </div>
                     ))}
+                    >
                   </div>
 
                   {/* Use Cases */}
@@ -1822,6 +1850,7 @@ const GTSeries = () => {
                           {uc}
                         </span>
                       ))}
+                      >
                     </div>
                   </div>
                 </div>
@@ -1847,6 +1876,7 @@ const GTSeries = () => {
                         <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
                       </div>
                     ))}
+                    >
                   </div>
                 </div>
               </div>
@@ -1874,6 +1904,7 @@ const GTSeries = () => {
                             <td className="p-2.5 text-muted-foreground text-xs whitespace-pre-line">{s.value}</td>
                           </tr>
                         ))}
+                        >
                         <tr className="bg-secondary/40"><td colSpan={2} className="p-3 font-bold text-foreground text-xs tracking-widest uppercase">I/O Ports</td></tr>
                         {[
                           { label: "COM", value: "2× RS232 (DB9)" },
@@ -1888,6 +1919,7 @@ const GTSeries = () => {
                             <td className="p-2.5 text-muted-foreground text-xs whitespace-pre-line">{s.value}</td>
                           </tr>
                         ))}
+                        >
                       </tbody>
                     </table>
                   </div>
@@ -1907,6 +1939,7 @@ const GTSeries = () => {
                             <td className="p-2.5 text-muted-foreground text-xs whitespace-pre-line">{s.value}</td>
                           </tr>
                         ))}
+                        >
                         <tr className="bg-secondary/40"><td colSpan={2} className="p-3 font-bold text-foreground text-xs tracking-widest uppercase">Dimension</td></tr>
                         {[
                           { label: "Size", value: "150 × 217 × 52 mm" },
@@ -1918,6 +1951,7 @@ const GTSeries = () => {
                             <td className="p-2.5 text-muted-foreground text-xs whitespace-pre-line">{s.value}</td>
                           </tr>
                         ))}
+                        >
                       </tbody>
                     </table>
                   </div>
@@ -1987,6 +2021,7 @@ const GTSeries = () => {
                       <img src={img} alt={`GT3000 ติดตั้งจริง ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
                     </div>
                   ))}
+                  >
                 </div>
               </div>
 
@@ -2060,6 +2095,7 @@ const GTSeries = () => {
                           <div className="relative w-full aspect-video rounded-lg overflow-hidden">
                             <iframe
                               src={`https://www.youtube.com/embed/${video.id}`}
+                              >
                               title={video.title}
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                               allowFullScreen
@@ -2073,6 +2109,7 @@ const GTSeries = () => {
                           </div>
                         </div>
                       ))}
+                      >
                     </div>
                   </div>
 
@@ -2145,6 +2182,7 @@ const GTSeries = () => {
                               <td className="p-3 text-right font-bold text-primary">{row.price}</td>
                             </tr>
                           ))}
+                          >
                         </tbody>
                       </table>
                     </div>
@@ -2162,17 +2200,17 @@ const GTSeries = () => {
                                 ? "bg-primary text-primary-foreground"
                                 : "bg-muted/50 text-muted-foreground hover:bg-muted"
                             }`}
-                          >
+                            >
                             {p + 1}
                           </button>
                         ))}
+                        >
                       </div>
                     </div>
                     <div className="p-3 text-xs text-muted-foreground bg-muted/10 border-t border-border">
                       <AlertTriangle size={14} className="inline mr-1 text-amber-500" /> ราคาอาจมีการเปลี่ยนแปลง กรุณาติดต่อพนักงานขายโดยตรงเพื่อยืนยันราคาที่ถูกต้อง โทร. 095-739-1053 · Line: @entgroup
                     </div>
                     <div className="p-4 border-t border-border text-center">
-                      <AddToQuoteButton model="GT3000" category="GT Series — Mini PC" productName="GT3000 Mini PC" />
                     </div>
                   </div>
                 );
@@ -2257,6 +2295,7 @@ const GTSeries = () => {
                         <div className="text-[11px] text-muted-foreground/70 mt-0.5">{f.sub}</div>
                       </div>
                     ))}
+                    >
                   </div>
 
                   {/* Use Cases */}
@@ -2268,6 +2307,7 @@ const GTSeries = () => {
                           {uc}
                         </span>
                       ))}
+                      >
                     </div>
                   </div>
                 </div>
@@ -2293,6 +2333,7 @@ const GTSeries = () => {
                         <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
                       </div>
                     ))}
+                    >
                   </div>
                 </div>
               </div>
@@ -2319,6 +2360,7 @@ const GTSeries = () => {
                             <td className="p-2.5 text-muted-foreground text-xs whitespace-pre-line">{s.value}</td>
                           </tr>
                         ))}
+                        >
                         <tr className="bg-secondary/40"><td colSpan={2} className="p-3 font-bold text-foreground text-xs tracking-widest uppercase">I/O Ports</td></tr>
                         {[
                           { label: "COM", value: "6× RS232 (DB9)" },
@@ -2334,6 +2376,7 @@ const GTSeries = () => {
                             <td className="p-2.5 text-muted-foreground text-xs whitespace-pre-line">{s.value}</td>
                           </tr>
                         ))}
+                        >
                       </tbody>
                     </table>
                   </div>
@@ -2353,6 +2396,7 @@ const GTSeries = () => {
                             <td className="p-2.5 text-muted-foreground text-xs whitespace-pre-line">{s.value}</td>
                           </tr>
                         ))}
+                        >
                         <tr className="bg-secondary/40"><td colSpan={2} className="p-3 font-bold text-foreground text-xs tracking-widest uppercase">Dimension</td></tr>
                         {[
                           { label: "Size", value: "177 × 217 × 52 mm" },
@@ -2364,6 +2408,7 @@ const GTSeries = () => {
                             <td className="p-2.5 text-muted-foreground text-xs whitespace-pre-line">{s.value}</td>
                           </tr>
                         ))}
+                        >
                       </tbody>
                     </table>
                   </div>
@@ -2424,11 +2469,11 @@ const GTSeries = () => {
                           <td className="p-3 text-right font-bold text-primary whitespace-nowrap">฿{item.price}</td>
                         </tr>
                       ))}
+                      >
                     </tbody>
                    </table>
                 </div>
                 <div className="p-4 border-t border-border text-center">
-                  <AddToQuoteButton model="GT4000" category="GT Series — Mini PC" productName="GT4000 Mini PC" />
                 </div>
               </div>
 
@@ -2445,6 +2490,7 @@ const GTSeries = () => {
                       <img src={img} alt={`GT4000 ติดตั้งจริง ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
                     </div>
                   ))}
+                  >
                 </div>
               </div>
 
@@ -2484,6 +2530,7 @@ const GTSeries = () => {
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
+                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -2497,6 +2544,7 @@ const GTSeries = () => {
                     </div>
                   </div>
                 ))}
+                >
               </div>
 
               {/* Podcast */}
@@ -2644,6 +2692,7 @@ const GTSeries = () => {
                         <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
                       </div>
                     ))}
+                    >
                   </div>
                 </div>
               </div>
@@ -2659,6 +2708,7 @@ const GTSeries = () => {
                     <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
                   </div>
                 ))}
+                >
               </div>
 
 
@@ -2698,6 +2748,7 @@ const GTSeries = () => {
                             <td className="p-3 text-muted-foreground text-xs whitespace-pre-line">{s.value}</td>
                           </tr>
                         ))}
+                        >
                       </tbody>
                     </table>
                   </div>
@@ -2729,6 +2780,7 @@ const GTSeries = () => {
                             <td className="p-3 text-muted-foreground text-xs whitespace-pre-line">{s.value}</td>
                           </tr>
                         ))}
+                        >
                       </tbody>
                     </table>
                   </div>
@@ -2790,6 +2842,7 @@ const GTSeries = () => {
                         <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{item.desc}</p>
                       </div>
                     ))}
+                    >
                   </div>
                 </div>
 
@@ -2841,6 +2894,7 @@ const GTSeries = () => {
                             </td>
                           </tr>
                         ))}
+                        >
                       </tbody>
                     </table>
                   </div>
@@ -2878,6 +2932,7 @@ printf("GPIO3 = %s\\n", gpio3_state ? "HIGH" : "LOW");
 // ─── ตัวอย่าง: สั่งเปิด Relay + อ่าน Sensor ───
 outb_p((inb_p(0xA04) & 0xFD) | 0x02, 0xA04);  // GPIO4 → Relay ON
 int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`}
+>
                       </code>
                     </pre>
                   </div>
@@ -2920,6 +2975,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <span className="font-mono text-xs text-muted-foreground w-14 text-right">{g.reg}</span>
                       </div>
                     ))}
+                    >
                   </div>
                 </div>
 
@@ -2931,7 +2987,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     รองรับ C/C++ บน Linux — ติดต่อทีมขายเพื่อรับไฟล์
                   </p>
                   <div className="flex flex-wrap justify-center gap-3 mt-5">
-                    <AddToQuoteButton model="GT5000" category="GT Series — Mini PC" productName="GT5000 Mini PC — GPIO SDK" variant="outline" />
                     <a href="tel:0957391053" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-bold text-sm hover:bg-muted transition-colors">
                       <Phone size={16} /> โทรสอบถาม
                     </a>
@@ -2977,11 +3032,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                           <td className="p-3 text-xs text-muted-foreground">{item.remark}</td>
                         </tr>
                       ))}
+                      >
                     </tbody>
                    </table>
                 </div>
                 <div className="p-4 border-t border-border text-center">
-                  <AddToQuoteButton model="GT5000" category="GT Series — Mini PC" productName="GT5000 Mini PC" />
                 </div>
               </div>
 
@@ -3020,6 +3075,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
+                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -3033,6 +3089,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     </div>
                   </div>
                 ))}
+                >
               </div>
 
               {/* Podcast */}
@@ -3057,6 +3114,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       </div>
                     </div>
                   ))}
+                  >
                 </div>
               </div>
 
@@ -3166,6 +3224,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
                       </div>
                     ))}
+                    >
                   </div>
                 </div>
               </div>
@@ -3193,6 +3252,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       <div className="text-xs text-muted-foreground">{item.desc}</div>
                     </div>
                   ))}
+                  >
                 </div>
               </div>
 
@@ -3207,6 +3267,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
                   </div>
                 ))}
+                >
               </div>
 
               {/* More Factory Images */}
@@ -3221,6 +3282,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
                   </div>
                 ))}
+                >
               </div>
 
               {/* Spec Table — Full Detail */}
@@ -3242,6 +3304,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         ].map(([k, v], i) => (
                           <tr key={i}><td className="p-3 font-medium text-foreground w-1/3 align-top">{k}</td><td className="p-3 text-muted-foreground whitespace-pre-line">{v}</td></tr>
                         ))}
+                        >
                       </tbody>
                     </table>
                   </div>
@@ -3261,6 +3324,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         ].map(([k, v], i) => (
                           <tr key={i}><td className="p-3 font-medium text-foreground w-1/3 align-top">{k}</td><td className="p-3 text-muted-foreground whitespace-pre-line">{v}</td></tr>
                         ))}
+                        >
                       </tbody>
                     </table>
                   </div>
@@ -3316,6 +3380,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                               <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
                             </tr>
                           ))}
+                          >
                         </tbody>
                       </table>
                     </div>
@@ -3333,14 +3398,14 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                                 ? "bg-primary text-primary-foreground"
                                 : "bg-muted/50 text-muted-foreground hover:bg-muted"
                             }`}
-                          >
+                            >
                             {p + 1}
                           </button>
                         ))}
+                        >
                       </div>
                     </div>
                     <div className="p-4 border-t border-border text-center">
-                      <AddToQuoteButton model="GT6000" category="GT Series — Mini PC" productName="GT6000 Mini PC" />
                     </div>
                   </div>
                 );
@@ -3381,6 +3446,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
+                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -3394,6 +3460,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     </div>
                   </div>
                 ))}
+                >
               </div>
 
               {/* Podcast */}
@@ -3533,6 +3600,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
                       </div>
                     ))}
+                    >
                   </div>
                 </div>
               </div>
@@ -3603,6 +3671,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       <div className="text-xs text-muted-foreground">{item.desc}</div>
                     </div>
                   ))}
+                  >
                 </div>
               </div>
 
@@ -3657,6 +3726,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <div className="w-2/3 p-3 text-xs text-muted-foreground whitespace-pre-line">{value}</div>
                       </div>
                     ))}
+                    >
                   </div>
                   <div className="divide-y divide-border">
                     {[
@@ -3674,6 +3744,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <div className="w-2/3 p-3 text-xs text-muted-foreground whitespace-pre-line">{value}</div>
                       </div>
                     ))}
+                    >
                   </div>
                 </div>
               </div>
@@ -3722,12 +3793,12 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                           <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
                         </tr>
                       ))}
+                      >
                     </tbody>
                   </table>
                 </div>
                 <p className="text-xs text-muted-foreground text-center py-3 border-t border-border"><AlertTriangle size={14} className="inline mr-1 text-amber-500" /> ราคาอาจมีการเปลี่ยนแปลง กรุณาติดต่อพนักงานขายโดยตรงเพื่อยืนยันราคาที่ถูกต้อง โทร. 095-739-1053 · Line: @entgroup</p>
                 <div className="p-4 border-t border-border text-center">
-                  <AddToQuoteButton model="GT7000" category="GT Series — Mini PC" productName="GT7000 Mini PC" />
                 </div>
               </div>
 
@@ -3766,6 +3837,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
+                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -3779,6 +3851,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     </div>
                   </div>
                 ))}
+                >
               </div>
 
               {/* Podcast */}
@@ -3802,6 +3875,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       </div>
                     </div>
                   ))}
+                  >
                 </div>
               </div>
 
@@ -3940,6 +4014,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
                       </div>
                     ))}
+                    >
                   </div>
                 </div>
               </div>
@@ -3970,6 +4045,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       <div className="text-xs text-muted-foreground">{item.desc}</div>
                     </div>
                   ))}
+                  >
                 </div>
               </div>
 
@@ -3992,6 +4068,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         ].map(([k, v], i) => (
                           <tr key={i}><td className="p-3 font-medium text-foreground w-1/3">{k}</td><td className="p-3 text-muted-foreground">{v}</td></tr>
                         ))}
+                        >
                       </tbody>
                     </table>
                   </div>
@@ -4007,6 +4084,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         ].map(([k, v], i) => (
                           <tr key={i}><td className="p-3 font-medium text-foreground w-1/3">{k}</td><td className="p-3 text-muted-foreground">{v}</td></tr>
                         ))}
+                        >
                       </tbody>
                     </table>
                   </div>
@@ -4049,6 +4127,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                           <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
                         </tr>
                       ))}
+                      >
                     </tbody>
                   </table>
                 </div>
@@ -4063,7 +4142,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 </div>
                 <p className="text-xs text-muted-foreground text-center py-3 border-t border-border"><AlertTriangle size={14} className="inline mr-1 text-amber-500" /> ราคาอาจมีการเปลี่ยนแปลง กรุณาติดต่อพนักงานขายโดยตรงเพื่อยืนยันราคาที่ถูกต้อง โทร. 095-739-1053 · Line: @entgroup</p>
                 <div className="p-4 border-t border-border text-center">
-                  <AddToQuoteButton model="GT8000" category="GT Series — Mini PC" productName="GT8000 Mini PC" />
                 </div>
               </div>
 
@@ -4103,6 +4181,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
+                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -4116,6 +4195,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     </div>
                   </div>
                 ))}
+                >
               </div>
 
               {/* Podcast */}
@@ -4139,6 +4219,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       </div>
                     </div>
                   ))}
+                  >
                 </div>
               </div>
 
@@ -4250,6 +4331,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <img src={img.src} alt={img.alt} className="w-full h-32 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
                       </div>
                     ))}
+                    >
                   </div>
                 </div>
               </div>
@@ -4276,6 +4358,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <div className="w-2/3 p-3 text-xs text-muted-foreground whitespace-pre-line">{value}</div>
                       </div>
                     ))}
+                    >
                   </div>
                   <div className="divide-y divide-border">
                     {[
@@ -4295,6 +4378,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <div className="w-2/3 p-3 text-xs text-muted-foreground whitespace-pre-line">{value}</div>
                       </div>
                     ))}
+                    >
                   </div>
                 </div>
               </div>
@@ -4327,6 +4411,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <img src={img} alt={`GT9000 Detail ${i + 1}`} className="w-full rounded-lg" loading="lazy" />
                   </div>
                 ))}
+                >
               </div>
 
               {/* Real-world Photos */}
@@ -4341,6 +4426,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <img src={img} alt={`GT9000 ใช้งานจริง ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
                   </div>
                 ))}
+                >
               </div>
 
               {/* GT9000 Price Table */}
@@ -4403,6 +4489,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                                         <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
                                       </tr>
                                     ))}
+                                    >
                                   </tbody>
                                 </table>
                               </div>
@@ -4412,19 +4499,22 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                                   {Array.from({ length: totalPages }, (_, idx) => (
                                     <button key={idx} onClick={() => setGt9000PricePage(idx)} className={`w-8 h-8 rounded-lg text-xs font-bold transition-colors ${idx === gt9000PricePage ? "bg-primary text-primary-foreground" : "hover:bg-secondary/50 text-muted-foreground"}`}>{idx + 1}</button>
                                   ))}
+                                  >
                                   <button onClick={() => setGt9000PricePage(Math.min(totalPages - 1, gt9000PricePage + 1))} disabled={gt9000PricePage === totalPages - 1} className="px-3 py-1.5 rounded-lg text-xs font-medium border border-border hover:bg-secondary/50 disabled:opacity-40 transition-colors">ถัดไป</button>
                                 </div>
                               )}
+                              >
                             </>
                           );
                         })()}
+                        >
                       </CollapsibleContent>
                     </div>
                   </Collapsible>
                 );
               })()}
+              >
               <div className="text-center">
-                <AddToQuoteButton model="GT9000" category="GT Series — Mini PC" productName="GT9000 Mini PC" />
               </div>
 
               {useCasesGrid}
@@ -4462,6 +4552,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
+                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -4475,6 +4566,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     </div>
                   </div>
                 ))}
+                >
               </div>
 
               {/* Podcast */}
@@ -4499,6 +4591,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       </div>
                     </div>
                   ))}
+                  >
                 </div>
               </div>
 
@@ -4783,6 +4876,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                           <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
                         </tr>
                       ))}
+                      >
                     </tbody>
                   </table>
                 </div>
@@ -4813,7 +4907,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 </div>
               </div>
               <div className="text-center">
-                <AddToQuoteButton model="GT4500" category="GT Series — Mini PC" productName="GT4500 Mini PC" />
               </div>
 
               {/* Gallery */}
@@ -4838,6 +4931,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       loading="lazy"
                     />
                   ))}
+                  >
                 </div>
               </div>
 
@@ -4878,6 +4972,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
+                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -4891,6 +4986,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     </div>
                   </div>
                 ))}
+                >
               </div>
 
               {/* Datasheet CTA */}
@@ -5006,6 +5102,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <img src={img.src} alt={img.alt} className="w-full h-32 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
                       </div>
                     ))}
+                    >
                   </div>
                 </div>
               </div>
@@ -5043,6 +5140,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <div className="w-2/3 p-3 text-xs text-muted-foreground whitespace-pre-line">{value}</div>
                       </div>
                     ))}
+                    >
                   </div>
                   <div className="divide-y divide-border">
                     {[
@@ -5061,6 +5159,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <div className="w-2/3 p-3 text-xs text-muted-foreground whitespace-pre-line">{value}</div>
                       </div>
                     ))}
+                    >
                   </div>
                 </div>
               </div>
@@ -5115,6 +5214,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                                   <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
                                 </tr>
                               ))}
+                              >
                             </tbody>
                           </table>
                         </div>
@@ -5124,17 +5224,19 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                             {Array.from({ length: totalPages }, (_, idx) => (
                               <button key={idx} onClick={() => setGt1400PricePage(idx)} className={`w-8 h-8 rounded-lg text-xs font-bold transition-colors ${idx === gt1400PricePage ? "bg-primary text-primary-foreground" : "hover:bg-secondary/50 text-muted-foreground"}`}>{idx + 1}</button>
                             ))}
+                            >
                             <button onClick={() => setGt1400PricePage(Math.min(totalPages - 1, gt1400PricePage + 1))} disabled={gt1400PricePage === totalPages - 1} className="px-3 py-1.5 rounded-lg text-xs font-medium border border-border hover:bg-secondary/50 disabled:opacity-40 transition-colors">ถัดไป</button>
                           </div>
                         )}
+                        >
                         <p className="text-xs text-muted-foreground text-center py-3 border-t border-border"><AlertTriangle size={14} className="inline mr-1 text-amber-500" /> ราคาอาจมีการเปลี่ยนแปลง กรุณาติดต่อพนักงานขายโดยตรงเพื่อยืนยันราคาที่ถูกต้อง โทร. 095-739-1053 · Line: @entgroup</p>
                       </CollapsibleContent>
                     </div>
                   </Collapsible>
                 );
               })()}
+              >
               <div className="text-center">
-                <AddToQuoteButton model="GT1400" category="GT Series — Mini PC" productName="GT1400 Mini PC" />
               </div>
 
 
@@ -5174,6 +5276,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
+                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -5187,6 +5290,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     </div>
                   </div>
                 ))}
+                >
               </div>
 
               {/* Podcast */}
@@ -5272,7 +5376,6 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   ]} />
 
                   <div className="p-4 border-t border-border text-center">
-                    <AddToQuoteButton model="GT1300" category="GT Series — Mini PC" productName="GT1300 Mini PC" />
                   </div>
 
                   {/* Key Specs */}
@@ -5316,6 +5419,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <img src={img.src} alt={img.alt} className="w-full h-32 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
                       </div>
                     ))}
+                    >
                   </div>
                 </div>
               </div>
@@ -5372,6 +5476,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <div className="w-2/3 p-3 text-xs text-muted-foreground whitespace-pre-line">{value}</div>
                       </div>
                     ))}
+                    >
                   </div>
                   <div className="divide-y divide-border">
                     {[
@@ -5391,6 +5496,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <div className="w-2/3 p-3 text-xs text-muted-foreground whitespace-pre-line">{value}</div>
                       </div>
                     ))}
+                    >
                   </div>
                 </div>
               </div>
@@ -5442,6 +5548,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
+                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -5455,6 +5562,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     </div>
                   </div>
                 ))}
+                >
               </div>
             </div>
           )}
@@ -5549,6 +5657,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <img src={img.src} alt={img.alt} className="w-full h-32 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
                       </div>
                     ))}
+                    >
                   </div>
                 </div>
               </div>
@@ -5586,6 +5695,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <div className="w-2/3 p-3 text-xs text-muted-foreground whitespace-pre-line">{value}</div>
                       </div>
                     ))}
+                    >
                   </div>
                   <div className="divide-y divide-border">
                     {[
@@ -5605,6 +5715,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <div className="w-2/3 p-3 text-xs text-muted-foreground whitespace-pre-line">{value}</div>
                       </div>
                     ))}
+                    >
                   </div>
                 </div>
               </div>
@@ -5672,6 +5783,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                               <td className="p-3 text-right font-bold text-primary">{item.price === "Call" ? "Call" : `฿${item.price}`}</td>
                             </tr>
                           ))}
+                          >
                         </tbody>
                       </table>
                     </div>
@@ -5690,10 +5802,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                                 ? "bg-primary text-primary-foreground"
                                 : "bg-muted/50 text-muted-foreground hover:bg-muted"
                             }`}
-                          >
+                            >
                             {p + 1}
                           </button>
                         ))}
+                        >
                       </div>
                     </div>
                     <div className="px-5 py-3 border-t border-border bg-muted/30">
@@ -5704,8 +5817,8 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   </div>
                 );
               })()}
+              >
               <div className="text-center">
-                <AddToQuoteButton model="GT1200" category="GT Series — Mini PC" productName="GT1200 Mini PC" />
               </div>
 
               {useCasesGrid}
@@ -5743,6 +5856,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="aspect-video">
                       <iframe
                         src={`https://www.youtube.com/embed/${v.id}`}
+                        >
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -5756,6 +5870,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     </div>
                   </div>
                 ))}
+                >
               </div>
 
               {/* Podcast */}
@@ -5779,6 +5894,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       </div>
                     </div>
                   ))}
+                  >
                 </div>
               </div>
 
@@ -5795,6 +5911,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               </div>
             </div>
           )}
+          >
         </div>
       </section>
 
@@ -5825,6 +5942,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <span className="text-xs font-bold text-primary">{item.price}</span>
                   </div>
                 ))}
+                >
               </div>
             </div>
             {/* Hardware Options */}
@@ -5846,6 +5964,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <span className="text-xs font-bold text-primary">{item.price}</span>
                   </div>
                 ))}
+                >
               </div>
             </div>
           </div>
@@ -5948,6 +6067,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       className={s < review.stars ? "text-amber-400 fill-amber-400" : "text-muted-foreground/30"}
                     />
                   ))}
+                  >
                 </div>
                 <p className="text-sm text-foreground leading-relaxed mb-4">"{review.text}"</p>
                 <div className="border-t border-border pt-3">
@@ -5956,6 +6076,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 </div>
               </div>
             ))}
+            >
           </div>
 
           {/* PDPA Disclaimer */}
@@ -5967,19 +6088,9 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
           </div>
         </div>
       </section>
-
-      <PlatformInviteBanner variant="compact" />
       <B2BCTABanner variant="compact" />
       <FooterCompact />
-
-      <QuoteDialog
-        open={!!quoteProduct}
-        onClose={() => setQuoteProduct(null)}
-        productName={quoteProduct || ""}
-        productCategory="GT Series — Mini PC"
-      />
       <LineQRDialog open={showLineQR} onClose={() => setShowLineQR(false)} />
-      <MultiSelectQuoteBar selectedProducts={selectedProducts} onClear={clearSelection} productCategory="GT Series — Mini PC" />
     </div>
   );
 };
@@ -5998,6 +6109,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
           <Checkbox checked={selected} className="h-5 w-5" />
         </button>
       )}
+      >
       {model.badge ? (
         <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-primary text-primary-foreground text-[11px] font-bold border border-primary/20 animate-pulse">
           {model.highlight}
@@ -6007,7 +6119,6 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
           {model.highlight}
         </span>
       )}
-      <WishlistHeart
         item={{
           id: model.name.toLowerCase().replace(/\s+/g, "-"),
           name: model.name,
@@ -6053,12 +6164,6 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
             <span className="font-bold text-foreground">{model.price.startsWith("สอบถาม") ? model.price : `฿${model.price}`}</span>
           </div>
         ) : <div />}
-        <AddToQuoteButton
-          model={model.name}
-          category="GT Series — Mini PC"
-          productName={`${model.name} Mini PC`}
-          variant="compact"
-        />
       </div>
     </div>
   </>

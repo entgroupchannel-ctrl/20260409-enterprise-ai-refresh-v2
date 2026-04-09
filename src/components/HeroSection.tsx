@@ -1,14 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Search, Menu, X, ChevronDown, UserPlus, LogOut, User, LogIn, FileText, Heart, Shield, FolderOpen, Bell, Bot } from "lucide-react";
-import { toast } from "sonner";
+import { Search, Menu, X, ChevronDown } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
-import QuoteCartButton from "@/components/QuoteCartButton";
-import AIChatWidget from "@/components/AIChatWidget";
 import MegaMenu, { MobileMegaMenu } from "@/components/MegaMenu";
-import { useAuth } from "@/hooks/useAuth";
-import { supabase } from "@/integrations/supabase/client";
-import { useWishlist } from "@/hooks/useWishlist";
 import heroIndustrial from "@/assets/hero-industrial.jpg";
 import logo from "@/assets/logo-entgroup.avif";
 
@@ -18,25 +12,20 @@ const searchIndex = [
   { keywords: ["gb", "gb series", "compact", "คอมแพค"], label: "GB Series — Compact PC", href: "/gb-series" },
   { keywords: ["epc", "epc box", "embedded"], label: "EPC Box Series", href: "/epc-box-series" },
   { keywords: ["epc series"], label: "EPC Series", href: "/epc-series" },
-  { keywords: ["panel pc", "gk", "จอสัมผัส", "touch", "หน้าจอ", "touchscreen"], label: "GK Series — Panel PC", href: "/gk-series" },
-  { keywords: ["gtg", "gty", "panel pc gtg", "stainless", "ip65"], label: "Panel PC GTG/GTY", href: "/panel-pc-gtg" },
-  { keywords: ["utc", "utc series"], label: "UTC Series", href: "/utc-series" },
-  { keywords: ["firewall", "ไฟร์วอลล์", "network security", "pfsense", "opnsense", "sme"], label: "Mini PC Firewall", href: "/minipc-firewall" },
-  { keywords: ["smart display", "kiosk", "คีออส", "digital signage", "จอโฆษณา", "monitor"], label: "Smart Display & KIOSK", href: "/smart-display" },
-  { keywords: ["rugged", "tablet", "แท็บเล็ต", "notebook", "ทหาร", "กันน้ำ", "กันกระแทก", "ภาคสนาม", "vehicle"], label: "Rugged Tablet / Notebook", href: "/rugged-tablet" },
-  { keywords: ["volktek", "switch", "เครือข่าย", "network", "สวิตช์"], label: "Volktek Industrial Switch", href: "/volktek" },
-  { keywords: ["vcloudpoint", "zero client", "thin client", "ประหยัดพลังงาน"], label: "vCloudPoint Zero Client", href: "/vcloudpoint" },
-  { keywords: ["waterproof", "ip69k", "กันน้ำ", "ล้างน้ำ", "อาหาร", "food"], label: "Waterproof PC IP69K", href: "/waterproof-pc" },
-  { keywords: ["โปรโมชั่น", "promotion", "ลดราคา", "sale"], label: "โปรโมชั่น", href: "/promotions" },
-  { keywords: ["ติดต่อ", "contact", "สอบถาม", "โทร"], label: "ติดต่อเรา", href: "/contact" },
-  { keywords: ["ใบเสนอราคา", "quote", "ขอราคา"], label: "ขอใบเสนอราคา", href: "/quote" },
-  { keywords: ["gt1000"], label: "GT1000 — Entry Level", href: "/gt-series?tab=GT1000" },
-  { keywords: ["gt1400", "gpio"], label: "GT1400 — GPIO + 2.5G LAN", href: "/gt-series?tab=GT1400" },
-  { keywords: ["gt4500"], label: "GT4500 — DDR4 + SIM 4G/5G", href: "/gt-series?tab=GT4500" },
-  { keywords: ["gt7000"], label: "GT7000 — คำตอบทุกปัญหาโรงงาน", href: "/gt-series?tab=GT7000" },
-  { keywords: ["gt9000"], label: "GT9000 — 3 HDMI 6 COM NVMe", href: "/gt-series?tab=GT9000" },
-  { keywords: ["gb1000"], label: "GB1000 — Ultra-Compact", href: "/gb-series" },
-  { keywords: ["gb5000"], label: "GB5000 — Premium Performance", href: "/gb-series" },
+  { keywords: ["gk", "gk series", "kiosk", "panel pc"], label: "GK Series — Industrial Panel PC", href: "/gk-series" },
+  { keywords: ["panel pc", "touch screen", "จอสัมผัส", "หน้าจอ"], label: "Panel PC GTG Touch", href: "/panel-pc-gtg" },
+  { keywords: ["tablet", "rugged tablet", "แท็บเล็ต", "กันน้ำ", "ทนทาน"], label: "Rugged Tablet", href: "/rugged-tablet" },
+  { keywords: ["handheld", "pda", "มือถือ", "สแกน"], label: "Rugged Handheld", href: "/handheld" },
+  { keywords: ["firewall", "network", "เครือข่าย", "ไฟร์วอลล์", "vpn", "pfsense", "opnsense"], label: "Mini PC Firewall", href: "/minipc-firewall" },
+  { keywords: ["volktek", "switch", "สวิตช์", "industrial switch", "โรงงาน"], label: "Volktek Industrial Switch", href: "/volktek" },
+  { keywords: ["vcloudpoint", "zero client", "thin client", "ประหยัด"], label: "vCloudPoint Zero Client", href: "/vcloudpoint" },
+  { keywords: ["smart display", "digital signage", "ป้ายดิจิตอล"], label: "Smart Display", href: "/smart-display" },
+  { keywords: ["utc", "utc series", "all-in-one"], label: "UTC Series — AIO Touch PC", href: "/utc-series" },
+  { keywords: ["waterproof", "กันน้ำ", "สแตนเลส", "stainless", "food"], label: "Waterproof PC", href: "/waterproof-pc" },
+  { keywords: ["ibox", "embedded", "fanless"], label: "iBox Fanless PC", href: "/ibox-series" },
+  { keywords: ["notebook", "laptop", "โน้ตบุ๊ค", "rugged notebook"], label: "Rugged Notebook", href: "/rugged-notebook" },
+  { keywords: ["aio", "all in one", "ออลอินวัน"], label: "All-in-One PC", href: "/aio" },
+  { keywords: ["โปรโมชั่น", "promotion", "ลดราคา", "sale"], label: "โปรโมชั่นพิเศษ", href: "/promotions" },
   { keywords: ["pos", "ร้านค้า", "ขายของ"], label: "Panel PC สำหรับ POS ร้านค้า", href: "/panel-pc-gtg" },
 ];
 
@@ -47,10 +36,6 @@ const searchTags = [
   { label: "Firewall สำหรับ SME", href: "/minipc-firewall" },
   { label: "Zero Client ประหยัดพลังงาน", href: "/vcloudpoint" },
   { label: "Rugged Tablet กันน้ำกันกระแทก", href: "/rugged-tablet" },
-  { label: "Industrial Switch เครือข่ายโรงงาน", href: "/volktek" },
-  { label: "Touch Screen POS ร้านค้า", href: "/panel-pc-gtg" },
-  { label: "Rugged Notebook สำหรับภาคสนาม", href: "/rugged-tablet" },
-  { label: "Vehicle Tablet ติดรถขนส่ง", href: "/rugged-tablet" },
 ];
 
 const navLinks = [
@@ -68,28 +53,18 @@ const heroStats = [
 const HeroSection = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [userMenuOpen, setUserMenuOpen] = useState(false);
-  const userMenuRef = useRef<HTMLDivElement>(null);
-  const { user, isAdmin, isSuperAdmin, signOut } = useAuth();
   const navigate = useNavigate();
-  const { count: wishlistCount } = useWishlist();
   const [searchOpen, setSearchOpen] = useState(false);
-  const [aiChatOpen, setAiChatOpen] = useState(false);
   const [tagsExpanded, setTagsExpanded] = useState(true);
 
-  // Auto-collapse tags after 10 seconds
   useEffect(() => {
     const timer = setTimeout(() => setTagsExpanded(false), 10000);
     return () => clearTimeout(timer);
   }, []);
   const searchRef = useRef<HTMLDivElement>(null);
 
-  // Close menus on outside click
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (userMenuRef.current && !userMenuRef.current.contains(e.target as Node)) {
-        setUserMenuOpen(false);
-      }
       if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
         setSearchOpen(false);
       }
@@ -98,7 +73,6 @@ const HeroSection = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Search logic
   const searchResults = searchQuery.trim().length >= 1
     ? searchIndex.filter((item) => {
         const q = searchQuery.toLowerCase();
@@ -124,7 +98,6 @@ const HeroSection = () => {
   };
 
   return (
-    <>
     <section className="relative min-h-screen flex flex-col">
       {/* Full-bleed background image */}
       <div className="absolute inset-0 z-0">
@@ -146,118 +119,14 @@ const HeroSection = () => {
         </a>
         <div className="hidden md:flex items-center gap-2">
           <MegaMenu />
-          {navLinks.map((l) =>
-            l.href.startsWith("/") ? (
-              <Link key={l.label} to={l.href} className="px-3 py-2 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-colors">
-                {l.label}
-              </Link>
-            ) : (
-              <a key={l.label} href={l.href} className="px-3 py-2 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-colors">
-                {l.label}
-              </a>
-            )
-          )}
+          {navLinks.map((l) => (
+            <Link key={l.label} to={l.href} className="px-3 py-2 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-colors">
+              {l.label}
+            </Link>
+          ))}
+          >
           <div className="w-px h-6 bg-white/10 mx-1" />
-          <QuoteCartButton />
           <ThemeToggle />
-          <button
-            onClick={() => setAiChatOpen(true)}
-            className="p-2 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-surface-hover transition-colors"
-            aria-label="AI Assistant"
-            title="AI ผู้เชี่ยวชาญ"
-          >
-            <Bot size={18} />
-          </button>
-          <Link
-            to="/wishlist"
-            className="relative p-2.5 rounded-lg text-white/70 hover:text-red-400 hover:bg-white/10 transition-colors"
-            title="สินค้าที่ถูกใจ"
-          >
-            <Heart size={20} className={wishlistCount > 0 ? "fill-red-400 text-red-400" : ""} />
-            {wishlistCount > 0 && (
-              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-destructive text-destructive-foreground text-[10px] font-bold flex items-center justify-center">
-                {wishlistCount > 9 ? "9+" : wishlistCount}
-              </span>
-            )}
-          </Link>
-          <div className="relative" ref={userMenuRef}>
-            <button
-              onClick={() => setUserMenuOpen(!userMenuOpen)}
-              className="p-2.5 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors"
-              aria-label="บัญชีผู้ใช้"
-            >
-              <User size={20} />
-            </button>
-            {userMenuOpen && (
-              <div className="absolute right-0 top-full mt-2 w-48 rounded-xl bg-card border border-border shadow-xl py-1 z-50 animate-fade-in">
-                {user ? (
-                  <>
-                    <div className="px-4 py-2 text-xs text-muted-foreground border-b border-border truncate">
-                      <span>{user.email}</span>
-                      {isAdmin && (
-                        <span className="ml-1.5 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-bold border border-primary/20">
-                          <Shield size={9} /> {isSuperAdmin ? "Super Admin" : "Admin"}
-                        </span>
-                      )}
-                    </div>
-                    {isAdmin && (
-                      <Link
-                        to="/admin"
-                        onClick={() => setUserMenuOpen(false)}
-                        className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-primary font-medium hover:bg-primary/5 transition-colors"
-                      >
-                        <Shield size={14} /> Admin Dashboard
-                      </Link>
-                    )}
-                    <Link
-                      to="/my-account"
-                      onClick={() => setUserMenuOpen(false)}
-                      className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors"
-                    >
-                      <User size={14} /> บัญชีของฉัน
-                    </Link>
-                    <Link
-                      to="/my-account/quotes"
-                      onClick={() => setUserMenuOpen(false)}
-                      className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors"
-                    >
-                      <FileText size={14} /> ใบเสนอราคา
-                    </Link>
-                    <Link
-                      to="/my-account/documents"
-                      onClick={() => setUserMenuOpen(false)}
-                      className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors"
-                    >
-                      <FolderOpen size={14} /> ศูนย์เอกสาร
-                    </Link>
-                    <button
-                      onClick={async () => { setUserMenuOpen(false); await signOut(); }}
-                      className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors"
-                    >
-                      <LogOut size={14} /> ออกจากระบบ
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <Link
-                      to="/admin-login"
-                      onClick={() => setUserMenuOpen(false)}
-                      className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors"
-                    >
-                      <LogIn size={14} /> เข้าสู่ระบบ
-                    </Link>
-                    <Link
-                      to="/member-register"
-                      onClick={() => setUserMenuOpen(false)}
-                      className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors"
-                    >
-                      <UserPlus size={14} /> สมัครสมาชิก
-                    </Link>
-                  </>
-                )}
-              </div>
-            )}
-          </div>
         </div>
         <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden text-white">
           {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -268,95 +137,15 @@ const HeroSection = () => {
       {mobileMenuOpen && (
         <div className="md:hidden absolute top-16 left-0 right-0 z-30 bg-card border-b border-border p-6 animate-fade-in max-h-[80vh] overflow-y-auto">
           <MobileMegaMenu onNavigate={() => setMobileMenuOpen(false)} />
-          <div className="flex flex-col mt-4 gap-2 pt-4 border-t border-border">
-            {user ? (
-              <>
-                <div className="px-3 py-2 text-xs text-muted-foreground truncate flex items-center gap-2">
-                  <User size={12} /> {user.email}
-                  {isAdmin && (
-                    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-bold border border-primary/20">
-                      <Shield size={8} /> {isSuperAdmin ? "Super Admin" : "Admin"}
-                    </span>
-                  )}
-                </div>
-                {isAdmin && (
-                  <Link
-                    to="/admin"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-primary/10 text-primary text-sm font-semibold border border-primary/20"
-                  >
-                    <Shield size={14} /> Admin Dashboard
-                  </Link>
-                )}
-                <div className="flex gap-2">
-                  <Link
-                    to="/my-account"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-lg border border-border text-foreground text-sm font-semibold hover:bg-muted transition-colors"
-                  >
-                    <User size={14} /> บัญชีของฉัน
-                  </Link>
-                  <Link
-                    to="/my-account/quotes"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-lg border border-border text-foreground text-sm font-semibold hover:bg-muted transition-colors"
-                  >
-                    <FileText size={14} /> ใบเสนอราคา
-                  </Link>
-                  <button
-                    onClick={async () => { setMobileMenuOpen(false); await signOut(); }}
-                    className="flex-1 text-center px-5 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold"
-                  >
-                    ออกจากระบบ
-                  </button>
-                </div>
-                <div className="flex justify-center gap-2 pt-1">
-                  <QuoteCartButton />
-                  <ThemeToggle />
-                  <button
-                    onClick={() => { setMobileMenuOpen(false); setAiChatOpen(true); }}
-                    className="p-2 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-surface-hover transition-colors"
-                    aria-label="AI Assistant"
-                  >
-                    <Bot size={18} />
-                  </button>
-                </div>
-              </>
-            ) : (
-              <div className="flex items-center gap-2">
-                <QuoteCartButton />
-                <ThemeToggle />
-                <button
-                  onClick={() => { setMobileMenuOpen(false); setAiChatOpen(true); }}
-                  className="p-2 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-surface-hover transition-colors"
-                  aria-label="AI Assistant"
-                >
-                  <Bot size={18} />
-                </button>
-                <Link
-                  to="/admin-login"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex-1 text-center px-3 py-2.5 rounded-lg border border-border text-foreground text-sm font-semibold hover:bg-muted transition-colors"
-                >
-                  เข้าสู่ระบบ
-                </Link>
-                <Link
-                  to="/member-register"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex-1 text-center px-3 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold"
-                >
-                  สมัครสมาชิก
-                </Link>
-              </div>
-            )}
+          <div className="flex items-center gap-2 mt-4 pt-4 border-t border-border">
+            <ThemeToggle />
           </div>
         </div>
       )}
 
-      {/* Hero Content — two-column layout */}
+      {/* Hero Content */}
       <div className="relative z-10 flex-1 flex items-center px-6 md:px-12 lg:px-20">
         <div className="w-full flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10 py-16 md:py-0">
-          {/* Left: Headline + Search + CTA */}
           <div className="max-w-2xl">
             <p className="text-sm md:text-base text-primary font-semibold tracking-widest uppercase mb-4 animate-fade-up">
               B2B Industrial Platform — แพลตฟอร์มจัดซื้ออุตสาหกรรมแบบครบวงจร
@@ -395,7 +184,6 @@ const HeroSection = () => {
                 </button>
               </div>
 
-              {/* Autocomplete dropdown */}
               {searchOpen && searchResults.length > 0 && (
                 <div className="absolute top-full left-0 right-0 mt-2 bg-background/95 backdrop-blur-xl border border-border rounded-xl shadow-2xl overflow-hidden z-50 animate-fade-in">
                   {searchResults.map((item, i) => (
@@ -408,23 +196,25 @@ const HeroSection = () => {
                       <span className="text-sm text-foreground">{item.label}</span>
                     </button>
                   ))}
+                  >
                 </div>
               )}
+              >
             </div>
 
             {/* CTA */}
             <div className="flex flex-wrap items-center gap-3 animate-fade-up" style={{ animationDelay: "0.35s" }}>
               <Link
-                to="/product-advisor"
+                to="/contact"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20"
               >
-                <Search size={16} /> ช่วยเลือกสินค้าที่ใช่
+                ปรึกษาผู้เชี่ยวชาญ
               </Link>
               <Link
-                to="/contact"
+                to="/promotions"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/20 text-white/80 text-sm hover:bg-white/10 transition-colors backdrop-blur-sm"
               >
-                ปรึกษาผู้เชี่ยวชาญ
+                ดูโปรโมชั่น
               </Link>
             </div>
 
@@ -436,10 +226,11 @@ const HeroSection = () => {
                   <p className="text-xs text-white/50">{s.label}</p>
                 </div>
               ))}
+              >
             </div>
           </div>
 
-          {/* Right: Search Tags — collapsible, fixed to right edge */}
+          {/* Right: Search Tags */}
           <div className={`hidden lg:flex fixed right-0 top-1/2 -translate-y-1/2 z-30 transition-all duration-500 ease-in-out ${tagsExpanded ? "translate-x-0" : "translate-x-[calc(100%-28px)]"}`}>
             <button
               onClick={() => setTagsExpanded(!tagsExpanded)}
@@ -450,7 +241,7 @@ const HeroSection = () => {
             </button>
             <div className="flex flex-col gap-2 p-3 rounded-l-xl bg-black/40 backdrop-blur-xl border border-r-0 border-white/10">
               <p className="text-[10px] font-semibold tracking-widest uppercase text-white/40">สินค้ายอดนิยม</p>
-              {searchTags.slice(0, 6).map((tag) => (
+              {searchTags.map((tag) => (
                 <button
                   key={tag.label}
                   onClick={() => navigate(tag.href)}
@@ -459,12 +250,13 @@ const HeroSection = () => {
                   {tag.label}
                 </button>
               ))}
+              >
             </div>
           </div>
 
           {/* Mobile: Tags inline */}
           <div className="flex flex-wrap gap-2 lg:hidden animate-fade-up" style={{ animationDelay: "0.4s" }}>
-            {searchTags.slice(0, 6).map((tag) => (
+            {searchTags.map((tag) => (
               <button
                 key={tag.label}
                 onClick={() => navigate(tag.href)}
@@ -473,6 +265,7 @@ const HeroSection = () => {
                 {tag.label}
               </button>
             ))}
+            >
           </div>
         </div>
       </div>
@@ -483,10 +276,7 @@ const HeroSection = () => {
           <ChevronDown size={28} />
         </a>
       </div>
-
     </section>
-    {aiChatOpen && <AIChatWidget open={aiChatOpen} onClose={() => setAiChatOpen(false)} />}
-    </>
   );
 };
 

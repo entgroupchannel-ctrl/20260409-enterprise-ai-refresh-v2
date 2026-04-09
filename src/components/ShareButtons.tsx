@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import { Share2, Facebook, Link2, ThumbsUp } from "lucide-react";
-import { useEngagementTracker } from "@/hooks/useEngagementTracker";
 
 interface ShareButtonsProps {
   url: string;
@@ -14,10 +13,7 @@ const ShareButtons = ({ url, title, compact = false, productId, productCategory 
   const [showMenu, setShowMenu] = useState(false);
   const [liked, setLiked] = useState(false);
   const [copied, setCopied] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
-  const { trackEvent } = useEngagementTracker();
-
-  useEffect(() => {
+  const menuRef = useRef<HTMLDivElement>(null);  useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
         setShowMenu(false);
@@ -29,13 +25,11 @@ const ShareButtons = ({ url, title, compact = false, productId, productCategory 
 
   const shareToFacebook = () => {
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, "_blank", "width=600,height=400");
-    trackEvent({ eventType: "share_facebook", productId, productCategory, productName: title });
     setShowMenu(false);
   };
 
   const shareToLine = () => {
     window.open(`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(url)}`, "_blank", "width=600,height=400");
-    trackEvent({ eventType: "share_line", productId, productCategory, productName: title });
     setShowMenu(false);
   };
 
@@ -44,7 +38,6 @@ const ShareButtons = ({ url, title, compact = false, productId, productCategory 
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
-    trackEvent({ eventType: "share_copy_link", productId, productCategory, productName: title });
     setShowMenu(false);
   };
 
@@ -62,6 +55,7 @@ const ShareButtons = ({ url, title, compact = false, productId, productCategory 
       >
         <ThumbsUp size={iconSize} className={liked ? "fill-current" : ""} />
         {!compact && (liked ? "ถูกใจแล้ว" : "ถูกใจ")}
+        >
       </button>
 
       {/* Share dropdown */}
@@ -99,6 +93,7 @@ const ShareButtons = ({ url, title, compact = false, productId, productCategory 
             </button>
           </div>
         )}
+        >
       </div>
     </div>
   );

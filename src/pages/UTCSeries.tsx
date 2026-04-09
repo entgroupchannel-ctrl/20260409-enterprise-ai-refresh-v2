@@ -2,7 +2,6 @@ import { useState } from "react";
 import SEOHead from "@/components/SEOHead";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
-import WishlistHeart from "@/components/WishlistHeart";
 import { Link } from "react-router-dom";
 import {
   ArrowLeft, Monitor, Cpu, Shield, Zap, Wind, Layers, Wrench, Maximize,
@@ -11,7 +10,6 @@ import {
 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ThemeToggle from "@/components/ThemeToggle";
-import QuoteCartButton from "@/components/QuoteCartButton";
 import logo from "@/assets/logo-entgroup.avif";
 import FooterCompact from "@/components/FooterCompact";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
@@ -179,6 +177,7 @@ const PriceTable = ({ title, icon: Icon, models, subTitle }: {
                       ) : (
                         <>฿{m.price}</>
                       )}
+                      >
                     </td>
                     <td className="py-3 px-3 text-center">
                       <a
@@ -193,6 +192,7 @@ const PriceTable = ({ title, icon: Icon, models, subTitle }: {
                     </td>
                   </tr>
                 ))}
+                >
               </tbody>
             </table>
           </div>
@@ -226,7 +226,6 @@ const UTCSeries = () => {
             <img src={logo} alt="ENT GROUP" className="h-7 w-auto dark:invert" />
           </div>
           <div className="flex items-center gap-3">
-            <QuoteCartButton />
             <ThemeToggle />
           </div>
         </div>
@@ -264,6 +263,7 @@ const UTCSeries = () => {
                     {tag}
                   </span>
                 ))}
+                >
               </div>
 
               <div className="flex flex-wrap gap-3">
@@ -319,6 +319,7 @@ const UTCSeries = () => {
                 <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -347,9 +348,6 @@ const UTCSeries = () => {
                       <p className="text-xs text-primary/70 font-medium">หน้าจอสี่เหลี่ยมจตุรัส</p>
                     </div>
                   </div>
-                  <WishlistHeart
-                    item={{ id: "utc-square", name: "UTC Square Screen", category: "UTC Series", image: "/images/wix/0597a3_48b4b6dd4b0844f1996977be9733e597_baf8b2cc.png", href: "/utc-series", specs: "4:3 / 5:4 Touch Monitor" }}
-                  />
                 </div>
                 <img
                   src="/images/wix/0597a3_48b4b6dd4b0844f1996977be9733e597_a37ce2a5.png"
@@ -379,9 +377,6 @@ const UTCSeries = () => {
                       <p className="text-xs text-primary/70 font-medium">หน้าจอสี่เหลี่ยมผืนผ้า</p>
                     </div>
                   </div>
-                  <WishlistHeart
-                    item={{ id: "utc-wide", name: "UTC Wide Screen", category: "UTC Series", image: "/images/wix/0597a3_52951cbca38c439f8abc10f9e94fa03f_69408504.png", href: "/utc-series", specs: "16:9 Touch Monitor" }}
-                  />
                 </div>
                 <img
                   src="/images/wix/0597a3_52951cbca38c439f8abc10f9e94fa03f_b157e1d3.png"
@@ -435,6 +430,7 @@ const UTCSeries = () => {
                 <p className="text-[11px] text-muted-foreground">{uc.desc}</p>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -524,6 +520,7 @@ const UTCSeries = () => {
                         <td className="py-3 px-3 text-right font-bold text-foreground">{opt.price}</td>
                       </tr>
                     ))}
+                    >
                   </tbody>
                 </table>
               </div>
@@ -555,6 +552,7 @@ const UTCSeries = () => {
                 <img src={src} alt={`UTC Installation ${i + 1}`} className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
               </div>
             ))}
+            >
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
@@ -567,6 +565,7 @@ const UTCSeries = () => {
                 <img src={src} alt={`UTC Factory ${i + 1}`} className="w-full h-44 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
               </div>
             ))}
+            >
           </div>
         </div>
       </section>

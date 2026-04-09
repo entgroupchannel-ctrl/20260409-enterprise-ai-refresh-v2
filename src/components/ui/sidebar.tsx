@@ -118,8 +118,8 @@ const SidebarProvider = React.forwardRef<
           }
           className={cn("group/sidebar-wrapper flex min-h-svh w-full has-[[data-variant=inset]]:bg-sidebar", className)}
           ref={ref}
+          >
           {...props}
-        >
           {children}
         </div>
       </TooltipProvider>
@@ -143,8 +143,8 @@ const Sidebar = React.forwardRef<
       <div
         className={cn("flex h-full w-[--sidebar-width] flex-col bg-sidebar text-sidebar-foreground", className)}
         ref={ref}
+        >
         {...props}
-      >
         {children}
       </div>
     );
@@ -202,8 +202,8 @@ const Sidebar = React.forwardRef<
             : "group-data-[collapsible=icon]:w-[--sidebar-width-icon] group-data-[side=left]:border-r group-data-[side=right]:border-l",
           className,
         )}
+        >
         {...props}
-      >
         <div
           data-sidebar="sidebar"
           className="flex h-full w-full flex-col bg-sidebar group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow"
@@ -232,7 +232,6 @@ const SidebarTrigger = React.forwardRef<React.ElementRef<typeof Button>, React.C
           toggleSidebar();
         }}
         {...props}
-      >
         <PanelLeft />
         <span className="sr-only">Toggle Sidebar</span>
       </Button>
@@ -262,6 +261,7 @@ const SidebarRail = React.forwardRef<HTMLButtonElement, React.ComponentProps<"bu
           "[[data-side=right][data-collapsible=offcanvas]_&]:-left-2",
           className,
         )}
+        >
         {...props}
       />
     );
@@ -278,6 +278,7 @@ const SidebarInset = React.forwardRef<HTMLDivElement, React.ComponentProps<"main
         "peer-data-[variant=inset]:min-h-[calc(100svh-theme(spacing.4))] md:peer-data-[variant=inset]:m-2 md:peer-data-[state=collapsed]:peer-data-[variant=inset]:ml-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow",
         className,
       )}
+      >
       {...props}
     />
   );
@@ -294,6 +295,7 @@ const SidebarInput = React.forwardRef<React.ElementRef<typeof Input>, React.Comp
           "h-8 w-full bg-background shadow-none focus-visible:ring-2 focus-visible:ring-sidebar-ring",
           className,
         )}
+        >
         {...props}
       />
     );
@@ -318,6 +320,7 @@ const SidebarSeparator = React.forwardRef<React.ElementRef<typeof Separator>, Re
         ref={ref}
         data-sidebar="separator"
         className={cn("mx-2 w-auto bg-sidebar-border", className)}
+        >
         {...props}
       />
     );
@@ -334,6 +337,7 @@ const SidebarContent = React.forwardRef<HTMLDivElement, React.ComponentProps<"di
         "flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden",
         className,
       )}
+      >
       {...props}
     />
   );
@@ -346,6 +350,7 @@ const SidebarGroup = React.forwardRef<HTMLDivElement, React.ComponentProps<"div"
       ref={ref}
       data-sidebar="group"
       className={cn("relative flex w-full min-w-0 flex-col p-2", className)}
+      >
       {...props}
     />
   );
@@ -365,6 +370,7 @@ const SidebarGroupLabel = React.forwardRef<HTMLDivElement, React.ComponentProps<
           "group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0",
           className,
         )}
+        >
         {...props}
       />
     );
@@ -387,6 +393,7 @@ const SidebarGroupAction = React.forwardRef<HTMLButtonElement, React.ComponentPr
           "group-data-[collapsible=icon]:hidden",
           className,
         )}
+        >
         {...props}
       />
     );
@@ -451,6 +458,7 @@ const SidebarMenuButton = React.forwardRef<
       data-size={size}
       data-active={isActive}
       className={cn(sidebarMenuButtonVariants({ variant, size }), className)}
+      >
       {...props}
     />
   );
@@ -499,6 +507,7 @@ const SidebarMenuAction = React.forwardRef<
           "group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-[state=open]:opacity-100 peer-data-[active=true]/menu-button:text-sidebar-accent-foreground md:opacity-0",
         className,
       )}
+      >
       {...props}
     />
   );
@@ -519,6 +528,7 @@ const SidebarMenuBadge = React.forwardRef<HTMLDivElement, React.ComponentProps<"
         "group-data-[collapsible=icon]:hidden",
         className,
       )}
+      >
       {...props}
     />
   ),
@@ -541,8 +551,8 @@ const SidebarMenuSkeleton = React.forwardRef<
       ref={ref}
       data-sidebar="menu-skeleton"
       className={cn("flex h-8 items-center gap-2 rounded-md px-2", className)}
+      >
       {...props}
-    >
       {showIcon && <Skeleton className="size-4 rounded-md" data-sidebar="menu-skeleton-icon" />}
       <Skeleton
         className="h-4 max-w-[--skeleton-width] flex-1"
@@ -568,6 +578,7 @@ const SidebarMenuSub = React.forwardRef<HTMLUListElement, React.ComponentProps<"
         "group-data-[collapsible=icon]:hidden",
         className,
       )}
+      >
       {...props}
     />
   ),
@@ -603,6 +614,7 @@ const SidebarMenuSubButton = React.forwardRef<
         "group-data-[collapsible=icon]:hidden",
         className,
       )}
+      >
       {...props}
     />
   );

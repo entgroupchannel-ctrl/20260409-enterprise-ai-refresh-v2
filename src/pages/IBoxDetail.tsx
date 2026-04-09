@@ -13,14 +13,9 @@ import SEOHead from "@/components/SEOHead";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import FooterCompact from "@/components/FooterCompact";
-import QuoteDialog from "@/components/QuoteDialog";
-import AddToQuoteButton from "@/components/AddToQuoteButton";
-import WishlistHeart from "@/components/WishlistHeart";
 import ProductImageGallery from "@/components/ibox/ProductImageGallery";
 import IBoxProductCard from "@/components/ibox/IBoxProductCard";
 import { getIBoxProduct, getRelatedProducts } from "@/data/ibox-products";
-import { useMultiSelect } from "@/components/MultiSelectQuoteBar";
-import { useEngagementTracker } from "@/hooks/useEngagementTracker";
 
 const specItems = [
   { key: "cpu", label: "Processor", icon: Cpu },
@@ -36,21 +31,12 @@ const IBoxDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
-  const { selectedProducts, toggleSelect, clearSelection } = useMultiSelect();
-  const { trackEvent } = useEngagementTracker();
 
-  const product = id ? getIBoxProduct(id) : undefined;
   const relatedProducts = id ? getRelatedProducts(id) : [];
 
   // ── Engagement Tracking: product view ──
   useEffect(() => {
     if (product) {
-      trackEvent({
-        eventType: "product_view",
-        productId: product.id,
-        productCategory: product.subcategory || "iBox Series",
-        productName: product.name,
-      });
     }
   }, [product?.id]);
 
@@ -71,13 +57,16 @@ const IBoxDetail = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title={`${product.id} — ${product.name}`}
+        >
         description={`${product.nameTH} | ${product.specs.cpu} | ${product.specs.ram}`}
+        >
         path={`/ibox-series/${product.id}`}
       />
       <ProductJsonLd
         collectionName={product.name}
         collectionDescription={product.nameTH}
         collectionUrl={`/ibox-series/${product.id}`}
+        >
         products={[{ name: product.name, image: product.image, description: product.specs.cpu, category: product.subcategory }]}
       />
       <BreadcrumbJsonLd
@@ -172,6 +161,7 @@ const IBoxDetail = () => {
                   <p className="text-sm font-medium text-foreground">{product.specs.lanPorts} Ports {product.specs.poe ? "(PoE)" : ""}</p>
                 </div>
               )}
+              >
               {product.specs.comPorts !== undefined && product.specs.comPorts > 0 && (
                 <div className="p-3 bg-secondary/50 rounded-lg">
                   <div className="flex items-center gap-2 mb-1">
@@ -181,6 +171,7 @@ const IBoxDetail = () => {
                   <p className="text-sm font-medium text-foreground">{product.specs.comPorts} Ports</p>
                 </div>
               )}
+              >
             </div>
 
             {/* Features */}
@@ -195,6 +186,7 @@ const IBoxDetail = () => {
                     <span className="text-foreground">{feat}</span>
                   </li>
                 ))}
+                >
               </ul>
             </div>
 
@@ -205,16 +197,12 @@ const IBoxDetail = () => {
                 {product.applications.map((app) => (
                   <Badge key={app} variant="outline">{app}</Badge>
                 ))}
+                >
               </div>
             </div>
 
             {/* Actions */}
             <div className="flex flex-wrap gap-3 pt-4 border-t border-border">
-              <AddToQuoteButton
-                model={product.name}
-                category={product.subcategory || "iBox Series"}
-                productName={product.name}
-              />
               <Button size="lg" variant="outline" onClick={() => setQuoteProduct(product.name)}>
                 <FileText className="w-5 h-5 mr-2" /> ขอราคาด่วน
               </Button>
@@ -250,6 +238,7 @@ const IBoxDetail = () => {
                     </TableRow>
                   );
                 })}
+                >
                 {product.specs.comPorts !== undefined && (
                   <TableRow>
                     <TableCell className="font-medium">
@@ -258,6 +247,7 @@ const IBoxDetail = () => {
                     <TableCell>{product.specs.comPorts} ports</TableCell>
                   </TableRow>
                 )}
+                >
                 {product.specs.lanPorts !== undefined && (
                   <TableRow>
                     <TableCell className="font-medium">
@@ -266,6 +256,7 @@ const IBoxDetail = () => {
                     <TableCell>{product.specs.lanPorts} ports{product.specs.poe && " (PoE+ Support)"}</TableCell>
                   </TableRow>
                 )}
+                >
                 {product.specs.usbPorts !== undefined && (
                   <TableRow>
                     <TableCell className="font-medium">
@@ -274,6 +265,7 @@ const IBoxDetail = () => {
                     <TableCell>{product.specs.usbPorts} ports</TableCell>
                   </TableRow>
                 )}
+                >
               </TableBody>
             </Table>
           </div>
@@ -293,17 +285,12 @@ const IBoxDetail = () => {
                   onQuote={setQuoteProduct}
                 />
               ))}
+              >
             </div>
           </div>
         )}
+        >
       </div>
-
-      <QuoteDialog
-        open={!!quoteProduct}
-        onClose={() => setQuoteProduct(null)}
-        productName={quoteProduct || ""}
-        productCategory="iBox Series"
-      />
       <FooterCompact />
     </div>
   );

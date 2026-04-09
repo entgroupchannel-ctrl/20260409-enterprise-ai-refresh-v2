@@ -3,7 +3,6 @@ import { useState } from "react";
 import SEOHead from "@/components/SEOHead";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
-import WishlistHeart from "@/components/WishlistHeart";
 import { Link } from "react-router-dom";
 import {
   ArrowLeft, ExternalLink, Shield, Wind, Monitor, Cpu, Zap, Factory,
@@ -11,11 +10,9 @@ import {
   HardDrive, MemoryStick, Layers, RectangleHorizontal, Square
 } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
-import QuoteCartButton from "@/components/QuoteCartButton";
 import logo from "@/assets/logo-entgroup.avif";
 import FooterCompact from "@/components/FooterCompact";
 import { LineQRDialog } from "@/components/LineQRDialog";
-import QuoteDialog from "@/components/QuoteDialog";
 import gty121Front from "@/assets/gty121-front.jpg";
 import gty121Rear from "@/assets/gty121-rear.png";
 import gty156Side from "@/assets/gty156-side.jpg";
@@ -278,7 +275,6 @@ const PanelPC = () => {
             <span className="text-sm font-semibold text-foreground">GTY/GTG Panel PC</span>
           </div>
           <div className="flex items-center gap-3">
-            <QuoteCartButton />
             <ThemeToggle />
             <Link to="/" className="hidden md:inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
               <ArrowLeft size={16} /> กลับหน้าหลัก
@@ -341,6 +337,7 @@ const PanelPC = () => {
                 <p className="text-xs text-muted-foreground mt-1">{s.sub}</p>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -361,10 +358,6 @@ const PanelPC = () => {
           {/* Product Image Grid */}
           <div className="grid md:grid-cols-3 gap-6 mb-8">
             <div className="card-surface p-4 flex flex-col items-center gap-3 relative">
-              <WishlistHeart
-                item={{ id: "gty121t", name: "GTY121T", category: "Panel PC GTY/GTG", image: gty121Front, href: "/panel-pc-gtg", specs: "12.1\" XGA Touch Panel PC" }}
-                className="absolute top-3 right-3"
-              />
               <img src={gty121Front} alt="GTY121T ด้านหน้า — จอสัมผัส Windows 11" className="w-full max-h-[280px] object-contain rounded-lg" loading="lazy" />
               <div className="text-center">
                 <p className="font-bold text-foreground text-sm">GTY121T — ด้านหน้า</p>
@@ -372,10 +365,6 @@ const PanelPC = () => {
               </div>
             </div>
             <div className="card-surface p-4 flex flex-col items-center gap-3 justify-end relative">
-              <WishlistHeart
-                item={{ id: "gty156t", name: "GTY156T", category: "Panel PC GTY/GTG", image: gty156Front, href: "/panel-pc-gtg", specs: "15.6\" FHD Touch Panel PC" }}
-                className="absolute top-3 right-3"
-              />
               <div className="flex-1 flex items-end">
                 <img src={gty156Front} alt="GTY156T — มุมเอียง แสดงครีบระบายความร้อน Fanless" className="w-full max-h-[280px] object-contain rounded-lg" loading="lazy" />
               </div>
@@ -435,7 +424,7 @@ const PanelPC = () => {
                   ? "border-primary bg-primary/10 shadow-lg shadow-primary/10"
                   : "border-border bg-background hover:border-primary/30"
               }`}
-            >
+              >
               <RectangleHorizontal size={28} className={displayType === "wide" ? "text-primary" : "text-muted-foreground"} />
               <div className="text-left">
                 <p className={`font-bold ${displayType === "wide" ? "text-primary" : "text-foreground"}`}>Widescreen (16:9)</p>
@@ -449,7 +438,7 @@ const PanelPC = () => {
                   ? "border-primary bg-primary/10 shadow-lg shadow-primary/10"
                   : "border-border bg-background hover:border-primary/30"
               }`}
-            >
+              >
               <Square size={28} className={displayType === "square" ? "text-primary" : "text-muted-foreground"} />
               <div className="text-left">
                 <p className={`font-bold ${displayType === "square" ? "text-primary" : "text-foreground"}`}>Square (4:3 / 5:4)</p>
@@ -481,6 +470,7 @@ const PanelPC = () => {
                       <p className="text-xs font-medium text-foreground mt-1">{d.use}</p>
                     </div>
                   ))}
+                  >
                 </>
               ) : (
                 <>
@@ -496,8 +486,10 @@ const PanelPC = () => {
                       <p className="text-xs font-medium text-foreground mt-1">{d.use}</p>
                     </div>
                   ))}
+                  >
                 </>
               )}
+              >
             </div>
           </div>
         </div>
@@ -537,11 +529,13 @@ const PanelPC = () => {
                     {item.tags.map((tag) => (
                       <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-primary/10 text-primary font-medium">{tag}</span>
                     ))}
+                    >
                   </div>
                   <p className="text-xs font-semibold text-primary">{item.rec}</p>
                 </div>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -564,6 +558,7 @@ import FooterCompact from "@/components/FooterCompact";
                 <p className="text-sm text-muted-foreground">{f.desc}</p>
               </div>
             ))}
+            >
           </div>
           {/* Windows 11 Free */}
           <div className="card-surface p-6 flex flex-col md:flex-row items-center gap-6 border-primary/20">
@@ -631,12 +626,14 @@ import FooterCompact from "@/components/FooterCompact";
                         ? "bg-primary text-primary-foreground"
                         : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                     }`}
-                  >
+                    >
                     {tab.label}
                   </button>
                 ))}
+                >
               </div>
             ))}
+            >
           </div>
 
           {/* Filters */}
@@ -647,6 +644,7 @@ import FooterCompact from "@/components/FooterCompact";
                 {label}
               </button>
             ))}
+            >
             <span className="text-muted-foreground mx-1">|</span>
             {([["all", "ทุกขนาด"], ["small", "เล็ก (10–12\")"], ["medium", "กลาง (13–19\")"], ["large", "ใหญ่ (21–32\")"]] as const).map(([val, label]) => (
               <button key={val} onClick={() => { setSizeFilter(val); setPage(1); }}
@@ -654,6 +652,7 @@ import FooterCompact from "@/components/FooterCompact";
                 {label}
               </button>
             ))}
+            >
           </div>
 
           {/* Price heading */}
@@ -672,6 +671,7 @@ import FooterCompact from "@/components/FooterCompact";
                   {currentTab.cols.map((col) => (
                     <th key={col} className="text-center p-3 text-muted-foreground font-medium whitespace-nowrap">{col}</th>
                   ))}
+                  >
                 </tr>
               </thead>
               <tbody>
@@ -704,11 +704,14 @@ import FooterCompact from "@/components/FooterCompact";
                           ) : (
                             <span className="text-primary">฿{fmt(p)}</span>
                           )}
+                          >
                         </td>
                       ))}
+                      >
                     </tr>
                   );
                 })}
+                >
               </tbody>
             </table>
           </div>
@@ -751,6 +754,7 @@ import FooterCompact from "@/components/FooterCompact";
                 <span className="text-xs text-muted-foreground">{s.value}</span>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -776,6 +780,7 @@ import FooterCompact from "@/components/FooterCompact";
                 </div>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -795,6 +800,7 @@ import FooterCompact from "@/components/FooterCompact";
                 <p className="text-sm text-muted-foreground">{w.desc}</p>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -811,7 +817,6 @@ import FooterCompact from "@/components/FooterCompact";
             <button onClick={() => setQuoteOpen(true)} className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:bg-primary/90 transition-colors">
               ขอใบเสนอราคา
             </button>
-            <QuoteDialog open={quoteOpen} onClose={() => setQuoteOpen(false)} productCategory="Panel PC GTG/GTY" />
             <a href="tel:020456104" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-secondary transition-colors">
               <Phone size={18} /> 02-045-6104
             </a>
@@ -830,6 +835,7 @@ import FooterCompact from "@/components/FooterCompact";
                 <p className="text-xs text-muted-foreground">{lt.time}</p>
               </div>
             ))}
+            >
           </div>
           <div className="text-xs text-muted-foreground space-y-1">
             <p>* สินค้าส่งตรงจากโรงงาน ระยะเวลาขนส่ง 15 วันหลัง Order</p>

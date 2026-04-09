@@ -1,7 +1,6 @@
 import SEOHead from "@/components/SEOHead";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
-import WishlistHeart from "@/components/WishlistHeart";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -13,7 +12,6 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import FooterCompact from "@/components/FooterCompact";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
-import QuoteDialog from "@/components/QuoteDialog";
 import { LineQRDialog } from "@/components/LineQRDialog";
 import GBPriceList from "@/components/GBPriceList";
 
@@ -295,7 +293,7 @@ const ModelCard = ({ model, isActive, onClick }: { model: typeof models[0]; isAc
     className={`relative flex flex-col items-center p-4 rounded-xl border-2 transition-all duration-300 text-center ${
       isActive ? "border-primary bg-primary/5 shadow-lg scale-[1.02]" : "border-border bg-card hover:border-primary/30 hover:-translate-y-1"
     }`}
-  >
+    >
     {model.badge && (
       <span className={`absolute -top-2 right-2 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${
         model.badge === "Premium" ? "bg-amber-500 text-white"
@@ -303,12 +301,8 @@ const ModelCard = ({ model, isActive, onClick }: { model: typeof models[0]; isAc
         : "bg-primary text-primary-foreground"
       }`}>{model.badge}</span>
     )}
+    >
     <img src={model.image} alt={model.name} className="w-20 h-20 object-contain mb-2" loading="lazy" />
-    <WishlistHeart
-      item={{ id: model.id, name: model.name, category: "GB Series", image: model.image, href: "/gb-series", specs: model.tagline }}
-      className="absolute top-2 left-2"
-      size={14}
-    />
     <h3 className="text-base font-black text-foreground">{model.name}</h3>
     <p className="text-[10px] text-primary font-medium">{model.tagline}</p>
   </button>
@@ -365,6 +359,7 @@ const GBSeries = () => {
             {models.map((m, i) => (
               <ModelCard key={m.id} model={m} isActive={i === activeModel} onClick={() => setActiveModel(i)} />
             ))}
+            >
           </div>
         </div>
       </section>
@@ -390,6 +385,7 @@ const GBSeries = () => {
                     </div>
                   </div>
                 ))}
+                >
               </div>
 
               <ul className="space-y-2 mb-6">
@@ -398,6 +394,7 @@ const GBSeries = () => {
                     <span className="text-primary mt-0.5">✓</span> {f}
                   </li>
                 ))}
+                >
               </ul>
 
               <button
@@ -456,6 +453,7 @@ const GBSeries = () => {
                           </td>
                         </tr>
                       ))}
+                      >
                     </tbody>
                   </table>
                 </div>
@@ -477,6 +475,7 @@ const GBSeries = () => {
                     <p className="text-xs text-muted-foreground">{uc.desc}</p>
                   </div>
                 ))}
+                >
               </div>
             </TabsContent>
 
@@ -498,12 +497,15 @@ const GBSeries = () => {
                                   <td className="px-4 py-2 text-foreground">{value}</td>
                                 </tr>
                               ))}
+                              >
                             </>
                           ))}
+                          >
                         </tbody>
                       </table>
                     </div>
                   ))}
+                  >
                 </div>
               </div>
             </TabsContent>
@@ -598,11 +600,12 @@ const GBSeries = () => {
                           ? "bg-primary text-primary-foreground border-primary shadow-sm"
                           : "bg-card text-muted-foreground border-border hover:border-primary/50"
                       }`}
-                    >
+                      >
                       {m.name}
                     </button>
                   );
                 })}
+                >
                 <button
                   onClick={() => setCompareFilter(models.map((_, i) => i))}
                   className="px-3 py-1.5 rounded-full text-xs font-medium text-primary hover:bg-primary/10 border border-primary/30 transition-colors"
@@ -619,6 +622,7 @@ const GBSeries = () => {
                       {compareFilter.sort((a, b) => a - b).map((idx) => (
                         <th key={models[idx].id} className="px-4 py-3 text-center font-bold text-foreground whitespace-nowrap">{models[idx].name}</th>
                       ))}
+                      >
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-border">
@@ -628,8 +632,10 @@ const GBSeries = () => {
                         {compareFilter.sort((a, b) => a - b).map((idx) => (
                           <td key={idx} className="px-4 py-2.5 text-center text-foreground text-xs">{row.values[idx]}</td>
                         ))}
+                        >
                       </tr>
                     ))}
+                    >
                   </tbody>
                 </table>
               </div>
@@ -674,7 +680,6 @@ const GBSeries = () => {
       </section>
 
       <FooterCompact />
-      <QuoteDialog open={quoteOpen} onClose={() => setQuoteOpen(false)} productCategory={`GB Series — ${current.name}`} />
       <LineQRDialog open={showLineQR} onClose={() => setShowLineQR(false)} />
     </div>
   );

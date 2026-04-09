@@ -7,11 +7,8 @@ import relatedHandheld from "@/assets/related-rugged-handheld.jpg";
 import relatedNotebook from "@/assets/related-rugged-notebook.jpg";
 import SEOHead from "@/components/SEOHead";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
-import WishlistHeart from "@/components/WishlistHeart";
 import FooterCompact from "@/components/FooterCompact";
 import B2BCTABanner from "@/components/B2BCTABanner";
-import PlatformInviteBanner from "@/components/PlatformInviteBanner";
-import QuoteDialog from "@/components/QuoteDialog";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -49,10 +46,9 @@ const AIOCard = ({
     className={`card-surface overflow-hidden group transition-all ${
       selected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"
     }`}
-  >
+    >
     {/* Image */}
     <div className="relative bg-secondary/30 p-4 flex items-center justify-center h-52">
-      <WishlistHeart
         item={{
           id: product.id,
           name: product.model,
@@ -93,10 +89,11 @@ const AIOCard = ({
                 ? "border-green-500/30 text-green-500"
                 : "border-orange-500/30 text-orange-500"
             }`}
-          >
+            >
             {o}
           </Badge>
         ))}
+        >
         <Badge variant="secondary" className="text-[10px]">
           {product.screenSize}
         </Badge>
@@ -114,6 +111,7 @@ const AIOCard = ({
             </li>
           )
         )}
+        >
       </ul>
 
       <div className="flex gap-2 pt-1">
@@ -224,6 +222,7 @@ const AllInOnePC = () => {
                   <p className="text-[10px] text-muted-foreground">{s.label}</p>
                 </div>
               ))}
+              >
             </div>
           </div>
         </div>
@@ -250,10 +249,11 @@ const AllInOnePC = () => {
                       ? "bg-primary text-primary-foreground"
                       : "bg-secondary/50 text-foreground/70 hover:bg-secondary"
                   }`}
-                >
+                  >
                   {f.label}
                 </button>
               ))}
+              >
             </div>
             {/* Category filter */}
             <div className="flex gap-1 overflow-x-auto scrollbar-hide sm:ml-auto">
@@ -266,11 +266,12 @@ const AllInOnePC = () => {
                       ? "bg-primary text-primary-foreground"
                       : "bg-secondary/50 text-foreground/70 hover:bg-secondary"
                   }`}
-                >
+                  >
                   <f.icon size={12} />
                   {f.label}
                 </button>
               ))}
+              >
             </div>
           </div>
         </div>
@@ -288,11 +289,11 @@ const AllInOnePC = () => {
                 onClick={() => {
                   setQuoteProduct(Array.from(selectedProducts).join(", "));
                 }}
-              >
                 ขอใบเสนอราคารวม
               </button>
             </span>
           )}
+          >
         </p>
 
         {/* Group by category */}
@@ -322,6 +323,7 @@ const AllInOnePC = () => {
                     onToggleSelect={toggleSelect}
                   />
                 ))}
+                >
               </div>
             </div>
           );
@@ -339,7 +341,6 @@ const AllInOnePC = () => {
                 setOsFilter("all");
                 setCatFilter("all");
               }}
-            >
               รีเซ็ตตัวกรอง
             </Button>
           </div>
@@ -372,18 +373,12 @@ const AllInOnePC = () => {
             </div>
           </Link>
         ))}
+        >
       </section>
-
-      <PlatformInviteBanner variant="compact" />
       <B2BCTABanner variant="compact" />
       <FooterCompact />
 
       {/* Quote Dialog */}
-      <QuoteDialog
-        open={!!quoteProduct}
-        onClose={() => setQuoteProduct(null)}
-        productName={quoteProduct || ""}
-      />
     </div>
   );
 };

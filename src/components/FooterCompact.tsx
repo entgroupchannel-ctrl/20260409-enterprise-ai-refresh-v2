@@ -60,6 +60,7 @@ const FooterCompact = () => {
                 {link.label}
               </Link>
             ))}
+            >
           </div>
 
           {/* Socials */}
@@ -76,6 +77,7 @@ const FooterCompact = () => {
                 <s.icon size={12} />
               </a>
             ))}
+            >
             <LineQRButton
               className="ml-1 px-3 py-1.5 rounded-lg bg-primary/10 text-primary text-[10px] font-bold hover:bg-primary/20 transition-colors flex items-center gap-1"
             >

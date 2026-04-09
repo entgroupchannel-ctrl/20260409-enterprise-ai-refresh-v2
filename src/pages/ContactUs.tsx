@@ -12,10 +12,6 @@ import {
   Phone, Mail, MapPin, ArrowLeft, Send, MessageCircle, Users, Camera, Upload, Loader2, CreditCard, Globe,
 } from "lucide-react";
 import FooterCompact from "@/components/FooterCompact";
-import PlatformInviteBanner from "@/components/PlatformInviteBanner";
-import QuoteDialog from "@/components/QuoteDialog";
-import { useAuth } from "@/hooks/useAuth";
-import { useEngagementTracker } from "@/hooks/useEngagementTracker";
 
 /* ═══════════════════════════════════════════
    i18n — TH / EN
@@ -159,10 +155,7 @@ const t = {
   },
 };
 
-const ContactUs = () => {
-  const { user } = useAuth();
-  const { trackEvent } = useEngagementTracker();
-  const [lang, setLang] = useState<Lang>("th");
+const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
   const i = t[lang];
   const [quoteOpen, setQuoteOpen] = useState(false);
   const [form, setForm] = useState({
@@ -255,12 +248,6 @@ const ContactUs = () => {
 
       setSubmitted(true);
       toast({ title: i.submitSuccess, description: i.submitSuccessDesc });
-
-      trackEvent({
-        eventType: "contact_submit",
-        productCategory: form.category || undefined,
-        metadata: { company: form.company, category: form.category },
-      });
     } catch (err: any) {
       toast({ title: i.submitError, description: err.message, variant: "destructive" });
     } finally {
@@ -405,6 +392,7 @@ const ContactUs = () => {
                             </div>
                           </div>
                         )}
+                        >
                       </div>
                       <button type="button" onClick={() => { setCardPreview(null); fileInputRef.current && (fileInputRef.current.value = ""); }}
                         className="text-xs text-muted-foreground hover:text-destructive transition-colors">{i.removeCard}</button>
@@ -420,6 +408,7 @@ const ContactUs = () => {
                       </div>
                     </button>
                   )}
+                  >
                 </div>
 
                 {submitted ? (
@@ -473,6 +462,7 @@ const ContactUs = () => {
                           {i.categories.map((c, idx) => (
                             <option key={c} value={idx === 0 ? "" : c}>{c}</option>
                           ))}
+                          >
                         </select>
                       </div>
                       <div>
@@ -481,6 +471,7 @@ const ContactUs = () => {
                           {i.callbackTimes.map((ct, idx) => (
                             <option key={ct} value={idx === 0 ? "" : ct}>{ct}</option>
                           ))}
+                          >
                         </select>
                       </div>
                     </div>
@@ -499,6 +490,7 @@ const ContactUs = () => {
                     </button>
                   </form>
                 )}
+                >
               </div>
 
               {/* Sales Team */}
@@ -522,6 +514,7 @@ const ContactUs = () => {
                       <p className="text-[10px] text-muted-foreground">{person.role}</p>
                     </div>
                   ))}
+                  >
                 </div>
               </div>
 
@@ -538,9 +531,6 @@ const ContactUs = () => {
           </div>
         </div>
       </section>
-
-      <QuoteDialog open={quoteOpen} onClose={() => setQuoteOpen(false)} />
-      <PlatformInviteBanner variant="compact" />
       <FooterCompact />
     </div>
   );

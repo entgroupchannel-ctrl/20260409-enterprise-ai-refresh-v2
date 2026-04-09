@@ -1,7 +1,6 @@
 import SEOHead from "@/components/SEOHead";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
-import WishlistHeart from "@/components/WishlistHeart";
 import { useState, useCallback, useMemo } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -23,9 +22,7 @@ import {
 } from "@/components/ui/select";
 import FooterCompact from "@/components/FooterCompact";
 import B2BCTABanner from "@/components/B2BCTABanner";
-import PlatformInviteBanner from "@/components/PlatformInviteBanner";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
-import QuoteDialog from "@/components/QuoteDialog";
 import TabletProductFilter, {
   type TabletFilterState,
   defaultTabletFilters,
@@ -234,10 +231,6 @@ const TabletCard = ({
 }) => (
   <div className={`card-surface overflow-hidden group transition-all ${selected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"}`}>
     <Link to={`/rugged-tablet/${product.id}`} className="relative bg-secondary/30 p-4 flex items-center justify-center h-52 cursor-pointer">
-      <WishlistHeart
-        item={{ id: product.id, name: product.name, category: "Rugged Tablet", image: product.image, href: "/rugged-tablet", specs: product.cpu }}
-        className="absolute top-3 right-3"
-      />
       <button onClick={(e) => { e.preventDefault(); e.stopPropagation(); onToggleSelect(product.model); }} className="absolute top-3 left-3 z-10">
         <Checkbox checked={selected} className="h-5 w-5" />
       </button>
@@ -247,6 +240,7 @@ const TabletCard = ({
       {product.badge && (
         <Badge className="absolute bottom-3 left-3 bg-primary text-primary-foreground text-[10px]">{product.badge}</Badge>
       )}
+      >
       <img src={product.image} alt={product.name} className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300" loading="lazy" />
     </Link>
     <div className="p-5 space-y-3">
@@ -266,10 +260,12 @@ const TabletCard = ({
         {product.highlights.map((h) => (
           <span key={h} className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-secondary text-foreground/70">{h}</span>
         ))}
+        >
       </div>
       {product.price && (
         <p className="text-base font-bold text-primary">{product.price}</p>
       )}
+      >
       <div className="flex flex-wrap gap-2 pt-1">
         <Button variant="outline" size="sm" asChild className="flex-1">
           <Link to={`/rugged-tablet/${product.id}`}>
@@ -412,6 +408,7 @@ const RuggedTablet = () => {
                 <div className="text-xs text-muted-foreground">{s.label}</div>
               </div>
             ))}
+            >
           </div>
         </div>
       </div>
@@ -442,13 +439,14 @@ const RuggedTablet = () => {
                     ? "bg-primary text-primary-foreground shadow-sm"
                     : "bg-muted hover:bg-muted/80 text-foreground"
                 }`}
-              >
+                >
                 {tab.label}
                 <span className={`text-[10px] font-mono ${filters.os === tab.id ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
                   ({tab.id === "all" ? tablets.length : tablets.filter((t) => t.os === tab.id).length})
                 </span>
               </button>
             ))}
+            >
             <div className="w-px h-5 bg-border mx-1 shrink-0" />
             {/* Quick filter pills */}
             {[
@@ -465,10 +463,11 @@ const RuggedTablet = () => {
                     ? "bg-primary text-primary-foreground border-primary shadow-sm"
                     : "bg-card border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
                 }`}
-              >
+                >
                 {qf.label}
               </button>
             ))}
+            >
           </div>
         </div>
       </div>
@@ -534,6 +533,7 @@ const RuggedTablet = () => {
                     onToggleSelect={toggleSelect}
                   />
                 ))}
+                >
               </div>
             ) : (
               <div className="card-surface p-12 text-center">
@@ -558,6 +558,7 @@ const RuggedTablet = () => {
                     <p className="text-xs text-muted-foreground leading-relaxed">{f.desc}</p>
                   </div>
                 ))}
+                >
               </div>
             </section>
 
@@ -585,6 +586,7 @@ const RuggedTablet = () => {
                   </div>
                 </Link>
               ))}
+              >
             </section>
 
             {/* Downloads */}
@@ -600,6 +602,7 @@ const RuggedTablet = () => {
                     </div>
                   </a>
                 ))}
+                >
               </div>
             </section>
 
@@ -649,6 +652,7 @@ const RuggedTablet = () => {
                       <iframe
                         className="absolute inset-0 w-full h-full"
                         src={`https://www.youtube.com/embed/${v.id}`}
+                        >
                         title={v.title}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -661,6 +665,7 @@ const RuggedTablet = () => {
                     </div>
                   </div>
                 ))}
+                >
               </div>
 
               <div className="text-center">
@@ -707,15 +712,7 @@ const RuggedTablet = () => {
           </button>
         </div>
       )}
-
-      <QuoteDialog open={!!quoteProduct} onClose={() => setQuoteProduct(null)} productName={quoteProduct || ""} productCategory="Rugged Tablet" />
-      <QuoteDialog
-        open={showMultiQuote}
-        onClose={() => { setShowMultiQuote(false); clearSelection(); }}
-        productCategory="Rugged Tablet"
-        initialProducts={Array.from(selectedProducts).map((model) => ({ category: "Rugged Tablet", model, qty: 1 }))}
-      />
-      <PlatformInviteBanner variant="compact" />
+      >
       <B2BCTABanner variant="compact" />
       <FooterCompact />
     </div>

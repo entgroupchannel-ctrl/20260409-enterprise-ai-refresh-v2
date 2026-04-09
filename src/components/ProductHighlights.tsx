@@ -194,11 +194,13 @@ const ProductHighlights = () => {
                       {model}
                     </span>
                   ))}
+                  >
                   {cat.models.length > 6 && (
                     <span className="px-2 py-0.5 text-[10px] font-medium rounded-md bg-primary/10 border border-primary/20 text-primary">
                       +{cat.models.length - 6} รุ่น
                     </span>
                   )}
+                  >
                 </div>
 
                 {/* Bottom action hint */}
@@ -209,6 +211,7 @@ const ProductHighlights = () => {
               </div>
             </Link>
           ))}
+          >
         </div>
       </div>
     </section>

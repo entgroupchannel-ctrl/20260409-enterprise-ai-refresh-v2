@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import FooterCompact from "@/components/FooterCompact";
 import SEOHead from "@/components/SEOHead";
 import ThemeToggle from "@/components/ThemeToggle";
-import QuoteCartButton from "@/components/QuoteCartButton";
 
 const bankAccounts = [
   {
@@ -42,7 +41,6 @@ const Payment = () => {
             <Link to="/" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors">
               <ArrowLeft size={14} /> หน้าแรก
             </Link>
-            <QuoteCartButton />
             <ThemeToggle />
           </div>
           <div className="flex items-center gap-3">
@@ -78,6 +76,7 @@ const Payment = () => {
                 <p className="text-xl font-bold text-foreground tracking-wider mt-1">{bank.account}</p>
               </div>
             ))}
+            >
           </div>
         </div>
 
@@ -94,6 +93,7 @@ const Payment = () => {
                 {note}
               </li>
             ))}
+            >
           </ul>
         </div>
 

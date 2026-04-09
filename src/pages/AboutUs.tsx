@@ -140,6 +140,7 @@ const AboutUs = () => {
                 <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>
@@ -234,6 +235,7 @@ const AboutUs = () => {
                           NOW
                         </span>
                       )}
+                      >
                     </div>
 
                     {/* Title & desc */}
@@ -245,6 +247,7 @@ const AboutUs = () => {
                     </p>
                   </div>
                 ))}
+                >
               </div>
             </div>
 
@@ -277,6 +280,7 @@ const AboutUs = () => {
                 <p className="text-xs text-muted-foreground leading-relaxed">{v.desc}</p>
               </div>
             ))}
+            >
           </div>
         </div>
       </section>

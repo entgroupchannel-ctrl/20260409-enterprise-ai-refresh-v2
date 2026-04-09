@@ -13,13 +13,9 @@ import SEOHead from "@/components/SEOHead";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import FooterCompact from "@/components/FooterCompact";
-import QuoteDialog from "@/components/QuoteDialog";
-import AddToQuoteButton from "@/components/AddToQuoteButton";
 import LineQRButton from "@/components/LineQRButton";
-import WishlistHeart from "@/components/WishlistHeart";
 import ProductGallery from "@/components/ProductGallery";
 import { getTabletProduct, getRelatedTablets, type TabletDetailProduct } from "@/data/rugged-tablet-products";
-import { useEngagementTracker } from "@/hooks/useEngagementTracker";
 
 /* ───── Related Card ───── */
 const RelatedCard = ({ product }: { product: TabletDetailProduct }) => (
@@ -32,12 +28,14 @@ const RelatedCard = ({ product }: { product: TabletDetailProduct }) => (
       <h3 className="text-sm font-bold line-clamp-2">{product.nameTH}</h3>
       <div className="flex flex-wrap gap-1">
         {product.badges.slice(0, 2).map((b) => <Badge key={b} variant="outline" className="text-[10px]">{b}</Badge>)}
+        >
       </div>
       {product.price ? (
         <p className="text-primary font-bold text-sm">{product.price}</p>
       ) : (
         <p className="text-muted-foreground text-xs">สอบถามราคา</p>
       )}
+      >
     </div>
   </Link>
 );
@@ -46,21 +44,12 @@ const RelatedCard = ({ product }: { product: TabletDetailProduct }) => (
 const RuggedTabletDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [quoteOpen, setQuoteOpen] = useState(false);
-  const [tab, setTab] = useState("overview");
-  const { trackEvent } = useEngagementTracker();
-
-  const product = getTabletProduct(id || "");
+  const [tab, setTab] = useState("overview");  const product = getTabletProduct(id || "");
   const related = getRelatedTablets(id || "");
 
   // ── Engagement Tracking: product view ──
   useEffect(() => {
     if (product) {
-      trackEvent({
-        eventType: "product_view",
-        productId: product.id,
-        productCategory: "Rugged Tablet",
-        productName: product.model,
-      });
     }
   }, [product?.id]);
 
@@ -100,16 +89,13 @@ const RuggedTabletDetail = () => {
           {/* Gallery */}
           <div className="space-y-4">
             <div className="relative">
-              <WishlistHeart
-                item={{ id: product.id, name: product.name, category: "Rugged Tablet", image: product.image, href: `/rugged-tablet/${product.id}`, specs: product.keyFeatures[0] }}
-                className="absolute top-3 right-3 z-10"
-              />
               <ProductGallery images={product.gallery} alt={product.model} />
             </div>
             <div className="flex flex-wrap gap-2">
               <Badge variant="secondary">{product.os}</Badge>
               <Badge variant="outline">{product.screenSize}</Badge>
               {product.badges.map((b) => <Badge key={b} variant="outline" className="text-xs">{b}</Badge>)}
+              >
             </div>
           </div>
 
@@ -129,6 +115,7 @@ const RuggedTabletDetail = () => {
                   <p className="text-xs font-bold text-foreground">{qs.value}</p>
                 </div>
               ))}
+              >
             </div>
 
             {/* Config selector */}
@@ -152,6 +139,7 @@ const RuggedTabletDetail = () => {
                     {c.note && <p className="text-[10px] text-primary mt-1">{c.note}</p>}
                   </div>
                 ))}
+                >
               </div>
             )}
 
@@ -163,6 +151,7 @@ const RuggedTabletDetail = () => {
               ) : (
                 <p className="text-xl font-bold text-primary mb-1">สอบถามราคา</p>
               )}
+              >
               <p className="text-xs text-muted-foreground">จัดส่ง: {product.delivery}</p>
               <div className="flex flex-wrap gap-2 mt-3">
                 <button
@@ -179,11 +168,6 @@ const RuggedTabletDetail = () => {
 
             {/* CTA */}
             <div className="flex flex-wrap gap-3 pt-4 border-t border-border">
-              <AddToQuoteButton
-                model={product.model}
-                category="Rugged Tablet"
-                productName={product.model}
-              />
               <Button size="lg" variant="outline" onClick={() => setQuoteOpen(true)}>
                 <FileText className="w-5 h-5 mr-2" /> ขอราคาด่วน
               </Button>
@@ -223,6 +207,7 @@ const RuggedTabletDetail = () => {
                       <span className="text-sm">{feat}</span>
                     </div>
                   ))}
+                  >
                 </div>
               </div>
 
@@ -239,6 +224,7 @@ const RuggedTabletDetail = () => {
                           <img src={sec.image} alt={sec.titleTH} className="w-full h-auto object-cover max-h-[300px]" loading="lazy" />
                         </div>
                       )}
+                      >
                       <div className={i % 2 === 1 ? "md:[direction:ltr]" : ""}>
                         <h3 className="text-lg font-bold mb-1">{sec.titleTH}</h3>
                         {sec.titleEN && <p className="text-xs text-primary font-medium mb-2">{sec.titleEN}</p>}
@@ -251,8 +237,10 @@ const RuggedTabletDetail = () => {
                                 <p className="text-[10px] text-muted-foreground">{s.label}</p>
                               </div>
                             ))}
+                            >
                           </div>
                         )}
+                        >
                         {sec.bullets && (
                           <ul className="space-y-1 mt-2">
                             {sec.bullets.map((b) => (
@@ -260,11 +248,14 @@ const RuggedTabletDetail = () => {
                                 <Zap className="w-3 h-3 text-primary shrink-0 mt-0.5" /> {b}
                               </li>
                             ))}
+                            >
                           </ul>
                         )}
+                        >
                       </div>
                     </div>
                   ))}
+                  >
                 </div>
               )}
 
@@ -276,6 +267,7 @@ const RuggedTabletDetail = () => {
                     {product.applications.map((a) => (
                       <Badge key={a} variant="secondary" className="text-sm px-3 py-1">{a}</Badge>
                     ))}
+                    >
                   </div>
                 </div>
               )}
@@ -291,6 +283,7 @@ const RuggedTabletDetail = () => {
                         <p className="font-bold text-sm">{c}</p>
                       </div>
                     ))}
+                    >
                   </div>
                 </div>
               )}
@@ -308,9 +301,11 @@ const RuggedTabletDetail = () => {
                         <p className="text-[10px] text-muted-foreground mt-1">{acc.desc}</p>
                       </div>
                     ))}
+                    >
                   </div>
                 </div>
               )}
+              >
             </TabsContent>
 
             {/* ── Specifications ── */}
@@ -332,10 +327,12 @@ const RuggedTabletDetail = () => {
                             <TableCell className="text-sm whitespace-pre-line">{item.value}</TableCell>
                           </TableRow>
                         ))}
+                        >
                       </TableBody>
                     </Table>
                   </div>
                 ))}
+                >
               </div>
             </TabsContent>
 
@@ -369,6 +366,7 @@ const RuggedTabletDetail = () => {
                         </div>
                       </div>
                     ))}
+                    >
                   </div>
                 </div>
 
@@ -401,12 +399,12 @@ const RuggedTabletDetail = () => {
             <h2 className="text-xl font-bold mb-6">สินค้าที่เกี่ยวข้อง</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {related.map((r) => <RelatedCard key={r.id} product={r} />)}
+              >
             </div>
           </div>
         )}
+        >
       </div>
-
-      <QuoteDialog open={quoteOpen} onClose={() => setQuoteOpen(false)} productName={product.model} productCategory="Rugged Tablet" />
       <FooterCompact />
     </div>
   );

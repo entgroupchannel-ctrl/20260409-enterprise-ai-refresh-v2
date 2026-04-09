@@ -43,6 +43,7 @@ const B2BCTABanner = ({ variant = "full" }: B2BCTABannerProps) => {
             </Button>
           </Link>
         ))}
+        >
       </div>
     );
   }
@@ -72,6 +73,7 @@ const B2BCTABanner = ({ variant = "full" }: B2BCTABannerProps) => {
               <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors mt-1 shrink-0" />
             </Link>
           ))}
+          >
         </div>
       </div>
     </section>

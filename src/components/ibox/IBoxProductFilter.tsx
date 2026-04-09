@@ -168,6 +168,7 @@ const IBoxProductFilter = ({
             ล้างทั้งหมด
           </Button>
         )}
+        >
       </div>
 
       {/* Result Count */}
@@ -200,7 +201,7 @@ const IBoxProductFilter = ({
                       ? "bg-primary text-primary-foreground font-medium shadow-sm"
                       : "hover:bg-muted/70 text-foreground"
                   }`}
-                >
+                  >
                   {option.icon && <option.icon className={`w-4 h-4 shrink-0 transition-colors ${isActive ? "" : "text-muted-foreground group-hover/item:text-primary"}`} />}
                   <span className="flex-1">{option.name}</span>
                   <span className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md ${
@@ -209,6 +210,7 @@ const IBoxProductFilter = ({
                 </button>
               );
             })}
+            >
           </AccordionContent>
         </AccordionItem>
 
@@ -230,7 +232,7 @@ const IBoxProductFilter = ({
                       ? "bg-primary text-primary-foreground font-medium shadow-sm"
                       : "hover:bg-muted/70 text-foreground"
                   }`}
-                >
+                  >
                   <span>{option.name}</span>
                   <span className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md ${
                     isActive ? "bg-primary-foreground/20" : "bg-muted text-muted-foreground"
@@ -238,6 +240,7 @@ const IBoxProductFilter = ({
                 </button>
               );
             })}
+            >
           </AccordionContent>
         </AccordionItem>
 
@@ -259,7 +262,7 @@ const IBoxProductFilter = ({
                       ? "bg-primary text-primary-foreground font-medium shadow-sm"
                       : "hover:bg-muted/70 text-foreground"
                   }`}
-                >
+                  >
                   <span>{option.name}</span>
                   <span className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md ${
                     isActive ? "bg-primary-foreground/20" : "bg-muted text-muted-foreground"
@@ -267,6 +270,7 @@ const IBoxProductFilter = ({
                 </button>
               );
             })}
+            >
           </AccordionContent>
         </AccordionItem>
 
@@ -293,6 +297,7 @@ const IBoxProductFilter = ({
                       ? "text-muted-foreground/50 cursor-not-allowed"
                       : "hover:bg-muted/70 text-foreground"
                   }`}
+                  >
                   disabled={count === 0 && gen.id !== "all"}
                 >
                   <span className="truncate mr-2">{gen.name}</span>
@@ -302,6 +307,7 @@ const IBoxProductFilter = ({
                 </button>
               );
             })}
+            >
           </AccordionContent>
         </AccordionItem>
 
@@ -326,10 +332,11 @@ const IBoxProductFilter = ({
                         ? "bg-primary text-primary-foreground shadow-sm"
                         : "bg-muted hover:bg-muted/80 text-foreground"
                     }`}
-                  >
+                    >
                     {port.name}
                   </button>
                 ))}
+                >
               </div>
             </div>
             <div>
@@ -344,10 +351,11 @@ const IBoxProductFilter = ({
                         ? "bg-primary text-primary-foreground shadow-sm"
                         : "bg-muted hover:bg-muted/80 text-foreground"
                     }`}
-                  >
+                    >
                     {port.name}
                   </button>
                 ))}
+                >
               </div>
             </div>
           </AccordionContent>
@@ -429,6 +437,7 @@ const IBoxProductFilter = ({
           </aside>
         </>
       )}
+      >
     </>
   );
 };

@@ -1,7 +1,6 @@
 import SEOHead from "@/components/SEOHead";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
-import WishlistHeart from "@/components/WishlistHeart";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -15,9 +14,7 @@ import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription,
 } from "@/components/ui/dialog";
 import FooterCompact from "@/components/FooterCompact";
-import QuoteDialog from "@/components/QuoteDialog";
 import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import bannerCabinets from "@/assets/banner-cabinets.jpg";
 import cabinetGallery4 from "@/assets/cabinet-gallery-4.jpg";
@@ -102,9 +99,7 @@ const lockOptions = ["กุญแจแบบเด้ง", "กุญแจแ
 /* ═══════ Component ═══════ */
 const Cabinets = () => {
   const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
-  const [customOpen, setCustomOpen] = useState(false);
-  const { user } = useAuth();
-  const { toast } = useToast();
+  const [customOpen, setCustomOpen] = useState(false);  const { toast } = useToast();
   const [customLoading, setCustomLoading] = useState(false);
   const [customSubmitted, setCustomSubmitted] = useState(false);
   const [customForm, setCustomForm] = useState({
@@ -201,6 +196,7 @@ const Cabinets = () => {
                 <p className="text-sm text-muted-foreground leading-relaxed">{adv.desc}</p>
               </div>
             ))}
+            >
           </div>
         </section>
 
@@ -221,6 +217,7 @@ const Cabinets = () => {
                 <span className="text-sm text-foreground">{feat}</span>
               </div>
             ))}
+            >
           </div>
         </section>
 
@@ -233,10 +230,6 @@ const Cabinets = () => {
             {cabinetModels.map((model) => (
               <div key={model.id} className="card-surface overflow-hidden group hover:border-primary/30 transition-all">
                 <div className="relative bg-secondary/30 p-6 flex items-center justify-center h-56">
-                  <WishlistHeart
-                    item={{ id: model.id, name: model.name, category: "Cabinets", image: model.image, href: "/cabinets", specs: model.protection }}
-                    className="absolute top-3 right-3"
-                  />
                   <img
                     src={model.image}
                     alt={model.name}
@@ -276,6 +269,7 @@ const Cabinets = () => {
                 </div>
               </div>
             ))}
+            >
           </div>
         </section>
 
@@ -292,6 +286,7 @@ const Cabinets = () => {
                 <p className="text-xs text-muted-foreground">{type.desc}</p>
               </div>
             ))}
+            >
           </div>
         </section>
 
@@ -309,6 +304,7 @@ const Cabinets = () => {
                 <img src={img} alt={`ตัวอย่างผลงาน ${i + 1}`} className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
               </div>
             ))}
+            >
           </div>
           <div className="text-center mt-6">
             <Button variant="outline" asChild>
@@ -345,6 +341,7 @@ const Cabinets = () => {
                 <p className="text-xs text-muted-foreground">{item.desc}</p>
               </div>
             ))}
+            >
           </div>
           <div className="text-center">
             <Button size="lg" onClick={() => { setCustomOpen(true); setCustomSubmitted(false); }}>
@@ -415,6 +412,7 @@ const Cabinets = () => {
                     <select name="material" value={customForm.material} onChange={handleCustomChange} className={inputClass}>
                       <option value="">เลือกวัสดุ</option>
                       {materialOptions.map((m) => <option key={m} value={m}>{m}</option>)}
+                      >
                     </select>
                   </div>
                   <div>
@@ -422,6 +420,7 @@ const Cabinets = () => {
                     <select name="installation" value={customForm.installation} onChange={handleCustomChange} className={inputClass}>
                       <option value="">เลือกรูปแบบ</option>
                       {installOptions.map((o) => <option key={o} value={o}>{o}</option>)}
+                      >
                     </select>
                   </div>
                   <div>
@@ -429,6 +428,7 @@ const Cabinets = () => {
                     <select name="lock" value={customForm.lock} onChange={handleCustomChange} className={inputClass}>
                       <option value="">เลือกประเภทกุญแจ</option>
                       {lockOptions.map((l) => <option key={l} value={l}>{l}</option>)}
+                      >
                     </select>
                   </div>
                   <div>
@@ -463,15 +463,9 @@ const Cabinets = () => {
               </Button>
             </form>
           )}
+          >
         </DialogContent>
       </Dialog>
-
-      <QuoteDialog
-        open={!!quoteProduct}
-        onClose={() => setQuoteProduct(null)}
-        productName={quoteProduct || ""}
-        productCategory="GK Series — Panel PC"
-      />
       <FooterCompact />
     </div>
   );

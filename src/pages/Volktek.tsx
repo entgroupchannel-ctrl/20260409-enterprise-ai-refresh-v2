@@ -2,7 +2,6 @@ import { useState } from "react";
 import SEOHead from "@/components/SEOHead";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
-import WishlistHeart from "@/components/WishlistHeart";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ExternalLink, Shield, Zap, Network, Server, ThermometerSun, Globe, FileText, Youtube, ThumbsUp, Play } from "lucide-react";
 import ShareButtons from "@/components/ShareButtons";
@@ -10,7 +9,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import volktekCertifications from "@/assets/volktek-certifications.png";
 import FooterCompact from "@/components/FooterCompact";
-import QuoteDialog from "@/components/QuoteDialog";
 
 const productCategories = [
   {
@@ -199,6 +197,7 @@ const Volktek = () => {
                 </div>
               </div>
             ))}
+            >
           </div>
         </section>
 
@@ -223,6 +222,7 @@ const Volktek = () => {
                 <p className="text-xs text-muted-foreground leading-relaxed">{f.desc}</p>
               </div>
             ))}
+            >
           </div>
         </section>
 
@@ -267,6 +267,7 @@ const Volktek = () => {
                 {cat.title}
               </a>
             ))}
+            >
           </div>
 
           <div className="space-y-8">
@@ -275,9 +276,6 @@ const Volktek = () => {
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-1">
                     <h3 className="text-lg font-display font-bold text-foreground">{cat.title}</h3>
-                    <WishlistHeart
-                      item={{ id: cat.id, name: cat.title, category: "Volktek", image: cat.image, href: "/volktek", specs: cat.desc }}
-                    />
                   </div>
                   <p className="text-sm text-muted-foreground mb-4">{cat.desc}</p>
                   <div className="space-y-4">
@@ -285,10 +283,12 @@ const Volktek = () => {
                     {cat.modelImage && (
                       <img src={`${cat.modelImage}`} alt={`${cat.title} models`} className="w-full h-auto rounded-lg" loading="lazy" />
                     )}
+                    >
                   </div>
                 </div>
               </div>
             ))}
+            >
           </div>
         </section>
 
@@ -301,6 +301,7 @@ const Volktek = () => {
                 <img src={img} alt={`Volktek Product ${i + 1}`} className="w-full h-auto object-contain" loading="lazy" />
               </div>
             ))}
+            >
           </div>
         </section>
 
@@ -313,6 +314,7 @@ const Volktek = () => {
                 <img src={img} alt={`Application ${i + 1}`} className="w-full h-auto object-contain" loading="lazy" />
               </div>
             ))}
+            >
           </div>
         </section>
 
@@ -366,12 +368,6 @@ const Volktek = () => {
         </div>
       </div>
       <FooterCompact />
-      <QuoteDialog
-        open={!!quoteProduct}
-        onClose={() => setQuoteProduct(null)}
-        productName={quoteProduct || ""}
-        productCategory="Volktek Switch"
-      />
     </div>
   );
 };

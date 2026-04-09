@@ -128,6 +128,7 @@ const TabletProductFilter = ({
             ล้างทั้งหมด
           </Button>
         )}
+        >
       </div>
 
       {/* Result Count */}
@@ -157,12 +158,13 @@ const TabletProductFilter = ({
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
                     isActive ? "bg-primary text-primary-foreground font-medium shadow-sm" : "hover:bg-muted/70 text-foreground"
                   }`}
-                >
+                  >
                   <span>{option.name}</span>
                   <span className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md ${isActive ? "bg-primary-foreground/20" : "bg-muted text-muted-foreground"}`}>{count}</span>
                 </button>
               );
             })}
+            >
           </AccordionContent>
         </AccordionItem>
 
@@ -185,6 +187,7 @@ const TabletProductFilter = ({
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
                     isActive ? "bg-primary text-primary-foreground font-medium shadow-sm" : count === 0 && option.id !== "all" ? "text-muted-foreground/50 cursor-not-allowed" : "hover:bg-muted/70 text-foreground"
                   }`}
+                  >
                   disabled={count === 0 && option.id !== "all"}
                 >
                   <span>{option.name}</span>
@@ -192,6 +195,7 @@ const TabletProductFilter = ({
                 </button>
               );
             })}
+            >
           </AccordionContent>
         </AccordionItem>
 
@@ -214,6 +218,7 @@ const TabletProductFilter = ({
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all flex items-center justify-between ${
                     isActive ? "bg-primary text-primary-foreground font-medium shadow-sm" : count === 0 && option.id !== "all" ? "text-muted-foreground/50 cursor-not-allowed" : "hover:bg-muted/70 text-foreground"
                   }`}
+                  >
                   disabled={count === 0 && option.id !== "all"}
                 >
                   <span>{option.name}</span>
@@ -221,6 +226,7 @@ const TabletProductFilter = ({
                 </button>
               );
             })}
+            >
           </AccordionContent>
         </AccordionItem>
 
@@ -242,11 +248,12 @@ const TabletProductFilter = ({
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${
                     isActive ? "bg-primary text-primary-foreground font-medium shadow-sm" : "hover:bg-muted/70 text-foreground"
                   }`}
-                >
+                  >
                   {option.name}
                 </button>
               );
             })}
+            >
           </AccordionContent>
         </AccordionItem>
       </Accordion>
@@ -284,6 +291,7 @@ const TabletProductFilter = ({
           </aside>
         </>
       )}
+      >
     </>
   );
 };
@@ -329,6 +337,7 @@ export const TabletActiveFilterChips = ({
           <X className="w-3 h-3 opacity-60 group-hover:opacity-100 transition-opacity" />
         </button>
       ))}
+      >
       <button onClick={() => onFilterChange({ ...defaultTabletFilters })} className="text-xs text-destructive hover:text-destructive/80 transition-colors underline underline-offset-2">
         ล้างทั้งหมด
       </button>

@@ -14,12 +14,8 @@ import SEOHead from "@/components/SEOHead";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import FooterCompact from "@/components/FooterCompact";
-import QuoteDialog from "@/components/QuoteDialog";
-import AddToQuoteButton from "@/components/AddToQuoteButton";
-import WishlistHeart from "@/components/WishlistHeart";
 import ProductGallery from "@/components/ProductGallery";
 import { getHandheldProduct, getRelatedHandhelds } from "@/data/rugged-handheld-products";
-import { useEngagementTracker } from "@/hooks/useEngagementTracker";
 
 /* ───── Related Product Card ───── */
 const RelatedCard = ({ product, onQuote }: { product: ReturnType<typeof getHandheldProduct>; onQuote: (n: string) => void }) => {
@@ -39,6 +35,7 @@ const RelatedCard = ({ product, onQuote }: { product: ReturnType<typeof getHandh
           {product.badges.map((b) => (
             <Badge key={b} variant="outline" className="text-[10px]">{b}</Badge>
           ))}
+          >
         </div>
         <Button size="sm" className="w-full mt-2" onClick={(e) => { e.preventDefault(); onQuote(product.model); }}>
           <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอราคา
@@ -66,21 +63,12 @@ const specRows = [
 /* ───── Main Component ───── */
 const RuggedHandheldDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
-  const { trackEvent } = useEngagementTracker();
-
-  const product = id ? getHandheldProduct(id) : undefined;
+  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);  const product = id ? getHandheldProduct(id) : undefined;
   const related = id ? getRelatedHandhelds(id) : [];
 
   // ── Engagement Tracking: product view ──
   useEffect(() => {
     if (product) {
-      trackEvent({
-        eventType: "product_view",
-        productId: product.id,
-        productCategory: "Rugged Handheld",
-        productName: product.model,
-      });
     }
   }, [product?.id]);
 
@@ -99,13 +87,16 @@ const RuggedHandheldDetail = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title={`${product.model} — ${product.name}`}
+        >
         description={`${product.nameTH} | ${product.specs.cpu} | ${product.specs.protection}`}
+        >
         path={`/handheld/${product.id}`}
       />
       <ProductJsonLd
         collectionName={product.name}
         collectionDescription={product.nameTH}
         collectionUrl={`/handheld/${product.id}`}
+        >
         products={[{ name: product.name, image: product.image, description: product.specs.cpu, category: "Rugged Handheld" }]}
       />
       <BreadcrumbJsonLd items={[
@@ -132,10 +123,6 @@ const RuggedHandheldDetail = () => {
           {/* Image + Badges */}
           <div className="space-y-4">
             <div className="relative">
-              <WishlistHeart
-                item={{ id: product.id, name: product.model, category: "Rugged Handheld", image: product.image, href: `/handheld/${product.id}`, specs: product.nameTH }}
-                className="absolute top-3 right-3 z-10"
-              />
               <ProductGallery images={product.gallery} alt={product.model} />
             </div>
             <div className="flex flex-wrap gap-2">
@@ -158,6 +145,7 @@ const RuggedHandheldDetail = () => {
               {product.badges.map((b) => (
                 <Badge key={b} variant="default" className="text-sm px-3 py-1">{b}</Badge>
               ))}
+              >
             </div>
 
             {/* Price / Contact */}
@@ -194,6 +182,7 @@ const RuggedHandheldDetail = () => {
                     </div>
                   </div>
                 ))}
+                >
               </div>
             </div>
 
@@ -227,16 +216,12 @@ const RuggedHandheldDetail = () => {
                 {product.applications.map((app) => (
                   <Badge key={app} variant="outline">{app}</Badge>
                 ))}
+                >
               </div>
             </div>
 
             {/* CTA */}
             <div className="flex flex-wrap gap-3 pt-4 border-t border-border">
-              <AddToQuoteButton
-                model={product.model}
-                category="Rugged Handheld"
-                productName={product.model}
-              />
               <Button size="lg" variant="outline" onClick={() => setQuoteProduct(product.model)}>
                 <FileText className="w-5 h-5 mr-2" /> ขอราคาด่วน
               </Button>
@@ -275,6 +260,7 @@ const RuggedHandheldDetail = () => {
                     </TableRow>
                   );
                 })}
+                >
                 {/* Connectivity */}
                 <TableRow>
                   <TableCell className="font-medium">
@@ -287,6 +273,7 @@ const RuggedHandheldDetail = () => {
                       {product.specs.connectivity.map((c) => (
                         <Badge key={c} variant="outline" className="text-xs">{c}</Badge>
                       ))}
+                      >
                     </div>
                   </TableCell>
                 </TableRow>
@@ -307,6 +294,7 @@ const RuggedHandheldDetail = () => {
                 <span className="text-sm text-foreground">{feat}</span>
               </div>
             ))}
+            >
           </div>
         </div>
 
@@ -318,17 +306,12 @@ const RuggedHandheldDetail = () => {
               {related.map((p) => (
                 <RelatedCard key={p.id} product={p} onQuote={setQuoteProduct} />
               ))}
+              >
             </div>
           </div>
         )}
+        >
       </div>
-
-      <QuoteDialog
-        open={!!quoteProduct}
-        onClose={() => setQuoteProduct(null)}
-        productName={quoteProduct || ""}
-        productCategory="Rugged Handheld & PDA"
-      />
       <FooterCompact />
     </div>
   );
