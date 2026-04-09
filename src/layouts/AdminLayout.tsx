@@ -41,6 +41,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     { label: 'ใบเสนอราคา', icon: FileText, path: '/admin/quotes' },
     { label: 'ผู้ติดต่อ', icon: Users, path: '/admin/contacts' },
     { label: 'เอกสาร', icon: FileArchive, path: '/admin/documents' },
+    { label: 'สิทธิ์', icon: Shield, path: '/admin/permissions' },
   ];
 
   return (
