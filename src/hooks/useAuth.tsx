@@ -86,7 +86,7 @@ export const useAuth = () => {
     if (userData?.role === 'admin' || userData?.role === 'sales') {
       navigate('/admin/dashboard');
     } else {
-      navigate('/my-quotes');
+      navigate('/');
     }
 
     return data;
