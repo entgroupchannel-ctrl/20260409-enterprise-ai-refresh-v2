@@ -25,7 +25,6 @@ const Delivery = () => {
       <SEOHead title="ขั้นตอนการจัดส่งสินค้า — ENT Group" description="ขั้นตอนการจัดส่งสินค้า Industrial PC จาก ENT Group พร้อมบริการเคลมเสียหายจากการขนส่ง" />
 
       {/* Compact Header */}
-    >
       <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-background border-b border-border">
         <div className="container max-w-5xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-3">
@@ -49,7 +48,6 @@ const Delivery = () => {
       <div className="container max-w-5xl mx-auto px-4 py-5 space-y-5">
 
         {/* Delivery Steps — 4 columns */}
-      >
         <div className="rounded-xl border border-border bg-card p-4">
           <div className="flex items-center gap-2 mb-3 px-1">
             <Package size={15} className="text-primary" />
@@ -63,7 +61,6 @@ const Delivery = () => {
                 </div>
                 <span className="inline-block text-[10px] font-bold text-primary bg-primary/10 px-1.5 py-0.5 rounded-full mb-1">
                   {item.step}
-                >
                 </span>
                 <p className="text-xs font-semibold text-foreground mb-0.5">{item.title}</p>
                 <p className="text-[10px] text-muted-foreground leading-snug">{item.desc}</p>
@@ -83,7 +80,6 @@ const Delivery = () => {
               <li key={i} className="flex gap-2 text-xs text-foreground/80 leading-relaxed">
                 <CheckCircle size={12} className="text-primary shrink-0 mt-0.5" />
                 {note}
-              >
               </li>
             ))}
           </ul>

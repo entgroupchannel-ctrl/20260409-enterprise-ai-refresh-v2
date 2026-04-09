@@ -150,7 +150,6 @@ const IBoxProductFilter = ({
   const FilterContent = () => (
     <div className="space-y-4">
       {/* Header */}
-    >
       <div className="flex items-center justify-between pb-3 border-b border-border">
         <h3 className="text-base font-bold text-foreground flex items-center gap-2">
           <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -164,7 +163,6 @@ const IBoxProductFilter = ({
             size="sm"
             onClick={clearFilters}
             className="text-destructive hover:text-destructive/80 text-xs h-7 px-2"
-          >
             <X className="w-3 h-3 mr-1" />
             ล้างทั้งหมด
           </Button>
@@ -182,7 +180,6 @@ const IBoxProductFilter = ({
         type="multiple"
         defaultValue={["category", "formFactor", "performance", "cpu", "ports", "features"]}
         className="space-y-1.5"
-      >
         {/* Category */}
         <AccordionItem value="category" className="border border-border rounded-lg px-3 transition-colors data-[state=open]:border-primary/20 data-[state=open]:bg-primary/[0.02]">
           <AccordionTrigger className="py-3 text-sm font-semibold hover:no-underline">
@@ -201,7 +198,6 @@ const IBoxProductFilter = ({
                       ? "bg-primary text-primary-foreground font-medium shadow-sm"
                       : "hover:bg-muted/70 text-foreground"
                   }`}
-                >
                   {option.icon && <option.icon className={`w-4 h-4 shrink-0 transition-colors ${isActive ? "" : "text-muted-foreground group-hover/item:text-primary"}`} />}
                   <span className="flex-1">{option.name}</span>
                   <span className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md ${
@@ -231,7 +227,6 @@ const IBoxProductFilter = ({
                       ? "bg-primary text-primary-foreground font-medium shadow-sm"
                       : "hover:bg-muted/70 text-foreground"
                   }`}
-                >
                   <span>{option.name}</span>
                   <span className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md ${
                     isActive ? "bg-primary-foreground/20" : "bg-muted text-muted-foreground"
@@ -260,7 +255,6 @@ const IBoxProductFilter = ({
                       ? "bg-primary text-primary-foreground font-medium shadow-sm"
                       : "hover:bg-muted/70 text-foreground"
                   }`}
-                >
                   <span>{option.name}</span>
                   <span className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md ${
                     isActive ? "bg-primary-foreground/20" : "bg-muted text-muted-foreground"
@@ -295,7 +289,6 @@ const IBoxProductFilter = ({
                       : "hover:bg-muted/70 text-foreground"
                   }`}
                   disabled={count === 0 && gen.id !== "all"}
-                >
                   <span className="truncate mr-2">{gen.name}</span>
                   <span className={`text-[11px] font-mono tabular-nums px-1.5 py-0.5 rounded-md shrink-0 ${
                     isActive ? "bg-primary-foreground/20" : "bg-muted text-muted-foreground"
@@ -327,7 +320,6 @@ const IBoxProductFilter = ({
                         ? "bg-primary text-primary-foreground shadow-sm"
                         : "bg-muted hover:bg-muted/80 text-foreground"
                     }`}
-                  >
                     {port.name}
                   </button>
                 ))}
@@ -345,7 +337,6 @@ const IBoxProductFilter = ({
                         ? "bg-primary text-primary-foreground shadow-sm"
                         : "bg-muted hover:bg-muted/80 text-foreground"
                     }`}
-                  >
                     {port.name}
                   </button>
                 ))}
@@ -396,7 +387,6 @@ const IBoxProductFilter = ({
   return (
     <>
       {/* Desktop Filter */}
-    >
       <aside className="hidden lg:block w-72 flex-shrink-0">
         <div className="sticky top-24 card-surface p-4 max-h-[calc(100vh-120px)] overflow-y-auto scrollbar-hide">
           <FilterContent />
@@ -417,7 +407,6 @@ const IBoxProductFilter = ({
                 <button
                   onClick={onMobileClose}
                   className="p-2 hover:bg-muted rounded-lg transition-colors"
-                >
                   <X className="w-5 h-5" />
                 </button>
               </div>

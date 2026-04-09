@@ -18,11 +18,9 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
   return (
     <div className={`card-surface overflow-hidden group transition-all flex flex-col ${isSelected ? "ring-2 ring-primary border-primary/50" : "hover:border-primary/30"}`}>
       {/* Image */}
-    >
       <Link
         to={`/ibox-series/${product.id}`}
         className="block relative aspect-[4/3] bg-gradient-to-b from-secondary/50 to-secondary/20 overflow-hidden cursor-pointer"
-      >
         <img
           src={product.image}
           alt={product.nameTH}
@@ -41,14 +39,12 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
           {product.isHot && (
             <Badge variant="destructive" className="text-xs"><Flame className="inline w-3 h-3 mr-0.5" /> HOT</Badge>
           )}
-        >
         </div>
 
         {/* Checkbox */}
         <button
           onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleSelect(product.name); }}
           className="absolute top-3 right-12 z-10"
-        >
           <Checkbox checked={isSelected} className="h-5 w-5" />
         </button>
 
@@ -80,13 +76,11 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
         <Link to={`/ibox-series/${product.id}`}>
           <h3 className="font-display font-bold text-foreground line-clamp-2 group-hover:text-primary transition-colors mb-1 text-sm">
             {product.name}
-          >
           </h3>
         </Link>
         <p className="text-xs text-muted-foreground line-clamp-1 mb-3">{product.nameTH}</p>
 
         {/* Key Specs */}
-      >
         <div className="space-y-2 mb-4 flex-1">
           <div className="flex items-center gap-2 text-xs">
             <Cpu className="w-3.5 h-3.5 text-primary shrink-0" />
@@ -98,7 +92,6 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
               <span className="text-muted-foreground">
                 {product.specs.lanPorts}x LAN
                 {product.specs.comPorts ? `, ${product.specs.comPorts}x COM` : ""}
-              >
                 {product.specs.poe ? " (PoE)" : ""}
               </span>
             </div>
@@ -113,7 +106,6 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
         <p className="text-sm font-semibold text-primary mb-3">สอบถามราคา</p>
 
         {/* Actions */}
-      >
         <div className="flex gap-2 pt-3 border-t border-border">
           <Link to={`/ibox-series/${product.id}`} className="flex-1">
             <Button variant="outline" size="sm" className="w-full text-xs">

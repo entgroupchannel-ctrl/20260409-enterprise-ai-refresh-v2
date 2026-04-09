@@ -265,7 +265,6 @@ const PanelPC = () => {
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "Panel PC GTG", path: "/panel-pc-gtg" }]} />
       {/* Nav */}
-    >
       <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
         <div className="container max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
           <div className="flex items-center gap-4">
@@ -424,7 +423,6 @@ const PanelPC = () => {
                   ? "border-primary bg-primary/10 shadow-lg shadow-primary/10"
                   : "border-border bg-background hover:border-primary/30"
               }`}
-            >
               <RectangleHorizontal size={28} className={displayType === "wide" ? "text-primary" : "text-muted-foreground"} />
               <div className="text-left">
                 <p className={`font-bold ${displayType === "wide" ? "text-primary" : "text-foreground"}`}>Widescreen (16:9)</p>
@@ -438,7 +436,6 @@ const PanelPC = () => {
                   ? "border-primary bg-primary/10 shadow-lg shadow-primary/10"
                   : "border-border bg-background hover:border-primary/30"
               }`}
-            >
               <Square size={28} className={displayType === "square" ? "text-primary" : "text-muted-foreground"} />
               <div className="text-left">
                 <p className={`font-bold ${displayType === "square" ? "text-primary" : "text-foreground"}`}>Square (4:3 / 5:4)</p>
@@ -526,7 +523,6 @@ const PanelPC = () => {
                     {item.tags.map((tag) => (
                       <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-primary/10 text-primary font-medium">{tag}</span>
                     ))}
-                  >
                   </div>
                   <p className="text-xs font-semibold text-primary">{item.rec}</p>
                 </div>
@@ -577,7 +573,6 @@ import FooterCompact from "@/components/FooterCompact";
                 </span>
                 <h3 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-4">
                   GTG 23.8" / 27" / 32"
-                >
                 </h3>
                 <p className="text-muted-foreground mb-4">
                   หน้าจอใหญ่ ผลิตจากโลหะ Metal Sheet พร้อมพัดลมระบายความร้อนในตัว รองรับ CPU ประสิทธิภาพสูง
@@ -622,7 +617,6 @@ import FooterCompact from "@/components/FooterCompact";
                         ? "bg-primary text-primary-foreground"
                         : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                     }`}
-                  >
                     {tab.label}
                   </button>
                 ))}
@@ -663,7 +657,6 @@ import FooterCompact from "@/components/FooterCompact";
                   {currentTab.cols.map((col) => (
                     <th key={col} className="text-center p-3 text-muted-foreground font-medium whitespace-nowrap">{col}</th>
                   ))}
-                >
                 </tr>
               </thead>
               <tbody>
@@ -677,7 +670,6 @@ import FooterCompact from "@/components/FooterCompact";
                           <div>
                             <span className="font-semibold text-foreground">{m.name}</span>
                             {m.popular && <span className="ml-2 text-[10px] px-1.5 py-0.5 rounded-full bg-primary text-primary-foreground font-bold"><Star size={10} className="inline" /></span>}
-                          >
                             <p className="text-[11px] text-muted-foreground">{m.highlight}</p>
                           </div>
                         </div>
@@ -688,7 +680,6 @@ import FooterCompact from "@/components/FooterCompact";
                       <td className="text-center p-3">
                         <span className={`text-xs px-2 py-1 rounded-full ${m.cooling === "FANLESS" ? "bg-blue-500/10 text-blue-600 dark:text-blue-400" : "bg-orange-500/10 text-orange-600 dark:text-orange-400"}`}>
                           {m.cooling === "FANLESS" ? "FANLESS" : "FAN"}
-                        >
                         </span>
                       </td>
                       {prices.map((p, i) => (
@@ -698,7 +689,6 @@ import FooterCompact from "@/components/FooterCompact";
                           ) : (
                             <span className="text-primary">฿{fmt(p)}</span>
                           )}
-                        >
                         </td>
                       ))}
                     </tr>

@@ -111,7 +111,6 @@ const EPCSeriesCompare = ({ onQuote }: Props) => {
   return (
     <div className="space-y-4">
       {/* Controls Bar */}
-    >
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div className="flex gap-1 bg-secondary/50 rounded-lg p-0.5">
           {viewModes.map((v) => (
@@ -123,10 +122,8 @@ const EPCSeriesCompare = ({ onQuote }: Props) => {
                   ? "bg-primary text-primary-foreground shadow-sm"
                   : "text-muted-foreground hover:text-foreground"
               }`}
-            >
               <v.icon size={12} />
               {v.label}
-            >
             </button>
           ))}
         </div>
@@ -191,7 +188,6 @@ const EPCSeriesCompare = ({ onQuote }: Props) => {
                           <span className="font-mono font-semibold text-foreground">{m.name}</span>
                           <Badge className={`text-[9px] px-1 py-0 ${m.tierColor} bg-transparent border ${m.cpuTier === "entry" ? "border-emerald-500/30" : m.cpuTier === "mid" ? "border-sky-500/30" : "border-amber-500/30"}`}>
                             {m.tierLabel}
-                          >
                           </Badge>
                         </div>
                       </td>
@@ -222,7 +218,6 @@ const EPCSeriesCompare = ({ onQuote }: Props) => {
                               {Array.from({ length: 5 }).map((_, i) => (
                                 <Star key={i} size={10} className={i < stars ? "text-amber-400 fill-amber-400" : "text-muted-foreground/20"} />
                               ))}
-                            >
                             </div>
                           </td>
                         </>

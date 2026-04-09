@@ -90,7 +90,6 @@ const IBoxDetail = () => {
       <div className="container max-w-6xl mx-auto px-4 py-8">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Image Gallery */}
-        >
           <div className="space-y-4">
             <ProductImageGallery
               mainImage={product.image}
@@ -103,7 +102,6 @@ const IBoxDetail = () => {
               <Badge variant="secondary">{product.category}</Badge>
               <Badge variant="outline">{product.subcategory}</Badge>
               {product.specs.poe && <Badge className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20">PoE+ Support</Badge>}
-            >
               {product.specs.pcie && <Badge variant="outline">PCIe Expansion</Badge>}
             </div>
           </div>
@@ -126,7 +124,6 @@ const IBoxDetail = () => {
                 <button
                   onClick={() => setQuoteProduct(product.id)}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-medium cursor-pointer"
-                >
                   <Mail className="w-4 h-4" /> sales@entgroup.co.th
                 </button>
                 <a href="tel:020456104" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary hover:bg-secondary/80 transition-colors">
@@ -193,7 +190,6 @@ const IBoxDetail = () => {
                 {product.applications.map((app) => (
                   <Badge key={app} variant="outline">{app}</Badge>
                 ))}
-              >
               </div>
             </div>
 
@@ -228,7 +224,6 @@ const IBoxDetail = () => {
                       <TableCell className="font-medium">
                         <div className="flex items-center gap-2">
                           <Icon className="w-4 h-4 text-primary" /> {label}
-                        >
                         </div>
                       </TableCell>
                       <TableCell>{String(value)}</TableCell>

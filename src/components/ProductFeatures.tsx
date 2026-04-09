@@ -73,7 +73,6 @@ const ProductFeatures = ({ title = "Products Features", features, columns = 2 }:
               className={`flex items-start gap-3 px-5 py-3.5 transition-colors hover:bg-secondary/30 ${
                 columns === 2 && i % 2 === 0 ? "md:border-r md:border-border" : ""
               } ${columns === 2 && i >= 2 ? "md:border-t md:border-border" : ""}`}
-            >
               <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center mt-0.5">
                 <Icon size={18} className="text-primary" />
               </div>
@@ -82,7 +81,6 @@ const ProductFeatures = ({ title = "Products Features", features, columns = 2 }:
                 {feat.detail && (
                   <p className="text-xs text-muted-foreground mt-0.5">{feat.detail}</p>
                 )}
-              >
               </div>
             </div>
           );

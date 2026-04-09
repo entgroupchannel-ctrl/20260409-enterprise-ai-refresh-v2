@@ -31,7 +31,6 @@ const CaseStudyDetail = () => {
           <div className="container mx-auto">
             <Badge className="mb-3 bg-primary/90 text-primary-foreground">
               <Factory className="w-3 h-3 mr-1" /> {cs.industry}
-            >
             </Badge>
             <h1 className="text-2xl md:text-3xl font-bold text-white max-w-3xl">{cs.title}</h1>
             <p className="text-white/70 mt-1">{cs.client}</p>
@@ -49,7 +48,6 @@ const CaseStudyDetail = () => {
         <div className="grid gap-8 md:grid-cols-3">
           <div className="md:col-span-2 space-y-8">
             {/* Challenge */}
-          >
             <section>
               <h2 className="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
                 <span className="w-1 h-6 bg-destructive rounded-full" /> ปัญหาและความท้าทาย
@@ -87,7 +85,6 @@ const CaseStudyDetail = () => {
                   <Quote className="w-8 h-8 text-primary/40 mb-3" />
                   <p className="text-foreground italic text-lg leading-relaxed mb-4">
                     "{cs.testimonial}"
-                  >
                   </p>
                   {cs.testimonialAuthor && (
                     <div className="text-sm">
@@ -95,7 +92,6 @@ const CaseStudyDetail = () => {
                       {cs.testimonialRole && (
                         <span className="text-muted-foreground"> — {cs.testimonialRole}</span>
                       )}
-                    >
                     </div>
                   )}
                 </CardContent>
@@ -130,7 +126,6 @@ const CaseStudyDetail = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-sm text-primary font-medium mt-3 hover:underline"
-                >
                   <Play className="w-4 h-4" /> ดูวิดีโอทั้งหมดบน YouTube Channel
                 </a>
               </section>
@@ -181,7 +176,6 @@ const CaseStudyDetail = () => {
                       <Badge key={p.name} variant="secondary">{p.name}</Badge>
                     )
                   )}
-                >
                 </div>
               </CardContent>
             </Card>
@@ -196,7 +190,6 @@ const CaseStudyDetail = () => {
                       <Link key={link.path} to={link.path}>
                         <Button variant="outline" size="sm" className="w-full justify-start">
                           <ArrowRight className="w-4 h-4 mr-2" /> {link.label}
-                        >
                         </Button>
                       </Link>
                     ))}
@@ -204,7 +197,6 @@ const CaseStudyDetail = () => {
                       <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer">
                         <Button variant="outline" size="sm" className="w-full justify-start">
                           <ExternalLink className="w-4 h-4 mr-2" /> {link.label}
-                        >
                         </Button>
                       </a>
                     ))}

@@ -35,7 +35,6 @@ const RelatedCard = ({ product, onQuote }: { product: ReturnType<typeof getHandh
           {product.badges.map((b) => (
             <Badge key={b} variant="outline" className="text-[10px]">{b}</Badge>
           ))}
-        >
         </div>
         <Button size="sm" className="w-full mt-2" onClick={(e) => { e.preventDefault(); onQuote(product.model); }}>
           <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอราคา
@@ -118,7 +117,6 @@ const RuggedHandheldDetail = () => {
       <div className="container max-w-6xl mx-auto px-4 py-8">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Image + Badges */}
-        >
           <div className="space-y-4">
             <div className="relative">
               <ProductGallery images={product.gallery} alt={product.model} />
@@ -127,7 +125,6 @@ const RuggedHandheldDetail = () => {
               <Badge variant="secondary">{product.category === "windows" ? "Windows" : "Android"}</Badge>
               <Badge variant="outline">{product.screenSize}</Badge>
               {product.specs.scanner && <Badge className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20">Scanner</Badge>}
-            >
             </div>
           </div>
 
@@ -144,7 +141,6 @@ const RuggedHandheldDetail = () => {
               {product.badges.map((b) => (
                 <Badge key={b} variant="default" className="text-sm px-3 py-1">{b}</Badge>
               ))}
-            >
             </div>
 
             {/* Price / Contact */}
@@ -155,7 +151,6 @@ const RuggedHandheldDetail = () => {
                 <button
                   onClick={() => setQuoteProduct(product.model)}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-medium cursor-pointer"
-                >
                   <Mail className="w-4 h-4" /> sales@entgroup.co.th
                 </button>
                 <a href="tel:020456104" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary hover:bg-secondary/80 transition-colors">
@@ -168,7 +163,6 @@ const RuggedHandheldDetail = () => {
             <div className="space-y-3">
               <h3 className="text-lg font-bold text-foreground">
                 เหตุผลที่ควรเลือก {product.model}
-              >
               </h3>
               <div className="space-y-2">
                 {product.sellingPoints.map((sp) => (
@@ -215,7 +209,6 @@ const RuggedHandheldDetail = () => {
                 {product.applications.map((app) => (
                   <Badge key={app} variant="outline">{app}</Badge>
                 ))}
-              >
               </div>
             </div>
 
@@ -253,7 +246,6 @@ const RuggedHandheldDetail = () => {
                       <TableCell className="font-medium">
                         <div className="flex items-center gap-2">
                           <Icon className="w-4 h-4 text-primary" /> {label}
-                        >
                         </div>
                       </TableCell>
                       <TableCell>{String(value)}</TableCell>
@@ -272,7 +264,6 @@ const RuggedHandheldDetail = () => {
                       {product.specs.connectivity.map((c) => (
                         <Badge key={c} variant="outline" className="text-xs">{c}</Badge>
                       ))}
-                    >
                     </div>
                   </TableCell>
                 </TableRow>
@@ -304,7 +295,6 @@ const RuggedHandheldDetail = () => {
               {related.map((p) => (
                 <RelatedCard key={p.id} product={p} onQuote={setQuoteProduct} />
               ))}
-            >
             </div>
           </div>
         )}

@@ -91,7 +91,6 @@ const AboutUs = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* ═══════ Hero with growth image ═══════ */}
-    >
       <section className="relative min-h-[420px] flex items-center overflow-hidden">
         <img
           src={heroGrowth}
@@ -125,7 +124,6 @@ const AboutUs = () => {
           </div>
           <div className="grid md:grid-cols-4 gap-5 items-center">
             {/* Logo */}
-          >
             <div className="flex justify-center">
               <img
                 src={entLogoFull}
@@ -211,7 +209,6 @@ const AboutUs = () => {
           {/* Horizontal timeline */}
           <div className="relative">
             {/* Horizontal line */}
-          >
             <div className="absolute top-[28px] left-0 right-0 h-0.5 bg-gradient-to-r from-primary/10 via-primary to-primary/10" />
 
             <div className="overflow-x-auto pb-4 -mx-4 px-4 scrollbar-thin">
@@ -219,7 +216,6 @@ const AboutUs = () => {
                 {timeline.map((item, i) => (
                   <div key={item.year} className="flex flex-col items-center w-[140px] md:w-[160px] shrink-0 relative">
                     {/* Circle */}
-                  >
                     <div className={`w-14 h-14 rounded-full border-2 flex items-center justify-center z-10 mb-3 transition-all ${
                       item.current
                         ? "bg-primary border-primary shadow-lg shadow-primary/30"
@@ -232,7 +228,6 @@ const AboutUs = () => {
                     <div className="flex items-center gap-1 mb-1">
                       <span className={`text-sm font-display font-black ${item.current ? "text-primary" : "text-foreground"}`}>
                         {item.year}
-                      >
                       </span>
                       {item.current && (
                         <span className="px-1.5 py-0.5 rounded-full text-[8px] font-bold bg-primary text-primary-foreground leading-none">
@@ -244,11 +239,9 @@ const AboutUs = () => {
                     {/* Title & desc */}
                     <h3 className="text-[11px] font-bold text-foreground text-center leading-tight mb-1 px-1">
                       {item.title}
-                    >
                     </h3>
                     <p className="text-[9px] text-muted-foreground text-center leading-relaxed px-2 line-clamp-3">
                       {item.desc}
-                    >
                     </p>
                   </div>
                 ))}

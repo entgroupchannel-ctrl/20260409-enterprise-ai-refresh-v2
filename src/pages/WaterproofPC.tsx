@@ -170,7 +170,6 @@ const WaterproofPC = () => {
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "Waterproof PC", path: "/waterproof-pc" }]} />
       {/* Hero */}
-    >
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-accent/5" />
         <div className="container max-w-7xl mx-auto px-4 py-6 relative z-10">
@@ -210,7 +209,6 @@ const WaterproofPC = () => {
 
       <div className="container max-w-7xl mx-auto px-4 py-10 space-y-16">
         {/* Features */}
-      >
         <section>
           <h2 className="text-2xl font-display font-bold text-foreground mb-6 text-center">
             ทำไมต้อง <span className="text-gradient">Waterproof Panel PC</span>
@@ -266,7 +264,6 @@ const WaterproofPC = () => {
             {useCases.map((u) => (
               <span key={u} className="px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium">{u}</span>
             ))}
-          >
           </div>
         </section>
 
@@ -283,7 +280,6 @@ const WaterproofPC = () => {
                 key={m.id}
                 href={`#${m.id}`}
                 className="shrink-0 px-3 py-2 rounded-lg text-xs font-medium bg-secondary/50 text-foreground/70 border border-border hover:border-primary/30 transition-all"
-              >
                 {m.name}
               </a>
             ))}
@@ -303,7 +299,6 @@ const WaterproofPC = () => {
                       <div className="flex items-center gap-3 mb-2">
                         <h3 className="text-xl md:text-2xl font-display font-bold text-foreground">{m.name}</h3>
                         {m.badge && <Badge className="bg-primary text-primary-foreground text-xs">{m.badge}</Badge>}
-                      >
                       </div>
                       <p className="text-sm text-muted-foreground mb-4">{m.model}</p>
 

@@ -198,7 +198,6 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
                   ? "bg-foreground text-background border-foreground shadow-lg"
                   : "bg-card text-foreground border-border hover:border-primary/50"
               }`}
-            >
               {tab.label}
             </button>
           ))}
@@ -232,7 +231,6 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
                     ? "bg-primary text-primary-foreground border-primary"
                     : "bg-secondary/50 text-muted-foreground border-border hover:border-primary/40"
                 }`}
-              >
                 {cpu}
               </button>
             ))}
@@ -243,7 +241,6 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
         {search && (
           <p className="text-xs text-muted-foreground mb-2">
             พบ {filteredData.length} รายการ {filteredData.length !== currentTab.data.length && `จาก ${currentTab.data.length}`}
-          >
           </p>
         )}
 
@@ -255,19 +252,16 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
                 <tr className="bg-secondary/50 border-b-2 border-primary/30">
                   <th className="px-4 py-3 text-left font-semibold text-muted-foreground w-[140px]">
                     {activeTab === "windows" ? "ประเภท" : "Processor"}
-                  >
                   </th>
                   <th className="px-4 py-3 text-left font-semibold text-muted-foreground">
                     {activeTab === "gb1000"
                       ? `Industrial MINI PC GB1000 (DDR4 RAM)`
                       : "Configuration"}
-                    >
                   </th>
                   <th className="px-4 py-3 text-right font-semibold text-muted-foreground w-[120px]">Price List</th>
                   {currentTab.hasRemark && (
                     <th className="px-4 py-3 text-left font-semibold text-muted-foreground w-[160px]">Remark</th>
                   )}
-                >
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
@@ -275,17 +269,14 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
                   <tr
                     key={idx}
                     className={`transition-colors hover:bg-primary/5 ${idx % 2 === 1 ? "bg-secondary/20" : ""}`}
-                    >
                     <td className="px-4 py-2.5 font-medium text-foreground whitespace-nowrap">{item.processor}</td>
                     <td className="px-4 py-2.5 text-foreground">{item.config}</td>
                     <td className="px-4 py-2.5 text-right font-bold text-primary whitespace-nowrap">
                       {formatPrice(item.price)}
-                    >
                     </td>
                     {currentTab.hasRemark && (
                       <td className="px-4 py-2.5 text-muted-foreground text-xs">{item.remark || ""}</td>
                     )}
-                  >
                   </tr>
                 ))}
               </tbody>
@@ -299,14 +290,12 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
                 onClick={() => setPage(1)}
                 disabled={currentPage === 1}
                 className="p-1.5 rounded hover:bg-secondary disabled:opacity-30 disabled:cursor-not-allowed"
-              >
                 <ChevronsLeft size={16} />
               </button>
               <button
                 onClick={() => setPage(Math.max(1, currentPage - 1))}
                 disabled={currentPage === 1}
                 className="p-1.5 rounded hover:bg-secondary disabled:opacity-30 disabled:cursor-not-allowed"
-              >
                 <ChevronLeft size={16} />
               </button>
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
@@ -318,7 +307,6 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
                       ? "bg-primary text-primary-foreground"
                       : "hover:bg-secondary text-muted-foreground"
                   }`}
-                >
                   {p}
                 </button>
               ))}
@@ -326,14 +314,12 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
                 onClick={() => setPage(Math.min(totalPages, currentPage + 1))}
                 disabled={currentPage === totalPages}
                 className="p-1.5 rounded hover:bg-secondary disabled:opacity-30 disabled:cursor-not-allowed"
-              >
                 <ChevronRight size={16} />
               </button>
               <button
                 onClick={() => setPage(totalPages)}
                 disabled={currentPage === totalPages}
                 className="p-1.5 rounded hover:bg-secondary disabled:opacity-30 disabled:cursor-not-allowed"
-              >
                 <ChevronsRight size={16} />
               </button>
             </div>
@@ -347,9 +333,7 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
             <button
               onClick={() => onRequestQuote(`GB Series — ${currentTab.label}`)}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity"
-            >
               <FileText size={16} /> ขอใบเสนอราคา {currentTab.label.replace(" Price List", "")}
-            >
             </button>
           )}
         </div>

@@ -293,7 +293,6 @@ const ModelCard = ({ model, isActive, onClick }: { model: typeof models[0]; isAc
     className={`relative flex flex-col items-center p-4 rounded-xl border-2 transition-all duration-300 text-center ${
       isActive ? "border-primary bg-primary/5 shadow-lg scale-[1.02]" : "border-border bg-card hover:border-primary/30 hover:-translate-y-1"
     }`}
-  >
     {model.badge && (
       <span className={`absolute -top-2 right-2 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${
         model.badge === "Premium" ? "bg-amber-500 text-white"
@@ -334,7 +333,6 @@ const GBSeries = () => {
           <button
             onClick={() => setQuoteOpen(true)}
             className="text-xs px-3 py-1.5 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity"
-          >
             ขอใบเสนอราคา
           </button>
         </div>
@@ -358,7 +356,6 @@ const GBSeries = () => {
             {models.map((m, i) => (
               <ModelCard key={m.id} model={m} isActive={i === activeModel} onClick={() => setActiveModel(i)} />
             ))}
-          >
           </div>
         </div>
       </section>
@@ -390,7 +387,6 @@ const GBSeries = () => {
                 {current.features.map((f) => (
                   <li key={f} className="flex items-start gap-2 text-sm text-muted-foreground">
                     <span className="text-primary mt-0.5">✓</span> {f}
-                  >
                   </li>
                 ))}
               </ul>
@@ -398,9 +394,7 @@ const GBSeries = () => {
               <button
                 onClick={() => setQuoteOpen(true)}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity"
-              >
                 <FileText size={18} /> ขอใบเสนอราคา {current.name}
-              >
               </button>
             </div>
 
@@ -572,7 +566,6 @@ const GBSeries = () => {
           <CollapsibleSpec title="เปรียบเทียบทุกรุ่น GB Series (5 รุ่น)" defaultOpen={true}>
             <div className="p-4 space-y-4">
               {/* Model Filter Chips */}
-            >
               <div className="flex flex-wrap gap-2 items-center">
                 <span className="text-xs font-semibold text-muted-foreground mr-1">เลือกรุ่นที่ต้องการเปรียบเทียบ:</span>
                 {models.map((m, i) => {
@@ -594,7 +587,6 @@ const GBSeries = () => {
                           ? "bg-primary text-primary-foreground border-primary shadow-sm"
                           : "bg-card text-muted-foreground border-border hover:border-primary/50"
                       }`}
-                    >
                       {m.name}
                     </button>
                   );
@@ -614,7 +606,6 @@ const GBSeries = () => {
                       {compareFilter.sort((a, b) => a - b).map((idx) => (
                         <th key={models[idx].id} className="px-4 py-3 text-center font-bold text-foreground whitespace-nowrap">{models[idx].name}</th>
                       ))}
-                    >
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-border">
@@ -624,7 +615,6 @@ const GBSeries = () => {
                         {compareFilter.sort((a, b) => a - b).map((idx) => (
                           <td key={idx} className="px-4 py-2.5 text-center text-foreground text-xs">{row.values[idx]}</td>
                         ))}
-                      >
                       </tr>
                     ))}
                   </tbody>
@@ -639,7 +629,6 @@ const GBSeries = () => {
       <GBPriceList onRequestQuote={(product) => setQuoteOpen(true)} />
 
       {/* CTA */}
-    >
       <section className="border-t border-border">
         <div className="container max-w-3xl mx-auto px-6 py-16 text-center">
           <h2 className="text-3xl font-display font-bold mb-3">
@@ -650,7 +639,6 @@ const GBSeries = () => {
             <button
               onClick={() => setQuoteOpen(true)}
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-lg hover:opacity-90 transition-opacity"
-            >
               <FileText size={18} /> ขอใบเสนอราคา
             </button>
             <button
@@ -663,7 +651,6 @@ const GBSeries = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border border-border bg-card text-foreground font-bold hover:bg-secondary/50 transition-colors"
-            >
               <ExternalLink size={18} /> ดาวน์โหลดภาพรวมผลิตภัณฑ์
             </a>
           </div>

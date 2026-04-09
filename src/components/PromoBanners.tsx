@@ -63,7 +63,6 @@ const PromoBanners = () => {
     <section className="section-padding" id="promotions">
       <div className="container max-w-7xl mx-auto">
         {/* Header */}
-      >
         <div className="text-center mb-10">
           <span className="text-xs font-semibold tracking-widest uppercase text-primary mb-3 block">
             Promotions
@@ -80,12 +79,10 @@ const PromoBanners = () => {
         <Link
           to={featured.link || "/promotions"}
           className="card-surface overflow-hidden group hover:border-primary/30 transition-all mb-6 flex flex-col md:flex-row"
-        >
           <div className="relative bg-secondary/20 flex items-center justify-center p-8 md:w-2/5">
             {featured.badge && (
               <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-destructive text-destructive-foreground inline-flex items-center gap-1">
                 <Flame size={10} /> {featured.badge}
-              >
               </span>
             )}
             <span className="absolute top-3 right-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-green-500 text-white">
@@ -109,7 +106,6 @@ const PromoBanners = () => {
               {featured.highlights.map((h) => (
                 <li key={h} className="flex items-center gap-2 text-sm text-muted-foreground">
                   <span className="text-primary">✓</span> {h}
-                >
                 </li>
               ))}
             </ul>
@@ -126,7 +122,6 @@ const PromoBanners = () => {
               key={promo.id}
               to={promo.link || "/promotions"}
               className="card-surface overflow-hidden group hover:border-primary/30 transition-all flex flex-col"
-            >
               <div className="relative bg-secondary/20 flex items-center justify-center p-6 h-44">
                 {promo.badge && (
                   <span className={`absolute top-2 left-2 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider inline-flex items-center gap-1 ${
@@ -162,7 +157,6 @@ const PromoBanners = () => {
                   {promo.highlights.slice(0, 2).map((h) => (
                     <li key={h} className="flex items-center gap-1.5 text-xs text-muted-foreground">
                       <span className="text-primary text-[10px]">✓</span> {h}
-                    >
                     </li>
                   ))}
                 </ul>
@@ -179,7 +173,6 @@ const PromoBanners = () => {
           <Link
             to="/promotions"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
-          >
             <Sparkles size={16} /> ดูโปรโมชั่นทั้งหมด
           </Link>
         </div>

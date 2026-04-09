@@ -28,14 +28,12 @@ const RelatedCard = ({ product }: { product: TabletDetailProduct }) => (
       <h3 className="text-sm font-bold line-clamp-2">{product.nameTH}</h3>
       <div className="flex flex-wrap gap-1">
         {product.badges.slice(0, 2).map((b) => <Badge key={b} variant="outline" className="text-[10px]">{b}</Badge>)}
-      >
       </div>
       {product.price ? (
         <p className="text-primary font-bold text-sm">{product.price}</p>
       ) : (
         <p className="text-muted-foreground text-xs">สอบถามราคา</p>
       )}
-    >
     </div>
   </Link>
 );
@@ -71,7 +69,6 @@ const RuggedTabletDetail = () => {
       <ProductJsonLd collectionName={product.name} collectionDescription={product.nameTH} collectionUrl={`/rugged-tablet/${product.id}`} products={[{ name: product.name, price: product.price, category: "Rugged Tablet" }]} />
 
       {/* Sticky Breadcrumb */}
-    >
       <div className="sticky top-0 z-30 bg-background/90 backdrop-blur-md py-3 border-b border-border">
         <div className="container max-w-6xl mx-auto px-4">
           <nav className="flex items-center gap-2 text-sm flex-wrap">
@@ -88,7 +85,6 @@ const RuggedTabletDetail = () => {
       <div className="container max-w-6xl mx-auto px-4 py-8">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Gallery */}
-        >
           <div className="space-y-4">
             <div className="relative">
               <ProductGallery images={product.gallery} alt={product.model} />
@@ -97,7 +93,6 @@ const RuggedTabletDetail = () => {
               <Badge variant="secondary">{product.os}</Badge>
               <Badge variant="outline">{product.screenSize}</Badge>
               {product.badges.map((b) => <Badge key={b} variant="outline" className="text-xs">{b}</Badge>)}
-            >
             </div>
           </div>
 
@@ -129,7 +124,6 @@ const RuggedTabletDetail = () => {
                       <div className="flex items-center gap-2">
                         <p className="font-bold text-sm">{c.label}</p>
                         {c.inStock && <Badge className="bg-green-500/20 text-green-600 border-green-500/30 text-[10px]">พร้อมส่ง</Badge>}
-                      >
                       </div>
                       <span className="text-primary font-extrabold text-lg">{c.price}</span>
                     </div>
@@ -152,13 +146,11 @@ const RuggedTabletDetail = () => {
               ) : (
                 <p className="text-xl font-bold text-primary mb-1">สอบถามราคา</p>
               )}
-            >
               <p className="text-xs text-muted-foreground">จัดส่ง: {product.delivery}</p>
               <div className="flex flex-wrap gap-2 mt-3">
                 <button
                   onClick={() => setQuoteOpen(true)}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-sm font-medium cursor-pointer"
-                >
                   <Mail className="w-4 h-4" /> sales@entgroup.co.th
                 </button>
                 <a href="tel:020456104" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary hover:bg-secondary/80 transition-colors text-sm">
@@ -197,7 +189,6 @@ const RuggedTabletDetail = () => {
             {/* ── Overview ── */}
             <TabsContent value="overview" className="mt-6 space-y-10">
               {/* Key Features */}
-            >
               <div>
                 <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
                   <Zap className="w-5 h-5 text-primary" /> จุดเด่นพิเศษ
@@ -228,7 +219,6 @@ const RuggedTabletDetail = () => {
                       <div className={i % 2 === 1 ? "md:[direction:ltr]" : ""}>
                         <h3 className="text-lg font-bold mb-1">{sec.titleTH}</h3>
                         {sec.titleEN && <p className="text-xs text-primary font-medium mb-2">{sec.titleEN}</p>}
-                      >
                         <p className="text-sm text-muted-foreground mb-2">{sec.descTH}</p>
                         {sec.stats && (
                           <div className="flex flex-wrap gap-3">
@@ -245,7 +235,6 @@ const RuggedTabletDetail = () => {
                             {sec.bullets.map((b) => (
                               <li key={b} className="flex items-start gap-2 text-xs text-muted-foreground">
                                 <Zap className="w-3 h-3 text-primary shrink-0 mt-0.5" /> {b}
-                              >
                               </li>
                             ))}
                           </ul>
@@ -264,7 +253,6 @@ const RuggedTabletDetail = () => {
                     {product.applications.map((a) => (
                       <Badge key={a} variant="secondary" className="text-sm px-3 py-1">{a}</Badge>
                     ))}
-                  >
                   </div>
                 </div>
               )}
@@ -292,7 +280,6 @@ const RuggedTabletDetail = () => {
                     {product.accessories.map((acc) => (
                       <div key={acc.nameEN} className="bg-card border border-border rounded-lg p-3 text-center">
                         {acc.image && <img src={acc.image} alt={acc.name} className="w-full h-24 object-contain mb-2" loading="lazy" />}
-                      >
                         <p className="text-xs font-bold text-foreground">{acc.name}</p>
                         <p className="text-[10px] text-muted-foreground">{acc.nameEN}</p>
                         <p className="text-[10px] text-muted-foreground mt-1">{acc.desc}</p>
@@ -391,7 +378,6 @@ const RuggedTabletDetail = () => {
             <h2 className="text-xl font-bold mb-6">สินค้าที่เกี่ยวข้อง</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {related.map((r) => <RelatedCard key={r.id} product={r} />)}
-            >
             </div>
           </div>
         )}
