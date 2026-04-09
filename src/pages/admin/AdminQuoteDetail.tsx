@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import CreateSaleOrderDialog from '@/components/admin/CreateSaleOrderDialog';
 import POActionsMenu from '@/components/admin/POActionsMenu';
 import POVersionHistory from '@/components/admin/POVersionHistory';
+import { QuoteTimeline } from '@/components/QuoteTimeline';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import AdminLayout from '@/layouts/AdminLayout';
 import { Button } from '@/components/ui/button';
@@ -402,6 +403,13 @@ export default function AdminQuoteDetail() {
             )}
           </div>
         </div>
+
+        {/* Quote Timeline */}
+        <Card>
+          <CardContent className="pt-6">
+            <QuoteTimeline status={quote.status} />
+          </CardContent>
+        </Card>
 
         {/* PO Action Banner (review needed) */}
         {(quote.status === 'po_uploaded' || quote.status === 'po_confirmed') && (
