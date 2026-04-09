@@ -1,0 +1,245 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 220 20% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 10%;
+
+    --primary: 168 80% 38%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 15% 94%;
+    --secondary-foreground: 220 20% 20%;
+
+    --muted: 220 15% 95%;
+    --muted-foreground: 215 15% 45%;
+
+    --accent: 168 80% 38%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 15% 88%;
+    --input: 220 15% 88%;
+    --ring: 168 80% 38%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 99%;
+    --sidebar-foreground: 220 20% 15%;
+    --sidebar-primary: 168 80% 38%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 15% 95%;
+    --sidebar-accent-foreground: 220 20% 15%;
+    --sidebar-border: 220 15% 88%;
+    --sidebar-ring: 168 80% 38%;
+
+    /* Custom tokens */
+    --glow: 168 80% 38%;
+    --surface: 220 15% 96%;
+    --surface-hover: 220 15% 92%;
+    --gradient-primary: linear-gradient(135deg, hsl(168, 80%, 38%), hsl(190, 80%, 42%));
+    --gradient-dark: linear-gradient(180deg, hsl(0, 0%, 98%), hsl(220, 15%, 95%));
+    --shadow-glow: 0 0 30px -5px hsl(168 80% 38% / 0.2);
+    --shadow-card: 0 4px 24px -4px hsl(220 15% 50% / 0.1);
+  }
+
+  .dark {
+    --background: 220 20% 7%;
+    --foreground: 210 20% 95%;
+
+    --card: 220 18% 10%;
+    --card-foreground: 210 20% 95%;
+
+    --popover: 220 18% 10%;
+    --popover-foreground: 210 20% 95%;
+
+    --primary: 168 80% 45%;
+    --primary-foreground: 220 20% 7%;
+
+    --secondary: 220 15% 15%;
+    --secondary-foreground: 210 20% 90%;
+
+    --muted: 220 15% 13%;
+    --muted-foreground: 215 15% 55%;
+
+    --accent: 168 80% 45%;
+    --accent-foreground: 220 20% 7%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 15% 18%;
+    --input: 220 15% 18%;
+    --ring: 168 80% 45%;
+
+    --sidebar-background: 220 18% 8%;
+    --sidebar-foreground: 210 20% 90%;
+    --sidebar-primary: 168 80% 45%;
+    --sidebar-primary-foreground: 220 20% 7%;
+    --sidebar-accent: 220 15% 13%;
+    --sidebar-accent-foreground: 210 20% 90%;
+    --sidebar-border: 220 15% 18%;
+    --sidebar-ring: 168 80% 45%;
+
+    /* Custom tokens */
+    --glow: 168 80% 45%;
+    --surface: 220 18% 12%;
+    --surface-hover: 220 18% 16%;
+    --gradient-primary: linear-gradient(135deg, hsl(168, 80%, 45%), hsl(190, 80%, 50%));
+    --gradient-dark: linear-gradient(180deg, hsl(220, 20%, 7%), hsl(220, 18%, 4%));
+    --shadow-glow: 0 0 30px -5px hsl(168 80% 45% / 0.3);
+    --shadow-card: 0 4px 24px -4px hsl(0 0% 0% / 0.4);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'IBM Plex Sans Thai', 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', 'IBM Plex Sans Thai', sans-serif;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-primary);
+  }
+
+  .glow-border {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .card-surface {
+    @apply bg-card border border-border rounded-xl;
+    box-shadow: var(--shadow-card);
+  }
+
+  .section-padding {
+    @apply py-16 md:py-24 px-4 md:px-8;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ─── Admin Dashboard Content — Larger & Bolder Text ─── */
+/* Scoped to .admin-content-area only — does NOT affect sidebar */
+
+.admin-content-area {
+  font-size: 15px;
+}
+
+.admin-content-area .text-xs {
+  font-size: 0.8125rem !important; /* 13px (was 12px) */
+  line-height: 1.5 !important;
+}
+
+.admin-content-area .text-sm {
+  font-size: 0.9375rem !important; /* 15px (was 14px) */
+  line-height: 1.55 !important;
+}
+
+.admin-content-area .text-base {
+  font-size: 1rem !important; /* 16px stays */
+  line-height: 1.6 !important;
+}
+
+/* Make body text in tables and cards slightly bolder for readability */
+.admin-content-area td,
+.admin-content-area .card-surface p,
+.admin-content-area .card-surface span:not(.text-muted-foreground) {
+  font-weight: 500;
+}
+
+/* Headings — bigger and bolder */
+.admin-content-area h1 {
+  font-size: 1.875rem !important; /* 30px */
+  font-weight: 700 !important;
+}
+
+.admin-content-area h2 {
+  font-size: 1.5rem !important; /* 24px */
+  font-weight: 700 !important;
+}
+
+.admin-content-area h3 {
+  font-size: 1.25rem !important; /* 20px */
+  font-weight: 600 !important;
+}
+
+/* Table headers — bolder */
+.admin-content-area table thead th {
+  font-weight: 700 !important;
+  font-size: 0.875rem !important; /* 14px */
+}
+
+/* Numbers and amounts — make them stand out */
+.admin-content-area .font-bold,
+.admin-content-area .font-semibold {
+  font-weight: 700 !important;
+}
+
+/* Form inputs — bigger */
+.admin-content-area input[type="text"],
+.admin-content-area input[type="email"],
+.admin-content-area input[type="number"],
+.admin-content-area input[type="search"],
+.admin-content-area textarea,
+.admin-content-area select {
+  font-size: 0.9375rem !important;
+}
+
+/* Buttons inside content — slightly bigger label */
+.admin-content-area button {
+  font-weight: 500;
+}
+
+/* On smaller screens, scale down slightly to avoid overflow */
+@media (max-width: 768px) {
+  .admin-content-area {
+    font-size: 14px;
+  }
+  .admin-content-area .text-xs {
+    font-size: 0.75rem !important;
+  }
+  .admin-content-area .text-sm {
+    font-size: 0.875rem !important;
+  }
+}

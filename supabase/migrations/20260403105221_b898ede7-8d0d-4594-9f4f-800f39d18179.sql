@@ -1,0 +1,1 @@
+ALTER TABLE public.chat_leads ADD COLUMN IF NOT EXISTS messages jsonb DEFAULT '[]'::jsonb;

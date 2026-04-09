@@ -1,0 +1,1 @@
+CREATE POLICY "Anon can read own subscriber row" ON public.subscribers FOR SELECT TO anon USING (true);

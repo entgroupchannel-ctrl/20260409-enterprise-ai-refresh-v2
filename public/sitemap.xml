@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage -->
+  <url><loc>https://ent-vision.lovable.app/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+
+  <!-- Product Lines: Mini PC -->
+  <url><loc>https://ent-vision.lovable.app/gt-series</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://ent-vision.lovable.app/gb-series</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://ent-vision.lovable.app/mini-pc</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ent-vision.lovable.app/minipc-firewall</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ent-vision.lovable.app/ibox-series</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ent-vision.lovable.app/epc-box-series</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ent-vision.lovable.app/epc-series</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- Product Lines: Panel PC & Display -->
+  <url><loc>https://ent-vision.lovable.app/gk-series</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://ent-vision.lovable.app/panel-pc-gtg</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ent-vision.lovable.app/smart-display</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ent-vision.lovable.app/utc-series</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Product Lines: Rugged -->
+  <url><loc>https://ent-vision.lovable.app/rugged-tablet</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://ent-vision.lovable.app/rugged-notebook</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://ent-vision.lovable.app/handheld</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+
+  <!-- Product Lines: AIO & Others -->
+  <url><loc>https://ent-vision.lovable.app/aio</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ent-vision.lovable.app/waterproof-pc</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ent-vision.lovable.app/volktek</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://ent-vision.lovable.app/vcloudpoint</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://ent-vision.lovable.app/cabinets</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Promotions -->
+  <url><loc>https://ent-vision.lovable.app/promotions</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+
+  <!-- Tools -->
+  <url><loc>https://ent-vision.lovable.app/product-advisor</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Company -->
+  <url><loc>https://ent-vision.lovable.app/about-us</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://ent-vision.lovable.app/contact</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://ent-vision.lovable.app/quote</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://ent-vision.lovable.app/warrantys</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ent-vision.lovable.app/payment</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ent-vision.lovable.app/delivery</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+</urlset>
