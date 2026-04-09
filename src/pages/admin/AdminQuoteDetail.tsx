@@ -62,6 +62,7 @@ interface Quote {
   customer_company: string | null;
   customer_address: string | null;
   customer_tax_id: string | null;
+  customer_line: string | null;
   products: any[];
   subtotal: number;
   discount_amount: number;
