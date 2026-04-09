@@ -506,55 +506,113 @@ export default function AdminQuoteDetail() {
             {/* Customer Information */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <User className="w-5 h-5" />
-                  ข้อมูลลูกค้า
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label className="text-gray-500">ชื่อลูกค้า</Label>
-                    <p className="font-medium">{quote.customer_name}</p>
-                  </div>
-                  {quote.customer_company && (
-                    <div>
-                      <Label className="text-gray-500">บริษัท</Label>
-                      <p className="font-medium flex items-center gap-2">
-                        <Building2 className="w-4 h-4 text-gray-400" />
-                        {quote.customer_company}
-                      </p>
-                    </div>
-                  )}
-                  <div>
-                    <Label className="text-gray-500">อีเมล</Label>
-                    <p className="font-medium flex items-center gap-2">
-                      <Mail className="w-4 h-4 text-gray-400" />
-                      {quote.customer_email}
-                    </p>
-                  </div>
-                  {quote.customer_phone && (
-                    <div>
-                      <Label className="text-gray-500">โทรศัพท์</Label>
-                      <p className="font-medium flex items-center gap-2">
-                        <Phone className="w-4 h-4 text-gray-400" />
-                        {quote.customer_phone}
-                      </p>
-                    </div>
-                  )}
-                  {quote.customer_tax_id && (
-                    <div>
-                      <Label className="text-gray-500">เลขประจำตัวผู้เสียภาษี</Label>
-                      <p className="font-medium">{quote.customer_tax_id}</p>
-                    </div>
-                  )}
-                  {quote.customer_address && (
-                    <div className="md:col-span-2">
-                      <Label className="text-gray-500">ที่อยู่</Label>
-                      <p className="font-medium">{quote.customer_address}</p>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="flex items-center gap-2">
+                    <User className="w-5 h-5" />
+                    ข้อมูลลูกค้า
+                  </CardTitle>
+                  {!editingCustomer ? (
+                    <Button variant="ghost" size="sm" onClick={startEditCustomer}>
+                      <Pencil className="w-4 h-4 mr-1" /> แก้ไข
+                    </Button>
+                  ) : (
+                    <div className="flex gap-2">
+                      <Button variant="ghost" size="sm" onClick={() => setEditingCustomer(false)} disabled={savingCustomer}>
+                        <X className="w-4 h-4 mr-1" /> ยกเลิก
+                      </Button>
+                      <Button size="sm" onClick={handleSaveCustomer} disabled={savingCustomer}>
+                        <Save className="w-4 h-4 mr-1" /> {savingCustomer ? 'กำลังบันทึก...' : 'บันทึก'}
+                      </Button>
                     </div>
                   )}
                 </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {editingCustomer ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label>ชื่อ-นามสกุล *</Label>
+                      <Input value={customerForm.customer_name} onChange={(e) => setCustomerForm({ ...customerForm, customer_name: e.target.value })} />
+                    </div>
+                    <div>
+                      <Label>บริษัท</Label>
+                      <Input value={customerForm.customer_company} onChange={(e) => setCustomerForm({ ...customerForm, customer_company: e.target.value })} />
+                    </div>
+                    <div>
+                      <Label>อีเมล *</Label>
+                      <Input type="email" value={customerForm.customer_email} onChange={(e) => setCustomerForm({ ...customerForm, customer_email: e.target.value })} />
+                    </div>
+                    <div>
+                      <Label>เบอร์โทร</Label>
+                      <Input value={customerForm.customer_phone} onChange={(e) => setCustomerForm({ ...customerForm, customer_phone: e.target.value })} />
+                    </div>
+                    <div>
+                      <Label>LINE ID</Label>
+                      <Input value={customerForm.customer_line} onChange={(e) => setCustomerForm({ ...customerForm, customer_line: e.target.value })} placeholder="@line_id" />
+                    </div>
+                    <div>
+                      <Label>เลขประจำตัวผู้เสียภาษี</Label>
+                      <Input value={customerForm.customer_tax_id} onChange={(e) => setCustomerForm({ ...customerForm, customer_tax_id: e.target.value })} placeholder="เลข 13 หลัก" />
+                    </div>
+                    <div className="md:col-span-2">
+                      <Label>ที่อยู่</Label>
+                      <Textarea value={customerForm.customer_address} onChange={(e) => setCustomerForm({ ...customerForm, customer_address: e.target.value })} rows={2} />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label className="text-muted-foreground">ชื่อลูกค้า</Label>
+                      <p className="font-medium">{quote.customer_name}</p>
+                    </div>
+                    {quote.customer_company && (
+                      <div>
+                        <Label className="text-muted-foreground">บริษัท</Label>
+                        <p className="font-medium flex items-center gap-2">
+                          <Building2 className="w-4 h-4 text-muted-foreground" />
+                          {quote.customer_company}
+                        </p>
+                      </div>
+                    )}
+                    <div>
+                      <Label className="text-muted-foreground">อีเมล</Label>
+                      <p className="font-medium flex items-center gap-2">
+                        <Mail className="w-4 h-4 text-muted-foreground" />
+                        {quote.customer_email}
+                      </p>
+                    </div>
+                    {quote.customer_phone && (
+                      <div>
+                        <Label className="text-muted-foreground">โทรศัพท์</Label>
+                        <p className="font-medium flex items-center gap-2">
+                          <Phone className="w-4 h-4 text-muted-foreground" />
+                          {quote.customer_phone}
+                        </p>
+                      </div>
+                    )}
+                    {quote.customer_line && (
+                      <div>
+                        <Label className="text-muted-foreground">LINE</Label>
+                        <p className="font-medium flex items-center gap-2">
+                          <MessageCircle className="w-4 h-4 text-muted-foreground" />
+                          {quote.customer_line}
+                        </p>
+                      </div>
+                    )}
+                    {quote.customer_tax_id && (
+                      <div>
+                        <Label className="text-muted-foreground">เลขประจำตัวผู้เสียภาษี</Label>
+                        <p className="font-medium">{quote.customer_tax_id}</p>
+                      </div>
+                    )}
+                    {quote.customer_address && (
+                      <div className="md:col-span-2">
+                        <Label className="text-muted-foreground">ที่อยู่</Label>
+                        <p className="font-medium">{quote.customer_address}</p>
+                      </div>
+                    )}
+                  </div>
+                )}
               </CardContent>
             </Card>
 
