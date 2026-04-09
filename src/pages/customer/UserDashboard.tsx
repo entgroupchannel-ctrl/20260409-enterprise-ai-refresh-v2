@@ -20,6 +20,7 @@ import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { QuoteTimelineBadge } from '@/components/rfq/QuoteTimeline';
 import QuoteTimeline from '@/components/rfq/QuoteTimeline';
+import POUploadDialog from '@/components/quotes/POUploadDialog';
 import {
   FileText, ShoppingCart, User, Building, MapPin, Truck,
   Plus, Search, Clock, Eye, Download, Printer,
@@ -158,6 +159,7 @@ export default function UserDashboard() {
 
   // ─── Cart submission ───
   const [submitting, setSubmitting] = useState(false);
+  const [showPOUpload, setShowPOUpload] = useState(false);
 
   // Load quotes
   useEffect(() => {
@@ -933,7 +935,7 @@ export default function UserDashboard() {
                           <CardContent className="pt-4 pb-3 text-center space-y-2">
                             <p className="text-sm font-medium">พร้อมส่ง PO?</p>
                             <p className="text-xs text-muted-foreground">อัปโหลด PO เพื่อดำเนินการสั่งซื้อ</p>
-                            <Button size="sm" className="w-full">
+                            <Button size="sm" className="w-full" onClick={() => setShowPOUpload(true)}>
                               <Upload className="w-3.5 h-3.5 mr-1" /> อัปโหลด PO
                             </Button>
                           </CardContent>
