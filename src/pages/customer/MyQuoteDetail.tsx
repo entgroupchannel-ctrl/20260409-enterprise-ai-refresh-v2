@@ -913,6 +913,27 @@ export default function MyQuoteDetail() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Negotiation Request Dialog */}
+      <NegotiationRequestDialog
+        quoteId={quote.id}
+        currentRevisionId={(quote as any).current_revision_id}
+        open={showNegotiation}
+        onClose={() => setShowNegotiation(false)}
+        onSuccess={() => loadQuote()}
+      />
+
+      {/* Accept Quote Dialog */}
+      <AcceptQuoteDialog
+        quoteId={quote.id}
+        quoteNumber={quote.quote_number}
+        grandTotal={quote.grand_total}
+        freeItems={(quote as any).free_items || []}
+        validUntil={quote.valid_until}
+        open={showAcceptQuote}
+        onClose={() => setShowAcceptQuote(false)}
+        onSuccess={() => loadQuote()}
+      />
     </div>
   );
 }
