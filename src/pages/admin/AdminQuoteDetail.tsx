@@ -162,7 +162,9 @@ export default function AdminQuoteDetail() {
   const [rejectReason, setRejectReason] = useState('');
   const [processing, setProcessing] = useState(false);
   const [showCreateSO, setShowCreateSO] = useState(false);
-
+  const [showCounterOffer, setShowCounterOffer] = useState(false);
+  const [counterNegotiationId, setCounterNegotiationId] = useState<string | undefined>();
+  const [revisionKey, setRevisionKey] = useState(0);
   // ✅ Real-time calculation
   const totals = useMemo(() => {
     if (!quote) return { subtotal: 0, discountAmount: 0, beforeVat: 0, vatAmount: 0, grandTotal: 0 };
