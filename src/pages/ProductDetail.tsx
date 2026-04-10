@@ -57,6 +57,7 @@ interface Product {
   slug: string;
   image_url: string | null;
   thumbnail_url: string | null;
+  gallery_urls: string[] | null;
   tags: string[] | null;
 }
 
