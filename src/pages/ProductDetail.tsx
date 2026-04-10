@@ -35,6 +35,7 @@ import {
   ImagePlus,
 } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
+import { formatShortDateTime } from '@/lib/format';
 
 interface Product {
   id: string;
@@ -530,6 +531,16 @@ export default function ProductDetail() {
               <p className="text-sm text-muted-foreground whitespace-pre-line leading-relaxed">
                 {product.description || 'ไม่มีรายละเอียด'}
               </p>
+            )}
+          </div>
+
+          <div className="border-t" />
+
+          {/* Row 4: Metadata */}
+          <div className="flex gap-6 text-xs text-muted-foreground">
+            <span>สร้างเมื่อ: <span className="font-medium text-foreground">{formatShortDateTime(product.created_at)}</span></span>
+            {product.updated_at && (
+              <span>แก้ไขล่าสุด: <span className="font-medium text-foreground">{formatShortDateTime(product.updated_at)}</span></span>
             )}
           </div>
         </div>
