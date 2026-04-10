@@ -500,6 +500,26 @@ export default function MyQuoteDetail() {
           </Card>
         )}
 
+        {/* Expired Banner */}
+        {quote.status === 'expired' && (
+          <Card className="mb-6 border-gray-300 bg-gray-50 dark:border-gray-700 dark:bg-gray-900/20">
+            <CardContent className="p-5 flex items-center gap-3">
+              <AlertCircle className="w-8 h-8 text-gray-500" />
+              <div className="flex-1">
+                <h3 className="font-semibold text-gray-900 dark:text-gray-200">
+                  ใบเสนอราคาหมดอายุแล้ว
+                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  กรุณาติดต่อทีมขายเพื่อขอใบเสนอราคาใหม่
+                </p>
+              </div>
+              <Button variant="outline" onClick={() => navigate('/contact')}>
+                ติดต่อทีมขาย
+              </Button>
+            </CardContent>
+          </Card>
+        )}
+
         {/* Revision Timeline */}
         <div className="mb-6">
           <RevisionTimeline
