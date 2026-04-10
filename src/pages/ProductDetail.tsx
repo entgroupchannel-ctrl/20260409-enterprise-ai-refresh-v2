@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
@@ -31,6 +31,8 @@ import {
   Wifi,
   Zap,
   Upload,
+  Trash2,
+  ImagePlus,
 } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 
