@@ -188,38 +188,43 @@ export default function ProductDetail() {
     return <CustomerProductView product={product} onAddToQuote={handleAddToQuote} />;
   }
 
-  // Admin compact view
+  // Admin compact view — single screen
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
         title={`${product.model} - ${product.name} | ENT Group`}
-        description={product.description?.slice(0, 160) || `${product.model} ${product.series} - สินค้าอุตสาหกรรม`}
+        description={product.description?.slice(0, 160) || `${product.model} ${product.series}`}
       />
 
-      {/* Header */}
-      <div className="border-b bg-card">
-        <div className="container mx-auto px-4 py-3">
+      {/* Sticky Header */}
+      <div className="border-b bg-card sticky top-0 z-10">
+        <div className="container mx-auto px-4 py-2">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <button onClick={() => navigate('/')} className="hover:text-foreground">หน้าแรก</button>
-              <span>/</span>
-              <button onClick={() => navigate('/admin/products')} className="hover:text-foreground">สินค้า</button>
-              <span>/</span>
-              <span className="text-foreground font-medium">{product.model}</span>
+            <div className="flex items-center gap-2">
+              <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="h-7 px-2">
+                <ArrowLeft className="w-3.5 h-3.5" />
+              </Button>
+              <span className="text-sm font-medium">{product.model}</span>
+              <Badge variant={product.is_active ? 'default' : 'destructive'} className="text-[10px] h-5">
+                {product.is_active ? 'Active' : 'Off'}
+              </Badge>
+              <Badge variant="outline" className="text-[10px] h-5">
+                {product.stock_status === 'available' ? 'พร้อมส่ง' : product.stock_status}
+              </Badge>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-1.5">
               {!isEditing ? (
-                <Button onClick={handleEdit} variant="outline" size="sm">
-                  <Edit className="w-4 h-4 mr-2" />แก้ไข
+                <Button onClick={handleEdit} variant="outline" size="sm" className="h-7 text-xs">
+                  <Edit className="w-3 h-3 mr-1" />แก้ไข
                 </Button>
               ) : (
                 <>
-                  <Button onClick={handleCancel} variant="outline" size="sm">
-                    <X className="w-4 h-4 mr-2" />ยกเลิก
+                  <Button onClick={handleCancel} variant="ghost" size="sm" className="h-7 text-xs">
+                    <X className="w-3 h-3 mr-1" />ยกเลิก
                   </Button>
-                  <Button onClick={handleSave} disabled={saving} size="sm">
-                    <Save className="w-4 h-4 mr-2" />
-                    {saving ? 'กำลังบันทึก...' : 'บันทึก'}
+                  <Button onClick={handleSave} disabled={saving} size="sm" className="h-7 text-xs">
+                    <Save className="w-3 h-3 mr-1" />
+                    {saving ? 'บันทึก...' : 'บันทึก'}
                   </Button>
                 </>
               )}
@@ -228,182 +233,144 @@ export default function ProductDetail() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-6">
-        <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="mb-4">
-          <ArrowLeft className="w-4 h-4 mr-2" />กลับ
-        </Button>
-
+      <div className="container mx-auto px-4 py-3">
         {isEditing && (
-          <div className="mb-4 p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg">
-            <p className="text-sm font-medium text-amber-600">🔧 โหมดแก้ไข</p>
+          <div className="mb-3 p-2 bg-amber-500/10 border border-amber-500/20 rounded text-xs font-medium text-amber-600">
+            🔧 โหมดแก้ไข — แก้ไขข้อมูลแล้วกดบันทึก
           </div>
         )}
 
-        {/* Compact Admin Layout */}
-        <div className="grid lg:grid-cols-[120px_1fr] gap-4">
-          {/* Left: Tiny Image */}
-          <div className="w-full max-w-[120px]">
-            <Card>
-              <CardContent className="p-2">
-                <div className="aspect-square bg-muted/30 rounded flex items-center justify-center">
-                  {product.image_url ? (
-                    <img src={product.image_url} alt={product.model} className="w-full h-full object-contain" />
-                  ) : (
-                    <Package className="w-10 h-10 text-muted-foreground/30" />
-                  )}
-                </div>
-                {isEditing && (
-                  <Button className="w-full mt-1.5" size="sm" variant="ghost">
-                    <Upload className="w-3 h-3 mr-1" />เปลี่ยน
-                  </Button>
-                )}
-                <div className="mt-1.5 flex flex-wrap gap-1">
-                  <Badge variant={product.is_active ? 'default' : 'destructive'} className="text-xs">
-                    {product.is_active ? 'เปิดใช้งาน' : 'ปิด'}
-                  </Badge>
-                  <Badge variant="outline" className="text-xs">
-                    {product.stock_status === 'available' ? 'พร้อมส่ง' : product.stock_status}
-                  </Badge>
-                </div>
-              </CardContent>
-            </Card>
+        {/* Single-screen grid: image + all data */}
+        <div className="grid lg:grid-cols-[80px_1fr_1fr] gap-3">
+          {/* Col 1: Tiny thumbnail */}
+          <div>
+            <div className="w-[80px] h-[80px] bg-muted/30 rounded border flex items-center justify-center overflow-hidden">
+              {product.image_url ? (
+                <img src={product.image_url} alt={product.model} className="w-full h-full object-contain" />
+              ) : (
+                <Package className="w-8 h-8 text-muted-foreground/30" />
+              )}
+            </div>
+            {isEditing && (
+              <Button variant="ghost" size="sm" className="w-[80px] h-6 text-[10px] mt-1 px-0">
+                <Upload className="w-2.5 h-2.5 mr-0.5" />เปลี่ยน
+              </Button>
+            )}
           </div>
 
-          {/* Right: Info Cards */}
-          <div className="space-y-4">
-            {/* Card: ข้อมูลสินค้า */}
-            <Card>
-              <CardHeader className="py-3 px-4">
-                <CardTitle className="text-base">ข้อมูลสินค้า</CardTitle>
-              </CardHeader>
-              <CardContent className="px-4 pb-4 pt-0">
-                {isEditing ? (
-                  <div className="grid grid-cols-2 gap-3">
-                    <div><Label className="text-xs">รุ่น</Label><Input value={editedProduct.model || ''} onChange={(e) => handleInputChange('model', e.target.value)} className="h-8 text-sm" /></div>
-                    <div><Label className="text-xs">ชื่อสินค้า</Label><Input value={editedProduct.name || ''} onChange={(e) => handleInputChange('name', e.target.value)} className="h-8 text-sm" /></div>
-                    <div><Label className="text-xs">SKU</Label><Input value={product.sku} disabled className="h-8 text-sm bg-muted" /></div>
-                    <div><Label className="text-xs">Product Code</Label><Input value={product.product_code || ''} disabled className="h-8 text-sm bg-muted" /></div>
-                    <div className="col-span-2"><Label className="text-xs">รายละเอียด</Label><Textarea value={editedProduct.description || ''} onChange={(e) => handleInputChange('description', e.target.value)} rows={3} className="text-sm" /></div>
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
-                    <InfoRow label="รุ่น" value={product.model} />
-                    <InfoRow label="ชื่อ" value={product.name} />
-                    <InfoRow label="SKU" value={product.sku} />
-                    <InfoRow label="Product Code" value={product.product_code} />
-                    <InfoRow label="Series" value={product.series} />
-                    <InfoRow label="Category" value={product.category} />
-                    {product.tags && product.tags.length > 0 && (
-                      <div className="col-span-2 flex items-start gap-2">
-                        <span className="text-muted-foreground shrink-0 w-24">Tags</span>
-                        <div className="flex flex-wrap gap-1">{product.tags.map(t => <Badge key={t} variant="outline" className="text-xs">{t}</Badge>)}</div>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+          {/* Col 2: ข้อมูลสินค้า + ราคา */}
+          <div className="space-y-3">
+            <div>
+              <h3 className="text-xs font-semibold text-muted-foreground mb-1.5 uppercase tracking-wider">ข้อมูลสินค้า</h3>
+              {isEditing ? (
+                <div className="grid grid-cols-2 gap-2">
+                  <div><Label className="text-[10px]">รุ่น</Label><Input value={editedProduct.model || ''} onChange={(e) => handleInputChange('model', e.target.value)} className="h-7 text-xs" /></div>
+                  <div><Label className="text-[10px]">ชื่อ</Label><Input value={editedProduct.name || ''} onChange={(e) => handleInputChange('name', e.target.value)} className="h-7 text-xs" /></div>
+                  <div className="col-span-2"><Label className="text-[10px]">รายละเอียด</Label><Textarea value={editedProduct.description || ''} onChange={(e) => handleInputChange('description', e.target.value)} rows={2} className="text-xs min-h-0" /></div>
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
+                  <InfoRow label="รุ่น" value={product.model} />
+                  <InfoRow label="ชื่อ" value={product.name} />
+                  <InfoRow label="SKU" value={product.sku} />
+                  <InfoRow label="Code" value={product.product_code} />
+                  <InfoRow label="Series" value={product.series} />
+                  <InfoRow label="Category" value={product.category} />
+                </div>
+              )}
+            </div>
 
-            {/* Card: ราคา */}
-            <Card>
-              <CardHeader className="py-3 px-4">
-                <CardTitle className="text-base">ราคา</CardTitle>
-              </CardHeader>
-              <CardContent className="px-4 pb-4 pt-0">
-                {isEditing ? (
-                  <div className="grid grid-cols-2 gap-3">
-                    <div><Label className="text-xs">ราคา (ไม่รวม VAT)</Label><Input type="number" value={editedProduct.unit_price || 0} onChange={(e) => handleInputChange('unit_price', parseFloat(e.target.value))} className="h-8 text-sm" /></div>
-                    <div><Label className="text-xs">ราคา (รวม VAT)</Label><Input type="number" value={editedProduct.unit_price_vat || 0} onChange={(e) => handleInputChange('unit_price_vat', parseFloat(e.target.value))} className="h-8 text-sm" /></div>
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
-                    <InfoRow label="ราคา" value={`฿${product.unit_price?.toLocaleString()}`} highlight />
-                    <InfoRow label="รวม VAT" value={product.unit_price_vat ? `฿${product.unit_price_vat.toLocaleString()}` : '-'} />
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+            <div className="border-t pt-2">
+              <h3 className="text-xs font-semibold text-muted-foreground mb-1.5 uppercase tracking-wider">ราคา</h3>
+              {isEditing ? (
+                <div className="grid grid-cols-2 gap-2">
+                  <div><Label className="text-[10px]">ไม่รวม VAT</Label><Input type="number" value={editedProduct.unit_price || 0} onChange={(e) => handleInputChange('unit_price', parseFloat(e.target.value))} className="h-7 text-xs" /></div>
+                  <div><Label className="text-[10px]">รวม VAT</Label><Input type="number" value={editedProduct.unit_price_vat || 0} onChange={(e) => handleInputChange('unit_price_vat', parseFloat(e.target.value))} className="h-7 text-xs" /></div>
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
+                  <InfoRow label="ราคา" value={`฿${product.unit_price?.toLocaleString()}`} highlight />
+                  <InfoRow label="รวม VAT" value={product.unit_price_vat ? `฿${product.unit_price_vat.toLocaleString()}` : '-'} />
+                </div>
+              )}
+            </div>
 
-            {/* Card: สเปก */}
-            <Card>
-              <CardHeader className="py-3 px-4">
-                <CardTitle className="text-base">สเปก</CardTitle>
-              </CardHeader>
-              <CardContent className="px-4 pb-4 pt-0">
-                {isEditing ? (
-                  <div className="grid grid-cols-2 gap-3">
-                    <div><Label className="text-xs">CPU</Label><Input value={editedProduct.cpu || ''} onChange={(e) => handleInputChange('cpu', e.target.value)} className="h-8 text-sm" /></div>
-                    <div><Label className="text-xs">RAM (GB)</Label><Input type="number" value={editedProduct.ram_gb || ''} onChange={(e) => handleInputChange('ram_gb', parseInt(e.target.value) || null)} className="h-8 text-sm" /></div>
-                    <div><Label className="text-xs">Storage (GB)</Label><Input type="number" value={editedProduct.storage_gb || ''} onChange={(e) => handleInputChange('storage_gb', parseInt(e.target.value) || null)} className="h-8 text-sm" /></div>
-                    <div>
-                      <Label className="text-xs">Storage Type</Label>
-                      <Select value={editedProduct.storage_type || ''} onValueChange={(v) => handleInputChange('storage_type', v)}>
-                        <SelectTrigger className="h-8 text-sm"><SelectValue /></SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="SSD">SSD</SelectItem>
-                          <SelectItem value="HDD">HDD</SelectItem>
-                          <SelectItem value="MSATA">MSATA</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div><Label className="text-xs">OS</Label><Input value={editedProduct.os || ''} onChange={(e) => handleInputChange('os', e.target.value)} className="h-8 text-sm" /></div>
-                    <div className="flex items-center gap-4">
-                      <div className="flex items-center gap-1.5"><Switch checked={editedProduct.has_wifi || false} onCheckedChange={(c) => handleInputChange('has_wifi', c)} /><Label className="text-xs">WiFi</Label></div>
-                      <div className="flex items-center gap-1.5"><Switch checked={editedProduct.has_4g || false} onCheckedChange={(c) => handleInputChange('has_4g', c)} /><Label className="text-xs">4G</Label></div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
-                    <InfoRow label="CPU" value={product.cpu} />
-                    <InfoRow label="RAM" value={product.ram_gb ? `${product.ram_gb} GB` : null} />
-                    <InfoRow label="Storage" value={product.storage_gb ? `${product.storage_gb} GB ${product.storage_type || ''}` : null} />
-                    <InfoRow label="OS" value={product.os} />
-                    <InfoRow label="WiFi" value={product.has_wifi ? 'Yes' : 'No'} />
-                    <InfoRow label="4G" value={product.has_4g ? 'Yes' : 'No'} />
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+            {!isEditing && product.description && (
+              <div className="border-t pt-2">
+                <h3 className="text-xs font-semibold text-muted-foreground mb-1 uppercase tracking-wider">รายละเอียด</h3>
+                <p className="text-xs text-muted-foreground line-clamp-3">{product.description}</p>
+              </div>
+            )}
+          </div>
 
-            {/* Card: สถานะ (edit mode) */}
+          {/* Col 3: สเปก + สถานะ */}
+          <div className="space-y-3">
+            <div>
+              <h3 className="text-xs font-semibold text-muted-foreground mb-1.5 uppercase tracking-wider">สเปก</h3>
+              {isEditing ? (
+                <div className="grid grid-cols-2 gap-2">
+                  <div><Label className="text-[10px]">CPU</Label><Input value={editedProduct.cpu || ''} onChange={(e) => handleInputChange('cpu', e.target.value)} className="h-7 text-xs" /></div>
+                  <div><Label className="text-[10px]">RAM (GB)</Label><Input type="number" value={editedProduct.ram_gb || ''} onChange={(e) => handleInputChange('ram_gb', parseInt(e.target.value) || null)} className="h-7 text-xs" /></div>
+                  <div><Label className="text-[10px]">Storage (GB)</Label><Input type="number" value={editedProduct.storage_gb || ''} onChange={(e) => handleInputChange('storage_gb', parseInt(e.target.value) || null)} className="h-7 text-xs" /></div>
+                  <div>
+                    <Label className="text-[10px]">Storage Type</Label>
+                    <Select value={editedProduct.storage_type || ''} onValueChange={(v) => handleInputChange('storage_type', v)}>
+                      <SelectTrigger className="h-7 text-xs"><SelectValue /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="SSD">SSD</SelectItem>
+                        <SelectItem value="HDD">HDD</SelectItem>
+                        <SelectItem value="MSATA">MSATA</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div><Label className="text-[10px]">OS</Label><Input value={editedProduct.os || ''} onChange={(e) => handleInputChange('os', e.target.value)} className="h-7 text-xs" /></div>
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-1"><Switch checked={editedProduct.has_wifi || false} onCheckedChange={(c) => handleInputChange('has_wifi', c)} /><Label className="text-[10px]">WiFi</Label></div>
+                    <div className="flex items-center gap-1"><Switch checked={editedProduct.has_4g || false} onCheckedChange={(c) => handleInputChange('has_4g', c)} /><Label className="text-[10px]">4G</Label></div>
+                  </div>
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
+                  <InfoRow label="CPU" value={product.cpu} />
+                  <InfoRow label="RAM" value={product.ram_gb ? `${product.ram_gb} GB` : null} />
+                  <InfoRow label="Storage" value={product.storage_gb ? `${product.storage_gb} GB ${product.storage_type || ''}` : null} />
+                  <InfoRow label="OS" value={product.os} />
+                  <InfoRow label="WiFi" value={product.has_wifi ? '✓' : '✗'} />
+                  <InfoRow label="4G" value={product.has_4g ? '✓' : '✗'} />
+                </div>
+              )}
+            </div>
+
+            {/* สถานะ */}
             {isEditing && (
-              <Card>
-                <CardHeader className="py-3 px-4">
-                  <CardTitle className="text-base">สถานะ</CardTitle>
-                </CardHeader>
-                <CardContent className="px-4 pb-4 pt-0">
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="flex items-center gap-2">
-                      <Switch checked={editedProduct.is_active || false} onCheckedChange={(c) => handleInputChange('is_active', c)} />
-                      <Label className="text-xs">{editedProduct.is_active ? 'เปิดใช้งาน' : 'ปิดใช้งาน'}</Label>
-                    </div>
-                    <div>
-                      <Label className="text-xs">สถานะสต๊อก</Label>
-                      <Select value={editedProduct.stock_status || ''} onValueChange={(v) => handleInputChange('stock_status', v)}>
-                        <SelectTrigger className="h-8 text-sm"><SelectValue /></SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="available">พร้อมส่ง</SelectItem>
-                          <SelectItem value="low_stock">สต๊อกต่ำ</SelectItem>
-                          <SelectItem value="out_of_stock">สินค้าหมด</SelectItem>
-                          <SelectItem value="discontinued">ยกเลิกการผลิต</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
+              <div className="border-t pt-2">
+                <h3 className="text-xs font-semibold text-muted-foreground mb-1.5 uppercase tracking-wider">สถานะ</h3>
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="flex items-center gap-1.5">
+                    <Switch checked={editedProduct.is_active || false} onCheckedChange={(c) => handleInputChange('is_active', c)} />
+                    <Label className="text-[10px]">{editedProduct.is_active ? 'เปิด' : 'ปิด'}</Label>
                   </div>
-                </CardContent>
-              </Card>
+                  <div>
+                    <Select value={editedProduct.stock_status || ''} onValueChange={(v) => handleInputChange('stock_status', v)}>
+                      <SelectTrigger className="h-7 text-xs"><SelectValue /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="available">พร้อมส่ง</SelectItem>
+                        <SelectItem value="low_stock">สต๊อกต่ำ</SelectItem>
+                        <SelectItem value="out_of_stock">สินค้าหมด</SelectItem>
+                        <SelectItem value="discontinued">ยกเลิกการผลิต</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+              </div>
             )}
 
-            {/* Description (read mode) */}
-            {!isEditing && product.description && (
-              <Card>
-                <CardHeader className="py-3 px-4">
-                  <CardTitle className="text-base">รายละเอียด</CardTitle>
-                </CardHeader>
-                <CardContent className="px-4 pb-4 pt-0">
-                  <p className="text-sm text-muted-foreground whitespace-pre-line">{product.description}</p>
-                </CardContent>
-              </Card>
+            {/* Tags */}
+            {!isEditing && product.tags && product.tags.length > 0 && (
+              <div className="border-t pt-2">
+                <h3 className="text-xs font-semibold text-muted-foreground mb-1 uppercase tracking-wider">Tags</h3>
+                <div className="flex flex-wrap gap-1">{product.tags.map(t => <Badge key={t} variant="outline" className="text-[10px] h-4">{t}</Badge>)}</div>
+              </div>
             )}
           </div>
         </div>
