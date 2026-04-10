@@ -160,6 +160,16 @@ export default function AdminQuoteDetail() {
   const [processing, setProcessing] = useState(false);
   const [showCreateSO, setShowCreateSO] = useState(false);
 
+  // ✅ Real-time calculation
+  const totals = useMemo(() => {
+    if (!quote) return { subtotal: 0, discountAmount: 0, beforeVat: 0, vatAmount: 0, grandTotal: 0 };
+    return calculateQuoteTotals(
+      quote.products || [],
+      quote.discount_percent || 0,
+      quote.vat_percent || 7
+    );
+  }, [quote?.products, quote?.discount_percent, quote?.vat_percent]);
+
   useEffect(() => {
     if (id) {
       loadQuoteDetails();
