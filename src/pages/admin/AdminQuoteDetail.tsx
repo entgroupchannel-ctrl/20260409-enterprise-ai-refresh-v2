@@ -607,14 +607,34 @@ export default function AdminQuoteDetail() {
                   <ProductEditor
                     products={quote.products || []}
                     onUpdate={async (updatedProducts) => {
+                      const recalc = calculateQuoteTotals(
+                        updatedProducts,
+                        quote.discount_percent || 0,
+                        quote.vat_percent || 7
+                      );
                       const { error } = await supabase
                         .from('quote_requests')
-                        .update({ products: updatedProducts as any })
+                        .update({
+                          products: updatedProducts as any,
+                          subtotal: recalc.subtotal,
+                          discount_amount: recalc.discountAmount,
+                          vat_amount: recalc.vatAmount,
+                          grand_total: recalc.grandTotal,
+                        })
                         .eq('id', id);
                       
                       if (!error) {
-                        setQuote({ ...quote, products: updatedProducts });
+                        setQuote({
+                          ...quote,
+                          products: updatedProducts,
+                          subtotal: recalc.subtotal,
+                          discount_amount: recalc.discountAmount,
+                          vat_amount: recalc.vatAmount,
+                          grand_total: recalc.grandTotal,
+                        });
                         toast({ title: 'บันทึกสินค้าแล้ว' });
+                      } else {
+                        toast({ title: 'บันทึกไม่สำเร็จ', description: error.message, variant: 'destructive' });
                       }
                     }}
                     disabled={false}
