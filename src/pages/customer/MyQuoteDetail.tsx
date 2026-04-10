@@ -65,6 +65,15 @@ interface Quote {
   delivery_terms: string | null;
   warranty_terms: string | null;
   valid_until: string | null;
+  // Negotiation fields
+  current_revision_id: string | null;
+  current_revision_number: number | null;
+  total_revisions: number | null;
+  negotiation_count: number | null;
+  free_items: any[] | null;
+  accepted_at: string | null;
+  accepted_by: string | null;
+  expired_at: string | null;
 }
 
 interface Message {
