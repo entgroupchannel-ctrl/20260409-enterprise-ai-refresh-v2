@@ -1,4 +1,7 @@
 import { useEffect, useState } from 'react';
+import NegotiationRequestDialog from '@/components/negotiation/NegotiationRequestDialog';
+import AcceptQuoteDialog from '@/components/negotiation/AcceptQuoteDialog';
+import RevisionTimeline from '@/components/negotiation/RevisionTimeline';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
