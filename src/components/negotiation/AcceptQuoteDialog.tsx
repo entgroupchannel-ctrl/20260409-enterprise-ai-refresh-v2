@@ -22,6 +22,7 @@ interface AcceptQuoteDialogProps {
   grandTotal: number;
   freeItems?: any[];
   validUntil?: string | null;
+  currentRevisionId?: string | null;
   open: boolean;
   onClose: () => void;
   onSuccess: () => void;
@@ -36,6 +37,7 @@ export default function AcceptQuoteDialog({
   grandTotal,
   freeItems = [],
   validUntil,
+  currentRevisionId,
   open,
   onClose,
   onSuccess,
@@ -59,11 +61,19 @@ export default function AcceptQuoteDialog({
         accepted_by: user?.id || null,
       } as any).eq('id', quoteId);
 
-      // Update current revision status
-      await (supabase.from as any)('quote_revisions')
-        .update({ status: 'accepted', responded_at: new Date().toISOString() })
-        .eq('quote_id', quoteId)
-        .eq('status', 'sent');
+      // Update current revision by ID (not by status filter)
+      if (currentRevisionId) {
+        await (supabase.from as any)('quote_revisions')
+          .update({ status: 'accepted', responded_at: new Date().toISOString() })
+          .eq('id', currentRevisionId);
+
+        // Supersede any other 'sent' revisions
+        await (supabase.from as any)('quote_revisions')
+          .update({ status: 'superseded' })
+          .eq('quote_id', quoteId)
+          .eq('status', 'sent')
+          .neq('id', currentRevisionId);
+      }
 
       // Send chat message
       await supabase.from('quote_messages').insert({

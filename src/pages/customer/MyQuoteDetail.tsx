@@ -65,6 +65,15 @@ interface Quote {
   delivery_terms: string | null;
   warranty_terms: string | null;
   valid_until: string | null;
+  // Negotiation fields
+  current_revision_id: string | null;
+  current_revision_number: number | null;
+  total_revisions: number | null;
+  negotiation_count: number | null;
+  free_items: any[] | null;
+  accepted_at: string | null;
+  accepted_by: string | null;
+  expired_at: string | null;
 }
 
 interface Message {
@@ -106,6 +115,7 @@ export default function MyQuoteDetail() {
   const [deletingFileId, setDeletingFileId] = useState<string | null>(null);
   const [showNegotiation, setShowNegotiation] = useState(false);
   const [showAcceptQuote, setShowAcceptQuote] = useState(false);
+  const [currentRevision, setCurrentRevision] = useState<any>(null);
 
   useEffect(() => {
     if (id && user) {
@@ -115,7 +125,23 @@ export default function MyQuoteDetail() {
     }
   }, [id, user]);
 
-  // Realtime subscription for messages
+  // Load current revision status for action bar guard (Bug 8)
+  useEffect(() => {
+    if (!quote?.current_revision_id) {
+      setCurrentRevision(null);
+      return;
+    }
+
+    const loadCurrentRevision = async () => {
+      const { data } = await (supabase.from as any)('quote_revisions')
+        .select('*')
+        .eq('id', quote.current_revision_id)
+        .single();
+      setCurrentRevision(data);
+    };
+    loadCurrentRevision();
+  }, [quote?.current_revision_id]);
+
   useEffect(() => {
     if (!id) return;
     const channel = supabase
@@ -434,8 +460,8 @@ export default function MyQuoteDetail() {
           </Card>
         )}
 
-        {/* Negotiation Action Bar — quote_sent or negotiating */}
-        {(quote.status === 'quote_sent' || quote.status === 'negotiating') && quote.grand_total > 0 && (
+        {/* Negotiation Action Bar — quote_sent or negotiating, only if revision is 'sent' */}
+        {(quote.status === 'quote_sent' || quote.status === 'negotiating') && quote.grand_total > 0 && quote.current_revision_id && currentRevision?.status === 'sent' && (
           <Card className="mb-6 border-primary/30">
             <CardContent className="p-5">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -478,7 +504,7 @@ export default function MyQuoteDetail() {
         <div className="mb-6">
           <RevisionTimeline
             quoteId={quote.id}
-            currentRevisionId={(quote as any).current_revision_id}
+            currentRevisionId={quote.current_revision_id}
             viewerRole="customer"
           />
         </div>
@@ -917,7 +943,7 @@ export default function MyQuoteDetail() {
       {/* Negotiation Request Dialog */}
       <NegotiationRequestDialog
         quoteId={quote.id}
-        currentRevisionId={(quote as any).current_revision_id}
+        currentRevisionId={quote.current_revision_id}
         open={showNegotiation}
         onClose={() => setShowNegotiation(false)}
         onSuccess={() => loadQuote()}
@@ -928,8 +954,9 @@ export default function MyQuoteDetail() {
         quoteId={quote.id}
         quoteNumber={quote.quote_number}
         grandTotal={quote.grand_total}
-        freeItems={(quote as any).free_items || []}
+        freeItems={quote.free_items || []}
         validUntil={quote.valid_until}
+        currentRevisionId={quote.current_revision_id}
         open={showAcceptQuote}
         onClose={() => setShowAcceptQuote(false)}
         onSuccess={() => loadQuote()}

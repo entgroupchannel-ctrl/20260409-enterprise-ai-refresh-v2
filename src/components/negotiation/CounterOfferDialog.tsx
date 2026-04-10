@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,15 +9,11 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import ProductEditor from '@/components/admin/ProductEditor';
 import FreeItemsEditor, { type FreeItem } from './FreeItemsEditor';
-import { Send, Save, AlertTriangle } from 'lucide-react';
+import { Send, Save, AlertTriangle, Loader2 } from 'lucide-react';
 
 interface CounterOfferDialogProps {
   quoteId: string;
-  baseProducts: any[];
-  baseFreeItems?: FreeItem[];
-  baseDiscountPercent?: number;
-  baseVatPercent?: number;
-  baseValidUntil?: string;
+  currentRevisionId?: string | null;
   negotiationRequestId?: string;
   open: boolean;
   onClose: () => void;
@@ -41,25 +37,72 @@ const formatCurrency = (amount: number) =>
 
 export default function CounterOfferDialog({
   quoteId,
-  baseProducts,
-  baseFreeItems = [],
-  baseDiscountPercent = 0,
-  baseVatPercent = 7,
-  baseValidUntil,
+  currentRevisionId,
   negotiationRequestId,
   open,
   onClose,
   onSuccess,
 }: CounterOfferDialogProps) {
   const { toast } = useToast();
-  const [products, setProducts] = useState<any[]>(baseProducts);
-  const [freeItems, setFreeItems] = useState<FreeItem[]>(baseFreeItems);
-  const [discountPercent, setDiscountPercent] = useState(baseDiscountPercent);
-  const [vatPercent] = useState(baseVatPercent);
+  const [products, setProducts] = useState<any[]>([]);
+  const [freeItems, setFreeItems] = useState<FreeItem[]>([]);
+  const [discountPercent, setDiscountPercent] = useState(0);
+  const [vatPercent, setVatPercent] = useState(7);
   const [changeReason, setChangeReason] = useState('');
   const [internalNotes, setInternalNotes] = useState('');
-  const [validUntil, setValidUntil] = useState(baseValidUntil || '');
+  const [validUntil, setValidUntil] = useState('');
   const [saving, setSaving] = useState(false);
+  const [loadingBase, setLoadingBase] = useState(false);
+
+  // Load base data from current revision when dialog opens
+  useEffect(() => {
+    if (!open) return;
+
+    const loadBase = async () => {
+      setLoadingBase(true);
+      try {
+        if (currentRevisionId) {
+          const { data } = await (supabase.from as any)('quote_revisions')
+            .select('*')
+            .eq('id', currentRevisionId)
+            .single();
+
+          if (data) {
+            setProducts(data.products || []);
+            setFreeItems(data.free_items || []);
+            setDiscountPercent(data.discount_percent || 0);
+            setVatPercent(data.vat_percent || 7);
+            setValidUntil(data.valid_until || '');
+          }
+        } else {
+          // Fallback: load from quote_requests
+          const { data } = await supabase
+            .from('quote_requests')
+            .select('products, discount_percent, vat_percent, valid_until, free_items')
+            .eq('id', quoteId)
+            .single();
+
+          if (data) {
+            setProducts((data as any).products || []);
+            setFreeItems((data as any).free_items || []);
+            setDiscountPercent((data as any).discount_percent || 0);
+            setVatPercent((data as any).vat_percent || 7);
+            setValidUntil((data as any).valid_until || '');
+          }
+        }
+
+        // Reset form fields
+        setChangeReason('');
+        setInternalNotes('');
+      } catch (e) {
+        console.error('Error loading base revision:', e);
+      } finally {
+        setLoadingBase(false);
+      }
+    };
+
+    loadBase();
+  }, [open, currentRevisionId, quoteId]);
 
   const totals = useMemo(() => calculateTotals(products, discountPercent, vatPercent), [products, discountPercent, vatPercent]);
 
@@ -123,6 +166,7 @@ export default function CounterOfferDialog({
         subtotal: totals.subtotal,
         discount_percent: discountPercent,
         discount_amount: totals.discountAmount,
+        vat_percent: vatPercent,
         vat_amount: totals.vatAmount,
         grand_total: totals.grandTotal,
         valid_until: validUntil || null,
@@ -180,114 +224,121 @@ export default function CounterOfferDialog({
           <DialogTitle>✏️ สร้าง Counter Offer</DialogTitle>
         </DialogHeader>
 
-        <div className="space-y-6">
-          {/* Products */}
-          <div>
-            <Label className="text-sm font-semibold mb-2 block">📦 รายการสินค้า</Label>
-            <ProductEditor
-              products={products}
-              onUpdate={(updated) => setProducts(updated)}
-              disabled={false}
-            />
+        {loadingBase ? (
+          <div className="flex items-center justify-center py-12">
+            <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
+            <span className="ml-2 text-sm text-muted-foreground">กำลังโหลดข้อมูล...</span>
           </div>
-
-          <Separator />
-
-          {/* Free Items */}
-          <FreeItemsEditor freeItems={freeItems} onChange={setFreeItems} />
-
-          <Separator />
-
-          {/* Discount + Valid Until */}
-          <div className="grid grid-cols-2 gap-4">
+        ) : (
+          <div className="space-y-6">
+            {/* Products */}
             <div>
-              <Label className="text-sm">ส่วนลดรวม (%)</Label>
-              <Input
-                type="number"
-                min={0}
-                max={100}
-                step={0.01}
-                value={discountPercent || ''}
-                placeholder="0"
-                onChange={(e) => setDiscountPercent(parseFloat(e.target.value) || 0)}
-                onFocus={(e) => e.target.select()}
+              <Label className="text-sm font-semibold mb-2 block">📦 รายการสินค้า</Label>
+              <ProductEditor
+                products={products}
+                onUpdate={(updated) => setProducts(updated)}
+                disabled={false}
               />
             </div>
-            <div>
-              <Label className="text-sm">ราคานี้ใช้ได้ถึง</Label>
-              <Input
-                type="date"
-                value={validUntil}
-                onChange={(e) => setValidUntil(e.target.value)}
-              />
-            </div>
-          </div>
 
-          {/* Approval warning */}
-          {needsApproval && (
-            <div className="flex items-center gap-2 p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
-              <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0" />
-              <p className="text-sm text-amber-700 dark:text-amber-400">
-                ⚠️ ส่วนลด {'>'}8% หรือของแถม {'>'} ฿5,000 — ต้องขออนุมัติจาก Super Admin ก่อนส่ง
-              </p>
-            </div>
-          )}
-
-          {/* Totals */}
-          <div className="bg-muted/30 rounded-lg p-4 space-y-2 text-sm">
-            <div className="flex justify-between"><span>ยอดสินค้า</span><span>{formatCurrency(totals.subtotal)}</span></div>
-            {totals.discountAmount > 0 && (
-              <div className="flex justify-between text-green-600">
-                <span>ส่วนลด {discountPercent}%</span>
-                <span>-{formatCurrency(totals.discountAmount)}</span>
-              </div>
-            )}
-            <div className="flex justify-between"><span>ก่อน VAT</span><span>{formatCurrency(totals.beforeVat)}</span></div>
-            <div className="flex justify-between"><span>VAT {vatPercent}%</span><span>{formatCurrency(totals.vatAmount)}</span></div>
             <Separator />
-            <div className="flex justify-between font-bold text-base">
-              <span>รวมสุทธิ</span>
-              <span className="text-primary">{formatCurrency(totals.grandTotal)}</span>
+
+            {/* Free Items */}
+            <FreeItemsEditor freeItems={freeItems} onChange={setFreeItems} />
+
+            <Separator />
+
+            {/* Discount + Valid Until */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label className="text-sm">ส่วนลดรวม (%)</Label>
+                <Input
+                  type="number"
+                  min={0}
+                  max={100}
+                  step={0.01}
+                  value={discountPercent || ''}
+                  placeholder="0"
+                  onChange={(e) => setDiscountPercent(parseFloat(e.target.value) || 0)}
+                  onFocus={(e) => e.target.select()}
+                />
+              </div>
+              <div>
+                <Label className="text-sm">ราคานี้ใช้ได้ถึง</Label>
+                <Input
+                  type="date"
+                  value={validUntil}
+                  onChange={(e) => setValidUntil(e.target.value)}
+                />
+              </div>
             </div>
-            {freeItemsTotal > 0 && (
-              <div className="flex justify-between text-amber-600 text-xs">
-                <span>+ ของแถมมูลค่า</span>
-                <span>{formatCurrency(freeItemsTotal)} (ฟรี)</span>
+
+            {/* Approval warning */}
+            {needsApproval && (
+              <div className="flex items-center gap-2 p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
+                <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0" />
+                <p className="text-sm text-amber-700 dark:text-amber-400">
+                  ⚠️ ส่วนลด {'>'}8% หรือของแถม {'>'} ฿5,000 — ต้องขออนุมัติจาก Super Admin ก่อนส่ง
+                </p>
               </div>
             )}
-          </div>
 
-          {/* Reason + Internal Notes */}
-          <div>
-            <Label className="text-sm">📝 เหตุผล / ข้อความถึงลูกค้า *</Label>
-            <Textarea
-              value={changeReason}
-              onChange={(e) => setChangeReason(e.target.value)}
-              placeholder="เช่น: ลด 10% + แถมเมาส์ 5 ตัว ตามที่คุยกัน..."
-              rows={3}
-              className="mt-1"
-            />
-          </div>
+            {/* Totals */}
+            <div className="bg-muted/30 rounded-lg p-4 space-y-2 text-sm">
+              <div className="flex justify-between"><span>ยอดสินค้า</span><span>{formatCurrency(totals.subtotal)}</span></div>
+              {totals.discountAmount > 0 && (
+                <div className="flex justify-between text-green-600">
+                  <span>ส่วนลด {discountPercent}%</span>
+                  <span>-{formatCurrency(totals.discountAmount)}</span>
+                </div>
+              )}
+              <div className="flex justify-between"><span>ก่อน VAT</span><span>{formatCurrency(totals.beforeVat)}</span></div>
+              <div className="flex justify-between"><span>VAT {vatPercent}%</span><span>{formatCurrency(totals.vatAmount)}</span></div>
+              <Separator />
+              <div className="flex justify-between font-bold text-base">
+                <span>รวมสุทธิ</span>
+                <span className="text-primary">{formatCurrency(totals.grandTotal)}</span>
+              </div>
+              {freeItemsTotal > 0 && (
+                <div className="flex justify-between text-amber-600 text-xs">
+                  <span>+ ของแถมมูลค่า</span>
+                  <span>{formatCurrency(freeItemsTotal)} (ฟรี)</span>
+                </div>
+              )}
+            </div>
 
-          <div>
-            <Label className="text-sm">📌 หมายเหตุภายใน (ลูกค้าไม่เห็น)</Label>
-            <Textarea
-              value={internalNotes}
-              onChange={(e) => setInternalNotes(e.target.value)}
-              placeholder="เช่น: Margin เหลือ 12% — ลูกค้า repeat OK"
-              rows={2}
-              className="mt-1"
-            />
+            {/* Reason + Internal Notes */}
+            <div>
+              <Label className="text-sm">📝 เหตุผล / ข้อความถึงลูกค้า *</Label>
+              <Textarea
+                value={changeReason}
+                onChange={(e) => setChangeReason(e.target.value)}
+                placeholder="เช่น: ลด 10% + แถมเมาส์ 5 ตัว ตามที่คุยกัน..."
+                rows={3}
+                className="mt-1"
+              />
+            </div>
+
+            <div>
+              <Label className="text-sm">📌 หมายเหตุภายใน (ลูกค้าไม่เห็น)</Label>
+              <Textarea
+                value={internalNotes}
+                onChange={(e) => setInternalNotes(e.target.value)}
+                placeholder="เช่น: Margin เหลือ 12% — ลูกค้า repeat OK"
+                rows={2}
+                className="mt-1"
+              />
+            </div>
           </div>
-        </div>
+        )}
 
         <DialogFooter className="gap-2">
           <Button variant="outline" onClick={onClose} disabled={saving}>ยกเลิก</Button>
-          <Button variant="secondary" onClick={() => handleSave(false)} disabled={saving}>
+          <Button variant="secondary" onClick={() => handleSave(false)} disabled={saving || loadingBase}>
             <Save className="w-4 h-4 mr-1" />
             บันทึก Draft
           </Button>
-          <Button onClick={() => handleSave(true)} disabled={saving}>
+          <Button onClick={() => handleSave(true)} disabled={saving || loadingBase}>
             <Send className="w-4 h-4 mr-1" />
             {needsApproval ? 'ส่งขออนุมัติ' : 'ส่งให้ลูกค้า'}
           </Button>

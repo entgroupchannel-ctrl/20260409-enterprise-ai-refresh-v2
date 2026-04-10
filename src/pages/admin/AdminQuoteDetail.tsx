@@ -119,6 +119,16 @@ interface Quote {
   approved_at: string | null;
   sla_breached: boolean;
   sla_po_review_due: string | null;
+  // Negotiation fields
+  current_revision_id: string | null;
+  current_revision_number: number | null;
+  total_revisions: number | null;
+  negotiation_count: number | null;
+  free_items: any[] | null;
+  accepted_at: string | null;
+  accepted_by: string | null;
+  expired_at: string | null;
+  has_sale_order: boolean | null;
 }
 
 interface QuoteFile {
@@ -491,7 +501,7 @@ export default function AdminQuoteDetail() {
         )}
 
         {/* SO Action Banner */}
-        {quote.status === 'po_approved' && !(quote as any).has_sale_order && (
+        {quote.status === 'po_approved' && !quote.has_sale_order && (
           <Card className="border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-900/20">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
@@ -511,7 +521,7 @@ export default function AdminQuoteDetail() {
           </Card>
         )}
 
-        {(quote as any).has_sale_order && (
+        {quote.has_sale_order && (
           <Card className="border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-900/20">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
@@ -842,7 +852,7 @@ export default function AdminQuoteDetail() {
             <RevisionTimeline
               key={revisionKey}
               quoteId={quote.id}
-              currentRevisionId={(quote as any).current_revision_id}
+              currentRevisionId={quote.current_revision_id}
               viewerRole="admin"
               onCreateCounter={() => {
                 setCounterNegotiationId(undefined);
@@ -1023,11 +1033,7 @@ export default function AdminQuoteDetail() {
       {/* Counter Offer Dialog */}
       <CounterOfferDialog
         quoteId={quote.id}
-        baseProducts={quote.products || []}
-        baseFreeItems={(quote as any).free_items || []}
-        baseDiscountPercent={quote.discount_percent || 0}
-        baseVatPercent={quote.vat_percent || 7}
-        baseValidUntil={quote.valid_until || undefined}
+        currentRevisionId={quote.current_revision_id}
         negotiationRequestId={counterNegotiationId}
         open={showCounterOffer}
         onClose={() => setShowCounterOffer(false)}

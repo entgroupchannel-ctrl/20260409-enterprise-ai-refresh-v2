@@ -59,6 +59,15 @@ export default function NegotiationRequestDialog({
       return;
     }
 
+    if (!currentRevisionId) {
+      toast({ 
+        title: 'ยังไม่สามารถต่อรองได้', 
+        description: 'รอใบเสนอราคาจากทีมขายก่อน',
+        variant: 'destructive' 
+      });
+      return;
+    }
+
     setSending(true);
     try {
       // Build free items array from text
@@ -93,10 +102,19 @@ export default function NegotiationRequestDialog({
         status: 'pending',
       });
 
+      // Read current negotiation_count then increment
+      const { data: currentQuote } = await supabase
+        .from('quote_requests')
+        .select('negotiation_count')
+        .eq('id', quoteId)
+        .single();
+
+      const currentCount = (currentQuote as any)?.negotiation_count || 0;
+
       // Update quote status to negotiating
       await supabase.from('quote_requests').update({
         status: 'negotiating',
-        negotiation_count: 1, // will be incremented by trigger if needed
+        negotiation_count: currentCount + 1,
       } as any).eq('id', quoteId);
 
       // Send chat message
