@@ -10,6 +10,7 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
 import { getPendingQuote } from '@/hooks/usePendingQuote';
+import { PendingItemsBanner } from '@/components/PendingItemsBanner';
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -58,6 +59,7 @@ export default function Register() {
 
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
+            <PendingItemsBanner />
             <div className="space-y-2">
               <Label htmlFor="full_name">ชื่อ-นามสกุล <span className="text-destructive">*</span></Label>
               <Input id="full_name" placeholder="สมชาย ใจดี" value={formData.full_name} onChange={(e) => updateField('full_name', e.target.value)} required disabled={loading} />

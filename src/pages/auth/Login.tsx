@@ -10,6 +10,7 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
 import { getPendingQuote } from '@/hooks/usePendingQuote';
+import { PendingItemsBanner } from '@/components/PendingItemsBanner';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -53,6 +54,7 @@ export default function Login() {
 
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
+            <PendingItemsBanner />
             <div className="space-y-2">
               <Label htmlFor="email">อีเมล</Label>
               <Input id="email" type="email" placeholder="your@email.com" value={email} onChange={(e) => setEmail(e.target.value)} required disabled={loading} />
