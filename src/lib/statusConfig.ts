@@ -4,13 +4,17 @@
  */
 
 export type QuoteStatus =
+  | 'draft'
   | 'pending'
   | 'quote_sent'
+  | 'negotiating'
+  | 'accepted'
   | 'po_uploaded'
   | 'po_confirmed'
   | 'po_approved'
   | 'completed'
   | 'rejected'
+  | 'expired'
   | 'cancelled'
   | 'on_hold';
 
@@ -21,6 +25,11 @@ interface StatusConfig {
 }
 
 export const statusConfig: Record<string, StatusConfig> = {
+  draft: {
+    th: 'ร่าง',
+    en: 'Draft',
+    color: 'bg-gray-100 text-gray-800 dark:bg-gray-800/50 dark:text-gray-400',
+  },
   pending: {
     th: 'รอใบเสนอราคา',
     en: 'Pending Quote',
@@ -30,6 +39,16 @@ export const statusConfig: Record<string, StatusConfig> = {
     th: 'ส่งราคาแล้ว',
     en: 'Quote Sent',
     color: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400',
+  },
+  negotiating: {
+    th: 'กำลังต่อรอง',
+    en: 'Negotiating',
+    color: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400',
+  },
+  accepted: {
+    th: 'ลูกค้ารับราคาแล้ว',
+    en: 'Accepted',
+    color: 'bg-teal-100 text-teal-800 dark:bg-teal-900/30 dark:text-teal-400',
   },
   po_uploaded: {
     th: 'รอตรวจสอบ PO',
@@ -55,6 +74,11 @@ export const statusConfig: Record<string, StatusConfig> = {
     th: 'ปฏิเสธ',
     en: 'Rejected',
     color: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
+  },
+  expired: {
+    th: 'หมดอายุ',
+    en: 'Expired',
+    color: 'bg-stone-100 text-stone-800 dark:bg-stone-900/30 dark:text-stone-400',
   },
   cancelled: {
     th: 'ยกเลิก',

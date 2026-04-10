@@ -1,4 +1,7 @@
 import { useEffect, useState } from 'react';
+import NegotiationRequestDialog from '@/components/negotiation/NegotiationRequestDialog';
+import AcceptQuoteDialog from '@/components/negotiation/AcceptQuoteDialog';
+import RevisionTimeline from '@/components/negotiation/RevisionTimeline';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
@@ -101,6 +104,8 @@ export default function MyQuoteDetail() {
   const [requestFiles, setRequestFiles] = useState<FileList | null>(null);
   const [requestProcessing, setRequestProcessing] = useState(false);
   const [deletingFileId, setDeletingFileId] = useState<string | null>(null);
+  const [showNegotiation, setShowNegotiation] = useState(false);
+  const [showAcceptQuote, setShowAcceptQuote] = useState(false);
 
   useEffect(() => {
     if (id && user) {
@@ -428,6 +433,56 @@ export default function MyQuoteDetail() {
             </CardContent>
           </Card>
         )}
+
+        {/* Negotiation Action Bar — quote_sent or negotiating */}
+        {(quote.status === 'quote_sent' || quote.status === 'negotiating') && quote.grand_total > 0 && (
+          <Card className="mb-6 border-primary/30">
+            <CardContent className="p-5">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                  <p className="text-sm text-muted-foreground">ราคาที่เสนอ</p>
+                  <p className="text-2xl font-bold text-primary">
+                    {new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', minimumFractionDigits: 0 }).format(quote.grand_total)} <span className="text-sm font-normal text-muted-foreground">(รวม VAT)</span>
+                  </p>
+                  {quote.valid_until && (
+                    <p className="text-xs text-muted-foreground mt-1">⏱️ ราคานี้ใช้ได้ถึง: {formatFullDate(quote.valid_until)}</p>
+                  )}
+                </div>
+                <div className="flex gap-2">
+                  <Button onClick={() => setShowAcceptQuote(true)}>
+                    <CheckCircle2 className="w-4 h-4 mr-1" /> ยอมรับราคานี้
+                  </Button>
+                  <Button variant="outline" onClick={() => setShowNegotiation(true)}>
+                    💬 ขอต่อรอง
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Accepted Banner */}
+        {quote.status === 'accepted' && (
+          <Card className="mb-6 border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-900/20">
+            <CardContent className="p-5 flex items-center gap-3">
+              <CheckCircle2 className="w-8 h-8 text-green-600" />
+              <div>
+                <h3 className="font-semibold text-green-900 dark:text-green-200">ยอมรับราคาแล้ว</h3>
+                <p className="text-sm text-green-700 dark:text-green-400">ขั้นตอนต่อไป: อัปโหลดใบสั่งซื้อ (PO)</p>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Revision Timeline */}
+        <div className="mb-6">
+          <RevisionTimeline
+            quoteId={quote.id}
+            currentRevisionId={(quote as any).current_revision_id}
+            viewerRole="customer"
+          />
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left Column - Main Content */}
           <div className="lg:col-span-2 space-y-6">
@@ -858,6 +913,27 @@ export default function MyQuoteDetail() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Negotiation Request Dialog */}
+      <NegotiationRequestDialog
+        quoteId={quote.id}
+        currentRevisionId={(quote as any).current_revision_id}
+        open={showNegotiation}
+        onClose={() => setShowNegotiation(false)}
+        onSuccess={() => loadQuote()}
+      />
+
+      {/* Accept Quote Dialog */}
+      <AcceptQuoteDialog
+        quoteId={quote.id}
+        quoteNumber={quote.quote_number}
+        grandTotal={quote.grand_total}
+        freeItems={(quote as any).free_items || []}
+        validUntil={quote.valid_until}
+        open={showAcceptQuote}
+        onClose={() => setShowAcceptQuote(false)}
+        onSuccess={() => loadQuote()}
+      />
     </div>
   );
 }

@@ -4,6 +4,9 @@ import CreateSaleOrderDialog from '@/components/admin/CreateSaleOrderDialog';
 import POActionsMenu from '@/components/admin/POActionsMenu';
 import POVersionHistory from '@/components/admin/POVersionHistory';
 import { QuoteTimeline } from '@/components/QuoteTimeline';
+import RevisionTimeline from '@/components/negotiation/RevisionTimeline';
+import CounterOfferDialog from '@/components/negotiation/CounterOfferDialog';
+import NegotiationRequestsList from '@/components/negotiation/NegotiationRequestsList';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import AdminLayout from '@/layouts/AdminLayout';
 import { Button } from '@/components/ui/button';
@@ -159,7 +162,9 @@ export default function AdminQuoteDetail() {
   const [rejectReason, setRejectReason] = useState('');
   const [processing, setProcessing] = useState(false);
   const [showCreateSO, setShowCreateSO] = useState(false);
-
+  const [showCounterOffer, setShowCounterOffer] = useState(false);
+  const [counterNegotiationId, setCounterNegotiationId] = useState<string | undefined>();
+  const [revisionKey, setRevisionKey] = useState(0);
   // ✅ Real-time calculation
   const totals = useMemo(() => {
     if (!quote) return { subtotal: 0, discountAmount: 0, beforeVat: 0, vatAmount: 0, grandTotal: 0 };
@@ -833,6 +838,27 @@ export default function AdminQuoteDetail() {
               </CardContent>
             </Card>
 
+            {/* Negotiation: Revision Timeline */}
+            <RevisionTimeline
+              key={revisionKey}
+              quoteId={quote.id}
+              currentRevisionId={(quote as any).current_revision_id}
+              viewerRole="admin"
+              onCreateCounter={() => {
+                setCounterNegotiationId(undefined);
+                setShowCounterOffer(true);
+              }}
+            />
+
+            {/* Negotiation Requests from Customer */}
+            <NegotiationRequestsList
+              quoteId={quote.id}
+              onCreateCounter={(reqId) => {
+                setCounterNegotiationId(reqId);
+                setShowCounterOffer(true);
+              }}
+            />
+
           </div>
 
           {/* Right Column - Chat & Timeline */}
@@ -992,6 +1018,23 @@ export default function AdminQuoteDetail() {
         onOpenChange={setShowCreateSO}
         quote={quote}
         onSuccess={loadQuoteDetails}
+      />
+
+      {/* Counter Offer Dialog */}
+      <CounterOfferDialog
+        quoteId={quote.id}
+        baseProducts={quote.products || []}
+        baseFreeItems={(quote as any).free_items || []}
+        baseDiscountPercent={quote.discount_percent || 0}
+        baseVatPercent={quote.vat_percent || 7}
+        baseValidUntil={quote.valid_until || undefined}
+        negotiationRequestId={counterNegotiationId}
+        open={showCounterOffer}
+        onClose={() => setShowCounterOffer(false)}
+        onSuccess={() => {
+          loadQuoteDetails();
+          setRevisionKey((k) => k + 1);
+        }}
       />
     </AdminLayout>
   );
