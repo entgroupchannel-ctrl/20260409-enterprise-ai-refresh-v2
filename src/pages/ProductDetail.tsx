@@ -138,6 +138,8 @@ export default function ProductDetail() {
           unit_price_vat: editedProduct.unit_price_vat,
           is_active: editedProduct.is_active,
           stock_status: editedProduct.stock_status,
+          image_url: editedProduct.image_url,
+          gallery_urls: editedProduct.gallery_urls,
         })
         .eq('id', product!.id);
 
@@ -156,6 +158,73 @@ export default function ProductDetail() {
 
   const handleInputChange = (field: keyof Product, value: any) => {
     setEditedProduct({ ...editedProduct, [field]: value });
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    const currentGallery = editedProduct.gallery_urls || [];
+    const totalImages = (editedProduct.image_url ? 1 : 0) + currentGallery.length;
+    
+    if (totalImages + files.length > 5) {
+      toast({ title: 'เกินจำนวน', description: 'อัปโหลดรูปได้สูงสุด 5 รูป', variant: 'destructive' });
+      return;
+    }
+
+    setUploading(true);
+    try {
+      const newUrls: string[] = [];
+      for (const file of Array.from(files)) {
+        const ext = file.name.split('.').pop();
+        const path = `${product!.id}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+        
+        const { error: uploadError } = await supabase.storage
+          .from('product-images')
+          .upload(path, file, { upsert: true });
+
+        if (uploadError) throw uploadError;
+
+        const { data: urlData } = supabase.storage
+          .from('product-images')
+          .getPublicUrl(path);
+
+        newUrls.push(urlData.publicUrl);
+      }
+
+      // If no main image, set first upload as main
+      if (!editedProduct.image_url && newUrls.length > 0) {
+        setEditedProduct(prev => ({
+          ...prev,
+          image_url: newUrls[0],
+          gallery_urls: [...(prev.gallery_urls || []), ...newUrls.slice(1)],
+        }));
+      } else {
+        setEditedProduct(prev => ({
+          ...prev,
+          gallery_urls: [...(prev.gallery_urls || []), ...newUrls],
+        }));
+      }
+
+      toast({ title: 'อัปโหลดสำเร็จ', description: `เพิ่ม ${newUrls.length} รูปเรียบร้อย` });
+    } catch (error: any) {
+      toast({ title: 'อัปโหลดล้มเหลว', description: error.message, variant: 'destructive' });
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  };
+
+  const handleRemoveImage = (index: number) => {
+    const allImages = [editedProduct.image_url, ...(editedProduct.gallery_urls || [])].filter(Boolean) as string[];
+    allImages.splice(index, 1);
+    
+    setEditedProduct(prev => ({
+      ...prev,
+      image_url: allImages[0] || null,
+      gallery_urls: allImages.slice(1),
+    }));
+    setSelectedImage(0);
   };
 
   const handleAddToQuote = () => {
