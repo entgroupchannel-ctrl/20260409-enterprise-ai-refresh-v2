@@ -35,6 +35,7 @@ import {
   ImagePlus,
 } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
+import ProductConfigurator from '@/components/ProductConfigurator';
 import { formatShortDateTime } from '@/lib/format';
 
 interface Product {
@@ -261,9 +262,17 @@ export default function ProductDetail() {
     );
   }
 
-  // Customer view (non-admin)
+  // Customer view (non-admin) — Product Configurator
   if (!isAdmin) {
-    return <CustomerProductView product={product} onAddToQuote={handleAddToQuote} />;
+    return (
+      <>
+        <SEOHead
+          title={`${product.model} - ${product.name} | ENT Group`}
+          description={product.description?.slice(0, 160) || `${product.model} ${product.series} - สินค้าอุตสาหกรรม`}
+        />
+        <ProductConfigurator product={product} />
+      </>
+    );
   }
 
   // Build gallery images list (for display — use editedProduct in edit mode)
