@@ -33,6 +33,7 @@ interface Product {
   is_featured: boolean;
   image_url: string | null;
   created_at: string;
+  slug: string;
 }
 
 const stockStatusLabels: Record<string, string> = {
@@ -64,7 +65,7 @@ export default function ProductsList() {
     try {
       const { data, error } = await supabase
         .from('products')
-        .select('id, product_code, sku, model, series, name, category, unit_price, unit_price_vat, stock_status, stock_quantity, is_active, is_featured, image_url, created_at')
+        .select('id, product_code, sku, model, series, name, category, unit_price, unit_price_vat, stock_status, stock_quantity, is_active, is_featured, image_url, created_at, slug')
         .order('created_at', { ascending: false });
       if (error) throw error;
       setProducts((data as any) || []);
@@ -187,7 +188,11 @@ export default function ProductsList() {
               </TableHeader>
               <TableBody>
                 {filteredProducts.map((product) => (
-                  <TableRow key={product.id}>
+                  <TableRow
+                    key={product.id}
+                    className="cursor-pointer hover:bg-accent/50 transition-colors"
+                    onClick={() => navigate(`/products/${product.slug}`)}
+                  >
                     <TableCell>
                       <div className="w-10 h-10 bg-muted rounded flex items-center justify-center overflow-hidden">
                         {product.image_url ? (
@@ -226,7 +231,7 @@ export default function ProductsList() {
                           variant="ghost"
                           size="icon"
                           className="h-8 w-8"
-                          onClick={() => toggleActive(product)}
+                          onClick={(e) => { e.stopPropagation(); toggleActive(product); }}
                           title={product.is_active ? 'ปิดการใช้งาน' : 'เปิดการใช้งาน'}
                         >
                           {product.is_active ? <ToggleRight className="w-4 h-4 text-primary" /> : <ToggleLeft className="w-4 h-4" />}
