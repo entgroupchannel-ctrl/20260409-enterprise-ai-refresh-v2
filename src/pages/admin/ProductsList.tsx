@@ -188,7 +188,11 @@ export default function ProductsList() {
               </TableHeader>
               <TableBody>
                 {filteredProducts.map((product) => (
-                  <TableRow key={product.id}>
+                  <TableRow
+                    key={product.id}
+                    className="cursor-pointer hover:bg-accent/50 transition-colors"
+                    onClick={() => navigate(`/products/${product.slug}`)}
+                  >
                     <TableCell>
                       <div className="w-10 h-10 bg-muted rounded flex items-center justify-center overflow-hidden">
                         {product.image_url ? (
