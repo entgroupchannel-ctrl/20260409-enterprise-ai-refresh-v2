@@ -231,7 +231,9 @@ export default function ProductsList() {
                           variant="ghost"
                           size="icon"
                           className="h-8 w-8"
-                          onClick={() => toggleActive(product)}
+                          onClick={(e) => { e.stopPropagation(); toggleActive(product); }}
+                          title={product.is_active ? 'ปิดการใช้งาน' : 'เปิดการใช้งาน'}
+                        >
                           title={product.is_active ? 'ปิดการใช้งาน' : 'เปิดการใช้งาน'}
                         >
                           {product.is_active ? <ToggleRight className="w-4 h-4 text-primary" /> : <ToggleLeft className="w-4 h-4" />}
