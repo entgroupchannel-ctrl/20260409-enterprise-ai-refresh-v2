@@ -859,6 +859,9 @@ export default function AdminQuoteDetail() {
               }}
             />
 
+          </div>
+
+          {/* Right Column - Chat & Timeline */}
           <div className="space-y-6">
             {/* Chat/Messages */}
             <Card>
