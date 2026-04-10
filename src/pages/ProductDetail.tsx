@@ -72,6 +72,7 @@ export default function ProductDetail() {
   const [isEditing, setIsEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [editedProduct, setEditedProduct] = useState<Partial<Product>>({});
+  const [selectedImage, setSelectedImage] = useState(0);
 
   const isAdmin = profile?.role === 'admin' || profile?.role === 'sales';
 
