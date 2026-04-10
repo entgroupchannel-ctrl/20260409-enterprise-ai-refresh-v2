@@ -6,6 +6,7 @@ import POVersionHistory from '@/components/admin/POVersionHistory';
 import { QuoteTimeline } from '@/components/QuoteTimeline';
 import RevisionTimeline from '@/components/negotiation/RevisionTimeline';
 import CounterOfferDialog from '@/components/negotiation/CounterOfferDialog';
+import PendingApprovalBanner from '@/components/negotiation/PendingApprovalBanner';
 import NegotiationRequestsList from '@/components/negotiation/NegotiationRequestsList';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import AdminLayout from '@/layouts/AdminLayout';
@@ -541,6 +542,34 @@ export default function AdminQuoteDetail() {
           </Card>
         )}
 
+        {/* Pending Approval Banner */}
+        {quote.current_revision_id && (
+          <PendingApprovalBanner
+            revisionId={quote.current_revision_id}
+            isSuperAdmin={false}
+            onRefresh={loadQuoteDetails}
+          />
+        )}
+
+        {/* Expired Quote Banner */}
+        {quote.status === 'expired' && (
+          <Card className="border-gray-300 bg-gray-50 dark:border-gray-700 dark:bg-gray-900/20">
+            <CardContent className="p-4 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Clock className="w-6 h-6 text-gray-500" />
+                <div>
+                  <h3 className="font-semibold">ใบเสนอราคาหมดอายุ</h3>
+                  <p className="text-sm text-muted-foreground">
+                    หมดอายุเมื่อ: {quote.expired_at ? formatShortDateTime(quote.expired_at) : '-'}
+                  </p>
+                </div>
+              </div>
+              <Button onClick={() => setShowCounterOffer(true)}>
+                🔄 สร้างใบเสนอราคาใหม่ (Renew)
+              </Button>
+            </CardContent>
+          </Card>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left Column - Customer & Products */}

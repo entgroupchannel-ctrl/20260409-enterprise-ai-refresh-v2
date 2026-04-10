@@ -37,6 +37,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const [pendingRequestsCount, setPendingRequestsCount] = useState(0);
+  const [pendingApprovals, setPendingApprovals] = useState(0);
+  const [isAdminUser, setIsAdminUser] = useState(false);
 
   useEffect(() => {
     const loadPendingCount = async () => {
@@ -54,6 +56,31 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const checkAdminAndApprovals = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      const { data: userData } = await supabase
+        .from('users')
+        .select('role')
+        .eq('id', user.id)
+        .maybeSingle();
+
+      const isAdmin = userData?.role === 'admin';
+      setIsAdminUser(isAdmin);
+
+      if (isAdmin) {
+        const { data: count } = await supabase.rpc('count_pending_approvals');
+        setPendingApprovals(count || 0);
+      }
+    };
+    checkAdminAndApprovals();
+
+    const interval = setInterval(checkAdminAndApprovals, 30000);
+    return () => clearInterval(interval);
+  }, []);
+
   const handleSignOut = async () => {
     await signOut();
     navigate('/');
@@ -65,6 +92,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     { label: 'ยอดขาย / Order', icon: ShoppingCart, path: '/admin/sale-orders' },
     { label: 'คลังสินค้า', icon: Package, path: '/admin/products' },
     { label: 'คำขอ', icon: ClipboardList, path: '/admin/requests', badge: true },
+    ...(isAdminUser ? [{
+      label: 'อนุมัติ',
+      icon: Shield,
+      path: '/admin/approvals',
+      badgeCount: pendingApprovals,
+    }] : []),
     { label: 'ผู้ติดต่อ', icon: Users, path: '/admin/contacts' },
     { label: 'เอกสาร', icon: FileArchive, path: '/admin/documents' },
     { label: 'สิทธิ์', icon: Shield, path: '/admin/permissions' },
@@ -95,6 +128,11 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                         {item.badge && pendingRequestsCount > 0 && (
                           <Badge variant="destructive" className="ml-1 px-1.5 py-0 text-xs">
                             {pendingRequestsCount}
+                          </Badge>
+                        )}
+                        {(item as any).badgeCount > 0 && (
+                          <Badge className="ml-1 px-1.5 py-0 text-xs bg-amber-600 text-white">
+                            {(item as any).badgeCount}
                           </Badge>
                         )}
                       </Button>
@@ -166,6 +204,11 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                     {item.badge && pendingRequestsCount > 0 && (
                       <Badge variant="destructive" className="ml-1 px-1 py-0 text-[10px]">
                         {pendingRequestsCount}
+                      </Badge>
+                    )}
+                    {(item as any).badgeCount > 0 && (
+                      <Badge className="ml-1 px-1 py-0 text-[10px] bg-amber-600 text-white">
+                        {(item as any).badgeCount}
                       </Badge>
                     )}
                   </Button>
