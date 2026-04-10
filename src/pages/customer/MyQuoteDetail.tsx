@@ -125,7 +125,23 @@ export default function MyQuoteDetail() {
     }
   }, [id, user]);
 
-  // Realtime subscription for messages
+  // Load current revision status for action bar guard (Bug 8)
+  useEffect(() => {
+    if (!quote?.current_revision_id) {
+      setCurrentRevision(null);
+      return;
+    }
+
+    const loadCurrentRevision = async () => {
+      const { data } = await (supabase.from as any)('quote_revisions')
+        .select('*')
+        .eq('id', quote.current_revision_id)
+        .single();
+      setCurrentRevision(data);
+    };
+    loadCurrentRevision();
+  }, [quote?.current_revision_id]);
+
   useEffect(() => {
     if (!id) return;
     const channel = supabase
