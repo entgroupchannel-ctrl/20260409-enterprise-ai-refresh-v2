@@ -654,7 +654,7 @@ export default function AdminQuoteDetail() {
                   )}
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">ราคาหลังหักส่วนลด</span>
-                    <span className="text-foreground">{formatCurrency(quote.subtotal || 0)}</span>
+                    <span className="text-foreground">{formatCurrency((quote.subtotal || 0) - (quote.discount_amount || 0))}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">ภาษีมูลค่าเพิ่ม 7%</span>
@@ -675,16 +675,27 @@ export default function AdminQuoteDetail() {
                       size="lg"
                       onClick={async () => {
                         try {
-                          // Calculate totals
-                          const subtotal = quote.products.reduce((sum: number, p: any) => sum + (p.line_total || 0), 0);
-                          const vatAmount = subtotal * 0.07;
-                          const grandTotal = subtotal + vatAmount;
+                          // Calculate totals with item-level discounts
+                          const subtotal = quote.products.reduce((sum: number, p: any) => {
+                            const itemTotal = (p.qty || 0) * (p.unit_price || 0);
+                            const itemDiscount = itemTotal * ((p.discount_percent || 0) / 100);
+                            return sum + (itemTotal - itemDiscount);
+                          }, 0);
+                          
+                          // Apply overall discount
+                          const discountPercent = (quote as any).discount_percent || 0;
+                          const discountAmount = subtotal * (discountPercent / 100);
+                          const afterDiscount = subtotal - discountAmount;
+                          
+                          const vatAmount = afterDiscount * 0.07;
+                          const grandTotal = afterDiscount + vatAmount;
 
                           const { error } = await supabase
                             .from('quote_requests')
                             .update({
-                              status: 'quote_sent',
+                           status: 'quote_sent',
                               subtotal,
+                              discount_amount: discountAmount,
                               vat_amount: vatAmount,
                               grand_total: grandTotal,
                               sent_at: new Date().toISOString(),
