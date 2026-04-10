@@ -234,8 +234,6 @@ export default function ProductsList() {
                           onClick={(e) => { e.stopPropagation(); toggleActive(product); }}
                           title={product.is_active ? 'ปิดการใช้งาน' : 'เปิดการใช้งาน'}
                         >
-                          title={product.is_active ? 'ปิดการใช้งาน' : 'เปิดการใช้งาน'}
-                        >
                           {product.is_active ? <ToggleRight className="w-4 h-4 text-primary" /> : <ToggleLeft className="w-4 h-4" />}
                         </Button>
                       </div>
