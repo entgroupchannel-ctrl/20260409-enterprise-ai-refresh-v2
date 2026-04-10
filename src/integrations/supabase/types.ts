@@ -847,8 +847,89 @@ export type Database = {
           },
         ]
       }
+      quote_negotiation_requests: {
+        Row: {
+          admin_response: string | null
+          created_at: string | null
+          id: string
+          message: string
+          quote_id: string
+          request_type: string
+          requested_by: string | null
+          requested_by_role: string
+          requested_discount_amount: number | null
+          requested_discount_percent: number | null
+          requested_free_items: Json | null
+          responded_at: string | null
+          responded_by: string | null
+          resulted_in_revision_id: string | null
+          revision_id: string | null
+          status: string | null
+        }
+        Insert: {
+          admin_response?: string | null
+          created_at?: string | null
+          id?: string
+          message: string
+          quote_id: string
+          request_type?: string
+          requested_by?: string | null
+          requested_by_role?: string
+          requested_discount_amount?: number | null
+          requested_discount_percent?: number | null
+          requested_free_items?: Json | null
+          responded_at?: string | null
+          responded_by?: string | null
+          resulted_in_revision_id?: string | null
+          revision_id?: string | null
+          status?: string | null
+        }
+        Update: {
+          admin_response?: string | null
+          created_at?: string | null
+          id?: string
+          message?: string
+          quote_id?: string
+          request_type?: string
+          requested_by?: string | null
+          requested_by_role?: string
+          requested_discount_amount?: number | null
+          requested_discount_percent?: number | null
+          requested_free_items?: Json | null
+          responded_at?: string | null
+          responded_by?: string | null
+          resulted_in_revision_id?: string | null
+          revision_id?: string | null
+          status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quote_negotiation_requests_quote_id_fkey"
+            columns: ["quote_id"]
+            isOneToOne: false
+            referencedRelation: "quote_requests"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "quote_negotiation_requests_resulted_in_revision_id_fkey"
+            columns: ["resulted_in_revision_id"]
+            isOneToOne: false
+            referencedRelation: "quote_revisions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "quote_negotiation_requests_revision_id_fkey"
+            columns: ["revision_id"]
+            isOneToOne: false
+            referencedRelation: "quote_revisions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       quote_requests: {
         Row: {
+          accepted_at: string | null
+          accepted_by: string | null
           approved_at: string | null
           assigned_to: string | null
           completed_at: string | null
@@ -856,6 +937,8 @@ export type Database = {
           contact_id: string | null
           created_at: string
           created_by: string | null
+          current_revision_id: string | null
+          current_revision_number: number | null
           customer_address: string | null
           customer_company: string | null
           customer_email: string
@@ -866,11 +949,14 @@ export type Database = {
           delivery_terms: string | null
           discount_amount: number | null
           discount_percent: number | null
+          expired_at: string | null
+          free_items: Json | null
           grand_total: number | null
           has_sale_order: boolean | null
           id: string
           internal_notes: string | null
           metadata: Json | null
+          negotiation_count: number | null
           notes: string | null
           payment_terms: string | null
           po_uploaded_at: string | null
@@ -884,6 +970,7 @@ export type Database = {
           so_created_at: string | null
           status: string
           subtotal: number | null
+          total_revisions: number | null
           updated_at: string
           valid_until: string | null
           vat_amount: number | null
@@ -892,6 +979,8 @@ export type Database = {
           warranty_terms: string | null
         }
         Insert: {
+          accepted_at?: string | null
+          accepted_by?: string | null
           approved_at?: string | null
           assigned_to?: string | null
           completed_at?: string | null
@@ -899,6 +988,8 @@ export type Database = {
           contact_id?: string | null
           created_at?: string
           created_by?: string | null
+          current_revision_id?: string | null
+          current_revision_number?: number | null
           customer_address?: string | null
           customer_company?: string | null
           customer_email: string
@@ -909,11 +1000,14 @@ export type Database = {
           delivery_terms?: string | null
           discount_amount?: number | null
           discount_percent?: number | null
+          expired_at?: string | null
+          free_items?: Json | null
           grand_total?: number | null
           has_sale_order?: boolean | null
           id?: string
           internal_notes?: string | null
           metadata?: Json | null
+          negotiation_count?: number | null
           notes?: string | null
           payment_terms?: string | null
           po_uploaded_at?: string | null
@@ -927,6 +1021,7 @@ export type Database = {
           so_created_at?: string | null
           status?: string
           subtotal?: number | null
+          total_revisions?: number | null
           updated_at?: string
           valid_until?: string | null
           vat_amount?: number | null
@@ -935,6 +1030,8 @@ export type Database = {
           warranty_terms?: string | null
         }
         Update: {
+          accepted_at?: string | null
+          accepted_by?: string | null
           approved_at?: string | null
           assigned_to?: string | null
           completed_at?: string | null
@@ -942,6 +1039,8 @@ export type Database = {
           contact_id?: string | null
           created_at?: string
           created_by?: string | null
+          current_revision_id?: string | null
+          current_revision_number?: number | null
           customer_address?: string | null
           customer_company?: string | null
           customer_email?: string
@@ -952,11 +1051,14 @@ export type Database = {
           delivery_terms?: string | null
           discount_amount?: number | null
           discount_percent?: number | null
+          expired_at?: string | null
+          free_items?: Json | null
           grand_total?: number | null
           has_sale_order?: boolean | null
           id?: string
           internal_notes?: string | null
           metadata?: Json | null
+          negotiation_count?: number | null
           notes?: string | null
           payment_terms?: string | null
           po_uploaded_at?: string | null
@@ -970,6 +1072,7 @@ export type Database = {
           so_created_at?: string | null
           status?: string
           subtotal?: number | null
+          total_revisions?: number | null
           updated_at?: string
           valid_until?: string | null
           vat_amount?: number | null
@@ -997,6 +1100,104 @@ export type Database = {
             columns: ["created_by"]
             isOneToOne: false
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      quote_revisions: {
+        Row: {
+          approval_status: string | null
+          approved_at: string | null
+          approved_by: string | null
+          change_reason: string | null
+          created_at: string | null
+          created_by: string | null
+          created_by_name: string
+          created_by_role: string
+          customer_message: string | null
+          discount_amount: number | null
+          discount_percent: number | null
+          free_items: Json | null
+          grand_total: number
+          id: string
+          internal_notes: string | null
+          products: Json
+          quote_id: string
+          requires_approval: boolean | null
+          responded_at: string | null
+          revision_number: number
+          revision_type: string
+          sent_at: string | null
+          status: string
+          subtotal: number
+          valid_until: string | null
+          vat_amount: number | null
+          vat_percent: number | null
+        }
+        Insert: {
+          approval_status?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
+          change_reason?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          created_by_name?: string
+          created_by_role?: string
+          customer_message?: string | null
+          discount_amount?: number | null
+          discount_percent?: number | null
+          free_items?: Json | null
+          grand_total?: number
+          id?: string
+          internal_notes?: string | null
+          products?: Json
+          quote_id: string
+          requires_approval?: boolean | null
+          responded_at?: string | null
+          revision_number: number
+          revision_type?: string
+          sent_at?: string | null
+          status?: string
+          subtotal?: number
+          valid_until?: string | null
+          vat_amount?: number | null
+          vat_percent?: number | null
+        }
+        Update: {
+          approval_status?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
+          change_reason?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          created_by_name?: string
+          created_by_role?: string
+          customer_message?: string | null
+          discount_amount?: number | null
+          discount_percent?: number | null
+          free_items?: Json | null
+          grand_total?: number
+          id?: string
+          internal_notes?: string | null
+          products?: Json
+          quote_id?: string
+          requires_approval?: boolean | null
+          responded_at?: string | null
+          revision_number?: number
+          revision_type?: string
+          sent_at?: string | null
+          status?: string
+          subtotal?: number
+          valid_until?: string | null
+          vat_amount?: number | null
+          vat_percent?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quote_revisions_quote_id_fkey"
+            columns: ["quote_id"]
+            isOneToOne: false
+            referencedRelation: "quote_requests"
             referencedColumns: ["id"]
           },
         ]
@@ -1282,6 +1483,10 @@ export type Database = {
     }
     Functions: {
       get_next_po_version: { Args: { p_quote_id: string }; Returns: number }
+      get_next_revision_number: {
+        Args: { p_quote_id: string }
+        Returns: number
+      }
       get_user_role: { Args: { _user_id: string }; Returns: string }
     }
     Enums: {
