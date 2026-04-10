@@ -943,7 +943,7 @@ export default function AdminQuoteDetail() {
               คุณแน่ใจหรือไม่ว่าต้องการอนุมัติ PO สำหรับใบเสนอราคา {quote.quote_number}?
               <br />
               <br />
-              <strong>ยอดรวม: {formatCurrency(quote.grand_total)}</strong>
+              <strong>ยอดรวม: {formatCurrency(totals.grandTotal)}</strong>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
