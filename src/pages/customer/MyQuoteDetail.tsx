@@ -504,7 +504,7 @@ export default function MyQuoteDetail() {
         <div className="mb-6">
           <RevisionTimeline
             quoteId={quote.id}
-            currentRevisionId={(quote as any).current_revision_id}
+            currentRevisionId={quote.current_revision_id}
             viewerRole="customer"
           />
         </div>
