@@ -142,8 +142,13 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
                     <Input
                       type="number"
                       min="1"
-                      value={editForm.qty}
-                      onChange={(e) => handleFormChange('qty', parseInt(e.target.value) || 0)}
+                      value={editForm.qty || ''}
+                      placeholder="1"
+                      onFocus={(e) => e.target.select()}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        handleFormChange('qty', val === '' ? 0 : parseInt(val));
+                      }}
                     />
                   </div>
                   <div>
@@ -151,8 +156,13 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
                     <Input
                       type="number"
                       min="0"
-                      value={editForm.unit_price}
-                      onChange={(e) => handleFormChange('unit_price', parseFloat(e.target.value) || 0)}
+                      value={editForm.unit_price || ''}
+                      placeholder="0.00"
+                      onFocus={(e) => e.target.select()}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        handleFormChange('unit_price', val === '' ? 0 : parseFloat(val));
+                      }}
                     />
                   </div>
                   <div>
@@ -161,10 +171,13 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
                       type="number"
                       min="0"
                       max="100"
-                      value={editForm.discount_percent}
-                      onChange={(e) =>
-                        handleFormChange('discount_percent', parseFloat(e.target.value) || 0)
-                      }
+                      value={editForm.discount_percent || ''}
+                      placeholder="0"
+                      onFocus={(e) => e.target.select()}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        handleFormChange('discount_percent', val === '' ? 0 : parseFloat(val));
+                      }}
                     />
                   </div>
                   <div>
@@ -308,8 +321,13 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
               <Input
                 type="number"
                 min="1"
-                value={editForm.qty}
-                onChange={(e) => handleFormChange('qty', parseInt(e.target.value) || 1)}
+                value={editForm.qty || ''}
+                placeholder="1"
+                onFocus={(e) => e.target.select()}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  handleFormChange('qty', val === '' ? 0 : parseInt(val));
+                }}
               />
             </div>
             <div>
@@ -317,8 +335,13 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
               <Input
                 type="number"
                 min="0"
-                value={editForm.unit_price}
-                onChange={(e) => handleFormChange('unit_price', parseFloat(e.target.value) || 0)}
+                value={editForm.unit_price || ''}
+                placeholder="0.00"
+                onFocus={(e) => e.target.select()}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  handleFormChange('unit_price', val === '' ? 0 : parseFloat(val));
+                }}
               />
             </div>
             <div>
@@ -327,10 +350,13 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
                 type="number"
                 min="0"
                 max="100"
-                value={editForm.discount_percent}
-                onChange={(e) =>
-                  handleFormChange('discount_percent', parseFloat(e.target.value) || 0)
-                }
+                value={editForm.discount_percent || ''}
+                placeholder="0"
+                onFocus={(e) => e.target.select()}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  handleFormChange('discount_percent', val === '' ? 0 : parseFloat(val));
+                }}
               />
             </div>
             <div>
