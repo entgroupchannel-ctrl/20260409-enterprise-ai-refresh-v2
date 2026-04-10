@@ -263,10 +263,11 @@ export default function ProductDetail() {
     return <CustomerProductView product={product} onAddToQuote={handleAddToQuote} />;
   }
 
-  // Build gallery images list
+  // Build gallery images list (for display — use editedProduct in edit mode)
+  const displayProduct = isEditing ? editedProduct : product;
   const galleryImages = [
-    product.image_url,
-    ...(product.gallery_urls || []),
+    displayProduct.image_url,
+    ...((displayProduct as Product).gallery_urls || []),
   ].filter(Boolean) as string[];
 
   // Admin compact view — full viewport
@@ -275,6 +276,16 @@ export default function ProductDetail() {
       <SEOHead
         title={`${product.model} - ${product.name} | ENT Group`}
         description={product.description?.slice(0, 160) || `${product.model} ${product.series}`}
+      />
+
+      {/* Hidden file input */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        multiple
+        className="hidden"
+        onChange={handleImageUpload}
       />
 
       {/* Sticky Header */}
@@ -320,73 +331,88 @@ export default function ProductDetail() {
         </div>
       )}
 
-      {/* Main content — fill remaining height */}
-      <div className="flex-1 min-h-0 grid lg:grid-cols-[280px_1fr] gap-0 overflow-hidden">
-        {/* Left: Gallery + Description */}
-        <div className="border-r overflow-y-auto p-4 space-y-3">
+      {/* Main content — fill remaining height, 2 columns */}
+      <div className="flex-1 min-h-0 grid lg:grid-cols-[240px_1fr] gap-0 overflow-hidden">
+        {/* Left: Gallery only */}
+        <div className="border-r overflow-y-auto p-3 space-y-2">
           {/* Main image */}
-          <div className="aspect-square bg-muted/30 rounded-lg border flex items-center justify-center overflow-hidden">
+          <div className="aspect-square bg-muted/30 rounded-lg border flex items-center justify-center overflow-hidden relative group">
             {galleryImages.length > 0 ? (
               <img src={galleryImages[selectedImage] || galleryImages[0]} alt={product.model} className="w-full h-full object-contain" />
             ) : (
-              <Package className="w-16 h-16 text-muted-foreground/20" />
+              <div className="text-center">
+                <Package className="w-12 h-12 text-muted-foreground/20 mx-auto mb-1" />
+                <p className="text-[10px] text-muted-foreground/40">ไม่มีรูป</p>
+              </div>
             )}
-          </div>
-
-          {/* Thumbnail strip (3-5 images) */}
-          <div className="flex gap-1.5">
-            {galleryImages.length > 0 ? (
-              galleryImages.slice(0, 5).map((url, i) => (
-                <button
-                  key={i}
-                  onClick={() => setSelectedImage(i)}
-                  className={`w-12 h-12 rounded border overflow-hidden shrink-0 transition-all ${selectedImage === i ? 'ring-2 ring-primary border-primary' : 'opacity-60 hover:opacity-100'}`}
-                >
-                  <img src={url} alt={`${product.model} ${i + 1}`} className="w-full h-full object-contain" />
-                </button>
-              ))
-            ) : (
-              Array.from({ length: 3 }).map((_, i) => (
-                <div key={i} className="w-12 h-12 rounded border bg-muted/20 flex items-center justify-center shrink-0">
-                  <Package className="w-4 h-4 text-muted-foreground/20" />
-                </div>
-              ))
-            )}
-            {isEditing && (
-              <button className="w-12 h-12 rounded border border-dashed flex items-center justify-center shrink-0 hover:bg-muted/20 transition-colors">
-                <Upload className="w-4 h-4 text-muted-foreground/40" />
+            {isEditing && galleryImages.length > 0 && (
+              <button
+                onClick={() => handleRemoveImage(selectedImage)}
+                className="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-destructive/80 text-destructive-foreground flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+              >
+                <Trash2 className="w-3 h-3" />
               </button>
             )}
           </div>
 
-          {/* Description */}
-          <div>
-            <h3 className="text-xs font-semibold text-muted-foreground mb-1.5 uppercase tracking-wider">รายละเอียด</h3>
-            {isEditing ? (
-              <Textarea
-                value={editedProduct.description || ''}
-                onChange={(e) => handleInputChange('description', e.target.value)}
-                className="text-xs min-h-[160px] resize-y"
-                placeholder="รายละเอียดสินค้า..."
-              />
-            ) : (
-              <p className="text-xs text-muted-foreground whitespace-pre-line leading-relaxed">
-                {product.description || 'ไม่มีรายละเอียด'}
-              </p>
+          {/* Thumbnail strip */}
+          <div className="flex gap-1.5 flex-wrap">
+            {galleryImages.map((url, i) => (
+              <button
+                key={i}
+                onClick={() => setSelectedImage(i)}
+                className={`w-11 h-11 rounded border overflow-hidden shrink-0 transition-all relative group/thumb ${selectedImage === i ? 'ring-2 ring-primary border-primary' : 'opacity-60 hover:opacity-100'}`}
+              >
+                <img src={url} alt={`${product.model} ${i + 1}`} className="w-full h-full object-contain" />
+                {isEditing && (
+                  <div
+                    onClick={(e) => { e.stopPropagation(); handleRemoveImage(i); }}
+                    className="absolute inset-0 bg-destructive/60 flex items-center justify-center opacity-0 group-hover/thumb:opacity-100 transition-opacity cursor-pointer"
+                  >
+                    <X className="w-3 h-3 text-white" />
+                  </div>
+                )}
+              </button>
+            ))}
+            {galleryImages.length === 0 && !isEditing && (
+              Array.from({ length: 3 }).map((_, i) => (
+                <div key={i} className="w-11 h-11 rounded border bg-muted/20 flex items-center justify-center shrink-0">
+                  <Package className="w-3.5 h-3.5 text-muted-foreground/20" />
+                </div>
+              ))
+            )}
+            {isEditing && galleryImages.length < 5 && (
+              <button
+                onClick={() => fileInputRef.current?.click()}
+                disabled={uploading}
+                className="w-11 h-11 rounded border border-dashed flex items-center justify-center shrink-0 hover:bg-muted/20 transition-colors"
+              >
+                {uploading ? (
+                  <div className="w-3.5 h-3.5 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                ) : (
+                  <ImagePlus className="w-3.5 h-3.5 text-muted-foreground/40" />
+                )}
+              </button>
             )}
           </div>
 
-          {/* Tags */}
+          {isEditing && (
+            <p className="text-[10px] text-muted-foreground text-center">
+              {galleryImages.length}/5 รูป
+            </p>
+          )}
+
+          {/* Tags (read mode) */}
           {!isEditing && product.tags && product.tags.length > 0 && (
-            <div>
-              <h3 className="text-xs font-semibold text-muted-foreground mb-1 uppercase tracking-wider">Tags</h3>
+            <div className="pt-2 border-t">
+              <h3 className="text-[10px] font-semibold text-muted-foreground mb-1 uppercase tracking-wider">Tags</h3>
               <div className="flex flex-wrap gap-1">{product.tags.map(t => <Badge key={t} variant="outline" className="text-[10px] h-5">{t}</Badge>)}</div>
             </div>
           )}
         </div>
 
-        {/* Right: All data fields */}
-        <div className="overflow-y-auto p-4 space-y-4">
+        {/* Right: Data + Description */}
+        <div className="overflow-y-auto p-4 space-y-3">
           {/* Row 1: ข้อมูลสินค้า */}
           <div>
             <h3 className="text-xs font-semibold text-muted-foreground mb-2 uppercase tracking-wider">ข้อมูลสินค้า</h3>
@@ -410,88 +436,102 @@ export default function ProductDetail() {
 
           <div className="border-t" />
 
-          {/* Row 2: ราคา */}
-          <div>
-            <h3 className="text-xs font-semibold text-muted-foreground mb-2 uppercase tracking-wider">ราคา</h3>
-            {isEditing ? (
-              <div className="grid grid-cols-4 gap-2">
-                <div><Label className="text-[10px]">ไม่รวม VAT</Label><Input type="number" value={editedProduct.unit_price || 0} onChange={(e) => handleInputChange('unit_price', parseFloat(e.target.value))} className="h-8 text-sm" /></div>
-                <div><Label className="text-[10px]">รวม VAT</Label><Input type="number" value={editedProduct.unit_price_vat || 0} onChange={(e) => handleInputChange('unit_price_vat', parseFloat(e.target.value))} className="h-8 text-sm" /></div>
-              </div>
-            ) : (
-              <div className="grid grid-cols-4 gap-x-6 gap-y-1.5 text-sm">
-                <InfoRow label="ราคา" value={`฿${product.unit_price?.toLocaleString()}`} highlight />
-                <InfoRow label="รวม VAT" value={product.unit_price_vat ? `฿${product.unit_price_vat.toLocaleString()}` : '-'} />
-              </div>
-            )}
+          {/* Row 2: ราคา + สเปก side by side */}
+          <div className="grid grid-cols-2 gap-6">
+            <div>
+              <h3 className="text-xs font-semibold text-muted-foreground mb-2 uppercase tracking-wider">ราคา</h3>
+              {isEditing ? (
+                <div className="grid grid-cols-2 gap-2">
+                  <div><Label className="text-[10px]">ไม่รวม VAT</Label><Input type="number" value={editedProduct.unit_price || 0} onChange={(e) => handleInputChange('unit_price', parseFloat(e.target.value))} className="h-8 text-sm" /></div>
+                  <div><Label className="text-[10px]">รวม VAT</Label><Input type="number" value={editedProduct.unit_price_vat || 0} onChange={(e) => handleInputChange('unit_price_vat', parseFloat(e.target.value))} className="h-8 text-sm" /></div>
+                </div>
+              ) : (
+                <div className="space-y-1.5 text-sm">
+                  <InfoRow label="ราคา" value={`฿${product.unit_price?.toLocaleString()}`} highlight />
+                  <InfoRow label="รวม VAT" value={product.unit_price_vat ? `฿${product.unit_price_vat.toLocaleString()}` : '-'} />
+                </div>
+              )}
+
+              {/* สถานะ (edit only) */}
+              {isEditing && (
+                <div className="mt-3 pt-3 border-t">
+                  <h3 className="text-xs font-semibold text-muted-foreground mb-2 uppercase tracking-wider">สถานะ</h3>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="flex items-center gap-2">
+                      <Switch checked={editedProduct.is_active || false} onCheckedChange={(c) => handleInputChange('is_active', c)} />
+                      <Label className="text-xs">{editedProduct.is_active ? 'เปิด' : 'ปิด'}</Label>
+                    </div>
+                    <div>
+                      <Select value={editedProduct.stock_status || ''} onValueChange={(v) => handleInputChange('stock_status', v)}>
+                        <SelectTrigger className="h-8 text-sm"><SelectValue /></SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="available">พร้อมส่ง</SelectItem>
+                          <SelectItem value="low_stock">สต๊อกต่ำ</SelectItem>
+                          <SelectItem value="out_of_stock">สินค้าหมด</SelectItem>
+                          <SelectItem value="discontinued">ยกเลิกการผลิต</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div>
+              <h3 className="text-xs font-semibold text-muted-foreground mb-2 uppercase tracking-wider">สเปก</h3>
+              {isEditing ? (
+                <div className="grid grid-cols-2 gap-2">
+                  <div><Label className="text-[10px]">CPU</Label><Input value={editedProduct.cpu || ''} onChange={(e) => handleInputChange('cpu', e.target.value)} className="h-8 text-sm" /></div>
+                  <div><Label className="text-[10px]">RAM (GB)</Label><Input type="number" value={editedProduct.ram_gb || ''} onChange={(e) => handleInputChange('ram_gb', parseInt(e.target.value) || null)} className="h-8 text-sm" /></div>
+                  <div><Label className="text-[10px]">Storage (GB)</Label><Input type="number" value={editedProduct.storage_gb || ''} onChange={(e) => handleInputChange('storage_gb', parseInt(e.target.value) || null)} className="h-8 text-sm" /></div>
+                  <div>
+                    <Label className="text-[10px]">Storage Type</Label>
+                    <Select value={editedProduct.storage_type || ''} onValueChange={(v) => handleInputChange('storage_type', v)}>
+                      <SelectTrigger className="h-8 text-sm"><SelectValue /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="SSD">SSD</SelectItem>
+                        <SelectItem value="HDD">HDD</SelectItem>
+                        <SelectItem value="MSATA">MSATA</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div><Label className="text-[10px]">OS</Label><Input value={editedProduct.os || ''} onChange={(e) => handleInputChange('os', e.target.value)} className="h-8 text-sm" /></div>
+                  <div className="flex items-end gap-4 pb-1">
+                    <div className="flex items-center gap-1.5"><Switch checked={editedProduct.has_wifi || false} onCheckedChange={(c) => handleInputChange('has_wifi', c)} /><Label className="text-xs">WiFi</Label></div>
+                    <div className="flex items-center gap-1.5"><Switch checked={editedProduct.has_4g || false} onCheckedChange={(c) => handleInputChange('has_4g', c)} /><Label className="text-xs">4G</Label></div>
+                  </div>
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-sm">
+                  <InfoRow label="CPU" value={product.cpu} />
+                  <InfoRow label="RAM" value={product.ram_gb ? `${product.ram_gb} GB` : null} />
+                  <InfoRow label="Storage" value={product.storage_gb ? `${product.storage_gb} GB ${product.storage_type || ''}` : null} />
+                  <InfoRow label="OS" value={product.os} />
+                  <InfoRow label="WiFi" value={product.has_wifi ? '✓' : '✗'} />
+                  <InfoRow label="4G" value={product.has_4g ? '✓' : '✗'} />
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="border-t" />
 
-          {/* Row 3: สเปก */}
+          {/* Row 3: รายละเอียด (full width) */}
           <div>
-            <h3 className="text-xs font-semibold text-muted-foreground mb-2 uppercase tracking-wider">สเปก</h3>
+            <h3 className="text-xs font-semibold text-muted-foreground mb-2 uppercase tracking-wider">รายละเอียด</h3>
             {isEditing ? (
-              <div className="grid grid-cols-4 gap-2">
-                <div><Label className="text-[10px]">CPU</Label><Input value={editedProduct.cpu || ''} onChange={(e) => handleInputChange('cpu', e.target.value)} className="h-8 text-sm" /></div>
-                <div><Label className="text-[10px]">RAM (GB)</Label><Input type="number" value={editedProduct.ram_gb || ''} onChange={(e) => handleInputChange('ram_gb', parseInt(e.target.value) || null)} className="h-8 text-sm" /></div>
-                <div><Label className="text-[10px]">Storage (GB)</Label><Input type="number" value={editedProduct.storage_gb || ''} onChange={(e) => handleInputChange('storage_gb', parseInt(e.target.value) || null)} className="h-8 text-sm" /></div>
-                <div>
-                  <Label className="text-[10px]">Storage Type</Label>
-                  <Select value={editedProduct.storage_type || ''} onValueChange={(v) => handleInputChange('storage_type', v)}>
-                    <SelectTrigger className="h-8 text-sm"><SelectValue /></SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="SSD">SSD</SelectItem>
-                      <SelectItem value="HDD">HDD</SelectItem>
-                      <SelectItem value="MSATA">MSATA</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div><Label className="text-[10px]">OS</Label><Input value={editedProduct.os || ''} onChange={(e) => handleInputChange('os', e.target.value)} className="h-8 text-sm" /></div>
-                <div className="flex items-end gap-4 pb-1">
-                  <div className="flex items-center gap-1.5"><Switch checked={editedProduct.has_wifi || false} onCheckedChange={(c) => handleInputChange('has_wifi', c)} /><Label className="text-xs">WiFi</Label></div>
-                  <div className="flex items-center gap-1.5"><Switch checked={editedProduct.has_4g || false} onCheckedChange={(c) => handleInputChange('has_4g', c)} /><Label className="text-xs">4G</Label></div>
-                </div>
-              </div>
+              <Textarea
+                value={editedProduct.description || ''}
+                onChange={(e) => handleInputChange('description', e.target.value)}
+                className="text-sm min-h-[200px] resize-y"
+                placeholder="รายละเอียดสินค้า..."
+              />
             ) : (
-              <div className="grid grid-cols-4 gap-x-6 gap-y-1.5 text-sm">
-                <InfoRow label="CPU" value={product.cpu} />
-                <InfoRow label="RAM" value={product.ram_gb ? `${product.ram_gb} GB` : null} />
-                <InfoRow label="Storage" value={product.storage_gb ? `${product.storage_gb} GB ${product.storage_type || ''}` : null} />
-                <InfoRow label="OS" value={product.os} />
-                <InfoRow label="WiFi" value={product.has_wifi ? '✓' : '✗'} />
-                <InfoRow label="4G" value={product.has_4g ? '✓' : '✗'} />
-              </div>
+              <p className="text-sm text-muted-foreground whitespace-pre-line leading-relaxed">
+                {product.description || 'ไม่มีรายละเอียด'}
+              </p>
             )}
           </div>
-
-          {/* Row 4: สถานะ (edit only) */}
-          {isEditing && (
-            <>
-              <div className="border-t" />
-              <div>
-                <h3 className="text-xs font-semibold text-muted-foreground mb-2 uppercase tracking-wider">สถานะ</h3>
-                <div className="grid grid-cols-4 gap-2">
-                  <div className="flex items-center gap-2">
-                    <Switch checked={editedProduct.is_active || false} onCheckedChange={(c) => handleInputChange('is_active', c)} />
-                    <Label className="text-xs">{editedProduct.is_active ? 'เปิด' : 'ปิด'}</Label>
-                  </div>
-                  <div>
-                    <Label className="text-[10px]">สถานะสต๊อก</Label>
-                    <Select value={editedProduct.stock_status || ''} onValueChange={(v) => handleInputChange('stock_status', v)}>
-                      <SelectTrigger className="h-8 text-sm"><SelectValue /></SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="available">พร้อมส่ง</SelectItem>
-                        <SelectItem value="low_stock">สต๊อกต่ำ</SelectItem>
-                        <SelectItem value="out_of_stock">สินค้าหมด</SelectItem>
-                        <SelectItem value="discontinued">ยกเลิกการผลิต</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-              </div>
-            </>
-          )}
         </div>
       </div>
     </div>
