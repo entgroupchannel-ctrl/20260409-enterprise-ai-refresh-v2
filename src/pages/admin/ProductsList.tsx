@@ -33,6 +33,7 @@ interface Product {
   is_featured: boolean;
   image_url: string | null;
   created_at: string;
+  slug: string;
 }
 
 const stockStatusLabels: Record<string, string> = {
