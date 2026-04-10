@@ -19,6 +19,7 @@ import {
 } from '@/components/ui/dialog';
 import QuoteTimeline from '@/components/rfq/QuoteTimeline';
 import POUploadDialog from '@/components/quotes/POUploadDialog';
+import { Badge } from '@/components/ui/badge';
 import {
   ArrowLeft,
   Download,
@@ -35,6 +36,8 @@ import {
   RefreshCw,
   X,
   Loader2,
+  Mail,
+  MessageCircle,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
@@ -370,7 +373,61 @@ export default function MyQuoteDetail() {
           </CardContent>
         </Card>
 
-        {/* Two Column Layout */}
+        {/* Attention Banner — pending / quote_sent */}
+        {(quote.status === 'pending' || quote.status === 'quote_sent') && (
+          <Card className="mb-6 border-primary/50 bg-gradient-to-r from-primary/5 to-transparent">
+            <CardContent className="p-6">
+              <div className="flex items-start gap-4">
+                <div className="relative shrink-0 hidden md:block">
+                  <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center">
+                    <CheckCircle2 className="w-6 h-6 text-primary-foreground" />
+                  </div>
+                  <div className="absolute inset-0 rounded-full bg-primary animate-ping opacity-25" />
+                </div>
+
+                <div className="flex-1 space-y-3">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <h3 className="font-semibold text-lg">
+                      💡 ทีมงานได้รับใบขอราคาของคุณแล้ว
+                    </h3>
+                    <Badge variant="secondary" className="animate-pulse">
+                      กำลังดำเนินการ
+                    </Badge>
+                  </div>
+
+                  <p className="text-sm text-muted-foreground">
+                    เรากำลังตรวจสอบสินค้า สเปก รายละเอียด และราคา
+                    แล้วจะดำเนินการตอบกลับโดยเร็วที่สุด
+                  </p>
+
+                  <div className="pt-3 border-t border-border/50">
+                    <p className="text-xs text-muted-foreground mb-3">
+                      หากมีข้อสงสัย ติดต่อได้ที่:
+                    </p>
+                    <div className="flex flex-wrap gap-3">
+                      <a
+                        href="mailto:sales@entgroup.co.th"
+                        className="inline-flex items-center gap-2 px-3 py-2 bg-background border rounded-lg text-sm hover:bg-primary/5 hover:border-primary/50 transition-all"
+                      >
+                        <Mail className="w-4 h-4 text-primary" />
+                        <span>sales@entgroup.co.th</span>
+                      </a>
+                      <a
+                        href="https://line.me/R/ti/p/@entgroup"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-3 py-2 bg-background border rounded-lg text-sm hover:bg-primary/5 hover:border-primary/50 transition-all"
+                      >
+                        <MessageCircle className="w-4 h-4 text-primary" />
+                        <span>LINE: @entgroup</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left Column - Main Content */}
           <div className="lg:col-span-2 space-y-6">
