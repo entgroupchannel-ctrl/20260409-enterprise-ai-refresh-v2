@@ -943,7 +943,7 @@ export default function MyQuoteDetail() {
       {/* Negotiation Request Dialog */}
       <NegotiationRequestDialog
         quoteId={quote.id}
-        currentRevisionId={(quote as any).current_revision_id}
+        currentRevisionId={quote.current_revision_id}
         open={showNegotiation}
         onClose={() => setShowNegotiation(false)}
         onSuccess={() => loadQuote()}
@@ -954,8 +954,9 @@ export default function MyQuoteDetail() {
         quoteId={quote.id}
         quoteNumber={quote.quote_number}
         grandTotal={quote.grand_total}
-        freeItems={(quote as any).free_items || []}
+        freeItems={quote.free_items || []}
         validUntil={quote.valid_until}
+        currentRevisionId={quote.current_revision_id}
         open={showAcceptQuote}
         onClose={() => setShowAcceptQuote(false)}
         onSuccess={() => loadQuote()}
