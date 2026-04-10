@@ -6,6 +6,7 @@ import POVersionHistory from '@/components/admin/POVersionHistory';
 import { QuoteTimeline } from '@/components/QuoteTimeline';
 import RevisionTimeline from '@/components/negotiation/RevisionTimeline';
 import CounterOfferDialog from '@/components/negotiation/CounterOfferDialog';
+import PendingApprovalBanner from '@/components/negotiation/PendingApprovalBanner';
 import NegotiationRequestsList from '@/components/negotiation/NegotiationRequestsList';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import AdminLayout from '@/layouts/AdminLayout';

@@ -130,6 +130,11 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                             {pendingRequestsCount}
                           </Badge>
                         )}
+                        {(item as any).badgeCount > 0 && (
+                          <Badge className="ml-1 px-1.5 py-0 text-xs bg-amber-600 text-white">
+                            {(item as any).badgeCount}
+                          </Badge>
+                        )}
                       </Button>
                     </Link>
                   );
@@ -199,6 +204,11 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                     {item.badge && pendingRequestsCount > 0 && (
                       <Badge variant="destructive" className="ml-1 px-1 py-0 text-[10px]">
                         {pendingRequestsCount}
+                      </Badge>
+                    )}
+                    {(item as any).badgeCount > 0 && (
+                      <Badge className="ml-1 px-1 py-0 text-[10px] bg-amber-600 text-white">
+                        {(item as any).badgeCount}
                       </Badge>
                     )}
                   </Button>
