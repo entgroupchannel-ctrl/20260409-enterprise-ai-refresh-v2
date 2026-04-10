@@ -19,6 +19,7 @@ import {
 } from '@/components/ui/dialog';
 import QuoteTimeline from '@/components/rfq/QuoteTimeline';
 import POUploadDialog from '@/components/quotes/POUploadDialog';
+import { Badge } from '@/components/ui/badge';
 import {
   ArrowLeft,
   Download,
@@ -35,6 +36,8 @@ import {
   RefreshCw,
   X,
   Loader2,
+  Mail,
+  MessageCircle,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
