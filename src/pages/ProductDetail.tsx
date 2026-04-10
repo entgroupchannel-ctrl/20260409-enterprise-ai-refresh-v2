@@ -240,25 +240,24 @@ export default function ProductDetail() {
         )}
 
         {/* Compact Admin Layout */}
-        <div className="grid lg:grid-cols-[200px_1fr] gap-6">
-          {/* Left: Small Image */}
-          <div className="w-full max-w-[200px]">
+        <div className="grid lg:grid-cols-[120px_1fr] gap-4">
+          {/* Left: Tiny Image */}
+          <div className="w-full max-w-[120px]">
             <Card>
-              <CardContent className="p-3">
-                <div className="aspect-square bg-gradient-to-br from-primary/5 to-primary/10 rounded-md flex items-center justify-center relative">
+              <CardContent className="p-2">
+                <div className="aspect-square bg-muted/30 rounded flex items-center justify-center">
                   {product.image_url ? (
                     <img src={product.image_url} alt={product.model} className="w-full h-full object-contain" />
                   ) : (
-                    <Package className="w-16 h-16 text-primary/20" />
+                    <Package className="w-10 h-10 text-muted-foreground/30" />
                   )}
                 </div>
                 {isEditing && (
-                  <Button className="w-full mt-2" size="sm" variant="outline">
-                    <Upload className="w-3 h-3 mr-1" />เปลี่ยนรูป
+                  <Button className="w-full mt-1.5" size="sm" variant="ghost">
+                    <Upload className="w-3 h-3 mr-1" />เปลี่ยน
                   </Button>
                 )}
-                {/* Status badges */}
-                <div className="mt-2 flex flex-wrap gap-1">
+                <div className="mt-1.5 flex flex-wrap gap-1">
                   <Badge variant={product.is_active ? 'default' : 'destructive'} className="text-xs">
                     {product.is_active ? 'เปิดใช้งาน' : 'ปิด'}
                   </Badge>
