@@ -1,5 +1,5 @@
 // src/pages/admin/AdminQuoteDetail.tsx
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import CreateSaleOrderDialog from '@/components/admin/CreateSaleOrderDialog';
 import POActionsMenu from '@/components/admin/POActionsMenu';
 import POVersionHistory from '@/components/admin/POVersionHistory';
@@ -54,6 +54,39 @@ import {
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
+// ============================================
+// 🧮 Centralized Quote Calculation
+// ============================================
+interface QuoteTotals {
+  subtotal: number;
+  discountAmount: number;
+  beforeVat: number;
+  vatAmount: number;
+  grandTotal: number;
+}
+
+const calculateQuoteTotals = (
+  products: any[],
+  discountPercent: number = 0,
+  vatPercent: number = 7
+): QuoteTotals => {
+  const subtotal = (products || []).reduce((sum: number, p: any) => {
+    const qty = Number(p.qty) || 0;
+    const unitPrice = Number(p.unit_price) || 0;
+    const itemDiscountPct = Number(p.discount_percent) || 0;
+    const lineGross = qty * unitPrice;
+    const lineDiscount = lineGross * (itemDiscountPct / 100);
+    return sum + (lineGross - lineDiscount);
+  }, 0);
+
+  const discountAmount = subtotal * ((Number(discountPercent) || 0) / 100);
+  const beforeVat = subtotal - discountAmount;
+  const vatAmount = beforeVat * ((Number(vatPercent) || 0) / 100);
+  const grandTotal = beforeVat + vatAmount;
+
+  return { subtotal, discountAmount, beforeVat, vatAmount, grandTotal };
+};
+
 interface Quote {
   id: string;
   quote_number: string;
@@ -65,7 +98,9 @@ interface Quote {
   customer_tax_id: string | null;
   products: any[];
   subtotal: number;
+  discount_percent: number | null;
   discount_amount: number;
+  vat_percent: number | null;
   vat_amount: number;
   grand_total: number;
   status: string;
@@ -124,6 +159,16 @@ export default function AdminQuoteDetail() {
   const [rejectReason, setRejectReason] = useState('');
   const [processing, setProcessing] = useState(false);
   const [showCreateSO, setShowCreateSO] = useState(false);
+
+  // ✅ Real-time calculation
+  const totals = useMemo(() => {
+    if (!quote) return { subtotal: 0, discountAmount: 0, beforeVat: 0, vatAmount: 0, grandTotal: 0 };
+    return calculateQuoteTotals(
+      quote.products || [],
+      quote.discount_percent || 0,
+      quote.vat_percent || 7
+    );
+  }, [quote?.products, quote?.discount_percent, quote?.vat_percent]);
 
   useEffect(() => {
     if (id) {
@@ -562,14 +607,34 @@ export default function AdminQuoteDetail() {
                   <ProductEditor
                     products={quote.products || []}
                     onUpdate={async (updatedProducts) => {
+                      const recalc = calculateQuoteTotals(
+                        updatedProducts,
+                        quote.discount_percent || 0,
+                        quote.vat_percent || 7
+                      );
                       const { error } = await supabase
                         .from('quote_requests')
-                        .update({ products: updatedProducts as any })
+                        .update({
+                          products: updatedProducts as any,
+                          subtotal: recalc.subtotal,
+                          discount_amount: recalc.discountAmount,
+                          vat_amount: recalc.vatAmount,
+                          grand_total: recalc.grandTotal,
+                        })
                         .eq('id', id);
                       
                       if (!error) {
-                        setQuote({ ...quote, products: updatedProducts });
+                        setQuote({
+                          ...quote,
+                          products: updatedProducts,
+                          subtotal: recalc.subtotal,
+                          discount_amount: recalc.discountAmount,
+                          vat_amount: recalc.vatAmount,
+                          grand_total: recalc.grandTotal,
+                        });
                         toast({ title: 'บันทึกสินค้าแล้ว' });
+                      } else {
+                        toast({ title: 'บันทึกไม่สำเร็จ', description: error.message, variant: 'destructive' });
                       }
                     }}
                     disabled={false}
@@ -640,30 +705,86 @@ export default function AdminQuoteDetail() {
 
                 <Separator className="my-4" />
 
-                {/* Summary */}
+                {/* ✅ Overall Discount Input - แสดงเฉพาะตอน editable */}
+                {quote.status === 'pending' && (
+                  <div className="mb-4 p-4 bg-muted/30 rounded-lg border border-border">
+                    <Label className="text-sm font-medium text-foreground mb-2 block">
+                      ส่วนลดรวมทั้งใบเสนอราคา (%)
+                    </Label>
+                    <div className="flex items-center gap-2">
+                      <Input
+                        type="number"
+                        min="0"
+                        max="100"
+                        step="0.01"
+                        value={quote.discount_percent || ''}
+                        placeholder="0"
+                        className="max-w-[150px]"
+                        onFocus={(e) => e.target.select()}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          const newPercent = val === '' ? 0 : parseFloat(val);
+                          setQuote({ ...quote, discount_percent: newPercent });
+                        }}
+                        onBlur={async (e) => {
+                          const val = e.target.value;
+                          const newPercent = val === '' ? 0 : parseFloat(val);
+                          const recalc = calculateQuoteTotals(
+                            quote.products || [],
+                            newPercent,
+                            quote.vat_percent || 7
+                          );
+                          const { error } = await supabase
+                            .from('quote_requests')
+                            .update({
+                              discount_percent: newPercent,
+                              subtotal: recalc.subtotal,
+                              discount_amount: recalc.discountAmount,
+                              vat_amount: recalc.vatAmount,
+                              grand_total: recalc.grandTotal,
+                            })
+                            .eq('id', id);
+                          if (!error) {
+                            toast({ title: 'บันทึกส่วนลดแล้ว' });
+                          }
+                        }}
+                      />
+                      <span className="text-sm text-muted-foreground">%</span>
+                      {quote.discount_percent && quote.discount_percent > 0 && (
+                        <span className="text-sm text-green-600 dark:text-green-400 ml-2">
+                          = -{formatCurrency(totals.discountAmount)}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                <Separator className="my-4" />
+
+                {/* Summary - ใช้ totals real-time */}
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">รวมเป็นเงิน</span>
-                    <span className="text-foreground">{formatCurrency(quote.subtotal || 0)}</span>
+                    <span className="text-foreground">{formatCurrency(totals.subtotal)}</span>
                   </div>
-                  {quote.discount_amount > 0 && (
+                  {totals.discountAmount > 0 && (
                     <div className="flex justify-between text-sm text-green-600 dark:text-green-400">
-                      <span>ส่วนลด</span>
-                      <span>-{formatCurrency(quote.discount_amount)}</span>
+                      <span>ส่วนลด ({quote.discount_percent || 0}%)</span>
+                      <span>-{formatCurrency(totals.discountAmount)}</span>
                     </div>
                   )}
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">ราคาหลังหักส่วนลด</span>
-                    <span className="text-foreground">{formatCurrency((quote.subtotal || 0) - (quote.discount_amount || 0))}</span>
+                    <span className="text-foreground">{formatCurrency(totals.beforeVat)}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">ภาษีมูลค่าเพิ่ม 7%</span>
-                    <span className="text-foreground">{formatCurrency(quote.vat_amount || 0)}</span>
+                    <span className="text-muted-foreground">ภาษีมูลค่าเพิ่ม {quote.vat_percent || 7}%</span>
+                    <span className="text-foreground">{formatCurrency(totals.vatAmount)}</span>
                   </div>
                   <Separator />
                   <div className="flex justify-between text-lg font-bold">
                     <span className="text-foreground">จำนวนเงินรวมทั้งสิ้น</span>
-                    <span className="text-primary">{formatCurrency(quote.grand_total || 0)}</span>
+                    <span className="text-primary">{formatCurrency(totals.grandTotal)}</span>
                   </div>
                 </div>
 
@@ -675,29 +796,14 @@ export default function AdminQuoteDetail() {
                       size="lg"
                       onClick={async () => {
                         try {
-                          // Calculate totals with item-level discounts
-                          const subtotal = quote.products.reduce((sum: number, p: any) => {
-                            const itemTotal = (p.qty || 0) * (p.unit_price || 0);
-                            const itemDiscount = itemTotal * ((p.discount_percent || 0) / 100);
-                            return sum + (itemTotal - itemDiscount);
-                          }, 0);
-                          
-                          // Apply overall discount
-                          const discountPercent = (quote as any).discount_percent || 0;
-                          const discountAmount = subtotal * (discountPercent / 100);
-                          const afterDiscount = subtotal - discountAmount;
-                          
-                          const vatAmount = afterDiscount * 0.07;
-                          const grandTotal = afterDiscount + vatAmount;
-
                           const { error } = await supabase
                             .from('quote_requests')
                             .update({
-                           status: 'quote_sent',
-                              subtotal,
-                              discount_amount: discountAmount,
-                              vat_amount: vatAmount,
-                              grand_total: grandTotal,
+                              status: 'quote_sent',
+                              subtotal: totals.subtotal,
+                              discount_amount: totals.discountAmount,
+                              vat_amount: totals.vatAmount,
+                              grand_total: totals.grandTotal,
                               sent_at: new Date().toISOString(),
                             })
                             .eq('id', id);
@@ -837,7 +943,7 @@ export default function AdminQuoteDetail() {
               คุณแน่ใจหรือไม่ว่าต้องการอนุมัติ PO สำหรับใบเสนอราคา {quote.quote_number}?
               <br />
               <br />
-              <strong>ยอดรวม: {formatCurrency(quote.grand_total)}</strong>
+              <strong>ยอดรวม: {formatCurrency(totals.grandTotal)}</strong>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
