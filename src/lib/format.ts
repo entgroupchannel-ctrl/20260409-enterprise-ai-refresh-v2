@@ -1,3 +1,13 @@
+/** Parse date string safely — treat naive timestamps (no Z/offset) as UTC */
+function parseDate(date: string | Date): Date {
+  if (date instanceof Date) return date;
+  // If no timezone indicator, append Z to treat as UTC
+  if (typeof date === 'string' && !date.endsWith('Z') && !date.includes('+') && !/T\d{2}:\d{2}:\d{2}[+-]/.test(date)) {
+    return new Date(date.replace(' ', 'T') + 'Z');
+  }
+  return new Date(date);
+}
+
 /** Format number as Thai Baht currency */
 export function formatCurrency(amount: number): string {
   return new Intl.NumberFormat("th-TH", {
@@ -14,7 +24,7 @@ export function formatDate(date: string | Date): string {
     month: "short",
     day: "numeric",
     timeZone: "Asia/Bangkok",
-  }).format(new Date(date));
+  }).format(parseDate(date));
 }
 
 /** Format datetime in Thai locale (Bangkok timezone) */
@@ -25,8 +35,9 @@ export function formatDateTime(date: string | Date): string {
     day: "numeric",
     hour: "2-digit",
     minute: "2-digit",
+    hour12: false,
     timeZone: "Asia/Bangkok",
-  }).format(new Date(date));
+  }).format(parseDate(date));
 }
 
 /** Format short date dd MMM yyyy (Bangkok timezone) */
@@ -36,7 +47,7 @@ export function formatShortDate(date: string | Date): string {
     month: "short",
     year: "numeric",
     timeZone: "Asia/Bangkok",
-  }).format(new Date(date));
+  }).format(parseDate(date));
 }
 
 /** Format short datetime dd MMM yyyy HH:mm (Bangkok timezone) */
@@ -47,8 +58,9 @@ export function formatShortDateTime(date: string | Date): string {
     year: "numeric",
     hour: "2-digit",
     minute: "2-digit",
+    hour12: false,
     timeZone: "Asia/Bangkok",
-  }).format(new Date(date));
+  }).format(parseDate(date));
 }
 
 /** Format full date dd MMMM yyyy (Bangkok timezone) */
@@ -58,7 +70,7 @@ export function formatFullDate(date: string | Date): string {
     month: "long",
     year: "numeric",
     timeZone: "Asia/Bangkok",
-  }).format(new Date(date));
+  }).format(parseDate(date));
 }
 
 /** Format time only HH:mm (Bangkok timezone) */
@@ -66,13 +78,14 @@ export function formatTime(date: string | Date): string {
   return new Intl.DateTimeFormat("th-TH", {
     hour: "2-digit",
     minute: "2-digit",
+    hour12: false,
     timeZone: "Asia/Bangkok",
-  }).format(new Date(date));
+  }).format(parseDate(date));
 }
 
 /** Calculate time remaining */
 export function timeRemaining(dueDate: string | Date): { hours: number; minutes: number; overdue: boolean } {
-  const diff = new Date(dueDate).getTime() - Date.now();
+  const diff = parseDate(dueDate).getTime() - Date.now();
   const overdue = diff < 0;
   const absDiff = Math.abs(diff);
   return {
@@ -85,7 +98,7 @@ export function timeRemaining(dueDate: string | Date): { hours: number; minutes:
 /** Relative time in Thai (e.g. "2 นาทีที่แล้ว") - timezone-safe */
 export function formatRelativeTime(date: string | Date): string {
   const now = Date.now();
-  const then = new Date(date).getTime();
+  const then = parseDate(date).getTime();
   const diffMs = now - then;
   const absDiff = Math.abs(diffMs);
   const isFuture = diffMs < 0;
