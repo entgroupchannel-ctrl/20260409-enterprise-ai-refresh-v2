@@ -62,6 +62,8 @@ interface Product {
   thumbnail_url: string | null;
   gallery_urls: string[] | null;
   tags: string[] | null;
+  created_at: string;
+  updated_at: string | null;
 }
 
 export default function ProductDetail() {
