@@ -21,7 +21,7 @@ const statusOrder: Record<string, number> = {
 
 interface QuoteTimelineProps {
   currentStatus: string;
-  size?: "sm" | "lg";
+  size?: "sm" | "md" | "lg";
 }
 
 export default function QuoteTimeline({ currentStatus, size = "sm" }: QuoteTimelineProps) {
@@ -50,7 +50,7 @@ export default function QuoteTimeline({ currentStatus, size = "sm" }: QuoteTimel
               <div
                 className={cn(
                   "rounded-full flex items-center justify-center transition-colors",
-                  size === "lg" ? "w-10 h-10" : "w-8 h-8",
+                  size === "lg" ? "w-10 h-10" : size === "md" ? "w-9 h-9" : "w-8 h-8",
                   isDone && "bg-primary text-primary-foreground",
                   isCurrent && "bg-primary/20 text-primary ring-2 ring-primary",
                   !isDone && !isCurrent && "bg-muted text-muted-foreground"
@@ -65,7 +65,7 @@ export default function QuoteTimeline({ currentStatus, size = "sm" }: QuoteTimel
               <span
                 className={cn(
                   "mt-1 text-center whitespace-nowrap",
-                  size === "lg" ? "text-xs" : "text-[10px]",
+                  size === "lg" ? "text-xs" : size === "md" ? "text-[11px]" : "text-[10px]",
                   isCurrent ? "font-semibold text-foreground" : "text-muted-foreground"
                 )}
               >
