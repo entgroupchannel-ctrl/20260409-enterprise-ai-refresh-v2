@@ -115,6 +115,7 @@ export default function MyQuoteDetail() {
   const [deletingFileId, setDeletingFileId] = useState<string | null>(null);
   const [showNegotiation, setShowNegotiation] = useState(false);
   const [showAcceptQuote, setShowAcceptQuote] = useState(false);
+  const [currentRevision, setCurrentRevision] = useState<any>(null);
 
   useEffect(() => {
     if (id && user) {
