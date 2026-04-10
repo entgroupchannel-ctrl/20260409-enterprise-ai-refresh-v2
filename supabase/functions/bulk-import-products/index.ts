@@ -2,7 +2,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-import-key",
 };
 
 Deno.serve(async (req) => {
@@ -16,6 +16,7 @@ Deno.serve(async (req) => {
     let authorized = false;
 
     const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    const bulkImportKey = Deno.env.get("BULK_IMPORT_KEY");
     
     // Method 1: Service role key in bearer token
     if (authHeader === `Bearer ${serviceKey}`) {
@@ -27,7 +28,12 @@ Deno.serve(async (req) => {
       authorized = true;
     }
 
-    // Method 3: Authenticated admin user
+    // Method 3: Bulk import key (dedicated secret)
+    if (!authorized && bulkImportKey && importKey === bulkImportKey) {
+      authorized = true;
+    }
+
+    // Method 4: Authenticated admin user
     if (!authorized && authHeader) {
       const anonClient = createClient(
         Deno.env.get("SUPABASE_URL")!,
