@@ -128,6 +128,7 @@ interface Quote {
   accepted_at: string | null;
   accepted_by: string | null;
   expired_at: string | null;
+  has_sale_order: boolean | null;
 }
 
 interface QuoteFile {
@@ -500,7 +501,7 @@ export default function AdminQuoteDetail() {
         )}
 
         {/* SO Action Banner */}
-        {quote.status === 'po_approved' && !(quote as any).has_sale_order && (
+        {quote.status === 'po_approved' && !quote.has_sale_order && (
           <Card className="border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-900/20">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
@@ -520,7 +521,7 @@ export default function AdminQuoteDetail() {
           </Card>
         )}
 
-        {(quote as any).has_sale_order && (
+        {quote.has_sale_order && (
           <Card className="border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-900/20">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
@@ -851,7 +852,7 @@ export default function AdminQuoteDetail() {
             <RevisionTimeline
               key={revisionKey}
               quoteId={quote.id}
-              currentRevisionId={(quote as any).current_revision_id}
+              currentRevisionId={quote.current_revision_id}
               viewerRole="admin"
               onCreateCounter={() => {
                 setCounterNegotiationId(undefined);
