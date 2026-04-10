@@ -838,9 +838,27 @@ export default function AdminQuoteDetail() {
               </CardContent>
             </Card>
 
-          </div>
+            {/* Negotiation: Revision Timeline */}
+            <RevisionTimeline
+              key={revisionKey}
+              quoteId={quote.id}
+              currentRevisionId={(quote as any).current_revision_id}
+              viewerRole="admin"
+              onCreateCounter={() => {
+                setCounterNegotiationId(undefined);
+                setShowCounterOffer(true);
+              }}
+            />
 
-          {/* Right Column - Chat & Timeline */}
+            {/* Negotiation Requests from Customer */}
+            <NegotiationRequestsList
+              quoteId={quote.id}
+              onCreateCounter={(reqId) => {
+                setCounterNegotiationId(reqId);
+                setShowCounterOffer(true);
+              }}
+            />
+
           <div className="space-y-6">
             {/* Chat/Messages */}
             <Card>
@@ -997,6 +1015,23 @@ export default function AdminQuoteDetail() {
         onOpenChange={setShowCreateSO}
         quote={quote}
         onSuccess={loadQuoteDetails}
+      />
+
+      {/* Counter Offer Dialog */}
+      <CounterOfferDialog
+        quoteId={quote.id}
+        baseProducts={quote.products || []}
+        baseFreeItems={(quote as any).free_items || []}
+        baseDiscountPercent={quote.discount_percent || 0}
+        baseVatPercent={quote.vat_percent || 7}
+        baseValidUntil={quote.valid_until || undefined}
+        negotiationRequestId={counterNegotiationId}
+        open={showCounterOffer}
+        onClose={() => setShowCounterOffer(false)}
+        onSuccess={() => {
+          loadQuoteDetails();
+          setRevisionKey((k) => k + 1);
+        }}
       />
     </AdminLayout>
   );
