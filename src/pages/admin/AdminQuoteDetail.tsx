@@ -54,6 +54,39 @@ import {
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
+// ============================================
+// 🧮 Centralized Quote Calculation
+// ============================================
+interface QuoteTotals {
+  subtotal: number;
+  discountAmount: number;
+  beforeVat: number;
+  vatAmount: number;
+  grandTotal: number;
+}
+
+const calculateQuoteTotals = (
+  products: any[],
+  discountPercent: number = 0,
+  vatPercent: number = 7
+): QuoteTotals => {
+  const subtotal = (products || []).reduce((sum: number, p: any) => {
+    const qty = Number(p.qty) || 0;
+    const unitPrice = Number(p.unit_price) || 0;
+    const itemDiscountPct = Number(p.discount_percent) || 0;
+    const lineGross = qty * unitPrice;
+    const lineDiscount = lineGross * (itemDiscountPct / 100);
+    return sum + (lineGross - lineDiscount);
+  }, 0);
+
+  const discountAmount = subtotal * ((Number(discountPercent) || 0) / 100);
+  const beforeVat = subtotal - discountAmount;
+  const vatAmount = beforeVat * ((Number(vatPercent) || 0) / 100);
+  const grandTotal = beforeVat + vatAmount;
+
+  return { subtotal, discountAmount, beforeVat, vatAmount, grandTotal };
+};
+
 interface Quote {
   id: string;
   quote_number: string;
@@ -65,7 +98,9 @@ interface Quote {
   customer_tax_id: string | null;
   products: any[];
   subtotal: number;
+  discount_percent: number | null;
   discount_amount: number;
+  vat_percent: number | null;
   vat_amount: number;
   grand_total: number;
   status: string;
