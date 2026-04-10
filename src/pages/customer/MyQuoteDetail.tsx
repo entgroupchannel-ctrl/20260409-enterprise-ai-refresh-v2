@@ -460,8 +460,8 @@ export default function MyQuoteDetail() {
           </Card>
         )}
 
-        {/* Negotiation Action Bar — quote_sent or negotiating */}
-        {(quote.status === 'quote_sent' || quote.status === 'negotiating') && quote.grand_total > 0 && (
+        {/* Negotiation Action Bar — quote_sent or negotiating, only if revision is 'sent' */}
+        {(quote.status === 'quote_sent' || quote.status === 'negotiating') && quote.grand_total > 0 && quote.current_revision_id && currentRevision?.status === 'sent' && (
           <Card className="mb-6 border-primary/30">
             <CardContent className="p-5">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
