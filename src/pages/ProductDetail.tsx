@@ -35,6 +35,7 @@ import {
   ImagePlus,
 } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
+import ProductConfigurator from '@/components/ProductConfigurator';
 import { formatShortDateTime } from '@/lib/format';
 
 interface Product {
