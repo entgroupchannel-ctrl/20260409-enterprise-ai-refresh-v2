@@ -65,7 +65,7 @@ export default function ProductsList() {
     try {
       const { data, error } = await supabase
         .from('products')
-        .select('id, product_code, sku, model, series, name, category, unit_price, unit_price_vat, stock_status, stock_quantity, is_active, is_featured, image_url, created_at')
+        .select('id, product_code, sku, model, series, name, category, unit_price, unit_price_vat, stock_status, stock_quantity, is_active, is_featured, image_url, created_at, slug')
         .order('created_at', { ascending: false });
       if (error) throw error;
       setProducts((data as any) || []);
