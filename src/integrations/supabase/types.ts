@@ -1482,12 +1482,31 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      approve_revision: {
+        Args: {
+          p_approver_id: string
+          p_revision_id: string
+          p_send_to_customer?: boolean
+        }
+        Returns: Json
+      }
+      count_pending_approvals: { Args: never; Returns: number }
+      expire_old_quotes: {
+        Args: never
+        Returns: {
+          expired_count: number
+        }[]
+      }
       get_next_po_version: { Args: { p_quote_id: string }; Returns: number }
       get_next_revision_number: {
         Args: { p_quote_id: string }
         Returns: number
       }
       get_user_role: { Args: { _user_id: string }; Returns: string }
+      reject_revision: {
+        Args: { p_approver_id: string; p_reason: string; p_revision_id: string }
+        Returns: Json
+      }
     }
     Enums: {
       [_ in never]: never
