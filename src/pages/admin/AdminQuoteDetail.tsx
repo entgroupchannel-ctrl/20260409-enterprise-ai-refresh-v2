@@ -119,6 +119,15 @@ interface Quote {
   approved_at: string | null;
   sla_breached: boolean;
   sla_po_review_due: string | null;
+  // Negotiation fields
+  current_revision_id: string | null;
+  current_revision_number: number | null;
+  total_revisions: number | null;
+  negotiation_count: number | null;
+  free_items: any[] | null;
+  accepted_at: string | null;
+  accepted_by: string | null;
+  expired_at: string | null;
 }
 
 interface QuoteFile {
@@ -1023,11 +1032,7 @@ export default function AdminQuoteDetail() {
       {/* Counter Offer Dialog */}
       <CounterOfferDialog
         quoteId={quote.id}
-        baseProducts={quote.products || []}
-        baseFreeItems={(quote as any).free_items || []}
-        baseDiscountPercent={quote.discount_percent || 0}
-        baseVatPercent={quote.vat_percent || 7}
-        baseValidUntil={quote.valid_until || undefined}
+        currentRevisionId={quote.current_revision_id}
         negotiationRequestId={counterNegotiationId}
         open={showCounterOffer}
         onClose={() => setShowCounterOffer(false)}
