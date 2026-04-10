@@ -57,9 +57,9 @@ export default function QuoteTimeline({ currentStatus, size = "sm" }: QuoteTimel
                 )}
               >
                 {isDone ? (
-                  <CheckCircle2 className={size === "lg" ? "w-5 h-5" : "w-4 h-4"} />
+                  <CheckCircle2 className={size === "lg" ? "w-5 h-5" : size === "md" ? "w-[18px] h-[18px]" : "w-4 h-4"} />
                 ) : (
-                  <Icon className={size === "lg" ? "w-5 h-5" : "w-4 h-4"} />
+                  <Icon className={size === "lg" ? "w-5 h-5" : size === "md" ? "w-[18px] h-[18px]" : "w-4 h-4"} />
                 )}
               </div>
               <span
