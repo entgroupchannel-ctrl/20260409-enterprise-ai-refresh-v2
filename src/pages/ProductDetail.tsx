@@ -57,6 +57,7 @@ interface Product {
   slug: string;
   image_url: string | null;
   thumbnail_url: string | null;
+  gallery_urls: string[] | null;
   tags: string[] | null;
 }
 
@@ -71,6 +72,7 @@ export default function ProductDetail() {
   const [isEditing, setIsEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [editedProduct, setEditedProduct] = useState<Partial<Product>>({});
+  const [selectedImage, setSelectedImage] = useState(0);
 
   const isAdmin = profile?.role === 'admin' || profile?.role === 'sales';
 
@@ -188,17 +190,23 @@ export default function ProductDetail() {
     return <CustomerProductView product={product} onAddToQuote={handleAddToQuote} />;
   }
 
-  // Admin compact view — single screen
+  // Build gallery images list
+  const galleryImages = [
+    product.image_url,
+    ...(product.gallery_urls || []),
+  ].filter(Boolean) as string[];
+
+  // Admin compact view — full viewport
   return (
-    <div className="min-h-screen bg-background">
+    <div className="h-screen flex flex-col bg-background overflow-hidden">
       <SEOHead
         title={`${product.model} - ${product.name} | ENT Group`}
         description={product.description?.slice(0, 160) || `${product.model} ${product.series}`}
       />
 
       {/* Sticky Header */}
-      <div className="border-b bg-card sticky top-0 z-10">
-        <div className="container mx-auto px-4 py-2">
+      <div className="border-b bg-card shrink-0">
+        <div className="px-4 py-2">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="h-7 px-2">
@@ -233,126 +241,172 @@ export default function ProductDetail() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-3">
-        {isEditing && (
-          <div className="mb-3 p-2 bg-amber-500/10 border border-amber-500/20 rounded text-xs font-medium text-amber-600">
-            🔧 โหมดแก้ไข — แก้ไขข้อมูลแล้วกดบันทึก
-          </div>
-        )}
+      {isEditing && (
+        <div className="mx-4 mt-2 p-2 bg-amber-500/10 border border-amber-500/20 rounded text-xs font-medium text-amber-600 shrink-0">
+          🔧 โหมดแก้ไข — แก้ไขข้อมูลแล้วกดบันทึก
+        </div>
+      )}
 
-        {/* Single-screen grid: image + all data */}
-        <div className="grid lg:grid-cols-[80px_1fr_1fr] gap-3">
-          {/* Col 1: Tiny thumbnail */}
-          <div>
-            <div className="w-[80px] h-[80px] bg-muted/30 rounded border flex items-center justify-center overflow-hidden">
-              {product.image_url ? (
-                <img src={product.image_url} alt={product.model} className="w-full h-full object-contain" />
-              ) : (
-                <Package className="w-8 h-8 text-muted-foreground/30" />
-              )}
-            </div>
-            {isEditing && (
-              <Button variant="ghost" size="sm" className="w-[80px] h-6 text-[10px] mt-1 px-0">
-                <Upload className="w-2.5 h-2.5 mr-0.5" />เปลี่ยน
-              </Button>
+      {/* Main content — fill remaining height */}
+      <div className="flex-1 min-h-0 grid lg:grid-cols-[280px_1fr] gap-0 overflow-hidden">
+        {/* Left: Gallery + Description */}
+        <div className="border-r overflow-y-auto p-4 space-y-3">
+          {/* Main image */}
+          <div className="aspect-square bg-muted/30 rounded-lg border flex items-center justify-center overflow-hidden">
+            {galleryImages.length > 0 ? (
+              <img src={galleryImages[selectedImage] || galleryImages[0]} alt={product.model} className="w-full h-full object-contain" />
+            ) : (
+              <Package className="w-16 h-16 text-muted-foreground/20" />
             )}
           </div>
 
-          {/* Col 2: ข้อมูลสินค้า + ราคา */}
-          <div className="space-y-3">
+          {/* Thumbnail strip (3-5 images) */}
+          <div className="flex gap-1.5">
+            {galleryImages.length > 0 ? (
+              galleryImages.slice(0, 5).map((url, i) => (
+                <button
+                  key={i}
+                  onClick={() => setSelectedImage(i)}
+                  className={`w-12 h-12 rounded border overflow-hidden shrink-0 transition-all ${selectedImage === i ? 'ring-2 ring-primary border-primary' : 'opacity-60 hover:opacity-100'}`}
+                >
+                  <img src={url} alt={`${product.model} ${i + 1}`} className="w-full h-full object-contain" />
+                </button>
+              ))
+            ) : (
+              Array.from({ length: 3 }).map((_, i) => (
+                <div key={i} className="w-12 h-12 rounded border bg-muted/20 flex items-center justify-center shrink-0">
+                  <Package className="w-4 h-4 text-muted-foreground/20" />
+                </div>
+              ))
+            )}
+            {isEditing && (
+              <button className="w-12 h-12 rounded border border-dashed flex items-center justify-center shrink-0 hover:bg-muted/20 transition-colors">
+                <Upload className="w-4 h-4 text-muted-foreground/40" />
+              </button>
+            )}
+          </div>
+
+          {/* Description */}
+          <div>
+            <h3 className="text-xs font-semibold text-muted-foreground mb-1.5 uppercase tracking-wider">รายละเอียด</h3>
+            {isEditing ? (
+              <Textarea
+                value={editedProduct.description || ''}
+                onChange={(e) => handleInputChange('description', e.target.value)}
+                className="text-xs min-h-[160px] resize-y"
+                placeholder="รายละเอียดสินค้า..."
+              />
+            ) : (
+              <p className="text-xs text-muted-foreground whitespace-pre-line leading-relaxed">
+                {product.description || 'ไม่มีรายละเอียด'}
+              </p>
+            )}
+          </div>
+
+          {/* Tags */}
+          {!isEditing && product.tags && product.tags.length > 0 && (
             <div>
-              <h3 className="text-xs font-semibold text-muted-foreground mb-1.5 uppercase tracking-wider">ข้อมูลสินค้า</h3>
-              {isEditing ? (
-                <div className="grid grid-cols-2 gap-2">
-                  <div><Label className="text-[10px]">รุ่น</Label><Input value={editedProduct.model || ''} onChange={(e) => handleInputChange('model', e.target.value)} className="h-7 text-xs" /></div>
-                  <div><Label className="text-[10px]">ชื่อ</Label><Input value={editedProduct.name || ''} onChange={(e) => handleInputChange('name', e.target.value)} className="h-7 text-xs" /></div>
-                  <div className="col-span-2"><Label className="text-[10px]">รายละเอียด</Label><Textarea value={editedProduct.description || ''} onChange={(e) => handleInputChange('description', e.target.value)} rows={2} className="text-xs min-h-0" /></div>
-                </div>
-              ) : (
-                <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
-                  <InfoRow label="รุ่น" value={product.model} />
-                  <InfoRow label="ชื่อ" value={product.name} />
-                  <InfoRow label="SKU" value={product.sku} />
-                  <InfoRow label="Code" value={product.product_code} />
-                  <InfoRow label="Series" value={product.series} />
-                  <InfoRow label="Category" value={product.category} />
-                </div>
-              )}
+              <h3 className="text-xs font-semibold text-muted-foreground mb-1 uppercase tracking-wider">Tags</h3>
+              <div className="flex flex-wrap gap-1">{product.tags.map(t => <Badge key={t} variant="outline" className="text-[10px] h-5">{t}</Badge>)}</div>
             </div>
+          )}
+        </div>
 
-            <div className="border-t pt-2">
-              <h3 className="text-xs font-semibold text-muted-foreground mb-1.5 uppercase tracking-wider">ราคา</h3>
-              {isEditing ? (
-                <div className="grid grid-cols-2 gap-2">
-                  <div><Label className="text-[10px]">ไม่รวม VAT</Label><Input type="number" value={editedProduct.unit_price || 0} onChange={(e) => handleInputChange('unit_price', parseFloat(e.target.value))} className="h-7 text-xs" /></div>
-                  <div><Label className="text-[10px]">รวม VAT</Label><Input type="number" value={editedProduct.unit_price_vat || 0} onChange={(e) => handleInputChange('unit_price_vat', parseFloat(e.target.value))} className="h-7 text-xs" /></div>
-                </div>
-              ) : (
-                <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
-                  <InfoRow label="ราคา" value={`฿${product.unit_price?.toLocaleString()}`} highlight />
-                  <InfoRow label="รวม VAT" value={product.unit_price_vat ? `฿${product.unit_price_vat.toLocaleString()}` : '-'} />
-                </div>
-              )}
-            </div>
-
-            {!isEditing && product.description && (
-              <div className="border-t pt-2">
-                <h3 className="text-xs font-semibold text-muted-foreground mb-1 uppercase tracking-wider">รายละเอียด</h3>
-                <p className="text-xs text-muted-foreground line-clamp-3">{product.description}</p>
+        {/* Right: All data fields */}
+        <div className="overflow-y-auto p-4 space-y-4">
+          {/* Row 1: ข้อมูลสินค้า */}
+          <div>
+            <h3 className="text-xs font-semibold text-muted-foreground mb-2 uppercase tracking-wider">ข้อมูลสินค้า</h3>
+            {isEditing ? (
+              <div className="grid grid-cols-4 gap-2">
+                <div><Label className="text-[10px]">รุ่น</Label><Input value={editedProduct.model || ''} onChange={(e) => handleInputChange('model', e.target.value)} className="h-8 text-sm" /></div>
+                <div className="col-span-2"><Label className="text-[10px]">ชื่อ</Label><Input value={editedProduct.name || ''} onChange={(e) => handleInputChange('name', e.target.value)} className="h-8 text-sm" /></div>
+                <div><Label className="text-[10px]">SKU</Label><Input value={product.sku} disabled className="h-8 text-sm bg-muted" /></div>
+              </div>
+            ) : (
+              <div className="grid grid-cols-4 gap-x-6 gap-y-1.5 text-sm">
+                <InfoRow label="รุ่น" value={product.model} />
+                <InfoRow label="ชื่อ" value={product.name} />
+                <InfoRow label="SKU" value={product.sku} />
+                <InfoRow label="Code" value={product.product_code} />
+                <InfoRow label="Series" value={product.series} />
+                <InfoRow label="Category" value={product.category} />
               </div>
             )}
           </div>
 
-          {/* Col 3: สเปก + สถานะ */}
-          <div className="space-y-3">
-            <div>
-              <h3 className="text-xs font-semibold text-muted-foreground mb-1.5 uppercase tracking-wider">สเปก</h3>
-              {isEditing ? (
-                <div className="grid grid-cols-2 gap-2">
-                  <div><Label className="text-[10px]">CPU</Label><Input value={editedProduct.cpu || ''} onChange={(e) => handleInputChange('cpu', e.target.value)} className="h-7 text-xs" /></div>
-                  <div><Label className="text-[10px]">RAM (GB)</Label><Input type="number" value={editedProduct.ram_gb || ''} onChange={(e) => handleInputChange('ram_gb', parseInt(e.target.value) || null)} className="h-7 text-xs" /></div>
-                  <div><Label className="text-[10px]">Storage (GB)</Label><Input type="number" value={editedProduct.storage_gb || ''} onChange={(e) => handleInputChange('storage_gb', parseInt(e.target.value) || null)} className="h-7 text-xs" /></div>
-                  <div>
-                    <Label className="text-[10px]">Storage Type</Label>
-                    <Select value={editedProduct.storage_type || ''} onValueChange={(v) => handleInputChange('storage_type', v)}>
-                      <SelectTrigger className="h-7 text-xs"><SelectValue /></SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="SSD">SSD</SelectItem>
-                        <SelectItem value="HDD">HDD</SelectItem>
-                        <SelectItem value="MSATA">MSATA</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div><Label className="text-[10px]">OS</Label><Input value={editedProduct.os || ''} onChange={(e) => handleInputChange('os', e.target.value)} className="h-7 text-xs" /></div>
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-1"><Switch checked={editedProduct.has_wifi || false} onCheckedChange={(c) => handleInputChange('has_wifi', c)} /><Label className="text-[10px]">WiFi</Label></div>
-                    <div className="flex items-center gap-1"><Switch checked={editedProduct.has_4g || false} onCheckedChange={(c) => handleInputChange('has_4g', c)} /><Label className="text-[10px]">4G</Label></div>
-                  </div>
-                </div>
-              ) : (
-                <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
-                  <InfoRow label="CPU" value={product.cpu} />
-                  <InfoRow label="RAM" value={product.ram_gb ? `${product.ram_gb} GB` : null} />
-                  <InfoRow label="Storage" value={product.storage_gb ? `${product.storage_gb} GB ${product.storage_type || ''}` : null} />
-                  <InfoRow label="OS" value={product.os} />
-                  <InfoRow label="WiFi" value={product.has_wifi ? '✓' : '✗'} />
-                  <InfoRow label="4G" value={product.has_4g ? '✓' : '✗'} />
-                </div>
-              )}
-            </div>
+          <div className="border-t" />
 
-            {/* สถานะ */}
-            {isEditing && (
-              <div className="border-t pt-2">
-                <h3 className="text-xs font-semibold text-muted-foreground mb-1.5 uppercase tracking-wider">สถานะ</h3>
-                <div className="grid grid-cols-2 gap-2">
-                  <div className="flex items-center gap-1.5">
+          {/* Row 2: ราคา */}
+          <div>
+            <h3 className="text-xs font-semibold text-muted-foreground mb-2 uppercase tracking-wider">ราคา</h3>
+            {isEditing ? (
+              <div className="grid grid-cols-4 gap-2">
+                <div><Label className="text-[10px]">ไม่รวม VAT</Label><Input type="number" value={editedProduct.unit_price || 0} onChange={(e) => handleInputChange('unit_price', parseFloat(e.target.value))} className="h-8 text-sm" /></div>
+                <div><Label className="text-[10px]">รวม VAT</Label><Input type="number" value={editedProduct.unit_price_vat || 0} onChange={(e) => handleInputChange('unit_price_vat', parseFloat(e.target.value))} className="h-8 text-sm" /></div>
+              </div>
+            ) : (
+              <div className="grid grid-cols-4 gap-x-6 gap-y-1.5 text-sm">
+                <InfoRow label="ราคา" value={`฿${product.unit_price?.toLocaleString()}`} highlight />
+                <InfoRow label="รวม VAT" value={product.unit_price_vat ? `฿${product.unit_price_vat.toLocaleString()}` : '-'} />
+              </div>
+            )}
+          </div>
+
+          <div className="border-t" />
+
+          {/* Row 3: สเปก */}
+          <div>
+            <h3 className="text-xs font-semibold text-muted-foreground mb-2 uppercase tracking-wider">สเปก</h3>
+            {isEditing ? (
+              <div className="grid grid-cols-4 gap-2">
+                <div><Label className="text-[10px]">CPU</Label><Input value={editedProduct.cpu || ''} onChange={(e) => handleInputChange('cpu', e.target.value)} className="h-8 text-sm" /></div>
+                <div><Label className="text-[10px]">RAM (GB)</Label><Input type="number" value={editedProduct.ram_gb || ''} onChange={(e) => handleInputChange('ram_gb', parseInt(e.target.value) || null)} className="h-8 text-sm" /></div>
+                <div><Label className="text-[10px]">Storage (GB)</Label><Input type="number" value={editedProduct.storage_gb || ''} onChange={(e) => handleInputChange('storage_gb', parseInt(e.target.value) || null)} className="h-8 text-sm" /></div>
+                <div>
+                  <Label className="text-[10px]">Storage Type</Label>
+                  <Select value={editedProduct.storage_type || ''} onValueChange={(v) => handleInputChange('storage_type', v)}>
+                    <SelectTrigger className="h-8 text-sm"><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="SSD">SSD</SelectItem>
+                      <SelectItem value="HDD">HDD</SelectItem>
+                      <SelectItem value="MSATA">MSATA</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div><Label className="text-[10px]">OS</Label><Input value={editedProduct.os || ''} onChange={(e) => handleInputChange('os', e.target.value)} className="h-8 text-sm" /></div>
+                <div className="flex items-end gap-4 pb-1">
+                  <div className="flex items-center gap-1.5"><Switch checked={editedProduct.has_wifi || false} onCheckedChange={(c) => handleInputChange('has_wifi', c)} /><Label className="text-xs">WiFi</Label></div>
+                  <div className="flex items-center gap-1.5"><Switch checked={editedProduct.has_4g || false} onCheckedChange={(c) => handleInputChange('has_4g', c)} /><Label className="text-xs">4G</Label></div>
+                </div>
+              </div>
+            ) : (
+              <div className="grid grid-cols-4 gap-x-6 gap-y-1.5 text-sm">
+                <InfoRow label="CPU" value={product.cpu} />
+                <InfoRow label="RAM" value={product.ram_gb ? `${product.ram_gb} GB` : null} />
+                <InfoRow label="Storage" value={product.storage_gb ? `${product.storage_gb} GB ${product.storage_type || ''}` : null} />
+                <InfoRow label="OS" value={product.os} />
+                <InfoRow label="WiFi" value={product.has_wifi ? '✓' : '✗'} />
+                <InfoRow label="4G" value={product.has_4g ? '✓' : '✗'} />
+              </div>
+            )}
+          </div>
+
+          {/* Row 4: สถานะ (edit only) */}
+          {isEditing && (
+            <>
+              <div className="border-t" />
+              <div>
+                <h3 className="text-xs font-semibold text-muted-foreground mb-2 uppercase tracking-wider">สถานะ</h3>
+                <div className="grid grid-cols-4 gap-2">
+                  <div className="flex items-center gap-2">
                     <Switch checked={editedProduct.is_active || false} onCheckedChange={(c) => handleInputChange('is_active', c)} />
-                    <Label className="text-[10px]">{editedProduct.is_active ? 'เปิด' : 'ปิด'}</Label>
+                    <Label className="text-xs">{editedProduct.is_active ? 'เปิด' : 'ปิด'}</Label>
                   </div>
                   <div>
+                    <Label className="text-[10px]">สถานะสต๊อก</Label>
                     <Select value={editedProduct.stock_status || ''} onValueChange={(v) => handleInputChange('stock_status', v)}>
-                      <SelectTrigger className="h-7 text-xs"><SelectValue /></SelectTrigger>
+                      <SelectTrigger className="h-8 text-sm"><SelectValue /></SelectTrigger>
                       <SelectContent>
                         <SelectItem value="available">พร้อมส่ง</SelectItem>
                         <SelectItem value="low_stock">สต๊อกต่ำ</SelectItem>
@@ -363,16 +417,8 @@ export default function ProductDetail() {
                   </div>
                 </div>
               </div>
-            )}
-
-            {/* Tags */}
-            {!isEditing && product.tags && product.tags.length > 0 && (
-              <div className="border-t pt-2">
-                <h3 className="text-xs font-semibold text-muted-foreground mb-1 uppercase tracking-wider">Tags</h3>
-                <div className="flex flex-wrap gap-1">{product.tags.map(t => <Badge key={t} variant="outline" className="text-[10px] h-4">{t}</Badge>)}</div>
-              </div>
-            )}
-          </div>
+            </>
+          )}
         </div>
       </div>
     </div>
