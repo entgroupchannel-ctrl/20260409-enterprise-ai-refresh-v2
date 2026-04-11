@@ -146,6 +146,9 @@ const App = () => (
                     <Route path="/case-studies/:id" element={<CaseStudyDetail />} />
                     <Route path="/blog" element={<Blog />} />
                     <Route path="/blog/:id" element={<BlogDetail />} />
+                    <Route path="/shop" element={<ShopStorefront />} />
+                    <Route path="/shop/compare" element={<ShopCompare />} />
+                    <Route path="/shop/:slug" element={<ShopProductDetail />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/admin/dashboard" element={<ProtectedRoute requireSales><AdminDashboard /></ProtectedRoute>} />
