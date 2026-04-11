@@ -22,11 +22,11 @@ import { QuoteTimelineBadge } from '@/components/rfq/QuoteTimeline';
 import QuoteTimeline from '@/components/rfq/QuoteTimeline';
 import POUploadDialog from '@/components/quotes/POUploadDialog';
 import {
-  FileText, ShoppingCart, User, Building, MapPin, Truck,
-  Plus, Search, Clock, Eye, Download, Printer,
+  FileSearch, ShoppingBag, UserRound, Landmark, MapPinned, Truck,
+  Plus, SearchCheck, Timer, ScanEye, Download, Printer,
   ArrowLeft, Save, Trash2, Minus, Home, LogOut,
-  ChevronRight, Package, Phone, Mail, Upload, Send,
-  Paperclip, Calendar, MessageSquare, Pencil, X, Building2,
+  ChevronRight, PackageCheck, PhoneCall, MailCheck, Upload, SendHorizonal,
+  Paperclip, CalendarClock, MessageSquareText, Pencil, X, Building2,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 

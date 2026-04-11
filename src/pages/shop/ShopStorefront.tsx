@@ -10,7 +10,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Search, LayoutGrid, List, SlidersHorizontal, X, FileText, ChevronLeft, ChevronRight, CheckCircle2, ShieldCheck, Building2, Headphones } from 'lucide-react';
+import { SearchCheck, LayoutGrid, List, SlidersHorizontal, X, FileSearch, ChevronLeft, ChevronRight, CircleCheckBig, ShieldCheck, Landmark, HeadsetIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import SiteNavbar from '@/components/SiteNavbar';
 

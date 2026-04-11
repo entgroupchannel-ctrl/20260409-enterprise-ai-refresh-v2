@@ -16,7 +16,7 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ChevronRight, Minus, Plus, Cpu, MemoryStick, HardDrive, Wifi, Signal, Monitor, Settings, ShieldCheck } from 'lucide-react';
+import { ChevronRight, Minus, Plus, Microchip, MemoryStick, CircuitBoard, Wifi, Antenna, MonitorSmartphone, SlidersHorizontal, ShieldCheck } from 'lucide-react';
 import SiteNavbar from '@/components/SiteNavbar';
 
 interface Product {

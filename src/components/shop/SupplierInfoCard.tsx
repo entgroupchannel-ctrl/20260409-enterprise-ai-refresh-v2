@@ -1,6 +1,6 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { CheckCircle2, MapPin, Clock, Package, Truck, ShieldCheck } from 'lucide-react';
+import { CircleCheckBig, MapPinned, Timer, PackageCheck, Truck, ShieldCheck } from 'lucide-react';
 
 const supplierInfo = {
   name: 'บริษัท อีเอ็นที กรุ๊ป จำกัด',

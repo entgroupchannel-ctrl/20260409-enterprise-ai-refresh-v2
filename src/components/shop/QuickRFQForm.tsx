@@ -11,7 +11,7 @@ import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Send, Loader2, FileText, ChevronDown, ChevronUp, Phone, MessageCircle, Mail } from 'lucide-react';
+import { SendHorizonal, Loader2, FileSearch, ChevronDown, ChevronUp, PhoneCall, MessageCircleMore, MailCheck } from 'lucide-react';
 
 interface QuickRFQFormProps {
   product: { model: string; name: string; unit_price: number; slug: string; sku?: string };

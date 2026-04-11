@@ -7,8 +7,8 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import {
-  TrendingUp, CheckCircle2, MessageSquare, Clock, Trophy,
-  Percent, DollarSign, Calendar,
+  TrendingUp, CircleCheckBig, MessageSquareText, Timer, Trophy,
+  Percent, BadgeDollarSign, CalendarClock,
 } from 'lucide-react';
 
 interface Stats {

@@ -10,11 +10,11 @@ import { StatusBadge } from '@/components/ui/StatusBadge';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import {
-  Clock,
-  CheckCircle2,
-  AlertCircle,
-  FileText,
-  Eye,
+  Timer,
+  CircleCheckBig,
+  ShieldAlert,
+  FileSearch,
+  ScanEye,
   CheckCheck,
 } from 'lucide-react';
 import { formatRelativeTime } from '@/lib/format';

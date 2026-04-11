@@ -20,13 +20,13 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import {
-  Search,
-  Eye,
-  CheckCircle2,
-  XCircle,
-  FileText,
-  AlertCircle,
-  Clock,
+  SearchCheck,
+  ScanEye,
+  CircleCheckBig,
+  CircleX,
+  FileSearch,
+  ShieldAlert,
+  Timer,
 } from 'lucide-react';
 import { formatRelativeTime } from '@/lib/format';
 
