@@ -1,5 +1,6 @@
 import { ReactNode, useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { NotificationCenter } from '@/components/quotes';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import {
@@ -17,7 +18,6 @@ import {
   FileArchive,
   LogOut,
   User,
-  Bell,
   Shield,
   ShoppingCart,
   ClipboardList,
@@ -114,6 +114,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const [pendingApprovals, setPendingApprovals] = useState(0);
   const [isAdminUser, setIsAdminUser] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
     const loadPendingCount = async () => {
@@ -134,6 +135,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     const checkAdminAndApprovals = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
+      setUserId(user.id);
       const { data: userData } = await supabase
         .from('users')
         .select('role')
@@ -343,19 +345,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
               <LangToggle variant="compact" />
               <ThemeToggle />
-              <Button
-                variant="ghost"
-                size="icon"
-                className="relative"
-                onClick={() => navigate('/admin/requests')}
-              >
-                <Bell className="w-5 h-5" />
-                {pendingRequestsCount > 0 && (
-                  <Badge variant="destructive" className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center p-0 text-xs">
-                    {pendingRequestsCount}
-                  </Badge>
-                )}
-              </Button>
+              {userId && <NotificationCenter userId={userId} />}
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
