@@ -346,19 +346,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
               <LangToggle variant="compact" />
               <ThemeToggle />
-              <Button
-                variant="ghost"
-                size="icon"
-                className="relative"
-                onClick={() => navigate('/admin/requests')}
-              >
-                <Bell className="w-5 h-5" />
-                {pendingRequestsCount > 0 && (
-                  <Badge variant="destructive" className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center p-0 text-xs">
-                    {pendingRequestsCount}
-                  </Badge>
-                )}
-              </Button>
+              {userId && <NotificationCenter userId={userId} />}
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
