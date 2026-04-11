@@ -4,7 +4,7 @@ import { supabase } from '@/integrations/supabase/client';
 import SEOHead from '@/components/SEOHead';
 import Footer from '@/components/Footer';
 import ProductImageGalleryZoom from '@/components/shop/ProductImageGalleryZoom';
-import TierPricingTable from '@/components/shop/TierPricingTable';
+import ShopProductConfigurator, { type AddonSummary } from '@/components/shop/ShopProductConfigurator';
 import SupplierInfoCard from '@/components/shop/SupplierInfoCard';
 import QuickRFQForm from '@/components/shop/QuickRFQForm';
 import RelatedProducts, { addToRecentlyViewed } from '@/components/shop/RelatedProducts';
@@ -47,6 +47,9 @@ const ShopProductDetail = () => {
   const [qty, setQty] = useState(1);
   const [showSticky, setShowSticky] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
+  const [configuredVariant, setConfiguredVariant] = useState<Product | null>(null);
+  const [configPrice, setConfigPrice] = useState(0);
+  const [configAddons, setConfigAddons] = useState<AddonSummary[]>([]);
 
   useEffect(() => {
     if (!slug) return;
@@ -104,7 +107,9 @@ const ShopProductDetail = () => {
   }
 
   const images = [product.image_url, ...(product.gallery_urls || [])].filter(Boolean) as string[];
-  const activeTierPrice = qty >= 10 ? Math.round(product.unit_price * 0.86) : qty >= 5 ? Math.round(product.unit_price * 0.93) : product.unit_price;
+  const displayVariant = configuredVariant || product;
+  const displayPrice = configPrice || product.unit_price;
+  const activeTierPrice = qty >= 10 ? Math.round(displayPrice * 0.86) : qty >= 5 ? Math.round(displayPrice * 0.93) : displayPrice;
   const totalPrice = activeTierPrice * qty;
 
   // Spec chips for hero
@@ -174,8 +179,16 @@ const ShopProductDetail = () => {
 
             <Separator />
 
-            {/* Tier Pricing */}
-            <TierPricingTable basePrice={product.unit_price} selectedQuantity={qty} />
+            {/* Variant Configurator */}
+            <ShopProductConfigurator
+              product={product}
+              quantity={qty}
+              onConfigChange={({ matchedVariant, finalPrice, addons }) => {
+                setConfiguredVariant(matchedVariant as Product);
+                setConfigPrice(finalPrice);
+                setConfigAddons(addons);
+              }}
+            />
 
             {/* Quantity + Total */}
             <div className="space-y-3">
@@ -197,9 +210,9 @@ const ShopProductDetail = () => {
 
               <div className="flex flex-col sm:flex-row gap-2">
                 <AddToCartButton
-                  productModel={product.model}
-                  productName={product.name}
-                  estimatedPrice={product.unit_price}
+                  productModel={displayVariant.model}
+                  productName={displayVariant.name}
+                  estimatedPrice={displayPrice}
                   size="lg"
                   className="flex-1"
                 />
@@ -318,7 +331,12 @@ const ShopProductDetail = () => {
 
         {/* RFQ Form */}
         <div className="mb-8">
-          <QuickRFQForm product={product} defaultQuantity={qty} />
+          <QuickRFQForm
+            product={configuredVariant || product}
+            defaultQuantity={qty}
+            configAddons={configAddons}
+            finalUnitPrice={configPrice}
+          />
         </div>
 
         {/* Related */}
