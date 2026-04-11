@@ -190,7 +190,7 @@ export default function ProductPickerDialog({ open, onOpenChange, onSelect }: Pr
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-4xl max-h-[85vh] flex flex-col">
-        <DialogHeader>
+        <DialogHeader className="flex-shrink-0">
           <DialogTitle className="flex items-center gap-2">
             <Package className="w-5 h-5 text-primary" />
             เลือกสินค้าจากคลัง
@@ -200,7 +200,7 @@ export default function ProductPickerDialog({ open, onOpenChange, onSelect }: Pr
           </DialogDescription>
         </DialogHeader>
 
-        <div className="flex gap-2 flex-wrap">
+        <div className="flex gap-2 flex-wrap flex-shrink-0">
           <div className="relative flex-1 min-w-[200px]">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
@@ -314,7 +314,7 @@ export default function ProductPickerDialog({ open, onOpenChange, onSelect }: Pr
 
         {/* Pagination footer */}
         {!loading && totalCount > 0 && (
-          <div className="flex items-center justify-between border-t pt-3 flex-wrap gap-2">
+          <div className="flex items-center justify-between border-t pt-3 flex-wrap gap-2 flex-shrink-0">
             <p className="text-xs text-muted-foreground">
               แสดง {((page - 1) * PAGE_SIZE) + 1}-{Math.min(page * PAGE_SIZE, totalCount)} จาก {totalCount.toLocaleString()} รายการ
             </p>
