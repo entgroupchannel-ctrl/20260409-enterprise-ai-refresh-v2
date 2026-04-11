@@ -51,6 +51,9 @@ const CaseStudyDetail = lazyRetry(() => import("./pages/CaseStudyDetail"));
 const Blog = lazyRetry(() => import("./pages/Blog"));
 const BlogDetail = lazyRetry(() => import("./pages/BlogDetail"));
 const NotFound = lazyRetry(() => import("./pages/NotFound"));
+const ShopStorefront = lazyRetry(() => import("./pages/shop/ShopStorefront"));
+const ShopProductDetail = lazyRetry(() => import("./pages/shop/ShopProductDetail"));
+const ShopCompare = lazyRetry(() => import("./pages/shop/ShopCompare"));
 const Login = lazyRetry(() => import("./pages/auth/Login"));
 const Register = lazyRetry(() => import("./pages/auth/Register"));
 const AdminDashboard = lazyRetry(() => import("./pages/admin/AdminDashboard"));
@@ -143,6 +146,9 @@ const App = () => (
                     <Route path="/case-studies/:id" element={<CaseStudyDetail />} />
                     <Route path="/blog" element={<Blog />} />
                     <Route path="/blog/:id" element={<BlogDetail />} />
+                    <Route path="/shop" element={<ShopStorefront />} />
+                    <Route path="/shop/compare" element={<ShopCompare />} />
+                    <Route path="/shop/:slug" element={<ShopProductDetail />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/admin/dashboard" element={<ProtectedRoute requireSales><AdminDashboard /></ProtectedRoute>} />
