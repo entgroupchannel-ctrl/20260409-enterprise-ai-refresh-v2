@@ -980,8 +980,6 @@ export type Database = {
           is_active: boolean | null
           is_featured: boolean | null
           max_stock_level: number | null
-          migration_keep: boolean | null
-          migration_status: string | null
           min_stock_level: number | null
           model: string
           name: string
@@ -1022,8 +1020,6 @@ export type Database = {
           is_active?: boolean | null
           is_featured?: boolean | null
           max_stock_level?: number | null
-          migration_keep?: boolean | null
-          migration_status?: string | null
           min_stock_level?: number | null
           model: string
           name: string
@@ -1064,8 +1060,6 @@ export type Database = {
           is_active?: boolean | null
           is_featured?: boolean | null
           max_stock_level?: number | null
-          migration_keep?: boolean | null
-          migration_status?: string | null
           min_stock_level?: number | null
           model?: string
           name?: string

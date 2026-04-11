@@ -206,7 +206,7 @@ export default function ProductsList() {
 
   return (
     <AdminLayout>
-      <div className="space-y-4">
+      <div className="space-y-4 overflow-auto max-h-[calc(100vh-4rem)] pb-8">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
