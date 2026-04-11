@@ -41,6 +41,9 @@ import {
   Loader2,
   Mail,
   MessageCircle,
+  CreditCard,
+  Truck,
+  Calendar,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
