@@ -4,8 +4,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
-import { History, ChevronDown, ChevronUp, Gift, CheckCircle2, Clock, Send, User } from 'lucide-react';
+import { History, ChevronDown, ChevronUp, Gift, CheckCircle2, Clock, Send, User, Trash2 } from 'lucide-react';
 import { formatShortDateTime } from '@/lib/format';
+import { useToast } from '@/hooks/use-toast';
 import RevisionCompareView from './RevisionCompareView';
 
 export interface Revision {
@@ -53,10 +54,12 @@ export default function RevisionTimeline({
   onSelectRevision,
   onCreateCounter,
 }: RevisionTimelineProps) {
+  const { toast } = useToast();
   const [revisions, setRevisions] = useState<Revision[]>([]);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [showCompare, setShowCompare] = useState(false);
+  const [publishingId, setPublishingId] = useState<string | null>(null);
 
   useEffect(() => {
     loadRevisions();
@@ -79,6 +82,86 @@ export default function RevisionTimeline({
     }
   };
 
+  const handlePublishDraft = async (draftRevision: Revision) => {
+    if (draftRevision.requires_approval && draftRevision.approval_status === 'pending') {
+      toast({
+        title: 'รออนุมัติ',
+        description: 'Revision นี้ต้องรอ Super Admin อนุมัติก่อน',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    setPublishingId(draftRevision.id);
+    try {
+      const { data: { user: authUser } } = await supabase.auth.getUser();
+      if (!authUser) throw new Error('Not authenticated');
+
+      // 1. Mark current sent revisions as superseded
+      await (supabase.from as any)('quote_revisions')
+        .update({ status: 'superseded' })
+        .eq('quote_id', quoteId)
+        .eq('status', 'sent');
+
+      // 2. Update draft → sent
+      const nowIso = new Date().toISOString();
+      await (supabase.from as any)('quote_revisions')
+        .update({ 
+          status: 'sent',
+          sent_at: nowIso,
+        })
+        .eq('id', draftRevision.id);
+
+      // 3. Update quote_requests — snapshot this revision as the current one
+      await supabase.from('quote_requests').update({
+        current_revision_id: draftRevision.id,
+        current_revision_number: draftRevision.revision_number,
+        products: draftRevision.products,
+        free_items: draftRevision.free_items as any,
+        subtotal: draftRevision.subtotal,
+        discount_percent: draftRevision.discount_percent,
+        discount_amount: draftRevision.discount_amount,
+        vat_percent: draftRevision.vat_percent,
+        vat_amount: draftRevision.vat_amount,
+        grand_total: draftRevision.grand_total,
+        valid_until: draftRevision.valid_until,
+        status: 'negotiating',
+        sent_at: nowIso,
+      } as any).eq('id', quoteId);
+
+      // 4. Chat message
+      await supabase.from('quote_messages').insert({
+        quote_id: quoteId,
+        sender_id: authUser.id,
+        sender_name: draftRevision.created_by_name,
+        sender_role: 'admin',
+        content: `📤 ส่ง Revision ${draftRevision.revision_number} ให้ลูกค้า — ${draftRevision.change_reason || ''}`,
+        message_type: 'revision',
+      });
+
+      toast({ title: '✅ ส่งให้ลูกค้าแล้ว', description: `Revision ${draftRevision.revision_number} ถูกส่งเรียบร้อย` });
+      await loadRevisions();
+    } catch (e: any) {
+      toast({ title: 'ส่งไม่สำเร็จ', description: e.message, variant: 'destructive' });
+    } finally {
+      setPublishingId(null);
+    }
+  };
+
+  const handleDeleteDraft = async (draftId: string) => {
+    if (!confirm('ลบ draft นี้?')) return;
+    try {
+      await (supabase.from as any)('quote_revisions')
+        .delete()
+        .eq('id', draftId)
+        .eq('status', 'draft');
+      toast({ title: 'ลบ draft แล้ว' });
+      await loadRevisions();
+    } catch (e: any) {
+      toast({ title: 'ลบไม่สำเร็จ', description: e.message, variant: 'destructive' });
+    }
+  };
+
   if (loading) {
     return (
       <Card>
@@ -90,6 +173,8 @@ export default function RevisionTimeline({
   }
 
   if (revisions.length === 0) return null;
+
+  const draftCount = revisions.filter(r => r.status === 'draft').length;
 
   const roleIcon = (role: string) => {
     if (role === 'customer') return <User className="w-3.5 h-3.5" />;
@@ -105,11 +190,11 @@ export default function RevisionTimeline({
 
   const statusBadge = (status: string) => {
     const map: Record<string, { label: string; variant: string }> = {
-      draft: { label: 'ร่าง', variant: 'bg-gray-100 text-gray-700' },
-      sent: { label: 'ส่งแล้ว', variant: 'bg-blue-100 text-blue-700' },
-      accepted: { label: 'ยอมรับ', variant: 'bg-green-100 text-green-700' },
-      rejected: { label: 'ปฏิเสธ', variant: 'bg-red-100 text-red-700' },
-      superseded: { label: 'แทนที่แล้ว', variant: 'bg-gray-100 text-gray-500' },
+      draft: { label: '📝 Draft (ยังไม่ส่ง)', variant: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400' },
+      sent: { label: '📤 ส่งแล้ว', variant: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' },
+      accepted: { label: '✅ ยอมรับ', variant: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' },
+      rejected: { label: '❌ ปฏิเสธ', variant: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' },
+      superseded: { label: '🔄 แทนที่แล้ว', variant: 'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400' },
     };
     const cfg = map[status] || map.draft;
     return <span className={cn('text-[10px] px-1.5 py-0.5 rounded-full font-medium', cfg.variant)}>{cfg.label}</span>;
@@ -118,10 +203,15 @@ export default function RevisionTimeline({
   return (
     <Card>
       <CardHeader className="pb-3">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-2 flex-wrap">
           <CardTitle className="flex items-center gap-2 text-base">
             <History className="w-4 h-4" />
             ประวัติการต่อรอง ({revisions.length} revision{revisions.length > 1 ? 's' : ''})
+            {viewerRole === 'admin' && draftCount > 0 && (
+              <Badge className="bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400">
+                📝 {draftCount} draft
+              </Badge>
+            )}
           </CardTitle>
           <div className="flex gap-2">
             {revisions.length >= 2 && (
@@ -146,12 +236,14 @@ export default function RevisionTimeline({
           const isCurrent = rev.id === currentRevisionId;
           const isExpanded = expandedId === rev.id;
           const freeItems = rev.free_items || [];
+          const isDraft = rev.status === 'draft';
 
           return (
             <div
               key={rev.id}
               className={cn(
                 'border rounded-lg transition-colors',
+                isDraft ? 'border-amber-300 dark:border-amber-700 bg-amber-50/50 dark:bg-amber-900/10' :
                 isCurrent ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/30'
               )}
             >
@@ -162,6 +254,7 @@ export default function RevisionTimeline({
               >
                 <div className={cn(
                   'w-7 h-7 rounded-full flex items-center justify-center shrink-0',
+                  isDraft ? 'bg-amber-200 text-amber-800 dark:bg-amber-800 dark:text-amber-200' :
                   isCurrent ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'
                 )}>
                   {isCurrent ? <CheckCircle2 className="w-4 h-4" /> : roleIcon(rev.created_by_role)}
@@ -252,8 +345,37 @@ export default function RevisionTimeline({
                     </div>
                   )}
 
+                  {/* Draft action buttons (admin only) */}
+                  {viewerRole === 'admin' && isDraft && (
+                    <div className="flex gap-2 mt-3 pt-3 border-t border-dashed border-amber-300 dark:border-amber-700">
+                      <Button
+                        size="sm"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handlePublishDraft(rev);
+                        }}
+                        disabled={publishingId === rev.id}
+                        className="bg-blue-600 hover:bg-blue-700"
+                      >
+                        <Send className="w-3 h-3 mr-1" />
+                        {publishingId === rev.id ? 'กำลังส่ง...' : 'ส่งให้ลูกค้า'}
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDeleteDraft(rev.id);
+                        }}
+                      >
+                        <Trash2 className="w-3 h-3 mr-1" />
+                        ลบ Draft
+                      </Button>
+                    </div>
+                  )}
+
                   {/* Action: select this revision */}
-                  {onSelectRevision && viewerRole === 'admin' && !isCurrent && (
+                  {onSelectRevision && viewerRole === 'admin' && !isCurrent && !isDraft && (
                     <Button size="sm" variant="outline" className="w-full" onClick={() => onSelectRevision(rev)}>
                       ใช้เป็นฐานสร้าง Revision ใหม่
                     </Button>

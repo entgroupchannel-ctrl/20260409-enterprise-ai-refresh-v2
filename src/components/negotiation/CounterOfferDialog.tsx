@@ -156,28 +156,33 @@ export default function CounterOfferDialog({
 
       if (revError) throw revError;
 
-      // Update quote_requests
-      const quoteUpdate: any = {
-        current_revision_id: revData.id,
-        current_revision_number: revisionNumber,
-        total_revisions: revisionNumber,
-        free_items: freeItems,
-        products: products,
-        subtotal: totals.subtotal,
-        discount_percent: discountPercent,
-        discount_amount: totals.discountAmount,
-        vat_percent: vatPercent,
-        vat_amount: totals.vatAmount,
-        grand_total: totals.grandTotal,
-        valid_until: validUntil || null,
-      };
+      // ✅ Only update quote snapshot when actually sending (not for drafts)
+      const shouldPublish = sendToCustomer && !needsApproval;
 
-      if (sendToCustomer && !needsApproval) {
-        quoteUpdate.status = 'negotiating';
-        quoteUpdate.sent_at = new Date().toISOString();
+      if (shouldPublish) {
+        const quoteUpdate: any = {
+          current_revision_id: revData.id,
+          current_revision_number: revisionNumber,
+          total_revisions: revisionNumber,
+          free_items: freeItems,
+          products: products,
+          subtotal: totals.subtotal,
+          discount_percent: discountPercent,
+          discount_amount: totals.discountAmount,
+          vat_percent: vatPercent,
+          vat_amount: totals.vatAmount,
+          grand_total: totals.grandTotal,
+          valid_until: validUntil || null,
+          status: 'negotiating',
+          sent_at: new Date().toISOString(),
+        };
+        await supabase.from('quote_requests').update(quoteUpdate).eq('id', quoteId);
+      } else {
+        // Draft — only bump total_revisions, don't touch quote snapshot
+        await supabase.from('quote_requests').update({
+          total_revisions: revisionNumber,
+        }).eq('id', quoteId);
       }
-
-      await supabase.from('quote_requests').update(quoteUpdate).eq('id', quoteId);
 
       // Update negotiation request if linked
       if (negotiationRequestId) {
@@ -332,15 +337,21 @@ export default function CounterOfferDialog({
           </div>
         )}
 
+        <p className="text-xs text-muted-foreground border-t pt-3">
+          💡 <strong>บันทึก Draft</strong> = เก็บไว้ ให้คุณกลับมาแก้/ส่งทีหลัง ลูกค้ายังไม่เห็น
+          <br />
+          📤 <strong>ส่งให้ลูกค้า</strong> = ส่งทันที ลูกค้าเห็นราคาใหม่ + รอตอบรับ
+        </p>
+
         <DialogFooter className="gap-2">
           <Button variant="outline" onClick={onClose} disabled={saving}>ยกเลิก</Button>
           <Button variant="secondary" onClick={() => handleSave(false)} disabled={saving || loadingBase}>
             <Save className="w-4 h-4 mr-1" />
-            บันทึก Draft
+            บันทึก Draft (ยังไม่ส่ง)
           </Button>
           <Button onClick={() => handleSave(true)} disabled={saving || loadingBase}>
             <Send className="w-4 h-4 mr-1" />
-            {needsApproval ? 'ส่งขออนุมัติ' : 'ส่งให้ลูกค้า'}
+            {needsApproval ? 'บันทึกและขออนุมัติ' : 'บันทึกและส่งให้ลูกค้าเลย'}
           </Button>
         </DialogFooter>
       </DialogContent>
