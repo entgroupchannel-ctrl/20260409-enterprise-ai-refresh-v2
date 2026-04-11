@@ -50,6 +50,88 @@ export type Database = {
         }
         Relationships: []
       }
+      company_bank_accounts: {
+        Row: {
+          account_name: string
+          account_number: string
+          account_type: string | null
+          bank_code: string | null
+          bank_name: string
+          branch: string | null
+          company_id: string
+          created_at: string
+          created_by: string | null
+          display_order: number | null
+          id: string
+          is_active: boolean | null
+          is_default: boolean | null
+          notes: string | null
+          swift_code: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          account_name: string
+          account_number: string
+          account_type?: string | null
+          bank_code?: string | null
+          bank_name: string
+          branch?: string | null
+          company_id: string
+          created_at?: string
+          created_by?: string | null
+          display_order?: number | null
+          id?: string
+          is_active?: boolean | null
+          is_default?: boolean | null
+          notes?: string | null
+          swift_code?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          account_name?: string
+          account_number?: string
+          account_type?: string | null
+          bank_code?: string | null
+          bank_name?: string
+          branch?: string | null
+          company_id?: string
+          created_at?: string
+          created_by?: string | null
+          display_order?: number | null
+          id?: string
+          is_active?: boolean | null
+          is_default?: boolean | null
+          notes?: string | null
+          swift_code?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "company_bank_accounts_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "company_settings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "company_bank_accounts_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "company_bank_accounts_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       company_settings: {
         Row: {
           address_en: string | null
