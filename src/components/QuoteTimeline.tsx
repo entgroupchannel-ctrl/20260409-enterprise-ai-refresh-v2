@@ -15,6 +15,7 @@ const STATUS_TO_STEP: Record<string, string> = {
   accepted: 'quote_sent',
   po_uploaded: 'po_uploaded',
   po_confirmed: 'po_uploaded',
+  po_confirmed_virtual: 'po_uploaded',
   po_approved: 'po_approved',
   completed: 'completed',
 };

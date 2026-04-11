@@ -230,7 +230,7 @@ export default function MyQuoteDetail() {
         .from('quote_files')
         .select('*')
         .eq('quote_id', id!)
-        .eq('category', 'po')
+        .in('category', ['po', 'customer_po', 'po_virtual'])
         .order('uploaded_at', { ascending: false });
 
       if (!error && data) {
@@ -830,7 +830,7 @@ export default function MyQuoteDetail() {
                         <a href={file.file_url} download className="p-1 hover:bg-primary/10 rounded" title="ดาวน์โหลด">
                           <Download className="w-3 h-3 text-muted-foreground group-hover:text-primary shrink-0" />
                         </a>
-                        {(quote.status === 'quote_sent' || quote.status === 'po_uploaded') && (
+                        {(quote.status === 'quote_sent' || quote.status === 'accepted' || quote.status === 'po_uploaded') && (
                           <button
                             onClick={() => handleDeletePOFile(file.id, file.file_name)}
                             disabled={deletingFileId === file.id}
@@ -869,19 +869,71 @@ export default function MyQuoteDetail() {
             )}
 
             {/* PO Upload Action */}
-            {(quote.status === 'quote_sent' || quote.status === 'po_uploaded') && (
+            {(quote.status === 'quote_sent' || quote.status === 'accepted' || quote.status === 'po_uploaded') && (
               <Card>
                 <CardContent className="pt-5">
                   <div className="text-center space-y-3">
                     <Send className="w-8 h-8 text-primary mx-auto" />
                     <div>
                       <p className="font-semibold text-foreground text-sm">
-                        {poFiles.length > 0 ? 'พร้อมส่ง PO ให้ทีมงาน' : 'อัปโหลดใบสั่งซื้อ (PO)'}
+                        {quote.status === 'accepted' && poFiles.length === 0
+                          ? '📤 อัปโหลดใบสั่งซื้อ (PO)'
+                          : poFiles.length > 0 ? 'พร้อมส่ง PO ให้ทีมงาน' : 'อัปโหลดใบสั่งซื้อ (PO)'}
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        {poFiles.length > 0 ? 'กดส่ง PO ทั้งหมดให้ทีมงาน' : 'แนบไฟล์ PO เพื่อดำเนินการสั่งซื้อ'}
+                        {quote.status === 'accepted' && poFiles.length === 0
+                          ? 'คุณยอมรับราคาแล้ว — กรุณาแนบ PO เพื่อดำเนินการสั่งซื้อ'
+                          : poFiles.length > 0 ? 'กดส่ง PO ทั้งหมดให้ทีมงาน' : 'แนบไฟล์ PO เพื่อดำเนินการสั่งซื้อ'}
                       </p>
                     </div>
+
+                    {/* Quick option: use quote as PO */}
+                    {quote.status === 'accepted' && poFiles.length === 0 && (
+                      <div className="border-t border-border pt-3 mt-3">
+                        <p className="text-xs text-muted-foreground mb-2">ไม่ได้ออก PO เอง?</p>
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          className="w-full"
+                          onClick={async () => {
+                            setConfirming(true);
+                            try {
+                              await supabase.from('quote_files').insert({
+                                quote_id: quote.id,
+                                file_name: `${quote.quote_number}-AsPO.pdf`,
+                                file_url: '#virtual-po',
+                                file_type: 'application/pdf',
+                                file_size: 0,
+                                uploaded_by: user?.id,
+                                category: 'po_virtual',
+                              } as any);
+                              await supabase.from('quote_requests').update({
+                                status: 'po_confirmed',
+                              } as any).eq('id', quote.id);
+                              await supabase.from('quote_messages').insert({
+                                quote_id: quote.id,
+                                sender_name: user?.email || 'ลูกค้า',
+                                sender_role: 'customer',
+                                content: '✅ ใช้ใบเสนอราคาเป็น PO (ลูกค้าไม่มีระบบ PO formal)',
+                                message_type: 'status_change',
+                              });
+                              toast({ title: '✅ สำเร็จ', description: 'ใช้ใบเสนอราคาเป็น PO เรียบร้อย' });
+                              loadQuote();
+                              loadPOFiles();
+                            } catch (err: any) {
+                              toast({ title: 'เกิดข้อผิดพลาด', description: err.message, variant: 'destructive' });
+                            } finally {
+                              setConfirming(false);
+                            }
+                          }}
+                          disabled={confirming}
+                        >
+                          <FileText className="w-3.5 h-3.5 mr-1.5" />
+                          ใช้ใบเสนอราคาเป็น PO
+                        </Button>
+                      </div>
+                    )}
+
                     <div className="flex gap-2">
                       <Button variant="outline" size="sm" className="flex-1" onClick={() => setShowPOUpload(true)}>
                         <Upload className="w-3.5 h-3.5 mr-1.5" />
