@@ -114,11 +114,11 @@ const ShopProductDetail = () => {
 
   // Spec chips for hero
   const specChips: { icon: React.ReactNode; label: string }[] = [];
-  if (product.cpu) specChips.push({ icon: <Cpu className="w-3.5 h-3.5 text-primary" />, label: product.cpu });
+  if (product.cpu) specChips.push({ icon: <Microchip className="w-3.5 h-3.5 text-primary" />, label: product.cpu });
   if (product.ram_gb) specChips.push({ icon: <MemoryStick className="w-3.5 h-3.5 text-primary" />, label: `${product.ram_gb}GB RAM` });
-  if (product.storage_gb) specChips.push({ icon: <HardDrive className="w-3.5 h-3.5 text-primary" />, label: `${product.storage_gb}GB ${product.storage_type || ''}`.trim() });
+  if (product.storage_gb) specChips.push({ icon: <CircuitBoard className="w-3.5 h-3.5 text-primary" />, label: `${product.storage_gb}GB ${product.storage_type || ''}`.trim() });
   if (product.has_wifi) specChips.push({ icon: <Wifi className="w-3.5 h-3.5 text-primary" />, label: 'WiFi' });
-  if (product.has_4g) specChips.push({ icon: <Signal className="w-3.5 h-3.5 text-primary" />, label: '4G LTE' });
+  if (product.has_4g) specChips.push({ icon: <Antenna className="w-3.5 h-3.5 text-primary" />, label: '4G LTE' });
 
   return (
     <div className="min-h-screen bg-background">
@@ -245,7 +245,7 @@ const ShopProductDetail = () => {
               <Card>
                 <CardHeader className="pb-3">
                   <CardTitle className="text-sm flex items-center gap-2">
-                    <Cpu className="w-4 h-4 text-primary" />
+                    <Microchip className="w-4 h-4 text-primary" />
                     Performance
                   </CardTitle>
                 </CardHeader>
@@ -274,7 +274,7 @@ const ShopProductDetail = () => {
               <Card>
                 <CardHeader className="pb-3">
                   <CardTitle className="text-sm flex items-center gap-2">
-                    <Settings className="w-4 h-4 text-primary" />
+                    <SlidersHorizontal className="w-4 h-4 text-primary" />
                     System
                   </CardTitle>
                 </CardHeader>
@@ -311,7 +311,7 @@ const ShopProductDetail = () => {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <Monitor className="w-6 h-6 text-primary shrink-0 mt-0.5" />
+                  <MonitorSmartphone className="w-6 h-6 text-primary shrink-0 mt-0.5" />
                   <div>
                     <p className="font-semibold">บริการหลังการขาย</p>
                     <p className="text-sm text-muted-foreground mt-1">

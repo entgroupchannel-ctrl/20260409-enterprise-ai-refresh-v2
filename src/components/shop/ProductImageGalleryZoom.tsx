@@ -43,7 +43,7 @@ export default function ProductImageGalleryZoom({ images, alt, enableZoom = true
       >
         {isCurrentErrored ? (
           <div className="absolute inset-0 flex flex-col items-center justify-center text-muted-foreground">
-            <Package className="w-16 h-16 mb-3 opacity-30" />
+            <PackageSearch className="w-16 h-16 mb-3 opacity-30" />
             <p className="text-sm font-medium">รูปสินค้ากำลังจัดเตรียม</p>
             <p className="text-xs opacity-60 mt-1">Product image coming soon</p>
           </div>
@@ -98,7 +98,7 @@ export default function ProductImageGalleryZoom({ images, alt, enableZoom = true
             >
               {erroredImages.has(i) ? (
                 <div className="w-full h-full flex items-center justify-center bg-muted">
-                  <Package className="w-5 h-5 text-muted-foreground/40" />
+                  <PackageSearch className="w-5 h-5 text-muted-foreground/40" />
                 </div>
               ) : (
                 <img
