@@ -93,24 +93,32 @@ export default function AdminContacts() {
 
   const loadStats = async () => {
     try {
-      const { data } = await (supabase as any).from('contacts')
-        .select('contact_type')
-        .eq('is_active', true);
+      const [totalRes, customerRes, supplierRes, bothRes] = await Promise.all([
+        (supabase as any).from('contacts')
+          .select('*', { count: 'exact', head: true })
+          .eq('is_active', true),
+        (supabase as any).from('contacts')
+          .select('*', { count: 'exact', head: true })
+          .eq('is_active', true)
+          .eq('contact_type', 'customer'),
+        (supabase as any).from('contacts')
+          .select('*', { count: 'exact', head: true })
+          .eq('is_active', true)
+          .eq('contact_type', 'supplier'),
+        (supabase as any).from('contacts')
+          .select('*', { count: 'exact', head: true })
+          .eq('is_active', true)
+          .eq('contact_type', 'both'),
+      ]);
 
-      if (data) {
-        const counts = data.reduce((acc: any, row: any) => {
-          acc[row.contact_type] = (acc[row.contact_type] || 0) + 1;
-          return acc;
-        }, {});
-        setStats({
-          total: data.length,
-          customer: counts.customer || 0,
-          supplier: counts.supplier || 0,
-          both: counts.both || 0,
-        });
-      }
+      setStats({
+        total: totalRes.count || 0,
+        customer: customerRes.count || 0,
+        supplier: supplierRes.count || 0,
+        both: bothRes.count || 0,
+      });
     } catch (e) {
-      console.error(e);
+      console.error('loadStats error:', e);
     }
   };
 
