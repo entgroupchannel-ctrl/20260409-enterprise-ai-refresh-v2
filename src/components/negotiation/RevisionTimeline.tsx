@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { History, ChevronDown, ChevronUp, Gift, CheckCircle2, Clock, Send, User } from 'lucide-react';
 import { formatShortDateTime } from '@/lib/format';
+import RevisionCompareView from './RevisionCompareView';
 
 export interface Revision {
   id: string;
@@ -55,6 +56,7 @@ export default function RevisionTimeline({
   const [revisions, setRevisions] = useState<Revision[]>([]);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [showCompare, setShowCompare] = useState(false);
 
   useEffect(() => {
     loadRevisions();
@@ -121,11 +123,22 @@ export default function RevisionTimeline({
             <History className="w-4 h-4" />
             ประวัติการต่อรอง ({revisions.length} revision{revisions.length > 1 ? 's' : ''})
           </CardTitle>
-          {viewerRole === 'admin' && onCreateCounter && (
-            <Button size="sm" variant="outline" onClick={onCreateCounter}>
-              + สร้าง Counter Offer
-            </Button>
-          )}
+          <div className="flex gap-2">
+            {revisions.length >= 2 && (
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => setShowCompare(true)}
+              >
+                🔄 เปรียบเทียบ
+              </Button>
+            )}
+            {viewerRole === 'admin' && onCreateCounter && (
+              <Button size="sm" variant="outline" onClick={onCreateCounter}>
+                + สร้าง Counter Offer
+              </Button>
+            )}
+          </div>
         </div>
       </CardHeader>
       <CardContent className="space-y-2">
@@ -251,6 +264,12 @@ export default function RevisionTimeline({
           );
         })}
       </CardContent>
+
+      <RevisionCompareView
+        quoteId={quoteId}
+        open={showCompare}
+        onClose={() => setShowCompare(false)}
+      />
     </Card>
   );
 }

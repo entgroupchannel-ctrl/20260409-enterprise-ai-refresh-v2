@@ -8,6 +8,7 @@ import RevisionTimeline from '@/components/negotiation/RevisionTimeline';
 import CounterOfferDialog from '@/components/negotiation/CounterOfferDialog';
 import PendingApprovalBanner from '@/components/negotiation/PendingApprovalBanner';
 import NegotiationRequestsList from '@/components/negotiation/NegotiationRequestsList';
+import NegotiationInsightsCard from '@/components/negotiation/NegotiationInsightsCard';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import AdminLayout from '@/layouts/AdminLayout';
 import { Button } from '@/components/ui/button';
@@ -902,6 +903,9 @@ export default function AdminQuoteDetail() {
 
           {/* Right Column - Chat & Timeline */}
           <div className="space-y-6">
+            {/* Phase 5: Negotiation Insights */}
+            <NegotiationInsightsCard quoteId={quote.id} />
+
             {/* Chat/Messages */}
             <Card>
               <CardHeader>
