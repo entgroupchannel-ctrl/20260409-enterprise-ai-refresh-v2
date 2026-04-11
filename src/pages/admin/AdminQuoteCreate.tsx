@@ -18,6 +18,7 @@ import {
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { ArrowLeft, Plus, Trash2, Save, Percent } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 /* ── Dropdown Options ── */
 const PAYMENT_OPTIONS = [
@@ -63,6 +64,8 @@ interface ProductLine {
   description: string;
   quantity: number;
   unit_price: number;
+  discount_type: 'percent' | 'fixed';
+  discount_value: number;
   discount_percent: number;
   discount_amount: number;
   line_total: number;
@@ -70,8 +73,66 @@ interface ProductLine {
 
 function calcLine(p: ProductLine): ProductLine {
   const gross = p.quantity * p.unit_price;
-  const disc = gross * (p.discount_percent / 100);
-  return { ...p, discount_amount: disc, line_total: gross - disc };
+
+  let discountAmount = 0;
+  let discountPercent = 0;
+
+  if (p.discount_type === 'percent') {
+    discountPercent = Math.min(100, Math.max(0, p.discount_value));
+    discountAmount = gross * (discountPercent / 100);
+  } else {
+    discountAmount = Math.min(gross, Math.max(0, p.discount_value));
+    discountPercent = gross > 0 ? (discountAmount / gross) * 100 : 0;
+  }
+
+  return {
+    ...p,
+    discount_percent: discountPercent,
+    discount_amount: discountAmount,
+    line_total: gross - discountAmount,
+  };
+}
+
+/* ── Discount Toggle Component ── */
+function DiscountToggle({
+  type,
+  onTypeChange,
+  className,
+}: {
+  type: 'percent' | 'fixed';
+  onTypeChange: (t: 'percent' | 'fixed') => void;
+  className?: string;
+}) {
+  return (
+    <div className={cn('flex border-l border-input', className)}>
+      <button
+        type="button"
+        onClick={() => onTypeChange('percent')}
+        className={cn(
+          'px-2 text-xs font-medium transition-colors',
+          type === 'percent'
+            ? 'bg-primary text-primary-foreground'
+            : 'bg-muted hover:bg-muted/70 text-muted-foreground'
+        )}
+        title="ส่วนลดแบบเปอร์เซ็นต์"
+      >
+        %
+      </button>
+      <button
+        type="button"
+        onClick={() => onTypeChange('fixed')}
+        className={cn(
+          'px-2 text-xs font-medium transition-colors border-l border-input',
+          type === 'fixed'
+            ? 'bg-primary text-primary-foreground'
+            : 'bg-muted hover:bg-muted/70 text-muted-foreground'
+        )}
+        title="ส่วนลดเป็นบาท"
+      >
+        ฿
+      </button>
+    </div>
+  );
 }
 
 export default function AdminQuoteCreate() {
@@ -89,9 +150,19 @@ export default function AdminQuoteCreate() {
     line_id: '',
   });
 
-  const [products, setProducts] = useState<ProductLine[]>([
-    { name: '', description: '', quantity: 1, unit_price: 0, discount_percent: 0, discount_amount: 0, line_total: 0 },
-  ]);
+  const emptyProduct: ProductLine = {
+    name: '',
+    description: '',
+    quantity: 1,
+    unit_price: 0,
+    discount_type: 'percent',
+    discount_value: 0,
+    discount_percent: 0,
+    discount_amount: 0,
+    line_total: 0,
+  };
+
+  const [products, setProducts] = useState<ProductLine[]>([{ ...emptyProduct }]);
 
   const [terms, setTerms] = useState({
     payment: PAYMENT_OPTIONS[0],
@@ -100,6 +171,8 @@ export default function AdminQuoteCreate() {
     notes: '',
     internal_notes: '',
     valid_days: 30,
+    discount_type: 'percent' as 'percent' | 'fixed',
+    discount_value: 0,
     discount_percent: 0,
     vat_percent: 7,
     withholding_tax: false,
@@ -110,15 +183,14 @@ export default function AdminQuoteCreate() {
   const updateProduct = (index: number, field: keyof ProductLine, value: string | number) => {
     const updated = [...products];
     (updated[index] as any)[field] = value;
-    updated[index] = calcLine(updated[index]);
+    if (['quantity', 'unit_price', 'discount_type', 'discount_value'].includes(field)) {
+      updated[index] = calcLine(updated[index]);
+    }
     setProducts(updated);
   };
 
   const addProduct = () => {
-    setProducts([
-      ...products,
-      { name: '', description: '', quantity: 1, unit_price: 0, discount_percent: 0, discount_amount: 0, line_total: 0 },
-    ]);
+    setProducts([...products, { ...emptyProduct }]);
   };
 
   const removeProduct = (index: number) => {
@@ -131,7 +203,19 @@ export default function AdminQuoteCreate() {
   const subtotalBeforeDiscount = products.reduce((sum, p) => sum + p.quantity * p.unit_price, 0);
   const subtotalAfterItemDiscount = products.reduce((sum, p) => sum + p.line_total, 0);
 
-  const overallDiscountAmount = subtotalAfterItemDiscount * (terms.discount_percent / 100);
+  let overallDiscountAmount = 0;
+  let overallDiscountPercent = 0;
+
+  if (terms.discount_type === 'percent') {
+    overallDiscountPercent = Math.min(100, Math.max(0, terms.discount_value));
+    overallDiscountAmount = subtotalAfterItemDiscount * (overallDiscountPercent / 100);
+  } else {
+    overallDiscountAmount = Math.min(subtotalAfterItemDiscount, Math.max(0, terms.discount_value));
+    overallDiscountPercent = subtotalAfterItemDiscount > 0
+      ? (overallDiscountAmount / subtotalAfterItemDiscount) * 100
+      : 0;
+  }
+
   const afterAllDiscount = subtotalAfterItemDiscount - overallDiscountAmount;
 
   const vatAmount = afterAllDiscount * (terms.vat_percent / 100);
@@ -168,9 +252,19 @@ export default function AdminQuoteCreate() {
           customer_address: customer.address || null,
           customer_tax_id: customer.tax_id || null,
           customer_line: customer.line_id || null,
-          products: products as any,
+          products: products.map((p) => ({
+            name: p.name,
+            description: p.description,
+            quantity: p.quantity,
+            unit_price: p.unit_price,
+            discount_type: p.discount_type,
+            discount_value: p.discount_value,
+            discount_percent: p.discount_percent,
+            discount_amount: p.discount_amount,
+            line_total: p.line_total,
+          })) as any,
           subtotal: subtotalAfterItemDiscount,
-          discount_percent: terms.discount_percent,
+          discount_percent: overallDiscountPercent,
           discount_amount: overallDiscountAmount + itemDiscountTotal,
           vat_percent: terms.vat_percent,
           vat_amount: vatAmount,
@@ -187,6 +281,8 @@ export default function AdminQuoteCreate() {
             withholding_percent: terms.withholding_tax ? terms.withholding_percent : 0,
             withholding_amount: withholdingAmount,
             item_discount_total: itemDiscountTotal,
+            discount_type: terms.discount_type,
+            discount_value: terms.discount_value,
           } as any,
         })
         .select()
@@ -291,11 +387,37 @@ export default function AdminQuoteCreate() {
                     <Label>ราคา/หน่วย (฿)</Label>
                     <Input type="number" min={0} value={product.unit_price} onChange={(e) => updateProduct(index, 'unit_price', parseFloat(e.target.value) || 0)} />
                   </div>
-                  <div className="col-span-3 md:col-span-2">
+                  <div className="col-span-3 md:col-span-3">
                     <Label className="flex items-center gap-1">
                       <Percent className="w-3 h-3" /> ส่วนลด
                     </Label>
-                    <Input type="number" min={0} max={100} value={product.discount_percent} onChange={(e) => updateProduct(index, 'discount_percent', parseFloat(e.target.value) || 0)} />
+                    <div className="flex border border-input rounded-md overflow-hidden h-10">
+                      <Input
+                        type="number"
+                        min={0}
+                        max={product.discount_type === 'percent' ? 100 : undefined}
+                        value={product.discount_value || ''}
+                        onChange={(e) =>
+                          updateProduct(index, 'discount_value', parseFloat(e.target.value) || 0)
+                        }
+                        placeholder="0"
+                        className="border-0 rounded-none text-right pr-1 focus-visible:ring-0"
+                      />
+                      <DiscountToggle
+                        type={product.discount_type}
+                        onTypeChange={(t) => updateProduct(index, 'discount_type', t as any)}
+                      />
+                    </div>
+                    {product.discount_amount > 0 && product.discount_type === 'fixed' && (
+                      <p className="text-[10px] text-muted-foreground mt-0.5">
+                        ≈ {product.discount_percent.toFixed(1)}%
+                      </p>
+                    )}
+                    {product.discount_amount > 0 && product.discount_type === 'percent' && (
+                      <p className="text-[10px] text-muted-foreground mt-0.5">
+                        = -{formatCurrency(product.discount_amount)}
+                      </p>
+                    )}
                   </div>
                   <div className="col-span-2 md:col-span-2 text-right">
                     {product.discount_amount > 0 && (
@@ -333,18 +455,33 @@ export default function AdminQuoteCreate() {
               <div className="flex items-center justify-between text-sm">
                 <div className="flex items-center gap-2">
                   <span className="text-muted-foreground">ส่วนลดรวม</span>
-                  <Input
-                    type="number"
-                    min={0}
-                    max={100}
-                    value={terms.discount_percent}
-                    onChange={(e) => setTerms({ ...terms, discount_percent: parseFloat(e.target.value) || 0 })}
-                    className="w-16 h-7 text-center text-xs"
-                  />
-                  <span className="text-muted-foreground text-xs">%</span>
+                  <div className="flex border border-input rounded-md overflow-hidden h-7">
+                    <Input
+                      type="number"
+                      min={0}
+                      max={terms.discount_type === 'percent' ? 100 : undefined}
+                      value={terms.discount_value || ''}
+                      onChange={(e) =>
+                        setTerms({ ...terms, discount_value: parseFloat(e.target.value) || 0 })
+                      }
+                      placeholder="0"
+                      className="w-20 h-7 border-0 rounded-none text-right pr-1 text-xs focus-visible:ring-0"
+                    />
+                    <DiscountToggle
+                      type={terms.discount_type}
+                      onTypeChange={(t) => setTerms({ ...terms, discount_type: t })}
+                    />
+                  </div>
                 </div>
                 {overallDiscountAmount > 0 && (
-                  <span className="text-destructive">-{formatCurrency(overallDiscountAmount)}</span>
+                  <span className="text-destructive">
+                    -{formatCurrency(overallDiscountAmount)}
+                    {terms.discount_type === 'fixed' && (
+                      <span className="text-[10px] text-muted-foreground ml-1">
+                        ({overallDiscountPercent.toFixed(1)}%)
+                      </span>
+                    )}
+                  </span>
                 )}
               </div>
 
