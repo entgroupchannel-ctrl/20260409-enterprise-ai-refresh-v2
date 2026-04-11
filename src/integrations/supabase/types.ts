@@ -1497,10 +1497,40 @@ export type Database = {
           expired_count: number
         }[]
       }
+      get_negotiation_stats: {
+        Args: { p_end_date?: string; p_start_date?: string }
+        Returns: Json
+      }
+      get_negotiation_trends: {
+        Args: { p_days?: number }
+        Returns: {
+          date: string
+          quotes_accepted: number
+          quotes_created: number
+          quotes_rejected: number
+          total_value: number
+        }[]
+      }
       get_next_po_version: { Args: { p_quote_id: string }; Returns: number }
       get_next_revision_number: {
         Args: { p_quote_id: string }
         Returns: number
+      }
+      get_quote_negotiation_insights: {
+        Args: { p_quote_id: string }
+        Returns: Json
+      }
+      get_top_sales_performers: {
+        Args: { p_limit?: number; p_start_date?: string }
+        Returns: {
+          acceptance_rate: number
+          avg_discount: number
+          quotes_handled: number
+          sales_id: string
+          sales_name: string
+          total_revisions: number
+          total_value: number
+        }[]
       }
       get_user_role: { Args: { _user_id: string }; Returns: string }
       reject_revision: {

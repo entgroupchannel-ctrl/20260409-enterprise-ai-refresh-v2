@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import NegotiationAnalytics from '@/components/admin/NegotiationAnalytics';
 import { useNavigate } from 'react-router-dom';
 import AdminLayout from '@/layouts/AdminLayout';
 import MetricsCard from '@/components/admin/MetricsCard';
@@ -221,6 +222,10 @@ export default function AdminDashboard() {
             </div>
           </CardContent>
         </Card>
+        {/* Phase 5: Negotiation Analytics Section */}
+        <div className="mt-8">
+          <NegotiationAnalytics />
+        </div>
       </div>
     </AdminLayout>
   );
