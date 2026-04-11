@@ -1,0 +1,1 @@
+DELETE FROM public.contacts WHERE company_name = 'TEST IMPORT DELETE ME';
