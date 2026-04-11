@@ -37,9 +37,9 @@ export default function ProductMigrationReview() {
   const loadStats = async () => {
     setLoading(true);
     try {
-      // Total backup — use raw query via rpc or direct count
-      const { count: totalBackup } = await supabase
-        .from('products_backup_pre_consolidation' as any)
+      // Total backup
+      const { count: totalBackup } = await (supabase as any)
+        .from('products_backup_pre_consolidation')
         .select('*', { count: 'exact', head: true });
 
       const { count: parentsCount } = await supabase
