@@ -856,6 +856,21 @@ export default function AdminQuoteDetail() {
               </CardContent>
             </Card>
 
+            {/* Terms & Notes Editor */}
+            <QuoteTermsEditor
+              quoteId={quote.id}
+              initialValues={{
+                payment_terms: quote.payment_terms,
+                delivery_terms: quote.delivery_terms,
+                warranty_terms: quote.warranty_terms,
+                notes: quote.notes,
+                internal_notes: quote.internal_notes,
+                valid_until: quote.valid_until,
+              }}
+              disabled={quote.status !== 'pending' && quote.status !== 'quote_sent' && quote.status !== 'negotiating'}
+              onSaved={loadQuoteDetails}
+            />
+
             {/* Negotiation: Revision Timeline */}
             <RevisionTimeline
               key={revisionKey}
