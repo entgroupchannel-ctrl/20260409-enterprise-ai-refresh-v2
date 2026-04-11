@@ -1,4 +1,4 @@
-import { CheckCircle2, Circle, XCircle } from 'lucide-react';
+import { CheckCircle2, Circle, XCircle, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface QuoteTimelineProps {
@@ -6,6 +6,18 @@ interface QuoteTimelineProps {
   compact?: boolean;
   className?: string;
 }
+
+// Map status ใหม่ที่ Phase 4 เพิ่มมา → step เดิม
+const STATUS_TO_STEP: Record<string, string> = {
+  pending: 'pending',
+  quote_sent: 'quote_sent',
+  negotiating: 'quote_sent',
+  accepted: 'quote_sent',
+  po_uploaded: 'po_uploaded',
+  po_confirmed: 'po_uploaded',
+  po_approved: 'po_approved',
+  completed: 'completed',
+};
 
 export function QuoteTimeline({ status, compact = false, className }: QuoteTimelineProps) {
   const steps = [
@@ -16,11 +28,12 @@ export function QuoteTimeline({ status, compact = false, className }: QuoteTimel
     { key: 'completed', label: 'เสร็จสมบูรณ์' },
   ];
 
-  const displayStatus = status === 'po_confirmed' ? 'po_uploaded' : status;
+  const displayStatus = STATUS_TO_STEP[status] || status;
   const currentIndex = steps.findIndex(s => s.key === displayStatus);
 
   const isRejected = status === 'rejected';
   const isCancelled = status === 'cancelled';
+  const isExpired = status === 'expired';
 
   if (isRejected || isCancelled) {
     return (
@@ -38,22 +51,33 @@ export function QuoteTimeline({ status, compact = false, className }: QuoteTimel
     );
   }
 
+  if (isExpired) {
+    return (
+      <div className={cn('flex items-center gap-3 p-4 bg-muted border border-border rounded-lg', className)}>
+        <Clock className="w-8 h-8 text-muted-foreground flex-shrink-0" />
+        <div>
+          <p className="font-semibold text-foreground">ใบเสนอราคาหมดอายุ</p>
+          <p className="text-sm text-muted-foreground">
+            กรุณาขอใบเสนอราคาใหม่
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={cn('w-full', className)}>
-      {/* Steps row with connectors */}
       <div className="flex items-start">
         {steps.map((step, index) => {
           const isCompleted = currentIndex >= 0 && index < currentIndex;
           const isCurrent = index === currentIndex;
           const isUpcoming = currentIndex < 0 || index > currentIndex;
-          // Connector is "active" if the step it leads to is completed or current
           const connectorActive = currentIndex >= 0 && index < currentIndex;
 
           const StepIcon = isCompleted ? CheckCircle2 : Circle;
 
           return (
             <div key={step.key} className="flex items-start flex-1 min-w-0">
-              {/* Step circle + label */}
               <div className="flex flex-col items-center shrink-0">
                 <div
                   className={cn(
@@ -75,11 +99,20 @@ export function QuoteTimeline({ status, compact = false, className }: QuoteTimel
                     )}
                   >
                     {step.label}
+                    {isCurrent && step.key === 'quote_sent' && status === 'negotiating' && (
+                      <span className="block text-[10px] text-amber-600 dark:text-amber-400 font-normal mt-0.5">
+                        (กำลังต่อรอง)
+                      </span>
+                    )}
+                    {isCurrent && step.key === 'quote_sent' && status === 'accepted' && (
+                      <span className="block text-[10px] text-green-600 dark:text-green-400 font-normal mt-0.5">
+                        (ยอมรับแล้ว)
+                      </span>
+                    )}
                   </span>
                 )}
               </div>
 
-              {/* Connector line between this step and the next */}
               {index < steps.length - 1 && (
                 <div className="flex-1 flex items-center self-start pt-[18px] px-1">
                   <div
