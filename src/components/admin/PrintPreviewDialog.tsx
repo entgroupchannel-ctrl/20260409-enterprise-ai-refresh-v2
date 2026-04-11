@@ -1,5 +1,5 @@
 // src/components/admin/PrintPreviewDialog.tsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -8,8 +8,10 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Printer, Download, X } from 'lucide-react';
+import { Printer, Download, X, Loader2, AlertCircle } from 'lucide-react';
 import QuotePDFTemplate from './QuotePDFTemplate';
+import { useCompanySettings } from '@/hooks/useCompanySettings';
+import { supabase } from '@/integrations/supabase/client';
 
 interface PrintPreviewDialogProps {
   open: boolean;
@@ -28,6 +30,46 @@ export default function PrintPreviewDialog({
 }: PrintPreviewDialogProps) {
   const [isPrinting, setIsPrinting] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
+
+  // Load company + bank + sale person
+  const { settings: companySettings, loading: companyLoading } = useCompanySettings();
+  const [salePerson, setSalePerson] = useState<any>(null);
+  const [bankAccounts, setBankAccounts] = useState<any[]>([]);
+  const [loadingExtra, setLoadingExtra] = useState(true);
+
+  useEffect(() => {
+    if (!open) return;
+    loadExtraData();
+  }, [open, quoteData?.created_by, companySettings?.id]);
+
+  const loadExtraData = async () => {
+    setLoadingExtra(true);
+    try {
+      // 1. Load sale person from quote.created_by
+      if (quoteData?.created_by) {
+        const { data: userData } = await (supabase as any).from('users')
+          .select('full_name, position, signature_url, show_signature_on_quotes')
+          .eq('id', quoteData.created_by)
+          .maybeSingle();
+        setSalePerson(userData);
+      }
+
+      // 2. Load bank accounts (only active)
+      if (companySettings?.id) {
+        const { data: bankData } = await (supabase as any)
+          .from('company_bank_accounts')
+          .select('bank_name, account_number, account_name, branch, account_type, is_default')
+          .eq('company_id', companySettings.id)
+          .eq('is_active', true)
+          .order('display_order', { ascending: true });
+        setBankAccounts(bankData || []);
+      }
+    } catch (e) {
+      console.error('loadExtraData error:', e);
+    } finally {
+      setLoadingExtra(false);
+    }
+  };
 
   const handlePrint = () => {
     setIsPrinting(true);
@@ -128,6 +170,8 @@ export default function PrintPreviewDialog({
     }
   };
 
+  const isLoading = companyLoading || loadingExtra;
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
@@ -144,7 +188,7 @@ export default function PrintPreviewDialog({
                 variant="outline"
                 size="sm"
                 onClick={handlePrint}
-                disabled={isPrinting}
+                disabled={isPrinting || isLoading || !companySettings}
               >
                 <Printer className="w-4 h-4 mr-2" />
                 {isPrinting ? 'กำลังพิมพ์...' : 'พิมพ์'}
@@ -152,7 +196,7 @@ export default function PrintPreviewDialog({
               <Button
                 size="sm"
                 onClick={handleDownloadPDF}
-                disabled={isDownloading}
+                disabled={isDownloading || isLoading || !companySettings}
               >
                 <Download className="w-4 h-4 mr-2" />
                 {isDownloading ? 'กำลังสร้าง PDF...' : 'ดาวน์โหลด PDF'}
@@ -163,7 +207,46 @@ export default function PrintPreviewDialog({
 
         {/* PDF Preview */}
         <div className="border rounded-lg overflow-hidden bg-gray-100 p-4">
-          <QuotePDFTemplate data={quoteData} />
+          {isLoading ? (
+            <div className="flex items-center justify-center py-12">
+              <div className="text-center">
+                <Loader2 className="w-8 h-8 animate-spin mx-auto text-primary mb-2" />
+                <p className="text-sm text-muted-foreground">กำลังโหลดข้อมูลบริษัท...</p>
+              </div>
+            </div>
+          ) : !companySettings ? (
+            <div className="p-8 text-center">
+              <AlertCircle className="w-12 h-12 mx-auto text-destructive mb-3" />
+              <p className="font-semibold mb-1">ไม่พบข้อมูลบริษัท</p>
+              <p className="text-sm text-muted-foreground mb-3">
+                กรุณาตั้งค่าข้อมูลบริษัทก่อน
+              </p>
+              <Button onClick={() => window.location.href = '/admin/settings/company'}>
+                ไปที่ตั้งค่าบริษัท
+              </Button>
+            </div>
+          ) : (
+            <QuotePDFTemplate 
+              data={quoteData}
+              companyInfo={{
+                name_th: companySettings.name_th,
+                name_en: companySettings.name_en,
+                address_th: companySettings.address_th,
+                address_en: companySettings.address_en,
+                phone: companySettings.phone,
+                fax: companySettings.fax,
+                email: companySettings.email,
+                website: companySettings.website,
+                tax_id: companySettings.tax_id,
+                branch_type: companySettings.branch_type,
+                branch_code: companySettings.branch_code,
+                branch_name: companySettings.branch_name,
+                logo_url: companySettings.logo_url,
+              }}
+              salePerson={salePerson}
+              bankAccounts={bankAccounts}
+            />
+          )}
         </div>
       </DialogContent>
     </Dialog>

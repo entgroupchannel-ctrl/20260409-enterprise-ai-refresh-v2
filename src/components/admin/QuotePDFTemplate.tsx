@@ -34,24 +34,38 @@ interface QuoteData {
 
 interface QuotePDFTemplateProps {
   data: QuoteData;
-  companyInfo?: {
-    name: string;
-    address: string;
-    phone: string;
-    email: string;
-    tax_id: string;
+  companyInfo: {
+    name_th: string;
+    name_en: string | null;
+    address_th: string | null;
+    address_en: string | null;
+    phone: string | null;
+    fax: string | null;
+    email: string | null;
+    website: string | null;
+    tax_id: string | null;
+    branch_type: string | null;
+    branch_code: string | null;
+    branch_name: string | null;
+    logo_url: string | null;
   };
+  salePerson?: {
+    full_name: string | null;
+    position: string | null;
+    signature_url: string | null;
+    show_signature_on_quotes: boolean | null;
+  };
+  bankAccounts?: Array<{
+    bank_name: string;
+    account_number: string;
+    account_name: string;
+    branch: string | null;
+    account_type: string | null;
+    is_default: boolean;
+  }>;
 }
 
-export default function QuotePDFTemplate({ data, companyInfo }: QuotePDFTemplateProps) {
-  const company = companyInfo || {
-    name: 'บริษัท เอ็นที กรุ๊ป จำกัด',
-    address: '123 ถนนสุขุมวิท แขวงคลองเตย เขตคลองเตย กรุงเทพฯ 10110',
-    phone: '02-123-4567',
-    email: 'info@entgroup.co.th',
-    tax_id: '0105123456789',
-  };
-
+export default function QuotePDFTemplate({ data, companyInfo, salePerson, bankAccounts }: QuotePDFTemplateProps) {
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('th-TH', {
       minimumFractionDigits: 2,
@@ -74,15 +88,45 @@ export default function QuotePDFTemplate({ data, companyInfo }: QuotePDFTemplate
     >
       {/* Header */}
       <div className="flex justify-between items-start mb-8 pb-4 border-b-2 border-blue-600">
-        <div>
-          <h1 className="text-3xl font-bold text-blue-600 mb-2">{company.name}</h1>
-          <p className="text-sm text-gray-600">{company.address}</p>
-          <p className="text-sm text-gray-600">โทร: {company.phone} | Email: {company.email}</p>
-          <p className="text-sm text-gray-600">เลขประจำตัวผู้เสียภาษี: {company.tax_id}</p>
+        <div className="flex items-start gap-4 flex-1">
+          {companyInfo.logo_url && (
+            <img 
+              src={companyInfo.logo_url} 
+              alt={companyInfo.name_th}
+              className="w-20 h-20 object-contain"
+            />
+          )}
+          <div>
+            <h1 className="text-2xl font-bold text-blue-600 mb-1">
+              {companyInfo.name_th}
+            </h1>
+            {companyInfo.name_en && (
+              <p className="text-sm text-gray-700 italic mb-2">{companyInfo.name_en}</p>
+            )}
+            {companyInfo.address_th && (
+              <p className="text-xs text-gray-600 leading-relaxed">{companyInfo.address_th}</p>
+            )}
+            <div className="flex flex-wrap gap-x-3 text-xs text-gray-600 mt-1">
+              {companyInfo.phone && <span>โทร: {companyInfo.phone}</span>}
+              {companyInfo.fax && <span>แฟกซ์: {companyInfo.fax}</span>}
+              {companyInfo.email && <span>Email: {companyInfo.email}</span>}
+            </div>
+            {companyInfo.website && (
+              <p className="text-xs text-gray-600">เว็บไซต์: {companyInfo.website}</p>
+            )}
+            {companyInfo.tax_id && (
+              <p className="text-xs text-gray-700 mt-1">
+                เลขประจำตัวผู้เสียภาษี: <span className="font-semibold">{companyInfo.tax_id}</span>
+                {companyInfo.branch_type === 'head_office' && ' (สำนักงานใหญ่)'}
+                {companyInfo.branch_type === 'branch' && companyInfo.branch_name && 
+                  ` (สาขา: ${companyInfo.branch_name})`}
+              </p>
+            )}
+          </div>
         </div>
-        <div className="text-right">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">ใบเสนอราคา</h2>
-          <p className="text-sm text-gray-600">QUOTATION</p>
+        <div className="text-right ml-4">
+          <h2 className="text-2xl font-bold text-gray-800 mb-1">ใบเสนอราคา</h2>
+          <p className="text-sm text-gray-500">QUOTATION</p>
         </div>
       </div>
 
@@ -232,14 +276,53 @@ export default function QuotePDFTemplate({ data, companyInfo }: QuotePDFTemplate
         )}
       </div>
 
+      {/* Bank Accounts */}
+      {bankAccounts && bankAccounts.length > 0 && (
+        <div className="mt-6 pt-4 border-t border-gray-200">
+          <h3 className="text-sm font-bold text-gray-800 mb-2">การชำระเงิน — โอนเข้าบัญชี:</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {bankAccounts.map((bank, idx) => (
+              <div key={idx} className={`text-xs p-2 rounded border ${bank.is_default ? 'border-blue-500 bg-blue-50' : 'border-gray-200'}`}>
+                <p className="font-semibold text-gray-800">
+                  {bank.bank_name}
+                  {bank.is_default && <span className="ml-2 text-[10px] text-blue-600">⭐ หลัก</span>}
+                </p>
+                <p className="text-gray-700 font-mono">{bank.account_number}</p>
+                <p className="text-gray-600">{bank.account_name}</p>
+                {bank.branch && <p className="text-gray-500">สาขา: {bank.branch}</p>}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Signature */}
       <div className="grid grid-cols-2 gap-8 mt-12 pt-8 border-t">
         <div className="text-center">
-          <div className="border-b border-gray-400 mb-2 pb-12"></div>
-          <p className="text-sm">ผู้เสนอราคา</p>
-          <p className="text-xs text-gray-600 mt-1">
-            วันที่: {formatShortDateTime(new Date())}
-          </p>
+          {salePerson?.signature_url && salePerson?.show_signature_on_quotes !== false ? (
+            <div>
+              <img 
+                src={salePerson.signature_url} 
+                alt="ลายเซ็น" 
+                className="max-h-16 mx-auto mb-1"
+              />
+              <div className="border-t border-gray-400 w-48 mx-auto pt-1">
+                <p className="text-sm font-medium">{salePerson.full_name || 'พนักงานขาย'}</p>
+                {salePerson.position && (
+                  <p className="text-xs text-gray-600">{salePerson.position}</p>
+                )}
+                <p className="text-xs text-gray-500 mt-1">ผู้เสนอราคา</p>
+              </div>
+            </div>
+          ) : (
+            <div>
+              <div className="border-b border-gray-400 mb-2 pb-12"></div>
+              <p className="text-sm">ผู้เสนอราคา</p>
+              <p className="text-xs text-gray-600 mt-1">
+                วันที่: {formatShortDateTime(new Date())}
+              </p>
+            </div>
+          )}
         </div>
         <div className="text-center">
           <div className="border-b border-gray-400 mb-2 pb-12"></div>

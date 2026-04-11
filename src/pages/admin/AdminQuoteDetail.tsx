@@ -1,6 +1,7 @@
 // src/pages/admin/AdminQuoteDetail.tsx
 import { useEffect, useState, useMemo } from 'react';
 import CreateSaleOrderDialog from '@/components/admin/CreateSaleOrderDialog';
+import PrintPreviewDialog from '@/components/admin/PrintPreviewDialog';
 import POActionsMenu from '@/components/admin/POActionsMenu';
 import POVersionHistory from '@/components/admin/POVersionHistory';
 import { QuoteTimeline } from '@/components/QuoteTimeline';
@@ -58,6 +59,7 @@ import {
   ShieldAlert,
   ScanEye,
   FileCheck2,
+  Printer,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
@@ -179,6 +181,7 @@ export default function AdminQuoteDetail() {
   const [showCounterOffer, setShowCounterOffer] = useState(false);
   const [counterNegotiationId, setCounterNegotiationId] = useState<string | undefined>();
   const [revisionKey, setRevisionKey] = useState(0);
+  const [showPrintPreview, setShowPrintPreview] = useState(false);
   // ✅ Real-time calculation
   const totals = useMemo(() => {
     if (!quote) return { subtotal: 0, discountAmount: 0, beforeVat: 0, vatAmount: 0, grandTotal: 0 };
@@ -458,6 +461,14 @@ export default function AdminQuoteDetail() {
           </div>
 
           <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setShowPrintPreview(true)}
+            >
+              <Printer className="w-4 h-4 mr-1.5" />
+              พิมพ์ / PDF
+            </Button>
             <StatusBadge status={quote.status} />
             {quote.sla_breached && (
               <Badge variant="destructive" className="gap-1">
@@ -1082,6 +1093,15 @@ export default function AdminQuoteDetail() {
           setRevisionKey((k) => k + 1);
         }}
       />
+
+      {/* Print Preview Dialog */}
+      {quote && (
+        <PrintPreviewDialog
+          open={showPrintPreview}
+          onOpenChange={setShowPrintPreview}
+          quoteData={quote}
+        />
+      )}
     </AdminLayout>
   );
 }
