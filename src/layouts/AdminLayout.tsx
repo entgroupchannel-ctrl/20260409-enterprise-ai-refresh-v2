@@ -95,6 +95,8 @@ const navGroups: NavGroup[] = [
     label: 'ตั้งค่า',
     icon: Settings,
     items: [
+      { label: 'ข้อมูลบริษัท', icon: Building2, path: '/admin/settings/company' },
+      { label: 'ข้อมูลส่วนตัว', icon: User, path: '/admin/settings/profile' },
       { label: 'ผู้ติดต่อ', icon: Users, path: '/admin/contacts' },
       { label: 'เอกสาร', icon: FileArchive, path: '/admin/documents' },
       { label: 'สิทธิ์', icon: Shield, path: '/admin/permissions' },
