@@ -57,7 +57,36 @@ const ShopStorefront = () => {
         .select('id, sku, model, series, name, description, category, cpu, ram_gb, storage_gb, storage_type, unit_price, unit_price_vat, image_url, thumbnail_url, gallery_urls, stock_status, is_active, slug, tags, is_featured')
         .eq('is_active', true)
         .order('sort_order', { ascending: true });
-      if (!error && data) setProducts(data as Product[]);
+
+      if (!error && data) {
+        // Enrich with variant counts + min prices
+        const productIds = data.map(p => p.id);
+        if (productIds.length > 0) {
+          const { data: variants } = await supabase
+            .from('product_variants')
+            .select('product_id, unit_price')
+            .in('product_id', productIds)
+            .eq('is_active', true);
+
+          const variantCounts: Record<string, number> = {};
+          const minPriceByProduct: Record<string, number> = {};
+          (variants || []).forEach((v) => {
+            variantCounts[v.product_id] = (variantCounts[v.product_id] || 0) + 1;
+            if (!minPriceByProduct[v.product_id] || v.unit_price < minPriceByProduct[v.product_id]) {
+              minPriceByProduct[v.product_id] = v.unit_price;
+            }
+          });
+
+          const enriched = data.map(p => ({
+            ...p,
+            variant_count: variantCounts[p.id] || 0,
+            starting_price: minPriceByProduct[p.id] || p.unit_price,
+          }));
+          setProducts(enriched as Product[]);
+        } else {
+          setProducts(data as Product[]);
+        }
+      }
       setLoading(false);
     };
     fetchProducts();
