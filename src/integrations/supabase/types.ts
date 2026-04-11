@@ -1762,44 +1762,68 @@ export type Database = {
       users: {
         Row: {
           avatar_url: string | null
+          bio: string | null
           company: string | null
           created_at: string
+          department: string | null
           email: string
+          employee_code: string | null
           full_name: string | null
           id: string
           is_active: boolean | null
           last_login: string | null
+          line_id: string | null
           phone: string | null
+          position: string | null
           preferences: Json | null
           role: string
+          show_signature_on_orders: boolean | null
+          show_signature_on_quotes: boolean | null
+          signature_url: string | null
           updated_at: string
         }
         Insert: {
           avatar_url?: string | null
+          bio?: string | null
           company?: string | null
           created_at?: string
+          department?: string | null
           email: string
+          employee_code?: string | null
           full_name?: string | null
           id: string
           is_active?: boolean | null
           last_login?: string | null
+          line_id?: string | null
           phone?: string | null
+          position?: string | null
           preferences?: Json | null
           role?: string
+          show_signature_on_orders?: boolean | null
+          show_signature_on_quotes?: boolean | null
+          signature_url?: string | null
           updated_at?: string
         }
         Update: {
           avatar_url?: string | null
+          bio?: string | null
           company?: string | null
           created_at?: string
+          department?: string | null
           email?: string
+          employee_code?: string | null
           full_name?: string | null
           id?: string
           is_active?: boolean | null
           last_login?: string | null
+          line_id?: string | null
           phone?: string | null
+          position?: string | null
           preferences?: Json | null
           role?: string
+          show_signature_on_orders?: boolean | null
+          show_signature_on_quotes?: boolean | null
+          signature_url?: string | null
           updated_at?: string
         }
         Relationships: []
