@@ -57,6 +57,7 @@ import {
   Calendar,
   AlertCircle,
   Eye,
+  FileCheck,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
