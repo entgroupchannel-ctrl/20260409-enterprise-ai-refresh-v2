@@ -296,6 +296,123 @@ export type Database = {
           },
         ]
       }
+      contacts: {
+        Row: {
+          address: string | null
+          branch_code: string | null
+          branch_name: string | null
+          branch_type: string | null
+          business_location: string | null
+          company_name: string
+          contact_code: string | null
+          contact_name: string | null
+          contact_position: string | null
+          contact_type: string
+          created_at: string
+          created_by: string | null
+          credit_days: number | null
+          email: string | null
+          entity_type: string
+          fax: string | null
+          id: string
+          imported_at: string | null
+          imported_from: string | null
+          is_active: boolean | null
+          line_id: string | null
+          mobile_phone: string | null
+          notes: string | null
+          office_phone: string | null
+          payment_terms: string | null
+          postal_code: string | null
+          tags: string[] | null
+          tax_id: string | null
+          updated_at: string
+          updated_by: string | null
+          website: string | null
+        }
+        Insert: {
+          address?: string | null
+          branch_code?: string | null
+          branch_name?: string | null
+          branch_type?: string | null
+          business_location?: string | null
+          company_name: string
+          contact_code?: string | null
+          contact_name?: string | null
+          contact_position?: string | null
+          contact_type?: string
+          created_at?: string
+          created_by?: string | null
+          credit_days?: number | null
+          email?: string | null
+          entity_type?: string
+          fax?: string | null
+          id?: string
+          imported_at?: string | null
+          imported_from?: string | null
+          is_active?: boolean | null
+          line_id?: string | null
+          mobile_phone?: string | null
+          notes?: string | null
+          office_phone?: string | null
+          payment_terms?: string | null
+          postal_code?: string | null
+          tags?: string[] | null
+          tax_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+          website?: string | null
+        }
+        Update: {
+          address?: string | null
+          branch_code?: string | null
+          branch_name?: string | null
+          branch_type?: string | null
+          business_location?: string | null
+          company_name?: string
+          contact_code?: string | null
+          contact_name?: string | null
+          contact_position?: string | null
+          contact_type?: string
+          created_at?: string
+          created_by?: string | null
+          credit_days?: number | null
+          email?: string | null
+          entity_type?: string
+          fax?: string | null
+          id?: string
+          imported_at?: string | null
+          imported_from?: string | null
+          is_active?: boolean | null
+          line_id?: string | null
+          mobile_phone?: string | null
+          notes?: string | null
+          office_phone?: string | null
+          payment_terms?: string | null
+          postal_code?: string | null
+          tags?: string[] | null
+          tax_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+          website?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contacts_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contacts_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       document_downloads: {
         Row: {
           document_id: string
