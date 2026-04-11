@@ -324,9 +324,8 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
                 {(p.variant_count || 0) > 1 && (
                   <Badge variant="secondary" className="text-[9px] ml-1">{p.variant_count} specs</Badge>
                 )}
+                <span className="text-xs text-muted-foreground ml-2">฿{fmt(tierHint)} for 5+</span>
               </div>
-              <span className="text-xs text-muted-foreground">฿{fmt(tierHint)} for 5+</span>
-            </div>
               <div className="flex items-center gap-2">
                 <AddToCartButton productModel={p.model} productName={p.name} estimatedPrice={p.unit_price} size="sm" variant="outline" />
                 <Link to={`/shop/${p.slug}#rfq-form`}><Button size="sm" variant="secondary"><FileSearch className="w-3.5 h-3.5 mr-1" />RFQ</Button></Link>
