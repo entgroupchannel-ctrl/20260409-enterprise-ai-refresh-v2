@@ -33,7 +33,10 @@ import {
   Clock,
   User,
   Calendar,
+  Plus,
 } from 'lucide-react';
+import SelectQuoteForSODialog from '@/components/admin/SelectQuoteForSODialog';
+import CreateSaleOrderDialog from '@/components/admin/CreateSaleOrderDialog';
 import { formatShortDateTime } from '@/lib/format';
 import { format } from 'date-fns';
 import { th } from 'date-fns/locale';
@@ -110,6 +113,10 @@ export default function AdminSaleOrders() {
   // Cancel dialog
   const [showCancelDialog, setShowCancelDialog] = useState(false);
   const [cancelReason, setCancelReason] = useState('');
+
+  // Create SO flow
+  const [showQuoteSelector, setShowQuoteSelector] = useState(false);
+  const [selectedQuoteForSO, setSelectedQuoteForSO] = useState<any>(null);
 
   useEffect(() => { loadOrders(); }, []);
   useEffect(() => { if (routeId) setSelectedId(routeId); }, [routeId]);
@@ -287,6 +294,11 @@ export default function AdminSaleOrders() {
       <AdminPageLayout
         title="ยอดขาย / Sales Orders"
         description="จัดการคำสั่งขายและติดตามสถานะการจัดส่ง"
+        actionButton={{
+          label: 'สร้าง Sale Order',
+          icon: <Plus className="w-4 h-4 mr-1.5" />,
+          onClick: () => setShowQuoteSelector(true),
+        }}
         searchPlaceholder="ค้นหาเลข SO, ชื่อ, อีเมล, Tracking..."
         searchValue={searchQuery}
         onSearchChange={setSearchQuery}
@@ -766,6 +778,29 @@ export default function AdminSaleOrders() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      <SelectQuoteForSODialog
+        open={showQuoteSelector}
+        onOpenChange={setShowQuoteSelector}
+        onSelect={(quote) => setSelectedQuoteForSO(quote)}
+      />
+
+      {selectedQuoteForSO && (
+        <CreateSaleOrderDialog
+          open={!!selectedQuoteForSO}
+          onOpenChange={(v) => !v && setSelectedQuoteForSO(null)}
+          quote={selectedQuoteForSO}
+          onSuccess={() => {
+            const qn = selectedQuoteForSO.quote_number;
+            setSelectedQuoteForSO(null);
+            loadOrders();
+            toast({
+              title: '✅ สร้าง Sale Order สำเร็จ',
+              description: `จากใบเสนอราคา ${qn}`,
+            });
+          }}
+        />
+      )}
     </AdminLayout>
   );
 }
