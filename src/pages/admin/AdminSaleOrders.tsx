@@ -778,6 +778,29 @@ export default function AdminSaleOrders() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      <SelectQuoteForSODialog
+        open={showQuoteSelector}
+        onOpenChange={setShowQuoteSelector}
+        onSelect={(quote) => setSelectedQuoteForSO(quote)}
+      />
+
+      {selectedQuoteForSO && (
+        <CreateSaleOrderDialog
+          open={!!selectedQuoteForSO}
+          onOpenChange={(v) => !v && setSelectedQuoteForSO(null)}
+          quote={selectedQuoteForSO}
+          onSuccess={() => {
+            const qn = selectedQuoteForSO.quote_number;
+            setSelectedQuoteForSO(null);
+            loadOrders();
+            toast({
+              title: '✅ สร้าง Sale Order สำเร็จ',
+              description: `จากใบเสนอราคา ${qn}`,
+            });
+          }}
+        />
+      )}
     </AdminLayout>
   );
 }
