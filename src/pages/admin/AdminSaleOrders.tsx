@@ -294,6 +294,11 @@ export default function AdminSaleOrders() {
       <AdminPageLayout
         title="ยอดขาย / Sales Orders"
         description="จัดการคำสั่งขายและติดตามสถานะการจัดส่ง"
+        actionButton={{
+          label: 'สร้าง Sale Order',
+          icon: <Plus className="w-4 h-4 mr-1.5" />,
+          onClick: () => setShowQuoteSelector(true),
+        }}
         searchPlaceholder="ค้นหาเลข SO, ชื่อ, อีเมล, Tracking..."
         searchValue={searchQuery}
         onSearchChange={setSearchQuery}
