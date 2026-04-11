@@ -1202,6 +1202,42 @@ export type Database = {
           },
         ]
       }
+      quote_term_templates: {
+        Row: {
+          content: string
+          created_at: string | null
+          created_by: string | null
+          id: string
+          is_default: boolean | null
+          label: string
+          sort_order: number | null
+          template_type: string
+          updated_at: string | null
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          is_default?: boolean | null
+          label: string
+          sort_order?: number | null
+          template_type: string
+          updated_at?: string | null
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          is_default?: boolean | null
+          label?: string
+          sort_order?: number | null
+          template_type?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       sale_orders: {
         Row: {
           actual_delivery_date: string | null
