@@ -10,11 +10,11 @@ import { StatusBadge } from '@/components/ui/StatusBadge';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import {
-  Clock,
-  CheckCircle2,
-  AlertCircle,
-  FileText,
-  Eye,
+  Timer,
+  CircleCheckBig,
+  ShieldAlert,
+  FileSearch,
+  ScanEye,
   CheckCheck,
 } from 'lucide-react';
 import { formatRelativeTime } from '@/lib/format';
@@ -138,23 +138,23 @@ export default function AdminDashboard() {
             <p className="text-muted-foreground mt-1">ภาพรวมใบเสนอราคา</p>
           </div>
           <Button onClick={() => navigate('/admin/quotes')}>
-            <FileText className="w-4 h-4 mr-2" />
+            <FileSearch className="w-4 h-4 mr-2" />
             ดูทั้งหมด
           </Button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <MetricsCard title="🟡 รอตอบกลับ" count={metrics.pending} icon={<Clock />} variant="warning" onClick={() => navigate('/admin/quotes?status=pending')} />
-          <MetricsCard title="🟢 รอลูกค้า" count={metrics.quote_sent} icon={<FileText />} onClick={() => navigate('/admin/quotes?status=quote_sent')} />
-          <MetricsCard title="🔴 รอตรวจ PO" count={metrics.po_uploaded} icon={<AlertCircle />} variant="urgent" onClick={() => navigate('/admin/quotes?status=po_uploaded')} />
-          <MetricsCard title="✅ สำเร็จ" count={metrics.completed} icon={<CheckCircle2 />} variant="success" onClick={() => navigate('/admin/quotes?status=completed')} />
+          <MetricsCard title="🟡 รอตอบกลับ" count={metrics.pending} icon={<Timer />} variant="warning" onClick={() => navigate('/admin/quotes?status=pending')} />
+          <MetricsCard title="🟢 รอลูกค้า" count={metrics.quote_sent} icon={<FileSearch />} onClick={() => navigate('/admin/quotes?status=quote_sent')} />
+          <MetricsCard title="🔴 รอตรวจ PO" count={metrics.po_uploaded} icon={<ShieldAlert />} variant="urgent" onClick={() => navigate('/admin/quotes?status=po_uploaded')} />
+          <MetricsCard title="✅ สำเร็จ" count={metrics.completed} icon={<CircleCheckBig />} variant="success" onClick={() => navigate('/admin/quotes?status=completed')} />
         </div>
 
         {urgentQuotes.length > 0 && (
           <Card className="border-destructive/30 bg-destructive/5">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-destructive">
-                <AlertCircle className="w-5 h-5" />
+                <ShieldAlert className="w-5 h-5" />
                 🚨 ต้อง Action ด่วน (SLA &lt; 12hr)
               </CardTitle>
             </CardHeader>
@@ -179,7 +179,7 @@ export default function AdminDashboard() {
                       </div>
                       <div className="flex gap-2">
                         <Button size="sm" variant="outline" onClick={(e) => { e.stopPropagation(); navigate(`/admin/quotes/${quote.id}`); }}>
-                          <Eye className="w-4 h-4 mr-1" /> ดู PO
+                          <ScanEye className="w-4 h-4 mr-1" /> ดู PO
                         </Button>
                         <Button size="sm" onClick={(e) => { e.stopPropagation(); navigate(`/admin/quotes/${quote.id}?action=approve`); }}>
                           <CheckCheck className="w-4 h-4 mr-1" /> อนุมัติ

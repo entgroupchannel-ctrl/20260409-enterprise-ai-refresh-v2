@@ -1,4 +1,4 @@
-import { X, ShoppingCart, FileText } from 'lucide-react';
+import { X, ShoppingBag, FileSearch } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';

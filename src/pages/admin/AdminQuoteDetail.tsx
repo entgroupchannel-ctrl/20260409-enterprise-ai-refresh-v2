@@ -43,21 +43,21 @@ import { useToast } from '@/hooks/use-toast';
 import ProductEditor from '@/components/admin/ProductEditor';
 import {
   ArrowLeft,
-  CheckCircle2,
-  XCircle,
-  Send,
+  CircleCheckBig,
+  CircleX,
+  SendHorizonal,
   Paperclip,
   Download,
-  FileText,
-  Clock,
-  User,
-  Building2,
-  Mail,
-  Phone,
-  Calendar,
-  AlertCircle,
-  Eye,
-  FileCheck,
+  FileSearch,
+  Timer,
+  UserRound,
+  Landmark,
+  MailCheck,
+  PhoneCall,
+  CalendarClock,
+  ShieldAlert,
+  ScanEye,
+  FileCheck2,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
@@ -166,7 +166,7 @@ export default function AdminQuoteDetail() {
   const [messageText, setMessageText] = useState('');
   const [sendingMessage, setSendingMessage] = useState(false);
 
-  // User role
+  // UserRound role
   const [userRole, setUserRole] = useState<'super_admin' | 'admin' | 'sales'>('admin');
   const [userEmail, setUserEmail] = useState('');
 
@@ -426,7 +426,7 @@ export default function AdminQuoteDetail() {
     return (
       <AdminLayout>
         <div className="text-center py-12">
-          <FileText className="w-16 h-16 mx-auto mb-4 text-gray-300" />
+          <FileSearch className="w-16 h-16 mx-auto mb-4 text-gray-300" />
           <h2 className="text-xl font-semibold mb-2">ไม่พบใบเสนอราคา</h2>
           <Button onClick={() => navigate('/admin/quotes')} className="mt-4">
             <ArrowLeft className="w-4 h-4 mr-2" />
@@ -461,7 +461,7 @@ export default function AdminQuoteDetail() {
             <StatusBadge status={quote.status} />
             {quote.sla_breached && (
               <Badge variant="destructive" className="gap-1">
-                <AlertCircle className="w-3 h-3" />
+                <ShieldAlert className="w-3 h-3" />
                 SLA เกิน
               </Badge>
             )}
@@ -481,7 +481,7 @@ export default function AdminQuoteDetail() {
             <CardContent className="pt-6 space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <AlertCircle className="w-8 h-8 text-orange-600" />
+                  <ShieldAlert className="w-8 h-8 text-orange-600" />
                   <div>
                     <h3 className="font-semibold text-orange-900">
                       {quote.status === 'po_confirmed' ? 'ลูกค้ายืนยัน PO แล้ว' : 'มี PO รอตรวจสอบ'}
@@ -491,11 +491,11 @@ export default function AdminQuoteDetail() {
                 </div>
                 <div className="flex gap-2">
                   <Button variant="outline" onClick={() => setShowRejectDialog(true)}>
-                    <XCircle className="w-4 h-4 mr-2" />
+                    <CircleX className="w-4 h-4 mr-2" />
                     ปฏิเสธ
                   </Button>
                   <Button onClick={() => setShowApproveDialog(true)}>
-                    <CheckCircle2 className="w-4 h-4 mr-2" />
+                    <CircleCheckBig className="w-4 h-4 mr-2" />
                     อนุมัติ PO
                   </Button>
                 </div>
@@ -510,14 +510,14 @@ export default function AdminQuoteDetail() {
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <CheckCircle2 className="w-8 h-8 text-green-600" />
+                  <CircleCheckBig className="w-8 h-8 text-green-600" />
                   <div>
                     <h3 className="font-semibold text-green-900 dark:text-green-200">PO อนุมัติแล้ว</h3>
                     <p className="text-sm text-green-700 dark:text-green-400">สร้าง Sale Order เพื่อดำเนินการต่อ</p>
                   </div>
                 </div>
                 <Button onClick={() => setShowCreateSO(true)}>
-                  <FileText className="w-4 h-4 mr-2" />
+                  <FileSearch className="w-4 h-4 mr-2" />
                   สร้าง Sale Order
                 </Button>
               </div>
@@ -530,14 +530,14 @@ export default function AdminQuoteDetail() {
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <CheckCircle2 className="w-8 h-8 text-blue-600" />
+                  <CircleCheckBig className="w-8 h-8 text-blue-600" />
                   <div>
                     <h3 className="font-semibold text-blue-900 dark:text-blue-200">สร้าง Sale Order แล้ว</h3>
                     <p className="text-sm text-blue-700 dark:text-blue-400">กระบวนการขายเสร็จสิ้น</p>
                   </div>
                 </div>
                 <Button variant="outline" onClick={() => navigate('/admin/sale-orders')}>
-                  <Eye className="w-4 h-4 mr-2" />
+                  <ScanEye className="w-4 h-4 mr-2" />
                   ดู Sale Order
                 </Button>
               </div>
@@ -559,7 +559,7 @@ export default function AdminQuoteDetail() {
           <Card className="border-gray-300 bg-gray-50 dark:border-gray-700 dark:bg-gray-900/20">
             <CardContent className="p-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <Clock className="w-6 h-6 text-gray-500" />
+                <Timer className="w-6 h-6 text-gray-500" />
                 <div>
                   <h3 className="font-semibold">ใบเสนอราคาหมดอายุ</h3>
                   <p className="text-sm text-muted-foreground">
@@ -581,7 +581,7 @@ export default function AdminQuoteDetail() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-foreground">
-                  <User className="w-5 h-5" />
+                  <UserRound className="w-5 h-5" />
                   ข้อมูลลูกค้า
                 </CardTitle>
               </CardHeader>
@@ -621,7 +621,7 @@ export default function AdminQuoteDetail() {
 
                   <div className="pt-3 border-t border-border">
                     <div className="flex items-center gap-2 mb-1">
-                      <Phone className="w-3 h-3 text-muted-foreground" />
+                      <PhoneCall className="w-3 h-3 text-muted-foreground" />
                       <Label className="text-xs text-muted-foreground">แก้ไข</Label>
                     </div>
                   </div>
@@ -812,7 +812,7 @@ export default function AdminQuoteDetail() {
                   </div>
                 </div>
 
-                {/* Send Quote Button - Only show when pending */}
+                {/* SendHorizonal Quote Button - Only show when pending */}
                 {quote.status === 'pending' && (
                   <div className="mt-6 pt-4 border-t border-border">
                     <Button
@@ -849,7 +849,7 @@ export default function AdminQuoteDetail() {
                         }
                       }}
                     >
-                      <Send className="w-5 h-5 mr-2" />
+                      <SendHorizonal className="w-5 h-5 mr-2" />
                       บันทึกและส่งใบเสนอราคา
                     </Button>
                   </div>
@@ -947,7 +947,7 @@ export default function AdminQuoteDetail() {
                     disabled={sendingMessage || !messageText.trim()}
                     className="w-full"
                   >
-                    <Send className="w-4 h-4 mr-2" />
+                    <SendHorizonal className="w-4 h-4 mr-2" />
                     {sendingMessage ? 'กำลังส่ง...' : 'ส่งข้อความ'}
                   </Button>
                 </div>
@@ -964,7 +964,7 @@ export default function AdminQuoteDetail() {
                       file.category === 'po_virtual' ? (
                         <div key={file.id} className="p-3 bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-800 rounded-lg">
                           <div className="flex items-center gap-2">
-                            <FileCheck className="w-4 h-4 text-amber-600 shrink-0" />
+                            <FileCheck2 className="w-4 h-4 text-amber-600 shrink-0" />
                             <div className="flex-1">
                               <p className="text-xs font-medium">ลูกค้าใช้ใบเสนอราคาเป็น PO</p>
                               <p className="text-[10px] text-muted-foreground">ไม่มีระบบ PO formal — ใช้ใบเสนอราคา {quote.quote_number} เป็นเอกสาร PO</p>
@@ -979,7 +979,7 @@ export default function AdminQuoteDetail() {
                           rel="noopener noreferrer"
                           className="flex items-center gap-2 px-2.5 py-1.5 rounded-md border border-border hover:border-primary hover:bg-primary/5 transition-colors group"
                         >
-                          <FileText className="w-3.5 h-3.5 text-primary shrink-0" />
+                          <FileSearch className="w-3.5 h-3.5 text-primary shrink-0" />
                           <span className="text-xs font-medium text-foreground truncate flex-1">{file.file_name}</span>
                           <Download className="w-3 h-3 text-muted-foreground group-hover:text-primary shrink-0" />
                         </a>

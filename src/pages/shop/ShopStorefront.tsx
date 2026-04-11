@@ -10,7 +10,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Search, LayoutGrid, List, SlidersHorizontal, X, FileText, ChevronLeft, ChevronRight, CheckCircle2, ShieldCheck, Building2, Headphones } from 'lucide-react';
+import { SearchCheck, LayoutGrid, List, SlidersHorizontal, X, FileSearch, ChevronLeft, ChevronRight, CircleCheckBig, ShieldCheck, Landmark, HeadsetIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import SiteNavbar from '@/components/SiteNavbar';
 
@@ -122,7 +122,7 @@ const ShopStorefront = () => {
           {/* Search bar */}
           <div className="mt-4 flex gap-2 max-w-xl">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <SearchCheck className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
                 placeholder="ค้นหาสินค้า... (Model, SKU, สเปก)"
                 value={search}
@@ -243,10 +243,10 @@ const ShopStorefront = () => {
         {/* Trust bar */}
         <div className="mt-12 rounded-xl bg-muted/50 border border-border p-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-sm">
-            <div className="flex flex-col items-center gap-2"><CheckCircle2 className="w-6 h-6 text-primary" /><span>ISO 9001 Certified</span></div>
+            <div className="flex flex-col items-center gap-2"><CircleCheckBig className="w-6 h-6 text-primary" /><span>ISO 9001 Certified</span></div>
             <div className="flex flex-col items-center gap-2"><ShieldCheck className="w-6 h-6 text-primary" /><span>รับประกัน 1-3 ปี</span></div>
-            <div className="flex flex-col items-center gap-2"><Building2 className="w-6 h-6 text-primary" /><span>500+ Enterprise Customers</span></div>
-            <div className="flex flex-col items-center gap-2"><Headphones className="w-6 h-6 text-primary" /><span>ซัพพอร์ตภาษาไทย</span></div>
+            <div className="flex flex-col items-center gap-2"><Landmark className="w-6 h-6 text-primary" /><span>500+ Enterprise Customers</span></div>
+            <div className="flex flex-col items-center gap-2"><HeadsetIcon className="w-6 h-6 text-primary" /><span>ซัพพอร์ตภาษาไทย</span></div>
           </div>
         </div>
       </div>
@@ -293,7 +293,7 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
               </div>
               <div className="flex items-center gap-2">
                 <AddToCartButton productModel={p.model} productName={p.name} estimatedPrice={p.unit_price} size="sm" variant="outline" />
-                <Link to={`/shop/${p.slug}#rfq-form`}><Button size="sm" variant="secondary"><FileText className="w-3.5 h-3.5 mr-1" />RFQ</Button></Link>
+                <Link to={`/shop/${p.slug}#rfq-form`}><Button size="sm" variant="secondary"><FileSearch className="w-3.5 h-3.5 mr-1" />RFQ</Button></Link>
               </div>
             </div>
           </div>
@@ -334,7 +334,7 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
           </div>
           <div className="flex gap-2 pt-1">
             <Link to={`/shop/${p.slug}#rfq-form`} className="flex-1">
-              <Button size="sm" variant="secondary" className="w-full text-xs"><FileText className="w-3.5 h-3.5 mr-1" />RFQ</Button>
+              <Button size="sm" variant="secondary" className="w-full text-xs"><FileSearch className="w-3.5 h-3.5 mr-1" />RFQ</Button>
             </Link>
             <AddToCartButton productModel={p.model} productName={p.name} estimatedPrice={p.unit_price} size="sm" className="flex-1" />
           </div>

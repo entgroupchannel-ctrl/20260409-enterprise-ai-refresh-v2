@@ -11,7 +11,7 @@ import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Send, Loader2, FileText, ChevronDown, ChevronUp, Phone, MessageCircle, Mail } from 'lucide-react';
+import { SendHorizonal, Loader2, FileSearch, ChevronDown, ChevronUp, PhoneCall, MessageCircleMore, MailCheck } from 'lucide-react';
 
 interface QuickRFQFormProps {
   product: { model: string; name: string; unit_price: number; slug: string; sku?: string };
@@ -161,7 +161,7 @@ export default function QuickRFQForm({ product, defaultQuantity = 1, configAddon
     <Card className="border-primary/20" id="rfq-form">
       <CardHeader className="pb-3">
         <CardTitle className="text-lg flex items-center gap-2">
-          <FileText className="w-5 h-5 text-primary" />
+          <FileSearch className="w-5 h-5 text-primary" />
           ขอใบเสนอราคา B2B
         </CardTitle>
 
@@ -297,7 +297,7 @@ export default function QuickRFQForm({ product, defaultQuantity = 1, configAddon
           )}
 
           <Button type="submit" disabled={loading} size="lg" className="w-full text-base font-semibold">
-            {loading ? <Loader2 className="w-5 h-5 mr-2 animate-spin" /> : <Send className="w-5 h-5 mr-2" />}
+            {loading ? <Loader2 className="w-5 h-5 mr-2 animate-spin" /> : <SendHorizonal className="w-5 h-5 mr-2" />}
             {loading ? 'กำลังส่ง...' : 'ส่งคำขอใบเสนอราคา'}
           </Button>
 
@@ -311,7 +311,7 @@ export default function QuickRFQForm({ product, defaultQuantity = 1, configAddon
                 href="tel:+6621234567"
                 className="flex-1 flex items-center justify-center gap-2 p-2 rounded-lg border border-border hover:bg-muted/50 transition"
               >
-                <Phone className="w-4 h-4 text-primary" /> 02-123-4567
+                <PhoneCall className="w-4 h-4 text-primary" /> 02-123-4567
               </a>
               <a
                 href="https://line.me/ti/p/@entgroup"
@@ -319,13 +319,13 @@ export default function QuickRFQForm({ product, defaultQuantity = 1, configAddon
                 rel="noreferrer"
                 className="flex-1 flex items-center justify-center gap-2 p-2 rounded-lg border border-border hover:bg-muted/50 transition"
               >
-                <MessageCircle className="w-4 h-4 text-green-600" /> @entgroup
+                <MessageCircleMore className="w-4 h-4 text-green-600" /> @entgroup
               </a>
               <a
                 href="mailto:sales@entgroup.co.th"
                 className="flex-1 flex items-center justify-center gap-2 p-2 rounded-lg border border-border hover:bg-muted/50 transition"
               >
-                <Mail className="w-4 h-4 text-blue-600" /> Email
+                <MailCheck className="w-4 h-4 text-blue-600" /> Email
               </a>
             </div>
           </div>
