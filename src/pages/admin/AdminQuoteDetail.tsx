@@ -1093,6 +1093,15 @@ export default function AdminQuoteDetail() {
           setRevisionKey((k) => k + 1);
         }}
       />
+
+      {/* Print Preview Dialog */}
+      {quote && (
+        <PrintPreviewDialog
+          open={showPrintPreview}
+          onOpenChange={setShowPrintPreview}
+          quoteData={quote}
+        />
+      )}
     </AdminLayout>
   );
 }
