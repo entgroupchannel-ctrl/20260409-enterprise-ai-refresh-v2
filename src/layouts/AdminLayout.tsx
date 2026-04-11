@@ -22,11 +22,85 @@ import {
   ShoppingCart,
   ClipboardList,
   Package,
+  Briefcase,
+  ShieldCheck,
+  Settings,
+  ChevronDown,
+  Trash2,
+  Database,
+  Upload,
+  Menu as MenuIcon,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { supabase } from '@/integrations/supabase/client';
 import ThemeToggle from '@/components/ThemeToggle';
 import LangToggle from '@/components/LangToggle';
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from '@/components/ui/sheet';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible';
+
+interface NavItem {
+  label: string;
+  icon: any;
+  path: string;
+  badge?: 'requests' | 'approvals';
+}
+
+interface NavGroup {
+  label: string;
+  icon: any;
+  items: NavItem[];
+  adminOnly?: boolean;
+}
+
+const standaloneItems: NavItem[] = [
+  { label: 'Dashboard', icon: LayoutDashboard, path: '/admin/dashboard' },
+];
+
+const navGroups: NavGroup[] = [
+  {
+    label: 'ขาย',
+    icon: Briefcase,
+    items: [
+      { label: 'ใบเสนอราคา', icon: FileText, path: '/admin/quotes' },
+      { label: 'ยอดขาย / SO', icon: ShoppingCart, path: '/admin/sale-orders' },
+      { label: 'ถังขยะ Quote', icon: Trash2, path: '/admin/quotes/trash' },
+    ],
+  },
+  {
+    label: 'สินค้า',
+    icon: Package,
+    items: [
+      { label: 'คลังสินค้า', icon: Package, path: '/admin/products' },
+      { label: 'นำเข้าสินค้า', icon: Upload, path: '/admin/products/import' },
+      { label: 'Product Migration', icon: Database, path: '/admin/product-migration' },
+    ],
+  },
+  {
+    label: 'จัดการ',
+    icon: ShieldCheck,
+    items: [
+      { label: 'คำขอลูกค้า', icon: ClipboardList, path: '/admin/requests', badge: 'requests' },
+      { label: 'อนุมัติ', icon: Shield, path: '/admin/approvals', badge: 'approvals' },
+    ],
+  },
+  {
+    label: 'ตั้งค่า',
+    icon: Settings,
+    items: [
+      { label: 'ผู้ติดต่อ', icon: Users, path: '/admin/contacts' },
+      { label: 'เอกสาร', icon: FileArchive, path: '/admin/documents' },
+      { label: 'สิทธิ์', icon: Shield, path: '/admin/permissions' },
+    ],
+  },
+];
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -39,6 +113,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const [pendingRequestsCount, setPendingRequestsCount] = useState(0);
   const [pendingApprovals, setPendingApprovals] = useState(0);
   const [isAdminUser, setIsAdminUser] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const loadPendingCount = async () => {
@@ -50,7 +125,6 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         setPendingRequestsCount(count || 0);
       } catch {}
     };
-
     loadPendingCount();
     const interval = setInterval(loadPendingCount, 60000);
     return () => clearInterval(interval);
@@ -60,23 +134,19 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     const checkAdminAndApprovals = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
-
       const { data: userData } = await supabase
         .from('users')
         .select('role')
         .eq('id', user.id)
         .maybeSingle();
-
       const isAdmin = userData?.role === 'admin';
       setIsAdminUser(isAdmin);
-
       if (isAdmin) {
         const { data: count } = await supabase.rpc('count_pending_approvals');
         setPendingApprovals(count || 0);
       }
     };
     checkAdminAndApprovals();
-
     const interval = setInterval(checkAdminAndApprovals, 30000);
     return () => clearInterval(interval);
   }, []);
@@ -86,22 +156,20 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     navigate('/');
   };
 
-  const navItems = [
-    { label: 'Dashboard', icon: LayoutDashboard, path: '/admin/dashboard' },
-    { label: 'ใบเสนอราคา', icon: FileText, path: '/admin/quotes' },
-    { label: 'ยอดขาย / Order', icon: ShoppingCart, path: '/admin/sale-orders' },
-    { label: 'คลังสินค้า', icon: Package, path: '/admin/products' },
-    { label: 'คำขอ', icon: ClipboardList, path: '/admin/requests', badge: true },
-    ...(isAdminUser ? [{
-      label: 'อนุมัติ',
-      icon: Shield,
-      path: '/admin/approvals',
-      badgeCount: pendingApprovals,
-    }] : []),
-    { label: 'ผู้ติดต่อ', icon: Users, path: '/admin/contacts' },
-    { label: 'เอกสาร', icon: FileArchive, path: '/admin/documents' },
-    { label: 'สิทธิ์', icon: Shield, path: '/admin/permissions' },
-  ];
+  // Helpers
+  const isGroupActive = (group: NavGroup) =>
+    group.items.some(
+      (item) => location.pathname === item.path || location.pathname.startsWith(item.path + '/')
+    );
+
+  const getBadgeCount = (item: NavItem): number => {
+    if (item.badge === 'requests') return pendingRequestsCount;
+    if (item.badge === 'approvals') return pendingApprovals;
+    return 0;
+  };
+
+  const getGroupBadgeCount = (group: NavGroup): number =>
+    group.items.reduce((sum, item) => sum + getBadgeCount(item), 0);
 
   return (
     <div className="min-h-screen bg-muted/30">
@@ -116,8 +184,9 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 <span className="font-semibold text-lg hidden sm:inline">Admin Panel</span>
               </Link>
 
+              {/* Desktop nav */}
               <nav className="hidden md:flex items-center gap-1">
-                {navItems.map((item) => {
+                {standaloneItems.map((item) => {
                   const Icon = item.icon;
                   const isActive = location.pathname === item.path || location.pathname.startsWith(item.path + '/');
                   return (
@@ -125,24 +194,153 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                       <Button variant={isActive ? 'secondary' : 'ghost'} className="gap-2">
                         <Icon className="w-4 h-4" />
                         {item.label}
-                        {item.badge && pendingRequestsCount > 0 && (
-                          <Badge variant="destructive" className="ml-1 px-1.5 py-0 text-xs">
-                            {pendingRequestsCount}
-                          </Badge>
-                        )}
-                        {(item as any).badgeCount > 0 && (
-                          <Badge className="ml-1 px-1.5 py-0 text-xs bg-amber-600 text-white">
-                            {(item as any).badgeCount}
-                          </Badge>
-                        )}
                       </Button>
                     </Link>
+                  );
+                })}
+
+                {navGroups.map((group) => {
+                  const GroupIcon = group.icon;
+                  const groupActive = isGroupActive(group);
+                  const groupBadge = getGroupBadgeCount(group);
+
+                  if (group.adminOnly && !isAdminUser) return null;
+
+                  return (
+                    <DropdownMenu key={group.label}>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant={groupActive ? 'secondary' : 'ghost'} className="gap-2 relative">
+                          <GroupIcon className="w-4 h-4" />
+                          {group.label}
+                          <ChevronDown className="w-3 h-3 opacity-60" />
+                          {groupBadge > 0 && (
+                            <Badge
+                              variant="destructive"
+                              className="absolute -top-1 -right-1 px-1 py-0 min-w-[16px] h-4 text-[10px]"
+                            >
+                              {groupBadge}
+                            </Badge>
+                          )}
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="start" className="w-56">
+                        {group.items.map((item) => {
+                          if (item.path === '/admin/approvals' && !isAdminUser) return null;
+                          const Icon = item.icon;
+                          const itemBadge = getBadgeCount(item);
+                          const isActive = location.pathname === item.path || location.pathname.startsWith(item.path + '/');
+                          return (
+                            <DropdownMenuItem
+                              key={item.path}
+                              onClick={() => navigate(item.path)}
+                              className={`gap-2 cursor-pointer ${isActive ? 'bg-accent' : ''}`}
+                            >
+                              <Icon className="w-4 h-4 text-muted-foreground" />
+                              <span className="flex-1">{item.label}</span>
+                              {itemBadge > 0 && (
+                                <Badge
+                                  variant={item.badge === 'requests' ? 'destructive' : 'default'}
+                                  className={`ml-auto px-1.5 py-0 text-xs ${item.badge === 'approvals' ? 'bg-amber-600 text-white' : ''}`}
+                                >
+                                  {itemBadge}
+                                </Badge>
+                              )}
+                            </DropdownMenuItem>
+                          );
+                        })}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   );
                 })}
               </nav>
             </div>
 
             <div className="flex items-center gap-2">
+              {/* Mobile menu trigger */}
+              <div className="md:hidden">
+                <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+                  <SheetTrigger asChild>
+                    <Button variant="ghost" size="icon">
+                      <MenuIcon className="w-5 h-5" />
+                    </Button>
+                  </SheetTrigger>
+                  <SheetContent side="left" className="w-72 p-0">
+                    <div className="p-4 border-b">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                          <span className="text-primary-foreground font-bold text-sm">ENT</span>
+                        </div>
+                        <span className="font-semibold">Admin Panel</span>
+                      </div>
+                    </div>
+                    <nav className="p-2 space-y-1 overflow-y-auto max-h-[calc(100vh-80px)]">
+                      {standaloneItems.map((item) => {
+                        const Icon = item.icon;
+                        const isActive = location.pathname === item.path;
+                        return (
+                          <Link key={item.path} to={item.path} onClick={() => setMobileOpen(false)}>
+                            <Button variant={isActive ? 'secondary' : 'ghost'} className="w-full justify-start gap-2">
+                              <Icon className="w-4 h-4" />
+                              {item.label}
+                            </Button>
+                          </Link>
+                        );
+                      })}
+
+                      {navGroups.map((group) => {
+                        if (group.adminOnly && !isAdminUser) return null;
+                        const GroupIcon = group.icon;
+                        const groupActive = isGroupActive(group);
+                        const groupBadge = getGroupBadgeCount(group);
+
+                        return (
+                          <Collapsible key={group.label} defaultOpen={groupActive}>
+                            <CollapsibleTrigger asChild>
+                              <Button variant="ghost" className="w-full justify-between gap-2">
+                                <span className="flex items-center gap-2">
+                                  <GroupIcon className="w-4 h-4" />
+                                  {group.label}
+                                  {groupBadge > 0 && (
+                                    <Badge variant="destructive" className="px-1.5 py-0 text-[10px]">
+                                      {groupBadge}
+                                    </Badge>
+                                  )}
+                                </span>
+                                <ChevronDown className="w-4 h-4 transition-transform data-[state=open]:rotate-180" />
+                              </Button>
+                            </CollapsibleTrigger>
+                            <CollapsibleContent className="pl-4 space-y-1 pt-1">
+                              {group.items.map((item) => {
+                                if (item.path === '/admin/approvals' && !isAdminUser) return null;
+                                const Icon = item.icon;
+                                const itemBadge = getBadgeCount(item);
+                                const isActive = location.pathname === item.path;
+                                return (
+                                  <Link key={item.path} to={item.path} onClick={() => setMobileOpen(false)}>
+                                    <Button variant={isActive ? 'secondary' : 'ghost'} size="sm" className="w-full justify-start gap-2">
+                                      <Icon className="w-3.5 h-3.5" />
+                                      <span className="flex-1 text-left">{item.label}</span>
+                                      {itemBadge > 0 && (
+                                        <Badge
+                                          variant={item.badge === 'requests' ? 'destructive' : 'default'}
+                                          className={`px-1 py-0 text-[10px] ${item.badge === 'approvals' ? 'bg-amber-600 text-white' : ''}`}
+                                        >
+                                          {itemBadge}
+                                        </Badge>
+                                      )}
+                                    </Button>
+                                  </Link>
+                                );
+                              })}
+                            </CollapsibleContent>
+                          </Collapsible>
+                        );
+                      })}
+                    </nav>
+                  </SheetContent>
+                </Sheet>
+              </div>
+
               <LangToggle variant="compact" />
               <ThemeToggle />
               <Button
@@ -189,33 +387,6 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
               </DropdownMenu>
             </div>
           </div>
-        </div>
-
-        <div className="md:hidden border-t">
-          <nav className="flex items-center overflow-x-auto px-4 py-2 gap-1">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = location.pathname === item.path;
-              return (
-                <Link key={item.path} to={item.path}>
-                  <Button variant={isActive ? 'secondary' : 'ghost'} size="sm" className="gap-2 whitespace-nowrap">
-                    <Icon className="w-4 h-4" />
-                    {item.label}
-                    {item.badge && pendingRequestsCount > 0 && (
-                      <Badge variant="destructive" className="ml-1 px-1 py-0 text-[10px]">
-                        {pendingRequestsCount}
-                      </Badge>
-                    )}
-                    {(item as any).badgeCount > 0 && (
-                      <Badge className="ml-1 px-1 py-0 text-[10px] bg-amber-600 text-white">
-                        {(item as any).badgeCount}
-                      </Badge>
-                    )}
-                  </Button>
-                </Link>
-              );
-            })}
-          </nav>
         </div>
       </header>
 
