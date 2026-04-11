@@ -96,9 +96,10 @@ export default function QuoteTermsEditor({
 
   const saveField = async (field: string, value: string | null) => {
     try {
+      const updateData: Record<string, string | null> = { [field]: value || null };
       const { error } = await supabase
         .from('quote_requests')
-        .update({ [field]: value || null })
+        .update(updateData as any)
         .eq('id', quoteId);
       if (error) throw error;
       onSaved?.();
