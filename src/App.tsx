@@ -165,6 +165,7 @@ const App = () => (
                     <Route path="/admin/approvals" element={<ProtectedRoute requireSuperAdmin><AdminApprovals /></ProtectedRoute>} />
                     <Route path="/admin/products" element={<ProtectedRoute requireSales><ProductsList /></ProtectedRoute>} />
                     <Route path="/admin/products/import" element={<ProtectedRoute requireSales><ProductImport /></ProtectedRoute>} />
+                    <Route path="/admin/product-migration" element={<ProtectedRoute requireSuperAdmin><ProductMigrationReview /></ProtectedRoute>} />
                     <Route path="/request-quote" element={<QuoteRequestForm />} />
                     <Route path="/my-quotes" element={<ProtectedRoute><MyQuotes /></ProtectedRoute>} />
                     <Route path="/my-quotes/:id" element={<ProtectedRoute><MyQuoteDetail /></ProtectedRoute>} />

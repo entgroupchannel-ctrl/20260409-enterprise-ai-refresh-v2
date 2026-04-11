@@ -20,6 +20,8 @@ interface Product {
   storage_type: string | null; unit_price: number; unit_price_vat: number | null;
   image_url: string | null; thumbnail_url: string | null; gallery_urls: string[] | null;
   stock_status: string | null; is_active: boolean; slug: string; tags: string[] | null; is_featured: boolean;
+  variant_count?: number;
+  starting_price?: number;
 }
 
 const ITEMS_PER_PAGE = 12;
