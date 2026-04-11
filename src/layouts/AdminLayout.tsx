@@ -115,6 +115,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const [pendingApprovals, setPendingApprovals] = useState(0);
   const [isAdminUser, setIsAdminUser] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
     const loadPendingCount = async () => {
@@ -135,6 +136,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     const checkAdminAndApprovals = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
+      setUserId(user.id);
       const { data: userData } = await supabase
         .from('users')
         .select('role')
