@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react';
 import QuoteTimeline from '@/components/quotes/QuoteTimeline';
 import QuoteStatusDropdown from '@/components/admin/QuoteStatusDropdown';
 import QuoteActionsMenu from '@/components/admin/QuoteActionsMenu';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import AdminLayout from '@/layouts/AdminLayout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { StatusBadge } from '@/components/ui/StatusBadge';
 import { Card, CardContent } from '@/components/ui/card';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Select,
   SelectContent,
@@ -17,16 +18,19 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import {
   SearchCheck,
-  ScanEye,
   CircleCheckBig,
-  CircleX,
   FileSearch,
   ShieldAlert,
   Timer,
+  Trash2,
 } from 'lucide-react';
 import { formatRelativeTime } from '@/lib/format';
 
@@ -57,6 +61,11 @@ export default function AdminQuotesList() {
   const navigate = useNavigate();
   const { toast } = useToast();
 
+  // Soft delete state
+  const [deletingQuote, setDeletingQuote] = useState<Quote | null>(null);
+  const [deleteReason, setDeleteReason] = useState('');
+  const [deleting, setDeleting] = useState(false);
+
   useEffect(() => {
     loadQuotes();
     const urlStatus = searchParams.get('status');
@@ -72,6 +81,7 @@ export default function AdminQuotesList() {
       const { data, error } = await supabase
         .from('quote_requests')
         .select('*')
+        .is('deleted_at', null)
         .order('created_at', { ascending: false });
       if (error) throw error;
       setQuotes((data as Quote[]) || []);
@@ -109,7 +119,28 @@ export default function AdminQuotesList() {
     setFilteredQuotes(result);
   };
 
-  // StatusBadge is now imported from @/components/ui/StatusBadge
+  const handleSoftDelete = async () => {
+    if (!deletingQuote) return;
+    setDeleting(true);
+    try {
+      const { data, error } = await supabase.rpc('soft_delete_quote' as any, {
+        p_quote_id: deletingQuote.id,
+        p_reason: deleteReason || null,
+      });
+      if (error) throw error;
+      toast({
+        title: '🗑️ ย้ายไปถังขยะแล้ว',
+        description: (data as any)?.message || `${deletingQuote.quote_number} ถูกย้ายไปถังขยะ`,
+      });
+      setDeletingQuote(null);
+      setDeleteReason('');
+      await loadQuotes();
+    } catch (error: any) {
+      toast({ title: 'ลบไม่สำเร็จ', description: error.message, variant: 'destructive' });
+    } finally {
+      setDeleting(false);
+    }
+  };
 
   const formatCurrency = (amount: number) =>
     new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', minimumFractionDigits: 0 }).format(amount);
@@ -157,10 +188,18 @@ export default function AdminQuotesList() {
             <h1 className="text-3xl font-bold text-foreground">ใบเสนอราคา</h1>
             <p className="text-muted-foreground mt-1">จัดการและติดตามสถานะใบเสนอราคา</p>
           </div>
-          <Button onClick={() => navigate('/admin/quotes/new')}>
-            <FileSearch className="w-4 h-4 mr-2" />
-            สร้างใบเสนอราคา
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button variant="outline" asChild>
+              <Link to="/admin/quotes/trash">
+                <Trash2 className="w-4 h-4 mr-2" />
+                ถังขยะ
+              </Link>
+            </Button>
+            <Button onClick={() => navigate('/admin/quotes/new')}>
+              <FileSearch className="w-4 h-4 mr-2" />
+              สร้างใบเสนอราคา
+            </Button>
+          </div>
         </div>
 
         <Card>
@@ -263,6 +302,7 @@ export default function AdminQuotesList() {
                           quoteId={quote.id}
                           quoteNumber={quote.quote_number}
                           status={quote.status}
+                          onDelete={() => setDeletingQuote(quote)}
                         />
                       </div>
                     </div>
@@ -285,6 +325,77 @@ export default function AdminQuotesList() {
           )}
         </div>
       </div>
+
+      {/* Soft Delete Confirmation Dialog */}
+      <AlertDialog
+        open={!!deletingQuote}
+        onOpenChange={(v) => { if (!v) { setDeletingQuote(null); setDeleteReason(''); } }}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center gap-2">
+              <Trash2 className="w-5 h-5 text-destructive" />
+              ย้ายใบเสนอราคาไปถังขยะ
+            </AlertDialogTitle>
+            <AlertDialogDescription asChild>
+              <div className="space-y-3 pt-2">
+                <p>
+                  คุณกำลังจะย้าย <strong>{deletingQuote?.quote_number}</strong> ไปถังขยะ
+                </p>
+
+                {deletingQuote && (
+                  <div className="bg-muted/50 rounded-lg p-3 space-y-1 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">ลูกค้า:</span>
+                      <span>{deletingQuote.customer_company || deletingQuote.customer_name}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">ยอดรวม:</span>
+                      <span className="font-semibold">
+                        {formatCurrency(deletingQuote.grand_total || 0)}
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">สถานะ:</span>
+                      <span>{deletingQuote.status}</span>
+                    </div>
+                  </div>
+                )}
+
+                <div className="space-y-1.5">
+                  <label className="text-sm font-medium">เหตุผลการลบ (ไม่บังคับ)</label>
+                  <Textarea
+                    value={deleteReason}
+                    onChange={(e) => setDeleteReason(e.target.value)}
+                    placeholder="เช่น: ลูกค้ายกเลิก, สร้างผิด, ทดสอบระบบ..."
+                    rows={2}
+                    className="text-sm"
+                  />
+                </div>
+
+                <div className="flex items-start gap-2 p-3 bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-800 rounded-lg">
+                  <span className="text-blue-600">💡</span>
+                  <p className="text-xs">
+                    ไม่ใช่การลบถาวร — สามารถกู้คืนได้จากถังขยะ
+                    <br />
+                    <span className="text-muted-foreground">(ลูกค้าจะไม่เห็นใบเสนอราคานี้อีกต่อไป)</span>
+                  </p>
+                </div>
+              </div>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={deleting}>ยกเลิก</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleSoftDelete}
+              disabled={deleting}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              {deleting ? 'กำลังลบ...' : '🗑️ ย้ายไปถังขยะ'}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </AdminLayout>
   );
 }
