@@ -181,6 +181,7 @@ export default function AdminQuoteDetail() {
   const [showCounterOffer, setShowCounterOffer] = useState(false);
   const [counterNegotiationId, setCounterNegotiationId] = useState<string | undefined>();
   const [revisionKey, setRevisionKey] = useState(0);
+  const [showPrintPreview, setShowPrintPreview] = useState(false);
   // ✅ Real-time calculation
   const totals = useMemo(() => {
     if (!quote) return { subtotal: 0, discountAmount: 0, beforeVat: 0, vatAmount: 0, grandTotal: 0 };
