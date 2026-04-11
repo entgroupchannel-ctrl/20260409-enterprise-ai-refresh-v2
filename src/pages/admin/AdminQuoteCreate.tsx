@@ -25,7 +25,7 @@ import { cn } from '@/lib/utils';
 import ProductPickerDialog from '@/components/admin/ProductPickerDialog';
 import CustomerAutocomplete from '@/components/admin/CustomerAutocomplete';
 import type { PickedProduct } from '@/components/admin/ProductPickerDialog';
-import type { CustomerData } from '@/components/admin/CustomerAutocomplete';
+import type { ContactData } from '@/components/admin/CustomerAutocomplete';
 
 /* ── Dropdown Options ── */
 const PAYMENT_OPTIONS = [
@@ -242,17 +242,18 @@ export default function AdminQuoteCreate() {
   };
 
   /* ── Handlers ── */
-  const handleCustomerSelect = (data: CustomerData) => {
+  const handleCustomerSelect = (data: ContactData) => {
     setCustomer({
       name: data.contact_name || '',
-      email: data.contact_email || '',
-      phone: data.contact_phone || data.company_phone || '',
+      email: data.email || '',
+      phone: data.mobile_phone || data.office_phone || '',
       company: data.company_name || '',
-      address: data.company_address || '',
-      tax_id: data.company_tax_id || '',
-      line_id: data.contact_line || '',
-      branch_type: 'head_office',
-      branch_code: '', branch_name: '',
+      address: data.address || '',
+      tax_id: data.tax_id || '',
+      line_id: data.line_id || '',
+      branch_type: (data.branch_type as 'head_office' | 'branch') || 'head_office',
+      branch_code: data.branch_code || '',
+      branch_name: data.branch_name || '',
       position: data.contact_position || '',
     });
     toast({ title: '✅ โหลดข้อมูลลูกค้าสำเร็จ', description: data.company_name || data.contact_name || '' });
