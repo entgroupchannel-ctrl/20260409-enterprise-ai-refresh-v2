@@ -503,6 +503,57 @@ export type Database = {
           },
         ]
       }
+      product_files_backup_pre_consolidation: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          display_order: number | null
+          file_name: string | null
+          file_size: number | null
+          file_type: string | null
+          file_url: string | null
+          id: string | null
+          is_primary: boolean | null
+          mime_type: string | null
+          product_id: string | null
+          title: string | null
+          updated_at: string | null
+          uploaded_by: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          display_order?: number | null
+          file_name?: string | null
+          file_size?: number | null
+          file_type?: string | null
+          file_url?: string | null
+          id?: string | null
+          is_primary?: boolean | null
+          mime_type?: string | null
+          product_id?: string | null
+          title?: string | null
+          updated_at?: string | null
+          uploaded_by?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          display_order?: number | null
+          file_name?: string | null
+          file_size?: number | null
+          file_type?: string | null
+          file_url?: string | null
+          id?: string | null
+          is_primary?: boolean | null
+          mime_type?: string | null
+          product_id?: string | null
+          title?: string | null
+          updated_at?: string | null
+          uploaded_by?: string | null
+        }
+        Relationships: []
+      }
       product_tags: {
         Row: {
           color: string | null
@@ -628,6 +679,8 @@ export type Database = {
           is_active: boolean | null
           is_featured: boolean | null
           max_stock_level: number | null
+          migration_keep: boolean | null
+          migration_status: string | null
           min_stock_level: number | null
           model: string
           name: string
@@ -668,6 +721,8 @@ export type Database = {
           is_active?: boolean | null
           is_featured?: boolean | null
           max_stock_level?: number | null
+          migration_keep?: boolean | null
+          migration_status?: string | null
           min_stock_level?: number | null
           model: string
           name: string
@@ -708,6 +763,8 @@ export type Database = {
           is_active?: boolean | null
           is_featured?: boolean | null
           max_stock_level?: number | null
+          migration_keep?: boolean | null
+          migration_status?: string | null
           min_stock_level?: number | null
           model?: string
           name?: string
@@ -727,6 +784,129 @@ export type Database = {
           tags?: string[] | null
           thumbnail_url?: string | null
           unit_price?: number
+          unit_price_vat?: number | null
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      products_backup_pre_consolidation: {
+        Row: {
+          buy_price: number | null
+          buy_price_vat: number | null
+          category: string | null
+          cpu: string | null
+          created_at: string | null
+          created_by: string | null
+          description: string | null
+          form_factor: string | null
+          gallery_urls: string[] | null
+          has_4g: boolean | null
+          has_wifi: boolean | null
+          id: string | null
+          image_url: string | null
+          is_active: boolean | null
+          is_featured: boolean | null
+          max_stock_level: number | null
+          min_stock_level: number | null
+          model: string | null
+          name: string | null
+          os: string | null
+          product_code: string | null
+          ram_gb: number | null
+          reorder_point: number | null
+          search_vector: unknown
+          series: string | null
+          sku: string | null
+          slug: string | null
+          sort_order: number | null
+          stock_quantity: number | null
+          stock_status: string | null
+          storage_gb: number | null
+          storage_type: string | null
+          tags: string[] | null
+          thumbnail_url: string | null
+          unit_price: number | null
+          unit_price_vat: number | null
+          updated_at: string | null
+          updated_by: string | null
+        }
+        Insert: {
+          buy_price?: number | null
+          buy_price_vat?: number | null
+          category?: string | null
+          cpu?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          form_factor?: string | null
+          gallery_urls?: string[] | null
+          has_4g?: boolean | null
+          has_wifi?: boolean | null
+          id?: string | null
+          image_url?: string | null
+          is_active?: boolean | null
+          is_featured?: boolean | null
+          max_stock_level?: number | null
+          min_stock_level?: number | null
+          model?: string | null
+          name?: string | null
+          os?: string | null
+          product_code?: string | null
+          ram_gb?: number | null
+          reorder_point?: number | null
+          search_vector?: unknown
+          series?: string | null
+          sku?: string | null
+          slug?: string | null
+          sort_order?: number | null
+          stock_quantity?: number | null
+          stock_status?: string | null
+          storage_gb?: number | null
+          storage_type?: string | null
+          tags?: string[] | null
+          thumbnail_url?: string | null
+          unit_price?: number | null
+          unit_price_vat?: number | null
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Update: {
+          buy_price?: number | null
+          buy_price_vat?: number | null
+          category?: string | null
+          cpu?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          form_factor?: string | null
+          gallery_urls?: string[] | null
+          has_4g?: boolean | null
+          has_wifi?: boolean | null
+          id?: string | null
+          image_url?: string | null
+          is_active?: boolean | null
+          is_featured?: boolean | null
+          max_stock_level?: number | null
+          min_stock_level?: number | null
+          model?: string | null
+          name?: string | null
+          os?: string | null
+          product_code?: string | null
+          ram_gb?: number | null
+          reorder_point?: number | null
+          search_vector?: unknown
+          series?: string | null
+          sku?: string | null
+          slug?: string | null
+          sort_order?: number | null
+          stock_quantity?: number | null
+          stock_status?: string | null
+          storage_gb?: number | null
+          storage_type?: string | null
+          tags?: string[] | null
+          thumbnail_url?: string | null
+          unit_price?: number | null
           unit_price_vat?: number | null
           updated_at?: string | null
           updated_by?: string | null
@@ -1526,6 +1706,7 @@ export type Database = {
         }
         Returns: Json
       }
+      commit_product_migration: { Args: never; Returns: Json }
       count_pending_approvals: { Args: never; Returns: number }
       expire_old_quotes: {
         Args: never
@@ -1573,6 +1754,7 @@ export type Database = {
         Args: { p_approver_id: string; p_reason: string; p_revision_id: string }
         Returns: Json
       }
+      rollback_product_migration: { Args: never; Returns: Json }
     }
     Enums: {
       [_ in never]: never

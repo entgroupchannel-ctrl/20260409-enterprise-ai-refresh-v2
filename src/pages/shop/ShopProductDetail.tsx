@@ -53,7 +53,7 @@ const ShopProductDetail = () => {
 
   useEffect(() => {
     if (!slug) return;
-    const fetch = async () => {
+    const fetchData = async () => {
       setLoading(true);
       const { data } = await supabase
         .from('products')
@@ -61,6 +61,7 @@ const ShopProductDetail = () => {
         .eq('slug', slug)
         .eq('is_active', true)
         .maybeSingle();
+
       if (data) {
         setProduct(data as Product);
         addToRecentlyViewed({
@@ -70,10 +71,39 @@ const ShopProductDetail = () => {
           thumbnail_url: data.thumbnail_url,
           unit_price: data.unit_price,
         });
+
+        // Load variants for this product
+        const { data: variants } = await supabase
+          .from('product_variants')
+          .select('*')
+          .eq('product_id', data.id)
+          .eq('is_active', true)
+          .order('unit_price', { ascending: true });
+
+        if (variants && variants.length > 0) {
+          // Find default variant or first one
+          const defaultV = variants.find((v) => v.is_default) || variants[0];
+          if (defaultV) {
+            setConfiguredVariant({
+              ...data,
+              sku: defaultV.sku,
+              cpu: defaultV.cpu,
+              ram_gb: defaultV.ram_gb,
+              storage_gb: defaultV.storage_gb,
+              storage_type: defaultV.storage_type,
+              has_wifi: defaultV.has_wifi ?? false,
+              has_4g: defaultV.has_4g ?? false,
+              os: defaultV.os,
+              unit_price: defaultV.unit_price,
+              unit_price_vat: defaultV.unit_price_vat,
+            } as Product);
+            setConfigPrice(defaultV.unit_price);
+          }
+        }
       }
       setLoading(false);
     };
-    fetch();
+    fetchData();
   }, [slug]);
 
   // Sticky CTA observer

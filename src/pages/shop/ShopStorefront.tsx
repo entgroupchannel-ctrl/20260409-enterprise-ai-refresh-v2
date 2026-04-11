@@ -20,6 +20,8 @@ interface Product {
   storage_type: string | null; unit_price: number; unit_price_vat: number | null;
   image_url: string | null; thumbnail_url: string | null; gallery_urls: string[] | null;
   stock_status: string | null; is_active: boolean; slug: string; tags: string[] | null; is_featured: boolean;
+  variant_count?: number;
+  starting_price?: number;
 }
 
 const ITEMS_PER_PAGE = 12;
@@ -55,7 +57,36 @@ const ShopStorefront = () => {
         .select('id, sku, model, series, name, description, category, cpu, ram_gb, storage_gb, storage_type, unit_price, unit_price_vat, image_url, thumbnail_url, gallery_urls, stock_status, is_active, slug, tags, is_featured')
         .eq('is_active', true)
         .order('sort_order', { ascending: true });
-      if (!error && data) setProducts(data as Product[]);
+
+      if (!error && data) {
+        // Enrich with variant counts + min prices
+        const productIds = data.map(p => p.id);
+        if (productIds.length > 0) {
+          const { data: variants } = await supabase
+            .from('product_variants')
+            .select('product_id, unit_price')
+            .in('product_id', productIds)
+            .eq('is_active', true);
+
+          const variantCounts: Record<string, number> = {};
+          const minPriceByProduct: Record<string, number> = {};
+          (variants || []).forEach((v) => {
+            variantCounts[v.product_id] = (variantCounts[v.product_id] || 0) + 1;
+            if (!minPriceByProduct[v.product_id] || v.unit_price < minPriceByProduct[v.product_id]) {
+              minPriceByProduct[v.product_id] = v.unit_price;
+            }
+          });
+
+          const enriched = data.map(p => ({
+            ...p,
+            variant_count: variantCounts[p.id] || 0,
+            starting_price: minPriceByProduct[p.id] || p.unit_price,
+          }));
+          setProducts(enriched as Product[]);
+        } else {
+          setProducts(data as Product[]);
+        }
+      }
       setLoading(false);
     };
     fetchProducts();
@@ -288,8 +319,12 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
             </div>
             <div className="flex items-center justify-between">
               <div>
-                <span className="text-lg font-bold text-primary">฿{fmt(p.unit_price)}</span>
-                <span className="text-xs text-muted-foreground ml-2">฿{fmt(tierHint)} for 5+ units</span>
+                {(p.variant_count || 0) > 1 && <p className="text-[10px] text-muted-foreground">เริ่มต้น</p>}
+                <span className="text-lg font-bold text-primary">฿{fmt(p.starting_price || p.unit_price)}</span>
+                {(p.variant_count || 0) > 1 && (
+                  <Badge variant="secondary" className="text-[9px] ml-1">{p.variant_count} specs</Badge>
+                )}
+                <span className="text-xs text-muted-foreground ml-2">฿{fmt(tierHint)} for 5+</span>
               </div>
               <div className="flex items-center gap-2">
                 <AddToCartButton productModel={p.model} productName={p.name} estimatedPrice={p.unit_price} size="sm" variant="outline" />
@@ -329,7 +364,11 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
             <p className="text-xs text-muted-foreground truncate">{p.cpu} / {p.ram_gb}GB / {p.storage_gb}GB</p>
           </Link>
           <div>
-            <span className="text-lg font-bold text-primary">฿{fmt(p.unit_price)}</span>
+            {(p.variant_count || 0) > 1 && <p className="text-[10px] text-muted-foreground">เริ่มต้น</p>}
+            <span className="text-lg font-bold text-primary">฿{fmt(p.starting_price || p.unit_price)}</span>
+            {(p.variant_count || 0) > 1 && (
+              <Badge variant="secondary" className="text-[9px] ml-1">{p.variant_count} specs</Badge>
+            )}
             <p className="text-[10px] text-muted-foreground">฿{fmt(tierHint)} for 5+ units</p>
           </div>
           <div className="flex gap-2 pt-1">
