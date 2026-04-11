@@ -17,6 +17,7 @@ import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChevronRight, Minus, Plus, Cpu, MemoryStick, HardDrive, Wifi, Signal, Monitor, Settings, ShieldCheck } from 'lucide-react';
+import SiteNavbar from '@/components/SiteNavbar';
 
 interface Product {
   id: string; sku: string; slug: string; model: string; series: string | null; name: string;
@@ -121,6 +122,9 @@ const ShopProductDetail = () => {
         description={`${product.model} ${product.cpu || ''} ${product.ram_gb || ''}GB RAM — ราคา ฿${fmt(product.unit_price)} จาก ENT Group ผู้นำด้าน Industrial PC`}
         path={`/shop/${product.slug}`}
       />
+
+      {/* Navbar */}
+      <SiteNavbar />
 
       {/* Sticky Breadcrumb */}
       <div className="sticky top-16 z-20 bg-background/95 backdrop-blur border-b border-border">

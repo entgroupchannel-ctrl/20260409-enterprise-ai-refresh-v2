@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import SpecComparisonTable from '@/components/shop/SpecComparisonTable';
 import { Button } from '@/components/ui/button';
 import { ChevronRight, Trash2 } from 'lucide-react';
+import SiteNavbar from '@/components/SiteNavbar';
 
 interface Product {
   id: string; slug: string; model: string; name: string; thumbnail_url: string | null;
@@ -53,6 +54,7 @@ const ShopCompare = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SiteNavbar />
       <SEOHead title="เปรียบเทียบสินค้า | ENT Group" description="เปรียบเทียบสเปก Industrial PC หลายรุ่นพร้อมกัน" path="/shop/compare" />
 
       {/* Breadcrumb */}

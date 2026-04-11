@@ -12,6 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Checkbox } from '@/components/ui/checkbox';
 import { Search, LayoutGrid, List, SlidersHorizontal, X, FileText, ChevronLeft, ChevronRight, CheckCircle2, ShieldCheck, Building2, Headphones } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import SiteNavbar from '@/components/SiteNavbar';
 
 interface Product {
   id: string; sku: string; model: string; series: string | null; name: string; description: string | null;
@@ -109,6 +110,7 @@ const ShopStorefront = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SiteNavbar />
       <SEOHead title="Shop — Industrial PC, Panel PC, Mini PC | ENT Group" description="เลือกซื้อ Industrial PC, Panel PC, Mini PC คุณภาพสูงจาก ENT Group ราคาส่ง พร้อมบริการ B2B" path="/shop" />
 
       {/* Hero */}
