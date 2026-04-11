@@ -461,6 +461,14 @@ export default function AdminQuoteDetail() {
           </div>
 
           <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setShowPrintPreview(true)}
+            >
+              <Printer className="w-4 h-4 mr-1.5" />
+              พิมพ์ / PDF
+            </Button>
             <StatusBadge status={quote.status} />
             {quote.sla_breached && (
               <Badge variant="destructive" className="gap-1">
