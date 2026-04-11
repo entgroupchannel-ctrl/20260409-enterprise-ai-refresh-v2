@@ -960,17 +960,29 @@ export default function AdminQuoteDetail() {
                   <p className="text-xs font-semibold text-muted-foreground mb-2">📎 PO จากลูกค้า ({poFiles.length})</p>
                   <div className="space-y-1">
                     {poFiles.map((file) => (
-                      <a
-                        key={file.id}
-                        href={file.file_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-2.5 py-1.5 rounded-md border border-border hover:border-primary hover:bg-primary/5 transition-colors group"
-                      >
-                        <FileText className="w-3.5 h-3.5 text-primary shrink-0" />
-                        <span className="text-xs font-medium text-foreground truncate flex-1">{file.file_name}</span>
-                        <Download className="w-3 h-3 text-muted-foreground group-hover:text-primary shrink-0" />
-                      </a>
+                      file.category === 'po_virtual' ? (
+                        <div key={file.id} className="p-3 bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-800 rounded-lg">
+                          <div className="flex items-center gap-2">
+                            <FileCheck className="w-4 h-4 text-amber-600 shrink-0" />
+                            <div className="flex-1">
+                              <p className="text-xs font-medium">ลูกค้าใช้ใบเสนอราคาเป็น PO</p>
+                              <p className="text-[10px] text-muted-foreground">ไม่มีระบบ PO formal — ใช้ใบเสนอราคา {quote.quote_number} เป็นเอกสาร PO</p>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <a
+                          key={file.id}
+                          href={file.file_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 px-2.5 py-1.5 rounded-md border border-border hover:border-primary hover:bg-primary/5 transition-colors group"
+                        >
+                          <FileText className="w-3.5 h-3.5 text-primary shrink-0" />
+                          <span className="text-xs font-medium text-foreground truncate flex-1">{file.file_name}</span>
+                          <Download className="w-3 h-3 text-muted-foreground group-hover:text-primary shrink-0" />
+                        </a>
+                      )
                     ))}
                   </div>
                 </CardContent>
