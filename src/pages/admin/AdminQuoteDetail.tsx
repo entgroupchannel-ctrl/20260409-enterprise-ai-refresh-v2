@@ -1,6 +1,7 @@
 // src/pages/admin/AdminQuoteDetail.tsx
 import { useEffect, useState, useMemo } from 'react';
 import CreateSaleOrderDialog from '@/components/admin/CreateSaleOrderDialog';
+import PrintPreviewDialog from '@/components/admin/PrintPreviewDialog';
 import POActionsMenu from '@/components/admin/POActionsMenu';
 import POVersionHistory from '@/components/admin/POVersionHistory';
 import { QuoteTimeline } from '@/components/QuoteTimeline';
@@ -58,6 +59,7 @@ import {
   ShieldAlert,
   ScanEye,
   FileCheck2,
+  Printer,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
