@@ -9,6 +9,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import {
   Select,
   SelectContent,
@@ -27,6 +28,8 @@ import {
   HardDrive,
   Wifi,
   AlertCircle,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 
 export interface PickedProduct {
@@ -55,6 +58,8 @@ interface Props {
   onSelect: (product: PickedProduct) => void;
 }
 
+const PAGE_SIZE = 24;
+
 export default function ProductPickerDialog({ open, onOpenChange, onSelect }: Props) {
   const { toast } = useToast();
   const [loading, setLoading] = useState(true);
@@ -62,31 +67,75 @@ export default function ProductPickerDialog({ open, onOpenChange, onSelect }: Pr
   const [categories, setCategories] = useState<string[]>([]);
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [page, setPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
 
-  useEffect(() => {
-    if (!open) return;
-    loadData();
-  }, [open]);
+  const totalPages = Math.ceil(totalCount / PAGE_SIZE);
+
+  // Smart page numbers with ellipsis
+  const pageNumbers = (current: number, total: number): number[] => {
+    if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+    const pages: number[] = [1];
+    if (current > 3) pages.push(-1);
+    const start = Math.max(2, current - 1);
+    const end = Math.min(total - 1, current + 1);
+    for (let i = start; i <= end; i++) pages.push(i);
+    if (current < total - 2) pages.push(-1);
+    if (!pages.includes(total)) pages.push(total);
+    return pages;
+  };
+
+  // Load categories once when dialog opens
+  const loadCategories = async () => {
+    try {
+      const { data } = await supabase
+        .from('products')
+        .select('category')
+        .eq('is_active', true)
+        .not('category', 'is', null);
+
+      if (data) {
+        const cats = Array.from(
+          new Set(data.map((p: any) => p.category).filter(Boolean) as string[])
+        ).sort();
+        setCategories(cats);
+      }
+    } catch (e) {
+      console.error('loadCategories error:', e);
+    }
+  };
 
   const loadData = async () => {
     setLoading(true);
     try {
-      const { data, error } = await supabase
+      let query = supabase
         .from('products')
-        .select('id, sku, model, series, name, description, category, cpu, ram_gb, storage_gb, storage_type, has_wifi, has_4g, os, unit_price, image_url, thumbnail_url')
-        .eq('is_active', true)
-        .order('sort_order', { ascending: true })
-        .order('name', { ascending: true });
+        .select('id, sku, model, series, name, description, category, cpu, ram_gb, storage_gb, storage_type, has_wifi, has_4g, os, unit_price, image_url, thumbnail_url',
+          { count: 'exact' })
+        .eq('is_active', true);
+
+      if (selectedCategory !== 'all') {
+        query = query.eq('category', selectedCategory);
+      }
+
+      if (search) {
+        query = query.or(
+          `name.ilike.%${search}%,sku.ilike.%${search}%,model.ilike.%${search}%,series.ilike.%${search}%,cpu.ilike.%${search}%`
+        );
+      }
+
+      const from = (page - 1) * PAGE_SIZE;
+      const to = from + PAGE_SIZE - 1;
+
+      const { data, error, count } = await query
+        .order('sort_order', { ascending: true, nullsFirst: false })
+        .order('name', { ascending: true })
+        .range(from, to);
 
       if (error) throw error;
 
-      const productList = (data || []) as PickedProduct[];
-      setProducts(productList);
-
-      const cats = Array.from(
-        new Set(productList.map((p) => p.category).filter(Boolean) as string[])
-      ).sort();
-      setCategories(cats);
+      setProducts((data || []) as PickedProduct[]);
+      setTotalCount(count || 0);
     } catch (e: any) {
       toast({ title: 'โหลดสินค้าไม่สำเร็จ', description: e.message, variant: 'destructive' });
     } finally {
@@ -94,27 +143,31 @@ export default function ProductPickerDialog({ open, onOpenChange, onSelect }: Pr
     }
   };
 
-  const filtered = products.filter((p) => {
-    if (selectedCategory !== 'all' && p.category !== selectedCategory) return false;
-    if (search) {
-      const s = search.toLowerCase();
-      return (
-        p.name.toLowerCase().includes(s) ||
-        p.sku.toLowerCase().includes(s) ||
-        p.model.toLowerCase().includes(s) ||
-        (p.series || '').toLowerCase().includes(s) ||
-        (p.cpu || '').toLowerCase().includes(s)
-      );
-    }
-    return true;
-  });
+  // Load categories once when dialog opens
+  useEffect(() => {
+    if (!open) return;
+    loadCategories();
+  }, [open]);
 
-  const grouped = filtered.reduce((acc, p) => {
-    const key = p.series || p.category || 'อื่นๆ';
-    if (!acc[key]) acc[key] = [];
-    acc[key].push(p);
-    return acc;
-  }, {} as Record<string, PickedProduct[]>);
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setPage(1);
+  }, [search, selectedCategory]);
+
+  // Reload data when page/filters change
+  useEffect(() => {
+    if (!open) return;
+    loadData();
+  }, [open, page, search, selectedCategory]);
+
+  // Reset state when dialog closes
+  useEffect(() => {
+    if (!open) {
+      setPage(1);
+      setSearch('');
+      setSelectedCategory('all');
+    }
+  }, [open]);
 
   const formatCurrency = (n: number) =>
     new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', minimumFractionDigits: 0 }).format(n);
@@ -170,12 +223,13 @@ export default function ProductPickerDialog({ open, onOpenChange, onSelect }: Pr
           </Select>
         </div>
 
+        {/* Product grid */}
         <div className="flex-1 overflow-y-auto space-y-4 -mx-1 px-1">
           {loading ? (
             <div className="flex items-center justify-center py-12">
               <Loader2 className="w-8 h-8 animate-spin text-primary" />
             </div>
-          ) : filtered.length === 0 ? (
+          ) : products.length === 0 ? (
             <Card>
               <CardContent className="py-12 text-center text-muted-foreground">
                 <AlertCircle className="w-12 h-12 mx-auto mb-3 opacity-40" />
@@ -186,88 +240,124 @@ export default function ProductPickerDialog({ open, onOpenChange, onSelect }: Pr
               </CardContent>
             </Card>
           ) : (
-            Object.entries(grouped).map(([groupName, items]) => (
-              <div key={groupName}>
-                <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2 px-1">
-                  {groupName} ({items.length})
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  {items.map((p) => (
-                    <Card
-                      key={p.id}
-                      className="cursor-pointer hover:border-primary hover:shadow-md transition-all"
-                      onClick={() => {
-                        const spec = buildSpecText(p);
-                        onSelect({
-                          ...p,
-                          description: spec || p.description || '',
-                        });
-                        onOpenChange(false);
-                      }}
-                    >
-                      <CardContent className="p-3">
-                        <div className="flex gap-3">
-                          {p.thumbnail_url || p.image_url ? (
-                            <img
-                              src={p.thumbnail_url || p.image_url || ''}
-                              alt={p.name}
-                              className="w-16 h-16 object-cover rounded border bg-white"
-                            />
-                          ) : (
-                            <div className="w-16 h-16 rounded border bg-muted flex items-center justify-center">
-                              <Package className="w-6 h-6 text-muted-foreground" />
-                            </div>
-                          )}
-
-                          <div className="flex-1 min-w-0">
-                            <p className="font-semibold text-sm truncate">{p.name}</p>
-                            <p className="text-[10px] text-muted-foreground font-mono">{p.sku}</p>
-
-                            <div className="flex flex-wrap items-center gap-1 mt-1">
-                              {p.cpu && (
-                                <Badge variant="outline" className="text-[9px] px-1 py-0 h-4 gap-0.5">
-                                  <Cpu className="w-2.5 h-2.5" />
-                                  {p.cpu.split(' ').slice(0, 2).join(' ')}
-                                </Badge>
-                              )}
-                              {p.ram_gb && (
-                                <Badge variant="outline" className="text-[9px] px-1 py-0 h-4">
-                                  {p.ram_gb}GB
-                                </Badge>
-                              )}
-                              {p.storage_gb && (
-                                <Badge variant="outline" className="text-[9px] px-1 py-0 h-4 gap-0.5">
-                                  <HardDrive className="w-2.5 h-2.5" />
-                                  {p.storage_gb}GB
-                                </Badge>
-                              )}
-                              {p.has_wifi && (
-                                <Badge variant="outline" className="text-[9px] px-1 py-0 h-4">
-                                  <Wifi className="w-2.5 h-2.5" />
-                                </Badge>
-                              )}
-                            </div>
-
-                            <div className="flex items-center justify-between mt-1.5">
-                              <span className="font-bold text-primary text-sm">
-                                {formatCurrency(p.unit_price)}
-                              </span>
-                              <Plus className="w-3.5 h-3.5 text-primary" />
-                            </div>
-                          </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {products.map((p) => (
+                <Card
+                  key={p.id}
+                  className="cursor-pointer hover:border-primary hover:shadow-md transition-all"
+                  onClick={() => {
+                    const spec = buildSpecText(p);
+                    onSelect({
+                      ...p,
+                      description: spec || p.description || '',
+                    });
+                    onOpenChange(false);
+                  }}
+                >
+                  <CardContent className="p-3">
+                    <div className="flex gap-3">
+                      {p.thumbnail_url || p.image_url ? (
+                        <img
+                          src={p.thumbnail_url || p.image_url || ''}
+                          alt={p.name}
+                          className="w-16 h-16 object-cover rounded border bg-white"
+                        />
+                      ) : (
+                        <div className="w-16 h-16 rounded border bg-muted flex items-center justify-center">
+                          <Package className="w-6 h-6 text-muted-foreground" />
                         </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-            ))
+                      )}
+
+                      <div className="flex-1 min-w-0">
+                        <p className="font-semibold text-sm truncate">{p.name}</p>
+                        <p className="text-[10px] text-muted-foreground font-mono">{p.sku}</p>
+
+                        <div className="flex flex-wrap items-center gap-1 mt-1">
+                          {p.cpu && (
+                            <Badge variant="outline" className="text-[9px] px-1 py-0 h-4 gap-0.5">
+                              <Cpu className="w-2.5 h-2.5" />
+                              {p.cpu.split(' ').slice(0, 2).join(' ')}
+                            </Badge>
+                          )}
+                          {p.ram_gb && (
+                            <Badge variant="outline" className="text-[9px] px-1 py-0 h-4">
+                              {p.ram_gb}GB
+                            </Badge>
+                          )}
+                          {p.storage_gb && (
+                            <Badge variant="outline" className="text-[9px] px-1 py-0 h-4 gap-0.5">
+                              <HardDrive className="w-2.5 h-2.5" />
+                              {p.storage_gb}GB
+                            </Badge>
+                          )}
+                          {p.has_wifi && (
+                            <Badge variant="outline" className="text-[9px] px-1 py-0 h-4">
+                              <Wifi className="w-2.5 h-2.5" />
+                            </Badge>
+                          )}
+                        </div>
+
+                        <div className="flex items-center justify-between mt-1.5">
+                          <span className="font-bold text-primary text-sm">
+                            {formatCurrency(p.unit_price)}
+                          </span>
+                          <Plus className="w-3.5 h-3.5 text-primary" />
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           )}
         </div>
 
-        <p className="text-xs text-muted-foreground text-center">
-          พบ {filtered.length} สินค้า • คลิกเพื่อเพิ่มในใบเสนอราคา
-        </p>
+        {/* Pagination footer */}
+        {!loading && totalCount > 0 && (
+          <div className="flex items-center justify-between border-t pt-3 flex-wrap gap-2">
+            <p className="text-xs text-muted-foreground">
+              แสดง {((page - 1) * PAGE_SIZE) + 1}-{Math.min(page * PAGE_SIZE, totalCount)} จาก {totalCount.toLocaleString()} รายการ
+            </p>
+
+            {totalPages > 1 && (
+              <div className="flex items-center gap-1">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled={page <= 1}
+                  onClick={() => setPage(page - 1)}
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </Button>
+
+                {pageNumbers(page, totalPages).map((n, i) =>
+                  n === -1 ? (
+                    <span key={`dot-${i}`} className="px-1 text-muted-foreground">…</span>
+                  ) : (
+                    <Button
+                      key={n}
+                      variant={page === n ? 'default' : 'outline'}
+                      size="sm"
+                      className="w-8 h-8 p-0"
+                      onClick={() => setPage(n)}
+                    >
+                      {n}
+                    </Button>
+                  )
+                )}
+
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled={page >= totalPages}
+                  onClick={() => setPage(page + 1)}
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </Button>
+              </div>
+            )}
+          </div>
+        )}
       </DialogContent>
     </Dialog>
   );

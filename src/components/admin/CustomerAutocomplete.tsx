@@ -48,6 +48,35 @@ export default function CustomerAutocomplete({ onSelect, className, typeFilter }
     return () => document.removeEventListener('mousedown', handler);
   }, []);
 
+  // Prefetch first batch when no search query
+  const loadInitialResults = async () => {
+    setLoading(true);
+    try {
+      let query = (supabase as any).from('contacts')
+        .select('id, contact_type, entity_type, company_name, tax_id, address, branch_type, branch_code, branch_name, contact_name, contact_position, email, mobile_phone, office_phone, line_id, business_location')
+        .eq('is_active', true);
+
+      const filter = typeFilter || 'customer';
+      if (filter === 'customer') {
+        query = query.in('contact_type', ['customer', 'both']);
+      } else if (filter === 'supplier') {
+        query = query.in('contact_type', ['supplier', 'both']);
+      } else if (filter !== 'all') {
+        query = query.eq('contact_type', filter);
+      }
+
+      const { data } = await query
+        .order('company_name', { ascending: true })
+        .limit(8);
+
+      setResults((data as ContactData[]) || []);
+    } catch (e) {
+      console.error('loadInitialResults error:', e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (search.length < 2) {
       setResults([]);
@@ -92,10 +121,17 @@ export default function CustomerAutocomplete({ onSelect, className, typeFilter }
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
         <Input
-          placeholder="ค้นหาลูกค้า: ชื่อบริษัท / ผู้ติดต่อ / Tax ID / อีเมล (พิมพ์อย่างน้อย 2 ตัว)"
+          placeholder="ค้นหาลูกค้า: ชื่อบริษัท / ผู้ติดต่อ / Tax ID / อีเมล (หรือคลิกเพื่อดูรายชื่อ)"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          onFocus={() => results.length > 0 && setOpen(true)}
+          onFocus={async () => {
+            if (results.length > 0) {
+              setOpen(true);
+              return;
+            }
+            await loadInitialResults();
+            setOpen(true);
+          }}
           className="pl-9 pr-9"
         />
         {loading && (
@@ -117,6 +153,11 @@ export default function CustomerAutocomplete({ onSelect, className, typeFilter }
 
       {open && results.length > 0 && (
         <Card className="absolute top-full left-0 right-0 mt-1 z-50 max-h-80 overflow-y-auto shadow-lg">
+          {!search && (
+            <div className="px-3 py-2 bg-muted/50 border-b text-xs text-muted-foreground">
+              แสดง 8 รายการแรก — พิมพ์เพื่อค้นหาเฉพาะเจาะจง
+            </div>
+          )}
           {results.map((c) => (
             <button
               key={c.id}
