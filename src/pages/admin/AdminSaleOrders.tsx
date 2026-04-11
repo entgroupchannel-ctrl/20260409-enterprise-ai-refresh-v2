@@ -114,6 +114,10 @@ export default function AdminSaleOrders() {
   const [showCancelDialog, setShowCancelDialog] = useState(false);
   const [cancelReason, setCancelReason] = useState('');
 
+  // Create SO flow
+  const [showQuoteSelector, setShowQuoteSelector] = useState(false);
+  const [selectedQuoteForSO, setSelectedQuoteForSO] = useState<any>(null);
+
   useEffect(() => { loadOrders(); }, []);
   useEffect(() => { if (routeId) setSelectedId(routeId); }, [routeId]);
 
