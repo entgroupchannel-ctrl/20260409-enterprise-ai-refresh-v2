@@ -42,19 +42,19 @@ export default function ProductMigrationReview() {
         .from('products_backup_pre_consolidation')
         .select('*', { count: 'exact', head: true });
 
-      const { count: parentsCount } = await supabase
+      const { count: parentsCount } = await (supabase as any)
         .from('products')
         .select('*', { count: 'exact', head: true })
-        .eq('migration_status' as any, 'parent');
+        .eq('migration_status', 'parent');
 
       const { count: variantsCount } = await supabase
         .from('product_variants')
         .select('*', { count: 'exact', head: true });
 
-      const { data: models } = await supabase
+      const { data: models } = await (supabase as any)
         .from('products')
         .select('id, model, sku')
-        .eq('migration_status' as any, 'parent')
+        .eq('migration_status', 'parent')
         .order('model');
 
       const modelsByVariantCount: MigrationStats['modelsByVariantCount'] = [];
