@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import {
   LayoutDashboard,
+  Building2,
   FileText,
   Users,
   FileArchive,
