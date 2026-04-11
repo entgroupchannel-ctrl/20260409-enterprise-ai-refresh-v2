@@ -41,6 +41,9 @@ import {
   Loader2,
   Mail,
   MessageCircle,
+  CreditCard,
+  Truck,
+  Calendar,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
@@ -55,7 +58,7 @@ interface Quote {
   customer_address: string;
   products: any[];
   notes: string;
-  internal_notes: string;
+  // internal_notes intentionally excluded from customer view
   subtotal: number;
   vat_amount: number;
   grand_total: number;
@@ -636,58 +639,73 @@ export default function MyQuoteDetail() {
               </CardContent>
             </Card>
 
-            {/* Notes */}
-            {(quote.notes || quote.payment_terms || quote.delivery_terms || quote.warranty_terms) && (
+            {/* Terms & Notes — Customer View */}
+            {(quote.notes || quote.payment_terms || quote.delivery_terms || quote.warranty_terms || quote.valid_until) && (
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-lg">หมายเหตุใบเสนอราคา</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3 text-sm">
-                  {quote.notes && (
-                    <div>
-                      <p className="text-xs text-muted-foreground mb-1">หมายเหตุ</p>
-                      <p className="text-foreground whitespace-pre-wrap">{quote.notes}</p>
-                    </div>
-                  )}
-                  {quote.payment_terms && (
-                    <div>
-                      <p className="text-xs text-muted-foreground mb-1">เงื่อนไขการชำระเงิน</p>
-                      <p className="text-foreground">{quote.payment_terms}</p>
-                    </div>
-                  )}
-                  {quote.delivery_terms && (
-                    <div>
-                      <p className="text-xs text-muted-foreground mb-1">เงื่อนไขการจัดส่ง</p>
-                      <p className="text-foreground">{quote.delivery_terms}</p>
-                    </div>
-                  )}
-                  {quote.warranty_terms && (
-                    <div>
-                      <p className="text-xs text-muted-foreground mb-1">เงื่อนไขการรับประกัน</p>
-                      <p className="text-foreground">{quote.warranty_terms}</p>
-                    </div>
-                  )}
-                  {quote.valid_until && (
-                    <div>
-                      <p className="text-xs text-muted-foreground mb-1">ใบเสนอราคามีผลถึง</p>
-                      <p className="text-foreground">{formatFullDate(quote.valid_until)}</p>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Internal Notes */}
-            {quote.internal_notes && (
-              <Card className="border-amber-200 dark:border-amber-800">
-                <CardHeader>
                   <CardTitle className="text-lg flex items-center gap-2">
-                    <ShieldCheck className="w-5 h-5 text-amber-600" />
-                    หมายเหตุภายในองค์กร
+                    <FileText className="w-5 h-5 text-primary" />
+                    เงื่อนไขและหมายเหตุ
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-foreground whitespace-pre-wrap">{quote.internal_notes}</p>
+                <CardContent className="space-y-4">
+                  {quote.payment_terms && (
+                    <div className="flex gap-3">
+                      <div className="shrink-0 w-8 h-8 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+                        <CreditCard className="w-4 h-4 text-green-600" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-xs text-muted-foreground mb-0.5">เงื่อนไขการชำระเงิน</p>
+                        <p className="text-sm text-foreground whitespace-pre-wrap">{quote.payment_terms}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {quote.delivery_terms && (
+                    <div className="flex gap-3">
+                      <div className="shrink-0 w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                        <Truck className="w-4 h-4 text-blue-600" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-xs text-muted-foreground mb-0.5">เงื่อนไขการจัดส่ง</p>
+                        <p className="text-sm text-foreground whitespace-pre-wrap">{quote.delivery_terms}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {quote.warranty_terms && (
+                    <div className="flex gap-3">
+                      <div className="shrink-0 w-8 h-8 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
+                        <ShieldCheck className="w-4 h-4 text-purple-600" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-xs text-muted-foreground mb-0.5">เงื่อนไขการรับประกัน</p>
+                        <p className="text-sm text-foreground whitespace-pre-wrap">{quote.warranty_terms}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {quote.valid_until && (
+                    <div className="flex gap-3">
+                      <div className="shrink-0 w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center">
+                        <Calendar className="w-4 h-4 text-amber-600" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-xs text-muted-foreground mb-0.5">ใบเสนอราคามีผลถึง</p>
+                        <p className="text-sm font-medium text-foreground">{formatFullDate(quote.valid_until)}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {quote.notes && (
+                    <>
+                      <Separator />
+                      <div>
+                        <p className="text-xs text-muted-foreground mb-1">หมายเหตุ</p>
+                        <p className="text-sm text-foreground whitespace-pre-wrap">{quote.notes}</p>
+                      </div>
+                    </>
+                  )}
                 </CardContent>
               </Card>
             )}

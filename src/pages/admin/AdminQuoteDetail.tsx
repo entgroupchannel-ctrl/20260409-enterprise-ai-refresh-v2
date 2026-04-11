@@ -5,6 +5,7 @@ import POActionsMenu from '@/components/admin/POActionsMenu';
 import POVersionHistory from '@/components/admin/POVersionHistory';
 import { QuoteTimeline } from '@/components/QuoteTimeline';
 import RevisionTimeline from '@/components/negotiation/RevisionTimeline';
+import QuoteTermsEditor from '@/components/admin/QuoteTermsEditor';
 import CounterOfferDialog from '@/components/negotiation/CounterOfferDialog';
 import PendingApprovalBanner from '@/components/negotiation/PendingApprovalBanner';
 import NegotiationRequestsList from '@/components/negotiation/NegotiationRequestsList';
@@ -723,30 +724,7 @@ export default function AdminQuoteDetail() {
                   </div>
                 )}
 
-                {/* Internal Notes - Below Products */}
-                {quote.status === 'pending' && (
-                  <div className="mt-6 pt-4 border-t border-border">
-                    <Label className="text-sm font-medium text-foreground mb-2 block">
-                      หมายเหตุภายใน
-                    </Label>
-                    <Textarea
-                      placeholder="โน้ตภายในสำหรับทีม (ลูกค้าไม่เห็น)"
-                      rows={4}
-                      className="text-foreground bg-background border-border"
-                      defaultValue={quote.notes || ''}
-                      onBlur={async (e) => {
-                        const { error } = await supabase
-                          .from('quote_requests')
-                          .update({ notes: e.target.value })
-                          .eq('id', id);
-                        
-                        if (!error) {
-                          toast({ title: 'บันทึกหมายเหตุแล้ว' });
-                        }
-                      }}
-                    />
-                  </div>
-                )}
+                {/* Terms & Notes Editor — replaced broken internal notes textarea */}
 
                 <Separator className="my-4" />
 
@@ -877,6 +855,21 @@ export default function AdminQuoteDetail() {
                 )}
               </CardContent>
             </Card>
+
+            {/* Terms & Notes Editor */}
+            <QuoteTermsEditor
+              quoteId={quote.id}
+              initialValues={{
+                payment_terms: quote.payment_terms,
+                delivery_terms: quote.delivery_terms,
+                warranty_terms: quote.warranty_terms,
+                notes: quote.notes,
+                internal_notes: quote.internal_notes,
+                valid_until: quote.valid_until,
+              }}
+              disabled={quote.status !== 'pending' && quote.status !== 'quote_sent' && quote.status !== 'negotiating'}
+              onSaved={loadQuoteDetails}
+            />
 
             {/* Negotiation: Revision Timeline */}
             <RevisionTimeline
