@@ -14,8 +14,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Send, Loader2, FileText, ChevronDown, ChevronUp, Phone, MessageCircle, Mail } from 'lucide-react';
 
 interface QuickRFQFormProps {
-  product: { model: string; name: string; unit_price: number; slug: string };
+  product: { model: string; name: string; unit_price: number; slug: string; sku?: string };
   defaultQuantity?: number;
+  configAddons?: { label: string; price: number }[];
+  finalUnitPrice?: number;
   onSubmit?: () => void;
 }
 
@@ -32,7 +34,7 @@ function getTierPrice(basePrice: number, qty: number): number {
   return basePrice;
 }
 
-export default function QuickRFQForm({ product, defaultQuantity = 1, onSubmit }: QuickRFQFormProps) {
+export default function QuickRFQForm({ product, defaultQuantity = 1, configAddons, finalUnitPrice, onSubmit }: QuickRFQFormProps) {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -81,9 +83,10 @@ export default function QuickRFQForm({ product, defaultQuantity = 1, onSubmit }:
 
   const set = (key: string, value: any) => setForm(prev => ({ ...prev, [key]: value }));
 
-  const tierPrice = getTierPrice(product.unit_price, form.quantity);
+  const effectivePrice = finalUnitPrice || product.unit_price;
+  const tierPrice = getTierPrice(effectivePrice, form.quantity);
   const totalEstimate = tierPrice * form.quantity;
-  const savings = (product.unit_price - tierPrice) * form.quantity;
+  const savings = (effectivePrice - tierPrice) * form.quantity;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -114,6 +117,11 @@ export default function QuickRFQForm({ product, defaultQuantity = 1, onSubmit }:
 
     setLoading(true);
     try {
+      const addonsText = configAddons && configAddons.length > 0
+        ? `\n\nอุปกรณ์เสริมที่เลือก:\n${configAddons.map(a => `• ${a.label}: +฿${a.price.toLocaleString('th-TH')}`).join('\n')}`
+        : '';
+      const finalNotes = `${form.notes}${addonsText}`.trim() || null;
+
       const { data, error } = await (supabase.from as any)('quote_requests')
         .insert({
           quote_number: '',
@@ -124,17 +132,17 @@ export default function QuickRFQForm({ product, defaultQuantity = 1, onSubmit }:
           customer_address: form.shipping_address || null,
           customer_tax_id: form.needs_tax_invoice ? form.tax_id : null,
           customer_line: form.customer_line || null,
-          notes: form.notes || null,
+          notes: finalNotes,
           payment_terms: paymentTermsOptions.find(o => o.value === form.payment_terms)?.label || form.payment_terms,
           products: [{
             model: product.model,
-            description: product.name,
+            description: product.name + (product.sku ? ` (${product.sku})` : ''),
             qty: form.quantity,
             unit_price: 0,
             discount_percent: 0,
             line_total: 0,
           }],
-          metadata: { source: 'shop_rfq', needs_tax_invoice: form.needs_tax_invoice },
+          metadata: { source: 'shop_rfq', needs_tax_invoice: form.needs_tax_invoice, configured_addons: configAddons || [] },
           status: 'pending',
         })
         .select()
