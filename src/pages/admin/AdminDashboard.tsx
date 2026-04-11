@@ -57,6 +57,7 @@ export default function AdminDashboard() {
       const { data: quotes, error: quotesError } = await supabase
         .from('quote_requests')
         .select('status, grand_total')
+        .is('deleted_at', null)
         .order('created_at', { ascending: false });
 
       if (quotesError) throw quotesError;
@@ -81,6 +82,7 @@ export default function AdminDashboard() {
       const { data: urgentData } = await supabase
         .from('quote_requests')
         .select('*')
+        .is('deleted_at', null)
         .eq('status', 'po_uploaded')
         .lt('sla_po_review_due', twelveHoursFromNow.toISOString())
         .order('sla_po_review_due', { ascending: true })
@@ -91,6 +93,7 @@ export default function AdminDashboard() {
       const { data: recentData } = await supabase
         .from('quote_requests')
         .select('*')
+        .is('deleted_at', null)
         .order('created_at', { ascending: false })
         .limit(5);
 
