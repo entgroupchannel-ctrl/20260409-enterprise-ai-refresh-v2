@@ -8,6 +8,16 @@ import { History, ChevronDown, ChevronUp, Gift, CheckCircle2, Clock, Send, User,
 import { formatShortDateTime } from '@/lib/format';
 import { useToast } from '@/hooks/use-toast';
 import RevisionCompareView from './RevisionCompareView';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 
 export interface Revision {
   id: string;
@@ -42,6 +52,7 @@ interface RevisionTimelineProps {
   viewerRole: 'admin' | 'customer';
   onSelectRevision?: (revision: Revision) => void;
   onCreateCounter?: () => void;
+  onRefresh?: () => void;
 }
 
 const formatCurrency = (amount: number) =>
@@ -53,6 +64,7 @@ export default function RevisionTimeline({
   viewerRole,
   onSelectRevision,
   onCreateCounter,
+  onRefresh,
 }: RevisionTimelineProps) {
   const { toast } = useToast();
   const [revisions, setRevisions] = useState<Revision[]>([]);
@@ -60,6 +72,8 @@ export default function RevisionTimeline({
   const [loading, setLoading] = useState(true);
   const [showCompare, setShowCompare] = useState(false);
   const [publishingId, setPublishingId] = useState<string | null>(null);
+  const [deletingDraft, setDeletingDraft] = useState<Revision | null>(null);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     loadRevisions();
@@ -141,6 +155,7 @@ export default function RevisionTimeline({
 
       toast({ title: '✅ ส่งให้ลูกค้าแล้ว', description: `Revision ${draftRevision.revision_number} ถูกส่งเรียบร้อย` });
       await loadRevisions();
+      onRefresh?.();
     } catch (e: any) {
       toast({ title: 'ส่งไม่สำเร็จ', description: e.message, variant: 'destructive' });
     } finally {
@@ -148,17 +163,22 @@ export default function RevisionTimeline({
     }
   };
 
-  const handleDeleteDraft = async (draftId: string) => {
-    if (!confirm('ลบ draft นี้?')) return;
+  const handleDeleteDraft = async () => {
+    if (!deletingDraft) return;
+    setDeleting(true);
     try {
       await (supabase.from as any)('quote_revisions')
         .delete()
-        .eq('id', draftId)
+        .eq('id', deletingDraft.id)
         .eq('status', 'draft');
-      toast({ title: 'ลบ draft แล้ว' });
+      toast({ title: '✅ ลบ Draft แล้ว', description: `Revision ${deletingDraft.revision_number} ถูกลบเรียบร้อย` });
+      setDeletingDraft(null);
       await loadRevisions();
+      onRefresh?.();
     } catch (e: any) {
       toast({ title: 'ลบไม่สำเร็จ', description: e.message, variant: 'destructive' });
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -365,8 +385,9 @@ export default function RevisionTimeline({
                         variant="outline"
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleDeleteDraft(rev.id);
+                          setDeletingDraft(rev);
                         }}
+                        className="text-destructive hover:bg-destructive/10 hover:text-destructive border-destructive/30"
                       >
                         <Trash2 className="w-3 h-3 mr-1" />
                         ลบ Draft
@@ -392,6 +413,75 @@ export default function RevisionTimeline({
         open={showCompare}
         onClose={() => setShowCompare(false)}
       />
+
+      {/* Delete Draft Confirmation Dialog */}
+      <AlertDialog open={!!deletingDraft} onOpenChange={(v) => !v && setDeletingDraft(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center gap-2">
+              <Trash2 className="w-5 h-5 text-destructive" />
+              ยืนยันการลบ Draft
+            </AlertDialogTitle>
+            <AlertDialogDescription asChild>
+              <div className="space-y-3 pt-2">
+                <p>
+                  คุณกำลังจะลบ <strong>Revision {deletingDraft?.revision_number}</strong> ที่เป็น draft
+                </p>
+                {deletingDraft && (
+                  <div className="bg-muted/50 rounded-lg p-3 space-y-1.5 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">สร้างเมื่อ:</span>
+                      <span>{formatShortDateTime(deletingDraft.created_at)}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">ยอดรวม:</span>
+                      <span className="font-semibold">{formatCurrency(deletingDraft.grand_total)}</span>
+                    </div>
+                    {deletingDraft.discount_percent > 0 && (
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">ส่วนลด:</span>
+                        <span>{deletingDraft.discount_percent}%</span>
+                      </div>
+                    )}
+                    {deletingDraft.free_items && deletingDraft.free_items.length > 0 && (
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">ของแถม:</span>
+                        <span>{deletingDraft.free_items.length} รายการ</span>
+                      </div>
+                    )}
+                    {deletingDraft.change_reason && (
+                      <div className="pt-2 border-t border-border/50">
+                        <p className="text-xs text-muted-foreground mb-0.5">เหตุผล:</p>
+                        <p className="text-xs italic">"{deletingDraft.change_reason}"</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+                <div className="flex items-start gap-2 p-3 bg-destructive/10 border border-destructive/20 rounded-lg">
+                  <span className="text-destructive">⚠️</span>
+                  <p className="text-xs text-destructive">
+                    การกระทำนี้ไม่สามารถย้อนกลับได้ — Draft จะถูกลบออกจากระบบถาวร
+                    <br />
+                    <span className="text-muted-foreground">
+                      (Draft นี้ยังไม่เคยถูกส่งให้ลูกค้า — ลูกค้าไม่เห็นและไม่ทราบเรื่อง)
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={deleting}>ยกเลิก</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleDeleteDraft}
+              disabled={deleting}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              {deleting ? 'กำลังลบ...' : '🗑️ ลบ Draft'}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </Card>
   );
 }
