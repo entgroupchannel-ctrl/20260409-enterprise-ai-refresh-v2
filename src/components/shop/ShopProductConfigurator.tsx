@@ -6,8 +6,11 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import {
-  Cpu, HardDrive, Wifi, Smartphone, Bluetooth, Shield,
-  Sparkles, Package, Check,
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+} from '@/components/ui/select';
+import {
+  Microchip, MemoryStick, Wifi, Smartphone, Bluetooth, ShieldCheck,
+  Wand2, PackagePlus, Check, ChevronDown,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -189,7 +192,7 @@ export default function ShopProductConfigurator({ product, quantity, onConfigCha
           <div>
             <p className="text-xs text-muted-foreground uppercase tracking-wider">ปรับสเปก</p>
             <h3 className="font-bold text-base flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-primary" />
+              <Wand2 className="w-4 h-4 text-primary" />
               เลือก variant ที่ต้องการ
             </h3>
           </div>
@@ -200,47 +203,39 @@ export default function ShopProductConfigurator({ product, quantity, onConfigCha
           )}
         </div>
 
-        {/* CPU Selection */}
+        {/* CPU Selection — Dropdown */}
         {options.cpus.length > 1 && (
-          <ConfigSection icon={Cpu} title="CPU">
-            <div className="space-y-1.5">
-              {options.cpus.map(cpu => {
-                const variant = variants.find(v => v.cpu === cpu);
-                const baseVariant = variants[0];
-                const priceDiff = variant && baseVariant ? variant.unit_price - baseVariant.unit_price : 0;
-                return (
-                  <button
-                    key={cpu}
-                    onClick={() => set('cpu', cpu)}
-                    className={cn(
-                      'w-full flex items-center justify-between p-2.5 rounded-lg border transition-all text-sm',
-                      config.cpu === cpu
-                        ? 'border-primary bg-primary/5 ring-1 ring-primary/30'
-                        : 'border-border hover:border-primary/50'
-                    )}
-                  >
-                    <span className="flex items-center gap-2">
-                      {config.cpu === cpu && <Check className="w-4 h-4 text-primary" />}
-                      <span className="font-medium">{cpu}</span>
-                    </span>
-                    {priceDiff !== 0 && (
-                      <span className={cn(
-                        'text-xs',
-                        priceDiff > 0 ? 'text-foreground' : 'text-green-600'
-                      )}>
-                        {priceDiff > 0 ? '+' : ''}฿{fmt(priceDiff)}
+          <ConfigSection icon={Microchip} title="CPU">
+            <Select value={config.cpu || ''} onValueChange={(v) => set('cpu', v)}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="เลือก CPU" />
+              </SelectTrigger>
+              <SelectContent>
+                {options.cpus.map(cpu => {
+                  const variant = variants.find(v => v.cpu === cpu);
+                  const baseVariant = variants[0];
+                  const priceDiff = variant && baseVariant ? variant.unit_price - baseVariant.unit_price : 0;
+                  return (
+                    <SelectItem key={cpu} value={cpu}>
+                      <span className="flex items-center justify-between w-full gap-3">
+                        <span>{cpu}</span>
+                        {priceDiff !== 0 && (
+                          <span className={cn('text-xs', priceDiff > 0 ? 'text-muted-foreground' : 'text-green-600')}>
+                            {priceDiff > 0 ? '+' : ''}฿{fmt(priceDiff)}
+                          </span>
+                        )}
                       </span>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
+                    </SelectItem>
+                  );
+                })}
+              </SelectContent>
+            </Select>
           </ConfigSection>
         )}
 
         {/* RAM Selection */}
         {options.rams.length > 1 && (
-          <ConfigSection icon={HardDrive} title="RAM">
+          <ConfigSection icon={MemoryStick} title="RAM">
             <div className="flex gap-2 flex-wrap">
               {options.rams.map(ram => (
                 <ChipButton
@@ -257,7 +252,7 @@ export default function ShopProductConfigurator({ product, quantity, onConfigCha
 
         {/* Storage */}
         {options.storages.length > 1 && (
-          <ConfigSection icon={HardDrive} title="Storage">
+          <ConfigSection icon={MemoryStick} title="Storage">
             <div className="flex gap-2 flex-wrap">
               {options.storages.map(storage => (
                 <ChipButton
@@ -275,7 +270,7 @@ export default function ShopProductConfigurator({ product, quantity, onConfigCha
         <Separator />
 
         {/* Add-ons */}
-        <ConfigSection icon={Package} title="อุปกรณ์เสริม (Optional)">
+        <ConfigSection icon={PackagePlus} title="อุปกรณ์เสริม (Optional)">
           <div className="space-y-1.5">
             <AddonRow
               icon={Wifi}
@@ -302,7 +297,7 @@ export default function ShopProductConfigurator({ product, quantity, onConfigCha
         </ConfigSection>
 
         {/* Warranty */}
-        <ConfigSection icon={Shield} title="การรับประกัน">
+        <ConfigSection icon={ShieldCheck} title="การรับประกัน">
           <div className="space-y-1.5">
             {([1, 2, 3] as const).map(years => {
               const w = calcWarranty(matchedVariant.unit_price, years);
@@ -380,7 +375,7 @@ export default function ShopProductConfigurator({ product, quantity, onConfigCha
               el?.scrollIntoView({ behavior: 'smooth' });
             }}
           >
-            <Sparkles className="w-3.5 h-3.5 mr-1.5" />
+            <Wand2 className="w-3.5 h-3.5 mr-1.5" />
             🎯 ขอ Custom Build
           </Button>
         </div>
