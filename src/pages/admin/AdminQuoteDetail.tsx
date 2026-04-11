@@ -881,6 +881,7 @@ export default function AdminQuoteDetail() {
                 setCounterNegotiationId(undefined);
                 setShowCounterOffer(true);
               }}
+              onRefresh={loadQuoteDetails}
             />
 
             {/* Negotiation Requests from Customer */}

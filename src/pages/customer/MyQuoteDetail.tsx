@@ -148,7 +148,7 @@ export default function MyQuoteDetail() {
   useEffect(() => {
     if (!id) return;
     const channel = supabase
-      .channel(`customer-chat-${id}`)
+      .channel(`customer-quote-${id}`)
       .on('postgres_changes', {
         event: 'INSERT',
         schema: 'public',
@@ -156,6 +156,30 @@ export default function MyQuoteDetail() {
         filter: `quote_id=eq.${id}`,
       }, (payload) => {
         setMessages((prev) => [...prev, payload.new as Message]);
+      })
+      .on('postgres_changes', {
+        event: 'UPDATE',
+        schema: 'public',
+        table: 'quote_requests',
+        filter: `id=eq.${id}`,
+      }, () => {
+        loadQuote();
+      })
+      .on('postgres_changes', {
+        event: 'INSERT',
+        schema: 'public',
+        table: 'quote_revisions',
+        filter: `quote_id=eq.${id}`,
+      }, () => {
+        loadQuote();
+      })
+      .on('postgres_changes', {
+        event: 'UPDATE',
+        schema: 'public',
+        table: 'quote_revisions',
+        filter: `quote_id=eq.${id}`,
+      }, () => {
+        loadQuote();
       })
       .subscribe();
 
