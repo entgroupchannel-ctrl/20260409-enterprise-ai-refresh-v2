@@ -319,9 +319,14 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
             </div>
             <div className="flex items-center justify-between">
               <div>
-                <span className="text-lg font-bold text-primary">฿{fmt(p.unit_price)}</span>
-                <span className="text-xs text-muted-foreground ml-2">฿{fmt(tierHint)} for 5+ units</span>
+                {(p.variant_count || 0) > 1 && <p className="text-[10px] text-muted-foreground">เริ่มต้น</p>}
+                <span className="text-lg font-bold text-primary">฿{fmt(p.starting_price || p.unit_price)}</span>
+                {(p.variant_count || 0) > 1 && (
+                  <Badge variant="secondary" className="text-[9px] ml-1">{p.variant_count} specs</Badge>
+                )}
               </div>
+              <span className="text-xs text-muted-foreground">฿{fmt(tierHint)} for 5+</span>
+            </div>
               <div className="flex items-center gap-2">
                 <AddToCartButton productModel={p.model} productName={p.name} estimatedPrice={p.unit_price} size="sm" variant="outline" />
                 <Link to={`/shop/${p.slug}#rfq-form`}><Button size="sm" variant="secondary"><FileSearch className="w-3.5 h-3.5 mr-1" />RFQ</Button></Link>
@@ -360,7 +365,11 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
             <p className="text-xs text-muted-foreground truncate">{p.cpu} / {p.ram_gb}GB / {p.storage_gb}GB</p>
           </Link>
           <div>
-            <span className="text-lg font-bold text-primary">฿{fmt(p.unit_price)}</span>
+            {(p.variant_count || 0) > 1 && <p className="text-[10px] text-muted-foreground">เริ่มต้น</p>}
+            <span className="text-lg font-bold text-primary">฿{fmt(p.starting_price || p.unit_price)}</span>
+            {(p.variant_count || 0) > 1 && (
+              <Badge variant="secondary" className="text-[9px] ml-1">{p.variant_count} specs</Badge>
+            )}
             <p className="text-[10px] text-muted-foreground">฿{fmt(tierHint)} for 5+ units</p>
           </div>
           <div className="flex gap-2 pt-1">
