@@ -1706,6 +1706,7 @@ export type Database = {
         }
         Returns: Json
       }
+      commit_product_migration: { Args: never; Returns: Json }
       count_pending_approvals: { Args: never; Returns: number }
       expire_old_quotes: {
         Args: never
@@ -1753,6 +1754,7 @@ export type Database = {
         Args: { p_approver_id: string; p_reason: string; p_revision_id: string }
         Returns: Json
       }
+      rollback_product_migration: { Args: never; Returns: Json }
     }
     Enums: {
       [_ in never]: never
