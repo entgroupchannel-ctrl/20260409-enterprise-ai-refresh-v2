@@ -50,6 +50,108 @@ export type Database = {
         }
         Relationships: []
       }
+      company_settings: {
+        Row: {
+          address_en: string | null
+          address_th: string | null
+          bank_account_name: string | null
+          bank_account_number: string | null
+          bank_branch: string | null
+          bank_name: string | null
+          branch_code: string | null
+          branch_name: string | null
+          branch_type: string | null
+          created_at: string | null
+          default_delivery_terms: string | null
+          default_payment_terms: string | null
+          default_quote_validity_days: number | null
+          default_vat_percent: number | null
+          default_warranty_terms: string | null
+          email: string | null
+          fax: string | null
+          id: string
+          is_active: boolean
+          letterhead_url: string | null
+          logo_url: string | null
+          name_en: string | null
+          name_th: string
+          phone: string | null
+          promptpay_id: string | null
+          signature_url: string | null
+          tax_id: string | null
+          updated_at: string | null
+          updated_by: string | null
+          vat_registered: boolean | null
+          website: string | null
+        }
+        Insert: {
+          address_en?: string | null
+          address_th?: string | null
+          bank_account_name?: string | null
+          bank_account_number?: string | null
+          bank_branch?: string | null
+          bank_name?: string | null
+          branch_code?: string | null
+          branch_name?: string | null
+          branch_type?: string | null
+          created_at?: string | null
+          default_delivery_terms?: string | null
+          default_payment_terms?: string | null
+          default_quote_validity_days?: number | null
+          default_vat_percent?: number | null
+          default_warranty_terms?: string | null
+          email?: string | null
+          fax?: string | null
+          id?: string
+          is_active?: boolean
+          letterhead_url?: string | null
+          logo_url?: string | null
+          name_en?: string | null
+          name_th?: string
+          phone?: string | null
+          promptpay_id?: string | null
+          signature_url?: string | null
+          tax_id?: string | null
+          updated_at?: string | null
+          updated_by?: string | null
+          vat_registered?: boolean | null
+          website?: string | null
+        }
+        Update: {
+          address_en?: string | null
+          address_th?: string | null
+          bank_account_name?: string | null
+          bank_account_number?: string | null
+          bank_branch?: string | null
+          bank_name?: string | null
+          branch_code?: string | null
+          branch_name?: string | null
+          branch_type?: string | null
+          created_at?: string | null
+          default_delivery_terms?: string | null
+          default_payment_terms?: string | null
+          default_quote_validity_days?: number | null
+          default_vat_percent?: number | null
+          default_warranty_terms?: string | null
+          email?: string | null
+          fax?: string | null
+          id?: string
+          is_active?: boolean
+          letterhead_url?: string | null
+          logo_url?: string | null
+          name_en?: string | null
+          name_th?: string
+          phone?: string | null
+          promptpay_id?: string | null
+          signature_url?: string | null
+          tax_id?: string | null
+          updated_at?: string | null
+          updated_by?: string | null
+          vat_registered?: boolean | null
+          website?: string | null
+        }
+        Relationships: []
+      }
       contact_submissions: {
         Row: {
           assigned_to: string | null
