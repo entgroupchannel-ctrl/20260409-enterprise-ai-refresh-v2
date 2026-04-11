@@ -158,7 +158,7 @@ export default function AdminQuotesList() {
             <p className="text-muted-foreground mt-1">จัดการและติดตามสถานะใบเสนอราคา</p>
           </div>
           <Button onClick={() => navigate('/admin/quotes/new')}>
-            <FileText className="w-4 h-4 mr-2" />
+            <FileSearch className="w-4 h-4 mr-2" />
             สร้างใบเสนอราคา
           </Button>
         </div>
@@ -168,7 +168,7 @@ export default function AdminQuotesList() {
             <div className="space-y-4">
               <div className="flex flex-col sm:flex-row gap-3">
                 <div className="relative flex-1">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                  <SearchCheck className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                   <Input
                     placeholder="ค้นหาเลขที่, ชื่อ, อีเมล, บริษัท..."
                     value={searchQuery}
@@ -221,7 +221,7 @@ export default function AdminQuotesList() {
                         <span className="font-semibold text-lg">{quote.quote_number}</span>
                         {quote.sla_breached && (
                           <Badge variant="destructive" className="gap-1">
-                            <AlertCircle className="w-3 h-3" /> SLA เกิน
+                            <ShieldAlert className="w-3 h-3" /> SLA เกิน
                           </Badge>
                         )}
                       </div>
@@ -233,12 +233,12 @@ export default function AdminQuotesList() {
                         <div className="flex flex-wrap items-center gap-3 text-sm">
                           <StatusBadge status={quote.status} />
                           <span className="text-muted-foreground flex items-center gap-1">
-                            <Clock className="w-3 h-3" />
+                            <Timer className="w-3 h-3" />
                             {formatRelativeTime(quote.created_at)}
                           </span>
                           {slaTime && (
                             <span className={`flex items-center gap-1 font-medium ${slaTime.isOverdue ? 'text-destructive' : slaTime.isUrgent ? 'text-orange-600' : 'text-muted-foreground'}`}>
-                              <AlertCircle className="w-3 h-3" /> SLA: {slaTime.text}
+                              <ShieldAlert className="w-3 h-3" /> SLA: {slaTime.text}
                             </span>
                           )}
                         </div>
@@ -276,7 +276,7 @@ export default function AdminQuotesList() {
             <Card>
               <CardContent className="p-12">
                 <div className="text-center text-muted-foreground">
-                  <FileText className="w-16 h-16 mx-auto mb-4 opacity-30" />
+                  <FileSearch className="w-16 h-16 mx-auto mb-4 opacity-30" />
                   <p className="text-lg font-medium mb-2">ไม่พบใบเสนอราคา</p>
                   <p className="text-sm">{searchQuery ? 'ลองค้นหาด้วยคำอื่น หรือเปลี่ยนตัวกรอง' : 'ยังไม่มีใบเสนอราคาในระบบ'}</p>
                 </div>

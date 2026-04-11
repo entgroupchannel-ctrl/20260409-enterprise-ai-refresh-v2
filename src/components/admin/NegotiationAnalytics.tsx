@@ -150,7 +150,7 @@ export default function NegotiationAnalytics() {
                 <p className="text-xs text-muted-foreground">ใบเสนอราคาทั้งหมด</p>
                 <p className="text-2xl font-bold mt-1">{stats.total_quotes}</p>
               </div>
-              <MessageSquare className="w-8 h-8 text-blue-500/30" />
+              <MessageSquareText className="w-8 h-8 text-blue-500/30" />
             </div>
           </CardContent>
         </Card>
@@ -167,7 +167,7 @@ export default function NegotiationAnalytics() {
                   {stats.accepted_count} จาก {stats.total_quotes}
                 </p>
               </div>
-              <CheckCircle2 className="w-8 h-8 text-green-500/30" />
+              <CircleCheckBig className="w-8 h-8 text-green-500/30" />
             </div>
           </CardContent>
         </Card>
@@ -182,7 +182,7 @@ export default function NegotiationAnalytics() {
                   ต่อรอง {stats.avg_negotiation_rounds} รอบ
                 </p>
               </div>
-              <MessageSquare className="w-8 h-8 text-amber-500/30" />
+              <MessageSquareText className="w-8 h-8 text-amber-500/30" />
             </div>
           </CardContent>
         </Card>
@@ -195,7 +195,7 @@ export default function NegotiationAnalytics() {
                 <p className="text-2xl font-bold mt-1">{stats.avg_days_to_close}</p>
                 <p className="text-xs text-muted-foreground mt-0.5">วัน</p>
               </div>
-              <Clock className="w-8 h-8 text-purple-500/30" />
+              <Timer className="w-8 h-8 text-purple-500/30" />
             </div>
           </CardContent>
         </Card>
@@ -206,7 +206,7 @@ export default function NegotiationAnalytics() {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
-              <DollarSign className="w-5 h-5 text-green-600" />
+              <BadgeDollarSign className="w-5 h-5 text-green-600" />
               <div>
                 <p className="text-xs text-muted-foreground">Total Won Value</p>
                 <p className="text-lg font-bold">{formatCompact(stats.total_won_value)}</p>
@@ -218,7 +218,7 @@ export default function NegotiationAnalytics() {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
-              <DollarSign className="w-5 h-5 text-blue-600" />
+              <BadgeDollarSign className="w-5 h-5 text-blue-600" />
               <div>
                 <p className="text-xs text-muted-foreground">Avg. Quote Value</p>
                 <p className="text-lg font-bold">{formatCompact(stats.avg_quote_value)}</p>
@@ -243,7 +243,7 @@ export default function NegotiationAnalytics() {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
-              <Calendar className="w-5 h-5 text-indigo-600" />
+              <CalendarClock className="w-5 h-5 text-indigo-600" />
               <div>
                 <p className="text-xs text-muted-foreground">In Negotiation</p>
                 <p className="text-lg font-bold">{stats.negotiating_count}</p>

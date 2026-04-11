@@ -434,10 +434,10 @@ export default function UserDashboard() {
 
   // ─── Sidebar menu items ───
   const menuItems = [
-    { key: 'quotes' as Section, label: 'ใบเสนอราคา', icon: FileText, badge: quotes.length },
-    { key: 'orders' as Section, label: 'คำสั่งซื้อ', icon: Package, badge: orders.length },
-    { key: 'cart' as Section, label: 'ตะกร้าสินค้า', icon: ShoppingCart, badge: count },
-    { key: 'profile' as Section, label: 'โปรไฟล์', icon: User, badge: 0 },
+    { key: 'quotes' as Section, label: 'ใบเสนอราคา', icon: FileSearch, badge: quotes.length },
+    { key: 'orders' as Section, label: 'คำสั่งซื้อ', icon: PackageCheck, badge: orders.length },
+    { key: 'cart' as Section, label: 'ตะกร้าสินค้า', icon: ShoppingBag, badge: count },
+    { key: 'profile' as Section, label: 'โปรไฟล์', icon: UserRound, badge: 0 },
   ];
 
   const poFiles = quoteFiles.filter(f => f.category === 'customer_po');
@@ -555,7 +555,7 @@ export default function UserDashboard() {
                   {/* Filter */}
                   <div className="flex flex-col sm:flex-row gap-3">
                     <div className="relative flex-1">
-                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                      <SearchCheck className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
                       <Input placeholder="ค้นหาเลขที่, รุ่นสินค้า..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="pl-10" />
                     </div>
                     <Select value={statusFilter} onValueChange={setStatusFilter}>
@@ -575,7 +575,7 @@ export default function UserDashboard() {
                     <div className="flex justify-center py-12"><div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" /></div>
                   ) : filteredQuotes.length === 0 ? (
                     <Card><CardContent className="py-12 text-center">
-                      <FileText className="w-12 h-12 text-muted-foreground/30 mx-auto mb-3" />
+                      <FileSearch className="w-12 h-12 text-muted-foreground/30 mx-auto mb-3" />
                       <p className="text-muted-foreground">ไม่มีใบเสนอราคา</p>
                     </CardContent></Card>
                   ) : (
@@ -590,7 +590,7 @@ export default function UserDashboard() {
                                   <QuoteTimelineBadge currentStatus={q.status} />
                                 </div>
                                 <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                                  <span><Clock className="w-3 h-3 inline mr-1" />{formatRelativeTime(q.created_at)}</span>
+                                  <span><Timer className="w-3 h-3 inline mr-1" />{formatRelativeTime(q.created_at)}</span>
                                   <span>{q.products?.length || 0} รายการ</span>
                                 </div>
                               </div>
@@ -641,7 +641,7 @@ export default function UserDashboard() {
                         <CardHeader className="pb-3">
                           <div className="flex items-center justify-between">
                             <CardTitle className="text-base flex items-center gap-2">
-                              <User className="w-4 h-4" /> ข้อมูลลูกค้า
+                              <UserRound className="w-4 h-4" /> ข้อมูลลูกค้า
                             </CardTitle>
                             {!editingCustomer ? (
                               <Button variant="ghost" size="sm" onClick={startEditCustomer}>
@@ -709,7 +709,7 @@ export default function UserDashboard() {
                               <div>
                                 <Label className="text-xs text-muted-foreground">อีเมล</Label>
                                 <p className="text-sm flex items-center gap-1.5">
-                                  <Mail className="w-3.5 h-3.5 text-muted-foreground" />
+                                  <MailCheck className="w-3.5 h-3.5 text-muted-foreground" />
                                   {selectedQuote.customer_email}
                                 </p>
                               </div>
@@ -717,7 +717,7 @@ export default function UserDashboard() {
                                 <div>
                                   <Label className="text-xs text-muted-foreground">โทรศัพท์</Label>
                                   <p className="text-sm flex items-center gap-1.5">
-                                    <Phone className="w-3.5 h-3.5 text-muted-foreground" />
+                                    <PhoneCall className="w-3.5 h-3.5 text-muted-foreground" />
                                     {selectedQuote.customer_phone}
                                   </p>
                                 </div>
@@ -813,7 +813,7 @@ export default function UserDashboard() {
                                 {poFiles.map(file => (
                                   <div key={file.id} className="flex items-center justify-between p-2.5 border border-border rounded-lg hover:bg-muted/30">
                                     <div className="flex items-center gap-2">
-                                      <FileText className="w-6 h-6 text-primary" />
+                                      <FileSearch className="w-6 h-6 text-primary" />
                                       <div>
                                         <p className="text-sm font-medium">{file.file_name}</p>
                                         <p className="text-[10px] text-muted-foreground">{formatShortDateTime(file.uploaded_at)}</p>
@@ -821,7 +821,7 @@ export default function UserDashboard() {
                                     </div>
                                     <Button size="sm" variant="outline" asChild>
                                       <a href={file.file_url} target="_blank" rel="noopener noreferrer">
-                                        <Eye className="w-3 h-3 mr-1" /> ดู
+                                        <ScanEye className="w-3 h-3 mr-1" /> ดู
                                       </a>
                                     </Button>
                                   </div>
@@ -834,7 +834,7 @@ export default function UserDashboard() {
                                 {pdfFiles.map(file => (
                                   <div key={file.id} className="flex items-center justify-between p-2.5 border border-border rounded-lg hover:bg-muted/30">
                                     <div className="flex items-center gap-2">
-                                      <FileText className="w-6 h-6 text-green-600" />
+                                      <FileSearch className="w-6 h-6 text-green-600" />
                                       <div>
                                         <p className="text-sm font-medium">{file.file_name}</p>
                                         <p className="text-[10px] text-muted-foreground">{formatShortDateTime(file.uploaded_at)}</p>
@@ -858,7 +858,7 @@ export default function UserDashboard() {
                       <Card className="flex flex-col">
                         <CardHeader className="pb-2">
                           <CardTitle className="text-base flex items-center gap-2">
-                            <MessageSquare className="w-4 h-4" /> สนทนา
+                            <MessageSquareText className="w-4 h-4" /> สนทนา
                           </CardTitle>
                         </CardHeader>
                         <CardContent className="flex flex-col flex-1">
@@ -888,7 +888,7 @@ export default function UserDashboard() {
                               ))
                             ) : (
                               <div className="text-center py-8">
-                                <MessageSquare className="w-8 h-8 text-muted-foreground/20 mx-auto mb-2" />
+                                <MessageSquareText className="w-8 h-8 text-muted-foreground/20 mx-auto mb-2" />
                                 <p className="text-xs text-muted-foreground">ยังไม่มีข้อความ</p>
                                 <p className="text-[10px] text-muted-foreground">ส่งข้อความถึงทีมขายได้เลย</p>
                               </div>
@@ -911,7 +911,7 @@ export default function UserDashboard() {
                               }}
                             />
                             <Button onClick={handleSendMessage} disabled={sendingMessage || !messageText.trim()} className="w-full" size="sm">
-                              <Send className="w-3.5 h-3.5 mr-1.5" />
+                              <SendHorizonal className="w-3.5 h-3.5 mr-1.5" />
                               {sendingMessage ? 'กำลังส่ง...' : 'ส่งข้อความ'}
                             </Button>
                           </div>
@@ -927,7 +927,7 @@ export default function UserDashboard() {
                           {selectedQuote.valid_until && (
                             <div>
                               <Label className="text-xs text-muted-foreground">ใช้ได้ถึง</Label>
-                              <p className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5 text-muted-foreground" />{formatFullDate(selectedQuote.valid_until)}</p>
+                              <p className="flex items-center gap-1.5"><CalendarClock className="w-3.5 h-3.5 text-muted-foreground" />{formatFullDate(selectedQuote.valid_until)}</p>
                             </div>
                           )}
                           {selectedQuote.payment_terms && (
@@ -978,13 +978,13 @@ export default function UserDashboard() {
               {activeSection === 'cart' && (
                 <div className="space-y-6">
                   <div>
-                    <h2 className="text-2xl font-bold flex items-center gap-2"><ShoppingCart className="w-6 h-6" /> ตะกร้าสินค้า</h2>
+                    <h2 className="text-2xl font-bold flex items-center gap-2"><ShoppingBag className="w-6 h-6" /> ตะกร้าสินค้า</h2>
                     <p className="text-sm text-muted-foreground mt-1">เลือกสินค้าแล้วสร้างใบขอราคาได้ในคลิกเดียว</p>
                   </div>
 
                   {items.length === 0 ? (
                     <Card><CardContent className="flex flex-col items-center gap-4 py-16">
-                      <ShoppingCart className="w-12 h-12 text-muted-foreground/30" />
+                      <ShoppingBag className="w-12 h-12 text-muted-foreground/30" />
                       <p className="text-muted-foreground">ยังไม่มีสินค้าในตะกร้า</p>
                       <Button onClick={() => navigate('/gt-series')}>เลือกสินค้า</Button>
                     </CardContent></Card>
@@ -1017,7 +1017,7 @@ export default function UserDashboard() {
                           <div className="flex gap-3">
                             <Button variant="outline" className="flex-1" onClick={() => navigate('/gt-series')}>เลือกสินค้าเพิ่ม</Button>
                             <Button className="flex-1" onClick={handleCreateQuote} disabled={submitting}>
-                              <FileText size={16} className="mr-2" />{submitting ? 'กำลังสร้าง...' : 'สร้างใบเสนอราคา'}
+                              <FileSearch size={16} className="mr-2" />{submitting ? 'กำลังสร้าง...' : 'สร้างใบเสนอราคา'}
                             </Button>
                           </div>
                         </CardContent>
@@ -1033,13 +1033,13 @@ export default function UserDashboard() {
                   <div className="flex items-center justify-between">
                     <div>
                       <h2 className="text-xl font-bold flex items-center gap-2">
-                        <Package className="w-5 h-5 text-primary" />
+                        <PackageCheck className="w-5 h-5 text-primary" />
                         คำสั่งซื้อของฉัน
                       </h2>
                       <p className="text-sm text-muted-foreground">ติดตามสถานะคำสั่งซื้อและการจัดส่ง</p>
                     </div>
                     <Button variant="outline" size="sm" onClick={loadOrders} disabled={ordersLoading}>
-                      <Send className={`w-4 h-4 mr-1 ${ordersLoading ? 'animate-spin' : ''}`} />
+                      <SendHorizonal className={`w-4 h-4 mr-1 ${ordersLoading ? 'animate-spin' : ''}`} />
                       รีเฟรช
                     </Button>
                   </div>
@@ -1051,7 +1051,7 @@ export default function UserDashboard() {
                   ) : orders.length === 0 ? (
                     <Card>
                       <CardContent className="flex flex-col items-center justify-center py-16 text-center">
-                        <Package className="w-16 h-16 text-muted-foreground mb-4 opacity-30" />
+                        <PackageCheck className="w-16 h-16 text-muted-foreground mb-4 opacity-30" />
                         <h3 className="text-lg font-semibold mb-2">ยังไม่มีคำสั่งซื้อ</h3>
                         <p className="text-sm text-muted-foreground">เมื่อ PO ได้รับการอนุมัติจะแสดงที่นี่</p>
                       </CardContent>
@@ -1197,7 +1197,7 @@ export default function UserDashboard() {
                     <div className="space-y-4">
                       <Card>
                         <CardContent className="pt-4 pb-3 space-y-3">
-                          <p className="text-xs font-semibold text-muted-foreground flex items-center gap-1"><Building className="w-3 h-3" /> ข้อมูลบริษัท</p>
+                          <p className="text-xs font-semibold text-muted-foreground flex items-center gap-1"><Landmark className="w-3 h-3" /> ข้อมูลบริษัท</p>
                           <div className="grid grid-cols-2 gap-2">
                             <ProfileField label="ชื่อบริษัท *" value={profileForm.company_name} onChange={v => updateField('company_name', v)} placeholder="บริษัท ABC จำกัด" />
                             <ProfileField label="เลขผู้เสียภาษี" value={profileForm.company_tax_id} onChange={v => updateField('company_tax_id', v)} placeholder="0105XXXXXXXXX" />
@@ -1208,7 +1208,7 @@ export default function UserDashboard() {
                       </Card>
                       <Card>
                         <CardContent className="pt-4 pb-3 space-y-3">
-                          <p className="text-xs font-semibold text-muted-foreground flex items-center gap-1"><User className="w-3 h-3" /> ผู้ติดต่อ</p>
+                          <p className="text-xs font-semibold text-muted-foreground flex items-center gap-1"><UserRound className="w-3 h-3" /> ผู้ติดต่อ</p>
                           <div className="grid grid-cols-2 gap-2">
                             <ProfileField label="ชื่อ-นามสกุล" value={profileForm.contact_name} onChange={v => updateField('contact_name', v)} placeholder="สมชาย ใจดี" />
                             <ProfileField label="ตำแหน่ง" value={profileForm.contact_position} onChange={v => updateField('contact_position', v)} placeholder="ผู้จัดการฝ่ายจัดซื้อ" />
@@ -1224,7 +1224,7 @@ export default function UserDashboard() {
                     <div className="space-y-4">
                       <Card>
                         <CardContent className="pt-4 pb-3 space-y-3">
-                          <p className="text-xs font-semibold text-muted-foreground flex items-center gap-1"><MapPin className="w-3 h-3" /> ที่อยู่ออกใบกำกับภาษี</p>
+                          <p className="text-xs font-semibold text-muted-foreground flex items-center gap-1"><MapPinned className="w-3 h-3" /> ที่อยู่ออกใบกำกับภาษี</p>
                           <ProfileField label="ที่อยู่" value={profileForm.billing_address} onChange={v => updateField('billing_address', v)} placeholder="123 ถ.สุขุมวิท..." />
                           <div className="grid grid-cols-2 gap-2">
                             <ProfileField label="แขวง/ตำบล" value={profileForm.billing_district} onChange={v => updateField('billing_district', v)} />
