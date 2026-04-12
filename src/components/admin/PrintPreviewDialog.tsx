@@ -8,7 +8,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Printer, Download, X, Loader2, AlertCircle } from 'lucide-react';
+import { Printer, Download, Loader2, AlertCircle } from 'lucide-react';
 import QuotePDFTemplate from './QuotePDFTemplate';
 import { useCompanySettings } from '@/hooks/useCompanySettings';
 import { supabase } from '@/integrations/supabase/client';
@@ -16,22 +16,19 @@ import { supabase } from '@/integrations/supabase/client';
 interface PrintPreviewDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  quoteData: any;
-  onPrint?: () => void;
-  onDownloadPDF?: () => void;
+  quote: any;
+  revision: any;
 }
 
 export default function PrintPreviewDialog({
   open,
   onOpenChange,
-  quoteData,
-  onPrint,
-  onDownloadPDF,
+  quote,
+  revision,
 }: PrintPreviewDialogProps) {
   const [isPrinting, setIsPrinting] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
 
-  // Load company + bank + sale person
   const { settings: companySettings, loading: companyLoading } = useCompanySettings();
   const [salePerson, setSalePerson] = useState<any>(null);
   const [bankAccounts, setBankAccounts] = useState<any[]>([]);
@@ -40,21 +37,21 @@ export default function PrintPreviewDialog({
   useEffect(() => {
     if (!open) return;
     loadExtraData();
-  }, [open, quoteData?.created_by, companySettings?.id]);
+  }, [open, revision?.created_by, companySettings?.id]);
 
   const loadExtraData = async () => {
     setLoadingExtra(true);
     try {
-      // 1. Load sale person from quote.created_by
-      if (quoteData?.created_by) {
+      // Load sale person from REVISION.created_by
+      if (revision?.created_by) {
         const { data: userData } = await (supabase as any).from('users')
           .select('full_name, position, signature_url, show_signature_on_quotes')
-          .eq('id', quoteData.created_by)
+          .eq('id', revision.created_by)
           .maybeSingle();
         setSalePerson(userData);
       }
 
-      // 2. Load bank accounts (only active)
+      // Load bank accounts
       if (companySettings?.id) {
         const { data: bankData } = await (supabase as any)
           .from('company_bank_accounts')
@@ -71,54 +68,31 @@ export default function PrintPreviewDialog({
     }
   };
 
+  const formatCurrency = (amount: number) =>
+    new Intl.NumberFormat('th-TH', { minimumFractionDigits: 0 }).format(amount);
+
   const handlePrint = () => {
     setIsPrinting(true);
     
-    // Get the PDF template element
     const printContent = document.getElementById('quote-pdf-template');
     if (!printContent) return;
 
-    // Create new window for printing
     const printWindow = window.open('', '_blank');
     if (!printWindow) return;
 
-    // Write content to new window
     printWindow.document.write(`
       <!DOCTYPE html>
       <html>
         <head>
-          <title>พิมพ์ใบเสนอราคา - ${quoteData.quote_number}</title>
+          <title>${quote.quote_number} - Rev ${revision.revision_number}</title>
           <style>
-            body {
-              margin: 0;
-              padding: 20px;
-              font-family: Arial, sans-serif;
-            }
-            @media print {
-              body {
-                margin: 0;
-                padding: 0;
-              }
-            }
-            table {
-              border-collapse: collapse;
-              width: 100%;
-            }
-            th, td {
-              border: 1px solid #ddd;
-              padding: 8px;
-              text-align: left;
-            }
-            th {
-              background-color: #2563eb;
-              color: white;
-            }
-            .text-right {
-              text-align: right;
-            }
-            .text-center {
-              text-align: center;
-            }
+            body { margin: 0; padding: 20px; font-family: Arial, sans-serif; }
+            @media print { body { margin: 0; padding: 0; } }
+            table { border-collapse: collapse; width: 100%; }
+            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+            th { background-color: #2563eb; color: white; }
+            .text-right { text-align: right; }
+            .text-center { text-align: center; }
           </style>
         </head>
         <body>
@@ -129,7 +103,6 @@ export default function PrintPreviewDialog({
 
     printWindow.document.close();
     
-    // Wait for content to load then print
     printWindow.onload = () => {
       printWindow.print();
       printWindow.onafterprint = () => {
@@ -137,15 +110,12 @@ export default function PrintPreviewDialog({
         setIsPrinting(false);
       };
     };
-
-    if (onPrint) onPrint();
   };
 
   const handleDownloadPDF = async () => {
     setIsDownloading(true);
     
     try {
-      // Dynamic import html2pdf
       const html2pdf = (await import('html2pdf.js')).default;
       
       const element = document.getElementById('quote-pdf-template');
@@ -153,15 +123,13 @@ export default function PrintPreviewDialog({
 
       const opt = {
         margin: 10,
-        filename: `${quoteData.quote_number}.pdf`,
+        filename: `${quote.quote_number}-Rev${revision.revision_number}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2, useCORS: true },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
       };
 
       await html2pdf().set(opt).from(element).save();
-      
-      if (onDownloadPDF) onDownloadPDF();
     } catch (error) {
       console.error('Error generating PDF:', error);
       alert('เกิดข้อผิดพลาดในการสร้าง PDF');
@@ -178,9 +146,13 @@ export default function PrintPreviewDialog({
         <DialogHeader>
           <div className="flex items-center justify-between">
             <div>
-              <DialogTitle>ตัวอย่างใบเสนอราคา</DialogTitle>
+              <DialogTitle className="flex items-center gap-2">
+                <Printer className="w-5 h-5 text-primary" />
+                พิมพ์ใบเสนอราคา
+              </DialogTitle>
               <DialogDescription>
-                {quoteData.quote_number} - {quoteData.customer_name}
+                {quote.quote_number} — Revision {revision.revision_number}
+                {revision.grand_total ? ` • ฿${formatCurrency(revision.grand_total)}` : ''}
               </DialogDescription>
             </div>
             <div className="flex gap-2">
@@ -227,7 +199,8 @@ export default function PrintPreviewDialog({
             </div>
           ) : (
             <QuotePDFTemplate 
-              data={quoteData}
+              quote={quote}
+              revision={revision}
               companyInfo={{
                 name_th: companySettings.name_th,
                 name_en: companySettings.name_en,

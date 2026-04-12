@@ -181,7 +181,7 @@ export default function AdminQuoteDetail() {
   const [showCounterOffer, setShowCounterOffer] = useState(false);
   const [counterNegotiationId, setCounterNegotiationId] = useState<string | undefined>();
   const [revisionKey, setRevisionKey] = useState(0);
-  const [showPrintPreview, setShowPrintPreview] = useState(false);
+  const [printingRevision, setPrintingRevision] = useState<any>(null);
   // ✅ Real-time calculation
   const totals = useMemo(() => {
     if (!quote) return { subtotal: 0, discountAmount: 0, beforeVat: 0, vatAmount: 0, grandTotal: 0 };
@@ -464,7 +464,20 @@ export default function AdminQuoteDetail() {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setShowPrintPreview(true)}
+              onClick={async () => {
+                const { data } = await (supabase as any)
+                  .from('quote_revisions')
+                  .select('*')
+                  .eq('quote_id', id)
+                  .eq('revision_number', quote.current_revision_number || 1)
+                  .maybeSingle();
+                
+                if (data) {
+                  setPrintingRevision(data);
+                } else {
+                  toast({ title: 'ไม่พบ revision', variant: 'destructive' });
+                }
+              }}
             >
               <Printer className="w-4 h-4 mr-1.5" />
               พิมพ์ / PDF
@@ -894,6 +907,7 @@ export default function AdminQuoteDetail() {
                 setShowCounterOffer(true);
               }}
               onRefresh={loadQuoteDetails}
+              onPrintRevision={(rev) => setPrintingRevision(rev)}
             />
 
             {/* Negotiation Requests from Customer */}
@@ -1095,11 +1109,12 @@ export default function AdminQuoteDetail() {
       />
 
       {/* Print Preview Dialog */}
-      {quote && (
+      {quote && printingRevision && (
         <PrintPreviewDialog
-          open={showPrintPreview}
-          onOpenChange={setShowPrintPreview}
-          quoteData={quote}
+          open={!!printingRevision}
+          onOpenChange={(v) => !v && setPrintingRevision(null)}
+          quote={quote}
+          revision={printingRevision}
         />
       )}
     </AdminLayout>
