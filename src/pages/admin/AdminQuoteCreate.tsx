@@ -22,9 +22,9 @@ import {
   CreditCard, Truck, ShieldCheck, Package, Search, Check, X,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import ProductPickerDialog from '@/components/admin/ProductPickerDialog';
 import CustomerAutocomplete from '@/components/admin/CustomerAutocomplete';
-import type { PickedProduct } from '@/components/admin/ProductPickerDialog';
+import ProductAutocomplete from '@/components/admin/ProductAutocomplete';
+import type { ProductData } from '@/components/admin/ProductAutocomplete';
 import type { ContactData } from '@/components/admin/CustomerAutocomplete';
 
 /* ── Dropdown Options ── */
@@ -187,7 +187,7 @@ export default function AdminQuoteCreate() {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [saving, setSaving] = useState(false);
-  const [showProductPicker, setShowProductPicker] = useState(false);
+  
 
   const [customer, setCustomer] = useState<CustomerInfo>({
     name: '', email: '', phone: '', company: '', address: '',
@@ -259,22 +259,32 @@ export default function AdminQuoteCreate() {
     toast({ title: '✅ โหลดข้อมูลลูกค้าสำเร็จ', description: data.company_name || data.contact_name || '' });
   };
 
-  const handleProductPick = (product: PickedProduct) => {
-    const newProduct: ProductLine = {
-      name: product.name,
-      description: product.description || '',
-      quantity: 1,
-      unit_price: product.unit_price,
-      discount_type: 'percent',
-      discount_value: 0, discount_percent: 0, discount_amount: 0,
-      line_total: product.unit_price,
-    };
-    if (products.length === 1 && !products[0].name && products[0].unit_price === 0) {
-      setProducts([calcLine(newProduct)]);
-    } else {
-      setProducts([...products, calcLine(newProduct)]);
+  const buildSpecText = (p: ProductData): string => {
+    const parts: string[] = [];
+    if (p.cpu) parts.push(`CPU: ${p.cpu}`);
+    if (p.ram_gb) parts.push(`RAM: ${p.ram_gb}GB`);
+    if (p.storage_gb) parts.push(`Storage: ${p.storage_gb}GB ${p.storage_type || ''}`.trim());
+    if (p.has_wifi || p.has_4g) {
+      const net: string[] = [];
+      if (p.has_wifi) net.push('WiFi');
+      if (p.has_4g) net.push('4G');
+      parts.push(`Network: ${net.join(' + ')}`);
     }
-    toast({ title: '✅ เพิ่มสินค้าแล้ว', description: product.name });
+    if (p.os) parts.push(`OS: ${p.os}`);
+    return parts.join('\n');
+  };
+
+  const handleProductAutocompleteSelect = (index: number, product: ProductData) => {
+    const spec = buildSpecText(product);
+    const updated = [...products];
+    updated[index] = calcLine({
+      ...updated[index],
+      name: product.name,
+      description: spec || product.description || '',
+      unit_price: product.unit_price,
+    });
+    setProducts(updated);
+    toast({ title: '✅ เลือกสินค้าแล้ว', description: product.name });
   };
 
   /* ── Calculations ── */
@@ -646,16 +656,10 @@ export default function AdminQuoteCreate() {
               <Package className="w-5 h-5 text-primary" />
               รายการสินค้า
             </CardTitle>
-            <div className="flex gap-2">
-              <Button size="sm" variant="default" onClick={() => setShowProductPicker(true)}>
-                <Package className="w-4 h-4 mr-1" />
-                เลือกจากคลัง
-              </Button>
-              <Button size="sm" variant="outline" onClick={addProduct}>
-                <Plus className="w-4 h-4 mr-1" />
-                เพิ่มเอง
-              </Button>
-            </div>
+            <Button size="sm" variant="outline" onClick={addProduct}>
+              <Plus className="w-4 h-4 mr-1" />
+              เพิ่มแถว
+            </Button>
           </CardHeader>
           <CardContent className="space-y-4">
             {products.map((product, index) => (
@@ -671,7 +675,11 @@ export default function AdminQuoteCreate() {
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
                   <div className="md:col-span-2">
                     <Label className="text-xs">ชื่อสินค้า *</Label>
-                    <Input value={product.name} onChange={(e) => updateProduct(index, 'name', e.target.value)} placeholder="รุ่นสินค้า" className="h-9" />
+                    <ProductAutocomplete
+                      value={product.name}
+                      onChange={(v) => updateProduct(index, 'name', v)}
+                      onSelectProduct={(p) => handleProductAutocompleteSelect(index, p)}
+                    />
                   </div>
                   <div className="md:col-span-3">
                     <Label className="text-xs">รายละเอียด / สเปค</Label>
@@ -852,12 +860,6 @@ export default function AdminQuoteCreate() {
         </div>
       </div>
 
-      {/* Product Picker Dialog */}
-      <ProductPickerDialog
-        open={showProductPicker}
-        onOpenChange={setShowProductPicker}
-        onSelect={handleProductPick}
-      />
     </AdminLayout>
   );
 }
