@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
-import { History, ChevronDown, ChevronUp, Gift, CheckCircle2, Clock, Send, User, Trash2 } from 'lucide-react';
+import { History, ChevronDown, ChevronUp, Gift, CheckCircle2, Clock, Send, User, Trash2, Printer } from 'lucide-react';
 import { formatShortDateTime } from '@/lib/format';
 import { useToast } from '@/hooks/use-toast';
 import RevisionCompareView from './RevisionCompareView';
@@ -53,6 +53,7 @@ interface RevisionTimelineProps {
   onSelectRevision?: (revision: Revision) => void;
   onCreateCounter?: () => void;
   onRefresh?: () => void;
+  onPrintRevision?: (revision: Revision) => void;
 }
 
 const formatCurrency = (amount: number) =>
@@ -65,6 +66,7 @@ export default function RevisionTimeline({
   onSelectRevision,
   onCreateCounter,
   onRefresh,
+  onPrintRevision,
 }: RevisionTimelineProps) {
   const { toast } = useToast();
   const [revisions, setRevisions] = useState<Revision[]>([]);
@@ -395,12 +397,28 @@ export default function RevisionTimeline({
                     </div>
                   )}
 
-                  {/* Action: select this revision */}
-                  {onSelectRevision && viewerRole === 'admin' && !isCurrent && !isDraft && (
-                    <Button size="sm" variant="outline" className="w-full" onClick={() => onSelectRevision(rev)}>
-                      ใช้เป็นฐานสร้าง Revision ใหม่
-                    </Button>
-                  )}
+                  {/* Action buttons */}
+                  <div className="flex gap-2 mt-2">
+                    {/* Print this revision */}
+                    {onPrintRevision && (rev.status === 'sent' || rev.status === 'accepted' || rev.status === 'rejected') && (
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        className="flex-1"
+                        onClick={() => onPrintRevision(rev)}
+                      >
+                        <Printer className="w-3.5 h-3.5 mr-1" />
+                        พิมพ์ Rev {rev.revision_number}
+                      </Button>
+                    )}
+
+                    {/* Use as base */}
+                    {onSelectRevision && viewerRole === 'admin' && !isCurrent && !isDraft && (
+                      <Button size="sm" variant="outline" className="flex-1" onClick={() => onSelectRevision(rev)}>
+                        ใช้เป็นฐานสร้าง Revision ใหม่
+                      </Button>
+                    )}
+                  </div>
                 </div>
               )}
             </div>
