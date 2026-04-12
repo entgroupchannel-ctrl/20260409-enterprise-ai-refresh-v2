@@ -302,6 +302,21 @@ export default function RevisionTimeline({
                   </div>
                 </div>
 
+                {/* Inline print button (collapsed view) */}
+                {onPrintRevision && rev.status !== 'draft' && (
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onPrintRevision(rev);
+                    }}
+                    className="p-1 hover:bg-accent rounded transition-colors"
+                    title={`พิมพ์ Rev ${rev.revision_number}`}
+                  >
+                    <Printer className="w-4 h-4 text-muted-foreground hover:text-primary" />
+                  </button>
+                )}
+
                 {isExpanded ? <ChevronUp className="w-4 h-4 text-muted-foreground" /> : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
               </button>
 
@@ -399,8 +414,8 @@ export default function RevisionTimeline({
 
                   {/* Action buttons */}
                   <div className="flex gap-2 mt-2">
-                    {/* Print this revision */}
-                    {onPrintRevision && (rev.status === 'sent' || rev.status === 'accepted' || rev.status === 'rejected') && (
+                    {/* Print this revision — ทุก revision ยกเว้น draft */}
+                    {onPrintRevision && rev.status !== 'draft' && (
                       <Button 
                         size="sm" 
                         variant="outline" 
