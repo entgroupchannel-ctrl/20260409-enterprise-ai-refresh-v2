@@ -1,6 +1,8 @@
 // src/pages/admin/AdminQuoteDetail.tsx
 import { useEffect, useState, useMemo } from 'react';
 import CreateSaleOrderDialog from '@/components/admin/CreateSaleOrderDialog';
+import CreateInvoiceFromSODialog from '@/components/admin/CreateInvoiceFromSODialog';
+import type { InvoiceSource } from '@/components/admin/CreateInvoiceFromSODialog';
 import PrintPreviewDialog from '@/components/admin/PrintPreviewDialog';
 import POActionsMenu from '@/components/admin/POActionsMenu';
 import POVersionHistory from '@/components/admin/POVersionHistory';
