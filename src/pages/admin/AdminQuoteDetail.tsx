@@ -597,8 +597,6 @@ export default function AdminQuoteDetail() {
                   <span className="flex items-center gap-1"><MessageCircle className="w-3 h-3" /> {quote.customer_line}</span>
                 )}
               </div>
-                {quote.customer_line && <span>LINE: {quote.customer_line}</span>}
-              </div>
             </CardContent>
           </Card>
 
