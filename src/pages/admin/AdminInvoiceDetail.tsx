@@ -15,9 +15,9 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import {
   ArrowLeft, Loader2, Printer, Send, CircleCheckBig, Ban, FileText,
-  User, Calendar, CreditCard, Building2, Receipt,
+  User, Calendar, Receipt,
 } from 'lucide-react';
-import InvoicePDFTemplate from '@/components/admin/InvoicePDFTemplate';
+import InvoicePrintPreviewDialog from '@/components/admin/InvoicePrintPreviewDialog';
 
 type InvoiceRow = any;
 type InvoiceItem = any;
@@ -45,22 +45,18 @@ export default function AdminInvoiceDetail() {
   
   const [invoice, setInvoice] = useState<InvoiceRow | null>(null);
   const [items, setItems] = useState<InvoiceItem[]>([]);
-  const [company, setCompany] = useState<any>(null);
-  const [bankAccounts, setBankAccounts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
-  const [showPrint, setShowPrint] = useState(false);
+  const [showPrintDialog, setShowPrintDialog] = useState(false);
   const [cancelReason, setCancelReason] = useState('');
 
   const loadData = async () => {
     if (!id) return;
     setLoading(true);
     try {
-      const [invRes, itemsRes, companyRes, bankRes] = await Promise.all([
+      const [invRes, itemsRes] = await Promise.all([
         (supabase as any).from('invoices').select('*').eq('id', id).maybeSingle(),
         (supabase as any).from('invoice_items').select('*').eq('invoice_id', id).order('display_order'),
-        (supabase as any).from('company_settings').select('*').limit(1).maybeSingle(),
-        (supabase as any).from('company_bank_accounts').select('*').eq('is_active', true).order('display_order'),
       ]);
 
       if (invRes.error) throw invRes.error;
@@ -72,8 +68,6 @@ export default function AdminInvoiceDetail() {
 
       setInvoice(invRes.data);
       setItems(itemsRes.data || []);
-      setCompany(companyRes.data);
-      setBankAccounts(bankRes.data || []);
     } catch (e: any) {
       toast({ title: 'โหลดข้อมูลไม่สำเร็จ', description: e.message, variant: 'destructive' });
     } finally {
@@ -124,8 +118,7 @@ export default function AdminInvoiceDetail() {
   };
 
   const handlePrint = () => {
-    setShowPrint(true);
-    setTimeout(() => window.print(), 200);
+    setShowPrintDialog(true);
   };
 
   const formatCurrency = (n: number) =>
@@ -150,30 +143,7 @@ export default function AdminInvoiceDetail() {
 
   return (
     <AdminLayout>
-      {/* Print-only view */}
-      {showPrint && (
-        <div className="print:block hidden fixed inset-0 z-50 bg-white overflow-auto">
-          <InvoicePDFTemplate
-            invoice={invoice}
-            items={items}
-            company={company ? {
-              name: company.name_th,
-              name_en: company.name_en,
-              address: company.address_th,
-              phone: company.phone,
-              email: company.email,
-              tax_id: company.tax_id,
-              branch_type: company.branch_type,
-              branch_code: company.branch_code,
-              logo_url: company.logo_url,
-            } : null}
-            bankAccounts={bankAccounts}
-          />
-        </div>
-      )}
-
-      {/* Normal view (hidden when printing) */}
-      <div className="print:hidden max-w-5xl mx-auto p-4 md:p-6 space-y-4">
+      <div className="max-w-5xl mx-auto p-4 md:p-6 space-y-4">
         {/* Back + Header actions */}
         <div className="flex items-center justify-between gap-2 flex-wrap">
           <Button variant="ghost" size="sm" onClick={() => navigate('/admin/invoices')}>
@@ -423,30 +393,14 @@ export default function AdminInvoiceDetail() {
             </CardContent>
           </Card>
         )}
-
-        {/* Bank accounts */}
-        {bankAccounts.length > 0 && (
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-sm flex items-center gap-2">
-                <CreditCard className="w-4 h-4" /> ช่องทางการชำระเงิน
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              {bankAccounts.map((bank: any, idx: number) => (
-                <div key={idx} className="flex items-start gap-3 text-sm">
-                  <Building2 className="w-5 h-5 text-muted-foreground shrink-0 mt-0.5" />
-                  <div className="flex-1">
-                    <div className="font-semibold">{bank.bank_name} {bank.branch && <span className="text-muted-foreground font-normal">({bank.branch})</span>}</div>
-                    <div className="text-xs">เลขบัญชี: <span className="font-mono">{bank.account_number}</span></div>
-                    <div className="text-xs">ชื่อบัญชี: {bank.account_name}</div>
-                  </div>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-        )}
       </div>
+
+      <InvoicePrintPreviewDialog
+        open={showPrintDialog}
+        onOpenChange={setShowPrintDialog}
+        invoice={invoice}
+        items={items}
+      />
     </AdminLayout>
   );
 }
