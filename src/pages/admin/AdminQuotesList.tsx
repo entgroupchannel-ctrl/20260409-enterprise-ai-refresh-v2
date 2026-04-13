@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import QuoteTimeline from '@/components/quotes/QuoteTimeline';
 import QuoteStatusDropdown from '@/components/admin/QuoteStatusDropdown';
 import QuoteActionsMenu from '@/components/admin/QuoteActionsMenu';
+import CreateInvoiceFromSODialog from '@/components/admin/CreateInvoiceFromSODialog';
+import type { InvoiceSource } from '@/components/admin/CreateInvoiceFromSODialog';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import AdminLayout from '@/layouts/AdminLayout';
 import { Button } from '@/components/ui/button';
