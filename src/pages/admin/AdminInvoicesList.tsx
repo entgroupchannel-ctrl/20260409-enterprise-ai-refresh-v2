@@ -12,6 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { Search, Plus, Loader2, Receipt } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import CreateInvoiceFromSODialog, { type InvoiceSource } from '@/components/admin/CreateInvoiceFromSODialog';
 import SelectQuoteForInvoiceDialog from '@/components/admin/SelectQuoteForInvoiceDialog';
 
@@ -51,6 +52,7 @@ const TYPE_OPTIONS = [
 
 export default function AdminInvoicesList() {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -225,7 +227,7 @@ export default function AdminInvoicesList() {
                     </TableHeader>
                     <TableBody>
                       {invoices.map((inv) => (
-                        <TableRow key={inv.id} className="hover:bg-accent/50 cursor-pointer">
+                        <TableRow key={inv.id} className="hover:bg-accent/50 cursor-pointer" onClick={() => navigate(`/admin/invoices/${inv.id}`)}>
                           <TableCell className="font-mono text-xs font-semibold">
                             {inv.invoice_number}
                           </TableCell>
