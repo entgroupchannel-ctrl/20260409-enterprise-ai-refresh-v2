@@ -105,7 +105,7 @@ const fpmTouchMonitors = [
 ];
 
 const fpmDatasheets = [
-  { model: "FPM-0801A", href: "/datasheets/005637_5e44d2b9d7cc48fa9c409252e62d861d.pdf" },
+  { model: "FPM-0801A", href: null as string | null, note: "ติดต่อสอบถามเพื่อรับ Datasheet" },
   { model: "FPM-100XA", href: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_5d760f5082bb435aaa29a55ab6298a02.pdf" },
   { model: "FPM-150XA", href: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_69e01e1d7ddb4da6a215f9b617bf7bd4.pdf" },
   { model: "FPM-1202A", href: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_a3754cf13eaa40b09346e93fdb46c16a.pdf" },
