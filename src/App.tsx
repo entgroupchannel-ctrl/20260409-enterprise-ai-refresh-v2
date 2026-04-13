@@ -66,6 +66,7 @@ const AdminRequests = lazyRetry(() => import("./pages/admin/AdminRequests"));
 const AdminApprovals = lazyRetry(() => import("./pages/admin/AdminApprovals"));
 const ProductsList = lazyRetry(() => import("./pages/admin/ProductsList"));
 const ProductImport = lazyRetry(() => import("./pages/admin/ProductImport"));
+const GTImagesImport = lazyRetry(() => import("./pages/admin/GTImagesImport"));
 const ProductMigrationReview = lazyRetry(() => import("./pages/admin/ProductMigrationReview"));
 const AdminQuotesTrash = lazyRetry(() => import("./pages/admin/AdminQuotesTrash"));
 const AdminContacts = lazyRetry(() => import("./pages/admin/AdminContacts"));
@@ -170,6 +171,7 @@ const App = () => (
                     <Route path="/admin/approvals" element={<ProtectedRoute requireSuperAdmin><AdminApprovals /></ProtectedRoute>} />
                     <Route path="/admin/products" element={<ProtectedRoute requireSales><ProductsList /></ProtectedRoute>} />
                     <Route path="/admin/products/import" element={<ProtectedRoute requireSales><ProductImport /></ProtectedRoute>} />
+                    <Route path="/admin/gt-images-import" element={<ProtectedRoute requireSales><GTImagesImport /></ProtectedRoute>} />
                     <Route path="/admin/product-migration" element={<ProtectedRoute requireSuperAdmin><ProductMigrationReview /></ProtectedRoute>} />
                     <Route path="/admin/settings/company" element={<ProtectedRoute requireSales><AdminCompanySettings /></ProtectedRoute>} />
                     <Route path="/admin/settings/profile" element={<ProtectedRoute requireSales><AdminProfile /></ProtectedRoute>} />
