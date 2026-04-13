@@ -352,6 +352,7 @@ export default function AdminQuotesList() {
                           quoteId={quote.id}
                           currentStatus={quote.status}
                           onStatusChange={() => loadQuotes()}
+                          onAction={handleQuoteAction}
                         />
                       </div>
                       <div onClick={(e) => e.stopPropagation()}>
@@ -453,6 +454,15 @@ export default function AdminQuotesList() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {/* Create Invoice from Quote Dialog */}
+      <CreateInvoiceFromSODialog
+        open={!!invoiceSource}
+        onOpenChange={(v) => !v && setInvoiceSource(null)}
+        source={invoiceSource}
+      />
     </AdminLayout>
+  );
+}
   );
 }
