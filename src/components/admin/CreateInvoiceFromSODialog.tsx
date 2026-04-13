@@ -391,7 +391,7 @@ export default function CreateInvoiceFromSODialog({
                       <div className="flex items-center gap-3">
                         <RadioGroupItem value="installment" id="t-inst" />
                         <Label htmlFor="t-inst" className="cursor-pointer flex-1">
-                          <p className="font-medium">📊 แบ่งจ่าย</p>
+                          <p className="font-medium flex items-center gap-1.5"><BarChart3 className="w-4 h-4 text-primary" /> แบ่งจ่าย</p>
                           <p className="text-xs text-muted-foreground">แบ่งเป็น N งวดเท่า ๆ กัน (สร้างงวดที่ 1)</p>
                         </Label>
                       </div>
