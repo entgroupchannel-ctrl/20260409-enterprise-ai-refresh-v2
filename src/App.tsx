@@ -174,6 +174,7 @@ const App = () => (
                     <Route path="/admin/products/import" element={<ProtectedRoute requireSales><ProductImport /></ProtectedRoute>} />
                     <Route path="/admin/gt-images-import" element={<ProtectedRoute requireSales><GTImagesImport /></ProtectedRoute>} />
                     <Route path="/admin/product-migration" element={<ProtectedRoute requireSuperAdmin><ProductMigrationReview /></ProtectedRoute>} />
+                    <Route path="/admin/migrate-datasheets" element={<ProtectedRoute requireSuperAdmin><MigrateDatasheets /></ProtectedRoute>} />
                     <Route path="/admin/settings/company" element={<ProtectedRoute requireSales><AdminCompanySettings /></ProtectedRoute>} />
                     <Route path="/admin/settings/profile" element={<ProtectedRoute requireSales><AdminProfile /></ProtectedRoute>} />
                     <Route path="/request-quote" element={<QuoteRequestForm />} />
