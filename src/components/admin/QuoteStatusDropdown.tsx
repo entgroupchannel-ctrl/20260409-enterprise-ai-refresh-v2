@@ -10,10 +10,25 @@ import {
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
+// These options are ACTIONS (open dialog/navigate) — not status updates
+const ACTION_OPTIONS = new Set([
+  'create_invoice',
+  'create_tax',
+  'create_receipt',
+  'create_po',
+  'split_invoice',
+  'split_tax',
+  'split_receipt',
+  'deposit_invoice',
+  'deposit_tax',
+  'deposit_receipt',
+]);
+
 interface QuoteStatusDropdownProps {
   quoteId: string;
   currentStatus: string;
   onStatusChange?: (newStatus: string) => void;
+  onAction?: (action: string, quoteId: string) => void;
   disabled?: boolean;
 }
 
@@ -37,42 +52,66 @@ export default function QuoteStatusDropdown({
   quoteId,
   currentStatus,
   onStatusChange,
+  onAction,
   disabled = false,
 }: QuoteStatusDropdownProps) {
   const [updating, setUpdating] = useState(false);
   const { toast } = useToast();
 
-  const handleStatusChange = async (newStatus: string) => {
-    if (newStatus === currentStatus) return;
+  const handleStatusChange = async (newValue: string) => {
+    if (newValue === currentStatus) return;
 
+    // Check if this is an action (not a status change)
+    if (ACTION_OPTIONS.has(newValue)) {
+      if (newValue === 'create_invoice') {
+        if (onAction) {
+          onAction('create_invoice', quoteId);
+        } else {
+          toast({
+            title: 'ฟีเจอร์ยังไม่พร้อม',
+            description: 'ปุ่มนี้ต้องเรียกจากหน้าที่รองรับ',
+            variant: 'destructive',
+          });
+        }
+      } else {
+        // Other actions — coming soon
+        const option = statusOptions.find((s) => s.value === newValue);
+        toast({
+          title: '⏳ กำลังพัฒนา',
+          description: `ฟีเจอร์ "${option?.label}" จะเปิดใช้งานในเฟสถัดไป`,
+        });
+      }
+      return; // Don't update status
+    }
+
+    // Normal status change
     setUpdating(true);
     try {
       const { error } = await supabase
         .from('quote_requests')
         .update({ 
-          status: newStatus,
+          status: newValue,
           updated_at: new Date().toISOString(),
         })
         .eq('id', quoteId);
 
       if (error) throw error;
 
-      // Add system message
       await supabase.from('quote_messages').insert({
         quote_id: quoteId,
         sender_name: 'System',
         sender_role: 'system',
-        content: `เปลี่ยนสถานะเป็น "${statusOptions.find(s => s.value === newStatus)?.label}"`,
+        content: `เปลี่ยนสถานะเป็น "${statusOptions.find(s => s.value === newValue)?.label}"`,
         message_type: 'status_change',
       });
 
       toast({
         title: 'เปลี่ยนสถานะสำเร็จ',
-        description: `อัปเดตเป็น "${statusOptions.find(s => s.value === newStatus)?.label}"`,
+        description: `อัปเดตเป็น "${statusOptions.find(s => s.value === newValue)?.label}"`,
       });
 
       if (onStatusChange) {
-        onStatusChange(newStatus);
+        onStatusChange(newValue);
       }
     } catch (error: any) {
       toast({
