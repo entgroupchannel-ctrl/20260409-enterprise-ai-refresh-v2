@@ -677,6 +677,15 @@ export default function AdminSaleOrders() {
                               );
                             })()}
 
+                            <Button
+                              variant="outline"
+                              className="w-full"
+                              onClick={() => setInvoiceDialogSO(selected)}
+                            >
+                              <Receipt className="w-4 h-4 mr-2" />
+                              สร้างใบวางบิล
+                            </Button>
+
                             <Separator />
 
                             <Button
