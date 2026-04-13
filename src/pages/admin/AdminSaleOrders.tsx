@@ -813,6 +813,12 @@ export default function AdminSaleOrders() {
           }}
         />
       )}
+
+      <CreateInvoiceFromSODialog
+        open={!!invoiceDialogSO}
+        onOpenChange={(v) => !v && setInvoiceDialogSO(null)}
+        saleOrder={invoiceDialogSO}
+      />
     </AdminLayout>
   );
 }
