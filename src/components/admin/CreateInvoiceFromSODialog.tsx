@@ -12,7 +12,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { Receipt, Loader2 } from 'lucide-react';
+import { Receipt, Loader2, BadgeCheck, Landmark, BarChart3 } from 'lucide-react';
 
 interface SaleOrder {
   id: string;
