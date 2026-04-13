@@ -12,6 +12,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { Search, Plus, Loader2, Receipt } from 'lucide-react';
+import CreateInvoiceFromSODialog, { type InvoiceSource } from '@/components/admin/CreateInvoiceFromSODialog';
+import SelectQuoteForInvoiceDialog from '@/components/admin/SelectQuoteForInvoiceDialog';
 
 interface Invoice {
   id: string;
@@ -56,6 +58,8 @@ export default function AdminInvoicesList() {
   const [typeFilter, setTypeFilter] = useState('all');
   const [page, setPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
+  const [showQuotePicker, setShowQuotePicker] = useState(false);
+  const [invoiceSource, setInvoiceSource] = useState<InvoiceSource | null>(null);
 
   const loadInvoices = async () => {
     setLoading(true);
@@ -147,7 +151,7 @@ export default function AdminInvoicesList() {
         actionButton={{
           label: 'สร้างใบวางบิล',
           icon: <Plus className="w-4 h-4" />,
-          onClick: () => {},
+          onClick: () => setShowQuotePicker(true),
         }}
       >
         {/* Filters */}
@@ -201,7 +205,7 @@ export default function AdminInvoicesList() {
                 <Receipt className="w-12 h-12 mx-auto mb-3 opacity-40" />
                 <p className="text-sm">ยังไม่มีใบวางบิล</p>
                 <p className="text-xs mt-1">
-                  สร้างใบวางบิลใหม่จากหน้า Sale Order (Phase 2B)
+                  คลิกปุ่ม "สร้างใบวางบิล" ด้านบนเพื่อเลือกใบเสนอราคา
                 </p>
               </div>
             ) : (
@@ -293,6 +297,23 @@ export default function AdminInvoicesList() {
           </CardContent>
         </Card>
       </AdminPageLayout>
+
+      <SelectQuoteForInvoiceDialog
+        open={showQuotePicker}
+        onOpenChange={setShowQuotePicker}
+        onSelect={(source) => setInvoiceSource(source)}
+      />
+
+      <CreateInvoiceFromSODialog
+        open={!!invoiceSource}
+        onOpenChange={(v) => {
+          if (!v) {
+            setInvoiceSource(null);
+            loadInvoices();
+          }
+        }}
+        source={invoiceSource}
+      />
     </AdminLayout>
   );
 }
