@@ -66,6 +66,9 @@ import {
   User,
   Calendar,
   Briefcase,
+  Phone,
+  Mail,
+  MessageCircle,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
