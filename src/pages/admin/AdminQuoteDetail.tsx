@@ -1114,7 +1114,35 @@ export default function AdminQuoteDetail() {
         onSuccess={loadQuoteDetails}
       />
 
-      {/* Counter Offer Dialog */}
+      {/* Create Invoice from Quote Dialog */}
+      <CreateInvoiceFromSODialog
+        open={showCreateInvoice}
+        onOpenChange={setShowCreateInvoice}
+        source={quote ? {
+          type: 'quote',
+          quote: {
+            id: quote.id,
+            quote_number: quote.quote_number || '',
+            customer_name: quote.customer_name,
+            customer_company: quote.customer_company,
+            customer_address: quote.customer_address,
+            customer_email: quote.customer_email,
+            customer_phone: quote.customer_phone,
+            customer_tax_id: quote.customer_tax_id,
+            customer_branch_type: null,
+            customer_branch_code: null,
+            customer_branch_name: null,
+            payment_terms: quote.payment_terms,
+            notes: quote.notes,
+            subtotal: totals.beforeVat,
+            vat_amount: totals.vatAmount,
+            grand_total: totals.grandTotal,
+            products: quote.products || [],
+          },
+        } : null}
+      />
+
+
       <CounterOfferDialog
         quoteId={quote.id}
         currentRevisionId={quote.current_revision_id}
