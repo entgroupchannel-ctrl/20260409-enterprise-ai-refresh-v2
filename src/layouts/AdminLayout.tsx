@@ -30,6 +30,7 @@ import {
   Trash2,
   Database,
   Upload,
+  Receipt,
   Menu as MenuIcon,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
@@ -72,6 +73,7 @@ const navGroups: NavGroup[] = [
     items: [
       { label: 'ใบเสนอราคา', icon: FileText, path: '/admin/quotes' },
       { label: 'ยอดขาย / SO', icon: ShoppingCart, path: '/admin/sale-orders' },
+      { label: 'ใบวางบิล', icon: Receipt, path: '/admin/invoices' },
       { label: 'ถังขยะ Quote', icon: Trash2, path: '/admin/quotes/trash' },
     ],
   },

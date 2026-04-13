@@ -144,12 +144,11 @@ export default function AdminInvoicesList() {
       <AdminPageLayout
         title="ใบวางบิล"
         description={`จัดการใบวางบิล/ใบแจ้งหนี้ ทั้งหมด ${totalCount.toLocaleString()} รายการ`}
-        actions={
-          <Button disabled title="Phase 2B will enable this">
-            <Plus className="w-4 h-4 mr-1.5" />
-            สร้างใบวางบิล
-          </Button>
-        }
+        actionButton={{
+          label: 'สร้างใบวางบิล',
+          icon: <Plus className="w-4 h-4" />,
+          onClick: () => {},
+        }}
       >
         {/* Filters */}
         <Card>
