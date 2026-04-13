@@ -34,8 +34,10 @@ import {
   User,
   Calendar,
   Plus,
+  Receipt,
 } from 'lucide-react';
 import SelectQuoteForSODialog from '@/components/admin/SelectQuoteForSODialog';
+import CreateInvoiceFromSODialog from '@/components/admin/CreateInvoiceFromSODialog';
 import CreateSaleOrderDialog from '@/components/admin/CreateSaleOrderDialog';
 import { formatShortDateTime } from '@/lib/format';
 import { format } from 'date-fns';
@@ -117,6 +119,7 @@ export default function AdminSaleOrders() {
   // Create SO flow
   const [showQuoteSelector, setShowQuoteSelector] = useState(false);
   const [selectedQuoteForSO, setSelectedQuoteForSO] = useState<any>(null);
+  const [invoiceDialogSO, setInvoiceDialogSO] = useState<any>(null);
 
   useEffect(() => { loadOrders(); }, []);
   useEffect(() => { if (routeId) setSelectedId(routeId); }, [routeId]);
