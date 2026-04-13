@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import QuoteTimeline from '@/components/quotes/QuoteTimeline';
 import QuoteStatusDropdown from '@/components/admin/QuoteStatusDropdown';
 import QuoteActionsMenu from '@/components/admin/QuoteActionsMenu';
+import CreateInvoiceFromSODialog from '@/components/admin/CreateInvoiceFromSODialog';
+import type { InvoiceSource } from '@/components/admin/CreateInvoiceFromSODialog';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import AdminLayout from '@/layouts/AdminLayout';
 import { Button } from '@/components/ui/button';
@@ -65,6 +67,9 @@ export default function AdminQuotesList() {
   const [deletingQuote, setDeletingQuote] = useState<Quote | null>(null);
   const [deleteReason, setDeleteReason] = useState('');
   const [deleting, setDeleting] = useState(false);
+
+  // Invoice dialog state
+  const [invoiceSource, setInvoiceSource] = useState<InvoiceSource | null>(null);
 
   useEffect(() => {
     loadQuotes();
@@ -144,6 +149,58 @@ export default function AdminQuotesList() {
 
   const formatCurrency = (amount: number) =>
     new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', minimumFractionDigits: 0 }).format(amount);
+
+  const handleQuoteAction = async (action: string, quoteId: string) => {
+    if (action === 'create_invoice') {
+      const q = quotes.find((x: any) => x.id === quoteId) as any;
+      if (!q) {
+        toast({ title: 'ไม่พบใบเสนอราคา', variant: 'destructive' });
+        return;
+      }
+
+      // Load latest revision for amounts + products
+      try {
+        const { data: revData } = await (supabase as any)
+          .from('quote_revisions')
+          .select('subtotal, vat_amount, grand_total, products')
+          .eq('quote_id', quoteId)
+          .order('revision_number', { ascending: false })
+          .limit(1)
+          .maybeSingle();
+
+        // Fallback to quote_requests data if no revision
+        const subtotal = revData?.subtotal ?? q.subtotal ?? 0;
+        const vatAmount = revData?.vat_amount ?? q.vat_amount ?? 0;
+        const grandTotal = revData?.grand_total ?? q.grand_total ?? 0;
+        const products = revData?.products ?? q.products ?? [];
+
+        setInvoiceSource({
+          type: 'quote',
+          quote: {
+            id: q.id,
+            quote_number: q.quote_number || '',
+            customer_name: q.customer_name,
+            customer_company: q.customer_company,
+            customer_address: q.customer_address || null,
+            customer_email: q.customer_email,
+            customer_phone: q.customer_phone || null,
+            customer_tax_id: q.customer_tax_id || null,
+            customer_branch_type: q.customer_branch_type || null,
+            customer_branch_code: q.customer_branch_code || null,
+            customer_branch_name: q.customer_branch_name || null,
+            payment_terms: q.payment_terms || null,
+            notes: q.notes || null,
+            subtotal,
+            vat_amount: vatAmount,
+            grand_total: grandTotal,
+            products,
+          },
+        });
+      } catch (e: any) {
+        toast({ title: 'โหลดข้อมูลไม่สำเร็จ', description: e.message, variant: 'destructive' });
+      }
+    }
+  };
 
   const calculateSLATime = (dueDate: string | null) => {
     if (!dueDate) return null;
@@ -295,6 +352,7 @@ export default function AdminQuotesList() {
                           quoteId={quote.id}
                           currentStatus={quote.status}
                           onStatusChange={() => loadQuotes()}
+                          onAction={handleQuoteAction}
                         />
                       </div>
                       <div onClick={(e) => e.stopPropagation()}>
@@ -396,6 +454,13 @@ export default function AdminQuotesList() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {/* Create Invoice from Quote Dialog */}
+      <CreateInvoiceFromSODialog
+        open={!!invoiceSource}
+        onOpenChange={(v) => !v && setInvoiceSource(null)}
+        source={invoiceSource}
+      />
     </AdminLayout>
   );
 }
