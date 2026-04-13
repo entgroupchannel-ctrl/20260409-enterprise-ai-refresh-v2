@@ -65,7 +65,7 @@ interface QuoteData {
 interface CreateInvoiceDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  source: InvoiceSource | null;
+  source?: InvoiceSource | null;
   /** @deprecated Use source instead */
   saleOrder?: SaleOrder | null;
 }
