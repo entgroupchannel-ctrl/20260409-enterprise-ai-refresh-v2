@@ -141,6 +141,9 @@ interface Quote {
   accepted_by: string | null;
   expired_at: string | null;
   has_sale_order: boolean | null;
+  assigned_to: string | null;
+  created_by: string | null;
+  customer_line: string | null;
 }
 
 interface QuoteFile {
