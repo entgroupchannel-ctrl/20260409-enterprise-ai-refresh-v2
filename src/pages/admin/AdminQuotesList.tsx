@@ -174,6 +174,30 @@ export default function AdminQuotesList() {
         const grandTotal = revData?.grand_total ?? q.grand_total ?? 0;
         const products = revData?.products ?? q.products ?? [];
 
+        // Try to find branch info from contacts table (by tax_id match)
+        let branchType: string | null = null;
+        let branchCode: string | null = null;
+        let branchName: string | null = null;
+
+        if (q.customer_tax_id) {
+          try {
+            const { data: contactData } = await (supabase as any)
+              .from('contacts')
+              .select('branch_type, branch_code, branch_name')
+              .eq('tax_id', q.customer_tax_id)
+              .limit(1)
+              .maybeSingle();
+            
+            if (contactData) {
+              branchType = contactData.branch_type || null;
+              branchCode = contactData.branch_code || null;
+              branchName = contactData.branch_name || null;
+            }
+          } catch (e) {
+            console.warn('Contact branch lookup failed:', e);
+          }
+        }
+
         setInvoiceSource({
           type: 'quote',
           quote: {
@@ -185,9 +209,9 @@ export default function AdminQuotesList() {
             customer_email: q.customer_email,
             customer_phone: q.customer_phone || null,
             customer_tax_id: q.customer_tax_id || null,
-            customer_branch_type: q.customer_branch_type || null,
-            customer_branch_code: q.customer_branch_code || null,
-            customer_branch_name: q.customer_branch_name || null,
+            customer_branch_type: branchType,
+            customer_branch_code: branchCode,
+            customer_branch_name: branchName,
             payment_terms: q.payment_terms || null,
             notes: q.notes || null,
             subtotal,
