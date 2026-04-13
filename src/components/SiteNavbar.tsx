@@ -6,6 +6,7 @@ import ThemeToggle from '@/components/ThemeToggle';
 import MegaMenu, { MobileMegaMenu } from '@/components/MegaMenu';
 import { useAuth } from '@/hooks/useAuth';
 import logo from '@/assets/logo-entgroup.avif';
+import { cn } from '@/lib/utils';
 
 const navLinks = [
   { label: 'Shop', href: '/shop', icon: ShoppingBag, highlight: true },
