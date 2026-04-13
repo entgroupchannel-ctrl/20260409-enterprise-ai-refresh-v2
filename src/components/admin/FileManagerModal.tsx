@@ -63,41 +63,6 @@ export default function FileManagerModal({ open, onOpenChange, product }: Props)
     }
   };
 
-  // ⭐ Sync product_files → products.image_url + gallery_urls
-  const syncImagesToProduct = async () => {
-    if (!product) return;
-    try {
-      const { data: imageFiles } = await (supabase as any)
-        .from('product_files')
-        .select('file_url, is_primary, display_order, created_at')
-        .eq('product_id', product.id)
-        .eq('file_type', 'image')
-        .order('is_primary', { ascending: false })
-        .order('display_order', { ascending: true, nullsFirst: false })
-        .order('created_at', { ascending: true });
-
-      if (!imageFiles || imageFiles.length === 0) {
-        await (supabase as any).from('products').update({
-          image_url: null,
-          thumbnail_url: null,
-          gallery_urls: [],
-        }).eq('id', product.id);
-        return;
-      }
-
-      const primary = imageFiles.find((f: any) => f.is_primary) || imageFiles[0];
-      const galleryUrls = imageFiles.map((f: any) => f.file_url);
-
-      await (supabase as any).from('products').update({
-        image_url: primary.file_url,
-        thumbnail_url: primary.file_url,
-        gallery_urls: galleryUrls,
-      }).eq('id', product.id);
-    } catch (e) {
-      console.error('syncImagesToProduct error:', e);
-    }
-  };
-
   const handleUpload = async (fileList: FileList | null, type: string) => {
     if (!fileList || !product) return;
     setUploading(true);
@@ -128,12 +93,6 @@ export default function FileManagerModal({ open, onOpenChange, product }: Props)
           } as any);
         if (dbError) throw dbError;
       }
-
-      // Sync to products table if image
-      if (type === 'image') {
-        await syncImagesToProduct();
-      }
-
       toast({ title: 'อัปโหลดสำเร็จ' });
       loadFiles();
     } catch (error: any) {
@@ -143,77 +102,15 @@ export default function FileManagerModal({ open, onOpenChange, product }: Props)
     }
   };
 
-  const handleDelete = async (file: ProductFile) => {
-    if (!confirm(`ลบไฟล์นี้? (${file.file_name})`)) return;
+  const handleDelete = async (fileId: string) => {
+    if (!confirm('ต้องการลบไฟล์นี้?')) return;
     try {
-      // 1. Delete from storage
-      const url = new URL(file.file_url);
-      const pathMatch = url.pathname.match(/\/product-images\/(.+)$/);
-      if (pathMatch) {
-        await supabase.storage.from('product-images').remove([pathMatch[1]]);
-      }
-
-      // 2. Delete from DB
-      const { error } = await supabase.from('product_files' as any).delete().eq('id', file.id);
+      const { error } = await supabase.from('product_files' as any).delete().eq('id', fileId);
       if (error) throw error;
-
-      // 3. Sync to products table if image
-      if (file.file_type === 'image') {
-        await syncImagesToProduct();
-      }
-
-      toast({ title: '✅ ลบสำเร็จ' });
+      toast({ title: 'ลบไฟล์สำเร็จ' });
       loadFiles();
-    } catch (e: any) {
-      toast({ title: 'ลบไม่สำเร็จ', description: e.message, variant: 'destructive' });
-    }
-  };
-
-  const handleSetPrimary = async (file: ProductFile) => {
-    if (!product) return;
-    try {
-      // Clear is_primary for all images of this product
-      await (supabase as any)
-        .from('product_files')
-        .update({ is_primary: false })
-        .eq('product_id', product.id)
-        .eq('file_type', 'image');
-
-      // Set this one as primary
-      const { error } = await (supabase as any)
-        .from('product_files')
-        .update({ is_primary: true })
-        .eq('id', file.id);
-      if (error) throw error;
-
-      await syncImagesToProduct();
-      toast({ title: '✅ ตั้งเป็นรูปหลักแล้ว' });
-      loadFiles();
-    } catch (e: any) {
-      toast({ title: 'ตั้งไม่สำเร็จ', description: e.message, variant: 'destructive' });
-    }
-  };
-
-  const handleMove = async (file: ProductFile, direction: 'up' | 'down') => {
-    if (!product) return;
-    const imageList = files.images;
-    const index = imageList.findIndex(f => f.id === file.id);
-    if (index < 0) return;
-
-    const swapIndex = direction === 'up' ? index - 1 : index + 1;
-    if (swapIndex < 0 || swapIndex >= imageList.length) return;
-
-    const other = imageList[swapIndex];
-    const thisOrder = file.display_order ?? index;
-    const otherOrder = other.display_order ?? swapIndex;
-
-    try {
-      await (supabase as any).from('product_files').update({ display_order: otherOrder }).eq('id', file.id);
-      await (supabase as any).from('product_files').update({ display_order: thisOrder }).eq('id', other.id);
-      await syncImagesToProduct();
-      loadFiles();
-    } catch (e: any) {
-      toast({ title: 'ย้ายไม่สำเร็จ', description: e.message, variant: 'destructive' });
+    } catch (error: any) {
+      toast({ title: 'ลบล้มเหลว', description: error.message, variant: 'destructive' });
     }
   };
 
@@ -243,90 +140,31 @@ export default function FileManagerModal({ open, onOpenChange, product }: Props)
 
           {/* Images */}
           <TabsContent value="images" className="space-y-4 mt-4">
-            <input
-              ref={imgInputRef}
-              type="file"
-              accept="image/*"
-              multiple
-              className="hidden"
-              onChange={(e) => handleUpload(e.target.files, 'image')}
-            />
-
-            <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
-              {files.images.map((f, idx) => (
-                <div key={f.id} className="group relative aspect-square rounded-lg overflow-hidden border-2 bg-muted hover:border-primary transition-colors">
-                  <img
-                    src={f.file_url}
-                    alt={f.file_name}
-                    className="w-full h-full object-cover"
-                  />
-
-                  {/* Primary badge */}
-                  {f.is_primary && (
-                    <div className="absolute top-1 left-1 bg-primary text-primary-foreground text-[9px] px-1.5 py-0.5 rounded font-semibold">
-                      ⭐ หลัก
-                    </div>
-                  )}
-
-                  {/* Action overlay (show on hover) */}
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-1 p-2">
-                    {!f.is_primary && (
-                      <Button
-                        size="sm"
-                        variant="secondary"
-                        className="h-7 text-xs w-full"
-                        onClick={() => handleSetPrimary(f)}
-                      >
-                        ⭐ ตั้งเป็นรูปหลัก
-                      </Button>
-                    )}
-
-                    <div className="flex gap-1 w-full">
-                      <Button
-                        size="sm"
-                        variant="secondary"
-                        className="h-7 flex-1 text-xs"
-                        disabled={idx === 0}
-                        onClick={() => handleMove(f, 'up')}
-                        title="ย้ายขึ้น"
-                      >
-                        ↑
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="secondary"
-                        className="h-7 flex-1 text-xs"
-                        disabled={idx === files.images.length - 1}
-                        onClick={() => handleMove(f, 'down')}
-                        title="ย้ายลง"
-                      >
-                        ↓
-                      </Button>
-                    </div>
-
-                    <Button
-                      size="sm"
-                      variant="destructive"
-                      className="h-7 text-xs w-full"
-                      onClick={() => handleDelete(f)}
-                    >
-                      <Trash2 className="w-3 h-3 mr-1" />
-                      ลบ
-                    </Button>
+            <input ref={imgInputRef} type="file" accept="image/*" multiple className="hidden" onChange={(e) => handleUpload(e.target.files, 'image')} />
+            <div className="grid grid-cols-4 gap-3">
+              {files.images.map((f) => (
+                <div key={f.id} className="border rounded-lg overflow-hidden group relative">
+                  <div className="aspect-square bg-muted flex items-center justify-center">
+                    <img src={f.file_url} alt={f.file_name} className="w-full h-full object-contain" />
                   </div>
+                  <div className="p-2">
+                    <p className="text-[11px] truncate text-muted-foreground">{f.file_name}</p>
+                    <p className="text-[10px] text-muted-foreground">{formatSize(f.file_size)}</p>
+                  </div>
+                  <button
+                    onClick={() => handleDelete(f.id)}
+                    className="absolute top-1 right-1 w-6 h-6 rounded-full bg-destructive/80 text-destructive-foreground flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                  >
+                    <Trash2 className="w-3 h-3" />
+                  </button>
                 </div>
               ))}
-
-              {/* Upload placeholder */}
               <button
-                type="button"
                 onClick={() => imgInputRef.current?.click()}
                 disabled={uploading}
-                className="aspect-square border-2 border-dashed rounded-lg flex flex-col items-center justify-center gap-2 hover:border-primary/50 hover:bg-primary/5 transition-colors"
+                className="aspect-square border-2 border-dashed rounded-lg flex flex-col items-center justify-center gap-2 hover:border-primary/50 transition-colors"
               >
-                {uploading ? (
-                  <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
-                ) : (
+                {uploading ? <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" /> : (
                   <>
                     <ImageIcon className="w-6 h-6 text-muted-foreground" />
                     <span className="text-xs text-muted-foreground">เพิ่มรูป</span>
@@ -334,19 +172,13 @@ export default function FileManagerModal({ open, onOpenChange, product }: Props)
                 )}
               </button>
             </div>
-
-            {files.images.length === 0 && !uploading && (
-              <p className="text-center text-sm text-muted-foreground py-4">
-                ยังไม่มีรูปภาพ — คลิก "เพิ่มรูป" เพื่ออัปโหลด
-              </p>
-            )}
           </TabsContent>
 
           {/* Datasheets */}
           <TabsContent value="datasheets" className="space-y-3 mt-4">
             <input ref={dsInputRef} type="file" accept=".pdf" className="hidden" onChange={(e) => handleUpload(e.target.files, 'datasheet')} />
             {files.datasheets.map((f) => (
-              <FileRow key={f.id} file={f} onDelete={() => handleDelete(f)} formatSize={formatSize} />
+              <FileRow key={f.id} file={f} onDelete={handleDelete} formatSize={formatSize} />
             ))}
             <button
               onClick={() => dsInputRef.current?.click()}
@@ -366,7 +198,7 @@ export default function FileManagerModal({ open, onOpenChange, product }: Props)
           <TabsContent value="documents" className="space-y-3 mt-4">
             <input ref={docInputRef} type="file" accept=".pdf,.doc,.docx,.xls,.xlsx" className="hidden" onChange={(e) => handleUpload(e.target.files, 'document')} />
             {files.documents.map((f) => (
-              <FileRow key={f.id} file={f} onDelete={() => handleDelete(f)} formatSize={formatSize} />
+              <FileRow key={f.id} file={f} onDelete={handleDelete} formatSize={formatSize} />
             ))}
             <button
               onClick={() => docInputRef.current?.click()}
@@ -387,7 +219,7 @@ export default function FileManagerModal({ open, onOpenChange, product }: Props)
   );
 }
 
-function FileRow({ file, onDelete, formatSize }: { file: ProductFile; onDelete: () => void; formatSize: (b: number | null) => string }) {
+function FileRow({ file, onDelete, formatSize }: { file: ProductFile; onDelete: (id: string) => void; formatSize: (b: number | null) => string }) {
   return (
     <div className="border rounded-lg p-3 flex items-center justify-between">
       <div className="flex items-center gap-3 min-w-0">
@@ -406,7 +238,7 @@ function FileRow({ file, onDelete, formatSize }: { file: ProductFile; onDelete: 
         <Button size="sm" variant="outline" asChild>
           <a href={file.file_url} download><Download className="w-3.5 h-3.5" /></a>
         </Button>
-        <Button size="sm" variant="ghost" onClick={onDelete} className="text-destructive hover:text-destructive">
+        <Button size="sm" variant="ghost" onClick={() => onDelete(file.id)} className="text-destructive hover:text-destructive">
           <Trash2 className="w-3.5 h-3.5" />
         </Button>
       </div>
