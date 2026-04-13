@@ -1,6 +1,8 @@
 // src/pages/admin/AdminQuoteDetail.tsx
 import { useEffect, useState, useMemo } from 'react';
 import CreateSaleOrderDialog from '@/components/admin/CreateSaleOrderDialog';
+import CreateInvoiceFromSODialog from '@/components/admin/CreateInvoiceFromSODialog';
+import type { InvoiceSource } from '@/components/admin/CreateInvoiceFromSODialog';
 import PrintPreviewDialog from '@/components/admin/PrintPreviewDialog';
 import POActionsMenu from '@/components/admin/POActionsMenu';
 import POVersionHistory from '@/components/admin/POVersionHistory';
@@ -60,6 +62,7 @@ import {
   ScanEye,
   FileCheck2,
   Printer,
+  Receipt,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
@@ -182,7 +185,7 @@ export default function AdminQuoteDetail() {
   const [counterNegotiationId, setCounterNegotiationId] = useState<string | undefined>();
   const [revisionKey, setRevisionKey] = useState(0);
   const [printingRevision, setPrintingRevision] = useState<any>(null);
-  // ✅ Real-time calculation
+  const [showCreateInvoice, setShowCreateInvoice] = useState(false);
   const totals = useMemo(() => {
     if (!quote) return { subtotal: 0, discountAmount: 0, beforeVat: 0, vatAmount: 0, grandTotal: 0 };
     return calculateQuoteTotals(
@@ -532,18 +535,26 @@ export default function AdminQuoteDetail() {
         {quote.status === 'po_approved' && !quote.has_sale_order && (
           <Card className="border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-900/20">
             <CardContent className="pt-6">
-              <div className="flex items-center justify-between">
+              <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <CircleCheckBig className="w-8 h-8 text-green-600" />
                   <div>
                     <h3 className="font-semibold text-green-900 dark:text-green-200">PO อนุมัติแล้ว</h3>
-                    <p className="text-sm text-green-700 dark:text-green-400">สร้าง Sale Order เพื่อดำเนินการต่อ</p>
+                    <p className="text-sm text-green-700 dark:text-green-400">
+                      ดำเนินการได้ทั้ง 2 เส้นทาง: สร้าง Sale Order (process สินค้า) หรือสร้างใบวางบิล (เก็บเงิน)
+                    </p>
                   </div>
                 </div>
-                <Button onClick={() => setShowCreateSO(true)}>
-                  <FileSearch className="w-4 h-4 mr-2" />
-                  สร้าง Sale Order
-                </Button>
+                <div className="flex flex-wrap gap-2">
+                  <Button onClick={() => setShowCreateSO(true)}>
+                    <FileSearch className="w-4 h-4 mr-2" />
+                    สร้าง Sale Order
+                  </Button>
+                  <Button variant="outline" onClick={() => setShowCreateInvoice(true)}>
+                    <Receipt className="w-4 h-4 mr-2" />
+                    สร้างใบวางบิล
+                  </Button>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -552,18 +563,26 @@ export default function AdminQuoteDetail() {
         {quote.has_sale_order && (
           <Card className="border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-900/20">
             <CardContent className="pt-6">
-              <div className="flex items-center justify-between">
+              <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <CircleCheckBig className="w-8 h-8 text-blue-600" />
                   <div>
                     <h3 className="font-semibold text-blue-900 dark:text-blue-200">สร้าง Sale Order แล้ว</h3>
-                    <p className="text-sm text-blue-700 dark:text-blue-400">กระบวนการขายเสร็จสิ้น</p>
+                    <p className="text-sm text-blue-700 dark:text-blue-400">
+                      SO ใช้สำหรับ tracking process • สร้างใบวางบิลเพิ่มเพื่อเก็บเงินได้ตลอดเวลา
+                    </p>
                   </div>
                 </div>
-                <Button variant="outline" onClick={() => navigate('/admin/sale-orders')}>
-                  <ScanEye className="w-4 h-4 mr-2" />
-                  ดู Sale Order
-                </Button>
+                <div className="flex flex-wrap gap-2">
+                  <Button variant="outline" onClick={() => navigate('/admin/sale-orders')}>
+                    <ScanEye className="w-4 h-4 mr-2" />
+                    ดู Sale Order
+                  </Button>
+                  <Button onClick={() => setShowCreateInvoice(true)}>
+                    <Receipt className="w-4 h-4 mr-2" />
+                    สร้างใบวางบิล
+                  </Button>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -1095,7 +1114,35 @@ export default function AdminQuoteDetail() {
         onSuccess={loadQuoteDetails}
       />
 
-      {/* Counter Offer Dialog */}
+      {/* Create Invoice from Quote Dialog */}
+      <CreateInvoiceFromSODialog
+        open={showCreateInvoice}
+        onOpenChange={setShowCreateInvoice}
+        source={quote ? {
+          type: 'quote',
+          quote: {
+            id: quote.id,
+            quote_number: quote.quote_number || '',
+            customer_name: quote.customer_name,
+            customer_company: quote.customer_company,
+            customer_address: quote.customer_address,
+            customer_email: quote.customer_email,
+            customer_phone: quote.customer_phone,
+            customer_tax_id: quote.customer_tax_id,
+            customer_branch_type: null,
+            customer_branch_code: null,
+            customer_branch_name: null,
+            payment_terms: quote.payment_terms,
+            notes: quote.notes,
+            subtotal: totals.beforeVat,
+            vat_amount: totals.vatAmount,
+            grand_total: totals.grandTotal,
+            products: quote.products || [],
+          },
+        } : null}
+      />
+
+
       <CounterOfferDialog
         quoteId={quote.id}
         currentRevisionId={quote.current_revision_id}

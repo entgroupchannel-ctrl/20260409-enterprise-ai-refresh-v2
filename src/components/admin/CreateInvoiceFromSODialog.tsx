@@ -24,6 +24,30 @@ interface SaleOrder {
   products: any;
 }
 
+export interface QuoteSource {
+  id: string;
+  quote_number: string;
+  customer_name: string;
+  customer_company: string | null;
+  customer_address: string | null;
+  customer_email: string;
+  customer_phone: string | null;
+  customer_tax_id: string | null;
+  customer_branch_type: string | null;
+  customer_branch_code: string | null;
+  customer_branch_name: string | null;
+  payment_terms: string | null;
+  notes: string | null;
+  subtotal: number;
+  vat_amount: number | null;
+  grand_total: number;
+  products: any;
+}
+
+export type InvoiceSource =
+  | { type: 'sale_order'; saleOrder: SaleOrder }
+  | { type: 'quote'; quote: QuoteSource };
+
 interface QuoteData {
   customer_name: string;
   customer_company: string | null;
@@ -38,10 +62,12 @@ interface QuoteData {
   notes: string | null;
 }
 
-interface CreateInvoiceFromSODialogProps {
+interface CreateInvoiceDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  saleOrder: SaleOrder | null;
+  source?: InvoiceSource | null;
+  /** @deprecated Use source instead */
+  saleOrder?: SaleOrder | null;
 }
 
 type InvoiceType = 'full' | 'downpayment' | 'installment';
@@ -49,13 +75,18 @@ type InvoiceType = 'full' | 'downpayment' | 'installment';
 export default function CreateInvoiceFromSODialog({
   open,
   onOpenChange,
-  saleOrder,
-}: CreateInvoiceFromSODialogProps) {
+  source: sourceProp,
+  saleOrder: saleOrderLegacy,
+}: CreateInvoiceDialogProps) {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [quote, setQuote] = useState<QuoteData | null>(null);
   const [loadingQuote, setLoadingQuote] = useState(false);
+
+  // Backward compat: if legacy saleOrder prop is passed, wrap it
+  const source: InvoiceSource | null = sourceProp
+    ?? (saleOrderLegacy ? { type: 'sale_order', saleOrder: saleOrderLegacy } : null);
 
   // Form state
   const [invoiceType, setInvoiceType] = useState<InvoiceType>('full');
@@ -65,21 +96,71 @@ export default function CreateInvoiceFromSODialog({
   const [dueDateOffset, setDueDateOffset] = useState(30);
   const [notes, setNotes] = useState('');
 
+  // Derived values from source
+  const sourceLabel = source?.type === 'sale_order'
+    ? source.saleOrder.so_number
+    : source?.type === 'quote'
+    ? source.quote.quote_number
+    : '';
+
+  const baseSubtotal = source?.type === 'sale_order'
+    ? (source.saleOrder.subtotal || 0)
+    : source?.type === 'quote'
+    ? source.quote.subtotal
+    : 0;
+
+  const baseVat = source?.type === 'sale_order'
+    ? (source.saleOrder.vat_amount || 0)
+    : source?.type === 'quote'
+    ? (source.quote.vat_amount || 0)
+    : 0;
+
+  const baseTotal = source?.type === 'sale_order'
+    ? (source.saleOrder.grand_total || 0)
+    : source?.type === 'quote'
+    ? source.quote.grand_total
+    : 0;
+
+  const baseProducts = source?.type === 'sale_order'
+    ? source.saleOrder.products
+    : source?.type === 'quote'
+    ? source.quote.products
+    : [];
+
   useEffect(() => {
-    if (open && saleOrder?.quote_id) {
-      loadQuote();
-    } else if (!open) {
+    if (!open) {
       setInvoiceType('full');
       setDownpaymentPercent(30);
       setInstallmentTotal(2);
       setNotes('');
       setQuote(null);
+      return;
+    }
+
+    if (source?.type === 'sale_order') {
+      loadQuoteFromSO();
+    } else if (source?.type === 'quote') {
+      const q = source.quote;
+      setQuote({
+        customer_name: q.customer_name,
+        customer_company: q.customer_company,
+        customer_address: q.customer_address,
+        customer_email: q.customer_email,
+        customer_phone: q.customer_phone,
+        customer_tax_id: q.customer_tax_id,
+        customer_branch_type: q.customer_branch_type,
+        customer_branch_code: q.customer_branch_code,
+        customer_branch_name: q.customer_branch_name,
+        payment_terms: q.payment_terms,
+        notes: q.notes,
+      });
+      if (q.payment_terms) setPaymentTerms(q.payment_terms);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open, saleOrder]);
+  }, [open, source]);
 
-  const loadQuote = async () => {
-    if (!saleOrder?.quote_id) return;
+  const loadQuoteFromSO = async () => {
+    if (source?.type !== 'sale_order') return;
     setLoadingQuote(true);
     try {
       const { data, error } = await (supabase as any)
@@ -87,13 +168,13 @@ export default function CreateInvoiceFromSODialog({
         .select(
           'customer_name, customer_company, customer_address, customer_email, customer_phone, customer_tax_id, customer_branch_type, customer_branch_code, customer_branch_name, payment_terms, notes'
         )
-        .eq('id', saleOrder.quote_id)
+        .eq('id', source.saleOrder.quote_id)
         .maybeSingle();
       if (error) throw error;
       setQuote(data);
       if (data?.payment_terms) setPaymentTerms(data.payment_terms);
     } catch (e: any) {
-      toast({ title: 'โหลดข้อมูลใบเสนอราคาไม่สำเร็จ', description: e.message, variant: 'destructive' });
+      toast({ title: 'โหลดข้อมูลไม่สำเร็จ', description: e.message, variant: 'destructive' });
     } finally {
       setLoadingQuote(false);
     }
@@ -101,10 +182,6 @@ export default function CreateInvoiceFromSODialog({
 
   const formatCurrency = (n: number) =>
     new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', minimumFractionDigits: 2 }).format(n);
-
-  const baseSubtotal = saleOrder?.subtotal || 0;
-  const baseVat = saleOrder?.vat_amount || 0;
-  const baseTotal = saleOrder?.grand_total || 0;
 
   const calcInvoiceAmount = (): { subtotal: number; vat: number; total: number; ratio: number } => {
     if (invoiceType === 'full') {
@@ -137,12 +214,17 @@ export default function CreateInvoiceFromSODialog({
   };
 
   const handleCreate = async () => {
-    if (!saleOrder || !quote) return;
+    if (!source || !quote) return;
     setLoading(true);
     try {
+      const saleOrderId = source.type === 'sale_order' ? source.saleOrder.id : null;
+      const quoteId = source.type === 'sale_order'
+        ? source.saleOrder.quote_id
+        : source.quote.id;
+
       const invoicePayload: any = {
-        sale_order_id: saleOrder.id,
-        quote_id: saleOrder.quote_id,
+        sale_order_id: saleOrderId,
+        quote_id: quoteId,
         customer_name: quote.customer_name,
         customer_company: quote.customer_company,
         customer_address: quote.customer_address,
@@ -179,7 +261,7 @@ export default function CreateInvoiceFromSODialog({
 
       if (invErr) throw invErr;
 
-      const products = Array.isArray(saleOrder.products) ? saleOrder.products : [];
+      const products = Array.isArray(baseProducts) ? baseProducts : [];
       if (products.length > 0) {
         const items = products.map((p: any, idx: number) => ({
           invoice_id: invoice.id,
@@ -214,7 +296,7 @@ export default function CreateInvoiceFromSODialog({
     }
   };
 
-  if (!saleOrder) return null;
+  if (!source) return null;
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -222,10 +304,13 @@ export default function CreateInvoiceFromSODialog({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Receipt className="w-5 h-5 text-primary" />
-            สร้างใบวางบิลจาก Sale Order
+            สร้างใบวางบิล
           </DialogTitle>
           <DialogDescription>
-            {saleOrder.so_number} • รวม {formatCurrency(baseTotal)}
+            {source.type === 'sale_order' && `จาก Sale Order ${sourceLabel}`}
+            {source.type === 'quote' && `จากใบเสนอราคา ${sourceLabel}`}
+            {' • รวม '}
+            {formatCurrency(baseTotal)}
           </DialogDescription>
         </DialogHeader>
 
