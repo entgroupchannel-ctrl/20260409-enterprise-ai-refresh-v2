@@ -89,10 +89,10 @@ const gkModels: GKModel[] = [
     image: "/images/wix/005637_63354c2396e945468024a1170057f661_d39cca82.png",
     bannerImage: "/images/wix/005637_e086c00fa8d945c4abf7defd3a9d838d_8948d37f.jpg",
     datasheetUrls: [
-      { label: "GK1004 Core i3/i5/i7", url: "/datasheets/0597a3_494ff783ace94e86b75a19186e846b4c.pdf" },
-      { label: "GK1004 AMD A6", url: "/datasheets/0597a3_6f2939c704d64ad9815751e73437e63d.pdf" },
-      { label: "GK1004 A10-X7 (RK3288)", url: "/datasheets/0597a3_8862e83a07ef4fd588e0a969382a2037.pdf" },
-      { label: "GK1004 A10-X9 (RK3399)", url: "/datasheets/0597a3_f13b4842a3454efea01f796ecb37781d.pdf" },
+      { label: "GK1004 Core i3/i5/i7", url: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_494ff783ace94e86b75a19186e846b4c.pdf" },
+      { label: "GK1004 AMD A6", url: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_6f2939c704d64ad9815751e73437e63d.pdf" },
+      { label: "GK1004 A10-X7 (RK3288)", url: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_8862e83a07ef4fd588e0a969382a2037.pdf" },
+      { label: "GK1004 A10-X9 (RK3399)", url: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_f13b4842a3454efea01f796ecb37781d.pdf" },
     ],
     highlights: [
       "หน้าจอสัมผัส 10.4\" มาตรฐาน IP65 ทนฝุ่น น้ำ 10 จุดสัมผัส",
@@ -169,9 +169,9 @@ const gkModels: GKModel[] = [
     desc: "Panel PC อุตสาหกรรม 15 นิ้ว จอสัมผัส Capacitive 10 จุด โครงสร้าง IP65 กันฝุ่นกันน้ำ รองรับ CPU ตั้งแต่ Core i5 ถึง i7 หลาย Generation — เหมาะกับงาน HMI, SCADA และ Factory Automation",
     image: gk1501front,
     datasheetUrls: [
-      { label: "GK1501 Core i5 Datasheet (PDF)", url: "/datasheets/GK1501_i5.pdf" },
-      { label: "GK1501 Core i7 Gen3 Datasheet (PDF)", url: "/datasheets/GK1501_i7_Gen3.pdf" },
-      { label: "GK1501 Core i7 Gen6 Datasheet (PDF)", url: "/datasheets/GK1501_i7_Gen6.pdf" },
+      { label: "GK1501 Core i5 Datasheet (PDF)", url: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/GK1501_i5.pdf" },
+      { label: "GK1501 Core i7 Gen3 Datasheet (PDF)", url: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/GK1501_i7_Gen3.pdf" },
+      { label: "GK1501 Core i7 Gen6 Datasheet (PDF)", url: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/GK1501_i7_Gen6.pdf" },
     ],
     highlights: [
       "หน้าจอ 15\" Capacitive Touch 10 จุด (1024×768)",
@@ -257,7 +257,7 @@ const gkModels: GKModel[] = [
     bannerImage: gk1506banner,
     datasheetUrls: [
       { label: "A15 Datasheet (PDF)", url: "https://www.sharevdi.com/upload/portal/20250704/202507042002221664.pdf" },
-      { label: "GK1506 Datasheet", url: "/datasheets/0597a3_d2a55f290be74f049d8099a7666f5153.pdf" },
+      { label: "GK1506 Datasheet", url: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_d2a55f290be74f049d8099a7666f5153.pdf" },
     ],
     highlights: [
       "หน้าจอ Full HD 15.6\" (1920×1080) Capacitive Touch 10 จุด",
@@ -345,10 +345,10 @@ const gkModels: GKModel[] = [
     desc: "Panel PC อุตสาหกรรม 19 นิ้ว จอสัมผัส Capacitive 10 จุด IP65 กันฝุ่นกันน้ำ พื้นที่แสดงผลกว้าง รองรับ CPU Core i5 Gen4/Gen8 และ Core i7 Gen3/Gen6 — เหมาะกับ Control Room, SCADA และ Production Monitoring",
     image: "/images/wix/3e5003_90384e2e610a43438fe307816e83b2d2_513fd415.jpg",
     datasheetUrls: [
-      { label: "GK1901 Core i5 Gen4 (PDF)", url: "/datasheets/GK1901_i5_Gen4.pdf" },
-      { label: "GK1901 Core i5 Gen8 (PDF)", url: "/datasheets/GK1901_i5_Gen8.pdf" },
-      { label: "GK1901 Core i7 Gen3 (PDF)", url: "/datasheets/GK1901_i7_Gen3.pdf" },
-      { label: "GK1901 Core i7 Gen6 (PDF)", url: "/datasheets/GK1901_i7_Gen6.pdf" },
+      { label: "GK1901 Core i5 Gen4 (PDF)", url: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/GK1901_i5_Gen4.pdf" },
+      { label: "GK1901 Core i5 Gen8 (PDF)", url: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/GK1901_i5_Gen8.pdf" },
+      { label: "GK1901 Core i7 Gen3 (PDF)", url: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/GK1901_i7_Gen3.pdf" },
+      { label: "GK1901 Core i7 Gen6 (PDF)", url: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/GK1901_i7_Gen6.pdf" },
     ],
     highlights: [
       "หน้าจอ 19\" Capacitive Touch 10 จุด (1280×1024)",
@@ -437,11 +437,11 @@ const gkModels: GKModel[] = [
     desc: "Panel PC อุตสาหกรรม 21 นิ้ว Full HD จอสัมผัส Capacitive 10 จุด IP65 กันฝุ่นกันน้ำ โครงสร้างอะลูมิเนียมอัลลอยด์+เหล็กกล้า รองรับ 24/7 ทนอุณหภูมิ -10°C ถึง 60°C — เหมาะกับ Control Room, Dashboard และระบบอัตโนมัติ",
     image: gk2101front,
     datasheetUrls: [
-      { label: "GK2101 Core i5 Gen4 (PDF)", url: "/datasheets/GK2101_i5_Gen4.pdf" },
-      { label: "GK2101 Core i5 Gen6 (PDF)", url: "/datasheets/GK2101_i5_Gen6.pdf" },
-      { label: "GK2101 Core i5 Gen7 (PDF)", url: "/datasheets/GK2101_i5_Gen7.pdf" },
-      { label: "GK2101 Core i7 Gen3 (PDF)", url: "/datasheets/GK2101_i7_Gen3.pdf" },
-      { label: "GK2101 Core i7 Gen6 (PDF)", url: "/datasheets/GK2101_i7_Gen6.pdf" },
+      { label: "GK2101 Core i5 Gen4 (PDF)", url: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/GK2101_i5_Gen4.pdf" },
+      { label: "GK2101 Core i5 Gen6 (PDF)", url: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/GK2101_i5_Gen6.pdf" },
+      { label: "GK2101 Core i5 Gen7 (PDF)", url: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/GK2101_i5_Gen7.pdf" },
+      { label: "GK2101 Core i7 Gen3 (PDF)", url: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/GK2101_i7_Gen3.pdf" },
+      { label: "GK2101 Core i7 Gen6 (PDF)", url: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/GK2101_i7_Gen6.pdf" },
     ],
     highlights: [
       "หน้าจอ Full HD 21.5\" (1920×1080) Capacitive Touch 10 จุด IP65",
@@ -1158,7 +1158,7 @@ const GKSeries = () => {
 
             <div className="flex flex-wrap gap-3">
               <a
-                href="/datasheets/0597a3_b7e91a40254040a3b28e20e2641312cd.pdf"
+                href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_b7e91a40254040a3b28e20e2641312cd.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">

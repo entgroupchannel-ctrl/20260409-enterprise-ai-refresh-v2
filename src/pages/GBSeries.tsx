@@ -157,7 +157,7 @@ const models = [
       { cpu: "Core i5 Gen 12", ram: "16GB", storage: "512GB NVMe", price: "สอบถามราคาพิเศษ" },
       { cpu: "Core i7 Gen 13", ram: "32GB", storage: "1TB NVMe", price: "สอบถามราคาพิเศษ" },
     ],
-    datasheet: "/datasheets/0597a3_7976e083702b4dbdaa44aa305ccacd6a.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_7976e083702b4dbdaa44aa305ccacd6a.pdf",
   },
   {
     id: "gb4000v2",
@@ -207,7 +207,7 @@ const models = [
       { cpu: "Core i5 Gen 12", ram: "16GB", storage: "512GB NVMe", price: "สอบถามราคาพิเศษ" },
       { cpu: "Core i7 Gen 13", ram: "32GB", storage: "1TB NVMe", price: "สอบถามราคาพิเศษ" },
     ],
-    datasheet: "/datasheets/0597a3_bd71d5140b9b4a94845ab18c67c3d4c4.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_bd71d5140b9b4a94845ab18c67c3d4c4.pdf",
   },
   {
     id: "gb5000",
@@ -530,7 +530,7 @@ const GBSeries = () => {
                     <li>✓ 1x HDMI + 1x VGA</li>
                     <li className="font-semibold text-foreground">เหมาะ: งาน SCADA, BMS, Legacy หลายอุปกรณ์</li>
                   </ul>
-                  <a href="/datasheets/0597a3_7976e083702b4dbdaa44aa305ccacd6a.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 mt-3 text-xs text-primary hover:underline">
+                  <a href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_7976e083702b4dbdaa44aa305ccacd6a.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 mt-3 text-xs text-primary hover:underline">
                     <ExternalLink size={12} /> ดาวน์โหลด Datasheet v1
                   </a>
                 </div>
@@ -545,7 +545,7 @@ const GBSeries = () => {
                     <li>✓ 2x HDMI (Dual Display)</li>
                     <li className="font-semibold text-foreground">เหมาะ: งาน USB เยอะ, อุปกรณ์ทันสมัย, Dual Screen</li>
                   </ul>
-                  <a href="/datasheets/0597a3_bd71d5140b9b4a94845ab18c67c3d4c4.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 mt-3 text-xs text-primary hover:underline">
+                  <a href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_bd71d5140b9b4a94845ab18c67c3d4c4.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 mt-3 text-xs text-primary hover:underline">
                     <ExternalLink size={12} /> ดาวน์โหลด Datasheet v2
                   </a>
                 </div>
@@ -656,7 +656,7 @@ const GBSeries = () => {
               LINE @entgroup
             </button>
             <a
-              href="/datasheets/0597a3_7775cf506c644020a3239be2ef131caa.pdf"
+              href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_7775cf506c644020a3239be2ef131caa.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border border-border bg-card text-foreground font-bold hover:bg-secondary/50 transition-colors">

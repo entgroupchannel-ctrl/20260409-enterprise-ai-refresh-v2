@@ -47,7 +47,7 @@ const iboxModels = [
     material: "High-quality All Aluminum",
     os: "Windows 7/8/10, Linux",
     image: "/images/wix/0597a3_f038b57570074d0ab2559ba322f4bc66_fcfaecb9.png",
-    datasheet: "/datasheets/3e5003_b0548d5e72e7462280dccc86e8c7cb2a.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/3e5003_b0548d5e72e7462280dccc86e8c7cb2a.pdf",
   },
   {
     id: "ibox-502",
@@ -58,7 +58,7 @@ const iboxModels = [
     material: "High-quality All Aluminum",
     os: "Windows 7/8/10, Linux",
     image: "/images/wix/0597a3_9a7f36ff7ec74fe9a0948c574d3a11e7_2eb0b7ec.png",
-    datasheet: "/datasheets/3e5003_1e76bd9247c54a28bb0c630fae6dcad8.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/3e5003_1e76bd9247c54a28bb0c630fae6dcad8.pdf",
   },
   {
     id: "ibox-601",
@@ -69,7 +69,7 @@ const iboxModels = [
     material: "High-quality All Aluminum",
     os: "Windows 7/8/10, Linux",
     image: "/images/wix/0597a3_d29508368a6a4e8f818fddbf462bc218_962966db.png",
-    datasheet: "/datasheets/3e5003_36bb8c0aa3a44ae9a6ccec667b54005e.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/3e5003_36bb8c0aa3a44ae9a6ccec667b54005e.pdf",
   },
   {
     id: "ibox-602",
@@ -80,7 +80,7 @@ const iboxModels = [
     material: "High-quality All Aluminum",
     os: "Windows 7/8/10, Linux",
     image: "/images/wix/0597a3_58cd008689cf4744a2bd3ef684f1c79a_49b41a8f.png",
-    datasheet: "/datasheets/3e5003_9289dac0610049208615e01b2f80c682.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/3e5003_9289dac0610049208615e01b2f80c682.pdf",
   },
   {
     id: "ibox-603",
@@ -91,7 +91,7 @@ const iboxModels = [
     material: "High-quality Pure Aluminum",
     os: "Windows 7/8/10, Linux",
     image: "/images/wix/0597a3_6683a1156b064f5f9b0cd7ad4ec1ae1b_052daa0e.png",
-    datasheet: "/datasheets/3e5003_86c393dde53a43c8adaf43cb3ce70ef1.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/3e5003_86c393dde53a43c8adaf43cb3ce70ef1.pdf",
   },
   {
     id: "ibox-701",
@@ -102,7 +102,7 @@ const iboxModels = [
     material: "High-quality All Aluminum",
     os: "Windows 7/8/10, Linux",
     image: "/images/wix/0597a3_d29cb490908741ba9094eef2a7ea3904_356a710c.png",
-    datasheet: "/datasheets/3e5003_bf46946caa4445628a239edbc4fd34f8.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/3e5003_bf46946caa4445628a239edbc4fd34f8.pdf",
   },
   {
     id: "ibox-801",
@@ -113,7 +113,7 @@ const iboxModels = [
     material: "High-quality All Aluminum",
     os: "Windows 10, Linux",
     image: "/images/wix/0597a3_d29508368a6a4e8f818fddbf462bc218_962966db.png",
-    datasheet: "/datasheets/3e5003_5ba59ebf63494b12a4a8a0a6bb151b82.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/3e5003_5ba59ebf63494b12a4a8a0a6bb151b82.pdf",
   },
 ];
 

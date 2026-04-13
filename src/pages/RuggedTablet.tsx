@@ -205,12 +205,12 @@ const features = [
 ];
 
 const downloads = [
-  { name: "Gole Product Overview", url: "/datasheets/0597a3_67de374f10ce40cbb6008623c5212a03.pdf" },
-  { name: "Rugged Knowledge", url: "/datasheets/0597a3_990b58aea85c404f923495453e23b027.pdf" },
-  { name: "วารสาร Rugged", url: "/datasheets/0597a3_064a791320d74e85957143c869a8c0fd.pdf" },
-  { name: "TPC-1062A Datasheet", url: "/datasheets/0597a3_70c1f8faf9cd4eadb93ffb5479aa6854.pdf" },
-  { name: "TPC-1082A Datasheet", url: "/datasheets/0597a3_288240e733304dba8334ca07cdc411cf.pdf" },
-  { name: "Gole F9A Overview", url: "/datasheets/0597a3_3a33965f742b4034b974ef56aab56170.pdf" },
+  { name: "Gole Product Overview", url: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_67de374f10ce40cbb6008623c5212a03.pdf" },
+  { name: "Rugged Knowledge", url: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_990b58aea85c404f923495453e23b027.pdf" },
+  { name: "วารสาร Rugged", url: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_064a791320d74e85957143c869a8c0fd.pdf" },
+  { name: "TPC-1062A Datasheet", url: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_70c1f8faf9cd4eadb93ffb5479aa6854.pdf" },
+  { name: "TPC-1082A Datasheet", url: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_288240e733304dba8334ca07cdc411cf.pdf" },
+  { name: "Gole F9A Overview", url: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_3a33965f742b4034b974ef56aab56170.pdf" },
 ];
 
 /* ═══════ Helper: parse price to number ═══════ */

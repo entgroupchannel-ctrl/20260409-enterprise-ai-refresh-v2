@@ -33,7 +33,7 @@ const entryModels = [
     name: "K6-F1",
     tagline: "เงียบสนิท ประหยัดไฟ 6W Fanless",
     image: "/images/wix/0597a3_6300a3994d554da8bd26cf2a234b0e34_f091f5dc.png",
-    datasheet: "/datasheets/0597a3_d277dec046804dc694ac329fa7204cc2.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_d277dec046804dc694ac329fa7204cc2.pdf",
     highlights: [
       "เงียบสนิท — ไม่มีพัดลม ไม่มีเสียงรบกวน",
       "ประหยัดไฟสุดๆ — กินไฟเพียง 6W ทำงาน 24/7 ได้",
@@ -85,7 +85,7 @@ const entryModels = [
     name: "K3-F18-6006",
     tagline: "Core i3-6006U, 6× COM Ports, Industrial Grade",
     image: "/images/wix/0597a3_74a5ab1d3b5b4f4b93ba96a0096e16de_4f98cb32.png",
-    datasheet: "/datasheets/0597a3_31fb9b826f644de3a16ad9bbb78cbf76.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_31fb9b826f644de3a16ad9bbb78cbf76.pdf",
     highlights: [
       "Industrial-Grade ทำงาน -20°C ถึง 50°C",
       "6 Serial Ports RS232/RS485 สำหรับเครื่องจักร",
@@ -113,7 +113,7 @@ const entryModels = [
     name: "K3-F17H",
     tagline: "Core i3-5005U, Dual GbE LAN, 4× COM, WiFi6 + 4G",
     image: "/images/wix/0597a3_fb38b6b4f7db40b2be215ba7ba711cb9_1df6c159.png",
-    datasheet: "/datasheets/0597a3_60bf722fa4d245beae9a5b3047a29f34.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_60bf722fa4d245beae9a5b3047a29f34.pdf",
     highlights: [
       "Dual Gigabit LAN — หายากใน Mini PC ทั่วไป",
       "COM Ports 4 ตัว Voltage Switching",
@@ -145,7 +145,7 @@ const highModels = [
     name: "K8-F18-4405",
     tagline: "Pentium 4405U, 6× COM, Dual HDMI 4K, Fanless",
     image: "/images/wix/0597a3_20f2fab2255a443db57fe7128d67d6e2_eb4b5d97.png",
-    datasheet: "/datasheets/0597a3_789e5ed0d54a486aa137e849c6fe15f0.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_789e5ed0d54a486aa137e849c6fe15f0.pdf",
     highlights: [
       "Intel Pentium 4405U Skylake 2.10GHz",
       "Hyper-Threading เพิ่มประสิทธิภาพ",
@@ -194,7 +194,7 @@ const highModels = [
     name: "K8-F17HI-3710",
     tagline: "Pentium 3710, Fanless 6W, -10°C~65°C",
     image: "/images/wix/0597a3_06a8fad9316b4c848ea8c185f1421ffb_44eaf262.png",
-    datasheet: "/datasheets/0597a3_4dfde2ac9b0244a39be6002e88614959.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_4dfde2ac9b0244a39be6002e88614959.pdf",
     highlights: [
       "Intel Pentium 3710, 4C/4T, TDP 6W",
       "ทำงาน -10°C ถึง 65°C",
@@ -222,7 +222,7 @@ const highModels = [
     name: "K5-F17H",
     tagline: "Core i5-5300U, 2.3-2.9GHz Turbo, Dual GbE",
     image: "/images/wix/0597a3_fb38b6b4f7db40b2be215ba7ba711cb9_1df6c159.png",
-    datasheet: "/datasheets/0597a3_c79cb4ba2db3485abf44477aeb2f817c.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_c79cb4ba2db3485abf44477aeb2f817c.pdf",
     highlights: [
       "Core i5-5300U, 2.3-2.9GHz Turbo Boost",
       "ประสิทธิภาพสูงกว่า Mini PC ทั่วไป 30-40%",
@@ -250,7 +250,7 @@ const highModels = [
     name: "K7-F17H",
     tagline: "Core i7-5500U, 2.4-3.0GHz Turbo, Workstation Level",
     image: "/images/wix/0597a3_fb38b6b4f7db40b2be215ba7ba711cb9_1df6c159.png",
-    datasheet: "/datasheets/0597a3_0f5e2b5c07ae4cd69726416340ec7210.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_0f5e2b5c07ae4cd69726416340ec7210.pdf",
     highlights: [
       "Core i7-5500U, 2.4-3.0GHz Turbo",
       "ประสิทธิภาพระดับ Workstation ในรูปทรง Mini PC",
@@ -276,7 +276,7 @@ const highModels = [
     name: "K5-F17F",
     tagline: "Core i5-1155G7 Tiger Lake Gen11, 4C/8T, 4.5GHz",
     image: "/images/wix/0597a3_3ba05883e1c342bb99e35d0436424602_aa7730de.png",
-    datasheet: "/datasheets/0597a3_6c3dc8e3c4b3416489327d62c7fd5f8d.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_6c3dc8e3c4b3416489327d62c7fd5f8d.pdf",
     badge: "Tiger Lake",
     highlights: [
       "Intel Core i5-1155G7 (11th Gen Tiger Lake)",
@@ -304,7 +304,7 @@ const highModels = [
     name: "K7-F17F",
     tagline: "Core i7-1195G7 Flagship, 5.0GHz, 8K DisplayPort!",
     image: "/images/wix/0597a3_6ba1d01e29c34aefa206f89999813443_465ad83d.png",
-    datasheet: "/datasheets/0597a3_664a2b2f1d5f46438439d522687faa2c.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_664a2b2f1d5f46438439d522687faa2c.pdf",
     badge: "Flagship",
     highlights: [
       "Intel Core i7-1195G7 Tiger Lake Flagship",
@@ -337,7 +337,7 @@ const educationModels = [
     name: "G5 Nano Mini PC",
     tagline: "ขนาด 6×6 ซม. น้ำหนัก 150g กินไฟ 10W",
     image: "/images/wix/0597a3_039ae2b8d04549279975647939a97044_b5d9a864.png",
-    datasheet: "/datasheets/0597a3_50922cf5dd954a769a7e5d9eacce5db0.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_50922cf5dd954a769a7e5d9eacce5db0.pdf",
     highlights: [
       "ขนาดเพียง 61.6×61.6×42mm น้ำหนัก 0.15kg!",
       "Intel Celeron J4125, 4 Core, 2.0-2.7GHz",
@@ -367,7 +367,7 @@ const educationModels = [
     name: "K3-C7",
     tagline: "Core i3-6157U, Iris Plus 650, 4K Dual Display",
     image: "/images/wix/0597a3_e9ef885f05854a988704e1b2e8c1521b_938d404c.png",
-    datasheet: "/datasheets/0597a3_860b680d7b2847ff9e7f5730e5a52751.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_860b680d7b2847ff9e7f5730e5a52751.pdf",
     highlights: [
       "Intel Core i3-6157U, Iris Plus Graphics 650",
       "กราฟิกแรงกว่าคู่แข่ง รองรับ 4K",
@@ -395,7 +395,7 @@ const educationModels = [
     name: "K5-N12",
     tagline: "Core i5-8300H, 4C/8T, Gaming-Level Performance",
     image: "/images/wix/0597a3_9d19c68e9bce4cec92136118203f2b40_c4f8c92c.png",
-    datasheet: "/datasheets/0597a3_e9f354d5f1d14052a008f339b458ad19.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_e9f354d5f1d14052a008f339b458ad19.pdf",
     highlights: [
       "Intel Core i5-8300H, 4C/8T, สูงสุด 4.0GHz",
       "แรงเทียบเท่า Laptop Gaming ระดับกลาง",
@@ -423,7 +423,7 @@ const educationModels = [
     name: "K7-N12",
     tagline: "Core i7-8750H, 6C/12T, Workstation Class!",
     image: "/images/wix/0597a3_9d19c68e9bce4cec92136118203f2b40_c4f8c92c.png",
-    datasheet: "/datasheets/0597a3_af7994bd251345b4bf89bc8864115f41.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_af7994bd251345b4bf89bc8864115f41.pdf",
     badge: "Most Powerful",
     highlights: [
       "Intel Core i7-8750H, 6C/12T, สูงสุด 4.1GHz",
@@ -456,7 +456,7 @@ const nanoModels = [
     name: "K1-F6-6400T",
     tagline: "AMD A4, TDP 4.5W, ประหยัดพลังงานที่สุด!",
     image: "/images/wix/0597a3_53b1567a8a3e4825b92766a16e30a281_78a64ffd.png",
-    datasheet: "/datasheets/0597a3_ad25ce5ea3f74504839c7ee7ca649943.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_ad25ce5ea3f74504839c7ee7ca649943.pdf",
     highlights: [
       "AMD A4 Micro-6400T, 4 Core, TDP เพียง 4.5W!",
       "ประหยัดพลังงานที่สุดในโลก!",
@@ -488,7 +488,7 @@ const firewallModels = [
     name: "K8-F12-N3700 (4 LAN)",
     tagline: "4× Gigabit LAN, Fanless 6W, Firewall/Router",
     image: "/images/wix/0597a3_ad7f2747d32c4f78b9f2fa33ffdc03c2_830d3a7c.png",
-    datasheet: "/datasheets/0597a3_b97ed68def1a4060a1fd87cd21f45bb6.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_b97ed68def1a4060a1fd87cd21f45bb6.pdf",
     highlights: [
       "4 × RJ45 Gigabit LAN ports",
       "TDP เพียง 6W ประหยัดไฟสุดๆ",
@@ -512,7 +512,7 @@ const firewallModels = [
     name: "K8-F12C-N3700 (6 LAN)",
     tagline: "6× Gigabit LAN, Fanless 6W, Enterprise Router",
     image: "/images/wix/0597a3_a526198c6088458f9fcf2c7b4fb93994_ec13566c.png",
-    datasheet: "/datasheets/0597a3_9fe53a205d694b24b3d9790a580ce737.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_9fe53a205d694b24b3d9790a580ce737.pdf",
     highlights: [
       "6 × RJ45 Gigabit LAN ports",
       "TDP เพียง 6W ประหยัดไฟสุดๆ",
@@ -540,7 +540,7 @@ const signageModels = [
     name: "R9 Digital Signage Player",
     tagline: "Android, Dual LVDS, Dual HDMI 4K, IR Remote",
     image: "/images/wix/0597a3_42d62d54f19545129af65186b0a93cba_98438629.png",
-    datasheet: "/datasheets/0597a3_ff0ba2e724c44d79ae076bb9a5e71e18.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_ff0ba2e724c44d79ae076bb9a5e71e18.pdf",
     highlights: [
       "Dual LVDS 6/8 บิต แสดงผล 2 หน้าจอ",
       "1080P output, จอ 7 นิ้วขึ้นไป",
@@ -569,7 +569,7 @@ const signageModels = [
     name: "X7 Digital Signage Player",
     tagline: "RK3288 Quad-Core, Dual LVDS 2K, 4K HDMI",
     image: "/images/wix/005637_1a239b98b4f940c28220e5c71d0702ef_770202a3.png",
-    datasheet: "/datasheets/0597a3_7275cc99c2504a12a02a3d098ea8ac8a.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_7275cc99c2504a12a02a3d098ea8ac8a.pdf",
     highlights: [
       "Rockchip RK3288 Quad-Core",
       "Dual LVDS 6/8/10-bit, หน้าจอ 7-108 นิ้ว",
@@ -597,7 +597,7 @@ const legacyModels = [
     name: "K6-F13A",
     tagline: "N2840 Quad Core, RAM 4GB, SSD 64GB, WiFi พร้อมใช้",
     image: "/images/wix/005637_7660fefadbf44ce595c021bbb10bc142_c72362f1.jpg",
-    datasheet: "/datasheets/005637_f0d6b09fb3b748039badafd362ea6689.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_f0d6b09fb3b748039badafd362ea6689.pdf",
     highlights: [
       "N2840 Quad Core 1.83-2.2GHz",
       "RAM 4GB + SSD 64GB (ปรับแต่งได้)",
@@ -623,7 +623,7 @@ const legacyModels = [
     name: "K6-F13D",
     tagline: "N3710 Quad Core, RAM 2GB, SSD 64GB, WiFi",
     image: "/images/wix/005637_e1ed3b88204f40ffbe98269b03df27af_4fc137ab.jpg",
-    datasheet: "/datasheets/3e5003_c865b0cfae29409eadb38ef072d102ae.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/3e5003_c865b0cfae29409eadb38ef072d102ae.pdf",
     highlights: [
       "N3710 Quad Core 1.6-2.5GHz",
       "RAM 2GB + SSD 64GB (ปรับแต่งได้)",

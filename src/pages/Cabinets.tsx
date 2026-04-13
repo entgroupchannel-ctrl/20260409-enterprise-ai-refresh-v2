@@ -34,8 +34,8 @@ const cabinetModels = [
     cabinetSize: "140 × 550 × 500 mm",
     panelSize: "60 × 359 × 283 mm",
     image: "/images/wix/005637_0947f6ab0a65440c80e8b512a6e5b7bc_26aa12e4.png",
-    datasheetPanel: "/datasheets/005637_c1e39dcdf20d4023bcaa04dbf2d33300.pdf",
-    datasheetCabinet: "/datasheets/005637_bc78861bac1743da9dfd0dfa3c1496d6.pdf",
+    datasheetPanel: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_c1e39dcdf20d4023bcaa04dbf2d33300.pdf",
+    datasheetCabinet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_bc78861bac1743da9dfd0dfa3c1496d6.pdf",
   },
   {
     id: "ppc-cb-itpca500",
@@ -48,8 +48,8 @@ const cabinetModels = [
     cabinetSize: "120 × 500 × 500 mm",
     panelSize: "60 × 366 × 290 mm",
     image: "/images/wix/005637_2c4bd9b386094f52b29f7216de542dd6_88a265f2.png",
-    datasheetPanel: "/datasheets/005637_1622ff542d1244c68d5207e036d69f48.pdf",
-    datasheetCabinet: "/datasheets/005637_34865607b1c447fe85523e820aec8226.pdf",
+    datasheetPanel: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_1622ff542d1244c68d5207e036d69f48.pdf",
+    datasheetCabinet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_34865607b1c447fe85523e820aec8226.pdf",
   },
   {
     id: "ppc-cb-gk1506",
@@ -62,8 +62,8 @@ const cabinetModels = [
     cabinetSize: "120 × 550 × 500 mm",
     panelSize: "60 × 391 × 276 mm",
     image: "/images/wix/005637_b92a7431672b4b75acc16888898c7e98_3a142ad3.png",
-    datasheetPanel: "/datasheets/005637_c159f1de71084932ad2ff90de91b7e29.pdf",
-    datasheetCabinet: "/datasheets/005637_831aabe88e18477bb082a402bf5c175d.pdf",
+    datasheetPanel: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_c159f1de71084932ad2ff90de91b7e29.pdf",
+    datasheetCabinet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_831aabe88e18477bb082a402bf5c175d.pdf",
   },
 ];
 
@@ -306,7 +306,7 @@ const Cabinets = () => {
           </div>
           <div className="text-center mt-6">
             <Button variant="outline" asChild>
-              <a href="/datasheets/005637_3905ac03579a48dab93f975d41e62d3e.pdf" target="_blank" rel="noopener noreferrer">
+              <a href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_3905ac03579a48dab93f975d41e62d3e.pdf" target="_blank" rel="noopener noreferrer">
                 <Download className="w-4 h-4 mr-2" /> ดาวน์โหลด Datasheet รวม
               </a>
             </Button>
