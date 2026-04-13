@@ -7,8 +7,6 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { Upload, CheckCircle2, Loader2, FileText, Download } from 'lucide-react';
 
-const BATCH_SIZE = 5;
-
 interface UploadResult {
   filename: string;
   oldPath: string;
@@ -61,78 +59,59 @@ export default function MigrateDatasheets() {
       if (filenames.length === 0) {
         log('⚠️ ไม่พบ /datasheets-manifest.json');
         log('💡 กรุณาสร้างไฟล์ public/datasheets-manifest.json ที่มี array ของชื่อไฟล์ PDF');
-        log('   ตัวอย่าง: ["005637_xxx.pdf", "005637_yyy.pdf", ...]');
         setRunning(false);
         return;
       }
 
-      log(`📦 Found ${filenames.length} datasheets to migrate`);
-      log(`⚙️ Batch size: ${BATCH_SIZE}`);
+      log(`📦 Found ${filenames.length} datasheets to migrate (1 file per request)`);
 
       const allResults: UploadResult[] = [];
-      const totalBatches = Math.ceil(filenames.length / BATCH_SIZE);
 
-      for (let batchIdx = 0; batchIdx < totalBatches; batchIdx++) {
-        const start = batchIdx * BATCH_SIZE;
-        const end = Math.min(start + BATCH_SIZE, filenames.length);
-        const batch = filenames.slice(start, end);
-
-        log(`\n📦 Batch ${batchIdx + 1}/${totalBatches} (${batch.length} files)`);
-
-        const datasheets = await Promise.all(
-          batch.map(async (filename) => {
-            try {
-              const response = await fetch(`/datasheets/${filename}`);
-              if (!response.ok) {
-                throw new Error(`HTTP ${response.status}`);
-              }
-              const blob = await response.blob();
-              
-              if (blob.size > 50 * 1024 * 1024) {
-                log(`   ⚠️ Skip ${filename} (${(blob.size / 1024 / 1024).toFixed(1)} MB > 50MB limit)`);
-                return null;
-              }
-              
-              const base64Data = await blobToBase64(blob);
-              return { filename, base64Data };
-            } catch (e: any) {
-              log(`   ❌ Fetch failed: ${filename} — ${e.message}`);
-              return null;
-            }
-          })
-        );
-
-        const validDatasheets = datasheets.filter((d): d is NonNullable<typeof d> => d !== null);
-        
-        if (validDatasheets.length === 0) {
-          log('   ⚠️ No valid files in batch');
-          continue;
-        }
-
+      for (let i = 0; i < filenames.length; i++) {
+        const filename = filenames[i];
         try {
+          const response = await fetch(`/datasheets/${filename}`);
+          if (!response.ok) {
+            log(`   ❌ Fetch failed: ${filename} — HTTP ${response.status}`);
+            allResults.push({ filename, oldPath: `/datasheets/${filename}`, newUrl: null, error: `HTTP ${response.status}` });
+            continue;
+          }
+          const blob = await response.blob();
+
+          if (blob.size > 50 * 1024 * 1024) {
+            log(`   ⚠️ Skip ${filename} (${(blob.size / 1024 / 1024).toFixed(1)} MB > 50MB)`);
+            continue;
+          }
+
+          const base64Data = await blobToBase64(blob);
+
           const { data, error } = await supabase.functions.invoke('upload-datasheets', {
-            body: { datasheets: validDatasheets },
+            body: { filename, base64Data },
           });
 
-          if (error) throw error;
-
-          const batchResults: UploadResult[] = data.results.map((r: any) => ({
-            filename: r.filename,
-            oldPath: `/datasheets/${r.filename}`,
-            newUrl: r.url,
-            error: r.error,
-          }));
-
-          allResults.push(...batchResults);
-
-          const successCount = batchResults.filter(r => r.newUrl).length;
-          log(`   ✅ Uploaded ${successCount}/${validDatasheets.length}`);
+          if (error) {
+            log(`   ❌ ${filename} — ${error.message}`);
+            allResults.push({ filename, oldPath: `/datasheets/${filename}`, newUrl: null, error: error.message });
+          } else if (data?.url) {
+            allResults.push({ filename, oldPath: `/datasheets/${filename}`, newUrl: data.url });
+          } else {
+            log(`   ❌ ${filename} — ${data?.error || 'Unknown error'}`);
+            allResults.push({ filename, oldPath: `/datasheets/${filename}`, newUrl: null, error: data?.error });
+          }
         } catch (e: any) {
-          log(`   ❌ Batch upload failed: ${e.message}`);
+          log(`   ❌ ${filename} — ${e.message}`);
+          allResults.push({ filename, oldPath: `/datasheets/${filename}`, newUrl: null, error: e.message });
         }
 
-        setProgress(Math.round(((batchIdx + 1) / totalBatches) * 100));
+        const pct = Math.round(((i + 1) / filenames.length) * 100);
+        setProgress(pct);
         setResults([...allResults]);
+
+        // Log every 10 files
+        if ((i + 1) % 10 === 0) {
+          const ok = allResults.filter(r => r.newUrl).length;
+          log(`   📊 Progress: ${i + 1}/${filenames.length} (${ok} uploaded)`);
+        }
       }
 
       const successTotal = allResults.filter(r => r.newUrl).length;
@@ -178,7 +157,7 @@ export default function MigrateDatasheets() {
           <CardContent className="space-y-4">
             <div className="text-sm text-muted-foreground space-y-1">
               <p>ย้าย PDF datasheets จาก <code>/public/datasheets/</code> ไป Supabase Storage bucket <code>datasheets</code></p>
-              <p className="text-xs">⚠️ กระบวนการนี้ทำครั้งเดียว — หลังเสร็จให้ดาวน์โหลด URL mapping เพื่อใช้ใน Phase 2B</p>
+              <p className="text-xs">⚠️ อัปโหลดทีละไฟล์เพื่อหลีกเลี่ยง CPU limit ของ Edge Function</p>
             </div>
 
             <div className="flex gap-2">
