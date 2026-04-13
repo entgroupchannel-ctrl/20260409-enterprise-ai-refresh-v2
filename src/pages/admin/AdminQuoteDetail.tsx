@@ -66,6 +66,9 @@ import {
   User,
   Calendar,
   Briefcase,
+  Phone,
+  Mail,
+  MessageCircle,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
@@ -583,10 +586,16 @@ export default function AdminQuoteDetail() {
                   <span className="font-mono">{quote.customer_tax_id}</span>
                 </div>
               )}
-              <div className="flex flex-wrap gap-x-3 gap-y-0.5 text-xs text-muted-foreground pt-1">
-                {quote.customer_phone && <span>📞 {quote.customer_phone}</span>}
-                {quote.customer_email && <span>✉️ {quote.customer_email}</span>}
-                {quote.customer_line && <span>LINE: {quote.customer_line}</span>}
+              <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground pt-1">
+                {quote.customer_phone && (
+                  <span className="flex items-center gap-1"><Phone className="w-3 h-3" /> {quote.customer_phone}</span>
+                )}
+                {quote.customer_email && (
+                  <span className="flex items-center gap-1"><Mail className="w-3 h-3" /> {quote.customer_email}</span>
+                )}
+                {quote.customer_line && (
+                  <span className="flex items-center gap-1"><MessageCircle className="w-3 h-3" /> {quote.customer_line}</span>
+                )}
               </div>
             </CardContent>
           </Card>
@@ -1094,7 +1103,7 @@ export default function AdminQuoteDetail() {
             {poFiles.length > 0 && (
               <Card>
                 <CardContent className="pt-4 pb-3">
-                  <p className="text-xs font-semibold text-muted-foreground mb-2">📎 PO จากลูกค้า ({poFiles.length})</p>
+                  <p className="text-xs font-semibold text-muted-foreground mb-2 flex items-center gap-1"><Paperclip className="w-3 h-3" /> PO จากลูกค้า ({poFiles.length})</p>
                   <div className="space-y-1">
                     {poFiles.map((file) => (
                       file.category === 'po_virtual' ? (
