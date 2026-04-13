@@ -105,7 +105,7 @@ const fpmTouchMonitors = [
 ];
 
 const fpmDatasheets = [
-  { model: "FPM-0801A", href: "/datasheets/005637_5e44d2b9d7cc48fa9c409252e62d861d.pdf" },
+  { model: "FPM-0801A", href: null as string | null, note: "ติดต่อสอบถามเพื่อรับ Datasheet" },
   { model: "FPM-100XA", href: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_5d760f5082bb435aaa29a55ab6298a02.pdf" },
   { model: "FPM-150XA", href: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_69e01e1d7ddb4da6a215f9b617bf7bd4.pdf" },
   { model: "FPM-1202A", href: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_a3754cf13eaa40b09346e93fdb46c16a.pdf" },
@@ -427,15 +427,20 @@ const SmartDisplay = () => {
                   <h4 className="font-bold text-foreground mb-3 flex items-center gap-2"><Download size={16} /> ดาวน์โหลด Datasheet</h4>
                   <div className="flex flex-wrap gap-2">
                     {fpmDatasheets.map((d) => (
-                      <a
-                        key={d.model}
-                        href={d.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-sm font-medium text-foreground hover:bg-secondary hover:border-primary/30 transition-all">
-                        <Download size={12} /> {d.model}
-
-                      </a>
+                      d.href ? (
+                        <a
+                          key={d.model}
+                          href={d.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-sm font-medium text-foreground hover:bg-secondary hover:border-primary/30 transition-all">
+                          <Download size={12} /> {d.model}
+                        </a>
+                      ) : (
+                        <span key={d.model} className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border/50 text-sm text-muted-foreground italic">
+                          {d.model} — {'note' in d ? (d as any).note : 'ไม่มีไฟล์'}
+                        </span>
+                      )
                     ))}
                   </div>
                 </div>
