@@ -68,6 +68,7 @@ const ProductsList = lazyRetry(() => import("./pages/admin/ProductsList"));
 const ProductImport = lazyRetry(() => import("./pages/admin/ProductImport"));
 const GTImagesImport = lazyRetry(() => import("./pages/admin/GTImagesImport"));
 const ProductMigrationReview = lazyRetry(() => import("./pages/admin/ProductMigrationReview"));
+const MigrateDatasheets = lazyRetry(() => import("./pages/admin/MigrateDatasheets"));
 const AdminQuotesTrash = lazyRetry(() => import("./pages/admin/AdminQuotesTrash"));
 const AdminContacts = lazyRetry(() => import("./pages/admin/AdminContacts"));
 const AdminCompanySettings = lazyRetry(() => import("./pages/admin/AdminCompanySettings"));
