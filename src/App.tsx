@@ -71,6 +71,7 @@ const ProductMigrationReview = lazyRetry(() => import("./pages/admin/ProductMigr
 const MigrateDatasheets = lazyRetry(() => import("./pages/admin/MigrateDatasheets"));
 const AdminQuotesTrash = lazyRetry(() => import("./pages/admin/AdminQuotesTrash"));
 const AdminInvoicesList = lazyRetry(() => import("./pages/admin/AdminInvoicesList"));
+const AdminInvoiceDetail = lazyRetry(() => import("./pages/admin/AdminInvoiceDetail"));
 const AdminContacts = lazyRetry(() => import("./pages/admin/AdminContacts"));
 const AdminCompanySettings = lazyRetry(() => import("./pages/admin/AdminCompanySettings"));
 const AdminProfile = lazyRetry(() => import("./pages/admin/AdminProfile"));
@@ -170,6 +171,7 @@ const App = () => (
                     <Route path="/admin/sale-orders" element={<ProtectedRoute requireSales><AdminSaleOrders /></ProtectedRoute>} />
                     <Route path="/admin/sale-orders/:id" element={<ProtectedRoute requireSales><AdminSaleOrders /></ProtectedRoute>} />
                     <Route path="/admin/invoices" element={<ProtectedRoute requireSales><AdminInvoicesList /></ProtectedRoute>} />
+                    <Route path="/admin/invoices/:id" element={<ProtectedRoute requireSales><AdminInvoiceDetail /></ProtectedRoute>} />
                     <Route path="/admin/requests" element={<ProtectedRoute requireAdmin><AdminRequests /></ProtectedRoute>} />
                     <Route path="/admin/approvals" element={<ProtectedRoute requireSuperAdmin><AdminApprovals /></ProtectedRoute>} />
                     <Route path="/admin/products" element={<ProtectedRoute requireSales><ProductsList /></ProtectedRoute>} />
