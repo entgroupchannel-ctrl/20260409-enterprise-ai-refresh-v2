@@ -3,7 +3,6 @@ import AdminLayout from '@/layouts/AdminLayout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { Upload, CheckCircle2, Loader2, FileText, Download } from 'lucide-react';
 
@@ -23,18 +22,6 @@ export default function MigrateDatasheets() {
   const [done, setDone] = useState(false);
 
   const log = (msg: string) => setLogs(prev => [...prev, msg]);
-
-  async function blobToBase64(blob: Blob): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const result = reader.result as string;
-        resolve(result.split(',')[1]);
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(blob);
-    });
-  }
 
   const handleMigrate = async () => {
     setRunning(true);
@@ -63,7 +50,11 @@ export default function MigrateDatasheets() {
         return;
       }
 
-      log(`📦 Found ${filenames.length} datasheets to migrate (1 file per request)`);
+      log(`📦 Found ${filenames.length} datasheets — uploading as raw binary (1 file per request)`);
+
+      const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
+      const anonKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+      const fnUrl = `https://${projectId}.supabase.co/functions/v1/upload-datasheets`;
 
       const allResults: UploadResult[] = [];
 
@@ -76,6 +67,7 @@ export default function MigrateDatasheets() {
             allResults.push({ filename, oldPath: `/datasheets/${filename}`, newUrl: null, error: `HTTP ${response.status}` });
             continue;
           }
+
           const blob = await response.blob();
 
           if (blob.size > 50 * 1024 * 1024) {
@@ -83,20 +75,30 @@ export default function MigrateDatasheets() {
             continue;
           }
 
-          const base64Data = await blobToBase64(blob);
-
-          const { data, error } = await supabase.functions.invoke('upload-datasheets', {
-            body: { filename, base64Data },
+          // Send raw binary with filename in header — no base64 overhead
+          const uploadRes = await fetch(fnUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/pdf',
+              'apikey': anonKey,
+              'Authorization': `Bearer ${anonKey}`,
+              'x-filename': filename,
+            },
+            body: blob,
           });
 
-          if (error) {
-            log(`   ❌ ${filename} — ${error.message}`);
-            allResults.push({ filename, oldPath: `/datasheets/${filename}`, newUrl: null, error: error.message });
-          } else if (data?.url) {
-            allResults.push({ filename, oldPath: `/datasheets/${filename}`, newUrl: data.url });
+          if (!uploadRes.ok) {
+            const errText = await uploadRes.text();
+            log(`   ❌ ${filename} — HTTP ${uploadRes.status}: ${errText.slice(0, 100)}`);
+            allResults.push({ filename, oldPath: `/datasheets/${filename}`, newUrl: null, error: errText.slice(0, 200) });
           } else {
-            log(`   ❌ ${filename} — ${data?.error || 'Unknown error'}`);
-            allResults.push({ filename, oldPath: `/datasheets/${filename}`, newUrl: null, error: data?.error });
+            const data = await uploadRes.json();
+            if (data?.url) {
+              allResults.push({ filename, oldPath: `/datasheets/${filename}`, newUrl: data.url });
+            } else {
+              log(`   ❌ ${filename} — ${data?.error || 'Unknown error'}`);
+              allResults.push({ filename, oldPath: `/datasheets/${filename}`, newUrl: null, error: data?.error });
+            }
           }
         } catch (e: any) {
           log(`   ❌ ${filename} — ${e.message}`);
@@ -107,7 +109,6 @@ export default function MigrateDatasheets() {
         setProgress(pct);
         setResults([...allResults]);
 
-        // Log every 10 files
         if ((i + 1) % 10 === 0) {
           const ok = allResults.filter(r => r.newUrl).length;
           log(`   📊 Progress: ${i + 1}/${filenames.length} (${ok} uploaded)`);
@@ -157,7 +158,7 @@ export default function MigrateDatasheets() {
           <CardContent className="space-y-4">
             <div className="text-sm text-muted-foreground space-y-1">
               <p>ย้าย PDF datasheets จาก <code>/public/datasheets/</code> ไป Supabase Storage bucket <code>datasheets</code></p>
-              <p className="text-xs">⚠️ อัปโหลดทีละไฟล์เพื่อหลีกเลี่ยง CPU limit ของ Edge Function</p>
+              <p className="text-xs">✅ ส่ง raw binary (ไม่ใช้ base64) เพื่อหลีกเลี่ยง memory limit ของ Edge Function</p>
             </div>
 
             <div className="flex gap-2">
