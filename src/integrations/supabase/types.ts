@@ -532,6 +532,216 @@ export type Database = {
           },
         ]
       }
+      invoice_items: {
+        Row: {
+          created_at: string
+          discount_amount: number | null
+          discount_percent: number | null
+          display_order: number | null
+          id: string
+          invoice_id: string
+          line_total: number
+          product_description: string | null
+          product_id: string | null
+          product_name: string
+          quantity: number
+          sku: string | null
+          unit: string | null
+          unit_price: number
+        }
+        Insert: {
+          created_at?: string
+          discount_amount?: number | null
+          discount_percent?: number | null
+          display_order?: number | null
+          id?: string
+          invoice_id: string
+          line_total?: number
+          product_description?: string | null
+          product_id?: string | null
+          product_name: string
+          quantity?: number
+          sku?: string | null
+          unit?: string | null
+          unit_price?: number
+        }
+        Update: {
+          created_at?: string
+          discount_amount?: number | null
+          discount_percent?: number | null
+          display_order?: number | null
+          id?: string
+          invoice_id?: string
+          line_total?: number
+          product_description?: string | null
+          product_id?: string | null
+          product_name?: string
+          quantity?: number
+          sku?: string | null
+          unit?: string | null
+          unit_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invoice_items_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      invoices: {
+        Row: {
+          cancel_reason: string | null
+          cancelled_at: string | null
+          created_at: string
+          created_by: string | null
+          customer_address: string | null
+          customer_branch_code: string | null
+          customer_branch_name: string | null
+          customer_branch_type: string | null
+          customer_company: string | null
+          customer_email: string | null
+          customer_id: string | null
+          customer_name: string
+          customer_phone: string | null
+          customer_tax_id: string | null
+          discount_amount: number | null
+          discount_percent: number | null
+          downpayment_percent: number | null
+          due_date: string | null
+          grand_total: number
+          id: string
+          installment_number: number | null
+          installment_total: number | null
+          internal_notes: string | null
+          invoice_date: string
+          invoice_number: string
+          invoice_type: string
+          notes: string | null
+          parent_invoice_id: string | null
+          payment_terms: string | null
+          po_number: string | null
+          project_name: string | null
+          quote_id: string | null
+          sale_order_id: string | null
+          status: string
+          subtotal: number
+          updated_at: string
+          vat_amount: number | null
+          vat_percent: number | null
+          withholding_tax_amount: number | null
+          withholding_tax_percent: number | null
+        }
+        Insert: {
+          cancel_reason?: string | null
+          cancelled_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          customer_address?: string | null
+          customer_branch_code?: string | null
+          customer_branch_name?: string | null
+          customer_branch_type?: string | null
+          customer_company?: string | null
+          customer_email?: string | null
+          customer_id?: string | null
+          customer_name: string
+          customer_phone?: string | null
+          customer_tax_id?: string | null
+          discount_amount?: number | null
+          discount_percent?: number | null
+          downpayment_percent?: number | null
+          due_date?: string | null
+          grand_total?: number
+          id?: string
+          installment_number?: number | null
+          installment_total?: number | null
+          internal_notes?: string | null
+          invoice_date?: string
+          invoice_number: string
+          invoice_type?: string
+          notes?: string | null
+          parent_invoice_id?: string | null
+          payment_terms?: string | null
+          po_number?: string | null
+          project_name?: string | null
+          quote_id?: string | null
+          sale_order_id?: string | null
+          status?: string
+          subtotal?: number
+          updated_at?: string
+          vat_amount?: number | null
+          vat_percent?: number | null
+          withholding_tax_amount?: number | null
+          withholding_tax_percent?: number | null
+        }
+        Update: {
+          cancel_reason?: string | null
+          cancelled_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          customer_address?: string | null
+          customer_branch_code?: string | null
+          customer_branch_name?: string | null
+          customer_branch_type?: string | null
+          customer_company?: string | null
+          customer_email?: string | null
+          customer_id?: string | null
+          customer_name?: string
+          customer_phone?: string | null
+          customer_tax_id?: string | null
+          discount_amount?: number | null
+          discount_percent?: number | null
+          downpayment_percent?: number | null
+          due_date?: string | null
+          grand_total?: number
+          id?: string
+          installment_number?: number | null
+          installment_total?: number | null
+          internal_notes?: string | null
+          invoice_date?: string
+          invoice_number?: string
+          invoice_type?: string
+          notes?: string | null
+          parent_invoice_id?: string | null
+          payment_terms?: string | null
+          po_number?: string | null
+          project_name?: string | null
+          quote_id?: string | null
+          sale_order_id?: string | null
+          status?: string
+          subtotal?: number
+          updated_at?: string
+          vat_amount?: number | null
+          vat_percent?: number | null
+          withholding_tax_amount?: number | null
+          withholding_tax_percent?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invoices_parent_invoice_id_fkey"
+            columns: ["parent_invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "invoices_quote_id_fkey"
+            columns: ["quote_id"]
+            isOneToOne: false
+            referencedRelation: "quote_requests"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "invoices_sale_order_id_fkey"
+            columns: ["sale_order_id"]
+            isOneToOne: false
+            referencedRelation: "sale_orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       notifications: {
         Row: {
           action_label: string | null
@@ -594,6 +804,87 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      payment_records: {
+        Row: {
+          amount: number
+          bank_account: string | null
+          bank_name: string | null
+          created_at: string
+          created_by: string | null
+          id: string
+          invoice_id: string | null
+          notes: string | null
+          payment_date: string
+          payment_method: string
+          proof_uploaded_at: string | null
+          proof_url: string | null
+          reference_number: string | null
+          rejection_reason: string | null
+          tax_invoice_id: string | null
+          updated_at: string
+          verification_status: string
+          verified_at: string | null
+          verified_by: string | null
+        }
+        Insert: {
+          amount: number
+          bank_account?: string | null
+          bank_name?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          invoice_id?: string | null
+          notes?: string | null
+          payment_date?: string
+          payment_method: string
+          proof_uploaded_at?: string | null
+          proof_url?: string | null
+          reference_number?: string | null
+          rejection_reason?: string | null
+          tax_invoice_id?: string | null
+          updated_at?: string
+          verification_status?: string
+          verified_at?: string | null
+          verified_by?: string | null
+        }
+        Update: {
+          amount?: number
+          bank_account?: string | null
+          bank_name?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          invoice_id?: string | null
+          notes?: string | null
+          payment_date?: string
+          payment_method?: string
+          proof_uploaded_at?: string | null
+          proof_url?: string | null
+          reference_number?: string | null
+          rejection_reason?: string | null
+          tax_invoice_id?: string | null
+          updated_at?: string
+          verification_status?: string
+          verified_at?: string | null
+          verified_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payment_records_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payment_records_tax_invoice_id_fkey"
+            columns: ["tax_invoice_id"]
+            isOneToOne: false
+            referencedRelation: "tax_invoices"
             referencedColumns: ["id"]
           },
         ]
@@ -1722,6 +2013,88 @@ export type Database = {
         }
         Relationships: []
       }
+      receipts: {
+        Row: {
+          amount: number
+          created_at: string
+          created_by: string | null
+          customer_address: string | null
+          customer_company: string | null
+          customer_id: string | null
+          customer_name: string
+          customer_tax_id: string | null
+          id: string
+          invoice_id: string | null
+          notes: string | null
+          payment_method: string | null
+          payment_record_id: string
+          receipt_date: string
+          receipt_number: string
+          tax_invoice_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          created_by?: string | null
+          customer_address?: string | null
+          customer_company?: string | null
+          customer_id?: string | null
+          customer_name: string
+          customer_tax_id?: string | null
+          id?: string
+          invoice_id?: string | null
+          notes?: string | null
+          payment_method?: string | null
+          payment_record_id: string
+          receipt_date?: string
+          receipt_number: string
+          tax_invoice_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          created_by?: string | null
+          customer_address?: string | null
+          customer_company?: string | null
+          customer_id?: string | null
+          customer_name?: string
+          customer_tax_id?: string | null
+          id?: string
+          invoice_id?: string | null
+          notes?: string | null
+          payment_method?: string | null
+          payment_record_id?: string
+          receipt_date?: string
+          receipt_number?: string
+          tax_invoice_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "receipts_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "receipts_payment_record_id_fkey"
+            columns: ["payment_record_id"]
+            isOneToOne: false
+            referencedRelation: "payment_records"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "receipts_tax_invoice_id_fkey"
+            columns: ["tax_invoice_id"]
+            isOneToOne: false
+            referencedRelation: "tax_invoices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       sale_orders: {
         Row: {
           actual_delivery_date: string | null
@@ -1855,6 +2228,164 @@ export type Database = {
           source?: string | null
         }
         Relationships: []
+      }
+      tax_invoice_items: {
+        Row: {
+          created_at: string
+          display_order: number | null
+          id: string
+          line_total: number
+          product_description: string | null
+          product_id: string | null
+          product_name: string
+          quantity: number
+          sku: string | null
+          tax_invoice_id: string
+          unit: string | null
+          unit_price: number
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number | null
+          id?: string
+          line_total?: number
+          product_description?: string | null
+          product_id?: string | null
+          product_name: string
+          quantity?: number
+          sku?: string | null
+          tax_invoice_id: string
+          unit?: string | null
+          unit_price?: number
+        }
+        Update: {
+          created_at?: string
+          display_order?: number | null
+          id?: string
+          line_total?: number
+          product_description?: string | null
+          product_id?: string | null
+          product_name?: string
+          quantity?: number
+          sku?: string | null
+          tax_invoice_id?: string
+          unit?: string | null
+          unit_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tax_invoice_items_tax_invoice_id_fkey"
+            columns: ["tax_invoice_id"]
+            isOneToOne: false
+            referencedRelation: "tax_invoices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tax_invoices: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          customer_address: string | null
+          customer_branch_code: string | null
+          customer_branch_name: string | null
+          customer_branch_type: string | null
+          customer_company: string | null
+          customer_id: string | null
+          customer_name: string
+          customer_tax_id: string | null
+          delivery_address: string | null
+          delivery_date: string | null
+          delivery_method: string | null
+          discount_amount: number | null
+          grand_total: number
+          id: string
+          invoice_id: string
+          notes: string | null
+          sale_order_id: string | null
+          status: string
+          subtotal: number
+          tax_invoice_date: string
+          tax_invoice_number: string
+          tracking_number: string | null
+          updated_at: string
+          vat_amount: number | null
+          withholding_tax_amount: number | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          customer_address?: string | null
+          customer_branch_code?: string | null
+          customer_branch_name?: string | null
+          customer_branch_type?: string | null
+          customer_company?: string | null
+          customer_id?: string | null
+          customer_name: string
+          customer_tax_id?: string | null
+          delivery_address?: string | null
+          delivery_date?: string | null
+          delivery_method?: string | null
+          discount_amount?: number | null
+          grand_total?: number
+          id?: string
+          invoice_id: string
+          notes?: string | null
+          sale_order_id?: string | null
+          status?: string
+          subtotal?: number
+          tax_invoice_date?: string
+          tax_invoice_number: string
+          tracking_number?: string | null
+          updated_at?: string
+          vat_amount?: number | null
+          withholding_tax_amount?: number | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          customer_address?: string | null
+          customer_branch_code?: string | null
+          customer_branch_name?: string | null
+          customer_branch_type?: string | null
+          customer_company?: string | null
+          customer_id?: string | null
+          customer_name?: string
+          customer_tax_id?: string | null
+          delivery_address?: string | null
+          delivery_date?: string | null
+          delivery_method?: string | null
+          discount_amount?: number | null
+          grand_total?: number
+          id?: string
+          invoice_id?: string
+          notes?: string | null
+          sale_order_id?: string | null
+          status?: string
+          subtotal?: number
+          tax_invoice_date?: string
+          tax_invoice_number?: string
+          tracking_number?: string | null
+          updated_at?: string
+          vat_amount?: number | null
+          withholding_tax_amount?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tax_invoices_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tax_invoices_sale_order_id_fkey"
+            columns: ["sale_order_id"]
+            isOneToOne: false
+            referencedRelation: "sale_orders"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_profiles: {
         Row: {
@@ -2043,6 +2574,9 @@ export type Database = {
           expired_count: number
         }[]
       }
+      generate_invoice_number: { Args: never; Returns: string }
+      generate_receipt_number: { Args: never; Returns: string }
+      generate_tax_invoice_number: { Args: never; Returns: string }
       get_negotiation_stats: {
         Args: { p_end_date?: string; p_start_date?: string }
         Returns: Json
