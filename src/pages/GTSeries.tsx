@@ -116,7 +116,7 @@ const gtModels = [
     storage: "M.2 SATA + M.2 NVMe + SATA",
     ports: "USB 6, COM 6, LAN 2 (2.5G), HDMI, GPIO",
     size: "2.5G LAN + 5G + GPIO + 9–36V",
-    image: gt1400Product,
+    image: "/images/gt1400/main.jpg",
     tab: "gt1400",
     highlight: "NEW!",
     badge: true,
