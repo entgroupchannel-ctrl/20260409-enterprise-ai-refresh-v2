@@ -62,6 +62,7 @@ import {
   ScanEye,
   FileCheck2,
   Printer,
+  Receipt,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
@@ -184,7 +185,7 @@ export default function AdminQuoteDetail() {
   const [counterNegotiationId, setCounterNegotiationId] = useState<string | undefined>();
   const [revisionKey, setRevisionKey] = useState(0);
   const [printingRevision, setPrintingRevision] = useState<any>(null);
-  // ✅ Real-time calculation
+  const [showCreateInvoice, setShowCreateInvoice] = useState(false);
   const totals = useMemo(() => {
     if (!quote) return { subtotal: 0, discountAmount: 0, beforeVat: 0, vatAmount: 0, grandTotal: 0 };
     return calculateQuoteTotals(
