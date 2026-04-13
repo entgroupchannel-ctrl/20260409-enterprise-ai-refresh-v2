@@ -63,6 +63,9 @@ import {
   FileCheck2,
   Printer,
   Receipt,
+  User,
+  Calendar,
+  Briefcase,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
@@ -195,12 +198,37 @@ export default function AdminQuoteDetail() {
     );
   }, [quote?.products, quote?.discount_percent, quote?.vat_percent]);
 
+  const [assignedSaleUser, setAssignedSaleUser] = useState<any>(null);
+
   useEffect(() => {
     if (id) {
       loadQuoteDetails();
       loadUserRole();
     }
   }, [id]);
+
+  // Load assigned sale person
+  useEffect(() => {
+    const loadSalePerson = async () => {
+      if (!quote?.assigned_to && !quote?.created_by) {
+        setAssignedSaleUser(null);
+        return;
+      }
+      const userId = quote.assigned_to || quote.created_by;
+      try {
+        const { data } = await (supabase as any)
+          .from('users')
+          .select('id, full_name, email, position, avatar_url')
+          .eq('id', userId)
+          .maybeSingle();
+        setAssignedSaleUser(data);
+      } catch (e) {
+        console.warn('Failed to load sale person:', e);
+      }
+    };
+    loadSalePerson();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [quote?.assigned_to, quote?.created_by]);
 
   useEffect(() => {
     // Check for action in URL params
