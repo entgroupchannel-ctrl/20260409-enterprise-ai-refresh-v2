@@ -550,6 +550,13 @@ export default function AdminQuoteDetail() {
           </CardContent>
         </Card>
 
+        {/* Quote Timeline */}
+        <Card>
+          <CardContent className="pt-6">
+            <QuoteTimeline status={quote.status} />
+          </CardContent>
+        </Card>
+
         {/* Two-column Meta Grid — Customer | Dates & Sale Person */}
         <div className="grid md:grid-cols-2 gap-4">
           {/* Customer Card */}
@@ -652,13 +659,6 @@ export default function AdminQuoteDetail() {
             </CardContent>
           </Card>
         </div>
-
-        {/* Quote Timeline */}
-        <Card>
-          <CardContent className="pt-6">
-            <QuoteTimeline status={quote.status} />
-          </CardContent>
-        </Card>
 
         {/* PO Action Banner (review needed) */}
         {(quote.status === 'po_uploaded' || quote.status === 'po_confirmed') && (
