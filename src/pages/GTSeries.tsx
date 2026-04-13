@@ -1299,7 +1299,7 @@ const GTSeries = () => {
               {/* Datasheet CTA */}
               <div className="text-center">
                 <a
-                  href="/datasheets/GT1000.pdf"
+                  href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/GT1000.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
@@ -1738,14 +1738,14 @@ const GTSeries = () => {
               {/* Datasheet CTA */}
               <div className="flex flex-wrap justify-center gap-4">
                 <a
-                  href="/datasheets/GT2000_Celeron.pdf"
+                  href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/GT2000_Celeron.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
                   <Download size={16} /> Datasheet GT2000 Celeron
                 </a>
                 <a
-                  href="/datasheets/GT2000_i5.pdf"
+                  href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/GT2000_i5.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-surface-hover transition-colors">
@@ -2194,7 +2194,7 @@ const GTSeries = () => {
               {/* Datasheet CTA */}
               <div className="text-center">
                 <a
-                  href="/datasheets/GT3000.pdf"
+                  href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/GT3000.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
@@ -2531,14 +2531,14 @@ const GTSeries = () => {
               {/* Datasheet CTA */}
               <div className="flex flex-wrap justify-center gap-4">
                 <a
-                  href="/datasheets/GT4000_i5.pdf"
+                  href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/GT4000_i5.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
                   <Download size={16} /> Datasheet GT4000 Core i5
                 </a>
                 <a
-                  href="/datasheets/GT4000_i7.pdf"
+                  href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/GT4000_i7.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-secondary/50 transition-colors">
@@ -3430,7 +3430,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Datasheet CTA */}
               <div className="text-center">
                 <a
-                  href="/datasheets/GT6000.pdf"
+                  href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/GT6000.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
@@ -3822,7 +3822,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Datasheet CTA */}
               <div className="text-center">
                 <a
-                  href="/datasheets/GT7000.pdf"
+                  href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/GT7000.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
@@ -4159,7 +4159,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Datasheet CTA */}
               <div className="text-center">
                 <a
-                  href="/datasheets/GT8000.pdf"
+                  href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/GT8000.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
@@ -4519,21 +4519,21 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Datasheet CTAs */}
               <div className="flex flex-wrap justify-center gap-4">
                 <a
-                  href="/datasheets/GT9000_Gen12.pdf"
+                  href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/GT9000_Gen12.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
                   <Download size={16} /> Datasheet GT9000 (Gen 12)
                 </a>
                 <a
-                  href="/datasheets/GT9000_Gen10.pdf"
+                  href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/GT9000_Gen10.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-secondary/50 transition-colors">
                   <Download size={16} /> Datasheet GT9000 (Gen 10)
                 </a>
                 <a
-                  href="/datasheets/GT9000_extra.pdf"
+                  href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/GT9000_extra.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-secondary/50 transition-colors">
@@ -4910,14 +4910,14 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Datasheet CTA */}
               <div className="flex flex-wrap justify-center gap-4">
                 <a
-                  href="/datasheets/GT4500.pdf"
+                  href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/GT4500.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
                   <Download size={16} /> ดาวน์โหลด Datasheet GT4500
                 </a>
                 <a
-                  href="/datasheets/GT4500_extra.pdf"
+                  href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/GT4500_extra.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-surface-hover transition-colors">
@@ -5222,7 +5222,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Datasheet CTA */}
               <div className="text-center">
                 <a
-                  href="/datasheets/GT1400.pdf"
+                  href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/GT1400.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
@@ -5797,7 +5797,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Datasheet CTA */}
               <div className="text-center">
                 <a
-                  href="/datasheets/GT1200.pdf"
+                  href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/GT1200.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">

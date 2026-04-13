@@ -50,7 +50,7 @@ const promotions: Promo[] = [
     products: ["Waterproof Panel PC"],
     ctaLabel: "ดูสินค้า",
     ctaHref: "/waterproof-pc",
-    downloadHref: "/datasheets/0597a3_3a9dd05ae16848d28ed0197b0534bae0.pdf",
+    downloadHref: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_3a9dd05ae16848d28ed0197b0534bae0.pdf",
   },
   {
     id: "gt5000-win50",
@@ -146,7 +146,7 @@ const promotions: Promo[] = [
     products: ["GT Series", "GB Series", "GK Series", "IPC Panel", "EPC Panel", "IPC-110"],
     ctaLabel: "สั่งซื้อเลย",
     ctaHref: "https://line.me/R/ti/p/@entgroup",
-    downloadHref: "/datasheets/0597a3_06163a4987de4c12adfa292df1f757ec.pdf",
+    downloadHref: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_06163a4987de4c12adfa292df1f757ec.pdf",
   },
   {
     id: "endyear-windows",
@@ -167,7 +167,7 @@ const promotions: Promo[] = [
     products: ["GT Series"],
     ctaLabel: "สั่งซื้อเลย",
     ctaHref: "https://line.me/R/ti/p/@entgroup",
-    downloadHref: "/datasheets/0597a3_4c6eedfeac264eef81608a356d68732f.pdf",
+    downloadHref: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_4c6eedfeac264eef81608a356d68732f.pdf",
   },
   {
     id: "wifi6-free",

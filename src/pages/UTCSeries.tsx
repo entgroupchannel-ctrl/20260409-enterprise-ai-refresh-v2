@@ -67,48 +67,48 @@ const useCases = [
 
 /* ───── Square Screen Models ───── */
 const squareModels = [
-  { size: '8"', model: "UTC-S0882A", config: "J1900/4G/128G SSD/12V", price: "สอบถาม", pdf: "/datasheets/005637_57d3188cb2a843d884970a6dd99b0396.pdf" },
-  { size: '10"', model: "UTC-S1062A", config: "J1900/4G/128G SSD/12V", price: "25,990", pdf: "/datasheets/005637_fb7f8a0c568247ada4d28b077f3814f1.pdf" },
-  { size: '10"', model: "UTC-S1082A", config: "i3-7100U/4G/128G SSD/12V", price: "29,990", pdf: "/datasheets/005637_66d7a552b93d47268ddd328a5c8d9484.pdf" },
-  { size: '10"', model: "UTC-S1082A", config: "i5-7200U/4G/128G SSD/12V", price: "31,990", pdf: "/datasheets/005637_66d7a552b93d47268ddd328a5c8d9484.pdf" },
-  { size: '10"', model: "UTC-S1092A", config: "i3-10110U/4G/128G SSD/12V", price: "29,990", pdf: "/datasheets/005637_aed21c24f835474fbfb8ec4059456d47.pdf" },
-  { size: '10"', model: "UTC-S1092A", config: "i5-10210U/4G/128G SSD/12V", price: "31,990", pdf: "/datasheets/005637_aed21c24f835474fbfb8ec4059456d47.pdf" },
-  { size: '12"', model: "UTC-S1262A", config: "J1900/4G/128G SSD/12V", price: "26,990", pdf: "/datasheets/005637_fb1f7509a7c44cc98f76ab9dc8e927da.pdf" },
-  { size: '12"', model: "UTC-S1282A", config: "i3-7100U/4G/128G SSD/12V", price: "30,990", pdf: "/datasheets/005637_b4742ee298a44589a246988004c15fba.pdf" },
-  { size: '12"', model: "UTC-S1282A", config: "i5-7200U/4G/128G SSD/12V", price: "31,990", pdf: "/datasheets/005637_b4742ee298a44589a246988004c15fba.pdf" },
-  { size: '12"', model: "UTC-S1282A", config: "i7-7500U/4G/128G SSD/12V", price: "35,990", pdf: "/datasheets/005637_b4742ee298a44589a246988004c15fba.pdf" },
-  { size: '15"', model: "UTC-S158XA", config: "i3~i7 / J1900", price: "สอบถาม", pdf: "/datasheets/005637_1e87da8cebb646939ac3e88ea38504b3.pdf" },
-  { size: '17"', model: "UTC-S1782A", config: "i3~i7-7th Gen", price: "สอบถาม", pdf: "/datasheets/0597a3_c64a61f491344b86a58ee4f6247cce01.pdf" },
-  { size: '19"', model: "UTC-S1982A", config: "i3~i7-7th Gen", price: "สอบถาม", pdf: "/datasheets/005637_914056a5c0814c1b92f30a2d4543b43f.pdf" },
+  { size: '8"', model: "UTC-S0882A", config: "J1900/4G/128G SSD/12V", price: "สอบถาม", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_57d3188cb2a843d884970a6dd99b0396.pdf" },
+  { size: '10"', model: "UTC-S1062A", config: "J1900/4G/128G SSD/12V", price: "25,990", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_fb7f8a0c568247ada4d28b077f3814f1.pdf" },
+  { size: '10"', model: "UTC-S1082A", config: "i3-7100U/4G/128G SSD/12V", price: "29,990", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_66d7a552b93d47268ddd328a5c8d9484.pdf" },
+  { size: '10"', model: "UTC-S1082A", config: "i5-7200U/4G/128G SSD/12V", price: "31,990", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_66d7a552b93d47268ddd328a5c8d9484.pdf" },
+  { size: '10"', model: "UTC-S1092A", config: "i3-10110U/4G/128G SSD/12V", price: "29,990", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_aed21c24f835474fbfb8ec4059456d47.pdf" },
+  { size: '10"', model: "UTC-S1092A", config: "i5-10210U/4G/128G SSD/12V", price: "31,990", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_aed21c24f835474fbfb8ec4059456d47.pdf" },
+  { size: '12"', model: "UTC-S1262A", config: "J1900/4G/128G SSD/12V", price: "26,990", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_fb1f7509a7c44cc98f76ab9dc8e927da.pdf" },
+  { size: '12"', model: "UTC-S1282A", config: "i3-7100U/4G/128G SSD/12V", price: "30,990", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_b4742ee298a44589a246988004c15fba.pdf" },
+  { size: '12"', model: "UTC-S1282A", config: "i5-7200U/4G/128G SSD/12V", price: "31,990", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_b4742ee298a44589a246988004c15fba.pdf" },
+  { size: '12"', model: "UTC-S1282A", config: "i7-7500U/4G/128G SSD/12V", price: "35,990", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_b4742ee298a44589a246988004c15fba.pdf" },
+  { size: '15"', model: "UTC-S158XA", config: "i3~i7 / J1900", price: "สอบถาม", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_1e87da8cebb646939ac3e88ea38504b3.pdf" },
+  { size: '17"', model: "UTC-S1782A", config: "i3~i7-7th Gen", price: "สอบถาม", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_c64a61f491344b86a58ee4f6247cce01.pdf" },
+  { size: '19"', model: "UTC-S1982A", config: "i3~i7-7th Gen", price: "สอบถาม", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_914056a5c0814c1b92f30a2d4543b43f.pdf" },
 ];
 
 const squareJ6412Models = [
-  { size: '10"', model: "UTC-S1072A", config: "J6412/4G/128G SSD", price: "สอบถาม", pdf: "/datasheets/0597a3_73e7d0dc234344cf86045e7d236e8964.pdf" },
-  { size: '12"', model: "UTC-S1272A", config: "J6412/4G/128G SSD", price: "สอบถาม", pdf: "/datasheets/0597a3_d2f46ee1e9224cf08b4d0aae8f2ea959.pdf" },
-  { size: '15"', model: "UTC-S1572A", config: "J6412/4G/128G SSD", price: "สอบถาม", pdf: "/datasheets/0597a3_50057bf3cbd645439154efb566da4857.pdf" },
-  { size: '19"', model: "UTC-S1972A", config: "J6412/4G/128G SSD", price: "สอบถาม", pdf: "/datasheets/0597a3_4564bb41a0fe46c9b26751fbb5ba5813.pdf" },
+  { size: '10"', model: "UTC-S1072A", config: "J6412/4G/128G SSD", price: "สอบถาม", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_73e7d0dc234344cf86045e7d236e8964.pdf" },
+  { size: '12"', model: "UTC-S1272A", config: "J6412/4G/128G SSD", price: "สอบถาม", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_d2f46ee1e9224cf08b4d0aae8f2ea959.pdf" },
+  { size: '15"', model: "UTC-S1572A", config: "J6412/4G/128G SSD", price: "สอบถาม", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_50057bf3cbd645439154efb566da4857.pdf" },
+  { size: '19"', model: "UTC-S1972A", config: "J6412/4G/128G SSD", price: "สอบถาม", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_4564bb41a0fe46c9b26751fbb5ba5813.pdf" },
 ];
 
 /* ───── Wide Screen Models ───── */
 const wideModels = [
-  { size: '15"', model: "UTC-W1562A", config: "J1900/4G/128G SSD/12V", price: "30,990", pdf: "/datasheets/005637_d7a35909dad34445a0f68b9516b6d214.pdf" },
-  { size: '15"', model: "UTC-W1582A", config: "i3-7100U/4G/128G SSD/12V", price: "33,990", pdf: "/datasheets/005637_d7a35909dad34445a0f68b9516b6d214.pdf" },
-  { size: '15"', model: "UTC-W1582A", config: "i5-7200U/4G/128G SSD/12V", price: "35,990", pdf: "/datasheets/005637_d7a35909dad34445a0f68b9516b6d214.pdf" },
-  { size: '15"', model: "UTC-W1582A", config: "i7-7500U/4G/128G SSD/12V", price: "37,990", pdf: "/datasheets/005637_d7a35909dad34445a0f68b9516b6d214.pdf" },
-  { size: '15"', model: "UTC-W1592A", config: "i3-10110U/4G/128G SSD/12V", price: "33,990", pdf: "/datasheets/005637_811c11595cdd4595bb47d0942404d9e7.pdf" },
-  { size: '15"', model: "UTC-W1592A", config: "i5-10210U/4G/128G SSD/12V", price: "35,990", pdf: "/datasheets/005637_811c11595cdd4595bb47d0942404d9e7.pdf" },
-  { size: '15"', model: "UTC-W1592A", config: "i7-10510U/4G/128G SSD/12V", price: "37,990", pdf: "/datasheets/005637_811c11595cdd4595bb47d0942404d9e7.pdf" },
-  { size: '17"', model: "UTC-W1762A", config: "J1900/4G/128G SSD/12V", price: "31,990", pdf: "/datasheets/005637_e35ae5c2fd1f4851a476394e577a358e.pdf" },
-  { size: '17"', model: "UTC-W1782A", config: "i3-7100U/4G/128G SSD/12V", price: "สอบถาม", pdf: "/datasheets/005637_e35ae5c2fd1f4851a476394e577a358e.pdf" },
-  { size: '17"', model: "UTC-W1782A", config: "i5-7200U/4G/128G SSD/12V", price: "สอบถาม", pdf: "/datasheets/005637_e35ae5c2fd1f4851a476394e577a358e.pdf" },
-  { size: '21"', model: "UTC-W2182A", config: "i3~i7-7th Gen", price: "สอบถาม", pdf: "/datasheets/005637_64b29e520d1d4299a0397058b5599c1d.pdf" },
-  { size: '24"', model: "UTC-W2482B", config: "i3~i7-7th Gen", price: "สอบถาม", pdf: "/datasheets/005637_fb0b70229f6d4eea9442c2924e077b1c.pdf" },
+  { size: '15"', model: "UTC-W1562A", config: "J1900/4G/128G SSD/12V", price: "30,990", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_d7a35909dad34445a0f68b9516b6d214.pdf" },
+  { size: '15"', model: "UTC-W1582A", config: "i3-7100U/4G/128G SSD/12V", price: "33,990", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_d7a35909dad34445a0f68b9516b6d214.pdf" },
+  { size: '15"', model: "UTC-W1582A", config: "i5-7200U/4G/128G SSD/12V", price: "35,990", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_d7a35909dad34445a0f68b9516b6d214.pdf" },
+  { size: '15"', model: "UTC-W1582A", config: "i7-7500U/4G/128G SSD/12V", price: "37,990", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_d7a35909dad34445a0f68b9516b6d214.pdf" },
+  { size: '15"', model: "UTC-W1592A", config: "i3-10110U/4G/128G SSD/12V", price: "33,990", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_811c11595cdd4595bb47d0942404d9e7.pdf" },
+  { size: '15"', model: "UTC-W1592A", config: "i5-10210U/4G/128G SSD/12V", price: "35,990", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_811c11595cdd4595bb47d0942404d9e7.pdf" },
+  { size: '15"', model: "UTC-W1592A", config: "i7-10510U/4G/128G SSD/12V", price: "37,990", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_811c11595cdd4595bb47d0942404d9e7.pdf" },
+  { size: '17"', model: "UTC-W1762A", config: "J1900/4G/128G SSD/12V", price: "31,990", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_e35ae5c2fd1f4851a476394e577a358e.pdf" },
+  { size: '17"', model: "UTC-W1782A", config: "i3-7100U/4G/128G SSD/12V", price: "สอบถาม", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_e35ae5c2fd1f4851a476394e577a358e.pdf" },
+  { size: '17"', model: "UTC-W1782A", config: "i5-7200U/4G/128G SSD/12V", price: "สอบถาม", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_e35ae5c2fd1f4851a476394e577a358e.pdf" },
+  { size: '21"', model: "UTC-W2182A", config: "i3~i7-7th Gen", price: "สอบถาม", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_64b29e520d1d4299a0397058b5599c1d.pdf" },
+  { size: '24"', model: "UTC-W2482B", config: "i3~i7-7th Gen", price: "สอบถาม", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_fb0b70229f6d4eea9442c2924e077b1c.pdf" },
 ];
 
 const wideJ6412Models = [
-  { size: '15"', model: "UTC-W1572A", config: "J6412/4G/128G SSD", price: "สอบถาม", pdf: "/datasheets/0597a3_aef7669fe0864b8ea2d2204f0e05fd7e.pdf" },
-  { size: '19"', model: "UTC-W1972A", config: "J6412/4G/128G SSD", price: "สอบถาม", pdf: "/datasheets/0597a3_66a196a4a8214b4ead9760f0af1ce520.pdf" },
-  { size: '21"', model: "UTC-2172A", config: "J6412/4G/128G SSD", price: "สอบถาม", pdf: "/datasheets/0597a3_4d6f79cef0a3435abc360c7ab17cce1d.pdf" },
+  { size: '15"', model: "UTC-W1572A", config: "J6412/4G/128G SSD", price: "สอบถาม", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_aef7669fe0864b8ea2d2204f0e05fd7e.pdf" },
+  { size: '19"', model: "UTC-W1972A", config: "J6412/4G/128G SSD", price: "สอบถาม", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_66a196a4a8214b4ead9760f0af1ce520.pdf" },
+  { size: '21"', model: "UTC-2172A", config: "J6412/4G/128G SSD", price: "สอบถาม", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_4d6f79cef0a3435abc360c7ab17cce1d.pdf" },
 ];
 
 /* ───── Windows Options ───── */
@@ -273,7 +273,7 @@ const UTCSeries = () => {
                   ดูราคาสินค้า <ChevronDown size={16} />
                 </a>
                 <a
-                  href="/datasheets/0597a3_91d82f50189a421e97ce9b88530df22c.pdf"
+                  href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_91d82f50189a421e97ce9b88530df22c.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold text-sm hover:bg-secondary transition-colors">
@@ -582,7 +582,7 @@ const UTCSeries = () => {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             <a
-              href="/datasheets/0597a3_91d82f50189a421e97ce9b88530df22c.pdf"
+              href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_91d82f50189a421e97ce9b88530df22c.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group">
@@ -598,7 +598,7 @@ const UTCSeries = () => {
             </a>
 
             <a
-              href="/datasheets/0597a3_2a650be4cb524d18ba2a439fe81eaaf7.pdf"
+              href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_2a650be4cb524d18ba2a439fe81eaaf7.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group">
@@ -614,7 +614,7 @@ const UTCSeries = () => {
             </a>
 
             <a
-              href="/datasheets/0597a3_b86ee419c0294b45b787de0c21876dc4.pdf"
+              href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_b86ee419c0294b45b787de0c21876dc4.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group">
@@ -630,7 +630,7 @@ const UTCSeries = () => {
             </a>
 
             <a
-              href="/datasheets/0597a3_a3d623f8d63d4b66a03bfc2621d41795.pdf"
+              href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_a3d623f8d63d4b66a03bfc2621d41795.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group">
@@ -646,7 +646,7 @@ const UTCSeries = () => {
             </a>
 
             <a
-              href="/datasheets/0597a3_57b8d6f11f5e44549d532c1d9c0135ad.pdf"
+              href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_57b8d6f11f5e44549d532c1d9c0135ad.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="card-surface rounded-xl p-5 hover:border-primary/30 transition-all group">

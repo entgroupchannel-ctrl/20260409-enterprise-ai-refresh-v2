@@ -67,7 +67,7 @@ const models: FirewallModel[] = [
     power: "DC 12V, TDP ~10W",
     extra: ["VGA + HDMI Dual Display", "USB 3.0 + USB 2.0", "COM Port", "Watchdog, WOL, RTC"],
     image: "/images/wix/3e5003_7edf97bd0932432ea2e4893cdcd73f92_08ad8494.jpg",
-    pdf: "/datasheets/3e5003_71ee8f3705a84e9e94bbcb8366adf413.pdf",
+    pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/3e5003_71ee8f3705a84e9e94bbcb8366adf413.pdf",
     useCases: ["ร้านกาแฟ / Co-Working", "บ้าน / Home Office", "ร้านค้าปลีก"],
   },
   {
@@ -83,7 +83,7 @@ const models: FirewallModel[] = [
     power: "DC 12V, TDP ~15W",
     extra: ["HDMI + VGA Dual Display", "USB 3.0 × 2 + USB 2.0 × 4", "COM Port", "Audio Port"],
     image: "/images/wix/3e5003_5d4cd19e619c44129b809d9836cbc5e9_5193a434.jpg",
-    pdf: "/datasheets/3e5003_041ee40698204dca81633a6611d57b3c.pdf",
+    pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/3e5003_041ee40698204dca81633a6611d57b3c.pdf",
     useCases: ["POS / Kiosk", "สำนักงานเล็ก", "Media Player"],
   },
 
@@ -101,7 +101,7 @@ const models: FirewallModel[] = [
     power: "DC 12V, TDP 10W",
     extra: ["HDMI + VGA Dual Display", "2× USB 3.0", "SIM Slot (WiFi/3G/4G)", "AES-NI, ESXI, Watchdog, PXE, WOL"],
     image: "/images/wix/005637_6b06b556c0094dc5887ac5ec6e382636_56c53a6b.png",
-    pdf: "/datasheets/005637_822d9fce1dac4cd8a83514391d12d899.pdf",
+    pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_822d9fce1dac4cd8a83514391d12d899.pdf",
     badge: "Best Seller",
     useCases: ["pfSense / OPNsense", "Branch Office", "VPN Gateway"],
   },
@@ -118,7 +118,7 @@ const models: FirewallModel[] = [
     power: "DC 12V",
     extra: ["HDMI 2.0 + DP 1.4 Dual 4K@60Hz", "2× USB 3.0 + 2× USB 2.0", "Console RJ45 COM", "AES-NI, ESXI, PVE, Watchdog"],
     image: "/images/wix/005637_d5f666a44c89404fa8de382c4744001a_c2eaf13f.png",
-    pdf: "/datasheets/005637_62c6ba289fad40c5802517a12048c9f9.pdf",
+    pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_62c6ba289fad40c5802517a12048c9f9.pdf",
     badge: "NEW",
     useCases: ["Enterprise Firewall", "ESXI / Proxmox", "Network Appliance"],
   },
@@ -135,7 +135,7 @@ const models: FirewallModel[] = [
     power: "DC 12V",
     extra: ["VGA + HDMI", "USB Ports", "Compact Form Factor", "DIN Rail / Wall Mount"],
     image: "/images/wix/005637_e17fbeeea8b34d33bb93e4d2d15e88ed_4d61be7e.jpg",
-    pdf: "/datasheets/005637_6173027ead324ba6a039eecba9ad5e8d.pdf",
+    pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_6173027ead324ba6a039eecba9ad5e8d.pdf",
     useCases: ["Multi-WAN Load Balance", "VLAN Segmentation", "SD-WAN"],
   },
 
@@ -168,7 +168,7 @@ const models: FirewallModel[] = [
     power: "DC 12V",
     extra: ["CPU รุ่นใหม่ล่าสุด", "2.5Gbps ทุกพอร์ต", "Compact Form Factor"],
     image: "/images/wix/0597a3_c089124e09f443ab80fc7d2037451994_5c06afd4.png",
-    pdf: "/datasheets/0597a3_481b334d2fab416cb19251801d4a2ef1.pdf",
+    pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_481b334d2fab416cb19251801d4a2ef1.pdf",
     badge: "NEW",
     useCases: ["Modern SMB", "Creative Office", "Multi-WAN Gateway"],
   },
@@ -185,7 +185,7 @@ const models: FirewallModel[] = [
     power: "DC 12V",
     extra: ["Ultra-Silent Operation", "Industrial Grade Aluminum", "VPN / Router Ready"],
     image: "/images/wix/0597a3_44e46e3431634bdcbeed58569230a615_7b9043b7.png",
-    pdf: "/datasheets/0597a3_cfd539daa7844ac5a31132ea4b648f7b.pdf",
+    pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_cfd539daa7844ac5a31132ea4b648f7b.pdf",
     useCases: ["Silent Office", "Edge Gateway", "VPN Server"],
   },
 
@@ -410,14 +410,14 @@ interface CompRow {
 }
 
 const compRows: CompRow[] = [
-  { name: "GT196L", tier: "entry", cpu: "Celeron J1900", ram: "DDR3L 8GB", lanCount: 6, lanSpeed: "1G", cooling: "fanless", sim: false, display: "VGA+HDMI", aesni: false, formFactor: "Desktop", pdf: "/datasheets/3e5003_71ee8f3705a84e9e94bbcb8366adf413.pdf" },
+  { name: "GT196L", tier: "entry", cpu: "Celeron J1900", ram: "DDR3L 8GB", lanCount: 6, lanSpeed: "1G", cooling: "fanless", sim: false, display: "VGA+HDMI", aesni: false, formFactor: "Desktop", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/3e5003_71ee8f3705a84e9e94bbcb8366adf413.pdf" },
   { name: "JC6L", tier: "entry", cpu: "Celeron / i3 / i5", ram: "DDR3L/DDR4 16GB", lanCount: 2, lanSpeed: "1G", cooling: "fanless", sim: false, display: "VGA+HDMI", aesni: false, formFactor: "Desktop" },
-  { name: "GT194L-J4125", tier: "standard", cpu: "Celeron J4125", ram: "DDR4 16GB", lanCount: 4, lanSpeed: "2.5G", cooling: "fanless", sim: true, display: "VGA+HDMI", aesni: true, formFactor: "Desktop", pdf: "/datasheets/005637_822d9fce1dac4cd8a83514391d12d899.pdf" },
-  { name: "GT194L-N5105", tier: "standard", cpu: "N5105 / i3 / i5 / i7", ram: "DDR4 32GB", lanCount: 4, lanSpeed: "2.5G", cooling: "fanless", sim: false, display: "HDMI+DP 4K", aesni: true, formFactor: "Desktop", pdf: "/datasheets/005637_62c6ba289fad40c5802517a12048c9f9.pdf" },
-  { name: "Eight Net", tier: "standard", cpu: "Celeron / Atom", ram: "DDR3L 8GB", lanCount: 8, lanSpeed: "1G", cooling: "fanless", sim: false, display: "VGA+HDMI", aesni: false, formFactor: "Desktop", pdf: "/datasheets/005637_6173027ead324ba6a039eecba9ad5e8d.pdf" },
+  { name: "GT194L-J4125", tier: "standard", cpu: "Celeron J4125", ram: "DDR4 16GB", lanCount: 4, lanSpeed: "2.5G", cooling: "fanless", sim: true, display: "VGA+HDMI", aesni: true, formFactor: "Desktop", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_822d9fce1dac4cd8a83514391d12d899.pdf" },
+  { name: "GT194L-N5105", tier: "standard", cpu: "N5105 / i3 / i5 / i7", ram: "DDR4 32GB", lanCount: 4, lanSpeed: "2.5G", cooling: "fanless", sim: false, display: "HDMI+DP 4K", aesni: true, formFactor: "Desktop", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_62c6ba289fad40c5802517a12048c9f9.pdf" },
+  { name: "Eight Net", tier: "standard", cpu: "Celeron / Atom", ram: "DDR3L 8GB", lanCount: 8, lanSpeed: "1G", cooling: "fanless", sim: false, display: "VGA+HDMI", aesni: false, formFactor: "Desktop", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_6173027ead324ba6a039eecba9ad5e8d.pdf" },
   { name: "IPC056", tier: "advanced", cpu: "Intel Celeron", ram: "DDR4 16GB", lanCount: 8, lanSpeed: "1G", cooling: "fanless", sim: false, display: "—", aesni: true, formFactor: "Desktop" },
-  { name: "IPC068", tier: "advanced", cpu: "Alder Lake N100", ram: "DDR5 16GB", lanCount: 6, lanSpeed: "2.5G", cooling: "fanless", sim: false, display: "—", aesni: true, formFactor: "Desktop", pdf: "/datasheets/0597a3_481b334d2fab416cb19251801d4a2ef1.pdf" },
-  { name: "IPC050", tier: "advanced", cpu: "Celeron / Pentium", ram: "DDR4 16GB", lanCount: 6, lanSpeed: "1G", cooling: "fanless", sim: false, display: "—", aesni: true, formFactor: "Desktop", pdf: "/datasheets/0597a3_cfd539daa7844ac5a31132ea4b648f7b.pdf" },
+  { name: "IPC068", tier: "advanced", cpu: "Alder Lake N100", ram: "DDR5 16GB", lanCount: 6, lanSpeed: "2.5G", cooling: "fanless", sim: false, display: "—", aesni: true, formFactor: "Desktop", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_481b334d2fab416cb19251801d4a2ef1.pdf" },
+  { name: "IPC050", tier: "advanced", cpu: "Celeron / Pentium", ram: "DDR4 16GB", lanCount: 6, lanSpeed: "1G", cooling: "fanless", sim: false, display: "—", aesni: true, formFactor: "Desktop", pdf: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_cfd539daa7844ac5a31132ea4b648f7b.pdf" },
   { name: "IPC090", tier: "enterprise", cpu: "Xeon E5 (12–18C)", ram: "DDR4 ECC 64GB", lanCount: 8, lanSpeed: "10G SFP+", cooling: "fan", sim: false, display: "VGA+HDMI", aesni: true, formFactor: "1U Rack" },
   { name: "IPC092", tier: "enterprise", cpu: "i7/i9/Xeon", ram: "DDR4 128GB", lanCount: 8, lanSpeed: "10G SFP+", cooling: "fan", sim: false, display: "VGA+HDMI", aesni: true, formFactor: "1U/2U Rack" },
 ];

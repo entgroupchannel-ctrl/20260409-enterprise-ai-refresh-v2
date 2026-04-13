@@ -106,13 +106,13 @@ const fpmTouchMonitors = [
 
 const fpmDatasheets = [
   { model: "FPM-0801A", href: "/datasheets/005637_5e44d2b9d7cc48fa9c409252e62d861d.pdf" },
-  { model: "FPM-100XA", href: "/datasheets/005637_5d760f5082bb435aaa29a55ab6298a02.pdf" },
-  { model: "FPM-150XA", href: "/datasheets/005637_69e01e1d7ddb4da6a215f9b617bf7bd4.pdf" },
-  { model: "FPM-1202A", href: "/datasheets/005637_a3754cf13eaa40b09346e93fdb46c16a.pdf" },
-  { model: "FPM-1702A", href: "/datasheets/005637_8753cbe1d9c5428b8b55f81c9b98ee3a.pdf" },
-  { model: "FPM-1902A", href: "/datasheets/005637_2e25c9d6f2974be5bcfbcf356f82f568.pdf" },
-  { model: "FPM-2102K", href: "/datasheets/005637_ccc895a9d8314d8396843387d8120e18.pdf" },
-  { model: "FPM-2402KA", href: "/datasheets/005637_21234f29c0c045f380e17e101ce14e17.pdf" },
+  { model: "FPM-100XA", href: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_5d760f5082bb435aaa29a55ab6298a02.pdf" },
+  { model: "FPM-150XA", href: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_69e01e1d7ddb4da6a215f9b617bf7bd4.pdf" },
+  { model: "FPM-1202A", href: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_a3754cf13eaa40b09346e93fdb46c16a.pdf" },
+  { model: "FPM-1702A", href: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_8753cbe1d9c5428b8b55f81c9b98ee3a.pdf" },
+  { model: "FPM-1902A", href: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_2e25c9d6f2974be5bcfbcf356f82f568.pdf" },
+  { model: "FPM-2102K", href: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_ccc895a9d8314d8396843387d8120e18.pdf" },
+  { model: "FPM-2402KA", href: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_21234f29c0c045f380e17e101ce14e17.pdf" },
 ];
 
 const outdoorFeatures = [
@@ -125,10 +125,10 @@ const outdoorFeatures = [
 ];
 
 const outdoorSizes = [
-  { size: '12"', nits: "1200 Nits", datasheet: "/datasheets/0597a3_c2427ebf71c7451892c5d778e30790f9.pdf" },
-  { size: '17"', nits: "1500 Nits", datasheet: "/datasheets/0597a3_070123590de942e983e56575061e0db0.pdf" },
-  { size: '19"', nits: "1500 Nits", datasheet: "/datasheets/0597a3_a5ce046763ff4e62a63afc6a3cd1db38.pdf" },
-  { size: '19"', nits: "1600 Nits", datasheet: "/datasheets/0597a3_899aaffbc58843598a2c0ddb4d5abfdf.pdf" },
+  { size: '12"', nits: "1200 Nits", datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_c2427ebf71c7451892c5d778e30790f9.pdf" },
+  { size: '17"', nits: "1500 Nits", datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_070123590de942e983e56575061e0db0.pdf" },
+  { size: '19"', nits: "1500 Nits", datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_a5ce046763ff4e62a63afc6a3cd1db38.pdf" },
+  { size: '19"', nits: "1600 Nits", datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_899aaffbc58843598a2c0ddb4d5abfdf.pdf" },
 ];
 
 const softwareFeatures = [
@@ -145,12 +145,12 @@ const applications = [
 ];
 
 const priceLists = [
-  { label: "Indoor Digital Signage", href: "/datasheets/0597a3_aaa0993f63084600adb415fd5f58673e.pdf" },
-  { label: "Outdoor Monitor", href: "/datasheets/0597a3_250d37f715ad465b843b65ec5d9d0cf6.pdf" },
-  { label: "Window Display", href: "/datasheets/0597a3_cd6650ceecb94accbcd7e107a26d4115.pdf" },
-  { label: "Stretched Bar Display", href: "/datasheets/0597a3_3c78cb1f6a254f3c894eb284bc62bfb8.pdf" },
-  { label: "Product Overview", href: "/datasheets/0597a3_681d6ced6320463492e916e4374cacde.pdf" },
-  { label: "Outdoor Datasheet", href: "/datasheets/0597a3_8c98e268cc4543a58132ccad12e6f343.pdf" },
+  { label: "Indoor Digital Signage", href: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_aaa0993f63084600adb415fd5f58673e.pdf" },
+  { label: "Outdoor Monitor", href: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_250d37f715ad465b843b65ec5d9d0cf6.pdf" },
+  { label: "Window Display", href: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_cd6650ceecb94accbcd7e107a26d4115.pdf" },
+  { label: "Stretched Bar Display", href: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_3c78cb1f6a254f3c894eb284bc62bfb8.pdf" },
+  { label: "Product Overview", href: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_681d6ced6320463492e916e4374cacde.pdf" },
+  { label: "Outdoor Datasheet", href: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_8c98e268cc4543a58132ccad12e6f343.pdf" },
 ];
 
 /* ─── Component ─── */
@@ -750,14 +750,14 @@ const SmartDisplay = () => {
                     </div>
                     <div className="flex flex-wrap gap-3">
                       <a
-                        href="/datasheets/005637_c6b7eb42862948ed879384daee436d8c.pdf"
+                        href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_c6b7eb42862948ed879384daee436d8c.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-secondary text-secondary-foreground text-sm font-semibold hover:opacity-90 transition-opacity">
                         <Download size={16} /> GK2101 KIOSK PDF
                       </a>
                       <a
-                        href="/datasheets/005637_33c47e04de224db8b4d9675ec04c8030.pdf"
+                        href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_33c47e04de224db8b4d9675ec04c8030.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border text-foreground text-sm font-semibold hover:bg-secondary transition-colors">
