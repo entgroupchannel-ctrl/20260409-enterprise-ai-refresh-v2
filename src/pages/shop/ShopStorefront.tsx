@@ -6,11 +6,14 @@ import Footer from '@/components/Footer';
 import AddToCartButton from '@/components/AddToCartButton';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
-import { SearchCheck, LayoutGrid, List, SlidersHorizontal, X, FileSearch, ChevronLeft, ChevronRight, CircleCheckBig, ShieldCheck, Landmark, HeadsetIcon } from 'lucide-react';
+import { Slider } from '@/components/ui/slider';
+import { Label } from '@/components/ui/label';
+import { Separator } from '@/components/ui/separator';
+import { SearchCheck, LayoutGrid, List, SlidersHorizontal, X, FileSearch, ChevronLeft, ChevronRight, CircleCheckBig, ShieldCheck, Landmark, HeadsetIcon, DollarSign, Cpu, MemoryStick, HardDrive, Package, Tag } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import SiteNavbar from '@/components/SiteNavbar';
 
@@ -24,7 +27,7 @@ interface Product {
   starting_price?: number;
 }
 
-const ITEMS_PER_PAGE = 12;
+const ITEMS_PER_PAGE = 16;
 const COMPARE_KEY = 'shopCompareList';
 
 function fmt(n: number) { return n.toLocaleString('th-TH'); }
@@ -49,6 +52,12 @@ const ShopStorefront = () => {
   const [compareList, setCompareListState] = useState<string[]>(getCompareList());
   const [showFilters, setShowFilters] = useState(false);
 
+  // NEW filters
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 200000]);
+  const [cpuFilter, setCpuFilter] = useState<string[]>([]);
+  const [ramFilter, setRamFilter] = useState<number[]>([]);
+  const [storageFilter, setStorageFilter] = useState<number[]>([]);
+
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
@@ -59,7 +68,6 @@ const ShopStorefront = () => {
         .order('sort_order', { ascending: true });
 
       if (!error && data) {
-        // Enrich with variant counts + min prices
         const productIds = data.map(p => p.id);
         if (productIds.length > 0) {
           const { data: variants } = await supabase
@@ -96,28 +104,85 @@ const ShopStorefront = () => {
   const filterOptions = useMemo(() => {
     const series = [...new Set(products.map(p => p.series).filter(Boolean))] as string[];
     const categories = [...new Set(products.map(p => p.category).filter(Boolean))] as string[];
-    return { series, categories };
+
+    const cpus = [...new Set(
+      products
+        .map(p => p.cpu?.split(/[\s-]/)[0])
+        .filter(Boolean)
+    )] as string[];
+
+    const rams = [...new Set(
+      products.map(p => p.ram_gb).filter((r): r is number => r !== null && r > 0)
+    )].sort((a, b) => a - b);
+
+    const storages = [...new Set(
+      products.map(p => p.storage_gb).filter((s): s is number => s !== null && s > 0)
+    )].sort((a, b) => a - b);
+
+    const prices = products.map(p => p.unit_price).filter(p => p > 0);
+    const minPrice = prices.length > 0 ? Math.floor(Math.min(...prices)) : 0;
+    const maxPrice = prices.length > 0 ? Math.ceil(Math.max(...prices)) : 200000;
+
+    return { series, categories, cpus, rams, storages, minPrice, maxPrice };
   }, [products]);
+
+  // Initialize price range when products load
+  useEffect(() => {
+    if (filterOptions.maxPrice > 0) {
+      setPriceRange([filterOptions.minPrice, filterOptions.maxPrice]);
+    }
+  }, [filterOptions.minPrice, filterOptions.maxPrice]);
 
   // Filtered & sorted products
   const filtered = useMemo(() => {
     let result = [...products];
+
+    // Enhanced search
     if (search) {
       const q = search.toLowerCase();
       result = result.filter(p =>
-        p.model.toLowerCase().includes(q) || p.name.toLowerCase().includes(q) || p.sku.toLowerCase().includes(q) ||
-        (p.description && p.description.toLowerCase().includes(q))
+        p.model.toLowerCase().includes(q) ||
+        p.name.toLowerCase().includes(q) ||
+        p.sku.toLowerCase().includes(q) ||
+        (p.description && p.description.toLowerCase().includes(q)) ||
+        (p.cpu && p.cpu.toLowerCase().includes(q)) ||
+        (p.storage_type && p.storage_type.toLowerCase().includes(q)) ||
+        (p.series && p.series.toLowerCase().includes(q)) ||
+        (p.category && p.category.toLowerCase().includes(q))
       );
     }
+
     if (seriesFilter.length > 0) result = result.filter(p => p.series && seriesFilter.includes(p.series));
     if (categoryFilter.length > 0) result = result.filter(p => p.category && categoryFilter.includes(p.category));
+
+    // Price range filter
+    result = result.filter(p =>
+      p.unit_price >= priceRange[0] && p.unit_price <= priceRange[1]
+    );
+
+    // CPU filter
+    if (cpuFilter.length > 0) {
+      result = result.filter(p =>
+        p.cpu && cpuFilter.some(c => p.cpu!.toLowerCase().includes(c.toLowerCase()))
+      );
+    }
+
+    // RAM filter
+    if (ramFilter.length > 0) {
+      result = result.filter(p => p.ram_gb && ramFilter.includes(p.ram_gb));
+    }
+
+    // Storage filter
+    if (storageFilter.length > 0) {
+      result = result.filter(p => p.storage_gb && storageFilter.includes(p.storage_gb));
+    }
 
     if (sortBy === 'price_asc') result.sort((a, b) => a.unit_price - b.unit_price);
     else if (sortBy === 'price_desc') result.sort((a, b) => b.unit_price - a.unit_price);
     else result.sort((a, b) => (b.is_featured ? 1 : 0) - (a.is_featured ? 1 : 0));
 
     return result;
-  }, [products, search, seriesFilter, categoryFilter, sortBy]);
+  }, [products, search, seriesFilter, categoryFilter, sortBy, priceRange, cpuFilter, ramFilter, storageFilter]);
 
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
   const paged = filtered.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
@@ -138,6 +203,31 @@ const ShopStorefront = () => {
     setCategoryFilter(prev => prev.includes(c) ? prev.filter(x => x !== c) : [...prev, c]);
     setPage(1);
   };
+  const toggleCpuFilter = (cpu: string) => {
+    setCpuFilter(prev => prev.includes(cpu) ? prev.filter(x => x !== cpu) : [...prev, cpu]);
+    setPage(1);
+  };
+  const toggleRamFilter = (ram: number) => {
+    setRamFilter(prev => prev.includes(ram) ? prev.filter(x => x !== ram) : [...prev, ram]);
+    setPage(1);
+  };
+  const toggleStorageFilter = (storage: number) => {
+    setStorageFilter(prev => prev.includes(storage) ? prev.filter(x => x !== storage) : [...prev, storage]);
+    setPage(1);
+  };
+  const clearAllFilters = () => {
+    setSeriesFilter([]);
+    setCategoryFilter([]);
+    setCpuFilter([]);
+    setRamFilter([]);
+    setStorageFilter([]);
+    setPriceRange([filterOptions.minPrice, filterOptions.maxPrice]);
+    setSearch('');
+    setPage(1);
+  };
+
+  const hasActiveFilters = seriesFilter.length > 0 || categoryFilter.length > 0 || cpuFilter.length > 0 ||
+    ramFilter.length > 0 || storageFilter.length > 0 || search;
 
   return (
     <div className="min-h-screen bg-background">
@@ -176,34 +266,180 @@ const ShopStorefront = () => {
       <div className="container mx-auto px-4 py-6">
         <div className="flex gap-6">
           {/* Sidebar filters — desktop */}
-          <aside className="hidden lg:block w-56 flex-shrink-0 space-y-5">
-            <div>
-              <h3 className="font-semibold text-sm mb-2">Series</h3>
-              <div className="space-y-1.5">
-                {filterOptions.series.map(s => (
-                  <label key={s} className="flex items-center gap-2 cursor-pointer text-sm">
-                    <Checkbox checked={seriesFilter.includes(s)} onCheckedChange={() => toggleSeriesFilter(s)} />
-                    {s}
-                  </label>
-                ))}
-              </div>
+          <aside className="hidden lg:block w-64 flex-shrink-0">
+            <div className="sticky top-20 space-y-4">
+              <Card>
+                <CardHeader className="pb-3 flex flex-row items-center justify-between">
+                  <CardTitle className="text-sm flex items-center gap-1.5">
+                    <SlidersHorizontal className="w-4 h-4" />
+                    ตัวกรอง
+                  </CardTitle>
+                  {hasActiveFilters && (
+                    <Button variant="ghost" size="sm" onClick={clearAllFilters} className="h-7 text-xs">
+                      ล้าง
+                    </Button>
+                  )}
+                </CardHeader>
+                <CardContent className="space-y-4">
+
+                  {/* Price Range */}
+                  <div>
+                    <Label className="text-xs font-semibold mb-2 flex items-center gap-1.5">
+                      <DollarSign className="w-3.5 h-3.5" /> ช่วงราคา (฿)
+                    </Label>
+                    <div className="px-1">
+                      <Slider
+                        min={filterOptions.minPrice}
+                        max={filterOptions.maxPrice}
+                        step={1000}
+                        value={priceRange}
+                        onValueChange={(v) => { setPriceRange(v as [number, number]); setPage(1); }}
+                        className="my-3"
+                      />
+                      <div className="flex justify-between text-xs text-muted-foreground">
+                        <span>฿{priceRange[0].toLocaleString()}</span>
+                        <span>฿{priceRange[1].toLocaleString()}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <Separator />
+
+                  {/* Series */}
+                  {filterOptions.series.length > 0 && (
+                    <div>
+                      <Label className="text-xs font-semibold mb-2 flex items-center gap-1.5">
+                        <Package className="w-3.5 h-3.5" /> Series
+                      </Label>
+                      <div className="space-y-1.5 max-h-40 overflow-y-auto">
+                        {filterOptions.series.map(s => (
+                          <label key={s} className="flex items-center gap-2 text-xs cursor-pointer hover:bg-accent p-1 rounded">
+                            <input
+                              type="checkbox"
+                              checked={seriesFilter.includes(s)}
+                              onChange={() => toggleSeriesFilter(s)}
+                              className="w-3.5 h-3.5 accent-primary"
+                            />
+                            <span>{s}</span>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <Separator />
+
+                  {/* CPU */}
+                  {filterOptions.cpus.length > 0 && (
+                    <div>
+                      <Label className="text-xs font-semibold mb-2 flex items-center gap-1.5">
+                        <Cpu className="w-3.5 h-3.5" /> CPU
+                      </Label>
+                      <div className="space-y-1.5">
+                        {filterOptions.cpus.map(c => (
+                          <label key={c} className="flex items-center gap-2 text-xs cursor-pointer hover:bg-accent p-1 rounded">
+                            <input
+                              type="checkbox"
+                              checked={cpuFilter.includes(c)}
+                              onChange={() => toggleCpuFilter(c)}
+                              className="w-3.5 h-3.5 accent-primary"
+                            />
+                            <span>{c}</span>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <Separator />
+
+                  {/* RAM */}
+                  {filterOptions.rams.length > 0 && (
+                    <div>
+                      <Label className="text-xs font-semibold mb-2 flex items-center gap-1.5">
+                        <MemoryStick className="w-3.5 h-3.5" /> RAM
+                      </Label>
+                      <div className="flex flex-wrap gap-1.5">
+                        {filterOptions.rams.map(r => (
+                          <button
+                            key={r}
+                            onClick={() => toggleRamFilter(r)}
+                            className={cn(
+                              'px-2.5 py-1 text-xs rounded border transition-colors',
+                              ramFilter.includes(r)
+                                ? 'bg-primary text-primary-foreground border-primary'
+                                : 'bg-background border-border hover:border-primary'
+                            )}
+                          >
+                            {r}GB
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <Separator />
+
+                  {/* Storage */}
+                  {filterOptions.storages.length > 0 && (
+                    <div>
+                      <Label className="text-xs font-semibold mb-2 flex items-center gap-1.5">
+                        <HardDrive className="w-3.5 h-3.5" /> Storage
+                      </Label>
+                      <div className="flex flex-wrap gap-1.5">
+                        {filterOptions.storages.map(s => (
+                          <button
+                            key={s}
+                            onClick={() => toggleStorageFilter(s)}
+                            className={cn(
+                              'px-2.5 py-1 text-xs rounded border transition-colors',
+                              storageFilter.includes(s)
+                                ? 'bg-primary text-primary-foreground border-primary'
+                                : 'bg-background border-border hover:border-primary'
+                            )}
+                          >
+                            {s >= 1000 ? `${s / 1000}TB` : `${s}GB`}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <Separator />
+
+                  {/* Category */}
+                  {filterOptions.categories.length > 0 && (
+                    <div>
+                      <Label className="text-xs font-semibold mb-2 flex items-center gap-1.5">
+                        <Tag className="w-3.5 h-3.5" /> หมวดหมู่
+                      </Label>
+                      <div className="space-y-1.5 max-h-32 overflow-y-auto">
+                        {filterOptions.categories.map(c => (
+                          <label key={c} className="flex items-center gap-2 text-xs cursor-pointer hover:bg-accent p-1 rounded">
+                            <input
+                              type="checkbox"
+                              checked={categoryFilter.includes(c)}
+                              onChange={() => toggleCategoryFilter(c)}
+                              className="w-3.5 h-3.5 accent-primary"
+                            />
+                            <span className="truncate">{c}</span>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Result count */}
+              <Card>
+                <CardContent className="pt-4 text-center text-sm">
+                  <p className="text-muted-foreground">พบ</p>
+                  <p className="text-2xl font-bold text-primary">{filtered.length}</p>
+                  <p className="text-xs text-muted-foreground">รายการ</p>
+                </CardContent>
+              </Card>
             </div>
-            <div>
-              <h3 className="font-semibold text-sm mb-2">Category</h3>
-              <div className="space-y-1.5">
-                {filterOptions.categories.map(c => (
-                  <label key={c} className="flex items-center gap-2 cursor-pointer text-sm">
-                    <Checkbox checked={categoryFilter.includes(c)} onCheckedChange={() => toggleCategoryFilter(c)} />
-                    {c}
-                  </label>
-                ))}
-              </div>
-            </div>
-            {(seriesFilter.length > 0 || categoryFilter.length > 0) && (
-              <Button variant="ghost" size="sm" onClick={() => { setSeriesFilter([]); setCategoryFilter([]); }}>
-                <X className="w-3 h-3 mr-1" /> ล้างตัวกรอง
-              </Button>
-            )}
           </aside>
 
           {/* Mobile filter toggle */}
@@ -215,6 +451,30 @@ const ShopStorefront = () => {
 
           {/* Product grid */}
           <div className="flex-1 min-w-0">
+            {/* Active filter chips */}
+            {(cpuFilter.length > 0 || ramFilter.length > 0 || storageFilter.length > 0) && (
+              <div className="flex flex-wrap gap-1.5 mb-3">
+                {cpuFilter.map(c => (
+                  <Badge key={`cpu-${c}`} variant="secondary" className="text-xs gap-1">
+                    <Cpu className="w-3 h-3" /> {c}
+                    <button onClick={() => toggleCpuFilter(c)} className="hover:text-destructive ml-0.5">×</button>
+                  </Badge>
+                ))}
+                {ramFilter.map(r => (
+                  <Badge key={`ram-${r}`} variant="secondary" className="text-xs gap-1">
+                    <MemoryStick className="w-3 h-3" /> {r}GB
+                    <button onClick={() => toggleRamFilter(r)} className="hover:text-destructive ml-0.5">×</button>
+                  </Badge>
+                ))}
+                {storageFilter.map(s => (
+                  <Badge key={`storage-${s}`} variant="secondary" className="text-xs gap-1">
+                    <HardDrive className="w-3 h-3" /> {s >= 1000 ? `${s / 1000}TB` : `${s}GB`}
+                    <button onClick={() => toggleStorageFilter(s)} className="hover:text-destructive ml-0.5">×</button>
+                  </Badge>
+                ))}
+              </div>
+            )}
+
             {/* View mode + count */}
             <div className="flex items-center justify-between mb-4">
               <p className="text-sm text-muted-foreground">
@@ -227,8 +487,8 @@ const ShopStorefront = () => {
             </div>
 
             {loading ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {Array.from({ length: 6 }).map((_, i) => (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {Array.from({ length: 8 }).map((_, i) => (
                   <Card key={i} className="animate-pulse"><CardContent className="p-4 h-72" /></Card>
                 ))}
               </div>
@@ -237,7 +497,7 @@ const ShopStorefront = () => {
             ) : (
               <div className={cn(
                 viewMode === 'grid'
-                  ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+                  ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
                   : "space-y-3"
               )}>
                 {paged.map(p => (
@@ -353,8 +613,8 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
         </div>
 
         <Link to={`/shop/${p.slug}`}>
-          <div className="aspect-square bg-muted overflow-hidden rounded-t-xl">
-            <img src={img} alt={p.model} className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
+          <div className="aspect-square bg-white rounded-t-xl overflow-hidden border-b border-border group-hover:border-primary/50 transition-colors">
+            <img src={img} alt={p.model} className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-300" loading="lazy" />
           </div>
         </Link>
 
