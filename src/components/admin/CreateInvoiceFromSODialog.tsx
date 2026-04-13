@@ -363,7 +363,7 @@ export default function CreateInvoiceFromSODialog({
                       <div className="flex items-center gap-3">
                         <RadioGroupItem value="downpayment" id="t-down" />
                         <Label htmlFor="t-down" className="cursor-pointer flex-1">
-                          <p className="font-medium">💰 มัดจำ</p>
+                          <p className="font-medium flex items-center gap-1.5"><Landmark className="w-4 h-4 text-primary" /> มัดจำ</p>
                           <p className="text-xs text-muted-foreground">วางบิลมัดจำ % ของยอดรวม</p>
                         </Label>
                       </div>
