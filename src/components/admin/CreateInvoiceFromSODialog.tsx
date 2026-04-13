@@ -349,7 +349,7 @@ export default function CreateInvoiceFromSODialog({
                     <CardContent className="pt-4 pb-4 flex items-center gap-3">
                       <RadioGroupItem value="full" id="t-full" />
                       <Label htmlFor="t-full" className="cursor-pointer flex-1">
-                        <p className="font-medium">💯 เต็มจำนวน</p>
+                        <p className="font-medium flex items-center gap-1.5"><BadgeCheck className="w-4 h-4 text-primary" /> เต็มจำนวน</p>
                         <p className="text-xs text-muted-foreground">วางบิลครั้งเดียว ครบทั้งหมด</p>
                       </Label>
                       <span className="text-sm font-bold text-primary">
