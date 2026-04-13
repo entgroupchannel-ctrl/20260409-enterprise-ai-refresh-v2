@@ -427,15 +427,20 @@ const SmartDisplay = () => {
                   <h4 className="font-bold text-foreground mb-3 flex items-center gap-2"><Download size={16} /> ดาวน์โหลด Datasheet</h4>
                   <div className="flex flex-wrap gap-2">
                     {fpmDatasheets.map((d) => (
-                      <a
-                        key={d.model}
-                        href={d.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-sm font-medium text-foreground hover:bg-secondary hover:border-primary/30 transition-all">
-                        <Download size={12} /> {d.model}
-
-                      </a>
+                      d.href ? (
+                        <a
+                          key={d.model}
+                          href={d.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-sm font-medium text-foreground hover:bg-secondary hover:border-primary/30 transition-all">
+                          <Download size={12} /> {d.model}
+                        </a>
+                      ) : (
+                        <span key={d.model} className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border/50 text-sm text-muted-foreground italic">
+                          {d.model} — {'note' in d ? (d as any).note : 'ไม่มีไฟล์'}
+                        </span>
+                      )
                     ))}
                   </div>
                 </div>
