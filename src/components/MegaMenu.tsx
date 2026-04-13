@@ -218,6 +218,7 @@ const menuCategories = [
       {
         heading: "เครื่องมือ & บริการ",
         links: [
+          { label: "🛒 Shop — สั่งซื้อออนไลน์", href: "/shop", hot: true },
           { label: "✦ ช่วยเลือกสินค้าที่ใช่", href: "/product-advisor", hot: true },
           { label: "ขอใบเสนอราคา", href: "/quote" },
           { label: "โปรโมชั่น", href: "/promotions" },

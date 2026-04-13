@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, LogIn, UserCircle, ChevronDown, LayoutDashboard, FileText, Plus, User, LogOut } from 'lucide-react';
+import { Menu, X, LogIn, UserCircle, ChevronDown, LayoutDashboard, FileText, Plus, User, LogOut, ShoppingBag } from 'lucide-react';
 import CartBadge from '@/components/CartBadge';
 import ThemeToggle from '@/components/ThemeToggle';
 import MegaMenu, { MobileMegaMenu } from '@/components/MegaMenu';
 import { useAuth } from '@/hooks/useAuth';
 import logo from '@/assets/logo-entgroup.avif';
+import { cn } from '@/lib/utils';
 
 const navLinks = [
+  { label: 'Shop', href: '/shop', icon: ShoppingBag, highlight: true },
   { label: 'โปรโมชั่น', href: '/promotions' },
   { label: 'ติดต่อเรา', href: '/contact' },
 ];
@@ -31,9 +33,19 @@ export default function SiteNavbar() {
             <Link
               key={link.label}
               to={link.href}
-              className="px-3 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+              className={cn(
+                "px-3 py-2 rounded-lg text-sm font-medium transition-colors",
+                'highlight' in link && link.highlight
+                  ? "text-primary hover:bg-primary/10 font-semibold"
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
+              )}
             >
-              {link.label}
+              {'icon' in link && link.icon ? (
+                <span className="flex items-center gap-1.5">
+                  <link.icon size={16} />
+                  {link.label}
+                </span>
+              ) : link.label}
             </Link>
           ))}
           <div className="w-px h-6 bg-border mx-1" />

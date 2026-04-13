@@ -119,6 +119,7 @@ const footerSections: { title: string; links: FooterLink[] }[] = [
   {
     title: "บริการ & ข้อมูล",
     links: [
+      { label: "🛒 Shop — สั่งซื้อออนไลน์", href: "/shop" },
       { label: "กรณีศึกษาลูกค้า", href: "/case-studies" },
       { label: "บทความเทคนิค", href: "/blog" },
       { label: "เงื่อนไขการรับประกัน", href: "/warrantys" },
