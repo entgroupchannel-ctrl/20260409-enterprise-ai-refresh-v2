@@ -2574,7 +2574,9 @@ export type Database = {
           expired_count: number
         }[]
       }
+      extract_doc_base_number: { Args: { doc_number: string }; Returns: string }
       generate_invoice_number: { Args: never; Returns: string }
+      generate_next_base_number: { Args: never; Returns: string }
       generate_receipt_number: { Args: never; Returns: string }
       generate_tax_invoice_number: { Args: never; Returns: string }
       get_negotiation_stats: {
