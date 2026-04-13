@@ -19,9 +19,6 @@ interface QuoteRow {
   customer_email: string;
   customer_phone: string | null;
   customer_tax_id: string | null;
-  customer_branch_type: string | null;
-  customer_branch_code: string | null;
-  customer_branch_name: string | null;
   payment_terms: string | null;
   notes: string | null;
   grand_total: number | null;
@@ -53,7 +50,7 @@ export default function SelectQuoteForInvoiceDialog({
       const { data, error } = await (supabase as any)
         .from('quote_requests')
         .select(
-          'id, quote_number, customer_name, customer_company, customer_address, customer_email, customer_phone, customer_tax_id, customer_branch_type, customer_branch_code, customer_branch_name, payment_terms, notes, grand_total, status, has_sale_order, created_at'
+          'id, quote_number, customer_name, customer_company, customer_address, customer_email, customer_phone, customer_tax_id, payment_terms, notes, grand_total, status, has_sale_order, created_at'
         )
         .eq('status', 'po_approved')
         .order('created_at', { ascending: false })
@@ -100,6 +97,30 @@ export default function SelectQuoteForInvoiceDialog({
         return;
       }
 
+      // Try to find branch info from contacts table (by tax_id match)
+      let branchType: string | null = null;
+      let branchCode: string | null = null;
+      let branchName: string | null = null;
+
+      if (quote.customer_tax_id) {
+        try {
+          const { data: contactData } = await (supabase as any)
+            .from('contacts')
+            .select('branch_type, branch_code, branch_name')
+            .eq('tax_id', quote.customer_tax_id)
+            .limit(1)
+            .maybeSingle();
+          
+          if (contactData) {
+            branchType = contactData.branch_type || null;
+            branchCode = contactData.branch_code || null;
+            branchName = contactData.branch_name || null;
+          }
+        } catch (e) {
+          console.warn('Contact branch lookup failed:', e);
+        }
+      }
+
       const source: InvoiceSource = {
         type: 'quote',
         quote: {
@@ -111,9 +132,9 @@ export default function SelectQuoteForInvoiceDialog({
           customer_email: quote.customer_email,
           customer_phone: quote.customer_phone,
           customer_tax_id: quote.customer_tax_id,
-          customer_branch_type: quote.customer_branch_type,
-          customer_branch_code: quote.customer_branch_code,
-          customer_branch_name: quote.customer_branch_name,
+          customer_branch_type: branchType,
+          customer_branch_code: branchCode,
+          customer_branch_name: branchName,
           payment_terms: quote.payment_terms,
           notes: quote.notes,
           subtotal: Number(revData.subtotal) || 0,
