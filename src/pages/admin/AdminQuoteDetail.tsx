@@ -482,18 +482,9 @@ export default function AdminQuoteDetail() {
       <div className="space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Button variant="outline" size="sm" onClick={() => navigate('/admin/quotes')}>
-              <ArrowLeft className="w-4 h-4" />
-            </Button>
-            <div>
-              <h1 className="text-2xl font-bold">{quote.quote_number}</h1>
-              <p className="text-gray-600 text-sm mt-1">
-                สร้างเมื่อ {formatShortDateTime(quote.created_at)}
-              </p>
-            </div>
-          </div>
-
+          <Button variant="outline" size="sm" onClick={() => navigate('/admin/quotes')}>
+            <ArrowLeft className="w-4 h-4" />
+          </Button>
           <div className="flex items-center gap-2">
             <Button
               variant="outline"
@@ -516,14 +507,150 @@ export default function AdminQuoteDetail() {
               <Printer className="w-4 h-4 mr-1.5" />
               พิมพ์ / PDF
             </Button>
-            <StatusBadge status={quote.status} />
-            {quote.sla_breached && (
-              <Badge variant="destructive" className="gap-1">
-                <ShieldAlert className="w-3 h-3" />
-                SLA เกิน
-              </Badge>
-            )}
           </div>
+        </div>
+
+        {/* Summary Card */}
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-start justify-between gap-4 flex-wrap">
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <Receipt className="w-6 h-6 text-primary" />
+                  <h1 className="text-2xl font-bold font-mono">{quote.quote_number}</h1>
+                </div>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <StatusBadge status={quote.status} />
+                  {quote.valid_until && (
+                    <Badge variant="outline" className="text-xs">
+                      ใช้ได้ถึง: {new Date(quote.valid_until).toLocaleDateString('th-TH', {
+                        day: 'numeric', month: 'short', year: 'numeric',
+                      })}
+                    </Badge>
+                  )}
+                  {quote.sla_breached && (
+                    <Badge variant="destructive" className="gap-1">
+                      <ShieldAlert className="w-3 h-3" />
+                      SLA เกิน
+                    </Badge>
+                  )}
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="text-xs text-muted-foreground">ยอดรวม</div>
+                <div className="text-3xl font-bold text-primary">
+                  {new Intl.NumberFormat('th-TH', { 
+                    style: 'currency', 
+                    currency: 'THB', 
+                    minimumFractionDigits: 2 
+                  }).format(quote.grand_total || 0)}
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Two-column Meta Grid — Customer | Dates & Sale Person */}
+        <div className="grid md:grid-cols-2 gap-4">
+          {/* Customer Card */}
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm flex items-center gap-2">
+                <User className="w-4 h-4" />
+                ลูกค้า
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm space-y-1.5">
+              <div className="font-semibold text-base">{quote.customer_name}</div>
+              {quote.customer_company && (
+                <div className="text-muted-foreground">{quote.customer_company}</div>
+              )}
+              {quote.customer_address && (
+                <div className="text-xs text-muted-foreground whitespace-pre-line leading-relaxed">
+                  {quote.customer_address}
+                </div>
+              )}
+              {quote.customer_tax_id && (
+                <div className="text-xs pt-1">
+                  <span className="text-muted-foreground">เลขประจำตัวผู้เสียภาษี: </span>
+                  <span className="font-mono">{quote.customer_tax_id}</span>
+                </div>
+              )}
+              <div className="flex flex-wrap gap-x-3 gap-y-0.5 text-xs text-muted-foreground pt-1">
+                {quote.customer_phone && <span>📞 {quote.customer_phone}</span>}
+                {quote.customer_email && <span>✉️ {quote.customer_email}</span>}
+                {quote.customer_line && <span>LINE: {quote.customer_line}</span>}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Dates & Sale Person */}
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm flex items-center gap-2">
+                <Calendar className="w-4 h-4" />
+                วันที่ & ผู้รับผิดชอบ
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm space-y-1.5">
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">วันที่สร้าง:</span>
+                <span>{formatShortDateTime(quote.created_at)}</span>
+              </div>
+              {quote.valid_until && (
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">ใช้ได้ถึง:</span>
+                  <span className={
+                    new Date(quote.valid_until) < new Date() 
+                      ? 'text-destructive font-semibold' 
+                      : ''
+                  }>
+                    {new Date(quote.valid_until).toLocaleDateString('th-TH', {
+                      year: 'numeric', month: 'long', day: 'numeric',
+                    })}
+                  </span>
+                </div>
+              )}
+              {quote.payment_terms && (
+                <div className="flex justify-between gap-2">
+                  <span className="text-muted-foreground shrink-0">เงื่อนไขชำระ:</span>
+                  <span className="text-right text-xs">{quote.payment_terms}</span>
+                </div>
+              )}
+              
+              {assignedSaleUser && (
+                <div className="pt-3 mt-2 border-t">
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <Briefcase className="w-3.5 h-3.5 text-muted-foreground" />
+                    <span className="text-xs text-muted-foreground font-semibold">ผู้รับผิดชอบ</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {assignedSaleUser.avatar_url ? (
+                      <img 
+                        src={assignedSaleUser.avatar_url} 
+                        alt={assignedSaleUser.full_name}
+                        className="w-8 h-8 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                        <User className="w-4 h-4 text-primary" />
+                      </div>
+                    )}
+                    <div className="flex-1 min-w-0">
+                      <div className="font-semibold text-sm truncate">
+                        {assignedSaleUser.full_name || assignedSaleUser.email}
+                      </div>
+                      {assignedSaleUser.position && (
+                        <div className="text-[10px] text-muted-foreground truncate">
+                          {assignedSaleUser.position}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
         </div>
 
         {/* Quote Timeline */}
