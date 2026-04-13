@@ -776,74 +776,8 @@ export default function AdminQuoteDetail() {
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left Column - Customer & Products */}
+          {/* Left Column - Products & Terms */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Customer Information */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-foreground">
-                  <UserRound className="w-5 h-5" />
-                  ข้อมูลลูกค้า
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="grid grid-cols-1 gap-3">
-                  <div>
-                    <Label className="text-xs text-muted-foreground">ชื่อลูกค้า</Label>
-                    <p className="font-semibold text-foreground">{quote.customer_name}</p>
-                  </div>
-                  
-                  <div>
-                    <Label className="text-xs text-muted-foreground">ที่อยู่</Label>
-                    <p className="text-sm text-foreground whitespace-pre-wrap">
-                      {quote.customer_address || '-'}
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <Label className="text-xs text-muted-foreground">รหัสไปรษณีย์</Label>
-                      <p className="text-sm text-foreground">
-                        {quote.customer_address?.match(/\d{5}$/)?.[0] || '-'}
-                      </p>
-                    </div>
-                    <div>
-                      <Label className="text-xs text-muted-foreground">เลขประจำตัวผู้เสียภาษี</Label>
-                      <p className="text-sm text-foreground">{quote.customer_tax_id || '-'}</p>
-                    </div>
-                  </div>
-
-                  <div>
-                    <Label className="text-xs text-muted-foreground">สำนักงานใหญ่</Label>
-                    <p className="text-sm text-foreground">
-                      {quote.customer_company ? 'สำนักงานใหญ่' : '-'}
-                    </p>
-                  </div>
-
-                  <div className="pt-3 border-t border-border">
-                    <div className="flex items-center gap-2 mb-1">
-                      <PhoneCall className="w-3 h-3 text-muted-foreground" />
-                      <Label className="text-xs text-muted-foreground">แก้ไข</Label>
-                    </div>
-                  </div>
-
-                  <div>
-                    <Label className="text-xs text-muted-foreground">ผู้ติดต่อ:</Label>
-                    <p className="font-semibold text-foreground">{quote.customer_name}</p>
-                  </div>
-
-                  <div>
-                    <Label className="text-xs text-muted-foreground">อีเมล:</Label>
-                    <p className="text-sm text-foreground">{quote.customer_email}</p>
-                  </div>
-
-                  <div>
-                    <Label className="text-xs text-muted-foreground">ที่ตั้งธุรกิจ:</Label>
-                    <p className="text-sm text-foreground">ไทย</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
 
             {/* Products */}
             <Card>
