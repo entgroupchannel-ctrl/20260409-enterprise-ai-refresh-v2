@@ -12,7 +12,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { Receipt, Loader2 } from 'lucide-react';
+import { Receipt, Loader2, BadgeCheck, Landmark, BarChart3 } from 'lucide-react';
 
 interface SaleOrder {
   id: string;
@@ -349,7 +349,7 @@ export default function CreateInvoiceFromSODialog({
                     <CardContent className="pt-4 pb-4 flex items-center gap-3">
                       <RadioGroupItem value="full" id="t-full" />
                       <Label htmlFor="t-full" className="cursor-pointer flex-1">
-                        <p className="font-medium">💯 เต็มจำนวน</p>
+                        <p className="font-medium flex items-center gap-1.5"><BadgeCheck className="w-4 h-4 text-primary" /> เต็มจำนวน</p>
                         <p className="text-xs text-muted-foreground">วางบิลครั้งเดียว ครบทั้งหมด</p>
                       </Label>
                       <span className="text-sm font-bold text-primary">
@@ -363,7 +363,7 @@ export default function CreateInvoiceFromSODialog({
                       <div className="flex items-center gap-3">
                         <RadioGroupItem value="downpayment" id="t-down" />
                         <Label htmlFor="t-down" className="cursor-pointer flex-1">
-                          <p className="font-medium">💰 มัดจำ</p>
+                          <p className="font-medium flex items-center gap-1.5"><Landmark className="w-4 h-4 text-primary" /> มัดจำ</p>
                           <p className="text-xs text-muted-foreground">วางบิลมัดจำ % ของยอดรวม</p>
                         </Label>
                       </div>
@@ -391,7 +391,7 @@ export default function CreateInvoiceFromSODialog({
                       <div className="flex items-center gap-3">
                         <RadioGroupItem value="installment" id="t-inst" />
                         <Label htmlFor="t-inst" className="cursor-pointer flex-1">
-                          <p className="font-medium">📊 แบ่งจ่าย</p>
+                          <p className="font-medium flex items-center gap-1.5"><BarChart3 className="w-4 h-4 text-primary" /> แบ่งจ่าย</p>
                           <p className="text-xs text-muted-foreground">แบ่งเป็น N งวดเท่า ๆ กัน (สร้างงวดที่ 1)</p>
                         </Label>
                       </div>
