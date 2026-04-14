@@ -1,4 +1,5 @@
 import { ReactNode, useState, useEffect } from 'react';
+import { ROLE_LABELS, type UserRole } from '@/types/auth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import NotificationBell from '@/components/notifications/NotificationBell';
 import { useAuth } from '@/hooks/useAuth';
@@ -360,9 +361,9 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                     </div>
                     <div className="hidden sm:block text-left">
                       <div className="text-sm font-medium">{profile?.full_name}</div>
-                      <div className="text-xs text-muted-foreground">
-                        {profile?.role === 'admin' ? 'ผู้ดูแลระบบ' : 'พนักงานขาย'}
-                      </div>
+                       <div className="text-xs text-muted-foreground">
+                         {ROLE_LABELS[(profile?.role as UserRole) || 'member']}
+                       </div>
                     </div>
                   </Button>
                 </DropdownMenuTrigger>
