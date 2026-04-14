@@ -30,6 +30,7 @@ import {
   Receipt, FileText,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
+import NotificationBell from '@/components/notifications/NotificationBell';
 
 // ─── Types ───
 interface Quote {
@@ -510,8 +511,9 @@ export default function UserDashboard() {
               <div className="h-6 w-px bg-border" />
               <h1 className="text-sm font-semibold hidden sm:block">แดชบอร์ดของฉัน</h1>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <span className="text-xs text-muted-foreground hidden sm:block">{user?.email}</span>
+              {user?.id && <NotificationBell userId={user.id} />}
               <Button variant="ghost" size="sm" onClick={signOut}>
                 <LogOut className="w-4 h-4 mr-1" /> ออกจากระบบ
               </Button>

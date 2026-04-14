@@ -95,6 +95,7 @@ const UserProfile = lazyRetry(() => import("./pages/customer/UserProfile"));
 const UserDashboard = lazyRetry(() => import("./pages/customer/UserDashboard"));
 const CustomerSODetail = lazyRetry(() => import("./pages/customer/CustomerSODetail"));
 const CustomerOrders = lazyRetry(() => import("./pages/customer/CustomerOrders"));
+const NotificationsPage = lazyRetry(() => import("./pages/notifications/NotificationsPage"));
 
 /* ── Loading fallback ── */
 const PageLoader = () => (
@@ -209,6 +210,7 @@ const App = () => (
                     <Route path="/my-tax-invoices/:id" element={<ProtectedRoute><MyTaxInvoiceDetail /></ProtectedRoute>} />
                     <Route path="/my-receipts" element={<ProtectedRoute><MyReceipts /></ProtectedRoute>} />
                     <Route path="/my-receipts/:id" element={<ProtectedRoute><MyReceiptDetail /></ProtectedRoute>} />
+                    <Route path="/notifications" element={<ProtectedRoute><NotificationsPage /></ProtectedRoute>} />
                     <Route path="/profile" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
                     <Route path="/dashboard" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
                     <Route path="/profile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
