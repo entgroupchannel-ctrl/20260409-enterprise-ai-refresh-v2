@@ -187,7 +187,9 @@ export default function CreateInvoiceFromSODialog({
         .eq('id', source.saleOrder.quote_id)
         .maybeSingle();
       if (error) throw error;
-      setQuote(data);
+      if (data) {
+        setQuote({ ...data, user_id: data.created_by || null });
+      }
       if (data?.payment_terms) setPaymentTerms(data.payment_terms);
     } catch (e: any) {
       toast({ title: 'โหลดข้อมูลไม่สำเร็จ', description: e.message, variant: 'destructive' });
