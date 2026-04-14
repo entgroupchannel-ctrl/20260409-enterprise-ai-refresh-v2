@@ -13,10 +13,12 @@ import {
 } from '@/components/ui/alert-dialog';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { Search, Loader2, FileText, Trash2 } from 'lucide-react';
+import { Search, Loader2, FileText, Trash2, Plus } from 'lucide-react';
 import { formatRelativeTime } from '@/lib/format';
 import TaxInvoiceTimeline from '@/components/admin/TaxInvoiceTimeline';
 import TaxInvoiceActionsMenu from '@/components/admin/TaxInvoiceActionsMenu';
+import SelectInvoiceForTaxInvoiceDialog from '@/components/admin/SelectInvoiceForTaxInvoiceDialog';
+import CreateTaxInvoiceFromInvoiceDialog from '@/components/admin/CreateTaxInvoiceFromInvoiceDialog';
 
 interface TaxInvoice {
   id: string;
@@ -47,6 +49,9 @@ export default function AdminTaxInvoicesList() {
   const [deletingTax, setDeletingTax] = useState<TaxInvoice | null>(null);
   const [deleteReason, setDeleteReason] = useState('');
   const [deleting, setDeleting] = useState(false);
+  const [availableCount, setAvailableCount] = useState(0);
+  const [showInvoicePicker, setShowInvoicePicker] = useState(false);
+  const [createFromInvoiceId, setCreateFromInvoiceId] = useState<string | null>(null);
 
   const loadData = async () => {
     setLoading(true);
@@ -72,7 +77,37 @@ export default function AdminTaxInvoicesList() {
     }
   };
 
-  useEffect(() => { loadData(); }, []);
+  const loadAvailableCount = async () => {
+    try {
+      const [payRes, taxRes] = await Promise.all([
+        (supabase as any)
+          .from('payment_records')
+          .select('id')
+          .eq('verification_status', 'verified'),
+        (supabase as any)
+          .from('tax_invoices')
+          .select('payment_record_id')
+          .is('deleted_at', null)
+          .not('payment_record_id', 'is', null),
+      ]);
+
+      if (payRes.error) throw payRes.error;
+      if (taxRes.error) throw taxRes.error;
+
+      const usedPaymentIds = new Set(
+        (taxRes.data || []).map((t: any) => t.payment_record_id)
+      );
+      const available = (payRes.data || []).filter(
+        (p: any) => !usedPaymentIds.has(p.id)
+      );
+
+      setAvailableCount(available.length);
+    } catch (e) {
+      console.error('Failed to load available count:', e);
+    }
+  };
+
+  useEffect(() => { loadData(); loadAvailableCount(); }, []);
 
   useEffect(() => {
     const timer = setTimeout(loadData, 400);
@@ -124,12 +159,26 @@ export default function AdminTaxInvoicesList() {
             <h1 className="text-2xl font-bold">ใบกำกับภาษี</h1>
             <Badge variant="outline" className="ml-2">{taxInvoices.length}</Badge>
           </div>
-          <Button variant="outline" asChild>
-            <Link to="/admin/trash?tab=tax-invoices">
-              <Trash2 className="w-4 h-4 mr-2" />
-              ถังขยะ
-            </Link>
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button variant="outline" asChild>
+              <Link to="/admin/trash?tab=tax-invoices">
+                <Trash2 className="w-4 h-4 mr-2" />
+                ถังขยะ
+              </Link>
+            </Button>
+            <Button
+              onClick={() => setShowInvoicePicker(true)}
+              disabled={availableCount === 0}
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              สร้างใบกำกับภาษี
+              {availableCount > 0 && (
+                <Badge variant="secondary" className="ml-2 bg-white/20 text-white border-white/30">
+                  {availableCount}
+                </Badge>
+              )}
+            </Button>
+          </div>
         </div>
 
         {/* Filter tabs */}
