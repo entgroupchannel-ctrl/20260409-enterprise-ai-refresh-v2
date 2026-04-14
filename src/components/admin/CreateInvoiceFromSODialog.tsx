@@ -49,6 +49,7 @@ export type InvoiceSource =
   | { type: 'quote'; quote: QuoteSource };
 
 interface QuoteData {
+  user_id: string | null;
   customer_name: string;
   customer_company: string | null;
   customer_address: string | null;
@@ -141,7 +142,20 @@ export default function CreateInvoiceFromSODialog({
       loadQuoteFromSO();
     } else if (source?.type === 'quote') {
       const q = source.quote;
+      // Load user_id from quote_requests
+      let userId: string | null = null;
+      try {
+        const { data: qData } = await (supabase as any)
+          .from('quote_requests')
+          .select('user_id')
+          .eq('id', q.id)
+          .maybeSingle();
+        userId = qData?.user_id || null;
+      } catch (e) {
+        console.warn('Failed to load user_id:', e);
+      }
       setQuote({
+        user_id: userId,
         customer_name: q.customer_name,
         customer_company: q.customer_company,
         customer_address: q.customer_address,
@@ -166,7 +180,7 @@ export default function CreateInvoiceFromSODialog({
       const { data, error } = await (supabase as any)
         .from('quote_requests')
         .select(
-          'customer_name, customer_company, customer_address, customer_email, customer_phone, customer_tax_id, customer_branch_type, customer_branch_code, customer_branch_name, payment_terms, notes'
+          'user_id, customer_name, customer_company, customer_address, customer_email, customer_phone, customer_tax_id, customer_branch_type, customer_branch_code, customer_branch_name, payment_terms, notes'
         )
         .eq('id', source.saleOrder.quote_id)
         .maybeSingle();
@@ -225,6 +239,7 @@ export default function CreateInvoiceFromSODialog({
       const invoicePayload: any = {
         sale_order_id: saleOrderId,
         quote_id: quoteId,
+        customer_id: quote.user_id || null,
         customer_name: quote.customer_name,
         customer_company: quote.customer_company,
         customer_address: quote.customer_address,
