@@ -10,6 +10,7 @@ import { QuoteTimeline } from '@/components/QuoteTimeline';
 import RevisionTimeline from '@/components/negotiation/RevisionTimeline';
 import QuoteTermsEditor from '@/components/admin/QuoteTermsEditor';
 import CounterOfferDialog from '@/components/negotiation/CounterOfferDialog';
+import EditCustomerInfoDialog from '@/components/admin/EditCustomerInfoDialog';
 import PendingApprovalBanner from '@/components/negotiation/PendingApprovalBanner';
 import NegotiationRequestsList from '@/components/negotiation/NegotiationRequestsList';
 import NegotiationInsightsCard from '@/components/negotiation/NegotiationInsightsCard';
