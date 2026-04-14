@@ -17,7 +17,7 @@ import { useToast } from '@/hooks/use-toast';
 import {
   ArrowLeft, Loader2, Printer, Send, CircleCheckBig, Ban, FileText,
   User, Calendar, Receipt, Save, Lock, MessageSquare,
-  Clock, Banknote, ExternalLink, Mail,
+  Clock, Banknote, ExternalLink, Mail, UserPlus, AlertCircle,
 } from 'lucide-react';
 import InvoicePrintPreviewDialog from '@/components/admin/InvoicePrintPreviewDialog';
 
@@ -50,6 +50,7 @@ export default function AdminInvoiceDetail() {
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
   const [paymentRecords, setPaymentRecords] = useState<any[]>([]);
+  const [linkingCustomer, setLinkingCustomer] = useState(false);
   const [showPrintDialog, setShowPrintDialog] = useState(false);
   const [cancelReason, setCancelReason] = useState('');
   const [editNotes, setEditNotes] = useState('');
