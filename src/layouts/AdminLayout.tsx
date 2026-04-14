@@ -53,6 +53,7 @@ interface NavItem {
   icon: any;
   path: string;
   badge?: 'requests' | 'approvals';
+  superAdminOnly?: boolean;
 }
 
 interface NavGroup {
