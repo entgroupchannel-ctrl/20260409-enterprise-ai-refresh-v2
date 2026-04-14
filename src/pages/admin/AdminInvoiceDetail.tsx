@@ -11,11 +11,12 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import {
   ArrowLeft, Loader2, Printer, Send, CircleCheckBig, Ban, FileText,
-  User, Calendar, Receipt,
+  User, Calendar, Receipt, Save, Lock, MessageSquare,
 } from 'lucide-react';
 import InvoicePrintPreviewDialog from '@/components/admin/InvoicePrintPreviewDialog';
 
@@ -49,6 +50,9 @@ export default function AdminInvoiceDetail() {
   const [updating, setUpdating] = useState(false);
   const [showPrintDialog, setShowPrintDialog] = useState(false);
   const [cancelReason, setCancelReason] = useState('');
+  const [editNotes, setEditNotes] = useState('');
+  const [editInternalNotes, setEditInternalNotes] = useState('');
+  const [savingNotes, setSavingNotes] = useState(false);
 
   const loadData = async () => {
     if (!id) return;
@@ -67,6 +71,8 @@ export default function AdminInvoiceDetail() {
       }
 
       setInvoice(invRes.data);
+      setEditNotes(invRes.data.notes || '');
+      setEditInternalNotes(invRes.data.internal_notes || '');
       setItems(itemsRes.data || []);
     } catch (e: any) {
       toast({ title: 'โหลดข้อมูลไม่สำเร็จ', description: e.message, variant: 'destructive' });
@@ -119,6 +125,33 @@ export default function AdminInvoiceDetail() {
 
   const handlePrint = () => {
     setShowPrintDialog(true);
+  };
+
+  const handleSaveNotes = async () => {
+    if (!invoice) return;
+    setSavingNotes(true);
+    try {
+      const { error } = await (supabase as any)
+        .from('invoices')
+        .update({
+          notes: editNotes || null,
+          internal_notes: editInternalNotes || null,
+        })
+        .eq('id', invoice.id);
+
+      if (error) throw error;
+
+      toast({ title: '✅ บันทึกหมายเหตุสำเร็จ' });
+      setInvoice({
+        ...invoice,
+        notes: editNotes || null,
+        internal_notes: editInternalNotes || null,
+      });
+    } catch (e: any) {
+      toast({ title: 'บันทึกไม่สำเร็จ', description: e.message, variant: 'destructive' });
+    } finally {
+      setSavingNotes(false);
+    }
   };
 
   const formatCurrency = (n: number) =>
@@ -306,7 +339,7 @@ export default function AdminInvoiceDetail() {
           </Card>
         </div>
 
-        {/* Items table */}
+        {/* Items - card based (matches Quote pattern) */}
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm flex items-center gap-2">
@@ -314,36 +347,51 @@ export default function AdminInvoiceDetail() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead className="text-xs text-muted-foreground border-b">
-                  <tr>
-                    <th className="text-left py-2 w-10">#</th>
-                    <th className="text-left py-2">รายการ</th>
-                    <th className="text-center py-2 w-20">จำนวน</th>
-                    <th className="text-right py-2 w-28">ราคา/หน่วย</th>
-                    <th className="text-right py-2 w-28">รวม</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {items.map((item: any, idx: number) => (
-                    <tr key={item.id} className="border-b last:border-0">
-                      <td className="py-2.5 text-muted-foreground">{idx + 1}</td>
-                      <td className="py-2.5">
-                        <div className="font-medium">{item.product_name}</div>
-                        {item.sku && <div className="text-[10px] text-muted-foreground">SKU: {item.sku}</div>}
-                        {item.product_description && (
-                          <div className="text-xs text-muted-foreground">{item.product_description}</div>
+            {items.length === 0 ? (
+              <p className="text-muted-foreground text-center py-8 text-sm">ไม่มีรายการสินค้า</p>
+            ) : (
+              <div className="space-y-3">
+                {items.map((item: any) => {
+                  const hasDiscount = (item.discount_amount || 0) > 0;
+                  const discountPercent = hasDiscount && item.unit_price > 0
+                    ? Math.round(((item.discount_amount || 0) / (item.unit_price * (item.quantity || 1))) * 1000) / 10
+                    : 0;
+
+                  return (
+                    <div
+                      key={item.id}
+                      className="p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors"
+                    >
+                      <div className="flex justify-between items-start mb-2">
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-semibold text-foreground">{item.product_name || 'N/A'}</h4>
+                          {item.product_description && (
+                            <p className="text-sm text-muted-foreground">{item.product_description}</p>
+                          )}
+                          {item.sku && (
+                            <p className="text-xs text-muted-foreground mt-0.5">
+                              SKU: <span className="font-mono">{item.sku}</span>
+                            </p>
+                          )}
+                        </div>
+                        <div className="text-right ml-4 shrink-0">
+                          <p className="font-semibold text-primary">{formatCurrency(item.line_total || 0)}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-4 text-sm text-muted-foreground flex-wrap">
+                        <span>จำนวน: {item.quantity || 0} {item.unit || ''}</span>
+                        <span>ราคา/หน่วย: {formatCurrency(item.unit_price || 0)}</span>
+                        {hasDiscount && (
+                          <span className="text-green-600 dark:text-green-400">
+                            ส่วนลด {discountPercent > 0 ? `${discountPercent}%` : formatCurrency(item.discount_amount)}
+                          </span>
                         )}
-                      </td>
-                      <td className="py-2.5 text-center">{item.quantity} {item.unit}</td>
-                      <td className="py-2.5 text-right font-mono">{formatCurrency(item.unit_price)}</td>
-                      <td className="py-2.5 text-right font-mono font-semibold">{formatCurrency(item.line_total)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </CardContent>
         </Card>
 
@@ -382,17 +430,63 @@ export default function AdminInvoiceDetail() {
           </CardContent>
         </Card>
 
-        {/* Notes */}
-        {invoice.notes && (
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-sm">หมายเหตุ</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm whitespace-pre-line">{invoice.notes}</p>
-            </CardContent>
-          </Card>
-        )}
+        {/* Notes Editor — Customer + Internal */}
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-sm flex items-center gap-2">
+              <MessageSquare className="w-4 h-4" />
+              หมายเหตุ
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="invoice-notes" className="text-xs font-semibold text-muted-foreground flex items-center gap-1.5">
+                <MessageSquare className="w-3 h-3" />
+                หมายเหตุสำหรับลูกค้า
+                <span className="text-[10px] font-normal">(แสดงในใบวางบิลที่พิมพ์)</span>
+              </Label>
+              <Textarea
+                id="invoice-notes"
+                value={editNotes}
+                onChange={(e) => setEditNotes(e.target.value)}
+                placeholder="เช่น: ขอบคุณที่ใช้บริการ, รายละเอียดเงื่อนไขเพิ่มเติม..."
+                rows={3}
+                className="text-sm resize-none"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="invoice-internal-notes" className="text-xs font-semibold text-muted-foreground flex items-center gap-1.5">
+                <Lock className="w-3 h-3 text-amber-600" />
+                หมายเหตุภายใน
+                <span className="text-[10px] font-normal text-amber-700">(เห็นเฉพาะทีมงาน — ไม่แสดงในใบที่พิมพ์)</span>
+              </Label>
+              <Textarea
+                id="invoice-internal-notes"
+                value={editInternalNotes}
+                onChange={(e) => setEditInternalNotes(e.target.value)}
+                placeholder="บันทึกภายใน: ติดต่อลูกค้าทาง LINE, ลูกค้าขอแบ่งจ่าย, ฯลฯ"
+                rows={3}
+                className="text-sm resize-none border-amber-200 focus-visible:ring-amber-400 bg-amber-50/30"
+              />
+            </div>
+
+            <div className="flex justify-end">
+              <Button
+                size="sm"
+                onClick={handleSaveNotes}
+                disabled={
+                  savingNotes ||
+                  (editNotes === (invoice.notes || '') &&
+                    editInternalNotes === (invoice.internal_notes || ''))
+                }
+              >
+                <Save className="w-4 h-4 mr-1.5" />
+                {savingNotes ? 'กำลังบันทึก...' : 'บันทึกหมายเหตุ'}
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       <InvoicePrintPreviewDialog
