@@ -300,6 +300,28 @@ export default function AdminTaxInvoicesList() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {/* Select Invoice → Create Tax Invoice */}
+      <SelectInvoiceForTaxInvoiceDialog
+        open={showInvoicePicker}
+        onOpenChange={setShowInvoicePicker}
+        onSelectInvoice={(invoiceId) => {
+          setCreateFromInvoiceId(invoiceId);
+        }}
+      />
+
+      <CreateTaxInvoiceFromInvoiceDialog
+        open={!!createFromInvoiceId}
+        onOpenChange={(open) => {
+          if (!open) setCreateFromInvoiceId(null);
+        }}
+        invoiceId={createFromInvoiceId}
+        onSuccess={() => {
+          setCreateFromInvoiceId(null);
+          loadData();
+          loadAvailableCount();
+        }}
+      />
     </AdminLayout>
   );
 }
