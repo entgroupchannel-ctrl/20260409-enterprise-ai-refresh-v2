@@ -961,6 +961,18 @@ export default function AdminInvoiceDetail() {
           onSuccess={() => loadData()}
         />
       )}
+
+      {/* Verify Payment Dialog — for customer-uploaded slips */}
+      {invoice && (
+        <VerifyPaymentDialog
+          open={!!verifyingPayment}
+          onOpenChange={(open) => !open && setVerifyingPayment(null)}
+          payment={verifyingPayment}
+          invoiceNumber={invoice.invoice_number}
+          grandTotal={invoice.grand_total || 0}
+          onSuccess={() => loadData()}
+        />
+      )}
     </AdminLayout>
   );
 }
