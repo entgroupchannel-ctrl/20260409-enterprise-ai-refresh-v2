@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import {
   ArrowLeft, Receipt, Printer, Loader2, Building2, Calendar,
-  Link as LinkIcon, CreditCard,
+  Link as LinkIcon, CreditCard, FileText,
 } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 import ReceiptPrintPreviewDialog from '@/components/admin/ReceiptPrintPreviewDialog';
@@ -24,6 +24,8 @@ export default function MyReceiptDetail() {
   const [sourceInvoice, setSourceInvoice] = useState<any>(null);
   const [sourceTaxInvoice, setSourceTaxInvoice] = useState<any>(null);
   const [showPrintDialog, setShowPrintDialog] = useState(false);
+  const [items, setItems] = useState<any[]>([]);
+  const [totals, setTotals] = useState({ subtotal: 0, vat_amount: 0, grand_total: 0 });
 
   useEffect(() => {
     if (id && user) loadData();
@@ -54,6 +56,35 @@ export default function MyReceiptDetail() {
       }
 
       setReceipt(rcp);
+
+      // Load items from source
+      const sourceId = rcp?.tax_invoice_id || rcp?.invoice_id;
+      const itemsTable = rcp?.tax_invoice_id ? 'tax_invoice_items' : 'invoice_items';
+      const fkColumn = rcp?.tax_invoice_id ? 'tax_invoice_id' : 'invoice_id';
+      const sourceTable = rcp?.tax_invoice_id ? 'tax_invoices' : 'invoices';
+
+      if (sourceId) {
+        const [srcRes, itemsRes] = await Promise.all([
+          (supabase as any).from(sourceTable).select('subtotal, vat_amount, grand_total').eq('id', sourceId).maybeSingle(),
+          (supabase as any).from(itemsTable).select('*').eq(fkColumn, sourceId).order('display_order'),
+        ]);
+        if (srcRes.data && itemsRes.data) {
+          const sourceTotal = Number(srcRes.data.grand_total || 0);
+          const ratio = sourceTotal > 0 ? rcp.amount / sourceTotal : 1;
+          setItems(
+            (itemsRes.data || []).map((it: any) => ({
+              ...it,
+              line_total: Number(it.line_total || 0) * ratio,
+              discount_amount: Number(it.discount_amount || 0) * ratio,
+            }))
+          );
+          setTotals({
+            subtotal: Number(srcRes.data.subtotal || 0) * ratio,
+            vat_amount: Number(srcRes.data.vat_amount || 0) * ratio,
+            grand_total: rcp.amount,
+          });
+        }
+      }
 
       // Load references
       if (rcp.invoice_id) {
@@ -203,6 +234,64 @@ export default function MyReceiptDetail() {
               </CardContent>
             </Card>
           </div>
+
+          {items.length > 0 && (
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <FileText className="w-4 h-4" />
+                  รายการสินค้า ({items.length})
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b bg-muted/30">
+                        <th className="text-left p-2 w-12">#</th>
+                        <th className="text-left p-2">รายการ</th>
+                        <th className="text-center p-2 w-16">จำนวน</th>
+                        <th className="text-right p-2 w-24">ราคา/หน่วย</th>
+                        <th className="text-right p-2 w-28">รวม</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {items.map((item: any, idx: number) => (
+                        <tr key={item.id} className="border-b">
+                          <td className="p-2 align-top">{idx + 1}</td>
+                          <td className="p-2 align-top">
+                            <p className="font-medium">{item.product_name}</p>
+                            {item.product_description && (
+                              <p className="text-xs text-muted-foreground whitespace-pre-line">{item.product_description}</p>
+                            )}
+                          </td>
+                          <td className="p-2 text-center align-top">{item.quantity} {item.unit || ''}</td>
+                          <td className="p-2 text-right align-top">{formatCurrency(item.unit_price)}</td>
+                          <td className="p-2 text-right align-top font-semibold">{formatCurrency(item.line_total)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                    <tfoot>
+                      <tr className="border-t-2">
+                        <td colSpan={4} className="p-2 text-right font-semibold">ยอดรวม:</td>
+                        <td className="p-2 text-right font-semibold">{formatCurrency(totals.subtotal)}</td>
+                      </tr>
+                      {totals.vat_amount > 0 && (
+                        <tr>
+                          <td colSpan={4} className="p-2 text-right">VAT 7%:</td>
+                          <td className="p-2 text-right">{formatCurrency(totals.vat_amount)}</td>
+                        </tr>
+                      )}
+                      <tr className="border-t">
+                        <td colSpan={4} className="p-2 text-right font-bold">จำนวนเงินที่รับ:</td>
+                        <td className="p-2 text-right font-bold text-green-700">{formatCurrency(totals.grand_total)}</td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </CardContent>
+            </Card>
+          )}
 
           {/* Notes */}
           {receipt.notes && (
