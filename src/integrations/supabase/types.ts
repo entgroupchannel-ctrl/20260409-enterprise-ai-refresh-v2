@@ -201,6 +201,156 @@ export type Database = {
           },
         ]
       }
+      company_document_downloads: {
+        Row: {
+          document_id: string
+          download_source: string | null
+          downloaded_at: string
+          id: string
+          ip_address: string | null
+          user_agent: string | null
+          user_email: string | null
+          user_id: string | null
+        }
+        Insert: {
+          document_id: string
+          download_source?: string | null
+          downloaded_at?: string
+          id?: string
+          ip_address?: string | null
+          user_agent?: string | null
+          user_email?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          document_id?: string
+          download_source?: string | null
+          downloaded_at?: string
+          id?: string
+          ip_address?: string | null
+          user_agent?: string | null
+          user_email?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "company_document_downloads_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "company_documents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "company_document_downloads_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      company_documents: {
+        Row: {
+          access_level: string
+          category: string
+          created_at: string
+          created_by: string | null
+          deleted_at: string | null
+          deleted_by: string | null
+          description: string | null
+          download_count: number
+          file_name: string
+          file_path: string
+          file_size: number | null
+          file_type: string | null
+          file_url: string
+          id: string
+          is_active: boolean
+          is_featured: boolean
+          last_downloaded_at: string | null
+          metadata: Json | null
+          sort_order: number
+          tags: string[] | null
+          thumbnail_url: string | null
+          title: string
+          updated_at: string
+          valid_from: string | null
+          valid_until: string | null
+          version: string | null
+        }
+        Insert: {
+          access_level?: string
+          category: string
+          created_at?: string
+          created_by?: string | null
+          deleted_at?: string | null
+          deleted_by?: string | null
+          description?: string | null
+          download_count?: number
+          file_name: string
+          file_path: string
+          file_size?: number | null
+          file_type?: string | null
+          file_url: string
+          id?: string
+          is_active?: boolean
+          is_featured?: boolean
+          last_downloaded_at?: string | null
+          metadata?: Json | null
+          sort_order?: number
+          tags?: string[] | null
+          thumbnail_url?: string | null
+          title: string
+          updated_at?: string
+          valid_from?: string | null
+          valid_until?: string | null
+          version?: string | null
+        }
+        Update: {
+          access_level?: string
+          category?: string
+          created_at?: string
+          created_by?: string | null
+          deleted_at?: string | null
+          deleted_by?: string | null
+          description?: string | null
+          download_count?: number
+          file_name?: string
+          file_path?: string
+          file_size?: number | null
+          file_type?: string | null
+          file_url?: string
+          id?: string
+          is_active?: boolean
+          is_featured?: boolean
+          last_downloaded_at?: string | null
+          metadata?: Json | null
+          sort_order?: number
+          tags?: string[] | null
+          thumbnail_url?: string | null
+          title?: string
+          updated_at?: string
+          valid_from?: string | null
+          valid_until?: string | null
+          version?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "company_documents_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "company_documents_deleted_by_fkey"
+            columns: ["deleted_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       company_settings: {
         Row: {
           address_en: string | null
@@ -2800,6 +2950,15 @@ export type Database = {
       generate_next_base_number: { Args: never; Returns: string }
       generate_receipt_number: { Args: never; Returns: string }
       generate_tax_invoice_number: { Args: never; Returns: string }
+      get_company_docs_stats: {
+        Args: never
+        Returns: {
+          by_category: Json
+          expiring_soon: number
+          total_documents: number
+          total_downloads: number
+        }[]
+      }
       get_negotiation_stats: {
         Args: { p_end_date?: string; p_start_date?: string }
         Returns: Json
@@ -2891,6 +3050,15 @@ export type Database = {
           p_record_id?: string
           p_table_name?: string
           p_target_user_id?: string
+        }
+        Returns: string
+      }
+      log_document_download: {
+        Args: {
+          p_document_id: string
+          p_ip_address?: string
+          p_source?: string
+          p_user_agent?: string
         }
         Returns: string
       }
