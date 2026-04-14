@@ -10,6 +10,7 @@ import { QuoteTimeline } from '@/components/QuoteTimeline';
 import RevisionTimeline from '@/components/negotiation/RevisionTimeline';
 import QuoteTermsEditor from '@/components/admin/QuoteTermsEditor';
 import CounterOfferDialog from '@/components/negotiation/CounterOfferDialog';
+import EditCustomerInfoDialog from '@/components/admin/EditCustomerInfoDialog';
 import PendingApprovalBanner from '@/components/negotiation/PendingApprovalBanner';
 import NegotiationRequestsList from '@/components/negotiation/NegotiationRequestsList';
 import NegotiationInsightsCard from '@/components/negotiation/NegotiationInsightsCard';
@@ -69,6 +70,7 @@ import {
   Phone,
   Mail,
   MessageCircle,
+  Pencil,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
@@ -191,6 +193,7 @@ export default function AdminQuoteDetail() {
   const [processing, setProcessing] = useState(false);
   const [showCreateSO, setShowCreateSO] = useState(false);
   const [showCounterOffer, setShowCounterOffer] = useState(false);
+  const [showEditCustomer, setShowEditCustomer] = useState(false);
   const [counterNegotiationId, setCounterNegotiationId] = useState<string | undefined>();
   const [revisionKey, setRevisionKey] = useState(0);
   const [printingRevision, setPrintingRevision] = useState<any>(null);
@@ -638,13 +641,24 @@ export default function AdminQuoteDetail() {
         {/* Two-column Meta Grid — Customer | Dates & Sale Person */}
         <div className="grid md:grid-cols-2 gap-4">
           {/* Customer Card */}
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-sm flex items-center gap-2">
-                <User className="w-4 h-4" />
-                ลูกค้า
-              </CardTitle>
-            </CardHeader>
+           <Card>
+             <CardHeader className="pb-3">
+               <div className="flex items-center justify-between">
+                 <CardTitle className="text-sm flex items-center gap-2">
+                   <User className="w-4 h-4" />
+                   ลูกค้า
+                 </CardTitle>
+                 <Button
+                   size="sm"
+                   variant="ghost"
+                   onClick={() => setShowEditCustomer(true)}
+                   className="h-7 text-xs"
+                 >
+                   <Pencil className="w-3 h-3 mr-1" />
+                   แก้ไข
+                 </Button>
+               </div>
+             </CardHeader>
             <CardContent className="text-sm space-y-1.5">
               <div className="font-semibold text-base">{quote.customer_name}</div>
               {quote.customer_company && (
@@ -1321,6 +1335,25 @@ export default function AdminQuoteDetail() {
           setRevisionKey((k) => k + 1);
         }}
       />
+
+      {/* Edit Customer Info Dialog */}
+      {quote && (
+        <EditCustomerInfoDialog
+          open={showEditCustomer}
+          onClose={() => setShowEditCustomer(false)}
+          quoteId={quote.id}
+          initialValues={{
+            customer_name: quote.customer_name,
+            customer_email: quote.customer_email,
+            customer_phone: quote.customer_phone,
+            customer_company: quote.customer_company,
+            customer_address: quote.customer_address,
+            customer_tax_id: quote.customer_tax_id,
+            customer_line: quote.customer_line,
+          }}
+          onSaved={loadQuoteDetails}
+        />
+      )}
 
       {/* Print Preview Dialog */}
       {quote && printingRevision && (
