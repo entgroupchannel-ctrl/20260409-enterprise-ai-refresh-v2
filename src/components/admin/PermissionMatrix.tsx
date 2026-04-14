@@ -13,6 +13,7 @@ import {
 import {
   FileText, Package, ShoppingCart, Receipt, Users,
   BarChart3, Settings, Trash2, RotateCcw, Info, Lock,
+  XCircle, Eye, Pencil, ShieldCheck, Star,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -44,11 +45,11 @@ const MODULE_INFO: Record<string, { label: string; icon: any; desc: string }> = 
   trash: { label: 'ถังขยะ', icon: Trash2, desc: 'จัดการถังขยะ' },
 };
 
-const PERMISSION_LABELS: Record<string, string> = {
-  none: '❌ ไม่มีสิทธิ์',
-  read: '👁 อ่าน',
-  write: '✏️ แก้ไข',
-  admin: '✅ เต็ม',
+const PERMISSION_LABELS: Record<string, { label: string; icon: any }> = {
+  none: { label: 'ไม่มีสิทธิ์', icon: XCircle },
+  read: { label: 'อ่าน', icon: Eye },
+  write: { label: 'แก้ไข', icon: Pencil },
+  admin: { label: 'เต็ม', icon: ShieldCheck },
 };
 
 const PERMISSION_COLORS: Record<string, string> = {
@@ -111,7 +112,7 @@ export default function PermissionMatrix({
       
       toast({ 
         title: '✅ บันทึกแล้ว',
-        description: `${MODULE_INFO[module]?.label}: ${PERMISSION_LABELS[newPermission]}`,
+        description: `${MODULE_INFO[module]?.label}: ${PERMISSION_LABELS[newPermission]?.label}`,
       });
       
       await loadPermissions();
@@ -141,7 +142,7 @@ export default function PermissionMatrix({
       if (error) throw error;
       
       toast({ 
-        title: '↩️ คืนค่าเริ่มต้นแล้ว',
+        title: 'คืนค่าเริ่มต้นแล้ว',
         description: `${MODULE_INFO[module]?.label}: กลับไปใช้ค่าตาม role`,
       });
       
@@ -218,13 +219,13 @@ export default function PermissionMatrix({
                         <Tooltip>
                           <TooltipTrigger>
                             <Badge variant="outline" className="text-[10px] bg-amber-50 text-amber-700 border-amber-300 dark:bg-amber-950/30 dark:text-amber-400">
-                              ⭐ Override
+                              <Star className="w-3 h-3 mr-0.5" /> Override
                             </Badge>
                           </TooltipTrigger>
                           <TooltipContent>
                             <p className="text-xs">
-                              Default: {PERMISSION_LABELS[p.default_permission]}<br/>
-                              Override: {PERMISSION_LABELS[p.override_permission || '']}
+                              Default: {PERMISSION_LABELS[p.default_permission]?.label}<br/>
+                              Override: {PERMISSION_LABELS[p.override_permission || '']?.label}
                             </p>
                           </TooltipContent>
                         </Tooltip>
@@ -239,7 +240,7 @@ export default function PermissionMatrix({
                         variant="outline" 
                         className={cn("text-xs", PERMISSION_COLORS[p.effective_permission])}
                       >
-                        {PERMISSION_LABELS[p.effective_permission]}
+                        {(() => { const PI = PERMISSION_LABELS[p.effective_permission]; return PI ? <><PI.icon className="w-3 h-3 mr-1" />{PI.label}</> : null; })()}
                       </Badge>
                     ) : (
                       <>
@@ -252,10 +253,10 @@ export default function PermissionMatrix({
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="none">❌ ไม่มีสิทธิ์</SelectItem>
-                            <SelectItem value="read">👁 อ่าน</SelectItem>
-                            <SelectItem value="write">✏️ แก้ไข</SelectItem>
-                            <SelectItem value="admin">✅ เต็ม</SelectItem>
+                            <SelectItem value="none"><span className="inline-flex items-center gap-1.5"><XCircle className="w-3.5 h-3.5 text-red-500" /> ไม่มีสิทธิ์</span></SelectItem>
+                            <SelectItem value="read"><span className="inline-flex items-center gap-1.5"><Eye className="w-3.5 h-3.5 text-blue-500" /> อ่าน</span></SelectItem>
+                            <SelectItem value="write"><span className="inline-flex items-center gap-1.5"><Pencil className="w-3.5 h-3.5 text-amber-500" /> แก้ไข</span></SelectItem>
+                            <SelectItem value="admin"><span className="inline-flex items-center gap-1.5"><ShieldCheck className="w-3.5 h-3.5 text-green-500" /> เต็ม</span></SelectItem>
                           </SelectContent>
                         </Select>
                         
