@@ -106,7 +106,7 @@ const navGroups: NavGroup[] = [
       { label: 'ผู้ติดต่อ', icon: Users, path: '/admin/contacts' },
       { label: 'เอกสาร', icon: FileArchive, path: '/admin/documents' },
       { label: 'พนักงาน', icon: Users, path: '/admin/employees' },
-      { label: 'Audit Log', icon: Shield, path: '/admin/audit-log' },
+      { label: 'Audit Log', icon: Shield, path: '/admin/audit-log', superAdminOnly: true },
     ],
   },
 ];
