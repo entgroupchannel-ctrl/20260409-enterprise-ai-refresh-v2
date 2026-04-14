@@ -49,6 +49,7 @@ export default function AdminInvoiceDetail() {
   const [items, setItems] = useState<InvoiceItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
+  const [paymentRecords, setPaymentRecords] = useState<any[]>([]);
   const [showPrintDialog, setShowPrintDialog] = useState(false);
   const [cancelReason, setCancelReason] = useState('');
   const [editNotes, setEditNotes] = useState('');
@@ -59,9 +60,10 @@ export default function AdminInvoiceDetail() {
     if (!id) return;
     setLoading(true);
     try {
-      const [invRes, itemsRes] = await Promise.all([
+      const [invRes, itemsRes, paymentRes] = await Promise.all([
         (supabase as any).from('invoices').select('*').eq('id', id).maybeSingle(),
         (supabase as any).from('invoice_items').select('*').eq('invoice_id', id).order('display_order'),
+        (supabase as any).from('payment_records').select('*').eq('invoice_id', id).order('created_at', { ascending: false }),
       ]);
 
       if (invRes.error) throw invRes.error;
@@ -75,6 +77,7 @@ export default function AdminInvoiceDetail() {
       setEditNotes(invRes.data.notes || '');
       setEditInternalNotes(invRes.data.internal_notes || '');
       setItems(itemsRes.data || []);
+      setPaymentRecords(paymentRes.data || []);
     } catch (e: any) {
       toast({ title: 'โหลดข้อมูลไม่สำเร็จ', description: e.message, variant: 'destructive' });
     } finally {
@@ -196,9 +199,16 @@ export default function AdminInvoiceDetail() {
               </Button>
             )}
             {(invoice.status === 'sent' || invoice.status === 'partially_paid') && (
-              <Button size="sm" onClick={handleMarkPaid} disabled={updating} className="bg-green-600 hover:bg-green-700">
+              <Button 
+                size="sm" 
+                variant="outline"
+                onClick={handleMarkPaid} 
+                disabled={updating} 
+                className="border-green-600 text-green-700 hover:bg-green-50"
+                title="ใช้เมื่อได้รับเงินแล้วแต่ลูกค้าไม่ได้ส่งสลิปผ่านระบบ"
+              >
                 <CircleCheckBig className="w-4 h-4 mr-1.5" />
-                บันทึกชำระแล้ว
+                ยืนยันชำระเอง
               </Button>
             )}
             {invoice.status !== 'cancelled' && invoice.status !== 'paid' && (
