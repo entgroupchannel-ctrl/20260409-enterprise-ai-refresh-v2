@@ -44,7 +44,9 @@ import {
   CreditCard,
   Truck,
   Calendar,
+  Receipt,
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
 interface Quote {
@@ -119,6 +121,7 @@ export default function MyQuoteDetail() {
   const [showNegotiation, setShowNegotiation] = useState(false);
   const [showAcceptQuote, setShowAcceptQuote] = useState(false);
   const [currentRevision, setCurrentRevision] = useState<any>(null);
+  const [relatedInvoices, setRelatedInvoices] = useState<any[]>([]);
 
   useEffect(() => {
     if (id && user) {
@@ -144,6 +147,27 @@ export default function MyQuoteDetail() {
     };
     loadCurrentRevision();
   }, [quote?.current_revision_id]);
+
+  // Load related invoices for this quote
+  useEffect(() => {
+    const loadRelatedInvoices = async () => {
+      if (!quote?.id) { setRelatedInvoices([]); return; }
+      try {
+        const { data, error } = await (supabase as any)
+          .from('invoices')
+          .select('id, invoice_number, invoice_type, status, grand_total, due_date, installment_number, installment_total, downpayment_percent')
+          .eq('quote_id', quote.id)
+          .neq('status', 'draft')
+          .order('created_at', { ascending: true });
+        if (error) throw error;
+        setRelatedInvoices(data || []);
+      } catch (e) {
+        console.warn('Failed to load related invoices:', e);
+      }
+    };
+    loadRelatedInvoices();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [quote?.id]);
 
   useEffect(() => {
     if (!id) return;
