@@ -758,6 +758,95 @@ export default function MyQuoteDetail() {
               </Card>
             )}
 
+            {/* 🧾 Related Invoices Section */}
+            {relatedInvoices.length > 0 && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-lg">
+                    <Receipt className="w-5 h-5 text-primary" />
+                    ใบวางบิลที่เกี่ยวข้อง
+                    <Badge variant="secondary" className="ml-1">{relatedInvoices.length}</Badge>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    {relatedInvoices.map((inv) => {
+                      const isOverdue = inv.due_date &&
+                        inv.status !== 'paid' &&
+                        inv.status !== 'cancelled' &&
+                        new Date(inv.due_date) < new Date();
+
+                      const statusInfo: Record<string, { label: string; cls: string }> = {
+                        draft: { label: 'ร่าง', cls: 'bg-gray-100 text-gray-700 border-gray-300' },
+                        sent: { label: 'รอชำระ', cls: 'bg-blue-100 text-blue-700 border-blue-300' },
+                        partially_paid: { label: 'ชำระบางส่วน', cls: 'bg-amber-100 text-amber-700 border-amber-300' },
+                        paid: { label: 'ชำระแล้ว', cls: 'bg-green-100 text-green-700 border-green-300' },
+                        cancelled: { label: 'ยกเลิก', cls: 'bg-gray-100 text-gray-500 border-gray-300' },
+                      };
+                      const display = isOverdue
+                        ? { label: 'เกินกำหนด', cls: 'bg-red-100 text-red-700 border-red-300' }
+                        : (statusInfo[inv.status] || statusInfo.draft);
+
+                      const typeLabels: Record<string, string> = {
+                        full: 'เต็มจำนวน',
+                        downpayment: 'มัดจำ',
+                        installment: 'งวดแบ่ง',
+                        final: 'ส่วนที่เหลือ',
+                      };
+
+                      return (
+                        <Link
+                          key={inv.id}
+                          to={`/my-invoices/${inv.id}`}
+                          className="block p-3 border border-border rounded-lg hover:border-primary hover:bg-muted/40 transition-colors"
+                        >
+                          <div className="flex items-center justify-between gap-3 flex-wrap">
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-2 flex-wrap">
+                                <span className="font-mono font-semibold text-sm">
+                                  {inv.invoice_number}
+                                </span>
+                                <Badge variant="outline" className={`text-[10px] ${display.cls}`}>
+                                  {display.label}
+                                </Badge>
+                                <Badge variant="outline" className="text-[10px] bg-blue-50 text-blue-700 border-blue-200">
+                                  {typeLabels[inv.invoice_type] || inv.invoice_type}
+                                  {inv.invoice_type === 'downpayment' && inv.downpayment_percent != null &&
+                                    ` ${inv.downpayment_percent}%`}
+                                  {inv.invoice_type === 'installment' && inv.installment_number != null &&
+                                    ` ${inv.installment_number}/${inv.installment_total}`}
+                                </Badge>
+                              </div>
+                              {inv.due_date && (
+                                <p className={`text-xs mt-1 ${
+                                  isOverdue ? 'text-red-600 font-semibold' : 'text-muted-foreground'
+                                }`}>
+                                  ครบกำหนด: {new Date(inv.due_date).toLocaleDateString('th-TH', {
+                                    year: 'numeric', month: 'short', day: 'numeric',
+                                  })}
+                                  {isOverdue && ' (เกินกำหนด)'}
+                                </p>
+                              )}
+                            </div>
+                            <div className="text-right shrink-0">
+                              <div className="font-bold text-primary">
+                                {new Intl.NumberFormat('th-TH', {
+                                  style: 'currency',
+                                  currency: 'THB',
+                                  minimumFractionDigits: 0,
+                                }).format(inv.grand_total || 0)}
+                              </div>
+                              <div className="text-[10px] text-muted-foreground">ดูรายละเอียด →</div>
+                            </div>
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
           </div>
 
           {/* Right Column - Chat & Files */}
