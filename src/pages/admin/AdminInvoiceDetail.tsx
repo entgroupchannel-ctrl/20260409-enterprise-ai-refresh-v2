@@ -18,7 +18,9 @@ import {
   ArrowLeft, Loader2, Printer, Send, CircleCheckBig, Ban, FileText,
   User, Calendar, Receipt, Save, Lock, MessageSquare,
   Clock, Banknote, ExternalLink, Mail, UserPlus, AlertCircle,
+  Trash2, RotateCcw,
 } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
 import InvoicePrintPreviewDialog from '@/components/admin/InvoicePrintPreviewDialog';
 import ConfirmPaymentDialog from '@/components/admin/ConfirmPaymentDialog';
 
