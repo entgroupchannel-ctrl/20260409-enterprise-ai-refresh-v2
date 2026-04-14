@@ -25,6 +25,7 @@ export default function AdminTaxInvoiceDetail() {
 
   const [loading, setLoading] = useState(true);
   const [taxInvoice, setTaxInvoice] = useState<any>(null);
+  const [linkedPayment, setLinkedPayment] = useState<any>(null);
   const [items, setItems] = useState<any[]>([]);
   const [sourceInvoice, setSourceInvoice] = useState<any>(null);
   const [showPrintDialog, setShowPrintDialog] = useState(false);

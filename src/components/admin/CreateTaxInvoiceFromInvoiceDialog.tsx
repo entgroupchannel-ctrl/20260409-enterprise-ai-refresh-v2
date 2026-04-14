@@ -8,11 +8,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
+import { Badge } from '@/components/ui/badge';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
-import { FileText, Loader2, AlertCircle } from 'lucide-react';
+import { FileText, Loader2, AlertCircle, CheckCircle2 } from 'lucide-react';
 
 interface Props {
   open: boolean;
@@ -33,6 +34,8 @@ export default function CreateTaxInvoiceFromInvoiceDialog({
   const [invoice, setInvoice] = useState<any>(null);
   const [items, setItems] = useState<any[]>([]);
   const [existingTaxInvoices, setExistingTaxInvoices] = useState<any[]>([]);
+  const [verifiedPayments, setVerifiedPayments] = useState<any[]>([]);
+  const [selectedPaymentId, setSelectedPaymentId] = useState<string>('');
 
   const [taxInvoiceDate, setTaxInvoiceDate] = useState<string>(
     new Date().toISOString().split('T')[0]
@@ -53,6 +56,8 @@ export default function CreateTaxInvoiceFromInvoiceDialog({
       setInvoice(null);
       setItems([]);
       setExistingTaxInvoices([]);
+      setVerifiedPayments([]);
+      setSelectedPaymentId('');
       setDeliveryAddress('');
       setDeliveryDate('');
       setDeliveryMethod('');
@@ -66,19 +71,39 @@ export default function CreateTaxInvoiceFromInvoiceDialog({
     if (!invoiceId) return;
     setLoading(true);
     try {
-      const [invRes, itemsRes, taxRes] = await Promise.all([
+      const [invRes, itemsRes, taxRes, payRes] = await Promise.all([
         (supabase as any).from('invoices').select('*').eq('id', invoiceId).maybeSingle(),
         (supabase as any).from('invoice_items').select('*').eq('invoice_id', invoiceId).order('display_order'),
-        (supabase as any).from('tax_invoices').select('id, tax_invoice_number, tax_invoice_date, grand_total').eq('invoice_id', invoiceId).order('created_at', { ascending: false }),
+        (supabase as any).from('tax_invoices')
+          .select('id, tax_invoice_number, tax_invoice_date, grand_total, payment_record_id')
+          .eq('invoice_id', invoiceId)
+          .is('deleted_at', null)
+          .order('created_at', { ascending: false }),
+        (supabase as any).from('payment_records')
+          .select('id, amount, payment_date, payment_method, bank_name, reference_number, verification_status')
+          .eq('invoice_id', invoiceId)
+          .eq('verification_status', 'verified')
+          .order('payment_date', { ascending: false }),
       ]);
 
       if (invRes.error) throw invRes.error;
       if (itemsRes.error) throw itemsRes.error;
       if (taxRes.error) throw taxRes.error;
+      if (payRes.error) throw payRes.error;
 
       setInvoice(invRes.data);
       setItems(itemsRes.data || []);
       setExistingTaxInvoices(taxRes.data || []);
+      setVerifiedPayments(payRes.data || []);
+
+      // Auto-select first unused payment
+      const usedPaymentIds = new Set(
+        (taxRes.data || [])
+          .filter((t: any) => t.payment_record_id)
+          .map((t: any) => t.payment_record_id)
+      );
+      const unused = (payRes.data || []).find((p: any) => !usedPaymentIds.has(p.id));
+      if (unused) setSelectedPaymentId(unused.id);
 
       if (invRes.data?.customer_address) {
         setDeliveryAddress(invRes.data.customer_address);
@@ -93,6 +118,18 @@ export default function CreateTaxInvoiceFromInvoiceDialog({
   const handleCreate = async () => {
     if (!invoice || !user?.id) return;
 
+    if (!selectedPaymentId) {
+      toast({
+        title: 'กรุณาเลือกการชำระเงิน',
+        description: 'ต้องเลือก verified payment ที่ยังไม่ได้ออกใบกำกับภาษี',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    const selectedPayment = verifiedPayments.find((p) => p.id === selectedPaymentId);
+    if (!selectedPayment) return;
+
     if (items.length === 0) {
       toast({
         title: 'ไม่สามารถสร้าง',
@@ -104,9 +141,17 @@ export default function CreateTaxInvoiceFromInvoiceDialog({
 
     setSubmitting(true);
     try {
+      // Calculate proportional amounts based on payment / invoice ratio
+      const paymentRatio = selectedPayment.amount / invoice.grand_total;
+      const proportionalSubtotal = (invoice.subtotal || 0) * paymentRatio;
+      const proportionalDiscount = (invoice.discount_amount || 0) * paymentRatio;
+      const proportionalVat = (invoice.vat_amount || 0) * paymentRatio;
+      const proportionalWHT = (invoice.withholding_tax_amount || 0) * paymentRatio;
+
       const taxInvoicePayload = {
         invoice_id: invoice.id,
         sale_order_id: invoice.sale_order_id,
+        payment_record_id: selectedPaymentId,
         customer_id: invoice.customer_id,
         customer_name: invoice.customer_name,
         customer_company: invoice.customer_company,
@@ -116,11 +161,11 @@ export default function CreateTaxInvoiceFromInvoiceDialog({
         customer_branch_code: invoice.customer_branch_code,
         customer_branch_name: invoice.customer_branch_name,
         tax_invoice_date: taxInvoiceDate,
-        subtotal: invoice.subtotal,
-        discount_amount: invoice.discount_amount || 0,
-        vat_amount: invoice.vat_amount || 0,
-        withholding_tax_amount: invoice.withholding_tax_amount || 0,
-        grand_total: invoice.grand_total,
+        subtotal: Math.round(proportionalSubtotal * 100) / 100,
+        discount_amount: Math.round(proportionalDiscount * 100) / 100,
+        vat_amount: Math.round(proportionalVat * 100) / 100,
+        withholding_tax_amount: Math.round(proportionalWHT * 100) / 100,
+        grand_total: selectedPayment.amount,
         status: 'pending',
         delivery_address: deliveryAddress || null,
         delivery_date: deliveryDate || null,
@@ -136,7 +181,12 @@ export default function CreateTaxInvoiceFromInvoiceDialog({
         .select()
         .single();
 
-      if (txErr) throw txErr;
+      if (txErr) {
+        if (txErr.code === '23505' && txErr.message.includes('payment')) {
+          throw new Error('Payment นี้ถูกใช้สร้างใบกำกับภาษีไปแล้ว');
+        }
+        throw txErr;
+      }
 
       const txItems = items.map((it: any, idx: number) => ({
         tax_invoice_id: taxInv.id,
@@ -148,8 +198,8 @@ export default function CreateTaxInvoiceFromInvoiceDialog({
         unit: it.unit || 'ชิ้น',
         unit_price: it.unit_price || 0,
         discount_percent: it.discount_percent || 0,
-        discount_amount: it.discount_amount || 0,
-        line_total: it.line_total || 0,
+        discount_amount: (it.discount_amount || 0) * paymentRatio,
+        line_total: (it.line_total || 0) * paymentRatio,
         display_order: idx,
       }));
 
@@ -164,7 +214,7 @@ export default function CreateTaxInvoiceFromInvoiceDialog({
 
       toast({
         title: '✅ สร้างใบกำกับภาษีสำเร็จ',
-        description: `${taxInv.tax_invoice_number} • ${formatCurrency(taxInv.grand_total)}`,
+        description: `${taxInv.tax_invoice_number} • ฿${formatCurrency(taxInv.grand_total)}`,
       });
 
       onOpenChange(false);
@@ -182,6 +232,14 @@ export default function CreateTaxInvoiceFromInvoiceDialog({
 
   const formatCurrency = (n: number) =>
     new Intl.NumberFormat('th-TH', { minimumFractionDigits: 2 }).format(n);
+
+  // Compute available payments
+  const usedPaymentIds = new Set(
+    existingTaxInvoices
+      .filter((t: any) => t.payment_record_id)
+      .map((t: any) => t.payment_record_id)
+  );
+  const availablePayments = verifiedPayments.filter((p) => !usedPaymentIds.has(p.id));
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -204,31 +262,53 @@ export default function CreateTaxInvoiceFromInvoiceDialog({
           <div className="py-8 text-center text-muted-foreground">
             <p>ไม่พบข้อมูลใบวางบิล</p>
           </div>
+        ) : verifiedPayments.length === 0 ? (
+          <div className="py-8 text-center">
+            <AlertCircle className="w-12 h-12 mx-auto mb-3 text-amber-500" />
+            <p className="font-semibold">ยังไม่มีการชำระเงินที่ verified</p>
+            <p className="text-xs text-muted-foreground mt-1">
+              ต้องมี payment record ที่ verified แล้วก่อนสร้างใบกำกับภาษี
+            </p>
+          </div>
+        ) : availablePayments.length === 0 ? (
+          <div className="py-8 text-center">
+            <CheckCircle2 className="w-12 h-12 mx-auto mb-3 text-green-500" />
+            <p className="font-semibold">ออกใบกำกับภาษีครบทุก payment แล้ว</p>
+            <p className="text-xs text-muted-foreground mt-1">
+              {existingTaxInvoices.length} ใบกำกับภาษี
+            </p>
+            <ul className="text-xs mt-3 space-y-1">
+              {existingTaxInvoices.map((t: any) => (
+                <li key={t.id} className="font-mono">
+                  • {t.tax_invoice_number} • ฿{formatCurrency(t.grand_total)}
+                </li>
+              ))}
+            </ul>
+          </div>
         ) : (
           <div className="space-y-4">
+            {/* Existing tax invoices info */}
             {existingTaxInvoices.length > 0 && (
-              <div className="p-3 bg-amber-50 border border-amber-200 rounded text-sm">
+              <div className="p-3 bg-blue-50 border border-blue-200 rounded text-sm">
                 <div className="flex items-start gap-2">
-                  <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                  <AlertCircle className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
                   <div className="flex-1">
-                    <p className="font-semibold text-amber-900">
-                      ใบวางบิลนี้มีใบกำกับภาษีอยู่แล้ว ({existingTaxInvoices.length})
+                    <p className="font-semibold text-blue-900">
+                      มีใบกำกับภาษีอยู่แล้ว ({existingTaxInvoices.length})
                     </p>
-                    <ul className="text-xs text-amber-800 mt-1 space-y-0.5">
-                      {existingTaxInvoices.map((tx: any) => (
-                        <li key={tx.id} className="font-mono">
-                          • {tx.tax_invoice_number} • {formatCurrency(tx.grand_total)} • {new Date(tx.tax_invoice_date).toLocaleDateString('th-TH')}
+                    <ul className="text-xs text-blue-800 mt-1 space-y-0.5">
+                      {existingTaxInvoices.map((t: any) => (
+                        <li key={t.id} className="font-mono">
+                          • {t.tax_invoice_number} • ฿{formatCurrency(t.grand_total)}
                         </li>
                       ))}
                     </ul>
-                    <p className="text-xs text-amber-700 mt-1">
-                      คุณสามารถสร้างเพิ่มได้ (สำหรับ partial payment หรือ installment)
-                    </p>
                   </div>
                 </div>
               </div>
             )}
 
+            {/* Customer summary */}
             <Card className="bg-muted/40">
               <CardContent className="pt-4 pb-4 space-y-1 text-sm">
                 <div className="flex justify-between">
@@ -236,21 +316,56 @@ export default function CreateTaxInvoiceFromInvoiceDialog({
                   <span className="font-medium">{invoice.customer_company || invoice.customer_name}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">เลขผู้เสียภาษี:</span>
-                  <span className="font-mono text-xs">{invoice.customer_tax_id || '-'}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">รายการสินค้า:</span>
-                  <span>{items.length} รายการ</span>
-                </div>
-                <Separator className="my-2" />
-                <div className="flex justify-between text-base font-bold">
-                  <span>ยอดรวมทั้งสิ้น:</span>
-                  <span className="text-primary">฿{formatCurrency(invoice.grand_total || 0)}</span>
+                  <span className="text-muted-foreground">ยอดใบวางบิล:</span>
+                  <span className="font-bold text-primary">฿{formatCurrency(invoice.grand_total)}</span>
                 </div>
               </CardContent>
             </Card>
 
+            {/* Select payment */}
+            <div className="space-y-2">
+              <Label className="text-sm font-semibold">
+                เลือกการชำระเงิน <span className="text-red-500">*</span>
+              </Label>
+              <p className="text-xs text-muted-foreground">
+                1 payment = 1 ใบกำกับภาษี (กฎหมายไทย — ม.78)
+              </p>
+              <RadioGroup value={selectedPaymentId} onValueChange={setSelectedPaymentId}>
+                <div className="space-y-2">
+                  {availablePayments.map((p: any) => (
+                    <Card key={p.id} className="cursor-pointer hover:bg-muted/30">
+                      <CardContent className="pt-3 pb-3">
+                        <label className="flex items-start gap-3 cursor-pointer">
+                          <RadioGroupItem value={p.id} className="mt-1" />
+                          <div className="flex-1">
+                            <div className="flex items-center justify-between">
+                              <span className="font-bold text-base text-primary">
+                                ฿{formatCurrency(p.amount)}
+                              </span>
+                              <Badge variant="outline" className="text-[10px] bg-green-50 text-green-700 border-green-300">
+                                <CheckCircle2 className="w-3 h-3 mr-1" />
+                                Verified
+                              </Badge>
+                            </div>
+                            <p className="text-xs text-muted-foreground mt-1">
+                              {new Date(p.payment_date).toLocaleDateString('th-TH')} • {p.payment_method || 'โอน'}
+                              {p.bank_name && ` • ${p.bank_name}`}
+                            </p>
+                            {p.reference_number && (
+                              <p className="text-xs font-mono mt-0.5">
+                                อ้างอิง: {p.reference_number}
+                              </p>
+                            )}
+                          </div>
+                        </label>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </RadioGroup>
+            </div>
+
+            {/* Date */}
             <div className="space-y-2">
               <Label htmlFor="tax-date">วันที่ออกใบกำกับภาษี *</Label>
               <Input
@@ -262,6 +377,7 @@ export default function CreateTaxInvoiceFromInvoiceDialog({
               />
             </div>
 
+            {/* Delivery info */}
             <div className="space-y-3 p-3 bg-muted/20 rounded">
               <Label className="text-sm font-semibold">ข้อมูลการจัดส่ง (ถ้ามี)</Label>
               <div className="space-y-2">
@@ -304,6 +420,7 @@ export default function CreateTaxInvoiceFromInvoiceDialog({
               </div>
             </div>
 
+            {/* Notes */}
             <div className="space-y-2">
               <Label htmlFor="tax-notes">หมายเหตุ</Label>
               <Textarea
@@ -323,7 +440,7 @@ export default function CreateTaxInvoiceFromInvoiceDialog({
           </Button>
           <Button
             onClick={handleCreate}
-            disabled={loading || submitting || !invoice || items.length === 0}
+            disabled={loading || submitting || !invoice || items.length === 0 || !selectedPaymentId || availablePayments.length === 0}
           >
             {submitting ? (
               <>
