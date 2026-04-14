@@ -311,12 +311,14 @@ export default function AdminInvoiceDetail() {
               <Printer className="w-4 h-4 mr-1.5" />
               พิมพ์ / PDF
             </Button>
+            
             {invoice.status === 'draft' && (
-              <Button size="sm" onClick={handleSend} disabled={updating}>
+              <Button size="sm" onClick={handleSend} disabled={updating || items.length === 0}>
                 <Send className="w-4 h-4 mr-1.5" />
                 ส่งให้ลูกค้า
               </Button>
             )}
+            
             {(invoice.status === 'sent' || invoice.status === 'partially_paid') && (
               <Button 
                 size="sm" 
@@ -330,31 +332,165 @@ export default function AdminInvoiceDetail() {
                 ยืนยันชำระเอง
               </Button>
             )}
-            {invoice.status !== 'cancelled' && invoice.status !== 'paid' && (
+            
+            {/* Cancel — only when sent/overdue */}
+            {canCancel && (
               <AlertDialog>
                 <AlertDialogTrigger asChild>
-                  <Button variant="outline" size="sm" className="text-red-600 hover:bg-red-50">
+                  <Button variant="outline" size="sm" className="border-orange-400 text-orange-700 hover:bg-orange-50">
                     <Ban className="w-4 h-4 mr-1.5" />
                     ยกเลิก
                   </Button>
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                   <AlertDialogHeader>
-                    <AlertDialogTitle>ยกเลิกใบวางบิลนี้?</AlertDialogTitle>
+                    <AlertDialogTitle className="flex items-center gap-2">
+                      <Ban className="w-5 h-5 text-orange-600" />
+                      ยกเลิกใบวางบิลนี้?
+                    </AlertDialogTitle>
                     <AlertDialogDescription>
-                      การยกเลิกจะทำให้ invoice เป็นโมฆะ กรุณาระบุเหตุผล
+                      ใบวางบิล <span className="font-mono font-semibold">{invoice.invoice_number}</span> จะถูกทำเครื่องหมายเป็นโมฆะ
+                      (ข้อมูลยังเก็บอยู่ในระบบและ audit trail) — ลูกค้าจะเห็นสถานะเป็น "ยกเลิก"
                     </AlertDialogDescription>
                   </AlertDialogHeader>
-                  <Textarea
-                    placeholder="เหตุผลการยกเลิก..."
-                    value={cancelReason}
-                    onChange={(e) => setCancelReason(e.target.value)}
-                    rows={3}
-                  />
+                  <div className="space-y-2">
+                    <Label htmlFor="cancel-reason" className="text-sm font-semibold">
+                      เหตุผลการยกเลิก <span className="text-red-500">*</span>
+                    </Label>
+                    <Textarea
+                      id="cancel-reason"
+                      placeholder="เช่น: ลูกค้าขอยกเลิก, ราคาไม่ตรง, ออกซ้ำ..."
+                      value={cancelReason}
+                      onChange={(e) => setCancelReason(e.target.value)}
+                      rows={3}
+                    />
+                  </div>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel onClick={() => setCancelReason('')}>ปิด</AlertDialogCancel>
+                    <AlertDialogAction 
+                      onClick={handleCancel} 
+                      className="bg-orange-600 hover:bg-orange-700"
+                      disabled={!cancelReason.trim()}
+                    >
+                      ยืนยันยกเลิก
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            )}
+
+            {/* Restore — only for cancelled without payments */}
+            {canRestore && (
+              <AlertDialog open={showRestoreDialog} onOpenChange={setShowRestoreDialog}>
+                <AlertDialogTrigger asChild>
+                  <Button variant="outline" size="sm" className="border-blue-400 text-blue-700 hover:bg-blue-50">
+                    <RotateCcw className="w-4 h-4 mr-1.5" />
+                    คืนสถานะ
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle className="flex items-center gap-2">
+                      <RotateCcw className="w-5 h-5 text-blue-600" />
+                      คืนสถานะใบวางบิลนี้?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      ใบวางบิล <span className="font-mono font-semibold">{invoice.invoice_number}</span> จะกลับไปเป็น <strong>draft</strong> และสามารถแก้ไข/ส่งใหม่ได้
+                      <br /><br />
+                      เหตุผลยกเลิกเดิม: <em>{invoice.cancel_reason || '-'}</em>
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>ปิด</AlertDialogCancel>
+                    <AlertDialogAction 
+                      onClick={handleRestore} 
+                      className="bg-blue-600 hover:bg-blue-700"
+                      disabled={updating}
+                    >
+                      คืนสถานะ
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            )}
+
+            {/* Delete — any status without payment */}
+            {canDelete && (
+              <AlertDialog open={showDeleteDialog} onOpenChange={(open) => {
+                setShowDeleteDialog(open);
+                if (!open) { setDeleteReason(''); setDeleteConfirmed(false); }
+              }}>
+                <AlertDialogTrigger asChild>
+                  <Button variant="outline" size="sm" className="border-red-500 text-red-700 hover:bg-red-50">
+                    <Trash2 className="w-4 h-4 mr-1.5" />
+                    ลบถาวร
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent className="max-w-md">
+                  <AlertDialogHeader>
+                    <AlertDialogTitle className="flex items-center gap-2 text-red-700">
+                      <Trash2 className="w-5 h-5" />
+                      ลบใบวางบิลถาวร?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      ใบวางบิล <span className="font-mono font-semibold">{invoice.invoice_number}</span> จะถูกลบออกจากระบบ <strong className="text-red-600">ถาวร</strong> ไม่สามารถกู้คืนได้
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  
+                  <div className="space-y-3">
+                    <div className="text-xs space-y-1 p-3 bg-muted/50 rounded border">
+                      <div className="flex items-center gap-2">
+                        <span className="text-green-600">✓</span>
+                        <span>Status: {STATUS_LABELS[invoice.status]?.label || invoice.status}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-green-600">✓</span>
+                        <span>Payment records: {paymentRecords.length}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-green-600">✓</span>
+                        <span>Items: {items.length} รายการ (จะถูกลบทั้งหมด)</span>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="delete-reason" className="text-sm font-semibold">
+                        เหตุผลการลบ <span className="text-red-500">*</span>
+                      </Label>
+                      <Textarea
+                        id="delete-reason"
+                        placeholder="เช่น: สร้างผิด, duplicate, ข้อมูลต้นทางเสียหาย..."
+                        value={deleteReason}
+                        onChange={(e) => setDeleteReason(e.target.value)}
+                        rows={2}
+                      />
+                    </div>
+
+                    <div className="flex items-start gap-2 p-3 bg-red-50 border border-red-200 rounded">
+                      <Checkbox
+                        id="delete-confirm"
+                        checked={deleteConfirmed}
+                        onCheckedChange={(checked) => setDeleteConfirmed(checked === true)}
+                      />
+                      <label 
+                        htmlFor="delete-confirm" 
+                        className="text-xs text-red-800 cursor-pointer leading-relaxed"
+                      >
+                        ฉันเข้าใจว่าการลบนี้ <strong>ถาวร</strong> และไม่สามารถกู้คืนได้ 
+                        ข้อมูลใบวางบิลและรายการสินค้าทั้งหมดจะหายไปจากระบบ
+                      </label>
+                    </div>
+                  </div>
+
                   <AlertDialogFooter>
                     <AlertDialogCancel>ยกเลิก</AlertDialogCancel>
-                    <AlertDialogAction onClick={handleCancel} className="bg-red-600 hover:bg-red-700">
-                      ยืนยันยกเลิก
+                    <AlertDialogAction 
+                      onClick={(e) => { e.preventDefault(); handleDelete(); }}
+                      className="bg-red-600 hover:bg-red-700"
+                      disabled={!deleteConfirmed || !deleteReason.trim() || updating}
+                    >
+                      <Trash2 className="w-4 h-4 mr-1.5" />
+                      {updating ? 'กำลังลบ...' : 'ลบถาวร'}
                     </AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>
