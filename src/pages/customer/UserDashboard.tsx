@@ -165,6 +165,7 @@ export default function UserDashboard() {
   const [orders, setOrders] = useState<any[]>([]);
   const [ordersLoading, setOrdersLoading] = useState(false);
   const [pendingInvoiceCount, setPendingInvoiceCount] = useState(0);
+  const [taxInvoiceCount, setTaxInvoiceCount] = useState(0);
 
   // Load quotes
   useEffect(() => {
@@ -333,6 +334,13 @@ export default function UserDashboard() {
           return false;
         }).length;
         setPendingInvoiceCount(pending);
+
+        // Also load tax invoice count
+        const { count: txCount } = await (supabase as any)
+          .from('tax_invoices')
+          .select('*', { count: 'exact', head: true })
+          .eq('customer_id', user.id);
+        setTaxInvoiceCount(txCount || 0);
       } catch (e) {
         console.warn('Failed to load invoice count:', e);
       }
@@ -465,12 +473,13 @@ export default function UserDashboard() {
   // ─── Sidebar menu items ───
   type MenuItem =
     | { key: Section; label: string; icon: any; badge: number; external?: false }
-    | { key: 'invoices'; label: string; icon: any; badge: number; external: true; path: string };
+    | { key: string; label: string; icon: any; badge: number; external: true; path: string };
 
   const menuItems: MenuItem[] = [
     { key: 'quotes', label: 'ใบเสนอราคา', icon: FileSearch, badge: quotes.length },
     { key: 'orders', label: 'คำสั่งซื้อ', icon: PackageCheck, badge: orders.length },
     { key: 'invoices', label: 'ใบวางบิล', icon: Receipt, badge: pendingInvoiceCount, external: true, path: '/my-invoices' },
+    { key: 'tax-invoices', label: 'ใบกำกับภาษี', icon: FileText, badge: taxInvoiceCount, external: true, path: '/my-tax-invoices' },
     { key: 'cart', label: 'ตะกร้าสินค้า', icon: ShoppingBag, badge: count },
     { key: 'profile', label: 'โปรไฟล์', icon: UserRound, badge: 0 },
   ];
