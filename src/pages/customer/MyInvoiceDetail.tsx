@@ -10,9 +10,11 @@ import { useToast } from '@/hooks/use-toast';
 import {
   ArrowLeft, Loader2, Printer, Receipt, User, Calendar,
   CreditCard, Building2, FileText, AlertCircle, CircleCheckBig,
+  Banknote, Clock,
 } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 import InvoicePrintPreviewDialog from '@/components/admin/InvoicePrintPreviewDialog';
+import UploadPaymentSlipDialog from '@/components/customer/UploadPaymentSlipDialog';
 
 const STATUS_LABELS: Record<string, { label: string; cls: string }> = {
   draft: { label: 'ร่าง', cls: 'bg-gray-100 text-gray-700 border-gray-300' },
@@ -41,15 +43,18 @@ export default function MyInvoiceDetail() {
   const [bankAccounts, setBankAccounts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [showPrintDialog, setShowPrintDialog] = useState(false);
+  const [showUploadSlip, setShowUploadSlip] = useState(false);
+  const [paymentRecords, setPaymentRecords] = useState<any[]>([]);
 
   const loadData = async () => {
     if (!id || !user) return;
     setLoading(true);
     try {
-      const [invRes, itemsRes, bankRes] = await Promise.all([
+      const [invRes, itemsRes, bankRes, paymentRes] = await Promise.all([
         (supabase as any).from('invoices').select('*').eq('id', id).maybeSingle(),
         (supabase as any).from('invoice_items').select('*').eq('invoice_id', id).order('display_order'),
         (supabase as any).from('company_bank_accounts').select('*').eq('is_active', true).order('display_order'),
+        (supabase as any).from('payment_records').select('*').eq('invoice_id', id).order('created_at', { ascending: false }),
       ]);
 
       if (invRes.error) throw invRes.error;
@@ -62,6 +67,7 @@ export default function MyInvoiceDetail() {
       setInvoice(invRes.data);
       setItems(itemsRes.data || []);
       setBankAccounts(bankRes.data || []);
+      setPaymentRecords(paymentRes.data || []);
     } catch (e: any) {
       toast({ title: 'โหลดข้อมูลไม่สำเร็จ', description: e.message, variant: 'destructive' });
     } finally {
@@ -111,10 +117,18 @@ export default function MyInvoiceDetail() {
             <ArrowLeft className="w-4 h-4 mr-1" />
             กลับ
           </Button>
-          <Button variant="outline" size="sm" onClick={() => setShowPrintDialog(true)}>
-            <Printer className="w-4 h-4 mr-1.5" />
-            พิมพ์ / PDF
-          </Button>
+          <div className="flex items-center gap-2 flex-wrap">
+            <Button variant="outline" size="sm" onClick={() => setShowPrintDialog(true)}>
+              <Printer className="w-4 h-4 mr-1.5" />
+              พิมพ์ / PDF
+            </Button>
+            {(invoice.status === 'sent' || invoice.status === 'partially_paid') && (
+              <Button size="sm" onClick={() => setShowUploadSlip(true)}>
+                <Banknote className="w-4 h-4 mr-1.5" />
+                อัปโหลดสลิปการโอน
+              </Button>
+            )}
+          </div>
         </div>
 
         {/* Overdue Alert */}
@@ -339,6 +353,78 @@ export default function MyInvoiceDetail() {
           </Card>
         )}
 
+        {/* Payment Records */}
+        {paymentRecords.length > 0 && (
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm flex items-center gap-2">
+                <Banknote className="w-4 h-4" />
+                ประวัติการชำระเงิน ({paymentRecords.length})
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                {paymentRecords.map((pr: any) => {
+                  const statusMap: Record<string, { label: string; cls: string; Icon: any }> = {
+                    pending: { label: 'รอตรวจสอบ', cls: 'bg-amber-50 text-amber-700 border-amber-300', Icon: Clock },
+                    verified: { label: 'ยืนยันแล้ว', cls: 'bg-green-50 text-green-700 border-green-300', Icon: CircleCheckBig },
+                    rejected: { label: 'ปฏิเสธ', cls: 'bg-red-50 text-red-700 border-red-300', Icon: AlertCircle },
+                  };
+                  const info = statusMap[pr.verification_status] || statusMap.pending;
+                  const IconCmp = info.Icon;
+
+                  return (
+                    <div
+                      key={pr.id}
+                      className={`p-3 border rounded-lg ${info.cls}`}
+                    >
+                      <div className="flex items-start justify-between gap-3 flex-wrap">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1">
+                            <IconCmp className="w-4 h-4" />
+                            <span className="font-semibold text-sm">{info.label}</span>
+                            <span className="text-xs">
+                              {new Date(pr.payment_date).toLocaleDateString('th-TH', {
+                                year: 'numeric', month: 'short', day: 'numeric',
+                              })}
+                            </span>
+                          </div>
+                          {pr.bank_name && (
+                            <p className="text-xs">
+                              โอนเข้า: {pr.bank_name} {pr.bank_account && `(${pr.bank_account})`}
+                            </p>
+                          )}
+                          {pr.reference_number && (
+                            <p className="text-xs">อ้างอิง: <span className="font-mono">{pr.reference_number}</span></p>
+                          )}
+                          {pr.notes && (
+                            <p className="text-xs mt-1 italic">{pr.notes}</p>
+                          )}
+                          {pr.rejection_reason && (
+                            <p className="text-xs mt-1 font-semibold">
+                              เหตุผลปฏิเสธ: {pr.rejection_reason}
+                            </p>
+                          )}
+                        </div>
+                        <div className="text-right shrink-0">
+                          <div className="font-bold text-sm">
+                            {formatCurrency(pr.amount)}
+                          </div>
+                          {pr.verified_at && (
+                            <div className="text-[10px]">
+                              ยืนยัน: {new Date(pr.verified_at).toLocaleDateString('th-TH')}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         {/* Bank Accounts */}
         {bankAccounts.length > 0 && invoice.status !== 'paid' && invoice.status !== 'cancelled' && (
           <Card className="border-blue-200 bg-blue-50/30">
@@ -373,9 +459,11 @@ export default function MyInvoiceDetail() {
                   </div>
                 </div>
               ))}
-              <div className="text-xs text-blue-700 mt-2 p-2 bg-blue-100 rounded">
-                💡 หลังโอนเงินแล้ว กรุณาแจ้งทีมงานพร้อมส่งสลิป (ฟีเจอร์อัปโหลดสลิปจะเปิดใช้งานเร็วๆ นี้)
-              </div>
+              {(invoice.status === 'sent' || invoice.status === 'partially_paid') && (
+                <div className="text-xs text-blue-700 mt-2 p-2 bg-blue-100 rounded">
+                  💡 หลังโอนเงินแล้ว กรุณากดปุ่ม "อัปโหลดสลิปการโอน" ด้านบนเพื่อแจ้งชำระเงิน
+                </div>
+              )}
             </CardContent>
           </Card>
         )}
@@ -387,6 +475,17 @@ export default function MyInvoiceDetail() {
         invoice={invoice}
         items={items}
       />
+
+      {invoice && (
+        <UploadPaymentSlipDialog
+          open={showUploadSlip}
+          onOpenChange={setShowUploadSlip}
+          invoiceId={invoice.id}
+          invoiceNumber={invoice.invoice_number}
+          grandTotal={invoice.grand_total || 0}
+          onSuccess={() => loadData()}
+        />
+      )}
     </>
   );
 }
