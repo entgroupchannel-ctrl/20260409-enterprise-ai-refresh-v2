@@ -27,7 +27,7 @@ import {
   ArrowLeft, Save, Trash2, Minus, Home, LogOut,
   ChevronRight, PackageCheck, PhoneCall, MailCheck, Upload, SendHorizonal,
   Paperclip, CalendarClock, MessageSquareText, Pencil, X, Building2,
-  Receipt, FileText,
+  Receipt, FileText, FileArchive,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 import NotificationBell from '@/components/notifications/NotificationBell';
@@ -490,6 +490,7 @@ export default function UserDashboard() {
     { key: 'invoices', label: 'ใบวางบิล', icon: Receipt, badge: pendingInvoiceCount, external: true, path: '/my-invoices' },
     { key: 'tax-invoices', label: 'ใบกำกับภาษี', icon: FileText, badge: taxInvoiceCount, external: true, path: '/my-tax-invoices' },
     { key: 'receipts', label: 'ใบเสร็จรับเงิน', icon: Receipt, badge: receiptCount, external: true, path: '/my-receipts' },
+    { key: 'documents', label: 'เอกสารบริษัท', icon: FileArchive, badge: 0, external: true, path: '/my-documents' },
     { key: 'cart', label: 'ตะกร้าสินค้า', icon: ShoppingBag, badge: count },
     { key: 'profile', label: 'โปรไฟล์', icon: UserRound, badge: 0 },
   ];
