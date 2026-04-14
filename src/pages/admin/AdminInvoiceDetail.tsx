@@ -537,6 +537,105 @@ export default function AdminInvoiceDetail() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Payment Records Summary (read-only) */}
+        {paymentRecords.length > 0 && (
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm flex items-center gap-2">
+                <Banknote className="w-4 h-4" />
+                สลิปการชำระเงินจากลูกค้า ({paymentRecords.length} รายการ)
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                {paymentRecords.map((pr: any) => {
+                  const statusMap: Record<string, { label: string; cls: string }> = {
+                    pending: { label: 'รอตรวจสอบ', cls: 'bg-amber-50 text-amber-700 border-amber-300' },
+                    verified: { label: 'ยืนยันแล้ว', cls: 'bg-green-50 text-green-700 border-green-300' },
+                    rejected: { label: 'ปฏิเสธ', cls: 'bg-red-50 text-red-700 border-red-300' },
+                  };
+                  const info = statusMap[pr.verification_status] || statusMap.pending;
+
+                  return (
+                    <div
+                      key={pr.id}
+                      className={`p-3 border rounded-lg ${info.cls}`}
+                    >
+                      <div className="flex items-start justify-between gap-3 flex-wrap">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1 flex-wrap">
+                            <Badge variant="outline" className={info.cls}>
+                              {info.label}
+                            </Badge>
+                            <span className="text-xs">
+                              {new Date(pr.payment_date).toLocaleDateString('th-TH', {
+                                year: 'numeric', month: 'short', day: 'numeric',
+                              })}
+                            </span>
+                            {pr.payment_method && (
+                              <span className="text-xs text-muted-foreground">
+                                • {pr.payment_method === 'bank_transfer' ? 'โอนผ่านธนาคาร' : pr.payment_method}
+                              </span>
+                            )}
+                          </div>
+                          {pr.bank_name && (
+                            <p className="text-xs">
+                              โอนเข้า: {pr.bank_name} {pr.bank_account && `(${pr.bank_account})`}
+                            </p>
+                          )}
+                          {pr.reference_number && (
+                            <p className="text-xs">
+                              อ้างอิง: <span className="font-mono">{pr.reference_number}</span>
+                            </p>
+                          )}
+                          {pr.notes && (
+                            <p className="text-xs italic mt-1">{pr.notes}</p>
+                          )}
+                          {pr.proof_url && (
+                            <a
+                              href="#"
+                              className="inline-flex items-center gap-1 text-xs text-blue-600 hover:underline mt-1"
+                              onClick={async (e) => {
+                                e.preventDefault();
+                                const { data } = await (supabase as any).storage
+                                  .from('payment-slips')
+                                  .createSignedUrl(pr.proof_url, 3600);
+                                if (data?.signedUrl) {
+                                  window.open(data.signedUrl, '_blank');
+                                }
+                              }}
+                            >
+                              <ExternalLink className="w-3 h-3" />
+                              ดูสลิป
+                            </a>
+                          )}
+                        </div>
+                        <div className="text-right shrink-0">
+                          <div className="font-bold text-base">
+                            {formatCurrency(pr.amount)}
+                          </div>
+                          {pr.verified_at && (
+                            <div className="text-[10px]">
+                              ยืนยัน: {new Date(pr.verified_at).toLocaleDateString('th-TH')}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              
+              {paymentRecords.some((p) => p.verification_status === 'pending') && (
+                <div className="mt-3 p-2 bg-muted/40 rounded text-xs text-muted-foreground">
+                  💡 ระบบ verify/reject เต็มรูปแบบจะเปิดใน Phase 4B.2 — 
+                  ตอนนี้สามารถคลิก "ยืนยันชำระเอง" เพื่อเปลี่ยนสถานะเป็น paid ได้
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        )}
       </div>
 
       <InvoicePrintPreviewDialog
