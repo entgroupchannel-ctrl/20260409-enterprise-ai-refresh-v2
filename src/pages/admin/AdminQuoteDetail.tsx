@@ -195,6 +195,7 @@ export default function AdminQuoteDetail() {
   const [revisionKey, setRevisionKey] = useState(0);
   const [printingRevision, setPrintingRevision] = useState<any>(null);
   const [showCreateInvoice, setShowCreateInvoice] = useState(false);
+  const [linkedInvoice, setLinkedInvoice] = useState<any>(null);
   const totals = useMemo(() => {
     if (!quote) return { subtotal: 0, discountAmount: 0, beforeVat: 0, vatAmount: 0, grandTotal: 0 };
     return calculateQuoteTotals(
