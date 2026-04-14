@@ -299,6 +299,41 @@ export default function AdminInvoiceDetail() {
           </div>
         </div>
 
+        {/* ⚠️ Unlinked Customer Warning */}
+        {!invoice.customer_id && invoice.status !== 'draft' && invoice.status !== 'cancelled' && (
+          <Card className="border-orange-300 bg-orange-50">
+            <CardContent className="pt-4 pb-4">
+              <div className="flex items-start gap-3">
+                <AlertCircle className="w-5 h-5 text-orange-600 shrink-0 mt-0.5" />
+                <div className="flex-1">
+                  <h3 className="font-semibold text-orange-900">
+                    ⚠️ ใบวางบิลนี้ยังไม่ได้เชื่อมกับบัญชีลูกค้า
+                  </h3>
+                  <p className="text-sm text-orange-700 mt-0.5">
+                    ลูกค้าจะยังไม่เห็นใบวางบิลนี้ในหน้า "ใบวางบิลของฉัน" 
+                    (เกิดจาก quote เก่าที่ไม่มี user account เชื่อมโยง)
+                  </p>
+                  {invoice.customer_email && (
+                    <p className="text-xs text-orange-700 mt-1">
+                      Email: <span className="font-mono">{invoice.customer_email}</span>
+                    </p>
+                  )}
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="mt-3 border-orange-600 text-orange-700 hover:bg-orange-100"
+                    onClick={handleLinkCustomer}
+                    disabled={linkingCustomer || !invoice.customer_email}
+                  >
+                    <UserPlus className="w-4 h-4 mr-1.5" />
+                    {linkingCustomer ? 'กำลังเชื่อม...' : 'เชื่อมกับบัญชีลูกค้า'}
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         {/* Status Flow Banner */}
         {invoice.status === 'sent' && paymentRecords.length === 0 && (
           <Card className="border-blue-200 bg-blue-50">
