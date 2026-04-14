@@ -132,6 +132,60 @@ export default function AdminInvoiceDetail() {
     setShowPrintDialog(true);
   };
 
+  const handleLinkCustomer = async () => {
+    if (!invoice) return;
+    if (!invoice.customer_email) {
+      toast({
+        title: 'ไม่สามารถเชื่อมได้',
+        description: 'ไม่มี customer_email ใน invoice นี้',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    setLinkingCustomer(true);
+    try {
+      const { data: userData, error: userError } = await (supabase as any)
+        .from('users')
+        .select('id, email')
+        .eq('email', invoice.customer_email.toLowerCase().trim())
+        .maybeSingle();
+
+      if (userError) throw userError;
+
+      if (!userData) {
+        toast({
+          title: 'ไม่พบ user ในระบบ',
+          description: `ลูกค้า ${invoice.customer_email} ยังไม่ได้สมัครสมาชิก`,
+          variant: 'destructive',
+        });
+        return;
+      }
+
+      const { error: updateError } = await (supabase as any)
+        .from('invoices')
+        .update({ customer_id: userData.id })
+        .eq('id', invoice.id);
+
+      if (updateError) throw updateError;
+
+      toast({
+        title: '✅ เชื่อมลูกค้าสำเร็จ',
+        description: `ลูกค้า ${userData.email} สามารถเห็นใบวางบิลนี้ได้แล้ว`,
+      });
+
+      await loadData();
+    } catch (e: any) {
+      toast({
+        title: 'เชื่อมไม่สำเร็จ',
+        description: e.message,
+        variant: 'destructive',
+      });
+    } finally {
+      setLinkingCustomer(false);
+    }
+  };
+
   const handleSaveNotes = async () => {
     if (!invoice) return;
     setSavingNotes(true);
