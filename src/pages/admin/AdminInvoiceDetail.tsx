@@ -18,11 +18,12 @@ import {
   ArrowLeft, Loader2, Printer, Send, CircleCheckBig, Ban, FileText,
   User, Calendar, Receipt, Save, Lock, MessageSquare,
   Clock, Banknote, ExternalLink, Mail, UserPlus, AlertCircle,
-  Trash2, RotateCcw,
+  Trash2, RotateCcw, ShieldCheck,
 } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import InvoicePrintPreviewDialog from '@/components/admin/InvoicePrintPreviewDialog';
 import ConfirmPaymentDialog from '@/components/admin/ConfirmPaymentDialog';
+import VerifyPaymentDialog from '@/components/admin/VerifyPaymentDialog';
 
 type InvoiceRow = any;
 type InvoiceItem = any;
@@ -64,6 +65,7 @@ export default function AdminInvoiceDetail() {
   const [deleteReason, setDeleteReason] = useState('');
   const [deleteConfirmed, setDeleteConfirmed] = useState(false);
   const [showRestoreDialog, setShowRestoreDialog] = useState(false);
+  const [verifyingPayment, setVerifyingPayment] = useState<any>(null);
 
   const loadData = async () => {
     if (!id) return;
