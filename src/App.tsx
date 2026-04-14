@@ -75,6 +75,8 @@ const ProductMigrationReview = lazyRetry(() => import("./pages/admin/ProductMigr
 const MigrateDatasheets = lazyRetry(() => import("./pages/admin/MigrateDatasheets"));
 const AdminQuotesTrash = lazyRetry(() => import("./pages/admin/AdminQuotesTrash"));
 const AdminTrash = lazyRetry(() => import("./pages/admin/AdminTrash"));
+const AdminDocuments = lazyRetry(() => import("./pages/admin/AdminDocuments"));
+const MyDocuments = lazyRetry(() => import("./pages/customer/MyDocuments"));
 const AdminInvoicesList = lazyRetry(() => import("./pages/admin/AdminInvoicesList"));
 const AdminInvoiceDetail = lazyRetry(() => import("./pages/admin/AdminInvoiceDetail"));
 const AdminTaxInvoicesList = lazyRetry(() => import("./pages/admin/AdminTaxInvoicesList"));
@@ -183,7 +185,7 @@ const App = () => (
                     <Route path="/admin/trash" element={<ProtectedRoute requireSales><AdminTrash /></ProtectedRoute>} />
                     <Route path="/admin/quotes/:id" element={<ProtectedRoute requireSales><AdminQuoteDetail /></ProtectedRoute>} />
                     <Route path="/admin/contacts" element={<ProtectedRoute requireSales><AdminContacts /></ProtectedRoute>} />
-                    <Route path="/admin/documents" element={<ProtectedRoute requireSales><AdminDashboard /></ProtectedRoute>} />
+                    <Route path="/admin/documents" element={<ProtectedRoute allowedRoles={['super_admin','admin','sales','accountant','warehouse','viewer']}><AdminDocuments /></ProtectedRoute>} />
                     <Route path="/admin/permissions" element={<ProtectedRoute requireAdmin><AdminPermissions /></ProtectedRoute>} />
                     <Route path="/admin/employees" element={<ProtectedRoute allowedRoles={['super_admin', 'admin']}><AdminEmployees /></ProtectedRoute>} />
                     <Route path="/admin/employees/new" element={<ProtectedRoute allowedRoles={['super_admin']}><AdminEmployeeNew /></ProtectedRoute>} />
@@ -217,6 +219,7 @@ const App = () => (
                     <Route path="/my-tax-invoices" element={<ProtectedRoute><MyTaxInvoices /></ProtectedRoute>} />
                     <Route path="/my-tax-invoices/:id" element={<ProtectedRoute><MyTaxInvoiceDetail /></ProtectedRoute>} />
                     <Route path="/my-receipts" element={<ProtectedRoute><MyReceipts /></ProtectedRoute>} />
+                    <Route path="/my-documents" element={<ProtectedRoute><MyDocuments /></ProtectedRoute>} />
                     <Route path="/my-receipts/:id" element={<ProtectedRoute><MyReceiptDetail /></ProtectedRoute>} />
                     <Route path="/notifications" element={<ProtectedRoute><NotificationsPage /></ProtectedRoute>} />
                     <Route path="/profile" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
