@@ -61,6 +61,9 @@ const AdminQuotesList = lazyRetry(() => import("./pages/admin/AdminQuotesList"))
 const AdminQuoteDetail = lazyRetry(() => import("./pages/admin/AdminQuoteDetail"));
 const AdminQuoteCreate = lazyRetry(() => import("./pages/admin/AdminQuoteCreate"));
 const AdminPermissions = lazyRetry(() => import("./pages/admin/AdminPermissions"));
+const AdminEmployees = lazyRetry(() => import("./pages/admin/AdminEmployees"));
+const AdminEmployeeDetail = lazyRetry(() => import("./pages/admin/AdminEmployeeDetail"));
+const AdminEmployeeNew = lazyRetry(() => import("./pages/admin/AdminEmployeeNew"));
 const AdminSaleOrders = lazyRetry(() => import("./pages/admin/AdminSaleOrders"));
 const AdminRequests = lazyRetry(() => import("./pages/admin/AdminRequests"));
 const AdminApprovals = lazyRetry(() => import("./pages/admin/AdminApprovals"));
@@ -181,6 +184,9 @@ const App = () => (
                     <Route path="/admin/contacts" element={<ProtectedRoute requireSales><AdminContacts /></ProtectedRoute>} />
                     <Route path="/admin/documents" element={<ProtectedRoute requireSales><AdminDashboard /></ProtectedRoute>} />
                     <Route path="/admin/permissions" element={<ProtectedRoute requireAdmin><AdminPermissions /></ProtectedRoute>} />
+                    <Route path="/admin/employees" element={<ProtectedRoute allowedRoles={['super_admin', 'admin']}><AdminEmployees /></ProtectedRoute>} />
+                    <Route path="/admin/employees/new" element={<ProtectedRoute allowedRoles={['super_admin']}><AdminEmployeeNew /></ProtectedRoute>} />
+                    <Route path="/admin/employees/:id" element={<ProtectedRoute allowedRoles={['super_admin', 'admin']}><AdminEmployeeDetail /></ProtectedRoute>} />
                     <Route path="/admin/sale-orders" element={<ProtectedRoute requireSales><AdminSaleOrders /></ProtectedRoute>} />
                     <Route path="/admin/sale-orders/:id" element={<ProtectedRoute requireSales><AdminSaleOrders /></ProtectedRoute>} />
                     <Route path="/admin/invoices" element={<ProtectedRoute requireSales><AdminInvoicesList /></ProtectedRoute>} />

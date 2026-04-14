@@ -104,7 +104,7 @@ const navGroups: NavGroup[] = [
       { label: 'ข้อมูลส่วนตัว', icon: User, path: '/admin/settings/profile' },
       { label: 'ผู้ติดต่อ', icon: Users, path: '/admin/contacts' },
       { label: 'เอกสาร', icon: FileArchive, path: '/admin/documents' },
-      { label: 'สิทธิ์', icon: Shield, path: '/admin/permissions' },
+      { label: 'พนักงาน', icon: Users, path: '/admin/employees' },
     ],
   },
 ];
