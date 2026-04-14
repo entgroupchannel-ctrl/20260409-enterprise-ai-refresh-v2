@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import PrintPreviewDialog from '@/components/admin/PrintPreviewDialog';
 import NegotiationRequestDialog from '@/components/negotiation/NegotiationRequestDialog';
 import AcceptQuoteDialog from '@/components/negotiation/AcceptQuoteDialog';
 import RevisionTimeline from '@/components/negotiation/RevisionTimeline';
@@ -120,6 +121,7 @@ export default function MyQuoteDetail() {
   const [deletingFileId, setDeletingFileId] = useState<string | null>(null);
   const [showNegotiation, setShowNegotiation] = useState(false);
   const [showAcceptQuote, setShowAcceptQuote] = useState(false);
+  const [showPrintPreview, setShowPrintPreview] = useState(false);
   const [currentRevision, setCurrentRevision] = useState<any>(null);
   const [relatedInvoices, setRelatedInvoices] = useState<any[]>([]);
 
@@ -439,7 +441,7 @@ export default function MyQuoteDetail() {
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm" onClick={() => window.print()}>
+              <Button variant="outline" size="sm" onClick={() => setShowPrintPreview(true)}>
                 <Printer className="w-4 h-4 mr-2" />พิมพ์
               </Button>
             </div>
@@ -1188,6 +1190,16 @@ export default function MyQuoteDetail() {
         onClose={() => setShowAcceptQuote(false)}
         onSuccess={() => loadQuote()}
       />
+
+      {/* Print Preview Dialog (reuse admin template) */}
+      {showPrintPreview && currentRevision && (
+        <PrintPreviewDialog
+          open={showPrintPreview}
+          onOpenChange={setShowPrintPreview}
+          quote={quote}
+          revision={currentRevision}
+        />
+      )}
     </div>
   );
 }
