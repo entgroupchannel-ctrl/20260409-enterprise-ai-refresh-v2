@@ -565,6 +565,45 @@ export default function AdminQuoteDetail() {
           </Card>
         </div>
 
+        {/* SO Action Banner — compact */}
+        {quote.status === 'po_approved' && !quote.has_sale_order && (
+          <div className="flex items-center justify-between gap-3 p-3 rounded-lg border border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-900/20">
+            <div className="flex items-center gap-2 min-w-0">
+              <CircleCheckBig className="w-5 h-5 text-green-600 shrink-0" />
+              <span className="text-sm font-medium text-green-900 dark:text-green-200 truncate">PO อนุมัติแล้ว — สร้าง SO หรือใบวางบิล</span>
+            </div>
+            <div className="flex gap-2 shrink-0">
+              <Button size="sm" onClick={() => setShowCreateSO(true)}>
+                <FileSearch className="w-4 h-4 mr-1.5" />
+                สร้าง SO
+              </Button>
+              <Button size="sm" variant="outline" onClick={() => setShowCreateInvoice(true)}>
+                <Receipt className="w-4 h-4 mr-1.5" />
+                ใบวางบิล
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {quote.has_sale_order && (
+          <div className="flex items-center justify-between gap-3 p-3 rounded-lg border border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-900/20">
+            <div className="flex items-center gap-2 min-w-0">
+              <CircleCheckBig className="w-5 h-5 text-blue-600 shrink-0" />
+              <span className="text-sm font-medium text-blue-900 dark:text-blue-200 truncate">มี Sale Order แล้ว — สร้างใบวางบิลเพิ่มได้</span>
+            </div>
+            <div className="flex gap-2 shrink-0">
+              <Button size="sm" variant="outline" onClick={() => navigate('/admin/sale-orders')}>
+                <ScanEye className="w-4 h-4 mr-1.5" />
+                ดู SO
+              </Button>
+              <Button size="sm" onClick={() => setShowCreateInvoice(true)}>
+                <Receipt className="w-4 h-4 mr-1.5" />
+                ใบวางบิล
+              </Button>
+            </div>
+          </div>
+        )}
+
         {/* Two-column Meta Grid — Customer | Dates & Sale Person */}
         <div className="grid md:grid-cols-2 gap-4">
           {/* Customer Card */}
