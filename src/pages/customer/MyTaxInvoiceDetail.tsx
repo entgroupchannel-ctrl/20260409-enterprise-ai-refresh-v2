@@ -107,7 +107,7 @@ export default function MyTaxInvoiceDetail() {
 
   return (
     <>
-      <SEOHead title={`ใบกำกับภาษี ${taxInvoice.tax_invoice_number}`} />
+      <SEOHead title={`ใบกำกับภาษี ${taxInvoice.tax_invoice_number}`} description="รายละเอียดใบกำกับภาษี" />
       <div className="min-h-screen bg-background p-4 md:p-6">
         <div className="max-w-5xl mx-auto space-y-4">
           {/* Header */}
