@@ -39,6 +39,7 @@ export default function MyTaxInvoiceDetail() {
           .select('*')
           .eq('id', id)
           .eq('customer_id', user?.id)
+          .is('deleted_at', null)
           .maybeSingle(),
         (supabase as any)
           .from('tax_invoice_items')

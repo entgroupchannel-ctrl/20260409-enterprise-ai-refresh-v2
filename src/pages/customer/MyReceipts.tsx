@@ -44,6 +44,7 @@ export default function MyReceipts() {
         .from('receipts')
         .select('id, receipt_number, receipt_date, amount, payment_method, customer_company, invoice_id, tax_invoice_id')
         .eq('customer_id', user?.id)
+        .is('deleted_at', null)
         .order('created_at', { ascending: false });
 
       if (error) throw error;

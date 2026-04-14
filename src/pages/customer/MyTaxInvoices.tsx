@@ -52,6 +52,7 @@ export default function MyTaxInvoices() {
         .from('tax_invoices')
         .select('id, tax_invoice_number, tax_invoice_date, status, grand_total, customer_company, invoice_id')
         .eq('customer_id', user?.id)
+        .is('deleted_at', null)
         .order('created_at', { ascending: false });
 
       if (error) throw error;
