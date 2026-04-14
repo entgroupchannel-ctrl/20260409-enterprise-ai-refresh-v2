@@ -180,7 +180,7 @@ export default function InvoicePrintPreviewDialog({
                 {invoice.grand_total ? ` • ฿${formatCurrency(invoice.grand_total)}` : ''}
               </DialogDescription>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 pr-8">
               <Button
                 variant="outline"
                 size="sm"
