@@ -237,6 +237,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                       <DropdownMenuContent align="start" className="w-56">
                         {group.items.map((item) => {
                           if (item.path === '/admin/approvals' && !isAdminUser) return null;
+                          if (item.superAdminOnly && profile?.role !== 'super_admin') return null;
                           const Icon = item.icon;
                           const itemBadge = getBadgeCount(item);
                           const isActive = location.pathname === item.path || location.pathname.startsWith(item.path + '/');
