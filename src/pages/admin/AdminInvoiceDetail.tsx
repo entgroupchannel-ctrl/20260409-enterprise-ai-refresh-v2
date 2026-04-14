@@ -291,6 +291,10 @@ export default function AdminInvoiceDetail() {
 
   if (!invoice) return null;
 
+  const hasPayments = paymentRecords.length > 0;
+  const canDelete = invoice.status !== 'paid' && invoice.status !== 'partially_paid' && !hasPayments;
+  const canCancel = invoice.status === 'sent' || invoice.status === 'overdue';
+  const canRestore = invoice.status === 'cancelled' && !hasPayments;
   const statusInfo = STATUS_LABELS[invoice.status] || { label: invoice.status, cls: '' };
 
   return (
