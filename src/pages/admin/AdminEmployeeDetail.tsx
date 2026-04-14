@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { ROLE_LABELS, ROLE_COLORS, ROLE_DESCRIPTIONS, type UserRole } from '@/types/auth';
 import PermissionMatrix from '@/components/admin/PermissionMatrix';
+import ActivityTimeline from '@/components/admin/ActivityTimeline';
 
 interface Employee {
   id: string;
@@ -188,9 +189,9 @@ export default function AdminEmployeeDetail() {
               <Shield className="w-4 h-4 mr-1.5" />
               สิทธิ์
             </TabsTrigger>
-            <TabsTrigger value="activity" disabled>
+            <TabsTrigger value="activity">
               <Activity className="w-4 h-4 mr-1.5" />
-              กิจกรรม (Phase 6.2)
+              กิจกรรม
             </TabsTrigger>
           </TabsList>
 
@@ -319,15 +320,9 @@ export default function AdminEmployeeDetail() {
             />
           </TabsContent>
 
-          {/* Activity Tab (disabled) */}
+          {/* Activity Tab */}
           <TabsContent value="activity">
-            <Card>
-              <CardContent className="py-12 text-center text-muted-foreground">
-                <Activity className="w-12 h-12 mx-auto mb-3 opacity-40" />
-                <p className="text-sm">กิจกรรมและประวัติการเข้าสู่ระบบ</p>
-                <p className="text-xs mt-1">จะมีใน Phase 6.2</p>
-              </CardContent>
-            </Card>
+            <ActivityTimeline userId={employee.id} limit={30} />
           </TabsContent>
         </Tabs>
       </div>

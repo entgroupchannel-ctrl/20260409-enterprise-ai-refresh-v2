@@ -53,6 +53,7 @@ interface NavItem {
   icon: any;
   path: string;
   badge?: 'requests' | 'approvals';
+  superAdminOnly?: boolean;
 }
 
 interface NavGroup {
@@ -105,6 +106,7 @@ const navGroups: NavGroup[] = [
       { label: 'ผู้ติดต่อ', icon: Users, path: '/admin/contacts' },
       { label: 'เอกสาร', icon: FileArchive, path: '/admin/documents' },
       { label: 'พนักงาน', icon: Users, path: '/admin/employees' },
+      { label: 'Audit Log', icon: Shield, path: '/admin/audit-log', superAdminOnly: true },
     ],
   },
 ];
@@ -235,6 +237,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                       <DropdownMenuContent align="start" className="w-56">
                         {group.items.map((item) => {
                           if (item.path === '/admin/approvals' && !isAdminUser) return null;
+                          if (item.superAdminOnly && profile?.role !== 'super_admin') return null;
                           const Icon = item.icon;
                           const itemBadge = getBadgeCount(item);
                           const isActive = location.pathname === item.path || location.pathname.startsWith(item.path + '/');
@@ -321,6 +324,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                             <CollapsibleContent className="pl-4 space-y-1 pt-1">
                               {group.items.map((item) => {
                                 if (item.path === '/admin/approvals' && !isAdminUser) return null;
+                                if (item.superAdminOnly && profile?.role !== 'super_admin') return null;
                                 const Icon = item.icon;
                                 const itemBadge = getBadgeCount(item);
                                 const isActive = location.pathname === item.path;

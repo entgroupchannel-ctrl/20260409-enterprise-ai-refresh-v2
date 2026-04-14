@@ -14,6 +14,75 @@ export type Database = {
   }
   public: {
     Tables: {
+      audit_logs: {
+        Row: {
+          action: string
+          actor_email: string | null
+          actor_id: string | null
+          actor_role: string | null
+          created_at: string
+          id: string
+          ip_address: string | null
+          metadata: Json | null
+          new_value: Json | null
+          old_value: Json | null
+          record_id: string | null
+          table_name: string | null
+          target_email: string | null
+          target_user_id: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          action: string
+          actor_email?: string | null
+          actor_id?: string | null
+          actor_role?: string | null
+          created_at?: string
+          id?: string
+          ip_address?: string | null
+          metadata?: Json | null
+          new_value?: Json | null
+          old_value?: Json | null
+          record_id?: string | null
+          table_name?: string | null
+          target_email?: string | null
+          target_user_id?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          action?: string
+          actor_email?: string | null
+          actor_id?: string | null
+          actor_role?: string | null
+          created_at?: string
+          id?: string
+          ip_address?: string | null
+          metadata?: Json | null
+          new_value?: Json | null
+          old_value?: Json | null
+          record_id?: string | null
+          table_name?: string | null
+          target_email?: string | null
+          target_user_id?: string | null
+          user_agent?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "audit_logs_actor_id_fkey"
+            columns: ["actor_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "audit_logs_target_user_id_fkey"
+            columns: ["target_user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       cart_items: {
         Row: {
           added_at: string
@@ -747,6 +816,50 @@ export type Database = {
             columns: ["sale_order_id"]
             isOneToOne: false
             referencedRelation: "sale_orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      login_history: {
+        Row: {
+          created_at: string
+          email: string
+          failure_reason: string | null
+          id: string
+          ip_address: string | null
+          metadata: Json | null
+          success: boolean
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          failure_reason?: string | null
+          id?: string
+          ip_address?: string | null
+          metadata?: Json | null
+          success: boolean
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          failure_reason?: string | null
+          id?: string
+          ip_address?: string | null
+          metadata?: Json | null
+          success?: boolean
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "login_history_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
             referencedColumns: ["id"]
           },
         ]
@@ -2722,6 +2835,21 @@ export type Database = {
           total_value: number
         }[]
       }
+      get_user_audit_logs: {
+        Args: { p_limit?: number; p_user_id: string }
+        Returns: {
+          action: string
+          actor_email: string
+          actor_id: string
+          actor_role: string
+          created_at: string
+          id: string
+          new_value: Json
+          old_value: Json
+          target_email: string
+          target_user_id: string
+        }[]
+      }
       get_user_effective_permissions: {
         Args: { p_user_id: string }
         Returns: {
@@ -2730,6 +2858,17 @@ export type Database = {
           is_override: boolean
           module: string
           override_permission: string
+        }[]
+      }
+      get_user_login_history: {
+        Args: { p_limit?: number; p_user_id: string }
+        Returns: {
+          created_at: string
+          failure_reason: string
+          id: string
+          ip_address: string
+          success: boolean
+          user_agent: string
         }[]
       }
       get_user_role: { Args: { _user_id: string }; Returns: string }
@@ -2743,6 +2882,27 @@ export type Database = {
       }
       is_admin_or_above: { Args: { p_user_id: string }; Returns: boolean }
       is_super_admin: { Args: { p_user_id: string }; Returns: boolean }
+      log_audit_event: {
+        Args: {
+          p_action: string
+          p_metadata?: Json
+          p_new_value?: Json
+          p_old_value?: Json
+          p_record_id?: string
+          p_table_name?: string
+          p_target_user_id?: string
+        }
+        Returns: string
+      }
+      log_login_event: {
+        Args: {
+          p_failure_reason?: string
+          p_ip_address?: string
+          p_success: boolean
+          p_user_agent?: string
+        }
+        Returns: string
+      }
       notify_admins: {
         Args: {
           p_action_label?: string
