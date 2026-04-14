@@ -140,6 +140,58 @@ export default function AdminInvoiceDetail() {
     setShowPrintDialog(true);
   };
 
+  const handleDelete = async () => {
+    if (!invoice) return;
+    if (!deleteConfirmed) {
+      toast({ title: 'กรุณายืนยัน', description: 'ติ๊กช่องยืนยันก่อนลบ', variant: 'destructive' });
+      return;
+    }
+    if (!deleteReason.trim()) {
+      toast({ title: 'กรุณาระบุเหตุผล', description: 'ต้องระบุเหตุผลสำหรับการลบถาวร', variant: 'destructive' });
+      return;
+    }
+    if (paymentRecords.length > 0) {
+      toast({ title: 'ไม่สามารถลบได้', description: 'ใบวางบิลนี้มีบันทึกการชำระเงินแล้ว กรุณายกเลิกแทน', variant: 'destructive' });
+      return;
+    }
+    setUpdating(true);
+    try {
+      const { error: itemsErr } = await (supabase as any).from('invoice_items').delete().eq('invoice_id', invoice.id);
+      if (itemsErr) throw itemsErr;
+      const { error: invErr } = await (supabase as any).from('invoices').delete().eq('id', invoice.id);
+      if (invErr) throw invErr;
+      console.log(`[AUDIT] Invoice ${invoice.invoice_number} deleted. Reason: ${deleteReason}`);
+      toast({ title: '🗑 ลบใบวางบิลถาวรแล้ว', description: `${invoice.invoice_number} — ${deleteReason}` });
+      navigate('/admin/invoices');
+    } catch (e: any) {
+      toast({ title: 'ลบไม่สำเร็จ', description: e.message, variant: 'destructive' });
+    } finally {
+      setUpdating(false);
+      setShowDeleteDialog(false);
+      setDeleteReason('');
+      setDeleteConfirmed(false);
+    }
+  };
+
+  const handleRestore = async () => {
+    if (!invoice) return;
+    setUpdating(true);
+    try {
+      const { error } = await (supabase as any)
+        .from('invoices')
+        .update({ status: 'draft', cancelled_at: null, cancel_reason: null })
+        .eq('id', invoice.id);
+      if (error) throw error;
+      toast({ title: '✅ คืนสถานะสำเร็จ', description: `${invoice.invoice_number} กลับเป็น draft แล้ว` });
+      await loadData();
+    } catch (e: any) {
+      toast({ title: 'คืนสถานะไม่สำเร็จ', description: e.message, variant: 'destructive' });
+    } finally {
+      setUpdating(false);
+      setShowRestoreDialog(false);
+    }
+  };
+
   const handleLinkCustomer = async () => {
     if (!invoice) return;
     if (!invoice.customer_email) {
