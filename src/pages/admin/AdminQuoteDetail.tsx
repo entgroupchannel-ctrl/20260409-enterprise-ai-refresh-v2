@@ -513,52 +513,57 @@ export default function AdminQuoteDetail() {
           </div>
         </div>
 
-        {/* Summary Card */}
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-start justify-between gap-4 flex-wrap">
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <Receipt className="w-6 h-6 text-primary" />
-                  <h1 className="text-2xl font-bold font-mono">{quote.quote_number}</h1>
+        {/* Summary + Timeline — 2 columns to save space */}
+        <div className="grid md:grid-cols-2 gap-4">
+          {/* Summary Card */}
+          <Card>
+            <CardContent className="pt-6 h-full flex flex-col justify-between">
+              <div className="flex items-start justify-between gap-4 flex-wrap">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Receipt className="w-5 h-5 text-primary shrink-0" />
+                    <h1 className="text-xl font-bold font-mono truncate">{quote.quote_number}</h1>
+                  </div>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <StatusBadge status={quote.status} />
+                    {quote.valid_until && (
+                      <Badge variant="outline" className="text-xs">
+                        ใช้ได้ถึง: {new Date(quote.valid_until).toLocaleDateString('th-TH', {
+                          day: 'numeric', month: 'short', year: 'numeric',
+                        })}
+                      </Badge>
+                    )}
+                    {quote.sla_breached && (
+                      <Badge variant="destructive" className="gap-1">
+                        <ShieldAlert className="w-3 h-3" />
+                        SLA เกิน
+                      </Badge>
+                    )}
+                  </div>
                 </div>
-                <div className="flex items-center gap-2 flex-wrap">
-                  <StatusBadge status={quote.status} />
-                  {quote.valid_until && (
-                    <Badge variant="outline" className="text-xs">
-                      ใช้ได้ถึง: {new Date(quote.valid_until).toLocaleDateString('th-TH', {
-                        day: 'numeric', month: 'short', year: 'numeric',
-                      })}
-                    </Badge>
-                  )}
-                  {quote.sla_breached && (
-                    <Badge variant="destructive" className="gap-1">
-                      <ShieldAlert className="w-3 h-3" />
-                      SLA เกิน
-                    </Badge>
-                  )}
+                <div className="text-right shrink-0">
+                  <div className="text-xs text-muted-foreground">ยอดรวม</div>
+                  <div className="text-2xl font-bold text-primary">
+                    {new Intl.NumberFormat('th-TH', {
+                      style: 'currency',
+                      currency: 'THB',
+                      minimumFractionDigits: 2,
+                    }).format(quote.grand_total || 0)}
+                  </div>
                 </div>
               </div>
-              <div className="text-right">
-                <div className="text-xs text-muted-foreground">ยอดรวม</div>
-                <div className="text-3xl font-bold text-primary">
-                  {new Intl.NumberFormat('th-TH', { 
-                    style: 'currency', 
-                    currency: 'THB', 
-                    minimumFractionDigits: 2 
-                  }).format(quote.grand_total || 0)}
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
 
-        {/* Quote Timeline */}
-        <Card>
-          <CardContent className="pt-6">
-            <QuoteTimeline status={quote.status} />
-          </CardContent>
-        </Card>
+          {/* Quote Timeline */}
+          <Card>
+            <CardContent className="pt-6 h-full flex items-center">
+              <div className="w-full">
+                <QuoteTimeline status={quote.status} />
+              </div>
+            </CardContent>
+          </Card>
+        </div>
 
         {/* Two-column Meta Grid — Customer | Dates & Sale Person */}
         <div className="grid md:grid-cols-2 gap-4">
