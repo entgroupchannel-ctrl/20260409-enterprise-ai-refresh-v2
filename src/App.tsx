@@ -84,6 +84,8 @@ const MyQuotes = lazyRetry(() => import("./pages/customer/MyQuotes"));
 const MyQuoteDetail = lazyRetry(() => import("./pages/customer/MyQuoteDetail"));
 const MyInvoices = lazyRetry(() => import("./pages/customer/MyInvoices"));
 const MyInvoiceDetail = lazyRetry(() => import("./pages/customer/MyInvoiceDetail"));
+const MyTaxInvoices = lazyRetry(() => import("./pages/customer/MyTaxInvoices"));
+const MyTaxInvoiceDetail = lazyRetry(() => import("./pages/customer/MyTaxInvoiceDetail"));
 const Cart = lazyRetry(() => import("./pages/customer/Cart"));
 const UserProfile = lazyRetry(() => import("./pages/customer/UserProfile"));
 const UserDashboard = lazyRetry(() => import("./pages/customer/UserDashboard"));
@@ -197,6 +199,8 @@ const App = () => (
                     <Route path="/my-orders/:id" element={<ProtectedRoute><CustomerSODetail /></ProtectedRoute>} />
                     <Route path="/my-invoices" element={<ProtectedRoute><MyInvoices /></ProtectedRoute>} />
                     <Route path="/my-invoices/:id" element={<ProtectedRoute><MyInvoiceDetail /></ProtectedRoute>} />
+                    <Route path="/my-tax-invoices" element={<ProtectedRoute><MyTaxInvoices /></ProtectedRoute>} />
+                    <Route path="/my-tax-invoices/:id" element={<ProtectedRoute><MyTaxInvoiceDetail /></ProtectedRoute>} />
                     <Route path="/profile" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
                     <Route path="/dashboard" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
                     <Route path="/profile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
