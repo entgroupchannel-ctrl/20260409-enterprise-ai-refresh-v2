@@ -4,12 +4,17 @@ import AdminLayout from '@/layouts/AdminLayout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Textarea } from '@/components/ui/textarea';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import {
-  ArrowLeft, Receipt, Printer, Loader2, Building2, Calendar, Link as LinkIcon, CreditCard,
+  ArrowLeft, Receipt, Printer, Loader2, Building2, Calendar, Link as LinkIcon, CreditCard, Trash2,
 } from 'lucide-react';
 import ReceiptPrintPreviewDialog from '@/components/admin/ReceiptPrintPreviewDialog';
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 
 export default function AdminReceiptDetail() {
   const { id } = useParams<{ id: string }>();
@@ -21,6 +26,9 @@ export default function AdminReceiptDetail() {
   const [sourceInvoice, setSourceInvoice] = useState<any>(null);
   const [sourceTaxInvoice, setSourceTaxInvoice] = useState<any>(null);
   const [showPrintDialog, setShowPrintDialog] = useState(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [deleteReason, setDeleteReason] = useState('');
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => { if (id) loadData(); }, [id]);
 
@@ -32,6 +40,7 @@ export default function AdminReceiptDetail() {
         .from('receipts')
         .select('*')
         .eq('id', id)
+        .is('deleted_at', null)
         .maybeSingle();
 
       if (rcpErr) throw rcpErr;
@@ -57,6 +66,30 @@ export default function AdminReceiptDetail() {
       toast({ title: 'โหลดข้อมูลไม่สำเร็จ', description: e.message, variant: 'destructive' });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!receipt) return;
+    setDeleting(true);
+    try {
+      const { data, error } = await (supabase as any).rpc('soft_delete_receipt', {
+        p_receipt_id: receipt.id,
+        p_reason: deleteReason.trim() || null,
+      });
+      if (error) throw error;
+
+      toast({
+        title: '🗑️ ย้ายไปถังขยะแล้ว',
+        description: (data as any)?.message,
+      });
+      navigate('/admin/receipts');
+    } catch (e: any) {
+      toast({ title: 'ย้ายไม่สำเร็จ', description: e.message, variant: 'destructive' });
+    } finally {
+      setDeleting(false);
+      setShowDeleteDialog(false);
+      setDeleteReason('');
     }
   };
 
@@ -98,10 +131,21 @@ export default function AdminReceiptDetail() {
             <ArrowLeft className="w-4 h-4 mr-1" />
             กลับ
           </Button>
-          <Button variant="outline" size="sm" onClick={() => setShowPrintDialog(true)}>
-            <Printer className="w-4 h-4 mr-1.5" />
-            พิมพ์ / PDF
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              className="border-red-400 text-red-700 hover:bg-red-50"
+              onClick={() => setShowDeleteDialog(true)}
+            >
+              <Trash2 className="w-4 h-4 mr-1.5" />
+              ย้ายถังขยะ
+            </Button>
+            <Button variant="outline" size="sm" onClick={() => setShowPrintDialog(true)}>
+              <Printer className="w-4 h-4 mr-1.5" />
+              พิมพ์ / PDF
+            </Button>
+          </div>
         </div>
 
         <Card>
@@ -212,6 +256,48 @@ export default function AdminReceiptDetail() {
         invoiceNumber={sourceInvoice?.invoice_number}
         taxInvoiceNumber={sourceTaxInvoice?.tax_invoice_number}
       />
+
+      <AlertDialog
+        open={showDeleteDialog}
+        onOpenChange={(open) => {
+          setShowDeleteDialog(open);
+          if (!open) setDeleteReason('');
+        }}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center gap-2 text-red-700">
+              <Trash2 className="w-5 h-5" />
+              ย้ายใบเสร็จไปถังขยะ?
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              ใบเสร็จ <span className="font-mono font-semibold">{receipt?.receipt_number}</span>
+              {' '}จะถูกย้ายไปถังขยะ — สามารถกู้คืนได้ที่{' '}
+              <Link to="/admin/trash?tab=receipts" className="text-blue-600 underline">ถังขยะ</Link>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className="space-y-2">
+            <label className="text-sm font-semibold">เหตุผล (ไม่บังคับ)</label>
+            <Textarea
+              placeholder="เช่น: ออกผิด, ลูกค้าขอยกเลิก..."
+              value={deleteReason}
+              onChange={(e) => setDeleteReason(e.target.value)}
+              rows={2}
+            />
+          </div>
+          <AlertDialogFooter>
+            <AlertDialogCancel>ยกเลิก</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleDelete}
+              className="bg-red-600 hover:bg-red-700"
+              disabled={deleting}
+            >
+              <Trash2 className="w-4 h-4 mr-1.5" />
+              {deleting ? 'กำลังย้าย...' : 'ย้ายถังขยะ'}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </AdminLayout>
   );
 }
