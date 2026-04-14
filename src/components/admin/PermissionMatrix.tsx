@@ -13,6 +13,7 @@ import {
 import {
   FileText, Package, ShoppingCart, Receipt, Users,
   BarChart3, Settings, Trash2, RotateCcw, Info, Lock,
+  XCircle, Eye, Pencil, ShieldCheck, Star,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -44,11 +45,11 @@ const MODULE_INFO: Record<string, { label: string; icon: any; desc: string }> = 
   trash: { label: 'ถังขยะ', icon: Trash2, desc: 'จัดการถังขยะ' },
 };
 
-const PERMISSION_LABELS: Record<string, string> = {
-  none: '❌ ไม่มีสิทธิ์',
-  read: '👁 อ่าน',
-  write: '✏️ แก้ไข',
-  admin: '✅ เต็ม',
+const PERMISSION_LABELS: Record<string, { label: string; icon: any }> = {
+  none: { label: 'ไม่มีสิทธิ์', icon: XCircle },
+  read: { label: 'อ่าน', icon: Eye },
+  write: { label: 'แก้ไข', icon: Pencil },
+  admin: { label: 'เต็ม', icon: ShieldCheck },
 };
 
 const PERMISSION_COLORS: Record<string, string> = {
