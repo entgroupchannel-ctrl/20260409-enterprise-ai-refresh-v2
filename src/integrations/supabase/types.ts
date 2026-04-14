@@ -2241,6 +2241,8 @@ export type Database = {
       tax_invoice_items: {
         Row: {
           created_at: string
+          discount_amount: number | null
+          discount_percent: number | null
           display_order: number | null
           id: string
           line_total: number
@@ -2255,6 +2257,8 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          discount_amount?: number | null
+          discount_percent?: number | null
           display_order?: number | null
           id?: string
           line_total?: number
@@ -2269,6 +2273,8 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          discount_amount?: number | null
+          discount_percent?: number | null
           display_order?: number | null
           id?: string
           line_total?: number
