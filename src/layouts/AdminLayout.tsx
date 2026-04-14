@@ -1,4 +1,5 @@
 import { ReactNode, useState, useEffect } from 'react';
+import { ROLE_LABELS, type UserRole } from '@/types/auth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import NotificationBell from '@/components/notifications/NotificationBell';
 import { useAuth } from '@/hooks/useAuth';
