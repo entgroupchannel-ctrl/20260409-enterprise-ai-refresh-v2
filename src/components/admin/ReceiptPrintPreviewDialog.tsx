@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle,
 } from '@/components/ui/dialog';
@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Printer, Download, Loader2, AlertCircle } from 'lucide-react';
 import ReceiptPDFTemplate from './ReceiptPDFTemplate';
 import { useCompanySettings } from '@/hooks/useCompanySettings';
+import { supabase } from '@/integrations/supabase/client';
 
 interface Props {
   open: boolean;
@@ -21,8 +22,125 @@ export default function ReceiptPrintPreviewDialog({
   const [isPrinting, setIsPrinting] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
   const [copyType, setCopyType] = useState<'original' | 'copy'>('original');
+  const [items, setItems] = useState<any[]>([]);
+  const [totals, setTotals] = useState({
+    subtotal: 0,
+    discount_amount: 0,
+    discount_percent: 0,
+    vat_amount: 0,
+    vat_percent: 7,
+    withholding_tax_amount: 0,
+    withholding_tax_percent: 3,
+  });
+  const [loadingItems, setLoadingItems] = useState(false);
 
   const { settings: companySettings, loading: companyLoading } = useCompanySettings();
+
+  useEffect(() => {
+    if (!open || !receipt) return;
+
+    const loadItems = async () => {
+      setLoadingItems(true);
+      try {
+        // Priority 1: tax_invoice_items
+        if (receipt.tax_invoice_id) {
+          const [txRes, txItemsRes] = await Promise.all([
+            (supabase as any)
+              .from('tax_invoices')
+              .select('subtotal, discount_amount, discount_percent, vat_amount, vat_percent, withholding_tax_amount, withholding_tax_percent, grand_total')
+              .eq('id', receipt.tax_invoice_id)
+              .maybeSingle(),
+            (supabase as any)
+              .from('tax_invoice_items')
+              .select('*')
+              .eq('tax_invoice_id', receipt.tax_invoice_id)
+              .order('display_order'),
+          ]);
+
+          if (txRes.data && txItemsRes.data) {
+            const sourceTotal = Number(txRes.data.grand_total || 0);
+            const ratio = sourceTotal > 0 ? receipt.amount / sourceTotal : 1;
+
+            setItems(
+              (txItemsRes.data || []).map((it: any) => ({
+                ...it,
+                line_total: Number(it.line_total || 0) * ratio,
+                discount_amount: Number(it.discount_amount || 0) * ratio,
+              }))
+            );
+            setTotals({
+              subtotal: Number(txRes.data.subtotal || 0) * ratio,
+              discount_amount: Number(txRes.data.discount_amount || 0) * ratio,
+              discount_percent: Number(txRes.data.discount_percent || 0),
+              vat_amount: Number(txRes.data.vat_amount || 0) * ratio,
+              vat_percent: Number(txRes.data.vat_percent || 7),
+              withholding_tax_amount: Number(txRes.data.withholding_tax_amount || 0) * ratio,
+              withholding_tax_percent: Number(txRes.data.withholding_tax_percent || 3),
+            });
+            return;
+          }
+        }
+
+        // Priority 2: invoice_items
+        if (receipt.invoice_id) {
+          const [invRes, invItemsRes] = await Promise.all([
+            (supabase as any)
+              .from('invoices')
+              .select('subtotal, discount_amount, discount_percent, vat_amount, vat_percent, withholding_tax_amount, withholding_tax_percent, grand_total')
+              .eq('id', receipt.invoice_id)
+              .maybeSingle(),
+            (supabase as any)
+              .from('invoice_items')
+              .select('*')
+              .eq('invoice_id', receipt.invoice_id)
+              .order('display_order'),
+          ]);
+
+          if (invRes.data && invItemsRes.data) {
+            const sourceTotal = Number(invRes.data.grand_total || 0);
+            const ratio = sourceTotal > 0 ? receipt.amount / sourceTotal : 1;
+
+            setItems(
+              (invItemsRes.data || []).map((it: any) => ({
+                ...it,
+                line_total: Number(it.line_total || 0) * ratio,
+                discount_amount: Number(it.discount_amount || 0) * ratio,
+              }))
+            );
+            setTotals({
+              subtotal: Number(invRes.data.subtotal || 0) * ratio,
+              discount_amount: Number(invRes.data.discount_amount || 0) * ratio,
+              discount_percent: Number(invRes.data.discount_percent || 0),
+              vat_amount: Number(invRes.data.vat_amount || 0) * ratio,
+              vat_percent: Number(invRes.data.vat_percent || 7),
+              withholding_tax_amount: Number(invRes.data.withholding_tax_amount || 0) * ratio,
+              withholding_tax_percent: Number(invRes.data.withholding_tax_percent || 3),
+            });
+            return;
+          }
+        }
+
+        // Fallback
+        setItems([]);
+        setTotals({
+          subtotal: receipt.amount,
+          discount_amount: 0,
+          discount_percent: 0,
+          vat_amount: 0,
+          vat_percent: 7,
+          withholding_tax_amount: 0,
+          withholding_tax_percent: 3,
+        });
+      } catch (e) {
+        console.error('Failed to load receipt items:', e);
+        setItems([]);
+      } finally {
+        setLoadingItems(false);
+      }
+    };
+
+    loadItems();
+  }, [open, receipt?.id, receipt?.tax_invoice_id, receipt?.invoice_id]);
 
   const formatCurrency = (n: number) =>
     new Intl.NumberFormat('th-TH', { minimumFractionDigits: 0 }).format(n);
@@ -96,6 +214,8 @@ export default function ReceiptPrintPreviewDialog({
 
   if (!receipt) return null;
 
+  const isLoading = companyLoading || loadingItems;
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
@@ -126,11 +246,11 @@ export default function ReceiptPrintPreviewDialog({
                   สำเนา
                 </button>
               </div>
-              <Button variant="outline" size="sm" onClick={handlePrint} disabled={isPrinting || companyLoading || !companySettings}>
+              <Button variant="outline" size="sm" onClick={handlePrint} disabled={isPrinting || isLoading || !companySettings}>
                 <Printer className="w-4 h-4 mr-2" />
                 {isPrinting ? 'กำลังพิมพ์...' : 'พิมพ์'}
               </Button>
-              <Button size="sm" onClick={handleDownloadPDF} disabled={isDownloading || companyLoading || !companySettings}>
+              <Button size="sm" onClick={handleDownloadPDF} disabled={isDownloading || isLoading || !companySettings}>
                 <Download className="w-4 h-4 mr-2" />
                 {isDownloading ? 'กำลังสร้าง...' : 'ดาวน์โหลด PDF'}
               </Button>
@@ -138,10 +258,10 @@ export default function ReceiptPrintPreviewDialog({
           </div>
         </DialogHeader>
 
-        {companyLoading ? (
+        {isLoading ? (
           <div className="py-16 flex flex-col items-center justify-center gap-3">
             <Loader2 className="w-8 h-8 animate-spin text-primary" />
-            <p className="text-sm text-muted-foreground">กำลังโหลดข้อมูล...</p>
+            <p className="text-sm text-muted-foreground">กำลังโหลด...</p>
           </div>
         ) : !companyInfo ? (
           <div className="py-16 flex flex-col items-center justify-center gap-3 text-center">
@@ -154,6 +274,14 @@ export default function ReceiptPrintPreviewDialog({
           <div className="border rounded">
             <ReceiptPDFTemplate
               receipt={receipt}
+              items={items}
+              subtotal={totals.subtotal}
+              discount_amount={totals.discount_amount}
+              discount_percent={totals.discount_percent}
+              vat_amount={totals.vat_amount}
+              vat_percent={totals.vat_percent}
+              withholding_tax_amount={totals.withholding_tax_amount}
+              withholding_tax_percent={totals.withholding_tax_percent}
               companyInfo={companyInfo}
               invoiceNumber={invoiceNumber}
               taxInvoiceNumber={taxInvoiceNumber}
