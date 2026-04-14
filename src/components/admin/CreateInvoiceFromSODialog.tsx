@@ -133,10 +133,10 @@ export default function CreateInvoiceFromSODialog({
     try {
       const { data: qData } = await (supabase as any)
         .from('quote_requests')
-        .select('user_id')
+        .select('created_by')
         .eq('id', q.id)
         .maybeSingle();
-      userId = qData?.user_id || null;
+      userId = qData?.created_by || null;
     } catch (e) {
       console.warn('Failed to load user_id:', e);
     }
@@ -182,7 +182,7 @@ export default function CreateInvoiceFromSODialog({
       const { data, error } = await (supabase as any)
         .from('quote_requests')
         .select(
-          'user_id, customer_name, customer_company, customer_address, customer_email, customer_phone, customer_tax_id, customer_branch_type, customer_branch_code, customer_branch_name, payment_terms, notes'
+          'created_by, customer_name, customer_company, customer_address, customer_email, customer_phone, customer_tax_id, customer_branch_type, customer_branch_code, customer_branch_name, payment_terms, notes'
         )
         .eq('id', source.saleOrder.quote_id)
         .maybeSingle();
