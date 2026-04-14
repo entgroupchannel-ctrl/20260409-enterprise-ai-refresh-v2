@@ -1,16 +1,12 @@
 
 
-## Plan: อัปเดต AdminQuoteDetail.tsx
+## Plan: Phase 4A.1 — Customer Invoice Access
 
-แทนที่ไฟล์ `src/pages/admin/AdminQuoteDetail.tsx` ด้วยเวอร์ชันที่อัปโหลดมา (AdminQuoteDetail-3.tsx) — เป็นเวอร์ชันที่ลดความซับซ้อนลง มี UI สะอาดขึ้น
+เพิ่มระบบให้ลูกค้าดูใบวางบิลของตัวเองผ่าน `/my-invoices`
 
-### สิ่งที่เปลี่ยน
-- ตัด dependencies ที่ไม่จำเป็นออก (เช่น QuoteStatusFlow, Select, Tabs)
-- ใช้ interface แบบ inline แทน import จาก quote-utils
-- UI แบบ 3-column layout: ซ้าย (ข้อมูลลูกค้า + สินค้า + ไฟล์แนบ) / ขวา (แชท + ข้อมูลเพิ่มเติม)
-- Action bar สำหรับ PO review (อนุมัติ/ปฏิเสธ) เมื่อ status = po_uploaded
-
-### Technical
-- แทนที่ไฟล์เดียว: `src/pages/admin/AdminQuoteDetail.tsx`
-- ไม่ต้อง migration หรือแก้ไขไฟล์อื่น
-
+### สิ่งที่ทำ
+1. **Fix CreateInvoiceFromSODialog** — set `customer_id` จาก `quote_requests.created_by` ตอนสร้าง invoice
+2. **New: MyInvoices.tsx** — หน้ารายการใบวางบิล (filter: ทั้งหมด/รอชำระ/ชำระแล้ว/เกินกำหนด)
+3. **New: MyInvoiceDetail.tsx** — หน้ารายละเอียดใบวางบิล + พิมพ์ PDF + แสดงบัญชีธนาคาร
+4. **App.tsx** — เพิ่ม 2 routes: `/my-invoices` + `/my-invoices/:id`
+5. **Migration** — backfill `customer_id` จาก `quote_requests.created_by` สำหรับ invoice เดิม
