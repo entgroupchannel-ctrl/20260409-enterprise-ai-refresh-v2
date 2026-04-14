@@ -128,6 +128,35 @@ export default function CreateInvoiceFromSODialog({
     ? source.quote.products
     : [];
 
+  const loadQuoteFromDirect = async (q: QuoteSource) => {
+    let userId: string | null = null;
+    try {
+      const { data: qData } = await (supabase as any)
+        .from('quote_requests')
+        .select('user_id')
+        .eq('id', q.id)
+        .maybeSingle();
+      userId = qData?.user_id || null;
+    } catch (e) {
+      console.warn('Failed to load user_id:', e);
+    }
+    setQuote({
+      user_id: userId,
+      customer_name: q.customer_name,
+      customer_company: q.customer_company,
+      customer_address: q.customer_address,
+      customer_email: q.customer_email,
+      customer_phone: q.customer_phone,
+      customer_tax_id: q.customer_tax_id,
+      customer_branch_type: q.customer_branch_type,
+      customer_branch_code: q.customer_branch_code,
+      customer_branch_name: q.customer_branch_name,
+      payment_terms: q.payment_terms,
+      notes: q.notes,
+    });
+    if (q.payment_terms) setPaymentTerms(q.payment_terms);
+  };
+
   useEffect(() => {
     if (!open) {
       setInvoiceType('full');
@@ -141,34 +170,7 @@ export default function CreateInvoiceFromSODialog({
     if (source?.type === 'sale_order') {
       loadQuoteFromSO();
     } else if (source?.type === 'quote') {
-      const q = source.quote;
-      // Load user_id from quote_requests
-      let userId: string | null = null;
-      try {
-        const { data: qData } = await (supabase as any)
-          .from('quote_requests')
-          .select('user_id')
-          .eq('id', q.id)
-          .maybeSingle();
-        userId = qData?.user_id || null;
-      } catch (e) {
-        console.warn('Failed to load user_id:', e);
-      }
-      setQuote({
-        user_id: userId,
-        customer_name: q.customer_name,
-        customer_company: q.customer_company,
-        customer_address: q.customer_address,
-        customer_email: q.customer_email,
-        customer_phone: q.customer_phone,
-        customer_tax_id: q.customer_tax_id,
-        customer_branch_type: q.customer_branch_type,
-        customer_branch_code: q.customer_branch_code,
-        customer_branch_name: q.customer_branch_name,
-        payment_terms: q.payment_terms,
-        notes: q.notes,
-      });
-      if (q.payment_terms) setPaymentTerms(q.payment_terms);
+      loadQuoteFromDirect(source.quote);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, source]);
