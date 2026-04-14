@@ -27,6 +27,7 @@ import {
   ArrowLeft, Save, Trash2, Minus, Home, LogOut,
   ChevronRight, PackageCheck, PhoneCall, MailCheck, Upload, SendHorizonal,
   Paperclip, CalendarClock, MessageSquareText, Pencil, X, Building2,
+  Receipt,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
@@ -163,6 +164,7 @@ export default function UserDashboard() {
   // ─── Orders state ───
   const [orders, setOrders] = useState<any[]>([]);
   const [ordersLoading, setOrdersLoading] = useState(false);
+  const [pendingInvoiceCount, setPendingInvoiceCount] = useState(0);
 
   // Load quotes
   useEffect(() => {
@@ -311,6 +313,34 @@ export default function UserDashboard() {
     if (user && activeSection === 'orders') loadOrders();
   }, [user, activeSection]);
 
+  // Load pending invoice count for badge
+  useEffect(() => {
+    const loadInvoiceCount = async () => {
+      if (!user?.id) { setPendingInvoiceCount(0); return; }
+      try {
+        const { data, error } = await (supabase as any)
+          .from('invoices')
+          .select('id, status, due_date')
+          .eq('customer_id', user.id)
+          .neq('status', 'draft')
+          .neq('status', 'cancelled');
+        if (error) throw error;
+        const now = new Date();
+        const pending = (data || []).filter((inv: any) => {
+          if (inv.status === 'paid') return false;
+          if (inv.status === 'sent' || inv.status === 'partially_paid') return true;
+          if (inv.due_date && new Date(inv.due_date) < now) return true;
+          return false;
+        }).length;
+        setPendingInvoiceCount(pending);
+      } catch (e) {
+        console.warn('Failed to load invoice count:', e);
+      }
+    };
+    loadInvoiceCount();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user?.id]);
+
 
     const handleSendMessage = async () => {
     setSendingMessage(true);
@@ -433,11 +463,16 @@ export default function UserDashboard() {
   };
 
   // ─── Sidebar menu items ───
-  const menuItems = [
-    { key: 'quotes' as Section, label: 'ใบเสนอราคา', icon: FileSearch, badge: quotes.length },
-    { key: 'orders' as Section, label: 'คำสั่งซื้อ', icon: PackageCheck, badge: orders.length },
-    { key: 'cart' as Section, label: 'ตะกร้าสินค้า', icon: ShoppingBag, badge: count },
-    { key: 'profile' as Section, label: 'โปรไฟล์', icon: UserRound, badge: 0 },
+  type MenuItem =
+    | { key: Section; label: string; icon: any; badge: number; external?: false }
+    | { key: 'invoices'; label: string; icon: any; badge: number; external: true; path: string };
+
+  const menuItems: MenuItem[] = [
+    { key: 'quotes', label: 'ใบเสนอราคา', icon: FileSearch, badge: quotes.length },
+    { key: 'orders', label: 'คำสั่งซื้อ', icon: PackageCheck, badge: orders.length },
+    { key: 'invoices', label: 'ใบวางบิล', icon: Receipt, badge: pendingInvoiceCount, external: true, path: '/my-invoices' },
+    { key: 'cart', label: 'ตะกร้าสินค้า', icon: ShoppingBag, badge: count },
+    { key: 'profile', label: 'โปรไฟล์', icon: UserRound, badge: 0 },
   ];
 
   const poFiles = quoteFiles.filter(f => f.category === 'customer_po');
@@ -470,23 +505,41 @@ export default function UserDashboard() {
           {/* Sidebar */}
           <aside className="w-56 shrink-0 border-r border-border bg-card hidden md:block">
             <nav className="p-3 space-y-1">
-              {menuItems.map(item => (
-                <button
-                  key={item.key}
-                  onClick={() => setSection(item.key)}
-                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${
-                    activeSection === item.key || (item.key === 'quotes' && activeSection === 'quote-detail')
-                      ? 'bg-primary/10 text-primary font-medium'
-                      : 'text-muted-foreground hover:bg-muted hover:text-foreground'
-                  }`}
-                >
-                  <item.icon className="w-4 h-4" />
-                  <span className="flex-1 text-left">{item.label}</span>
-                  {item.badge > 0 && (
-                    <Badge variant="secondary" className="text-xs px-1.5 py-0">{item.badge}</Badge>
-                  )}
-                </button>
-              ))}
+              {menuItems.map(item => {
+                const isExternal = 'external' in item && item.external;
+                const isActive = !isExternal && (
+                  activeSection === item.key ||
+                  (item.key === 'quotes' && activeSection === 'quote-detail')
+                );
+                return (
+                  <button
+                    key={item.key}
+                    onClick={() => {
+                      if (isExternal && 'path' in item) {
+                        navigate(item.path);
+                      } else {
+                        setSection(item.key as Section);
+                      }
+                    }}
+                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${
+                      isActive
+                        ? 'bg-primary/10 text-primary font-medium'
+                        : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                    }`}
+                  >
+                    <item.icon className="w-4 h-4" />
+                    <span className="flex-1 text-left">{item.label}</span>
+                    {item.badge > 0 && (
+                      <Badge
+                        variant={item.key === 'invoices' && item.badge > 0 ? 'destructive' : 'secondary'}
+                        className="text-xs px-1.5 py-0"
+                      >
+                        {item.badge}
+                      </Badge>
+                    )}
+                  </button>
+                );
+              })}
             </nav>
             <Separator className="mx-3" />
             <div className="p-3">
@@ -498,24 +551,36 @@ export default function UserDashboard() {
 
           {/* Mobile bottom nav */}
           <div className="md:hidden fixed bottom-0 left-0 right-0 bg-card border-t border-border z-20 flex">
-            {menuItems.map(item => (
-              <button
-                key={item.key}
-                onClick={() => setSection(item.key)}
-                className={`flex-1 flex flex-col items-center gap-1 py-2 text-xs transition-colors ${
-                  activeSection === item.key || (item.key === 'quotes' && activeSection === 'quote-detail')
-                    ? 'text-primary' : 'text-muted-foreground'
-                }`}
-              >
-                <div className="relative">
-                  <item.icon className="w-5 h-5" />
-                  {item.badge > 0 && (
-                    <span className="absolute -top-1 -right-2 bg-destructive text-destructive-foreground text-[10px] rounded-full w-4 h-4 flex items-center justify-center">{item.badge}</span>
-                  )}
-                </div>
-                <span>{item.label}</span>
-              </button>
-            ))}
+            {menuItems.map(item => {
+              const isExternal = 'external' in item && item.external;
+              const isActive = !isExternal && (
+                activeSection === item.key ||
+                (item.key === 'quotes' && activeSection === 'quote-detail')
+              );
+              return (
+                <button
+                  key={item.key}
+                  onClick={() => {
+                    if (isExternal && 'path' in item) {
+                      navigate(item.path);
+                    } else {
+                      setSection(item.key as Section);
+                    }
+                  }}
+                  className={`flex-1 flex flex-col items-center gap-1 py-2 text-xs transition-colors ${
+                    isActive ? 'text-primary' : 'text-muted-foreground'
+                  }`}
+                >
+                  <div className="relative">
+                    <item.icon className="w-5 h-5" />
+                    {item.badge > 0 && (
+                      <span className="absolute -top-1 -right-2 bg-destructive text-destructive-foreground text-[10px] rounded-full w-4 h-4 flex items-center justify-center">{item.badge}</span>
+                    )}
+                  </div>
+                  <span>{item.label}</span>
+                </button>
+              );
+            })}
           </div>
 
           {/* Main content */}
