@@ -983,7 +983,50 @@ export default function AdminQuoteDetail() {
                       size="lg"
                       onClick={async () => {
                         try {
-                          const { error } = await supabase
+                          // Get current user
+                          const { data: { user: authUser } } = await supabase.auth.getUser();
+                          if (!authUser) throw new Error('Not authenticated');
+                          
+                          const { data: userData } = await supabase
+                            .from('users')
+                            .select('full_name, role')
+                            .eq('id', authUser.id)
+                            .single();
+                          
+                          const now = new Date().toISOString();
+                          
+                          // Step 1: Create revision #1 (initial)
+                          const { data: revData, error: revError } = await (supabase.from as any)('quote_revisions')
+                            .insert({
+                              quote_id: id,
+                              revision_number: 1,
+                              revision_type: 'initial',
+                              created_by: authUser.id,
+                              created_by_name: (userData as any)?.full_name || authUser.email || 'Admin',
+                              created_by_role: (userData as any)?.role || 'admin',
+                              products: quote.products || [],
+                              free_items: quote.free_items || [],
+                              subtotal: totals.subtotal,
+                              discount_percent: quote.discount_percent || 0,
+                              discount_amount: totals.discountAmount,
+                              vat_percent: quote.vat_percent || 7,
+                              vat_amount: totals.vatAmount,
+                              grand_total: totals.grandTotal,
+                              change_reason: 'Initial quote',
+                              requires_approval: false,
+                              approval_status: 'none',
+                              status: 'sent',
+                              sent_at: now,
+                              valid_until: quote.valid_until || null,
+                              internal_notes: quote.internal_notes || null,
+                            })
+                            .select('id')
+                            .single();
+                          
+                          if (revError) throw revError;
+                          
+                          // Step 2: Update quote_requests with revision info
+                          const { error: updateError } = await supabase
                             .from('quote_requests')
                             .update({
                               status: 'quote_sent',
@@ -991,18 +1034,22 @@ export default function AdminQuoteDetail() {
                               discount_amount: totals.discountAmount,
                               vat_amount: totals.vatAmount,
                               grand_total: totals.grandTotal,
-                              sent_at: new Date().toISOString(),
-                            })
+                              sent_at: now,
+                              current_revision_id: revData.id,
+                              current_revision_number: 1,
+                              total_revisions: 1,
+                            } as any)
                             .eq('id', id);
 
-                          if (error) throw error;
+                          if (updateError) throw updateError;
 
                           toast({
                             title: 'ส่งใบเสนอราคาสำเร็จ',
-                            description: 'ส่งใบเสนอราคาไปยังลูกค้าแล้ว',
+                            description: 'ส่งใบเสนอราคาไปยังลูกค้าแล้ว (Revision #1)',
                           });
 
                           await loadQuoteDetails();
+                          setRevisionKey((k) => k + 1);
                         } catch (error: any) {
                           toast({
                             title: 'เกิดข้อผิดพลาด',

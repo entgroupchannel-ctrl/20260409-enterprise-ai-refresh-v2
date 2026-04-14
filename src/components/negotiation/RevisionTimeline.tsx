@@ -194,7 +194,32 @@ export default function RevisionTimeline({
     );
   }
 
-  if (revisions.length === 0) return null;
+  // Empty state: still show the card with counter offer button for admin
+  if (revisions.length === 0) {
+    if (viewerRole === 'admin' && onCreateCounter) {
+      return (
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="flex items-center gap-2 text-base">
+              <History className="w-4 h-4" />
+              ประวัติการต่อรอง (ยังไม่มี revision)
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-center py-6 space-y-3">
+              <p className="text-sm text-muted-foreground">
+                ยังไม่มี revision — คลิกเพื่อสร้าง counter offer / ใบเสนอราคาใหม่
+              </p>
+              <Button size="sm" variant="outline" onClick={onCreateCounter}>
+                + สร้าง Counter Offer
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      );
+    }
+    return null;
+  }
 
   const draftCount = revisions.filter(r => r.status === 'draft').length;
 
