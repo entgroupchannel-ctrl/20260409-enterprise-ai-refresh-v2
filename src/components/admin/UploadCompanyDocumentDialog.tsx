@@ -106,7 +106,8 @@ export default function UploadCompanyDocumentDialog({ open, onOpenChange, onSucc
     try {
       const timestamp = Date.now();
       const ext = file.name.split('.').pop();
-      const safePath = `${category}/${timestamp}_${title.replace(/[^a-zA-Z0-9ก-๙\-_]/g, '_')}.${ext}`;
+      const randomSuffix = Math.random().toString(36).substring(2, 8);
+      const safePath = `${category}/${timestamp}_${randomSuffix}.${ext}`;
 
       const { error: uploadErr } = await supabase.storage
         .from('company-documents')
