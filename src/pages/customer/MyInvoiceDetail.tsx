@@ -10,7 +10,7 @@ import { useToast } from '@/hooks/use-toast';
 import {
   ArrowLeft, Loader2, Printer, Receipt, User, Calendar,
   CreditCard, Building2, FileText, AlertCircle, CircleCheckBig,
-  Banknote, Clock,
+  Banknote, Clock, Upload, RefreshCw, Hourglass, CheckCircle2,
 } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 import InvoicePrintPreviewDialog from '@/components/admin/InvoicePrintPreviewDialog';
@@ -45,6 +45,35 @@ export default function MyInvoiceDetail() {
   const [showPrintDialog, setShowPrintDialog] = useState(false);
   const [showUploadSlip, setShowUploadSlip] = useState(false);
   const [paymentRecords, setPaymentRecords] = useState<any[]>([]);
+
+  // Compute payment UI state based on payment records
+  const getPaymentUIState = (): 'none' | 'pending' | 'rejected' | 'verified-partial' | 'verified-full' => {
+    if (paymentRecords.length === 0) return 'none';
+
+    const sorted = [...paymentRecords].sort((a, b) =>
+      new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    );
+
+    const hasPending = paymentRecords.some((r) => r.verification_status === 'pending');
+    const hasVerified = paymentRecords.some((r) => r.verification_status === 'verified');
+    const latest = sorted[0];
+
+    if (latest.verification_status === 'rejected' && !hasPending) return 'rejected';
+    if (hasPending) return 'pending';
+    if (hasVerified) {
+      return invoice?.status === 'paid' ? 'verified-full' : 'verified-partial';
+    }
+    return 'none';
+  };
+
+  const paymentUIState = getPaymentUIState();
+  const pendingCount = paymentRecords.filter((r) => r.verification_status === 'pending').length;
+  const verifiedTotal = paymentRecords
+    .filter((r) => r.verification_status === 'verified')
+    .reduce((sum, r) => sum + Number(r.amount || 0), 0);
+  const latestRejected = paymentRecords
+    .filter((r) => r.verification_status === 'rejected')
+    .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())[0];
 
   const loadData = async () => {
     if (!id || !user) return;
@@ -122,11 +151,49 @@ export default function MyInvoiceDetail() {
               <Printer className="w-4 h-4 mr-1.5" />
               พิมพ์ / PDF
             </Button>
-            {(invoice.status === 'sent' || invoice.status === 'partially_paid') && (
-              <Button size="sm" onClick={() => setShowUploadSlip(true)}>
-                <Banknote className="w-4 h-4 mr-1.5" />
-                อัปโหลดสลิปการโอน
-              </Button>
+            {/* Upload slip button — state-aware */}
+            {invoice.status !== 'paid' && invoice.status !== 'cancelled' && (
+              <>
+                {paymentUIState === 'none' && (
+                  <Button size="sm" onClick={() => setShowUploadSlip(true)}>
+                    <Upload className="w-4 h-4 mr-1.5" />
+                    อัปโหลดสลิปการโอน
+                  </Button>
+                )}
+                {paymentUIState === 'pending' && (
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="border-amber-400 text-amber-700 hover:bg-amber-50"
+                    onClick={() => setShowUploadSlip(true)}
+                  >
+                    <Hourglass className="w-4 h-4 mr-1.5" />
+                    ส่งสลิปเพิ่มเติม
+                  </Button>
+                )}
+                {paymentUIState === 'rejected' && (
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="border-red-400 text-red-700 hover:bg-red-50"
+                    onClick={() => setShowUploadSlip(true)}
+                  >
+                    <RefreshCw className="w-4 h-4 mr-1.5" />
+                    ส่งสลิปใหม่
+                  </Button>
+                )}
+                {paymentUIState === 'verified-partial' && (
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="border-blue-400 text-blue-700 hover:bg-blue-50"
+                    onClick={() => setShowUploadSlip(true)}
+                  >
+                    <Upload className="w-4 h-4 mr-1.5" />
+                    ส่งสลิปเพิ่มเติม
+                  </Button>
+                )}
+              </>
             )}
           </div>
         </div>
@@ -148,16 +215,86 @@ export default function MyInvoiceDetail() {
           </Card>
         )}
 
-        {/* Paid Confirmation */}
-        {invoice.status === 'paid' && (
+        {/* Payment Status Alert — prominent feedback */}
+        {paymentUIState === 'pending' && (
+          <Card className="border-amber-300 bg-amber-50">
+            <CardContent className="pt-4 pb-4">
+              <div className="flex items-start gap-3">
+                <Hourglass className="w-5 h-5 text-amber-600 shrink-0 mt-0.5 animate-pulse" />
+                <div className="flex-1">
+                  <h3 className="font-semibold text-amber-900">
+                    ส่งสลิปการชำระเงินแล้ว — รอตรวจสอบ
+                  </h3>
+                  <p className="text-sm text-amber-800 mt-0.5">
+                    แอดมินกำลังตรวจสอบสลิปของคุณ ({pendingCount} รายการ)
+                    {verifiedTotal > 0 && (
+                      <> — ยืนยันแล้ว {formatCurrency(verifiedTotal)}</>
+                    )}
+                  </p>
+                  <p className="text-xs text-amber-700 mt-1">
+                    💡 หากมีข้อมูลเพิ่มเติมสามารถ "ส่งสลิปเพิ่มเติม" ได้
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {paymentUIState === 'rejected' && (
+          <Card className="border-red-300 bg-red-50">
+            <CardContent className="pt-4 pb-4">
+              <div className="flex items-start gap-3">
+                <AlertCircle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
+                <div className="flex-1">
+                  <h3 className="font-semibold text-red-900">
+                    สลิปการชำระเงินถูกปฏิเสธ
+                  </h3>
+                  {latestRejected?.rejection_reason && (
+                    <p className="text-sm text-red-800 mt-0.5">
+                      <strong>เหตุผล:</strong> {latestRejected.rejection_reason}
+                    </p>
+                  )}
+                  <p className="text-xs text-red-700 mt-1">
+                    💡 กรุณาตรวจสอบและส่งสลิปใหม่อีกครั้ง
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {paymentUIState === 'verified-partial' && (
+          <Card className="border-blue-300 bg-blue-50">
+            <CardContent className="pt-4 pb-4">
+              <div className="flex items-start gap-3">
+                <CheckCircle2 className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
+                <div className="flex-1">
+                  <h3 className="font-semibold text-blue-900">
+                    ชำระบางส่วนแล้ว
+                  </h3>
+                  <p className="text-sm text-blue-800 mt-0.5">
+                    ยืนยันแล้ว {formatCurrency(verifiedTotal)} / {formatCurrency(invoice.grand_total)}
+                  </p>
+                  <p className="text-xs text-blue-700 mt-1">
+                    💡 คงเหลือ {formatCurrency((invoice.grand_total || 0) - verifiedTotal)} สามารถส่งสลิปเพิ่มเติมได้
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {paymentUIState === 'verified-full' && invoice.status === 'paid' && (
           <Card className="border-green-300 bg-green-50">
             <CardContent className="pt-4 pb-4">
               <div className="flex items-start gap-3">
-                <CircleCheckBig className="w-5 h-5 text-green-600 shrink-0 mt-0.5" />
-                <div>
-                  <h3 className="font-semibold text-green-900">ชำระเงินแล้ว</h3>
-                  <p className="text-sm text-green-700 mt-0.5">
-                    ขอบคุณที่ชำระเงิน — เราได้รับเงินเรียบร้อยแล้ว
+                <CheckCircle2 className="w-5 h-5 text-green-600 shrink-0 mt-0.5" />
+                <div className="flex-1">
+                  <h3 className="font-semibold text-green-900">
+                    ชำระเงินครบถ้วนแล้ว
+                  </h3>
+                  <p className="text-sm text-green-800 mt-0.5">
+                    ยอดรวม {formatCurrency(invoice.grand_total)} — ขอบคุณสำหรับการชำระเงิน
                   </p>
                 </div>
               </div>
@@ -459,11 +596,20 @@ export default function MyInvoiceDetail() {
                   </div>
                 </div>
               ))}
-              {(invoice.status === 'sent' || invoice.status === 'partially_paid') && (
-                <div className="text-xs text-blue-700 mt-2 p-2 bg-blue-100 rounded">
-                  💡 หลังโอนเงินแล้ว กรุณากดปุ่ม "อัปโหลดสลิปการโอน" ด้านบนเพื่อแจ้งชำระเงิน
-                </div>
-              )}
+              <div className="text-xs text-blue-700 mt-2 p-2 bg-blue-100 rounded">
+                {paymentUIState === 'none' && (
+                  <>💡 หลังโอนเงินแล้ว กรุณากดปุ่ม "อัปโหลดสลิปการโอน" ด้านบนเพื่อแจ้งชำระเงิน</>
+                )}
+                {paymentUIState === 'pending' && (
+                  <>⏱ สลิปของคุณอยู่ระหว่างการตรวจสอบ</>
+                )}
+                {paymentUIState === 'rejected' && (
+                  <>⚠️ สลิปล่าสุดถูกปฏิเสธ กรุณาส่งใหม่</>
+                )}
+                {(paymentUIState === 'verified-partial' || paymentUIState === 'verified-full') && (
+                  <>✅ ระบบได้รับการชำระเงินของคุณแล้ว</>
+                )}
+              </div>
             </CardContent>
           </Card>
         )}
@@ -483,6 +629,7 @@ export default function MyInvoiceDetail() {
           invoiceId={invoice.id}
           invoiceNumber={invoice.invoice_number}
           grandTotal={invoice.grand_total || 0}
+          existingPendingCount={pendingCount}
           onSuccess={() => loadData()}
         />
       )}

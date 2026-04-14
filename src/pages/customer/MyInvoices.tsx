@@ -11,6 +11,7 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   Receipt, Search, Loader2, ArrowLeft, AlertCircle,
   CircleCheckBig, Clock, Ban, Calendar,
+  Hourglass, CheckCircle2,
 } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 
@@ -27,6 +28,8 @@ interface Invoice {
   installment_total: number | null;
   downpayment_percent: number | null;
   quote_id: string | null;
+  payment_ui_state?: 'none' | 'pending' | 'rejected' | 'verified-partial' | 'verified-full';
+  pending_count?: number;
 }
 
 const STATUS_LABELS: Record<string, { label: string; cls: string; icon: any }> = {
@@ -45,6 +48,26 @@ const TYPE_LABELS: Record<string, string> = {
   final: 'ส่วนที่เหลือ',
 };
 
+function computePaymentUIState(
+  records: any[],
+  invoiceStatus: string
+): 'none' | 'pending' | 'rejected' | 'verified-partial' | 'verified-full' {
+  if (records.length === 0) return 'none';
+
+  const sorted = [...records].sort((a, b) =>
+    new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  );
+
+  const hasPending = records.some((r) => r.verification_status === 'pending');
+  const hasVerified = records.some((r) => r.verification_status === 'verified');
+  const latest = sorted[0];
+
+  if (latest.verification_status === 'rejected' && !hasPending) return 'rejected';
+  if (hasPending) return 'pending';
+  if (hasVerified) return invoiceStatus === 'paid' ? 'verified-full' : 'verified-partial';
+  return 'none';
+}
+
 export default function MyInvoices() {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -61,19 +84,47 @@ export default function MyInvoices() {
   }, [user]);
 
   const loadInvoices = async () => {
+    if (!user) return;
     setLoading(true);
     try {
-      const { data, error } = await (supabase as any)
+      const { data: invData, error: invErr } = await (supabase as any)
         .from('invoices')
         .select(
           'id, invoice_number, invoice_date, due_date, invoice_type, status, grand_total, customer_company, installment_number, installment_total, downpayment_percent, quote_id'
         )
-        .eq('customer_id', user?.id)
+        .eq('customer_id', user.id)
+        .is('deleted_at', null)
         .neq('status', 'draft')
         .order('created_at', { ascending: false });
 
-      if (error) throw error;
-      setInvoices((data as Invoice[]) || []);
+      if (invErr) throw invErr;
+
+      const invoicesList = (invData as Invoice[]) || [];
+
+      // Load payment records for all invoices (batch)
+      if (invoicesList.length > 0) {
+        const invoiceIds = invoicesList.map((i) => i.id);
+        const { data: payData } = await (supabase as any)
+          .from('payment_records')
+          .select('id, invoice_id, amount, verification_status, created_at')
+          .in('invoice_id', invoiceIds);
+
+        const paymentsByInvoice = new Map<string, any[]>();
+        for (const p of payData || []) {
+          if (!paymentsByInvoice.has(p.invoice_id)) {
+            paymentsByInvoice.set(p.invoice_id, []);
+          }
+          paymentsByInvoice.get(p.invoice_id)!.push(p);
+        }
+
+        for (const inv of invoicesList) {
+          const records = paymentsByInvoice.get(inv.id) || [];
+          inv.pending_count = records.filter((r: any) => r.verification_status === 'pending').length;
+          inv.payment_ui_state = computePaymentUIState(records, inv.status);
+        }
+      }
+
+      setInvoices(invoicesList);
     } catch (e: any) {
       toast({
         title: 'โหลดใบวางบิลไม่สำเร็จ',
@@ -252,6 +303,26 @@ export default function MyInvoices() {
                             {inv.invoice_type === 'installment' && inv.installment_number != null &&
                               ` ${inv.installment_number}/${inv.installment_total}`}
                           </Badge>
+                          {/* Payment UI state badges */}
+                          {inv.payment_ui_state === 'pending' && (
+                            <Badge variant="outline" className="bg-amber-50 text-amber-700 border-amber-300 text-[10px]">
+                              <Hourglass className="w-3 h-3 mr-1" />
+                              ส่งสลิปแล้ว รอตรวจ
+                              {(inv.pending_count ?? 0) > 1 && ` (${inv.pending_count})`}
+                            </Badge>
+                          )}
+                          {inv.payment_ui_state === 'rejected' && (
+                            <Badge variant="outline" className="bg-red-50 text-red-700 border-red-300 text-[10px]">
+                              <AlertCircle className="w-3 h-3 mr-1" />
+                              สลิปถูกปฏิเสธ
+                            </Badge>
+                          )}
+                          {inv.payment_ui_state === 'verified-partial' && (
+                            <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-300 text-[10px]">
+                              <CheckCircle2 className="w-3 h-3 mr-1" />
+                              ชำระบางส่วน
+                            </Badge>
+                          )}
                         </div>
                         {inv.customer_company && (
                           <p className="text-sm text-muted-foreground truncate">

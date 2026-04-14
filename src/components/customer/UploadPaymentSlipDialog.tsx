@@ -13,7 +13,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
 import {
-  Upload, Loader2, ImageIcon, X, CircleCheckBig, AlertCircle, Banknote,
+  Upload, Loader2, ImageIcon, X, CircleCheckBig, AlertCircle, Banknote, Hourglass,
 } from 'lucide-react';
 
 interface BankAccount {
@@ -31,6 +31,7 @@ interface Props {
   invoiceId: string;
   invoiceNumber: string;
   grandTotal: number;
+  existingPendingCount?: number;
   onSuccess?: () => void;
 }
 
@@ -43,6 +44,7 @@ export default function UploadPaymentSlipDialog({
   invoiceId,
   invoiceNumber,
   grandTotal,
+  existingPendingCount,
   onSuccess,
 }: Props) {
   const { user } = useAuth();
@@ -243,6 +245,26 @@ export default function UploadPaymentSlipDialog({
         </DialogHeader>
 
         <div className="space-y-4">
+          {/* Warning if pending exists */}
+          {existingPendingCount && existingPendingCount > 0 ? (
+            <div className="p-3 bg-amber-50 border border-amber-300 rounded-lg">
+              <div className="flex items-start gap-2">
+                <Hourglass className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                <div className="flex-1">
+                  <p className="font-semibold text-amber-900 text-sm">
+                    คุณมีสลิปรอตรวจสอบอยู่แล้ว ({existingPendingCount} รายการ)
+                  </p>
+                  <p className="text-xs text-amber-800 mt-0.5">
+                    หากต้องการส่งสลิปเพิ่มเติม (เช่น การชำระแบ่งจ่าย) สามารถดำเนินการต่อได้
+                  </p>
+                  <p className="text-xs text-amber-700 mt-0.5">
+                    หากต้องการยกเลิกสลิปเก่า กรุณาติดต่อแอดมิน
+                  </p>
+                </div>
+              </div>
+            </div>
+          ) : null}
+
           {/* File upload */}
           <div className="space-y-2">
             <Label className="text-sm font-semibold">
