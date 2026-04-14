@@ -244,6 +244,45 @@ export default function AdminInvoiceDetail() {
           </div>
         </div>
 
+        {/* Status Flow Banner */}
+        {invoice.status === 'sent' && paymentRecords.length === 0 && (
+          <Card className="border-blue-200 bg-blue-50">
+            <CardContent className="pt-4 pb-4">
+              <div className="flex items-start gap-3">
+                <Mail className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
+                <div className="flex-1">
+                  <h3 className="font-semibold text-blue-900">
+                    📨 ส่งใบวางบิลให้ลูกค้าแล้ว
+                  </h3>
+                  <p className="text-sm text-blue-700 mt-0.5">
+                    กำลังรอลูกค้าชำระเงินและอัปโหลดสลิปผ่านระบบ — 
+                    หรือคลิก <span className="font-semibold">"ยืนยันชำระเอง"</span> 
+                    ถ้าได้รับเงินนอกระบบแล้ว
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {paymentRecords.length > 0 && paymentRecords.some((p) => p.verification_status === 'pending') && (
+          <Card className="border-amber-200 bg-amber-50">
+            <CardContent className="pt-4 pb-4">
+              <div className="flex items-start gap-3">
+                <Clock className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                <div className="flex-1">
+                  <h3 className="font-semibold text-amber-900">
+                    🕑 ลูกค้าส่งสลิปการชำระเงินแล้ว ({paymentRecords.filter((p) => p.verification_status === 'pending').length} รายการ)
+                  </h3>
+                  <p className="text-sm text-amber-700 mt-0.5">
+                    กรุณาตรวจสอบสลิปด้านล่างและยืนยันการชำระ
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         {/* Main header card */}
         <Card>
           <CardContent className="pt-6">
