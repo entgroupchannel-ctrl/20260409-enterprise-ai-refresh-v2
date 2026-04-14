@@ -1,6 +1,6 @@
 import { ReactNode, useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { NotificationCenter } from '@/components/quotes';
+import NotificationBell from '@/components/notifications/NotificationBell';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import {
@@ -352,7 +352,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
               <LangToggle variant="compact" />
               <ThemeToggle />
-              {userId && <NotificationCenter userId={userId} />}
+              {userId && <NotificationBell userId={userId} />}
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
