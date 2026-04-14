@@ -24,6 +24,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import InvoicePrintPreviewDialog from '@/components/admin/InvoicePrintPreviewDialog';
 import ConfirmPaymentDialog from '@/components/admin/ConfirmPaymentDialog';
 import VerifyPaymentDialog from '@/components/admin/VerifyPaymentDialog';
+import CreateTaxInvoiceFromInvoiceDialog from '@/components/admin/CreateTaxInvoiceFromInvoiceDialog';
 
 type InvoiceRow = any;
 type InvoiceItem = any;
@@ -66,6 +67,7 @@ export default function AdminInvoiceDetail() {
   const [deleteConfirmed, setDeleteConfirmed] = useState(false);
   const [showRestoreDialog, setShowRestoreDialog] = useState(false);
   const [verifyingPayment, setVerifyingPayment] = useState<any>(null);
+  const [showCreateTaxInvoice, setShowCreateTaxInvoice] = useState(false);
 
   const loadData = async () => {
     if (!id) return;
@@ -335,6 +337,18 @@ export default function AdminInvoiceDetail() {
               >
                 <CircleCheckBig className="w-4 h-4 mr-1.5" />
                 ยืนยันชำระเอง
+              </Button>
+            )}
+            
+            {(invoice.status === 'paid' || invoice.status === 'partially_paid') && (
+              <Button
+                size="sm"
+                variant="outline"
+                className="border-purple-400 text-purple-700 hover:bg-purple-50"
+                onClick={() => setShowCreateTaxInvoice(true)}
+              >
+                <FileText className="w-4 h-4 mr-1.5" />
+                สร้างใบกำกับภาษี
               </Button>
             )}
             
@@ -971,6 +985,15 @@ export default function AdminInvoiceDetail() {
           invoiceNumber={invoice.invoice_number}
           grandTotal={invoice.grand_total || 0}
           onSuccess={() => loadData()}
+        />
+      )}
+
+      {/* Create Tax Invoice Dialog */}
+      {invoice && (
+        <CreateTaxInvoiceFromInvoiceDialog
+          open={showCreateTaxInvoice}
+          onOpenChange={setShowCreateTaxInvoice}
+          invoiceId={invoice.id}
         />
       )}
     </AdminLayout>
