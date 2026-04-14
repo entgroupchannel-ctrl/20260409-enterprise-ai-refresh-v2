@@ -34,6 +34,7 @@ interface Props {
   payment: PaymentRecord | null;
   invoiceNumber: string;
   grandTotal: number;
+  otherVerifiedTotal?: number;
   onSuccess?: () => void;
 }
 
@@ -45,6 +46,7 @@ export default function VerifyPaymentDialog({
   payment,
   invoiceNumber,
   grandTotal,
+  otherVerifiedTotal = 0,
   onSuccess,
 }: Props) {
   const { user } = useAuth();
@@ -87,6 +89,26 @@ export default function VerifyPaymentDialog({
 
   const handleApprove = async () => {
     if (!payment || !user?.id) return;
+
+    // Phase 8.1: Warn if verifying will exceed invoice total
+    const newVerifiedTotal = otherVerifiedTotal + Number(payment.amount);
+    if (newVerifiedTotal > grandTotal + 0.01) {
+      const excess = newVerifiedTotal - grandTotal;
+      const confirmed = window.confirm(
+        `⚠️ การยอมรับจะทำให้ยอด verified เกินใบวางบิล\n\n` +
+        `ยอดใบวางบิล: ฿${grandTotal.toLocaleString()}\n` +
+        `Verified เดิม: ฿${otherVerifiedTotal.toLocaleString()}\n` +
+        `+ สลิปนี้: ฿${Number(payment.amount).toLocaleString()}\n` +
+        `= รวมใหม่: ฿${newVerifiedTotal.toLocaleString()}\n\n` +
+        `เกินยอด: ฿${excess.toLocaleString()}\n\n` +
+        `กรณีนี้ควรเกิดเมื่อ:\n` +
+        `• ลูกค้าส่งสลิปซ้ำ (ควร reject อันที่ซ้ำ)\n` +
+        `• เป็น partial payment ที่ผิดพลาด\n\n` +
+        `ต้องการดำเนินการต่อหรือไม่?`
+      );
+      if (!confirmed) return;
+    }
+
     setSubmitting(true);
     try {
       const { error } = await (supabase as any)
@@ -103,7 +125,7 @@ export default function VerifyPaymentDialog({
 
       toast({
         title: '✅ ยืนยันการชำระเงินสำเร็จ',
-        description: `อนุมัติสลิป ฿${formatCurrency(payment.amount)} แล้ว — ระบบจะอัปเดตสถานะใบวางบิลอัตโนมัติ`,
+        description: `อนุมัติสลิป ฿${formatCurrency(payment.amount)} แล้ว`,
       });
 
       onOpenChange(false);

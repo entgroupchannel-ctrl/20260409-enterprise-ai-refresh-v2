@@ -32,6 +32,8 @@ interface Props {
   invoiceNumber: string;
   grandTotal: number;
   existingPendingCount?: number;
+  existingVerifiedTotal?: number;
+  existingPendingTotal?: number;
   onSuccess?: () => void;
 }
 
@@ -45,6 +47,8 @@ export default function UploadPaymentSlipDialog({
   invoiceNumber,
   grandTotal,
   existingPendingCount,
+  existingVerifiedTotal = 0,
+  existingPendingTotal = 0,
   onSuccess,
 }: Props) {
   const { user } = useAuth();
@@ -166,6 +170,21 @@ export default function UploadPaymentSlipDialog({
       return;
     }
 
+    // Phase 8.1: Warn on overpayment
+    const newTotal = existingVerifiedTotal + existingPendingTotal + amountNum;
+    if (newTotal > grandTotal + 0.01) {
+      const confirmed = window.confirm(
+        `⚠️ ยอดรวมจะเกินใบวางบิล\n\n` +
+        `ยอดใบวางบิล: ฿${grandTotal.toLocaleString()}\n` +
+        `โอนแล้ว: ฿${(existingVerifiedTotal + existingPendingTotal).toLocaleString()}\n` +
+        `ยอดใหม่: ฿${amountNum.toLocaleString()}\n` +
+        `รวมใหม่: ฿${newTotal.toLocaleString()}\n\n` +
+        `การยืนยันจะเกินยอด ฿${(newTotal - grandTotal).toLocaleString()}\n\n` +
+        `ต้องการส่งต่อหรือไม่?`
+      );
+      if (!confirmed) return;
+    }
+
     setSubmitting(true);
     try {
       // 1. Upload file to storage
@@ -245,6 +264,37 @@ export default function UploadPaymentSlipDialog({
         </DialogHeader>
 
         <div className="space-y-4">
+          {/* Phase 8.1: Payment progress display */}
+          {(existingVerifiedTotal > 0 || existingPendingTotal > 0) && (
+            <div className="p-3 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded text-xs space-y-1">
+              <p className="font-semibold text-blue-900 dark:text-blue-300">
+                📊 สถานะการชำระเงิน
+              </p>
+              <div className="flex justify-between text-blue-800 dark:text-blue-400">
+                <span>ยอดใบวางบิล:</span>
+                <span className="font-mono">฿{grandTotal.toLocaleString()}</span>
+              </div>
+              {existingVerifiedTotal > 0 && (
+                <div className="flex justify-between text-green-700 dark:text-green-400">
+                  <span>โอนแล้ว (verified):</span>
+                  <span className="font-mono">฿{existingVerifiedTotal.toLocaleString()}</span>
+                </div>
+              )}
+              {existingPendingTotal > 0 && (
+                <div className="flex justify-between text-amber-700 dark:text-amber-400">
+                  <span>รอตรวจสอบ (pending):</span>
+                  <span className="font-mono">฿{existingPendingTotal.toLocaleString()}</span>
+                </div>
+              )}
+              <div className="flex justify-between font-semibold pt-1 border-t border-blue-300 dark:border-blue-700">
+                <span>คงเหลือ:</span>
+                <span className="font-mono">
+                  ฿{Math.max(0, grandTotal - existingVerifiedTotal - existingPendingTotal).toLocaleString()}
+                </span>
+              </div>
+            </div>
+          )}
+
           {/* Warning if pending exists */}
           {existingPendingCount && existingPendingCount > 0 ? (
             <div className="p-3 bg-amber-50 border border-amber-300 rounded-lg">
