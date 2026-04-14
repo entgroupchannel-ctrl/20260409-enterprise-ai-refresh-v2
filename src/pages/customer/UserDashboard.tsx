@@ -488,6 +488,7 @@ export default function UserDashboard() {
     { key: 'orders', label: 'คำสั่งซื้อ', icon: PackageCheck, badge: orders.length },
     { key: 'invoices', label: 'ใบวางบิล', icon: Receipt, badge: pendingInvoiceCount, external: true, path: '/my-invoices' },
     { key: 'tax-invoices', label: 'ใบกำกับภาษี', icon: FileText, badge: taxInvoiceCount, external: true, path: '/my-tax-invoices' },
+    { key: 'receipts', label: 'ใบเสร็จรับเงิน', icon: Receipt, badge: receiptCount, external: true, path: '/my-receipts' },
     { key: 'cart', label: 'ตะกร้าสินค้า', icon: ShoppingBag, badge: count },
     { key: 'profile', label: 'โปรไฟล์', icon: UserRound, badge: 0 },
   ];
