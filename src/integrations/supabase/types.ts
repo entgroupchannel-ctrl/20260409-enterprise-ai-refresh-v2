@@ -2309,6 +2309,9 @@ export type Database = {
           customer_id: string | null
           customer_name: string
           customer_tax_id: string | null
+          delete_reason: string | null
+          deleted_at: string | null
+          deleted_by: string | null
           delivery_address: string | null
           delivery_date: string | null
           delivery_method: string | null
@@ -2338,6 +2341,9 @@ export type Database = {
           customer_id?: string | null
           customer_name: string
           customer_tax_id?: string | null
+          delete_reason?: string | null
+          deleted_at?: string | null
+          deleted_by?: string | null
           delivery_address?: string | null
           delivery_date?: string | null
           delivery_method?: string | null
@@ -2367,6 +2373,9 @@ export type Database = {
           customer_id?: string | null
           customer_name?: string
           customer_tax_id?: string | null
+          delete_reason?: string | null
+          deleted_at?: string | null
+          deleted_by?: string | null
           delivery_address?: string | null
           delivery_date?: string | null
           delivery_method?: string | null
@@ -2584,6 +2593,7 @@ export type Database = {
       count_pending_approvals: { Args: never; Returns: number }
       empty_invoice_trash: { Args: never; Returns: Json }
       empty_quote_trash: { Args: never; Returns: Json }
+      empty_tax_invoice_trash: { Args: never; Returns: Json }
       expire_old_quotes: {
         Args: never
         Returns: {
@@ -2636,12 +2646,17 @@ export type Database = {
         Returns: Json
       }
       permanent_delete_quote: { Args: { p_quote_id: string }; Returns: Json }
+      permanent_delete_tax_invoice: {
+        Args: { p_tax_invoice_id: string }
+        Returns: Json
+      }
       reject_revision: {
         Args: { p_approver_id: string; p_reason: string; p_revision_id: string }
         Returns: Json
       }
       restore_invoice: { Args: { p_invoice_id: string }; Returns: Json }
       restore_quote: { Args: { p_quote_id: string }; Returns: Json }
+      restore_tax_invoice: { Args: { p_tax_invoice_id: string }; Returns: Json }
       rollback_product_migration: { Args: never; Returns: Json }
       soft_delete_invoice: {
         Args: { p_invoice_id: string; p_reason?: string }
@@ -2649,6 +2664,10 @@ export type Database = {
       }
       soft_delete_quote: {
         Args: { p_quote_id: string; p_reason?: string }
+        Returns: Json
+      }
+      soft_delete_tax_invoice: {
+        Args: { p_reason?: string; p_tax_invoice_id: string }
         Returns: Json
       }
     }

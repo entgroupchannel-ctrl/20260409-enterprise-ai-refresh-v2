@@ -4,10 +4,16 @@ import AdminLayout from '@/layouts/AdminLayout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Textarea } from '@/components/ui/textarea';
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import {
-  ArrowLeft, FileText, Printer, Loader2, Building2, Calendar, Receipt, Link as LinkIcon,
+  ArrowLeft, FileText, Printer, Loader2, Building2, Calendar, Receipt,
+  Link as LinkIcon, Trash2,
 } from 'lucide-react';
 import TaxInvoicePrintPreviewDialog from '@/components/admin/TaxInvoicePrintPreviewDialog';
 
@@ -21,6 +27,9 @@ export default function AdminTaxInvoiceDetail() {
   const [items, setItems] = useState<any[]>([]);
   const [sourceInvoice, setSourceInvoice] = useState<any>(null);
   const [showPrintDialog, setShowPrintDialog] = useState(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [deleteReason, setDeleteReason] = useState('');
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     if (id) loadData();
@@ -31,7 +40,7 @@ export default function AdminTaxInvoiceDetail() {
     setLoading(true);
     try {
       const [txRes, itemsRes] = await Promise.all([
-        (supabase as any).from('tax_invoices').select('*').eq('id', id).maybeSingle(),
+        (supabase as any).from('tax_invoices').select('*').eq('id', id).is('deleted_at', null).maybeSingle(),
         (supabase as any).from('tax_invoice_items').select('*').eq('tax_invoice_id', id).order('display_order'),
       ]);
 
@@ -53,6 +62,30 @@ export default function AdminTaxInvoiceDetail() {
       toast({ title: 'โหลดข้อมูลไม่สำเร็จ', description: e.message, variant: 'destructive' });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!taxInvoice) return;
+    setDeleting(true);
+    try {
+      const { data, error } = await (supabase as any).rpc('soft_delete_tax_invoice', {
+        p_tax_invoice_id: taxInvoice.id,
+        p_reason: deleteReason.trim() || null,
+      });
+      if (error) throw error;
+
+      toast({
+        title: '🗑️ ย้ายไปถังขยะแล้ว',
+        description: (data as any)?.message,
+      });
+      navigate('/admin/tax-invoices');
+    } catch (e: any) {
+      toast({ title: 'ย้ายไม่สำเร็จ', description: e.message, variant: 'destructive' });
+    } finally {
+      setDeleting(false);
+      setShowDeleteDialog(false);
+      setDeleteReason('');
     }
   };
 
@@ -104,10 +137,23 @@ export default function AdminTaxInvoiceDetail() {
             <ArrowLeft className="w-4 h-4 mr-1" />
             กลับ
           </Button>
-          <Button variant="outline" size="sm" onClick={() => setShowPrintDialog(true)}>
-            <Printer className="w-4 h-4 mr-1.5" />
-            พิมพ์ / PDF
-          </Button>
+          <div className="flex items-center gap-2">
+            {taxInvoice.status !== 'paid' && (
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-red-400 text-red-700 hover:bg-red-50"
+                onClick={() => setShowDeleteDialog(true)}
+              >
+                <Trash2 className="w-4 h-4 mr-1.5" />
+                ย้ายถังขยะ
+              </Button>
+            )}
+            <Button variant="outline" size="sm" onClick={() => setShowPrintDialog(true)}>
+              <Printer className="w-4 h-4 mr-1.5" />
+              พิมพ์ / PDF
+            </Button>
+          </div>
         </div>
 
         {/* Main card */}
@@ -286,6 +332,48 @@ export default function AdminTaxInvoiceDetail() {
         items={items}
         invoiceNumber={sourceInvoice?.invoice_number}
       />
+
+      <AlertDialog
+        open={showDeleteDialog}
+        onOpenChange={(open) => {
+          setShowDeleteDialog(open);
+          if (!open) setDeleteReason('');
+        }}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center gap-2 text-red-700">
+              <Trash2 className="w-5 h-5" />
+              ย้ายใบกำกับภาษีไปถังขยะ?
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              ใบกำกับภาษี <span className="font-mono font-semibold">{taxInvoice?.tax_invoice_number}</span>{' '}
+              จะถูกย้ายไปถังขยะ — สามารถกู้คืนได้ที่{' '}
+              <Link to="/admin/trash?tab=tax-invoices" className="text-blue-600 underline">ถังขยะ</Link>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className="space-y-2">
+            <label className="text-sm font-semibold">เหตุผล (ไม่บังคับ)</label>
+            <Textarea
+              placeholder="เช่น: ออกผิด, ลูกค้าขอยกเลิก..."
+              value={deleteReason}
+              onChange={(e) => setDeleteReason(e.target.value)}
+              rows={2}
+            />
+          </div>
+          <AlertDialogFooter>
+            <AlertDialogCancel>ยกเลิก</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleDelete}
+              className="bg-red-600 hover:bg-red-700"
+              disabled={deleting}
+            >
+              <Trash2 className="w-4 h-4 mr-1.5" />
+              {deleting ? 'กำลังย้าย...' : 'ย้ายถังขยะ'}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </AdminLayout>
   );
 }

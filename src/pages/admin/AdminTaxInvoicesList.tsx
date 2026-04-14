@@ -1,15 +1,22 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import AdminLayout from '@/layouts/AdminLayout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Textarea } from '@/components/ui/textarea';
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { Search, Loader2, FileText } from 'lucide-react';
+import { Search, Loader2, FileText, Trash2 } from 'lucide-react';
 import { formatRelativeTime } from '@/lib/format';
+import TaxInvoiceTimeline from '@/components/admin/TaxInvoiceTimeline';
+import TaxInvoiceActionsMenu from '@/components/admin/TaxInvoiceActionsMenu';
 
 interface TaxInvoice {
   id: string;
@@ -37,6 +44,9 @@ export default function AdminTaxInvoicesList() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [deletingTax, setDeletingTax] = useState<TaxInvoice | null>(null);
+  const [deleteReason, setDeleteReason] = useState('');
+  const [deleting, setDeleting] = useState(false);
 
   const loadData = async () => {
     setLoading(true);
@@ -44,6 +54,7 @@ export default function AdminTaxInvoicesList() {
       let query = (supabase as any)
         .from('tax_invoices')
         .select('id, tax_invoice_number, customer_name, customer_company, tax_invoice_date, status, grand_total, invoice_id, created_at')
+        .is('deleted_at', null)
         .order('created_at', { ascending: false });
 
       if (search.trim()) {
@@ -68,6 +79,30 @@ export default function AdminTaxInvoicesList() {
     return () => clearTimeout(timer);
   }, [search]);
 
+  const handleSoftDelete = async () => {
+    if (!deletingTax) return;
+    setDeleting(true);
+    try {
+      const { data, error } = await (supabase as any).rpc('soft_delete_tax_invoice', {
+        p_tax_invoice_id: deletingTax.id,
+        p_reason: deleteReason.trim() || null,
+      });
+      if (error) throw error;
+
+      toast({
+        title: '🗑️ ย้ายไปถังขยะแล้ว',
+        description: (data as any)?.message || `${deletingTax.tax_invoice_number} ถูกย้าย`,
+      });
+      setDeletingTax(null);
+      setDeleteReason('');
+      await loadData();
+    } catch (e: any) {
+      toast({ title: 'ลบไม่สำเร็จ', description: e.message, variant: 'destructive' });
+    } finally {
+      setDeleting(false);
+    }
+  };
+
   const filtered = statusFilter === 'all'
     ? taxInvoices
     : taxInvoices.filter((t) => t.status === statusFilter);
@@ -89,6 +124,12 @@ export default function AdminTaxInvoicesList() {
             <h1 className="text-2xl font-bold">ใบกำกับภาษี</h1>
             <Badge variant="outline" className="ml-2">{taxInvoices.length}</Badge>
           </div>
+          <Button variant="outline" asChild>
+            <Link to="/admin/trash?tab=tax-invoices">
+              <Trash2 className="w-4 h-4 mr-2" />
+              ถังขยะ
+            </Link>
+          </Button>
         </div>
 
         {/* Filter tabs */}
@@ -141,15 +182,24 @@ export default function AdminTaxInvoicesList() {
                             {statusInfo.label}
                           </Badge>
                         </div>
-                        <p className="text-sm text-muted-foreground truncate">
+                        <TaxInvoiceTimeline currentStatus={tx.status} />
+                        <p className="text-sm text-muted-foreground truncate mt-1">
                           {tx.customer_company || tx.customer_name}
                         </p>
                         <p className="text-xs text-muted-foreground mt-0.5">
                           {new Date(tx.tax_invoice_date).toLocaleDateString('th-TH')} • {formatRelativeTime(tx.created_at)}
                         </p>
                       </div>
-                      <div className="text-right shrink-0">
+                      <div className="flex items-center gap-2 shrink-0">
                         <p className="font-bold text-primary">฿{formatCurrency(tx.grand_total)}</p>
+                        <div onClick={(e) => e.stopPropagation()}>
+                          <TaxInvoiceActionsMenu
+                            taxInvoiceId={tx.id}
+                            taxInvoiceNumber={tx.tax_invoice_number}
+                            status={tx.status}
+                            onDelete={() => setDeletingTax(tx)}
+                          />
+                        </div>
                       </div>
                     </div>
                   </CardContent>
@@ -159,6 +209,48 @@ export default function AdminTaxInvoicesList() {
           </div>
         )}
       </div>
+
+      <AlertDialog
+        open={!!deletingTax}
+        onOpenChange={(open) => {
+          if (!open) {
+            setDeletingTax(null);
+            setDeleteReason('');
+          }
+        }}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center gap-2 text-red-700">
+              <Trash2 className="w-5 h-5" />
+              ย้ายใบกำกับภาษีไปถังขยะ?
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              ใบกำกับภาษี <span className="font-mono font-semibold">{deletingTax?.tax_invoice_number}</span> จะถูกย้ายไปถังขยะ
+              สามารถกู้คืนได้ที่เมนู "ถังขยะ"
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className="space-y-2">
+            <label className="text-sm font-semibold">เหตุผล (ไม่บังคับ)</label>
+            <Textarea
+              placeholder="เช่น: ออกผิด, ลูกค้าขอยกเลิก..."
+              value={deleteReason}
+              onChange={(e) => setDeleteReason(e.target.value)}
+              rows={2}
+            />
+          </div>
+          <AlertDialogFooter>
+            <AlertDialogCancel>ยกเลิก</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleSoftDelete}
+              className="bg-red-600 hover:bg-red-700"
+              disabled={deleting}
+            >
+              {deleting ? 'กำลังย้าย...' : 'ย้ายถังขยะ'}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </AdminLayout>
   );
 }
