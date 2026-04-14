@@ -2620,6 +2620,8 @@ export type Database = {
         }
         Returns: Json
       }
+      can_access_billing: { Args: { p_user_id: string }; Returns: boolean }
+      can_manage_inventory: { Args: { p_user_id: string }; Returns: boolean }
       commit_product_migration: { Args: never; Returns: Json }
       count_pending_approvals: { Args: never; Returns: number }
       empty_invoice_trash: { Args: never; Returns: Json }
@@ -2673,6 +2675,16 @@ export type Database = {
         }[]
       }
       get_user_role: { Args: { _user_id: string }; Returns: string }
+      has_any_role: {
+        Args: { p_roles: string[]; p_user_id: string }
+        Returns: boolean
+      }
+      has_role: {
+        Args: { p_role: string; p_user_id: string }
+        Returns: boolean
+      }
+      is_admin_or_above: { Args: { p_user_id: string }; Returns: boolean }
+      is_super_admin: { Args: { p_user_id: string }; Returns: boolean }
       notify_admins: {
         Args: {
           p_action_label?: string
