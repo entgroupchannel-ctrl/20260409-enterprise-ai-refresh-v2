@@ -2329,6 +2329,7 @@ export type Database = {
           id: string
           invoice_id: string
           notes: string | null
+          payment_record_id: string | null
           sale_order_id: string | null
           status: string
           subtotal: number
@@ -2361,6 +2362,7 @@ export type Database = {
           id?: string
           invoice_id: string
           notes?: string | null
+          payment_record_id?: string | null
           sale_order_id?: string | null
           status?: string
           subtotal?: number
@@ -2393,6 +2395,7 @@ export type Database = {
           id?: string
           invoice_id?: string
           notes?: string | null
+          payment_record_id?: string | null
           sale_order_id?: string | null
           status?: string
           subtotal?: number
@@ -2409,6 +2412,13 @@ export type Database = {
             columns: ["invoice_id"]
             isOneToOne: false
             referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tax_invoices_payment_record_id_fkey"
+            columns: ["payment_record_id"]
+            isOneToOne: false
+            referencedRelation: "payment_records"
             referencedColumns: ["id"]
           },
           {

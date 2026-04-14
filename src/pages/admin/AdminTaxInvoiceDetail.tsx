@@ -25,6 +25,7 @@ export default function AdminTaxInvoiceDetail() {
 
   const [loading, setLoading] = useState(true);
   const [taxInvoice, setTaxInvoice] = useState<any>(null);
+  const [linkedPayment, setLinkedPayment] = useState<any>(null);
   const [items, setItems] = useState<any[]>([]);
   const [sourceInvoice, setSourceInvoice] = useState<any>(null);
   const [showPrintDialog, setShowPrintDialog] = useState(false);
@@ -59,6 +60,16 @@ export default function AdminTaxInvoiceDetail() {
           .eq('id', txRes.data.invoice_id)
           .maybeSingle();
         setSourceInvoice(invData);
+      }
+
+      // Load linked payment record
+      if (txRes.data?.payment_record_id) {
+        const { data: payData } = await (supabase as any)
+          .from('payment_records')
+          .select('id, amount, payment_date, payment_method, bank_name, reference_number')
+          .eq('id', txRes.data.payment_record_id)
+          .maybeSingle();
+        setLinkedPayment(payData);
       }
     } catch (e: any) {
       toast({ title: 'โหลดข้อมูลไม่สำเร็จ', description: e.message, variant: 'destructive' });
@@ -237,6 +248,21 @@ export default function AdminTaxInvoiceDetail() {
                     <LinkIcon className="w-3 h-3" />
                     <span className="font-mono">{sourceInvoice.invoice_number}</span>
                   </Link>
+                </div>
+              )}
+              {linkedPayment && (
+                <div className="pt-2 border-t">
+                  <p className="text-xs text-muted-foreground mb-1">การชำระเงินที่ผูก</p>
+                  <div className="text-sm">
+                    <p className="font-semibold text-primary">{formatCurrency(linkedPayment.amount)}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {new Date(linkedPayment.payment_date).toLocaleDateString('th-TH')}
+                      {linkedPayment.bank_name && ` • ${linkedPayment.bank_name}`}
+                    </p>
+                    {linkedPayment.reference_number && (
+                      <p className="text-xs font-mono">อ้างอิง: {linkedPayment.reference_number}</p>
+                    )}
+                  </div>
                 </div>
               )}
               {taxInvoice.delivery_date && (
