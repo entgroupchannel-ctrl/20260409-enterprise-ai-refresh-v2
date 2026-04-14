@@ -1,0 +1,417 @@
+import { useState, useEffect, useRef } from 'react';
+import {
+  Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle,
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import {
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+} from '@/components/ui/select';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/hooks/useAuth';
+import {
+  Upload, Loader2, ImageIcon, X, CircleCheckBig, AlertCircle, Banknote,
+} from 'lucide-react';
+
+interface BankAccount {
+  id: string;
+  bank_name: string;
+  account_number: string;
+  account_name: string;
+  branch: string | null;
+  is_default: boolean;
+}
+
+interface Props {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  invoiceId: string;
+  invoiceNumber: string;
+  grandTotal: number;
+  onSuccess?: () => void;
+}
+
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'];
+
+export default function UploadPaymentSlipDialog({
+  open,
+  onOpenChange,
+  invoiceId,
+  invoiceNumber,
+  grandTotal,
+  onSuccess,
+}: Props) {
+  const { user } = useAuth();
+  const { toast } = useToast();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const [submitting, setSubmitting] = useState(false);
+  const [file, setFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string>('');
+
+  const [amount, setAmount] = useState<string>('');
+  const [paymentDate, setPaymentDate] = useState<string>(new Date().toISOString().split('T')[0]);
+  const [bankAccountId, setBankAccountId] = useState<string>('');
+  const [referenceNumber, setReferenceNumber] = useState<string>('');
+  const [notes, setNotes] = useState<string>('');
+
+  const [bankAccounts, setBankAccounts] = useState<BankAccount[]>([]);
+  const [loadingBanks, setLoadingBanks] = useState(true);
+
+  // Load bank accounts + prefill amount
+  useEffect(() => {
+    if (!open) return;
+
+    const loadBanks = async () => {
+      setLoadingBanks(true);
+      try {
+        const { data, error } = await (supabase as any)
+          .from('company_bank_accounts')
+          .select('id, bank_name, account_number, account_name, branch, is_default')
+          .eq('is_active', true)
+          .order('display_order');
+        if (error) throw error;
+        setBankAccounts(data || []);
+        const defaultBank = data?.find((b: any) => b.is_default);
+        if (defaultBank) setBankAccountId(defaultBank.id);
+        else if (data?.length) setBankAccountId(data[0].id);
+      } catch (e: any) {
+        toast({
+          title: 'โหลดบัญชีธนาคารไม่สำเร็จ',
+          description: e.message,
+          variant: 'destructive',
+        });
+      } finally {
+        setLoadingBanks(false);
+      }
+    };
+    loadBanks();
+
+    // Prefill amount with grand_total
+    setAmount(String(grandTotal || ''));
+  }, [open, grandTotal, toast]);
+
+  // Reset on close
+  useEffect(() => {
+    if (!open) {
+      setFile(null);
+      setPreviewUrl('');
+      setAmount('');
+      setPaymentDate(new Date().toISOString().split('T')[0]);
+      setReferenceNumber('');
+      setNotes('');
+    }
+  }, [open]);
+
+  const handleFileSelect = (f: File | null) => {
+    if (!f) return;
+
+    if (!ALLOWED_TYPES.includes(f.type)) {
+      toast({
+        title: 'ไฟล์ไม่รองรับ',
+        description: 'รองรับเฉพาะ JPG, PNG, WEBP หรือ PDF',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    if (f.size > MAX_FILE_SIZE) {
+      toast({
+        title: 'ไฟล์ใหญ่เกินไป',
+        description: 'ขนาดไฟล์ต้องไม่เกิน 5 MB',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    setFile(f);
+
+    if (f.type.startsWith('image/')) {
+      const url = URL.createObjectURL(f);
+      setPreviewUrl(url);
+    } else {
+      setPreviewUrl('');
+    }
+  };
+
+  const handleRemoveFile = () => {
+    setFile(null);
+    if (previewUrl) URL.revokeObjectURL(previewUrl);
+    setPreviewUrl('');
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  };
+
+  const handleSubmit = async () => {
+    if (!user?.id) {
+      toast({ title: 'กรุณาเข้าสู่ระบบ', variant: 'destructive' });
+      return;
+    }
+    if (!file) {
+      toast({ title: 'กรุณาเลือกไฟล์สลิป', variant: 'destructive' });
+      return;
+    }
+    const amountNum = parseFloat(amount);
+    if (!amountNum || amountNum <= 0) {
+      toast({ title: 'กรุณาระบุจำนวนเงิน', variant: 'destructive' });
+      return;
+    }
+    if (!paymentDate) {
+      toast({ title: 'กรุณาระบุวันที่โอน', variant: 'destructive' });
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      // 1. Upload file to storage
+      const fileExt = file.name.split('.').pop()?.toLowerCase() || 'jpg';
+      const fileName = `${user.id}/${invoiceId}/${Date.now()}.${fileExt}`;
+
+      const { error: uploadError } = await (supabase as any).storage
+        .from('payment-slips')
+        .upload(fileName, file, {
+          contentType: file.type,
+          upsert: false,
+        });
+
+      if (uploadError) throw uploadError;
+
+      // 2. Get selected bank info (denormalized)
+      const selectedBank = bankAccounts.find((b) => b.id === bankAccountId);
+
+      // 3. Insert payment_record
+      const payload: any = {
+        invoice_id: invoiceId,
+        amount: amountNum,
+        payment_date: paymentDate,
+        payment_method: 'bank_transfer',
+        bank_name: selectedBank?.bank_name || null,
+        bank_account: selectedBank?.account_number || null,
+        reference_number: referenceNumber || null,
+        notes: notes || null,
+        proof_url: fileName,
+        proof_uploaded_at: new Date().toISOString(),
+        verification_status: 'pending',
+        created_by: user.id,
+      };
+
+      const { error: insertError } = await (supabase as any)
+        .from('payment_records')
+        .insert(payload);
+
+      if (insertError) {
+        // Cleanup uploaded file if insert failed
+        await (supabase as any).storage.from('payment-slips').remove([fileName]);
+        throw insertError;
+      }
+
+      toast({
+        title: '✅ ส่งสลิปสำเร็จ',
+        description: 'ทีมงานกำลังตรวจสอบการชำระเงินของคุณ',
+      });
+
+      onOpenChange(false);
+      if (onSuccess) onSuccess();
+    } catch (e: any) {
+      toast({
+        title: 'ส่งสลิปไม่สำเร็จ',
+        description: e.message,
+        variant: 'destructive',
+      });
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const formatCurrency = (n: number) =>
+    new Intl.NumberFormat('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n);
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-w-xl max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <Banknote className="w-5 h-5 text-primary" />
+            อัปโหลดสลิปการโอนเงิน
+          </DialogTitle>
+          <DialogDescription>
+            {invoiceNumber} • ยอดที่ต้องชำระ: ฿{formatCurrency(grandTotal)}
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="space-y-4">
+          {/* File upload */}
+          <div className="space-y-2">
+            <Label className="text-sm font-semibold">
+              ภาพสลิป <span className="text-destructive">*</span>
+            </Label>
+
+            {!file ? (
+              <div
+                onClick={() => fileInputRef.current?.click()}
+                className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-primary hover:bg-muted/40 cursor-pointer transition-colors"
+              >
+                <Upload className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
+                <p className="text-sm font-medium">คลิกเพื่อเลือกไฟล์</p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  JPG, PNG, WEBP หรือ PDF (สูงสุด 5 MB)
+                </p>
+              </div>
+            ) : (
+              <div className="relative border border-border rounded-lg overflow-hidden">
+                {previewUrl ? (
+                  <img src={previewUrl} alt="Preview" className="w-full max-h-64 object-contain bg-muted/30" />
+                ) : (
+                  <div className="p-4 flex items-center gap-3 bg-muted/40">
+                    <ImageIcon className="w-8 h-8 text-muted-foreground" />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium truncate">{file.name}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {(file.size / 1024).toFixed(1)} KB
+                      </p>
+                    </div>
+                  </div>
+                )}
+                <Button
+                  type="button"
+                  variant="destructive"
+                  size="sm"
+                  className="absolute top-2 right-2 h-7 w-7 p-0"
+                  onClick={handleRemoveFile}
+                >
+                  <X className="w-3 h-3" />
+                </Button>
+              </div>
+            )}
+
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/jpeg,image/png,image/webp,application/pdf"
+              className="hidden"
+              onChange={(e) => handleFileSelect(e.target.files?.[0] || null)}
+            />
+          </div>
+
+          {/* Amount + Date */}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="space-y-2">
+              <Label htmlFor="amount" className="text-sm font-semibold">
+                จำนวนเงิน (บาท) <span className="text-destructive">*</span>
+              </Label>
+              <Input
+                id="amount"
+                type="number"
+                min="0"
+                step="0.01"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                placeholder="0.00"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="payment-date" className="text-sm font-semibold">
+                วันที่โอน <span className="text-destructive">*</span>
+              </Label>
+              <Input
+                id="payment-date"
+                type="date"
+                value={paymentDate}
+                onChange={(e) => setPaymentDate(e.target.value)}
+                max={new Date().toISOString().split('T')[0]}
+              />
+            </div>
+          </div>
+
+          {/* Bank account */}
+          <div className="space-y-2">
+            <Label className="text-sm font-semibold">โอนเข้าบัญชี</Label>
+            {loadingBanks ? (
+              <div className="h-10 flex items-center gap-2 text-sm text-muted-foreground">
+                <Loader2 className="w-4 h-4 animate-spin" />
+                กำลังโหลด...
+              </div>
+            ) : bankAccounts.length === 0 ? (
+              <div className="flex items-center gap-2 text-sm text-amber-600 p-2 bg-amber-50 rounded border border-amber-200">
+                <AlertCircle className="w-4 h-4" />
+                ยังไม่มีบัญชีธนาคารในระบบ
+              </div>
+            ) : (
+              <Select value={bankAccountId} onValueChange={setBankAccountId}>
+                <SelectTrigger>
+                  <SelectValue placeholder="เลือกบัญชี" />
+                </SelectTrigger>
+                <SelectContent>
+                  {bankAccounts.map((bank) => (
+                    <SelectItem key={bank.id} value={bank.id}>
+                      {bank.bank_name} — {bank.account_number}
+                      {bank.is_default && ' ⭐'}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+          </div>
+
+          {/* Reference number */}
+          <div className="space-y-2">
+            <Label htmlFor="reference" className="text-sm font-semibold">
+              เลขอ้างอิงการโอน (ถ้ามี)
+            </Label>
+            <Input
+              id="reference"
+              value={referenceNumber}
+              onChange={(e) => setReferenceNumber(e.target.value)}
+              placeholder="เช่น เลขอ้างอิงในแอป"
+            />
+          </div>
+
+          {/* Notes */}
+          <div className="space-y-2">
+            <Label htmlFor="notes" className="text-sm font-semibold">
+              หมายเหตุ (ถ้ามี)
+            </Label>
+            <Textarea
+              id="notes"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="ข้อมูลเพิ่มเติม..."
+              rows={2}
+            />
+          </div>
+
+          {/* Info */}
+          <div className="flex items-start gap-2 text-xs text-blue-700 bg-blue-50 p-3 rounded border border-blue-200">
+            <CircleCheckBig className="w-4 h-4 shrink-0 mt-0.5" />
+            <p>
+              หลังจากอัปโหลด ทีมงานจะตรวจสอบและยืนยันการชำระเงินภายใน 1-2 วันทำการ
+              คุณจะเห็นสถานะอัปเดตในหน้าใบวางบิลนี้
+            </p>
+          </div>
+        </div>
+
+        <DialogFooter>
+          <Button variant="outline" onClick={() => onOpenChange(false)} disabled={submitting}>
+            ยกเลิก
+          </Button>
+          <Button onClick={handleSubmit} disabled={submitting || !file}>
+            {submitting ? (
+              <>
+                <Loader2 className="w-4 h-4 mr-1.5 animate-spin" />
+                กำลังส่ง...
+              </>
+            ) : (
+              <>
+                <Upload className="w-4 h-4 mr-1.5" />
+                ส่งสลิป
+              </>
+            )}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
