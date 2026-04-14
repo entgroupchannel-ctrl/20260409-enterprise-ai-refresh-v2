@@ -143,28 +143,31 @@ export default function AdminInvoiceDetail() {
   const handleDelete = async () => {
     if (!invoice) return;
     if (!deleteConfirmed) {
-      toast({ title: 'กรุณายืนยัน', description: 'ติ๊กช่องยืนยันก่อนลบ', variant: 'destructive' });
+      toast({ title: 'กรุณายืนยัน', description: 'ติ๊กช่องยืนยันก่อนย้ายไปถังขยะ', variant: 'destructive' });
       return;
     }
     if (!deleteReason.trim()) {
-      toast({ title: 'กรุณาระบุเหตุผล', description: 'ต้องระบุเหตุผลสำหรับการลบถาวร', variant: 'destructive' });
+      toast({ title: 'กรุณาระบุเหตุผล', description: 'ต้องระบุเหตุผล', variant: 'destructive' });
       return;
     }
-    if (paymentRecords.length > 0) {
-      toast({ title: 'ไม่สามารถลบได้', description: 'ใบวางบิลนี้มีบันทึกการชำระเงินแล้ว กรุณายกเลิกแทน', variant: 'destructive' });
-      return;
-    }
+
     setUpdating(true);
     try {
-      const { error: itemsErr } = await (supabase as any).from('invoice_items').delete().eq('invoice_id', invoice.id);
-      if (itemsErr) throw itemsErr;
-      const { error: invErr } = await (supabase as any).from('invoices').delete().eq('id', invoice.id);
-      if (invErr) throw invErr;
-      console.log(`[AUDIT] Invoice ${invoice.invoice_number} deleted. Reason: ${deleteReason}`);
-      toast({ title: '🗑 ลบใบวางบิลถาวรแล้ว', description: `${invoice.invoice_number} — ${deleteReason}` });
+      const { data, error } = await (supabase as any).rpc('soft_delete_invoice', {
+        p_invoice_id: invoice.id,
+        p_reason: deleteReason,
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: '🗑 ย้ายไปถังขยะแล้ว',
+        description: (data as any)?.message || `${invoice.invoice_number} อยู่ในถังขยะ — สามารถกู้คืนได้`,
+      });
+
       navigate('/admin/invoices');
     } catch (e: any) {
-      toast({ title: 'ลบไม่สำเร็จ', description: e.message, variant: 'destructive' });
+      toast({ title: 'ย้ายไปถังขยะไม่สำเร็จ', description: e.message, variant: 'destructive' });
     } finally {
       setUpdating(false);
       setShowDeleteDialog(false);
