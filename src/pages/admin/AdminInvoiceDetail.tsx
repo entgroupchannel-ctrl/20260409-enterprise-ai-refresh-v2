@@ -987,6 +987,15 @@ export default function AdminInvoiceDetail() {
           onSuccess={() => loadData()}
         />
       )}
+
+      {/* Create Tax Invoice Dialog */}
+      {invoice && (
+        <CreateTaxInvoiceFromInvoiceDialog
+          open={showCreateTaxInvoice}
+          onOpenChange={setShowCreateTaxInvoice}
+          invoiceId={invoice.id}
+        />
+      )}
     </AdminLayout>
   );
 }
