@@ -13,6 +13,8 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
 import { Plus, Trash2, Send, ArrowLeft, CheckCircle2, Building, User, Package } from 'lucide-react';
+import ProductAutocomplete from '@/components/admin/ProductAutocomplete';
+import type { ProductData } from '@/components/admin/ProductAutocomplete';
 import { getPendingQuote, clearPendingQuote } from '@/hooks/usePendingQuote';
 
 interface ProductItem {
@@ -115,6 +117,36 @@ export default function QuoteRequestForm() {
     const updated = [...products];
     updated[index] = { ...updated[index], [field]: value };
     setProducts(updated);
+  };
+
+  const handleProductSelect = (index: number, product: ProductData) => {
+    const specParts: string[] = [];
+    if (product.cpu) specParts.push(`CPU: ${product.cpu}`);
+    if (product.ram_gb) specParts.push(`RAM: ${product.ram_gb}GB`);
+    if (product.storage_gb) {
+      specParts.push(`Storage: ${product.storage_gb}GB ${product.storage_type || ''}`.trim());
+    }
+    if (product.has_wifi || product.has_4g) {
+      const net: string[] = [];
+      if (product.has_wifi) net.push('WiFi');
+      if (product.has_4g) net.push('4G');
+      specParts.push(`Network: ${net.join(' + ')}`);
+    }
+    if (product.os) specParts.push(`OS: ${product.os}`);
+
+    const spec = specParts.join('\n');
+    const updated = [...products];
+    updated[index] = {
+      ...updated[index],
+      model: product.name,
+      description: spec || product.description || '',
+    };
+    setProducts(updated);
+
+    toast({
+      title: '✅ เลือกสินค้าแล้ว',
+      description: product.name,
+    });
   };
 
   const addProduct = () => setProducts([...products, { model: '', description: '', qty: 1 }]);
@@ -241,52 +273,69 @@ export default function QuoteRequestForm() {
                   </Button>
                 </div>
 
-                <div className="space-y-2">
-                  {/* Header */}
-                  <div className="grid grid-cols-12 gap-2 text-[10px] text-muted-foreground font-medium px-1">
-                    <span className="col-span-1">#</span>
-                    <span className="col-span-4">รุ่น/Model *</span>
-                    <span className="col-span-5">รายละเอียด</span>
-                    <span className="col-span-1 text-center">จำนวน</span>
-                    <span className="col-span-1" />
-                  </div>
+                <p className="text-[10px] text-muted-foreground -mt-1 mb-2 px-1">
+                  💡 ค้นหาสินค้าในระบบเพื่อ auto-fill รายละเอียด หรือพิมพ์รุ่นเองถ้าไม่เจอ
+                </p>
 
+                <div className="space-y-2">
                   {products.map((product, index) => (
-                    <div key={index} className="grid grid-cols-12 gap-2 items-center">
-                      <span className="col-span-1 text-xs text-muted-foreground text-center">{index + 1}</span>
-                      <div className="col-span-4">
-                        <Input
-                          value={product.model}
-                          onChange={e => handleProductChange(index, 'model', e.target.value)}
-                          placeholder="GT-156"
-                          className="h-8 text-sm"
-                          required
-                        />
-                      </div>
-                      <div className="col-span-5">
-                        <Input
-                          value={product.description}
-                          onChange={e => handleProductChange(index, 'description', e.target.value)}
-                          placeholder="รายละเอียดเพิ่มเติม..."
-                          className="h-8 text-sm"
-                        />
-                      </div>
-                      <div className="col-span-1">
-                        <Input
-                          type="number"
-                          min="1"
-                          value={product.qty}
-                          onChange={e => handleProductChange(index, 'qty', parseInt(e.target.value) || 1)}
-                          className="h-8 text-sm text-center px-1"
-                          required
-                        />
-                      </div>
-                      <div className="col-span-1 flex justify-center">
+                    <div key={index} className="p-3 border rounded-lg space-y-2 bg-background">
+                      {/* Row 1: Index + Remove */}
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-semibold text-muted-foreground">
+                          รายการ #{index + 1}
+                        </span>
                         {products.length > 1 && (
-                          <button type="button" onClick={() => removeProduct(index)} className="text-muted-foreground hover:text-destructive transition-colors">
+                          <button
+                            type="button"
+                            onClick={() => removeProduct(index)}
+                            className="text-muted-foreground hover:text-destructive transition-colors"
+                          >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
                         )}
+                      </div>
+
+                      {/* Row 2: Product picker (search) */}
+                      <div>
+                        <Label className="text-[10px] text-muted-foreground">
+                          สินค้า / รุ่น <span className="text-destructive">*</span>
+                        </Label>
+                        <ProductAutocomplete
+                          value={product.model}
+                          onChange={(v) => handleProductChange(index, 'model', v)}
+                          onSelectProduct={(p) => handleProductSelect(index, p)}
+                          placeholder="ค้นหาสินค้าในระบบ หรือพิมพ์รุ่นเอง..."
+                        />
+                      </div>
+
+                      {/* Row 3: Description + Qty */}
+                      <div className="grid grid-cols-12 gap-2">
+                        <div className="col-span-9">
+                          <Label className="text-[10px] text-muted-foreground">
+                            รายละเอียด / สเปค
+                          </Label>
+                          <Textarea
+                            value={product.description}
+                            onChange={e => handleProductChange(index, 'description', e.target.value)}
+                            placeholder="CPU, RAM, Storage หรือข้อมูลเพิ่มเติม..."
+                            rows={3}
+                            className="text-xs font-mono resize-y min-h-[70px]"
+                          />
+                        </div>
+                        <div className="col-span-3">
+                          <Label className="text-[10px] text-muted-foreground">
+                            จำนวน <span className="text-destructive">*</span>
+                          </Label>
+                          <Input
+                            type="number"
+                            min="1"
+                            value={product.qty}
+                            onChange={e => handleProductChange(index, 'qty', parseInt(e.target.value) || 1)}
+                            className="h-8 text-sm text-center"
+                            required
+                          />
+                        </div>
                       </div>
                     </div>
                   ))}
