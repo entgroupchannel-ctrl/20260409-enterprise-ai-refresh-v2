@@ -166,6 +166,7 @@ export default function UserDashboard() {
   const [ordersLoading, setOrdersLoading] = useState(false);
   const [pendingInvoiceCount, setPendingInvoiceCount] = useState(0);
   const [taxInvoiceCount, setTaxInvoiceCount] = useState(0);
+  const [receiptCount, setReceiptCount] = useState(0);
 
   // Load quotes
   useEffect(() => {
@@ -341,6 +342,13 @@ export default function UserDashboard() {
           .select('*', { count: 'exact', head: true })
           .eq('customer_id', user.id);
         setTaxInvoiceCount(txCount || 0);
+
+        // Also load receipt count
+        const { count: rcpCount } = await (supabase as any)
+          .from('receipts')
+          .select('*', { count: 'exact', head: true })
+          .eq('customer_id', user.id);
+        setReceiptCount(rcpCount || 0);
       } catch (e) {
         console.warn('Failed to load invoice count:', e);
       }
