@@ -18,11 +18,12 @@ import {
   ArrowLeft, Loader2, Printer, Send, CircleCheckBig, Ban, FileText,
   User, Calendar, Receipt, Save, Lock, MessageSquare,
   Clock, Banknote, ExternalLink, Mail, UserPlus, AlertCircle,
-  Trash2, RotateCcw,
+  Trash2, RotateCcw, ShieldCheck,
 } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import InvoicePrintPreviewDialog from '@/components/admin/InvoicePrintPreviewDialog';
 import ConfirmPaymentDialog from '@/components/admin/ConfirmPaymentDialog';
+import VerifyPaymentDialog from '@/components/admin/VerifyPaymentDialog';
 
 type InvoiceRow = any;
 type InvoiceItem = any;
@@ -64,6 +65,7 @@ export default function AdminInvoiceDetail() {
   const [deleteReason, setDeleteReason] = useState('');
   const [deleteConfirmed, setDeleteConfirmed] = useState(false);
   const [showRestoreDialog, setShowRestoreDialog] = useState(false);
+  const [verifyingPayment, setVerifyingPayment] = useState<any>(null);
 
   const loadData = async () => {
     if (!id) return;
@@ -904,13 +906,29 @@ export default function AdminInvoiceDetail() {
                             </a>
                           )}
                         </div>
-                        <div className="text-right shrink-0">
+                        <div className="text-right shrink-0 flex flex-col items-end gap-1">
                           <div className="font-bold text-base">
                             {formatCurrency(pr.amount)}
                           </div>
                           {pr.verified_at && (
                             <div className="text-[10px]">
                               ยืนยัน: {new Date(pr.verified_at).toLocaleDateString('th-TH')}
+                            </div>
+                          )}
+                          {pr.verification_status === 'pending' && (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="mt-1 h-7 text-xs border-blue-400 text-blue-700 hover:bg-blue-50"
+                              onClick={() => setVerifyingPayment(pr)}
+                            >
+                              <ShieldCheck className="w-3 h-3 mr-1" />
+                              ตรวจสอบ
+                            </Button>
+                          )}
+                          {pr.verification_status === 'rejected' && pr.rejection_reason && (
+                            <div className="mt-1 text-[10px] text-red-700 max-w-[200px] text-right">
+                              ❌ {pr.rejection_reason}
                             </div>
                           )}
                         </div>
@@ -920,12 +938,6 @@ export default function AdminInvoiceDetail() {
                 })}
               </div>
               
-              {paymentRecords.some((p) => p.verification_status === 'pending') && (
-                <div className="mt-3 p-2 bg-muted/40 rounded text-xs text-muted-foreground">
-                  💡 ระบบ verify/reject เต็มรูปแบบจะเปิดใน Phase 4B.2 — 
-                  ตอนนี้สามารถคลิก "ยืนยันชำระเอง" เพื่อเปลี่ยนสถานะเป็น paid ได้
-                </div>
-              )}
             </CardContent>
           </Card>
         )}
@@ -944,6 +956,18 @@ export default function AdminInvoiceDetail() {
           open={showConfirmPayment}
           onOpenChange={setShowConfirmPayment}
           invoiceId={invoice.id}
+          invoiceNumber={invoice.invoice_number}
+          grandTotal={invoice.grand_total || 0}
+          onSuccess={() => loadData()}
+        />
+      )}
+
+      {/* Verify Payment Dialog — for customer-uploaded slips */}
+      {invoice && (
+        <VerifyPaymentDialog
+          open={!!verifyingPayment}
+          onOpenChange={(open) => !open && setVerifyingPayment(null)}
+          payment={verifyingPayment}
           invoiceNumber={invoice.invoice_number}
           grandTotal={invoice.grand_total || 0}
           onSuccess={() => loadData()}
