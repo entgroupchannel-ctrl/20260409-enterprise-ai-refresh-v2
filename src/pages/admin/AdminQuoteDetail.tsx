@@ -703,62 +703,6 @@ export default function AdminQuoteDetail() {
           </Card>
         )}
 
-        {/* SO Action Banner */}
-        {quote.status === 'po_approved' && !quote.has_sale_order && (
-          <Card className="border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-900/20">
-            <CardContent className="pt-6">
-              <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <CircleCheckBig className="w-8 h-8 text-green-600" />
-                  <div>
-                    <h3 className="font-semibold text-green-900 dark:text-green-200">PO อนุมัติแล้ว</h3>
-                    <p className="text-sm text-green-700 dark:text-green-400">
-                      ดำเนินการได้ทั้ง 2 เส้นทาง: สร้าง Sale Order (process สินค้า) หรือสร้างใบวางบิล (เก็บเงิน)
-                    </p>
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  <Button onClick={() => setShowCreateSO(true)}>
-                    <FileSearch className="w-4 h-4 mr-2" />
-                    สร้าง Sale Order
-                  </Button>
-                  <Button variant="outline" onClick={() => setShowCreateInvoice(true)}>
-                    <Receipt className="w-4 h-4 mr-2" />
-                    สร้างใบวางบิล
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        )}
-
-        {quote.has_sale_order && (
-          <Card className="border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-900/20">
-            <CardContent className="pt-6">
-              <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <CircleCheckBig className="w-8 h-8 text-blue-600" />
-                  <div>
-                    <h3 className="font-semibold text-blue-900 dark:text-blue-200">สร้าง Sale Order แล้ว</h3>
-                    <p className="text-sm text-blue-700 dark:text-blue-400">
-                      SO ใช้สำหรับ tracking process • สร้างใบวางบิลเพิ่มเพื่อเก็บเงินได้ตลอดเวลา
-                    </p>
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  <Button variant="outline" onClick={() => navigate('/admin/sale-orders')}>
-                    <ScanEye className="w-4 h-4 mr-2" />
-                    ดู Sale Order
-                  </Button>
-                  <Button onClick={() => setShowCreateInvoice(true)}>
-                    <Receipt className="w-4 h-4 mr-2" />
-                    สร้างใบวางบิล
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        )}
 
         {/* Pending Approval Banner */}
         {quote.current_revision_id && (
