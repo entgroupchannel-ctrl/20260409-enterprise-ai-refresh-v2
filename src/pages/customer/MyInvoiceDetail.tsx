@@ -71,6 +71,9 @@ export default function MyInvoiceDetail() {
   const verifiedTotal = paymentRecords
     .filter((r) => r.verification_status === 'verified')
     .reduce((sum, r) => sum + Number(r.amount || 0), 0);
+  const pendingTotal = paymentRecords
+    .filter((r) => r.verification_status === 'pending')
+    .reduce((sum, r) => sum + Number(r.amount || 0), 0);
   const latestRejected = paymentRecords
     .filter((r) => r.verification_status === 'rejected')
     .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())[0];
@@ -630,6 +633,8 @@ export default function MyInvoiceDetail() {
           invoiceNumber={invoice.invoice_number}
           grandTotal={invoice.grand_total || 0}
           existingPendingCount={pendingCount}
+          existingVerifiedTotal={verifiedTotal}
+          existingPendingTotal={pendingTotal}
           onSuccess={() => loadData()}
         />
       )}

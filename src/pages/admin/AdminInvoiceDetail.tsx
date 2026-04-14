@@ -18,8 +18,9 @@ import {
   ArrowLeft, Loader2, Printer, Send, CircleCheckBig, Ban, FileText,
   User, Calendar, Receipt, Save, Lock, MessageSquare,
   Clock, Banknote, ExternalLink, Mail, UserPlus, AlertCircle,
-  Trash2, RotateCcw, ShieldCheck,
+  Trash2, RotateCcw, ShieldCheck, DollarSign,
 } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import { Checkbox } from '@/components/ui/checkbox';
 import InvoicePrintPreviewDialog from '@/components/admin/InvoicePrintPreviewDialog';
 import ConfirmPaymentDialog from '@/components/admin/ConfirmPaymentDialog';
@@ -992,12 +993,20 @@ export default function AdminInvoiceDetail() {
 
       {/* Verify Payment Dialog — for customer-uploaded slips */}
       {invoice && (
-        <VerifyPaymentDialog
+      <VerifyPaymentDialog
           open={!!verifyingPayment}
           onOpenChange={(open) => !open && setVerifyingPayment(null)}
           payment={verifyingPayment}
           invoiceNumber={invoice.invoice_number}
           grandTotal={invoice.grand_total || 0}
+          otherVerifiedTotal={
+            paymentRecords
+              .filter((p: any) => 
+                p.verification_status === 'verified' && 
+                p.id !== verifyingPayment?.id
+              )
+              .reduce((sum: number, p: any) => sum + Number(p.amount || 0), 0)
+          }
           onSuccess={() => loadData()}
         />
       )}

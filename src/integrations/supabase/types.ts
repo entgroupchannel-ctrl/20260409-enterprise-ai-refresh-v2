@@ -2314,7 +2314,7 @@ export type Database = {
           invoice_id: string | null
           notes: string | null
           payment_method: string | null
-          payment_record_id: string
+          payment_record_id: string | null
           receipt_date: string
           receipt_number: string
           tax_invoice_id: string | null
@@ -2336,7 +2336,7 @@ export type Database = {
           invoice_id?: string | null
           notes?: string | null
           payment_method?: string | null
-          payment_record_id: string
+          payment_record_id?: string | null
           receipt_date?: string
           receipt_number: string
           tax_invoice_id?: string | null
@@ -2358,7 +2358,7 @@ export type Database = {
           invoice_id?: string | null
           notes?: string | null
           payment_method?: string | null
-          payment_record_id?: string
+          payment_record_id?: string | null
           receipt_date?: string
           receipt_number?: string
           tax_invoice_id?: string | null
@@ -3142,6 +3142,8 @@ export type Database = {
         Args: { p_reason?: string; p_tax_invoice_id: string }
         Returns: Json
       }
+      sum_pending_payments: { Args: { p_invoice_id: string }; Returns: number }
+      sum_verified_payments: { Args: { p_invoice_id: string }; Returns: number }
       upsert_user_permission: {
         Args: {
           p_module: string
