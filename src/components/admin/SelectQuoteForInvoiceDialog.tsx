@@ -24,6 +24,7 @@ interface QuoteRow {
   grand_total: number | null;
   status: string;
   has_sale_order: boolean | null;
+  has_invoice: boolean | null;
   created_at: string;
 }
 
@@ -50,9 +51,10 @@ export default function SelectQuoteForInvoiceDialog({
       const { data, error } = await (supabase as any)
         .from('quote_requests')
         .select(
-          'id, quote_number, customer_name, customer_company, customer_address, customer_email, customer_phone, customer_tax_id, payment_terms, notes, grand_total, status, has_sale_order, created_at'
+          'id, quote_number, customer_name, customer_company, customer_address, customer_email, customer_phone, customer_tax_id, payment_terms, notes, grand_total, status, has_sale_order, has_invoice, created_at'
         )
         .eq('status', 'po_approved')
+        .eq('has_invoice', false)
         .order('created_at', { ascending: false })
         .limit(50);
 
@@ -206,9 +208,9 @@ export default function SelectQuoteForInvoiceDialog({
           ) : filtered.length === 0 ? (
             <div className="py-12 text-center text-muted-foreground">
               <FileText className="w-12 h-12 mx-auto mb-3 opacity-40" />
-              <p className="text-sm font-medium">ไม่พบใบเสนอราคาที่ใช้ได้</p>
+              <p className="text-sm font-medium">ไม่มีใบเสนอราคาที่พร้อมสร้างใบวางบิล</p>
               <p className="text-xs mt-1">
-                ต้องมี quote ที่ status = po_approved ก่อนสร้างใบวางบิล
+                Quote ต้อง: status = po_approved + ยังไม่มีใบวางบิล
               </p>
             </div>
           ) : (
