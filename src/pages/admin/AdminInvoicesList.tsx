@@ -406,6 +406,7 @@ export default function AdminInvoicesList() {
           if (!v) {
             setInvoiceSource(null);
             loadInvoices();
+            loadAvailableQuoteCount();
           }
         }}
         source={invoiceSource}
