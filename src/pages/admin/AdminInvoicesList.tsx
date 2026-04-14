@@ -1,26 +1,36 @@
 import { useEffect, useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import AdminLayout from '@/layouts/AdminLayout';
-import AdminPageLayout from '@/components/admin/AdminPageLayout';
-import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
+import { Textarea } from '@/components/ui/textarea';
 import {
-  Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
-} from '@/components/ui/table';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+} from '@/components/ui/select';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { Search, Plus, Loader2, Receipt } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import {
+  Search, Plus, Loader2, Receipt, Trash2, Timer, AlertCircle,
+} from 'lucide-react';
+import { formatRelativeTime } from '@/lib/format';
 import CreateInvoiceFromSODialog, { type InvoiceSource } from '@/components/admin/CreateInvoiceFromSODialog';
 import SelectQuoteForInvoiceDialog from '@/components/admin/SelectQuoteForInvoiceDialog';
+import InvoiceTimeline from '@/components/admin/InvoiceTimeline';
+import InvoiceActionsMenu from '@/components/admin/InvoiceActionsMenu';
 
 interface Invoice {
   id: string;
   invoice_number: string;
   customer_name: string;
   customer_company: string | null;
+  customer_email: string | null;
   invoice_date: string;
   due_date: string | null;
   invoice_type: string;
@@ -30,26 +40,6 @@ interface Invoice {
   created_at: string;
 }
 
-const PAGE_SIZE = 20;
-
-const STATUS_OPTIONS = [
-  { value: 'all', label: 'ทุกสถานะ' },
-  { value: 'draft', label: 'ฉบับร่าง' },
-  { value: 'sent', label: 'ส่งแล้ว' },
-  { value: 'partially_paid', label: 'ชำระบางส่วน' },
-  { value: 'paid', label: 'ชำระแล้ว' },
-  { value: 'overdue', label: 'เกินกำหนด' },
-  { value: 'cancelled', label: 'ยกเลิก' },
-];
-
-const TYPE_OPTIONS = [
-  { value: 'all', label: 'ทุกประเภท' },
-  { value: 'full', label: 'เต็มจำนวน' },
-  { value: 'downpayment', label: 'มัดจำ' },
-  { value: 'installment', label: 'งวดแบ่ง' },
-  { value: 'final', label: 'ส่วนที่เหลือ' },
-];
-
 export default function AdminInvoicesList() {
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -57,11 +47,14 @@ export default function AdminInvoicesList() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
-  const [typeFilter, setTypeFilter] = useState('all');
-  const [page, setPage] = useState(1);
-  const [totalCount, setTotalCount] = useState(0);
+  const [sortBy, setSortBy] = useState('created_at_desc');
   const [showQuotePicker, setShowQuotePicker] = useState(false);
   const [invoiceSource, setInvoiceSource] = useState<InvoiceSource | null>(null);
+
+  // Soft delete state
+  const [deletingInvoice, setDeletingInvoice] = useState<Invoice | null>(null);
+  const [deleteReason, setDeleteReason] = useState('');
+  const [deleting, setDeleting] = useState(false);
 
   const loadInvoices = async () => {
     setLoading(true);
@@ -69,30 +62,22 @@ export default function AdminInvoicesList() {
       let query = (supabase as any)
         .from('invoices')
         .select(
-          'id, invoice_number, customer_name, customer_company, invoice_date, due_date, invoice_type, status, grand_total, sale_order_id, created_at',
-          { count: 'exact' }
+          'id, invoice_number, customer_name, customer_company, customer_email, invoice_date, due_date, invoice_type, status, grand_total, sale_order_id, created_at'
         )
         .is('deleted_at', null)
         .order('created_at', { ascending: false });
 
-      if (statusFilter !== 'all') query = query.eq('status', statusFilter);
-      if (typeFilter !== 'all') query = query.eq('invoice_type', typeFilter);
       if (search.trim()) {
         const s = search.trim();
         query = query.or(`invoice_number.ilike.%${s}%,customer_name.ilike.%${s}%,customer_company.ilike.%${s}%`);
       }
 
-      const from = (page - 1) * PAGE_SIZE;
-      const to = from + PAGE_SIZE - 1;
-      query = query.range(from, to);
-
-      const { data, error, count } = await query;
+      const { data, error } = await query;
       if (error) throw error;
 
       setInvoices((data as Invoice[]) || []);
-      setTotalCount(count || 0);
     } catch (e: any) {
-      toast({ title: 'โหลดข้อมูลไม่สำเร็จ', description: e.message, variant: 'destructive' });
+      toast({ title: 'โหลดรายการไม่สำเร็จ', description: e.message, variant: 'destructive' });
     } finally {
       setLoading(false);
     }
@@ -100,213 +85,296 @@ export default function AdminInvoicesList() {
 
   useEffect(() => {
     loadInvoices();
-  }, [page, statusFilter, typeFilter]);
+  }, []);
 
   // Debounced search
   useEffect(() => {
     const t = setTimeout(() => {
-      setPage(1);
       loadInvoices();
     }, 300);
     return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
 
-  const totalPages = Math.ceil(totalCount / PAGE_SIZE);
+  const handleSoftDelete = async () => {
+    if (!deletingInvoice) return;
+    setDeleting(true);
+    try {
+      const { data, error } = await (supabase as any).rpc('soft_delete_invoice', {
+        p_invoice_id: deletingInvoice.id,
+        p_reason: deleteReason.trim() || null,
+      });
+      if (error) throw error;
+
+      toast({
+        title: '🗑️ ย้ายไปถังขยะแล้ว',
+        description: (data as any)?.message || `${deletingInvoice.invoice_number} ถูกย้ายไปถังขยะ`,
+      });
+
+      setDeletingInvoice(null);
+      setDeleteReason('');
+      await loadInvoices();
+    } catch (e: any) {
+      toast({ title: 'ลบไม่สำเร็จ', description: e.message, variant: 'destructive' });
+    } finally {
+      setDeleting(false);
+    }
+  };
 
   const formatCurrency = (n: number) =>
-    new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', minimumFractionDigits: 2 }).format(n);
+    new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', minimumFractionDigits: 0 }).format(n);
 
-  const formatDate = (s: string | null) => {
-    if (!s) return '-';
-    return new Date(s).toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' });
+  // Compute status counts
+  const now = new Date();
+  const statusCounts = {
+    all: invoices.length,
+    draft: invoices.filter((i) => i.status === 'draft').length,
+    sent: invoices.filter((i) =>
+      (i.status === 'sent' || i.status === 'partially_paid') &&
+      !(i.due_date && new Date(i.due_date) < now)
+    ).length,
+    overdue: invoices.filter((i) =>
+      i.status !== 'paid' &&
+      i.status !== 'cancelled' &&
+      i.due_date && new Date(i.due_date) < now
+    ).length,
+    paid: invoices.filter((i) => i.status === 'paid').length,
+    cancelled: invoices.filter((i) => i.status === 'cancelled').length,
   };
 
-  const getStatusBadge = (status: string) => {
-    const map: Record<string, { label: string; cls: string }> = {
-      draft: { label: 'ฉบับร่าง', cls: 'bg-gray-100 text-gray-700 border-gray-300' },
-      sent: { label: 'ส่งแล้ว', cls: 'bg-blue-100 text-blue-700 border-blue-300' },
-      partially_paid: { label: 'ชำระบางส่วน', cls: 'bg-amber-100 text-amber-700 border-amber-300' },
-      paid: { label: 'ชำระแล้ว', cls: 'bg-green-100 text-green-700 border-green-300' },
-      overdue: { label: 'เกินกำหนด', cls: 'bg-red-100 text-red-700 border-red-300' },
-      cancelled: { label: 'ยกเลิก', cls: 'bg-gray-100 text-gray-500 border-gray-300 line-through' },
-    };
-    const m = map[status] || { label: status, cls: 'bg-gray-100 text-gray-700' };
-    return <Badge variant="outline" className={`text-xs ${m.cls}`}>{m.label}</Badge>;
-  };
+  // Client-side filter
+  const filteredInvoices = invoices.filter((inv) => {
+    if (statusFilter === 'all') return true;
+    if (statusFilter === 'draft') return inv.status === 'draft';
+    if (statusFilter === 'sent') {
+      return (inv.status === 'sent' || inv.status === 'partially_paid') &&
+        !(inv.due_date && new Date(inv.due_date) < now);
+    }
+    if (statusFilter === 'overdue') {
+      return inv.status !== 'paid' && inv.status !== 'cancelled' &&
+        inv.due_date && new Date(inv.due_date) < now;
+    }
+    if (statusFilter === 'paid') return inv.status === 'paid';
+    if (statusFilter === 'cancelled') return inv.status === 'cancelled';
+    return true;
+  });
 
-  const getTypeBadge = (type: string) => {
-    const map: Record<string, { label: string; cls: string }> = {
-      full: { label: 'เต็มจำนวน', cls: 'bg-blue-50 text-blue-700' },
-      downpayment: { label: 'มัดจำ', cls: 'bg-purple-50 text-purple-700' },
-      installment: { label: 'งวดแบ่ง', cls: 'bg-amber-50 text-amber-700' },
-      final: { label: 'ส่วนที่เหลือ', cls: 'bg-teal-50 text-teal-700' },
-    };
-    const m = map[type] || { label: type, cls: 'bg-gray-50' };
-    return <Badge variant="outline" className={`text-[10px] ${m.cls}`}>{m.label}</Badge>;
-  };
+  // Sort
+  const sortedInvoices = [...filteredInvoices].sort((a, b) => {
+    switch (sortBy) {
+      case 'created_at_asc':
+        return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+      case 'amount_desc':
+        return (b.grand_total || 0) - (a.grand_total || 0);
+      case 'amount_asc':
+        return (a.grand_total || 0) - (b.grand_total || 0);
+      case 'invoice_number_desc':
+        return b.invoice_number.localeCompare(a.invoice_number);
+      case 'invoice_number_asc':
+        return a.invoice_number.localeCompare(b.invoice_number);
+      default:
+        return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+    }
+  });
+
+  if (loading) {
+    return (
+      <AdminLayout>
+        <div className="flex items-center justify-center h-64">
+          <div className="text-center">
+            <Loader2 className="w-12 h-12 animate-spin text-primary mx-auto mb-4" />
+            <p className="text-muted-foreground">กำลังโหลดข้อมูล...</p>
+          </div>
+        </div>
+      </AdminLayout>
+    );
+  }
 
   return (
     <AdminLayout>
-      <AdminPageLayout
-        title="ใบวางบิล"
-        description={`จัดการใบวางบิล/ใบแจ้งหนี้ ทั้งหมด ${totalCount.toLocaleString()} รายการ`}
-        actionButton={{
-          label: 'สร้างใบวางบิล',
-          icon: <Plus className="w-4 h-4" />,
-          onClick: () => setShowQuotePicker(true),
-        }}
-      >
+      <div className="space-y-6">
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-foreground">ใบวางบิล</h1>
+            <p className="text-muted-foreground mt-1">จัดการและติดตามสถานะใบวางบิล</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <Button variant="outline" asChild>
+              <Link to="/admin/trash?tab=invoices">
+                <Trash2 className="w-4 h-4 mr-2" />
+                ถังขยะ
+              </Link>
+            </Button>
+            <Button onClick={() => setShowQuotePicker(true)}>
+              <Plus className="w-4 h-4 mr-2" />
+              สร้างใบวางบิล
+            </Button>
+          </div>
+        </div>
+
         {/* Filters */}
         <Card>
           <CardContent className="pt-6">
-            <div className="flex flex-col sm:flex-row gap-3">
-              <div className="relative flex-1 min-w-[200px]">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input
-                  placeholder="ค้นหา: เลขที่ใบวางบิล, ชื่อลูกค้า, บริษัท..."
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  className="pl-9"
-                />
+            <div className="space-y-4">
+              <div className="flex flex-col sm:flex-row gap-3">
+                <div className="relative flex-1">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                  <Input
+                    placeholder="ค้นหาเลขที่, ลูกค้า, บริษัท..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="pl-10"
+                  />
+                </div>
+                <Select value={sortBy} onValueChange={setSortBy}>
+                  <SelectTrigger className="w-full sm:w-[200px]">
+                    <SelectValue placeholder="เรียงตาม" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="created_at_desc">ล่าสุด → เก่าสุด</SelectItem>
+                    <SelectItem value="created_at_asc">เก่าสุด → ล่าสุด</SelectItem>
+                    <SelectItem value="amount_desc">ยอด สูง → ต่ำ</SelectItem>
+                    <SelectItem value="amount_asc">ยอด ต่ำ → สูง</SelectItem>
+                    <SelectItem value="invoice_number_desc">เลขที่ ล่าสุด</SelectItem>
+                    <SelectItem value="invoice_number_asc">เลขที่ เก่าสุด</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
 
-              <Select value={statusFilter} onValueChange={(v) => { setStatusFilter(v); setPage(1); }}>
-                <SelectTrigger className="w-full sm:w-[180px]">
-                  <SelectValue placeholder="สถานะ" />
-                </SelectTrigger>
-                <SelectContent>
-                  {STATUS_OPTIONS.map((o) => (
-                    <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-
-              <Select value={typeFilter} onValueChange={(v) => { setTypeFilter(v); setPage(1); }}>
-                <SelectTrigger className="w-full sm:w-[180px]">
-                  <SelectValue placeholder="ประเภท" />
-                </SelectTrigger>
-                <SelectContent>
-                  {TYPE_OPTIONS.map((o) => (
-                    <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <Tabs value={statusFilter} onValueChange={setStatusFilter}>
+                <TabsList className="w-full justify-start overflow-x-auto">
+                  <TabsTrigger value="all" className="gap-2">
+                    ทั้งหมด <Badge variant="secondary">{statusCounts.all}</Badge>
+                  </TabsTrigger>
+                  <TabsTrigger value="draft" className="gap-2">
+                    ฉบับร่าง <Badge variant="secondary">{statusCounts.draft}</Badge>
+                  </TabsTrigger>
+                  <TabsTrigger value="sent" className="gap-2">
+                    รอชำระ <Badge variant="secondary">{statusCounts.sent}</Badge>
+                  </TabsTrigger>
+                  <TabsTrigger value="overdue" className="gap-2">
+                    เกินกำหนด <Badge variant="destructive">{statusCounts.overdue}</Badge>
+                  </TabsTrigger>
+                  <TabsTrigger value="paid" className="gap-2">
+                    ชำระแล้ว <Badge variant="secondary">{statusCounts.paid}</Badge>
+                  </TabsTrigger>
+                  <TabsTrigger value="cancelled" className="gap-2">
+                    ยกเลิก <Badge variant="secondary">{statusCounts.cancelled}</Badge>
+                  </TabsTrigger>
+                </TabsList>
+              </Tabs>
             </div>
           </CardContent>
         </Card>
 
-        {/* Table */}
-        <Card>
-          <CardContent className="pt-6">
-            {loading ? (
-              <div className="py-16 flex items-center justify-center">
-                <Loader2 className="w-8 h-8 animate-spin text-primary" />
-              </div>
-            ) : invoices.length === 0 ? (
-              <div className="py-16 text-center text-muted-foreground">
+        {/* Result count */}
+        <div className="flex items-center justify-between text-sm text-muted-foreground">
+          <span>
+            พบ {sortedInvoices.length} รายการ
+            {search && ` จากการค้นหา "${search}"`}
+          </span>
+        </div>
+
+        {/* Invoice Cards */}
+        {sortedInvoices.length === 0 ? (
+          <Card>
+            <CardContent className="p-12">
+              <div className="text-center text-muted-foreground">
                 <Receipt className="w-12 h-12 mx-auto mb-3 opacity-40" />
                 <p className="text-sm">ยังไม่มีใบวางบิล</p>
                 <p className="text-xs mt-1">
-                  คลิกปุ่ม "สร้างใบวางบิล" ด้านบนเพื่อเลือกใบเสนอราคา
+                  คลิกปุ่ม "สร้างใบวางบิล" เพื่อสร้างจากใบเสนอราคา
                 </p>
               </div>
-            ) : (
-              <>
-                <div className="overflow-x-auto">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead className="w-[160px]">เลขที่</TableHead>
-                        <TableHead>ลูกค้า</TableHead>
-                        <TableHead className="w-[110px]">ประเภท</TableHead>
-                        <TableHead className="w-[110px]">วันที่</TableHead>
-                        <TableHead className="w-[110px]">ครบกำหนด</TableHead>
-                        <TableHead className="text-right w-[140px]">จำนวนเงิน</TableHead>
-                        <TableHead className="w-[120px]">สถานะ</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {invoices.map((inv) => (
-                        <TableRow key={inv.id} className="hover:bg-accent/50 cursor-pointer" onClick={() => navigate(`/admin/invoices/${inv.id}`)}>
-                          <TableCell className="font-mono text-xs font-semibold">
-                            {inv.invoice_number}
-                          </TableCell>
-                          <TableCell>
-                            <div>
-                              <p className="font-medium text-sm">{inv.customer_name}</p>
-                              {inv.customer_company && (
-                                <p className="text-xs text-muted-foreground truncate max-w-[300px]">
-                                  {inv.customer_company}
-                                </p>
-                              )}
-                            </div>
-                          </TableCell>
-                          <TableCell>{getTypeBadge(inv.invoice_type)}</TableCell>
-                          <TableCell className="text-xs">{formatDate(inv.invoice_date)}</TableCell>
-                          <TableCell className="text-xs">
-                            {inv.due_date ? (
-                              <span className={
-                                inv.status !== 'paid' && inv.status !== 'cancelled' &&
-                                new Date(inv.due_date) < new Date()
-                                  ? 'text-red-600 font-semibold'
-                                  : ''
-                              }>
-                                {formatDate(inv.due_date)}
+            </CardContent>
+          </Card>
+        ) : (
+          <div className="space-y-3">
+            {sortedInvoices.map((inv) => {
+              const isOverdue = inv.due_date &&
+                inv.status !== 'paid' &&
+                inv.status !== 'cancelled' &&
+                new Date(inv.due_date) < now;
+
+              return (
+                <Card
+                  key={inv.id}
+                  className="hover:shadow-lg transition-shadow cursor-pointer"
+                  onClick={() => navigate(`/admin/invoices/${inv.id}`)}
+                >
+                  <CardContent className="p-4">
+                    <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                      <div className="flex-1 space-y-2">
+                        <div className="flex items-center gap-3 flex-wrap">
+                          <span className="font-semibold text-lg font-mono">{inv.invoice_number}</span>
+                          {isOverdue && (
+                            <Badge variant="destructive" className="gap-1">
+                              <AlertCircle className="w-3 h-3" /> เกินกำหนด
+                            </Badge>
+                          )}
+                          <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-300 text-[10px]">
+                            {inv.invoice_type === 'full' ? 'เต็มจำนวน' :
+                             inv.invoice_type === 'downpayment' ? 'มัดจำ' :
+                             inv.invoice_type === 'installment' ? 'งวดแบ่ง' :
+                             inv.invoice_type === 'final' ? 'ส่วนที่เหลือ' : inv.invoice_type}
+                          </Badge>
+                        </div>
+                        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
+                          <span className="text-foreground">{inv.customer_company || inv.customer_name}</span>
+                          {inv.customer_email && (
+                            <span className="text-muted-foreground">{inv.customer_email}</span>
+                          )}
+                        </div>
+                        <div className="space-y-2">
+                          <div className="flex flex-wrap items-center gap-3 text-xs">
+                            <span className="text-muted-foreground flex items-center gap-1">
+                              <Timer className="w-3 h-3" />
+                              ออก: {formatRelativeTime(inv.invoice_date)}
+                            </span>
+                            {inv.due_date && (
+                              <span className={`flex items-center gap-1 ${isOverdue ? 'text-red-600 font-semibold' : 'text-muted-foreground'}`}>
+                                ครบกำหนด: {new Date(inv.due_date).toLocaleDateString('th-TH', {
+                                  year: 'numeric', month: 'short', day: 'numeric',
+                                })}
                               </span>
-                            ) : '-'}
-                          </TableCell>
-                          <TableCell className="text-right font-semibold text-sm">
+                            )}
+                          </div>
+                          <InvoiceTimeline currentStatus={isOverdue ? 'overdue' : inv.status} />
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <div className="text-right">
+                          <div className="text-xs text-muted-foreground mb-1">ยอดรวม</div>
+                          <div className="text-xl font-bold text-primary">
                             {formatCurrency(inv.grand_total)}
-                          </TableCell>
-                          <TableCell>{getStatusBadge(inv.status)}</TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </div>
-
-                {/* Pagination */}
-                {totalPages > 1 && (
-                  <div className="flex items-center justify-between mt-4 pt-4 border-t">
-                    <p className="text-xs text-muted-foreground">
-                      แสดง {(page - 1) * PAGE_SIZE + 1}-{Math.min(page * PAGE_SIZE, totalCount)} จาก {totalCount.toLocaleString()} รายการ
-                    </p>
-                    <div className="flex gap-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        disabled={page <= 1}
-                        onClick={() => setPage(page - 1)}
-                      >
-                        ก่อนหน้า
-                      </Button>
-                      <span className="flex items-center px-3 text-sm">
-                        หน้า {page} / {totalPages}
-                      </span>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        disabled={page >= totalPages}
-                        onClick={() => setPage(page + 1)}
-                      >
-                        ถัดไป
-                      </Button>
+                          </div>
+                        </div>
+                        <div onClick={(e) => e.stopPropagation()}>
+                          <InvoiceActionsMenu
+                            invoiceId={inv.id}
+                            invoiceNumber={inv.invoice_number}
+                            status={inv.status}
+                            onDelete={() => setDeletingInvoice(inv)}
+                          />
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                )}
-              </>
-            )}
-          </CardContent>
-        </Card>
-      </AdminPageLayout>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        )}
+      </div>
 
+      {/* Existing dialogs */}
       <SelectQuoteForInvoiceDialog
         open={showQuotePicker}
         onOpenChange={setShowQuotePicker}
         onSelect={(source) => setInvoiceSource(source)}
       />
-
       <CreateInvoiceFromSODialog
         open={!!invoiceSource}
         onOpenChange={(v) => {
@@ -317,6 +385,74 @@ export default function AdminInvoicesList() {
         }}
         source={invoiceSource}
       />
+
+      {/* Soft Delete Dialog */}
+      <AlertDialog
+        open={!!deletingInvoice}
+        onOpenChange={(open) => {
+          if (!open) {
+            setDeletingInvoice(null);
+            setDeleteReason('');
+          }
+        }}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center gap-2">
+              <Trash2 className="w-5 h-5 text-destructive" />
+              ย้ายใบวางบิลไปถังขยะ?
+            </AlertDialogTitle>
+            <AlertDialogDescription asChild>
+              <div className="space-y-3 pt-2">
+                <p>
+                  ใบวางบิล <strong className="font-mono">{deletingInvoice?.invoice_number}</strong> จะถูกย้ายไปถังขยะ
+                </p>
+
+                {deletingInvoice && (
+                  <div className="bg-muted/50 rounded-lg p-3 space-y-1 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">ลูกค้า:</span>
+                      <span>{deletingInvoice.customer_company || deletingInvoice.customer_name}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">ยอดรวม:</span>
+                      <span className="font-semibold">{formatCurrency(deletingInvoice.grand_total)}</span>
+                    </div>
+                  </div>
+                )}
+
+                <div className="space-y-1.5">
+                  <label className="text-sm font-medium">เหตุผล (ไม่บังคับ)</label>
+                  <Textarea
+                    value={deleteReason}
+                    onChange={(e) => setDeleteReason(e.target.value)}
+                    placeholder="เช่น: สร้างผิด, ลูกค้าขอยกเลิก..."
+                    rows={2}
+                    className="text-sm"
+                  />
+                </div>
+
+                <div className="flex items-start gap-2 p-3 bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-800 rounded-lg">
+                  <span className="text-blue-600">💡</span>
+                  <p className="text-xs">
+                    ไม่ใช่การลบถาวร — สามารถกู้คืนได้จากถังขยะ
+                  </p>
+                </div>
+              </div>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={deleting}>ยกเลิก</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleSoftDelete}
+              disabled={deleting}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              {deleting ? 'กำลังย้าย...' : '🗑️ ย้ายไปถังขยะ'}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </AdminLayout>
   );
 }
