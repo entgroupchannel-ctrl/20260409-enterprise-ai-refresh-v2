@@ -70,7 +70,7 @@ export default function AdminInvoiceDetail() {
     setLoading(true);
     try {
       const [invRes, itemsRes, paymentRes] = await Promise.all([
-        (supabase as any).from('invoices').select('*').eq('id', id).maybeSingle(),
+        (supabase as any).from('invoices').select('*').eq('id', id).is('deleted_at', null).maybeSingle(),
         (supabase as any).from('invoice_items').select('*').eq('invoice_id', id).order('display_order'),
         (supabase as any).from('payment_records').select('*').eq('invoice_id', id).order('created_at', { ascending: false }),
       ]);
@@ -143,28 +143,31 @@ export default function AdminInvoiceDetail() {
   const handleDelete = async () => {
     if (!invoice) return;
     if (!deleteConfirmed) {
-      toast({ title: 'กรุณายืนยัน', description: 'ติ๊กช่องยืนยันก่อนลบ', variant: 'destructive' });
+      toast({ title: 'กรุณายืนยัน', description: 'ติ๊กช่องยืนยันก่อนย้ายไปถังขยะ', variant: 'destructive' });
       return;
     }
     if (!deleteReason.trim()) {
-      toast({ title: 'กรุณาระบุเหตุผล', description: 'ต้องระบุเหตุผลสำหรับการลบถาวร', variant: 'destructive' });
+      toast({ title: 'กรุณาระบุเหตุผล', description: 'ต้องระบุเหตุผล', variant: 'destructive' });
       return;
     }
-    if (paymentRecords.length > 0) {
-      toast({ title: 'ไม่สามารถลบได้', description: 'ใบวางบิลนี้มีบันทึกการชำระเงินแล้ว กรุณายกเลิกแทน', variant: 'destructive' });
-      return;
-    }
+
     setUpdating(true);
     try {
-      const { error: itemsErr } = await (supabase as any).from('invoice_items').delete().eq('invoice_id', invoice.id);
-      if (itemsErr) throw itemsErr;
-      const { error: invErr } = await (supabase as any).from('invoices').delete().eq('id', invoice.id);
-      if (invErr) throw invErr;
-      console.log(`[AUDIT] Invoice ${invoice.invoice_number} deleted. Reason: ${deleteReason}`);
-      toast({ title: '🗑 ลบใบวางบิลถาวรแล้ว', description: `${invoice.invoice_number} — ${deleteReason}` });
+      const { data, error } = await (supabase as any).rpc('soft_delete_invoice', {
+        p_invoice_id: invoice.id,
+        p_reason: deleteReason,
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: '🗑 ย้ายไปถังขยะแล้ว',
+        description: (data as any)?.message || `${invoice.invoice_number} อยู่ในถังขยะ — สามารถกู้คืนได้`,
+      });
+
       navigate('/admin/invoices');
     } catch (e: any) {
-      toast({ title: 'ลบไม่สำเร็จ', description: e.message, variant: 'destructive' });
+      toast({ title: 'ย้ายไปถังขยะไม่สำเร็จ', description: e.message, variant: 'destructive' });
     } finally {
       setUpdating(false);
       setShowDeleteDialog(false);
@@ -423,17 +426,18 @@ export default function AdminInvoiceDetail() {
                 <AlertDialogTrigger asChild>
                   <Button variant="outline" size="sm" className="border-red-500 text-red-700 hover:bg-red-50">
                     <Trash2 className="w-4 h-4 mr-1.5" />
-                    ลบถาวร
+                    ย้ายถังขยะ
                   </Button>
                 </AlertDialogTrigger>
                 <AlertDialogContent className="max-w-md">
                   <AlertDialogHeader>
                     <AlertDialogTitle className="flex items-center gap-2 text-red-700">
                       <Trash2 className="w-5 h-5" />
-                      ลบใบวางบิลถาวร?
+                      ย้ายใบวางบิลไปถังขยะ?
                     </AlertDialogTitle>
                     <AlertDialogDescription>
-                      ใบวางบิล <span className="font-mono font-semibold">{invoice.invoice_number}</span> จะถูกลบออกจากระบบ <strong className="text-red-600">ถาวร</strong> ไม่สามารถกู้คืนได้
+                      ใบวางบิล <span className="font-mono font-semibold">{invoice.invoice_number}</span> จะถูกย้ายไป
+                      <strong> ถังขยะ</strong> — สามารถกู้คืนได้ที่เมนู "ถังขยะ"
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   
@@ -476,8 +480,7 @@ export default function AdminInvoiceDetail() {
                         htmlFor="delete-confirm" 
                         className="text-xs text-red-800 cursor-pointer leading-relaxed"
                       >
-                        ฉันเข้าใจว่าการลบนี้ <strong>ถาวร</strong> และไม่สามารถกู้คืนได้ 
-                        ข้อมูลใบวางบิลและรายการสินค้าทั้งหมดจะหายไปจากระบบ
+                        ฉันเข้าใจว่าใบวางบิลจะถูกย้ายไปถังขยะ และลูกค้าจะมองไม่เห็น
                       </label>
                     </div>
                   </div>
@@ -490,7 +493,7 @@ export default function AdminInvoiceDetail() {
                       disabled={!deleteConfirmed || !deleteReason.trim() || updating}
                     >
                       <Trash2 className="w-4 h-4 mr-1.5" />
-                      {updating ? 'กำลังลบ...' : 'ลบถาวร'}
+                      {updating ? 'กำลังย้าย...' : 'ย้ายถังขยะ'}
                     </AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>

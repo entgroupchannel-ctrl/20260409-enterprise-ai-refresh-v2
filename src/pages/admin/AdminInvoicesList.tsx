@@ -72,6 +72,7 @@ export default function AdminInvoicesList() {
           'id, invoice_number, customer_name, customer_company, invoice_date, due_date, invoice_type, status, grand_total, sale_order_id, created_at',
           { count: 'exact' }
         )
+        .is('deleted_at', null)
         .order('created_at', { ascending: false });
 
       if (statusFilter !== 'all') query = query.eq('status', statusFilter);
