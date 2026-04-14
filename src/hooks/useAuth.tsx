@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { User } from '@supabase/supabase-js';
+import type { UserRole } from '@/types/auth';
+import * as perms from '@/lib/permissions';
 
 interface UserProfile {
   id: string;
   email: string;
   full_name: string | null;
-  role: string;
+  role: string; // UserRole but keep string for backward compat
   phone: string | null;
   company: string | null;
   is_active: boolean;
@@ -101,7 +103,9 @@ export const useAuth = () => {
       .eq('id', data.user.id)
       .maybeSingle();
 
-    if (userData?.role === 'admin' || userData?.role === 'sales') {
+    // Redirect based on role
+    const staffRoles = ['super_admin', 'admin', 'sales', 'accountant', 'warehouse', 'viewer'];
+    if (userData?.role && staffRoles.includes(userData.role)) {
       navigate('/admin/dashboard');
     } else {
       navigate('/');
@@ -140,6 +144,8 @@ export const useAuth = () => {
     navigate('/');
   };
 
+  const permCtx = { role: profile?.role, isActive: profile?.is_active };
+
   return {
     user,
     profile,
@@ -148,8 +154,38 @@ export const useAuth = () => {
     signUp,
     signOut,
     isAuthenticated: !!user,
-    isAdmin: profile?.role === 'admin',
+    
+    // Legacy role checks (keep for backward compat)
+    isAdmin: profile?.role === 'admin' || profile?.role === 'super_admin',
     isSales: profile?.role === 'sales',
     isMember: profile?.role === 'member',
+    
+    // NEW: Specific role checks
+    isSuperAdmin: profile?.role === 'super_admin',
+    isAccountant: profile?.role === 'accountant',
+    isWarehouse: profile?.role === 'warehouse',
+    isViewer: profile?.role === 'viewer',
+    isStaff: perms.isStaff(permCtx),
+    
+    // NEW: Module access (read)
+    canAccessBilling: perms.canAccessBilling(permCtx),
+    canAccessInventory: perms.canAccessInventory(permCtx),
+    canAccessReports: perms.canAccessReports(permCtx),
+    canAccessSettings: perms.canAccessSettings(permCtx),
+    
+    // NEW: Module management (write)
+    canManageQuotes: perms.canManageQuotes(permCtx),
+    canManageInvoices: perms.canManageInvoices(permCtx),
+    canManageTaxInvoices: perms.canManageTaxInvoices(permCtx),
+    canManageReceipts: perms.canManageReceipts(permCtx),
+    canManageProducts: perms.canManageProducts(permCtx),
+    canManageContacts: perms.canManageContacts(permCtx),
+    
+    // NEW: Admin-only actions
+    canDeleteRecords: perms.canDeleteRecords(permCtx),
+    canAccessTrash: perms.canAccessTrash(permCtx),
+    canEmptyTrash: perms.canEmptyTrash(permCtx),
+    canManagePermissions: perms.canManagePermissions(permCtx),
+    canManageCompanySettings: perms.canManageCompanySettings(permCtx),
   };
 };
