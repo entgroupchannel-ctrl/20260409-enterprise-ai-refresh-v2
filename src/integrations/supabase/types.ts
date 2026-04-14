@@ -1730,9 +1730,11 @@ export type Database = {
           expired_at: string | null
           free_items: Json | null
           grand_total: number | null
+          has_invoice: boolean | null
           has_sale_order: boolean | null
           id: string
           internal_notes: string | null
+          invoice_created_at: string | null
           metadata: Json | null
           negotiation_count: number | null
           notes: string | null
@@ -1784,9 +1786,11 @@ export type Database = {
           expired_at?: string | null
           free_items?: Json | null
           grand_total?: number | null
+          has_invoice?: boolean | null
           has_sale_order?: boolean | null
           id?: string
           internal_notes?: string | null
+          invoice_created_at?: string | null
           metadata?: Json | null
           negotiation_count?: number | null
           notes?: string | null
@@ -1838,9 +1842,11 @@ export type Database = {
           expired_at?: string | null
           free_items?: Json | null
           grand_total?: number | null
+          has_invoice?: boolean | null
           has_sale_order?: boolean | null
           id?: string
           internal_notes?: string | null
+          invoice_created_at?: string | null
           metadata?: Json | null
           negotiation_count?: number | null
           notes?: string | null
