@@ -76,7 +76,6 @@ const navGroups: NavGroup[] = [
       { label: 'ใบวางบิล', icon: Receipt, path: '/admin/invoices' },
       { label: 'ใบกำกับภาษี', icon: FileText, path: '/admin/tax-invoices' },
       { label: 'ใบเสร็จรับเงิน', icon: Receipt, path: '/admin/receipts' },
-      { label: 'ถังขยะ', icon: Trash2, path: '/admin/trash' },
     ],
   },
   {
@@ -94,6 +93,7 @@ const navGroups: NavGroup[] = [
     items: [
       { label: 'คำขอลูกค้า', icon: ClipboardList, path: '/admin/requests', badge: 'requests' },
       { label: 'อนุมัติ', icon: Shield, path: '/admin/approvals', badge: 'approvals' },
+      { label: 'ถังขยะ', icon: Trash2, path: '/admin/trash' },
     ],
   },
   {
