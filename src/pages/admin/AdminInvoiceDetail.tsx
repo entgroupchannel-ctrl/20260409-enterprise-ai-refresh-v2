@@ -340,6 +340,18 @@ export default function AdminInvoiceDetail() {
               </Button>
             )}
             
+            {(invoice.status === 'paid' || invoice.status === 'partially_paid') && (
+              <Button
+                size="sm"
+                variant="outline"
+                className="border-purple-400 text-purple-700 hover:bg-purple-50"
+                onClick={() => setShowCreateTaxInvoice(true)}
+              >
+                <FileText className="w-4 h-4 mr-1.5" />
+                สร้างใบกำกับภาษี
+              </Button>
+            )}
+            
             {/* Cancel — only when sent/overdue */}
             {canCancel && (
               <AlertDialog>
