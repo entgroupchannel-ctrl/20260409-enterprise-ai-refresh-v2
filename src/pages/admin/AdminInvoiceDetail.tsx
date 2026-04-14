@@ -60,6 +60,10 @@ export default function AdminInvoiceDetail() {
   const [editNotes, setEditNotes] = useState('');
   const [editInternalNotes, setEditInternalNotes] = useState('');
   const [savingNotes, setSavingNotes] = useState(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [deleteReason, setDeleteReason] = useState('');
+  const [deleteConfirmed, setDeleteConfirmed] = useState(false);
+  const [showRestoreDialog, setShowRestoreDialog] = useState(false);
 
   const loadData = async () => {
     if (!id) return;
