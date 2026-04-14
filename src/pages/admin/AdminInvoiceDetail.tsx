@@ -24,6 +24,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import InvoicePrintPreviewDialog from '@/components/admin/InvoicePrintPreviewDialog';
 import ConfirmPaymentDialog from '@/components/admin/ConfirmPaymentDialog';
 import VerifyPaymentDialog from '@/components/admin/VerifyPaymentDialog';
+import CreateTaxInvoiceFromInvoiceDialog from '@/components/admin/CreateTaxInvoiceFromInvoiceDialog';
 
 type InvoiceRow = any;
 type InvoiceItem = any;
