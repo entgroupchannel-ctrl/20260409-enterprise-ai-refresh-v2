@@ -49,6 +49,7 @@ export type InvoiceSource =
   | { type: 'quote'; quote: QuoteSource };
 
 interface QuoteData {
+  user_id: string | null;
   customer_name: string;
   customer_company: string | null;
   customer_address: string | null;
@@ -127,6 +128,35 @@ export default function CreateInvoiceFromSODialog({
     ? source.quote.products
     : [];
 
+  const loadQuoteFromDirect = async (q: QuoteSource) => {
+    let userId: string | null = null;
+    try {
+      const { data: qData } = await (supabase as any)
+        .from('quote_requests')
+        .select('created_by')
+        .eq('id', q.id)
+        .maybeSingle();
+      userId = qData?.created_by || null;
+    } catch (e) {
+      console.warn('Failed to load user_id:', e);
+    }
+    setQuote({
+      user_id: userId,
+      customer_name: q.customer_name,
+      customer_company: q.customer_company,
+      customer_address: q.customer_address,
+      customer_email: q.customer_email,
+      customer_phone: q.customer_phone,
+      customer_tax_id: q.customer_tax_id,
+      customer_branch_type: q.customer_branch_type,
+      customer_branch_code: q.customer_branch_code,
+      customer_branch_name: q.customer_branch_name,
+      payment_terms: q.payment_terms,
+      notes: q.notes,
+    });
+    if (q.payment_terms) setPaymentTerms(q.payment_terms);
+  };
+
   useEffect(() => {
     if (!open) {
       setInvoiceType('full');
@@ -140,21 +170,7 @@ export default function CreateInvoiceFromSODialog({
     if (source?.type === 'sale_order') {
       loadQuoteFromSO();
     } else if (source?.type === 'quote') {
-      const q = source.quote;
-      setQuote({
-        customer_name: q.customer_name,
-        customer_company: q.customer_company,
-        customer_address: q.customer_address,
-        customer_email: q.customer_email,
-        customer_phone: q.customer_phone,
-        customer_tax_id: q.customer_tax_id,
-        customer_branch_type: q.customer_branch_type,
-        customer_branch_code: q.customer_branch_code,
-        customer_branch_name: q.customer_branch_name,
-        payment_terms: q.payment_terms,
-        notes: q.notes,
-      });
-      if (q.payment_terms) setPaymentTerms(q.payment_terms);
+      loadQuoteFromDirect(source.quote);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, source]);
@@ -166,12 +182,14 @@ export default function CreateInvoiceFromSODialog({
       const { data, error } = await (supabase as any)
         .from('quote_requests')
         .select(
-          'customer_name, customer_company, customer_address, customer_email, customer_phone, customer_tax_id, customer_branch_type, customer_branch_code, customer_branch_name, payment_terms, notes'
+          'created_by, customer_name, customer_company, customer_address, customer_email, customer_phone, customer_tax_id, customer_branch_type, customer_branch_code, customer_branch_name, payment_terms, notes'
         )
         .eq('id', source.saleOrder.quote_id)
         .maybeSingle();
       if (error) throw error;
-      setQuote(data);
+      if (data) {
+        setQuote({ ...data, user_id: data.created_by || null });
+      }
       if (data?.payment_terms) setPaymentTerms(data.payment_terms);
     } catch (e: any) {
       toast({ title: 'โหลดข้อมูลไม่สำเร็จ', description: e.message, variant: 'destructive' });
@@ -225,6 +243,7 @@ export default function CreateInvoiceFromSODialog({
       const invoicePayload: any = {
         sale_order_id: saleOrderId,
         quote_id: quoteId,
+        customer_id: quote.user_id || null,
         customer_name: quote.customer_name,
         customer_company: quote.customer_company,
         customer_address: quote.customer_address,
