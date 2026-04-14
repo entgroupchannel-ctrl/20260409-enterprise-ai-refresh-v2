@@ -195,6 +195,7 @@ export default function AdminQuoteDetail() {
   const [revisionKey, setRevisionKey] = useState(0);
   const [printingRevision, setPrintingRevision] = useState<any>(null);
   const [showCreateInvoice, setShowCreateInvoice] = useState(false);
+  const [linkedInvoice, setLinkedInvoice] = useState<any>(null);
   const totals = useMemo(() => {
     if (!quote) return { subtotal: 0, discountAmount: 0, beforeVat: 0, vatAmount: 0, grandTotal: 0 };
     return calculateQuoteTotals(
@@ -287,7 +288,21 @@ export default function AdminQuoteDetail() {
         .single();
 
       if (quoteError) throw quoteError;
-      setQuote({ ...quoteData, products: (quoteData.products as any) || [] } as Quote);
+      const quoteObj = { ...quoteData, products: (quoteData.products as any) || [] } as Quote;
+      setQuote(quoteObj);
+
+      // Load linked invoice if has_invoice
+      if ((quoteData as any).has_invoice) {
+        const { data: invData } = await (supabase as any)
+          .from('invoices')
+          .select('id, invoice_number, status, grand_total')
+          .eq('quote_id', quoteData.id)
+          .is('deleted_at', null)
+          .maybeSingle();
+        setLinkedInvoice(invData);
+      } else {
+        setLinkedInvoice(null);
+      }
 
       // Load files
       const { data: filesData, error: filesError } = await supabase
@@ -577,10 +592,17 @@ export default function AdminQuoteDetail() {
                 <FileSearch className="w-4 h-4 mr-1.5" />
                 สร้าง SO
               </Button>
-              <Button size="sm" variant="outline" onClick={() => setShowCreateInvoice(true)}>
-                <Receipt className="w-4 h-4 mr-1.5" />
-                ใบวางบิล
-              </Button>
+              {linkedInvoice ? (
+                <Button size="sm" variant="outline" className="border-blue-400 text-blue-700 hover:bg-blue-50" onClick={() => navigate(`/admin/invoices/${linkedInvoice.id}`)}>
+                  <Receipt className="w-4 h-4 mr-1.5" />
+                  ดูใบวางบิล {linkedInvoice.invoice_number}
+                </Button>
+              ) : (
+                <Button size="sm" variant="outline" onClick={() => setShowCreateInvoice(true)}>
+                  <Receipt className="w-4 h-4 mr-1.5" />
+                  ใบวางบิล
+                </Button>
+              )}
             </div>
           </div>
         )}
@@ -589,17 +611,26 @@ export default function AdminQuoteDetail() {
           <div className="flex items-center justify-between gap-3 p-3 rounded-lg border border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-900/20">
             <div className="flex items-center gap-2 min-w-0">
               <CircleCheckBig className="w-5 h-5 text-blue-600 shrink-0" />
-              <span className="text-sm font-medium text-blue-900 dark:text-blue-200 truncate">มี Sale Order แล้ว — สร้างใบวางบิลเพิ่มได้</span>
+              <span className="text-sm font-medium text-blue-900 dark:text-blue-200 truncate">
+                {linkedInvoice ? 'มี Sale Order + ใบวางบิลแล้ว' : 'มี Sale Order แล้ว — สร้างใบวางบิลเพิ่มได้'}
+              </span>
             </div>
             <div className="flex gap-2 shrink-0">
               <Button size="sm" variant="outline" onClick={() => navigate('/admin/sale-orders')}>
                 <ScanEye className="w-4 h-4 mr-1.5" />
                 ดู SO
               </Button>
-              <Button size="sm" onClick={() => setShowCreateInvoice(true)}>
-                <Receipt className="w-4 h-4 mr-1.5" />
-                ใบวางบิล
-              </Button>
+              {linkedInvoice ? (
+                <Button size="sm" variant="outline" className="border-blue-400 text-blue-700 hover:bg-blue-50" onClick={() => navigate(`/admin/invoices/${linkedInvoice.id}`)}>
+                  <Receipt className="w-4 h-4 mr-1.5" />
+                  ดูใบวางบิล {linkedInvoice.invoice_number}
+                </Button>
+              ) : (
+                <Button size="sm" onClick={() => setShowCreateInvoice(true)}>
+                  <Receipt className="w-4 h-4 mr-1.5" />
+                  ใบวางบิล
+                </Button>
+              )}
             </div>
           </div>
         )}
