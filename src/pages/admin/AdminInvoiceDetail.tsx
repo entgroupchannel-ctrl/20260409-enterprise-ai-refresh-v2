@@ -17,6 +17,7 @@ import { useToast } from '@/hooks/use-toast';
 import {
   ArrowLeft, Loader2, Printer, Send, CircleCheckBig, Ban, FileText,
   User, Calendar, Receipt, Save, Lock, MessageSquare,
+  Clock, Banknote, ExternalLink, Mail,
 } from 'lucide-react';
 import InvoicePrintPreviewDialog from '@/components/admin/InvoicePrintPreviewDialog';
 
