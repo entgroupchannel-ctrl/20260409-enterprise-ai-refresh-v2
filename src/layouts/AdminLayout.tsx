@@ -75,6 +75,7 @@ const navGroups: NavGroup[] = [
       { label: 'ยอดขาย / SO', icon: ShoppingCart, path: '/admin/sale-orders' },
       { label: 'ใบวางบิล', icon: Receipt, path: '/admin/invoices' },
       { label: 'ใบกำกับภาษี', icon: FileText, path: '/admin/tax-invoices' },
+      { label: 'ใบเสร็จรับเงิน', icon: Receipt, path: '/admin/receipts' },
       { label: 'ถังขยะ', icon: Trash2, path: '/admin/trash' },
     ],
   },
