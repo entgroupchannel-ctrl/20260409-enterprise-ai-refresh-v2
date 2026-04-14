@@ -1336,6 +1336,25 @@ export default function AdminQuoteDetail() {
         }}
       />
 
+      {/* Edit Customer Info Dialog */}
+      {quote && (
+        <EditCustomerInfoDialog
+          open={showEditCustomer}
+          onClose={() => setShowEditCustomer(false)}
+          quoteId={quote.id}
+          initialValues={{
+            customer_name: quote.customer_name,
+            customer_email: quote.customer_email,
+            customer_phone: quote.customer_phone,
+            customer_company: quote.customer_company,
+            customer_address: quote.customer_address,
+            customer_tax_id: quote.customer_tax_id,
+            customer_line: quote.customer_line,
+          }}
+          onSaved={loadQuoteDetails}
+        />
+      )}
+
       {/* Print Preview Dialog */}
       {quote && printingRevision && (
         <PrintPreviewDialog
