@@ -16,6 +16,7 @@ import {
   Link as LinkIcon, Trash2,
 } from 'lucide-react';
 import TaxInvoicePrintPreviewDialog from '@/components/admin/TaxInvoicePrintPreviewDialog';
+import CreateReceiptDialog from '@/components/admin/CreateReceiptDialog';
 
 export default function AdminTaxInvoiceDetail() {
   const { id } = useParams<{ id: string }>();
@@ -30,6 +31,7 @@ export default function AdminTaxInvoiceDetail() {
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [deleteReason, setDeleteReason] = useState('');
   const [deleting, setDeleting] = useState(false);
+  const [showCreateReceipt, setShowCreateReceipt] = useState(false);
 
   useEffect(() => {
     if (id) loadData();
@@ -149,6 +151,15 @@ export default function AdminTaxInvoiceDetail() {
                 ย้ายถังขยะ
               </Button>
             )}
+            <Button
+              variant="outline"
+              size="sm"
+              className="border-green-400 text-green-700 hover:bg-green-50"
+              onClick={() => setShowCreateReceipt(true)}
+            >
+              <Receipt className="w-4 h-4 mr-1.5" />
+              สร้างใบเสร็จ
+            </Button>
             <Button variant="outline" size="sm" onClick={() => setShowPrintDialog(true)}>
               <Printer className="w-4 h-4 mr-1.5" />
               พิมพ์ / PDF
@@ -374,6 +385,14 @@ export default function AdminTaxInvoiceDetail() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {taxInvoice && (
+        <CreateReceiptDialog
+          open={showCreateReceipt}
+          onOpenChange={setShowCreateReceipt}
+          taxInvoiceId={taxInvoice.id}
+        />
+      )}
     </AdminLayout>
   );
 }

@@ -25,6 +25,7 @@ import InvoicePrintPreviewDialog from '@/components/admin/InvoicePrintPreviewDia
 import ConfirmPaymentDialog from '@/components/admin/ConfirmPaymentDialog';
 import VerifyPaymentDialog from '@/components/admin/VerifyPaymentDialog';
 import CreateTaxInvoiceFromInvoiceDialog from '@/components/admin/CreateTaxInvoiceFromInvoiceDialog';
+import CreateReceiptDialog from '@/components/admin/CreateReceiptDialog';
 
 type InvoiceRow = any;
 type InvoiceItem = any;
@@ -68,6 +69,7 @@ export default function AdminInvoiceDetail() {
   const [showRestoreDialog, setShowRestoreDialog] = useState(false);
   const [verifyingPayment, setVerifyingPayment] = useState<any>(null);
   const [showCreateTaxInvoice, setShowCreateTaxInvoice] = useState(false);
+  const [showCreateReceipt, setShowCreateReceipt] = useState(false);
 
   const loadData = async () => {
     if (!id) return;
@@ -349,6 +351,18 @@ export default function AdminInvoiceDetail() {
               >
                 <FileText className="w-4 h-4 mr-1.5" />
                 สร้างใบกำกับภาษี
+              </Button>
+            )}
+
+            {(invoice.status === 'paid' || invoice.status === 'partially_paid') && (
+              <Button
+                size="sm"
+                variant="outline"
+                className="border-green-400 text-green-700 hover:bg-green-50"
+                onClick={() => setShowCreateReceipt(true)}
+              >
+                <Receipt className="w-4 h-4 mr-1.5" />
+                สร้างใบเสร็จ
               </Button>
             )}
             
@@ -993,6 +1007,15 @@ export default function AdminInvoiceDetail() {
         <CreateTaxInvoiceFromInvoiceDialog
           open={showCreateTaxInvoice}
           onOpenChange={setShowCreateTaxInvoice}
+          invoiceId={invoice.id}
+        />
+      )}
+
+      {/* Create Receipt Dialog */}
+      {invoice && (
+        <CreateReceiptDialog
+          open={showCreateReceipt}
+          onOpenChange={setShowCreateReceipt}
           invoiceId={invoice.id}
         />
       )}

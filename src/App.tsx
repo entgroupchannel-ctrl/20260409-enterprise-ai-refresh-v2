@@ -75,6 +75,8 @@ const AdminInvoicesList = lazyRetry(() => import("./pages/admin/AdminInvoicesLis
 const AdminInvoiceDetail = lazyRetry(() => import("./pages/admin/AdminInvoiceDetail"));
 const AdminTaxInvoicesList = lazyRetry(() => import("./pages/admin/AdminTaxInvoicesList"));
 const AdminTaxInvoiceDetail = lazyRetry(() => import("./pages/admin/AdminTaxInvoiceDetail"));
+const AdminReceiptsList = lazyRetry(() => import("./pages/admin/AdminReceiptsList"));
+const AdminReceiptDetail = lazyRetry(() => import("./pages/admin/AdminReceiptDetail"));
 const AdminContacts = lazyRetry(() => import("./pages/admin/AdminContacts"));
 const AdminCompanySettings = lazyRetry(() => import("./pages/admin/AdminCompanySettings"));
 const AdminProfile = lazyRetry(() => import("./pages/admin/AdminProfile"));
