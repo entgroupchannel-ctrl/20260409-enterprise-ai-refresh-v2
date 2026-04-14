@@ -41,6 +41,7 @@ export default function MyReceiptDetail() {
         .select('*')
         .eq('id', id)
         .eq('customer_id', user?.id)
+        .is('deleted_at', null)
         .maybeSingle();
 
       if (error) throw error;

@@ -80,7 +80,7 @@ export default function MyInvoiceDetail() {
     setLoading(true);
     try {
       const [invRes, itemsRes, bankRes, paymentRes] = await Promise.all([
-        (supabase as any).from('invoices').select('*').eq('id', id).maybeSingle(),
+        (supabase as any).from('invoices').select('*').eq('id', id).eq('customer_id', user?.id).is('deleted_at', null).maybeSingle(),
         (supabase as any).from('invoice_items').select('*').eq('invoice_id', id).order('display_order'),
         (supabase as any).from('company_bank_accounts').select('*').eq('is_active', true).order('display_order'),
         (supabase as any).from('payment_records').select('*').eq('invoice_id', id).order('created_at', { ascending: false }),
