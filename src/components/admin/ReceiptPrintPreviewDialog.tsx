@@ -111,7 +111,7 @@ export default function ReceiptPrintPreviewDialog({
                 {receipt.amount ? ` • ฿${formatCurrency(receipt.amount)}` : ''}
               </DialogDescription>
             </div>
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-2 items-center pr-8">
               <div className="flex border rounded overflow-hidden text-xs">
                 <button
                   className={`px-3 py-1.5 ${copyType === 'original' ? 'bg-green-600 text-white' : 'bg-muted text-muted-foreground'}`}

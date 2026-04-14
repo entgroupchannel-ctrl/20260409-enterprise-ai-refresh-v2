@@ -112,7 +112,7 @@ export default function TaxInvoicePrintPreviewDialog({
                 {taxInvoice.grand_total ? ` • ฿${formatCurrency(taxInvoice.grand_total)}` : ''}
               </DialogDescription>
             </div>
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-2 items-center pr-8">
               {/* Copy type toggle */}
               <div className="flex border rounded overflow-hidden text-xs">
                 <button
