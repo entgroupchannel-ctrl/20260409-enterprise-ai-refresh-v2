@@ -20,6 +20,7 @@ import {
   Clock, Banknote, ExternalLink, Mail, UserPlus, AlertCircle,
 } from 'lucide-react';
 import InvoicePrintPreviewDialog from '@/components/admin/InvoicePrintPreviewDialog';
+import ConfirmPaymentDialog from '@/components/admin/ConfirmPaymentDialog';
 
 type InvoiceRow = any;
 type InvoiceItem = any;
@@ -50,6 +51,7 @@ export default function AdminInvoiceDetail() {
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
   const [paymentRecords, setPaymentRecords] = useState<any[]>([]);
+  const [showConfirmPayment, setShowConfirmPayment] = useState(false);
   const [linkingCustomer, setLinkingCustomer] = useState(false);
   const [showPrintDialog, setShowPrintDialog] = useState(false);
   const [cancelReason, setCancelReason] = useState('');
@@ -115,7 +117,7 @@ export default function AdminInvoiceDetail() {
   };
 
   const handleSend = () => updateStatus('sent');
-  const handleMarkPaid = () => updateStatus('paid');
+  const handleMarkPaid = () => setShowConfirmPayment(true);
   const handleCancel = () => {
     if (!cancelReason.trim()) {
       toast({ title: 'กรุณาระบุเหตุผล', variant: 'destructive' });
@@ -734,6 +736,18 @@ export default function AdminInvoiceDetail() {
         invoice={invoice}
         items={items}
       />
+
+      {/* Confirm Payment Dialog — requires proof attachment */}
+      {invoice && (
+        <ConfirmPaymentDialog
+          open={showConfirmPayment}
+          onOpenChange={setShowConfirmPayment}
+          invoiceId={invoice.id}
+          invoiceNumber={invoice.invoice_number}
+          grandTotal={invoice.grand_total || 0}
+          onSuccess={() => loadData()}
+        />
+      )}
     </AdminLayout>
   );
 }
