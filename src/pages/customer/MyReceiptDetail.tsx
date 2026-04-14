@@ -99,7 +99,7 @@ export default function MyReceiptDetail() {
 
   return (
     <>
-      <SEOHead title={`ใบเสร็จ ${receipt.receipt_number}`} />
+      <SEOHead title={`ใบเสร็จ ${receipt.receipt_number}`} description="รายละเอียดใบเสร็จรับเงิน" />
       <div className="min-h-screen bg-background p-4 md:p-6">
         <div className="max-w-5xl mx-auto space-y-4">
           {/* Header */}
