@@ -288,7 +288,21 @@ export default function AdminQuoteDetail() {
         .single();
 
       if (quoteError) throw quoteError;
-      setQuote({ ...quoteData, products: (quoteData.products as any) || [] } as Quote);
+      const quoteObj = { ...quoteData, products: (quoteData.products as any) || [] } as Quote;
+      setQuote(quoteObj);
+
+      // Load linked invoice if has_invoice
+      if ((quoteData as any).has_invoice) {
+        const { data: invData } = await (supabase as any)
+          .from('invoices')
+          .select('id, invoice_number, status, grand_total')
+          .eq('quote_id', quoteData.id)
+          .is('deleted_at', null)
+          .maybeSingle();
+        setLinkedInvoice(invData);
+      } else {
+        setLinkedInvoice(null);
+      }
 
       // Load files
       const { data: filesData, error: filesError } = await supabase
