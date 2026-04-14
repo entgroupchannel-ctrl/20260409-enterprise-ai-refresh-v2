@@ -142,7 +142,7 @@ export default function PermissionMatrix({
       if (error) throw error;
       
       toast({ 
-        title: '↩️ คืนค่าเริ่มต้นแล้ว',
+        title: 'คืนค่าเริ่มต้นแล้ว',
         description: `${MODULE_INFO[module]?.label}: กลับไปใช้ค่าตาม role`,
       });
       
