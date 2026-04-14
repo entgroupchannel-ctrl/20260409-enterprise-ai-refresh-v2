@@ -2442,6 +2442,54 @@ export type Database = {
           },
         ]
       }
+      user_permissions: {
+        Row: {
+          granted_at: string
+          granted_by: string | null
+          id: string
+          module: string
+          notes: string | null
+          permission: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          granted_at?: string
+          granted_by?: string | null
+          id?: string
+          module: string
+          notes?: string | null
+          permission: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          granted_at?: string
+          granted_by?: string | null
+          id?: string
+          module?: string
+          notes?: string | null
+          permission?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_permissions_granted_by_fkey"
+            columns: ["granted_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_permissions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_profiles: {
         Row: {
           billing_address: string | null
@@ -2674,6 +2722,16 @@ export type Database = {
           total_value: number
         }[]
       }
+      get_user_effective_permissions: {
+        Args: { p_user_id: string }
+        Returns: {
+          default_permission: string
+          effective_permission: string
+          is_override: boolean
+          module: string
+          override_permission: string
+        }[]
+      }
       get_user_role: { Args: { _user_id: string }; Returns: string }
       has_any_role: {
         Args: { p_roles: string[]; p_user_id: string }
@@ -2731,6 +2789,10 @@ export type Database = {
         Args: { p_approver_id: string; p_reason: string; p_revision_id: string }
         Returns: Json
       }
+      remove_user_permission: {
+        Args: { p_module: string; p_user_id: string }
+        Returns: boolean
+      }
       restore_invoice: { Args: { p_invoice_id: string }; Returns: Json }
       restore_quote: { Args: { p_quote_id: string }; Returns: Json }
       restore_receipt: { Args: { p_receipt_id: string }; Returns: Json }
@@ -2751,6 +2813,15 @@ export type Database = {
       soft_delete_tax_invoice: {
         Args: { p_reason?: string; p_tax_invoice_id: string }
         Returns: Json
+      }
+      upsert_user_permission: {
+        Args: {
+          p_module: string
+          p_notes?: string
+          p_permission: string
+          p_user_id: string
+        }
+        Returns: string
       }
     }
     Enums: {
