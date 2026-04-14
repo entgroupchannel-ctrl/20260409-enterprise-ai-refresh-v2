@@ -50,6 +50,7 @@ export default function AdminInvoicesList() {
   const [sortBy, setSortBy] = useState('created_at_desc');
   const [showQuotePicker, setShowQuotePicker] = useState(false);
   const [invoiceSource, setInvoiceSource] = useState<InvoiceSource | null>(null);
+  const [availableQuoteCount, setAvailableQuoteCount] = useState(0);
 
   // Soft delete state
   const [deletingInvoice, setDeletingInvoice] = useState<Invoice | null>(null);
@@ -83,8 +84,24 @@ export default function AdminInvoicesList() {
     }
   };
 
+  const loadAvailableQuoteCount = async () => {
+    try {
+      const { count, error } = await (supabase as any)
+        .from('quote_requests')
+        .select('id', { count: 'exact', head: true })
+        .eq('status', 'po_approved')
+        .eq('has_invoice', false);
+
+      if (error) throw error;
+      setAvailableQuoteCount(count || 0);
+    } catch (e) {
+      console.error('Failed to load available quote count:', e);
+    }
+  };
+
   useEffect(() => {
     loadInvoices();
+    loadAvailableQuoteCount();
   }, []);
 
   // Debounced search
@@ -206,9 +223,17 @@ export default function AdminInvoicesList() {
                 ถังขยะ
               </Link>
             </Button>
-            <Button onClick={() => setShowQuotePicker(true)}>
+            <Button
+              onClick={() => setShowQuotePicker(true)}
+              disabled={availableQuoteCount === 0}
+            >
               <Plus className="w-4 h-4 mr-2" />
               สร้างใบวางบิล
+              {availableQuoteCount > 0 && (
+                <Badge variant="secondary" className="ml-2 bg-white/20 text-white border-white/30">
+                  {availableQuoteCount}
+                </Badge>
+              )}
             </Button>
           </div>
         </div>

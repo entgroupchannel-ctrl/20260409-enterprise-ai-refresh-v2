@@ -324,6 +324,35 @@ export default function AdminReceiptsList() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      <SelectSourceForReceiptDialog
+        open={showSourcePicker}
+        onOpenChange={setShowSourcePicker}
+        onSelectInvoice={(invoiceId) => {
+          setCreateFromInvoiceId(invoiceId);
+        }}
+        onSelectTaxInvoice={(taxInvoiceId) => {
+          setCreateFromTaxInvoiceId(taxInvoiceId);
+        }}
+      />
+
+      <CreateReceiptDialog
+        open={!!createFromInvoiceId || !!createFromTaxInvoiceId}
+        onOpenChange={(open) => {
+          if (!open) {
+            setCreateFromInvoiceId(null);
+            setCreateFromTaxInvoiceId(null);
+          }
+        }}
+        invoiceId={createFromInvoiceId}
+        taxInvoiceId={createFromTaxInvoiceId}
+        onSuccess={() => {
+          setCreateFromInvoiceId(null);
+          setCreateFromTaxInvoiceId(null);
+          loadData();
+          loadAvailableCount();
+        }}
+      />
     </AdminLayout>
   );
 }
