@@ -8,7 +8,9 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { Receipt, Search, Loader2, Calendar, Trash2, MoreVertical } from 'lucide-react';
+import { Receipt, Search, Loader2, Calendar, Trash2, MoreVertical, Plus } from 'lucide-react';
+import SelectSourceForReceiptDialog from '@/components/admin/SelectSourceForReceiptDialog';
+import CreateReceiptDialog from '@/components/admin/CreateReceiptDialog';
 import { formatRelativeTime } from '@/lib/format';
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
@@ -41,8 +43,41 @@ export default function AdminReceiptsList() {
   const [deletingReceipt, setDeletingReceipt] = useState<any>(null);
   const [deleteReason, setDeleteReason] = useState('');
   const [deleting, setDeleting] = useState(false);
+  const [availableCount, setAvailableCount] = useState(0);
+  const [showSourcePicker, setShowSourcePicker] = useState(false);
+  const [createFromInvoiceId, setCreateFromInvoiceId] = useState<string | null>(null);
+  const [createFromTaxInvoiceId, setCreateFromTaxInvoiceId] = useState<string | null>(null);
 
-  useEffect(() => { loadData(); }, []);
+  const loadAvailableCount = async () => {
+    try {
+      const [payRes, rcpRes] = await Promise.all([
+        (supabase as any)
+          .from('payment_records')
+          .select('id')
+          .eq('verification_status', 'verified'),
+        (supabase as any)
+          .from('receipts')
+          .select('payment_record_id')
+          .is('deleted_at', null),
+      ]);
+
+      if (payRes.error) throw payRes.error;
+      if (rcpRes.error) throw rcpRes.error;
+
+      const usedPaymentIds = new Set(
+        (rcpRes.data || []).map((r: any) => r.payment_record_id).filter(Boolean)
+      );
+      const available = (payRes.data || []).filter(
+        (p: any) => !usedPaymentIds.has(p.id)
+      );
+
+      setAvailableCount(available.length);
+    } catch (e) {
+      console.error('Failed to load available count:', e);
+    }
+  };
+
+  useEffect(() => { loadData(); loadAvailableCount(); }, []);
 
   useEffect(() => {
     const t = setTimeout(loadData, 400);
@@ -113,12 +148,27 @@ export default function AdminReceiptsList() {
               รวม {receipts.length} รายการ
             </p>
           </div>
-          <Button variant="outline" size="sm" asChild>
-            <Link to="/admin/trash?tab=receipts">
-              <Trash2 className="w-4 h-4 mr-2" />
-              ถังขยะ
-            </Link>
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button variant="outline" size="sm" asChild>
+              <Link to="/admin/trash?tab=receipts">
+                <Trash2 className="w-4 h-4 mr-2" />
+                ถังขยะ
+              </Link>
+            </Button>
+            <Button
+              size="sm"
+              onClick={() => setShowSourcePicker(true)}
+              disabled={availableCount === 0}
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              สร้างใบเสร็จ
+              {availableCount > 0 && (
+                <Badge variant="secondary" className="ml-2 bg-white/20 text-white border-white/30">
+                  {availableCount}
+                </Badge>
+              )}
+            </Button>
+          </div>
         </div>
 
         <Card className="border-blue-200 bg-blue-50">
