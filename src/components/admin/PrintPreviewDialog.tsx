@@ -155,7 +155,7 @@ export default function PrintPreviewDialog({
                 {revision.grand_total ? ` • ฿${formatCurrency(revision.grand_total)}` : ''}
               </DialogDescription>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 pr-8">
               <Button
                 variant="outline"
                 size="sm"
