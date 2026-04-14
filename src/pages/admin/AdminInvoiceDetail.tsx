@@ -67,6 +67,7 @@ export default function AdminInvoiceDetail() {
   const [deleteConfirmed, setDeleteConfirmed] = useState(false);
   const [showRestoreDialog, setShowRestoreDialog] = useState(false);
   const [verifyingPayment, setVerifyingPayment] = useState<any>(null);
+  const [showCreateTaxInvoice, setShowCreateTaxInvoice] = useState(false);
 
   const loadData = async () => {
     if (!id) return;
