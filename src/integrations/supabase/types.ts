@@ -758,6 +758,8 @@ export type Database = {
           created_at: string
           expires_at: string | null
           id: string
+          link_id: string | null
+          link_type: string | null
           message: string | null
           metadata: Json | null
           priority: string
@@ -774,6 +776,8 @@ export type Database = {
           created_at?: string
           expires_at?: string | null
           id?: string
+          link_id?: string | null
+          link_type?: string | null
           message?: string | null
           metadata?: Json | null
           priority?: string
@@ -790,6 +794,8 @@ export type Database = {
           created_at?: string
           expires_at?: string | null
           id?: string
+          link_id?: string | null
+          link_type?: string | null
           message?: string | null
           metadata?: Json | null
           priority?: string
@@ -2667,6 +2673,35 @@ export type Database = {
         }[]
       }
       get_user_role: { Args: { _user_id: string }; Returns: string }
+      notify_admins: {
+        Args: {
+          p_action_label?: string
+          p_action_url?: string
+          p_exclude_user_id?: string
+          p_link_id?: string
+          p_link_type?: string
+          p_message: string
+          p_priority?: string
+          p_title: string
+          p_type: string
+        }
+        Returns: number
+      }
+      notify_user: {
+        Args: {
+          p_action_label?: string
+          p_action_url?: string
+          p_link_id?: string
+          p_link_type?: string
+          p_message: string
+          p_metadata?: Json
+          p_priority?: string
+          p_title: string
+          p_type: string
+          p_user_id: string
+        }
+        Returns: string
+      }
       permanent_delete_invoice: {
         Args: { p_invoice_id: string }
         Returns: Json
