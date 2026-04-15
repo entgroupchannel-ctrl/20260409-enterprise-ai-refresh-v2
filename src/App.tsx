@@ -118,6 +118,7 @@ const MyRepairDetail = lazyRetry(() => import("./pages/customer/MyRepairDetail")
 const RequestRepairForm = lazyRetry(() => import("./pages/customer/RequestRepairForm"));
 const AdminInventory = lazyRetry(() => import("./pages/admin/AdminInventory"));
 const AdminSupplierManagement = lazyRetry(() => import("./pages/admin/AdminSupplierManagement"));
+const AdminInternationalTransfer = lazyRetry(() => import("./pages/admin/AdminInternationalTransfer"));
 
 /* ── Loading fallback ── */
 const PageLoader = () => (
@@ -233,6 +234,7 @@ const App = () => (
                     <Route path="/admin/migrate-datasheets" element={<ProtectedRoute requireSuperAdmin><MigrateDatasheets /></ProtectedRoute>} />
                     <Route path="/admin/settings/company" element={<ProtectedRoute requireSales><AdminCompanySettings /></ProtectedRoute>} />
                     <Route path="/admin/suppliers" element={<ProtectedRoute requireSales><AdminSupplierManagement /></ProtectedRoute>} />
+                    <Route path="/admin/international-transfer" element={<ProtectedRoute requireSales><AdminInternationalTransfer /></ProtectedRoute>} />
                    <Route path="/admin/profile" element={<ProtectedRoute requireSales><AdminProfile /></ProtectedRoute>} />
                    <Route path="/admin/settings/profile" element={<ProtectedRoute requireSales><AdminProfile /></ProtectedRoute>} />
                     <Route path="/request-quote" element={<QuoteRequestForm />} />

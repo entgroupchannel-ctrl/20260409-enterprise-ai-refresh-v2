@@ -32,8 +32,8 @@ interface Supplier {
 interface PO {
   id: string;
   po_number: string;
-  total_amount: number;
-  currency: string;
+  grand_total: number | null;
+  currency: string | null;
   status: string;
 }
 
@@ -78,7 +78,7 @@ export default function InternationalTransferForm({ editId, onSaved }: Props) {
   const totalCostThb = amountThb + totalFee;
 
   const selectedSupplier = suppliers.find(s => s.id === supplierId);
-  const poTotal = pos.filter(p => selectedPoIds.includes(p.id)).reduce((s, p) => s + p.total_amount, 0);
+  const poTotal = pos.filter(p => selectedPoIds.includes(p.id)).reduce((s, p) => s + (p.grand_total || 0), 0);
 
   // Load suppliers
   useEffect(() => {
@@ -100,7 +100,7 @@ export default function InternationalTransferForm({ editId, onSaved }: Props) {
     if (selectedSupplier.currency) setCurrency(selectedSupplier.currency as Currency);
 
     // Load POs for this supplier
-    supabase.from('purchase_orders').select('id, po_number, total_amount, currency, status')
+    supabase.from('purchase_orders').select('id, po_number, grand_total, currency, status')
       .eq('supplier_id', selectedSupplier.id).is('deleted_at', null)
       .then(({ data }) => setPos((data as PO[]) || []));
   }, [supplierId]);
@@ -220,9 +220,9 @@ export default function InternationalTransferForm({ editId, onSaved }: Props) {
             supplier_id: supplierId,
             transfer_request_id: transferId,
             document_type: 'proforma_invoice',
+            title: file.name,
             file_name: file.name,
             file_url: urlData.publicUrl,
-            file_path: path,
             file_size: file.size,
             uploaded_by: (await supabase.auth.getUser()).data.user?.id || null,
           });
@@ -327,7 +327,7 @@ export default function InternationalTransferForm({ editId, onSaved }: Props) {
                   />
                   <span className="font-mono text-sm">{po.po_number}</span>
                   <Badge variant="outline">{po.currency}</Badge>
-                  <span className="ml-auto font-mono text-sm">{fmt(po.total_amount)}</span>
+                  <span className="ml-auto font-mono text-sm">{fmt(po.grand_total || 0)}</span>
                 </label>
               ))}
               {selectedPoIds.length > 0 && (
