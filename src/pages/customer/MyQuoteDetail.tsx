@@ -505,25 +505,29 @@ export default function MyQuoteDetail() {
           </Card>
         )}
 
-        {/* Negotiation Action Bar — quote_sent or negotiating, only if revision is 'sent' */}
+        {/* Negotiation Action Bar — quote_sent or negotiating */}
         {(quote.status === 'quote_sent' || quote.status === 'negotiating') && quote.grand_total > 0 && (
-          <Card className="mb-6 border-primary/30">
-            <CardContent className="p-5">
+          <Card className="mb-6 border-2 border-green-400 dark:border-green-500 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 shadow-lg shadow-green-100 dark:shadow-green-900/10">
+            <CardContent className="p-6">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
-                  <p className="text-sm text-muted-foreground">ราคาที่เสนอ</p>
-                  <p className="text-2xl font-bold text-primary">
+                  <p className="text-sm font-medium text-green-700 dark:text-green-300">💰 ราคาที่เสนอให้คุณ</p>
+                  <p className="text-3xl font-bold text-green-800 dark:text-green-200 mt-1">
                     {new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', minimumFractionDigits: 0 }).format(quote.grand_total)} <span className="text-sm font-normal text-muted-foreground">(รวม VAT)</span>
                   </p>
                   {quote.valid_until && (
-                    <p className="text-xs text-muted-foreground mt-1">⏱️ ราคานี้ใช้ได้ถึง: {formatFullDate(quote.valid_until)}</p>
+                    <p className="text-xs text-amber-600 dark:text-amber-400 mt-1.5 font-medium">⏱️ ราคานี้ใช้ได้ถึง: {formatFullDate(quote.valid_until)}</p>
                   )}
                 </div>
-                <div className="flex gap-2">
-                  <Button onClick={() => setShowAcceptQuote(true)}>
-                    <CheckCircle2 className="w-4 h-4 mr-1" /> ยอมรับราคานี้
+                <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+                  <Button
+                    size="lg"
+                    onClick={() => setShowAcceptQuote(true)}
+                    className="bg-green-600 hover:bg-green-700 text-white shadow-md hover:shadow-lg transition-all text-base px-6 py-3 animate-pulse hover:animate-none w-full sm:w-auto"
+                  >
+                    <CheckCircle2 className="w-5 h-5 mr-2" /> ✅ ยอมรับราคานี้
                   </Button>
-                  <Button variant="outline" onClick={() => setShowNegotiation(true)}>
+                  <Button variant="outline" size="lg" onClick={() => setShowNegotiation(true)} className="w-full sm:w-auto">
                     💬 ขอต่อรอง
                   </Button>
                 </div>
@@ -1192,6 +1196,29 @@ export default function MyQuoteDetail() {
         />
       )}
       </div>
+
+      {/* Sticky Bottom CTA Bar */}
+      {(quote.status === 'quote_sent' || quote.status === 'negotiating') && quote.grand_total > 0 && (
+        <div className="fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-t-2 border-green-400 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
+          <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+            <div className="hidden sm:block">
+              <p className="text-sm font-medium">ยอดรวม: <span className="text-lg font-bold text-green-700 dark:text-green-300">{new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', minimumFractionDigits: 0 }).format(quote.grand_total)}</span></p>
+            </div>
+            <div className="flex gap-2 w-full sm:w-auto">
+              <Button
+                size="lg"
+                onClick={() => setShowAcceptQuote(true)}
+                className="bg-green-600 hover:bg-green-700 text-white shadow-md text-base flex-1 sm:flex-none sm:px-8"
+              >
+                <CheckCircle2 className="w-5 h-5 mr-2" /> ยอมรับราคา
+              </Button>
+              <Button variant="outline" size="lg" onClick={() => setShowNegotiation(true)} className="flex-1 sm:flex-none">
+                💬 ต่อรอง
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </CustomerLayout>
   );
 }
