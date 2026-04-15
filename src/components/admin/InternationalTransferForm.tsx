@@ -282,7 +282,7 @@ export default function InternationalTransferForm({ editId, onSaved }: Props) {
                 )}
               </div>
               {selectedPoIds.length > 0 && amount > 0 && Math.abs(amount - poTotal) > 0.01 && (
-                <div className="text-xs text-amber-600 bg-amber-50 dark:bg-amber-950/30 px-3 py-1.5 rounded-md">
+                <div className="text-xs text-destructive bg-destructive/10 px-3 py-1.5 rounded-md">
                   ⚠️ ยอดโอน ({fmt(amount)} {currency}) ไม่ตรงกับยอด PO ({fmt(poTotal)} {currency}) — ต่างกัน {fmt(Math.abs(amount - poTotal))}
                 </div>
               )}
