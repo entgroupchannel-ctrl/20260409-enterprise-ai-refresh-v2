@@ -93,6 +93,21 @@ export default function RepairQuoteForm({ repairOrder, onUpdated }: Props) {
       });
       if (data && !data.success) throw new Error(data.error);
 
+      // Send notification to customer
+      if (repairOrder.customer_id) {
+        await (supabase as any).from('notifications').insert({
+          user_id: repairOrder.customer_id,
+          type: 'repair_quote',
+          title: `ใบเสนอราคาซ่อม ${repairOrder.repair_order_number}`,
+          message: `มีใบเสนอราคาซ่อมรอการอนุมัติ ยอด ฿${grandTotal.toLocaleString()}`,
+          priority: 'high',
+          action_url: `/my/repairs/${repairOrder.id}`,
+          action_label: 'ดูใบเสนอราคา',
+          link_type: 'repair_order',
+          link_id: repairOrder.id,
+        });
+      }
+
       toast({ title: 'ส่งใบเสนอราคาให้ลูกค้าแล้ว' });
       onUpdated();
     } catch (err: any) {
