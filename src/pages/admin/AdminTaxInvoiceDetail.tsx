@@ -432,6 +432,13 @@ export default function AdminTaxInvoiceDetail() {
           taxInvoiceId={taxInvoice.id}
         />
       )}
+
+      <CreateCreditNoteDialog
+        open={showCreateCN}
+        onOpenChange={setShowCreateCN}
+        taxInvoiceId={id!}
+        onSuccess={() => loadData()}
+      />
     </AdminLayout>
   );
 }
