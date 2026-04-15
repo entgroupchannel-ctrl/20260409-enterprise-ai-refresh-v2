@@ -443,6 +443,9 @@ export default function TransferRequestsList({ onEdit }: Props) {
                         <DropdownMenuItem onClick={() => onEdit?.(t.id)}>
                           <Eye className="h-4 w-4 mr-2" />ดูรายละเอียด
                         </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => { setPrintTargetId(t.id); setPrintDialogOpen(true); }}>
+                          <Printer className="h-4 w-4 mr-2" />พิมพ์ฟอร์ม
+                        </DropdownMenuItem>
 
                         {/* Draft actions */}
                         {t.status === 'draft' && (
