@@ -391,6 +391,10 @@ const ShopProductDetail = () => {
                   <span className="font-semibold text-foreground">ระยะเวลาจัดส่ง:</span> สินค้าส่งตรงจากโรงงาน 7-14 วัน บางรุ่น 30-45 วัน ขึ้นอยู่กับปัจจัยต่างๆ — <span className="text-foreground font-medium">ควรสอบถามแอดมินก่อนสั่งสินค้า</span>
                 </p>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* ═══════════ USE CASES — FULL WIDTH ═══════════ */}
       <div className="bg-muted/20 border-y border-border">
