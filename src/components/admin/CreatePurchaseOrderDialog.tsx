@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -10,7 +10,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
-import { Plus, Trash2, Save, Send, Loader2, ChevronDown, X, FileText } from 'lucide-react';
+import { Plus, Trash2, Save, Send, Loader2, ChevronDown, X, FileText, FileSearch, AlertTriangle } from 'lucide-react';
 
 const PO_DOC_TYPES = [
   { value: 'proforma_invoice', label: 'PI' },
@@ -56,6 +56,10 @@ export default function CreatePurchaseOrderDialog({ open, onOpenChange, editId, 
   const [saving, setSaving] = useState(false);
   const [showTerms, setShowTerms] = useState(false);
   const [showShipping, setShowShipping] = useState(false);
+  const [parsingPI, setParsingPI] = useState(false);
+  const [piParseResult, setPiParseResult] = useState<'success' | 'error' | null>(null);
+  const [piSupplierWarning, setPiSupplierWarning] = useState('');
+  const piFileRef = useRef<HTMLInputElement>(null);
 
   const [supplierId, setSupplierId] = useState('');
   const [currency, setCurrency] = useState('USD');
@@ -153,7 +157,79 @@ export default function CreatePurchaseOrderDialog({ open, onOpenChange, editId, 
     setExpectedDelivery(''); setNotes('');
     setShowTerms(false); setShowShipping(false);
     setPoFiles([]); setNewPoFileType('proforma_invoice');
+    setPiParseResult(null); setPiSupplierWarning('');
   };
+
+  // ========== PI PDF Parser ==========
+  const handleParsePI = async (file: File) => {
+    setParsingPI(true);
+    setPiParseResult(null);
+    setPiSupplierWarning('');
+    try {
+      const base64 = await fileToBase64(file);
+      const { data: fnData, error: fnErr } = await supabase.functions.invoke('parse-pi-document', {
+        body: { file_base64: base64, media_type: file.type || 'application/pdf' },
+      });
+      if (fnErr) throw fnErr;
+      if (!fnData?.success) throw new Error(fnData?.error || 'Parse failed');
+
+      const d = fnData.data;
+      // Auto-fill form
+      if (d.pi_number) setPiNumber(d.pi_number);
+      if (d.currency) setCurrency(d.currency);
+      if (d.price_terms) { setPriceTerms(d.price_terms); setShowTerms(true); }
+      if (d.payment_terms) { setPaymentTerms(d.payment_terms); setShowTerms(true); }
+      if (d.delivery_days) { setDeliveryDays(d.delivery_days); setShowTerms(true); }
+      if (d.loading_port) { setLoadingPort(d.loading_port); setShowTerms(true); }
+      if (d.shipping_cost) setShippingCost(d.shipping_cost);
+      if (d.handling_fee) setHandlingFee(d.handling_fee);
+
+      if (d.items?.length) {
+        setItems(d.items.map((it: any) => ({
+          model: it.model || '',
+          description: it.description || '',
+          color: it.color || '',
+          hs_code: it.hs_code || '',
+          quantity: it.qty || it.quantity || 1,
+          unit_price: it.unit_price || 0,
+        })));
+      }
+
+      // Auto-match supplier
+      if (d.supplier_name && suppliers.length > 0) {
+        const nameLC = d.supplier_name.toLowerCase();
+        const match = suppliers.find(s => s.company_name.toLowerCase().includes(nameLC) || nameLC.includes(s.company_name.toLowerCase()));
+        if (match) {
+          setSupplierId(match.id);
+        } else {
+          setPiSupplierWarning(`Supplier "${d.supplier_name}" ไม่ตรงกับในระบบ — กรุณาเลือกเอง`);
+        }
+      }
+
+      // Also add the PI file as an attachment
+      setPoFiles(prev => [...prev, { file, type: 'proforma_invoice' }]);
+
+      setPiParseResult('success');
+      toast.success('อ่าน PI สำเร็จ — ตรวจสอบข้อมูลด้านล่าง');
+    } catch (err: any) {
+      console.error('PI parse error:', err);
+      setPiParseResult('error');
+      toast.error('อ่าน PI ล้มเหลว: ' + (err.message || 'Unknown error'));
+    } finally {
+      setParsingPI(false);
+    }
+  };
+
+  const fileToBase64 = (file: File): Promise<string> =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const result = reader.result as string;
+        resolve(result.split(',')[1]); // strip data:...;base64,
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
 
   const addItem = () => setItems(prev => [...prev, { model: '', description: '', color: '', hs_code: '', quantity: 1, unit_price: 0 }]);
 
@@ -253,6 +329,48 @@ export default function CreatePurchaseOrderDialog({ open, onOpenChange, editId, 
         </DialogHeader>
 
         <div className="space-y-5">
+          {/* PI Parser */}
+          {!editId && (
+            <div className="p-3 rounded-lg border border-dashed border-primary/30 bg-primary/5 space-y-2">
+              <div className="flex items-center gap-2">
+                <Button
+                  type="button" variant="outline" size="sm"
+                  onClick={() => piFileRef.current?.click()}
+                  disabled={parsingPI}
+                >
+                  {parsingPI ? <Loader2 className="w-4 h-4 mr-1 animate-spin" /> : <FileSearch className="w-4 h-4 mr-1" />}
+                  {parsingPI ? 'กำลังอ่านเอกสาร...' : '📄 อ่านจาก PI'}
+                </Button>
+                <input
+                  ref={piFileRef} type="file" className="hidden"
+                  accept=".pdf,.jpg,.jpeg,.png"
+                  onChange={e => {
+                    const f = e.target.files?.[0];
+                    if (f) handleParsePI(f);
+                    e.target.value = '';
+                  }}
+                />
+                <span className="text-xs text-muted-foreground">อัปโหลด PI (PDF/รูป) แล้วระบบจะอ่านข้อมูลอัตโนมัติ</span>
+              </div>
+              {piParseResult === 'success' && (
+                <div className="text-xs text-green-600 bg-green-500/10 px-3 py-1.5 rounded-md">
+                  ✅ อ่านสำเร็จ! ตรวจสอบข้อมูลด้านล่าง
+                </div>
+              )}
+              {piParseResult === 'error' && (
+                <div className="text-xs text-destructive bg-destructive/10 px-3 py-1.5 rounded-md">
+                  ❌ อ่านไม่สำเร็จ — กรุณากรอกข้อมูลเอง
+                </div>
+              )}
+              {piSupplierWarning && (
+                <div className="text-xs text-yellow-700 bg-yellow-500/10 px-3 py-1.5 rounded-md flex items-center gap-1">
+                  <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
+                  {piSupplierWarning}
+                </div>
+              )}
+            </div>
+          )}
+
           {/* Supplier + PI + Currency + Dates */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <div className="col-span-2 space-y-1">
