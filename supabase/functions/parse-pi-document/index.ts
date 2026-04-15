@@ -78,7 +78,7 @@ If a field is not found, use empty string for text or 0 for numbers.`;
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "anthropic/claude-sonnet-4-20250514",
+        model: "google/gemini-2.5-pro",
         messages,
         max_tokens: 3000,
         temperature: 0,
