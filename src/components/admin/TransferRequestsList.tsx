@@ -584,6 +584,16 @@ export default function TransferRequestsList({ onEdit }: Props) {
           onStatusUpdated={fetchTransfers}
         />
       )}
+      {/* Transfer Print Dialog */}
+      {printTargetId && (
+        <TransferPrintDialog
+          open={printDialogOpen}
+          onOpenChange={setPrintDialogOpen}
+          transferId={printTargetId}
+          poMap={poMap}
+          piMap={piMap}
+        />
+      )}
     </div>
   );
 }
