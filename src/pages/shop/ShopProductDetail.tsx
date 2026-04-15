@@ -179,6 +179,30 @@ const ShopProductDetail = () => {
       </div>
 
       <div className="container mx-auto px-4 pb-8">
+        {/* Feature Strip */}
+        {product && (
+          <div className="bg-muted/30 border border-border rounded-xl py-4 px-2 my-4">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {[
+                product.cpu && { icon: Microchip, label: 'CPU', value: product.cpu },
+                product.ram_gb && { icon: MemoryStick, label: 'RAM', value: `${product.ram_gb}GB DDR4` },
+                product.storage_gb && { icon: CircuitBoard, label: 'Storage', value: `${product.storage_gb}GB ${product.storage_type || 'SSD'}` },
+                product.has_wifi && { icon: Wifi, label: 'Wireless', value: 'WiFi + Bluetooth' },
+                product.has_4g && { icon: Antenna, label: 'Mobile', value: '4G/LTE SIM' },
+                { icon: ShieldCheck, label: 'รับประกัน', value: '12 เดือน' },
+              ].filter(Boolean).slice(0, 4).map((f: any, i) => (
+                <div key={i} className="flex items-center gap-2.5 p-3 rounded-lg bg-card border border-border">
+                  <f.icon className="w-5 h-5 text-primary shrink-0" />
+                  <div>
+                    <div className="text-[10px] text-muted-foreground">{f.label}</div>
+                    <div className="text-xs font-semibold">{f.value}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Top section: Gallery + Info */}
         <div ref={heroRef} className="grid lg:grid-cols-2 gap-8 mb-8 pt-4">
           {/* Gallery */}
@@ -358,6 +382,21 @@ const ShopProductDetail = () => {
             <ReviewsSection />
           </TabsContent>
         </Tabs>
+
+        {/* Trust Signals */}
+        <div className="grid grid-cols-2 gap-2 my-6">
+          {[
+            { icon: ShieldCheck, text: 'รับประกัน 1–3 ปี' },
+            { icon: MonitorSmartphone, text: 'ซัพพอร์ตภาษาไทย' },
+            { icon: CircuitBoard, text: 'จัดส่งทั่วไทย' },
+            { icon: SlidersHorizontal, text: 'ใบกำกับภาษี' },
+          ].map((t, i) => (
+            <div key={i} className="flex items-center gap-2 text-xs text-muted-foreground p-2.5 rounded-lg bg-muted/30 border border-border">
+              <t.icon className="w-4 h-4 text-primary shrink-0" />
+              {t.text}
+            </div>
+          ))}
+        </div>
 
         {/* RFQ Form */}
         <div className="mb-8">
