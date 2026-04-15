@@ -19,6 +19,7 @@ import TaxInvoiceTimeline from '@/components/admin/TaxInvoiceTimeline';
 import TaxInvoiceActionsMenu from '@/components/admin/TaxInvoiceActionsMenu';
 import SelectInvoiceForTaxInvoiceDialog from '@/components/admin/SelectInvoiceForTaxInvoiceDialog';
 import CreateTaxInvoiceFromInvoiceDialog from '@/components/admin/CreateTaxInvoiceFromInvoiceDialog';
+import CreateCreditNoteDialog from '@/components/admin/CreateCreditNoteDialog';
 
 interface TaxInvoice {
   id: string;
@@ -52,6 +53,7 @@ export default function AdminTaxInvoicesList() {
   const [availableCount, setAvailableCount] = useState(0);
   const [showInvoicePicker, setShowInvoicePicker] = useState(false);
   const [createFromInvoiceId, setCreateFromInvoiceId] = useState<string | null>(null);
+  const [creatingCNFor, setCreatingCNFor] = useState<string | null>(null);
 
   const loadData = async () => {
     setLoading(true);
@@ -247,6 +249,7 @@ export default function AdminTaxInvoicesList() {
                             taxInvoiceNumber={tx.tax_invoice_number}
                             status={tx.status}
                             onDelete={() => setDeletingTax(tx)}
+                            onCreateCreditNote={() => setCreatingCNFor(tx.id)}
                           />
                         </div>
                       </div>
@@ -322,6 +325,18 @@ export default function AdminTaxInvoicesList() {
           loadAvailableCount();
         }}
       />
+
+      {creatingCNFor && (
+        <CreateCreditNoteDialog
+          open={!!creatingCNFor}
+          onOpenChange={(open) => !open && setCreatingCNFor(null)}
+          taxInvoiceId={creatingCNFor}
+          onSuccess={() => {
+            setCreatingCNFor(null);
+            loadData();
+          }}
+        />
+      )}
     </AdminLayout>
   );
 }
