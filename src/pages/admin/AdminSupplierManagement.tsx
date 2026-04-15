@@ -194,7 +194,7 @@ export default function AdminSupplierManagement() {
                             ) : '-'}
                           </TableCell>
                           <TableCell className="text-right">
-                            <Button size="sm" variant="ghost" onClick={() => softDelete(s.id)}>
+                            <Button size="sm" variant="ghost" onClick={(e) => { e.stopPropagation(); softDelete(s.id); }}>
                               <Trash2 className="w-4 h-4 text-destructive" />
                             </Button>
                           </TableCell>

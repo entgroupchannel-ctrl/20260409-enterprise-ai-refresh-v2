@@ -321,14 +321,23 @@ export default function SupplierRegistrationForm({ onSaved, editData }: Props) {
 
         {/* ── Actions ── */}
         <div className="flex justify-end gap-3 pt-2 border-t">
-          <Button variant="outline" size="sm" onClick={() => save(false)} disabled={saving}>
-            {saving ? <Loader2 className="w-4 h-4 mr-1 animate-spin" /> : <Save className="w-4 h-4 mr-1" />}
-            บันทึกร่าง
-          </Button>
-          <Button size="sm" onClick={() => save(true)} disabled={saving}>
-            {saving ? <Loader2 className="w-4 h-4 mr-1 animate-spin" /> : <Send className="w-4 h-4 mr-1" />}
-            ส่งรออนุมัติ
-          </Button>
+          {editData ? (
+            <Button size="sm" onClick={() => save(false)} disabled={saving}>
+              {saving ? <Loader2 className="w-4 h-4 mr-1 animate-spin" /> : <Save className="w-4 h-4 mr-1" />}
+              บันทึก
+            </Button>
+          ) : (
+            <>
+              <Button variant="outline" size="sm" onClick={() => save(false)} disabled={saving}>
+                {saving ? <Loader2 className="w-4 h-4 mr-1 animate-spin" /> : <Save className="w-4 h-4 mr-1" />}
+                บันทึกร่าง
+              </Button>
+              <Button size="sm" onClick={() => save(true)} disabled={saving}>
+                {saving ? <Loader2 className="w-4 h-4 mr-1 animate-spin" /> : <Send className="w-4 h-4 mr-1" />}
+                ส่งรออนุมัติ
+              </Button>
+            </>
+          )}
         </div>
       </CardContent>
     </Card>
