@@ -3,12 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import CustomerLayout from '@/layouts/CustomerLayout';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import {
-  Receipt, Search, Loader2, ArrowLeft, Building2, Calendar,
+  Receipt, Search, Loader2, Building2, Calendar,
 } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 
@@ -177,6 +178,6 @@ export default function MyReceipts() {
           )}
         </div>
       </div>
-    </>
+    </CustomerLayout>
   );
 }

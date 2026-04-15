@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SiteNavbar from '@/components/SiteNavbar';
-import MiniFooter from '@/components/MiniFooter';
+import CustomerLayout from '@/layouts/CustomerLayout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, Shield, Loader2, CheckCircle } from 'lucide-react';
+import { Shield, Loader2, CheckCircle } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
@@ -88,29 +87,21 @@ export default function RegisterProductForm() {
 
   if (success) {
     return (
-      <div className="min-h-screen flex flex-col bg-background">
-        <SiteNavbar />
-        <main className="flex-1 flex items-center justify-center px-4">
-          <div className="max-w-md text-center">
-            <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-            <h2 className="text-xl font-bold mb-2">ส่งคำขอลงทะเบียนแล้ว</h2>
-            <p className="text-muted-foreground mb-6">รอ admin อนุมัติ — จะแจ้งเตือนเมื่อดำเนินการเรียบร้อย</p>
-            <Button onClick={() => navigate('/my/products')}>ดูสินค้าของฉัน</Button>
-          </div>
-        </main>
-        <MiniFooter />
-      </div>
+      <CustomerLayout title="ลงทะเบียนสินค้า">
+        <div className="max-w-md mx-auto py-8 text-center">
+          <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+          <h2 className="text-xl font-bold mb-2">ส่งคำขอลงทะเบียนแล้ว</h2>
+          <p className="text-muted-foreground mb-6">รอ admin อนุมัติ — จะแจ้งเตือนเมื่อดำเนินการเรียบร้อย</p>
+          <Button onClick={() => navigate('/my/products')}>ดูสินค้าของฉัน</Button>
+        </div>
+      </CustomerLayout>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <SiteNavbar />
-      <main className="flex-1 max-w-lg mx-auto px-4 py-8 w-full">
-        <div className="flex items-center gap-3 mb-6">
-          <Button variant="ghost" size="sm" onClick={() => navigate('/my/products')}><ArrowLeft className="w-4 h-4 mr-1" /> กลับ</Button>
-          <h1 className="text-xl font-bold flex items-center gap-2"><Shield className="w-5 h-5 text-primary" /> ลงทะเบียนสินค้า</h1>
-        </div>
+    <CustomerLayout title="ลงทะเบียนสินค้า">
+      <div className="max-w-lg mx-auto space-y-6">
+        <h1 className="text-xl font-bold flex items-center gap-2"><Shield className="w-5 h-5 text-primary" /> ลงทะเบียนสินค้า</h1>
 
         <Card>
           <CardHeader><CardTitle className="text-base">กรอกข้อมูล Serial Number</CardTitle></CardHeader>
@@ -145,8 +136,7 @@ export default function RegisterProductForm() {
             <p className="text-xs text-muted-foreground text-center">หลังส่งคำขอ admin จะตรวจสอบและอนุมัติให้</p>
           </CardContent>
         </Card>
-      </main>
-      <MiniFooter />
-    </div>
+      </div>
+    </CustomerLayout>
   );
 }

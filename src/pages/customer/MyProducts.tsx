@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import SiteNavbar from '@/components/SiteNavbar';
-import MiniFooter from '@/components/MiniFooter';
+import CustomerLayout from '@/layouts/CustomerLayout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Package, Plus, Loader2, ArrowLeft, Shield } from 'lucide-react';
+import { Package, Plus, Loader2, Shield } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import WarrantyStatusBadge from '@/components/admin/WarrantyStatusBadge';
 
@@ -36,17 +35,11 @@ export default function MyProducts() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <SiteNavbar />
-      <main className="flex-1 max-w-5xl mx-auto px-4 py-8 w-full">
-        <div className="flex items-center gap-3 mb-6">
-          <Button variant="ghost" size="sm" onClick={() => navigate('/dashboard')}><ArrowLeft className="w-4 h-4 mr-1" /> กลับ</Button>
-          <h1 className="text-2xl font-bold flex items-center gap-2"><Shield className="w-6 h-6 text-primary" /> สินค้าของฉัน</h1>
-        </div>
-
-        <div className="flex justify-end mb-4">
-          <Button onClick={() => navigate('/my/products/register')}><Plus className="w-4 h-4 mr-1.5" /> ลงทะเบียนสินค้าใหม่</Button>
-        </div>
+    <CustomerLayout title="สินค้าของฉัน">
+      <div className="flex items-center justify-between gap-3 mb-6">
+        <h1 className="text-2xl font-bold flex items-center gap-2"><Shield className="w-6 h-6 text-primary" /> สินค้าของฉัน</h1>
+        <Button onClick={() => navigate('/my/products/register')}><Plus className="w-4 h-4 mr-1.5" /> ลงทะเบียนสินค้าใหม่</Button>
+      </div>
 
         {loading ? (
           <div className="flex justify-center py-16 min-h-[60vh]"><Loader2 className="w-6 h-6 animate-spin text-muted-foreground" /></div>
@@ -84,9 +77,7 @@ export default function MyProducts() {
               );
             })}
           </div>
-        )}
-      </main>
-      <MiniFooter />
-    </div>
+      )}
+    </CustomerLayout>
   );
 }
