@@ -207,6 +207,6 @@ export default function CustomerOrders() {
           </CardContent>
         </Card>
       )}
-    </div>
+    </CustomerLayout>
   );
 }
