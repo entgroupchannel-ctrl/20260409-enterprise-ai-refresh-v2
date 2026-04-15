@@ -132,10 +132,7 @@ export default function MyDocuments() {
       <SEOHead title="เอกสารบริษัท ENT" description="ดาวน์โหลดเอกสารบริษัท" />
       <div className="space-y-4">
         <div>
-          <h1 className="text-2xl font-bold flex items-center gap-2">
-            <FileArchive className="w-6 h-6 text-primary" />
-            เอกสารบริษัท ENT
-          </h1>
+          <h1 className="text-2xl font-bold">เอกสารบริษัท ENT</h1>
           <p className="text-xs text-muted-foreground">เอกสารสำหรับเปิดบัญชีลูกค้า / ทำธุรกรรม</p>
         </div>
 
