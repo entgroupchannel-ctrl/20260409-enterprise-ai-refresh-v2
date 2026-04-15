@@ -1095,6 +1095,144 @@ export type Database = {
           },
         ]
       }
+      international_transfer_requests: {
+        Row: {
+          amount: number
+          amount_thb: number | null
+          approved_at: string | null
+          approved_by: string | null
+          bank_account_name: string | null
+          bank_account_number: string
+          bank_address: string | null
+          bank_fee: number | null
+          bank_name: string
+          created_at: string
+          created_by: string | null
+          currency: string
+          deleted_at: string | null
+          due_date: string | null
+          exchange_rate: number | null
+          iban: string | null
+          id: string
+          intermediary_bank: string | null
+          intermediary_swift: string | null
+          invoice_reference: string | null
+          notes: string | null
+          other_fee: number | null
+          priority: string | null
+          purchase_order_ids: string[] | null
+          purpose: string
+          rejection_reason: string | null
+          requested_transfer_date: string | null
+          status: string
+          supplier_id: string
+          supplier_name: string
+          swift_code: string
+          total_cost_thb: number | null
+          total_fee: number | null
+          transfer_fee: number | null
+          transfer_number: string
+          transfer_slip_url: string | null
+          transferred_at: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          amount: number
+          amount_thb?: number | null
+          approved_at?: string | null
+          approved_by?: string | null
+          bank_account_name?: string | null
+          bank_account_number: string
+          bank_address?: string | null
+          bank_fee?: number | null
+          bank_name: string
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          deleted_at?: string | null
+          due_date?: string | null
+          exchange_rate?: number | null
+          iban?: string | null
+          id?: string
+          intermediary_bank?: string | null
+          intermediary_swift?: string | null
+          invoice_reference?: string | null
+          notes?: string | null
+          other_fee?: number | null
+          priority?: string | null
+          purchase_order_ids?: string[] | null
+          purpose: string
+          rejection_reason?: string | null
+          requested_transfer_date?: string | null
+          status?: string
+          supplier_id: string
+          supplier_name: string
+          swift_code: string
+          total_cost_thb?: number | null
+          total_fee?: number | null
+          transfer_fee?: number | null
+          transfer_number?: string
+          transfer_slip_url?: string | null
+          transferred_at?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          amount?: number
+          amount_thb?: number | null
+          approved_at?: string | null
+          approved_by?: string | null
+          bank_account_name?: string | null
+          bank_account_number?: string
+          bank_address?: string | null
+          bank_fee?: number | null
+          bank_name?: string
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          deleted_at?: string | null
+          due_date?: string | null
+          exchange_rate?: number | null
+          iban?: string | null
+          id?: string
+          intermediary_bank?: string | null
+          intermediary_swift?: string | null
+          invoice_reference?: string | null
+          notes?: string | null
+          other_fee?: number | null
+          priority?: string | null
+          purchase_order_ids?: string[] | null
+          purpose?: string
+          rejection_reason?: string | null
+          requested_transfer_date?: string | null
+          status?: string
+          supplier_id?: string
+          supplier_name?: string
+          swift_code?: string
+          total_cost_thb?: number | null
+          total_fee?: number | null
+          transfer_fee?: number | null
+          transfer_number?: string
+          transfer_slip_url?: string | null
+          transferred_at?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "international_transfer_requests_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "supplier_payment_summary"
+            referencedColumns: ["supplier_id"]
+          },
+          {
+            foreignKeyName: "international_transfer_requests_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "suppliers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       invoice_items: {
         Row: {
           created_at: string
@@ -2157,6 +2295,81 @@ export type Database = {
           updated_by?: string | null
         }
         Relationships: []
+      }
+      purchase_orders: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          currency: string | null
+          deleted_at: string | null
+          expected_delivery: string | null
+          grand_total: number | null
+          id: string
+          items: Json
+          notes: string | null
+          order_date: string | null
+          other_cost: number | null
+          po_number: string
+          shipping_cost: number | null
+          status: string
+          subtotal: number | null
+          supplier_id: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          currency?: string | null
+          deleted_at?: string | null
+          expected_delivery?: string | null
+          grand_total?: number | null
+          id?: string
+          items?: Json
+          notes?: string | null
+          order_date?: string | null
+          other_cost?: number | null
+          po_number?: string
+          shipping_cost?: number | null
+          status?: string
+          subtotal?: number | null
+          supplier_id: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          currency?: string | null
+          deleted_at?: string | null
+          expected_delivery?: string | null
+          grand_total?: number | null
+          id?: string
+          items?: Json
+          notes?: string | null
+          order_date?: string | null
+          other_cost?: number | null
+          po_number?: string
+          shipping_cost?: number | null
+          status?: string
+          subtotal?: number | null
+          supplier_id?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "purchase_orders_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "supplier_payment_summary"
+            referencedColumns: ["supplier_id"]
+          },
+          {
+            foreignKeyName: "purchase_orders_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "suppliers"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       quote_files: {
         Row: {
@@ -3461,6 +3674,248 @@ export type Database = {
         }
         Relationships: []
       }
+      supplier_documents: {
+        Row: {
+          amount: number | null
+          created_at: string
+          currency: string | null
+          description: string | null
+          document_number: string | null
+          document_type: string
+          file_name: string | null
+          file_size: number | null
+          file_url: string
+          id: string
+          issue_date: string | null
+          purchase_order_id: string | null
+          supplier_id: string
+          title: string
+          transfer_request_id: string | null
+          uploaded_by: string | null
+        }
+        Insert: {
+          amount?: number | null
+          created_at?: string
+          currency?: string | null
+          description?: string | null
+          document_number?: string | null
+          document_type: string
+          file_name?: string | null
+          file_size?: number | null
+          file_url: string
+          id?: string
+          issue_date?: string | null
+          purchase_order_id?: string | null
+          supplier_id: string
+          title: string
+          transfer_request_id?: string | null
+          uploaded_by?: string | null
+        }
+        Update: {
+          amount?: number | null
+          created_at?: string
+          currency?: string | null
+          description?: string | null
+          document_number?: string | null
+          document_type?: string
+          file_name?: string | null
+          file_size?: number | null
+          file_url?: string
+          id?: string
+          issue_date?: string | null
+          purchase_order_id?: string | null
+          supplier_id?: string
+          title?: string
+          transfer_request_id?: string | null
+          uploaded_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_supplier_documents_po"
+            columns: ["purchase_order_id"]
+            isOneToOne: false
+            referencedRelation: "purchase_orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_supplier_documents_transfer"
+            columns: ["transfer_request_id"]
+            isOneToOne: false
+            referencedRelation: "international_transfer_requests"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "supplier_documents_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "supplier_payment_summary"
+            referencedColumns: ["supplier_id"]
+          },
+          {
+            foreignKeyName: "supplier_documents_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "suppliers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      suppliers: {
+        Row: {
+          address: string | null
+          approved_at: string | null
+          approved_by: string | null
+          bank_account_name: string | null
+          bank_account_number: string | null
+          bank_address: string | null
+          bank_country: string | null
+          bank_name: string | null
+          business_type: string | null
+          certifications: string[] | null
+          city: string | null
+          company_name: string
+          company_name_en: string | null
+          contact_name: string | null
+          contact_position: string | null
+          country: string | null
+          created_at: string
+          created_by: string | null
+          currency: string | null
+          deleted_at: string | null
+          email: string | null
+          fax: string | null
+          iban: string | null
+          id: string
+          intermediary_bank: string | null
+          intermediary_swift: string | null
+          is_preferred: boolean | null
+          lead_time_days: number | null
+          line_id: string | null
+          main_products: string[] | null
+          minimum_order_amount: number | null
+          mobile: string | null
+          notes: string | null
+          payment_terms: string | null
+          phone: string | null
+          postal_code: string | null
+          quality_rating: number | null
+          registration_number: string | null
+          rejection_reason: string | null
+          state_province: string | null
+          status: string
+          supplier_code: string | null
+          swift_code: string | null
+          tags: string[] | null
+          updated_at: string
+          updated_by: string | null
+          website: string | null
+          wechat_id: string | null
+          year_established: number | null
+        }
+        Insert: {
+          address?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
+          bank_account_name?: string | null
+          bank_account_number?: string | null
+          bank_address?: string | null
+          bank_country?: string | null
+          bank_name?: string | null
+          business_type?: string | null
+          certifications?: string[] | null
+          city?: string | null
+          company_name: string
+          company_name_en?: string | null
+          contact_name?: string | null
+          contact_position?: string | null
+          country?: string | null
+          created_at?: string
+          created_by?: string | null
+          currency?: string | null
+          deleted_at?: string | null
+          email?: string | null
+          fax?: string | null
+          iban?: string | null
+          id?: string
+          intermediary_bank?: string | null
+          intermediary_swift?: string | null
+          is_preferred?: boolean | null
+          lead_time_days?: number | null
+          line_id?: string | null
+          main_products?: string[] | null
+          minimum_order_amount?: number | null
+          mobile?: string | null
+          notes?: string | null
+          payment_terms?: string | null
+          phone?: string | null
+          postal_code?: string | null
+          quality_rating?: number | null
+          registration_number?: string | null
+          rejection_reason?: string | null
+          state_province?: string | null
+          status?: string
+          supplier_code?: string | null
+          swift_code?: string | null
+          tags?: string[] | null
+          updated_at?: string
+          updated_by?: string | null
+          website?: string | null
+          wechat_id?: string | null
+          year_established?: number | null
+        }
+        Update: {
+          address?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
+          bank_account_name?: string | null
+          bank_account_number?: string | null
+          bank_address?: string | null
+          bank_country?: string | null
+          bank_name?: string | null
+          business_type?: string | null
+          certifications?: string[] | null
+          city?: string | null
+          company_name?: string
+          company_name_en?: string | null
+          contact_name?: string | null
+          contact_position?: string | null
+          country?: string | null
+          created_at?: string
+          created_by?: string | null
+          currency?: string | null
+          deleted_at?: string | null
+          email?: string | null
+          fax?: string | null
+          iban?: string | null
+          id?: string
+          intermediary_bank?: string | null
+          intermediary_swift?: string | null
+          is_preferred?: boolean | null
+          lead_time_days?: number | null
+          line_id?: string | null
+          main_products?: string[] | null
+          minimum_order_amount?: number | null
+          mobile?: string | null
+          notes?: string | null
+          payment_terms?: string | null
+          phone?: string | null
+          postal_code?: string | null
+          quality_rating?: number | null
+          registration_number?: string | null
+          rejection_reason?: string | null
+          state_province?: string | null
+          status?: string
+          supplier_code?: string | null
+          swift_code?: string | null
+          tags?: string[] | null
+          updated_at?: string
+          updated_by?: string | null
+          website?: string | null
+          wechat_id?: string | null
+          year_established?: number | null
+        }
+        Relationships: []
+      }
       tax_invoice_items: {
         Row: {
           created_at: string
@@ -3969,6 +4424,19 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      supplier_payment_summary: {
+        Row: {
+          company_name: string | null
+          last_payment_date: string | null
+          pending_amount: number | null
+          supplier_code: string | null
+          supplier_id: string | null
+          total_paid: number | null
+          total_paid_thb: number | null
+          total_transfers: number | null
+        }
+        Relationships: []
       }
     }
     Functions: {
