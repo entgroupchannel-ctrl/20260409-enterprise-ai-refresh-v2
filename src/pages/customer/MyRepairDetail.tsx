@@ -65,7 +65,7 @@ export default function MyRepairDetail() {
     setResponding(false);
   };
 
-  if (loading) return <div className="min-h-screen bg-background"><SiteNavbar /><div className="flex justify-center py-12"><Loader2 className="w-6 h-6 animate-spin" /></div></div>;
+  if (loading) return <CustomerLayout title="ใบสั่งซ่อม"><div className="flex justify-center py-12"><Loader2 className="w-6 h-6 animate-spin" /></div></CustomerLayout>;
   if (!ro) return <CustomerLayout title="ใบสั่งซ่อม"><div className="text-center py-12 text-muted-foreground">ไม่พบข้อมูล</div></CustomerLayout>;
 
   return (
