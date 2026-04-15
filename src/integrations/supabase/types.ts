@@ -3757,19 +3757,28 @@ export type Database = {
           created_at: string
           email: string
           id: string
+          is_active: boolean
+          notes: string | null
           source: string | null
+          unsubscribed_at: string | null
         }
         Insert: {
           created_at?: string
           email: string
           id?: string
+          is_active?: boolean
+          notes?: string | null
           source?: string | null
+          unsubscribed_at?: string | null
         }
         Update: {
           created_at?: string
           email?: string
           id?: string
+          is_active?: boolean
+          notes?: string | null
           source?: string | null
+          unsubscribed_at?: string | null
         }
         Relationships: []
       }
