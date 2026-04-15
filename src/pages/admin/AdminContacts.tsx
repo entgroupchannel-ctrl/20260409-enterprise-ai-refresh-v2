@@ -30,6 +30,7 @@ import {
   Users, Building2, User, Search, Plus, Pencil, Trash2, Loader2,
 } from 'lucide-react';
 import ContactFormDialog from '@/components/admin/ContactFormDialog';
+import ContactSubmissionsList from '@/components/admin/ContactSubmissionsList';
 
 interface Contact {
   id: string;
