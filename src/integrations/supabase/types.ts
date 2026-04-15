@@ -999,6 +999,7 @@ export type Database = {
           deleted_by: string | null
           discount_amount: number | null
           discount_percent: number | null
+          discount_type: string
           downpayment_percent: number | null
           due_date: string | null
           grand_total: number
@@ -1044,6 +1045,7 @@ export type Database = {
           deleted_by?: string | null
           discount_amount?: number | null
           discount_percent?: number | null
+          discount_type?: string
           downpayment_percent?: number | null
           due_date?: string | null
           grand_total?: number
@@ -1089,6 +1091,7 @@ export type Database = {
           deleted_by?: string | null
           discount_amount?: number | null
           discount_percent?: number | null
+          discount_type?: string
           downpayment_percent?: number | null
           due_date?: string | null
           grand_total?: number
@@ -2220,6 +2223,7 @@ export type Database = {
           delivery_terms: string | null
           discount_amount: number | null
           discount_percent: number | null
+          discount_type: string
           expired_at: string | null
           free_items: Json | null
           grand_total: number | null
@@ -2276,6 +2280,7 @@ export type Database = {
           delivery_terms?: string | null
           discount_amount?: number | null
           discount_percent?: number | null
+          discount_type?: string
           expired_at?: string | null
           free_items?: Json | null
           grand_total?: number | null
@@ -2332,6 +2337,7 @@ export type Database = {
           delivery_terms?: string | null
           discount_amount?: number | null
           discount_percent?: number | null
+          discount_type?: string
           expired_at?: string | null
           free_items?: Json | null
           grand_total?: number | null
@@ -2428,6 +2434,7 @@ export type Database = {
           customer_message: string | null
           discount_amount: number | null
           discount_percent: number | null
+          discount_type: string
           free_items: Json | null
           grand_total: number
           id: string
@@ -2457,6 +2464,7 @@ export type Database = {
           customer_message?: string | null
           discount_amount?: number | null
           discount_percent?: number | null
+          discount_type?: string
           free_items?: Json | null
           grand_total?: number
           id?: string
@@ -2486,6 +2494,7 @@ export type Database = {
           customer_message?: string | null
           discount_amount?: number | null
           discount_percent?: number | null
+          discount_type?: string
           free_items?: Json | null
           grand_total?: number
           id?: string
@@ -2654,6 +2663,7 @@ export type Database = {
           customer_notified_shipping: boolean | null
           delivered_at: string | null
           delivery_notes: string | null
+          discount_type: string
           expected_delivery_date: string | null
           grand_total: number | null
           id: string
@@ -2688,6 +2698,7 @@ export type Database = {
           customer_notified_shipping?: boolean | null
           delivered_at?: string | null
           delivery_notes?: string | null
+          discount_type?: string
           expected_delivery_date?: string | null
           grand_total?: number | null
           id?: string
@@ -2722,6 +2733,7 @@ export type Database = {
           customer_notified_shipping?: boolean | null
           delivered_at?: string | null
           delivery_notes?: string | null
+          discount_type?: string
           expected_delivery_date?: string | null
           grand_total?: number | null
           id?: string
@@ -2946,6 +2958,7 @@ export type Database = {
           delivery_date: string | null
           delivery_method: string | null
           discount_amount: number | null
+          discount_type: string
           grand_total: number
           id: string
           invoice_id: string
@@ -2979,6 +2992,7 @@ export type Database = {
           delivery_date?: string | null
           delivery_method?: string | null
           discount_amount?: number | null
+          discount_type?: string
           grand_total?: number
           id?: string
           invoice_id: string
@@ -3012,6 +3026,7 @@ export type Database = {
           delivery_date?: string | null
           delivery_method?: string | null
           discount_amount?: number | null
+          discount_type?: string
           grand_total?: number
           id?: string
           invoice_id?: string
