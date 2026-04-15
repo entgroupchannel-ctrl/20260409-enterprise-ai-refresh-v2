@@ -93,7 +93,8 @@ const navGroups: NavGroup[] = [
     label: 'สินค้า',
     icon: Package,
     items: [
-      { label: 'คลังสินค้า', icon: Package, path: '/admin/products' },
+      { label: 'คลังสินค้า', icon: Package, path: '/admin/inventory' },
+      { label: 'จัดการสินค้า', icon: Database, path: '/admin/products' },
       { label: 'นำเข้าสินค้า', icon: Upload, path: '/admin/products/import' },
       { label: 'Product Migration', icon: Database, path: '/admin/product-migration' },
       { label: 'คำขอลูกค้า', icon: ClipboardList, path: '/admin/requests', badge: 'requests' },

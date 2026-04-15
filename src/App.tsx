@@ -116,6 +116,7 @@ const AdminRepairOrderDetail = lazyRetry(() => import("./pages/admin/AdminRepair
 const MyRepairs = lazyRetry(() => import("./pages/customer/MyRepairs"));
 const MyRepairDetail = lazyRetry(() => import("./pages/customer/MyRepairDetail"));
 const RequestRepairForm = lazyRetry(() => import("./pages/customer/RequestRepairForm"));
+const AdminInventory = lazyRetry(() => import("./pages/admin/AdminInventory"));
 
 /* ── Loading fallback ── */
 const PageLoader = () => (
@@ -193,6 +194,7 @@ const App = () => (
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/admin/dashboard" element={<ProtectedRoute requireSales><AdminDashboard /></ProtectedRoute>} />
+                    <Route path="/admin/inventory" element={<ProtectedRoute requireSales><AdminInventory /></ProtectedRoute>} />
                     <Route path="/admin/quotes" element={<ProtectedRoute requireSales><AdminQuotesList /></ProtectedRoute>} />
                     <Route path="/admin/quotes/new" element={<ProtectedRoute requireSales><AdminQuoteCreate /></ProtectedRoute>} />
                     <Route path="/admin/quotes/trash" element={<ProtectedRoute requireSales><AdminTrash /></ProtectedRoute>} />
