@@ -218,7 +218,6 @@ export default function MyTaxInvoices() {
             </div>
           )}
         </div>
-      </div>
     </CustomerLayout>
   );
 }
