@@ -1052,6 +1052,7 @@ export default function AdminQuoteDetail() {
                             .update({
                               status: 'quote_sent',
                               subtotal: totals.subtotal,
+                              discount_type: quote.discount_type || 'percent',
                               discount_amount: totals.discountAmount,
                               vat_amount: totals.vatAmount,
                               grand_total: totals.grandTotal,
