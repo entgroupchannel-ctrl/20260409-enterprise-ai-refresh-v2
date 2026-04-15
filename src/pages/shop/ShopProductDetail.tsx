@@ -17,7 +17,7 @@ import {
   ChevronRight, Minus, Plus, Microchip, MemoryStick, CircuitBoard, Wifi, Antenna,
   ShieldCheck, Truck, Clock, FileText, Phone, MessageCircle, CheckCircle2,
   Package, Award, Headphones, ReceiptText, Factory, Building2, Warehouse, Server,
-  Zap, ThermometerSun, Droplets, Monitor, ShoppingCart,
+  Zap, ThermometerSun, Droplets, Monitor, ShoppingCart, AlertTriangle, CalendarClock, TrendingUp, Info,
 } from 'lucide-react';
 import SiteNavbar from '@/components/SiteNavbar';
 
@@ -234,6 +234,14 @@ const ShopProductDetail = () => {
               <span className="flex items-center gap-1"><ReceiptText className="w-3.5 h-3.5 text-primary" /> ใบกำกับภาษี</span>
               <span className="flex items-center gap-1"><Headphones className="w-3.5 h-3.5 text-primary" /> ซัพพอร์ตภาษาไทย</span>
             </div>
+
+            {/* Notice: ราคาเบื้องต้น */}
+            <div className="rounded-lg bg-amber-500/8 border border-amber-500/20 p-2.5 flex items-start gap-2">
+              <AlertTriangle className="w-3.5 h-3.5 text-amber-500 shrink-0 mt-0.5" />
+              <p className="text-[11px] text-muted-foreground leading-relaxed">
+                <span className="font-semibold text-foreground">ราคาเบื้องต้น</span> — ปรับเปลี่ยนตามต้นทุนและอัตราแลกเปลี่ยน ณ วันที่สั่งซื้อ กรุณาขอใบเสนอราคาเพื่อยืนยันราคาจริง
+              </p>
+            </div>
           </div>
 
           {/* RIGHT: Supplier + RFQ Sidebar — sticky */}
@@ -308,6 +316,13 @@ const ShopProductDetail = () => {
                   setConfigAddons(addons);
                 }}
               />
+              {/* Notice: RAM/SSD ราคาตลาดโลก */}
+              <div className="mt-3 rounded-lg bg-blue-500/8 border border-blue-500/20 p-2.5 flex items-start gap-2">
+                <TrendingUp className="w-3.5 h-3.5 text-blue-500 shrink-0 mt-0.5" />
+                <p className="text-[11px] text-muted-foreground leading-relaxed">
+                  <span className="font-semibold text-foreground">RAM / SSD / CPU</span> ปรับเปลี่ยนตามราคาตลาดโลก ระบบของเรามีผู้ช่วยคอย Update ราคาให้ท่านอัตโนมัติ
+                </p>
+              </div>
             </div>
 
             {/* Right: Specs + Description stacked */}
@@ -368,6 +383,14 @@ const ShopProductDetail = () => {
                     <p className="text-xs">ทีมช่างเทคนิคพร้อมดูแล มีอะไหล่สำรองและบริการซ่อมนอกสถานที่</p>
                   </div>
                 </div>
+              </div>
+
+              {/* Notice: Lead Time */}
+              <div className="rounded-lg bg-orange-500/8 border border-orange-500/20 p-2.5 flex items-start gap-2">
+                <CalendarClock className="w-3.5 h-3.5 text-orange-500 shrink-0 mt-0.5" />
+                <p className="text-[11px] text-muted-foreground leading-relaxed">
+                  <span className="font-semibold text-foreground">ระยะเวลาจัดส่ง:</span> สินค้าส่งตรงจากโรงงาน 7-14 วัน บางรุ่น 30-45 วัน ขึ้นอยู่กับปัจจัยต่างๆ — <span className="text-foreground font-medium">ควรสอบถามแอดมินก่อนสั่งสินค้า</span>
+                </p>
               </div>
             </div>
           </div>
@@ -522,6 +545,14 @@ const ShopProductDetail = () => {
       {/* ═══════════ RFQ FORM ═══════════ */}
       <div id="rfq-form" className="bg-muted/10 border-t border-border">
         <div className="container max-w-7xl mx-auto px-4 py-8">
+          {/* Notice: วางแผนล่วงหน้า */}
+          <div className="max-w-2xl mx-auto mb-4 rounded-lg bg-emerald-500/8 border border-emerald-500/20 p-3 flex items-start gap-2.5">
+            <Info className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+            <div className="text-[11px] text-muted-foreground leading-relaxed space-y-0.5">
+              <p className="font-semibold text-foreground text-xs">💡 แนะนำ: วางแผนสั่งซื้อล่วงหน้า</p>
+              <p>ลูกค้าควรวางแผนการสั่งสินค้าแต่เนิ่นๆ เพื่อให้โรงงานมีเวลาผลิตสินค้าและจัดส่งได้ตามกำหนด — สินค้าบางรุ่นใช้เวลาผลิต 30-45 วัน</p>
+            </div>
+          </div>
           <div className="max-w-2xl mx-auto">
             <QuickRFQForm
               product={configuredVariant || product}
