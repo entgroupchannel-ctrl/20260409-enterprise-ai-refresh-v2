@@ -144,6 +144,7 @@ export default function UserDashboard() {
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [selectedQuote, setSelectedQuote] = useState<Quote | null>(null);
+  const [showAcceptDialog, setShowAcceptDialog] = useState(false);
 
   // ─── Quote detail extras ───
   const [quoteFiles, setQuoteFiles] = useState<QuoteFile[]>([]);
