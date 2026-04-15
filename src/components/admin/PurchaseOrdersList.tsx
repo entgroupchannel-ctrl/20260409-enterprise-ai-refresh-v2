@@ -8,8 +8,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { toast } from 'sonner';
-import { Search, MoreHorizontal, Edit, Trash2, Plus, Loader2, ArrowRightLeft } from 'lucide-react';
+import { Search, MoreHorizontal, Edit, Trash2, Plus, Loader2, ArrowRightLeft, Paperclip } from 'lucide-react';
 import CreatePurchaseOrderDialog from './CreatePurchaseOrderDialog';
+
+const DOC_TYPE_LABELS: Record<string, string> = {
+  proforma_invoice: 'PI', commercial_invoice: 'CI', air_waybill: 'AWB',
+  packing_list: 'PL', certificate: 'Cert', other: 'อื่นๆ',
+};
+interface DocRef { id: string; document_type: string; file_url: string; title: string; }
 
 const STATUS_MAP: Record<string, { label: string; variant: 'default' | 'secondary' | 'destructive' | 'outline' }> = {
   draft: { label: 'ร่าง', variant: 'secondary' },
@@ -49,6 +55,7 @@ export default function PurchaseOrdersList() {
   const [editId, setEditId] = useState<string | null>(null);
   const [transferRefs, setTransferRefs] = useState<Record<string, TransferRef[]>>({});
   const [supplierNames, setSupplierNames] = useState<Record<string, string>>({});
+  const [docMap, setDocMap] = useState<Record<string, DocRef[]>>({});
 
   const fetchOrders = async () => {
     setLoading(true);
@@ -96,6 +103,24 @@ export default function PurchaseOrdersList() {
         setTransferRefs(refs);
       }
     }
+
+    // Fetch attached documents for POs
+    const poIds = list.map(o => o.id);
+    if (poIds.length > 0) {
+      const { data: docs } = await supabase.from('supplier_documents')
+        .select('id, document_type, file_url, title, purchase_order_id')
+        .in('purchase_order_id', poIds);
+      if (docs) {
+        const dm: Record<string, DocRef[]> = {};
+        for (const d of docs as any[]) {
+          const pid = d.purchase_order_id;
+          if (!dm[pid]) dm[pid] = [];
+          dm[pid].push({ id: d.id, document_type: d.document_type, file_url: d.file_url, title: d.title });
+        }
+        setDocMap(dm);
+      }
+    }
+
     setLoading(false);
   };
 
@@ -165,6 +190,7 @@ export default function PurchaseOrdersList() {
                 <TableHead className="text-right">Grand Total</TableHead>
                 <TableHead>สกุลเงิน</TableHead>
                 <TableHead>สถานะ</TableHead>
+                <TableHead>เอกสาร</TableHead>
                 <TableHead>Transfer อ้างอิง</TableHead>
                 <TableHead>วันที่สั่ง</TableHead>
                 <TableHead className="w-10"></TableHead>
@@ -172,9 +198,9 @@ export default function PurchaseOrdersList() {
             </TableHeader>
             <TableBody>
               {loading ? (
-                <TableRow><TableCell colSpan={8} className="text-center py-8"><Loader2 className="w-5 h-5 animate-spin mx-auto" /></TableCell></TableRow>
+                <TableRow><TableCell colSpan={9} className="text-center py-8"><Loader2 className="w-5 h-5 animate-spin mx-auto" /></TableCell></TableRow>
               ) : filtered.length === 0 ? (
-                <TableRow><TableCell colSpan={8} className="text-center py-8 text-muted-foreground">ไม่พบรายการ</TableCell></TableRow>
+                <TableRow><TableCell colSpan={9} className="text-center py-8 text-muted-foreground">ไม่พบรายการ</TableCell></TableRow>
               ) : filtered.map(o => (
                 <TableRow key={o.id}>
                   <TableCell className="font-mono text-xs">{o.po_number}</TableCell>
@@ -182,6 +208,21 @@ export default function PurchaseOrdersList() {
                   <TableCell className="text-right font-mono">{fmt(o.grand_total)}</TableCell>
                   <TableCell><Badge variant="outline">{o.currency || '-'}</Badge></TableCell>
                   <TableCell>{statusBadge(o.status)}</TableCell>
+                  <TableCell>
+                    {(docMap[o.id]?.length ?? 0) > 0 ? (
+                      <div className="flex flex-wrap gap-1">
+                        {docMap[o.id].map(d => (
+                          <a key={d.id} href={d.file_url} target="_blank" rel="noopener noreferrer" title={d.title}>
+                            <Badge variant="secondary" className="text-[10px] h-5 cursor-pointer hover:bg-primary/20">
+                              {DOC_TYPE_LABELS[d.document_type] || d.document_type}
+                            </Badge>
+                          </a>
+                        ))}
+                      </div>
+                    ) : (
+                      <span className="text-xs text-muted-foreground">-</span>
+                    )}
+                  </TableCell>
                   <TableCell>
                     {transferRefs[o.id]?.length ? (
                       <div className="flex flex-wrap gap-1">

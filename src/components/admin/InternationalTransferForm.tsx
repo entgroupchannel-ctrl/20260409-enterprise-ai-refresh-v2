@@ -10,7 +10,18 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
-import { Save, Send, RefreshCw, ChevronDown, Loader2 } from 'lucide-react';
+import { Save, Send, RefreshCw, ChevronDown, Loader2, Plus, X, FileText } from 'lucide-react';
+
+const DOC_TYPES = [
+  { value: 'proforma_invoice', label: 'PI' },
+  { value: 'commercial_invoice', label: 'CI' },
+  { value: 'air_waybill', label: 'AWB' },
+  { value: 'packing_list', label: 'PL' },
+  { value: 'certificate', label: 'Cert' },
+  { value: 'other', label: 'อื่นๆ' },
+] as const;
+type DocType = typeof DOC_TYPES[number]['value'];
+interface AttachedFile { file: File; type: DocType; }
 
 const CURRENCIES = ['USD', 'EUR', 'GBP', 'JPY', 'CNY', 'SGD'] as const;
 type Currency = typeof CURRENCIES[number];
@@ -57,7 +68,8 @@ export default function InternationalTransferForm({ editId, onSaved }: Props) {
   const [bankFee, setBankFee] = useState<number>(0);
   const [otherFee, setOtherFee] = useState<number>(0);
   const [notes, setNotes] = useState('');
-  const [files, setFiles] = useState<File[]>([]);
+  const [attachedFiles, setAttachedFiles] = useState<AttachedFile[]>([]);
+  const [newFileType, setNewFileType] = useState<DocType>('proforma_invoice');
 
   const totalFee = transferFee + bankFee + otherFee;
   const totalCostThb = amountThb + totalFee;
@@ -150,17 +162,18 @@ export default function InternationalTransferForm({ editId, onSaved }: Props) {
         if (error) throw error;
         transferId = data.id;
       }
-      if (files.length > 0 && transferId) {
-        for (const file of files) {
-          const path = `${supplierId}/${transferId}/${Date.now()}_${file.name}`;
-          const { error: upErr } = await supabase.storage.from('supplier-documents').upload(path, file);
-          if (upErr) { toast.error(`อัปโหลด ${file.name} ล้มเหลว`); continue; }
+      if (attachedFiles.length > 0 && transferId) {
+        const userId = (await supabase.auth.getUser()).data.user?.id || null;
+        for (const af of attachedFiles) {
+          const path = `${supplierId}/${transferId}/${Date.now()}_${af.file.name}`;
+          const { error: upErr } = await supabase.storage.from('supplier-documents').upload(path, af.file);
+          if (upErr) { toast.error(`อัปโหลด ${af.file.name} ล้มเหลว`); continue; }
           const { data: urlData } = supabase.storage.from('supplier-documents').getPublicUrl(path);
           await supabase.from('supplier_documents').insert({
             supplier_id: supplierId, transfer_request_id: transferId,
-            document_type: 'proforma_invoice', title: file.name,
-            file_name: file.name, file_url: urlData.publicUrl, file_size: file.size,
-            uploaded_by: (await supabase.auth.getUser()).data.user?.id || null,
+            document_type: af.type, title: af.file.name,
+            file_name: af.file.name, file_url: urlData.publicUrl, file_size: af.file.size,
+            uploaded_by: userId,
           });
         }
       }
@@ -328,13 +341,39 @@ export default function InternationalTransferForm({ editId, onSaved }: Props) {
         )}
 
         {/* ── Upload + Notes ── */}
-        <div className="grid grid-cols-2 gap-3">
-          <div className="space-y-1">
-            <Label className="text-xs text-muted-foreground">แนบเอกสาร</Label>
-            <Input type="file" multiple accept=".pdf,.jpg,.jpeg,.png,.xlsx,.docx"
-              onChange={e => setFiles(Array.from(e.target.files || []))} className="h-9" />
-            {files.length > 0 && <p className="text-xs text-muted-foreground">{files.length} ไฟล์</p>}
+        <div className="space-y-3">
+          <Hdr title="แนบเอกสาร" />
+          <div className="flex gap-2 items-end">
+            <div className="flex-1">
+              <Input type="file" accept=".pdf,.jpg,.jpeg,.png,.xlsx,.docx"
+                onChange={e => {
+                  const f = e.target.files?.[0];
+                  if (f) { setAttachedFiles(prev => [...prev, { file: f, type: newFileType }]); e.target.value = ''; }
+                }} className="h-9" />
+            </div>
+            <Select value={newFileType} onValueChange={v => setNewFileType(v as DocType)}>
+              <SelectTrigger className="w-[100px] h-9"><SelectValue /></SelectTrigger>
+              <SelectContent>{DOC_TYPES.map(d => <SelectItem key={d.value} value={d.value}>{d.label}</SelectItem>)}</SelectContent>
+            </Select>
           </div>
+          {attachedFiles.length > 0 && (
+            <div className="space-y-1">
+              {attachedFiles.map((af, idx) => (
+                <div key={idx} className="flex items-center gap-2 text-xs p-1.5 rounded bg-muted/40">
+                  <FileText className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
+                  <span className="flex-1 truncate">{af.file.name}</span>
+                  <Badge variant="outline" className="text-[10px] h-5">{DOC_TYPES.find(d => d.value === af.type)?.label || af.type}</Badge>
+                  <Select value={af.type} onValueChange={v => setAttachedFiles(prev => prev.map((f, i) => i === idx ? { ...f, type: v as DocType } : f))}>
+                    <SelectTrigger className="w-[80px] h-6 text-[10px]"><SelectValue /></SelectTrigger>
+                    <SelectContent>{DOC_TYPES.map(d => <SelectItem key={d.value} value={d.value}>{d.label}</SelectItem>)}</SelectContent>
+                  </Select>
+                  <Button variant="ghost" size="icon" className="h-5 w-5" onClick={() => setAttachedFiles(prev => prev.filter((_, i) => i !== idx))}>
+                    <X className="w-3 h-3" />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          )}
           <div className="space-y-1">
             <Label className="text-xs text-muted-foreground">หมายเหตุ</Label>
             <Input value={notes} onChange={e => setNotes(e.target.value)} className="h-9" />

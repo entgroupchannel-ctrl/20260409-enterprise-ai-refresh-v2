@@ -8,8 +8,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { toast } from 'sonner';
-import { Search, MoreHorizontal, Eye, Edit, Copy, Trash2, DollarSign, Clock, CheckCircle, FileText } from 'lucide-react';
+import { Search, MoreHorizontal, Eye, Edit, Copy, Trash2, DollarSign, Clock, CheckCircle, FileText, Paperclip } from 'lucide-react';
 import TransferStatusBadge from './TransferStatusBadge';
+
+const DOC_TYPE_LABELS: Record<string, string> = {
+  proforma_invoice: 'PI', commercial_invoice: 'CI', air_waybill: 'AWB',
+  packing_list: 'PL', certificate: 'Cert', other: 'อื่นๆ',
+};
+interface DocRef { id: string; document_type: string; file_url: string; title: string; }
 
 interface TransferRequest {
   id: string;
@@ -42,6 +48,7 @@ export default function TransferRequestsList({ onEdit }: Props) {
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [poMap, setPoMap] = useState<Record<string, string>>({});
+  const [docMap, setDocMap] = useState<Record<string, DocRef[]>>({});
 
   const fetchTransfers = async () => {
     setLoading(true);
@@ -69,6 +76,23 @@ export default function TransferRequestsList({ onEdit }: Props) {
           const map: Record<string, string> = {};
           for (const p of pos as any[]) map[p.id] = p.po_number;
           setPoMap(map);
+        }
+      }
+
+      // Resolve attached documents
+      const transferIds = list.map(t => t.id);
+      if (transferIds.length > 0) {
+        const { data: docs } = await supabase.from('supplier_documents')
+          .select('id, document_type, file_url, title, transfer_request_id')
+          .in('transfer_request_id', transferIds);
+        if (docs) {
+          const dm: Record<string, DocRef[]> = {};
+          for (const d of docs as any[]) {
+            const tid = d.transfer_request_id;
+            if (!dm[tid]) dm[tid] = [];
+            dm[tid].push({ id: d.id, document_type: d.document_type, file_url: d.file_url, title: d.title });
+          }
+          setDocMap(dm);
         }
       }
     } catch (err: any) {
@@ -198,15 +222,16 @@ export default function TransferRequestsList({ onEdit }: Props) {
                 <TableHead className="text-right">Rate</TableHead>
                 <TableHead className="text-right">THB</TableHead>
                 <TableHead>PO อ้างอิง</TableHead>
+                <TableHead>เอกสาร</TableHead>
                 <TableHead>สถานะ</TableHead>
                 <TableHead className="w-10"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {loading ? (
-                <TableRow><TableCell colSpan={9} className="text-center py-8 text-muted-foreground">กำลังโหลด...</TableCell></TableRow>
+                <TableRow><TableCell colSpan={10} className="text-center py-8 text-muted-foreground">กำลังโหลด...</TableCell></TableRow>
               ) : filtered.length === 0 ? (
-                <TableRow><TableCell colSpan={9} className="text-center py-8 text-muted-foreground">ไม่พบรายการ</TableCell></TableRow>
+                <TableRow><TableCell colSpan={10} className="text-center py-8 text-muted-foreground">ไม่พบรายการ</TableCell></TableRow>
               ) : filtered.map(t => (
                 <TableRow key={t.id}>
                   <TableCell className="font-mono text-xs">{t.transfer_number}</TableCell>
@@ -222,6 +247,21 @@ export default function TransferRequestsList({ onEdit }: Props) {
                           <Badge key={poId} variant="outline" className="text-xs font-mono">
                             {poMap[poId] || poId.slice(0, 8)}
                           </Badge>
+                        ))}
+                      </div>
+                    ) : (
+                      <span className="text-xs text-muted-foreground">-</span>
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    {(docMap[t.id]?.length ?? 0) > 0 ? (
+                      <div className="flex flex-wrap gap-1">
+                        {docMap[t.id].map(d => (
+                          <a key={d.id} href={d.file_url} target="_blank" rel="noopener noreferrer" title={d.title}>
+                            <Badge variant="secondary" className="text-[10px] h-5 cursor-pointer hover:bg-primary/20">
+                              {DOC_TYPE_LABELS[d.document_type] || d.document_type}
+                            </Badge>
+                          </a>
                         ))}
                       </div>
                     ) : (
