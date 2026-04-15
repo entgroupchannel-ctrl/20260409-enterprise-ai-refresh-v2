@@ -12,8 +12,6 @@ import {
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 
-// ─── Types ────────────────────────────────────────────────────────────────────
-
 interface Message {
   id: string;
   quote_id: string;
@@ -36,17 +34,12 @@ interface QuoteOption {
 }
 
 interface Props {
-  /** ถ้าส่ง quoteId มา จะเปิด chat ของ quote นั้นทันที */
   quoteId?: string;
-  /** mode: 'widget' = floating bubble, 'inline' = embed ในหน้า */
   mode?: 'widget' | 'inline';
 }
 
-// ─── Helpers ─────────────────────────────────────────────────────────────────
-
 const roleBubbleCls = (role: string, isMe: boolean) => {
   if (isMe) return 'bg-blue-600 text-white rounded-tr-sm';
-  if (role === 'admin' || role === 'sales') return 'bg-card border rounded-tl-sm';
   return 'bg-card border rounded-tl-sm';
 };
 
@@ -65,8 +58,6 @@ const RoleAvatar = ({ role }: { role: string }) => {
   );
 };
 
-// ─── Main Component ───────────────────────────────────────────────────────────
-
 export default function CustomerChat({ quoteId: propQuoteId, mode = 'widget' }: Props) {
   const { user, profile } = useAuth();
 
@@ -83,25 +74,21 @@ export default function CustomerChat({ quoteId: propQuoteId, mode = 'widget' }: 
   const fileRef   = useRef<HTMLInputElement>(null);
   const channelRef= useRef<any>(null);
 
-  const activeQuote = quotes.find(q => q.id === activeQuoteId);
-
-  // ── Load user's quotes ──
   useEffect(() => {
     if (!user?.id) return;
     supabase
-      .from('quotes')
+      .from('quote_requests')
       .select('id, quote_number, status, created_at')
-      .eq('user_id', user.id)
+      .eq('created_by', user.id)
       .is('deleted_at', null)
       .order('created_at', { ascending: false })
       .then(({ data }) => {
-        const list = (data as QuoteOption[]) ?? [];
+        const list = (data ?? []) as unknown as QuoteOption[];
         setQuotes(list);
         if (!activeQuoteId && list.length > 0) setActiveQuoteId(list[0].id);
       });
   }, [user?.id]);
 
-  // ── Load & subscribe to messages ──
   const loadMessages = useCallback(async (qId: string) => {
     const { data } = await supabase
       .from('quote_messages')
@@ -110,17 +97,15 @@ export default function CustomerChat({ quoteId: propQuoteId, mode = 'widget' }: 
       .order('created_at', { ascending: true });
     setMessages((data as Message[]) ?? []);
 
-    // Count unread from admin
-    const unread = (data as Message[]).filter(m => {
-      const readBy: string[] = Array.isArray(m.read_by) ? m.read_by : [];
+    const unread = ((data as Message[]) ?? []).filter(m => {
+      const readBy: string[] = Array.isArray(m.read_by) ? (m.read_by as string[]) : [];
       return m.sender_role !== 'customer' && !readBy.includes(user?.id ?? '');
     }).length;
     setUnreadCount(unread);
 
-    // Mark admin messages as read
     if (user?.id && data) {
       for (const m of data as Message[]) {
-        const readBy: string[] = Array.isArray(m.read_by) ? m.read_by : [];
+        const readBy: string[] = Array.isArray(m.read_by) ? (m.read_by as string[]) : [];
         if (m.sender_role !== 'customer' && !readBy.includes(user.id)) {
           await supabase.from('quote_messages')
             .update({ read_by: [...readBy, user.id] } as any)
@@ -156,12 +141,10 @@ export default function CustomerChat({ quoteId: propQuoteId, mode = 'widget' }: 
     return () => { channelRef.current?.unsubscribe(); };
   }, [activeQuoteId, loadMessages]);
 
-  // ── Auto-scroll ──
   useEffect(() => {
     if (open) bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, open]);
 
-  // ── Reset unread when opening ──
   useEffect(() => {
     if (open && activeQuoteId) {
       setUnreadCount(0);
@@ -169,7 +152,6 @@ export default function CustomerChat({ quoteId: propQuoteId, mode = 'widget' }: 
     }
   }, [open, activeQuoteId, loadMessages]);
 
-  // ── Send ──
   const sendMessage = async (content: string, attachmentUrl?: string, attachmentName?: string) => {
     if (!activeQuoteId || !user) return;
     setSending(true);
@@ -183,7 +165,7 @@ export default function CustomerChat({ quoteId: propQuoteId, mode = 'widget' }: 
         message_type:    attachmentUrl ? 'file' : 'text',
         attachment_url:  attachmentUrl ?? null,
         attachment_name: attachmentName ?? null,
-      } as any);
+      });
       setText('');
     } catch (e: any) { toast.error(e.message); }
     finally { setSending(false); }
@@ -209,8 +191,7 @@ export default function CustomerChat({ quoteId: propQuoteId, mode = 'widget' }: 
 
   if (!user) return null;
 
-  // ─── INLINE mode ─────────────────────────────────────────────────────────
-
+  // INLINE mode
   if (mode === 'inline') {
     return (
       <ChatInner
@@ -231,14 +212,11 @@ export default function CustomerChat({ quoteId: propQuoteId, mode = 'widget' }: 
     );
   }
 
-  // ─── WIDGET (floating bubble) mode ───────────────────────────────────────
-
+  // WIDGET mode
   return (
     <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-2">
-      {/* Chat window */}
       {open && (
         <div className="w-[360px] max-h-[520px] rounded-2xl shadow-2xl border bg-background flex flex-col overflow-hidden">
-          {/* Header */}
           <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-3 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
@@ -274,7 +252,6 @@ export default function CustomerChat({ quoteId: propQuoteId, mode = 'widget' }: 
         </div>
       )}
 
-      {/* Floating bubble */}
       <button
         onClick={() => setOpen(o => !o)}
         className="relative w-14 h-14 rounded-full bg-blue-600 hover:bg-blue-700 text-white shadow-xl flex items-center justify-center transition-all active:scale-95"
@@ -292,8 +269,7 @@ export default function CustomerChat({ quoteId: propQuoteId, mode = 'widget' }: 
   );
 }
 
-// ─── Inner chat panel (shared between widget + inline) ────────────────────────
-
+// Inner chat panel
 interface InnerProps {
   quotes: QuoteOption[];
   activeQuoteId: string | null;
@@ -326,7 +302,6 @@ function ChatInner({
 
   return (
     <div className={cn('flex flex-col flex-1', compact ? 'max-h-[430px]' : 'h-full')}>
-      {/* Quote selector */}
       {quotes.length > 1 && (
         <div className="px-3 py-2 border-b bg-muted/30 flex gap-2 overflow-x-auto scrollbar-hide">
           {quotes.map(q => {
@@ -350,7 +325,6 @@ function ChatInner({
         </div>
       )}
 
-      {/* Messages */}
       <div className="flex-1 overflow-y-auto p-3 space-y-2 bg-muted/10">
         {quotes.length === 0 && (
           <div className="text-center py-8 text-muted-foreground text-xs px-4">
@@ -422,7 +396,6 @@ function ChatInner({
         <div ref={bottomRef} />
       </div>
 
-      {/* Input */}
       <div className="border-t bg-card p-2.5">
         {!activeQuoteId ? (
           <p className="text-center text-xs text-muted-foreground py-1">
