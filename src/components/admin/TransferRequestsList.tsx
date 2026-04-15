@@ -419,6 +419,17 @@ export default function TransferRequestsList({ onEdit }: Props) {
                   </TableCell>
                   <TableCell><TransferStatusBadge status={t.status} /></TableCell>
                   <TableCell>
+                    {(t as any).email_notification_status === 'sent' ? (
+                      <Badge variant="default" className="text-[10px]">📧 ส่งแล้ว</Badge>
+                    ) : (t as any).email_notification_status === 'preview_only' ? (
+                      <Badge variant="secondary" className="text-[10px]">📋 Copy แล้ว</Badge>
+                    ) : t.status === 'transferred' ? (
+                      <Badge variant="outline" className="text-[10px]">⏳ ยังไม่แจ้ง</Badge>
+                    ) : (
+                      <span className="text-xs text-muted-foreground">-</span>
+                    )}
+                  </TableCell>
+                  <TableCell>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button variant="ghost" size="icon" className="h-8 w-8" disabled={actionLoading === t.id}>
@@ -461,6 +472,16 @@ export default function TransferRequestsList({ onEdit }: Props) {
                             <DropdownMenuSeparator />
                             <DropdownMenuItem onClick={() => { setConfirmTarget(t); setSlipFile(null); setConfirmDialogOpen(true); }} className="text-blue-600">
                               <Upload className="h-4 w-4 mr-2" />ยืนยันโอนแล้ว
+                            </DropdownMenuItem>
+                          </>
+                        )}
+
+                        {/* Transferred actions — email supplier */}
+                        {t.status === 'transferred' && (
+                          <>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem onClick={() => { setEmailTarget(t); setEmailModalOpen(true); }}>
+                              <Mail className="h-4 w-4 mr-2" />📧 แจ้ง Supplier
                             </DropdownMenuItem>
                           </>
                         )}
