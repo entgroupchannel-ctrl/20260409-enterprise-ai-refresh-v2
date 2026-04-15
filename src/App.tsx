@@ -81,6 +81,8 @@ const AdminInvoicesList = lazyRetry(() => import("./pages/admin/AdminInvoicesLis
 const AdminInvoiceDetail = lazyRetry(() => import("./pages/admin/AdminInvoiceDetail"));
 const AdminTaxInvoicesList = lazyRetry(() => import("./pages/admin/AdminTaxInvoicesList"));
 const AdminTaxInvoiceDetail = lazyRetry(() => import("./pages/admin/AdminTaxInvoiceDetail"));
+const AdminCreditNotesList = lazyRetry(() => import("./pages/admin/AdminCreditNotesList"));
+const AdminCreditNoteDetail = lazyRetry(() => import("./pages/admin/AdminCreditNoteDetail"));
 const AdminReceiptsList = lazyRetry(() => import("./pages/admin/AdminReceiptsList"));
 const AdminReceiptDetail = lazyRetry(() => import("./pages/admin/AdminReceiptDetail"));
 const AdminContacts = lazyRetry(() => import("./pages/admin/AdminContacts"));
@@ -197,6 +199,8 @@ const App = () => (
                     <Route path="/admin/invoices/:id" element={<ProtectedRoute requireSales><AdminInvoiceDetail /></ProtectedRoute>} />
                     <Route path="/admin/tax-invoices" element={<ProtectedRoute requireSales><AdminTaxInvoicesList /></ProtectedRoute>} />
                     <Route path="/admin/tax-invoices/:id" element={<ProtectedRoute requireSales><AdminTaxInvoiceDetail /></ProtectedRoute>} />
+                    <Route path="/admin/credit-notes" element={<ProtectedRoute requireSales><AdminCreditNotesList /></ProtectedRoute>} />
+                    <Route path="/admin/credit-notes/:id" element={<ProtectedRoute requireSales><AdminCreditNoteDetail /></ProtectedRoute>} />
                     <Route path="/admin/receipts" element={<ProtectedRoute requireSales><AdminReceiptsList /></ProtectedRoute>} />
                     <Route path="/admin/receipts/:id" element={<ProtectedRoute requireSales><AdminReceiptDetail /></ProtectedRoute>} />
                     <Route path="/admin/requests" element={<ProtectedRoute requireAdmin><AdminRequests /></ProtectedRoute>} />
