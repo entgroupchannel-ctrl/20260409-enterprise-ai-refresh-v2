@@ -81,7 +81,7 @@ export default function InternationalTransferForm({ editId, onSaved }: Props) {
     setIntermediaryBank(selectedSupplier.intermediary_bank || '');
     setIntermediarySwift(selectedSupplier.intermediary_swift || '');
     if (selectedSupplier.currency) setCurrency(selectedSupplier.currency as Currency);
-    supabase.from('purchase_orders').select('id, po_number, grand_total, currency, status')
+    supabase.from('purchase_orders').select('id, po_number, grand_total, currency, status, pi_number')
       .eq('supplier_id', selectedSupplier.id).is('deleted_at', null)
       .then(({ data }) => setPos((data as PO[]) || []));
   }, [supplierId]);
@@ -264,19 +264,27 @@ export default function InternationalTransferForm({ editId, onSaved }: Props) {
         <div className="space-y-3">
           <Hdr title="อ้างอิงและวัตถุประสงค์" />
           {pos.length > 0 && (
-            <div className="flex flex-wrap gap-2 p-2 rounded-md bg-muted/30">
-              {pos.map(po => (
-                <label key={po.id} className="flex items-center gap-1.5 text-xs cursor-pointer px-2 py-1 rounded hover:bg-muted">
-                  <Checkbox checked={selectedPoIds.includes(po.id)}
-                    onCheckedChange={checked => setSelectedPoIds(prev => checked ? [...prev, po.id] : prev.filter(x => x !== po.id))} />
-                  <span className="font-mono">{po.po_number}</span>
-                  <Badge variant="outline" className="text-[10px] h-4">{fmt(po.grand_total || 0)}</Badge>
-                </label>
-              ))}
-              {selectedPoIds.length > 0 && (
-                <span className="text-xs text-muted-foreground ml-auto self-center">
-                  รวม PO: <span className="font-bold">{fmt(poTotal)}</span>
-                </span>
+            <div className="space-y-2">
+              <div className="flex flex-wrap gap-2 p-2 rounded-md bg-muted/30">
+                {pos.map(po => (
+                  <label key={po.id} className="flex items-center gap-1.5 text-xs cursor-pointer px-2 py-1 rounded hover:bg-muted">
+                    <Checkbox checked={selectedPoIds.includes(po.id)}
+                      onCheckedChange={checked => setSelectedPoIds(prev => checked ? [...prev, po.id] : prev.filter(x => x !== po.id))} />
+                    <span className="font-mono">{po.po_number}</span>
+                    {po.pi_number && <span className="text-muted-foreground">PI: {po.pi_number}</span>}
+                    <Badge variant="outline" className="text-[10px] h-4">{fmt(po.grand_total || 0)}</Badge>
+                  </label>
+                ))}
+                {selectedPoIds.length > 0 && (
+                  <span className="text-xs text-muted-foreground ml-auto self-center">
+                    รวม PO: <span className="font-bold">{fmt(poTotal)}</span>
+                  </span>
+                )}
+              </div>
+              {selectedPoIds.length > 0 && amount > 0 && Math.abs(amount - poTotal) > 0.01 && (
+                <div className="text-xs text-amber-600 bg-amber-50 dark:bg-amber-950/30 px-3 py-1.5 rounded-md">
+                  ⚠️ ยอดโอน ({fmt(amount)} {currency}) ไม่ตรงกับยอด PO ({fmt(poTotal)} {currency}) — ต่างกัน {fmt(Math.abs(amount - poTotal))}
+                </div>
               )}
             </div>
           )}
