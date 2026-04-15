@@ -251,6 +251,9 @@ export default function PurchaseOrdersList() {
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
                         <DropdownMenuItem onClick={() => handleEdit(o.id)}><Edit className="h-4 w-4 mr-2" />แก้ไข</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => { setEmailPO(o); setEmailModalOpen(true); }}>
+                          <Mail className="h-4 w-4 mr-2" />📧 ส่งอีเมล
+                        </DropdownMenuItem>
                         {['draft'].includes(o.status) && (
                           <DropdownMenuItem onClick={() => handleDelete(o.id)} className="text-destructive"><Trash2 className="h-4 w-4 mr-2" />ลบ</DropdownMenuItem>
                         )}
@@ -270,6 +273,22 @@ export default function PurchaseOrdersList() {
         editId={editId}
         onSaved={fetchOrders}
       />
+
+      {emailPO && (
+        <EmailPreviewModal
+          open={emailModalOpen}
+          onOpenChange={setEmailModalOpen}
+          po={{
+            id: emailPO.id,
+            po_number: emailPO.po_number,
+            order_date: emailPO.order_date,
+            expected_delivery: emailPO.expected_delivery,
+            grand_total: emailPO.grand_total,
+            currency: emailPO.currency,
+          }}
+          supplier={{ email: supplierEmails[emailPO.supplier_id], company_name: supplierNames[emailPO.supplier_id] }}
+        />
+      )}
     </div>
   );
 }
