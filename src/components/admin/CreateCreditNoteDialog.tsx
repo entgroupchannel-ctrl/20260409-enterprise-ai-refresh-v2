@@ -25,6 +25,13 @@ interface Props {
   onSuccess?: () => void;
 }
 
+interface ItemSelection {
+  selected: boolean;
+  mode: 'qty' | 'amount';
+  qty: string;
+  amount: string;
+}
+
 const REASON_CODES = [
   { value: 'return', label: 'สินค้าคืน' },
   { value: 'damaged', label: 'ของเสียหาย' },
@@ -58,7 +65,7 @@ export default function CreateCreditNoteDialog({
   const [reasonCode, setReasonCode] = useState<string>('');
   const [reasonDetail, setReasonDetail] = useState('');
   const [adjustmentTarget, setAdjustmentTarget] = useState<'payment' | 'invoice' | 'both'>('both');
-  const [selectedItems, setSelectedItems] = useState<Record<string, { qty: number; selected: boolean }>>({});
+  const [selectedItems, setSelectedItems] = useState<Record<string, ItemSelection>>({});
   const [notes, setNotes] = useState('');
 
   useEffect(() => {
@@ -84,9 +91,9 @@ export default function CreateCreditNoteDialog({
         
         setTaxInvoiceItems(items || []);
         
-        const selMap: Record<string, { qty: number; selected: boolean }> = {};
+        const selMap: Record<string, ItemSelection> = {};
         (items || []).forEach((it: any) => {
-          selMap[it.id] = { qty: Number(it.quantity || 0), selected: false };
+          selMap[it.id] = { selected: false, mode: 'qty', qty: '', amount: '' };
         });
         setSelectedItems(selMap);
         
@@ -121,10 +128,20 @@ export default function CreateCreditNoteDialog({
     }
   }, [open]);
 
+  const getItemLineTotal = (item: any, sel: ItemSelection): number => {
+    if (!sel.selected) return 0;
+    if (sel.mode === 'amount') {
+      const amt = parseFloat(sel.amount) || 0;
+      return Math.min(amt, Number(item.line_total || item.quantity * item.unit_price));
+    }
+    const qty = parseFloat(sel.qty) || 0;
+    return qty * Number(item.unit_price || 0);
+  };
+
   const selectedSubtotal = taxInvoiceItems.reduce((sum, item) => {
     const sel = selectedItems[item.id];
     if (!sel?.selected) return sum;
-    return sum + (sel.qty * Number(item.unit_price || 0));
+    return sum + getItemLineTotal(item, sel);
   }, 0);
   
   const vatPercent = Number(taxInvoice?.vat_amount || 0) > 0 && Number(taxInvoice?.subtotal || 0) > 0
@@ -133,7 +150,11 @@ export default function CreateCreditNoteDialog({
   const vatAmount = selectedSubtotal * (vatPercent / 100);
   const grandTotal = selectedSubtotal + vatAmount;
 
-  const hasSelectedItems = Object.values(selectedItems).some(s => s.selected && s.qty > 0);
+  const hasSelectedItems = Object.entries(selectedItems).some(([id, s]) => {
+    if (!s.selected) return false;
+    if (s.mode === 'amount') return (parseFloat(s.amount) || 0) > 0;
+    return (parseFloat(s.qty) || 0) > 0;
+  });
 
   const handleSubmit = async () => {
     if (!reasonCode) {
@@ -194,20 +215,45 @@ export default function CreateCreditNoteDialog({
       if (cnError) throw cnError;
 
       const itemsToInsert = taxInvoiceItems
-        .filter(item => selectedItems[item.id]?.selected && selectedItems[item.id]?.qty > 0)
-        .map((item, idx) => ({
-          credit_note_id: cn.id,
-          original_item_id: item.id,
-          product_id: item.product_id,
-          product_name: item.product_name,
-          product_description: item.product_description,
-          sku: item.sku,
-          quantity: selectedItems[item.id].qty,
-          unit: item.unit,
-          unit_price: Number(item.unit_price),
-          line_total: selectedItems[item.id].qty * Number(item.unit_price),
-          display_order: idx,
-        }));
+        .filter(item => {
+          const sel = selectedItems[item.id];
+          if (!sel?.selected) return false;
+          if (sel.mode === 'amount') return (parseFloat(sel.amount) || 0) > 0;
+          return (parseFloat(sel.qty) || 0) > 0;
+        })
+        .map((item, idx) => {
+          const sel = selectedItems[item.id];
+          if (sel.mode === 'amount') {
+            const amt = parseFloat(sel.amount) || 0;
+            return {
+              credit_note_id: cn.id,
+              original_item_id: item.id,
+              product_id: item.product_id,
+              product_name: item.product_name,
+              product_description: item.product_description,
+              sku: item.sku,
+              quantity: 1,
+              unit: 'รายการ',
+              unit_price: amt,
+              line_total: amt,
+              display_order: idx,
+            };
+          }
+          const qty = parseFloat(sel.qty) || 0;
+          return {
+            credit_note_id: cn.id,
+            original_item_id: item.id,
+            product_id: item.product_id,
+            product_name: item.product_name,
+            product_description: item.product_description,
+            sku: item.sku,
+            quantity: qty,
+            unit: item.unit,
+            unit_price: Number(item.unit_price),
+            line_total: qty * Number(item.unit_price),
+            display_order: idx,
+          };
+        });
 
       const { error: itemsError } = await (supabase as any)
         .from('credit_note_items')
@@ -311,42 +357,124 @@ export default function CreateCreditNoteDialog({
             <Label>รายการสินค้าที่จะลด <span className="text-destructive">*</span></Label>
             <div className="border rounded-lg divide-y">
               {taxInvoiceItems.map(item => {
-                const sel = selectedItems[item.id] || { qty: 0, selected: false };
+                const sel = selectedItems[item.id] || { selected: false, mode: 'qty' as const, qty: '', amount: '' };
                 const maxQty = Number(item.quantity);
+                const maxAmount = Number(item.line_total || maxQty * Number(item.unit_price));
                 return (
-                  <div key={item.id} className="p-3 flex items-center gap-3">
-                    <Checkbox
-                      checked={sel.selected}
-                      onCheckedChange={(v) => {
-                        setSelectedItems(prev => ({
-                          ...prev,
-                          [item.id]: { ...prev[item.id], selected: !!v }
-                        }));
-                      }}
-                    />
-                    <div className="flex-1 min-w-0">
-                      <div className="text-sm font-medium truncate">{item.product_name}</div>
-                      <div className="text-xs text-muted-foreground">
-                        ฿{formatCurrency(Number(item.unit_price))} / {item.unit} 
-                        — เดิม {maxQty} {item.unit}
+                  <div key={item.id} className="p-3 space-y-2">
+                    <div className="flex items-center gap-3">
+                      <Checkbox
+                        checked={sel.selected}
+                        onCheckedChange={(v) => {
+                          setSelectedItems(prev => ({
+                            ...prev,
+                            [item.id]: { ...prev[item.id], selected: !!v }
+                          }));
+                        }}
+                      />
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm font-medium truncate">{item.product_name}</div>
+                        <div className="text-xs text-muted-foreground">
+                          ฿{formatCurrency(Number(item.unit_price))} / {item.unit} 
+                          — เดิม {maxQty} {item.unit} (รวม ฿{formatCurrency(maxAmount)})
+                        </div>
                       </div>
                     </div>
-                    <Input
-                      type="number"
-                      min="0"
-                      max={maxQty}
-                      step="0.01"
-                      value={sel.qty}
-                      disabled={!sel.selected}
-                      onChange={(e) => {
-                        const v = parseFloat(e.target.value) || 0;
-                        setSelectedItems(prev => ({
-                          ...prev,
-                          [item.id]: { ...prev[item.id], qty: Math.min(maxQty, Math.max(0, v)) }
-                        }));
-                      }}
-                      className="w-24"
-                    />
+
+                    {sel.selected && (
+                      <div className="ml-9 space-y-2">
+                        <div className="flex items-center gap-4">
+                          <label className="flex items-center gap-1.5 cursor-pointer text-sm">
+                            <input
+                              type="radio"
+                              name={`mode-${item.id}`}
+                              checked={sel.mode === 'qty'}
+                              onChange={() => setSelectedItems(prev => ({
+                                ...prev,
+                                [item.id]: { ...prev[item.id], mode: 'qty', amount: '' }
+                              }))}
+                              className="accent-primary"
+                            />
+                            ลดจำนวน
+                          </label>
+                          <label className="flex items-center gap-1.5 cursor-pointer text-sm">
+                            <input
+                              type="radio"
+                              name={`mode-${item.id}`}
+                              checked={sel.mode === 'amount'}
+                              onChange={() => setSelectedItems(prev => ({
+                                ...prev,
+                                [item.id]: { ...prev[item.id], mode: 'amount', qty: '' }
+                              }))}
+                              className="accent-primary"
+                            />
+                            ลดจำนวนเงิน
+                          </label>
+                        </div>
+
+                        {sel.mode === 'qty' ? (
+                          <div className="flex items-center gap-2">
+                            <Input
+                              type="number"
+                              min="0"
+                              max={maxQty}
+                              step="0.01"
+                              value={sel.qty}
+                              placeholder={`สูงสุด ${maxQty}`}
+                              onChange={(e) => {
+                                const raw = e.target.value;
+                                if (raw === '') {
+                                  setSelectedItems(prev => ({
+                                    ...prev,
+                                    [item.id]: { ...prev[item.id], qty: '' }
+                                  }));
+                                  return;
+                                }
+                                const v = parseFloat(raw);
+                                if (!isNaN(v)) {
+                                  setSelectedItems(prev => ({
+                                    ...prev,
+                                    [item.id]: { ...prev[item.id], qty: String(Math.min(maxQty, Math.max(0, v))) }
+                                  }));
+                                }
+                              }}
+                              className="w-32"
+                            />
+                            <span className="text-xs text-muted-foreground">{item.unit}</span>
+                          </div>
+                        ) : (
+                          <div className="flex items-center gap-2">
+                            <Input
+                              type="number"
+                              min="0"
+                              max={maxAmount}
+                              step="0.01"
+                              value={sel.amount}
+                              placeholder={`สูงสุด ${formatCurrency(maxAmount)}`}
+                              onChange={(e) => {
+                                const raw = e.target.value;
+                                if (raw === '') {
+                                  setSelectedItems(prev => ({
+                                    ...prev,
+                                    [item.id]: { ...prev[item.id], amount: '' }
+                                  }));
+                                  return;
+                                }
+                                const v = parseFloat(raw);
+                                if (!isNaN(v)) {
+                                  setSelectedItems(prev => ({
+                                    ...prev,
+                                    [item.id]: { ...prev[item.id], amount: String(Math.min(maxAmount, Math.max(0, v))) }
+                                  }));
+                                }
+                              }}
+                              className="w-40"
+                            />
+                            <span className="text-xs text-muted-foreground">บาท</span>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 );
               })}
