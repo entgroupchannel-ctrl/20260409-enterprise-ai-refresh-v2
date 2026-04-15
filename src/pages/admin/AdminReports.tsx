@@ -103,6 +103,9 @@ export default function AdminReports() {
   const [salesData, setSalesData] = useState<any>({});
   const [financeData, setFinanceData] = useState<any>({});
   const [opsData, setOpsData] = useState<any>({});
+  const [revenueTrend, setRevenueTrend] = useState<{ month: string; revenue: number }[]>([]);
+  const [arApMonthly, setArApMonthly] = useState<{ month: string; ar: number; ap: number }[]>([]);
+  const [supplierPoData, setSupplierPoData] = useState<{ name: string; value: number }[]>([]);
 
   const load = useCallback(async () => {
     setLoading(true);
