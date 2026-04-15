@@ -2298,60 +2298,96 @@ export type Database = {
       }
       purchase_orders: {
         Row: {
+          carrier: string | null
+          ci_number: string | null
+          country_of_origin: string | null
           created_at: string
           created_by: string | null
           currency: string | null
           deleted_at: string | null
+          delivery_days: string | null
+          destination: string | null
           expected_delivery: string | null
           grand_total: number | null
+          handling_fee: number | null
           id: string
           items: Json
+          loading_port: string | null
           notes: string | null
           order_date: string | null
           other_cost: number | null
+          payment_terms: string | null
+          pi_number: string | null
           po_number: string
+          price_terms: string | null
           shipping_cost: number | null
+          shipping_method: string | null
           status: string
           subtotal: number | null
           supplier_id: string
+          tracking_number: string | null
           updated_at: string | null
         }
         Insert: {
+          carrier?: string | null
+          ci_number?: string | null
+          country_of_origin?: string | null
           created_at?: string
           created_by?: string | null
           currency?: string | null
           deleted_at?: string | null
+          delivery_days?: string | null
+          destination?: string | null
           expected_delivery?: string | null
           grand_total?: number | null
+          handling_fee?: number | null
           id?: string
           items?: Json
+          loading_port?: string | null
           notes?: string | null
           order_date?: string | null
           other_cost?: number | null
+          payment_terms?: string | null
+          pi_number?: string | null
           po_number?: string
+          price_terms?: string | null
           shipping_cost?: number | null
+          shipping_method?: string | null
           status?: string
           subtotal?: number | null
           supplier_id: string
+          tracking_number?: string | null
           updated_at?: string | null
         }
         Update: {
+          carrier?: string | null
+          ci_number?: string | null
+          country_of_origin?: string | null
           created_at?: string
           created_by?: string | null
           currency?: string | null
           deleted_at?: string | null
+          delivery_days?: string | null
+          destination?: string | null
           expected_delivery?: string | null
           grand_total?: number | null
+          handling_fee?: number | null
           id?: string
           items?: Json
+          loading_port?: string | null
           notes?: string | null
           order_date?: string | null
           other_cost?: number | null
+          payment_terms?: string | null
+          pi_number?: string | null
           po_number?: string
+          price_terms?: string | null
           shipping_cost?: number | null
+          shipping_method?: string | null
           status?: string
           subtotal?: number | null
           supplier_id?: string
+          tracking_number?: string | null
           updated_at?: string | null
         }
         Relationships: [
@@ -3781,6 +3817,9 @@ export type Database = {
           created_at: string
           created_by: string | null
           currency: string | null
+          default_delivery_days: string | null
+          default_payment_terms: string | null
+          default_price_terms: string | null
           deleted_at: string | null
           email: string | null
           fax: string | null
@@ -3801,6 +3840,7 @@ export type Database = {
           quality_rating: number | null
           registration_number: string | null
           rejection_reason: string | null
+          skype: string | null
           state_province: string | null
           status: string
           supplier_code: string | null
@@ -3808,8 +3848,11 @@ export type Database = {
           tags: string[] | null
           updated_at: string
           updated_by: string | null
+          warranty_terms_free: string | null
+          warranty_terms_paid: string | null
           website: string | null
           wechat_id: string | null
+          whatsapp: string | null
           year_established: number | null
         }
         Insert: {
@@ -3832,6 +3875,9 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           currency?: string | null
+          default_delivery_days?: string | null
+          default_payment_terms?: string | null
+          default_price_terms?: string | null
           deleted_at?: string | null
           email?: string | null
           fax?: string | null
@@ -3852,6 +3898,7 @@ export type Database = {
           quality_rating?: number | null
           registration_number?: string | null
           rejection_reason?: string | null
+          skype?: string | null
           state_province?: string | null
           status?: string
           supplier_code?: string | null
@@ -3859,8 +3906,11 @@ export type Database = {
           tags?: string[] | null
           updated_at?: string
           updated_by?: string | null
+          warranty_terms_free?: string | null
+          warranty_terms_paid?: string | null
           website?: string | null
           wechat_id?: string | null
+          whatsapp?: string | null
           year_established?: number | null
         }
         Update: {
@@ -3883,6 +3933,9 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           currency?: string | null
+          default_delivery_days?: string | null
+          default_payment_terms?: string | null
+          default_price_terms?: string | null
           deleted_at?: string | null
           email?: string | null
           fax?: string | null
@@ -3903,6 +3956,7 @@ export type Database = {
           quality_rating?: number | null
           registration_number?: string | null
           rejection_reason?: string | null
+          skype?: string | null
           state_province?: string | null
           status?: string
           supplier_code?: string | null
@@ -3910,8 +3964,11 @@ export type Database = {
           tags?: string[] | null
           updated_at?: string
           updated_by?: string | null
+          warranty_terms_free?: string | null
+          warranty_terms_paid?: string | null
           website?: string | null
           wechat_id?: string | null
+          whatsapp?: string | null
           year_established?: number | null
         }
         Relationships: []
