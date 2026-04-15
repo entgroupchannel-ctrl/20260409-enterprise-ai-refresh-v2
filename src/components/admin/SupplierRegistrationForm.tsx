@@ -51,11 +51,49 @@ const initial: FormData = {
   default_price_terms: '', default_payment_terms: '', default_delivery_days: '',
 };
 
-interface Props { onSaved?: () => void; }
+interface Props { onSaved?: () => void; editData?: any; }
 
-export default function SupplierRegistrationForm({ onSaved }: Props) {
+export default function SupplierRegistrationForm({ onSaved, editData }: Props) {
   const { toast } = useToast();
-  const [form, setForm] = useState<FormData>(initial);
+  const buildInitial = (): FormData => {
+    if (!editData) return initial;
+    return {
+      company_name: editData.company_name || '',
+      company_name_en: editData.company_name_en || '',
+      business_type: editData.business_type || '',
+      registration_number: editData.registration_number || '',
+      year_established: editData.year_established ? String(editData.year_established) : '',
+      country: editData.country || 'China',
+      contact_name: editData.contact_name || '',
+      contact_position: editData.contact_position || '',
+      email: editData.email || '', phone: editData.phone || '',
+      mobile: editData.mobile || '', fax: editData.fax || '',
+      website: editData.website || '', line_id: editData.line_id || '',
+      wechat_id: editData.wechat_id || '',
+      skype: editData.skype || '', whatsapp: editData.whatsapp || '',
+      address: editData.address || '', city: editData.city || '',
+      state_province: editData.state_province || '', postal_code: editData.postal_code || '',
+      bank_name: editData.bank_name || '', bank_address: editData.bank_address || '',
+      bank_account_number: editData.bank_account_number || '',
+      bank_account_name: editData.bank_account_name || '',
+      swift_code: editData.swift_code || '', iban: editData.iban || '',
+      bank_country: editData.bank_country || '',
+      intermediary_bank: editData.intermediary_bank || '',
+      intermediary_swift: editData.intermediary_swift || '',
+      main_products: (editData.main_products || []).join(', '),
+      certifications: (editData.certifications || []).join(', '),
+      payment_terms: editData.payment_terms || '',
+      lead_time_days: editData.lead_time_days ? String(editData.lead_time_days) : '',
+      minimum_order_amount: editData.minimum_order_amount ? String(editData.minimum_order_amount) : '',
+      currency: editData.currency || 'USD', notes: editData.notes || '',
+      warranty_terms_free: editData.warranty_terms_free || '',
+      warranty_terms_paid: editData.warranty_terms_paid || '',
+      default_price_terms: editData.default_price_terms || '',
+      default_payment_terms: editData.default_payment_terms || '',
+      default_delivery_days: editData.default_delivery_days || '',
+    };
+  };
+  const [form, setForm] = useState<FormData>(buildInitial);
   const [saving, setSaving] = useState(false);
   const [showExtra, setShowExtra] = useState({ contact: false, bank: false, warranty: false });
 
@@ -97,19 +135,26 @@ export default function SupplierRegistrationForm({ onSaved }: Props) {
       lead_time_days: form.lead_time_days ? parseInt(form.lead_time_days) : null,
       minimum_order_amount: form.minimum_order_amount ? parseFloat(form.minimum_order_amount) : null,
       currency: form.currency, notes: form.notes || null,
-      status: submitForApproval ? 'pending' : 'draft',
+      status: submitForApproval ? 'pending' : (editData ? editData.status : 'draft'),
       warranty_terms_free: form.warranty_terms_free || null,
       warranty_terms_paid: form.warranty_terms_paid || null,
       default_price_terms: form.default_price_terms || null,
       default_payment_terms: form.default_payment_terms || null,
       default_delivery_days: form.default_delivery_days || null,
     };
-    const { error } = await supabase.from('suppliers').insert(payload as any);
+    let error: any;
+    if (editData?.id) {
+      const res = await supabase.from('suppliers').update(payload as any).eq('id', editData.id);
+      error = res.error;
+    } else {
+      const res = await supabase.from('suppliers').insert(payload as any);
+      error = res.error;
+    }
     if (error) {
       toast({ title: 'บันทึกไม่สำเร็จ', description: error.message, variant: 'destructive' });
     } else {
-      toast({ title: submitForApproval ? 'ส่งรออนุมัติแล้ว' : 'บันทึกร่างแล้ว' });
-      setForm(initial);
+      toast({ title: editData ? 'บันทึกแล้ว' : (submitForApproval ? 'ส่งรออนุมัติแล้ว' : 'บันทึกร่างแล้ว') });
+      if (!editData) setForm(initial);
       onSaved?.();
     }
     setSaving(false);
@@ -276,14 +321,23 @@ export default function SupplierRegistrationForm({ onSaved }: Props) {
 
         {/* ── Actions ── */}
         <div className="flex justify-end gap-3 pt-2 border-t">
-          <Button variant="outline" size="sm" onClick={() => save(false)} disabled={saving}>
-            {saving ? <Loader2 className="w-4 h-4 mr-1 animate-spin" /> : <Save className="w-4 h-4 mr-1" />}
-            บันทึกร่าง
-          </Button>
-          <Button size="sm" onClick={() => save(true)} disabled={saving}>
-            {saving ? <Loader2 className="w-4 h-4 mr-1 animate-spin" /> : <Send className="w-4 h-4 mr-1" />}
-            ส่งรออนุมัติ
-          </Button>
+          {editData ? (
+            <Button size="sm" onClick={() => save(false)} disabled={saving}>
+              {saving ? <Loader2 className="w-4 h-4 mr-1 animate-spin" /> : <Save className="w-4 h-4 mr-1" />}
+              บันทึก
+            </Button>
+          ) : (
+            <>
+              <Button variant="outline" size="sm" onClick={() => save(false)} disabled={saving}>
+                {saving ? <Loader2 className="w-4 h-4 mr-1 animate-spin" /> : <Save className="w-4 h-4 mr-1" />}
+                บันทึกร่าง
+              </Button>
+              <Button size="sm" onClick={() => save(true)} disabled={saving}>
+                {saving ? <Loader2 className="w-4 h-4 mr-1 animate-spin" /> : <Send className="w-4 h-4 mr-1" />}
+                ส่งรออนุมัติ
+              </Button>
+            </>
+          )}
         </div>
       </CardContent>
     </Card>
