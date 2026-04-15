@@ -62,7 +62,7 @@ export default function AdminEmployeeDetail() {
     setLoading(true);
     try {
       const { data, error } = await (supabase as any)
-        .from('users')
+        .from('staff_members')
         .select('*')
         .eq('id', id)
         .maybeSingle();
