@@ -11,8 +11,9 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSepara
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
-import { Search, MoreHorizontal, Eye, Edit, Copy, Trash2, DollarSign, Clock, CheckCircle, FileText, Send, ShieldCheck, XCircle, Upload, Loader2 } from 'lucide-react';
+import { Search, MoreHorizontal, Eye, Edit, Copy, Trash2, DollarSign, Clock, CheckCircle, FileText, Send, ShieldCheck, XCircle, Upload, Loader2, Mail } from 'lucide-react';
 import TransferStatusBadge from './TransferStatusBadge';
+import TransferEmailModal from './TransferEmailModal';
 import { useAuth } from '@/hooks/useAuth';
 
 const DOC_TYPE_LABELS: Record<string, string> = {
@@ -53,6 +54,10 @@ export default function TransferRequestsList({ onEdit }: Props) {
   const [statusFilter, setStatusFilter] = useState('all');
   const [poMap, setPoMap] = useState<Record<string, string>>({});
   const [docMap, setDocMap] = useState<Record<string, DocRef[]>>({});
+  const [supplierEmails, setSupplierEmails] = useState<Record<string, string | null>>({});
+  const [piMap, setPiMap] = useState<Record<string, string>>({});
+  const [emailModalOpen, setEmailModalOpen] = useState(false);
+  const [emailTarget, setEmailTarget] = useState<TransferRequest | null>(null);
 
   // Approval dialogs
   const [rejectDialogOpen, setRejectDialogOpen] = useState(false);
@@ -86,11 +91,29 @@ export default function TransferRequestsList({ onEdit }: Props) {
       // Resolve PO numbers
       const allPoIds = [...new Set(list.flatMap(t => t.purchase_order_ids || []))];
       if (allPoIds.length > 0) {
-        const { data: pos } = await supabase.from('purchase_orders').select('id, po_number').in('id', allPoIds);
+        const { data: pos } = await supabase.from('purchase_orders').select('id, po_number, pi_number, supplier_id').in('id', allPoIds);
         if (pos) {
           const map: Record<string, string> = {};
-          for (const p of pos as any[]) map[p.id] = p.po_number;
+          const piM: Record<string, string> = {};
+          const supplierIds = new Set<string>();
+          for (const p of pos as any[]) {
+            map[p.id] = p.po_number;
+            if (p.pi_number) piM[p.id] = p.pi_number;
+            if (p.supplier_id) supplierIds.add(p.supplier_id);
+          }
           setPoMap(map);
+          setPiMap(piM);
+
+          // Resolve supplier emails
+          const sIds = [...supplierIds];
+          if (sIds.length > 0) {
+            const { data: sups } = await supabase.from('suppliers').select('id, email').in('id', sIds);
+            if (sups) {
+              const em: Record<string, string | null> = {};
+              for (const s of sups as any[]) em[s.id] = s.email;
+              setSupplierEmails(em);
+            }
+          }
         }
       }
 
@@ -349,14 +372,15 @@ export default function TransferRequestsList({ onEdit }: Props) {
                 <TableHead>PO อ้างอิง</TableHead>
                 <TableHead>เอกสาร</TableHead>
                 <TableHead>สถานะ</TableHead>
+                <TableHead>แจ้ง</TableHead>
                 <TableHead className="w-10"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {loading ? (
-                <TableRow><TableCell colSpan={10} className="text-center py-8 text-muted-foreground">กำลังโหลด...</TableCell></TableRow>
+                <TableRow><TableCell colSpan={11} className="text-center py-8 text-muted-foreground">กำลังโหลด...</TableCell></TableRow>
               ) : filtered.length === 0 ? (
-                <TableRow><TableCell colSpan={10} className="text-center py-8 text-muted-foreground">ไม่พบรายการ</TableCell></TableRow>
+                <TableRow><TableCell colSpan={11} className="text-center py-8 text-muted-foreground">ไม่พบรายการ</TableCell></TableRow>
               ) : filtered.map(t => (
                 <TableRow key={t.id}>
                   <TableCell className="font-mono text-xs">{t.transfer_number}</TableCell>
@@ -394,6 +418,17 @@ export default function TransferRequestsList({ onEdit }: Props) {
                     )}
                   </TableCell>
                   <TableCell><TransferStatusBadge status={t.status} /></TableCell>
+                  <TableCell>
+                    {(t as any).email_notification_status === 'sent' ? (
+                      <Badge variant="default" className="text-[10px]">📧 ส่งแล้ว</Badge>
+                    ) : (t as any).email_notification_status === 'preview_only' ? (
+                      <Badge variant="secondary" className="text-[10px]">📋 Copy แล้ว</Badge>
+                    ) : t.status === 'transferred' ? (
+                      <Badge variant="outline" className="text-[10px]">⏳ ยังไม่แจ้ง</Badge>
+                    ) : (
+                      <span className="text-xs text-muted-foreground">-</span>
+                    )}
+                  </TableCell>
                   <TableCell>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
@@ -437,6 +472,16 @@ export default function TransferRequestsList({ onEdit }: Props) {
                             <DropdownMenuSeparator />
                             <DropdownMenuItem onClick={() => { setConfirmTarget(t); setSlipFile(null); setConfirmDialogOpen(true); }} className="text-blue-600">
                               <Upload className="h-4 w-4 mr-2" />ยืนยันโอนแล้ว
+                            </DropdownMenuItem>
+                          </>
+                        )}
+
+                        {/* Transferred actions — email supplier */}
+                        {t.status === 'transferred' && (
+                          <>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem onClick={() => { setEmailTarget(t); setEmailModalOpen(true); }}>
+                              <Mail className="h-4 w-4 mr-2" />📧 แจ้ง Supplier
                             </DropdownMenuItem>
                           </>
                         )}
@@ -517,6 +562,22 @@ export default function TransferRequestsList({ onEdit }: Props) {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Transfer Email Modal */}
+      {emailTarget && (
+        <TransferEmailModal
+          open={emailModalOpen}
+          onOpenChange={setEmailModalOpen}
+          transfer={emailTarget as any}
+          supplier={{
+            email: supplierEmails[emailTarget.supplier_id] || null,
+            company_name: emailTarget.supplier_name,
+          }}
+          poNumbers={poMap}
+          piNumbers={piMap}
+          onStatusUpdated={fetchTransfers}
+        />
+      )}
     </div>
   );
 }
