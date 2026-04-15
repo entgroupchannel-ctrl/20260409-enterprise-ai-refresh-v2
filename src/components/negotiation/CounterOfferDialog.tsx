@@ -10,6 +10,7 @@ import { useToast } from '@/hooks/use-toast';
 import ProductEditor from '@/components/admin/ProductEditor';
 import FreeItemsEditor, { type FreeItem } from './FreeItemsEditor';
 import { Send, Save, AlertTriangle, Loader2 } from 'lucide-react';
+import DiscountInput from '@/components/shared/DiscountInput';
 
 interface CounterOfferDialogProps {
   quoteId: string;
@@ -267,20 +268,18 @@ export default function CounterOfferDialog({
             <Separator />
 
             {/* Discount + Valid Until */}
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label className="text-sm">ส่วนลดรวม (%)</Label>
-                <Input
-                  type="number"
-                  min={0}
-                  max={100}
-                  step={0.01}
-                  value={discountPercent || ''}
-                  placeholder="0"
-                  onChange={(e) => setDiscountPercent(parseFloat(e.target.value) || 0)}
-                  onFocus={(e) => e.target.select()}
-                />
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <DiscountInput
+                compact
+                label="ส่วนลดรวม"
+                subtotal={totals.subtotal}
+                discountPercent={discountPercent}
+                discountAmount={discountAmount}
+                onChange={(newPercent, newAmount) => {
+                  setDiscountPercent(newPercent);
+                  setDiscountAmount(newAmount);
+                }}
+              />
               <div>
                 <Label className="text-sm">ราคานี้ใช้ได้ถึง</Label>
                 <Input
