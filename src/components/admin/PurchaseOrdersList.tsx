@@ -47,8 +47,8 @@ export default function PurchaseOrdersList() {
   const [statusFilter, setStatusFilter] = useState('all');
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editId, setEditId] = useState<string | null>(null);
-  // Transfer back-references: po_id -> TransferRef[]
   const [transferRefs, setTransferRefs] = useState<Record<string, TransferRef[]>>({});
+  const [supplierNames, setSupplierNames] = useState<Record<string, string>>({});
 
   const fetchOrders = async () => {
     setLoading(true);
@@ -60,6 +60,17 @@ export default function PurchaseOrdersList() {
     if (error) { toast.error(error.message); setLoading(false); return; }
     const list = (data as PO[]) || [];
     setOrders(list);
+
+    // Resolve supplier names
+    const uniqueSupplierIds = [...new Set(list.map(o => o.supplier_id))];
+    if (uniqueSupplierIds.length > 0) {
+      const { data: sups } = await supabase.from('suppliers').select('id, company_name').in('id', uniqueSupplierIds);
+      if (sups) {
+        const names: Record<string, string> = {};
+        for (const s of sups as any[]) names[s.id] = s.company_name;
+        setSupplierNames(names);
+      }
+    }
 
     // Fetch transfer back-references for all POs
     if (list.length > 0) {
@@ -95,7 +106,7 @@ export default function PurchaseOrdersList() {
       if (statusFilter !== 'all' && o.status !== statusFilter) return false;
       if (search) {
         const q = search.toLowerCase();
-        return o.po_number?.toLowerCase().includes(q) || (o.supplier_name || '').toLowerCase().includes(q);
+        return o.po_number?.toLowerCase().includes(q) || (supplierNames[o.supplier_id] || '').toLowerCase().includes(q);
       }
       return true;
     });
@@ -167,7 +178,7 @@ export default function PurchaseOrdersList() {
               ) : filtered.map(o => (
                 <TableRow key={o.id}>
                   <TableCell className="font-mono text-xs">{o.po_number}</TableCell>
-                  <TableCell className="max-w-[180px] truncate">{o.supplier_name || '-'}</TableCell>
+                  <TableCell className="max-w-[180px] truncate">{supplierNames[o.supplier_id] || '-'}</TableCell>
                   <TableCell className="text-right font-mono">{fmt(o.grand_total)}</TableCell>
                   <TableCell><Badge variant="outline">{o.currency || '-'}</Badge></TableCell>
                   <TableCell>{statusBadge(o.status)}</TableCell>
