@@ -16,7 +16,8 @@ import { Input } from '@/components/ui/input';
 import {
   ChevronRight, Minus, Plus, Microchip, MemoryStick, CircuitBoard, Wifi, Antenna,
   ShieldCheck, Truck, Clock, FileText, Phone, MessageCircle, CheckCircle2,
-  Package, Award, Headphones, ReceiptText,
+  Package, Award, Headphones, ReceiptText, Factory, Building2, Warehouse, Server,
+  Zap, ThermometerSun, Droplets, Monitor,
 } from 'lucide-react';
 import SiteNavbar from '@/components/SiteNavbar';
 
@@ -31,6 +32,22 @@ interface Product {
 
 function fmt(n: number) { return n.toLocaleString('th-TH'); }
 
+const USE_CASES = [
+  { icon: Factory, label: 'โรงงานอุตสาหกรรม', desc: 'ควบคุมไลน์ผลิต 24/7' },
+  { icon: Building2, label: 'ธุรกิจค้าปลีก POS', desc: 'ระบบขายหน้าร้าน' },
+  { icon: Warehouse, label: 'คลังสินค้า', desc: 'จัดการสต๊อก WMS' },
+  { icon: Server, label: 'ระบบ Edge Computing', desc: 'ประมวลผลข้อมูล IoT' },
+  { icon: Monitor, label: 'Digital Signage', desc: 'แสดงผลหน้าจอ 24 ชม.' },
+  { icon: ThermometerSun, label: 'สภาพแวดล้อมรุนแรง', desc: 'ทนร้อน ฝุ่น ความชื้น' },
+];
+
+const PRODUCT_HIGHLIGHTS = [
+  { icon: Zap, text: 'Fanless — ไม่มีพัดลม เงียบ ไม่มีฝุ่นเข้า' },
+  { icon: ThermometerSun, text: 'ทำงานได้ -10°C ถึง 50°C' },
+  { icon: Droplets, text: 'ป้องกันฝุ่นและน้ำ (IP-rated)' },
+  { icon: Zap, text: 'กินไฟต่ำ 10-25W เหมาะงาน 24/7' },
+];
+
 const ShopProductDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const [product, setProduct] = useState<Product | null>(null);
@@ -41,7 +58,6 @@ const ShopProductDetail = () => {
   const [configuredVariant, setConfiguredVariant] = useState<Product | null>(null);
   const [configPrice, setConfigPrice] = useState(0);
   const [configAddons, setConfigAddons] = useState<AddonSummary[]>([]);
-  const [activeTab, setActiveTab] = useState<'config' | 'specs' | 'desc'>('config');
 
   useEffect(() => {
     if (!slug) return;
@@ -95,7 +111,6 @@ const ShopProductDetail = () => {
   const activeTierPrice = qty >= 10 ? Math.round(displayPrice * 0.86) : qty >= 5 ? Math.round(displayPrice * 0.93) : displayPrice;
   const totalPrice = activeTierPrice * qty;
 
-  // Build inline specs
   const inlineSpecs: { icon: React.ElementType; label: string; value: string }[] = [];
   if (displayVariant.cpu) inlineSpecs.push({ icon: Microchip, label: 'CPU', value: displayVariant.cpu });
   if (displayVariant.ram_gb) inlineSpecs.push({ icon: MemoryStick, label: 'RAM', value: `${displayVariant.ram_gb}GB` });
@@ -113,7 +128,7 @@ const ShopProductDetail = () => {
       />
       <SiteNavbar />
 
-      {/* Breadcrumb — compact */}
+      {/* Breadcrumb */}
       <div className="border-b border-border bg-muted/20">
         <div className="container max-w-7xl mx-auto px-4 py-2 text-xs text-muted-foreground flex items-center gap-1 flex-wrap">
           <Link to="/" className="hover:text-primary transition-colors">หน้าแรก</Link>
@@ -125,18 +140,28 @@ const ShopProductDetail = () => {
         </div>
       </div>
 
-      {/* ═══════════ HERO: Gallery + Product Info + RFQ Sidebar ═══════════ */}
+      {/* ═══════════ HERO SECTION ═══════════ */}
       <div ref={heroRef} className="container max-w-7xl mx-auto px-4 py-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-          {/* LEFT: Gallery — compact */}
+          {/* LEFT: Gallery */}
           <div className="lg:col-span-4">
             <ProductImageGalleryZoom images={images} alt={product.model} />
+            {/* Product highlights — under gallery */}
+            <div className="mt-4 rounded-lg border border-border bg-muted/20 p-3 space-y-2">
+              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">จุดเด่น</p>
+              {PRODUCT_HIGHLIGHTS.map((h, i) => (
+                <div key={i} className="flex items-center gap-2 text-xs text-foreground">
+                  <h.icon className="w-3.5 h-3.5 text-primary shrink-0" />
+                  <span>{h.text}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* CENTER: Product Info + Price + Specs */}
+          {/* CENTER: Product Info + Price + Actions */}
           <div className="lg:col-span-5 space-y-4">
-            {/* Title block */}
+            {/* Title */}
             <div>
               <div className="flex items-center gap-2 mb-1.5">
                 {product.stock_status === 'available' && (
@@ -151,7 +176,7 @@ const ShopProductDetail = () => {
               <p className="text-sm text-muted-foreground mt-0.5">{product.name}</p>
             </div>
 
-            {/* Inline specs grid */}
+            {/* Inline specs */}
             {inlineSpecs.length > 0 && (
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                 {inlineSpecs.map((spec, i) => (
@@ -168,7 +193,7 @@ const ShopProductDetail = () => {
 
             <Separator />
 
-            {/* Price + Volume pricing */}
+            {/* Price + Volume */}
             <div className="space-y-3">
               <div className="flex items-baseline gap-3">
                 <span className="text-2xl font-bold text-primary">฿{fmt(displayPrice)}</span>
@@ -192,7 +217,6 @@ const ShopProductDetail = () => {
                   = <span className="text-lg font-bold text-primary">฿{fmt(totalPrice)}</span>
                 </span>
               </div>
-
               <div className="flex gap-2">
                 <AddToCartButton productModel={displayVariant.model} productName={displayVariant.name} estimatedPrice={displayPrice} size="default" className="flex-1" />
                 <a href="#rfq-form" className="flex-1">
@@ -203,7 +227,7 @@ const ShopProductDetail = () => {
               </div>
             </div>
 
-            {/* Trust strip — compact horizontal */}
+            {/* Trust strip */}
             <div className="flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-muted-foreground pt-1">
               <span className="flex items-center gap-1"><ShieldCheck className="w-3.5 h-3.5 text-primary" /> รับประกัน 1-3 ปี</span>
               <span className="flex items-center gap-1"><Truck className="w-3.5 h-3.5 text-primary" /> จัดส่งทั่วไทย</span>
@@ -212,10 +236,9 @@ const ShopProductDetail = () => {
             </div>
           </div>
 
-          {/* RIGHT: RFQ Sidebar — sticky */}
+          {/* RIGHT: Supplier + RFQ Sidebar — sticky */}
           <div className="lg:col-span-3">
             <div className="lg:sticky lg:top-20 space-y-4">
-              {/* Supplier card — minimal */}
               <div className="rounded-lg border border-border bg-card p-3 space-y-2">
                 <div className="flex items-center gap-2">
                   <Award className="w-4 h-4 text-primary" />
@@ -239,44 +262,43 @@ const ShopProductDetail = () => {
                 </div>
               </div>
 
-              {/* Quick contact CTA */}
               <a href="#rfq-form">
                 <Button className="w-full bg-amber-600 hover:bg-amber-700 text-white" size="sm">
                   <FileText className="w-4 h-4 mr-1.5" /> ขอใบเสนอราคา B2B
                 </Button>
               </a>
+
+              {/* Use cases mini */}
+              <div className="rounded-lg border border-border bg-card p-3 space-y-2">
+                <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">เหมาะสำหรับ</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {USE_CASES.slice(0, 4).map((uc, i) => (
+                    <span key={i} className="inline-flex items-center gap-1 text-[10px] bg-muted/60 rounded-full px-2 py-0.5 text-foreground">
+                      <uc.icon className="w-3 h-3 text-primary" /> {uc.label}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* ═══════════ LOWER: Config + Specs + Description ═══════════ */}
-      <div className="border-t border-border bg-muted/10">
-        <div className="container max-w-7xl mx-auto px-4 py-6">
-          {/* Tab buttons */}
-          <div className="flex gap-1 border-b border-border mb-5">
-            {[
-              { key: 'config' as const, label: 'ปรับสเปก / Configurator' },
-              { key: 'specs' as const, label: 'สเปกเทคนิค' },
-              { key: 'desc' as const, label: 'รายละเอียดสินค้า' },
-            ].map(tab => (
-              <button
-                key={tab.key}
-                onClick={() => setActiveTab(tab.key)}
-                className={`px-4 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px ${
-                  activeTab === tab.key
-                    ? 'border-primary text-primary'
-                    : 'border-transparent text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Tab content */}
-          {activeTab === 'config' && (
-            <div className="max-w-2xl">
+      {/* ═══════════ CONFIGURATOR — FULL WIDTH, ALWAYS VISIBLE ═══════════ */}
+      <div className="border-t border-border bg-gradient-to-b from-muted/30 to-background">
+        <div className="container max-w-7xl mx-auto px-4 py-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Left: Configurator */}
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <Microchip className="w-4 h-4 text-primary" />
+                </div>
+                <div>
+                  <h2 className="text-base font-bold text-foreground">ปรับแต่งสเปกตามต้องการ</h2>
+                  <p className="text-xs text-muted-foreground">เลือก CPU, RAM, Storage, อุปกรณ์เสริมก่อนขอใบเสนอราคา</p>
+                </div>
+              </div>
               <ShopProductConfigurator
                 product={product}
                 quantity={qty}
@@ -287,45 +309,52 @@ const ShopProductDetail = () => {
                 }}
               />
             </div>
-          )}
 
-          {activeTab === 'specs' && (
-            <div className="max-w-2xl">
-              <div className="rounded-lg border border-border overflow-hidden bg-card">
-                <table className="w-full text-sm">
-                  <tbody>
-                    {[
-                      { label: 'Model', value: product.model },
-                      { label: 'SKU', value: displayVariant.sku },
-                      { label: 'Series', value: product.series },
-                      { label: 'CPU', value: displayVariant.cpu },
-                      { label: 'RAM', value: displayVariant.ram_gb ? `${displayVariant.ram_gb}GB DDR4` : null },
-                      { label: 'Storage', value: displayVariant.storage_gb ? `${displayVariant.storage_gb}GB ${displayVariant.storage_type || ''}`.trim() : null },
-                      { label: 'WiFi', value: displayVariant.has_wifi ? '✅ Built-in' : '❌' },
-                      { label: '4G LTE', value: displayVariant.has_4g ? '✅ Built-in' : '❌' },
-                      { label: 'OS', value: displayVariant.os },
-                      { label: 'Form Factor', value: product.form_factor },
-                      { label: 'รับประกัน', value: '12 เดือน (ขยายได้ถึง 3 ปี)' },
-                    ].filter(r => r.value).map((row, i) => (
-                      <tr key={row.label} className={i % 2 === 0 ? 'bg-muted/20' : ''}>
-                        <td className="px-4 py-2 font-medium text-muted-foreground w-1/3">{row.label}</td>
-                        <td className="px-4 py-2 text-foreground">{row.value}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          )}
-
-          {activeTab === 'desc' && (
-            <div className="max-w-3xl">
-              <div className="prose prose-sm max-w-none dark:prose-invert whitespace-pre-wrap text-sm leading-relaxed">
-                {product.description || 'ยังไม่มีรายละเอียดสินค้า'}
+            {/* Right: Specs + Description stacked */}
+            <div className="space-y-6">
+              {/* Technical Specs */}
+              <div>
+                <h2 className="text-base font-bold text-foreground mb-3 flex items-center gap-2">
+                  <CircuitBoard className="w-4 h-4 text-primary" /> สเปกเทคนิค
+                </h2>
+                <div className="rounded-lg border border-border overflow-hidden bg-card">
+                  <table className="w-full text-sm">
+                    <tbody>
+                      {[
+                        { label: 'Model', value: product.model },
+                        { label: 'SKU', value: displayVariant.sku },
+                        { label: 'Series', value: product.series },
+                        { label: 'CPU', value: displayVariant.cpu },
+                        { label: 'RAM', value: displayVariant.ram_gb ? `${displayVariant.ram_gb}GB DDR4` : null },
+                        { label: 'Storage', value: displayVariant.storage_gb ? `${displayVariant.storage_gb}GB ${displayVariant.storage_type || ''}`.trim() : null },
+                        { label: 'WiFi', value: displayVariant.has_wifi ? '✅ Built-in' : '❌' },
+                        { label: '4G LTE', value: displayVariant.has_4g ? '✅ Built-in' : '❌' },
+                        { label: 'OS', value: displayVariant.os },
+                        { label: 'Form Factor', value: product.form_factor },
+                        { label: 'รับประกัน', value: '12 เดือน (ขยายได้ถึง 3 ปี)' },
+                      ].filter(r => r.value).map((row, i) => (
+                        <tr key={row.label} className={i % 2 === 0 ? 'bg-muted/20' : ''}>
+                          <td className="px-4 py-2 font-medium text-muted-foreground w-2/5">{row.label}</td>
+                          <td className="px-4 py-2 text-foreground">{row.value}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
 
-              {/* Warranty section inline */}
-              <div className="mt-6 p-4 rounded-lg border border-border bg-card space-y-3">
+              {/* Product Description */}
+              {product.description && (
+                <div>
+                  <h2 className="text-base font-bold text-foreground mb-3">รายละเอียดสินค้า</h2>
+                  <div className="prose prose-sm max-w-none dark:prose-invert whitespace-pre-wrap text-sm leading-relaxed rounded-lg border border-border bg-card p-4">
+                    {product.description}
+                  </div>
+                </div>
+              )}
+
+              {/* Warranty + After-sales */}
+              <div className="rounded-lg border border-border bg-card p-4 space-y-3">
                 <h3 className="font-semibold text-sm flex items-center gap-2">
                   <ShieldCheck className="w-4 h-4 text-primary" /> การรับประกันและบริการ
                 </h3>
@@ -341,12 +370,31 @@ const ShopProductDetail = () => {
                 </div>
               </div>
             </div>
-          )}
+          </div>
         </div>
       </div>
 
-      {/* ═══════════ B2B PLATFORM FEATURES BANNER ═══════════ */}
-      <div className="bg-gradient-to-br from-primary/5 via-background to-amber-500/5 border-y border-border">
+      {/* ═══════════ USE CASES — FULL WIDTH ═══════════ */}
+      <div className="bg-muted/20 border-y border-border">
+        <div className="container max-w-7xl mx-auto px-4 py-8">
+          <h2 className="text-lg font-bold text-foreground mb-1">สินค้านี้เหมาะกับงาน</h2>
+          <p className="text-xs text-muted-foreground mb-5">{product.model} ถูกออกแบบมาเพื่อการใช้งานระดับอุตสาหกรรมที่ต้องการความเสถียร</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+            {USE_CASES.map((uc, i) => (
+              <div key={i} className="rounded-xl border border-border bg-card p-3 text-center space-y-1.5 hover:shadow-md hover:border-primary/30 transition-all">
+                <div className="w-10 h-10 mx-auto rounded-lg bg-primary/10 flex items-center justify-center">
+                  <uc.icon className="w-5 h-5 text-primary" />
+                </div>
+                <p className="text-xs font-semibold text-foreground">{uc.label}</p>
+                <p className="text-[10px] text-muted-foreground leading-tight">{uc.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ═══════════ B2B PLATFORM FEATURES ═══════════ */}
+      <div className="bg-gradient-to-br from-primary/5 via-background to-amber-500/5">
         <div className="container max-w-7xl mx-auto px-4 py-10">
           <div className="text-center mb-8">
             <h2 className="text-xl font-bold text-foreground">ทำไมองค์กรถึงเลือก ENT Group</h2>
@@ -355,9 +403,9 @@ const ShopProductDetail = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
               { icon: FileText, title: 'สร้างใบเสนอราคาออนไลน์', desc: 'ขอใบเสนอราคาผ่านเว็บ ได้รับภายใน 4 ชม. พร้อมเปรียบเทียบราคา', color: 'text-primary' },
-              { icon: MessageCircle, title: 'ต่อรองราคาแบบโปร่งใส', desc: 'ระบบต่อรองราคาอัตโนมัติ มี Revision History ทุกรอบ ทำเรื่องง่าย', color: 'text-emerald-600 dark:text-emerald-400' },
-              { icon: Truck, title: 'จัดส่งทั่วไทย ติดตามได้', desc: 'บริการจัดส่งฟรี* พร้อมระบบแจ้งเตือนอัตโนมัติ ถึงไวอุ่นใจ', color: 'text-amber-600 dark:text-amber-400' },
-              { icon: ShieldCheck, title: 'รับประกัน 1-3 ปี + ซ่อมด่วน', desc: 'มีศูนย์บริการในไทย อะไหล่พร้อม ซ่อมนอกสถานที่ ดูแลตลอดอายุเครื่อง', color: 'text-rose-600 dark:text-rose-400' },
+              { icon: MessageCircle, title: 'ต่อรองราคาแบบโปร่งใส', desc: 'ระบบต่อรองราคาอัตโนมัติ มี Revision History ทุกรอบ', color: 'text-emerald-600 dark:text-emerald-400' },
+              { icon: Truck, title: 'จัดส่งทั่วไทย ติดตามได้', desc: 'จัดส่งฟรี* พร้อมระบบแจ้งเตือนอัตโนมัติ', color: 'text-amber-600 dark:text-amber-400' },
+              { icon: ShieldCheck, title: 'รับประกัน 1-3 ปี + ซ่อมด่วน', desc: 'ศูนย์บริการในไทย อะไหล่พร้อม ซ่อมนอกสถานที่', color: 'text-rose-600 dark:text-rose-400' },
             ].map((feat, i) => (
               <div key={i} className="rounded-xl border border-border bg-card p-4 space-y-2 hover:shadow-md transition-shadow">
                 <div className={`w-10 h-10 rounded-lg bg-muted flex items-center justify-center ${feat.color}`}>
@@ -371,7 +419,7 @@ const ShopProductDetail = () => {
         </div>
       </div>
 
-      {/* ═══════════ CUSTOMER TESTIMONIALS ═══════════ */}
+      {/* ═══════════ TESTIMONIALS ═══════════ */}
       <div className="container max-w-7xl mx-auto px-4 py-10">
         <div className="text-center mb-6">
           <h2 className="text-xl font-bold text-foreground">ลูกค้าองค์กรที่ไว้วางใจ</h2>
@@ -400,14 +448,16 @@ const ShopProductDetail = () => {
       </div>
 
       {/* ═══════════ RFQ FORM ═══════════ */}
-      <div className="container max-w-7xl mx-auto px-4 py-6">
-        <div className="max-w-2xl mx-auto">
-          <QuickRFQForm
-            product={configuredVariant || product}
-            defaultQuantity={qty}
-            configAddons={configAddons}
-            finalUnitPrice={configPrice}
-          />
+      <div id="rfq-form" className="bg-muted/10 border-t border-border">
+        <div className="container max-w-7xl mx-auto px-4 py-8">
+          <div className="max-w-2xl mx-auto">
+            <QuickRFQForm
+              product={configuredVariant || product}
+              defaultQuantity={qty}
+              configAddons={configAddons}
+              finalUnitPrice={configPrice}
+            />
+          </div>
         </div>
       </div>
 
@@ -430,7 +480,7 @@ const ShopProductDetail = () => {
         </div>
       </div>
 
-      {/* Related */}
+      {/* ═══════════ RELATED ═══════════ */}
       <div className="container max-w-7xl mx-auto px-4 py-6">
         <RelatedProducts currentProductId={product.id} series={product.series} category={product.category} />
       </div>
