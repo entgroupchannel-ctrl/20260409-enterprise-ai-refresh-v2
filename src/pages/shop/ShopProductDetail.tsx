@@ -345,6 +345,60 @@ const ShopProductDetail = () => {
         </div>
       </div>
 
+      {/* ═══════════ B2B PLATFORM FEATURES BANNER ═══════════ */}
+      <div className="bg-gradient-to-br from-primary/5 via-background to-amber-500/5 border-y border-border">
+        <div className="container max-w-7xl mx-auto px-4 py-10">
+          <div className="text-center mb-8">
+            <h2 className="text-xl font-bold text-foreground">ทำไมองค์กรถึงเลือก ENT Group</h2>
+            <p className="text-sm text-muted-foreground mt-1">แพลตฟอร์มจัดซื้อ B2B ครบวงจร — ตั้งแต่สั่งซื้อจนถึงหลังการขาย</p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { icon: FileText, title: 'สร้างใบเสนอราคาออนไลน์', desc: 'ขอใบเสนอราคาผ่านเว็บ ได้รับภายใน 4 ชม. พร้อมเปรียบเทียบราคา', color: 'text-primary' },
+              { icon: MessageCircle, title: 'ต่อรองราคาแบบโปร่งใส', desc: 'ระบบต่อรองราคาอัตโนมัติ มี Revision History ทุกรอบ ทำเรื่องง่าย', color: 'text-emerald-600 dark:text-emerald-400' },
+              { icon: Truck, title: 'จัดส่งทั่วไทย ติดตามได้', desc: 'บริการจัดส่งฟรี* พร้อมระบบแจ้งเตือนอัตโนมัติ ถึงไวอุ่นใจ', color: 'text-amber-600 dark:text-amber-400' },
+              { icon: ShieldCheck, title: 'รับประกัน 1-3 ปี + ซ่อมด่วน', desc: 'มีศูนย์บริการในไทย อะไหล่พร้อม ซ่อมนอกสถานที่ ดูแลตลอดอายุเครื่อง', color: 'text-rose-600 dark:text-rose-400' },
+            ].map((feat, i) => (
+              <div key={i} className="rounded-xl border border-border bg-card p-4 space-y-2 hover:shadow-md transition-shadow">
+                <div className={`w-10 h-10 rounded-lg bg-muted flex items-center justify-center ${feat.color}`}>
+                  <feat.icon className="w-5 h-5" />
+                </div>
+                <h3 className="text-sm font-semibold text-foreground">{feat.title}</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">{feat.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ═══════════ CUSTOMER TESTIMONIALS ═══════════ */}
+      <div className="container max-w-7xl mx-auto px-4 py-10">
+        <div className="text-center mb-6">
+          <h2 className="text-xl font-bold text-foreground">ลูกค้าองค์กรที่ไว้วางใจ</h2>
+          <p className="text-sm text-muted-foreground mt-1">กว่า 500 องค์กรเลือกใช้โซลูชัน Industrial PC จาก ENT Group</p>
+        </div>
+        <div className="grid md:grid-cols-3 gap-4">
+          {[
+            { name: 'คุณสมชาย ว.', company: 'บจก. เอ็นจิเนียริ่ง โซลูชัน', quote: 'สั่งซื้อ GT Series ไป 50 เครื่อง ทีมงาน ENT ดูแลตั้งแต่ให้คำปรึกษาจนถึงติดตั้ง ตอบเร็วมากครับ ใบเสนอราคามาภายในชั่วโมง', rating: 5 },
+            { name: 'คุณวิภา ศ.', company: 'หน่วยงานราชการ', quote: 'ใช้ Rugged Tablet ในภาคสนาม ทนทาน IP65 ใช้งานจริงในสภาพอากาศร้อนชื้น รับประกัน 3 ปี อุ่นใจมาก', rating: 5 },
+            { name: 'คุณพิทักษ์ จ.', company: 'โรงงานอุตสาหกรรมอาหาร', quote: 'GB4000 ใช้ในไลน์ผลิต 24/7 ไม่มีพัดลม ทำงานเสถียรมาก ราคาขายส่งจาก ENT คุ้มค่ากว่าที่อื่น', rating: 5 },
+          ].map((review, i) => (
+            <div key={i} className="rounded-xl border border-border bg-card p-5 space-y-3 hover:shadow-sm transition-shadow">
+              <div className="flex gap-0.5">
+                {Array.from({ length: review.rating }).map((_, j) => (
+                  <span key={j} className="text-amber-400 text-sm">★</span>
+                ))}
+              </div>
+              <p className="text-sm text-foreground leading-relaxed italic">"{review.quote}"</p>
+              <div className="pt-1 border-t border-border">
+                <p className="text-xs font-semibold text-foreground">{review.name}</p>
+                <p className="text-[11px] text-muted-foreground">{review.company}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* ═══════════ RFQ FORM ═══════════ */}
       <div className="container max-w-7xl mx-auto px-4 py-6">
         <div className="max-w-2xl mx-auto">
@@ -357,8 +411,27 @@ const ShopProductDetail = () => {
         </div>
       </div>
 
+      {/* ═══════════ STATS STRIP ═══════════ */}
+      <div className="bg-muted/30 border-y border-border">
+        <div className="container max-w-7xl mx-auto px-4 py-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            {[
+              { value: '15+', label: 'ปีประสบการณ์' },
+              { value: '500+', label: 'ลูกค้าองค์กร' },
+              { value: '4 ชม.', label: 'ตอบกลับเฉลี่ย' },
+              { value: '99.5%', label: 'ความพึงพอใจ' },
+            ].map((stat, i) => (
+              <div key={i}>
+                <p className="text-2xl font-bold text-primary">{stat.value}</p>
+                <p className="text-xs text-muted-foreground">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Related */}
-      <div className="container max-w-7xl mx-auto px-4 pb-6">
+      <div className="container max-w-7xl mx-auto px-4 py-6">
         <RelatedProducts currentProductId={product.id} series={product.series} category={product.category} />
       </div>
 

@@ -9,6 +9,7 @@ interface RelatedProduct {
   name: string;
   slug: string;
   thumbnail_url: string | null;
+  image_url: string | null;
   unit_price: number;
   series: string | null;
 }
@@ -34,12 +35,18 @@ export function addToRecentlyViewed(product: { id: string; slug: string; model: 
 function fmt(n: number) { return n.toLocaleString('th-TH'); }
 
 function ProductMiniCard({ p }: { p: RelatedProduct }) {
+  const imgSrc = p.thumbnail_url || p.image_url || '/placeholder.svg';
   return (
     <Link to={`/shop/${p.slug}`} className="flex-shrink-0 w-40">
-      <Card className="hover:shadow-md transition-shadow h-full border-border">
+      <Card className="hover:shadow-md transition-shadow h-full border-border group">
         <CardContent className="p-3 space-y-2">
           <div className="aspect-square bg-muted rounded-lg overflow-hidden">
-            <img src={p.thumbnail_url || p.model ? `/placeholder.svg` : '/placeholder.svg'} alt={p.model} className="w-full h-full object-contain" onError={e => { (e.target as HTMLImageElement).src = '/placeholder.svg'; }} />
+            <img
+              src={imgSrc}
+              alt={p.model}
+              className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+              onError={e => { (e.target as HTMLImageElement).src = '/placeholder.svg'; }}
+            />
           </div>
           <p className="text-xs font-semibold truncate">{p.model}</p>
           <p className="text-xs text-primary font-bold">฿{fmt(p.unit_price)}</p>
@@ -56,9 +63,10 @@ export default function RelatedProducts({ currentProductId, series, category, ma
   useEffect(() => {
     const fetchRelated = async () => {
       let q = supabase.from('products')
-        .select('id, model, name, slug, thumbnail_url, unit_price, series')
+        .select('id, model, name, slug, thumbnail_url, image_url, unit_price, series')
         .eq('is_active', true)
         .neq('id', currentProductId)
+        .gt('unit_price', 0)
         .limit(maxItems);
       if (series) q = q.eq('series', series);
       const { data } = await q;
@@ -66,10 +74,11 @@ export default function RelatedProducts({ currentProductId, series, category, ma
         setRelated(data as RelatedProduct[]);
       } else if (category) {
         const { data: catData } = await supabase.from('products')
-          .select('id, model, name, slug, thumbnail_url, unit_price, series')
+          .select('id, model, name, slug, thumbnail_url, image_url, unit_price, series')
           .eq('is_active', true)
           .eq('category', category)
           .neq('id', currentProductId)
+          .gt('unit_price', 0)
           .limit(maxItems);
         setRelated((catData || []) as RelatedProduct[]);
       }
