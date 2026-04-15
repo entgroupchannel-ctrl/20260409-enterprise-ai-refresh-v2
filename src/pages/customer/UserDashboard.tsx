@@ -27,7 +27,7 @@ import {
   ArrowLeft, Save, Trash2, Minus, Home, LogOut,
   ChevronRight, PackageCheck, PhoneCall, MailCheck, Upload, SendHorizonal,
   Paperclip, CalendarClock, MessageSquareText, Pencil, X, Building2,
-  Receipt, FileText, FileArchive,
+  Receipt, FileText, FileArchive, Shield, Wrench,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 import NotificationBell from '@/components/notifications/NotificationBell';
@@ -491,6 +491,8 @@ export default function UserDashboard() {
     { key: 'tax-invoices', label: 'ใบกำกับภาษี', icon: FileText, badge: taxInvoiceCount, external: true, path: '/my-tax-invoices' },
     { key: 'receipts', label: 'ใบเสร็จรับเงิน', icon: Receipt, badge: receiptCount, external: true, path: '/my-receipts' },
     { key: 'documents', label: 'เอกสารบริษัท', icon: FileArchive, badge: 0, external: true, path: '/my-documents' },
+    { key: 'my-products', label: 'สินค้าของฉัน', icon: Shield, badge: 0, external: true, path: '/my/products' },
+    { key: 'my-repairs', label: 'แจ้งซ่อม', icon: Wrench, badge: 0, external: true, path: '/my/repairs' },
     { key: 'cart', label: 'ตะกร้าสินค้า', icon: ShoppingBag, badge: count },
     { key: 'profile', label: 'โปรไฟล์', icon: UserRound, badge: 0 },
   ];
@@ -690,6 +692,38 @@ export default function UserDashboard() {
                       ))}
                     </div>
                   )}
+
+                  {/* สินค้า & บริการ */}
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="text-base flex items-center gap-2">
+                        <Shield className="w-5 h-5" />
+                        สินค้า & บริการหลังการขาย
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <Button
+                          variant="outline"
+                          className="h-auto py-4 flex flex-col items-center gap-2"
+                          onClick={() => navigate('/my/products')}
+                        >
+                          <Shield className="w-6 h-6 text-primary" />
+                          <span className="font-medium">สินค้าของฉัน</span>
+                          <span className="text-xs text-muted-foreground">ดูรายการสินค้า + ประกัน</span>
+                        </Button>
+                        <Button
+                          variant="outline"
+                          className="h-auto py-4 flex flex-col items-center gap-2"
+                          onClick={() => navigate('/my/repairs')}
+                        >
+                          <Wrench className="w-6 h-6 text-orange-500" />
+                          <span className="font-medium">แจ้งซ่อม</span>
+                          <span className="text-xs text-muted-foreground">แจ้งซ่อม + ติดตามสถานะ</span>
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
                 </div>
               )}
 
