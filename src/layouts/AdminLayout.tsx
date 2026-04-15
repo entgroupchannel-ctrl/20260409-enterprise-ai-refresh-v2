@@ -86,6 +86,7 @@ const navGroups: NavGroup[] = [
     icon: ShieldCheck,
     items: [
       { label: 'ลงทะเบียนสินค้า', icon: Shield, path: '/admin/registered-products' },
+      { label: 'ใบสั่งซ่อม', icon: Package, path: '/admin/repairs' },
     ],
   },
   {

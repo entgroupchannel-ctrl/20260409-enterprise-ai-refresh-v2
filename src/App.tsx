@@ -111,6 +111,11 @@ const AdminRegisteredProductDetail = lazyRetry(() => import("./pages/admin/Admin
 const MyProducts = lazyRetry(() => import("./pages/customer/MyProducts"));
 const MyProductDetail = lazyRetry(() => import("./pages/customer/MyProductDetail"));
 const RegisterProductForm = lazyRetry(() => import("./pages/customer/RegisterProductForm"));
+const AdminRepairOrdersList = lazyRetry(() => import("./pages/admin/AdminRepairOrdersList"));
+const AdminRepairOrderDetail = lazyRetry(() => import("./pages/admin/AdminRepairOrderDetail"));
+const MyRepairs = lazyRetry(() => import("./pages/customer/MyRepairs"));
+const MyRepairDetail = lazyRetry(() => import("./pages/customer/MyRepairDetail"));
+const RequestRepairForm = lazyRetry(() => import("./pages/customer/RequestRepairForm"));
 
 /* ── Loading fallback ── */
 const PageLoader = () => (
