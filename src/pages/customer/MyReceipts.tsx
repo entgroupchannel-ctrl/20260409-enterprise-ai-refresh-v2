@@ -178,6 +178,7 @@ export default function MyReceipts() {
           )}
         </div>
       </div>
-    </CustomerLayout>
+    </>
+    
   );
 }
