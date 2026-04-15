@@ -88,9 +88,9 @@ interface QuoteTotals {
 
 const calculateQuoteTotals = (
   products: any[],
-  discountPercent: number = 0,
-  vatPercent: number = 7,
-  discountAmountOverride?: number
+  discountType: 'percent' | 'baht' = 'percent',
+  discountValue: number = 0,
+  vatPercent: number = 7
 ): QuoteTotals => {
   const subtotal = (products || []).reduce((sum: number, p: any) => {
     const qty = Number(p.qty) || 0;
@@ -101,9 +101,9 @@ const calculateQuoteTotals = (
     return sum + (lineGross - lineDiscount);
   }, 0);
 
-  const discountAmount = discountAmountOverride !== undefined && discountAmountOverride > 0
-    ? Math.min(subtotal, discountAmountOverride)
-    : subtotal * ((Number(discountPercent) || 0) / 100);
+  const discountAmount = discountType === 'baht'
+    ? Math.min(subtotal, discountValue)
+    : subtotal * ((Number(discountValue) || 0) / 100);
   const beforeVat = subtotal - discountAmount;
   const vatAmount = beforeVat * ((Number(vatPercent) || 0) / 100);
   const grandTotal = beforeVat + vatAmount;
@@ -124,6 +124,7 @@ interface Quote {
   subtotal: number;
   discount_percent: number | null;
   discount_amount: number;
+  discount_type: 'percent' | 'baht' | null;
   vat_percent: number | null;
   vat_amount: number;
   grand_total: number;
@@ -205,13 +206,15 @@ export default function AdminQuoteDetail() {
   const [linkedInvoice, setLinkedInvoice] = useState<any>(null);
   const totals = useMemo(() => {
     if (!quote) return { subtotal: 0, discountAmount: 0, beforeVat: 0, vatAmount: 0, grandTotal: 0 };
+    const dt = (quote.discount_type === 'baht' ? 'baht' : 'percent') as 'percent' | 'baht';
+    const dv = dt === 'baht' ? (quote.discount_amount || 0) : (quote.discount_percent || 0);
     return calculateQuoteTotals(
       quote.products || [],
-      quote.discount_percent || 0,
-      quote.vat_percent || 7,
-      quote.discount_amount || 0
+      dt,
+      dv,
+      quote.vat_percent || 7
     );
-  }, [quote?.products, quote?.discount_percent, quote?.discount_amount, quote?.vat_percent]);
+  }, [quote?.products, quote?.discount_type, quote?.discount_percent, quote?.discount_amount, quote?.vat_percent]);
 
   const [assignedSaleUser, setAssignedSaleUser] = useState<any>(null);
 
@@ -836,11 +839,13 @@ export default function AdminQuoteDetail() {
                   <ProductEditor
                     products={quote.products || []}
                     onUpdate={async (updatedProducts) => {
+                      const dt = (quote.discount_type === 'baht' ? 'baht' : 'percent') as 'percent' | 'baht';
+                      const dv = dt === 'baht' ? (quote.discount_amount || 0) : (quote.discount_percent || 0);
                       const recalc = calculateQuoteTotals(
                         updatedProducts,
-                        quote.discount_percent || 0,
-                        quote.vat_percent || 7,
-                        quote.discount_amount || 0
+                        dt,
+                        dv,
+                        quote.vat_percent || 7
                       );
                       const { error } = await supabase
                         .from('quote_requests')
@@ -916,31 +921,39 @@ export default function AdminQuoteDetail() {
                 {quote.status === 'pending' && (
                   <DiscountInput
                     subtotal={totals.subtotal}
-                    discountPercent={quote.discount_percent || 0}
-                    discountAmount={quote.discount_amount || 0}
-                    onChange={(newPercent, newAmount) => {
+                    discountType={(quote.discount_type === 'baht' ? 'baht' : 'percent') as 'percent' | 'baht'}
+                    discountValue={
+                      quote.discount_type === 'baht' 
+                        ? (quote.discount_amount || 0)
+                        : (quote.discount_percent || 0)
+                    }
+                    onChange={(newType, newValue) => {
                       setQuote({ 
                         ...quote, 
-                        discount_percent: newPercent,
-                        discount_amount: newAmount,
+                        discount_type: newType,
+                        discount_percent: newType === 'percent' ? newValue : 0,
+                        discount_amount: newType === 'baht' ? newValue : 0,
                       });
                     }}
                     onBlur={async () => {
+                      const dt = (quote.discount_type === 'baht' ? 'baht' : 'percent') as 'percent' | 'baht';
+                      const dv = dt === 'baht' ? (quote.discount_amount || 0) : (quote.discount_percent || 0);
                       const recalc = calculateQuoteTotals(
                         quote.products || [],
-                        quote.discount_percent || 0,
-                        quote.vat_percent || 7,
-                        quote.discount_amount || 0
+                        dt,
+                        dv,
+                        quote.vat_percent || 7
                       );
                       const { error } = await supabase
                         .from('quote_requests')
                         .update({
-                          discount_percent: quote.discount_percent || 0,
-                          subtotal: recalc.subtotal,
+                          discount_type: dt,
+                          discount_percent: dt === 'percent' ? dv : 0,
                           discount_amount: recalc.discountAmount,
+                          subtotal: recalc.subtotal,
                           vat_amount: recalc.vatAmount,
                           grand_total: recalc.grandTotal,
-                        })
+                        } as any)
                         .eq('id', id);
                       if (!error) {
                         toast({ title: 'บันทึกส่วนลดแล้ว' });
@@ -959,7 +972,11 @@ export default function AdminQuoteDetail() {
                   </div>
                   {totals.discountAmount > 0 && (
                     <div className="flex justify-between text-sm text-green-600 dark:text-green-400">
-                      <span>ส่วนลด ({quote.discount_percent || 0}%)</span>
+                      <span>
+                        ส่วนลด {quote.discount_type === 'baht' 
+                          ? `(฿${formatCurrency(quote.discount_amount || 0)})`
+                          : `(${quote.discount_percent || 0}%)`}
+                      </span>
                       <span>-{formatCurrency(totals.discountAmount)}</span>
                     </div>
                   )}
