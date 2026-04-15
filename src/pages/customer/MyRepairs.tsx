@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SiteNavbar from '@/components/SiteNavbar';
-import FooterCompact from '@/components/FooterCompact';
+import MiniFooter from '@/components/MiniFooter';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';

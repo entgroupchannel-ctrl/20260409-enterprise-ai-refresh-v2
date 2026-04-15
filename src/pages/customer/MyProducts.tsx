@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import SiteNavbar from '@/components/SiteNavbar';
-import FooterCompact from '@/components/FooterCompact';
+import MiniFooter from '@/components/MiniFooter';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Package, Plus, Loader2, ArrowLeft, Shield } from 'lucide-react';

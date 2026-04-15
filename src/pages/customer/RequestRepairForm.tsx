@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SiteNavbar from '@/components/SiteNavbar';
-import FooterCompact from '@/components/FooterCompact';
+import MiniFooter from '@/components/MiniFooter';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
