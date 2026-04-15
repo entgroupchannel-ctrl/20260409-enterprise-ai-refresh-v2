@@ -330,7 +330,7 @@ export default function MyQuoteDetail() {
     try {
       const { error } = await supabase
         .from('quote_requests')
-        .update({ status: 'po_confirmed' } as any)
+        .update({ status: 'po_confirmed', po_uploaded_at: new Date().toISOString() } as any)
         .eq('id', id!);
 
       if (error) throw error;
@@ -506,7 +506,7 @@ export default function MyQuoteDetail() {
         )}
 
         {/* Negotiation Action Bar — quote_sent or negotiating, only if revision is 'sent' */}
-        {(quote.status === 'quote_sent' || quote.status === 'negotiating') && quote.grand_total > 0 && quote.current_revision_id && currentRevision?.status === 'sent' && (
+        {(quote.status === 'quote_sent' || quote.status === 'negotiating') && quote.grand_total > 0 && (
           <Card className="mb-6 border-primary/30">
             <CardContent className="p-5">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">

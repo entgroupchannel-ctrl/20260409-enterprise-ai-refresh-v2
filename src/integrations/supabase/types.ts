@@ -4820,6 +4820,10 @@ export type Database = {
       }
       sum_pending_payments: { Args: { p_invoice_id: string }; Returns: number }
       sum_verified_payments: { Args: { p_invoice_id: string }; Returns: number }
+      update_quote_status: {
+        Args: { p_admin_id?: string; p_new_status: string; p_quote_id: string }
+        Returns: Json
+      }
       upsert_user_permission: {
         Args: {
           p_module: string
