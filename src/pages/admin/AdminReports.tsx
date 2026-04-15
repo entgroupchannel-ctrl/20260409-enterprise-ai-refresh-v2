@@ -568,9 +568,6 @@ export default function AdminReports() {
                     <TopCustomersBar customers={salesData.topCustomers ?? []} />
                   </CardContent>
                 </Card>
-                    </div>
-                  </CardContent>
-                </Card>
               </div>
             </TabsContent>
           )}
