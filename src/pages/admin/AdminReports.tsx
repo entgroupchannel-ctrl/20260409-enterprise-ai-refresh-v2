@@ -309,7 +309,7 @@ export default function AdminReports() {
 
   return (
     <AdminLayout>
-      <div className="p-4 md:p-6 space-y-6">
+      <div className="admin-content-area space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between flex-wrap gap-3">
           <div>
