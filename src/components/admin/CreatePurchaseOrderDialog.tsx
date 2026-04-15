@@ -63,7 +63,7 @@ export default function CreatePurchaseOrderDialog({ open, onOpenChange, editId, 
         setShippingCost(d.shipping_cost || 0);
         setOtherCost(d.other_cost || 0);
         setOrderDate(d.order_date || '');
-        setExpectedDelivery(d.expected_delivery_date || '');
+        setExpectedDelivery(d.expected_delivery || '');
         setNotes(d.notes || '');
       });
   }, [editId, open]);
@@ -99,18 +99,16 @@ export default function CreatePurchaseOrderDialog({ open, onOpenChange, editId, 
 
     setSaving(true);
     try {
-      const selectedSupplier = suppliers.find(s => s.id === supplierId);
       const payload = {
         supplier_id: supplierId,
-        supplier_name: selectedSupplier?.company_name || '',
-        items: items.filter(i => i.product_name.trim()),
+        items: items.filter(i => i.product_name.trim()) as unknown as import('@/integrations/supabase/types').Json,
         subtotal,
         shipping_cost: shippingCost || null,
         other_cost: otherCost || null,
         grand_total: grandTotal,
         currency,
         order_date: orderDate || null,
-        expected_delivery_date: expectedDelivery || null,
+        expected_delivery: expectedDelivery || null,
         notes: notes || null,
         status,
       };

@@ -23,13 +23,12 @@ const STATUS_MAP: Record<string, { label: string; variant: 'default' | 'secondar
 interface PO {
   id: string;
   po_number: string;
-  supplier_name: string | null;
   supplier_id: string;
   grand_total: number | null;
   currency: string | null;
   status: string;
   order_date: string | null;
-  expected_delivery_date: string | null;
+  expected_delivery: string | null;
   created_at: string;
 }
 
@@ -55,7 +54,7 @@ export default function PurchaseOrdersList() {
     setLoading(true);
     const { data, error } = await supabase
       .from('purchase_orders')
-      .select('id, po_number, supplier_name, supplier_id, grand_total, currency, status, order_date, expected_delivery_date, created_at')
+      .select('id, po_number, supplier_id, grand_total, currency, status, order_date, expected_delivery, created_at')
       .is('deleted_at', null)
       .order('created_at', { ascending: false });
     if (error) { toast.error(error.message); setLoading(false); return; }
