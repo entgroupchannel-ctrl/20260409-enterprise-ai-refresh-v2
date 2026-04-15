@@ -1081,13 +1081,23 @@ export default function UserDashboard() {
 
                       {/* Action: Accept Quote / Upload PO */}
                       {(selectedQuote.status === 'quote_sent' || selectedQuote.status === 'negotiating') && selectedQuote.grand_total > 0 && (
-                        <Card className="border-primary/30 bg-primary/5">
-                          <CardContent className="pt-4 pb-3 text-center space-y-2">
-                            <p className="text-sm font-medium">ตอบกลับใบเสนอราคา</p>
-                            <p className="text-xs text-muted-foreground">ยอมรับราคาหรืออัปโหลด PO เพื่อดำเนินการ</p>
-                            <Button size="sm" className="w-full" onClick={() => navigate(`/my-quotes/${selectedQuote.id}`)}>
-                              <CheckCircle2 className="w-3.5 h-3.5 mr-1" /> ดูรายละเอียดและยอมรับราคา
+                        <Card className="border-2 border-green-400 dark:border-green-500 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 shadow-md">
+                          <CardContent className="pt-5 pb-4 text-center space-y-3">
+                            <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-green-100 dark:bg-green-800/30 mx-auto">
+                              <CheckCircle2 className="w-5 h-5 text-green-600" />
+                            </div>
+                            <p className="text-sm font-semibold text-green-800 dark:text-green-200">พร้อมยอมรับราคา?</p>
+                            <p className="text-lg font-bold text-green-700 dark:text-green-300">
+                              {formatCurrency(selectedQuote.grand_total)}
+                            </p>
+                            <Button
+                              size="default"
+                              className="w-full bg-green-600 hover:bg-green-700 text-white shadow-md animate-pulse hover:animate-none"
+                              onClick={() => navigate(`/my-quotes/${selectedQuote.id}`)}
+                            >
+                              <CheckCircle2 className="w-4 h-4 mr-1.5" /> ✅ ยอมรับราคานี้
                             </Button>
+                            <p className="text-[11px] text-muted-foreground">กดเพื่อดูรายละเอียดและยืนยัน</p>
                           </CardContent>
                         </Card>
                       )}
