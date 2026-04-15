@@ -9,8 +9,8 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import ProductEditor from '@/components/admin/ProductEditor';
 import FreeItemsEditor, { type FreeItem } from './FreeItemsEditor';
-import DiscountInput from '@/components/shared/DiscountInput';
 import { Send, Save, AlertTriangle, Loader2 } from 'lucide-react';
+import DiscountInput from '@/components/shared/DiscountInput';
 
 interface CounterOfferDialogProps {
   quoteId: string;
@@ -21,13 +21,20 @@ interface CounterOfferDialogProps {
   onSuccess: () => void;
 }
 
-const calculateTotals = (products: any[], discountPercent: number, vatPercent: number) => {
+const calculateTotals = (
+  products: any[], 
+  discountPercent: number, 
+  vatPercent: number,
+  discountAmountOverride?: number
+) => {
   const subtotal = (products || []).reduce((sum: number, p: any) => {
     const lineGross = (Number(p.qty) || 0) * (Number(p.unit_price) || 0);
     const lineDiscount = lineGross * ((Number(p.discount_percent) || 0) / 100);
     return sum + (lineGross - lineDiscount);
   }, 0);
-  const discountAmount = subtotal * (discountPercent / 100);
+  const discountAmount = discountAmountOverride !== undefined && discountAmountOverride > 0
+    ? Math.min(subtotal, discountAmountOverride)
+    : subtotal * (discountPercent / 100);
   const beforeVat = subtotal - discountAmount;
   const vatAmount = beforeVat * (vatPercent / 100);
   return { subtotal, discountAmount, beforeVat, vatAmount, grandTotal: beforeVat + vatAmount };
@@ -48,6 +55,7 @@ export default function CounterOfferDialog({
   const [products, setProducts] = useState<any[]>([]);
   const [freeItems, setFreeItems] = useState<FreeItem[]>([]);
   const [discountPercent, setDiscountPercent] = useState(0);
+  const [discountAmount, setDiscountAmount] = useState(0);
   const [vatPercent, setVatPercent] = useState(7);
   const [changeReason, setChangeReason] = useState('');
   const [internalNotes, setInternalNotes] = useState('');
@@ -72,6 +80,7 @@ export default function CounterOfferDialog({
             setProducts(data.products || []);
             setFreeItems(data.free_items || []);
             setDiscountPercent(data.discount_percent || 0);
+            setDiscountAmount(data.discount_amount || 0);
             setVatPercent(data.vat_percent || 7);
             setValidUntil(data.valid_until || '');
           }
@@ -87,6 +96,7 @@ export default function CounterOfferDialog({
             setProducts((data as any).products || []);
             setFreeItems((data as any).free_items || []);
             setDiscountPercent((data as any).discount_percent || 0);
+            setDiscountAmount((data as any).discount_amount || 0);
             setVatPercent((data as any).vat_percent || 7);
             setValidUntil((data as any).valid_until || '');
           }
@@ -105,7 +115,10 @@ export default function CounterOfferDialog({
     loadBase();
   }, [open, currentRevisionId, quoteId]);
 
-  const totals = useMemo(() => calculateTotals(products, discountPercent, vatPercent), [products, discountPercent, vatPercent]);
+  const totals = useMemo(
+    () => calculateTotals(products, discountPercent, vatPercent, discountAmount),
+    [products, discountPercent, vatPercent, discountAmount]
+  );
 
   const freeItemsTotal = freeItems.reduce((s, fi) => s + (fi.total_value || 0), 0);
   const needsApproval = discountPercent > 8 || freeItemsTotal > 5000;
@@ -256,18 +269,17 @@ export default function CounterOfferDialog({
 
             {/* Discount + Valid Until */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <DiscountInput
-                  compact
-                  label="ส่วนลดรวม"
-                  subtotal={totals.subtotal}
-                  discountPercent={discountPercent}
-                  discountAmount={totals.discountAmount}
-                  onChange={(newPercent) => {
-                    setDiscountPercent(newPercent);
-                  }}
-                />
-              </div>
+              <DiscountInput
+                compact
+                label="ส่วนลดรวม"
+                subtotal={totals.subtotal}
+                discountPercent={discountPercent}
+                discountAmount={discountAmount}
+                onChange={(newPercent, newAmount) => {
+                  setDiscountPercent(newPercent);
+                  setDiscountAmount(newAmount);
+                }}
+              />
               <div>
                 <Label className="text-sm">ราคานี้ใช้ได้ถึง</Label>
                 <Input

@@ -11,7 +11,6 @@ import RevisionTimeline from '@/components/negotiation/RevisionTimeline';
 import QuoteTermsEditor from '@/components/admin/QuoteTermsEditor';
 import CounterOfferDialog from '@/components/negotiation/CounterOfferDialog';
 import EditCustomerInfoDialog from '@/components/admin/EditCustomerInfoDialog';
-import DiscountInput from '@/components/shared/DiscountInput';
 import PendingApprovalBanner from '@/components/negotiation/PendingApprovalBanner';
 import NegotiationRequestsList from '@/components/negotiation/NegotiationRequestsList';
 import NegotiationInsightsCard from '@/components/negotiation/NegotiationInsightsCard';
@@ -44,6 +43,7 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { supabase } from '@/integrations/supabase/client';
+import DiscountInput from '@/components/shared/DiscountInput';
 import { useToast } from '@/hooks/use-toast';
 import ProductEditor from '@/components/admin/ProductEditor';
 import {
@@ -89,7 +89,8 @@ interface QuoteTotals {
 const calculateQuoteTotals = (
   products: any[],
   discountPercent: number = 0,
-  vatPercent: number = 7
+  vatPercent: number = 7,
+  discountAmountOverride?: number
 ): QuoteTotals => {
   const subtotal = (products || []).reduce((sum: number, p: any) => {
     const qty = Number(p.qty) || 0;
@@ -100,7 +101,9 @@ const calculateQuoteTotals = (
     return sum + (lineGross - lineDiscount);
   }, 0);
 
-  const discountAmount = subtotal * ((Number(discountPercent) || 0) / 100);
+  const discountAmount = discountAmountOverride !== undefined && discountAmountOverride > 0
+    ? Math.min(subtotal, discountAmountOverride)
+    : subtotal * ((Number(discountPercent) || 0) / 100);
   const beforeVat = subtotal - discountAmount;
   const vatAmount = beforeVat * ((Number(vatPercent) || 0) / 100);
   const grandTotal = beforeVat + vatAmount;
@@ -205,9 +208,10 @@ export default function AdminQuoteDetail() {
     return calculateQuoteTotals(
       quote.products || [],
       quote.discount_percent || 0,
-      quote.vat_percent || 7
+      quote.vat_percent || 7,
+      quote.discount_amount || 0
     );
-  }, [quote?.products, quote?.discount_percent, quote?.vat_percent]);
+  }, [quote?.products, quote?.discount_percent, quote?.discount_amount, quote?.vat_percent]);
 
   const [assignedSaleUser, setAssignedSaleUser] = useState<any>(null);
 
@@ -835,7 +839,8 @@ export default function AdminQuoteDetail() {
                       const recalc = calculateQuoteTotals(
                         updatedProducts,
                         quote.discount_percent || 0,
-                        quote.vat_percent || 7
+                        quote.vat_percent || 7,
+                        quote.discount_amount || 0
                       );
                       const { error } = await supabase
                         .from('quote_requests')
@@ -912,15 +917,20 @@ export default function AdminQuoteDetail() {
                   <DiscountInput
                     subtotal={totals.subtotal}
                     discountPercent={quote.discount_percent || 0}
-                    discountAmount={totals.discountAmount}
-                    onChange={(newPercent, _newAmount) => {
-                      setQuote({ ...quote, discount_percent: newPercent });
+                    discountAmount={quote.discount_amount || 0}
+                    onChange={(newPercent, newAmount) => {
+                      setQuote({ 
+                        ...quote, 
+                        discount_percent: newPercent,
+                        discount_amount: newAmount,
+                      });
                     }}
                     onBlur={async () => {
                       const recalc = calculateQuoteTotals(
                         quote.products || [],
                         quote.discount_percent || 0,
-                        quote.vat_percent || 7
+                        quote.vat_percent || 7,
+                        quote.discount_amount || 0
                       );
                       const { error } = await supabase
                         .from('quote_requests')
