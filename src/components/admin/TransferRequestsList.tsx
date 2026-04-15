@@ -193,8 +193,8 @@ export default function TransferRequestsList({ onEdit }: Props) {
           priority: 'high',
           action_url: '/admin/international-transfer',
           action_label: 'ตรวจสอบ',
-          related_type: 'transfer',
-          related_id: t.id,
+          link_type: 'transfer',
+          link_id: t.id,
         }));
         await supabase.from('notifications').insert(notifs);
       }
