@@ -259,32 +259,34 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                           )}
                         </Button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent align="start" className="w-56">
-                        {group.items.map((item) => {
-                          if (item.path === '/admin/approvals' && !isAdminUser) return null;
-                          if (item.superAdminOnly && profile?.role !== 'super_admin') return null;
-                          const Icon = item.icon;
-                          const itemBadge = getBadgeCount(item);
-                          const isActive = location.pathname === item.path || location.pathname.startsWith(item.path + '/');
-                          return (
-                            <DropdownMenuItem
-                              key={item.path}
-                              onClick={() => navigate(item.path)}
-                              className={`gap-2 cursor-pointer ${isActive ? 'bg-accent' : ''}`}
-                            >
-                              <Icon className="w-4 h-4 text-muted-foreground" />
-                              <span className="flex-1">{item.label}</span>
-                              {itemBadge > 0 && (
-                                <Badge
-                                  variant={item.badge === 'requests' ? 'destructive' : 'default'}
-                                  className={`ml-auto px-1.5 py-0 text-xs ${item.badge === 'approvals' ? 'bg-amber-600 text-white' : ''}`}
-                                >
-                                  {itemBadge}
-                                </Badge>
-                              )}
-                            </DropdownMenuItem>
-                          );
-                        })}
+                      <DropdownMenuContent align="start" className={group.grid ? 'w-80 p-2' : 'w-56'}>
+                        <div className={group.grid ? 'grid grid-cols-2 gap-1' : ''}>
+                          {group.items.map((item) => {
+                            if (item.path === '/admin/approvals' && !isAdminUser) return null;
+                            if (item.superAdminOnly && profile?.role !== 'super_admin') return null;
+                            const Icon = item.icon;
+                            const itemBadge = getBadgeCount(item);
+                            const isActive = location.pathname === item.path || location.pathname.startsWith(item.path + '/');
+                            return (
+                              <DropdownMenuItem
+                                key={item.path}
+                                onClick={() => navigate(item.path)}
+                                className={`gap-2 cursor-pointer ${isActive ? 'bg-accent' : ''}`}
+                              >
+                                <Icon className="w-4 h-4 text-muted-foreground shrink-0" />
+                                <span className="flex-1 truncate">{item.label}</span>
+                                {itemBadge > 0 && (
+                                  <Badge
+                                    variant={item.badge === 'requests' ? 'destructive' : 'default'}
+                                    className={`ml-auto px-1.5 py-0 text-xs shrink-0 ${item.badge === 'approvals' ? 'bg-amber-600 text-white' : ''}`}
+                                  >
+                                    {itemBadge}
+                                  </Badge>
+                                )}
+                              </DropdownMenuItem>
+                            );
+                          })}
+                        </div>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   );
