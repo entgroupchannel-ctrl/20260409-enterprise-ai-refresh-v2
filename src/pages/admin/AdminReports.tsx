@@ -157,6 +157,21 @@ export default function AdminReports() {
       statusBreakdown[q.status] = (statusBreakdown[q.status] ?? 0) + 1;
     }
 
+    // Revenue trend by month
+    const revenueByMonth: Record<string, number> = {};
+    for (const p of payments) {
+      const month = p.created_at.slice(0, 7);
+      revenueByMonth[month] = (revenueByMonth[month] ?? 0) + (p.amount ?? 0);
+    }
+    const revTrend = Object.entries(revenueByMonth)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .slice(-8)
+      .map(([month, revenue]) => ({
+        month: new Date(month + '-01').toLocaleDateString('th-TH', { month: 'short', year: '2-digit' }),
+        revenue: Math.round(revenue),
+      }));
+    setRevenueTrend(revTrend);
+
     setExecData({
       totalRevenue, pendingAR, poSpend,
       activeQuotes: activeQuotes.length,
@@ -245,6 +260,28 @@ export default function AdminReports() {
     const totalFees = transfers.reduce((s, t) => s + ((t.transfer_fee ?? 0) + (t.bank_fee ?? 0) + (t.other_fee ?? 0)), 0);
     const totalAP = pos.filter(p => !['received','cancelled'].includes(p.status)).reduce((s, p) => s + (p.grand_total ?? 0), 0);
 
+    // AR/AP monthly
+    const arByMonth: Record<string, number> = {};
+    for (const inv of invoices) {
+      if (!inv.invoice_date) continue;
+      const m = inv.invoice_date.slice(0, 7);
+      if (!['paid', 'cancelled'].includes(inv.status)) {
+        arByMonth[m] = (arByMonth[m] ?? 0) + (inv.grand_total ?? 0);
+      }
+    }
+    const apByMonth: Record<string, number> = {};
+    for (const po of pos) {
+      if (!po.created_at) continue;
+      const m = po.created_at.slice(0, 7);
+      apByMonth[m] = (apByMonth[m] ?? 0) + (po.grand_total ?? 0) * 35;
+    }
+    const allMonths = [...new Set([...Object.keys(arByMonth), ...Object.keys(apByMonth)])].sort().slice(-8);
+    setArApMonthly(allMonths.map(m => ({
+      month: new Date(m + '-01').toLocaleDateString('th-TH', { month: 'short', year: '2-digit' }),
+      ar: Math.round(arByMonth[m] ?? 0),
+      ap: Math.round(apByMonth[m] ?? 0),
+    })));
+
     setFinanceData({
       totalReceived, totalAR, totalPaidUSD, totalFees, totalAP,
       overdueInv: overdueInv.slice(0, 10),
@@ -280,6 +317,24 @@ export default function AdminReports() {
       Math.round(completedRepairs.reduce((s, r) => {
         return s + (new Date(r.completed_date).getTime() - new Date(r.created_at).getTime()) / 86400000;
       }, 0) / completedRepairs.length);
+
+    // Supplier PO value
+    const { data: supplierNames } = await supabase
+      .from('suppliers')
+      .select('id, company_name')
+      .is('deleted_at', null);
+    const snMap: Record<string, string> = {};
+    for (const s of supplierNames ?? []) snMap[s.id] = s.company_name;
+    const poBySupplier: Record<string, number> = {};
+    for (const po of pos) {
+      if (!po.supplier_id) continue;
+      poBySupplier[po.supplier_id] = (poBySupplier[po.supplier_id] ?? 0) + (po.grand_total ?? 0);
+    }
+    const spData = Object.entries(poBySupplier)
+      .map(([id, value]) => ({ name: snMap[id] ?? 'Unknown', value: Math.round(value) }))
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 6);
+    setSupplierPoData(spData);
 
     setOpsData({
       activePos: activePos.length,
