@@ -94,6 +94,7 @@ const navGroups: NavGroup[] = [
     items: [
       { label: 'ลูกค้า (Members)', icon: Users, path: '/admin/customers' },
       { label: 'ผู้ติดต่อ', icon: Users, path: '/admin/contacts' },
+      { label: 'สมาชิกข่าวสาร', icon: Mail, path: '/admin/subscribers' },
       { label: 'Live Chat', icon: MessageCircle, path: '/admin/live-chat' },
       { label: 'จัดการ Supplier', icon: Building2, path: '/admin/suppliers' },
       { label: 'โอนเงินต่างประเทศ', icon: DollarSign, path: '/admin/international-transfer' },
