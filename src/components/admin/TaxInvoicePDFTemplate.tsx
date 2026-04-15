@@ -15,6 +15,8 @@ interface Props {
     customer_branch_name: string | null;
     subtotal: number;
     discount_amount?: number | null;
+    discount_type?: 'percent' | 'baht' | null;
+    discount_percent?: number | null;
     vat_amount: number;
     withholding_tax_amount: number;
     grand_total: number;
@@ -202,7 +204,13 @@ export default function TaxInvoicePDFTemplate({
             </tr>
             {(taxInvoice.discount_amount || 0) > 0 && (
               <tr>
-                <td className="py-1 pr-8 text-green-700">ส่วนลด:</td>
+                <td className="py-1 pr-8 text-green-700">
+                  ส่วนลด {taxInvoice.discount_type === 'baht'
+                    ? `(฿${formatCurrency(taxInvoice.discount_amount || 0)})`
+                    : taxInvoice.discount_percent 
+                      ? `(${taxInvoice.discount_percent}%)` 
+                      : ''}:
+                </td>
                 <td className="py-1 text-right text-green-700">-{formatCurrency(taxInvoice.discount_amount || 0)} บาท</td>
               </tr>
             )}
