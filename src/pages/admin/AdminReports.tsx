@@ -15,6 +15,15 @@ import {
 } from 'lucide-react';
 import { format, subMonths, startOfMonth, endOfMonth, startOfYear } from 'date-fns';
 import { th } from 'date-fns/locale';
+import {
+  QuoteStatusDonut,
+  RevenueTrendLine,
+  WinLossDonut,
+  TopCustomersBar,
+  ArApGroupedBar,
+  RepairStatusBar,
+  SupplierPoBar,
+} from '@/components/admin/AdminReportsCharts';
 
 const fmt = (n: number, decimals = 0) =>
   n.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
@@ -94,6 +103,9 @@ export default function AdminReports() {
   const [salesData, setSalesData] = useState<any>({});
   const [financeData, setFinanceData] = useState<any>({});
   const [opsData, setOpsData] = useState<any>({});
+  const [revenueTrend, setRevenueTrend] = useState<{ month: string; revenue: number }[]>([]);
+  const [arApMonthly, setArApMonthly] = useState<{ month: string; ar: number; ap: number }[]>([]);
+  const [supplierPoData, setSupplierPoData] = useState<{ name: string; value: number }[]>([]);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -144,6 +156,21 @@ export default function AdminReports() {
     for (const q of quotes) {
       statusBreakdown[q.status] = (statusBreakdown[q.status] ?? 0) + 1;
     }
+
+    // Revenue trend by month
+    const revenueByMonth: Record<string, number> = {};
+    for (const p of payments) {
+      const month = p.created_at.slice(0, 7);
+      revenueByMonth[month] = (revenueByMonth[month] ?? 0) + (p.amount ?? 0);
+    }
+    const revTrend = Object.entries(revenueByMonth)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .slice(-8)
+      .map(([month, revenue]) => ({
+        month: new Date(month + '-01').toLocaleDateString('th-TH', { month: 'short', year: '2-digit' }),
+        revenue: Math.round(revenue),
+      }));
+    setRevenueTrend(revTrend);
 
     setExecData({
       totalRevenue, pendingAR, poSpend,
@@ -233,6 +260,28 @@ export default function AdminReports() {
     const totalFees = transfers.reduce((s, t) => s + ((t.transfer_fee ?? 0) + (t.bank_fee ?? 0) + (t.other_fee ?? 0)), 0);
     const totalAP = pos.filter(p => !['received','cancelled'].includes(p.status)).reduce((s, p) => s + (p.grand_total ?? 0), 0);
 
+    // AR/AP monthly
+    const arByMonth: Record<string, number> = {};
+    for (const inv of invoices) {
+      if (!inv.invoice_date) continue;
+      const m = inv.invoice_date.slice(0, 7);
+      if (!['paid', 'cancelled'].includes(inv.status)) {
+        arByMonth[m] = (arByMonth[m] ?? 0) + (inv.grand_total ?? 0);
+      }
+    }
+    const apByMonth: Record<string, number> = {};
+    for (const po of pos) {
+      if (!po.created_at) continue;
+      const m = po.created_at.slice(0, 7);
+      apByMonth[m] = (apByMonth[m] ?? 0) + (po.grand_total ?? 0) * 35;
+    }
+    const allMonths = [...new Set([...Object.keys(arByMonth), ...Object.keys(apByMonth)])].sort().slice(-8);
+    setArApMonthly(allMonths.map(m => ({
+      month: new Date(m + '-01').toLocaleDateString('th-TH', { month: 'short', year: '2-digit' }),
+      ar: Math.round(arByMonth[m] ?? 0),
+      ap: Math.round(apByMonth[m] ?? 0),
+    })));
+
     setFinanceData({
       totalReceived, totalAR, totalPaidUSD, totalFees, totalAP,
       overdueInv: overdueInv.slice(0, 10),
@@ -268,6 +317,24 @@ export default function AdminReports() {
       Math.round(completedRepairs.reduce((s, r) => {
         return s + (new Date(r.completed_date).getTime() - new Date(r.created_at).getTime()) / 86400000;
       }, 0) / completedRepairs.length);
+
+    // Supplier PO value
+    const { data: supplierNames } = await supabase
+      .from('suppliers')
+      .select('id, company_name')
+      .is('deleted_at', null);
+    const snMap: Record<string, string> = {};
+    for (const s of supplierNames ?? []) snMap[s.id] = s.company_name;
+    const poBySupplier: Record<string, number> = {};
+    for (const po of pos) {
+      if (!po.supplier_id) continue;
+      poBySupplier[po.supplier_id] = (poBySupplier[po.supplier_id] ?? 0) + (po.grand_total ?? 0);
+    }
+    const spData = Object.entries(poBySupplier)
+      .map(([id, value]) => ({ name: snMap[id] ?? 'Unknown', value: Math.round(value) }))
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 6);
+    setSupplierPoData(spData);
 
     setOpsData({
       activePos: activePos.length,
@@ -369,65 +436,58 @@ export default function AdminReports() {
                 <MetricCard label="Invoice เลยกำหนด"   value={`${execData.overdueCount ?? 0} รายการ`} icon={AlertTriangle} color="red" sub={fmtTHB(execData.overdueAmount ?? 0)} />
               </div>
 
-              {/* Quote status breakdown */}
+              {/* Quote status + Revenue trend charts */}
               <div className="grid md:grid-cols-2 gap-4">
                 <Card>
                   <CardHeader className="pb-2">
-                    <CardTitle className="text-sm">Quote Status Breakdown</CardTitle>
+                    <CardTitle className="text-sm">Quote Status</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-2">
-                      {Object.entries(execData.statusBreakdown ?? {}).map(([status, count]: any) => (
-                        <div key={status} className="flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <StatusBadge status={status} />
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <div className="w-24 bg-muted rounded-full h-1.5">
-                              <div
-                                className="bg-blue-500 h-1.5 rounded-full"
-                                style={{ width: `${Math.min(100, (count / (execData.totalQuotes || 1)) * 100)}%` }}
-                              />
-                            </div>
-                            <span className="text-sm font-medium w-8 text-right">{count}</span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+                    <QuoteStatusDonut statusBreakdown={execData.statusBreakdown ?? {}} />
                   </CardContent>
                 </Card>
 
                 <Card>
                   <CardHeader className="pb-2">
-                    <CardTitle className="text-sm">Invoice ล่าสุด</CardTitle>
+                    <CardTitle className="text-sm">Revenue Trend</CardTitle>
                   </CardHeader>
-                  <CardContent className="p-0">
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead className="text-xs">เลข Invoice</TableHead>
-                          <TableHead className="text-xs">ลูกค้า</TableHead>
-                          <TableHead className="text-xs text-right">ยอด</TableHead>
-                          <TableHead className="text-xs">สถานะ</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {(execData.recentInvoices ?? []).map((inv: any) => (
-                          <TableRow key={inv.id}>
-                            <TableCell className="font-mono text-xs">{inv.invoice_number}</TableCell>
-                            <TableCell className="text-xs">{inv.customer_name}</TableCell>
-                            <TableCell className="text-xs text-right tabular-nums">{fmtTHB(inv.grand_total ?? 0)}</TableCell>
-                            <TableCell><StatusBadge status={inv.status} /></TableCell>
-                          </TableRow>
-                        ))}
-                        {(execData.recentInvoices ?? []).length === 0 && (
-                          <TableRow><TableCell colSpan={4} className="text-center text-muted-foreground text-xs py-6">ไม่มีข้อมูล</TableCell></TableRow>
-                        )}
-                      </TableBody>
-                    </Table>
+                  <CardContent>
+                    <RevenueTrendLine data={revenueTrend} />
                   </CardContent>
                 </Card>
               </div>
+
+              {/* Invoice table */}
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm">Invoice ล่าสุด</CardTitle>
+                </CardHeader>
+                <CardContent className="p-0">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="text-xs">เลข Invoice</TableHead>
+                        <TableHead className="text-xs">ลูกค้า</TableHead>
+                        <TableHead className="text-xs text-right">ยอด</TableHead>
+                        <TableHead className="text-xs">สถานะ</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {(execData.recentInvoices ?? []).map((inv: any) => (
+                        <TableRow key={inv.id}>
+                          <TableCell className="font-mono text-xs">{inv.invoice_number}</TableCell>
+                          <TableCell className="text-xs">{inv.customer_name}</TableCell>
+                          <TableCell className="text-xs text-right tabular-nums">{fmtTHB(inv.grand_total ?? 0)}</TableCell>
+                          <TableCell><StatusBadge status={inv.status} /></TableCell>
+                        </TableRow>
+                      ))}
+                      {(execData.recentInvoices ?? []).length === 0 && (
+                        <TableRow><TableCell colSpan={4} className="text-center text-muted-foreground text-xs py-6">ไม่มีข้อมูล</TableCell></TableRow>
+                      )}
+                    </TableBody>
+                  </Table>
+                </CardContent>
+              </Card>
             </TabsContent>
           )}
 
@@ -489,29 +549,23 @@ export default function AdminReports() {
 
                 <Card>
                   <CardHeader className="pb-2">
-                    <CardTitle className="text-sm">Top ลูกค้าตามมูลค่า</CardTitle>
+                    <CardTitle className="text-sm">Win / Loss Breakdown</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-2.5">
-                      {(salesData.topCustomers ?? []).map((c: any, i: number) => (
-                        <div key={i} className="flex items-center justify-between gap-3">
-                          <div className="flex items-center gap-2 min-w-0">
-                            <span className="w-5 h-5 rounded-full bg-muted flex items-center justify-center text-[10px] font-bold shrink-0">{i + 1}</span>
-                            <div className="min-w-0">
-                              <p className="text-xs font-medium truncate">{c.name}</p>
-                              {c.company && <p className="text-[10px] text-muted-foreground truncate">{c.company}</p>}
-                            </div>
-                          </div>
-                          <div className="text-right shrink-0">
-                            <p className="text-xs font-semibold tabular-nums">{fmtTHB(c.value)}</p>
-                            <p className="text-[10px] text-muted-foreground">{c.count} deal</p>
-                          </div>
-                        </div>
-                      ))}
-                      {(salesData.topCustomers ?? []).length === 0 && (
-                        <p className="text-xs text-muted-foreground text-center py-4">ไม่มีข้อมูล</p>
-                      )}
-                    </div>
+                    <WinLossDonut
+                      won={salesData.wonQuotes ?? 0}
+                      lost={salesData.lostQuotes ?? 0}
+                      active={(salesData.totalQuotes ?? 0) - (salesData.wonQuotes ?? 0) - (salesData.lostQuotes ?? 0)}
+                    />
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm">Top ลูกค้า</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <TopCustomersBar customers={salesData.topCustomers ?? []} />
                   </CardContent>
                 </Card>
               </div>
@@ -537,6 +591,16 @@ export default function AdminReports() {
                 <MetricCard label="รออนุมัติโอน"       value={String(financeData.pendingTransfers ?? 0)} icon={Clock}    color="red"    />
                 <MetricCard label="Net Position"        value={fmtTHB((financeData.totalReceived ?? 0) - (financeData.totalAR ?? 0))} icon={BarChart3} color="green" />
               </div>
+
+              {/* AR vs AP chart */}
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm">AR vs AP รายเดือน</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ArApGroupedBar data={arApMonthly} />
+                </CardContent>
+              </Card>
 
               {/* Overdue invoices + All invoices */}
               <div className="grid md:grid-cols-2 gap-4">
@@ -699,31 +763,34 @@ export default function AdminReports() {
                 </Card>
               </div>
 
-              {/* Repair breakdown */}
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm flex items-center gap-2">
-                    <Wrench className="w-4 h-4" /> Repair Orders Breakdown
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    {Object.entries(opsData.repairByStatus ?? {}).map(([status, count]: any) => (
-                      <div key={status} className="rounded-lg bg-muted/30 p-3 text-center">
-                        <p className="text-xl font-bold">{count}</p>
-                        <StatusBadge status={status} />
-                      </div>
-                    ))}
-                    {Object.keys(opsData.repairByStatus ?? {}).length === 0 && (
-                      <div className="col-span-4 text-center text-xs text-muted-foreground py-4">ไม่มีข้อมูล</div>
-                    )}
-                  </div>
-                  <div className="mt-3 pt-3 border-t flex gap-4 text-xs text-muted-foreground">
-                    <span>Chargeable: <strong>{opsData.chargeableRepairs ?? 0}</strong> รายการ</span>
-                    <span>เฉลี่ย: <strong>{opsData.avgRepairDays ?? 0} วัน</strong> จนเสร็จ</span>
-                  </div>
-                </CardContent>
-              </Card>
+              {/* Repair + Supplier charts */}
+              <div className="grid md:grid-cols-2 gap-4">
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm flex items-center gap-2">
+                      <Wrench className="w-4 h-4" /> Repair Orders ตาม Status
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <RepairStatusBar repairByStatus={opsData.repairByStatus ?? {}} />
+                    <div className="mt-3 pt-3 border-t flex gap-4 text-xs text-muted-foreground">
+                      <span>Chargeable: <strong>{opsData.chargeableRepairs ?? 0}</strong> รายการ</span>
+                      <span>เฉลี่ย: <strong>{opsData.avgRepairDays ?? 0} วัน</strong> จนเสร็จ</span>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm flex items-center gap-2">
+                      <Package className="w-4 h-4" /> ยอด PO ต่อ Supplier (USD)
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <SupplierPoBar suppliers={supplierPoData} />
+                  </CardContent>
+                </Card>
+              </div>
             </TabsContent>
           )}
         </Tabs>
