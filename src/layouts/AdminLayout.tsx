@@ -37,6 +37,7 @@ import {
   DollarSign,
   MessageCircle,
   BarChart3,
+  Mail,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { supabase } from '@/integrations/supabase/client';
