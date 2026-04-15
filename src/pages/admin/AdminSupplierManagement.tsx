@@ -13,6 +13,7 @@ import SupplierApprovalList from '@/components/admin/SupplierApprovalList';
 import SupplierRegistrationForm from '@/components/admin/SupplierRegistrationForm';
 import SupplierDocumentForm from '@/components/admin/SupplierDocumentForm';
 import SupplierPaymentHistory from '@/components/admin/SupplierPaymentHistory';
+import PurchaseOrdersList from '@/components/admin/PurchaseOrdersList';
 import {
   Building2, Clock, CheckCircle, XCircle, FileEdit, Star, Award,
   Search, RefreshCw, Loader2, Trash2,
@@ -120,10 +121,11 @@ export default function AdminSupplierManagement() {
 
         {/* Tabs */}
         <Tabs value={tab} onValueChange={setTab}>
-          <TabsList className="grid w-full grid-cols-3 md:grid-cols-6 h-auto">
+          <TabsList className="grid w-full grid-cols-4 md:grid-cols-7 h-auto">
             <TabsTrigger value="approval" className="text-xs">รออนุมัติ{stats.pending > 0 && ` (${stats.pending})`}</TabsTrigger>
             <TabsTrigger value="list" className="text-xs">รายการ</TabsTrigger>
             <TabsTrigger value="register" className="text-xs">ลงทะเบียน</TabsTrigger>
+            <TabsTrigger value="po" className="text-xs">ใบสั่งซื้อ</TabsTrigger>
             <TabsTrigger value="documents" className="text-xs">เอกสาร</TabsTrigger>
             <TabsTrigger value="payments" className="text-xs">ประวัติจ่าย</TabsTrigger>
             <TabsTrigger value="transfers" className="text-xs">โอนเงิน</TabsTrigger>
@@ -207,6 +209,10 @@ export default function AdminSupplierManagement() {
 
           <TabsContent value="register">
             <SupplierRegistrationForm onSaved={() => { load(); setTab('list'); }} />
+          </TabsContent>
+
+          <TabsContent value="po">
+            <PurchaseOrdersList />
           </TabsContent>
 
           <TabsContent value="documents">
