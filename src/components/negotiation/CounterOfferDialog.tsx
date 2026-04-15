@@ -23,18 +23,18 @@ interface CounterOfferDialogProps {
 
 const calculateTotals = (
   products: any[], 
-  discountPercent: number, 
-  vatPercent: number,
-  discountAmountOverride?: number
+  discountType: 'percent' | 'baht',
+  discountValue: number,
+  vatPercent: number
 ) => {
   const subtotal = (products || []).reduce((sum: number, p: any) => {
     const lineGross = (Number(p.qty) || 0) * (Number(p.unit_price) || 0);
     const lineDiscount = lineGross * ((Number(p.discount_percent) || 0) / 100);
     return sum + (lineGross - lineDiscount);
   }, 0);
-  const discountAmount = discountAmountOverride !== undefined && discountAmountOverride > 0
-    ? Math.min(subtotal, discountAmountOverride)
-    : subtotal * (discountPercent / 100);
+  const discountAmount = discountType === 'baht'
+    ? Math.min(subtotal, discountValue)
+    : subtotal * (discountValue / 100);
   const beforeVat = subtotal - discountAmount;
   const vatAmount = beforeVat * (vatPercent / 100);
   return { subtotal, discountAmount, beforeVat, vatAmount, grandTotal: beforeVat + vatAmount };
@@ -54,8 +54,8 @@ export default function CounterOfferDialog({
   const { toast } = useToast();
   const [products, setProducts] = useState<any[]>([]);
   const [freeItems, setFreeItems] = useState<FreeItem[]>([]);
-  const [discountPercent, setDiscountPercent] = useState(0);
-  const [discountAmount, setDiscountAmount] = useState(0);
+  const [discountType, setDiscountType] = useState<'percent' | 'baht'>('percent');
+  const [discountValue, setDiscountValue] = useState(0);
   const [vatPercent, setVatPercent] = useState(7);
   const [changeReason, setChangeReason] = useState('');
   const [internalNotes, setInternalNotes] = useState('');
@@ -79,8 +79,9 @@ export default function CounterOfferDialog({
           if (data) {
             setProducts(data.products || []);
             setFreeItems(data.free_items || []);
-            setDiscountPercent(data.discount_percent || 0);
-            setDiscountAmount(data.discount_amount || 0);
+            const loadedType = (data.discount_type === 'baht' ? 'baht' : 'percent') as 'percent' | 'baht';
+            setDiscountType(loadedType);
+            setDiscountValue(loadedType === 'baht' ? (data.discount_amount || 0) : (data.discount_percent || 0));
             setVatPercent(data.vat_percent || 7);
             setValidUntil(data.valid_until || '');
           }
@@ -95,8 +96,9 @@ export default function CounterOfferDialog({
           if (data) {
             setProducts((data as any).products || []);
             setFreeItems((data as any).free_items || []);
-            setDiscountPercent((data as any).discount_percent || 0);
-            setDiscountAmount((data as any).discount_amount || 0);
+            const loadedType2 = ((data as any).discount_type === 'baht' ? 'baht' : 'percent') as 'percent' | 'baht';
+            setDiscountType(loadedType2);
+            setDiscountValue(loadedType2 === 'baht' ? ((data as any).discount_amount || 0) : ((data as any).discount_percent || 0));
             setVatPercent((data as any).vat_percent || 7);
             setValidUntil((data as any).valid_until || '');
           }
@@ -116,12 +118,15 @@ export default function CounterOfferDialog({
   }, [open, currentRevisionId, quoteId]);
 
   const totals = useMemo(
-    () => calculateTotals(products, discountPercent, vatPercent, discountAmount),
-    [products, discountPercent, vatPercent, discountAmount]
+    () => calculateTotals(products, discountType, discountValue, vatPercent),
+    [products, discountType, discountValue, vatPercent]
   );
 
   const freeItemsTotal = freeItems.reduce((s, fi) => s + (fi.total_value || 0), 0);
-  const needsApproval = discountPercent > 8 || freeItemsTotal > 5000;
+  const effectivePercent = discountType === 'percent' 
+    ? discountValue 
+    : (totals.subtotal > 0 ? (discountValue / totals.subtotal) * 100 : 0);
+  const needsApproval = effectivePercent > 8 || freeItemsTotal > 5000;
 
   const handleSave = async (sendToCustomer: boolean) => {
     if (!changeReason.trim()) {
@@ -154,7 +159,8 @@ export default function CounterOfferDialog({
         products: products,
         free_items: freeItems,
         subtotal: totals.subtotal,
-        discount_percent: discountPercent,
+        discount_type: discountType,
+        discount_percent: discountType === 'percent' ? discountValue : (totals.subtotal > 0 ? (totals.discountAmount / totals.subtotal) * 100 : 0),
         discount_amount: totals.discountAmount,
         vat_percent: vatPercent,
         vat_amount: totals.vatAmount,
@@ -181,7 +187,8 @@ export default function CounterOfferDialog({
           free_items: freeItems,
           products: products,
           subtotal: totals.subtotal,
-          discount_percent: discountPercent,
+          discount_type: discountType,
+          discount_percent: discountType === 'percent' ? discountValue : (totals.subtotal > 0 ? (totals.discountAmount / totals.subtotal) * 100 : 0),
           discount_amount: totals.discountAmount,
           vat_percent: vatPercent,
           vat_amount: totals.vatAmount,
@@ -273,11 +280,11 @@ export default function CounterOfferDialog({
                 compact
                 label="ส่วนลดรวม"
                 subtotal={totals.subtotal}
-                discountPercent={discountPercent}
-                discountAmount={discountAmount}
-                onChange={(newPercent, newAmount) => {
-                  setDiscountPercent(newPercent);
-                  setDiscountAmount(newAmount);
+                discountType={discountType}
+                discountValue={discountValue}
+                onChange={(newType, newValue) => {
+                  setDiscountType(newType);
+                  setDiscountValue(newValue);
                 }}
               />
               <div>
@@ -305,7 +312,11 @@ export default function CounterOfferDialog({
               <div className="flex justify-between"><span>ยอดสินค้า</span><span>{formatCurrency(totals.subtotal)}</span></div>
               {totals.discountAmount > 0 && (
                 <div className="flex justify-between text-green-600">
-                  <span>ส่วนลด {discountPercent}%</span>
+                  <span>
+                    ส่วนลด {discountType === 'percent' 
+                      ? `${discountValue}%` 
+                      : `฿${formatCurrency(discountValue)}`}
+                  </span>
                   <span>-{formatCurrency(totals.discountAmount)}</span>
                 </div>
               )}
