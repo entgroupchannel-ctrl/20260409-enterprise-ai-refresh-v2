@@ -59,6 +59,8 @@ export default function CreatePurchaseOrderDialog({ open, onOpenChange, editId, 
   const [parsingPI, setParsingPI] = useState(false);
   const [piParseResult, setPiParseResult] = useState<'success' | 'error' | null>(null);
   const [piSupplierWarning, setPiSupplierWarning] = useState('');
+  const [piFileCount, setPiFileCount] = useState(0);
+  const [piTotalItems, setPiTotalItems] = useState(0);
   const piFileRef = useRef<HTMLInputElement>(null);
 
   const [supplierId, setSupplierId] = useState('');
