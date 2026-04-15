@@ -18,30 +18,37 @@ const businessTypes = [
   { value: 'oem', label: 'OEM' },
 ];
 const currencies = ['USD', 'EUR', 'GBP', 'JPY', 'CNY', 'SGD', 'THB'];
+const PRICE_TERMS = ['Ex-works', 'FOB', 'CIF', 'DDP', 'DAP', 'FCA'];
+const PAYMENT_TERMS_OPTIONS = ['TT 100%', 'TT 30/70', 'TT 50/50', 'L/C', 'D/P', 'D/A'];
 
 interface FormData {
   company_name: string; company_name_en: string; business_type: string;
   registration_number: string; year_established: string; country: string;
   contact_name: string; contact_position: string; email: string;
   phone: string; mobile: string; fax: string; website: string;
-  line_id: string; wechat_id: string;
+  line_id: string; wechat_id: string; skype: string; whatsapp: string;
   address: string; city: string; state_province: string; postal_code: string;
   bank_name: string; bank_address: string; bank_account_number: string;
   bank_account_name: string; swift_code: string; iban: string;
   bank_country: string; intermediary_bank: string; intermediary_swift: string;
   main_products: string; certifications: string; payment_terms: string;
   lead_time_days: string; minimum_order_amount: string; currency: string; notes: string;
+  warranty_terms_free: string; warranty_terms_paid: string;
+  default_price_terms: string; default_payment_terms: string; default_delivery_days: string;
 }
 
 const initial: FormData = {
   company_name: '', company_name_en: '', business_type: '', registration_number: '',
   year_established: '', country: 'China', contact_name: '', contact_position: '',
   email: '', phone: '', mobile: '', fax: '', website: '', line_id: '', wechat_id: '',
+  skype: '', whatsapp: '',
   address: '', city: '', state_province: '', postal_code: '',
   bank_name: '', bank_address: '', bank_account_number: '', bank_account_name: '',
   swift_code: '', iban: '', bank_country: '', intermediary_bank: '', intermediary_swift: '',
   main_products: '', certifications: '', payment_terms: '', lead_time_days: '',
   minimum_order_amount: '', currency: 'USD', notes: '',
+  warranty_terms_free: '', warranty_terms_paid: '',
+  default_price_terms: '', default_payment_terms: '', default_delivery_days: '',
 };
 
 interface Props { onSaved?: () => void; }
@@ -50,7 +57,7 @@ export default function SupplierRegistrationForm({ onSaved }: Props) {
   const { toast } = useToast();
   const [form, setForm] = useState<FormData>(initial);
   const [saving, setSaving] = useState(false);
-  const [showExtra, setShowExtra] = useState({ contact: false, bank: false });
+  const [showExtra, setShowExtra] = useState({ contact: false, bank: false, warranty: false });
 
   const set = (k: keyof FormData, v: string) => setForm(prev => ({ ...prev, [k]: v }));
 
@@ -72,7 +79,9 @@ export default function SupplierRegistrationForm({ onSaved }: Props) {
       email: form.email || null, phone: form.phone || null,
       mobile: form.mobile || null, fax: form.fax || null,
       website: form.website || null, line_id: form.line_id || null,
-      wechat_id: form.wechat_id || null, address: form.address || null,
+      wechat_id: form.wechat_id || null,
+      skype: form.skype || null, whatsapp: form.whatsapp || null,
+      address: form.address || null,
       city: form.city || null, state_province: form.state_province || null,
       postal_code: form.postal_code || null,
       bank_name: form.bank_name || null, bank_address: form.bank_address || null,
@@ -89,6 +98,11 @@ export default function SupplierRegistrationForm({ onSaved }: Props) {
       minimum_order_amount: form.minimum_order_amount ? parseFloat(form.minimum_order_amount) : null,
       currency: form.currency, notes: form.notes || null,
       status: submitForApproval ? 'pending' : 'draft',
+      warranty_terms_free: form.warranty_terms_free || null,
+      warranty_terms_paid: form.warranty_terms_paid || null,
+      default_price_terms: form.default_price_terms || null,
+      default_payment_terms: form.default_payment_terms || null,
+      default_delivery_days: form.default_delivery_days || null,
     };
     const { error } = await supabase.from('suppliers').insert(payload as any);
     if (error) {
@@ -145,12 +159,12 @@ export default function SupplierRegistrationForm({ onSaved }: Props) {
             <F label="อีเมล" k="email" type="email" />
             <F label="โทร" k="phone" />
             <F label="WeChat" k="wechat_id" />
-            <F label="เว็บไซต์" k="website" placeholder="https://" />
+            <F label="WhatsApp" k="whatsapp" placeholder="+8615989483512" />
           </div>
           <Collapsible open={showExtra.contact} onOpenChange={v => setShowExtra(p => ({ ...p, contact: v }))}>
             <CollapsibleTrigger className="text-xs text-primary hover:underline flex items-center gap-1 cursor-pointer">
               <ChevronDown className={`w-3 h-3 transition-transform ${showExtra.contact ? 'rotate-180' : ''}`} />
-              {showExtra.contact ? 'ซ่อน' : 'เพิ่มเติม'} (ตำแหน่ง, มือถือ, แฟกซ์, LINE, ที่อยู่)
+              {showExtra.contact ? 'ซ่อน' : 'เพิ่มเติม'} (Skype, มือถือ, แฟกซ์, LINE, ที่อยู่)
             </CollapsibleTrigger>
             <CollapsibleContent className="pt-3">
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -158,6 +172,8 @@ export default function SupplierRegistrationForm({ onSaved }: Props) {
                 <F label="มือถือ" k="mobile" />
                 <F label="แฟกซ์" k="fax" />
                 <F label="LINE ID" k="line_id" />
+                <F label="Skype" k="skype" />
+                <F label="เว็บไซต์" k="website" placeholder="https://" />
                 <F label="เลขทะเบียน" k="registration_number" />
                 <F label="ปีก่อตั้ง" k="year_established" type="number" />
               </div>
@@ -218,10 +234,40 @@ export default function SupplierRegistrationForm({ onSaved }: Props) {
                 </SelectContent>
               </Select>
             </div>
-            <F label="เงื่อนไขชำระ" k="payment_terms" placeholder="T/T 30 days" />
+            <div className="space-y-1">
+              <Label className="text-xs text-muted-foreground">Default Price Terms</Label>
+              <Select value={form.default_price_terms} onValueChange={v => set('default_price_terms', v)}>
+                <SelectTrigger className="h-9"><SelectValue placeholder="เลือก..." /></SelectTrigger>
+                <SelectContent>{PRICE_TERMS.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-1">
+              <Label className="text-xs text-muted-foreground">Default Payment Terms</Label>
+              <Select value={form.default_payment_terms} onValueChange={v => set('default_payment_terms', v)}>
+                <SelectTrigger className="h-9"><SelectValue placeholder="เลือก..." /></SelectTrigger>
+                <SelectContent>{PAYMENT_TERMS_OPTIONS.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent>
+              </Select>
+            </div>
+            <F label="Default Delivery Days" k="default_delivery_days" placeholder="5-7 working days" />
             <F label="Lead Time (วัน)" k="lead_time_days" type="number" />
             <F label="ยอดขั้นต่ำ" k="minimum_order_amount" type="number" />
           </div>
+
+          {/* Warranty (collapsible) */}
+          <Collapsible open={showExtra.warranty} onOpenChange={v => setShowExtra(p => ({ ...p, warranty: v }))}>
+            <CollapsibleTrigger className="text-xs text-primary hover:underline flex items-center gap-1 cursor-pointer">
+              <ChevronDown className={`w-3 h-3 transition-transform ${showExtra.warranty ? 'rotate-180' : ''}`} />
+              เงื่อนไขประกัน {form.warranty_terms_free && `(${form.warranty_terms_free})`}
+              {!showExtra.warranty && !form.warranty_terms_free && ' (คลิกเพิ่ม)'}
+            </CollapsibleTrigger>
+            <CollapsibleContent className="pt-3">
+              <div className="grid grid-cols-2 gap-3">
+                <F label="ประกันฟรี" k="warranty_terms_free" placeholder="24 months free repair" />
+                <F label="ประกันแบบเสียค่าใช้จ่าย" k="warranty_terms_paid" placeholder="36 months paid maintenance" />
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
+
           <div className="space-y-1">
             <Label className="text-xs text-muted-foreground">หมายเหตุ</Label>
             <Textarea value={form.notes} onChange={e => set('notes', e.target.value)} rows={2} className="resize-none" />

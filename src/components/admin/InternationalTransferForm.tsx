@@ -23,7 +23,7 @@ interface Supplier {
   intermediary_bank: string | null; intermediary_swift: string | null;
   currency: string | null;
 }
-interface PO { id: string; po_number: string; grand_total: number | null; currency: string | null; status: string; }
+interface PO { id: string; po_number: string; grand_total: number | null; currency: string | null; status: string; pi_number?: string | null; }
 interface Props { editId?: string | null; onSaved?: () => void; }
 
 export default function InternationalTransferForm({ editId, onSaved }: Props) {
