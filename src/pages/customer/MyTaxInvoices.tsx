@@ -3,13 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import CustomerLayout from '@/layouts/CustomerLayout';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
-  FileText, Search, Loader2, ArrowLeft, CircleCheckBig, Clock, Ban, Building2,
+  FileText, Search, Loader2, CircleCheckBig, Clock, Ban, Building2,
 } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 
@@ -103,28 +104,18 @@ export default function MyTaxInvoices() {
   });
 
   return (
-    <>
+    <CustomerLayout title="ใบกำกับภาษีของฉัน">
       <SEOHead title="ใบกำกับภาษีของฉัน" description="รายการใบกำกับภาษีของลูกค้า" />
-      <div className="min-h-screen bg-background p-4 md:p-6">
-        <div className="max-w-5xl mx-auto space-y-4">
-          {/* Header */}
-          <div className="flex items-center justify-between gap-2 flex-wrap">
-            <div className="flex items-center gap-3">
-              <Button variant="ghost" size="sm" onClick={() => navigate('/dashboard')}>
-                <ArrowLeft className="w-4 h-4 mr-1" />
-                กลับ
-              </Button>
-              <div>
-                <h1 className="text-2xl font-bold flex items-center gap-2">
-                  <FileText className="w-6 h-6 text-primary" />
-                  ใบกำกับภาษีของฉัน
-                </h1>
-                <p className="text-xs text-muted-foreground">
-                  รวม {taxInvoices.length} รายการ
-                </p>
-              </div>
-            </div>
-          </div>
+      <div className="space-y-4">
+        <div>
+          <h1 className="text-2xl font-bold flex items-center gap-2">
+            <FileText className="w-6 h-6 text-primary" />
+            ใบกำกับภาษีของฉัน
+          </h1>
+          <p className="text-xs text-muted-foreground">
+            รวม {taxInvoices.length} รายการ
+          </p>
+        </div>
 
           {/* Search + Filter */}
           <Card>
@@ -228,6 +219,6 @@ export default function MyTaxInvoices() {
           )}
         </div>
       </div>
-    </>
+    </CustomerLayout>
   );
 }

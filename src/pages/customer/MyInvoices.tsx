@@ -3,13 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import CustomerLayout from '@/layouts/CustomerLayout';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
-  Receipt, Search, Loader2, ArrowLeft, AlertCircle,
+  Receipt, Search, Loader2, AlertCircle,
   CircleCheckBig, Clock, Ban, Calendar,
   Hourglass, CheckCircle2,
 } from 'lucide-react';
@@ -347,7 +348,7 @@ export default function MyInvoices() {
                       </div>
                       <div className="text-right shrink-0">
                         <div className="text-xs text-muted-foreground">จำนวนเงิน</div>
-                        <div className="text-lg font-bold text-primary">
+                      <div className="text-lg font-bold text-primary">
                           {formatCurrency(inv.grand_total)}
                         </div>
                       </div>
@@ -359,6 +360,6 @@ export default function MyInvoices() {
           </div>
         )}
       </div>
-    </>
+    </CustomerLayout>
   );
 }

@@ -3,12 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import CustomerLayout from '@/layouts/CustomerLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import {
-  FileArchive, Search, Download, Loader2, ArrowLeft, Info, Star,
+  FileArchive, Search, Download, Loader2, Info, Star,
 } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 
@@ -127,23 +128,16 @@ export default function MyDocuments() {
   };
 
   return (
-    <>
+    <CustomerLayout title="เอกสารบริษัท ENT">
       <SEOHead title="เอกสารบริษัท ENT" description="ดาวน์โหลดเอกสารบริษัท" />
-      <div className="min-h-screen bg-background p-4 md:p-6">
-        <div className="max-w-4xl mx-auto space-y-4">
-          {/* Header */}
-          <div className="flex items-center gap-3">
-            <Button variant="ghost" size="sm" onClick={() => navigate('/dashboard')}>
-              <ArrowLeft className="w-4 h-4 mr-1" /> กลับ
-            </Button>
-            <div>
-              <h1 className="text-2xl font-bold flex items-center gap-2">
-                <FileArchive className="w-6 h-6 text-primary" />
-                เอกสารบริษัท ENT
-              </h1>
-              <p className="text-xs text-muted-foreground">เอกสารสำหรับเปิดบัญชีลูกค้า / ทำธุรกรรม</p>
-            </div>
-          </div>
+      <div className="space-y-4">
+        <div>
+          <h1 className="text-2xl font-bold flex items-center gap-2">
+            <FileArchive className="w-6 h-6 text-primary" />
+            เอกสารบริษัท ENT
+          </h1>
+          <p className="text-xs text-muted-foreground">เอกสารสำหรับเปิดบัญชีลูกค้า / ทำธุรกรรม</p>
+        </div>
 
           {/* Info banner */}
           <Card className="border-blue-300 bg-blue-50 dark:bg-blue-950/30 dark:border-blue-800">
@@ -229,6 +223,6 @@ export default function MyDocuments() {
           )}
         </div>
       </div>
-    </>
+    </CustomerLayout>
   );
 }
