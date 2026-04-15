@@ -1027,6 +1027,7 @@ export default function AdminQuoteDetail() {
                               products: quote.products || [],
                               free_items: quote.free_items || [],
                               subtotal: totals.subtotal,
+                              discount_type: quote.discount_type || 'percent',
                               discount_percent: quote.discount_percent || 0,
                               discount_amount: totals.discountAmount,
                               vat_percent: quote.vat_percent || 7,
