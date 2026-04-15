@@ -91,11 +91,29 @@ export default function TransferRequestsList({ onEdit }: Props) {
       // Resolve PO numbers
       const allPoIds = [...new Set(list.flatMap(t => t.purchase_order_ids || []))];
       if (allPoIds.length > 0) {
-        const { data: pos } = await supabase.from('purchase_orders').select('id, po_number').in('id', allPoIds);
+        const { data: pos } = await supabase.from('purchase_orders').select('id, po_number, pi_number, supplier_id').in('id', allPoIds);
         if (pos) {
           const map: Record<string, string> = {};
-          for (const p of pos as any[]) map[p.id] = p.po_number;
+          const piM: Record<string, string> = {};
+          const supplierIds = new Set<string>();
+          for (const p of pos as any[]) {
+            map[p.id] = p.po_number;
+            if (p.pi_number) piM[p.id] = p.pi_number;
+            if (p.supplier_id) supplierIds.add(p.supplier_id);
+          }
           setPoMap(map);
+          setPiMap(piM);
+
+          // Resolve supplier emails
+          const sIds = [...supplierIds];
+          if (sIds.length > 0) {
+            const { data: sups } = await supabase.from('suppliers').select('id, email').in('id', sIds);
+            if (sups) {
+              const em: Record<string, string | null> = {};
+              for (const s of sups as any[]) em[s.id] = s.email;
+              setSupplierEmails(em);
+            }
+          }
         }
       }
 
