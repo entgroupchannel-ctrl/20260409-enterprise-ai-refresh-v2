@@ -11,8 +11,9 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSepara
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
-import { Search, MoreHorizontal, Eye, Edit, Copy, Trash2, DollarSign, Clock, CheckCircle, FileText, Send, ShieldCheck, XCircle, Upload, Loader2 } from 'lucide-react';
+import { Search, MoreHorizontal, Eye, Edit, Copy, Trash2, DollarSign, Clock, CheckCircle, FileText, Send, ShieldCheck, XCircle, Upload, Loader2, Mail } from 'lucide-react';
 import TransferStatusBadge from './TransferStatusBadge';
+import TransferEmailModal from './TransferEmailModal';
 import { useAuth } from '@/hooks/useAuth';
 
 const DOC_TYPE_LABELS: Record<string, string> = {
