@@ -160,20 +160,49 @@ export default function CreatePurchaseOrderDialog({ open, onOpenChange, editId, 
     setPiParseResult(null); setPiSupplierWarning('');
   };
 
-  // ========== PI PDF Parser ==========
+  // ========== PI PDF Parser (Anthropic API direct) ==========
   const handleParsePI = async (file: File) => {
     setParsingPI(true);
     setPiParseResult(null);
     setPiSupplierWarning('');
     try {
       const base64 = await fileToBase64(file);
-      const { data: fnData, error: fnErr } = await supabase.functions.invoke('parse-pi-document', {
-        body: { file_base64: base64, media_type: file.type || 'application/pdf' },
-      });
-      if (fnErr) throw fnErr;
-      if (!fnData?.success) throw new Error(fnData?.error || 'Parse failed');
+      const mediaType = file.type === 'application/pdf'
+        ? 'application/pdf'
+        : file.type.startsWith('image/') ? file.type : 'application/pdf';
 
-      const d = fnData.data;
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 2000,
+          messages: [{
+            role: 'user',
+            content: [
+              {
+                type: 'document',
+                source: { type: 'base64', media_type: mediaType, data: base64 },
+              },
+              {
+                type: 'text',
+                text: `Extract this Proforma Invoice into JSON. Return ONLY valid JSON, no markdown, no backticks:\n{\n  "pi_number": "",\n  "supplier_name": "",\n  "items": [{ "model": "", "description": "", "color": "", "qty": 0, "unit_price": 0, "amount": 0, "hs_code": "" }],\n  "shipping_cost": 0,\n  "handling_fee": 0,\n  "grand_total": 0,\n  "currency": "USD",\n  "price_terms": "",\n  "payment_terms": "",\n  "delivery_days": "",\n  "loading_port": "",\n  "destination": "",\n  "bank_name": "",\n  "swift_code": "",\n  "account_number": "",\n  "account_name": ""\n}`,
+              },
+            ],
+          }],
+        }),
+      });
+
+      if (!response.ok) {
+        const errText = await response.text();
+        throw new Error(`API error ${response.status}: ${errText}`);
+      }
+
+      const data = await response.json();
+      const text = data.content?.[0]?.text || '';
+      const clean = text.replace(/```json\s*|```\s*/g, '').trim();
+      const d = JSON.parse(clean);
+
       // Auto-fill form
       if (d.pi_number) setPiNumber(d.pi_number);
       if (d.currency) setCurrency(d.currency);
