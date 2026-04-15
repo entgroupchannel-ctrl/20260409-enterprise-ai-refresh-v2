@@ -9,8 +9,8 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
 import {
-  Microchip, MemoryStick, Wifi, Smartphone, Bluetooth, ShieldCheck,
-  Wand2, PackagePlus, Check, ChevronDown,
+  Microchip, MemoryStick, HardDrive, Wifi, Smartphone, Bluetooth, ShieldCheck,
+  Wand2, PackagePlus, Check, Monitor,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -38,6 +38,8 @@ interface ConfigState {
   ram: number | null;
   storage: number | null;
   storageType: string | null;
+  wifi: string;
+  os: string;
   bluetooth: boolean;
   warranty: 1 | 2 | 3;
 }
@@ -54,11 +56,28 @@ interface Props {
     matchedVariant: Product;
     finalPrice: number;
     addons: AddonSummary[];
+    selectedConfig: { ram: number | null; storage: number | null; wifi: string; os: string };
   }) => void;
 }
 
+/* ── Standard options available on nearly all models ── */
+const STANDARD_RAMS = [4, 8, 16];
+const STANDARD_STORAGES = [128, 256, 512];
+const WIFI_OPTIONS = [
+  { value: 'wifi5', label: 'WiFi 5 (AC)' },
+  { value: 'wifi6', label: 'WiFi 6 (AX)' },
+];
+const OS_OPTIONS = [
+  { value: 'win10pro', label: 'Windows 10 Pro OEM' },
+  { value: 'win11pro', label: 'Windows 11 Pro OEM' },
+  { value: 'win10iot', label: 'Windows 10 IoT Enterprise' },
+  { value: 'win11iot', label: 'Windows 11 IoT Enterprise' },
+  { value: 'ubuntu', label: 'Ubuntu Linux' },
+];
+
 const ADDON_PRICES = {
   bluetooth: 200,
+  wifi6_upgrade: 500,
 } as const;
 
 function calcWarranty(basePrice: number, years: 1 | 2 | 3) {
@@ -83,9 +102,11 @@ export default function ShopProductConfigurator({ product, quantity, onConfigCha
 
   const [config, setConfig] = useState<ConfigState>({
     cpu: product.cpu,
-    ram: product.ram_gb,
-    storage: product.storage_gb,
+    ram: product.ram_gb || 8,
+    storage: product.storage_gb || 256,
     storageType: product.storage_type,
+    wifi: 'wifi5',
+    os: 'win10pro',
     bluetooth: false,
     warranty: 1,
   });
@@ -105,13 +126,15 @@ export default function ShopProductConfigurator({ product, quantity, onConfigCha
     })();
   }, [product.model]);
 
-  // Extract distinct options
+  // Merge DB options with standard defaults
   const options = useMemo(() => {
     const src = variants.length > 0 ? variants : [product];
+    const dbRams = src.map(v => v.ram_gb).filter(Boolean) as number[];
+    const dbStorages = src.map(v => v.storage_gb).filter(Boolean) as number[];
     return {
       cpus: [...new Set(src.map(v => v.cpu).filter(Boolean))] as string[],
-      rams: [...new Set(src.map(v => v.ram_gb).filter(Boolean))].sort((a, b) => a! - b!) as number[],
-      storages: [...new Set(src.map(v => v.storage_gb).filter(Boolean))].sort((a, b) => a! - b!) as number[],
+      rams: [...new Set([...STANDARD_RAMS, ...dbRams])].sort((a, b) => a - b),
+      storages: [...new Set([...STANDARD_STORAGES, ...dbStorages])].sort((a, b) => a - b),
     };
   }, [variants, product]);
 
@@ -130,7 +153,7 @@ export default function ShopProductConfigurator({ product, quantity, onConfigCha
     return byCpu || product;
   }, [variants, config.cpu, config.ram, config.storage, product]);
 
-  // Sync URL when variant changes (in-place, no full reload)
+  // Sync URL when variant changes
   useEffect(() => {
     if (matchedVariant.slug !== product.slug && !loading) {
       navigate(`/shop/${matchedVariant.slug}`, { replace: true });
@@ -146,6 +169,10 @@ export default function ShopProductConfigurator({ product, quantity, onConfigCha
     if (config.bluetooth) {
       addons.push({ label: 'Bluetooth Module', price: ADDON_PRICES.bluetooth });
       addonsTotal += ADDON_PRICES.bluetooth;
+    }
+    if (config.wifi === 'wifi6') {
+      addons.push({ label: 'WiFi 6 (AX) Upgrade', price: ADDON_PRICES.wifi6_upgrade });
+      addonsTotal += ADDON_PRICES.wifi6_upgrade;
     }
 
     const warranty = calcWarranty(base, config.warranty);
@@ -167,8 +194,14 @@ export default function ShopProductConfigurator({ product, quantity, onConfigCha
       matchedVariant,
       finalPrice: pricing.subtotal,
       addons: pricing.addons,
+      selectedConfig: {
+        ram: config.ram,
+        storage: config.storage,
+        wifi: config.wifi,
+        os: config.os,
+      },
     });
-  }, [matchedVariant, pricing.subtotal, pricing.addons.length]);
+  }, [matchedVariant, pricing.subtotal, pricing.addons.length, config.ram, config.storage, config.wifi, config.os]);
 
   const set = <K extends keyof ConfigState>(key: K, val: ConfigState[K]) =>
     setConfig(prev => ({ ...prev, [key]: val }));
@@ -184,16 +217,19 @@ export default function ShopProductConfigurator({ product, quantity, onConfigCha
   }
 
   const hasMultipleVariants = variants.length > 1;
+  const osLabel = OS_OPTIONS.find(o => o.value === config.os)?.label || config.os;
+  const wifiLabel = WIFI_OPTIONS.find(o => o.value === config.wifi)?.label || config.wifi;
 
   return (
     <Card className="border-primary/20">
-      <CardContent className="p-5 space-y-5">
+      <CardContent className="p-5 space-y-4">
+        {/* Header */}
         <div className="flex items-center justify-between border-b pb-3">
           <div>
-            <p className="text-xs text-muted-foreground uppercase tracking-wider">ปรับสเปก</p>
+            <p className="text-xs text-muted-foreground uppercase tracking-wider">ปรับแต่งสเปก</p>
             <h3 className="font-bold text-base flex items-center gap-2">
               <Wand2 className="w-4 h-4 text-primary" />
-              เลือก variant ที่ต้องการ
+              เลือกสเปกที่ต้องการ
             </h3>
           </div>
           {hasMultipleVariants && (
@@ -203,9 +239,9 @@ export default function ShopProductConfigurator({ product, quantity, onConfigCha
           )}
         </div>
 
-        {/* CPU Selection — Dropdown */}
+        {/* CPU — only show if multiple */}
         {options.cpus.length > 1 && (
-          <ConfigSection icon={Microchip} title="CPU">
+          <ConfigSection icon={Microchip} title="CPU / Processor">
             <Select value={config.cpu || ''} onValueChange={(v) => set('cpu', v)}>
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="เลือก CPU" />
@@ -233,55 +269,78 @@ export default function ShopProductConfigurator({ product, quantity, onConfigCha
           </ConfigSection>
         )}
 
-        {/* RAM Selection */}
-        {options.rams.length > 1 && (
-          <ConfigSection icon={MemoryStick} title="RAM">
-            <div className="flex gap-2 flex-wrap">
-              {options.rams.map(ram => (
-                <ChipButton
-                  key={ram}
-                  active={config.ram === ram}
-                  onClick={() => set('ram', ram)}
-                >
-                  {ram} GB
-                </ChipButton>
-              ))}
-            </div>
-          </ConfigSection>
-        )}
+        {/* RAM */}
+        <ConfigSection icon={MemoryStick} title="RAM (หน่วยความจำ)">
+          <div className="flex gap-2 flex-wrap">
+            {options.rams.map(ram => (
+              <ChipButton
+                key={ram}
+                active={config.ram === ram}
+                onClick={() => set('ram', ram)}
+              >
+                {ram} GB
+              </ChipButton>
+            ))}
+          </div>
+        </ConfigSection>
 
-        {/* Storage */}
-        {options.storages.length > 1 && (
-          <ConfigSection icon={MemoryStick} title="Storage">
-            <div className="flex gap-2 flex-wrap">
-              {options.storages.map(storage => (
-                <ChipButton
-                  key={storage}
-                  active={config.storage === storage}
-                  onClick={() => set('storage', storage)}
-                >
-                  {storage >= 1024 ? `${storage / 1024} TB` : `${storage} GB`}
-                </ChipButton>
+        {/* Storage / SSD */}
+        <ConfigSection icon={HardDrive} title="SSD (พื้นที่จัดเก็บ)">
+          <div className="flex gap-2 flex-wrap">
+            {options.storages.map(storage => (
+              <ChipButton
+                key={storage}
+                active={config.storage === storage}
+                onClick={() => set('storage', storage)}
+              >
+                {storage >= 1024 ? `${storage / 1024} TB` : `${storage} GB`}
+              </ChipButton>
+            ))}
+          </div>
+        </ConfigSection>
+
+        {/* WiFi */}
+        <ConfigSection icon={Wifi} title="WiFi">
+          <div className="flex gap-2 flex-wrap">
+            {WIFI_OPTIONS.map(opt => (
+              <ChipButton
+                key={opt.value}
+                active={config.wifi === opt.value}
+                onClick={() => set('wifi', opt.value)}
+              >
+                {opt.label}
+                {opt.value === 'wifi6' && (
+                  <span className="text-[10px] ml-1 opacity-70">+฿{fmt(ADDON_PRICES.wifi6_upgrade)}</span>
+                )}
+              </ChipButton>
+            ))}
+          </div>
+        </ConfigSection>
+
+        {/* OS */}
+        <ConfigSection icon={Monitor} title="ระบบปฏิบัติการ (OS)">
+          <Select value={config.os} onValueChange={(v) => set('os', v)}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="เลือก OS" />
+            </SelectTrigger>
+            <SelectContent>
+              {OS_OPTIONS.map(opt => (
+                <SelectItem key={opt.value} value={opt.value}>
+                  {opt.label}
+                </SelectItem>
               ))}
-            </div>
-          </ConfigSection>
-        )}
+            </SelectContent>
+          </Select>
+        </ConfigSection>
 
         <Separator />
 
         {/* Add-ons */}
-        <ConfigSection icon={PackagePlus} title="อุปกรณ์เสริม (Optional)">
+        <ConfigSection icon={PackagePlus} title="อุปกรณ์เสริม">
           <div className="space-y-1.5">
             <AddonRow
-              icon={Wifi}
-              label="WiFi"
-              included={matchedVariant.has_wifi}
-              checked={matchedVariant.has_wifi}
-              disabled
-            />
-            <AddonRow
               icon={Smartphone}
-              label="4G LTE"
+              label="4G LTE Module"
               included={matchedVariant.has_4g}
               checked={matchedVariant.has_4g}
               disabled
@@ -327,10 +386,20 @@ export default function ShopProductConfigurator({ product, quantity, onConfigCha
 
         <Separator />
 
+        {/* Config Summary */}
+        <div className="bg-muted/30 rounded-lg p-3 space-y-1.5">
+          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">สรุปสเปกที่เลือก</p>
+          <SummaryRow label="RAM" value={`${config.ram} GB`} />
+          <SummaryRow label="SSD" value={config.storage ? (config.storage >= 1024 ? `${config.storage / 1024} TB` : `${config.storage} GB`) : '-'} />
+          <SummaryRow label="WiFi" value={wifiLabel} />
+          <SummaryRow label="OS" value={osLabel} />
+          {config.bluetooth && <SummaryRow label="Bluetooth" value="✓" />}
+        </div>
+
         {/* Price Breakdown */}
         <div className="space-y-2 bg-muted/30 rounded-lg p-3">
           <div className="flex justify-between text-sm">
-            <span className="text-muted-foreground">ราคา {matchedVariant.sku}</span>
+            <span className="text-muted-foreground">ราคาเริ่มต้น {matchedVariant.sku}</span>
             <span>฿{fmt(pricing.base)}</span>
           </div>
           {pricing.addons.map((a, i) => (
@@ -402,7 +471,7 @@ function ChipButton({ active, onClick, children }: { active: boolean; onClick: (
     <button
       onClick={onClick}
       className={cn(
-        'px-3 py-1.5 rounded-full text-sm border transition-all',
+        'px-3 py-1.5 rounded-full text-sm border transition-all flex items-center',
         active
           ? 'bg-primary text-primary-foreground border-primary'
           : 'bg-background border-border hover:border-primary/50'
@@ -442,5 +511,14 @@ function AddonRow({ icon: Icon, label, price, checked, onChange, disabled, inclu
         {included ? <span className="text-green-600">✓ รวมแล้ว</span> : price ? `+฿${fmt(price)}` : ''}
       </span>
     </label>
+  );
+}
+
+function SummaryRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex justify-between text-xs">
+      <span className="text-muted-foreground">{label}</span>
+      <span className="font-medium">{value}</span>
+    </div>
   );
 }
