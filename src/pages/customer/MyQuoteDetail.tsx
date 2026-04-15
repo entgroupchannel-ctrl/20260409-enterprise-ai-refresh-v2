@@ -3,8 +3,9 @@ import PrintPreviewDialog from '@/components/admin/PrintPreviewDialog';
 import NegotiationRequestDialog from '@/components/negotiation/NegotiationRequestDialog';
 import AcceptQuoteDialog from '@/components/negotiation/AcceptQuoteDialog';
 import RevisionTimeline from '@/components/negotiation/RevisionTimeline';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
+import CustomerLayout from '@/layouts/CustomerLayout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
@@ -25,7 +26,7 @@ import QuoteTimeline from '@/components/rfq/QuoteTimeline';
 import POUploadDialog from '@/components/quotes/POUploadDialog';
 import { Badge } from '@/components/ui/badge';
 import {
-  ArrowLeft,
+  ChevronRight,
   Download,
   Printer,
   Upload,
@@ -47,7 +48,6 @@ import {
   Calendar,
   Receipt,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
 interface Quote {
