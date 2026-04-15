@@ -17,7 +17,7 @@ import {
   ChevronRight, Minus, Plus, Microchip, MemoryStick, CircuitBoard, Wifi, Antenna,
   ShieldCheck, Truck, Clock, FileText, Phone, MessageCircle, CheckCircle2,
   Package, Award, Headphones, ReceiptText, Factory, Building2, Warehouse, Server,
-  Zap, ThermometerSun, Droplets, Monitor, ShoppingCart,
+  Zap, ThermometerSun, Droplets, Monitor, ShoppingCart, AlertTriangle, CalendarClock, TrendingUp, Info,
 } from 'lucide-react';
 import SiteNavbar from '@/components/SiteNavbar';
 
@@ -233,6 +233,14 @@ const ShopProductDetail = () => {
               <span className="flex items-center gap-1"><Truck className="w-3.5 h-3.5 text-primary" /> จัดส่งทั่วไทย</span>
               <span className="flex items-center gap-1"><ReceiptText className="w-3.5 h-3.5 text-primary" /> ใบกำกับภาษี</span>
               <span className="flex items-center gap-1"><Headphones className="w-3.5 h-3.5 text-primary" /> ซัพพอร์ตภาษาไทย</span>
+            </div>
+
+            {/* Notice: ราคาเบื้องต้น */}
+            <div className="rounded-lg bg-amber-500/8 border border-amber-500/20 p-2.5 flex items-start gap-2">
+              <AlertTriangle className="w-3.5 h-3.5 text-amber-500 shrink-0 mt-0.5" />
+              <p className="text-[11px] text-muted-foreground leading-relaxed">
+                <span className="font-semibold text-foreground">ราคาเบื้องต้น</span> — ปรับเปลี่ยนตามต้นทุนและอัตราแลกเปลี่ยน ณ วันที่สั่งซื้อ กรุณาขอใบเสนอราคาเพื่อยืนยันราคาจริง
+              </p>
             </div>
           </div>
 
