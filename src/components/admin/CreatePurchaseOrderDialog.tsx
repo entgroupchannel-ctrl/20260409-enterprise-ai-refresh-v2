@@ -8,8 +8,20 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
-import { Plus, Trash2, Save, Send, Loader2, ChevronDown } from 'lucide-react';
+import { Plus, Trash2, Save, Send, Loader2, ChevronDown, X, FileText } from 'lucide-react';
+
+const PO_DOC_TYPES = [
+  { value: 'proforma_invoice', label: 'PI' },
+  { value: 'commercial_invoice', label: 'CI' },
+  { value: 'air_waybill', label: 'AWB' },
+  { value: 'packing_list', label: 'PL' },
+  { value: 'certificate', label: 'Cert' },
+  { value: 'other', label: 'อื่นๆ' },
+] as const;
+type PODocType = typeof PO_DOC_TYPES[number]['value'];
+interface POAttachedFile { file: File; type: PODocType; }
 
 const CURRENCIES = ['USD', 'EUR', 'GBP', 'JPY', 'CNY', 'SGD', 'THB'];
 const PRICE_TERMS = ['Ex-works', 'FOB', 'CIF', 'DDP', 'DAP', 'FCA'];
@@ -65,6 +77,8 @@ export default function CreatePurchaseOrderDialog({ open, onOpenChange, editId, 
   const [orderDate, setOrderDate] = useState(new Date().toISOString().split('T')[0]);
   const [expectedDelivery, setExpectedDelivery] = useState('');
   const [notes, setNotes] = useState('');
+  const [poFiles, setPoFiles] = useState<POAttachedFile[]>([]);
+  const [newPoFileType, setNewPoFileType] = useState<PODocType>('proforma_invoice');
 
   const subtotal = items.reduce((s, i) => s + i.quantity * i.unit_price, 0);
   const grandTotal = subtotal + shippingCost + handlingFee + otherCost;
@@ -190,12 +204,31 @@ export default function CreatePurchaseOrderDialog({ open, onOpenChange, editId, 
         destination: destination || null,
       };
 
+      let poId = editId;
       if (editId) {
         const { error } = await supabase.from('purchase_orders').update(payload).eq('id', editId);
         if (error) throw error;
       } else {
-        const { error } = await supabase.from('purchase_orders').insert(payload);
+        const { data: insertData, error } = await supabase.from('purchase_orders').insert(payload).select('id').single();
         if (error) throw error;
+        poId = insertData.id;
+      }
+
+      // Upload attached files
+      if (poFiles.length > 0 && poId) {
+        const userId = (await supabase.auth.getUser()).data.user?.id || null;
+        for (const af of poFiles) {
+          const path = `${supplierId}/${poId}/${Date.now()}_${af.file.name}`;
+          const { error: upErr } = await supabase.storage.from('supplier-documents').upload(path, af.file);
+          if (upErr) { toast.error(`อัปโหลด ${af.file.name} ล้มเหลว`); continue; }
+          const { data: urlData } = supabase.storage.from('supplier-documents').getPublicUrl(path);
+          await supabase.from('supplier_documents').insert({
+            supplier_id: supplierId, purchase_order_id: poId,
+            document_type: af.type, title: af.file.name,
+            file_name: af.file.name, file_url: urlData.publicUrl, file_size: af.file.size,
+            uploaded_by: userId,
+          });
+        }
       }
 
       toast.success(status === 'draft' ? 'บันทึกร่างแล้ว' : 'ส่ง PO แล้ว');
@@ -416,6 +449,42 @@ export default function CreatePurchaseOrderDialog({ open, onOpenChange, editId, 
               <span>Grand Total ({currency})</span>
               <span>{fmt(grandTotal)}</span>
             </div>
+          </div>
+
+          {/* Document Attachments */}
+          <div className="space-y-2">
+            <Label className="text-sm font-semibold">แนบเอกสาร</Label>
+            <div className="flex gap-2 items-end">
+              <div className="flex-1">
+                <Input type="file" accept=".pdf,.jpg,.jpeg,.png,.xlsx,.docx"
+                  onChange={e => {
+                    const f = e.target.files?.[0];
+                    if (f) { setPoFiles(prev => [...prev, { file: f, type: newPoFileType }]); e.target.value = ''; }
+                  }} className="h-9" />
+              </div>
+              <Select value={newPoFileType} onValueChange={v => setNewPoFileType(v as PODocType)}>
+                <SelectTrigger className="w-[100px] h-9"><SelectValue /></SelectTrigger>
+                <SelectContent>{PO_DOC_TYPES.map(d => <SelectItem key={d.value} value={d.value}>{d.label}</SelectItem>)}</SelectContent>
+              </Select>
+            </div>
+            {poFiles.length > 0 && (
+              <div className="space-y-1">
+                {poFiles.map((af, idx) => (
+                  <div key={idx} className="flex items-center gap-2 text-xs p-1.5 rounded bg-muted/40">
+                    <FileText className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
+                    <span className="flex-1 truncate">{af.file.name}</span>
+                    <Badge variant="outline" className="text-[10px] h-5">{PO_DOC_TYPES.find(d => d.value === af.type)?.label}</Badge>
+                    <Select value={af.type} onValueChange={v => setPoFiles(prev => prev.map((f, i) => i === idx ? { ...f, type: v as PODocType } : f))}>
+                      <SelectTrigger className="w-[80px] h-6 text-[10px]"><SelectValue /></SelectTrigger>
+                      <SelectContent>{PO_DOC_TYPES.map(d => <SelectItem key={d.value} value={d.value}>{d.label}</SelectItem>)}</SelectContent>
+                    </Select>
+                    <Button type="button" variant="ghost" size="icon" className="h-5 w-5" onClick={() => setPoFiles(prev => prev.filter((_, i) => i !== idx))}>
+                      <X className="w-3 h-3" />
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Actions */}
