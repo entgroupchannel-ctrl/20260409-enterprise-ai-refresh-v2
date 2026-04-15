@@ -15,6 +15,15 @@ import {
 } from 'lucide-react';
 import { format, subMonths, startOfMonth, endOfMonth, startOfYear } from 'date-fns';
 import { th } from 'date-fns/locale';
+import {
+  QuoteStatusDonut,
+  RevenueTrendLine,
+  WinLossDonut,
+  TopCustomersBar,
+  ArApGroupedBar,
+  RepairStatusBar,
+  SupplierPoBar,
+} from '@/components/admin/AdminReportsCharts';
 
 const fmt = (n: number, decimals = 0) =>
   n.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
