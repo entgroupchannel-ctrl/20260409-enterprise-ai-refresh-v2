@@ -11,9 +11,8 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { toast } from 'sonner';
 import {
-  Save, Send, RefreshCw, ChevronDown, Loader2, Plus, X,
+  Save, Send, RefreshCw, ChevronDown, Loader2, X,
   FileText, Package, DollarSign, Calendar, AlertTriangle,
-  Upload, Sparkles, CheckCircle2, XCircle,
 } from 'lucide-react';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -69,20 +68,6 @@ interface PO {
 
 interface AttachedFile { file: File; type: DocType; }
 
-interface ParsedPI {
-  fileName: string;
-  status: 'parsing' | 'done' | 'error';
-  error?: string;
-  data?: {
-    pi_number?: string; supplier_name?: string;
-    items?: { model?: string; description?: string; color?: string; qty?: number; unit_price?: number; amount?: number; hs_code?: string }[];
-    shipping_cost?: number; handling_fee?: number; grand_total?: number; currency?: string;
-    price_terms?: string; payment_terms?: string; delivery_days?: string;
-    loading_port?: string; destination?: string;
-    bank_name?: string; swift_code?: string; account_number?: string; account_name?: string;
-  };
-}
-
 interface Props { editId?: string | null; onSaved?: () => void; }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -137,8 +122,7 @@ export default function InternationalTransferForm({ editId, onSaved }: Props) {
   const [notes,             setNotes]             = useState('');
   const [attachedFiles,     setAttachedFiles]     = useState<AttachedFile[]>([]);
   const [newFileType,       setNewFileType]       = useState<DocType>('proforma_invoice');
-  const [parsedPIs,         setParsedPIs]         = useState<ParsedPI[]>([]);
-  const [piMerged,          setPiMerged]          = useState(false);
+
   // Derived
   const totalFee      = transferFee + bankFee + otherFee;
   const totalCostThb  = amountThb + totalFee;
@@ -205,11 +189,9 @@ export default function InternationalTransferForm({ editId, onSaved }: Props) {
   const togglePo = (poId: string, checked: boolean) => {
     setSelectedPoIds(prev => {
       const next = checked ? [...prev, poId] : prev.filter(id => id !== poId);
-      // Auto-fill amount from PO total (ถ้ายังไม่ได้กรอกเอง)
       const newSelected = pos.filter(p => next.includes(p.id));
       const newTotal = newSelected.reduce((s, p) => s + (p.grand_total ?? 0), 0);
       if (newTotal > 0) setAmount(newTotal);
-      // Auto-fill purpose & invoice ref จาก PI ของ PO แรก
       if (checked) {
         const po = pos.find(p => p.id === poId);
         if (po) {
@@ -233,79 +215,6 @@ export default function InternationalTransferForm({ editId, onSaved }: Props) {
     } catch { toast.error('ดึงอัตราแลกเปลี่ยนไม่ได้ กรุณากรอกเอง'); }
     finally { setFetchingRate(false); }
   }, [currency]);
-
-  // ── PI Upload & Parse ──
-  const handlePIUpload = useCallback(async (files: FileList | null) => {
-    if (!files || files.length === 0) return;
-    const newFiles = Array.from(files);
-    // Add to attached files as PI type
-    setAttachedFiles(prev => [...prev, ...newFiles.map(f => ({ file: f, type: 'proforma_invoice' as DocType }))]);
-    // Start parsing each file
-    const newParsed: ParsedPI[] = newFiles.map(f => ({ fileName: f.name, status: 'parsing' as const }));
-    setParsedPIs(prev => [...prev, ...newParsed]);
-    setPiMerged(false);
-
-    for (let i = 0; i < newFiles.length; i++) {
-      const file = newFiles[i];
-      try {
-        const base64 = await new Promise<string>((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onload = () => {
-            const result = reader.result as string;
-            resolve(result.split(',')[1]); // strip data:...;base64,
-          };
-          reader.onerror = reject;
-          reader.readAsDataURL(file);
-        });
-
-        const { data, error } = await supabase.functions.invoke('parse-pi-document', {
-          body: { file_base64: base64, media_type: file.type || 'application/pdf' },
-        });
-
-        if (error || !data?.success) {
-          setParsedPIs(prev => prev.map(p => p.fileName === file.name ? { ...p, status: 'error', error: error?.message || data?.error || 'Parse failed' } : p));
-          continue;
-        }
-
-        setParsedPIs(prev => prev.map(p => p.fileName === file.name ? { ...p, status: 'done', data: data.data } : p));
-      } catch (err: any) {
-        setParsedPIs(prev => prev.map(p => p.fileName === file.name ? { ...p, status: 'error', error: err.message } : p));
-      }
-    }
-  }, []);
-
-  // ── Merge all parsed PI data into form ──
-  const mergeParsedPIs = useCallback(() => {
-    const successPIs = parsedPIs.filter(p => p.status === 'done' && p.data);
-    if (successPIs.length === 0) { toast.error('ไม่มีข้อมูล PI ที่อ่านได้'); return; }
-
-    // Merge: use first PI for bank/supplier info, sum amounts
-    const first = successPIs[0].data!;
-    // Bank info (if not already filled)
-    if (first.bank_name && !bankName) setBankName(first.bank_name);
-    if (first.swift_code && !swiftCode) setSwiftCode(first.swift_code);
-    if (first.account_number && !bankAccount) setBankAccount(first.account_number);
-    if (first.account_name && !bankAccountName) setBankAccountName(first.account_name);
-
-    // Currency
-    if (first.currency) setCurrency(first.currency as Currency);
-
-    // Amount: sum grand_total from all PIs
-    const totalAmount = successPIs.reduce((sum, pi) => sum + (pi.data?.grand_total ?? 0), 0);
-    if (totalAmount > 0) setAmount(totalAmount);
-
-    // Invoice reference: join all PI numbers
-    const piNumbers = successPIs.map(p => p.data?.pi_number).filter(Boolean);
-    if (piNumbers.length > 0) setInvoiceRef(piNumbers.join(', '));
-
-    // Purpose
-    if (!purpose && piNumbers.length > 0) {
-      setPurpose(`ชำระค่าสินค้า PI: ${piNumbers.join(', ')}`);
-    }
-
-    setPiMerged(true);
-    toast.success(`รวมข้อมูลจาก ${successPIs.length} PI แล้ว`);
-  }, [parsedPIs, bankName, swiftCode, bankAccount, bankAccountName, purpose]);
 
   // ── Save ──
   const handleSave = async (status: 'draft' | 'pending') => {
@@ -368,106 +277,6 @@ export default function InternationalTransferForm({ editId, onSaved }: Props) {
   return (
     <Card>
       <CardContent className="pt-6 space-y-6">
-
-        {/* ══ SECTION 0: อัปโหลด PI ══ */}
-        <div className="space-y-3">
-          <Hdr title="อัปโหลด PI (PDF/รูป) — อ่านรายการอัตโนมัติ" />
-          <div className="flex gap-2 items-center">
-            <label className="flex-1 cursor-pointer">
-              <div className="flex items-center justify-center gap-2 border-2 border-dashed border-primary/30 hover:border-primary/60 rounded-lg p-4 transition-colors bg-primary/5">
-                <Upload className="w-5 h-5 text-primary" />
-                <span className="text-sm text-primary font-medium">เลือกไฟล์ PI (รองรับหลายไฟล์)</span>
-              </div>
-              <input
-                type="file"
-                accept=".pdf,.jpg,.jpeg,.png,.webp"
-                multiple
-                className="hidden"
-                onChange={e => { handlePIUpload(e.target.files); e.target.value = ''; }}
-              />
-            </label>
-          </div>
-
-          {/* Parsed PI results */}
-          {parsedPIs.length > 0 && (
-            <div className="space-y-2">
-              {parsedPIs.map((pi, idx) => (
-                <div key={idx} className="rounded-lg border p-3 space-y-2">
-                  <div className="flex items-center gap-2">
-                    {pi.status === 'parsing' && <Loader2 className="w-4 h-4 animate-spin text-primary" />}
-                    {pi.status === 'done' && <CheckCircle2 className="w-4 h-4 text-green-600" />}
-                    {pi.status === 'error' && <XCircle className="w-4 h-4 text-destructive" />}
-                    <span className="text-sm font-medium truncate flex-1">{pi.fileName}</span>
-                    {pi.status === 'done' && pi.data?.pi_number && (
-                      <Badge variant="outline" className="font-mono text-xs">PI: {pi.data.pi_number}</Badge>
-                    )}
-                    {pi.status === 'done' && pi.data?.grand_total != null && (
-                      <span className="text-sm font-bold tabular-nums">
-                        {pi.data.currency || 'USD'} {fmt(pi.data.grand_total)}
-                      </span>
-                    )}
-                    <Button variant="ghost" size="icon" className="h-6 w-6 shrink-0"
-                      onClick={() => setParsedPIs(prev => prev.filter((_, i) => i !== idx))}>
-                      <X className="w-3.5 h-3.5" />
-                    </Button>
-                  </div>
-                  {pi.status === 'error' && (
-                    <p className="text-xs text-destructive">{pi.error}</p>
-                  )}
-                  {pi.status === 'done' && pi.data?.items && pi.data.items.length > 0 && (
-                    <div className="bg-muted/40 rounded-md p-2 space-y-0.5">
-                      {pi.data.items.slice(0, 6).map((item, iIdx) => (
-                        <div key={iIdx} className="flex items-center justify-between text-xs">
-                          <div className="flex items-center gap-2 min-w-0">
-                            <Package className="w-3 h-3 text-muted-foreground shrink-0" />
-                            <span className="font-mono font-medium truncate max-w-[180px]">
-                              {item.model || item.description || `Item ${iIdx + 1}`}
-                            </span>
-                            {item.color && <span className="text-muted-foreground">({item.color})</span>}
-                          </div>
-                          <div className="flex items-center gap-3 shrink-0 ml-2">
-                            <span className="text-muted-foreground">
-                              {item.qty ?? 0} × {fmt(item.unit_price ?? 0)}
-                            </span>
-                            <span className="font-semibold tabular-nums">
-                              {fmt(item.amount ?? (item.qty ?? 0) * (item.unit_price ?? 0))}
-                            </span>
-                          </div>
-                        </div>
-                      ))}
-                      {pi.data.items.length > 6 && (
-                        <p className="text-[11px] text-muted-foreground pl-5">
-                          +{pi.data.items.length - 6} รายการเพิ่มเติม
-                        </p>
-                      )}
-                    </div>
-                  )}
-                  {pi.status === 'done' && pi.data && (
-                    <div className="flex gap-3 text-[11px] text-muted-foreground flex-wrap">
-                      {pi.data.bank_name && <span>🏦 {pi.data.bank_name}</span>}
-                      {pi.data.swift_code && <span>SWIFT: {pi.data.swift_code}</span>}
-                      {pi.data.payment_terms && <span>💳 {pi.data.payment_terms}</span>}
-                      {pi.data.price_terms && <span>📦 {pi.data.price_terms}</span>}
-                    </div>
-                  )}
-                </div>
-              ))}
-
-              {/* Merge button */}
-              {parsedPIs.some(p => p.status === 'done') && (
-                <Button
-                  variant={piMerged ? 'outline' : 'default'}
-                  size="sm"
-                  className="w-full gap-2"
-                  onClick={mergeParsedPIs}
-                >
-                  <Sparkles className="w-4 h-4" />
-                  {piMerged ? '✅ รวมข้อมูลแล้ว — กดอีกครั้งเพื่ออัปเดต' : `รวมข้อมูลจาก ${parsedPIs.filter(p => p.status === 'done').length} PI ลงฟอร์ม`}
-                </Button>
-              )}
-            </div>
-          )}
-        </div>
 
         {/* ══ SECTION 1: Supplier & Amount ══ */}
         <div className="space-y-3">
@@ -560,7 +369,7 @@ export default function InternationalTransferForm({ editId, onSaved }: Props) {
           </Collapsible>
         )}
 
-        {/* ══ SECTION 3: ใบสั่งซื้อ — REDESIGNED ══ */}
+        {/* ══ SECTION 3: ใบสั่งซื้อ ══ */}
         {supplierId && (
           <div className="space-y-3">
             <Hdr title="ใบสั่งซื้อที่เกี่ยวข้อง" />
@@ -588,7 +397,6 @@ export default function InternationalTransferForm({ editId, onSaved }: Props) {
                       }`}
                       onClick={() => togglePo(po.id, !isSelected)}
                     >
-                      {/* PO Header row */}
                       <div className="flex items-start gap-3 p-3">
                         <Checkbox
                           checked={isSelected}
@@ -597,7 +405,6 @@ export default function InternationalTransferForm({ editId, onSaved }: Props) {
                           className="mt-0.5 shrink-0"
                         />
                         <div className="flex-1 min-w-0">
-                          {/* Row 1: PO + PI + CI + Status */}
                           <div className="flex items-center gap-2 flex-wrap mb-1.5">
                             <span className="font-mono text-sm font-bold">{po.po_number}</span>
                             {po.pi_number && (
@@ -618,7 +425,6 @@ export default function InternationalTransferForm({ editId, onSaved }: Props) {
                             )}
                           </div>
 
-                          {/* Row 2: Dates + Terms */}
                           <div className="flex gap-4 text-[11px] text-muted-foreground flex-wrap mb-2">
                             {po.order_date && (
                               <span className="flex items-center gap-1">
@@ -637,7 +443,6 @@ export default function InternationalTransferForm({ editId, onSaved }: Props) {
                             {po.loading_port && <span>🚢 {po.loading_port}</span>}
                           </div>
 
-                          {/* Row 3: รายการสินค้า */}
                           {items.length > 0 && (
                             <div className="bg-muted/40 rounded-md p-2 mb-2 space-y-0.5">
                               {items.slice(0, 5).map((item, idx) => (
@@ -672,7 +477,6 @@ export default function InternationalTransferForm({ editId, onSaved }: Props) {
                             </div>
                           )}
 
-                          {/* Row 4: ยอดเงิน */}
                           <div className="flex items-center justify-between">
                             <div className="flex gap-3 text-[11px] text-muted-foreground">
                               {po.subtotal != null && po.subtotal !== po.grand_total && (
@@ -698,7 +502,6 @@ export default function InternationalTransferForm({ editId, onSaved }: Props) {
                   );
                 })}
 
-                {/* Selected POs summary */}
                 {selectedPoIds.length > 0 && (
                   <div className="rounded-lg bg-primary/5 border border-primary/20 p-3 space-y-1.5">
                     <p className="text-xs font-semibold text-primary">
