@@ -77,7 +77,7 @@ export default function SupplierDocumentsHub({ supplierId, supplierName, default
   const [uploadFile, setUploadFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
 
-  const [activeTab, setActiveTab] = useState(defaultTab || 'documents');
+  const [activeTab, setActiveTab] = useState<string>(defaultTab || 'documents');
 
   useEffect(() => { loadAll(); }, [supplierId]);
 
