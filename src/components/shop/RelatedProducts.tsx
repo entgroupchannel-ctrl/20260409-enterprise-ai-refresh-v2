@@ -35,7 +35,7 @@ export function addToRecentlyViewed(product: { id: string; slug: string; model: 
 function fmt(n: number) { return n.toLocaleString('th-TH'); }
 
 function ProductMiniCard({ p }: { p: RelatedProduct }) {
-  const imgSrc = p.thumbnail_url || '/placeholder.svg';
+  const imgSrc = p.thumbnail_url || p.image_url || '/placeholder.svg';
   return (
     <Link to={`/shop/${p.slug}`} className="flex-shrink-0 w-40">
       <Card className="hover:shadow-md transition-shadow h-full border-border group">
