@@ -145,11 +145,9 @@ export default function CustomerOrders() {
 
   return (
     <CustomerLayout title="คำสั่งซื้อของฉัน">
-      <div className="space-y-6">
+      <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold flex items-center gap-3">
-            <Package className="w-8 h-8 text-primary" />คำสั่งซื้อของฉัน
-          </h1>
+          <h1 className="text-2xl font-bold">คำสั่งซื้อของฉัน</h1>
           <p className="text-muted-foreground mt-1">ติดตามสถานะคำสั่งซื้อและการจัดส่ง</p>
         </div>
         <Button onClick={loadOrders} disabled={loading}>
