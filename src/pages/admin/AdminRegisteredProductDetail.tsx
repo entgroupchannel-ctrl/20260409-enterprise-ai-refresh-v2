@@ -128,12 +128,16 @@ export default function AdminRegisteredProductDetail() {
           </Card>
         </div>
 
-        {/* Placeholder for Phase 9.2 */}
-        <Card className="border-dashed">
-          <CardContent className="py-8 text-center text-muted-foreground">
-            <Wrench className="w-8 h-8 mx-auto mb-2 opacity-40" />
-            <p className="font-medium">ประวัติซ่อม</p>
-            <p className="text-xs mt-1">เร็วๆ นี้ — Phase 9.2</p>
+        {/* Repair action */}
+        <Card>
+          <CardContent className="py-4 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Wrench className="w-5 h-5 text-primary" />
+              <span className="font-medium text-sm">ประวัติซ่อม / แจ้งซ่อม</span>
+            </div>
+            <Button variant="outline" size="sm" onClick={() => navigate(`/admin/repairs?sn=${item.serial_number}`)}>
+              <Wrench className="w-3.5 h-3.5 mr-1" /> แจ้งซ่อม
+            </Button>
           </CardContent>
         </Card>
 

@@ -111,6 +111,11 @@ const AdminRegisteredProductDetail = lazyRetry(() => import("./pages/admin/Admin
 const MyProducts = lazyRetry(() => import("./pages/customer/MyProducts"));
 const MyProductDetail = lazyRetry(() => import("./pages/customer/MyProductDetail"));
 const RegisterProductForm = lazyRetry(() => import("./pages/customer/RegisterProductForm"));
+const AdminRepairOrdersList = lazyRetry(() => import("./pages/admin/AdminRepairOrdersList"));
+const AdminRepairOrderDetail = lazyRetry(() => import("./pages/admin/AdminRepairOrderDetail"));
+const MyRepairs = lazyRetry(() => import("./pages/customer/MyRepairs"));
+const MyRepairDetail = lazyRetry(() => import("./pages/customer/MyRepairDetail"));
+const RequestRepairForm = lazyRetry(() => import("./pages/customer/RequestRepairForm"));
 
 /* ── Loading fallback ── */
 const PageLoader = () => (
@@ -214,6 +219,8 @@ const App = () => (
                     <Route path="/admin/receipts/:id" element={<ProtectedRoute requireSales><AdminReceiptDetail /></ProtectedRoute>} />
                     <Route path="/admin/registered-products" element={<ProtectedRoute requireSales><AdminRegisteredProductsList /></ProtectedRoute>} />
                     <Route path="/admin/registered-products/:id" element={<ProtectedRoute requireSales><AdminRegisteredProductDetail /></ProtectedRoute>} />
+                    <Route path="/admin/repairs" element={<ProtectedRoute requireSales><AdminRepairOrdersList /></ProtectedRoute>} />
+                    <Route path="/admin/repairs/:id" element={<ProtectedRoute requireSales><AdminRepairOrderDetail /></ProtectedRoute>} />
                     <Route path="/admin/requests" element={<ProtectedRoute requireAdmin><AdminRequests /></ProtectedRoute>} />
                     <Route path="/admin/approvals" element={<ProtectedRoute requireSuperAdmin><AdminApprovals /></ProtectedRoute>} />
                     <Route path="/admin/products" element={<ProtectedRoute requireSales><ProductsList /></ProtectedRoute>} />
@@ -239,6 +246,9 @@ const App = () => (
                     <Route path="/my/products" element={<ProtectedRoute><MyProducts /></ProtectedRoute>} />
                     <Route path="/my/products/register" element={<ProtectedRoute><RegisterProductForm /></ProtectedRoute>} />
                     <Route path="/my/products/:id" element={<ProtectedRoute><MyProductDetail /></ProtectedRoute>} />
+                    <Route path="/my/repairs" element={<ProtectedRoute><MyRepairs /></ProtectedRoute>} />
+                    <Route path="/my/repairs/new" element={<ProtectedRoute><RequestRepairForm /></ProtectedRoute>} />
+                    <Route path="/my/repairs/:id" element={<ProtectedRoute><MyRepairDetail /></ProtectedRoute>} />
                     <Route path="/my-receipts/:id" element={<ProtectedRoute><MyReceiptDetail /></ProtectedRoute>} />
                     <Route path="/notifications" element={<ProtectedRoute><NotificationsPage /></ProtectedRoute>} />
                     <Route path="/profile" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
