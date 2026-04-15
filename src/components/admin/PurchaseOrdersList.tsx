@@ -8,8 +8,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { toast } from 'sonner';
-import { Search, MoreHorizontal, Edit, Trash2, Plus, Loader2, ArrowRightLeft, Paperclip } from 'lucide-react';
+import { Search, MoreHorizontal, Edit, Trash2, Plus, Loader2, ArrowRightLeft, Paperclip, Mail } from 'lucide-react';
 import CreatePurchaseOrderDialog from './CreatePurchaseOrderDialog';
+import EmailPreviewModal from './EmailPreviewModal';
 
 const DOC_TYPE_LABELS: Record<string, string> = {
   proforma_invoice: 'PI', commercial_invoice: 'CI', air_waybill: 'AWB',
@@ -56,6 +57,9 @@ export default function PurchaseOrdersList() {
   const [transferRefs, setTransferRefs] = useState<Record<string, TransferRef[]>>({});
   const [supplierNames, setSupplierNames] = useState<Record<string, string>>({});
   const [docMap, setDocMap] = useState<Record<string, DocRef[]>>({});
+  const [emailModalOpen, setEmailModalOpen] = useState(false);
+  const [emailPO, setEmailPO] = useState<PO | null>(null);
+  const [supplierEmails, setSupplierEmails] = useState<Record<string, string | null>>({});
 
   const fetchOrders = async () => {
     setLoading(true);
@@ -71,11 +75,13 @@ export default function PurchaseOrdersList() {
     // Resolve supplier names
     const uniqueSupplierIds = [...new Set(list.map(o => o.supplier_id))];
     if (uniqueSupplierIds.length > 0) {
-      const { data: sups } = await supabase.from('suppliers').select('id, company_name').in('id', uniqueSupplierIds);
+      const { data: sups } = await supabase.from('suppliers').select('id, company_name, email').in('id', uniqueSupplierIds);
       if (sups) {
         const names: Record<string, string> = {};
-        for (const s of sups as any[]) names[s.id] = s.company_name;
+        const emails: Record<string, string | null> = {};
+        for (const s of sups as any[]) { names[s.id] = s.company_name; emails[s.id] = s.email; }
         setSupplierNames(names);
+        setSupplierEmails(emails);
       }
     }
 
