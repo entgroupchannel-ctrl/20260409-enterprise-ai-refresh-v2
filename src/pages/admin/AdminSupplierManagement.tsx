@@ -176,7 +176,7 @@ export default function AdminSupplierManagement() {
                       {filtered.length === 0 ? (
                         <TableRow><TableCell colSpan={7} className="text-center py-8 text-muted-foreground">ไม่พบข้อมูล</TableCell></TableRow>
                       ) : filtered.map(s => (
-                        <TableRow key={s.id} className="cursor-pointer hover:bg-muted/50">
+                        <TableRow key={s.id} className="cursor-pointer hover:bg-muted/50" onClick={() => navigate(`/admin/suppliers/${s.id}`)}>
                           <TableCell className="font-mono text-xs">{s.supplier_code}</TableCell>
                           <TableCell>
                             <div className="font-medium">{s.company_name}</div>
