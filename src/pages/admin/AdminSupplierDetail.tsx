@@ -147,7 +147,7 @@ export default function AdminSupplierDetail() {
               </div>
               {s.quality_rating != null && (
                 <div className="flex items-center gap-1 text-lg font-bold">
-                  <Star className="w-5 h-5 text-amber-500 fill-amber-500" />
+                  <Star className="w-5 h-5 text-primary fill-primary" />
                   {s.quality_rating}
                 </div>
               )}
