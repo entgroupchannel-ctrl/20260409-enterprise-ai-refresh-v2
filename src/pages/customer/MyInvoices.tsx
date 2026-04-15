@@ -12,7 +12,7 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   Receipt, Search, Loader2, AlertCircle,
   CircleCheckBig, Clock, Ban, Calendar,
-  Hourglass, CheckCircle2,
+  Hourglass, CheckCircle2, ArrowLeft,
 } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 

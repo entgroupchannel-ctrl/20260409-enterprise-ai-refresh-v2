@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import {
-  Receipt, Search, Loader2, Building2, Calendar,
+  Receipt, Search, Loader2, Building2, Calendar, ArrowLeft,
 } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 
