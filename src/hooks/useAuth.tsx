@@ -108,7 +108,7 @@ export const useAuth = () => {
     if (userData?.role && staffRoles.includes(userData.role)) {
       navigate('/admin/dashboard');
     } else {
-      navigate('/');
+      navigate('/dashboard');
     }
 
     return data;
