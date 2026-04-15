@@ -20,7 +20,6 @@ export default function RepairQuoteForm({ repairOrder, onUpdated }: Props) {
   const [laborCost, setLaborCost] = useState(repairOrder.labor_cost || 0);
   const [additionalCost, setAdditionalCost] = useState(repairOrder.additional_cost || 0);
   const [discountAmount, setDiscountAmount] = useState(repairOrder.discount_amount || 0);
-  const [vatPercent] = useState(repairOrder.vat_percent || 7);
   const [message, setMessage] = useState(repairOrder.customer_quote_message || '');
   const [parts, setParts] = useState<RepairPart[]>([]);
   const [saving, setSaving] = useState(false);
@@ -52,9 +51,10 @@ export default function RepairQuoteForm({ repairOrder, onUpdated }: Props) {
   };
 
   const partsTotal = parts.reduce((s, p) => s + p.quantity * p.unit_price, 0);
-  const subtotal = laborCost + partsTotal + additionalCost - discountAmount;
-  const vatAmount = Math.round(subtotal * vatPercent / 100 * 100) / 100;
-  const grandTotal = Math.round((subtotal + vatAmount) * 100) / 100;
+  const laborWHT = Math.round(laborCost * 3 / 100 * 100) / 100;
+  const partsVAT = Math.round((partsTotal + additionalCost) * 7 / 100 * 100) / 100;
+  const subtotalBeforeTax = laborCost + partsTotal + additionalCost - discountAmount;
+  const grandTotal = Math.round((subtotalBeforeTax + partsVAT - laborWHT) * 100) / 100;
 
   const handleSubmitQuote = async () => {
     setSaving(true);
@@ -93,6 +93,21 @@ export default function RepairQuoteForm({ repairOrder, onUpdated }: Props) {
       });
       if (data && !data.success) throw new Error(data.error);
 
+      // Send notification to customer
+      if (repairOrder.customer_id) {
+        await (supabase as any).from('notifications').insert({
+          user_id: repairOrder.customer_id,
+          type: 'repair_quote',
+          title: `ใบเสนอราคาซ่อม ${repairOrder.repair_order_number}`,
+          message: `มีใบเสนอราคาซ่อมรอการอนุมัติ ยอด ฿${grandTotal.toLocaleString()}`,
+          priority: 'high',
+          action_url: `/my/repairs/${repairOrder.id}`,
+          action_label: 'ดูใบเสนอราคา',
+          link_type: 'repair_order',
+          link_id: repairOrder.id,
+        });
+      }
+
       toast({ title: 'ส่งใบเสนอราคาให้ลูกค้าแล้ว' });
       onUpdated();
     } catch (err: any) {
@@ -106,11 +121,11 @@ export default function RepairQuoteForm({ repairOrder, onUpdated }: Props) {
       <div className="grid grid-cols-2 gap-3">
         <div>
           <Label>ค่าแรง (฿)</Label>
-          <Input type="number" min={0} value={laborCost} onChange={e => setLaborCost(parseFloat(e.target.value) || 0)} />
+          <Input type="number" min={0} value={laborCost || ''} onChange={e => setLaborCost(parseFloat(e.target.value) || 0)} />
         </div>
         <div>
           <Label>ค่าบริการเพิ่มเติม (฿)</Label>
-          <Input type="number" min={0} value={additionalCost} onChange={e => setAdditionalCost(parseFloat(e.target.value) || 0)} />
+          <Input type="number" min={0} value={additionalCost || ''} onChange={e => setAdditionalCost(parseFloat(e.target.value) || 0)} />
         </div>
       </div>
 
@@ -121,24 +136,19 @@ export default function RepairQuoteForm({ repairOrder, onUpdated }: Props) {
         )}
       </div>
 
-      <div className="grid grid-cols-2 gap-3">
-        <div>
-          <Label>ส่วนลด (฿)</Label>
-          <Input type="number" min={0} value={discountAmount} onChange={e => setDiscountAmount(parseFloat(e.target.value) || 0)} />
-        </div>
-        <div>
-          <Label>VAT (%)</Label>
-          <Input value={vatPercent} disabled className="bg-muted" />
-        </div>
+      <div>
+        <Label>ส่วนลด (฿)</Label>
+        <Input type="number" min={0} value={discountAmount || ''} onChange={e => setDiscountAmount(parseFloat(e.target.value) || 0)} />
       </div>
 
       {/* Summary */}
       <div className="bg-muted/50 rounded-lg p-3 space-y-1 text-sm">
         <div className="flex justify-between"><span>ค่าแรง</span><span>฿{laborCost.toLocaleString()}</span></div>
+        {laborWHT > 0 && <div className="flex justify-between text-orange-600 dark:text-orange-400"><span>หัก ณ ที่จ่าย 3% (ค่าแรง)</span><span>-฿{laborWHT.toLocaleString()}</span></div>}
         <div className="flex justify-between"><span>ค่าชิ้นส่วน</span><span>฿{partsTotal.toLocaleString()}</span></div>
         <div className="flex justify-between"><span>ค่าบริการเพิ่มเติม</span><span>฿{additionalCost.toLocaleString()}</span></div>
         {discountAmount > 0 && <div className="flex justify-between text-destructive"><span>ส่วนลด</span><span>-฿{discountAmount.toLocaleString()}</span></div>}
-        <div className="flex justify-between"><span>VAT {vatPercent}%</span><span>฿{vatAmount.toLocaleString()}</span></div>
+        {partsVAT > 0 && <div className="flex justify-between"><span>VAT 7% (อะไหล่+บริการ)</span><span>฿{partsVAT.toLocaleString()}</span></div>}
         <div className="flex justify-between font-bold text-base border-t pt-1"><span>รวมทั้งสิ้น</span><span>฿{grandTotal.toLocaleString()}</span></div>
       </div>
 

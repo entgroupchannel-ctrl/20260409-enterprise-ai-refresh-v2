@@ -114,10 +114,21 @@ export default function MyRepairDetail() {
               {ro.customer_quote_message && <p className="text-sm bg-muted/50 rounded p-2">{ro.customer_quote_message}</p>}
               <div className="space-y-1 text-sm">
                 <div className="flex justify-between"><span>ค่าแรง</span><span>฿{Number(ro.labor_cost).toLocaleString()}</span></div>
+                {Number(ro.labor_cost) > 0 && (
+                  <div className="flex justify-between text-orange-600 dark:text-orange-400">
+                    <span>หัก ณ ที่จ่าย 3% (ค่าแรง)</span>
+                    <span>-฿{(Math.round(Number(ro.labor_cost) * 3) / 100).toLocaleString()}</span>
+                  </div>
+                )}
                 <div className="flex justify-between"><span>ค่าชิ้นส่วน</span><span>฿{Number(ro.parts_cost).toLocaleString()}</span></div>
                 {Number(ro.additional_cost) > 0 && <div className="flex justify-between"><span>เพิ่มเติม</span><span>฿{Number(ro.additional_cost).toLocaleString()}</span></div>}
                 {Number(ro.discount_amount) > 0 && <div className="flex justify-between text-destructive"><span>ส่วนลด</span><span>-฿{Number(ro.discount_amount).toLocaleString()}</span></div>}
-                <div className="flex justify-between"><span>VAT {ro.vat_percent}%</span><span>฿{Number(ro.vat_amount).toLocaleString()}</span></div>
+                {(Number(ro.parts_cost) + Number(ro.additional_cost)) > 0 && (
+                  <div className="flex justify-between">
+                    <span>VAT 7% (อะไหล่+บริการ)</span>
+                    <span>฿{(Math.round((Number(ro.parts_cost) + Number(ro.additional_cost)) * 7) / 100).toLocaleString()}</span>
+                  </div>
+                )}
                 <div className="flex justify-between font-bold border-t pt-1"><span>รวมทั้งสิ้น</span><span>฿{Number(ro.grand_total).toLocaleString()}</span></div>
               </div>
               {parts.length > 0 && <RepairPartsTable parts={parts.map(p => ({ ...p, unit_price: Number(p.unit_price) }))} onChange={() => {}} readOnly />}
