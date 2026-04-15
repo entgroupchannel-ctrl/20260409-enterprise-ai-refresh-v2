@@ -2,24 +2,23 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import AdminLayout from '@/layouts/AdminLayout';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import SupplierStatusBadge from '@/components/admin/SupplierStatusBadge';
 import SupplierApprovalList from '@/components/admin/SupplierApprovalList';
 import SupplierRegistrationForm from '@/components/admin/SupplierRegistrationForm';
-import SupplierDocumentForm from '@/components/admin/SupplierDocumentForm';
+import SupplierDocumentsHub from '@/components/admin/SupplierDocumentsHub';
 import SupplierPaymentHistory from '@/components/admin/SupplierPaymentHistory';
 import PurchaseOrdersList from '@/components/admin/PurchaseOrdersList';
 import {
   Building2, Clock, CheckCircle, XCircle, FileEdit, Star, Award,
-  Search, RefreshCw, Loader2, Trash2,
+  Search, RefreshCw, Loader2, Trash2, ExternalLink,
 } from 'lucide-react';
-import { format } from 'date-fns';
-import { th } from 'date-fns/locale';
 
 interface Supplier {
   id: string;
@@ -43,11 +42,15 @@ export default function AdminSupplierManagement() {
   const [statusFilter, setStatusFilter] = useState('all');
   const [stats, setStats] = useState({ total: 0, pending: 0, approved: 0, rejected: 0, draft: 0, preferred: 0, highRating: 0 });
 
+  // Documents & Transfers tab supplier selection
+  const [docSupplier, setDocSupplier] = useState<{ id: string; company_name: string } | null>(null);
+  const [transferSupplier, setTransferSupplier] = useState<{ id: string; company_name: string } | null>(null);
+
   useEffect(() => { load(); }, []);
 
   const load = async () => {
     setLoading(true);
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from('suppliers')
       .select('id, supplier_code, company_name, company_name_en, country, main_products, status, quality_rating, is_preferred, created_at')
       .is('deleted_at', null)
@@ -93,6 +96,30 @@ export default function AdminSupplierManagement() {
             <p className="text-xl font-bold">{value}</p>
           </div>
           <Icon className={`w-6 h-6 ${color} opacity-40`} />
+        </div>
+      </CardContent>
+    </Card>
+  );
+
+  const SupplierSelector = ({ value, onChange, label }: { value: { id: string; company_name: string } | null; onChange: (v: { id: string; company_name: string } | null) => void; label: string }) => (
+    <Card>
+      <CardContent className="pt-4 pb-4">
+        <div className="flex items-center gap-3">
+          <Label className="text-sm whitespace-nowrap">{label}</Label>
+          <Select
+            value={value?.id || ''}
+            onValueChange={id => {
+              const s = suppliers.find(s => s.id === id);
+              onChange(s ? { id: s.id, company_name: s.company_name } : null);
+            }}
+          >
+            <SelectTrigger className="max-w-sm"><SelectValue placeholder="เลือก Supplier..." /></SelectTrigger>
+            <SelectContent>
+              {suppliers.map(s => (
+                <SelectItem key={s.id} value={s.id}>{s.supplier_code} — {s.company_name}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       </CardContent>
     </Card>
@@ -216,7 +243,14 @@ export default function AdminSupplierManagement() {
           </TabsContent>
 
           <TabsContent value="documents">
-            <SupplierDocumentForm />
+            <div className="space-y-4">
+              <SupplierSelector value={docSupplier} onChange={setDocSupplier} label="เลือก Supplier:" />
+              {docSupplier ? (
+                <SupplierDocumentsHub supplierId={docSupplier.id} supplierName={docSupplier.company_name} />
+              ) : (
+                <Card><CardContent className="text-center py-12 text-muted-foreground"><p className="text-sm">กรุณาเลือก Supplier เพื่อดูเอกสาร</p></CardContent></Card>
+              )}
+            </div>
           </TabsContent>
 
           <TabsContent value="payments">
@@ -224,14 +258,42 @@ export default function AdminSupplierManagement() {
           </TabsContent>
 
           <TabsContent value="transfers">
-            <Card>
-              <CardContent className="flex flex-col items-center justify-center py-16 text-center">
-                <Building2 className="w-16 h-16 text-muted-foreground/30 mb-4" />
-                <h3 className="text-lg font-semibold">การโอนเงินต่างประเทศ</h3>
-                <p className="text-sm text-muted-foreground mt-1 mb-4">ไปที่หน้าจัดการโอนเงินต่างประเทศ</p>
-                <Button onClick={() => navigate('/admin/international-transfer')}>เปิดหน้าโอนเงิน</Button>
-              </CardContent>
-            </Card>
+            <div className="space-y-4">
+              <Card>
+                <CardContent className="pt-4 pb-4">
+                  <div className="flex items-center gap-3">
+                    <Label className="text-sm whitespace-nowrap">ดูโอนเงินของ Supplier:</Label>
+                    <Select
+                      value={transferSupplier?.id || ''}
+                      onValueChange={id => {
+                        const s = suppliers.find(s => s.id === id);
+                        setTransferSupplier(s ? { id: s.id, company_name: s.company_name } : null);
+                      }}
+                    >
+                      <SelectTrigger className="max-w-sm"><SelectValue placeholder="เลือก Supplier..." /></SelectTrigger>
+                      <SelectContent>
+                        {suppliers.map(s => (
+                          <SelectItem key={s.id} value={s.id}>{s.supplier_code} — {s.company_name}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <Button variant="outline" size="sm" onClick={() => navigate('/admin/international-transfer')}>
+                      <ExternalLink className="w-4 h-4 mr-1" /> หน้าโอนเงินทั้งหมด
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+              {transferSupplier ? (
+                <SupplierDocumentsHub supplierId={transferSupplier.id} supplierName={transferSupplier.company_name} defaultTab="transfers" />
+              ) : (
+                <Card>
+                  <CardContent className="text-center py-12 text-muted-foreground">
+                    <p className="text-sm">เลือก Supplier เพื่อดูประวัติโอนเงิน</p>
+                    <p className="text-xs mt-1">หรือดูรายการโอนทั้งหมดที่หน้าจัดการโอนเงินต่างประเทศ</p>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
           </TabsContent>
         </Tabs>
       </div>
