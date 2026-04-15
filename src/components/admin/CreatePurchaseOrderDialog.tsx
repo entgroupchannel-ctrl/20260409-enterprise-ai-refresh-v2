@@ -152,6 +152,7 @@ export default function CreatePurchaseOrderDialog({ open, onOpenChange, editId, 
     setOrderDate(new Date().toISOString().split('T')[0]);
     setExpectedDelivery(''); setNotes('');
     setShowTerms(false); setShowShipping(false);
+    setPoFiles([]); setNewPoFileType('proforma_invoice');
   };
 
   const addItem = () => setItems(prev => [...prev, { model: '', description: '', color: '', hs_code: '', quantity: 1, unit_price: 0 }]);
