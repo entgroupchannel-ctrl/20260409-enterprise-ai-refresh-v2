@@ -562,6 +562,22 @@ export default function TransferRequestsList({ onEdit }: Props) {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Transfer Email Modal */}
+      {emailTarget && (
+        <TransferEmailModal
+          open={emailModalOpen}
+          onOpenChange={setEmailModalOpen}
+          transfer={emailTarget as any}
+          supplier={{
+            email: supplierEmails[emailTarget.supplier_id] || null,
+            company_name: emailTarget.supplier_name,
+          }}
+          poNumbers={poMap}
+          piNumbers={piMap}
+          onStatusUpdated={fetchTransfers}
+        />
+      )}
     </div>
   );
 }
