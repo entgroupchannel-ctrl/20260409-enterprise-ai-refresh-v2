@@ -13,6 +13,7 @@ import { toast } from 'sonner';
 import {
   Save, Send, RefreshCw, ChevronDown, Loader2, Plus, X,
   FileText, Package, DollarSign, Calendar, AlertTriangle,
+  Upload, Sparkles, CheckCircle2, XCircle,
 } from 'lucide-react';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
