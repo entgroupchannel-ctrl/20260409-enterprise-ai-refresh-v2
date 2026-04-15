@@ -66,6 +66,7 @@ interface NavGroup {
   icon: any;
   items: NavItem[];
   adminOnly?: boolean;
+  grid?: boolean; // render as 2-col grid
 }
 
 const standaloneItems: NavItem[] = [
@@ -76,6 +77,7 @@ const navGroups: NavGroup[] = [
   {
     label: 'งานขาย',
     icon: Briefcase,
+    grid: true,
     items: [
       { label: 'ใบเสนอราคา', icon: FileText, path: '/admin/quotes' },
       { label: 'ยอดขาย / SO', icon: ShoppingCart, path: '/admin/sale-orders' },
@@ -86,41 +88,31 @@ const navGroups: NavGroup[] = [
     ],
   },
   {
-    label: 'ลูกค้า & CRM',
+    label: 'CRM & จัดซื้อ',
     icon: Users,
+    grid: true,
     items: [
       { label: 'ลูกค้า (Members)', icon: Users, path: '/admin/customers' },
       { label: 'ผู้ติดต่อ', icon: Users, path: '/admin/contacts' },
       { label: 'Live Chat', icon: MessageCircle, path: '/admin/live-chat' },
-    ],
-  },
-  {
-    label: 'จัดซื้อ',
-    icon: Globe,
-    items: [
       { label: 'จัดการ Supplier', icon: Building2, path: '/admin/suppliers' },
       { label: 'โอนเงินต่างประเทศ', icon: DollarSign, path: '/admin/international-transfer' },
     ],
   },
   {
-    label: 'สินค้า & คลัง',
+    label: 'สินค้า & บริการ',
     icon: Package,
+    grid: true,
     items: [
       { label: 'คลังสินค้า', icon: Package, path: '/admin/inventory' },
       { label: 'จัดการสินค้า', icon: Database, path: '/admin/products' },
       { label: 'นำเข้าสินค้า', icon: Upload, path: '/admin/products/import' },
-    ],
-  },
-  {
-    label: 'บริการหลังขาย',
-    icon: ShieldCheck,
-    items: [
       { label: 'ลงทะเบียนสินค้า', icon: Shield, path: '/admin/registered-products' },
       { label: 'ใบสั่งซ่อม', icon: Package, path: '/admin/repairs' },
     ],
   },
   {
-    label: 'รายงาน & อนุมัติ',
+    label: 'รายงาน',
     icon: BarChart3,
     items: [
       { label: 'รายงานธุรกิจ', icon: BarChart3, path: '/admin/reports' },
@@ -129,8 +121,9 @@ const navGroups: NavGroup[] = [
     ],
   },
   {
-    label: 'ตั้งค่าระบบ',
+    label: 'ตั้งค่า',
     icon: Settings,
+    grid: true,
     items: [
       { label: 'ข้อมูลบริษัท', icon: Building2, path: '/admin/settings/company' },
       { label: 'ข้อมูลส่วนตัว', icon: User, path: '/admin/settings/profile' },
