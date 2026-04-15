@@ -222,7 +222,6 @@ export default function MyDocuments() {
             </div>
           )}
         </div>
-      </div>
     </CustomerLayout>
   );
 }
