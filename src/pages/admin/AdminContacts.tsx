@@ -190,13 +190,13 @@ export default function AdminContacts() {
   return (
     <AdminLayout>
       <AdminPageLayout
-        title="สมุดรายชื่อ"
-        description={`ลูกค้าและผู้จำหน่าย ${stats.total.toLocaleString()} รายการ`}
-        actionButton={{
+        title={viewTab === 'contacts' ? 'สมุดรายชื่อ' : '📩 ข้อความจากลูกค้า'}
+        description={viewTab === 'contacts' ? `ลูกค้าและผู้จำหน่าย ${stats.total.toLocaleString()} รายการ` : 'ข้อความจากฟอร์มติดต่อบนเว็บไซต์'}
+        actionButton={viewTab === 'contacts' ? {
           label: 'เพิ่มรายชื่อใหม่',
           icon: <Plus className="w-4 h-4 mr-1.5" />,
           onClick: () => setShowAddDialog(true),
-        }}
+        } : undefined}
       >
         {/* Main Tab Switcher */}
         <Tabs value={viewTab} onValueChange={(v: any) => setViewTab(v)} className="mb-4">
