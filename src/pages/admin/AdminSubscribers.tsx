@@ -66,7 +66,7 @@ const AdminSubscribers = () => {
       .update({
         is_active: newActive,
         unsubscribed_at: newActive ? null : new Date().toISOString(),
-      })
+      } as any)
       .eq('id', sub.id);
     if (error) {
       toast({ title: 'เกิดข้อผิดพลาด', variant: 'destructive' });
@@ -82,7 +82,7 @@ const AdminSubscribers = () => {
     setSaving(true);
     const { error } = await supabase
       .from('subscribers')
-      .update({ notes: noteText })
+      .update({ notes: noteText } as any)
       .eq('id', selected.id);
     if (!error) {
       toast({ title: 'บันทึกโน้ตสำเร็จ' });
@@ -114,7 +114,7 @@ const AdminSubscribers = () => {
   };
 
   return (
-    <AdminPageLayout title="📧 สมาชิกรับข่าวสาร" subtitle="จัดการรายชื่ออีเมลที่สมัครรับข่าวสาร">
+    <AdminPageLayout title="📧 สมาชิกรับข่าวสาร" description="จัดการรายชื่ออีเมลที่สมัครรับข่าวสาร">
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         <Card className="cursor-pointer hover:border-primary transition-colors" onClick={() => setFilter('all')}>
