@@ -15,8 +15,10 @@ import {
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import {
-  Search, Loader2, FileText, FileMinus,
+  Search, Loader2, FileText, FileMinus, Plus,
 } from 'lucide-react';
+import CreateCreditNoteDialog from '@/components/admin/CreateCreditNoteDialog';
+import SelectTaxInvoiceDialog from '@/components/admin/SelectTaxInvoiceDialog';
 
 const REASON_LABELS: Record<string, string> = {
   return: 'สินค้าคืน',
