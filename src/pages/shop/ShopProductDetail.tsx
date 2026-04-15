@@ -17,7 +17,7 @@ import {
   ChevronRight, Minus, Plus, Microchip, MemoryStick, CircuitBoard, Wifi, Antenna,
   ShieldCheck, Truck, Clock, FileText, Phone, MessageCircle, CheckCircle2,
   Package, Award, Headphones, ReceiptText, Factory, Building2, Warehouse, Server,
-  Zap, ThermometerSun, Droplets, Monitor,
+  Zap, ThermometerSun, Droplets, Monitor, ShoppingCart,
 } from 'lucide-react';
 import SiteNavbar from '@/components/SiteNavbar';
 
@@ -415,6 +415,78 @@ const ShopProductDetail = () => {
                 <p className="text-xs text-muted-foreground leading-relaxed">{feat.desc}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ═══════════ HOW TO ORDER — STEP BANNER ═══════════ */}
+      <div className="bg-muted/20 border-y border-border">
+        <div className="container max-w-7xl mx-auto px-4 py-10">
+          <div className="text-center mb-8">
+            <h2 className="text-xl font-bold text-foreground">ขั้นตอนง่ายๆ ในการขอใบเสนอราคา</h2>
+            <p className="text-sm text-muted-foreground mt-1">เลือกสินค้า → หยิบใส่ตะกร้า → กดขอใบเสนอราคา — ระบบจะจัดเตรียมเอกสารให้ภายใน 4 ชม.</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              {
+                step: '01',
+                icon: Package,
+                title: 'เลือกสินค้า & ปรับสเปก',
+                desc: 'เลือก CPU, RAM, SSD, OS ที่ต้องการ ระบบจะคำนวณราคาอัตโนมัติ',
+                color: 'bg-primary/10 text-primary',
+              },
+              {
+                step: '02',
+                icon: ShoppingCart,
+                title: 'หยิบใส่ตะกร้า',
+                desc: 'เพิ่มสินค้าหลายรายการในตะกร้า เลือกจำนวน ได้ราคาส่ง',
+                color: 'bg-amber-500/10 text-amber-600 dark:text-amber-400',
+              },
+              {
+                step: '03',
+                icon: FileText,
+                title: 'ส่งคำขอใบเสนอราคา',
+                desc: 'กดปุ่ม "ขอใบเสนอราคา" ในตะกร้า ทีมขายจะจัดเตรียมเอกสาร',
+                color: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
+              },
+              {
+                step: '04',
+                icon: CheckCircle2,
+                title: 'รับใบเสนอราคา & ต่อรอง',
+                desc: 'รับเอกสารผ่านอีเมลและระบบ ต่อรองราคาได้ ส่ง PO เมื่อพร้อม',
+                color: 'bg-rose-500/10 text-rose-600 dark:text-rose-400',
+              },
+            ].map((s, i) => (
+              <div key={i} className="relative rounded-xl border border-border bg-card p-5 space-y-3 hover:shadow-md transition-shadow group">
+                {/* Step number */}
+                <div className="flex items-center justify-between">
+                  <span className="text-3xl font-black text-muted-foreground/20 group-hover:text-primary/20 transition-colors">{s.step}</span>
+                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${s.color}`}>
+                    <s.icon className="w-5 h-5" />
+                  </div>
+                </div>
+                <h3 className="text-sm font-bold text-foreground">{s.title}</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">{s.desc}</p>
+                {/* Connector arrow — except last */}
+                {i < 3 && (
+                  <div className="hidden lg:flex absolute -right-3 top-1/2 -translate-y-1/2 z-10">
+                    <ChevronRight className="w-5 h-5 text-muted-foreground/40" />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-center mt-6 gap-3">
+            <Link to="/shop">
+              <Button variant="outline" size="sm" className="gap-1.5">
+                <Package className="w-4 h-4" /> ดูสินค้าทั้งหมด
+              </Button>
+            </Link>
+            <Link to="/cart">
+              <Button size="sm" className="gap-1.5 bg-amber-600 hover:bg-amber-700 text-white">
+                <ShoppingCart className="w-4 h-4" /> ไปที่ตะกร้า
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
