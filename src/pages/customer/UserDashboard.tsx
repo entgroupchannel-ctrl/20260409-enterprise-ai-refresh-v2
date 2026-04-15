@@ -27,7 +27,7 @@ import {
   ArrowLeft, Save, Trash2, Minus, Home, LogOut,
   ChevronRight, PackageCheck, PhoneCall, MailCheck, Upload, SendHorizonal,
   Paperclip, CalendarClock, MessageSquareText, Pencil, X, Building2,
-  Receipt, FileText, FileArchive, Shield, Wrench,
+  Receipt, FileText, FileArchive, Shield, Wrench, CheckCircle2,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 import NotificationBell from '@/components/notifications/NotificationBell';
@@ -113,7 +113,7 @@ const formatCurrency = (amount: number) => {
 };
 
 const getStatusLabel = (status: string) => {
-  const m: Record<string, string> = { pending: 'รอใบเสนอราคา', quote_sent: 'ได้รับราคาแล้ว', po_uploaded: 'ส่ง PO แล้ว', po_approved: 'อนุมัติแล้ว', completed: 'เสร็จสิ้น', rejected: 'ไม่อนุมัติ' };
+  const m: Record<string, string> = { pending: 'รอใบเสนอราคา', quote_sent: 'ได้รับราคาแล้ว', negotiating: 'กำลังต่อรอง', accepted: 'ยอมรับแล้ว', po_uploaded: 'ส่ง PO แล้ว', po_confirmed: 'ยืนยัน PO แล้ว', po_approved: 'อนุมัติแล้ว', completed: 'เสร็จสิ้น', rejected: 'ไม่อนุมัติ', expired: 'หมดอายุ' };
   return m[status] || status;
 };
 
@@ -628,7 +628,7 @@ export default function UserDashboard() {
                     {[
                       { label: 'ทั้งหมด', value: quotes.length, color: 'text-primary', filter: 'all' },
                       { label: 'รอใบเสนอราคา', value: quotes.filter(q => q.status === 'pending').length, color: 'text-yellow-600', filter: 'pending' },
-                      { label: 'ได้รับราคา', value: quotes.filter(q => q.status === 'quote_sent').length, color: 'text-blue-600', filter: 'quote_sent' },
+                      { label: 'ได้รับราคา', value: quotes.filter(q => ['quote_sent', 'negotiating'].includes(q.status)).length, color: 'text-blue-600', filter: 'quote_sent' },
                       { label: 'เสร็จสิ้น', value: quotes.filter(q => ['po_approved', 'completed'].includes(q.status)).length, color: 'text-green-600', filter: 'completed' },
                     ].map(s => (
                       <Card key={s.label} className="cursor-pointer hover:shadow-md transition-shadow" onClick={() => setStatusFilter(s.filter)}>
@@ -652,6 +652,8 @@ export default function UserDashboard() {
                         <SelectItem value="all">สถานะทั้งหมด</SelectItem>
                         <SelectItem value="pending">รอใบเสนอราคา</SelectItem>
                         <SelectItem value="quote_sent">ได้รับราคาแล้ว</SelectItem>
+                        <SelectItem value="negotiating">กำลังต่อรอง</SelectItem>
+                        <SelectItem value="accepted">ยอมรับแล้ว</SelectItem>
                         <SelectItem value="po_uploaded">ส่ง PO แล้ว</SelectItem>
                         <SelectItem value="completed">เสร็จสิ้น</SelectItem>
                       </SelectContent>
@@ -1077,14 +1079,25 @@ export default function UserDashboard() {
                         </CardContent>
                       </Card>
 
-                      {/* Action: Upload PO */}
-                      {selectedQuote.status === 'quote_sent' && (
+                      {/* Action: Accept Quote / Upload PO */}
+                      {(selectedQuote.status === 'quote_sent' || selectedQuote.status === 'negotiating') && selectedQuote.grand_total > 0 && (
                         <Card className="border-primary/30 bg-primary/5">
                           <CardContent className="pt-4 pb-3 text-center space-y-2">
-                            <p className="text-sm font-medium">พร้อมส่ง PO?</p>
-                            <p className="text-xs text-muted-foreground">อัปโหลด PO เพื่อดำเนินการสั่งซื้อ</p>
-                            <Button size="sm" className="w-full" onClick={() => setShowPOUpload(true)}>
-                              <Upload className="w-3.5 h-3.5 mr-1" /> อัปโหลด PO
+                            <p className="text-sm font-medium">ตอบกลับใบเสนอราคา</p>
+                            <p className="text-xs text-muted-foreground">ยอมรับราคาหรืออัปโหลด PO เพื่อดำเนินการ</p>
+                            <Button size="sm" className="w-full" onClick={() => navigate(`/my-quotes/${selectedQuote.id}`)}>
+                              <CheckCircle2 className="w-3.5 h-3.5 mr-1" /> ดูรายละเอียดและยอมรับราคา
+                            </Button>
+                          </CardContent>
+                        </Card>
+                      )}
+                      {selectedQuote.status === 'accepted' && (
+                        <Card className="border-green-300 bg-green-50 dark:bg-green-900/10">
+                          <CardContent className="pt-4 pb-3 text-center space-y-2">
+                            <p className="text-sm font-medium text-green-800 dark:text-green-200">✅ ยอมรับราคาแล้ว</p>
+                            <p className="text-xs text-muted-foreground">กรุณาแนบ PO เพื่อดำเนินการสั่งซื้อ</p>
+                            <Button size="sm" className="w-full" onClick={() => navigate(`/my-quotes/${selectedQuote.id}`)}>
+                              <Upload className="w-3.5 h-3.5 mr-1" /> ไปแนบ PO
                             </Button>
                           </CardContent>
                         </Card>
