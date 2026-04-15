@@ -383,6 +383,21 @@ const ShopProductDetail = () => {
           </TabsContent>
         </Tabs>
 
+        {/* Trust Signals */}
+        <div className="grid grid-cols-2 gap-2 my-6">
+          {[
+            { icon: ShieldCheck, text: 'รับประกัน 1–3 ปี' },
+            { icon: MonitorSmartphone, text: 'ซัพพอร์ตภาษาไทย' },
+            { icon: CircuitBoard, text: 'จัดส่งทั่วไทย' },
+            { icon: SlidersHorizontal, text: 'ใบกำกับภาษี' },
+          ].map((t, i) => (
+            <div key={i} className="flex items-center gap-2 text-xs text-muted-foreground p-2.5 rounded-lg bg-muted/30 border border-border">
+              <t.icon className="w-4 h-4 text-primary shrink-0" />
+              {t.text}
+            </div>
+          ))}
+        </div>
+
         {/* RFQ Form */}
         <div className="mb-8">
           <QuickRFQForm
