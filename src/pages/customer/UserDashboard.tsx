@@ -29,6 +29,8 @@ import {
   ChevronRight, PackageCheck, PhoneCall, MailCheck, Upload, SendHorizonal,
   Paperclip, CalendarClock, MessageSquareText, Pencil, X, Building2,
   Receipt, FileText, FileArchive, Shield, Wrench, CheckCircle2,
+  BadgeCheck, HandCoins, FileSignature, ClipboardCheck, Sparkles, CircleDollarSign,
+  ShieldCheck, FileBadge, Star,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 import NotificationBell from '@/components/notifications/NotificationBell';
