@@ -68,6 +68,21 @@ interface PO {
 }
 
 interface AttachedFile { file: File; type: DocType; }
+
+interface ParsedPI {
+  fileName: string;
+  status: 'parsing' | 'done' | 'error';
+  error?: string;
+  data?: {
+    pi_number?: string; supplier_name?: string;
+    items?: { model?: string; description?: string; color?: string; qty?: number; unit_price?: number; amount?: number; hs_code?: string }[];
+    shipping_cost?: number; handling_fee?: number; grand_total?: number; currency?: string;
+    price_terms?: string; payment_terms?: string; delivery_days?: string;
+    loading_port?: string; destination?: string;
+    bank_name?: string; swift_code?: string; account_number?: string; account_name?: string;
+  };
+}
+
 interface Props { editId?: string | null; onSaved?: () => void; }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
