@@ -8,6 +8,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useCart } from '@/hooks/useCart';
 import { supabase } from '@/integrations/supabase/client';
 import AcceptQuoteDialog from '@/components/negotiation/AcceptQuoteDialog';
+import NegotiationRequestDialog from '@/components/negotiation/NegotiationRequestDialog';
 import { useToast } from '@/hooks/use-toast';
 import SEOHead from '@/components/SEOHead';
 import { Button } from '@/components/ui/button';
@@ -147,6 +148,7 @@ export default function UserDashboard() {
   const [statusFilter, setStatusFilter] = useState('all');
   const [selectedQuote, setSelectedQuote] = useState<Quote | null>(null);
   const [showAcceptDialog, setShowAcceptDialog] = useState(false);
+  const [showNegotiation, setShowNegotiation] = useState(false);
 
   // ─── Quote detail extras ───
   const [quoteFiles, setQuoteFiles] = useState<QuoteFile[]>([]);
@@ -1103,6 +1105,14 @@ export default function UserDashboard() {
                             >
                               <BadgeCheck className="w-5 h-5 mr-2" /> ยอมรับราคานี้
                             </Button>
+                            <Button
+                              size="lg"
+                              variant="outline"
+                              className="w-full border-amber-300 text-amber-700 hover:bg-amber-50 dark:border-amber-600 dark:text-amber-400 dark:hover:bg-amber-900/20 font-semibold"
+                              onClick={() => setShowNegotiation(true)}
+                            >
+                              <MessageSquareText className="w-5 h-5 mr-2" /> 💬 ขอต่อรองราคา
+                            </Button>
                             <p className="text-[11px] text-muted-foreground flex items-center justify-center gap-1">
                               <HandCoins className="w-3 h-3" /> เลือกแนบ PO หรือยืนยันโดยไม่มีเอกสาร
                             </p>
@@ -1132,6 +1142,15 @@ export default function UserDashboard() {
                           open={showAcceptDialog}
                           onClose={() => setShowAcceptDialog(false)}
                           onSuccess={() => { setShowAcceptDialog(false); loadQuotes(); }}
+                        />
+                      )}
+                      {showNegotiation && selectedQuote && (
+                        <NegotiationRequestDialog
+                          quoteId={selectedQuote.id}
+                          currentRevisionId={(selectedQuote as any).current_revision_id}
+                          open={showNegotiation}
+                          onClose={() => setShowNegotiation(false)}
+                          onSuccess={() => { setShowNegotiation(false); loadQuotes(); }}
                         />
                       )}
                     </div>
