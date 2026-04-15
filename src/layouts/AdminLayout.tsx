@@ -35,6 +35,7 @@ import {
   Menu as MenuIcon,
   Globe,
   DollarSign,
+  MessageCircle,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { supabase } from '@/integrations/supabase/client';
@@ -110,6 +111,13 @@ const navGroups: NavGroup[] = [
     items: [
       { label: 'จัดการ Supplier', icon: Building2, path: '/admin/suppliers' },
       { label: 'โอนเงินต่างประเทศ', icon: DollarSign, path: '/admin/international-transfer' },
+    ],
+  },
+  {
+    label: 'สนทนา',
+    icon: MessageCircle,
+    items: [
+      { label: 'Live Chat', icon: MessageCircle, path: '/admin/live-chat' },
     ],
   },
   {

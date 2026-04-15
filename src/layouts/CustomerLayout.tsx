@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import NotificationBell from '@/components/notifications/NotificationBell';
 import MiniFooter from '@/components/MiniFooter';
+import CustomerChat from '@/components/chat/CustomerChat';
 import {
   FileSearch, ShoppingBag, UserRound, PackageCheck, Receipt,
   FileText, FileArchive, Shield, Wrench, Home, LogOut,
@@ -108,6 +109,7 @@ export default function CustomerLayout({ children, title }: CustomerLayoutProps)
       </div>
 
       <MiniFooter />
+      {user && <CustomerChat mode="widget" />}
     </div>
   );
 }
