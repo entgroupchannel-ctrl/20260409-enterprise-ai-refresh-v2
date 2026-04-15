@@ -99,7 +99,7 @@ export default function CustomerSODetail() {
 
   return (
     <CustomerLayout>
-      <SEOHead title={`${so.so_number} | ใบสั่งขาย`} />
+      <SEOHead title={`${so.so_number} | ใบสั่งขาย`} description={`รายละเอียดใบสั่งขาย ${so.so_number}`} />
 
       <div className="space-y-6">
         {/* Breadcrumb */}
