@@ -307,6 +307,14 @@ export default function AdminInvoiceDetail() {
   const canRestore = invoice.status === 'cancelled' && !hasPayments;
   const statusInfo = STATUS_LABELS[invoice.status] || { label: invoice.status, cls: '' };
 
+  const totalVerified = paymentRecords
+    .filter((p: any) => p.verification_status === 'verified')
+    .reduce((sum: number, p: any) => sum + Number(p.amount || 0), 0);
+
+  const totalPending = paymentRecords
+    .filter((p: any) => p.verification_status === 'pending')
+    .reduce((sum: number, p: any) => sum + Number(p.amount || 0), 0);
+
   return (
     <AdminLayout>
       <div className="max-w-5xl mx-auto p-4 md:p-6 space-y-4">
@@ -712,6 +720,76 @@ export default function AdminInvoiceDetail() {
             </CardContent>
           </Card>
         </div>
+
+        {/* Phase 8.1: Payment Progress Card */}
+        {paymentRecords.length > 0 && invoice && (
+          <Card className="border-primary/20">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm flex items-center gap-2">
+                <DollarSign className="w-4 h-4" />
+                สถานะการชำระเงิน
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">ยอดใบวางบิล:</span>
+                <span className="font-mono font-semibold">
+                  ฿{Number(invoice.grand_total).toLocaleString()}
+                </span>
+              </div>
+              <div className="flex justify-between text-green-700 dark:text-green-400">
+                <span>✅ Verified:</span>
+                <span className="font-mono">
+                  ฿{totalVerified.toLocaleString()}
+                </span>
+              </div>
+              {totalPending > 0 && (
+                <div className="flex justify-between text-amber-700 dark:text-amber-400">
+                  <span>⏳ Pending:</span>
+                  <span className="font-mono">
+                    ฿{totalPending.toLocaleString()}
+                  </span>
+                </div>
+              )}
+              <div className="h-2 bg-muted rounded-full overflow-hidden mt-2">
+                <div 
+                  className={cn(
+                    "h-full transition-all",
+                    totalVerified >= Number(invoice.grand_total) ? "bg-green-500" :
+                    totalVerified + totalPending >= Number(invoice.grand_total) ? "bg-amber-500" :
+                    "bg-blue-500"
+                  )}
+                  style={{ 
+                    width: `${Math.min(100, (totalVerified / Number(invoice.grand_total)) * 100)}%` 
+                  }}
+                />
+              </div>
+              {totalVerified > Number(invoice.grand_total) + 0.01 && (
+                <div className="text-xs text-destructive flex items-start gap-1 mt-1">
+                  <AlertCircle className="w-3 h-3 mt-0.5 shrink-0" />
+                  <span>
+                    Verified เกินยอดใบวางบิล ฿
+                    {(totalVerified - Number(invoice.grand_total)).toLocaleString()}
+                    {' '}— อาจมีสลิปซ้ำ ควรตรวจสอบและ reject
+                  </span>
+                </div>
+              )}
+              {totalVerified < Number(invoice.grand_total) - 0.01 && totalPending === 0 && (
+                <div className="text-xs text-amber-700 dark:text-amber-400 flex items-start gap-1 mt-1">
+                  <AlertCircle className="w-3 h-3 mt-0.5 shrink-0" />
+                  <span>
+                    ยังขาดอีก ฿{(Number(invoice.grand_total) - totalVerified).toLocaleString()}
+                  </span>
+                </div>
+              )}
+              {Math.abs(totalVerified - Number(invoice.grand_total)) < 0.01 && (
+                <div className="text-xs text-green-700 dark:text-green-400 flex items-start gap-1 mt-1">
+                  <span>✅ ชำระครบยอดใบวางบิลแล้ว</span>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        )}
 
         {/* Items - card based (matches Quote pattern) */}
         <Card>
