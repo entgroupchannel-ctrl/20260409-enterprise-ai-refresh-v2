@@ -913,56 +913,39 @@ export default function AdminQuoteDetail() {
 
                 {/* ✅ Overall Discount Input - แสดงเฉพาะตอน editable */}
                 {quote.status === 'pending' && (
-                  <div className="mb-4 p-4 bg-muted/30 rounded-lg border border-border">
-                    <Label className="text-sm font-medium text-foreground mb-2 block">
-                      ส่วนลดรวมทั้งใบเสนอราคา (%)
-                    </Label>
-                    <div className="flex items-center gap-2">
-                      <Input
-                        type="number"
-                        min="0"
-                        max="100"
-                        step="0.01"
-                        value={quote.discount_percent || ''}
-                        placeholder="0"
-                        className="max-w-[150px]"
-                        onFocus={(e) => e.target.select()}
-                        onChange={(e) => {
-                          const val = e.target.value;
-                          const newPercent = val === '' ? 0 : parseFloat(val);
-                          setQuote({ ...quote, discount_percent: newPercent });
-                        }}
-                        onBlur={async (e) => {
-                          const val = e.target.value;
-                          const newPercent = val === '' ? 0 : parseFloat(val);
-                          const recalc = calculateQuoteTotals(
-                            quote.products || [],
-                            newPercent,
-                            quote.vat_percent || 7
-                          );
-                          const { error } = await supabase
-                            .from('quote_requests')
-                            .update({
-                              discount_percent: newPercent,
-                              subtotal: recalc.subtotal,
-                              discount_amount: recalc.discountAmount,
-                              vat_amount: recalc.vatAmount,
-                              grand_total: recalc.grandTotal,
-                            })
-                            .eq('id', id);
-                          if (!error) {
-                            toast({ title: 'บันทึกส่วนลดแล้ว' });
-                          }
-                        }}
-                      />
-                      <span className="text-sm text-muted-foreground">%</span>
-                      {quote.discount_percent && quote.discount_percent > 0 && (
-                        <span className="text-sm text-green-600 dark:text-green-400 ml-2">
-                          = -{formatCurrency(totals.discountAmount)}
-                        </span>
-                      )}
-                    </div>
-                  </div>
+                  <DiscountInput
+                    subtotal={totals.subtotal}
+                    discountPercent={quote.discount_percent || 0}
+                    discountAmount={quote.discount_amount || 0}
+                    onChange={(newPercent, newAmount) => {
+                      setQuote({ 
+                        ...quote, 
+                        discount_percent: newPercent,
+                        discount_amount: newAmount,
+                      });
+                    }}
+                    onBlur={async () => {
+                      const recalc = calculateQuoteTotals(
+                        quote.products || [],
+                        quote.discount_percent || 0,
+                        quote.vat_percent || 7,
+                        quote.discount_amount || 0
+                      );
+                      const { error } = await supabase
+                        .from('quote_requests')
+                        .update({
+                          discount_percent: quote.discount_percent || 0,
+                          subtotal: recalc.subtotal,
+                          discount_amount: recalc.discountAmount,
+                          vat_amount: recalc.vatAmount,
+                          grand_total: recalc.grandTotal,
+                        })
+                        .eq('id', id);
+                      if (!error) {
+                        toast({ title: 'บันทึกส่วนลดแล้ว' });
+                      }
+                    }}
+                  />
                 )}
 
                 <Separator className="my-4" />
