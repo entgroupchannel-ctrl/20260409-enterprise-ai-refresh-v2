@@ -2948,6 +2948,288 @@ export type Database = {
           },
         ]
       }
+      repair_order_history: {
+        Row: {
+          action: string
+          actor_id: string | null
+          actor_name: string | null
+          created_at: string
+          from_status: string | null
+          id: string
+          metadata: Json | null
+          notes: string | null
+          repair_order_id: string
+          to_status: string | null
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          actor_name?: string | null
+          created_at?: string
+          from_status?: string | null
+          id?: string
+          metadata?: Json | null
+          notes?: string | null
+          repair_order_id: string
+          to_status?: string | null
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          actor_name?: string | null
+          created_at?: string
+          from_status?: string | null
+          id?: string
+          metadata?: Json | null
+          notes?: string | null
+          repair_order_id?: string
+          to_status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "repair_order_history_repair_order_id_fkey"
+            columns: ["repair_order_id"]
+            isOneToOne: false
+            referencedRelation: "repair_orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      repair_order_parts: {
+        Row: {
+          created_at: string | null
+          id: string
+          notes: string | null
+          part_description: string | null
+          part_name: string
+          part_sku: string | null
+          product_id: string | null
+          quantity: number
+          repair_order_id: string
+          sort_order: number | null
+          total: number | null
+          unit_price: number
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          notes?: string | null
+          part_description?: string | null
+          part_name: string
+          part_sku?: string | null
+          product_id?: string | null
+          quantity?: number
+          repair_order_id: string
+          sort_order?: number | null
+          total?: number | null
+          unit_price?: number
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          notes?: string | null
+          part_description?: string | null
+          part_name?: string
+          part_sku?: string | null
+          product_id?: string | null
+          quantity?: number
+          repair_order_id?: string
+          sort_order?: number | null
+          total?: number | null
+          unit_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "repair_order_parts_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "repair_order_parts_repair_order_id_fkey"
+            columns: ["repair_order_id"]
+            isOneToOne: false
+            referencedRelation: "repair_orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      repair_orders: {
+        Row: {
+          additional_cost: number | null
+          admin_notes: string | null
+          approved_date: string | null
+          assigned_to: string | null
+          completed_date: string | null
+          created_at: string
+          created_by: string | null
+          customer_company: string | null
+          customer_email: string | null
+          customer_id: string | null
+          customer_name: string
+          customer_phone: string | null
+          customer_quote_message: string | null
+          customer_reject_reason: string | null
+          deleted_at: string | null
+          delivered_date: string | null
+          diagnosis: string | null
+          diagnosis_date: string | null
+          discount_amount: number | null
+          grand_total: number | null
+          id: string
+          invoice_id: string | null
+          is_chargeable: boolean
+          issue_category: string | null
+          issue_description: string
+          issue_photos: string[] | null
+          labor_cost: number | null
+          parts_cost: number | null
+          priority: string | null
+          product_id: string | null
+          product_name: string
+          product_sku: string | null
+          quoted_date: string | null
+          received_date: string | null
+          registered_product_id: string | null
+          repair_actions: string | null
+          repair_order_number: string
+          repair_started_date: string | null
+          reported_date: string
+          root_cause: string | null
+          serial_number: string | null
+          status: string
+          technician_id: string | null
+          technician_notes: string | null
+          updated_at: string | null
+          vat_amount: number | null
+          vat_percent: number | null
+          warranty_status: string
+        }
+        Insert: {
+          additional_cost?: number | null
+          admin_notes?: string | null
+          approved_date?: string | null
+          assigned_to?: string | null
+          completed_date?: string | null
+          created_at?: string
+          created_by?: string | null
+          customer_company?: string | null
+          customer_email?: string | null
+          customer_id?: string | null
+          customer_name: string
+          customer_phone?: string | null
+          customer_quote_message?: string | null
+          customer_reject_reason?: string | null
+          deleted_at?: string | null
+          delivered_date?: string | null
+          diagnosis?: string | null
+          diagnosis_date?: string | null
+          discount_amount?: number | null
+          grand_total?: number | null
+          id?: string
+          invoice_id?: string | null
+          is_chargeable?: boolean
+          issue_category?: string | null
+          issue_description: string
+          issue_photos?: string[] | null
+          labor_cost?: number | null
+          parts_cost?: number | null
+          priority?: string | null
+          product_id?: string | null
+          product_name: string
+          product_sku?: string | null
+          quoted_date?: string | null
+          received_date?: string | null
+          registered_product_id?: string | null
+          repair_actions?: string | null
+          repair_order_number?: string
+          repair_started_date?: string | null
+          reported_date?: string
+          root_cause?: string | null
+          serial_number?: string | null
+          status?: string
+          technician_id?: string | null
+          technician_notes?: string | null
+          updated_at?: string | null
+          vat_amount?: number | null
+          vat_percent?: number | null
+          warranty_status?: string
+        }
+        Update: {
+          additional_cost?: number | null
+          admin_notes?: string | null
+          approved_date?: string | null
+          assigned_to?: string | null
+          completed_date?: string | null
+          created_at?: string
+          created_by?: string | null
+          customer_company?: string | null
+          customer_email?: string | null
+          customer_id?: string | null
+          customer_name?: string
+          customer_phone?: string | null
+          customer_quote_message?: string | null
+          customer_reject_reason?: string | null
+          deleted_at?: string | null
+          delivered_date?: string | null
+          diagnosis?: string | null
+          diagnosis_date?: string | null
+          discount_amount?: number | null
+          grand_total?: number | null
+          id?: string
+          invoice_id?: string | null
+          is_chargeable?: boolean
+          issue_category?: string | null
+          issue_description?: string
+          issue_photos?: string[] | null
+          labor_cost?: number | null
+          parts_cost?: number | null
+          priority?: string | null
+          product_id?: string | null
+          product_name?: string
+          product_sku?: string | null
+          quoted_date?: string | null
+          received_date?: string | null
+          registered_product_id?: string | null
+          repair_actions?: string | null
+          repair_order_number?: string
+          repair_started_date?: string | null
+          reported_date?: string
+          root_cause?: string | null
+          serial_number?: string | null
+          status?: string
+          technician_id?: string | null
+          technician_notes?: string | null
+          updated_at?: string | null
+          vat_amount?: number | null
+          vat_percent?: number | null
+          warranty_status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "repair_orders_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "repair_orders_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "repair_orders_registered_product_id_fkey"
+            columns: ["registered_product_id"]
+            isOneToOne: false
+            referencedRelation: "registered_products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       sale_orders: {
         Row: {
           actual_delivery_date: string | null
@@ -3706,6 +3988,10 @@ export type Database = {
       }
       commit_product_migration: { Args: never; Returns: Json }
       count_pending_approvals: { Args: never; Returns: number }
+      customer_respond_to_repair_quote: {
+        Args: { p_action: string; p_reason?: string; p_repair_order_id: string }
+        Returns: Json
+      }
       empty_invoice_trash: { Args: never; Returns: Json }
       empty_quote_trash: { Args: never; Returns: Json }
       empty_receipt_trash: { Args: never; Returns: Json }
@@ -3717,6 +4003,10 @@ export type Database = {
         }[]
       }
       extract_doc_base_number: { Args: { doc_number: string }; Returns: string }
+      generate_invoice_from_repair_order: {
+        Args: { p_repair_order_id: string }
+        Returns: Json
+      }
       generate_invoice_number: { Args: never; Returns: string }
       generate_next_base_number: { Args: never; Returns: string }
       generate_receipt_number: { Args: never; Returns: string }
@@ -3929,6 +4219,15 @@ export type Database = {
           p_user_id: string
         }
         Returns: string
+      }
+      validate_repair_status_transition: {
+        Args: {
+          p_actor_id?: string
+          p_new_status: string
+          p_notes?: string
+          p_repair_order_id: string
+        }
+        Returns: Json
       }
       void_registered_product: {
         Args: { p_id: string; p_reason: string }
