@@ -436,6 +436,7 @@ export default function AdminContacts() {
             <ContactSubmissionsList />
           </TabsContent>
         </Tabs>
+      </AdminPageLayout>
 
       <ContactFormDialog
         open={showAddDialog}
