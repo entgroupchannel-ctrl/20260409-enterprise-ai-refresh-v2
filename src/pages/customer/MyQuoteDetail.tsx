@@ -1095,7 +1095,6 @@ export default function MyQuoteDetail() {
 
           </div>
         </div>
-      </div>
 
       {/* PO Upload Dialog */}
       <POUploadDialog
