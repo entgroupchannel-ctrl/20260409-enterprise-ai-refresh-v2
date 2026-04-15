@@ -91,9 +91,9 @@ export default function RequestRepairForm() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen flex flex-col bg-background">
       <SiteNavbar />
-      <div className="container max-w-lg py-8 space-y-4">
+      <main className="flex-1 container max-w-lg py-8 space-y-4">
         <div className="flex items-center gap-3">
           <Button variant="ghost" size="icon" onClick={() => navigate('/my/repairs')}>
             <ArrowLeft className="w-4 h-4" />
@@ -154,8 +154,8 @@ export default function RequestRepairForm() {
           {saving && <Loader2 className="w-4 h-4 animate-spin mr-2" />}
           ส่งแจ้งซ่อม
         </Button>
-      </div>
-      <FooterCompact />
+      </main>
+      <MiniFooter />
     </div>
   );
 }

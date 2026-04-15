@@ -67,12 +67,12 @@ export default function MyRepairDetail() {
   };
 
   if (loading) return <div className="min-h-screen bg-background"><SiteNavbar /><div className="flex justify-center py-12"><Loader2 className="w-6 h-6 animate-spin" /></div></div>;
-  if (!ro) return <div className="min-h-screen bg-background"><SiteNavbar /><div className="text-center py-12">ไม่พบข้อมูล</div></div>;
+  if (!ro) return <div className="min-h-screen flex flex-col bg-background"><SiteNavbar /><main className="flex-1 flex justify-center items-center text-muted-foreground">ไม่พบข้อมูล</main><MiniFooter /></div>;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen flex flex-col bg-background">
       <SiteNavbar />
-      <div className="container max-w-3xl py-8 space-y-4">
+      <main className="flex-1 container max-w-3xl py-8 space-y-4">
         <div className="flex items-center gap-3">
           <Button variant="ghost" size="icon" onClick={() => navigate('/my/repairs')}>
             <ArrowLeft className="w-4 h-4" />
@@ -171,8 +171,8 @@ export default function MyRepairDetail() {
             )}
           </CardContent>
         </Card>
-      </div>
-      <FooterCompact />
+      </main>
+      <MiniFooter />
 
       {/* Reject dialog */}
       <Dialog open={rejectOpen} onOpenChange={setRejectOpen}>

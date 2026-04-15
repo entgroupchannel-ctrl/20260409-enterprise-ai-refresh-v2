@@ -88,23 +88,25 @@ export default function RegisterProductForm() {
 
   if (success) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen flex flex-col bg-background">
         <SiteNavbar />
-        <div className="max-w-md mx-auto px-4 py-16 text-center">
-          <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-          <h2 className="text-xl font-bold mb-2">ส่งคำขอลงทะเบียนแล้ว</h2>
-          <p className="text-muted-foreground mb-6">รอ admin อนุมัติ — จะแจ้งเตือนเมื่อดำเนินการเรียบร้อย</p>
-          <Button onClick={() => navigate('/my/products')}>ดูสินค้าของฉัน</Button>
-        </div>
-        <FooterCompact />
+        <main className="flex-1 flex items-center justify-center px-4">
+          <div className="max-w-md text-center">
+            <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+            <h2 className="text-xl font-bold mb-2">ส่งคำขอลงทะเบียนแล้ว</h2>
+            <p className="text-muted-foreground mb-6">รอ admin อนุมัติ — จะแจ้งเตือนเมื่อดำเนินการเรียบร้อย</p>
+            <Button onClick={() => navigate('/my/products')}>ดูสินค้าของฉัน</Button>
+          </div>
+        </main>
+        <MiniFooter />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen flex flex-col bg-background">
       <SiteNavbar />
-      <div className="max-w-lg mx-auto px-4 py-8">
+      <main className="flex-1 max-w-lg mx-auto px-4 py-8 w-full">
         <div className="flex items-center gap-3 mb-6">
           <Button variant="ghost" size="sm" onClick={() => navigate('/my/products')}><ArrowLeft className="w-4 h-4 mr-1" /> กลับ</Button>
           <h1 className="text-xl font-bold flex items-center gap-2"><Shield className="w-5 h-5 text-primary" /> ลงทะเบียนสินค้า</h1>
@@ -143,8 +145,8 @@ export default function RegisterProductForm() {
             <p className="text-xs text-muted-foreground text-center">หลังส่งคำขอ admin จะตรวจสอบและอนุมัติให้</p>
           </CardContent>
         </Card>
-      </div>
-      <FooterCompact />
+      </main>
+      <MiniFooter />
     </div>
   );
 }

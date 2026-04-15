@@ -36,9 +36,9 @@ export default function MyProducts() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen flex flex-col bg-background">
       <SiteNavbar />
-      <div className="max-w-5xl mx-auto px-4 py-8">
+      <main className="flex-1 max-w-5xl mx-auto px-4 py-8 w-full">
         <div className="flex items-center gap-3 mb-6">
           <Button variant="ghost" size="sm" onClick={() => navigate('/dashboard')}><ArrowLeft className="w-4 h-4 mr-1" /> กลับ</Button>
           <h1 className="text-2xl font-bold flex items-center gap-2"><Shield className="w-6 h-6 text-primary" /> สินค้าของฉัน</h1>
@@ -49,9 +49,9 @@ export default function MyProducts() {
         </div>
 
         {loading ? (
-          <div className="flex justify-center py-16"><Loader2 className="w-6 h-6 animate-spin text-muted-foreground" /></div>
+          <div className="flex justify-center py-16 min-h-[60vh]"><Loader2 className="w-6 h-6 animate-spin text-muted-foreground" /></div>
         ) : items.length === 0 ? (
-          <Card>
+          <Card className="min-h-[60vh] flex items-center justify-center">
             <CardContent className="py-16 text-center">
               <Package className="w-12 h-12 mx-auto text-muted-foreground/40 mb-3" />
               <p className="font-medium text-muted-foreground">ยังไม่มีสินค้าที่ลงทะเบียน</p>
@@ -85,8 +85,8 @@ export default function MyProducts() {
             })}
           </div>
         )}
-      </div>
-      <FooterCompact />
+      </main>
+      <MiniFooter />
     </div>
   );
 }

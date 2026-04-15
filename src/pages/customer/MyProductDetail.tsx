@@ -36,16 +36,16 @@ export default function MyProductDetail() {
     })();
   }, [id]);
 
-  if (loading) return <div className="min-h-screen bg-background"><SiteNavbar /><div className="flex justify-center py-20"><Loader2 className="w-6 h-6 animate-spin" /></div></div>;
-  if (!item) return <div className="min-h-screen bg-background"><SiteNavbar /><div className="text-center py-20 text-muted-foreground">ไม่พบรายการ</div></div>;
+  if (loading) return <div className="min-h-screen flex flex-col bg-background"><SiteNavbar /><main className="flex-1 flex justify-center items-center"><Loader2 className="w-6 h-6 animate-spin" /></main><MiniFooter /></div>;
+  if (!item) return <div className="min-h-screen flex flex-col bg-background"><SiteNavbar /><main className="flex-1 flex justify-center items-center text-muted-foreground">ไม่พบรายการ</main><MiniFooter /></div>;
 
   const ws = computeStatus(item.warranty_end_date, item.status);
   const dr = item.warranty_end_date ? Math.floor((new Date(item.warranty_end_date).getTime() - Date.now()) / 86400000) : undefined;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen flex flex-col bg-background">
       <SiteNavbar />
-      <div className="max-w-3xl mx-auto px-4 py-8 space-y-6">
+      <main className="flex-1 max-w-3xl mx-auto px-4 py-8 space-y-6 w-full">
         <div className="flex items-center gap-3">
           <Button variant="ghost" size="sm" onClick={() => navigate('/my/products')}><ArrowLeft className="w-4 h-4 mr-1" /> กลับ</Button>
           <h1 className="text-xl font-bold flex items-center gap-2"><Shield className="w-5 h-5 text-primary" /> {item.registration_number}</h1>
@@ -91,8 +91,8 @@ export default function MyProductDetail() {
             <Button variant="outline" className="mt-3" disabled>ขอซ่อม</Button>
           </CardContent>
         </Card>
-      </div>
-      <FooterCompact />
+      </main>
+      <MiniFooter />
     </div>
   );
 }
