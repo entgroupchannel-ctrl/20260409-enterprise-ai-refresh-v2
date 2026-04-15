@@ -15,8 +15,10 @@ import {
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import {
-  Search, Loader2, FileText, FileMinus,
+  Search, Loader2, FileText, FileMinus, Plus,
 } from 'lucide-react';
+import CreateCreditNoteDialog from '@/components/admin/CreateCreditNoteDialog';
+import SelectTaxInvoiceDialog from '@/components/admin/SelectTaxInvoiceDialog';
 
 const REASON_LABELS: Record<string, string> = {
   return: 'สินค้าคืน',
@@ -41,6 +43,8 @@ export default function AdminCreditNotesList() {
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<'all' | 'issued' | 'voided'>('all');
   const [page, setPage] = useState(1);
+  const [showSelectTI, setShowSelectTI] = useState(false);
+  const [selectedTIId, setSelectedTIId] = useState<string | null>(null);
 
   useEffect(() => {
     const t = setTimeout(() => {
@@ -101,6 +105,14 @@ export default function AdminCreditNotesList() {
         title="ใบลดหนี้ (Credit Notes)"
         description={`ทั้งหมด ${totalCount.toLocaleString()} รายการ`}
       >
+        {/* Action bar */}
+        <div className="flex items-center justify-end mb-3">
+          <Button onClick={() => setShowSelectTI(true)}>
+            <Plus className="w-4 h-4 mr-1.5" />
+            สร้างใบลดหนี้
+          </Button>
+        </div>
+
         {/* Filters */}
         <Card className="mb-4">
           <CardContent className="p-3 space-y-3">
@@ -217,6 +229,25 @@ export default function AdminCreditNotesList() {
               </Button>
             </div>
           </div>
+        )}
+        {/* Select Tax Invoice Dialog */}
+        <SelectTaxInvoiceDialog
+          open={showSelectTI}
+          onOpenChange={setShowSelectTI}
+          onSelect={(tiId) => setSelectedTIId(tiId)}
+        />
+
+        {/* Create Credit Note Dialog */}
+        {selectedTIId && (
+          <CreateCreditNoteDialog
+            open={!!selectedTIId}
+            onOpenChange={(open) => { if (!open) setSelectedTIId(null); }}
+            taxInvoiceId={selectedTIId}
+            onSuccess={() => {
+              setSelectedTIId(null);
+              loadData();
+            }}
+          />
         )}
       </AdminPageLayout>
     </AdminLayout>
