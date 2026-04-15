@@ -59,6 +59,8 @@ export default function CreatePurchaseOrderDialog({ open, onOpenChange, editId, 
   const [parsingPI, setParsingPI] = useState(false);
   const [piParseResult, setPiParseResult] = useState<'success' | 'error' | null>(null);
   const [piSupplierWarning, setPiSupplierWarning] = useState('');
+  const [piFileCount, setPiFileCount] = useState(0);
+  const [piTotalItems, setPiTotalItems] = useState(0);
   const piFileRef = useRef<HTMLInputElement>(null);
 
   const [supplierId, setSupplierId] = useState('');
@@ -158,9 +160,10 @@ export default function CreatePurchaseOrderDialog({ open, onOpenChange, editId, 
     setShowTerms(false); setShowShipping(false);
     setPoFiles([]); setNewPoFileType('proforma_invoice');
     setPiParseResult(null); setPiSupplierWarning('');
+    setPiFileCount(0); setPiTotalItems(0);
   };
 
-  // ========== PI PDF Parser (via Edge Function) ==========
+  // ========== PI PDF Parser (via Edge Function) — MERGE mode ==========
   const handleParsePI = async (file: File) => {
     setParsingPI(true);
     setPiParseResult(null);
@@ -174,29 +177,54 @@ export default function CreatePurchaseOrderDialog({ open, onOpenChange, editId, 
       if (!fnData?.success) throw new Error(fnData?.error || fnData?.raw || 'Parse failed');
 
       const d = fnData.data;
-      // Auto-fill form
-      if (d.pi_number) setPiNumber(d.pi_number);
-      if (d.currency) setCurrency(d.currency);
-      if (d.price_terms) { setPriceTerms(d.price_terms); setShowTerms(true); }
-      if (d.payment_terms) { setPaymentTerms(d.payment_terms); setShowTerms(true); }
-      if (d.delivery_days) { setDeliveryDays(d.delivery_days); setShowTerms(true); }
-      if (d.loading_port) { setLoadingPort(d.loading_port); setShowTerms(true); }
-      if (d.shipping_cost) setShippingCost(d.shipping_cost);
-      if (d.handling_fee) setHandlingFee(d.handling_fee);
+      const isFirstFile = piFileCount === 0;
 
-      if (d.items?.length) {
-        setItems(d.items.map((it: any) => ({
-          model: it.model || '',
-          description: it.description || '',
-          color: it.color || '',
-          hs_code: it.hs_code || '',
-          quantity: it.qty || it.quantity || 1,
-          unit_price: it.unit_price || 0,
-        })));
+      // PI Number: append with comma
+      if (d.pi_number) {
+        setPiNumber(prev => prev ? `${prev}, ${d.pi_number}` : d.pi_number);
       }
 
-      // Auto-match supplier
-      if (d.supplier_name && suppliers.length > 0) {
+      // Currency: only set on first file
+      if (isFirstFile && d.currency) setCurrency(d.currency);
+
+      // Terms: only set if empty (first file wins)
+      if (d.price_terms) setPriceTerms(prev => prev || d.price_terms);
+      if (d.payment_terms) setPaymentTerms(prev => prev || d.payment_terms);
+      if (d.delivery_days) setDeliveryDays(prev => prev || d.delivery_days);
+      if (d.loading_port) setLoadingPort(prev => prev || d.loading_port);
+      if (d.price_terms || d.payment_terms || d.delivery_days || d.loading_port) setShowTerms(true);
+
+      // Shipping/handling: accumulate
+      if (d.shipping_cost) setShippingCost(prev => prev + (d.shipping_cost || 0));
+      if (d.handling_fee) setHandlingFee(prev => prev + (d.handling_fee || 0));
+
+      // Items: append (filter empty rows from existing)
+      const newItems: LineItem[] = (d.items || []).map((it: any) => ({
+        model: it.model || '',
+        description: it.description || '',
+        color: it.color || '',
+        hs_code: it.hs_code || '',
+        quantity: it.qty || it.quantity || 1,
+        unit_price: it.unit_price || 0,
+      }));
+
+      if (newItems.length) {
+        setItems(prev => {
+          const existing = prev.filter(i => i.model.trim());
+          return [...existing, ...newItems];
+        });
+      }
+
+      const totalNewItems = newItems.length;
+      const newFileCount = piFileCount + 1;
+      setPiFileCount(newFileCount);
+      setPiTotalItems(prev => {
+        const newTotal = prev + totalNewItems;
+        return newTotal;
+      });
+
+      // Supplier: only auto-match if not already selected
+      if (d.supplier_name && suppliers.length > 0 && !supplierId) {
         const nameLC = d.supplier_name.toLowerCase();
         const match = suppliers.find(s => s.company_name.toLowerCase().includes(nameLC) || nameLC.includes(s.company_name.toLowerCase()));
         if (match) {
@@ -208,7 +236,7 @@ export default function CreatePurchaseOrderDialog({ open, onOpenChange, editId, 
 
       setPoFiles(prev => [...prev, { file, type: 'proforma_invoice' }]);
       setPiParseResult('success');
-      toast.success('อ่าน PI สำเร็จ — ตรวจสอบข้อมูลด้านล่าง');
+      toast.success(`อ่าน PI สำเร็จ — ${totalNewItems} รายการ (ไฟล์ที่ ${newFileCount})`);
     } catch (err: any) {
       console.error('PI parse error:', err);
       setPiParseResult('error');
@@ -330,15 +358,25 @@ export default function CreatePurchaseOrderDialog({ open, onOpenChange, editId, 
           {/* PI Parser */}
           {!editId && (
             <div className="p-3 rounded-lg border border-dashed border-primary/30 bg-primary/5 space-y-2">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap">
                 <Button
                   type="button" variant="outline" size="sm"
                   onClick={() => piFileRef.current?.click()}
                   disabled={parsingPI}
                 >
                   {parsingPI ? <Loader2 className="w-4 h-4 mr-1 animate-spin" /> : <FileSearch className="w-4 h-4 mr-1" />}
-                  {parsingPI ? 'กำลังอ่านเอกสาร...' : '📄 อ่านจาก PI'}
+                  {parsingPI ? 'กำลังอ่านเอกสาร...' : piFileCount > 0 ? '📄 อ่าน PI เพิ่ม' : '📄 อ่านจาก PI'}
                 </Button>
+                {piFileCount > 0 && (
+                  <Button
+                    type="button" variant="ghost" size="sm"
+                    onClick={resetForm}
+                    className="text-destructive hover:text-destructive"
+                  >
+                    <Trash2 className="w-3.5 h-3.5 mr-1" />
+                    ล้างทั้งหมด
+                  </Button>
+                )}
                 <input
                   ref={piFileRef} type="file" className="hidden"
                   accept=".pdf,.jpg,.jpeg,.png"
@@ -348,11 +386,11 @@ export default function CreatePurchaseOrderDialog({ open, onOpenChange, editId, 
                     e.target.value = '';
                   }}
                 />
-                <span className="text-xs text-muted-foreground">อัปโหลด PI (PDF/รูป) แล้วระบบจะอ่านข้อมูลอัตโนมัติ</span>
+                <span className="text-xs text-muted-foreground">อัปโหลด PI (PDF/รูป) — รองรับหลายไฟล์ (รวมรายการอัตโนมัติ)</span>
               </div>
-              {piParseResult === 'success' && (
+              {piFileCount > 0 && piParseResult === 'success' && (
                 <div className="text-xs text-green-600 bg-green-500/10 px-3 py-1.5 rounded-md">
-                  ✅ อ่านสำเร็จ! ตรวจสอบข้อมูลด้านล่าง
+                  ✅ อ่านแล้ว {piFileCount} ไฟล์ ({piTotalItems} รายการ)
                 </div>
               )}
               {piParseResult === 'error' && (
