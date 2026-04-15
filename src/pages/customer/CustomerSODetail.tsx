@@ -1,13 +1,19 @@
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { StatusBadge } from '@/components/ui/StatusBadge';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft, CheckCircle2, Copy, MapPin, Package, Truck } from 'lucide-react';
+import CustomerLayout from '@/layouts/CustomerLayout';
+import SEOHead from '@/components/SEOHead';
+import {
+  ArrowLeft, CheckCircle2, Copy, MapPin, Package, Truck,
+  Calendar, FileText, Loader2, ChevronRight, Building2,
+} from 'lucide-react';
 import { format } from 'date-fns';
 import { th } from 'date-fns/locale';
 
@@ -46,6 +52,7 @@ export default function CustomerSODetail() {
         ...data,
         quote_number: data.quote_requests?.quote_number,
         customer_name: data.quote_requests?.customer_name,
+        customer_company: data.quote_requests?.customer_company,
       });
     } catch (error: any) {
       toast({ title: 'โหลดข้อมูลไม่สำเร็จ', variant: 'destructive' });
@@ -68,34 +75,58 @@ export default function CustomerSODetail() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary" />
-      </div>
+      <CustomerLayout>
+        <div className="flex items-center justify-center py-20">
+          <Loader2 className="w-8 h-8 animate-spin text-primary" />
+        </div>
+      </CustomerLayout>
     );
   }
 
   if (!so) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <p className="text-muted-foreground">ไม่พบข้อมูล Sales Order</p>
-      </div>
+      <CustomerLayout>
+        <div className="flex flex-col items-center justify-center py-20 gap-3">
+          <FileText className="w-12 h-12 text-muted-foreground" />
+          <p className="text-muted-foreground">ไม่พบข้อมูล Sales Order</p>
+          <Button variant="outline" onClick={() => navigate('/my-account/orders')}>
+            กลับรายการ
+          </Button>
+        </div>
+      </CustomerLayout>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8 max-w-3xl">
-        <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="mb-4">
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          กลับ
-        </Button>
+    <CustomerLayout>
+      <SEOHead title={`${so.so_number} | ใบสั่งขาย`} />
 
+      <div className="space-y-6">
+        {/* Breadcrumb */}
+        <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+          <Link to="/my-account/orders" className="hover:text-primary transition-colors">
+            คำสั่งซื้อ
+          </Link>
+          <ChevronRight className="w-3.5 h-3.5" />
+          <span className="text-foreground font-medium">{so.so_number}</span>
+        </div>
+
+        {/* Header Card */}
         <Card>
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <div>
-                <CardTitle>{so.so_number}</CardTitle>
-                <CardDescription>ใบเสนอราคา: {so.quote_number}</CardDescription>
+          <CardHeader className="pb-4">
+            <div className="flex items-start justify-between">
+              <div className="space-y-1">
+                <CardTitle className="text-xl font-bold">{so.so_number}</CardTitle>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <FileText className="w-3.5 h-3.5" />
+                  <span>ใบเสนอราคา: {so.quote_number || '-'}</span>
+                </div>
+                {so.customer_company && (
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <Building2 className="w-3.5 h-3.5" />
+                    <span>{so.customer_company}</span>
+                  </div>
+                )}
               </div>
               <StatusBadge status={so.status} type="so" />
             </div>
@@ -104,7 +135,7 @@ export default function CustomerSODetail() {
           <CardContent className="space-y-6">
             {/* Timeline */}
             {so.status !== 'cancelled' && (
-              <div className="flex items-center justify-between px-2">
+              <div className="flex items-center justify-between px-4 py-2">
                 {timelineSteps.map((step, i) => {
                   const currentIdx = getTimelineIndex(so.status);
                   const isCompleted = i < currentIdx;
@@ -120,7 +151,7 @@ export default function CustomerSODetail() {
                         />
                       )}
                       <div
-                        className={`relative z-10 w-8 h-8 rounded-full flex items-center justify-center ${
+                        className={`relative z-10 w-9 h-9 rounded-full flex items-center justify-center transition-colors ${
                           isCompleted
                             ? 'bg-primary text-primary-foreground'
                             : isCurrent
@@ -130,7 +161,9 @@ export default function CustomerSODetail() {
                       >
                         <Icon className="w-4 h-4" />
                       </div>
-                      <span className={`text-[10px] mt-1 text-center ${isCurrent ? 'text-primary font-medium' : 'text-muted-foreground'}`}>
+                      <span className={`text-[11px] mt-1.5 text-center leading-tight ${
+                        isCurrent ? 'text-primary font-semibold' : 'text-muted-foreground'
+                      }`}>
                         {step.label}
                       </span>
                     </div>
@@ -138,98 +171,136 @@ export default function CustomerSODetail() {
                 })}
               </div>
             )}
+          </CardContent>
+        </Card>
 
-            <Separator />
+        {/* Delivery Info Card */}
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base flex items-center gap-2">
+              <Truck className="w-4 h-4 text-primary" />
+              ข้อมูลการจัดส่ง
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+              <div className="space-y-1">
+                <Label className="text-xs text-muted-foreground">วันที่คาดว่าจะได้รับ</Label>
+                <p className="font-medium text-foreground">
+                  {so.expected_delivery_date
+                    ? format(new Date(so.expected_delivery_date), 'dd MMM yyyy', { locale: th })
+                    : '-'}
+                </p>
+              </div>
 
-            {/* Delivery Info */}
-            <div className="space-y-4">
-              <h3 className="font-semibold text-foreground">ข้อมูลการจัดส่ง</h3>
-              <div className="grid grid-cols-2 gap-4 text-sm">
-                <div>
-                  <Label className="text-xs text-muted-foreground">วันที่คาดว่าจะได้รับ</Label>
+              {so.shipping_provider && (
+                <div className="space-y-1">
+                  <Label className="text-xs text-muted-foreground">ผู้ให้บริการขนส่ง</Label>
+                  <p className="font-medium text-foreground">{so.shipping_provider}</p>
+                </div>
+              )}
+
+              {so.tracking_number && (
+                <div className="col-span-full space-y-1">
+                  <Label className="text-xs text-muted-foreground">เลข Tracking</Label>
+                  <div className="flex items-center gap-2 mt-0.5">
+                    <code className="text-sm font-mono bg-muted px-3 py-1.5 rounded-md text-foreground">
+                      {so.tracking_number}
+                    </code>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="h-8"
+                      onClick={() => copyToClipboard(so.tracking_number)}
+                    >
+                      <Copy className="w-3 h-3 mr-1.5" />
+                      คัดลอก
+                    </Button>
+                  </div>
+                </div>
+              )}
+
+              {so.shipped_at && (
+                <div className="space-y-1">
+                  <Label className="text-xs text-muted-foreground">วันที่จัดส่ง</Label>
                   <p className="font-medium text-foreground">
-                    {so.expected_delivery_date
-                      ? format(new Date(so.expected_delivery_date), 'dd MMM yyyy', { locale: th })
-                      : '-'}
+                    {format(new Date(so.shipped_at), 'dd MMM yyyy HH:mm', { locale: th })}
                   </p>
                 </div>
+              )}
 
-                {so.shipping_provider && (
-                  <div>
-                    <Label className="text-xs text-muted-foreground">ผู้ให้บริการ</Label>
-                    <p className="font-medium text-foreground">{so.shipping_provider}</p>
-                  </div>
-                )}
+              {so.delivered_at && (
+                <div className="space-y-1">
+                  <Label className="text-xs text-muted-foreground">วันที่ส่งมอบ</Label>
+                  <p className="font-medium text-foreground">
+                    {format(new Date(so.delivered_at), 'dd MMM yyyy HH:mm', { locale: th })}
+                  </p>
+                </div>
+              )}
 
-                {so.tracking_number && (
-                  <div className="col-span-2">
-                    <Label className="text-xs text-muted-foreground">เลข Tracking</Label>
-                    <div className="flex items-center gap-2 mt-1">
-                      <code className="text-sm font-mono bg-muted px-2 py-1 rounded text-foreground">
-                        {so.tracking_number}
-                      </code>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => copyToClipboard(so.tracking_number)}
-                      >
-                        <Copy className="w-3 h-3" />
-                      </Button>
-                    </div>
-                  </div>
-                )}
-
-                {so.shipped_at && (
-                  <div>
-                    <Label className="text-xs text-muted-foreground">วันที่จัดส่ง</Label>
-                    <p className="font-medium text-foreground">
-                      {format(new Date(so.shipped_at), 'dd MMM yyyy HH:mm', { locale: th })}
-                    </p>
-                  </div>
-                )}
-
-                {so.delivered_at && (
-                  <div>
-                    <Label className="text-xs text-muted-foreground">วันที่ส่งมอบ</Label>
-                    <p className="font-medium text-foreground">
-                      {format(new Date(so.delivered_at), 'dd MMM yyyy HH:mm', { locale: th })}
-                    </p>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <Separator />
-
-            {/* Products */}
-            <div>
-              <h3 className="font-semibold mb-4 text-foreground">รายการสินค้า</h3>
-              <div className="space-y-3">
-                {so.products.map((p: any, i: number) => (
-                  <div key={i} className="flex items-start justify-between">
-                    <div className="flex gap-3">
-                      <span className="text-sm text-muted-foreground">{i + 1}.</span>
-                      <div>
-                        <p className="text-sm font-medium text-foreground">{p.model || p.name}</p>
-                        {p.description && <p className="text-xs text-muted-foreground">{p.description}</p>}
-                      </div>
-                    </div>
-                    <div className="text-right shrink-0 ml-4">
-                      <p className="text-xs text-muted-foreground">{p.qty} เครื่อง</p>
-                      <p className="text-sm font-semibold text-primary">{formatCurrency(p.line_total || p.unit_price * p.qty || 0)}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <Separator className="my-3" />
-              <div className="flex justify-between font-bold text-foreground">
-                <span>ยอดรวม</span>
-                <span className="text-primary">{formatCurrency(so.grand_total || 0)}</span>
-              </div>
+              {!so.tracking_number && !so.shipped_at && !so.shipping_provider && !so.expected_delivery_date && (
+                <div className="col-span-full text-center py-4 text-muted-foreground text-sm">
+                  ยังไม่มีข้อมูลการจัดส่ง
+                </div>
+              )}
             </div>
           </CardContent>
         </Card>
+
+        {/* Products Card */}
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base flex items-center gap-2">
+              <Package className="w-4 h-4 text-primary" />
+              รายการสินค้า
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3">
+              {so.products?.map((p: any, i: number) => (
+                <div key={i} className="flex items-start justify-between py-2 border-b border-border last:border-0">
+                  <div className="flex gap-3 min-w-0">
+                    <span className="text-sm text-muted-foreground font-mono w-6 shrink-0">{i + 1}.</span>
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium text-foreground">{p.model || p.name}</p>
+                      {p.description && (
+                        <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">{p.description}</p>
+                      )}
+                    </div>
+                  </div>
+                  <div className="text-right shrink-0 ml-4">
+                    <p className="text-xs text-muted-foreground">{p.qty} เครื่อง</p>
+                    <p className="text-sm font-semibold text-primary tabular-nums">
+                      {formatCurrency(p.line_total || p.unit_price * p.qty || 0)}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <Separator className="my-4" />
+
+            <div className="flex justify-between items-center">
+              <span className="font-bold text-foreground">ยอดรวม</span>
+              <span className="text-lg font-bold text-primary tabular-nums">
+                {formatCurrency(so.grand_total || 0)}
+              </span>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Notes */}
+        {so.notes && (
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-base">หมายเหตุ</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground whitespace-pre-wrap">{so.notes}</p>
+            </CardContent>
+          </Card>
+        )}
       </div>
-    </div>
+    </CustomerLayout>
   );
 }
