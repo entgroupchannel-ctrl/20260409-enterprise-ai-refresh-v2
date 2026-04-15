@@ -78,6 +78,7 @@ const navGroups: NavGroup[] = [
       { label: 'ใบวางบิล', icon: Receipt, path: '/admin/invoices' },
       { label: 'ใบกำกับภาษี', icon: FileText, path: '/admin/tax-invoices' },
       { label: 'ใบเสร็จรับเงิน', icon: Receipt, path: '/admin/receipts' },
+      { label: 'ใบลดหนี้', icon: FileText, path: '/admin/credit-notes' },
     ],
   },
   {

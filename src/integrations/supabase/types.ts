@@ -772,6 +772,182 @@ export type Database = {
           },
         ]
       }
+      credit_note_items: {
+        Row: {
+          created_at: string
+          credit_note_id: string
+          display_order: number | null
+          id: string
+          line_total: number
+          original_item_id: string | null
+          product_description: string | null
+          product_id: string | null
+          product_name: string
+          quantity: number
+          sku: string | null
+          unit: string | null
+          unit_price: number
+        }
+        Insert: {
+          created_at?: string
+          credit_note_id: string
+          display_order?: number | null
+          id?: string
+          line_total?: number
+          original_item_id?: string | null
+          product_description?: string | null
+          product_id?: string | null
+          product_name: string
+          quantity?: number
+          sku?: string | null
+          unit?: string | null
+          unit_price?: number
+        }
+        Update: {
+          created_at?: string
+          credit_note_id?: string
+          display_order?: number | null
+          id?: string
+          line_total?: number
+          original_item_id?: string | null
+          product_description?: string | null
+          product_id?: string | null
+          product_name?: string
+          quantity?: number
+          sku?: string | null
+          unit?: string | null
+          unit_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "credit_note_items_credit_note_id_fkey"
+            columns: ["credit_note_id"]
+            isOneToOne: false
+            referencedRelation: "credit_notes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      credit_notes: {
+        Row: {
+          adjustment_target: string
+          created_at: string
+          created_by: string | null
+          credit_note_date: string
+          credit_note_number: string
+          customer_address: string | null
+          customer_branch_code: string | null
+          customer_branch_name: string | null
+          customer_branch_type: string | null
+          customer_company: string | null
+          customer_id: string | null
+          customer_name: string
+          customer_tax_id: string | null
+          deleted_at: string | null
+          discount_amount: number | null
+          discount_percent: number | null
+          discount_type: string
+          grand_total: number
+          id: string
+          notes: string | null
+          original_invoice_id: string
+          original_tax_invoice_id: string
+          reason_code: string
+          reason_detail: string
+          status: string
+          subtotal: number
+          updated_at: string
+          vat_amount: number | null
+          vat_percent: number | null
+          void_reason: string | null
+          voided_at: string | null
+          voided_by: string | null
+        }
+        Insert: {
+          adjustment_target?: string
+          created_at?: string
+          created_by?: string | null
+          credit_note_date?: string
+          credit_note_number: string
+          customer_address?: string | null
+          customer_branch_code?: string | null
+          customer_branch_name?: string | null
+          customer_branch_type?: string | null
+          customer_company?: string | null
+          customer_id?: string | null
+          customer_name: string
+          customer_tax_id?: string | null
+          deleted_at?: string | null
+          discount_amount?: number | null
+          discount_percent?: number | null
+          discount_type?: string
+          grand_total?: number
+          id?: string
+          notes?: string | null
+          original_invoice_id: string
+          original_tax_invoice_id: string
+          reason_code: string
+          reason_detail: string
+          status?: string
+          subtotal?: number
+          updated_at?: string
+          vat_amount?: number | null
+          vat_percent?: number | null
+          void_reason?: string | null
+          voided_at?: string | null
+          voided_by?: string | null
+        }
+        Update: {
+          adjustment_target?: string
+          created_at?: string
+          created_by?: string | null
+          credit_note_date?: string
+          credit_note_number?: string
+          customer_address?: string | null
+          customer_branch_code?: string | null
+          customer_branch_name?: string | null
+          customer_branch_type?: string | null
+          customer_company?: string | null
+          customer_id?: string | null
+          customer_name?: string
+          customer_tax_id?: string | null
+          deleted_at?: string | null
+          discount_amount?: number | null
+          discount_percent?: number | null
+          discount_type?: string
+          grand_total?: number
+          id?: string
+          notes?: string | null
+          original_invoice_id?: string
+          original_tax_invoice_id?: string
+          reason_code?: string
+          reason_detail?: string
+          status?: string
+          subtotal?: number
+          updated_at?: string
+          vat_amount?: number | null
+          vat_percent?: number | null
+          void_reason?: string | null
+          voided_at?: string | null
+          voided_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "credit_notes_original_invoice_id_fkey"
+            columns: ["original_invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "credit_notes_original_tax_invoice_id_fkey"
+            columns: ["original_tax_invoice_id"]
+            isOneToOne: false
+            referencedRelation: "tax_invoices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       document_downloads: {
         Row: {
           document_id: string
@@ -3589,11 +3765,16 @@ export type Database = {
         Args: { p_module: string; p_user_id: string }
         Returns: boolean
       }
+      restore_credit_note: { Args: { p_credit_note_id: string }; Returns: Json }
       restore_invoice: { Args: { p_invoice_id: string }; Returns: Json }
       restore_quote: { Args: { p_quote_id: string }; Returns: Json }
       restore_receipt: { Args: { p_receipt_id: string }; Returns: Json }
       restore_tax_invoice: { Args: { p_tax_invoice_id: string }; Returns: Json }
       rollback_product_migration: { Args: never; Returns: Json }
+      soft_delete_credit_note: {
+        Args: { p_credit_note_id: string; p_reason?: string }
+        Returns: Json
+      }
       soft_delete_invoice: {
         Args: { p_invoice_id: string; p_reason?: string }
         Returns: Json

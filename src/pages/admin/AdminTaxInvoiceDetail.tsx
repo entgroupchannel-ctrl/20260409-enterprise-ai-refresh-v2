@@ -17,6 +17,8 @@ import {
 } from 'lucide-react';
 import TaxInvoicePrintPreviewDialog from '@/components/admin/TaxInvoicePrintPreviewDialog';
 import CreateReceiptDialog from '@/components/admin/CreateReceiptDialog';
+import CreateCreditNoteDialog from '@/components/admin/CreateCreditNoteDialog';
+import { FileMinus } from 'lucide-react';
 
 export default function AdminTaxInvoiceDetail() {
   const { id } = useParams<{ id: string }>();
@@ -33,6 +35,7 @@ export default function AdminTaxInvoiceDetail() {
   const [deleteReason, setDeleteReason] = useState('');
   const [deleting, setDeleting] = useState(false);
   const [showCreateReceipt, setShowCreateReceipt] = useState(false);
+  const [showCreateCN, setShowCreateCN] = useState(false);
 
   useEffect(() => {
     if (id) loadData();
@@ -171,6 +174,16 @@ export default function AdminTaxInvoiceDetail() {
               <Receipt className="w-4 h-4 mr-1.5" />
               สร้างใบเสร็จ
             </Button>
+            {taxInvoice.status !== 'cancelled' && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowCreateCN(true)}
+              >
+                <FileMinus className="w-4 h-4 mr-1.5" />
+                สร้างใบลดหนี้
+              </Button>
+            )}
             <Button variant="outline" size="sm" onClick={() => setShowPrintDialog(true)}>
               <Printer className="w-4 h-4 mr-1.5" />
               พิมพ์ / PDF
@@ -419,6 +432,13 @@ export default function AdminTaxInvoiceDetail() {
           taxInvoiceId={taxInvoice.id}
         />
       )}
+
+      <CreateCreditNoteDialog
+        open={showCreateCN}
+        onOpenChange={setShowCreateCN}
+        taxInvoiceId={id!}
+        onSuccess={() => loadData()}
+      />
     </AdminLayout>
   );
 }
