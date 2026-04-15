@@ -1111,6 +1111,9 @@ export type Database = {
           currency: string
           deleted_at: string | null
           due_date: string | null
+          email_notification_status: string
+          email_notified_at: string | null
+          email_notified_by: string | null
           exchange_rate: number | null
           iban: string | null
           id: string
@@ -1151,6 +1154,9 @@ export type Database = {
           currency?: string
           deleted_at?: string | null
           due_date?: string | null
+          email_notification_status?: string
+          email_notified_at?: string | null
+          email_notified_by?: string | null
           exchange_rate?: number | null
           iban?: string | null
           id?: string
@@ -1191,6 +1197,9 @@ export type Database = {
           currency?: string
           deleted_at?: string | null
           due_date?: string | null
+          email_notification_status?: string
+          email_notified_at?: string | null
+          email_notified_by?: string | null
           exchange_rate?: number | null
           iban?: string | null
           id?: string
@@ -1735,6 +1744,60 @@ export type Database = {
             columns: ["quote_id"]
             isOneToOne: false
             referencedRelation: "quote_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      po_email_logs: {
+        Row: {
+          body: string | null
+          cc: string[] | null
+          created_at: string
+          id: string
+          po_id: string | null
+          recipients: string[] | null
+          sent_by: string | null
+          status: string
+          subject: string | null
+          transfer_id: string | null
+        }
+        Insert: {
+          body?: string | null
+          cc?: string[] | null
+          created_at?: string
+          id?: string
+          po_id?: string | null
+          recipients?: string[] | null
+          sent_by?: string | null
+          status?: string
+          subject?: string | null
+          transfer_id?: string | null
+        }
+        Update: {
+          body?: string | null
+          cc?: string[] | null
+          created_at?: string
+          id?: string
+          po_id?: string | null
+          recipients?: string[] | null
+          sent_by?: string | null
+          status?: string
+          subject?: string | null
+          transfer_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "po_email_logs_po_id_fkey"
+            columns: ["po_id"]
+            isOneToOne: false
+            referencedRelation: "purchase_orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "po_email_logs_transfer_id_fkey"
+            columns: ["transfer_id"]
+            isOneToOne: false
+            referencedRelation: "international_transfer_requests"
             referencedColumns: ["id"]
           },
         ]
