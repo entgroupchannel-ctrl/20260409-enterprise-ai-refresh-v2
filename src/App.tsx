@@ -121,6 +121,7 @@ const AdminSupplierManagement = lazyRetry(() => import("./pages/admin/AdminSuppl
 const AdminSupplierDetail = lazyRetry(() => import("./pages/admin/AdminSupplierDetail"));
 const AdminInternationalTransfer = lazyRetry(() => import("./pages/admin/AdminInternationalTransfer"));
 const AdminLiveChat = lazyRetry(() => import("./pages/admin/AdminLiveChat"));
+const AdminReports = lazyRetry(() => import("./pages/admin/AdminReports"));
 
 /* ── Loading fallback ── */
 const PageLoader = () => (
