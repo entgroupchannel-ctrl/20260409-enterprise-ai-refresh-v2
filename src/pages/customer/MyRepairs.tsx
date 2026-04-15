@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SiteNavbar from '@/components/SiteNavbar';
-import FooterCompact from '@/components/FooterCompact';
+import MiniFooter from '@/components/MiniFooter';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -40,9 +40,9 @@ export default function MyRepairs() {
   }, [user, filter]);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen flex flex-col bg-background">
       <SiteNavbar />
-      <div className="container max-w-3xl py-8 space-y-4">
+      <main className="flex-1 container max-w-3xl py-8 space-y-4">
         <div className="flex items-center justify-between flex-wrap gap-3">
           <div className="flex items-center gap-2">
             <Wrench className="w-5 h-5 text-primary" />
@@ -64,7 +64,7 @@ export default function MyRepairs() {
         {loading ? (
           <div className="flex justify-center py-12"><Loader2 className="w-6 h-6 animate-spin" /></div>
         ) : orders.length === 0 ? (
-          <div className="text-center py-12 text-muted-foreground">ไม่พบใบสั่งซ่อม</div>
+          <div className="text-center py-12 text-muted-foreground min-h-[60vh] flex items-center justify-center">ไม่พบใบสั่งซ่อม</div>
         ) : (
           <div className="grid gap-3">
             {orders.map(o => (
@@ -86,8 +86,8 @@ export default function MyRepairs() {
             ))}
           </div>
         )}
-      </div>
-      <FooterCompact />
+      </main>
+      <MiniFooter />
     </div>
   );
 }
