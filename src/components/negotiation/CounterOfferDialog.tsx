@@ -9,6 +9,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import ProductEditor from '@/components/admin/ProductEditor';
 import FreeItemsEditor, { type FreeItem } from './FreeItemsEditor';
+import DiscountInput from '@/components/shared/DiscountInput';
 import { Send, Save, AlertTriangle, Loader2 } from 'lucide-react';
 
 interface CounterOfferDialogProps {
@@ -254,18 +255,17 @@ export default function CounterOfferDialog({
             <Separator />
 
             {/* Discount + Valid Until */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label className="text-sm">ส่วนลดรวม (%)</Label>
-                <Input
-                  type="number"
-                  min={0}
-                  max={100}
-                  step={0.01}
-                  value={discountPercent || ''}
-                  placeholder="0"
-                  onChange={(e) => setDiscountPercent(parseFloat(e.target.value) || 0)}
-                  onFocus={(e) => e.target.select()}
+                <DiscountInput
+                  compact
+                  label="ส่วนลดรวม"
+                  subtotal={totals.subtotal}
+                  discountPercent={discountPercent}
+                  discountAmount={totals.discountAmount}
+                  onChange={(newPercent) => {
+                    setDiscountPercent(newPercent);
+                  }}
                 />
               </div>
               <div>
