@@ -197,15 +197,16 @@ export default function TransferRequestsList({ onEdit }: Props) {
                 <TableHead>Currency</TableHead>
                 <TableHead className="text-right">Rate</TableHead>
                 <TableHead className="text-right">THB</TableHead>
+                <TableHead>PO อ้างอิง</TableHead>
                 <TableHead>สถานะ</TableHead>
                 <TableHead className="w-10"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {loading ? (
-                <TableRow><TableCell colSpan={8} className="text-center py-8 text-muted-foreground">กำลังโหลด...</TableCell></TableRow>
+                <TableRow><TableCell colSpan={9} className="text-center py-8 text-muted-foreground">กำลังโหลด...</TableCell></TableRow>
               ) : filtered.length === 0 ? (
-                <TableRow><TableCell colSpan={8} className="text-center py-8 text-muted-foreground">ไม่พบรายการ</TableCell></TableRow>
+                <TableRow><TableCell colSpan={9} className="text-center py-8 text-muted-foreground">ไม่พบรายการ</TableCell></TableRow>
               ) : filtered.map(t => (
                 <TableRow key={t.id}>
                   <TableCell className="font-mono text-xs">{t.transfer_number}</TableCell>
@@ -214,6 +215,19 @@ export default function TransferRequestsList({ onEdit }: Props) {
                   <TableCell><Badge variant="outline">{t.currency}</Badge></TableCell>
                   <TableCell className="text-right font-mono">{t.exchange_rate ? fmt(t.exchange_rate) : '-'}</TableCell>
                   <TableCell className="text-right font-mono">{fmt(t.total_cost_thb || t.amount_thb)}</TableCell>
+                  <TableCell>
+                    {(t.purchase_order_ids?.length ?? 0) > 0 ? (
+                      <div className="flex flex-wrap gap-1">
+                        {t.purchase_order_ids!.map(poId => (
+                          <Badge key={poId} variant="outline" className="text-xs font-mono">
+                            {poMap[poId] || poId.slice(0, 8)}
+                          </Badge>
+                        ))}
+                      </div>
+                    ) : (
+                      <span className="text-xs text-muted-foreground">-</span>
+                    )}
+                  </TableCell>
                   <TableCell><TransferStatusBadge status={t.status} /></TableCell>
                   <TableCell>
                     <DropdownMenu>
