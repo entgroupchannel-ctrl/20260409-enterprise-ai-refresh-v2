@@ -7,8 +7,9 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import CustomerLayout from '@/layouts/CustomerLayout';
 import {
-  ArrowLeft, Loader2, Printer, Receipt, User, Calendar,
+  ChevronRight, Loader2, Printer, Receipt, User, Calendar,
   CreditCard, Building2, FileText, AlertCircle, CircleCheckBig,
   Banknote, Clock, Upload, RefreshCw, Hourglass, CheckCircle2,
 } from 'lucide-react';
@@ -137,68 +138,69 @@ export default function MyInvoiceDetail() {
   const statusInfo = STATUS_LABELS[effectiveStatus] || STATUS_LABELS.draft;
 
   return (
-    <>
+    <CustomerLayout title={invoice.invoice_number}>
       <SEOHead
         title={`${invoice.invoice_number} | ใบวางบิลของฉัน`}
         description="รายละเอียดใบวางบิล"
       />
-      <div className="container mx-auto p-4 md:p-6 max-w-5xl space-y-4">
+      <div className="space-y-4">
+        {/* Breadcrumb */}
+        <div className="flex items-center gap-1 text-sm text-muted-foreground">
+          <Link to="/my-invoices" className="hover:text-foreground transition-colors">ใบวางบิล</Link>
+          <ChevronRight className="w-3 h-3" />
+          <span className="text-foreground font-medium">{invoice.invoice_number}</span>
+        </div>
+
         {/* Header actions */}
-        <div className="flex items-center justify-between gap-2 flex-wrap">
-          <Button variant="ghost" size="sm" onClick={() => navigate('/my-invoices')}>
-            <ArrowLeft className="w-4 h-4 mr-1" />
-            กลับ
+        <div className="flex items-center justify-end gap-2 flex-wrap">
+          <Button variant="outline" size="sm" onClick={() => setShowPrintDialog(true)}>
+            <Printer className="w-4 h-4 mr-1.5" />
+            พิมพ์ / PDF
           </Button>
-          <div className="flex items-center gap-2 flex-wrap">
-            <Button variant="outline" size="sm" onClick={() => setShowPrintDialog(true)}>
-              <Printer className="w-4 h-4 mr-1.5" />
-              พิมพ์ / PDF
-            </Button>
-            {/* Upload slip button — state-aware */}
-            {invoice.status !== 'paid' && invoice.status !== 'cancelled' && (
-              <>
-                {paymentUIState === 'none' && (
-                  <Button size="sm" onClick={() => setShowUploadSlip(true)}>
-                    <Upload className="w-4 h-4 mr-1.5" />
-                    อัปโหลดสลิปการโอน
-                  </Button>
-                )}
-                {paymentUIState === 'pending' && (
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="border-amber-400 text-amber-700 hover:bg-amber-50"
-                    onClick={() => setShowUploadSlip(true)}
-                  >
-                    <Hourglass className="w-4 h-4 mr-1.5" />
-                    ส่งสลิปเพิ่มเติม
-                  </Button>
-                )}
-                {paymentUIState === 'rejected' && (
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="border-red-400 text-red-700 hover:bg-red-50"
-                    onClick={() => setShowUploadSlip(true)}
-                  >
-                    <RefreshCw className="w-4 h-4 mr-1.5" />
-                    ส่งสลิปใหม่
-                  </Button>
-                )}
-                {paymentUIState === 'verified-partial' && (
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="border-blue-400 text-blue-700 hover:bg-blue-50"
-                    onClick={() => setShowUploadSlip(true)}
-                  >
-                    <Upload className="w-4 h-4 mr-1.5" />
-                    ส่งสลิปเพิ่มเติม
-                  </Button>
-                )}
-              </>
-            )}
-          </div>
+          {/* Upload slip button — state-aware */}
+          {invoice.status !== 'paid' && invoice.status !== 'cancelled' && (
+            <>
+              {paymentUIState === 'none' && (
+                <Button size="sm" onClick={() => setShowUploadSlip(true)}>
+                  <Upload className="w-4 h-4 mr-1.5" />
+                  อัปโหลดสลิปการโอน
+                </Button>
+              )}
+              {paymentUIState === 'pending' && (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="border-amber-400 text-amber-700 hover:bg-amber-50"
+                  onClick={() => setShowUploadSlip(true)}
+                >
+                  <Hourglass className="w-4 h-4 mr-1.5" />
+                  ส่งสลิปเพิ่มเติม
+                </Button>
+              )}
+              {paymentUIState === 'rejected' && (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="border-red-400 text-red-700 hover:bg-red-50"
+                  onClick={() => setShowUploadSlip(true)}
+                >
+                  <RefreshCw className="w-4 h-4 mr-1.5" />
+                  ส่งสลิปใหม่
+                </Button>
+              )}
+              {paymentUIState === 'verified-partial' && (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="border-blue-400 text-blue-700 hover:bg-blue-50"
+                  onClick={() => setShowUploadSlip(true)}
+                >
+                  <Upload className="w-4 h-4 mr-1.5" />
+                  ส่งสลิปเพิ่มเติม
+                </Button>
+              )}
+            </>
+          )}
         </div>
 
         {/* Overdue Alert */}
@@ -638,6 +640,6 @@ export default function MyInvoiceDetail() {
           onSuccess={() => loadData()}
         />
       )}
-    </>
+    </CustomerLayout>
   );
 }

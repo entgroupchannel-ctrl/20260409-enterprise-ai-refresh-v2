@@ -3,11 +3,12 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import CustomerLayout from '@/layouts/CustomerLayout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import {
-  ArrowLeft, Receipt, Printer, Loader2, Building2, Calendar,
+  ChevronRight, Receipt, Printer, Loader2, Building2, Calendar,
   Link as LinkIcon, CreditCard, FileText,
 } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
@@ -130,21 +131,22 @@ export default function MyReceiptDetail() {
   if (!receipt) return null;
 
   return (
-    <>
+    <CustomerLayout title={receipt.receipt_number}>
       <SEOHead title={`ใบเสร็จ ${receipt.receipt_number}`} description="รายละเอียดใบเสร็จรับเงิน" />
-      <div className="min-h-screen bg-background p-4 md:p-6">
-        <div className="max-w-5xl mx-auto space-y-4">
-          {/* Header */}
-          <div className="flex items-center justify-between gap-2 flex-wrap">
-            <Button variant="ghost" size="sm" onClick={() => navigate('/my-receipts')}>
-              <ArrowLeft className="w-4 h-4 mr-1" />
-              กลับ
-            </Button>
-            <Button variant="outline" size="sm" onClick={() => setShowPrintDialog(true)}>
-              <Printer className="w-4 h-4 mr-1.5" />
-              พิมพ์ / PDF
-            </Button>
-          </div>
+      <div className="space-y-4">
+        {/* Breadcrumb */}
+        <div className="flex items-center gap-1 text-sm text-muted-foreground">
+          <Link to="/my-receipts" className="hover:text-foreground transition-colors">ใบเสร็จรับเงิน</Link>
+          <ChevronRight className="w-3 h-3" />
+          <span className="text-foreground font-medium">{receipt.receipt_number}</span>
+        </div>
+
+        <div className="flex items-center justify-end">
+          <Button variant="outline" size="sm" onClick={() => setShowPrintDialog(true)}>
+            <Printer className="w-4 h-4 mr-1.5" />
+            พิมพ์ / PDF
+          </Button>
+        </div>
 
           {/* Main card */}
           <Card>
@@ -303,10 +305,8 @@ export default function MyReceiptDetail() {
               </CardContent>
             </Card>
           )}
-        </div>
       </div>
 
-      {/* Reuse admin print dialog */}
       <ReceiptPrintPreviewDialog
         open={showPrintDialog}
         onOpenChange={setShowPrintDialog}
@@ -314,6 +314,6 @@ export default function MyReceiptDetail() {
         invoiceNumber={sourceInvoice?.invoice_number}
         taxInvoiceNumber={sourceTaxInvoice?.tax_invoice_number}
       />
-    </>
+    </CustomerLayout>
   );
 }
