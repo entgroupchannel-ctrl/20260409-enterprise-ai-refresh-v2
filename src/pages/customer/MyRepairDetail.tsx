@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import SiteNavbar from '@/components/SiteNavbar';
-import MiniFooter from '@/components/MiniFooter';
+import CustomerLayout from '@/layouts/CustomerLayout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
-import { ArrowLeft, Loader2 } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import RepairStatusBadge from '@/components/admin/RepairStatusBadge';
@@ -67,22 +66,14 @@ export default function MyRepairDetail() {
   };
 
   if (loading) return <div className="min-h-screen bg-background"><SiteNavbar /><div className="flex justify-center py-12"><Loader2 className="w-6 h-6 animate-spin" /></div></div>;
-  if (!ro) return <div className="min-h-screen flex flex-col bg-background"><SiteNavbar /><main className="flex-1 flex justify-center items-center text-muted-foreground">ไม่พบข้อมูล</main><MiniFooter /></div>;
+  if (!ro) return <CustomerLayout title="ใบสั่งซ่อม"><div className="text-center py-12 text-muted-foreground">ไม่พบข้อมูล</div></CustomerLayout>;
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <SiteNavbar />
-      <main className="flex-1 container max-w-3xl py-8 space-y-4">
-        <div className="flex items-center gap-3">
-          <Button variant="ghost" size="icon" onClick={() => navigate('/my/repairs')}>
-            <ArrowLeft className="w-4 h-4" />
-          </Button>
-          <div>
-            <div className="flex items-center gap-2">
-              <h1 className="text-xl font-bold font-mono">{ro.repair_order_number}</h1>
-              <RepairStatusBadge status={ro.status} />
-            </div>
-          </div>
+    <CustomerLayout title={ro.repair_order_number}>
+      <div className="max-w-3xl mx-auto space-y-4">
+        <div className="flex items-center gap-2">
+          <h1 className="text-xl font-bold font-mono">{ro.repair_order_number}</h1>
+          <RepairStatusBadge status={ro.status} />
         </div>
 
         <Card><CardContent className="pt-4"><RepairStatusTimeline currentStatus={ro.status} isChargeable={ro.is_chargeable} /></CardContent></Card>
@@ -171,8 +162,8 @@ export default function MyRepairDetail() {
             )}
           </CardContent>
         </Card>
-      </main>
-      <MiniFooter />
+      </div>
+    </CustomerLayout>
 
       {/* Reject dialog */}
       <Dialog open={rejectOpen} onOpenChange={setRejectOpen}>

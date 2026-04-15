@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SiteNavbar from '@/components/SiteNavbar';
-import MiniFooter from '@/components/MiniFooter';
+import CustomerLayout from '@/layouts/CustomerLayout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -11,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft, Loader2, Wrench } from 'lucide-react';
+import { Loader2, Wrench } from 'lucide-react';
 
 const ISSUE_CATEGORIES = [
   { value: 'power', label: 'ไฟฟ้า / เปิดไม่ติด' },
@@ -91,17 +90,11 @@ export default function RequestRepairForm() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <SiteNavbar />
-      <main className="flex-1 container max-w-lg py-8 space-y-4">
-        <div className="flex items-center gap-3">
-          <Button variant="ghost" size="icon" onClick={() => navigate('/my/repairs')}>
-            <ArrowLeft className="w-4 h-4" />
-          </Button>
-          <div className="flex items-center gap-2">
-            <Wrench className="w-5 h-5 text-primary" />
-            <h1 className="text-xl font-bold">แจ้งซ่อม</h1>
-          </div>
+    <CustomerLayout title="แจ้งซ่อม">
+      <div className="max-w-lg mx-auto space-y-4">
+        <div className="flex items-center gap-2">
+          <Wrench className="w-5 h-5 text-primary" />
+          <h1 className="text-xl font-bold">แจ้งซ่อม</h1>
         </div>
 
         <Card>
@@ -154,8 +147,7 @@ export default function RequestRepairForm() {
           {saving && <Loader2 className="w-4 h-4 animate-spin mr-2" />}
           ส่งแจ้งซ่อม
         </Button>
-      </main>
-      <MiniFooter />
-    </div>
+      </div>
+    </CustomerLayout>
   );
 }

@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import SiteNavbar from '@/components/SiteNavbar';
-import MiniFooter from '@/components/MiniFooter';
+import CustomerLayout from '@/layouts/CustomerLayout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, Shield, Loader2, Wrench } from 'lucide-react';
+import { Shield, Loader2, Wrench } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import WarrantyStatusBadge from '@/components/admin/WarrantyStatusBadge';
 
@@ -36,18 +35,16 @@ export default function MyProductDetail() {
     })();
   }, [id]);
 
-  if (loading) return <div className="min-h-screen flex flex-col bg-background"><SiteNavbar /><main className="flex-1 flex justify-center items-center"><Loader2 className="w-6 h-6 animate-spin" /></main><MiniFooter /></div>;
-  if (!item) return <div className="min-h-screen flex flex-col bg-background"><SiteNavbar /><main className="flex-1 flex justify-center items-center text-muted-foreground">ไม่พบรายการ</main><MiniFooter /></div>;
+  if (loading) return <CustomerLayout title="สินค้าของฉัน"><div className="flex justify-center py-20"><Loader2 className="w-6 h-6 animate-spin" /></div></CustomerLayout>;
+  if (!item) return <CustomerLayout title="สินค้าของฉัน"><div className="text-center py-20 text-muted-foreground">ไม่พบรายการ</div></CustomerLayout>;
 
   const ws = computeStatus(item.warranty_end_date, item.status);
   const dr = item.warranty_end_date ? Math.floor((new Date(item.warranty_end_date).getTime() - Date.now()) / 86400000) : undefined;
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <SiteNavbar />
-      <main className="flex-1 max-w-3xl mx-auto px-4 py-8 space-y-6 w-full">
+    <CustomerLayout title={item.registration_number}>
+      <div className="max-w-3xl mx-auto space-y-6">
         <div className="flex items-center gap-3">
-          <Button variant="ghost" size="sm" onClick={() => navigate('/my/products')}><ArrowLeft className="w-4 h-4 mr-1" /> กลับ</Button>
           <h1 className="text-xl font-bold flex items-center gap-2"><Shield className="w-5 h-5 text-primary" /> {item.registration_number}</h1>
           <WarrantyStatusBadge status={ws} daysRemaining={dr} />
         </div>
@@ -91,8 +88,7 @@ export default function MyProductDetail() {
             <Button variant="outline" className="mt-3" disabled>ขอซ่อม</Button>
           </CardContent>
         </Card>
-      </main>
-      <MiniFooter />
-    </div>
+      </div>
+    </CustomerLayout>
   );
 }
