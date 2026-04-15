@@ -15,7 +15,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
-import { CheckCircle2, Gift, Upload, FileText, FileCheck, X } from 'lucide-react';
+import { CheckCircle2, Gift, Upload, FileText, FileCheck, X, BadgeCheck, Sparkles, HandCoins, FileSignature, ShieldCheck } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface AcceptQuoteDialogProps {
@@ -212,8 +212,10 @@ export default function AcceptQuoteDialog({
     <AlertDialog open={open} onOpenChange={(v) => !v && onClose()}>
       <AlertDialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <AlertDialogHeader>
-          <AlertDialogTitle className="flex items-center gap-2">
-            <CheckCircle2 className="w-5 h-5 text-green-600" />
+          <AlertDialogTitle className="flex items-center gap-2 text-lg">
+            <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-green-100 to-emerald-200 dark:from-green-800/40 dark:to-emerald-700/30">
+              <Sparkles className="w-4 h-4 text-green-600" />
+            </div>
             ยืนยันยอมรับราคา
           </AlertDialogTitle>
           <AlertDialogDescription asChild>
@@ -239,9 +241,9 @@ export default function AcceptQuoteDialog({
               {/* Choose confirmation method */}
               <div className="space-y-2">
                 <Label className="text-sm font-semibold">เลือกวิธีการยืนยัน:</Label>
-                {radioOption('later', <CheckCircle2 className="w-4 h-4 text-green-600" />, 'ยอมรับก่อน — แนบ PO ภายหลัง', 'ระบบจะแจ้ง admin ว่าคุณยอมรับแล้ว และให้คุณแนบ PO ในภายหลัง')}
-                {radioOption('upload', <Upload className="w-4 h-4 text-blue-600" />, 'แนบ PO ตอนนี้', 'ถ้าคุณมีไฟล์ PO พร้อมแล้ว — แนบทันทีเพื่อเร่งกระบวนการ')}
-                {radioOption('use_quote', <FileCheck className="w-4 h-4 text-amber-600" />, 'ใช้ใบเสนอราคานี้เป็น PO', 'สำหรับลูกค้าที่ไม่มีระบบ PO formal — ระบบจะถือว่าใบเสนอราคานี้คือ PO')}
+                {radioOption('later', <BadgeCheck className="w-4 h-4 text-green-600" />, 'ยอมรับก่อน — แนบ PO ภายหลัง', 'ระบบจะแจ้ง admin ว่าคุณยอมรับแล้ว และให้คุณแนบ PO ในภายหลัง')}
+                {radioOption('upload', <FileSignature className="w-4 h-4 text-blue-600" />, 'แนบ PO ตอนนี้', 'ถ้าคุณมีไฟล์ PO พร้อมแล้ว — แนบทันทีเพื่อเร่งกระบวนการ')}
+                {radioOption('use_quote', <ShieldCheck className="w-4 h-4 text-amber-600" />, 'ใช้ใบเสนอราคานี้เป็น PO', 'สำหรับลูกค้าที่ไม่มีระบบ PO formal — ระบบจะถือว่าใบเสนอราคานี้คือ PO')}
               </div>
 
               {/* File picker for upload path */}
@@ -290,7 +292,7 @@ export default function AcceptQuoteDialog({
               {confirmMethod === 'use_quote' && (
                 <div className="p-3 bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-800 rounded-lg">
                   <p className="text-sm flex items-start gap-2">
-                    <FileCheck className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
+                    <ShieldCheck className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
                     <span>
                       ระบบจะถือว่าใบเสนอราคา <strong>{quoteNumber}</strong> เป็นเอกสาร PO อย่างเป็นทางการ — admin จะดำเนินการต่อทันที
                     </span>
@@ -317,6 +319,7 @@ export default function AcceptQuoteDialog({
           <AlertDialogAction
             onClick={handleAccept}
             disabled={processing || !accepted || (confirmMethod === 'upload' && poFiles.length === 0)}
+            className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"
           >
             {processing ? 'กำลังดำเนินการ...' :
               confirmMethod === 'upload' ? '✅ ยอมรับ + ส่ง PO' :

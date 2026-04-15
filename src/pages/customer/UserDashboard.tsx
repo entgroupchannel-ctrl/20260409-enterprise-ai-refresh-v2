@@ -29,6 +29,8 @@ import {
   ChevronRight, PackageCheck, PhoneCall, MailCheck, Upload, SendHorizonal,
   Paperclip, CalendarClock, MessageSquareText, Pencil, X, Building2,
   Receipt, FileText, FileArchive, Shield, Wrench, CheckCircle2,
+  BadgeCheck, HandCoins, FileSignature, ClipboardCheck, Sparkles, CircleDollarSign,
+  ShieldCheck, FileBadge, Star,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 import NotificationBell from '@/components/notifications/NotificationBell';
@@ -872,7 +874,8 @@ export default function UserDashboard() {
                       {/* Products table */}
                       <Card>
                         <CardHeader className="pb-3">
-                          <CardTitle className="text-base">รายการสินค้า</CardTitle>
+                          <CardTitle className="text-base flex items-center gap-2">
+                            <ClipboardCheck className="w-4 h-4 text-primary" /> รายการสินค้า</CardTitle>
                         </CardHeader>
                         <CardContent>
                           <div className="space-y-3">
@@ -927,13 +930,13 @@ export default function UserDashboard() {
                         <Card>
                           <CardHeader className="pb-3">
                             <CardTitle className="text-base flex items-center gap-2">
-                              <Paperclip className="w-4 h-4" /> ไฟล์แนบ
+                              <FileBadge className="w-4 h-4 text-primary" /> ไฟล์แนบ
                             </CardTitle>
                           </CardHeader>
                           <CardContent className="space-y-2">
                             {poFiles.length > 0 && (
                               <div>
-                                <p className="text-xs font-semibold text-muted-foreground mb-2">PO จากลูกค้า</p>
+                                <p className="text-xs font-semibold text-muted-foreground mb-2 flex items-center gap-1.5"><FileSignature className="w-3.5 h-3.5" /> PO จากลูกค้า</p>
                                 {poFiles.map(file => (
                                   <div key={file.id} className="flex items-center justify-between p-2.5 border border-border rounded-lg hover:bg-muted/30">
                                     <div className="flex items-center gap-2">
@@ -1083,33 +1086,37 @@ export default function UserDashboard() {
 
                       {/* Action: Accept Quote — opens dialog inline */}
                       {(selectedQuote.status === 'quote_sent' || selectedQuote.status === 'negotiating') && selectedQuote.grand_total > 0 && (
-                        <Card className="border-2 border-green-400 dark:border-green-500 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 shadow-md">
+                        <Card className="border-2 border-green-400 dark:border-green-500 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 shadow-lg ring-1 ring-green-200 dark:ring-green-800">
                           <CardContent className="pt-5 pb-4 text-center space-y-3">
-                            <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-green-100 dark:bg-green-800/30 mx-auto">
-                              <CheckCircle2 className="w-5 h-5 text-green-600" />
+                            <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-green-100 to-emerald-200 dark:from-green-800/40 dark:to-emerald-700/30 mx-auto shadow-sm">
+                              <Sparkles className="w-6 h-6 text-green-600" />
                             </div>
                             <p className="text-sm font-semibold text-green-800 dark:text-green-200">พร้อมยอมรับราคา?</p>
-                            <p className="text-lg font-bold text-green-700 dark:text-green-300">
+                            <p className="text-xl font-bold text-green-700 dark:text-green-300 flex items-center justify-center gap-1.5">
+                              <CircleDollarSign className="w-5 h-5" />
                               {formatCurrency(selectedQuote.grand_total)}
                             </p>
                             <Button
-                              size="default"
-                              className="w-full bg-green-600 hover:bg-green-700 text-white shadow-md animate-pulse hover:animate-none"
+                              size="lg"
+                              className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white shadow-md animate-pulse hover:animate-none font-semibold text-base"
                               onClick={() => setShowAcceptDialog(true)}
                             >
-                              <CheckCircle2 className="w-4 h-4 mr-1.5" /> ✅ ยอมรับราคานี้
+                              <BadgeCheck className="w-5 h-5 mr-2" /> ยอมรับราคานี้
                             </Button>
-                            <p className="text-[11px] text-muted-foreground">เลือกแนบ PO หรือยืนยันโดยไม่มีเอกสาร</p>
+                            <p className="text-[11px] text-muted-foreground flex items-center justify-center gap-1">
+                              <HandCoins className="w-3 h-3" /> เลือกแนบ PO หรือยืนยันโดยไม่มีเอกสาร
+                            </p>
                           </CardContent>
                         </Card>
                       )}
                       {selectedQuote.status === 'accepted' && (
                         <Card className="border-green-300 bg-green-50 dark:bg-green-900/10">
                           <CardContent className="pt-4 pb-3 text-center space-y-2">
-                            <p className="text-sm font-medium text-green-800 dark:text-green-200">✅ ยอมรับราคาแล้ว</p>
+                            <ShieldCheck className="w-8 h-8 text-green-600 mx-auto" />
+                            <p className="text-sm font-medium text-green-800 dark:text-green-200">ยอมรับราคาแล้ว</p>
                             <p className="text-xs text-muted-foreground">กรุณาแนบ PO เพื่อดำเนินการสั่งซื้อ</p>
                             <Button size="sm" className="w-full" onClick={() => navigate(`/my-quotes/${selectedQuote.id}`)}>
-                              <Upload className="w-3.5 h-3.5 mr-1" /> ไปแนบ PO
+                              <FileSignature className="w-3.5 h-3.5 mr-1" /> ไปแนบ PO
                             </Button>
                           </CardContent>
                         </Card>
