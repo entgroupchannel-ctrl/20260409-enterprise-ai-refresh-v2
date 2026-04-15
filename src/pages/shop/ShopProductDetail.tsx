@@ -17,7 +17,7 @@ import {
   ChevronRight, Minus, Plus, Microchip, MemoryStick, CircuitBoard, Wifi, Antenna,
   ShieldCheck, Truck, Clock, FileText, Phone, MessageCircle, CheckCircle2,
   Package, Award, Headphones, ReceiptText, Factory, Building2, Warehouse, Server,
-  Zap, ThermometerSun, Droplets, Monitor,
+  Zap, ThermometerSun, Droplets, Monitor, ShoppingCart,
 } from 'lucide-react';
 import SiteNavbar from '@/components/SiteNavbar';
 
