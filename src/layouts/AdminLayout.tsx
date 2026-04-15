@@ -245,8 +245,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                   return (
                     <DropdownMenu key={group.label}>
                       <DropdownMenuTrigger asChild>
-                        <Button variant={groupActive ? 'secondary' : 'ghost'} className="gap-2 relative">
-                          <GroupIcon className="w-4 h-4" />
+                        <Button variant={groupActive ? 'secondary' : 'ghost'} size="sm" className="gap-1.5 relative text-xs px-2.5">
+                          <GroupIcon className="w-3.5 h-3.5" />
                           {group.label}
                           <ChevronDown className="w-3 h-3 opacity-60" />
                           {groupBadge > 0 && (
