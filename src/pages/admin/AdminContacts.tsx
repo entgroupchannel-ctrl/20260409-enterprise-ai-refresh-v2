@@ -63,6 +63,7 @@ export default function AdminContacts() {
   const { profile } = useAuth();
   const { toast } = useToast();
   const isAdmin = profile?.role === 'admin';
+  const [viewTab, setViewTab] = useState<'contacts' | 'submissions'>('contacts');
 
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [loading, setLoading] = useState(true);
