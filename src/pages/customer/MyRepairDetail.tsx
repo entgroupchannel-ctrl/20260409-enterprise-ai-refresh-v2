@@ -163,7 +163,6 @@ export default function MyRepairDetail() {
           </CardContent>
         </Card>
       </div>
-    </CustomerLayout>
 
       {/* Reject dialog */}
       <Dialog open={rejectOpen} onOpenChange={setRejectOpen}>
@@ -181,6 +180,6 @@ export default function MyRepairDetail() {
           </div>
         </DialogContent>
       </Dialog>
-    </div>
+    </CustomerLayout>
   );
 }
