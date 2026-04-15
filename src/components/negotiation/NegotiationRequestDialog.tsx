@@ -59,15 +59,6 @@ export default function NegotiationRequestDialog({
       return;
     }
 
-    if (!currentRevisionId) {
-      toast({ 
-        title: 'ยังไม่สามารถต่อรองได้', 
-        description: 'รอใบเสนอราคาจากทีมขายก่อน',
-        variant: 'destructive' 
-      });
-      return;
-    }
-
     setSending(true);
     try {
       // Build free items array from text
