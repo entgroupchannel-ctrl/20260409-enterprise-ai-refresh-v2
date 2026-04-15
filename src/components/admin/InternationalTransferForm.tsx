@@ -369,6 +369,106 @@ export default function InternationalTransferForm({ editId, onSaved }: Props) {
     <Card>
       <CardContent className="pt-6 space-y-6">
 
+        {/* ══ SECTION 0: อัปโหลด PI ══ */}
+        <div className="space-y-3">
+          <Hdr title="อัปโหลด PI (PDF/รูป) — อ่านรายการอัตโนมัติ" />
+          <div className="flex gap-2 items-center">
+            <label className="flex-1 cursor-pointer">
+              <div className="flex items-center justify-center gap-2 border-2 border-dashed border-primary/30 hover:border-primary/60 rounded-lg p-4 transition-colors bg-primary/5">
+                <Upload className="w-5 h-5 text-primary" />
+                <span className="text-sm text-primary font-medium">เลือกไฟล์ PI (รองรับหลายไฟล์)</span>
+              </div>
+              <input
+                type="file"
+                accept=".pdf,.jpg,.jpeg,.png,.webp"
+                multiple
+                className="hidden"
+                onChange={e => { handlePIUpload(e.target.files); e.target.value = ''; }}
+              />
+            </label>
+          </div>
+
+          {/* Parsed PI results */}
+          {parsedPIs.length > 0 && (
+            <div className="space-y-2">
+              {parsedPIs.map((pi, idx) => (
+                <div key={idx} className="rounded-lg border p-3 space-y-2">
+                  <div className="flex items-center gap-2">
+                    {pi.status === 'parsing' && <Loader2 className="w-4 h-4 animate-spin text-primary" />}
+                    {pi.status === 'done' && <CheckCircle2 className="w-4 h-4 text-green-600" />}
+                    {pi.status === 'error' && <XCircle className="w-4 h-4 text-destructive" />}
+                    <span className="text-sm font-medium truncate flex-1">{pi.fileName}</span>
+                    {pi.status === 'done' && pi.data?.pi_number && (
+                      <Badge variant="outline" className="font-mono text-xs">PI: {pi.data.pi_number}</Badge>
+                    )}
+                    {pi.status === 'done' && pi.data?.grand_total != null && (
+                      <span className="text-sm font-bold tabular-nums">
+                        {pi.data.currency || 'USD'} {fmt(pi.data.grand_total)}
+                      </span>
+                    )}
+                    <Button variant="ghost" size="icon" className="h-6 w-6 shrink-0"
+                      onClick={() => setParsedPIs(prev => prev.filter((_, i) => i !== idx))}>
+                      <X className="w-3.5 h-3.5" />
+                    </Button>
+                  </div>
+                  {pi.status === 'error' && (
+                    <p className="text-xs text-destructive">{pi.error}</p>
+                  )}
+                  {pi.status === 'done' && pi.data?.items && pi.data.items.length > 0 && (
+                    <div className="bg-muted/40 rounded-md p-2 space-y-0.5">
+                      {pi.data.items.slice(0, 6).map((item, iIdx) => (
+                        <div key={iIdx} className="flex items-center justify-between text-xs">
+                          <div className="flex items-center gap-2 min-w-0">
+                            <Package className="w-3 h-3 text-muted-foreground shrink-0" />
+                            <span className="font-mono font-medium truncate max-w-[180px]">
+                              {item.model || item.description || `Item ${iIdx + 1}`}
+                            </span>
+                            {item.color && <span className="text-muted-foreground">({item.color})</span>}
+                          </div>
+                          <div className="flex items-center gap-3 shrink-0 ml-2">
+                            <span className="text-muted-foreground">
+                              {item.qty ?? 0} × {fmt(item.unit_price ?? 0)}
+                            </span>
+                            <span className="font-semibold tabular-nums">
+                              {fmt(item.amount ?? (item.qty ?? 0) * (item.unit_price ?? 0))}
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                      {pi.data.items.length > 6 && (
+                        <p className="text-[11px] text-muted-foreground pl-5">
+                          +{pi.data.items.length - 6} รายการเพิ่มเติม
+                        </p>
+                      )}
+                    </div>
+                  )}
+                  {pi.status === 'done' && pi.data && (
+                    <div className="flex gap-3 text-[11px] text-muted-foreground flex-wrap">
+                      {pi.data.bank_name && <span>🏦 {pi.data.bank_name}</span>}
+                      {pi.data.swift_code && <span>SWIFT: {pi.data.swift_code}</span>}
+                      {pi.data.payment_terms && <span>💳 {pi.data.payment_terms}</span>}
+                      {pi.data.price_terms && <span>📦 {pi.data.price_terms}</span>}
+                    </div>
+                  )}
+                </div>
+              ))}
+
+              {/* Merge button */}
+              {parsedPIs.some(p => p.status === 'done') && (
+                <Button
+                  variant={piMerged ? 'outline' : 'default'}
+                  size="sm"
+                  className="w-full gap-2"
+                  onClick={mergeParsedPIs}
+                >
+                  <Sparkles className="w-4 h-4" />
+                  {piMerged ? '✅ รวมข้อมูลแล้ว — กดอีกครั้งเพื่ออัปเดต' : `รวมข้อมูลจาก ${parsedPIs.filter(p => p.status === 'done').length} PI ลงฟอร์ม`}
+                </Button>
+              )}
+            </div>
+          )}
+        </div>
+
         {/* ══ SECTION 1: Supplier & Amount ══ */}
         <div className="space-y-3">
           <Hdr title="Supplier & จำนวนเงิน" />
