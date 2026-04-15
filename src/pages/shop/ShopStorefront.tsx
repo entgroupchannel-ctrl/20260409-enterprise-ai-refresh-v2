@@ -237,7 +237,7 @@ const ShopStorefront = () => {
       {/* Hero */}
       <div className="bg-gradient-to-r from-primary/10 via-background to-primary/5 border-b border-border">
         <div className="container mx-auto px-4 py-8 md:py-12">
-          <h1 className="text-2xl md:text-3xl font-bold mb-2">🏭 Industrial PC & Panel PC Solutions</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-2">Industrial PC & Panel PC Solutions</h1>
           <p className="text-muted-foreground text-sm">Trusted by 500+ enterprises • ISO 9001 • Made for Thailand</p>
 
           {/* Search bar */}
