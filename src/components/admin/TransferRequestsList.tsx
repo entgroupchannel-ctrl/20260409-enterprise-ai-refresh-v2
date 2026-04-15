@@ -372,14 +372,15 @@ export default function TransferRequestsList({ onEdit }: Props) {
                 <TableHead>PO อ้างอิง</TableHead>
                 <TableHead>เอกสาร</TableHead>
                 <TableHead>สถานะ</TableHead>
+                <TableHead>แจ้ง</TableHead>
                 <TableHead className="w-10"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {loading ? (
-                <TableRow><TableCell colSpan={10} className="text-center py-8 text-muted-foreground">กำลังโหลด...</TableCell></TableRow>
+                <TableRow><TableCell colSpan={11} className="text-center py-8 text-muted-foreground">กำลังโหลด...</TableCell></TableRow>
               ) : filtered.length === 0 ? (
-                <TableRow><TableCell colSpan={10} className="text-center py-8 text-muted-foreground">ไม่พบรายการ</TableCell></TableRow>
+                <TableRow><TableCell colSpan={11} className="text-center py-8 text-muted-foreground">ไม่พบรายการ</TableCell></TableRow>
               ) : filtered.map(t => (
                 <TableRow key={t.id}>
                   <TableCell className="font-mono text-xs">{t.transfer_number}</TableCell>
