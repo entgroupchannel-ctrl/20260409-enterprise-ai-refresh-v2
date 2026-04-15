@@ -129,8 +129,8 @@ export default function AdminSupplierDetail() {
                   <span className="font-mono text-xs text-muted-foreground">{s.supplier_code}</span>
                   <SupplierStatusBadge status={s.status} />
                   {s.is_preferred && (
-                    <span className="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full flex items-center gap-1">
-                      <Star className="w-3 h-3 fill-amber-500 text-amber-500" /> Preferred
+                    <span className="text-xs bg-accent text-accent-foreground px-2 py-0.5 rounded-full flex items-center gap-1">
+                      <Star className="w-3 h-3 fill-current" /> Preferred
                     </span>
                   )}
                 </div>
