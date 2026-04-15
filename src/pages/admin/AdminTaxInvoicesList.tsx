@@ -19,6 +19,7 @@ import TaxInvoiceTimeline from '@/components/admin/TaxInvoiceTimeline';
 import TaxInvoiceActionsMenu from '@/components/admin/TaxInvoiceActionsMenu';
 import SelectInvoiceForTaxInvoiceDialog from '@/components/admin/SelectInvoiceForTaxInvoiceDialog';
 import CreateTaxInvoiceFromInvoiceDialog from '@/components/admin/CreateTaxInvoiceFromInvoiceDialog';
+import CreateCreditNoteDialog from '@/components/admin/CreateCreditNoteDialog';
 
 interface TaxInvoice {
   id: string;
