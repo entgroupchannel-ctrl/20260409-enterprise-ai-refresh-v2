@@ -160,6 +160,7 @@ export default function CreatePurchaseOrderDialog({ open, onOpenChange, editId, 
     setShowTerms(false); setShowShipping(false);
     setPoFiles([]); setNewPoFileType('proforma_invoice');
     setPiParseResult(null); setPiSupplierWarning('');
+    setPiFileCount(0); setPiTotalItems(0);
   };
 
   // ========== PI PDF Parser (via Edge Function) ==========
