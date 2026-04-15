@@ -54,6 +54,10 @@ export default function TransferRequestsList({ onEdit }: Props) {
   const [statusFilter, setStatusFilter] = useState('all');
   const [poMap, setPoMap] = useState<Record<string, string>>({});
   const [docMap, setDocMap] = useState<Record<string, DocRef[]>>({});
+  const [supplierEmails, setSupplierEmails] = useState<Record<string, string | null>>({});
+  const [piMap, setPiMap] = useState<Record<string, string>>({});
+  const [emailModalOpen, setEmailModalOpen] = useState(false);
+  const [emailTarget, setEmailTarget] = useState<TransferRequest | null>(null);
 
   // Approval dialogs
   const [rejectDialogOpen, setRejectDialogOpen] = useState(false);
