@@ -316,7 +316,13 @@ const ShopProductDetail = () => {
                   setConfigAddons(addons);
                 }}
               />
-            </div>
+              {/* Notice: RAM/SSD ราคาตลาดโลก */}
+              <div className="mt-3 rounded-lg bg-blue-500/8 border border-blue-500/20 p-2.5 flex items-start gap-2">
+                <TrendingUp className="w-3.5 h-3.5 text-blue-500 shrink-0 mt-0.5" />
+                <p className="text-[11px] text-muted-foreground leading-relaxed">
+                  <span className="font-semibold text-foreground">RAM / SSD / CPU</span> ปรับเปลี่ยนตามราคาตลาดโลก ระบบของเรามีผู้ช่วยคอย Update ราคาให้ท่านอัตโนมัติ
+                </p>
+              </div>
 
             {/* Right: Specs + Description stacked */}
             <div className="space-y-6">
@@ -377,10 +383,14 @@ const ShopProductDetail = () => {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
+              {/* Notice: Lead Time */}
+              <div className="rounded-lg bg-orange-500/8 border border-orange-500/20 p-2.5 flex items-start gap-2">
+                <CalendarClock className="w-3.5 h-3.5 text-orange-500 shrink-0 mt-0.5" />
+                <p className="text-[11px] text-muted-foreground leading-relaxed">
+                  <span className="font-semibold text-foreground">ระยะเวลาจัดส่ง:</span> สินค้าส่งตรงจากโรงงาน 7-14 วัน บางรุ่น 30-45 วัน ขึ้นอยู่กับปัจจัยต่างๆ — <span className="text-foreground font-medium">ควรสอบถามแอดมินก่อนสั่งสินค้า</span>
+                </p>
+              </div>
 
       {/* ═══════════ USE CASES — FULL WIDTH ═══════════ */}
       <div className="bg-muted/20 border-y border-border">
