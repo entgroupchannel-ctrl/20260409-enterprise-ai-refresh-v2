@@ -71,7 +71,7 @@ If a field is not found, use empty string for text or 0 for numbers.`;
           ],
         }];
 
-    const response = await fetch("https://ai-gateway.lovable.dev/v1/chat/completions", {
+    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${apiKey}`,
