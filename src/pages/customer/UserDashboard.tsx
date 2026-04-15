@@ -7,6 +7,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { useCart } from '@/hooks/useCart';
 import { supabase } from '@/integrations/supabase/client';
+import AcceptQuoteDialog from '@/components/negotiation/AcceptQuoteDialog';
 import { useToast } from '@/hooks/use-toast';
 import SEOHead from '@/components/SEOHead';
 import { Button } from '@/components/ui/button';
@@ -143,6 +144,7 @@ export default function UserDashboard() {
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [selectedQuote, setSelectedQuote] = useState<Quote | null>(null);
+  const [showAcceptDialog, setShowAcceptDialog] = useState(false);
 
   // ─── Quote detail extras ───
   const [quoteFiles, setQuoteFiles] = useState<QuoteFile[]>([]);
@@ -1079,7 +1081,7 @@ export default function UserDashboard() {
                         </CardContent>
                       </Card>
 
-                      {/* Action: Accept Quote / Upload PO */}
+                      {/* Action: Accept Quote — opens dialog inline */}
                       {(selectedQuote.status === 'quote_sent' || selectedQuote.status === 'negotiating') && selectedQuote.grand_total > 0 && (
                         <Card className="border-2 border-green-400 dark:border-green-500 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 shadow-md">
                           <CardContent className="pt-5 pb-4 text-center space-y-3">
@@ -1093,11 +1095,11 @@ export default function UserDashboard() {
                             <Button
                               size="default"
                               className="w-full bg-green-600 hover:bg-green-700 text-white shadow-md animate-pulse hover:animate-none"
-                              onClick={() => navigate(`/my-quotes/${selectedQuote.id}`)}
+                              onClick={() => setShowAcceptDialog(true)}
                             >
                               <CheckCircle2 className="w-4 h-4 mr-1.5" /> ✅ ยอมรับราคานี้
                             </Button>
-                            <p className="text-[11px] text-muted-foreground">กดเพื่อดูรายละเอียดและยืนยัน</p>
+                            <p className="text-[11px] text-muted-foreground">เลือกแนบ PO หรือยืนยันโดยไม่มีเอกสาร</p>
                           </CardContent>
                         </Card>
                       )}
@@ -1111,6 +1113,19 @@ export default function UserDashboard() {
                             </Button>
                           </CardContent>
                         </Card>
+                      )}
+
+                      {/* AcceptQuoteDialog — inline */}
+                      {showAcceptDialog && selectedQuote && (
+                        <AcceptQuoteDialog
+                          quoteId={selectedQuote.id}
+                          quoteNumber={selectedQuote.quote_number}
+                          grandTotal={selectedQuote.grand_total}
+                          validUntil={selectedQuote.valid_until ? formatFullDate(selectedQuote.valid_until) : null}
+                          open={showAcceptDialog}
+                          onClose={() => setShowAcceptDialog(false)}
+                          onSuccess={() => { setShowAcceptDialog(false); loadQuotes(); }}
+                        />
                       )}
                     </div>
                   </div>
