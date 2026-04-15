@@ -106,6 +106,11 @@ const UserDashboard = lazyRetry(() => import("./pages/customer/UserDashboard"));
 const CustomerSODetail = lazyRetry(() => import("./pages/customer/CustomerSODetail"));
 const CustomerOrders = lazyRetry(() => import("./pages/customer/CustomerOrders"));
 const NotificationsPage = lazyRetry(() => import("./pages/notifications/NotificationsPage"));
+const AdminRegisteredProductsList = lazyRetry(() => import("./pages/admin/AdminRegisteredProductsList"));
+const AdminRegisteredProductDetail = lazyRetry(() => import("./pages/admin/AdminRegisteredProductDetail"));
+const MyProducts = lazyRetry(() => import("./pages/customer/MyProducts"));
+const MyProductDetail = lazyRetry(() => import("./pages/customer/MyProductDetail"));
+const RegisterProductForm = lazyRetry(() => import("./pages/customer/RegisterProductForm"));
 
 /* ── Loading fallback ── */
 const PageLoader = () => (
@@ -207,6 +212,8 @@ const App = () => (
                     <Route path="/admin/credit-notes/:id" element={<ProtectedRoute requireSales><AdminCreditNoteDetail /></ProtectedRoute>} />
                     <Route path="/admin/receipts" element={<ProtectedRoute requireSales><AdminReceiptsList /></ProtectedRoute>} />
                     <Route path="/admin/receipts/:id" element={<ProtectedRoute requireSales><AdminReceiptDetail /></ProtectedRoute>} />
+                    <Route path="/admin/registered-products" element={<ProtectedRoute requireSales><AdminRegisteredProductsList /></ProtectedRoute>} />
+                    <Route path="/admin/registered-products/:id" element={<ProtectedRoute requireSales><AdminRegisteredProductDetail /></ProtectedRoute>} />
                     <Route path="/admin/requests" element={<ProtectedRoute requireAdmin><AdminRequests /></ProtectedRoute>} />
                     <Route path="/admin/approvals" element={<ProtectedRoute requireSuperAdmin><AdminApprovals /></ProtectedRoute>} />
                     <Route path="/admin/products" element={<ProtectedRoute requireSales><ProductsList /></ProtectedRoute>} />
@@ -229,6 +236,9 @@ const App = () => (
                     <Route path="/my-tax-invoices/:id" element={<ProtectedRoute><MyTaxInvoiceDetail /></ProtectedRoute>} />
                     <Route path="/my-receipts" element={<ProtectedRoute><MyReceipts /></ProtectedRoute>} />
                     <Route path="/my-documents" element={<ProtectedRoute><MyDocuments /></ProtectedRoute>} />
+                    <Route path="/my/products" element={<ProtectedRoute><MyProducts /></ProtectedRoute>} />
+                    <Route path="/my/products/register" element={<ProtectedRoute><RegisterProductForm /></ProtectedRoute>} />
+                    <Route path="/my/products/:id" element={<ProtectedRoute><MyProductDetail /></ProtectedRoute>} />
                     <Route path="/my-receipts/:id" element={<ProtectedRoute><MyReceiptDetail /></ProtectedRoute>} />
                     <Route path="/notifications" element={<ProtectedRoute><NotificationsPage /></ProtectedRoute>} />
                     <Route path="/profile" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />

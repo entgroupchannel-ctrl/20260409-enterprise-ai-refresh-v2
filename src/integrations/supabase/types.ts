@@ -1946,6 +1946,8 @@ export type Database = {
           unit_price_vat: number | null
           updated_at: string | null
           updated_by: string | null
+          warranty_months: number
+          warranty_type: string
         }
         Insert: {
           buy_price?: number | null
@@ -1986,6 +1988,8 @@ export type Database = {
           unit_price_vat?: number | null
           updated_at?: string | null
           updated_by?: string | null
+          warranty_months?: number
+          warranty_type?: string
         }
         Update: {
           buy_price?: number | null
@@ -2026,6 +2030,8 @@ export type Database = {
           unit_price_vat?: number | null
           updated_at?: string | null
           updated_by?: string | null
+          warranty_months?: number
+          warranty_type?: string
         }
         Relationships: []
       }
@@ -2825,6 +2831,123 @@ export type Database = {
           },
         ]
       }
+      registered_products: {
+        Row: {
+          admin_notes: string | null
+          created_at: string
+          customer_company: string | null
+          customer_email: string
+          customer_id: string | null
+          customer_name: string
+          customer_notes: string | null
+          customer_phone: string | null
+          deleted_at: string | null
+          delivery_note_id: string | null
+          id: string
+          invoice_id: string | null
+          product_id: string | null
+          product_name_snapshot: string
+          product_sku_snapshot: string | null
+          proof_url: string | null
+          purchase_date: string | null
+          registered_by: string | null
+          registration_number: string
+          serial_number: string
+          source: string
+          status: string
+          updated_at: string
+          void_reason: string | null
+          voided_at: string | null
+          voided_by: string | null
+          warranty_end_date: string | null
+          warranty_months: number
+          warranty_start_date: string
+          warranty_terms: string | null
+          warranty_type: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          created_at?: string
+          customer_company?: string | null
+          customer_email: string
+          customer_id?: string | null
+          customer_name: string
+          customer_notes?: string | null
+          customer_phone?: string | null
+          deleted_at?: string | null
+          delivery_note_id?: string | null
+          id?: string
+          invoice_id?: string | null
+          product_id?: string | null
+          product_name_snapshot: string
+          product_sku_snapshot?: string | null
+          proof_url?: string | null
+          purchase_date?: string | null
+          registered_by?: string | null
+          registration_number?: string
+          serial_number: string
+          source?: string
+          status?: string
+          updated_at?: string
+          void_reason?: string | null
+          voided_at?: string | null
+          voided_by?: string | null
+          warranty_end_date?: string | null
+          warranty_months?: number
+          warranty_start_date?: string
+          warranty_terms?: string | null
+          warranty_type?: string
+        }
+        Update: {
+          admin_notes?: string | null
+          created_at?: string
+          customer_company?: string | null
+          customer_email?: string
+          customer_id?: string | null
+          customer_name?: string
+          customer_notes?: string | null
+          customer_phone?: string | null
+          deleted_at?: string | null
+          delivery_note_id?: string | null
+          id?: string
+          invoice_id?: string | null
+          product_id?: string | null
+          product_name_snapshot?: string
+          product_sku_snapshot?: string | null
+          proof_url?: string | null
+          purchase_date?: string | null
+          registered_by?: string | null
+          registration_number?: string
+          serial_number?: string
+          source?: string
+          status?: string
+          updated_at?: string
+          void_reason?: string | null
+          voided_at?: string | null
+          voided_by?: string | null
+          warranty_end_date?: string | null
+          warranty_months?: number
+          warranty_start_date?: string
+          warranty_terms?: string | null
+          warranty_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "registered_products_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "registered_products_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       sale_orders: {
         Row: {
           actual_delivery_date: string | null
@@ -3577,6 +3700,10 @@ export type Database = {
       }
       can_access_billing: { Args: { p_user_id: string }; Returns: boolean }
       can_manage_inventory: { Args: { p_user_id: string }; Returns: boolean }
+      check_warranty_status: {
+        Args: { p_check_date?: string; p_serial_number: string }
+        Returns: Json
+      }
       commit_product_migration: { Args: never; Returns: Json }
       count_pending_approvals: { Args: never; Returns: number }
       empty_invoice_trash: { Args: never; Returns: Json }
@@ -3787,6 +3914,7 @@ export type Database = {
         Args: { p_reason?: string; p_receipt_id: string }
         Returns: Json
       }
+      soft_delete_registered_product: { Args: { p_id: string }; Returns: Json }
       soft_delete_tax_invoice: {
         Args: { p_reason?: string; p_tax_invoice_id: string }
         Returns: Json
@@ -3801,6 +3929,10 @@ export type Database = {
           p_user_id: string
         }
         Returns: string
+      }
+      void_registered_product: {
+        Args: { p_id: string; p_reason: string }
+        Returns: Json
       }
     }
     Enums: {
