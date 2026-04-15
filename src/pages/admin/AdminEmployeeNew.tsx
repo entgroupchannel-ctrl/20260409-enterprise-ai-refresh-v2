@@ -92,6 +92,17 @@ export default function AdminEmployeeNew() {
         if (roleErr) throw roleErr;
       }
       
+      // Phase 8.0: Create staff_details row (non-fatal if fails)
+      if (role !== 'member') {
+        try {
+          await (supabase as any)
+            .from('staff_details')
+            .insert({ user_id: authData.user.id });
+        } catch (detailsErr) {
+          console.warn('Failed to create staff_details:', detailsErr);
+        }
+      }
+      
       toast({
         title: '✅ สร้างบัญชีสำเร็จ',
         description: `${email} — role: ${role}`,

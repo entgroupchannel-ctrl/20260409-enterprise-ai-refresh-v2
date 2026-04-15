@@ -49,7 +49,7 @@ export default function AdminEmployees() {
     setLoading(true);
     try {
       const { data, error } = await (supabase as any)
-        .from('users')
+        .from('staff_members')
         .select('id, email, full_name, phone, role, is_active, last_login, created_at')
         .order('created_at', { ascending: false });
       
