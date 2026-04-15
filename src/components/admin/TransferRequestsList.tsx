@@ -14,6 +14,7 @@ import { toast } from 'sonner';
 import { Search, MoreHorizontal, Eye, Edit, Copy, Trash2, DollarSign, Clock, CheckCircle, FileText, Send, ShieldCheck, XCircle, Upload, Loader2, Mail, Printer } from 'lucide-react';
 import TransferStatusBadge from './TransferStatusBadge';
 import TransferEmailModal from './TransferEmailModal';
+import TransferPrintDialog from './TransferPrintDialog';
 import { useAuth } from '@/hooks/useAuth';
 
 const DOC_TYPE_LABELS: Record<string, string> = {
