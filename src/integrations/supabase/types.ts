@@ -4505,6 +4505,10 @@ export type Database = {
         }
         Returns: Json
       }
+      approve_transfer_request: {
+        Args: { p_transfer_id: string }
+        Returns: Json
+      }
       can_access_billing: { Args: { p_user_id: string }; Returns: boolean }
       can_manage_inventory: { Args: { p_user_id: string }; Returns: boolean }
       check_warranty_status: {
@@ -4512,6 +4516,10 @@ export type Database = {
         Returns: Json
       }
       commit_product_migration: { Args: never; Returns: Json }
+      confirm_transfer_sent: {
+        Args: { p_slip_url?: string; p_transfer_id: string }
+        Returns: Json
+      }
       count_pending_approvals: { Args: never; Returns: number }
       customer_respond_to_repair_quote: {
         Args: { p_action: string; p_reason?: string; p_repair_order_id: string }
@@ -4701,6 +4709,10 @@ export type Database = {
       }
       reject_revision: {
         Args: { p_approver_id: string; p_reason: string; p_revision_id: string }
+        Returns: Json
+      }
+      reject_transfer_request: {
+        Args: { p_reason: string; p_transfer_id: string }
         Returns: Json
       }
       remove_user_permission: {
