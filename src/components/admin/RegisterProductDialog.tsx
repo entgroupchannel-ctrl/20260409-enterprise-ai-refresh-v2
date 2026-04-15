@@ -172,7 +172,7 @@ export default function RegisterProductDialog({ open, onOpenChange, preFill, onS
             <p className="text-xs font-semibold text-muted-foreground">ข้อมูลประกัน</p>
             <div className="grid grid-cols-2 gap-3">
               <div><Label>วันเริ่มรับประกัน</Label><Input type="date" value={warrantyStartDate} onChange={e => setWarrantyStartDate(e.target.value)} /></div>
-              <div><Label>ระยะ (เดือน)</Label><Input type="number" min="1" value={warrantyMonths} onChange={e => setWarrantyMonths(parseInt(e.target.value) || 12)} /></div>
+              <div><Label>ระยะ (เดือน)</Label><Input type="number" min="1" value={warrantyMonths || ''} onChange={e => setWarrantyMonths(parseInt(e.target.value) || 12)} /></div>
             </div>
             <div>
               <Label>ประเภท</Label>

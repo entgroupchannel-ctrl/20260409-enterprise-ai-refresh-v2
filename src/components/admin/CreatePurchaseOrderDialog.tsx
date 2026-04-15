@@ -200,7 +200,7 @@ export default function CreatePurchaseOrderDialog({ open, onOpenChange, editId, 
                       <Input value={item.description} onChange={e => updateItem(idx, 'description', e.target.value)} className="h-8 text-xs" placeholder="รายละเอียด" />
                     </TableCell>
                     <TableCell className="p-1">
-                      <Input type="number" min={1} value={item.quantity} onChange={e => updateItem(idx, 'quantity', parseInt(e.target.value) || 1)} className="h-8 text-xs text-right" />
+                      <Input type="number" min={1} value={item.quantity || ''} onChange={e => updateItem(idx, 'quantity', parseInt(e.target.value) || 1)} className="h-8 text-xs text-right" />
                     </TableCell>
                     <TableCell className="p-1">
                       <Input type="number" min={0} step="0.01" value={item.unit_price || ''} onChange={e => updateItem(idx, 'unit_price', parseFloat(e.target.value) || 0)} className="h-8 text-xs text-right" />
