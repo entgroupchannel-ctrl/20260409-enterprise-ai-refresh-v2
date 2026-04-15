@@ -234,6 +234,79 @@ export default function InternationalTransferForm({ editId, onSaved }: Props) {
     finally { setFetchingRate(false); }
   }, [currency]);
 
+  // ── PI Upload & Parse ──
+  const handlePIUpload = useCallback(async (files: FileList | null) => {
+    if (!files || files.length === 0) return;
+    const newFiles = Array.from(files);
+    // Add to attached files as PI type
+    setAttachedFiles(prev => [...prev, ...newFiles.map(f => ({ file: f, type: 'proforma_invoice' as DocType }))]);
+    // Start parsing each file
+    const newParsed: ParsedPI[] = newFiles.map(f => ({ fileName: f.name, status: 'parsing' as const }));
+    setParsedPIs(prev => [...prev, ...newParsed]);
+    setPiMerged(false);
+
+    for (let i = 0; i < newFiles.length; i++) {
+      const file = newFiles[i];
+      try {
+        const base64 = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const result = reader.result as string;
+            resolve(result.split(',')[1]); // strip data:...;base64,
+          };
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+
+        const { data, error } = await supabase.functions.invoke('parse-pi-document', {
+          body: { file_base64: base64, media_type: file.type || 'application/pdf' },
+        });
+
+        if (error || !data?.success) {
+          setParsedPIs(prev => prev.map(p => p.fileName === file.name ? { ...p, status: 'error', error: error?.message || data?.error || 'Parse failed' } : p));
+          continue;
+        }
+
+        setParsedPIs(prev => prev.map(p => p.fileName === file.name ? { ...p, status: 'done', data: data.data } : p));
+      } catch (err: any) {
+        setParsedPIs(prev => prev.map(p => p.fileName === file.name ? { ...p, status: 'error', error: err.message } : p));
+      }
+    }
+  }, []);
+
+  // ── Merge all parsed PI data into form ──
+  const mergeParsedPIs = useCallback(() => {
+    const successPIs = parsedPIs.filter(p => p.status === 'done' && p.data);
+    if (successPIs.length === 0) { toast.error('ไม่มีข้อมูล PI ที่อ่านได้'); return; }
+
+    // Merge: use first PI for bank/supplier info, sum amounts
+    const first = successPIs[0].data!;
+    // Bank info (if not already filled)
+    if (first.bank_name && !bankName) setBankName(first.bank_name);
+    if (first.swift_code && !swiftCode) setSwiftCode(first.swift_code);
+    if (first.account_number && !bankAccount) setBankAccount(first.account_number);
+    if (first.account_name && !bankAccountName) setBankAccountName(first.account_name);
+
+    // Currency
+    if (first.currency) setCurrency(first.currency as Currency);
+
+    // Amount: sum grand_total from all PIs
+    const totalAmount = successPIs.reduce((sum, pi) => sum + (pi.data?.grand_total ?? 0), 0);
+    if (totalAmount > 0) setAmount(totalAmount);
+
+    // Invoice reference: join all PI numbers
+    const piNumbers = successPIs.map(p => p.data?.pi_number).filter(Boolean);
+    if (piNumbers.length > 0) setInvoiceRef(piNumbers.join(', '));
+
+    // Purpose
+    if (!purpose && piNumbers.length > 0) {
+      setPurpose(`ชำระค่าสินค้า PI: ${piNumbers.join(', ')}`);
+    }
+
+    setPiMerged(true);
+    toast.success(`รวมข้อมูลจาก ${successPIs.length} PI แล้ว`);
+  }, [parsedPIs, bankName, swiftCode, bankAccount, bankAccountName, purpose]);
+
   // ── Save ──
   const handleSave = async (status: 'draft' | 'pending') => {
     if (!supplierId)          { toast.error('กรุณาเลือก Supplier'); return; }
