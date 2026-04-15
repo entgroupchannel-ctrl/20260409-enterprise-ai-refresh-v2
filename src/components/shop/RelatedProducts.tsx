@@ -34,12 +34,18 @@ export function addToRecentlyViewed(product: { id: string; slug: string; model: 
 function fmt(n: number) { return n.toLocaleString('th-TH'); }
 
 function ProductMiniCard({ p }: { p: RelatedProduct }) {
+  const imgSrc = p.thumbnail_url || '/placeholder.svg';
   return (
     <Link to={`/shop/${p.slug}`} className="flex-shrink-0 w-40">
-      <Card className="hover:shadow-md transition-shadow h-full border-border">
+      <Card className="hover:shadow-md transition-shadow h-full border-border group">
         <CardContent className="p-3 space-y-2">
           <div className="aspect-square bg-muted rounded-lg overflow-hidden">
-            <img src={p.thumbnail_url || p.model ? `/placeholder.svg` : '/placeholder.svg'} alt={p.model} className="w-full h-full object-contain" onError={e => { (e.target as HTMLImageElement).src = '/placeholder.svg'; }} />
+            <img
+              src={imgSrc}
+              alt={p.model}
+              className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+              onError={e => { (e.target as HTMLImageElement).src = '/placeholder.svg'; }}
+            />
           </div>
           <p className="text-xs font-semibold truncate">{p.model}</p>
           <p className="text-xs text-primary font-bold">฿{fmt(p.unit_price)}</p>
