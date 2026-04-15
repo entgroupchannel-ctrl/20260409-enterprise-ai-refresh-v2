@@ -22,6 +22,7 @@ interface InvoicePDFTemplateProps {
     subtotal: number;
     discount_percent: number | null;
     discount_amount: number | null;
+    discount_type?: 'percent' | 'baht' | null;
     vat_percent: number | null;
     vat_amount: number | null;
     withholding_tax_percent: number | null;
@@ -254,7 +255,13 @@ export default function InvoicePDFTemplate({
             </tr>
             {(invoice.discount_amount || 0) > 0 && (
               <tr>
-                <td className="py-1 pr-8 text-green-700">ส่วนลด {invoice.discount_percent ? `${invoice.discount_percent}%` : ''}:</td>
+                <td className="py-1 pr-8 text-green-700">
+                  ส่วนลด {invoice.discount_type === 'baht'
+                    ? `(฿${formatCurrency(invoice.discount_amount || 0)})`
+                    : invoice.discount_percent 
+                      ? `(${invoice.discount_percent}%)` 
+                      : ''}:
+                </td>
                 <td className="py-1 text-right text-green-700">-{formatCurrency(invoice.discount_amount || 0)} บาท</td>
               </tr>
             )}

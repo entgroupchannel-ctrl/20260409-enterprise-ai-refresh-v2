@@ -26,6 +26,7 @@ interface QuotePDFTemplateProps {
     subtotal: number;
     discount_percent: number | null;
     discount_amount: number | null;
+    discount_type?: 'percent' | 'baht' | null;
     vat_percent: number | null;
     vat_amount: number | null;
     grand_total: number;
@@ -257,7 +258,11 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
             {revision.discount_amount && revision.discount_amount > 0 && (
               <tr>
                 <td className="py-1 pr-8 text-green-700">
-                  ส่วนลด {revision.discount_percent ? `${revision.discount_percent}%` : ''}:
+                  ส่วนลด {revision.discount_type === 'baht'
+                    ? `(฿${formatCurrency(revision.discount_amount || 0)})`
+                    : revision.discount_percent 
+                      ? `(${revision.discount_percent}%)` 
+                      : ''}:
                 </td>
                 <td className="py-1 text-right text-green-700">-{formatCurrency(revision.discount_amount)} บาท</td>
               </tr>
