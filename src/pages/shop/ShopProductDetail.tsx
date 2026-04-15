@@ -545,6 +545,14 @@ const ShopProductDetail = () => {
       {/* ═══════════ RFQ FORM ═══════════ */}
       <div id="rfq-form" className="bg-muted/10 border-t border-border">
         <div className="container max-w-7xl mx-auto px-4 py-8">
+          {/* Notice: วางแผนล่วงหน้า */}
+          <div className="max-w-2xl mx-auto mb-4 rounded-lg bg-emerald-500/8 border border-emerald-500/20 p-3 flex items-start gap-2.5">
+            <Info className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+            <div className="text-[11px] text-muted-foreground leading-relaxed space-y-0.5">
+              <p className="font-semibold text-foreground text-xs">💡 แนะนำ: วางแผนสั่งซื้อล่วงหน้า</p>
+              <p>ลูกค้าควรวางแผนการสั่งสินค้าแต่เนิ่นๆ เพื่อให้โรงงานมีเวลาผลิตสินค้าและจัดส่งได้ตามกำหนด — สินค้าบางรุ่นใช้เวลาผลิต 30-45 วัน</p>
+            </div>
+          </div>
           <div className="max-w-2xl mx-auto">
             <QuickRFQForm
               product={configuredVariant || product}
