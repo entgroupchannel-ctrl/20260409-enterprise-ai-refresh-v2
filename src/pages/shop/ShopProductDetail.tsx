@@ -323,6 +323,7 @@ const ShopProductDetail = () => {
                   <span className="font-semibold text-foreground">RAM / SSD / CPU</span> ปรับเปลี่ยนตามราคาตลาดโลก ระบบของเรามีผู้ช่วยคอย Update ราคาให้ท่านอัตโนมัติ
                 </p>
               </div>
+            </div>
 
             {/* Right: Specs + Description stacked */}
             <div className="space-y-6">
