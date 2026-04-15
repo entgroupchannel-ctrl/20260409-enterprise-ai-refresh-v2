@@ -122,6 +122,13 @@ const navGroups: NavGroup[] = [
     ],
   },
   {
+    label: 'รายงาน',
+    icon: BarChart3,
+    items: [
+      { label: 'รายงานธุรกิจ', icon: BarChart3, path: '/admin/reports' },
+    ],
+  },
+  {
     label: 'ตั้งค่า',
     icon: Settings,
     items: [
