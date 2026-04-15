@@ -74,7 +74,7 @@ const standaloneItems: NavItem[] = [
 
 const navGroups: NavGroup[] = [
   {
-    label: 'ขาย',
+    label: 'งานขาย',
     icon: Briefcase,
     items: [
       { label: 'ใบเสนอราคา', icon: FileText, path: '/admin/quotes' },
@@ -86,24 +86,12 @@ const navGroups: NavGroup[] = [
     ],
   },
   {
-    label: 'บริการ',
-    icon: ShieldCheck,
+    label: 'ลูกค้า & CRM',
+    icon: Users,
     items: [
-      { label: 'ลงทะเบียนสินค้า', icon: Shield, path: '/admin/registered-products' },
-      { label: 'ใบสั่งซ่อม', icon: Package, path: '/admin/repairs' },
-    ],
-  },
-  {
-    label: 'สินค้า',
-    icon: Package,
-    items: [
-      { label: 'คลังสินค้า', icon: Package, path: '/admin/inventory' },
-      { label: 'จัดการสินค้า', icon: Database, path: '/admin/products' },
-      { label: 'นำเข้าสินค้า', icon: Upload, path: '/admin/products/import' },
-      { label: 'Product Migration', icon: Database, path: '/admin/product-migration' },
-      { label: 'คำขอลูกค้า', icon: ClipboardList, path: '/admin/requests', badge: 'requests' },
-      { label: 'อนุมัติ', icon: Shield, path: '/admin/approvals', badge: 'approvals' },
-      { label: 'ถังขยะ', icon: Trash2, path: '/admin/trash' },
+      { label: 'ลูกค้า (Members)', icon: Users, path: '/admin/customers' },
+      { label: 'ผู้ติดต่อ', icon: Users, path: '/admin/contacts' },
+      { label: 'Live Chat', icon: MessageCircle, path: '/admin/live-chat' },
     ],
   },
   {
@@ -115,30 +103,42 @@ const navGroups: NavGroup[] = [
     ],
   },
   {
-    label: 'สนทนา',
-    icon: MessageCircle,
+    label: 'สินค้า & คลัง',
+    icon: Package,
     items: [
-      { label: 'Live Chat', icon: MessageCircle, path: '/admin/live-chat' },
+      { label: 'คลังสินค้า', icon: Package, path: '/admin/inventory' },
+      { label: 'จัดการสินค้า', icon: Database, path: '/admin/products' },
+      { label: 'นำเข้าสินค้า', icon: Upload, path: '/admin/products/import' },
     ],
   },
   {
-    label: 'รายงาน',
+    label: 'บริการหลังขาย',
+    icon: ShieldCheck,
+    items: [
+      { label: 'ลงทะเบียนสินค้า', icon: Shield, path: '/admin/registered-products' },
+      { label: 'ใบสั่งซ่อม', icon: Package, path: '/admin/repairs' },
+    ],
+  },
+  {
+    label: 'รายงาน & อนุมัติ',
     icon: BarChart3,
     items: [
       { label: 'รายงานธุรกิจ', icon: BarChart3, path: '/admin/reports' },
+      { label: 'คำขอลูกค้า', icon: ClipboardList, path: '/admin/requests', badge: 'requests' },
+      { label: 'อนุมัติ', icon: Shield, path: '/admin/approvals', badge: 'approvals' },
     ],
   },
   {
-    label: 'ตั้งค่า',
+    label: 'ตั้งค่าระบบ',
     icon: Settings,
     items: [
       { label: 'ข้อมูลบริษัท', icon: Building2, path: '/admin/settings/company' },
       { label: 'ข้อมูลส่วนตัว', icon: User, path: '/admin/settings/profile' },
-      { label: 'ลูกค้า (Members)', icon: Users, path: '/admin/customers' },
-      { label: 'ผู้ติดต่อ', icon: Users, path: '/admin/contacts' },
-      { label: 'เอกสาร', icon: FileArchive, path: '/admin/documents' },
       { label: 'พนักงาน', icon: Users, path: '/admin/employees' },
+      { label: 'เอกสาร', icon: FileArchive, path: '/admin/documents' },
+      { label: 'ถังขยะ', icon: Trash2, path: '/admin/trash' },
       { label: 'Audit Log', icon: Shield, path: '/admin/audit-log', superAdminOnly: true },
+      { label: 'Product Migration', icon: Database, path: '/admin/product-migration', superAdminOnly: true },
     ],
   },
 ];
