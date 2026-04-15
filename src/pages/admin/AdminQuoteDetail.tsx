@@ -838,7 +838,8 @@ export default function AdminQuoteDetail() {
                       const recalc = calculateQuoteTotals(
                         updatedProducts,
                         quote.discount_percent || 0,
-                        quote.vat_percent || 7
+                        quote.vat_percent || 7,
+                        quote.discount_amount || 0
                       );
                       const { error } = await supabase
                         .from('quote_requests')
