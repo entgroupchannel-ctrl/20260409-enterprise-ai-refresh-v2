@@ -11,9 +11,10 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSepara
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
-import { Search, MoreHorizontal, Eye, Edit, Copy, Trash2, DollarSign, Clock, CheckCircle, FileText, Send, ShieldCheck, XCircle, Upload, Loader2, Mail } from 'lucide-react';
+import { Search, MoreHorizontal, Eye, Edit, Copy, Trash2, DollarSign, Clock, CheckCircle, FileText, Send, ShieldCheck, XCircle, Upload, Loader2, Mail, Printer } from 'lucide-react';
 import TransferStatusBadge from './TransferStatusBadge';
 import TransferEmailModal from './TransferEmailModal';
+import TransferPrintDialog from './TransferPrintDialog';
 import { useAuth } from '@/hooks/useAuth';
 
 const DOC_TYPE_LABELS: Record<string, string> = {
@@ -58,6 +59,8 @@ export default function TransferRequestsList({ onEdit }: Props) {
   const [piMap, setPiMap] = useState<Record<string, string>>({});
   const [emailModalOpen, setEmailModalOpen] = useState(false);
   const [emailTarget, setEmailTarget] = useState<TransferRequest | null>(null);
+  const [printDialogOpen, setPrintDialogOpen] = useState(false);
+  const [printTargetId, setPrintTargetId] = useState<string | null>(null);
 
   // Approval dialogs
   const [rejectDialogOpen, setRejectDialogOpen] = useState(false);
@@ -440,6 +443,9 @@ export default function TransferRequestsList({ onEdit }: Props) {
                         <DropdownMenuItem onClick={() => onEdit?.(t.id)}>
                           <Eye className="h-4 w-4 mr-2" />ดูรายละเอียด
                         </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => { setPrintTargetId(t.id); setPrintDialogOpen(true); }}>
+                          <Printer className="h-4 w-4 mr-2" />พิมพ์ฟอร์ม
+                        </DropdownMenuItem>
 
                         {/* Draft actions */}
                         {t.status === 'draft' && (
@@ -576,6 +582,16 @@ export default function TransferRequestsList({ onEdit }: Props) {
           poNumbers={poMap}
           piNumbers={piMap}
           onStatusUpdated={fetchTransfers}
+        />
+      )}
+      {/* Transfer Print Dialog */}
+      {printTargetId && (
+        <TransferPrintDialog
+          open={printDialogOpen}
+          onOpenChange={setPrintDialogOpen}
+          transferId={printTargetId}
+          poMap={poMap}
+          piMap={piMap}
         />
       )}
     </div>
