@@ -137,7 +137,8 @@ export default function InternationalTransferForm({ editId, onSaved }: Props) {
   const [notes,             setNotes]             = useState('');
   const [attachedFiles,     setAttachedFiles]     = useState<AttachedFile[]>([]);
   const [newFileType,       setNewFileType]       = useState<DocType>('proforma_invoice');
-
+  const [parsedPIs,         setParsedPIs]         = useState<ParsedPI[]>([]);
+  const [piMerged,          setPiMerged]          = useState(false);
   // Derived
   const totalFee      = transferFee + bankFee + otherFee;
   const totalCostThb  = amountThb + totalFee;
