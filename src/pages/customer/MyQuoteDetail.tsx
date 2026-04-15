@@ -3,8 +3,9 @@ import PrintPreviewDialog from '@/components/admin/PrintPreviewDialog';
 import NegotiationRequestDialog from '@/components/negotiation/NegotiationRequestDialog';
 import AcceptQuoteDialog from '@/components/negotiation/AcceptQuoteDialog';
 import RevisionTimeline from '@/components/negotiation/RevisionTimeline';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
+import CustomerLayout from '@/layouts/CustomerLayout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
@@ -25,7 +26,7 @@ import QuoteTimeline from '@/components/rfq/QuoteTimeline';
 import POUploadDialog from '@/components/quotes/POUploadDialog';
 import { Badge } from '@/components/ui/badge';
 import {
-  ArrowLeft,
+  ChevronRight,
   Download,
   Printer,
   Upload,
@@ -47,7 +48,6 @@ import {
   Calendar,
   Receipt,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
 interface Quote {
@@ -424,32 +424,24 @@ export default function MyQuoteDetail() {
   if (!quote) return null;
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="bg-card border-b border-border sticky top-0 z-10 print:hidden">
-        <div className="container max-w-6xl mx-auto px-4 py-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Button variant="ghost" size="icon" onClick={() => navigate('/my-quotes')}>
-                <ArrowLeft className="w-4 h-4" />
-              </Button>
-              <div>
-                <h1 className="font-bold text-foreground">{quote.quote_number}</h1>
-                <p className="text-xs text-muted-foreground">
-                  {formatShortDateTime(quote.created_at)}
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm" onClick={() => setShowPrintPreview(true)}>
-                <Printer className="w-4 h-4 mr-2" />พิมพ์
-              </Button>
-            </div>
-          </div>
+    <CustomerLayout title={quote.quote_number}>
+      <div className="space-y-6">
+        {/* Breadcrumb */}
+        <div className="flex items-center gap-1 text-sm text-muted-foreground">
+          <Link to="/my-quotes" className="hover:text-foreground transition-colors">ใบเสนอราคา</Link>
+          <ChevronRight className="w-3 h-3" />
+          <span className="text-foreground font-medium">{quote.quote_number}</span>
         </div>
-      </div>
 
-      <div className="container max-w-7xl mx-auto px-4 py-6">
+        <div className="flex items-center justify-between gap-3 flex-wrap">
+          <div>
+            <h1 className="text-2xl font-bold font-mono">{quote.quote_number}</h1>
+            <p className="text-xs text-muted-foreground">{formatShortDateTime(quote.created_at)}</p>
+          </div>
+          <Button variant="outline" size="sm" onClick={() => setShowPrintPreview(true)}>
+            <Printer className="w-4 h-4 mr-2" />พิมพ์
+          </Button>
+        </div>
         {/* Timeline */}
         <Card className="mb-6">
           <CardContent className="pt-6">
@@ -1103,7 +1095,6 @@ export default function MyQuoteDetail() {
 
           </div>
         </div>
-      </div>
 
       {/* PO Upload Dialog */}
       <POUploadDialog
@@ -1200,6 +1191,7 @@ export default function MyQuoteDetail() {
           revision={currentRevision}
         />
       )}
-    </div>
+      </div>
+    </CustomerLayout>
   );
 }

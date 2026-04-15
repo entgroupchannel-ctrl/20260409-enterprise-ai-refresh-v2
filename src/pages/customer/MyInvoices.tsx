@@ -12,7 +12,7 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   Receipt, Search, Loader2, AlertCircle,
   CircleCheckBig, Clock, Ban, Calendar,
-  Hourglass, CheckCircle2, ArrowLeft,
+  Hourglass, CheckCircle2,
 } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 
@@ -54,15 +54,12 @@ function computePaymentUIState(
   invoiceStatus: string
 ): 'none' | 'pending' | 'rejected' | 'verified-partial' | 'verified-full' {
   if (records.length === 0) return 'none';
-
   const sorted = [...records].sort((a, b) =>
     new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
   );
-
   const hasPending = records.some((r) => r.verification_status === 'pending');
   const hasVerified = records.some((r) => r.verification_status === 'verified');
   const latest = sorted[0];
-
   if (latest.verification_status === 'rejected' && !hasPending) return 'rejected';
   if (hasPending) return 'pending';
   if (hasVerified) return invoiceStatus === 'paid' ? 'verified-full' : 'verified-partial';
@@ -102,7 +99,6 @@ export default function MyInvoices() {
 
       const invoicesList = (invData as Invoice[]) || [];
 
-      // Load payment records for all invoices (batch)
       if (invoicesList.length > 0) {
         const invoiceIds = invoicesList.map((i) => i.id);
         const { data: payData } = await (supabase as any)
@@ -192,32 +188,21 @@ export default function MyInvoices() {
   }
 
   return (
-    <>
+    <CustomerLayout title="ใบวางบิลของฉัน">
       <SEOHead title="ใบวางบิลของฉัน | ENT Group" description="ดูและดาวน์โหลดใบวางบิล" />
-      <div className="container mx-auto p-4 md:p-6 max-w-5xl space-y-4">
+      <div className="space-y-4">
         {/* Header */}
         <div className="flex items-center justify-between gap-2 flex-wrap">
-          <div className="flex items-center gap-3">
-            <Button variant="ghost" size="sm" onClick={() => navigate('/dashboard')}>
-              <ArrowLeft className="w-4 h-4 mr-1" />
-              กลับ
-            </Button>
-            <div>
-              <h1 className="text-2xl font-bold flex items-center gap-2">
-                <Receipt className="w-6 h-6 text-primary" />
-                ใบวางบิลของฉัน
-              </h1>
-              <p className="text-sm text-muted-foreground">
-                ทั้งหมด {invoices.length} รายการ
-              </p>
-            </div>
+          <div>
+            <h1 className="text-2xl font-bold">ใบวางบิลของฉัน</h1>
+            <p className="text-sm text-muted-foreground">ทั้งหมด {invoices.length} รายการ</p>
           </div>
 
           {totalDue > 0 && (
-            <Card className="bg-blue-50 border-blue-200">
+            <Card className="bg-primary/5 border-primary/20">
               <CardContent className="py-3 px-4">
-                <div className="text-xs text-blue-700">รวมที่ต้องชำระ</div>
-                <div className="text-xl font-bold text-blue-900">
+                <div className="text-xs text-muted-foreground">รวมที่ต้องชำระ</div>
+                <div className="text-xl font-bold text-primary">
                   {formatCurrency(totalDue)}
                 </div>
               </CardContent>
@@ -249,7 +234,7 @@ export default function MyInvoices() {
                 <TabsTrigger value="paid" className="gap-2">
                   ชำระแล้ว <Badge variant="secondary">{counts.paid}</Badge>
                 </TabsTrigger>
-                <TabsTrigger value="overdue" className="gap-2 text-red-600">
+                <TabsTrigger value="overdue" className="gap-2 text-destructive">
                   เกินกำหนด <Badge variant="destructive">{counts.overdue}</Badge>
                 </TabsTrigger>
               </TabsList>
@@ -297,14 +282,13 @@ export default function MyInvoices() {
                             <StatusIcon className="w-3 h-3 mr-1" />
                             {statusInfo.label}
                           </Badge>
-                          <Badge variant="outline" className="text-[10px] bg-blue-50 text-blue-700 border-blue-200">
+                          <Badge variant="outline" className="text-[10px] bg-primary/5 text-primary border-primary/20">
                             {TYPE_LABELS[inv.invoice_type] || inv.invoice_type}
                             {inv.invoice_type === 'downpayment' && inv.downpayment_percent != null &&
                               ` ${inv.downpayment_percent}%`}
                             {inv.invoice_type === 'installment' && inv.installment_number != null &&
                               ` ${inv.installment_number}/${inv.installment_total}`}
                           </Badge>
-                          {/* Payment UI state badges */}
                           {inv.payment_ui_state === 'pending' && (
                             <Badge variant="outline" className="bg-amber-50 text-amber-700 border-amber-300 text-[10px]">
                               <Hourglass className="w-3 h-3 mr-1" />
@@ -337,7 +321,7 @@ export default function MyInvoices() {
                           </span>
                           {inv.due_date && (
                             <span className={`flex items-center gap-1 ${
-                              overdueFlag ? 'text-red-600 font-semibold' : ''
+                              overdueFlag ? 'text-destructive font-semibold' : ''
                             }`}>
                               <Clock className="w-3 h-3" />
                               ครบกำหนด: {formatDate(inv.due_date)}
@@ -348,7 +332,7 @@ export default function MyInvoices() {
                       </div>
                       <div className="text-right shrink-0">
                         <div className="text-xs text-muted-foreground">จำนวนเงิน</div>
-                      <div className="text-lg font-bold text-primary">
+                        <div className="text-lg font-bold text-primary">
                           {formatCurrency(inv.grand_total)}
                         </div>
                       </div>
@@ -360,7 +344,6 @@ export default function MyInvoices() {
           </div>
         )}
       </div>
-    </>
-    
+    </CustomerLayout>
   );
 }

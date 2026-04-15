@@ -7,9 +7,8 @@ import CustomerLayout from '@/layouts/CustomerLayout';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
 import {
-  Receipt, Search, Loader2, Building2, Calendar, ArrowLeft,
+  Receipt, Search, Loader2, Building2, Calendar,
 } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 
@@ -73,112 +72,92 @@ export default function MyReceipts() {
   });
 
   return (
-    <>
+    <CustomerLayout title="ใบเสร็จรับเงินของฉัน">
       <SEOHead title="ใบเสร็จรับเงินของฉัน" description="รายการใบเสร็จรับเงินของลูกค้า" />
-      <div className="min-h-screen bg-background p-4 md:p-6">
-        <div className="max-w-5xl mx-auto space-y-4">
-          {/* Header */}
-          <div className="flex items-center gap-3">
-            <Button variant="ghost" size="sm" onClick={() => navigate('/dashboard')}>
-              <ArrowLeft className="w-4 h-4 mr-1" />
-              กลับ
-            </Button>
-            <div>
-              <h1 className="text-2xl font-bold flex items-center gap-2">
-                <Receipt className="w-6 h-6 text-primary" />
-                ใบเสร็จรับเงินของฉัน
-              </h1>
-              <p className="text-xs text-muted-foreground">
-                รวม {receipts.length} รายการ
-              </p>
-            </div>
-          </div>
+      <div className="space-y-4">
+        <div>
+          <h1 className="text-2xl font-bold">ใบเสร็จรับเงินของฉัน</h1>
+          <p className="text-xs text-muted-foreground">รวม {receipts.length} รายการ</p>
+        </div>
 
-          {/* Search */}
+        {/* Search */}
+        <Card>
+          <CardContent className="pt-6">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Input
+                placeholder="ค้นหาเลขที่, บริษัท..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="pl-9"
+              />
+            </div>
+          </CardContent>
+        </Card>
+
+        <div className="text-sm text-muted-foreground">พบ {filtered.length} รายการ</div>
+
+        {/* List */}
+        {loading ? (
           <Card>
-            <CardContent className="pt-6">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input
-                  placeholder="ค้นหาเลขที่, บริษัท..."
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  className="pl-9"
-                />
-              </div>
+            <CardContent className="py-16 flex items-center justify-center">
+              <Loader2 className="w-8 h-8 animate-spin text-primary" />
             </CardContent>
           </Card>
-
-          {/* Result count */}
-          <div className="text-sm text-muted-foreground">
-            พบ {filtered.length} รายการ
-          </div>
-
-          {/* List */}
-          {loading ? (
-            <Card>
-              <CardContent className="py-16 flex items-center justify-center">
-                <Loader2 className="w-8 h-8 animate-spin text-primary" />
-              </CardContent>
-            </Card>
-          ) : filtered.length === 0 ? (
-            <Card>
-              <CardContent className="py-16 text-center text-muted-foreground">
-                <Receipt className="w-12 h-12 mx-auto mb-3 opacity-40" />
-                <p className="text-sm">ไม่มีใบเสร็จรับเงิน</p>
-                <p className="text-xs mt-1">
-                  ใบเสร็จจะปรากฏที่นี่หลังแอดมินออกให้
-                </p>
-              </CardContent>
-            </Card>
-          ) : (
-            <div className="space-y-3">
-              {filtered.map((r) => (
-                <Card
-                  key={r.id}
-                  className="hover:shadow-md transition-shadow cursor-pointer"
-                  onClick={() => navigate(`/my-receipts/${r.id}`)}
-                >
-                  <CardContent className="p-4">
-                    <div className="flex items-start justify-between gap-3 flex-wrap">
-                      <div className="flex-1 min-w-0 space-y-1">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <span className="font-mono font-semibold">{r.receipt_number}</span>
-                          <Badge variant="outline" className="bg-green-50 text-green-700 border-green-300 text-[10px]">
-                            ออกแล้ว
+        ) : filtered.length === 0 ? (
+          <Card>
+            <CardContent className="py-16 text-center text-muted-foreground">
+              <Receipt className="w-12 h-12 mx-auto mb-3 opacity-40" />
+              <p className="text-sm">ไม่มีใบเสร็จรับเงิน</p>
+              <p className="text-xs mt-1">ใบเสร็จจะปรากฏที่นี่หลังแอดมินออกให้</p>
+            </CardContent>
+          </Card>
+        ) : (
+          <div className="space-y-3">
+            {filtered.map((r) => (
+              <Card
+                key={r.id}
+                className="hover:shadow-md transition-shadow cursor-pointer"
+                onClick={() => navigate(`/my-receipts/${r.id}`)}
+              >
+                <CardContent className="p-4">
+                  <div className="flex items-start justify-between gap-3 flex-wrap">
+                    <div className="flex-1 min-w-0 space-y-1">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-mono font-semibold">{r.receipt_number}</span>
+                        <Badge variant="outline" className="bg-green-50 text-green-700 border-green-300 text-[10px]">
+                          ออกแล้ว
+                        </Badge>
+                        {r.payment_method && (
+                          <Badge variant="outline" className="text-[10px]">
+                            {r.payment_method === 'bank_transfer' ? 'โอน' : r.payment_method}
                           </Badge>
-                          {r.payment_method && (
-                            <Badge variant="outline" className="text-[10px]">
-                              {r.payment_method === 'bank_transfer' ? 'โอน' : r.payment_method}
-                            </Badge>
-                          )}
-                        </div>
-                        {r.customer_company && (
-                          <p className="text-xs text-muted-foreground flex items-center gap-1">
-                            <Building2 className="w-3 h-3" />
-                            {r.customer_company}
-                          </p>
                         )}
-                        <p className="text-xs text-muted-foreground flex items-center gap-1">
-                          <Calendar className="w-3 h-3" />
-                          {formatDate(r.receipt_date)}
-                        </p>
                       </div>
-                      <div className="text-right shrink-0">
-                        <div className="text-xs text-muted-foreground mb-1">จำนวนเงิน</div>
-                        <div className="text-xl font-bold text-primary">
-                          {formatCurrency(r.amount)}
-                        </div>
+                      {r.customer_company && (
+                        <p className="text-xs text-muted-foreground flex items-center gap-1">
+                          <Building2 className="w-3 h-3" />
+                          {r.customer_company}
+                        </p>
+                      )}
+                      <p className="text-xs text-muted-foreground flex items-center gap-1">
+                        <Calendar className="w-3 h-3" />
+                        {formatDate(r.receipt_date)}
+                      </p>
+                    </div>
+                    <div className="text-right shrink-0">
+                      <div className="text-xs text-muted-foreground mb-1">จำนวนเงิน</div>
+                      <div className="text-xl font-bold text-primary">
+                        {formatCurrency(r.amount)}
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          )}
-        </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
       </div>
-    </>
-    
+    </CustomerLayout>
   );
 }

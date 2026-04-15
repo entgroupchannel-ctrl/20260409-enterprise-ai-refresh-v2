@@ -37,7 +37,7 @@ export default function MyProducts() {
   return (
     <CustomerLayout title="สินค้าของฉัน">
       <div className="flex items-center justify-between gap-3 mb-6">
-        <h1 className="text-2xl font-bold flex items-center gap-2"><Shield className="w-6 h-6 text-primary" /> สินค้าของฉัน</h1>
+        <h1 className="text-2xl font-bold">สินค้าของฉัน</h1>
         <Button onClick={() => navigate('/my/products/register')}><Plus className="w-4 h-4 mr-1.5" /> ลงทะเบียนสินค้าใหม่</Button>
       </div>
 

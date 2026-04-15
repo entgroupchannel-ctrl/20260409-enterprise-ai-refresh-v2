@@ -3,11 +3,12 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import CustomerLayout from '@/layouts/CustomerLayout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import {
-  ArrowLeft, FileText, Printer, Loader2, Building2, Calendar, Receipt, Link as LinkIcon,
+  ChevronRight, FileText, Printer, Loader2, Building2, Calendar, Receipt, Link as LinkIcon,
 } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 import TaxInvoicePrintPreviewDialog from '@/components/admin/TaxInvoicePrintPreviewDialog';
@@ -107,21 +108,22 @@ export default function MyTaxInvoiceDetail() {
   const statusInfo = STATUS_LABELS[taxInvoice.status] || { label: taxInvoice.status, cls: '' };
 
   return (
-    <>
+    <CustomerLayout title={taxInvoice.tax_invoice_number}>
       <SEOHead title={`ใบกำกับภาษี ${taxInvoice.tax_invoice_number}`} description="รายละเอียดใบกำกับภาษี" />
-      <div className="min-h-screen bg-background p-4 md:p-6">
-        <div className="max-w-5xl mx-auto space-y-4">
-          {/* Header */}
-          <div className="flex items-center justify-between gap-2 flex-wrap">
-            <Button variant="ghost" size="sm" onClick={() => navigate('/my-tax-invoices')}>
-              <ArrowLeft className="w-4 h-4 mr-1" />
-              กลับ
-            </Button>
-            <Button variant="outline" size="sm" onClick={() => setShowPrintDialog(true)}>
-              <Printer className="w-4 h-4 mr-1.5" />
-              พิมพ์ / PDF
-            </Button>
-          </div>
+      <div className="space-y-4">
+        {/* Breadcrumb */}
+        <div className="flex items-center gap-1 text-sm text-muted-foreground">
+          <Link to="/my-tax-invoices" className="hover:text-foreground transition-colors">ใบกำกับภาษี</Link>
+          <ChevronRight className="w-3 h-3" />
+          <span className="text-foreground font-medium">{taxInvoice.tax_invoice_number}</span>
+        </div>
+
+        <div className="flex items-center justify-end">
+          <Button variant="outline" size="sm" onClick={() => setShowPrintDialog(true)}>
+            <Printer className="w-4 h-4 mr-1.5" />
+            พิมพ์ / PDF
+          </Button>
+        </div>
 
           {/* Main card */}
           <Card>
@@ -275,7 +277,6 @@ export default function MyTaxInvoiceDetail() {
               </CardContent>
             </Card>
           )}
-        </div>
       </div>
 
       <TaxInvoicePrintPreviewDialog
@@ -285,6 +286,6 @@ export default function MyTaxInvoiceDetail() {
         items={items}
         invoiceNumber={sourceInvoice?.invoice_number}
       />
-    </>
+    </CustomerLayout>
   );
 }

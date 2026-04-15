@@ -108,10 +108,7 @@ export default function MyTaxInvoices() {
       <SEOHead title="ใบกำกับภาษีของฉัน" description="รายการใบกำกับภาษีของลูกค้า" />
       <div className="space-y-4">
         <div>
-          <h1 className="text-2xl font-bold flex items-center gap-2">
-            <FileText className="w-6 h-6 text-primary" />
-            ใบกำกับภาษีของฉัน
-          </h1>
+          <h1 className="text-2xl font-bold">ใบกำกับภาษีของฉัน</h1>
           <p className="text-xs text-muted-foreground">
             รวม {taxInvoices.length} รายการ
           </p>
