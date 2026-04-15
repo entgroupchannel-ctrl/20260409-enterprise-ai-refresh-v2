@@ -358,15 +358,25 @@ export default function CreatePurchaseOrderDialog({ open, onOpenChange, editId, 
           {/* PI Parser */}
           {!editId && (
             <div className="p-3 rounded-lg border border-dashed border-primary/30 bg-primary/5 space-y-2">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap">
                 <Button
                   type="button" variant="outline" size="sm"
                   onClick={() => piFileRef.current?.click()}
                   disabled={parsingPI}
                 >
                   {parsingPI ? <Loader2 className="w-4 h-4 mr-1 animate-spin" /> : <FileSearch className="w-4 h-4 mr-1" />}
-                  {parsingPI ? 'กำลังอ่านเอกสาร...' : '📄 อ่านจาก PI'}
+                  {parsingPI ? 'กำลังอ่านเอกสาร...' : piFileCount > 0 ? '📄 อ่าน PI เพิ่ม' : '📄 อ่านจาก PI'}
                 </Button>
+                {piFileCount > 0 && (
+                  <Button
+                    type="button" variant="ghost" size="sm"
+                    onClick={resetForm}
+                    className="text-destructive hover:text-destructive"
+                  >
+                    <Trash2 className="w-3.5 h-3.5 mr-1" />
+                    ล้างทั้งหมด
+                  </Button>
+                )}
                 <input
                   ref={piFileRef} type="file" className="hidden"
                   accept=".pdf,.jpg,.jpeg,.png"
@@ -376,11 +386,11 @@ export default function CreatePurchaseOrderDialog({ open, onOpenChange, editId, 
                     e.target.value = '';
                   }}
                 />
-                <span className="text-xs text-muted-foreground">อัปโหลด PI (PDF/รูป) แล้วระบบจะอ่านข้อมูลอัตโนมัติ</span>
+                <span className="text-xs text-muted-foreground">อัปโหลด PI (PDF/รูป) — รองรับหลายไฟล์ (รวมรายการอัตโนมัติ)</span>
               </div>
-              {piParseResult === 'success' && (
+              {piFileCount > 0 && piParseResult === 'success' && (
                 <div className="text-xs text-green-600 bg-green-500/10 px-3 py-1.5 rounded-md">
-                  ✅ อ่านสำเร็จ! ตรวจสอบข้อมูลด้านล่าง
+                  ✅ อ่านแล้ว {piFileCount} ไฟล์ ({piTotalItems} รายการ)
                 </div>
               )}
               {piParseResult === 'error' && (
