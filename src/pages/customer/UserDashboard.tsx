@@ -27,7 +27,7 @@ import {
   ArrowLeft, Save, Trash2, Minus, Home, LogOut,
   ChevronRight, PackageCheck, PhoneCall, MailCheck, Upload, SendHorizonal,
   Paperclip, CalendarClock, MessageSquareText, Pencil, X, Building2,
-  Receipt, FileText, FileArchive, Shield, Wrench,
+  Receipt, FileText, FileArchive, Shield, Wrench, CheckCircle2,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 import NotificationBell from '@/components/notifications/NotificationBell';
