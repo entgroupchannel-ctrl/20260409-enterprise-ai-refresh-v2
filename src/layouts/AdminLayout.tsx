@@ -36,6 +36,7 @@ import {
   Globe,
   DollarSign,
   MessageCircle,
+  BarChart3,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { supabase } from '@/integrations/supabase/client';
@@ -118,6 +119,13 @@ const navGroups: NavGroup[] = [
     icon: MessageCircle,
     items: [
       { label: 'Live Chat', icon: MessageCircle, path: '/admin/live-chat' },
+    ],
+  },
+  {
+    label: 'รายงาน',
+    icon: BarChart3,
+    items: [
+      { label: 'รายงานธุรกิจ', icon: BarChart3, path: '/admin/reports' },
     ],
   },
   {

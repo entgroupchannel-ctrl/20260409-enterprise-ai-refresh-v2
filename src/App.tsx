@@ -121,6 +121,7 @@ const AdminSupplierManagement = lazyRetry(() => import("./pages/admin/AdminSuppl
 const AdminSupplierDetail = lazyRetry(() => import("./pages/admin/AdminSupplierDetail"));
 const AdminInternationalTransfer = lazyRetry(() => import("./pages/admin/AdminInternationalTransfer"));
 const AdminLiveChat = lazyRetry(() => import("./pages/admin/AdminLiveChat"));
+const AdminReports = lazyRetry(() => import("./pages/admin/AdminReports"));
 
 /* ── Loading fallback ── */
 const PageLoader = () => (
@@ -239,6 +240,7 @@ const App = () => (
                     <Route path="/admin/suppliers/:id" element={<ProtectedRoute requireSales><AdminSupplierDetail /></ProtectedRoute>} />
                     <Route path="/admin/international-transfer" element={<ProtectedRoute requireSales><AdminInternationalTransfer /></ProtectedRoute>} />
                     <Route path="/admin/live-chat" element={<ProtectedRoute requireSales><AdminLiveChat /></ProtectedRoute>} />
+                    <Route path="/admin/reports" element={<ProtectedRoute allowedRoles={['super_admin','admin','sales','accountant']}><AdminReports /></ProtectedRoute>} />
                    <Route path="/admin/profile" element={<ProtectedRoute requireSales><AdminProfile /></ProtectedRoute>} />
                    <Route path="/admin/settings/profile" element={<ProtectedRoute requireSales><AdminProfile /></ProtectedRoute>} />
                     <Route path="/request-quote" element={<QuoteRequestForm />} />
