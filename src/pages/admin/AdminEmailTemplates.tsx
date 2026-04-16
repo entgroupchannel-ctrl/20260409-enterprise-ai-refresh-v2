@@ -58,6 +58,8 @@ export default function AdminEmailTemplates() {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [testEmail, setTestEmail] = useState('');
   const [sendingTest, setSendingTest] = useState(false);
+  const [previewHtml, setPreviewHtml] = useState('');
+  const [previewLoading, setPreviewLoading] = useState(false);
 
   useEffect(() => {
     fetchTemplates();
