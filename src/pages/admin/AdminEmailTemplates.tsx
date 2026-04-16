@@ -166,14 +166,24 @@ export default function AdminEmailTemplates() {
   const fetchPreview = async (type?: string) => {
     setPreviewLoading(true);
     try {
-      const { data, error } = await supabase.functions.invoke('auth-email-hook/preview', {
-        body: { type: type || activeTab },
+      const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+      const url = `${supabaseUrl}/functions/v1/auth-email-hook/preview`;
+      const { data: { session } } = await supabase.auth.getSession();
+      const token = session?.access_token;
+      
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ type: type || activeTab }),
       });
-      if (error) {
-        // If invoke returns error, try reading as text
-        setPreviewHtml('<p style="padding:20px;color:red;">ไม่สามารถโหลด Preview ได้</p>');
-      } else if (typeof data === 'string') {
-        setPreviewHtml(data);
+      
+      if (res.ok) {
+        const html = await res.text();
+        setPreviewHtml(html);
       } else {
         setPreviewHtml('<p style="padding:20px;color:red;">ไม่สามารถโหลด Preview ได้</p>');
       }
