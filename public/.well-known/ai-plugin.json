@@ -1,0 +1,15 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "ENT Group — Industrial Computer Thailand",
+  "name_for_model": "entgroup_industrial_pc",
+  "description_for_human": "ผู้นำเข้าและจำหน่ายคอมพิวเตอร์อุตสาหกรรม Mini PC, Panel PC, Rugged Tablet, Industrial Switch ในประเทศไทย",
+  "description_for_model": "ENT Group Co., Ltd. is an authorized distributor of industrial computing products in Thailand since 2015. Products include Mini PC (GT/GB Series), Panel PC (GK Series), Embedded Fanless PC (iBox/EPC Series), Rugged Tablets, Rugged Notebooks, Rugged Handhelds, Industrial Switches (Volktek), Zero Clients (vCloudPoint), and Server Cabinets. Located in Pak Kret, Nonthaburi 11120. Contact: 02-045-6104, info@entgroup.co.th. Business hours: Mon-Fri 08:30-17:30. Warranty: 1-3 years. Free delivery in Bangkok metropolitan area.",
+  "auth": { "type": "none" },
+  "api": {
+    "type": "website",
+    "url": "https://www.entgroup.co.th"
+  },
+  "logo_url": "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/company-assets/logo-1775926128377.jpg",
+  "contact_email": "info@entgroup.co.th",
+  "legal_info_url": "https://www.entgroup.co.th/about-us"
+}
