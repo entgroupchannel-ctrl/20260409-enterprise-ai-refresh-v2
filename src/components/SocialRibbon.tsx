@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Facebook, Instagram, Youtube, MessageCircle } from "lucide-react";
+import { Facebook, Instagram, Youtube, MessageCircle, Mail } from "lucide-react";
 import LineQRButton from "@/components/LineQRButton";
 
 const TiktokIcon = ({ size = 20 }: { size?: number }) => (
@@ -14,6 +14,7 @@ const socials = [
   { icon: <Instagram size={18} />, label: "Instagram", href: "https://www.instagram.com/entgroupcompany/", bg: "bg-gradient-to-br from-[#f09433] via-[#e6683c] to-[#bc1888]" },
   { icon: <TiktokIcon size={18} />, label: "TikTok", href: "https://www.tiktok.com/@entgroup", bg: "bg-[#010101]" },
   { icon: <Youtube size={18} />, label: "YouTube", href: "https://www.youtube.com/@ENTGROUP-TH", bg: "bg-[#FF0000]" },
+  { icon: <Mail size={18} />, label: "Email", href: "mailto:sales@entgroup.co.th", bg: "bg-amber-600" },
 ];
 
 const SocialRibbon = () => {

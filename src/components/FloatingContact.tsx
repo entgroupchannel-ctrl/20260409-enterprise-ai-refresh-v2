@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MessageCircle, Phone, X } from "lucide-react";
+import { MessageCircle, Phone, Mail, X } from "lucide-react";
 import { LineQRDialog, LineSvgIcon } from "./LineQRDialog";
 
 const FloatingContact = () => {
@@ -25,6 +25,16 @@ const FloatingContact = () => {
                 <p className="text-xs opacity-80">แชทกับทีมขาย</p>
               </div>
             </button>
+            <a
+              href="mailto:sales@entgroup.co.th"
+              className="flex items-center gap-3 px-4 py-3 rounded-xl bg-amber-600 text-white shadow-lg hover:opacity-90 transition-opacity"
+            >
+              <Mail size={20} className="shrink-0" />
+              <div className="text-sm">
+                <p className="font-semibold">sales@entgroup.co.th</p>
+                <p className="text-xs opacity-80">ส่งอีเมลหาเรา</p>
+              </div>
+            </a>
             <a
               href="tel:02-026-3854"
               className="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-primary-foreground shadow-lg hover:opacity-90 transition-opacity"
