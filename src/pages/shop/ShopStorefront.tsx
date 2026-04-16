@@ -133,6 +133,7 @@ const ShopStorefront = () => {
           };
 
           // Model-specific image overrides for products whose DB image_url points to missing files
+          const SB = 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/gt-series';
           const modelImageMap: Record<string, string> = {
             // GTY Series
             'gty121t-base': '/images/panelpc/gty121-front.jpg',
@@ -141,10 +142,23 @@ const ShopStorefront = () => {
             'gty185t-base': '/images/panelpc/gty156-front.png',
             'gty215t-base': '/images/panelpc/gty156-front.png',
             // GK Series — base variants with broken /images/wix/gk* paths
-            'gk1501': 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/gt-series/gk1506-primary.jpg',
-            'gk1501-base': 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/gt-series/gk1506-primary.jpg',
-            'gk1506-base': 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/gt-series/gk1506-primary.jpg',
-            'gk2101-base': 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/gt-series/gk2101-primary.png',
+            'gk1501': `${SB}/gk1506-primary.jpg`,
+            'gk1501-base': `${SB}/gk1506-primary.jpg`,
+            'gk1506-base': `${SB}/gk1506-primary.jpg`,
+            'gk2101-base': `${SB}/gk2101-primary.png`,
+            // GT Series — variants with NULL image_url
+            'gt1100-4gb-128gb-wifi-4g': `${SB}/gt1000-primary.jpg`,
+            'gt194-v2': `${SB}/gt1000-primary.jpg`,
+            'gt196-i38140u-8gb-128gb-wifi-4g': `${SB}/gt1000-primary.jpg`,
+            'gt5000': `${SB}/gt4500-primary.jpg`,
+            'gt670-i36157u-4gb-128gb-wifi-4g-v3': `${SB}/gt6000-primary.jpg`,
+            'gt710-2gb': `${SB}/gt7000-primary.jpg`,
+            'gt770-i58250u-8gb-256gb-wifi': `${SB}/gt7000-primary.jpg`,
+            'gt790-256gb-wifi-4g': `${SB}/gt7000-primary.jpg`,
+            'gt7900-i77920hq-16gb-256gb-wifi-4g-v2': `${SB}/gt7000-primary.jpg`,
+            'gt850-i74650u-4gb-256gb-wifi-4g': `${SB}/gt8000-primary.jpg`,
+            'gt980-i710710u-64gb-wifi-4g': `${SB}/gt9000-primary.jpg`,
+            'gt990-i77820hk-16gb-256gb-wifi-4g': `${SB}/gt9000-primary.jpg`,
           };
 
           const enriched = data.map(p => {
