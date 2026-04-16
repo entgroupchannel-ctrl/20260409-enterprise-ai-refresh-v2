@@ -5,6 +5,7 @@ import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ExternalLink, Shield, Zap, Network, Server, ThermometerSun, Globe, FileText, Youtube, ThumbsUp, Play } from "lucide-react";
 import AddToCartButton from "@/components/AddToCartButton";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import CartBadge from "@/components/CartBadge";
 import ShareButtons from "@/components/ShareButtons";
 import { Badge } from "@/components/ui/badge";
@@ -165,9 +166,7 @@ const Volktek = () => {
                   <ExternalLink className="w-3.5 h-3.5 mr-1.5" /> Datasheet
                 </a>
               </Button>
-              <Button size="sm" onClick={() => setQuoteProduct("Volktek Switch")}>
-                <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
-              </Button>
+              <QuoteRequestButton productModel="Volktek Switch" productName="Volktek Industrial Switch" size="sm" />
               <AddToCartButton productModel="Volktek Switch" productName="Volktek Industrial Switch" productDescription="สวิตช์อุตสาหกรรม Volktek" size="sm" variant="outline" />
             </div>
           </div>
@@ -286,6 +285,10 @@ const Volktek = () => {
                       <img src={`${cat.modelImage}`} alt={`${cat.title} models`} className="w-full h-auto rounded-lg" loading="lazy" />
                     )}
                   </div>
+                  <div className="flex gap-2 mt-4">
+                    <AddToCartButton productModel={cat.title} productName={`Volktek ${cat.title}`} productDescription={cat.desc} size="sm" variant="outline" iconOnly />
+                    <QuoteRequestButton productModel={cat.title} productName={`Volktek ${cat.title}`} size="sm" variant="outline" iconOnly />
+                  </div>
                 </div>
               </div>
             ))}
@@ -360,9 +363,7 @@ const Volktek = () => {
                 <ExternalLink className="w-4 h-4 mr-1.5" /> ดาวน์โหลด Catalog
               </a>
             </Button>
-            <Button onClick={() => setQuoteProduct("Volktek Switch")}>
-              <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
-            </Button>
+              <QuoteRequestButton productModel="Volktek Switch" productName="Volktek Industrial Switch" />
           </div>
         </div>
       </div>
