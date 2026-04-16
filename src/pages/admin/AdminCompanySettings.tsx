@@ -113,6 +113,85 @@ export default function AdminCompanySettings() {
     }
   };
 
+  // ── Bank account helpers ──
+  const updateBankField = (idx: number, field: keyof BankAccount, value: any) => {
+    setBankAccounts(prev => prev.map((b, i) => i === idx ? { ...b, [field]: value } : b));
+  };
+
+  const addBankAccount = () => {
+    if (!settings) return;
+    setBankAccounts(prev => [...prev, {
+      id: crypto.randomUUID(),
+      bank_name: '',
+      account_number: '',
+      account_name: settings.name_th || '',
+      branch: null,
+      account_type: 'savings',
+      is_default: prev.length === 0,
+      is_active: true,
+      display_order: prev.length + 1,
+      swift_code: null,
+      notes: null,
+      company_id: settings.id,
+    }]);
+  };
+
+  const removeBankAccount = async (idx: number) => {
+    const acct = bankAccounts[idx];
+    try {
+      await (supabase as any).from('company_bank_accounts').delete().eq('id', acct.id);
+      setBankAccounts(prev => prev.filter((_, i) => i !== idx));
+      toast({ title: '✅ ลบบัญชีธนาคารแล้ว' });
+    } catch { /* ignore */ }
+  };
+
+  const setDefaultBank = (idx: number) => {
+    setBankAccounts(prev => prev.map((b, i) => ({ ...b, is_default: i === idx })));
+  };
+
+  const saveBankAccounts = async () => {
+    if (!settings) return;
+    setSavingBank(true);
+    try {
+      for (const acct of bankAccounts) {
+        const payload = {
+          bank_name: acct.bank_name,
+          account_number: acct.account_number,
+          account_name: acct.account_name,
+          branch: acct.branch,
+          account_type: acct.account_type,
+          is_default: acct.is_default,
+          is_active: true,
+          display_order: acct.display_order,
+          swift_code: acct.swift_code,
+          notes: acct.notes,
+          company_id: settings.id,
+          updated_by: profile?.id,
+        };
+        await (supabase as any).from('company_bank_accounts')
+          .upsert({ id: acct.id, ...payload }, { onConflict: 'id' });
+      }
+
+      // Sync primary bank to company_settings for backward compat
+      const primary = bankAccounts.find(b => b.is_default) || bankAccounts[0];
+      if (primary) {
+        await (supabase as any).from('company_settings').update({
+          bank_name: primary.bank_name,
+          bank_account_number: primary.account_number,
+          bank_account_name: primary.account_name,
+          bank_branch: primary.branch,
+          updated_by: profile?.id,
+        }).eq('id', settings.id);
+      }
+
+      toast({ title: '✅ บันทึกข้อมูลธนาคารสำเร็จ' });
+    } catch (e: any) {
+      toast({ title: 'บันทึกไม่สำเร็จ', description: e.message, variant: 'destructive' });
+    } finally {
+      setSavingBank(false);
+    }
+  };
+
   const handleLogoUpload = async (file: File) => {
     if (!settings) return;
 
