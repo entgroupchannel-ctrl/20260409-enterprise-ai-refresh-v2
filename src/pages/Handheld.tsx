@@ -5,6 +5,8 @@ import {
   ShoppingCart, X, Fingerprint, Radio, Play, ThumbsUp, ExternalLink,
 } from "lucide-react";
 import { ChevronRight } from "lucide-react";
+import AddToCartButton from "@/components/AddToCartButton";
+import CartBadge from "@/components/CartBadge";
 import handheldHero from "@/assets/handheld-hero.jpg";
 import relatedTablet from "@/assets/related-rugged-tablet.jpg";
 import relatedNotebook from "@/assets/related-rugged-notebook.jpg";
@@ -86,6 +88,9 @@ const HandheldCard = ({
 
           <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอราคา
         </Button>
+        <div onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
+          <AddToCartButton productModel={product.model} productName={product.model} productDescription={product.nameTH} size="sm" variant="outline" />
+        </div>
       </div>
     </div>
   </Link>
@@ -180,7 +185,10 @@ const Handheld = () => {
             <Link to="/" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors">
               <ArrowLeft className="w-3.5 h-3.5" /> กลับหน้าหลัก
             </Link>
-            <span className="text-[10px] text-muted-foreground">Handheld & PDA — {filtered.length} รุ่น</span>
+            <div className="flex items-center gap-3">
+              <span className="text-[10px] text-muted-foreground">Handheld & PDA — {filtered.length} รุ่น</span>
+              <CartBadge />
+            </div>
           </div>
           <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide py-2">
             {filterOptions.map((opt) => (

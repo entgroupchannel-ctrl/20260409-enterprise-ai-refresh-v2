@@ -11,6 +11,8 @@ import {
   Play, Download, CheckCircle2, Star, ArrowRight, Phone,
   Clock, TrendingUp, Award, Quote, MapPin, Calendar
 } from "lucide-react";
+import AddToCartButton from "@/components/AddToCartButton";
+import CartBadge from "@/components/CartBadge";
 import ThemeToggle from "@/components/ThemeToggle";
 import logo from "@/assets/logo-entgroup.avif";
 import FooterCompact from "@/components/FooterCompact";
@@ -247,6 +249,7 @@ const VCloudPoint = () => {
             <img src={logo} alt="ENT GROUP" className="h-7 w-auto dark:invert" />
           </div>
           <div className="flex items-center gap-3">
+            <CartBadge />
             <a href="https://vcloudpoint.info/" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors">
               vcloudpoint.info <ExternalLink size={12} />
             </a>

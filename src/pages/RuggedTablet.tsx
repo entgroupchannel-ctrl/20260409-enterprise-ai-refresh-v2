@@ -8,6 +8,8 @@ import {
   Download, ChevronRight, Wifi, FileText, Search,
   ShoppingCart, X, SlidersHorizontal, ArrowUpDown, Play, ThumbsUp, Share2, Flame,
 } from "lucide-react";
+import AddToCartButton from "@/components/AddToCartButton";
+import CartBadge from "@/components/CartBadge";
 import ShareButtons from "@/components/ShareButtons";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
@@ -275,6 +277,7 @@ const TabletCard = ({
         <Button size="sm" className="flex-1" onClick={() => onQuote(product.model)}>
           <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอราคา
         </Button>
+        <AddToCartButton productModel={product.model} productName={product.model} productDescription={`${product.name} ${product.cpu} ${product.os}`} size="sm" variant="outline" />
       </div>
     </div>
   </div>
@@ -425,7 +428,10 @@ const RuggedTablet = () => {
             <Link to="/" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors">
               <ArrowLeft className="w-3.5 h-3.5" /> กลับหน้าหลัก
             </Link>
-            <span className="text-[10px] text-muted-foreground">Rugged Tablet — {tablets.length} รุ่น</span>
+            <div className="flex items-center gap-3">
+              <span className="text-[10px] text-muted-foreground">Rugged Tablet — {tablets.length} รุ่น</span>
+              <CartBadge />
+            </div>
           </div>
           {/* Quick Filters row */}
           <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide py-2">

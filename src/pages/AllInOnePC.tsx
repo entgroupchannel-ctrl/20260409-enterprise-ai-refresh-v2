@@ -14,6 +14,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { aioProducts, categoryLabels, type AIOCategory, type AIOOS } from "@/data/aio-products";
+import AddToCartButton from "@/components/AddToCartButton";
+import CartBadge from "@/components/CartBadge";
 
 /* ── Filter Tabs ── */
 const osFilters: { label: string; value: AIOOS | "all" }[] = [
@@ -112,6 +114,7 @@ const AIOCard = ({
           onClick={() => onQuote(product.model)}>
           <FileText className="w-3.5 h-3.5 mr-1.5" /> สอบถามราคา
         </Button>
+        <AddToCartButton productModel={product.model} productName={product.model} productDescription={`${product.title} — ${product.cpu}`} size="sm" variant="outline" />
       </div>
     </div>
   </div>
@@ -220,7 +223,10 @@ const AllInOnePC = () => {
             <Link to="/" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors">
               <ArrowLeft className="w-3.5 h-3.5" /> กลับหน้าหลัก
             </Link>
-            <span className="text-[10px] text-muted-foreground">All-in-One PC — {aioProducts.length} รุ่น</span>
+            <div className="flex items-center gap-3">
+              <span className="text-[10px] text-muted-foreground">All-in-One PC — {aioProducts.length} รุ่น</span>
+              <CartBadge />
+            </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-2 py-2">
             {/* OS filter */}

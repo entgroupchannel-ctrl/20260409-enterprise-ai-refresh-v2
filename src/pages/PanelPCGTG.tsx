@@ -9,6 +9,8 @@ import {
   Phone, MessageCircle, ChevronLeft, ChevronRight, Settings, Wifi, Flame, Fan, Snowflake, DollarSign, FileText, Star, Package, Search as SearchIcon, ClipboardList, CheckCircle,
   HardDrive, MemoryStick, Layers, RectangleHorizontal, Square
 } from "lucide-react";
+import AddToCartButton from "@/components/AddToCartButton";
+import CartBadge from "@/components/CartBadge";
 import ThemeToggle from "@/components/ThemeToggle";
 import logo from "@/assets/logo-entgroup.avif";
 import FooterCompact from "@/components/FooterCompact";
@@ -278,6 +280,7 @@ const PanelPC = () => {
             <span className="text-sm font-semibold text-foreground">GTY/GTG Panel PC</span>
           </div>
           <div className="flex items-center gap-3">
+            <CartBadge />
             <ThemeToggle />
             <Link to="/" className="hidden md:inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
               <ArrowLeft size={16} /> กลับหน้าหลัก
@@ -700,6 +703,9 @@ import FooterCompact from "@/components/FooterCompact";
                           )}
                         </td>
                       ))}
+                      <td className="p-3">
+                        <AddToCartButton productModel={m.name} productName={`Panel PC ${m.name}`} productDescription={`${m.screen} ${m.resolution} ${m.cooling}`} size="sm" variant="outline" />
+                      </td>
                     </tr>
                   );
                 })}

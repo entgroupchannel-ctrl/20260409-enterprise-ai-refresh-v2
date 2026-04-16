@@ -9,6 +9,8 @@ import {
   Download, Smartphone, Settings, Wifi, Eye, Layers, Store, BadgePercent, Printer, ScanLine, FileText,
   Filter, Star, Building2, Maximize, Lightbulb, Headphones
 } from "lucide-react";
+import AddToCartButton from "@/components/AddToCartButton";
+import CartBadge from "@/components/CartBadge";
 import ThemeToggle from "@/components/ThemeToggle";
 import logo from "@/assets/logo-entgroup.avif";
 import smartDisplayHero from "@/assets/smart-display-hero.jpg";
@@ -189,6 +191,7 @@ const SmartDisplay = () => {
             <span className="text-sm font-semibold text-foreground">Smart Display</span>
           </div>
           <div className="flex items-center gap-3">
+            <CartBadge />
             <ThemeToggle />
             <Link to="/" className="hidden md:inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
               <ArrowLeft size={16} /> กลับหน้าแรก
@@ -277,6 +280,7 @@ const SmartDisplay = () => {
                       className="mt-4 w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity">
                       <FileText size={14} /> ขอใบเสนอราคา
                     </button>
+                    <AddToCartButton productModel={p.model} productName={`${p.model} ${p.size}`} productDescription={`Smart Display ${p.type} ${p.size}`} size="sm" variant="outline" className="mt-2 w-full justify-center" />
                   </div>
                 ))}
               </div>
@@ -506,6 +510,7 @@ const SmartDisplay = () => {
                       className="mt-2 w-full inline-flex items-center justify-center gap-1 px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity">
                       <FileText size={12} /> ขอใบเสนอราคา
                     </button>
+                    <AddToCartButton productModel={`Outdoor Monitor ${s.size}`} productName={`Outdoor Monitor ${s.size}`} productDescription={`Outdoor Monitor ${s.size} ${s.nits}`} size="sm" variant="outline" className="mt-1 w-full justify-center" />
                   </div>
                 ))}
               </div>
