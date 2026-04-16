@@ -3026,35 +3026,46 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="bg-secondary/50">
-                        <th className="text-left p-3 font-semibold text-foreground">CPU</th>
-                        <th className="text-left p-3 font-semibold text-foreground">Configuration</th>
-                        <th className="text-right p-3 font-semibold text-foreground">ราคา</th>
-                        <th className="text-left p-3 font-semibold text-foreground">หมายเหตุ</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-border">
-                      {[
-                        { cpu: "i5-4200U", config: "RAM 4GB + SSD 128GB + WIFI", price: "19,490", remark: "" },
-                        { cpu: "i5-4200U", config: "RAM 4GB + SSD 256GB + WIFI", price: "20,090", remark: "" },
-                        { cpu: "i5-4200U", config: "RAM 8GB + SSD 128GB + WIFI", price: "19,790", remark: "" },
-                        { cpu: "i5-4200U", config: "RAM 8GB + SSD 128GB + WIFI", price: "22,690", remark: "รวม WIN 10 OEM + AC 5G WIFI" },
-                        { cpu: "i5-4200U", config: "RAM 8GB + SSD 256GB + WIFI", price: "20,490", remark: "" },
-                        { cpu: "i5-4200U", config: "RAM 8GB + SSD 512GB + WIFI", price: "22,090", remark: "" },
-                        { cpu: "i5-4200U", config: "RAM 8GB + SSD 1TB + WIFI", price: "28,690", remark: "" },
-                        { cpu: "i7-4500U", config: "RAM 4GB + SSD 128GB + WIFI", price: "22,090", remark: "" },
-                        { cpu: "i7-4500U", config: "RAM 4GB + SSD 256GB + WIFI", price: "22,690", remark: "" },
-                        { cpu: "i7-4500U", config: "RAM 8GB + SSD 128GB + WIFI", price: "22,690", remark: "" },
-                        { cpu: "i7-4500U", config: "RAM 8GB + SSD 256GB + WIFI", price: "23,390", remark: "" },
-                        { cpu: "i7-4500U", config: "RAM 8GB + SSD 256GB + 1TB SSD + WIFI", price: "28,590", remark: "" },
-                        { cpu: "i7-4500U", config: "RAM 8GB + SSD 512GB + WIFI", price: "24,690", remark: "" },
-                      ].map((item, i) => (
-                        <tr key={i} className="hover:bg-secondary/30 transition-colors">
-                          <td className="p-3 text-foreground font-medium">{item.cpu}</td>
-                          <td className="p-3 text-muted-foreground">{item.config}</td>
-                          <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
-                          <td className="p-3 text-xs text-muted-foreground">{item.remark}</td>
-                        </tr>
+                       <tr className="bg-secondary/50">
+                         <th className="text-left p-3 font-semibold text-foreground">CPU</th>
+                         <th className="text-left p-3 font-semibold text-foreground">Configuration</th>
+                         <th className="text-right p-3 font-semibold text-foreground">ราคา</th>
+                         <th className="text-left p-3 font-semibold text-foreground">หมายเหตุ</th>
+                         <th className="p-3 w-20"></th>
+                       </tr>
+                     </thead>
+                     <tbody className="divide-y divide-border">
+                       {[
+                         { cpu: "i5-4200U", config: "RAM 4GB + SSD 128GB + WIFI", price: "19,490", remark: "" },
+                         { cpu: "i5-4200U", config: "RAM 4GB + SSD 256GB + WIFI", price: "20,090", remark: "" },
+                         { cpu: "i5-4200U", config: "RAM 8GB + SSD 128GB + WIFI", price: "19,790", remark: "" },
+                         { cpu: "i5-4200U", config: "RAM 8GB + SSD 128GB + WIFI", price: "22,690", remark: "รวม WIN 10 OEM + AC 5G WIFI" },
+                         { cpu: "i5-4200U", config: "RAM 8GB + SSD 256GB + WIFI", price: "20,490", remark: "" },
+                         { cpu: "i5-4200U", config: "RAM 8GB + SSD 512GB + WIFI", price: "22,090", remark: "" },
+                         { cpu: "i5-4200U", config: "RAM 8GB + SSD 1TB + WIFI", price: "28,690", remark: "" },
+                         { cpu: "i7-4500U", config: "RAM 4GB + SSD 128GB + WIFI", price: "22,090", remark: "" },
+                         { cpu: "i7-4500U", config: "RAM 4GB + SSD 256GB + WIFI", price: "22,690", remark: "" },
+                         { cpu: "i7-4500U", config: "RAM 8GB + SSD 128GB + WIFI", price: "22,690", remark: "" },
+                         { cpu: "i7-4500U", config: "RAM 8GB + SSD 256GB + WIFI", price: "23,390", remark: "" },
+                         { cpu: "i7-4500U", config: "RAM 8GB + SSD 256GB + 1TB SSD + WIFI", price: "28,590", remark: "" },
+                         { cpu: "i7-4500U", config: "RAM 8GB + SSD 512GB + WIFI", price: "24,690", remark: "" },
+                       ].map((item, i) => {
+                         const specLabel = `GT5000 ${item.cpu} ${item.config}`;
+                         return (
+                         <tr key={i} className="hover:bg-secondary/30 transition-colors">
+                           <td className="p-3 text-foreground font-medium">{item.cpu}</td>
+                           <td className="p-3 text-muted-foreground">{item.config}</td>
+                           <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
+                           <td className="p-3 text-xs text-muted-foreground">{item.remark}</td>
+                           <td className="p-3">
+                             <div className="inline-flex items-center gap-1">
+                               <AddToCartButton productModel="GT5000" productName={specLabel} iconOnly variant="outline" />
+                               <QuoteRequestButton productModel="GT5000" productName={specLabel} iconOnly variant="outline" />
+                             </div>
+                           </td>
+                         </tr>
+                         );
+                       })}
                       ))}
                     </tbody>
                    </table>
