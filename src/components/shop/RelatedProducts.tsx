@@ -23,7 +23,7 @@ interface RelatedProductsProps {
 
 const STORAGE_KEY = 'recentlyViewed';
 
-export function addToRecentlyViewed(product: { id: string; slug: string; model: string; thumbnail_url: string | null; unit_price: number }) {
+export function addToRecentlyViewed(product: { id: string; slug: string; model: string; thumbnail_url: string | null; image_url?: string | null; unit_price: number }) {
   try {
     const viewed: any[] = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
     const filtered = viewed.filter((p: any) => p.id !== product.id);
@@ -33,6 +33,23 @@ export function addToRecentlyViewed(product: { id: string; slug: string; model: 
 }
 
 function fmt(n: number) { return n.toLocaleString('th-TH'); }
+
+async function enrichWithProductFiles(products: RelatedProduct[]): Promise<RelatedProduct[]> {
+  const idsWithoutImage = products.filter(p => !p.thumbnail_url && !p.image_url).map(p => p.id);
+  if (idsWithoutImage.length === 0) return products;
+  const { data: files } = await supabase.from('product_files')
+    .select('product_id, file_url, is_primary, display_order')
+    .in('product_id', idsWithoutImage)
+    .eq('file_type', 'image')
+    .order('display_order', { ascending: true });
+  if (!files || files.length === 0) return products;
+  const fileMap = new Map<string, string>();
+  for (const f of files) {
+    if (!fileMap.has(f.product_id)) fileMap.set(f.product_id, f.file_url);
+    if (f.is_primary) fileMap.set(f.product_id, f.file_url);
+  }
+  return products.map(p => fileMap.has(p.id) ? { ...p, image_url: fileMap.get(p.id)! } : p);
+}
 
 function ProductMiniCard({ p }: { p: RelatedProduct }) {
   const imgSrc = p.thumbnail_url || p.image_url || '/placeholder.svg';
@@ -69,18 +86,20 @@ export default function RelatedProducts({ currentProductId, series, category, ma
         .gt('unit_price', 0)
         .limit(maxItems);
       if (series) q = q.eq('series', series);
-      const { data } = await q;
-      if (data && data.length > 0) {
-        setRelated(data as RelatedProduct[]);
-      } else if (category) {
-        const { data: catData } = await supabase.from('products')
+      let { data } = await q;
+      if ((!data || data.length === 0) && category) {
+        const res = await supabase.from('products')
           .select('id, model, name, slug, thumbnail_url, image_url, unit_price, series')
           .eq('is_active', true)
           .eq('category', category)
           .neq('id', currentProductId)
           .gt('unit_price', 0)
           .limit(maxItems);
-        setRelated((catData || []) as RelatedProduct[]);
+        data = res.data;
+      }
+      if (data && data.length > 0) {
+        const enriched = await enrichWithProductFiles(data as RelatedProduct[]);
+        setRelated(enriched);
       }
     };
     fetchRelated();
