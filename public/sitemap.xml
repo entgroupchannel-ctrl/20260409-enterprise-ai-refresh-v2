@@ -1,212 +1,158 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <!-- ═══ Homepage ═══ -->
-  <url>
-    <loc>https://www.entgroup.co.th/</loc>
-    <lastmod>2026-04-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
+  <url><loc>https://www.entgroup.co.th/</loc><lastmod>2026-04-16</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
 
   <!-- ═══ Mini PC & Fanless PC ═══ -->
-  <url>
-    <loc>https://www.entgroup.co.th/gt-series</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.entgroup.co.th/gb-series</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.entgroup.co.th/mini-pc</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.entgroup.co.th/minipc-firewall</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
+  <url><loc>https://www.entgroup.co.th/gt-series</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.entgroup.co.th/gb-series</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.entgroup.co.th/mini-pc</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.entgroup.co.th/minipc-firewall</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
   <!-- ═══ Embedded / Box PC ═══ -->
-  <url>
-    <loc>https://www.entgroup.co.th/ibox-series</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.entgroup.co.th/epc-box-series</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.entgroup.co.th/epc-series</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
+  <url><loc>https://www.entgroup.co.th/ibox-series</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.entgroup.co.th/epc-box-series</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.entgroup.co.th/epc-series</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- ═══ iBox Product Details ═══ -->
+  <url><loc>https://www.entgroup.co.th/ibox-series/IBOX-601-GT-PRO</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/ibox-series/IBOX-602-GT-PRO</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/ibox-series/IBOX-601-GT-2P</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/ibox-series/IBOX-602-GT-2P</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/ibox-series/IBOX-007</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/ibox-series/IBOX-103-2L2C</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/ibox-series/IBOX-103-2L2C-J4125</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/ibox-series/IBOX-103-2L3C</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/ibox-series/IBOX-603-2L4C-1P</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/ibox-series/IBOX-205SBC-12TH</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/ibox-series/IBOX-103-4L2C-J4125</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/ibox-series/ATLAS-DR-ARM</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/ibox-series/IBOX-604-5L2C2P</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/ibox-series/IBOX-601-9L2C4P</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/ibox-series/IBOX-205-4L2C2P</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/ibox-series/VBOX-105-2L6C</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/ibox-series/AEOLUS-TL9-6L2C4P</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/ibox-series/AEOLUS-SV9-6L2C-1P</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/ibox-series/AEOLUS-SV9-6L2C</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/ibox-series/AEOLUS-SVA35-2L10C</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/ibox-series/KRONOS-SV6-4L8C</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/ibox-series/APOLLO-SV12-8P</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
   <!-- ═══ Panel PC & Display ═══ -->
-  <url>
-    <loc>https://www.entgroup.co.th/gk-series</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.entgroup.co.th/panel-pc-gtg</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.entgroup.co.th/smart-display</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.entgroup.co.th/utc-series</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
+  <url><loc>https://www.entgroup.co.th/gk-series</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.entgroup.co.th/panel-pc-gtg</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.entgroup.co.th/smart-display</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.entgroup.co.th/utc-series</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
-  <!-- ═══ Rugged ═══ -->
-  <url>
-    <loc>https://www.entgroup.co.th/rugged-tablet</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.entgroup.co.th/rugged-notebook</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.entgroup.co.th/handheld</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
+  <!-- ═══ Rugged Tablet ═══ -->
+  <url><loc>https://www.entgroup.co.th/rugged-tablet</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.entgroup.co.th/rugged-tablet/f9e</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/rugged-tablet/f9a</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/rugged-tablet/f7g</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/rugged-tablet/f7n</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/rugged-tablet/f8ct</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/rugged-tablet/f10</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/rugged-tablet/w109u</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/rugged-tablet/w10y</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/rugged-tablet/w10n</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/rugged-tablet/em-t195</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/rugged-tablet/f9r</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/rugged-tablet/f7r</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/rugged-tablet/f8r</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/rugged-tablet/f12r</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/rugged-tablet/a10st</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/rugged-tablet/a109t</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
-  <!-- ═══ AIO & Specialty ═══ -->
-  <url>
-    <loc>https://www.entgroup.co.th/aio</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.entgroup.co.th/waterproof-pc</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
+  <!-- ═══ Rugged Notebook ═══ -->
+  <url><loc>https://www.entgroup.co.th/rugged-notebook</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.entgroup.co.th/rugged-notebook/em-x15m</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/rugged-notebook/em-x15a</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/rugged-notebook/em-x14a</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/rugged-notebook/em-x14m</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/rugged-notebook/em-i22j</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/rugged-notebook/em-i22j-linux</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/rugged-notebook/w14u-a</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/rugged-notebook/w15u-t</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/rugged-notebook/w14u-s</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/rugged-notebook/w33u</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- ═══ Rugged Handheld ═══ -->
+  <url><loc>https://www.entgroup.co.th/handheld</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.entgroup.co.th/handheld/w65g</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/handheld/a55gt</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/handheld/p40at</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/handheld/a60t</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/handheld/p72t</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/handheld/em-t2-ultra</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/handheld/em-p2-pro</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/handheld/em-p1</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/handheld/w62h</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/handheld/p28t</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/handheld/p61g</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/handheld/p66g</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/handheld/em-t1-max</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/handheld/em-t195</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/handheld/a52t-cenava</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/handheld/a71t-cenava</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- ═══ AIO (All-in-One PC) ═══ -->
+  <url><loc>https://www.entgroup.co.th/aio</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.entgroup.co.th/aio/h10pro</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/aio/h10f</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/aio/h7a</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/aio/h108</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/aio/f10</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/aio/f15</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/aio/f3apl</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/aio/f11</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/aio/f6</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/aio/em-p18r</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/aio/em-pt21</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/aio/em-p21r</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/aio/em-p21j</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/aio/em-p21a</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/aio/em-p17r</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- ═══ Waterproof & Specialty ═══ -->
+  <url><loc>https://www.entgroup.co.th/waterproof-pc</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
   <!-- ═══ Network & Infrastructure ═══ -->
-  <url>
-    <loc>https://www.entgroup.co.th/volktek</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.entgroup.co.th/vcloudpoint</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.entgroup.co.th/cabinets</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
+  <url><loc>https://www.entgroup.co.th/volktek</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/vcloudpoint</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/cabinets</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
-  <!-- ═══ Promotions & Blog ═══ -->
-  <url>
-    <loc>https://www.entgroup.co.th/promotions</loc>
-    <lastmod>2026-04-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.entgroup.co.th/blog</loc>
-    <lastmod>2026-04-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.entgroup.co.th/case-studies</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
+  <!-- ═══ Blog ═══ -->
+  <url><loc>https://www.entgroup.co.th/blog</loc><lastmod>2026-04-16</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/blog/industrial-pc-for-business-nonthaburi</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.entgroup.co.th/blog/mini-pc-24-7-business</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.entgroup.co.th/blog/how-to-choose-panel-pc-for-scada</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.entgroup.co.th/blog/thin-client-vs-desktop-tco</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.entgroup.co.th/blog/rugged-tablet-vs-consumer-tablet</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
 
-  <!-- ═══ Shop / Storefront ═══ -->
-  <url>
-    <loc>https://www.entgroup.co.th/shop</loc>
-    <lastmod>2026-04-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
+  <!-- ═══ Case Studies ═══ -->
+  <url><loc>https://www.entgroup.co.th/case-studies</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/case-studies/airport-flight-info-display</loc><lastmod>2026-04-01</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.entgroup.co.th/case-studies/mrt-underground-system</loc><lastmod>2026-04-01</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.entgroup.co.th/case-studies/thaweephol-vcloudpoint</loc><lastmod>2026-04-01</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.entgroup.co.th/case-studies/shoe-manufacturer-it-services</loc><lastmod>2026-04-01</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.entgroup.co.th/case-studies/nanthanawich-school-vcloudpoint</loc><lastmod>2026-04-01</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.entgroup.co.th/case-studies/amata-spring-golf-club</loc><lastmod>2026-04-01</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.entgroup.co.th/case-studies/automotive-factory-panel-pc</loc><lastmod>2026-04-01</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.entgroup.co.th/case-studies/hospital-mini-pc-thin-client</loc><lastmod>2026-04-01</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.entgroup.co.th/case-studies/warehouse-rugged-tablet</loc><lastmod>2026-04-01</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+
+  <!-- ═══ Promotions & Shop ═══ -->
+  <url><loc>https://www.entgroup.co.th/promotions</loc><lastmod>2026-04-16</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.entgroup.co.th/shop</loc><lastmod>2026-04-16</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
 
   <!-- ═══ Company Pages ═══ -->
-  <url>
-    <loc>https://www.entgroup.co.th/about-us</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.entgroup.co.th/contact</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.entgroup.co.th/warrantys</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://www.entgroup.co.th/payment</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://www.entgroup.co.th/delivery</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
+  <url><loc>https://www.entgroup.co.th/about-us</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.entgroup.co.th/contact</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/warrantys</loc><lastmod>2026-04-01</lastmod><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.entgroup.co.th/payment</loc><lastmod>2026-04-01</lastmod><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.entgroup.co.th/delivery</loc><lastmod>2026-04-01</lastmod><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.entgroup.co.th/platform</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.entgroup.co.th/corporate-pricing</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
 
-  <!-- ═══ Platform ═══ -->
-  <url>
-    <loc>https://www.entgroup.co.th/platform</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.entgroup.co.th/corporate-pricing</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
 </urlset>
