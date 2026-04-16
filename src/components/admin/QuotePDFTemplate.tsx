@@ -352,6 +352,12 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
                 {salePerson.position && (
                   <p className="text-xs text-gray-600">{salePerson.position}</p>
                 )}
+                {salePerson.phone && (
+                  <p className="text-xs text-gray-500">โทร: {salePerson.phone}</p>
+                )}
+                {salePerson.email && (
+                  <p className="text-xs text-gray-500">{salePerson.email}</p>
+                )}
                 <p className="text-xs text-gray-500 mt-1">ผู้เสนอราคา</p>
               </div>
             </div>
