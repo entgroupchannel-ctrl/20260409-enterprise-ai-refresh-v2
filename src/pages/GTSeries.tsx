@@ -4891,6 +4891,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         <th className="text-left p-3 font-semibold text-foreground">RAM / SSD</th>
                         <th className="text-left p-3 font-semibold text-foreground">จุดเด่น</th>
                         <th className="text-right p-3 font-semibold text-foreground">ราคา (฿)</th>
+                        <th className="p-3"></th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-border">
@@ -4899,19 +4900,26 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         { cpu: "Intel Core i5-7260U", spec: "8GB DDR4 + SSD 256GB", highlight: "คุ้มค่าที่สุด มัลติทาสก์ดี", price: "22,900", tag: "ยอดนิยม" },
                         { cpu: "Intel Core i5-8250U", spec: "8GB DDR4 + SSD 256GB", highlight: "Gen 8 แรงขึ้น 40%", price: "23,900", tag: "" },
                         { cpu: "Intel Core i7-8550U", spec: "8GB DDR4 + SSD 256GB", highlight: "ท็อปสุด วิเคราะห์ข้อมูลหนัก", price: "25,900", tag: "" },
-                      ].map((item, i) => (
+                      ].map((item, i) => {
+                        const specLabel = `GT4500 ${item.cpu} / ${item.spec}`;
+                        return (
                         <tr key={i} className={`hover:bg-muted/30 transition-colors ${item.tag ? "bg-primary/5" : ""}`}>
-
                           <td className="p-3 font-medium text-foreground">
                             {item.cpu}
                             {item.tag && <span className="ml-2 text-xs text-primary font-bold">{item.tag}</span>}
-
                           </td>
                           <td className="p-3 text-muted-foreground">{item.spec}</td>
                           <td className="p-3 text-muted-foreground text-xs">{item.highlight}</td>
                           <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
+                          <td className="p-3">
+                            <div className="inline-flex items-center gap-1">
+                              <AddToCartButton productModel="GT4500" productName={specLabel} iconOnly variant="outline" />
+                              <QuoteRequestButton productModel="GT4500" productName={specLabel} iconOnly variant="outline" />
+                            </div>
+                          </td>
                         </tr>
-                      ))}
+                        );
+                      })}
                     </tbody>
                   </table>
                 </div>
@@ -5232,17 +5240,27 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                                 <th className="text-left p-3 font-semibold text-foreground">CPU</th>
                                 <th className="text-left p-3 font-semibold text-foreground">Configuration</th>
                                 <th className="text-right p-3 font-semibold text-foreground">ราคา</th>
+                                <th className="p-3"></th>
                               </tr>
                             </thead>
                             <tbody className="divide-y divide-border">
-                              {paged.map((item, i) => (
+                              {paged.map((item, i) => {
+                                const specLabel = `GT1400 ${item.cpu} / ${item.config}`;
+                                return (
                                 <tr key={start + i} className="hover:bg-secondary/30 transition-colors">
                                   <td className="p-3 text-muted-foreground">{start + i + 1}</td>
                                   <td className="p-3 text-foreground font-medium">{item.cpu}</td>
                                   <td className="p-3 text-muted-foreground">{item.config}</td>
                                   <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
+                                  <td className="p-3">
+                                    <div className="inline-flex items-center gap-1">
+                                      <AddToCartButton productModel="GT1400" productName={specLabel} iconOnly variant="outline" />
+                                      <QuoteRequestButton productModel="GT1400" productName={specLabel} iconOnly variant="outline" />
+                                    </div>
+                                  </td>
                                 </tr>
-                              ))}
+                                );
+                              })}
                             </tbody>
                           </table>
                         </div>
