@@ -2,7 +2,6 @@ import SEOHead from "@/components/SEOHead";
 import AddToCartButton from "@/components/AddToCartButton";
 import CartBadge from "@/components/CartBadge";
 import { useAuth } from "@/hooks/useAuth";
-import { usePendingQuote } from "@/hooks/usePendingQuote";
 import { Button } from "@/components/ui/button";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
 import B2BCTABanner from "@/components/B2BCTABanner";
