@@ -129,12 +129,16 @@ export const useAuth = () => {
     phone?: string,
     company?: string
   ) => {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${window.location.origin}/login`,
-        data: {
+    // Bypass Supabase's built-in SMTP entirely. Edge function creates the user
+    // via admin API (no email sent by Supabase) and delivers the confirmation
+    // email through Resend with our branded Thai template.
+    const { data, error } = await supabase.functions.invoke('send-auth-email-resend', {
+      body: {
+        email,
+        password,
+        type: 'signup',
+        redirectTo: `${window.location.origin}/login`,
+        metadata: {
           full_name,
           phone: phone || null,
           company: company || null,
@@ -142,21 +146,20 @@ export const useAuth = () => {
       },
     });
 
-    if (error) throw error;
-
-    // Backup: ส่งอีเมลยืนยันผ่าน Resend (custom Thai template)
-    // เผื่อกรณี auth-email-hook ของ Supabase ส่งไม่สำเร็จ/template เพี้ยน
-    try {
-      await supabase.functions.invoke('send-auth-email-resend', {
-        body: {
-          email,
-          type: 'signup',
-          redirectTo: `${window.location.origin}/login`,
-        },
-      });
-    } catch (e) {
-      console.warn('Backup signup email failed (non-fatal):', e);
+    if (error) {
+      // FunctionsHttpError: extract body message
+      const ctx = (error as any).context;
+      let msg = error.message || 'สมัครสมาชิกไม่สำเร็จ';
+      try {
+        if (ctx && typeof ctx.json === 'function') {
+          const body = await ctx.json();
+          if (body?.error) msg = body.error;
+        }
+      } catch { /* ignore */ }
+      throw new Error(msg);
     }
+
+    if (data?.error) throw new Error(data.error);
 
     return data;
   };

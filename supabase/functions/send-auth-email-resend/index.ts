@@ -137,7 +137,13 @@ Deno.serve(async (req) => {
 
   // For password reset, we allow unauthenticated requests (user forgot password)
   // but we validate the request body
-  let body: { email: string; type: string; redirectTo?: string }
+  let body: {
+    email: string
+    type: string
+    redirectTo?: string
+    password?: string
+    metadata?: Record<string, unknown>
+  }
   try {
     body = await req.json()
   } catch {
@@ -146,7 +152,7 @@ Deno.serve(async (req) => {
     })
   }
 
-  const { email, type, redirectTo } = body
+  const { email, type, redirectTo, password, metadata } = body
 
   if (!email || !type) {
     return new Response(JSON.stringify({ error: 'email and type are required' }), {
@@ -163,15 +169,47 @@ Deno.serve(async (req) => {
   const adminClient = createClient(supabaseUrl, serviceRoleKey)
 
   try {
+    // For signup with password: create user via admin API (no email sent by Supabase),
+    // then generate confirmation link manually. This bypasses Supabase's SMTP rate limit.
+    if (type === 'signup' && password) {
+      const { error: createErr } = await adminClient.auth.admin.createUser({
+        email,
+        password,
+        email_confirm: false, // require email confirmation via our link
+        user_metadata: metadata || {},
+      })
+
+      if (createErr) {
+        const code = (createErr as any).code || ''
+        const msg = createErr.message || ''
+        if (code === 'email_exists' || msg.toLowerCase().includes('already')) {
+          return new Response(JSON.stringify({ error: 'อีเมลนี้ถูกใช้สมัครสมาชิกแล้ว', code: 'email_exists' }), {
+            status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          })
+        }
+        console.error('createUser error:', createErr)
+        return new Response(JSON.stringify({ error: msg }), {
+          status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        })
+      }
+    }
+
     // Generate the action link using admin API (doesn't send email, no rate limit)
     const linkType = type === 'signup' ? 'signup' : type === 'recovery' ? 'recovery' : type === 'magiclink' ? 'magiclink' : type === 'invite' ? 'invite' : 'recovery'
-    
+
+    const linkOptions: Record<string, unknown> = {
+      redirectTo: redirectTo || 'https://www.entgroup.co.th/login',
+    }
+    // For signup, generateLink also requires password (uses existing user if same)
+    if (linkType === 'signup' && password) {
+      linkOptions.password = password
+      if (metadata) linkOptions.data = metadata
+    }
+
     let { data: linkData, error: linkError } = await adminClient.auth.admin.generateLink({
       type: linkType,
       email,
-      options: {
-        redirectTo: redirectTo || 'https://www.entgroup.co.th/login',
-      },
+      options: linkOptions,
     })
 
     // Fallback: if signup/invite fails because user already exists, use magiclink for testing
