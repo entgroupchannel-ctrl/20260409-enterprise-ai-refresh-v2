@@ -198,6 +198,12 @@ export default function AdminEmailTemplates() {
             <p style={{ fontSize: '12px', color: '#9ca3af', margin: '0 0 8px' }}>
               {editForm.footer_text || 'ข้อความท้ายอีเมล'}
             </p>
+            <p style={{ fontSize: '12px', color: '#9ca3af', margin: '0 0 4px', textAlign: 'center' }}>
+              Line: @entgroup | โทร: 02-045-6104 / 095-739-1053
+            </p>
+            <p style={{ fontSize: '12px', color: '#9ca3af', margin: '0 0 4px', textAlign: 'center' }}>
+              Email: sales@entgroup.co.th
+            </p>
             <p style={{ fontSize: '12px', color: '#9ca3af', margin: 0, textAlign: 'center' }}>
               © {siteName} — B2B Industrial Platform
             </p>
