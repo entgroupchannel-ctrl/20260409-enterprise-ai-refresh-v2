@@ -694,19 +694,19 @@ const GTSeries = () => {
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "GT Series", path: "/gt-series" }]} />
       <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
-        <div className="container max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+        <div className="container max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
           <div className="flex items-center gap-4">
-            <Link to="/" className="flex items-center gap-3">
+            <Link to="/" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors">
+              <ArrowLeft size={14} />
+              กลับหน้าหลัก
+            </Link>
+            <div className="h-6 w-px bg-border" />
+            <Link to="/" className="flex items-center">
               <img src={logo} alt="ENT GROUP" className="h-8 w-auto" />
             </Link>
-            <span className="text-muted-foreground">/</span>
-            <span className="text-sm font-semibold text-foreground">GT Series</span>
           </div>
           <div className="flex items-center gap-3">
             <ThemeToggle />
-            <Link to="/" className="hidden md:inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
-              <ArrowLeft size={16} /> กลับหน้าหลัก
-            </Link>
           </div>
         </div>
       </nav>
