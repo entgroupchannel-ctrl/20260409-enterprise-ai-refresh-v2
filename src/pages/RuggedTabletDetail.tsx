@@ -16,6 +16,7 @@ import FooterCompact from "@/components/FooterCompact";
 import LineQRButton from "@/components/LineQRButton";
 import ProductGallery from "@/components/ProductGallery";
 import { getTabletProduct, getRelatedTablets, type TabletDetailProduct } from "@/data/rugged-tablet-products";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 
 /* ───── Related Card ───── */
 const RelatedCard = ({ product }: { product: TabletDetailProduct }) => (
