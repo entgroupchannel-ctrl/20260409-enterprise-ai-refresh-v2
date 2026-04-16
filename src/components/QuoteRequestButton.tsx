@@ -254,7 +254,9 @@ export default function QuoteRequestButton({
     const quoteData = buildQuoteData();
     savePendingQuote(quoteData);
     setShowAuthGuard(false);
-    navigate(`${path}?redirect=/my-quotes`);
+    // Use current page + action=continue so the button can restore products after login
+    const returnUrl = `${location.pathname}${location.search ? location.search + '&' : '?'}action=continue`;
+    navigate(`${path}?redirect=${encodeURIComponent(returnUrl)}`);
   };
 
   const selectedModels = products.map((p) => p.model);

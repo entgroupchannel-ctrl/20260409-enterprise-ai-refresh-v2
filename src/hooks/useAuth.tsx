@@ -4,6 +4,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { User } from '@supabase/supabase-js';
 import type { UserRole } from '@/types/auth';
 import * as perms from '@/lib/permissions';
+import { getPendingQuote } from '@/hooks/usePendingQuote';
 
 interface UserProfile {
   id: string;
@@ -103,7 +104,14 @@ export const useAuth = () => {
       .eq('id', data.user.id)
       .maybeSingle();
 
-    // Redirect based on role
+    // Check for pending quote — redirect to continue flow instead of default
+    const pending = getPendingQuote();
+    if (pending && pending.products.length > 0) {
+      navigate('/request-quote?action=continue');
+      return data;
+    }
+
+    // Default: redirect based on role
     const staffRoles = ['super_admin', 'admin', 'sales', 'accountant', 'warehouse', 'viewer'];
     if (userData?.role && staffRoles.includes(userData.role)) {
       navigate('/admin/dashboard');
