@@ -31,7 +31,6 @@ const specItems = [
 const IBoxDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
   const product = id ? getIBoxProduct(id) : undefined;
   const relatedProducts = id ? getRelatedProducts(id) : [];
   const [selectedProducts] = useState<Set<string>>(new Set());
@@ -264,7 +263,6 @@ const IBoxDetail = () => {
                   product={p}
                   selectedProducts={selectedProducts}
                   toggleSelect={toggleSelect}
-                  onQuote={setQuoteProduct}
                 />
               ))}
             </div>

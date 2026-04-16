@@ -178,7 +178,6 @@ const useCasesData = [
 
 /* ═══════ Component ═══════ */
 const IBoxSeries = () => {
-  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
   const [selectedProducts, setSelectedProducts] = useState<Set<string>>(new Set());
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("popular");
@@ -404,7 +403,6 @@ const IBoxSeries = () => {
                     product={product}
                     selectedProducts={selectedProducts}
                     toggleSelect={toggleSelect}
-                    onQuote={setQuoteProduct}
                   />
                 ))}
               </div>

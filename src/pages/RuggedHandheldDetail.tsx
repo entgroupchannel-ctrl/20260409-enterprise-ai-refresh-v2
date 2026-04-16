@@ -291,7 +291,7 @@ const RuggedHandheldDetail = () => {
             <h2 className="text-xl font-display font-bold mb-6">สินค้าที่เกี่ยวข้อง</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {related.map((p) => (
-                <RelatedCard key={p.id} product={p} onQuote={setQuoteProduct} />
+                <RelatedCard key={p.id} product={p} />
               ))}
             </div>
           </div>

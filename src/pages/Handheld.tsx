@@ -99,10 +99,7 @@ const HandheldCard = ({
 /* ───── Main Page ───── */
 const Handheld = () => {
   const [filter, setFilter] = useState("all");
-  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
   const [selectedProducts, setSelectedProducts] = useState<Set<string>>(new Set());
-  const [showMultiQuote, setShowMultiQuote] = useState(false);
-
   const toggleSelect = useCallback((name: string) => {
     setSelectedProducts((prev) => {
       const next = new Set(prev);
@@ -235,7 +232,6 @@ const Handheld = () => {
                 product={p}
                 selected={selectedProducts.has(p.model)}
                 onToggleSelect={toggleSelect}
-                onQuote={setQuoteProduct}
               />
             ))}
           </div>

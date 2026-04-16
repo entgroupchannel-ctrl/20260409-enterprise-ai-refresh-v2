@@ -120,7 +120,6 @@ const AIOCard = ({
 const AllInOnePC = () => {
   const [osFilter, setOsFilter] = useState<AIOOS | "all">("all");
   const [catFilter, setCatFilter] = useState<AIOCategory | "all">("all");
-  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
   const [selectedProducts, setSelectedProducts] = useState<Set<string>>(new Set());
 
   const toggleSelect = useCallback((name: string) => {
@@ -292,7 +291,6 @@ const AllInOnePC = () => {
                   <AIOCard
                     key={p.id}
                     product={p}
-                    onQuote={setQuoteProduct}
                     selected={selectedProducts.has(p.model)}
                     onToggleSelect={toggleSelect}
                   />

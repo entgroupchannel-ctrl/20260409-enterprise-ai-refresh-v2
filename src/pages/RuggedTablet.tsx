@@ -288,10 +288,7 @@ const RuggedTablet = () => {
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("popular");
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
-  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
   const [selectedProducts, setSelectedProducts] = useState<Set<string>>(new Set());
-  const [showMultiQuote, setShowMultiQuote] = useState(false);
-
   const filtered = useMemo(() => {
     let result = [...tablets];
 
@@ -535,7 +532,6 @@ const RuggedTablet = () => {
                   <TabletCard
                     key={p.id}
                     product={p}
-                    onQuote={setQuoteProduct}
                     selected={selectedProducts.has(p.model)}
                     onToggleSelect={toggleSelect}
                   />

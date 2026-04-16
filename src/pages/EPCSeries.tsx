@@ -356,7 +356,6 @@ const EPCSeries = () => {
   const [activeCategory, setActiveCategory] = useState("overview");
   const [squarePage, setSquarePage] = useState(1);
   const [widePage, setWidePage] = useState(1);
-  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
   const [selectedProducts, setSelectedProducts] = useState<Set<string>>(new Set());
   const toggleSelect = (name: string) => {
     setSelectedProducts((prev) => {
@@ -462,7 +461,7 @@ const EPCSeries = () => {
             </h2>
             <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">เลือกมุมมอง สเปก / ราคา / ความคุ้มค่า พร้อมกรองตามประเภทจอและระดับ CPU</p>
           </div>
-          <EPCSeriesCompare onQuote={(name) => { setQuoteProduct(name); }} />
+          <EPCSeriesCompare />
         </div>
       </section>
 
@@ -581,7 +580,7 @@ const EPCSeries = () => {
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {squareModels.map((model) => (
-              <ModelCard key={model.id} model={model} onQuote={(name) => setQuoteProduct(name)} selected={selectedProducts.has(model.name)} onToggleSelect={toggleSelect} />
+              <ModelCard key={model.id} model={model} selected={selectedProducts.has(model.name)} onToggleSelect={toggleSelect} />
             ))}
           </div>
         </section>
@@ -596,7 +595,7 @@ const EPCSeries = () => {
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {wideModels.map((model) => (
-              <ModelCard key={model.id} model={model} onQuote={(name) => setQuoteProduct(name)} selected={selectedProducts.has(model.name)} onToggleSelect={toggleSelect} />
+              <ModelCard key={model.id} model={model} selected={selectedProducts.has(model.name)} onToggleSelect={toggleSelect} />
             ))}
           </div>
         </section>

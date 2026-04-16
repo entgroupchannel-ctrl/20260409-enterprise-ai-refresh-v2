@@ -748,8 +748,6 @@ const CategorySection = ({ id, title, subtitle, icon: Icon, models, onQuote }: {
 /* ── Main Page ── */
 const MiniPC = () => {
   const [activeCategory, setActiveCategory] = useState("entry");
-  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
-
   /* ── Price List Data & Filters ── */
   const allPriceItems = [
     { model: "K6-F1", cpu: "Intel N3160", ram: "4GB", storage: "128GB", price: "8,190", priceNum: 8190, category: "Entry-Level", cpuLevel: "Celeron/Atom" },
@@ -929,13 +927,13 @@ const MiniPC = () => {
 
         {/* All Sections */}
         <div className="space-y-16">
-          <CategorySection id="entry" title="Industrial Mini PC — Entry Level" subtitle="Fanless, ประหยัดไฟ, เหมาะงาน 24/7" icon={Zap} models={entryModels} onQuote={(name) => setQuoteProduct(name)} />
-          <CategorySection id="high" title="Industrial Mini PC — High Performance" subtitle="Core i5/i7, Tiger Lake, Workstation Class" icon={Cpu} models={highModels} onQuote={(name) => setQuoteProduct(name)} />
-          <CategorySection id="education" title="Mini PC for Education & Office" subtitle="สำนักงาน, โรงเรียน, Workstation ทดแทน" icon={Monitor} models={educationModels} onQuote={(name) => setQuoteProduct(name)} />
-          <CategorySection id="nano" title="Nano PC" subtitle="ขนาดจิ๋ว ประหยัดพลังงานสูงสุด" icon={HardDrive} models={nanoModels} onQuote={(name) => setQuoteProduct(name)} />
-          <CategorySection id="firewall" title="Firewall Appliance" subtitle="Multi-LAN Router, pfSense/OPNsense" icon={Shield} models={firewallModels} onQuote={(name) => setQuoteProduct(name)} />
-          <CategorySection id="signage" title="Digital Signage Player" subtitle="Android-based, X7/R9 Series" icon={Monitor} models={signageModels} onQuote={(name) => setQuoteProduct(name)} />
-          <CategorySection id="legacy" title="Budget Series — K6-F13" subtitle="ราคาประหยัด สำหรับงานพื้นฐาน" icon={Server} models={legacyModels} onQuote={(name) => setQuoteProduct(name)} />
+          <CategorySection id="entry" title="Industrial Mini PC — Entry Level" subtitle="Fanless, ประหยัดไฟ, เหมาะงาน 24/7" icon={Zap} models={entryModels} />
+          <CategorySection id="high" title="Industrial Mini PC — High Performance" subtitle="Core i5/i7, Tiger Lake, Workstation Class" icon={Cpu} models={highModels} />
+          <CategorySection id="education" title="Mini PC for Education & Office" subtitle="สำนักงาน, โรงเรียน, Workstation ทดแทน" icon={Monitor} models={educationModels} />
+          <CategorySection id="nano" title="Nano PC" subtitle="ขนาดจิ๋ว ประหยัดพลังงานสูงสุด" icon={HardDrive} models={nanoModels} />
+          <CategorySection id="firewall" title="Firewall Appliance" subtitle="Multi-LAN Router, pfSense/OPNsense" icon={Shield} models={firewallModels} />
+          <CategorySection id="signage" title="Digital Signage Player" subtitle="Android-based, X7/R9 Series" icon={Monitor} models={signageModels} />
+          <CategorySection id="legacy" title="Budget Series — K6-F13" subtitle="ราคาประหยัด สำหรับงานพื้นฐาน" icon={Server} models={legacyModels} />
 
           {/* Price List */}
           <section id="pricelist" className="scroll-mt-24">

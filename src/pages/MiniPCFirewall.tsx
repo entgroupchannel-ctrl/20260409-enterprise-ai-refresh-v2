@@ -748,8 +748,6 @@ const FirewallComparisonTable = () => {
 
 const MiniPCFirewall = () => {
   const [activeTier, setActiveTier] = useState<Tier | "all">("all");
-  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
-
   const filtered = activeTier === "all" ? models : models.filter((m) => m.tier === activeTier);
 
   return (
@@ -930,7 +928,7 @@ const MiniPCFirewall = () => {
           {/* Cards */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {filtered.map((m) => (
-              <ModelCard key={m.id} model={m} onQuote={setQuoteProduct} />
+              <ModelCard key={m.id} model={m} />
             ))}
           </div>
         </div>
