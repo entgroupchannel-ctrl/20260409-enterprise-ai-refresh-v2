@@ -217,13 +217,48 @@ export default function AdminQuoteDetail() {
   }, [quote?.products, quote?.discount_type, quote?.discount_percent, quote?.discount_amount, quote?.vat_percent]);
 
   const [assignedSaleUser, setAssignedSaleUser] = useState<any>(null);
+  const [staffList, setStaffList] = useState<any[]>([]);
+  const [assigningStaff, setAssigningStaff] = useState(false);
 
   useEffect(() => {
     if (id) {
       loadQuoteDetails();
       loadUserRole();
+      loadStaffList();
     }
   }, [id]);
+
+  const loadStaffList = async () => {
+    try {
+      const { data } = await (supabase as any)
+        .from('users')
+        .select('id, full_name, email, position, phone')
+        .in('role', ['super_admin', 'admin', 'sales'])
+        .eq('is_active', true)
+        .order('full_name');
+      setStaffList(data || []);
+    } catch (e) {
+      console.warn('Failed to load staff list:', e);
+    }
+  };
+
+  const handleAssignSale = async (userId: string | null) => {
+    if (!quote) return;
+    setAssigningStaff(true);
+    try {
+      const { error } = await supabase
+        .from('quote_requests')
+        .update({ assigned_to: userId } as any)
+        .eq('id', quote.id);
+      if (error) throw error;
+      setQuote({ ...quote, assigned_to: userId });
+      toast({ title: 'บันทึกแล้ว', description: userId ? 'มอบหมายผู้รับผิดชอบเรียบร้อย' : 'ยกเลิกการมอบหมายแล้ว' });
+    } catch (e: any) {
+      toast({ title: 'เกิดข้อผิดพลาด', description: e.message, variant: 'destructive' });
+    } finally {
+      setAssigningStaff(false);
+    }
+  };
 
   // Load assigned sale person
   useEffect(() => {
@@ -236,7 +271,7 @@ export default function AdminQuoteDetail() {
       try {
         const { data } = await (supabase as any)
           .from('users')
-          .select('id, full_name, email, position, avatar_url')
+          .select('id, full_name, email, position, avatar_url, phone')
           .eq('id', userId)
           .maybeSingle();
         setAssignedSaleUser(data);
@@ -731,37 +766,68 @@ export default function AdminQuoteDetail() {
                 </div>
               )}
               
-              {assignedSaleUser && (
-                <div className="pt-3 mt-2 border-t">
-                  <div className="flex items-center gap-2 mb-1.5">
+              {/* Sale Admin Assignment */}
+              <div className="pt-3 mt-2 border-t">
+                <div className="flex items-center justify-between mb-1.5">
+                  <div className="flex items-center gap-2">
                     <Briefcase className="w-3.5 h-3.5 text-muted-foreground" />
                     <span className="text-xs text-muted-foreground font-semibold">ผู้รับผิดชอบ</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    {assignedSaleUser.avatar_url ? (
-                      <img 
-                        src={assignedSaleUser.avatar_url} 
-                        alt={assignedSaleUser.full_name}
-                        className="w-8 h-8 rounded-full object-cover"
-                      />
-                    ) : (
-                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                        <User className="w-4 h-4 text-primary" />
-                      </div>
-                    )}
-                    <div className="flex-1 min-w-0">
-                      <div className="font-semibold text-sm truncate">
-                        {assignedSaleUser.full_name || assignedSaleUser.email}
-                      </div>
-                      {assignedSaleUser.position && (
-                        <div className="text-[10px] text-muted-foreground truncate">
-                          {assignedSaleUser.position}
+                  <Pencil className="w-3 h-3 text-muted-foreground cursor-pointer" />
+                </div>
+                <select
+                  className="w-full text-xs border rounded px-2 py-1.5 bg-background text-foreground mb-2"
+                  value={quote.assigned_to || ''}
+                  disabled={assigningStaff}
+                  onChange={(e) => handleAssignSale(e.target.value || null)}
+                >
+                  <option value="">— ยังไม่มอบหมาย —</option>
+                  {staffList.map((s) => (
+                    <option key={s.id} value={s.id}>
+                      {s.full_name || s.email} {s.position ? `(${s.position})` : ''}
+                    </option>
+                  ))}
+                </select>
+                {assignedSaleUser && (
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      {assignedSaleUser.avatar_url ? (
+                        <img 
+                          src={assignedSaleUser.avatar_url} 
+                          alt={assignedSaleUser.full_name}
+                          className="w-8 h-8 rounded-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                          <User className="w-4 h-4 text-primary" />
                         </div>
                       )}
+                      <div className="flex-1 min-w-0">
+                        <div className="font-semibold text-sm truncate">
+                          {assignedSaleUser.full_name || assignedSaleUser.email}
+                        </div>
+                        {assignedSaleUser.position && (
+                          <div className="text-[10px] text-muted-foreground truncate">
+                            {assignedSaleUser.position}
+                          </div>
+                        )}
+                      </div>
                     </div>
+                    {assignedSaleUser.phone && (
+                      <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                        <Phone className="w-3 h-3" />
+                        <span>{assignedSaleUser.phone}</span>
+                      </div>
+                    )}
+                    {assignedSaleUser.email && (
+                      <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                        <Mail className="w-3 h-3" />
+                        <span className="truncate">{assignedSaleUser.email}</span>
+                      </div>
+                    )}
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </CardContent>
           </Card>
         </div>

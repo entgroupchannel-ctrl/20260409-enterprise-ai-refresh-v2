@@ -55,6 +55,8 @@ interface QuotePDFTemplateProps {
     position: string | null;
     signature_url: string | null;
     show_signature_on_quotes: boolean | null;
+    phone: string | null;
+    email: string | null;
   };
   bankAccounts?: Array<{
     bank_name: string;
@@ -349,6 +351,12 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
                 <p className="text-sm font-medium">{salePerson.full_name || 'พนักงานขาย'}</p>
                 {salePerson.position && (
                   <p className="text-xs text-gray-600">{salePerson.position}</p>
+                )}
+                {salePerson.phone && (
+                  <p className="text-xs text-gray-500">โทร: {salePerson.phone}</p>
+                )}
+                {salePerson.email && (
+                  <p className="text-xs text-gray-500">{salePerson.email}</p>
                 )}
                 <p className="text-xs text-gray-500 mt-1">ผู้เสนอราคา</p>
               </div>

@@ -80,6 +80,8 @@ interface Quote {
   accepted_at: string | null;
   accepted_by: string | null;
   expired_at: string | null;
+  assigned_to: string | null;
+  created_by: string | null;
 }
 
 interface Message {
@@ -124,6 +126,7 @@ export default function MyQuoteDetail() {
   const [showPrintPreview, setShowPrintPreview] = useState(false);
   const [currentRevision, setCurrentRevision] = useState<any>(null);
   const [relatedInvoices, setRelatedInvoices] = useState<any[]>([]);
+  const [assignedSaleUser, setAssignedSaleUser] = useState<{ full_name: string | null; phone: string | null; email: string | null; position: string | null } | null>(null);
 
   useEffect(() => {
     if (id && user) {
@@ -132,6 +135,25 @@ export default function MyQuoteDetail() {
       loadPOFiles();
     }
   }, [id, user]);
+
+  // Load assigned sale person for customer view
+  useEffect(() => {
+    const loadSaleAdmin = async () => {
+      const userId = (quote as any)?.assigned_to || (quote as any)?.created_by;
+      if (!userId) { setAssignedSaleUser(null); return; }
+      try {
+        const { data } = await (supabase as any)
+          .from('users')
+          .select('full_name, phone, email, position')
+          .eq('id', userId)
+          .maybeSingle();
+        setAssignedSaleUser(data);
+      } catch (e) {
+        console.warn('Failed to load sale person:', e);
+      }
+    };
+    loadSaleAdmin();
+  }, [(quote as any)?.assigned_to, (quote as any)?.created_by]);
 
   // Load current revision status for action bar guard (Bug 8)
   useEffect(() => {
@@ -751,6 +773,38 @@ export default function MyQuoteDetail() {
                         <p className="text-sm text-foreground whitespace-pre-wrap">{quote.notes}</p>
                       </div>
                     </>
+                  )}
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Sale Admin Contact */}
+            {assignedSaleUser && (
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <MessageSquare className="w-4 h-4 text-primary" />
+                    ผู้รับผิดชอบใบเสนอราคา
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  <p className="text-sm font-semibold text-foreground">
+                    {assignedSaleUser.full_name || 'พนักงานขาย'}
+                  </p>
+                  {assignedSaleUser.position && (
+                    <p className="text-xs text-muted-foreground">{assignedSaleUser.position}</p>
+                  )}
+                  {assignedSaleUser.phone && (
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <Mail className="w-3 h-3" />
+                      <a href={`tel:${assignedSaleUser.phone}`} className="hover:underline">{assignedSaleUser.phone}</a>
+                    </div>
+                  )}
+                  {assignedSaleUser.email && (
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <Mail className="w-3 h-3" />
+                      <a href={`mailto:${assignedSaleUser.email}`} className="hover:underline">{assignedSaleUser.email}</a>
+                    </div>
                   )}
                 </CardContent>
               </Card>
