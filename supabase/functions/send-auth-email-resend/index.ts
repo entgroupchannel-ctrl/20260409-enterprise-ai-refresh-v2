@@ -160,13 +160,25 @@ Deno.serve(async (req) => {
     // Generate the action link using admin API (doesn't send email, no rate limit)
     const linkType = type === 'signup' ? 'signup' : type === 'recovery' ? 'recovery' : type === 'magiclink' ? 'magiclink' : type === 'invite' ? 'invite' : 'recovery'
     
-    const { data: linkData, error: linkError } = await adminClient.auth.admin.generateLink({
+    let { data: linkData, error: linkError } = await adminClient.auth.admin.generateLink({
       type: linkType,
       email,
       options: {
         redirectTo: redirectTo || 'https://www.entgroup.co.th/login',
       },
     })
+
+    // Fallback: if signup/invite fails because user already exists, use magiclink for testing
+    if (linkError && (linkError as any).code === 'email_exists') {
+      console.log(`User exists, falling back to magiclink for test: ${email}`)
+      const fallback = await adminClient.auth.admin.generateLink({
+        type: 'magiclink',
+        email,
+        options: { redirectTo: redirectTo || 'https://www.entgroup.co.th/login' },
+      })
+      linkData = fallback.data
+      linkError = fallback.error
+    }
 
     if (linkError) {
       console.error('generateLink error:', linkError)
