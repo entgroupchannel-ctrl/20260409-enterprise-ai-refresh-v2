@@ -69,6 +69,7 @@ const AdminCustomersList = lazyRetry(() => import("./pages/admin/AdminCustomersL
 const AdminCustomerDetail = lazyRetry(() => import("./pages/admin/AdminCustomerDetail"));
 const AdminEmployeeDetail = lazyRetry(() => import("./pages/admin/AdminEmployeeDetail"));
 const AdminEmployeeNew = lazyRetry(() => import("./pages/admin/AdminEmployeeNew"));
+const AdminRoles = lazyRetry(() => import("./pages/admin/AdminRoles"));
 const AdminAuditLog = lazyRetry(() => import("./pages/admin/AdminAuditLog"));
 const AdminSaleOrders = lazyRetry(() => import("./pages/admin/AdminSaleOrders"));
 const AdminRequests = lazyRetry(() => import("./pages/admin/AdminRequests"));
@@ -213,6 +214,7 @@ const App = () => (
                     <Route path="/admin/permissions" element={<ProtectedRoute requireAdmin><AdminPermissions /></ProtectedRoute>} />
                     <Route path="/admin/employees" element={<ProtectedRoute allowedRoles={['super_admin', 'admin']}><AdminEmployees /></ProtectedRoute>} />
                     <Route path="/admin/employees/new" element={<ProtectedRoute allowedRoles={['super_admin']}><AdminEmployeeNew /></ProtectedRoute>} />
+                    <Route path="/admin/employees/roles" element={<ProtectedRoute allowedRoles={['super_admin', 'admin']}><AdminRoles /></ProtectedRoute>} />
                     <Route path="/admin/employees/:id" element={<ProtectedRoute allowedRoles={['super_admin', 'admin']}><AdminEmployeeDetail /></ProtectedRoute>} />
                     <Route path="/admin/customers" element={<ProtectedRoute requireSales><AdminCustomersList /></ProtectedRoute>} />
                     <Route path="/admin/customers/:id" element={<ProtectedRoute requireSales><AdminCustomerDetail /></ProtectedRoute>} />
