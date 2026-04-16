@@ -6184,14 +6184,22 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
           <span className="text-muted-foreground">{model.ports}</span>
         </div>
       </div>
-      <div className="mt-3 pt-3 border-t border-border flex items-center justify-between">
-        {model.price ? (
-          <div>
-            <span className="text-sm text-muted-foreground">เริ่มต้น </span>
-            <span className="font-bold text-foreground">{model.price.startsWith("สอบถาม") ? model.price : `฿${model.price}`}</span>
-          </div>
-        ) : <div />}
-        <div onClick={(e) => e.stopPropagation()}>
+      <div className="mt-3 pt-3 border-t border-border">
+        <div className="flex items-center justify-between mb-2">
+          {model.price ? (
+            <div>
+              <span className="text-sm text-muted-foreground">เริ่มต้น </span>
+              <span className="font-bold text-foreground">{model.price.startsWith("สอบถาม") ? model.price : `฿${model.price}`}</span>
+            </div>
+          ) : <div />}
+        </div>
+        <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
+          <QuoteRequestButton
+            productModel={model.name}
+            productName={`${model.name} — ${model.tagline}`}
+            size="sm"
+            className="flex-1"
+          />
           <AddToCartButton
             productModel={model.name}
             productName={`${model.name} — ${model.tagline}`}
@@ -6199,6 +6207,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
             estimatedPrice={model.price && !model.price.startsWith("สอบถาม") ? Number(model.price.replace(/,/g, '')) : undefined}
             size="sm"
             variant="outline"
+            iconOnly
           />
         </div>
       </div>
