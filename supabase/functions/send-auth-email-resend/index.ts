@@ -87,10 +87,11 @@ function EmailTemplate({ settings, templateType, confirmationUrl, recipient, ema
     React.createElement(Body, { style: main },
       React.createElement(Container, { style: container },
         React.createElement(Section, { style: header },
-          settings.logo_url
-            ? React.createElement(Img, { src: settings.logo_url, alt: siteName, style: { maxHeight: '40px', margin: '0 auto 8px' } })
-            : null,
-          React.createElement(Heading, { style: logo }, siteName),
+          React.createElement('a', { href: 'https://www.entgroup.co.th', style: logoLink },
+            settings.logo_url
+              ? React.createElement(Img, { src: settings.logo_url, alt: siteName, style: logoImg })
+              : React.createElement(Heading, { style: logo }, siteName),
+          ),
         ),
         React.createElement(Heading, { style: h1Style }, settings.heading || ''),
         React.createElement(Text, { style: textStyle }, bodyText),
