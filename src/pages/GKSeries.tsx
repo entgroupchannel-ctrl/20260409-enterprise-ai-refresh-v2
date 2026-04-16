@@ -10,6 +10,8 @@ import ThemeToggle from "@/components/ThemeToggle";
 import logo from "@/assets/logo-entgroup.avif";
 import FooterCompact from "@/components/FooterCompact";
 import { LineQRDialog } from "@/components/LineQRDialog";
+import AddToCartButton from "@/components/AddToCartButton";
+import CartBadge from "@/components/CartBadge";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
 import ProductGallery from "@/components/ProductGallery";
 import gk1506img1 from "@/assets/gk-series/gk1506-1.jpg";
@@ -678,12 +680,20 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
           <h3 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-1">{model.name}</h3>
           <p className="text-sm text-muted-foreground mb-1">{model.screenSize} • {model.resolution} • {model.platform}</p>
           <p className="text-muted-foreground mb-4 leading-relaxed">{model.desc}</p>
-          <button
-            onClick={() => onQuote(model.name)}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors mb-6">
-            <ExternalLink size={14} /> ขอใบเสนอราคา {model.name}
-
-          </button>
+          <div className="flex items-center gap-3 mb-6 flex-wrap">
+            <button
+              onClick={() => onQuote(model.name)}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">
+              <ExternalLink size={14} /> ขอใบเสนอราคา {model.name}
+            </button>
+            <AddToCartButton
+              productModel={model.name}
+              productName={`${model.name} — ${model.tagline}`}
+              productDescription={`${model.name} ${model.screenSize} ${model.resolution} ${model.platform}`}
+              size="sm"
+              variant="outline"
+            />
+          </div>
 
           {/* Highlights */}
           <ul className="space-y-2 mb-6">
@@ -1043,11 +1053,18 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
 
             <div className="px-4 py-4 text-sm font-medium text-foreground flex items-center">ขอใบเสนอราคา</div>
             {visibleIndices.map(i => (
-              <div key={i} className="px-3 py-4 text-center border-l border-border">
+              <div key={i} className="px-3 py-4 text-center border-l border-border flex flex-col items-center gap-2">
                 <button onClick={() => onQuote(comparisonData.models[i])}
                   className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold hover:bg-primary/90 transition-colors">
                   ขอราคา {comparisonData.models[i]}
                 </button>
+                <AddToCartButton
+                  productModel={comparisonData.models[i]}
+                  productName={`GK Series — ${comparisonData.models[i]}`}
+                  productDescription={`GK Series Panel PC ${comparisonData.models[i]}`}
+                  size="sm"
+                  variant="outline"
+                />
               </div>
             ))}
           </div>
@@ -1228,6 +1245,9 @@ const GKSeries = () => {
                 {m.name} <span className="text-muted-foreground text-xs">({m.screenSize})</span>
               </a>
             ))}
+            <div className="ml-auto shrink-0">
+              <CartBadge />
+            </div>
           </div>
         </div>
       </section>

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { IBoxProduct } from "@/data/ibox-products";
+import AddToCartButton from "@/components/AddToCartButton";
 
 interface IBoxProductCardProps {
   product: IBoxProduct;
@@ -98,6 +99,16 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
             <FileText className="w-3.5 h-3.5 mr-1" />
             ขอราคา
           </Button>
+        </div>
+        <div className="mt-2">
+          <AddToCartButton
+            productModel={product.name}
+            productName={`${product.name} — ${product.nameTH}`}
+            productDescription={`${product.name} ${product.specs.cpu} ${product.specs.temp}`}
+            size="sm"
+            variant="outline"
+            className="w-full justify-center"
+          />
         </div>
       </div>
     </div>
