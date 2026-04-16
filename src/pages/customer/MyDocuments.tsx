@@ -263,7 +263,7 @@ export default function MyDocuments() {
                       <div className="space-y-1">
                         <h3 className="font-semibold">เอกสารถูกล็อกอยู่</h3>
                         <p className="text-xs text-muted-foreground leading-relaxed">
-                          เอกสารบริษัท ENT จะปลดล็อกอัตโนมัติ
+                          เอกสารบริษัท ENT GROUP จะปลดล็อกอัตโนมัติ
                           เมื่อใบเสนอราคาของคุณได้รับการอนุมัติครั้งแรก
                           (รวมถึงสถานะถัดไป เช่น ออก PO / ใบแจ้งหนี้ / ชำระเงิน)
                         </p>
