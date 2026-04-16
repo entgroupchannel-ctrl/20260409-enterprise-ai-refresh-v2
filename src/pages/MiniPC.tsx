@@ -1033,7 +1033,7 @@ const MiniPC = () => {
                           <TableCell className="text-right font-semibold text-foreground">{r.price}</TableCell>
                           <TableCell className="text-right">
                             <div className="flex items-center justify-end gap-1">
-                              <QuoteRequestButton productModel={r.model} productName={r.model} size="sm" variant="ghost" className="text-xs" />
+                              <QuoteRequestButton productModel={r.model} productName={r.model} size="sm" variant="outline" className="text-xs" />
                               <AddToCartButton productModel={r.model} productName={r.model} productDescription={r.category} size="sm" variant="outline" />
                             </div>
                           </TableCell>
