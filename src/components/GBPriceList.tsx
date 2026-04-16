@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, FileText, Search, X, DollarSign } from "lucide-react";
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, FileText, Search, X, DollarSign, ShoppingCart } from "lucide-react";
+import AddToCartButton from "@/components/AddToCartButton";
 
 /* ───── Price Data ───── */
 type PriceItem = {
@@ -264,6 +265,7 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
                   {currentTab.hasRemark && (
                     <th className="px-4 py-3 text-left font-semibold text-muted-foreground w-[160px]">Remark</th>
                   )}
+                  <th className="px-4 py-3 text-center font-semibold text-muted-foreground w-[140px]"></th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
@@ -280,6 +282,18 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
                     {currentTab.hasRemark && (
                       <td className="px-4 py-2.5 text-muted-foreground text-xs">{item.remark || ""}</td>
                     )}
+                    <td className="px-4 py-2.5 text-center">
+                      {activeTab !== "windows" && (
+                        <AddToCartButton
+                          productModel={activeTab.toUpperCase()}
+                          productName={`${activeTab.toUpperCase()} — ${item.config}`}
+                          productDescription={item.config}
+                          estimatedPrice={typeof item.price === "number" ? item.price : undefined}
+                          size="sm"
+                          variant="outline"
+                        />
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>
