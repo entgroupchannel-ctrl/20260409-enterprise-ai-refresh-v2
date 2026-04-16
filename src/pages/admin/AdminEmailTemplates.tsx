@@ -125,37 +125,18 @@ export default function AdminEmailTemplates() {
     if (!testEmail) return;
     setSendingTest(true);
     try {
-      // For signup/magiclink types, use Supabase Auth OTP to trigger the auth-email-hook
-      if (activeTab === 'signup' || activeTab === 'magiclink') {
-        const { error } = await supabase.auth.signInWithOtp({
+      // Send via Resend directly (bypasses Supabase rate limit)
+      const { data, error } = await supabase.functions.invoke('send-auth-email-resend', {
+        body: {
           email: testEmail,
-          options: { shouldCreateUser: false },
-        });
-        if (error && error.message !== 'Signups not allowed for otp') {
-          // If user doesn't exist, try resend signup confirmation
-          const { error: resendErr } = await supabase.auth.resend({
-            type: 'signup',
-            email: testEmail,
-          });
-          if (resendErr) {
-            toast({ title: 'ส่งไม่สำเร็จ', description: resendErr.message, variant: 'destructive' });
-            setSendingTest(false);
-            return;
-          }
-        }
-        toast({ title: 'ส่งสำเร็จ ✓', description: `ส่งอีเมลทดสอบไปยัง ${testEmail} แล้ว กรุณาตรวจสอบกล่องจดหมาย` });
-      } else if (activeTab === 'recovery') {
-        const { error } = await supabase.auth.resetPasswordForEmail(testEmail, {
+          type: activeTab,
           redirectTo: `${window.location.origin}/login`,
-        });
-        if (error) {
-          toast({ title: 'ส่งไม่สำเร็จ', description: error.message, variant: 'destructive' });
-          setSendingTest(false);
-          return;
-        }
-        toast({ title: 'ส่งสำเร็จ ✓', description: `ส่งอีเมลรีเซ็ตรหัสผ่านไปยัง ${testEmail} แล้ว` });
+        },
+      });
+      if (error) {
+        toast({ title: 'ส่งไม่สำเร็จ', description: error.message || 'เกิดข้อผิดพลาด', variant: 'destructive' });
       } else {
-        toast({ title: 'ไม่รองรับ', description: `ประเภท "${activeTab}" ไม่สามารถส่งทดสอบโดยตรงได้ ใช้ได้เฉพาะ Signup และ Recovery`, variant: 'destructive' });
+        toast({ title: 'ส่งสำเร็จ ✓ (Resend)', description: `ส่งอีเมล ${activeTab} ไปยัง ${testEmail} ผ่าน Resend แล้ว` });
       }
     } catch (err: any) {
       toast({ title: 'ส่งไม่สำเร็จ', description: err?.message || 'เกิดข้อผิดพลาด', variant: 'destructive' });
