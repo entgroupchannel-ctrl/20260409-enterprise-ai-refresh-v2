@@ -766,37 +766,67 @@ export default function AdminQuoteDetail() {
                 </div>
               )}
               
-              {assignedSaleUser && (
-                <div className="pt-3 mt-2 border-t">
-                  <div className="flex items-center gap-2 mb-1.5">
+              {/* Sale Admin Assignment */}
+              <div className="pt-3 mt-2 border-t">
+                <div className="flex items-center justify-between mb-1.5">
+                  <div className="flex items-center gap-2">
                     <Briefcase className="w-3.5 h-3.5 text-muted-foreground" />
                     <span className="text-xs text-muted-foreground font-semibold">ผู้รับผิดชอบ</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    {assignedSaleUser.avatar_url ? (
-                      <img 
-                        src={assignedSaleUser.avatar_url} 
-                        alt={assignedSaleUser.full_name}
-                        className="w-8 h-8 rounded-full object-cover"
-                      />
-                    ) : (
-                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                        <User className="w-4 h-4 text-primary" />
-                      </div>
-                    )}
-                    <div className="flex-1 min-w-0">
-                      <div className="font-semibold text-sm truncate">
-                        {assignedSaleUser.full_name || assignedSaleUser.email}
-                      </div>
-                      {assignedSaleUser.position && (
-                        <div className="text-[10px] text-muted-foreground truncate">
-                          {assignedSaleUser.position}
+                  <Pencil className="w-3 h-3 text-muted-foreground cursor-pointer" />
+                </div>
+                <select
+                  className="w-full text-xs border rounded px-2 py-1.5 bg-background text-foreground mb-2"
+                  value={quote.assigned_to || ''}
+                  disabled={assigningStaff}
+                  onChange={(e) => handleAssignSale(e.target.value || null)}
+                >
+                  <option value="">— ยังไม่มอบหมาย —</option>
+                  {staffList.map((s) => (
+                    <option key={s.id} value={s.id}>
+                      {s.full_name || s.email} {s.position ? `(${s.position})` : ''}
+                    </option>
+                  ))}
+                </select>
+                {assignedSaleUser && (
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      {assignedSaleUser.avatar_url ? (
+                        <img 
+                          src={assignedSaleUser.avatar_url} 
+                          alt={assignedSaleUser.full_name}
+                          className="w-8 h-8 rounded-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                          <User className="w-4 h-4 text-primary" />
                         </div>
                       )}
+                      <div className="flex-1 min-w-0">
+                        <div className="font-semibold text-sm truncate">
+                          {assignedSaleUser.full_name || assignedSaleUser.email}
+                        </div>
+                        {assignedSaleUser.position && (
+                          <div className="text-[10px] text-muted-foreground truncate">
+                            {assignedSaleUser.position}
+                          </div>
+                        )}
+                      </div>
                     </div>
+                    {assignedSaleUser.phone && (
+                      <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                        <Phone className="w-3 h-3" />
+                        <span>{assignedSaleUser.phone}</span>
+                      </div>
+                    )}
+                    {assignedSaleUser.email && (
+                      <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                        <Mail className="w-3 h-3" />
+                        <span className="truncate">{assignedSaleUser.email}</span>
+                      </div>
+                    )}
                   </div>
-                </div>
-              )}
+                )}
             </CardContent>
           </Card>
         </div>
