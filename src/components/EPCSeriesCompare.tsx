@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { Monitor, Cpu, DollarSign, TrendingUp, Filter, FileText, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 
 /* ───── Data ───── */
 type EPCModel = {
@@ -228,9 +229,7 @@ const EPCSeriesCompare = ({ onQuote }: Props) => {
                       )}
 
                       <td className="px-3 py-2.5">
-                        <button onClick={() => onQuote(m.name)} className="text-primary hover:text-primary/80 transition-colors" title="ขอใบเสนอราคา">
-                          <FileText size={14} />
-                        </button>
+                        <QuoteRequestButton productModel={m.name} productName={m.name} size="sm" variant="outline" />
                       </td>
                     </tr>
                   );
