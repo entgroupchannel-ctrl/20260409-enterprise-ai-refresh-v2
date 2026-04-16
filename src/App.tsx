@@ -73,11 +73,6 @@ const AdminSaleOrders = lazyRetry(() => import("./pages/admin/AdminSaleOrders"))
 const AdminRequests = lazyRetry(() => import("./pages/admin/AdminRequests"));
 const AdminApprovals = lazyRetry(() => import("./pages/admin/AdminApprovals"));
 const ProductsList = lazyRetry(() => import("./pages/admin/ProductsList"));
-const ProductImport = lazyRetry(() => import("./pages/admin/ProductImport"));
-const GTImagesImport = lazyRetry(() => import("./pages/admin/GTImagesImport"));
-const EPCImagesImport = lazyRetry(() => import("./pages/admin/EPCImagesImport"));
-const ProductMigrationReview = lazyRetry(() => import("./pages/admin/ProductMigrationReview"));
-const MigrateDatasheets = lazyRetry(() => import("./pages/admin/MigrateDatasheets"));
 const AdminQuotesTrash = lazyRetry(() => import("./pages/admin/AdminQuotesTrash"));
 const AdminTrash = lazyRetry(() => import("./pages/admin/AdminTrash"));
 const AdminDocuments = lazyRetry(() => import("./pages/admin/AdminDocuments"));
@@ -237,11 +232,6 @@ const App = () => (
                     <Route path="/admin/requests" element={<ProtectedRoute requireAdmin><AdminRequests /></ProtectedRoute>} />
                     <Route path="/admin/approvals" element={<ProtectedRoute requireSuperAdmin><AdminApprovals /></ProtectedRoute>} />
                     <Route path="/admin/products" element={<ProtectedRoute requireSales><ProductsList /></ProtectedRoute>} />
-                    <Route path="/admin/products/import" element={<ProtectedRoute requireSales><ProductImport /></ProtectedRoute>} />
-                    <Route path="/admin/gt-images-import" element={<ProtectedRoute requireSales><GTImagesImport /></ProtectedRoute>} />
-                    <Route path="/admin/epc-images-import" element={<ProtectedRoute requireSales><EPCImagesImport /></ProtectedRoute>} />
-                    <Route path="/admin/product-migration" element={<ProtectedRoute requireSuperAdmin><ProductMigrationReview /></ProtectedRoute>} />
-                    <Route path="/admin/migrate-datasheets" element={<ProtectedRoute requireSuperAdmin><MigrateDatasheets /></ProtectedRoute>} />
                     <Route path="/admin/settings/company" element={<ProtectedRoute requireSales><AdminCompanySettings /></ProtectedRoute>} />
                     <Route path="/admin/suppliers" element={<ProtectedRoute requireSales><AdminSupplierManagement /></ProtectedRoute>} />
                     <Route path="/admin/suppliers/:id" element={<ProtectedRoute requireSales><AdminSupplierDetail /></ProtectedRoute>} />
