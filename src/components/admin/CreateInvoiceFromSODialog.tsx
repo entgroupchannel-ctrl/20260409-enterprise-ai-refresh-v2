@@ -301,6 +301,21 @@ export default function CreateInvoiceFromSODialog({
         if (itemsErr) throw itemsErr;
       }
 
+      // Notify customer about invoice
+      if (quote?.customer_email) {
+        import('@/lib/notifications').then(({ sendTransactionalEmail }) => {
+          sendTransactionalEmail({
+            templateName: 'invoice-created',
+            recipientEmail: quote.customer_email,
+            idempotencyKey: `invoice-created-${invoice.id}`,
+            templateData: {
+              customerName: quote.customer_name,
+              invoiceNumber: invoice.invoice_number,
+            },
+          });
+        });
+      }
+
       toast({
         title: '✅ สร้างใบวางบิลสำเร็จ',
         description: `${invoice.invoice_number} • ${formatCurrency(invoice.grand_total)}`,

@@ -117,6 +117,34 @@ export default function AdminInvoiceDetail() {
         .eq('id', invoice.id);
       if (error) throw error;
       
+      // Notify customer when invoice is sent
+      if (newStatus === 'sent' && invoice.customer_id) {
+        import('@/lib/notifications').then(({ createNotification, sendTransactionalEmail }) => {
+          createNotification({
+            userId: invoice.customer_id!,
+            type: 'invoice_sent',
+            title: 'คุณมีใบแจ้งหนี้ใหม่',
+            message: `ใบแจ้งหนี้ ${invoice.invoice_number} พร้อมให้ตรวจสอบแล้ว`,
+            priority: 'high',
+            actionUrl: `/my-account/invoices/${invoice.id}`,
+            actionLabel: 'ดูใบแจ้งหนี้',
+            linkType: 'invoice',
+            linkId: invoice.id,
+          });
+          if (invoice.customer_email) {
+            sendTransactionalEmail({
+              templateName: 'invoice-created',
+              recipientEmail: invoice.customer_email,
+              idempotencyKey: `invoice-sent-${invoice.id}`,
+              templateData: {
+                customerName: invoice.customer_name,
+                invoiceNumber: invoice.invoice_number,
+              },
+            });
+          }
+        });
+      }
+
       toast({
         title: '✅ อัปเดตสถานะสำเร็จ',
         description: `เปลี่ยนเป็น "${STATUS_LABELS[newStatus]?.label || newStatus}"`,

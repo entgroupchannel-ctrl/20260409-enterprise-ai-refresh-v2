@@ -41,6 +41,20 @@ const POUploadForm = ({ quoteId, onSuccess }: POUploadFormProps) => {
       // Update quote status
       await (supabase.from as any)("quote_requests").update({ status: "po_uploaded" }).eq("id", quoteId);
 
+      // Notify admins about new PO upload
+      import('@/lib/notifications').then(({ notifyAdmins }) => {
+        notifyAdmins({
+          type: 'po_uploaded',
+          title: 'ลูกค้าอัปโหลด PO ใหม่',
+          message: `มี PO ใหม่รอตรวจสอบ`,
+          priority: 'high',
+          actionUrl: `/admin/quotes/${quoteId}`,
+          actionLabel: 'ตรวจสอบ PO',
+          linkType: 'quote',
+          linkId: quoteId,
+        });
+      });
+
       toast({ title: "อัปโหลด PO สำเร็จ" });
       setFile(null);
       onSuccess?.();

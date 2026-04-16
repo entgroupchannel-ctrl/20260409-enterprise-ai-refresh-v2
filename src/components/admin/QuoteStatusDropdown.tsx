@@ -105,6 +105,28 @@ export default function QuoteStatusDropdown({
         message_type: 'status_change',
       });
 
+      // Notify customer about status change
+      const { data: quoteData } = await supabase
+        .from('quote_requests')
+        .select('created_by, quote_number, customer_name')
+        .eq('id', quoteId)
+        .maybeSingle();
+
+      if (quoteData?.created_by) {
+        import('@/lib/notifications').then(({ createNotification }) => {
+          createNotification({
+            userId: quoteData.created_by!,
+            type: 'quote_status_change',
+            title: `สถานะใบเสนอราคาเปลี่ยนแปลง`,
+            message: `${quoteData.quote_number} เปลี่ยนเป็น "${statusOptions.find(s => s.value === newValue)?.label}"`,
+            actionUrl: `/my-account/quotes/${quoteId}`,
+            actionLabel: 'ดูรายละเอียด',
+            linkType: 'quote',
+            linkId: quoteId,
+          });
+        });
+      }
+
       toast({
         title: 'เปลี่ยนสถานะสำเร็จ',
         description: `อัปเดตเป็น "${statusOptions.find(s => s.value === newValue)?.label}"`,

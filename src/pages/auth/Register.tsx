@@ -35,6 +35,19 @@ export default function Register() {
     setLoading(true);
     try {
       await signUp(formData.email, formData.password, formData.full_name, formData.phone, formData.company);
+      
+      // Notify admins about new registration
+      import('@/lib/notifications').then(({ notifyAdmins }) => {
+        notifyAdmins({
+          type: 'new_member',
+          title: 'สมาชิกใหม่สมัครเข้าระบบ',
+          message: `${formData.full_name || formData.email} (${formData.company || 'ไม่ระบุบริษัท'})`,
+          priority: 'normal',
+          actionUrl: '/admin/customers',
+          actionLabel: 'ดูรายชื่อลูกค้า',
+        });
+      });
+
       toast({ title: 'สมัครสมาชิกสำเร็จ!', description: 'กำลังนำคุณไปยังหน้า Login...' });
       setTimeout(() => navigate('/login'), 2000);
     } catch (error: unknown) {

@@ -230,10 +230,24 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
         }).then(() => {});
       }
 
-      // Send auto-reply email (best-effort, don't block on failure)>
-      supabase.functions.invoke('send-auto-reply', {
-        body: { type: 'contact', name: form.name, email: form.email },
-      }).catch((err) => console.warn('Auto-reply email failed:', err));
+      // Notify admins about new contact form submission
+      import('@/lib/notifications').then(({ notifyAdmins, sendTransactionalEmail }) => {
+        notifyAdmins({
+          type: 'new_contact',
+          title: 'มีข้อความใหม่จากฟอร์มติดต่อ',
+          message: `${form.name} (${form.email}) — ${form.message.substring(0, 80)}`,
+          priority: 'high',
+          actionUrl: '/admin/contacts',
+          actionLabel: 'ดูรายละเอียด',
+        });
+        // Send confirmation email to customer
+        sendTransactionalEmail({
+          templateName: 'contact-confirmation',
+          recipientEmail: form.email,
+          idempotencyKey: `contact-confirm-${Date.now()}`,
+          templateData: { customerName: form.name },
+        });
+      });
 
       setSubmitted(true);
       toast({ title: i.submitSuccess, description: i.submitSuccessDesc });

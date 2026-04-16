@@ -35,6 +35,7 @@ interface Quote {
   subtotal: number;
   vat_amount: number;
   grand_total: number;
+  created_by?: string | null;
 }
 
 interface CreateSaleOrderDialogProps {
@@ -123,6 +124,23 @@ export default function CreateSaleOrderDialog({ open, onOpenChange, quote, onSuc
         content: `✅ สร้าง Sale Order ${soData.so_number} เรียบร้อยแล้ว — กระบวนการขายเสร็จสิ้น`,
         message_type: 'status_change',
       });
+
+      // Notify customer
+      if (quote.created_by) {
+        import('@/lib/notifications').then(({ createNotification }) => {
+          createNotification({
+            userId: quote.created_by!,
+            type: 'sale_order_created',
+            title: 'สร้าง Sale Order แล้ว',
+            message: `Sale Order ${soData.so_number} สำหรับ ${quote.quote_number} ถูกสร้างเรียบร้อย`,
+            priority: 'high',
+            actionUrl: `/my-account/orders`,
+            actionLabel: 'ดู Sale Order',
+            linkType: 'sale_order',
+            linkId: soData.id,
+          });
+        });
+      }
 
       toast({ title: 'สร้าง Sale Order สำเร็จ', description: `เลขที่: ${soData.so_number}` });
       onOpenChange(false);
