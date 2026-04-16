@@ -4,6 +4,8 @@ import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ExternalLink, Droplets, Shield, ThermometerSun, Cpu, Monitor, FileText, ShieldCheck, Waves, SprayCanIcon, Fan, Cog } from "lucide-react";
+import AddToCartButton from "@/components/AddToCartButton";
+import CartBadge from "@/components/CartBadge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -334,6 +336,7 @@ const WaterproofPC = () => {
                     <Button size="sm" onClick={() => setQuoteProduct("Waterproof PC IP69K")}>
                       <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
                     </Button>
+                    <AddToCartButton productModel={m.model} productName={m.name} productDescription={`${m.model} — ${Object.values(m.specs).slice(0, 3).join(", ")}`} size="sm" variant="outline" />
                   </div>
                 </div>
               </div>
