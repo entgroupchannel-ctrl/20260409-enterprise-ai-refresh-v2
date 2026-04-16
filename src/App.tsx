@@ -124,6 +124,7 @@ const AdminLiveChat = lazyRetry(() => import("./pages/admin/AdminLiveChat"));
 const AdminGeneralChat = lazyRetry(() => import("./pages/admin/AdminGeneralChat"));
 const AdminReports = lazyRetry(() => import("./pages/admin/AdminReports"));
 const AdminSubscribers = lazyRetry(() => import("./pages/admin/AdminSubscribers"));
+const AdminEmailTemplates = lazyRetry(() => import("./pages/admin/AdminEmailTemplates"));
 
 /* ── Loading fallback ── */
 const PageLoader = () => (
