@@ -42,11 +42,12 @@ export default function PrintPreviewDialog({
   const loadExtraData = async () => {
     setLoadingExtra(true);
     try {
-      // Load sale person from REVISION.created_by
-      if (revision?.created_by) {
+      // Load sale person from quote.assigned_to first, fallback to revision.created_by
+      const saleUserId = quote?.assigned_to || revision?.created_by;
+      if (saleUserId) {
         const { data: userData } = await (supabase as any).from('users')
-          .select('full_name, position, signature_url, show_signature_on_quotes')
-          .eq('id', revision.created_by)
+          .select('full_name, position, signature_url, show_signature_on_quotes, phone, email')
+          .eq('id', saleUserId)
           .maybeSingle();
         setSalePerson(userData);
       }

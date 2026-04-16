@@ -55,6 +55,8 @@ interface QuotePDFTemplateProps {
     position: string | null;
     signature_url: string | null;
     show_signature_on_quotes: boolean | null;
+    phone: string | null;
+    email: string | null;
   };
   bankAccounts?: Array<{
     bank_name: string;
