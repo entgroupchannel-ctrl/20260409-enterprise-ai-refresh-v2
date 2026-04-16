@@ -159,12 +159,12 @@ const priceLists = [
 
 const SmartDisplay = () => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(() => {
     const tab = searchParams.get("tab");
     return tab === "kiosk" || tab === "outdoor" ? tab : "indoor";
   });
   const [showLineQR, setShowLineQR] = useState(false);
-  const [quoteOpen, setQuoteOpen] = useState(false);
   const [videoTab, setVideoTab] = useState("smart-display");
   const [podcastTab, setPodcastTab] = useState("smart-display");
 
