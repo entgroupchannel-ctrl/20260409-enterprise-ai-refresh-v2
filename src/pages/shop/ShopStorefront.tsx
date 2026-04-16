@@ -323,26 +323,33 @@ const ShopStorefront = () => {
               </div>
             </div>
 
-            {/* Right: Series quick-nav pills */}
-            <div className="flex-shrink-0 w-full lg:w-80">
-              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3 text-center lg:text-left">เลือกตาม Series</p>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-2">
+            {/* Right: Series quick-nav with images */}
+            <div className="flex-shrink-0 w-full lg:w-[420px]">
+              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3 text-center lg:text-left">เลือกดูตาม Product Line</p>
+              <p className="text-[11px] text-muted-foreground mb-4 text-center lg:text-left">แต่ละ Series มีสเปก Use Case และราคาที่แตกต่างกัน เลือกดูรายละเอียดได้เลย</p>
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-2.5">
                 {seriesNavItems.map(s => (
                   <button
                     key={s.id}
                     onClick={() => { setSeriesFilter([s.id]); setPage(1); }}
                     className={cn(
-                      'flex items-center gap-2.5 p-3 rounded-xl border text-left transition-all hover:-translate-y-0.5',
+                      'group relative rounded-xl overflow-hidden border text-left transition-all hover:-translate-y-1 hover:shadow-lg h-[88px]',
                       seriesFilter.includes(s.id)
-                        ? 'bg-primary/10 border-primary/50 text-primary'
-                        : 'bg-card border-border hover:border-primary/30 hover:bg-muted/50'
+                        ? 'border-primary ring-2 ring-primary/30'
+                        : 'border-border hover:border-primary/40'
                     )}
                   >
-                    <span className="text-lg">{s.icon}</span>
-                    <div>
-                      <div className="text-xs font-bold">{s.label}</div>
-                      <div className="text-[10px] text-muted-foreground">{s.sub}</div>
+                    <img src={s.image} alt={s.label} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
+                    <div className="relative h-full flex flex-col justify-end p-2.5">
+                      <div className="text-xs font-bold text-white">{s.label}</div>
+                      <div className="text-[10px] text-white/70">{s.sub}</div>
                     </div>
+                    {seriesFilter.includes(s.id) && (
+                      <div className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-primary flex items-center justify-center">
+                        <CircleCheckBig size={12} className="text-primary-foreground" />
+                      </div>
+                    )}
                   </button>
                 ))}
               </div>
