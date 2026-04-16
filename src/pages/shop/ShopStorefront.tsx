@@ -97,30 +97,53 @@ const ShopStorefront = () => {
           });
 
           // Query product_files for primary images (covers products uploaded via FileManagerModal)
-          const { data: productFiles } = await (supabase as any)
+          const { data: productFiles, error: pfError } = await supabase
             .from('product_files')
             .select('product_id, file_url, is_primary, display_order')
             .in('product_id', productIds)
             .eq('file_type', 'image')
             .order('display_order', { ascending: true });
 
-          // Build map: product_id → best image URL (prefer is_primary)
+          if (pfError) console.warn('[Shop] product_files query error:', pfError.message);
+
+          // Build map: product_id → best image URL (prefer is_primary, then first by display_order)
           const fileImgByProduct: Record<string, string> = {};
-          (productFiles || []).forEach((f: any) => {
+          (productFiles || []).forEach((f) => {
             const existing = fileImgByProduct[f.product_id];
             if (!existing || f.is_primary) {
               fileImgByProduct[f.product_id] = f.file_url;
             }
           });
 
-          const enriched = data.map(p => ({
-            ...p,
-            variant_count: variantCounts[p.id] || 0,
-            starting_price: minPriceByProduct[p.id] || p.unit_price,
-            // Prefer product_files primary → thumbnail_url → image_url
-            thumbnail_url: fileImgByProduct[p.id] || p.thumbnail_url || p.image_url,
-            image_url: fileImgByProduct[p.id] || p.image_url,
-          }));
+          // Series-level fallback images — shown when no image is in DB or product_files
+          // These reference files in /public or bundled @/assets (via Vite import would need separate step)
+          const seriesFallback: Record<string, string> = {
+            'GT Series':   '/images/gt1000/product-angle1.jpg',
+            'GK Series':   '/product-placeholder.svg',
+            'GB Series':   '/product-placeholder.svg',
+            'GTY Series':  '/product-placeholder.svg',
+            'Mini PC':     '/product-placeholder.svg',
+            'Firewall':    '/product-placeholder.svg',
+            'Rugged':      '/product-placeholder.svg',
+            'IBox':        '/product-placeholder.svg',
+            'EPC Series':  '/product-placeholder.svg',
+            'UTC Series':  '/product-placeholder.svg',
+            'AIO':         '/product-placeholder.svg',
+          };
+
+          const enriched = data.map(p => {
+            const fileImg = fileImgByProduct[p.id];
+            const dbImg = p.thumbnail_url || p.image_url;
+            const fallback = (p.series && seriesFallback[p.series]) || '/product-placeholder.svg';
+            const resolvedImg = fileImg || dbImg || fallback;
+            return {
+              ...p,
+              variant_count: variantCounts[p.id] || 0,
+              starting_price: minPriceByProduct[p.id] || p.unit_price,
+              thumbnail_url: resolvedImg,
+              image_url: fileImg || p.image_url || fallback,
+            };
+          });
           setProducts(enriched as Product[]);
         } else {
           setProducts(data as Product[]);
