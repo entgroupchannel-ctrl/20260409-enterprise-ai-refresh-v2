@@ -46,6 +46,7 @@ const seriesNavItems = [
   { id: 'GB Series', label: 'GB Series', icon: '⚡', sub: 'Performance PC', link: '/gb-series' },
   { id: 'GK Series', label: 'GK Series', icon: '🖥️', sub: 'Panel PC', link: '/gk-series' },
   { id: 'EPC Series', label: 'EPC Series', icon: '📦', sub: 'Box PC', link: '/epc-box-series' },
+  { id: 'iBox Series', label: 'iBox Series', icon: '🔧', sub: 'Embedded PC', link: '/ibox-series' },
   { id: 'Mini PC', label: 'Mini PC', icon: '💻', sub: 'Compact Desktop', link: '/mini-pc' },
   { id: 'Rugged', label: 'Rugged', icon: '🔒', sub: 'IP65/67 Tablet', link: '/rugged-tablet' },
   { id: 'Firewall', label: 'Firewall', icon: '🛡️', sub: 'Multi-LAN Router', link: '/minipc-firewall' },
