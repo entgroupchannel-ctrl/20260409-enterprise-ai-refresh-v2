@@ -3,7 +3,7 @@ import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import { useState, useEffect } from "react";
 import { LineQRDialog } from "@/components/LineQRDialog";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import {
   ArrowLeft, Sun, Shield, Monitor, Cpu, Phone, MessageCircle,
   Download, Smartphone, Settings, Wifi, Eye, Layers, Store, BadgePercent, Printer, ScanLine, FileText,
@@ -276,7 +276,7 @@ const SmartDisplay = () => {
                     </div>
                     <p className="text-sm text-muted-foreground">{p.type}</p>
                     <button
-                      onClick={() => setQuoteOpen(true)}
+                      onClick={() => navigate("/contact-us")}
                       className="mt-4 w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity">
                       <FileText size={14} /> ขอใบเสนอราคา
                     </button>
@@ -413,7 +413,7 @@ const SmartDisplay = () => {
                             <td className="p-3 text-right font-bold text-primary">{item.price}</td>
                             <td className="p-3 text-right">
                               <button
-                                onClick={() => setQuoteOpen(true)}
+                                onClick={() => navigate("/contact-us")}
                                 className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity">
                                 <FileText size={12} /> ขอราคา
                               </button>
@@ -506,7 +506,7 @@ const SmartDisplay = () => {
                       <Download size={12} /> Datasheet
                     </a>
                     <button
-                      onClick={() => setQuoteOpen(true)}
+                      onClick={() => navigate("/contact-us")}
                       className="mt-2 w-full inline-flex items-center justify-center gap-1 px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity">
                       <FileText size={12} /> ขอใบเสนอราคา
                     </button>
@@ -574,7 +574,7 @@ const SmartDisplay = () => {
                     </div>
                     <div className="flex flex-wrap gap-3">
                       <button
-                        onClick={() => setQuoteOpen(true)}
+                        onClick={() => navigate("/contact-us")}
                         className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity">
                         <FileText size={18} /> ขอใบเสนอราคา KIOSK
                       </button>
@@ -682,7 +682,7 @@ const SmartDisplay = () => {
                     <h3 className="font-bold text-foreground mb-1">{k.title}</h3>
                     <p className="text-sm text-muted-foreground mb-3">{k.desc}</p>
                     <button
-                      onClick={() => setQuoteOpen(true)}
+                      onClick={() => navigate("/contact-us")}
                       className="w-full inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity">
                       <FileText size={14} /> ขอใบเสนอราคา
                     </button>
@@ -810,7 +810,7 @@ const SmartDisplay = () => {
                         <h4 className="font-bold text-foreground mb-1">{k.title}</h4>
                         <p className="text-sm text-muted-foreground mb-3">{k.desc}</p>
                         <button
-                          onClick={() => setQuoteOpen(true)}
+                          onClick={() => navigate("/contact-us")}
                           className="inline-flex items-center gap-2 text-sm text-primary font-semibold hover:underline">
                           <FileText size={14} /> ขอใบเสนอราคา
                         </button>
@@ -924,7 +924,7 @@ const SmartDisplay = () => {
                 </p>
                 <div className="flex flex-wrap justify-center gap-3">
                   <button
-                    onClick={() => setQuoteOpen(true)}
+                    onClick={() => navigate("/contact-us")}
                     className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-lg hover:opacity-90 transition-opacity">
                     <FileText size={20} /> ขอใบเสนอราคา KIOSK
                   </button>
@@ -959,7 +959,7 @@ const SmartDisplay = () => {
                       ))}
                     </div>
                     <button
-                      onClick={() => setQuoteOpen(true)}
+                      onClick={() => navigate("/contact-us")}
                       className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-bold hover:opacity-90 transition-opacity">
                       <FileText size={16} /> ขอใบเสนอราคา
                     </button>
@@ -1247,7 +1247,7 @@ const SmartDisplay = () => {
           </h2>
           <p className="text-muted-foreground mb-8">แอดมินพร้อมช่วยเหลือในการออกแบบตู้สำหรับติดตั้ง ระบบ AirFlow และเลือกจอภาพที่เหมาะสม</p>
           <div className="flex flex-wrap justify-center gap-4 mb-10">
-            <button onClick={() => setQuoteOpen(true)} className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:bg-primary/90 transition-colors">
+            <button onClick={() => navigate("/contact-us")} className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:bg-primary/90 transition-colors">
               ขอใบเสนอราคา
             </button>
             <a href="tel:020456104" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-secondary transition-colors">
