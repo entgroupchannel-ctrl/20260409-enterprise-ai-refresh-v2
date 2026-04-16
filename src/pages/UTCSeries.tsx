@@ -8,6 +8,8 @@ import {
   Download, ExternalLink, ChevronDown, Factory, Building2, Stethoscope,
   ShoppingCart, Truck, Square, RectangleHorizontal, Settings, Award
 } from "lucide-react";
+import AddToCartButton from "@/components/AddToCartButton";
+import CartBadge from "@/components/CartBadge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ThemeToggle from "@/components/ThemeToggle";
 import logo from "@/assets/logo-entgroup.avif";
@@ -229,6 +231,7 @@ const UTCSeries = () => {
             <img src={logo} alt="ENT GROUP" className="h-7 w-auto dark:invert" />
           </div>
           <div className="flex items-center gap-3">
+            <CartBadge />
             <ThemeToggle />
           </div>
         </div>

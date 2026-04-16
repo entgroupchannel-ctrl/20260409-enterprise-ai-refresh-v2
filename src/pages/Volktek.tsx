@@ -4,6 +4,8 @@ import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ExternalLink, Shield, Zap, Network, Server, ThermometerSun, Globe, FileText, Youtube, ThumbsUp, Play } from "lucide-react";
+import AddToCartButton from "@/components/AddToCartButton";
+import CartBadge from "@/components/CartBadge";
 import ShareButtons from "@/components/ShareButtons";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -166,6 +168,7 @@ const Volktek = () => {
               <Button size="sm" onClick={() => setQuoteProduct("Volktek Switch")}>
                 <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
               </Button>
+              <AddToCartButton productModel="Volktek Switch" productName="Volktek Industrial Switch" productDescription="สวิตช์อุตสาหกรรม Volktek" size="sm" variant="outline" />
             </div>
           </div>
         </div>

@@ -8,6 +8,8 @@ import {
   ExternalLink, Factory, Wrench, FileText, ChevronRight,
   Ruler, Send, Loader2, Settings,
 } from "lucide-react";
+import AddToCartButton from "@/components/AddToCartButton";
+import CartBadge from "@/components/CartBadge";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -267,6 +269,7 @@ const Cabinets = () => {
                   <Button size="sm" className="w-full" onClick={() => setQuoteProduct(model.name)}>
                     <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
                   </Button>
+                  <AddToCartButton productModel={model.name} productName={model.name} productDescription={`Cabinet ${model.panelModel} ${model.material} ${model.protection}`} size="sm" variant="outline" className="w-full justify-center mt-2" />
                 </div>
               </div>
             ))}
