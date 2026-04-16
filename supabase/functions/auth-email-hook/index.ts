@@ -122,6 +122,8 @@ function DynamicEmail({ settings, templateType, confirmationUrl, recipient, emai
             : null,
         React.createElement(Hr, { style: hrStyle }),
         React.createElement(Text, { style: footer }, settings.footer_text || ''),
+        React.createElement(Text, { style: contactInfo }, 'Line: @entgroup | โทร: 02-045-6104 / 095-739-1053'),
+        React.createElement(Text, { style: contactInfo }, 'Email: sales@entgroup.co.th'),
         React.createElement(Text, { style: footerBrand }, `© ${siteName} — B2B Industrial Platform`),
       ),
     ),
