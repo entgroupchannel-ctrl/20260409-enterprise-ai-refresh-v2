@@ -46,14 +46,12 @@ interface CompanySettings {
 }
 
 export default function AdminCompanySettings() {
-  const { profile } = useAuth();
+  const { profile, isSuperAdmin } = useAuth();
   const { toast } = useToast();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploadingLogo, setUploadingLogo] = useState(false);
   const [settings, setSettings] = useState<CompanySettings | null>(null);
-
-  const isSuperAdmin = profile?.role === 'admin';
 
   useEffect(() => {
     loadSettings();
