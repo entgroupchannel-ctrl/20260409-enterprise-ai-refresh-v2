@@ -162,6 +162,7 @@ export const useAuth = () => {
     loading,
     signIn,
     signUp,
+    signInWithGoogle,
     signOut,
     isAuthenticated: !!user,
     
