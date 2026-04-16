@@ -11,9 +11,10 @@ interface AddToCartButtonProps {
   productDescription?: string;
   estimatedPrice?: number;
   variant?: 'default' | 'outline' | 'secondary';
-  size?: 'default' | 'sm' | 'lg';
+  size?: 'default' | 'sm' | 'lg' | 'icon';
   className?: string;
   showQuantity?: boolean;
+  iconOnly?: boolean;
 }
 
 export default function AddToCartButton({
@@ -25,6 +26,7 @@ export default function AddToCartButton({
   size = 'default',
   className = '',
   showQuantity = false,
+  iconOnly = false,
 }: AddToCartButtonProps) {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -60,9 +62,9 @@ export default function AddToCartButton({
           <button className="px-2 py-1 hover:bg-muted transition-colors" onClick={() => setQty(qty + 1)}><Plus size={14} /></button>
         </div>
       )}
-      <Button variant={variant} size={size} onClick={handleAdd} disabled={adding}>
-        <ShoppingCart className="w-4 h-4 mr-2" />
-        {adding ? 'กำลังเพิ่ม...' : 'เพิ่มเข้าตะกร้า'}
+      <Button variant={variant} size={iconOnly ? 'icon' : size} onClick={handleAdd} disabled={adding} title="เพิ่มเข้าตะกร้า">
+        <ShoppingCart className={iconOnly ? "w-4 h-4" : "w-4 h-4 mr-2"} />
+        {!iconOnly && (adding ? 'กำลังเพิ่ม...' : 'เพิ่มเข้าตะกร้า')}
       </Button>
     </div>
   );
