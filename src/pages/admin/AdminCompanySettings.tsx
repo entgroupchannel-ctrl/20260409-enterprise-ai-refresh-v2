@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import AdminLayout from '@/layouts/AdminLayout';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -8,12 +8,13 @@ import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Separator } from '@/components/ui/separator';
+import { Badge } from '@/components/ui/badge';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
 import {
   Building2, Globe, FileText, Banknote, ImageIcon, Save,
-  Upload, AlertCircle, Loader2
+  Upload, AlertCircle, Loader2, Plus, Trash2, Star
 } from 'lucide-react';
 
 interface CompanySettings {
@@ -45,6 +46,21 @@ interface CompanySettings {
   default_vat_percent: number;
 }
 
+interface BankAccount {
+  id: string;
+  bank_name: string;
+  account_number: string;
+  account_name: string;
+  branch: string | null;
+  account_type: string | null;
+  is_default: boolean;
+  is_active: boolean;
+  display_order: number | null;
+  swift_code: string | null;
+  notes: string | null;
+  company_id: string;
+}
+
 export default function AdminCompanySettings() {
   const { profile, isSuperAdmin } = useAuth();
   const { toast } = useToast();
@@ -52,21 +68,25 @@ export default function AdminCompanySettings() {
   const [saving, setSaving] = useState(false);
   const [uploadingLogo, setUploadingLogo] = useState(false);
   const [settings, setSettings] = useState<CompanySettings | null>(null);
+  const [bankAccounts, setBankAccounts] = useState<BankAccount[]>([]);
+  const [savingBank, setSavingBank] = useState(false);
 
   useEffect(() => {
-    loadSettings();
+    loadAll();
   }, []);
 
-  const loadSettings = async () => {
+  const loadAll = async () => {
     setLoading(true);
     try {
-      const { data, error } = await (supabase as any).from('company_settings')
-        .select('*')
-        .eq('is_active', true)
-        .maybeSingle();
-
-      if (error) throw error;
-      setSettings(data);
+      const [settingsRes, banksRes] = await Promise.all([
+        (supabase as any).from('company_settings')
+          .select('*').eq('is_active', true).maybeSingle(),
+        (supabase as any).from('company_bank_accounts')
+          .select('*').eq('is_active', true).order('display_order'),
+      ]);
+      if (settingsRes.error) throw settingsRes.error;
+      setSettings(settingsRes.data);
+      setBankAccounts(banksRes.data || []);
     } catch (e: any) {
       toast({ title: 'โหลดข้อมูลไม่สำเร็จ', description: e.message, variant: 'destructive' });
     } finally {
@@ -90,6 +110,85 @@ export default function AdminCompanySettings() {
       toast({ title: 'บันทึกไม่สำเร็จ', description: e.message, variant: 'destructive' });
     } finally {
       setSaving(false);
+    }
+  };
+
+  // ── Bank account helpers ──
+  const updateBankField = (idx: number, field: keyof BankAccount, value: any) => {
+    setBankAccounts(prev => prev.map((b, i) => i === idx ? { ...b, [field]: value } : b));
+  };
+
+  const addBankAccount = () => {
+    if (!settings) return;
+    setBankAccounts(prev => [...prev, {
+      id: crypto.randomUUID(),
+      bank_name: '',
+      account_number: '',
+      account_name: settings.name_th || '',
+      branch: null,
+      account_type: 'savings',
+      is_default: prev.length === 0,
+      is_active: true,
+      display_order: prev.length + 1,
+      swift_code: null,
+      notes: null,
+      company_id: settings.id,
+    }]);
+  };
+
+  const removeBankAccount = async (idx: number) => {
+    const acct = bankAccounts[idx];
+    try {
+      await (supabase as any).from('company_bank_accounts').delete().eq('id', acct.id);
+      setBankAccounts(prev => prev.filter((_, i) => i !== idx));
+      toast({ title: '✅ ลบบัญชีธนาคารแล้ว' });
+    } catch { /* ignore */ }
+  };
+
+  const setDefaultBank = (idx: number) => {
+    setBankAccounts(prev => prev.map((b, i) => ({ ...b, is_default: i === idx })));
+  };
+
+  const saveBankAccounts = async () => {
+    if (!settings) return;
+    setSavingBank(true);
+    try {
+      for (const acct of bankAccounts) {
+        const payload = {
+          bank_name: acct.bank_name,
+          account_number: acct.account_number,
+          account_name: acct.account_name,
+          branch: acct.branch,
+          account_type: acct.account_type,
+          is_default: acct.is_default,
+          is_active: true,
+          display_order: acct.display_order,
+          swift_code: acct.swift_code,
+          notes: acct.notes,
+          company_id: settings.id,
+          updated_by: profile?.id,
+        };
+        await (supabase as any).from('company_bank_accounts')
+          .upsert({ id: acct.id, ...payload }, { onConflict: 'id' });
+      }
+
+      // Sync primary bank to company_settings for backward compat
+      const primary = bankAccounts.find(b => b.is_default) || bankAccounts[0];
+      if (primary) {
+        await (supabase as any).from('company_settings').update({
+          bank_name: primary.bank_name,
+          bank_account_number: primary.account_number,
+          bank_account_name: primary.account_name,
+          bank_branch: primary.branch,
+          updated_by: profile?.id,
+        }).eq('id', settings.id);
+      }
+
+      toast({ title: '✅ บันทึกข้อมูลธนาคารสำเร็จ' });
+    } catch (e: any) {
+      toast({ title: 'บันทึกไม่สำเร็จ', description: e.message, variant: 'destructive' });
+    } finally {
+      setSavingBank(false);
     }
   };
 
@@ -381,60 +480,118 @@ export default function AdminCompanySettings() {
           </TabsContent>
 
           {/* TAB 3: Banking */}
-          <TabsContent value="banking">
+          <TabsContent value="banking" className="space-y-4">
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between">
+                <div>
+                  <CardTitle className="text-base">บัญชีธนาคาร</CardTitle>
+                  <CardDescription>บัญชีที่แสดงบนใบเสนอราคาและเอกสาร</CardDescription>
+                </div>
+                {isSuperAdmin && (
+                  <Button variant="outline" size="sm" onClick={addBankAccount}>
+                    <Plus className="w-4 h-4 mr-1.5" />
+                    เพิ่มบัญชี
+                  </Button>
+                )}
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {bankAccounts.length === 0 && (
+                  <p className="text-sm text-muted-foreground text-center py-4">ยังไม่มีบัญชีธนาคาร</p>
+                )}
+                {bankAccounts.map((acct, idx) => (
+                  <div key={acct.id} className="border rounded-lg p-4 space-y-3 relative">
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2">
+                        <Banknote className="w-4 h-4 text-primary" />
+                        <span className="font-medium text-sm">บัญชีที่ {idx + 1}</span>
+                        {acct.is_default && (
+                          <Badge variant="secondary" className="text-xs">
+                            <Star className="w-3 h-3 mr-1 fill-current" />
+                            บัญชีหลัก
+                          </Badge>
+                        )}
+                      </div>
+                      {isSuperAdmin && (
+                        <div className="flex items-center gap-1">
+                          {!acct.is_default && (
+                            <Button variant="ghost" size="sm" onClick={() => setDefaultBank(idx)} title="ตั้งเป็นบัญชีหลัก">
+                              <Star className="w-4 h-4" />
+                            </Button>
+                          )}
+                          <Button variant="ghost" size="sm" onClick={() => removeBankAccount(idx)} className="text-destructive hover:text-destructive">
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <div>
+                        <Label className="text-xs">ธนาคาร</Label>
+                        <Input
+                          value={acct.bank_name}
+                          onChange={(e) => updateBankField(idx, 'bank_name', e.target.value)}
+                          disabled={!isSuperAdmin}
+                          placeholder="ธนาคารกสิกรไทย"
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-xs">สาขา</Label>
+                        <Input
+                          value={acct.branch || ''}
+                          onChange={(e) => updateBankField(idx, 'branch', e.target.value)}
+                          disabled={!isSuperAdmin}
+                          placeholder="สาขาบางเดื่อ ปทุมธานี"
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-xs">เลขที่บัญชี</Label>
+                        <Input
+                          value={acct.account_number}
+                          onChange={(e) => updateBankField(idx, 'account_number', e.target.value)}
+                          disabled={!isSuperAdmin}
+                          placeholder="xxx-x-xxxxx-x"
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-xs">ชื่อบัญชี</Label>
+                        <Input
+                          value={acct.account_name}
+                          onChange={(e) => updateBankField(idx, 'account_name', e.target.value)}
+                          disabled={!isSuperAdmin}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+
+            {/* PromptPay */}
             <Card>
               <CardHeader>
-                <CardTitle className="text-base">ข้อมูลธนาคาร</CardTitle>
-                <CardDescription>สำหรับแสดงบนใบเสนอราคาและใบแจ้งหนี้</CardDescription>
+                <CardTitle className="text-base">PromptPay</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label>ธนาคาร</Label>
-                    <Input
-                      value={settings.bank_name || ''}
-                      onChange={(e) => update('bank_name', e.target.value)}
-                      disabled={!isSuperAdmin}
-                      placeholder="ธนาคารกสิกรไทย"
-                    />
-                  </div>
-                  <div>
-                    <Label>สาขา</Label>
-                    <Input
-                      value={settings.bank_branch || ''}
-                      onChange={(e) => update('bank_branch', e.target.value)}
-                      disabled={!isSuperAdmin}
-                    />
-                  </div>
-                  <div>
-                    <Label>เลขที่บัญชี</Label>
-                    <Input
-                      value={settings.bank_account_number || ''}
-                      onChange={(e) => update('bank_account_number', e.target.value)}
-                      disabled={!isSuperAdmin}
-                      placeholder="xxx-x-xxxxx-x"
-                    />
-                  </div>
-                  <div>
-                    <Label>ชื่อบัญชี</Label>
-                    <Input
-                      value={settings.bank_account_name || ''}
-                      onChange={(e) => update('bank_account_name', e.target.value)}
-                      disabled={!isSuperAdmin}
-                    />
-                  </div>
-                  <div className="md:col-span-2">
-                    <Label>PromptPay ID</Label>
-                    <Input
-                      value={settings.promptpay_id || ''}
-                      onChange={(e) => update('promptpay_id', e.target.value)}
-                      disabled={!isSuperAdmin}
-                      placeholder="0xxxxxxxxx หรือ Tax ID"
-                    />
-                  </div>
+              <CardContent>
+                <div className="max-w-sm">
+                  <Label>PromptPay ID</Label>
+                  <Input
+                    value={settings.promptpay_id || ''}
+                    onChange={(e) => update('promptpay_id', e.target.value)}
+                    disabled={!isSuperAdmin}
+                    placeholder="0xxxxxxxxx หรือ Tax ID"
+                  />
                 </div>
               </CardContent>
             </Card>
+
+            {isSuperAdmin && (
+              <div className="flex justify-end">
+                <Button onClick={saveBankAccounts} disabled={savingBank}>
+                  {savingBank ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
+                  บันทึกข้อมูลธนาคาร
+                </Button>
+              </div>
+            )}
           </TabsContent>
 
           {/* TAB 4: Branding */}
