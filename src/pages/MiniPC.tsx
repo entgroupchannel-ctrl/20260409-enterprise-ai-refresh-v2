@@ -650,7 +650,7 @@ const legacyModels = [
 ];
 
 /* ── Product Card Component ── */
-const ProductCard = ({ model, onQuote }: { model: any; onQuote?: (name: string) => void }) => (
+const ProductCard = ({ model }: { model: any; onQuote?: (name: string) => void }) => (
   <div id={model.id} className="card-surface overflow-hidden scroll-mt-24">
     <div className="p-6 md:p-8">
       {/* Header */}
@@ -718,9 +718,7 @@ const ProductCard = ({ model, onQuote }: { model: any; onQuote?: (name: string) 
             </a>
           </Button>
         )}
-        <Button size="sm" onClick={() => onQuote?.(model.name)}>
-          <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
-        </Button>
+        <QuoteRequestButton productModel={model.name} productName={model.name} size="sm" />
         <AddToCartButton productModel={model.name} productName={model.name} productDescription={model.tagline} size="sm" variant="outline" />
       </div>
     </div>
@@ -1035,9 +1033,7 @@ const MiniPC = () => {
                           <TableCell className="text-right font-semibold text-foreground">{r.price}</TableCell>
                           <TableCell className="text-right">
                             <div className="flex items-center justify-end gap-1">
-                              <Button size="sm" variant="ghost" className="text-xs text-primary" onClick={() => setQuoteProduct(r.model)}>
-                                <FileText className="w-3 h-3 mr-1" /> ขอราคา
-                              </Button>
+                              <QuoteRequestButton productModel={r.model} productName={r.model} size="sm" variant="ghost" className="text-xs" />
                               <AddToCartButton productModel={r.model} productName={r.model} productDescription={r.category} size="sm" variant="outline" />
                             </div>
                           </TableCell>
@@ -1107,9 +1103,7 @@ const MiniPC = () => {
               <span key={u} className="px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium">{u}</span>
             ))}
           </div>
-          <Button onClick={() => setQuoteProduct("Mini PC")}>
-            <FileText className="w-3.5 h-3.5 mr-1.5" /> ปรึกษาผู้เชี่ยวชาญ — ขอใบเสนอราคา
-          </Button>
+          <QuoteRequestButton productModel="Mini PC" productName="Mini PC" />
         </div>
       </div>
       <B2BCTABanner variant="compact" />
