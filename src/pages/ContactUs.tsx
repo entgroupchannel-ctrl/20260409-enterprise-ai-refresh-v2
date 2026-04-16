@@ -526,10 +526,7 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
               <div className="mt-6 card-surface rounded-xl p-5 border-l-4 border-primary">
                 <p className="text-sm text-foreground font-medium mb-1">{i.needQuote}</p>
                 <p className="text-xs text-muted-foreground mb-3">{i.needQuoteSub}</p>
-                <button onClick={() => setQuoteOpen(true)}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold hover:bg-primary/90 transition-colors">
-                  {i.requestQuote}
-                </button>
+                <QuoteRequestButton productModel="สินค้าทั่วไป" productName="สอบถามราคา" size="sm" />
               </div>
             </div>
           </div>
