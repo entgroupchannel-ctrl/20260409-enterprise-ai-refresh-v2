@@ -51,14 +51,14 @@ function setCompareList(slugs: string[]) {
 }
 
 const seriesNavItems = [
-  { id: 'GT Series', label: 'GT Series', icon: '🏭', sub: 'Industrial Fanless', link: '/gt-series' },
-  { id: 'GB Series', label: 'GB Series', icon: '⚡', sub: 'Performance PC', link: '/gb-series' },
-  { id: 'GK Series', label: 'GK Series', icon: '🖥️', sub: 'Panel PC', link: '/gk-series' },
-  { id: 'EPC Series', label: 'EPC Series', icon: '📦', sub: 'Box PC', link: '/epc-box-series' },
-  { id: 'iBox Series', label: 'iBox Series', icon: '🔧', sub: 'Embedded PC', link: '/ibox-series' },
-  { id: 'Mini PC', label: 'Mini PC', icon: '💻', sub: 'Compact Desktop', link: '/mini-pc' },
-  { id: 'Rugged', label: 'Rugged', icon: '🔒', sub: 'IP65/67 Tablet', link: '/rugged-tablet' },
-  { id: 'Firewall', label: 'Firewall', icon: '🛡️', sub: 'Multi-LAN Router', link: '/minipc-firewall' },
+  { id: 'GT Series', label: 'GT Series', icon: '🏭', sub: 'Industrial Fanless', link: '/gt-series', image: imgSeriesGT },
+  { id: 'GB Series', label: 'GB Series', icon: '⚡', sub: 'Performance PC', link: '/gb-series', image: imgSeriesGB },
+  { id: 'GK Series', label: 'GK Series', icon: '🖥️', sub: 'Panel PC', link: '/gk-series', image: imgSeriesGK },
+  { id: 'EPC Series', label: 'EPC Series', icon: '📦', sub: 'Box PC', link: '/epc-box-series', image: imgSeriesEPC },
+  { id: 'iBox Series', label: 'iBox Series', icon: '🔧', sub: 'Embedded PC', link: '/ibox-series', image: imgSeriesIBox },
+  { id: 'Mini PC', label: 'Mini PC', icon: '💻', sub: 'Compact Desktop', link: '/mini-pc', image: imgSeriesMiniPC },
+  { id: 'Rugged', label: 'Rugged', icon: '🔒', sub: 'IP65/67 Tablet', link: '/rugged-tablet', image: imgSeriesRugged },
+  { id: 'Firewall', label: 'Firewall', icon: '🛡️', sub: 'Multi-LAN Router', link: '/minipc-firewall', image: imgSeriesFirewall },
 ];
 
 const ShopStorefront = () => {
