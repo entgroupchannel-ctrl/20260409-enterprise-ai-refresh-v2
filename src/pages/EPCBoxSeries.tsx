@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import SEOHead from "@/components/SEOHead";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
-import { Link } from "react-router-dom";
-import { ArrowLeft, ExternalLink, Cpu, Thermometer, Wind, Shield, Zap, Server, Layers, Settings, Box, Maximize, ChevronDown, Monitor, HardDrive, Wifi, Power, PlugZap, Expand, Filter, SlidersHorizontal, DollarSign, BarChart3, Play, Headphones, Volume2, Pause } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { ArrowLeft, ExternalLink, Cpu, Thermometer, Wind, Shield, Zap, Server, Layers, Settings, Box, Maximize, ChevronDown, Monitor, HardDrive, Wifi, Power, PlugZap, Expand, Filter, SlidersHorizontal, DollarSign, BarChart3, Play, Headphones, Volume2, Pause, FileText, LogIn, LogOut, UserRound } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ThemeToggle from "@/components/ThemeToggle";
 import logo from "@/assets/logo-entgroup.avif";
@@ -13,6 +13,8 @@ import { LineQRDialog } from "@/components/LineQRDialog";
 import AddToCartButton from "@/components/AddToCartButton";
 import CartBadge from "@/components/CartBadge";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
+import { useAuth } from "@/hooks/useAuth";
+import { Button } from "@/components/ui/button";
 
 const features = [
   { icon: Wind, title: "Fanless Design", desc: "เงียบสนิท ไม่มีชิ้นส่วนเคลื่อนไหว อายุการใช้งานยาวนาน" },
@@ -761,6 +763,8 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
 
 const EPCBoxSeries = () => {
   const [showLineQR, setShowLineQR] = useState(false);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="EPC Box Series — Fanless Modular Industrial PC" description="EPC Box Series คอมพิวเตอร์อุตสาหกรรม Fanless แบบ Modular LEGO MODE รองรับ Intel N100 ถึง Core i7 สำหรับโรงงานและ IoT" path="/epc-box-series" />
@@ -776,20 +780,40 @@ const EPCBoxSeries = () => {
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "EPC Box Series", path: "/epc-box-series" }]} />
       {/* Nav */}
       <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
-        <div className="container max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+        <div className="container max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
           <div className="flex items-center gap-4">
-            <Link to="/" className="flex items-center gap-3">
+            <Link to="/" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors">
+              <ArrowLeft size={14} />
+              กลับหน้าหลัก
+            </Link>
+            <div className="h-6 w-px bg-border" />
+            <Link to="/" className="flex items-center">
               <img src={logo} alt="ENT GROUP" className="h-8 w-auto" />
             </Link>
-            <span className="text-muted-foreground">/</span>
-            <span className="text-sm font-semibold text-foreground">EPC Box Series</span>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <CartBadge />
-            <ThemeToggle />
-            <Link to="/" className="hidden md:inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
-              <ArrowLeft size={16} /> กลับหน้าหลัก
+            <Link to="/request-quote" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors" title="ใบเสนอราคา">
+              <FileText size={18} />
+              <span className="hidden sm:inline">ใบเสนอราคา</span>
             </Link>
+            <div className="h-5 w-px bg-border" />
+            {user ? (
+              <div className="flex items-center gap-2">
+                <Button variant="ghost" size="sm" onClick={() => navigate('/dashboard')}>
+                  <UserRound className="w-4 h-4 mr-1" />
+                  <span className="hidden sm:inline text-xs">{user.email?.split('@')[0]}</span>
+                </Button>
+                <Button variant="ghost" size="sm" onClick={signOut}>
+                  <LogOut className="w-4 h-4" />
+                </Button>
+              </div>
+            ) : (
+              <Button variant="outline" size="sm" onClick={() => navigate('/login')}>
+                <LogIn className="w-4 h-4 mr-1" /> เข้าสู่ระบบ
+              </Button>
+            )}
+            <ThemeToggle />
           </div>
         </div>
       </nav>
