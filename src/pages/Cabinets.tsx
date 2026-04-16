@@ -267,9 +267,7 @@ const Cabinets = () => {
                       </a>
                     </Button>
                   </div>
-                  <Button size="sm" className="w-full" onClick={() => setQuoteProduct(model.name)}>
-                    <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
-                  </Button>
+                  <QuoteRequestButton productModel={model.name} productName={model.name} size="sm" className="w-full justify-center" />
                   <AddToCartButton productModel={model.name} productName={model.name} productDescription={`Cabinet ${model.panelModel} ${model.material} ${model.protection}`} size="sm" variant="outline" className="w-full justify-center mt-2" />
                 </div>
               </div>

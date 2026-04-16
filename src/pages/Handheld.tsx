@@ -85,10 +85,9 @@ const HandheldCard = ({
         <Button variant="outline" size="sm" className="flex-1" asChild>
           <span><Smartphone className="w-3.5 h-3.5 mr-1.5" /> ดูสเปก</span>
         </Button>
-        <Button size="sm" className="flex-1" onClick={(e) => { e.preventDefault(); e.stopPropagation(); onQuote(product.model); }}>
-
-          <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอราคา
-        </Button>
+        <div onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
+          <QuoteRequestButton productModel={product.model} productName={product.model} size="sm" className="flex-1" />
+        </div>
         <div onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
           <AddToCartButton productModel={product.model} productName={product.model} productDescription={product.nameTH} size="sm" variant="outline" />
         </div>
