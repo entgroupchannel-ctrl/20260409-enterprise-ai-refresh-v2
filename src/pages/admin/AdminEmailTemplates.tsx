@@ -317,7 +317,16 @@ export default function AdminEmailTemplates() {
                             <DialogHeader>
                               <DialogTitle>ตัวอย่างอีเมล — {TEMPLATE_LABELS[key].label}</DialogTitle>
                             </DialogHeader>
-                            {renderPreview()}
+                            {previewLoading ? (
+                              <div className="flex items-center justify-center p-8 text-muted-foreground">กำลังโหลด...</div>
+                            ) : (
+                              <iframe
+                                srcDoc={previewHtml}
+                                className="w-full border-0"
+                                style={{ minHeight: '500px' }}
+                                title="Email Preview"
+                              />
+                            )}
                           </DialogContent>
                         </Dialog>
                       </div>
