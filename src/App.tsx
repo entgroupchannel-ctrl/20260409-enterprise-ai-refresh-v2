@@ -54,6 +54,7 @@ const NotFound = lazyRetry(() => import("./pages/NotFound"));
 const ShopStorefront = lazyRetry(() => import("./pages/shop/ShopStorefront"));
 const ShopProductDetail = lazyRetry(() => import("./pages/shop/ShopProductDetail"));
 const ShopCompare = lazyRetry(() => import("./pages/shop/ShopCompare"));
+const Unsubscribe = lazyRetry(() => import("./pages/Unsubscribe"));
 const Login = lazyRetry(() => import("./pages/auth/Login"));
 const Register = lazyRetry(() => import("./pages/auth/Register"));
 const AdminDashboard = lazyRetry(() => import("./pages/admin/AdminDashboard"));
@@ -198,6 +199,7 @@ const App = () => (
                     <Route path="/shop" element={<ShopStorefront />} />
                     <Route path="/shop/compare" element={<ShopCompare />} />
                     <Route path="/shop/:slug" element={<ShopProductDetail />} />
+                    <Route path="/unsubscribe" element={<Unsubscribe />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/admin/dashboard" element={<ProtectedRoute requireSales><AdminDashboard /></ProtectedRoute>} />
