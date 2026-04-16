@@ -3,16 +3,11 @@
 import * as React from 'npm:react@18.3.1'
 
 import {
-  Body,
-  Button,
-  Container,
-  Head,
-  Heading,
-  Html,
-  Link,
-  Preview,
-  Text,
+  Body, Button, Container, Head, Heading, Html, Link, Preview, Text, Hr, Section,
 } from 'npm:@react-email/components@0.0.22'
+
+const SITE_NAME = 'ENT Group'
+const PRIMARY = '#0fa888'
 
 interface SignupEmailProps {
   siteName: string
@@ -21,38 +16,36 @@ interface SignupEmailProps {
   confirmationUrl: string
 }
 
-export const SignupEmail = ({
-  siteName,
-  siteUrl,
-  recipient,
-  confirmationUrl,
-}: SignupEmailProps) => (
-  <Html lang="en" dir="ltr">
+export const SignupEmail = ({ siteName, siteUrl, recipient, confirmationUrl }: SignupEmailProps) => (
+  <Html lang="th" dir="ltr">
     <Head />
-    <Preview>Confirm your email for {siteName}</Preview>
+    <Preview>ยืนยันอีเมลของคุณสำหรับ {SITE_NAME}</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Heading style={h1}>Confirm your email</Heading>
+        <Section style={header}>
+          <Heading style={logo}>{SITE_NAME}</Heading>
+        </Section>
+        <Heading style={h1}>ยืนยันอีเมลของคุณ</Heading>
         <Text style={text}>
-          Thanks for signing up for{' '}
-          <Link href={siteUrl} style={link}>
-            <strong>{siteName}</strong>
-          </Link>
-          !
+          ขอบคุณที่สมัครสมาชิก{' '}
+          <Link href={siteUrl} style={link}><strong>{SITE_NAME}</strong></Link>
+          {' '}— แพลตฟอร์มจัดซื้ออุตสาหกรรมแบบครบวงจร
         </Text>
         <Text style={text}>
-          Please confirm your email address (
-          <Link href={`mailto:${recipient}`} style={link}>
-            {recipient}
-          </Link>
-          ) by clicking the button below:
+          กรุณายืนยันอีเมลของคุณ (
+          <Link href={`mailto:${recipient}`} style={link}>{recipient}</Link>
+          ) โดยคลิกปุ่มด้านล่าง:
         </Text>
-        <Button style={button} href={confirmationUrl}>
-          Verify Email
-        </Button>
+        <Section style={buttonSection}>
+          <Button style={button} href={confirmationUrl}>
+            ยืนยันอีเมล
+          </Button>
+        </Section>
+        <Hr style={hr} />
         <Text style={footer}>
-          If you didn't create an account, you can safely ignore this email.
+          หากคุณไม่ได้สร้างบัญชีนี้ สามารถเพิกเฉยอีเมลฉบับนี้ได้
         </Text>
+        <Text style={footerBrand}>© {SITE_NAME} — B2B Industrial Platform</Text>
       </Container>
     </Body>
   </Html>
@@ -60,27 +53,18 @@ export const SignupEmail = ({
 
 export default SignupEmail
 
-const main = { backgroundColor: '#ffffff', fontFamily: 'Arial, sans-serif' }
-const container = { padding: '20px 25px' }
-const h1 = {
-  fontSize: '22px',
-  fontWeight: 'bold' as const,
-  color: '#000000',
-  margin: '0 0 20px',
-}
-const text = {
-  fontSize: '14px',
-  color: '#55575d',
-  lineHeight: '1.5',
-  margin: '0 0 25px',
-}
-const link = { color: 'inherit', textDecoration: 'underline' }
+const main = { backgroundColor: '#ffffff', fontFamily: "'IBM Plex Sans Thai', Arial, sans-serif" }
+const container = { padding: '20px 30px', maxWidth: '580px', margin: '0 auto' }
+const header = { textAlign: 'center' as const, padding: '20px 0 10px' }
+const logo = { fontSize: '20px', fontWeight: '700' as const, color: PRIMARY, margin: '0' }
+const h1 = { fontSize: '20px', fontWeight: '600' as const, color: '#1a1a2e', margin: '20px 0 10px' }
+const text = { fontSize: '14px', color: '#374151', lineHeight: '1.6', margin: '0 0 16px' }
+const link = { color: PRIMARY, textDecoration: 'underline' }
+const buttonSection = { textAlign: 'center' as const, margin: '24px 0' }
 const button = {
-  backgroundColor: '#000000',
-  color: '#ffffff',
-  fontSize: '14px',
-  borderRadius: '8px',
-  padding: '12px 20px',
-  textDecoration: 'none',
+  backgroundColor: PRIMARY, color: '#ffffff', fontSize: '14px',
+  borderRadius: '8px', padding: '12px 28px', textDecoration: 'none', fontWeight: '600' as const,
 }
-const footer = { fontSize: '12px', color: '#999999', margin: '30px 0 0' }
+const hr = { borderColor: '#e5e7eb', margin: '24px 0' }
+const footer = { fontSize: '12px', color: '#9ca3af', margin: '0 0 8px' }
+const footerBrand = { fontSize: '12px', color: '#9ca3af', margin: '0', textAlign: 'center' as const }
