@@ -4,6 +4,7 @@ import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import CartBadge from "@/components/CartBadge";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import {
   ArrowLeft, Cpu, Thermometer, Shield, Usb, Wifi, Download, Search,
   FileText, ChevronRight, Layers, HardDrive, Monitor, Zap, Box,

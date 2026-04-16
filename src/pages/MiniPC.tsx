@@ -5,6 +5,7 @@ import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import { ArrowLeft, ExternalLink, Cpu, Zap, Shield, Monitor, Wifi, ThermometerSun, HardDrive, Server, ChevronRight, FileText, CircleCheck, Filter, X, MessageSquare } from "lucide-react";
 import AddToCartButton from "@/components/AddToCartButton";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import CartBadge from "@/components/CartBadge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";

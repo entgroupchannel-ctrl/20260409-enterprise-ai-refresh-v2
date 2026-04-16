@@ -1,3 +1,4 @@
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import { useParams, Link } from "react-router-dom";
 import LineQRButton from "@/components/LineQRButton";
 import { useState, useEffect } from "react";

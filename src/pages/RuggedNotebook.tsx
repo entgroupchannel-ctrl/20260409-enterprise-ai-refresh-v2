@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { ChevronRight } from "lucide-react";
 import AddToCartButton from "@/components/AddToCartButton";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import CartBadge from "@/components/CartBadge";
 import ShareButtons from "@/components/ShareButtons";
 import relatedTablet from "@/assets/related-rugged-tablet.jpg";

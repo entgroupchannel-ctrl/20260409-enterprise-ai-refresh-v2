@@ -13,6 +13,7 @@ import {
   Filter, X, Search, FileText, Crosshair
 } from "lucide-react";
 import AddToCartButton from "@/components/AddToCartButton";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import CartBadge from "@/components/CartBadge";
 import { Checkbox } from "@/components/ui/checkbox";
 import ThemeToggle from "@/components/ThemeToggle";

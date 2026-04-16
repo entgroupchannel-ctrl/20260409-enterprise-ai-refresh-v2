@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { aioProducts, categoryLabels, type AIOCategory, type AIOOS } from "@/data/aio-products";
 import AddToCartButton from "@/components/AddToCartButton";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import CartBadge from "@/components/CartBadge";
 
 /* ── Filter Tabs ── */

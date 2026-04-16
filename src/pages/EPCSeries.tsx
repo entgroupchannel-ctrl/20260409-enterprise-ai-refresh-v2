@@ -7,6 +7,7 @@ import { ArrowLeft, ExternalLink, Monitor, Cpu, Shield, Puzzle, Droplets, Thermo
 import B2BCTABanner from "@/components/B2BCTABanner";
 import { Checkbox } from "@/components/ui/checkbox";
 import AddToCartButton from "@/components/AddToCartButton";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import CartBadge from "@/components/CartBadge";
 import badgeMotherboard from "@/assets/epc-badge-motherboard.png";
 import badgeFactory from "@/assets/epc-badge-factory.png";

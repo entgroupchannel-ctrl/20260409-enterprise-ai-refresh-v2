@@ -12,6 +12,7 @@ import {
   Clock, TrendingUp, Award, Quote, MapPin, Calendar
 } from "lucide-react";
 import AddToCartButton from "@/components/AddToCartButton";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import CartBadge from "@/components/CartBadge";
 import ThemeToggle from "@/components/ThemeToggle";
 import logo from "@/assets/logo-entgroup.avif";

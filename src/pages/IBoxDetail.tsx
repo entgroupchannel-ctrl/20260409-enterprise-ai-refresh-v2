@@ -1,3 +1,4 @@
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import {
   ArrowLeft, Download, Check, FileText, Thermometer, Cpu, HardDrive,

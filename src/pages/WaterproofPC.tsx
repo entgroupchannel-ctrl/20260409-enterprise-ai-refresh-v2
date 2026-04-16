@@ -5,6 +5,7 @@ import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ExternalLink, Droplets, Shield, ThermometerSun, Cpu, Monitor, FileText, ShieldCheck, Waves, SprayCanIcon, Fan, Cog } from "lucide-react";
 import AddToCartButton from "@/components/AddToCartButton";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import CartBadge from "@/components/CartBadge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";

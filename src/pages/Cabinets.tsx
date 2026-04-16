@@ -9,6 +9,7 @@ import {
   Ruler, Send, Loader2, Settings,
 } from "lucide-react";
 import AddToCartButton from "@/components/AddToCartButton";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import CartBadge from "@/components/CartBadge";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
