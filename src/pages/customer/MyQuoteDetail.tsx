@@ -778,6 +778,38 @@ export default function MyQuoteDetail() {
               </Card>
             )}
 
+            {/* Sale Admin Contact */}
+            {assignedSaleUser && (
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <MessageSquare className="w-4 h-4 text-primary" />
+                    ผู้รับผิดชอบใบเสนอราคา
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  <p className="text-sm font-semibold text-foreground">
+                    {assignedSaleUser.full_name || 'พนักงานขาย'}
+                  </p>
+                  {assignedSaleUser.position && (
+                    <p className="text-xs text-muted-foreground">{assignedSaleUser.position}</p>
+                  )}
+                  {assignedSaleUser.phone && (
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <Mail className="w-3 h-3" />
+                      <a href={`tel:${assignedSaleUser.phone}`} className="hover:underline">{assignedSaleUser.phone}</a>
+                    </div>
+                  )}
+                  {assignedSaleUser.email && (
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <Mail className="w-3 h-3" />
+                      <a href={`mailto:${assignedSaleUser.email}`} className="hover:underline">{assignedSaleUser.email}</a>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            )}
+
             {/* 🧾 Related Invoices Section */}
             {relatedInvoices.length > 0 && (
               <Card>
