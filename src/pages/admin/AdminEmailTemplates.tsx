@@ -418,10 +418,19 @@ export default function AdminEmailTemplates() {
                   <Eye className="w-4 h-4" /> ตัวอย่างสด
                 </CardTitle>
               </CardHeader>
-              <CardContent className="p-0">
-                <div className="transform scale-[0.5] origin-top-left w-[200%] pointer-events-none">
-                  {renderPreview()}
-                </div>
+              <CardContent className="p-0 overflow-hidden">
+                {previewLoading ? (
+                  <div className="flex items-center justify-center p-8 text-muted-foreground">กำลังโหลด...</div>
+                ) : (
+                  <div className="transform scale-[0.5] origin-top-left w-[200%] pointer-events-none">
+                    <iframe
+                      srcDoc={previewHtml}
+                      className="w-full border-0"
+                      style={{ minHeight: '800px' }}
+                      title="Email Preview Mini"
+                    />
+                  </div>
+                )}
               </CardContent>
             </Card>
           </div>
