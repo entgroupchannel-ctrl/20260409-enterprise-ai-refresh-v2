@@ -149,17 +149,32 @@ async function getTemplateSettings(supabase: any, templateType: string): Promise
 async function handlePreview(req: Request): Promise<Response> {
   const previewCorsHeaders = {
     'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'authorization, content-type',
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
   }
 
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: previewCorsHeaders })
   }
 
+  // Accept either LOVABLE_API_KEY or a valid Supabase JWT (for admin preview)
   const apiKey = Deno.env.get('LOVABLE_API_KEY')
   const authHeader = req.headers.get('Authorization')
+  let authorized = false
 
-  if (!apiKey || authHeader !== `Bearer ${apiKey}`) {
+  if (apiKey && authHeader === `Bearer ${apiKey}`) {
+    authorized = true
+  } else if (authHeader?.startsWith('Bearer ')) {
+    // Validate as Supabase JWT
+    const supabaseAuth = createClient(
+      Deno.env.get('SUPABASE_URL')!,
+      Deno.env.get('SUPABASE_ANON_KEY')!,
+      { global: { headers: { Authorization: authHeader } } }
+    )
+    const { data: { user } } = await supabaseAuth.auth.getUser()
+    if (user) authorized = true
+  }
+
+  if (!authorized) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
       headers: { ...previewCorsHeaders, 'Content-Type': 'application/json' },
