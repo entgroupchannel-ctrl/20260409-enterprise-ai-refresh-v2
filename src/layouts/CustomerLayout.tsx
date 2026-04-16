@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import ThemeToggle from '@/components/ThemeToggle';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
