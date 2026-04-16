@@ -477,7 +477,7 @@ function ChipButton({ active, onClick, children }: { active: boolean; onClick: (
   );
 }
 
-function AddonRow({ icon: Icon, label, price, checked, onChange, disabled, included }: {
+function AddonRow({ icon: Icon, label, price, checked, onChange, disabled, included, contactAdmin }: {
   icon: React.ElementType;
   label: string;
   price?: number;
@@ -485,6 +485,7 @@ function AddonRow({ icon: Icon, label, price, checked, onChange, disabled, inclu
   onChange?: (v: boolean) => void;
   disabled?: boolean;
   included?: boolean;
+  contactAdmin?: boolean;
 }) {
   return (
     <label className={cn(
@@ -503,7 +504,7 @@ function AddonRow({ icon: Icon, label, price, checked, onChange, disabled, inclu
         <span className={disabled ? 'text-muted-foreground' : ''}>{label}</span>
       </span>
       <span className="text-xs">
-        {included ? <span className="text-green-600">✓ รวมแล้ว</span> : price ? `+฿${fmt(price)}` : ''}
+        {included ? <span className="text-green-600">✓ รวมแล้ว</span> : contactAdmin ? <span className="text-amber-600">📞 {ADDON_CONTACT_LABEL}</span> : price ? `+฿${fmt(price)}` : ''}
       </span>
     </label>
   );
