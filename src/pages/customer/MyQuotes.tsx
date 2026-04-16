@@ -102,6 +102,38 @@ export default function MyQuotes() {
   return (
     <CustomerLayout title="ใบเสนอราคาของฉัน">
       <div className="space-y-4">
+        {/* Pending Quote Banner */}
+        {pendingProducts && pendingProducts.length > 0 && (
+          <Card className="border-primary bg-primary/5">
+            <CardContent className="pt-4 pb-4">
+              <div className="flex items-center justify-between gap-3 flex-wrap">
+                <div className="flex items-center gap-3">
+                  <ShoppingBag className="w-5 h-5 text-primary" />
+                  <div>
+                    <p className="font-semibold text-sm">คุณมีสินค้า {pendingProducts.length} รายการที่เลือกไว้ก่อนล๊อกอิน</p>
+                    <p className="text-xs text-muted-foreground">
+                      {pendingProducts.map((p: any) => p.model).join(', ')}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <Button size="sm" onClick={() => {
+                    navigate('/request-quote');
+                  }}>
+                    ดำเนินการขอใบเสนอราคา
+                  </Button>
+                  <Button size="sm" variant="ghost" onClick={() => {
+                    clearPendingQuote();
+                    setPendingProducts(null);
+                  }}>
+                    ยกเลิก
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         <div className="flex items-center justify-between gap-3 flex-wrap">
           <div>
             <h1 className="text-2xl font-bold">ใบเสนอราคาของฉัน</h1>
