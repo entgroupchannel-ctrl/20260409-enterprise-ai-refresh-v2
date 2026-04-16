@@ -134,11 +134,17 @@ const ShopStorefront = () => {
 
           // Model-specific image overrides for products whose DB image_url points to missing files
           const modelImageMap: Record<string, string> = {
+            // GTY Series
             'gty121t-base': '/images/panelpc/gty121-front.jpg',
             'gty150t-base': '/images/panelpc/gty156-front.png',
             'gty156t-base': '/images/panelpc/gty156-front.png',
             'gty185t-base': '/images/panelpc/gty156-front.png',
             'gty215t-base': '/images/panelpc/gty156-front.png',
+            // GK Series — base variants with broken /images/wix/gk* paths
+            'gk1501': 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/gt-series/gk1506-primary.jpg',
+            'gk1501-base': 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/gt-series/gk1506-primary.jpg',
+            'gk1506-base': 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/gt-series/gk1506-primary.jpg',
+            'gk2101-base': 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/gt-series/gk2101-primary.png',
           };
 
           const enriched = data.map(p => {
