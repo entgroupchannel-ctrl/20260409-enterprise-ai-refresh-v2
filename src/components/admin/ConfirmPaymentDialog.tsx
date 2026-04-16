@@ -199,6 +199,40 @@ export default function ConfirmPaymentDialog({
         return;
       }
 
+      // Notify customer about payment confirmation
+      const { data: invData } = await (supabase as any)
+        .from('invoices')
+        .select('customer_id, customer_name, customer_email')
+        .eq('id', invoiceId)
+        .maybeSingle();
+
+      if (invData?.customer_id) {
+        import('@/lib/notifications').then(({ createNotification, sendTransactionalEmail }) => {
+          createNotification({
+            userId: invData.customer_id,
+            type: 'payment_confirmed',
+            title: 'ยืนยันการชำระเงินเรียบร้อย',
+            message: `การชำระเงินสำหรับ ${invoiceNumber} ได้รับการยืนยันแล้ว`,
+            priority: 'high',
+            actionUrl: `/my-account/invoices/${invoiceId}`,
+            actionLabel: 'ดูใบแจ้งหนี้',
+            linkType: 'invoice',
+            linkId: invoiceId,
+          });
+          if (invData.customer_email) {
+            sendTransactionalEmail({
+              templateName: 'payment-confirmed',
+              recipientEmail: invData.customer_email,
+              idempotencyKey: `payment-confirmed-${invoiceId}`,
+              templateData: {
+                customerName: invData.customer_name,
+                invoiceNumber,
+              },
+            });
+          }
+        });
+      }
+
       toast({
         title: '✅ ยืนยันการชำระเงินสำเร็จ',
         description: `${invoiceNumber} เปลี่ยนสถานะเป็น "ชำระแล้ว"`,

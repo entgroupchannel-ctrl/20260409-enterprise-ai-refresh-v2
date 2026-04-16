@@ -1065,6 +1065,35 @@ export default function AdminQuoteDetail() {
 
                           if (updateError) throw updateError;
 
+                          // Notify customer (in-app)
+                          if (quote.created_by) {
+                            import('@/lib/notifications').then(({ createNotification, sendTransactionalEmail }) => {
+                              createNotification({
+                                userId: quote.created_by!,
+                                type: 'quote_sent',
+                                title: 'ใบเสนอราคาพร้อมแล้ว',
+                                message: `ใบเสนอราคา ${quote.quote_number} ถูกส่งถึงคุณแล้ว กรุณาตรวจสอบ`,
+                                priority: 'high',
+                                actionUrl: `/my-account/quotes/${id}`,
+                                actionLabel: 'ดูใบเสนอราคา',
+                                linkType: 'quote',
+                                linkId: id,
+                              });
+                              // Send email
+                              if (quote.customer_email) {
+                                sendTransactionalEmail({
+                                  templateName: 'quote-sent',
+                                  recipientEmail: quote.customer_email,
+                                  idempotencyKey: `quote-sent-${id}-rev1`,
+                                  templateData: {
+                                    customerName: quote.customer_name,
+                                    quoteNumber: quote.quote_number,
+                                  },
+                                });
+                              }
+                            });
+                          }
+
                           toast({
                             title: 'ส่งใบเสนอราคาสำเร็จ',
                             description: 'ส่งใบเสนอราคาไปยังลูกค้าแล้ว (Revision #1)',
