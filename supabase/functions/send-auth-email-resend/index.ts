@@ -62,8 +62,10 @@ function EmailTemplate({ settings, templateType, confirmationUrl, recipient, ema
 
   const main = { backgroundColor: '#ffffff', fontFamily }
   const container = { padding: '20px 30px', maxWidth: '580px', margin: '0 auto' }
-  const header = { textAlign: 'center' as const, padding: '20px 0 10px' }
-  const logo = { fontSize: '20px', fontWeight: '700' as const, color: primary, margin: '0' }
+  const header = { textAlign: 'left' as const, padding: '16px 0 12px' }
+  const logoLink = { textDecoration: 'none', display: 'inline-block' }
+  const logoImg = { height: '32px', width: 'auto', display: 'block' }
+  const logo = { fontSize: '18px', fontWeight: '700' as const, color: primary, margin: '0' }
   const h1Style = { fontSize: '20px', fontWeight: '600' as const, color: '#1a1a2e', margin: '20px 0 10px' }
   const textStyle = { fontSize: '14px', color: '#374151', lineHeight: '1.6', margin: '0 0 16px' }
   const buttonSection = { textAlign: 'center' as const, margin: '24px 0' }
@@ -85,10 +87,11 @@ function EmailTemplate({ settings, templateType, confirmationUrl, recipient, ema
     React.createElement(Body, { style: main },
       React.createElement(Container, { style: container },
         React.createElement(Section, { style: header },
-          settings.logo_url
-            ? React.createElement(Img, { src: settings.logo_url, alt: siteName, style: { maxHeight: '40px', margin: '0 auto 8px' } })
-            : null,
-          React.createElement(Heading, { style: logo }, siteName),
+          React.createElement('a', { href: 'https://www.entgroup.co.th', style: logoLink },
+            settings.logo_url
+              ? React.createElement(Img, { src: settings.logo_url, alt: siteName, style: logoImg })
+              : React.createElement(Heading, { style: logo }, siteName),
+          ),
         ),
         React.createElement(Heading, { style: h1Style }, settings.heading || ''),
         React.createElement(Text, { style: textStyle }, bodyText),
