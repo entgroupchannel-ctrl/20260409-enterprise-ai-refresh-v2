@@ -69,18 +69,20 @@ export default function RelatedProducts({ currentProductId, series, category, ma
         .gt('unit_price', 0)
         .limit(maxItems);
       if (series) q = q.eq('series', series);
-      const { data } = await q;
-      if (data && data.length > 0) {
-        setRelated(data as RelatedProduct[]);
-      } else if (category) {
-        const { data: catData } = await supabase.from('products')
+      let { data } = await q;
+      if ((!data || data.length === 0) && category) {
+        const res = await supabase.from('products')
           .select('id, model, name, slug, thumbnail_url, image_url, unit_price, series')
           .eq('is_active', true)
           .eq('category', category)
           .neq('id', currentProductId)
           .gt('unit_price', 0)
           .limit(maxItems);
-        setRelated((catData || []) as RelatedProduct[]);
+        data = res.data;
+      }
+      if (data && data.length > 0) {
+        const enriched = await enrichWithProductFiles(data as RelatedProduct[]);
+        setRelated(enriched);
       }
     };
     fetchRelated();
