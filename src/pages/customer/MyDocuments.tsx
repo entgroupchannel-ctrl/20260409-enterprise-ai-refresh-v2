@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import {
-  FileArchive, Search, Download, Loader2, Info, Star,
+  FileArchive, Search, Download, Loader2, Info, Star, Lock, FileText,
 } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 
@@ -48,10 +48,35 @@ export default function MyDocuments() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [downloading, setDownloading] = useState<string | null>(null);
+  const [unlocked, setUnlocked] = useState(false);
+  const [checkingAccess, setCheckingAccess] = useState(true);
 
   useEffect(() => {
     loadDocuments();
-  }, []);
+    checkUnlockStatus();
+  }, [user?.id]);
+
+  const checkUnlockStatus = async () => {
+    if (!user?.id) {
+      setUnlocked(false);
+      setCheckingAccess(false);
+      return;
+    }
+    setCheckingAccess(true);
+    try {
+      const UNLOCK_STATUSES = ['approved', 'quote_sent', 'po_approved', 'po_confirmed', 'completed'];
+      const { count } = await (supabase as any)
+        .from('quote_requests')
+        .select('id', { count: 'exact', head: true })
+        .eq('created_by', user.id)
+        .in('status', UNLOCK_STATUSES);
+      setUnlocked((count ?? 0) > 0);
+    } catch {
+      setUnlocked(false);
+    } finally {
+      setCheckingAccess(false);
+    }
+  };
 
   const loadDocuments = async () => {
     setLoading(true);
@@ -83,6 +108,13 @@ export default function MyDocuments() {
   };
 
   const handleDownload = async (doc: CompanyDocument) => {
+    if (!unlocked) {
+      toast({
+        title: 'ยังไม่สามารถดาวน์โหลดได้',
+        description: 'เอกสารบริษัทจะปลดล็อกเมื่อใบเสนอราคาของคุณได้รับการอนุมัติครั้งแรก',
+      });
+      return;
+    }
     setDownloading(doc.id);
     try {
       const { data: urlData, error } = await supabase.storage
@@ -173,49 +205,82 @@ export default function MyDocuments() {
               </CardContent>
             </Card>
           ) : (
-            <div className="space-y-4">
-              {categoryOrder.map((cat) => {
-                const docs = grouped[cat];
-                if (!docs || docs.length === 0) return null;
-                const meta = CATEGORY_META[cat];
+            <div className="relative">
+              <div className={`space-y-4 ${!unlocked && !checkingAccess ? 'blur-sm pointer-events-none select-none' : ''}`}>
+                {categoryOrder.map((cat) => {
+                  const docs = grouped[cat];
+                  if (!docs || docs.length === 0) return null;
+                  const meta = CATEGORY_META[cat];
 
-                return (
-                  <Card key={cat}>
-                    <CardHeader className="pb-3">
-                      <CardTitle className="text-base">{meta.icon} {meta.label} ({docs.length})</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-2">
-                        {docs.map((doc) => (
-                          <div key={doc.id} className="flex items-center gap-3 p-3 rounded border hover:bg-muted/30 transition-colors">
-                            <div className="flex-1 min-w-0">
-                              <div className="flex items-center gap-2 flex-wrap">
-                                <p className="font-medium text-sm">{doc.title}</p>
-                                {doc.is_featured && <Star className="w-3 h-3 text-amber-500 fill-amber-500" />}
-                                {doc.version && <Badge variant="outline" className="text-[10px]">{doc.version}</Badge>}
+                  return (
+                    <Card key={cat}>
+                      <CardHeader className="pb-3">
+                        <CardTitle className="text-base">{meta.icon} {meta.label} ({docs.length})</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="space-y-2">
+                          {docs.map((doc) => (
+                            <div key={doc.id} className="flex items-center gap-3 p-3 rounded border hover:bg-muted/30 transition-colors">
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2 flex-wrap">
+                                  <p className="font-medium text-sm">{doc.title}</p>
+                                  {doc.is_featured && <Star className="w-3 h-3 text-amber-500 fill-amber-500" />}
+                                  {doc.version && <Badge variant="outline" className="text-[10px]">{doc.version}</Badge>}
+                                </div>
+                                {doc.description && <p className="text-xs text-muted-foreground mt-0.5">{doc.description}</p>}
+                                <div className="flex items-center gap-2 text-[10px] text-muted-foreground mt-0.5">
+                                  <span>{formatSize(doc.file_size)}</span>
+                                  {doc.file_type?.includes('pdf') && <span>• PDF</span>}
+                                  {doc.file_type?.includes('image') && <span>• รูปภาพ</span>}
+                                </div>
                               </div>
-                              {doc.description && <p className="text-xs text-muted-foreground mt-0.5">{doc.description}</p>}
-                              <div className="flex items-center gap-2 text-[10px] text-muted-foreground mt-0.5">
-                                <span>{formatSize(doc.file_size)}</span>
-                                {doc.file_type?.includes('pdf') && <span>• PDF</span>}
-                                {doc.file_type?.includes('image') && <span>• รูปภาพ</span>}
-                              </div>
+                              <Button size="sm" onClick={() => handleDownload(doc)} disabled={downloading === doc.id || !unlocked}>
+                                {downloading === doc.id ? (
+                                  <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" />
+                                ) : !unlocked ? (
+                                  <Lock className="w-3.5 h-3.5 mr-1.5" />
+                                ) : (
+                                  <Download className="w-3.5 h-3.5 mr-1.5" />
+                                )}
+                                ดาวน์โหลด
+                              </Button>
                             </div>
-                            <Button size="sm" onClick={() => handleDownload(doc)} disabled={downloading === doc.id}>
-                              {downloading === doc.id ? (
-                                <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" />
-                              ) : (
-                                <Download className="w-3.5 h-3.5 mr-1.5" />
-                              )}
-                              ดาวน์โหลด
-                            </Button>
-                          </div>
-                        ))}
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+
+              {!unlocked && !checkingAccess && (
+                <div className="absolute inset-0 flex items-center justify-center p-4">
+                  <Card className="max-w-md w-full border-primary/30 shadow-lg bg-card/95 backdrop-blur">
+                    <CardContent className="pt-6 pb-6 text-center space-y-4">
+                      <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                        <Lock className="w-6 h-6 text-primary" />
+                      </div>
+                      <div className="space-y-1">
+                        <h3 className="font-semibold">เอกสารถูกล็อกอยู่</h3>
+                        <p className="text-xs text-muted-foreground leading-relaxed">
+                          เอกสารบริษัท ENT จะปลดล็อกอัตโนมัติ
+                          เมื่อใบเสนอราคาของคุณได้รับการอนุมัติครั้งแรก
+                          (รวมถึงสถานะถัดไป เช่น ออก PO / ใบแจ้งหนี้ / ชำระเงิน)
+                        </p>
+                      </div>
+                      <div className="flex flex-col sm:flex-row gap-2 justify-center pt-1">
+                        <Button size="sm" onClick={() => navigate('/request-quote')}>
+                          <FileText className="w-3.5 h-3.5 mr-1.5" />
+                          ขอใบเสนอราคา
+                        </Button>
+                        <Button size="sm" variant="outline" onClick={() => navigate('/my-quotes')}>
+                          ดูใบเสนอราคาของฉัน
+                        </Button>
                       </div>
                     </CardContent>
                   </Card>
-                );
-              })}
+                </div>
+              )}
             </div>
           )}
         </div>
