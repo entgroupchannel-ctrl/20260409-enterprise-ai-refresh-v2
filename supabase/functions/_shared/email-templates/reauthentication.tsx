@@ -22,12 +22,12 @@ export const ReauthenticationEmail = ({ token }: ReauthenticationEmailProps) => 
         <Section style={header}>
           <Heading style={logo}>{SITE_NAME}</Heading>
         </Section>
-        <Heading style={h1}>ยืนยันตัวตน</Heading>
+        <Heading style={h1}>ยืนยันตัวตนของคุณ</Heading>
         <Text style={text}>ใช้รหัสด้านล่างเพื่อยืนยันตัวตนของคุณ:</Text>
         <Text style={codeStyle}>{token}</Text>
         <Hr style={hr} />
         <Text style={footer}>
-          รหัสนี้จะหมดอายุในเวลาอันสั้น หากคุณไม่ได้ขอรหัสนี้ สามารถเพิกเฉยอีเมลฉบับนี้ได้
+          รหัสนี้จะหมดอายุในไม่ช้า หากคุณไม่ได้ขอรหัสนี้ สามารถเพิกเฉยอีเมลฉบับนี้ได้
         </Text>
         <Text style={footerBrand}>© {SITE_NAME} — B2B Industrial Platform</Text>
       </Container>
@@ -45,7 +45,7 @@ const h1 = { fontSize: '20px', fontWeight: '600' as const, color: '#1a1a2e', mar
 const text = { fontSize: '14px', color: '#374151', lineHeight: '1.6', margin: '0 0 16px' }
 const codeStyle = {
   fontFamily: 'Courier, monospace', fontSize: '28px', fontWeight: 'bold' as const,
-  color: PRIMARY, margin: '0 0 30px', textAlign: 'center' as const, letterSpacing: '4px',
+  color: PRIMARY, margin: '0 0 24px', textAlign: 'center' as const, letterSpacing: '4px',
 }
 const hr = { borderColor: '#e5e7eb', margin: '24px 0' }
 const footer = { fontSize: '12px', color: '#9ca3af', margin: '0 0 8px' }

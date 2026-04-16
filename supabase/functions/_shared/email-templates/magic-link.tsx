@@ -23,9 +23,9 @@ export const MagicLinkEmail = ({ siteName, confirmationUrl }: MagicLinkEmailProp
         <Section style={header}>
           <Heading style={logo}>{SITE_NAME}</Heading>
         </Section>
-        <Heading style={h1}>ลิงก์เข้าสู่ระบบ</Heading>
+        <Heading style={h1}>ลิงก์เข้าสู่ระบบของคุณ</Heading>
         <Text style={text}>
-          คลิกปุ่มด้านล่างเพื่อเข้าสู่ระบบ {SITE_NAME} ลิงก์นี้จะหมดอายุในเวลาอันสั้น
+          คลิกปุ่มด้านล่างเพื่อเข้าสู่ระบบ {SITE_NAME} ลิงก์นี้จะหมดอายุในไม่ช้า
         </Text>
         <Section style={buttonSection}>
           <Button style={button} href={confirmationUrl}>

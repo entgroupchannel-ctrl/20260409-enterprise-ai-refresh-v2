@@ -30,7 +30,7 @@ export const RecoveryEmail = ({ siteName, confirmationUrl }: RecoveryEmailProps)
         </Text>
         <Section style={buttonSection}>
           <Button style={button} href={confirmationUrl}>
-            ตั้งรหัสผ่านใหม่
+            รีเซ็ตรหัสผ่าน
           </Button>
         </Section>
         <Hr style={hr} />
