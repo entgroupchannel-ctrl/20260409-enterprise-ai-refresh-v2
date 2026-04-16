@@ -95,10 +95,7 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
               รายละเอียด
             </Button>
           </Link>
-          <Button size="sm" className="flex-1 text-xs" onClick={() => onQuote(product.name)}>
-            <FileText className="w-3.5 h-3.5 mr-1" />
-            ขอราคา
-          </Button>
+          <QuoteRequestButton productModel={product.name} productName={product.name} size="sm" className="flex-1 text-xs" />
         </div>
         <div className="mt-2">
           <AddToCartButton

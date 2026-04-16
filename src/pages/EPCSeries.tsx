@@ -333,9 +333,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
             <Download className="w-3.5 h-3.5 mr-1.5" /> Datasheet
           </a>
         </Button>
-        <Button size="sm" className="flex-1" onClick={() => onQuote?.(model.name)}>
-          <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
-        </Button>
+        <QuoteRequestButton productModel={model.name} productName={`EPC ${model.name} — Panel PC ${model.size}`} size="sm" className="flex-1" />
       </div>
       <div className="mt-2">
         <AddToCartButton
