@@ -77,7 +77,10 @@ function EmailTemplate({ settings, templateType, confirmationUrl, recipient, ema
   const footerBrand = { fontSize: '12px', color: '#9ca3af', margin: '0', textAlign: 'center' as const }
 
   return React.createElement(Html, { lang: 'th', dir: 'ltr' },
-    React.createElement(Head, null),
+    React.createElement(Head, null,
+      React.createElement('meta', { httpEquiv: 'Content-Type', content: 'text/html; charset=UTF-8' }),
+      React.createElement('meta', { charSet: 'UTF-8' }),
+    ),
     React.createElement(Preview, null, settings.heading || settings.subject || ''),
     React.createElement(Body, { style: main },
       React.createElement(Container, { style: container },
