@@ -15,7 +15,7 @@ const GATEWAY_URL = 'https://connector-gateway.lovable.dev/resend'
 const DEFAULT_SITE_NAME = 'ENT Group'
 const DEFAULT_PRIMARY = '#0fa888'
 const DEFAULT_FONT = "'IBM Plex Sans Thai', Arial, sans-serif"
-const FROM_EMAIL = 'ENT Group <noreply@notify.www.entgroup.co.th>'
+const FROM_EMAIL = 'ENT Group <noreply@entgroup.co.th>'
 
 const DEFAULT_SUBJECTS: Record<string, string> = {
   signup: 'ยืนยันอีเมลของคุณ — ENT Group',
