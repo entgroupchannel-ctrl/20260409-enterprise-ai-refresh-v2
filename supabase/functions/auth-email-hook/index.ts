@@ -97,6 +97,7 @@ function DynamicEmail({ settings, templateType, confirmationUrl, recipient, emai
   }
   const hrStyle = { borderColor: '#e5e7eb', margin: '24px 0' }
   const footer = { fontSize: '12px', color: '#9ca3af', margin: '0 0 8px' }
+  const contactInfo = { fontSize: '12px', color: '#9ca3af', margin: '0 0 4px', textAlign: 'center' as const }
   const footerBrand = { fontSize: '12px', color: '#9ca3af', margin: '0', textAlign: 'center' as const }
 
   return React.createElement(Html, { lang: 'th', dir: 'ltr' },
