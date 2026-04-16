@@ -4,7 +4,7 @@ import { parseEmailWebhookPayload } from 'npm:@lovable.dev/email-js'
 import { WebhookError, verifyWebhookRequest } from 'npm:@lovable.dev/webhooks-js'
 import { createClient } from 'npm:@supabase/supabase-js@2'
 import {
-  Body, Button, Container, Head, Heading, Html, Hr, Img, Link, Preview, Section, Text,
+  Body, Button, Container, Head, Heading, Html, Hr, Img, Preview, Section, Text,
 } from 'npm:@react-email/components@0.0.22'
 
 const corsHeaders = {
@@ -15,8 +15,8 @@ const corsHeaders = {
 
 // Configuration
 const DEFAULT_SITE_NAME = "ENT Group"
+const SITE_URL = "https://www.entgroup.co.th"
 const SENDER_DOMAIN = "notify.www.entgroup.co.th"
-const ROOT_DOMAIN = "www.entgroup.co.th"
 const FROM_DOMAIN = "notify.www.entgroup.co.th"
 const DEFAULT_PRIMARY = '#0fa888'
 const DEFAULT_FONT = "'IBM Plex Sans Thai', Arial, sans-serif"
@@ -31,7 +31,6 @@ const DEFAULT_SUBJECTS: Record<string, string> = {
   reauthentication: 'รหัสยืนยันตัวตน',
 }
 
-// Sample data for preview mode
 const SAMPLE_PROJECT_URL = "https://ent-vision-v2.lovable.app"
 const SAMPLE_EMAIL = "user@example.test"
 const SAMPLE_DATA: Record<string, object> = {
@@ -56,7 +55,6 @@ interface TemplateSettings {
   is_active?: boolean
 }
 
-// Dynamic email template that reads from DB settings
 function DynamicEmail({ settings, templateType, confirmationUrl, recipient, email, newEmail, token }: {
   settings: TemplateSettings
   templateType: string
@@ -71,7 +69,6 @@ function DynamicEmail({ settings, templateType, confirmationUrl, recipient, emai
   const fontFamily = settings.font_family || DEFAULT_FONT
   const isOTP = templateType === 'reauthentication'
 
-  // Build body text with dynamic replacements
   let bodyText = settings.body_text || ''
   if (templateType === 'signup' && recipient) {
     bodyText = bodyText || `ขอบคุณที่สมัครสมาชิก ${siteName} กรุณายืนยันอีเมลของคุณ (${recipient}) โดยคลิกปุ่มด้านล่าง:`
@@ -82,8 +79,10 @@ function DynamicEmail({ settings, templateType, confirmationUrl, recipient, emai
 
   const main = { backgroundColor: '#ffffff', fontFamily }
   const container = { padding: '20px 30px', maxWidth: '580px', margin: '0 auto' }
-  const header = { textAlign: 'center' as const, padding: '20px 0 10px' }
+  const header = { textAlign: 'left' as const, padding: '16px 0 12px' }
+  const logoLink = { textDecoration: 'none', display: 'inline-block' }
   const logo = { fontSize: '20px', fontWeight: '700' as const, color: primary, margin: '0' }
+  const logoImg = { height: '32px', width: 'auto', display: 'block' }
   const h1Style = { fontSize: '20px', fontWeight: '600' as const, color: '#1a1a2e', margin: '20px 0 10px' }
   const textStyle = { fontSize: '14px', color: '#374151', lineHeight: '1.6', margin: '0 0 16px' }
   const buttonSection = { textAlign: 'center' as const, margin: '24px 0' }
@@ -101,15 +100,19 @@ function DynamicEmail({ settings, templateType, confirmationUrl, recipient, emai
   const footerBrand = { fontSize: '12px', color: '#9ca3af', margin: '0', textAlign: 'center' as const }
 
   return React.createElement(Html, { lang: 'th', dir: 'ltr' },
-    React.createElement(Head, null),
+    React.createElement(Head, null,
+      React.createElement('meta', { httpEquiv: 'Content-Type', content: 'text/html; charset=UTF-8' }),
+      React.createElement('meta', { charSet: 'UTF-8' }),
+    ),
     React.createElement(Preview, null, settings.heading || settings.subject || ''),
     React.createElement(Body, { style: main },
       React.createElement(Container, { style: container },
         React.createElement(Section, { style: header },
-          settings.logo_url
-            ? React.createElement(Img, { src: settings.logo_url, alt: siteName, style: { maxHeight: '40px', margin: '0 auto 8px' } })
-            : null,
-          React.createElement(Heading, { style: logo }, siteName),
+          React.createElement('a', { href: SITE_URL, style: logoLink },
+            settings.logo_url
+              ? React.createElement(Img, { src: settings.logo_url, alt: siteName, style: logoImg })
+              : React.createElement(Heading, { style: logo }, siteName),
+          ),
         ),
         React.createElement(Heading, { style: h1Style }, settings.heading || ''),
         React.createElement(Text, { style: textStyle }, bodyText),
@@ -130,7 +133,6 @@ function DynamicEmail({ settings, templateType, confirmationUrl, recipient, emai
   )
 }
 
-// Fetch template settings from DB
 async function getTemplateSettings(supabase: any, templateType: string): Promise<TemplateSettings> {
   try {
     const { data } = await supabase
@@ -145,7 +147,6 @@ async function getTemplateSettings(supabase: any, templateType: string): Promise
   }
 }
 
-// Preview endpoint handler
 async function handlePreview(req: Request): Promise<Response> {
   const previewCorsHeaders = {
     'Access-Control-Allow-Origin': '*',
@@ -156,7 +157,6 @@ async function handlePreview(req: Request): Promise<Response> {
     return new Response(null, { headers: previewCorsHeaders })
   }
 
-  // Accept either LOVABLE_API_KEY or a valid Supabase JWT (for admin preview)
   const apiKey = Deno.env.get('LOVABLE_API_KEY')
   const authHeader = req.headers.get('Authorization')
   let authorized = false
@@ -164,7 +164,6 @@ async function handlePreview(req: Request): Promise<Response> {
   if (apiKey && authHeader === `Bearer ${apiKey}`) {
     authorized = true
   } else if (authHeader?.startsWith('Bearer ')) {
-    // Validate as Supabase JWT
     const supabaseAuth = createClient(
       Deno.env.get('SUPABASE_URL')!,
       Deno.env.get('SUPABASE_ANON_KEY')!,
@@ -186,7 +185,7 @@ async function handlePreview(req: Request): Promise<Response> {
     const body = await req.json()
     type = body.type
   } catch {
-    return new Response(JSON.stringify({ error: 'Invalid JSON in request body' }), {
+    return new Response(JSON.stringify({ error: 'Invalid JSON' }), {
       status: 400,
       headers: { ...previewCorsHeaders, 'Content-Type': 'application/json' },
     })
@@ -220,7 +219,6 @@ async function handlePreview(req: Request): Promise<Response> {
   })
 }
 
-// Webhook handler
 async function handleWebhook(req: Request): Promise<Response> {
   const apiKey = Deno.env.get('LOVABLE_API_KEY')
 
@@ -272,33 +270,26 @@ async function handleWebhook(req: Request): Promise<Response> {
   }
 
   if (!run_id) {
-    console.error('Webhook payload missing run_id')
-    return new Response(
-      JSON.stringify({ error: 'Invalid webhook payload' }),
-      { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    )
+    return new Response(JSON.stringify({ error: 'Invalid webhook payload' }), {
+      status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    })
   }
 
   if (payload.version !== '1') {
-    console.error('Unsupported payload version', { version: payload.version, run_id })
-    return new Response(
-      JSON.stringify({ error: `Unsupported payload version: ${payload.version}` }),
-      { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    )
+    return new Response(JSON.stringify({ error: `Unsupported version: ${payload.version}` }), {
+      status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    })
   }
 
   const emailType = payload.data.action_type
   console.log('Received auth event', { emailType, email: payload.data.email, run_id })
 
   if (!DEFAULT_SUBJECTS[emailType]) {
-    console.error('Unknown email type', { emailType, run_id })
-    return new Response(
-      JSON.stringify({ error: `Unknown email type: ${emailType}` }),
-      { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    )
+    return new Response(JSON.stringify({ error: `Unknown email type: ${emailType}` }), {
+      status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    })
   }
 
-  // Create supabase client and fetch template settings from DB
   const supabase = createClient(
     Deno.env.get('SUPABASE_URL')!,
     Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
@@ -307,7 +298,6 @@ async function handleWebhook(req: Request): Promise<Response> {
   const settings = await getTemplateSettings(supabase, emailType)
   const siteName = settings.site_name || DEFAULT_SITE_NAME
 
-  // Build dynamic email element
   const element = React.createElement(DynamicEmail, {
     settings,
     templateType: emailType,
@@ -318,7 +308,6 @@ async function handleWebhook(req: Request): Promise<Response> {
     token: payload.data.token,
   })
 
-  // Render to HTML and plain text
   const html = await renderAsync(element)
   const text = await renderAsync(element, { plainText: true })
 
@@ -360,8 +349,7 @@ async function handleWebhook(req: Request): Promise<Response> {
       error_message: 'Failed to enqueue email',
     })
     return new Response(JSON.stringify({ error: 'Failed to enqueue email' }), {
-      status: 500,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     })
   }
 
@@ -390,8 +378,7 @@ Deno.serve(async (req) => {
     console.error('Webhook handler error:', error)
     const message = error instanceof Error ? error.message : 'Unknown error'
     return new Response(JSON.stringify({ error: message }), {
-      status: 500,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     })
   }
 })
