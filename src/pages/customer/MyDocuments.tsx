@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import {
-  FileArchive, Search, Download, Loader2, Info, Star,
+  FileArchive, Search, Download, Loader2, Info, Star, Lock, FileText,
 } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 
@@ -48,10 +48,35 @@ export default function MyDocuments() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [downloading, setDownloading] = useState<string | null>(null);
+  const [unlocked, setUnlocked] = useState(false);
+  const [checkingAccess, setCheckingAccess] = useState(true);
 
   useEffect(() => {
     loadDocuments();
-  }, []);
+    checkUnlockStatus();
+  }, [user?.id]);
+
+  const checkUnlockStatus = async () => {
+    if (!user?.id) {
+      setUnlocked(false);
+      setCheckingAccess(false);
+      return;
+    }
+    setCheckingAccess(true);
+    try {
+      const UNLOCK_STATUSES = ['approved', 'quote_sent', 'po_approved', 'po_confirmed', 'completed'];
+      const { count } = await (supabase as any)
+        .from('quote_requests')
+        .select('id', { count: 'exact', head: true })
+        .eq('created_by', user.id)
+        .in('status', UNLOCK_STATUSES);
+      setUnlocked((count ?? 0) > 0);
+    } catch {
+      setUnlocked(false);
+    } finally {
+      setCheckingAccess(false);
+    }
+  };
 
   const loadDocuments = async () => {
     setLoading(true);
@@ -83,6 +108,13 @@ export default function MyDocuments() {
   };
 
   const handleDownload = async (doc: CompanyDocument) => {
+    if (!unlocked) {
+      toast({
+        title: 'ยังไม่สามารถดาวน์โหลดได้',
+        description: 'เอกสารบริษัทจะปลดล็อกเมื่อใบเสนอราคาของคุณได้รับการอนุมัติครั้งแรก',
+      });
+      return;
+    }
     setDownloading(doc.id);
     try {
       const { data: urlData, error } = await supabase.storage
