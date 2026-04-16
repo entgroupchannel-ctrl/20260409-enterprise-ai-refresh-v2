@@ -480,60 +480,118 @@ export default function AdminCompanySettings() {
           </TabsContent>
 
           {/* TAB 3: Banking */}
-          <TabsContent value="banking">
+          <TabsContent value="banking" className="space-y-4">
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between">
+                <div>
+                  <CardTitle className="text-base">บัญชีธนาคาร</CardTitle>
+                  <CardDescription>บัญชีที่แสดงบนใบเสนอราคาและเอกสาร</CardDescription>
+                </div>
+                {isSuperAdmin && (
+                  <Button variant="outline" size="sm" onClick={addBankAccount}>
+                    <Plus className="w-4 h-4 mr-1.5" />
+                    เพิ่มบัญชี
+                  </Button>
+                )}
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {bankAccounts.length === 0 && (
+                  <p className="text-sm text-muted-foreground text-center py-4">ยังไม่มีบัญชีธนาคาร</p>
+                )}
+                {bankAccounts.map((acct, idx) => (
+                  <div key={acct.id} className="border rounded-lg p-4 space-y-3 relative">
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2">
+                        <Banknote className="w-4 h-4 text-primary" />
+                        <span className="font-medium text-sm">บัญชีที่ {idx + 1}</span>
+                        {acct.is_default && (
+                          <Badge variant="secondary" className="text-xs">
+                            <Star className="w-3 h-3 mr-1 fill-current" />
+                            บัญชีหลัก
+                          </Badge>
+                        )}
+                      </div>
+                      {isSuperAdmin && (
+                        <div className="flex items-center gap-1">
+                          {!acct.is_default && (
+                            <Button variant="ghost" size="sm" onClick={() => setDefaultBank(idx)} title="ตั้งเป็นบัญชีหลัก">
+                              <Star className="w-4 h-4" />
+                            </Button>
+                          )}
+                          <Button variant="ghost" size="sm" onClick={() => removeBankAccount(idx)} className="text-destructive hover:text-destructive">
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <div>
+                        <Label className="text-xs">ธนาคาร</Label>
+                        <Input
+                          value={acct.bank_name}
+                          onChange={(e) => updateBankField(idx, 'bank_name', e.target.value)}
+                          disabled={!isSuperAdmin}
+                          placeholder="ธนาคารกสิกรไทย"
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-xs">สาขา</Label>
+                        <Input
+                          value={acct.branch || ''}
+                          onChange={(e) => updateBankField(idx, 'branch', e.target.value)}
+                          disabled={!isSuperAdmin}
+                          placeholder="สาขาบางเดื่อ ปทุมธานี"
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-xs">เลขที่บัญชี</Label>
+                        <Input
+                          value={acct.account_number}
+                          onChange={(e) => updateBankField(idx, 'account_number', e.target.value)}
+                          disabled={!isSuperAdmin}
+                          placeholder="xxx-x-xxxxx-x"
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-xs">ชื่อบัญชี</Label>
+                        <Input
+                          value={acct.account_name}
+                          onChange={(e) => updateBankField(idx, 'account_name', e.target.value)}
+                          disabled={!isSuperAdmin}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+
+            {/* PromptPay */}
             <Card>
               <CardHeader>
-                <CardTitle className="text-base">ข้อมูลธนาคาร</CardTitle>
-                <CardDescription>สำหรับแสดงบนใบเสนอราคาและใบแจ้งหนี้</CardDescription>
+                <CardTitle className="text-base">PromptPay</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label>ธนาคาร</Label>
-                    <Input
-                      value={settings.bank_name || ''}
-                      onChange={(e) => update('bank_name', e.target.value)}
-                      disabled={!isSuperAdmin}
-                      placeholder="ธนาคารกสิกรไทย"
-                    />
-                  </div>
-                  <div>
-                    <Label>สาขา</Label>
-                    <Input
-                      value={settings.bank_branch || ''}
-                      onChange={(e) => update('bank_branch', e.target.value)}
-                      disabled={!isSuperAdmin}
-                    />
-                  </div>
-                  <div>
-                    <Label>เลขที่บัญชี</Label>
-                    <Input
-                      value={settings.bank_account_number || ''}
-                      onChange={(e) => update('bank_account_number', e.target.value)}
-                      disabled={!isSuperAdmin}
-                      placeholder="xxx-x-xxxxx-x"
-                    />
-                  </div>
-                  <div>
-                    <Label>ชื่อบัญชี</Label>
-                    <Input
-                      value={settings.bank_account_name || ''}
-                      onChange={(e) => update('bank_account_name', e.target.value)}
-                      disabled={!isSuperAdmin}
-                    />
-                  </div>
-                  <div className="md:col-span-2">
-                    <Label>PromptPay ID</Label>
-                    <Input
-                      value={settings.promptpay_id || ''}
-                      onChange={(e) => update('promptpay_id', e.target.value)}
-                      disabled={!isSuperAdmin}
-                      placeholder="0xxxxxxxxx หรือ Tax ID"
-                    />
-                  </div>
+              <CardContent>
+                <div className="max-w-sm">
+                  <Label>PromptPay ID</Label>
+                  <Input
+                    value={settings.promptpay_id || ''}
+                    onChange={(e) => update('promptpay_id', e.target.value)}
+                    disabled={!isSuperAdmin}
+                    placeholder="0xxxxxxxxx หรือ Tax ID"
+                  />
                 </div>
               </CardContent>
             </Card>
+
+            {isSuperAdmin && (
+              <div className="flex justify-end">
+                <Button onClick={saveBankAccounts} disabled={savingBank}>
+                  {savingBank ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
+                  บันทึกข้อมูลธนาคาร
+                </Button>
+              </div>
+            )}
           </TabsContent>
 
           {/* TAB 4: Branding */}
