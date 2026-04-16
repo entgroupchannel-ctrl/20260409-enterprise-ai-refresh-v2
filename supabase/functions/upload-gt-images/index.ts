@@ -21,7 +21,9 @@ serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
     );
 
-    const { images } = await req.json() as { images: ImageUploadItem[] };
+    const { images, folder } = await req.json() as { images: ImageUploadItem[]; folder?: string };
+
+    const targetFolder = folder || "gt-series";
 
     if (!Array.isArray(images) || images.length === 0) {
       return new Response(JSON.stringify({ error: "No images provided" }), {
@@ -35,7 +37,7 @@ serve(async (req) => {
     for (const img of images) {
       try {
         const binary = Uint8Array.from(atob(img.base64Data), (c) => c.charCodeAt(0));
-        const path = `gt-series/${img.filename}`;
+        const path = `${targetFolder}/${img.filename}`;
 
         const { error: uploadError } = await supabaseAdmin.storage
           .from("product-images")
