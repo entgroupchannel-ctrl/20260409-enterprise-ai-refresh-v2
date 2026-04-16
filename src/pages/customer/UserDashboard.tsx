@@ -35,6 +35,7 @@ import {
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 import NotificationBell from '@/components/notifications/NotificationBell';
+import ThemeToggle from '@/components/ThemeToggle';
 
 // ─── Types ───
 interface Quote {
@@ -522,6 +523,7 @@ export default function UserDashboard() {
             </div>
             <div className="flex items-center gap-2">
               <span className="text-xs text-muted-foreground hidden sm:block">{user?.email}</span>
+              <ThemeToggle />
               {user?.id && <NotificationBell userId={user.id} />}
               <Button variant="ghost" size="sm" onClick={signOut}>
                 <LogOut className="w-4 h-4 mr-1" /> ออกจากระบบ
