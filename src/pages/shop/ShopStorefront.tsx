@@ -115,13 +115,14 @@ const ShopStorefront = () => {
             }
           });
 
-          // Series-level fallback images — shown when no image is in DB or product_files
-          // These reference files in /public or bundled @/assets (via Vite import would need separate step)
+          // Series-level fallback images
           const seriesFallback: Record<string, string> = {
             'GT Series':   '/images/gt1000/product-angle1.jpg',
             'GK Series':   '/product-placeholder.svg',
             'GB Series':   '/product-placeholder.svg',
-            'GTY Series':  '/product-placeholder.svg',
+            'GTY Series':  '/images/panelpc/gty156-front.png',
+            'GTG Series':  '/images/panelpc/gtg-series.png',
+            'Smart Display': '/product-placeholder.svg',
             'Mini PC':     '/product-placeholder.svg',
             'Firewall':    '/product-placeholder.svg',
             'Rugged':      '/product-placeholder.svg',
@@ -131,17 +132,29 @@ const ShopStorefront = () => {
             'AIO':         '/product-placeholder.svg',
           };
 
+          // Model-specific image overrides for products whose DB image_url points to missing files
+          const modelImageMap: Record<string, string> = {
+            'gty121t-base': '/images/panelpc/gty121-front.jpg',
+            'gty150t-base': '/images/panelpc/gty156-front.png',
+            'gty156t-base': '/images/panelpc/gty156-front.png',
+            'gty185t-base': '/images/panelpc/gty156-front.png',
+            'gty215t-base': '/images/panelpc/gty156-front.png',
+          };
+
           const enriched = data.map(p => {
             const fileImg = fileImgByProduct[p.id];
+            const modelOverride = modelImageMap[p.sku];
             const dbImg = p.thumbnail_url || p.image_url;
+            // If dbImg references a /images/wix/ path that might not exist, check for override
+            const needsOverride = dbImg && dbImg.startsWith('/images/wix/') && modelOverride;
             const fallback = (p.series && seriesFallback[p.series]) || '/product-placeholder.svg';
-            const resolvedImg = fileImg || dbImg || fallback;
+            const resolvedImg = fileImg || (needsOverride ? modelOverride : dbImg) || fallback;
             return {
               ...p,
               variant_count: variantCounts[p.id] || 0,
               starting_price: minPriceByProduct[p.id] || p.unit_price,
               thumbnail_url: resolvedImg,
-              image_url: fileImg || p.image_url || fallback,
+              image_url: fileImg || (needsOverride ? modelOverride : p.image_url) || fallback,
             };
           });
           setProducts(enriched as Product[]);
