@@ -17,6 +17,15 @@ import { SearchCheck, LayoutGrid, List, SlidersHorizontal, X, FileSearch, Chevro
 import { cn } from '@/lib/utils';
 import SiteNavbar from '@/components/SiteNavbar';
 
+import imgSeriesGT from '@/assets/shop/series-gt.jpg';
+import imgSeriesGB from '@/assets/shop/series-gb.jpg';
+import imgSeriesGK from '@/assets/shop/series-gk.jpg';
+import imgSeriesEPC from '@/assets/shop/series-epc.jpg';
+import imgSeriesIBox from '@/assets/shop/series-ibox.jpg';
+import imgSeriesMiniPC from '@/assets/shop/series-minipc.jpg';
+import imgSeriesRugged from '@/assets/shop/series-rugged.jpg';
+import imgSeriesFirewall from '@/assets/shop/series-firewall.jpg';
+
 interface Product {
   id: string; sku: string; model: string; series: string | null; name: string; description: string | null;
   category: string | null; cpu: string | null; ram_gb: number | null; storage_gb: number | null;
