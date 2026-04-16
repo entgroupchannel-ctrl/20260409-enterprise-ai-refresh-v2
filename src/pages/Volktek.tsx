@@ -285,6 +285,10 @@ const Volktek = () => {
                       <img src={`${cat.modelImage}`} alt={`${cat.title} models`} className="w-full h-auto rounded-lg" loading="lazy" />
                     )}
                   </div>
+                  <div className="flex gap-2 mt-4">
+                    <AddToCartButton productModel={cat.title} productName={`Volktek ${cat.title}`} productDescription={cat.desc} size="sm" variant="outline" iconOnly />
+                    <QuoteRequestButton productModel={cat.title} productName={`Volktek ${cat.title}`} size="sm" variant="outline" iconOnly />
+                  </div>
                 </div>
               </div>
             ))}
