@@ -301,17 +301,14 @@ export default function CreateInvoiceFromSODialog({
         if (itemsErr) throw itemsErr;
       }
 
-      // Notify customer about invoice
+      // Notify customer about invoice via Resend
       if (quote?.customer_email) {
-        import('@/lib/notifications').then(({ sendTransactionalEmail }) => {
-          sendTransactionalEmail({
-            templateName: 'invoice-created',
+        import('@/lib/notifications').then(({ sendQuoteStatusEmail }) => {
+          sendQuoteStatusEmail({
             recipientEmail: quote.customer_email,
-            idempotencyKey: `invoice-created-${invoice.id}`,
-            templateData: {
-              customerName: quote.customer_name,
-              invoiceNumber: invoice.invoice_number,
-            },
+            customerName: quote.customer_name,
+            status: 'invoice_created',
+            invoiceNumber: invoice.invoice_number,
           });
         });
       }

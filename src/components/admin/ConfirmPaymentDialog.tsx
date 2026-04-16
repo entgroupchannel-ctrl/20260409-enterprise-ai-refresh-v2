@@ -207,7 +207,7 @@ export default function ConfirmPaymentDialog({
         .maybeSingle();
 
       if (invData?.customer_id) {
-        import('@/lib/notifications').then(({ createNotification, sendTransactionalEmail }) => {
+        import('@/lib/notifications').then(({ createNotification, sendQuoteStatusEmail }) => {
           createNotification({
             userId: invData.customer_id,
             type: 'payment_confirmed',
@@ -220,14 +220,11 @@ export default function ConfirmPaymentDialog({
             linkId: invoiceId,
           });
           if (invData.customer_email) {
-            sendTransactionalEmail({
-              templateName: 'payment-confirmed',
+            sendQuoteStatusEmail({
               recipientEmail: invData.customer_email,
-              idempotencyKey: `payment-confirmed-${invoiceId}`,
-              templateData: {
-                customerName: invData.customer_name,
-                invoiceNumber,
-              },
+              customerName: invData.customer_name,
+              status: 'payment_confirmed',
+              invoiceNumber,
             });
           }
         });
