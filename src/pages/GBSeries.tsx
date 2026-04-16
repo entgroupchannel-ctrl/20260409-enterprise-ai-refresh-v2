@@ -456,11 +456,20 @@ const GBSeries = () => {
                           <td className="px-4 py-3 text-foreground">{p.storage}</td>
                           <td className="px-4 py-3 text-right font-bold text-primary">{p.price}</td>
                           <td className="px-4 py-3 text-center">
-                            <button
-                              onClick={() => setQuoteOpen(true)}
-                              className="text-xs px-3 py-1.5 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity">
-                              ขอราคา
-                            </button>
+                            <div className="flex items-center gap-2 justify-center">
+                              <button
+                                onClick={() => setQuoteOpen(true)}
+                                className="text-xs px-3 py-1.5 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity">
+                                ขอราคา
+                              </button>
+                              <AddToCartButton
+                                productModel={current.name}
+                                productName={`${current.name} (${p.cpu}, ${p.ram}, ${p.storage})`}
+                                productDescription={`${current.name} — ${current.tagline} | CPU: ${p.cpu} | RAM: ${p.ram} | Storage: ${p.storage}`}
+                                size="sm"
+                                variant="outline"
+                              />
+                            </div>
                           </td>
                         </tr>
                       ))}
