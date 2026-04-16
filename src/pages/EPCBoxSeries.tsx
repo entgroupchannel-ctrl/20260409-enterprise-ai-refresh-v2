@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import SEOHead from "@/components/SEOHead";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
-import { Link } from "react-router-dom";
-import { ArrowLeft, ExternalLink, Cpu, Thermometer, Wind, Shield, Zap, Server, Layers, Settings, Box, Maximize, ChevronDown, Monitor, HardDrive, Wifi, Power, PlugZap, Expand, Filter, SlidersHorizontal, DollarSign, BarChart3, Play, Headphones, Volume2, Pause } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { ArrowLeft, ExternalLink, Cpu, Thermometer, Wind, Shield, Zap, Server, Layers, Settings, Box, Maximize, ChevronDown, Monitor, HardDrive, Wifi, Power, PlugZap, Expand, Filter, SlidersHorizontal, DollarSign, BarChart3, Play, Headphones, Volume2, Pause, FileText, LogIn, LogOut, UserRound } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ThemeToggle from "@/components/ThemeToggle";
 import logo from "@/assets/logo-entgroup.avif";
@@ -13,6 +13,8 @@ import { LineQRDialog } from "@/components/LineQRDialog";
 import AddToCartButton from "@/components/AddToCartButton";
 import CartBadge from "@/components/CartBadge";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
+import { useAuth } from "@/hooks/useAuth";
+import { Button } from "@/components/ui/button";
 
 const features = [
   { icon: Wind, title: "Fanless Design", desc: "เงียบสนิท ไม่มีชิ้นส่วนเคลื่อนไหว อายุการใช้งานยาวนาน" },
@@ -761,6 +763,8 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
 
 const EPCBoxSeries = () => {
   const [showLineQR, setShowLineQR] = useState(false);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="EPC Box Series — Fanless Modular Industrial PC" description="EPC Box Series คอมพิวเตอร์อุตสาหกรรม Fanless แบบ Modular LEGO MODE รองรับ Intel N100 ถึง Core i7 สำหรับโรงงานและ IoT" path="/epc-box-series" />
