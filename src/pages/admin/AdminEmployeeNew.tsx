@@ -84,7 +84,7 @@ export default function AdminEmployeeNew() {
         .single();
 
       if (error) throw error;
-      const link = `${window.location.origin}/invite/${data.token}`;
+      const link = `https://www.entgroup.co.th/invite/${data.token}`;
       setGeneratedLink(link);
       toast({ title: '✅ สร้างลิงก์เชิญสำเร็จ' });
     } catch (e: any) {
