@@ -126,6 +126,7 @@ export default function MyQuoteDetail() {
   const [showPrintPreview, setShowPrintPreview] = useState(false);
   const [currentRevision, setCurrentRevision] = useState<any>(null);
   const [relatedInvoices, setRelatedInvoices] = useState<any[]>([]);
+  const [assignedSaleUser, setAssignedSaleUser] = useState<{ full_name: string | null; phone: string | null; email: string | null; position: string | null } | null>(null);
 
   useEffect(() => {
     if (id && user) {
@@ -134,6 +135,25 @@ export default function MyQuoteDetail() {
       loadPOFiles();
     }
   }, [id, user]);
+
+  // Load assigned sale person for customer view
+  useEffect(() => {
+    const loadSaleAdmin = async () => {
+      const userId = (quote as any)?.assigned_to || (quote as any)?.created_by;
+      if (!userId) { setAssignedSaleUser(null); return; }
+      try {
+        const { data } = await (supabase as any)
+          .from('users')
+          .select('full_name, phone, email, position')
+          .eq('id', userId)
+          .maybeSingle();
+        setAssignedSaleUser(data);
+      } catch (e) {
+        console.warn('Failed to load sale person:', e);
+      }
+    };
+    loadSaleAdmin();
+  }, [(quote as any)?.assigned_to, (quote as any)?.created_by]);
 
   // Load current revision status for action bar guard (Bug 8)
   useEffect(() => {
