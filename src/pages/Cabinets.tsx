@@ -356,9 +356,7 @@ const Cabinets = () => {
         <div className="card-surface p-8 text-center">
           <h2 className="text-2xl font-display font-bold text-foreground mb-3">สนใจตู้ Panel PC Cabinet?</h2>
           <p className="text-muted-foreground mb-6">ปรึกษาผู้เชี่ยวชาญเพื่อเลือกขนาดและรุ่นที่เหมาะกับงานของคุณ</p>
-          <Button size="lg" onClick={() => setQuoteProduct("Panel PC Cabinet")}>
-            <FileText className="w-4 h-4 mr-2" /> ขอใบเสนอราคา
-          </Button>
+          <QuoteRequestButton productModel="Panel PC Cabinet" productName="Panel PC Cabinet" size="lg" />
         </div>
       </div>
 

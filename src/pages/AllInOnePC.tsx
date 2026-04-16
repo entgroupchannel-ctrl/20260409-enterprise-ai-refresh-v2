@@ -190,9 +190,7 @@ const AllInOnePC = () => {
             </p>
 
             <div className="flex flex-wrap gap-3 mb-8">
-              <Button size="sm" onClick={() => setQuoteProduct("All-in-One PC")}>
-                <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
-              </Button>
+              <QuoteRequestButton productModel="All-in-One PC" productName="All-in-One PC" size="sm" />
               <Button size="sm" variant="outline" asChild>
                 <a href="#products">ดูสินค้าทั้งหมด →</a>
               </Button>

@@ -250,9 +250,7 @@ const Handheld = () => {
             <Button variant="outline" asChild>
               <Link to="/rugged-tablet">ดู Rugged Tablet & Notebook</Link>
             </Button>
-            <Button onClick={() => setQuoteProduct("Rugged Handheld & PDA")}>
-              <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
-            </Button>
+            <QuoteRequestButton productModel="Rugged Handheld & PDA" productName="Rugged Handheld & PDA" />
           </div>
         </div>
       </div>

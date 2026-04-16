@@ -430,9 +430,7 @@ const EPCSeries = () => {
                     <ExternalLink className="w-3.5 h-3.5 mr-1.5" /> Product Overview
                   </a>
                 </Button>
-                <Button size="sm" onClick={() => setQuoteProduct("EPC Series")}>
-                  <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
-                </Button>
+                <QuoteRequestButton productModel="EPC Series" productName="EPC Series" size="sm" />
                 <CartBadge />
                 <Button size="sm" className="bg-amber-500 text-black hover:bg-amber-400 font-bold" asChild>
                   <a href="#comparison">
@@ -912,9 +910,7 @@ const EPCSeries = () => {
                 <ExternalLink className="w-4 h-4 mr-1.5" /> ดาวน์โหลด E-Catalog
               </a>
             </Button>
-            <Button onClick={() => setQuoteProduct("EPC Series")}>
-              <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
-            </Button>
+            <QuoteRequestButton productModel="EPC Series" productName="EPC Series" />
           </div>
         </div>
       </div>
