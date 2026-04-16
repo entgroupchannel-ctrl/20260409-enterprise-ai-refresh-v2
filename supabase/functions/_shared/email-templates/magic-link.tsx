@@ -3,40 +3,41 @@
 import * as React from 'npm:react@18.3.1'
 
 import {
-  Body, Button, Container, Head, Heading, Html, Preview, Text, Hr, Section,
+  Body,
+  Button,
+  Container,
+  Head,
+  Heading,
+  Html,
+  Preview,
+  Text,
 } from 'npm:@react-email/components@0.0.22'
-
-const SITE_NAME = 'ENT Group'
-const PRIMARY = '#0fa888'
 
 interface MagicLinkEmailProps {
   siteName: string
   confirmationUrl: string
 }
 
-export const MagicLinkEmail = ({ siteName, confirmationUrl }: MagicLinkEmailProps) => (
-  <Html lang="th" dir="ltr">
+export const MagicLinkEmail = ({
+  siteName,
+  confirmationUrl,
+}: MagicLinkEmailProps) => (
+  <Html lang="en" dir="ltr">
     <Head />
-    <Preview>ลิงก์เข้าสู่ระบบ {SITE_NAME}</Preview>
+    <Preview>Your login link for {siteName}</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Section style={header}>
-          <Heading style={logo}>{SITE_NAME}</Heading>
-        </Section>
-        <Heading style={h1}>ลิงก์เข้าสู่ระบบ</Heading>
+        <Heading style={h1}>Your login link</Heading>
         <Text style={text}>
-          คลิกปุ่มด้านล่างเพื่อเข้าสู่ระบบ {SITE_NAME} ลิงก์นี้จะหมดอายุในเวลาอันสั้น
+          Click the button below to log in to {siteName}. This link will expire
+          shortly.
         </Text>
-        <Section style={buttonSection}>
-          <Button style={button} href={confirmationUrl}>
-            เข้าสู่ระบบ
-          </Button>
-        </Section>
-        <Hr style={hr} />
+        <Button style={button} href={confirmationUrl}>
+          Log In
+        </Button>
         <Text style={footer}>
-          หากคุณไม่ได้ขอลิงก์นี้ สามารถเพิกเฉยอีเมลฉบับนี้ได้
+          If you didn't request this link, you can safely ignore this email.
         </Text>
-        <Text style={footerBrand}>© {SITE_NAME} — B2B Industrial Platform</Text>
       </Container>
     </Body>
   </Html>
@@ -44,17 +45,26 @@ export const MagicLinkEmail = ({ siteName, confirmationUrl }: MagicLinkEmailProp
 
 export default MagicLinkEmail
 
-const main = { backgroundColor: '#ffffff', fontFamily: "'IBM Plex Sans Thai', Arial, sans-serif" }
-const container = { padding: '20px 30px', maxWidth: '580px', margin: '0 auto' }
-const header = { textAlign: 'center' as const, padding: '20px 0 10px' }
-const logo = { fontSize: '20px', fontWeight: '700' as const, color: PRIMARY, margin: '0' }
-const h1 = { fontSize: '20px', fontWeight: '600' as const, color: '#1a1a2e', margin: '20px 0 10px' }
-const text = { fontSize: '14px', color: '#374151', lineHeight: '1.6', margin: '0 0 16px' }
-const buttonSection = { textAlign: 'center' as const, margin: '24px 0' }
-const button = {
-  backgroundColor: PRIMARY, color: '#ffffff', fontSize: '14px',
-  borderRadius: '8px', padding: '12px 28px', textDecoration: 'none', fontWeight: '600' as const,
+const main = { backgroundColor: '#ffffff', fontFamily: 'Arial, sans-serif' }
+const container = { padding: '20px 25px' }
+const h1 = {
+  fontSize: '22px',
+  fontWeight: 'bold' as const,
+  color: '#000000',
+  margin: '0 0 20px',
 }
-const hr = { borderColor: '#e5e7eb', margin: '24px 0' }
-const footer = { fontSize: '12px', color: '#9ca3af', margin: '0 0 8px' }
-const footerBrand = { fontSize: '12px', color: '#9ca3af', margin: '0', textAlign: 'center' as const }
+const text = {
+  fontSize: '14px',
+  color: '#55575d',
+  lineHeight: '1.5',
+  margin: '0 0 25px',
+}
+const button = {
+  backgroundColor: '#000000',
+  color: '#ffffff',
+  fontSize: '14px',
+  borderRadius: '8px',
+  padding: '12px 20px',
+  textDecoration: 'none',
+}
+const footer = { fontSize: '12px', color: '#999999', margin: '30px 0 0' }
