@@ -63,7 +63,7 @@ const specRows = [
 /* ───── Main Component ───── */
 const RuggedHandheldDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);  const product = id ? getHandheldProduct(id) : undefined;
+  const product = id ? getHandheldProduct(id) : undefined;
   const related = id ? getRelatedHandhelds(id) : [];
 
   // ── Engagement Tracking: product view ──

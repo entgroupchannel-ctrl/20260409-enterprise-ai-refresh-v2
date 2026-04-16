@@ -610,7 +610,7 @@ const GTSeries = () => {
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
   const [activeTab, setActiveTab] = useState(searchParams.get("tab") || "overview");
-  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
+  
   const [selectedProducts, setSelectedProducts] = useState<Set<string>>(new Set());
   const [showLineQR, setShowLineQR] = useState(false);
   const toggleSelect = useCallback((name: string) => {
@@ -888,7 +888,7 @@ const GTSeries = () => {
                     key={model.name}
                     onClick={() => model.tab ? handleTabChange(model.tab) : undefined}
                     className={`group card-surface overflow-hidden hover:border-primary/30 transition-all hover:-translate-y-1 text-left cursor-pointer ${selectedProducts.has(model.name) ? "ring-2 ring-primary border-primary/50" : ""}`}>
-                    <ModelCard model={model} onQuote={setQuoteProduct} selected={selectedProducts.has(model.name)} onToggleSelect={toggleSelect} />
+                    <ModelCard model={model} selected={selectedProducts.has(model.name)} onToggleSelect={toggleSelect} />
                   </button>
                 ))}
               </div>
