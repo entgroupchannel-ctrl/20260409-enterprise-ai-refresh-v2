@@ -12,6 +12,7 @@ import {
   Phone, Mail, MapPin, ArrowLeft, Send, MessageCircle, Users, Camera, Upload, Loader2, CreditCard, Globe,
 } from "lucide-react";
 import FooterCompact from "@/components/FooterCompact";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 
 /* ═══════════════════════════════════════════
    i18n — TH / EN
@@ -157,7 +158,7 @@ const t = {
 
 const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
   const i = t[lang];
-  const [quoteOpen, setQuoteOpen] = useState(false);
+  
   const [form, setForm] = useState({
     name: "", email: "", phone: "", company: "", lineId: "", whatsapp: "",
     callbackTime: "", category: "", message: "", subscribe: true,
