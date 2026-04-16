@@ -5,6 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { IBoxProduct } from "@/data/ibox-products";
 import AddToCartButton from "@/components/AddToCartButton";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 
 interface IBoxProductCardProps {
   product: IBoxProduct;
