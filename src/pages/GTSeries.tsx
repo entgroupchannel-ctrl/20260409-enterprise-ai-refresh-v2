@@ -5695,23 +5695,33 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="overflow-x-auto">
                       <table className="w-full text-sm">
                         <thead>
-                          <tr className="bg-muted/50">
-                            <th className="text-left p-3 font-semibold text-foreground">CPU</th>
-                            <th className="text-left p-3 font-semibold text-foreground">RAM</th>
-                            <th className="text-left p-3 font-semibold text-foreground">SSD</th>
-                            <th className="text-right p-3 font-semibold text-foreground">ราคา (฿)</th>
-                          </tr>
-                        </thead>
-                        <tbody className="divide-y divide-border">
-                          {pageItems.map((item, i) => (
-                            <tr key={i} className="hover:bg-muted/30 transition-colors">
-                              <td className="p-3 font-medium text-foreground">{item.cpu}</td>
-                              <td className="p-3 text-muted-foreground">{item.ram}</td>
-                              <td className="p-3 text-muted-foreground">{item.ssd}</td>
-                              <td className="p-3 text-right font-bold text-primary">{item.price === "Call" ? "Call" : `฿${item.price}`}</td>
-                            </tr>
-                          ))}
-                        </tbody>
+                           <tr className="bg-muted/50">
+                             <th className="text-left p-3 font-semibold text-foreground">CPU</th>
+                             <th className="text-left p-3 font-semibold text-foreground">RAM</th>
+                             <th className="text-left p-3 font-semibold text-foreground">SSD</th>
+                             <th className="text-right p-3 font-semibold text-foreground">ราคา (฿)</th>
+                             <th className="text-center p-3 font-semibold text-foreground">สั่งซื้อ</th>
+                           </tr>
+                         </thead>
+                         <tbody className="divide-y divide-border">
+                           {pageItems.map((item, i) => {
+                             const specLabel = `GT1200 ${item.cpu} / ${item.ram} / ${item.ssd}`;
+                             return (
+                             <tr key={i} className="hover:bg-muted/30 transition-colors">
+                               <td className="p-3 font-medium text-foreground">{item.cpu}</td>
+                               <td className="p-3 text-muted-foreground">{item.ram}</td>
+                               <td className="p-3 text-muted-foreground">{item.ssd}</td>
+                               <td className="p-3 text-right font-bold text-primary">{item.price === "Call" ? "Call" : `฿${item.price}`}</td>
+                               <td className="p-3 text-center">
+                                 <div className="flex items-center justify-center gap-1">
+                                   <AddToCartButton productModel="GT1200" productName={specLabel} size="sm" />
+                                   <QuoteRequestButton productModel="GT1200" productName={specLabel} size="sm" variant="outline" />
+                                 </div>
+                               </td>
+                             </tr>
+                             );
+                           })}
+                         </tbody>
                       </table>
                     </div>
                     {/* Pagination */}
