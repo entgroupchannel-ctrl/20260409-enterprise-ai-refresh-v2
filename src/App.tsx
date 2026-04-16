@@ -14,6 +14,7 @@ import Index from "./pages/Index.tsx";
 import ScrollToTop from "./components/ScrollToTop.tsx";
 import SocialRibbon from "./components/SocialRibbon.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
+import GeneralChatWidget from "./components/chat/GeneralChatWidget.tsx";
 
 /* ── Lazy-loaded pages (with auto-retry on chunk errors) ── */
 const GTSeries = lazyRetry(() => import("./pages/GTSeries"));
@@ -123,6 +124,7 @@ const AdminSupplierManagement = lazyRetry(() => import("./pages/admin/AdminSuppl
 const AdminSupplierDetail = lazyRetry(() => import("./pages/admin/AdminSupplierDetail"));
 const AdminInternationalTransfer = lazyRetry(() => import("./pages/admin/AdminInternationalTransfer"));
 const AdminLiveChat = lazyRetry(() => import("./pages/admin/AdminLiveChat"));
+const AdminGeneralChat = lazyRetry(() => import("./pages/admin/AdminGeneralChat"));
 const AdminReports = lazyRetry(() => import("./pages/admin/AdminReports"));
 const AdminSubscribers = lazyRetry(() => import("./pages/admin/AdminSubscribers"));
 
@@ -245,6 +247,7 @@ const App = () => (
                     <Route path="/admin/suppliers/:id" element={<ProtectedRoute requireSales><AdminSupplierDetail /></ProtectedRoute>} />
                     <Route path="/admin/international-transfer" element={<ProtectedRoute requireSales><AdminInternationalTransfer /></ProtectedRoute>} />
                     <Route path="/admin/live-chat" element={<ProtectedRoute requireSales><AdminLiveChat /></ProtectedRoute>} />
+                    <Route path="/admin/general-chat" element={<ProtectedRoute requireSales><AdminGeneralChat /></ProtectedRoute>} />
                     <Route path="/admin/reports" element={<ProtectedRoute allowedRoles={['super_admin','admin','sales','accountant']}><AdminReports /></ProtectedRoute>} />
                     <Route path="/admin/subscribers" element={<ProtectedRoute requireSales><AdminSubscribers /></ProtectedRoute>} />
                    <Route path="/admin/profile" element={<ProtectedRoute requireSales><AdminProfile /></ProtectedRoute>} />
@@ -276,6 +279,7 @@ const App = () => (
                   </Routes>
                 </Suspense>
                 <SocialRibbon />
+                <GeneralChatWidget />
                 </CartProvider>
               </BrowserRouter>
             </TooltipProvider>
