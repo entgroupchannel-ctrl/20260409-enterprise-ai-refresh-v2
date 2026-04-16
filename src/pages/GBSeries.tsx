@@ -344,6 +344,8 @@ const GBSeries = () => {
               ขอใบเสนอราคา
             </button>
           </div>
+        </div>
+      </div>
 
       {/* Hero */}
       <section className="relative overflow-hidden">
