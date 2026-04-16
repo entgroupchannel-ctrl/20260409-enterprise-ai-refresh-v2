@@ -217,13 +217,48 @@ export default function AdminQuoteDetail() {
   }, [quote?.products, quote?.discount_type, quote?.discount_percent, quote?.discount_amount, quote?.vat_percent]);
 
   const [assignedSaleUser, setAssignedSaleUser] = useState<any>(null);
+  const [staffList, setStaffList] = useState<any[]>([]);
+  const [assigningStaff, setAssigningStaff] = useState(false);
 
   useEffect(() => {
     if (id) {
       loadQuoteDetails();
       loadUserRole();
+      loadStaffList();
     }
   }, [id]);
+
+  const loadStaffList = async () => {
+    try {
+      const { data } = await (supabase as any)
+        .from('users')
+        .select('id, full_name, email, position, phone')
+        .in('role', ['super_admin', 'admin', 'sales'])
+        .eq('is_active', true)
+        .order('full_name');
+      setStaffList(data || []);
+    } catch (e) {
+      console.warn('Failed to load staff list:', e);
+    }
+  };
+
+  const handleAssignSale = async (userId: string | null) => {
+    if (!quote) return;
+    setAssigningStaff(true);
+    try {
+      const { error } = await supabase
+        .from('quote_requests')
+        .update({ assigned_to: userId } as any)
+        .eq('id', quote.id);
+      if (error) throw error;
+      setQuote({ ...quote, assigned_to: userId });
+      toast({ title: 'บันทึกแล้ว', description: userId ? 'มอบหมายผู้รับผิดชอบเรียบร้อย' : 'ยกเลิกการมอบหมายแล้ว' });
+    } catch (e: any) {
+      toast({ title: 'เกิดข้อผิดพลาด', description: e.message, variant: 'destructive' });
+    } finally {
+      setAssigningStaff(false);
+    }
+  };
 
   // Load assigned sale person
   useEffect(() => {
@@ -236,7 +271,7 @@ export default function AdminQuoteDetail() {
       try {
         const { data } = await (supabase as any)
           .from('users')
-          .select('id, full_name, email, position, avatar_url')
+          .select('id, full_name, email, position, avatar_url, phone')
           .eq('id', userId)
           .maybeSingle();
         setAssignedSaleUser(data);
