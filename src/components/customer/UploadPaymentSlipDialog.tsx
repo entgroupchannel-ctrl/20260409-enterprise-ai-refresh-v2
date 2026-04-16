@@ -2,6 +2,16 @@ import { useState, useEffect, useRef } from 'react';
 import {
   Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle,
 } from '@/components/ui/dialog';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -14,6 +24,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
 import {
   Upload, Loader2, ImageIcon, X, CircleCheckBig, AlertCircle, Banknote, Hourglass,
+  FileCheck, TriangleAlert,
 } from 'lucide-react';
 
 interface BankAccount {
@@ -58,6 +69,14 @@ export default function UploadPaymentSlipDialog({
   const [submitting, setSubmitting] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>('');
+  const [fileError, setFileError] = useState<string>('');
+
+  // Overpayment confirm dialog
+  const [overpaymentDialog, setOverpaymentDialog] = useState(false);
+  const [overpaymentInfo, setOverpaymentInfo] = useState<{
+    newTotal: number;
+    overpayBy: number;
+  } | null>(null);
 
   const [amount, setAmount] = useState<string>('');
   const [paymentDate, setPaymentDate] = useState<string>(new Date().toISOString().split('T')[0]);
@@ -106,31 +125,27 @@ export default function UploadPaymentSlipDialog({
     if (!open) {
       setFile(null);
       setPreviewUrl('');
+      setFileError('');
       setAmount('');
       setPaymentDate(new Date().toISOString().split('T')[0]);
       setReferenceNumber('');
       setNotes('');
+      setOverpaymentDialog(false);
+      setOverpaymentInfo(null);
     }
   }, [open]);
 
   const handleFileSelect = (f: File | null) => {
     if (!f) return;
+    setFileError('');
 
     if (!ALLOWED_TYPES.includes(f.type)) {
-      toast({
-        title: 'ไฟล์ไม่รองรับ',
-        description: 'รองรับเฉพาะ JPG, PNG, WEBP หรือ PDF',
-        variant: 'destructive',
-      });
+      setFileError('รองรับเฉพาะไฟล์ JPG, PNG, WEBP หรือ PDF เท่านั้น');
       return;
     }
 
     if (f.size > MAX_FILE_SIZE) {
-      toast({
-        title: 'ไฟล์ใหญ่เกินไป',
-        description: 'ขนาดไฟล์ต้องไม่เกิน 5 MB',
-        variant: 'destructive',
-      });
+      setFileError(`ไฟล์ขนาด ${(f.size / 1024 / 1024).toFixed(1)} MB เกินขีดจำกัด 5 MB`);
       return;
     }
 
@@ -157,7 +172,7 @@ export default function UploadPaymentSlipDialog({
       return;
     }
     if (!file) {
-      toast({ title: 'กรุณาเลือกไฟล์สลิป', variant: 'destructive' });
+      setFileError('กรุณาเลือกไฟล์สลิปก่อนส่ง');
       return;
     }
     const amountNum = parseFloat(amount);
@@ -170,20 +185,19 @@ export default function UploadPaymentSlipDialog({
       return;
     }
 
-    // Phase 8.1: Warn on overpayment
+    // Phase 8.1: Warn on overpayment — use themed AlertDialog
     const newTotal = existingVerifiedTotal + existingPendingTotal + amountNum;
     if (newTotal > grandTotal + 0.01) {
-      const confirmed = window.confirm(
-        `⚠️ ยอดรวมจะเกินใบวางบิล\n\n` +
-        `ยอดใบวางบิล: ฿${grandTotal.toLocaleString()}\n` +
-        `โอนแล้ว: ฿${(existingVerifiedTotal + existingPendingTotal).toLocaleString()}\n` +
-        `ยอดใหม่: ฿${amountNum.toLocaleString()}\n` +
-        `รวมใหม่: ฿${newTotal.toLocaleString()}\n\n` +
-        `การยืนยันจะเกินยอด ฿${(newTotal - grandTotal).toLocaleString()}\n\n` +
-        `ต้องการส่งต่อหรือไม่?`
-      );
-      if (!confirmed) return;
+      setOverpaymentInfo({ newTotal, overpayBy: newTotal - grandTotal });
+      setOverpaymentDialog(true);
+      return;
     }
+
+    await doSubmit(amountNum);
+  };
+
+  const doSubmit = async (amountNum: number) => {
+    if (!user?.id || !file) return;
 
     setSubmitting(true);
     try {
@@ -251,6 +265,59 @@ export default function UploadPaymentSlipDialog({
     new Intl.NumberFormat('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n);
 
   return (
+    <>
+      {/* Overpayment confirmation AlertDialog */}
+      <AlertDialog open={overpaymentDialog} onOpenChange={setOverpaymentDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center gap-2 text-amber-600">
+              <TriangleAlert className="w-5 h-5" />
+              ยอดชำระเกินใบวางบิล
+            </AlertDialogTitle>
+            <AlertDialogDescription asChild>
+              <div className="space-y-3 text-sm">
+                <p className="text-muted-foreground">ยอดรวมทั้งหมดจะเกินยอดในใบวางบิล กรุณาตรวจสอบก่อนยืนยัน</p>
+                <div className="rounded-lg border bg-muted/40 p-3 space-y-1.5 font-mono text-xs">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">ยอดใบวางบิล</span>
+                    <span>฿{formatCurrency(grandTotal)}</span>
+                  </div>
+                  <div className="flex justify-between text-muted-foreground">
+                    <span>โอนแล้ว (verified + pending)</span>
+                    <span>฿{formatCurrency(existingVerifiedTotal + existingPendingTotal)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">ยอดที่กำลังส่ง</span>
+                    <span>฿{formatCurrency(parseFloat(amount) || 0)}</span>
+                  </div>
+                  <div className="flex justify-between font-semibold border-t pt-1.5 mt-1">
+                    <span>รวมใหม่ทั้งหมด</span>
+                    <span className="text-amber-600">฿{formatCurrency(overpaymentInfo?.newTotal ?? 0)}</span>
+                  </div>
+                </div>
+                <p className="text-amber-700 dark:text-amber-400 font-medium">
+                  เกินยอด ฿{formatCurrency(overpaymentInfo?.overpayBy ?? 0)} — ต้องการส่งต่อหรือไม่?
+                </p>
+              </div>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setOverpaymentDialog(false)}>
+              ยกเลิก
+            </AlertDialogCancel>
+            <AlertDialogAction
+              className="bg-amber-600 hover:bg-amber-700 text-white"
+              onClick={() => {
+                setOverpaymentDialog(false);
+                doSubmit(parseFloat(amount));
+              }}
+            >
+              ยืนยัน ส่งสลิป
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
@@ -323,22 +390,26 @@ export default function UploadPaymentSlipDialog({
 
             {!file ? (
               <div
-                onClick={() => fileInputRef.current?.click()}
-                className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-primary hover:bg-muted/40 cursor-pointer transition-colors"
+                onClick={() => { fileInputRef.current?.click(); setFileError(''); }}
+                className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
+                  fileError
+                    ? 'border-destructive bg-destructive/5 hover:bg-destructive/10'
+                    : 'border-border hover:border-primary hover:bg-muted/40'
+                }`}
               >
-                <Upload className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
+                <Upload className={`w-8 h-8 mx-auto mb-2 ${fileError ? 'text-destructive' : 'text-muted-foreground'}`} />
                 <p className="text-sm font-medium">คลิกเพื่อเลือกไฟล์</p>
                 <p className="text-xs text-muted-foreground mt-1">
                   JPG, PNG, WEBP หรือ PDF (สูงสุด 5 MB)
                 </p>
               </div>
             ) : (
-              <div className="relative border border-border rounded-lg overflow-hidden">
+              <div className="relative border border-green-300 dark:border-green-700 rounded-lg overflow-hidden ring-1 ring-green-200 dark:ring-green-800">
                 {previewUrl ? (
                   <img src={previewUrl} alt="Preview" className="w-full max-h-64 object-contain bg-muted/30" />
                 ) : (
                   <div className="p-4 flex items-center gap-3 bg-muted/40">
-                    <ImageIcon className="w-8 h-8 text-muted-foreground" />
+                    <FileCheck className="w-8 h-8 text-green-600" />
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium truncate">{file.name}</p>
                       <p className="text-xs text-muted-foreground">
@@ -366,6 +437,12 @@ export default function UploadPaymentSlipDialog({
               className="hidden"
               onChange={(e) => handleFileSelect(e.target.files?.[0] || null)}
             />
+            {fileError && (
+              <p className="flex items-center gap-1.5 text-xs text-destructive font-medium">
+                <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                {fileError}
+              </p>
+            )}
           </div>
 
           {/* Amount + Date */}
@@ -485,5 +562,6 @@ export default function UploadPaymentSlipDialog({
         </DialogFooter>
       </DialogContent>
     </Dialog>
+    </>
   );
 }
