@@ -3,12 +3,9 @@ import { renderAsync } from 'npm:@react-email/components@0.0.22'
 import { parseEmailWebhookPayload } from 'npm:@lovable.dev/email-js'
 import { WebhookError, verifyWebhookRequest } from 'npm:@lovable.dev/webhooks-js'
 import { createClient } from 'npm:@supabase/supabase-js@2'
-import { SignupEmail } from '../_shared/email-templates/signup.tsx'
-import { InviteEmail } from '../_shared/email-templates/invite.tsx'
-import { MagicLinkEmail } from '../_shared/email-templates/magic-link.tsx'
-import { RecoveryEmail } from '../_shared/email-templates/recovery.tsx'
-import { EmailChangeEmail } from '../_shared/email-templates/email-change.tsx'
-import { ReauthenticationEmail } from '../_shared/email-templates/reauthentication.tsx'
+import {
+  Body, Button, Container, Head, Heading, Html, Hr, Img, Link, Preview, Section, Text,
+} from 'npm:@react-email/components@0.0.22'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -16,70 +13,136 @@ const corsHeaders = {
     'authorization, x-client-info, apikey, content-type, x-lovable-signature, x-lovable-timestamp, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
 }
 
-const EMAIL_SUBJECTS: Record<string, string> = {
-  signup: 'Confirm your email',
-  invite: "You've been invited",
-  magiclink: 'Your login link',
-  recovery: 'Reset your password',
-  email_change: 'Confirm your new email',
-  reauthentication: 'Your verification code',
-}
-
-// Template mapping
-const EMAIL_TEMPLATES: Record<string, React.ComponentType<any>> = {
-  signup: SignupEmail,
-  invite: InviteEmail,
-  magiclink: MagicLinkEmail,
-  recovery: RecoveryEmail,
-  email_change: EmailChangeEmail,
-  reauthentication: ReauthenticationEmail,
-}
-
 // Configuration
-const SITE_NAME = "ent-vision-v2"
+const DEFAULT_SITE_NAME = "ENT Group"
 const SENDER_DOMAIN = "notify.www.entgroup.co.th"
 const ROOT_DOMAIN = "www.entgroup.co.th"
-const FROM_DOMAIN = "notify.www.entgroup.co.th" // Domain shown in From address (may be root or sender subdomain)
+const FROM_DOMAIN = "notify.www.entgroup.co.th"
+const DEFAULT_PRIMARY = '#0fa888'
+const DEFAULT_FONT = "'IBM Plex Sans Thai', Arial, sans-serif"
 
-// Sample data for preview mode ONLY (not used in actual email sending).
-// URLs are baked in at scaffold time from the project's real data.
-// The sample email uses a fixed placeholder (RFC 6761 .test TLD) so the Go backend
-// can always find-and-replace it with the actual recipient when sending test emails,
-// even if the project's domain has changed since the template was scaffolded.
+// Default subjects (fallback when DB has no data)
+const DEFAULT_SUBJECTS: Record<string, string> = {
+  signup: 'ยืนยันอีเมลของคุณ',
+  invite: 'คุณได้รับเชิญเข้าร่วม',
+  magiclink: 'ลิงก์เข้าสู่ระบบ',
+  recovery: 'รีเซ็ตรหัสผ่าน',
+  email_change: 'ยืนยันการเปลี่ยนอีเมล',
+  reauthentication: 'รหัสยืนยันตัวตน',
+}
+
+// Sample data for preview mode
 const SAMPLE_PROJECT_URL = "https://ent-vision-v2.lovable.app"
 const SAMPLE_EMAIL = "user@example.test"
 const SAMPLE_DATA: Record<string, object> = {
-  signup: {
-    siteName: SITE_NAME,
-    siteUrl: SAMPLE_PROJECT_URL,
-    recipient: SAMPLE_EMAIL,
-    confirmationUrl: SAMPLE_PROJECT_URL,
-  },
-  magiclink: {
-    siteName: SITE_NAME,
-    confirmationUrl: SAMPLE_PROJECT_URL,
-  },
-  recovery: {
-    siteName: SITE_NAME,
-    confirmationUrl: SAMPLE_PROJECT_URL,
-  },
-  invite: {
-    siteName: SITE_NAME,
-    siteUrl: SAMPLE_PROJECT_URL,
-    confirmationUrl: SAMPLE_PROJECT_URL,
-  },
-  email_change: {
-    siteName: SITE_NAME,
-    email: SAMPLE_EMAIL,
-    newEmail: SAMPLE_EMAIL,
-    confirmationUrl: SAMPLE_PROJECT_URL,
-  },
-  reauthentication: {
-    token: '123456',
-  },
+  signup: { confirmationUrl: SAMPLE_PROJECT_URL, recipient: SAMPLE_EMAIL },
+  magiclink: { confirmationUrl: SAMPLE_PROJECT_URL },
+  recovery: { confirmationUrl: SAMPLE_PROJECT_URL },
+  invite: { confirmationUrl: SAMPLE_PROJECT_URL },
+  email_change: { email: SAMPLE_EMAIL, newEmail: SAMPLE_EMAIL, confirmationUrl: SAMPLE_PROJECT_URL },
+  reauthentication: { token: '123456' },
 }
 
-// Preview endpoint handler - returns rendered HTML without sending email
+interface TemplateSettings {
+  subject?: string
+  heading?: string
+  body_text?: string
+  button_text?: string
+  footer_text?: string
+  primary_color?: string
+  logo_url?: string
+  site_name?: string
+  font_family?: string
+  is_active?: boolean
+}
+
+// Dynamic email template that reads from DB settings
+function DynamicEmail({ settings, templateType, confirmationUrl, recipient, email, newEmail, token }: {
+  settings: TemplateSettings
+  templateType: string
+  confirmationUrl?: string
+  recipient?: string
+  email?: string
+  newEmail?: string
+  token?: string
+}) {
+  const primary = settings.primary_color || DEFAULT_PRIMARY
+  const siteName = settings.site_name || DEFAULT_SITE_NAME
+  const fontFamily = settings.font_family || DEFAULT_FONT
+  const isOTP = templateType === 'reauthentication'
+
+  // Build body text with dynamic replacements
+  let bodyText = settings.body_text || ''
+  if (templateType === 'signup' && recipient) {
+    bodyText = bodyText || `ขอบคุณที่สมัครสมาชิก ${siteName} กรุณายืนยันอีเมลของคุณ (${recipient}) โดยคลิกปุ่มด้านล่าง:`
+  }
+  if (templateType === 'email_change' && email && newEmail) {
+    bodyText = bodyText || `คุณขอเปลี่ยนอีเมลจาก ${email} เป็น ${newEmail} คลิกปุ่มด้านล่างเพื่อยืนยัน:`
+  }
+
+  const main = { backgroundColor: '#ffffff', fontFamily }
+  const container = { padding: '20px 30px', maxWidth: '580px', margin: '0 auto' }
+  const header = { textAlign: 'center' as const, padding: '20px 0 10px' }
+  const logo = { fontSize: '20px', fontWeight: '700' as const, color: primary, margin: '0' }
+  const h1Style = { fontSize: '20px', fontWeight: '600' as const, color: '#1a1a2e', margin: '20px 0 10px' }
+  const textStyle = { fontSize: '14px', color: '#374151', lineHeight: '1.6', margin: '0 0 16px' }
+  const buttonSection = { textAlign: 'center' as const, margin: '24px 0' }
+  const buttonStyle = {
+    backgroundColor: primary, color: '#ffffff', fontSize: '14px',
+    borderRadius: '8px', padding: '12px 28px', textDecoration: 'none', fontWeight: '600' as const,
+  }
+  const codeStyle = {
+    fontFamily: 'Courier, monospace', fontSize: '28px', fontWeight: 'bold' as const,
+    color: primary, margin: '0 0 24px', textAlign: 'center' as const, letterSpacing: '4px',
+  }
+  const hrStyle = { borderColor: '#e5e7eb', margin: '24px 0' }
+  const footer = { fontSize: '12px', color: '#9ca3af', margin: '0 0 8px' }
+  const footerBrand = { fontSize: '12px', color: '#9ca3af', margin: '0', textAlign: 'center' as const }
+
+  return React.createElement(Html, { lang: 'th', dir: 'ltr' },
+    React.createElement(Head, null),
+    React.createElement(Preview, null, settings.heading || settings.subject || ''),
+    React.createElement(Body, { style: main },
+      React.createElement(Container, { style: container },
+        React.createElement(Section, { style: header },
+          settings.logo_url
+            ? React.createElement(Img, { src: settings.logo_url, alt: siteName, style: { maxHeight: '40px', margin: '0 auto 8px' } })
+            : null,
+          React.createElement(Heading, { style: logo }, siteName),
+        ),
+        React.createElement(Heading, { style: h1Style }, settings.heading || ''),
+        React.createElement(Text, { style: textStyle }, bodyText),
+        isOTP
+          ? React.createElement(Text, { style: codeStyle }, token || '------')
+          : settings.button_text && confirmationUrl
+            ? React.createElement(Section, { style: buttonSection },
+                React.createElement(Button, { style: buttonStyle, href: confirmationUrl }, settings.button_text),
+              )
+            : null,
+        React.createElement(Hr, { style: hrStyle }),
+        React.createElement(Text, { style: footer }, settings.footer_text || ''),
+        React.createElement(Text, { style: footerBrand }, `© ${siteName} — B2B Industrial Platform`),
+      ),
+    ),
+  )
+}
+
+// Fetch template settings from DB
+async function getTemplateSettings(supabase: any, templateType: string): Promise<TemplateSettings> {
+  try {
+    const { data } = await supabase
+      .from('email_template_settings')
+      .select('*')
+      .eq('template_type', templateType)
+      .maybeSingle()
+    return data || {}
+  } catch {
+    console.warn('Failed to fetch template settings, using defaults')
+    return {}
+  }
+}
+
+// Preview endpoint handler
 async function handlePreview(req: Request): Promise<Response> {
   const previewCorsHeaders = {
     'Access-Control-Allow-Origin': '*',
@@ -104,24 +167,34 @@ async function handlePreview(req: Request): Promise<Response> {
   try {
     const body = await req.json()
     type = body.type
-  } catch (error) {
+  } catch {
     return new Response(JSON.stringify({ error: 'Invalid JSON in request body' }), {
       status: 400,
       headers: { ...previewCorsHeaders, 'Content-Type': 'application/json' },
     })
   }
 
-  const EmailTemplate = EMAIL_TEMPLATES[type]
-
-  if (!EmailTemplate) {
+  if (!DEFAULT_SUBJECTS[type]) {
     return new Response(JSON.stringify({ error: `Unknown email type: ${type}` }), {
       status: 400,
       headers: { ...previewCorsHeaders, 'Content-Type': 'application/json' },
     })
   }
 
+  const supabase = createClient(
+    Deno.env.get('SUPABASE_URL')!,
+    Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+  )
+  const settings = await getTemplateSettings(supabase, type)
   const sampleData = SAMPLE_DATA[type] || {}
-  const html = await renderAsync(React.createElement(EmailTemplate, sampleData))
+
+  const element = React.createElement(DynamicEmail, {
+    settings,
+    templateType: type,
+    ...sampleData,
+  } as any)
+
+  const html = await renderAsync(element)
 
   return new Response(html, {
     status: 200,
@@ -129,7 +202,7 @@ async function handlePreview(req: Request): Promise<Response> {
   })
 }
 
-// Webhook handler - verifies signature and sends email
+// Webhook handler
 async function handleWebhook(req: Request): Promise<Response> {
   const apiKey = Deno.env.get('LOVABLE_API_KEY')
 
@@ -141,7 +214,6 @@ async function handleWebhook(req: Request): Promise<Response> {
     )
   }
 
-  // Verify signature + timestamp, then parse payload.
   let payload: any
   let run_id = ''
   try {
@@ -185,10 +257,7 @@ async function handleWebhook(req: Request): Promise<Response> {
     console.error('Webhook payload missing run_id')
     return new Response(
       JSON.stringify({ error: 'Invalid webhook payload' }),
-      {
-        status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      }
+      { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     )
   }
 
@@ -196,20 +265,14 @@ async function handleWebhook(req: Request): Promise<Response> {
     console.error('Unsupported payload version', { version: payload.version, run_id })
     return new Response(
       JSON.stringify({ error: `Unsupported payload version: ${payload.version}` }),
-      {
-        status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      }
+      { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     )
   }
 
-  // The email action type is in payload.data.action_type (e.g., "signup", "recovery")
-  // payload.type is the hook event type ("auth")
   const emailType = payload.data.action_type
   console.log('Received auth event', { emailType, email: payload.data.email, run_id })
 
-  const EmailTemplate = EMAIL_TEMPLATES[emailType]
-  if (!EmailTemplate) {
+  if (!DEFAULT_SUBJECTS[emailType]) {
     console.error('Unknown email type', { emailType, run_id })
     return new Response(
       JSON.stringify({ error: `Unknown email type: ${emailType}` }),
@@ -217,32 +280,32 @@ async function handleWebhook(req: Request): Promise<Response> {
     )
   }
 
-  // Build template props from payload.data (HookData structure)
-  const templateProps = {
-    siteName: SITE_NAME,
-    siteUrl: `https://${ROOT_DOMAIN}`,
-    recipient: payload.data.email,
-    confirmationUrl: payload.data.url,
-    token: payload.data.token,
-    email: payload.data.email,
-    newEmail: payload.data.new_email,
-  }
-
-  // Render React Email to HTML and plain text
-  const html = await renderAsync(React.createElement(EmailTemplate, templateProps))
-  const text = await renderAsync(React.createElement(EmailTemplate, templateProps), {
-    plainText: true,
-  })
-
-  // Enqueue email for async processing by the dispatcher (process-email-queue).
+  // Create supabase client and fetch template settings from DB
   const supabase = createClient(
     Deno.env.get('SUPABASE_URL')!,
     Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
   )
 
+  const settings = await getTemplateSettings(supabase, emailType)
+  const siteName = settings.site_name || DEFAULT_SITE_NAME
+
+  // Build dynamic email element
+  const element = React.createElement(DynamicEmail, {
+    settings,
+    templateType: emailType,
+    confirmationUrl: payload.data.url,
+    recipient: payload.data.email,
+    email: payload.data.email,
+    newEmail: payload.data.new_email,
+    token: payload.data.token,
+  })
+
+  // Render to HTML and plain text
+  const html = await renderAsync(element)
+  const text = await renderAsync(element, { plainText: true })
+
   const messageId = crypto.randomUUID()
 
-  // Log pending BEFORE enqueue so we have a record even if enqueue crashes
   await supabase.from('email_send_log').insert({
     message_id: messageId,
     template_name: emailType,
@@ -250,15 +313,17 @@ async function handleWebhook(req: Request): Promise<Response> {
     status: 'pending',
   })
 
+  const emailSubject = settings.subject || DEFAULT_SUBJECTS[emailType] || 'Notification'
+
   const { error: enqueueError } = await supabase.rpc('enqueue_email', {
     queue_name: 'auth_emails',
     payload: {
       run_id,
       message_id: messageId,
       to: payload.data.email,
-      from: `${SITE_NAME} <noreply@${FROM_DOMAIN}>`,
+      from: `${siteName} <noreply@${FROM_DOMAIN}>`,
       sender_domain: SENDER_DOMAIN,
-      subject: EMAIL_SUBJECTS[emailType] || 'Notification',
+      subject: emailSubject,
       html,
       text,
       purpose: 'transactional',
@@ -293,17 +358,14 @@ async function handleWebhook(req: Request): Promise<Response> {
 Deno.serve(async (req) => {
   const url = new URL(req.url)
 
-  // Handle CORS preflight for main endpoint
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders })
   }
 
-  // Route to preview handler for /preview path
   if (url.pathname.endsWith('/preview')) {
     return handlePreview(req)
   }
 
-  // Main webhook handler
   try {
     return await handleWebhook(req)
   } catch (error) {
