@@ -121,10 +121,40 @@ export default function AdminEmailTemplates() {
     if (!testEmail) return;
     setSendingTest(true);
     try {
-      // Use the auth-email-hook preview endpoint to render and show preview
-      toast({ title: 'ส่งทดสอบ', description: `ส่งอีเมลทดสอบไปยัง ${testEmail} (ต้อง deploy ก่อนจึงจะมีผล)` });
-    } catch {
-      toast({ title: 'ส่งไม่สำเร็จ', variant: 'destructive' });
+      // For signup/magiclink types, use Supabase Auth OTP to trigger the auth-email-hook
+      if (activeTab === 'signup' || activeTab === 'magiclink') {
+        const { error } = await supabase.auth.signInWithOtp({
+          email: testEmail,
+          options: { shouldCreateUser: false },
+        });
+        if (error && error.message !== 'Signups not allowed for otp') {
+          // If user doesn't exist, try resend signup confirmation
+          const { error: resendErr } = await supabase.auth.resend({
+            type: 'signup',
+            email: testEmail,
+          });
+          if (resendErr) {
+            toast({ title: 'ส่งไม่สำเร็จ', description: resendErr.message, variant: 'destructive' });
+            setSendingTest(false);
+            return;
+          }
+        }
+        toast({ title: 'ส่งสำเร็จ ✓', description: `ส่งอีเมลทดสอบไปยัง ${testEmail} แล้ว กรุณาตรวจสอบกล่องจดหมาย` });
+      } else if (activeTab === 'recovery') {
+        const { error } = await supabase.auth.resetPasswordForEmail(testEmail, {
+          redirectTo: `${window.location.origin}/login`,
+        });
+        if (error) {
+          toast({ title: 'ส่งไม่สำเร็จ', description: error.message, variant: 'destructive' });
+          setSendingTest(false);
+          return;
+        }
+        toast({ title: 'ส่งสำเร็จ ✓', description: `ส่งอีเมลรีเซ็ตรหัสผ่านไปยัง ${testEmail} แล้ว` });
+      } else {
+        toast({ title: 'ไม่รองรับ', description: `ประเภท "${activeTab}" ไม่สามารถส่งทดสอบโดยตรงได้ ใช้ได้เฉพาะ Signup และ Recovery`, variant: 'destructive' });
+      }
+    } catch (err: any) {
+      toast({ title: 'ส่งไม่สำเร็จ', description: err?.message || 'เกิดข้อผิดพลาด', variant: 'destructive' });
     }
     setSendingTest(false);
   };
