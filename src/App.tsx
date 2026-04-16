@@ -58,6 +58,7 @@ const ShopCompare = lazyRetry(() => import("./pages/shop/ShopCompare"));
 const Unsubscribe = lazyRetry(() => import("./pages/Unsubscribe"));
 const Login = lazyRetry(() => import("./pages/auth/Login"));
 const Register = lazyRetry(() => import("./pages/auth/Register"));
+const AcceptInvite = lazyRetry(() => import("./pages/auth/AcceptInvite"));
 const AdminDashboard = lazyRetry(() => import("./pages/admin/AdminDashboard"));
 const AdminQuotesList = lazyRetry(() => import("./pages/admin/AdminQuotesList"));
 const AdminQuoteDetail = lazyRetry(() => import("./pages/admin/AdminQuoteDetail"));
