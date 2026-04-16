@@ -69,6 +69,7 @@ const AdminCustomersList = lazyRetry(() => import("./pages/admin/AdminCustomersL
 const AdminCustomerDetail = lazyRetry(() => import("./pages/admin/AdminCustomerDetail"));
 const AdminEmployeeDetail = lazyRetry(() => import("./pages/admin/AdminEmployeeDetail"));
 const AdminEmployeeNew = lazyRetry(() => import("./pages/admin/AdminEmployeeNew"));
+const AdminRoles = lazyRetry(() => import("./pages/admin/AdminRoles"));
 const AdminAuditLog = lazyRetry(() => import("./pages/admin/AdminAuditLog"));
 const AdminSaleOrders = lazyRetry(() => import("./pages/admin/AdminSaleOrders"));
 const AdminRequests = lazyRetry(() => import("./pages/admin/AdminRequests"));
@@ -213,6 +214,7 @@ const App = () => (
                     <Route path="/admin/permissions" element={<ProtectedRoute requireAdmin><AdminPermissions /></ProtectedRoute>} />
                     <Route path="/admin/employees" element={<ProtectedRoute allowedRoles={['super_admin', 'admin']}><AdminEmployees /></ProtectedRoute>} />
                     <Route path="/admin/employees/new" element={<ProtectedRoute allowedRoles={['super_admin']}><AdminEmployeeNew /></ProtectedRoute>} />
+                    <Route path="/admin/employees/roles" element={<ProtectedRoute allowedRoles={['super_admin', 'admin']}><AdminRoles /></ProtectedRoute>} />
                     <Route path="/admin/employees/:id" element={<ProtectedRoute allowedRoles={['super_admin', 'admin']}><AdminEmployeeDetail /></ProtectedRoute>} />
                     <Route path="/admin/customers" element={<ProtectedRoute requireSales><AdminCustomersList /></ProtectedRoute>} />
                     <Route path="/admin/customers/:id" element={<ProtectedRoute requireSales><AdminCustomerDetail /></ProtectedRoute>} />
@@ -221,12 +223,12 @@ const App = () => (
                     <Route path="/admin/sale-orders/:id" element={<ProtectedRoute requireSales><AdminSaleOrders /></ProtectedRoute>} />
                     <Route path="/admin/invoices" element={<ProtectedRoute requireSales><AdminInvoicesList /></ProtectedRoute>} />
                     <Route path="/admin/invoices/:id" element={<ProtectedRoute requireSales><AdminInvoiceDetail /></ProtectedRoute>} />
-                    <Route path="/admin/tax-invoices" element={<ProtectedRoute requireSales><AdminTaxInvoicesList /></ProtectedRoute>} />
-                    <Route path="/admin/tax-invoices/:id" element={<ProtectedRoute requireSales><AdminTaxInvoiceDetail /></ProtectedRoute>} />
-                    <Route path="/admin/credit-notes" element={<ProtectedRoute requireSales><AdminCreditNotesList /></ProtectedRoute>} />
-                    <Route path="/admin/credit-notes/:id" element={<ProtectedRoute requireSales><AdminCreditNoteDetail /></ProtectedRoute>} />
-                    <Route path="/admin/receipts" element={<ProtectedRoute requireSales><AdminReceiptsList /></ProtectedRoute>} />
-                    <Route path="/admin/receipts/:id" element={<ProtectedRoute requireSales><AdminReceiptDetail /></ProtectedRoute>} />
+                    <Route path="/admin/tax-invoices" element={<ProtectedRoute allowedRoles={['super_admin','admin','accountant','viewer']}><AdminTaxInvoicesList /></ProtectedRoute>} />
+                    <Route path="/admin/tax-invoices/:id" element={<ProtectedRoute allowedRoles={['super_admin','admin','accountant','viewer']}><AdminTaxInvoiceDetail /></ProtectedRoute>} />
+                    <Route path="/admin/credit-notes" element={<ProtectedRoute allowedRoles={['super_admin','admin','accountant','viewer']}><AdminCreditNotesList /></ProtectedRoute>} />
+                    <Route path="/admin/credit-notes/:id" element={<ProtectedRoute allowedRoles={['super_admin','admin','accountant','viewer']}><AdminCreditNoteDetail /></ProtectedRoute>} />
+                    <Route path="/admin/receipts" element={<ProtectedRoute allowedRoles={['super_admin','admin','accountant','viewer']}><AdminReceiptsList /></ProtectedRoute>} />
+                    <Route path="/admin/receipts/:id" element={<ProtectedRoute allowedRoles={['super_admin','admin','accountant','viewer']}><AdminReceiptDetail /></ProtectedRoute>} />
                     <Route path="/admin/registered-products" element={<ProtectedRoute requireSales><AdminRegisteredProductsList /></ProtectedRoute>} />
                     <Route path="/admin/registered-products/:id" element={<ProtectedRoute requireSales><AdminRegisteredProductDetail /></ProtectedRoute>} />
                     <Route path="/admin/repairs" element={<ProtectedRoute requireSales><AdminRepairOrdersList /></ProtectedRoute>} />
@@ -235,9 +237,9 @@ const App = () => (
                     <Route path="/admin/approvals" element={<ProtectedRoute requireSuperAdmin><AdminApprovals /></ProtectedRoute>} />
                     <Route path="/admin/products" element={<ProtectedRoute requireSales><ProductsList /></ProtectedRoute>} />
                     <Route path="/admin/settings/company" element={<ProtectedRoute requireSales><AdminCompanySettings /></ProtectedRoute>} />
-                    <Route path="/admin/suppliers" element={<ProtectedRoute requireSales><AdminSupplierManagement /></ProtectedRoute>} />
-                    <Route path="/admin/suppliers/:id" element={<ProtectedRoute requireSales><AdminSupplierDetail /></ProtectedRoute>} />
-                    <Route path="/admin/international-transfer" element={<ProtectedRoute requireSales><AdminInternationalTransfer /></ProtectedRoute>} />
+                    <Route path="/admin/suppliers" element={<ProtectedRoute allowedRoles={['super_admin','admin','accountant']}><AdminSupplierManagement /></ProtectedRoute>} />
+                    <Route path="/admin/suppliers/:id" element={<ProtectedRoute allowedRoles={['super_admin','admin','accountant']}><AdminSupplierDetail /></ProtectedRoute>} />
+                    <Route path="/admin/international-transfer" element={<ProtectedRoute allowedRoles={['super_admin','admin','accountant']}><AdminInternationalTransfer /></ProtectedRoute>} />
                     <Route path="/admin/live-chat" element={<ProtectedRoute requireSales><AdminLiveChat /></ProtectedRoute>} />
                     <Route path="/admin/general-chat" element={<ProtectedRoute requireSales><AdminGeneralChat /></ProtectedRoute>} />
                     <Route path="/admin/reports" element={<ProtectedRoute allowedRoles={['super_admin','admin','sales','accountant']}><AdminReports /></ProtectedRoute>} />

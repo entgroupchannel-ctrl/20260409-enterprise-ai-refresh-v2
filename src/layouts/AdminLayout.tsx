@@ -60,6 +60,7 @@ interface NavItem {
   path: string;
   badge?: 'requests' | 'approvals';
   superAdminOnly?: boolean;
+  hiddenFromRoles?: string[];
 }
 
 interface NavGroup {
@@ -83,9 +84,9 @@ const navGroups: NavGroup[] = [
       { label: 'ใบเสนอราคา', icon: FileText, path: '/admin/quotes' },
       { label: 'ยอดขาย / SO', icon: ShoppingCart, path: '/admin/sale-orders' },
       { label: 'ใบวางบิล', icon: Receipt, path: '/admin/invoices' },
-      { label: 'ใบกำกับภาษี', icon: FileText, path: '/admin/tax-invoices' },
-      { label: 'ใบเสร็จรับเงิน', icon: Receipt, path: '/admin/receipts' },
-      { label: 'ใบลดหนี้', icon: FileText, path: '/admin/credit-notes' },
+      { label: 'ใบกำกับภาษี', icon: FileText, path: '/admin/tax-invoices', hiddenFromRoles: ['sales', 'warehouse'] },
+      { label: 'ใบเสร็จรับเงิน', icon: Receipt, path: '/admin/receipts', hiddenFromRoles: ['sales', 'warehouse'] },
+      { label: 'ใบลดหนี้', icon: FileText, path: '/admin/credit-notes', hiddenFromRoles: ['sales', 'warehouse'] },
     ],
   },
   {
@@ -98,8 +99,8 @@ const navGroups: NavGroup[] = [
       { label: 'สมาชิกข่าวสาร', icon: Mail, path: '/admin/subscribers' },
       { label: 'Live Chat (Quote)', icon: MessageCircle, path: '/admin/live-chat' },
       { label: 'General Chat', icon: MessageCircle, path: '/admin/general-chat' },
-      { label: 'จัดการ Supplier', icon: Building2, path: '/admin/suppliers' },
-      { label: 'โอนเงินต่างประเทศ', icon: DollarSign, path: '/admin/international-transfer' },
+      { label: 'จัดการ Supplier', icon: Building2, path: '/admin/suppliers', hiddenFromRoles: ['sales', 'warehouse', 'viewer'] },
+      { label: 'โอนเงินต่างประเทศ', icon: DollarSign, path: '/admin/international-transfer', hiddenFromRoles: ['sales', 'warehouse', 'viewer'] },
     ],
   },
   {
@@ -267,6 +268,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                           {group.items.map((item) => {
                             if (item.path === '/admin/approvals' && !isAdminUser) return null;
                             if (item.superAdminOnly && profile?.role !== 'super_admin') return null;
+                            if (item.hiddenFromRoles?.includes(profile?.role || '')) return null;
                             const Icon = item.icon;
                             const itemBadge = getBadgeCount(item);
                             const isActive = location.pathname === item.path || location.pathname.startsWith(item.path + '/');
@@ -355,6 +357,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                               {group.items.map((item) => {
                                 if (item.path === '/admin/approvals' && !isAdminUser) return null;
                                 if (item.superAdminOnly && profile?.role !== 'super_admin') return null;
+                                if (item.hiddenFromRoles?.includes(profile?.role || '')) return null;
                                 const Icon = item.icon;
                                 const itemBadge = getBadgeCount(item);
                                 const isActive = location.pathname === item.path;

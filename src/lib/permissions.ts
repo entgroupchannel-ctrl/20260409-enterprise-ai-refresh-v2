@@ -52,7 +52,7 @@ export const canManageQuotes = (ctx: PermissionContext): boolean =>
   ['super_admin', 'admin', 'sales'].includes(ctx.role || '') && ctx.isActive !== false;
 
 export const canManageInvoices = (ctx: PermissionContext): boolean =>
-  ['super_admin', 'admin', 'accountant'].includes(ctx.role || '') && ctx.isActive !== false;
+  ['super_admin', 'admin', 'sales', 'accountant'].includes(ctx.role || '') && ctx.isActive !== false;
 
 export const canManageTaxInvoices = (ctx: PermissionContext): boolean =>
   ['super_admin', 'admin', 'accountant'].includes(ctx.role || '') && ctx.isActive !== false;
@@ -65,6 +65,15 @@ export const canManageProducts = (ctx: PermissionContext): boolean =>
 
 export const canManageContacts = (ctx: PermissionContext): boolean =>
   ['super_admin', 'admin', 'sales'].includes(ctx.role || '') && ctx.isActive !== false;
+
+export const canManageSaleOrders = (ctx: PermissionContext): boolean =>
+  ['super_admin', 'admin', 'sales', 'warehouse'].includes(ctx.role || '') && ctx.isActive !== false;
+
+export const canAccessInternationalTransfer = (ctx: PermissionContext): boolean =>
+  ['super_admin', 'admin', 'accountant'].includes(ctx.role || '') && ctx.isActive !== false;
+
+export const canAccessSuppliers = (ctx: PermissionContext): boolean =>
+  ['super_admin', 'admin', 'accountant'].includes(ctx.role || '') && ctx.isActive !== false;
 
 // =====================================================
 // Admin-only actions
