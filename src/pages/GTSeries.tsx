@@ -1633,30 +1633,40 @@ const GTSeries = () => {
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="bg-secondary/50">
-                        <th className="text-left p-3 font-semibold text-foreground">CPU</th>
-                        <th className="text-left p-3 font-semibold text-foreground">Configuration</th>
-                        <th className="text-right p-3 font-semibold text-foreground">ราคา</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-border">
-                      {[
-                        { cpu: "Celeron 1037U", config: "RAM DDR3L 4GB + SSD 128GB + WIFI", price: "16,990" },
-                        { cpu: "Celeron 1037U", config: "RAM DDR3L 4GB + SSD 256GB + WIFI", price: "15,990" },
-                        { cpu: "Celeron 1037U", config: "RAM DDR3L 8GB + SSD 128GB + WIFI", price: "15,990" },
-                        { cpu: "Celeron 1037U", config: "RAM DDR3L 8GB + SSD 256GB + WIFI", price: "16,990" },
-                        { cpu: "Core i5-3317U", config: "RAM DDR3L 4GB + SSD 128GB + WIFI", price: "18,990" },
-                        { cpu: "Core i5-3317U", config: "RAM DDR3L 4GB + SSD 256GB + WIFI", price: "19,990" },
-                        { cpu: "Core i5-3317U", config: "RAM DDR3L 4GB + SSD 512GB + WIFI", price: "21,990" },
-                        { cpu: "Core i5-3317U", config: "RAM DDR3L 8GB + SSD 128GB + WIFI", price: "18,990" },
-                      ].map((item, i) => (
-                        <tr key={i} className="hover:bg-secondary/30 transition-colors">
-                          <td className="p-3 text-foreground font-medium">{item.cpu}</td>
-                          <td className="p-3 text-muted-foreground">{item.config}</td>
-                          <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
-                        </tr>
-                      ))}
-                    </tbody>
+                       <tr className="bg-secondary/50">
+                         <th className="text-left p-3 font-semibold text-foreground">CPU</th>
+                         <th className="text-left p-3 font-semibold text-foreground">Configuration</th>
+                         <th className="text-right p-3 font-semibold text-foreground">ราคา</th>
+                         <th className="p-3 w-20"></th>
+                       </tr>
+                     </thead>
+                     <tbody className="divide-y divide-border">
+                       {[
+                         { cpu: "Celeron 1037U", config: "RAM DDR3L 4GB + SSD 128GB + WIFI", price: "16,990" },
+                         { cpu: "Celeron 1037U", config: "RAM DDR3L 4GB + SSD 256GB + WIFI", price: "15,990" },
+                         { cpu: "Celeron 1037U", config: "RAM DDR3L 8GB + SSD 128GB + WIFI", price: "15,990" },
+                         { cpu: "Celeron 1037U", config: "RAM DDR3L 8GB + SSD 256GB + WIFI", price: "16,990" },
+                         { cpu: "Core i5-3317U", config: "RAM DDR3L 4GB + SSD 128GB + WIFI", price: "18,990" },
+                         { cpu: "Core i5-3317U", config: "RAM DDR3L 4GB + SSD 256GB + WIFI", price: "19,990" },
+                         { cpu: "Core i5-3317U", config: "RAM DDR3L 4GB + SSD 512GB + WIFI", price: "21,990" },
+                         { cpu: "Core i5-3317U", config: "RAM DDR3L 8GB + SSD 128GB + WIFI", price: "18,990" },
+                       ].map((item, i) => {
+                         const specLabel = `GT2000 ${item.cpu} ${item.config}`;
+                         return (
+                         <tr key={i} className="hover:bg-secondary/30 transition-colors">
+                           <td className="p-3 text-foreground font-medium">{item.cpu}</td>
+                           <td className="p-3 text-muted-foreground">{item.config}</td>
+                           <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
+                           <td className="p-3">
+                             <div className="inline-flex items-center gap-1">
+                               <AddToCartButton productModel="GT2000" productName={specLabel} iconOnly variant="outline" />
+                               <QuoteRequestButton productModel="GT2000" productName={specLabel} iconOnly variant="outline" />
+                             </div>
+                           </td>
+                         </tr>
+                         );
+                       })}
+                     </tbody>
                    </table>
                 </div>
                 <div className="p-4 border-t border-border text-center">
@@ -2445,32 +2455,42 @@ const GTSeries = () => {
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="bg-secondary/50">
-                        <th className="text-left p-3 font-semibold text-foreground">CPU</th>
-                        <th className="text-left p-3 font-semibold text-foreground">RAM</th>
-                        <th className="text-left p-3 font-semibold text-foreground">SSD</th>
-                        <th className="text-right p-3 font-semibold text-foreground">ราคา</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-border">
-                      {[
-                        { cpu: "Core i5-4200U", ram: "4GB", ssd: "128GB", price: "24,990" },
-                        { cpu: "Core i5-4200U", ram: "4GB", ssd: "256GB", price: "25,990" },
-                        { cpu: "Core i5-4200U", ram: "8GB", ssd: "128GB", price: "26,990" },
-                        { cpu: "Core i5-4200U", ram: "8GB", ssd: "256GB", price: "27,990" },
-                        { cpu: "Core i7-4500U", ram: "4GB", ssd: "128GB", price: "28,990" },
-                        { cpu: "Core i7-4500U", ram: "4GB", ssd: "256GB", price: "29,990" },
-                        { cpu: "Core i7-4500U", ram: "8GB", ssd: "128GB", price: "30,990" },
-                        { cpu: "Core i7-4500U", ram: "8GB", ssd: "256GB", price: "31,990" },
-                      ].map((item, i) => (
-                        <tr key={i} className="hover:bg-secondary/30 transition-colors">
-                          <td className="p-3 text-foreground font-medium font-mono">{item.cpu}</td>
-                          <td className="p-3 text-muted-foreground">{item.ram}</td>
-                          <td className="p-3 text-muted-foreground">{item.ssd}</td>
-                          <td className="p-3 text-right font-bold text-primary whitespace-nowrap">฿{item.price}</td>
-                        </tr>
-                      ))}
-                    </tbody>
+                       <tr className="bg-secondary/50">
+                         <th className="text-left p-3 font-semibold text-foreground">CPU</th>
+                         <th className="text-left p-3 font-semibold text-foreground">RAM</th>
+                         <th className="text-left p-3 font-semibold text-foreground">SSD</th>
+                         <th className="text-right p-3 font-semibold text-foreground">ราคา</th>
+                         <th className="p-3 w-20"></th>
+                       </tr>
+                     </thead>
+                     <tbody className="divide-y divide-border">
+                       {[
+                         { cpu: "Core i5-4200U", ram: "4GB", ssd: "128GB", price: "24,990" },
+                         { cpu: "Core i5-4200U", ram: "4GB", ssd: "256GB", price: "25,990" },
+                         { cpu: "Core i5-4200U", ram: "8GB", ssd: "128GB", price: "26,990" },
+                         { cpu: "Core i5-4200U", ram: "8GB", ssd: "256GB", price: "27,990" },
+                         { cpu: "Core i7-4500U", ram: "4GB", ssd: "128GB", price: "28,990" },
+                         { cpu: "Core i7-4500U", ram: "4GB", ssd: "256GB", price: "29,990" },
+                         { cpu: "Core i7-4500U", ram: "8GB", ssd: "128GB", price: "30,990" },
+                         { cpu: "Core i7-4500U", ram: "8GB", ssd: "256GB", price: "31,990" },
+                       ].map((item, i) => {
+                         const specLabel = `GT4000 ${item.cpu} / ${item.ram} / ${item.ssd}`;
+                         return (
+                         <tr key={i} className="hover:bg-secondary/30 transition-colors">
+                           <td className="p-3 text-foreground font-medium font-mono">{item.cpu}</td>
+                           <td className="p-3 text-muted-foreground">{item.ram}</td>
+                           <td className="p-3 text-muted-foreground">{item.ssd}</td>
+                           <td className="p-3 text-right font-bold text-primary whitespace-nowrap">฿{item.price}</td>
+                           <td className="p-3">
+                             <div className="inline-flex items-center gap-1">
+                               <AddToCartButton productModel="GT4000" productName={specLabel} iconOnly variant="outline" />
+                               <QuoteRequestButton productModel="GT4000" productName={specLabel} iconOnly variant="outline" />
+                             </div>
+                           </td>
+                         </tr>
+                         );
+                       })}
+                     </tbody>
                    </table>
                 </div>
                 <div className="p-4 border-t border-border text-center">
