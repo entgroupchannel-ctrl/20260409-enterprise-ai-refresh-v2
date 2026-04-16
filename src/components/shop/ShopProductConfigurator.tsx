@@ -75,10 +75,7 @@ const OS_OPTIONS = [
   { value: 'ubuntu', label: 'Ubuntu Linux' },
 ];
 
-const ADDON_PRICES = {
-  bluetooth: 200,
-  wifi6_upgrade: 500,
-} as const;
+const ADDON_CONTACT_LABEL = 'สอบถามแอดมิน';
 
 function calcWarranty(basePrice: number, years: 1 | 2 | 3) {
   if (years === 1) return { cost: 0, label: '1 ปี (Standard)' };
