@@ -46,6 +46,21 @@ interface CompanySettings {
   default_vat_percent: number;
 }
 
+interface BankAccount {
+  id: string;
+  bank_name: string;
+  account_number: string;
+  account_name: string;
+  branch: string | null;
+  account_type: string | null;
+  is_default: boolean;
+  is_active: boolean;
+  display_order: number | null;
+  swift_code: string | null;
+  notes: string | null;
+  company_id: string;
+}
+
 export default function AdminCompanySettings() {
   const { profile, isSuperAdmin } = useAuth();
   const { toast } = useToast();
@@ -53,21 +68,25 @@ export default function AdminCompanySettings() {
   const [saving, setSaving] = useState(false);
   const [uploadingLogo, setUploadingLogo] = useState(false);
   const [settings, setSettings] = useState<CompanySettings | null>(null);
+  const [bankAccounts, setBankAccounts] = useState<BankAccount[]>([]);
+  const [savingBank, setSavingBank] = useState(false);
 
   useEffect(() => {
-    loadSettings();
+    loadAll();
   }, []);
 
-  const loadSettings = async () => {
+  const loadAll = async () => {
     setLoading(true);
     try {
-      const { data, error } = await (supabase as any).from('company_settings')
-        .select('*')
-        .eq('is_active', true)
-        .maybeSingle();
-
-      if (error) throw error;
-      setSettings(data);
+      const [settingsRes, banksRes] = await Promise.all([
+        (supabase as any).from('company_settings')
+          .select('*').eq('is_active', true).maybeSingle(),
+        (supabase as any).from('company_bank_accounts')
+          .select('*').eq('is_active', true).order('display_order'),
+      ]);
+      if (settingsRes.error) throw settingsRes.error;
+      setSettings(settingsRes.data);
+      setBankAccounts(banksRes.data || []);
     } catch (e: any) {
       toast({ title: 'โหลดข้อมูลไม่สำเร็จ', description: e.message, variant: 'destructive' });
     } finally {
