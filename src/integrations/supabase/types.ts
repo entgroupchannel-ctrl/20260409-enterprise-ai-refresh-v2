@@ -4751,6 +4751,18 @@ export type Database = {
         }
         Returns: number
       }
+      notify_all_admins: {
+        Args: {
+          p_label?: string
+          p_message: string
+          p_priority?: string
+          p_quote_id?: string
+          p_title: string
+          p_type: string
+          p_url?: string
+        }
+        Returns: undefined
+      }
       notify_user: {
         Args: {
           p_action_label?: string
