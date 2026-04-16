@@ -12,6 +12,8 @@ import {
   Stethoscope, Building, Globe, Landmark, MonitorSmartphone,
   Filter, X, Search, FileText, Crosshair
 } from "lucide-react";
+import AddToCartButton from "@/components/AddToCartButton";
+import CartBadge from "@/components/CartBadge";
 import { Checkbox } from "@/components/ui/checkbox";
 import ThemeToggle from "@/components/ThemeToggle";
 import logo from "@/assets/logo-entgroup.avif";
@@ -349,6 +351,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: Firewa
               <FileText size={12} /> ขอราคา
             </button>
           )}
+          <AddToCartButton productModel={model.name} productName={model.name} productDescription={`${model.tagline} — ${model.cpu}, ${model.lan}`} size="sm" variant="outline" />
         </div>
       </div>
 
@@ -776,7 +779,10 @@ const MiniPCFirewall = () => {
             <div className="w-px h-6 bg-border" />
             <img src={logo} alt="ENT GROUP" className="h-7 w-auto dark:invert" />
           </div>
+          <div className="flex items-center gap-3">
+            <CartBadge />
             <ThemeToggle />
+          </div>
         </div>
       </nav>
 

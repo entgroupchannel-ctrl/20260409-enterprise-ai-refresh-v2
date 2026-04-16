@@ -4,6 +4,8 @@ import heroMiniPC from "@/assets/hero-minipc-desk.jpg";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import { ArrowLeft, ExternalLink, Cpu, Zap, Shield, Monitor, Wifi, ThermometerSun, HardDrive, Server, ChevronRight, FileText, CircleCheck, Filter, X, MessageSquare } from "lucide-react";
+import AddToCartButton from "@/components/AddToCartButton";
+import CartBadge from "@/components/CartBadge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
@@ -718,6 +720,7 @@ const ProductCard = ({ model, onQuote }: { model: any; onQuote?: (name: string) 
         <Button size="sm" onClick={() => onQuote?.(model.name)}>
           <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
         </Button>
+        <AddToCartButton productModel={model.name} productName={model.name} productDescription={model.tagline} size="sm" variant="outline" />
       </div>
     </div>
   </div>
@@ -836,12 +839,15 @@ const MiniPC = () => {
       {/* Sticky Breadcrumb */}
       <div className="sticky top-0 z-30 bg-background/90 backdrop-blur-md py-3 border-b border-border">
         <div className="container max-w-7xl mx-auto px-4">
-          <nav className="flex items-center gap-2 text-sm">
-            <Link to="/" className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5">
-              <ArrowLeft className="w-3.5 h-3.5" /> หน้าหลัก
-            </Link>
-            <ChevronRight className="w-3 h-3 text-muted-foreground" />
-            <span className="text-foreground font-medium">Mini PC</span>
+          <nav className="flex items-center justify-between text-sm">
+            <div className="flex items-center gap-2">
+              <Link to="/" className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5">
+                <ArrowLeft className="w-3.5 h-3.5" /> หน้าหลัก
+              </Link>
+              <ChevronRight className="w-3 h-3 text-muted-foreground" />
+              <span className="text-foreground font-medium">Mini PC</span>
+            </div>
+            <CartBadge />
           </nav>
         </div>
       </div>
@@ -1029,9 +1035,12 @@ const MiniPC = () => {
                           <TableCell className="text-muted-foreground text-sm">{r.storage}</TableCell>
                           <TableCell className="text-right font-semibold text-foreground">{r.price}</TableCell>
                           <TableCell className="text-right">
-                            <Button size="sm" variant="ghost" className="text-xs text-primary" onClick={() => setQuoteProduct(r.model)}>
-                              <FileText className="w-3 h-3 mr-1" /> ขอราคา
-                            </Button>
+                            <div className="flex items-center justify-end gap-1">
+                              <Button size="sm" variant="ghost" className="text-xs text-primary" onClick={() => setQuoteProduct(r.model)}>
+                                <FileText className="w-3 h-3 mr-1" /> ขอราคา
+                              </Button>
+                              <AddToCartButton productModel={r.model} productName={r.model} productDescription={r.category} size="sm" variant="outline" />
+                            </div>
                           </TableCell>
                         </TableRow>
                       ))
