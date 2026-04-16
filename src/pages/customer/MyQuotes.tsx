@@ -16,9 +16,11 @@ import {
   Plus,
   Package,
   Loader2,
+  ShoppingBag,
 } from 'lucide-react';
 import QuoteTimeline from '@/components/rfq/QuoteTimeline';
 import { formatRelativeTime } from '@/lib/format';
+import { getPendingQuote, clearPendingQuote } from '@/hooks/usePendingQuote';
 
 interface Quote {
   id: string;
@@ -38,6 +40,17 @@ export default function MyQuotes() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [pendingProducts, setPendingProducts] = useState<any[] | null>(null);
+
+  // Check for pending quote from pre-login selection
+  useEffect(() => {
+    if (user) {
+      const pending = getPendingQuote();
+      if (pending && pending.products.length > 0) {
+        setPendingProducts(pending.products);
+      }
+    }
+  }, [user]);
 
   useEffect(() => {
     if (user) loadQuotes();
