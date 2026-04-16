@@ -5712,10 +5712,10 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                                <td className="p-3 text-muted-foreground">{item.ram}</td>
                                <td className="p-3 text-muted-foreground">{item.ssd}</td>
                                <td className="p-3 text-right font-bold text-primary">{item.price === "Call" ? "Call" : `฿${item.price}`}</td>
-                               <td className="p-3 text-center">
-                                 <div className="flex items-center justify-center gap-1">
-                                   <AddToCartButton productModel="GT1200" productName={specLabel} size="sm" />
-                                   <QuoteRequestButton productModel="GT1200" productName={specLabel} size="sm" variant="outline" />
+                               <td className="p-3 text-center whitespace-nowrap">
+                                 <div className="inline-flex items-center gap-1">
+                                   <AddToCartButton productModel="GT1200" productName={specLabel} size="icon" />
+                                   <QuoteRequestButton productModel="GT1200" productName={specLabel} size="icon" variant="outline" />
                                  </div>
                                </td>
                              </tr>
