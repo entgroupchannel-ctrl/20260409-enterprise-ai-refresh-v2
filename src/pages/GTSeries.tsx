@@ -2189,21 +2189,30 @@ const GTSeries = () => {
                     <div className="overflow-x-auto">
                       <table className="w-full text-sm">
                         <thead>
-                          <tr className="border-b border-border bg-muted/30">
-                            <th className="text-left p-3 font-bold text-foreground">Model</th>
-                            <th className="text-left p-3 font-bold text-foreground">Configuration</th>
-                            <th className="text-right p-3 font-bold text-foreground">Price List</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {pageItems.map((row, i) => (
-                            <tr key={i} className={`border-b border-border/50 ${i % 2 === 1 ? "bg-muted/20" : ""}`}>
-
-                              <td className="p-3 font-bold text-foreground">{row.model}</td>
-                              <td className="p-3 text-muted-foreground">{row.config}</td>
-                              <td className="p-3 text-right font-bold text-primary">{row.price}</td>
-                            </tr>
-                          ))}
+                           <tr className="border-b border-border bg-muted/30">
+                             <th className="text-left p-3 font-bold text-foreground">Model</th>
+                             <th className="text-left p-3 font-bold text-foreground">Configuration</th>
+                             <th className="text-right p-3 font-bold text-foreground">Price List</th>
+                             <th className="p-3 w-20"></th>
+                           </tr>
+                         </thead>
+                         <tbody>
+                           {pageItems.map((row, i) => {
+                             const specLabel = `GT3000 ${row.model} ${row.config}`.trim();
+                             return (
+                             <tr key={i} className={`border-b border-border/50 ${i % 2 === 1 ? "bg-muted/20" : ""}`}>
+                               <td className="p-3 font-bold text-foreground">{row.model}</td>
+                               <td className="p-3 text-muted-foreground">{row.config}</td>
+                               <td className="p-3 text-right font-bold text-primary">{row.price}</td>
+                               <td className="p-3">
+                                 <div className="inline-flex items-center gap-1">
+                                   <AddToCartButton productModel="GT3000" productName={specLabel} iconOnly variant="outline" />
+                                   <QuoteRequestButton productModel="GT3000" productName={specLabel} iconOnly variant="outline" />
+                                 </div>
+                               </td>
+                             </tr>
+                             );
+                           })}
                         </tbody>
                       </table>
                     </div>
