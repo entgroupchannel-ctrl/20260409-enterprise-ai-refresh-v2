@@ -1137,33 +1137,43 @@ const GTSeries = () => {
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
-                    <thead>
-                      <tr className="bg-secondary/50">
-                        <th className="text-left p-3 font-semibold text-foreground">CPU</th>
-                        <th className="text-left p-3 font-semibold text-foreground min-w-[280px]">Configuration</th>
-                        <th className="text-right p-3 font-semibold text-foreground">ราคา</th>
-                        <th className="text-left p-3 font-semibold text-foreground">หมายเหตุ</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-border">
-                      {[
-                        { model: "N2920", config: "RAM DDR3L 4GB + SSD 128GB + WiFi", price: "15,990", remark: "" },
-                        { model: "N2920", config: "RAM DDR3L 8GB + SSD 128GB + WiFi", price: "16,990", remark: "" },
-                        { model: "N2920", config: "RAM 4GB / SSD 128GB / 4G Module (Long Antenna)", price: "18,990", remark: "รองรับ SIM 4G LTE" },
-                        { model: "N2920", config: "RAM 4GB / SSD 128GB / 4G / Windows 10 Pro", price: "21,990", remark: "รวม Windows 10 Pro OEM" },
-                        { model: "N2920", config: "RAM DDR3L 8GB + SSD 256GB + WiFi", price: "18,990", remark: "รวม Windows 10 Pro OEM" },
-                        { model: "N3520", config: "RAM DDR3L 4GB + SSD 128GB + WiFi", price: "17,990", remark: "CPU เร็วกว่า" },
-                        { model: "N3520", config: "RAM DDR3L 8GB + SSD 128GB + WiFi", price: "18,990", remark: "" },
-                        { model: "N3520", config: "RAM 4GB / SSD 128GB / 4G Module (Long Antenna)", price: "21,990", remark: "รองรับ SIM 4G LTE" },
-                      ].map((item, i) => (
-                        <tr key={i} className="hover:bg-secondary/30 transition-colors">
-                          <td className="p-3 text-foreground font-medium font-mono">{item.model}</td>
-                          <td className="p-3 text-muted-foreground">{item.config}</td>
-                          <td className="p-3 text-right font-bold text-primary whitespace-nowrap">฿{item.price}</td>
-                          <td className="p-3 text-xs text-muted-foreground">{item.remark}</td>
-                        </tr>
-                      ))}
-                    </tbody>
+                     <thead>
+                       <tr className="bg-secondary/50">
+                         <th className="text-left p-3 font-semibold text-foreground">CPU</th>
+                         <th className="text-left p-3 font-semibold text-foreground min-w-[280px]">Configuration</th>
+                         <th className="text-right p-3 font-semibold text-foreground">ราคา</th>
+                         <th className="text-left p-3 font-semibold text-foreground">หมายเหตุ</th>
+                         <th className="p-3 w-20"></th>
+                       </tr>
+                     </thead>
+                     <tbody className="divide-y divide-border">
+                       {[
+                         { model: "N2920", config: "RAM DDR3L 4GB + SSD 128GB + WiFi", price: "15,990", remark: "" },
+                         { model: "N2920", config: "RAM DDR3L 8GB + SSD 128GB + WiFi", price: "16,990", remark: "" },
+                         { model: "N2920", config: "RAM 4GB / SSD 128GB / 4G Module (Long Antenna)", price: "18,990", remark: "รองรับ SIM 4G LTE" },
+                         { model: "N2920", config: "RAM 4GB / SSD 128GB / 4G / Windows 10 Pro", price: "21,990", remark: "รวม Windows 10 Pro OEM" },
+                         { model: "N2920", config: "RAM DDR3L 8GB + SSD 256GB + WiFi", price: "18,990", remark: "รวม Windows 10 Pro OEM" },
+                         { model: "N3520", config: "RAM DDR3L 4GB + SSD 128GB + WiFi", price: "17,990", remark: "CPU เร็วกว่า" },
+                         { model: "N3520", config: "RAM DDR3L 8GB + SSD 128GB + WiFi", price: "18,990", remark: "" },
+                         { model: "N3520", config: "RAM 4GB / SSD 128GB / 4G Module (Long Antenna)", price: "21,990", remark: "รองรับ SIM 4G LTE" },
+                       ].map((item, i) => {
+                         const specLabel = `GT1000 ${item.model} ${item.config}`;
+                         return (
+                         <tr key={i} className="hover:bg-secondary/30 transition-colors">
+                           <td className="p-3 text-foreground font-medium font-mono">{item.model}</td>
+                           <td className="p-3 text-muted-foreground">{item.config}</td>
+                           <td className="p-3 text-right font-bold text-primary whitespace-nowrap">฿{item.price}</td>
+                           <td className="p-3 text-xs text-muted-foreground">{item.remark}</td>
+                           <td className="p-3">
+                             <div className="inline-flex items-center gap-1">
+                               <AddToCartButton productModel="GT1000" productName={specLabel} iconOnly variant="outline" />
+                               <QuoteRequestButton productModel="GT1000" productName={specLabel} iconOnly variant="outline" />
+                             </div>
+                           </td>
+                         </tr>
+                         );
+                       })}
+                     </tbody>
                   </table>
                 </div>
                 <div className="p-4 border-t border-border text-center">
