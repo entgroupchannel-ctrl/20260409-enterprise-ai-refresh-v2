@@ -121,7 +121,6 @@ const applicationGallery = [
 ];
 
 const Volktek = () => {
-  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="Volktek Industrial Ethernet Switch" description="Volktek Industrial Ethernet Switch Managed/Unmanaged PoE สำหรับโรงงาน ระบบกล้องวงจรปิด และโครงข่ายอุตสาหกรรม" path="/volktek" />

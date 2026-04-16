@@ -223,8 +223,6 @@ const DemoCTA = ({ variant = "primary" }: { variant?: "primary" | "secondary" })
 /* ═══════ MAIN PAGE ═══════ */
 const VCloudPoint = () => {
   const [showVmatrix, setShowVmatrix] = useState(false);
-  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
-
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="vCloudPoint Zero Client — Thin Client ประหยัดต้นทุน" description="vCloudPoint Zero Client ลดต้นทุนฮาร์ดแวร์ ประหยัดไฟ 80% ใช้คอมเครื่องเดียวแชร์ได้หลายจุด สำหรับสำนักงาน โรงเรียน โรงแรม" path="/vcloudpoint" />

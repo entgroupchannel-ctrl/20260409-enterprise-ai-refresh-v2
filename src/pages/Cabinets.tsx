@@ -101,7 +101,6 @@ const lockOptions = ["กุญแจแบบเด้ง", "กุญแจแ
 
 /* ═══════ Component ═══════ */
 const Cabinets = () => {
-  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
   const [customOpen, setCustomOpen] = useState(false);  const { toast } = useToast();
   const [customLoading, setCustomLoading] = useState(false);
   const [customSubmitted, setCustomSubmitted] = useState(false);
