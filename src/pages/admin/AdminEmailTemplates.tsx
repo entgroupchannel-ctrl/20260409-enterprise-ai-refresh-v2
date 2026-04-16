@@ -106,8 +106,10 @@ export default function AdminEmailTemplates() {
     if (error) {
       toast({ title: 'บันทึกไม่สำเร็จ', description: error.message, variant: 'destructive' });
     } else {
-      toast({ title: 'บันทึกสำเร็จ', description: `อัปเดตเทมเพลต "${TEMPLATE_LABELS[activeTab]?.label}" เรียบร้อย` });
+      toast({ title: 'บันทึกสำเร็จ', description: `อัปเดตเทมเพลต "${TEMPLATE_LABELS[activeTab]?.label}" เรียบร้อย (deploy เพื่อให้มีผล)` });
       fetchTemplates();
+      // Refresh preview from Edge Function (shows saved data from DB)
+      setTimeout(() => fetchPreview(), 500);
     }
     setSaving(false);
   };
