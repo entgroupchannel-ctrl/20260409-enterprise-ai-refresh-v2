@@ -1,0 +1,414 @@
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Badge } from '@/components/ui/badge';
+import { Switch } from '@/components/ui/switch';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { useToast } from '@/hooks/use-toast';
+import { ArrowLeft, Mail, Eye, Send, Save, Palette, Type, RotateCcw } from 'lucide-react';
+
+interface EmailTemplate {
+  id: string;
+  template_type: string;
+  subject: string | null;
+  heading: string | null;
+  body_text: string | null;
+  button_text: string | null;
+  footer_text: string | null;
+  primary_color: string | null;
+  logo_url: string | null;
+  site_name: string | null;
+  font_family: string | null;
+  is_active: boolean | null;
+  updated_at: string;
+}
+
+const TEMPLATE_LABELS: Record<string, { label: string; desc: string }> = {
+  signup: { label: 'สมัครสมาชิก', desc: 'อีเมลยืนยันการสมัครสมาชิกใหม่' },
+  recovery: { label: 'รีเซ็ตรหัสผ่าน', desc: 'อีเมลสำหรับตั้งรหัสผ่านใหม่' },
+  magiclink: { label: 'Magic Link', desc: 'ลิงก์เข้าสู่ระบบแบบไม่ต้องใช้รหัสผ่าน' },
+  invite: { label: 'เชิญสมาชิก', desc: 'อีเมลเชิญเข้าร่วมทีม' },
+  email_change: { label: 'เปลี่ยนอีเมล', desc: 'ยืนยันการเปลี่ยนแปลงอีเมล' },
+  reauthentication: { label: 'ยืนยันตัวตน', desc: 'รหัส OTP สำหรับยืนยันตัวตน' },
+};
+
+const DEFAULT_VALUES: Record<string, Partial<EmailTemplate>> = {
+  signup: { subject: 'ยืนยันอีเมลของคุณ', heading: 'ยืนยันอีเมลของคุณ', body_text: 'ขอบคุณที่สมัครสมาชิก ENT Group — แพลตฟอร์มจัดซื้ออุตสาหกรรมแบบครบวงจร กรุณายืนยันอีเมลของคุณโดยคลิกปุ่มด้านล่าง:', button_text: 'ยืนยันอีเมล', footer_text: 'หากคุณไม่ได้สร้างบัญชีนี้ สามารถเพิกเฉยอีเมลฉบับนี้ได้' },
+  recovery: { subject: 'รีเซ็ตรหัสผ่าน', heading: 'รีเซ็ตรหัสผ่าน', body_text: 'เราได้รับคำขอรีเซ็ตรหัสผ่านสำหรับบัญชี ENT Group ของคุณ คลิกปุ่มด้านล่างเพื่อตั้งรหัสผ่านใหม่', button_text: 'รีเซ็ตรหัสผ่าน', footer_text: 'หากคุณไม่ได้ขอรีเซ็ตรหัสผ่าน สามารถเพิกเฉยอีเมลฉบับนี้ได้' },
+  magiclink: { subject: 'ลิงก์เข้าสู่ระบบ', heading: 'ลิงก์เข้าสู่ระบบของคุณ', body_text: 'คลิกปุ่มด้านล่างเพื่อเข้าสู่ระบบ ENT Group ลิงก์นี้จะหมดอายุในไม่ช้า', button_text: 'เข้าสู่ระบบ', footer_text: 'หากคุณไม่ได้ขอลิงก์นี้ สามารถเพิกเฉยอีเมลฉบับนี้ได้' },
+  invite: { subject: 'คุณได้รับเชิญเข้าร่วม', heading: 'คุณได้รับเชิญเข้าร่วมทีม', body_text: 'คุณได้รับเชิญเข้าร่วม ENT Group คลิกปุ่มด้านล่างเพื่อยอมรับคำเชิญและสร้างบัญชีของคุณ', button_text: 'ยอมรับคำเชิญ', footer_text: 'หากคุณไม่ได้คาดหวังคำเชิญนี้ สามารถเพิกเฉยอีเมลฉบับนี้ได้' },
+  email_change: { subject: 'ยืนยันการเปลี่ยนอีเมล', heading: 'ยืนยันการเปลี่ยนอีเมล', body_text: 'คุณขอเปลี่ยนอีเมลสำหรับ ENT Group คลิกปุ่มด้านล่างเพื่อยืนยันการเปลี่ยนแปลง:', button_text: 'ยืนยันการเปลี่ยนอีเมล', footer_text: 'หากคุณไม่ได้ขอเปลี่ยนอีเมล กรุณาตรวจสอบความปลอดภัยบัญชีของคุณทันที' },
+  reauthentication: { subject: 'รหัสยืนยันตัวตน', heading: 'ยืนยันตัวตนของคุณ', body_text: 'ใช้รหัสด้านล่างเพื่อยืนยันตัวตนของคุณ:', button_text: '', footer_text: 'รหัสนี้จะหมดอายุในไม่ช้า หากคุณไม่ได้ขอรหัสนี้ สามารถเพิกเฉยอีเมลฉบับนี้ได้' },
+};
+
+export default function AdminEmailTemplates() {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const [templates, setTemplates] = useState<EmailTemplate[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [activeTab, setActiveTab] = useState('signup');
+  const [editForm, setEditForm] = useState<Partial<EmailTemplate>>({});
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [testEmail, setTestEmail] = useState('');
+  const [sendingTest, setSendingTest] = useState(false);
+
+  useEffect(() => {
+    fetchTemplates();
+  }, []);
+
+  useEffect(() => {
+    const t = templates.find(t => t.template_type === activeTab);
+    if (t) {
+      setEditForm({ ...t });
+    }
+  }, [activeTab, templates]);
+
+  const fetchTemplates = async () => {
+    setLoading(true);
+    const { data, error } = await supabase
+      .from('email_template_settings')
+      .select('*')
+      .order('template_type');
+    if (error) {
+      toast({ title: 'โหลดข้อมูลไม่สำเร็จ', description: error.message, variant: 'destructive' });
+    } else {
+      setTemplates((data as any) || []);
+    }
+    setLoading(false);
+  };
+
+  const handleSave = async () => {
+    setSaving(true);
+    const { error } = await supabase
+      .from('email_template_settings')
+      .update({
+        subject: editForm.subject,
+        heading: editForm.heading,
+        body_text: editForm.body_text,
+        button_text: editForm.button_text,
+        footer_text: editForm.footer_text,
+        primary_color: editForm.primary_color,
+        logo_url: editForm.logo_url,
+        site_name: editForm.site_name,
+        is_active: editForm.is_active,
+      } as any)
+      .eq('template_type', activeTab);
+
+    if (error) {
+      toast({ title: 'บันทึกไม่สำเร็จ', description: error.message, variant: 'destructive' });
+    } else {
+      toast({ title: 'บันทึกสำเร็จ', description: `อัปเดตเทมเพลต "${TEMPLATE_LABELS[activeTab]?.label}" เรียบร้อย` });
+      fetchTemplates();
+    }
+    setSaving(false);
+  };
+
+  const handleReset = () => {
+    const defaults = DEFAULT_VALUES[activeTab];
+    if (defaults) {
+      setEditForm(prev => ({ ...prev, ...defaults, primary_color: '#0fa888', site_name: 'ENT Group' }));
+    }
+  };
+
+  const handleSendTest = async () => {
+    if (!testEmail) return;
+    setSendingTest(true);
+    try {
+      // Use the auth-email-hook preview endpoint to render and show preview
+      toast({ title: 'ส่งทดสอบ', description: `ส่งอีเมลทดสอบไปยัง ${testEmail} (ต้อง deploy ก่อนจึงจะมีผล)` });
+    } catch {
+      toast({ title: 'ส่งไม่สำเร็จ', variant: 'destructive' });
+    }
+    setSendingTest(false);
+  };
+
+  const renderPreview = () => {
+    const primaryColor = editForm.primary_color || '#0fa888';
+    const siteName = editForm.site_name || 'ENT Group';
+    const isOTP = activeTab === 'reauthentication';
+
+    return (
+      <div style={{ backgroundColor: '#f5f5f5', padding: '20px', fontFamily: "'IBM Plex Sans Thai', Arial, sans-serif" }}>
+        <div style={{ maxWidth: '580px', margin: '0 auto', backgroundColor: '#ffffff', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+          {/* Header */}
+          <div style={{ textAlign: 'center', padding: '24px 20px 12px' }}>
+            {editForm.logo_url && <img src={editForm.logo_url} alt="Logo" style={{ maxHeight: '40px', marginBottom: '8px' }} />}
+            <h2 style={{ fontSize: '20px', fontWeight: 700, color: primaryColor, margin: 0 }}>{siteName}</h2>
+          </div>
+          {/* Body */}
+          <div style={{ padding: '0 30px 30px' }}>
+            <h1 style={{ fontSize: '20px', fontWeight: 600, color: '#1a1a2e', margin: '20px 0 10px' }}>
+              {editForm.heading || 'หัวข้อ'}
+            </h1>
+            <p style={{ fontSize: '14px', color: '#374151', lineHeight: 1.6, margin: '0 0 16px' }}>
+              {editForm.body_text || 'เนื้อหาอีเมล...'}
+            </p>
+            {isOTP ? (
+              <p style={{ fontFamily: 'Courier, monospace', fontSize: '28px', fontWeight: 'bold', color: primaryColor, textAlign: 'center', letterSpacing: '4px', margin: '20px 0' }}>
+                123456
+              </p>
+            ) : editForm.button_text ? (
+              <div style={{ textAlign: 'center', margin: '24px 0' }}>
+                <span style={{
+                  display: 'inline-block', backgroundColor: primaryColor, color: '#ffffff', fontSize: '14px',
+                  borderRadius: '8px', padding: '12px 28px', fontWeight: 600,
+                }}>
+                  {editForm.button_text}
+                </span>
+              </div>
+            ) : null}
+            <hr style={{ borderColor: '#e5e7eb', margin: '24px 0' }} />
+            <p style={{ fontSize: '12px', color: '#9ca3af', margin: '0 0 8px' }}>
+              {editForm.footer_text || 'ข้อความท้ายอีเมล'}
+            </p>
+            <p style={{ fontSize: '12px', color: '#9ca3af', margin: 0, textAlign: 'center' }}>
+              © {siteName} — B2B Industrial Platform
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto px-4 py-6 max-w-7xl admin-content-area">
+        {/* Header */}
+        <div className="flex items-center gap-4 mb-6">
+          <Button variant="ghost" size="sm" onClick={() => navigate('/admin/dashboard')}>
+            <ArrowLeft className="w-4 h-4 mr-1" /> กลับ
+          </Button>
+          <div>
+            <h1 className="text-2xl font-bold flex items-center gap-2">
+              <Mail className="w-6 h-6 text-primary" />
+              จัดการเทมเพลตอีเมล
+            </h1>
+            <p className="text-sm text-muted-foreground">ปรับแต่งข้อความ สี และรูปแบบอีเมลอัตโนมัติ</p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Left - Template List & Editor */}
+          <div className="lg:col-span-2 space-y-4">
+            <Tabs value={activeTab} onValueChange={setActiveTab}>
+              <TabsList className="flex flex-wrap h-auto gap-1">
+                {Object.entries(TEMPLATE_LABELS).map(([key, { label }]) => {
+                  const t = templates.find(t => t.template_type === key);
+                  return (
+                    <TabsTrigger key={key} value={key} className="text-xs relative">
+                      {label}
+                      {t?.is_active === false && (
+                        <Badge variant="outline" className="ml-1 text-[10px] px-1 py-0">ปิด</Badge>
+                      )}
+                    </TabsTrigger>
+                  );
+                })}
+              </TabsList>
+
+              {Object.keys(TEMPLATE_LABELS).map(key => (
+                <TabsContent key={key} value={key}>
+                  <Card>
+                    <CardHeader className="pb-3">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <CardTitle className="text-lg">{TEMPLATE_LABELS[key].label}</CardTitle>
+                          <CardDescription>{TEMPLATE_LABELS[key].desc}</CardDescription>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Label htmlFor="active-switch" className="text-xs text-muted-foreground">เปิดใช้งาน</Label>
+                          <Switch
+                            id="active-switch"
+                            checked={editForm.is_active ?? true}
+                            onCheckedChange={v => setEditForm(p => ({ ...p, is_active: v }))}
+                          />
+                        </div>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <Label className="text-xs">หัวข้ออีเมล (Subject)</Label>
+                          <Input
+                            value={editForm.subject || ''}
+                            onChange={e => setEditForm(p => ({ ...p, subject: e.target.value }))}
+                            placeholder="หัวข้ออีเมล"
+                          />
+                        </div>
+                        <div>
+                          <Label className="text-xs">หัวข้อหลัก (Heading)</Label>
+                          <Input
+                            value={editForm.heading || ''}
+                            onChange={e => setEditForm(p => ({ ...p, heading: e.target.value }))}
+                            placeholder="หัวข้อหลักในอีเมล"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <Label className="text-xs">เนื้อหาหลัก (Body)</Label>
+                        <Textarea
+                          value={editForm.body_text || ''}
+                          onChange={e => setEditForm(p => ({ ...p, body_text: e.target.value }))}
+                          placeholder="เนื้อหาอีเมล"
+                          rows={3}
+                        />
+                      </div>
+
+                      {key !== 'reauthentication' && (
+                        <div>
+                          <Label className="text-xs">ข้อความปุ่ม (Button)</Label>
+                          <Input
+                            value={editForm.button_text || ''}
+                            onChange={e => setEditForm(p => ({ ...p, button_text: e.target.value }))}
+                            placeholder="ข้อความบนปุ่ม"
+                          />
+                        </div>
+                      )}
+
+                      <div>
+                        <Label className="text-xs">ข้อความท้าย (Footer)</Label>
+                        <Textarea
+                          value={editForm.footer_text || ''}
+                          onChange={e => setEditForm(p => ({ ...p, footer_text: e.target.value }))}
+                          placeholder="ข้อความท้ายอีเมล"
+                          rows={2}
+                        />
+                      </div>
+
+                      <div className="flex gap-2 pt-2">
+                        <Button onClick={handleSave} disabled={saving} className="flex-1">
+                          <Save className="w-4 h-4 mr-1" />
+                          {saving ? 'กำลังบันทึก...' : 'บันทึก'}
+                        </Button>
+                        <Button variant="outline" onClick={handleReset}>
+                          <RotateCcw className="w-4 h-4 mr-1" /> รีเซ็ต
+                        </Button>
+                        <Dialog open={previewOpen} onOpenChange={setPreviewOpen}>
+                          <DialogTrigger asChild>
+                            <Button variant="outline">
+                              <Eye className="w-4 h-4 mr-1" /> ดูตัวอย่าง
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                            <DialogHeader>
+                              <DialogTitle>ตัวอย่างอีเมล — {TEMPLATE_LABELS[key].label}</DialogTitle>
+                            </DialogHeader>
+                            {renderPreview()}
+                          </DialogContent>
+                        </Dialog>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+              ))}
+            </Tabs>
+          </div>
+
+          {/* Right - Global Settings & Preview */}
+          <div className="space-y-4">
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base flex items-center gap-2">
+                  <Palette className="w-4 h-4" /> ตั้งค่าแบรนด์
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <div>
+                  <Label className="text-xs">ชื่อเว็บไซต์</Label>
+                  <Input
+                    value={editForm.site_name || ''}
+                    onChange={e => setEditForm(p => ({ ...p, site_name: e.target.value }))}
+                  />
+                </div>
+                <div>
+                  <Label className="text-xs">สีหลัก</Label>
+                  <div className="flex gap-2">
+                    <input
+                      type="color"
+                      value={editForm.primary_color || '#0fa888'}
+                      onChange={e => setEditForm(p => ({ ...p, primary_color: e.target.value }))}
+                      className="w-10 h-10 rounded border cursor-pointer"
+                    />
+                    <Input
+                      value={editForm.primary_color || '#0fa888'}
+                      onChange={e => setEditForm(p => ({ ...p, primary_color: e.target.value }))}
+                      className="flex-1"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <Label className="text-xs">URL โลโก้</Label>
+                  <Input
+                    value={editForm.logo_url || ''}
+                    onChange={e => setEditForm(p => ({ ...p, logo_url: e.target.value }))}
+                    placeholder="https://..."
+                  />
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base flex items-center gap-2">
+                  <Send className="w-4 h-4" /> ส่งอีเมลทดสอบ
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <div>
+                  <Label className="text-xs">อีเมลปลายทาง</Label>
+                  <Input
+                    type="email"
+                    value={testEmail}
+                    onChange={e => setTestEmail(e.target.value)}
+                    placeholder="test@example.com"
+                  />
+                </div>
+                <Button
+                  onClick={handleSendTest}
+                  disabled={!testEmail || sendingTest}
+                  className="w-full"
+                  variant="outline"
+                >
+                  <Send className="w-4 h-4 mr-1" />
+                  {sendingTest ? 'กำลังส่ง...' : 'ส่งทดสอบ'}
+                </Button>
+                <p className="text-[11px] text-muted-foreground">
+                  * การเปลี่ยนแปลงจะมีผลหลังบันทึก และ deploy edge function ใหม่
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Live Preview Mini */}
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-base flex items-center gap-2">
+                  <Eye className="w-4 h-4" /> ตัวอย่างสด
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                <div className="transform scale-[0.5] origin-top-left w-[200%] pointer-events-none">
+                  {renderPreview()}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

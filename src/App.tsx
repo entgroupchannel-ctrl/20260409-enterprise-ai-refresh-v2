@@ -124,6 +124,7 @@ const AdminLiveChat = lazyRetry(() => import("./pages/admin/AdminLiveChat"));
 const AdminGeneralChat = lazyRetry(() => import("./pages/admin/AdminGeneralChat"));
 const AdminReports = lazyRetry(() => import("./pages/admin/AdminReports"));
 const AdminSubscribers = lazyRetry(() => import("./pages/admin/AdminSubscribers"));
+const AdminEmailTemplates = lazyRetry(() => import("./pages/admin/AdminEmailTemplates"));
 
 /* ── Loading fallback ── */
 const PageLoader = () => (
@@ -244,6 +245,7 @@ const App = () => (
                     <Route path="/admin/general-chat" element={<ProtectedRoute requireSales><AdminGeneralChat /></ProtectedRoute>} />
                     <Route path="/admin/reports" element={<ProtectedRoute allowedRoles={['super_admin','admin','sales','accountant']}><AdminReports /></ProtectedRoute>} />
                     <Route path="/admin/subscribers" element={<ProtectedRoute requireSales><AdminSubscribers /></ProtectedRoute>} />
+                    <Route path="/admin/email-templates" element={<ProtectedRoute requireSuperAdmin><AdminEmailTemplates /></ProtectedRoute>} />
                    <Route path="/admin/profile" element={<ProtectedRoute requireSales><AdminProfile /></ProtectedRoute>} />
                    <Route path="/admin/settings/profile" element={<ProtectedRoute requireSales><AdminProfile /></ProtectedRoute>} />
                     <Route path="/request-quote" element={<QuoteRequestForm />} />

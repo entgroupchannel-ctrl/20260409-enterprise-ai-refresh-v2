@@ -1190,6 +1190,60 @@ export type Database = {
           },
         ]
       }
+      email_template_settings: {
+        Row: {
+          body_text: string | null
+          button_text: string | null
+          created_at: string
+          font_family: string | null
+          footer_text: string | null
+          heading: string | null
+          id: string
+          is_active: boolean | null
+          logo_url: string | null
+          primary_color: string | null
+          site_name: string | null
+          subject: string | null
+          template_type: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          body_text?: string | null
+          button_text?: string | null
+          created_at?: string
+          font_family?: string | null
+          footer_text?: string | null
+          heading?: string | null
+          id?: string
+          is_active?: boolean | null
+          logo_url?: string | null
+          primary_color?: string | null
+          site_name?: string | null
+          subject?: string | null
+          template_type: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          body_text?: string | null
+          button_text?: string | null
+          created_at?: string
+          font_family?: string | null
+          footer_text?: string | null
+          heading?: string | null
+          id?: string
+          is_active?: boolean | null
+          logo_url?: string | null
+          primary_color?: string | null
+          site_name?: string | null
+          subject?: string | null
+          template_type?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       employee_invitations: {
         Row: {
           accepted_at: string | null
