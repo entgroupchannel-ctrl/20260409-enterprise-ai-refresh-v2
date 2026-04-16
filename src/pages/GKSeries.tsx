@@ -13,6 +13,7 @@ import { LineQRDialog } from "@/components/LineQRDialog";
 import AddToCartButton from "@/components/AddToCartButton";
 import CartBadge from "@/components/CartBadge";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import ProductGallery from "@/components/ProductGallery";
 import gk1506img1 from "@/assets/gk-series/gk1506-1.jpg";
 import gk1506img2 from "@/assets/gk-series/gk1506-2.jpg";
@@ -681,10 +682,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
           <p className="text-sm text-muted-foreground mb-1">{model.screenSize} • {model.resolution} • {model.platform}</p>
           <p className="text-muted-foreground mb-4 leading-relaxed">{model.desc}</p>
           <div className="flex items-center gap-3 mb-6 flex-wrap">
-            <button
-              onClick={() => onQuote(model.name)}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">
-              <ExternalLink size={14} /> ขอใบเสนอราคา {model.name}
+            <QuoteRequestButton productModel={model.name} productName={model.name} />
             </button>
             <AddToCartButton
               productModel={model.name}
@@ -824,11 +822,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
               })()}
               <div className="flex items-center justify-between p-4 border-t border-border bg-muted/20">
                 <PriceDisclaimer />
-                <button
-                  onClick={() => onQuote(model.name)}
-                  className="shrink-0 ml-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors">
-                  <ExternalLink size={14} /> ขอใบเสนอราคา
-                </button>
+                <QuoteRequestButton productModel={model.name} productName={model.name} size="sm" />
               </div>
             </TabsContent>
           )}
@@ -1054,10 +1048,7 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
             <div className="px-4 py-4 text-sm font-medium text-foreground flex items-center">ขอใบเสนอราคา</div>
             {visibleIndices.map(i => (
               <div key={i} className="px-3 py-4 text-center border-l border-border flex flex-col items-center gap-2">
-                <button onClick={() => onQuote(comparisonData.models[i])}
-                  className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold hover:bg-primary/90 transition-colors">
-                  ขอราคา {comparisonData.models[i]}
-                </button>
+                <QuoteRequestButton productModel={comparisonData.models[i]} productName={comparisonData.models[i]} size="sm" />
                 <AddToCartButton
                   productModel={comparisonData.models[i]}
                   productName={`GK Series — ${comparisonData.models[i]}`}
@@ -1095,8 +1086,6 @@ const ComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) => {
 };
 /* ─── Page ─── */
 const GKSeries = () => {
-  const [quoteOpen, setQuoteOpen] = useState(false);
-  const [quoteProduct, setQuoteProduct] = useState("");
   const [showLineQR, setShowLineQR] = useState(false);
   const [activeVideoTab, setActiveVideoTab] = useState("ทั้งหมด");
   return (
@@ -1228,7 +1217,7 @@ const GKSeries = () => {
             </h2>
             <p className="text-muted-foreground mt-3">เลือกมุมมอง สเปก / ราคา / ความคุ้มค่า พร้อมระบบกรองสินค้า</p>
           </div>
-          <ComparisonSystem onQuote={(name) => { setQuoteProduct(name); setQuoteOpen(true); }} />
+          <ComparisonSystem onQuote={() => {}} />
         </div>
       </section>
 
@@ -1267,7 +1256,7 @@ const GKSeries = () => {
 
           <div className="space-y-10">
             {gkModels.map((model, idx) => (
-              <ModelSection key={model.id} model={model} index={idx} onQuote={(name) => { setQuoteProduct(name); setQuoteOpen(true); }} />
+              <ModelSection key={model.id} model={model} index={idx} onQuote={() => {}} />
             ))}
           </div>
         </div>
@@ -1554,9 +1543,7 @@ const GKSeries = () => {
             ให้ทีมผู้เชี่ยวชาญช่วยเลือกรุ่นและ Configuration ที่เหมาะกับงานของคุณ
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <button onClick={() => setQuoteOpen(true)} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-lg hover:bg-primary/90 transition-colors">
-              ขอใบเสนอราคา
-            </button>
+            <QuoteRequestButton productModel="GK Series" productName="GK Series Panel PC" size="lg" />
             <button
               onClick={() => setShowLineQR(true)}
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[hsl(142,70%,45%)] text-white font-bold text-lg hover:opacity-90 transition-opacity">
