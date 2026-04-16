@@ -1,24 +1,79 @@
+# ENT Group — Industrial Computing Platform
+# https://www.entgroup.co.th
+
+# === Google & Bing ===
 User-agent: Googlebot
 Allow: /
 Disallow: /admin
 Disallow: /admin-login
+Disallow: /my-account
+Disallow: /dashboard
+Disallow: /debug-test
 
 User-agent: Bingbot
 Allow: /
 Disallow: /admin
 Disallow: /admin-login
+Disallow: /my-account
+Disallow: /dashboard
 
+# === Social Media Crawlers ===
 User-agent: Twitterbot
 Allow: /
 
 User-agent: facebookexternalhit
 Allow: /
 
+User-agent: LinkedInBot
+Allow: /
+
+# === AI Search Engine Crawlers ===
+User-agent: GPTBot
+Allow: /
+Disallow: /admin
+Disallow: /my-account
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /admin
+Disallow: /my-account
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /admin
+Disallow: /my-account
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin
+Disallow: /my-account
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /admin
+Disallow: /my-account
+
+User-agent: Bytespider
+Allow: /
+Disallow: /admin
+Disallow: /my-account
+
+User-agent: cohere-ai
+Allow: /
+Disallow: /admin
+Disallow: /my-account
+
+# === Default ===
 User-agent: *
 Allow: /
 Disallow: /admin
 Disallow: /admin-login
+Disallow: /my-account
+Disallow: /dashboard
 Disallow: /reset-password
 Disallow: /forgot-password
+Disallow: /debug-test
+Disallow: /invite
 
-Sitemap: https://ent-vision.lovable.app/sitemap.xml
+# === Sitemaps ===
+Sitemap: https://www.entgroup.co.th/sitemap.xml
