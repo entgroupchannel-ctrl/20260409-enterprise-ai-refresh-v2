@@ -232,11 +232,6 @@ const App = () => (
                     <Route path="/admin/requests" element={<ProtectedRoute requireAdmin><AdminRequests /></ProtectedRoute>} />
                     <Route path="/admin/approvals" element={<ProtectedRoute requireSuperAdmin><AdminApprovals /></ProtectedRoute>} />
                     <Route path="/admin/products" element={<ProtectedRoute requireSales><ProductsList /></ProtectedRoute>} />
-                    <Route path="/admin/products/import" element={<ProtectedRoute requireSales><ProductImport /></ProtectedRoute>} />
-                    <Route path="/admin/gt-images-import" element={<ProtectedRoute requireSales><GTImagesImport /></ProtectedRoute>} />
-                    <Route path="/admin/epc-images-import" element={<ProtectedRoute requireSales><EPCImagesImport /></ProtectedRoute>} />
-                    <Route path="/admin/product-migration" element={<ProtectedRoute requireSuperAdmin><ProductMigrationReview /></ProtectedRoute>} />
-                    <Route path="/admin/migrate-datasheets" element={<ProtectedRoute requireSuperAdmin><MigrateDatasheets /></ProtectedRoute>} />
                     <Route path="/admin/settings/company" element={<ProtectedRoute requireSales><AdminCompanySettings /></ProtectedRoute>} />
                     <Route path="/admin/suppliers" element={<ProtectedRoute requireSales><AdminSupplierManagement /></ProtectedRoute>} />
                     <Route path="/admin/suppliers/:id" element={<ProtectedRoute requireSales><AdminSupplierDetail /></ProtectedRoute>} />
