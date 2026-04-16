@@ -9,6 +9,7 @@ import {
   Ruler, Send, Loader2, Settings,
 } from "lucide-react";
 import AddToCartButton from "@/components/AddToCartButton";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import CartBadge from "@/components/CartBadge";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -100,7 +101,6 @@ const lockOptions = ["กุญแจแบบเด้ง", "กุญแจแ
 
 /* ═══════ Component ═══════ */
 const Cabinets = () => {
-  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
   const [customOpen, setCustomOpen] = useState(false);  const { toast } = useToast();
   const [customLoading, setCustomLoading] = useState(false);
   const [customSubmitted, setCustomSubmitted] = useState(false);
@@ -266,9 +266,7 @@ const Cabinets = () => {
                       </a>
                     </Button>
                   </div>
-                  <Button size="sm" className="w-full" onClick={() => setQuoteProduct(model.name)}>
-                    <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
-                  </Button>
+                  <QuoteRequestButton productModel={model.name} productName={model.name} size="sm" className="w-full justify-center" />
                   <AddToCartButton productModel={model.name} productName={model.name} productDescription={`Cabinet ${model.panelModel} ${model.material} ${model.protection}`} size="sm" variant="outline" className="w-full justify-center mt-2" />
                 </div>
               </div>
@@ -355,9 +353,7 @@ const Cabinets = () => {
         <div className="card-surface p-8 text-center">
           <h2 className="text-2xl font-display font-bold text-foreground mb-3">สนใจตู้ Panel PC Cabinet?</h2>
           <p className="text-muted-foreground mb-6">ปรึกษาผู้เชี่ยวชาญเพื่อเลือกขนาดและรุ่นที่เหมาะกับงานของคุณ</p>
-          <Button size="lg" onClick={() => setQuoteProduct("Panel PC Cabinet")}>
-            <FileText className="w-4 h-4 mr-2" /> ขอใบเสนอราคา
-          </Button>
+          <QuoteRequestButton productModel="Panel PC Cabinet" productName="Panel PC Cabinet" size="lg" />
         </div>
       </div>
 

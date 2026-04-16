@@ -13,6 +13,7 @@ import {
   Filter, X, Search, FileText, Crosshair
 } from "lucide-react";
 import AddToCartButton from "@/components/AddToCartButton";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import CartBadge from "@/components/CartBadge";
 import { Checkbox } from "@/components/ui/checkbox";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -346,11 +347,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: Firewa
             {expanded ? "ซ่อนรายละเอียด" : "ดูสเปกเต็ม"}
             <ChevronDown size={12} className={`transition-transform ${expanded ? "rotate-180" : ""}`} />
           </button>
-          {onQuote && (
-            <button onClick={() => onQuote(model.name)} className="ml-auto text-xs font-semibold flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
-              <FileText size={12} /> ขอราคา
-            </button>
-          )}
+          <QuoteRequestButton productModel={model.name} productName={model.name} size="sm" className="ml-auto" />
           <AddToCartButton productModel={model.name} productName={model.name} productDescription={`${model.tagline} — ${model.cpu}, ${model.lan}`} size="sm" variant="outline" />
         </div>
       </div>
@@ -751,8 +748,6 @@ const FirewallComparisonTable = () => {
 
 const MiniPCFirewall = () => {
   const [activeTier, setActiveTier] = useState<Tier | "all">("all");
-  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
-
   const filtered = activeTier === "all" ? models : models.filter((m) => m.tier === activeTier);
 
   return (
@@ -933,7 +928,7 @@ const MiniPCFirewall = () => {
           {/* Cards */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {filtered.map((m) => (
-              <ModelCard key={m.id} model={m} onQuote={setQuoteProduct} />
+              <ModelCard key={m.id} model={m} />
             ))}
           </div>
         </div>
@@ -1094,9 +1089,7 @@ const MiniPCFirewall = () => {
           <h2 className="text-2xl md:text-3xl font-black text-foreground mb-4">พร้อมเริ่มต้นแล้วหรือยัง?</h2>
           <p className="text-muted-foreground mb-8">ปรึกษาผู้เชี่ยวชาญของเราเพื่อหาโซลูชันที่เหมาะสมกับธุรกิจของคุณ</p>
           <div className="flex flex-wrap justify-center gap-4">
-            <button onClick={() => setQuoteProduct("Mini PC Firewall")} className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary/90 transition-colors">
-              <FileText size={16} /> ขอใบเสนอราคา
-            </button>
+            <QuoteRequestButton productModel="Mini PC Firewall" productName="Mini PC Firewall" className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary/90 transition-colors" />
             <Link to="/" className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold text-sm hover:bg-secondary transition-colors">
               <ArrowLeft size={16} /> กลับหน้าหลัก
             </Link>

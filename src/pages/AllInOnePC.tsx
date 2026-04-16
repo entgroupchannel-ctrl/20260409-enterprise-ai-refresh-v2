@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { aioProducts, categoryLabels, type AIOCategory, type AIOOS } from "@/data/aio-products";
 import AddToCartButton from "@/components/AddToCartButton";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import CartBadge from "@/components/CartBadge";
 
 /* ── Filter Tabs ── */
@@ -40,7 +41,7 @@ const AIOCard = ({
   onToggleSelect,
 }: {
   product: (typeof aioProducts)[0];
-  onQuote: (name: string) => void;
+  onQuote?: (name: string) => void;
   selected: boolean;
   onToggleSelect: (name: string) => void;
 }) => (
@@ -108,12 +109,7 @@ const AIOCard = ({
             <Monitor className="w-3.5 h-3.5 mr-1.5" /> ดูรายละเอียด
           </Link>
         </Button>
-        <Button
-          size="sm"
-          className="flex-1"
-          onClick={() => onQuote(product.model)}>
-          <FileText className="w-3.5 h-3.5 mr-1.5" /> สอบถามราคา
-        </Button>
+        <QuoteRequestButton productModel={product.model} productName={`${product.model} ${product.title}`} size="sm" className="flex-1" />
         <AddToCartButton productModel={product.model} productName={product.model} productDescription={`${product.title} — ${product.cpu}`} size="sm" variant="outline" />
       </div>
     </div>
@@ -124,7 +120,6 @@ const AIOCard = ({
 const AllInOnePC = () => {
   const [osFilter, setOsFilter] = useState<AIOOS | "all">("all");
   const [catFilter, setCatFilter] = useState<AIOCategory | "all">("all");
-  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
   const [selectedProducts, setSelectedProducts] = useState<Set<string>>(new Set());
 
   const toggleSelect = useCallback((name: string) => {
@@ -189,9 +184,7 @@ const AllInOnePC = () => {
             </p>
 
             <div className="flex flex-wrap gap-3 mb-8">
-              <Button size="sm" onClick={() => setQuoteProduct("All-in-One PC")}>
-                <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
-              </Button>
+              <QuoteRequestButton productModel="All-in-One PC" productName="All-in-One PC" size="sm" />
               <Button size="sm" variant="outline" asChild>
                 <a href="#products">ดูสินค้าทั้งหมด →</a>
               </Button>
@@ -271,13 +264,7 @@ const AllInOnePC = () => {
           {selectedProducts.size > 0 && (
             <span className="ml-3 text-primary font-medium">
               เลือกแล้ว {selectedProducts.size} รุ่น —{" "}
-              <button
-                className="underline hover:no-underline"
-                onClick={() => {
-                  setQuoteProduct(Array.from(selectedProducts).join(", "));
-                }}>
-                ขอใบเสนอราคารวม
-              </button>
+              <QuoteRequestButton productModel={Array.from(selectedProducts).join(", ")} productName="All-in-One PC รวม" size="sm" />
             </span>
           )}
         </p>
@@ -304,7 +291,6 @@ const AllInOnePC = () => {
                   <AIOCard
                     key={p.id}
                     product={p}
-                    onQuote={setQuoteProduct}
                     selected={selectedProducts.has(p.model)}
                     onToggleSelect={toggleSelect}
                   />

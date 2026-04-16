@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { ChevronRight } from "lucide-react";
 import AddToCartButton from "@/components/AddToCartButton";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import CartBadge from "@/components/CartBadge";
 import ShareButtons from "@/components/ShareButtons";
 import relatedTablet from "@/assets/related-rugged-tablet.jpg";
@@ -55,10 +56,7 @@ const RuggedNotebookPage = () => {
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("popular");
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
-  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
   const [selectedProducts, setSelectedProducts] = useState<Set<string>>(new Set());
-  const [showMultiQuote, setShowMultiQuote] = useState(false);
-
   const filtered = useMemo(() => {
     let result = [...ruggedNotebooks];
 
@@ -371,9 +369,13 @@ const RuggedNotebookPage = () => {
             <ShoppingCart className="w-5 h-5" />
             <span className="font-bold text-sm">{selectedProducts.size} รุ่น</span>
           </div>
-          <Button size="sm" variant="secondary" className="rounded-full font-bold" onClick={() => setShowMultiQuote(true)}>
-            <FileText className="w-4 h-4 mr-1.5" /> ขอใบเสนอราคารวม
-          </Button>
+          <QuoteRequestButton
+            productModel={Array.from(selectedProducts).join(", ")}
+            productName="Rugged Notebook รวม"
+            size="sm"
+            variant="secondary"
+            className="rounded-full font-bold"
+          />
           <button onClick={clearSelection} className="p-1 hover:bg-primary-foreground/20 rounded-full transition-colors">
             <X className="w-4 h-4" />
           </button>

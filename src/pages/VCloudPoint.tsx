@@ -12,6 +12,7 @@ import {
   Clock, TrendingUp, Award, Quote, MapPin, Calendar
 } from "lucide-react";
 import AddToCartButton from "@/components/AddToCartButton";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import CartBadge from "@/components/CartBadge";
 import ThemeToggle from "@/components/ThemeToggle";
 import logo from "@/assets/logo-entgroup.avif";
@@ -222,8 +223,6 @@ const DemoCTA = ({ variant = "primary" }: { variant?: "primary" | "secondary" })
 /* ═══════ MAIN PAGE ═══════ */
 const VCloudPoint = () => {
   const [showVmatrix, setShowVmatrix] = useState(false);
-  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
-
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="vCloudPoint Zero Client — Thin Client ประหยัดต้นทุน" description="vCloudPoint Zero Client ลดต้นทุนฮาร์ดแวร์ ประหยัดไฟ 80% ใช้คอมเครื่องเดียวแชร์ได้หลายจุด สำหรับสำนักงาน โรงเรียน โรงแรม" path="/vcloudpoint" />
@@ -727,9 +726,7 @@ const VCloudPoint = () => {
             <p className="text-sm text-muted-foreground mb-4">
               สำหรับทุกโรงเรียนที่ประสบภัย: ฟรีติดตั้ง + ฟรี Training + ฟรีซอฟต์แวร์ + รับประกัน 1 ปี + 10 โรงเรียนแรกรับอุปกรณ์เสริมมูลค่า 10,000 บาท
             </p>
-            <button onClick={() => setQuoteProduct("vCloudPoint")} className="inline-flex items-center gap-2 text-sm text-primary font-semibold hover:underline">
-              สอบถามโครงการ <ArrowRight size={14} />
-            </button>
+            <QuoteRequestButton productModel="vCloudPoint" productName="vCloudPoint" className="inline-flex items-center gap-2 text-sm text-primary font-semibold hover:underline" />
           </div>
         </div>
       </section>

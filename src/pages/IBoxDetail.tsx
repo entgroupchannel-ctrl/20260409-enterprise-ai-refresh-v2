@@ -1,3 +1,4 @@
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import {
   ArrowLeft, Download, Check, FileText, Thermometer, Cpu, HardDrive,
@@ -30,7 +31,6 @@ const specItems = [
 const IBoxDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
   const product = id ? getIBoxProduct(id) : undefined;
   const relatedProducts = id ? getRelatedProducts(id) : [];
   const [selectedProducts] = useState<Set<string>>(new Set());
@@ -118,11 +118,7 @@ const IBoxDetail = () => {
                 สอบถามราคา
               </p>
               <div className="flex flex-wrap gap-2 text-sm">
-                <button
-                  onClick={() => setQuoteProduct(product.id)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-medium cursor-pointer">
-                  <Mail className="w-4 h-4" /> sales@entgroup.co.th
-                </button>
+                <QuoteRequestButton productModel={product.id} productName={product.name} size="sm" className="rounded-full" />
                 <a href="tel:020456104" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary hover:bg-secondary/80 transition-colors">
                   <Phone className="w-3.5 h-3.5" /> 02-045-6104
                 </a>
@@ -192,9 +188,7 @@ const IBoxDetail = () => {
 
             {/* Actions */}
             <div className="flex flex-wrap gap-3 pt-4 border-t border-border">
-              <Button size="lg" variant="outline" onClick={() => setQuoteProduct(product.name)}>
-                <FileText className="w-5 h-5 mr-2" /> ขอราคาด่วน
-              </Button>
+              <QuoteRequestButton productModel={product.name} productName={product.name} size="lg" variant="outline" />
             </div>
           </div>
         </div>
@@ -269,7 +263,6 @@ const IBoxDetail = () => {
                   product={p}
                   selectedProducts={selectedProducts}
                   toggleSelect={toggleSelect}
-                  onQuote={setQuoteProduct}
                 />
               ))}
             </div>

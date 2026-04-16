@@ -5,12 +5,13 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { IBoxProduct } from "@/data/ibox-products";
 import AddToCartButton from "@/components/AddToCartButton";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 
 interface IBoxProductCardProps {
   product: IBoxProduct;
   selectedProducts: Set<string>;
   toggleSelect: (name: string) => void;
-  onQuote: (name: string) => void;
+  onQuote?: (name: string) => void;
 }
 
 const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: IBoxProductCardProps) => {
@@ -95,10 +96,7 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
               รายละเอียด
             </Button>
           </Link>
-          <Button size="sm" className="flex-1 text-xs" onClick={() => onQuote(product.name)}>
-            <FileText className="w-3.5 h-3.5 mr-1" />
-            ขอราคา
-          </Button>
+          <QuoteRequestButton productModel={product.name} productName={product.name} size="sm" className="flex-1 text-xs" />
         </div>
         <div className="mt-2">
           <AddToCartButton

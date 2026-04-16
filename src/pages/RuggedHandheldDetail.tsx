@@ -1,3 +1,4 @@
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import { useParams, Link } from "react-router-dom";
 import LineQRButton from "@/components/LineQRButton";
 import { useState, useEffect } from "react";
@@ -18,7 +19,7 @@ import ProductGallery from "@/components/ProductGallery";
 import { getHandheldProduct, getRelatedHandhelds } from "@/data/rugged-handheld-products";
 
 /* ───── Related Product Card ───── */
-const RelatedCard = ({ product, onQuote }: { product: ReturnType<typeof getHandheldProduct>; onQuote: (n: string) => void }) => {
+const RelatedCard = ({ product, onQuote }: { product: ReturnType<typeof getHandheldProduct>; onQuote?: (n: string) => void }) => {
   if (!product) return null;
   return (
     <Link to={`/handheld/${product.id}`} className="card-surface overflow-hidden group hover:border-primary/30 transition-all">
@@ -36,10 +37,9 @@ const RelatedCard = ({ product, onQuote }: { product: ReturnType<typeof getHandh
             <Badge key={b} variant="outline" className="text-[10px]">{b}</Badge>
           ))}
         </div>
-        <Button size="sm" className="w-full mt-2" onClick={(e) => { e.preventDefault(); onQuote(product.model); }}>
-
-          <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอราคา
-        </Button>
+        <div onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
+          <QuoteRequestButton productModel={product.model} productName={product.model} size="sm" className="w-full" />
+        </div>
       </div>
     </Link>
   );
@@ -63,7 +63,7 @@ const specRows = [
 /* ───── Main Component ───── */
 const RuggedHandheldDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);  const product = id ? getHandheldProduct(id) : undefined;
+  const product = id ? getHandheldProduct(id) : undefined;
   const related = id ? getRelatedHandhelds(id) : [];
 
   // ── Engagement Tracking: product view ──
@@ -150,11 +150,7 @@ const RuggedHandheldDetail = () => {
               <p className="text-sm text-muted-foreground mb-1">ราคา</p>
               <p className="text-xl font-bold text-primary mb-3">สอบถามราคา</p>
               <div className="flex flex-wrap gap-2 text-sm">
-                <button
-                  onClick={() => setQuoteProduct(product.model)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-medium cursor-pointer">
-                  <Mail className="w-4 h-4" /> sales@entgroup.co.th
-                </button>
+                <QuoteRequestButton productModel={product.model} productName={product.model} size="sm" className="rounded-full" />
                 <a href="tel:020456104" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary hover:bg-secondary/80 transition-colors">
                   <Phone className="w-3.5 h-3.5" /> 02-045-6104
                 </a>
@@ -216,9 +212,7 @@ const RuggedHandheldDetail = () => {
 
             {/* CTA */}
             <div className="flex flex-wrap gap-3 pt-4 border-t border-border">
-              <Button size="lg" variant="outline" onClick={() => setQuoteProduct(product.model)}>
-                <FileText className="w-5 h-5 mr-2" /> ขอราคาด่วน
-              </Button>
+              <QuoteRequestButton productModel={product.model} productName={product.model} size="lg" variant="outline" />
               <LineQRButton className="flex-1 h-11 text-base">
                 <MessageSquare className="w-4 h-4" /> สอบถามราคาพิเศษ
               </LineQRButton>
@@ -297,7 +291,7 @@ const RuggedHandheldDetail = () => {
             <h2 className="text-xl font-display font-bold mb-6">สินค้าที่เกี่ยวข้อง</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {related.map((p) => (
-                <RelatedCard key={p.id} product={p} onQuote={setQuoteProduct} />
+                <RelatedCard key={p.id} product={p} />
               ))}
             </div>
           </div>

@@ -4,6 +4,7 @@ import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import CartBadge from "@/components/CartBadge";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import {
   ArrowLeft, Cpu, Thermometer, Shield, Usb, Wifi, Download, Search,
   FileText, ChevronRight, Layers, HardDrive, Monitor, Zap, Box,
@@ -177,7 +178,6 @@ const useCasesData = [
 
 /* ═══════ Component ═══════ */
 const IBoxSeries = () => {
-  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
   const [selectedProducts, setSelectedProducts] = useState<Set<string>>(new Set());
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("popular");
@@ -403,7 +403,6 @@ const IBoxSeries = () => {
                     product={product}
                     selectedProducts={selectedProducts}
                     toggleSelect={toggleSelect}
-                    onQuote={setQuoteProduct}
                   />
                 ))}
               </div>
@@ -460,9 +459,7 @@ const IBoxSeries = () => {
                             <Download className="w-3.5 h-3.5 mr-1" /> Datasheet
                           </a>
                         </Button>
-                        <Button size="sm" className="flex-1" onClick={() => setQuoteProduct(model.name)}>
-                          <FileText className="w-3.5 h-3.5 mr-1" /> ขอราคา
-                        </Button>
+                        <QuoteRequestButton productModel={model.name} productName={model.name} size="sm" className="flex-1" />
                       </div>
                     </div>
                   </div>
@@ -517,9 +514,7 @@ const IBoxSeries = () => {
             <div className="card-surface p-8 text-center">
               <h2 className="text-2xl font-display font-bold text-foreground mb-3">สนใจ iBox Series?</h2>
               <p className="text-muted-foreground mb-6">ปรึกษาผู้เชี่ยวชาญเพื่อเลือกรุ่นและสเปกที่เหมาะกับงานของคุณ</p>
-              <Button size="lg" onClick={() => setQuoteProduct("iBox Series")}>
-                <FileText className="w-4 h-4 mr-2" /> ขอใบเสนอราคา
-              </Button>
+              <QuoteRequestButton productModel="iBox Series" productName="iBox Series" size="lg" />
             </div>
           </div>
         </div>

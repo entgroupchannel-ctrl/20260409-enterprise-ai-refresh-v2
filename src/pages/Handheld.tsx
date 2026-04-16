@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { ChevronRight } from "lucide-react";
 import AddToCartButton from "@/components/AddToCartButton";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import CartBadge from "@/components/CartBadge";
 import handheldHero from "@/assets/handheld-hero.jpg";
 import relatedTablet from "@/assets/related-rugged-tablet.jpg";
@@ -49,7 +50,7 @@ const HandheldCard = ({
   product: HandheldProduct;
   selected: boolean;
   onToggleSelect: (name: string) => void;
-  onQuote: (name: string) => void;
+  onQuote?: (name: string) => void;
 }) => (
   <Link
     to={`/handheld/${product.id}`}
@@ -84,10 +85,9 @@ const HandheldCard = ({
         <Button variant="outline" size="sm" className="flex-1" asChild>
           <span><Smartphone className="w-3.5 h-3.5 mr-1.5" /> ดูสเปก</span>
         </Button>
-        <Button size="sm" className="flex-1" onClick={(e) => { e.preventDefault(); e.stopPropagation(); onQuote(product.model); }}>
-
-          <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอราคา
-        </Button>
+        <div onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
+          <QuoteRequestButton productModel={product.model} productName={product.model} size="sm" className="flex-1" />
+        </div>
         <div onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
           <AddToCartButton productModel={product.model} productName={product.model} productDescription={product.nameTH} size="sm" variant="outline" />
         </div>
@@ -99,10 +99,7 @@ const HandheldCard = ({
 /* ───── Main Page ───── */
 const Handheld = () => {
   const [filter, setFilter] = useState("all");
-  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
   const [selectedProducts, setSelectedProducts] = useState<Set<string>>(new Set());
-  const [showMultiQuote, setShowMultiQuote] = useState(false);
-
   const toggleSelect = useCallback((name: string) => {
     setSelectedProducts((prev) => {
       const next = new Set(prev);
@@ -235,7 +232,6 @@ const Handheld = () => {
                 product={p}
                 selected={selectedProducts.has(p.model)}
                 onToggleSelect={toggleSelect}
-                onQuote={setQuoteProduct}
               />
             ))}
           </div>
@@ -249,9 +245,7 @@ const Handheld = () => {
             <Button variant="outline" asChild>
               <Link to="/rugged-tablet">ดู Rugged Tablet & Notebook</Link>
             </Button>
-            <Button onClick={() => setQuoteProduct("Rugged Handheld & PDA")}>
-              <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
-            </Button>
+            <QuoteRequestButton productModel="Rugged Handheld & PDA" productName="Rugged Handheld & PDA" />
           </div>
         </div>
       </div>
@@ -263,13 +257,13 @@ const Handheld = () => {
             <ShoppingCart className="w-5 h-5" />
             <span className="font-bold text-sm">{selectedProducts.size} รุ่น</span>
           </div>
-          <Button
+          <QuoteRequestButton
+            productModel={Array.from(selectedProducts).join(", ")}
+            productName="Rugged Handheld รวม"
             size="sm"
             variant="secondary"
             className="rounded-full font-bold"
-            onClick={() => setShowMultiQuote(true)}>
-            <FileText className="w-4 h-4 mr-1.5" /> ขอใบเสนอราคารวม
-          </Button>
+          />
           <button onClick={clearSelection} className="p-1 hover:bg-primary-foreground/20 rounded-full transition-colors">
             <X className="w-4 h-4" />
           </button>

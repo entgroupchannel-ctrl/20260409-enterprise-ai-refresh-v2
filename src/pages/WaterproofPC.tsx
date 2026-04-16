@@ -5,6 +5,7 @@ import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ExternalLink, Droplets, Shield, ThermometerSun, Cpu, Monitor, FileText, ShieldCheck, Waves, SprayCanIcon, Fan, Cog } from "lucide-react";
 import AddToCartButton from "@/components/AddToCartButton";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import CartBadge from "@/components/CartBadge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
@@ -159,7 +160,6 @@ const useCases = [
 ];
 
 const WaterproofPC = () => {
-  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="Waterproof Panel PC — IP67 IP69K กันน้ำ" description="Waterproof Panel PC มาตรฐาน IP67 IP69K กันน้ำ กันฝุ่น Stainless Steel SUS316 สำหรับอุตสาหกรรมอาหาร ยา และห้องคลีนรูม" path="/waterproof-pc" />
@@ -191,9 +191,7 @@ const WaterproofPC = () => {
                 คอมพิวเตอร์อุตสาหกรรมกันน้ำ กันฝุ่น IP67/IP69K สแตนเลส SUS304 เกรดอาหาร ออกแบบไร้พัดลม เหมาะสำหรับอุตสาหกรรมอาหาร เครื่องดื่ม ยา และพื้นที่ที่ต้องล้างทำความสะอาดได้
               </p>
               <div className="flex gap-3">
-                <Button onClick={() => setQuoteProduct("Waterproof PC IP69K")}>
-                  <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
-                </Button>
+                <QuoteRequestButton productModel="Waterproof PC IP69K" productName="Waterproof PC IP69K" />
                 <Button variant="outline" asChild>
                   <a href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_9c183e569b0c43bd9fe64184fff90503.pdf" target="_blank" rel="noopener noreferrer">
                     <ExternalLink className="w-4 h-4 mr-1.5" /> Product Overview
@@ -333,9 +331,7 @@ const WaterproofPC = () => {
                         <ExternalLink className="w-3.5 h-3.5 mr-1.5" /> Datasheet
                       </a>
                     </Button>
-                    <Button size="sm" onClick={() => setQuoteProduct("Waterproof PC IP69K")}>
-                      <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
-                    </Button>
+                    <QuoteRequestButton productModel="Waterproof PC IP69K" productName="Waterproof PC IP69K" size="sm" />
                     <AddToCartButton productModel={m.model} productName={m.name} productDescription={`${m.model} — ${Object.values(m.specs).slice(0, 3).join(", ")}`} size="sm" variant="outline" />
                   </div>
                 </div>
@@ -372,9 +368,7 @@ const WaterproofPC = () => {
         <div className="card-surface p-8 text-center">
           <h2 className="text-2xl font-display font-bold text-foreground mb-3">สนใจ Waterproof Panel PC?</h2>
           <p className="text-muted-foreground mb-6">ปรึกษาผู้เชี่ยวชาญเพื่อเลือกรุ่นที่เหมาะกับอุตสาหกรรมของคุณ</p>
-          <Button size="lg" onClick={() => setQuoteProduct("Waterproof PC IP69K")}>
-            <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
-          </Button>
+          <QuoteRequestButton productModel="Waterproof PC IP69K" productName="Waterproof PC IP69K" size="lg" />
         </div>
       </div>
       <FooterCompact />

@@ -5,6 +5,7 @@ import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import { ArrowLeft, ExternalLink, Cpu, Zap, Shield, Monitor, Wifi, ThermometerSun, HardDrive, Server, ChevronRight, FileText, CircleCheck, Filter, X, MessageSquare } from "lucide-react";
 import AddToCartButton from "@/components/AddToCartButton";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import CartBadge from "@/components/CartBadge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -649,7 +650,7 @@ const legacyModels = [
 ];
 
 /* ── Product Card Component ── */
-const ProductCard = ({ model, onQuote }: { model: any; onQuote?: (name: string) => void }) => (
+const ProductCard = ({ model }: { model: any; onQuote?: (name: string) => void }) => (
   <div id={model.id} className="card-surface overflow-hidden scroll-mt-24">
     <div className="p-6 md:p-8">
       {/* Header */}
@@ -717,9 +718,7 @@ const ProductCard = ({ model, onQuote }: { model: any; onQuote?: (name: string) 
             </a>
           </Button>
         )}
-        <Button size="sm" onClick={() => onQuote?.(model.name)}>
-          <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
-        </Button>
+        <QuoteRequestButton productModel={model.name} productName={model.name} size="sm" />
         <AddToCartButton productModel={model.name} productName={model.name} productDescription={model.tagline} size="sm" variant="outline" />
       </div>
     </div>
@@ -749,8 +748,6 @@ const CategorySection = ({ id, title, subtitle, icon: Icon, models, onQuote }: {
 /* ── Main Page ── */
 const MiniPC = () => {
   const [activeCategory, setActiveCategory] = useState("entry");
-  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
-
   /* ── Price List Data & Filters ── */
   const allPriceItems = [
     { model: "K6-F1", cpu: "Intel N3160", ram: "4GB", storage: "128GB", price: "8,190", priceNum: 8190, category: "Entry-Level", cpuLevel: "Celeron/Atom" },
@@ -880,9 +877,7 @@ const MiniPC = () => {
             ))}
           </div>
           <div className="flex flex-wrap gap-3">
-            <Button onClick={() => setQuoteProduct("Mini PC")}>
-              <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
-            </Button>
+            <QuoteRequestButton productModel="Mini PC" productName="Mini PC" />
             <Button variant="outline" onClick={() => document.getElementById("pricelist")?.scrollIntoView({ behavior: "smooth" })}>
 
               ดูตารางราคา
@@ -932,13 +927,13 @@ const MiniPC = () => {
 
         {/* All Sections */}
         <div className="space-y-16">
-          <CategorySection id="entry" title="Industrial Mini PC — Entry Level" subtitle="Fanless, ประหยัดไฟ, เหมาะงาน 24/7" icon={Zap} models={entryModels} onQuote={(name) => setQuoteProduct(name)} />
-          <CategorySection id="high" title="Industrial Mini PC — High Performance" subtitle="Core i5/i7, Tiger Lake, Workstation Class" icon={Cpu} models={highModels} onQuote={(name) => setQuoteProduct(name)} />
-          <CategorySection id="education" title="Mini PC for Education & Office" subtitle="สำนักงาน, โรงเรียน, Workstation ทดแทน" icon={Monitor} models={educationModels} onQuote={(name) => setQuoteProduct(name)} />
-          <CategorySection id="nano" title="Nano PC" subtitle="ขนาดจิ๋ว ประหยัดพลังงานสูงสุด" icon={HardDrive} models={nanoModels} onQuote={(name) => setQuoteProduct(name)} />
-          <CategorySection id="firewall" title="Firewall Appliance" subtitle="Multi-LAN Router, pfSense/OPNsense" icon={Shield} models={firewallModels} onQuote={(name) => setQuoteProduct(name)} />
-          <CategorySection id="signage" title="Digital Signage Player" subtitle="Android-based, X7/R9 Series" icon={Monitor} models={signageModels} onQuote={(name) => setQuoteProduct(name)} />
-          <CategorySection id="legacy" title="Budget Series — K6-F13" subtitle="ราคาประหยัด สำหรับงานพื้นฐาน" icon={Server} models={legacyModels} onQuote={(name) => setQuoteProduct(name)} />
+          <CategorySection id="entry" title="Industrial Mini PC — Entry Level" subtitle="Fanless, ประหยัดไฟ, เหมาะงาน 24/7" icon={Zap} models={entryModels} />
+          <CategorySection id="high" title="Industrial Mini PC — High Performance" subtitle="Core i5/i7, Tiger Lake, Workstation Class" icon={Cpu} models={highModels} />
+          <CategorySection id="education" title="Mini PC for Education & Office" subtitle="สำนักงาน, โรงเรียน, Workstation ทดแทน" icon={Monitor} models={educationModels} />
+          <CategorySection id="nano" title="Nano PC" subtitle="ขนาดจิ๋ว ประหยัดพลังงานสูงสุด" icon={HardDrive} models={nanoModels} />
+          <CategorySection id="firewall" title="Firewall Appliance" subtitle="Multi-LAN Router, pfSense/OPNsense" icon={Shield} models={firewallModels} />
+          <CategorySection id="signage" title="Digital Signage Player" subtitle="Android-based, X7/R9 Series" icon={Monitor} models={signageModels} />
+          <CategorySection id="legacy" title="Budget Series — K6-F13" subtitle="ราคาประหยัด สำหรับงานพื้นฐาน" icon={Server} models={legacyModels} />
 
           {/* Price List */}
           <section id="pricelist" className="scroll-mt-24">
@@ -1036,9 +1031,7 @@ const MiniPC = () => {
                           <TableCell className="text-right font-semibold text-foreground">{r.price}</TableCell>
                           <TableCell className="text-right">
                             <div className="flex items-center justify-end gap-1">
-                              <Button size="sm" variant="ghost" className="text-xs text-primary" onClick={() => setQuoteProduct(r.model)}>
-                                <FileText className="w-3 h-3 mr-1" /> ขอราคา
-                              </Button>
+                              <QuoteRequestButton productModel={r.model} productName={r.model} size="sm" variant="outline" className="text-xs" />
                               <AddToCartButton productModel={r.model} productName={r.model} productDescription={r.category} size="sm" variant="outline" />
                             </div>
                           </TableCell>
@@ -1108,9 +1101,7 @@ const MiniPC = () => {
               <span key={u} className="px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium">{u}</span>
             ))}
           </div>
-          <Button onClick={() => setQuoteProduct("Mini PC")}>
-            <FileText className="w-3.5 h-3.5 mr-1.5" /> ปรึกษาผู้เชี่ยวชาญ — ขอใบเสนอราคา
-          </Button>
+          <QuoteRequestButton productModel="Mini PC" productName="Mini PC" />
         </div>
       </div>
       <B2BCTABanner variant="compact" />

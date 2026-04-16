@@ -228,7 +228,7 @@ const TabletCard = ({
   product, onQuote, selected, onToggleSelect,
 }: {
   product: TabletProduct;
-  onQuote: (name: string) => void;
+  onQuote?: (name: string) => void;
   selected: boolean;
   onToggleSelect: (name: string) => void;
 }) => (
@@ -288,10 +288,7 @@ const RuggedTablet = () => {
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("popular");
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
-  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
   const [selectedProducts, setSelectedProducts] = useState<Set<string>>(new Set());
-  const [showMultiQuote, setShowMultiQuote] = useState(false);
-
   const filtered = useMemo(() => {
     let result = [...tablets];
 
@@ -535,7 +532,6 @@ const RuggedTablet = () => {
                   <TabletCard
                     key={p.id}
                     product={p}
-                    onQuote={setQuoteProduct}
                     selected={selectedProducts.has(p.model)}
                     onToggleSelect={toggleSelect}
                   />
@@ -705,9 +701,13 @@ const RuggedTablet = () => {
             <ShoppingCart className="w-5 h-5" />
             <span className="font-bold text-sm">{selectedProducts.size} รุ่น</span>
           </div>
-          <Button size="sm" variant="secondary" className="rounded-full font-bold" onClick={() => setShowMultiQuote(true)}>
-            <FileText className="w-4 h-4 mr-1.5" /> ขอใบเสนอราคารวม
-          </Button>
+          <QuoteRequestButton
+            productModel={Array.from(selectedProducts).join(", ")}
+            productName="Rugged Tablet รวม"
+            size="sm"
+            variant="secondary"
+            className="rounded-full font-bold"
+          />
           <button onClick={clearSelection} className="p-1 hover:bg-primary-foreground/20 rounded-full transition-colors">
             <X className="w-4 h-4" />
           </button>

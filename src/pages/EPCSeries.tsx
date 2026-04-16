@@ -7,6 +7,7 @@ import { ArrowLeft, ExternalLink, Monitor, Cpu, Shield, Puzzle, Droplets, Thermo
 import B2BCTABanner from "@/components/B2BCTABanner";
 import { Checkbox } from "@/components/ui/checkbox";
 import AddToCartButton from "@/components/AddToCartButton";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import CartBadge from "@/components/CartBadge";
 import badgeMotherboard from "@/assets/epc-badge-motherboard.png";
 import badgeFactory from "@/assets/epc-badge-factory.png";
@@ -332,9 +333,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
             <Download className="w-3.5 h-3.5 mr-1.5" /> Datasheet
           </a>
         </Button>
-        <Button size="sm" className="flex-1" onClick={() => onQuote?.(model.name)}>
-          <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
-        </Button>
+        <QuoteRequestButton productModel={model.name} productName={`EPC ${model.name} — Panel PC ${model.size}`} size="sm" className="flex-1" />
       </div>
       <div className="mt-2">
         <AddToCartButton
@@ -357,7 +356,6 @@ const EPCSeries = () => {
   const [activeCategory, setActiveCategory] = useState("overview");
   const [squarePage, setSquarePage] = useState(1);
   const [widePage, setWidePage] = useState(1);
-  const [quoteProduct, setQuoteProduct] = useState<string | null>(null);
   const [selectedProducts, setSelectedProducts] = useState<Set<string>>(new Set());
   const toggleSelect = (name: string) => {
     setSelectedProducts((prev) => {
@@ -429,9 +427,7 @@ const EPCSeries = () => {
                     <ExternalLink className="w-3.5 h-3.5 mr-1.5" /> Product Overview
                   </a>
                 </Button>
-                <Button size="sm" onClick={() => setQuoteProduct("EPC Series")}>
-                  <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
-                </Button>
+                <QuoteRequestButton productModel="EPC Series" productName="EPC Series" size="sm" />
                 <CartBadge />
                 <Button size="sm" className="bg-amber-500 text-black hover:bg-amber-400 font-bold" asChild>
                   <a href="#comparison">
@@ -465,7 +461,7 @@ const EPCSeries = () => {
             </h2>
             <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">เลือกมุมมอง สเปก / ราคา / ความคุ้มค่า พร้อมกรองตามประเภทจอและระดับ CPU</p>
           </div>
-          <EPCSeriesCompare onQuote={(name) => { setQuoteProduct(name); }} />
+          <EPCSeriesCompare />
         </div>
       </section>
 
@@ -584,7 +580,7 @@ const EPCSeries = () => {
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {squareModels.map((model) => (
-              <ModelCard key={model.id} model={model} onQuote={(name) => setQuoteProduct(name)} selected={selectedProducts.has(model.name)} onToggleSelect={toggleSelect} />
+              <ModelCard key={model.id} model={model} selected={selectedProducts.has(model.name)} onToggleSelect={toggleSelect} />
             ))}
           </div>
         </section>
@@ -599,7 +595,7 @@ const EPCSeries = () => {
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {wideModels.map((model) => (
-              <ModelCard key={model.id} model={model} onQuote={(name) => setQuoteProduct(name)} selected={selectedProducts.has(model.name)} onToggleSelect={toggleSelect} />
+              <ModelCard key={model.id} model={model} selected={selectedProducts.has(model.name)} onToggleSelect={toggleSelect} />
             ))}
           </div>
         </section>
@@ -911,9 +907,7 @@ const EPCSeries = () => {
                 <ExternalLink className="w-4 h-4 mr-1.5" /> ดาวน์โหลด E-Catalog
               </a>
             </Button>
-            <Button onClick={() => setQuoteProduct("EPC Series")}>
-              <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
-            </Button>
+            <QuoteRequestButton productModel="EPC Series" productName="EPC Series" />
           </div>
         </div>
       </div>
