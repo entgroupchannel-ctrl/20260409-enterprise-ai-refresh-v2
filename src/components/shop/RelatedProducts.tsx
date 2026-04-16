@@ -23,7 +23,7 @@ interface RelatedProductsProps {
 
 const STORAGE_KEY = 'recentlyViewed';
 
-export function addToRecentlyViewed(product: { id: string; slug: string; model: string; thumbnail_url: string | null; unit_price: number }) {
+export function addToRecentlyViewed(product: { id: string; slug: string; model: string; thumbnail_url: string | null; image_url?: string | null; unit_price: number }) {
   try {
     const viewed: any[] = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
     const filtered = viewed.filter((p: any) => p.id !== product.id);

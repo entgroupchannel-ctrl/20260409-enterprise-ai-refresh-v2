@@ -89,7 +89,7 @@ const ShopProductDetail = () => {
         } as Product;
 
         setProduct(enriched);
-        addToRecentlyViewed({ id: data.id, slug: data.slug, model: data.model, thumbnail_url: enriched.thumbnail_url, unit_price: data.unit_price });
+        addToRecentlyViewed({ id: data.id, slug: data.slug, model: data.model, thumbnail_url: enriched.thumbnail_url, image_url: enriched.image_url, unit_price: data.unit_price });
 
         const { data: variants } = await supabase
           .from('product_variants').select('*').eq('product_id', data.id).eq('is_active', true).order('unit_price', { ascending: true });
