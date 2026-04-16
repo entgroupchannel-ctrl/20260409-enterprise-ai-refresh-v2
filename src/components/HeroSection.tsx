@@ -343,24 +343,23 @@ const HeroSection = () => {
             </div>
           </div>
 
-          <div className={`hidden lg:flex fixed right-0 top-1/2 -translate-y-1/2 z-30 transition-all duration-500 ease-in-out ${tagsExpanded ? "translate-x-0" : "translate-x-[calc(100%-28px)]"}`}>
+          <div className={`hidden lg:flex fixed right-0 top-1/2 -translate-y-1/2 z-50 transition-all duration-500 ease-in-out ${tagsExpanded ? "translate-x-0" : "translate-x-[calc(100%-28px)]"}`}>
             <button
               type="button"
               onClick={() => setTagsExpanded((prev) => !prev)}
-              className="flex items-center justify-center w-7 shrink-0 rounded-l-xl bg-white/10 backdrop-blur-md border border-r-0 border-white/15 text-white/50 hover:text-white hover:bg-white/20 transition-colors"
-
+              className="flex items-center justify-center w-7 shrink-0 rounded-l-xl bg-card/90 backdrop-blur-md border border-r-0 border-border text-muted-foreground hover:text-foreground hover:bg-card transition-colors shadow-lg"
               title="สินค้ายอดนิยม"
             >
               <ChevronDown size={14} className={`transition-transform duration-300 ${tagsExpanded ? "rotate-90" : "-rotate-90"}`} />
             </button>
-            <div className="flex flex-col gap-2 p-3 rounded-l-xl bg-black/40 backdrop-blur-xl border border-r-0 border-white/10">
-              <p className="text-[10px] font-semibold tracking-widest uppercase text-white/40">สินค้ายอดนิยม</p>
+            <div className="flex flex-col gap-2 p-3 rounded-l-xl bg-card/95 backdrop-blur-xl border border-r-0 border-border shadow-xl">
+              <p className="text-[10px] font-semibold tracking-widest uppercase text-muted-foreground">สินค้ายอดนิยม</p>
               {searchTags.map((tag) => (
                 <button
                   key={tag.label}
                   type="button"
                   onClick={() => navigate(tag.href)}
-                  className="text-left px-3 py-2 rounded-lg bg-white/5 text-white/80 text-xs border border-white/10 hover:bg-white/15 hover:border-white/25 hover:text-white transition-all whitespace-nowrap"
+                  className="text-left px-3 py-2 rounded-lg bg-secondary text-foreground text-xs border border-border hover:bg-primary/10 hover:border-primary/30 hover:text-primary transition-all whitespace-nowrap"
                 >
                   {tag.label}
                 </button>
