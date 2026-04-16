@@ -1,6 +1,7 @@
 import SEOHead from "@/components/SEOHead";
 import AddToCartButton from "@/components/AddToCartButton";
 import CartBadge from "@/components/CartBadge";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import { useState } from "react";
@@ -312,7 +313,7 @@ const ModelCard = ({ model, isActive, onClick }: { model: typeof models[0]; isAc
 /* ───── Main Page ───── */
 const GBSeries = () => {
   const [activeModel, setActiveModel] = useState(0);
-  const [quoteOpen, setQuoteOpen] = useState(false);
+  
   const [showLineQR, setShowLineQR] = useState(false);
   const [compareFilter, setCompareFilter] = useState<number[]>(models.map((_, i) => i));
   const current = models[activeModel];
@@ -338,11 +339,7 @@ const GBSeries = () => {
           <h1 className="text-sm font-bold">GB Series Industrial PC</h1>
           <div className="flex items-center gap-3">
             <CartBadge />
-            <button
-              onClick={() => setQuoteOpen(true)}
-              className="text-xs px-3 py-1.5 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity">
-              ขอใบเสนอราคา
-            </button>
+            <QuoteRequestButton productModel="GB Series" productName="GB Series Industrial PC" size="sm" />
           </div>
         </div>
       </div>
@@ -402,11 +399,7 @@ const GBSeries = () => {
               </ul>
 
               <div className="flex flex-wrap gap-3">
-                <button
-                  onClick={() => setQuoteOpen(true)}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity">
-                  <FileText size={18} /> ขอใบเสนอราคา {current.name}
-                </button>
+                <QuoteRequestButton productModel={current.name} productName={`${current.name} — ${current.tagline}`} size="lg" />
                 <AddToCartButton
                   productModel={current.name}
                   productName={`${current.name} — ${current.tagline}`}
@@ -457,11 +450,7 @@ const GBSeries = () => {
                           <td className="px-4 py-3 text-right font-bold text-primary">{p.price}</td>
                           <td className="px-4 py-3 text-center">
                             <div className="flex items-center gap-2 justify-center">
-                              <button
-                                onClick={() => setQuoteOpen(true)}
-                                className="text-xs px-3 py-1.5 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity">
-                                ขอราคา
-                              </button>
+                              <QuoteRequestButton productModel={current.name} productName={`${current.name} (${p.cpu}, ${p.ram}, ${p.storage})`} size="sm" />
                               <AddToCartButton
                                 productModel={current.name}
                                 productName={`${current.name} (${p.cpu}, ${p.ram}, ${p.storage})`}
@@ -657,7 +646,7 @@ const GBSeries = () => {
       </section>
 
       {/* Price List */}
-      <GBPriceList onRequestQuote={(product) => setQuoteOpen(true)} />
+      <GBPriceList onRequestQuote={() => {}} />
 
       {/* CTA */}
       <section className="border-t border-border">
@@ -667,11 +656,7 @@ const GBSeries = () => {
           </h2>
           <p className="text-muted-foreground mb-8">ปรึกษาผู้เชี่ยวชาญของเราเพื่อหาโซลูชันที่เหมาะสมกับธุรกิจของคุณ</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
-              onClick={() => setQuoteOpen(true)}
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-lg hover:opacity-90 transition-opacity">
-              <FileText size={18} /> ขอใบเสนอราคา
-            </button>
+            <QuoteRequestButton productModel="GB Series" productName="GB Series Industrial PC" size="lg" />
             <button
               onClick={() => setShowLineQR(true)}
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[hsl(142,70%,45%)] text-white font-bold text-lg hover:opacity-90 transition-opacity">
