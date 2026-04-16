@@ -4506,23 +4506,33 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                               <div className="overflow-x-auto">
                                 <table className="w-full text-sm">
                                   <thead>
-                                    <tr className="bg-secondary/50">
-                                      <th className="text-left p-3 font-semibold text-foreground">#</th>
-                                      <th className="text-left p-3 font-semibold text-foreground">CPU</th>
-                                      <th className="text-left p-3 font-semibold text-foreground">Configuration</th>
-                                      <th className="text-right p-3 font-semibold text-foreground">ราคา</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody className="divide-y divide-border">
-                                    {paged.map((item, i) => (
-                                      <tr key={start + i} className="hover:bg-secondary/30 transition-colors">
-                                        <td className="p-3 text-muted-foreground">{start + i + 1}</td>
-                                        <td className="p-3 text-foreground font-medium">{item.cpu}</td>
-                                        <td className="p-3 text-muted-foreground">{item.config}</td>
-                                        <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
-                                      </tr>
-                                    ))}
-                                  </tbody>
+                                     <tr className="bg-secondary/50">
+                                       <th className="text-left p-3 font-semibold text-foreground">#</th>
+                                       <th className="text-left p-3 font-semibold text-foreground">CPU</th>
+                                       <th className="text-left p-3 font-semibold text-foreground">Configuration</th>
+                                       <th className="text-right p-3 font-semibold text-foreground">ราคา</th>
+                                       <th className="p-3 w-20"></th>
+                                     </tr>
+                                   </thead>
+                                   <tbody className="divide-y divide-border">
+                                     {paged.map((item, i) => {
+                                       const specLabel = `GT9000 ${item.cpu} ${item.config}`;
+                                       return (
+                                       <tr key={start + i} className="hover:bg-secondary/30 transition-colors">
+                                         <td className="p-3 text-muted-foreground">{start + i + 1}</td>
+                                         <td className="p-3 text-foreground font-medium">{item.cpu}</td>
+                                         <td className="p-3 text-muted-foreground">{item.config}</td>
+                                         <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
+                                         <td className="p-3">
+                                           <div className="inline-flex items-center gap-1">
+                                             <AddToCartButton productModel="GT9000" productName={specLabel} iconOnly variant="outline" />
+                                             <QuoteRequestButton productModel="GT9000" productName={specLabel} iconOnly variant="outline" />
+                                           </div>
+                                         </td>
+                                       </tr>
+                                       );
+                                     })}
+                                   </tbody>
                                 </table>
                               </div>
                               {totalPages > 1 && (
