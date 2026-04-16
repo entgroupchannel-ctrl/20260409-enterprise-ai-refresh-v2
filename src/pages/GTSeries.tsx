@@ -1,4 +1,5 @@
 import SEOHead from "@/components/SEOHead";
+import AddToCartButton from "@/components/AddToCartButton";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
 import B2BCTABanner from "@/components/B2BCTABanner";
 import ProductJsonLd from "@/components/ProductJsonLd";
@@ -6047,6 +6048,16 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
             <span className="font-bold text-foreground">{model.price.startsWith("สอบถาม") ? model.price : `฿${model.price}`}</span>
           </div>
         ) : <div />}
+        <div onClick={(e) => e.stopPropagation()}>
+          <AddToCartButton
+            productModel={model.name}
+            productName={`${model.name} — ${model.tagline}`}
+            productDescription={`CPU: ${model.cpu} | RAM: ${model.ram} | Storage: ${model.storage} | Ports: ${model.ports}`}
+            estimatedPrice={model.price && !model.price.startsWith("สอบถาม") ? Number(model.price.replace(/,/g, '')) : undefined}
+            size="sm"
+            variant="outline"
+          />
+        </div>
       </div>
     </div>
   </>
