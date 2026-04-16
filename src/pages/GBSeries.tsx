@@ -1,4 +1,6 @@
 import SEOHead from "@/components/SEOHead";
+import AddToCartButton from "@/components/AddToCartButton";
+import CartBadge from "@/components/CartBadge";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import { useState } from "react";
@@ -334,11 +336,14 @@ const GBSeries = () => {
             <ArrowLeft size={16} /> หน้าแรก
           </Link>
           <h1 className="text-sm font-bold">GB Series Industrial PC</h1>
-          <button
-            onClick={() => setQuoteOpen(true)}
-            className="text-xs px-3 py-1.5 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity">
-            ขอใบเสนอราคา
-          </button>
+          <div className="flex items-center gap-3">
+            <CartBadge />
+            <button
+              onClick={() => setQuoteOpen(true)}
+              className="text-xs px-3 py-1.5 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity">
+              ขอใบเสนอราคา
+            </button>
+          </div>
         </div>
       </div>
 
@@ -396,12 +401,20 @@ const GBSeries = () => {
                 ))}
               </ul>
 
-              <button
-                onClick={() => setQuoteOpen(true)}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity">
-                <FileText size={18} /> ขอใบเสนอราคา {current.name}
-
-              </button>
+              <div className="flex flex-wrap gap-3">
+                <button
+                  onClick={() => setQuoteOpen(true)}
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity">
+                  <FileText size={18} /> ขอใบเสนอราคา {current.name}
+                </button>
+                <AddToCartButton
+                  productModel={current.name}
+                  productName={`${current.name} — ${current.tagline}`}
+                  productDescription={current.description}
+                  variant="outline"
+                  size="lg"
+                />
+              </div>
             </div>
 
             <div className="flex justify-center">
@@ -443,11 +456,20 @@ const GBSeries = () => {
                           <td className="px-4 py-3 text-foreground">{p.storage}</td>
                           <td className="px-4 py-3 text-right font-bold text-primary">{p.price}</td>
                           <td className="px-4 py-3 text-center">
-                            <button
-                              onClick={() => setQuoteOpen(true)}
-                              className="text-xs px-3 py-1.5 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity">
-                              ขอราคา
-                            </button>
+                            <div className="flex items-center gap-2 justify-center">
+                              <button
+                                onClick={() => setQuoteOpen(true)}
+                                className="text-xs px-3 py-1.5 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity">
+                                ขอราคา
+                              </button>
+                              <AddToCartButton
+                                productModel={current.name}
+                                productName={`${current.name} (${p.cpu}, ${p.ram}, ${p.storage})`}
+                                productDescription={`${current.name} — ${current.tagline} | CPU: ${p.cpu} | RAM: ${p.ram} | Storage: ${p.storage}`}
+                                size="sm"
+                                variant="outline"
+                              />
+                            </div>
                           </td>
                         </tr>
                       ))}
