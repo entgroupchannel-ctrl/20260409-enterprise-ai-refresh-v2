@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/select';
 import {
   Users, Search, Plus, Lock, Eye, UserCog,
-  Clock, Mail, Loader2,
+  Clock, Mail, Loader2, Shield,
 } from 'lucide-react';
 import { ROLE_LABELS, ROLE_COLORS, type UserRole } from '@/types/auth';
 
