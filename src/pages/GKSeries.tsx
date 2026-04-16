@@ -683,7 +683,6 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
           <p className="text-muted-foreground mb-4 leading-relaxed">{model.desc}</p>
           <div className="flex items-center gap-3 mb-6 flex-wrap">
             <QuoteRequestButton productModel={model.name} productName={model.name} />
-            </button>
             <AddToCartButton
               productModel={model.name}
               productName={`${model.name} — ${model.tagline}`}
