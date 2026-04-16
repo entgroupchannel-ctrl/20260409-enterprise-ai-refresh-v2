@@ -710,7 +710,28 @@ const GTSeries = () => {
               <img src={logo} alt="ENT GROUP" className="h-8 w-auto" />
             </Link>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <CartBadge />
+            <Link to="/request-quote" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors" title="ใบเสนอราคา">
+              <FileText size={18} />
+              <span className="hidden sm:inline">ใบเสนอราคา</span>
+            </Link>
+            <div className="h-5 w-px bg-border" />
+            {user ? (
+              <div className="flex items-center gap-2">
+                <Button variant="ghost" size="sm" onClick={() => navigate('/dashboard')}>
+                  <UserRound className="w-4 h-4 mr-1" />
+                  <span className="hidden sm:inline text-xs">{user.email?.split('@')[0]}</span>
+                </Button>
+                <Button variant="ghost" size="sm" onClick={signOut}>
+                  <LogOut className="w-4 h-4" />
+                </Button>
+              </div>
+            ) : (
+              <Button variant="outline" size="sm" onClick={() => navigate('/login')}>
+                <LogIn className="w-4 h-4 mr-1" /> เข้าสู่ระบบ
+              </Button>
+            )}
             <ThemeToggle />
           </div>
         </div>
