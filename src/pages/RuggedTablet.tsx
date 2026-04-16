@@ -9,6 +9,7 @@ import {
   ShoppingCart, X, SlidersHorizontal, ArrowUpDown, Play, ThumbsUp, Share2, Flame,
 } from "lucide-react";
 import AddToCartButton from "@/components/AddToCartButton";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import CartBadge from "@/components/CartBadge";
 import ShareButtons from "@/components/ShareButtons";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -274,9 +275,7 @@ const TabletCard = ({
             <Monitor className="w-3.5 h-3.5 mr-1.5" /> ดูสเปก
           </Link>
         </Button>
-        <Button size="sm" className="flex-1" onClick={() => onQuote(product.model)}>
-          <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอราคา
-        </Button>
+        <QuoteRequestButton productModel={product.model} productName={`${product.model} ${product.name}`} size="sm" className="flex-1" />
         <AddToCartButton productModel={product.model} productName={product.model} productDescription={`${product.name} ${product.cpu} ${product.os}`} size="sm" variant="outline" />
       </div>
     </div>
@@ -692,9 +691,7 @@ const RuggedTablet = () => {
                 <Button variant="outline" asChild>
                   <Link to="/contact">ติดต่อเรา</Link>
                 </Button>
-                <Button onClick={() => setQuoteProduct("Rugged Tablet")}>
-                  <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
-                </Button>
+                <QuoteRequestButton productModel="Rugged Tablet" productName="Rugged Tablet Series" />
               </div>
             </div>
           </div>
