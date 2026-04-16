@@ -7,6 +7,7 @@ import ProductSections from "@/components/ProductSections";
 import ProductLineup from "@/components/ProductLineup";
 import PromoBanners from "@/components/PromoBanners";
 import CaseStudiesSection from "@/components/CaseStudiesSection";
+import PopularProductsSidebar from "@/components/PopularProductsSidebar";
 
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
@@ -19,6 +20,7 @@ const Index = () => {
         description="ผู้นำเข้าและจำหน่าย Mini PC, Panel PC, Rugged Tablet, Industrial Computer จากโรงงานโดยตรง บริการครบวงจรสำหรับโรงงาน สำนักงาน และงานโครงการทั่วประเทศไทย"
         path="/"
       />
+      <PopularProductsSidebar />
       <HeroSection />
       <EdgeAISection />
       <ProductHighlights />
