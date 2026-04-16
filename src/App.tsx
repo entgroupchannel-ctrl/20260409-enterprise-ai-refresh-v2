@@ -73,11 +73,6 @@ const AdminSaleOrders = lazyRetry(() => import("./pages/admin/AdminSaleOrders"))
 const AdminRequests = lazyRetry(() => import("./pages/admin/AdminRequests"));
 const AdminApprovals = lazyRetry(() => import("./pages/admin/AdminApprovals"));
 const ProductsList = lazyRetry(() => import("./pages/admin/ProductsList"));
-const ProductImport = lazyRetry(() => import("./pages/admin/ProductImport"));
-const GTImagesImport = lazyRetry(() => import("./pages/admin/GTImagesImport"));
-const EPCImagesImport = lazyRetry(() => import("./pages/admin/EPCImagesImport"));
-const ProductMigrationReview = lazyRetry(() => import("./pages/admin/ProductMigrationReview"));
-const MigrateDatasheets = lazyRetry(() => import("./pages/admin/MigrateDatasheets"));
 const AdminQuotesTrash = lazyRetry(() => import("./pages/admin/AdminQuotesTrash"));
 const AdminTrash = lazyRetry(() => import("./pages/admin/AdminTrash"));
 const AdminDocuments = lazyRetry(() => import("./pages/admin/AdminDocuments"));
