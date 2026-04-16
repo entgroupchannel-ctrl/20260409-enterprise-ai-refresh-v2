@@ -133,6 +133,7 @@ export const useAuth = () => {
       email,
       password,
       options: {
+        emailRedirectTo: `${window.location.origin}/login`,
         data: {
           full_name,
           phone: phone || null,
@@ -142,6 +143,21 @@ export const useAuth = () => {
     });
 
     if (error) throw error;
+
+    // Backup: ส่งอีเมลยืนยันผ่าน Resend (custom Thai template)
+    // เผื่อกรณี auth-email-hook ของ Supabase ส่งไม่สำเร็จ/template เพี้ยน
+    try {
+      await supabase.functions.invoke('send-auth-email-resend', {
+        body: {
+          email,
+          type: 'signup',
+          redirectTo: `${window.location.origin}/login`,
+        },
+      });
+    } catch (e) {
+      console.warn('Backup signup email failed (non-fatal):', e);
+    }
+
     return data;
   };
 
