@@ -59,6 +59,8 @@ const Unsubscribe = lazyRetry(() => import("./pages/Unsubscribe"));
 const Login = lazyRetry(() => import("./pages/auth/Login"));
 const Register = lazyRetry(() => import("./pages/auth/Register"));
 const AcceptInvite = lazyRetry(() => import("./pages/auth/AcceptInvite"));
+const ForgotPassword = lazyRetry(() => import("./pages/auth/ForgotPassword"));
+const ResetPassword = lazyRetry(() => import("./pages/auth/ResetPassword"));
 const AdminDashboard = lazyRetry(() => import("./pages/admin/AdminDashboard"));
 const AdminQuotesList = lazyRetry(() => import("./pages/admin/AdminQuotesList"));
 const AdminQuoteDetail = lazyRetry(() => import("./pages/admin/AdminQuoteDetail"));
@@ -203,6 +205,8 @@ const App = () => (
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/invite/:token" element={<AcceptInvite />} />
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
+                    <Route path="/reset-password" element={<ResetPassword />} />
                     <Route path="/admin/dashboard" element={<ProtectedRoute requireSales><AdminDashboard /></ProtectedRoute>} />
                     <Route path="/admin/inventory" element={<ProtectedRoute requireSales><AdminInventory /></ProtectedRoute>} />
                     <Route path="/admin/quotes" element={<ProtectedRoute requireSales><AdminQuotesList /></ProtectedRoute>} />

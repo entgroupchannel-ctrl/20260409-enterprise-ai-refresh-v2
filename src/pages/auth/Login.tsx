@@ -97,7 +97,12 @@ export default function Login() {
               <Input id="email" type="email" placeholder="your@email.com" value={email} onChange={(e) => setEmail(e.target.value)} required disabled={loading} />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">รหัสผ่าน</Label>
+              <div className="flex items-center justify-between">
+                <Label htmlFor="password">รหัสผ่าน</Label>
+                <Link to="/forgot-password" className="text-xs text-primary hover:underline">
+                  ลืมรหัสผ่าน?
+                </Link>
+              </div>
               <Input id="password" type="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} required disabled={loading} minLength={6} />
             </div>
           </CardContent>
