@@ -17,6 +17,15 @@ import { SearchCheck, LayoutGrid, List, SlidersHorizontal, X, FileSearch, Chevro
 import { cn } from '@/lib/utils';
 import SiteNavbar from '@/components/SiteNavbar';
 
+import imgSeriesGT from '@/assets/shop/series-gt.jpg';
+import imgSeriesGB from '@/assets/shop/series-gb.jpg';
+import imgSeriesGK from '@/assets/shop/series-gk.jpg';
+import imgSeriesEPC from '@/assets/shop/series-epc.jpg';
+import imgSeriesIBox from '@/assets/shop/series-ibox.jpg';
+import imgSeriesMiniPC from '@/assets/shop/series-minipc.jpg';
+import imgSeriesRugged from '@/assets/shop/series-rugged.jpg';
+import imgSeriesFirewall from '@/assets/shop/series-firewall.jpg';
+
 interface Product {
   id: string; sku: string; model: string; series: string | null; name: string; description: string | null;
   category: string | null; cpu: string | null; ram_gb: number | null; storage_gb: number | null;
@@ -42,14 +51,14 @@ function setCompareList(slugs: string[]) {
 }
 
 const seriesNavItems = [
-  { id: 'GT Series', label: 'GT Series', icon: '🏭', sub: 'Industrial Fanless', link: '/gt-series' },
-  { id: 'GB Series', label: 'GB Series', icon: '⚡', sub: 'Performance PC', link: '/gb-series' },
-  { id: 'GK Series', label: 'GK Series', icon: '🖥️', sub: 'Panel PC', link: '/gk-series' },
-  { id: 'EPC Series', label: 'EPC Series', icon: '📦', sub: 'Box PC', link: '/epc-box-series' },
-  { id: 'iBox Series', label: 'iBox Series', icon: '🔧', sub: 'Embedded PC', link: '/ibox-series' },
-  { id: 'Mini PC', label: 'Mini PC', icon: '💻', sub: 'Compact Desktop', link: '/mini-pc' },
-  { id: 'Rugged', label: 'Rugged', icon: '🔒', sub: 'IP65/67 Tablet', link: '/rugged-tablet' },
-  { id: 'Firewall', label: 'Firewall', icon: '🛡️', sub: 'Multi-LAN Router', link: '/minipc-firewall' },
+  { id: 'GT Series', label: 'GT Series', icon: '🏭', sub: 'Industrial Fanless', link: '/gt-series', image: imgSeriesGT },
+  { id: 'GB Series', label: 'GB Series', icon: '⚡', sub: 'Performance PC', link: '/gb-series', image: imgSeriesGB },
+  { id: 'GK Series', label: 'GK Series', icon: '🖥️', sub: 'Panel PC', link: '/gk-series', image: imgSeriesGK },
+  { id: 'EPC Series', label: 'EPC Series', icon: '📦', sub: 'Box PC', link: '/epc-box-series', image: imgSeriesEPC },
+  { id: 'iBox Series', label: 'iBox Series', icon: '🔧', sub: 'Embedded PC', link: '/ibox-series', image: imgSeriesIBox },
+  { id: 'Mini PC', label: 'Mini PC', icon: '💻', sub: 'Compact Desktop', link: '/mini-pc', image: imgSeriesMiniPC },
+  { id: 'Rugged', label: 'Rugged', icon: '🔒', sub: 'IP65/67 Tablet', link: '/rugged-tablet', image: imgSeriesRugged },
+  { id: 'Firewall', label: 'Firewall', icon: '🛡️', sub: 'Multi-LAN Router', link: '/minipc-firewall', image: imgSeriesFirewall },
 ];
 
 const ShopStorefront = () => {
@@ -314,26 +323,33 @@ const ShopStorefront = () => {
               </div>
             </div>
 
-            {/* Right: Series quick-nav pills */}
-            <div className="flex-shrink-0 w-full lg:w-80">
-              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3 text-center lg:text-left">เลือกตาม Series</p>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-2">
+            {/* Right: Series quick-nav with images */}
+            <div className="flex-shrink-0 w-full lg:w-[420px]">
+              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3 text-center lg:text-left">เลือกดูตาม Product Line</p>
+              <p className="text-[11px] text-muted-foreground mb-4 text-center lg:text-left">แต่ละ Series มีสเปก Use Case และราคาที่แตกต่างกัน เลือกดูรายละเอียดได้เลย</p>
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-2.5">
                 {seriesNavItems.map(s => (
                   <button
                     key={s.id}
                     onClick={() => { setSeriesFilter([s.id]); setPage(1); }}
                     className={cn(
-                      'flex items-center gap-2.5 p-3 rounded-xl border text-left transition-all hover:-translate-y-0.5',
+                      'group relative rounded-xl overflow-hidden border text-left transition-all hover:-translate-y-1 hover:shadow-lg h-[88px]',
                       seriesFilter.includes(s.id)
-                        ? 'bg-primary/10 border-primary/50 text-primary'
-                        : 'bg-card border-border hover:border-primary/30 hover:bg-muted/50'
+                        ? 'border-primary ring-2 ring-primary/30'
+                        : 'border-border hover:border-primary/40'
                     )}
                   >
-                    <span className="text-lg">{s.icon}</span>
-                    <div>
-                      <div className="text-xs font-bold">{s.label}</div>
-                      <div className="text-[10px] text-muted-foreground">{s.sub}</div>
+                    <img src={s.image} alt={s.label} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
+                    <div className="relative h-full flex flex-col justify-end p-2.5">
+                      <div className="text-xs font-bold text-white">{s.label}</div>
+                      <div className="text-[10px] text-white/70">{s.sub}</div>
                     </div>
+                    {seriesFilter.includes(s.id) && (
+                      <div className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-primary flex items-center justify-center">
+                        <CircleCheckBig size={12} className="text-primary-foreground" />
+                      </div>
+                    )}
                   </button>
                 ))}
               </div>
