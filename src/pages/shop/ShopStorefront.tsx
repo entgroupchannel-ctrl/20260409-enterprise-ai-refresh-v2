@@ -45,6 +45,7 @@ const seriesNavItems = [
   { id: 'GT Series', label: 'GT Series', icon: '🏭', sub: 'Industrial Fanless', link: '/gt-series' },
   { id: 'GB Series', label: 'GB Series', icon: '⚡', sub: 'Performance PC', link: '/gb-series' },
   { id: 'GK Series', label: 'GK Series', icon: '🖥️', sub: 'Panel PC', link: '/gk-series' },
+  { id: 'EPC Series', label: 'EPC Series', icon: '📦', sub: 'Box PC', link: '/epc-box-series' },
   { id: 'Mini PC', label: 'Mini PC', icon: '💻', sub: 'Compact Desktop', link: '/mini-pc' },
   { id: 'Rugged', label: 'Rugged', icon: '🔒', sub: 'IP65/67 Tablet', link: '/rugged-tablet' },
   { id: 'Firewall', label: 'Firewall', icon: '🛡️', sub: 'Multi-LAN Router', link: '/minipc-firewall' },
@@ -127,7 +128,7 @@ const ShopStorefront = () => {
             'Firewall':    '/product-placeholder.svg',
             'Rugged':      '/product-placeholder.svg',
             'IBox':        '/product-placeholder.svg',
-            'EPC Series':  '/product-placeholder.svg',
+            'EPC Series':  '/images/wix/0597a3_e66a5a6616b64254a920d2c6f05b93f8_48ed79f4.png',
             'UTC Series':  '/product-placeholder.svg',
             'AIO':         '/product-placeholder.svg',
           };
