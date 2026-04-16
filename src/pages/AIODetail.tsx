@@ -46,7 +46,6 @@ const RelatedCard = ({ p }: { p: AIOProduct }) => (
 /* ══════════ Main Component ══════════ */
 const AIODetail = () => {
   const { id } = useParams<{ id: string }>();
-  const [tab, setTab] = useState("overview");
   const [tab, setTab] = useState("overview");  const product = id ? getAIOProduct(id) : undefined;
   const related = id ? getRelatedAIO(id) : [];
 
