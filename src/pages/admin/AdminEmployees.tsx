@@ -174,12 +174,18 @@ export default function AdminEmployees() {
               จัดการบัญชีพนักงาน บทบาท และสิทธิ์การเข้าถึง
             </p>
           </div>
-          {isSuperAdmin && (
-            <Button onClick={() => navigate('/admin/employees/new')}>
-              <Plus className="w-4 h-4 mr-1.5" />
-              เพิ่มพนักงาน
+          <div className="flex items-center gap-2">
+            <Button variant="outline" onClick={() => navigate('/admin/employees/roles')}>
+              <Shield className="w-4 h-4 mr-1.5" />
+              ดูบทบาทและสิทธิ์
             </Button>
-          )}
+            {isSuperAdmin && (
+              <Button onClick={() => navigate('/admin/employees/new')}>
+                <Plus className="w-4 h-4 mr-1.5" />
+                เพิ่มพนักงาน
+              </Button>
+            )}
+          </div>
         </div>
 
         {!isSuperAdmin && (
