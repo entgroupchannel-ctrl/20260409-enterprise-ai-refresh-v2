@@ -14,6 +14,7 @@ import SEOHead from "@/components/SEOHead";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import FooterCompact from "@/components/FooterCompact";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import ProductGallery from "@/components/ProductGallery";
 import { getNotebook, getRelatedNotebooks, type RuggedNotebook } from "@/data/rugged-notebook-products";
 
@@ -42,7 +43,7 @@ const RelatedCard = ({ nb }: { nb: RuggedNotebook }) => (
 /* ───── Main Component ───── */
 const RuggedNotebookDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const [quoteOpen, setQuoteOpen] = useState(false);
+  
   const [tab, setTab] = useState("overview");  const nb = id ? getNotebook(id) : undefined;
   const related = id ? getRelatedNotebooks(id) : [];
 
@@ -149,11 +150,7 @@ const RuggedNotebookDetail = () => {
               )}
               <p className="text-xs text-muted-foreground">{nb.warranty.note}</p>
               <div className="flex flex-wrap gap-2 mt-3">
-                <button
-                  onClick={() => setQuoteOpen(true)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-sm font-medium cursor-pointer">
-                  <Mail className="w-4 h-4" /> sales@entgroup.co.th
-                </button>
+                <QuoteRequestButton productModel={nb.model} productName={nb.title} size="sm" className="rounded-full" />
                 <a href="tel:020456104" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary hover:bg-secondary/80 transition-colors text-sm">
                   <Phone className="w-3.5 h-3.5" /> 02-045-6104
                 </a>
@@ -162,9 +159,7 @@ const RuggedNotebookDetail = () => {
 
             {/* CTA */}
             <div className="flex flex-wrap gap-3 pt-4 border-t border-border">
-              <Button size="lg" variant="outline" onClick={() => setQuoteOpen(true)}>
-                <FileText className="w-5 h-5 mr-2" /> ขอราคาด่วน
-              </Button>
+              <QuoteRequestButton productModel={nb.model} productName={nb.title} size="lg" variant="outline" />
               <LineQRButton className="flex-1 h-11 text-base">
                 <MessageSquare className="w-4 h-4" /> สอบถามทาง LINE
               </LineQRButton>
@@ -313,9 +308,7 @@ const RuggedNotebookDetail = () => {
                 </div>
 
                 <div className="border-t border-border pt-4 flex flex-wrap gap-3">
-                  <Button onClick={() => setQuoteOpen(true)}>
-                    <FileText className="w-4 h-4 mr-2" /> ขอใบเสนอราคา
-                  </Button>
+                  <QuoteRequestButton productModel={nb.model} productName={nb.title} />
                   <LineQRButton>
                     <MessageSquare className="w-4 h-4" /> ติดต่อ LINE @entgroup
                   </LineQRButton>

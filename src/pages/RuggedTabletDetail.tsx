@@ -16,6 +16,7 @@ import FooterCompact from "@/components/FooterCompact";
 import LineQRButton from "@/components/LineQRButton";
 import ProductGallery from "@/components/ProductGallery";
 import { getTabletProduct, getRelatedTablets, type TabletDetailProduct } from "@/data/rugged-tablet-products";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 
 /* ───── Related Card ───── */
 const RelatedCard = ({ product }: { product: TabletDetailProduct }) => (
@@ -42,7 +43,7 @@ const RelatedCard = ({ product }: { product: TabletDetailProduct }) => (
 /* ───── Main Component ───── */
 const RuggedTabletDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const [quoteOpen, setQuoteOpen] = useState(false);
+  
   const [tab, setTab] = useState("overview");  const product = getTabletProduct(id || "");
   const related = getRelatedTablets(id || "");
 
@@ -152,11 +153,7 @@ const RuggedTabletDetail = () => {
               )}
               <p className="text-xs text-muted-foreground">จัดส่ง: {product.delivery}</p>
               <div className="flex flex-wrap gap-2 mt-3">
-                <button
-                  onClick={() => setQuoteOpen(true)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-sm font-medium cursor-pointer">
-                  <Mail className="w-4 h-4" /> sales@entgroup.co.th
-                </button>
+                <QuoteRequestButton productModel={product.model} productName={product.name} size="sm" className="rounded-full" />
                 <a href="tel:020456104" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary hover:bg-secondary/80 transition-colors text-sm">
                   <Phone className="w-3.5 h-3.5" /> 02-045-6104
                 </a>
@@ -165,9 +162,7 @@ const RuggedTabletDetail = () => {
 
             {/* CTA */}
             <div className="flex flex-wrap gap-3 pt-4 border-t border-border">
-              <Button size="lg" variant="outline" onClick={() => setQuoteOpen(true)}>
-                <FileText className="w-5 h-5 mr-2" /> ขอราคาด่วน
-              </Button>
+              <QuoteRequestButton productModel={product.model} productName={product.name} size="lg" variant="outline" />
               <LineQRButton className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 rounded-md border border-input bg-background text-foreground font-medium text-sm hover:bg-accent hover:text-accent-foreground transition-colors">
                 <MessageSquare className="w-4 h-4" /> สอบถามทาง LINE
               </LineQRButton>
@@ -372,9 +367,7 @@ const RuggedTabletDetail = () => {
                 </div>
 
                 <div className="border-t border-border pt-4 flex flex-wrap gap-3">
-                  <Button onClick={() => setQuoteOpen(true)}>
-                    <FileText className="w-4 h-4 mr-2" /> ขอใบเสนอราคา
-                  </Button>
+                  <QuoteRequestButton productModel={product.model} productName={product.name} />
                   <LineQRButton className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-md border border-input bg-background text-foreground font-medium text-sm hover:bg-accent hover:text-accent-foreground transition-colors">
                     <MessageSquare className="w-4 h-4" /> ติดต่อ LINE @entgroup
                   </LineQRButton>

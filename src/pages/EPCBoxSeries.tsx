@@ -12,6 +12,7 @@ import PriceDisclaimer from "@/components/PriceDisclaimer";
 import { LineQRDialog } from "@/components/LineQRDialog";
 import AddToCartButton from "@/components/AddToCartButton";
 import CartBadge from "@/components/CartBadge";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 
 const features = [
   { icon: Wind, title: "Fanless Design", desc: "เงียบสนิท ไม่มีชิ้นส่วนเคลื่อนไหว อายุการใช้งานยาวนาน" },
@@ -759,8 +760,6 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
 };
 
 const EPCBoxSeries = () => {
-  const [quoteOpen, setQuoteOpen] = useState(false);
-  const [quoteProduct, setQuoteProduct] = useState("");
   const [showLineQR, setShowLineQR] = useState(false);
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -895,7 +894,7 @@ const EPCBoxSeries = () => {
             <h2 className="text-2xl md:text-3xl font-display font-bold">เปรียบเทียบ<span className="text-gradient">ซีรีส์ทั้งหมด</span></h2>
             <p className="text-muted-foreground mt-3">เลือกมุมมอง สเปก / ราคา / ความคุ้มค่า พร้อมระบบกรอง</p>
           </div>
-          <EPCComparisonSystem onQuote={(name) => { setQuoteProduct(name); setQuoteOpen(true); }} />
+          <EPCComparisonSystem onQuote={() => {}} />
         </div>
       </section>
 
@@ -1147,9 +1146,7 @@ const EPCBoxSeries = () => {
             ให้ทีมผู้เชี่ยวชาญช่วยเลือกรุ่นและ Configuration ที่เหมาะกับงานของคุณ
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <button onClick={() => setQuoteOpen(true)} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-lg hover:bg-primary/90 transition-colors">
-              ขอใบเสนอราคา
-            </button>
+            <QuoteRequestButton productModel="EPC Box Series" productName="EPC Box Series Industrial PC" size="lg" />
             <button
               onClick={() => setShowLineQR(true)}
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[hsl(142,70%,45%)] text-white font-bold text-lg hover:opacity-90 transition-opacity">
