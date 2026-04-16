@@ -220,7 +220,7 @@ const ShopStorefront = () => {
     }
     if (seriesFilter.length > 0) result = result.filter(p => p.series && seriesFilter.includes(p.series));
     if (categoryFilter.length > 0) result = result.filter(p => p.category && categoryFilter.includes(p.category));
-    result = result.filter(p => p.unit_price >= priceRange[0] && p.unit_price <= priceRange[1]);
+    result = result.filter(p => p.unit_price === 0 || (p.unit_price >= priceRange[0] && p.unit_price <= priceRange[1]));
     if (cpuFilter.length > 0) result = result.filter(p => p.cpu && cpuFilter.some(c => p.cpu!.toLowerCase().includes(c.toLowerCase())));
     if (ramFilter.length > 0) result = result.filter(p => p.ram_gb && ramFilter.includes(p.ram_gb));
     if (storageFilter.length > 0) result = result.filter(p => p.storage_gb && storageFilter.includes(p.storage_gb));
