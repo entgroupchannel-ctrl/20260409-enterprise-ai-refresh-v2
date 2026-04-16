@@ -12,6 +12,7 @@ import PriceDisclaimer from "@/components/PriceDisclaimer";
 import { LineQRDialog } from "@/components/LineQRDialog";
 import AddToCartButton from "@/components/AddToCartButton";
 import CartBadge from "@/components/CartBadge";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 
 const features = [
   { icon: Wind, title: "Fanless Design", desc: "เงียบสนิท ไม่มีชิ้นส่วนเคลื่อนไหว อายุการใช้งานยาวนาน" },
@@ -759,8 +760,6 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
 };
 
 const EPCBoxSeries = () => {
-  const [quoteOpen, setQuoteOpen] = useState(false);
-  const [quoteProduct, setQuoteProduct] = useState("");
   const [showLineQR, setShowLineQR] = useState(false);
   return (
     <div className="min-h-screen bg-background flex flex-col">
