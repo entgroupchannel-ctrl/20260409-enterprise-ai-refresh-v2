@@ -75,6 +75,8 @@ export default function AdminEmployees() {
       });
       return;
     }
+
+    const oldRole = employees.find(e => e.id === userId)?.role;
     
     try {
       const { error } = await (supabase as any)
@@ -83,6 +85,15 @@ export default function AdminEmployees() {
         .eq('id', userId);
       
       if (error) throw error;
+
+      // Create staff_details when promoting to staff role
+      if (oldRole === 'member' && newRole !== 'member') {
+        try {
+          await (supabase as any)
+            .from('staff_details')
+            .upsert({ user_id: userId }, { onConflict: 'user_id' });
+        } catch { /* trigger handles constraint */ }
+      }
       
       toast({
         title: '✅ เปลี่ยน role สำเร็จ',

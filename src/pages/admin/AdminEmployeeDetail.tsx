@@ -111,6 +111,15 @@ export default function AdminEmployeeDetail() {
         .eq('id', id);
       
       if (error) throw error;
+
+      // Create staff_details when promoting from member to staff role
+      if (isSuperAdmin && employee.role === 'member' && role !== 'member') {
+        try {
+          await (supabase as any)
+            .from('staff_details')
+            .upsert({ user_id: id }, { onConflict: 'user_id' });
+        } catch { /* trigger handles constraint */ }
+      }
       
       toast({ title: '✅ บันทึกแล้ว' });
       await loadEmployee();
