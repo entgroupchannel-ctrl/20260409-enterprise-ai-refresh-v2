@@ -97,6 +97,7 @@ function DynamicEmail({ settings, templateType, confirmationUrl, recipient, emai
   }
   const hrStyle = { borderColor: '#e5e7eb', margin: '24px 0' }
   const footer = { fontSize: '12px', color: '#9ca3af', margin: '0 0 8px' }
+  const contactInfo = { fontSize: '12px', color: '#9ca3af', margin: '0 0 4px', textAlign: 'center' as const }
   const footerBrand = { fontSize: '12px', color: '#9ca3af', margin: '0', textAlign: 'center' as const }
 
   return React.createElement(Html, { lang: 'th', dir: 'ltr' },
@@ -121,6 +122,8 @@ function DynamicEmail({ settings, templateType, confirmationUrl, recipient, emai
             : null,
         React.createElement(Hr, { style: hrStyle }),
         React.createElement(Text, { style: footer }, settings.footer_text || ''),
+        React.createElement(Text, { style: contactInfo }, 'Line: @entgroup | โทร: 02-045-6104 / 095-739-1053'),
+        React.createElement(Text, { style: contactInfo }, 'Email: sales@entgroup.co.th'),
         React.createElement(Text, { style: footerBrand }, `© ${siteName} — B2B Industrial Platform`),
       ),
     ),
