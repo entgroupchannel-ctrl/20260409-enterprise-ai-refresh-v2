@@ -96,10 +96,30 @@ const ShopStorefront = () => {
             }
           });
 
+          // Query product_files for primary images (covers products uploaded via FileManagerModal)
+          const { data: productFiles } = await (supabase as any)
+            .from('product_files')
+            .select('product_id, file_url, is_primary, display_order')
+            .in('product_id', productIds)
+            .eq('file_type', 'image')
+            .order('display_order', { ascending: true });
+
+          // Build map: product_id → best image URL (prefer is_primary)
+          const fileImgByProduct: Record<string, string> = {};
+          (productFiles || []).forEach((f: any) => {
+            const existing = fileImgByProduct[f.product_id];
+            if (!existing || f.is_primary) {
+              fileImgByProduct[f.product_id] = f.file_url;
+            }
+          });
+
           const enriched = data.map(p => ({
             ...p,
             variant_count: variantCounts[p.id] || 0,
             starting_price: minPriceByProduct[p.id] || p.unit_price,
+            // Prefer product_files primary → thumbnail_url → image_url
+            thumbnail_url: fileImgByProduct[p.id] || p.thumbnail_url || p.image_url,
+            image_url: fileImgByProduct[p.id] || p.image_url,
           }));
           setProducts(enriched as Product[]);
         } else {
@@ -533,7 +553,7 @@ const ShopStorefront = () => {
 function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
   product: Product; viewMode: 'grid' | 'list'; isComparing: boolean; onToggleCompare: () => void;
 }) {
-  const img = p.thumbnail_url || p.image_url || '/placeholder.svg';
+  const [imgSrc, setImgSrc] = useState<string>(p.thumbnail_url || p.image_url || '/placeholder.svg');
   const displayPrice = p.starting_price || p.unit_price;
   const bulkHint = Math.round(displayPrice * 0.93);
 
@@ -547,7 +567,13 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
         <CardContent className="p-0">
           <div className="flex gap-0">
             <Link to={`/shop/${p.slug}`} className="w-32 md:w-44 shrink-0 bg-white dark:bg-zinc-900 rounded-l-xl overflow-hidden border-r border-border">
-              <img src={img} alt={p.model} className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-300" style={{ aspectRatio: '1/1' }} />
+              <img
+                src={imgSrc}
+                alt={p.model}
+                className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-300"
+                style={{ aspectRatio: '1/1' }}
+                onError={() => setImgSrc('/placeholder.svg')}
+              />
             </Link>
             <div className="flex-1 p-4 flex flex-col justify-between min-w-0">
               <div className="space-y-1">
@@ -612,7 +638,13 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
 
         <Link to={`/shop/${p.slug}`}>
           <div className="bg-white dark:bg-zinc-900 rounded-t-xl overflow-hidden border-b border-border/50 aspect-[4/3]">
-            <img src={img} alt={p.model} className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+            <img
+              src={imgSrc}
+              alt={p.model}
+              className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300"
+              loading="lazy"
+              onError={() => setImgSrc('/placeholder.svg')}
+            />
           </div>
         </Link>
 

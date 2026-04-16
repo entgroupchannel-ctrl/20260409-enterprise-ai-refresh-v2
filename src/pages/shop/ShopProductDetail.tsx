@@ -66,14 +66,37 @@ const ShopProductDetail = () => {
       const { data } = await supabase
         .from('products').select('*').eq('slug', slug).eq('is_active', true).maybeSingle();
       if (data) {
-        setProduct(data as Product);
-        addToRecentlyViewed({ id: data.id, slug: data.slug, model: data.model, thumbnail_url: data.thumbnail_url, unit_price: data.unit_price });
+        // Also fetch product_files images (uploaded via FileManagerModal)
+        const { data: productFiles } = await (supabase as any)
+          .from('product_files')
+          .select('file_url, is_primary, display_order')
+          .eq('product_id', data.id)
+          .eq('file_type', 'image')
+          .order('display_order', { ascending: true });
+
+        const fileUrls: string[] = (productFiles || []).map((f: any) => f.file_url).filter(Boolean);
+        const primaryFileUrl = (productFiles || []).find((f: any) => f.is_primary)?.file_url || fileUrls[0] || null;
+
+        // Merge: use product_files URLs when product fields are empty
+        const enriched = {
+          ...data,
+          image_url: data.image_url || primaryFileUrl,
+          thumbnail_url: data.thumbnail_url || primaryFileUrl,
+          gallery_urls: [
+            ...(data.gallery_urls || []),
+            ...fileUrls.filter((u: string) => u !== data.image_url && !(data.gallery_urls || []).includes(u)),
+          ],
+        } as Product;
+
+        setProduct(enriched);
+        addToRecentlyViewed({ id: data.id, slug: data.slug, model: data.model, thumbnail_url: enriched.thumbnail_url, unit_price: data.unit_price });
+
         const { data: variants } = await supabase
           .from('product_variants').select('*').eq('product_id', data.id).eq('is_active', true).order('unit_price', { ascending: true });
         if (variants && variants.length > 0) {
           const defaultV = variants.find((v) => v.is_default) || variants[0];
           if (defaultV) {
-            setConfiguredVariant({ ...data, sku: defaultV.sku, cpu: defaultV.cpu, ram_gb: defaultV.ram_gb, storage_gb: defaultV.storage_gb, storage_type: defaultV.storage_type, has_wifi: defaultV.has_wifi ?? false, has_4g: defaultV.has_4g ?? false, os: defaultV.os, unit_price: defaultV.unit_price, unit_price_vat: defaultV.unit_price_vat } as Product);
+            setConfiguredVariant({ ...enriched, sku: defaultV.sku, cpu: defaultV.cpu, ram_gb: defaultV.ram_gb, storage_gb: defaultV.storage_gb, storage_type: defaultV.storage_type, has_wifi: defaultV.has_wifi ?? false, has_4g: defaultV.has_4g ?? false, os: defaultV.os, unit_price: defaultV.unit_price, unit_price_vat: defaultV.unit_price_vat } as Product);
             setConfigPrice(defaultV.unit_price);
           }
         }
@@ -105,7 +128,7 @@ const ShopProductDetail = () => {
     </div>
   );
 
-  const images = [product.image_url, ...(product.gallery_urls || [])].filter(Boolean) as string[];
+  const images = [...new Set([product.image_url, ...(product.gallery_urls || [])].filter(Boolean) as string[])];
   const displayVariant = configuredVariant || product;
   const displayPrice = configPrice || product.unit_price;
   const activeTierPrice = qty >= 10 ? Math.round(displayPrice * 0.86) : qty >= 5 ? Math.round(displayPrice * 0.93) : displayPrice;
