@@ -4919,8 +4919,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                           </td>
                         </tr>
                         );
-                      }
-                      ))}
+                      })}
                     </tbody>
                   </table>
                 </div>
