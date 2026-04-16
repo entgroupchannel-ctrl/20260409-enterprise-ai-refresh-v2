@@ -161,28 +161,18 @@ export default function ShopProductConfigurator({ product, quantity, onConfigCha
   const pricing = useMemo(() => {
     const base = matchedVariant.unit_price;
     const addons: AddonSummary[] = [];
-    let addonsTotal = 0;
-
-    if (config.bluetooth) {
-      addons.push({ label: 'Bluetooth Module', price: ADDON_PRICES.bluetooth });
-      addonsTotal += ADDON_PRICES.bluetooth;
-    }
-    if (config.wifi === 'wifi6') {
-      addons.push({ label: 'WiFi 6 (AX) Upgrade', price: ADDON_PRICES.wifi6_upgrade });
-      addonsTotal += ADDON_PRICES.wifi6_upgrade;
-    }
 
     const warranty = calcWarranty(base, config.warranty);
     if (warranty.cost > 0) {
       addons.push({ label: `รับประกัน ${warranty.label}`, price: warranty.cost });
     }
 
-    const subtotal = base + addonsTotal + warranty.cost;
+    const subtotal = base + warranty.cost;
     const tierPrice = getTierPrice(subtotal, quantity);
     const total = tierPrice * quantity;
     const savings = (subtotal - tierPrice) * quantity;
 
-    return { base, addons, addonsTotal, warranty, subtotal, tierPrice, total, savings };
+    return { base, addons, addonsTotal: 0, warranty, subtotal, tierPrice, total, savings };
   }, [matchedVariant, config, quantity]);
 
   // Notify parent
