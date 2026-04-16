@@ -151,7 +151,7 @@ const AIODetail = () => {
               )}
               <p className="text-xs text-muted-foreground">{product.warranty.note}</p>
               <div className="flex flex-wrap gap-2 mt-3">
-                <QuoteRequestButton productModel={product.model} productName={product.name} size="sm" className="rounded-full" />
+                <QuoteRequestButton productModel={product.model} productName={product.title} size="sm" className="rounded-full" />
                 <a href="tel:020456104" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary hover:bg-secondary/80 transition-colors text-sm">
                   <Phone className="w-3.5 h-3.5" /> 02-045-6104
                 </a>
@@ -160,7 +160,7 @@ const AIODetail = () => {
 
             {/* CTA */}
             <div className="flex flex-wrap gap-3 pt-4 border-t border-border">
-              <QuoteRequestButton productModel={product.model} productName={product.name} size="lg" variant="outline" />
+              <QuoteRequestButton productModel={product.model} productName={product.title} size="lg" variant="outline" />
               <LineQRButton className="flex-1 h-11 text-base">
                 <MessageSquare className="w-4 h-4" /> สอบถามทาง LINE
               </LineQRButton>
@@ -326,7 +326,7 @@ const AIODetail = () => {
                 </div>
 
                 <div className="border-t border-border pt-4 flex flex-wrap gap-3">
-                  <QuoteRequestButton productModel={product.model} productName={product.name} />
+                  <QuoteRequestButton productModel={product.model} productName={product.title} />
                   <LineQRButton>
                     <MessageSquare className="w-4 h-4" /> ติดต่อ LINE @entgroup
                   </LineQRButton>
