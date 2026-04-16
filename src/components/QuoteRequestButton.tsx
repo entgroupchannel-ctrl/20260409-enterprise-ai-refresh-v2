@@ -29,14 +29,15 @@ interface QuoteRequestButtonProps {
   productName?: string;
   productImage?: string;
   variant?: 'default' | 'outline' | 'secondary';
-  size?: 'default' | 'sm' | 'lg';
+  size?: 'default' | 'sm' | 'lg' | 'icon';
   fullWidth?: boolean;
   className?: string;
+  iconOnly?: boolean;
 }
 
 export default function QuoteRequestButton({
   productModel, productName, productImage,
-  variant = 'default', size = 'default', fullWidth = false, className = '',
+  variant = 'default', size = 'default', fullWidth = false, className = '', iconOnly = false,
 }: QuoteRequestButtonProps) {
   const { user } = useAuth();
   const navigate = useNavigate();
