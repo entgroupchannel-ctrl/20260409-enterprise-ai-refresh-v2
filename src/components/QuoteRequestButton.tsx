@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import {
@@ -8,7 +8,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { FileText, ShoppingBag, Lock, LogIn, UserPlus, Check, Package } from 'lucide-react';
-import { getRelatedCatalogProducts, type CatalogProduct } from '@/lib/product-catalog';
+import { getRelatedCatalogProducts, searchCatalogProducts, type CatalogProduct } from '@/lib/product-catalog';
 import { savePendingQuote, getPendingQuote, clearPendingQuote, type PendingQuoteData } from '@/hooks/usePendingQuote';
 import ContactFormPanel from './quote-dialog/ContactFormPanel';
 import ProductSearchPanel from './quote-dialog/ProductSearchPanel';
@@ -21,6 +21,7 @@ interface QuoteProduct {
   unit_price: number;
   discount_percent: number;
   line_total: number;
+  specs?: string;
 }
 
 interface QuoteRequestButtonProps {
@@ -42,7 +43,6 @@ export default function QuoteRequestButton({
   const location = useLocation();
   const { toast } = useToast();
 
-  // Phase: 'product-selection' (compact) → 'full-form' (3-column)
   const [phase, setPhase] = useState<'product-selection' | 'full-form'>('product-selection');
   const [showDialog, setShowDialog] = useState(false);
   const [showAuthGuard, setShowAuthGuard] = useState(false);
@@ -59,12 +59,10 @@ export default function QuoteRequestButton({
     return getRelatedCatalogProducts(productModel, 6);
   }, [productModel]);
 
-  // Load profile when entering full-form phase
   useEffect(() => {
     if (phase === 'full-form' && user) loadUserProfile();
   }, [phase, user]);
 
-  // If user logs in while auth guard is shown, proceed to full form
   useEffect(() => {
     if (user && showAuthGuard) {
       setShowAuthGuard(false);
@@ -73,7 +71,6 @@ export default function QuoteRequestButton({
     }
   }, [user, showAuthGuard]);
 
-  // Restore pending products after login redirect (?action=continue)
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     if (user && params.get('action') === 'continue') {
@@ -113,32 +110,57 @@ export default function QuoteRequestButton({
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
+  /** Build a QuoteProduct from a CatalogProduct */
+  const catalogToQuoteProduct = useCallback((product: CatalogProduct, qty = 1): QuoteProduct => {
+    const priceNum = product.price ? parseFloat(product.price.replace(/[^\d.]/g, '')) || 0 : 0;
+    return {
+      model: product.model, description: product.name,
+      qty, unit_price: priceNum, discount_percent: 0, line_total: priceNum * qty,
+      specs: '',
+    };
+  }, []);
+
+  /** Auto-add the clicked product and open dialog */
   const handleQuickRequest = () => {
     if (productModel) {
       setFormData((prev) => ({ ...prev, customer_email: user?.email || prev.customer_email }));
-      setProducts([]);
-      // If user is already logged in, skip product-selection phase → go to full form
-      setPhase(user ? 'full-form' : 'product-selection');
-      setShowDialog(true);
+
+      // Find product in catalog or build from props
+      const catalogProducts = searchCatalogProducts(productModel, 1);
+      const catalogMatch = catalogProducts.find((p) => p.model === productModel);
+
+      const primaryProduct: QuoteProduct = catalogMatch
+        ? catalogToQuoteProduct(catalogMatch)
+        : {
+            model: productModel,
+            description: productName || productModel,
+            qty: 1, unit_price: 0, discount_percent: 0, line_total: 0, specs: '',
+          };
+
+      // Set products with primary product pre-added
+      setProducts([primaryProduct]);
+
+      if (user) {
+        setPhase('full-form');
+        setShowDialog(true);
+      } else {
+        // Guest: show auth guard directly with product preview
+        setShowDialog(false);
+        setShowAuthGuard(true);
+      }
     } else {
       navigate('/request-quote');
     }
   };
 
-  // Called when user adds a product from the search panel
   const handleAddProduct = (product: CatalogProduct) => {
     if (products.find((p) => p.model === product.model)) {
       toast({ title: 'เพิ่มแล้ว', description: `${product.model} อยู่ในรายการแล้ว` });
       return;
     }
 
-    const priceNum = product.price ? parseFloat(product.price.replace(/[^\d.]/g, '')) || 0 : 0;
-    const newProduct: QuoteProduct = {
-      model: product.model, description: product.name,
-      qty: 1, unit_price: priceNum, discount_percent: 0, line_total: priceNum,
-    };
+    const newProduct = catalogToQuoteProduct(product);
 
-    // Phase 1 (product-selection) + guest → trigger auth guard after first add
     if (phase === 'product-selection' && !user) {
       setProducts((prev) => [...prev, newProduct]);
       setShowDialog(false);
@@ -146,14 +168,12 @@ export default function QuoteRequestButton({
       return;
     }
 
-    // Phase 1 + logged in → add product and transition to full form
     if (phase === 'product-selection' && user) {
       setProducts((prev) => [...prev, newProduct]);
       setPhase('full-form');
       return;
     }
 
-    // Phase 2 (full-form) → just add
     setProducts((prev) => [...prev, newProduct]);
     toast({ title: 'เพิ่มสินค้าแล้ว', description: product.model });
   };
@@ -163,7 +183,11 @@ export default function QuoteRequestButton({
   };
 
   const handleUpdateQty = (index: number, qty: number) => {
-    setProducts((prev) => prev.map((p, i) => i === index ? { ...p, qty: Math.max(1, qty) } : p));
+    setProducts((prev) => prev.map((p, i) => i === index ? { ...p, qty: Math.max(1, qty), line_total: p.unit_price * Math.max(1, qty) } : p));
+  };
+
+  const handleUpdateSpecs = (index: number, specs: string) => {
+    setProducts((prev) => prev.map((p, i) => i === index ? { ...p, specs } : p));
   };
 
   const buildQuoteData = (): PendingQuoteData => ({
@@ -191,6 +215,13 @@ export default function QuoteRequestButton({
     const dataToSubmit = quoteData || buildQuoteData();
     setSubmitting(true);
     try {
+      // Build notes with per-product specs
+      const specNotes = dataToSubmit.products
+        .filter((p: any) => p.specs)
+        .map((p: any) => `[${p.model}] ${p.specs}`)
+        .join('\n');
+      const combinedNotes = [dataToSubmit.notes, specNotes].filter(Boolean).join('\n---\n');
+
       const { data, error } = await (supabase.from as any)('quote_requests')
         .insert({
           quote_number: '',
@@ -198,7 +229,7 @@ export default function QuoteRequestButton({
           customer_email: dataToSubmit.customer_email,
           customer_phone: dataToSubmit.customer_phone,
           customer_company: dataToSubmit.customer_company,
-          notes: dataToSubmit.notes,
+          notes: combinedNotes || null,
           products: dataToSubmit.products,
           status: 'pending',
           subtotal: 0, vat_amount: 0, grand_total: 0,
@@ -220,7 +251,6 @@ export default function QuoteRequestButton({
   };
 
   const handleAuthRedirect = (path: '/login' | '/register') => {
-    // Save pending products to localStorage
     const quoteData = buildQuoteData();
     savePendingQuote(quoteData);
     setShowAuthGuard(false);
@@ -243,7 +273,6 @@ export default function QuoteRequestButton({
         if (!open) setPhase('product-selection');
       }}>
         {phase === 'product-selection' ? (
-          /* Phase 1: Product Selection Only (compact) */
           <DialogContent className="max-w-2xl max-h-[85vh] overflow-hidden flex flex-col">
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2">
@@ -263,14 +292,16 @@ export default function QuoteRequestButton({
             </div>
           </DialogContent>
         ) : (
-          /* Phase 2: Full 3-Column Form (after login) */
           <DialogContent className="max-w-7xl max-h-[90vh] overflow-hidden flex flex-col">
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2">
                 <ShoppingBag className="w-5 h-5" />
                 ขอใบเสนอราคา
+                {productModel && (
+                  <span className="text-xs font-normal text-muted-foreground ml-2">— {productModel}</span>
+                )}
               </DialogTitle>
-              <DialogDescription>กรอกข้อมูลและเลือกสินค้าที่ต้องการ</DialogDescription>
+              <DialogDescription>กรอกข้อมูล กำหนดจำนวน/สเปก และเพิ่มสินค้าอื่นได้ตามต้องการ</DialogDescription>
             </DialogHeader>
 
             <div className="flex-1 overflow-hidden">
@@ -282,7 +313,17 @@ export default function QuoteRequestButton({
                   <ProductSearchPanel selectedModels={selectedModels} relatedProducts={relatedProducts} onAddProduct={handleAddProduct} />
                 </div>
                 <div className="md:col-span-4">
-                  <SelectedProductsPanel products={products} onUpdateQty={handleUpdateQty} onRemove={handleRemoveProduct} onClearAll={() => setProducts([])} onSubmit={handleSubmit} submitting={submitting} canSubmit={canSubmit} />
+                  <SelectedProductsPanel
+                    products={products}
+                    onUpdateQty={handleUpdateQty}
+                    onUpdateSpecs={handleUpdateSpecs}
+                    onRemove={handleRemoveProduct}
+                    onClearAll={() => setProducts([])}
+                    onSubmit={handleSubmit}
+                    submitting={submitting}
+                    canSubmit={canSubmit}
+                    primaryModel={productModel}
+                  />
                 </div>
               </div>
             </div>
@@ -313,7 +354,6 @@ export default function QuoteRequestButton({
           </DialogHeader>
 
           <div className="space-y-4">
-            {/* Selected Product Preview */}
             <div className="p-4 bg-primary/5 border border-primary/20 rounded-lg">
               <p className="text-sm font-medium mb-3 text-primary">คุณได้เลือก:</p>
               <div className="space-y-2">
@@ -336,7 +376,6 @@ export default function QuoteRequestButton({
               </div>
             </div>
 
-            {/* Login/Register Buttons */}
             <div className="grid grid-cols-2 gap-3">
               <Button onClick={() => handleAuthRedirect('/login')} className="w-full">
                 <LogIn className="w-4 h-4 mr-2" />
@@ -348,7 +387,6 @@ export default function QuoteRequestButton({
               </Button>
             </div>
 
-            {/* Benefits */}
             <div className="space-y-2 pt-2 border-t">
               <p className="text-xs font-medium text-muted-foreground">
                 💡 หลังเข้าสู่ระบบแล้ว คุณสามารถ:
@@ -356,11 +394,11 @@ export default function QuoteRequestButton({
               <div className="space-y-1.5">
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
                   <Check className="w-3 h-3 text-primary" />
-                  <span>เพิ่มสินค้าอื่นๆ ได้อีกหลายรายการ</span>
+                  <span>กำหนดสเปกและจำนวนสินค้าได้</span>
                 </div>
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
                   <Check className="w-3 h-3 text-primary" />
-                  <span>กรอกข้อมูลติดต่อและส่งคำขอ</span>
+                  <span>เพิ่มสินค้าอื่นๆ ได้อีกหลายรายการ</span>
                 </div>
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
                   <Check className="w-3 h-3 text-primary" />

@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ShoppingCart, Minus, Plus, X, Send, Loader2 } from 'lucide-react';
+import { Textarea } from '@/components/ui/textarea';
+import { ShoppingCart, Minus, Plus, X, Send, Loader2, Star } from 'lucide-react';
 
 interface QuoteProduct {
   model: string;
@@ -9,20 +10,23 @@ interface QuoteProduct {
   unit_price: number;
   discount_percent: number;
   line_total: number;
+  specs?: string;
 }
 
 interface SelectedProductsPanelProps {
   products: QuoteProduct[];
   onUpdateQty: (index: number, qty: number) => void;
+  onUpdateSpecs: (index: number, specs: string) => void;
   onRemove: (index: number) => void;
   onClearAll: () => void;
   onSubmit: () => void;
   submitting: boolean;
   canSubmit: boolean;
+  primaryModel?: string;
 }
 
 export default function SelectedProductsPanel({
-  products, onUpdateQty, onRemove, onClearAll, onSubmit, submitting, canSubmit,
+  products, onUpdateQty, onUpdateSpecs, onRemove, onClearAll, onSubmit, submitting, canSubmit, primaryModel,
 }: SelectedProductsPanelProps) {
   const totalQty = products.reduce((sum, p) => sum + p.qty, 0);
 
@@ -51,37 +55,61 @@ export default function SelectedProductsPanel({
       ) : (
         <div className="space-y-3">
           <div className="space-y-2">
-            {products.map((product, index) => (
-              <div key={index} className="p-3 border border-border rounded-lg bg-muted/20">
-                <div className="flex items-start gap-2 mb-2">
-                  <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-sm truncate">{product.model}</p>
-                    {product.description && (
-                      <p className="text-xs text-muted-foreground line-clamp-1">{product.description}</p>
-                    )}
+            {products.map((product, index) => {
+              const isPrimary = product.model === primaryModel;
+              return (
+                <div
+                  key={index}
+                  className={`p-3 border rounded-lg ${isPrimary ? 'border-primary bg-primary/5 ring-1 ring-primary/20' : 'border-border bg-muted/20'}`}
+                >
+                  <div className="flex items-start gap-2 mb-2">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-1.5">
+                        {isPrimary && <Star className="w-3.5 h-3.5 text-primary fill-primary shrink-0" />}
+                        <p className="font-semibold text-sm truncate">{product.model}</p>
+                      </div>
+                      {product.description && (
+                        <p className="text-xs text-muted-foreground line-clamp-1">{product.description}</p>
+                      )}
+                      {isPrimary && (
+                        <span className="text-[10px] text-primary font-medium">สินค้าหลัก</span>
+                      )}
+                    </div>
+                    <Button variant="ghost" size="icon" className="h-6 w-6 shrink-0" onClick={() => onRemove(index)}>
+                      <X className="w-3 h-3 text-destructive" />
+                    </Button>
                   </div>
-                  <Button variant="ghost" size="icon" className="h-6 w-6 shrink-0" onClick={() => onRemove(index)}>
-                    <X className="w-3 h-3 text-destructive" />
-                  </Button>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Button variant="outline" size="icon" className="h-6 w-6" onClick={() => onUpdateQty(index, product.qty - 1)}>
-                    <Minus className="w-3 h-3" />
-                  </Button>
-                  <Input
-                    type="number"
-                    min="1"
-                    value={product.qty}
-                    onChange={(e) => onUpdateQty(index, parseInt(e.target.value) || 1)}
-                    className="h-6 w-14 text-center text-sm"
+
+                  {/* Quantity */}
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-xs text-muted-foreground w-12">จำนวน:</span>
+                    <Button variant="outline" size="icon" className="h-6 w-6" onClick={() => onUpdateQty(index, product.qty - 1)}>
+                      <Minus className="w-3 h-3" />
+                    </Button>
+                    <Input
+                      type="number"
+                      min="1"
+                      value={product.qty}
+                      onChange={(e) => onUpdateQty(index, parseInt(e.target.value) || 1)}
+                      className="h-6 w-14 text-center text-sm"
+                    />
+                    <Button variant="outline" size="icon" className="h-6 w-6" onClick={() => onUpdateQty(index, product.qty + 1)}>
+                      <Plus className="w-3 h-3" />
+                    </Button>
+                    <span className="text-xs text-muted-foreground">เครื่อง</span>
+                  </div>
+
+                  {/* Spec / Notes per product */}
+                  <Textarea
+                    placeholder={isPrimary ? "ระบุสเปกเพิ่มเติม เช่น RAM 16GB, SSD 512GB..." : "หมายเหตุ (ถ้ามี)"}
+                    value={product.specs || ''}
+                    onChange={(e) => onUpdateSpecs(index, e.target.value)}
+                    rows={isPrimary ? 2 : 1}
+                    className="text-xs resize-none"
                   />
-                  <Button variant="outline" size="icon" className="h-6 w-6" onClick={() => onUpdateQty(index, product.qty + 1)}>
-                    <Plus className="w-3 h-3" />
-                  </Button>
-                  <span className="text-xs text-muted-foreground">เครื่อง</span>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           <div className="pt-3 border-t space-y-1.5">
