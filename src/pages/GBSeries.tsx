@@ -401,12 +401,20 @@ const GBSeries = () => {
                 ))}
               </ul>
 
-              <button
-                onClick={() => setQuoteOpen(true)}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity">
-                <FileText size={18} /> ขอใบเสนอราคา {current.name}
-
-              </button>
+              <div className="flex flex-wrap gap-3">
+                <button
+                  onClick={() => setQuoteOpen(true)}
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity">
+                  <FileText size={18} /> ขอใบเสนอราคา {current.name}
+                </button>
+                <AddToCartButton
+                  productModel={current.name}
+                  productName={`${current.name} — ${current.tagline}`}
+                  productDescription={current.description}
+                  variant="outline"
+                  size="lg"
+                />
+              </div>
             </div>
 
             <div className="flex justify-center">
