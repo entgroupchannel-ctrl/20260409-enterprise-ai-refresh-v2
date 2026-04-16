@@ -1067,7 +1067,7 @@ export default function AdminQuoteDetail() {
 
                           // Notify customer (in-app)
                           if (quote.created_by) {
-                            import('@/lib/notifications').then(({ createNotification, sendTransactionalEmail }) => {
+                            import('@/lib/notifications').then(({ createNotification, sendQuoteStatusEmail }) => {
                               createNotification({
                                 userId: quote.created_by!,
                                 type: 'quote_sent',
@@ -1079,16 +1079,14 @@ export default function AdminQuoteDetail() {
                                 linkType: 'quote',
                                 linkId: id,
                               });
-                              // Send email
+                              // Send email via Resend
                               if (quote.customer_email) {
-                                sendTransactionalEmail({
-                                  templateName: 'quote-sent',
+                                sendQuoteStatusEmail({
                                   recipientEmail: quote.customer_email,
-                                  idempotencyKey: `quote-sent-${id}-rev1`,
-                                  templateData: {
-                                    customerName: quote.customer_name,
-                                    quoteNumber: quote.quote_number,
-                                  },
+                                  customerName: quote.customer_name,
+                                  quoteNumber: quote.quote_number,
+                                  status: 'sent',
+                                  viewUrl: `https://www.entgroup.co.th/my-account/quotes/${id}`,
                                 });
                               }
                             });

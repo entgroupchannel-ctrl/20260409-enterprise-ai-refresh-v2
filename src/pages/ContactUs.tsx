@@ -231,7 +231,7 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
       }
 
       // Notify admins about new contact form submission
-      import('@/lib/notifications').then(({ notifyAdmins, sendTransactionalEmail }) => {
+      import('@/lib/notifications').then(({ notifyAdmins, sendAutoReplyEmail }) => {
         notifyAdmins({
           type: 'new_contact',
           title: 'มีข้อความใหม่จากฟอร์มติดต่อ',
@@ -240,12 +240,11 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
           actionUrl: '/admin/contacts',
           actionLabel: 'ดูรายละเอียด',
         });
-        // Send confirmation email to customer
-        sendTransactionalEmail({
-          templateName: 'contact-confirmation',
+        // Send confirmation email to customer via Resend
+        sendAutoReplyEmail({
+          type: 'contact',
           recipientEmail: form.email,
-          idempotencyKey: `contact-confirm-${Date.now()}`,
-          templateData: { customerName: form.name },
+          recipientName: form.name,
         });
       });
 

@@ -119,7 +119,7 @@ export default function AdminInvoiceDetail() {
       
       // Notify customer when invoice is sent
       if (newStatus === 'sent' && invoice.customer_id) {
-        import('@/lib/notifications').then(({ createNotification, sendTransactionalEmail }) => {
+        import('@/lib/notifications').then(({ createNotification, sendQuoteStatusEmail }) => {
           createNotification({
             userId: invoice.customer_id!,
             type: 'invoice_sent',
@@ -132,14 +132,12 @@ export default function AdminInvoiceDetail() {
             linkId: invoice.id,
           });
           if (invoice.customer_email) {
-            sendTransactionalEmail({
-              templateName: 'invoice-created',
+            sendQuoteStatusEmail({
               recipientEmail: invoice.customer_email,
-              idempotencyKey: `invoice-sent-${invoice.id}`,
-              templateData: {
-                customerName: invoice.customer_name,
-                invoiceNumber: invoice.invoice_number,
-              },
+              customerName: invoice.customer_name,
+              status: 'invoice_created',
+              invoiceNumber: invoice.invoice_number,
+              viewUrl: `https://www.entgroup.co.th/my-account/invoices/${invoice.id}`,
             });
           }
         });

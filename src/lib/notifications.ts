@@ -76,26 +76,53 @@ export async function notifyAdmins(
   }
 }
 
+// ──────────────── Email via Resend (Connector Gateway) ────────────────
+
 /**
- * Send a transactional email via Edge Function (fire-and-forget).
+ * Send auto-reply email (contact form / quote request) via send-auto-reply Edge Function.
+ * Fire-and-forget.
  */
-export async function sendTransactionalEmail(params: {
-  templateName: string;
+export async function sendAutoReplyEmail(params: {
+  type: "contact" | "quote-request";
   recipientEmail: string;
-  idempotencyKey: string;
-  templateData?: Record<string, any>;
+  recipientName?: string;
+  quoteRef?: string;
 }) {
   try {
-    const { error } = await supabase.functions.invoke("send-transactional-email", {
+    const { error } = await supabase.functions.invoke("send-auto-reply", {
       body: {
-        templateName: params.templateName,
+        type: params.type,
         recipientEmail: params.recipientEmail,
-        idempotencyKey: params.idempotencyKey,
-        templateData: params.templateData,
+        recipientName: params.recipientName,
+        quoteRef: params.quoteRef,
       },
     });
-    if (error) console.error("sendTransactionalEmail error:", error);
+    if (error) console.error("sendAutoReplyEmail error:", error);
   } catch (e) {
-    console.error("sendTransactionalEmail exception:", e);
+    console.error("sendAutoReplyEmail exception:", e);
+  }
+}
+
+/**
+ * Send quote / invoice status notification email via notify-quote-status Edge Function.
+ * Fire-and-forget.
+ */
+export async function sendQuoteStatusEmail(params: {
+  recipientEmail: string;
+  customerName?: string;
+  quoteNumber?: string;
+  status: string;
+  invoiceNumber?: string;
+  amount?: string;
+  viewUrl?: string;
+  note?: string;
+}) {
+  try {
+    const { error } = await supabase.functions.invoke("notify-quote-status", {
+      body: params,
+    });
+    if (error) console.error("sendQuoteStatusEmail error:", error);
+  } catch (e) {
+    console.error("sendQuoteStatusEmail exception:", e);
   }
 }
