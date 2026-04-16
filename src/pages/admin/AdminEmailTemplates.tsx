@@ -58,6 +58,8 @@ export default function AdminEmailTemplates() {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [testEmail, setTestEmail] = useState('');
   const [sendingTest, setSendingTest] = useState(false);
+  const [previewHtml, setPreviewHtml] = useState('');
+  const [previewLoading, setPreviewLoading] = useState(false);
 
   useEffect(() => {
     fetchTemplates();
@@ -104,8 +106,10 @@ export default function AdminEmailTemplates() {
     if (error) {
       toast({ title: 'บันทึกไม่สำเร็จ', description: error.message, variant: 'destructive' });
     } else {
-      toast({ title: 'บันทึกสำเร็จ', description: `อัปเดตเทมเพลต "${TEMPLATE_LABELS[activeTab]?.label}" เรียบร้อย` });
+      toast({ title: 'บันทึกสำเร็จ', description: `อัปเดตเทมเพลต "${TEMPLATE_LABELS[activeTab]?.label}" เรียบร้อย (deploy เพื่อให้มีผล)` });
       fetchTemplates();
+      // Refresh preview from Edge Function (shows saved data from DB)
+      setTimeout(() => fetchPreview(), 500);
     }
     setSaving(false);
   };
@@ -159,59 +163,40 @@ export default function AdminEmailTemplates() {
     setSendingTest(false);
   };
 
-  const renderPreview = () => {
-    const primaryColor = editForm.primary_color || '#0fa888';
-    const siteName = editForm.site_name || 'ENT Group';
-    const isOTP = activeTab === 'reauthentication';
-
-    return (
-      <div style={{ backgroundColor: '#f5f5f5', padding: '20px', fontFamily: "'IBM Plex Sans Thai', Arial, sans-serif" }}>
-        <div style={{ maxWidth: '580px', margin: '0 auto', backgroundColor: '#ffffff', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-          {/* Header */}
-          <div style={{ textAlign: 'center', padding: '24px 20px 12px' }}>
-            {editForm.logo_url && <img src={editForm.logo_url} alt="Logo" style={{ maxHeight: '40px', marginBottom: '8px' }} />}
-            <h2 style={{ fontSize: '20px', fontWeight: 700, color: primaryColor, margin: 0 }}>{siteName}</h2>
-          </div>
-          {/* Body */}
-          <div style={{ padding: '0 30px 30px' }}>
-            <h1 style={{ fontSize: '20px', fontWeight: 600, color: '#1a1a2e', margin: '20px 0 10px' }}>
-              {editForm.heading || 'หัวข้อ'}
-            </h1>
-            <p style={{ fontSize: '14px', color: '#374151', lineHeight: 1.6, margin: '0 0 16px' }}>
-              {editForm.body_text || 'เนื้อหาอีเมล...'}
-            </p>
-            {isOTP ? (
-              <p style={{ fontFamily: 'Courier, monospace', fontSize: '28px', fontWeight: 'bold', color: primaryColor, textAlign: 'center', letterSpacing: '4px', margin: '20px 0' }}>
-                123456
-              </p>
-            ) : editForm.button_text ? (
-              <div style={{ textAlign: 'center', margin: '24px 0' }}>
-                <span style={{
-                  display: 'inline-block', backgroundColor: primaryColor, color: '#ffffff', fontSize: '14px',
-                  borderRadius: '8px', padding: '12px 28px', fontWeight: 600,
-                }}>
-                  {editForm.button_text}
-                </span>
-              </div>
-            ) : null}
-            <hr style={{ borderColor: '#e5e7eb', margin: '24px 0' }} />
-            <p style={{ fontSize: '12px', color: '#9ca3af', margin: '0 0 8px' }}>
-              {editForm.footer_text || 'ข้อความท้ายอีเมล'}
-            </p>
-            <p style={{ fontSize: '12px', color: '#9ca3af', margin: '0 0 4px', textAlign: 'center' }}>
-              Line: @entgroup | โทร: 02-045-6104 / 095-739-1053
-            </p>
-            <p style={{ fontSize: '12px', color: '#9ca3af', margin: '0 0 4px', textAlign: 'center' }}>
-              Email: sales@entgroup.co.th
-            </p>
-            <p style={{ fontSize: '12px', color: '#9ca3af', margin: 0, textAlign: 'center' }}>
-              © {siteName} — B2B Industrial Platform
-            </p>
-          </div>
-        </div>
-      </div>
-    );
+  const fetchPreview = async (type?: string) => {
+    setPreviewLoading(true);
+    try {
+      const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+      const url = `${supabaseUrl}/functions/v1/auth-email-hook/preview`;
+      const { data: { session } } = await supabase.auth.getSession();
+      const token = session?.access_token;
+      
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ type: type || activeTab }),
+      });
+      
+      if (res.ok) {
+        const html = await res.text();
+        setPreviewHtml(html);
+      } else {
+        setPreviewHtml('<p style="padding:20px;color:red;">ไม่สามารถโหลด Preview ได้</p>');
+      }
+    } catch {
+      setPreviewHtml('<p style="padding:20px;color:red;">ไม่สามารถโหลด Preview ได้</p>');
+    }
+    setPreviewLoading(false);
   };
+
+  // Fetch preview when tab changes or after save
+  useEffect(() => {
+    fetchPreview();
+  }, [activeTab]);
 
   if (loading) {
     return (
@@ -344,7 +329,16 @@ export default function AdminEmailTemplates() {
                             <DialogHeader>
                               <DialogTitle>ตัวอย่างอีเมล — {TEMPLATE_LABELS[key].label}</DialogTitle>
                             </DialogHeader>
-                            {renderPreview()}
+                            {previewLoading ? (
+                              <div className="flex items-center justify-center p-8 text-muted-foreground">กำลังโหลด...</div>
+                            ) : (
+                              <iframe
+                                srcDoc={previewHtml}
+                                className="w-full border-0"
+                                style={{ minHeight: '500px' }}
+                                title="Email Preview"
+                              />
+                            )}
                           </DialogContent>
                         </Dialog>
                       </div>
@@ -436,10 +430,19 @@ export default function AdminEmailTemplates() {
                   <Eye className="w-4 h-4" /> ตัวอย่างสด
                 </CardTitle>
               </CardHeader>
-              <CardContent className="p-0">
-                <div className="transform scale-[0.5] origin-top-left w-[200%] pointer-events-none">
-                  {renderPreview()}
-                </div>
+              <CardContent className="p-0 overflow-hidden">
+                {previewLoading ? (
+                  <div className="flex items-center justify-center p-8 text-muted-foreground">กำลังโหลด...</div>
+                ) : (
+                  <div className="transform scale-[0.5] origin-top-left w-[200%] pointer-events-none">
+                    <iframe
+                      srcDoc={previewHtml}
+                      className="w-full border-0"
+                      style={{ minHeight: '800px' }}
+                      title="Email Preview Mini"
+                    />
+                  </div>
+                )}
               </CardContent>
             </Card>
           </div>
