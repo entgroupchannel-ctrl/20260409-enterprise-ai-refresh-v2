@@ -2,12 +2,11 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
 import { format } from 'date-fns';
 import { th } from 'date-fns/locale';
 import {
   Send, Paperclip, MessageCircle, X, User, Shield,
-  CheckCheck, ChevronDown,
+  CheckCheck, ChevronDown, Image, FileText, Smile, Headphones,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
@@ -31,17 +30,41 @@ const SESSION_KEY = 'ent_chat_session_id';
 const RoleAvatar = ({ senderType }: { senderType: string }) => {
   if (senderType === 'staff') {
     return (
-      <div className="w-7 h-7 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center shrink-0">
-        <Shield className="w-3.5 h-3.5 text-emerald-600" />
+      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shrink-0 shadow-sm">
+        <Headphones className="w-4 h-4 text-white" />
       </div>
     );
   }
   return (
-    <div className="w-7 h-7 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center shrink-0">
-      <User className="w-3.5 h-3.5 text-blue-600" />
+    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center shrink-0 shadow-sm">
+      <User className="w-4 h-4 text-white" />
     </div>
   );
 };
+
+const WelcomeScreen = () => (
+  <div className="flex flex-col items-center justify-center py-6 px-4 text-center space-y-4">
+    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
+      <MessageCircle className="w-8 h-8 text-primary" />
+    </div>
+    <div>
+      <h4 className="font-semibold text-foreground text-sm">ยินดีต้อนรับสู่ ENT Group</h4>
+      <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
+        ทีมงานพร้อมช่วยเหลือคุณ<br />
+        ตอบกลับภายใน 5 นาทีในเวลาทำการ
+      </p>
+    </div>
+    <div className="flex gap-2">
+      {['💬 สอบถามสินค้า', '📋 ขอใบเสนอราคา', '🔧 แจ้งปัญหา'].map((tag) => (
+        <span key={tag} className="text-[10px] px-2 py-1 rounded-full bg-muted text-muted-foreground">
+          {tag}
+        </span>
+      ))}
+    </div>
+  </div>
+);
+
+const isImageFile = (name: string) => /\.(jpg|jpeg|png|gif|webp|avif|svg)$/i.test(name);
 
 export default function GeneralChatWidget() {
   const [open, setOpen] = useState(false);
@@ -50,6 +73,7 @@ export default function GeneralChatWidget() {
   const [text, setText] = useState('');
   const [sending, setSending] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
+  const [uploading, setUploading] = useState(false);
 
   // Guest info form
   const [guestName, setGuestName] = useState('');
@@ -62,6 +86,7 @@ export default function GeneralChatWidget() {
 
   const bottomRef = useRef<HTMLDivElement>(null);
   const channelRef = useRef<any>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Check auth
   useEffect(() => {
@@ -173,7 +198,7 @@ export default function GeneralChatWidget() {
       session_id: sid,
       sender_type: 'system',
       sender_name: 'ระบบ',
-      content: 'ยินดีต้อนรับ! ทีมงาน ENT Group พร้อมช่วยเหลือคุณ',
+      content: '🎉 ยินดีต้อนรับ! ทีมงาน ENT Group พร้อมช่วยเหลือคุณ — สอบถามสินค้า ขอใบเสนอราคา หรือแจ้งปัญหาได้เลยครับ',
       message_type: 'system',
     });
   };
@@ -201,28 +226,122 @@ export default function GeneralChatWidget() {
     }
   };
 
-  // Don't show for staff users
-  // Check if current path is admin
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !sessionId) return;
+
+    if (file.size > 10 * 1024 * 1024) {
+      toast.error('ไฟล์ต้องมีขนาดไม่เกิน 10 MB');
+      return;
+    }
+
+    setUploading(true);
+    try {
+      const ext = file.name.split('.').pop();
+      const filePath = `chat-attachments/${sessionId}/${Date.now()}.${ext}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('documents')
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data: urlData } = supabase.storage
+        .from('documents')
+        .getPublicUrl(filePath);
+
+      const senderType = userId ? 'customer' : 'guest';
+      const senderName = userId ? (userName ?? 'สมาชิก') : (guestName || 'Guest');
+
+      await supabase.from('chat_messages').insert({
+        session_id: sessionId,
+        sender_type: senderType,
+        sender_id: userId || null,
+        sender_name: senderName,
+        content: `📎 ${file.name}`,
+        message_type: 'attachment',
+        attachment_url: urlData.publicUrl,
+        attachment_name: file.name,
+      });
+
+      toast.success('อัปโหลดไฟล์สำเร็จ');
+    } catch (err: any) {
+      toast.error('อัปโหลดไม่สำเร็จ: ' + (err.message || 'ลองใหม่อีกครั้ง'));
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  };
+
+  // Don't show on admin pages
   if (typeof window !== 'undefined' && window.location.pathname.startsWith('/admin')) {
     return null;
   }
 
+  const renderAttachment = (msg: ChatMessage, isMe: boolean) => {
+    const fileName = msg.attachment_name || 'ไฟล์แนบ';
+    const isImage = isImageFile(fileName);
+
+    if (isImage && msg.attachment_url) {
+      return (
+        <a href={msg.attachment_url} target="_blank" rel="noopener noreferrer" className="block">
+          <img
+            src={msg.attachment_url}
+            alt={fileName}
+            className="max-w-[200px] max-h-[160px] rounded-lg object-cover border border-border/50"
+            loading="lazy"
+          />
+          <span className="text-[10px] opacity-70 mt-1 block">{fileName}</span>
+        </a>
+      );
+    }
+
+    return (
+      <a
+        href={msg.attachment_url || '#'}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={cn(
+          'flex items-center gap-2 px-3 py-2 rounded-lg text-xs transition-colors',
+          isMe ? 'bg-white/10 hover:bg-white/20' : 'bg-muted hover:bg-muted/80'
+        )}
+      >
+        <div className={cn(
+          'w-8 h-8 rounded-lg flex items-center justify-center shrink-0',
+          isMe ? 'bg-white/20' : 'bg-primary/10'
+        )}>
+          <FileText className={cn('w-4 h-4', isMe ? 'text-white' : 'text-primary')} />
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="font-medium truncate">{fileName}</p>
+          <p className="opacity-60 text-[10px]">คลิกเพื่อเปิด</p>
+        </div>
+      </a>
+    );
+  };
+
   return (
-    <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-2">
+    <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-3">
       {open && (
-        <div className="w-[360px] max-h-[520px] rounded-2xl shadow-2xl border bg-background flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-3 duration-200">
+        <div className="w-[380px] max-h-[560px] rounded-2xl shadow-2xl border border-border/50 bg-background flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-3 duration-200">
           {/* Header */}
-          <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-3 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                <MessageCircle className="w-4 h-4" />
+          <div className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground px-4 py-3.5 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="relative">
+                <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                  <Headphones className="w-5 h-5" />
+                </div>
+                <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 rounded-full border-2 border-primary" />
               </div>
               <div>
-                <p className="font-semibold text-sm">ENT Group Support</p>
-                <p className="text-[11px] text-blue-100">ทีมงานพร้อมช่วยเหลือคุณ</p>
+                <p className="font-bold text-sm">ENT Group Support</p>
+                <p className="text-[11px] opacity-80 flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full inline-block" />
+                  ออนไลน์ · ตอบกลับภายใน 5 นาที
+                </p>
               </div>
             </div>
-            <Button size="icon" variant="ghost" className="w-7 h-7 text-white hover:bg-white/20"
+            <Button size="icon" variant="ghost" className="w-8 h-8 text-primary-foreground hover:bg-white/20 rounded-full"
               onClick={() => setOpen(false)}>
               <X className="w-4 h-4" />
             </Button>
@@ -230,57 +349,64 @@ export default function GeneralChatWidget() {
 
           {/* Guest Info Form */}
           {showForm && !userId && !sessionId ? (
-            <div className="p-4 space-y-3">
-              <p className="text-sm font-medium text-foreground">เริ่มต้นสนทนา</p>
-              <p className="text-xs text-muted-foreground">กรอกข้อมูลเพื่อเริ่มแชทกับทีมงาน</p>
-              <Input
-                placeholder="ชื่อ-นามสกุล *"
-                value={guestName}
-                onChange={e => setGuestName(e.target.value)}
-                className="h-9 text-sm"
-              />
-              <Input
-                type="email"
-                placeholder="อีเมล *"
-                value={guestEmail}
-                onChange={e => setGuestEmail(e.target.value)}
-                className="h-9 text-sm"
-              />
-              <Button className="w-full" size="sm" onClick={startSession}>
-                <MessageCircle className="w-4 h-4 mr-2" />
-                เริ่มแชท
-              </Button>
+            <div className="p-5 space-y-4">
+              <WelcomeScreen />
+              <div className="space-y-3">
+                <Input
+                  placeholder="ชื่อของคุณ *"
+                  value={guestName}
+                  onChange={e => setGuestName(e.target.value)}
+                  className="h-10 text-sm rounded-xl"
+                />
+                <Input
+                  type="email"
+                  placeholder="อีเมล *"
+                  value={guestEmail}
+                  onChange={e => setGuestEmail(e.target.value)}
+                  className="h-10 text-sm rounded-xl"
+                />
+                <Button className="w-full h-10 rounded-xl font-medium" onClick={startSession}>
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  เริ่มสนทนา
+                </Button>
+              </div>
               <p className="text-[10px] text-muted-foreground text-center">
-                หรือ <a href="/login" className="text-blue-600 underline">เข้าสู่ระบบ</a> เพื่อดูประวัติแชท
+                หรือ <a href="/login" className="text-primary underline font-medium">เข้าสู่ระบบ</a> เพื่อดูประวัติแชท
               </p>
             </div>
           ) : !sessionId && userId ? (
-            <div className="p-4 space-y-3">
-              <p className="text-sm text-foreground">สวัสดี {userName}! 👋</p>
-              <Button className="w-full" size="sm" onClick={startSession}>
+            <div className="p-5 space-y-4">
+              <WelcomeScreen />
+              <div className="bg-muted/50 rounded-xl p-3 flex items-center gap-3">
+                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center">
+                  <User className="w-4 h-4 text-white" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-foreground">{userName}</p>
+                  <p className="text-[11px] text-muted-foreground">สมาชิก</p>
+                </div>
+              </div>
+              <Button className="w-full h-10 rounded-xl font-medium" onClick={startSession}>
                 <MessageCircle className="w-4 h-4 mr-2" />
                 เริ่มสนทนาใหม่
               </Button>
             </div>
           ) : (
             /* Chat Messages */
-            <div className="flex flex-col flex-1 max-h-[430px]">
-              <div className="flex-1 overflow-y-auto p-3 space-y-2 bg-muted/10">
-                {messages.length === 0 && (
-                  <div className="text-center py-8 text-muted-foreground text-xs">
-                    ยังไม่มีข้อความ — เริ่มส่งข้อความหาทีมงานได้เลย
-                  </div>
-                )}
+            <div className="flex flex-col flex-1 max-h-[460px]">
+              <div className="flex-1 overflow-y-auto p-3 space-y-3 bg-gradient-to-b from-muted/20 to-background">
+                {messages.length === 0 && <WelcomeScreen />}
 
                 {messages.map((msg, idx) => {
                   const isMe = msg.sender_type === 'guest' || msg.sender_type === 'customer';
                   const isSystem = msg.sender_type === 'system';
                   const showSender = idx === 0 || messages[idx - 1].sender_type !== msg.sender_type;
+                  const showTime = idx === messages.length - 1 || messages[idx + 1]?.sender_type !== msg.sender_type;
 
                   if (isSystem) {
                     return (
-                      <div key={msg.id} className="flex justify-center">
-                        <span className="text-[10px] text-muted-foreground bg-muted px-3 py-0.5 rounded-full">
+                      <div key={msg.id} className="flex justify-center my-3">
+                        <span className="text-[11px] text-muted-foreground bg-muted/80 backdrop-blur-sm px-4 py-1.5 rounded-full leading-relaxed">
                           {msg.content}
                         </span>
                       </div>
@@ -289,35 +415,34 @@ export default function GeneralChatWidget() {
 
                   return (
                     <div key={msg.id} className={cn('flex gap-2', isMe ? 'justify-end' : 'justify-start')}>
-                      {!isMe && <RoleAvatar senderType={msg.sender_type} />}
-                      <div className={cn('max-w-[75%] space-y-0.5 flex flex-col', isMe ? 'items-end' : 'items-start')}>
+                      {!isMe && showSender && <RoleAvatar senderType={msg.sender_type} />}
+                      {!isMe && !showSender && <div className="w-8 shrink-0" />}
+                      <div className={cn('max-w-[78%] space-y-0.5 flex flex-col', isMe ? 'items-end' : 'items-start')}>
                         {showSender && !isMe && (
-                          <span className="text-[10px] text-muted-foreground px-1">
-                            {msg.sender_name} (ทีมงาน)
+                          <span className="text-[10px] text-muted-foreground px-1 font-medium">
+                            {msg.sender_name} · ทีมงาน
                           </span>
                         )}
                         <div className={cn(
-                          'rounded-2xl px-3 py-2 text-sm break-words',
+                          'rounded-2xl px-3.5 py-2.5 text-sm break-words shadow-sm',
                           isMe
-                            ? 'bg-blue-600 text-white rounded-tr-sm'
-                            : 'bg-card border rounded-tl-sm'
+                            ? 'bg-primary text-primary-foreground rounded-br-md'
+                            : 'bg-card border border-border/60 rounded-bl-md'
                         )}>
-                          {msg.attachment_url ? (
-                            <a href={msg.attachment_url} target="_blank" rel="noopener noreferrer"
-                              className="flex items-center gap-1.5 underline text-xs">
-                              <Paperclip className="w-3.5 h-3.5 shrink-0" />
-                              {msg.attachment_name || 'ไฟล์แนบ'}
-                            </a>
+                          {msg.message_type === 'attachment' && msg.attachment_url ? (
+                            renderAttachment(msg, isMe)
                           ) : (
                             <p className="whitespace-pre-wrap leading-relaxed">{msg.content}</p>
                           )}
                         </div>
-                        <div className={cn('flex items-center gap-1 px-1', isMe ? 'flex-row-reverse' : 'flex-row')}>
-                          <span className="text-[10px] text-muted-foreground">
-                            {format(new Date(msg.created_at), 'HH:mm', { locale: th })}
-                          </span>
-                          {isMe && <CheckCheck className="w-3 h-3 text-muted-foreground" />}
-                        </div>
+                        {showTime && (
+                          <div className={cn('flex items-center gap-1 px-1', isMe ? 'flex-row-reverse' : 'flex-row')}>
+                            <span className="text-[10px] text-muted-foreground">
+                              {format(new Date(msg.created_at), 'HH:mm', { locale: th })}
+                            </span>
+                            {isMe && <CheckCheck className="w-3 h-3 text-muted-foreground" />}
+                          </div>
+                        )}
                       </div>
                     </div>
                   );
@@ -325,22 +450,52 @@ export default function GeneralChatWidget() {
                 <div ref={bottomRef} />
               </div>
 
-              {/* Input */}
-              <div className="border-t bg-card p-2.5">
-                <div className="flex gap-1.5 items-center">
+              {/* Input Area */}
+              <div className="border-t border-border/60 bg-card p-3">
+                <div className="flex gap-2 items-end">
                   <input
-                    className="flex-1 px-3 py-1.5 rounded-xl bg-muted border border-border text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
-                    placeholder="พิมพ์ข้อความ..."
-                    value={text}
-                    onChange={e => setText(e.target.value)}
-                    onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }}
-                    disabled={sending}
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleFileUpload}
+                    className="hidden"
+                    accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.txt,.csv"
                   />
-                  <Button size="icon" className="h-8 w-8 shrink-0 rounded-xl"
-                    onClick={sendMessage} disabled={!text.trim() || sending}>
-                    <Send className="w-3.5 h-3.5" />
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    className="h-9 w-9 shrink-0 rounded-xl text-muted-foreground hover:text-primary"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={uploading}
+                    title="แนบไฟล์"
+                  >
+                    {uploading ? (
+                      <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                    ) : (
+                      <Paperclip className="w-4 h-4" />
+                    )}
+                  </Button>
+                  <div className="flex-1 relative">
+                    <input
+                      className="w-full px-4 py-2 rounded-xl bg-muted/50 border border-border text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-all"
+                      placeholder="พิมพ์ข้อความ..."
+                      value={text}
+                      onChange={e => setText(e.target.value)}
+                      onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }}
+                      disabled={sending}
+                    />
+                  </div>
+                  <Button
+                    size="icon"
+                    className="h-9 w-9 shrink-0 rounded-xl"
+                    onClick={sendMessage}
+                    disabled={!text.trim() || sending}
+                  >
+                    <Send className="w-4 h-4" />
                   </Button>
                 </div>
+                <p className="text-[9px] text-muted-foreground text-center mt-1.5 opacity-60">
+                  รองรับไฟล์ภาพ, PDF, Excel สูงสุด 10 MB
+                </p>
               </div>
             </div>
           )}
@@ -350,15 +505,22 @@ export default function GeneralChatWidget() {
       {/* FAB */}
       <button
         onClick={() => setOpen(o => !o)}
-        className="relative w-14 h-14 rounded-full bg-blue-600 hover:bg-blue-700 text-white shadow-xl flex items-center justify-center transition-all active:scale-95"
+        className={cn(
+          "relative w-14 h-14 rounded-full shadow-xl flex items-center justify-center transition-all active:scale-95",
+          "bg-gradient-to-br from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground",
+          open && "rotate-0"
+        )}
       >
         {open
           ? <ChevronDown className="w-6 h-6" />
           : <MessageCircle className="w-6 h-6" />}
         {!open && unreadCount > 0 && (
-          <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+          <span className="absolute -top-1 -right-1 w-5 h-5 bg-destructive text-destructive-foreground text-[10px] font-bold rounded-full flex items-center justify-center animate-pulse">
             {unreadCount > 9 ? '9+' : unreadCount}
           </span>
+        )}
+        {!open && unreadCount === 0 && (
+          <span className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-emerald-400 rounded-full border-2 border-background" />
         )}
       </button>
     </div>
