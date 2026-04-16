@@ -510,7 +510,7 @@ const SmartDisplay = () => {
                       className="mt-2 w-full inline-flex items-center justify-center gap-1 px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity">
                       <FileText size={12} /> ขอใบเสนอราคา
                     </button>
-                    <AddToCartButton productModel={s.model} productName={s.model} productDescription={`Outdoor Monitor ${s.size} ${s.nits}`} size="sm" variant="outline" className="mt-1 w-full justify-center" />
+                    <AddToCartButton productModel={`Outdoor Monitor ${s.size}`} productName={`Outdoor Monitor ${s.size}`} productDescription={`Outdoor Monitor ${s.size} ${s.nits}`} size="sm" variant="outline" className="mt-1 w-full justify-center" />
                   </div>
                 ))}
               </div>
