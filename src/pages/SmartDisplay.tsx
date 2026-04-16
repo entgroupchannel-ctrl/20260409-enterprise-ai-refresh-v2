@@ -10,6 +10,7 @@ import {
   Filter, Star, Building2, Maximize, Lightbulb, Headphones
 } from "lucide-react";
 import AddToCartButton from "@/components/AddToCartButton";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import CartBadge from "@/components/CartBadge";
 import ThemeToggle from "@/components/ThemeToggle";
 import logo from "@/assets/logo-entgroup.avif";
@@ -275,11 +276,7 @@ const SmartDisplay = () => {
                       <span className="text-xs px-2 py-1 rounded-full bg-primary/10 text-primary font-medium">{p.size}</span>
                     </div>
                     <p className="text-sm text-muted-foreground">{p.type}</p>
-                    <button
-                      onClick={() => navigate("/contact-us")}
-                      className="mt-4 w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity">
-                      <FileText size={14} /> ขอใบเสนอราคา
-                    </button>
+                    <QuoteRequestButton productModel={p.model} productName={`${p.model} ${p.size}`} fullWidth className="mt-4" />
                     <AddToCartButton productModel={p.model} productName={`${p.model} ${p.size}`} productDescription={`Smart Display ${p.type} ${p.size}`} size="sm" variant="outline" className="mt-2 w-full justify-center" />
                   </div>
                 ))}
@@ -412,11 +409,7 @@ const SmartDisplay = () => {
                             <td className="p-3 text-muted-foreground">{item.config}</td>
                             <td className="p-3 text-right font-bold text-primary">{item.price}</td>
                             <td className="p-3 text-right">
-                              <button
-                                onClick={() => navigate("/contact-us")}
-                                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity">
-                                <FileText size={12} /> ขอราคา
-                              </button>
+                              <QuoteRequestButton productModel={item.model} productName={item.model} size="sm" />
                             </td>
                           </tr>
                         ))}
@@ -505,11 +498,7 @@ const SmartDisplay = () => {
                     <a href={s.datasheet} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs text-primary hover:underline mt-1">
                       <Download size={12} /> Datasheet
                     </a>
-                    <button
-                      onClick={() => navigate("/contact-us")}
-                      className="mt-2 w-full inline-flex items-center justify-center gap-1 px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity">
-                      <FileText size={12} /> ขอใบเสนอราคา
-                    </button>
+                    <QuoteRequestButton productModel={`Outdoor Monitor ${s.size}`} productName={`Outdoor Monitor ${s.size}`} size="sm" fullWidth className="mt-2" />
                     <AddToCartButton productModel={`Outdoor Monitor ${s.size}`} productName={`Outdoor Monitor ${s.size}`} productDescription={`Outdoor Monitor ${s.size} ${s.nits}`} size="sm" variant="outline" className="mt-1 w-full justify-center" />
                   </div>
                 ))}
@@ -573,11 +562,7 @@ const SmartDisplay = () => {
                       ))}
                     </div>
                     <div className="flex flex-wrap gap-3">
-                      <button
-                        onClick={() => navigate("/contact-us")}
-                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition-opacity">
-                        <FileText size={18} /> ขอใบเสนอราคา KIOSK
-                      </button>
+                      <QuoteRequestButton productModel="KIOSK" productName="ตู้ KIOSK สำเร็จรูป" size="lg" />
                       <button
                         onClick={() => setShowLineQR(true)}
                         className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-bold hover:bg-secondary transition-colors">
@@ -681,11 +666,7 @@ const SmartDisplay = () => {
                     </div>
                     <h3 className="font-bold text-foreground mb-1">{k.title}</h3>
                     <p className="text-sm text-muted-foreground mb-3">{k.desc}</p>
-                    <button
-                      onClick={() => navigate("/contact-us")}
-                      className="w-full inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity">
-                      <FileText size={14} /> ขอใบเสนอราคา
-                    </button>
+                    <QuoteRequestButton productModel={k.title} productName={k.title} size="sm" fullWidth />
                   </div>
                 ))}
               </div>
@@ -809,11 +790,7 @@ const SmartDisplay = () => {
                       <div className="p-5">
                         <h4 className="font-bold text-foreground mb-1">{k.title}</h4>
                         <p className="text-sm text-muted-foreground mb-3">{k.desc}</p>
-                        <button
-                          onClick={() => navigate("/contact-us")}
-                          className="inline-flex items-center gap-2 text-sm text-primary font-semibold hover:underline">
-                          <FileText size={14} /> ขอใบเสนอราคา
-                        </button>
+                        <QuoteRequestButton productModel={k.title} productName={k.title} size="sm" variant="outline" />
                       </div>
                     </div>
                   ))}
@@ -923,11 +900,7 @@ const SmartDisplay = () => {
                   บอกเราว่าคุณต้องการใช้งานแบบไหน ทีมงานจะแนะนำรุ่นที่เหมาะสมที่สุดและเสนอราคาพิเศษให้
                 </p>
                 <div className="flex flex-wrap justify-center gap-3">
-                  <button
-                    onClick={() => navigate("/contact-us")}
-                    className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-lg hover:opacity-90 transition-opacity">
-                    <FileText size={20} /> ขอใบเสนอราคา KIOSK
-                  </button>
+                  <QuoteRequestButton productModel="KIOSK" productName="ตู้ KIOSK สำเร็จรูป" size="lg" />
                   <a href="tel:020456104" className="inline-flex items-center gap-2 px-6 py-4 rounded-xl border border-border text-foreground font-bold hover:bg-secondary transition-colors">
                     <Phone size={18} /> 02-045-6104
                   </a>
@@ -958,11 +931,7 @@ const SmartDisplay = () => {
                         <span key={app} className="text-[11px] px-2.5 py-1 rounded-full bg-secondary text-secondary-foreground">{app}</span>
                       ))}
                     </div>
-                    <button
-                      onClick={() => navigate("/contact-us")}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-bold hover:opacity-90 transition-opacity">
-                      <FileText size={16} /> ขอใบเสนอราคา
-                    </button>
+                    <QuoteRequestButton productModel="Window Display" productName="Window Display" />
                   </div>
                   <div className="bg-secondary/30 p-6 flex items-center justify-center">
                     <img
@@ -1247,9 +1216,7 @@ const SmartDisplay = () => {
           </h2>
           <p className="text-muted-foreground mb-8">แอดมินพร้อมช่วยเหลือในการออกแบบตู้สำหรับติดตั้ง ระบบ AirFlow และเลือกจอภาพที่เหมาะสม</p>
           <div className="flex flex-wrap justify-center gap-4 mb-10">
-            <button onClick={() => navigate("/contact-us")} className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:bg-primary/90 transition-colors">
-              ขอใบเสนอราคา
-            </button>
+            <QuoteRequestButton productModel="Smart Display" productName="Smart Display & KIOSK" size="lg" />
             <a href="tel:020456104" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-secondary transition-colors">
               <Phone size={18} /> 02-045-6104
             </a>
