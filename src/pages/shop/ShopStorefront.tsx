@@ -128,7 +128,7 @@ const ShopStorefront = () => {
             'Firewall':    '/product-placeholder.svg',
             'Rugged':      '/product-placeholder.svg',
             'IBox':        '/product-placeholder.svg',
-            'EPC Series':  '/product-placeholder.svg',
+            'EPC Series':  '/images/wix/0597a3_e66a5a6616b64254a920d2c6f05b93f8_48ed79f4.png',
             'UTC Series':  '/product-placeholder.svg',
             'AIO':         '/product-placeholder.svg',
           };
