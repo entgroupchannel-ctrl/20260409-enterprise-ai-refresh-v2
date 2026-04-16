@@ -336,13 +336,14 @@ const GBSeries = () => {
             <ArrowLeft size={16} /> หน้าแรก
           </Link>
           <h1 className="text-sm font-bold">GB Series Industrial PC</h1>
-          <button
-            onClick={() => setQuoteOpen(true)}
-            className="text-xs px-3 py-1.5 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity">
-            ขอใบเสนอราคา
-          </button>
-        </div>
-      </div>
+          <div className="flex items-center gap-3">
+            <CartBadge />
+            <button
+              onClick={() => setQuoteOpen(true)}
+              className="text-xs px-3 py-1.5 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity">
+              ขอใบเสนอราคา
+            </button>
+          </div>
 
       {/* Hero */}
       <section className="relative overflow-hidden">
