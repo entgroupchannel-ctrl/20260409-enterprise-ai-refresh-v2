@@ -151,16 +151,15 @@ const ShopStorefront = () => {
             const fileImg = fileImgByProduct[p.id];
             const modelOverride = modelImageMap[p.sku];
             const dbImg = p.thumbnail_url || p.image_url;
-            // If dbImg references a /images/wix/ path that might not exist, check for override
-            const needsOverride = dbImg && dbImg.startsWith('/images/wix/') && modelOverride;
             const fallback = (p.series && seriesFallback[p.series]) || '/product-placeholder.svg';
-            const resolvedImg = fileImg || (needsOverride ? modelOverride : dbImg) || fallback;
+            // Use model override if available, otherwise use DB image
+            const bestImg = modelOverride || fileImg || dbImg || fallback;
             return {
               ...p,
               variant_count: variantCounts[p.id] || 0,
               starting_price: minPriceByProduct[p.id] || p.unit_price,
-              thumbnail_url: resolvedImg,
-              image_url: fileImg || (needsOverride ? modelOverride : p.image_url) || fallback,
+              thumbnail_url: bestImg,
+              image_url: modelOverride || fileImg || p.image_url || fallback,
             };
           });
           setProducts(enriched as Product[]);
