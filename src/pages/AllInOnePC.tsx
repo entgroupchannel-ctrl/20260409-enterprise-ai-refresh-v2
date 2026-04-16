@@ -109,12 +109,7 @@ const AIOCard = ({
             <Monitor className="w-3.5 h-3.5 mr-1.5" /> ดูรายละเอียด
           </Link>
         </Button>
-        <Button
-          size="sm"
-          className="flex-1"
-          onClick={() => onQuote(product.model)}>
-          <FileText className="w-3.5 h-3.5 mr-1.5" /> สอบถามราคา
-        </Button>
+        <QuoteRequestButton productModel={product.model} productName={`${product.model} ${product.title}`} size="sm" className="flex-1" />
         <AddToCartButton productModel={product.model} productName={product.model} productDescription={`${product.title} — ${product.cpu}`} size="sm" variant="outline" />
       </div>
     </div>
@@ -270,13 +265,7 @@ const AllInOnePC = () => {
           {selectedProducts.size > 0 && (
             <span className="ml-3 text-primary font-medium">
               เลือกแล้ว {selectedProducts.size} รุ่น —{" "}
-              <button
-                className="underline hover:no-underline"
-                onClick={() => {
-                  setQuoteProduct(Array.from(selectedProducts).join(", "));
-                }}>
-                ขอใบเสนอราคารวม
-              </button>
+              <QuoteRequestButton productModel={Array.from(selectedProducts).join(", ")} productName="All-in-One PC รวม" size="sm" />
             </span>
           )}
         </p>

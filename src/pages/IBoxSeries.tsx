@@ -461,9 +461,7 @@ const IBoxSeries = () => {
                             <Download className="w-3.5 h-3.5 mr-1" /> Datasheet
                           </a>
                         </Button>
-                        <Button size="sm" className="flex-1" onClick={() => setQuoteProduct(model.name)}>
-                          <FileText className="w-3.5 h-3.5 mr-1" /> ขอราคา
-                        </Button>
+                        <QuoteRequestButton productModel={model.name} productName={model.name} size="sm" className="flex-1" />
                       </div>
                     </div>
                   </div>
