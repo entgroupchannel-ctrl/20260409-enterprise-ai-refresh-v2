@@ -6,6 +6,8 @@ import {
   Play, ThumbsUp, Share2, ExternalLink,
 } from "lucide-react";
 import { ChevronRight } from "lucide-react";
+import AddToCartButton from "@/components/AddToCartButton";
+import CartBadge from "@/components/CartBadge";
 import ShareButtons from "@/components/ShareButtons";
 import relatedTablet from "@/assets/related-rugged-tablet.jpg";
 import relatedHandheld from "@/assets/related-rugged-handheld.jpg";
@@ -187,7 +189,10 @@ const RuggedNotebookPage = () => {
             <Link to="/" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors">
               <ArrowLeft className="w-3.5 h-3.5" /> กลับหน้าหลัก
             </Link>
-            <span className="text-[10px] text-muted-foreground">Rugged Notebook — {ruggedNotebooks.length} รุ่น</span>
+            <div className="flex items-center gap-3">
+              <span className="text-[10px] text-muted-foreground">Rugged Notebook — {ruggedNotebooks.length} รุ่น</span>
+              <CartBadge />
+            </div>
           </div>
           <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide py-2">
             <span className="text-xs text-muted-foreground whitespace-nowrap shrink-0">เลือก:</span>
@@ -462,7 +467,7 @@ const NotebookCard = ({ product, selected, onToggleSelect }: { product: RuggedNo
           </div>
         )}
 
-        <div className="mt-auto pt-3 border-t border-border flex items-center justify-between">
+        <div className="mt-auto pt-3 border-t border-border flex items-center justify-between gap-2">
           <div>
             {cfg ? (
               <span className="text-lg font-extrabold text-primary">{cfg.price}</span>
@@ -470,6 +475,7 @@ const NotebookCard = ({ product, selected, onToggleSelect }: { product: RuggedNo
               <span className="text-sm font-semibold text-muted-foreground">สอบถามราคา</span>
             )}
           </div>
+          <AddToCartButton productModel={product.model} productName={product.model} productDescription={`${product.title} — ${product.cpu}`} size="sm" variant="outline" />
         </div>
       </div>
     </div>
