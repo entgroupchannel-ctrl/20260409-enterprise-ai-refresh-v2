@@ -297,7 +297,7 @@ export default function ShopProductConfigurator({ product, quantity, onConfigCha
               >
                 {opt.label}
                 {opt.value === 'wifi6' && (
-                  <span className="text-[10px] ml-1 opacity-70">+฿{fmt(ADDON_PRICES.wifi6_upgrade)}</span>
+                  <span className="text-[10px] ml-1 opacity-70">({ADDON_CONTACT_LABEL})</span>
                 )}
               </ChipButton>
             ))}
@@ -328,16 +328,24 @@ export default function ShopProductConfigurator({ product, quantity, onConfigCha
             <AddonRow
               icon={Smartphone}
               label="4G LTE Module"
+              contactAdmin
               included={matchedVariant.has_4g}
               checked={matchedVariant.has_4g}
               disabled
             />
             <AddonRow
+              icon={Wifi}
+              label="WiFi 6 (AX) Upgrade"
+              contactAdmin
+              checked={config.wifi === 'wifi6'}
+              disabled
+            />
+            <AddonRow
               icon={Bluetooth}
               label="Bluetooth Module"
-              price={ADDON_PRICES.bluetooth}
+              contactAdmin
               checked={config.bluetooth}
-              onChange={(v) => set('bluetooth', v)}
+              disabled
             />
           </div>
         </ConfigSection>
