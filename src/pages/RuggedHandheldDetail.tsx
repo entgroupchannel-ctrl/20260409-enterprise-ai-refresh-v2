@@ -152,7 +152,6 @@ const RuggedHandheldDetail = () => {
               <p className="text-xl font-bold text-primary mb-3">สอบถามราคา</p>
               <div className="flex flex-wrap gap-2 text-sm">
                 <QuoteRequestButton productModel={product.model} productName={product.model} size="sm" className="rounded-full" />
-                </button>
                 <a href="tel:020456104" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary hover:bg-secondary/80 transition-colors">
                   <Phone className="w-3.5 h-3.5" /> 02-045-6104
                 </a>
