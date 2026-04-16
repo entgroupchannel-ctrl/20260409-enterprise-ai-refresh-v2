@@ -29,14 +29,15 @@ interface QuoteRequestButtonProps {
   productName?: string;
   productImage?: string;
   variant?: 'default' | 'outline' | 'secondary';
-  size?: 'default' | 'sm' | 'lg';
+  size?: 'default' | 'sm' | 'lg' | 'icon';
   fullWidth?: boolean;
   className?: string;
+  iconOnly?: boolean;
 }
 
 export default function QuoteRequestButton({
   productModel, productName, productImage,
-  variant = 'default', size = 'default', fullWidth = false, className = '',
+  variant = 'default', size = 'default', fullWidth = false, className = '', iconOnly = false,
 }: QuoteRequestButtonProps) {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -264,9 +265,9 @@ export default function QuoteRequestButton({
 
   return (
     <>
-      <Button variant={variant} size={size} className={`${fullWidth ? 'w-full' : ''} ${className}`} onClick={handleQuickRequest}>
-        <FileText className="w-4 h-4 mr-2" />
-        ขอใบเสนอราคา
+      <Button variant={variant} size={iconOnly ? 'icon' : size} className={`${fullWidth ? 'w-full' : ''} ${className}`} onClick={handleQuickRequest} title="ขอใบเสนอราคา">
+        <FileText className={iconOnly ? "w-4 h-4" : "w-4 h-4 mr-2"} />
+        {!iconOnly && 'ขอใบเสนอราคา'}
       </Button>
 
       {/* Main Quote Dialog */}

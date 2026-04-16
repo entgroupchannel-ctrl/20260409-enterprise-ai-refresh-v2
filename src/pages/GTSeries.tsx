@@ -1137,33 +1137,43 @@ const GTSeries = () => {
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
-                    <thead>
-                      <tr className="bg-secondary/50">
-                        <th className="text-left p-3 font-semibold text-foreground">CPU</th>
-                        <th className="text-left p-3 font-semibold text-foreground min-w-[280px]">Configuration</th>
-                        <th className="text-right p-3 font-semibold text-foreground">ราคา</th>
-                        <th className="text-left p-3 font-semibold text-foreground">หมายเหตุ</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-border">
-                      {[
-                        { model: "N2920", config: "RAM DDR3L 4GB + SSD 128GB + WiFi", price: "15,990", remark: "" },
-                        { model: "N2920", config: "RAM DDR3L 8GB + SSD 128GB + WiFi", price: "16,990", remark: "" },
-                        { model: "N2920", config: "RAM 4GB / SSD 128GB / 4G Module (Long Antenna)", price: "18,990", remark: "รองรับ SIM 4G LTE" },
-                        { model: "N2920", config: "RAM 4GB / SSD 128GB / 4G / Windows 10 Pro", price: "21,990", remark: "รวม Windows 10 Pro OEM" },
-                        { model: "N2920", config: "RAM DDR3L 8GB + SSD 256GB + WiFi", price: "18,990", remark: "รวม Windows 10 Pro OEM" },
-                        { model: "N3520", config: "RAM DDR3L 4GB + SSD 128GB + WiFi", price: "17,990", remark: "CPU เร็วกว่า" },
-                        { model: "N3520", config: "RAM DDR3L 8GB + SSD 128GB + WiFi", price: "18,990", remark: "" },
-                        { model: "N3520", config: "RAM 4GB / SSD 128GB / 4G Module (Long Antenna)", price: "21,990", remark: "รองรับ SIM 4G LTE" },
-                      ].map((item, i) => (
-                        <tr key={i} className="hover:bg-secondary/30 transition-colors">
-                          <td className="p-3 text-foreground font-medium font-mono">{item.model}</td>
-                          <td className="p-3 text-muted-foreground">{item.config}</td>
-                          <td className="p-3 text-right font-bold text-primary whitespace-nowrap">฿{item.price}</td>
-                          <td className="p-3 text-xs text-muted-foreground">{item.remark}</td>
-                        </tr>
-                      ))}
-                    </tbody>
+                     <thead>
+                       <tr className="bg-secondary/50">
+                         <th className="text-left p-3 font-semibold text-foreground">CPU</th>
+                         <th className="text-left p-3 font-semibold text-foreground min-w-[280px]">Configuration</th>
+                         <th className="text-right p-3 font-semibold text-foreground">ราคา</th>
+                         <th className="text-left p-3 font-semibold text-foreground">หมายเหตุ</th>
+                         <th className="p-3 w-20"></th>
+                       </tr>
+                     </thead>
+                     <tbody className="divide-y divide-border">
+                       {[
+                         { model: "N2920", config: "RAM DDR3L 4GB + SSD 128GB + WiFi", price: "15,990", remark: "" },
+                         { model: "N2920", config: "RAM DDR3L 8GB + SSD 128GB + WiFi", price: "16,990", remark: "" },
+                         { model: "N2920", config: "RAM 4GB / SSD 128GB / 4G Module (Long Antenna)", price: "18,990", remark: "รองรับ SIM 4G LTE" },
+                         { model: "N2920", config: "RAM 4GB / SSD 128GB / 4G / Windows 10 Pro", price: "21,990", remark: "รวม Windows 10 Pro OEM" },
+                         { model: "N2920", config: "RAM DDR3L 8GB + SSD 256GB + WiFi", price: "18,990", remark: "รวม Windows 10 Pro OEM" },
+                         { model: "N3520", config: "RAM DDR3L 4GB + SSD 128GB + WiFi", price: "17,990", remark: "CPU เร็วกว่า" },
+                         { model: "N3520", config: "RAM DDR3L 8GB + SSD 128GB + WiFi", price: "18,990", remark: "" },
+                         { model: "N3520", config: "RAM 4GB / SSD 128GB / 4G Module (Long Antenna)", price: "21,990", remark: "รองรับ SIM 4G LTE" },
+                       ].map((item, i) => {
+                         const specLabel = `GT1000 ${item.model} ${item.config}`;
+                         return (
+                         <tr key={i} className="hover:bg-secondary/30 transition-colors">
+                           <td className="p-3 text-foreground font-medium font-mono">{item.model}</td>
+                           <td className="p-3 text-muted-foreground">{item.config}</td>
+                           <td className="p-3 text-right font-bold text-primary whitespace-nowrap">฿{item.price}</td>
+                           <td className="p-3 text-xs text-muted-foreground">{item.remark}</td>
+                           <td className="p-3">
+                             <div className="inline-flex items-center gap-1">
+                               <AddToCartButton productModel="GT1000" productName={specLabel} iconOnly variant="outline" />
+                               <QuoteRequestButton productModel="GT1000" productName={specLabel} iconOnly variant="outline" />
+                             </div>
+                           </td>
+                         </tr>
+                         );
+                       })}
+                     </tbody>
                   </table>
                 </div>
                 <div className="p-4 border-t border-border text-center">
@@ -1623,30 +1633,40 @@ const GTSeries = () => {
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="bg-secondary/50">
-                        <th className="text-left p-3 font-semibold text-foreground">CPU</th>
-                        <th className="text-left p-3 font-semibold text-foreground">Configuration</th>
-                        <th className="text-right p-3 font-semibold text-foreground">ราคา</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-border">
-                      {[
-                        { cpu: "Celeron 1037U", config: "RAM DDR3L 4GB + SSD 128GB + WIFI", price: "16,990" },
-                        { cpu: "Celeron 1037U", config: "RAM DDR3L 4GB + SSD 256GB + WIFI", price: "15,990" },
-                        { cpu: "Celeron 1037U", config: "RAM DDR3L 8GB + SSD 128GB + WIFI", price: "15,990" },
-                        { cpu: "Celeron 1037U", config: "RAM DDR3L 8GB + SSD 256GB + WIFI", price: "16,990" },
-                        { cpu: "Core i5-3317U", config: "RAM DDR3L 4GB + SSD 128GB + WIFI", price: "18,990" },
-                        { cpu: "Core i5-3317U", config: "RAM DDR3L 4GB + SSD 256GB + WIFI", price: "19,990" },
-                        { cpu: "Core i5-3317U", config: "RAM DDR3L 4GB + SSD 512GB + WIFI", price: "21,990" },
-                        { cpu: "Core i5-3317U", config: "RAM DDR3L 8GB + SSD 128GB + WIFI", price: "18,990" },
-                      ].map((item, i) => (
-                        <tr key={i} className="hover:bg-secondary/30 transition-colors">
-                          <td className="p-3 text-foreground font-medium">{item.cpu}</td>
-                          <td className="p-3 text-muted-foreground">{item.config}</td>
-                          <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
-                        </tr>
-                      ))}
-                    </tbody>
+                       <tr className="bg-secondary/50">
+                         <th className="text-left p-3 font-semibold text-foreground">CPU</th>
+                         <th className="text-left p-3 font-semibold text-foreground">Configuration</th>
+                         <th className="text-right p-3 font-semibold text-foreground">ราคา</th>
+                         <th className="p-3 w-20"></th>
+                       </tr>
+                     </thead>
+                     <tbody className="divide-y divide-border">
+                       {[
+                         { cpu: "Celeron 1037U", config: "RAM DDR3L 4GB + SSD 128GB + WIFI", price: "16,990" },
+                         { cpu: "Celeron 1037U", config: "RAM DDR3L 4GB + SSD 256GB + WIFI", price: "15,990" },
+                         { cpu: "Celeron 1037U", config: "RAM DDR3L 8GB + SSD 128GB + WIFI", price: "15,990" },
+                         { cpu: "Celeron 1037U", config: "RAM DDR3L 8GB + SSD 256GB + WIFI", price: "16,990" },
+                         { cpu: "Core i5-3317U", config: "RAM DDR3L 4GB + SSD 128GB + WIFI", price: "18,990" },
+                         { cpu: "Core i5-3317U", config: "RAM DDR3L 4GB + SSD 256GB + WIFI", price: "19,990" },
+                         { cpu: "Core i5-3317U", config: "RAM DDR3L 4GB + SSD 512GB + WIFI", price: "21,990" },
+                         { cpu: "Core i5-3317U", config: "RAM DDR3L 8GB + SSD 128GB + WIFI", price: "18,990" },
+                       ].map((item, i) => {
+                         const specLabel = `GT2000 ${item.cpu} ${item.config}`;
+                         return (
+                         <tr key={i} className="hover:bg-secondary/30 transition-colors">
+                           <td className="p-3 text-foreground font-medium">{item.cpu}</td>
+                           <td className="p-3 text-muted-foreground">{item.config}</td>
+                           <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
+                           <td className="p-3">
+                             <div className="inline-flex items-center gap-1">
+                               <AddToCartButton productModel="GT2000" productName={specLabel} iconOnly variant="outline" />
+                               <QuoteRequestButton productModel="GT2000" productName={specLabel} iconOnly variant="outline" />
+                             </div>
+                           </td>
+                         </tr>
+                         );
+                       })}
+                     </tbody>
                    </table>
                 </div>
                 <div className="p-4 border-t border-border text-center">
@@ -2169,21 +2189,30 @@ const GTSeries = () => {
                     <div className="overflow-x-auto">
                       <table className="w-full text-sm">
                         <thead>
-                          <tr className="border-b border-border bg-muted/30">
-                            <th className="text-left p-3 font-bold text-foreground">Model</th>
-                            <th className="text-left p-3 font-bold text-foreground">Configuration</th>
-                            <th className="text-right p-3 font-bold text-foreground">Price List</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {pageItems.map((row, i) => (
-                            <tr key={i} className={`border-b border-border/50 ${i % 2 === 1 ? "bg-muted/20" : ""}`}>
-
-                              <td className="p-3 font-bold text-foreground">{row.model}</td>
-                              <td className="p-3 text-muted-foreground">{row.config}</td>
-                              <td className="p-3 text-right font-bold text-primary">{row.price}</td>
-                            </tr>
-                          ))}
+                           <tr className="border-b border-border bg-muted/30">
+                             <th className="text-left p-3 font-bold text-foreground">Model</th>
+                             <th className="text-left p-3 font-bold text-foreground">Configuration</th>
+                             <th className="text-right p-3 font-bold text-foreground">Price List</th>
+                             <th className="p-3 w-20"></th>
+                           </tr>
+                         </thead>
+                         <tbody>
+                           {pageItems.map((row, i) => {
+                             const specLabel = `GT3000 ${row.model} ${row.config}`.trim();
+                             return (
+                             <tr key={i} className={`border-b border-border/50 ${i % 2 === 1 ? "bg-muted/20" : ""}`}>
+                               <td className="p-3 font-bold text-foreground">{row.model}</td>
+                               <td className="p-3 text-muted-foreground">{row.config}</td>
+                               <td className="p-3 text-right font-bold text-primary">{row.price}</td>
+                               <td className="p-3">
+                                 <div className="inline-flex items-center gap-1">
+                                   <AddToCartButton productModel="GT3000" productName={specLabel} iconOnly variant="outline" />
+                                   <QuoteRequestButton productModel="GT3000" productName={specLabel} iconOnly variant="outline" />
+                                 </div>
+                               </td>
+                             </tr>
+                             );
+                           })}
                         </tbody>
                       </table>
                     </div>
@@ -2435,32 +2464,42 @@ const GTSeries = () => {
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="bg-secondary/50">
-                        <th className="text-left p-3 font-semibold text-foreground">CPU</th>
-                        <th className="text-left p-3 font-semibold text-foreground">RAM</th>
-                        <th className="text-left p-3 font-semibold text-foreground">SSD</th>
-                        <th className="text-right p-3 font-semibold text-foreground">ราคา</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-border">
-                      {[
-                        { cpu: "Core i5-4200U", ram: "4GB", ssd: "128GB", price: "24,990" },
-                        { cpu: "Core i5-4200U", ram: "4GB", ssd: "256GB", price: "25,990" },
-                        { cpu: "Core i5-4200U", ram: "8GB", ssd: "128GB", price: "26,990" },
-                        { cpu: "Core i5-4200U", ram: "8GB", ssd: "256GB", price: "27,990" },
-                        { cpu: "Core i7-4500U", ram: "4GB", ssd: "128GB", price: "28,990" },
-                        { cpu: "Core i7-4500U", ram: "4GB", ssd: "256GB", price: "29,990" },
-                        { cpu: "Core i7-4500U", ram: "8GB", ssd: "128GB", price: "30,990" },
-                        { cpu: "Core i7-4500U", ram: "8GB", ssd: "256GB", price: "31,990" },
-                      ].map((item, i) => (
-                        <tr key={i} className="hover:bg-secondary/30 transition-colors">
-                          <td className="p-3 text-foreground font-medium font-mono">{item.cpu}</td>
-                          <td className="p-3 text-muted-foreground">{item.ram}</td>
-                          <td className="p-3 text-muted-foreground">{item.ssd}</td>
-                          <td className="p-3 text-right font-bold text-primary whitespace-nowrap">฿{item.price}</td>
-                        </tr>
-                      ))}
-                    </tbody>
+                       <tr className="bg-secondary/50">
+                         <th className="text-left p-3 font-semibold text-foreground">CPU</th>
+                         <th className="text-left p-3 font-semibold text-foreground">RAM</th>
+                         <th className="text-left p-3 font-semibold text-foreground">SSD</th>
+                         <th className="text-right p-3 font-semibold text-foreground">ราคา</th>
+                         <th className="p-3 w-20"></th>
+                       </tr>
+                     </thead>
+                     <tbody className="divide-y divide-border">
+                       {[
+                         { cpu: "Core i5-4200U", ram: "4GB", ssd: "128GB", price: "24,990" },
+                         { cpu: "Core i5-4200U", ram: "4GB", ssd: "256GB", price: "25,990" },
+                         { cpu: "Core i5-4200U", ram: "8GB", ssd: "128GB", price: "26,990" },
+                         { cpu: "Core i5-4200U", ram: "8GB", ssd: "256GB", price: "27,990" },
+                         { cpu: "Core i7-4500U", ram: "4GB", ssd: "128GB", price: "28,990" },
+                         { cpu: "Core i7-4500U", ram: "4GB", ssd: "256GB", price: "29,990" },
+                         { cpu: "Core i7-4500U", ram: "8GB", ssd: "128GB", price: "30,990" },
+                         { cpu: "Core i7-4500U", ram: "8GB", ssd: "256GB", price: "31,990" },
+                       ].map((item, i) => {
+                         const specLabel = `GT4000 ${item.cpu} / ${item.ram} / ${item.ssd}`;
+                         return (
+                         <tr key={i} className="hover:bg-secondary/30 transition-colors">
+                           <td className="p-3 text-foreground font-medium font-mono">{item.cpu}</td>
+                           <td className="p-3 text-muted-foreground">{item.ram}</td>
+                           <td className="p-3 text-muted-foreground">{item.ssd}</td>
+                           <td className="p-3 text-right font-bold text-primary whitespace-nowrap">฿{item.price}</td>
+                           <td className="p-3">
+                             <div className="inline-flex items-center gap-1">
+                               <AddToCartButton productModel="GT4000" productName={specLabel} iconOnly variant="outline" />
+                               <QuoteRequestButton productModel="GT4000" productName={specLabel} iconOnly variant="outline" />
+                             </div>
+                           </td>
+                         </tr>
+                         );
+                       })}
+                     </tbody>
                    </table>
                 </div>
                 <div className="p-4 border-t border-border text-center">
@@ -2987,36 +3026,46 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="bg-secondary/50">
-                        <th className="text-left p-3 font-semibold text-foreground">CPU</th>
-                        <th className="text-left p-3 font-semibold text-foreground">Configuration</th>
-                        <th className="text-right p-3 font-semibold text-foreground">ราคา</th>
-                        <th className="text-left p-3 font-semibold text-foreground">หมายเหตุ</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-border">
-                      {[
-                        { cpu: "i5-4200U", config: "RAM 4GB + SSD 128GB + WIFI", price: "19,490", remark: "" },
-                        { cpu: "i5-4200U", config: "RAM 4GB + SSD 256GB + WIFI", price: "20,090", remark: "" },
-                        { cpu: "i5-4200U", config: "RAM 8GB + SSD 128GB + WIFI", price: "19,790", remark: "" },
-                        { cpu: "i5-4200U", config: "RAM 8GB + SSD 128GB + WIFI", price: "22,690", remark: "รวม WIN 10 OEM + AC 5G WIFI" },
-                        { cpu: "i5-4200U", config: "RAM 8GB + SSD 256GB + WIFI", price: "20,490", remark: "" },
-                        { cpu: "i5-4200U", config: "RAM 8GB + SSD 512GB + WIFI", price: "22,090", remark: "" },
-                        { cpu: "i5-4200U", config: "RAM 8GB + SSD 1TB + WIFI", price: "28,690", remark: "" },
-                        { cpu: "i7-4500U", config: "RAM 4GB + SSD 128GB + WIFI", price: "22,090", remark: "" },
-                        { cpu: "i7-4500U", config: "RAM 4GB + SSD 256GB + WIFI", price: "22,690", remark: "" },
-                        { cpu: "i7-4500U", config: "RAM 8GB + SSD 128GB + WIFI", price: "22,690", remark: "" },
-                        { cpu: "i7-4500U", config: "RAM 8GB + SSD 256GB + WIFI", price: "23,390", remark: "" },
-                        { cpu: "i7-4500U", config: "RAM 8GB + SSD 256GB + 1TB SSD + WIFI", price: "28,590", remark: "" },
-                        { cpu: "i7-4500U", config: "RAM 8GB + SSD 512GB + WIFI", price: "24,690", remark: "" },
-                      ].map((item, i) => (
-                        <tr key={i} className="hover:bg-secondary/30 transition-colors">
-                          <td className="p-3 text-foreground font-medium">{item.cpu}</td>
-                          <td className="p-3 text-muted-foreground">{item.config}</td>
-                          <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
-                          <td className="p-3 text-xs text-muted-foreground">{item.remark}</td>
-                        </tr>
-                      ))}
+                       <tr className="bg-secondary/50">
+                         <th className="text-left p-3 font-semibold text-foreground">CPU</th>
+                         <th className="text-left p-3 font-semibold text-foreground">Configuration</th>
+                         <th className="text-right p-3 font-semibold text-foreground">ราคา</th>
+                         <th className="text-left p-3 font-semibold text-foreground">หมายเหตุ</th>
+                         <th className="p-3 w-20"></th>
+                       </tr>
+                     </thead>
+                     <tbody className="divide-y divide-border">
+                       {[
+                         { cpu: "i5-4200U", config: "RAM 4GB + SSD 128GB + WIFI", price: "19,490", remark: "" },
+                         { cpu: "i5-4200U", config: "RAM 4GB + SSD 256GB + WIFI", price: "20,090", remark: "" },
+                         { cpu: "i5-4200U", config: "RAM 8GB + SSD 128GB + WIFI", price: "19,790", remark: "" },
+                         { cpu: "i5-4200U", config: "RAM 8GB + SSD 128GB + WIFI", price: "22,690", remark: "รวม WIN 10 OEM + AC 5G WIFI" },
+                         { cpu: "i5-4200U", config: "RAM 8GB + SSD 256GB + WIFI", price: "20,490", remark: "" },
+                         { cpu: "i5-4200U", config: "RAM 8GB + SSD 512GB + WIFI", price: "22,090", remark: "" },
+                         { cpu: "i5-4200U", config: "RAM 8GB + SSD 1TB + WIFI", price: "28,690", remark: "" },
+                         { cpu: "i7-4500U", config: "RAM 4GB + SSD 128GB + WIFI", price: "22,090", remark: "" },
+                         { cpu: "i7-4500U", config: "RAM 4GB + SSD 256GB + WIFI", price: "22,690", remark: "" },
+                         { cpu: "i7-4500U", config: "RAM 8GB + SSD 128GB + WIFI", price: "22,690", remark: "" },
+                         { cpu: "i7-4500U", config: "RAM 8GB + SSD 256GB + WIFI", price: "23,390", remark: "" },
+                         { cpu: "i7-4500U", config: "RAM 8GB + SSD 256GB + 1TB SSD + WIFI", price: "28,590", remark: "" },
+                         { cpu: "i7-4500U", config: "RAM 8GB + SSD 512GB + WIFI", price: "24,690", remark: "" },
+                       ].map((item, i) => {
+                         const specLabel = `GT5000 ${item.cpu} ${item.config}`;
+                         return (
+                         <tr key={i} className="hover:bg-secondary/30 transition-colors">
+                           <td className="p-3 text-foreground font-medium">{item.cpu}</td>
+                           <td className="p-3 text-muted-foreground">{item.config}</td>
+                           <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
+                           <td className="p-3 text-xs text-muted-foreground">{item.remark}</td>
+                           <td className="p-3">
+                             <div className="inline-flex items-center gap-1">
+                               <AddToCartButton productModel="GT5000" productName={specLabel} iconOnly variant="outline" />
+                               <QuoteRequestButton productModel="GT5000" productName={specLabel} iconOnly variant="outline" />
+                             </div>
+                           </td>
+                         </tr>
+                         );
+                       })}
                     </tbody>
                    </table>
                 </div>
@@ -3341,23 +3390,33 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <div className="overflow-x-auto">
                       <table className="w-full text-sm">
                         <thead>
-                          <tr className="bg-secondary/50">
-                            <th className="text-left p-3 font-semibold text-foreground">CPU</th>
-                            <th className="text-left p-3 font-semibold text-foreground">RAM</th>
-                            <th className="text-left p-3 font-semibold text-foreground">Storage</th>
-                            <th className="text-right p-3 font-semibold text-foreground">ราคา</th>
-                          </tr>
-                        </thead>
-                        <tbody className="divide-y divide-border">
-                          {pageItems.map((item, i) => (
-                            <tr key={i} className="hover:bg-secondary/30 transition-colors">
-                              <td className="p-3 text-foreground font-medium">{item.cpu}</td>
-                              <td className="p-3 text-muted-foreground">{item.ram}</td>
-                              <td className="p-3 text-muted-foreground">{item.storage}</td>
-                              <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
-                            </tr>
-                          ))}
-                        </tbody>
+                           <tr className="bg-secondary/50">
+                             <th className="text-left p-3 font-semibold text-foreground">CPU</th>
+                             <th className="text-left p-3 font-semibold text-foreground">RAM</th>
+                             <th className="text-left p-3 font-semibold text-foreground">Storage</th>
+                             <th className="text-right p-3 font-semibold text-foreground">ราคา</th>
+                             <th className="p-3 w-20"></th>
+                           </tr>
+                         </thead>
+                         <tbody className="divide-y divide-border">
+                           {pageItems.map((item, i) => {
+                             const specLabel = `GT6000 ${item.cpu} / ${item.ram} / ${item.storage}`;
+                             return (
+                             <tr key={i} className="hover:bg-secondary/30 transition-colors">
+                               <td className="p-3 text-foreground font-medium">{item.cpu}</td>
+                               <td className="p-3 text-muted-foreground">{item.ram}</td>
+                               <td className="p-3 text-muted-foreground">{item.storage}</td>
+                               <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
+                               <td className="p-3">
+                                 <div className="inline-flex items-center gap-1">
+                                   <AddToCartButton productModel="GT6000" productName={specLabel} iconOnly variant="outline" />
+                                   <QuoteRequestButton productModel="GT6000" productName={specLabel} iconOnly variant="outline" />
+                                 </div>
+                               </td>
+                             </tr>
+                             );
+                           })}
+                         </tbody>
                       </table>
                     </div>
                     <div className="flex items-center justify-between px-5 py-3 border-t border-border">
@@ -3727,42 +3786,52 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="bg-secondary/50">
-                        <th className="text-left p-3 font-semibold text-foreground">CPU</th>
-                        <th className="text-left p-3 font-semibold text-foreground">Configuration</th>
-                        <th className="text-right p-3 font-semibold text-foreground">ราคา</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-border">
-                      {[
-                        { cpu: "i3-7100U", config: "RAM DDR4 4GB + SSD 128GB + WIFI", price: "15,190" },
-                        { cpu: "i3-7100U", config: "RAM DDR4 4GB + SSD 256GB + WIFI", price: "16,690" },
-                        { cpu: "i3-7100U", config: "RAM DDR4 8GB + SSD 128GB + WIFI", price: "16,590" },
-                        { cpu: "i3-7100U", config: "RAM DDR4 8GB + SSD 256GB + WIFI", price: "17,190" },
-                        { cpu: "i3-7100U", config: "RAM DDR4 8GB + SSD 128GB + WIFI + 4G + RS485", price: "19,190" },
-                        { cpu: "i5-7267U", config: "RAM DDR4 4GB + SSD 128GB + WIFI", price: "20,290" },
-                        { cpu: "i5-7267U", config: "RAM DDR4 4GB + SSD 256GB + WIFI", price: "20,790" },
-                        { cpu: "i5-7267U", config: "RAM DDR4 8GB + SSD 128GB + WIFI", price: "20,890" },
-                        { cpu: "i5-7267U", config: "RAM DDR4 8GB + SSD 256GB + WIFI", price: "21,390" },
-                        { cpu: "i5-7267U", config: "RAM DDR4 8GB + SSD 256GB + 4G Module", price: "23,890" },
-                        { cpu: "i5-8250U", config: "RAM DDR4 4GB + SSD 128GB + WIFI", price: "21,090" },
-                        { cpu: "i5-8250U", config: "RAM DDR4 4GB + SSD 256GB + WIFI", price: "21,690" },
-                        { cpu: "i5-8250U", config: "RAM DDR4 4GB + SSD 512GB + WIFI", price: "22,790" },
-                        { cpu: "i5-8250U", config: "RAM DDR4 8GB + SSD 128GB + WIFI", price: "21,490" },
-                        { cpu: "i5-8250U", config: "RAM DDR4 8GB + SSD 256GB + WIFI", price: "22,190" },
-                        { cpu: "i5-8250U", config: "RAM DDR4 8GB + SSD 256GB + 4G Module", price: "24,690" },
-                        { cpu: "i5-8250U", config: "RAM DDR4 8GB + SSD 1TB + WIFI", price: "25,490" },
-                        { cpu: "i5-8250U", config: "RAM DDR4 16GB + SSD 256GB + WIFI", price: "23,090" },
-                        { cpu: "i5-8250U", config: "RAM DDR4 16GB + SSD 1TB + WIFI", price: "26,590" },
-                        { cpu: "i7-7510U", config: "RAM DDR4 4GB + SSD 128GB + WIFI", price: "22,590" },
-                      ].map((item, i) => (
-                        <tr key={i} className="hover:bg-secondary/30 transition-colors">
-                          <td className="p-3 text-foreground font-medium">{item.cpu}</td>
-                          <td className="p-3 text-muted-foreground">{item.config}</td>
-                          <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
-                        </tr>
-                      ))}
-                    </tbody>
+                       <tr className="bg-secondary/50">
+                         <th className="text-left p-3 font-semibold text-foreground">CPU</th>
+                         <th className="text-left p-3 font-semibold text-foreground">Configuration</th>
+                         <th className="text-right p-3 font-semibold text-foreground">ราคา</th>
+                         <th className="p-3 w-20"></th>
+                       </tr>
+                     </thead>
+                     <tbody className="divide-y divide-border">
+                       {[
+                         { cpu: "i3-7100U", config: "RAM DDR4 4GB + SSD 128GB + WIFI", price: "15,190" },
+                         { cpu: "i3-7100U", config: "RAM DDR4 4GB + SSD 256GB + WIFI", price: "16,690" },
+                         { cpu: "i3-7100U", config: "RAM DDR4 8GB + SSD 128GB + WIFI", price: "16,590" },
+                         { cpu: "i3-7100U", config: "RAM DDR4 8GB + SSD 256GB + WIFI", price: "17,190" },
+                         { cpu: "i3-7100U", config: "RAM DDR4 8GB + SSD 128GB + WIFI + 4G + RS485", price: "19,190" },
+                         { cpu: "i5-7267U", config: "RAM DDR4 4GB + SSD 128GB + WIFI", price: "20,290" },
+                         { cpu: "i5-7267U", config: "RAM DDR4 4GB + SSD 256GB + WIFI", price: "20,790" },
+                         { cpu: "i5-7267U", config: "RAM DDR4 8GB + SSD 128GB + WIFI", price: "20,890" },
+                         { cpu: "i5-7267U", config: "RAM DDR4 8GB + SSD 256GB + WIFI", price: "21,390" },
+                         { cpu: "i5-7267U", config: "RAM DDR4 8GB + SSD 256GB + 4G Module", price: "23,890" },
+                         { cpu: "i5-8250U", config: "RAM DDR4 4GB + SSD 128GB + WIFI", price: "21,090" },
+                         { cpu: "i5-8250U", config: "RAM DDR4 4GB + SSD 256GB + WIFI", price: "21,690" },
+                         { cpu: "i5-8250U", config: "RAM DDR4 4GB + SSD 512GB + WIFI", price: "22,790" },
+                         { cpu: "i5-8250U", config: "RAM DDR4 8GB + SSD 128GB + WIFI", price: "21,490" },
+                         { cpu: "i5-8250U", config: "RAM DDR4 8GB + SSD 256GB + WIFI", price: "22,190" },
+                         { cpu: "i5-8250U", config: "RAM DDR4 8GB + SSD 256GB + 4G Module", price: "24,690" },
+                         { cpu: "i5-8250U", config: "RAM DDR4 8GB + SSD 1TB + WIFI", price: "25,490" },
+                         { cpu: "i5-8250U", config: "RAM DDR4 16GB + SSD 256GB + WIFI", price: "23,090" },
+                         { cpu: "i5-8250U", config: "RAM DDR4 16GB + SSD 1TB + WIFI", price: "26,590" },
+                         { cpu: "i7-7510U", config: "RAM DDR4 4GB + SSD 128GB + WIFI", price: "22,590" },
+                       ].map((item, i) => {
+                         const specLabel = `GT7000 ${item.cpu} ${item.config}`;
+                         return (
+                         <tr key={i} className="hover:bg-secondary/30 transition-colors">
+                           <td className="p-3 text-foreground font-medium">{item.cpu}</td>
+                           <td className="p-3 text-muted-foreground">{item.config}</td>
+                           <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
+                           <td className="p-3">
+                             <div className="inline-flex items-center gap-1">
+                               <AddToCartButton productModel="GT7000" productName={specLabel} iconOnly variant="outline" />
+                               <QuoteRequestButton productModel="GT7000" productName={specLabel} iconOnly variant="outline" />
+                             </div>
+                           </td>
+                         </tr>
+                         );
+                       })}
+                     </tbody>
                   </table>
                 </div>
                 <p className="text-xs text-muted-foreground text-center py-3 border-t border-border"><AlertTriangle size={14} className="inline mr-1 text-amber-500" /> ราคาอาจมีการเปลี่ยนแปลง กรุณาติดต่อพนักงานขายโดยตรงเพื่อยืนยันราคาที่ถูกต้อง โทร. 095-739-1053 · Line: @entgroup</p>
@@ -4062,33 +4131,43 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="bg-secondary/50">
-                        <th className="text-left p-3 font-semibold text-foreground">CPU</th>
-                        <th className="text-left p-3 font-semibold text-foreground">RAM</th>
-                        <th className="text-left p-3 font-semibold text-foreground">Storage</th>
-                        <th className="text-center p-3 font-semibold text-foreground">WiFi</th>
-                        <th className="text-right p-3 font-semibold text-foreground">ราคา</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-border">
-                      {[
-                        { cpu: "i5-1035 G1", ram: "4 GB", storage: "128 GB", wifi: true, price: "23,990" },
-                        { cpu: "i7-1065 G7", ram: "4 GB", storage: "128 GB", wifi: true, price: "24,990" },
-                        { cpu: "i5-1035 G1", ram: "4 GB", storage: "256 GB", wifi: true, price: "25,900" },
-                        { cpu: "i7-1065 G7", ram: "4 GB", storage: "256 GB", wifi: true, price: "26,900" },
-                        { cpu: "i5-1035 G1", ram: "8 GB", storage: "128 GB", wifi: true, price: "27,990" },
-                        { cpu: "i7-1065 G7", ram: "8 GB", storage: "128 GB", wifi: true, price: "28,990" },
-                        { cpu: "i5-1035 G1", ram: "8 GB", storage: "256 GB", wifi: true, price: "29,900" },
-                        { cpu: "i7-1065 G7", ram: "8 GB", storage: "256 GB", wifi: true, price: "30,900" },
-                      ].map((item, i) => (
-                        <tr key={i} className="hover:bg-secondary/30 transition-colors">
-                          <td className="p-3 text-foreground font-medium">{item.cpu}</td>
-                          <td className="p-3 text-muted-foreground">{item.ram}</td>
-                          <td className="p-3 text-muted-foreground">{item.storage}</td>
-                          <td className="p-3 text-center text-muted-foreground">{item.wifi ? "✓" : "—"}</td>
-                          <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
-                        </tr>
-                      ))}
+                       <tr className="bg-secondary/50">
+                         <th className="text-left p-3 font-semibold text-foreground">CPU</th>
+                         <th className="text-left p-3 font-semibold text-foreground">RAM</th>
+                         <th className="text-left p-3 font-semibold text-foreground">Storage</th>
+                         <th className="text-center p-3 font-semibold text-foreground">WiFi</th>
+                         <th className="text-right p-3 font-semibold text-foreground">ราคา</th>
+                         <th className="p-3 w-20"></th>
+                       </tr>
+                     </thead>
+                     <tbody className="divide-y divide-border">
+                       {[
+                         { cpu: "i5-1035 G1", ram: "4 GB", storage: "128 GB", wifi: true, price: "23,990" },
+                         { cpu: "i7-1065 G7", ram: "4 GB", storage: "128 GB", wifi: true, price: "24,990" },
+                         { cpu: "i5-1035 G1", ram: "4 GB", storage: "256 GB", wifi: true, price: "25,900" },
+                         { cpu: "i7-1065 G7", ram: "4 GB", storage: "256 GB", wifi: true, price: "26,900" },
+                         { cpu: "i5-1035 G1", ram: "8 GB", storage: "128 GB", wifi: true, price: "27,990" },
+                         { cpu: "i7-1065 G7", ram: "8 GB", storage: "128 GB", wifi: true, price: "28,990" },
+                         { cpu: "i5-1035 G1", ram: "8 GB", storage: "256 GB", wifi: true, price: "29,900" },
+                         { cpu: "i7-1065 G7", ram: "8 GB", storage: "256 GB", wifi: true, price: "30,900" },
+                       ].map((item, i) => {
+                         const specLabel = `GT8000 ${item.cpu} / ${item.ram} / ${item.storage}`;
+                         return (
+                         <tr key={i} className="hover:bg-secondary/30 transition-colors">
+                           <td className="p-3 text-foreground font-medium">{item.cpu}</td>
+                           <td className="p-3 text-muted-foreground">{item.ram}</td>
+                           <td className="p-3 text-muted-foreground">{item.storage}</td>
+                           <td className="p-3 text-center text-muted-foreground">{item.wifi ? "✓" : "—"}</td>
+                           <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
+                           <td className="p-3">
+                             <div className="inline-flex items-center gap-1">
+                               <AddToCartButton productModel="GT8000" productName={specLabel} iconOnly variant="outline" />
+                               <QuoteRequestButton productModel="GT8000" productName={specLabel} iconOnly variant="outline" />
+                             </div>
+                           </td>
+                         </tr>
+                         );
+                       })}
                     </tbody>
                   </table>
                 </div>
@@ -4427,23 +4506,33 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                               <div className="overflow-x-auto">
                                 <table className="w-full text-sm">
                                   <thead>
-                                    <tr className="bg-secondary/50">
-                                      <th className="text-left p-3 font-semibold text-foreground">#</th>
-                                      <th className="text-left p-3 font-semibold text-foreground">CPU</th>
-                                      <th className="text-left p-3 font-semibold text-foreground">Configuration</th>
-                                      <th className="text-right p-3 font-semibold text-foreground">ราคา</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody className="divide-y divide-border">
-                                    {paged.map((item, i) => (
-                                      <tr key={start + i} className="hover:bg-secondary/30 transition-colors">
-                                        <td className="p-3 text-muted-foreground">{start + i + 1}</td>
-                                        <td className="p-3 text-foreground font-medium">{item.cpu}</td>
-                                        <td className="p-3 text-muted-foreground">{item.config}</td>
-                                        <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
-                                      </tr>
-                                    ))}
-                                  </tbody>
+                                     <tr className="bg-secondary/50">
+                                       <th className="text-left p-3 font-semibold text-foreground">#</th>
+                                       <th className="text-left p-3 font-semibold text-foreground">CPU</th>
+                                       <th className="text-left p-3 font-semibold text-foreground">Configuration</th>
+                                       <th className="text-right p-3 font-semibold text-foreground">ราคา</th>
+                                       <th className="p-3 w-20"></th>
+                                     </tr>
+                                   </thead>
+                                   <tbody className="divide-y divide-border">
+                                     {paged.map((item, i) => {
+                                       const specLabel = `GT9000 ${item.cpu} ${item.config}`;
+                                       return (
+                                       <tr key={start + i} className="hover:bg-secondary/30 transition-colors">
+                                         <td className="p-3 text-muted-foreground">{start + i + 1}</td>
+                                         <td className="p-3 text-foreground font-medium">{item.cpu}</td>
+                                         <td className="p-3 text-muted-foreground">{item.config}</td>
+                                         <td className="p-3 text-right font-bold text-primary">฿{item.price}</td>
+                                         <td className="p-3">
+                                           <div className="inline-flex items-center gap-1">
+                                             <AddToCartButton productModel="GT9000" productName={specLabel} iconOnly variant="outline" />
+                                             <QuoteRequestButton productModel="GT9000" productName={specLabel} iconOnly variant="outline" />
+                                           </div>
+                                         </td>
+                                       </tr>
+                                       );
+                                     })}
+                                   </tbody>
                                 </table>
                               </div>
                               {totalPages > 1 && (
@@ -5712,10 +5801,10 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                                <td className="p-3 text-muted-foreground">{item.ram}</td>
                                <td className="p-3 text-muted-foreground">{item.ssd}</td>
                                <td className="p-3 text-right font-bold text-primary">{item.price === "Call" ? "Call" : `฿${item.price}`}</td>
-                               <td className="p-3 text-center">
-                                 <div className="flex items-center justify-center gap-1">
-                                   <AddToCartButton productModel="GT1200" productName={specLabel} size="sm" />
-                                   <QuoteRequestButton productModel="GT1200" productName={specLabel} size="sm" variant="outline" />
+                               <td className="p-3 text-center whitespace-nowrap">
+                                 <div className="inline-flex items-center gap-1">
+                                   <AddToCartButton productModel="GT1200" productName={specLabel} iconOnly variant="outline" />
+                                   <QuoteRequestButton productModel="GT1200" productName={specLabel} iconOnly variant="outline" />
                                  </div>
                                </td>
                              </tr>
