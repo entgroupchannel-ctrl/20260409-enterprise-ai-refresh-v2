@@ -52,7 +52,7 @@ export const canManageQuotes = (ctx: PermissionContext): boolean =>
   ['super_admin', 'admin', 'sales'].includes(ctx.role || '') && ctx.isActive !== false;
 
 export const canManageInvoices = (ctx: PermissionContext): boolean =>
-  ['super_admin', 'admin', 'accountant'].includes(ctx.role || '') && ctx.isActive !== false;
+  ['super_admin', 'admin', 'sales', 'accountant'].includes(ctx.role || '') && ctx.isActive !== false;
 
 export const canManageTaxInvoices = (ctx: PermissionContext): boolean =>
   ['super_admin', 'admin', 'accountant'].includes(ctx.role || '') && ctx.isActive !== false;
