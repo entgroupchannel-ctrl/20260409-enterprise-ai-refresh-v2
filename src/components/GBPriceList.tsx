@@ -294,6 +294,7 @@ const GBPriceList = ({ onRequestQuote }: GBPriceListProps) => {
                         />
                       )}
                     </td>
+                  </tr>
                 ))}
               </tbody>
             </table>
