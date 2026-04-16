@@ -10,6 +10,8 @@ import logo from "@/assets/logo-entgroup.avif";
 import FooterCompact from "@/components/FooterCompact";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
 import { LineQRDialog } from "@/components/LineQRDialog";
+import AddToCartButton from "@/components/AddToCartButton";
+import CartBadge from "@/components/CartBadge";
 
 const features = [
   { icon: Wind, title: "Fanless Design", desc: "เงียบสนิท ไม่มีชิ้นส่วนเคลื่อนไหว อายุการใช้งานยาวนาน" },
@@ -713,11 +715,18 @@ const EPCComparisonSystem = ({ onQuote }: { onQuote: (name: string) => void }) =
 
               <div className="px-4 py-4 text-sm font-medium text-foreground flex items-center">ขอใบเสนอราคา</div>
               {visibleIndices.map(i => (
-                <div key={i} className="px-3 py-4 text-center border-l border-border">
+                <div key={i} className="px-3 py-4 text-center border-l border-border flex flex-col items-center gap-2">
                   <button onClick={() => onQuote(String(epcCompData.models[i]))}
                     className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold hover:bg-primary/90 transition-colors">
                     ขอราคา
                   </button>
+                  <AddToCartButton
+                    productModel={String(epcCompData.models[i])}
+                    productName={`EPC Box — ${epcCompData.models[i]}`}
+                    productDescription={`EPC Box Series Fanless Industrial PC ${epcCompData.models[i]}`}
+                    size="sm"
+                    variant="outline"
+                  />
                 </div>
               ))}
             </div>

@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import { ArrowLeft, ExternalLink, Monitor, Cpu, Shield, Puzzle, Droplets, ThermometerSun, Download, ChevronLeft, ChevronRight, FileText, Play, Headphones, Youtube, Star, Zap, Clock, Volume2, Thermometer, Wrench, Sun } from "lucide-react";
 import B2BCTABanner from "@/components/B2BCTABanner";
 import { Checkbox } from "@/components/ui/checkbox";
+import AddToCartButton from "@/components/AddToCartButton";
+import CartBadge from "@/components/CartBadge";
 import badgeMotherboard from "@/assets/epc-badge-motherboard.png";
 import badgeFactory from "@/assets/epc-badge-factory.png";
 import badgeReliability from "@/assets/epc-badge-reliability.png";
@@ -334,6 +336,16 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
           <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
         </Button>
       </div>
+      <div className="mt-2">
+        <AddToCartButton
+          productModel={model.name}
+          productName={`EPC ${model.name} — Panel PC ${model.size}`}
+          productDescription={`EPC Series Panel PC ${model.size} (${model.ratio}) COM: ${model.com}`}
+          size="sm"
+          variant="outline"
+          className="w-full justify-center"
+        />
+      </div>
     </div>
   </div>
 );
@@ -411,7 +423,7 @@ const EPCSeries = () => {
                 ))}
               </div>
 
-              <div className="flex gap-3 flex-wrap">
+              <div className="flex gap-3 flex-wrap items-center">
                 <Button size="sm" className="bg-white text-black hover:bg-white/90 font-bold" asChild>
                   <a href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_2521046b3a214087a30e851159a6b428.pdf" target="_blank" rel="noopener noreferrer">
                     <ExternalLink className="w-3.5 h-3.5 mr-1.5" /> Product Overview
@@ -420,6 +432,7 @@ const EPCSeries = () => {
                 <Button size="sm" onClick={() => setQuoteProduct("EPC Series")}>
                   <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
                 </Button>
+                <CartBadge />
                 <Button size="sm" className="bg-amber-500 text-black hover:bg-amber-400 font-bold" asChild>
                   <a href="#comparison">
                     <Zap className="w-3.5 h-3.5 mr-1.5" /> เปรียบเทียบรุ่น

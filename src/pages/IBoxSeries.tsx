@@ -3,6 +3,7 @@ import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
+import CartBadge from "@/components/CartBadge";
 import {
   ArrowLeft, Cpu, Thermometer, Shield, Usb, Wifi, Download, Search,
   FileText, ChevronRight, Layers, HardDrive, Monitor, Zap, Box,
@@ -289,6 +290,9 @@ const IBoxSeries = () => {
         <div className="container max-w-7xl mx-auto px-4 py-2">
           <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide">
             <span className="text-xs text-muted-foreground whitespace-nowrap shrink-0 inline-flex items-center gap-1"><Pointer size={12} /> เลือกหมวดสินค้า:</span>
+            <div className="ml-auto shrink-0 order-last">
+              <CartBadge />
+            </div>
             {[
               { id: "all", name: "ทั้งหมด", icon: LayoutGrid },
               { id: "AI Edge Computing", name: "AI Edge / GPU", icon: Flame },
