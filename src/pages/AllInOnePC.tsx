@@ -41,7 +41,7 @@ const AIOCard = ({
   onToggleSelect,
 }: {
   product: (typeof aioProducts)[0];
-  onQuote: (name: string) => void;
+  onQuote?: (name: string) => void;
   selected: boolean;
   onToggleSelect: (name: string) => void;
 }) => (

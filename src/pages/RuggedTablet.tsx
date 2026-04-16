@@ -228,7 +228,7 @@ const TabletCard = ({
   product, onQuote, selected, onToggleSelect,
 }: {
   product: TabletProduct;
-  onQuote: (name: string) => void;
+  onQuote?: (name: string) => void;
   selected: boolean;
   onToggleSelect: (name: string) => void;
 }) => (

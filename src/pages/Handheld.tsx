@@ -50,7 +50,7 @@ const HandheldCard = ({
   product: HandheldProduct;
   selected: boolean;
   onToggleSelect: (name: string) => void;
-  onQuote: (name: string) => void;
+  onQuote?: (name: string) => void;
 }) => (
   <Link
     to={`/handheld/${product.id}`}

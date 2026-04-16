@@ -11,7 +11,7 @@ interface IBoxProductCardProps {
   product: IBoxProduct;
   selectedProducts: Set<string>;
   toggleSelect: (name: string) => void;
-  onQuote: (name: string) => void;
+  onQuote?: (name: string) => void;
 }
 
 const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: IBoxProductCardProps) => {

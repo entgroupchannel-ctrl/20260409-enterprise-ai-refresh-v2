@@ -19,7 +19,7 @@ import ProductGallery from "@/components/ProductGallery";
 import { getHandheldProduct, getRelatedHandhelds } from "@/data/rugged-handheld-products";
 
 /* ───── Related Product Card ───── */
-const RelatedCard = ({ product, onQuote }: { product: ReturnType<typeof getHandheldProduct>; onQuote: (n: string) => void }) => {
+const RelatedCard = ({ product, onQuote }: { product: ReturnType<typeof getHandheldProduct>; onQuote?: (n: string) => void }) => {
   if (!product) return null;
   return (
     <Link to={`/handheld/${product.id}`} className="card-surface overflow-hidden group hover:border-primary/30 transition-all">

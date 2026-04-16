@@ -80,7 +80,7 @@ const cpuTiers = ["ทุกระดับ", "entry", "mid", "high"];
 const cpuTierLabels: Record<string, string> = { "ทุกระดับ": "ทุกระดับ CPU", entry: "Celeron (Entry)", mid: "Core Gen 10", high: "Core Gen 12" };
 
 interface Props {
-  onQuote: (name: string) => void;
+  onQuote?: (name: string) => void;
 }
 
 const EPCSeriesCompare = ({ onQuote }: Props) => {
