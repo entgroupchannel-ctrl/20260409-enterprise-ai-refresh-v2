@@ -3,7 +3,7 @@ import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import { useState, useEffect } from "react";
 import { LineQRDialog } from "@/components/LineQRDialog";
-import { Link, useSearchParams, useNavigate } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import {
   ArrowLeft, Sun, Shield, Monitor, Cpu, Phone, MessageCircle,
   Download, Smartphone, Settings, Wifi, Eye, Layers, Store, BadgePercent, Printer, ScanLine, FileText,
@@ -160,7 +160,7 @@ const priceLists = [
 
 const SmartDisplay = () => {
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
+  
   const [activeTab, setActiveTab] = useState(() => {
     const tab = searchParams.get("tab");
     return tab === "kiosk" || tab === "outdoor" ? tab : "indoor";
