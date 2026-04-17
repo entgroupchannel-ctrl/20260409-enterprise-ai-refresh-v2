@@ -16,6 +16,8 @@ interface CounterOfferDialogProps {
   quoteId: string;
   currentRevisionId?: string | null;
   negotiationRequestId?: string;
+  /** If set, dialog opens in EDIT MODE — loads this draft revision and updates it in place */
+  editRevisionId?: string | null;
   open: boolean;
   onClose: () => void;
   onSuccess: () => void;
@@ -47,10 +49,12 @@ export default function CounterOfferDialog({
   quoteId,
   currentRevisionId,
   negotiationRequestId,
+  editRevisionId,
   open,
   onClose,
   onSuccess,
 }: CounterOfferDialogProps) {
+  const isEditMode = !!editRevisionId;
   const { toast } = useToast();
   const [products, setProducts] = useState<any[]>([]);
   const [freeItems, setFreeItems] = useState<FreeItem[]>([]);
@@ -70,7 +74,25 @@ export default function CounterOfferDialog({
     const loadBase = async () => {
       setLoadingBase(true);
       try {
-        if (currentRevisionId) {
+        // EDIT MODE: load the draft we are editing
+        if (editRevisionId) {
+          const { data } = await (supabase.from as any)('quote_revisions')
+            .select('*')
+            .eq('id', editRevisionId)
+            .single();
+
+          if (data) {
+            setProducts(data.products || []);
+            setFreeItems(data.free_items || []);
+            const loadedType = (data.discount_type === 'baht' ? 'baht' : 'percent') as 'percent' | 'baht';
+            setDiscountType(loadedType);
+            setDiscountValue(loadedType === 'baht' ? (data.discount_amount || 0) : (data.discount_percent || 0));
+            setVatPercent(data.vat_percent || 7);
+            setValidUntil(data.valid_until || '');
+            setChangeReason(data.change_reason || '');
+            setInternalNotes(data.internal_notes || '');
+          }
+        } else if (currentRevisionId) {
           const { data } = await (supabase.from as any)('quote_revisions')
             .select('*')
             .eq('id', currentRevisionId)
@@ -85,6 +107,9 @@ export default function CounterOfferDialog({
             setVatPercent(data.vat_percent || 7);
             setValidUntil(data.valid_until || '');
           }
+          // Reset form fields (create-new path only)
+          setChangeReason('');
+          setInternalNotes('');
         } else {
           // Fallback: load from quote_requests
           const { data } = await supabase
@@ -102,11 +127,9 @@ export default function CounterOfferDialog({
             setVatPercent((data as any).vat_percent || 7);
             setValidUntil((data as any).valid_until || '');
           }
+          setChangeReason('');
+          setInternalNotes('');
         }
-
-        // Reset form fields
-        setChangeReason('');
-        setInternalNotes('');
       } catch (e) {
         console.error('Error loading base revision:', e);
       } finally {
@@ -115,7 +138,7 @@ export default function CounterOfferDialog({
     };
 
     loadBase();
-  }, [open, currentRevisionId, quoteId]);
+  }, [open, currentRevisionId, editRevisionId, quoteId]);
 
   const totals = useMemo(
     () => calculateTotals(products, discountType, discountValue, vatPercent),
@@ -142,20 +165,10 @@ export default function CounterOfferDialog({
       // Get user info
       const { data: userData } = await supabase.from('users').select('full_name, role').eq('id', authUser.id).single();
 
-      // Get next revision number
-      const { data: nextNum } = await supabase.rpc('get_next_revision_number', { p_quote_id: quoteId });
-      const revisionNumber = nextNum || 1;
+      let revisionNumber: number;
+      let revisionId: string;
 
-      const revisionStatus = sendToCustomer && !needsApproval ? 'sent' : 'draft';
-
-      // Insert revision
-      const { data: revData, error: revError } = await (supabase.from as any)('quote_revisions').insert({
-        quote_id: quoteId,
-        revision_number: revisionNumber,
-        revision_type: revisionNumber === 1 ? 'initial' : 'admin_offer',
-        created_by: authUser.id,
-        created_by_name: userData?.full_name || authUser.email || 'Admin',
-        created_by_role: userData?.role || 'admin',
+      const sharedFields: any = {
         products: products,
         free_items: freeItems,
         subtotal: totals.subtotal,
@@ -168,20 +181,61 @@ export default function CounterOfferDialog({
         change_reason: changeReason,
         requires_approval: needsApproval,
         approval_status: needsApproval ? 'pending' : 'none',
-        status: revisionStatus,
-        sent_at: sendToCustomer && !needsApproval ? new Date().toISOString() : null,
         valid_until: validUntil || null,
         internal_notes: internalNotes || null,
-      }).select('id').single();
+      };
 
-      if (revError) throw revError;
+      if (isEditMode && editRevisionId) {
+        // EDIT MODE: update existing draft (revision_number stays the same)
+        const { data: existing } = await (supabase.from as any)('quote_revisions')
+          .select('revision_number, status')
+          .eq('id', editRevisionId)
+          .single();
+
+        if (!existing || existing.status !== 'draft') {
+          throw new Error('ไม่สามารถแก้ไข revision นี้ได้ (ไม่ใช่ draft)');
+        }
+
+        revisionNumber = existing.revision_number;
+        revisionId = editRevisionId;
+
+        const updatePayload: any = {
+          ...sharedFields,
+          status: sendToCustomer && !needsApproval ? 'sent' : 'draft',
+          sent_at: sendToCustomer && !needsApproval ? new Date().toISOString() : null,
+        };
+
+        const { error: updateErr } = await (supabase.from as any)('quote_revisions')
+          .update(updatePayload)
+          .eq('id', editRevisionId);
+        if (updateErr) throw updateErr;
+      } else {
+        // CREATE MODE: insert new revision
+        const { data: nextNum } = await supabase.rpc('get_next_revision_number', { p_quote_id: quoteId });
+        revisionNumber = nextNum || 1;
+
+        const { data: revData, error: revError } = await (supabase.from as any)('quote_revisions').insert({
+          quote_id: quoteId,
+          revision_number: revisionNumber,
+          revision_type: revisionNumber === 1 ? 'initial' : 'admin_offer',
+          created_by: authUser.id,
+          created_by_name: userData?.full_name || authUser.email || 'Admin',
+          created_by_role: userData?.role || 'admin',
+          ...sharedFields,
+          status: sendToCustomer && !needsApproval ? 'sent' : 'draft',
+          sent_at: sendToCustomer && !needsApproval ? new Date().toISOString() : null,
+        }).select('id').single();
+
+        if (revError) throw revError;
+        revisionId = revData.id;
+      }
 
       // ✅ Only update quote snapshot when actually sending (not for drafts)
       const shouldPublish = sendToCustomer && !needsApproval;
 
       if (shouldPublish) {
         const quoteUpdate: any = {
-          current_revision_id: revData.id,
+          current_revision_id: revisionId,
           current_revision_number: revisionNumber,
           total_revisions: revisionNumber,
           free_items: freeItems,
@@ -198,8 +252,8 @@ export default function CounterOfferDialog({
           sent_at: new Date().toISOString(),
         };
         await supabase.from('quote_requests').update(quoteUpdate).eq('id', quoteId);
-      } else {
-        // Draft — only bump total_revisions, don't touch quote snapshot
+      } else if (!isEditMode) {
+        // New draft — bump total_revisions (edit mode keeps existing count)
         await supabase.from('quote_requests').update({
           total_revisions: revisionNumber,
         }).eq('id', quoteId);
@@ -212,7 +266,7 @@ export default function CounterOfferDialog({
             status: 'counter_offered',
             responded_by: authUser.id,
             responded_at: new Date().toISOString(),
-            resulted_in_revision_id: revData.id,
+            resulted_in_revision_id: revisionId,
           })
           .eq('id', negotiationRequestId);
       }
@@ -230,7 +284,9 @@ export default function CounterOfferDialog({
       }
 
       toast({
-        title: sendToCustomer ? 'ส่ง Counter Offer แล้ว' : 'บันทึก Draft แล้ว',
+        title: sendToCustomer
+          ? 'ส่ง Counter Offer แล้ว'
+          : (isEditMode ? 'อัปเดต Draft แล้ว' : 'บันทึก Draft แล้ว'),
         description: needsApproval ? '⚠️ ส่วนลดเกิน threshold — รอ Super Admin อนุมัติ' : undefined,
       });
 
@@ -247,7 +303,7 @@ export default function CounterOfferDialog({
     <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
       <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>✏️ สร้าง Counter Offer</DialogTitle>
+          <DialogTitle>{isEditMode ? '✏️ แก้ไข Draft Revision' : '✏️ สร้าง Counter Offer'}</DialogTitle>
         </DialogHeader>
 
         {loadingBase ? (
@@ -370,7 +426,7 @@ export default function CounterOfferDialog({
           <Button variant="outline" onClick={onClose} disabled={saving}>ยกเลิก</Button>
           <Button variant="secondary" onClick={() => handleSave(false)} disabled={saving || loadingBase}>
             <Save className="w-4 h-4 mr-1" />
-            บันทึก Draft (ยังไม่ส่ง)
+            {isEditMode ? 'บันทึก Draft' : 'บันทึก Draft (ยังไม่ส่ง)'}
           </Button>
           <Button onClick={() => handleSave(true)} disabled={saving || loadingBase}>
             <Send className="w-4 h-4 mr-1" />

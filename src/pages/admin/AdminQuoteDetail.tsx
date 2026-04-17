@@ -204,6 +204,7 @@ export default function AdminQuoteDetail() {
   const [showCounterOffer, setShowCounterOffer] = useState(false);
   const [showEditCustomer, setShowEditCustomer] = useState(false);
   const [counterNegotiationId, setCounterNegotiationId] = useState<string | undefined>();
+  const [editDraftRevisionId, setEditDraftRevisionId] = useState<string | null>(null);
   const [revisionKey, setRevisionKey] = useState(0);
   const [printingRevision, setPrintingRevision] = useState<any>(null);
   const [showCreateInvoice, setShowCreateInvoice] = useState(false);
@@ -1392,6 +1393,12 @@ export default function AdminQuoteDetail() {
               viewerRole="admin"
               onCreateCounter={() => {
                 setCounterNegotiationId(undefined);
+                setEditDraftRevisionId(null);
+                setShowCounterOffer(true);
+              }}
+              onEditDraft={(rev) => {
+                setCounterNegotiationId(undefined);
+                setEditDraftRevisionId(rev.id);
                 setShowCounterOffer(true);
               }}
               onRefresh={loadQuoteDetails}
@@ -1619,11 +1626,16 @@ export default function AdminQuoteDetail() {
         quoteId={quote.id}
         currentRevisionId={quote.current_revision_id}
         negotiationRequestId={counterNegotiationId}
+        editRevisionId={editDraftRevisionId}
         open={showCounterOffer}
-        onClose={() => setShowCounterOffer(false)}
+        onClose={() => {
+          setShowCounterOffer(false);
+          setEditDraftRevisionId(null);
+        }}
         onSuccess={() => {
           loadQuoteDetails();
           setRevisionKey((k) => k + 1);
+          setEditDraftRevisionId(null);
         }}
       />
 

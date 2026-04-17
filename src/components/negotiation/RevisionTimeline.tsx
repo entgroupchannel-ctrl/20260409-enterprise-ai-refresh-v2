@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
-import { History, ChevronDown, ChevronUp, Gift, CheckCircle2, Clock, Send, User, Trash2, Printer } from 'lucide-react';
+import { History, ChevronDown, ChevronUp, Gift, CheckCircle2, Clock, Send, User, Trash2, Printer, Pencil } from 'lucide-react';
 import { formatShortDateTime } from '@/lib/format';
 import { useToast } from '@/hooks/use-toast';
 import RevisionCompareView from './RevisionCompareView';
@@ -52,6 +52,7 @@ interface RevisionTimelineProps {
   viewerRole: 'admin' | 'customer';
   onSelectRevision?: (revision: Revision) => void;
   onCreateCounter?: () => void;
+  onEditDraft?: (revision: Revision) => void;
   onRefresh?: () => void;
   onPrintRevision?: (revision: Revision) => void;
 }
@@ -65,6 +66,7 @@ export default function RevisionTimeline({
   viewerRole,
   onSelectRevision,
   onCreateCounter,
+  onEditDraft,
   onRefresh,
   onPrintRevision,
 }: RevisionTimelineProps) {
@@ -409,7 +411,7 @@ export default function RevisionTimeline({
 
                   {/* Draft action buttons (admin only) */}
                   {viewerRole === 'admin' && isDraft && (
-                    <div className="flex gap-2 mt-3 pt-3 border-t border-dashed border-amber-300 dark:border-amber-700">
+                    <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t border-dashed border-amber-300 dark:border-amber-700">
                       <Button
                         size="sm"
                         onClick={(e) => {
@@ -422,6 +424,20 @@ export default function RevisionTimeline({
                         <Send className="w-3 h-3 mr-1" />
                         {publishingId === rev.id ? 'กำลังส่ง...' : 'ส่งให้ลูกค้า'}
                       </Button>
+                      {onEditDraft && (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onEditDraft(rev);
+                          }}
+                          className="border-amber-400 text-amber-700 hover:bg-amber-100 dark:text-amber-300 dark:hover:bg-amber-900/30"
+                        >
+                          <Pencil className="w-3 h-3 mr-1" />
+                          แก้ไข Draft
+                        </Button>
+                      )}
                       <Button
                         size="sm"
                         variant="outline"
