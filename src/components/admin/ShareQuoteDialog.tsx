@@ -142,7 +142,7 @@ export default function ShareQuoteDialog({
   };
 
   const buildUrl = (token: string, action: 'view' | 'download' = 'view') => {
-    const base = window.location.origin;
+    const base = 'https://www.entgroup.co.th';
     return action === 'download'
       ? `${base}/q/share/${token}?download=1`
       : `${base}/q/share/${token}`;
