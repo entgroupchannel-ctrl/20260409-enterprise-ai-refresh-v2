@@ -214,7 +214,7 @@ export default function CustomerChat({ quoteId: propQuoteId, mode = 'widget' }: 
 
   // WIDGET mode
   return (
-    <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-2">
+    <div className="fixed bottom-5 left-5 z-50 flex flex-col items-start gap-2 md:bottom-6 md:left-6">
       {open && (
         <div className="w-[360px] max-h-[520px] rounded-2xl shadow-2xl border bg-background flex flex-col overflow-hidden">
           <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-3 flex items-center justify-between">
