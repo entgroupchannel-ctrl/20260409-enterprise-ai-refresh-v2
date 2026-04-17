@@ -182,13 +182,26 @@ export default function CreateInvoiceFromSODialog({
       const { data, error } = await (supabase as any)
         .from('quote_requests')
         .select(
-          'created_by, customer_name, customer_company, customer_address, customer_email, customer_phone, customer_tax_id, customer_branch_type, customer_branch_code, customer_branch_name, payment_terms, notes'
+          'created_by, customer_name, customer_company, customer_address, customer_email, customer_phone, customer_tax_id, payment_terms, notes'
         )
         .eq('id', source.saleOrder.quote_id)
         .maybeSingle();
       if (error) throw error;
       if (data) {
-        setQuote({ ...data, user_id: data.created_by || null });
+        setQuote({
+          user_id: data.created_by || null,
+          customer_name: data.customer_name,
+          customer_company: data.customer_company,
+          customer_address: data.customer_address,
+          customer_email: data.customer_email,
+          customer_phone: data.customer_phone,
+          customer_tax_id: data.customer_tax_id,
+          customer_branch_type: null,
+          customer_branch_code: null,
+          customer_branch_name: null,
+          payment_terms: data.payment_terms,
+          notes: data.notes,
+        });
       }
       if (data?.payment_terms) setPaymentTerms(data.payment_terms);
     } catch (e: any) {
