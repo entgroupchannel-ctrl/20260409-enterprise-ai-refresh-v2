@@ -494,6 +494,13 @@ export default function AdminQuotesList() {
         onOpenChange={(v) => !v && setInvoiceSource(null)}
         source={invoiceSource}
       />
+
+      {/* Import Quote from PDF */}
+      <ImportQuotePDFDialog
+        open={importOpen}
+        onOpenChange={setImportOpen}
+        onImported={loadQuotes}
+      />
     </AdminLayout>
   );
 }
