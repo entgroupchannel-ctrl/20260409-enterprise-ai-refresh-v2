@@ -16,6 +16,8 @@ interface CounterOfferDialogProps {
   quoteId: string;
   currentRevisionId?: string | null;
   negotiationRequestId?: string;
+  /** If set, dialog opens in EDIT MODE — loads this draft revision and updates it in place */
+  editRevisionId?: string | null;
   open: boolean;
   onClose: () => void;
   onSuccess: () => void;
@@ -47,10 +49,12 @@ export default function CounterOfferDialog({
   quoteId,
   currentRevisionId,
   negotiationRequestId,
+  editRevisionId,
   open,
   onClose,
   onSuccess,
 }: CounterOfferDialogProps) {
+  const isEditMode = !!editRevisionId;
   const { toast } = useToast();
   const [products, setProducts] = useState<any[]>([]);
   const [freeItems, setFreeItems] = useState<FreeItem[]>([]);
