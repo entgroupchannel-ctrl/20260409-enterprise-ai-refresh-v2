@@ -210,6 +210,7 @@ const JetsonEdgeAI = () => {
               { label: "🎯 ตัวช่วยเลือกรุ่น", href: "/nvidia-jetson/recommend" },
               { label: "🧠 AI Models (NGC)", href: "/nvidia-jetson/ai-ready" },
               { label: "🖥️ GPU Server", href: "/nvidia-jetson/gpu-server" },
+              { label: "🎴 Pro Graphics Card", href: "/nvidia-jetson/professional-gpu" },
               { label: "🏭 Solutions", href: "/nvidia-jetson/solutions" },
               { label: "✦ Case Studies", href: "/nvidia-jetson/case-studies" },
               { label: "📞 ขอ POC ฟรี", href: "/contact" },
