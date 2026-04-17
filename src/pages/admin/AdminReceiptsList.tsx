@@ -8,9 +8,10 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { Receipt, Search, Loader2, Calendar, Trash2, MoreVertical, Plus } from 'lucide-react';
+import { Receipt, Search, Loader2, Calendar, Trash2, MoreVertical, Plus, Share2 } from 'lucide-react';
 import SelectSourceForReceiptDialog from '@/components/admin/SelectSourceForReceiptDialog';
 import CreateReceiptDialog from '@/components/admin/CreateReceiptDialog';
+import ShareReceiptDialog from '@/components/admin/ShareReceiptDialog';
 import { formatRelativeTime } from '@/lib/format';
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
@@ -47,6 +48,7 @@ export default function AdminReceiptsList() {
   const [showSourcePicker, setShowSourcePicker] = useState(false);
   const [createFromInvoiceId, setCreateFromInvoiceId] = useState<string | null>(null);
   const [createFromTaxInvoiceId, setCreateFromTaxInvoiceId] = useState<string | null>(null);
+  const [shareReceipt, setShareReceipt] = useState<{ id: string; number: string } | null>(null);
 
   const loadAvailableCount = async () => {
     try {
@@ -263,6 +265,10 @@ export default function AdminReceiptsList() {
                             <DropdownMenuItem onClick={() => navigator.clipboard.writeText(r.receipt_number)}>
                               คัดลอกเลขที่
                             </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => setShareReceipt({ id: r.id, number: r.receipt_number })}>
+                              <Share2 className="w-4 h-4 mr-2" />
+                              แชร์ลิงก์ให้ลูกค้า
+                            </DropdownMenuItem>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem
                               onClick={() => setDeletingReceipt(r)}
@@ -334,6 +340,13 @@ export default function AdminReceiptsList() {
         onSelectTaxInvoice={(taxInvoiceId) => {
           setCreateFromTaxInvoiceId(taxInvoiceId);
         }}
+      />
+
+      <ShareReceiptDialog
+        open={!!shareReceipt}
+        onOpenChange={(open) => { if (!open) setShareReceipt(null); }}
+        receiptId={shareReceipt?.id || null}
+        receiptNumber={shareReceipt?.number || null}
       />
 
       <CreateReceiptDialog
