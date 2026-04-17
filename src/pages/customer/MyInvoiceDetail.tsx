@@ -11,8 +11,9 @@ import CustomerLayout from '@/layouts/CustomerLayout';
 import {
   ChevronRight, Loader2, Printer, Receipt, User, Calendar,
   CreditCard, Building2, FileText, AlertCircle, CircleCheckBig,
-  Banknote, Clock, Upload, RefreshCw, Hourglass, CheckCircle2,
+  Banknote, Clock, Upload, RefreshCw, Hourglass, CheckCircle2, ImageIcon,
 } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import SEOHead from '@/components/SEOHead';
 import InvoicePrintPreviewDialog from '@/components/admin/InvoicePrintPreviewDialog';
 import UploadPaymentSlipDialog from '@/components/customer/UploadPaymentSlipDialog';
@@ -46,6 +47,27 @@ export default function MyInvoiceDetail() {
   const [showPrintDialog, setShowPrintDialog] = useState(false);
   const [showUploadSlip, setShowUploadSlip] = useState(false);
   const [paymentRecords, setPaymentRecords] = useState<any[]>([]);
+  const [slipPreviewUrl, setSlipPreviewUrl] = useState<string | null>(null);
+  const [slipLoading, setSlipLoading] = useState(false);
+
+  const openSlipPreview = async (proofUrl: string) => {
+    if (!proofUrl) return;
+    setSlipLoading(true);
+    setSlipPreviewUrl(null);
+    try {
+      const { data, error } = await (supabase as any).storage
+        .from('payment-slips')
+        .createSignedUrl(proofUrl, 3600);
+      if (error) {
+        console.error('[MyInvoiceDetail] createSignedUrl error:', error, 'path=', proofUrl);
+        toast({ title: 'เปิดไฟล์สลิปไม่สำเร็จ', description: error.message, variant: 'destructive' });
+        return;
+      }
+      if (data?.signedUrl) setSlipPreviewUrl(data.signedUrl);
+    } finally {
+      setSlipLoading(false);
+    }
+  };
 
   // Compute payment UI state based on payment records
   const getPaymentUIState = (): 'none' | 'pending' | 'rejected' | 'verified-partial' | 'verified-full' => {
@@ -557,6 +579,18 @@ export default function MyInvoiceDetail() {
                               ยืนยัน: {new Date(pr.verified_at).toLocaleDateString('th-TH')}
                             </div>
                           )}
+                          {pr.proof_url && (
+                            <Button
+                              type="button"
+                              variant="outline"
+                              size="sm"
+                              className="mt-2 h-7 text-xs"
+                              onClick={() => openSlipPreview(pr.proof_url)}
+                            >
+                              <ImageIcon className="w-3 h-3 mr-1" />
+                              ดูสลิป
+                            </Button>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -640,6 +674,24 @@ export default function MyInvoiceDetail() {
           onSuccess={() => loadData()}
         />
       )}
+
+      <Dialog open={!!slipPreviewUrl || slipLoading} onOpenChange={(o) => { if (!o) { setSlipPreviewUrl(null); setSlipLoading(false); } }}>
+        <DialogContent className="max-w-3xl">
+          <DialogHeader>
+            <DialogTitle>สลิปการชำระเงิน</DialogTitle>
+          </DialogHeader>
+          <div className="flex justify-center items-center min-h-[300px] bg-muted/30 rounded">
+            {slipLoading && <Loader2 className="w-8 h-8 animate-spin text-primary" />}
+            {slipPreviewUrl && (
+              <img
+                src={slipPreviewUrl}
+                alt="สลิปการชำระเงิน"
+                className="max-w-full max-h-[70vh] object-contain rounded"
+              />
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </CustomerLayout>
   );
 }
