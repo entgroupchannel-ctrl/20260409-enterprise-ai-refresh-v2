@@ -9,9 +9,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import {
-  ArrowLeft, Receipt, Printer, Loader2, Building2, Calendar, Link as LinkIcon, CreditCard, Trash2, FileText,
+  ArrowLeft, Receipt, Printer, Loader2, Building2, Calendar, Link as LinkIcon, CreditCard, Trash2, FileText, Share2,
 } from 'lucide-react';
 import ReceiptPrintPreviewDialog from '@/components/admin/ReceiptPrintPreviewDialog';
+import ShareReceiptDialog from '@/components/admin/ShareReceiptDialog';
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
@@ -27,6 +28,7 @@ export default function AdminReceiptDetail() {
   const [sourceInvoice, setSourceInvoice] = useState<any>(null);
   const [sourceTaxInvoice, setSourceTaxInvoice] = useState<any>(null);
   const [showPrintDialog, setShowPrintDialog] = useState(false);
+  const [showShareDialog, setShowShareDialog] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [deleteReason, setDeleteReason] = useState('');
   const [deleting, setDeleting] = useState(false);
@@ -173,12 +175,23 @@ export default function AdminReceiptDetail() {
               <Trash2 className="w-4 h-4 mr-1.5" />
               ย้ายถังขยะ
             </Button>
+            <Button variant="outline" size="sm" onClick={() => setShowShareDialog(true)}>
+              <Share2 className="w-4 h-4 mr-1.5" />
+              แชร์ลิงก์
+            </Button>
             <Button variant="outline" size="sm" onClick={() => setShowPrintDialog(true)}>
               <Printer className="w-4 h-4 mr-1.5" />
               พิมพ์ / PDF
             </Button>
           </div>
         </div>
+
+        <ShareReceiptDialog
+          open={showShareDialog}
+          onOpenChange={setShowShareDialog}
+          receiptId={receipt?.id || null}
+          receiptNumber={receipt?.receipt_number || null}
+        />
 
         <Card>
           <CardContent className="pt-6">
