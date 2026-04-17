@@ -564,6 +564,7 @@ export default function AdminInvoicesList() {
                       );
                     })}
                   </div>
+                  )}
 
                   <ListPagination
                     page={page}
