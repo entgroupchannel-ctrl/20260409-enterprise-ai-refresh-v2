@@ -206,10 +206,10 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
               <td className="p-2 text-sm align-top">
                 <p className="font-semibold">{p.name || p.model}</p>
                 {p.description && (
-                  <p className="text-xs text-gray-600 whitespace-pre-line mt-0.5">{p.description}</p>
+                  <p className="text-sm text-gray-600 whitespace-pre-line mt-1 leading-relaxed">{p.description}</p>
                 )}
                 {p.notes && (
-                  <p className="text-xs text-blue-600 mt-1">* {p.notes}</p>
+                  <p className="text-sm text-blue-600 mt-1 whitespace-pre-line leading-relaxed">* {p.notes}</p>
                 )}
               </td>
               <td className="p-2 text-sm text-center align-top">{p.quantity || p.qty}</td>

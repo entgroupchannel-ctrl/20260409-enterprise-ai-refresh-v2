@@ -950,9 +950,11 @@ export default function AdminQuoteDetail() {
                           <div className="flex justify-between items-start mb-2">
                             <div className="flex-1">
                               <h4 className="font-semibold text-foreground">{product.model || 'N/A'}</h4>
-                              <p className="text-sm text-muted-foreground">{product.description}</p>
+                              {product.description && (
+                                <p className="text-sm text-muted-foreground whitespace-pre-line mt-1">{product.description}</p>
+                              )}
                               {product.notes && (
-                                <p className="text-sm text-primary mt-1">หมายเหตุ: {product.notes}</p>
+                                <p className="text-sm text-primary mt-1 whitespace-pre-line">หมายเหตุ: {product.notes}</p>
                               )}
                             </div>
                             <div className="text-right ml-4">
