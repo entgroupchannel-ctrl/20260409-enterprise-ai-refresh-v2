@@ -193,14 +193,30 @@ export default function AdminReceiptsList() {
 
         <Card>
           <CardContent className="pt-4 pb-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input
-                placeholder="ค้นหาเลขที่, ลูกค้า, บริษัท..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="pl-9"
-              />
+            <div className="flex items-center gap-2">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Input
+                  placeholder="ค้นหาเลขที่, ลูกค้า, บริษัท..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="pl-9"
+                />
+              </div>
+              <div className="inline-flex rounded-md border bg-background p-0.5 shrink-0">
+                <Button variant={viewMode === 'list' ? 'default' : 'ghost'} size="sm"
+                  className="h-8 px-2" onClick={() => setViewMode('list')} title="มุมมองรายการ">
+                  <ListIcon className="w-4 h-4" />
+                </Button>
+                <Button variant={viewMode === 'table' ? 'default' : 'ghost'} size="sm"
+                  className="h-8 px-2" onClick={() => setViewMode('table')} title="มุมมองตาราง (กะทัดรัด)">
+                  <Rows3 className="w-4 h-4" />
+                </Button>
+                <Button variant={viewMode === 'grid' ? 'default' : 'ghost'} size="sm"
+                  className="h-8 px-2" onClick={() => setViewMode('grid')} title="มุมมองกริด">
+                  <LayoutGrid className="w-4 h-4" />
+                </Button>
+              </div>
             </div>
           </CardContent>
         </Card>
