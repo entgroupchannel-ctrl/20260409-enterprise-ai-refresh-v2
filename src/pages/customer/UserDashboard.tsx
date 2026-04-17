@@ -252,6 +252,16 @@ export default function UserDashboard() {
     return () => { supabase.removeChannel(channel); };
   }, [quoteId]);
 
+  // Load current revision (for PDF print preview)
+  useEffect(() => {
+    const revId = (selectedQuote as any)?.current_revision_id;
+    if (!revId) { setCurrentRevision(null); return; }
+    (async () => {
+      const { data } = await (supabase as any).from('quote_revisions').select('*').eq('id', revId).maybeSingle();
+      setCurrentRevision(data);
+    })();
+  }, [(selectedQuote as any)?.current_revision_id]);
+
   // Scroll chat to bottom
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
