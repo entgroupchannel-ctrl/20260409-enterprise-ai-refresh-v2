@@ -548,6 +548,38 @@ export default function AdminQuoteDetail() {
   const poFiles = files.filter((f) => f.category === 'po' || f.category === 'customer_po' || f.category === 'po_virtual');
   const quoteFiles = files.filter((f) => f.category === 'quote_pdf');
 
+  const handleSaveDraft = async () => {
+    if (!quote) return;
+    setSavingQuote(true);
+    try {
+      const { error: updateError } = await supabase
+        .from('quote_requests')
+        .update({
+          subtotal: totals.subtotal,
+          discount_type: quote.discount_type || 'percent',
+          discount_amount: totals.discountAmount,
+          vat_amount: totals.vatAmount,
+          grand_total: totals.grandTotal,
+          // Promote pending → draft only when admin clicks Save Draft (keeps PDF imports & admin edits in draft).
+          // Do NOT downgrade quote_sent/negotiating/etc.
+          ...(quote.status === 'pending' ? { status: 'draft' } : {}),
+        } as any)
+        .eq('id', id);
+
+      if (updateError) throw updateError;
+
+      toast({
+        title: 'บันทึกฉบับร่างแล้ว',
+        description: 'ข้อมูลถูกบันทึกแล้ว ยังไม่ได้ส่งให้ลูกค้า',
+      });
+      await loadQuoteDetails();
+    } catch (error: any) {
+      toast({ title: 'เกิดข้อผิดพลาด', description: error.message, variant: 'destructive' });
+    } finally {
+      setSavingQuote(false);
+    }
+  };
+
   const handleSaveAndSendQuote = async () => {
     if (!quote) return;
     setSavingQuote(true);
