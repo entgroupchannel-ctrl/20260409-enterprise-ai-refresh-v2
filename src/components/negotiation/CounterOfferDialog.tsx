@@ -426,7 +426,7 @@ export default function CounterOfferDialog({
           <Button variant="outline" onClick={onClose} disabled={saving}>ยกเลิก</Button>
           <Button variant="secondary" onClick={() => handleSave(false)} disabled={saving || loadingBase}>
             <Save className="w-4 h-4 mr-1" />
-            บันทึก Draft (ยังไม่ส่ง)
+            {isEditMode ? 'บันทึก Draft' : 'บันทึก Draft (ยังไม่ส่ง)'}
           </Button>
           <Button onClick={() => handleSave(true)} disabled={saving || loadingBase}>
             <Send className="w-4 h-4 mr-1" />
