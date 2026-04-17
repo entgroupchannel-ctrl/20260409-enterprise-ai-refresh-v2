@@ -62,9 +62,11 @@ export default function MyQuotes() {
         .from('quote_requests')
         .select('*')
         .eq('customer_email', user?.email)
+        .neq('status', 'draft')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
+      // ซ่อนใบที่ admin ยังไม่ได้ส่ง (draft) — ลูกค้าจะเห็นเฉพาะที่ส่งแล้วเท่านั้น
       setQuotes((data || []) as Quote[]);
     } catch (error: any) {
       toast({

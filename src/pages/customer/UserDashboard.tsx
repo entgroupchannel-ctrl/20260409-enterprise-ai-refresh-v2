@@ -289,8 +289,10 @@ export default function UserDashboard() {
       const { data, error } = await supabase
         .from('quote_requests').select('*')
         .eq('customer_email', userData.user.email!)
+        .neq('status', 'draft')
         .order('created_at', { ascending: false });
       if (error) throw error;
+      // ซ่อนสถานะ draft — ลูกค้าจะเห็นใบเสนอราคาเฉพาะหลังจาก admin กด "ส่ง" แล้วเท่านั้น
       setQuotes((data as any[]) || []);
     } catch (err: any) {
       toast({ title: 'เกิดข้อผิดพลาด', description: err.message, variant: 'destructive' });
