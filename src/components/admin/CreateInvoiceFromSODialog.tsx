@@ -316,15 +316,33 @@ export default function CreateInvoiceFromSODialog({
         if (itemsErr) throw itemsErr;
       }
 
-      // Notify customer about invoice via Resend
-      if (quote?.customer_email) {
-        import('@/lib/notifications').then(({ sendQuoteStatusEmail }) => {
-          sendQuoteStatusEmail({
-            recipientEmail: quote.customer_email,
-            customerName: quote.customer_name,
-            status: 'invoice_created',
-            invoiceNumber: invoice.invoice_number,
-          });
+      // 🔔 Notify customer (in-app + email)
+      const customerUserId = (quote as any)?.user_id || (quote as any)?.created_by;
+      if (customerUserId || quote?.customer_email) {
+        import('@/lib/notifications').then(({ createNotification, sendQuoteStatusEmail }) => {
+          if (customerUserId) {
+            createNotification({
+              userId: customerUserId,
+              type: 'invoice_created',
+              title: '🧾 ออกใบวางบิลใหม่',
+              message: `ใบวางบิล ${invoice.invoice_number} ยอดรวม ${formatCurrency(invoice.grand_total)} บาท`,
+              priority: 'high',
+              actionUrl: `/my-account/invoices/${invoice.id}`,
+              actionLabel: 'ดูใบวางบิล',
+              linkType: 'invoice',
+              linkId: invoice.id,
+            });
+          }
+          if (quote?.customer_email) {
+            sendQuoteStatusEmail({
+              recipientEmail: quote.customer_email,
+              customerName: quote.customer_name,
+              status: 'invoice_created',
+              invoiceNumber: invoice.invoice_number,
+              amount: formatCurrency(invoice.grand_total),
+              viewUrl: `https://www.entgroup.co.th/my-account/invoices/${invoice.id}`,
+            });
+          }
         });
       }
 

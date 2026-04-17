@@ -24,8 +24,13 @@ const STATUS_LABELS: Record<string, { th: string; emoji: string }> = {
   po_uploaded: { th: "ได้รับ PO แล้ว", emoji: "📎" },
   invoiced: { th: "ออกใบแจ้งหนี้แล้ว", emoji: "🧾" },
   payment_confirmed: { th: "ยืนยันการชำระเงินแล้ว", emoji: "💰" },
-  invoice_created: { th: "ออกใบแจ้งหนี้แล้ว", emoji: "🧾" },
+  invoice_created: { th: "ออกใบวางบิลแล้ว", emoji: "🧾" },
   payment_slip_uploaded: { th: "ลูกค้าส่งสลิปการชำระเงิน — รอตรวจสอบ", emoji: "💳" },
+  po_approved: { th: "อนุมัติใบสั่งซื้อ (PO) แล้ว", emoji: "✅" },
+  po_rejected: { th: "ไม่อนุมัติใบสั่งซื้อ (PO)", emoji: "⚠️" },
+  tax_invoice_created: { th: "ออกใบกำกับภาษีแล้ว", emoji: "🧾" },
+  receipt_created: { th: "ออกใบเสร็จรับเงินแล้ว", emoji: "🧾" },
+  credit_note_created: { th: "ออกใบลดหนี้แล้ว", emoji: "📝" },
 };
 
 // ---------- HTML builder ----------
@@ -117,7 +122,9 @@ serve(async (req) => {
     }
 
     const label = STATUS_LABELS[status] || { th: status, emoji: "📌" };
-    const subject = `${label.emoji} ใบเสนอราคา ${quoteNumber || ""} — ${label.th}`;
+    // Build subject based on which document number is provided
+    const docRef = invoiceNumber || quoteNumber || "";
+    const subject = `${label.emoji} ${label.th}${docRef ? ` — ${docRef}` : ""}`;
     const html = buildQuoteStatusHtml({ customerName, quoteNumber, status, invoiceNumber, amount, viewUrl, note });
 
     const response = await fetch(`${GATEWAY_URL}/emails`, {
