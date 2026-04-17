@@ -9,7 +9,7 @@ const supplierInfo = {
   certifications: ['ISO 9001:2015', 'CE', 'FCC'],
   responseTime: 'ภายใน 4 ชั่วโมงทำการ',
   moq: '1 unit',
-  shipping: '3-5 วันทำการ',
+  shipping: '15-30 วัน (บางรุ่นเร็วกว่า สอบถามแอดมิน)',
   warranty: '1-3 ปี',
 };
 
