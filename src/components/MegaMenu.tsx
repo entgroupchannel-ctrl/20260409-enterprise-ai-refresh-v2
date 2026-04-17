@@ -288,6 +288,7 @@ const b2bBanners: Record<string, { icon: typeof Headset; title: string; desc: st
   display: { icon: Users, title: "ลูกค้าองค์กรชั้นนำไว้วางใจ", desc: "หน่วยงานรัฐ โรงงาน โรงพยาบาล ใช้สินค้าของเรา" },
   rugged: { icon: Handshake, title: "B2B ราคาพิเศษสำหรับโครงการ", desc: "สั่งซื้อจำนวนมาก ราคาดีกว่า พร้อมเทรนนิ่ง" },
   solution: { icon: Headset, title: "ทดลองฟรี 30 วัน", desc: "ลองก่อนตัดสินใจ ไม่มีค่าใช้จ่าย มีทีมติดตั้งให้" },
+  jetson: { icon: Sparkles, title: "Authorized NVIDIA Partner", desc: "ทีมวิศวกร AI พร้อมให้คำปรึกษาและทดสอบ POC ฟรี" },
 };
 
 const promoBanners: Record<string, { image: string; title: string; desc: string; href: string }> = {
