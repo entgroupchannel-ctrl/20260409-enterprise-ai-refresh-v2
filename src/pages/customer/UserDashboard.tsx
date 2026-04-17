@@ -1493,9 +1493,9 @@ export default function UserDashboard() {
       {selectedQuote && showPrintPreview && (
         <PrintPreviewDialog
           open={showPrintPreview}
-          onOpenChange={setShowPrintPreview}
+          onOpenChange={(o) => { setShowPrintPreview(o); if (!o) setPrintRevision(null); }}
           quote={selectedQuote}
-          revision={currentRevision}
+          revision={printRevision || currentRevision}
           autoDownload={printAutoDownload}
         />
       )}
