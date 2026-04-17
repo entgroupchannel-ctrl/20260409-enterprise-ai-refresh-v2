@@ -672,12 +672,23 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
               </div>
               <div className="flex items-end justify-between gap-3 mt-3">
                 <div>
-                  {(p.variant_count || 0) > 1 && <p className="text-[10px] text-muted-foreground">เริ่มต้น</p>}
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-xl font-black text-primary">฿{fmt(displayPrice)}</span>
-                    <span className="text-xs text-muted-foreground line-through">฿{fmt(Math.round(displayPrice * 1.07))}</span>
-                  </div>
-                  <p className="text-[10px] text-muted-foreground">฿{fmt(bulkHint)} สำหรับ 5+ ชิ้น</p>
+                  {(p.variant_count || 0) > 1 && displayPrice > 0 && <p className="text-[10px] text-muted-foreground">เริ่มต้น</p>}
+                  {displayPrice > 0 ? (
+                    <>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-xl font-black text-primary">฿{fmt(displayPrice)}</span>
+                        <span className="text-xs text-muted-foreground line-through">฿{fmt(Math.round(displayPrice * 1.07))}</span>
+                      </div>
+                      <p className="text-[10px] text-muted-foreground">฿{fmt(bulkHint)} สำหรับ 5+ ชิ้น</p>
+                    </>
+                  ) : (
+                    <>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-xl font-black text-primary">Call</span>
+                      </div>
+                      <p className="text-[10px] text-muted-foreground">ติดต่อสอบถามราคา</p>
+                    </>
+                  )}
                 </div>
                 <div className="flex gap-2">
                   <Link to={`/shop/${p.slug}#rfq-form`}>
