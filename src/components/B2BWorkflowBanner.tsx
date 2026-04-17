@@ -1,10 +1,13 @@
-import { ChevronRight, Headphones, ShoppingCart, FileText, ReceiptText, Clock } from "lucide-react";
+import { ChevronRight, Headphones, ShoppingCart, FileText, ReceiptText, Clock, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import b2bWorkflowImage from "@/assets/b2b-quote-workflow.jpg";
 
 interface B2BWorkflowBannerProps {
   /** compact = smaller height, no headline. full = with headline */
   variant?: "full" | "compact";
   className?: string;
+  /** show CTA button to /shop */
+  showShopCta?: boolean;
 }
 
 const steps = [
