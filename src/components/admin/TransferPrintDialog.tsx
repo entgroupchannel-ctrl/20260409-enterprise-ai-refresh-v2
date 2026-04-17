@@ -66,17 +66,16 @@ export default function TransferPrintDialog({
   const handleDownloadPDF = async () => {
     setIsDownloading(true);
     try {
-      const html2pdf = (await import('html2pdf.js')).default;
+      const { generatePDFWithHeaderFooter } = await import('@/lib/pdf-helper');
       const el = document.getElementById('transfer-print-template');
       if (!el) return;
 
-      await html2pdf().set({
-        margin: 10,
+      await generatePDFWithHeaderFooter(el, {
         filename: `${transfer?.transfer_number || 'Transfer'}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-      }).from(el).save();
+        headerLeft: companySettings?.name_th || 'ENT Group',
+        headerRight: `${transfer?.transfer_number || 'Transfer'}`,
+        footerCenter: 'เอกสารนี้ออกโดยระบบอัตโนมัติ',
+      });
     } catch (err) {
       console.error('PDF error:', err);
     } finally {

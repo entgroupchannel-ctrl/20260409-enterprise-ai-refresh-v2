@@ -63,17 +63,16 @@ export default function TaxInvoicePrintPreviewDialog({
   const handleDownloadPDF = async () => {
     setIsDownloading(true);
     try {
-      const html2pdf = (await import('html2pdf.js')).default;
+      const { generatePDFWithHeaderFooter } = await import('@/lib/pdf-helper');
       const element = document.getElementById('tax-invoice-pdf-template');
       if (!element) return;
 
-      await html2pdf().set({
-        margin: 10,
+      await generatePDFWithHeaderFooter(element, {
         filename: `${taxInvoice.tax_invoice_number}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-      }).from(element).save();
+        headerLeft: companySettings?.name_th || 'ENT Group',
+        headerRight: `ใบกำกับภาษี ${taxInvoice.tax_invoice_number}`,
+        footerCenter: 'เอกสารนี้ออกโดยระบบอัตโนมัติ',
+      });
     } catch (error) {
       console.error('Error generating PDF:', error);
       alert('เกิดข้อผิดพลาดในการสร้าง PDF');
