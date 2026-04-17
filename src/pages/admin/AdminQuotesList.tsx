@@ -33,8 +33,10 @@ import {
   ShieldAlert,
   Timer,
   Trash2,
+  Upload,
 } from 'lucide-react';
 import { formatRelativeTime } from '@/lib/format';
+import ImportQuotePDFDialog from '@/components/admin/ImportQuotePDFDialog';
 
 interface Quote {
   id: string;
@@ -70,6 +72,9 @@ export default function AdminQuotesList() {
 
   // Invoice dialog state
   const [invoiceSource, setInvoiceSource] = useState<InvoiceSource | null>(null);
+
+  // Import PDF dialog
+  const [importOpen, setImportOpen] = useState(false);
 
   useEffect(() => {
     loadQuotes();
@@ -275,6 +280,10 @@ export default function AdminQuotesList() {
                 <Trash2 className="w-4 h-4 mr-2" />
                 ถังขยะ
               </Link>
+            </Button>
+            <Button variant="outline" onClick={() => setImportOpen(true)}>
+              <Upload className="w-4 h-4 mr-2" />
+              นำเข้า PDF
             </Button>
             <Button onClick={() => navigate('/admin/quotes/new')}>
               <FileSearch className="w-4 h-4 mr-2" />
