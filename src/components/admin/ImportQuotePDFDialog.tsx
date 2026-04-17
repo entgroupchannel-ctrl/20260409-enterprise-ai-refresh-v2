@@ -307,6 +307,7 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
       toast({ title: 'บันทึกไม่สำเร็จ', description: e.message, variant: 'destructive' });
     } finally {
       setSaving(false);
+      setPhase('');
     }
   };
 
