@@ -130,6 +130,7 @@ const AdminEmailTemplates = lazyRetry(() => import("./pages/admin/AdminEmailTemp
 const SharedQuotePage = lazyRetry(() => import("./pages/SharedQuotePage"));
 const SharedInvoicePage = lazyRetry(() => import("./pages/SharedInvoicePage"));
 const SharedTaxInvoicePage = lazyRetry(() => import("./pages/SharedTaxInvoicePage"));
+const SharedReceiptPage = lazyRetry(() => import("./pages/SharedReceiptPage"));
 
 /* ── Loading fallback ── */
 const PageLoader = () => (
@@ -208,6 +209,7 @@ const App = () => (
                     <Route path="/q/share/:token" element={<SharedQuotePage />} />
                     <Route path="/inv/share/:token" element={<SharedInvoicePage />} />
                     <Route path="/tx/share/:token" element={<SharedTaxInvoicePage />} />
+                    <Route path="/rcp/share/:token" element={<SharedReceiptPage />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/invite/:token" element={<AcceptInvite />} />
