@@ -221,6 +221,10 @@ export default function AdminQuoteDetail() {
   const [assignedSaleUser, setAssignedSaleUser] = useState<any>(null);
   const [staffList, setStaffList] = useState<any[]>([]);
   const [assigningStaff, setAssigningStaff] = useState(false);
+  const [editingValidUntil, setEditingValidUntil] = useState(false);
+  const [validUntilDraft, setValidUntilDraft] = useState('');
+  const [editingPaymentTerms, setEditingPaymentTerms] = useState(false);
+  const [paymentTermsDraft, setPaymentTermsDraft] = useState('');
 
   useEffect(() => {
     if (id) {
@@ -862,26 +866,120 @@ export default function AdminQuoteDetail() {
                 <span className="text-muted-foreground">วันที่สร้าง:</span>
                 <span>{formatShortDateTime(quote.created_at)}</span>
               </div>
-              {quote.valid_until && (
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">ใช้ได้ถึง:</span>
-                  <span className={
-                    new Date(quote.valid_until) < new Date() 
-                      ? 'text-destructive font-semibold' 
-                      : ''
-                  }>
-                    {new Date(quote.valid_until).toLocaleDateString('th-TH', {
-                      year: 'numeric', month: 'long', day: 'numeric',
-                    })}
-                  </span>
-                </div>
-              )}
-              {quote.payment_terms && (
-                <div className="flex justify-between gap-2">
+
+              {/* ใช้ได้ถึง — inline editable */}
+              <div className="flex justify-between items-center gap-2">
+                <span className="text-muted-foreground shrink-0">ใช้ได้ถึง:</span>
+                {editingValidUntil ? (
+                  <div className="flex items-center gap-1 flex-1 justify-end">
+                    <Input
+                      type="date"
+                      value={validUntilDraft}
+                      onChange={(e) => setValidUntilDraft(e.target.value)}
+                      className="h-7 text-xs w-36"
+                    />
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      className="h-7 px-2 text-xs"
+                      onClick={async () => {
+                        const { error } = await supabase
+                          .from('quote_requests')
+                          .update({ valid_until: validUntilDraft || null })
+                          .eq('id', quote.id);
+                        if (error) {
+                          toast({ title: 'บันทึกไม่สำเร็จ', description: error.message, variant: 'destructive' });
+                        } else {
+                          setQuote({ ...quote, valid_until: validUntilDraft || null });
+                          setEditingValidUntil(false);
+                          toast({ title: 'อัปเดต "ใช้ได้ถึง" แล้ว' });
+                        }
+                      }}
+                    >
+                      บันทึก
+                    </Button>
+                    <Button size="sm" variant="ghost" className="h-7 px-2 text-xs" onClick={() => setEditingValidUntil(false)}>
+                      ยกเลิก
+                    </Button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setValidUntilDraft(quote.valid_until ? quote.valid_until.slice(0, 10) : '');
+                      setEditingValidUntil(true);
+                    }}
+                    className={`flex items-center gap-1 hover:text-primary transition-colors ${
+                      quote.valid_until && new Date(quote.valid_until) < new Date()
+                        ? 'text-destructive font-semibold'
+                        : ''
+                    }`}
+                    title="คลิกเพื่อแก้ไข"
+                  >
+                    {quote.valid_until
+                      ? new Date(quote.valid_until).toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' })
+                      : <span className="text-muted-foreground italic">— ไม่ระบุ —</span>}
+                    <Pencil className="w-3 h-3 opacity-50" />
+                  </button>
+                )}
+              </div>
+
+              {/* เงื่อนไขชำระ — inline editable */}
+              <div className="space-y-1 pt-1">
+                <div className="flex justify-between items-center gap-2">
                   <span className="text-muted-foreground shrink-0">เงื่อนไขชำระ:</span>
-                  <span className="text-right text-xs">{quote.payment_terms}</span>
+                  {!editingPaymentTerms && (
+                    <button
+                      onClick={() => {
+                        setPaymentTermsDraft(quote.payment_terms || '');
+                        setEditingPaymentTerms(true);
+                      }}
+                      className="text-xs text-primary hover:underline flex items-center gap-1"
+                    >
+                      <Pencil className="w-3 h-3" /> แก้ไข
+                    </button>
+                  )}
                 </div>
-              )}
+                {editingPaymentTerms ? (
+                  <div className="space-y-1">
+                    <Textarea
+                      value={paymentTermsDraft}
+                      onChange={(e) => setPaymentTermsDraft(e.target.value)}
+                      rows={4}
+                      className="text-xs"
+                      placeholder="ระบุเงื่อนไขการชำระเงิน..."
+                    />
+                    <div className="flex justify-end gap-1">
+                      <Button size="sm" variant="ghost" className="h-7 px-2 text-xs" onClick={() => setEditingPaymentTerms(false)}>
+                        ยกเลิก
+                      </Button>
+                      <Button
+                        size="sm"
+                        className="h-7 px-2 text-xs"
+                        onClick={async () => {
+                          const { error } = await supabase
+                            .from('quote_requests')
+                            .update({ payment_terms: paymentTermsDraft || null })
+                            .eq('id', quote.id);
+                          if (error) {
+                            toast({ title: 'บันทึกไม่สำเร็จ', description: error.message, variant: 'destructive' });
+                          } else {
+                            setQuote({ ...quote, payment_terms: paymentTermsDraft || null });
+                            setEditingPaymentTerms(false);
+                            toast({ title: 'อัปเดตเงื่อนไขชำระแล้ว' });
+                          }
+                        }}
+                      >
+                        บันทึก
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  <p className="text-xs whitespace-pre-line text-right text-foreground/90 bg-muted/30 rounded p-2">
+                    {quote.payment_terms || <span className="text-muted-foreground italic">— ยังไม่ระบุ —</span>}
+                  </p>
+                )}
+              </div>
+
               
               {/* Sale Admin Assignment */}
               <div className="pt-3 mt-2 border-t">
