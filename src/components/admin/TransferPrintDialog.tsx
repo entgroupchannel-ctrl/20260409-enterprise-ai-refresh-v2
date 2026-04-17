@@ -72,7 +72,7 @@ export default function TransferPrintDialog({
 
       await generatePDFWithHeaderFooter(el, {
         filename: `${transfer?.transfer_number || 'Transfer'}.pdf`,
-        headerLeft: companySettings?.name_th || 'ENT Group',
+        headerLeft: company?.name_th || 'ENT Group',
         headerRight: `${transfer?.transfer_number || 'Transfer'}`,
         footerCenter: 'เอกสารนี้ออกโดยระบบอัตโนมัติ',
       });
