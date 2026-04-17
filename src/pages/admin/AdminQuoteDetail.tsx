@@ -657,6 +657,16 @@ export default function AdminQuoteDetail() {
             <ArrowLeft className="w-4 h-4" />
           </Button>
           <div className="flex items-center gap-2">
+            {quote.status === 'pending' && (
+              <Button
+                size="sm"
+                onClick={handleSaveAndSendQuote}
+                disabled={savingQuote}
+              >
+                <SendHorizonal className="w-4 h-4 mr-1.5" />
+                {savingQuote ? 'กำลังบันทึก...' : 'บันทึกและส่งใบเสนอราคา'}
+              </Button>
+            )}
             <Button
               variant="outline"
               size="sm"
