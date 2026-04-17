@@ -541,7 +541,6 @@ export default function AdminQuoteDetail() {
   const poFiles = files.filter((f) => f.category === 'po' || f.category === 'customer_po' || f.category === 'po_virtual');
   const quoteFiles = files.filter((f) => f.category === 'quote_pdf');
 
-  const [savingQuote, setSavingQuote] = useState(false);
   const handleSaveAndSendQuote = async () => {
     if (!quote) return;
     setSavingQuote(true);
