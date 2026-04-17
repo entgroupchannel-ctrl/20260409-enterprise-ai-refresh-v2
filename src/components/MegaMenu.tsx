@@ -140,10 +140,12 @@ const menuCategories = [
       {
         heading: "โซลูชัน AI พร้อมใช้",
         links: [
-          { label: "Smart Manufacturing AI", href: "/nvidia-jetson#use-cases", hot: true },
-          { label: "Smart Surveillance", href: "/nvidia-jetson#use-cases" },
-          { label: "Autonomous Robots / AGV", href: "/nvidia-jetson#use-cases" },
-          { label: "Generative AI Edge", href: "/nvidia-jetson#use-cases" },
+          { label: "✦ โซลูชันทั้งหมด", href: "/nvidia-jetson/solutions", hot: true },
+          { label: "Smart Manufacturing AI", href: "/nvidia-jetson/solutions#industrial" },
+          { label: "Smart Surveillance", href: "/nvidia-jetson/solutions#security" },
+          { label: "Autonomous Robots / Drone", href: "/nvidia-jetson/solutions#drone" },
+          { label: "Medical AI", href: "/nvidia-jetson/solutions#medical" },
+          { label: "Generative AI Edge", href: "/nvidia-jetson/solutions" },
           { label: "ตัวอย่างงาน / Case Studies", href: "/case-studies" },
           { label: "✦ ตัวช่วยเลือกรุ่น Jetson", href: "/product-advisor", hot: true },
         ],
