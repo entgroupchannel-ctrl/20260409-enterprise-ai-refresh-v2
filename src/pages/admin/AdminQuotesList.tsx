@@ -37,6 +37,7 @@ import {
 } from 'lucide-react';
 import { formatRelativeTime } from '@/lib/format';
 import ImportQuotePDFDialog from '@/components/admin/ImportQuotePDFDialog';
+import PrintPreviewDialog from '@/components/admin/PrintPreviewDialog';
 
 interface Quote {
   id: string;
@@ -75,6 +76,10 @@ export default function AdminQuotesList() {
 
   // Import PDF dialog
   const [importOpen, setImportOpen] = useState(false);
+
+  // Download PDF state
+  const [downloadQuote, setDownloadQuote] = useState<any>(null);
+  const [downloadRevision, setDownloadRevision] = useState<any>(null);
 
   useEffect(() => {
     loadQuotes();
@@ -207,6 +212,49 @@ export default function AdminQuotesList() {
       navigate(`/admin/quotes/${created.id}?mode=edit`);
     } catch (error: any) {
       toast({ title: 'สร้างซ้ำไม่สำเร็จ', description: error.message, variant: 'destructive' });
+    }
+  };
+
+  const handleDownload = async (quoteId: string) => {
+    try {
+      const { data: q, error: qe } = await (supabase as any)
+        .from('quote_requests')
+        .select('*')
+        .eq('id', quoteId)
+        .maybeSingle();
+      if (qe || !q) throw qe || new Error('ไม่พบใบเสนอราคา');
+
+      const { data: rev } = await (supabase as any)
+        .from('quote_revisions')
+        .select('*')
+        .eq('quote_id', quoteId)
+        .order('revision_number', { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+      // Fallback revision built from quote_requests if no revision exists
+      const revision = rev || {
+        revision_number: 1,
+        products: q.products || [],
+        free_items: q.free_items || [],
+        subtotal: q.subtotal || 0,
+        discount_amount: q.discount_amount || 0,
+        discount_percent: q.discount_percent || 0,
+        vat_amount: q.vat_amount || 0,
+        vat_percent: q.vat_percent || 7,
+        grand_total: q.grand_total || 0,
+        notes: q.notes,
+        payment_terms: q.payment_terms,
+        delivery_terms: q.delivery_terms,
+        warranty_terms: q.warranty_terms,
+        valid_until: q.valid_until,
+        created_by: q.assigned_to,
+      };
+
+      setDownloadQuote(q);
+      setDownloadRevision(revision);
+    } catch (e: any) {
+      toast({ title: 'โหลดข้อมูลไม่สำเร็จ', description: e.message, variant: 'destructive' });
     }
   };
 
@@ -453,6 +501,7 @@ export default function AdminQuotesList() {
                           status={quote.status}
                           onDelete={() => setDeletingQuote(quote)}
                           onDuplicate={() => handleDuplicate(quote.id)}
+                          onCopy={() => handleDownload(quote.id)}
                         />
                       </div>
                     </div>
@@ -560,6 +609,17 @@ export default function AdminQuotesList() {
         onOpenChange={setImportOpen}
         onImported={loadQuotes}
       />
+
+      {/* Auto-download PDF */}
+      {downloadQuote && downloadRevision && (
+        <PrintPreviewDialog
+          open={!!downloadQuote}
+          onOpenChange={(v) => { if (!v) { setDownloadQuote(null); setDownloadRevision(null); } }}
+          quote={downloadQuote}
+          revision={downloadRevision}
+          autoDownload
+        />
+      )}
     </AdminLayout>
   );
 }
