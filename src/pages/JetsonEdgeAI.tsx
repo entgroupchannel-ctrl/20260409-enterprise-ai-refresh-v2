@@ -4,8 +4,24 @@ import SiteNavbar from "@/components/SiteNavbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { jetsonProducts, jetsonCategories, type JetsonCategory } from "@/data/jetson-products";
+import catModulesImg from "@/assets/jetson-cat-modules.jpg";
+import catDevkitsImg from "@/assets/jetson-cat-devkits.jpg";
+import catCarrierImg from "@/assets/jetson-cat-carrier.jpg";
+import catIpcImg from "@/assets/jetson-cat-ipc.jpg";
+import catDevSystemsImg from "@/assets/jetson-cat-devsystems.jpg";
+import catTaiwanImg from "@/assets/jetson-cat-taiwan.jpg";
+import catEdgeImg from "@/assets/jetson-cat-edge.jpg";
 
 const ICONS: Record<string, typeof Cpu> = { Cpu, Package, CircuitBoard, Server, Monitor, HardDrive };
+const CATEGORY_IMAGES: Record<JetsonCategory, string> = {
+  modules: catModulesImg,
+  devkits: catDevkitsImg,
+  "carrier-boards": catCarrierImg,
+  "embedded-systems": catIpcImg,
+  "dev-systems": catDevSystemsImg,
+  "taiwan-ipc": catTaiwanImg,
+  "edge-computers": catEdgeImg,
+};
 
 const performanceTiers = [
   { name: "Nano", tops: 67, color: "from-emerald-500 to-emerald-300", label: "Entry — IoT, Smart Camera" },
@@ -144,22 +160,42 @@ const JetsonEdgeAI = () => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {(Object.entries(jetsonCategories) as Array<[JetsonCategory, typeof jetsonCategories[JetsonCategory]]>).map(([key, cat]) => {
               const Icon = ICONS[cat.icon] || Cpu;
+              const bgImg = CATEGORY_IMAGES[key];
               return (
                 <Link
                   key={key}
                   to={`/shop?category=${encodeURIComponent(cat.slug)}`}
-                  className="group relative p-6 rounded-2xl border border-border bg-card hover:border-primary/40 hover:shadow-[0_8px_30px_-8px_hsl(var(--primary)/0.3)] transition-all overflow-hidden"
+                  className="group relative rounded-2xl border border-border bg-card hover:border-[#76B900]/60 hover:shadow-[0_12px_40px_-8px_rgba(118,185,0,0.45)] transition-all overflow-hidden h-64"
                 >
-                  <div className="absolute -top-12 -right-12 w-32 h-32 rounded-full bg-gradient-to-br from-primary/10 to-transparent group-hover:scale-150 transition-transform duration-700" />
-                  <div className="relative">
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                      <Icon size={22} />
+                  {/* AI-themed background image */}
+                  <img
+                    src={bgImg}
+                    alt={cat.nameTH}
+                    loading="lazy"
+                    width={1024}
+                    height={768}
+                    className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-110 transition-all duration-700"
+                  />
+                  {/* Dark gradient overlay (NVIDIA-style) */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0e27] via-[#0a0e27]/80 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-[#76B900]/10" />
+
+                  {/* Content */}
+                  <div className="relative h-full p-5 flex flex-col justify-between">
+                    <div className="flex items-start justify-between">
+                      <div className="w-11 h-11 rounded-xl bg-[#76B900]/15 backdrop-blur-md border border-[#76B900]/40 text-[#76B900] flex items-center justify-center group-hover:bg-[#76B900] group-hover:text-[#0a0e27] transition-all shadow-[0_0_20px_-5px_rgba(118,185,0,0.6)]">
+                        <Icon size={20} />
+                      </div>
+                      <span className="text-[10px] font-mono font-bold px-2 py-1 rounded-full bg-[#76B900]/20 text-[#a3e635] border border-[#76B900]/30">
+                        {categoryCounts[key] || 0} รุ่น
+                      </span>
                     </div>
-                    <h3 className="font-bold text-base mb-1">{cat.nameTH}</h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed mb-4 line-clamp-2">{cat.descriptionTH}</p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-mono text-primary font-bold">{categoryCounts[key] || 0} รุ่น</span>
-                      <ArrowRight size={14} className="text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                    <div>
+                      <h3 className="font-bold text-base text-white mb-1 drop-shadow-lg">{cat.nameTH}</h3>
+                      <p className="text-[11px] text-white/75 leading-relaxed mb-3 line-clamp-2">{cat.descriptionTH}</p>
+                      <div className="inline-flex items-center gap-1 text-xs font-semibold text-[#a3e635] group-hover:gap-2 transition-all">
+                        ดูสินค้า <ArrowRight size={13} />
+                      </div>
                     </div>
                   </div>
                 </Link>
