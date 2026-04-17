@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import SEOHead from '@/components/SEOHead';
 import Footer from '@/components/Footer';
+import B2BWorkflowBanner from '@/components/B2BWorkflowBanner';
 import AddToCartButton from '@/components/AddToCartButton';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -617,6 +618,7 @@ const ShopStorefront = () => {
         </div>
       )}
 
+      <B2BWorkflowBanner variant="full" />
       <Footer />
     </div>
   );

@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/select";
 import FooterCompact from "@/components/FooterCompact";
 import B2BCTABanner from "@/components/B2BCTABanner";
+import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import ShareButtons from "@/components/ShareButtons";
 import IBoxProductCard from "@/components/ibox/IBoxProductCard";
 import IBoxProductFilter, { type IBoxFilterState, defaultFilters, portFilters } from "@/components/ibox/IBoxProductFilter";
@@ -574,6 +575,7 @@ const IBoxSeries = () => {
           </a>
         </div>
       </section>
+      <B2BWorkflowBanner variant="compact" />
       <B2BCTABanner variant="compact" />
       <FooterCompact />
     </div>

@@ -5,6 +5,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
 import B2BCTABanner from "@/components/B2BCTABanner";
+import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import { useState, useCallback } from "react";
@@ -6126,6 +6127,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
           </div>
         </div>
       </section>
+      <B2BWorkflowBanner variant="full" />
       <B2BCTABanner variant="compact" />
       <FooterCompact />
       <LineQRDialog open={showLineQR} onClose={() => setShowLineQR(false)} />
