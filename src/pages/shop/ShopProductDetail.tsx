@@ -278,7 +278,7 @@ const ShopProductDetail = () => {
                 </div>
                 <div className="grid grid-cols-2 gap-1.5 text-[10px] text-muted-foreground">
                   <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> ตอบใน 4 ชม.</span>
-                  <span className="flex items-center gap-1"><Truck className="w-3 h-3" /> 3-5 วันทำการ</span>
+                  <span className="flex items-center gap-1"><Truck className="w-3 h-3" /> 15-30 วัน*</span>
                   <span className="flex items-center gap-1"><Package className="w-3 h-3" /> MOQ: 1 ชิ้น</span>
                   <span className="flex items-center gap-1"><ShieldCheck className="w-3 h-3" /> ISO 9001</span>
                 </div>
@@ -412,7 +412,7 @@ const ShopProductDetail = () => {
               <div className="rounded-lg bg-orange-500/8 border border-orange-500/20 p-2.5 flex items-start gap-2">
                 <CalendarClock className="w-3.5 h-3.5 text-orange-500 shrink-0 mt-0.5" />
                 <p className="text-[11px] text-muted-foreground leading-relaxed">
-                  <span className="font-semibold text-foreground">ระยะเวลาจัดส่ง:</span> สินค้าส่งตรงจากโรงงาน 7-14 วัน บางรุ่น 30-45 วัน ขึ้นอยู่กับปัจจัยต่างๆ — <span className="text-foreground font-medium">ควรสอบถามแอดมินก่อนสั่งสินค้า</span>
+                  <span className="font-semibold text-foreground">ระยะเวลาจัดส่ง:</span> โดยทั่วไป 15-30 วัน บางรุ่นจัดส่งไวกว่า — <span className="text-foreground font-medium">กรุณาสอบถามแอดมินก่อนสั่งซื้อ</span>
                 </p>
               </div>
             </div>
@@ -573,7 +573,7 @@ const ShopProductDetail = () => {
             <Info className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
             <div className="text-[11px] text-muted-foreground leading-relaxed space-y-0.5">
               <p className="font-semibold text-foreground text-xs">💡 แนะนำ: วางแผนสั่งซื้อล่วงหน้า</p>
-              <p>ลูกค้าควรวางแผนการสั่งสินค้าแต่เนิ่นๆ เพื่อให้โรงงานมีเวลาผลิตสินค้าและจัดส่งได้ตามกำหนด — สินค้าบางรุ่นใช้เวลาผลิต 30-45 วัน</p>
+              <p>ลูกค้าควรวางแผนการสั่งสินค้าแต่เนิ่นๆ เพื่อให้โรงงานมีเวลาผลิตและจัดส่งตามกำหนด — โดยทั่วไป 15-30 วัน บางรุ่นจัดส่งไวกว่า สอบถามแอดมินได้</p>
             </div>
           </div>
           <div className="max-w-2xl mx-auto">
