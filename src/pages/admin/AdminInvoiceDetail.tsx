@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import DocumentDraftBadge from '@/components/shared/DocumentDraftBadge';
+import DocumentNotesEditor from '@/components/shared/DocumentNotesEditor';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import AdminLayout from '@/layouts/AdminLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -63,7 +65,11 @@ export default function AdminInvoiceDetail() {
   const [cancelReason, setCancelReason] = useState('');
   const [editNotes, setEditNotes] = useState('');
   const [editInternalNotes, setEditInternalNotes] = useState('');
+  const [savedNotes, setSavedNotes] = useState('');
+  const [savedInternalNotes, setSavedInternalNotes] = useState('');
   const [savingNotes, setSavingNotes] = useState(false);
+  const [notesLastSaved, setNotesLastSaved] = useState<Date | null>(null);
+  const notesIsDirty = editNotes !== savedNotes || editInternalNotes !== savedInternalNotes;
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [deleteReason, setDeleteReason] = useState('');
   const [deleteConfirmed, setDeleteConfirmed] = useState(false);
@@ -92,6 +98,8 @@ export default function AdminInvoiceDetail() {
       setInvoice(invRes.data);
       setEditNotes(invRes.data.notes || '');
       setEditInternalNotes(invRes.data.internal_notes || '');
+      setSavedNotes(invRes.data.notes || '');
+      setSavedInternalNotes(invRes.data.internal_notes || '');
       setItems(itemsRes.data || []);
       setPaymentRecords(paymentRes.data || []);
     } catch (e: any) {
@@ -117,32 +125,6 @@ export default function AdminInvoiceDetail() {
         .eq('id', invoice.id);
       if (error) throw error;
       
-      // Notify customer when invoice is sent
-      if (newStatus === 'sent' && invoice.customer_id) {
-        import('@/lib/notifications').then(({ createNotification, sendQuoteStatusEmail }) => {
-          createNotification({
-            userId: invoice.customer_id!,
-            type: 'invoice_sent',
-            title: 'คุณมีใบแจ้งหนี้ใหม่',
-            message: `ใบแจ้งหนี้ ${invoice.invoice_number} พร้อมให้ตรวจสอบแล้ว`,
-            priority: 'high',
-            actionUrl: `/my-account/invoices/${invoice.id}`,
-            actionLabel: 'ดูใบแจ้งหนี้',
-            linkType: 'invoice',
-            linkId: invoice.id,
-          });
-          if (invoice.customer_email) {
-            sendQuoteStatusEmail({
-              recipientEmail: invoice.customer_email,
-              customerName: invoice.customer_name,
-              status: 'invoice_created',
-              invoiceNumber: invoice.invoice_number,
-              viewUrl: `https://www.entgroup.co.th/my-account/invoices/${invoice.id}`,
-            });
-          }
-        });
-      }
-
       toast({
         title: '✅ อัปเดตสถานะสำเร็จ',
         description: `เปลี่ยนเป็น "${STATUS_LABELS[newStatus]?.label || newStatus}"`,
@@ -908,63 +890,15 @@ export default function AdminInvoiceDetail() {
           </CardContent>
         </Card>
 
-        {/* Notes Editor — Customer + Internal */}
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-sm flex items-center gap-2">
-              <MessageSquare className="w-4 h-4" />
-              หมายเหตุ
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="invoice-notes" className="text-xs font-semibold text-muted-foreground flex items-center gap-1.5">
-                <MessageSquare className="w-3 h-3" />
-                หมายเหตุสำหรับลูกค้า
-                <span className="text-[10px] font-normal">(แสดงในใบวางบิลที่พิมพ์)</span>
-              </Label>
-              <Textarea
-                id="invoice-notes"
-                value={editNotes}
-                onChange={(e) => setEditNotes(e.target.value)}
-                placeholder="เช่น: ขอบคุณที่ใช้บริการ, รายละเอียดเงื่อนไขเพิ่มเติม..."
-                rows={3}
-                className="text-sm resize-none"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="invoice-internal-notes" className="text-xs font-semibold text-muted-foreground flex items-center gap-1.5">
-                <Lock className="w-3 h-3 text-amber-600" />
-                หมายเหตุภายใน
-                <span className="text-[10px] font-normal text-amber-700">(เห็นเฉพาะทีมงาน — ไม่แสดงในใบที่พิมพ์)</span>
-              </Label>
-              <Textarea
-                id="invoice-internal-notes"
-                value={editInternalNotes}
-                onChange={(e) => setEditInternalNotes(e.target.value)}
-                placeholder="บันทึกภายใน: ติดต่อลูกค้าทาง LINE, ลูกค้าขอแบ่งจ่าย, ฯลฯ"
-                rows={3}
-                className="text-sm resize-none border-amber-200 focus-visible:ring-amber-400 bg-amber-50/30"
-              />
-            </div>
-
-            <div className="flex justify-end">
-              <Button
-                size="sm"
-                onClick={handleSaveNotes}
-                disabled={
-                  savingNotes ||
-                  (editNotes === (invoice.notes || '') &&
-                    editInternalNotes === (invoice.internal_notes || ''))
-                }
-              >
-                <Save className="w-4 h-4 mr-1.5" />
-                {savingNotes ? 'กำลังบันทึก...' : 'บันทึกหมายเหตุ'}
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+        {/* Notes Editor — using reusable DocumentNotesEditor */}
+        <DocumentNotesEditor
+          table="invoices"
+          id={invoice.id}
+          initialNotes={invoice.notes}
+          initialInternalNotes={invoice.internal_notes}
+          showInternalNotes
+          onSaved={loadInvoice}
+        />
 
         {/* Payment Records Summary (read-only) */}
         {paymentRecords.length > 0 && (

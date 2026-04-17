@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import DocumentNotesEditor from '@/components/shared/DocumentNotesEditor';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import AdminLayout from '@/layouts/AdminLayout';
 import { Button } from '@/components/ui/button';
@@ -364,15 +365,14 @@ export default function AdminTaxInvoiceDetail() {
           </Card>
         )}
 
-        {/* Notes */}
-        {taxInvoice.notes && (
-          <Card>
-            <CardContent className="pt-4">
-              <p className="text-xs text-muted-foreground mb-1">หมายเหตุ</p>
-              <p className="text-sm whitespace-pre-wrap">{taxInvoice.notes}</p>
-            </CardContent>
-          </Card>
-        )}
+        {/* Notes — editable with draft save */}
+        <DocumentNotesEditor
+          table="tax_invoices"
+          id={taxInvoice.id}
+          initialNotes={taxInvoice.notes}
+          initialInternalNotes={taxInvoice.internal_notes ?? null}
+          showInternalNotes
+        />
       </div>
 
       <TaxInvoicePrintPreviewDialog
