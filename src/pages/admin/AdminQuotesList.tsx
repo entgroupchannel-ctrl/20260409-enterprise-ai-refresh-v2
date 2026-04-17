@@ -454,16 +454,17 @@ export default function AdminQuotesList() {
           </CardContent>
         </Card>
 
-        <div className="flex items-center justify-between text-sm text-muted-foreground">
-          <span>พบ {filteredQuotes.length} รายการ{searchQuery && ` จากการค้นหา "${searchQuery}"`}</span>
-        </div>
-
-        <div className="space-y-3">
-        <div className="flex items-center justify-between text-sm text-muted-foreground">
-          <span>พบ {filteredQuotes.length} รายการ{searchQuery && ` จากการค้นหา "${searchQuery}"`}</span>
-        </div>
-
         {(() => {
+          const totalAmount = filteredQuotes.reduce((sum, q) => sum + (q.grand_total || 0), 0);
+          const startIdx = (page - 1) * pageSize;
+          const pageItems = filteredQuotes.slice(startIdx, startIdx + pageSize);
+          const pageAmount = pageItems.reduce((sum, q) => sum + (q.grand_total || 0), 0);
+          return (
+            <>
+              <div className="flex items-center justify-between text-sm text-muted-foreground">
+                <span>พบ {filteredQuotes.length} รายการ{searchQuery && ` จากการค้นหา "${searchQuery}"`}</span>
+              </div>
+
           const totalAmount = filteredQuotes.reduce((sum, q) => sum + (q.grand_total || 0), 0);
           const startIdx = (page - 1) * pageSize;
           const pageItems = filteredQuotes.slice(startIdx, startIdx + pageSize);
