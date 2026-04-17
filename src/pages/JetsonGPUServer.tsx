@@ -305,7 +305,7 @@ export default function JetsonGPUServer() {
             <a href="tel:020456104" className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-white/20 hover:border-white/40 hover:bg-white/5 font-semibold transition-all">
               <Phone className="w-4 h-4" /> 02-045-6104
             </a>
-            <LineQRButton className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-white/20 hover:border-white/40 hover:bg-white/5 font-semibold transition-all" />
+            <LineQRButton className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-white/20 hover:border-white/40 hover:bg-white/5 font-semibold transition-all">LINE @entgroup</LineQRButton>
           </div>
         </div>
       </section>
