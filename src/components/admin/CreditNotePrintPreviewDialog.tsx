@@ -69,19 +69,16 @@ export default function CreditNotePrintPreviewDialog({
   const handleDownloadPDF = async () => {
     setIsDownloading(true);
     try {
-      const html2pdf = (await import('html2pdf.js')).default;
+      const { generatePDFWithHeaderFooter } = await import('@/lib/pdf-helper');
       const element = document.getElementById('credit-note-pdf-template');
       if (!element) return;
 
-      const opt = {
-        margin: 10,
+      await generatePDFWithHeaderFooter(element, {
         filename: `${creditNote.credit_note_number}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-      };
-
-      await html2pdf().set(opt).from(element).save();
+        headerLeft: companySettings?.name_th || 'ENT Group',
+        headerRight: `ใบลดหนี้ ${creditNote.credit_note_number}`,
+        footerCenter: 'เอกสารนี้ออกโดยระบบอัตโนมัติ',
+      });
     } catch (error) {
       console.error('Error generating PDF:', error);
     } finally {
