@@ -187,6 +187,7 @@ export default function AdminQuoteDetail() {
   const [loading, setLoading] = useState(true);
   const [messageText, setMessageText] = useState('');
   const [sendingMessage, setSendingMessage] = useState(false);
+  const [savingQuote, setSavingQuote] = useState(false);
 
   // UserRound role
   const [userRole, setUserRole] = useState<'super_admin' | 'admin' | 'sales'>('admin');
