@@ -32,10 +32,27 @@ export function openPrintPreview({
   const width = contentWidth ?? 210 - pageMargin * 2;
 
   // Copy <link rel="stylesheet"> and <style> tags so Tailwind CSS reaches the popup.
-  const styleTags = Array.from(
+  // For external stylesheets (link), inline their resolved cssText when available so
+  // the popup doesn't need to re-fetch them (which races with print()).
+  const styleNodes = Array.from(
     document.querySelectorAll('link[rel="stylesheet"], style')
-  )
-    .map((node) => node.outerHTML)
+  );
+  const styleTags = styleNodes
+    .map((node) => {
+      if (node.tagName === 'LINK') {
+        const link = node as HTMLLinkElement;
+        try {
+          const sheet = link.sheet as CSSStyleSheet | null;
+          if (sheet && sheet.cssRules) {
+            const css = Array.from(sheet.cssRules).map((r) => r.cssText).join('\n');
+            return `<style data-href="${link.href}">${css}</style>`;
+          }
+        } catch {
+          // Cross-origin sheet — fall back to <link> tag
+        }
+      }
+      return node.outerHTML;
+    })
     .join('\n');
 
   const templateId = element.id || 'print-template';
