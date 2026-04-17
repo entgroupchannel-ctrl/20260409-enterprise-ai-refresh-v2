@@ -180,15 +180,38 @@ export default function ReceiptPrintPreviewDialog({
     setIsDownloading(true);
     try {
       const { generatePDFWithHeaderFooter } = await import('@/lib/pdf-helper');
-      const element = document.getElementById('receipt-pdf-template');
-      if (!element) return;
+      const original = document.getElementById('receipt-pdf-template');
+      if (!original) return;
 
-      await generatePDFWithHeaderFooter(element, {
-        filename: `${receipt.receipt_number}.pdf`,
-        headerLeft: companySettings?.name_th || 'ENT Group',
-        headerRight: `ใบเสร็จรับเงิน ${receipt.receipt_number}`,
-        footerCenter: 'เอกสารนี้ออกโดยระบบอัตโนมัติ',
-      });
+      // Clone off-screen with print-safe sizing so the header (e.g. "ใบเสร็จรับเงิน",
+      // เลขที่เอกสาร) is not clipped by html2pdf's page margins.
+      const clone = original.cloneNode(true) as HTMLElement;
+      clone.id = 'receipt-pdf-template-print';
+      // A4 printable width = 210mm - 2*12mm side margin = 186mm
+      clone.style.width = '186mm';
+      clone.style.minHeight = 'auto';
+      clone.style.padding = '0';
+      clone.style.margin = '0';
+      clone.style.boxSizing = 'border-box';
+
+      const holder = document.createElement('div');
+      holder.style.position = 'fixed';
+      holder.style.left = '-10000px';
+      holder.style.top = '0';
+      holder.style.background = '#fff';
+      holder.appendChild(clone);
+      document.body.appendChild(holder);
+
+      try {
+        await generatePDFWithHeaderFooter(clone, {
+          filename: `${receipt.receipt_number}.pdf`,
+          headerLeft: companySettings?.name_th || 'ENT Group',
+          headerRight: `Receipt ${receipt.receipt_number}`,
+          footerCenter: 'เอกสารนี้ออกโดยระบบอัตโนมัติ',
+        });
+      } finally {
+        document.body.removeChild(holder);
+      }
     } catch (error) {
       console.error('Error generating PDF:', error);
     } finally {
