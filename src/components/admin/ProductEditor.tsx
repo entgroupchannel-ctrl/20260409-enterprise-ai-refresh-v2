@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/dialog';
 import { Plus, Trash2, Edit, Save, X } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import ProductAutocomplete, { type ProductData } from './ProductAutocomplete';
 
 interface Product {
   model: string;
