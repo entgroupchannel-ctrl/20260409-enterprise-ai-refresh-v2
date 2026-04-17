@@ -74,7 +74,25 @@ export default function CounterOfferDialog({
     const loadBase = async () => {
       setLoadingBase(true);
       try {
-        if (currentRevisionId) {
+        // EDIT MODE: load the draft we are editing
+        if (editRevisionId) {
+          const { data } = await (supabase.from as any)('quote_revisions')
+            .select('*')
+            .eq('id', editRevisionId)
+            .single();
+
+          if (data) {
+            setProducts(data.products || []);
+            setFreeItems(data.free_items || []);
+            const loadedType = (data.discount_type === 'baht' ? 'baht' : 'percent') as 'percent' | 'baht';
+            setDiscountType(loadedType);
+            setDiscountValue(loadedType === 'baht' ? (data.discount_amount || 0) : (data.discount_percent || 0));
+            setVatPercent(data.vat_percent || 7);
+            setValidUntil(data.valid_until || '');
+            setChangeReason(data.change_reason || '');
+            setInternalNotes(data.internal_notes || '');
+          }
+        } else if (currentRevisionId) {
           const { data } = await (supabase.from as any)('quote_revisions')
             .select('*')
             .eq('id', currentRevisionId)
@@ -89,6 +107,9 @@ export default function CounterOfferDialog({
             setVatPercent(data.vat_percent || 7);
             setValidUntil(data.valid_until || '');
           }
+          // Reset form fields (create-new path only)
+          setChangeReason('');
+          setInternalNotes('');
         } else {
           // Fallback: load from quote_requests
           const { data } = await supabase
@@ -106,11 +127,9 @@ export default function CounterOfferDialog({
             setVatPercent((data as any).vat_percent || 7);
             setValidUntil((data as any).valid_until || '');
           }
+          setChangeReason('');
+          setInternalNotes('');
         }
-
-        // Reset form fields
-        setChangeReason('');
-        setInternalNotes('');
       } catch (e) {
         console.error('Error loading base revision:', e);
       } finally {
@@ -119,7 +138,7 @@ export default function CounterOfferDialog({
     };
 
     loadBase();
-  }, [open, currentRevisionId, quoteId]);
+  }, [open, currentRevisionId, editRevisionId, quoteId]);
 
   const totals = useMemo(
     () => calculateTotals(products, discountType, discountValue, vatPercent),
