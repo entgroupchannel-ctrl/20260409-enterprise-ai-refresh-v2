@@ -240,7 +240,7 @@ export default function CustomerChat({ quoteId: propQuoteId, mode = 'widget' }: 
       {/* Slide-out panel anchored to right edge */}
       <div
         className={cn(
-          'fixed right-0 top-0 h-screen w-full sm:w-[400px] z-50 bg-background border-l shadow-2xl flex flex-col transition-transform duration-300 ease-out',
+          'fixed right-0 bottom-4 sm:bottom-6 z-50 w-[92vw] sm:w-[380px] h-[70vh] max-h-[560px] bg-background border border-r-0 rounded-l-2xl shadow-2xl flex flex-col overflow-hidden transition-transform duration-300 ease-out',
           open ? 'translate-x-0' : 'translate-x-full pointer-events-none'
         )}
       >
