@@ -552,9 +552,9 @@ export default function MyQuoteDetail() {
                   <Button
                     size="lg"
                     onClick={() => setShowAcceptQuote(true)}
-                    className="bg-green-600 hover:bg-green-700 text-white shadow-md hover:shadow-lg transition-all text-base px-6 py-3 animate-pulse hover:animate-none w-full sm:w-auto"
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-sm hover:shadow-md transition-all text-base px-6 py-3 w-full sm:w-auto font-semibold tracking-wide"
                   >
-                    <CheckCircle2 className="w-5 h-5 mr-2" /> ✅ ยอมรับราคานี้
+                    <CheckCircle2 className="w-5 h-5 mr-2" /> ยอมรับราคานี้
                   </Button>
                   {(quote as any).negotiation_enabled && (
                     <Button variant="outline" size="lg" onClick={() => setShowNegotiation(true)} className="w-full sm:w-auto">

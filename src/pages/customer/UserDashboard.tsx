@@ -1140,7 +1140,7 @@ export default function UserDashboard() {
                             </p>
                             <Button
                               size="lg"
-                              className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white shadow-md animate-pulse hover:animate-none font-semibold text-base"
+                              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-sm hover:shadow-md transition-all font-semibold text-base tracking-wide"
                               onClick={() => setShowAcceptDialog(true)}
                             >
                               <BadgeCheck className="w-5 h-5 mr-2" /> ยอมรับราคานี้
