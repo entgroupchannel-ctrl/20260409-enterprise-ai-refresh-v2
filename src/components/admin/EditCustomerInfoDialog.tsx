@@ -75,6 +75,7 @@ export default function EditCustomerInfoDialog({
   const [values, setValues] = useState<CustomerInfo>(initialValues);
   const [profile, setProfile] = useState<ProfileSnapshot | null>(null);
   const [loadingProfile, setLoadingProfile] = useState(false);
+  const [syncContact, setSyncContact] = useState(true);
 
   // Only reset when dialog opens (not when parent re-renders initialValues)
   useEffect(() => {
