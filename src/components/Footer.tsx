@@ -273,7 +273,7 @@ const Footer = () => {
             <span className="text-xs font-bold text-foreground mr-2">เว็บไซต์ในเครือ:</span>
             {[
               { label: "Rugged Device", href: "https://entgroup-rugged.com", external: true },
-              { label: "NVIDIA Jetson", href: "https://nvidia-jetson.com", external: true },
+              { label: "NVIDIA Jetson", href: "/nvidia-jetson" },
               { label: "ENT Group Biz", href: "/about-us" },
               { label: "VIMOSA", href: "https://www.vimosa.co.th/", external: true },
               { label: "VICHAKAN", href: "https://www.vichakarn.co/", external: true },

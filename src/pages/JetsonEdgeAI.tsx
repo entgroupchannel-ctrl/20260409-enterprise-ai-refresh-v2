@@ -160,7 +160,7 @@ const JetsonEdgeAI = () => {
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#76B900]/10 border border-[#76B900]/30 backdrop-blur-sm mb-6">
                 <Award size={14} style={{ color: NV_GREEN }} />
                 <span className="text-xs font-semibold tracking-wider" style={{ color: "#a3e635" }}>
-                  ตัวแทนจำหน่าย NVIDIA Jetson อย่างเป็นทางการในประเทศไทย
+                  NVIDIA Jetson Partner — ตัวแทนจำหน่ายในประเทศไทย
                 </span>
               </div>
               <h1 className="text-4xl md:text-6xl font-display font-bold leading-[1.1] mb-6">
@@ -170,17 +170,17 @@ const JetsonEdgeAI = () => {
                 </span>
               </h1>
               <p className="text-lg text-white/70 mb-8 leading-relaxed max-w-xl">
-                อีเอ็นที กรุ๊ป พันธมิตรธุรกิจที่คุณไว้วางใจ — ขอนำเสนอโมดูล, ชุดพัฒนา และคอมพิวเตอร์อุตสาหกรรม ขับเคลื่อนด้วยแพลตฟอร์ม NVIDIA Jetson
+                อีเอ็นที กรุ๊ป พันธมิตรธุรกิจที่คุณไว้วางใจ ขอนำเสนอ <strong className="text-white">โมดูล, ชุดพัฒนา และคอมพิวเตอร์อุตสาหกรรม</strong> — ขับเคลื่อนด้วยแพลตฟอร์ม NVIDIA Jetson
               </p>
               <div className="flex flex-wrap gap-3">
                 <Link to="/shop?category=jetson" className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-bold transition-all shadow-[0_0_30px_-5px_rgba(118,185,0,0.6)] hover:shadow-[0_0_40px_-5px_rgba(118,185,0,0.9)]" style={{ background: NV_GREEN, color: "#0a0e27" }}>
                   ดูสินค้าทั้งหมด <ArrowRight size={16} />
                 </Link>
-                <Link to="/contact" className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-white/20 hover:border-white/40 hover:bg-white/5 text-white font-semibold transition-all backdrop-blur-sm">
-                  ช่วยเลือกสินค้า
+                <Link to="/nvidia-jetson/recommend" className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-white/20 hover:border-white/40 hover:bg-white/5 text-white font-semibold transition-all backdrop-blur-sm">
+                  <Sparkles size={16} /> ตัวช่วยเลือกรุ่น
                 </Link>
                 <Link to="/contact" className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-white/10 hover:border-white/30 hover:bg-white/5 text-white/90 font-semibold transition-all">
-                  ติดต่อเรา
+                  ติดต่อทีมวิศวกร
                 </Link>
               </div>
             </div>
@@ -195,6 +195,35 @@ const JetsonEdgeAI = () => {
                 className="relative w-full rounded-2xl border border-white/10 shadow-2xl"
               />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SUB-NAVIGATION (Quick Links) ── */}
+      <section className="sticky top-16 z-30 bg-[#0a0e27]/95 backdrop-blur-md border-y border-white/10">
+        <div className="container max-w-7xl mx-auto px-6">
+          <div className="flex items-center gap-2 overflow-x-auto py-3 scrollbar-hide">
+            <span className="text-xs text-white/50 font-semibold tracking-wider uppercase shrink-0 mr-2">เมนูลัด:</span>
+            {[
+              { label: "🛒 สินค้าทั้งหมด", href: "/shop?category=jetson" },
+              { label: "🎯 ตัวช่วยเลือกรุ่น", href: "/nvidia-jetson/recommend", primary: true },
+              { label: "🧠 AI Models (NGC)", href: "/nvidia-jetson/ai-ready" },
+              { label: "🏭 Solutions", href: "/nvidia-jetson/solutions" },
+              { label: "✦ Case Studies", href: "/nvidia-jetson/case-studies" },
+              { label: "📞 ขอ POC ฟรี", href: "/contact" },
+            ].map((link) => (
+              <Link
+                key={link.href}
+                to={link.href}
+                className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                  link.primary
+                    ? "bg-[#76B900] text-[#0a0e27] hover:opacity-90"
+                    : "bg-white/5 text-white/80 hover:bg-white/10 hover:text-white border border-white/10"
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
         </div>
       </section>

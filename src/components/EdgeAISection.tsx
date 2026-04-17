@@ -51,24 +51,19 @@ const EdgeAISection = () => {
               อีเอ็นที กรุ๊ป พันธมิตรธุรกิจที่คุณไว้วางใจขอนำเสนอ โมดูล, ชุดพัฒนา และคอมพิวเตอร์อุตสาหกรรม — ขับเคลื่อนด้วยแพลตฟอร์ม NVIDIA Jetson
             </p>
             <div className="flex flex-wrap gap-4">
-              <a
-                href="https://nvidia-jetson.com/"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                to="/nvidia-jetson"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
               >
-                ดูเว็บไซต์ <ExternalLink size={16} />
-              </a>
-              <a
-                href="https://nvidia-jetson.com/products"
-                target="_blank"
-                rel="noopener noreferrer"
+                ดูหน้า NVIDIA Jetson <ArrowRight size={16} />
+              </Link>
+              <Link
+                to="/shop?category=jetson"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold hover:bg-surface-hover transition-colors"
               >
                 ดูสินค้าทั้งหมด
-              </a>
+              </Link>
             </div>
-          </div>
 
           <div
             className="relative group"
