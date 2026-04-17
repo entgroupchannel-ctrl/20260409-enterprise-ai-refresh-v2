@@ -117,7 +117,7 @@ export default function QuoteActionsMenu({
           พิมพ์จำนวนซอง
         </DropdownMenuItem>
         
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={onDuplicate}>
           <Copy className="mr-2 h-4 w-4" />
           สร้างซ้ำ
         </DropdownMenuItem>
