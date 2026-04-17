@@ -328,7 +328,16 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
             <DialogTitle>เพิ่มรายการสินค้า</DialogTitle>
             <DialogDescription>กรอกข้อมูลสินค้าที่ต้องการเพิ่ม</DialogDescription>
           </DialogHeader>
-          
+
+          <div className="py-2">
+            <Label className="mb-1.5 block">ค้นหาสินค้าจากคลัง (เลือกเพื่อเติมข้อมูลอัตโนมัติ)</Label>
+            <ProductAutocomplete
+              value={productSearch}
+              onChange={setProductSearch}
+              onSelectProduct={handleSelectProduct}
+            />
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-4">
             <div>
               <Label>รุ่น/Model *</Label>
