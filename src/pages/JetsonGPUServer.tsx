@@ -4,6 +4,12 @@ import { ArrowLeft, FileText, Phone, Server, Cpu, Zap, Award } from "lucide-reac
 import SiteNavbar from "@/components/SiteNavbar";
 import Footer from "@/components/Footer";
 import LineQRButton from "@/components/LineQRButton";
+import imgDgxA100 from "@/assets/jetson/dgx-a100.jpg";
+import imgDgxSpark from "@/assets/jetson/dgx-spark.jpg";
+import imgAgxThor from "@/assets/jetson/agx-thor.jpg";
+import imgWs2030 from "@/assets/jetson/ws2030.jpg";
+import imgWs1020 from "@/assets/jetson/ws1020.jpg";
+import imgW830 from "@/assets/jetson/w830.jpg";
 
 const NV = "#76B900";
 
@@ -25,7 +31,7 @@ const products: Product[] = [
     badges: [{ label: "Flagship", tone: "flagship" }],
     tagline: "เซิร์ฟเวอร์ AI ระดับ Data Center (Rackmount 6U)",
     desc: "เซิร์ฟเวอร์ AI ระดับ Data Center — 8 GPU A100 80GB รวม 640GB, 5 PFLOPS สำหรับ AI Training ขนาดใหญ่",
-    image: "https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/dgx-a100/nvidia-dgx-a100-system-2c50-d.jpg",
+    image: imgDgxA100,
     quoteSlug: "dgx-a100",
     specs: [
       ["GPU", "8x NVIDIA A100 80GB Tensor Core GPUs"],
@@ -48,7 +54,7 @@ const products: Product[] = [
     name: "Leadtek Station WS2030",
     tagline: "เวิร์กสเตชัน GPU ระดับสูงสุด 4U Rack/Tower — รองรับ 4 GPU, 4TB RAM, 10GbE, 2200W Titanium",
     desc: "เวิร์กสเตชัน GPU ระดับสูงสุด 4U Rack/Tower — รองรับ 4 GPU, 4TB RAM, 10GbE, 2200W Titanium สำหรับ AI Training และ 3D Rendering",
-    image: "/product-placeholder.svg",
+    image: imgWs2030,
     quoteSlug: "ws2030",
     specs: [
       ["CPU", "Dual Socket P (LGA 3647), 2nd Gen Intel Xeon Scalable, up to 28 cores, TDP 70-205W"],
@@ -73,7 +79,7 @@ const products: Product[] = [
     name: "Leadtek Station WS1020",
     tagline: "เวิร์กสเตชัน GPU ระดับกลาง-สูง — Dual Xeon E5, 2TB RAM, รองรับ 3 GPU",
     desc: "เวิร์กสเตชัน GPU Dual Xeon E5-2600 v4/v3 — รองรับ RAM สูงสุด 2TB DDR4 ECC, 3 GPU, 6 ช่องฮาร์ดดิสก์ (4 Hot-swap), พาวเวอร์ 900W Gold",
-    image: "/product-placeholder.svg",
+    image: imgWs1020,
     quoteSlug: "ws1020",
     specs: [
       ["CPU", "Dual Intel Xeon E5-2600 v4/v3"],
@@ -91,7 +97,7 @@ const products: Product[] = [
     badges: [{ label: "Data Science Certified", tone: "cert" }],
     tagline: "เวิร์กสเตชัน GPU ระดับกลาง Mid-Tower — รองรับ 3 GPU, 512GB RAM, NVIDIA Data Science Certified",
     desc: "เวิร์กสเตชัน GPU ระดับกลาง Mid-Tower — รองรับ 3 GPU, 512GB RAM, 5G LAN, NVIDIA Data Science Certified สำหรับ AI/Deep Learning/3D Rendering",
-    image: "/product-placeholder.svg",
+    image: imgW830,
     quoteSlug: "w830",
     specs: [
       ["CPU", "Single Socket R4 (LGA 2066), Intel Xeon W-2200/W-2100"],
@@ -114,7 +120,7 @@ const products: Product[] = [
     badges: [{ label: "NEW", tone: "new" }, { label: "Blackwell", tone: "flagship" }],
     tagline: "ซูเปอร์คอมพิวเตอร์ AI บนโต๊ะทำงาน",
     desc: "ซูเปอร์คอมพิวเตอร์ AI บนโต๊ะทำงาน — Grace Blackwell, 1 PFLOP, 128GB Unified Memory, 4TB NVMe สำหรับพัฒนา LLM/Generative AI ภายในองค์กร ไม่ต้องส่งข้อมูลขึ้น Cloud",
-    image: "https://www.nvidia.com/content/dam/en-zz/Solutions/gtcs25/project-digits/nvidia-project-digits-og.jpg",
+    image: imgDgxSpark,
     quoteSlug: "dgx-spark",
     specs: [
       ["Architecture", "NVIDIA Grace Blackwell"],
@@ -138,7 +144,7 @@ const products: Product[] = [
     badges: [{ label: "NEW", tone: "new" }, { label: "Blackwell", tone: "flagship" }, { label: "Physical AI", tone: "cert" }],
     tagline: "แพลตฟอร์ม AI ระดับ Blackwell สำหรับ Robotics และ Edge",
     desc: "แพลตฟอร์ม AI ระดับ Blackwell สำหรับ Robotics และ Edge — 2,070 TFLOPS, 128GB, MIG 7 partitions, ทำงานที่ 40-130W ทรงพลังที่สุดในตระกูล Jetson",
-    image: "/images/rugged/em-p21j",
+    image: imgAgxThor,
     quoteSlug: "agx-thor",
     specs: [
       ["Module", "Jetson T5000"],

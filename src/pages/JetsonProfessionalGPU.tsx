@@ -5,6 +5,14 @@ import { ArrowLeft, FileText, Phone, Cpu, Award, Sparkles } from "lucide-react";
 import SiteNavbar from "@/components/SiteNavbar";
 import Footer from "@/components/Footer";
 import LineQRButton from "@/components/LineQRButton";
+import imgRtx6000Ada from "@/assets/jetson/rtx6000-ada.jpg";
+import imgRtxA6000 from "@/assets/jetson/rtx-a6000.jpg";
+import imgRtxA from "@/assets/jetson/rtx-a-series.jpg";
+import imgQuadroRtx from "@/assets/jetson/quadro-rtx.jpg";
+import imgQuadroPascal from "@/assets/jetson/quadro-pascal.jpg";
+import imgTSeries from "@/assets/jetson/nvidia-t-series.jpg";
+import imgTitanRtx from "@/assets/jetson/titan-rtx.jpg";
+import imgQuadroSync from "@/assets/jetson/quadro-sync.jpg";
 
 const NV = "#76B900";
 
@@ -24,7 +32,7 @@ const gpus: GPU[] = [
   {
     id: "rtx6000-ada", name: "NVIDIA RTX 6000 Ada Generation", family: "ada", arch: "Ada Lovelace",
     badges: [{ label: "Flagship", tone: "flagship" }, { label: "Ada Lovelace", tone: "new" }],
-    image: "https://images.nvidia.com/aem-dam/Solutions/design-visualization/quadro-product-literature/proviz-print-nvidia-rtx-6000-datasheet-us-nvidia-1660094-r5-web.png",
+    image: imgRtx6000Ada,
     specs: [
       { label: "Architecture", value: "Ada Lovelace" },
       { label: "CUDA Cores", value: "18,176" },
@@ -35,7 +43,7 @@ const gpus: GPU[] = [
   {
     id: "rtx-a6000", name: "NVIDIA RTX A6000", family: "a-series", arch: "Ampere",
     badges: [{ label: "Ampere", tone: "info" }],
-    image: "https://images.nvidia.com/aem-dam/Solutions/design-visualization/quadro-product-literature/nvidia-rtx-a6000-datasheet.png",
+    image: imgRtxA6000,
     specs: [
       { label: "Architecture", value: "Ampere" },
       { label: "CUDA Cores", value: "10,752" },
@@ -46,7 +54,7 @@ const gpus: GPU[] = [
   {
     id: "rtx-a5000", name: "NVIDIA RTX A5000", family: "a-series", arch: "Ampere",
     badges: [{ label: "Ampere", tone: "info" }],
-    image: "/product-placeholder.svg",
+    image: imgRtxA,
     specs: [
       { label: "Architecture", value: "Ampere" },
       { label: "CUDA Cores", value: "8,192" },
@@ -57,7 +65,7 @@ const gpus: GPU[] = [
   {
     id: "rtx-a4000", name: "NVIDIA RTX A4000", family: "a-series", arch: "Ampere",
     badges: [{ label: "Ampere", tone: "info" }],
-    image: "/product-placeholder.svg",
+    image: imgRtxA,
     specs: [
       { label: "Architecture", value: "Ampere" },
       { label: "CUDA Cores", value: "6,144" },
@@ -68,7 +76,7 @@ const gpus: GPU[] = [
   {
     id: "quadro-rtx8000", name: "QUADRO RTX 8000", family: "quadro-rtx", arch: "Turing",
     badges: [{ label: "Turing", tone: "info" }],
-    image: "/product-placeholder.svg",
+    image: imgQuadroRtx,
     specs: [
       { label: "Architecture", value: "Turing" },
       { label: "CUDA Cores", value: "4,608" },
@@ -79,7 +87,7 @@ const gpus: GPU[] = [
   {
     id: "quadro-rtx6000", name: "QUADRO RTX 6000", family: "quadro-rtx", arch: "Turing",
     badges: [{ label: "Turing", tone: "info" }],
-    image: "/product-placeholder.svg",
+    image: imgQuadroRtx,
     specs: [
       { label: "Architecture", value: "Turing" },
       { label: "CUDA Cores", value: "4,608" },
@@ -90,7 +98,7 @@ const gpus: GPU[] = [
   {
     id: "quadro-rtx5000", name: "QUADRO RTX 5000", family: "quadro-rtx", arch: "Turing",
     badges: [{ label: "Turing", tone: "info" }],
-    image: "/product-placeholder.svg",
+    image: imgQuadroRtx,
     specs: [
       { label: "Architecture", value: "Turing" },
       { label: "CUDA Cores", value: "3,072" },
@@ -101,7 +109,7 @@ const gpus: GPU[] = [
   {
     id: "quadro-rtx4000", name: "QUADRO RTX 4000", family: "quadro-rtx", arch: "Turing",
     badges: [{ label: "Turing", tone: "info" }],
-    image: "/product-placeholder.svg",
+    image: imgQuadroRtx,
     specs: [
       { label: "Architecture", value: "Turing" },
       { label: "CUDA Cores", value: "2,304" },
@@ -112,7 +120,7 @@ const gpus: GPU[] = [
   {
     id: "quadro-gp100", name: "Quadro GP100", family: "legacy", arch: "Pascal",
     badges: [{ label: "Pascal", tone: "info" }, { label: "HBM2", tone: "info" }],
-    image: "/product-placeholder.svg",
+    image: imgQuadroPascal,
     specs: [
       { label: "Architecture", value: "Pascal" },
       { label: "CUDA Cores", value: "3,584" },
@@ -123,7 +131,7 @@ const gpus: GPU[] = [
   {
     id: "quadro-p6000", name: "Quadro P6000", family: "legacy", arch: "Pascal",
     badges: [{ label: "Pascal", tone: "info" }],
-    image: "/product-placeholder.svg",
+    image: imgQuadroPascal,
     specs: [
       { label: "Architecture", value: "Pascal" },
       { label: "CUDA Cores", value: "3,840" },
@@ -134,7 +142,7 @@ const gpus: GPU[] = [
   {
     id: "quadro-p4000", name: "Quadro P4000", family: "legacy", arch: "Pascal",
     badges: [{ label: "Pascal", tone: "info" }],
-    image: "/product-placeholder.svg",
+    image: imgQuadroPascal,
     specs: [
       { label: "Architecture", value: "Pascal" },
       { label: "CUDA Cores", value: "1,792" },
@@ -145,7 +153,7 @@ const gpus: GPU[] = [
   {
     id: "quadro-p2200", name: "Quadro P2200", family: "legacy", arch: "Pascal",
     badges: [{ label: "Pascal", tone: "info" }],
-    image: "/product-placeholder.svg",
+    image: imgQuadroPascal,
     specs: [
       { label: "Architecture", value: "Pascal" },
       { label: "CUDA Cores", value: "1,280" },
@@ -156,7 +164,7 @@ const gpus: GPU[] = [
   {
     id: "quadro-p2000", name: "Quadro P2000", family: "legacy", arch: "Pascal",
     badges: [{ label: "Pascal", tone: "info" }],
-    image: "/product-placeholder.svg",
+    image: imgQuadroPascal,
     specs: [
       { label: "Architecture", value: "Pascal" },
       { label: "CUDA Cores", value: "1,024" },
@@ -167,7 +175,7 @@ const gpus: GPU[] = [
   {
     id: "quadro-p1000", name: "Quadro P1000", family: "legacy", arch: "Pascal",
     badges: [{ label: "Pascal", tone: "info" }, { label: "Low Profile", tone: "info" }],
-    image: "/product-placeholder.svg",
+    image: imgTSeries,
     specs: [
       { label: "Architecture", value: "Pascal" },
       { label: "CUDA Cores", value: "640" },
@@ -178,7 +186,7 @@ const gpus: GPU[] = [
   {
     id: "quadro-p400", name: "Quadro P400", family: "legacy", arch: "Pascal",
     badges: [{ label: "Pascal", tone: "info" }, { label: "Low Profile", tone: "info" }],
-    image: "/product-placeholder.svg",
+    image: imgTSeries,
     specs: [
       { label: "Architecture", value: "Pascal" },
       { label: "CUDA Cores", value: "256" },
@@ -189,7 +197,7 @@ const gpus: GPU[] = [
   {
     id: "t1000", name: "NVIDIA T1000", family: "legacy", arch: "Turing",
     badges: [{ label: "Turing", tone: "info" }, { label: "Low Profile", tone: "info" }],
-    image: "/product-placeholder.svg",
+    image: imgTSeries,
     specs: [
       { label: "Architecture", value: "Turing" },
       { label: "CUDA Cores", value: "896" },
@@ -200,7 +208,7 @@ const gpus: GPU[] = [
   {
     id: "t600", name: "NVIDIA T600", family: "legacy", arch: "Turing",
     badges: [{ label: "Turing", tone: "info" }, { label: "Low Profile", tone: "info" }],
-    image: "/product-placeholder.svg",
+    image: imgTSeries,
     specs: [
       { label: "Architecture", value: "Turing" },
       { label: "CUDA Cores", value: "640" },
@@ -211,7 +219,7 @@ const gpus: GPU[] = [
   {
     id: "t400", name: "NVIDIA T400", family: "legacy", arch: "Turing",
     badges: [{ label: "Turing", tone: "info" }, { label: "Low Profile", tone: "info" }],
-    image: "/product-placeholder.svg",
+    image: imgTSeries,
     specs: [
       { label: "Architecture", value: "Turing" },
       { label: "CUDA Cores", value: "384" },
@@ -222,7 +230,7 @@ const gpus: GPU[] = [
   {
     id: "titan-rtx", name: "TITAN RTX", family: "legacy", arch: "Turing",
     badges: [{ label: "Turing", tone: "info" }, { label: "Flagship Consumer", tone: "flagship" }],
-    image: "/product-placeholder.svg",
+    image: imgTitanRtx,
     specs: [
       { label: "Architecture", value: "Turing" },
       { label: "CUDA Cores", value: "4,608" },
@@ -233,7 +241,7 @@ const gpus: GPU[] = [
   {
     id: "quadro-sync-ii", name: "NVIDIA Quadro SYNC II", family: "legacy", arch: "Accessory",
     badges: [{ label: "Accessory", tone: "info" }],
-    image: "/product-placeholder.svg",
+    image: imgQuadroSync,
     specs: [
       { label: "Type", value: "Sync Board" },
       { label: "GPUs per Card", value: "4" },
