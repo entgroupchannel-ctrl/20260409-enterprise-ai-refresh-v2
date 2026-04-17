@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { Receipt, Search, Loader2, Calendar, Trash2, MoreVertical, Plus, Share2 } from 'lucide-react';
+import { Receipt, Search, Loader2, Calendar, Trash2, MoreVertical, Plus, Share2, List as ListIcon, Rows3, LayoutGrid } from 'lucide-react';
 import SelectSourceForReceiptDialog from '@/components/admin/SelectSourceForReceiptDialog';
 import CreateReceiptDialog from '@/components/admin/CreateReceiptDialog';
 import ShareReceiptDialog from '@/components/admin/ShareReceiptDialog';
@@ -52,6 +52,12 @@ export default function AdminReceiptsList() {
   const [shareReceipt, setShareReceipt] = useState<{ id: string; number: string } | null>(null);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
+  const [viewMode, setViewMode] = useState<'list' | 'table' | 'grid'>(() => {
+    if (typeof window === 'undefined') return 'list';
+    const v = localStorage.getItem('admin_receipts_view');
+    return (v === 'grid' || v === 'table' || v === 'list') ? v : 'list';
+  });
+  useEffect(() => { localStorage.setItem('admin_receipts_view', viewMode); }, [viewMode]);
   useEffect(() => { setPage(1); }, [search, pageSize]);
 
   const loadAvailableCount = async () => {
@@ -241,46 +247,86 @@ export default function AdminReceiptsList() {
           const pageAmount = pageItems.reduce((s, r) => s + (r.amount || 0), 0);
           return (
             <>
-              <div className="space-y-3">
-                {pageItems.map((r) => (
-                  <Card
-                    key={r.id}
-                    className="hover:shadow-md transition-shadow cursor-pointer"
-                    onClick={() => navigate(`/admin/receipts/${r.id}`)}
-                  >
-                    <CardContent className="p-4">
-                      <div className="flex items-start justify-between gap-3 flex-wrap">
-                        <div className="flex-1 min-w-0 space-y-1">
-                          <div className="flex items-center gap-2 flex-wrap">
-                            <span className="font-mono font-semibold">{r.receipt_number}</span>
-                            <Badge variant="outline" className="bg-green-50 text-green-700 border-green-300 text-[10px]">
-                              ออกแล้ว
-                            </Badge>
-                            {r.payment_method && (
-                              <Badge variant="outline" className="text-[10px]">
-                                {r.payment_method === 'bank_transfer' ? 'โอน' : r.payment_method}
-                              </Badge>
-                            )}
-                          </div>
-                          <p className="text-sm font-medium">
-                            {r.customer_company || r.customer_name}
-                          </p>
-                          <div className="flex items-center gap-3 text-xs text-muted-foreground flex-wrap">
-                            <span className="flex items-center gap-1">
-                              <Calendar className="w-3 h-3" />
+              {viewMode === 'table' ? (
+                <Card>
+                  <CardContent className="p-0 overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead className="bg-muted/50 text-xs uppercase text-muted-foreground">
+                        <tr className="border-b">
+                          <th className="text-left font-medium px-3 py-2 whitespace-nowrap">วันที่</th>
+                          <th className="text-left font-medium px-3 py-2 whitespace-nowrap">เลขที่ใบเสร็จ</th>
+                          <th className="text-left font-medium px-3 py-2">ลูกค้า</th>
+                          <th className="text-left font-medium px-3 py-2 whitespace-nowrap">วิธีชำระ</th>
+                          <th className="text-right font-medium px-3 py-2 whitespace-nowrap">จำนวนเงิน</th>
+                          <th className="w-10 px-2 py-2"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {pageItems.map((r) => (
+                          <tr key={r.id}
+                              className="border-b last:border-0 hover:bg-muted/40 cursor-pointer"
+                              onClick={() => navigate(`/admin/receipts/${r.id}`)}>
+                            <td className="px-3 py-2 whitespace-nowrap text-muted-foreground">
                               {new Date(r.receipt_date).toLocaleDateString('th-TH')}
-                            </span>
-                            <span>{formatRelativeTime(r.created_at)}</span>
-                          </div>
-                        </div>
-                        <div className="text-right shrink-0 flex flex-col items-end gap-2">
-                          <div>
-                            <div className="text-xs text-muted-foreground mb-1">จำนวนเงิน</div>
-                            <div className="text-xl font-bold text-primary">
+                            </td>
+                            <td className="px-3 py-2 whitespace-nowrap font-mono text-primary font-medium">
+                              <span className="inline-flex items-center gap-1.5">
+                                <span className="inline-block w-2 h-2 rounded-full bg-emerald-500" />
+                                {r.receipt_number}
+                              </span>
+                            </td>
+                            <td className="px-3 py-2 min-w-[220px]">
+                              <div className="truncate max-w-[320px] text-foreground">
+                                {r.customer_company || r.customer_name}
+                              </div>
+                            </td>
+                            <td className="px-3 py-2 whitespace-nowrap text-xs text-muted-foreground">
+                              {r.payment_method === 'bank_transfer' ? 'โอน' : (r.payment_method || '-')}
+                            </td>
+                            <td className="px-3 py-2 whitespace-nowrap text-right font-semibold text-primary">
                               {formatCurrency(r.amount)}
-                            </div>
+                            </td>
+                            <td className="px-2 py-2 text-right" onClick={(e) => e.stopPropagation()}>
+                              <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                  <Button variant="ghost" size="icon" className="h-7 w-7">
+                                    <MoreVertical className="w-4 h-4" />
+                                  </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end" className="w-40">
+                                  <DropdownMenuItem onClick={() => navigate(`/admin/receipts/${r.id}`)}>ดู</DropdownMenuItem>
+                                  <DropdownMenuItem onClick={() => navigator.clipboard.writeText(r.receipt_number)}>คัดลอกเลขที่</DropdownMenuItem>
+                                  <DropdownMenuItem onClick={() => setShareReceipt({ id: r.id, number: r.receipt_number })}>
+                                    <Share2 className="w-4 h-4 mr-2" />แชร์ลิงก์ให้ลูกค้า
+                                  </DropdownMenuItem>
+                                  <DropdownMenuSeparator />
+                                  <DropdownMenuItem onClick={() => setDeletingReceipt(r)} className="text-red-600 focus:text-red-700 focus:bg-red-50">
+                                    <Trash2 className="w-4 h-4 mr-2" />ย้ายถังขยะ
+                                  </DropdownMenuItem>
+                                </DropdownMenuContent>
+                              </DropdownMenu>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </CardContent>
+                </Card>
+              ) : viewMode === 'grid' ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+                  {pageItems.map((r) => (
+                    <Card key={r.id} className="hover:shadow-md transition-shadow cursor-pointer"
+                          onClick={() => navigate(`/admin/receipts/${r.id}`)}>
+                      <CardContent className="p-3 space-y-2">
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="min-w-0 flex-1">
+                            <span className="font-mono font-semibold text-sm truncate block">{r.receipt_number}</span>
+                            <p className="text-xs text-foreground truncate mt-0.5">{r.customer_company || r.customer_name}</p>
+                            <p className="text-[11px] text-muted-foreground truncate">
+                              {new Date(r.receipt_date).toLocaleDateString('th-TH')}
+                            </p>
                           </div>
-                          <div onClick={(e) => e.stopPropagation()}>
+                          <div onClick={(e) => e.stopPropagation()} className="shrink-0">
                             <DropdownMenu>
                               <DropdownMenuTrigger asChild>
                                 <Button variant="ghost" size="icon" className="h-7 w-7">
@@ -288,33 +334,105 @@ export default function AdminReceiptsList() {
                                 </Button>
                               </DropdownMenuTrigger>
                               <DropdownMenuContent align="end" className="w-40">
-                                <DropdownMenuItem onClick={() => navigate(`/admin/receipts/${r.id}`)}>
-                                  ดู
-                                </DropdownMenuItem>
-                                <DropdownMenuItem onClick={() => navigator.clipboard.writeText(r.receipt_number)}>
-                                  คัดลอกเลขที่
-                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => navigate(`/admin/receipts/${r.id}`)}>ดู</DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => navigator.clipboard.writeText(r.receipt_number)}>คัดลอกเลขที่</DropdownMenuItem>
                                 <DropdownMenuItem onClick={() => setShareReceipt({ id: r.id, number: r.receipt_number })}>
-                                  <Share2 className="w-4 h-4 mr-2" />
-                                  แชร์ลิงก์ให้ลูกค้า
+                                  <Share2 className="w-4 h-4 mr-2" />แชร์ลิงก์ให้ลูกค้า
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator />
-                                <DropdownMenuItem
-                                  onClick={() => setDeletingReceipt(r)}
-                                  className="text-red-600 focus:text-red-700 focus:bg-red-50"
-                                >
-                                  <Trash2 className="w-4 h-4 mr-2" />
-                                  ย้ายถังขยะ
+                                <DropdownMenuItem onClick={() => setDeletingReceipt(r)} className="text-red-600 focus:text-red-700 focus:bg-red-50">
+                                  <Trash2 className="w-4 h-4 mr-2" />ย้ายถังขยะ
                                 </DropdownMenuItem>
                               </DropdownMenuContent>
                             </DropdownMenu>
                           </div>
                         </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+                        <div className="flex items-center justify-between gap-2">
+                          <Badge variant="outline" className="bg-green-50 text-green-700 border-green-300 text-[10px] px-1.5 py-0">
+                            ออกแล้ว
+                          </Badge>
+                          <span className="text-sm font-bold text-primary">{formatCurrency(r.amount)}</span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {pageItems.map((r) => (
+                    <Card
+                      key={r.id}
+                      className="hover:shadow-md transition-shadow cursor-pointer"
+                      onClick={() => navigate(`/admin/receipts/${r.id}`)}
+                    >
+                      <CardContent className="p-4">
+                        <div className="flex items-start justify-between gap-3 flex-wrap">
+                          <div className="flex-1 min-w-0 space-y-1">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <span className="font-mono font-semibold">{r.receipt_number}</span>
+                              <Badge variant="outline" className="bg-green-50 text-green-700 border-green-300 text-[10px]">
+                                ออกแล้ว
+                              </Badge>
+                              {r.payment_method && (
+                                <Badge variant="outline" className="text-[10px]">
+                                  {r.payment_method === 'bank_transfer' ? 'โอน' : r.payment_method}
+                                </Badge>
+                              )}
+                            </div>
+                            <p className="text-sm font-medium">
+                              {r.customer_company || r.customer_name}
+                            </p>
+                            <div className="flex items-center gap-3 text-xs text-muted-foreground flex-wrap">
+                              <span className="flex items-center gap-1">
+                                <Calendar className="w-3 h-3" />
+                                {new Date(r.receipt_date).toLocaleDateString('th-TH')}
+                              </span>
+                              <span>{formatRelativeTime(r.created_at)}</span>
+                            </div>
+                          </div>
+                          <div className="text-right shrink-0 flex flex-col items-end gap-2">
+                            <div>
+                              <div className="text-xs text-muted-foreground mb-1">จำนวนเงิน</div>
+                              <div className="text-xl font-bold text-primary">
+                                {formatCurrency(r.amount)}
+                              </div>
+                            </div>
+                            <div onClick={(e) => e.stopPropagation()}>
+                              <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                  <Button variant="ghost" size="icon" className="h-7 w-7">
+                                    <MoreVertical className="w-4 h-4" />
+                                  </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end" className="w-40">
+                                  <DropdownMenuItem onClick={() => navigate(`/admin/receipts/${r.id}`)}>
+                                    ดู
+                                  </DropdownMenuItem>
+                                  <DropdownMenuItem onClick={() => navigator.clipboard.writeText(r.receipt_number)}>
+                                    คัดลอกเลขที่
+                                  </DropdownMenuItem>
+                                  <DropdownMenuItem onClick={() => setShareReceipt({ id: r.id, number: r.receipt_number })}>
+                                    <Share2 className="w-4 h-4 mr-2" />
+                                    แชร์ลิงก์ให้ลูกค้า
+                                  </DropdownMenuItem>
+                                  <DropdownMenuSeparator />
+                                  <DropdownMenuItem
+                                    onClick={() => setDeletingReceipt(r)}
+                                    className="text-red-600 focus:text-red-700 focus:bg-red-50"
+                                  >
+                                    <Trash2 className="w-4 h-4 mr-2" />
+                                    ย้ายถังขยะ
+                                  </DropdownMenuItem>
+                                </DropdownMenuContent>
+                              </DropdownMenu>
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              )}
 
               <ListPagination
                 page={page}
