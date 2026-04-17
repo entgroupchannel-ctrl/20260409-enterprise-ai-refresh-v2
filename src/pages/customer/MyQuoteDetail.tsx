@@ -601,18 +601,20 @@ export default function MyQuoteDetail() {
         )}
 
         {/* Revision Timeline */}
-        <div className="mb-6">
-          <RevisionTimeline
-            quoteId={quote.id}
-            currentRevisionId={quote.current_revision_id}
-            viewerRole="customer"
-            onPrintRevision={(rev) => {
-              setPrintRevision(rev);
-              setPrintAutoDownload(false);
-              setShowPrintPreview(true);
-            }}
-          />
-        </div>
+        {(quote as any).negotiation_enabled && (
+          <div className="mb-6">
+            <RevisionTimeline
+              quoteId={quote.id}
+              currentRevisionId={quote.current_revision_id}
+              viewerRole="customer"
+              onPrintRevision={(rev) => {
+                setPrintRevision(rev);
+                setPrintAutoDownload(false);
+                setShowPrintPreview(true);
+              }}
+            />
+          </div>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left Column - Main Content */}

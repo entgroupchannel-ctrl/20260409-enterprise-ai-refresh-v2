@@ -786,16 +786,18 @@ export default function UserDashboard() {
                   <Card><CardContent className="py-4"><QuoteTimeline currentStatus={selectedQuote.status} size="lg" /></CardContent></Card>
 
                   {/* Revision History — Counter offers / negotiation versions */}
-                  <RevisionTimeline
-                    quoteId={selectedQuote.id}
-                    currentRevisionId={(selectedQuote as any).current_revision_id}
-                    viewerRole="customer"
-                    onPrintRevision={(rev) => {
-                      setPrintRevision(rev);
-                      setPrintAutoDownload(false);
-                      setShowPrintPreview(true);
-                    }}
-                  />
+                  {(selectedQuote as any).negotiation_enabled && (
+                    <RevisionTimeline
+                      quoteId={selectedQuote.id}
+                      currentRevisionId={(selectedQuote as any).current_revision_id}
+                      viewerRole="customer"
+                      onPrintRevision={(rev) => {
+                        setPrintRevision(rev);
+                        setPrintAutoDownload(false);
+                        setShowPrintPreview(true);
+                      }}
+                    />
+                  )}
 
                   {/* 3-column grid matching admin */}
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
