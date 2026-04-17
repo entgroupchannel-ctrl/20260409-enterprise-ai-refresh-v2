@@ -128,6 +128,7 @@ const AdminReports = lazyRetry(() => import("./pages/admin/AdminReports"));
 const AdminSubscribers = lazyRetry(() => import("./pages/admin/AdminSubscribers"));
 const AdminEmailTemplates = lazyRetry(() => import("./pages/admin/AdminEmailTemplates"));
 const SharedQuotePage = lazyRetry(() => import("./pages/SharedQuotePage"));
+const SharedInvoicePage = lazyRetry(() => import("./pages/SharedInvoicePage"));
 
 /* ── Loading fallback ── */
 const PageLoader = () => (
@@ -204,6 +205,7 @@ const App = () => (
                     <Route path="/shop/:slug" element={<ShopProductDetail />} />
                     <Route path="/unsubscribe" element={<Unsubscribe />} />
                     <Route path="/q/share/:token" element={<SharedQuotePage />} />
+                    <Route path="/inv/share/:token" element={<SharedInvoicePage />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/invite/:token" element={<AcceptInvite />} />

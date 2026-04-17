@@ -24,6 +24,8 @@ import CreateInvoiceFromSODialog, { type InvoiceSource } from '@/components/admi
 import SelectQuoteForInvoiceDialog from '@/components/admin/SelectQuoteForInvoiceDialog';
 import InvoiceTimeline from '@/components/admin/InvoiceTimeline';
 import InvoiceActionsMenu from '@/components/admin/InvoiceActionsMenu';
+import ShareInvoiceDialog from '@/components/admin/ShareInvoiceDialog';
+import InvoicePrintPreviewDialog from '@/components/admin/InvoicePrintPreviewDialog';
 
 interface Invoice {
   id: string;
@@ -56,6 +58,23 @@ export default function AdminInvoicesList() {
   const [deletingInvoice, setDeletingInvoice] = useState<Invoice | null>(null);
   const [deleteReason, setDeleteReason] = useState('');
   const [deleting, setDeleting] = useState(false);
+
+  // Share + Download state
+  const [shareInvoice, setShareInvoice] = useState<Invoice | null>(null);
+  const [downloadInvoice, setDownloadInvoice] = useState<any>(null);
+  const [downloadItems, setDownloadItems] = useState<any[]>([]);
+
+  const handleDownload = async (inv: Invoice) => {
+    try {
+      const { data: full } = await (supabase as any).from('invoices').select('*').eq('id', inv.id).maybeSingle();
+      const { data: items } = await (supabase as any).from('invoice_items').select('*').eq('invoice_id', inv.id).order('display_order', { ascending: true });
+      if (!full) return;
+      setDownloadItems(items || []);
+      setDownloadInvoice(full);
+    } catch (e: any) {
+      toast({ title: 'โหลดข้อมูลไม่สำเร็จ', description: e.message, variant: 'destructive' });
+    }
+  };
 
   const loadInvoices = async () => {
     setLoading(true);
@@ -382,6 +401,8 @@ export default function AdminInvoicesList() {
                             invoiceNumber={inv.invoice_number}
                             status={inv.status}
                             onDelete={() => setDeletingInvoice(inv)}
+                            onDownload={() => handleDownload(inv)}
+                            onShare={() => setShareInvoice(inv)}
                           />
                         </div>
                       </div>
@@ -479,6 +500,24 @@ export default function AdminInvoicesList() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {/* Share dialog */}
+      <ShareInvoiceDialog
+        open={!!shareInvoice}
+        onOpenChange={(v) => !v && setShareInvoice(null)}
+        invoiceId={shareInvoice?.id || null}
+        invoiceNumber={shareInvoice?.invoice_number || null}
+      />
+
+      {/* Download (auto-PDF) preview */}
+      {downloadInvoice && (
+        <InvoicePrintPreviewDialog
+          open={!!downloadInvoice}
+          onOpenChange={(v) => { if (!v) { setDownloadInvoice(null); setDownloadItems([]); } }}
+          invoice={downloadInvoice}
+          items={downloadItems}
+        />
+      )}
     </AdminLayout>
   );
 }
