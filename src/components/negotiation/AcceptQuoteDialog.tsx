@@ -131,10 +131,10 @@ export default function AcceptQuoteDialog({
       if (confirmMethod === 'upload' && poFiles.length > 0) {
         const uploadedFiles = await uploadPOFiles();
         newQuoteStatus = 'po_uploaded';
-        chatMessage = `✅ ยอมรับใบเสนอราคาแล้ว + แนบ PO ${uploadedFiles.length} ไฟล์`;
+        chatMessage = `ยอมรับใบเสนอราคาแล้ว + แนบ PO ${uploadedFiles.length} ไฟล์`;
       } else if (confirmMethod === 'use_quote') {
         newQuoteStatus = 'po_confirmed';
-        chatMessage = '✅ ยอมรับใบเสนอราคา + ใช้ใบเสนอราคาเป็น PO (ลูกค้าไม่มีระบบ PO formal)';
+        chatMessage = 'ยอมรับใบเสนอราคา + ใช้ใบเสนอราคาเป็น PO (ลูกค้าไม่มีระบบ PO formal)';
 
         await supabase.from('quote_files').insert({
           quote_id: quoteId,
@@ -147,7 +147,7 @@ export default function AcceptQuoteDialog({
         } as any);
       } else {
         newQuoteStatus = 'accepted';
-        chatMessage = '✅ ยอมรับใบเสนอราคาแล้ว — รอแนบ PO ภายหลัง';
+        chatMessage = 'ยอมรับใบเสนอราคาแล้ว — รอแนบ PO ภายหลัง';
       }
 
       // 3. Update quote status
@@ -168,7 +168,7 @@ export default function AcceptQuoteDialog({
       });
 
       toast({
-        title: '✅ ยอมรับสำเร็จ',
+        title: 'ยอมรับสำเร็จ',
         description:
           confirmMethod === 'upload' ? 'ส่ง PO ให้ทีมงานเรียบร้อย' :
           confirmMethod === 'use_quote' ? 'ใช้ใบเสนอราคาเป็น PO เรียบร้อย' :
@@ -319,12 +319,13 @@ export default function AcceptQuoteDialog({
           <AlertDialogAction
             onClick={handleAccept}
             disabled={processing || !accepted || (confirmMethod === 'upload' && poFiles.length === 0)}
-            className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-sm font-semibold tracking-wide gap-2"
           >
+            <CheckCircle2 className="w-4 h-4" />
             {processing ? 'กำลังดำเนินการ...' :
-              confirmMethod === 'upload' ? '✅ ยอมรับ + ส่ง PO' :
-              confirmMethod === 'use_quote' ? '✅ ยืนยันใช้เป็น PO' :
-              '✅ ยอมรับราคา'}
+              confirmMethod === 'upload' ? 'ยอมรับ + ส่ง PO' :
+              confirmMethod === 'use_quote' ? 'ยืนยันใช้เป็น PO' :
+              'ยอมรับราคา'}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
