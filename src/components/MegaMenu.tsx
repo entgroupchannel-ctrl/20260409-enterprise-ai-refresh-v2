@@ -108,47 +108,60 @@ const menuCategories = [
   {
     id: "jetson",
     label: "NVIDIA Jetson",
-    tagline: "Edge AI & GPU Computing",
+    tagline: "Edge AI & GPU Computing — Authorized Partner",
     icon: Sparkles,
     featured: {
-      title: "NVIDIA Jetson Orin",
-      desc: "โมดูล AI Edge ตั้งแต่ Nano (67 TOPS) ถึง Thor (2070 TFLOPS) — Authorized Partner",
+      title: "NVIDIA Jetson Orin & Thor",
+      desc: "โมดูล AI Edge ตั้งแต่ Nano (67 TOPS) ถึง Thor (2070 TFLOPS) พร้อม NGC Models 25+ ตัว",
       href: "/nvidia-jetson",
       badge: "Edge AI",
       image: imgJetson,
     },
     columns: [
       {
-        heading: "Jetson Modules & Devkits",
+        heading: "Hardware — Modules & Systems",
         links: [
-          { label: "NVIDIA Jetson — ดูทั้งหมด", href: "/nvidia-jetson", hot: true },
+          { label: "✦ NVIDIA Jetson — ดูทั้งหมด", href: "/nvidia-jetson", hot: true },
           { label: "Jetson Modules (SoM)", href: "/nvidia-jetson?cat=modules" },
           { label: "Developer Kits", href: "/nvidia-jetson?cat=devkits", hot: true },
           { label: "Carrier Boards", href: "/nvidia-jetson?cat=carrier-boards" },
           { label: "Embedded IPC Systems", href: "/nvidia-jetson?cat=embedded-systems" },
-        ],
-      },
-      {
-        heading: "GPU Server & การ์ดจอ Pro",
-        links: [
-          { label: "GPU Server — Inference", href: "/nvidia-jetson?cat=edge-computers", hot: true },
-          { label: "Workstation GPU Pro", href: "/nvidia-jetson?cat=dev-systems" },
           { label: "Edge AI Computers", href: "/nvidia-jetson?cat=edge-computers" },
           { label: "Taiwan IPC — Industrial AI", href: "/nvidia-jetson?cat=taiwan-ipc" },
         ],
       },
       {
-        heading: "โซลูชัน AI พร้อมใช้",
+        heading: "AI Ready — NGC Models",
         links: [
-          { label: "✦ โซลูชันทั้งหมด", href: "/nvidia-jetson/solutions", hot: true },
-          { label: "✦ AI Ready — NGC Models", href: "/nvidia-jetson/ai-ready", hot: true },
+          { label: "✦ AI Ready — รวม Models ทั้งหมด", href: "/nvidia-jetson/ai-ready", hot: true },
+          { label: "Computer Vision (TAO)", href: "/nvidia-jetson/ai-ready" },
+          { label: "Speech AI (Riva)", href: "/nvidia-jetson/ai-ready" },
+          { label: "Robotics (Isaac / GR00T)", href: "/nvidia-jetson/ai-ready" },
+          { label: "Video Analytics (DeepStream)", href: "/nvidia-jetson/ai-ready" },
+          { label: "Generative AI (LLM/VLM)", href: "/nvidia-jetson/ai-ready" },
+          { label: "Tools & SDK (TAO/TensorRT)", href: "/nvidia-jetson/ai-ready" },
+        ],
+      },
+      {
+        heading: "Solutions — โซลูชันรายอุตสาหกรรม",
+        links: [
+          { label: "✦ Solutions — ดูทั้งหมด", href: "/nvidia-jetson/solutions", hot: true },
           { label: "Smart Manufacturing AI", href: "/nvidia-jetson/solutions#industrial" },
-          { label: "Smart Surveillance", href: "/nvidia-jetson/solutions#security" },
-          { label: "Autonomous Robots / Drone", href: "/nvidia-jetson/solutions#drone" },
+          { label: "Smart Surveillance / CCTV", href: "/nvidia-jetson/solutions#security" },
+          { label: "Autonomous Robot / Drone", href: "/nvidia-jetson/solutions#drone" },
           { label: "Medical AI", href: "/nvidia-jetson/solutions#medical" },
-          { label: "Generative AI Edge", href: "/nvidia-jetson/ai-ready" },
-          { label: "ตัวอย่างงาน / Case Studies", href: "/case-studies" },
+          { label: "Smart City / Traffic", href: "/nvidia-jetson/solutions#smartcity" },
+          { label: "GPU Server — On-Premise AI", href: "/nvidia-jetson/solutions#gpuserver" },
+        ],
+      },
+      {
+        heading: "ทรัพยากร & ตัวช่วย",
+        links: [
           { label: "✦ ตัวช่วยเลือกรุ่น Jetson", href: "/product-advisor", hot: true },
+          { label: "กรณีศึกษาลูกค้า", href: "/case-studies" },
+          { label: "บทความเทคนิค Jetson", href: "/blog" },
+          { label: "ดาวน์โหลด Datasheet", href: "/nvidia-jetson" },
+          { label: "ขอ POC / ทดสอบฟรี", href: "/contact" },
         ],
       },
     ],
@@ -357,8 +370,9 @@ const MegaMenu = ({
       {/* Mega dropdown overlay */}
       {active && (
         <div
-          className="absolute left-1/2 -translate-x-1/2 top-full mt-2 z-50 w-[min(900px,90vw)]"
-
+          className={`absolute left-1/2 -translate-x-1/2 top-full mt-2 z-50 ${
+            active.columns.length >= 4 ? "w-[min(1180px,95vw)]" : "w-[min(900px,90vw)]"
+          }`}
           onMouseEnter={() => { if (timeoutRef.current) clearTimeout(timeoutRef.current); }}
           onMouseLeave={handleLeave}>
           {/* Panel */}
@@ -404,7 +418,7 @@ const MegaMenu = ({
                 </div>
 
                 {/* Product columns — right */}
-                <div className={`col-span-9 grid grid-cols-3 gap-4`}>
+                <div className={`col-span-9 grid gap-4 ${active.columns.length >= 4 ? "grid-cols-4" : "grid-cols-3"}`}>
 
                   {active.columns.map((col) => (
                     <div key={col.heading}>
