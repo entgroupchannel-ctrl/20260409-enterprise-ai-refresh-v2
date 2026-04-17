@@ -543,7 +543,7 @@ export default function AdminQuoteDetail() {
 
   return (
     <AdminLayout>
-      <div className="space-y-6">
+      <div className="admin-content-area space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
           <Button variant="outline" size="sm" onClick={() => navigate('/admin/quotes')}>
