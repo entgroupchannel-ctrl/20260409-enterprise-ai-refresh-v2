@@ -14,4 +14,4 @@ project_id = "ugzdwmyylqmirrljtuej"
   [functions.send-auth-email-resend]
     verify_jwt = false
   [functions.parse-quote-pdf]
-    verify_jwt = true
+    verify_jwt = false
