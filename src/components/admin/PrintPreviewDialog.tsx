@@ -18,6 +18,7 @@ interface PrintPreviewDialogProps {
   onOpenChange: (open: boolean) => void;
   quote: any;
   revision: any;
+  autoDownload?: boolean;
 }
 
 export default function PrintPreviewDialog({
@@ -25,9 +26,11 @@ export default function PrintPreviewDialog({
   onOpenChange,
   quote,
   revision,
+  autoDownload = false,
 }: PrintPreviewDialogProps) {
   const [isPrinting, setIsPrinting] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
+  const [autoFired, setAutoFired] = useState(false);
 
   const { settings: companySettings, loading: companyLoading } = useCompanySettings();
   const [salePerson, setSalePerson] = useState<any>(null);
@@ -35,7 +38,7 @@ export default function PrintPreviewDialog({
   const [loadingExtra, setLoadingExtra] = useState(true);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open) { setAutoFired(false); return; }
     loadExtraData();
   }, [open, revision?.created_by, companySettings?.id]);
 
