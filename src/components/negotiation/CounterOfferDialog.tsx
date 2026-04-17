@@ -303,7 +303,7 @@ export default function CounterOfferDialog({
     <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
       <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>✏️ สร้าง Counter Offer</DialogTitle>
+          <DialogTitle>{isEditMode ? '✏️ แก้ไข Draft Revision' : '✏️ สร้าง Counter Offer'}</DialogTitle>
         </DialogHeader>
 
         {loadingBase ? (
