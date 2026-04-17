@@ -50,6 +50,9 @@ export default function AdminReceiptsList() {
   const [createFromInvoiceId, setCreateFromInvoiceId] = useState<string | null>(null);
   const [createFromTaxInvoiceId, setCreateFromTaxInvoiceId] = useState<string | null>(null);
   const [shareReceipt, setShareReceipt] = useState<{ id: string; number: string } | null>(null);
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(20);
+  useEffect(() => { setPage(1); }, [search, pageSize]);
 
   const loadAvailableCount = async () => {
     try {
