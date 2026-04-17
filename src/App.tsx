@@ -127,6 +127,7 @@ const AdminGeneralChat = lazyRetry(() => import("./pages/admin/AdminGeneralChat"
 const AdminReports = lazyRetry(() => import("./pages/admin/AdminReports"));
 const AdminSubscribers = lazyRetry(() => import("./pages/admin/AdminSubscribers"));
 const AdminEmailTemplates = lazyRetry(() => import("./pages/admin/AdminEmailTemplates"));
+const SharedQuotePage = lazyRetry(() => import("./pages/SharedQuotePage"));
 
 /* ── Loading fallback ── */
 const PageLoader = () => (
@@ -202,6 +203,7 @@ const App = () => (
                     <Route path="/shop/compare" element={<ShopCompare />} />
                     <Route path="/shop/:slug" element={<ShopProductDetail />} />
                     <Route path="/unsubscribe" element={<Unsubscribe />} />
+                    <Route path="/q/share/:token" element={<SharedQuotePage />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/invite/:token" element={<AcceptInvite />} />
