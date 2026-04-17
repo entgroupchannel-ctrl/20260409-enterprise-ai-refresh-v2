@@ -9,7 +9,9 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Save } from 'lucide-react';
+import { Loader2, Save, Users } from 'lucide-react';
+import CustomerAutocomplete, { type ContactData } from './CustomerAutocomplete';
+import { Separator } from '@/components/ui/separator';
 
 interface CustomerInfo {
   customer_name: string;
@@ -48,6 +50,19 @@ export default function EditCustomerInfoDialog({
 
   const handleChange = (field: keyof CustomerInfo, value: string) => {
     setValues((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleSelectContact = (c: ContactData) => {
+    setValues({
+      customer_name: c.contact_name || c.company_name,
+      customer_email: c.email || '',
+      customer_phone: c.mobile_phone || c.office_phone || null,
+      customer_company: c.company_name || null,
+      customer_address: c.address || null,
+      customer_tax_id: c.tax_id || null,
+      customer_line: c.line_id || null,
+    });
+    toast({ title: '✅ ดึงข้อมูลแล้ว', description: c.company_name });
   };
 
   const handleSave = async () => {
@@ -101,6 +116,18 @@ export default function EditCustomerInfoDialog({
         </DialogHeader>
 
         <div className="space-y-4 py-2">
+          <div className="space-y-1.5 rounded-lg border border-dashed border-primary/30 bg-primary/5 p-3">
+            <Label className="text-xs flex items-center gap-1.5 text-primary">
+              <Users className="w-3.5 h-3.5" /> ดึงจากรายชื่อลูกค้าในระบบ
+            </Label>
+            <CustomerAutocomplete onSelect={handleSelectContact} typeFilter="customer" />
+            <p className="text-[11px] text-muted-foreground">
+              ค้นหาด้วยชื่อบริษัท / ผู้ติดต่อ / Tax ID / อีเมล หรือคลิกเพื่อดูทั้งหมด — ระบบจะกรอกฟอร์มให้อัตโนมัติ
+            </p>
+          </div>
+
+          <Separator />
+
           <div className="space-y-1.5">
             <Label htmlFor="customer_name" className="text-sm">
               ชื่อ-นามสกุล <span className="text-destructive">*</span>
