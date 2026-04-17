@@ -15,6 +15,7 @@ import {
 import { Plus, Trash2, Edit, Save, X } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import ProductAutocomplete, { type ProductData } from './ProductAutocomplete';
+import DiscountInput, { type DiscountType } from '@/components/shared/DiscountInput';
 
 interface Product {
   model: string;
@@ -36,6 +37,7 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [showAddDialog, setShowAddDialog] = useState(false);
   const [productSearch, setProductSearch] = useState('');
+  const [discountType, setDiscountType] = useState<DiscountType>('percent');
   const [editForm, setEditForm] = useState<Product>({
     model: '',
     description: '',
@@ -96,6 +98,8 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
   const handleEdit = (index: number) => {
     setEditingIndex(index);
     setEditForm({ ...products[index] });
+    setDiscountType('percent');
+    setProductSearch('');
   };
 
   const handleSaveEdit = () => {
@@ -115,6 +119,7 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
 
   const resetForm = () => {
     setProductSearch('');
+    setDiscountType('percent');
     setEditForm({
       model: '',
       description: '',
@@ -196,17 +201,23 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
                     />
                   </div>
                   <div>
-                    <Label>ส่วนลด (%)</Label>
-                    <Input
-                      type="number"
-                      min="0"
-                      max="100"
-                      value={editForm.discount_percent || ''}
-                      placeholder="0"
-                      onFocus={(e) => e.target.select()}
-                      onChange={(e) => {
-                        const val = e.target.value;
-                        handleFormChange('discount_percent', val === '' ? 0 : parseFloat(val));
+                    <Label>ส่วนลดต่อรายการ</Label>
+                    <DiscountInput
+                      compact
+                      subtotal={(editForm.qty || 0) * (editForm.unit_price || 0)}
+                      discountType={discountType}
+                      discountValue={
+                        discountType === 'baht'
+                          ? ((editForm.qty || 0) * (editForm.unit_price || 0)) * (editForm.discount_percent || 0) / 100
+                          : (editForm.discount_percent || 0)
+                      }
+                      onChange={(type, value) => {
+                        setDiscountType(type);
+                        const sub = (editForm.qty || 0) * (editForm.unit_price || 0);
+                        const pct = type === 'percent'
+                          ? value
+                          : (sub > 0 ? Math.min(100, (value / sub) * 100) : 0);
+                        handleFormChange('discount_percent', pct);
                       }}
                     />
                   </div>
@@ -384,17 +395,23 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
               />
             </div>
             <div>
-              <Label>ส่วนลด (%)</Label>
-              <Input
-                type="number"
-                min="0"
-                max="100"
-                value={editForm.discount_percent || ''}
-                placeholder="0"
-                onFocus={(e) => e.target.select()}
-                onChange={(e) => {
-                  const val = e.target.value;
-                  handleFormChange('discount_percent', val === '' ? 0 : parseFloat(val));
+              <Label>ส่วนลดต่อรายการ</Label>
+              <DiscountInput
+                compact
+                subtotal={(editForm.qty || 0) * (editForm.unit_price || 0)}
+                discountType={discountType}
+                discountValue={
+                  discountType === 'baht'
+                    ? ((editForm.qty || 0) * (editForm.unit_price || 0)) * (editForm.discount_percent || 0) / 100
+                    : (editForm.discount_percent || 0)
+                }
+                onChange={(type, value) => {
+                  setDiscountType(type);
+                  const sub = (editForm.qty || 0) * (editForm.unit_price || 0);
+                  const pct = type === 'percent'
+                    ? value
+                    : (sub > 0 ? Math.min(100, (value / sub) * 100) : 0);
+                  handleFormChange('discount_percent', pct);
                 }}
               />
             </div>
