@@ -122,7 +122,9 @@ serve(async (req) => {
     }
 
     const label = STATUS_LABELS[status] || { th: status, emoji: "📌" };
-    const subject = `${label.emoji} ใบเสนอราคา ${quoteNumber || ""} — ${label.th}`;
+    // Build subject based on which document number is provided
+    const docRef = invoiceNumber || quoteNumber || "";
+    const subject = `${label.emoji} ${label.th}${docRef ? ` — ${docRef}` : ""}`;
     const html = buildQuoteStatusHtml({ customerName, quoteNumber, status, invoiceNumber, amount, viewUrl, note });
 
     const response = await fetch(`${GATEWAY_URL}/emails`, {
