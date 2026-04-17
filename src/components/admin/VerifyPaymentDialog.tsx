@@ -24,6 +24,7 @@ interface PaymentRecord {
   reference_number: string | null;
   notes: string | null;
   proof_url: string | null;
+  proof_uploaded_at?: string | null;
   verification_status: string;
   created_at: string;
 }
@@ -199,6 +200,12 @@ export default function VerifyPaymentDialog({
   const formatDate = (s: string) =>
     new Date(s).toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' });
 
+  const formatDateTime = (s: string) =>
+    new Date(s).toLocaleString('th-TH', {
+      year: 'numeric', month: 'short', day: 'numeric',
+      hour: '2-digit', minute: '2-digit',
+    });
+
   if (!payment) return null;
 
   const isExactMatch = Math.abs(payment.amount - grandTotal) < 0.01;
@@ -277,8 +284,17 @@ export default function VerifyPaymentDialog({
             </div>
 
             <div className="space-y-1">
-              <Label className="text-xs text-muted-foreground">วันที่โอน</Label>
+              <Label className="text-xs text-muted-foreground">วันที่โอน (ตามลูกค้าระบุ)</Label>
               <div className="font-semibold">{formatDate(payment.payment_date)}</div>
+            </div>
+
+            <div className="space-y-1">
+              <Label className="text-xs text-muted-foreground">เวลาส่งสลิปเข้าระบบ</Label>
+              <div className="text-sm font-mono">
+                {payment.proof_uploaded_at
+                  ? formatDateTime(payment.proof_uploaded_at)
+                  : formatDateTime(payment.created_at)}
+              </div>
             </div>
 
             {payment.bank_name && (
