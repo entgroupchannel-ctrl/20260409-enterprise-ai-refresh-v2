@@ -24,8 +24,13 @@ const STATUS_LABELS: Record<string, { th: string; emoji: string }> = {
   po_uploaded: { th: "ได้รับ PO แล้ว", emoji: "📎" },
   invoiced: { th: "ออกใบแจ้งหนี้แล้ว", emoji: "🧾" },
   payment_confirmed: { th: "ยืนยันการชำระเงินแล้ว", emoji: "💰" },
-  invoice_created: { th: "ออกใบแจ้งหนี้แล้ว", emoji: "🧾" },
+  invoice_created: { th: "ออกใบวางบิลแล้ว", emoji: "🧾" },
   payment_slip_uploaded: { th: "ลูกค้าส่งสลิปการชำระเงิน — รอตรวจสอบ", emoji: "💳" },
+  po_approved: { th: "อนุมัติใบสั่งซื้อ (PO) แล้ว", emoji: "✅" },
+  po_rejected: { th: "ไม่อนุมัติใบสั่งซื้อ (PO)", emoji: "⚠️" },
+  tax_invoice_created: { th: "ออกใบกำกับภาษีแล้ว", emoji: "🧾" },
+  receipt_created: { th: "ออกใบเสร็จรับเงินแล้ว", emoji: "🧾" },
+  credit_note_created: { th: "ออกใบลดหนี้แล้ว", emoji: "📝" },
 };
 
 // ---------- HTML builder ----------
