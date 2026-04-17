@@ -1,0 +1,1 @@
+ALTER TABLE public.quote_requests ADD COLUMN IF NOT EXISTS negotiation_enabled boolean NOT NULL DEFAULT false;

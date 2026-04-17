@@ -556,9 +556,11 @@ export default function MyQuoteDetail() {
                   >
                     <CheckCircle2 className="w-5 h-5 mr-2" /> ✅ ยอมรับราคานี้
                   </Button>
-                  <Button variant="outline" size="lg" onClick={() => setShowNegotiation(true)} className="w-full sm:w-auto">
-                    💬 ขอต่อรอง
-                  </Button>
+                  {(quote as any).negotiation_enabled && (
+                    <Button variant="outline" size="lg" onClick={() => setShowNegotiation(true)} className="w-full sm:w-auto">
+                      💬 ขอต่อรอง
+                    </Button>
+                  )}
                 </div>
               </div>
             </CardContent>
@@ -1282,9 +1284,11 @@ export default function MyQuoteDetail() {
               >
                 <CheckCircle2 className="w-5 h-5 mr-2" /> ยอมรับราคา
               </Button>
-              <Button variant="outline" size="lg" onClick={() => setShowNegotiation(true)} className="flex-1 sm:flex-none">
-                💬 ต่อรอง
-              </Button>
+              {(quote as any).negotiation_enabled && (
+                <Button variant="outline" size="lg" onClick={() => setShowNegotiation(true)} className="flex-1 sm:flex-none">
+                  💬 ต่อรอง
+                </Button>
+              )}
             </div>
           </div>
         </div>

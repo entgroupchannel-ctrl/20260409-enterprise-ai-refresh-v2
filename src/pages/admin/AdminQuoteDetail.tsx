@@ -1385,6 +1385,39 @@ export default function AdminQuoteDetail() {
               onSaved={loadQuoteDetails}
             />
 
+            {/* Toggle: Allow customer to request negotiation */}
+            <div className="flex items-start justify-between gap-3 rounded-lg border border-dashed border-amber-500/40 bg-amber-500/5 p-3">
+              <div className="space-y-0.5">
+                <p className="text-sm font-medium flex items-center gap-1.5">
+                  💬 อนุญาตให้ลูกค้าขอต่อรองราคา
+                </p>
+                <p className="text-[11px] text-muted-foreground leading-relaxed">
+                  ปิดไว้เป็นค่าเริ่มต้น — เปิดเมื่อลูกค้าทักแชทมาขอต่อรอง เพื่อให้ปุ่ม "ขอต่อรองราคา" ปรากฏในพอร์ทัลลูกค้า
+                </p>
+              </div>
+              <label className="inline-flex items-center cursor-pointer mt-0.5 shrink-0">
+                <input
+                  type="checkbox"
+                  className="sr-only peer"
+                  checked={!!(quote as any).negotiation_enabled}
+                  onChange={async (e) => {
+                    const next = e.target.checked;
+                    const { error } = await (supabase as any)
+                      .from('quote_requests')
+                      .update({ negotiation_enabled: next })
+                      .eq('id', quote.id);
+                    if (error) {
+                      toast({ title: 'อัปเดตไม่สำเร็จ', description: error.message, variant: 'destructive' });
+                    } else {
+                      toast({ title: next ? '✅ เปิดให้ลูกค้าต่อรองได้แล้ว' : '🔒 ปิดการต่อรองฝั่งลูกค้าแล้ว' });
+                      loadQuoteDetails();
+                    }
+                  }}
+                />
+                <div className="relative w-10 h-5 bg-muted rounded-full peer-checked:bg-amber-500 transition-colors after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-background after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:after:translate-x-5" />
+              </label>
+            </div>
+
             {/* Negotiation: Revision Timeline */}
             <RevisionTimeline
               key={revisionKey}
