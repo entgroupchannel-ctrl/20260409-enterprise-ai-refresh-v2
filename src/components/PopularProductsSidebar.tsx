@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, FileText } from "lucide-react";
 
 const searchTags = [
   { label: "Mini PC สำนักงาน", href: "/mini-pc" },
