@@ -214,7 +214,7 @@ export default function AdminQuotesList() {
 
       const insertPayload: any = {
         ...rest,
-        status: 'pending',
+        status: 'draft',
         products: rev?.products ?? src.products ?? [],
         subtotal: rev?.subtotal ?? src.subtotal ?? 0,
         vat_amount: rev?.vat_amount ?? src.vat_amount ?? 0,
