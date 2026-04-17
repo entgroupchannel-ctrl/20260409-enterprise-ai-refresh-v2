@@ -695,16 +695,3 @@ export default function MyInvoiceDetail() {
     </CustomerLayout>
   );
 }
-          onOpenChange={setShowUploadSlip}
-          invoiceId={invoice.id}
-          invoiceNumber={invoice.invoice_number}
-          grandTotal={invoice.grand_total || 0}
-          existingPendingCount={pendingCount}
-          existingVerifiedTotal={verifiedTotal}
-          existingPendingTotal={pendingTotal}
-          onSuccess={() => loadData()}
-        />
-      )}
-    </CustomerLayout>
-  );
-}
