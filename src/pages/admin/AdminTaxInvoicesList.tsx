@@ -340,6 +340,13 @@ export default function AdminTaxInvoicesList() {
           }}
         />
       )}
+
+      <ShareTaxInvoiceDialog
+        open={!!shareTarget}
+        onOpenChange={(v) => { if (!v) setShareTarget(null); }}
+        taxInvoiceId={shareTarget?.id ?? null}
+        taxInvoiceNumber={shareTarget?.number ?? null}
+      />
     </AdminLayout>
   );
 }
