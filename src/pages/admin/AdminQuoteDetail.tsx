@@ -1386,7 +1386,7 @@ export default function AdminQuoteDetail() {
             />
 
             {/* Toggle: Allow customer to request negotiation */}
-            <div className="flex items-start justify-between gap-3 rounded-lg border border-dashed bg-amber-500/5 p-3 border-destructive">
+            <div className="flex items-start justify-between gap-3 rounded-lg border border-dashed border-amber-500/40 bg-amber-500/5 p-3">
               <div className="space-y-0.5">
                 <p className="text-sm font-medium flex items-center gap-1.5">
                   💬 อนุญาตให้ลูกค้าขอต่อรองราคา
