@@ -56,6 +56,18 @@ serve(async (req) => {
   "withholding_amount": 0,
   "grand_total": 0,
   "payment_terms": "",
+  "payment_terms_structured": {
+    "credit_days": 0,
+    "deposit_percent": 0,
+    "balance_on_delivery_percent": 0,
+    "by_order_lead_time_days": "",
+    "validity_days": 30,
+    "bank_accounts": [
+      {"bank_name": "", "branch": "", "account_type": "", "account_name": "", "account_number": ""}
+    ],
+    "key_conditions": [],
+    "raw_clauses": []
+  },
   "delivery_terms": "",
   "warranty_terms": "",
   "notes": ""
@@ -66,7 +78,16 @@ serve(async (req) => {
 - field ที่ไม่พบให้เว้น "" สำหรับ string หรือ 0 สำหรับ number
 - items ต้องเป็น array ของรายการสินค้าจริงในใบเสนอราคา (ไม่รวม subtotal/vat/grand_total)
 - name = ชื่อรุ่น/โมเดลสินค้า, description = รายละเอียด/สเปก
-- branch_type ถ้าเป็น "สำนักงานใหญ่" ให้ใส่ "head_office", ถ้าเป็นสาขาอื่นใส่ "branch"`;
+- branch_type ถ้าเป็น "สำนักงานใหญ่" ให้ใส่ "head_office", ถ้าเป็นสาขาอื่นใส่ "branch"
+- payment_terms = ข้อความเต็มของเงื่อนไขการชำระเงิน (รวมทุกข้อ คั่นด้วย newline เพื่อให้อ่านง่าย)
+- payment_terms_structured.credit_days = จำนวนวันเครดิต (ถ้าไม่ระบุให้เป็น 0)
+- payment_terms_structured.deposit_percent = % มัดจำที่ลูกค้าต้องจ่ายก่อนสั่งซื้อ (เช่น "ชำระก่อน 60%" → 60)
+- payment_terms_structured.balance_on_delivery_percent = % ที่เหลือก่อนส่งมอบ
+- payment_terms_structured.by_order_lead_time_days = ระยะเวลา By Order เช่น "30-45 วัน"
+- payment_terms_structured.validity_days = ใบเสนอราคามีผลกี่วัน (เช่น "ยืนราคา 30 วัน" → 30)
+- payment_terms_structured.bank_accounts = array ของบัญชีธนาคารทั้งหมดที่ปรากฏ
+- payment_terms_structured.key_conditions = array ข้อสำคัญสรุปสั้นที่แอดมินต้องตรวจ เช่น ["ค่าธรรมเนียมโอนเงินลูกค้ารับผิดชอบ", "ของแถมใช้แทนส่วนลดเงินสดไม่ได้", "By Order ต้องมัดจำก่อน"]
+- payment_terms_structured.raw_clauses = array ของแต่ละข้อในเงื่อนไข แยกตามเลขข้อ (เช่น ["1. กรณีสินค้าหมดสต๊อก...", "2. กรณีลูกค้าสั่งซื้อสินค้า..."])`;
 
     const messages = [
       {
