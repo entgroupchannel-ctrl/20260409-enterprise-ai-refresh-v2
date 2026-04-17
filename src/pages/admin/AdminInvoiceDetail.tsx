@@ -897,7 +897,7 @@ export default function AdminInvoiceDetail() {
           initialNotes={invoice.notes}
           initialInternalNotes={invoice.internal_notes}
           showInternalNotes
-          onSaved={loadInvoice}
+          onSaved={loadData}
         />
 
         {/* Payment Records Summary (read-only) */}

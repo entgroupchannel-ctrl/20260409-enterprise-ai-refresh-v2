@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import CreditNotePrintPreviewDialog from '@/components/admin/CreditNotePrintPreviewDialog';
 import VoidCreditNoteDialog from '@/components/admin/VoidCreditNoteDialog';
+import DocumentNotesEditor from '@/components/shared/DocumentNotesEditor';
 
 const REASON_LABELS: Record<string, string> = {
   return: 'สินค้าคืน',
