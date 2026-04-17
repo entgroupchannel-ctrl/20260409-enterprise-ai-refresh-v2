@@ -23,6 +23,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { QuoteTimelineBadge } from '@/components/rfq/QuoteTimeline';
 import QuoteTimeline from '@/components/rfq/QuoteTimeline';
 import POUploadDialog from '@/components/quotes/POUploadDialog';
+import PrintPreviewDialog from '@/components/admin/PrintPreviewDialog';
 import {
   FileSearch, ShoppingBag, UserRound, Landmark, MapPinned, Truck,
   Plus, SearchCheck, Timer, ScanEye, Download, Printer,
@@ -168,6 +169,9 @@ export default function UserDashboard() {
   // ─── Cart submission ───
   const [submitting, setSubmitting] = useState(false);
   const [showPOUpload, setShowPOUpload] = useState(false);
+  const [showPrintPreview, setShowPrintPreview] = useState(false);
+  const [printAutoDownload, setPrintAutoDownload] = useState(false);
+  const [currentRevision, setCurrentRevision] = useState<any>(null);
 
   // ─── Orders state ───
   const [orders, setOrders] = useState<any[]>([]);
@@ -754,6 +758,12 @@ export default function UserDashboard() {
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
+                      <Button variant="outline" size="sm" onClick={() => { setPrintAutoDownload(false); setShowPrintPreview(true); }}>
+                        <Printer className="w-4 h-4 mr-2" />พิมพ์
+                      </Button>
+                      <Button variant="outline" size="sm" onClick={() => { setPrintAutoDownload(true); setShowPrintPreview(true); }}>
+                        <Download className="w-4 h-4 mr-2" />PDF
+                      </Button>
                       <QuoteTimelineBadge currentStatus={selectedQuote.status} />
                     </div>
                   </div>
@@ -1456,6 +1466,15 @@ export default function UserDashboard() {
           </main>
         </div>
       </div>
+      {selectedQuote && showPrintPreview && (
+        <PrintPreviewDialog
+          open={showPrintPreview}
+          onOpenChange={setShowPrintPreview}
+          quote={selectedQuote}
+          revision={currentRevision}
+          autoDownload={printAutoDownload}
+        />
+      )}
       {selectedQuote && (
         <POUploadDialog
           open={showPOUpload}
