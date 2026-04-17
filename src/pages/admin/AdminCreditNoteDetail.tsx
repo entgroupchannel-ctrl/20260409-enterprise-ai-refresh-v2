@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import CreditNotePrintPreviewDialog from '@/components/admin/CreditNotePrintPreviewDialog';
 import VoidCreditNoteDialog from '@/components/admin/VoidCreditNoteDialog';
+import DocumentNotesEditor from '@/components/shared/DocumentNotesEditor';
 
 const REASON_LABELS: Record<string, string> = {
   return: 'สินค้าคืน',
@@ -300,14 +301,12 @@ export default function AdminCreditNoteDetail() {
         </Card>
 
         {/* Notes */}
-        {creditNote.notes && (
-          <Card>
-            <CardContent className="pt-4">
-              <p className="text-xs text-muted-foreground mb-1">หมายเหตุ</p>
-              <p className="text-sm whitespace-pre-wrap">{creditNote.notes}</p>
-            </CardContent>
-          </Card>
-        )}
+        <DocumentNotesEditor
+          table="credit_notes"
+          id={creditNote.id}
+          initialNotes={creditNote.notes}
+          showInternalNotes={false}
+        />
       </div>
 
       <CreditNotePrintPreviewDialog
