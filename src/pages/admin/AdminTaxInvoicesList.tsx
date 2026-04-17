@@ -57,6 +57,8 @@ export default function AdminTaxInvoicesList() {
   const [createFromInvoiceId, setCreateFromInvoiceId] = useState<string | null>(null);
   const [creatingCNFor, setCreatingCNFor] = useState<string | null>(null);
   const [shareTarget, setShareTarget] = useState<{ id: string; number: string } | null>(null);
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(20);
 
   const loadData = async () => {
     setLoading(true);
