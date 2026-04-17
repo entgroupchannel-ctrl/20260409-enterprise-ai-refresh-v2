@@ -618,15 +618,133 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
               </CardContent>
             </Card>
 
-            {/* Terms */}
+            {/* Payment Terms — Highlighted */}
+            <Card className="border-amber-500/50 bg-amber-500/5 dark:bg-amber-500/10">
+              <CardContent className="p-4 space-y-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
+                    <AlertTriangle className="w-4 h-4 text-amber-600" />
+                    เงื่อนไขการชำระเงิน — โปรดตรวจสอบให้ครบถ้วน
+                  </h3>
+                  {data.payment_terms_reviewed && (
+                    <Badge variant="outline" className="border-emerald-500 text-emerald-600 gap-1">
+                      <ShieldCheck className="w-3 h-3" /> ตรวจสอบแล้ว
+                    </Badge>
+                  )}
+                </div>
+
+                {/* Quick fields */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 p-3 rounded-md bg-background/60 border border-border">
+                  <div>
+                    <Label className="text-[10px] uppercase">เครดิต (วัน)</Label>
+                    <Input type="number" className="h-9" value={data.payment_terms_structured.credit_days}
+                      onChange={(e) => setData({ ...data, payment_terms_structured: { ...data.payment_terms_structured, credit_days: Number(e.target.value) || 0 } })} />
+                  </div>
+                  <div>
+                    <Label className="text-[10px] uppercase">มัดจำ (%)</Label>
+                    <Input type="number" className="h-9" value={data.payment_terms_structured.deposit_percent}
+                      onChange={(e) => setData({ ...data, payment_terms_structured: { ...data.payment_terms_structured, deposit_percent: Number(e.target.value) || 0 } })} />
+                  </div>
+                  <div>
+                    <Label className="text-[10px] uppercase">ส่วนที่เหลือ (%)</Label>
+                    <Input type="number" className="h-9" value={data.payment_terms_structured.balance_on_delivery_percent}
+                      onChange={(e) => setData({ ...data, payment_terms_structured: { ...data.payment_terms_structured, balance_on_delivery_percent: Number(e.target.value) || 0 } })} />
+                  </div>
+                  <div>
+                    <Label className="text-[10px] uppercase">ยืนราคา (วัน)</Label>
+                    <Input type="number" className="h-9" value={data.payment_terms_structured.validity_days}
+                      onChange={(e) => setData({ ...data, payment_terms_structured: { ...data.payment_terms_structured, validity_days: Number(e.target.value) || 0 } })} />
+                  </div>
+                  <div className="col-span-2 md:col-span-4">
+                    <Label className="text-[10px] uppercase">ระยะเวลา By Order</Label>
+                    <Input className="h-9" placeholder="เช่น 30-45 วัน" value={data.payment_terms_structured.by_order_lead_time_days}
+                      onChange={(e) => setData({ ...data, payment_terms_structured: { ...data.payment_terms_structured, by_order_lead_time_days: e.target.value } })} />
+                  </div>
+                </div>
+
+                {/* Key conditions checklist */}
+                {data.payment_terms_structured.key_conditions.length > 0 && (
+                  <div className="space-y-2">
+                    <Label className="text-xs flex items-center gap-1.5">
+                      <Eye className="w-3.5 h-3.5" /> ข้อสำคัญที่ AI สรุปไว้ ({data.payment_terms_structured.key_conditions.length})
+                    </Label>
+                    <ul className="space-y-1.5 text-sm">
+                      {data.payment_terms_structured.key_conditions.map((k, i) => (
+                        <li key={i} className="flex items-start gap-2 p-2 rounded bg-background/60 border border-border">
+                          <span className="text-amber-600 font-bold">•</span>
+                          <span className="flex-1">{k}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Bank accounts */}
+                {data.payment_terms_structured.bank_accounts.length > 0 && (
+                  <div className="space-y-2">
+                    <Label className="text-xs flex items-center gap-1.5">
+                      <Banknote className="w-3.5 h-3.5" /> บัญชีธนาคาร ({data.payment_terms_structured.bank_accounts.length})
+                    </Label>
+                    <div className="space-y-1.5 text-sm">
+                      {data.payment_terms_structured.bank_accounts.map((b, i) => (
+                        <div key={i} className="p-2 rounded bg-background/60 border border-border">
+                          <div className="font-medium">{b.bank_name} {b.branch && `— สาขา${b.branch}`}</div>
+                          <div className="text-xs text-muted-foreground">
+                            {b.account_type} • {b.account_name} • <span className="font-mono">{b.account_number}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Raw clauses */}
+                {data.payment_terms_structured.raw_clauses.length > 0 && (
+                  <div className="space-y-2">
+                    <Label className="text-xs">ข้อความเงื่อนไขทั้งหมด ({data.payment_terms_structured.raw_clauses.length} ข้อ) — เลื่อนดูได้</Label>
+                    <div className="max-h-64 overflow-y-auto rounded border border-border bg-background/60 p-3 space-y-1.5 text-sm leading-relaxed">
+                      {data.payment_terms_structured.raw_clauses.map((c, i) => (
+                        <p key={i} className="pl-2 border-l-2 border-amber-500/40">{c}</p>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Editable raw text */}
+                <div>
+                  <Label className="text-xs">ข้อความเต็ม (แก้ไขได้)</Label>
+                  <Textarea
+                    value={data.payment_terms}
+                    onChange={(e) => setData({ ...data, payment_terms: e.target.value })}
+                    rows={6}
+                    className="text-xs font-mono leading-relaxed max-h-72 overflow-auto"
+                  />
+                </div>
+
+                {/* Confirmation */}
+                <label className="flex items-start gap-3 p-3 rounded-md border-2 border-amber-500/60 bg-background/80 cursor-pointer hover:bg-background">
+                  <Checkbox
+                    checked={data.payment_terms_reviewed}
+                    onCheckedChange={(v) => setData({ ...data, payment_terms_reviewed: !!v })}
+                    className="mt-0.5"
+                  />
+                  <div className="flex-1">
+                    <div className="text-sm font-semibold text-foreground">
+                      ฉันได้ตรวจสอบเงื่อนไขการชำระเงินทั้งหมดแล้ว
+                    </div>
+                    <div className="text-xs text-muted-foreground mt-0.5">
+                      ต้องติ๊กเพื่อยืนยันก่อนกด "บันทึกเข้าระบบ" — ป้องกันการนำเข้าโดยไม่ได้อ่านเงื่อนไข
+                    </div>
+                  </div>
+                </label>
+              </CardContent>
+            </Card>
+
+            {/* Other terms */}
             <Card>
               <CardContent className="p-4 space-y-3">
-                <h3 className="text-sm font-semibold text-foreground">เงื่อนไขและหมายเหตุ</h3>
+                <h3 className="text-sm font-semibold text-foreground">เงื่อนไขอื่นๆ และหมายเหตุ</h3>
                 <div className="grid grid-cols-1 gap-3">
-                  <div>
-                    <Label className="text-xs">เงื่อนไขการชำระเงิน</Label>
-                    <Textarea value={data.payment_terms} onChange={(e) => setData({ ...data, payment_terms: e.target.value })} rows={2} />
-                  </div>
                   <div>
                     <Label className="text-xs">เงื่อนไขการส่งมอบ</Label>
                     <Textarea value={data.delivery_terms} onChange={(e) => setData({ ...data, delivery_terms: e.target.value })} rows={2} />
