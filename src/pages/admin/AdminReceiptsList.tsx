@@ -12,6 +12,7 @@ import { Receipt, Search, Loader2, Calendar, Trash2, MoreVertical, Plus, Share2 
 import SelectSourceForReceiptDialog from '@/components/admin/SelectSourceForReceiptDialog';
 import CreateReceiptDialog from '@/components/admin/CreateReceiptDialog';
 import ShareReceiptDialog from '@/components/admin/ShareReceiptDialog';
+import ListPagination from '@/components/admin/ListPagination';
 import { formatRelativeTime } from '@/lib/format';
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
