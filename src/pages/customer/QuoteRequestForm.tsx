@@ -86,12 +86,20 @@ export default function QuoteRequestForm() {
         .select('*').eq('user_id', user.id).maybeSingle();
 
       if (profile) {
+        const composedAddress = [
+          profile.billing_address,
+          profile.billing_district,
+          profile.billing_city,
+          profile.billing_province,
+          profile.billing_postal_code,
+        ].filter((s: string | null) => s && String(s).trim()).join(' ').trim();
+
         setFormData({
           customer_name: profile.contact_name || authProfile?.full_name || '',
           customer_email: profile.contact_email || user.email || '',
           customer_phone: profile.contact_phone || '',
           customer_company: profile.company_name || '',
-          customer_address: profile.billing_address || '',
+          customer_address: composedAddress,
           customer_tax_id: profile.company_tax_id || '',
           customer_line: profile.contact_line || '',
           notes: '',
