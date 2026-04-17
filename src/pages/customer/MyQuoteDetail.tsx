@@ -124,6 +124,7 @@ export default function MyQuoteDetail() {
   const [showNegotiation, setShowNegotiation] = useState(false);
   const [showAcceptQuote, setShowAcceptQuote] = useState(false);
   const [showPrintPreview, setShowPrintPreview] = useState(false);
+  const [printAutoDownload, setPrintAutoDownload] = useState(false);
   const [currentRevision, setCurrentRevision] = useState<any>(null);
   const [relatedInvoices, setRelatedInvoices] = useState<any[]>([]);
   const [assignedSaleUser, setAssignedSaleUser] = useState<{ full_name: string | null; phone: string | null; email: string | null; position: string | null } | null>(null);
@@ -460,9 +461,14 @@ export default function MyQuoteDetail() {
             <h1 className="text-2xl font-bold font-mono">{quote.quote_number}</h1>
             <p className="text-xs text-muted-foreground">{formatShortDateTime(quote.created_at)}</p>
           </div>
-          <Button variant="outline" size="sm" onClick={() => setShowPrintPreview(true)}>
-            <Printer className="w-4 h-4 mr-2" />พิมพ์
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button variant="outline" size="sm" onClick={() => { setPrintAutoDownload(false); setShowPrintPreview(true); }}>
+              <Printer className="w-4 h-4 mr-2" />พิมพ์
+            </Button>
+            <Button variant="outline" size="sm" onClick={() => { setPrintAutoDownload(true); setShowPrintPreview(true); }}>
+              <Download className="w-4 h-4 mr-2" />PDF
+            </Button>
+          </div>
         </div>
         {/* Timeline */}
         <Card className="mb-6">
@@ -1247,6 +1253,7 @@ export default function MyQuoteDetail() {
           onOpenChange={setShowPrintPreview}
           quote={quote}
           revision={currentRevision}
+          autoDownload={printAutoDownload}
         />
       )}
       </div>
