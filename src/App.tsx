@@ -54,6 +54,7 @@ const BlogDetail = lazyRetry(() => import("./pages/BlogDetail"));
 const NotFound = lazyRetry(() => import("./pages/NotFound"));
 const ShopStorefront = lazyRetry(() => import("./pages/shop/ShopStorefront"));
 const JetsonEdgeAI = lazyRetry(() => import("./pages/JetsonEdgeAI"));
+const JetsonSolutions = lazyRetry(() => import("./pages/JetsonSolutions"));
 const ShopProductDetail = lazyRetry(() => import("./pages/shop/ShopProductDetail"));
 const ShopCompare = lazyRetry(() => import("./pages/shop/ShopCompare"));
 const Unsubscribe = lazyRetry(() => import("./pages/Unsubscribe"));
@@ -206,6 +207,7 @@ const App = () => (
                     <Route path="/shop" element={<ShopStorefront />} />
                     <Route path="/jetson" element={<JetsonEdgeAI />} />
                     <Route path="/nvidia-jetson" element={<JetsonEdgeAI />} />
+                    <Route path="/nvidia-jetson/solutions" element={<JetsonSolutions />} />
                     <Route path="/shop/compare" element={<ShopCompare />} />
                     <Route path="/shop/:slug" element={<ShopProductDetail />} />
                     <Route path="/unsubscribe" element={<Unsubscribe />} />
