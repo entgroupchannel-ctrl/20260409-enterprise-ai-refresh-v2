@@ -208,7 +208,7 @@ export default function ReceiptPrintPreviewDialog({
           headerLeft: companySettings?.name_th || 'ENT Group',
           headerRight: `Receipt ${receipt.receipt_number}`,
           footerCenter: 'เอกสารนี้ออกโดยระบบอัตโนมัติ',
-          bottomMargin: 22,
+          bottomMargin: 28,
         });
       } finally {
         document.body.removeChild(holder);
