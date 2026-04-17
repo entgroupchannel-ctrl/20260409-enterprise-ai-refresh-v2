@@ -367,12 +367,131 @@ export default function AdminInvoicesList() {
               const pageAmount = pageItems.reduce((s, i) => s + (i.grand_total || 0), 0);
               return (
                 <>
-                  <div className="space-y-3">
+                  {viewMode === 'table' ? (
+                    <Card>
+                      <CardContent className="p-0 overflow-x-auto">
+                        <table className="w-full text-sm">
+                          <thead className="bg-muted/50 text-xs uppercase text-muted-foreground">
+                            <tr className="border-b">
+                              <th className="text-left font-medium px-3 py-2 whitespace-nowrap">วันที่</th>
+                              <th className="text-left font-medium px-3 py-2 whitespace-nowrap">เลขที่เอกสาร</th>
+                              <th className="text-left font-medium px-3 py-2">ลูกค้า / อีเมล</th>
+                              <th className="text-left font-medium px-3 py-2 whitespace-nowrap">ครบกำหนด</th>
+                              <th className="text-right font-medium px-3 py-2 whitespace-nowrap">ยอดรวม</th>
+                              <th className="text-left font-medium px-3 py-2 whitespace-nowrap">สถานะ</th>
+                              <th className="w-10 px-2 py-2"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {pageItems.map((inv) => {
+                              const isOverdue = !!(inv.due_date && inv.status !== 'paid' && inv.status !== 'cancelled' && new Date(inv.due_date) < now);
+                              return (
+                                <tr key={inv.id} className="border-b last:border-0 hover:bg-muted/40 cursor-pointer"
+                                    onClick={() => navigate(`/admin/invoices/${inv.id}`)}>
+                                  <td className="px-3 py-2 whitespace-nowrap text-muted-foreground">
+                                    {new Date(inv.invoice_date).toLocaleDateString('th-TH', { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                                  </td>
+                                  <td className="px-3 py-2 whitespace-nowrap font-mono text-primary font-medium">
+                                    <span className="inline-flex items-center gap-1.5">
+                                      <span className="inline-block w-2 h-2 rounded-full bg-emerald-500" />
+                                      {inv.invoice_number}
+                                      {isOverdue && <AlertCircle className="w-3 h-3 text-destructive" />}
+                                    </span>
+                                  </td>
+                                  <td className="px-3 py-2 min-w-[220px]">
+                                    <div className="truncate max-w-[320px] text-foreground">{inv.customer_company || inv.customer_name}</div>
+                                    {inv.customer_email && (
+                                      <div className="truncate max-w-[320px] text-xs text-muted-foreground">{inv.customer_email}</div>
+                                    )}
+                                  </td>
+                                  <td className={`px-3 py-2 whitespace-nowrap text-xs ${isOverdue ? 'text-destructive font-semibold' : 'text-muted-foreground'}`}>
+                                    {inv.due_date ? new Date(inv.due_date).toLocaleDateString('th-TH', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '-'}
+                                  </td>
+                                  <td className="px-3 py-2 whitespace-nowrap text-right font-semibold">{formatCurrency(inv.grand_total)}</td>
+                                  <td className="px-3 py-2 whitespace-nowrap">
+                                    {isOverdue ? (
+                                      <Badge variant="destructive" className="text-[10px] px-1.5 py-0">เกินกำหนด</Badge>
+                                    ) : (
+                                      <Badge variant="outline" className="text-[10px] px-1.5 py-0">{inv.status}</Badge>
+                                    )}
+                                  </td>
+                                  <td className="px-2 py-2 text-right" onClick={(e) => e.stopPropagation()}>
+                                    <InvoiceActionsMenu
+                                      invoiceId={inv.id}
+                                      invoiceNumber={inv.invoice_number}
+                                      status={inv.status}
+                                      onDelete={() => setDeletingInvoice(inv)}
+                                      onDownload={() => handleDownload(inv)}
+                                      onShare={() => setShareInvoice(inv)}
+                                    />
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </table>
+                      </CardContent>
+                    </Card>
+                  ) : (
+                  <div className={viewMode === 'grid'
+                    ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3'
+                    : 'space-y-3'}>
                     {pageItems.map((inv) => {
                       const isOverdue = inv.due_date &&
                         inv.status !== 'paid' &&
                         inv.status !== 'cancelled' &&
                         new Date(inv.due_date) < now;
+
+                      if (viewMode === 'grid') {
+                        return (
+                          <Card key={inv.id} className="hover:shadow-md transition-shadow cursor-pointer"
+                                onClick={() => navigate(`/admin/invoices/${inv.id}`)}>
+                            <CardContent className="p-3 space-y-2">
+                              <div className="flex items-start justify-between gap-2">
+                                <div className="min-w-0 flex-1">
+                                  <div className="flex items-center gap-1.5 flex-wrap">
+                                    <span className="font-semibold text-sm font-mono truncate">{inv.invoice_number}</span>
+                                    {isOverdue && <AlertCircle className="w-3 h-3 text-destructive shrink-0" />}
+                                  </div>
+                                  <p className="text-xs text-foreground truncate mt-0.5">{inv.customer_company || inv.customer_name}</p>
+                                  {inv.customer_email && (
+                                    <p className="text-[11px] text-muted-foreground truncate">{inv.customer_email}</p>
+                                  )}
+                                </div>
+                                <div onClick={(e) => e.stopPropagation()} className="shrink-0">
+                                  <InvoiceActionsMenu
+                                    invoiceId={inv.id}
+                                    invoiceNumber={inv.invoice_number}
+                                    status={inv.status}
+                                    onDelete={() => setDeletingInvoice(inv)}
+                                    onDownload={() => handleDownload(inv)}
+                                    onShare={() => setShareInvoice(inv)}
+                                  />
+                                </div>
+                              </div>
+                              <div className="flex items-center justify-between gap-2">
+                                {isOverdue ? (
+                                  <Badge variant="destructive" className="text-[10px] px-1.5 py-0">เกินกำหนด</Badge>
+                                ) : (
+                                  <Badge variant="outline" className="text-[10px] px-1.5 py-0">{inv.status}</Badge>
+                                )}
+                                <span className="text-sm font-bold text-primary">{formatCurrency(inv.grand_total)}</span>
+                              </div>
+                              <div className="flex items-center justify-between text-[11px] text-muted-foreground">
+                                <span className="flex items-center gap-1">
+                                  <Timer className="w-3 h-3" />
+                                  {formatRelativeTime(inv.invoice_date)}
+                                </span>
+                                {inv.due_date && (
+                                  <span className={isOverdue ? 'text-destructive font-semibold' : ''}>
+                                    {new Date(inv.due_date).toLocaleDateString('th-TH', { day: '2-digit', month: 'short' })}
+                                  </span>
+                                )}
+                              </div>
+                            </CardContent>
+                          </Card>
+                        );
+                      }
 
                       return (
                         <Card
