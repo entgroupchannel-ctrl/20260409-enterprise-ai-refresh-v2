@@ -11,6 +11,7 @@ import imgFirewall from "@/assets/product-firewall.jpg";
 import imgSmart from "@/assets/product-smart-display.jpg";
 import imgRugged from "@/assets/product-rugged.jpg";
 import imgVCloud from "@/assets/product-vcloudpoint.jpg";
+import imgJetson from "@/assets/jetson-mega-menu.jpg";
 
 import bannerIndustrial from "@/assets/banner-industrial.jpg";
 import bannerNetwork from "@/assets/banner-network.jpg";
