@@ -37,6 +37,7 @@ import {
 } from 'lucide-react';
 import { formatRelativeTime } from '@/lib/format';
 import ImportQuotePDFDialog from '@/components/admin/ImportQuotePDFDialog';
+import PrintPreviewDialog from '@/components/admin/PrintPreviewDialog';
 
 interface Quote {
   id: string;
