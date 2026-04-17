@@ -37,6 +37,7 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [showAddDialog, setShowAddDialog] = useState(false);
   const [productSearch, setProductSearch] = useState('');
+  const [discountType, setDiscountType] = useState<DiscountType>('percent');
   const [editForm, setEditForm] = useState<Product>({
     model: '',
     description: '',
