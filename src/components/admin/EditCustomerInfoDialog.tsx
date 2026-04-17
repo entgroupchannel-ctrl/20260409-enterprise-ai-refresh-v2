@@ -42,11 +42,13 @@ export default function EditCustomerInfoDialog({
   const [saving, setSaving] = useState(false);
   const [values, setValues] = useState<CustomerInfo>(initialValues);
 
+  // Only reset when dialog opens (not when parent re-renders initialValues)
   useEffect(() => {
     if (open) {
       setValues(initialValues);
     }
-  }, [open, initialValues]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
 
   const handleChange = (field: keyof CustomerInfo, value: string) => {
     setValues((prev) => ({ ...prev, [field]: value }));
