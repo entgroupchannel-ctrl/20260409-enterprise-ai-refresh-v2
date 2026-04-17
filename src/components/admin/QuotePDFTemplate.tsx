@@ -1,5 +1,6 @@
 // src/components/admin/QuotePDFTemplate.tsx
 import { formatFullDate, formatShortDateTime } from '@/lib/format';
+import ProductSpecDisplay from '@/components/shared/ProductSpecDisplay';
 
 interface QuotePDFTemplateProps {
   quote: {
