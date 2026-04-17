@@ -20,6 +20,7 @@ import {
   Zap, ThermometerSun, Droplets, Monitor, ShoppingCart, AlertTriangle, CalendarClock, TrendingUp, Info,
 } from 'lucide-react';
 import SiteNavbar from '@/components/SiteNavbar';
+import b2bWorkflowImage from '@/assets/b2b-quote-workflow.jpg';
 
 interface Product {
   id: string; sku: string; slug: string; model: string; series: string | null; name: string;
@@ -468,9 +469,38 @@ const ShopProductDetail = () => {
       {/* ═══════════ HOW TO ORDER — STEP BANNER ═══════════ */}
       <div className="bg-muted/20 border-y border-border">
         <div className="container max-w-7xl mx-auto px-4 py-10">
-          <div className="text-center mb-8">
-            <h2 className="text-xl font-bold text-foreground">ขั้นตอนง่ายๆ ในการขอใบเสนอราคา</h2>
-            <p className="text-sm text-muted-foreground mt-1">เลือกสินค้า → หยิบใส่ตะกร้า → กดขอใบเสนอราคา — ระบบจะจัดเตรียมเอกสารให้ภายใน 4 ชม.</p>
+          <div className="text-center mb-6">
+            <Badge variant="outline" className="mb-3 gap-1.5 border-primary/30 bg-primary/5 text-primary">
+              <Headphones className="w-3.5 h-3.5" /> B2B Procurement Workflow
+            </Badge>
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground">ขั้นตอนง่ายๆ ในการขอใบเสนอราคา</h2>
+            <p className="text-sm text-muted-foreground mt-2 max-w-2xl mx-auto">
+              เลือกสินค้า → หยิบใส่ตะกร้า → กดขอใบเสนอราคา —
+              <span className="text-foreground font-semibold"> ทีมแอดมินจัดเตรียมเอกสารให้ภายใน 4 ชั่วโมง</span>
+            </p>
+          </div>
+
+          {/* Hero illustration — B2B workflow */}
+          <div className="relative max-w-5xl mx-auto mb-8 rounded-2xl overflow-hidden border border-border bg-gradient-to-br from-primary/5 via-background to-amber-500/5 shadow-sm">
+            <img
+              src={b2bWorkflowImage}
+              alt="ขั้นตอนการขอใบเสนอราคา B2B — แอดมิน, ตะกร้า, ใบเสนอราคา, รับ PO และส่งสลิปชำระเงิน"
+              loading="lazy"
+              width={1600}
+              height={896}
+              className="w-full h-auto object-cover"
+            />
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/95 via-background/60 to-transparent p-4 sm:p-6">
+              <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm font-medium">
+                <span className="flex items-center gap-1.5 text-foreground"><Headphones className="w-4 h-4 text-primary" /> ทีมแอดมินดูแล</span>
+                <ChevronRight className="w-4 h-4 text-muted-foreground/50" />
+                <span className="flex items-center gap-1.5 text-foreground"><ShoppingCart className="w-4 h-4 text-amber-600" /> หยิบใส่ตะกร้า</span>
+                <ChevronRight className="w-4 h-4 text-muted-foreground/50" />
+                <span className="flex items-center gap-1.5 text-foreground"><FileText className="w-4 h-4 text-emerald-600" /> ใบเสนอราคา PDF</span>
+                <ChevronRight className="w-4 h-4 text-muted-foreground/50" />
+                <span className="flex items-center gap-1.5 text-foreground"><ReceiptText className="w-4 h-4 text-rose-600" /> รับ PO & สลิป</span>
+              </div>
+            </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
