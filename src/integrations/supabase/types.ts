@@ -1486,6 +1486,91 @@ export type Database = {
           },
         ]
       }
+      invoice_share_access_log: {
+        Row: {
+          accessed_at: string
+          action: string
+          id: string
+          ip_address: string | null
+          share_link_id: string
+          user_agent: string | null
+        }
+        Insert: {
+          accessed_at?: string
+          action: string
+          id?: string
+          ip_address?: string | null
+          share_link_id: string
+          user_agent?: string | null
+        }
+        Update: {
+          accessed_at?: string
+          action?: string
+          id?: string
+          ip_address?: string | null
+          share_link_id?: string
+          user_agent?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invoice_share_access_log_share_link_id_fkey"
+            columns: ["share_link_id"]
+            isOneToOne: false
+            referencedRelation: "invoice_share_links"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      invoice_share_links: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          download_count: number
+          expires_at: string
+          id: string
+          invoice_id: string
+          last_accessed_at: string | null
+          revoked_at: string | null
+          revoked_by: string | null
+          token: string
+          view_count: number
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          download_count?: number
+          expires_at: string
+          id?: string
+          invoice_id: string
+          last_accessed_at?: string | null
+          revoked_at?: string | null
+          revoked_by?: string | null
+          token: string
+          view_count?: number
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          download_count?: number
+          expires_at?: string
+          id?: string
+          invoice_id?: string
+          last_accessed_at?: string | null
+          revoked_at?: string | null
+          revoked_by?: string | null
+          token?: string
+          view_count?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invoice_share_links_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       invoices: {
         Row: {
           cancel_reason: string | null
@@ -4923,6 +5008,10 @@ export type Database = {
       }
       get_quote_negotiation_insights: {
         Args: { p_quote_id: string }
+        Returns: Json
+      }
+      get_shared_invoice: {
+        Args: { p_action?: string; p_token: string }
         Returns: Json
       }
       get_shared_quote: {
