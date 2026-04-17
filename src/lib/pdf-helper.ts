@@ -42,31 +42,37 @@ export async function generatePDFWithHeaderFooter(
   const pageWidth = pdfWorker.internal.pageSize.getWidth();
   const pageHeight = pdfWorker.internal.pageSize.getHeight();
 
+  // jsPDF built-in fonts (Helvetica) ไม่รองรับภาษาไทย → ต้อง ASCII-only
+  // มิฉะนั้นจะกลายเป็นอักขระเพี้ยน เช่น "@ - * 2 # 5"
+  const toAscii = (s: string) =>
+    (s || '').replace(/[^\x20-\x7E]/g, '').replace(/\s+/g, ' ').trim();
+
+  const safeHeaderLeft = toAscii(opts.headerLeft) || 'ENT Group';
+  const safeHeaderRight = toAscii(opts.headerRight);
+  const safeFooterCenter = opts.footerCenter ? toAscii(opts.footerCenter) : '';
+
   for (let i = 1; i <= totalPages; i++) {
     pdfWorker.setPage(i);
 
-    // ===== Header =====
-    // แสดงตั้งแต่หน้า 2 เป็นต้นไป (หน้าแรกมี header เต็มอยู่แล้วใน template)
+    // ===== Header (page 2+) =====
     if (i > 1) {
       pdfWorker.setFontSize(9);
       pdfWorker.setTextColor(80);
-      pdfWorker.text(opts.headerLeft, margin, 12);
-      pdfWorker.text(opts.headerRight, pageWidth - margin, 12, { align: 'right' });
+      if (safeHeaderLeft) pdfWorker.text(safeHeaderLeft, margin, 12);
+      if (safeHeaderRight) pdfWorker.text(safeHeaderRight, pageWidth - margin, 12, { align: 'right' });
 
-      // เส้นใต้หัวกระดาษ
       pdfWorker.setDrawColor(180);
       pdfWorker.setLineWidth(0.3);
       pdfWorker.line(margin, 15, pageWidth - margin, 15);
     }
 
-    // ===== Footer: หมายเลขหน้า =====
+    // ===== Footer: page number (ASCII) =====
     pdfWorker.setFontSize(8);
     pdfWorker.setTextColor(120);
-    const pageLabel = `หน้า ${i} / ${totalPages}`;
-    pdfWorker.text(pageLabel, pageWidth - margin, pageHeight - 8, { align: 'right' });
+    pdfWorker.text(`Page ${i} / ${totalPages}`, pageWidth - margin, pageHeight - 8, { align: 'right' });
 
-    if (opts.footerCenter) {
-      pdfWorker.text(opts.footerCenter, pageWidth / 2, pageHeight - 8, { align: 'center' });
+    if (safeFooterCenter) {
+      pdfWorker.text(safeFooterCenter, pageWidth / 2, pageHeight - 8, { align: 'center' });
     }
   }
 
