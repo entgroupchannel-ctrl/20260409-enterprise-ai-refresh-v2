@@ -4778,6 +4778,10 @@ export type Database = {
         Returns: Json
       }
       count_pending_approvals: { Args: never; Returns: number }
+      create_initial_quote_revision: {
+        Args: { p_quote_id: string }
+        Returns: string
+      }
       customer_respond_to_repair_quote: {
         Args: { p_action: string; p_reason?: string; p_repair_order_id: string }
         Returns: Json
