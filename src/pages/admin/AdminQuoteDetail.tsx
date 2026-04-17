@@ -1342,9 +1342,19 @@ export default function AdminQuoteDetail() {
                   </div>
                 </div>
 
-                {/* SendHorizonal Quote Button - Only show when pending */}
-                {quote.status === 'pending' && (
-                  <div className="mt-6 pt-4 border-t border-border">
+                {/* Draft + Send Buttons - Show for pending or draft */}
+                {(quote.status === 'pending' || quote.status === 'draft') && (
+                  <div className="mt-6 pt-4 border-t border-border space-y-2">
+                    <Button
+                      variant="outline"
+                      className="w-full"
+                      size="lg"
+                      onClick={handleSaveDraft}
+                      disabled={savingQuote}
+                    >
+                      <Save className="w-5 h-5 mr-2" />
+                      บันทึกฉบับร่าง
+                    </Button>
                     <Button
                       className="w-full"
                       size="lg"
@@ -1352,7 +1362,7 @@ export default function AdminQuoteDetail() {
                       disabled={savingQuote}
                     >
                       <SendHorizonal className="w-5 h-5 mr-2" />
-                      {savingQuote ? 'กำลังบันทึก...' : 'บันทึกและส่งใบเสนอราคา'}
+                      {savingQuote ? 'กำลังบันทึก...' : 'ส่งใบเสนอราคา'}
                     </Button>
                   </div>
                 )}
