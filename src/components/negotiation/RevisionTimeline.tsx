@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
-import { History, ChevronDown, ChevronUp, Gift, CheckCircle2, Clock, Send, User, Trash2, Printer } from 'lucide-react';
+import { History, ChevronDown, ChevronUp, Gift, CheckCircle2, Clock, Send, User, Trash2, Printer, Pencil } from 'lucide-react';
 import { formatShortDateTime } from '@/lib/format';
 import { useToast } from '@/hooks/use-toast';
 import RevisionCompareView from './RevisionCompareView';
@@ -52,6 +52,7 @@ interface RevisionTimelineProps {
   viewerRole: 'admin' | 'customer';
   onSelectRevision?: (revision: Revision) => void;
   onCreateCounter?: () => void;
+  onEditDraft?: (revision: Revision) => void;
   onRefresh?: () => void;
   onPrintRevision?: (revision: Revision) => void;
 }
@@ -65,6 +66,7 @@ export default function RevisionTimeline({
   viewerRole,
   onSelectRevision,
   onCreateCounter,
+  onEditDraft,
   onRefresh,
   onPrintRevision,
 }: RevisionTimelineProps) {
