@@ -241,6 +241,7 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
       return;
     }
     setSaving(true);
+    setPhase('กำลังบันทึกข้อมูลเข้าระบบ...');
     try {
       const validUntil = data.valid_until || (() => {
         const d = new Date(); d.setDate(d.getDate() + 30);
