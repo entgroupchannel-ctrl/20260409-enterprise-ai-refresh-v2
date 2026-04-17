@@ -21,6 +21,7 @@ import SelectInvoiceForTaxInvoiceDialog from '@/components/admin/SelectInvoiceFo
 import CreateTaxInvoiceFromInvoiceDialog from '@/components/admin/CreateTaxInvoiceFromInvoiceDialog';
 import CreateCreditNoteDialog from '@/components/admin/CreateCreditNoteDialog';
 import ShareTaxInvoiceDialog from '@/components/admin/ShareTaxInvoiceDialog';
+import ListPagination from '@/components/admin/ListPagination';
 
 interface TaxInvoice {
   id: string;
