@@ -243,6 +243,34 @@ export default function UploadPaymentSlipDialog({
         throw insertError;
       }
 
+      // 🔔 Notify all admins (in-app + email) — fire-and-forget
+      import('@/lib/notifications').then(({ notifyAdmins, notifyAdminsByEmail }) => {
+        const amountStr = new Intl.NumberFormat('th-TH', {
+          minimumFractionDigits: 2, maximumFractionDigits: 2,
+        }).format(amountNum);
+
+        notifyAdmins({
+          type: 'payment_slip_uploaded',
+          title: 'ลูกค้าส่งสลิปการชำระเงินใหม่',
+          message: `${invoiceNumber} • ฿${amountStr} • รอการตรวจสอบ`,
+          priority: 'high',
+          actionUrl: `/admin/invoices/${invoiceId}`,
+          actionLabel: 'ตรวจสอบสลิป',
+          linkType: 'invoice',
+          linkId: invoiceId,
+        });
+
+        notifyAdminsByEmail({
+          subject: `สลิปใหม่จากลูกค้า — ${invoiceNumber}`,
+          status: 'payment_slip_uploaded',
+          quoteNumber: invoiceNumber,
+          invoiceNumber,
+          amount: amountStr,
+          viewUrl: `https://www.entgroup.co.th/admin/invoices/${invoiceId}`,
+          note: notes || undefined,
+        });
+      });
+
       toast({
         title: '✅ ส่งสลิปสำเร็จ',
         description: 'ทีมงานกำลังตรวจสอบการชำระเงินของคุณ',
