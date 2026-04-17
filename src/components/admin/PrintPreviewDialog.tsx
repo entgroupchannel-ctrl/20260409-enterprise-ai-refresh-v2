@@ -86,14 +86,27 @@ export default function PrintPreviewDialog({
       <html>
         <head>
           <title>${quote.quote_number} - Rev ${revision.revision_number}</title>
+          <meta charset="utf-8" />
           <style>
-            body { margin: 0; padding: 20px; font-family: Arial, sans-serif; }
-            @media print { body { margin: 0; padding: 0; } }
+            @page {
+              size: A4 portrait;
+              margin: 15mm 15mm 20mm 15mm;
+            }
+            * { box-sizing: border-box; }
+            body {
+              margin: 0;
+              padding: 0;
+              font-family: Arial, Helvetica, sans-serif;
+              font-size: 10pt;
+              color: #222;
+              line-height: 1.5;
+            }
+            /* Repeat table headers on every printed page */
+            thead { display: table-header-group; }
+            tfoot { display: table-footer-group; }
+            tbody tr { page-break-inside: avoid; }
             table { border-collapse: collapse; width: 100%; }
-            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-            th { background-color: #2563eb; color: white; }
-            .text-right { text-align: right; }
-            .text-center { text-align: center; }
+            img { max-width: 100%; }
           </style>
         </head>
         <body>
@@ -115,18 +128,29 @@ export default function PrintPreviewDialog({
 
   const handleDownloadPDF = async () => {
     setIsDownloading(true);
-
+    
     try {
-      const { generatePDFWithHeaderFooter } = await import('@/lib/pdf-helper');
+      const html2pdf = (await import('html2pdf.js')).default;
+      
       const element = document.getElementById('quote-pdf-template');
       if (!element) return;
 
-      await generatePDFWithHeaderFooter(element, {
+      const opt = {
+        margin: [15, 15, 20, 15],   // top, right, bottom, left (mm)
         filename: `${quote.quote_number}-Rev${revision.revision_number}.pdf`,
-        headerLeft: companySettings?.name_th || 'ENT Group',
-        headerRight: `${quote.quote_number} • Rev ${revision.revision_number}`,
-        footerCenter: 'เอกสารนี้ออกโดยระบบอัตโนมัติ',
-      });
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          letterRendering: true,
+          scrollX: 0,
+          scrollY: 0,
+        },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] },
+      };
+
+      await html2pdf().set(opt).from(element).save();
     } catch (error) {
       console.error('Error generating PDF:', error);
       alert('เกิดข้อผิดพลาดในการสร้าง PDF');
