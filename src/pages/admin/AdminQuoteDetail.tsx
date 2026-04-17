@@ -1178,7 +1178,7 @@ export default function AdminQuoteDetail() {
                 <CardTitle>รายการสินค้า</CardTitle>
               </CardHeader>
               <CardContent>
-                {quote.status === 'pending' ? (
+                {(quote.status === 'pending' || quote.status === 'draft') ? (
                   <ProductEditor
                     products={quote.products || []}
                     onUpdate={async (updatedProducts) => {
@@ -1265,7 +1265,7 @@ export default function AdminQuoteDetail() {
                 <Separator className="my-4" />
 
                 {/* ✅ Overall Discount Input - แสดงเฉพาะตอน editable */}
-                {quote.status === 'pending' && (
+                {(quote.status === 'pending' || quote.status === 'draft') && (
                   <DiscountInput
                     subtotal={totals.subtotal}
                     discountType={(quote.discount_type === 'baht' ? 'baht' : 'percent') as 'percent' | 'baht'}
