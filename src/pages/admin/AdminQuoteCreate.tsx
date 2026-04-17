@@ -366,7 +366,7 @@ export default function AdminQuoteCreate() {
           notes: terms.notes || null,
           internal_notes: terms.internal_notes || null,
           valid_until: validUntil.toISOString().split('T')[0],
-          status: 'pending',
+          status: 'draft',
           metadata: {
             withholding_tax: terms.withholding_tax,
             withholding_percent: terms.withholding_tax ? terms.withholding_percent : 0,
