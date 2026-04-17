@@ -8,6 +8,7 @@ import ProductLineup from "@/components/ProductLineup";
 import PromoBanners from "@/components/PromoBanners";
 import CaseStudiesSection from "@/components/CaseStudiesSection";
 import PopularProductsSidebar from "@/components/PopularProductsSidebar";
+import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import GEOMeta from "@/components/GEOMeta";
@@ -38,6 +39,7 @@ const Index = () => {
       <HeroSection />
       <EdgeAISection />
       <ProductHighlights />
+      <B2BWorkflowBanner variant="full" showShopCta />
       <ProductBanners />
       <ProductSections />
       <ProductLineup />
