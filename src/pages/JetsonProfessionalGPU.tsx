@@ -5,6 +5,14 @@ import { ArrowLeft, FileText, Phone, Cpu, Award, Sparkles } from "lucide-react";
 import SiteNavbar from "@/components/SiteNavbar";
 import Footer from "@/components/Footer";
 import LineQRButton from "@/components/LineQRButton";
+import imgRtx6000Ada from "@/assets/jetson/rtx6000-ada.jpg";
+import imgRtxA6000 from "@/assets/jetson/rtx-a6000.jpg";
+import imgRtxA from "@/assets/jetson/rtx-a-series.jpg";
+import imgQuadroRtx from "@/assets/jetson/quadro-rtx.jpg";
+import imgQuadroPascal from "@/assets/jetson/quadro-pascal.jpg";
+import imgTSeries from "@/assets/jetson/nvidia-t-series.jpg";
+import imgTitanRtx from "@/assets/jetson/titan-rtx.jpg";
+import imgQuadroSync from "@/assets/jetson/quadro-sync.jpg";
 
 const NV = "#76B900";
 
