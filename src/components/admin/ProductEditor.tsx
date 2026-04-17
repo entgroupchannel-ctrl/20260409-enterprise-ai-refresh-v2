@@ -35,6 +35,7 @@ interface ProductEditorProps {
 export default function ProductEditor({ products, onUpdate, disabled = false }: ProductEditorProps) {
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [showAddDialog, setShowAddDialog] = useState(false);
+  const [productSearch, setProductSearch] = useState('');
   const [editForm, setEditForm] = useState<Product>({
     model: '',
     description: '',
@@ -44,6 +45,25 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
     line_total: 0,
     notes: '',
   });
+
+  const handleSelectProduct = (p: ProductData) => {
+    const unitPrice = Number(p.unit_price) || 0;
+    const description = [p.description, p.cpu, p.ram_gb && `RAM ${p.ram_gb}GB`, p.storage_gb && `${p.storage_type || 'SSD'} ${p.storage_gb}GB`, p.os]
+      .filter(Boolean)
+      .join(' • ');
+    setEditForm((prev) => {
+      const qty = prev.qty || 1;
+      const discount = prev.discount_percent || 0;
+      return {
+        ...prev,
+        model: p.model || p.sku || '',
+        description: description || prev.description,
+        unit_price: unitPrice,
+        line_total: calculateLineTotal(qty, unitPrice, discount),
+      };
+    });
+    setProductSearch(p.name);
+  };
 
   const calculateLineTotal = (qty: number, unitPrice: number, discount: number) => {
     const subtotal = qty * unitPrice;
