@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Save, Users } from 'lucide-react';
+import { Loader2, Save, Users, UserCircle, Download } from 'lucide-react';
 import CustomerAutocomplete, { type ContactData } from './CustomerAutocomplete';
 import { Separator } from '@/components/ui/separator';
 
