@@ -465,6 +465,17 @@ export default function AdminQuotesList() {
                   </Button>
                   <Button
                     type="button"
+                    variant={viewMode === 'table' ? 'default' : 'ghost'}
+                    size="sm"
+                    className="h-8 px-2"
+                    onClick={() => setViewMode('table')}
+                    aria-label="มุมมองตาราง"
+                    title="มุมมองตาราง (กะทัดรัด)"
+                  >
+                    <Rows3 className="w-4 h-4" />
+                  </Button>
+                  <Button
+                    type="button"
                     variant={viewMode === 'grid' ? 'default' : 'ghost'}
                     size="sm"
                     className="h-8 px-2"
