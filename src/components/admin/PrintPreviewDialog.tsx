@@ -75,58 +75,17 @@ export default function PrintPreviewDialog({
   const formatCurrency = (amount: number) =>
     new Intl.NumberFormat('th-TH', { minimumFractionDigits: 0 }).format(amount);
 
-  const handlePrint = () => {
+  const handlePrint = async () => {
     setIsPrinting(true);
-    
     const printContent = document.getElementById('quote-pdf-template');
-    if (!printContent) return;
+    if (!printContent) { setIsPrinting(false); return; }
 
-    const printWindow = window.open('', '_blank');
-    if (!printWindow) return;
-
-    printWindow.document.write(`
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <title>${quote.quote_number} - Rev ${revision.revision_number}</title>
-          <meta charset="utf-8" />
-          <style>
-            @page {
-              size: A4 portrait;
-              margin: 15mm 15mm 20mm 15mm;
-            }
-            * { box-sizing: border-box; }
-            body {
-              margin: 0;
-              padding: 0;
-              font-family: Arial, Helvetica, sans-serif;
-              font-size: 10pt;
-              color: #222;
-              line-height: 1.5;
-            }
-            /* Repeat table headers on every printed page */
-            thead { display: table-header-group; }
-            tfoot { display: table-footer-group; }
-            tbody tr { page-break-inside: avoid; }
-            table { border-collapse: collapse; width: 100%; }
-            img { max-width: 100%; }
-          </style>
-        </head>
-        <body>
-          ${printContent.innerHTML}
-        </body>
-      </html>
-    `);
-
-    printWindow.document.close();
-    
-    printWindow.onload = () => {
-      printWindow.print();
-      printWindow.onafterprint = () => {
-        printWindow.close();
-        setIsPrinting(false);
-      };
-    };
+    const { openPrintPreview } = await import('@/lib/print-helper');
+    openPrintPreview({
+      element: printContent,
+      title: `${quote.quote_number} - Rev ${revision.revision_number}`,
+      onDone: () => setIsPrinting(false),
+    });
   };
 
   const handleDownloadPDF = async () => {

@@ -145,86 +145,17 @@ export default function ReceiptPrintPreviewDialog({
   const formatCurrency = (n: number) =>
     new Intl.NumberFormat('th-TH', { minimumFractionDigits: 0 }).format(n);
 
-  const handlePrint = () => {
+  const handlePrint = async () => {
     setIsPrinting(true);
     const printContent = document.getElementById('receipt-pdf-template');
     if (!printContent) { setIsPrinting(false); return; }
 
-    const printWindow = window.open('', '_blank');
-    if (!printWindow) { setIsPrinting(false); return; }
-
-    // Copy all stylesheets (Tailwind + fonts) so the popup matches the on-screen preview.
-    const styleTags = Array.from(
-      document.querySelectorAll('link[rel="stylesheet"], style')
-    )
-      .map((node) => node.outerHTML)
-      .join('\n');
-
-    printWindow.document.write(`
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset="utf-8" />
-          <title>${receipt.receipt_number}</title>
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-          <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet" />
-          ${styleTags}
-          <style>
-            @page { size: A4 portrait; margin: 12mm; }
-            html, body {
-              margin: 0;
-              padding: 0;
-              background: #fff;
-              font-family: 'IBM Plex Sans Thai', Arial, sans-serif;
-              -webkit-print-color-adjust: exact;
-              print-color-adjust: exact;
-            }
-            #print-root {
-              width: 186mm;     /* A4 width minus 12mm margins */
-              margin: 0 auto;
-            }
-            #print-root #receipt-pdf-template {
-              width: 100% !important;
-              min-height: auto !important;
-              padding: 0 !important;
-              margin: 0 !important;
-              box-sizing: border-box;
-            }
-            @media print {
-              html, body { width: 186mm; }
-            }
-          </style>
-        </head>
-        <body>
-          <div id="print-root">${printContent.outerHTML}</div>
-        </body>
-      </html>
-    `);
-    printWindow.document.close();
-
-    // Wait for fonts + stylesheets to load before printing.
-    const triggerPrint = () => {
-      const doc: any = printWindow.document;
-      const ready = doc.fonts?.ready ?? Promise.resolve();
-      Promise.resolve(ready).then(() => {
-        // small delay so layout settles
-        setTimeout(() => {
-          printWindow.focus();
-          printWindow.print();
-        }, 250);
-      });
-      printWindow.onafterprint = () => {
-        printWindow.close();
-        setIsPrinting(false);
-      };
-    };
-
-    if (printWindow.document.readyState === 'complete') {
-      triggerPrint();
-    } else {
-      printWindow.onload = triggerPrint;
-    }
+    const { openPrintPreview } = await import('@/lib/print-helper');
+    openPrintPreview({
+      element: printContent,
+      title: receipt.receipt_number,
+      onDone: () => setIsPrinting(false),
+    });
   };
 
   const handleDownloadPDF = async () => {
