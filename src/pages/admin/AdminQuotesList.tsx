@@ -77,6 +77,10 @@ export default function AdminQuotesList() {
   // Import PDF dialog
   const [importOpen, setImportOpen] = useState(false);
 
+  // Download PDF state
+  const [downloadQuote, setDownloadQuote] = useState<any>(null);
+  const [downloadRevision, setDownloadRevision] = useState<any>(null);
+
   useEffect(() => {
     loadQuotes();
     const urlStatus = searchParams.get('status');
