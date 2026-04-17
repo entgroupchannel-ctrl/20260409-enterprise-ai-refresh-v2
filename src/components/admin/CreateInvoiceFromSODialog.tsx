@@ -324,7 +324,7 @@ export default function CreateInvoiceFromSODialog({
             createNotification({
               userId: customerUserId,
               type: 'invoice_created',
-              title: '🧾 ออกใบวางบิลใหม่',
+              title: 'ออกใบวางบิลใหม่',
               message: `ใบวางบิล ${invoice.invoice_number} ยอดรวม ${formatCurrency(invoice.grand_total)} บาท`,
               priority: 'high',
               actionUrl: `/my-account/invoices/${invoice.id}`,

@@ -447,7 +447,7 @@ export default function AdminQuoteDetail() {
           createNotification({
             userId: quote.created_by!,
             type: 'po_approved',
-            title: '✅ อนุมัติ PO แล้ว',
+            title: 'อนุมัติ PO แล้ว',
             message: `PO ของใบเสนอราคา ${quote.quote_number} ได้รับการอนุมัติแล้ว — รอดำเนินการจัดส่ง`,
             priority: 'high',
             actionUrl: `/my-account/quotes/${id}`,
@@ -522,7 +522,7 @@ export default function AdminQuoteDetail() {
           createNotification({
             userId: quote.created_by!,
             type: 'po_rejected',
-            title: '⚠️ PO ไม่ได้รับการอนุมัติ',
+            title: 'PO ไม่ได้รับการอนุมัติ',
             message: `PO ของใบเสนอราคา ${quote.quote_number} ไม่ได้รับการอนุมัติ — เหตุผล: ${reasonText}`,
             priority: 'urgent',
             actionUrl: `/my-account/quotes/${id}`,

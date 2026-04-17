@@ -271,7 +271,7 @@ export default function CreateCreditNoteDialog({
             createNotification({
               userId: customerId,
               type: 'credit_note_created',
-              title: '📝 ออกใบลดหนี้ใหม่',
+              title: 'ออกใบลดหนี้ใหม่',
               message: `ใบลดหนี้ ${cn.credit_note_number} ยอดลด ${cnAmount} บาท (เหตุผล: ${reasonDetail.trim()})`,
               priority: 'high',
               actionUrl: `/my-account/documents`,

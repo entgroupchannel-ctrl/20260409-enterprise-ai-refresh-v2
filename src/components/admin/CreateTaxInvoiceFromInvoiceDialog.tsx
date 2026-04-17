@@ -239,7 +239,7 @@ export default function CreateTaxInvoiceFromInvoiceDialog({
             createNotification({
               userId: invoice.customer_id,
               type: 'tax_invoice_created',
-              title: '🧾 ออกใบกำกับภาษีใหม่',
+              title: 'ออกใบกำกับภาษีใหม่',
               message: `ใบกำกับภาษี ${taxInv.tax_invoice_number} ยอดรวม ${amountStr} บาท`,
               priority: 'high',
               actionUrl: `/my-account/tax-invoices/${taxInv.id}`,
