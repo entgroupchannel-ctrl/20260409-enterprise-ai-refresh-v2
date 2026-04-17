@@ -53,7 +53,7 @@ export default function SelectQuoteForInvoiceDialog({
         .select(
           'id, quote_number, customer_name, customer_company, customer_address, customer_email, customer_phone, customer_tax_id, payment_terms, notes, grand_total, status, has_sale_order, has_invoice, created_at'
         )
-        .eq('status', 'po_approved')
+        .in('status', ['po_approved', 'completed'])
         .eq('has_invoice', false)
         .order('created_at', { ascending: false })
         .limit(50);
@@ -210,7 +210,7 @@ export default function SelectQuoteForInvoiceDialog({
               <FileText className="w-12 h-12 mx-auto mb-3 opacity-40" />
               <p className="text-sm font-medium">ไม่มีใบเสนอราคาที่พร้อมสร้างใบวางบิล</p>
               <p className="text-xs mt-1">
-                Quote ต้อง: status = po_approved + ยังไม่มีใบวางบิล
+                Quote ต้อง: status = po_approved หรือ completed + ยังไม่มีใบวางบิล
               </p>
             </div>
           ) : (

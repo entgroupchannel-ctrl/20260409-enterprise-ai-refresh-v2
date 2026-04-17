@@ -119,7 +119,7 @@ export default function AdminInvoicesList() {
       const { count, error } = await (supabase as any)
         .from('quote_requests')
         .select('id', { count: 'exact', head: true })
-        .eq('status', 'po_approved')
+        .in('status', ['po_approved', 'completed'])
         .eq('has_invoice', false);
 
       if (error) throw error;
