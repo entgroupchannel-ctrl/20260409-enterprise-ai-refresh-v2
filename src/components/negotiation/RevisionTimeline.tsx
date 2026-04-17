@@ -411,7 +411,7 @@ export default function RevisionTimeline({
 
                   {/* Draft action buttons (admin only) */}
                   {viewerRole === 'admin' && isDraft && (
-                    <div className="flex gap-2 mt-3 pt-3 border-t border-dashed border-amber-300 dark:border-amber-700">
+                    <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t border-dashed border-amber-300 dark:border-amber-700">
                       <Button
                         size="sm"
                         onClick={(e) => {
@@ -424,6 +424,20 @@ export default function RevisionTimeline({
                         <Send className="w-3 h-3 mr-1" />
                         {publishingId === rev.id ? 'กำลังส่ง...' : 'ส่งให้ลูกค้า'}
                       </Button>
+                      {onEditDraft && (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onEditDraft(rev);
+                          }}
+                          className="border-amber-400 text-amber-700 hover:bg-amber-100 dark:text-amber-300 dark:hover:bg-amber-900/30"
+                        >
+                          <Pencil className="w-3 h-3 mr-1" />
+                          แก้ไข Draft
+                        </Button>
+                      )}
                       <Button
                         size="sm"
                         variant="outline"
