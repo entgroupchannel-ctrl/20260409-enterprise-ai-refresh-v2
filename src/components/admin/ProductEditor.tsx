@@ -164,12 +164,14 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
                       placeholder="เช่น GT-156"
                     />
                   </div>
-                  <div>
+                  <div className="md:col-span-2">
                     <Label>รายละเอียด</Label>
-                    <Input
+                    <Textarea
                       value={editForm.description}
                       onChange={(e) => handleFormChange('description', e.target.value)}
-                      placeholder="รายละเอียดสินค้า"
+                      placeholder="รายละเอียดสินค้า (กด Enter เพื่อขึ้นบรรทัดใหม่)"
+                      rows={4}
+                      className="min-h-[100px] resize-y font-mono text-sm"
                     />
                   </div>
                   <div>
@@ -267,7 +269,7 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
                     {product.model || 'N/A'}
                     <span className="text-xs text-muted-foreground font-normal">x{product.qty}</span>
                   </h4>
-                  <p className="text-sm text-muted-foreground">{product.description}</p>
+                  <p className="text-sm text-muted-foreground whitespace-pre-line">{product.description}</p>
                   {product.notes && (
                     <p className="text-sm text-primary mt-1">หมายเหตุ: {product.notes}</p>
                   )}
@@ -358,12 +360,14 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
                 placeholder="เช่น GT-156"
               />
             </div>
-            <div>
+            <div className="md:col-span-2">
               <Label>รายละเอียด</Label>
-              <Input
+              <Textarea
                 value={editForm.description}
                 onChange={(e) => handleFormChange('description', e.target.value)}
-                placeholder="รายละเอียดสินค้า"
+                placeholder="รายละเอียดสินค้า (กด Enter เพื่อขึ้นบรรทัดใหม่)"
+                rows={4}
+                className="min-h-[100px] resize-y font-mono text-sm"
               />
             </div>
             <div>
