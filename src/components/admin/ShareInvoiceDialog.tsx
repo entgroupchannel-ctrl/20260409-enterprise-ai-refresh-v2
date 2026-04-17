@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react';
 import {
   Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle,
 } from '@/components/ui/dialog';
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -10,7 +14,7 @@ import {
 } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import {
-  Share2, Copy, Eye, Download, Loader2, Link as LinkIcon, Ban, Plus, ExternalLink,
+  Share2, Copy, Eye, Download, Loader2, Link as LinkIcon, Ban, Plus, ExternalLink, AlertTriangle,
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
@@ -47,6 +51,7 @@ export default function ShareInvoiceDialog({ open, onOpenChange, invoiceId, invo
   const [loading, setLoading] = useState(false);
   const [creating, setCreating] = useState(false);
   const [days, setDays] = useState<number>(7);
+  const [revokingId, setRevokingId] = useState<string | null>(null);
 
   useEffect(() => {
     if (open && invoiceId) loadLinks();
@@ -98,7 +103,6 @@ export default function ShareInvoiceDialog({ open, onOpenChange, invoiceId, invo
   };
 
   const handleRevoke = async (id: string) => {
-    if (!confirm('ยกเลิกลิงก์นี้? ลูกค้าจะเปิดไม่ได้อีก')) return;
     try {
       const { data: userData } = await supabase.auth.getUser();
       const { error } = await (supabase as any)
@@ -110,6 +114,8 @@ export default function ShareInvoiceDialog({ open, onOpenChange, invoiceId, invo
       await loadLinks();
     } catch (e: any) {
       toast({ title: 'ยกเลิกไม่สำเร็จ', description: e.message, variant: 'destructive' });
+    } finally {
+      setRevokingId(null);
     }
   };
 
@@ -210,7 +216,7 @@ export default function ShareInvoiceDialog({ open, onOpenChange, invoiceId, invo
                         <ExternalLink className="w-3 h-3 mr-1" /> เปิดดู
                       </Button>
                       {active && (
-                        <Button size="sm" variant="ghost" onClick={() => handleRevoke(link.id)} className="text-destructive hover:text-destructive ml-auto">
+                        <Button size="sm" variant="ghost" onClick={() => setRevokingId(link.id)} className="text-destructive hover:text-destructive ml-auto">
                           <Ban className="w-3 h-3 mr-1" /> ยกเลิก
                         </Button>
                       )}
@@ -222,6 +228,33 @@ export default function ShareInvoiceDialog({ open, onOpenChange, invoiceId, invo
           )}
         </div>
       </DialogContent>
+
+      <AlertDialog open={!!revokingId} onOpenChange={(o) => !o && setRevokingId(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center gap-2">
+              <AlertTriangle className="w-5 h-5 text-destructive" />
+              ยกเลิกลิงก์แชร์นี้?
+            </AlertDialogTitle>
+            <AlertDialogDescription className="space-y-2 pt-2">
+              <span className="block">หลังยกเลิกแล้ว ลูกค้าจะ<strong className="text-destructive"> เปิดลิงก์นี้ไม่ได้อีก</strong> ทันที</span>
+              <span className="block text-xs text-muted-foreground">
+                สถิติการเข้าชม/ดาวน์โหลดที่บันทึกไว้จะยังคงอยู่ในระบบเพื่อตรวจสอบย้อนหลัง
+              </span>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>ยกเลิก</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => revokingId && handleRevoke(revokingId)}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              <Ban className="w-4 h-4 mr-1.5" />
+              ยืนยันยกเลิกลิงก์
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </Dialog>
   );
 }
