@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import {
-  MoreVertical, Eye, Printer, Copy, Trash2, FileMinus,
+  MoreVertical, Eye, Printer, Copy, Trash2, FileMinus, Share2,
 } from 'lucide-react';
 
 interface Props {
@@ -17,6 +17,7 @@ interface Props {
   status: string;
   onDelete?: () => void;
   onPrint?: () => void;
+  onShare?: () => void;
   onCreateCreditNote?: () => void;
 }
 
@@ -26,6 +27,7 @@ export default function TaxInvoiceActionsMenu({
   status,
   onDelete,
   onPrint,
+  onShare,
   onCreateCreditNote,
 }: Props) {
   const navigate = useNavigate();
@@ -63,6 +65,16 @@ export default function TaxInvoiceActionsMenu({
           <Copy className="w-4 h-4 mr-2" />
           คัดลอกเลขที่
         </DropdownMenuItem>
+
+        {onShare && (
+          <>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={onShare}>
+              <Share2 className="w-4 h-4 mr-2" />
+              แชร์ลิงก์ให้ลูกค้า
+            </DropdownMenuItem>
+          </>
+        )}
 
         {status !== 'cancelled' && onCreateCreditNote && (
           <>

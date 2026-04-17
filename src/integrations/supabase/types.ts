@@ -4462,6 +4462,91 @@ export type Database = {
           },
         ]
       }
+      tax_invoice_share_access_log: {
+        Row: {
+          accessed_at: string
+          action: string
+          id: string
+          ip_address: string | null
+          share_link_id: string
+          user_agent: string | null
+        }
+        Insert: {
+          accessed_at?: string
+          action: string
+          id?: string
+          ip_address?: string | null
+          share_link_id: string
+          user_agent?: string | null
+        }
+        Update: {
+          accessed_at?: string
+          action?: string
+          id?: string
+          ip_address?: string | null
+          share_link_id?: string
+          user_agent?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tax_invoice_share_access_log_share_link_id_fkey"
+            columns: ["share_link_id"]
+            isOneToOne: false
+            referencedRelation: "tax_invoice_share_links"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tax_invoice_share_links: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          download_count: number
+          expires_at: string
+          id: string
+          last_accessed_at: string | null
+          revoked_at: string | null
+          revoked_by: string | null
+          tax_invoice_id: string
+          token: string
+          view_count: number
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          download_count?: number
+          expires_at: string
+          id?: string
+          last_accessed_at?: string | null
+          revoked_at?: string | null
+          revoked_by?: string | null
+          tax_invoice_id: string
+          token: string
+          view_count?: number
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          download_count?: number
+          expires_at?: string
+          id?: string
+          last_accessed_at?: string | null
+          revoked_at?: string | null
+          revoked_by?: string | null
+          tax_invoice_id?: string
+          token?: string
+          view_count?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tax_invoice_share_links_tax_invoice_id_fkey"
+            columns: ["tax_invoice_id"]
+            isOneToOne: false
+            referencedRelation: "tax_invoices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       tax_invoices: {
         Row: {
           created_at: string
@@ -5015,6 +5100,10 @@ export type Database = {
         Returns: Json
       }
       get_shared_quote: {
+        Args: { p_action?: string; p_token: string }
+        Returns: Json
+      }
+      get_shared_tax_invoice: {
         Args: { p_action?: string; p_token: string }
         Returns: Json
       }

@@ -20,6 +20,7 @@ import TaxInvoiceActionsMenu from '@/components/admin/TaxInvoiceActionsMenu';
 import SelectInvoiceForTaxInvoiceDialog from '@/components/admin/SelectInvoiceForTaxInvoiceDialog';
 import CreateTaxInvoiceFromInvoiceDialog from '@/components/admin/CreateTaxInvoiceFromInvoiceDialog';
 import CreateCreditNoteDialog from '@/components/admin/CreateCreditNoteDialog';
+import ShareTaxInvoiceDialog from '@/components/admin/ShareTaxInvoiceDialog';
 
 interface TaxInvoice {
   id: string;
@@ -54,6 +55,7 @@ export default function AdminTaxInvoicesList() {
   const [showInvoicePicker, setShowInvoicePicker] = useState(false);
   const [createFromInvoiceId, setCreateFromInvoiceId] = useState<string | null>(null);
   const [creatingCNFor, setCreatingCNFor] = useState<string | null>(null);
+  const [shareTarget, setShareTarget] = useState<{ id: string; number: string } | null>(null);
 
   const loadData = async () => {
     setLoading(true);
@@ -249,6 +251,7 @@ export default function AdminTaxInvoicesList() {
                             taxInvoiceNumber={tx.tax_invoice_number}
                             status={tx.status}
                             onDelete={() => setDeletingTax(tx)}
+                            onShare={() => setShareTarget({ id: tx.id, number: tx.tax_invoice_number })}
                             onCreateCreditNote={() => setCreatingCNFor(tx.id)}
                           />
                         </div>
@@ -337,6 +340,13 @@ export default function AdminTaxInvoicesList() {
           }}
         />
       )}
+
+      <ShareTaxInvoiceDialog
+        open={!!shareTarget}
+        onOpenChange={(v) => { if (!v) setShareTarget(null); }}
+        taxInvoiceId={shareTarget?.id ?? null}
+        taxInvoiceNumber={shareTarget?.number ?? null}
+      />
     </AdminLayout>
   );
 }
