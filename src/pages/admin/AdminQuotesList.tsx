@@ -39,6 +39,7 @@ import { formatRelativeTime } from '@/lib/format';
 import ImportQuotePDFDialog from '@/components/admin/ImportQuotePDFDialog';
 import PrintPreviewDialog from '@/components/admin/PrintPreviewDialog';
 import ShareQuoteDialog from '@/components/admin/ShareQuoteDialog';
+import ListPagination from '@/components/admin/ListPagination';
 
 interface Quote {
   id: string;
@@ -85,6 +86,10 @@ export default function AdminQuotesList() {
   // Share state
   const [shareTarget, setShareTarget] = useState<{ id: string; number: string } | null>(null);
 
+  // Pagination state
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(20);
+
   useEffect(() => {
     loadQuotes();
     const urlStatus = searchParams.get('status');
@@ -94,6 +99,11 @@ export default function AdminQuotesList() {
   useEffect(() => {
     filterAndSortQuotes();
   }, [quotes, searchQuery, statusFilter, sortBy]);
+
+  // Reset to first page when filters change
+  useEffect(() => {
+    setPage(1);
+  }, [searchQuery, statusFilter, sortBy, pageSize]);
 
   const loadQuotes = async () => {
     try {
@@ -444,90 +454,114 @@ export default function AdminQuotesList() {
           </CardContent>
         </Card>
 
-        <div className="flex items-center justify-between text-sm text-muted-foreground">
-          <span>พบ {filteredQuotes.length} รายการ{searchQuery && ` จากการค้นหา "${searchQuery}"`}</span>
-        </div>
+        {(() => {
+          const totalAmount = filteredQuotes.reduce((sum, q) => sum + (q.grand_total || 0), 0);
+          const startIdx = (page - 1) * pageSize;
+          const pageItems = filteredQuotes.slice(startIdx, startIdx + pageSize);
+          const pageAmount = pageItems.reduce((sum, q) => sum + (q.grand_total || 0), 0);
+          return (
+            <>
+              <div className="flex items-center justify-between text-sm text-muted-foreground">
+                <span>พบ {filteredQuotes.length} รายการ{searchQuery && ` จากการค้นหา "${searchQuery}"`}</span>
+              </div>
 
-        <div className="space-y-3">
-          {filteredQuotes.map((quote) => {
-            const slaTime = quote.status === 'po_uploaded' ? calculateSLATime(quote.sla_po_review_due) : null;
-            return (
-              <Card key={quote.id} className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate(`/admin/quotes/${quote.id}`)}>
-                <CardContent className="p-4">
-                  <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-                    <div className="flex-1 space-y-2">
-                      <div className="flex items-center gap-3 flex-wrap">
-                        <span className="font-semibold text-lg">{quote.quote_number}</span>
-                        {quote.sla_breached && (
-                          <Badge variant="destructive" className="gap-1">
-                            <ShieldAlert className="w-3 h-3" /> SLA เกิน
-                          </Badge>
-                        )}
-                      </div>
-                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
-                        <span className="text-foreground">{quote.customer_company || quote.customer_name}</span>
-                        <span className="text-muted-foreground">{quote.customer_email}</span>
-                      </div>
-                      <div className="space-y-2">
-                        <div className="flex flex-wrap items-center gap-3 text-sm">
-                          <StatusBadge status={quote.status} />
-                          <span className="text-muted-foreground flex items-center gap-1">
-                            <Timer className="w-3 h-3" />
-                            {formatRelativeTime(quote.created_at)}
-                          </span>
-                          {slaTime && (
-                            <span className={`flex items-center gap-1 font-medium ${slaTime.isOverdue ? 'text-destructive' : slaTime.isUrgent ? 'text-orange-600' : 'text-muted-foreground'}`}>
-                              <ShieldAlert className="w-3 h-3" /> SLA: {slaTime.text}
-                            </span>
-                          )}
+              <div className="space-y-3">
+                {pageItems.map((quote) => {
+                  const slaTime = quote.status === 'po_uploaded' ? calculateSLATime(quote.sla_po_review_due) : null;
+                  return (
+                    <Card key={quote.id} className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate(`/admin/quotes/${quote.id}`)}>
+                      <CardContent className="p-4">
+                        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                          <div className="flex-1 space-y-2">
+                            <div className="flex items-center gap-3 flex-wrap">
+                              <span className="font-semibold text-lg">{quote.quote_number}</span>
+                              {quote.sla_breached && (
+                                <Badge variant="destructive" className="gap-1">
+                                  <ShieldAlert className="w-3 h-3" /> SLA เกิน
+                                </Badge>
+                              )}
+                            </div>
+                            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
+                              <span className="text-foreground">{quote.customer_company || quote.customer_name}</span>
+                              <span className="text-muted-foreground">{quote.customer_email}</span>
+                            </div>
+                            <div className="space-y-2">
+                              <div className="flex flex-wrap items-center gap-3 text-sm">
+                                <StatusBadge status={quote.status} />
+                                <span className="text-muted-foreground flex items-center gap-1">
+                                  <Timer className="w-3 h-3" />
+                                  {formatRelativeTime(quote.created_at)}
+                                </span>
+                                {slaTime && (
+                                  <span className={`flex items-center gap-1 font-medium ${slaTime.isOverdue ? 'text-destructive' : slaTime.isUrgent ? 'text-orange-600' : 'text-muted-foreground'}`}>
+                                    <ShieldAlert className="w-3 h-3" /> SLA: {slaTime.text}
+                                  </span>
+                                )}
+                              </div>
+                              <QuoteTimeline currentStatus={quote.status} />
+                            </div>
+                          </div>
+
+                          <div className="flex items-center gap-3">
+                            <div className="text-right">
+                              <div className="text-xs text-muted-foreground mb-1">ยอดรวม</div>
+                              <div className="text-xl font-bold text-primary">{formatCurrency(quote.grand_total || 0)}</div>
+                            </div>
+                            <div onClick={(e) => e.stopPropagation()} className="min-w-[220px]">
+                              <QuoteStatusDropdown
+                                quoteId={quote.id}
+                                currentStatus={quote.status}
+                                onStatusChange={() => loadQuotes()}
+                                onAction={handleQuoteAction}
+                              />
+                            </div>
+                            <div onClick={(e) => e.stopPropagation()}>
+                              <QuoteActionsMenu
+                                quoteId={quote.id}
+                                quoteNumber={quote.quote_number}
+                                status={quote.status}
+                                onDelete={() => setDeletingQuote(quote)}
+                                onDuplicate={() => handleDuplicate(quote.id)}
+                                onCopy={() => handleDownload(quote.id)}
+                                onShare={() => setShareTarget({ id: quote.id, number: quote.quote_number })}
+                              />
+                            </div>
+                          </div>
                         </div>
-                        <QuoteTimeline currentStatus={quote.status} />
-                      </div>
-                    </div>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
 
-                    <div className="flex items-center gap-3">
-                      <div className="text-right">
-                        <div className="text-xs text-muted-foreground mb-1">ยอดรวม</div>
-                        <div className="text-xl font-bold text-primary">{formatCurrency(quote.grand_total || 0)}</div>
+                {filteredQuotes.length === 0 && (
+                  <Card>
+                    <CardContent className="p-12">
+                      <div className="text-center text-muted-foreground">
+                        <FileSearch className="w-16 h-16 mx-auto mb-4 opacity-30" />
+                        <p className="text-lg font-medium mb-2">ไม่พบใบเสนอราคา</p>
+                        <p className="text-sm">{searchQuery ? 'ลองค้นหาด้วยคำอื่น หรือเปลี่ยนตัวกรอง' : 'ยังไม่มีใบเสนอราคาในระบบ'}</p>
                       </div>
-                      <div onClick={(e) => e.stopPropagation()} className="min-w-[220px]">
-                        <QuoteStatusDropdown
-                          quoteId={quote.id}
-                          currentStatus={quote.status}
-                          onStatusChange={() => loadQuotes()}
-                          onAction={handleQuoteAction}
-                        />
-                      </div>
-                      <div onClick={(e) => e.stopPropagation()}>
-                        <QuoteActionsMenu
-                          quoteId={quote.id}
-                          quoteNumber={quote.quote_number}
-                          status={quote.status}
-                          onDelete={() => setDeletingQuote(quote)}
-                          onDuplicate={() => handleDuplicate(quote.id)}
-                          onCopy={() => handleDownload(quote.id)}
-                          onShare={() => setShareTarget({ id: quote.id, number: quote.quote_number })}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })}
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
 
-          {filteredQuotes.length === 0 && (
-            <Card>
-              <CardContent className="p-12">
-                <div className="text-center text-muted-foreground">
-                  <FileSearch className="w-16 h-16 mx-auto mb-4 opacity-30" />
-                  <p className="text-lg font-medium mb-2">ไม่พบใบเสนอราคา</p>
-                  <p className="text-sm">{searchQuery ? 'ลองค้นหาด้วยคำอื่น หรือเปลี่ยนตัวกรอง' : 'ยังไม่มีใบเสนอราคาในระบบ'}</p>
-                </div>
-              </CardContent>
-            </Card>
-          )}
-        </div>
+              {filteredQuotes.length > 0 && (
+                <ListPagination
+                  page={page}
+                  pageSize={pageSize}
+                  totalItems={filteredQuotes.length}
+                  totalAmount={totalAmount}
+                  pageAmount={pageAmount}
+                  formatCurrency={formatCurrency}
+                  onPageChange={setPage}
+                  onPageSizeChange={setPageSize}
+                  itemLabel="ใบเสนอราคา"
+                />
+              )}
+            </>
+          );
+        })()}
       </div>
 
       {/* Soft Delete Confirmation Dialog */}

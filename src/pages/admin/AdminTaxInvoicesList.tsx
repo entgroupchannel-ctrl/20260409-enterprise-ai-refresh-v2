@@ -21,6 +21,7 @@ import SelectInvoiceForTaxInvoiceDialog from '@/components/admin/SelectInvoiceFo
 import CreateTaxInvoiceFromInvoiceDialog from '@/components/admin/CreateTaxInvoiceFromInvoiceDialog';
 import CreateCreditNoteDialog from '@/components/admin/CreateCreditNoteDialog';
 import ShareTaxInvoiceDialog from '@/components/admin/ShareTaxInvoiceDialog';
+import ListPagination from '@/components/admin/ListPagination';
 
 interface TaxInvoice {
   id: string;
@@ -56,6 +57,8 @@ export default function AdminTaxInvoicesList() {
   const [createFromInvoiceId, setCreateFromInvoiceId] = useState<string | null>(null);
   const [creatingCNFor, setCreatingCNFor] = useState<string | null>(null);
   const [shareTarget, setShareTarget] = useState<{ id: string; number: string } | null>(null);
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(20);
 
   const loadData = async () => {
     setLoading(true);
@@ -142,9 +145,27 @@ export default function AdminTaxInvoicesList() {
     }
   };
 
-  const filtered = statusFilter === 'all'
+  const filtered = (statusFilter === 'all'
     ? taxInvoices
-    : taxInvoices.filter((t) => t.status === statusFilter);
+    : taxInvoices.filter((t) => t.status === statusFilter)
+  ).filter((t) => {
+    if (!search.trim()) return true;
+    const q = search.toLowerCase();
+    return (
+      t.tax_invoice_number.toLowerCase().includes(q) ||
+      t.customer_name.toLowerCase().includes(q) ||
+      (t.customer_company || '').toLowerCase().includes(q)
+    );
+  });
+
+  // Reset page when filter/search/pageSize changes
+  useEffect(() => { setPage(1); }, [search, statusFilter, pageSize]);
+
+  const totalAmount = filtered.reduce((s, t) => s + (t.grand_total || 0), 0);
+  const startIdx = (page - 1) * pageSize;
+  const pageItems = filtered.slice(startIdx, startIdx + pageSize);
+  const pageAmount = pageItems.reduce((s, t) => s + (t.grand_total || 0), 0);
+
 
   const statusCounts = taxInvoices.reduce<Record<string, number>>((acc, t) => {
     acc[t.status] = (acc[t.status] || 0) + 1;
@@ -217,51 +238,67 @@ export default function AdminTaxInvoicesList() {
             <p>ไม่พบใบกำกับภาษี</p>
           </div>
         ) : (
-          <div className="space-y-2">
-            {filtered.map((tx) => {
-              const statusInfo = STATUS_LABELS[tx.status] || { label: tx.status, cls: '' };
-              return (
-                <Card
-                  key={tx.id}
-                  className="cursor-pointer hover:shadow-md transition-shadow"
-                  onClick={() => navigate(`/admin/tax-invoices/${tx.id}`)}
-                >
-                  <CardContent className="py-3 px-4">
-                    <div className="flex items-center justify-between gap-3">
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="font-mono font-semibold text-sm">{tx.tax_invoice_number}</span>
-                          <Badge variant="outline" className={`text-xs ${statusInfo.cls}`}>
-                            {statusInfo.label}
-                          </Badge>
+          <>
+            <div className="space-y-2">
+              {pageItems.map((tx) => {
+                const statusInfo = STATUS_LABELS[tx.status] || { label: tx.status, cls: '' };
+                return (
+                  <Card
+                    key={tx.id}
+                    className="cursor-pointer hover:shadow-md transition-shadow"
+                    onClick={() => navigate(`/admin/tax-invoices/${tx.id}`)}
+                  >
+                    <CardContent className="py-3 px-4">
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="font-mono font-semibold text-sm">{tx.tax_invoice_number}</span>
+                            <Badge variant="outline" className={`text-xs ${statusInfo.cls}`}>
+                              {statusInfo.label}
+                            </Badge>
+                          </div>
+                          <TaxInvoiceTimeline currentStatus={tx.status} />
+                          <p className="text-sm text-muted-foreground truncate mt-1">
+                            {tx.customer_company || tx.customer_name}
+                          </p>
+                          <p className="text-xs text-muted-foreground mt-0.5">
+                            {new Date(tx.tax_invoice_date).toLocaleDateString('th-TH')} • {formatRelativeTime(tx.created_at)}
+                          </p>
                         </div>
-                        <TaxInvoiceTimeline currentStatus={tx.status} />
-                        <p className="text-sm text-muted-foreground truncate mt-1">
-                          {tx.customer_company || tx.customer_name}
-                        </p>
-                        <p className="text-xs text-muted-foreground mt-0.5">
-                          {new Date(tx.tax_invoice_date).toLocaleDateString('th-TH')} • {formatRelativeTime(tx.created_at)}
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 shrink-0">
-                        <p className="font-bold text-primary">฿{formatCurrency(tx.grand_total)}</p>
-                        <div onClick={(e) => e.stopPropagation()}>
-                          <TaxInvoiceActionsMenu
-                            taxInvoiceId={tx.id}
-                            taxInvoiceNumber={tx.tax_invoice_number}
-                            status={tx.status}
-                            onDelete={() => setDeletingTax(tx)}
-                            onShare={() => setShareTarget({ id: tx.id, number: tx.tax_invoice_number })}
-                            onCreateCreditNote={() => setCreatingCNFor(tx.id)}
-                          />
+                        <div className="flex items-center gap-2 shrink-0">
+                          <p className="font-bold text-primary">฿{formatCurrency(tx.grand_total)}</p>
+                          <div onClick={(e) => e.stopPropagation()}>
+                            <TaxInvoiceActionsMenu
+                              taxInvoiceId={tx.id}
+                              taxInvoiceNumber={tx.tax_invoice_number}
+                              status={tx.status}
+                              onDelete={() => setDeletingTax(tx)}
+                              onShare={() => setShareTarget({ id: tx.id, number: tx.tax_invoice_number })}
+                              onCreateCreditNote={() => setCreatingCNFor(tx.id)}
+                            />
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+
+            <div className="mt-4">
+              <ListPagination
+                page={page}
+                pageSize={pageSize}
+                totalItems={filtered.length}
+                totalAmount={totalAmount}
+                pageAmount={pageAmount}
+                formatCurrency={(n) => `฿${formatCurrency(n)}`}
+                onPageChange={setPage}
+                onPageSizeChange={setPageSize}
+                itemLabel="ใบกำกับภาษี"
+              />
+            </div>
+          </>
         )}
       </div>
 
