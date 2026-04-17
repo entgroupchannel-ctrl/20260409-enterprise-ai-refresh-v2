@@ -295,6 +295,20 @@ export default function AdminInvoicesList() {
                     <SelectItem value="invoice_number_asc">เลขที่ เก่าสุด</SelectItem>
                   </SelectContent>
                 </Select>
+                <div className="inline-flex rounded-md border bg-background p-0.5 shrink-0">
+                  <Button type="button" variant={viewMode === 'list' ? 'default' : 'ghost'} size="sm"
+                    className="h-8 px-2" onClick={() => setViewMode('list')} title="มุมมองรายการ" aria-label="มุมมองรายการ">
+                    <ListIcon className="w-4 h-4" />
+                  </Button>
+                  <Button type="button" variant={viewMode === 'table' ? 'default' : 'ghost'} size="sm"
+                    className="h-8 px-2" onClick={() => setViewMode('table')} title="มุมมองตาราง (กะทัดรัด)" aria-label="มุมมองตาราง">
+                    <Rows3 className="w-4 h-4" />
+                  </Button>
+                  <Button type="button" variant={viewMode === 'grid' ? 'default' : 'ghost'} size="sm"
+                    className="h-8 px-2" onClick={() => setViewMode('grid')} title="มุมมองกริด" aria-label="มุมมองกริด">
+                    <LayoutGrid className="w-4 h-4" />
+                  </Button>
+                </div>
               </div>
 
               <Tabs value={statusFilter} onValueChange={setStatusFilter}>
