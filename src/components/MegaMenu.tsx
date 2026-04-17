@@ -157,7 +157,7 @@ const menuCategories = [
       {
         heading: "ทรัพยากร & ตัวช่วย",
         links: [
-          { label: "✦ ตัวช่วยเลือกรุ่น Jetson", href: "/product-advisor", hot: true },
+          { label: "✦ ตัวช่วยเลือกรุ่น Jetson (Wizard)", href: "/nvidia-jetson/recommend", hot: true },
           { label: "✦ Case Studies — ตัวอย่างจริง", href: "/nvidia-jetson/case-studies", hot: true },
           { label: "บทความเทคนิค Jetson", href: "/blog" },
           { label: "ดาวน์โหลด Datasheet", href: "/nvidia-jetson" },
