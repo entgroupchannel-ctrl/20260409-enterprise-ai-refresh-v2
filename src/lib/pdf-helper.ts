@@ -15,7 +15,11 @@ interface PDFHeaderFooterOptions {
   headerRight: string;
   /** ข้อความ footer กลาง (optional — ปกติคือ "เอกสารออกโดยระบบ") */
   footerCenter?: string;
-  margin?: number; // mm
+  margin?: number; // mm — side margin
+  /** Override top margin (mm). Default 22 (room for header). */
+  topMargin?: number;
+  /** Override bottom margin (mm). Default 18 (room for page number). */
+  bottomMargin?: number;
 }
 
 export async function generatePDFWithHeaderFooter(
@@ -24,10 +28,12 @@ export async function generatePDFWithHeaderFooter(
 ): Promise<void> {
   const html2pdf = (await import('html2pdf.js')).default;
   const margin = opts.margin ?? 12;
+  const topMargin = opts.topMargin ?? 22;
+  const bottomMargin = opts.bottomMargin ?? 18;
 
   const worker = html2pdf()
     .set({
-      margin: [22, margin, 18, margin], // top เผื่อ header, bottom เผื่อ page number
+      margin: [topMargin, margin, bottomMargin, margin],
       filename: opts.filename,
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2, useCORS: true, letterRendering: true },
