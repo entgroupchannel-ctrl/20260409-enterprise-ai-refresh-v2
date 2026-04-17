@@ -582,11 +582,27 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
               </CardContent>
             </Card>
 
+            {saving && (
+              <div className="rounded-md border border-primary/40 bg-primary/5 p-3 space-y-2">
+                <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center gap-2 text-foreground font-medium">
+                    <Loader2 className="w-4 h-4 animate-spin text-primary" />
+                    <span>{phase || 'กำลังบันทึก...'}</span>
+                  </div>
+                  <div className="font-mono text-xs text-muted-foreground tabular-nums">
+                    {elapsed}s / ~{ESTIMATED_SAVE_SECONDS}s
+                  </div>
+                </div>
+                <Progress value={Math.min(99, (elapsed / ESTIMATED_SAVE_SECONDS) * 100)} className="h-2" />
+              </div>
+            )}
             <DialogFooter>
               <Button variant="outline" onClick={() => setStep('upload')} disabled={saving}>ย้อนกลับ</Button>
               <Button variant="outline" onClick={() => handleClose(false)} disabled={saving}>ยกเลิก</Button>
               <Button onClick={handleSave} disabled={saving}>
-                {saving ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" />กำลังบันทึก...</> : 'บันทึกเข้าระบบ'}
+                {saving ? (
+                  <><Loader2 className="w-4 h-4 mr-2 animate-spin" />กำลังบันทึก... ({elapsed}s)</>
+                ) : 'บันทึกเข้าระบบ'}
               </Button>
             </DialogFooter>
           </div>
