@@ -125,6 +125,7 @@ export default function MyQuoteDetail() {
   const [showAcceptQuote, setShowAcceptQuote] = useState(false);
   const [showPrintPreview, setShowPrintPreview] = useState(false);
   const [printAutoDownload, setPrintAutoDownload] = useState(false);
+  const [printRevision, setPrintRevision] = useState<any>(null);
   const [currentRevision, setCurrentRevision] = useState<any>(null);
   const [relatedInvoices, setRelatedInvoices] = useState<any[]>([]);
   const [assignedSaleUser, setAssignedSaleUser] = useState<{ full_name: string | null; phone: string | null; email: string | null; position: string | null } | null>(null);
@@ -603,6 +604,11 @@ export default function MyQuoteDetail() {
             quoteId={quote.id}
             currentRevisionId={quote.current_revision_id}
             viewerRole="customer"
+            onPrintRevision={(rev) => {
+              setPrintRevision(rev);
+              setPrintAutoDownload(false);
+              setShowPrintPreview(true);
+            }}
           />
         </div>
 
@@ -1247,12 +1253,15 @@ export default function MyQuoteDetail() {
       />
 
       {/* Print Preview Dialog (reuse admin template) */}
-      {showPrintPreview && currentRevision && (
+      {showPrintPreview && (printRevision || currentRevision) && (
         <PrintPreviewDialog
           open={showPrintPreview}
-          onOpenChange={setShowPrintPreview}
+          onOpenChange={(o) => {
+            setShowPrintPreview(o);
+            if (!o) setPrintRevision(null);
+          }}
           quote={quote}
-          revision={currentRevision}
+          revision={printRevision || currentRevision}
           autoDownload={printAutoDownload}
         />
       )}
