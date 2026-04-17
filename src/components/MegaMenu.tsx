@@ -362,8 +362,8 @@ const MegaMenu = ({
             onClick={() => setActiveMenu(activeMenu === cat.id ? null : cat.id)}
             className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
               activeMenu === cat.id
-                ? "text-white bg-white/10"
-                : "text-white/70 hover:text-white hover:bg-white/5"
+                ? "text-foreground bg-muted"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted"
             }`}
           >
             {cat.label}
