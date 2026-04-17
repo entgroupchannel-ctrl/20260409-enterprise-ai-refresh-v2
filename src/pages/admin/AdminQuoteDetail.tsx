@@ -8,6 +8,7 @@ import POActionsMenu from '@/components/admin/POActionsMenu';
 import POVersionHistory from '@/components/admin/POVersionHistory';
 import { QuoteTimeline } from '@/components/QuoteTimeline';
 import RevisionTimeline from '@/components/negotiation/RevisionTimeline';
+import QuoteShareActivity from '@/components/admin/QuoteShareActivity';
 import QuoteTermsEditor from '@/components/admin/QuoteTermsEditor';
 import CounterOfferDialog from '@/components/negotiation/CounterOfferDialog';
 import EditCustomerInfoDialog from '@/components/admin/EditCustomerInfoDialog';
@@ -1341,6 +1342,9 @@ export default function AdminQuoteDetail() {
           <div className="space-y-6">
             {/* Phase 5: Negotiation Insights */}
             <NegotiationInsightsCard quoteId={quote.id} />
+
+            {/* Share link activity (views/downloads) */}
+            <QuoteShareActivity quoteId={quote.id} />
 
             {/* Chat/Messages */}
             <Card>
