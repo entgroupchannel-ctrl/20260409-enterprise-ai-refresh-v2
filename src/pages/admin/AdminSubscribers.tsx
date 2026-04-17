@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import AdminLayout from '@/layouts/AdminLayout';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -114,7 +115,8 @@ const AdminSubscribers = () => {
   };
 
   return (
-    <AdminPageLayout title="📧 สมาชิกรับข่าวสาร" description="จัดการรายชื่ออีเมลที่สมัครรับข่าวสาร">
+    <AdminLayout>
+      <AdminPageLayout title="📧 สมาชิกรับข่าวสาร" description="จัดการรายชื่ออีเมลที่สมัครรับข่าวสาร">
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         <Card className="cursor-pointer hover:border-primary transition-colors" onClick={() => setFilter('all')}>
@@ -282,6 +284,7 @@ const AdminSubscribers = () => {
         </DialogContent>
       </Dialog>
     </AdminPageLayout>
+    </AdminLayout>
   );
 };
 
