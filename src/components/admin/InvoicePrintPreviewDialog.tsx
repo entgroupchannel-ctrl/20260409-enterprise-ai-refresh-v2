@@ -147,7 +147,7 @@ export default function InvoicePrintPreviewDialog({
   const isLoading = companyLoading || loadingExtra;
 
   const companyInfo = companySettings ? {
-    name_th: companySettings.name_th || 'บริษัท อี เอ็น ที กรุ๊ป จำกัด',
+    name_th: companySettings.name_th || 'บริษัท อีเอ็นที กรุ๊ป จำกัด',
     name_en: companySettings.name_en,
     address_th: companySettings.address_th,
     address_en: companySettings.address_en,

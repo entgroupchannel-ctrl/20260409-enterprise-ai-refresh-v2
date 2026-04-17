@@ -173,7 +173,7 @@ export default function MyDocuments() {
             <CardContent className="pt-4 pb-4 flex items-start gap-3">
               <Info className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
               <div className="text-xs text-blue-800 dark:text-blue-300 space-y-0.5">
-                <p className="font-semibold">📄 เอกสารบริษัท อี เอ็น ที กรุ๊ป จำกัด</p>
+                <p className="font-semibold">📄 เอกสารบริษัท อีเอ็นที กรุ๊ป จำกัด</p>
                 <p>ใช้สำหรับประกอบการเปิดบัญชีลูกค้า / ทำสัญญา / ยื่นใบสั่งซื้อ</p>
                 <p>หากต้องการเอกสารเฉพาะหรือเวอร์ชั่นพิเศษ กรุณาติดต่อฝ่ายขาย</p>
               </div>

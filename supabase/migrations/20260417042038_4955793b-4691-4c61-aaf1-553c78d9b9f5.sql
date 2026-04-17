@@ -1,0 +1,2 @@
+UPDATE public.company_settings SET name_th = 'บริษัท อีเอ็นที กรุ๊ป จำกัด' WHERE name_th = 'บริษัท อี เอ็น ที กรุ๊ป จำกัด';
+UPDATE public.company_bank_accounts SET account_name = 'บริษัท อีเอ็นที กรุ๊ป จำกัด' WHERE account_name = 'บริษัท อี เอ็น ที กรุ๊ป จำกัด';
