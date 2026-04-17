@@ -164,6 +164,14 @@ export default function PrintPreviewDialog({
 
   const isLoading = companyLoading || loadingExtra;
 
+  useEffect(() => {
+    if (autoDownload && open && !isLoading && companySettings && !autoFired && !isDownloading) {
+      setAutoFired(true);
+      // Wait one tick for template to render
+      setTimeout(() => { handleDownloadPDF(); }, 300);
+    }
+  }, [autoDownload, open, isLoading, companySettings, autoFired]);
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
