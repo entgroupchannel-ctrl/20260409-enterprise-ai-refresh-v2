@@ -1,11 +1,10 @@
-// Parse Quote PDF using Lovable AI Gateway (Gemini)
-// Returns structured quote data: customer info + line items + totals
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "npm:@supabase/supabase-js@2";
+
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
-
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -13,6 +12,38 @@ serve(async (req) => {
   }
 
   try {
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader?.startsWith("Bearer ")) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    const supabaseUrl = Deno.env.get("SUPABASE_URL");
+    const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY");
+    if (!supabaseUrl || !supabaseAnonKey) {
+      return new Response(JSON.stringify({ error: "Supabase auth is not configured" }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    const authClient = createClient(supabaseUrl, supabaseAnonKey, {
+      global: { headers: { Authorization: authHeader } },
+    });
+    const {
+      data: { user },
+      error: userError,
+    } = await authClient.auth.getUser();
+
+    if (userError || !user) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     const { file_base64, media_type } = await req.json();
 
     if (!file_base64) {
@@ -146,7 +177,6 @@ serve(async (req) => {
     const result = await response.json();
     const content = result.choices?.[0]?.message?.content || "";
 
-    // Robust JSON extraction
     let jsonStr = content;
     jsonStr = jsonStr.replace(/```json\s*/gi, "").replace(/```\s*/g, "").trim();
     const firstBrace = jsonStr.indexOf("{");
@@ -162,7 +192,7 @@ serve(async (req) => {
     let parsed;
     try {
       parsed = JSON.parse(jsonStr);
-    } catch (parseErr) {
+    } catch {
       console.error("JSON parse failed. Raw content:", content);
       return new Response(
         JSON.stringify({ error: "ไม่สามารถแปลงผลลัพธ์ AI เป็น JSON ได้", raw: content.substring(0, 500) }),
