@@ -24,6 +24,25 @@ interface ImportedItem {
   line_total: number;
 }
 
+interface BankAccount {
+  bank_name: string;
+  branch: string;
+  account_type: string;
+  account_name: string;
+  account_number: string;
+}
+
+interface PaymentTermsStructured {
+  credit_days: number;
+  deposit_percent: number;
+  balance_on_delivery_percent: number;
+  by_order_lead_time_days: string;
+  validity_days: number;
+  bank_accounts: BankAccount[];
+  key_conditions: string[];
+  raw_clauses: string[];
+}
+
 interface ImportedQuote {
   quote_number: string;
   quote_date: string;
@@ -47,10 +66,18 @@ interface ImportedQuote {
   withholding_amount: number;
   grand_total: number;
   payment_terms: string;
+  payment_terms_structured: PaymentTermsStructured;
+  payment_terms_reviewed: boolean;
   delivery_terms: string;
   warranty_terms: string;
   notes: string;
 }
+
+const emptyPaymentStructured: PaymentTermsStructured = {
+  credit_days: 0, deposit_percent: 0, balance_on_delivery_percent: 0,
+  by_order_lead_time_days: '', validity_days: 30,
+  bank_accounts: [], key_conditions: [], raw_clauses: [],
+};
 
 const emptyQuote: ImportedQuote = {
   quote_number: '', quote_date: '', valid_until: '',
@@ -62,7 +89,10 @@ const emptyQuote: ImportedQuote = {
   vat_percent: 7, vat_amount: 0,
   withholding_percent: 0, withholding_amount: 0,
   grand_total: 0,
-  payment_terms: '', delivery_terms: '', warranty_terms: '', notes: '',
+  payment_terms: '',
+  payment_terms_structured: emptyPaymentStructured,
+  payment_terms_reviewed: false,
+  delivery_terms: '', warranty_terms: '', notes: '',
 };
 
 interface Props {
