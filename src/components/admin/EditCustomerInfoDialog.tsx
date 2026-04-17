@@ -27,20 +27,49 @@ interface Props {
   open: boolean;
   onClose: () => void;
   quoteId: string;
+  customerUserId?: string | null;
   initialValues: CustomerInfo;
   onSaved: () => void;
+}
+
+interface ProfileSnapshot {
+  contact_name: string | null;
+  contact_phone: string | null;
+  company_name: string | null;
+  company_tax_id: string | null;
+  contact_line: string | null;
+  contact_email: string | null;
+  billing_address: string | null;
+  billing_district: string | null;
+  billing_city: string | null;
+  billing_province: string | null;
+  billing_postal_code: string | null;
+}
+
+function composeAddress(p: ProfileSnapshot): string {
+  const parts = [
+    p.billing_address,
+    p.billing_district,
+    p.billing_city,
+    p.billing_province,
+    p.billing_postal_code,
+  ].filter((s) => s && s.trim());
+  return parts.join(' ').trim();
 }
 
 export default function EditCustomerInfoDialog({
   open,
   onClose,
   quoteId,
+  customerUserId,
   initialValues,
   onSaved,
 }: Props) {
   const { toast } = useToast();
   const [saving, setSaving] = useState(false);
   const [values, setValues] = useState<CustomerInfo>(initialValues);
+  const [profile, setProfile] = useState<ProfileSnapshot | null>(null);
+  const [loadingProfile, setLoadingProfile] = useState(false);
 
   // Only reset when dialog opens (not when parent re-renders initialValues)
   useEffect(() => {
@@ -49,6 +78,45 @@ export default function EditCustomerInfoDialog({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
+
+  // Load customer's saved profile (billing address etc.) when dialog opens
+  useEffect(() => {
+    if (!open || !customerUserId) {
+      setProfile(null);
+      return;
+    }
+    let cancelled = false;
+    setLoadingProfile(true);
+    (async () => {
+      const { data } = await (supabase as any)
+        .from('user_profiles')
+        .select('contact_name, contact_phone, company_name, company_tax_id, contact_line, contact_email, billing_address, billing_district, billing_city, billing_province, billing_postal_code')
+        .eq('user_id', customerUserId)
+        .maybeSingle();
+      if (!cancelled) {
+        setProfile(data || null);
+        setLoadingProfile(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [open, customerUserId]);
+
+  const profileAddress = profile ? composeAddress(profile) : '';
+  const hasNewerAddress = !!profileAddress && profileAddress !== (values.customer_address || '').trim();
+
+  const handlePullFromProfile = () => {
+    if (!profile) return;
+    setValues((prev) => ({
+      customer_name: profile.contact_name || prev.customer_name,
+      customer_email: profile.contact_email || prev.customer_email,
+      customer_phone: profile.contact_phone || prev.customer_phone,
+      customer_company: profile.company_name || prev.customer_company,
+      customer_address: profileAddress || prev.customer_address,
+      customer_tax_id: profile.company_tax_id || prev.customer_tax_id,
+      customer_line: profile.contact_line || prev.customer_line,
+    }));
+    toast({ title: '✅ ดึงจากโปรไฟล์ลูกค้าแล้ว', description: profile.company_name || profile.contact_name || '' });
+  };
 
   const handleChange = (field: keyof CustomerInfo, value: string) => {
     setValues((prev) => ({ ...prev, [field]: value }));
