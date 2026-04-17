@@ -372,12 +372,22 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
         .select()
         .single();
 
+      let { data: row, error } = await doInsert(quoteNumber);
+
+      // Race-condition fallback: if duplicate slipped past pre-check, retry once with suffix
+      if (error && ((error as any).code === '23505' || /duplicate key/i.test(error.message))) {
+        const fallback = `${quoteNumber}-${Date.now().toString().slice(-5)}`;
+        const retry = await doInsert(fallback);
+        row = retry.data;
+        error = retry.error;
+      }
+
       if (error) throw error;
 
       toast({ title: 'นำเข้าใบเสนอราคาสำเร็จ', description: `เลขที่ ${row.quote_number}` });
       onImported?.();
       handleClose(false);
-      navigate(`/admin/quotes/${row.id}`);
+      navigate(`/admin/quotes/${row!.id}`);
     } catch (e: any) {
       toast({ title: 'บันทึกไม่สำเร็จ', description: e.message, variant: 'destructive' });
     } finally {
