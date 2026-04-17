@@ -26,6 +26,7 @@ import InvoiceTimeline from '@/components/admin/InvoiceTimeline';
 import InvoiceActionsMenu from '@/components/admin/InvoiceActionsMenu';
 import ShareInvoiceDialog from '@/components/admin/ShareInvoiceDialog';
 import InvoicePrintPreviewDialog from '@/components/admin/InvoicePrintPreviewDialog';
+import ListPagination from '@/components/admin/ListPagination';
 
 interface Invoice {
   id: string;
