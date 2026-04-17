@@ -674,6 +674,37 @@ export default function MyInvoiceDetail() {
           onSuccess={() => loadData()}
         />
       )}
+
+      <Dialog open={!!slipPreviewUrl || slipLoading} onOpenChange={(o) => { if (!o) { setSlipPreviewUrl(null); setSlipLoading(false); } }}>
+        <DialogContent className="max-w-3xl">
+          <DialogHeader>
+            <DialogTitle>สลิปการชำระเงิน</DialogTitle>
+          </DialogHeader>
+          <div className="flex justify-center items-center min-h-[300px] bg-muted/30 rounded">
+            {slipLoading && <Loader2 className="w-8 h-8 animate-spin text-primary" />}
+            {slipPreviewUrl && (
+              <img
+                src={slipPreviewUrl}
+                alt="สลิปการชำระเงิน"
+                className="max-w-full max-h-[70vh] object-contain rounded"
+              />
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
+    </CustomerLayout>
+  );
+}
+          onOpenChange={setShowUploadSlip}
+          invoiceId={invoice.id}
+          invoiceNumber={invoice.invoice_number}
+          grandTotal={invoice.grand_total || 0}
+          existingPendingCount={pendingCount}
+          existingVerifiedTotal={verifiedTotal}
+          existingPendingTotal={pendingTotal}
+          onSuccess={() => loadData()}
+        />
+      )}
     </CustomerLayout>
   );
 }
