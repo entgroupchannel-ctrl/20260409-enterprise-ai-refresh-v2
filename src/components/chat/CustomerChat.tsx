@@ -212,60 +212,71 @@ export default function CustomerChat({ quoteId: propQuoteId, mode = 'widget' }: 
     );
   }
 
-  // WIDGET mode
+  // WIDGET mode — Ribbon tab on right edge
   return (
-    <div className="fixed bottom-5 left-5 z-50 flex flex-col items-start gap-2 md:bottom-6 md:left-6">
-      {open && (
-        <div className="w-[360px] max-h-[520px] rounded-2xl shadow-2xl border bg-background flex flex-col overflow-hidden">
-          <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-3 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                <MessageCircle className="w-4 h-4" />
-              </div>
-              <div>
-                <p className="font-semibold text-sm">ENT Group Support</p>
-                <p className="text-[11px] text-blue-100">ทีมงานพร้อมช่วยเหลือคุณ</p>
-              </div>
-            </div>
-            <Button size="icon" variant="ghost" className="w-7 h-7 text-white hover:bg-white/20"
-              onClick={() => setOpen(false)}>
-              <X className="w-4 h-4" />
-            </Button>
-          </div>
-
-          <ChatInner
-            quotes={quotes}
-            activeQuoteId={activeQuoteId}
-            setActiveQuoteId={setActiveQuoteId}
-            messages={messages}
-            text={text}
-            setText={setText}
-            handleSend={handleSend}
-            handleFileUpload={handleFileUpload}
-            fileRef={fileRef}
-            sending={sending}
-            uploadingFile={uploadingFile}
-            bottomRef={bottomRef}
-            currentUserId={user.id}
-            compact
-          />
-        </div>
+    <>
+      {/* Ribbon tab — vertical, anchored to right edge */}
+      {!open && (
+        <button
+          onClick={() => setOpen(true)}
+          aria-label="เปิดแชทกับทีมงาน"
+          className="fixed right-0 top-1/2 -translate-y-1/2 z-40 bg-blue-600 hover:bg-blue-700 text-white shadow-lg rounded-l-xl pl-2.5 pr-2 py-4 flex flex-col items-center gap-2 transition-all hover:pr-3 active:scale-95"
+        >
+          <MessageCircle className="w-5 h-5" />
+          <span
+            className="text-[11px] font-semibold tracking-wider"
+            style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
+          >
+            แชทกับทีมงาน
+          </span>
+          {unreadCount > 0 && (
+            <span className="absolute -top-1 -left-1 min-w-5 h-5 px-1 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+              {unreadCount > 9 ? '9+' : unreadCount}
+            </span>
+          )}
+        </button>
       )}
 
-      <button
-        onClick={() => setOpen(o => !o)}
-        className="relative w-14 h-14 rounded-full bg-blue-600 hover:bg-blue-700 text-white shadow-xl flex items-center justify-center transition-all active:scale-95"
-      >
-        {open
-          ? <ChevronDown className="w-6 h-6" />
-          : <MessageCircle className="w-6 h-6" />}
-        {!open && unreadCount > 0 && (
-          <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
-            {unreadCount > 9 ? '9+' : unreadCount}
-          </span>
+      {/* Slide-out panel anchored to right edge */}
+      <div
+        className={cn(
+          'fixed right-0 top-0 h-screen w-full sm:w-[400px] z-50 bg-background border-l shadow-2xl flex flex-col transition-transform duration-300 ease-out',
+          open ? 'translate-x-0' : 'translate-x-full pointer-events-none'
         )}
-      </button>
-    </div>
+      >
+        <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-3 flex items-center justify-between shrink-0">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+              <MessageCircle className="w-4 h-4" />
+            </div>
+            <div>
+              <p className="font-semibold text-sm">ENT Group Support</p>
+              <p className="text-[11px] text-blue-100">ทีมงานพร้อมช่วยเหลือคุณ</p>
+            </div>
+          </div>
+          <Button size="icon" variant="ghost" className="w-7 h-7 text-white hover:bg-white/20"
+            onClick={() => setOpen(false)} aria-label="ปิดแชท">
+            <X className="w-4 h-4" />
+          </Button>
+        </div>
+
+        <ChatInner
+          quotes={quotes}
+          activeQuoteId={activeQuoteId}
+          setActiveQuoteId={setActiveQuoteId}
+          messages={messages}
+          text={text}
+          setText={setText}
+          handleSend={handleSend}
+          handleFileUpload={handleFileUpload}
+          fileRef={fileRef}
+          sending={sending}
+          uploadingFile={uploadingFile}
+          bottomRef={bottomRef}
+          currentUserId={user.id}
+        />
+      </div>
+    </>
   );
 }
 
