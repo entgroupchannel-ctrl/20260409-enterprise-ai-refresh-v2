@@ -39,6 +39,7 @@ const Index = () => {
       <HeroSection />
       <EdgeAISection />
       <ProductHighlights />
+      <B2BWorkflowBanner variant="full" showShopCta />
       <ProductBanners />
       <ProductSections />
       <ProductLineup />
