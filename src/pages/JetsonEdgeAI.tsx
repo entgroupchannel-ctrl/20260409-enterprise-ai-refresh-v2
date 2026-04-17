@@ -4,8 +4,24 @@ import SiteNavbar from "@/components/SiteNavbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { jetsonProducts, jetsonCategories, type JetsonCategory } from "@/data/jetson-products";
+import catModulesImg from "@/assets/jetson-cat-modules.jpg";
+import catDevkitsImg from "@/assets/jetson-cat-devkits.jpg";
+import catCarrierImg from "@/assets/jetson-cat-carrier.jpg";
+import catIpcImg from "@/assets/jetson-cat-ipc.jpg";
+import catDevSystemsImg from "@/assets/jetson-cat-devsystems.jpg";
+import catTaiwanImg from "@/assets/jetson-cat-taiwan.jpg";
+import catEdgeImg from "@/assets/jetson-cat-edge.jpg";
 
 const ICONS: Record<string, typeof Cpu> = { Cpu, Package, CircuitBoard, Server, Monitor, HardDrive };
+const CATEGORY_IMAGES: Record<JetsonCategory, string> = {
+  modules: catModulesImg,
+  devkits: catDevkitsImg,
+  "carrier-boards": catCarrierImg,
+  "embedded-systems": catIpcImg,
+  "dev-systems": catDevSystemsImg,
+  "taiwan-ipc": catTaiwanImg,
+  "edge-computers": catEdgeImg,
+};
 
 const performanceTiers = [
   { name: "Nano", tops: 67, color: "from-emerald-500 to-emerald-300", label: "Entry — IoT, Smart Camera" },
