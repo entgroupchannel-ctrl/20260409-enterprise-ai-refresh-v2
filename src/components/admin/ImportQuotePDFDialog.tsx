@@ -422,7 +422,14 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
                             <Input value={it.name} onChange={(e) => updateItem(idx, { name: e.target.value })} placeholder="ชื่อสินค้า / โมเดล" className="h-9 font-medium" />
                           </div>
                           <div className="col-span-12">
-                            <Textarea value={it.description} onChange={(e) => updateItem(idx, { description: e.target.value })} placeholder="รายละเอียด / สเปก" rows={2} className="text-xs" />
+                            <Label className="text-[10px]">รายละเอียด / สเปก</Label>
+                            <Textarea
+                              value={it.description}
+                              onChange={(e) => updateItem(idx, { description: e.target.value })}
+                              placeholder="รายละเอียด / สเปก (รองรับข้อความยาว เลื่อนดูได้)"
+                              rows={5}
+                              className="text-xs leading-relaxed font-mono min-h-[120px] max-h-[320px] resize-y overflow-auto whitespace-pre-wrap"
+                            />
                           </div>
                           <div className="col-span-2">
                             <Label className="text-[10px]">จำนวน</Label>
