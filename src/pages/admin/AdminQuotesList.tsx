@@ -152,6 +152,64 @@ export default function AdminQuotesList() {
     }
   };
 
+  const handleDuplicate = async (quoteId: string) => {
+    try {
+      // Load full quote
+      const { data: src, error: e1 } = await (supabase as any)
+        .from('quote_requests')
+        .select('*')
+        .eq('id', quoteId)
+        .maybeSingle();
+      if (e1 || !src) throw e1 || new Error('ไม่พบใบเสนอราคาต้นฉบับ');
+
+      // Try to load latest revision for products/amounts
+      const { data: rev } = await (supabase as any)
+        .from('quote_revisions')
+        .select('subtotal, vat_amount, grand_total, products, discount_amount, discount_percent, vat_percent')
+        .eq('quote_id', quoteId)
+        .order('revision_number', { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+      // Strip identifiers and status fields
+      const {
+        id, quote_number, created_at, updated_at, sent_at, po_uploaded_at,
+        po_approved_at, completed_at, deleted_at, deleted_by, delete_reason,
+        sla_breached, sla_po_review_due, sla_response_due, assigned_to,
+        po_file_url, po_file_name, po_uploaded_by, customer_response,
+        approved_at, approved_by, ...rest
+      } = src;
+
+      const insertPayload: any = {
+        ...rest,
+        status: 'pending',
+        products: rev?.products ?? src.products ?? [],
+        subtotal: rev?.subtotal ?? src.subtotal ?? 0,
+        vat_amount: rev?.vat_amount ?? src.vat_amount ?? 0,
+        grand_total: rev?.grand_total ?? src.grand_total ?? 0,
+        discount_amount: rev?.discount_amount ?? src.discount_amount ?? 0,
+        discount_percent: rev?.discount_percent ?? src.discount_percent ?? 0,
+        vat_percent: rev?.vat_percent ?? src.vat_percent ?? 7,
+        notes: src.notes ? `[สร้างซ้ำจาก ${src.quote_number}] ${src.notes}` : `[สร้างซ้ำจาก ${src.quote_number}]`,
+      };
+
+      const { data: created, error: e2 } = await (supabase as any)
+        .from('quote_requests')
+        .insert(insertPayload)
+        .select('id, quote_number')
+        .single();
+      if (e2) throw e2;
+
+      toast({
+        title: '✅ สร้างซ้ำสำเร็จ',
+        description: `สร้าง ${created.quote_number} จาก ${src.quote_number} แล้ว`,
+      });
+      navigate(`/admin/quotes/${created.id}?mode=edit`);
+    } catch (error: any) {
+      toast({ title: 'สร้างซ้ำไม่สำเร็จ', description: error.message, variant: 'destructive' });
+    }
+  };
+
   const formatCurrency = (amount: number) =>
     new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', minimumFractionDigits: 0 }).format(amount);
 
