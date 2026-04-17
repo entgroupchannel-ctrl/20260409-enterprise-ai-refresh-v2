@@ -74,6 +74,7 @@ import {
   Mail,
   MessageCircle,
   Pencil,
+  Save,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
@@ -547,6 +548,38 @@ export default function AdminQuoteDetail() {
   const poFiles = files.filter((f) => f.category === 'po' || f.category === 'customer_po' || f.category === 'po_virtual');
   const quoteFiles = files.filter((f) => f.category === 'quote_pdf');
 
+  const handleSaveDraft = async () => {
+    if (!quote) return;
+    setSavingQuote(true);
+    try {
+      const { error: updateError } = await supabase
+        .from('quote_requests')
+        .update({
+          subtotal: totals.subtotal,
+          discount_type: quote.discount_type || 'percent',
+          discount_amount: totals.discountAmount,
+          vat_amount: totals.vatAmount,
+          grand_total: totals.grandTotal,
+          // Promote pending → draft only when admin clicks Save Draft (keeps PDF imports & admin edits in draft).
+          // Do NOT downgrade quote_sent/negotiating/etc.
+          ...(quote.status === 'pending' ? { status: 'draft' } : {}),
+        } as any)
+        .eq('id', id);
+
+      if (updateError) throw updateError;
+
+      toast({
+        title: 'บันทึกฉบับร่างแล้ว',
+        description: 'ข้อมูลถูกบันทึกแล้ว ยังไม่ได้ส่งให้ลูกค้า',
+      });
+      await loadQuoteDetails();
+    } catch (error: any) {
+      toast({ title: 'เกิดข้อผิดพลาด', description: error.message, variant: 'destructive' });
+    } finally {
+      setSavingQuote(false);
+    }
+  };
+
   const handleSaveAndSendQuote = async () => {
     if (!quote) return;
     setSavingQuote(true);
@@ -679,15 +712,26 @@ export default function AdminQuoteDetail() {
             <ArrowLeft className="w-4 h-4" />
           </Button>
           <div className="flex items-center gap-2">
-            {quote.status === 'pending' && (
-              <Button
-                size="sm"
-                onClick={handleSaveAndSendQuote}
-                disabled={savingQuote}
-              >
-                <SendHorizonal className="w-4 h-4 mr-1.5" />
-                {savingQuote ? 'กำลังบันทึก...' : 'บันทึกและส่งใบเสนอราคา'}
-              </Button>
+            {(quote.status === 'pending' || quote.status === 'draft') && (
+              <>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleSaveDraft}
+                  disabled={savingQuote}
+                >
+                  <Save className="w-4 h-4 mr-1.5" />
+                  บันทึกฉบับร่าง
+                </Button>
+                <Button
+                  size="sm"
+                  onClick={handleSaveAndSendQuote}
+                  disabled={savingQuote}
+                >
+                  <SendHorizonal className="w-4 h-4 mr-1.5" />
+                  {savingQuote ? 'กำลังบันทึก...' : 'ส่งใบเสนอราคา'}
+                </Button>
+              </>
             )}
             <Button
               variant="outline"
@@ -1298,9 +1342,19 @@ export default function AdminQuoteDetail() {
                   </div>
                 </div>
 
-                {/* SendHorizonal Quote Button - Only show when pending */}
-                {quote.status === 'pending' && (
-                  <div className="mt-6 pt-4 border-t border-border">
+                {/* Draft + Send Buttons - Show for pending or draft */}
+                {(quote.status === 'pending' || quote.status === 'draft') && (
+                  <div className="mt-6 pt-4 border-t border-border space-y-2">
+                    <Button
+                      variant="outline"
+                      className="w-full"
+                      size="lg"
+                      onClick={handleSaveDraft}
+                      disabled={savingQuote}
+                    >
+                      <Save className="w-5 h-5 mr-2" />
+                      บันทึกฉบับร่าง
+                    </Button>
                     <Button
                       className="w-full"
                       size="lg"
@@ -1308,7 +1362,7 @@ export default function AdminQuoteDetail() {
                       disabled={savingQuote}
                     >
                       <SendHorizonal className="w-5 h-5 mr-2" />
-                      {savingQuote ? 'กำลังบันทึก...' : 'บันทึกและส่งใบเสนอราคา'}
+                      {savingQuote ? 'กำลังบันทึก...' : 'ส่งใบเสนอราคา'}
                     </Button>
                   </div>
                 )}

@@ -351,7 +351,7 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
           warranty_terms: data.warranty_terms || null,
           notes: data.notes || null,
           valid_until: validUntil,
-          status: 'pending',
+          status: 'draft',
           metadata: {
             imported_from_pdf: true,
             imported_at: new Date().toISOString(),
