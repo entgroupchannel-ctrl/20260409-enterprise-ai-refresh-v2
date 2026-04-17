@@ -29,6 +29,7 @@ import ConfirmPaymentDialog from '@/components/admin/ConfirmPaymentDialog';
 import VerifyPaymentDialog from '@/components/admin/VerifyPaymentDialog';
 import CreateTaxInvoiceFromInvoiceDialog from '@/components/admin/CreateTaxInvoiceFromInvoiceDialog';
 import CreateReceiptDialog from '@/components/admin/CreateReceiptDialog';
+import InvoiceShareActivity from '@/components/admin/InvoiceShareActivity';
 
 type InvoiceRow = any;
 type InvoiceItem = any;
@@ -1008,6 +1009,8 @@ export default function AdminInvoiceDetail() {
             </CardContent>
           </Card>
         )}
+
+        <InvoiceShareActivity invoiceId={invoice.id} />
       </div>
 
       <InvoicePrintPreviewDialog
