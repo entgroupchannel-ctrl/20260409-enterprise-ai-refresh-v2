@@ -93,10 +93,11 @@ export default function AdminQuotesList() {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
 
-  // View mode (list = current detail rows, grid = compact small rows)
-  const [viewMode, setViewMode] = useState<'list' | 'grid'>(() => {
+  // View mode (list = current detail rows, table = compact rows, grid = card grid)
+  const [viewMode, setViewMode] = useState<'list' | 'table' | 'grid'>(() => {
     if (typeof window === 'undefined') return 'list';
-    return (localStorage.getItem('admin_quotes_view') as 'list' | 'grid') || 'list';
+    const v = localStorage.getItem('admin_quotes_view');
+    return (v === 'grid' || v === 'table' || v === 'list') ? v : 'list';
   });
   useEffect(() => {
     localStorage.setItem('admin_quotes_view', viewMode);
