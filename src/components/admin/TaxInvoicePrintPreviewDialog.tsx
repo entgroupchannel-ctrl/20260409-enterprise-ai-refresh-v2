@@ -27,37 +27,17 @@ export default function TaxInvoicePrintPreviewDialog({
   const formatCurrency = (n: number) =>
     new Intl.NumberFormat('th-TH', { minimumFractionDigits: 0 }).format(n);
 
-  const handlePrint = () => {
+  const handlePrint = async () => {
     setIsPrinting(true);
     const printContent = document.getElementById('tax-invoice-pdf-template');
     if (!printContent) { setIsPrinting(false); return; }
 
-    const printWindow = window.open('', '_blank');
-    if (!printWindow) { setIsPrinting(false); return; }
-
-    printWindow.document.write(`
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <title>${taxInvoice.tax_invoice_number}</title>
-          <style>
-            body { margin: 0; padding: 20px; font-family: 'IBM Plex Sans Thai', Arial, sans-serif; }
-            @media print { body { margin: 0; padding: 0; } }
-            table { border-collapse: collapse; width: 100%; }
-            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-            th { background-color: #7c3aed; color: white; }
-            .text-right { text-align: right; }
-            .text-center { text-align: center; }
-          </style>
-        </head>
-        <body>${printContent.innerHTML}</body>
-      </html>
-    `);
-    printWindow.document.close();
-    printWindow.onload = () => {
-      printWindow.print();
-      printWindow.onafterprint = () => { printWindow.close(); setIsPrinting(false); };
-    };
+    const { openPrintPreview } = await import('@/lib/print-helper');
+    openPrintPreview({
+      element: printContent,
+      title: taxInvoice.tax_invoice_number,
+      onDone: () => setIsPrinting(false),
+    });
   };
 
   const handleDownloadPDF = async () => {
