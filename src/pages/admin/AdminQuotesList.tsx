@@ -92,6 +92,15 @@ export default function AdminQuotesList() {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
 
+  // View mode (list = current detail rows, grid = compact small rows)
+  const [viewMode, setViewMode] = useState<'list' | 'grid'>(() => {
+    if (typeof window === 'undefined') return 'list';
+    return (localStorage.getItem('admin_quotes_view') as 'list' | 'grid') || 'list';
+  });
+  useEffect(() => {
+    localStorage.setItem('admin_quotes_view', viewMode);
+  }, [viewMode]);
+
   useEffect(() => {
     loadQuotes();
     const urlStatus = searchParams.get('status');
