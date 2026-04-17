@@ -36,6 +36,7 @@ import {
   Upload,
   LayoutGrid,
   List as ListIcon,
+  Rows3,
 } from 'lucide-react';
 import { formatRelativeTime } from '@/lib/format';
 import ImportQuotePDFDialog from '@/components/admin/ImportQuotePDFDialog';
