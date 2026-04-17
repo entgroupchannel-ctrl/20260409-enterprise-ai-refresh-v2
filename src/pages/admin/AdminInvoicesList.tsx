@@ -334,84 +334,108 @@ export default function AdminInvoicesList() {
             </CardContent>
           </Card>
         ) : (
-          <div className="space-y-3">
-            {sortedInvoices.map((inv) => {
-              const isOverdue = inv.due_date &&
-                inv.status !== 'paid' &&
-                inv.status !== 'cancelled' &&
-                new Date(inv.due_date) < now;
-
+          <>
+            {(() => {
+              const totalAmount = sortedInvoices.reduce((s, i) => s + (i.grand_total || 0), 0);
+              const startIdx = (page - 1) * pageSize;
+              const pageItems = sortedInvoices.slice(startIdx, startIdx + pageSize);
+              const pageAmount = pageItems.reduce((s, i) => s + (i.grand_total || 0), 0);
               return (
-                <Card
-                  key={inv.id}
-                  className="hover:shadow-lg transition-shadow cursor-pointer"
-                  onClick={() => navigate(`/admin/invoices/${inv.id}`)}
-                >
-                  <CardContent className="p-4">
-                    <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-                      <div className="flex-1 space-y-2">
-                        <div className="flex items-center gap-3 flex-wrap">
-                          <span className="font-semibold text-lg font-mono">{inv.invoice_number}</span>
-                          {isOverdue && (
-                            <Badge variant="destructive" className="gap-1">
-                              <AlertCircle className="w-3 h-3" /> เกินกำหนด
-                            </Badge>
-                          )}
-                          <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-300 text-[10px]">
-                            {inv.invoice_type === 'full' ? 'เต็มจำนวน' :
-                             inv.invoice_type === 'downpayment' ? 'มัดจำ' :
-                             inv.invoice_type === 'installment' ? 'งวดแบ่ง' :
-                             inv.invoice_type === 'final' ? 'ส่วนที่เหลือ' : inv.invoice_type}
-                          </Badge>
-                        </div>
-                        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
-                          <span className="text-foreground">{inv.customer_company || inv.customer_name}</span>
-                          {inv.customer_email && (
-                            <span className="text-muted-foreground">{inv.customer_email}</span>
-                          )}
-                        </div>
-                        <div className="space-y-2">
-                          <div className="flex flex-wrap items-center gap-3 text-xs">
-                            <span className="text-muted-foreground flex items-center gap-1">
-                              <Timer className="w-3 h-3" />
-                              ออก: {formatRelativeTime(inv.invoice_date)}
-                            </span>
-                            {inv.due_date && (
-                              <span className={`flex items-center gap-1 ${isOverdue ? 'text-red-600 font-semibold' : 'text-muted-foreground'}`}>
-                                ครบกำหนด: {new Date(inv.due_date).toLocaleDateString('th-TH', {
-                                  year: 'numeric', month: 'short', day: 'numeric',
-                                })}
-                              </span>
-                            )}
-                          </div>
-                          <InvoiceTimeline currentStatus={isOverdue ? 'overdue' : inv.status} />
-                        </div>
-                      </div>
+                <>
+                  <div className="space-y-3">
+                    {pageItems.map((inv) => {
+                      const isOverdue = inv.due_date &&
+                        inv.status !== 'paid' &&
+                        inv.status !== 'cancelled' &&
+                        new Date(inv.due_date) < now;
 
-                      <div className="flex items-center gap-3">
-                        <div className="text-right">
-                          <div className="text-xs text-muted-foreground mb-1">ยอดรวม</div>
-                          <div className="text-xl font-bold text-primary">
-                            {formatCurrency(inv.grand_total)}
-                          </div>
-                        </div>
-                        <div onClick={(e) => e.stopPropagation()}>
-                          <InvoiceActionsMenu
-                            invoiceId={inv.id}
-                            invoiceNumber={inv.invoice_number}
-                            status={inv.status}
-                            onDelete={() => setDeletingInvoice(inv)}
-                            onDownload={() => handleDownload(inv)}
-                            onShare={() => setShareInvoice(inv)}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                      return (
+                        <Card
+                          key={inv.id}
+                          className="hover:shadow-lg transition-shadow cursor-pointer"
+                          onClick={() => navigate(`/admin/invoices/${inv.id}`)}
+                        >
+                          <CardContent className="p-4">
+                            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                              <div className="flex-1 space-y-2">
+                                <div className="flex items-center gap-3 flex-wrap">
+                                  <span className="font-semibold text-lg font-mono">{inv.invoice_number}</span>
+                                  {isOverdue && (
+                                    <Badge variant="destructive" className="gap-1">
+                                      <AlertCircle className="w-3 h-3" /> เกินกำหนด
+                                    </Badge>
+                                  )}
+                                  <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-300 text-[10px]">
+                                    {inv.invoice_type === 'full' ? 'เต็มจำนวน' :
+                                     inv.invoice_type === 'downpayment' ? 'มัดจำ' :
+                                     inv.invoice_type === 'installment' ? 'งวดแบ่ง' :
+                                     inv.invoice_type === 'final' ? 'ส่วนที่เหลือ' : inv.invoice_type}
+                                  </Badge>
+                                </div>
+                                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
+                                  <span className="text-foreground">{inv.customer_company || inv.customer_name}</span>
+                                  {inv.customer_email && (
+                                    <span className="text-muted-foreground">{inv.customer_email}</span>
+                                  )}
+                                </div>
+                                <div className="space-y-2">
+                                  <div className="flex flex-wrap items-center gap-3 text-xs">
+                                    <span className="text-muted-foreground flex items-center gap-1">
+                                      <Timer className="w-3 h-3" />
+                                      ออก: {formatRelativeTime(inv.invoice_date)}
+                                    </span>
+                                    {inv.due_date && (
+                                      <span className={`flex items-center gap-1 ${isOverdue ? 'text-red-600 font-semibold' : 'text-muted-foreground'}`}>
+                                        ครบกำหนด: {new Date(inv.due_date).toLocaleDateString('th-TH', {
+                                          year: 'numeric', month: 'short', day: 'numeric',
+                                        })}
+                                      </span>
+                                    )}
+                                  </div>
+                                  <InvoiceTimeline currentStatus={isOverdue ? 'overdue' : inv.status} />
+                                </div>
+                              </div>
+
+                              <div className="flex items-center gap-3">
+                                <div className="text-right">
+                                  <div className="text-xs text-muted-foreground mb-1">ยอดรวม</div>
+                                  <div className="text-xl font-bold text-primary">
+                                    {formatCurrency(inv.grand_total)}
+                                  </div>
+                                </div>
+                                <div onClick={(e) => e.stopPropagation()}>
+                                  <InvoiceActionsMenu
+                                    invoiceId={inv.id}
+                                    invoiceNumber={inv.invoice_number}
+                                    status={inv.status}
+                                    onDelete={() => setDeletingInvoice(inv)}
+                                    onDownload={() => handleDownload(inv)}
+                                    onShare={() => setShareInvoice(inv)}
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      );
+                    })}
+                  </div>
+
+                  <ListPagination
+                    page={page}
+                    pageSize={pageSize}
+                    totalItems={sortedInvoices.length}
+                    totalAmount={totalAmount}
+                    pageAmount={pageAmount}
+                    formatCurrency={formatCurrency}
+                    onPageChange={setPage}
+                    onPageSizeChange={setPageSize}
+                    itemLabel="ใบวางบิล"
+                  />
+                </>
               );
-            })}
-          </div>
+            })()}
+          </>
         )}
       </div>
 
