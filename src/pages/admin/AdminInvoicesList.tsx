@@ -64,6 +64,9 @@ export default function AdminInvoicesList() {
   const [shareInvoice, setShareInvoice] = useState<Invoice | null>(null);
   const [downloadInvoice, setDownloadInvoice] = useState<any>(null);
   const [downloadItems, setDownloadItems] = useState<any[]>([]);
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(20);
+  useEffect(() => { setPage(1); }, [search, statusFilter, sortBy, pageSize]);
 
   const handleDownload = async (inv: Invoice) => {
     try {
