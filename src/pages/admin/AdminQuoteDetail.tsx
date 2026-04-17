@@ -1414,7 +1414,7 @@ export default function AdminQuoteDetail() {
                     }
                   }}
                 />
-                <div className="relative w-10 h-5 bg-muted rounded-full peer-checked:bg-amber-500 transition-colors after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-background after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:after:translate-x-5" />
+                <div className="relative w-11 h-6 bg-muted border border-border rounded-full peer-checked:bg-primary peer-checked:border-primary transition-colors after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-background after:border after:border-border after:rounded-full after:h-5 after:w-5 after:shadow-sm after:transition-all peer-checked:after:translate-x-5 peer-checked:after:border-primary" />
               </label>
             </div>
 
