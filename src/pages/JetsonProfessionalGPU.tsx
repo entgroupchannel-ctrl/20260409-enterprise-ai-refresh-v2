@@ -32,7 +32,7 @@ const gpus: GPU[] = [
   {
     id: "rtx6000-ada", name: "NVIDIA RTX 6000 Ada Generation", family: "ada", arch: "Ada Lovelace",
     badges: [{ label: "Flagship", tone: "flagship" }, { label: "Ada Lovelace", tone: "new" }],
-    image: "https://images.nvidia.com/aem-dam/Solutions/design-visualization/quadro-product-literature/proviz-print-nvidia-rtx-6000-datasheet-us-nvidia-1660094-r5-web.png",
+    image: imgRtx6000Ada,
     specs: [
       { label: "Architecture", value: "Ada Lovelace" },
       { label: "CUDA Cores", value: "18,176" },
@@ -43,7 +43,7 @@ const gpus: GPU[] = [
   {
     id: "rtx-a6000", name: "NVIDIA RTX A6000", family: "a-series", arch: "Ampere",
     badges: [{ label: "Ampere", tone: "info" }],
-    image: "https://images.nvidia.com/aem-dam/Solutions/design-visualization/quadro-product-literature/nvidia-rtx-a6000-datasheet.png",
+    image: imgRtxA6000,
     specs: [
       { label: "Architecture", value: "Ampere" },
       { label: "CUDA Cores", value: "10,752" },
