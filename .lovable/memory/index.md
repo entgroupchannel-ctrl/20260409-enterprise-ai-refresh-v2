@@ -1,11 +1,13 @@
 # Memory: index.md
+Updated: today
 
 # Project Memory
 
 ## Core
 ENT Group — B2B Industrial Computing Platform ภาษาไทย. Supabase backend.
 ใช้ semantic tokens จาก design system. ห้ามใช้สี hardcode ใน components.
-ทำตามที่ผู้ใช้แจ้งใน prompt เท่านั้น — ห้าม refactor/rename/แตะไฟล์อื่นที่ไม่ได้ขอ.
+ก่อนแก้หรือ deploy ต้องยืนยัน scope ตามข้อความที่ผู้ใช้กำหนด และห้ามแตะไฟล์นอก prompt.
+ลิงก์แชร์เอกสารสาธารณะใช้ base URL `https://www.entgroup.co.th` เสมอ (ห้าม window.location.origin).
 
 ## Memories
 - [Cart System](mem://features/cart-system) — ระบบตะกร้า + โปรไฟล์ลูกค้า (cart_items, user_profiles) สร้าง quote แบบ batch
@@ -14,4 +16,5 @@ ENT Group — B2B Industrial Computing Platform ภาษาไทย. Supabase 
 - [Brand Identity](mem://brand/corporate-identity) — ชื่อบริษัท ที่อยู่ โลโก้
 - [RBAC System](mem://infrastructure/auth/rbac-system) — ระบบสิทธิ์ user_roles, admin_permissions
 - [Line Contact](mem://features/line-contact-policy) — LINE @entgroup ใช้ Modal QR Code
-- [Deployment Rules](mem://project/deployment-rules) — ทำตาม prompt เท่านั้น ไม่ refactor/แตะไฟล์อื่น
+- [Deployment Rules](mem://project/deployment-rules) — กฎ 5 ข้อป้องกัน regression + ข้อความยืนยันก่อนแก้ทุกครั้ง
+- [Document Management Template](mem://features/document-management-template) — Template 5 ฟีเจอร์ (Duplicate/Download/Share/Audit/Activity) สำหรับขยายไปยังเอกสารทุกประเภทใน Sales Flow ใช้ quote_share_* เป็นต้นแบบ
