@@ -186,9 +186,53 @@ export default function EditCustomerInfoDialog({
         </DialogHeader>
 
         <div className="space-y-4 py-2">
+          {customerUserId && (
+            <div className="space-y-2 rounded-lg border border-dashed border-emerald-500/40 bg-emerald-500/5 p-3">
+              <div className="flex items-center justify-between gap-2">
+                <Label className="text-xs flex items-center gap-1.5 text-emerald-700 dark:text-emerald-400">
+                  <UserCircle className="w-3.5 h-3.5" /> โปรไฟล์ลูกค้าที่บันทึกในระบบ
+                </Label>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="outline"
+                  className="h-7 text-xs"
+                  onClick={handlePullFromProfile}
+                  disabled={loadingProfile || !profile}
+                >
+                  {loadingProfile ? (
+                    <Loader2 className="w-3 h-3 mr-1 animate-spin" />
+                  ) : (
+                    <Download className="w-3 h-3 mr-1" />
+                  )}
+                  ดึงข้อมูลจากโปรไฟล์
+                </Button>
+              </div>
+              {loadingProfile ? (
+                <p className="text-[11px] text-muted-foreground">กำลังโหลดโปรไฟล์...</p>
+              ) : profile ? (
+                <div className="text-[11px] text-muted-foreground space-y-0.5">
+                  {profile.company_name && <div>🏢 {profile.company_name}</div>}
+                  {profileAddress ? (
+                    <div>📍 {profileAddress}</div>
+                  ) : (
+                    <div className="italic">ลูกค้ายังไม่ได้บันทึกที่อยู่ในโปรไฟล์</div>
+                  )}
+                  {hasNewerAddress && (
+                    <div className="mt-1.5 rounded bg-amber-500/10 border border-amber-500/30 px-2 py-1 text-amber-700 dark:text-amber-400">
+                      ⚠️ ที่อยู่ในโปรไฟล์ลูกค้าต่างจากในใบเสนอราคา — กด "ดึงข้อมูลจากโปรไฟล์" เพื่ออัปเดต
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <p className="text-[11px] text-muted-foreground italic">ลูกค้ายังไม่ได้สร้างโปรไฟล์</p>
+              )}
+            </div>
+          )}
+
           <div className="space-y-1.5 rounded-lg border border-dashed border-primary/30 bg-primary/5 p-3">
             <Label className="text-xs flex items-center gap-1.5 text-primary">
-              <Users className="w-3.5 h-3.5" /> ดึงจากรายชื่อลูกค้าในระบบ
+              <Users className="w-3.5 h-3.5" /> ดึงจากรายชื่อลูกค้าในระบบ (Contacts)
             </Label>
             <CustomerAutocomplete onSelect={handleSelectContact} typeFilter="customer" />
             <p className="text-[11px] text-muted-foreground">
