@@ -617,6 +617,7 @@ const ShopStorefront = () => {
         </div>
       )}
 
+      <B2BWorkflowBanner variant="full" />
       <Footer />
     </div>
   );

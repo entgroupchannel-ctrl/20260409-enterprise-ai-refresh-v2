@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import FooterCompact from "@/components/FooterCompact";
 import B2BCTABanner from "@/components/B2BCTABanner";
+import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
 import LineQRButton from "@/components/LineQRButton";
 
@@ -1104,6 +1105,7 @@ const MiniPC = () => {
           <QuoteRequestButton productModel="Mini PC" productName="Mini PC" />
         </div>
       </div>
+      <B2BWorkflowBanner variant="compact" />
       <B2BCTABanner variant="compact" />
       <FooterCompact />
     </div>
