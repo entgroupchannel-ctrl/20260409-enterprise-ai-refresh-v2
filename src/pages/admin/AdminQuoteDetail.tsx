@@ -74,6 +74,7 @@ import {
   Mail,
   MessageCircle,
   Pencil,
+  Save,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
 
