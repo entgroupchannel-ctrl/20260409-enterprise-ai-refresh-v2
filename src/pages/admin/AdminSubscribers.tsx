@@ -284,6 +284,7 @@ const AdminSubscribers = () => {
         </DialogContent>
       </Dialog>
     </AdminPageLayout>
+    </AdminLayout>
   );
 };
 
