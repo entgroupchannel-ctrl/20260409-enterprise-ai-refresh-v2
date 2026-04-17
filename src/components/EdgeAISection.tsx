@@ -65,6 +65,7 @@ const EdgeAISection = () => {
                 ดูสินค้าทั้งหมด
               </Link>
             </div>
+          </div>
 
           <div
             className="relative group"
