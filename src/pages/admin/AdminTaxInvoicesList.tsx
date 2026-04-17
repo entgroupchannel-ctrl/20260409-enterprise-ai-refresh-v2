@@ -145,9 +145,27 @@ export default function AdminTaxInvoicesList() {
     }
   };
 
-  const filtered = statusFilter === 'all'
+  const filtered = (statusFilter === 'all'
     ? taxInvoices
-    : taxInvoices.filter((t) => t.status === statusFilter);
+    : taxInvoices.filter((t) => t.status === statusFilter)
+  ).filter((t) => {
+    if (!search.trim()) return true;
+    const q = search.toLowerCase();
+    return (
+      t.tax_invoice_number.toLowerCase().includes(q) ||
+      t.customer_name.toLowerCase().includes(q) ||
+      (t.customer_company || '').toLowerCase().includes(q)
+    );
+  });
+
+  // Reset page when filter/search/pageSize changes
+  useEffect(() => { setPage(1); }, [search, statusFilter, pageSize]);
+
+  const totalAmount = filtered.reduce((s, t) => s + (t.grand_total || 0), 0);
+  const startIdx = (page - 1) * pageSize;
+  const pageItems = filtered.slice(startIdx, startIdx + pageSize);
+  const pageAmount = pageItems.reduce((s, t) => s + (t.grand_total || 0), 0);
+
 
   const statusCounts = taxInvoices.reduce<Record<string, number>>((acc, t) => {
     acc[t.status] = (acc[t.status] || 0) + 1;
