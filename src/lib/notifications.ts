@@ -104,6 +104,69 @@ export async function sendAutoReplyEmail(params: {
 }
 
 /**
+ * Send the same status email to all admins.
+ * Looks up admin user IDs in user_roles, fetches emails from profiles,
+ * and fans out one email per admin via notify-quote-status.
+ * Fire-and-forget.
+ */
+export async function notifyAdminsByEmail(params: {
+  subject: string;
+  status: string;
+  customerName?: string;
+  quoteNumber?: string;
+  invoiceNumber?: string;
+  amount?: string;
+  viewUrl?: string;
+  note?: string;
+}) {
+  try {
+    // Get admin user IDs
+    const { data: roles } = await (supabase as any)
+      .from("user_roles")
+      .select("user_id")
+      .in("role", ["admin", "super_admin"]);
+
+    if (!roles?.length) return;
+    const userIds = roles.map((r: any) => r.user_id);
+
+    // Get admin emails from profiles
+    const { data: profiles } = await (supabase as any)
+      .from("profiles")
+      .select("email")
+      .in("id", userIds);
+
+    const emails = (profiles || [])
+      .map((p: any) => p?.email)
+      .filter((e: string | null | undefined): e is string => !!e);
+
+    if (!emails.length) {
+      console.warn("notifyAdminsByEmail: no admin emails found");
+      return;
+    }
+
+    // Fan-out one email per admin (parallel)
+    await Promise.all(
+      emails.map((email: string) =>
+        supabase.functions.invoke("notify-quote-status", {
+          body: {
+            recipientEmail: email,
+            customerName: params.customerName,
+            quoteNumber: params.quoteNumber,
+            status: params.status,
+            invoiceNumber: params.invoiceNumber,
+            amount: params.amount,
+            viewUrl: params.viewUrl,
+            note: params.note,
+          },
+        }).catch((e) => console.error("notifyAdminsByEmail fanout error:", e))
+      )
+    );
+  } catch (e) {
+    console.error("notifyAdminsByEmail exception:", e);
+  }
+}
+
+/**
  * Send quote / invoice status notification email via notify-quote-status Edge Function.
  * Fire-and-forget.
  */
