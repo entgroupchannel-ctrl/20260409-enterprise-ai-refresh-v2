@@ -107,6 +107,21 @@ export default function POUploadDialog({
         );
       if (insertError) throw insertError;
 
+      // Update quote status → po_uploaded (only if not already past this step)
+      const { data: currentQuote } = await (supabase as any)
+        .from('quote_requests')
+        .select('status')
+        .eq('id', quoteId)
+        .maybeSingle();
+
+      const advanceableStatuses = ['pending', 'quote_sent', 'in_review', 'negotiating', 'accepted'];
+      if (currentQuote && advanceableStatuses.includes(currentQuote.status)) {
+        await (supabase as any)
+          .from('quote_requests')
+          .update({ status: 'po_uploaded', po_uploaded_at: new Date().toISOString() })
+          .eq('id', quoteId);
+      }
+
       // Add message if notes provided
       if (notes.trim()) {
         await supabase.from('quote_messages').insert({
@@ -118,7 +133,21 @@ export default function POUploadDialog({
         } as any);
       }
 
-      toast({ title: 'อัปโหลดสำเร็จ', description: `อัปโหลด PO ${files.length} ไฟล์แล้ว` });
+      // 🔔 Notify admins about new PO upload (in-app)
+      import('@/lib/notifications').then(({ notifyAdmins }) => {
+        notifyAdmins({
+          type: 'po_uploaded',
+          title: 'ลูกค้าอัปโหลด PO ใหม่',
+          message: `${customerName || 'ลูกค้า'} อัปโหลด PO ${uploadedFiles.length} ไฟล์ สำหรับ ${quoteNumber}`,
+          priority: 'high',
+          actionUrl: `/admin/quotes/${quoteId}`,
+          actionLabel: 'ตรวจสอบ PO',
+          linkType: 'quote',
+          linkId: quoteId,
+        });
+      });
+
+      toast({ title: 'อัปโหลดสำเร็จ', description: `อัปโหลด PO ${files.length} ไฟล์แล้ว — ทีมงานได้รับแจ้งเตือนแล้ว` });
       setFiles([]);
       setNotes('');
       onOpenChange(false);
