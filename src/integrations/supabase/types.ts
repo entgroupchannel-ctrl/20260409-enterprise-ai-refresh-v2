@@ -3019,6 +3019,7 @@ export type Database = {
           invoice_created_at: string | null
           metadata: Json | null
           negotiation_count: number | null
+          negotiation_enabled: boolean
           notes: string | null
           payment_terms: string | null
           po_uploaded_at: string | null
@@ -3076,6 +3077,7 @@ export type Database = {
           invoice_created_at?: string | null
           metadata?: Json | null
           negotiation_count?: number | null
+          negotiation_enabled?: boolean
           notes?: string | null
           payment_terms?: string | null
           po_uploaded_at?: string | null
@@ -3133,6 +3135,7 @@ export type Database = {
           invoice_created_at?: string | null
           metadata?: Json | null
           negotiation_count?: number | null
+          negotiation_enabled?: boolean
           notes?: string | null
           payment_terms?: string | null
           po_uploaded_at?: string | null
