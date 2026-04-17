@@ -12,6 +12,12 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import banner from "@/assets/banner-solution.jpg";
+import imgVision from "@/assets/ai-cat-vision.jpg";
+import imgSpeech from "@/assets/ai-cat-speech.jpg";
+import imgRobotics from "@/assets/ai-cat-robotics.jpg";
+import imgVideo from "@/assets/ai-cat-video.jpg";
+import imgGenAI from "@/assets/ai-cat-genai.jpg";
+import imgTools from "@/assets/ai-cat-tools.jpg";
 
 const NV = "#76B900";
 
@@ -27,13 +33,13 @@ interface AIModel {
   ngcUrl: string;
 }
 
-const categoryMeta: Record<Category, { icon: typeof Eye; color: string; gradient: string }> = {
-  "Computer Vision":  { icon: Eye,       color: "from-emerald-500 to-green-600",  gradient: "from-emerald-500/10 to-green-600/10" },
-  "Speech AI":        { icon: Mic,       color: "from-blue-500 to-cyan-600",      gradient: "from-blue-500/10 to-cyan-600/10" },
-  "Robotics":         { icon: Bot,       color: "from-purple-500 to-pink-600",    gradient: "from-purple-500/10 to-pink-600/10" },
-  "Video Analytics":  { icon: Video,     color: "from-orange-500 to-red-600",     gradient: "from-orange-500/10 to-red-600/10" },
-  "Generative AI":    { icon: Sparkles,  color: "from-fuchsia-500 to-violet-600", gradient: "from-fuchsia-500/10 to-violet-600/10" },
-  "Tools & SDK":      { icon: Wrench,    color: "from-amber-500 to-orange-600",   gradient: "from-amber-500/10 to-orange-600/10" },
+const categoryMeta: Record<Category, { icon: typeof Eye; color: string; gradient: string; image: string }> = {
+  "Computer Vision":  { icon: Eye,       color: "from-emerald-500 to-green-600",  gradient: "from-emerald-500/10 to-green-600/10",  image: imgVision },
+  "Speech AI":        { icon: Mic,       color: "from-blue-500 to-cyan-600",      gradient: "from-blue-500/10 to-cyan-600/10",       image: imgSpeech },
+  "Robotics":         { icon: Bot,       color: "from-purple-500 to-pink-600",    gradient: "from-purple-500/10 to-pink-600/10",     image: imgRobotics },
+  "Video Analytics":  { icon: Video,     color: "from-orange-500 to-red-600",     gradient: "from-orange-500/10 to-red-600/10",      image: imgVideo },
+  "Generative AI":    { icon: Sparkles,  color: "from-fuchsia-500 to-violet-600", gradient: "from-fuchsia-500/10 to-violet-600/10",  image: imgGenAI },
+  "Tools & SDK":      { icon: Wrench,    color: "from-amber-500 to-orange-600",   gradient: "from-amber-500/10 to-orange-600/10",    image: imgTools },
 };
 
 const ALL_CHIPS: JetsonChip[] = ["Orin Nano", "Orin NX", "AGX Orin", "Thor"];
@@ -247,17 +253,25 @@ export default function JetsonAIReady() {
                   const Icon = meta.icon;
                   return (
                     <Card key={m.name} className="overflow-hidden group hover:shadow-2xl transition-all border-border/60 flex flex-col">
-                      <div className={`h-1.5 bg-gradient-to-r ${meta.color}`} />
-                      <div className={`p-5 flex flex-col flex-1 bg-gradient-to-br ${meta.gradient}`}>
-                        <div className="flex items-start justify-between mb-3">
-                          <div className="flex items-center gap-2 text-xs font-medium text-foreground/80">
-                            <div className={`w-7 h-7 rounded-md bg-gradient-to-br ${meta.color} flex items-center justify-center`}>
-                              <Icon className="w-4 h-4 text-white" />
-                            </div>
-                            {m.category}
+                      <div className="relative h-32 overflow-hidden">
+                        <img
+                          src={meta.image}
+                          alt={m.category}
+                          loading="lazy"
+                          width={768}
+                          height={512}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className={`absolute inset-0 bg-gradient-to-t ${meta.gradient} from-background/95 via-background/40 to-transparent`} />
+                        <div className="absolute bottom-2 left-3 flex items-center gap-2">
+                          <div className={`w-7 h-7 rounded-md bg-gradient-to-br ${meta.color} flex items-center justify-center shadow-lg`}>
+                            <Icon className="w-4 h-4 text-white" />
                           </div>
-                          <Badge variant="outline" className="text-[10px]" style={{ borderColor: NV, color: NV }}>ฟรี</Badge>
+                          <span className="text-xs font-semibold text-foreground drop-shadow">{m.category}</span>
                         </div>
+                        <Badge variant="outline" className="absolute top-2 right-2 text-[10px] backdrop-blur bg-background/70" style={{ borderColor: NV, color: NV }}>ฟรี</Badge>
+                      </div>
+                      <div className={`p-5 flex flex-col flex-1 bg-gradient-to-br ${meta.gradient}`}>
                         <h3 className="font-bold text-lg text-foreground mb-1">{m.name}</h3>
                         <p className="text-sm text-muted-foreground mb-4">{m.desc}</p>
 
