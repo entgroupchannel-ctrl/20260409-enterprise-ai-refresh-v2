@@ -91,6 +91,10 @@ export function openPrintPreview({
         margin: 0 !important;
         box-sizing: border-box;
       }
+      /* Safety: cap any logo/header image so a missing Tailwind class can't blow up the page */
+      #print-root img { max-width: 100%; height: auto; }
+      #print-root img[alt*="ogo" i],
+      #print-root img[alt*="ENT" i] { max-width: 96px; max-height: 96px; object-fit: contain; }
       @media print {
         html, body { width: ${width}mm; }
       }
@@ -104,8 +108,22 @@ export function openPrintPreview({
 
   const triggerPrint = () => {
     const doc: any = printWindow.document;
-    const ready = doc.fonts?.ready ?? Promise.resolve();
-    Promise.resolve(ready).then(() => {
+    const fontsReady = doc.fonts?.ready ?? Promise.resolve();
+    // Also wait for images inside the popup to finish loading (logos, signatures)
+    const imgs = Array.from(printWindow.document.images || []) as HTMLImageElement[];
+    const imagesReady = Promise.all(
+      imgs.map((img) =>
+        img.complete && img.naturalWidth > 0
+          ? Promise.resolve()
+          : new Promise<void>((res) => {
+              img.addEventListener('load', () => res(), { once: true });
+              img.addEventListener('error', () => res(), { once: true });
+              // Hard timeout 3s per image
+              setTimeout(() => res(), 3000);
+            })
+      )
+    );
+    Promise.all([fontsReady, imagesReady]).then(() => {
       setTimeout(() => {
         printWindow.focus();
         printWindow.print();
