@@ -82,6 +82,22 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
   const [saving, setSaving] = useState(false);
   const [data, setData] = useState<ImportedQuote>(emptyQuote);
   const [storagePath, setStoragePath] = useState<string | null>(null);
+  const [elapsed, setElapsed] = useState(0); // seconds
+  const [phase, setPhase] = useState<string>(''); // current step label
+
+  // Estimated total time for AI parsing (Gemini 2.5 Pro on PDF ~ 25-45s)
+  const ESTIMATED_PARSE_SECONDS = 35;
+  const ESTIMATED_SAVE_SECONDS = 5;
+
+  useEffect(() => {
+    if (!parsing && !saving) return;
+    setElapsed(0);
+    const start = Date.now();
+    const timer = setInterval(() => {
+      setElapsed(Math.floor((Date.now() - start) / 1000));
+    }, 250);
+    return () => clearInterval(timer);
+  }, [parsing, saving]);
 
   const reset = () => {
     setStep('upload');
