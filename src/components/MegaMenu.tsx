@@ -141,11 +141,12 @@ const menuCategories = [
         heading: "โซลูชัน AI พร้อมใช้",
         links: [
           { label: "✦ โซลูชันทั้งหมด", href: "/nvidia-jetson/solutions", hot: true },
+          { label: "✦ AI Ready — NGC Models", href: "/nvidia-jetson/ai-ready", hot: true },
           { label: "Smart Manufacturing AI", href: "/nvidia-jetson/solutions#industrial" },
           { label: "Smart Surveillance", href: "/nvidia-jetson/solutions#security" },
           { label: "Autonomous Robots / Drone", href: "/nvidia-jetson/solutions#drone" },
           { label: "Medical AI", href: "/nvidia-jetson/solutions#medical" },
-          { label: "Generative AI Edge", href: "/nvidia-jetson/solutions" },
+          { label: "Generative AI Edge", href: "/nvidia-jetson/ai-ready" },
           { label: "ตัวอย่างงาน / Case Studies", href: "/case-studies" },
           { label: "✦ ตัวช่วยเลือกรุ่น Jetson", href: "/product-advisor", hot: true },
         ],
