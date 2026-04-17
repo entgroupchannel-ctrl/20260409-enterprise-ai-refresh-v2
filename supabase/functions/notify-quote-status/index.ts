@@ -25,6 +25,7 @@ const STATUS_LABELS: Record<string, { th: string; emoji: string }> = {
   invoiced: { th: "ออกใบแจ้งหนี้แล้ว", emoji: "🧾" },
   payment_confirmed: { th: "ยืนยันการชำระเงินแล้ว", emoji: "💰" },
   invoice_created: { th: "ออกใบแจ้งหนี้แล้ว", emoji: "🧾" },
+  payment_slip_uploaded: { th: "ลูกค้าส่งสลิปการชำระเงิน — รอตรวจสอบ", emoji: "💳" },
 };
 
 // ---------- HTML builder ----------
