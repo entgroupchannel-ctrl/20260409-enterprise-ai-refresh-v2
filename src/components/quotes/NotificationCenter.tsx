@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { Bell, CheckCheck } from "lucide-react";
+import { Bell, CheckCheck, AlertCircle, AlertTriangle, Info } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
@@ -180,21 +180,21 @@ const NotificationCenter = ({ userId }: { userId: string }) => {
               const items = grouped[priority];
               if (items.length === 0) return null;
 
-              const labels: Record<string, string> = {
-                urgent: "🔴 ด่วน",
-                high: "🟡 สำคัญ",
-                normal: "🟢 ทั่วไป",
+              const meta: Record<
+                string,
+                { label: string; icon: typeof AlertCircle; bg: string }
+              > = {
+                urgent: { label: "ด่วน", icon: AlertCircle, bg: "bg-destructive/10 text-destructive" },
+                high: { label: "สำคัญ", icon: AlertTriangle, bg: "bg-orange-100 text-orange-700" },
+                normal: { label: "ทั่วไป", icon: Info, bg: "bg-secondary text-muted-foreground" },
               };
-              const bgColors: Record<string, string> = {
-                urgent: "bg-destructive/10 text-destructive",
-                high: "bg-orange-100 text-orange-700",
-                normal: "bg-secondary text-muted-foreground",
-              };
+              const PriorityIcon = meta[priority].icon;
 
               return (
                 <div key={priority} className="border-b border-border last:border-0">
-                  <div className={cn("p-2 text-xs font-medium", bgColors[priority])}>
-                    {labels[priority]} ({items.length})
+                  <div className={cn("p-2 text-xs font-medium flex items-center gap-1.5", meta[priority].bg)}>
+                    <PriorityIcon className="w-3.5 h-3.5" />
+                    {meta[priority].label} ({items.length})
                   </div>
                   {items.map((n) => {
                     const isUnread = !n.read && !n.read_at;
