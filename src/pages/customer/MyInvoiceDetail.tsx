@@ -579,6 +579,18 @@ export default function MyInvoiceDetail() {
                               ยืนยัน: {new Date(pr.verified_at).toLocaleDateString('th-TH')}
                             </div>
                           )}
+                          {pr.proof_url && (
+                            <Button
+                              type="button"
+                              variant="outline"
+                              size="sm"
+                              className="mt-2 h-7 text-xs"
+                              onClick={() => openSlipPreview(pr.proof_url)}
+                            >
+                              <ImageIcon className="w-3 h-3 mr-1" />
+                              ดูสลิป
+                            </Button>
+                          )}
                         </div>
                       </div>
                     </div>
