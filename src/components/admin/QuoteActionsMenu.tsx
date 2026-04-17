@@ -27,6 +27,7 @@ interface QuoteActionsMenuProps {
   onPrint?: () => void;
   onCopy?: () => void;
   onShare?: () => void;
+  onDuplicate?: () => void;
 }
 
 export default function QuoteActionsMenu({
@@ -37,6 +38,7 @@ export default function QuoteActionsMenu({
   onPrint,
   onCopy,
   onShare,
+  onDuplicate,
 }: QuoteActionsMenuProps) {
   const navigate = useNavigate();
 
@@ -115,7 +117,7 @@ export default function QuoteActionsMenu({
           พิมพ์จำนวนซอง
         </DropdownMenuItem>
         
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={onDuplicate}>
           <Copy className="mr-2 h-4 w-4" />
           สร้างซ้ำ
         </DropdownMenuItem>
