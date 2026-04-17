@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter,
@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
 import { Separator } from '@/components/ui/separator';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
@@ -81,6 +82,22 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
   const [saving, setSaving] = useState(false);
   const [data, setData] = useState<ImportedQuote>(emptyQuote);
   const [storagePath, setStoragePath] = useState<string | null>(null);
+  const [elapsed, setElapsed] = useState(0); // seconds
+  const [phase, setPhase] = useState<string>(''); // current step label
+
+  // Estimated total time for AI parsing (Gemini 2.5 Pro on PDF ~ 25-45s)
+  const ESTIMATED_PARSE_SECONDS = 35;
+  const ESTIMATED_SAVE_SECONDS = 5;
+
+  useEffect(() => {
+    if (!parsing && !saving) return;
+    setElapsed(0);
+    const start = Date.now();
+    const timer = setInterval(() => {
+      setElapsed(Math.floor((Date.now() - start) / 1000));
+    }, 250);
+    return () => clearInterval(timer);
+  }, [parsing, saving]);
 
   const reset = () => {
     setStep('upload');
@@ -116,6 +133,7 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
     setParsing(true);
     try {
       // 1) Upload to storage
+      setPhase('กำลังอัปโหลดไฟล์ไปยัง Storage...');
       const safeName = file.name.replace(/[^\w.-]/g, '_').slice(0, 80);
       const path = `${new Date().toISOString().slice(0, 10)}/${Date.now()}-${safeName}`;
       const { error: upErr } = await supabase.storage.from('quote-imports').upload(path, file, {
@@ -126,6 +144,7 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
       setStoragePath(path);
 
       // 2) Send to AI
+      setPhase('กำลังเข้ารหัสไฟล์เพื่อส่งให้ AI...');
       const buf = await file.arrayBuffer();
       const bytes = new Uint8Array(buf);
       let binary = '';
@@ -135,6 +154,7 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
       }
       const file_base64 = btoa(binary);
 
+      setPhase('AI กำลังอ่านและแตกข้อมูลจากเอกสาร (อาจใช้เวลา 20-60 วินาที)...');
       const { data: result, error } = await supabase.functions.invoke('parse-quote-pdf', {
         body: { file_base64, media_type: 'application/pdf' },
       });
@@ -143,6 +163,7 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
       if (!result?.success || !result?.data) throw new Error('AI ไม่ส่งข้อมูลกลับ');
 
       // 3) Normalize numbers
+      setPhase('กำลังประมวลผลและตรวจสอบข้อมูล...');
       const d = result.data as Partial<ImportedQuote>;
       const items: ImportedItem[] = (d.items || []).map((it: any) => ({
         name: String(it.name || ''),
@@ -168,12 +189,13 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
         customer_branch_type: d.customer_branch_type || 'head_office',
       } as ImportedQuote);
       setStep('preview');
-      toast({ title: 'AI อ่านข้อมูลสำเร็จ', description: 'กรุณาตรวจสอบและแก้ไขก่อนบันทึก' });
+      toast({ title: `AI อ่านข้อมูลสำเร็จ (${elapsed}s)`, description: 'กรุณาตรวจสอบและแก้ไขก่อนบันทึก' });
     } catch (e: any) {
       console.error(e);
       toast({ title: 'นำเข้า PDF ล้มเหลว', description: e.message, variant: 'destructive' });
     } finally {
       setParsing(false);
+      setPhase('');
     }
   };
 
@@ -219,6 +241,7 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
       return;
     }
     setSaving(true);
+    setPhase('กำลังบันทึกข้อมูลเข้าระบบ...');
     try {
       const validUntil = data.valid_until || (() => {
         const d = new Date(); d.setDate(d.getDate() + 30);
@@ -284,6 +307,7 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
       toast({ title: 'บันทึกไม่สำเร็จ', description: e.message, variant: 'destructive' });
     } finally {
       setSaving(false);
+      setPhase('');
     }
   };
 
@@ -328,6 +352,27 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
               </CardContent>
             </Card>
 
+            {parsing && (
+              <Card className="border-primary/40 bg-primary/5">
+                <CardContent className="p-4 space-y-2">
+                  <div className="flex items-center justify-between text-sm">
+                    <div className="flex items-center gap-2 text-foreground font-medium">
+                      <Loader2 className="w-4 h-4 animate-spin text-primary" />
+                      <span>{phase || 'กำลังประมวลผล...'}</span>
+                    </div>
+                    <div className="font-mono text-xs text-muted-foreground tabular-nums">
+                      {elapsed}s / ~{ESTIMATED_PARSE_SECONDS}s
+                    </div>
+                  </div>
+                  <Progress value={Math.min(99, (elapsed / ESTIMATED_PARSE_SECONDS) * 100)} className="h-2" />
+                  <p className="text-[11px] text-muted-foreground">
+                    AI ใช้เวลาประมาณ 20-60 วินาทีในการอ่าน PDF กรุณาอย่าปิดหน้าต่าง
+                    {elapsed > ESTIMATED_PARSE_SECONDS && ' — ใกล้เสร็จแล้ว...'}
+                  </p>
+                </CardContent>
+              </Card>
+            )}
+
             <div className="flex items-start gap-2 text-xs text-muted-foreground bg-muted/30 rounded-md p-3">
               <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
               <div>
@@ -339,7 +384,11 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
             <DialogFooter>
               <Button variant="outline" onClick={() => handleClose(false)} disabled={parsing}>ยกเลิก</Button>
               <Button onClick={handleParse} disabled={!file || parsing}>
-                {parsing ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" />AI กำลังอ่านเอกสาร...</> : <><Sparkles className="w-4 h-4 mr-2" />อ่านด้วย AI</>}
+                {parsing ? (
+                  <><Loader2 className="w-4 h-4 mr-2 animate-spin" />AI กำลังอ่าน... ({elapsed}s)</>
+                ) : (
+                  <><Sparkles className="w-4 h-4 mr-2" />อ่านด้วย AI</>
+                )}
               </Button>
             </DialogFooter>
           </div>
@@ -533,11 +582,27 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
               </CardContent>
             </Card>
 
+            {saving && (
+              <div className="rounded-md border border-primary/40 bg-primary/5 p-3 space-y-2">
+                <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center gap-2 text-foreground font-medium">
+                    <Loader2 className="w-4 h-4 animate-spin text-primary" />
+                    <span>{phase || 'กำลังบันทึก...'}</span>
+                  </div>
+                  <div className="font-mono text-xs text-muted-foreground tabular-nums">
+                    {elapsed}s / ~{ESTIMATED_SAVE_SECONDS}s
+                  </div>
+                </div>
+                <Progress value={Math.min(99, (elapsed / ESTIMATED_SAVE_SECONDS) * 100)} className="h-2" />
+              </div>
+            )}
             <DialogFooter>
               <Button variant="outline" onClick={() => setStep('upload')} disabled={saving}>ย้อนกลับ</Button>
               <Button variant="outline" onClick={() => handleClose(false)} disabled={saving}>ยกเลิก</Button>
               <Button onClick={handleSave} disabled={saving}>
-                {saving ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" />กำลังบันทึก...</> : 'บันทึกเข้าระบบ'}
+                {saving ? (
+                  <><Loader2 className="w-4 h-4 mr-2 animate-spin" />กำลังบันทึก... ({elapsed}s)</>
+                ) : 'บันทึกเข้าระบบ'}
               </Button>
             </DialogFooter>
           </div>
