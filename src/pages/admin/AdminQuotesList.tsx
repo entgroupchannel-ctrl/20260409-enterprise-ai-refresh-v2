@@ -452,6 +452,7 @@ export default function AdminQuotesList() {
                           quoteNumber={quote.quote_number}
                           status={quote.status}
                           onDelete={() => setDeletingQuote(quote)}
+                          onDuplicate={() => handleDuplicate(quote.id)}
                         />
                       </div>
                     </div>
