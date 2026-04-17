@@ -162,9 +162,9 @@ export default function QuoteShareActivity({ quoteId }: Props) {
                     <div key={log.id} className="flex items-start gap-2 text-xs border-l-2 border-primary/30 pl-3 py-1">
                       <div className="mt-0.5">
                         {log.action === 'download' ? (
-                          <Download className="h-3.5 w-3.5 text-blue-600" />
+                          <Download className="h-3.5 w-3.5 text-primary" />
                         ) : (
-                          <Eye className="h-3.5 w-3.5 text-green-600" />
+                          <Eye className="h-3.5 w-3.5 text-primary" />
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
