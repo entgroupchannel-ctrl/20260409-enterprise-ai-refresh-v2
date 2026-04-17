@@ -44,6 +44,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { supabase } from '@/integrations/supabase/client';
 import DiscountInput from '@/components/shared/DiscountInput';
+import ProductSpecDisplay from '@/components/shared/ProductSpecDisplay';
 import { useToast } from '@/hooks/use-toast';
 import ProductEditor from '@/components/admin/ProductEditor';
 import {
@@ -951,10 +952,12 @@ export default function AdminQuoteDetail() {
                             <div className="flex-1">
                               <h4 className="font-semibold text-foreground">{product.model || 'N/A'}</h4>
                               {product.description && (
-                                <p className="text-sm text-muted-foreground whitespace-pre-line mt-1">{product.description}</p>
+                                <div className="mt-1">
+                                  <ProductSpecDisplay description={product.description} variant="ui" />
+                                </div>
                               )}
                               {product.notes && (
-                                <p className="text-sm text-primary mt-1 whitespace-pre-line">หมายเหตุ: {product.notes}</p>
+                                <p className="text-sm text-primary mt-2 whitespace-pre-line">หมายเหตุ: {product.notes}</p>
                               )}
                             </div>
                             <div className="text-right ml-4">
