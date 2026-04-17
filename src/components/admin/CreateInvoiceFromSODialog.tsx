@@ -86,8 +86,10 @@ export default function CreateInvoiceFromSODialog({
   const [loadingQuote, setLoadingQuote] = useState(false);
 
   // Backward compat: if legacy saleOrder prop is passed, wrap it
-  const source: InvoiceSource | null = sourceProp
-    ?? (saleOrderLegacy ? { type: 'sale_order', saleOrder: saleOrderLegacy } : null);
+  const source: InvoiceSource | null = useMemo(
+    () => sourceProp ?? (saleOrderLegacy ? { type: 'sale_order', saleOrder: saleOrderLegacy } : null),
+    [sourceProp, saleOrderLegacy]
+  );
 
   // Form state
   const [invoiceType, setInvoiceType] = useState<InvoiceType>('full');
