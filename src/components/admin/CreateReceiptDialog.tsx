@@ -200,7 +200,7 @@ export default function CreateReceiptDialog({
             createNotification({
               userId: customerId,
               type: 'receipt_created',
-              title: '🧾 ออกใบเสร็จรับเงินใหม่',
+              title: 'ออกใบเสร็จรับเงินใหม่',
               message: `ใบเสร็จ ${newReceipt.receipt_number} ยอดรวม ${rcpAmount} บาท`,
               priority: 'high',
               actionUrl: `/my-account/receipts/${newReceipt.id}`,
