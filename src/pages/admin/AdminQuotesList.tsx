@@ -34,6 +34,8 @@ import {
   Timer,
   Trash2,
   Upload,
+  LayoutGrid,
+  List as ListIcon,
 } from 'lucide-react';
 import { formatRelativeTime } from '@/lib/format';
 import ImportQuotePDFDialog from '@/components/admin/ImportQuotePDFDialog';
