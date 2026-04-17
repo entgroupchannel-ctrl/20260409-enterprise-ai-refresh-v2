@@ -513,6 +513,87 @@ export default function AdminQuotesList() {
                 <span>พบ {filteredQuotes.length} รายการ{searchQuery && ` จากการค้นหา "${searchQuery}"`}</span>
               </div>
 
+              {viewMode === 'table' ? (
+                <Card>
+                  <CardContent className="p-0 overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead className="bg-muted/50 text-xs uppercase text-muted-foreground">
+                        <tr className="border-b">
+                          <th className="text-left font-medium px-3 py-2 whitespace-nowrap">วันที่</th>
+                          <th className="text-left font-medium px-3 py-2 whitespace-nowrap">เลขที่เอกสาร</th>
+                          <th className="text-left font-medium px-3 py-2">ลูกค้า / อีเมล</th>
+                          <th className="text-right font-medium px-3 py-2 whitespace-nowrap">ยอดรวม</th>
+                          <th className="text-left font-medium px-3 py-2 whitespace-nowrap">สถานะ</th>
+                          <th className="w-10 px-2 py-2"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {pageItems.map((quote) => {
+                          const slaTime = quote.status === 'po_uploaded' ? calculateSLATime(quote.sla_po_review_due) : null;
+                          return (
+                            <tr
+                              key={quote.id}
+                              className="border-b last:border-0 hover:bg-muted/40 cursor-pointer"
+                              onClick={() => navigate(`/admin/quotes/${quote.id}`)}
+                            >
+                              <td className="px-3 py-2 whitespace-nowrap text-muted-foreground">
+                                {new Date(quote.created_at).toLocaleDateString('th-TH', { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                              </td>
+                              <td className="px-3 py-2 whitespace-nowrap font-mono text-primary font-medium">
+                                <span className="inline-flex items-center gap-1.5">
+                                  <span className="inline-block w-2 h-2 rounded-full bg-emerald-500" />
+                                  {quote.quote_number}
+                                  {quote.sla_breached && <ShieldAlert className="w-3 h-3 text-destructive" />}
+                                </span>
+                              </td>
+                              <td className="px-3 py-2 min-w-[220px]">
+                                <div className="truncate max-w-[320px] text-foreground">
+                                  {quote.customer_company || quote.customer_name}
+                                </div>
+                                <div className="truncate max-w-[320px] text-xs text-muted-foreground">
+                                  {quote.customer_email}
+                                </div>
+                              </td>
+                              <td className="px-3 py-2 whitespace-nowrap text-right font-semibold">
+                                {formatCurrency(quote.grand_total || 0)}
+                              </td>
+                              <td className="px-3 py-2 whitespace-nowrap">
+                                <div className="flex items-center gap-2">
+                                  <StatusBadge status={quote.status} className="text-[11px] px-2 py-0" />
+                                  {slaTime && (
+                                    <span className={`text-[11px] flex items-center gap-1 font-medium ${slaTime.isOverdue ? 'text-destructive' : slaTime.isUrgent ? 'text-orange-600' : 'text-muted-foreground'}`}>
+                                      <Timer className="w-3 h-3" />{slaTime.text}
+                                    </span>
+                                  )}
+                                </div>
+                              </td>
+                              <td className="px-2 py-2 text-right" onClick={(e) => e.stopPropagation()}>
+                                <QuoteActionsMenu
+                                  quoteId={quote.id}
+                                  quoteNumber={quote.quote_number}
+                                  status={quote.status}
+                                  onDelete={() => setDeletingQuote(quote)}
+                                  onDuplicate={() => handleDuplicate(quote.id)}
+                                  onCopy={() => handleDownload(quote.id)}
+                                  onShare={() => setShareTarget({ id: quote.id, number: quote.quote_number })}
+                                />
+                              </td>
+                            </tr>
+                          );
+                        })}
+                        {pageItems.length === 0 && (
+                          <tr>
+                            <td colSpan={6} className="px-3 py-12 text-center text-muted-foreground">
+                              <FileSearch className="w-12 h-12 mx-auto mb-3 opacity-30" />
+                              <p className="text-sm">ไม่พบใบเสนอราคา</p>
+                            </td>
+                          </tr>
+                        )}
+                      </tbody>
+                    </table>
+                  </CardContent>
+                </Card>
+              ) : (
               <div className={viewMode === 'grid'
                 ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3'
                 : 'space-y-3'}>
