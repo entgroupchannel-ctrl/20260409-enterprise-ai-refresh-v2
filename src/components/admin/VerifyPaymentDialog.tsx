@@ -66,12 +66,20 @@ export default function VerifyPaymentDialog({
     const loadSignedUrl = async () => {
       setLoadingImage(true);
       try {
-        const { data } = await (supabase as any).storage
+        const { data, error } = await (supabase as any).storage
           .from('payment-slips')
           .createSignedUrl(payment.proof_url, 3600);
-        if (data?.signedUrl) setSignedUrl(data.signedUrl);
+        if (error) {
+          console.error('[VerifyPaymentDialog] createSignedUrl error:', error, 'path=', payment.proof_url);
+        }
+        if (data?.signedUrl) {
+          setSignedUrl(data.signedUrl);
+        } else {
+          setSignedUrl(null);
+        }
       } catch (e) {
-        console.error('Failed to load signed URL:', e);
+        console.error('[VerifyPaymentDialog] Failed to load signed URL:', e);
+        setSignedUrl(null);
       } finally {
         setLoadingImage(false);
       }
