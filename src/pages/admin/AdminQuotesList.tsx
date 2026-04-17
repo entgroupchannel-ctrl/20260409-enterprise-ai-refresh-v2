@@ -34,6 +34,8 @@ import {
   Timer,
   Trash2,
   Upload,
+  LayoutGrid,
+  List as ListIcon,
 } from 'lucide-react';
 import { formatRelativeTime } from '@/lib/format';
 import ImportQuotePDFDialog from '@/components/admin/ImportQuotePDFDialog';
@@ -89,6 +91,15 @@ export default function AdminQuotesList() {
   // Pagination state
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
+
+  // View mode (list = current detail rows, grid = compact small rows)
+  const [viewMode, setViewMode] = useState<'list' | 'grid'>(() => {
+    if (typeof window === 'undefined') return 'list';
+    return (localStorage.getItem('admin_quotes_view') as 'list' | 'grid') || 'list';
+  });
+  useEffect(() => {
+    localStorage.setItem('admin_quotes_view', viewMode);
+  }, [viewMode]);
 
   useEffect(() => {
     loadQuotes();
@@ -438,6 +449,30 @@ export default function AdminQuotesList() {
                     <SelectItem value="quote_number_asc">เลขที่ เก่าสุด</SelectItem>
                   </SelectContent>
                 </Select>
+                <div className="inline-flex rounded-md border bg-background p-0.5 shrink-0">
+                  <Button
+                    type="button"
+                    variant={viewMode === 'list' ? 'default' : 'ghost'}
+                    size="sm"
+                    className="h-8 px-2"
+                    onClick={() => setViewMode('list')}
+                    aria-label="มุมมองรายการ"
+                    title="มุมมองรายการ"
+                  >
+                    <ListIcon className="w-4 h-4" />
+                  </Button>
+                  <Button
+                    type="button"
+                    variant={viewMode === 'grid' ? 'default' : 'ghost'}
+                    size="sm"
+                    className="h-8 px-2"
+                    onClick={() => setViewMode('grid')}
+                    aria-label="มุมมองกริด"
+                    title="มุมมองกริด"
+                  >
+                    <LayoutGrid className="w-4 h-4" />
+                  </Button>
+                </div>
               </div>
 
               <Tabs value={statusFilter} onValueChange={setStatusFilter}>
@@ -465,9 +500,69 @@ export default function AdminQuotesList() {
                 <span>พบ {filteredQuotes.length} รายการ{searchQuery && ` จากการค้นหา "${searchQuery}"`}</span>
               </div>
 
-              <div className="space-y-3">
+              <div className={viewMode === 'grid'
+                ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3'
+                : 'space-y-3'}>
                 {pageItems.map((quote) => {
                   const slaTime = quote.status === 'po_uploaded' ? calculateSLATime(quote.sla_po_review_due) : null;
+
+                  if (viewMode === 'grid') {
+                    return (
+                      <Card
+                        key={quote.id}
+                        className="hover:shadow-md transition-shadow cursor-pointer"
+                        onClick={() => navigate(`/admin/quotes/${quote.id}`)}
+                      >
+                        <CardContent className="p-3 space-y-2">
+                          <div className="flex items-start justify-between gap-2">
+                            <div className="min-w-0 flex-1">
+                              <div className="flex items-center gap-1.5 flex-wrap">
+                                <span className="font-semibold text-sm truncate">{quote.quote_number}</span>
+                                {quote.sla_breached && (
+                                  <ShieldAlert className="w-3 h-3 text-destructive shrink-0" />
+                                )}
+                              </div>
+                              <p className="text-xs text-foreground truncate mt-0.5">
+                                {quote.customer_company || quote.customer_name}
+                              </p>
+                              <p className="text-[11px] text-muted-foreground truncate">
+                                {quote.customer_email}
+                              </p>
+                            </div>
+                            <div onClick={(e) => e.stopPropagation()} className="shrink-0">
+                              <QuoteActionsMenu
+                                quoteId={quote.id}
+                                quoteNumber={quote.quote_number}
+                                status={quote.status}
+                                onDelete={() => setDeletingQuote(quote)}
+                                onDuplicate={() => handleDuplicate(quote.id)}
+                                onCopy={() => handleDownload(quote.id)}
+                                onShare={() => setShareTarget({ id: quote.id, number: quote.quote_number })}
+                              />
+                            </div>
+                          </div>
+                          <div className="flex items-center justify-between gap-2">
+                            <StatusBadge status={quote.status} className="text-[10px] px-1.5 py-0" />
+                            <span className="text-sm font-bold text-primary">
+                              {formatCurrency(quote.grand_total || 0)}
+                            </span>
+                          </div>
+                          <div className="flex items-center justify-between text-[11px] text-muted-foreground">
+                            <span className="flex items-center gap-1">
+                              <Timer className="w-3 h-3" />
+                              {formatRelativeTime(quote.created_at)}
+                            </span>
+                            {slaTime && (
+                              <span className={`flex items-center gap-1 font-medium ${slaTime.isOverdue ? 'text-destructive' : slaTime.isUrgent ? 'text-orange-600' : ''}`}>
+                                <ShieldAlert className="w-3 h-3" /> {slaTime.text}
+                              </span>
+                            )}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    );
+                  }
+
                   return (
                     <Card key={quote.id} className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate(`/admin/quotes/${quote.id}`)}>
                       <CardContent className="p-4">
@@ -534,7 +629,7 @@ export default function AdminQuotesList() {
                 })}
 
                 {filteredQuotes.length === 0 && (
-                  <Card>
+                  <Card className={viewMode === 'grid' ? 'col-span-full' : ''}>
                     <CardContent className="p-12">
                       <div className="text-center text-muted-foreground">
                         <FileSearch className="w-16 h-16 mx-auto mb-4 opacity-30" />
