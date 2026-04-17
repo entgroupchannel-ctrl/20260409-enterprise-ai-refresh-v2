@@ -465,12 +465,6 @@ export default function AdminQuotesList() {
                 <span>พบ {filteredQuotes.length} รายการ{searchQuery && ` จากการค้นหา "${searchQuery}"`}</span>
               </div>
 
-          const totalAmount = filteredQuotes.reduce((sum, q) => sum + (q.grand_total || 0), 0);
-          const startIdx = (page - 1) * pageSize;
-          const pageItems = filteredQuotes.slice(startIdx, startIdx + pageSize);
-          const pageAmount = pageItems.reduce((sum, q) => sum + (q.grand_total || 0), 0);
-          return (
-            <>
               <div className="space-y-3">
                 {pageItems.map((quote) => {
                   const slaTime = quote.status === 'po_uploaded' ? calculateSLATime(quote.sla_po_review_due) : null;
