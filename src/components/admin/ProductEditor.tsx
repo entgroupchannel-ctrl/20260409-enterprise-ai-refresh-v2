@@ -142,6 +142,14 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
             // Edit Mode
             <Card className="border-primary/30 bg-primary/5">
               <CardContent className="pt-6 space-y-4">
+                <div>
+                  <Label className="mb-1.5 block">ค้นหาสินค้าจากคลัง (เลือกเพื่อเติมข้อมูลอัตโนมัติ)</Label>
+                  <ProductAutocomplete
+                    value={productSearch}
+                    onChange={setProductSearch}
+                    onSelectProduct={handleSelectProduct}
+                  />
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <Label>รุ่น/Model *</Label>
