@@ -1645,6 +1645,7 @@ export default function AdminQuoteDetail() {
           open={showEditCustomer}
           onClose={() => setShowEditCustomer(false)}
           quoteId={quote.id}
+          customerUserId={quote.created_by}
           initialValues={{
             customer_name: quote.customer_name,
             customer_email: quote.customer_email,
