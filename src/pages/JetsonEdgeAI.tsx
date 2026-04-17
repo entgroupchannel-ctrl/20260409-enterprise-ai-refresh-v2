@@ -209,6 +209,7 @@ const JetsonEdgeAI = () => {
               { label: "🛒 Shop", href: "/shop?category=jetson" },
               { label: "🎯 ตัวช่วยเลือกรุ่น", href: "/nvidia-jetson/recommend" },
               { label: "🧠 AI Models (NGC)", href: "/nvidia-jetson/ai-ready" },
+              { label: "🖥️ GPU Server", href: "/nvidia-jetson/gpu-server" },
               { label: "🏭 Solutions", href: "/nvidia-jetson/solutions" },
               { label: "✦ Case Studies", href: "/nvidia-jetson/case-studies" },
               { label: "📞 ขอ POC ฟรี", href: "/contact" },

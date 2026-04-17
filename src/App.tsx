@@ -59,6 +59,7 @@ const JetsonAIReady = lazyRetry(() => import("./pages/JetsonAIReady"));
 const JetsonCaseStudies = lazyRetry(() => import("./pages/JetsonCaseStudies"));
 const JetsonRecommend = lazyRetry(() => import("./pages/JetsonRecommend"));
 const JetsonProducts = lazyRetry(() => import("./pages/JetsonProducts"));
+const JetsonGPUServer = lazyRetry(() => import("./pages/JetsonGPUServer"));
 const ShopProductDetail = lazyRetry(() => import("./pages/shop/ShopProductDetail"));
 const ShopCompare = lazyRetry(() => import("./pages/shop/ShopCompare"));
 const Unsubscribe = lazyRetry(() => import("./pages/Unsubscribe"));
@@ -216,6 +217,8 @@ const App = () => (
                     <Route path="/nvidia-jetson/case-studies" element={<JetsonCaseStudies />} />
                     <Route path="/nvidia-jetson/recommend" element={<JetsonRecommend />} />
                     <Route path="/nvidia-jetson/products" element={<JetsonProducts />} />
+                    <Route path="/nvidia-jetson/gpu-server" element={<JetsonGPUServer />} />
+                    <Route path="/gpu-server" element={<JetsonGPUServer />} />
                     <Route path="/product-advisor" element={<JetsonRecommend />} />
                     <Route path="/shop/compare" element={<ShopCompare />} />
                     <Route path="/shop/:slug" element={<ShopProductDetail />} />

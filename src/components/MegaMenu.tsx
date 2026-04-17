@@ -129,6 +129,7 @@ const menuCategories = [
           { label: "Embedded IPC Systems", href: "/nvidia-jetson/products?cat=embedded-systems" },
           { label: "Edge AI Computers", href: "/nvidia-jetson/products?cat=edge-computers" },
           { label: "Taiwan IPC — Industrial AI", href: "/nvidia-jetson/products?cat=taiwan-ipc" },
+          { label: "🖥️ GPU Server & AI Workstation", href: "/nvidia-jetson/gpu-server", hot: true },
         ],
       },
       {
@@ -152,7 +153,7 @@ const menuCategories = [
           { label: "Autonomous Robot / Drone", href: "/nvidia-jetson/solutions#drone" },
           { label: "Medical AI", href: "/nvidia-jetson/solutions#medical" },
           { label: "Smart City / Traffic", href: "/nvidia-jetson/solutions#smartcity" },
-          { label: "GPU Server — On-Premise AI", href: "/nvidia-jetson/solutions#gpuserver" },
+          { label: "GPU Server / DGX (On-Premise AI)", href: "/nvidia-jetson/gpu-server" },
         ],
       },
       {
