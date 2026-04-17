@@ -332,9 +332,11 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
           customer_address: data.customer_address || null,
           customer_tax_id: (data.customer_tax_id || '').replace(/[-\s]/g, '') || null,
           products: data.items.map((it) => ({
-            name: it.name,
+            model: it.name,           // display field used across the app
+            name: it.name,            // backward-compat
+            qty: it.quantity,         // QuoteProductList expects `qty`
+            quantity: it.quantity,    // backward-compat
             description: it.description,
-            quantity: it.quantity,
             unit_price: it.unit_price,
             discount_percent: it.discount_percent,
             discount_amount: it.discount_amount,
