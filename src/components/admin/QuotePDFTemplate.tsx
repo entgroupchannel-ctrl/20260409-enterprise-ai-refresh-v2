@@ -206,7 +206,9 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
               <td className="p-2 text-sm align-top">
                 <p className="font-semibold">{p.name || p.model}</p>
                 {p.description && (
-                  <p className="text-sm text-gray-600 whitespace-pre-line mt-1 leading-relaxed">{p.description}</p>
+                  <div className="mt-1">
+                    <ProductSpecDisplay description={p.description} variant="pdf" />
+                  </div>
                 )}
                 {p.notes && (
                   <p className="text-sm text-blue-600 mt-1 whitespace-pre-line leading-relaxed">* {p.notes}</p>
