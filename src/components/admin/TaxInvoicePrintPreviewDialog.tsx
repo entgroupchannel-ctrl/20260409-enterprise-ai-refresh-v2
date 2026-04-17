@@ -13,10 +13,12 @@ interface Props {
   taxInvoice: any;
   items: any[];
   invoiceNumber?: string;
+  /** When true (customer view), force copyType=original and disable the "สำเนา" button. */
+  customerMode?: boolean;
 }
 
 export default function TaxInvoicePrintPreviewDialog({
-  open, onOpenChange, taxInvoice, items, invoiceNumber,
+  open, onOpenChange, taxInvoice, items, invoiceNumber, customerMode = false,
 }: Props) {
   const [isPrinting, setIsPrinting] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
@@ -101,8 +103,12 @@ export default function TaxInvoicePrintPreviewDialog({
                   ต้นฉบับ
                 </button>
                 <button
-                  className={`px-3 py-1.5 ${copyType === 'copy' ? 'bg-gray-600 text-white' : 'bg-muted text-muted-foreground'}`}
-                  onClick={() => setCopyType('copy')}
+                  type="button"
+                  disabled={customerMode}
+                  aria-disabled={customerMode}
+                  title={customerMode ? 'สำเนาสำหรับเจ้าหน้าที่เท่านั้น' : undefined}
+                  className={`px-3 py-1.5 ${copyType === 'copy' && !customerMode ? 'bg-gray-600 text-white' : 'bg-muted text-muted-foreground'} ${customerMode ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  onClick={() => { if (!customerMode) setCopyType('copy'); }}
                 >
                   สำเนา
                 </button>

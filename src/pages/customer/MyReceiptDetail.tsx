@@ -313,6 +313,7 @@ export default function MyReceiptDetail() {
         receipt={receipt}
         invoiceNumber={sourceInvoice?.invoice_number}
         taxInvoiceNumber={sourceTaxInvoice?.tax_invoice_number}
+        customerMode
       />
     </CustomerLayout>
   );
