@@ -3410,6 +3410,91 @@ export type Database = {
         }
         Relationships: []
       }
+      receipt_share_access_log: {
+        Row: {
+          accessed_at: string
+          action: string
+          id: string
+          ip_address: string | null
+          share_link_id: string
+          user_agent: string | null
+        }
+        Insert: {
+          accessed_at?: string
+          action: string
+          id?: string
+          ip_address?: string | null
+          share_link_id: string
+          user_agent?: string | null
+        }
+        Update: {
+          accessed_at?: string
+          action?: string
+          id?: string
+          ip_address?: string | null
+          share_link_id?: string
+          user_agent?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "receipt_share_access_log_share_link_id_fkey"
+            columns: ["share_link_id"]
+            isOneToOne: false
+            referencedRelation: "receipt_share_links"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      receipt_share_links: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          download_count: number
+          expires_at: string
+          id: string
+          last_accessed_at: string | null
+          receipt_id: string
+          revoked_at: string | null
+          revoked_by: string | null
+          token: string
+          view_count: number
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          download_count?: number
+          expires_at: string
+          id?: string
+          last_accessed_at?: string | null
+          receipt_id: string
+          revoked_at?: string | null
+          revoked_by?: string | null
+          token: string
+          view_count?: number
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          download_count?: number
+          expires_at?: string
+          id?: string
+          last_accessed_at?: string | null
+          receipt_id?: string
+          revoked_at?: string | null
+          revoked_by?: string | null
+          token?: string
+          view_count?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "receipt_share_links_receipt_id_fkey"
+            columns: ["receipt_id"]
+            isOneToOne: false
+            referencedRelation: "receipts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       receipts: {
         Row: {
           amount: number
@@ -5100,6 +5185,10 @@ export type Database = {
         Returns: Json
       }
       get_shared_quote: {
+        Args: { p_action?: string; p_token: string }
+        Returns: Json
+      }
+      get_shared_receipt: {
         Args: { p_action?: string; p_token: string }
         Returns: Json
       }
