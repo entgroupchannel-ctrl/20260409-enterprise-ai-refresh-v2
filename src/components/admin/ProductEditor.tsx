@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/dialog';
 import { Plus, Trash2, Edit, Save, X } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import ProductAutocomplete, { type ProductData } from './ProductAutocomplete';
 
 interface Product {
   model: string;
@@ -34,6 +35,7 @@ interface ProductEditorProps {
 export default function ProductEditor({ products, onUpdate, disabled = false }: ProductEditorProps) {
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [showAddDialog, setShowAddDialog] = useState(false);
+  const [productSearch, setProductSearch] = useState('');
   const [editForm, setEditForm] = useState<Product>({
     model: '',
     description: '',
@@ -43,6 +45,25 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
     line_total: 0,
     notes: '',
   });
+
+  const handleSelectProduct = (p: ProductData) => {
+    const unitPrice = Number(p.unit_price) || 0;
+    const description = [p.description, p.cpu, p.ram_gb && `RAM ${p.ram_gb}GB`, p.storage_gb && `${p.storage_type || 'SSD'} ${p.storage_gb}GB`, p.os]
+      .filter(Boolean)
+      .join(' • ');
+    setEditForm((prev) => {
+      const qty = prev.qty || 1;
+      const discount = prev.discount_percent || 0;
+      return {
+        ...prev,
+        model: p.model || p.sku || '',
+        description: description || prev.description,
+        unit_price: unitPrice,
+        line_total: calculateLineTotal(qty, unitPrice, discount),
+      };
+    });
+    setProductSearch(p.name);
+  };
 
   const calculateLineTotal = (qty: number, unitPrice: number, discount: number) => {
     const subtotal = qty * unitPrice;
@@ -93,6 +114,7 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
   };
 
   const resetForm = () => {
+    setProductSearch('');
     setEditForm({
       model: '',
       description: '',
@@ -120,6 +142,14 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
             // Edit Mode
             <Card className="border-primary/30 bg-primary/5">
               <CardContent className="pt-6 space-y-4">
+                <div>
+                  <Label className="mb-1.5 block">ค้นหาสินค้าจากคลัง (เลือกเพื่อเติมข้อมูลอัตโนมัติ)</Label>
+                  <ProductAutocomplete
+                    value={productSearch}
+                    onChange={setProductSearch}
+                    onSelectProduct={handleSelectProduct}
+                  />
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <Label>รุ่น/Model *</Label>
@@ -298,7 +328,16 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
             <DialogTitle>เพิ่มรายการสินค้า</DialogTitle>
             <DialogDescription>กรอกข้อมูลสินค้าที่ต้องการเพิ่ม</DialogDescription>
           </DialogHeader>
-          
+
+          <div className="py-2">
+            <Label className="mb-1.5 block">ค้นหาสินค้าจากคลัง (เลือกเพื่อเติมข้อมูลอัตโนมัติ)</Label>
+            <ProductAutocomplete
+              value={productSearch}
+              onChange={setProductSearch}
+              onSelectProduct={handleSelectProduct}
+            />
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-4">
             <div>
               <Label>รุ่น/Model *</Label>
