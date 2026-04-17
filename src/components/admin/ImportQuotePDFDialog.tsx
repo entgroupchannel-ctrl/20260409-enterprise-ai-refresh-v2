@@ -204,6 +204,23 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
         discount_amount: Number(it.discount_amount) || 0,
         line_total: Number(it.line_total) || (Number(it.quantity) || 0) * (Number(it.unit_price) || 0),
       }));
+      const pts: any = (d as any).payment_terms_structured || {};
+      const payment_terms_structured: PaymentTermsStructured = {
+        credit_days: Number(pts.credit_days) || 0,
+        deposit_percent: Number(pts.deposit_percent) || 0,
+        balance_on_delivery_percent: Number(pts.balance_on_delivery_percent) || 0,
+        by_order_lead_time_days: String(pts.by_order_lead_time_days || ''),
+        validity_days: Number(pts.validity_days) || 30,
+        bank_accounts: Array.isArray(pts.bank_accounts) ? pts.bank_accounts.map((b: any) => ({
+          bank_name: String(b.bank_name || ''),
+          branch: String(b.branch || ''),
+          account_type: String(b.account_type || ''),
+          account_name: String(b.account_name || ''),
+          account_number: String(b.account_number || ''),
+        })) : [],
+        key_conditions: Array.isArray(pts.key_conditions) ? pts.key_conditions.map(String) : [],
+        raw_clauses: Array.isArray(pts.raw_clauses) ? pts.raw_clauses.map(String) : [],
+      };
       setData({
         ...emptyQuote,
         ...d,
@@ -217,6 +234,8 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
         withholding_amount: Number(d.withholding_amount) || 0,
         grand_total: Number(d.grand_total) || 0,
         customer_branch_type: d.customer_branch_type || 'head_office',
+        payment_terms_structured,
+        payment_terms_reviewed: false,
       } as ImportedQuote);
       setStep('preview');
       toast({ title: `AI อ่านข้อมูลสำเร็จ (${elapsed}s)`, description: 'กรุณาตรวจสอบและแก้ไขก่อนบันทึก' });
