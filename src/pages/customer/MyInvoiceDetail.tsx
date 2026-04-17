@@ -11,8 +11,9 @@ import CustomerLayout from '@/layouts/CustomerLayout';
 import {
   ChevronRight, Loader2, Printer, Receipt, User, Calendar,
   CreditCard, Building2, FileText, AlertCircle, CircleCheckBig,
-  Banknote, Clock, Upload, RefreshCw, Hourglass, CheckCircle2,
+  Banknote, Clock, Upload, RefreshCw, Hourglass, CheckCircle2, ImageIcon,
 } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import SEOHead from '@/components/SEOHead';
 import InvoicePrintPreviewDialog from '@/components/admin/InvoicePrintPreviewDialog';
 import UploadPaymentSlipDialog from '@/components/customer/UploadPaymentSlipDialog';
@@ -46,6 +47,27 @@ export default function MyInvoiceDetail() {
   const [showPrintDialog, setShowPrintDialog] = useState(false);
   const [showUploadSlip, setShowUploadSlip] = useState(false);
   const [paymentRecords, setPaymentRecords] = useState<any[]>([]);
+  const [slipPreviewUrl, setSlipPreviewUrl] = useState<string | null>(null);
+  const [slipLoading, setSlipLoading] = useState(false);
+
+  const openSlipPreview = async (proofUrl: string) => {
+    if (!proofUrl) return;
+    setSlipLoading(true);
+    setSlipPreviewUrl(null);
+    try {
+      const { data, error } = await (supabase as any).storage
+        .from('payment-slips')
+        .createSignedUrl(proofUrl, 3600);
+      if (error) {
+        console.error('[MyInvoiceDetail] createSignedUrl error:', error, 'path=', proofUrl);
+        toast({ title: 'เปิดไฟล์สลิปไม่สำเร็จ', description: error.message, variant: 'destructive' });
+        return;
+      }
+      if (data?.signedUrl) setSlipPreviewUrl(data.signedUrl);
+    } finally {
+      setSlipLoading(false);
+    }
+  };
 
   // Compute payment UI state based on payment records
   const getPaymentUIState = (): 'none' | 'pending' | 'rejected' | 'verified-partial' | 'verified-full' => {
