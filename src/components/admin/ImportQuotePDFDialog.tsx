@@ -289,6 +289,14 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
       toast({ title: 'ต้องมีอย่างน้อย 1 รายการสินค้า', variant: 'destructive' });
       return;
     }
+    if ((data.payment_terms || data.payment_terms_structured.raw_clauses.length > 0) && !data.payment_terms_reviewed) {
+      toast({
+        title: 'ยังไม่ได้ยืนยันเงื่อนไขการชำระเงิน',
+        description: 'กรุณาตรวจสอบและกดยืนยัน "ตรวจสอบเงื่อนไขแล้ว" ก่อนบันทึก',
+        variant: 'destructive',
+      });
+      return;
+    }
     setSaving(true);
     setPhase('กำลังบันทึกข้อมูลเข้าระบบ...');
     try {
@@ -336,6 +344,8 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
             original_quote_number: data.quote_number,
             withholding_percent: data.withholding_percent,
             withholding_amount: data.withholding_amount,
+            payment_terms_structured: data.payment_terms_structured,
+            payment_terms_reviewed_at: new Date().toISOString(),
             customer_branch: {
               type: data.customer_branch_type,
               code: data.customer_branch_code,
