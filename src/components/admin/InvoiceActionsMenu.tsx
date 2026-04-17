@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import {
-  MoreVertical, Eye, Printer, Copy, Trash2,
+  MoreVertical, Eye, Printer, Copy, Trash2, Download, Share2,
 } from 'lucide-react';
 
 interface Props {
@@ -17,6 +17,8 @@ interface Props {
   status: string;
   onDelete?: () => void;
   onPrint?: () => void;
+  onDownload?: () => void;
+  onShare?: () => void;
 }
 
 export default function InvoiceActionsMenu({
@@ -25,6 +27,8 @@ export default function InvoiceActionsMenu({
   status,
   onDelete,
   onPrint,
+  onDownload,
+  onShare,
 }: Props) {
   const navigate = useNavigate();
 
@@ -48,7 +52,7 @@ export default function InvoiceActionsMenu({
           <MoreVertical className="w-4 h-4" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-48">
+      <DropdownMenuContent align="end" className="w-52">
         <DropdownMenuItem onClick={handleView}>
           <Eye className="w-4 h-4 mr-2" />
           ดู
@@ -57,6 +61,18 @@ export default function InvoiceActionsMenu({
           <Printer className="w-4 h-4 mr-2" />
           พิมพ์ / PDF
         </DropdownMenuItem>
+        {onDownload && (
+          <DropdownMenuItem onClick={onDownload}>
+            <Download className="w-4 h-4 mr-2" />
+            ดาวน์โหลด
+          </DropdownMenuItem>
+        )}
+        {onShare && (
+          <DropdownMenuItem onClick={onShare}>
+            <Share2 className="w-4 h-4 mr-2" />
+            แชร์ลิงก์ให้ลูกค้า
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem onClick={handleCopyNumber}>
           <Copy className="w-4 h-4 mr-2" />
           คัดลอกเลขที่
@@ -67,7 +83,7 @@ export default function InvoiceActionsMenu({
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={onDelete}
-              className="text-red-600 focus:text-red-700 focus:bg-red-50"
+              className="text-destructive focus:text-destructive"
             >
               <Trash2 className="w-4 h-4 mr-2" />
               ย้ายถังขยะ
