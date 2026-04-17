@@ -75,6 +75,7 @@ export default function EditCustomerInfoDialog({
   const [values, setValues] = useState<CustomerInfo>(initialValues);
   const [profile, setProfile] = useState<ProfileSnapshot | null>(null);
   const [loadingProfile, setLoadingProfile] = useState(false);
+  const [syncContact, setSyncContact] = useState(true);
 
   // Only reset when dialog opens (not when parent re-renders initialValues)
   useEffect(() => {
@@ -157,22 +158,61 @@ export default function EditCustomerInfoDialog({
 
     setSaving(true);
     try {
+      const payload = {
+        customer_name: values.customer_name.trim(),
+        customer_email: values.customer_email.trim(),
+        customer_phone: values.customer_phone?.trim() || null,
+        customer_company: values.customer_company?.trim() || null,
+        customer_address: values.customer_address?.trim() || null,
+        customer_tax_id: values.customer_tax_id?.trim() || null,
+        customer_line: values.customer_line?.trim() || null,
+      };
+
       const { error } = await supabase
         .from('quote_requests')
-        .update({
-          customer_name: values.customer_name.trim(),
-          customer_email: values.customer_email.trim(),
-          customer_phone: values.customer_phone?.trim() || null,
-          customer_company: values.customer_company?.trim() || null,
-          customer_address: values.customer_address?.trim() || null,
-          customer_tax_id: values.customer_tax_id?.trim() || null,
-          customer_line: values.customer_line?.trim() || null,
-        })
+        .update(payload)
         .eq('id', quoteId);
 
       if (error) throw error;
 
-      toast({ title: '✅ บันทึกสำเร็จ', description: 'อัปเดตข้อมูลลูกค้าแล้ว' });
+      // Sync to contacts directory (upsert by email)
+      let contactSynced = false;
+      if (syncContact && payload.customer_email) {
+        try {
+          const { data: existing } = await (supabase as any)
+            .from('contacts')
+            .select('id')
+            .eq('email', payload.customer_email)
+            .maybeSingle();
+
+          const contactRow: any = {
+            company_name: payload.customer_company || payload.customer_name,
+            contact_name: payload.customer_name,
+            email: payload.customer_email,
+            mobile_phone: payload.customer_phone,
+            address: payload.customer_address,
+            tax_id: payload.customer_tax_id,
+            line_id: payload.customer_line,
+            contact_type: 'customer',
+          };
+
+          if (existing?.id) {
+            await (supabase as any).from('contacts').update(contactRow).eq('id', existing.id);
+          } else {
+            await (supabase as any).from('contacts').insert(contactRow);
+          }
+          contactSynced = true;
+        } catch (e) {
+          console.warn('Contact sync failed:', e);
+        }
+      }
+
+      toast({
+        title: '✅ บันทึกสำเร็จ',
+        description: contactSynced
+          ? 'อัปเดตข้อมูลลูกค้าและซิงก์รายชื่อในระบบแล้ว'
+          : 'อัปเดตข้อมูลลูกค้าแล้ว',
+      });
       onSaved();
       onClose();
     } catch (error: any) {
@@ -327,15 +367,26 @@ export default function EditCustomerInfoDialog({
           </div>
         </div>
 
-        <DialogFooter className="gap-2">
-          <Button variant="ghost" onClick={onClose} disabled={saving}>ยกเลิก</Button>
-          <Button onClick={handleSave} disabled={saving}>
-            {saving ? (
-              <><Loader2 className="w-4 h-4 mr-2 animate-spin" />กำลังบันทึก...</>
-            ) : (
-              <><Save className="w-4 h-4 mr-2" />บันทึก</>
-            )}
-          </Button>
+        <DialogFooter className="gap-2 sm:items-center sm:justify-between">
+          <label className="flex items-center gap-2 text-xs text-muted-foreground cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={syncContact}
+              onChange={(e) => setSyncContact(e.target.checked)}
+              className="h-3.5 w-3.5 accent-primary"
+            />
+            ซิงก์ไปยังรายชื่อลูกค้า (Contacts) ด้วย
+          </label>
+          <div className="flex gap-2">
+            <Button variant="ghost" onClick={onClose} disabled={saving}>ยกเลิก</Button>
+            <Button onClick={handleSave} disabled={saving}>
+              {saving ? (
+                <><Loader2 className="w-4 h-4 mr-2 animate-spin" />กำลังบันทึก...</>
+              ) : (
+                <><Save className="w-4 h-4 mr-2" />บันทึก</>
+              )}
+            </Button>
+          </div>
         </DialogFooter>
       </DialogContent>
     </Dialog>
