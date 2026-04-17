@@ -205,8 +205,9 @@ const JetsonEdgeAI = () => {
           <div className="flex items-center gap-2 overflow-x-auto py-3 scrollbar-hide">
             <span className="text-xs text-white/50 font-semibold tracking-wider uppercase shrink-0 mr-2">เมนูลัด:</span>
             {[
-              { label: "🛒 สินค้าทั้งหมด", href: "/shop?category=jetson" },
-              { label: "🎯 ตัวช่วยเลือกรุ่น", href: "/nvidia-jetson/recommend", primary: true },
+              { label: "📦 แคตตาล็อกสินค้า", href: "/nvidia-jetson/products", primary: true },
+              { label: "🛒 Shop", href: "/shop?category=jetson" },
+              { label: "🎯 ตัวช่วยเลือกรุ่น", href: "/nvidia-jetson/recommend" },
               { label: "🧠 AI Models (NGC)", href: "/nvidia-jetson/ai-ready" },
               { label: "🏭 Solutions", href: "/nvidia-jetson/solutions" },
               { label: "✦ Case Studies", href: "/nvidia-jetson/case-studies" },
