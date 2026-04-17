@@ -11,6 +11,7 @@ import imgFirewall from "@/assets/product-firewall.jpg";
 import imgSmart from "@/assets/product-smart-display.jpg";
 import imgRugged from "@/assets/product-rugged.jpg";
 import imgVCloud from "@/assets/product-vcloudpoint.jpg";
+import imgJetson from "@/assets/jetson-mega-menu.jpg";
 
 import bannerIndustrial from "@/assets/banner-industrial.jpg";
 import bannerNetwork from "@/assets/banner-network.jpg";
@@ -105,7 +106,51 @@ const menuCategories = [
     ],
   },
   {
-    id: "display",
+    id: "jetson",
+    label: "NVIDIA Jetson",
+    tagline: "Edge AI & GPU Computing",
+    icon: Sparkles,
+    featured: {
+      title: "NVIDIA Jetson Orin",
+      desc: "โมดูล AI Edge ตั้งแต่ Nano (67 TOPS) ถึง Thor (2070 TFLOPS) — Authorized Partner",
+      href: "/nvidia-jetson",
+      badge: "Edge AI",
+      image: imgJetson,
+    },
+    columns: [
+      {
+        heading: "Jetson Modules & Devkits",
+        links: [
+          { label: "NVIDIA Jetson — ดูทั้งหมด", href: "/nvidia-jetson", hot: true },
+          { label: "Jetson Modules (SoM)", href: "/nvidia-jetson?cat=modules" },
+          { label: "Developer Kits", href: "/nvidia-jetson?cat=devkits", hot: true },
+          { label: "Carrier Boards", href: "/nvidia-jetson?cat=carrier-boards" },
+          { label: "Embedded IPC Systems", href: "/nvidia-jetson?cat=embedded-systems" },
+        ],
+      },
+      {
+        heading: "GPU Server & การ์ดจอ Pro",
+        links: [
+          { label: "GPU Server — Inference", href: "/nvidia-jetson?cat=edge-computers", hot: true },
+          { label: "Workstation GPU Pro", href: "/nvidia-jetson?cat=dev-systems" },
+          { label: "Edge AI Computers", href: "/nvidia-jetson?cat=edge-computers" },
+          { label: "Taiwan IPC — Industrial AI", href: "/nvidia-jetson?cat=taiwan-ipc" },
+        ],
+      },
+      {
+        heading: "โซลูชัน AI พร้อมใช้",
+        links: [
+          { label: "Smart Manufacturing AI", href: "/nvidia-jetson#use-cases", hot: true },
+          { label: "Smart Surveillance", href: "/nvidia-jetson#use-cases" },
+          { label: "Autonomous Robots / AGV", href: "/nvidia-jetson#use-cases" },
+          { label: "Generative AI Edge", href: "/nvidia-jetson#use-cases" },
+          { label: "ตัวอย่างงาน / Case Studies", href: "/case-studies" },
+          { label: "✦ ตัวช่วยเลือกรุ่น Jetson", href: "/product-advisor", hot: true },
+        ],
+      },
+    ],
+  },
+  {
     label: "Smart Display",
     tagline: "จอแสดงผลอุตสาหกรรม & KIOSK",
     icon: Tv,
@@ -243,6 +288,7 @@ const b2bBanners: Record<string, { icon: typeof Headset; title: string; desc: st
   display: { icon: Users, title: "ลูกค้าองค์กรชั้นนำไว้วางใจ", desc: "หน่วยงานรัฐ โรงงาน โรงพยาบาล ใช้สินค้าของเรา" },
   rugged: { icon: Handshake, title: "B2B ราคาพิเศษสำหรับโครงการ", desc: "สั่งซื้อจำนวนมาก ราคาดีกว่า พร้อมเทรนนิ่ง" },
   solution: { icon: Headset, title: "ทดลองฟรี 30 วัน", desc: "ลองก่อนตัดสินใจ ไม่มีค่าใช้จ่าย มีทีมติดตั้งให้" },
+  jetson: { icon: Sparkles, title: "Authorized NVIDIA Partner", desc: "ทีมวิศวกร AI พร้อมให้คำปรึกษาและทดสอบ POC ฟรี" },
 };
 
 const promoBanners: Record<string, { image: string; title: string; desc: string; href: string }> = {
