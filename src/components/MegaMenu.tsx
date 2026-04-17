@@ -370,8 +370,9 @@ const MegaMenu = ({
       {/* Mega dropdown overlay */}
       {active && (
         <div
-          className="absolute left-1/2 -translate-x-1/2 top-full mt-2 z-50 w-[min(900px,90vw)]"
-
+          className={`absolute left-1/2 -translate-x-1/2 top-full mt-2 z-50 ${
+            active.columns.length >= 4 ? "w-[min(1180px,95vw)]" : "w-[min(900px,90vw)]"
+          }`}
           onMouseEnter={() => { if (timeoutRef.current) clearTimeout(timeoutRef.current); }}
           onMouseLeave={handleLeave}>
           {/* Panel */}
