@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { Search, Loader2, FileText, Trash2, Plus } from 'lucide-react';
+import { Search, Loader2, FileText, Trash2, Plus, List as ListIcon, Rows3, LayoutGrid } from 'lucide-react';
 import { formatRelativeTime } from '@/lib/format';
 import TaxInvoiceTimeline from '@/components/admin/TaxInvoiceTimeline';
 import TaxInvoiceActionsMenu from '@/components/admin/TaxInvoiceActionsMenu';
@@ -59,6 +59,14 @@ export default function AdminTaxInvoicesList() {
   const [shareTarget, setShareTarget] = useState<{ id: string; number: string } | null>(null);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
+  const [viewMode, setViewMode] = useState<'list' | 'table' | 'grid'>(() => {
+    if (typeof window === 'undefined') return 'list';
+    const v = localStorage.getItem('admin_taxinvoices_view');
+    return (v === 'grid' || v === 'table' || v === 'list') ? v : 'list';
+  });
+  useEffect(() => {
+    localStorage.setItem('admin_taxinvoices_view', viewMode);
+  }, [viewMode]);
 
   const loadData = async () => {
     setLoading(true);
@@ -217,15 +225,31 @@ export default function AdminTaxInvoicesList() {
           </TabsList>
         </Tabs>
 
-        {/* Search */}
-        <div className="relative mb-4">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-          <Input
-            placeholder="ค้นหาเลขที่, ชื่อลูกค้า..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="pl-9"
-          />
+        {/* Search + View toggle */}
+        <div className="flex items-center gap-2 mb-4">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <Input
+              placeholder="ค้นหาเลขที่, ชื่อลูกค้า..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="pl-9"
+            />
+          </div>
+          <div className="inline-flex rounded-md border bg-background p-0.5 shrink-0">
+            <Button variant={viewMode === 'list' ? 'default' : 'ghost'} size="sm"
+              className="h-8 px-2" onClick={() => setViewMode('list')} title="มุมมองรายการ">
+              <ListIcon className="w-4 h-4" />
+            </Button>
+            <Button variant={viewMode === 'table' ? 'default' : 'ghost'} size="sm"
+              className="h-8 px-2" onClick={() => setViewMode('table')} title="มุมมองตาราง (กะทัดรัด)">
+              <Rows3 className="w-4 h-4" />
+            </Button>
+            <Button variant={viewMode === 'grid' ? 'default' : 'ghost'} size="sm"
+              className="h-8 px-2" onClick={() => setViewMode('grid')} title="มุมมองกริด">
+              <LayoutGrid className="w-4 h-4" />
+            </Button>
+          </div>
         </div>
 
         {loading ? (
@@ -239,35 +263,88 @@ export default function AdminTaxInvoicesList() {
           </div>
         ) : (
           <>
-            <div className="space-y-2">
-              {pageItems.map((tx) => {
-                const statusInfo = STATUS_LABELS[tx.status] || { label: tx.status, cls: '' };
-                return (
-                  <Card
-                    key={tx.id}
-                    className="cursor-pointer hover:shadow-md transition-shadow"
-                    onClick={() => navigate(`/admin/tax-invoices/${tx.id}`)}
-                  >
-                    <CardContent className="py-3 px-4">
-                      <div className="flex items-center justify-between gap-3">
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-1">
-                            <span className="font-mono font-semibold text-sm">{tx.tax_invoice_number}</span>
-                            <Badge variant="outline" className={`text-xs ${statusInfo.cls}`}>
-                              {statusInfo.label}
-                            </Badge>
+            {viewMode === 'table' ? (
+              <Card>
+                <CardContent className="p-0 overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead className="bg-muted/50 text-xs uppercase text-muted-foreground">
+                      <tr className="border-b">
+                        <th className="text-left font-medium px-3 py-2 whitespace-nowrap">วันที่</th>
+                        <th className="text-left font-medium px-3 py-2 whitespace-nowrap">เลขที่เอกสาร</th>
+                        <th className="text-left font-medium px-3 py-2">ลูกค้า</th>
+                        <th className="text-right font-medium px-3 py-2 whitespace-nowrap">ยอดรวม</th>
+                        <th className="text-left font-medium px-3 py-2 whitespace-nowrap">สถานะ</th>
+                        <th className="w-10 px-2 py-2"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {pageItems.map((tx) => {
+                        const statusInfo = STATUS_LABELS[tx.status] || { label: tx.status, cls: '' };
+                        return (
+                          <tr key={tx.id}
+                              className="border-b last:border-0 hover:bg-muted/40 cursor-pointer"
+                              onClick={() => navigate(`/admin/tax-invoices/${tx.id}`)}>
+                            <td className="px-3 py-2 whitespace-nowrap text-muted-foreground">
+                              {new Date(tx.tax_invoice_date).toLocaleDateString('th-TH')}
+                            </td>
+                            <td className="px-3 py-2 whitespace-nowrap font-mono text-primary font-medium">
+                              <span className="inline-flex items-center gap-1.5">
+                                <span className="inline-block w-2 h-2 rounded-full bg-emerald-500" />
+                                {tx.tax_invoice_number}
+                              </span>
+                            </td>
+                            <td className="px-3 py-2 min-w-[220px]">
+                              <div className="truncate max-w-[320px] text-foreground">
+                                {tx.customer_company || tx.customer_name}
+                              </div>
+                            </td>
+                            <td className="px-3 py-2 whitespace-nowrap text-right font-semibold text-primary">
+                              ฿{formatCurrency(tx.grand_total)}
+                            </td>
+                            <td className="px-3 py-2 whitespace-nowrap">
+                              <Badge variant="outline" className={`text-[11px] px-2 py-0 ${statusInfo.cls}`}>
+                                {statusInfo.label}
+                              </Badge>
+                            </td>
+                            <td className="px-2 py-2 text-right" onClick={(e) => e.stopPropagation()}>
+                              <TaxInvoiceActionsMenu
+                                taxInvoiceId={tx.id}
+                                taxInvoiceNumber={tx.tax_invoice_number}
+                                status={tx.status}
+                                onDelete={() => setDeletingTax(tx)}
+                                onShare={() => setShareTarget({ id: tx.id, number: tx.tax_invoice_number })}
+                                onCreateCreditNote={() => setCreatingCNFor(tx.id)}
+                              />
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </CardContent>
+              </Card>
+            ) : viewMode === 'grid' ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+                {pageItems.map((tx) => {
+                  const statusInfo = STATUS_LABELS[tx.status] || { label: tx.status, cls: '' };
+                  return (
+                    <Card key={tx.id}
+                          className="hover:shadow-md transition-shadow cursor-pointer"
+                          onClick={() => navigate(`/admin/tax-invoices/${tx.id}`)}>
+                      <CardContent className="p-3 space-y-2">
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="min-w-0 flex-1">
+                            <span className="font-mono font-semibold text-sm truncate block">
+                              {tx.tax_invoice_number}
+                            </span>
+                            <p className="text-xs text-foreground truncate mt-0.5">
+                              {tx.customer_company || tx.customer_name}
+                            </p>
+                            <p className="text-[11px] text-muted-foreground truncate">
+                              {new Date(tx.tax_invoice_date).toLocaleDateString('th-TH')}
+                            </p>
                           </div>
-                          <TaxInvoiceTimeline currentStatus={tx.status} />
-                          <p className="text-sm text-muted-foreground truncate mt-1">
-                            {tx.customer_company || tx.customer_name}
-                          </p>
-                          <p className="text-xs text-muted-foreground mt-0.5">
-                            {new Date(tx.tax_invoice_date).toLocaleDateString('th-TH')} • {formatRelativeTime(tx.created_at)}
-                          </p>
-                        </div>
-                        <div className="flex items-center gap-2 shrink-0">
-                          <p className="font-bold text-primary">฿{formatCurrency(tx.grand_total)}</p>
-                          <div onClick={(e) => e.stopPropagation()}>
+                          <div onClick={(e) => e.stopPropagation()} className="shrink-0">
                             <TaxInvoiceActionsMenu
                               taxInvoiceId={tx.id}
                               taxInvoiceNumber={tx.tax_invoice_number}
@@ -278,12 +355,66 @@ export default function AdminTaxInvoicesList() {
                             />
                           </div>
                         </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
+                        <div className="flex items-center justify-between gap-2">
+                          <Badge variant="outline" className={`text-[10px] px-1.5 py-0 ${statusInfo.cls}`}>
+                            {statusInfo.label}
+                          </Badge>
+                          <span className="text-sm font-bold text-primary">
+                            ฿{formatCurrency(tx.grand_total)}
+                          </span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="space-y-2">
+                {pageItems.map((tx) => {
+                  const statusInfo = STATUS_LABELS[tx.status] || { label: tx.status, cls: '' };
+                  return (
+                    <Card
+                      key={tx.id}
+                      className="cursor-pointer hover:shadow-md transition-shadow"
+                      onClick={() => navigate(`/admin/tax-invoices/${tx.id}`)}
+                    >
+                      <CardContent className="py-3 px-4">
+                        <div className="flex items-center justify-between gap-3">
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="font-mono font-semibold text-sm">{tx.tax_invoice_number}</span>
+                              <Badge variant="outline" className={`text-xs ${statusInfo.cls}`}>
+                                {statusInfo.label}
+                              </Badge>
+                            </div>
+                            <TaxInvoiceTimeline currentStatus={tx.status} />
+                            <p className="text-sm text-muted-foreground truncate mt-1">
+                              {tx.customer_company || tx.customer_name}
+                            </p>
+                            <p className="text-xs text-muted-foreground mt-0.5">
+                              {new Date(tx.tax_invoice_date).toLocaleDateString('th-TH')} • {formatRelativeTime(tx.created_at)}
+                            </p>
+                          </div>
+                          <div className="flex items-center gap-2 shrink-0">
+                            <p className="font-bold text-primary">฿{formatCurrency(tx.grand_total)}</p>
+                            <div onClick={(e) => e.stopPropagation()}>
+                              <TaxInvoiceActionsMenu
+                                taxInvoiceId={tx.id}
+                                taxInvoiceNumber={tx.tax_invoice_number}
+                                status={tx.status}
+                                onDelete={() => setDeletingTax(tx)}
+                                onShare={() => setShareTarget({ id: tx.id, number: tx.tax_invoice_number })}
+                                onCreateCreditNote={() => setCreatingCNFor(tx.id)}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+            )}
 
             <div className="mt-4">
               <ListPagination
