@@ -169,15 +169,17 @@ export default function ReceiptPDFTemplate({
             )}
           </div>
         </div>
-        <div className="text-right shrink-0 ml-4">
+        <div className="shrink-0 ml-4 flex flex-col items-end">
           <h2 className="text-3xl font-bold text-green-700">ใบเสร็จรับเงิน</h2>
           <p className="text-sm text-gray-600">Receipt</p>
-          <div className={`mt-2 inline-block px-3 py-1 rounded text-xs font-semibold ${
+          <div className={`mt-2 inline-flex items-center justify-center px-4 py-1 rounded text-xs font-semibold leading-none ${
             copyType === 'original'
               ? 'bg-green-100 text-green-800 border border-green-300'
               : 'bg-gray-100 text-gray-700 border border-gray-300'
           }`}>
-            {copyType === 'original' ? 'ต้นฉบับ (ORIGINAL)' : 'สำเนา (COPY)'}
+            <span className="text-center">
+              {copyType === 'original' ? 'ต้นฉบับ (ORIGINAL)' : 'สำเนา (COPY)'}
+            </span>
           </div>
         </div>
       </div>
