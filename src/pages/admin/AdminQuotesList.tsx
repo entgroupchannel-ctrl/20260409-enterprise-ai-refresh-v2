@@ -86,6 +86,10 @@ export default function AdminQuotesList() {
   // Share state
   const [shareTarget, setShareTarget] = useState<{ id: string; number: string } | null>(null);
 
+  // Pagination state
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(20);
+
   useEffect(() => {
     loadQuotes();
     const urlStatus = searchParams.get('status');
@@ -95,6 +99,11 @@ export default function AdminQuotesList() {
   useEffect(() => {
     filterAndSortQuotes();
   }, [quotes, searchQuery, statusFilter, sortBy]);
+
+  // Reset to first page when filters change
+  useEffect(() => {
+    setPage(1);
+  }, [searchQuery, statusFilter, sortBy, pageSize]);
 
   const loadQuotes = async () => {
     try {
