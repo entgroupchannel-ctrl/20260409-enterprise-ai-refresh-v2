@@ -1343,6 +1343,9 @@ export default function AdminQuoteDetail() {
             {/* Phase 5: Negotiation Insights */}
             <NegotiationInsightsCard quoteId={quote.id} />
 
+            {/* Share link activity (views/downloads) */}
+            <QuoteShareActivity quoteId={quote.id} />
+
             {/* Chat/Messages */}
             <Card>
               <CardHeader>
