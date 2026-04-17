@@ -562,11 +562,28 @@ export default function AdminQuoteDetail() {
 
       const now = new Date().toISOString();
 
+      // Compute next revision_number to avoid unique constraint conflicts on resend
+      const { data: lastRev } = await (supabase.from as any)('quote_revisions')
+        .select('revision_number')
+        .eq('quote_id', id)
+        .order('revision_number', { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      const nextRevNumber = ((lastRev?.revision_number as number) || 0) + 1;
+
+      // Mark previous sent revisions as superseded
+      if (nextRevNumber > 1) {
+        await (supabase.from as any)('quote_revisions')
+          .update({ status: 'superseded' })
+          .eq('quote_id', id)
+          .eq('status', 'sent');
+      }
+
       const { data: revData, error: revError } = await (supabase.from as any)('quote_revisions')
         .insert({
           quote_id: id,
-          revision_number: 1,
-          revision_type: 'initial',
+          revision_number: nextRevNumber,
+          revision_type: nextRevNumber === 1 ? 'initial' : 'admin_revision',
           created_by: authUser.id,
           created_by_name: (userData as any)?.full_name || authUser.email || 'Admin',
           created_by_role: (userData as any)?.role || 'admin',
@@ -579,7 +596,7 @@ export default function AdminQuoteDetail() {
           vat_percent: quote.vat_percent || 7,
           vat_amount: totals.vatAmount,
           grand_total: totals.grandTotal,
-          change_reason: 'Initial quote',
+          change_reason: nextRevNumber === 1 ? 'Initial quote' : 'Admin updated and resent quote',
           requires_approval: false,
           approval_status: 'none',
           status: 'sent',
@@ -603,8 +620,8 @@ export default function AdminQuoteDetail() {
           grand_total: totals.grandTotal,
           sent_at: now,
           current_revision_id: revData.id,
-          current_revision_number: 1,
-          total_revisions: 1,
+          current_revision_number: nextRevNumber,
+          total_revisions: nextRevNumber,
         } as any)
         .eq('id', id);
 
