@@ -8,6 +8,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import SEOHead from '@/components/SEOHead';
+import B2BWorkflowBanner from '@/components/B2BWorkflowBanner';
 
 export default function Cart() {
   const { items, loading, count, updateQuantity, removeItem, clearCart } = useCart();
@@ -156,6 +157,7 @@ export default function Cart() {
             </div>
           )}
         </div>
+        <B2BWorkflowBanner variant="compact" />
       </div>
     </>
   );
