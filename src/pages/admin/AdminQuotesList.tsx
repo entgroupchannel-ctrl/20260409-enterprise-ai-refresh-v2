@@ -501,6 +501,7 @@ export default function AdminQuotesList() {
                           status={quote.status}
                           onDelete={() => setDeletingQuote(quote)}
                           onDuplicate={() => handleDuplicate(quote.id)}
+                          onCopy={() => handleDownload(quote.id)}
                         />
                       </div>
                     </div>
