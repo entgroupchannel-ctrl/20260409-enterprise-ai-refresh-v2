@@ -37,6 +37,7 @@ interface ProfileSnapshot {
   contact_phone: string | null;
   company_name: string | null;
   company_tax_id: string | null;
+  company_address: string | null;
   contact_line: string | null;
   contact_email: string | null;
   billing_address: string | null;
@@ -47,14 +48,18 @@ interface ProfileSnapshot {
 }
 
 function composeAddress(p: ProfileSnapshot): string {
-  const parts = [
+  // Prefer billing_* (structured invoice address)
+  const billingParts = [
     p.billing_address,
     p.billing_district,
     p.billing_city,
     p.billing_province,
     p.billing_postal_code,
   ].filter((s) => s && s.trim());
-  return parts.join(' ').trim();
+  const billing = billingParts.join(' ').trim();
+  if (billing) return billing;
+  // Fallback: free-text company_address
+  return (p.company_address || '').trim();
 }
 
 export default function EditCustomerInfoDialog({
@@ -90,7 +95,7 @@ export default function EditCustomerInfoDialog({
     (async () => {
       const { data } = await (supabase as any)
         .from('user_profiles')
-        .select('contact_name, contact_phone, company_name, company_tax_id, contact_line, contact_email, billing_address, billing_district, billing_city, billing_province, billing_postal_code')
+        .select('contact_name, contact_phone, company_name, company_tax_id, company_address, contact_line, contact_email, billing_address, billing_district, billing_city, billing_province, billing_postal_code')
         .eq('user_id', customerUserId)
         .maybeSingle();
       if (!cancelled) {
