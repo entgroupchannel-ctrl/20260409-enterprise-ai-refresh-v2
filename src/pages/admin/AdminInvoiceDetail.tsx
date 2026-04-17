@@ -829,7 +829,7 @@ export default function AdminInvoiceDetail() {
                                 {info.label}
                               </Badge>
                               <span className="text-xs">
-                                {new Date(pr.payment_date).toLocaleDateString('th-TH', {
+                                วันที่โอน: {new Date(pr.payment_date).toLocaleDateString('th-TH', {
                                   year: 'numeric', month: 'short', day: 'numeric',
                                 })}
                               </span>
@@ -839,6 +839,12 @@ export default function AdminInvoiceDetail() {
                                 </span>
                               )}
                             </div>
+                            <p className="text-[11px] text-muted-foreground">
+                              ⏱ ส่งเข้าระบบ: {new Date(pr.proof_uploaded_at || pr.created_at).toLocaleString('th-TH', {
+                                year: 'numeric', month: 'short', day: 'numeric',
+                                hour: '2-digit', minute: '2-digit',
+                              })}
+                            </p>
                             {pr.bank_name && (
                               <p className="text-xs">
                                 โอนเข้า: {pr.bank_name} {pr.bank_account && `(${pr.bank_account})`}
