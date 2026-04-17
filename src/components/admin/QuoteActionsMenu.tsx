@@ -27,6 +27,7 @@ interface QuoteActionsMenuProps {
   onPrint?: () => void;
   onCopy?: () => void;
   onShare?: () => void;
+  onDuplicate?: () => void;
 }
 
 export default function QuoteActionsMenu({
@@ -37,6 +38,7 @@ export default function QuoteActionsMenu({
   onPrint,
   onCopy,
   onShare,
+  onDuplicate,
 }: QuoteActionsMenuProps) {
   const navigate = useNavigate();
 
