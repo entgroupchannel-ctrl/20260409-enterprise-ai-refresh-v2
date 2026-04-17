@@ -215,6 +215,49 @@ export default function AdminQuotesList() {
     }
   };
 
+  const handleDownload = async (quoteId: string) => {
+    try {
+      const { data: q, error: qe } = await (supabase as any)
+        .from('quote_requests')
+        .select('*')
+        .eq('id', quoteId)
+        .maybeSingle();
+      if (qe || !q) throw qe || new Error('ไม่พบใบเสนอราคา');
+
+      const { data: rev } = await (supabase as any)
+        .from('quote_revisions')
+        .select('*')
+        .eq('quote_id', quoteId)
+        .order('revision_number', { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+      // Fallback revision built from quote_requests if no revision exists
+      const revision = rev || {
+        revision_number: 1,
+        products: q.products || [],
+        free_items: q.free_items || [],
+        subtotal: q.subtotal || 0,
+        discount_amount: q.discount_amount || 0,
+        discount_percent: q.discount_percent || 0,
+        vat_amount: q.vat_amount || 0,
+        vat_percent: q.vat_percent || 7,
+        grand_total: q.grand_total || 0,
+        notes: q.notes,
+        payment_terms: q.payment_terms,
+        delivery_terms: q.delivery_terms,
+        warranty_terms: q.warranty_terms,
+        valid_until: q.valid_until,
+        created_by: q.assigned_to,
+      };
+
+      setDownloadQuote(q);
+      setDownloadRevision(revision);
+    } catch (e: any) {
+      toast({ title: 'โหลดข้อมูลไม่สำเร็จ', description: e.message, variant: 'destructive' });
+    }
+  };
+
   const formatCurrency = (amount: number) =>
     new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', minimumFractionDigits: 0 }).format(amount);
 
