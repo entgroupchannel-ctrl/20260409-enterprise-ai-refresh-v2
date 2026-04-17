@@ -541,6 +541,113 @@ export default function AdminQuoteDetail() {
   const poFiles = files.filter((f) => f.category === 'po' || f.category === 'customer_po' || f.category === 'po_virtual');
   const quoteFiles = files.filter((f) => f.category === 'quote_pdf');
 
+  const [savingQuote, setSavingQuote] = useState(false);
+  const handleSaveAndSendQuote = async () => {
+    if (!quote) return;
+    setSavingQuote(true);
+    try {
+      const { data: { user: authUser } } = await supabase.auth.getUser();
+      if (!authUser) throw new Error('Not authenticated');
+
+      const { data: userData } = await supabase
+        .from('users')
+        .select('full_name, role')
+        .eq('id', authUser.id)
+        .single();
+
+      const now = new Date().toISOString();
+
+      const { data: revData, error: revError } = await (supabase.from as any)('quote_revisions')
+        .insert({
+          quote_id: id,
+          revision_number: 1,
+          revision_type: 'initial',
+          created_by: authUser.id,
+          created_by_name: (userData as any)?.full_name || authUser.email || 'Admin',
+          created_by_role: (userData as any)?.role || 'admin',
+          products: quote.products || [],
+          free_items: quote.free_items || [],
+          subtotal: totals.subtotal,
+          discount_type: quote.discount_type || 'percent',
+          discount_percent: quote.discount_percent || 0,
+          discount_amount: totals.discountAmount,
+          vat_percent: quote.vat_percent || 7,
+          vat_amount: totals.vatAmount,
+          grand_total: totals.grandTotal,
+          change_reason: 'Initial quote',
+          requires_approval: false,
+          approval_status: 'none',
+          status: 'sent',
+          sent_at: now,
+          valid_until: quote.valid_until || null,
+          internal_notes: quote.internal_notes || null,
+        })
+        .select('id')
+        .single();
+
+      if (revError) throw revError;
+
+      const { error: updateError } = await supabase
+        .from('quote_requests')
+        .update({
+          status: 'quote_sent',
+          subtotal: totals.subtotal,
+          discount_type: quote.discount_type || 'percent',
+          discount_amount: totals.discountAmount,
+          vat_amount: totals.vatAmount,
+          grand_total: totals.grandTotal,
+          sent_at: now,
+          current_revision_id: revData.id,
+          current_revision_number: 1,
+          total_revisions: 1,
+        } as any)
+        .eq('id', id);
+
+      if (updateError) throw updateError;
+
+      if (quote.created_by) {
+        import('@/lib/notifications').then(({ createNotification, sendQuoteStatusEmail }) => {
+          createNotification({
+            userId: quote.created_by!,
+            type: 'quote_sent',
+            title: 'ใบเสนอราคาพร้อมแล้ว',
+            message: `ใบเสนอราคา ${quote.quote_number} ถูกส่งถึงคุณแล้ว กรุณาตรวจสอบ`,
+            priority: 'high',
+            actionUrl: `/my-account/quotes/${id}`,
+            actionLabel: 'ดูใบเสนอราคา',
+            linkType: 'quote',
+            linkId: id,
+          });
+          if (quote.customer_email) {
+            sendQuoteStatusEmail({
+              recipientEmail: quote.customer_email,
+              customerName: quote.customer_name,
+              quoteNumber: quote.quote_number,
+              status: 'sent',
+              viewUrl: `https://www.entgroup.co.th/my-account/quotes/${id}`,
+            });
+          }
+        });
+      }
+
+      toast({
+        title: 'ส่งใบเสนอราคาสำเร็จ',
+        description: 'ส่งใบเสนอราคาไปยังลูกค้าแล้ว (Revision #1)',
+      });
+
+      await loadQuoteDetails();
+      setRevisionKey((k) => k + 1);
+    } catch (error: any) {
+      toast({
+        title: 'เกิดข้อผิดพลาด',
+        description: error.message,
+        variant: 'destructive',
+      });
+    } finally {
+      setSavingQuote(false);
+    }
+  };
+
   return (
     <AdminLayout>
       <div className="admin-content-area space-y-6">
