@@ -131,7 +131,7 @@ export default function QuoteShareActivity({ quoteId }: Props) {
                   <div key={link.id} className="rounded-lg border p-3 text-sm">
                     <div className="flex items-center justify-between gap-2">
                       <span className="font-medium">ลิงก์ #{links.length - i}</span>
-                      {status === 'active' && <Badge variant="default" className="bg-green-600">ใช้งานได้</Badge>}
+                      {status === 'active' && <Badge variant="default">ใช้งานได้</Badge>}
                       {status === 'expired' && <Badge variant="secondary">หมดอายุ</Badge>}
                       {status === 'revoked' && <Badge variant="destructive"><ShieldOff className="h-3 w-3 mr-1" />ยกเลิก</Badge>}
                     </div>
