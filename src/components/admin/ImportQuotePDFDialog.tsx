@@ -10,9 +10,11 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Separator } from '@/components/ui/separator';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-import { Upload, FileText, Loader2, Sparkles, Trash2, Plus, AlertCircle } from 'lucide-react';
+import { Upload, FileText, Loader2, Sparkles, Trash2, Plus, AlertCircle, AlertTriangle, ShieldCheck, Banknote, Eye } from 'lucide-react';
 
 interface ImportedItem {
   name: string;
