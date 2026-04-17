@@ -39,6 +39,7 @@ import { formatRelativeTime } from '@/lib/format';
 import ImportQuotePDFDialog from '@/components/admin/ImportQuotePDFDialog';
 import PrintPreviewDialog from '@/components/admin/PrintPreviewDialog';
 import ShareQuoteDialog from '@/components/admin/ShareQuoteDialog';
+import ListPagination from '@/components/admin/ListPagination';
 
 interface Quote {
   id: string;
