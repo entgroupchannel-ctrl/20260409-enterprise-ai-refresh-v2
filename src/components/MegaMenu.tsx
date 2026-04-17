@@ -170,6 +170,7 @@ const menuCategories = [
     ],
   },
   {
+    id: "display",
     label: "Smart Display",
     tagline: "จอแสดงผลอุตสาหกรรม & KIOSK",
     icon: Tv,
