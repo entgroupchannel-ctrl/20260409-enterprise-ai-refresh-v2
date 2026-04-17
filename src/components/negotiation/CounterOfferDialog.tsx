@@ -165,20 +165,10 @@ export default function CounterOfferDialog({
       // Get user info
       const { data: userData } = await supabase.from('users').select('full_name, role').eq('id', authUser.id).single();
 
-      // Get next revision number
-      const { data: nextNum } = await supabase.rpc('get_next_revision_number', { p_quote_id: quoteId });
-      const revisionNumber = nextNum || 1;
+      let revisionNumber: number;
+      let revisionId: string;
 
-      const revisionStatus = sendToCustomer && !needsApproval ? 'sent' : 'draft';
-
-      // Insert revision
-      const { data: revData, error: revError } = await (supabase.from as any)('quote_revisions').insert({
-        quote_id: quoteId,
-        revision_number: revisionNumber,
-        revision_type: revisionNumber === 1 ? 'initial' : 'admin_offer',
-        created_by: authUser.id,
-        created_by_name: userData?.full_name || authUser.email || 'Admin',
-        created_by_role: userData?.role || 'admin',
+      const sharedFields: any = {
         products: products,
         free_items: freeItems,
         subtotal: totals.subtotal,
@@ -191,20 +181,61 @@ export default function CounterOfferDialog({
         change_reason: changeReason,
         requires_approval: needsApproval,
         approval_status: needsApproval ? 'pending' : 'none',
-        status: revisionStatus,
-        sent_at: sendToCustomer && !needsApproval ? new Date().toISOString() : null,
         valid_until: validUntil || null,
         internal_notes: internalNotes || null,
-      }).select('id').single();
+      };
 
-      if (revError) throw revError;
+      if (isEditMode && editRevisionId) {
+        // EDIT MODE: update existing draft (revision_number stays the same)
+        const { data: existing } = await (supabase.from as any)('quote_revisions')
+          .select('revision_number, status')
+          .eq('id', editRevisionId)
+          .single();
+
+        if (!existing || existing.status !== 'draft') {
+          throw new Error('ไม่สามารถแก้ไข revision นี้ได้ (ไม่ใช่ draft)');
+        }
+
+        revisionNumber = existing.revision_number;
+        revisionId = editRevisionId;
+
+        const updatePayload: any = {
+          ...sharedFields,
+          status: sendToCustomer && !needsApproval ? 'sent' : 'draft',
+          sent_at: sendToCustomer && !needsApproval ? new Date().toISOString() : null,
+        };
+
+        const { error: updateErr } = await (supabase.from as any)('quote_revisions')
+          .update(updatePayload)
+          .eq('id', editRevisionId);
+        if (updateErr) throw updateErr;
+      } else {
+        // CREATE MODE: insert new revision
+        const { data: nextNum } = await supabase.rpc('get_next_revision_number', { p_quote_id: quoteId });
+        revisionNumber = nextNum || 1;
+
+        const { data: revData, error: revError } = await (supabase.from as any)('quote_revisions').insert({
+          quote_id: quoteId,
+          revision_number: revisionNumber,
+          revision_type: revisionNumber === 1 ? 'initial' : 'admin_offer',
+          created_by: authUser.id,
+          created_by_name: userData?.full_name || authUser.email || 'Admin',
+          created_by_role: userData?.role || 'admin',
+          ...sharedFields,
+          status: sendToCustomer && !needsApproval ? 'sent' : 'draft',
+          sent_at: sendToCustomer && !needsApproval ? new Date().toISOString() : null,
+        }).select('id').single();
+
+        if (revError) throw revError;
+        revisionId = revData.id;
+      }
 
       // ✅ Only update quote snapshot when actually sending (not for drafts)
       const shouldPublish = sendToCustomer && !needsApproval;
 
       if (shouldPublish) {
         const quoteUpdate: any = {
-          current_revision_id: revData.id,
+          current_revision_id: revisionId,
           current_revision_number: revisionNumber,
           total_revisions: revisionNumber,
           free_items: freeItems,
@@ -221,8 +252,8 @@ export default function CounterOfferDialog({
           sent_at: new Date().toISOString(),
         };
         await supabase.from('quote_requests').update(quoteUpdate).eq('id', quoteId);
-      } else {
-        // Draft — only bump total_revisions, don't touch quote snapshot
+      } else if (!isEditMode) {
+        // New draft — bump total_revisions (edit mode keeps existing count)
         await supabase.from('quote_requests').update({
           total_revisions: revisionNumber,
         }).eq('id', quoteId);
@@ -235,7 +266,7 @@ export default function CounterOfferDialog({
             status: 'counter_offered',
             responded_by: authUser.id,
             responded_at: new Date().toISOString(),
-            resulted_in_revision_id: revData.id,
+            resulted_in_revision_id: revisionId,
           })
           .eq('id', negotiationRequestId);
       }
@@ -253,7 +284,9 @@ export default function CounterOfferDialog({
       }
 
       toast({
-        title: sendToCustomer ? 'ส่ง Counter Offer แล้ว' : 'บันทึก Draft แล้ว',
+        title: sendToCustomer
+          ? 'ส่ง Counter Offer แล้ว'
+          : (isEditMode ? 'อัปเดต Draft แล้ว' : 'บันทึก Draft แล้ว'),
         description: needsApproval ? '⚠️ ส่วนลดเกิน threshold — รอ Super Admin อนุมัติ' : undefined,
       });
 
