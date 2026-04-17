@@ -307,10 +307,24 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
         return d.toISOString().slice(0, 10);
       })();
 
-      const { data: row, error } = await supabase
+      // Generate quote number with collision check
+      const generateQuoteNumber = async (base: string): Promise<string> => {
+        const candidate = base || `QT${new Date().toISOString().slice(0,10).replace(/-/g,'')}-${Math.floor(Math.random()*9000+1000)}`;
+        const { data: existing } = await supabase
+          .from('quote_requests')
+          .select('id')
+          .eq('quote_number', candidate)
+          .maybeSingle();
+        if (!existing) return candidate;
+        // Collision → append suffix
+        return `${candidate}-IMP${Math.floor(Math.random()*900+100)}`;
+      };
+      const quoteNumber = await generateQuoteNumber(data.quote_number);
+
+      const doInsert = (qn: string) => supabase
         .from('quote_requests')
         .insert({
-          quote_number: data.quote_number || '',
+          quote_number: qn,
           customer_name: data.customer_name,
           customer_email: data.customer_email || '',
           customer_phone: data.customer_phone || null,
@@ -358,12 +372,22 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
         .select()
         .single();
 
+      let { data: row, error } = await doInsert(quoteNumber);
+
+      // Race-condition fallback: if duplicate slipped past pre-check, retry once with suffix
+      if (error && ((error as any).code === '23505' || /duplicate key/i.test(error.message))) {
+        const fallback = `${quoteNumber}-${Date.now().toString().slice(-5)}`;
+        const retry = await doInsert(fallback);
+        row = retry.data;
+        error = retry.error;
+      }
+
       if (error) throw error;
 
       toast({ title: 'นำเข้าใบเสนอราคาสำเร็จ', description: `เลขที่ ${row.quote_number}` });
       onImported?.();
       handleClose(false);
-      navigate(`/admin/quotes/${row.id}`);
+      navigate(`/admin/quotes/${row!.id}`);
     } catch (e: any) {
       toast({ title: 'บันทึกไม่สำเร็จ', description: e.message, variant: 'destructive' });
     } finally {
