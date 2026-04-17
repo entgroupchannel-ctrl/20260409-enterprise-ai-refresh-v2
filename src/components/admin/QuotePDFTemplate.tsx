@@ -1,6 +1,5 @@
 // src/components/admin/QuotePDFTemplate.tsx
-import { formatFullDate, formatShortDateTime } from '@/lib/format';
-import ProductSpecDisplay from '@/components/shared/ProductSpecDisplay';
+// Pure inline-style template — no Tailwind classes, works correctly with html2pdf.js
 
 interface QuotePDFTemplateProps {
   quote: {
@@ -56,8 +55,6 @@ interface QuotePDFTemplateProps {
     position: string | null;
     signature_url: string | null;
     show_signature_on_quotes: boolean | null;
-    phone: string | null;
-    email: string | null;
   };
   bankAccounts?: Array<{
     bank_name: string;
@@ -69,322 +66,368 @@ interface QuotePDFTemplateProps {
   }>;
 }
 
+const s = {
+  // Layout
+  page: { fontFamily: 'Arial, Helvetica, sans-serif', fontSize: '10pt', color: '#222', lineHeight: 1.5, padding: '0', margin: '0' } as React.CSSProperties,
+  // Header band
+  headerWrap: { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '2px solid #1d4ed8', paddingBottom: '12px', marginBottom: '16px' } as React.CSSProperties,
+  companyCol: { display: 'flex', alignItems: 'flex-start', gap: '12px', flex: 1 } as React.CSSProperties,
+  logo: { width: '64px', height: '64px', objectFit: 'contain' as const },
+  companyName: { fontSize: '14pt', fontWeight: 'bold', color: '#1d4ed8', margin: '0 0 2px' } as React.CSSProperties,
+  companyEn: { fontSize: '9pt', color: '#555', fontStyle: 'italic', margin: '0 0 4px' } as React.CSSProperties,
+  companyDetail: { fontSize: '8pt', color: '#555', margin: '1px 0' } as React.CSSProperties,
+  docTitle: { textAlign: 'right' as const },
+  docTitleH: { fontSize: '16pt', fontWeight: 'bold', color: '#1a1a1a', margin: '0 0 2px' } as React.CSSProperties,
+  docSub: { fontSize: '8pt', color: '#888', margin: '0 0 6px' } as React.CSSProperties,
+  revBadge: { display: 'inline-block', background: '#eff6ff', color: '#1d4ed8', border: '1px solid #bfdbfe', borderRadius: '4px', padding: '2px 10px', fontSize: '9pt', fontWeight: 'bold' } as React.CSSProperties,
+  // Two-col meta
+  metaGrid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '16px' } as React.CSSProperties,
+  metaSectionLabel: { fontSize: '8pt', fontWeight: 'bold', color: '#444', textTransform: 'uppercase' as const, borderBottom: '1px solid #ddd', paddingBottom: '3px', marginBottom: '6px', letterSpacing: '0.05em' } as React.CSSProperties,
+  metaName: { fontSize: '11pt', fontWeight: 'bold', margin: '0 0 2px' } as React.CSSProperties,
+  metaDetail: { fontSize: '9pt', color: '#555', margin: '1px 0' } as React.CSSProperties,
+  metaTable: { width: '100%', borderCollapse: 'collapse' as const, fontSize: '9pt' } as React.CSSProperties,
+  metaTdLabel: { color: '#666', paddingBottom: '2px', whiteSpace: 'nowrap' as const } as React.CSSProperties,
+  metaTdValue: { textAlign: 'right' as const, fontWeight: 'bold' as const, paddingBottom: '2px' } as React.CSSProperties,
+  // Product table
+  table: { width: '100%', borderCollapse: 'collapse' as const, fontSize: '9pt', marginBottom: '8px' } as React.CSSProperties,
+  th: { background: '#1d4ed8', color: '#fff', padding: '6px 8px', textAlign: 'left' as const, fontWeight: 'bold', fontSize: '9pt' } as React.CSSProperties,
+  thRight: { background: '#1d4ed8', color: '#fff', padding: '6px 8px', textAlign: 'right' as const, fontWeight: 'bold', fontSize: '9pt' } as React.CSSProperties,
+  thCenter: { background: '#1d4ed8', color: '#fff', padding: '6px 8px', textAlign: 'center' as const, fontWeight: 'bold', fontSize: '9pt' } as React.CSSProperties,
+  tdTop: { padding: '6px 8px', verticalAlign: 'top' as const, borderBottom: '1px solid #e5e7eb' } as React.CSSProperties,
+  tdRight: { padding: '6px 8px', verticalAlign: 'top' as const, textAlign: 'right' as const, borderBottom: '1px solid #e5e7eb' } as React.CSSProperties,
+  tdCenter: { padding: '6px 8px', verticalAlign: 'top' as const, textAlign: 'center' as const, borderBottom: '1px solid #e5e7eb' } as React.CSSProperties,
+  productName: { fontWeight: 'bold', margin: '0 0 2px' } as React.CSSProperties,
+  productDesc: { color: '#555', fontSize: '8.5pt', whiteSpace: 'pre-wrap' as const, margin: 0 } as React.CSSProperties,
+  productNote: { color: '#1d4ed8', fontSize: '8.5pt', margin: '2px 0 0' } as React.CSSProperties,
+  // Totals
+  totalsWrap: { display: 'flex', justifyContent: 'flex-end', marginBottom: '16px' } as React.CSSProperties,
+  totalsTable: { borderCollapse: 'collapse' as const, fontSize: '9pt', minWidth: '260px' } as React.CSSProperties,
+  totalsTdLabel: { padding: '3px 16px 3px 0', color: '#555' } as React.CSSProperties,
+  totalsTdValue: { padding: '3px 0', textAlign: 'right' as const, fontWeight: 'bold' } as React.CSSProperties,
+  totalsTdGrandLabel: { padding: '6px 16px 3px 0', fontWeight: 'bold', fontSize: '11pt', borderTop: '2px solid #1a1a1a' } as React.CSSProperties,
+  totalsTdGrand: { padding: '6px 0 3px', textAlign: 'right' as const, fontWeight: 'bold', fontSize: '11pt', color: '#1d4ed8', borderTop: '2px solid #1a1a1a' } as React.CSSProperties,
+  // Terms
+  termsWrap: { borderTop: '1px solid #e5e7eb', paddingTop: '12px', marginTop: '4px', fontSize: '9pt' } as React.CSSProperties,
+  termsGrid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '12px' } as React.CSSProperties,
+  termsLabel: { fontWeight: 'bold', color: '#333', marginBottom: '2px' } as React.CSSProperties,
+  termsValue: { color: '#555', margin: 0 } as React.CSSProperties,
+  // Bank
+  bankWrap: { marginTop: '12px', fontSize: '9pt' } as React.CSSProperties,
+  bankLabel: { fontWeight: 'bold', marginBottom: '6px', color: '#333' } as React.CSSProperties,
+  bankGrid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' } as React.CSSProperties,
+  bankCard: (isDefault: boolean): React.CSSProperties => ({
+    border: isDefault ? '1.5px solid #1d4ed8' : '1px solid #ddd',
+    borderRadius: '4px',
+    padding: '7px 10px',
+    background: isDefault ? '#eff6ff' : '#fafafa',
+    fontSize: '8.5pt',
+  }),
+  bankCardName: { fontWeight: 'bold', margin: '0 0 2px', color: '#222' } as React.CSSProperties,
+  bankCardAcc: { fontFamily: 'monospace', margin: '0 0 1px' } as React.CSSProperties,
+  bankCardSub: { color: '#666', margin: 0 } as React.CSSProperties,
+  // Signature
+  sigGrid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px', marginTop: '32px', paddingTop: '16px', borderTop: '1px solid #e5e7eb' } as React.CSSProperties,
+  sigBox: { textAlign: 'center' as const } as React.CSSProperties,
+  sigLine: { borderBottom: '1px solid #aaa', marginBottom: '6px', paddingBottom: '40px' } as React.CSSProperties,
+  sigName: { fontSize: '9.5pt', fontWeight: 'bold' } as React.CSSProperties,
+  sigRole: { fontSize: '8.5pt', color: '#666', margin: '1px 0' } as React.CSSProperties,
+  sigDate: { fontSize: '8pt', color: '#888' } as React.CSSProperties,
+  // Footer
+  footer: { marginTop: '16px', paddingTop: '8px', borderTop: '1px solid #e5e7eb', textAlign: 'center' as const, fontSize: '8pt', color: '#aaa' } as React.CSSProperties,
+  // Misc
+  freeItemsBox: { margin: '0 0 12px', padding: '8px 12px', background: '#fffbeb', border: '1px solid #fde68a', borderRadius: '4px', fontSize: '9pt' } as React.CSSProperties,
+  customerMsgBox: { margin: '0 0 12px', padding: '8px 12px', borderLeft: '3px solid #1d4ed8', background: '#eff6ff', borderRadius: '2px', fontSize: '9pt' } as React.CSSProperties,
+};
+
+function fmt(n: number) {
+  return new Intl.NumberFormat('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n);
+}
+
+function thDate(iso: string) {
+  return new Date(iso).toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
 export default function QuotePDFTemplate({ quote, revision, companyInfo, salePerson, bankAccounts }: QuotePDFTemplateProps) {
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('th-TH', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }).format(amount);
-  };
+  const products = revision.products || [];
+  const freeItems = (revision.free_items && Array.isArray(revision.free_items)) ? revision.free_items : [];
 
   return (
-    <div 
-      id="quote-pdf-template" 
-      className="bg-white p-8 max-w-4xl mx-auto"
-      style={{ fontFamily: 'Arial, sans-serif' }}
-    >
-      {/* Header */}
-      <div className="flex justify-between items-start mb-8 pb-4 border-b-2 border-blue-600">
-        <div className="flex items-start gap-4 flex-1">
+    <div id="quote-pdf-template" style={s.page}>
+
+      {/* ── PAGE CSS injected inline for html2pdf ─────────────────────── */}
+      <style>{`
+        @page {
+          size: A4 portrait;
+          margin: 15mm 15mm 20mm 15mm;
+        }
+        #quote-pdf-template {
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 10pt;
+          color: #222;
+          line-height: 1.5;
+        }
+        /* Repeat table header on every page */
+        thead { display: table-header-group; }
+        tfoot { display: table-footer-group; }
+        /* Avoid breaking product rows mid-row */
+        tbody tr { page-break-inside: avoid; }
+        /* Page number via CSS counter */
+        @page { @bottom-right { content: "หน้า " counter(page) " / " counter(pages); font-size: 8pt; color: #aaa; } }
+      `}</style>
+
+      {/* ── HEADER ────────────────────────────────────────────────────── */}
+      <div style={s.headerWrap}>
+        <div style={s.companyCol}>
           {companyInfo.logo_url && (
-            <img 
-              src={companyInfo.logo_url} 
-              alt={companyInfo.name_th}
-              className="w-20 h-20 object-contain"
-            />
+            <img src={companyInfo.logo_url} alt={companyInfo.name_th} style={s.logo} />
           )}
           <div>
-            <h1 className="text-2xl font-bold text-blue-600 mb-1">
-              {companyInfo.name_th}
-            </h1>
-            {companyInfo.name_en && (
-              <p className="text-sm text-gray-700 italic mb-2">{companyInfo.name_en}</p>
-            )}
-            {companyInfo.address_th && (
-              <p className="text-xs text-gray-600 leading-relaxed">{companyInfo.address_th}</p>
-            )}
-            <div className="flex flex-wrap gap-x-3 text-xs text-gray-600 mt-1">
-              {companyInfo.phone && <span>โทร: {companyInfo.phone}</span>}
-              {companyInfo.fax && <span>แฟกซ์: {companyInfo.fax}</span>}
-              {companyInfo.email && <span>Email: {companyInfo.email}</span>}
-            </div>
-            {companyInfo.website && (
-              <p className="text-xs text-gray-600">เว็บไซต์: {companyInfo.website}</p>
-            )}
+            <p style={s.companyName}>{companyInfo.name_th}</p>
+            {companyInfo.name_en && <p style={s.companyEn}>{companyInfo.name_en}</p>}
+            {companyInfo.address_th && <p style={s.companyDetail}>{companyInfo.address_th}</p>}
+            <p style={s.companyDetail}>
+              {[
+                companyInfo.phone && `โทร: ${companyInfo.phone}`,
+                companyInfo.fax && `แฟกซ์: ${companyInfo.fax}`,
+                companyInfo.email && `Email: ${companyInfo.email}`,
+              ].filter(Boolean).join('  ')}
+            </p>
+            {companyInfo.website && <p style={s.companyDetail}>เว็บไซต์: {companyInfo.website}</p>}
             {companyInfo.tax_id && (
-              <p className="text-xs text-gray-700 mt-1">
-                เลขประจำตัวผู้เสียภาษี: <span className="font-semibold">{companyInfo.tax_id}</span>
+              <p style={{ ...s.companyDetail, fontWeight: 'bold' }}>
+                เลขประจำตัวผู้เสียภาษี: {companyInfo.tax_id}
                 {companyInfo.branch_type === 'head_office' && ' (สำนักงานใหญ่)'}
-                {companyInfo.branch_type === 'branch' && companyInfo.branch_name && 
-                  ` (สาขา: ${companyInfo.branch_name})`}
+                {companyInfo.branch_type === 'branch' && companyInfo.branch_name && ` (สาขา: ${companyInfo.branch_name})`}
               </p>
             )}
           </div>
         </div>
-        <div className="text-right ml-4">
-          <h2 className="text-2xl font-bold text-gray-800 mb-1">ใบเสนอราคา</h2>
-          <p className="text-sm text-gray-500">QUOTATION</p>
-          <div className="mt-2 inline-block bg-blue-50 text-blue-700 px-3 py-1 rounded text-xs font-semibold">
-            Revision {revision.revision_number}
-          </div>
+
+        <div style={s.docTitle}>
+          <p style={s.docTitleH}>ใบเสนอราคา</p>
+          <p style={s.docSub}>QUOTATION</p>
+          <span style={s.revBadge}>Revision {revision.revision_number}</span>
         </div>
       </div>
 
-      {/* Quote Info */}
-      <div className="grid grid-cols-2 gap-8 mb-6">
+      {/* ── META: Customer + Quote Details ───────────────────────────── */}
+      <div style={s.metaGrid}>
         <div>
-          <h3 className="text-sm font-bold text-gray-700 mb-2 border-b pb-1">ลูกค้า</h3>
-          <p className="font-semibold text-base">{quote.customer_name}</p>
-          {quote.customer_company && (
-            <p className="text-sm text-gray-700">{quote.customer_company}</p>
-          )}
-          {quote.customer_address && (
-            <p className="text-xs text-gray-600 leading-relaxed mt-1">{quote.customer_address}</p>
-          )}
+          <p style={s.metaSectionLabel}>ลูกค้า</p>
+          <p style={s.metaName}>{quote.customer_name}</p>
+          {quote.customer_company && <p style={s.metaDetail}>{quote.customer_company}</p>}
+          {quote.customer_address && <p style={{ ...s.metaDetail, whiteSpace: 'pre-line' }}>{quote.customer_address}</p>}
           {quote.customer_tax_id && (
-            <p className="text-xs text-gray-700 mt-1">
-              เลขประจำตัวผู้เสียภาษี: <span className="font-mono">{quote.customer_tax_id}</span>
-            </p>
+            <p style={s.metaDetail}>เลขประจำตัวผู้เสียภาษี: <span style={{ fontFamily: 'monospace' }}>{quote.customer_tax_id}</span></p>
           )}
-          <div className="text-xs text-gray-600 mt-1">
-            {quote.customer_phone && <p>โทร: {quote.customer_phone}</p>}
-            {quote.customer_email && <p>Email: {quote.customer_email}</p>}
-            {quote.customer_line && <p>LINE: {quote.customer_line}</p>}
-          </div>
+          {quote.customer_phone && <p style={s.metaDetail}>โทร: {quote.customer_phone}</p>}
+          {quote.customer_email && <p style={s.metaDetail}>Email: {quote.customer_email}</p>}
+          {quote.customer_line && <p style={s.metaDetail}>LINE: {quote.customer_line}</p>}
         </div>
-        
+
         <div>
-          <h3 className="text-sm font-bold text-gray-700 mb-2 border-b pb-1">รายละเอียด</h3>
-          <table className="text-sm w-full">
+          <p style={s.metaSectionLabel}>รายละเอียด</p>
+          <table style={s.metaTable}>
             <tbody>
               <tr>
-                <td className="text-gray-600 py-0.5">เลขที่ใบเสนอราคา:</td>
-                <td className="text-right font-semibold">{quote.quote_number}</td>
+                <td style={s.metaTdLabel}>เลขที่ใบเสนอราคา:</td>
+                <td style={s.metaTdValue}>{quote.quote_number}</td>
               </tr>
               <tr>
-                <td className="text-gray-600 py-0.5">Revision:</td>
-                <td className="text-right font-semibold">#{revision.revision_number}</td>
+                <td style={s.metaTdLabel}>Revision:</td>
+                <td style={s.metaTdValue}>#{revision.revision_number}</td>
               </tr>
               <tr>
-                <td className="text-gray-600 py-0.5">วันที่:</td>
-                <td className="text-right">{new Date(revision.created_at).toLocaleDateString('th-TH', { 
-                  year: 'numeric', month: 'long', day: 'numeric' 
-                })}</td>
+                <td style={s.metaTdLabel}>วันที่:</td>
+                <td style={s.metaTdValue}>{thDate(revision.created_at)}</td>
               </tr>
               {revision.valid_until && (
                 <tr>
-                  <td className="text-gray-600 py-0.5">ใช้ได้ถึง:</td>
-                  <td className="text-right">{new Date(revision.valid_until).toLocaleDateString('th-TH', { 
-                    year: 'numeric', month: 'long', day: 'numeric' 
-                  })}</td>
+                  <td style={s.metaTdLabel}>ใช้ได้ถึง:</td>
+                  <td style={s.metaTdValue}>{thDate(revision.valid_until)}</td>
                 </tr>
               )}
               <tr>
-                <td className="text-gray-600 py-0.5">ผู้เสนอราคา:</td>
-                <td className="text-right">{revision.created_by_name}</td>
+                <td style={s.metaTdLabel}>ผู้เสนอราคา:</td>
+                <td style={s.metaTdValue}>{revision.created_by_name}</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      {/* Products Table */}
-      <table className="w-full mb-6 border-collapse">
+      {/* ── PRODUCTS TABLE (thead repeats on each page) ───────────────── */}
+      <table style={s.table}>
         <thead>
-          <tr className="bg-blue-600 text-white">
-            <th className="text-left p-2 text-sm">ลำดับ</th>
-            <th className="text-left p-2 text-sm">รายการ</th>
-            <th className="text-center p-2 text-sm w-16">จำนวน</th>
-            <th className="text-right p-2 text-sm w-24">ราคา/หน่วย</th>
-            <th className="text-right p-2 text-sm w-24">ส่วนลด</th>
-            <th className="text-right p-2 text-sm w-28">รวม</th>
+          <tr>
+            <th style={{ ...s.th, width: '32px' }}>#</th>
+            <th style={s.th}>รายการ</th>
+            <th style={{ ...s.thCenter, width: '52px' }}>จำนวน</th>
+            <th style={{ ...s.thRight, width: '88px' }}>ราคา/หน่วย</th>
+            <th style={{ ...s.thRight, width: '80px' }}>ส่วนลด</th>
+            <th style={{ ...s.thRight, width: '96px' }}>รวม</th>
           </tr>
         </thead>
         <tbody>
-          {(revision.products || []).map((p: any, idx: number) => (
-            <tr key={idx} className="border-b border-gray-200">
-              <td className="p-2 text-sm align-top">{idx + 1}</td>
-              <td className="p-2 text-sm align-top">
-                <p className="font-semibold">{p.name || p.model}</p>
-                {p.description && (
-                  <div className="mt-1">
-                    <ProductSpecDisplay description={p.description} variant="pdf" />
-                  </div>
-                )}
-                {p.notes && (
-                  <p className="text-sm text-blue-600 mt-1 whitespace-pre-line leading-relaxed">* {p.notes}</p>
-                )}
+          {products.map((p: any, idx: number) => (
+            <tr key={idx}>
+              <td style={s.tdTop}>{idx + 1}</td>
+              <td style={s.tdTop}>
+                <p style={s.productName}>{p.name || p.model}</p>
+                {p.description && <p style={s.productDesc}>{p.description}</p>}
+                {p.notes && <p style={s.productNote}>* {p.notes}</p>}
               </td>
-              <td className="p-2 text-sm text-center align-top">{p.quantity || p.qty}</td>
-              <td className="p-2 text-sm text-right align-top">{formatCurrency(p.unit_price)}</td>
-              <td className="p-2 text-sm text-right align-top">
-                {(p.discount_amount && p.discount_amount > 0) ? formatCurrency(p.discount_amount) :
-                 (p.discount_percent && p.discount_percent > 0) ? `${p.discount_percent}%` : '-'}
+              <td style={s.tdCenter}>{p.quantity ?? p.qty}</td>
+              <td style={s.tdRight}>{fmt(p.unit_price)}</td>
+              <td style={s.tdRight}>
+                {p.discount_amount > 0 ? fmt(p.discount_amount)
+                  : p.discount_percent > 0 ? `${p.discount_percent}%`
+                  : '–'}
               </td>
-              <td className="p-2 text-sm text-right align-top font-semibold">{formatCurrency(p.line_total || ((p.quantity || p.qty) * p.unit_price))}</td>
+              <td style={{ ...s.tdRight, fontWeight: 'bold' }}>
+                {fmt(p.line_total ?? ((p.quantity ?? p.qty) * p.unit_price))}
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      {/* Free Items */}
-      {revision.free_items && Array.isArray(revision.free_items) && revision.free_items.length > 0 && (
-        <div className="mb-4 p-3 bg-amber-50 border border-amber-200 rounded">
-          <p className="text-sm font-bold text-amber-900 mb-1">🎁 ของแถม</p>
-          <div className="space-y-1">
-            {revision.free_items.map((item: any, idx: number) => (
-              <div key={idx} className="flex justify-between text-sm">
-                <span>{item.name || item.model} × {item.quantity || item.qty}</span>
-                {(item.value || item.total_value) && (
-                  <span className="text-gray-600">มูลค่า {formatCurrency(item.value || item.total_value)}</span>
-                )}
-              </div>
-            ))}
-          </div>
+      {/* ── FREE ITEMS ────────────────────────────────────────────────── */}
+      {freeItems.length > 0 && (
+        <div style={s.freeItemsBox}>
+          <p style={{ fontWeight: 'bold', margin: '0 0 4px' }}>🎁 ของแถม</p>
+          {freeItems.map((item: any, idx: number) => (
+            <div key={idx} style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <span>{item.name || item.model} × {item.quantity ?? item.qty}</span>
+              {(item.value || item.total_value) && (
+                <span style={{ color: '#666' }}>มูลค่า {fmt(item.value || item.total_value)}</span>
+              )}
+            </div>
+          ))}
         </div>
       )}
 
-      {/* Customer message */}
+      {/* ── CUSTOMER MESSAGE ──────────────────────────────────────────── */}
       {revision.customer_message && (
-        <div className="mb-4 p-3 bg-blue-50 border-l-4 border-blue-500 rounded">
-          <p className="text-xs text-gray-600 mb-1">ข้อความจากลูกค้า:</p>
-          <p className="text-sm italic text-gray-700">"{revision.customer_message}"</p>
+        <div style={s.customerMsgBox}>
+          <p style={{ margin: '0 0 2px', color: '#666', fontSize: '8.5pt' }}>ข้อความจากลูกค้า:</p>
+          <p style={{ margin: 0, fontStyle: 'italic' }}>"{revision.customer_message}"</p>
         </div>
       )}
 
-      {/* Totals */}
-      <div className="flex justify-end mb-6">
-        <table className="text-sm">
+      {/* ── TOTALS ────────────────────────────────────────────────────── */}
+      <div style={s.totalsWrap}>
+        <table style={s.totalsTable}>
           <tbody>
             <tr>
-              <td className="py-1 pr-8 text-gray-700">ยอดรวม:</td>
-              <td className="py-1 text-right font-semibold w-32">{formatCurrency(revision.subtotal)} บาท</td>
+              <td style={s.totalsTdLabel}>ยอดรวม:</td>
+              <td style={s.totalsTdValue}>{fmt(revision.subtotal)} บาท</td>
             </tr>
-            {revision.discount_amount && revision.discount_amount > 0 && (
+            {(revision.discount_amount ?? 0) > 0 && (
               <tr>
-                <td className="py-1 pr-8 text-green-700">
-                  ส่วนลด {revision.discount_type === 'baht'
-                    ? `(฿${formatCurrency(revision.discount_amount || 0)})`
-                    : revision.discount_percent 
-                      ? `(${revision.discount_percent}%)` 
-                      : ''}:
+                <td style={{ ...s.totalsTdLabel, color: '#16a34a' }}>
+                  ส่วนลด{revision.discount_type === 'baht'
+                    ? ` (฿${fmt(revision.discount_amount!)})`
+                    : revision.discount_percent ? ` (${revision.discount_percent}%)` : ''}:
                 </td>
-                <td className="py-1 text-right text-green-700">-{formatCurrency(revision.discount_amount)} บาท</td>
+                <td style={{ ...s.totalsTdValue, color: '#16a34a' }}>-{fmt(revision.discount_amount!)} บาท</td>
               </tr>
             )}
-            {revision.vat_amount && revision.vat_amount > 0 && (
+            {(revision.vat_amount ?? 0) > 0 && (
               <tr>
-                <td className="py-1 pr-8 text-gray-700">
-                  VAT {revision.vat_percent || 7}%:
-                </td>
-                <td className="py-1 text-right">{formatCurrency(revision.vat_amount)} บาท</td>
+                <td style={s.totalsTdLabel}>VAT {revision.vat_percent ?? 7}%:</td>
+                <td style={s.totalsTdValue}>{fmt(revision.vat_amount!)} บาท</td>
               </tr>
             )}
-            <tr className="border-t-2 border-gray-800">
-              <td className="py-2 pr-8 font-bold text-base">รวมสุทธิ:</td>
-              <td className="py-2 text-right font-bold text-base text-blue-600">
-                {formatCurrency(revision.grand_total)} บาท
-              </td>
+            <tr>
+              <td style={s.totalsTdGrandLabel}>รวมสุทธิ:</td>
+              <td style={s.totalsTdGrand}>{fmt(revision.grand_total)} บาท</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      {/* Terms & Conditions */}
+      {/* ── TERMS ─────────────────────────────────────────────────────── */}
       {(quote.payment_terms || quote.delivery_terms || quote.warranty_terms || quote.notes) && (
-        <div className="space-y-4 text-sm border-t pt-4">
-          {quote.payment_terms && (
-            <div>
-              <h4 className="font-semibold text-gray-800 mb-1">เงื่อนไขการชำระเงิน:</h4>
-              <p className="text-gray-600">{quote.payment_terms}</p>
-            </div>
-          )}
-          {quote.delivery_terms && (
-            <div>
-              <h4 className="font-semibold text-gray-800 mb-1">เงื่อนไขการจัดส่ง:</h4>
-              <p className="text-gray-600">{quote.delivery_terms}</p>
-            </div>
-          )}
-          {quote.warranty_terms && (
-            <div>
-              <h4 className="font-semibold text-gray-800 mb-1">การรับประกัน:</h4>
-              <p className="text-gray-600">{quote.warranty_terms}</p>
-            </div>
-          )}
+        <div style={s.termsWrap}>
+          <div style={s.termsGrid}>
+            {quote.payment_terms && (
+              <div>
+                <p style={s.termsLabel}>เงื่อนไขการชำระเงิน:</p>
+                <p style={s.termsValue}>{quote.payment_terms}</p>
+              </div>
+            )}
+            {quote.delivery_terms && (
+              <div>
+                <p style={s.termsLabel}>เงื่อนไขการจัดส่ง:</p>
+                <p style={s.termsValue}>{quote.delivery_terms}</p>
+              </div>
+            )}
+            {quote.warranty_terms && (
+              <div>
+                <p style={s.termsLabel}>การรับประกัน:</p>
+                <p style={s.termsValue}>{quote.warranty_terms}</p>
+              </div>
+            )}
+          </div>
           {quote.notes && (
             <div>
-              <h4 className="font-semibold text-gray-800 mb-1">หมายเหตุ:</h4>
-              <p className="text-gray-600">{quote.notes}</p>
+              <p style={s.termsLabel}>หมายเหตุ:</p>
+              <p style={s.termsValue}>{quote.notes}</p>
             </div>
           )}
         </div>
       )}
 
-      {/* Bank Accounts */}
+      {/* ── BANK ACCOUNTS ─────────────────────────────────────────────── */}
       {bankAccounts && bankAccounts.length > 0 && (
-        <div className="mt-6 pt-4 border-t border-gray-200">
-          <h3 className="text-sm font-bold text-gray-800 mb-2">การชำระเงิน — โอนเข้าบัญชี:</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <div style={s.bankWrap}>
+          <p style={s.bankLabel}>การชำระเงิน — โอนเข้าบัญชี:</p>
+          <div style={s.bankGrid}>
             {bankAccounts.map((bank, idx) => (
-              <div key={idx} className={`text-xs p-2 rounded border ${bank.is_default ? 'border-blue-500 bg-blue-50' : 'border-gray-200'}`}>
-                <p className="font-semibold text-gray-800">
+              <div key={idx} style={s.bankCard(bank.is_default)}>
+                <p style={s.bankCardName}>
                   {bank.bank_name}
-                  {bank.is_default && <span className="ml-2 text-[10px] text-blue-600">⭐ หลัก</span>}
+                  {bank.is_default && <span style={{ marginLeft: '6px', fontSize: '8pt', color: '#1d4ed8' }}>⭐ หลัก</span>}
                 </p>
-                <p className="text-gray-700 font-mono">{bank.account_number}</p>
-                <p className="text-gray-600">{bank.account_name}</p>
-                {bank.branch && <p className="text-gray-500">สาขา: {bank.branch}</p>}
+                <p style={s.bankCardAcc}>{bank.account_number}</p>
+                <p style={s.bankCardSub}>{bank.account_name}</p>
+                {bank.branch && <p style={s.bankCardSub}>สาขา: {bank.branch}</p>}
               </div>
             ))}
           </div>
         </div>
       )}
 
-      {/* Signature */}
-      <div className="grid grid-cols-2 gap-8 mt-12 pt-8 border-t">
-        <div className="text-center">
+      {/* ── SIGNATURES ────────────────────────────────────────────────── */}
+      <div style={s.sigGrid}>
+        <div style={s.sigBox}>
           {salePerson?.signature_url && salePerson?.show_signature_on_quotes !== false ? (
-            <div>
-              <img 
-                src={salePerson.signature_url} 
-                alt="ลายเซ็น" 
-                className="max-h-16 mx-auto mb-1"
-              />
-              <div className="border-t border-gray-400 w-48 mx-auto pt-1">
-                <p className="text-sm font-medium">{salePerson.full_name || 'พนักงานขาย'}</p>
-                {salePerson.position && (
-                  <p className="text-xs text-gray-600">{salePerson.position}</p>
-                )}
-                {salePerson.phone && (
-                  <p className="text-xs text-gray-500">โทร: {salePerson.phone}</p>
-                )}
-                {salePerson.email && (
-                  <p className="text-xs text-gray-500">{salePerson.email}</p>
-                )}
-                <p className="text-xs text-gray-500 mt-1">ผู้เสนอราคา</p>
+            <>
+              <img src={salePerson.signature_url} alt="ลายเซ็น" style={{ maxHeight: '48px', margin: '0 auto 4px', display: 'block' }} />
+              <div style={{ borderTop: '1px solid #aaa', paddingTop: '4px' }}>
+                <p style={s.sigName}>{salePerson.full_name || 'พนักงานขาย'}</p>
+                {salePerson.position && <p style={s.sigRole}>{salePerson.position}</p>}
               </div>
-            </div>
+            </>
           ) : (
-            <div>
-              <div className="border-b border-gray-400 mb-2 pb-12"></div>
-              <p className="text-sm">ผู้เสนอราคา</p>
-              <p className="text-xs text-gray-600 mt-1">
-                วันที่: {formatShortDateTime(new Date())}
-              </p>
-            </div>
+            <div style={s.sigLine} />
           )}
+          <p style={s.sigRole}>ผู้เสนอราคา</p>
+          <p style={s.sigDate}>วันที่: {new Date().toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
         </div>
-        <div className="text-center">
-          <div className="border-b border-gray-400 mb-2 pb-12"></div>
-          <p className="text-sm">ผู้อนุมัติ</p>
-          <p className="text-xs text-gray-600 mt-1">วันที่: ______________</p>
+        <div style={s.sigBox}>
+          <div style={s.sigLine} />
+          <p style={s.sigRole}>ผู้อนุมัติ</p>
+          <p style={s.sigDate}>วันที่: ______________</p>
         </div>
       </div>
 
-      {/* Footer */}
-      <div className="mt-8 pt-4 border-t text-center text-xs text-gray-500">
-        <p>เอกสารนี้ออกโดยระบบอัตโนมัติ ไม่ต้องลงนามเพื่อให้มีผลบังคับใช้</p>
+      {/* ── FOOTER ────────────────────────────────────────────────────── */}
+      <div style={s.footer}>
+        <p style={{ margin: 0 }}>เอกสารนี้ออกโดยระบบอัตโนมัติ ไม่ต้องลงนามเพื่อให้มีผลบังคับใช้</p>
       </div>
+
     </div>
   );
 }
