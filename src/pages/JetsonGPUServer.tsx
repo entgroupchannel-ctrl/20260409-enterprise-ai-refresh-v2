@@ -4,6 +4,12 @@ import { ArrowLeft, FileText, Phone, Server, Cpu, Zap, Award } from "lucide-reac
 import SiteNavbar from "@/components/SiteNavbar";
 import Footer from "@/components/Footer";
 import LineQRButton from "@/components/LineQRButton";
+import imgDgxA100 from "@/assets/jetson/dgx-a100.jpg";
+import imgDgxSpark from "@/assets/jetson/dgx-spark.jpg";
+import imgAgxThor from "@/assets/jetson/agx-thor.jpg";
+import imgWs2030 from "@/assets/jetson/ws2030.jpg";
+import imgWs1020 from "@/assets/jetson/ws1020.jpg";
+import imgW830 from "@/assets/jetson/w830.jpg";
 
 const NV = "#76B900";
 
