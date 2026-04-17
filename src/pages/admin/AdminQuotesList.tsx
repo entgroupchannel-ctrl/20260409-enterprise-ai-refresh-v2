@@ -38,6 +38,7 @@ import {
 import { formatRelativeTime } from '@/lib/format';
 import ImportQuotePDFDialog from '@/components/admin/ImportQuotePDFDialog';
 import PrintPreviewDialog from '@/components/admin/PrintPreviewDialog';
+import ShareQuoteDialog from '@/components/admin/ShareQuoteDialog';
 
 interface Quote {
   id: string;
@@ -80,6 +81,9 @@ export default function AdminQuotesList() {
   // Download PDF state
   const [downloadQuote, setDownloadQuote] = useState<any>(null);
   const [downloadRevision, setDownloadRevision] = useState<any>(null);
+
+  // Share state
+  const [shareTarget, setShareTarget] = useState<{ id: string; number: string } | null>(null);
 
   useEffect(() => {
     loadQuotes();
@@ -502,6 +506,7 @@ export default function AdminQuotesList() {
                           onDelete={() => setDeletingQuote(quote)}
                           onDuplicate={() => handleDuplicate(quote.id)}
                           onCopy={() => handleDownload(quote.id)}
+                          onShare={() => setShareTarget({ id: quote.id, number: quote.quote_number })}
                         />
                       </div>
                     </div>
@@ -620,6 +625,14 @@ export default function AdminQuotesList() {
           autoDownload
         />
       )}
+
+      {/* Share quote dialog */}
+      <ShareQuoteDialog
+        open={!!shareTarget}
+        onOpenChange={(v) => { if (!v) setShareTarget(null); }}
+        quoteId={shareTarget?.id ?? null}
+        quoteNumber={shareTarget?.number ?? null}
+      />
     </AdminLayout>
   );
 }

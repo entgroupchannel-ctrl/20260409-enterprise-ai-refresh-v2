@@ -104,7 +104,7 @@ export default function QuoteActionsMenu({
         
         <DropdownMenuItem onClick={handleShare}>
           <Share2 className="mr-2 h-4 w-4" />
-          แชร์
+          แชร์ลิงก์ให้ลูกค้า
         </DropdownMenuItem>
         
         <DropdownMenuItem onClick={handleCopy}>
