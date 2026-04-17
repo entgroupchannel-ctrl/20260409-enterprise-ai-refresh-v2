@@ -609,6 +609,17 @@ export default function AdminQuotesList() {
         onOpenChange={setImportOpen}
         onImported={loadQuotes}
       />
+
+      {/* Auto-download PDF */}
+      {downloadQuote && downloadRevision && (
+        <PrintPreviewDialog
+          open={!!downloadQuote}
+          onOpenChange={(v) => { if (!v) { setDownloadQuote(null); setDownloadRevision(null); } }}
+          quote={downloadQuote}
+          revision={downloadRevision}
+          autoDownload
+        />
+      )}
     </AdminLayout>
   );
 }
