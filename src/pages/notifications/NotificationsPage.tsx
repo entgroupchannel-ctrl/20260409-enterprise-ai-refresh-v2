@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Bell, ArrowLeft, CheckCheck, Search, Loader2, ExternalLink,
-  Clock, Inbox,
+  Clock, Inbox, AlertCircle, AlertTriangle, Info,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import SEOHead from "@/components/SEOHead";
@@ -37,10 +37,13 @@ const PRIORITY_BADGE: Record<string, string> = {
   normal: "bg-gray-50 text-gray-700 border-gray-300",
 };
 
-const PRIORITY_LABEL: Record<string, string> = {
-  urgent: "🔴 ด่วน",
-  high: "🟡 สำคัญ",
-  normal: "🟢 ทั่วไป",
+const PRIORITY_META: Record<
+  string,
+  { label: string; icon: typeof AlertCircle }
+> = {
+  urgent: { label: "ด่วน", icon: AlertCircle },
+  high: { label: "สำคัญ", icon: AlertTriangle },
+  normal: { label: "ทั่วไป", icon: Info },
 };
 
 export default function NotificationsPage() {
@@ -350,12 +353,19 @@ export default function NotificationsPage() {
                                     <h4 className="font-semibold text-sm">
                                       {n.title}
                                     </h4>
-                                    <Badge
-                                      variant="outline"
-                                      className={cn("text-[10px]", PRIORITY_BADGE[n.priority])}
-                                    >
-                                      {PRIORITY_LABEL[n.priority]}
-                                    </Badge>
+                                    {(() => {
+                                      const meta = PRIORITY_META[n.priority];
+                                      const PIcon = meta.icon;
+                                      return (
+                                        <Badge
+                                          variant="outline"
+                                          className={cn("text-[10px] gap-1", PRIORITY_BADGE[n.priority])}
+                                        >
+                                          <PIcon className="w-3 h-3" />
+                                          {meta.label}
+                                        </Badge>
+                                      );
+                                    })()}
                                     {isUnread && (
                                       <span className="inline-block w-2 h-2 bg-primary rounded-full" />
                                     )}

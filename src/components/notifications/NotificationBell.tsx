@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Bell, CheckCheck, ExternalLink } from "lucide-react";
+import { Bell, CheckCheck, ExternalLink, AlertCircle, AlertTriangle, Info } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -27,16 +27,25 @@ interface Props {
   userId: string;
 }
 
-const PRIORITY_LABELS: Record<string, string> = {
-  urgent: "🔴 ด่วน",
-  high: "🟡 สำคัญ",
-  normal: "🟢 ทั่วไป",
-};
-
-const PRIORITY_BG: Record<string, string> = {
-  urgent: "bg-destructive/10 text-destructive",
-  high: "bg-orange-100 text-orange-700",
-  normal: "bg-secondary text-muted-foreground",
+const PRIORITY_META: Record<
+  string,
+  { label: string; icon: typeof AlertCircle; bg: string }
+> = {
+  urgent: {
+    label: "ด่วน",
+    icon: AlertCircle,
+    bg: "bg-destructive/10 text-destructive",
+  },
+  high: {
+    label: "สำคัญ",
+    icon: AlertTriangle,
+    bg: "bg-orange-100 text-orange-700",
+  },
+  normal: {
+    label: "ทั่วไป",
+    icon: Info,
+    bg: "bg-secondary text-muted-foreground",
+  },
 };
 
 export default function NotificationBell({ userId }: Props) {
@@ -214,10 +223,13 @@ export default function NotificationBell({ userId }: Props) {
               const items = grouped[priority];
               if (items.length === 0) return null;
 
+              const meta = PRIORITY_META[priority];
+              const PriorityIcon = meta.icon;
               return (
                 <div key={priority} className="border-b border-border last:border-0">
-                  <div className={cn("p-2 text-xs font-medium", PRIORITY_BG[priority])}>
-                    {PRIORITY_LABELS[priority]} ({items.length})
+                  <div className={cn("p-2 text-xs font-medium flex items-center gap-1.5", meta.bg)}>
+                    <PriorityIcon className="w-3.5 h-3.5" />
+                    {meta.label} ({items.length})
                   </div>
                   {items.map((n) => {
                     const isUnread = !n.read && !n.read_at;
