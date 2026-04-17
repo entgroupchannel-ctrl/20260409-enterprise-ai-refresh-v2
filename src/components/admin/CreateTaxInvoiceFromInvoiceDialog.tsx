@@ -170,7 +170,6 @@ export default function CreateTaxInvoiceFromInvoiceDialog({
         customer_branch_type: invoice.customer_branch_type,
         customer_branch_code: invoice.customer_branch_code,
         customer_branch_name: invoice.customer_branch_name,
-        customer_email: invoice.customer_email,
         tax_invoice_date: taxInvoiceDate,
         subtotal: invoice.subtotal || 0,
         discount_amount: invoice.discount_amount || 0,
@@ -180,8 +179,7 @@ export default function CreateTaxInvoiceFromInvoiceDialog({
         status: 'pending',
         delivery_address: deliveryAddress || null,
         delivery_date: deliveryDate || null,
-        delivery_contact: deliveryContact || null,
-        delivery_notes: deliveryNotes || null,
+        notes: [deliveryContact && `ผู้รับ: ${deliveryContact}`, deliveryNotes].filter(Boolean).join('\n') || null,
         created_by: user.id,
       };
 
