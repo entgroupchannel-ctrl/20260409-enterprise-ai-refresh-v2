@@ -15,6 +15,7 @@ import {
 import { Plus, Trash2, Edit, Save, X } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import ProductAutocomplete, { type ProductData } from './ProductAutocomplete';
+import DiscountInput, { type DiscountType } from '@/components/shared/DiscountInput';
 
 interface Product {
   model: string;
