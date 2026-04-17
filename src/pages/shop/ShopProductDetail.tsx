@@ -219,11 +219,20 @@ const ShopProductDetail = () => {
 
             {/* Price + Volume */}
             <div className="space-y-3">
-              <div className="flex items-baseline gap-3">
-                <span className="text-2xl font-bold text-primary">฿{fmt(displayPrice)}</span>
-                <span className="text-xs text-muted-foreground">/ ชิ้น (ก่อน VAT)</span>
-              </div>
-              <TierPricingTable basePrice={displayPrice} selectedQuantity={qty} />
+              {displayPrice > 0 ? (
+                <>
+                  <div className="flex items-baseline gap-3">
+                    <span className="text-2xl font-bold text-primary">฿{fmt(displayPrice)}</span>
+                    <span className="text-xs text-muted-foreground">/ ชิ้น (ก่อน VAT)</span>
+                  </div>
+                  <TierPricingTable basePrice={displayPrice} selectedQuantity={qty} />
+                </>
+              ) : (
+                <div className="flex items-baseline gap-3">
+                  <span className="text-2xl font-bold text-primary">Call for Price</span>
+                  <span className="text-xs text-muted-foreground">— ติดต่อขอใบเสนอราคา</span>
+                </div>
+              )}
             </div>
 
             <Separator />
