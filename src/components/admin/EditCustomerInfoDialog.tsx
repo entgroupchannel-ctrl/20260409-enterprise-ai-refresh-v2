@@ -367,15 +367,26 @@ export default function EditCustomerInfoDialog({
           </div>
         </div>
 
-        <DialogFooter className="gap-2">
-          <Button variant="ghost" onClick={onClose} disabled={saving}>ยกเลิก</Button>
-          <Button onClick={handleSave} disabled={saving}>
-            {saving ? (
-              <><Loader2 className="w-4 h-4 mr-2 animate-spin" />กำลังบันทึก...</>
-            ) : (
-              <><Save className="w-4 h-4 mr-2" />บันทึก</>
-            )}
-          </Button>
+        <DialogFooter className="gap-2 sm:items-center sm:justify-between">
+          <label className="flex items-center gap-2 text-xs text-muted-foreground cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={syncContact}
+              onChange={(e) => setSyncContact(e.target.checked)}
+              className="h-3.5 w-3.5 accent-primary"
+            />
+            ซิงก์ไปยังรายชื่อลูกค้า (Contacts) ด้วย
+          </label>
+          <div className="flex gap-2">
+            <Button variant="ghost" onClick={onClose} disabled={saving}>ยกเลิก</Button>
+            <Button onClick={handleSave} disabled={saving}>
+              {saving ? (
+                <><Loader2 className="w-4 h-4 mr-2 animate-spin" />กำลังบันทึก...</>
+              ) : (
+                <><Save className="w-4 h-4 mr-2" />บันทึก</>
+              )}
+            </Button>
+          </div>
         </DialogFooter>
       </DialogContent>
     </Dialog>
