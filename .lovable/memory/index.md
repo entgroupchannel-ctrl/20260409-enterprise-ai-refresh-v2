@@ -8,8 +8,10 @@ ENT Group — B2B Industrial Computing Platform ภาษาไทย. Supabase 
 ใช้ semantic tokens จาก design system. ห้ามใช้สี hardcode ใน components.
 ก่อนแก้หรือ deploy ต้องยืนยัน scope ตามข้อความที่ผู้ใช้กำหนด และห้ามแตะไฟล์นอก prompt.
 ลิงก์แชร์เอกสารสาธารณะใช้ base URL `https://www.entgroup.co.th` เสมอ (ห้าม window.location.origin).
+ลูกค้าห้ามเห็นใบเสนอราคา status='draft' — query ฝั่งลูกค้าต้อง .neq('status','draft') เสมอ.
 
 ## Memories
+- [Quote Visibility Rule](mem://features/quote-visibility-rule) — กฎ sensitive: ซ่อน draft จากลูกค้า ต้อง admin ส่งก่อนเท่านั้น
 - [Cart System](mem://features/cart-system) — ระบบตะกร้า + โปรไฟล์ลูกค้า (cart_items, user_profiles) สร้าง quote แบบ batch
 - [Quote Builder UX](mem://features/quote-builder/ux-refinement) — การปรับปรุง UX ในหน้า Quote Builder
 - [Auth Registration](mem://auth/registration-process) — ระบบสมัครสมาชิกและ error handling ภาษาไทย
