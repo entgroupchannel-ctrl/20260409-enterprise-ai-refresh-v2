@@ -730,74 +730,181 @@ export default function AdminInvoiceDetail() {
           </Card>
         </div>
 
-        {/* Phase 8.1: Payment Progress Card */}
+        {/* Phase 8.1: Payment Progress + Slips (2-column) */}
         {paymentRecords.length > 0 && invoice && (
-          <Card className="border-primary/20">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-sm flex items-center gap-2">
-                <DollarSign className="w-4 h-4" />
-                สถานะการชำระเงิน
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">ยอดใบวางบิล:</span>
-                <span className="font-mono font-semibold">
-                  ฿{Number(invoice.grand_total).toLocaleString()}
-                </span>
-              </div>
-              <div className="flex justify-between text-green-700 dark:text-green-400">
-                <span>✅ Verified:</span>
-                <span className="font-mono">
-                  ฿{totalVerified.toLocaleString()}
-                </span>
-              </div>
-              {totalPending > 0 && (
-                <div className="flex justify-between text-amber-700 dark:text-amber-400">
-                  <span>⏳ Pending:</span>
+          <div className="grid lg:grid-cols-2 gap-4">
+            <Card className="border-primary/20">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <DollarSign className="w-4 h-4" />
+                  สถานะการชำระเงิน
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">ยอดใบวางบิล:</span>
+                  <span className="font-mono font-semibold">
+                    ฿{Number(invoice.grand_total).toLocaleString()}
+                  </span>
+                </div>
+                <div className="flex justify-between text-green-700 dark:text-green-400">
+                  <span>✅ Verified:</span>
                   <span className="font-mono">
-                    ฿{totalPending.toLocaleString()}
+                    ฿{totalVerified.toLocaleString()}
                   </span>
                 </div>
-              )}
-              <div className="h-2 bg-muted rounded-full overflow-hidden mt-2">
-                <div 
-                  className={cn(
-                    "h-full transition-all",
-                    totalVerified >= Number(invoice.grand_total) ? "bg-green-500" :
-                    totalVerified + totalPending >= Number(invoice.grand_total) ? "bg-amber-500" :
-                    "bg-blue-500"
-                  )}
-                  style={{ 
-                    width: `${Math.min(100, (totalVerified / Number(invoice.grand_total)) * 100)}%` 
-                  }}
-                />
-              </div>
-              {totalVerified > Number(invoice.grand_total) + 0.01 && (
-                <div className="text-xs text-destructive flex items-start gap-1 mt-1">
-                  <AlertCircle className="w-3 h-3 mt-0.5 shrink-0" />
-                  <span>
-                    Verified เกินยอดใบวางบิล ฿
-                    {(totalVerified - Number(invoice.grand_total)).toLocaleString()}
-                    {' '}— อาจมีสลิปซ้ำ ควรตรวจสอบและ reject
-                  </span>
+                {totalPending > 0 && (
+                  <div className="flex justify-between text-amber-700 dark:text-amber-400">
+                    <span>⏳ Pending:</span>
+                    <span className="font-mono">
+                      ฿{totalPending.toLocaleString()}
+                    </span>
+                  </div>
+                )}
+                <div className="h-2 bg-muted rounded-full overflow-hidden mt-2">
+                  <div
+                    className={cn(
+                      "h-full transition-all",
+                      totalVerified >= Number(invoice.grand_total) ? "bg-green-500" :
+                      totalVerified + totalPending >= Number(invoice.grand_total) ? "bg-amber-500" :
+                      "bg-blue-500"
+                    )}
+                    style={{
+                      width: `${Math.min(100, (totalVerified / Number(invoice.grand_total)) * 100)}%`
+                    }}
+                  />
                 </div>
-              )}
-              {totalVerified < Number(invoice.grand_total) - 0.01 && totalPending === 0 && (
-                <div className="text-xs text-amber-700 dark:text-amber-400 flex items-start gap-1 mt-1">
-                  <AlertCircle className="w-3 h-3 mt-0.5 shrink-0" />
-                  <span>
-                    ยังขาดอีก ฿{(Number(invoice.grand_total) - totalVerified).toLocaleString()}
-                  </span>
+                {totalVerified > Number(invoice.grand_total) + 0.01 && (
+                  <div className="text-xs text-destructive flex items-start gap-1 mt-1">
+                    <AlertCircle className="w-3 h-3 mt-0.5 shrink-0" />
+                    <span>
+                      Verified เกินยอดใบวางบิล ฿
+                      {(totalVerified - Number(invoice.grand_total)).toLocaleString()}
+                      {' '}— อาจมีสลิปซ้ำ ควรตรวจสอบและ reject
+                    </span>
+                  </div>
+                )}
+                {totalVerified < Number(invoice.grand_total) - 0.01 && totalPending === 0 && (
+                  <div className="text-xs text-amber-700 dark:text-amber-400 flex items-start gap-1 mt-1">
+                    <AlertCircle className="w-3 h-3 mt-0.5 shrink-0" />
+                    <span>
+                      ยังขาดอีก ฿{(Number(invoice.grand_total) - totalVerified).toLocaleString()}
+                    </span>
+                  </div>
+                )}
+                {Math.abs(totalVerified - Number(invoice.grand_total)) < 0.01 && (
+                  <div className="text-xs text-green-700 dark:text-green-400 flex items-start gap-1 mt-1">
+                    <span>✅ ชำระครบยอดใบวางบิลแล้ว</span>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <Banknote className="w-4 h-4" />
+                  สลิปการชำระเงินจากลูกค้า ({paymentRecords.length} รายการ)
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2 max-h-[420px] overflow-y-auto pr-1">
+                  {paymentRecords.map((pr: any) => {
+                    const statusMap: Record<string, { label: string; cls: string }> = {
+                      pending: { label: 'รอตรวจสอบ', cls: 'bg-amber-50 text-amber-700 border-amber-300' },
+                      verified: { label: 'ยืนยันแล้ว', cls: 'bg-green-50 text-green-700 border-green-300' },
+                      rejected: { label: 'ปฏิเสธ', cls: 'bg-red-50 text-red-700 border-red-300' },
+                    };
+                    const info = statusMap[pr.verification_status] || statusMap.pending;
+
+                    return (
+                      <div
+                        key={pr.id}
+                        className={`p-3 border rounded-lg ${info.cls}`}
+                      >
+                        <div className="flex items-start justify-between gap-3 flex-wrap">
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 mb-1 flex-wrap">
+                              <Badge variant="outline" className={info.cls}>
+                                {info.label}
+                              </Badge>
+                              <span className="text-xs">
+                                {new Date(pr.payment_date).toLocaleDateString('th-TH', {
+                                  year: 'numeric', month: 'short', day: 'numeric',
+                                })}
+                              </span>
+                              {pr.payment_method && (
+                                <span className="text-xs text-muted-foreground">
+                                  • {pr.payment_method === 'bank_transfer' ? 'โอนผ่านธนาคาร' : pr.payment_method}
+                                </span>
+                              )}
+                            </div>
+                            {pr.bank_name && (
+                              <p className="text-xs">
+                                โอนเข้า: {pr.bank_name} {pr.bank_account && `(${pr.bank_account})`}
+                              </p>
+                            )}
+                            {pr.reference_number && (
+                              <p className="text-xs">
+                                อ้างอิง: <span className="font-mono">{pr.reference_number}</span>
+                              </p>
+                            )}
+                            {pr.notes && (
+                              <p className="text-xs italic mt-1">{pr.notes}</p>
+                            )}
+                            {pr.proof_url && (
+                              <a
+                                href="#"
+                                className="inline-flex items-center gap-1 text-xs text-blue-600 hover:underline mt-1"
+                                onClick={async (e) => {
+                                  e.preventDefault();
+                                  const { data } = await (supabase as any).storage
+                                    .from('payment-slips')
+                                    .createSignedUrl(pr.proof_url, 3600);
+                                  if (data?.signedUrl) {
+                                    window.open(data.signedUrl, '_blank');
+                                  }
+                                }}
+                              >
+                                <ExternalLink className="w-3 h-3" />
+                                ดูสลิป
+                              </a>
+                            )}
+                          </div>
+                          <div className="text-right shrink-0 flex flex-col items-end gap-1">
+                            <div className="font-bold text-base">
+                              {formatCurrency(pr.amount)}
+                            </div>
+                            {pr.verified_at && (
+                              <div className="text-[10px]">
+                                ยืนยัน: {new Date(pr.verified_at).toLocaleDateString('th-TH')}
+                              </div>
+                            )}
+                            {pr.verification_status === 'pending' && (
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="mt-1 h-7 text-xs border-blue-400 text-blue-700 hover:bg-blue-50"
+                                onClick={() => setVerifyingPayment(pr)}
+                              >
+                                <ShieldCheck className="w-3 h-3 mr-1" />
+                                ตรวจสอบ
+                              </Button>
+                            )}
+                            {pr.verification_status === 'rejected' && pr.rejection_reason && (
+                              <div className="mt-1 text-[10px] text-red-700 max-w-[200px] text-right">
+                                ❌ {pr.rejection_reason}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
-              )}
-              {Math.abs(totalVerified - Number(invoice.grand_total)) < 0.01 && (
-                <div className="text-xs text-green-700 dark:text-green-400 flex items-start gap-1 mt-1">
-                  <span>✅ ชำระครบยอดใบวางบิลแล้ว</span>
-                </div>
-              )}
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </div>
         )}
 
         {/* Items - card based (matches Quote pattern) */}
@@ -901,114 +1008,7 @@ export default function AdminInvoiceDetail() {
           onSaved={loadData}
         />
 
-        {/* Payment Records Summary (read-only) */}
-        {paymentRecords.length > 0 && (
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-sm flex items-center gap-2">
-                <Banknote className="w-4 h-4" />
-                สลิปการชำระเงินจากลูกค้า ({paymentRecords.length} รายการ)
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                {paymentRecords.map((pr: any) => {
-                  const statusMap: Record<string, { label: string; cls: string }> = {
-                    pending: { label: 'รอตรวจสอบ', cls: 'bg-amber-50 text-amber-700 border-amber-300' },
-                    verified: { label: 'ยืนยันแล้ว', cls: 'bg-green-50 text-green-700 border-green-300' },
-                    rejected: { label: 'ปฏิเสธ', cls: 'bg-red-50 text-red-700 border-red-300' },
-                  };
-                  const info = statusMap[pr.verification_status] || statusMap.pending;
 
-                  return (
-                    <div
-                      key={pr.id}
-                      className={`p-3 border rounded-lg ${info.cls}`}
-                    >
-                      <div className="flex items-start justify-between gap-3 flex-wrap">
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-1 flex-wrap">
-                            <Badge variant="outline" className={info.cls}>
-                              {info.label}
-                            </Badge>
-                            <span className="text-xs">
-                              {new Date(pr.payment_date).toLocaleDateString('th-TH', {
-                                year: 'numeric', month: 'short', day: 'numeric',
-                              })}
-                            </span>
-                            {pr.payment_method && (
-                              <span className="text-xs text-muted-foreground">
-                                • {pr.payment_method === 'bank_transfer' ? 'โอนผ่านธนาคาร' : pr.payment_method}
-                              </span>
-                            )}
-                          </div>
-                          {pr.bank_name && (
-                            <p className="text-xs">
-                              โอนเข้า: {pr.bank_name} {pr.bank_account && `(${pr.bank_account})`}
-                            </p>
-                          )}
-                          {pr.reference_number && (
-                            <p className="text-xs">
-                              อ้างอิง: <span className="font-mono">{pr.reference_number}</span>
-                            </p>
-                          )}
-                          {pr.notes && (
-                            <p className="text-xs italic mt-1">{pr.notes}</p>
-                          )}
-                          {pr.proof_url && (
-                            <a
-                              href="#"
-                              className="inline-flex items-center gap-1 text-xs text-blue-600 hover:underline mt-1"
-                              onClick={async (e) => {
-                                e.preventDefault();
-                                const { data } = await (supabase as any).storage
-                                  .from('payment-slips')
-                                  .createSignedUrl(pr.proof_url, 3600);
-                                if (data?.signedUrl) {
-                                  window.open(data.signedUrl, '_blank');
-                                }
-                              }}
-                            >
-                              <ExternalLink className="w-3 h-3" />
-                              ดูสลิป
-                            </a>
-                          )}
-                        </div>
-                        <div className="text-right shrink-0 flex flex-col items-end gap-1">
-                          <div className="font-bold text-base">
-                            {formatCurrency(pr.amount)}
-                          </div>
-                          {pr.verified_at && (
-                            <div className="text-[10px]">
-                              ยืนยัน: {new Date(pr.verified_at).toLocaleDateString('th-TH')}
-                            </div>
-                          )}
-                          {pr.verification_status === 'pending' && (
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="mt-1 h-7 text-xs border-blue-400 text-blue-700 hover:bg-blue-50"
-                              onClick={() => setVerifyingPayment(pr)}
-                            >
-                              <ShieldCheck className="w-3 h-3 mr-1" />
-                              ตรวจสอบ
-                            </Button>
-                          )}
-                          {pr.verification_status === 'rejected' && pr.rejection_reason && (
-                            <div className="mt-1 text-[10px] text-red-700 max-w-[200px] text-right">
-                              ❌ {pr.rejection_reason}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-              
-            </CardContent>
-          </Card>
-        )}
 
         <InvoiceShareActivity invoiceId={invoice.id} />
       </div>
