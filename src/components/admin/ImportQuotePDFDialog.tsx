@@ -352,6 +352,27 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
               </CardContent>
             </Card>
 
+            {parsing && (
+              <Card className="border-primary/40 bg-primary/5">
+                <CardContent className="p-4 space-y-2">
+                  <div className="flex items-center justify-between text-sm">
+                    <div className="flex items-center gap-2 text-foreground font-medium">
+                      <Loader2 className="w-4 h-4 animate-spin text-primary" />
+                      <span>{phase || 'กำลังประมวลผล...'}</span>
+                    </div>
+                    <div className="font-mono text-xs text-muted-foreground tabular-nums">
+                      {elapsed}s / ~{ESTIMATED_PARSE_SECONDS}s
+                    </div>
+                  </div>
+                  <Progress value={Math.min(99, (elapsed / ESTIMATED_PARSE_SECONDS) * 100)} className="h-2" />
+                  <p className="text-[11px] text-muted-foreground">
+                    AI ใช้เวลาประมาณ 20-60 วินาทีในการอ่าน PDF กรุณาอย่าปิดหน้าต่าง
+                    {elapsed > ESTIMATED_PARSE_SECONDS && ' — ใกล้เสร็จแล้ว...'}
+                  </p>
+                </CardContent>
+              </Card>
+            )}
+
             <div className="flex items-start gap-2 text-xs text-muted-foreground bg-muted/30 rounded-md p-3">
               <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
               <div>
@@ -363,7 +384,11 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
             <DialogFooter>
               <Button variant="outline" onClick={() => handleClose(false)} disabled={parsing}>ยกเลิก</Button>
               <Button onClick={handleParse} disabled={!file || parsing}>
-                {parsing ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" />AI กำลังอ่านเอกสาร...</> : <><Sparkles className="w-4 h-4 mr-2" />อ่านด้วย AI</>}
+                {parsing ? (
+                  <><Loader2 className="w-4 h-4 mr-2 animate-spin" />AI กำลังอ่าน... ({elapsed}s)</>
+                ) : (
+                  <><Sparkles className="w-4 h-4 mr-2" />อ่านด้วย AI</>
+                )}
               </Button>
             </DialogFooter>
           </div>
