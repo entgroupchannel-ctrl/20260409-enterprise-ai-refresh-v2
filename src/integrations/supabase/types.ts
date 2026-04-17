@@ -1043,6 +1043,27 @@ export type Database = {
           },
         ]
       }
+      document_counters: {
+        Row: {
+          date_key: string
+          doc_type: string
+          last_seq: number
+          updated_at: string
+        }
+        Insert: {
+          date_key: string
+          doc_type: string
+          last_seq?: number
+          updated_at?: string
+        }
+        Update: {
+          date_key?: string
+          doc_type?: string
+          last_seq?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       document_downloads: {
         Row: {
           document_id: string
@@ -5285,6 +5306,7 @@ export type Database = {
         }
         Returns: string
       }
+      next_document_number: { Args: { _doc_type: string }; Returns: string }
       notify_admins: {
         Args: {
           p_action_label?: string
