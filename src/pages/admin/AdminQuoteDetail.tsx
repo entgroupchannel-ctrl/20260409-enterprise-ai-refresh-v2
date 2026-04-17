@@ -260,19 +260,18 @@ export default function AdminQuoteDetail() {
     }
   };
 
-  // Load assigned sale person
+  // Load assigned sale person (admin/sales staff only — never fall back to created_by which is the customer)
   useEffect(() => {
     const loadSalePerson = async () => {
-      if (!quote?.assigned_to && !quote?.created_by) {
+      if (!quote?.assigned_to) {
         setAssignedSaleUser(null);
         return;
       }
-      const userId = quote.assigned_to || quote.created_by;
       try {
         const { data } = await (supabase as any)
           .from('users')
           .select('id, full_name, email, position, avatar_url, phone')
-          .eq('id', userId)
+          .eq('id', quote.assigned_to)
           .maybeSingle();
         setAssignedSaleUser(data);
       } catch (e) {
@@ -281,7 +280,7 @@ export default function AdminQuoteDetail() {
     };
     loadSalePerson();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [quote?.assigned_to, quote?.created_by]);
+  }, [quote?.assigned_to]);
 
   useEffect(() => {
     // Check for action in URL params
