@@ -17,7 +17,7 @@ const steps = [
   { icon: ReceiptText, label: "รับ PO / สลิป" },
 ];
 
-const B2BWorkflowBanner = ({ variant = "full", className = "" }: B2BWorkflowBannerProps) => {
+const B2BWorkflowBanner = ({ variant = "full", className = "", showShopCta = false }: B2BWorkflowBannerProps) => {
   return (
     <section className={`container mx-auto px-4 ${variant === "full" ? "py-10" : "py-6"} ${className}`}>
       {variant === "full" && (
@@ -31,6 +31,22 @@ const B2BWorkflowBanner = ({ variant = "full", className = "" }: B2BWorkflowBann
           <p className="text-sm text-muted-foreground mt-1">
             เลือกสินค้า → หยิบใส่ตะกร้า → กดขอใบเสนอราคา — ทีมเตรียมเอกสารให้ภายใน 4 ชั่วโมง
           </p>
+          {showShopCta && (
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+              <Link
+                to="/shop"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity shadow-sm"
+              >
+                เริ่มเลือกสินค้าที่ Shop <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-border text-sm font-semibold text-foreground hover:border-primary/40 hover:text-primary transition-colors"
+              >
+                ปรึกษาแอดมิน
+              </Link>
+            </div>
+          )}
         </div>
       )}
 
