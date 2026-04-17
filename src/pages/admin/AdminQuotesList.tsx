@@ -734,6 +734,7 @@ export default function AdminQuotesList() {
                   </Card>
                 )}
               </div>
+              )}
 
               {filteredQuotes.length > 0 && (
                 <ListPagination
