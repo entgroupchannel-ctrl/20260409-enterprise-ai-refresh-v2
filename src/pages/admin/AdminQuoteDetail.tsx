@@ -441,6 +441,32 @@ export default function AdminQuoteDetail() {
         message_type: 'status_change',
       });
 
+      // 🔔 Notify customer (in-app + email)
+      if (quote?.created_by) {
+        import('@/lib/notifications').then(({ createNotification, sendQuoteStatusEmail }) => {
+          createNotification({
+            userId: quote.created_by!,
+            type: 'po_approved',
+            title: '✅ อนุมัติ PO แล้ว',
+            message: `PO ของใบเสนอราคา ${quote.quote_number} ได้รับการอนุมัติแล้ว — รอดำเนินการจัดส่ง`,
+            priority: 'high',
+            actionUrl: `/my-account/quotes/${id}`,
+            actionLabel: 'ดูรายละเอียด',
+            linkType: 'quote',
+            linkId: id,
+          });
+          if (quote.customer_email) {
+            sendQuoteStatusEmail({
+              recipientEmail: quote.customer_email,
+              customerName: quote.customer_name,
+              quoteNumber: quote.quote_number,
+              status: 'po_approved',
+              viewUrl: `https://www.entgroup.co.th/my-account/quotes/${id}`,
+            });
+          }
+        });
+      }
+
       toast({
         title: 'อนุมัติสำเร็จ',
         description: 'อนุมัติ PO เรียบร้อยแล้ว',
@@ -488,6 +514,34 @@ export default function AdminQuoteDetail() {
         content: `ปฏิเสธ PO - เหตุผล: ${rejectReason}`,
         message_type: 'status_change',
       });
+
+      // 🔔 Notify customer (in-app + email)
+      if (quote?.created_by) {
+        const reasonText = rejectReason;
+        import('@/lib/notifications').then(({ createNotification, sendQuoteStatusEmail }) => {
+          createNotification({
+            userId: quote.created_by!,
+            type: 'po_rejected',
+            title: '⚠️ PO ไม่ได้รับการอนุมัติ',
+            message: `PO ของใบเสนอราคา ${quote.quote_number} ไม่ได้รับการอนุมัติ — เหตุผล: ${reasonText}`,
+            priority: 'urgent',
+            actionUrl: `/my-account/quotes/${id}`,
+            actionLabel: 'ดูรายละเอียด',
+            linkType: 'quote',
+            linkId: id,
+          });
+          if (quote.customer_email) {
+            sendQuoteStatusEmail({
+              recipientEmail: quote.customer_email,
+              customerName: quote.customer_name,
+              quoteNumber: quote.quote_number,
+              status: 'po_rejected',
+              note: reasonText,
+              viewUrl: `https://www.entgroup.co.th/my-account/quotes/${id}`,
+            });
+          }
+        });
+      }
 
       toast({
         title: 'ปฏิเสธสำเร็จ',

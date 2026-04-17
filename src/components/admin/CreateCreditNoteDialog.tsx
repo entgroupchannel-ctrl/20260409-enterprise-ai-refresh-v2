@@ -261,6 +261,39 @@ export default function CreateCreditNoteDialog({
 
       if (itemsError) throw itemsError;
 
+      // 🔔 Notify customer (in-app + email)
+      const cnAmount = formatCurrency(grandTotal);
+      const customerId = taxInvoice.customer_id;
+      const customerEmailAddr = (taxInvoice as any).customer_email;
+      if (customerId || customerEmailAddr) {
+        import('@/lib/notifications').then(({ createNotification, sendQuoteStatusEmail }) => {
+          if (customerId) {
+            createNotification({
+              userId: customerId,
+              type: 'credit_note_created',
+              title: '📝 ออกใบลดหนี้ใหม่',
+              message: `ใบลดหนี้ ${cn.credit_note_number} ยอดลด ${cnAmount} บาท (เหตุผล: ${reasonDetail.trim()})`,
+              priority: 'high',
+              actionUrl: `/my-account/documents`,
+              actionLabel: 'ดูเอกสาร',
+              linkType: 'credit_note',
+              linkId: cn.id,
+            });
+          }
+          if (customerEmailAddr) {
+            sendQuoteStatusEmail({
+              recipientEmail: customerEmailAddr,
+              customerName: taxInvoice.customer_name,
+              status: 'credit_note_created',
+              invoiceNumber: cn.credit_note_number,
+              amount: cnAmount,
+              note: reasonDetail.trim(),
+              viewUrl: `https://www.entgroup.co.th/my-account/documents`,
+            });
+          }
+        });
+      }
+
       toast({
         title: '✅ สร้างใบลดหนี้สำเร็จ',
         description: cn.credit_note_number,

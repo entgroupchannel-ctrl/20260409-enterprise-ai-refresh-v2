@@ -190,6 +190,38 @@ export default function CreateReceiptDialog({
         throw error;
       }
 
+      // 🔔 Notify customer (in-app + email)
+      const rcpAmount = formatCurrency(Number(taxInvoice.grand_total));
+      const customerId = invoice.customer_id;
+      const customerEmail = invoice.customer_email;
+      if (customerId || customerEmail) {
+        import('@/lib/notifications').then(({ createNotification, sendQuoteStatusEmail }) => {
+          if (customerId) {
+            createNotification({
+              userId: customerId,
+              type: 'receipt_created',
+              title: '🧾 ออกใบเสร็จรับเงินใหม่',
+              message: `ใบเสร็จ ${newReceipt.receipt_number} ยอดรวม ${rcpAmount} บาท`,
+              priority: 'high',
+              actionUrl: `/my-account/receipts/${newReceipt.id}`,
+              actionLabel: 'ดูใบเสร็จ',
+              linkType: 'receipt',
+              linkId: newReceipt.id,
+            });
+          }
+          if (customerEmail) {
+            sendQuoteStatusEmail({
+              recipientEmail: customerEmail,
+              customerName: invoice.customer_name,
+              status: 'receipt_created',
+              invoiceNumber: newReceipt.receipt_number,
+              amount: rcpAmount,
+              viewUrl: `https://www.entgroup.co.th/my-account/receipts/${newReceipt.id}`,
+            });
+          }
+        });
+      }
+
       toast({
         title: '✅ สร้างใบเสร็จสำเร็จ',
         description: `${newReceipt.receipt_number} — ฿${formatCurrency(Number(taxInvoice.grand_total))}`,
