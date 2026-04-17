@@ -3201,6 +3201,94 @@ export type Database = {
           },
         ]
       }
+      quote_share_access_log: {
+        Row: {
+          accessed_at: string
+          action: string
+          id: string
+          ip_address: string | null
+          share_link_id: string
+          user_agent: string | null
+        }
+        Insert: {
+          accessed_at?: string
+          action: string
+          id?: string
+          ip_address?: string | null
+          share_link_id: string
+          user_agent?: string | null
+        }
+        Update: {
+          accessed_at?: string
+          action?: string
+          id?: string
+          ip_address?: string | null
+          share_link_id?: string
+          user_agent?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quote_share_access_log_share_link_id_fkey"
+            columns: ["share_link_id"]
+            isOneToOne: false
+            referencedRelation: "quote_share_links"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      quote_share_links: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          download_count: number
+          expires_at: string
+          id: string
+          last_accessed_at: string | null
+          note: string | null
+          quote_id: string
+          revoked_at: string | null
+          revoked_by: string | null
+          token: string
+          view_count: number
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          download_count?: number
+          expires_at: string
+          id?: string
+          last_accessed_at?: string | null
+          note?: string | null
+          quote_id: string
+          revoked_at?: string | null
+          revoked_by?: string | null
+          token: string
+          view_count?: number
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          download_count?: number
+          expires_at?: string
+          id?: string
+          last_accessed_at?: string | null
+          note?: string | null
+          quote_id?: string
+          revoked_at?: string | null
+          revoked_by?: string | null
+          token?: string
+          view_count?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quote_share_links_quote_id_fkey"
+            columns: ["quote_id"]
+            isOneToOne: false
+            referencedRelation: "quote_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       quote_term_templates: {
         Row: {
           content: string
@@ -4835,6 +4923,10 @@ export type Database = {
       }
       get_quote_negotiation_insights: {
         Args: { p_quote_id: string }
+        Returns: Json
+      }
+      get_shared_quote: {
+        Args: { p_action?: string; p_token: string }
         Returns: Json
       }
       get_top_sales_performers: {
