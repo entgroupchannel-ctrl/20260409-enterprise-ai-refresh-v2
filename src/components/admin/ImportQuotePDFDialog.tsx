@@ -133,6 +133,7 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
     setParsing(true);
     try {
       // 1) Upload to storage
+      setPhase('กำลังอัปโหลดไฟล์ไปยัง Storage...');
       const safeName = file.name.replace(/[^\w.-]/g, '_').slice(0, 80);
       const path = `${new Date().toISOString().slice(0, 10)}/${Date.now()}-${safeName}`;
       const { error: upErr } = await supabase.storage.from('quote-imports').upload(path, file, {
@@ -143,6 +144,7 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
       setStoragePath(path);
 
       // 2) Send to AI
+      setPhase('กำลังเข้ารหัสไฟล์เพื่อส่งให้ AI...');
       const buf = await file.arrayBuffer();
       const bytes = new Uint8Array(buf);
       let binary = '';
@@ -152,6 +154,7 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
       }
       const file_base64 = btoa(binary);
 
+      setPhase('AI กำลังอ่านและแตกข้อมูลจากเอกสาร (อาจใช้เวลา 20-60 วินาที)...');
       const { data: result, error } = await supabase.functions.invoke('parse-quote-pdf', {
         body: { file_base64, media_type: 'application/pdf' },
       });
@@ -160,6 +163,7 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
       if (!result?.success || !result?.data) throw new Error('AI ไม่ส่งข้อมูลกลับ');
 
       // 3) Normalize numbers
+      setPhase('กำลังประมวลผลและตรวจสอบข้อมูล...');
       const d = result.data as Partial<ImportedQuote>;
       const items: ImportedItem[] = (d.items || []).map((it: any) => ({
         name: String(it.name || ''),
@@ -185,12 +189,13 @@ export default function ImportQuotePDFDialog({ open, onOpenChange, onImported }:
         customer_branch_type: d.customer_branch_type || 'head_office',
       } as ImportedQuote);
       setStep('preview');
-      toast({ title: 'AI อ่านข้อมูลสำเร็จ', description: 'กรุณาตรวจสอบและแก้ไขก่อนบันทึก' });
+      toast({ title: `AI อ่านข้อมูลสำเร็จ (${elapsed}s)`, description: 'กรุณาตรวจสอบและแก้ไขก่อนบันทึก' });
     } catch (e: any) {
       console.error(e);
       toast({ title: 'นำเข้า PDF ล้มเหลว', description: e.message, variant: 'destructive' });
     } finally {
       setParsing(false);
+      setPhase('');
     }
   };
 
