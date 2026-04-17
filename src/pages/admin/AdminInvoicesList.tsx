@@ -67,6 +67,12 @@ export default function AdminInvoicesList() {
   const [downloadItems, setDownloadItems] = useState<any[]>([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
+  const [viewMode, setViewMode] = useState<'list' | 'table' | 'grid'>(() => {
+    if (typeof window === 'undefined') return 'list';
+    const v = localStorage.getItem('admin_invoices_view');
+    return (v === 'grid' || v === 'table' || v === 'list') ? v : 'list';
+  });
+  useEffect(() => { localStorage.setItem('admin_invoices_view', viewMode); }, [viewMode]);
   useEffect(() => { setPage(1); }, [search, statusFilter, sortBy, pageSize]);
 
   const handleDownload = async (inv: Invoice) => {
