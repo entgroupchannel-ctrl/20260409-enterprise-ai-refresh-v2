@@ -18,6 +18,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import {
   Search, Plus, Loader2, Receipt, Trash2, Timer, AlertCircle,
+  LayoutGrid, List as ListIcon, Rows3,
 } from 'lucide-react';
 import { formatRelativeTime } from '@/lib/format';
 import CreateInvoiceFromSODialog, { type InvoiceSource } from '@/components/admin/CreateInvoiceFromSODialog';
