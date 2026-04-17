@@ -221,6 +221,10 @@ export default function AdminQuoteDetail() {
   const [assignedSaleUser, setAssignedSaleUser] = useState<any>(null);
   const [staffList, setStaffList] = useState<any[]>([]);
   const [assigningStaff, setAssigningStaff] = useState(false);
+  const [editingValidUntil, setEditingValidUntil] = useState(false);
+  const [validUntilDraft, setValidUntilDraft] = useState('');
+  const [editingPaymentTerms, setEditingPaymentTerms] = useState(false);
+  const [paymentTermsDraft, setPaymentTermsDraft] = useState('');
 
   useEffect(() => {
     if (id) {
