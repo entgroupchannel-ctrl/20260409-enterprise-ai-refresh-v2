@@ -114,6 +114,7 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
   };
 
   const resetForm = () => {
+    setProductSearch('');
     setEditForm({
       model: '',
       description: '',
