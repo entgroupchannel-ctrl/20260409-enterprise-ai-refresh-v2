@@ -24,6 +24,7 @@ import { QuoteTimelineBadge } from '@/components/rfq/QuoteTimeline';
 import QuoteTimeline from '@/components/rfq/QuoteTimeline';
 import POUploadDialog from '@/components/quotes/POUploadDialog';
 import PrintPreviewDialog from '@/components/admin/PrintPreviewDialog';
+import RevisionTimeline from '@/components/negotiation/RevisionTimeline';
 import {
   FileSearch, ShoppingBag, UserRound, Landmark, MapPinned, Truck,
   Plus, SearchCheck, Timer, ScanEye, Download, Printer,
@@ -171,6 +172,7 @@ export default function UserDashboard() {
   const [showPOUpload, setShowPOUpload] = useState(false);
   const [showPrintPreview, setShowPrintPreview] = useState(false);
   const [printAutoDownload, setPrintAutoDownload] = useState(false);
+  const [printRevision, setPrintRevision] = useState<any>(null);
   const [currentRevision, setCurrentRevision] = useState<any>(null);
 
   // ─── Orders state ───
@@ -780,6 +782,18 @@ export default function UserDashboard() {
 
                   {/* Timeline */}
                   <Card><CardContent className="py-4"><QuoteTimeline currentStatus={selectedQuote.status} size="lg" /></CardContent></Card>
+
+                  {/* Revision History — Counter offers / negotiation versions */}
+                  <RevisionTimeline
+                    quoteId={selectedQuote.id}
+                    currentRevisionId={(selectedQuote as any).current_revision_id}
+                    viewerRole="customer"
+                    onPrintRevision={(rev) => {
+                      setPrintRevision(rev);
+                      setPrintAutoDownload(false);
+                      setShowPrintPreview(true);
+                    }}
+                  />
 
                   {/* 3-column grid matching admin */}
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
