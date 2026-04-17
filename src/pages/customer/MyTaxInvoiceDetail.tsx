@@ -285,6 +285,7 @@ export default function MyTaxInvoiceDetail() {
         taxInvoice={taxInvoice}
         items={items}
         invoiceNumber={sourceInvoice?.invoice_number}
+        customerMode
       />
     </CustomerLayout>
   );
