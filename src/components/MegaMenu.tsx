@@ -130,6 +130,7 @@ const menuCategories = [
           { label: "Edge AI Computers", href: "/nvidia-jetson/products?cat=edge-computers" },
           { label: "Taiwan IPC — Industrial AI", href: "/nvidia-jetson/products?cat=taiwan-ipc" },
           { label: "🖥️ GPU Server & AI Workstation", href: "/nvidia-jetson/gpu-server", hot: true },
+          { label: "🎴 Professional Graphics Card", href: "/nvidia-jetson/professional-gpu", hot: true },
         ],
       },
       {
