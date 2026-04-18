@@ -29,25 +29,25 @@ export default function SiteNavbar() {
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-1">
           <MegaMenu />
-          {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              to={link.href}
-              className={cn(
-                "px-3 py-2 rounded-lg text-sm font-medium transition-colors",
-                'highlight' in link && link.highlight
-                  ? "text-primary hover:bg-primary/10 font-semibold"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
-              )}
-            >
-              {'icon' in link && link.icon ? (
-                <span className="flex items-center gap-1.5">
-                  <link.icon size={16} />
-                  {link.label}
-                </span>
-              ) : link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const Icon = link.icon;
+            return (
+              <Link
+                key={link.label}
+                to={link.href}
+                title={link.label}
+                aria-label={link.label}
+                className={cn(
+                  "p-2 rounded-lg transition-colors flex items-center justify-center",
+                  'highlight' in link && link.highlight
+                    ? "text-primary hover:bg-primary/10"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                )}
+              >
+                <Icon size={18} />
+              </Link>
+            );
+          })}
           <div className="w-px h-6 bg-border mx-1" />
           <ThemeToggle />
           <CartBadge className="text-muted-foreground hover:text-foreground transition-colors p-2" />
