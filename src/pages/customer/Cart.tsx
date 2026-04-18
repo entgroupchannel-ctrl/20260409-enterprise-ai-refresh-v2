@@ -9,6 +9,8 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import SEOHead from '@/components/SEOHead';
 import B2BWorkflowBanner from '@/components/B2BWorkflowBanner';
+import SiteNavbar from '@/components/SiteNavbar';
+import Footer from '@/components/Footer';
 
 export default function Cart() {
   const { items, loading, count, updateQuantity, removeItem, clearCart } = useCart();
@@ -75,8 +77,12 @@ export default function Cart() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen bg-background flex flex-col">
+        <SiteNavbar />
+        <div className="flex-1 flex items-center justify-center">
+          <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+        </div>
+        <Footer />
       </div>
     );
   }
@@ -84,8 +90,9 @@ export default function Cart() {
   return (
     <>
       <SEOHead title="ตะกร้าของฉัน | ENT Group" description="ตะกร้าสินค้าสำหรับขอใบเสนอราคา" />
-      <div className="min-h-screen bg-background">
-        <div className="max-w-4xl mx-auto px-4 py-8">
+      <div className="min-h-screen bg-background flex flex-col">
+        <SiteNavbar />
+        <main className="flex-1 max-w-4xl w-full mx-auto px-4 py-8">
           <div className="flex items-center gap-3 mb-6">
             <Button variant="ghost" size="sm" onClick={() => navigate(-1)}>
               <ArrowLeft size={16} className="mr-1" /> กลับ
@@ -156,8 +163,9 @@ export default function Cart() {
               </p>
             </div>
           )}
-        </div>
+        </main>
         <B2BWorkflowBanner variant="compact" />
+        <Footer />
       </div>
     </>
   );
