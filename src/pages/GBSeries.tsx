@@ -333,18 +333,6 @@ const GBSeries = () => {
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "GB Series", path: "/gb-series" }]} />
       <MiniNavbar />
-      <div className="sticky top-14 z-40 bg-background/80 backdrop-blur-xl border-b border-border">
-        <div className="container max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
-            <ArrowLeft size={16} /> หน้าแรก
-          </Link>
-          <h1 className="text-sm font-bold">GB Series Industrial PC</h1>
-          <div className="flex items-center gap-3">
-            <CartBadge />
-            <QuoteRequestButton productModel="GB Series" productName="GB Series Industrial PC" size="sm" />
-          </div>
-        </div>
-      </div>
 
       {/* Hero */}
       <section className="relative overflow-hidden">
