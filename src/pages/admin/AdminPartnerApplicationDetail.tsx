@@ -17,6 +17,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
+import AdminLayout from "@/layouts/AdminLayout";
 
 interface AppDetail { [k: string]: any }
 interface FileRow { id: string; file_category: string; file_name: string; file_path: string; file_size: number | null; created_at: string; }
