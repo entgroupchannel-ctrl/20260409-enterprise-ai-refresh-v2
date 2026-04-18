@@ -9,6 +9,7 @@ import SEOHead from "@/components/SEOHead";
 import Footer from "@/components/Footer";
 import PageBanner from "@/components/PageBanner";
 import LineQRButton from "@/components/LineQRButton";
+import MiniNavbar from "@/components/MiniNavbar";
 
 /* ── Client Trust — Stats + Marquee ── */
 const trustStats = [
@@ -96,6 +97,7 @@ const facebookVideos = [
 const CaseStudies = () => {
   return (
     <div className="min-h-screen bg-background">
+      <MiniNavbar />
       <SEOHead
         title="กรณีศึกษา | Case Studies — ENT Group"
 
