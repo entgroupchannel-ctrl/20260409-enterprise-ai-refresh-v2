@@ -222,6 +222,8 @@ export default function PartnerPortal() {
           </CardContent>
         </Card>
       </main>
+
+      <Footer />
     </div>
   );
 }
