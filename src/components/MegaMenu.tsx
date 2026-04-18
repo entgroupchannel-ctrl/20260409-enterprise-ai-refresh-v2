@@ -119,8 +119,9 @@ const menuCategories = [
     },
     columns: [
       {
-        heading: "หาสินค้า",
+        heading: "เริ่มต้นที่นี่",
         links: [
+          { label: "🚀 NVIDIA Jetson Hub — หน้าแรก", href: "/nvidia-jetson", hot: true },
           { label: "📦 แคตตาล็อกผลิตภัณฑ์", href: "/nvidia-jetson/products", hot: true },
           { label: "Jetson Modules (SoM)", href: "/nvidia-jetson/products?cat=modules" },
           { label: "Developer Kits", href: "/nvidia-jetson/products?cat=devkits" },

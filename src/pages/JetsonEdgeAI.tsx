@@ -42,12 +42,12 @@ const CATEGORY_IMAGES: Record<JetsonCategory, string> = {
 
 // ── Hero slider items ──
 const slides = [
-  { id: "ipc-thor", badge: "NEW", title: "Jetson Thor IPC 28F1", desc: "2070 TFLOPS — คอมพิวเตอร์อุตสาหกรรม AI รุ่นใหม่", href: "/shop?category=jetson&q=thor" },
-  { id: "carrier-y-c28", badge: "NEW", title: "Carrier Board Y-C28 สำหรับ Jetson Thor", desc: "128GB Memory — พร้อมสำหรับ Embodied AI", href: "/shop?category=jetson&q=carrier" },
-  { id: "thor-devkit", badge: "NEW", title: "ชุดพัฒนา Jetson Thor", desc: "2070 TFLOPS — สำหรับหุ่นยนต์และยานยนต์อัตโนมัติ", href: "/shop?category=jetson&q=thor+devkit" },
-  { id: "orin-nano-super", badge: "ขายดี", title: "ชุดพัฒนา Orin Nano Super", desc: "67 TOPS Super Mode — เริ่มต้น Edge AI ที่ดีที่สุด", href: "/shop/orin-nano-super-devkit" },
-  { id: "ipc-11f1e2", badge: "POPULAR", title: "IPC 11F1E2 คอมพิวเตอร์อุตสาหกรรม", desc: "Orin NX/Nano — ไร้พัดลม, GbE คู่, RS232/485", href: "/shop?category=jetson&q=ipc" },
-  { id: "lineup", badge: "75+ รุ่น", title: "สินค้า NVIDIA Jetson ครบทุกซีรีส์", desc: "โมดูล, Carrier Board, IPC, ชุดพัฒนา", href: "/shop?category=jetson" },
+  { id: "ipc-thor", image: "/images/jetson-slider/slide-thor-ipc.jpg", badge: "NEW", title: "Jetson Thor IPC 28F1", desc: "2070 TFLOPS — คอมพิวเตอร์อุตสาหกรรม AI รุ่นใหม่", href: "/shop?category=jetson&q=thor" },
+  { id: "carrier-y-c28", image: "/images/jetson-slider/slide-carrier-y-c28.jpg", badge: "NEW", title: "Carrier Board Y-C28 สำหรับ Jetson Thor", desc: "128GB Memory — พร้อมสำหรับ Embodied AI", href: "/shop?category=jetson&q=carrier" },
+  { id: "thor-devkit", image: "/images/jetson-slider/slide-thor-devkit.jpg", badge: "NEW", title: "ชุดพัฒนา Jetson Thor", desc: "2070 TFLOPS — สำหรับหุ่นยนต์และยานยนต์อัตโนมัติ", href: "/shop?category=jetson&q=thor+devkit" },
+  { id: "orin-nano-super", image: "/images/jetson-slider/slide-orin-nano-super.jpg", badge: "ขายดี", title: "ชุดพัฒนา Orin Nano Super", desc: "67 TOPS Super Mode — เริ่มต้น Edge AI ที่ดีที่สุด", href: "/shop/orin-nano-super-devkit" },
+  { id: "ipc-11f1e2", image: "/images/jetson-slider/slide-ipc-11f1e2.jpg", badge: "POPULAR", title: "IPC 11F1E2 คอมพิวเตอร์อุตสาหกรรม", desc: "Orin NX/Nano — ไร้พัดลม, GbE คู่, RS232/485", href: "/shop?category=jetson&q=ipc" },
+  { id: "lineup", image: "/images/jetson-slider/slide-lineup.jpg", badge: "75+ รุ่น", title: "สินค้า NVIDIA Jetson ครบทุกซีรีส์", desc: "โมดูล, Carrier Board, IPC, ชุดพัฒนา", href: "/shop?category=jetson" },
 ];
 
 // ── Industry solutions ──
@@ -254,10 +254,13 @@ const JetsonEdgeAI = () => {
                   to={s.href}
                   className="group relative shrink-0 w-[calc((100%-2.5rem)/3)] aspect-[4/3] rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-br from-[#0d1430] to-[#1a1f3a]"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0e27] via-[#0a0e27]/60 to-transparent z-10" />
-                  <div className="absolute inset-0 flex items-center justify-center opacity-30 group-hover:opacity-60 group-hover:scale-110 transition-all duration-700">
-                    <div className="w-32 h-32 rounded-full" style={{ background: `radial-gradient(circle, ${NV_GREEN}aa, transparent 70%)` }} />
-                  </div>
+                  <img
+                    src={s.image}
+                    alt={s.title}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0e27] via-[#0a0e27]/70 to-transparent z-10" />
                   <div className="absolute inset-x-0 bottom-0 p-5 z-20">
                     <span className="inline-block text-[10px] font-bold tracking-wider px-2 py-0.5 rounded mb-2" style={{ background: NV_GREEN, color: "#0a0e27" }}>
                       {s.badge}
