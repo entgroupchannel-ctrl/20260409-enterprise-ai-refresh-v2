@@ -5154,6 +5154,39 @@ export type Database = {
         }
         Relationships: []
       }
+      supplier_category_questions: {
+        Row: {
+          category: string
+          created_at: string
+          display_order: number | null
+          expected_answer_hint: string | null
+          id: string
+          is_active: boolean | null
+          question_en: string
+          question_zh: string | null
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          display_order?: number | null
+          expected_answer_hint?: string | null
+          id?: string
+          is_active?: boolean | null
+          question_en: string
+          question_zh?: string | null
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          display_order?: number | null
+          expected_answer_hint?: string | null
+          id?: string
+          is_active?: boolean | null
+          question_en?: string
+          question_zh?: string | null
+        }
+        Relationships: []
+      }
       supplier_documents: {
         Row: {
           amount: number | null
@@ -5240,6 +5273,615 @@ export type Database = {
           },
         ]
       }
+      supplier_outreach_log: {
+        Row: {
+          attachments: Json | null
+          body: string | null
+          channel: string
+          created_at: string
+          direction: string
+          id: string
+          metadata: Json | null
+          responded_at: string | null
+          response_time_hours: number | null
+          sent_at: string
+          sent_by: string | null
+          subject: string | null
+          supplier_id: string
+          template_id: string | null
+        }
+        Insert: {
+          attachments?: Json | null
+          body?: string | null
+          channel: string
+          created_at?: string
+          direction: string
+          id?: string
+          metadata?: Json | null
+          responded_at?: string | null
+          response_time_hours?: number | null
+          sent_at?: string
+          sent_by?: string | null
+          subject?: string | null
+          supplier_id: string
+          template_id?: string | null
+        }
+        Update: {
+          attachments?: Json | null
+          body?: string | null
+          channel?: string
+          created_at?: string
+          direction?: string
+          id?: string
+          metadata?: Json | null
+          responded_at?: string | null
+          response_time_hours?: number | null
+          sent_at?: string
+          sent_by?: string | null
+          subject?: string | null
+          supplier_id?: string
+          template_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "supplier_outreach_log_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "supplier_payment_summary"
+            referencedColumns: ["supplier_id"]
+          },
+          {
+            foreignKeyName: "supplier_outreach_log_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "suppliers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      supplier_outreach_templates: {
+        Row: {
+          body_en: string | null
+          body_zh: string | null
+          category: string
+          created_at: string
+          created_by: string | null
+          id: string
+          is_active: boolean | null
+          language: string
+          name: string
+          subject_en: string | null
+          subject_zh: string | null
+          template_key: string
+          updated_at: string
+          variables: string[] | null
+        }
+        Insert: {
+          body_en?: string | null
+          body_zh?: string | null
+          category: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean | null
+          language?: string
+          name: string
+          subject_en?: string | null
+          subject_zh?: string | null
+          template_key: string
+          updated_at?: string
+          variables?: string[] | null
+        }
+        Update: {
+          body_en?: string | null
+          body_zh?: string | null
+          category?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean | null
+          language?: string
+          name?: string
+          subject_en?: string | null
+          subject_zh?: string | null
+          template_key?: string
+          updated_at?: string
+          variables?: string[] | null
+        }
+        Relationships: []
+      }
+      supplier_pilot_reviews: {
+        Row: {
+          accurate_quantity: boolean | null
+          created_at: string
+          customer_feedback_score: number | null
+          decision: string | null
+          defects_handled: boolean | null
+          id: string
+          notes: string | null
+          on_time_delivery: boolean | null
+          pilot_started_at: string | null
+          purchase_order_id: string | null
+          quality_consistent: boolean | null
+          review_due_at: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          sell_through_rate: number | null
+          supplier_id: string
+          support_responsive: boolean | null
+          updated_at: string
+        }
+        Insert: {
+          accurate_quantity?: boolean | null
+          created_at?: string
+          customer_feedback_score?: number | null
+          decision?: string | null
+          defects_handled?: boolean | null
+          id?: string
+          notes?: string | null
+          on_time_delivery?: boolean | null
+          pilot_started_at?: string | null
+          purchase_order_id?: string | null
+          quality_consistent?: boolean | null
+          review_due_at?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          sell_through_rate?: number | null
+          supplier_id: string
+          support_responsive?: boolean | null
+          updated_at?: string
+        }
+        Update: {
+          accurate_quantity?: boolean | null
+          created_at?: string
+          customer_feedback_score?: number | null
+          decision?: string | null
+          defects_handled?: boolean | null
+          id?: string
+          notes?: string | null
+          on_time_delivery?: boolean | null
+          pilot_started_at?: string | null
+          purchase_order_id?: string | null
+          quality_consistent?: boolean | null
+          review_due_at?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          sell_through_rate?: number | null
+          supplier_id?: string
+          support_responsive?: boolean | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "supplier_pilot_reviews_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "supplier_payment_summary"
+            referencedColumns: ["supplier_id"]
+          },
+          {
+            foreignKeyName: "supplier_pilot_reviews_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "suppliers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      supplier_qualifications: {
+        Row: {
+          annual_revenue_range: string | null
+          business_license_url: string | null
+          certifications_listed: string[] | null
+          created_at: string
+          export_countries: string[] | null
+          export_revenue_percent: number | null
+          factory_photos: Json | null
+          factory_type: string | null
+          flagship_datasheets: Json | null
+          id: string
+          monthly_capacity: string | null
+          moq_per_sku: string | null
+          oem_capability: string | null
+          production_employees: number | null
+          raw_answers: string | null
+          rd_employees: number | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          sample_policy: string | null
+          sample_shipping_paid_by: string | null
+          submitted_at: string | null
+          supplier_id: string
+          total_employees: number | null
+          updated_at: string
+          year_established: number | null
+        }
+        Insert: {
+          annual_revenue_range?: string | null
+          business_license_url?: string | null
+          certifications_listed?: string[] | null
+          created_at?: string
+          export_countries?: string[] | null
+          export_revenue_percent?: number | null
+          factory_photos?: Json | null
+          factory_type?: string | null
+          flagship_datasheets?: Json | null
+          id?: string
+          monthly_capacity?: string | null
+          moq_per_sku?: string | null
+          oem_capability?: string | null
+          production_employees?: number | null
+          raw_answers?: string | null
+          rd_employees?: number | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          sample_policy?: string | null
+          sample_shipping_paid_by?: string | null
+          submitted_at?: string | null
+          supplier_id: string
+          total_employees?: number | null
+          updated_at?: string
+          year_established?: number | null
+        }
+        Update: {
+          annual_revenue_range?: string | null
+          business_license_url?: string | null
+          certifications_listed?: string[] | null
+          created_at?: string
+          export_countries?: string[] | null
+          export_revenue_percent?: number | null
+          factory_photos?: Json | null
+          factory_type?: string | null
+          flagship_datasheets?: Json | null
+          id?: string
+          monthly_capacity?: string | null
+          moq_per_sku?: string | null
+          oem_capability?: string | null
+          production_employees?: number | null
+          raw_answers?: string | null
+          rd_employees?: number | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          sample_policy?: string | null
+          sample_shipping_paid_by?: string | null
+          submitted_at?: string | null
+          supplier_id?: string
+          total_employees?: number | null
+          updated_at?: string
+          year_established?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "supplier_qualifications_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: true
+            referencedRelation: "supplier_payment_summary"
+            referencedColumns: ["supplier_id"]
+          },
+          {
+            foreignKeyName: "supplier_qualifications_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: true
+            referencedRelation: "suppliers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      supplier_relationship_reviews: {
+        Row: {
+          conducted_at: string | null
+          conducted_by: string | null
+          created_at: string
+          defect_rate: number | null
+          id: string
+          marketing_plans: string | null
+          next_review_at: string | null
+          on_time_rate: number | null
+          period_end: string | null
+          period_start: string | null
+          review_type: string
+          roadmap_discussed: string | null
+          supplier_id: string
+          thai_market_feedback: string | null
+          total_orders: number | null
+          total_revenue: number | null
+          updated_at: string
+        }
+        Insert: {
+          conducted_at?: string | null
+          conducted_by?: string | null
+          created_at?: string
+          defect_rate?: number | null
+          id?: string
+          marketing_plans?: string | null
+          next_review_at?: string | null
+          on_time_rate?: number | null
+          period_end?: string | null
+          period_start?: string | null
+          review_type: string
+          roadmap_discussed?: string | null
+          supplier_id: string
+          thai_market_feedback?: string | null
+          total_orders?: number | null
+          total_revenue?: number | null
+          updated_at?: string
+        }
+        Update: {
+          conducted_at?: string | null
+          conducted_by?: string | null
+          created_at?: string
+          defect_rate?: number | null
+          id?: string
+          marketing_plans?: string | null
+          next_review_at?: string | null
+          on_time_rate?: number | null
+          period_end?: string | null
+          period_start?: string | null
+          review_type?: string
+          roadmap_discussed?: string | null
+          supplier_id?: string
+          thai_market_feedback?: string | null
+          total_orders?: number | null
+          total_revenue?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "supplier_relationship_reviews_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "supplier_payment_summary"
+            referencedColumns: ["supplier_id"]
+          },
+          {
+            foreignKeyName: "supplier_relationship_reviews_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "suppliers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      supplier_sample_evaluations: {
+        Row: {
+          arrived_on_time: boolean | null
+          build_quality_score: number | null
+          burn_in_72h_passed: boolean | null
+          created_at: string
+          decision: string | null
+          documentation_clear: boolean | null
+          evaluated_at: string | null
+          evaluated_by: string | null
+          evaluator_notes: string | null
+          id: string
+          matches_datasheet: boolean | null
+          ordered_at: string | null
+          packaging_intact: boolean | null
+          packaging_professional: boolean | null
+          product_model: string
+          purchase_order_id: string | null
+          received_at: string | null
+          serial_verifiable: boolean | null
+          supplier_id: string
+          thai_market_fit: boolean | null
+          updated_at: string
+          voltage_compatible: boolean | null
+        }
+        Insert: {
+          arrived_on_time?: boolean | null
+          build_quality_score?: number | null
+          burn_in_72h_passed?: boolean | null
+          created_at?: string
+          decision?: string | null
+          documentation_clear?: boolean | null
+          evaluated_at?: string | null
+          evaluated_by?: string | null
+          evaluator_notes?: string | null
+          id?: string
+          matches_datasheet?: boolean | null
+          ordered_at?: string | null
+          packaging_intact?: boolean | null
+          packaging_professional?: boolean | null
+          product_model: string
+          purchase_order_id?: string | null
+          received_at?: string | null
+          serial_verifiable?: boolean | null
+          supplier_id: string
+          thai_market_fit?: boolean | null
+          updated_at?: string
+          voltage_compatible?: boolean | null
+        }
+        Update: {
+          arrived_on_time?: boolean | null
+          build_quality_score?: number | null
+          burn_in_72h_passed?: boolean | null
+          created_at?: string
+          decision?: string | null
+          documentation_clear?: boolean | null
+          evaluated_at?: string | null
+          evaluated_by?: string | null
+          evaluator_notes?: string | null
+          id?: string
+          matches_datasheet?: boolean | null
+          ordered_at?: string | null
+          packaging_intact?: boolean | null
+          packaging_professional?: boolean | null
+          product_model?: string
+          purchase_order_id?: string | null
+          received_at?: string | null
+          serial_verifiable?: boolean | null
+          supplier_id?: string
+          thai_market_fit?: boolean | null
+          updated_at?: string
+          voltage_compatible?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "supplier_sample_evaluations_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "supplier_payment_summary"
+            referencedColumns: ["supplier_id"]
+          },
+          {
+            foreignKeyName: "supplier_sample_evaluations_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "suppliers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      supplier_scores: {
+        Row: {
+          average_score: number | null
+          certifications: number | null
+          communication: number | null
+          created_at: string
+          documentation: number | null
+          experience: number | null
+          export_experience: number | null
+          id: string
+          manufacturer_proof: number | null
+          notes: string | null
+          oem_flexibility: number | null
+          response_speed: number | null
+          scored_at: string | null
+          scored_by: string | null
+          supplier_id: string
+        }
+        Insert: {
+          average_score?: number | null
+          certifications?: number | null
+          communication?: number | null
+          created_at?: string
+          documentation?: number | null
+          experience?: number | null
+          export_experience?: number | null
+          id?: string
+          manufacturer_proof?: number | null
+          notes?: string | null
+          oem_flexibility?: number | null
+          response_speed?: number | null
+          scored_at?: string | null
+          scored_by?: string | null
+          supplier_id: string
+        }
+        Update: {
+          average_score?: number | null
+          certifications?: number | null
+          communication?: number | null
+          created_at?: string
+          documentation?: number | null
+          experience?: number | null
+          export_experience?: number | null
+          id?: string
+          manufacturer_proof?: number | null
+          notes?: string | null
+          oem_flexibility?: number | null
+          response_speed?: number | null
+          scored_at?: string | null
+          scored_by?: string | null
+          supplier_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "supplier_scores_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "supplier_payment_summary"
+            referencedColumns: ["supplier_id"]
+          },
+          {
+            foreignKeyName: "supplier_scores_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "suppliers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      supplier_video_calls: {
+        Row: {
+          agenda_completed: Json | null
+          attendees_ent: string[] | null
+          attendees_supplier: string[] | null
+          category_questions_used: string | null
+          conducted_at: string | null
+          created_at: string
+          created_by: string | null
+          duration_minutes: number | null
+          factory_tour_done: boolean | null
+          factory_tour_notes: string | null
+          id: string
+          notes: string | null
+          outcome: string | null
+          recording_url: string | null
+          red_flags: string[] | null
+          scheduled_at: string | null
+          supplier_id: string
+          technical_qa_passed: boolean | null
+          updated_at: string
+        }
+        Insert: {
+          agenda_completed?: Json | null
+          attendees_ent?: string[] | null
+          attendees_supplier?: string[] | null
+          category_questions_used?: string | null
+          conducted_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          duration_minutes?: number | null
+          factory_tour_done?: boolean | null
+          factory_tour_notes?: string | null
+          id?: string
+          notes?: string | null
+          outcome?: string | null
+          recording_url?: string | null
+          red_flags?: string[] | null
+          scheduled_at?: string | null
+          supplier_id: string
+          technical_qa_passed?: boolean | null
+          updated_at?: string
+        }
+        Update: {
+          agenda_completed?: Json | null
+          attendees_ent?: string[] | null
+          attendees_supplier?: string[] | null
+          category_questions_used?: string | null
+          conducted_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          duration_minutes?: number | null
+          factory_tour_done?: boolean | null
+          factory_tour_notes?: string | null
+          id?: string
+          notes?: string | null
+          outcome?: string | null
+          recording_url?: string | null
+          red_flags?: string[] | null
+          scheduled_at?: string | null
+          supplier_id?: string
+          technical_qa_passed?: boolean | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "supplier_video_calls_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "supplier_payment_summary"
+            referencedColumns: ["supplier_id"]
+          },
+          {
+            foreignKeyName: "supplier_video_calls_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "suppliers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       suppliers: {
         Row: {
           address: string | null
@@ -5265,6 +5907,8 @@ export type Database = {
           default_payment_terms: string | null
           default_price_terms: string | null
           deleted_at: string | null
+          disqualified_at: string | null
+          disqualified_reason: string | null
           email: string | null
           fax: string | null
           iban: string | null
@@ -5273,15 +5917,21 @@ export type Database = {
           intermediary_swift: string | null
           is_preferred: boolean | null
           lead_time_days: number | null
+          lifecycle_stage: string
           line_id: string | null
           main_products: string[] | null
           minimum_order_amount: number | null
           mobile: string | null
           notes: string | null
+          overall_score: number | null
           payment_terms: string | null
           phone: string | null
           postal_code: string | null
+          product_categories: string[] | null
+          qualified_at: string | null
           quality_rating: number | null
+          red_flags: string[] | null
+          region_cluster: string | null
           registration_number: string | null
           rejection_reason: string | null
           skype: string | null
@@ -5292,6 +5942,7 @@ export type Database = {
           tags: string[] | null
           updated_at: string
           updated_by: string | null
+          verification_links: Json | null
           warranty_terms_free: string | null
           warranty_terms_paid: string | null
           website: string | null
@@ -5323,6 +5974,8 @@ export type Database = {
           default_payment_terms?: string | null
           default_price_terms?: string | null
           deleted_at?: string | null
+          disqualified_at?: string | null
+          disqualified_reason?: string | null
           email?: string | null
           fax?: string | null
           iban?: string | null
@@ -5331,15 +5984,21 @@ export type Database = {
           intermediary_swift?: string | null
           is_preferred?: boolean | null
           lead_time_days?: number | null
+          lifecycle_stage?: string
           line_id?: string | null
           main_products?: string[] | null
           minimum_order_amount?: number | null
           mobile?: string | null
           notes?: string | null
+          overall_score?: number | null
           payment_terms?: string | null
           phone?: string | null
           postal_code?: string | null
+          product_categories?: string[] | null
+          qualified_at?: string | null
           quality_rating?: number | null
+          red_flags?: string[] | null
+          region_cluster?: string | null
           registration_number?: string | null
           rejection_reason?: string | null
           skype?: string | null
@@ -5350,6 +6009,7 @@ export type Database = {
           tags?: string[] | null
           updated_at?: string
           updated_by?: string | null
+          verification_links?: Json | null
           warranty_terms_free?: string | null
           warranty_terms_paid?: string | null
           website?: string | null
@@ -5381,6 +6041,8 @@ export type Database = {
           default_payment_terms?: string | null
           default_price_terms?: string | null
           deleted_at?: string | null
+          disqualified_at?: string | null
+          disqualified_reason?: string | null
           email?: string | null
           fax?: string | null
           iban?: string | null
@@ -5389,15 +6051,21 @@ export type Database = {
           intermediary_swift?: string | null
           is_preferred?: boolean | null
           lead_time_days?: number | null
+          lifecycle_stage?: string
           line_id?: string | null
           main_products?: string[] | null
           minimum_order_amount?: number | null
           mobile?: string | null
           notes?: string | null
+          overall_score?: number | null
           payment_terms?: string | null
           phone?: string | null
           postal_code?: string | null
+          product_categories?: string[] | null
+          qualified_at?: string | null
           quality_rating?: number | null
+          red_flags?: string[] | null
+          region_cluster?: string | null
           registration_number?: string | null
           rejection_reason?: string | null
           skype?: string | null
@@ -5408,6 +6076,7 @@ export type Database = {
           tags?: string[] | null
           updated_at?: string
           updated_by?: string | null
+          verification_links?: Json | null
           warranty_terms_free?: string | null
           warranty_terms_paid?: string | null
           website?: string | null
