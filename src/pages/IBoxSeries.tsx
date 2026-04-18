@@ -272,31 +272,25 @@ const IBoxSeries = () => {
       />
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "iBox Series", path: "/ibox-series" }]} />
 
+      <MiniNavbar />
+
       {/* Banner */}
       <div className="relative h-48 md:h-64 overflow-hidden">
         <img src={bannerIBox} alt="iBox Series — Industrial Mini PC" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
         <div className="absolute inset-0 flex items-center">
           <div className="container max-w-7xl mx-auto px-6">
-            <Link to="/" className="inline-flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors mb-3">
-              <ArrowLeft className="w-4 h-4" /> กลับหน้าหลัก
-            </Link>
             <h1 className="text-2xl md:text-4xl font-bold text-white mb-1">iBox Series</h1>
             <p className="text-sm md:text-base text-white/80">Industrial Mini PC — คอมพิวเตอร์เกรดอุตสาหกรรม Fanless</p>
           </div>
         </div>
       </div>
 
-      <MiniNavbar />
-
       {/* Sticky Category Tabs */}
       <div className="sticky top-14 z-30 bg-background/90 backdrop-blur-md border-b border-border shadow-sm">
         <div className="container max-w-7xl mx-auto px-4 py-2">
           <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide">
             <span className="text-xs text-muted-foreground whitespace-nowrap shrink-0 inline-flex items-center gap-1"><Pointer size={12} /> เลือกหมวดสินค้า:</span>
-            <div className="ml-auto shrink-0 order-last">
-              <CartBadge />
-            </div>
             {[
               { id: "all", name: "ทั้งหมด", icon: LayoutGrid },
               { id: "AI Edge Computing", name: "AI Edge / GPU", icon: Flame },
