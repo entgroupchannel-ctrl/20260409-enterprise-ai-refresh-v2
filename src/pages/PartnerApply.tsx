@@ -119,7 +119,14 @@ export default function PartnerApply() {
         setData((d) => ({
           ...d,
           ...Object.fromEntries(
-            Object.entries(row).filter(([k]) => k in empty).map(([k, v]) => [k, v ?? (Array.isArray((empty as any)[k]) ? [] : typeof (empty as any)[k] === "boolean" ? false : "")])
+            Object.entries(row).filter(([k]) => k in empty).map(([k, v]) => {
+              const def = (empty as any)[k];
+              // DB array → form string for export_countries
+              if (k === "export_countries") {
+                return [k, Array.isArray(v) ? v.join(", ") : (v ?? "")];
+              }
+              return [k, v ?? (Array.isArray(def) ? [] : typeof def === "boolean" ? false : "")];
+            })
           ) as any,
         }));
         const { data: fileRows } = await supabase
