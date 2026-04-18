@@ -355,37 +355,83 @@ export default function JetsonSolutions() {
 
         <div className="space-y-5">
           {filtered.map((s) => (
-            <article key={s.id} className="rounded-2xl border bg-card overflow-hidden hover:shadow-lg transition-all">
-              <div className="p-5 md:p-6">
-                <div className="flex items-center gap-2 mb-2 text-xs font-medium" style={{ color: NV }}>
-                  <s.icon className="w-4 h-4" /> {s.catLabel}
-                </div>
-                <h3 className="text-xl md:text-2xl font-bold mb-2">{s.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">{s.desc}</p>
-
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">ฟีเจอร์หลัก</h4>
-                    <ul className="space-y-1.5">
-                      {s.bullets.map((b) => (
-                        <li key={b} className="text-sm flex items-start gap-2">
-                          <span className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: NV }} />
-                          {b}
-                        </li>
-                      ))}
-                    </ul>
+            <article key={s.id} id={s.id} className="rounded-2xl border bg-card overflow-hidden hover:shadow-lg transition-all">
+              <div className="grid md:grid-cols-[1fr_280px] gap-0">
+                <div className="p-5 md:p-6">
+                  <div className="flex items-center gap-2 mb-2 text-xs font-medium" style={{ color: NV }}>
+                    <s.icon className="w-4 h-4" /> {s.catLabel}
                   </div>
-                  <div>
-                    <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">สินค้าแนะนำ</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {s.products.map((p) => (
-                        <Link key={p.name} to={p.href}
-                              className="inline-flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-full border transition-all hover:opacity-80"
-                              style={{ borderColor: `${NV}50`, color: NV, background: `${NV}10` }}>
-                          {p.name} <ArrowRight className="w-3 h-3" />
-                        </Link>
-                      ))}
+                  <h3 className="text-xl md:text-2xl font-bold mb-2">{s.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">{s.desc}</p>
+
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">ฟีเจอร์หลัก</h4>
+                      <ul className="space-y-1.5">
+                        {s.bullets.map((b) => (
+                          <li key={b} className="text-sm flex items-start gap-2">
+                            <span className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: NV }} />
+                            {b}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
+                    <div>
+                      <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">สินค้าแนะนำ</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {s.products.map((p) => {
+                          const prod = findProduct(p.name);
+                          const href = prod ? `/nvidia-jetson/products?q=${encodeURIComponent(p.name)}` : p.href;
+                          return (
+                            <Link key={p.name} to={href}
+                                  className="inline-flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-full border transition-all hover:opacity-80"
+                                  style={{ borderColor: `${NV}50`, color: NV, background: `${NV}10` }}>
+                              {p.name} <ArrowRight className="w-3 h-3" />
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Product image strip */}
+                <div className="bg-gradient-to-br from-muted/40 to-muted/10 border-t md:border-t-0 md:border-l p-4 flex flex-col gap-2 justify-center">
+                  <div className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wide mb-1">
+                    ฮาร์ดแวร์ที่ใช้
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    {s.products.slice(0, 4).map((p) => {
+                      const prod = findProduct(p.name);
+                      if (!prod) {
+                        return (
+                          <div key={p.name} className="aspect-square rounded-lg border bg-background/60 flex items-center justify-center p-1 text-[9px] text-center text-muted-foreground">
+                            {p.name}
+                          </div>
+                        );
+                      }
+                      return (
+                        <Link
+                          key={p.name}
+                          to={`/nvidia-jetson/products?q=${encodeURIComponent(p.name)}`}
+                          className="group/img aspect-square rounded-lg border bg-background overflow-hidden flex flex-col hover:border-primary/50 hover:shadow-md transition-all"
+                          title={p.name}
+                        >
+                          <div className="flex-1 bg-muted/30 flex items-center justify-center p-1.5">
+                            <img
+                              src={prod.image}
+                              alt={p.name}
+                              loading="lazy"
+                              className="max-w-full max-h-full object-contain group-hover/img:scale-110 transition-transform duration-300"
+                              onError={(e) => { (e.target as HTMLImageElement).src = "/product-placeholder.svg"; }}
+                            />
+                          </div>
+                          <div className="text-[9px] font-semibold text-center px-1 py-1 truncate border-t bg-card">
+                            {p.name}
+                          </div>
+                        </Link>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
