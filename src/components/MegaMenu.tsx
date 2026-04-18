@@ -59,7 +59,7 @@ const menuCategories = [
           { label: "All-in-One PC — ดูทั้งหมด", href: "/aio", hot: true },
           { label: "H10PRO — 10\" Android", href: "/aio/h10pro" },
           { label: "EM-P21A — 21.5\" Panel", href: "/aio/em-p21a" },
-          { label: "EM-HPC15A — 15\" AIO", href: "/aio/em-hpc15a" },
+          { label: "F15 — 15\" AIO", href: "/aio/f15" },
           { label: "Panel PC — Cabinet", href: "/cabinets" },
         ],
       },
