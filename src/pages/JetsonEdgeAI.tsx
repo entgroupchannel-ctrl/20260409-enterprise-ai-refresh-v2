@@ -6,6 +6,7 @@ import {
   ShieldCheck, Truck, Headphones, Wrench, BadgeCheck, Globe,
   Building2, GraduationCap, Network, Factory, BrainCircuit,
   CheckCircle2, FileCheck, RotateCcw, Hash, Flame,
+  ShoppingBag, PhoneCall,
 } from "lucide-react";
 import SiteNavbar from "@/components/SiteNavbar";
 import Footer from "@/components/Footer";
@@ -201,33 +202,41 @@ const JetsonEdgeAI = () => {
       </section>
 
       {/* ── SUB-NAVIGATION (Quick Links) ── */}
-      <section className="sticky top-16 z-30 bg-[#0a0e27]/95 backdrop-blur-md border-y border-white/10">
+      <section className="sticky top-16 z-30 bg-gradient-to-r from-[#0a0e27] via-[#0d1230] to-[#0a0e27] backdrop-blur-md border-y border-[#76B900]/20 shadow-lg shadow-[#76B900]/5">
         <div className="container max-w-7xl mx-auto px-6">
           <div className="flex items-center gap-2 overflow-x-auto py-3 scrollbar-hide">
-            <span className="text-xs text-white/50 font-semibold tracking-wider uppercase shrink-0 mr-2">เมนูลัด:</span>
+            <span className="hidden md:inline-flex items-center gap-1.5 text-[11px] text-[#76B900] font-bold tracking-widest uppercase shrink-0 mr-3">
+              <Flame size={13} className="animate-pulse" /> เมนูลัด
+            </span>
             {[
-              { label: "📦 แคตตาล็อกสินค้า", href: "/nvidia-jetson/products", primary: true },
-              { label: "🛒 Shop", href: "/shop?category=jetson" },
-              { label: "🎯 ตัวช่วยเลือกรุ่น", href: "/nvidia-jetson/recommend" },
-              { label: "🧠 AI Models (NGC)", href: "/nvidia-jetson/ai-ready" },
-              { label: "🖥️ GPU Server", href: "/nvidia-jetson/gpu-server" },
-              { label: "🎴 Pro Graphics Card", href: "/nvidia-jetson/professional-gpu" },
-              { label: "🏭 Solutions", href: "/nvidia-jetson/solutions" },
-              { label: "✦ Case Studies", href: "/nvidia-jetson/case-studies" },
-              { label: "📞 ขอ POC ฟรี", href: "/contact" },
-            ].map((link) => (
-              <Link
-                key={link.href}
-                to={link.href}
-                className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                  link.primary
-                    ? "bg-[#76B900] text-[#0a0e27] hover:opacity-90"
-                    : "bg-white/5 text-white/80 hover:bg-white/10 hover:text-white border border-white/10"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
+              { label: "แคตตาล็อกสินค้า", icon: Package, href: "/nvidia-jetson/products", primary: true },
+              { label: "Shop", icon: ShoppingBag, href: "/shop?category=jetson" },
+              { label: "ตัวช่วยเลือกรุ่น", icon: Sparkles, href: "/nvidia-jetson/recommend" },
+              { label: "AI Models (NGC)", icon: BrainCircuit, href: "/nvidia-jetson/ai-ready" },
+              { label: "GPU Server", icon: Server, href: "/nvidia-jetson/gpu-server" },
+              { label: "Pro Graphics Card", icon: Monitor, href: "/nvidia-jetson/professional-gpu" },
+              { label: "Solutions", icon: Factory, href: "/nvidia-jetson/solutions" },
+              { label: "Case Studies", icon: Award, href: "/nvidia-jetson/case-studies" },
+              { label: "ขอ POC ฟรี", icon: PhoneCall, href: "/contact", accent: true },
+            ].map((link) => {
+              const Icon = link.icon;
+              return (
+                <Link
+                  key={link.href}
+                  to={link.href}
+                  className={`group shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 hover:-translate-y-0.5 ${
+                    link.primary
+                      ? "bg-[#76B900] text-[#0a0e27] hover:bg-[#8ad400] shadow-md shadow-[#76B900]/30 hover:shadow-lg hover:shadow-[#76B900]/50"
+                      : link.accent
+                      ? "bg-white text-[#0a0e27] hover:bg-[#76B900] shadow-md"
+                      : "bg-white/5 text-white/85 hover:bg-[#76B900]/15 hover:text-[#76B900] border border-white/10 hover:border-[#76B900]/40"
+                  }`}
+                >
+                  <Icon size={14} className="transition-transform group-hover:scale-110" />
+                  <span>{link.label}</span>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
