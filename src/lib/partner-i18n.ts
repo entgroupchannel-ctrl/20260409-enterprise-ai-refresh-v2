@@ -81,6 +81,16 @@ export const partnerForm: Dict = {
   why:               { th: "ทำไมจึงเลือก ENT Group เป็นพันธมิตร", en: "Why partner with ENT Group?", zh: "为什么选择 ENT Group 作为合作伙伴？" },
   notes:             { th: "หมายเหตุเพิ่มเติม", en: "Additional notes", zh: "其他备注" },
   heardFrom:         { th: "รู้จัก ENT Group จากที่ใด", en: "How did you hear about us?", zh: "您是如何了解 ENT Group 的？" },
+  heardFromPick:     { th: "เลือกแหล่งที่มา", en: "Select source", zh: "选择来源" },
+  heardFromOther:    { th: "ระบุแหล่งที่มา", en: "Please specify", zh: "请说明来源" },
+
+  // Step 5 — file slots
+  videoUrl:          { th: "หรือวาง URL วิดีโอ (YouTube / Bilibili / Vimeo)", en: "Or paste video URL (YouTube / Bilibili / Vimeo)", zh: "或粘贴视频链接（YouTube / Bilibili / Vimeo）" },
+  photoSlot:         { th: "ภาพที่", en: "Photo", zh: "照片" },
+  photoCaption:      { th: "คำบรรยายภาพ (ไม่บังคับ)", en: "Caption (optional)", zh: "图片说明（可选）" },
+  photoSlotHints:    { th: "แนะนำ: ภายนอกโรงงาน · สายการผลิต · QC · คลังสินค้า · ห้องประชุม · ผลิตภัณฑ์", en: "Suggested: exterior · production line · QC · warehouse · meeting room · product", zh: "建议：外景 · 生产线 · 品控 · 仓库 · 会议室 · 产品" },
+  catalogScopeAll:   { th: "ภาพรวมทั้งหมด (รวม Catalog)", en: "Overall (full catalog)", zh: "整体（完整目录）" },
+  catalogScopePick:  { th: "เลือกเฉพาะหมวด", en: "Select categories", zh: "选择类别" },
 
   // Files
   uploadTitle:       { th: "เอกสารแนบ", en: "Documents", zh: "附件文件" },
