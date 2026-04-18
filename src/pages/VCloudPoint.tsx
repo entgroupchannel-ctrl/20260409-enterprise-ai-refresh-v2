@@ -17,6 +17,7 @@ import CartBadge from "@/components/CartBadge";
 import ThemeToggle from "@/components/ThemeToggle";
 import logo from "@/assets/logo-entgroup.avif";
 import FooterCompact from "@/components/FooterCompact";
+import MiniNavbar from "@/components/MiniNavbar";
 
 /* ═══════ Key Benefits ═══════ */
 const benefits = [
@@ -236,26 +237,7 @@ const VCloudPoint = () => {
         products={[{ name: "vCloudPoint S100", description: "Zero Client for vMatrix", category: "Zero Client" }]}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "vCloudPoint", path: "/vcloudpoint" }]} />
-      {/* Sticky Nav */}
-      <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
-        <div className="container max-w-7xl mx-auto flex items-center justify-between px-6 h-16">
-          <div className="flex items-center gap-4">
-            <Link to="/" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
-              <ArrowLeft size={18} />
-              <span className="text-sm font-medium hidden sm:inline">กลับหน้าหลัก</span>
-            </Link>
-            <div className="w-px h-6 bg-border" />
-            <img src={logo} alt="ENT GROUP" className="h-7 w-auto dark:invert" />
-          </div>
-          <div className="flex items-center gap-3">
-            <CartBadge />
-            <a href="https://vcloudpoint.info/" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors">
-              vcloudpoint.info <ExternalLink size={12} />
-            </a>
-            <ThemeToggle />
-          </div>
-        </div>
-      </nav>
+      <MiniNavbar />
 
       {/* ── Hero ── */}
       <section className="relative overflow-hidden">
