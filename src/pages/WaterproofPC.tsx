@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import FooterCompact from "@/components/FooterCompact";
+import MiniNavbar from "@/components/MiniNavbar";
 
 const models = [
   {
@@ -174,13 +175,11 @@ const WaterproofPC = () => {
       />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "Waterproof PC", path: "/waterproof-pc" }]} />
+      <MiniNavbar />
       {/* Hero */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-accent/5" />
         <div className="container max-w-7xl mx-auto px-4 py-6 relative z-10">
-          <Link to="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-4">
-            <ArrowLeft className="w-4 h-4" /> กลับหน้าหลัก
-          </Link>
           <div className="flex flex-col md:flex-row items-center gap-8 py-6">
             <div className="md:w-1/2">
               <Badge className="bg-primary/10 text-primary border-primary/20 mb-3">IP67 & IP69K Certified</Badge>
