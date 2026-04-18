@@ -224,11 +224,11 @@ export default function QuoteRequestForm() {
       <SiteNavbar />
       {/* Sub header */}
       <div className="bg-card border-b border-border sticky top-14 z-10">
-        <div className="max-w-5xl mx-auto px-4 h-12 flex items-center justify-between">
+        <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
           <Button variant="ghost" size="sm" onClick={() => navigate(-1)}>
             <ArrowLeft className="w-4 h-4 mr-1" /> กลับ
           </Button>
-          <h1 className="text-sm font-semibold">ขอใบเสนอราคา</h1>
+          <h1 className="text-lg font-semibold">ขอใบเสนอราคา</h1>
           <div className="w-16" />
         </div>
       </div>
