@@ -10,7 +10,7 @@ project_id = "ugzdwmyylqmirrljtuej"
   [functions.preview-transactional-email]
     verify_jwt = false
   [functions.send-transactional-email]
-    verify_jwt = true
+    verify_jwt = false
   [functions.send-auth-email-resend]
     verify_jwt = false
   [functions.parse-quote-pdf]
