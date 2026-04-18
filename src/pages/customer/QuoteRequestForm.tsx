@@ -240,16 +240,16 @@ export default function QuoteRequestForm() {
           <div className="space-y-4">
             {/* Profile summary (logged in) */}
             {isLoggedIn && profileLoaded && (
-              <div className="flex items-center gap-2 p-2 bg-primary/5 border border-primary/20 rounded-lg">
+              <div className="flex items-center gap-2 p-2.5 bg-primary/5 border border-primary/20 rounded-lg">
                 <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
-                <span className="text-xs text-primary">ดึงข้อมูลจากโปรไฟล์แล้ว</span>
+                <span className="text-sm text-primary">ดึงข้อมูลจากโปรไฟล์แล้ว</span>
               </div>
             )}
 
             <Card>
-              <CardContent className="pt-4 pb-3 space-y-3">
-                <p className="text-xs font-semibold text-muted-foreground flex items-center gap-1">
-                  <Building className="w-3 h-3" /> ข้อมูลบริษัท
+              <CardContent className="pt-5 pb-4 space-y-4">
+                <p className="text-sm font-semibold text-muted-foreground flex items-center gap-1.5">
+                  <Building className="w-4 h-4" /> ข้อมูลบริษัท
                 </p>
                 <CompactField label="บริษัท" value={formData.customer_company} onChange={v => handleFormChange('customer_company', v)} placeholder="บริษัท ABC จำกัด" />
                 <CompactField label="เลขผู้เสียภาษี" value={formData.customer_tax_id} onChange={v => handleFormChange('customer_tax_id', v)} placeholder="0105XXXXXXXXX" />
@@ -258,9 +258,9 @@ export default function QuoteRequestForm() {
             </Card>
 
             <Card>
-              <CardContent className="pt-4 pb-3 space-y-3">
-                <p className="text-xs font-semibold text-muted-foreground flex items-center gap-1">
-                  <User className="w-3 h-3" /> ผู้ติดต่อ
+              <CardContent className="pt-5 pb-4 space-y-4">
+                <p className="text-sm font-semibold text-muted-foreground flex items-center gap-1.5">
+                  <User className="w-4 h-4" /> ผู้ติดต่อ
                 </p>
                 <CompactField label="ชื่อ-นามสกุล" value={formData.customer_name} onChange={v => handleFormChange('customer_name', v)} placeholder="สมชาย ใจดี" required />
                 <div className="grid grid-cols-2 gap-2">
