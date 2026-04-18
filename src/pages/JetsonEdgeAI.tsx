@@ -238,7 +238,7 @@ const JetsonEdgeAI = () => {
             </span>
             {[
               { label: "แคตตาล็อกสินค้า", icon: Package, href: "/nvidia-jetson/products", primary: true },
-              { label: "Shop", icon: ShoppingBag, href: "/shop?category=jetson" },
+              { label: "Shop NVIDIA Jetson", icon: ShoppingBag, href: "/shop?series=Jetson%20Series" },
               { label: "ตัวช่วยเลือกรุ่น", icon: Sparkles, href: "/nvidia-jetson/recommend" },
               { label: "AI Models (NGC)", icon: BrainCircuit, href: "/nvidia-jetson/ai-ready" },
               { label: "GPU Server", icon: Server, href: "/nvidia-jetson/gpu-server" },
