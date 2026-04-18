@@ -334,6 +334,9 @@ export default function JetsonRecommend() {
         <title>ตัวช่วยเลือกสินค้า — NVIDIA Jetson, GPU Server, Pro GPU | ENT Group</title>
         <meta name="description" content="เครื่องมือแนะนำสินค้า เปรียบเทียบสเปก และตรวจสอบความเข้ากันได้ของ NVIDIA Jetson, GPU Server, Workstation, Professional GPU — สำหรับ AI, Robotics, 3D Rendering, Edge AI" />
         <link rel="canonical" href="https://www.entgroup.co.th/nvidia-jetson/recommend" />
+        <meta name="ai:topic" content="NVIDIA Product Selector & Comparison Tool" />
+        <meta name="ai:summary" content="ตัวช่วยเลือก NVIDIA Jetson, GPU Server, Professional GPU สำหรับงาน AI, Robotics, 3D Rendering — เปรียบเทียบสเปกและตรวจ compatibility" />
+        <meta name="ai:key_facts" content="Wizard แนะนำรุ่นตามงาน | เปรียบเทียบสเปก | ตรวจ Compatibility | Jetson + GPU + Workstation" />
       </Helmet>
 
       <SiteNavbar />

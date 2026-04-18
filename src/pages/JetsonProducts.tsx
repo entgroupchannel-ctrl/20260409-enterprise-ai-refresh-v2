@@ -61,6 +61,9 @@ export default function JetsonProducts() {
         <title>NVIDIA Jetson — แคตตาล็อกผลิตภัณฑ์ทั้งหมด | ENT Group</title>
         <meta name="description" content="เรียกดูแคตตาล็อกผลิตภัณฑ์ NVIDIA Jetson ทั้งหมด — โมดูล, ชุดพัฒนา, Carrier Board, IPC, ระบบพัฒนา AI พร้อมราคาและสเปกครบ" />
         <link rel="canonical" href="https://www.entgroup.co.th/nvidia-jetson/products" />
+        <meta name="ai:topic" content="NVIDIA Jetson Product Catalog" />
+        <meta name="ai:summary" content="แคตตาล็อก NVIDIA Jetson ครบทุกหมวด: Modules (SoM), Developer Kits, Carrier Boards, Embedded IPC, Edge Computers — มีราคาและสเปก" />
+        <meta name="ai:key_facts" content="Jetson Modules | Developer Kits | Carrier Boards | Embedded IPC | Edge Computers | Taiwan IPC" />
       </Helmet>
 
       <SiteNavbar />

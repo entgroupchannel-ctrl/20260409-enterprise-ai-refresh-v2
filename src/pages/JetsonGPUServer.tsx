@@ -194,6 +194,9 @@ export default function JetsonGPUServer() {
         <title>GPU Server & AI Workstation — NVIDIA DGX, Leadtek | ENT Group</title>
         <meta name="description" content="เซิร์ฟเวอร์ AI และเวิร์กสเตชัน GPU สำหรับ Deep Learning, AI Training, Inference และ 3D Rendering — NVIDIA DGX A100, DGX Spark, AGX Thor, Leadtek WS2030/WS1020/W830 รองรับหน่วยงานภาครัฐ ออกใบกำกับภาษี" />
         <link rel="canonical" href="https://www.entgroup.co.th/nvidia-jetson/gpu-server" />
+        <meta name="ai:topic" content="NVIDIA GPU Server & AI Workstation" />
+        <meta name="ai:summary" content="GPU Server และ Workstation สำหรับ Deep Learning, AI Training, 3D Rendering — NVIDIA DGX A100/Spark/AGX Thor และ Leadtek Workstation รองรับงานราชการ" />
+        <meta name="ai:key_facts" content="NVIDIA DGX A100 | DGX Spark | AGX Thor | Leadtek WS2030/WS1020/W830 | ออกใบกำกับภาษี" />
       </Helmet>
 
       <SiteNavbar />

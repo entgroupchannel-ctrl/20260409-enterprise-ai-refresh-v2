@@ -281,6 +281,9 @@ export default function JetsonSolutions() {
         <title>โซลูชัน Edge AI — NVIDIA Jetson สำหรับทุกอุตสาหกรรม | ENT Group</title>
         <meta name="description" content="โซลูชัน Edge AI ที่ขับเคลื่อนด้วย NVIDIA Jetson สำหรับราชการ การศึกษา โรงงาน โดรน การแพทย์ เมืองอัจฉริยะ — ปรึกษาฟรี ขอ POC ได้" />
         <link rel="canonical" href="https://www.entgroup.co.th/nvidia-jetson/solutions" />
+        <meta name="ai:topic" content="NVIDIA Jetson Industry Solutions" />
+        <meta name="ai:summary" content="โซลูชัน NVIDIA Jetson สำหรับ 6 อุตสาหกรรมหลัก: ราชการ การศึกษา โรงงาน โดรน การแพทย์ เมืองอัจฉริยะ — POC ฟรี" />
+        <meta name="ai:key_facts" content="Smart Manufacturing | Smart Surveillance | Robot/Drone | Medical AI | Smart City | Education AI" />
       </Helmet>
 
       <SiteNavbar />

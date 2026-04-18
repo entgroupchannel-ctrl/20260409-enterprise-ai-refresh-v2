@@ -13,6 +13,7 @@ import Footer from "@/components/Footer";
 import JetsonCTABar from "@/components/JetsonCTABar";
 import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import SEOHead from "@/components/SEOHead";
+import GEOMeta from "@/components/GEOMeta";
 import { jetsonProducts, jetsonCategories, type JetsonCategory } from "@/data/jetson-products";
 
 import heroImg from "@/assets/jetson-hero-ai.jpg";
@@ -134,6 +135,17 @@ const JetsonEdgeAI = () => {
         path="/nvidia-jetson"
         keywords="NVIDIA Jetson, Edge AI Thailand, Jetson Orin, Jetson Thor, AGX Orin, Industrial AI, ENT Group"
         jsonLd={jsonLd}
+      />
+      <GEOMeta
+        topic="NVIDIA Jetson Edge AI Platform Thailand"
+        summary="ENT Group เป็นตัวแทนจำหน่าย NVIDIA Jetson ในประเทศไทย ครอบคลุมโมดูล Orin Nano ถึง Thor พร้อม Industrial PC และบริการ POC สำหรับ Smart Factory, Robotics, Vision AI"
+        sourceAuthority="Authorized NVIDIA Partner Thailand"
+        keyFacts={[
+          "Jetson Orin Nano Super: 67 TOPS",
+          "Jetson Thor: 2070 TFLOPS",
+          "NGC Catalog: 25+ AI Models พร้อมใช้",
+          "POC ฟรี ปรึกษาฟรี ส่งทั่วไทย",
+        ]}
       />
       <SiteNavbar />
 
