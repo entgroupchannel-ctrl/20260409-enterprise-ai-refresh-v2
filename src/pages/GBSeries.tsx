@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import FooterCompact from "@/components/FooterCompact";
+import MiniNavbar from "@/components/MiniNavbar";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
 import { LineQRDialog } from "@/components/LineQRDialog";
 import GBPriceList from "@/components/GBPriceList";
@@ -331,7 +332,8 @@ const GBSeries = () => {
         products={models.map(m => ({ name: m.name, description: m.tagline, category: "Compact Mini PC" }))}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "GB Series", path: "/gb-series" }]} />
-      <div className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
+      <MiniNavbar />
+      <div className="sticky top-14 z-40 bg-background/80 backdrop-blur-xl border-b border-border">
         <div className="container max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
             <ArrowLeft size={16} /> หน้าแรก
