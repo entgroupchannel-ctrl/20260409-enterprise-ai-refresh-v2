@@ -70,10 +70,125 @@ export type Database = {
           },
         ]
       }
+      affiliate_campaign_items: {
+        Row: {
+          campaign_id: string
+          created_at: string
+          display_order: number
+          id: string
+          product_description: string | null
+          product_model: string
+          product_name: string | null
+          quantity: number
+          unit_price: number | null
+        }
+        Insert: {
+          campaign_id: string
+          created_at?: string
+          display_order?: number
+          id?: string
+          product_description?: string | null
+          product_model: string
+          product_name?: string | null
+          quantity?: number
+          unit_price?: number | null
+        }
+        Update: {
+          campaign_id?: string
+          created_at?: string
+          display_order?: number
+          id?: string
+          product_description?: string | null
+          product_model?: string
+          product_name?: string | null
+          quantity?: number
+          unit_price?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "affiliate_campaign_items_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "affiliate_campaigns"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      affiliate_campaigns: {
+        Row: {
+          campaign_type: string
+          created_at: string
+          created_by: string | null
+          description: string | null
+          ends_at: string | null
+          estimated_total: number | null
+          hero_image_url: string | null
+          id: string
+          is_active: boolean
+          is_featured: boolean
+          metadata: Json | null
+          promo_note: string | null
+          slug: string
+          starts_at: string | null
+          template_quote_id: string | null
+          title: string
+          total_clicks: number
+          total_converted: number
+          total_leads: number
+          updated_at: string
+        }
+        Insert: {
+          campaign_type?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          ends_at?: string | null
+          estimated_total?: number | null
+          hero_image_url?: string | null
+          id?: string
+          is_active?: boolean
+          is_featured?: boolean
+          metadata?: Json | null
+          promo_note?: string | null
+          slug: string
+          starts_at?: string | null
+          template_quote_id?: string | null
+          title: string
+          total_clicks?: number
+          total_converted?: number
+          total_leads?: number
+          updated_at?: string
+        }
+        Update: {
+          campaign_type?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          ends_at?: string | null
+          estimated_total?: number | null
+          hero_image_url?: string | null
+          id?: string
+          is_active?: boolean
+          is_featured?: boolean
+          metadata?: Json | null
+          promo_note?: string | null
+          slug?: string
+          starts_at?: string | null
+          template_quote_id?: string | null
+          title?: string
+          total_clicks?: number
+          total_converted?: number
+          total_leads?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       affiliate_clicks: {
         Row: {
           affiliate_code: string
           affiliate_id: string
+          campaign_id: string | null
+          campaign_slug: string | null
           converted_at: string | null
           converted_to_lead: boolean
           country_code: string | null
@@ -92,6 +207,8 @@ export type Database = {
         Insert: {
           affiliate_code: string
           affiliate_id: string
+          campaign_id?: string | null
+          campaign_slug?: string | null
           converted_at?: string | null
           converted_to_lead?: boolean
           country_code?: string | null
@@ -110,6 +227,8 @@ export type Database = {
         Update: {
           affiliate_code?: string
           affiliate_id?: string
+          campaign_id?: string | null
+          campaign_slug?: string | null
           converted_at?: string | null
           converted_to_lead?: boolean
           country_code?: string | null
@@ -133,12 +252,20 @@ export type Database = {
             referencedRelation: "affiliates"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "affiliate_clicks_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "affiliate_campaigns"
+            referencedColumns: ["id"]
+          },
         ]
       }
       affiliate_leads: {
         Row: {
           affiliate_code: string
           affiliate_id: string
+          campaign_id: string | null
           click_id: string | null
           converted_at: string | null
           created_at: string
@@ -159,6 +286,7 @@ export type Database = {
         Insert: {
           affiliate_code: string
           affiliate_id: string
+          campaign_id?: string | null
           click_id?: string | null
           converted_at?: string | null
           created_at?: string
@@ -179,6 +307,7 @@ export type Database = {
         Update: {
           affiliate_code?: string
           affiliate_id?: string
+          campaign_id?: string | null
           click_id?: string | null
           converted_at?: string | null
           created_at?: string
@@ -202,6 +331,13 @@ export type Database = {
             columns: ["affiliate_id"]
             isOneToOne: false
             referencedRelation: "affiliates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "affiliate_leads_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "affiliate_campaigns"
             referencedColumns: ["id"]
           },
           {
@@ -3671,6 +3807,8 @@ export type Database = {
           approved_at: string | null
           assigned_to: string | null
           attribution_source: string | null
+          campaign_id: string | null
+          campaign_slug: string | null
           completed_at: string | null
           confirmed_at: string | null
           contact_id: string | null
@@ -3732,6 +3870,8 @@ export type Database = {
           approved_at?: string | null
           assigned_to?: string | null
           attribution_source?: string | null
+          campaign_id?: string | null
+          campaign_slug?: string | null
           completed_at?: string | null
           confirmed_at?: string | null
           contact_id?: string | null
@@ -3793,6 +3933,8 @@ export type Database = {
           approved_at?: string | null
           assigned_to?: string | null
           attribution_source?: string | null
+          campaign_id?: string | null
+          campaign_slug?: string | null
           completed_at?: string | null
           confirmed_at?: string | null
           contact_id?: string | null
@@ -3873,6 +4015,13 @@ export type Database = {
             columns: ["assigned_to"]
             isOneToOne: false
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "quote_requests_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "affiliate_campaigns"
             referencedColumns: ["id"]
           },
           {
