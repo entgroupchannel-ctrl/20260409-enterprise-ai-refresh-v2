@@ -14,6 +14,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useI18n } from "@/contexts/I18nContext";
 import LangToggle from "@/components/LangToggle";
+import Footer from "@/components/Footer";
+import logo from "@/assets/logo-entgroup.avif";
 import { format } from "date-fns";
 
 interface AppRow {
@@ -87,9 +89,14 @@ export default function PartnerPortal() {
 
       {/* Header */}
       <header className="border-b bg-background/80 backdrop-blur sticky top-0 z-10">
-        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-          <Link to="/" className="font-bold text-lg text-primary">ENT Group</Link>
-          <div className="flex items-center gap-2">
+        <div className="container mx-auto px-4 py-3 flex items-center justify-between gap-4">
+          <Link to="/" className="flex items-center gap-3 min-w-0">
+            <img src={logo} alt="ENT Group" className="h-9 w-auto" />
+            <span className="hidden sm:inline text-xs text-muted-foreground truncate">
+              B2B Industrial Platform — แพลตฟอร์มจัดซื้ออุตสาหกรรมแบบครบวงจร
+            </span>
+          </Link>
+          <div className="flex items-center gap-2 shrink-0">
             <LangToggle />
             <Button variant="ghost" size="sm" asChild>
               <Link to="/partner"><ArrowLeft className="w-4 h-4 mr-1" />{t("กลับ", "Back", "返回")}</Link>
@@ -215,6 +222,8 @@ export default function PartnerPortal() {
           </CardContent>
         </Card>
       </main>
+
+      <Footer />
     </div>
   );
 }
