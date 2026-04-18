@@ -309,52 +309,11 @@ export default function CampaignLanding() {
               )}
             </div>
 
-            <div className="flex gap-2 mt-5 flex-wrap">
-              <Button size="lg" onClick={handleRequestQuote} disabled={!!expired} className="gap-2">
+            <div className="mt-5">
+              <Button size="lg" onClick={handleRequestQuote} disabled={!!expired} className="gap-2 w-full sm:w-auto">
                 <ShoppingCart className="w-4 h-4" /> ขอใบเสนอราคา
               </Button>
             </div>
-          </CardContent>
-        </Card>
-
-        {/* Share Bar — earn commission */}
-        <Card className="mb-6 border-primary/40 bg-gradient-to-r from-primary/5 to-amber-500/5">
-          <CardContent className="p-5">
-            <div className="flex items-start gap-3 mb-4">
-              <Award className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-              <div>
-                <h3 className="font-semibold text-sm flex items-center gap-2">
-                  แชร์แคมเปญนี้ — รับค่าคอมมิชชัน
-                  {myCode && <Badge variant="secondary" className="font-mono text-xs">{myCode}</Badge>}
-                </h3>
-                <p className="text-xs text-muted-foreground mt-1">
-                  {user
-                    ? "ทุกการคลิกผ่านลิงก์ของคุณจะถูกบันทึกอัตโนมัติ — และเมื่อปิดการขายได้ คุณจะได้รับค่าคอมฯ ตามอัตรา tier"
-                    : "เข้าสู่ระบบเพื่อรับลิงก์ส่วนตัวของคุณ — ทุกคนที่ login สามารถเป็น Affiliate ได้ทันทีและรับค่าคอมฯ"}
-                </p>
-              </div>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              <Button onClick={handleCopy} disabled={enrolling} variant="default" className="gap-2">
-                {enrolling ? <Loader2 className="w-4 h-4 animate-spin" /> :
-                  copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                {copied ? "คัดลอกแล้ว" : "คัดลอกลิงก์ของฉัน"}
-              </Button>
-              <Button onClick={handleShareLine} disabled={enrolling} variant="outline" className="gap-2">
-                <MessageCircle className="w-4 h-4" /> LINE
-              </Button>
-              <Button onClick={handleShareFacebook} disabled={enrolling} variant="outline" className="gap-2">
-                <Facebook className="w-4 h-4" /> Facebook
-              </Button>
-              <Button onClick={handleNativeShare} disabled={enrolling} variant="outline" className="gap-2">
-                <Share2 className="w-4 h-4" /> แชร์...
-              </Button>
-            </div>
-            {!user && (
-              <p className="text-xs text-muted-foreground mt-3">
-                ยังไม่มีบัญชี? <Link to={`/register?redirect=/c/${slug}`} className="text-primary hover:underline">สมัครฟรี</Link>
-              </p>
-            )}
           </CardContent>
         </Card>
 
