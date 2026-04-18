@@ -24,6 +24,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import FooterCompact from "@/components/FooterCompact";
+import MiniNavbar from "@/components/MiniNavbar";
 import B2BCTABanner from "@/components/B2BCTABanner";
 import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import ShareButtons from "@/components/ShareButtons";
@@ -286,8 +287,10 @@ const IBoxSeries = () => {
         </div>
       </div>
 
+      <MiniNavbar />
+
       {/* Sticky Category Tabs */}
-      <div className="sticky top-0 z-30 bg-background/90 backdrop-blur-md border-b border-border shadow-sm">
+      <div className="sticky top-14 z-30 bg-background/90 backdrop-blur-md border-b border-border shadow-sm">
         <div className="container max-w-7xl mx-auto px-4 py-2">
           <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide">
             <span className="text-xs text-muted-foreground whitespace-nowrap shrink-0 inline-flex items-center gap-1"><Pointer size={12} /> เลือกหมวดสินค้า:</span>
