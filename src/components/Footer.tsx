@@ -133,6 +133,7 @@ const footerSections: { title: string; links: FooterLink[] }[] = [
       { label: "เกี่ยวกับเรา", href: "/about-us" },
       { label: "ติดต่อเรา / แผนที่", href: "/contact" },
       { label: "โปรโมชั่น", href: "/promotions" },
+      { label: "พันธมิตรโรงงาน (Partner)", href: "/partner" },
       { label: "สมัครงาน", href: "https://entgroup-job.lovable.app/", external: true },
     ],
   },
