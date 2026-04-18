@@ -108,7 +108,7 @@ export default function QuoteStatusDropdown({
       // Notify customer about status change
       const { data: quoteData } = await supabase
         .from('quote_requests')
-        .select('created_by, quote_number, customer_name')
+        .select('created_by, quote_number, customer_name, customer_email')
         .eq('id', quoteId)
         .maybeSingle();
 
@@ -125,6 +125,21 @@ export default function QuoteStatusDropdown({
             linkId: quoteId,
           });
         });
+      } else if (newValue === 'approved' && quoteData?.customer_email) {
+        // Guest quote approved → send email with register invite
+        supabase.functions.invoke('send-transactional-email', {
+          body: {
+            templateName: 'quote-sent-guest-invite',
+            recipientEmail: quoteData.customer_email,
+            idempotencyKey: `quote-sent-guest-${quoteId}`,
+            templateData: {
+              customerName: quoteData.customer_name || '',
+              quoteNumber: quoteData.quote_number || '',
+              customerEmail: quoteData.customer_email,
+              viewUrl: `${window.location.origin}/quote/share/${quoteId}`,
+            },
+          },
+        }).catch((e) => console.warn('[quote-sent-guest-invite] send failed', e));
       }
 
       toast({
