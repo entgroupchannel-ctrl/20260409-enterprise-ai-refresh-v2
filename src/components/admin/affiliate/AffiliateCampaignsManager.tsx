@@ -18,7 +18,9 @@ import { Switch } from "@/components/ui/switch";
 import {
   Loader2, Plus, ExternalLink, Trash2, Copy, ShoppingCart, FileText,
   MousePointerClick, Users, CheckCircle2, Sparkles, Search, Package, Minus, Pencil,
+  LayoutGrid, List as ListIcon,
 } from "lucide-react";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { searchCatalogProducts, getCatalogCategories, type CatalogProduct } from "@/lib/product-catalog";
 
 interface Campaign {
