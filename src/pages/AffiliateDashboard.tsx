@@ -11,11 +11,12 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Loader2, MousePointerClick, Users, CheckCircle2, Wallet,
-  LayoutDashboard, Link2, BarChart3, UserCog,
+  LayoutDashboard, Link2, BarChart3, UserCog, Megaphone,
 } from "lucide-react";
 import LinkBuilderTab from "@/components/affiliate/LinkBuilderTab";
 import AnalyticsTab from "@/components/affiliate/AnalyticsTab";
 import AccountTab from "@/components/affiliate/AccountTab";
+import CampaignsTab from "@/components/affiliate/CampaignsTab";
 
 interface Affiliate {
   id: string;
@@ -159,8 +160,9 @@ export default function AffiliateDashboard() {
         )}
 
         <Tabs value={tab} onValueChange={(v) => setSearchParams({ tab: v })}>
-          <TabsList className="grid grid-cols-2 sm:grid-cols-4 w-full sm:w-auto mb-6">
+          <TabsList className="grid grid-cols-3 sm:grid-cols-5 w-full sm:w-auto mb-6">
             <TabsTrigger value="overview" className="gap-2"><LayoutDashboard className="w-4 h-4" /> ภาพรวม</TabsTrigger>
+            <TabsTrigger value="campaigns" className="gap-2"><Megaphone className="w-4 h-4" /> แคมเปญ</TabsTrigger>
             <TabsTrigger value="links" className="gap-2"><Link2 className="w-4 h-4" /> สร้างลิงก์</TabsTrigger>
             <TabsTrigger value="analytics" className="gap-2"><BarChart3 className="w-4 h-4" /> สถิติ</TabsTrigger>
             <TabsTrigger value="account" className="gap-2"><UserCog className="w-4 h-4" /> บัญชี</TabsTrigger>
@@ -226,6 +228,10 @@ export default function AffiliateDashboard() {
                 )}
               </CardContent>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="campaigns">
+            <CampaignsTab affiliateCode={affiliate.affiliate_code} />
           </TabsContent>
 
           <TabsContent value="links">
