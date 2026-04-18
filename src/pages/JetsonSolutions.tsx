@@ -331,7 +331,7 @@ export default function JetsonSolutions() {
                   productName={slide.title}
                   variant="outline"
                   size="default"
-                  className="border-white/40 text-white hover:bg-white/10 hover:text-white"
+                  className="text-white hover:bg-white/10 hover:text-white border-secondary-foreground"
                 />
               </div>
             </div>
