@@ -14,6 +14,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Loader2, Search, Building2, MapPin, Star, ExternalLink } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import AdminLayout from "@/layouts/AdminLayout";
 
 type Status = "all" | "draft" | "submitted" | "reviewing" | "approved" | "rejected" | "on_hold";
 
@@ -93,8 +94,9 @@ export default function AdminPartnerApplications() {
   }, [rows, status, search]);
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
-      <Helmet><title>Partner Applications | Admin</title></Helmet>
+    <AdminLayout>
+      <div className="p-4 md:p-6 space-y-6 admin-content-area">
+        <Helmet><title>Partner Applications | Admin</title></Helmet>
 
       <div className="flex items-start justify-between gap-4 flex-wrap">
         <div>
@@ -183,7 +185,8 @@ export default function AdminPartnerApplications() {
             </Table>
           )}
         </CardContent>
-      </Card>
-    </div>
+        </Card>
+      </div>
+    </AdminLayout>
   );
 }
