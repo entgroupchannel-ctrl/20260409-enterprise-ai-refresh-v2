@@ -18,6 +18,7 @@ import { Separator } from '@/components/ui/separator';
 import { SearchCheck, LayoutGrid, List, SlidersHorizontal, X, FileSearch, ChevronLeft, ChevronRight, CircleCheckBig, ShieldCheck, Landmark, HeadsetIcon, DollarSign, Cpu, MemoryStick, HardDrive, Package, Tag, Link2, Share2, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import SiteNavbar from '@/components/SiteNavbar';
+import ShopHotDeals from '@/components/shop/ShopHotDeals';
 import { useToast } from '@/hooks/use-toast';
 
 import imgSeriesGT from '@/assets/shop/series-gt.jpg';
@@ -316,6 +317,7 @@ const ShopStorefront = () => {
   return (
     <div className="min-h-screen bg-background">
       <SiteNavbar />
+      <ShopHotDeals />
       <SEOHead title="Shop — Industrial PC, Panel PC, Mini PC | ENT Group" description="เลือกซื้อ Industrial PC, Panel PC, Mini PC คุณภาพสูงจาก ENT Group ราคาส่ง พร้อมบริการ B2B" path="/shop" />
 
       {/* ── Hero Section ── */}
