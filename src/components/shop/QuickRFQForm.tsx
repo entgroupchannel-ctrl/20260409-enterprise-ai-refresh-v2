@@ -131,6 +131,8 @@ export default function QuickRFQForm({ product, defaultQuantity = 1, configAddon
     }
 
     if (!user) {
+      // Save pending quote and route the new customer to register so they can
+      // confirm their email — we prefill the form from the data they provided.
       savePendingQuote({
         customer_name: form.customer_name,
         customer_email: form.customer_email,
@@ -146,7 +148,17 @@ export default function QuickRFQForm({ product, defaultQuantity = 1, configAddon
           line_total: 0,
         }],
       });
-      navigate('/login?action=continue');
+      const params = new URLSearchParams({
+        email: form.customer_email,
+        name: form.customer_name,
+        phone: form.customer_phone,
+        company: form.customer_company,
+      });
+      toast({
+        title: 'อีกขั้นเดียว — ยืนยันอีเมล',
+        description: 'สร้างบัญชีใน 30 วินาที เพื่อยืนยันตัวตนและรับใบเสนอราคา',
+      });
+      navigate(`/register?${params.toString()}`);
       return;
     }
 
