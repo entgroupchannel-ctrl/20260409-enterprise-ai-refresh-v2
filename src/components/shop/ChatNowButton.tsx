@@ -54,7 +54,14 @@ const ChatNowButton = ({
             <MessageCircle className="w-3.5 h-3.5" />
           </Button>
         </TooltipTrigger>
-        <TooltipContent side="top" sideOffset={8} className="text-xs z-[100]">
+        <TooltipContent
+          side="top"
+          align="center"
+          sideOffset={8}
+          collisionPadding={16}
+          avoidCollisions
+          className="text-xs z-[200] max-w-[240px]"
+        >
           {hint}
         </TooltipContent>
       </Tooltip>
