@@ -16,6 +16,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 import logo from "@/assets/logo-entgroup.avif";
 import smartDisplayHero from "@/assets/smart-display-hero.jpg";
 import FooterCompact from "@/components/FooterCompact";
+import MiniNavbar from "@/components/MiniNavbar";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
 import kioskVisitor from "@/assets/kiosk-usecase-visitor.jpg";
 import kioskQueue from "@/assets/kiosk-usecase-queue.jpg";
@@ -182,24 +183,7 @@ const SmartDisplay = () => {
         products={fpmTouchMonitors.map(m => ({ name: m.model, price: m.price, description: m.config, category: "Smart Display & Touch Monitor" }))}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "Smart Display", path: "/smart-display" }]} />
-      <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
-        <div className="container max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-4">
-            <Link to="/" className="flex items-center gap-3">
-              <img src={logo} alt="ENT GROUP" className="h-8 w-auto" />
-            </Link>
-            <span className="text-muted-foreground">/</span>
-            <span className="text-sm font-semibold text-foreground">Smart Display</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <CartBadge />
-            <ThemeToggle />
-            <Link to="/" className="hidden md:inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
-              <ArrowLeft size={16} /> กลับหน้าแรก
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <MiniNavbar />
 
       {/* Hero */}
       <section className="relative overflow-hidden">
@@ -235,7 +219,7 @@ const SmartDisplay = () => {
       </section>
 
       {/* Category Tabs - Sticky */}
-      <div className="sticky top-[57px] z-40 bg-background/95 backdrop-blur-md border-b border-border/50 shadow-sm">
+      <div className="sticky top-14 z-40 bg-background/95 backdrop-blur-md border-b border-border/50 shadow-sm">
         <div className="container max-w-7xl mx-auto py-3">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
             <span className="text-sm font-bold text-foreground whitespace-nowrap flex items-center gap-1"><Filter size={14} className="text-primary" /> เลือกหมวดสินค้า:</span>
