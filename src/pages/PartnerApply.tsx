@@ -357,7 +357,7 @@ export default function PartnerApply() {
             {stage === 4 && <Stage4 data={data} update={update} L={L} lang={lang} />}
             {stage === 5 && (
               <Stage5
-                data={data} update={update} L={L} files={files}
+                data={data} update={update} L={L} lang={lang} files={files}
                 onUpload={uploadFile} onRemove={removeFile} uploadingCat={uploadingCat}
               />
             )}
