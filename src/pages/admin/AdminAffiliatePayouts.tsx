@@ -20,6 +20,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import AdminLayout from "@/layouts/AdminLayout";
+import AffiliateTabsBar from "@/components/admin/affiliate/AffiliateTabsBar";
 import { format } from "date-fns";
 
 type StatusFilter = "all" | "pending" | "approved" | "paid" | "cancelled";
@@ -213,6 +214,7 @@ export default function AdminAffiliatePayouts() {
       </Helmet>
 
       <div className="space-y-6">
+        <AffiliateTabsBar />
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div>
             <h1 className="text-2xl font-bold">Affiliate Payouts</h1>
