@@ -14,6 +14,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useI18n } from "@/contexts/I18nContext";
 import LangToggle from "@/components/LangToggle";
+import Footer from "@/components/Footer";
+import logo from "@/assets/logo-entgroup.avif";
 import { format } from "date-fns";
 
 interface AppRow {
