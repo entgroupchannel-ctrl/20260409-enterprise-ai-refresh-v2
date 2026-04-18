@@ -68,19 +68,34 @@ export default function QuickRFQForm({ product, defaultQuantity = 1, configAddon
         reader.onerror = reject;
         reader.readAsDataURL(file);
       });
-      const { data, error } = await supabase.functions.invoke('scan-business-card', { body: { image: base64 } });
+      const { data, error } = await supabase.functions.invoke('scan-business-card', { body: { image: `data:${file.type};base64,${base64}` } });
       if (error) throw error;
       const ex = (data as any)?.data || {};
+      console.log('[scan-business-card] extracted:', ex);
+      const pick = (...keys: string[]) => {
+        for (const k of keys) {
+          const v = ex[k];
+          if (v && typeof v === 'string' && v.trim()) return v.trim();
+        }
+        return '';
+      };
+      const scannedName = pick('name', 'full_name', 'fullName', 'contact_name');
+      const scannedEmail = pick('email', 'e_mail');
+      const scannedPhone = pick('phone', 'mobile', 'tel', 'telephone', 'mobile_phone');
+      const scannedCompany = pick('company', 'organization', 'company_name', 'org');
+      const scannedLine = pick('lineId', 'line_id', 'line');
+      const scannedAddress = pick('address', 'company_address');
       setForm(prev => ({
         ...prev,
-        customer_name: ex.full_name || ex.name || prev.customer_name,
-        customer_email: ex.email || prev.customer_email,
-        customer_phone: ex.phone || ex.mobile || prev.customer_phone,
-        customer_company: ex.company || ex.organization || prev.customer_company,
-        customer_line: ex.line_id || prev.customer_line,
-        shipping_address: ex.address || prev.shipping_address,
+        customer_name: scannedName || prev.customer_name,
+        customer_email: scannedEmail || prev.customer_email,
+        customer_phone: scannedPhone || prev.customer_phone,
+        customer_company: scannedCompany || prev.customer_company,
+        customer_line: scannedLine || prev.customer_line,
+        shipping_address: scannedAddress || prev.shipping_address,
       }));
-      toast({ title: 'อ่านนามบัตรสำเร็จ', description: 'ตรวจสอบและแก้ไขข้อมูลก่อนส่ง' });
+      const filled = [scannedName && 'ชื่อ', scannedCompany && 'บริษัท', scannedEmail && 'อีเมล', scannedPhone && 'โทร'].filter(Boolean).join(', ');
+      toast({ title: 'อ่านนามบัตรสำเร็จ', description: filled ? `กรอกแล้ว: ${filled}` : 'ไม่พบข้อมูลที่ชัดเจน — กรุณากรอกเอง' });
     } catch (err: any) {
       toast({ title: 'อ่านนามบัตรไม่สำเร็จ', description: err.message || 'ลองใหม่หรือกรอกด้วยตนเอง', variant: 'destructive' });
     } finally {
