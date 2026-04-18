@@ -6157,7 +6157,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
       {onToggleSelect && (
         <button
           onClick={(e) => { e.stopPropagation(); onToggleSelect(model.name); }}
-          className="absolute top-3 left-12 z-10">
+          className="absolute top-3 right-3 z-10 bg-background/80 backdrop-blur-sm rounded p-0.5">
           <Checkbox checked={selected} className="h-5 w-5" />
         </button>
       )}
