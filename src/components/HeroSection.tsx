@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Search, Menu, X, ChevronDown, LogIn, UserCircle, LayoutDashboard, LogOut, FileText, Plus, User, Tag, Mail } from "lucide-react";
+import { Search, Menu, X, ChevronDown, LogIn, UserCircle, LayoutDashboard, LogOut, FileText, Plus, User, Tag, Mail, ShoppingCart } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import CartBadge from "@/components/CartBadge";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -239,6 +239,13 @@ const HeroSection = () => {
 
       {mobileMenuOpen && (
         <div className="md:hidden absolute top-16 left-0 right-0 z-30 bg-card border-b border-border p-6 animate-fade-in max-h-[80vh] overflow-y-auto">
+          <Link
+            to="/shop"
+            onClick={() => setMobileMenuOpen(false)}
+            className="flex items-center justify-center gap-2 w-full px-4 py-3 mb-4 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20"
+          >
+            <ShoppingCart size={18} /> เลือกซื้อสินค้า
+          </Link>
           <MobileMegaMenu onNavigate={() => setMobileMenuOpen(false)} />
           <div className="flex items-center gap-2 mt-4 pt-4 border-t border-border">
             <ThemeToggle />
