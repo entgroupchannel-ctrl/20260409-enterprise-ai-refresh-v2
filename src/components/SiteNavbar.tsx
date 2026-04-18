@@ -140,7 +140,7 @@ export default function SiteNavbar() {
         </div>
 
         {/* Mobile toggle */}
-        <div className="flex md:hidden items-center gap-1">
+        <div className="flex md:hidden items-center gap-1 ml-auto">
           <Link
             to="/request-quote"
             aria-label="ขอใบเสนอราคา"
