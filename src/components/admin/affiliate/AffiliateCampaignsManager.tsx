@@ -89,10 +89,47 @@ export default function AffiliateCampaignsManager() {
   useEffect(() => { fetchCampaigns(); }, []);
 
   const resetWizard = () => {
+    setEditingId(null);
     setStep(1); setType("cart"); setTitle(""); setSlug(""); setDescription("");
     setPromoNote(""); setStartsAt(""); setEndsAt(""); setIsFeatured(false);
     setItems([{ product_model: "", product_name: "", quantity: 1, unit_price: null }]);
     setTemplateQuoteId("");
+  };
+
+  const toLocalInput = (iso: string | null) => iso ? new Date(iso).toISOString().slice(0, 16) : "";
+
+  const handleEdit = async (c: Campaign) => {
+    resetWizard();
+    setEditingId(c.id);
+    setStep(2); // skip type-selection (type is locked when editing)
+    setType(c.campaign_type);
+    setTitle(c.title);
+    setSlug(c.slug);
+    setDescription(c.description || "");
+    setPromoNote(c.promo_note || "");
+    setStartsAt(toLocalInput(c.starts_at));
+    setEndsAt(toLocalInput(c.ends_at));
+    setIsFeatured(c.is_featured);
+
+    if (c.campaign_type === "cart") {
+      const { data: rows, error } = await (supabase.from as any)("affiliate_campaign_items")
+        .select("product_model, product_name, quantity, unit_price, display_order")
+        .eq("campaign_id", c.id)
+        .order("display_order", { ascending: true });
+      if (error) toast({ title: "โหลดสินค้าไม่สำเร็จ", description: error.message, variant: "destructive" });
+      const loaded: CampaignItem[] = (rows || []).map((r: any) => ({
+        product_model: r.product_model,
+        product_name: r.product_name || "",
+        quantity: r.quantity,
+        unit_price: r.unit_price,
+      }));
+      setItems(loaded.length > 0 ? loaded : [{ product_model: "", product_name: "", quantity: 1, unit_price: null }]);
+    } else {
+      // template_quote_id is not in Campaign type but may exist on row
+      setTemplateQuoteId((c as any).template_quote_id || "");
+    }
+
+    setOpenWizard(true);
   };
 
   const handleSave = async () => {
@@ -106,28 +143,43 @@ export default function AffiliateCampaignsManager() {
         ? items.reduce((s, i) => s + (Number(i.unit_price || 0) * Number(i.quantity || 0)), 0)
         : null;
 
-      const { data: created, error } = await (supabase.from as any)("affiliate_campaigns")
-        .insert({
-          slug, title, description: description || null,
-          campaign_type: type,
-          promo_note: promoNote || null,
-          starts_at: startsAt || null,
-          ends_at: endsAt || null,
-          is_featured: isFeatured,
-          is_active: true,
-          estimated_total: estTotal,
-          template_quote_id: type === "quote_template" && templateQuoteId ? templateQuoteId : null,
-        })
-        .select("id")
-        .single();
-      if (error) throw error;
+      const payload = {
+        slug, title, description: description || null,
+        campaign_type: type,
+        promo_note: promoNote || null,
+        starts_at: startsAt || null,
+        ends_at: endsAt || null,
+        is_featured: isFeatured,
+        estimated_total: estTotal,
+        template_quote_id: type === "quote_template" && templateQuoteId ? templateQuoteId : null,
+      };
 
-      if (type === "cart") {
+      let campaignId = editingId;
+
+      if (editingId) {
+        const { error } = await (supabase.from as any)("affiliate_campaigns")
+          .update(payload).eq("id", editingId);
+        if (error) throw error;
+      } else {
+        const { data: created, error } = await (supabase.from as any)("affiliate_campaigns")
+          .insert({ ...payload, is_active: true })
+          .select("id").single();
+        if (error) throw error;
+        campaignId = created.id;
+      }
+
+      if (type === "cart" && campaignId) {
+        // Replace items: delete existing then insert current
+        if (editingId) {
+          const { error: delErr } = await (supabase.from as any)("affiliate_campaign_items")
+            .delete().eq("campaign_id", campaignId);
+          if (delErr) throw delErr;
+        }
         const validItems = items.filter(i => i.product_model.trim());
         if (validItems.length > 0) {
           const { error: itemsErr } = await (supabase.from as any)("affiliate_campaign_items")
             .insert(validItems.map((it, idx) => ({
-              campaign_id: created.id,
+              campaign_id: campaignId,
               product_model: it.product_model,
               product_name: it.product_name || null,
               quantity: it.quantity,
@@ -138,7 +190,7 @@ export default function AffiliateCampaignsManager() {
         }
       }
 
-      toast({ title: "สร้าง campaign สำเร็จ" });
+      toast({ title: editingId ? "อัพเดต campaign สำเร็จ" : "สร้าง campaign สำเร็จ" });
       setOpenWizard(false);
       resetWizard();
       fetchCampaigns();
