@@ -543,6 +543,86 @@ export default function PartnerApply() {
           </div>
         </div>
       </div>
+
+      {/* Account creation dialog (guests only) */}
+      <Dialog open={accountDialogOpen} onOpenChange={(o) => !creatingAccount && setAccountDialogOpen(o)}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <KeyRound className="w-5 h-5 text-primary" />
+              {lang === "zh" ? "创建账户以提交" : lang === "en" ? "Create account to submit" : "ตั้งรหัสผ่านเพื่อส่งใบสมัคร"}
+            </DialogTitle>
+            <DialogDescription className="space-y-2 pt-2">
+              <span className="block">
+                {lang === "zh"
+                  ? "为了让您能跟踪申请状态并在合作伙伴门户中查看进度,请使用以下邮箱设置一个密码。"
+                  : lang === "en"
+                  ? "So you can track your application and access the Partner Portal, please set a password for your email."
+                  : "เพื่อให้คุณติดตามสถานะใบสมัครและเข้า Partner Portal ได้ กรุณาตั้งรหัสผ่านสำหรับอีเมลของคุณ"}
+              </span>
+              <span className="block text-xs bg-muted px-3 py-2 rounded">
+                <Mail className="inline w-3 h-3 mr-1" />
+                <strong>{data.contact_email || "—"}</strong>
+              </span>
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-3 py-2">
+            <div>
+              <Label htmlFor="pwd1" className="text-xs">
+                {lang === "zh" ? "密码 (至少8位)" : lang === "en" ? "Password (min 8 chars)" : "รหัสผ่าน (อย่างน้อย 8 ตัวอักษร)"}
+              </Label>
+              <div className="relative">
+                <Input
+                  id="pwd1"
+                  type={showPwd ? "text" : "password"}
+                  value={accountPassword}
+                  onChange={(e) => setAccountPassword(e.target.value)}
+                  className="pr-10"
+                  autoComplete="new-password"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPwd((s) => !s)}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  tabIndex={-1}
+                >
+                  {showPwd ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+            </div>
+            <div>
+              <Label htmlFor="pwd2" className="text-xs">
+                {lang === "zh" ? "确认密码" : lang === "en" ? "Confirm password" : "ยืนยันรหัสผ่าน"}
+              </Label>
+              <Input
+                id="pwd2"
+                type={showPwd ? "text" : "password"}
+                value={accountPassword2}
+                onChange={(e) => setAccountPassword2(e.target.value)}
+                autoComplete="new-password"
+              />
+            </div>
+            <p className="text-[11px] text-muted-foreground">
+              {lang === "zh"
+                ? "我们会向此邮箱发送验证链接。验证后即可登录合作伙伴门户。"
+                : lang === "en"
+                ? "We'll send a verification link to this email. Once verified, you can sign in to the Partner Portal."
+                : "เราจะส่งลิงก์ยืนยันไปที่อีเมลนี้ เมื่อยืนยันแล้วจะเข้า Partner Portal ได้"}
+            </p>
+          </div>
+
+          <DialogFooter className="gap-2 sm:gap-2">
+            <Button variant="outline" onClick={() => setAccountDialogOpen(false)} disabled={creatingAccount}>
+              {lang === "zh" ? "取消" : lang === "en" ? "Cancel" : "ยกเลิก"}
+            </Button>
+            <Button onClick={createAccountAndSubmit} disabled={creatingAccount}>
+              {creatingAccount && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
+              {lang === "zh" ? "创建并提交" : lang === "en" ? "Create & Submit" : "สร้างบัญชีและส่ง"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
