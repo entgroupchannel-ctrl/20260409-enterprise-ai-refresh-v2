@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Loader2, Search, ExternalLink, Users, Award, TrendingUp, Clock, Download } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import AdminLayout from "@/layouts/AdminLayout";
+import AffiliateTabsBar from "@/components/admin/affiliate/AffiliateTabsBar";
 import { format } from "date-fns";
 
 type Status = "all" | "pending" | "approved" | "rejected" | "suspended";
@@ -153,6 +154,7 @@ export default function AdminAffiliatesList() {
       </Helmet>
 
       <div className="space-y-6">
+        <AffiliateTabsBar />
         <div>
           <h1 className="text-2xl font-bold">Affiliates</h1>
           <p className="text-sm text-muted-foreground">

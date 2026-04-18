@@ -17,6 +17,7 @@ import { Loader2, Search, ExternalLink, Download, CheckCircle2, XCircle } from "
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import AdminLayout from "@/layouts/AdminLayout";
+import AffiliateTabsBar from "@/components/admin/affiliate/AffiliateTabsBar";
 import { format } from "date-fns";
 
 type StatusFilter = "all" | "new" | "qualified" | "converted" | "rejected";
@@ -178,6 +179,7 @@ export default function AdminAffiliateLeads() {
       </Helmet>
 
       <div className="space-y-6">
+        <AffiliateTabsBar />
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div>
             <h1 className="text-2xl font-bold">Affiliate Leads</h1>
