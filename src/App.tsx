@@ -144,6 +144,7 @@ const RequestRepairForm = lazyRetry(() => import("./pages/customer/RequestRepair
 const AdminInventory = lazyRetry(() => import("./pages/admin/AdminInventory"));
 const AdminSupplierManagement = lazyRetry(() => import("./pages/admin/AdminSupplierManagement"));
 const AdminSupplierDetail = lazyRetry(() => import("./pages/admin/AdminSupplierDetail"));
+const AdminSupplierTemplates = lazyRetry(() => import("./pages/admin/AdminSupplierTemplates"));
 const AdminInternationalTransfer = lazyRetry(() => import("./pages/admin/AdminInternationalTransfer"));
 const AdminLiveChat = lazyRetry(() => import("./pages/admin/AdminLiveChat"));
 const AdminGeneralChat = lazyRetry(() => import("./pages/admin/AdminGeneralChat"));
@@ -302,6 +303,7 @@ const App = () => (
                     <Route path="/admin/products" element={<ProtectedRoute requireSales><ProductsList /></ProtectedRoute>} />
                     <Route path="/admin/settings/company" element={<ProtectedRoute requireSales><AdminCompanySettings /></ProtectedRoute>} />
                     <Route path="/admin/suppliers" element={<ProtectedRoute allowedRoles={['super_admin','admin','accountant']}><AdminSupplierManagement /></ProtectedRoute>} />
+                    <Route path="/admin/suppliers/templates" element={<ProtectedRoute allowedRoles={['super_admin','admin','accountant']}><AdminSupplierTemplates /></ProtectedRoute>} />
                     <Route path="/admin/suppliers/:id" element={<ProtectedRoute allowedRoles={['super_admin','admin','accountant']}><AdminSupplierDetail /></ProtectedRoute>} />
                     <Route path="/admin/international-transfer" element={<ProtectedRoute allowedRoles={['super_admin','admin','accountant']}><AdminInternationalTransfer /></ProtectedRoute>} />
                     <Route path="/admin/live-chat" element={<ProtectedRoute requireSales><AdminLiveChat /></ProtectedRoute>} />

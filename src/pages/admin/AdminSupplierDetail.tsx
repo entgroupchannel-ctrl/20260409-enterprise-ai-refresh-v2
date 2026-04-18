@@ -373,6 +373,8 @@ export default function AdminSupplierDetail() {
             </CardContent>
           </Card>
         )}
+          </TabsContent>
+        </Tabs>
       </div>
     </AdminLayout>
   );
