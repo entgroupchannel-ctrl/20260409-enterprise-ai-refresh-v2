@@ -6,7 +6,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { ArrowLeft, ArrowRight, CheckCircle2, Cloud, Loader2, Save, Upload, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, Camera, CheckCircle2, Cloud, Loader2, Save, ScanLine, Upload, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -364,9 +364,98 @@ const Field = ({ label, required, children }: any) => (
 );
 
 function Stage1({ data, update, L }: any) {
+  const { toast } = useToast();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [scanning, setScanning] = useState(false);
+  const [cardPreview, setCardPreview] = useState<string | null>(null);
+
+  const handleCardUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = async (ev) => {
+      const base64 = ev.target?.result as string;
+      setCardPreview(base64);
+      setScanning(true);
+      try {
+        const { data: res, error } = await supabase.functions.invoke("scan-business-card", { body: { image: base64 } });
+        if (error) throw error;
+        const ex = (res as any)?.data || {};
+        // Map to form fields
+        if (ex.name) update("contact_name", ex.name);
+        if (ex.email) update("contact_email", ex.email);
+        if (ex.phone) update("contact_phone", ex.phone);
+        if (ex.company) update("company_name_en", ex.company);
+        if (ex.position) update("contact_position", ex.position);
+        if (ex.whatsapp) update("contact_whatsapp", ex.whatsapp);
+        if (ex.website) update("website", ex.website);
+        if (ex.address) update("company_address", ex.address);
+        toast({ title: "✅ สแกนนามบัตรสำเร็จ", description: "ระบบกรอกข้อมูลให้แล้ว — โปรดตรวจสอบความถูกต้อง" });
+      } catch (err: any) {
+        toast({ title: "สแกนไม่สำเร็จ", description: err.message || "กรุณากรอกข้อมูลด้วยตนเอง", variant: "destructive" });
+      } finally {
+        setScanning(false);
+        if (fileInputRef.current) fileInputRef.current.value = "";
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
   return (
     <>
       <h2 className="text-xl font-semibold">{L("step1")}</h2>
+
+      {/* Business Card Scanner */}
+      <div className="p-4 rounded-xl border-2 border-dashed border-primary/30 bg-primary/5">
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          capture="environment"
+          className="hidden"
+          onChange={handleCardUpload}
+        />
+        {!cardPreview ? (
+          <div className="text-center space-y-2">
+            <div className="flex items-center justify-center gap-2 text-sm font-semibold text-primary">
+              <ScanLine className="w-4 h-4" />
+              📇 สแกนนามบัตร — กรอกฟอร์มผู้ติดต่ออัตโนมัติ
+            </div>
+            <p className="text-xs text-muted-foreground">
+              ถ่ายรูปหรืออัปโหลดนามบัตร AI จะดึง ชื่อ / อีเมล / โทร / บริษัท ให้ทันที
+            </p>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={scanning}
+            >
+              <Camera className="w-4 h-4 mr-2" />
+              เลือกรูปนามบัตร
+            </Button>
+          </div>
+        ) : (
+          <div className="space-y-2">
+            <div className="relative rounded-lg overflow-hidden border border-border">
+              <img src={cardPreview} alt="นามบัตร" className="w-full h-auto max-h-40 object-contain bg-white" />
+              {scanning && (
+                <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                  <div className="flex items-center gap-2 text-white text-sm">
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    กำลังอ่านนามบัตร...
+                  </div>
+                </div>
+              )}
+            </div>
+            <Button type="button" variant="ghost" size="sm" onClick={() => setCardPreview(null)} disabled={scanning}>
+              <X className="w-3.5 h-3.5 mr-1" />
+              ลบ / อัปโหลดใหม่
+            </Button>
+          </div>
+        )}
+      </div>
+
       <div className="grid md:grid-cols-2 gap-4">
         <Field label={L("companyNameLocal")} required>
           <Input value={data.company_name_local} onChange={(e) => update("company_name_local", e.target.value)} />
