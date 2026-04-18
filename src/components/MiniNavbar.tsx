@@ -4,7 +4,6 @@ import CartBadge from '@/components/CartBadge';
 import ThemeToggle from '@/components/ThemeToggle';
 import { useAuth } from '@/hooks/useAuth';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import logo from '@/assets/logo-entgroup.avif';
 
 /**
  * MiniNavbar — แถบบนแบบเบา: โลโก้ + icon (Quote / Theme / Cart / Login)
@@ -16,9 +15,6 @@ export default function MiniNavbar() {
   return (
     <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
       <div className="container mx-auto px-4 flex items-center gap-3 h-14">
-        <Link to="/" className="flex items-center gap-3 shrink-0">
-          <img src={logo} alt="ENT GROUP" className="h-7 w-auto" />
-        </Link>
 
         <div className="flex items-center gap-1 ml-auto">
           <TooltipProvider delayDuration={150}>
