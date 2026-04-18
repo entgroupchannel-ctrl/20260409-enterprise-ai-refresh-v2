@@ -37,7 +37,7 @@ const TICKERS = [
 
 export default function ShopHotDeals() {
   return (
-    <div className="overflow-hidden border-b border-white/10 shadow-sm">
+    <div className="sticky top-16 z-40 overflow-hidden border-b border-white/10 shadow-sm">
       {/* แถวบน — Hot Deals (gradient ส้ม-ชมพู) */}
       <div className="bg-gradient-to-r from-orange-500 via-rose-500 to-orange-500 text-white">
         <div className="relative flex items-center gap-3 py-2.5 text-xs sm:text-sm font-semibold">
