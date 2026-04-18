@@ -283,7 +283,7 @@ export default function AffiliateCampaignsManager() {
           ยังไม่มี campaign — กดปุ่ม "สร้าง Campaign" เพื่อเริ่ม
         </CardContent></Card>
       ) : (
-        <div className="grid gap-3">
+        <div className={view === "grid" ? "grid gap-3 sm:grid-cols-2 xl:grid-cols-3" : "grid gap-3"}>
           {campaigns.map(c => (
             <Card key={c.id} className={!c.is_active ? "opacity-60" : ""}>
               <CardContent className="p-4">
