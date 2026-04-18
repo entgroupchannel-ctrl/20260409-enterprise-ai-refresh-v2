@@ -455,6 +455,7 @@ export type Database = {
       }
       affiliates: {
         Row: {
+          account_holder_type: string
           affiliate_code: string
           approved_at: string | null
           approved_by: string | null
@@ -469,8 +470,11 @@ export type Database = {
           expertise_areas: string[]
           full_name: string
           id: string
+          id_card_uploaded_at: string | null
+          id_card_url: string | null
           linkedin_url: string | null
           min_payout: number
+          national_id: string | null
           paid_earnings: number
           pending_earnings: number
           phone: string | null
@@ -494,6 +498,7 @@ export type Database = {
           years_experience: number | null
         }
         Insert: {
+          account_holder_type?: string
           affiliate_code: string
           approved_at?: string | null
           approved_by?: string | null
@@ -508,8 +513,11 @@ export type Database = {
           expertise_areas?: string[]
           full_name: string
           id?: string
+          id_card_uploaded_at?: string | null
+          id_card_url?: string | null
           linkedin_url?: string | null
           min_payout?: number
+          national_id?: string | null
           paid_earnings?: number
           pending_earnings?: number
           phone?: string | null
@@ -533,6 +541,7 @@ export type Database = {
           years_experience?: number | null
         }
         Update: {
+          account_holder_type?: string
           affiliate_code?: string
           approved_at?: string | null
           approved_by?: string | null
@@ -547,8 +556,11 @@ export type Database = {
           expertise_areas?: string[]
           full_name?: string
           id?: string
+          id_card_uploaded_at?: string | null
+          id_card_url?: string | null
           linkedin_url?: string | null
           min_payout?: number
+          national_id?: string | null
           paid_earnings?: number
           pending_earnings?: number
           phone?: string | null
