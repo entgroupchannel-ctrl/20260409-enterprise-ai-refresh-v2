@@ -664,6 +664,7 @@ const ShopProductDetail = () => {
             <Button asChild size="sm" className="bg-amber-600 hover:bg-amber-700 text-white">
               <a href="#rfq-form"><FileText className="w-3.5 h-3.5 mr-1" /> RFQ</a>
             </Button>
+            <ChatNowButton productModel={displayVariant.model} productName={displayVariant.name} />
           </div>
         </div>
       )}
