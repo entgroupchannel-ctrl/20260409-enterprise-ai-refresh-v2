@@ -190,14 +190,43 @@ export default function AdminAffiliatesList() {
                   <TabsTrigger value="all">ทั้งหมด ({counts.all})</TabsTrigger>
                 </TabsList>
               </Tabs>
-              <div className="relative w-full md:w-72">
-                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground" size={14} />
-                <Input
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder="ค้นหา ชื่อ / อีเมล / code..."
-                  className="pl-8"
-                />
+              <div className="flex gap-2 flex-wrap">
+                <Select value={tier} onValueChange={setTier}>
+                  <SelectTrigger className="w-[130px]">
+                    <SelectValue placeholder="Tier" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">ทุก Tier</SelectItem>
+                    <SelectItem value="bronze">Bronze</SelectItem>
+                    <SelectItem value="silver">Silver</SelectItem>
+                    <SelectItem value="gold">Gold</SelectItem>
+                    <SelectItem value="platinum">Platinum</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Select value={sort} onValueChange={(v) => setSort(v as SortKey)}>
+                  <SelectTrigger className="w-[150px]">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="newest">ล่าสุดก่อน</SelectItem>
+                    <SelectItem value="oldest">เก่าสุดก่อน</SelectItem>
+                    <SelectItem value="revenue">Revenue สูงสุด</SelectItem>
+                    <SelectItem value="leads">Leads สูงสุด</SelectItem>
+                    <SelectItem value="name">ชื่อ A-Z</SelectItem>
+                  </SelectContent>
+                </Select>
+                <div className="relative w-full md:w-60">
+                  <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground" size={14} />
+                  <Input
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder="ค้นหา ชื่อ / อีเมล / code..."
+                    className="pl-8"
+                  />
+                </div>
+                <Button variant="outline" size="sm" onClick={exportCSV} disabled={filtered.length === 0}>
+                  <Download size={14} /> CSV
+                </Button>
               </div>
             </div>
 
