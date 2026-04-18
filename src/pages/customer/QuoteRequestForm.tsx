@@ -378,6 +378,16 @@ export default function QuoteRequestForm() {
       </div>
 
       <form onSubmit={handleSubmit} className="max-w-5xl mx-auto px-4 py-4">
+        {campaignInfo && (
+          <div className="mb-4 flex items-center gap-2 p-3 rounded-lg border border-primary/30 bg-primary/5">
+            <Package className="w-4 h-4 text-primary shrink-0" />
+            <div className="text-sm">
+              <span className="font-medium">โหลดสินค้าจากแคมเปญ:</span>{' '}
+              <span className="text-primary">{campaignInfo.title}</span>
+              <span className="text-xs text-muted-foreground ml-2">({campaignInfo.slug})</span>
+            </div>
+          </div>
+        )}
         {/* Honeypot field — hidden from users, bots will fill it */}
         <div aria-hidden="true" className="absolute -left-[9999px] w-px h-px overflow-hidden" tabIndex={-1}>
           <label>
