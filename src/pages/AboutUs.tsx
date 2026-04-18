@@ -6,6 +6,7 @@ import {
   Network, Package, TrendingUp,
 } from "lucide-react";
 import FooterCompact from "@/components/FooterCompact";
+import MiniNavbar from "@/components/MiniNavbar";
 import heroGrowth from "@/assets/about-hero-growth.jpg";
 import entLogoFull from "@/assets/entgroup-logo-full.jpg";
 
@@ -90,6 +91,7 @@ const values = [
 const AboutUs = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      <MiniNavbar />
       {/* ═══════ Hero with growth image ═══════ */}
       <section className="relative min-h-[420px] flex items-center overflow-hidden">
         <img
@@ -101,9 +103,6 @@ const AboutUs = () => {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/30" />
         <div className="relative z-10 container max-w-6xl mx-auto px-4 py-16 md:py-24">
-          <Link to="/" className="inline-flex items-center gap-1 text-xs text-primary mb-6 hover:underline">
-            <ArrowLeft size={12} /> กลับหน้าหลัก
-          </Link>
           <h1 className="text-3xl md:text-5xl font-display font-bold text-white mb-4">
             เกี่ยวกับ <span className="text-primary">ENT Group</span>
           </h1>
