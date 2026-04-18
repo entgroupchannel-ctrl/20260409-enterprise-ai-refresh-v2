@@ -72,7 +72,7 @@ const Partner = () => {
           <div className="flex items-center gap-3">
             <LangToggle variant="full" />
             <Button asChild size="sm" className="hidden sm:inline-flex">
-              <a href="#apply">{t("partner.ctaApply")}</a>
+              <Link to="/partner/apply">{t("partner.ctaApply")}</Link>
             </Button>
           </div>
         </div>
@@ -95,9 +95,9 @@ const Partner = () => {
             </p>
             <div className="flex flex-wrap gap-3">
               <Button size="lg" asChild>
-                <a href="#apply">
+                <Link to="/partner/apply">
                   {t("partner.ctaApply")} <ArrowRight className="ml-2 h-4 w-4" />
-                </a>
+                </Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
                 <a href="#why">{t("partner.ctaLearn")}</a>
@@ -235,13 +235,15 @@ const Partner = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Button size="lg" asChild>
+              <Link to="/partner/apply">
+                {t("partner.ctaApply")} <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+            <Button size="lg" variant="outline" asChild>
               <a href={`mailto:${t("partner.contactEmail")}`}>
                 <Mail className="mr-2 h-4 w-4" />
                 {t("partner.contactEmail")}
               </a>
-            </Button>
-            <Button size="lg" variant="outline" asChild>
-              <Link to="/contact">{t("nav.contactUs")}</Link>
             </Button>
           </div>
         </div>
