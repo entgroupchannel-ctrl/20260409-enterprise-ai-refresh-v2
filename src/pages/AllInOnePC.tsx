@@ -207,8 +207,6 @@ const AllInOnePC = () => {
         </div>
       </div>
 
-      <MiniNavbar />
-
       {/* ── Sticky Bar: Quick Filters ── */}
       <div className="sticky top-14 z-40 bg-background/90 backdrop-blur-xl border-b border-border">
         <div className="container max-w-7xl mx-auto px-4">
