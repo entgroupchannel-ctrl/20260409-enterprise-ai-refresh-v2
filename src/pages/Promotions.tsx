@@ -8,6 +8,7 @@ import promotionsHeroBg from "@/assets/promotions-hero-bg.jpg";
 import promoEmT195Hero from "@/assets/promo-em-t195-hero.jpg";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import FooterCompact from "@/components/FooterCompact";
+import MiniNavbar from "@/components/MiniNavbar";
 import LineQRButton from "@/components/LineQRButton";
 import SEOHead from "@/components/SEOHead";
 import GEOMeta from "@/components/GEOMeta";
@@ -376,16 +377,7 @@ const Promotions = () => {
           "ส่วนลดพิเศษสำหรับสถาบันการศึกษาและหน่วยงานราชการ",
         ]}
       />
-      {/* Nav */}
-      <div className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
-        <div className="container max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
-            <ArrowLeft size={16} /> หน้าแรก
-          </Link>
-          <h1 className="text-sm font-bold">​</h1>
-          <div className="w-16" />
-        </div>
-      </div>
+      <MiniNavbar />
 
       {/* Hero */}
       <section className="relative overflow-hidden min-h-[340px] md:min-h-[400px]">
