@@ -262,29 +262,38 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* RFQ CTA — minimal inline */}
+        {/* RFQ + Newsletter — two-column split */}
         <div className="border-t border-gray-300 dark:border-[hsl(220,15%,18%)]">
-          <div className="container max-w-7xl mx-auto px-6 py-3 flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 text-center">
-            <span className="inline-flex items-center gap-1.5 text-xs text-gray-700 dark:text-[hsl(210,20%,80%)]">
-              <FileText size={13} className="text-primary" />
-              ต้องการใบเสนอราคา? ตอบกลับภายใน 24 ชม.
-            </span>
-            <Link
-              to="/request-quote"
-              className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity"
-            >
-              ขอใบเสนอราคา <ArrowRight size={12} />
-            </Link>
-          </div>
-        </div>
+          <div className="container max-w-7xl mx-auto px-6 py-8 grid grid-cols-1 md:grid-cols-2 gap-8 md:divide-x divide-gray-300 dark:divide-[hsl(220,15%,18%)]">
+            {/* RFQ */}
+            <div className="md:pr-8 text-center md:text-left">
+              <h3 className="text-base font-bold text-gray-900 dark:text-white mb-1 flex items-center justify-center md:justify-start gap-1.5">
+                <FileText size={15} className="text-primary" />
+                ต้องการใบเสนอราคา?
+              </h3>
+              <p className="text-xs text-gray-600 dark:text-[hsl(215,15%,55%)] mb-4 leading-relaxed">
+                กรอกฟอร์มเพียง 2 นาที ทีมขายตอบกลับภายใน 24 ชม.<br className="hidden sm:inline" />
+                รองรับงาน B2B / โครงการ / ส่วนราชการ
+              </p>
+              <Link
+                to="/request-quote"
+                className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity"
+              >
+                ขอใบเสนอราคา <ArrowRight size={14} />
+              </Link>
+            </div>
 
-        <div className="border-t border-gray-300 dark:border-[hsl(220,15%,18%)]">
-          <div className="container max-w-7xl mx-auto px-6 py-8 text-center">
-            <h3 className="text-base font-bold text-gray-900 dark:text-white mb-1">สมัครรับข่าวสาร</h3>
-            <p className="text-xs text-gray-600 dark:text-[hsl(215,15%,55%)] mb-4">
-              รับข่าวสารล่าสุดเกี่ยวกับสินค้า โปรโมชั่น และเทคโนโลยีใหม่ๆ จาก ENT Group
-            </p>
-            <NewsletterForm />
+            {/* Newsletter */}
+            <div className="md:pl-8 text-center md:text-left">
+              <h3 className="text-base font-bold text-gray-900 dark:text-white mb-1">สมัครรับข่าวสาร</h3>
+              <p className="text-xs text-gray-600 dark:text-[hsl(215,15%,55%)] mb-4 leading-relaxed">
+                รับข่าวสารล่าสุดเกี่ยวกับสินค้า โปรโมชั่น<br className="hidden sm:inline" />
+                และเทคโนโลยีใหม่ๆ จาก ENT Group
+              </p>
+              <div className="md:mx-0">
+                <NewsletterForm />
+              </div>
+            </div>
           </div>
         </div>
 
