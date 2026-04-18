@@ -29,6 +29,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import FooterCompact from "@/components/FooterCompact";
+import MiniNavbar from "@/components/MiniNavbar";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
 import EPCSeriesCompare from "@/components/EPCSeriesCompare";
 
@@ -379,6 +380,7 @@ const EPCSeries = () => {
         products={priceListSquare.map(m => ({ name: m.model, price: m.price, description: m.config, category: "Industrial Panel PC" }))}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "EPC Series", path: "/epc-series" }]} />
+      <MiniNavbar />
       {/* Hero */}
       <div className="relative overflow-hidden min-h-[480px] md:min-h-[520px]">
         {/* Background Image */}
@@ -387,9 +389,6 @@ const EPCSeries = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
 
         <div className="container max-w-7xl mx-auto px-4 py-8 relative z-10">
-          <Link to="/" className="inline-flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors mb-6">
-            <ArrowLeft className="w-4 h-4" /> กลับหน้าหลัก
-          </Link>
 
           <div className="flex flex-col md:flex-row gap-8 items-center">
             {/* Text Content */}
@@ -466,7 +465,7 @@ const EPCSeries = () => {
       </section>
 
       {/* Sticky Nav */}
-      <div className="sticky top-0 z-40 bg-background/80 backdrop-blur-xl border-b border-border">
+      <div className="sticky top-14 z-40 bg-background/80 backdrop-blur-xl border-b border-border">
         <div className="container max-w-7xl mx-auto px-4">
           <div className="flex gap-1 overflow-x-auto py-2 scrollbar-hide">
             {categories.map((cat) => (
