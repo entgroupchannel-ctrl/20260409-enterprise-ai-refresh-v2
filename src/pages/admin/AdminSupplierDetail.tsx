@@ -4,8 +4,16 @@ import { supabase } from '@/integrations/supabase/client';
 import AdminLayout from '@/layouts/AdminLayout';
 import SupplierRegistrationForm from '@/components/admin/SupplierRegistrationForm';
 import SupplierStatusBadge from '@/components/admin/SupplierStatusBadge';
+import SupplierLifecycleBadge, { LIFECYCLE_STAGES } from '@/components/admin/SupplierLifecycleBadge';
+import SupplierPrequalForm from '@/components/admin/SupplierPrequalForm';
+import SupplierScoringMatrix from '@/components/admin/SupplierScoringMatrix';
+import SupplierOutreachLog from '@/components/admin/SupplierOutreachLog';
+import SupplierVideoCallLog from '@/components/admin/SupplierVideoCallLog';
+import SupplierSamplePilotPanel from '@/components/admin/SupplierSamplePilotPanel';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import {
   ArrowLeft, Edit2, Trash2, Loader2, Building2, Mail, Phone, Globe,
@@ -125,13 +133,17 @@ export default function AdminSupplierDetail() {
           <CardContent className="pt-6">
             <div className="flex items-start justify-between">
               <div>
-                <div className="flex items-center gap-2 mb-1">
+                <div className="flex items-center gap-2 mb-1 flex-wrap">
                   <span className="font-mono text-xs text-muted-foreground">{s.supplier_code}</span>
                   <SupplierStatusBadge status={s.status} />
+                  <SupplierLifecycleBadge stage={s.lifecycle_stage} />
                   {s.is_preferred && (
                     <span className="text-xs bg-accent text-accent-foreground px-2 py-0.5 rounded-full flex items-center gap-1">
                       <Star className="w-3 h-3 fill-current" /> Preferred
                     </span>
+                  )}
+                  {s.overall_score != null && (
+                    <Badge variant="outline" className="text-xs">★ {Number(s.overall_score).toFixed(2)}</Badge>
                   )}
                 </div>
                 <h1 className="text-xl font-bold">{s.company_name}</h1>
