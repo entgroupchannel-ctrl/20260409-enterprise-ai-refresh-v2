@@ -32,20 +32,18 @@ const RequestQuoteFab = () => {
     <button
       type="button"
       onClick={handleClick}
+      title="ขอใบเสนอราคา"
       className={cn(
-        "group fixed z-40",
+        "fixed z-40",
         "bottom-24 right-6 md:bottom-28",
-        "flex items-center gap-2 h-12 pl-3.5 pr-3.5",
+        "flex items-center justify-center w-12 h-12",
         "rounded-full bg-primary text-primary-foreground shadow-xl",
-        "hover:pr-5 hover:shadow-2xl transition-all duration-300",
+        "hover:shadow-2xl hover:scale-105 transition-all duration-300",
         "ring-2 ring-primary/20 hover:ring-primary/40",
       )}
       aria-label="ขอใบเสนอราคา"
     >
-      <FileText size={20} className="shrink-0" />
-      <span className="max-w-0 overflow-hidden whitespace-nowrap text-sm font-semibold opacity-0 group-hover:max-w-[180px] group-hover:opacity-100 transition-all duration-300">
-        ขอใบเสนอราคา
-      </span>
+      <FileText size={20} />
     </button>
   );
 };
