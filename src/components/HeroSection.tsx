@@ -363,7 +363,7 @@ const HeroSection = () => {
                 to="/shop"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20"
               >
-                🛒 เลือกซื้อสินค้า
+                เลือกซื้อสินค้า
               </Link>
               <Link
                 to="/contact"
