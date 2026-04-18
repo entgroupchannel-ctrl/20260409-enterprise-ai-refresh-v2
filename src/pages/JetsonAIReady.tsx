@@ -7,6 +7,7 @@ import {
 import SEOHead from "@/components/SEOHead";
 import SiteNavbar from "@/components/SiteNavbar";
 import Footer from "@/components/Footer";
+import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import PageBanner from "@/components/PageBanner";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -353,6 +354,7 @@ export default function JetsonAIReady() {
         </section>
       </main>
 
+      <B2BWorkflowBanner showShopCta />
       <Footer />
     </>
   );

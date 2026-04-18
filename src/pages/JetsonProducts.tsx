@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import SiteNavbar from "@/components/SiteNavbar";
 import Footer from "@/components/Footer";
+import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -138,6 +139,7 @@ export default function JetsonProducts() {
         </p>
       </section>
 
+      <B2BWorkflowBanner showShopCta />
       <Footer />
     </div>
   );
