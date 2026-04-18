@@ -16,6 +16,7 @@ import TransferStatusBadge from './TransferStatusBadge';
 import TransferEmailModal from './TransferEmailModal';
 import TransferPrintDialog from './TransferPrintDialog';
 import { useAuth } from '@/hooks/useAuth';
+import { sanitizeFilename } from "@/lib/sanitize-filename";
 
 const DOC_TYPE_LABELS: Record<string, string> = {
   proforma_invoice: 'PI', commercial_invoice: 'CI', air_waybill: 'AWB',
@@ -282,7 +283,7 @@ export default function TransferRequestsList({ onEdit }: Props) {
       let slipUrl: string | null = null;
       // Upload slip if provided
       if (slipFile) {
-        const path = `${confirmTarget.supplier_id}/${confirmTarget.id}/slip_${Date.now()}_${slipFile.name}`;
+        const path = `${confirmTarget.supplier_id}/${confirmTarget.id}/slip_${Date.now()}_${sanitizeFilename(slipFile.name)}`;
         const { error: upErr } = await supabase.storage.from('supplier-documents').upload(path, slipFile);
         if (upErr) throw upErr;
         const { data: urlData } = supabase.storage.from('supplier-documents').getPublicUrl(path);

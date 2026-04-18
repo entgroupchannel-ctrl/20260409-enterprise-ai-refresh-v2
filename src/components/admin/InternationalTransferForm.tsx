@@ -14,6 +14,7 @@ import {
   Save, Send, RefreshCw, ChevronDown, Loader2, X,
   FileText, Package, DollarSign, Calendar, AlertTriangle,
 } from 'lucide-react';
+import { sanitizeFilename } from '@/lib/sanitize-filename';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -250,7 +251,7 @@ export default function InternationalTransferForm({ editId, onSaved }: Props) {
       if (attachedFiles.length > 0 && transferId) {
         const userId = (await supabase.auth.getUser()).data.user?.id ?? null;
         for (const af of attachedFiles) {
-          const path = `${supplierId}/${transferId}/${Date.now()}_${af.file.name}`;
+          const path = `${supplierId}/${transferId}/${Date.now()}_${sanitizeFilename(af.file.name)}`;
           const { error: upErr } = await supabase.storage.from('supplier-documents').upload(path, af.file);
           if (upErr) { toast.error(`อัปโหลด ${af.file.name} ล้มเหลว`); continue; }
           const { data: urlData } = supabase.storage.from('supplier-documents').getPublicUrl(path);

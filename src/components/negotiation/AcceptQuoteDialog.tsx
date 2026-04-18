@@ -17,6 +17,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
 import { CheckCircle2, Gift, Upload, FileText, FileCheck, X, BadgeCheck, Sparkles, HandCoins, FileSignature, ShieldCheck } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { sanitizeFilename } from "@/lib/sanitize-filename";
 
 interface AcceptQuoteDialogProps {
   quoteId: string;
@@ -77,7 +78,7 @@ export default function AcceptQuoteDialog({
   const uploadPOFiles = async () => {
     const uploaded: any[] = [];
     for (const file of poFiles) {
-      const fileName = `po-files/${quoteId}/${Date.now()}-${file.name}`;
+      const fileName = `po-files/${quoteId}/${Date.now()}-${sanitizeFilename(file.name)}`;
       const { error: uploadError } = await supabase.storage
         .from('quote-files')
         .upload(fileName, file);

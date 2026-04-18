@@ -24,6 +24,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { pf, PRODUCT_CATEGORIES, CERTS, PARTNERSHIP_TYPES, CN_PROVINCES, CONTACT_POSITIONS, HEARD_FROM_OPTIONS } from "@/lib/partner-i18n";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
+import { sanitizeFilename } from "@/lib/sanitize-filename";
 
 const SESSION_KEY = "partner_app_session";
 const DRAFT_KEY = "partner_app_draft_id";
@@ -245,7 +246,7 @@ export default function PartnerApply() {
     }
     setUploadingCat(category);
     try {
-      const path = `${id}/${category}/${Date.now()}-${file.name}`;
+      const path = `${id}/${category}/${Date.now()}-${sanitizeFilename(file.name)}`;
       const { error: upErr } = await supabase.storage
         .from("partner-applications").upload(path, file, { upsert: false });
       if (upErr) throw upErr;

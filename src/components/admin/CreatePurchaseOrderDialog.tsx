@@ -11,6 +11,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 import { Plus, Trash2, Save, Send, Loader2, ChevronDown, X, FileText, FileSearch, AlertTriangle } from 'lucide-react';
+import { sanitizeFilename } from "@/lib/sanitize-filename";
 
 const PO_DOC_TYPES = [
   { value: 'proforma_invoice', label: 'PI' },
@@ -321,7 +322,7 @@ export default function CreatePurchaseOrderDialog({ open, onOpenChange, editId, 
       if (poFiles.length > 0 && poId) {
         const userId = (await supabase.auth.getUser()).data.user?.id || null;
         for (const af of poFiles) {
-          const path = `${supplierId}/${poId}/${Date.now()}_${af.file.name}`;
+          const path = `${supplierId}/${poId}/${Date.now()}_${sanitizeFilename(af.file.name)}`;
           const { error: upErr } = await supabase.storage.from('supplier-documents').upload(path, af.file);
           if (upErr) { toast.error(`อัปโหลด ${af.file.name} ล้มเหลว`); continue; }
           const { data: urlData } = supabase.storage.from('supplier-documents').getPublicUrl(path);
