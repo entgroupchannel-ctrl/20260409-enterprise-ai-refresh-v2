@@ -821,8 +821,7 @@ function Stage5({ data, update, L, lang, files, onUpload, onRemove, uploadingCat
   const videoFiles: UploadedFile[] = files.filter((f: UploadedFile) => f.file_category === "factory_video");
   const catalogFiles: UploadedFile[] = files.filter((f: UploadedFile) => f.file_category === "product_catalog");
 
-  const publicUrl = (path: string) =>
-    supabase.storage.from("partner-applications").getPublicUrl(path).data.publicUrl;
+  // bucket เป็น private — ต้องใช้ signed URL
 
   const toggleCatalogCat = (id: string) => {
     const arr = data.catalog_selected_categories.includes(id)
@@ -863,7 +862,7 @@ function Stage5({ data, update, L, lang, files, onUpload, onRemove, uploadingCat
             if (f) {
               return (
                 <div key={i} className="group relative aspect-[4/3] rounded-lg border-2 border-border bg-muted/40 overflow-hidden">
-                  <img src={publicUrl(f.file_path)} alt={f.file_name} className="w-full h-full object-cover" />
+                  <SignedImage path={f.file_path} alt={f.file_name} />
                   <button
                     type="button"
                     onClick={() => onRemove(f)}
