@@ -8,6 +8,8 @@ import {
 import SiteNavbar from "@/components/SiteNavbar";
 import Footer from "@/components/Footer";
 import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
+import AddToCartButton from "@/components/AddToCartButton";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -235,11 +237,25 @@ function ProductCard({ p }: { p: JetsonProduct }) {
             <div className="mb-3 text-sm text-muted-foreground">สอบถามราคา</div>
           )}
 
-          <Button asChild variant="outline" size="sm" className="w-full">
-            <Link to={quoteHref}>
-              <FileText className="w-3.5 h-3.5 mr-1.5" /> ขอใบเสนอราคา
-            </Link>
-          </Button>
+          <div className="flex flex-col gap-2">
+            <AddToCartButton
+              productModel={p.name}
+              productName={p.nameTH}
+              productDescription={p.subtitleTH}
+              estimatedPrice={hasPrice ? p.priceTHB! : undefined}
+              variant="default"
+              size="sm"
+              className="w-full [&>button]:w-full"
+            />
+            <QuoteRequestButton
+              productModel={p.name}
+              productName={p.nameTH}
+              productImage={p.image}
+              variant="outline"
+              size="sm"
+              fullWidth
+            />
+          </div>
         </div>
       </div>
     </div>
