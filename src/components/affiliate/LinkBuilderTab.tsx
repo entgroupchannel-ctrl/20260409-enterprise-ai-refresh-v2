@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import {
-  Copy, Download, Link2, MessageCircle, Facebook, Mail, QrCode, History, Trash2,
+  Copy, Download, Link2, MessageCircle, Facebook, Mail, QrCode, History, Trash2, Sparkles,
 } from "lucide-react";
 
 interface SavedLink {
@@ -39,6 +39,22 @@ const PRESET_PATHS = [
 
 const PRESET_SOURCES = ["facebook", "line", "instagram", "tiktok", "youtube", "email", "blog", "linkedin"];
 const PRESET_MEDIUMS = ["social", "messenger", "email", "ads", "post", "story", "video", "referral"];
+
+// Preset templates ที่ user สามารถ load มาแก้ไขได้
+const PRESET_TEMPLATES: Array<{
+  label: string;
+  path: string;
+  utm_source: string;
+  utm_medium: string;
+  utm_campaign: string;
+  emoji: string;
+}> = [
+  { emoji: "💬", label: "แชร์ใน LINE กลุ่มลูกค้า", path: "/shop", utm_source: "line", utm_medium: "messenger", utm_campaign: "line-share" },
+  { emoji: "📘", label: "โพสต์ Facebook สินค้าทั้งร้าน", path: "/shop", utm_source: "facebook", utm_medium: "social", utm_campaign: "fb-shop" },
+  { emoji: "🤖", label: "Edge AI Jetson — กลุ่ม AI/Robotics", path: "/jetson-products", utm_source: "facebook", utm_medium: "social", utm_campaign: "jetson-ai" },
+  { emoji: "🛡️", label: "Rugged Tablet — งานภาคสนาม", path: "/rugged-tablet", utm_source: "line", utm_medium: "messenger", utm_campaign: "rugged-field" },
+  { emoji: "🏭", label: "Mini PC อุตสาหกรรม — Email B2B", path: "/mini-pc", utm_source: "email", utm_medium: "email", utm_campaign: "minipc-b2b" },
+];
 
 export default function LinkBuilderTab({ affiliateCode }: { affiliateCode: string }) {
   const { toast } = useToast();
