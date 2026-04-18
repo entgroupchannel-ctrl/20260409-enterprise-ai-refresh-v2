@@ -81,6 +81,16 @@ export const partnerForm: Dict = {
   why:               { th: "ทำไมจึงเลือก ENT Group เป็นพันธมิตร", en: "Why partner with ENT Group?", zh: "为什么选择 ENT Group 作为合作伙伴？" },
   notes:             { th: "หมายเหตุเพิ่มเติม", en: "Additional notes", zh: "其他备注" },
   heardFrom:         { th: "รู้จัก ENT Group จากที่ใด", en: "How did you hear about us?", zh: "您是如何了解 ENT Group 的？" },
+  heardFromPick:     { th: "เลือกแหล่งที่มา", en: "Select source", zh: "选择来源" },
+  heardFromOther:    { th: "ระบุแหล่งที่มา", en: "Please specify", zh: "请说明来源" },
+
+  // Step 5 — file slots
+  videoUrl:          { th: "หรือวาง URL วิดีโอ (YouTube / Bilibili / Vimeo)", en: "Or paste video URL (YouTube / Bilibili / Vimeo)", zh: "或粘贴视频链接（YouTube / Bilibili / Vimeo）" },
+  photoSlot:         { th: "ภาพที่", en: "Photo", zh: "照片" },
+  photoCaption:      { th: "คำบรรยายภาพ (ไม่บังคับ)", en: "Caption (optional)", zh: "图片说明（可选）" },
+  photoSlotHints:    { th: "แนะนำ: ภายนอกโรงงาน · สายการผลิต · QC · คลังสินค้า · ห้องประชุม · ผลิตภัณฑ์", en: "Suggested: exterior · production line · QC · warehouse · meeting room · product", zh: "建议：外景 · 生产线 · 品控 · 仓库 · 会议室 · 产品" },
+  catalogScopeAll:   { th: "ภาพรวมทั้งหมด (รวม Catalog)", en: "Overall (full catalog)", zh: "整体（完整目录）" },
+  catalogScopePick:  { th: "เลือกเฉพาะหมวด", en: "Select categories", zh: "选择类别" },
 
   // Files
   uploadTitle:       { th: "เอกสารแนบ", en: "Documents", zh: "附件文件" },
@@ -125,6 +135,21 @@ export const PARTNERSHIP_TYPES = [
   { id: "odm",         th: "ODM",            en: "ODM",         zh: "ODM" },
   { id: "white-label", th: "White Label",    en: "White Label", zh: "贴牌" },
   { id: "joint-rd",    th: "ร่วมพัฒนา R&D",  en: "Joint R&D",   zh: "联合研发" },
+];
+
+/** Sources where partners may have heard about ENT Group */
+export const HEARD_FROM_OPTIONS: { id: string; th: string; en: string; zh: string }[] = [
+  { id: "google",         th: "ค้นหาจาก Google",             en: "Google Search",               zh: "Google 搜索" },
+  { id: "alibaba",        th: "Alibaba / 1688",              en: "Alibaba / 1688",              zh: "阿里巴巴 / 1688" },
+  { id: "made-in-china",  th: "Made-in-China.com",           en: "Made-in-China.com",           zh: "Made-in-China.com" },
+  { id: "exhibition",     th: "งานแสดงสินค้า / Exhibition",  en: "Trade Show / Exhibition",     zh: "展会 / 博览会" },
+  { id: "linkedin",       th: "LinkedIn",                    en: "LinkedIn",                    zh: "领英 LinkedIn" },
+  { id: "wechat",         th: "WeChat / Moments",            en: "WeChat / Moments",            zh: "微信 / 朋友圈" },
+  { id: "referral",       th: "เพื่อน / พันธมิตรแนะนำ",      en: "Referral from partner",       zh: "朋友 / 合作伙伴推荐" },
+  { id: "ent-staff",      th: "พนักงาน ENT Group ติดต่อมา",  en: "Contacted by ENT staff",      zh: "ENT 员工联系" },
+  { id: "social-media",   th: "Facebook / YouTube / TikTok", en: "Facebook / YouTube / TikTok", zh: "Facebook / YouTube / 抖音" },
+  { id: "industry-media", th: "สื่อสิ่งพิมพ์อุตสาหกรรม",     en: "Industry media / magazine",   zh: "行业媒体 / 杂志" },
+  { id: "other",          th: "อื่น ๆ (ระบุ)",                en: "Other (please specify)",      zh: "其他（请注明）" },
 ];
 
 /** Chinese provinces / municipalities / autonomous regions with major cities */
