@@ -60,9 +60,10 @@ export default function SiteNavbar() {
               <TooltipTrigger asChild>
                 <Link
                   to="/request-quote"
-                  className="ml-1 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors text-xs font-semibold border border-primary/20"
+                  aria-label="ขอใบเสนอราคา"
+                  className="p-2 rounded-lg text-primary hover:bg-primary/10 transition-colors flex items-center justify-center"
                 >
-                  <FileText size={14} /> ขอใบเสนอราคา
+                  <FileText size={18} />
                 </Link>
               </TooltipTrigger>
               <TooltipContent side="bottom" className="text-xs">
