@@ -726,7 +726,7 @@ const VCloudPoint = () => {
             <p className="text-sm text-muted-foreground mb-4">
               สำหรับทุกโรงเรียนที่ประสบภัย: ฟรีติดตั้ง + ฟรี Training + ฟรีซอฟต์แวร์ + รับประกัน 1 ปี + 10 โรงเรียนแรกรับอุปกรณ์เสริมมูลค่า 10,000 บาท
             </p>
-            <QuoteRequestButton productModel="vCloudPoint" productName="vCloudPoint" className="inline-flex items-center gap-2 text-sm text-primary font-semibold hover:underline" />
+            <QuoteRequestButton productModel="vCloudPoint" productName="vCloudPoint" className="inline-flex items-center gap-2 text-sm font-semibold hover:underline text-secondary" />
           </div>
         </div>
       </section>
