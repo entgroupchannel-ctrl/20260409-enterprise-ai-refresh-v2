@@ -159,6 +159,29 @@ export default function PartnerApply() {
         last_saved_at: new Date().toISOString(),
       };
       delete payload.agreed;
+      // Compose heard_about_us_from from selection + other text
+      if (data.heard_about_us_from) {
+        const opt = HEARD_FROM_OPTIONS.find((o) => o.id === data.heard_about_us_from);
+        const base = opt ? opt.en : data.heard_about_us_from;
+        payload.heard_about_us_from = data.heard_about_us_from === "other"
+          ? `Other: ${data.heard_about_us_other || ""}`.trim()
+          : data.heard_about_us_other ? `${base} — ${data.heard_about_us_other}` : base;
+      }
+      // Merge video URL + catalog scope into additional_notes (no schema change needed)
+      const extras: string[] = [];
+      if (data.factory_video_url) extras.push(`[Video] ${data.factory_video_url}`);
+      if (data.catalog_scope === "all") extras.push(`[Catalog] Overall (all categories)`);
+      if (data.catalog_scope === "selected" && data.catalog_selected_categories.length) {
+        extras.push(`[Catalog] ${data.catalog_selected_categories.join(", ")}`);
+      }
+      if (extras.length) {
+        payload.additional_notes = [data.additional_notes, ...extras].filter(Boolean).join("\n");
+      }
+      // Strip client-only fields from DB payload
+      delete payload.heard_about_us_other;
+      delete payload.factory_video_url;
+      delete payload.catalog_scope;
+      delete payload.catalog_selected_categories;
 
       if (appId) {
         await supabase.from("partner_applications").update(payload).eq("id", appId);
