@@ -155,6 +155,16 @@ export default function SiteNavbar() {
           </Link>
           <ThemeToggle />
           <CartBadge className="text-muted-foreground hover:text-foreground transition-colors p-2" />
+          {!user && (
+            <Link
+              to="/login"
+              aria-label="เข้าสู่ระบบ"
+              title="เข้าสู่ระบบ"
+              className="p-2 rounded-lg text-primary hover:bg-primary/10 transition-colors"
+            >
+              <LogIn size={18} />
+            </Link>
+          )}
           <button
             type="button"
             onClick={() => setMobileMenuOpen(prev => !prev)}
