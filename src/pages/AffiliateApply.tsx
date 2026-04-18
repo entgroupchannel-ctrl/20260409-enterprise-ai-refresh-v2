@@ -50,9 +50,10 @@ const schema = z.object({
   linkedin_url: z
     .string()
     .trim()
-    .url("LinkedIn URL ไม่ถูกต้อง")
     .max(255)
-    .refine((v) => v.includes("linkedin.com"), "ต้องเป็นลิงก์ LinkedIn"),
+    .optional()
+    .or(z.literal(""))
+    .refine((v) => !v || /^https?:\/\//i.test(v), "URL ต้องขึ้นต้นด้วย http:// หรือ https://"),
   current_company: z.string().trim().max(150).optional().or(z.literal("")),
   current_position: z.string().trim().max(150).optional().or(z.literal("")),
   years_experience: z.coerce.number().min(0).max(60),
