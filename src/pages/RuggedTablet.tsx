@@ -24,6 +24,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import FooterCompact from "@/components/FooterCompact";
+import MiniNavbar from "@/components/MiniNavbar";
 import B2BCTABanner from "@/components/B2BCTABanner";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
 import TabletProductFilter, {
@@ -378,6 +379,8 @@ const RuggedTablet = () => {
       />
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "Rugged Tablet", path: "/rugged-tablet" }]} />
 
+      <MiniNavbar />
+
       {/* ── Hero ── */}
       <div className="relative overflow-hidden min-h-[420px] md:min-h-[480px]">
         <div className="absolute inset-0">
@@ -385,9 +388,6 @@ const RuggedTablet = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/30" />
         </div>
         <div className="container max-w-7xl mx-auto px-4 py-16 md:py-24 relative z-10">
-          <Link to="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6">
-            <ArrowLeft className="w-4 h-4" /> กลับหน้าหลัก
-          </Link>
           <div className="flex items-center gap-3 mb-4">
             <Smartphone className="w-10 h-10 text-primary" />
             <Badge className="bg-primary/20 text-primary border-primary/30 text-xs">Rugged & Industrial Grade</Badge>
@@ -416,18 +416,11 @@ const RuggedTablet = () => {
         </div>
       </div>
 
-      {/* ── Sticky Bar: Back + Quick Filters ── */}
-      <div className="sticky top-0 z-30 bg-background/90 backdrop-blur-md border-b border-border">
+      {/* ── Sticky Bar: Quick Filters ── */}
+      <div className="sticky top-14 z-30 bg-background/90 backdrop-blur-md border-b border-border">
         <div className="container max-w-7xl mx-auto px-4">
-          {/* Back to Home row */}
-          <div className="flex items-center justify-between py-1.5 border-b border-border/50">
-            <Link to="/" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors">
-              <ArrowLeft className="w-3.5 h-3.5" /> กลับหน้าหลัก
-            </Link>
-            <div className="flex items-center gap-3">
-              <span className="text-[10px] text-muted-foreground">Rugged Tablet — {tablets.length} รุ่น</span>
-              <CartBadge />
-            </div>
+          <div className="flex items-center justify-end py-1.5 border-b border-border/50">
+            <span className="text-[10px] text-muted-foreground">Rugged Tablet — {tablets.length} รุ่น</span>
           </div>
           {/* Quick Filters row */}
           <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide py-2">
