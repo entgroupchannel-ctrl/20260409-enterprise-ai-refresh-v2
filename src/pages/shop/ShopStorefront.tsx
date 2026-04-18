@@ -783,7 +783,8 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
                     </>
                   )}
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 items-center">
+                  <ChatNowButton productModel={p.model} productName={p.name} />
                   <Link to={`/shop/${p.slug}#rfq-form`}>
                     <Button size="sm" variant="outline" className="text-xs"><FileSearch className="w-3.5 h-3.5 mr-1" /> RFQ</Button>
                   </Link>
