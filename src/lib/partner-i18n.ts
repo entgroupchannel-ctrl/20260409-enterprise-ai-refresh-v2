@@ -33,7 +33,7 @@ export const partnerForm: Dict = {
   companyNameEn:     { th: "ชื่อบริษัท (อังกฤษ)", en: "Company name (English)", zh: "公司名称（英文）" },
   businessLicense:   { th: "เลขที่ใบอนุญาตธุรกิจ", en: "Business license no.", zh: "营业执照号" },
   legalRep:          { th: "ผู้แทนตามกฎหมาย", en: "Legal representative", zh: "法定代表人" },
-  capital:           { th: "ทุนจดทะเบียน (CNY)", en: "Registered capital (CNY)", zh: "注册资本（人民币）" },
+  capital:           { th: "ทุนจดทะเบียน", en: "Registered capital", zh: "注册资本" },
   established:       { th: "ปีที่ก่อตั้ง", en: "Year established", zh: "成立年份" },
   address:           { th: "ที่อยู่", en: "Address", zh: "地址" },
   city:              { th: "เมือง", en: "City", zh: "城市" },
