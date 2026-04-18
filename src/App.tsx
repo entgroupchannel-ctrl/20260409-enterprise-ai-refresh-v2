@@ -66,6 +66,7 @@ const ShopCompare = lazyRetry(() => import("./pages/shop/ShopCompare"));
 const Unsubscribe = lazyRetry(() => import("./pages/Unsubscribe"));
 const Partner = lazyRetry(() => import("./pages/Partner"));
 const Affiliate = lazyRetry(() => import("./pages/Affiliate"));
+const AffiliateApply = lazyRetry(() => import("./pages/AffiliateApply"));
 const PartnerApply = lazyRetry(() => import("./pages/PartnerApply"));
 const PartnerPortal = lazyRetry(() => import("./pages/PartnerPortal"));
 const Login = lazyRetry(() => import("./pages/auth/Login"));
@@ -185,6 +186,7 @@ const App = () => (
                     <Route path="/partner/apply" element={<PartnerApply />} />
                     <Route path="/partner/portal" element={<PartnerPortal />} />
                     <Route path="/affiliate" element={<Affiliate />} />
+                    <Route path="/affiliate/apply" element={<AffiliateApply />} />
                     <Route path="/gt-series" element={<GTSeries />} />
                     <Route path="/products/:slug" element={<ProductDetail />} />
                     <Route path="/gb-series" element={<GBSeries />} />
