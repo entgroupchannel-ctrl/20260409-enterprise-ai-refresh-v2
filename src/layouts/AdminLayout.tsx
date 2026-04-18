@@ -103,6 +103,8 @@ const navGroups: NavGroup[] = [
       { label: 'จัดการ Supplier', icon: Building2, path: '/admin/suppliers', hiddenFromRoles: ['sales', 'warehouse', 'viewer'] },
       { label: 'Partner Applications', icon: Briefcase, path: '/admin/partners', hiddenFromRoles: ['warehouse', 'viewer'] },
       { label: 'Affiliates', icon: Award, path: '/admin/affiliates', hiddenFromRoles: ['warehouse', 'viewer'] },
+      { label: 'Affiliate Leads', icon: ClipboardList, path: '/admin/affiliate-leads', hiddenFromRoles: ['warehouse', 'viewer'] },
+      { label: 'Affiliate Payouts', icon: DollarSign, path: '/admin/affiliate-payouts', hiddenFromRoles: ['sales', 'warehouse', 'viewer'] },
       { label: 'โอนเงินต่างประเทศ', icon: DollarSign, path: '/admin/international-transfer', hiddenFromRoles: ['sales', 'warehouse', 'viewer'] },
     ],
   },
