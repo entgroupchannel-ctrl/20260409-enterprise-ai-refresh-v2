@@ -160,6 +160,8 @@ const AllInOnePC = () => {
         ]}
       />
 
+      <MiniNavbar />
+
       {/* ── Hero ── */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0">
@@ -168,11 +170,6 @@ const AllInOnePC = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
         </div>
         <div className="container max-w-7xl mx-auto px-4 py-12 md:py-20 relative z-10">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-6">
-            <ArrowLeft className="w-4 h-4" /> กลับหน้าหลัก
-          </Link>
 
           <div className="max-w-2xl">
             <Badge className="bg-primary/10 text-primary border-primary/20 mb-4">Industrial Grade — Touch & Panel Mount</Badge>
