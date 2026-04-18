@@ -70,6 +70,149 @@ export type Database = {
           },
         ]
       }
+      affiliate_clicks: {
+        Row: {
+          affiliate_code: string
+          affiliate_id: string
+          converted_at: string | null
+          converted_to_lead: boolean
+          country_code: string | null
+          created_at: string
+          device_type: string | null
+          id: string
+          ip_address: string | null
+          landing_path: string | null
+          referrer: string | null
+          user_agent: string | null
+          utm_campaign: string | null
+          utm_medium: string | null
+          utm_source: string | null
+          visitor_id: string | null
+        }
+        Insert: {
+          affiliate_code: string
+          affiliate_id: string
+          converted_at?: string | null
+          converted_to_lead?: boolean
+          country_code?: string | null
+          created_at?: string
+          device_type?: string | null
+          id?: string
+          ip_address?: string | null
+          landing_path?: string | null
+          referrer?: string | null
+          user_agent?: string | null
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          visitor_id?: string | null
+        }
+        Update: {
+          affiliate_code?: string
+          affiliate_id?: string
+          converted_at?: string | null
+          converted_to_lead?: boolean
+          country_code?: string | null
+          created_at?: string
+          device_type?: string | null
+          id?: string
+          ip_address?: string | null
+          landing_path?: string | null
+          referrer?: string | null
+          user_agent?: string | null
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          visitor_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "affiliate_clicks_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "affiliates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      affiliate_leads: {
+        Row: {
+          affiliate_code: string
+          affiliate_id: string
+          click_id: string | null
+          converted_at: string | null
+          created_at: string
+          customer_company: string | null
+          customer_email: string | null
+          customer_name: string | null
+          deal_value: number | null
+          id: string
+          notes: string | null
+          qualified_at: string | null
+          qualified_by: string | null
+          rejected_reason: string | null
+          source_id: string | null
+          source_type: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          affiliate_code: string
+          affiliate_id: string
+          click_id?: string | null
+          converted_at?: string | null
+          created_at?: string
+          customer_company?: string | null
+          customer_email?: string | null
+          customer_name?: string | null
+          deal_value?: number | null
+          id?: string
+          notes?: string | null
+          qualified_at?: string | null
+          qualified_by?: string | null
+          rejected_reason?: string | null
+          source_id?: string | null
+          source_type: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          affiliate_code?: string
+          affiliate_id?: string
+          click_id?: string | null
+          converted_at?: string | null
+          created_at?: string
+          customer_company?: string | null
+          customer_email?: string | null
+          customer_name?: string | null
+          deal_value?: number | null
+          id?: string
+          notes?: string | null
+          qualified_at?: string | null
+          qualified_by?: string | null
+          rejected_reason?: string | null
+          source_id?: string | null
+          source_type?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "affiliate_leads_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "affiliates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "affiliate_leads_click_id_fkey"
+            columns: ["click_id"]
+            isOneToOne: false
+            referencedRelation: "affiliate_clicks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       affiliates: {
         Row: {
           affiliate_code: string
@@ -809,7 +952,10 @@ export type Database = {
       }
       contact_submissions: {
         Row: {
+          affiliate_code: string | null
+          affiliate_id: string | null
           assigned_to: string | null
+          attribution_source: string | null
           company: string | null
           created_at: string
           email: string
@@ -826,7 +972,10 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          affiliate_code?: string | null
+          affiliate_id?: string | null
           assigned_to?: string | null
+          attribution_source?: string | null
           company?: string | null
           created_at?: string
           email: string
@@ -843,7 +992,10 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          affiliate_code?: string | null
+          affiliate_id?: string | null
           assigned_to?: string | null
+          attribution_source?: string | null
           company?: string | null
           created_at?: string
           email?: string
@@ -860,6 +1012,13 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "contact_submissions_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "affiliates"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "contact_submissions_assigned_to_fkey"
             columns: ["assigned_to"]
@@ -3436,8 +3595,11 @@ export type Database = {
         Row: {
           accepted_at: string | null
           accepted_by: string | null
+          affiliate_code: string | null
+          affiliate_id: string | null
           approved_at: string | null
           assigned_to: string | null
+          attribution_source: string | null
           completed_at: string | null
           confirmed_at: string | null
           contact_id: string | null
@@ -3494,8 +3656,11 @@ export type Database = {
         Insert: {
           accepted_at?: string | null
           accepted_by?: string | null
+          affiliate_code?: string | null
+          affiliate_id?: string | null
           approved_at?: string | null
           assigned_to?: string | null
+          attribution_source?: string | null
           completed_at?: string | null
           confirmed_at?: string | null
           contact_id?: string | null
@@ -3552,8 +3717,11 @@ export type Database = {
         Update: {
           accepted_at?: string | null
           accepted_by?: string | null
+          affiliate_code?: string | null
+          affiliate_id?: string | null
           approved_at?: string | null
           assigned_to?: string | null
+          attribution_source?: string | null
           completed_at?: string | null
           confirmed_at?: string | null
           contact_id?: string | null
@@ -3608,6 +3776,13 @@ export type Database = {
           warranty_terms?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "quote_requests_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "affiliates"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "quote_requests_assigned_to_fkey"
             columns: ["assigned_to"]
@@ -5571,6 +5746,17 @@ export type Database = {
       }
     }
     Functions: {
+      affiliate_my_stats: {
+        Args: never
+        Returns: {
+          clicks_30d: number
+          converted_leads: number
+          qualified_leads: number
+          total_clicks: number
+          total_deal_value: number
+          total_leads: number
+        }[]
+      }
       approve_revision: {
         Args: {
           p_approver_id: string
@@ -5729,6 +5915,7 @@ export type Database = {
         Returns: boolean
       }
       is_admin_or_above: { Args: { p_user_id: string }; Returns: boolean }
+      is_affiliate_owner: { Args: { _affiliate_id: string }; Returns: boolean }
       is_partner_reviewer: { Args: { _user_id: string }; Returns: boolean }
       is_super_admin: { Args: { p_user_id: string }; Returns: boolean }
       log_audit_event: {
@@ -5760,6 +5947,15 @@ export type Database = {
           p_user_agent?: string
         }
         Returns: string
+      }
+      lookup_affiliate_by_code: {
+        Args: { _code: string }
+        Returns: {
+          affiliate_code: string
+          full_name: string
+          id: string
+          status: string
+        }[]
       }
       next_document_number: { Args: { _doc_type: string }; Returns: string }
       notify_admins: {
