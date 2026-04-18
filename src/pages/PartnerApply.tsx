@@ -19,6 +19,9 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { useToast } from "@/hooks/use-toast";
 import { useI18n } from "@/contexts/I18nContext";
 import LangToggle from "@/components/LangToggle";
+import ThemeToggle from "@/components/ThemeToggle";
+import FooterCompact from "@/components/FooterCompact";
+import logo from "@/assets/logo-entgroup.avif";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { pf, PRODUCT_CATEGORIES, CERTS, PARTNERSHIP_TYPES, CN_PROVINCES, CONTACT_POSITIONS, HEARD_FROM_OPTIONS } from "@/lib/partner-i18n";
@@ -475,21 +478,34 @@ export default function PartnerApply() {
       <Helmet><title>{L("applyTitle")} — ENT Group</title></Helmet>
 
       {/* Header */}
-      <header className="border-b sticky top-0 bg-background/95 backdrop-blur z-30">
-        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-          <Link to="/partner" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
-            <ArrowLeft className="w-4 h-4" /> ENT Group · Partner Program
-          </Link>
-          <div className="flex items-center gap-3">
+      <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
+        <div className="container max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
+          <div className="flex items-center gap-4">
+            <Link to="/partner" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors">
+              <ArrowLeft size={14} />
+              {lang === "zh" ? "返回" : lang === "en" ? "Back" : "กลับ"}
+            </Link>
+            <div className="h-6 w-px bg-border" />
+            <Link to="/" className="flex items-center gap-3">
+              <img src={logo} alt="ENT GROUP" className="h-8 w-auto" />
+              <div className="hidden md:flex flex-col leading-tight">
+                <span className="text-[11px] font-semibold text-foreground">ENT Group</span>
+                <span className="text-[10px] text-muted-foreground">B2B Industrial Platform</span>
+              </div>
+            </Link>
+          </div>
+          <div className="flex items-center gap-2">
             {saving ? (
               <span className="text-xs text-muted-foreground flex items-center gap-1"><Loader2 className="w-3 h-3 animate-spin" />{lang === "zh" ? "保存中" : "Saving"}</span>
             ) : lastSaved ? (
               <span className="text-xs text-muted-foreground flex items-center gap-1"><Cloud className="w-3 h-3" />{L("draftSaved")}</span>
             ) : null}
-            <LangToggle />
+            <LangToggle variant="full" />
+            <div className="h-5 w-px bg-border" />
+            <ThemeToggle />
           </div>
         </div>
-      </header>
+      </nav>
 
       <div className="container mx-auto px-4 py-8 max-w-3xl">
         <div className="mb-8">
@@ -624,6 +640,8 @@ export default function PartnerApply() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      <FooterCompact />
     </div>
   );
 }
