@@ -13,7 +13,8 @@ import { jetsonProducts, jetsonCategories, type JetsonProduct, type JetsonCatego
 import { gpuServers, type GpuServer } from "@/data/gpu-servers";
 import { professionalGpus, proGpuFamilyLabel, type ProGpu } from "@/data/professional-gpus";
 
-const NV = "#76B900";
+// NVIDIA brand uses semantic tokens: bg-nv, text-nv, text-nv-foreground, bg-nv-navy
+// Defined in src/index.css and tailwind.config.ts
 
 /* ═══════════════════════════════════════════════════════════
    TABS
