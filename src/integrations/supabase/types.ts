@@ -1911,6 +1911,7 @@ export type Database = {
           id: string
           mime_type: string | null
           ocr_extracted: Json | null
+          session_token: string | null
           uploaded_by: string | null
         }
         Insert: {
@@ -1924,6 +1925,7 @@ export type Database = {
           id?: string
           mime_type?: string | null
           ocr_extracted?: Json | null
+          session_token?: string | null
           uploaded_by?: string | null
         }
         Update: {
@@ -1937,6 +1939,7 @@ export type Database = {
           id?: string
           mime_type?: string | null
           ocr_extracted?: Json | null
+          session_token?: string | null
           uploaded_by?: string | null
         }
         Relationships: [

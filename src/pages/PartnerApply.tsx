@@ -119,7 +119,14 @@ export default function PartnerApply() {
         setData((d) => ({
           ...d,
           ...Object.fromEntries(
-            Object.entries(row).filter(([k]) => k in empty).map(([k, v]) => [k, v ?? (Array.isArray((empty as any)[k]) ? [] : typeof (empty as any)[k] === "boolean" ? false : "")])
+            Object.entries(row).filter(([k]) => k in empty).map(([k, v]) => {
+              const def = (empty as any)[k];
+              // DB array → form string for export_countries
+              if (k === "export_countries") {
+                return [k, Array.isArray(v) ? v.join(", ") : (v ?? "")];
+              }
+              return [k, v ?? (Array.isArray(def) ? [] : typeof def === "boolean" ? false : "")];
+            })
           ) as any,
         }));
         const { data: fileRows } = await supabase
@@ -144,6 +151,10 @@ export default function PartnerApply() {
     if (saving) return appId;
     setSaving(true);
     try {
+      // Convert comma-separated export_countries (string in form) → text[] (DB)
+      const exportCountriesArr = (data.export_countries || "")
+        .split(/[,;\n]+/).map((s: string) => s.trim()).filter(Boolean);
+
       const payload: any = {
         ...data,
         registered_capital_cny: data.registered_capital_cny ? Math.round(Number(data.registered_capital_cny) * (capitalCurrency === "USD" ? 7.2 : capitalCurrency === "THB" ? 0.2 : 1)) : null,
@@ -154,6 +165,7 @@ export default function PartnerApply() {
         rd_staff_count: data.rd_staff_count ? Number(data.rd_staff_count) : null,
         annual_export_value_usd: data.annual_export_value_usd ? Number(data.annual_export_value_usd) : null,
         exclusivity_preference: data.exclusivity_preference || null,
+        export_countries: exportCountriesArr.length ? exportCountriesArr : null,
         language: lang,
         current_stage: stage,
         last_saved_at: new Date().toISOString(),
@@ -235,7 +247,8 @@ export default function PartnerApply() {
           file_name: file.name, file_path: path,
           file_size: file.size, mime_type: file.type,
           uploaded_by: user?.id ?? null,
-        })
+          session_token: user?.id ? null : sessionToken,
+        } as any)
         .select().single();
       if (error) throw error;
       setFiles((f) => [...f, row as any]);
