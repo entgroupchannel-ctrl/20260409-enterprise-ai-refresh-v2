@@ -334,13 +334,13 @@ const MegaMenu = ({
   return (
     <div ref={menuRef} className="relative">
       {/* Nav items */}
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-0.5 flex-nowrap">
         {menuCategories.map((cat) => (
           <button
             key={cat.id}
             onMouseEnter={() => handleEnter(cat.id)}
             onClick={() => setActiveMenu(activeMenu === cat.id ? null : cat.id)}
-            className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+            className={`px-2.5 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap shrink-0 ${
               activeMenu === cat.id
                 ? "text-foreground bg-muted"
                 : "text-muted-foreground hover:text-foreground hover:bg-muted"
