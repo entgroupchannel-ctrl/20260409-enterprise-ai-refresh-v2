@@ -120,9 +120,14 @@ export default function AdminSupplierManagement() {
       <div className="p-4 md:p-6 space-y-6 admin-content-area">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold">จัดการ Supplier</h1>
-          <Button variant="outline" size="sm" onClick={load}>
-            <RefreshCw className={`w-4 h-4 mr-1 ${loading ? 'animate-spin' : ''}`} /> รีเฟรช
-          </Button>
+          <div className="flex gap-2">
+            <Button variant="outline" size="sm" onClick={() => navigate('/admin/suppliers/templates')}>
+              <FileEdit className="w-4 h-4 mr-1" /> Templates
+            </Button>
+            <Button variant="outline" size="sm" onClick={load}>
+              <RefreshCw className={`w-4 h-4 mr-1 ${loading ? 'animate-spin' : ''}`} /> รีเฟรช
+            </Button>
+          </div>
         </div>
 
         {/* Stats */}
