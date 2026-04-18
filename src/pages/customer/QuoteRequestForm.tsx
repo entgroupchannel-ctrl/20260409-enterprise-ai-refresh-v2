@@ -28,9 +28,9 @@ interface ProductItem {
 const CompactField = memo(({ label, value, onChange, type = 'text', placeholder = '', required = false, disabled = false }: {
   label: string; value: string; onChange: (v: string) => void; type?: string; placeholder?: string; required?: boolean; disabled?: boolean;
 }) => (
-  <div className="space-y-1">
-    <Label className="text-[11px] text-muted-foreground">{label}{required && <span className="text-destructive ml-0.5">*</span>}</Label>
-    <Input type={type} value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder} required={required} disabled={disabled} className="h-8 text-sm" />
+  <div className="space-y-1.5">
+    <Label className="text-sm text-muted-foreground">{label}{required && <span className="text-destructive ml-0.5">*</span>}</Label>
+    <Input type={type} value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder} required={required} disabled={disabled} className="h-10 text-base" />
   </div>
 ));
 CompactField.displayName = 'CompactField';
