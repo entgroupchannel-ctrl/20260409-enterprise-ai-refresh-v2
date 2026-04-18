@@ -158,6 +158,19 @@ export default function GeneralChatWidget() {
     }
   }, [open, sessionId]);
 
+  // External trigger: open chat with prefilled text (e.g., "Chat now" button on product cards)
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent<{ message?: string }>).detail;
+      setOpen(true);
+      if (detail?.message) {
+        setText(prev => (prev ? prev : detail.message!));
+      }
+    };
+    window.addEventListener('ent:open-chat', handler as EventListener);
+    return () => window.removeEventListener('ent:open-chat', handler as EventListener);
+  }, []);
+
   const startSession = async () => {
     if (!userId && (!guestName.trim() || !guestEmail.trim())) {
       toast.error('กรุณากรอกชื่อและอีเมล');
