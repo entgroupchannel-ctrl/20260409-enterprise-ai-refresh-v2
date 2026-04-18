@@ -14,6 +14,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Loader2, Search, Building2, MapPin, Star, ExternalLink } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import AdminLayout from "@/layouts/AdminLayout";
 
 type Status = "all" | "draft" | "submitted" | "reviewing" | "approved" | "rejected" | "on_hold";
 
