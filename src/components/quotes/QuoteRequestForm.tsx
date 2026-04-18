@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Send, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { getAttributionFields, createAffiliateLead } from "@/lib/affiliate-attribution";
 
 interface QuoteRequestFormProps {
   onSuccess?: (quoteId: string) => void;
@@ -42,10 +43,18 @@ const QuoteRequestForm = ({ onSuccess, prefilledProducts }: QuoteRequestFormProp
           products,
           notes: form.details || null,
           status: "pending",
+          ...getAttributionFields(),
         })
         .select()
         .single();
       if (error) throw error;
+      await createAffiliateLead({
+        source_type: "quote_request",
+        source_id: data.id,
+        customer_name: form.name,
+        customer_email: form.email,
+        customer_company: form.company || null,
+      });
       toast({ title: "ส่งคำขอใบเสนอราคาเรียบร้อย!", description: `เลขที่: ${data.quote_number}` });
       onSuccess?.(data.id);
     } catch (err: any) {
