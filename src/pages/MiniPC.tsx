@@ -13,6 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import FooterCompact from "@/components/FooterCompact";
+import MiniNavbar from "@/components/MiniNavbar";
 import B2BCTABanner from "@/components/B2BCTABanner";
 import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
@@ -834,21 +835,7 @@ const MiniPC = () => {
         ]}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "Mini PC", path: "/mini-pc" }]} />
-      {/* Sticky Breadcrumb */}
-      <div className="sticky top-0 z-30 bg-background/90 backdrop-blur-md py-3 border-b border-border">
-        <div className="container max-w-7xl mx-auto px-4">
-          <nav className="flex items-center justify-between text-sm">
-            <div className="flex items-center gap-2">
-              <Link to="/" className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5">
-                <ArrowLeft className="w-3.5 h-3.5" /> หน้าหลัก
-              </Link>
-              <ChevronRight className="w-3 h-3 text-muted-foreground" />
-              <span className="text-foreground font-medium">Mini PC</span>
-            </div>
-            <CartBadge />
-          </nav>
-        </div>
-      </div>
+      <MiniNavbar />
 
       {/* ── Hero Section ── */}
       <section className="relative overflow-hidden">
@@ -907,7 +894,7 @@ const MiniPC = () => {
         </div>
 
         {/* Category Quick Nav */}
-        <div className="sticky top-0 z-30 bg-background/95 backdrop-blur-sm border-b border-border -mx-4 px-4 py-3 mb-8">
+        <div className="sticky top-14 z-30 bg-background/95 backdrop-blur-sm border-b border-border -mx-4 px-4 py-3 mb-8">
           <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
             {categories.map((cat) => (
               <a
