@@ -316,7 +316,7 @@ export default function PartnerApply() {
 
         <Card>
           <CardContent className="p-6 space-y-5">
-            {stage === 1 && <Stage1 data={data} update={update} L={L} />}
+            {stage === 1 && <Stage1 data={data} update={update} L={L} capitalCurrency={capitalCurrency} setCapitalCurrency={setCapitalCurrency} />}
             {stage === 2 && <Stage2 data={data} update={update} L={L} lang={lang} />}
             {stage === 3 && <Stage3 data={data} update={update} L={L} lang={lang} />}
             {stage === 4 && <Stage4 data={data} update={update} L={L} lang={lang} />}
