@@ -15,9 +15,10 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Slider } from '@/components/ui/slider';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
-import { SearchCheck, LayoutGrid, List, SlidersHorizontal, X, FileSearch, ChevronLeft, ChevronRight, CircleCheckBig, ShieldCheck, Landmark, HeadsetIcon, DollarSign, Cpu, MemoryStick, HardDrive, Package, Tag } from 'lucide-react';
+import { SearchCheck, LayoutGrid, List, SlidersHorizontal, X, FileSearch, ChevronLeft, ChevronRight, CircleCheckBig, ShieldCheck, Landmark, HeadsetIcon, DollarSign, Cpu, MemoryStick, HardDrive, Package, Tag, Link2, Share2, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import SiteNavbar from '@/components/SiteNavbar';
+import { useToast } from '@/hooks/use-toast';
 
 import imgSeriesGT from '@/assets/shop/series-gt.jpg';
 import imgSeriesGB from '@/assets/shop/series-gb.jpg';
@@ -65,22 +66,69 @@ const seriesNavItems = [
 
 const ShopStorefront = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { toast } = useToast();
+
+  // Map URL ?series=... or ?category=... to series filter (jetson alias support)
+  const initialSeriesFromUrl = (() => {
+    const raw = searchParams.get('series') || searchParams.get('category');
+    if (!raw) return [];
+    return raw.split(',').map(s => s.trim()).filter(Boolean);
+  })();
+
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState(searchParams.get('q') || '');
-  const [seriesFilter, setSeriesFilter] = useState<string[]>([]);
+  const [seriesFilter, setSeriesFilter] = useState<string[]>(initialSeriesFromUrl);
   const [categoryFilter, setCategoryFilter] = useState<string[]>([]);
-  const [sortBy, setSortBy] = useState('featured');
+  const [sortBy, setSortBy] = useState(searchParams.get('sort') || 'featured');
   const [page, setPage] = useState(1);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [compareList, setCompareListState] = useState<string[]>(getCompareList());
   const [showFilters, setShowFilters] = useState(false);
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
   // NEW filters
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 200000]);
   const [cpuFilter, setCpuFilter] = useState<string[]>([]);
   const [ramFilter, setRamFilter] = useState<number[]>([]);
   const [storageFilter, setStorageFilter] = useState<number[]>([]);
+
+  // Sync filters → URL (so users can share the link to a specific tab/filter)
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (seriesFilter.length > 0) params.set('series', seriesFilter.join(','));
+    if (search.trim()) params.set('q', search.trim());
+    if (sortBy && sortBy !== 'featured') params.set('sort', sortBy);
+    setSearchParams(params, { replace: true });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [seriesFilter, search, sortBy]);
+
+  const buildShareUrl = (seriesIds: string[] = []) => {
+    const url = new URL(window.location.origin + '/shop');
+    if (seriesIds.length > 0) url.searchParams.set('series', seriesIds.join(','));
+    return url.toString();
+  };
+
+  const copyShareLink = async (key: string, seriesIds: string[] = []) => {
+    const link = buildShareUrl(seriesIds);
+    try {
+      await navigator.clipboard.writeText(link);
+      setCopiedKey(key);
+      toast({ title: 'คัดลอกลิงก์แล้ว', description: link });
+      setTimeout(() => setCopiedKey(null), 1500);
+    } catch {
+      toast({ title: 'คัดลอกไม่สำเร็จ', description: link, variant: 'destructive' });
+    }
+  };
+
+  const shareNative = async (title: string, seriesIds: string[] = []) => {
+    const link = buildShareUrl(seriesIds);
+    if ((navigator as any).share) {
+      try { await (navigator as any).share({ title, url: link }); return; } catch { /* fall through */ }
+    }
+    copyShareLink(`share-${seriesIds.join(',') || 'all'}`, seriesIds);
+  };
+
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -360,35 +408,77 @@ const ShopStorefront = () => {
         </div>
       </section>
 
-      {/* ── Sticky Series Filter Bar ── */}
+      {/* ── Sticky Series Filter Bar (with shareable links) ── */}
       <div className="sticky top-16 z-30 bg-background/90 backdrop-blur border-b border-border">
         <div className="container max-w-7xl mx-auto px-4">
           <div className="flex items-center gap-2 py-2 overflow-x-auto scrollbar-hide">
-            <Button
-              variant={seriesFilter.length === 0 ? 'default' : 'ghost'}
-              size="sm"
-              className="shrink-0 h-8 text-xs"
-              onClick={() => { setSeriesFilter([]); setPage(1); }}
-            >
-              ทั้งหมด ({products.length})
-            </Button>
+            {/* "ทั้งหมด" pill */}
+            <div className="shrink-0 inline-flex items-stretch rounded-md overflow-hidden border border-border/60">
+              <Button
+                variant={seriesFilter.length === 0 ? 'default' : 'ghost'}
+                size="sm"
+                className="h-8 text-xs rounded-none border-0"
+                onClick={() => { setSeriesFilter([]); setPage(1); }}
+              >
+                ทั้งหมด ({products.length})
+              </Button>
+              <button
+                type="button"
+                title="คัดลอกลิงก์ไปหน้า Shop ทั้งหมด"
+                aria-label="คัดลอกลิงก์ไปหน้า Shop ทั้งหมด"
+                onClick={() => copyShareLink('all', [])}
+                className="px-2 flex items-center justify-center bg-muted/40 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {copiedKey === 'all' ? <Check className="w-3.5 h-3.5 text-green-600" /> : <Link2 className="w-3.5 h-3.5" />}
+              </button>
+            </div>
+
+            {/* Series tabs */}
             {filterOptions.series.map(s => {
               const nav = seriesNavItems.find(n => n.id === s);
+              const active = seriesFilter.includes(s);
+              const key = `series-${s}`;
               return (
-                <Button
-                  key={s}
-                  variant={seriesFilter.includes(s) ? 'default' : 'ghost'}
-                  size="sm"
-                  className="shrink-0 h-8 text-xs gap-1.5"
-                  onClick={() => { toggleSeriesFilter(s); setPage(1); }}
-                >
-                  {nav?.icon} {s}
-                  <Badge variant="secondary" className="text-[9px] ml-0.5 h-4 px-1">
-                    {products.filter(p => p.series === s).length}
-                  </Badge>
-                </Button>
+                <div key={s} className="shrink-0 inline-flex items-stretch rounded-md overflow-hidden border border-border/60">
+                  <Button
+                    variant={active ? 'default' : 'ghost'}
+                    size="sm"
+                    className="h-8 text-xs gap-1.5 rounded-none border-0"
+                    onClick={() => { toggleSeriesFilter(s); setPage(1); }}
+                  >
+                    {nav?.icon} {s}
+                    <Badge variant="secondary" className="text-[9px] ml-0.5 h-4 px-1">
+                      {products.filter(p => p.series === s).length}
+                    </Badge>
+                  </Button>
+                  <button
+                    type="button"
+                    title={`คัดลอกลิงก์ไปยัง ${s}`}
+                    aria-label={`คัดลอกลิงก์ไปยัง ${s}`}
+                    onClick={(e) => { e.stopPropagation(); copyShareLink(key, [s]); }}
+                    className="px-2 flex items-center justify-center bg-muted/40 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {copiedKey === key ? <Check className="w-3.5 h-3.5 text-green-600" /> : <Link2 className="w-3.5 h-3.5" />}
+                  </button>
+                </div>
               );
             })}
+
+            {/* Trailing share-current button */}
+            <div className="shrink-0 ml-auto pl-2">
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-8 text-xs gap-1.5"
+                onClick={() => shareNative(
+                  seriesFilter.length > 0 ? `Shop — ${seriesFilter.join(', ')}` : 'Shop ทั้งหมด',
+                  seriesFilter,
+                )}
+                title="แชร์ลิงก์ของแท็บที่เลือก"
+              >
+                <Share2 className="w-3.5 h-3.5" /> แชร์
+              </Button>
+            </div>
           </div>
         </div>
       </div>
