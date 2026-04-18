@@ -63,7 +63,7 @@ export default function JetsonProducts() {
 
       {/* Header */}
       <section className="border-b bg-gradient-to-b from-muted/30 to-background">
-        <div className="container mx-auto px-4 py-10">
+        <div className="container max-w-7xl mx-auto px-6 py-10">
           <Link to="/nvidia-jetson" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-4">
             <ArrowLeft className="w-4 h-4" /> กลับ NVIDIA Jetson
           </Link>
@@ -73,7 +73,7 @@ export default function JetsonProducts() {
       </section>
 
       {/* Search + Filters */}
-      <section className="container mx-auto px-4 py-6 space-y-4">
+      <section className="container max-w-7xl mx-auto px-6 py-6 space-y-4">
         <div className="relative max-w-2xl mx-auto">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input
@@ -105,7 +105,7 @@ export default function JetsonProducts() {
       </section>
 
       {/* Product Grid */}
-      <section className="container mx-auto px-4 pb-10">
+      <section className="container max-w-7xl mx-auto px-6 pb-10">
         {paged.length === 0 ? (
           <div className="text-center py-16 text-muted-foreground">
             ไม่พบสินค้าที่ตรงกับการค้นหา

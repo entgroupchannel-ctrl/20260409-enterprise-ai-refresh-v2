@@ -313,7 +313,7 @@ export default function JetsonProfessionalGPU() {
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0a0e27]/80 via-[#0a0e27]/70 to-[#0a0e27]" />
-        <div className="relative container mx-auto px-4 py-20 md:py-24">
+        <div className="relative container max-w-7xl mx-auto px-6 py-20 md:py-24">
           <Link to="/nvidia-jetson" className="inline-flex items-center gap-1 text-sm text-white/70 hover:text-white mb-6">
             <ArrowLeft className="w-4 h-4" /> กลับ NVIDIA Jetson
           </Link>
@@ -330,7 +330,7 @@ export default function JetsonProfessionalGPU() {
 
       {/* Family Tabs */}
       <section className="sticky top-16 z-30 bg-background/95 backdrop-blur-md border-b">
-        <div className="container mx-auto px-4 py-3">
+        <div className="container max-w-7xl mx-auto px-6 py-3">
           <div className="flex flex-wrap gap-2 justify-center">
             {familyTabs.map((t) => {
               const count = t.id === "all" ? gpus.length : gpus.filter((g) => g.family === t.id).length;
@@ -354,7 +354,7 @@ export default function JetsonProfessionalGPU() {
       </section>
 
       {/* Cards Grid */}
-      <section className="container mx-auto px-4 py-10">
+      <section className="container max-w-7xl mx-auto px-6 py-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {filtered.map((g) => <GPUCard key={g.id} g={g} />)}
         </div>
@@ -363,7 +363,7 @@ export default function JetsonProfessionalGPU() {
 
       {/* Compare */}
       <section className="bg-muted/30 border-y">
-        <div className="container mx-auto px-4 py-12 md:py-14">
+        <div className="container max-w-7xl mx-auto px-6 py-12 md:py-14">
           <div className="text-center mb-6">
             <h2 className="text-2xl md:text-3xl font-bold mb-2">เปรียบเทียบรุ่นหลัก</h2>
             <p className="text-muted-foreground text-sm">สรุปสเปกหลักของ GPU ทุกรุ่นในที่เดียว</p>
@@ -392,7 +392,7 @@ export default function JetsonProfessionalGPU() {
       </section>
 
       {/* Use Cases */}
-      <section className="container mx-auto px-4 py-12 md:py-16">
+      <section className="container max-w-7xl mx-auto px-6 py-12 md:py-16">
         <div className="text-center mb-3">
           <h2 className="text-2xl md:text-3xl font-bold mb-2">เลือกการ์ดที่เหมาะกับงานของคุณ</h2>
           <p className="text-muted-foreground text-sm max-w-2xl mx-auto">คลิกแต่ละหมวดหมู่เพื่อดูข้อมูลเชิงบริหาร รายละเอียดทางเทคนิค และบริการจาก ENT Group</p>
@@ -419,7 +419,7 @@ export default function JetsonProfessionalGPU() {
 
       {/* CTA */}
       <section className="bg-gradient-to-br from-[#0a0e27] to-[#1a1e47] text-white">
-        <div className="container mx-auto px-4 py-14 text-center">
+        <div className="container max-w-7xl mx-auto px-6 py-14 text-center">
           <Award className="w-12 h-12 mx-auto mb-4" style={{ color: NV }} />
           <h2 className="text-2xl md:text-3xl font-bold mb-3">ไม่แน่ใจว่ารุ่นไหนเหมาะกับงานของคุณ?</h2>
           <p className="text-white/70 mb-6 max-w-2xl mx-auto">ทีมวิศวกร ENT Group ให้คำปรึกษาฟรี ออกใบเสนอราคา รองรับจัดซื้อหน่วยงานรัฐ</p>

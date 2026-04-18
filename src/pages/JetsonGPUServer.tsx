@@ -207,7 +207,7 @@ export default function JetsonGPUServer() {
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0a0e27]/80 via-[#0a0e27]/70 to-[#0a0e27]" />
-        <div className="relative container mx-auto px-4 py-20 md:py-28">
+        <div className="relative container max-w-7xl mx-auto px-6 py-20 md:py-28">
           <Link to="/nvidia-jetson" className="inline-flex items-center gap-1 text-sm text-white/70 hover:text-white mb-6">
             <ArrowLeft className="w-4 h-4" /> กลับ NVIDIA Jetson
           </Link>
@@ -235,13 +235,13 @@ export default function JetsonGPUServer() {
       </section>
 
       {/* Products */}
-      <section className="container mx-auto px-4 py-12 md:py-16 space-y-10">
+      <section className="container max-w-7xl mx-auto px-6 py-12 md:py-16 space-y-10">
         {products.map((p) => <ProductRow key={p.id} p={p} />)}
       </section>
 
       {/* Compare */}
       <section className="bg-muted/30 border-y">
-        <div className="container mx-auto px-4 py-12 md:py-16">
+        <div className="container max-w-7xl mx-auto px-6 py-12 md:py-16">
           <div className="text-center mb-8">
             <h2 className="text-2xl md:text-3xl font-bold mb-2">เปรียบเทียบทุกรุ่น</h2>
             <p className="text-muted-foreground text-sm">เลือกรุ่นที่เหมาะกับ Workload และงบประมาณของคุณ</p>
@@ -270,7 +270,7 @@ export default function JetsonGPUServer() {
       </section>
 
       {/* Use Cases */}
-      <section className="container mx-auto px-4 py-12 md:py-16">
+      <section className="container max-w-7xl mx-auto px-6 py-12 md:py-16">
         <div className="text-center mb-10">
           <h2 className="text-2xl md:text-3xl font-bold mb-2">เลือกรุ่นที่เหมาะกับงานของคุณ</h2>
           <p className="text-muted-foreground text-sm">แนะนำตามประเภทอุตสาหกรรมและการใช้งาน</p>
@@ -298,7 +298,7 @@ export default function JetsonGPUServer() {
 
       {/* CTA */}
       <section className="bg-gradient-to-br from-[#0a0e27] to-[#1a1e47] text-white">
-        <div className="container mx-auto px-4 py-14 text-center">
+        <div className="container max-w-7xl mx-auto px-6 py-14 text-center">
           <Award className="w-12 h-12 mx-auto mb-4" style={{ color: NV }} />
           <h2 className="text-2xl md:text-3xl font-bold mb-3">ไม่แน่ใจว่ารุ่นไหนเหมาะกับองค์กรของคุณ?</h2>
           <p className="text-white/70 mb-6 max-w-2xl mx-auto">
