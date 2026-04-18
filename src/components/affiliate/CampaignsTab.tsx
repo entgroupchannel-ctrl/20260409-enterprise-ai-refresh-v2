@@ -44,6 +44,13 @@ export default function CampaignsTab({ affiliateCode }: { affiliateCode: string 
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [items, setItems] = useState<Record<string, CampaignItem[]>>({});
   const [selected, setSelected] = useState<Campaign | null>(null);
+  const [view, setView] = useState<"grid" | "list">(() => {
+    if (typeof window === "undefined") return "grid";
+    return (localStorage.getItem("affiliate_campaigns_view") as "grid" | "list") || "grid";
+  });
+  useEffect(() => {
+    if (typeof window !== "undefined") localStorage.setItem("affiliate_campaigns_view", view);
+  }, [view]);
 
   useEffect(() => {
     (async () => {
