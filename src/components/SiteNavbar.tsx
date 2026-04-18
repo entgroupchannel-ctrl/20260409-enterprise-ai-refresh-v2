@@ -87,7 +87,11 @@ export default function SiteNavbar() {
               <TooltipContent side="bottom" className="text-xs">ตะกร้าใบเสนอราคา</TooltipContent>
             </Tooltip>
           </TooltipProvider>
-          {!authLoading && (
+          {authLoading ? (
+            <Link to="/login" className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
+              <LogIn size={16} /> เข้าสู่ระบบ
+            </Link>
+          ) : (
             user ? (
               <div className="relative group">
                 <button className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
