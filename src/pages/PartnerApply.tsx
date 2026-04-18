@@ -51,7 +51,11 @@ interface FormState {
   sample_policy: string; warranty_terms: string;
   expected_partnership_type: string[];
   // Stage 5
-  why_partner_with_us: string; additional_notes: string; heard_about_us_from: string;
+  why_partner_with_us: string; additional_notes: string;
+  heard_about_us_from: string; heard_about_us_other: string;
+  factory_video_url: string;
+  catalog_scope: "all" | "selected" | "";
+  catalog_selected_categories: string[];
   agreed: boolean;
 }
 
