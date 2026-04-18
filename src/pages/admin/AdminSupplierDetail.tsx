@@ -165,9 +165,42 @@ export default function AdminSupplierDetail() {
                 </div>
               )}
             </div>
+            <div className="mt-3 pt-3 border-t flex items-center gap-2 flex-wrap">
+              <span className="text-xs text-muted-foreground">Lifecycle stage:</span>
+              <Select
+                value={s.lifecycle_stage ?? 'discovery'}
+                onValueChange={async (v) => {
+                  await supabase.from('suppliers').update({ lifecycle_stage: v } as any).eq('id', id!);
+                  toast({ title: 'อัปเดต stage แล้ว' });
+                  load();
+                }}
+              >
+                <SelectTrigger className="w-48 h-8"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  {LIFECYCLE_STAGES.map(st => <SelectItem key={st.value} value={st.value}>{st.label}</SelectItem>)}
+                </SelectContent>
+              </Select>
+            </div>
           </CardContent>
         </Card>
 
+        <Tabs defaultValue="overview">
+          <TabsList className="grid grid-cols-3 md:grid-cols-6 h-auto">
+            <TabsTrigger value="overview" className="text-xs">ภาพรวม</TabsTrigger>
+            <TabsTrigger value="prequal" className="text-xs">Pre-qual</TabsTrigger>
+            <TabsTrigger value="scoring" className="text-xs">Scoring</TabsTrigger>
+            <TabsTrigger value="outreach" className="text-xs">Outreach</TabsTrigger>
+            <TabsTrigger value="video" className="text-xs">Video Call</TabsTrigger>
+            <TabsTrigger value="sample" className="text-xs">Sample/Pilot</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="prequal"><SupplierPrequalForm supplierId={id!} /></TabsContent>
+          <TabsContent value="scoring"><SupplierScoringMatrix supplierId={id!} /></TabsContent>
+          <TabsContent value="outreach"><SupplierOutreachLog supplierId={id!} supplierName={s.company_name} /></TabsContent>
+          <TabsContent value="video"><SupplierVideoCallLog supplierId={id!} /></TabsContent>
+          <TabsContent value="sample"><SupplierSamplePilotPanel supplierId={id!} /></TabsContent>
+
+          <TabsContent value="overview" className="space-y-4">
         <div className="grid md:grid-cols-2 gap-4">
           {/* Company info */}
           <Card>
