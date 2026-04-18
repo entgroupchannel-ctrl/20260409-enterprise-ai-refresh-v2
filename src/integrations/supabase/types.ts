@@ -3912,6 +3912,7 @@ export type Database = {
           sla_po_review_due: string | null
           sla_response_due: string | null
           so_created_at: string | null
+          source: string | null
           status: string
           subtotal: number | null
           total_revisions: number | null
@@ -3975,6 +3976,7 @@ export type Database = {
           sla_po_review_due?: string | null
           sla_response_due?: string | null
           so_created_at?: string | null
+          source?: string | null
           status?: string
           subtotal?: number | null
           total_revisions?: number | null
@@ -4038,6 +4040,7 @@ export type Database = {
           sla_po_review_due?: string | null
           sla_response_due?: string | null
           so_created_at?: string | null
+          source?: string | null
           status?: string
           subtotal?: number | null
           total_revisions?: number | null
