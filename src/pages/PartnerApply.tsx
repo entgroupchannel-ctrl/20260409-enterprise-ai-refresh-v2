@@ -20,7 +20,8 @@ import { useI18n } from "@/contexts/I18nContext";
 import LangToggle from "@/components/LangToggle";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
-import { pf, PRODUCT_CATEGORIES, CERTS, PARTNERSHIP_TYPES } from "@/lib/partner-i18n";
+import { pf, PRODUCT_CATEGORIES, CERTS, PARTNERSHIP_TYPES, CN_PROVINCES, CONTACT_POSITIONS } from "@/lib/partner-i18n";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 
 const SESSION_KEY = "partner_app_session";
@@ -494,14 +495,57 @@ function Stage1({ data, update, L, capitalCurrency, setCapitalCurrency }: any) {
             </p>
           )}
         </Field>
-        <Field label={L("established")}>
-          <Input type="number" value={data.established_year} onChange={(e) => update("established_year", e.target.value)} />
-        </Field>
-        <Field label={L("city")}>
-          <Input value={data.city} onChange={(e) => update("city", e.target.value)} />
+        <Field label={`${L("established")} (ค.ศ. / AD)`}>
+          <Input
+            type="number"
+            min={1900}
+            max={new Date().getFullYear()}
+            placeholder={`เช่น ${new Date().getFullYear() - 10}`}
+            value={data.established_year}
+            onChange={(e) => update("established_year", e.target.value)}
+          />
         </Field>
         <Field label={L("province")}>
-          <Input value={data.province} onChange={(e) => update("province", e.target.value)} />
+          <Select
+            value={data.province || undefined}
+            onValueChange={(v) => { update("province", v); update("city", ""); }}
+          >
+            <SelectTrigger><SelectValue placeholder="เลือกมณฑล / 选择省份" /></SelectTrigger>
+            <SelectContent className="max-h-72">
+              {CN_PROVINCES.map((p) => (
+                <SelectItem key={p.code} value={p.zh}>{p.zh} · {p.en}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </Field>
+        <Field label={L("city")}>
+          {(() => {
+            const sel = CN_PROVINCES.find((p) => p.zh === data.province);
+            const cities = sel?.cities ?? [];
+            if (cities.length > 0) {
+              return (
+                <>
+                  <Input
+                    list="cn-cities-list"
+                    placeholder={cities.length ? `เช่น ${cities[0]}` : "เมือง / 城市"}
+                    value={data.city}
+                    onChange={(e) => update("city", e.target.value)}
+                  />
+                  <datalist id="cn-cities-list">
+                    {cities.map((c) => <option key={c} value={c} />)}
+                  </datalist>
+                </>
+              );
+            }
+            return (
+              <Input
+                placeholder="เลือกมณฑลก่อน / 请先选择省份"
+                value={data.city}
+                onChange={(e) => update("city", e.target.value)}
+                disabled={!data.province}
+              />
+            );
+          })()}
         </Field>
         <div className="md:col-span-2">
           <Field label={L("address")}>
@@ -515,23 +559,51 @@ function Stage1({ data, update, L, capitalCurrency, setCapitalCurrency }: any) {
           <Input value={data.contact_name} onChange={(e) => update("contact_name", e.target.value)} />
         </Field>
         <Field label={L("contactPosition")}>
-          <Input value={data.contact_position} onChange={(e) => update("contact_position", e.target.value)} />
+          <Input
+            list="contact-positions-list"
+            placeholder="เช่น Sales Manager / 销售经理"
+            value={data.contact_position}
+            onChange={(e) => update("contact_position", e.target.value)}
+          />
+          <datalist id="contact-positions-list">
+            {CONTACT_POSITIONS.map((p, i) => (
+              <option key={i} value={p.zh}>{p.en}</option>
+            ))}
+          </datalist>
         </Field>
         <Field label={L("contactPhone")}>
-          <Input value={data.contact_phone} onChange={(e) => update("contact_phone", e.target.value)} />
+          <Input
+            type="tel"
+            placeholder="+86 138 0000 0000 หรือ +66 8X XXX XXXX"
+            value={data.contact_phone}
+            onChange={(e) => update("contact_phone", e.target.value)}
+          />
         </Field>
-        <div className="md:col-span-2">
-          <Field label={L("contactEmail")} required>
-            <Input type="email" value={data.contact_email} onChange={(e) => update("contact_email", e.target.value)} />
-            <p className="text-xs text-muted-foreground mt-1">{L("emailWarning")}</p>
-          </Field>
-        </div>
+        <Field label={L("contactEmail")} required>
+          <Input
+            type="email"
+            placeholder="name@company.com"
+            value={data.contact_email}
+            onChange={(e) => update("contact_email", e.target.value)}
+          />
+          <p className="text-xs text-muted-foreground mt-1">{L("emailWarning")}</p>
+        </Field>
         <Field label={L("contactWechat")}>
-          <Input value={data.contact_wechat} onChange={(e) => update("contact_wechat", e.target.value)} />
+          <Input
+            placeholder="WeChat ID เช่น zhang_wei_88"
+            value={data.contact_wechat}
+            onChange={(e) => update("contact_wechat", e.target.value)}
+          />
         </Field>
         <Field label={L("contactWhatsapp")}>
-          <Input value={data.contact_whatsapp} onChange={(e) => update("contact_whatsapp", e.target.value)} />
+          <Input
+            type="tel"
+            placeholder="+86 138 0000 0000"
+            value={data.contact_whatsapp}
+            onChange={(e) => update("contact_whatsapp", e.target.value)}
+          />
         </Field>
+
       </div>
     </>
   );

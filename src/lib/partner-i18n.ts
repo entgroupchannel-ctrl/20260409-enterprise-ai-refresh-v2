@@ -126,3 +126,58 @@ export const PARTNERSHIP_TYPES = [
   { id: "white-label", th: "White Label",    en: "White Label", zh: "贴牌" },
   { id: "joint-rd",    th: "ร่วมพัฒนา R&D",  en: "Joint R&D",   zh: "联合研发" },
 ];
+
+/** Chinese provinces / municipalities / autonomous regions with major cities */
+export const CN_PROVINCES: { code: string; zh: string; en: string; cities: string[] }[] = [
+  { code: "BJ", zh: "北京市", en: "Beijing",   cities: ["北京"] },
+  { code: "SH", zh: "上海市", en: "Shanghai",  cities: ["上海"] },
+  { code: "TJ", zh: "天津市", en: "Tianjin",   cities: ["天津"] },
+  { code: "CQ", zh: "重庆市", en: "Chongqing", cities: ["重庆"] },
+  { code: "GD", zh: "广东省", en: "Guangdong", cities: ["深圳", "广州", "东莞", "佛山", "珠海", "中山", "惠州", "汕头"] },
+  { code: "JS", zh: "江苏省", en: "Jiangsu",   cities: ["南京", "苏州", "无锡", "常州", "南通", "昆山"] },
+  { code: "ZJ", zh: "浙江省", en: "Zhejiang",  cities: ["杭州", "宁波", "温州", "义乌", "嘉兴"] },
+  { code: "FJ", zh: "福建省", en: "Fujian",    cities: ["厦门", "福州", "泉州"] },
+  { code: "SD", zh: "山东省", en: "Shandong",  cities: ["青岛", "济南", "烟台", "威海"] },
+  { code: "SC", zh: "四川省", en: "Sichuan",   cities: ["成都", "绵阳"] },
+  { code: "HB", zh: "湖北省", en: "Hubei",     cities: ["武汉", "宜昌"] },
+  { code: "HN", zh: "湖南省", en: "Hunan",     cities: ["长沙"] },
+  { code: "HE", zh: "河北省", en: "Hebei",     cities: ["石家庄", "保定", "唐山"] },
+  { code: "HA", zh: "河南省", en: "Henan",     cities: ["郑州", "洛阳"] },
+  { code: "AH", zh: "安徽省", en: "Anhui",     cities: ["合肥", "芜湖"] },
+  { code: "JX", zh: "江西省", en: "Jiangxi",   cities: ["南昌"] },
+  { code: "LN", zh: "辽宁省", en: "Liaoning",  cities: ["沈阳", "大连"] },
+  { code: "JL", zh: "吉林省", en: "Jilin",     cities: ["长春"] },
+  { code: "HL", zh: "黑龙江省", en: "Heilongjiang", cities: ["哈尔滨"] },
+  { code: "SX", zh: "山西省", en: "Shanxi",    cities: ["太原"] },
+  { code: "SN", zh: "陕西省", en: "Shaanxi",   cities: ["西安"] },
+  { code: "GS", zh: "甘肃省", en: "Gansu",     cities: ["兰州"] },
+  { code: "QH", zh: "青海省", en: "Qinghai",   cities: ["西宁"] },
+  { code: "YN", zh: "云南省", en: "Yunnan",    cities: ["昆明"] },
+  { code: "GZ", zh: "贵州省", en: "Guizhou",   cities: ["贵阳"] },
+  { code: "HI", zh: "海南省", en: "Hainan",    cities: ["海口", "三亚"] },
+  { code: "GX", zh: "广西壮族自治区", en: "Guangxi", cities: ["南宁", "桂林"] },
+  { code: "NM", zh: "内蒙古自治区", en: "Inner Mongolia", cities: ["呼和浩特"] },
+  { code: "NX", zh: "宁夏回族自治区", en: "Ningxia", cities: ["银川"] },
+  { code: "XJ", zh: "新疆维吾尔自治区", en: "Xinjiang", cities: ["乌鲁木齐"] },
+  { code: "XZ", zh: "西藏自治区", en: "Tibet",  cities: ["拉萨"] },
+  { code: "HK", zh: "香港特别行政区", en: "Hong Kong", cities: ["香港"] },
+  { code: "MO", zh: "澳门特别行政区", en: "Macau", cities: ["澳门"] },
+  { code: "TW", zh: "台湾省", en: "Taiwan",    cities: ["台北", "新北", "高雄", "台中"] },
+];
+
+/** Common contact positions (TH/EN/ZH) */
+export const CONTACT_POSITIONS: { th: string; en: string; zh: string }[] = [
+  { th: "ผู้จัดการฝ่ายขาย",          en: "Sales Manager",            zh: "销售经理" },
+  { th: "ผู้จัดการฝ่ายส่งออก",        en: "Export Sales Manager",     zh: "外贸经理" },
+  { th: "ผู้อำนวยการฝ่ายขาย",        en: "Sales Director",           zh: "销售总监" },
+  { th: "ผู้จัดการทั่วไป",            en: "General Manager",          zh: "总经理" },
+  { th: "รองผู้จัดการทั่วไป",         en: "Deputy GM",                zh: "副总经理" },
+  { th: "เจ้าของกิจการ / CEO",       en: "Founder / CEO",            zh: "董事长 / CEO" },
+  { th: "ผู้จัดการ BD",              en: "Business Development Mgr", zh: "业务发展经理" },
+  { th: "ผู้จัดการการตลาด",          en: "Marketing Manager",        zh: "市场经理" },
+  { th: "วิศวกรขาย",                 en: "Sales Engineer",           zh: "销售工程师" },
+  { th: "ผู้จัดการโครงการ",           en: "Project Manager",          zh: "项目经理" },
+  { th: "ผู้จัดการฝ่ายจัดซื้อ",        en: "Purchasing Manager",       zh: "采购经理" },
+  { th: "ผู้จัดการ R&D",             en: "R&D Manager",              zh: "研发经理" },
+];
+
