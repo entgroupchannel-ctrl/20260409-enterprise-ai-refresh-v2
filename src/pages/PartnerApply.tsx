@@ -292,46 +292,131 @@ export default function PartnerApply() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  // Finalize: mark submitted + send confirmation email. Used by both flows.
+  const finalizeSubmission = async (id: string) => {
+    const { error } = await supabase
+      .from("partner_applications")
+      .update({ status: "submitted", current_stage: 5, submitted_at: new Date().toISOString() })
+      .eq("id", id);
+    if (error) throw error;
+
+    if (data.contact_email) {
+      const { data: row } = await supabase
+        .from("partner_applications")
+        .select("application_number")
+        .eq("id", id)
+        .maybeSingle();
+      supabase.functions.invoke("send-transactional-email", {
+        body: {
+          templateName: "partner-application-received",
+          recipientEmail: data.contact_email,
+          idempotencyKey: `partner-app-${id}`,
+          templateData: {
+            name: data.contact_name,
+            companyName: data.company_name_en || data.company_name_local,
+            applicationNumber: row?.application_number ?? null,
+            lang,
+          },
+        },
+      }).catch((e) => console.warn("[partner] email send failed", e));
+    }
+
+    localStorage.removeItem(DRAFT_KEY);
+    localStorage.removeItem(SESSION_KEY);
+    setDone(true);
+  };
+
   const submit = async () => {
     const err = validateStage(5);
     if (err) { toast({ title: err, variant: "destructive" }); return; }
+
+    // Logged-in user → submit directly
+    if (user) {
+      setSubmitting(true);
+      try {
+        const id = await ensureAppId();
+        if (!id) throw new Error("Failed to save");
+        await finalizeSubmission(id);
+      } catch (e: any) {
+        toast({ title: "ส่งไม่สำเร็จ", description: e.message, variant: "destructive" });
+      } finally { setSubmitting(false); }
+      return;
+    }
+
+    // Guest → make sure draft is saved, then prompt for password
     setSubmitting(true);
     try {
       const id = await ensureAppId();
       if (!id) throw new Error("Failed to save");
-      const { error } = await supabase
-        .from("partner_applications")
-        .update({ status: "submitted", current_stage: 5, submitted_at: new Date().toISOString() })
-        .eq("id", id);
-      if (error) throw error;
+      setAccountDialogOpen(true);
+    } catch (e: any) {
+      toast({ title: "บันทึกไม่สำเร็จ", description: e.message, variant: "destructive" });
+    } finally { setSubmitting(false); }
+  };
 
-      // Fire-and-forget thank-you email (don't block UX if it fails)
-      if (data.contact_email) {
-        const { data: row } = await supabase
-          .from("partner_applications")
-          .select("application_number")
-          .eq("id", id)
-          .maybeSingle();
-        supabase.functions.invoke("send-transactional-email", {
-          body: {
-            templateName: "partner-application-received",
-            recipientEmail: data.contact_email,
-            idempotencyKey: `partner-app-${id}`,
-            templateData: {
-              name: data.contact_name,
-              companyName: data.company_name_en || data.company_name_local,
-              applicationNumber: row?.application_number ?? null,
-              lang,
-            },
-          },
-        }).catch((e) => console.warn("[partner] email send failed", e));
+  // Guest creates account → claim application → finalize
+  const createAccountAndSubmit = async () => {
+    if (accountPassword.length < 8) {
+      toast({ title: lang === "en" ? "Password must be at least 8 characters" : lang === "zh" ? "密码至少8位" : "รหัสผ่านอย่างน้อย 8 ตัวอักษร", variant: "destructive" });
+      return;
+    }
+    if (accountPassword !== accountPassword2) {
+      toast({ title: lang === "en" ? "Passwords don't match" : lang === "zh" ? "密码不一致" : "รหัสผ่านไม่ตรงกัน", variant: "destructive" });
+      return;
+    }
+    if (!appId) {
+      toast({ title: "Application not saved", variant: "destructive" });
+      return;
+    }
+    setCreatingAccount(true);
+    try {
+      // 1. Create account (Supabase sends confirmation email automatically if enabled)
+      const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+        email: data.contact_email,
+        password: accountPassword,
+        options: {
+          emailRedirectTo: `${window.location.origin}/partner/portal`,
+          data: { full_name: data.contact_name, source: "partner_application" },
+        },
+      });
+      if (signUpError) {
+        // If account already exists, ask them to sign in
+        if (/already registered|already exists/i.test(signUpError.message)) {
+          toast({
+            title: lang === "en" ? "Email already registered" : lang === "zh" ? "邮箱已注册" : "อีเมลนี้สมัครสมาชิกแล้ว",
+            description: lang === "en" ? "Please sign in to submit." : lang === "zh" ? "请登录后提交。" : "กรุณา login ก่อนส่งใบสมัคร",
+            variant: "destructive",
+          });
+          navigate(`/login?redirect=${encodeURIComponent("/partner/apply")}`);
+          return;
+        }
+        throw signUpError;
       }
 
-      localStorage.removeItem(DRAFT_KEY);
-      setDone(true);
+      const newUserId = signUpData.user?.id;
+      const hasSession = !!signUpData.session;
+
+      // 2. If we have a session (email confirm disabled), claim the application now.
+      // Otherwise the application stays linked by session_token + contact_email — admin can match later,
+      // and the user can re-claim it after confirming email by visiting /partner/portal.
+      if (hasSession && newUserId) {
+        await supabase
+          .from("partner_applications")
+          .update({ user_id: newUserId })
+          .eq("id", appId)
+          .is("user_id", null);
+      }
+
+      // 3. Finalize submission (mark submitted + send thank-you email)
+      await finalizeSubmission(appId);
+
+      // 4. If email confirmation is required, show a different done state
+      if (!hasSession) setEmailConfirmRequired(true);
+
+      setAccountDialogOpen(false);
     } catch (e: any) {
       toast({ title: "ส่งไม่สำเร็จ", description: e.message, variant: "destructive" });
-    } finally { setSubmitting(false); }
+    } finally { setCreatingAccount(false); }
   };
 
   // ── Done screen ──────────────────────────────────────
