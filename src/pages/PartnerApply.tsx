@@ -680,15 +680,25 @@ function Stage3({ data, update, L }: any) {
       <h2 className="text-xl font-semibold">{L("step3")}</h2>
       <Field label={L("certs")}>
         <div className="flex flex-wrap gap-2">
-          {CERTS.map((c) => (
-            <label key={c} className={cn(
-              "px-3 py-1.5 rounded-full border text-sm cursor-pointer",
-              data.certifications.includes(c) ? "border-primary bg-primary/10 text-primary" : "border-border"
-            )}>
-              <Checkbox className="hidden" checked={data.certifications.includes(c)} onCheckedChange={() => toggleCert(c)} />
-              <span onClick={() => toggleCert(c)}>{c}</span>
-            </label>
-          ))}
+          {CERTS.map((c) => {
+            const active = data.certifications.includes(c);
+            return (
+              <button
+                key={c}
+                type="button"
+                onClick={() => toggleCert(c)}
+                className={cn(
+                  "px-4 py-2 rounded-full border text-sm font-medium transition-colors select-none",
+                  active
+                    ? "border-primary bg-primary/10 text-primary hover:bg-primary/15"
+                    : "border-border hover:border-primary/50 hover:bg-muted"
+                )}
+                aria-pressed={active}
+              >
+                {c}
+              </button>
+            );
+          })}
         </div>
       </Field>
       <Field label={L("exportCountries")}>
