@@ -337,9 +337,9 @@ export default function JetsonRecommend() {
       <SiteNavbar />
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-[#0a0e27] text-white">
+      <section className="relative overflow-hidden text-white" style={{ background: NV_NAVY }}>
         <div className="absolute inset-0 opacity-30" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1920&q=80)", backgroundSize: "cover", backgroundPosition: "center" }} />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0e27]/80 via-[#0a0e27]/70 to-[#0a0e27]" />
+        <div className="absolute inset-0" style={{ background: `linear-gradient(to bottom, ${NV_NAVY}cc, ${NV_NAVY}b3, ${NV_NAVY})` }} />
         <div className="relative container max-w-7xl mx-auto px-6 py-14 md:py-20">
           <Link to="/nvidia-jetson" className="inline-flex items-center gap-1 text-sm text-white/70 hover:text-white mb-4">
             <ArrowLeft className="w-4 h-4" /> กลับ NVIDIA Jetson
