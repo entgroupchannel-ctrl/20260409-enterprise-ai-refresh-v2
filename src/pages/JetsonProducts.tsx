@@ -237,7 +237,7 @@ function ProductCard({ p }: { p: JetsonProduct }) {
             <div className="mb-3 text-sm text-muted-foreground">สอบถามราคา</div>
           )}
 
-          <div className="flex flex-col gap-2">
+          <div className="grid grid-cols-2 gap-2">
             <AddToCartButton
               productModel={p.name}
               productName={p.nameTH}
@@ -245,7 +245,7 @@ function ProductCard({ p }: { p: JetsonProduct }) {
               estimatedPrice={hasPrice ? p.priceTHB! : undefined}
               variant="default"
               size="sm"
-              className="w-full [&>button]:w-full"
+              className="w-full [&>button]:w-full [&>button]:px-2"
             />
             <QuoteRequestButton
               productModel={p.name}
@@ -254,6 +254,7 @@ function ProductCard({ p }: { p: JetsonProduct }) {
               variant="outline"
               size="sm"
               fullWidth
+              className="px-2"
             />
           </div>
         </div>
