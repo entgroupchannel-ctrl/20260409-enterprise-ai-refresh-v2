@@ -44,6 +44,9 @@ export default function QuoteRequestForm() {
   const [submitting, setSubmitting] = useState(false);
   const submitGuard = useRef(false);
   const [profileLoaded, setProfileLoaded] = useState(false);
+  // Anti-bot: honeypot + time-to-submit
+  const [honeypot, setHoneypot] = useState('');
+  const formLoadedAt = useRef<number>(Date.now());
   const [formData, setFormData] = useState({
     customer_name: '',
     customer_email: '',
@@ -174,6 +177,17 @@ export default function QuoteRequestForm() {
       toast({ title: 'กรุณากรอกชื่อและอีเมล', variant: 'destructive' });
       return;
     }
+    // Anti-bot checks
+    if (honeypot.trim() !== '') {
+      // Bot filled hidden field — silently fail
+      toast({ title: 'ส่งคำขอสำเร็จ', description: 'ทีมงานจะติดต่อกลับโดยเร็ว' });
+      return;
+    }
+    const elapsed = Date.now() - formLoadedAt.current;
+    if (elapsed < 3000) {
+      toast({ title: 'กรุณากรอกข้อมูลให้ครบถ้วนก่อนส่ง', variant: 'destructive' });
+      return;
+    }
     const validProducts = products.filter(p => p.model.trim());
     if (validProducts.length === 0) {
       toast({ title: 'กรุณาระบุสินค้าอย่างน้อย 1 รายการ', variant: 'destructive' });
@@ -234,6 +248,20 @@ export default function QuoteRequestForm() {
       </div>
 
       <form onSubmit={handleSubmit} className="max-w-5xl mx-auto px-4 py-4">
+        {/* Honeypot field — hidden from users, bots will fill it */}
+        <div aria-hidden="true" className="absolute -left-[9999px] w-px h-px overflow-hidden" tabIndex={-1}>
+          <label>
+            Website (leave blank)
+            <input
+              type="text"
+              name="website"
+              autoComplete="off"
+              tabIndex={-1}
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+            />
+          </label>
+        </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
 
           {/* Left: Customer info */}
