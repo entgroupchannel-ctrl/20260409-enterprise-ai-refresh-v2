@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Search, Menu, X, ChevronDown, LogIn, UserCircle, LayoutDashboard, LogOut, FileText, Plus, User } from "lucide-react";
+import { Search, Menu, X, ChevronDown, LogIn, UserCircle, LayoutDashboard, LogOut, FileText, Plus, User, Tag, Mail } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import CartBadge from "@/components/CartBadge";
 import ThemeToggle from "@/components/ThemeToggle";
 import MegaMenu, { MobileMegaMenu } from "@/components/MegaMenu";
@@ -41,8 +42,8 @@ const searchTags = [
 ];
 
 const navLinks = [
-  { label: "โปรโมชั่น", href: "/promotions" },
-  { label: "ติดต่อเรา", href: "/contact" },
+  { label: "โปรโมชั่น", href: "/promotions", icon: Tag, hint: "ดูโปรโมชั่น & ส่วนลดล่าสุด" },
+  { label: "ติดต่อเรา", href: "/contact", icon: Mail, hint: "สอบถาม / ขอใบเสนอราคา / ติดต่อทีมขาย" },
 ];
 
 const heroStats = [
@@ -125,20 +126,57 @@ const HeroSection = () => {
           <img src={logo} alt="ENT GROUP" className="h-10 w-auto" />
         </Link>
 
-        <div className="hidden md:flex items-center gap-2">
+        <div className="hidden md:flex items-center gap-1">
           <MegaMenu />
-          {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              to={link.href}
-              className="px-3 py-2 rounded-lg text-sm font-medium text-white/70 hover:text-white hover:bg-white/5 transition-colors"
-            >
-              {link.label}
-            </Link>
-          ))}
-          <div className="w-px h-6 bg-white/10 mx-1" />
-          <ThemeToggle />
-          <CartBadge className="text-white/70 hover:text-white transition-colors p-2" />
+          <TooltipProvider delayDuration={150}>
+            {navLinks.map((link) => {
+              const Icon = link.icon;
+              return (
+                <Tooltip key={link.label}>
+                  <TooltipTrigger asChild>
+                    <Link
+                      to={link.href}
+                      aria-label={link.label}
+                      className="p-2 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors flex items-center justify-center"
+                    >
+                      <Icon size={18} />
+                    </Link>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom" className="text-xs">
+                    <p className="font-medium">{link.label}</p>
+                    <p className="text-muted-foreground text-[10px]">{link.hint}</p>
+                  </TooltipContent>
+                </Tooltip>
+              );
+            })}
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Link
+                  to="/request-quote"
+                  className="ml-1 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/20 text-white hover:bg-primary/30 transition-colors text-xs font-semibold border border-white/20"
+                >
+                  <FileText size={14} /> ขอใบเสนอราคา
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent side="bottom" className="text-xs">
+                <p className="font-medium">ขอใบเสนอราคา</p>
+                <p className="text-muted-foreground text-[10px]">ทีมขายตอบกลับภายใน 24 ชม.</p>
+              </TooltipContent>
+            </Tooltip>
+            <div className="w-px h-6 bg-white/10 mx-1" />
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <span className="inline-flex"><ThemeToggle /></span>
+              </TooltipTrigger>
+              <TooltipContent side="bottom" className="text-xs">สลับโหมด สว่าง / มืด</TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <span className="inline-flex"><CartBadge className="text-white/70 hover:text-white transition-colors p-2" /></span>
+              </TooltipTrigger>
+              <TooltipContent side="bottom" className="text-xs">ตะกร้าใบเสนอราคา</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
           {!authLoading && (
             user ? (
               <div className="relative group">
