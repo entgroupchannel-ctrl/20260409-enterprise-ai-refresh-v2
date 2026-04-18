@@ -8,7 +8,7 @@ import {
   Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription,
 } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Sparkles } from 'lucide-react';
+import { Loader2, Sparkles, Eye, EyeOff } from 'lucide-react';
 import { getPendingQuote } from '@/hooks/usePendingQuote';
 import { PendingItemsBanner } from '@/components/PendingItemsBanner';
 
