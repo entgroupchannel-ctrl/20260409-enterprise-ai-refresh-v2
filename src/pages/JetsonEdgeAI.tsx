@@ -246,7 +246,6 @@ const JetsonEdgeAI = () => {
               { label: "Pro Graphics Card", icon: Monitor, href: "/nvidia-jetson/professional-gpu" },
               { label: "Solutions", icon: Factory, href: "/nvidia-jetson/solutions" },
               { label: "Case Studies", icon: Award, href: "/nvidia-jetson/case-studies" },
-              { label: "ขอ POC ฟรี", icon: PhoneCall, href: "/contact", accent: true },
             ].map((link) => {
               const Icon = link.icon;
               return (
@@ -256,8 +255,6 @@ const JetsonEdgeAI = () => {
                   className={`group shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 hover:-translate-y-0.5 ${
                     link.primary
                       ? "bg-[#76B900] text-[#0a0e27] hover:bg-[#8ad400] shadow-md shadow-[#76B900]/30 hover:shadow-lg hover:shadow-[#76B900]/50"
-                      : link.accent
-                      ? "bg-white text-[#0a0e27] hover:bg-[#76B900] shadow-md"
                       : "bg-white/5 text-white/85 hover:bg-[#76B900]/15 hover:text-[#76B900] border border-white/10 hover:border-[#76B900]/40"
                   }`}
                 >
