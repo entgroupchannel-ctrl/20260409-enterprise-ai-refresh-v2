@@ -101,7 +101,7 @@ const Partner = () => {
       <section className="relative overflow-hidden border-b border-border/50">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-background pointer-events-none" />
         <div className="absolute top-0 right-0 -z-0 h-96 w-96 rounded-full bg-primary/10 blur-3xl" />
-        <div className="container relative mx-auto px-4 py-20 md:py-28">
+        <div className="container max-w-7xl relative mx-auto px-6 py-20 md:py-28">
           <div className="max-w-3xl">
             <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold tracking-wider uppercase mb-6">
               {t("partner.eyebrow")}
@@ -138,7 +138,7 @@ const Partner = () => {
 
       {/* ── Why partner ── */}
       <section id="why" className="py-20 md:py-28">
-        <div className="container mx-auto px-4">
+        <div className="container max-w-7xl mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-12 max-w-2xl">
             {t("partner.whyTitle")}
           </h2>
@@ -160,7 +160,7 @@ const Partner = () => {
 
       {/* ── Looking for ── */}
       <section className="py-20 md:py-28 bg-muted/30 border-y border-border/50">
-        <div className="container mx-auto px-4">
+        <div className="container max-w-7xl mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-12 max-w-2xl">
             {t("partner.lookingTitle")}
           </h2>
@@ -180,7 +180,7 @@ const Partner = () => {
 
       {/* ── Requirements ── */}
       <section className="py-20 md:py-28">
-        <div className="container mx-auto px-4 max-w-4xl">
+        <div className="container max-w-4xl mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-12">
             {t("partner.reqTitle")}
           </h2>
@@ -197,7 +197,7 @@ const Partner = () => {
 
       {/* ── Process ── */}
       <section className="py-20 md:py-28 bg-muted/30 border-y border-border/50">
-        <div className="container mx-auto px-4">
+        <div className="container max-w-7xl mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-12 max-w-2xl">
             {t("partner.processTitle")}
           </h2>
@@ -221,7 +221,7 @@ const Partner = () => {
 
       {/* ── FAQ ── */}
       <section className="py-20 md:py-28">
-        <div className="container mx-auto px-4 max-w-3xl">
+        <div className="container max-w-3xl mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-12">
             {t("partner.faqTitle")}
           </h2>
@@ -245,7 +245,7 @@ const Partner = () => {
         id="apply"
         className="py-20 md:py-28 bg-gradient-to-br from-primary/10 via-background to-primary/5 border-t border-border/50"
       >
-        <div className="container mx-auto px-4 text-center max-w-2xl">
+        <div className="container max-w-2xl mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6">
             {t("partner.finalCtaTitle")}
           </h2>
