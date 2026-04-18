@@ -1899,6 +1899,292 @@ export type Database = {
           },
         ]
       }
+      partner_application_files: {
+        Row: {
+          application_id: string
+          created_at: string
+          file_category: string
+          file_name: string
+          file_path: string
+          file_size: number | null
+          file_url: string | null
+          id: string
+          mime_type: string | null
+          ocr_extracted: Json | null
+          uploaded_by: string | null
+        }
+        Insert: {
+          application_id: string
+          created_at?: string
+          file_category: string
+          file_name: string
+          file_path: string
+          file_size?: number | null
+          file_url?: string | null
+          id?: string
+          mime_type?: string | null
+          ocr_extracted?: Json | null
+          uploaded_by?: string | null
+        }
+        Update: {
+          application_id?: string
+          created_at?: string
+          file_category?: string
+          file_name?: string
+          file_path?: string
+          file_size?: number | null
+          file_url?: string | null
+          id?: string
+          mime_type?: string | null
+          ocr_extracted?: Json | null
+          uploaded_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_application_files_application_id_fkey"
+            columns: ["application_id"]
+            isOneToOne: false
+            referencedRelation: "partner_applications"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      partner_application_reviews: {
+        Row: {
+          application_id: string
+          comment: string | null
+          created_at: string
+          decision: string
+          id: string
+          internal_only: boolean | null
+          reviewer_id: string
+          reviewer_name: string | null
+          score: number | null
+        }
+        Insert: {
+          application_id: string
+          comment?: string | null
+          created_at?: string
+          decision: string
+          id?: string
+          internal_only?: boolean | null
+          reviewer_id: string
+          reviewer_name?: string | null
+          score?: number | null
+        }
+        Update: {
+          application_id?: string
+          comment?: string | null
+          created_at?: string
+          decision?: string
+          id?: string
+          internal_only?: boolean | null
+          reviewer_id?: string
+          reviewer_name?: string | null
+          score?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_application_reviews_application_id_fkey"
+            columns: ["application_id"]
+            isOneToOne: false
+            referencedRelation: "partner_applications"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      partner_applications: {
+        Row: {
+          additional_notes: string | null
+          annual_export_value_usd: number | null
+          application_number: string | null
+          auto_score: number | null
+          auto_score_breakdown: Json | null
+          business_license_no: string | null
+          certifications: string[] | null
+          city: string | null
+          company_address: string | null
+          company_name_en: string | null
+          company_name_local: string | null
+          contact_email: string | null
+          contact_name: string | null
+          contact_phone: string | null
+          contact_position: string | null
+          contact_wechat: string | null
+          contact_whatsapp: string | null
+          country: string | null
+          created_at: string
+          current_stage: number
+          established_year: number | null
+          exclusivity_preference: string | null
+          expected_partnership_type: string[] | null
+          export_countries: string[] | null
+          factory_size_sqm: number | null
+          has_thailand_experience: boolean | null
+          heard_about_us_from: string | null
+          id: string
+          internal_notes: string | null
+          language: string
+          last_saved_at: string | null
+          legal_representative: string | null
+          main_products: string | null
+          major_clients: string | null
+          manual_score: number | null
+          min_order_quantity: string | null
+          monthly_capacity: string | null
+          odm_capable: boolean | null
+          oem_capable: boolean | null
+          payment_terms_preference: string | null
+          product_categories: string[] | null
+          province: string | null
+          qa_staff_count: number | null
+          rd_staff_count: number | null
+          registered_capital_cny: number | null
+          rejection_reason: string | null
+          rejection_reason_code: string | null
+          review_decision: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          sample_policy: string | null
+          session_token: string | null
+          staff_count: number | null
+          status: string
+          submitted_at: string | null
+          thailand_experience_detail: string | null
+          updated_at: string
+          user_id: string | null
+          warranty_terms: string | null
+          website: string | null
+          why_partner_with_us: string | null
+        }
+        Insert: {
+          additional_notes?: string | null
+          annual_export_value_usd?: number | null
+          application_number?: string | null
+          auto_score?: number | null
+          auto_score_breakdown?: Json | null
+          business_license_no?: string | null
+          certifications?: string[] | null
+          city?: string | null
+          company_address?: string | null
+          company_name_en?: string | null
+          company_name_local?: string | null
+          contact_email?: string | null
+          contact_name?: string | null
+          contact_phone?: string | null
+          contact_position?: string | null
+          contact_wechat?: string | null
+          contact_whatsapp?: string | null
+          country?: string | null
+          created_at?: string
+          current_stage?: number
+          established_year?: number | null
+          exclusivity_preference?: string | null
+          expected_partnership_type?: string[] | null
+          export_countries?: string[] | null
+          factory_size_sqm?: number | null
+          has_thailand_experience?: boolean | null
+          heard_about_us_from?: string | null
+          id?: string
+          internal_notes?: string | null
+          language?: string
+          last_saved_at?: string | null
+          legal_representative?: string | null
+          main_products?: string | null
+          major_clients?: string | null
+          manual_score?: number | null
+          min_order_quantity?: string | null
+          monthly_capacity?: string | null
+          odm_capable?: boolean | null
+          oem_capable?: boolean | null
+          payment_terms_preference?: string | null
+          product_categories?: string[] | null
+          province?: string | null
+          qa_staff_count?: number | null
+          rd_staff_count?: number | null
+          registered_capital_cny?: number | null
+          rejection_reason?: string | null
+          rejection_reason_code?: string | null
+          review_decision?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          sample_policy?: string | null
+          session_token?: string | null
+          staff_count?: number | null
+          status?: string
+          submitted_at?: string | null
+          thailand_experience_detail?: string | null
+          updated_at?: string
+          user_id?: string | null
+          warranty_terms?: string | null
+          website?: string | null
+          why_partner_with_us?: string | null
+        }
+        Update: {
+          additional_notes?: string | null
+          annual_export_value_usd?: number | null
+          application_number?: string | null
+          auto_score?: number | null
+          auto_score_breakdown?: Json | null
+          business_license_no?: string | null
+          certifications?: string[] | null
+          city?: string | null
+          company_address?: string | null
+          company_name_en?: string | null
+          company_name_local?: string | null
+          contact_email?: string | null
+          contact_name?: string | null
+          contact_phone?: string | null
+          contact_position?: string | null
+          contact_wechat?: string | null
+          contact_whatsapp?: string | null
+          country?: string | null
+          created_at?: string
+          current_stage?: number
+          established_year?: number | null
+          exclusivity_preference?: string | null
+          expected_partnership_type?: string[] | null
+          export_countries?: string[] | null
+          factory_size_sqm?: number | null
+          has_thailand_experience?: boolean | null
+          heard_about_us_from?: string | null
+          id?: string
+          internal_notes?: string | null
+          language?: string
+          last_saved_at?: string | null
+          legal_representative?: string | null
+          main_products?: string | null
+          major_clients?: string | null
+          manual_score?: number | null
+          min_order_quantity?: string | null
+          monthly_capacity?: string | null
+          odm_capable?: boolean | null
+          oem_capable?: boolean | null
+          payment_terms_preference?: string | null
+          product_categories?: string[] | null
+          province?: string | null
+          qa_staff_count?: number | null
+          rd_staff_count?: number | null
+          registered_capital_cny?: number | null
+          rejection_reason?: string | null
+          rejection_reason_code?: string | null
+          review_decision?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          sample_policy?: string | null
+          session_token?: string | null
+          staff_count?: number | null
+          status?: string
+          submitted_at?: string | null
+          thailand_experience_detail?: string | null
+          updated_at?: string
+          user_id?: string | null
+          warranty_terms?: string | null
+          website?: string | null
+          why_partner_with_us?: string | null
+        }
+        Relationships: []
+      }
       payment_records: {
         Row: {
           amount: number
@@ -5278,6 +5564,7 @@ export type Database = {
         Returns: boolean
       }
       is_admin_or_above: { Args: { p_user_id: string }; Returns: boolean }
+      is_partner_reviewer: { Args: { _user_id: string }; Returns: boolean }
       is_super_admin: { Args: { p_user_id: string }; Returns: boolean }
       log_audit_event: {
         Args: {
