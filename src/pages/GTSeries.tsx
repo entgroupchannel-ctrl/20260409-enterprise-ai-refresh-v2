@@ -6224,6 +6224,10 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
             variant="outline"
             iconOnly
           />
+          <ChatNowButton
+            productModel={model.name}
+            productName={`${model.name} — ${model.tagline}`}
+          />
         </div>
       </div>
     </div>
