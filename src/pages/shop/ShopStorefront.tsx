@@ -66,22 +66,69 @@ const seriesNavItems = [
 
 const ShopStorefront = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { toast } = useToast();
+
+  // Map URL ?series=... or ?category=... to series filter (jetson alias support)
+  const initialSeriesFromUrl = (() => {
+    const raw = searchParams.get('series') || searchParams.get('category');
+    if (!raw) return [];
+    return raw.split(',').map(s => s.trim()).filter(Boolean);
+  })();
+
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState(searchParams.get('q') || '');
-  const [seriesFilter, setSeriesFilter] = useState<string[]>([]);
+  const [seriesFilter, setSeriesFilter] = useState<string[]>(initialSeriesFromUrl);
   const [categoryFilter, setCategoryFilter] = useState<string[]>([]);
-  const [sortBy, setSortBy] = useState('featured');
+  const [sortBy, setSortBy] = useState(searchParams.get('sort') || 'featured');
   const [page, setPage] = useState(1);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [compareList, setCompareListState] = useState<string[]>(getCompareList());
   const [showFilters, setShowFilters] = useState(false);
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
   // NEW filters
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 200000]);
   const [cpuFilter, setCpuFilter] = useState<string[]>([]);
   const [ramFilter, setRamFilter] = useState<number[]>([]);
   const [storageFilter, setStorageFilter] = useState<number[]>([]);
+
+  // Sync filters → URL (so users can share the link to a specific tab/filter)
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (seriesFilter.length > 0) params.set('series', seriesFilter.join(','));
+    if (search.trim()) params.set('q', search.trim());
+    if (sortBy && sortBy !== 'featured') params.set('sort', sortBy);
+    setSearchParams(params, { replace: true });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [seriesFilter, search, sortBy]);
+
+  const buildShareUrl = (seriesIds: string[] = []) => {
+    const url = new URL(window.location.origin + '/shop');
+    if (seriesIds.length > 0) url.searchParams.set('series', seriesIds.join(','));
+    return url.toString();
+  };
+
+  const copyShareLink = async (key: string, seriesIds: string[] = []) => {
+    const link = buildShareUrl(seriesIds);
+    try {
+      await navigator.clipboard.writeText(link);
+      setCopiedKey(key);
+      toast({ title: 'คัดลอกลิงก์แล้ว', description: link });
+      setTimeout(() => setCopiedKey(null), 1500);
+    } catch {
+      toast({ title: 'คัดลอกไม่สำเร็จ', description: link, variant: 'destructive' });
+    }
+  };
+
+  const shareNative = async (title: string, seriesIds: string[] = []) => {
+    const link = buildShareUrl(seriesIds);
+    if ((navigator as any).share) {
+      try { await (navigator as any).share({ title, url: link }); return; } catch { /* fall through */ }
+    }
+    copyShareLink(`share-${seriesIds.join(',') || 'all'}`, seriesIds);
+  };
+
 
   useEffect(() => {
     const fetchProducts = async () => {
