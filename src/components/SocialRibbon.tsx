@@ -27,7 +27,7 @@ const SocialRibbon = () => {
 
   return (
     <div
-      className="fixed left-0 top-1/2 -translate-y-1/2 z-40 transition-transform duration-500 ease-in-out"
+      className="fixed left-0 top-1/2 -translate-y-1/2 z-30 transition-transform duration-500 ease-in-out"
       style={{ transform: `translateY(-50%) translateX(${expanded ? "0" : "-100%"})` }}>
       <div className="flex flex-col gap-0.5">
         {socials.map((s, i) => (
