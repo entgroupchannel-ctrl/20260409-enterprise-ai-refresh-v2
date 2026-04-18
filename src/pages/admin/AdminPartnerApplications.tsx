@@ -185,7 +185,8 @@ export default function AdminPartnerApplications() {
             </Table>
           )}
         </CardContent>
-      </Card>
-    </div>
+        </Card>
+      </div>
+    </AdminLayout>
   );
 }
