@@ -254,14 +254,26 @@ export default function AffiliateCampaignsManager() {
         </CardContent>
       </Card>
 
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-3 flex-wrap">
         <div>
           <h2 className="text-lg font-semibold">Campaigns ทั้งหมด ({campaigns.length})</h2>
           <p className="text-xs text-muted-foreground">จัดการตะกร้า/ใบเสนอราคาสำหรับ Affiliate</p>
         </div>
-        <Button onClick={() => { resetWizard(); setOpenWizard(true); }}>
-          <Plus className="w-4 h-4 mr-1" /> สร้าง Campaign
-        </Button>
+        <div className="flex items-center gap-2">
+          <ToggleGroup
+            type="single"
+            value={view}
+            onValueChange={(v) => v && setView(v as "grid" | "list")}
+            size="sm"
+            variant="outline"
+          >
+            <ToggleGroupItem value="grid" aria-label="Grid view"><LayoutGrid className="w-4 h-4" /></ToggleGroupItem>
+            <ToggleGroupItem value="list" aria-label="List view"><ListIcon className="w-4 h-4" /></ToggleGroupItem>
+          </ToggleGroup>
+          <Button onClick={() => { resetWizard(); setOpenWizard(true); }}>
+            <Plus className="w-4 h-4 mr-1" /> สร้าง Campaign
+          </Button>
+        </div>
       </div>
 
       {loading ? (
