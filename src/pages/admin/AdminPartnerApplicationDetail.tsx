@@ -126,12 +126,14 @@ export default function AdminPartnerApplicationDetail() {
     setSubmitting(false);
   };
 
-  if (loading) return <div className="p-12 text-center"><Loader2 className="w-6 h-6 animate-spin inline" /></div>;
+  if (loading) return <AdminLayout><div className="p-12 text-center"><Loader2 className="w-6 h-6 animate-spin inline" /></div></AdminLayout>;
   if (!app) return (
-    <div className="container mx-auto p-6">
-      <p className="text-muted-foreground">ไม่พบใบสมัครนี้</p>
-      <Button asChild variant="outline" className="mt-4"><Link to="/admin/partners"><ArrowLeft className="w-4 h-4 mr-2" />กลับ</Link></Button>
-    </div>
+    <AdminLayout>
+      <div className="p-4 md:p-6 admin-content-area">
+        <p className="text-muted-foreground">ไม่พบใบสมัครนี้</p>
+        <Button asChild variant="outline" className="mt-4"><Link to="/admin/partners"><ArrowLeft className="w-4 h-4 mr-2" />กลับ</Link></Button>
+      </div>
+    </AdminLayout>
   );
 
   const Field = ({ label, children }: { label: string; children: React.ReactNode }) => (
@@ -142,7 +144,8 @@ export default function AdminPartnerApplicationDetail() {
   );
 
   return (
-    <div className="container mx-auto p-6 space-y-6 max-w-7xl">
+    <AdminLayout>
+      <div className="p-4 md:p-6 space-y-6 max-w-7xl mx-auto admin-content-area">
       <Helmet><title>{app.application_number ?? "Partner Application"} | Admin</title></Helmet>
 
       <Button asChild variant="ghost" size="sm"><Link to="/admin/partners"><ArrowLeft className="w-4 h-4 mr-2" />รายการทั้งหมด</Link></Button>
