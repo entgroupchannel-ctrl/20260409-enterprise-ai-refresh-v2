@@ -138,7 +138,7 @@ export default function PartnerApply() {
     try {
       const payload: any = {
         ...data,
-        registered_capital_cny: data.registered_capital_cny ? Number(data.registered_capital_cny) : null,
+        registered_capital_cny: data.registered_capital_cny ? Math.round(Number(data.registered_capital_cny) * (capitalCurrency === "USD" ? 7.2 : capitalCurrency === "THB" ? 0.2 : 1)) : null,
         established_year: data.established_year ? Number(data.established_year) : null,
         factory_size_sqm: data.factory_size_sqm ? Number(data.factory_size_sqm) : null,
         staff_count: data.staff_count ? Number(data.staff_count) : null,
