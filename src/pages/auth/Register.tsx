@@ -20,6 +20,8 @@ export default function Register() {
   });
   const [prefilled, setPrefilled] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { user, signUp } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -120,11 +122,21 @@ export default function Register() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">รหัสผ่าน <span className="text-destructive">*</span></Label>
-              <Input id="password" type="password" placeholder="อย่างน้อย 6 ตัวอักษร" value={formData.password} onChange={(e) => updateField('password', e.target.value)} required disabled={loading} minLength={6} />
+              <div className="relative">
+                <Input id="password" type={showPassword ? 'text' : 'password'} placeholder="อย่างน้อย 6 ตัวอักษร" value={formData.password} onChange={(e) => updateField('password', e.target.value)} required disabled={loading} minLength={6} className="pr-10" />
+                <button type="button" onClick={() => setShowPassword((s) => !s)} disabled={loading} aria-label={showPassword ? 'ซ่อนรหัสผ่าน' : 'แสดงรหัสผ่าน'} className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground transition-colors">
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
             </div>
             <div className="space-y-2">
               <Label htmlFor="confirmPassword">ยืนยันรหัสผ่าน <span className="text-destructive">*</span></Label>
-              <Input id="confirmPassword" type="password" placeholder="พิมพ์รหัสผ่านอีกครั้ง" value={formData.confirmPassword} onChange={(e) => updateField('confirmPassword', e.target.value)} required disabled={loading} minLength={6} />
+              <div className="relative">
+                <Input id="confirmPassword" type={showConfirmPassword ? 'text' : 'password'} placeholder="พิมพ์รหัสผ่านอีกครั้ง" value={formData.confirmPassword} onChange={(e) => updateField('confirmPassword', e.target.value)} required disabled={loading} minLength={6} className="pr-10" />
+                <button type="button" onClick={() => setShowConfirmPassword((s) => !s)} disabled={loading} aria-label={showConfirmPassword ? 'ซ่อนรหัสผ่าน' : 'แสดงรหัสผ่าน'} className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground transition-colors">
+                  {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
             </div>
           </CardContent>
 
