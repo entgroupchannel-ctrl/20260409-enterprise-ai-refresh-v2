@@ -10,8 +10,8 @@ import { cn } from '@/lib/utils';
 
 const navLinks = [
   { label: 'Shop', href: '/shop', icon: ShoppingBag, highlight: true },
-  { label: 'โปรโมชั่น', href: '/promotions' },
-  { label: 'ติดต่อเรา', href: '/contact' },
+  { label: 'โปรโมชั่น', href: '/promotions', icon: Tag },
+  { label: 'ติดต่อเรา', href: '/contact', icon: Mail },
 ];
 
 export default function SiteNavbar() {
