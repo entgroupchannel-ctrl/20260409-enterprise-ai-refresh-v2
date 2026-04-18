@@ -54,6 +54,8 @@ export default function AdminAffiliatesList() {
   const [rows, setRows] = useState<Row[]>([]);
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState<Status>("pending");
+  const [tier, setTier] = useState<string>("all");
+  const [sort, setSort] = useState<SortKey>("newest");
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -81,6 +83,7 @@ export default function AdminAffiliatesList() {
   const filtered = useMemo(() => {
     let list = rows;
     if (status !== "all") list = list.filter((r) => r.status === status);
+    if (tier !== "all") list = list.filter((r) => r.tier === tier);
     if (search.trim()) {
       const q = search.toLowerCase();
       list = list.filter(
@@ -91,8 +94,53 @@ export default function AdminAffiliatesList() {
           r.current_company?.toLowerCase().includes(q),
       );
     }
-    return list;
-  }, [rows, status, search]);
+    const sorted = [...list];
+    switch (sort) {
+      case "oldest":
+        sorted.sort((a, b) => +new Date(a.created_at) - +new Date(b.created_at));
+        break;
+      case "revenue":
+        sorted.sort((a, b) => Number(b.total_revenue_generated || 0) - Number(a.total_revenue_generated || 0));
+        break;
+      case "leads":
+        sorted.sort((a, b) => b.total_leads - a.total_leads);
+        break;
+      case "name":
+        sorted.sort((a, b) => a.full_name.localeCompare(b.full_name));
+        break;
+      default:
+        sorted.sort((a, b) => +new Date(b.created_at) - +new Date(a.created_at));
+    }
+    return sorted;
+  }, [rows, status, tier, sort, search]);
+
+  const exportCSV = () => {
+    const headers = ["affiliate_code", "full_name", "email", "company", "tier", "status", "leads", "qualified", "closed", "revenue", "commission", "created_at"];
+    const lines = [headers.join(",")];
+    for (const r of filtered) {
+      lines.push([
+        r.affiliate_code,
+        r.full_name,
+        r.email,
+        r.current_company || "",
+        r.tier,
+        r.status,
+        r.total_leads,
+        r.total_qualified_leads,
+        r.total_closed_sales,
+        r.total_revenue_generated,
+        r.total_commission_earned,
+        r.created_at,
+      ].map((v) => `"${String(v).replace(/"/g, '""')}"`).join(","));
+    }
+    const blob = new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `affiliates-${format(new Date(), "yyyyMMdd")}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   const totalRevenue = rows.reduce((sum, r) => sum + Number(r.total_revenue_generated || 0), 0);
   const totalCommission = rows.reduce((sum, r) => sum + Number(r.total_commission_earned || 0), 0);
