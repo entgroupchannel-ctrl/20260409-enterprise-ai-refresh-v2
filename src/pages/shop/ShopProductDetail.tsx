@@ -9,6 +9,7 @@ import TierPricingTable from '@/components/shop/TierPricingTable';
 import QuickRFQForm from '@/components/shop/QuickRFQForm';
 import RelatedProducts, { addToRecentlyViewed } from '@/components/shop/RelatedProducts';
 import AddToCartButton from '@/components/AddToCartButton';
+import ChatNowButton from '@/components/shop/ChatNowButton';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
