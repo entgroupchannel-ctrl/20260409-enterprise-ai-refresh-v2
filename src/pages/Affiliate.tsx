@@ -107,9 +107,9 @@ const Affiliate = () => {
             </div>
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
               {isEn ? (
-                <>Earn <span className="text-primary">฿50K–฿500K/month</span> referring B2B clients</>
+                <>Earn <span className="text-primary">฿30K–฿100K/month</span> referring B2B clients</>
               ) : (
-                <>สร้างรายได้ <span className="text-primary">฿50,000–฿500,000/เดือน</span> ด้วยการแนะนำลูกค้า B2B</>
+                <>สร้างรายได้ <span className="text-primary">฿30,000–฿100,000/เดือน</span> ด้วยการแนะนำลูกค้า B2B</>
               )}
             </h1>
             <p className="text-lg text-muted-foreground mb-8">
