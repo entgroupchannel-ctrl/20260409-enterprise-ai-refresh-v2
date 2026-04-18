@@ -28,9 +28,9 @@ interface ProductItem {
 const CompactField = memo(({ label, value, onChange, type = 'text', placeholder = '', required = false, disabled = false }: {
   label: string; value: string; onChange: (v: string) => void; type?: string; placeholder?: string; required?: boolean; disabled?: boolean;
 }) => (
-  <div className="space-y-1">
-    <Label className="text-[11px] text-muted-foreground">{label}{required && <span className="text-destructive ml-0.5">*</span>}</Label>
-    <Input type={type} value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder} required={required} disabled={disabled} className="h-8 text-sm" />
+  <div className="space-y-1.5">
+    <Label className="text-sm text-muted-foreground">{label}{required && <span className="text-destructive ml-0.5">*</span>}</Label>
+    <Input type={type} value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder} required={required} disabled={disabled} className="h-10 text-base" />
   </div>
 ));
 CompactField.displayName = 'CompactField';
@@ -224,11 +224,11 @@ export default function QuoteRequestForm() {
       <SiteNavbar />
       {/* Sub header */}
       <div className="bg-card border-b border-border sticky top-14 z-10">
-        <div className="max-w-5xl mx-auto px-4 h-12 flex items-center justify-between">
+        <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
           <Button variant="ghost" size="sm" onClick={() => navigate(-1)}>
             <ArrowLeft className="w-4 h-4 mr-1" /> กลับ
           </Button>
-          <h1 className="text-sm font-semibold">ขอใบเสนอราคา</h1>
+          <h1 className="text-lg font-semibold">ขอใบเสนอราคา</h1>
           <div className="w-16" />
         </div>
       </div>
@@ -240,16 +240,16 @@ export default function QuoteRequestForm() {
           <div className="space-y-4">
             {/* Profile summary (logged in) */}
             {isLoggedIn && profileLoaded && (
-              <div className="flex items-center gap-2 p-2 bg-primary/5 border border-primary/20 rounded-lg">
+              <div className="flex items-center gap-2 p-2.5 bg-primary/5 border border-primary/20 rounded-lg">
                 <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
-                <span className="text-xs text-primary">ดึงข้อมูลจากโปรไฟล์แล้ว</span>
+                <span className="text-sm text-primary">ดึงข้อมูลจากโปรไฟล์แล้ว</span>
               </div>
             )}
 
             <Card>
-              <CardContent className="pt-4 pb-3 space-y-3">
-                <p className="text-xs font-semibold text-muted-foreground flex items-center gap-1">
-                  <Building className="w-3 h-3" /> ข้อมูลบริษัท
+              <CardContent className="pt-5 pb-4 space-y-4">
+                <p className="text-sm font-semibold text-muted-foreground flex items-center gap-1.5">
+                  <Building className="w-4 h-4" /> ข้อมูลบริษัท
                 </p>
                 <CompactField label="บริษัท" value={formData.customer_company} onChange={v => handleFormChange('customer_company', v)} placeholder="บริษัท ABC จำกัด" />
                 <CompactField label="เลขผู้เสียภาษี" value={formData.customer_tax_id} onChange={v => handleFormChange('customer_tax_id', v)} placeholder="0105XXXXXXXXX" />
@@ -258,9 +258,9 @@ export default function QuoteRequestForm() {
             </Card>
 
             <Card>
-              <CardContent className="pt-4 pb-3 space-y-3">
-                <p className="text-xs font-semibold text-muted-foreground flex items-center gap-1">
-                  <User className="w-3 h-3" /> ผู้ติดต่อ
+              <CardContent className="pt-5 pb-4 space-y-4">
+                <p className="text-sm font-semibold text-muted-foreground flex items-center gap-1.5">
+                  <User className="w-4 h-4" /> ผู้ติดต่อ
                 </p>
                 <CompactField label="ชื่อ-นามสกุล" value={formData.customer_name} onChange={v => handleFormChange('customer_name', v)} placeholder="สมชาย ใจดี" required />
                 <div className="grid grid-cols-2 gap-2">
@@ -275,26 +275,26 @@ export default function QuoteRequestForm() {
           {/* Center + Right: Products + Notes + Submit */}
           <div className="lg:col-span-2 space-y-4">
             <Card>
-              <CardContent className="pt-4 pb-3">
+              <CardContent className="pt-5 pb-4">
                 <div className="flex items-center justify-between mb-3">
-                  <p className="text-xs font-semibold text-muted-foreground flex items-center gap-1">
-                    <Package className="w-3 h-3" /> รายการสินค้า
+                  <p className="text-sm font-semibold text-muted-foreground flex items-center gap-1.5">
+                    <Package className="w-4 h-4" /> รายการสินค้า
                   </p>
-                  <Button type="button" variant="outline" size="sm" onClick={addProduct} className="h-7 text-xs">
-                    <Plus className="w-3 h-3 mr-1" /> เพิ่ม
+                  <Button type="button" variant="outline" size="sm" onClick={addProduct} className="h-9 text-sm">
+                    <Plus className="w-4 h-4 mr-1" /> เพิ่ม
                   </Button>
                 </div>
 
-                <p className="text-[10px] text-muted-foreground -mt-1 mb-2 px-1">
+                <p className="text-xs text-muted-foreground -mt-1 mb-3 px-1">
                   💡 ค้นหาสินค้าในระบบเพื่อ auto-fill รายละเอียด หรือพิมพ์รุ่นเองถ้าไม่เจอ
                 </p>
 
-                <div className="space-y-2">
+                <div className="space-y-3">
                   {products.map((product, index) => (
-                    <div key={index} className="p-3 border rounded-lg space-y-2 bg-background">
+                    <div key={index} className="p-4 border rounded-lg space-y-3 bg-background">
                       {/* Row 1: Index + Remove */}
                       <div className="flex items-center justify-between">
-                        <span className="text-[10px] font-semibold text-muted-foreground">
+                        <span className="text-xs font-semibold text-muted-foreground">
                           รายการ #{index + 1}
                         </span>
                         {products.length > 1 && (
@@ -303,14 +303,14 @@ export default function QuoteRequestForm() {
                             onClick={() => removeProduct(index)}
                             className="text-muted-foreground hover:text-destructive transition-colors"
                           >
-                            <Trash2 className="w-3.5 h-3.5" />
+                            <Trash2 className="w-4 h-4" />
                           </button>
                         )}
                       </div>
 
                       {/* Row 2: Product picker (search) */}
-                      <div>
-                        <Label className="text-[10px] text-muted-foreground">
+                      <div className="space-y-1.5">
+                        <Label className="text-sm text-muted-foreground">
                           สินค้า / รุ่น <span className="text-destructive">*</span>
                         </Label>
                         <ProductAutocomplete
@@ -322,9 +322,9 @@ export default function QuoteRequestForm() {
                       </div>
 
                       {/* Row 3: Description + Qty */}
-                      <div className="grid grid-cols-12 gap-2">
-                        <div className="col-span-9">
-                          <Label className="text-[10px] text-muted-foreground">
+                      <div className="grid grid-cols-12 gap-3">
+                        <div className="col-span-9 space-y-1.5">
+                          <Label className="text-sm text-muted-foreground">
                             รายละเอียด / สเปค
                           </Label>
                           <Textarea
@@ -332,11 +332,11 @@ export default function QuoteRequestForm() {
                             onChange={e => handleProductChange(index, 'description', e.target.value)}
                             placeholder="CPU, RAM, Storage หรือข้อมูลเพิ่มเติม..."
                             rows={3}
-                            className="text-xs font-mono resize-y min-h-[70px]"
+                            className="text-sm font-mono resize-y min-h-[80px]"
                           />
                         </div>
-                        <div className="col-span-3">
-                          <Label className="text-[10px] text-muted-foreground">
+                        <div className="col-span-3 space-y-1.5">
+                          <Label className="text-sm text-muted-foreground">
                             จำนวน <span className="text-destructive">*</span>
                           </Label>
                           <Input
@@ -344,7 +344,7 @@ export default function QuoteRequestForm() {
                             min="1"
                             value={product.qty}
                             onChange={e => handleProductChange(index, 'qty', parseInt(e.target.value) || 1)}
-                            className="h-8 text-sm text-center"
+                            className="h-10 text-base text-center"
                             required
                           />
                         </div>
@@ -357,27 +357,27 @@ export default function QuoteRequestForm() {
 
             {/* Notes */}
             <Card>
-              <CardContent className="pt-4 pb-3 space-y-2">
-                <Label className="text-[11px] text-muted-foreground">หมายเหตุเพิ่มเติม</Label>
+              <CardContent className="pt-5 pb-4 space-y-2">
+                <Label className="text-sm text-muted-foreground">หมายเหตุเพิ่มเติม</Label>
                 <Textarea
                   value={formData.notes}
                   onChange={e => handleFormChange('notes', e.target.value)}
                   placeholder="งบประมาณ, ระยะเวลา, ความต้องการพิเศษ..."
                   rows={2}
-                  className="text-sm"
+                  className="text-base"
                 />
               </CardContent>
             </Card>
 
             {/* Submit bar */}
-            <div className="flex items-center justify-between bg-card border border-border rounded-lg p-3">
-              <div className="text-xs text-muted-foreground">
+            <div className="flex items-center justify-between bg-card border border-border rounded-lg p-4">
+              <div className="text-sm text-muted-foreground">
                 {products.filter(p => p.model.trim()).length} รายการสินค้า
               </div>
               <div className="flex gap-2">
-                <Button type="button" variant="ghost" size="sm" onClick={() => navigate(-1)} disabled={submitting}>ยกเลิก</Button>
-                <Button type="submit" size="sm" disabled={submitting}>
-                  <Send className="w-3.5 h-3.5 mr-1" />
+                <Button type="button" variant="ghost" onClick={() => navigate(-1)} disabled={submitting}>ยกเลิก</Button>
+                <Button type="submit" disabled={submitting}>
+                  <Send className="w-4 h-4 mr-1.5" />
                   {submitting ? 'กำลังส่ง...' : 'ส่งคำขอใบเสนอราคา'}
                 </Button>
               </div>
