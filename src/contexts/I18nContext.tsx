@@ -37,9 +37,10 @@ export const I18nProvider = ({ children }: { children: ReactNode }) => {
   const [lang, setLangState] = useState<Lang>(() => {
     if (typeof window === "undefined") return "th";
     const saved = window.localStorage.getItem(STORAGE_KEY);
-    if (saved === "th" || saved === "en") return saved;
+    if (saved === "th" || saved === "en" || saved === "zh") return saved;
     // Auto-detect from browser
     const browserLang = window.navigator.language.toLowerCase();
+    if (browserLang.startsWith("zh")) return "zh";
     return browserLang.startsWith("en") ? "en" : "th";
   });
 
@@ -58,7 +59,7 @@ export const I18nProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const toggleLang = useCallback(() => {
-    setLangState((prev) => (prev === "th" ? "en" : "th"));
+    setLangState((prev) => (prev === "th" ? "en" : prev === "en" ? "zh" : "th"));
   }, []);
 
   const t = useCallback(
@@ -70,14 +71,18 @@ export const I18nProvider = ({ children }: { children: ReactNode }) => {
         if (cur && typeof cur === "object" && part in cur) {
           cur = cur[part];
         } else {
-          // Fallback to TH if EN missing
-          if (lang === "en") {
-            let thCur: any = messages.th;
-            for (const p of parts) {
-              if (thCur && typeof thCur === "object" && p in thCur) thCur = thCur[p];
-              else return fallback ?? key;
+          // Fallback chain: zh → en → th
+          if (lang !== "th") {
+            const fallbackLangs: Array<"en" | "th"> = lang === "zh" ? ["en", "th"] : ["th"];
+            for (const fl of fallbackLangs) {
+              let fCur: any = messages[fl];
+              let ok = true;
+              for (const p of parts) {
+                if (fCur && typeof fCur === "object" && p in fCur) fCur = fCur[p];
+                else { ok = false; break; }
+              }
+              if (ok && typeof fCur === "string") return fCur;
             }
-            return typeof thCur === "string" ? thCur : (fallback ?? key);
           }
           return fallback ?? key;
         }

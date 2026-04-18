@@ -11,7 +11,8 @@ interface StatusBadgeProps {
 export function StatusBadge({ status, type = 'quote', className = '' }: StatusBadgeProps) {
   const { lang } = useI18n();
 
-  const label = type === 'so' ? getSOStatusLabel(status, lang) : getStatusLabel(status, lang);
+  const langKey = lang === "zh" ? "en" : lang;
+  const label = type === 'so' ? getSOStatusLabel(status, langKey) : getStatusLabel(status, langKey);
   const color = type === 'so' ? getSOStatusColor(status) : getStatusColor(status);
 
   return (
