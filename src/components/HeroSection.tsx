@@ -153,9 +153,10 @@ const HeroSection = () => {
               <TooltipTrigger asChild>
                 <Link
                   to="/request-quote"
-                  className="ml-1 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/20 text-white hover:bg-primary/30 transition-colors text-xs font-semibold border border-white/20"
+                  aria-label="ขอใบเสนอราคา"
+                  className="p-2 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors flex items-center justify-center"
                 >
-                  <FileText size={14} /> ขอใบเสนอราคา
+                  <FileText size={18} />
                 </Link>
               </TooltipTrigger>
               <TooltipContent side="bottom" className="text-xs">
