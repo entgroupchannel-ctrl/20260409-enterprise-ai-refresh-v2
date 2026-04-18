@@ -10,6 +10,7 @@ import { useToast } from '@/hooks/use-toast';
 import { FileText, ShoppingBag, Lock, LogIn, UserPlus, Check, Package } from 'lucide-react';
 import { getRelatedCatalogProducts, searchCatalogProducts, type CatalogProduct } from '@/lib/product-catalog';
 import { savePendingQuote, getPendingQuote, clearPendingQuote, type PendingQuoteData } from '@/hooks/usePendingQuote';
+import { getAttributionFields, createAffiliateLead } from '@/lib/affiliate-attribution';
 import ContactFormPanel from './quote-dialog/ContactFormPanel';
 import ProductSearchPanel from './quote-dialog/ProductSearchPanel';
 import SelectedProductsPanel from './quote-dialog/SelectedProductsPanel';
@@ -234,8 +235,16 @@ export default function QuoteRequestButton({
           products: dataToSubmit.products,
           status: 'pending',
           subtotal: 0, vat_amount: 0, grand_total: 0,
+          ...getAttributionFields(),
         }).select().single();
       if (error) throw error;
+      await createAffiliateLead({
+        source_type: 'quote_request',
+        source_id: data.id,
+        customer_name: dataToSubmit.customer_name,
+        customer_email: dataToSubmit.customer_email,
+        customer_company: dataToSubmit.customer_company || null,
+      });
       toast({
         title: 'ส่งคำขอสำเร็จ',
         description: `เลขที่ ${data.quote_number} — ${dataToSubmit.products.length} รายการ — เราจะติดต่อกลับภายใน 24 ชม.`,

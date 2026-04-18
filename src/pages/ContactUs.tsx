@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import LineQRButton from "@/components/LineQRButton";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { getAttributionFields, createAffiliateLead } from "@/lib/affiliate-attribution";
 import {
   Phone, Mail, MapPin, ArrowLeft, Send, MessageCircle, Users, Camera, Upload, Loader2, CreditCard, Globe,
 } from "lucide-react";
@@ -216,14 +217,24 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
         scanned_at: new Date().toISOString(),
       } : null;
 
-      const { error } = await (supabase.from as any)("contact_submissions").insert({
+      const { data: contactData, error } = await (supabase.from as any)("contact_submissions").insert({
         name: form.name, email: form.email, phone: form.phone || null,
         company: form.company || null, line_id: form.lineId || null,
         whatsapp: form.whatsapp || null, callback_time: form.callbackTime || null,
         category: form.category || null, message: form.message,
         business_card_data: businessCardPayload,
-      });
+        ...getAttributionFields(),
+      }).select().single();
       if (error) throw error;
+      if (contactData?.id) {
+        await createAffiliateLead({
+          source_type: "contact_submission",
+          source_id: contactData.id,
+          customer_name: form.name,
+          customer_email: form.email,
+          customer_company: form.company || null,
+        });
+      }
 
       if (form.subscribe && form.email) {
         await (supabase.from as any)("subscribers").insert({
