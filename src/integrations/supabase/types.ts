@@ -228,7 +228,7 @@ export type Database = {
           expertise_areas: string[]
           full_name: string
           id: string
-          linkedin_url: string
+          linkedin_url: string | null
           phone: string | null
           professional_bio: string | null
           profile_public: boolean
@@ -262,7 +262,7 @@ export type Database = {
           expertise_areas?: string[]
           full_name: string
           id?: string
-          linkedin_url: string
+          linkedin_url?: string | null
           phone?: string | null
           professional_bio?: string | null
           profile_public?: boolean
@@ -296,7 +296,7 @@ export type Database = {
           expertise_areas?: string[]
           full_name?: string
           id?: string
-          linkedin_url?: string
+          linkedin_url?: string | null
           phone?: string | null
           professional_bio?: string | null
           profile_public?: boolean

@@ -50,9 +50,10 @@ const schema = z.object({
   linkedin_url: z
     .string()
     .trim()
-    .url("LinkedIn URL ไม่ถูกต้อง")
     .max(255)
-    .refine((v) => v.includes("linkedin.com"), "ต้องเป็นลิงก์ LinkedIn"),
+    .optional()
+    .or(z.literal(""))
+    .refine((v) => !v || /^https?:\/\//i.test(v), "URL ต้องขึ้นต้นด้วย http:// หรือ https://"),
   current_company: z.string().trim().max(150).optional().or(z.literal("")),
   current_position: z.string().trim().max(150).optional().or(z.literal("")),
   years_experience: z.coerce.number().min(0).max(60),
@@ -197,7 +198,7 @@ const AffiliateApply = () => {
           email: user.email!,
           full_name: parsed.data.full_name,
           phone: parsed.data.phone,
-          linkedin_url: parsed.data.linkedin_url,
+          linkedin_url: parsed.data.linkedin_url || null,
           current_company: parsed.data.current_company || null,
           current_position: parsed.data.current_position || null,
           years_experience: parsed.data.years_experience,
@@ -410,14 +411,18 @@ const AffiliateApply = () => {
                   />
                 </Field>
                 <Field
-                  label="LinkedIn URL *"
-                  hint={isEn ? "Required for verification" : "จำเป็นสำหรับยืนยันตัวตน"}
+                  label={isEn ? "Social / Profile URL (optional)" : "ลิงก์โปรไฟล์โซเชียล (ไม่บังคับ)"}
+                  hint={
+                    isEn
+                      ? "LinkedIn, Facebook, YouTube, TikTok, website — anything that helps us know you"
+                      : "LinkedIn, Facebook, YouTube, TikTok, เว็บไซต์ หรืออื่นๆ เพื่อช่วยให้เรารู้จักคุณ"
+                  }
                   error={errors.linkedin_url}
                 >
                   <Input
                     value={data.linkedin_url}
                     onChange={(e) => update("linkedin_url", e.target.value)}
-                    placeholder="https://linkedin.com/in/..."
+                    placeholder="https://facebook.com/yourpage"
                     maxLength={255}
                   />
                 </Field>
@@ -643,7 +648,7 @@ const AffiliateApply = () => {
                   <p className="font-semibold">{isEn ? "Summary" : "สรุปข้อมูล"}</p>
                   <Row label={isEn ? "Name" : "ชื่อ"} value={data.full_name} />
                   <Row label={isEn ? "Phone" : "เบอร์"} value={data.phone} />
-                  <Row label="LinkedIn" value={data.linkedin_url} />
+                  <Row label={isEn ? "Social URL" : "โซเชียล"} value={data.linkedin_url || (isEn ? "—" : "ไม่ได้ระบุ")} />
                   <Row
                     label={isEn ? "Experience" : "ประสบการณ์"}
                     value={`${data.years_experience} ${isEn ? "years" : "ปี"}`}
