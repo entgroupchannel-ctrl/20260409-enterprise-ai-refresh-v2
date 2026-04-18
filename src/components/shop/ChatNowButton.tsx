@@ -1,6 +1,7 @@
 import { MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import { cn } from "@/lib/utils";
 
 interface ChatNowButtonProps {
@@ -54,16 +55,18 @@ const ChatNowButton = ({
             <MessageCircle className="w-3.5 h-3.5" />
           </Button>
         </TooltipTrigger>
-        <TooltipContent
-          side="top"
-          align="center"
-          sideOffset={8}
-          collisionPadding={16}
-          avoidCollisions
-          className="text-xs z-[200] max-w-[240px]"
-        >
-          {hint}
-        </TooltipContent>
+        <TooltipPrimitive.Portal>
+          <TooltipContent
+            side="top"
+            align="center"
+            sideOffset={8}
+            collisionPadding={16}
+            avoidCollisions
+            className="text-xs z-[200] max-w-[240px]"
+          >
+            {hint}
+          </TooltipContent>
+        </TooltipPrimitive.Portal>
       </Tooltip>
     </TooltipProvider>
   );
