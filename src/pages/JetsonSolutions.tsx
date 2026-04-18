@@ -13,6 +13,52 @@ import bEdu from "@/assets/jetson/sol-education.jpg";
 import bInteg from "@/assets/jetson/sol-integrator.jpg";
 import bFac from "@/assets/jetson/sol-factory.jpg";
 import bGen from "@/assets/jetson/sol-genai.jpg";
+import { jetsonProducts } from "@/data/jetson-products";
+
+/* Map สินค้า (name) → รูป + id เพื่อ deep-link */
+const PRODUCT_INDEX: Record<string, { id: string; image: string }> = jetsonProducts.reduce(
+  (acc, p) => {
+    acc[p.name.toLowerCase()] = { id: p.id, image: p.image };
+    return acc;
+  },
+  {} as Record<string, { id: string; image: string }>
+);
+
+/** หา product info จากชื่อ — รองรับ alias เช่น "T201S 8GB", "DGX Spark", "AGX Thor" */
+function findProduct(name: string): { id: string; image: string } | null {
+  const key = name.toLowerCase().trim();
+  if (PRODUCT_INDEX[key]) return PRODUCT_INDEX[key];
+
+  // alias map
+  const aliases: Record<string, string> = {
+    "t201s 4gb": "orin nano super 4gb edge computer t201s",
+    "t201s 8gb": "orin nano super 8gb edge computer t201s",
+    "t201s": "orin nano super 8gb edge computer t201s",
+    "orin nano 4gb": "jetson orin nano module",
+    "orin nano 8gb": "jetson orin nano module",
+    "orin nano super": "jetson orin nano super developer kit",
+    "orin nx 16gb": "jetson orin nx module",
+    "orin nx + y-c18": "jetson orin nx module",
+    "agx thor": "jetson thor t5000",
+    "agx thor dev kit": "jetson thor developer kit",
+    "jetson agx thor": "jetson thor t5000",
+    "jetson agx orin 64gb": "jetson agx orin module",
+    "carrier y-c18": "carrier board y-c18",
+    "carrier y-c17": "carrier board y-c17",
+    "nx-sys-2006": "nx-sys-2006",
+    "nx16-7f4": "nx-sys-2016",
+    "dgx spark": "nvidia dgx spark",
+    "ipc thor-28f1": "jetson thor ipc thor-28f1",
+  };
+  const aliased = aliases[key];
+  if (aliased && PRODUCT_INDEX[aliased]) return PRODUCT_INDEX[aliased];
+
+  // fuzzy: หาคำขึ้นต้น
+  for (const [k, v] of Object.entries(PRODUCT_INDEX)) {
+    if (k.includes(key) || key.includes(k)) return v;
+  }
+  return null;
+}
 
 const NV = "#76B900";
 
