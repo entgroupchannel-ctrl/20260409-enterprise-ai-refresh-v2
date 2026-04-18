@@ -220,23 +220,7 @@ const UTCSeries = () => {
         products={[...squareModels, ...wideModels].map(m => ({ name: m.model, price: m.price, description: `${m.size} ${m.config}`, category: "Open Frame Touch Monitor" }))}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "UTC Series", path: "/utc-series" }]} />
-      {/* Sticky Nav */}
-      <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
-        <div className="container max-w-7xl mx-auto flex items-center justify-between px-6 h-16">
-          <div className="flex items-center gap-4">
-            <Link to="/" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
-              <ArrowLeft size={18} />
-              <span className="text-sm font-medium hidden sm:inline">กลับหน้าหลัก</span>
-            </Link>
-            <div className="w-px h-6 bg-border" />
-            <img src={logo} alt="ENT GROUP" className="h-7 w-auto dark:invert" />
-          </div>
-          <div className="flex items-center gap-3">
-            <CartBadge />
-            <ThemeToggle />
-          </div>
-        </div>
-      </nav>
+      <MiniNavbar />
 
       {/* ─── Hero Section ─── */}
       <section className="relative overflow-hidden">
