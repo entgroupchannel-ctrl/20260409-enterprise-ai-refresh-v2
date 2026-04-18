@@ -68,6 +68,7 @@ const Partner = lazyRetry(() => import("./pages/Partner"));
 const Affiliate = lazyRetry(() => import("./pages/Affiliate"));
 const AffiliateApply = lazyRetry(() => import("./pages/AffiliateApply"));
 const AffiliateRedirect = lazyRetry(() => import("./pages/AffiliateRedirect"));
+const AffiliateDashboard = lazyRetry(() => import("./pages/AffiliateDashboard"));
 const PartnerApply = lazyRetry(() => import("./pages/PartnerApply"));
 const PartnerPortal = lazyRetry(() => import("./pages/PartnerPortal"));
 const Login = lazyRetry(() => import("./pages/auth/Login"));
@@ -190,6 +191,7 @@ const App = () => (
                     <Route path="/partner/portal" element={<PartnerPortal />} />
                     <Route path="/affiliate" element={<Affiliate />} />
                     <Route path="/affiliate/apply" element={<AffiliateApply />} />
+                    <Route path="/affiliate/dashboard" element={<AffiliateDashboard />} />
                     <Route path="/r/:code" element={<AffiliateRedirect />} />
                     <Route path="/gt-series" element={<GTSeries />} />
                     <Route path="/products/:slug" element={<ProductDetail />} />

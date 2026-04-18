@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { savePendingQuote } from '@/hooks/usePendingQuote';
+import { getAttributionFields, createAffiliateLead } from '@/lib/affiliate-attribution';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -144,10 +145,19 @@ export default function QuickRFQForm({ product, defaultQuantity = 1, configAddon
           }],
           metadata: { source: 'shop_rfq', needs_tax_invoice: form.needs_tax_invoice, configured_addons: configAddons || [] },
           status: 'pending',
+          ...getAttributionFields(),
         })
         .select()
         .single();
       if (error) throw error;
+      await createAffiliateLead({
+        source_type: 'quote_request',
+        source_id: data.id,
+        customer_name: form.customer_name,
+        customer_email: form.customer_email,
+        customer_company: form.customer_company,
+        deal_value: totalEstimate || null,
+      });
       toast({ title: 'ส่งคำขอใบเสนอราคาเรียบร้อย!', description: `เลขที่: ${data.quote_number}` });
       onSubmit?.();
     } catch (err: any) {
