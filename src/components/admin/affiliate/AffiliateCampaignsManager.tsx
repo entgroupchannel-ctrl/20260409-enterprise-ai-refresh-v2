@@ -307,14 +307,22 @@ export default function AffiliateCampaignsManager() {
                   placeholder="เช่น Q2 Industrial PC Bundle"
                 />
               </div>
-              <div>
-                <Label>Slug (URL) *</Label>
-                <Input
-                  value={slug}
-                  onChange={(e) => setSlug(slugify(e.target.value))}
-                  placeholder="q2-industrial-bundle"
-                />
-                <p className="text-xs text-muted-foreground mt-1">URL: /c/{slug || "..."}</p>
+              <div className="rounded-lg border bg-muted/30 p-3">
+                <div className="flex items-center justify-between gap-2 flex-wrap">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs text-muted-foreground">ลิงก์สาธารณะของ Campaign (สร้างอัตโนมัติ)</p>
+                    <p className="text-sm font-mono truncate">/c/{slug || "—"}</p>
+                  </div>
+                  <details className="text-xs">
+                    <summary className="cursor-pointer text-primary hover:underline select-none">แก้ไขลิงก์</summary>
+                    <Input
+                      value={slug}
+                      onChange={(e) => setSlug(slugify(e.target.value))}
+                      placeholder="auto-generated-slug"
+                      className="mt-2 w-64"
+                    />
+                  </details>
+                </div>
               </div>
               <div>
                 <Label>คำอธิบาย</Label>
