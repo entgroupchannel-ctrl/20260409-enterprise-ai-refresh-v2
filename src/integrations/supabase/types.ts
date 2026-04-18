@@ -14,6 +14,167 @@ export type Database = {
   }
   public: {
     Tables: {
+      affiliate_applications: {
+        Row: {
+          affiliate_id: string
+          competitive_affiliations: string[]
+          created_at: string
+          customer_network_description: string | null
+          expected_monthly_leads: number | null
+          id: string
+          promotion_channels: string[]
+          proof_of_profession_url: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          reviewer_notes: string | null
+          updated_at: string
+          why_affiliate: string | null
+        }
+        Insert: {
+          affiliate_id: string
+          competitive_affiliations?: string[]
+          created_at?: string
+          customer_network_description?: string | null
+          expected_monthly_leads?: number | null
+          id?: string
+          promotion_channels?: string[]
+          proof_of_profession_url?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          reviewer_notes?: string | null
+          updated_at?: string
+          why_affiliate?: string | null
+        }
+        Update: {
+          affiliate_id?: string
+          competitive_affiliations?: string[]
+          created_at?: string
+          customer_network_description?: string | null
+          expected_monthly_leads?: number | null
+          id?: string
+          promotion_channels?: string[]
+          proof_of_profession_url?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          reviewer_notes?: string | null
+          updated_at?: string
+          why_affiliate?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "affiliate_applications_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: true
+            referencedRelation: "affiliates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      affiliates: {
+        Row: {
+          affiliate_code: string
+          approved_at: string | null
+          approved_by: string | null
+          bank_account_name: string | null
+          bank_account_number: string | null
+          bank_name: string | null
+          created_at: string
+          current_company: string | null
+          current_position: string | null
+          email: string
+          expertise_areas: string[]
+          full_name: string
+          id: string
+          linkedin_url: string
+          phone: string | null
+          professional_bio: string | null
+          profile_public: boolean
+          promptpay_id: string | null
+          rejection_reason: string | null
+          status: string
+          tax_id: string | null
+          tier: string
+          total_clicks: number
+          total_closed_sales: number
+          total_commission_earned: number
+          total_commission_paid: number
+          total_leads: number
+          total_qualified_leads: number
+          total_revenue_generated: number
+          updated_at: string
+          user_id: string
+          years_experience: number | null
+        }
+        Insert: {
+          affiliate_code: string
+          approved_at?: string | null
+          approved_by?: string | null
+          bank_account_name?: string | null
+          bank_account_number?: string | null
+          bank_name?: string | null
+          created_at?: string
+          current_company?: string | null
+          current_position?: string | null
+          email: string
+          expertise_areas?: string[]
+          full_name: string
+          id?: string
+          linkedin_url: string
+          phone?: string | null
+          professional_bio?: string | null
+          profile_public?: boolean
+          promptpay_id?: string | null
+          rejection_reason?: string | null
+          status?: string
+          tax_id?: string | null
+          tier?: string
+          total_clicks?: number
+          total_closed_sales?: number
+          total_commission_earned?: number
+          total_commission_paid?: number
+          total_leads?: number
+          total_qualified_leads?: number
+          total_revenue_generated?: number
+          updated_at?: string
+          user_id: string
+          years_experience?: number | null
+        }
+        Update: {
+          affiliate_code?: string
+          approved_at?: string | null
+          approved_by?: string | null
+          bank_account_name?: string | null
+          bank_account_number?: string | null
+          bank_name?: string | null
+          created_at?: string
+          current_company?: string | null
+          current_position?: string | null
+          email?: string
+          expertise_areas?: string[]
+          full_name?: string
+          id?: string
+          linkedin_url?: string
+          phone?: string | null
+          professional_bio?: string | null
+          profile_public?: boolean
+          promptpay_id?: string | null
+          rejection_reason?: string | null
+          status?: string
+          tax_id?: string | null
+          tier?: string
+          total_clicks?: number
+          total_closed_sales?: number
+          total_commission_earned?: number
+          total_commission_paid?: number
+          total_leads?: number
+          total_qualified_leads?: number
+          total_revenue_generated?: number
+          updated_at?: string
+          user_id?: string
+          years_experience?: number | null
+        }
+        Relationships: []
+      }
       audit_logs: {
         Row: {
           action: string
@@ -5453,6 +5614,7 @@ export type Database = {
         }[]
       }
       extract_doc_base_number: { Args: { doc_number: string }; Returns: string }
+      generate_affiliate_code: { Args: { _full_name: string }; Returns: string }
       generate_invoice_from_repair_order: {
         Args: { p_repair_order_id: string }
         Returns: Json
