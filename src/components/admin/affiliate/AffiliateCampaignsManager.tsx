@@ -18,7 +18,9 @@ import { Switch } from "@/components/ui/switch";
 import {
   Loader2, Plus, ExternalLink, Trash2, Copy, ShoppingCart, FileText,
   MousePointerClick, Users, CheckCircle2, Sparkles, Search, Package, Minus, Pencil,
+  LayoutGrid, List as ListIcon,
 } from "lucide-react";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { searchCatalogProducts, getCatalogCategories, type CatalogProduct } from "@/lib/product-catalog";
 
 interface Campaign {
@@ -58,6 +60,13 @@ export default function AffiliateCampaignsManager() {
   const [loading, setLoading] = useState(true);
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [openWizard, setOpenWizard] = useState(false);
+  const [view, setView] = useState<"grid" | "list">(() => {
+    if (typeof window === "undefined") return "grid";
+    return ((localStorage.getItem("admin_campaigns_view") as "grid" | "list") || "grid");
+  });
+  useEffect(() => {
+    if (typeof window !== "undefined") localStorage.setItem("admin_campaigns_view", view);
+  }, [view]);
 
   // Wizard state
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -245,14 +254,26 @@ export default function AffiliateCampaignsManager() {
         </CardContent>
       </Card>
 
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-3 flex-wrap">
         <div>
           <h2 className="text-lg font-semibold">Campaigns ทั้งหมด ({campaigns.length})</h2>
           <p className="text-xs text-muted-foreground">จัดการตะกร้า/ใบเสนอราคาสำหรับ Affiliate</p>
         </div>
-        <Button onClick={() => { resetWizard(); setOpenWizard(true); }}>
-          <Plus className="w-4 h-4 mr-1" /> สร้าง Campaign
-        </Button>
+        <div className="flex items-center gap-2">
+          <ToggleGroup
+            type="single"
+            value={view}
+            onValueChange={(v) => v && setView(v as "grid" | "list")}
+            size="sm"
+            variant="outline"
+          >
+            <ToggleGroupItem value="grid" aria-label="Grid view"><LayoutGrid className="w-4 h-4" /></ToggleGroupItem>
+            <ToggleGroupItem value="list" aria-label="List view"><ListIcon className="w-4 h-4" /></ToggleGroupItem>
+          </ToggleGroup>
+          <Button onClick={() => { resetWizard(); setOpenWizard(true); }}>
+            <Plus className="w-4 h-4 mr-1" /> สร้าง Campaign
+          </Button>
+        </div>
       </div>
 
       {loading ? (
@@ -262,7 +283,7 @@ export default function AffiliateCampaignsManager() {
           ยังไม่มี campaign — กดปุ่ม "สร้าง Campaign" เพื่อเริ่ม
         </CardContent></Card>
       ) : (
-        <div className="grid gap-3">
+        <div className={view === "grid" ? "grid gap-3 sm:grid-cols-2 xl:grid-cols-3" : "grid gap-3"}>
           {campaigns.map(c => (
             <Card key={c.id} className={!c.is_active ? "opacity-60" : ""}>
               <CardContent className="p-4">
