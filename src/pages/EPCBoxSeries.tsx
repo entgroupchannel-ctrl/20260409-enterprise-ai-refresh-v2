@@ -387,6 +387,7 @@ const ProductSelectionTable = ({ products }: { products: typeof productSelection
           <th className="text-left px-4 py-3 font-semibold text-foreground">CPU</th>
           <th className="text-left px-4 py-3 font-semibold text-foreground">Memory</th>
           <th className="text-left px-4 py-3 font-semibold text-foreground">Storage</th>
+          <th className="text-right px-4 py-3 font-semibold text-foreground w-[160px]">สั่งซื้อ</th>
         </tr>
       </thead>
       <tbody className="divide-y divide-border">
@@ -396,6 +397,15 @@ const ProductSelectionTable = ({ products }: { products: typeof productSelection
             <td className="px-4 py-3 text-foreground">{p.cpu}</td>
             <td className="px-4 py-3 text-muted-foreground">{p.memory}</td>
             <td className="px-4 py-3 text-muted-foreground">{p.storage}</td>
+            <td className="px-2 py-3 text-right">
+              <AddToCartButton
+                productModel={p.partNo || p.model}
+                productName={`EPC Box — ${p.model}`}
+                productDescription={`${p.cpu} / ${p.memory} / ${p.storage}`}
+                size="sm"
+                variant="outline"
+              />
+            </td>
           </tr>
         ))}
       </tbody>
