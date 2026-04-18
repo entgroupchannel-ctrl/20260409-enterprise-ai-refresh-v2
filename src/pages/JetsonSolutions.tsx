@@ -9,6 +9,8 @@ import SiteNavbar from "@/components/SiteNavbar";
 import Footer from "@/components/Footer";
 import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import LineQRButton from "@/components/LineQRButton";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
+import { ShoppingBag } from "lucide-react";
 import bGov from "@/assets/jetson/sol-government.jpg";
 import bEdu from "@/assets/jetson/sol-education.jpg";
 import bInteg from "@/assets/jetson/sol-integrator.jpg";
@@ -320,10 +322,18 @@ export default function JetsonSolutions() {
                   </span>
                 ))}
               </div>
-              <Link to="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold transition-all hover:opacity-90"
-                    style={{ background: NV, color: "#0a0e27" }}>
-                {slide.cta} <ArrowRight className="w-4 h-4" />
-              </Link>
+              <div className="flex flex-wrap gap-2">
+                <Link to="/shop?category=jetson" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold transition-all hover:opacity-90"
+                      style={{ background: NV, color: "#0a0e27" }}>
+                  <ShoppingBag className="w-4 h-4" /> เลือกสินค้าที่ Shop
+                </Link>
+                <QuoteRequestButton
+                  productName={slide.title}
+                  variant="outline"
+                  size="default"
+                  className="border-white/40 text-white hover:bg-white/10 hover:text-white"
+                />
+              </div>
             </div>
           </div>
 
