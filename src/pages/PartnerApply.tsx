@@ -800,74 +800,236 @@ function Stage4({ data, update, L, lang }: any) {
   );
 }
 
-function Stage5({ data, update, L, files, onUpload, onRemove, uploadingCat }: any) {
-  const FILE_CATS = [
-    { id: "business_license", label: L("uploadLicense"), accept: ".pdf,.jpg,.jpeg,.png" },
-    { id: "factory_photo",    label: L("uploadFactory"), accept: "image/*", multiple: true },
-    { id: "factory_video",    label: L("uploadVideo"),   accept: "video/mp4,video/quicktime,video/webm" },
-    { id: "certification",    label: L("uploadCert"),    accept: ".pdf,.jpg,.jpeg,.png", multiple: true },
-    { id: "product_catalog",  label: L("uploadCatalog"), accept: ".pdf" },
-  ];
+function Stage5({ data, update, L, lang, files, onUpload, onRemove, uploadingCat }: any) {
+  const PHOTO_SLOTS = 6;
+  const photoFiles: UploadedFile[] = files.filter((f: UploadedFile) => f.file_category === "factory_photo");
+  const licenseFiles: UploadedFile[] = files.filter((f: UploadedFile) => f.file_category === "business_license");
+  const certFiles: UploadedFile[] = files.filter((f: UploadedFile) => f.file_category === "certification");
+  const videoFiles: UploadedFile[] = files.filter((f: UploadedFile) => f.file_category === "factory_video");
+  const catalogFiles: UploadedFile[] = files.filter((f: UploadedFile) => f.file_category === "product_catalog");
+
+  const publicUrl = (path: string) =>
+    supabase.storage.from("partner-applications").getPublicUrl(path).data.publicUrl;
+
+  const toggleCatalogCat = (id: string) => {
+    const arr = data.catalog_selected_categories.includes(id)
+      ? data.catalog_selected_categories.filter((x: string) => x !== id)
+      : [...data.catalog_selected_categories, id];
+    update("catalog_selected_categories", arr);
+  };
+
   return (
     <>
       <h2 className="text-xl font-semibold">{L("step5")}</h2>
 
-      {/* Files */}
-      <div>
-        <h3 className="font-medium mb-3">{L("uploadTitle")}</h3>
-        <div className="space-y-3">
-          {FILE_CATS.map((cat) => {
-            const catFiles = files.filter((f: UploadedFile) => f.file_category === cat.id);
-            const uploading = uploadingCat === cat.id;
-            return (
-              <div key={cat.id} className="border rounded-md p-3">
-                <div className="flex items-center justify-between mb-2">
-                  <Label className="text-sm">{cat.label}</Label>
-                  <label className="cursor-pointer">
-                    <input
-                      type="file"
-                      className="hidden"
-                      accept={cat.accept}
-                      multiple={cat.multiple}
-                      disabled={uploading}
-                      onChange={(e) => {
-                        const fs = Array.from(e.target.files || []);
-                        fs.forEach((f) => onUpload(cat.id, f));
-                        e.target.value = "";
-                      }}
-                    />
-                    <span className="inline-flex items-center gap-1 text-xs text-primary hover:underline">
-                      {uploading ? <Loader2 className="w-3 h-3 animate-spin" /> : <Upload className="w-3 h-3" />}
-                      {L("uploadHint")}
-                    </span>
-                  </label>
+      {/* === 1. Business License === */}
+      <section className="space-y-2">
+        <Label className="text-sm font-medium">{L("uploadLicense")}</Label>
+        <FilePickerRow
+          accept=".pdf,.jpg,.jpeg,.png"
+          uploading={uploadingCat === "business_license"}
+          onPick={(f) => onUpload("business_license", f)}
+          L={L}
+        />
+        {licenseFiles.length > 0 && (
+          <FileList files={licenseFiles} onRemove={onRemove} />
+        )}
+      </section>
+
+      {/* === 2. Factory Photo Slots === */}
+      <section className="space-y-2">
+        <div className="flex items-baseline justify-between">
+          <Label className="text-sm font-medium">{L("uploadFactory")}</Label>
+          <span className="text-[11px] text-muted-foreground">{photoFiles.length}/{PHOTO_SLOTS}</span>
+        </div>
+        <p className="text-[11px] text-muted-foreground">{L("photoSlotHints")}</p>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+          {Array.from({ length: PHOTO_SLOTS }).map((_, i) => {
+            const f = photoFiles[i];
+            const isUploading = !f && uploadingCat === "factory_photo" && i === photoFiles.length;
+            if (f) {
+              return (
+                <div key={i} className="group relative aspect-[4/3] rounded-lg border-2 border-border bg-muted/40 overflow-hidden">
+                  <img src={publicUrl(f.file_path)} alt={f.file_name} className="w-full h-full object-cover" />
+                  <button
+                    type="button"
+                    onClick={() => onRemove(f)}
+                    className="absolute top-1.5 right-1.5 bg-background/90 hover:bg-destructive hover:text-destructive-foreground rounded-full p-1 shadow"
+                    aria-label="remove"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                  <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 to-transparent px-2 py-1.5">
+                    <p className="text-[11px] text-white truncate">{L("photoSlot")} {i + 1}</p>
+                  </div>
                 </div>
-                {catFiles.length > 0 && (
-                  <ul className="space-y-1">
-                    {catFiles.map((f: UploadedFile) => (
-                      <li key={f.id} className="flex items-center justify-between text-xs bg-muted/40 px-2 py-1 rounded">
-                        <span className="truncate">{f.file_name}</span>
-                        <button onClick={() => onRemove(f)} className="text-muted-foreground hover:text-destructive">
-                          <X className="w-3 h-3" />
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
+              );
+            }
+            return (
+              <label
+                key={i}
+                className={cn(
+                  "aspect-[4/3] rounded-lg border-2 border-dashed flex flex-col items-center justify-center gap-1.5 cursor-pointer transition-colors",
+                  "border-border hover:border-primary hover:bg-primary/5 text-muted-foreground hover:text-primary",
+                  isUploading && "opacity-60 pointer-events-none"
                 )}
-              </div>
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  disabled={uploadingCat === "factory_photo"}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) onUpload("factory_photo", file);
+                    e.target.value = "";
+                  }}
+                />
+                {isUploading ? (
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                ) : (
+                  <>
+                    <Camera className="w-5 h-5" />
+                    <span className="text-[11px] font-medium">{L("photoSlot")} {i + 1}</span>
+                  </>
+                )}
+              </label>
             );
           })}
         </div>
-      </div>
+      </section>
 
+      {/* === 3. Factory Video — file or URL === */}
+      <section className="space-y-2">
+        <Label className="text-sm font-medium">{L("uploadVideo")}</Label>
+        <div className="grid md:grid-cols-2 gap-3">
+          <div className="border-2 border-dashed rounded-lg p-4 flex flex-col items-center justify-center gap-2 min-h-[110px]">
+            {videoFiles.length > 0 ? (
+              <ul className="w-full space-y-1">
+                {videoFiles.map((f) => (
+                  <li key={f.id} className="flex items-center justify-between text-xs bg-muted/40 px-2 py-1 rounded">
+                    <span className="truncate">🎬 {f.file_name}</span>
+                    <button onClick={() => onRemove(f)} className="text-muted-foreground hover:text-destructive">
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <label className="flex flex-col items-center gap-2 cursor-pointer text-muted-foreground hover:text-primary">
+                <input
+                  type="file"
+                  accept="video/mp4,video/quicktime,video/webm"
+                  className="hidden"
+                  disabled={uploadingCat === "factory_video"}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) onUpload("factory_video", file);
+                    e.target.value = "";
+                  }}
+                />
+                {uploadingCat === "factory_video" ? <Loader2 className="w-5 h-5 animate-spin" /> : <Upload className="w-5 h-5" />}
+                <span className="text-xs">{L("uploadHint")}</span>
+              </label>
+            )}
+          </div>
+          <div className="space-y-1.5">
+            <Input
+              type="url"
+              placeholder="https://youtube.com/... · https://b23.tv/..."
+              value={data.factory_video_url}
+              onChange={(e) => update("factory_video_url", e.target.value)}
+            />
+            <p className="text-[11px] text-muted-foreground">{L("videoUrl")}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* === 4. Certifications === */}
+      <section className="space-y-2">
+        <Label className="text-sm font-medium">{L("uploadCert")}</Label>
+        <FilePickerRow
+          accept=".pdf,.jpg,.jpeg,.png"
+          multiple
+          uploading={uploadingCat === "certification"}
+          onPick={(f) => onUpload("certification", f)}
+          L={L}
+        />
+        {certFiles.length > 0 && <FileList files={certFiles} onRemove={onRemove} />}
+      </section>
+
+      {/* === 5. Product Catalog (with scope selector) === */}
+      <section className="space-y-2">
+        <Label className="text-sm font-medium">{L("uploadCatalog")}</Label>
+        <RadioGroup
+          value={data.catalog_scope || "all"}
+          onValueChange={(v) => update("catalog_scope", v as any)}
+          className="flex flex-wrap gap-3"
+        >
+          <label className="flex items-center gap-2 px-3 py-1.5 border rounded-md cursor-pointer text-sm">
+            <RadioGroupItem value="all" /> {L("catalogScopeAll")}
+          </label>
+          <label className="flex items-center gap-2 px-3 py-1.5 border rounded-md cursor-pointer text-sm">
+            <RadioGroupItem value="selected" /> {L("catalogScopePick")}
+          </label>
+        </RadioGroup>
+        {data.catalog_scope === "selected" && (
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 pt-1">
+            {PRODUCT_CATEGORIES.map((c) => {
+              const checked = data.catalog_selected_categories.includes(c.id);
+              return (
+                <label
+                  key={c.id}
+                  className={cn(
+                    "flex items-center gap-2 px-3 py-1.5 rounded-md border text-xs cursor-pointer",
+                    checked ? "border-primary bg-primary/5 text-primary" : "border-border"
+                  )}
+                >
+                  <Checkbox checked={checked} onCheckedChange={() => toggleCatalogCat(c.id)} />
+                  <span>{(c as any)[lang]}</span>
+                </label>
+              );
+            })}
+          </div>
+        )}
+        <FilePickerRow
+          accept=".pdf"
+          multiple
+          uploading={uploadingCat === "product_catalog"}
+          onPick={(f) => onUpload("product_catalog", f)}
+          L={L}
+        />
+        {catalogFiles.length > 0 && <FileList files={catalogFiles} onRemove={onRemove} />}
+      </section>
+
+      {/* === Notes & Heard-from === */}
       <Field label={L("why")}>
         <Textarea rows={3} value={data.why_partner_with_us} onChange={(e) => update("why_partner_with_us", e.target.value)} />
       </Field>
       <Field label={L("notes")}>
         <Textarea rows={2} value={data.additional_notes} onChange={(e) => update("additional_notes", e.target.value)} />
       </Field>
+
       <Field label={L("heardFrom")}>
-        <Input value={data.heard_about_us_from} onChange={(e) => update("heard_about_us_from", e.target.value)} />
+        <Select
+          value={data.heard_about_us_from || undefined}
+          onValueChange={(v) => update("heard_about_us_from", v)}
+        >
+          <SelectTrigger><SelectValue placeholder={L("heardFromPick")} /></SelectTrigger>
+          <SelectContent className="max-h-72">
+            {HEARD_FROM_OPTIONS.map((o) => (
+              <SelectItem key={o.id} value={o.id}>{(o as any)[lang]}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        {data.heard_about_us_from && (
+          <Input
+            className="mt-2"
+            placeholder={L("heardFromOther")}
+            value={data.heard_about_us_other}
+            onChange={(e) => update("heard_about_us_other", e.target.value)}
+          />
+        )}
       </Field>
 
       <label className="flex items-start gap-2 p-3 border rounded-md cursor-pointer bg-muted/30">
@@ -875,5 +1037,45 @@ function Stage5({ data, update, L, files, onUpload, onRemove, uploadingCat }: an
         <span className="text-sm">{L("agreement")}</span>
       </label>
     </>
+  );
+}
+
+// ── Helper sub-components for Stage5 ───────────────────────
+function FilePickerRow({ accept, multiple, uploading, onPick, L }: any) {
+  return (
+    <label className="flex items-center justify-between border-2 border-dashed rounded-md px-3 py-2.5 cursor-pointer hover:border-primary hover:bg-primary/5 transition-colors">
+      <span className="text-xs text-muted-foreground">{L("uploadHint")}</span>
+      <span className="inline-flex items-center gap-1 text-xs text-primary font-medium">
+        {uploading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Upload className="w-3.5 h-3.5" />}
+        {uploading ? L("uploading") : "Browse"}
+      </span>
+      <input
+        type="file"
+        className="hidden"
+        accept={accept}
+        multiple={multiple}
+        disabled={uploading}
+        onChange={(e) => {
+          const fs = Array.from(e.target.files || []);
+          fs.forEach((f) => onPick(f));
+          e.target.value = "";
+        }}
+      />
+    </label>
+  );
+}
+
+function FileList({ files, onRemove }: { files: UploadedFile[]; onRemove: (f: UploadedFile) => void }) {
+  return (
+    <ul className="space-y-1">
+      {files.map((f) => (
+        <li key={f.id} className="flex items-center justify-between text-xs bg-muted/40 px-2 py-1.5 rounded">
+          <span className="truncate">📎 {f.file_name}</span>
+          <button onClick={() => onRemove(f)} className="text-muted-foreground hover:text-destructive">
+            <X className="w-3 h-3" />
+          </button>
+        </li>
+      ))}
+    </ul>
   );
 }
