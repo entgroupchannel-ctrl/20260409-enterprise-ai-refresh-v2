@@ -30,6 +30,7 @@ export default function SiteNavbar() {
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-1">
           <MegaMenu />
+          <div className="w-[10%] min-w-8" aria-hidden="true" />
           <TooltipProvider delayDuration={150}>
             {navLinks.map((link) => {
               const Icon = link.icon;
