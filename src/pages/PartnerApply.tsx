@@ -98,6 +98,14 @@ export default function PartnerApply() {
   const [uploadingCat, setUploadingCat] = useState<string | null>(null);
   const dirtyRef = useRef(false);
 
+  // Account creation dialog (for guests at submit time)
+  const [accountDialogOpen, setAccountDialogOpen] = useState(false);
+  const [accountPassword, setAccountPassword] = useState("");
+  const [accountPassword2, setAccountPassword2] = useState("");
+  const [showPwd, setShowPwd] = useState(false);
+  const [creatingAccount, setCreatingAccount] = useState(false);
+  const [emailConfirmRequired, setEmailConfirmRequired] = useState(false);
+
   // Session token for anonymous users
   const sessionToken = useMemo(() => {
     let t = localStorage.getItem(SESSION_KEY);
