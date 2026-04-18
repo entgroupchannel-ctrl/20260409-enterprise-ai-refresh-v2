@@ -19,6 +19,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import ThemeToggle from "@/components/ThemeToggle";
 import logo from "@/assets/logo-entgroup.avif";
 import FooterCompact from "@/components/FooterCompact";
+import MiniNavbar from "@/components/MiniNavbar";
 
 /* ═══════════════════════════════════════════
    TIER SYSTEM — like GT Series
@@ -763,23 +764,7 @@ const MiniPCFirewall = () => {
         products={models.map(m => ({ name: m.name, description: m.tagline, category: "Mini PC Firewall" }))}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "Mini PC Firewall", path: "/mini-pc-firewall" }]} />
-      {/* Sticky Nav */}
-      <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
-        <div className="container max-w-7xl mx-auto flex items-center justify-between px-6 h-16">
-          <div className="flex items-center gap-4">
-            <Link to="/" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
-              <ArrowLeft size={18} />
-              <span className="text-sm font-medium hidden sm:inline">กลับหน้าหลัก</span>
-            </Link>
-            <div className="w-px h-6 bg-border" />
-            <img src={logo} alt="ENT GROUP" className="h-7 w-auto dark:invert" />
-          </div>
-          <div className="flex items-center gap-3">
-            <CartBadge />
-            <ThemeToggle />
-          </div>
-        </div>
-      </nav>
+      <MiniNavbar />
 
       {/* ── Hero ── */}
       <section className="relative overflow-hidden">
