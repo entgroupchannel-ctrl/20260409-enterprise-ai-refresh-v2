@@ -26,7 +26,7 @@ import { cn } from "@/lib/utils";
 
 const SESSION_KEY = "partner_app_session";
 const DRAFT_KEY = "partner_app_draft_id";
-const FREE_EMAIL = /@(gmail|yahoo|hotmail|outlook|qq|163|126|sina|foxmail|live|aol)\./i;
+const FREE_EMAIL = /@(qq|163|126|sina|foxmail)\./i;
 
 interface FormState {
   // Stage 1
