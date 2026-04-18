@@ -148,9 +148,9 @@ const JetsonEdgeAI = () => {
               {[...Array(2)].map((_, dup) => (
                 <div key={dup} className="flex shrink-0 gap-12" aria-hidden={dup === 1}>
                   {[
-                    { text: "🔥 โปรโมชั่นพิเศษ ลดสูงสุด 15% ถึง 30 เม.ย. 2569", cta: "ดูสินค้าเลย", href: "/shop?category=jetson" },
+                    { text: "🔥 โปรโมชั่นพิเศษ ลดสูงสุด 15% ถึง 30 เม.ย. 2569", cta: "ดูสินค้าเลย", href: "/shop?series=Jetson%20Series" },
                     { text: "🎁 ซื้อ Orin Nano Super Devkit แถม SSD 256GB ฟรี", cta: "สั่งซื้อ", href: "/shop/orin-nano-super-devkit" },
-                    { text: "🚀 Jetson Thor IPC พร้อมส่ง — จองล็อตแรกรับส่วนลดพิเศษ", cta: "จองเลย", href: "/shop?category=jetson&q=thor" },
+                    { text: "🚀 Jetson Thor IPC พร้อมส่ง — จองล็อตแรกรับส่วนลดพิเศษ", cta: "จองเลย", href: "/shop/ipc-thor-28f1" },
                     { text: "🎓 ส่วนลดพิเศษสำหรับสถาบันการศึกษา & หน่วยงานราชการ", cta: "ขอใบเสนอราคา", href: "/contact" },
                     { text: "🤝 SI/Reseller รับราคาพิเศษเมื่อสั่งซื้อจำนวนมาก", cta: "สมัครพาร์ทเนอร์", href: "/partner" },
                   ].map((p, idx) => (
@@ -167,7 +167,7 @@ const JetsonEdgeAI = () => {
             </div>
           </div>
           <Link
-            to="/shop?category=jetson"
+            to="/shop?series=Jetson%20Series"
             className="hidden md:inline-flex shrink-0 items-center gap-1.5 px-4 py-1 mr-3 rounded-full bg-white text-rose-600 hover:bg-white/90 text-xs font-bold transition-colors shadow-md"
           >
             🛒 Shop Jetson <ArrowRight size={12} />
@@ -204,7 +204,7 @@ const JetsonEdgeAI = () => {
                 อีเอ็นที กรุ๊ป พันธมิตรธุรกิจที่คุณไว้วางใจ ขอนำเสนอ <strong className="text-white">โมดูล, ชุดพัฒนา และคอมพิวเตอร์อุตสาหกรรม</strong> — ขับเคลื่อนด้วยแพลตฟอร์ม NVIDIA Jetson
               </p>
               <div className="flex flex-wrap gap-3">
-                <Link to="/shop?category=jetson" className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-bold transition-all shadow-[0_0_30px_-5px_rgba(118,185,0,0.6)] hover:shadow-[0_0_40px_-5px_rgba(118,185,0,0.9)]" style={{ background: NV_GREEN, color: "#0a0e27" }}>
+                <Link to="/shop?series=Jetson%20Series" className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-bold transition-all shadow-[0_0_30px_-5px_rgba(118,185,0,0.6)] hover:shadow-[0_0_40px_-5px_rgba(118,185,0,0.9)]" style={{ background: NV_GREEN, color: "#0a0e27" }}>
                   ดูสินค้าทั้งหมด <ArrowRight size={16} />
                 </Link>
                 <Link to="/nvidia-jetson/recommend" className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-white/20 hover:border-white/40 hover:bg-white/5 text-white font-semibold transition-all backdrop-blur-sm">
@@ -467,7 +467,7 @@ const JetsonEdgeAI = () => {
           </div>
 
           <div className="text-center mt-10">
-            <Link to="/shop?category=jetson" className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border-2 border-[#76B900] text-[#76B900] font-bold hover:bg-[#76B900] hover:text-[#0a0e27] transition-all">
+            <Link to="/shop?series=Jetson%20Series" className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border-2 border-[#76B900] text-[#76B900] font-bold hover:bg-[#76B900] hover:text-[#0a0e27] transition-all">
               เปรียบเทียบสินค้าทั้งหมด <ArrowRight size={16} />
             </Link>
           </div>
