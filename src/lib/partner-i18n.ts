@@ -137,6 +137,21 @@ export const PARTNERSHIP_TYPES = [
   { id: "joint-rd",    th: "ร่วมพัฒนา R&D",  en: "Joint R&D",   zh: "联合研发" },
 ];
 
+/** Sources where partners may have heard about ENT Group */
+export const HEARD_FROM_OPTIONS: { id: string; th: string; en: string; zh: string }[] = [
+  { id: "google",         th: "ค้นหาจาก Google",             en: "Google Search",               zh: "Google 搜索" },
+  { id: "alibaba",        th: "Alibaba / 1688",              en: "Alibaba / 1688",              zh: "阿里巴巴 / 1688" },
+  { id: "made-in-china",  th: "Made-in-China.com",           en: "Made-in-China.com",           zh: "Made-in-China.com" },
+  { id: "exhibition",     th: "งานแสดงสินค้า / Exhibition",  en: "Trade Show / Exhibition",     zh: "展会 / 博览会" },
+  { id: "linkedin",       th: "LinkedIn",                    en: "LinkedIn",                    zh: "领英 LinkedIn" },
+  { id: "wechat",         th: "WeChat / Moments",            en: "WeChat / Moments",            zh: "微信 / 朋友圈" },
+  { id: "referral",       th: "เพื่อน / พันธมิตรแนะนำ",      en: "Referral from partner",       zh: "朋友 / 合作伙伴推荐" },
+  { id: "ent-staff",      th: "พนักงาน ENT Group ติดต่อมา",  en: "Contacted by ENT staff",      zh: "ENT 员工联系" },
+  { id: "social-media",   th: "Facebook / YouTube / TikTok", en: "Facebook / YouTube / TikTok", zh: "Facebook / YouTube / 抖音" },
+  { id: "industry-media", th: "สื่อสิ่งพิมพ์อุตสาหกรรม",     en: "Industry media / magazine",   zh: "行业媒体 / 杂志" },
+  { id: "other",          th: "อื่น ๆ (ระบุ)",                en: "Other (please specify)",      zh: "其他（请注明）" },
+];
+
 /** Chinese provinces / municipalities / autonomous regions with major cities */
 export const CN_PROVINCES: { code: string; zh: string; en: string; cities: string[] }[] = [
   { code: "BJ", zh: "北京市", en: "Beijing",   cities: ["北京"] },
