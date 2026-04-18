@@ -408,35 +408,77 @@ const ShopStorefront = () => {
         </div>
       </section>
 
-      {/* ── Sticky Series Filter Bar ── */}
+      {/* ── Sticky Series Filter Bar (with shareable links) ── */}
       <div className="sticky top-16 z-30 bg-background/90 backdrop-blur border-b border-border">
         <div className="container max-w-7xl mx-auto px-4">
           <div className="flex items-center gap-2 py-2 overflow-x-auto scrollbar-hide">
-            <Button
-              variant={seriesFilter.length === 0 ? 'default' : 'ghost'}
-              size="sm"
-              className="shrink-0 h-8 text-xs"
-              onClick={() => { setSeriesFilter([]); setPage(1); }}
-            >
-              ทั้งหมด ({products.length})
-            </Button>
+            {/* "ทั้งหมด" pill */}
+            <div className="shrink-0 inline-flex items-stretch rounded-md overflow-hidden border border-border/60">
+              <Button
+                variant={seriesFilter.length === 0 ? 'default' : 'ghost'}
+                size="sm"
+                className="h-8 text-xs rounded-none border-0"
+                onClick={() => { setSeriesFilter([]); setPage(1); }}
+              >
+                ทั้งหมด ({products.length})
+              </Button>
+              <button
+                type="button"
+                title="คัดลอกลิงก์ไปหน้า Shop ทั้งหมด"
+                aria-label="คัดลอกลิงก์ไปหน้า Shop ทั้งหมด"
+                onClick={() => copyShareLink('all', [])}
+                className="px-2 flex items-center justify-center bg-muted/40 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {copiedKey === 'all' ? <Check className="w-3.5 h-3.5 text-green-600" /> : <Link2 className="w-3.5 h-3.5" />}
+              </button>
+            </div>
+
+            {/* Series tabs */}
             {filterOptions.series.map(s => {
               const nav = seriesNavItems.find(n => n.id === s);
+              const active = seriesFilter.includes(s);
+              const key = `series-${s}`;
               return (
-                <Button
-                  key={s}
-                  variant={seriesFilter.includes(s) ? 'default' : 'ghost'}
-                  size="sm"
-                  className="shrink-0 h-8 text-xs gap-1.5"
-                  onClick={() => { toggleSeriesFilter(s); setPage(1); }}
-                >
-                  {nav?.icon} {s}
-                  <Badge variant="secondary" className="text-[9px] ml-0.5 h-4 px-1">
-                    {products.filter(p => p.series === s).length}
-                  </Badge>
-                </Button>
+                <div key={s} className="shrink-0 inline-flex items-stretch rounded-md overflow-hidden border border-border/60">
+                  <Button
+                    variant={active ? 'default' : 'ghost'}
+                    size="sm"
+                    className="h-8 text-xs gap-1.5 rounded-none border-0"
+                    onClick={() => { toggleSeriesFilter(s); setPage(1); }}
+                  >
+                    {nav?.icon} {s}
+                    <Badge variant="secondary" className="text-[9px] ml-0.5 h-4 px-1">
+                      {products.filter(p => p.series === s).length}
+                    </Badge>
+                  </Button>
+                  <button
+                    type="button"
+                    title={`คัดลอกลิงก์ไปยัง ${s}`}
+                    aria-label={`คัดลอกลิงก์ไปยัง ${s}`}
+                    onClick={(e) => { e.stopPropagation(); copyShareLink(key, [s]); }}
+                    className="px-2 flex items-center justify-center bg-muted/40 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {copiedKey === key ? <Check className="w-3.5 h-3.5 text-green-600" /> : <Link2 className="w-3.5 h-3.5" />}
+                  </button>
+                </div>
               );
             })}
+
+            {/* Trailing share-current button */}
+            <div className="shrink-0 ml-auto pl-2">
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-8 text-xs gap-1.5"
+                onClick={() => shareNative(
+                  seriesFilter.length > 0 ? `Shop — ${seriesFilter.join(', ')}` : 'Shop ทั้งหมด',
+                  seriesFilter,
+                )}
+                title="แชร์ลิงก์ของแท็บที่เลือก"
+              >
+                <Share2 className="w-3.5 h-3.5" /> แชร์
+              </Button>
+            </div>
           </div>
         </div>
       </div>
