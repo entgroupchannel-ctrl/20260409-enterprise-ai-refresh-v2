@@ -55,16 +55,18 @@ const ChatNowButton = ({
             <MessageCircle className="w-3.5 h-3.5" />
           </Button>
         </TooltipTrigger>
-        <TooltipContent
-          side="top"
-          align="center"
-          sideOffset={8}
-          collisionPadding={16}
-          avoidCollisions
-          className="text-xs z-[200] max-w-[240px]"
-        >
-          {hint}
-        </TooltipContent>
+        <TooltipPrimitive.Portal>
+          <TooltipContent
+            side="top"
+            align="center"
+            sideOffset={8}
+            collisionPadding={16}
+            avoidCollisions
+            className="text-xs z-[200] max-w-[240px]"
+          >
+            {hint}
+          </TooltipContent>
+        </TooltipPrimitive.Portal>
       </Tooltip>
     </TooltipProvider>
   );
