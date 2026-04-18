@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, LogIn, UserCircle, ChevronDown, LayoutDashboard, FileText, Plus, User, LogOut, ShoppingBag, Sparkles } from 'lucide-react';
+import { Menu, X, LogIn, UserCircle, ChevronDown, LayoutDashboard, FileText, Plus, User, LogOut, ShoppingBag, Sparkles, Tag, Mail } from 'lucide-react';
 import CartBadge from '@/components/CartBadge';
 import ThemeToggle from '@/components/ThemeToggle';
 import MegaMenu, { MobileMegaMenu } from '@/components/MegaMenu';
