@@ -11,6 +11,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 import { Plus, Trash2, Save, Send, Loader2, ChevronDown, X, FileText, FileSearch, AlertTriangle } from 'lucide-react';
+import { sanitizeFilename } from "@/lib/sanitize-filename";
 
 const PO_DOC_TYPES = [
   { value: 'proforma_invoice', label: 'PI' },

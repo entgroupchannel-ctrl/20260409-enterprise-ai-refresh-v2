@@ -17,6 +17,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
 import { CheckCircle2, Gift, Upload, FileText, FileCheck, X, BadgeCheck, Sparkles, HandCoins, FileSignature, ShieldCheck } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { sanitizeFilename } from "@/lib/sanitize-filename";
 
 interface AcceptQuoteDialogProps {
   quoteId: string;

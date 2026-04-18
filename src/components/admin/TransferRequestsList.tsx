@@ -16,6 +16,7 @@ import TransferStatusBadge from './TransferStatusBadge';
 import TransferEmailModal from './TransferEmailModal';
 import TransferPrintDialog from './TransferPrintDialog';
 import { useAuth } from '@/hooks/useAuth';
+import { sanitizeFilename } from "@/lib/sanitize-filename";
 
 const DOC_TYPE_LABELS: Record<string, string> = {
   proforma_invoice: 'PI', commercial_invoice: 'CI', air_waybill: 'AWB',

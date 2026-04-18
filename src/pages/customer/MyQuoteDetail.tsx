@@ -49,6 +49,7 @@ import {
   Receipt,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
+import { sanitizeFilename } from "@/lib/sanitize-filename";
 
 interface Quote {
   id: string;

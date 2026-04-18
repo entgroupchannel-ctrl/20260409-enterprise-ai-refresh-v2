@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
+import { sanitizeFilename } from "@/lib/sanitize-filename";
 
 interface ChatSession {
   quote_id: string;
