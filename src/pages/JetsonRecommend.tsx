@@ -675,7 +675,7 @@ export default function JetsonRecommend() {
                             <div className="flex items-center gap-2 flex-wrap">
                               <span className="font-bold text-sm">{cb.full}</span>
                               {cb.tag && <span className="text-[10px] px-1.5 py-0.5 rounded font-semibold" style={cb.tag === "NEW" ? { background: `${NV}20`, color: NV } : { background: "hsl(var(--muted))", color: "hsl(var(--muted-foreground))" }}>{cb.tag}</span>}
-                              {cb.popular && <span className="text-[10px] px-1.5 py-0.5 rounded font-semibold bg-yellow-500/20 text-yellow-600">⭐ ยอดนิยม</span>}
+                              {cb.popular && <span className="text-[10px] px-1.5 py-0.5 rounded font-semibold bg-amber-500/20 text-amber-700 dark:text-amber-400">⭐ ยอดนิยม</span>}
                             </div>
                             <div className="text-[11px] text-muted-foreground mt-1">{cb.io}</div>
                             <div className="text-[10px] text-muted-foreground mt-1">Form Factor: {cb.size}</div>
