@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import SiteNavbar from "@/components/SiteNavbar";
 import Footer from "@/components/Footer";
+import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import LineQRButton from "@/components/LineQRButton";
 import { jetsonProducts, jetsonCategories, type JetsonProduct, type JetsonCategory } from "@/data/jetson-products";
 import { gpuServers, type GpuServer } from "@/data/gpu-servers";
@@ -787,6 +788,7 @@ export default function JetsonRecommend() {
         )}
       </section>
 
+      <B2BWorkflowBanner showShopCta />
       <Footer />
     </div>
   );

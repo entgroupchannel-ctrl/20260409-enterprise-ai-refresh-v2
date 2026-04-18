@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import SiteNavbar from "@/components/SiteNavbar";
 import Footer from "@/components/Footer";
+import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import SEOHead from "@/components/SEOHead";
 import { jetsonProducts, jetsonCategories, type JetsonCategory } from "@/data/jetson-products";
 
@@ -535,6 +536,7 @@ const JetsonEdgeAI = () => {
         </div>
       </section>
 
+      <B2BWorkflowBanner showShopCta />
       <Footer />
     </div>
   );

@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import SiteNavbar from "@/components/SiteNavbar";
 import Footer from "@/components/Footer";
+import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import LineQRButton from "@/components/LineQRButton";
 import bGov from "@/assets/jetson/sol-government.jpg";
 import bEdu from "@/assets/jetson/sol-education.jpg";
@@ -584,6 +585,7 @@ export default function JetsonSolutions() {
         </div>
       </section>
 
+      <B2BWorkflowBanner showShopCta />
       <Footer />
     </div>
   );
