@@ -301,6 +301,9 @@ export default function JetsonProfessionalGPU() {
         <title>Professional Graphics Card — NVIDIA RTX, Quadro | ENT Group</title>
         <meta name="description" content="การ์ดจอ NVIDIA Professional สำหรับ AI, Deep Learning, 3D Rendering, CAD/CAM และ Video Editing — RTX 6000 Ada, RTX A6000, Quadro RTX, T-Series สินค้าแท้ ประกัน รองรับจัดซื้อหน่วยงาน" />
         <link rel="canonical" href="https://www.entgroup.co.th/nvidia-jetson/professional-gpu" />
+        <meta name="ai:topic" content="NVIDIA Professional Graphics Card" />
+        <meta name="ai:summary" content="การ์ดจอ NVIDIA Professional สำหรับ AI, Deep Learning, 3D Rendering, CAD/CAM, Video Editing — RTX 6000 Ada, RTX A6000, Quadro RTX, T-Series สินค้าแท้ มีประกัน" />
+        <meta name="ai:key_facts" content="RTX 6000 Ada | RTX A6000 | Quadro RTX | T-Series | สำหรับงาน AI/3D/CAD/Video" />
       </Helmet>
 
       <SiteNavbar />

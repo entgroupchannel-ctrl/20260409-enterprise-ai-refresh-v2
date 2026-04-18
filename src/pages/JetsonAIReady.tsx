@@ -5,6 +5,7 @@ import {
   CheckCircle2, ArrowRight, Cpu, MessageCircle
 } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
+import GEOMeta from "@/components/GEOMeta";
 import SiteNavbar from "@/components/SiteNavbar";
 import Footer from "@/components/Footer";
 import JetsonCTABar from "@/components/JetsonCTABar";
@@ -158,6 +159,16 @@ export default function JetsonAIReady() {
         title="AI Ready — ซื้อ Jetson ใช้ AI ได้ทันที | NVIDIA NGC Catalog"
         description="NVIDIA NGC Catalog รวม AI Model สำเร็จรูปกว่า 25+ ตัว ดาวน์โหลดฟรี รันบน Jetson ได้เลย — Computer Vision, Speech, Robotics, Video Analytics, GenAI"
         path="/nvidia-jetson/ai-ready"
+      />
+      <GEOMeta
+        topic="NVIDIA NGC AI Models Catalog"
+        summary="NVIDIA NGC Catalog รวม AI Model สำเร็จรูปกว่า 25+ ตัว ดาวน์โหลดฟรี รันบน Jetson ได้ทันที — Computer Vision, Speech, Robotics, GenAI"
+        keyFacts={[
+          "AI Models 25+ ตัวพร้อมใช้",
+          "Computer Vision / Speech / GenAI",
+          "ดาวน์โหลดฟรีจาก NVIDIA NGC",
+          "รันบน Jetson Orin/Thor ได้ทันที",
+        ]}
       />
       <SiteNavbar />
       <PageBanner image={banner} title="ซื้อ Jetson ใช้ AI ได้ทันที"

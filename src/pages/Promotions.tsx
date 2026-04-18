@@ -9,6 +9,8 @@ import promoEmT195Hero from "@/assets/promo-em-t195-hero.jpg";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import FooterCompact from "@/components/FooterCompact";
 import LineQRButton from "@/components/LineQRButton";
+import SEOHead from "@/components/SEOHead";
+import GEOMeta from "@/components/GEOMeta";
 
 /* ───── Types ───── */
 type PromoStatus = "active" | "ended" | "recurring";
@@ -358,6 +360,22 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
 const Promotions = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      <SEOHead
+        title="โปรโมชั่นพิเศษสำหรับลูกค้าองค์กร — Industrial PC, Mini PC, Rugged Tablet"
+        description="รวมโปรโมชั่นล่าสุดจาก ENT Group — Mini PC, Panel PC, Rugged Tablet, NVIDIA Jetson ราคาพิเศษสำหรับลูกค้าองค์กร โรงงาน หน่วยงานราชการ พร้อมส่งฟรีและรับประกันถึง 3 ปี"
+        path="/promotions"
+        keywords="โปรโมชั่น mini pc, ลด industrial pc, panel pc ราคา, rugged tablet ลด, โปรโมชั่น ENT Group"
+      />
+      <GEOMeta
+        topic="Industrial PC Promotions Thailand"
+        summary="โปรโมชั่นและส่วนลดสินค้าคอมพิวเตอร์อุตสาหกรรมจาก ENT Group สำหรับลูกค้าองค์กรในประเทศไทย รวม Mini PC, Panel PC, Rugged Tablet, NVIDIA Jetson"
+        keyFacts={[
+          "อัพสเปค RAM/SSD ฟรีทุกซีรีส์",
+          "ส่งฟรีทั่วไทยเมื่อสั่งครบ ฿20,000",
+          "รับประกันสูงสุด 3 ปี",
+          "ส่วนลดพิเศษสำหรับสถาบันการศึกษาและหน่วยงานราชการ",
+        ]}
+      />
       {/* Nav */}
       <div className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
         <div className="container max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">

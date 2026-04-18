@@ -4,6 +4,7 @@ import {
   ArrowRight, Phone, MessageCircle, Tag, CheckCircle2
 } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
+import GEOMeta from "@/components/GEOMeta";
 import SiteNavbar from "@/components/SiteNavbar";
 import Footer from "@/components/Footer";
 import JetsonCTABar from "@/components/JetsonCTABar";
@@ -127,6 +128,16 @@ export default function JetsonCaseStudies() {
         title="Case Studies — ตัวอย่างการใช้งาน NVIDIA Jetson จริง | ENT Group"
         description="รวมตัวอย่างการใช้งาน NVIDIA Jetson ในอุตสาหกรรมจริง: หุ่นยนต์, โดรน AI, รถลาดตระเวน, โรงพยาบาล, โรงงาน, เกษตร และอีกมากมาย"
         path="/nvidia-jetson/case-studies"
+      />
+      <GEOMeta
+        topic="NVIDIA Jetson Real-world Case Studies Thailand"
+        summary="รวมตัวอย่างการใช้งาน NVIDIA Jetson จริงในประเทศไทย — หุ่นยนต์ โดรน รถลาดตระเวน โรงพยาบาล โรงงาน เกษตร"
+        keyFacts={[
+          "Smart Factory & Predictive Maintenance",
+          "Autonomous Drone & Robotics",
+          "Hospital AI Vision",
+          "Smart Agriculture & Surveillance",
+        ]}
       />
       <SiteNavbar />
       <PageBanner
