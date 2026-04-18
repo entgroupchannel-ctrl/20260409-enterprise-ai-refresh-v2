@@ -17,8 +17,9 @@ import {
 import { Switch } from "@/components/ui/switch";
 import {
   Loader2, Plus, ExternalLink, Trash2, Copy, ShoppingCart, FileText,
-  MousePointerClick, Users, CheckCircle2, Sparkles,
+  MousePointerClick, Users, CheckCircle2, Sparkles, Search, Package, Minus,
 } from "lucide-react";
+import { searchCatalogProducts, getCatalogCategories, type CatalogProduct } from "@/lib/product-catalog";
 
 interface Campaign {
   id: string;
@@ -344,47 +345,7 @@ export default function AffiliateCampaignsManager() {
           )}
 
           {step === 3 && type === "cart" && (
-            <div className="space-y-3">
-              {items.map((it, idx) => (
-                <div key={idx} className="grid grid-cols-12 gap-2 items-end p-3 rounded-lg border">
-                  <div className="col-span-3">
-                    <Label className="text-xs">รุ่น *</Label>
-                    <Input value={it.product_model} onChange={(e) => {
-                      const next = [...items]; next[idx].product_model = e.target.value; setItems(next);
-                    }} placeholder="GT-1500" />
-                  </div>
-                  <div className="col-span-4">
-                    <Label className="text-xs">ชื่อสินค้า</Label>
-                    <Input value={it.product_name} onChange={(e) => {
-                      const next = [...items]; next[idx].product_name = e.target.value; setItems(next);
-                    }} placeholder="Industrial Panel PC 15&quot;" />
-                  </div>
-                  <div className="col-span-2">
-                    <Label className="text-xs">จำนวน</Label>
-                    <Input type="number" min={1} value={it.quantity} onChange={(e) => {
-                      const next = [...items]; next[idx].quantity = Number(e.target.value); setItems(next);
-                    }} />
-                  </div>
-                  <div className="col-span-2">
-                    <Label className="text-xs">ราคา/หน่วย</Label>
-                    <Input type="number" value={it.unit_price ?? ""} onChange={(e) => {
-                      const next = [...items]; next[idx].unit_price = e.target.value ? Number(e.target.value) : null; setItems(next);
-                    }} />
-                  </div>
-                  <div className="col-span-1">
-                    <Button size="sm" variant="ghost" onClick={() => setItems(items.filter((_, i) => i !== idx))}>
-                      <Trash2 className="w-3.5 h-3.5 text-destructive" />
-                    </Button>
-                  </div>
-                </div>
-              ))}
-              <Button variant="outline" size="sm" onClick={() => setItems([...items, { product_model: "", product_name: "", quantity: 1, unit_price: null }])}>
-                <Plus className="w-3.5 h-3.5 mr-1" /> เพิ่มสินค้า
-              </Button>
-              <p className="text-xs text-muted-foreground">
-                รวมประมาณ: ฿{items.reduce((s, i) => s + (Number(i.unit_price || 0) * Number(i.quantity || 0)), 0).toLocaleString("th-TH")}
-              </p>
-            </div>
+            <CartPickerStep items={items} setItems={setItems} />
           )}
 
           {step === 3 && type === "quote_template" && (
@@ -411,6 +372,154 @@ export default function AffiliateCampaignsManager() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+    </div>
+  );
+}
+
+// ─── Cart Picker (Browse + Search) ──────────────────────────────────────
+function CartPickerStep({
+  items, setItems,
+}: {
+  items: CampaignItem[];
+  setItems: (next: CampaignItem[]) => void;
+}) {
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState<string>("all");
+  const categories = getCatalogCategories();
+  const results = searchCatalogProducts(query, 30, category);
+
+  const findIdx = (model: string) => items.findIndex(i => i.product_model === model);
+
+  const addProduct = (p: CatalogProduct) => {
+    const idx = findIdx(p.model);
+    if (idx >= 0) {
+      const next = [...items];
+      next[idx].quantity += 1;
+      setItems(next);
+    } else {
+      const cleanItems = items.filter(i => i.product_model.trim());
+      setItems([
+        ...cleanItems,
+        {
+          product_model: p.model,
+          product_name: p.name,
+          quantity: 1,
+          unit_price: p.price ? Number(String(p.price).replace(/[^0-9.]/g, "")) || null : null,
+        },
+      ]);
+    }
+  };
+
+  const updateQty = (idx: number, delta: number) => {
+    const next = [...items];
+    next[idx].quantity = Math.max(1, next[idx].quantity + delta);
+    setItems(next);
+  };
+
+  const updatePrice = (idx: number, val: string) => {
+    const next = [...items];
+    next[idx].unit_price = val ? Number(val) : null;
+    setItems(next);
+  };
+
+  const removeItem = (idx: number) => setItems(items.filter((_, i) => i !== idx));
+
+  const validItems = items.filter(i => i.product_model.trim());
+  const total = validItems.reduce((s, i) => s + (Number(i.unit_price || 0) * Number(i.quantity || 0)), 0);
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-start gap-2 p-3 rounded-lg bg-muted/50 text-xs text-muted-foreground">
+        <Sparkles className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+        <span>เลือกสินค้าจากแคตตาล็อก ระบบเพิ่มเข้าตะกร้าให้ทันที — ปรับจำนวนและราคาโปรโมชันได้</span>
+      </div>
+
+      <div className="flex gap-2">
+        <div className="relative flex-1">
+          <Search className="absolute left-2.5 top-2.5 w-4 h-4 text-muted-foreground" />
+          <Input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="ค้นหาด้วยรุ่นหรือชื่อสินค้า..."
+            className="pl-8"
+          />
+        </div>
+        <Select value={category} onValueChange={setCategory}>
+          <SelectTrigger className="w-[180px]"><SelectValue /></SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">ทุกหมวดหมู่</SelectItem>
+            {categories.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div className="border rounded-lg max-h-[280px] overflow-y-auto">
+        {results.length === 0 ? (
+          <div className="p-8 text-center text-sm text-muted-foreground">ไม่พบสินค้า</div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 p-2">
+            {results.map(p => {
+              const inCart = findIdx(p.model) >= 0;
+              return (
+                <button
+                  key={p.model}
+                  type="button"
+                  onClick={() => addProduct(p)}
+                  className={`flex items-center gap-2 p-2 rounded-md border text-left hover:border-primary hover:bg-primary/5 transition-colors ${inCart ? "border-primary bg-primary/5" : "border-border"}`}
+                >
+                  <div className="w-10 h-10 rounded bg-muted flex items-center justify-center shrink-0 overflow-hidden">
+                    {p.image ? <img src={p.image} alt={p.name} className="w-full h-full object-cover" /> : <Package className="w-4 h-4 text-muted-foreground" />}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-xs font-medium truncate">{p.model}</div>
+                    <div className="text-xs text-muted-foreground truncate">{p.name}</div>
+                    <div className="text-[10px] text-muted-foreground">{p.category}{p.price ? ` • ${p.price}` : ""}</div>
+                  </div>
+                  {inCart ? <CheckCircle2 className="w-4 h-4 text-primary shrink-0" /> : <Plus className="w-4 h-4 text-muted-foreground shrink-0" />}
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <Label className="text-sm">สินค้าในตะกร้า ({validItems.length})</Label>
+          <span className="text-xs text-muted-foreground">รวมประมาณ: ฿{total.toLocaleString("th-TH")}</span>
+        </div>
+        {validItems.length === 0 ? (
+          <div className="p-6 text-center text-xs text-muted-foreground border border-dashed rounded-lg">
+            ยังไม่มีสินค้า — คลิกเลือกจากด้านบน
+          </div>
+        ) : (
+          <div className="space-y-2">
+            {items.map((it, idx) => it.product_model.trim() && (
+              <div key={idx} className="flex items-center gap-2 p-2 rounded-lg border">
+                <div className="flex-1 min-w-0">
+                  <div className="text-sm font-medium truncate">{it.product_model}</div>
+                  <div className="text-xs text-muted-foreground truncate">{it.product_name}</div>
+                </div>
+                <div className="flex items-center gap-1">
+                  <Button size="icon" variant="outline" className="h-7 w-7" onClick={() => updateQty(idx, -1)}><Minus className="w-3 h-3" /></Button>
+                  <span className="text-sm w-6 text-center">{it.quantity}</span>
+                  <Button size="icon" variant="outline" className="h-7 w-7" onClick={() => updateQty(idx, 1)}><Plus className="w-3 h-3" /></Button>
+                </div>
+                <Input
+                  type="number"
+                  value={it.unit_price ?? ""}
+                  onChange={(e) => updatePrice(idx, e.target.value)}
+                  placeholder="ราคา/หน่วย"
+                  className="w-28 h-8 text-sm"
+                />
+                <Button size="icon" variant="ghost" className="h-7 w-7" onClick={() => removeItem(idx)}>
+                  <Trash2 className="w-3.5 h-3.5 text-destructive" />
+                </Button>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
