@@ -292,9 +292,32 @@ export default function PartnerApply() {
       if (!id) throw new Error("Failed to save");
       const { error } = await supabase
         .from("partner_applications")
-        .update({ status: "submitted", current_stage: 5 })
+        .update({ status: "submitted", current_stage: 5, submitted_at: new Date().toISOString() })
         .eq("id", id);
       if (error) throw error;
+
+      // Fire-and-forget thank-you email (don't block UX if it fails)
+      if (data.contact_email) {
+        const { data: row } = await supabase
+          .from("partner_applications")
+          .select("application_number")
+          .eq("id", id)
+          .maybeSingle();
+        supabase.functions.invoke("send-transactional-email", {
+          body: {
+            templateName: "partner-application-received",
+            recipientEmail: data.contact_email,
+            idempotencyKey: `partner-app-${id}`,
+            templateData: {
+              name: data.contact_name,
+              companyName: data.company_name_en || data.company_name_local,
+              applicationNumber: row?.application_number ?? null,
+              lang,
+            },
+          },
+        }).catch((e) => console.warn("[partner] email send failed", e));
+      }
+
       localStorage.removeItem(DRAFT_KEY);
       setDone(true);
     } catch (e: any) {
@@ -304,6 +327,12 @@ export default function PartnerApply() {
 
   // ── Done screen ──────────────────────────────────────
   if (done) {
+    const portalCta = lang === "zh" ? "进入合作伙伴门户" : lang === "en" ? "Open Partner Portal" : "เข้าสู่ Partner Portal";
+    const emailNote = lang === "zh"
+      ? "我们已向您的邮箱发送确认邮件"
+      : lang === "en"
+      ? "A confirmation email has been sent to your inbox"
+      : "เราได้ส่งอีเมลยืนยันไปยังกล่องจดหมายของคุณแล้ว";
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-6">
         <Card className="max-w-lg text-center">
@@ -311,9 +340,15 @@ export default function PartnerApply() {
             <CheckCircle2 className="w-16 h-16 text-primary mx-auto" />
             <h1 className="text-2xl font-bold">{L("submitted")}</h1>
             <p className="text-muted-foreground">{L("submittedDesc")}</p>
-            <Button onClick={() => navigate("/partner")} className="mt-4">
-              <ArrowLeft className="w-4 h-4 mr-2" />{lang === "zh" ? "返回" : lang === "th" ? "กลับ" : "Back"}
-            </Button>
+            <p className="text-sm text-muted-foreground italic">{emailNote}</p>
+            <div className="flex flex-col sm:flex-row gap-2 justify-center pt-2">
+              <Button onClick={() => navigate("/partner/portal")}>
+                {portalCta}<ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+              <Button variant="outline" onClick={() => navigate("/partner")}>
+                <ArrowLeft className="w-4 h-4 mr-2" />{lang === "zh" ? "返回" : lang === "th" ? "กลับ" : "Back"}
+              </Button>
+            </div>
           </CardContent>
         </Card>
       </div>
