@@ -251,13 +251,14 @@ const ShopProductDetail = () => {
                   = <span className="text-lg font-bold text-primary">฿{fmt(totalPrice)}</span>
                 </span>
               </div>
-              <div className="flex gap-2">
+              <div className="flex gap-2 items-center">
                 <AddToCartButton productModel={displayVariant.model} productName={displayVariant.name} estimatedPrice={displayPrice} size="default" className="flex-1" />
                 <a href="#rfq-form" className="flex-1">
                   <Button variant="default" className="w-full bg-amber-600 hover:bg-amber-700 text-white">
                     <FileText className="w-4 h-4 mr-1.5" /> ขอใบเสนอราคา
                   </Button>
                 </a>
+                <ChatNowButton productModel={displayVariant.model} productName={displayVariant.name} size="icon" className="h-10 w-10" />
               </div>
             </div>
 
