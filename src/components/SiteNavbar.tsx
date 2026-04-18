@@ -56,6 +56,20 @@ export default function SiteNavbar() {
                 </Tooltip>
               );
             })}
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Link
+                  to="/request-quote"
+                  className="ml-1 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors text-xs font-semibold border border-primary/20"
+                >
+                  <FileText size={14} /> ขอใบเสนอราคา
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent side="bottom" className="text-xs">
+                <p className="font-medium">ขอใบเสนอราคา</p>
+                <p className="text-muted-foreground text-[10px]">กรอกฟอร์มเพื่อรับใบเสนอราคาภายใน 24 ชม.</p>
+              </TooltipContent>
+            </Tooltip>
             <div className="w-px h-6 bg-border mx-1" />
             <Tooltip>
               <TooltipTrigger asChild>
@@ -123,7 +137,14 @@ export default function SiteNavbar() {
         </div>
 
         {/* Mobile toggle */}
-        <div className="flex md:hidden items-center gap-2">
+        <div className="flex md:hidden items-center gap-1">
+          <Link
+            to="/request-quote"
+            aria-label="ขอใบเสนอราคา"
+            className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-semibold border border-primary/20"
+          >
+            <FileText size={14} /> RFQ
+          </Link>
           <ThemeToggle />
           <CartBadge className="text-muted-foreground hover:text-foreground transition-colors p-2" />
           <button

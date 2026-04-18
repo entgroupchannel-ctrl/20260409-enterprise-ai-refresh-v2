@@ -9,6 +9,8 @@ import {
   CheckCircle,
   Loader2,
   Lock,
+  FileText,
+  ArrowRight,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -257,6 +259,31 @@ const Footer = () => {
             {footerSections.map((section) => (
               <CollapsibleSection key={section.title} title={section.title} links={section.links} />
             ))}
+          </div>
+        </div>
+
+        {/* RFQ CTA Banner */}
+        <div className="border-t border-gray-300 dark:border-[hsl(220,15%,18%)]">
+          <div className="container max-w-7xl mx-auto px-6 py-8">
+            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary via-primary to-primary/80 p-6 md:p-8 shadow-lg">
+              <div className="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div className="text-primary-foreground">
+                  <h3 className="text-lg md:text-xl font-bold mb-1 flex items-center gap-2">
+                    <FileText size={22} /> ต้องการใบเสนอราคา?
+                  </h3>
+                  <p className="text-sm opacity-90">
+                    กรอกฟอร์มเพียง 2 นาที ทีมขายตอบกลับภายใน 24 ชม. — รองรับงาน B2B / โครงการ / ส่วนราชการ
+                  </p>
+                </div>
+                <Link
+                  to="/request-quote"
+                  className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-background text-primary font-semibold text-sm hover:bg-background/90 transition-colors shadow-md"
+                >
+                  ขอใบเสนอราคาเลย <ArrowRight size={16} />
+                </Link>
+              </div>
+              <div className="absolute -right-8 -bottom-8 w-40 h-40 rounded-full bg-primary-foreground/10 blur-2xl" />
+            </div>
           </div>
         </div>
 

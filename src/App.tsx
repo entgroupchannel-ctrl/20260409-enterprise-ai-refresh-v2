@@ -15,6 +15,7 @@ import ScrollToTop from "./components/ScrollToTop.tsx";
 import SocialRibbon from "./components/SocialRibbon.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import GeneralChatWidget from "./components/chat/GeneralChatWidget.tsx";
+import RequestQuoteFab from "./components/RequestQuoteFab.tsx";
 
 /* ── Lazy-loaded pages (with auto-retry on chunk errors) ── */
 const GTSeries = lazyRetry(() => import("./pages/GTSeries"));
@@ -340,6 +341,7 @@ const App = () => (
                   </Routes>
                 </Suspense>
                 <SocialRibbon />
+                <RequestQuoteFab />
                 <GeneralChatWidget />
                 </CartProvider>
               </BrowserRouter>
