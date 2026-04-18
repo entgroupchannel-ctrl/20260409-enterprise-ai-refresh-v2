@@ -81,6 +81,30 @@ interface Application {
   reviewed_at: string | null;
 }
 
+interface ClickRow {
+  id: string;
+  created_at: string;
+  landing_path: string | null;
+  referrer: string | null;
+  utm_source: string | null;
+  utm_campaign: string | null;
+  converted_to_lead: boolean;
+}
+
+interface LeadRow {
+  id: string;
+  created_at: string;
+  source_type: string;
+  source_id: string | null;
+  status: string;
+  customer_name: string | null;
+  customer_email: string | null;
+  customer_company: string | null;
+  deal_value: number | null;
+  notes: string | null;
+  rejected_reason: string | null;
+}
+
 const TIERS = ["bronze", "silver", "gold", "platinum"];
 
 export default function AdminAffiliateDetail() {
@@ -89,12 +113,15 @@ export default function AdminAffiliateDetail() {
   const { user } = useAuth();
   const [aff, setAff] = useState<Affiliate | null>(null);
   const [app, setApp] = useState<Application | null>(null);
+  const [clicks, setClicks] = useState<ClickRow[]>([]);
+  const [leads, setLeads] = useState<LeadRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [reviewerNotes, setReviewerNotes] = useState("");
   const [tier, setTier] = useState("bronze");
   const [rejectOpen, setRejectOpen] = useState(false);
   const [rejectReason, setRejectReason] = useState("");
+  const [leadActionId, setLeadActionId] = useState<string | null>(null);
 
   useEffect(() => {
     if (id) load();
@@ -102,9 +129,19 @@ export default function AdminAffiliateDetail() {
 
   const load = async () => {
     setLoading(true);
-    const [{ data: a }, { data: ap }] = await Promise.all([
+    const [{ data: a }, { data: ap }, { data: cl }, { data: ld }] = await Promise.all([
       supabase.from("affiliates").select("*").eq("id", id!).maybeSingle(),
       supabase.from("affiliate_applications").select("*").eq("affiliate_id", id!).maybeSingle(),
+      (supabase.from as any)("affiliate_clicks")
+        .select("id, created_at, landing_path, referrer, utm_source, utm_campaign, converted_to_lead")
+        .eq("affiliate_id", id!)
+        .order("created_at", { ascending: false })
+        .limit(30),
+      (supabase.from as any)("affiliate_leads")
+        .select("id, created_at, source_type, source_id, status, customer_name, customer_email, customer_company, deal_value, notes, rejected_reason")
+        .eq("affiliate_id", id!)
+        .order("created_at", { ascending: false })
+        .limit(50),
     ]);
     if (a) {
       setAff(a as Affiliate);
@@ -114,7 +151,42 @@ export default function AdminAffiliateDetail() {
       setApp(ap as Application);
       setReviewerNotes(ap.reviewer_notes || "");
     }
+    setClicks((cl || []) as ClickRow[]);
+    setLeads((ld || []) as LeadRow[]);
     setLoading(false);
+  };
+
+  const updateLeadStatus = async (
+    leadId: string,
+    newStatus: "qualified" | "converted" | "rejected",
+    extra: { deal_value?: number; rejected_reason?: string } = {},
+  ) => {
+    if (!user) return;
+    setLeadActionId(leadId);
+    try {
+      const updates: any = { status: newStatus };
+      if (newStatus === "qualified") {
+        updates.qualified_at = new Date().toISOString();
+        updates.qualified_by = user.id;
+      }
+      if (newStatus === "converted") {
+        updates.converted_at = new Date().toISOString();
+        if (extra.deal_value != null) updates.deal_value = extra.deal_value;
+      }
+      if (newStatus === "rejected" && extra.rejected_reason) {
+        updates.rejected_reason = extra.rejected_reason;
+      }
+      const { error } = await (supabase.from as any)("affiliate_leads")
+        .update(updates)
+        .eq("id", leadId);
+      if (error) throw error;
+      toast.success(`อัปเดต Lead เป็น "${newStatus}"`);
+      await load();
+    } catch (e: any) {
+      toast.error(e.message || "เกิดข้อผิดพลาด");
+    } finally {
+      setLeadActionId(null);
+    }
   };
 
   const updateStatus = async (newStatus: string, extra: Partial<Affiliate> = {}) => {
