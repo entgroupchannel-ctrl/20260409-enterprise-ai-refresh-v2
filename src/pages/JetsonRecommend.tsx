@@ -13,8 +13,11 @@ import { jetsonProducts, jetsonCategories, type JetsonProduct, type JetsonCatego
 import { gpuServers, type GpuServer } from "@/data/gpu-servers";
 import { professionalGpus, proGpuFamilyLabel, type ProGpu } from "@/data/professional-gpus";
 
-// NVIDIA brand uses semantic tokens: bg-nv, text-nv, text-nv-foreground, bg-nv-navy
-// Defined in src/index.css and tailwind.config.ts
+// NVIDIA & LINE brand colors — third-party brand identifiers, not theme tokens.
+// Theme/UI surfaces use semantic tokens from index.css (bg-card, text-foreground, etc.)
+const NV = "#76B900";       // NVIDIA brand green
+const NV_NAVY = "#0a0e27";  // NVIDIA dark navy (logo background)
+const LINE_GREEN = "#06C755"; // LINE brand green
 
 /* ═══════════════════════════════════════════════════════════
    TABS
