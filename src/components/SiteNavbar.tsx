@@ -137,7 +137,14 @@ export default function SiteNavbar() {
         </div>
 
         {/* Mobile toggle */}
-        <div className="flex md:hidden items-center gap-2">
+        <div className="flex md:hidden items-center gap-1">
+          <Link
+            to="/request-quote"
+            aria-label="ขอใบเสนอราคา"
+            className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-semibold border border-primary/20"
+          >
+            <FileText size={14} /> RFQ
+          </Link>
           <ThemeToggle />
           <CartBadge className="text-muted-foreground hover:text-foreground transition-colors p-2" />
           <button
