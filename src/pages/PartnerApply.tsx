@@ -79,6 +79,7 @@ export default function PartnerApply() {
 
   const [stage, setStage] = useState(1);
   const [data, setData] = useState<FormState>(empty);
+  const [capitalCurrency, setCapitalCurrency] = useState<"CNY" | "USD" | "THB">("CNY");
   const [appId, setAppId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
@@ -137,7 +138,7 @@ export default function PartnerApply() {
     try {
       const payload: any = {
         ...data,
-        registered_capital_cny: data.registered_capital_cny ? Number(data.registered_capital_cny) : null,
+        registered_capital_cny: data.registered_capital_cny ? Math.round(Number(data.registered_capital_cny) * (capitalCurrency === "USD" ? 7.2 : capitalCurrency === "THB" ? 0.2 : 1)) : null,
         established_year: data.established_year ? Number(data.established_year) : null,
         factory_size_sqm: data.factory_size_sqm ? Number(data.factory_size_sqm) : null,
         staff_count: data.staff_count ? Number(data.staff_count) : null,
@@ -315,7 +316,7 @@ export default function PartnerApply() {
 
         <Card>
           <CardContent className="p-6 space-y-5">
-            {stage === 1 && <Stage1 data={data} update={update} L={L} />}
+            {stage === 1 && <Stage1 data={data} update={update} L={L} capitalCurrency={capitalCurrency} setCapitalCurrency={setCapitalCurrency} />}
             {stage === 2 && <Stage2 data={data} update={update} L={L} lang={lang} />}
             {stage === 3 && <Stage3 data={data} update={update} L={L} lang={lang} />}
             {stage === 4 && <Stage4 data={data} update={update} L={L} lang={lang} />}
@@ -363,7 +364,7 @@ const Field = ({ label, required, children }: any) => (
   </div>
 );
 
-function Stage1({ data, update, L }: any) {
+function Stage1({ data, update, L, capitalCurrency, setCapitalCurrency }: any) {
   const { toast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [scanning, setScanning] = useState(false);
@@ -469,8 +470,29 @@ function Stage1({ data, update, L }: any) {
         <Field label={L("legalRep")}>
           <Input value={data.legal_representative} onChange={(e) => update("legal_representative", e.target.value)} />
         </Field>
-        <Field label={L("capital")}>
-          <Input type="number" value={data.registered_capital_cny} onChange={(e) => update("registered_capital_cny", e.target.value)} />
+        <Field label={`${L("capital")} (${capitalCurrency})`}>
+          <div className="flex gap-2">
+            <Input
+              type="number"
+              className="flex-1"
+              value={data.registered_capital_cny}
+              onChange={(e) => update("registered_capital_cny", e.target.value)}
+            />
+            <select
+              value={capitalCurrency}
+              onChange={(e) => setCapitalCurrency(e.target.value as any)}
+              className="h-10 rounded-md border border-input bg-background px-2 text-sm"
+            >
+              <option value="CNY">CNY ¥</option>
+              <option value="USD">USD $</option>
+              <option value="THB">THB ฿</option>
+            </select>
+          </div>
+          {capitalCurrency !== "CNY" && data.registered_capital_cny && (
+            <p className="text-[11px] text-muted-foreground mt-1">
+              ≈ ¥{Math.round(Number(data.registered_capital_cny) * (capitalCurrency === "USD" ? 7.2 : 0.2)).toLocaleString()} CNY
+            </p>
+          )}
         </Field>
         <Field label={L("established")}>
           <Input type="number" value={data.established_year} onChange={(e) => update("established_year", e.target.value)} />
