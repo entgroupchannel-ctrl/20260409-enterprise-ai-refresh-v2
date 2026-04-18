@@ -42,7 +42,7 @@ interface Product {
   warranty_type?: string;
 }
 
-const ITEMS_PER_PAGE = 16;
+const ITEMS_PER_PAGE = 32;
 const COMPARE_KEY = 'shopCompareList';
 
 function fmt(n: number) { return n.toLocaleString('th-TH'); }
