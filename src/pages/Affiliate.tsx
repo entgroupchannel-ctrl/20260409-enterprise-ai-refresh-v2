@@ -32,34 +32,34 @@ const TIERS = [
   {
     name: "Bronze",
     color: "from-amber-700 to-amber-900",
-    leadFee: 500,
-    saleRate: 3,
+    leadFee: 200,
+    saleRate: 2,
     minSales: "0–500K",
-    perks: ["Per-lead ฿500", "Per-sale 3%", "Marketing kit พื้นฐาน"],
+    perks: ["Per-lead ฿200", "Per-sale 2%", "Marketing kit พื้นฐาน"],
   },
   {
     name: "Silver",
     color: "from-slate-400 to-slate-600",
-    leadFee: 800,
-    saleRate: 5,
-    minSales: "500K–2M",
-    perks: ["Per-lead ฿800", "Per-sale 5%", "Co-branded materials", "Sales support"],
+    leadFee: 300,
+    saleRate: 3,
+    minSales: "500K–1.5M",
+    perks: ["Per-lead ฿300", "Per-sale 3%", "Co-branded materials", "Sales support"],
   },
   {
     name: "Gold",
     color: "from-yellow-400 to-yellow-600",
-    leadFee: 1000,
-    saleRate: 7,
-    minSales: "2M–5M",
-    perks: ["Per-lead ฿1,000", "Per-sale 7%", "Dedicated account manager", "Quarterly bonus"],
+    leadFee: 500,
+    saleRate: 4,
+    minSales: "1.5M–3M",
+    perks: ["Per-lead ฿500", "Per-sale 4%", "Dedicated account manager", "Quarterly bonus"],
   },
   {
     name: "Platinum",
     color: "from-violet-500 to-fuchsia-600",
-    leadFee: 1500,
-    saleRate: 10,
-    minSales: "5M+",
-    perks: ["Per-lead ฿1,500", "Per-sale 10%", "Strategic partnership", "Equity options"],
+    leadFee: 800,
+    saleRate: 5,
+    minSales: "3M+",
+    perks: ["Per-lead ฿800", "Per-sale 5%", "Strategic partnership", "ข้อตกลงพิเศษรายกรณี"],
   },
 ];
 
@@ -67,10 +67,10 @@ const Affiliate = () => {
   const { lang } = useI18n();
   const isEn = lang === "en";
 
-  const [leadsPerMonth, setLeadsPerMonth] = useState(10);
+  const [leadsPerMonth, setLeadsPerMonth] = useState(5);
   const [avgDealSize, setAvgDealSize] = useState(150000);
-  const [closeRate, setCloseRate] = useState(20);
-  const [tierIdx, setTierIdx] = useState(1);
+  const [closeRate, setCloseRate] = useState(15);
+  const [tierIdx, setTierIdx] = useState(0);
 
   const tier = TIERS[tierIdx];
   const qualifiedLeads = leadsPerMonth;
@@ -164,15 +164,15 @@ const Affiliate = () => {
                 icon: DollarSign,
                 title: isEn ? "Dual Income Stream" : "รายได้สองทาง",
                 desc: isEn
-                  ? "Get paid ฿500–1,500 per qualified lead, PLUS 3–10% of every closed sale. Earn even if the deal takes 6 months."
-                  : "รับ ฿500–1,500 ต่อ Lead ที่ผ่านเกณฑ์ บวกอีก 3–10% ของยอดขายที่ปิด แม้ดีลจะใช้เวลา 6 เดือนก็ยังได้",
+                  ? "Earn ฿200–800 per qualified lead, plus 2–5% commission on closed sales. Paid even if the deal closes months later."
+                  : "รับ ฿200–800 ต่อ Lead ที่ผ่านเกณฑ์ บวกค่าคอม 2–5% จากยอดขายที่ปิดได้ จ่ายแม้ดีลจะใช้เวลาหลายเดือน",
               },
               {
                 icon: Target,
-                title: isEn ? "High-Ticket B2B" : "ดีล B2B มูลค่าสูง",
+                title: isEn ? "B2B Deal Sizes" : "ขนาดดีล B2B",
                 desc: isEn
-                  ? "Average deal size ฿150K. One referral can mean ฿15,000+ in commission. Enterprise deals can hit ฿500K+."
-                  : "ขนาดดีลเฉลี่ย ฿150,000 — แนะนำลูกค้าหนึ่งรายอาจได้ค่าคอมมิชชัน ฿15,000+ ดีลองค์กรใหญ่อาจถึง ฿500,000+",
+                  ? "Typical deal ฿100K–300K. A closed referral can mean ฿2,000–15,000 in commission depending on tier and deal size."
+                  : "ดีลทั่วไป ฿100,000–300,000 — แนะนำลูกค้า 1 รายที่ปิดได้อาจรับค่าคอม ฿2,000–15,000 ขึ้นกับระดับและขนาดดีล",
               },
               {
                 icon: HandshakeIcon,
@@ -183,17 +183,17 @@ const Affiliate = () => {
               },
               {
                 icon: TrendingUp,
-                title: isEn ? "Recurring Revenue" : "รายได้ต่อเนื่อง",
+                title: isEn ? "Repeat Business" : "โอกาสซื้อซ้ำ",
                 desc: isEn
-                  ? "B2B clients buy again — warranty extensions, expansions, repairs. You earn lifetime commission on the account."
-                  : "ลูกค้า B2B ซื้อซ้ำ — ต่อประกัน ขยายระบบ ซ่อมบำรุง — คุณได้คอมมิชชันตลอดอายุบัญชี",
+                  ? "B2B clients often buy again — warranty, expansions, or repairs may qualify for follow-up commission per program terms."
+                  : "ลูกค้า B2B มักซื้อซ้ำ — ต่อประกัน ขยายระบบ หรือซ่อมบำรุง อาจมีสิทธิ์รับค่าคอมต่อเนื่องตามเงื่อนไขโปรแกรม",
               },
               {
                 icon: Award,
-                title: isEn ? "Tier Up Fast" : "เลื่อนระดับเร็ว",
+                title: isEn ? "Tier Progression" : "ระดับสมาชิก",
                 desc: isEn
-                  ? "Bronze → Silver → Gold → Platinum. Higher tier = higher rates + bonuses + dedicated support."
-                  : "Bronze → Silver → Gold → Platinum — ระดับสูงขึ้น = อัตราสูงขึ้น + โบนัส + ทีมซัพพอร์ตเฉพาะ",
+                  ? "Bronze → Silver → Gold → Platinum. Higher tiers unlock better rates and dedicated support based on performance."
+                  : "Bronze → Silver → Gold → Platinum — ระดับสูงขึ้นเมื่อทำผลงานถึงเกณฑ์ ได้อัตราที่ดีขึ้นและทีมซัพพอร์ตเฉพาะ",
               },
               {
                 icon: ShieldCheck,
@@ -313,7 +313,7 @@ const Affiliate = () => {
                       value={[leadsPerMonth]}
                       onValueChange={([v]) => setLeadsPerMonth(v)}
                       min={1}
-                      max={50}
+                      max={20}
                       step={1}
                     />
                   </div>
@@ -329,7 +329,7 @@ const Affiliate = () => {
                       value={[avgDealSize]}
                       onValueChange={([v]) => setAvgDealSize(v)}
                       min={50000}
-                      max={1000000}
+                      max={500000}
                       step={10000}
                     />
                   </div>
@@ -343,7 +343,7 @@ const Affiliate = () => {
                       value={[closeRate]}
                       onValueChange={([v]) => setCloseRate(v)}
                       min={5}
-                      max={50}
+                      max={30}
                       step={1}
                     />
                   </div>
@@ -378,6 +378,11 @@ const Affiliate = () => {
                       </div>
                       <div className="text-2xl font-bold">฿{fmt(yearlyTotal)}</div>
                     </div>
+                    <p className="text-[11px] text-muted-foreground leading-relaxed pt-2">
+                      {isEn
+                        ? "* Estimates only. Actual earnings depend on lead quality, close rate, and program terms. Monthly sales volume per affiliate is capped at ฿3,000,000."
+                        : "* เป็นการประมาณการเท่านั้น รายได้จริงขึ้นกับคุณภาพ Lead อัตราปิดดีล และเงื่อนไขโปรแกรม ยอดขายต่อเดือนต่อ Affiliate จำกัดสูงสุด ฿3,000,000"}
+                    </p>
                   </div>
                   <Button className="w-full mt-6" asChild>
                     <Link to="/affiliate/apply">
