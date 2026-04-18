@@ -100,6 +100,7 @@ const navGroups: NavGroup[] = [
       { label: 'Live Chat (Quote)', icon: MessageCircle, path: '/admin/live-chat' },
       { label: 'General Chat', icon: MessageCircle, path: '/admin/general-chat' },
       { label: 'จัดการ Supplier', icon: Building2, path: '/admin/suppliers', hiddenFromRoles: ['sales', 'warehouse', 'viewer'] },
+      { label: 'Partner Applications', icon: Briefcase, path: '/admin/partners', hiddenFromRoles: ['warehouse', 'viewer'] },
       { label: 'โอนเงินต่างประเทศ', icon: DollarSign, path: '/admin/international-transfer', hiddenFromRoles: ['sales', 'warehouse', 'viewer'] },
     ],
   },
