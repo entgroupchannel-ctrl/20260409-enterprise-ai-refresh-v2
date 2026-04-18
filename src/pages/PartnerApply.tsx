@@ -247,7 +247,8 @@ export default function PartnerApply() {
           file_name: file.name, file_path: path,
           file_size: file.size, mime_type: file.type,
           uploaded_by: user?.id ?? null,
-        })
+          session_token: user?.id ? null : sessionToken,
+        } as any)
         .select().single();
       if (error) throw error;
       setFiles((f) => [...f, row as any]);
