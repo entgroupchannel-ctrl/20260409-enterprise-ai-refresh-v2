@@ -69,7 +69,10 @@ const empty: FormState = {
   has_thailand_experience: false, thailand_experience_detail: "",
   exclusivity_preference: "", min_order_quantity: "", payment_terms_preference: "",
   sample_policy: "", warranty_terms: "", expected_partnership_type: [],
-  why_partner_with_us: "", additional_notes: "", heard_about_us_from: "",
+  why_partner_with_us: "", additional_notes: "",
+  heard_about_us_from: "", heard_about_us_other: "",
+  factory_video_url: "",
+  catalog_scope: "", catalog_selected_categories: [],
   agreed: false,
 };
 
