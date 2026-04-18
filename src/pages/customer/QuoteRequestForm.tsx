@@ -12,7 +12,7 @@ import { Badge } from '@/components/ui/badge';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
-import { Plus, Trash2, Send, ArrowLeft, CheckCircle2, Building, User, Package } from 'lucide-react';
+import { Plus, Trash2, Send, ArrowLeft, CheckCircle2, Building, User, Package, ScanLine, Loader2 } from 'lucide-react';
 import ProductAutocomplete from '@/components/admin/ProductAutocomplete';
 import type { ProductData } from '@/components/admin/ProductAutocomplete';
 import { getPendingQuote, clearPendingQuote } from '@/hooks/usePendingQuote';
@@ -47,6 +47,9 @@ export default function QuoteRequestForm() {
   // Anti-bot: honeypot + time-to-submit
   const [honeypot, setHoneypot] = useState('');
   const formLoadedAt = useRef<number>(Date.now());
+  // Business-card scan
+  const [scanning, setScanning] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [formData, setFormData] = useState({
     customer_name: '',
     customer_email: '',
