@@ -1023,6 +1023,7 @@ const EPCBoxSeries = () => {
                     <th className="text-left px-6 py-3 font-semibold text-foreground">Model</th>
                     <th className="text-left px-6 py-3 font-semibold text-foreground">Specification</th>
                     <th className="text-right px-6 py-3 font-semibold text-foreground">ราคา (฿)</th>
+                    <th className="text-center px-4 py-3 font-semibold text-foreground w-[260px]">สั่งซื้อ</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border">
@@ -1031,7 +1032,24 @@ const EPCBoxSeries = () => {
                       <td className="px-6 py-3 text-muted-foreground">{item.no}</td>
                       <td className="px-6 py-3 font-medium text-foreground">{item.model}</td>
                       <td className="px-6 py-3 text-muted-foreground">{item.spec}</td>
-                      <td className="px-6 py-3 text-right font-bold text-primary text-lg">{item.price}</td>
+                      <td className="px-6 py-3 text-right font-bold text-primary text-lg whitespace-nowrap">{item.price}</td>
+                      <td className="px-3 py-3">
+                        <div className="flex items-center justify-center gap-2 flex-wrap">
+                          <AddToCartButton
+                            productModel={item.model}
+                            productName={`EPC Box — ${item.model}`}
+                            productDescription={item.spec}
+                            size="sm"
+                            variant="outline"
+                          />
+                          <QuoteRequestButton
+                            productModel={item.model}
+                            productName={`EPC Box — ${item.model}`}
+                            size="sm"
+                            variant="default"
+                          />
+                        </div>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
