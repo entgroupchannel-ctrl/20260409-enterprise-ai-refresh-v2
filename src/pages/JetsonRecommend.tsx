@@ -727,7 +727,7 @@ export default function JetsonRecommend() {
                         <FileText size={14} /> ขอใบเสนอราคา
                       </Link>
                       <a href="tel:020456104" className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border text-sm hover:border-primary transition"><Phone size={14} /> 02-045-6104</a>
-                      <LineQRButton className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold text-white hover:opacity-90 transition" style={{ backgroundColor: "#06C755" }}>LINE @entgroup</LineQRButton>
+                      <LineQRButton className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold text-white hover:opacity-90 transition bg-[#06C755]">LINE @entgroup</LineQRButton>
                       <button onClick={compatReset} className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border text-sm text-muted-foreground hover:text-primary hover:border-primary transition"><RotateCcw size={14} /> เริ่มใหม่</button>
                     </div>
                     <p className="text-[10px] text-muted-foreground mt-2">จ-ศ 8.30-17.30 น. | ราคาอาจเปลี่ยนแปลง กรุณาสอบถามก่อนสั่งซื้อ</p>
