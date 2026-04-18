@@ -79,6 +79,7 @@ export default function PartnerApply() {
 
   const [stage, setStage] = useState(1);
   const [data, setData] = useState<FormState>(empty);
+  const [capitalCurrency, setCapitalCurrency] = useState<"CNY" | "USD" | "THB">("CNY");
   const [appId, setAppId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
