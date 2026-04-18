@@ -378,6 +378,11 @@ const Affiliate = () => {
                       </div>
                       <div className="text-2xl font-bold">฿{fmt(yearlyTotal)}</div>
                     </div>
+                    <p className="text-[11px] text-muted-foreground leading-relaxed pt-2">
+                      {isEn
+                        ? "* Estimates only. Actual earnings depend on lead quality, close rate, and program terms. Monthly sales volume per affiliate is capped at ฿3,000,000."
+                        : "* เป็นการประมาณการเท่านั้น รายได้จริงขึ้นกับคุณภาพ Lead อัตราปิดดีล และเงื่อนไขโปรแกรม ยอดขายต่อเดือนต่อ Affiliate จำกัดสูงสุด ฿3,000,000"}
+                    </p>
                   </div>
                   <Button className="w-full mt-6" asChild>
                     <Link to="/affiliate/apply">
