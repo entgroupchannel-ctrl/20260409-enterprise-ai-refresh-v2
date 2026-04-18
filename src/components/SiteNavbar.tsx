@@ -21,16 +21,17 @@ export default function SiteNavbar() {
 
   return (
     <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
-      <div className="container mx-auto px-4 flex items-center justify-between h-16">
+      <div className="container mx-auto px-4 flex items-center gap-3 h-16">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3 shrink-0">
           <img src={logo} alt="ENT GROUP" className="h-8 w-auto" />
         </Link>
 
-        {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-1">
-          <MegaMenu />
-          <div className="w-[10%] min-w-8" aria-hidden="true" />
+        {/* Desktop nav — MegaMenu ชิดซ้ายติดโลโก้, icon group ชิดขวา */}
+        <div className="hidden md:flex items-center flex-1 min-w-0 gap-1">
+          <div className="flex items-center min-w-0 mr-auto">
+            <MegaMenu />
+          </div>
           <TooltipProvider delayDuration={150}>
             {navLinks.map((link) => {
               const Icon = link.icon;
