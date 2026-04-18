@@ -194,10 +194,15 @@ export type Database = {
           country_code: string | null
           created_at: string
           device_type: string | null
+          earnings_amount: number
           id: string
           ip_address: string | null
+          is_billable: boolean
+          is_bot: boolean
+          is_self_click: boolean
           landing_path: string | null
           referrer: string | null
+          rejected_reason: string | null
           user_agent: string | null
           utm_campaign: string | null
           utm_medium: string | null
@@ -214,10 +219,15 @@ export type Database = {
           country_code?: string | null
           created_at?: string
           device_type?: string | null
+          earnings_amount?: number
           id?: string
           ip_address?: string | null
+          is_billable?: boolean
+          is_bot?: boolean
+          is_self_click?: boolean
           landing_path?: string | null
           referrer?: string | null
+          rejected_reason?: string | null
           user_agent?: string | null
           utm_campaign?: string | null
           utm_medium?: string | null
@@ -234,10 +244,15 @@ export type Database = {
           country_code?: string | null
           created_at?: string
           device_type?: string | null
+          earnings_amount?: number
           id?: string
           ip_address?: string | null
+          is_billable?: boolean
+          is_bot?: boolean
+          is_self_click?: boolean
           landing_path?: string | null
           referrer?: string | null
+          rejected_reason?: string | null
           user_agent?: string | null
           utm_campaign?: string | null
           utm_medium?: string | null
@@ -260,6 +275,24 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      affiliate_known_visitors: {
+        Row: {
+          first_seen_at: string
+          user_id: string
+          visitor_id: string
+        }
+        Insert: {
+          first_seen_at?: string
+          user_id: string
+          visitor_id: string
+        }
+        Update: {
+          first_seen_at?: string
+          user_id?: string
+          visitor_id?: string
+        }
+        Relationships: []
       }
       affiliate_leads: {
         Row: {
@@ -428,6 +461,7 @@ export type Database = {
           bank_account_name: string | null
           bank_account_number: string | null
           bank_name: string | null
+          click_rate: number
           created_at: string
           current_company: string | null
           current_position: string | null
@@ -436,6 +470,9 @@ export type Database = {
           full_name: string
           id: string
           linkedin_url: string | null
+          min_payout: number
+          paid_earnings: number
+          pending_earnings: number
           phone: string | null
           professional_bio: string | null
           profile_public: boolean
@@ -444,6 +481,7 @@ export type Database = {
           status: string
           tax_id: string | null
           tier: string
+          total_billable_clicks: number
           total_clicks: number
           total_closed_sales: number
           total_commission_earned: number
@@ -462,6 +500,7 @@ export type Database = {
           bank_account_name?: string | null
           bank_account_number?: string | null
           bank_name?: string | null
+          click_rate?: number
           created_at?: string
           current_company?: string | null
           current_position?: string | null
@@ -470,6 +509,9 @@ export type Database = {
           full_name: string
           id?: string
           linkedin_url?: string | null
+          min_payout?: number
+          paid_earnings?: number
+          pending_earnings?: number
           phone?: string | null
           professional_bio?: string | null
           profile_public?: boolean
@@ -478,6 +520,7 @@ export type Database = {
           status?: string
           tax_id?: string | null
           tier?: string
+          total_billable_clicks?: number
           total_clicks?: number
           total_closed_sales?: number
           total_commission_earned?: number
@@ -496,6 +539,7 @@ export type Database = {
           bank_account_name?: string | null
           bank_account_number?: string | null
           bank_name?: string | null
+          click_rate?: number
           created_at?: string
           current_company?: string | null
           current_position?: string | null
@@ -504,6 +548,9 @@ export type Database = {
           full_name?: string
           id?: string
           linkedin_url?: string | null
+          min_payout?: number
+          paid_earnings?: number
+          pending_earnings?: number
           phone?: string | null
           professional_bio?: string | null
           profile_public?: boolean
@@ -512,6 +559,7 @@ export type Database = {
           status?: string
           tax_id?: string | null
           tier?: string
+          total_billable_clicks?: number
           total_clicks?: number
           total_closed_sales?: number
           total_commission_earned?: number
@@ -5966,6 +6014,22 @@ export type Database = {
       }
     }
     Functions: {
+      affiliate_my_earnings: {
+        Args: never
+        Returns: {
+          billable_30d: number
+          billable_clicks: number
+          can_request_payout: boolean
+          click_rate: number
+          clicks_30d: number
+          lifetime_earnings: number
+          min_payout: number
+          paid_earnings: number
+          pending_earnings: number
+          rejected_clicks: number
+          total_clicks: number
+        }[]
+      }
       affiliate_my_stats: {
         Args: never
         Returns: {
@@ -5977,6 +6041,7 @@ export type Database = {
           total_leads: number
         }[]
       }
+      affiliate_request_payout: { Args: never; Returns: string }
       approve_revision: {
         Args: {
           p_approver_id: string
