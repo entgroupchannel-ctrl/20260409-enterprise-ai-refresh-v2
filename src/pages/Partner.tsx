@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import {
   Building2, Globe2, Truck, Megaphone, CheckCircle2, ArrowRight, ArrowLeft,
   FileText, Search, Video, Package, Handshake, Mail,
@@ -11,10 +12,12 @@ import { useI18n } from "@/contexts/I18nContext";
 import LangToggle from "@/components/LangToggle";
 import ThemeToggle from "@/components/ThemeToggle";
 import FooterCompact from "@/components/FooterCompact";
+import PartnerInquiryDialog from "@/components/partner/PartnerInquiryDialog";
 import logo from "@/assets/logo-entgroup.avif";
 
 const Partner = () => {
   const { t, lang } = useI18n();
+  const [inquiryOpen, setInquiryOpen] = useState(false);
 
   const stats = [
     { value: "15+", label: t("partner.statsYears") },
@@ -255,17 +258,17 @@ const Partner = () => {
                 {t("partner.ctaApply")} <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
-            <Button size="lg" variant="outline" asChild>
-              <a href={`mailto:${t("partner.contactEmail")}`}>
-                <Mail className="mr-2 h-4 w-4" />
-                {t("partner.contactEmail")}
-              </a>
+            <Button size="lg" variant="outline" onClick={() => setInquiryOpen(true)}>
+              <Mail className="mr-2 h-4 w-4" />
+              {t("partner.contactEmail")}
             </Button>
           </div>
         </div>
       </section>
 
       <FooterCompact />
+
+      <PartnerInquiryDialog open={inquiryOpen} onOpenChange={setInquiryOpen} />
     </div>
   );
 };
