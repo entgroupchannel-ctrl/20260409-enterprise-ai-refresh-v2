@@ -255,6 +255,21 @@ export default function CampaignLanding() {
       <SiteNavbar />
 
       <div className="container mx-auto px-4 py-8 max-w-4xl">
+        {/* Affiliate referral notice — shown to visitors arriving via ?ref=<code> */}
+        {refCode && (
+          <div className="mb-4 rounded-lg border border-primary/30 bg-primary/5 p-4 flex items-start gap-3">
+            <Award className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+            <div className="flex-1 text-sm">
+              <p className="font-semibold text-foreground">
+                คุณกำลังเข้าชมผ่านลิงก์ของพันธมิตร (Affiliate Program)
+              </p>
+              <p className="text-muted-foreground mt-1">
+                ผู้แนะนำ: <span className="font-mono text-primary">{refCode}</span> — การเข้าชมและคำขอใบเสนอราคาของคุณจะถูกบันทึกเพื่อให้เครดิตกับผู้แนะนำท่านนี้ ราคาและคุณภาพสินค้าจาก ENT Group ยังคงเหมือนเดิมทุกประการ
+              </p>
+            </div>
+          </div>
+        )}
+
         {/* Hero */}
         <Card className="overflow-hidden mb-6 border-primary/30">
           {campaign.hero_image_url && (
