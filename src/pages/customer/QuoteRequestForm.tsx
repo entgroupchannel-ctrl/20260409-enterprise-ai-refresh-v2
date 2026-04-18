@@ -16,6 +16,8 @@ import { Plus, Trash2, Send, ArrowLeft, CheckCircle2, Building, User, Package } 
 import ProductAutocomplete from '@/components/admin/ProductAutocomplete';
 import type { ProductData } from '@/components/admin/ProductAutocomplete';
 import { getPendingQuote, clearPendingQuote } from '@/hooks/usePendingQuote';
+import SiteNavbar from '@/components/SiteNavbar';
+import Footer from '@/components/Footer';
 
 interface ProductItem {
   model: string;
