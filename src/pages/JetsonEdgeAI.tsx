@@ -6,6 +6,7 @@ import {
   ShieldCheck, Truck, Headphones, Wrench, BadgeCheck, Globe,
   Building2, GraduationCap, Network, Factory, BrainCircuit,
   CheckCircle2, FileCheck, RotateCcw, Hash, Flame,
+  ShoppingBag, PhoneCall,
 } from "lucide-react";
 import SiteNavbar from "@/components/SiteNavbar";
 import Footer from "@/components/Footer";
