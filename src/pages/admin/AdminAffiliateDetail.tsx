@@ -334,6 +334,176 @@ export default function AdminAffiliateDetail() {
           />
         </div>
 
+        {/* Lead Pipeline */}
+        <Card>
+          <CardContent className="pt-6 space-y-3">
+            <div className="flex items-center justify-between">
+              <h2 className="font-semibold text-lg">Lead Pipeline ({leads.length})</h2>
+              <p className="text-xs text-muted-foreground">new → qualified → converted</p>
+            </div>
+            {leads.length === 0 ? (
+              <p className="text-sm text-muted-foreground py-6 text-center">ยังไม่มี Lead จาก Affiliate รายนี้</p>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead className="border-b text-left text-xs text-muted-foreground">
+                    <tr>
+                      <th className="py-2 pr-3">วันที่</th>
+                      <th className="py-2 pr-3">ลูกค้า</th>
+                      <th className="py-2 pr-3">ที่มา</th>
+                      <th className="py-2 pr-3">สถานะ</th>
+                      <th className="py-2 pr-3 text-right">มูลค่า</th>
+                      <th className="py-2 pr-3">การจัดการ</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {leads.map((l) => {
+                      const busy = leadActionId === l.id;
+                      return (
+                        <tr key={l.id} className="border-b last:border-0 align-top">
+                          <td className="py-2 pr-3 text-xs whitespace-nowrap">
+                            {format(new Date(l.created_at), "d MMM yy")}
+                          </td>
+                          <td className="py-2 pr-3">
+                            <div className="font-medium">{l.customer_name || "—"}</div>
+                            <div className="text-xs text-muted-foreground">{l.customer_company || ""}</div>
+                            <div className="text-xs text-muted-foreground">{l.customer_email || ""}</div>
+                          </td>
+                          <td className="py-2 pr-3">
+                            <Badge variant="outline" className="text-xs">{l.source_type}</Badge>
+                          </td>
+                          <td className="py-2 pr-3">
+                            <Badge
+                              variant="secondary"
+                              className={
+                                l.status === "converted"
+                                  ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300"
+                                  : l.status === "qualified"
+                                    ? "bg-primary/15 text-primary"
+                                    : l.status === "rejected"
+                                      ? "bg-destructive/15 text-destructive"
+                                      : "bg-muted text-muted-foreground"
+                              }
+                            >
+                              {l.status}
+                            </Badge>
+                            {l.rejected_reason && (
+                              <div className="text-[10px] text-muted-foreground mt-1 max-w-[160px]">{l.rejected_reason}</div>
+                            )}
+                          </td>
+                          <td className="py-2 pr-3 text-right text-xs">
+                            {l.deal_value ? `฿${Number(l.deal_value).toLocaleString("th-TH")}` : "—"}
+                          </td>
+                          <td className="py-2 pr-3">
+                            <div className="flex flex-wrap gap-1">
+                              {l.status === "new" && (
+                                <Button size="sm" variant="outline" disabled={busy} onClick={() => updateLeadStatus(l.id, "qualified")}>
+                                  Qualify
+                                </Button>
+                              )}
+                              {(l.status === "new" || l.status === "qualified") && (
+                                <Button
+                                  size="sm"
+                                  variant="default"
+                                  disabled={busy}
+                                  onClick={() => {
+                                    const v = window.prompt("ยอดดีลที่ปิดได้ (บาท)", l.deal_value?.toString() || "");
+                                    if (v === null) return;
+                                    const num = v ? Number(v) : undefined;
+                                    updateLeadStatus(l.id, "converted", num != null && !Number.isNaN(num) ? { deal_value: num } : {});
+                                  }}
+                                >
+                                  Convert
+                                </Button>
+                              )}
+                              {l.status !== "rejected" && l.status !== "converted" && (
+                                <Button
+                                  size="sm"
+                                  variant="ghost"
+                                  className="text-destructive"
+                                  disabled={busy}
+                                  onClick={() => {
+                                    const r = window.prompt("เหตุผลที่ปฏิเสธ Lead นี้");
+                                    if (!r) return;
+                                    updateLeadStatus(l.id, "rejected", { rejected_reason: r });
+                                  }}
+                                >
+                                  Reject
+                                </Button>
+                              )}
+                              {l.source_type === "quote_request" && l.source_id && (
+                                <Button size="sm" variant="ghost" asChild>
+                                  <Link to={`/admin/quotes/${l.source_id}`}>เปิด</Link>
+                                </Button>
+                              )}
+                              {l.source_type === "contact_submission" && l.source_id && (
+                                <Button size="sm" variant="ghost" asChild>
+                                  <Link to="/admin/contacts">เปิด</Link>
+                                </Button>
+                              )}
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Recent Clicks */}
+        <Card>
+          <CardContent className="pt-6 space-y-3">
+            <h2 className="font-semibold text-lg">Recent Clicks ({clicks.length})</h2>
+            {clicks.length === 0 ? (
+              <p className="text-sm text-muted-foreground py-6 text-center">ยังไม่มีการคลิกลิงก์อ้างอิง</p>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead className="border-b text-left text-xs text-muted-foreground">
+                    <tr>
+                      <th className="py-2 pr-3">เวลา</th>
+                      <th className="py-2 pr-3">หน้าปลายทาง</th>
+                      <th className="py-2 pr-3">Referrer</th>
+                      <th className="py-2 pr-3">UTM</th>
+                      <th className="py-2 pr-3">→ Lead</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {clicks.map((c) => (
+                      <tr key={c.id} className="border-b last:border-0">
+                        <td className="py-2 pr-3 text-xs whitespace-nowrap">
+                          {format(new Date(c.created_at), "d MMM HH:mm")}
+                        </td>
+                        <td className="py-2 pr-3 font-mono text-xs truncate max-w-[200px]">{c.landing_path || "/"}</td>
+                        <td className="py-2 pr-3 text-xs truncate max-w-[180px] text-muted-foreground">
+                          {c.referrer || "—"}
+                        </td>
+                        <td className="py-2 pr-3 text-xs">
+                          {c.utm_source || c.utm_campaign ? (
+                            <span className="text-muted-foreground">
+                              {c.utm_source || "—"}/{c.utm_campaign || "—"}
+                            </span>
+                          ) : "—"}
+                        </td>
+                        <td className="py-2 pr-3">
+                          {c.converted_to_lead ? (
+                            <CheckCircle2 size={14} className="text-emerald-600" />
+                          ) : (
+                            <span className="text-xs text-muted-foreground">—</span>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
         {/* Application details */}
         {app && (
           <Card>
