@@ -65,6 +65,9 @@ export default function QuoteRequestForm() {
     { model: '', description: '', qty: 1 },
   ]);
 
+  // Track campaign source (from /c/:slug "ขอใบเสนอราคา" button)
+  const [campaignInfo, setCampaignInfo] = useState<{ id: string; slug: string; title: string } | null>(null);
+
   // Restore pending products after login redirect
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -85,6 +88,44 @@ export default function QuoteRequestForm() {
       }
     }
   }, [user, location.search]);
+
+  // Pre-fill products & notes from campaign (when arrived via ?campaign=<slug>)
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const slug = params.get('campaign');
+    if (!slug) return;
+    (async () => {
+      const { data: c } = await (supabase.from as any)('affiliate_campaigns')
+        .select('id, slug, title, promo_note')
+        .eq('slug', slug)
+        .maybeSingle();
+      if (!c) return;
+      setCampaignInfo({ id: c.id, slug: c.slug, title: c.title });
+
+      const { data: rows } = await (supabase.from as any)('affiliate_campaign_items')
+        .select('product_model, product_name, product_description, quantity, display_order')
+        .eq('campaign_id', c.id)
+        .order('display_order', { ascending: true });
+
+      if (rows && rows.length > 0) {
+        setProducts(rows.map((r: any) => ({
+          model: r.product_name || r.product_model,
+          description: r.product_description || r.product_model,
+          qty: r.quantity || 1,
+        })));
+      }
+      setFormData(prev => ({
+        ...prev,
+        notes: prev.notes
+          ? prev.notes
+          : `อ้างอิงแคมเปญ: ${c.title} (${c.slug})${c.promo_note ? ` — ${c.promo_note}` : ''}`,
+      }));
+      toast({
+        title: '📦 โหลดสินค้าจากแคมเปญแล้ว',
+        description: c.title,
+      });
+    })();
+  }, [location.search]);
 
   // Auto-fill from user_profiles when logged in
   useEffect(() => {
