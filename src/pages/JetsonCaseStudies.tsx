@@ -6,6 +6,7 @@ import {
 import SEOHead from "@/components/SEOHead";
 import SiteNavbar from "@/components/SiteNavbar";
 import Footer from "@/components/Footer";
+import JetsonCTABar from "@/components/JetsonCTABar";
 import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import PageBanner from "@/components/PageBanner";
 import { Button } from "@/components/ui/button";
@@ -278,6 +279,7 @@ export default function JetsonCaseStudies() {
       </main>
 
       <B2BWorkflowBanner showShopCta />
+      <JetsonCTABar message="อยากทำเคสคล้ายกันนี้? เริ่มที่นี่" />
       <Footer />
     </>
   );

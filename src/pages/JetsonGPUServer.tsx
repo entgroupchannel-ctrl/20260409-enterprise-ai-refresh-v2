@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { ArrowLeft, FileText, Phone, Server, Cpu, Zap, Award } from "lucide-react";
 import SiteNavbar from "@/components/SiteNavbar";
 import Footer from "@/components/Footer";
+import JetsonCTABar from "@/components/JetsonCTABar";
 import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import LineQRButton from "@/components/LineQRButton";
 import imgDgxA100 from "@/assets/jetson/dgx-a100.jpg";
@@ -318,6 +319,7 @@ export default function JetsonGPUServer() {
       </section>
 
       <B2BWorkflowBanner showShopCta />
+      <JetsonCTABar message="ต้องการ GPU Server สเปกพิเศษ?" />
       <Footer />
     </div>
   );

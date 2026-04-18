@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet-async";
 import { ArrowLeft, FileText, Phone, Cpu, Award, Sparkles } from "lucide-react";
 import SiteNavbar from "@/components/SiteNavbar";
 import Footer from "@/components/Footer";
+import JetsonCTABar from "@/components/JetsonCTABar";
 import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import LineQRButton from "@/components/LineQRButton";
 import imgRtx6000Ada from "@/assets/jetson/rtx6000-ada.jpg";
@@ -437,6 +438,7 @@ export default function JetsonProfessionalGPU() {
       </section>
 
       <B2BWorkflowBanner showShopCta />
+      <JetsonCTABar message="เลือก Professional GPU ที่เหมาะกับงานของคุณ" />
       <Footer />
     </div>
   );
