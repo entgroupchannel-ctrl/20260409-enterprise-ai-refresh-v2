@@ -13,7 +13,23 @@ import bEdu from "@/assets/jetson/sol-education.jpg";
 import bInteg from "@/assets/jetson/sol-integrator.jpg";
 import bFac from "@/assets/jetson/sol-factory.jpg";
 import bGen from "@/assets/jetson/sol-genai.jpg";
+import gpuHero from "@/assets/jetson/gpu-server-hero.jpg";
+import gpuGov from "@/assets/jetson/gpu-government.jpg";
+import gpuUni from "@/assets/jetson/gpu-university.jpg";
+import gpuFac from "@/assets/jetson/gpu-factory.jpg";
+import gpuRob from "@/assets/jetson/gpu-robotics.jpg";
+import gpuStart from "@/assets/jetson/gpu-startup.jpg";
+import gpuMed from "@/assets/jetson/gpu-medical.jpg";
 import { jetsonProducts } from "@/data/jetson-products";
+
+const GPU_IMAGES: Record<string, string> = {
+  "government-pdpa": gpuGov,
+  "university-lab": gpuUni,
+  "factory-ai": gpuFac,
+  "robotics": gpuRob,
+  "ai-startup": gpuStart,
+  "medical-ai": gpuMed,
+};
 
 /* Map สินค้า (name) → รูป + id เพื่อ deep-link */
 const PRODUCT_INDEX: Record<string, { id: string; image: string }> = jetsonProducts.reduce(
