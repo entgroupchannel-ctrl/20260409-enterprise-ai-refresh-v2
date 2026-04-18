@@ -246,7 +246,6 @@ const JetsonEdgeAI = () => {
               { label: "Pro Graphics Card", icon: Monitor, href: "/nvidia-jetson/professional-gpu" },
               { label: "Solutions", icon: Factory, href: "/nvidia-jetson/solutions" },
               { label: "Case Studies", icon: Award, href: "/nvidia-jetson/case-studies" },
-              { label: "ขอ POC ฟรี", icon: PhoneCall, href: "/contact", accent: true },
             ].map((link) => {
               const Icon = link.icon;
               return (
