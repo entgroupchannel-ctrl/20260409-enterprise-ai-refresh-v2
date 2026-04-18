@@ -144,7 +144,6 @@ const menuCategories = [
         links: [
           { label: "✦ ตัวช่วยเลือกรุ่น (Wizard)", href: "/nvidia-jetson/recommend", hot: true },
           { label: "AI Models สำเร็จรูป (NGC)", href: "/nvidia-jetson/ai-ready" },
-          { label: "ขอ POC / ทดสอบฟรี", href: "/contact" },
         ],
       },
     ],
