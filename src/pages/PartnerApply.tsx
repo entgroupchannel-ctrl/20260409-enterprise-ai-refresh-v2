@@ -133,8 +133,8 @@ export default function PartnerApply() {
     return () => clearInterval(t);
   });
 
-  const saveDraft = async () => {
-    if (saving) return;
+  const saveDraft = async (): Promise<string | null> => {
+    if (saving) return appId;
     setSaving(true);
     try {
       const payload: any = {
@@ -155,6 +155,9 @@ export default function PartnerApply() {
 
       if (appId) {
         await supabase.from("partner_applications").update(payload).eq("id", appId);
+        dirtyRef.current = false;
+        setLastSaved(new Date());
+        return appId;
       } else {
         const insertPayload = {
           ...payload,
@@ -167,18 +170,19 @@ export default function PartnerApply() {
         if (error) throw error;
         setAppId(row.id);
         localStorage.setItem(DRAFT_KEY, row.id);
+        dirtyRef.current = false;
+        setLastSaved(new Date());
+        return row.id;
       }
-      dirtyRef.current = false;
-      setLastSaved(new Date());
     } catch (e: any) {
       console.error("draft save", e);
+      return null;
     } finally { setSaving(false); }
   };
 
   const ensureAppId = async (): Promise<string | null> => {
     if (appId) return appId;
-    await saveDraft();
-    return appId;
+    return await saveDraft();
   };
 
   // ── File upload ──────────────────────────────────────
