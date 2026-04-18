@@ -422,23 +422,40 @@ export default function PartnerApply() {
   // ── Done screen ──────────────────────────────────────
   if (done) {
     const portalCta = lang === "zh" ? "进入合作伙伴门户" : lang === "en" ? "Open Partner Portal" : "เข้าสู่ Partner Portal";
-    const emailNote = lang === "zh"
-      ? "我们已向您的邮箱发送确认邮件"
-      : lang === "en"
-      ? "A confirmation email has been sent to your inbox"
-      : "เราได้ส่งอีเมลยืนยันไปยังกล่องจดหมายของคุณแล้ว";
+    const emailNote = emailConfirmRequired
+      ? (lang === "zh"
+          ? "请检查您的邮箱并点击确认链接以激活账户。激活后即可登录合作伙伴门户。"
+          : lang === "en"
+          ? "Please check your inbox and click the confirmation link to activate your account. Once activated, you can sign in to the Partner Portal."
+          : "โปรดเช็คอีเมลของคุณและคลิกลิงก์ยืนยันเพื่อเปิดใช้งานบัญชี เมื่อเปิดใช้งานแล้วจะเข้า Partner Portal ได้")
+      : (lang === "zh"
+          ? "我们已向您的邮箱发送确认邮件"
+          : lang === "en"
+          ? "A confirmation email has been sent to your inbox"
+          : "เราได้ส่งอีเมลยืนยันไปยังกล่องจดหมายของคุณแล้ว");
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-6">
         <Card className="max-w-lg text-center">
           <CardContent className="p-10 space-y-4">
-            <CheckCircle2 className="w-16 h-16 text-primary mx-auto" />
+            {emailConfirmRequired ? (
+              <Mail className="w-16 h-16 text-primary mx-auto" />
+            ) : (
+              <CheckCircle2 className="w-16 h-16 text-primary mx-auto" />
+            )}
             <h1 className="text-2xl font-bold">{L("submitted")}</h1>
             <p className="text-muted-foreground">{L("submittedDesc")}</p>
             <p className="text-sm text-muted-foreground italic">{emailNote}</p>
             <div className="flex flex-col sm:flex-row gap-2 justify-center pt-2">
-              <Button onClick={() => navigate("/partner/portal")}>
-                {portalCta}<ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
+              {emailConfirmRequired ? (
+                <Button onClick={() => navigate(`/login?redirect=${encodeURIComponent("/partner/portal")}`)}>
+                  {lang === "zh" ? "前往登录" : lang === "en" ? "Go to Login" : "ไปหน้า Login"}
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              ) : (
+                <Button onClick={() => navigate("/partner/portal")}>
+                  {portalCta}<ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              )}
               <Button variant="outline" onClick={() => navigate("/partner")}>
                 <ArrowLeft className="w-4 h-4 mr-2" />{lang === "zh" ? "返回" : lang === "th" ? "กลับ" : "Back"}
               </Button>
