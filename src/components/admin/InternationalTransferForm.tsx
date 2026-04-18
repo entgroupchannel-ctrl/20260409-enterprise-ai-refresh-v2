@@ -14,6 +14,7 @@ import {
   Save, Send, RefreshCw, ChevronDown, Loader2, X,
   FileText, Package, DollarSign, Calendar, AlertTriangle,
 } from 'lucide-react';
+import { sanitizeFilename } from '@/lib/sanitize-filename';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
