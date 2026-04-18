@@ -8,6 +8,7 @@ import SEOHead from "@/components/SEOHead";
 import SiteNavbar from "@/components/SiteNavbar";
 import Footer from "@/components/Footer";
 import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
+import LineQRButton from "@/components/LineQRButton";
 import PageBanner from "@/components/PageBanner";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -341,11 +342,11 @@ export default function JetsonAIReady() {
                   <Phone className="w-4 h-4 mr-1" /> 02-045-6104
                 </Button>
               </a>
-              <a href="https://line.me/R/ti/p/@entgroup" target="_blank" rel="noopener noreferrer">
-                <Button size="lg" variant="outline">
-                  <MessageCircle className="w-4 h-4 mr-1" /> LINE @entgroup
+              <LineQRButton>
+                <Button size="lg" variant="outline" asChild>
+                  <span><MessageCircle className="w-4 h-4 mr-1" /> LINE @entgroup</span>
                 </Button>
-              </a>
+              </LineQRButton>
               <Link to="/contact">
                 <Button size="lg" variant="outline">ติดต่อเรา</Button>
               </Link>
