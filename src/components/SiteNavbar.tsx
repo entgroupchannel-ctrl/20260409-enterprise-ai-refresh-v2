@@ -29,7 +29,7 @@ export default function SiteNavbar() {
 
         {/* Desktop nav — MegaMenu ชิดซ้ายติดโลโก้, icon group ชิดขวา */}
         <div className="hidden md:flex items-center flex-1 min-w-0 gap-1">
-          <div className="flex items-center min-w-0 mr-auto">
+          <div className="flex items-center min-w-0 mr-auto pl-6 lg:pl-10">
             <MegaMenu />
           </div>
           <TooltipProvider delayDuration={150}>
