@@ -4,14 +4,17 @@ import { Helmet } from "react-helmet-async";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Loader2, Search, ExternalLink, Users, Award, TrendingUp, Clock } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Loader2, Search, ExternalLink, Users, Award, TrendingUp, Clock, Download } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import AdminLayout from "@/layouts/AdminLayout";
 import { format } from "date-fns";
 
 type Status = "all" | "pending" | "approved" | "rejected" | "suspended";
+type SortKey = "newest" | "oldest" | "revenue" | "leads" | "name";
 
 interface Row {
   id: string;
