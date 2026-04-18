@@ -45,7 +45,7 @@ export const partnerForm: Dict = {
   contactPhone:      { th: "โทรศัพท์", en: "Phone", zh: "电话" },
   contactWechat:     { th: "WeChat", en: "WeChat", zh: "微信" },
   contactWhatsapp:   { th: "WhatsApp", en: "WhatsApp", zh: "WhatsApp" },
-  emailWarning:      { th: "ใช้อีเมลโดเมนบริษัท (ห้ามใช้ Gmail/QQ/163)", en: "Use a corporate email domain (no Gmail/QQ/163)", zh: "请使用企业邮箱（不接受 Gmail/QQ/163）" },
+  emailWarning:      { th: "แนะนำใช้อีเมลบริษัท (รับ Gmail ได้, ไม่รับ QQ/163)", en: "Corporate email preferred (Gmail OK, no QQ/163)", zh: "建议使用企业邮箱（可用 Gmail，不接受 QQ/163）" },
 
   // Step 2
   productCats:       { th: "หมวดสินค้าที่ผลิต", en: "Product categories", zh: "产品类别" },
