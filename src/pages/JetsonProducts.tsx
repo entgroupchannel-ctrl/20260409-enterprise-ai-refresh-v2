@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import SiteNavbar from "@/components/SiteNavbar";
 import Footer from "@/components/Footer";
+import JetsonCTABar from "@/components/JetsonCTABar";
 import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import AddToCartButton from "@/components/AddToCartButton";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
@@ -142,6 +143,7 @@ export default function JetsonProducts() {
       </section>
 
       <B2BWorkflowBanner showShopCta />
+      <JetsonCTABar message="สนใจรุ่นไหนเป็นพิเศษ? เราพร้อมเสนอราคา" />
       <Footer />
     </div>
   );

@@ -7,6 +7,7 @@ import {
 import SEOHead from "@/components/SEOHead";
 import SiteNavbar from "@/components/SiteNavbar";
 import Footer from "@/components/Footer";
+import JetsonCTABar from "@/components/JetsonCTABar";
 import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import LineQRButton from "@/components/LineQRButton";
 import PageBanner from "@/components/PageBanner";
@@ -356,6 +357,7 @@ export default function JetsonAIReady() {
       </main>
 
       <B2BWorkflowBanner showShopCta />
+      <JetsonCTABar message="พร้อมใช้งาน Jetson AI-Ready ในโปรเจกต์ของคุณ" />
       <Footer />
     </>
   );

@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import SiteNavbar from "@/components/SiteNavbar";
 import Footer from "@/components/Footer";
+import JetsonCTABar from "@/components/JetsonCTABar";
 import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import LineQRButton from "@/components/LineQRButton";
 import { jetsonProducts, jetsonCategories, type JetsonProduct, type JetsonCategory } from "@/data/jetson-products";
@@ -789,6 +790,7 @@ export default function JetsonRecommend() {
       </section>
 
       <B2BWorkflowBanner showShopCta />
+      <JetsonCTABar message="ได้ตัวเลือกที่ใช่แล้ว? ขอใบเสนอราคาเลย" />
       <Footer />
     </div>
   );
