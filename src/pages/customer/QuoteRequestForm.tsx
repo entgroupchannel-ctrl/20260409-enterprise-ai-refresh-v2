@@ -130,6 +130,58 @@ export default function QuoteRequestForm() {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
+  // Scan business card → AI extract → autofill
+  const handleScanCard = async (file: File) => {
+    if (!file.type.startsWith('image/')) {
+      toast({ title: 'กรุณาเลือกไฟล์รูปภาพ', variant: 'destructive' });
+      return;
+    }
+    if (file.size > 8 * 1024 * 1024) {
+      toast({ title: 'ไฟล์ใหญ่เกินไป (สูงสุด 8MB)', variant: 'destructive' });
+      return;
+    }
+    setScanning(true);
+    try {
+      const dataUrl: string = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+
+      const { data, error } = await supabase.functions.invoke('scan-business-card', {
+        body: { image: dataUrl },
+      });
+      if (error) throw error;
+      const card = (data && (data.card || data)) as any;
+      if (!card) throw new Error('ไม่สามารถอ่านข้อมูลได้');
+
+      setFormData(prev => ({
+        ...prev,
+        customer_name: card.name || prev.customer_name,
+        customer_email: card.email || prev.customer_email,
+        customer_phone: card.phone || prev.customer_phone,
+        customer_company: card.company || prev.customer_company,
+        customer_address: card.address || prev.customer_address,
+        customer_line: card.lineId || prev.customer_line,
+      }));
+
+      toast({
+        title: '✅ สแกนนามบัตรสำเร็จ',
+        description: 'กรอกข้อมูลให้อัตโนมัติแล้ว — ตรวจสอบความถูกต้องก่อนส่ง',
+      });
+    } catch (err: any) {
+      toast({
+        title: 'สแกนนามบัตรไม่สำเร็จ',
+        description: err?.message || 'กรุณาลองใหม่ หรือกรอกข้อมูลด้วยตนเอง',
+        variant: 'destructive',
+      });
+    } finally {
+      setScanning(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  };
+
   const handleProductChange = (index: number, field: keyof ProductItem, value: string | number) => {
     const updated = [...products];
     updated[index] = { ...updated[index], [field]: value };
@@ -283,16 +335,42 @@ export default function QuoteRequestForm() {
                   <Building className="w-4 h-4" /> ข้อมูลบริษัท
                 </p>
                 <CompactField label="บริษัท" value={formData.customer_company} onChange={v => handleFormChange('customer_company', v)} placeholder="บริษัท ABC จำกัด" />
-                <CompactField label="เลขผู้เสียภาษี" value={formData.customer_tax_id} onChange={v => handleFormChange('customer_tax_id', v)} placeholder="0105XXXXXXXXX" />
                 <CompactField label="ที่อยู่" value={formData.customer_address} onChange={v => handleFormChange('customer_address', v)} placeholder="123 ถ.สุขุมวิท..." />
               </CardContent>
             </Card>
 
             <Card>
               <CardContent className="pt-5 pb-4 space-y-4">
-                <p className="text-sm font-semibold text-muted-foreground flex items-center gap-1.5">
-                  <User className="w-4 h-4" /> ผู้ติดต่อ
-                </p>
+                <div className="flex items-center justify-between gap-2">
+                  <p className="text-sm font-semibold text-muted-foreground flex items-center gap-1.5">
+                    <User className="w-4 h-4" /> ผู้ติดต่อ
+                  </p>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="h-8 text-xs"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={scanning}
+                  >
+                    {scanning ? (
+                      <><Loader2 className="w-3.5 h-3.5 mr-1 animate-spin" /> กำลังอ่าน...</>
+                    ) : (
+                      <><ScanLine className="w-3.5 h-3.5 mr-1" /> สแกนนามบัตร</>
+                    )}
+                  </Button>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    capture="environment"
+                    className="hidden"
+                    onChange={(e) => {
+                      const f = e.target.files?.[0];
+                      if (f) handleScanCard(f);
+                    }}
+                  />
+                </div>
                 <CompactField label="ชื่อ-นามสกุล" value={formData.customer_name} onChange={v => handleFormChange('customer_name', v)} placeholder="สมชาย ใจดี" required />
                 <div className="grid grid-cols-2 gap-2">
                   <CompactField label="อีเมล" value={formData.customer_email} onChange={v => handleFormChange('customer_email', v)} type="email" placeholder="email@..." required />
