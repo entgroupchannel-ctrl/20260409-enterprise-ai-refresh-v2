@@ -315,7 +315,7 @@ const AffiliateApply = () => {
                 <Sparkles className="text-primary" size={32} />
               </div>
               <h1 className="text-2xl font-bold mb-2">
-                {isEn ? "Application received! 🎉" : "ส่งใบสมัครเรียบร้อย! 🎉"}
+                {isEn ? "Application received!" : "ส่งใบสมัครเรียบร้อย!"}
               </h1>
               <p className="text-muted-foreground mb-6">
                 {isEn
