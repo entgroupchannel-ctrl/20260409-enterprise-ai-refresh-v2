@@ -133,8 +133,8 @@ export default function PartnerApply() {
     return () => clearInterval(t);
   });
 
-  const saveDraft = async () => {
-    if (saving) return;
+  const saveDraft = async (): Promise<string | null> => {
+    if (saving) return appId;
     setSaving(true);
     try {
       const payload: any = {
@@ -155,6 +155,9 @@ export default function PartnerApply() {
 
       if (appId) {
         await supabase.from("partner_applications").update(payload).eq("id", appId);
+        dirtyRef.current = false;
+        setLastSaved(new Date());
+        return appId;
       } else {
         const insertPayload = {
           ...payload,
@@ -167,18 +170,19 @@ export default function PartnerApply() {
         if (error) throw error;
         setAppId(row.id);
         localStorage.setItem(DRAFT_KEY, row.id);
+        dirtyRef.current = false;
+        setLastSaved(new Date());
+        return row.id;
       }
-      dirtyRef.current = false;
-      setLastSaved(new Date());
     } catch (e: any) {
       console.error("draft save", e);
+      return null;
     } finally { setSaving(false); }
   };
 
   const ensureAppId = async (): Promise<string | null> => {
     if (appId) return appId;
-    await saveDraft();
-    return appId;
+    return await saveDraft();
   };
 
   // ── File upload ──────────────────────────────────────
@@ -676,15 +680,25 @@ function Stage3({ data, update, L }: any) {
       <h2 className="text-xl font-semibold">{L("step3")}</h2>
       <Field label={L("certs")}>
         <div className="flex flex-wrap gap-2">
-          {CERTS.map((c) => (
-            <label key={c} className={cn(
-              "px-3 py-1.5 rounded-full border text-sm cursor-pointer",
-              data.certifications.includes(c) ? "border-primary bg-primary/10 text-primary" : "border-border"
-            )}>
-              <Checkbox className="hidden" checked={data.certifications.includes(c)} onCheckedChange={() => toggleCert(c)} />
-              <span onClick={() => toggleCert(c)}>{c}</span>
-            </label>
-          ))}
+          {CERTS.map((c) => {
+            const active = data.certifications.includes(c);
+            return (
+              <button
+                key={c}
+                type="button"
+                onClick={() => toggleCert(c)}
+                className={cn(
+                  "px-4 py-2 rounded-full border text-sm font-medium transition-colors select-none",
+                  active
+                    ? "border-primary bg-primary/10 text-primary hover:bg-primary/15"
+                    : "border-border hover:border-primary/50 hover:bg-muted"
+                )}
+                aria-pressed={active}
+              >
+                {c}
+              </button>
+            );
+          })}
         </div>
       </Field>
       <Field label={L("exportCountries")}>
