@@ -207,8 +207,8 @@ export default function CampaignLanding() {
 
   const handleRequestQuote = () => {
     if (!campaign) return;
-    // Pass campaign info to quote request flow
-    navigate(`/contact?campaign=${campaign.slug}&campaign_id=${campaign.id}`);
+    // Send to RFQ form with campaign slug → form pre-fills products from campaign items
+    navigate(`/request-quote?campaign=${encodeURIComponent(campaign.slug)}`);
   };
 
   if (loading) {
