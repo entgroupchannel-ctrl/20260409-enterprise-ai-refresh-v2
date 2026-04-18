@@ -1,5 +1,6 @@
 import { MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
 interface ChatNowButtonProps {
@@ -8,11 +9,13 @@ interface ChatNowButtonProps {
   className?: string;
   size?: "sm" | "icon" | "default";
   variant?: "outline" | "ghost" | "secondary";
+  tooltipLabel?: string;
 }
 
 /**
  * Small icon-only "Chat now" button that opens the GeneralChatWidget
  * with a prefilled message focused on a specific product.
+ * Uses shadcn Tooltip for hover hint.
  */
 const ChatNowButton = ({
   productModel,
@@ -20,6 +23,7 @@ const ChatNowButton = ({
   className,
   size = "icon",
   variant = "outline",
+  tooltipLabel,
 }: ChatNowButtonProps) => {
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -33,18 +37,28 @@ const ChatNowButton = ({
     );
   };
 
+  const hint = tooltipLabel ?? `แชทกับทีมขายเกี่ยวกับ ${productModel}`;
+
   return (
-    <Button
-      type="button"
-      size={size}
-      variant={variant}
-      onClick={handleClick}
-      className={cn("h-8 w-8 shrink-0", className)}
-      title={`แชทกับทีมขายเกี่ยวกับ ${productModel}`}
-      aria-label={`Chat now about ${productModel}`}
-    >
-      <MessageCircle className="w-3.5 h-3.5" />
-    </Button>
+    <TooltipProvider delayDuration={150}>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            type="button"
+            size={size}
+            variant={variant}
+            onClick={handleClick}
+            className={cn("h-8 w-8 shrink-0", className)}
+            aria-label={`Chat now about ${productModel}`}
+          >
+            <MessageCircle className="w-3.5 h-3.5" />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent side="top" className="text-xs">
+          {hint}
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   );
 };
 
