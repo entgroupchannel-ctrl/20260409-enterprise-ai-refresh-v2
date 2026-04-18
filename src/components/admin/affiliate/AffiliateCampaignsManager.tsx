@@ -317,7 +317,9 @@ export default function AffiliateCampaignsManager() {
       <Dialog open={openWizard} onOpenChange={setOpenWizard}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>สร้าง Campaign — ขั้น {step}/3</DialogTitle>
+            <DialogTitle>
+              {editingId ? "แก้ไข Campaign" : "สร้าง Campaign"} — ขั้น {step}/3
+            </DialogTitle>
             <DialogDescription>
               {step === 1 && "เลือกประเภทของ campaign"}
               {step === 2 && "ใส่รายละเอียดและกำหนดเวลา"}
