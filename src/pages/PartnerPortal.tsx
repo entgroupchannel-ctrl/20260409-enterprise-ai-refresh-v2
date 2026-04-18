@@ -58,7 +58,18 @@ export default function PartnerPortal() {
     (async () => {
       setLoading(true);
       const email = user.email ?? "";
-      // Match by user_id OR contact_email (since old applications may not have user_id)
+
+      // Auto-claim: link any application that matches this email but has no user_id yet
+      // (happens when guest applied → created account → confirmed email → first login)
+      if (email) {
+        await supabase
+          .from("partner_applications")
+          .update({ user_id: user.id })
+          .eq("contact_email", email)
+          .is("user_id", null);
+      }
+
+      // Match by user_id OR contact_email (covers both linked and pending claim)
       const { data, error } = await supabase
         .from("partner_applications")
         .select("id, application_number, company_name_en, company_name_local, status, current_stage, submitted_at, reviewed_at, rejection_reason, contact_email, created_at")
