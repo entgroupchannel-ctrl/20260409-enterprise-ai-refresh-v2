@@ -17,7 +17,7 @@ import {
 import { Switch } from "@/components/ui/switch";
 import {
   Loader2, Plus, ExternalLink, Trash2, Copy, ShoppingCart, FileText,
-  MousePointerClick, Users, CheckCircle2, Sparkles, Search, Package, Minus,
+  MousePointerClick, Users, CheckCircle2, Sparkles, Search, Package, Minus, Pencil,
 } from "lucide-react";
 import { searchCatalogProducts, getCatalogCategories, type CatalogProduct } from "@/lib/product-catalog";
 
