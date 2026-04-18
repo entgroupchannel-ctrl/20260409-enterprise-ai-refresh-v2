@@ -265,7 +265,7 @@ const menuCategories = [
         links: [
           { label: "🛒 Shop — สั่งซื้อออนไลน์", href: "/shop", hot: true },
           { label: "✦ ช่วยเลือกสินค้าที่ใช่", href: "/product-advisor", hot: true },
-          { label: "ขอใบเสนอราคา", href: "/quote" },
+          { label: "ขอใบเสนอราคา", href: "/request-quote" },
           { label: "โปรโมชั่น", href: "/promotions" },
           { label: "เกี่ยวกับเรา", href: "/about-us" },
         ],
