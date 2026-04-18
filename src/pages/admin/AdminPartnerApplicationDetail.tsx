@@ -344,6 +344,6 @@ export default function AdminPartnerApplicationDetail() {
           </Card>
         </div>
       </div>
-    </div>
+    </AdminLayout>
   );
 }
