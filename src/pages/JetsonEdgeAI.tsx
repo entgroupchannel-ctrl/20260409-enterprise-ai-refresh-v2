@@ -267,27 +267,24 @@ const JetsonEdgeAI = () => {
         </div>
       </section>
 
-      {/* ── SLIDER ── */}
+      {/* ── SLIDER (auto-scroll marquee) ── */}
       <section className="bg-gradient-to-b from-[#0a0e27] to-background py-12 border-t border-white/5">
         <div className="container max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold text-white">รุ่นเด่นล่าสุด</h2>
-            <div className="flex gap-2">
-              <button onClick={goPrev} disabled={slide === 0} className="w-10 h-10 rounded-full border border-white/20 text-white flex items-center justify-center hover:bg-white/10 disabled:opacity-30 transition">
-                <ChevronLeft size={18} />
-              </button>
-              <button onClick={goNext} disabled={slide >= maxSlide} className="w-10 h-10 rounded-full border border-white/20 text-white flex items-center justify-center hover:bg-white/10 disabled:opacity-30 transition">
-                <ChevronRight size={18} />
-              </button>
-            </div>
+            <span className="text-xs text-white/50 hidden sm:inline">เลื่อนอัตโนมัติ — วางเมาส์เพื่อหยุด</span>
           </div>
-          <div className="overflow-hidden">
-            <div className="flex transition-transform duration-500 ease-out gap-5" style={{ transform: `translateX(calc(-${slide} * (100% / 3 + 0px)))` }}>
-              {slides.map((s) => (
+          <div className="overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)]">
+            <div
+              className="flex gap-5 w-max animate-marquee hover:[animation-play-state:paused]"
+              style={{ animationDuration: "60s" }}
+            >
+              {[...slides, ...slides].map((s, idx) => (
                 <Link
-                  key={s.id}
+                  key={`${s.id}-${idx}`}
                   to={s.href}
-                  className="group relative shrink-0 w-[calc((100%-2.5rem)/3)] aspect-[4/3] rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-br from-[#0d1430] to-[#1a1f3a]"
+                  className="group relative shrink-0 w-[320px] sm:w-[360px] aspect-[4/3] rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-br from-[#0d1430] to-[#1a1f3a]"
+                  aria-hidden={idx >= slides.length}
                 >
                   <img
                     src={s.image}
