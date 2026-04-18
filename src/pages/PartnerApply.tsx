@@ -364,7 +364,7 @@ const Field = ({ label, required, children }: any) => (
   </div>
 );
 
-function Stage1({ data, update, L }: any) {
+function Stage1({ data, update, L, capitalCurrency, setCapitalCurrency }: any) {
   const { toast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [scanning, setScanning] = useState(false);
