@@ -23,7 +23,7 @@ const menuItems = [
   { key: 'my-products', label: 'สินค้าของฉัน', icon: Shield, path: '/my/products' },
   { key: 'my-repairs', label: 'แจ้งซ่อม', icon: Wrench, path: '/my/repairs' },
   { key: 'cart', label: 'ตะกร้าสินค้า', icon: ShoppingBag, path: '/dashboard?tab=cart' },
-  { key: 'affiliate', label: 'สร้างรายได้ (Affiliate)', icon: Sparkles, path: '/affiliate' },
+  { key: 'affiliate', label: 'สร้างรายได้ (Affiliate)', icon: Sparkles, path: '/affiliate/dashboard' },
   { key: 'profile', label: 'โปรไฟล์', icon: UserRound, path: '/dashboard?tab=profile' },
 ];
 
