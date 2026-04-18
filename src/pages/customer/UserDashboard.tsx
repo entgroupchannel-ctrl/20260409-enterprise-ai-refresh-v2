@@ -519,6 +519,7 @@ export default function UserDashboard() {
     { key: 'my-products', label: 'สินค้าของฉัน', icon: Shield, badge: 0, external: true, path: '/my/products' },
     { key: 'my-repairs', label: 'แจ้งซ่อม', icon: Wrench, badge: 0, external: true, path: '/my/repairs' },
     { key: 'cart', label: 'ตะกร้าสินค้า', icon: ShoppingBag, badge: count },
+    { key: 'affiliate', label: 'สร้างรายได้ (Affiliate)', icon: CircleDollarSign, badge: 0, external: true, path: '/affiliate' },
     { key: 'profile', label: 'โปรไฟล์', icon: UserRound, badge: 0 },
   ];
 
