@@ -597,7 +597,7 @@ export default function JetsonRecommend() {
                       <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all"
                         style={{
                           background: i < compatStep ? NV : i === compatStep ? "transparent" : "hsl(var(--muted))",
-                          color: i < compatStep ? "#0a0e27" : i === compatStep ? NV : "hsl(var(--muted-foreground))",
+                          color: i < compatStep ? NV_NAVY : i === compatStep ? NV : "hsl(var(--muted-foreground))",
                           boxShadow: i === compatStep ? `0 0 0 2px ${NV}` : "none",
                         }}>
                         {i < compatStep ? "✓" : i + 1}
