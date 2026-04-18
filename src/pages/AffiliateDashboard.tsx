@@ -17,6 +17,7 @@ import LinkBuilderTab from "@/components/affiliate/LinkBuilderTab";
 import AnalyticsTab from "@/components/affiliate/AnalyticsTab";
 import AccountTab from "@/components/affiliate/AccountTab";
 import CampaignsTab from "@/components/affiliate/CampaignsTab";
+import EarningsCard from "@/components/affiliate/EarningsCard";
 
 interface Affiliate {
   id: string;
@@ -169,6 +170,7 @@ export default function AffiliateDashboard() {
           </TabsList>
 
           <TabsContent value="overview" className="space-y-6">
+            <EarningsCard />
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <StatCard icon={MousePointerClick} label="คลิกทั้งหมด" value={stats?.total_clicks ?? 0} sub={`${stats?.clicks_30d ?? 0} ใน 30 วัน`} />
               <StatCard icon={Users} label="Lead ที่ส่งต่อ" value={stats?.total_leads ?? 0} sub={`${stats?.qualified_leads ?? 0} qualified`} />
