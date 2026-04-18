@@ -55,6 +55,21 @@ const QuoteRequestForm = ({ onSuccess, prefilledProducts }: QuoteRequestFormProp
         customer_email: form.email,
         customer_company: form.company || null,
       });
+
+      // Guest invite: confirmation email with register link
+      supabase.functions.invoke("send-transactional-email", {
+        body: {
+          templateName: "quote-received-invite",
+          recipientEmail: form.email,
+          idempotencyKey: `quote-received-${data.id}`,
+          templateData: {
+            customerName: form.name,
+            quoteNumber: data.quote_number,
+            customerEmail: form.email,
+          },
+        },
+      }).catch((e) => console.warn("[quote-received-invite] send failed", e));
+
       toast({ title: "ส่งคำขอใบเสนอราคาเรียบร้อย!", description: `เลขที่: ${data.quote_number}` });
       onSuccess?.(data.id);
     } catch (err: any) {
