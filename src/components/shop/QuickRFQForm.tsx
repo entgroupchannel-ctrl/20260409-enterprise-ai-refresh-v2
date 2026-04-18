@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
@@ -12,7 +12,7 @@ import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { SendHorizonal, Loader2, FileSearch, ChevronDown, ChevronUp, PhoneCall, MessageCircleMore, MailCheck } from 'lucide-react';
+import { SendHorizonal, Loader2, FileSearch, ChevronDown, ChevronUp, PhoneCall, MessageCircleMore, MailCheck, ScanLine, Camera } from 'lucide-react';
 
 interface QuickRFQFormProps {
   product: { model: string; name: string; unit_price: number; slug: string; sku?: string };
@@ -40,6 +40,8 @@ export default function QuickRFQForm({ product, defaultQuantity = 1, configAddon
   const navigate = useNavigate();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [scanning, setScanning] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [form, setForm] = useState({
     quantity: defaultQuantity,
@@ -54,6 +56,38 @@ export default function QuickRFQForm({ product, defaultQuantity = 1, configAddon
     tax_id: '',
     notes: '',
   });
+
+  // AI business-card scan -> prefill
+  const handleScanCard = async (file: File) => {
+    if (!file) return;
+    setScanning(true);
+    try {
+      const reader = new FileReader();
+      const base64: string = await new Promise((resolve, reject) => {
+        reader.onload = () => resolve((reader.result as string).split(',')[1] || '');
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+      const { data, error } = await supabase.functions.invoke('scan-business-card', { body: { image: base64 } });
+      if (error) throw error;
+      const ex = (data as any)?.data || {};
+      setForm(prev => ({
+        ...prev,
+        customer_name: ex.full_name || ex.name || prev.customer_name,
+        customer_email: ex.email || prev.customer_email,
+        customer_phone: ex.phone || ex.mobile || prev.customer_phone,
+        customer_company: ex.company || ex.organization || prev.customer_company,
+        customer_line: ex.line_id || prev.customer_line,
+        shipping_address: ex.address || prev.shipping_address,
+      }));
+      toast({ title: 'อ่านนามบัตรสำเร็จ', description: 'ตรวจสอบและแก้ไขข้อมูลก่อนส่ง' });
+    } catch (err: any) {
+      toast({ title: 'อ่านนามบัตรไม่สำเร็จ', description: err.message || 'ลองใหม่หรือกรอกด้วยตนเอง', variant: 'destructive' });
+    } finally {
+      setScanning(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  };
 
   // Auto-fill from user profile
   useEffect(() => {
@@ -97,6 +131,8 @@ export default function QuickRFQForm({ product, defaultQuantity = 1, configAddon
     }
 
     if (!user) {
+      // Save pending quote and route the new customer to register so they can
+      // confirm their email — we prefill the form from the data they provided.
       savePendingQuote({
         customer_name: form.customer_name,
         customer_email: form.customer_email,
@@ -112,7 +148,17 @@ export default function QuickRFQForm({ product, defaultQuantity = 1, configAddon
           line_total: 0,
         }],
       });
-      navigate('/login?action=continue');
+      const params = new URLSearchParams({
+        email: form.customer_email,
+        name: form.customer_name,
+        phone: form.customer_phone,
+        company: form.customer_company,
+      });
+      toast({
+        title: 'อีกขั้นเดียว — ยืนยันอีเมล',
+        description: 'สร้างบัญชีใน 30 วินาที เพื่อยืนยันตัวตนและรับใบเสนอราคา',
+      });
+      navigate(`/register?${params.toString()}`);
       return;
     }
 
@@ -227,6 +273,39 @@ export default function QuickRFQForm({ product, defaultQuantity = 1, configAddon
               </p>
             </div>
           )}
+
+          {/* AI Business Card scan — quick prefill */}
+          <div className="rounded-lg border border-dashed border-primary/30 bg-primary/5 p-3 flex items-center gap-3">
+            <div className="shrink-0 w-9 h-9 rounded-md bg-primary/10 text-primary flex items-center justify-center">
+              <ScanLine className="w-5 h-5" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-foreground">มีนามบัตร? สแกนเพื่อกรอกอัตโนมัติ</p>
+              <p className="text-[11px] text-muted-foreground">AI จะอ่านชื่อ บริษัท อีเมล โทรศัพท์ ให้คุณ</p>
+            </div>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              capture="environment"
+              className="hidden"
+              onChange={(e) => {
+                const f = e.target.files?.[0];
+                if (f) handleScanCard(f);
+              }}
+            />
+            <Button
+              type="button"
+              size="sm"
+              variant="outline"
+              disabled={scanning}
+              onClick={() => fileInputRef.current?.click()}
+              className="shrink-0"
+            >
+              {scanning ? <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> : <Camera className="w-4 h-4 mr-1.5" />}
+              {scanning ? 'กำลังอ่าน...' : 'สแกนนามบัตร'}
+            </Button>
+          </div>
 
           {/* Core fields */}
           <div className="grid grid-cols-2 gap-3">
