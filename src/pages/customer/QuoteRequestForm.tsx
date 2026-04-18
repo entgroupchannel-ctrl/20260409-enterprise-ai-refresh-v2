@@ -329,12 +329,28 @@ export default function QuoteRequestForm() {
           vat_amount: 0,
           grand_total: 0,
           created_by: user?.id || null,
+          // Campaign traceability — overrides attribution_source when present
+          ...(campaignInfo
+            ? { source: `campaign:${campaignInfo.slug}`, attribution_source: 'campaign' }
+            : {}),
+          // Affiliate attribution (cookie-based, 90-day window)
+          ...getAttributionFields(),
         };
       const { data, error } = await (supabase.from('quote_requests') as any)
         .insert([insertPayload])
         .select().single();
 
       if (error) throw error;
+
+      // Best-effort affiliate lead row (no-op if no attribution cookie)
+      await createAffiliateLead({
+        source_type: 'quote_request',
+        source_id: data.id,
+        customer_name: formData.customer_name,
+        customer_email: formData.customer_email,
+        customer_company: formData.customer_company || null,
+      });
+
       toast({ title: 'ส่งคำขอสำเร็จ', description: `เลขที่ ${data.quote_number}` });
       navigate(user ? '/my-quotes' : '/');
     } catch (error: any) {
