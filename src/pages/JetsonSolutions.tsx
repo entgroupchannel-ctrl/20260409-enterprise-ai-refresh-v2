@@ -221,7 +221,7 @@ export default function JetsonSolutions() {
 
       {/* Hero Carousel */}
       <section className="relative overflow-hidden bg-[#0a0e27] text-white">
-        <div className="container mx-auto px-4 pt-8 pb-3">
+        <div className="container max-w-7xl mx-auto px-6 pt-8 pb-3">
           <Link to="/nvidia-jetson" className="inline-flex items-center gap-1 text-sm text-white/70 hover:text-white">
             <ArrowLeft className="w-4 h-4" /> กลับ NVIDIA Jetson
           </Link>
@@ -241,7 +241,7 @@ export default function JetsonSolutions() {
           ))}
           <div className="absolute inset-0 bg-gradient-to-r from-[#0a0e27]/95 via-[#0a0e27]/70 to-[#0a0e27]/40" />
 
-          <div className="relative container mx-auto px-4 h-full flex items-center">
+          <div className="relative container max-w-7xl mx-auto px-6 h-full flex items-center">
             <div className="max-w-2xl">
               <span className="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full mb-4"
                     style={{ background: `${NV}25`, color: NV, border: `1px solid ${NV}60` }}>
@@ -284,7 +284,7 @@ export default function JetsonSolutions() {
       </section>
 
       {/* Industry Solutions */}
-      <section className="container mx-auto px-4 py-12 md:py-16">
+      <section className="container max-w-7xl mx-auto px-6 py-12 md:py-16">
         <div className="text-center mb-3">
           <h2 className="text-3xl md:text-4xl font-bold mb-2">โซลูชันอุตสาหกรรม</h2>
           <p className="text-muted-foreground">โซลูชัน Edge AI ที่ขับเคลื่อนด้วย NVIDIA Jetson สำหรับทุกอุตสาหกรรม</p>
@@ -350,7 +350,7 @@ export default function JetsonSolutions() {
 
       {/* GPU Server Solutions */}
       <section className="bg-muted/30 border-y">
-        <div className="container mx-auto px-4 py-12 md:py-16">
+        <div className="container max-w-7xl mx-auto px-6 py-12 md:py-16">
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full mb-3"
                  style={{ background: `${NV}15`, color: NV, border: `1px solid ${NV}40` }}>
@@ -387,7 +387,7 @@ export default function JetsonSolutions() {
       </section>
 
       {/* AI Models */}
-      <section className="container mx-auto px-4 py-12 md:py-16">
+      <section className="container max-w-7xl mx-auto px-6 py-12 md:py-16">
         <div className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-bold mb-2">AI Models พร้อมใช้งาน</h2>
           <p className="text-muted-foreground">AI Model สำเร็จรูปจาก NVIDIA NGC — ดาวน์โหลดฟรี รันบน Jetson ได้ทันที</p>
@@ -429,7 +429,7 @@ export default function JetsonSolutions() {
 
       {/* CTA */}
       <section className="bg-gradient-to-br from-[#0a0e27] to-[#1a1e47] text-white">
-        <div className="container mx-auto px-4 py-12 text-center">
+        <div className="container max-w-7xl mx-auto px-6 py-12 text-center">
           <Sparkles className="w-12 h-12 mx-auto mb-4" style={{ color: NV }} />
           <h2 className="text-2xl md:text-3xl font-bold mb-3">ไม่แน่ใจว่าโซลูชันไหนเหมาะกับธุรกิจของคุณ?</h2>
           <p className="text-white/70 mb-6 max-w-2xl mx-auto">ทีมวิศวกร ENT Group ให้คำปรึกษาฟรี ออกแบบโซลูชัน Edge AI พร้อมทดสอบ POC ก่อนตัดสินใจ</p>
