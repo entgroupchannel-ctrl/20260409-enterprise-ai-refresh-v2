@@ -19,6 +19,7 @@ import SEOHead from "@/components/SEOHead";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import FooterCompact from "@/components/FooterCompact";
+import SiteNavbar from "@/components/SiteNavbar";
 import B2BCTABanner from "@/components/B2BCTABanner";
 import ShareButtons from "@/components/ShareButtons";
 import { handheldProducts, type HandheldProduct } from "@/data/rugged-handheld-products";
