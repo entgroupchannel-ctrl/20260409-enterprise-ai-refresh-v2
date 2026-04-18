@@ -144,6 +144,10 @@ export default function PartnerApply() {
     if (saving) return appId;
     setSaving(true);
     try {
+      // Convert comma-separated export_countries (string in form) → text[] (DB)
+      const exportCountriesArr = (data.export_countries || "")
+        .split(/[,;\n]+/).map((s: string) => s.trim()).filter(Boolean);
+
       const payload: any = {
         ...data,
         registered_capital_cny: data.registered_capital_cny ? Math.round(Number(data.registered_capital_cny) * (capitalCurrency === "USD" ? 7.2 : capitalCurrency === "THB" ? 0.2 : 1)) : null,
@@ -154,6 +158,7 @@ export default function PartnerApply() {
         rd_staff_count: data.rd_staff_count ? Number(data.rd_staff_count) : null,
         annual_export_value_usd: data.annual_export_value_usd ? Number(data.annual_export_value_usd) : null,
         exclusivity_preference: data.exclusivity_preference || null,
+        export_countries: exportCountriesArr.length ? exportCountriesArr : null,
         language: lang,
         current_stage: stage,
         last_saved_at: new Date().toISOString(),
