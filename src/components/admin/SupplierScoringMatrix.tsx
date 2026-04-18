@@ -114,16 +114,16 @@ export default function SupplierScoringMatrix({ supplierId }: Props) {
           </div>
 
           {filledCount > 0 && (
-            <div className={`rounded-lg border p-3 flex items-center justify-between ${passThreshold ? 'bg-green-50 dark:bg-green-950/20 border-green-200' : 'bg-amber-50 dark:bg-amber-950/20 border-amber-200'}`}>
+            <div className={`rounded-lg border p-3 flex items-center justify-between ${passThreshold ? 'bg-accent/30 border-accent' : 'bg-muted border-border'}`}>
               <div>
                 <p className="text-xs text-muted-foreground">คะแนนเฉลี่ย ({filledCount}/8)</p>
                 <p className="text-2xl font-bold">{avg.toFixed(2)} <span className="text-sm font-normal text-muted-foreground">/ 5</span></p>
               </div>
               <div>
                 {passThreshold ? (
-                  <Badge className="bg-green-600 text-white"><CheckCircle2 className="w-3 h-3 mr-1" />ผ่าน Threshold (≥3.5)</Badge>
+                  <Badge className="bg-primary text-primary-foreground"><CheckCircle2 className="w-3 h-3 mr-1" />ผ่าน Threshold (≥3.5)</Badge>
                 ) : (
-                  <Badge variant="outline" className="text-amber-700 border-amber-400"><AlertTriangle className="w-3 h-3 mr-1" />ต่ำกว่า Threshold</Badge>
+                  <Badge variant="outline"><AlertTriangle className="w-3 h-3 mr-1" />ต่ำกว่า Threshold</Badge>
                 )}
               </div>
             </div>

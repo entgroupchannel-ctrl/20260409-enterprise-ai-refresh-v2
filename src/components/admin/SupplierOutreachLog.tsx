@@ -160,7 +160,7 @@ export default function SupplierOutreachLog({ supplierId, supplierName }: Props)
                     <Icon className="w-4 h-4 text-muted-foreground" />
                     <span className="text-sm font-medium">{l.subject || '(ไม่มีหัวข้อ)'}</span>
                     {l.response_received ? (
-                      <Badge className="bg-green-600 text-white">ตอบแล้ว</Badge>
+                      <Badge className="bg-primary text-primary-foreground">ตอบแล้ว</Badge>
                     ) : (
                       <Badge variant="outline">รอตอบ</Badge>
                     )}
