@@ -26,7 +26,7 @@ const RFQCTABanner = ({ className = "", variant = "full" }: RFQCTABannerProps) =
             <p className="text-xs text-muted-foreground mt-0.5">ยังไม่เจอรุ่นที่ใช่? ให้ทีมเราหาให้</p>
           </div>
           <Link
-            to="/contact"
+            to="/request-quote"
             className="shrink-0 inline-flex items-center gap-1 px-3 py-1.5 rounded-md bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity"
           >
             ขอเลย <ArrowRight className="w-3 h-3" />
@@ -75,7 +75,7 @@ const RFQCTABanner = ({ className = "", variant = "full" }: RFQCTABannerProps) =
           {/* CTAs */}
           <div className="shrink-0 flex flex-col sm:flex-row md:flex-col gap-2 w-full md:w-auto">
             <Link
-              to="/contact"
+              to="/request-quote"
               className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity shadow-sm whitespace-nowrap"
             >
               ขอใบเสนอราคา <ArrowRight className="w-4 h-4" />
