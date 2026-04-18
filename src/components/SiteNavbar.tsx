@@ -5,13 +5,14 @@ import CartBadge from '@/components/CartBadge';
 import ThemeToggle from '@/components/ThemeToggle';
 import MegaMenu, { MobileMegaMenu } from '@/components/MegaMenu';
 import { useAuth } from '@/hooks/useAuth';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import logo from '@/assets/logo-entgroup.avif';
 import { cn } from '@/lib/utils';
 
 const navLinks = [
-  { label: 'Shop', href: '/shop', icon: ShoppingBag, highlight: true },
-  { label: 'โปรโมชั่น', href: '/promotions', icon: Tag },
-  { label: 'ติดต่อเรา', href: '/contact', icon: Mail },
+  { label: 'Shop สินค้า', href: '/shop', icon: ShoppingBag, highlight: true, hint: 'เลือกชมสินค้าทั้งหมด — Industrial PC, Mini PC, Rugged' },
+  { label: 'โปรโมชั่น', href: '/promotions', icon: Tag, hint: 'ดูโปรโมชั่น & ส่วนลดล่าสุด' },
+  { label: 'ติดต่อเรา', href: '/contact', icon: Mail, hint: 'สอบถาม / ขอใบเสนอราคา / ติดต่อทีมขาย' },
 ];
 
 export default function SiteNavbar() {
