@@ -60,6 +60,7 @@ export default function AffiliateCampaignsManager() {
   const [openWizard, setOpenWizard] = useState(false);
 
   // Wizard state
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [step, setStep] = useState(1);
   const [type, setType] = useState<"cart" | "quote_template">("cart");
   const [title, setTitle] = useState("");
