@@ -1091,3 +1091,25 @@ function FileList({ files, onRemove }: { files: UploadedFile[]; onRemove: (f: Up
     </ul>
   );
 }
+
+function SignedImage({ path, alt }: { path: string; alt: string }) {
+  const [url, setUrl] = useState<string | null>(null);
+  useEffect(() => {
+    let cancelled = false;
+    supabase.storage
+      .from("partner-applications")
+      .createSignedUrl(path, 3600)
+      .then(({ data }) => {
+        if (!cancelled && data?.signedUrl) setUrl(data.signedUrl);
+      });
+    return () => { cancelled = true; };
+  }, [path]);
+  if (!url) {
+    return (
+      <div className="w-full h-full flex items-center justify-center bg-muted">
+        <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
+  return <img src={url} alt={alt} className="w-full h-full object-cover" loading="lazy" />;
+}
