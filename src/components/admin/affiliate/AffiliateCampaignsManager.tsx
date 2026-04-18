@@ -60,6 +60,13 @@ export default function AffiliateCampaignsManager() {
   const [loading, setLoading] = useState(true);
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [openWizard, setOpenWizard] = useState(false);
+  const [view, setView] = useState<"grid" | "list">(() => {
+    if (typeof window === "undefined") return "grid";
+    return ((localStorage.getItem("admin_campaigns_view") as "grid" | "list") || "grid");
+  });
+  useEffect(() => {
+    if (typeof window !== "undefined") localStorage.setItem("admin_campaigns_view", view);
+  }, [view]);
 
   // Wizard state
   const [editingId, setEditingId] = useState<string | null>(null);
