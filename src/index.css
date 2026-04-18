@@ -107,6 +107,12 @@
     --gradient-dark: linear-gradient(180deg, hsl(220, 20%, 7%), hsl(220, 18%, 4%));
     --shadow-glow: 0 0 30px -5px hsl(168 80% 45% / 0.3);
     --shadow-card: 0 4px 24px -4px hsl(0 0% 0% / 0.4);
+
+    /* NVIDIA brand tokens */
+    --nv-green: 79 100% 42%;
+    --nv-green-foreground: 228 55% 10%;
+    --nv-navy: 228 55% 6%;
+    --line-green: 144 95% 45%;
   }
 }
 
