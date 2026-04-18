@@ -26,7 +26,7 @@ const RFQCTABanner = ({ className = "", variant = "full" }: RFQCTABannerProps) =
             <p className="text-xs text-muted-foreground mt-0.5">ยังไม่เจอรุ่นที่ใช่? ให้ทีมเราหาให้</p>
           </div>
           <Link
-            to="/contact"
+            to="/request-quote"
             className="shrink-0 inline-flex items-center gap-1 px-3 py-1.5 rounded-md bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity"
           >
             ขอเลย <ArrowRight className="w-3 h-3" />
