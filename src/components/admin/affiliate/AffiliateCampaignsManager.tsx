@@ -345,47 +345,7 @@ export default function AffiliateCampaignsManager() {
           )}
 
           {step === 3 && type === "cart" && (
-            <div className="space-y-3">
-              {items.map((it, idx) => (
-                <div key={idx} className="grid grid-cols-12 gap-2 items-end p-3 rounded-lg border">
-                  <div className="col-span-3">
-                    <Label className="text-xs">รุ่น *</Label>
-                    <Input value={it.product_model} onChange={(e) => {
-                      const next = [...items]; next[idx].product_model = e.target.value; setItems(next);
-                    }} placeholder="GT-1500" />
-                  </div>
-                  <div className="col-span-4">
-                    <Label className="text-xs">ชื่อสินค้า</Label>
-                    <Input value={it.product_name} onChange={(e) => {
-                      const next = [...items]; next[idx].product_name = e.target.value; setItems(next);
-                    }} placeholder="Industrial Panel PC 15&quot;" />
-                  </div>
-                  <div className="col-span-2">
-                    <Label className="text-xs">จำนวน</Label>
-                    <Input type="number" min={1} value={it.quantity} onChange={(e) => {
-                      const next = [...items]; next[idx].quantity = Number(e.target.value); setItems(next);
-                    }} />
-                  </div>
-                  <div className="col-span-2">
-                    <Label className="text-xs">ราคา/หน่วย</Label>
-                    <Input type="number" value={it.unit_price ?? ""} onChange={(e) => {
-                      const next = [...items]; next[idx].unit_price = e.target.value ? Number(e.target.value) : null; setItems(next);
-                    }} />
-                  </div>
-                  <div className="col-span-1">
-                    <Button size="sm" variant="ghost" onClick={() => setItems(items.filter((_, i) => i !== idx))}>
-                      <Trash2 className="w-3.5 h-3.5 text-destructive" />
-                    </Button>
-                  </div>
-                </div>
-              ))}
-              <Button variant="outline" size="sm" onClick={() => setItems([...items, { product_model: "", product_name: "", quantity: 1, unit_price: null }])}>
-                <Plus className="w-3.5 h-3.5 mr-1" /> เพิ่มสินค้า
-              </Button>
-              <p className="text-xs text-muted-foreground">
-                รวมประมาณ: ฿{items.reduce((s, i) => s + (Number(i.unit_price || 0) * Number(i.quantity || 0)), 0).toLocaleString("th-TH")}
-              </p>
-            </div>
+            <CartPickerStep items={items} setItems={setItems} />
           )}
 
           {step === 3 && type === "quote_template" && (
