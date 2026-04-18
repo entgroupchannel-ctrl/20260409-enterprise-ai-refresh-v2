@@ -185,8 +185,8 @@ const AffiliateApply = () => {
     try {
       // Generate code via DB function
       const { data: codeData, error: codeErr } = await supabase.rpc("generate_affiliate_code", {
-        full_name: parsed.data.full_name,
-      });
+        _full_name: parsed.data.full_name,
+      } as never);
       if (codeErr) throw codeErr;
 
       // Insert affiliate
