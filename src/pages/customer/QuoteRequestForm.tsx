@@ -385,6 +385,7 @@ export default function QuoteRequestForm() {
           </div>
         </div>
       </form>
+      <Footer />
     </div>
   );
 }
