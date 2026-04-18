@@ -438,7 +438,7 @@ export default function JetsonRecommend() {
                       </button>
                       <button onClick={recNext} disabled={!hasAnswer}
                         className="flex items-center gap-1 px-6 py-2.5 rounded-lg font-semibold text-sm disabled:opacity-30 hover:opacity-90 transition"
-                        style={{ background: NV, color: "#0a0e27" }}>
+                        style={{ background: NV, color: NV_NAVY }}>
                         {recStep === currentQuestions.length - 1 ? "ดูผลลัพธ์" : "ถัดไป"} <ArrowRight size={14} />
                       </button>
                     </div>
@@ -460,7 +460,7 @@ export default function JetsonRecommend() {
                     )}
                     <div className="text-center mt-8">
                       <Link to="/contact" className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm hover:opacity-90 transition"
-                        style={{ background: NV, color: "#0a0e27" }}>
+                        style={{ background: NV, color: NV_NAVY }}>
                         <FileText size={16} /> ขอใบเสนอราคา
                       </Link>
                     </div>
@@ -481,7 +481,7 @@ export default function JetsonRecommend() {
               {PRODUCT_LINES.map(pl => (
                 <button key={pl.id} onClick={() => setCompareCategory(pl.id)}
                   className={`px-4 py-2 rounded-md text-xs font-medium transition ${compareCategory === pl.id ? "text-white" : "text-muted-foreground hover:text-foreground"}`}
-                  style={compareCategory === pl.id ? { background: NV, color: "#0a0e27" } : {}}>
+                  style={compareCategory === pl.id ? { background: NV, color: NV_NAVY } : {}}>
                   {pl.label}
                 </button>
               ))}
@@ -528,7 +528,7 @@ export default function JetsonRecommend() {
                           <div className="flex flex-col items-center gap-2">
                             <img src={p.image} alt={p.name} className="w-16 h-16 object-contain" onError={e => { (e.target as HTMLImageElement).src = "/product-placeholder.svg"; }} />
                             <Link to={p.link} className="font-semibold hover:opacity-80 text-xs text-center" style={{ color: NV }}>{p.name}</Link>
-                            {p.badge && <span className="text-[9px] font-bold px-2 py-0.5 rounded-full uppercase" style={{ background: NV, color: "#0a0e27" }}>{p.badge}</span>}
+                            {p.badge && <span className="text-[9px] font-bold px-2 py-0.5 rounded-full uppercase" style={{ background: NV, color: NV_NAVY }}>{p.badge}</span>}
                           </div>
                         </th>
                       ))}
@@ -549,7 +549,7 @@ export default function JetsonRecommend() {
                       {selectedCompare.map(p => (
                         <td key={p.id} className="p-3 text-center">
                           <Link to="/contact" className="inline-flex items-center gap-1 px-4 py-2 rounded-lg text-xs font-semibold hover:opacity-90 transition"
-                            style={{ background: NV, color: "#0a0e27" }}>
+                            style={{ background: NV, color: NV_NAVY }}>
                             ขอใบเสนอราคา <ArrowRight size={12} />
                           </Link>
                         </td>
@@ -578,12 +578,12 @@ export default function JetsonRecommend() {
               <div className="flex gap-1 p-1 rounded-lg bg-muted">
                 <button onClick={() => { setCompatView("wizard"); compatReset(); }}
                   className="px-3 py-1.5 rounded-md text-xs font-medium transition"
-                  style={compatView === "wizard" ? { background: NV, color: "#0a0e27" } : { color: "hsl(var(--muted-foreground))" }}>
+                  style={compatView === "wizard" ? { background: NV, color: NV_NAVY } : { color: "hsl(var(--muted-foreground))" }}>
                   Wizard
                 </button>
                 <button onClick={() => setCompatView("matrix")}
                   className="px-3 py-1.5 rounded-md text-xs font-medium transition"
-                  style={compatView === "matrix" ? { background: NV, color: "#0a0e27" } : { color: "hsl(var(--muted-foreground))" }}>
+                  style={compatView === "matrix" ? { background: NV, color: NV_NAVY } : { color: "hsl(var(--muted-foreground))" }}>
                   ตาราง Matrix
                 </button>
               </div>
@@ -727,11 +727,11 @@ export default function JetsonRecommend() {
                       <div>• ยังไม่แน่ใจ? เริ่มจาก Dev Kit ทดสอบก่อน แล้วค่อยสั่ง Module + Carrier แยก</div>
                     </div>
                     <div className="flex flex-wrap gap-2">
-                      <Link to="/contact" className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition" style={{ background: NV, color: "#0a0e27" }}>
+                      <Link to="/contact" className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition" style={{ background: NV, color: NV_NAVY }}>
                         <FileText size={14} /> ขอใบเสนอราคา
                       </Link>
                       <a href="tel:020456104" className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border text-sm hover:border-primary transition"><Phone size={14} /> 02-045-6104</a>
-                      <LineQRButton className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold text-white hover:opacity-90 transition bg-[#06C755]">LINE @entgroup</LineQRButton>
+                      <LineQRButton className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold text-white hover:opacity-90 transition bg-[hsl(var(--line-green))]">LINE @entgroup</LineQRButton>
                       <button onClick={compatReset} className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border text-sm text-muted-foreground hover:text-primary hover:border-primary transition"><RotateCcw size={14} /> เริ่มใหม่</button>
                     </div>
                     <p className="text-[10px] text-muted-foreground mt-2">จ-ศ 8.30-17.30 น. | ราคาอาจเปลี่ยนแปลง กรุณาสอบถามก่อนสั่งซื้อ</p>
