@@ -102,6 +102,8 @@ const AdminReceiptDetail = lazyRetry(() => import("./pages/admin/AdminReceiptDet
 const AdminContacts = lazyRetry(() => import("./pages/admin/AdminContacts"));
 const AdminCompanySettings = lazyRetry(() => import("./pages/admin/AdminCompanySettings"));
 const AdminProfile = lazyRetry(() => import("./pages/admin/AdminProfile"));
+const AdminPartnerApplications = lazyRetry(() => import("./pages/admin/AdminPartnerApplications"));
+const AdminPartnerApplicationDetail = lazyRetry(() => import("./pages/admin/AdminPartnerApplicationDetail"));
 const ProductDetail = lazyRetry(() => import("./pages/ProductDetail"));
 const QuoteRequestForm = lazyRetry(() => import("./pages/customer/QuoteRequestForm"));
 const MyQuotes = lazyRetry(() => import("./pages/customer/MyQuotes"));
