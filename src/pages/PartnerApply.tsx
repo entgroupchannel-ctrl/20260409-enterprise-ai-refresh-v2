@@ -20,7 +20,7 @@ import { useI18n } from "@/contexts/I18nContext";
 import LangToggle from "@/components/LangToggle";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
-import { pf, PRODUCT_CATEGORIES, CERTS, PARTNERSHIP_TYPES, CN_PROVINCES, CONTACT_POSITIONS } from "@/lib/partner-i18n";
+import { pf, PRODUCT_CATEGORIES, CERTS, PARTNERSHIP_TYPES, CN_PROVINCES, CONTACT_POSITIONS, HEARD_FROM_OPTIONS } from "@/lib/partner-i18n";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 
