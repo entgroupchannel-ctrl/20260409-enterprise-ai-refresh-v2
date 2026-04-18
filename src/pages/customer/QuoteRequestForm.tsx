@@ -220,9 +220,10 @@ export default function QuoteRequestForm() {
   const isLoggedIn = !!user;
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="bg-card border-b border-border sticky top-0 z-10">
+    <div className="min-h-screen bg-background flex flex-col">
+      <SiteNavbar />
+      {/* Sub header */}
+      <div className="bg-card border-b border-border sticky top-14 z-10">
         <div className="max-w-5xl mx-auto px-4 h-12 flex items-center justify-between">
           <Button variant="ghost" size="sm" onClick={() => navigate(-1)}>
             <ArrowLeft className="w-4 h-4 mr-1" /> กลับ
