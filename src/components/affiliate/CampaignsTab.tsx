@@ -10,8 +10,9 @@ import {
 } from "@/components/ui/dialog";
 import {
   Megaphone, Copy, MessageCircle, Facebook, Mail, ShoppingCart,
-  FileText, Sparkles, Loader2, Package, ExternalLink,
+  FileText, Sparkles, Loader2, Package, ExternalLink, LayoutGrid, List,
 } from "lucide-react";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { QRCodeSVG } from "qrcode.react";
 
 interface Campaign {
