@@ -218,7 +218,7 @@ export default function AdminLiveChat() {
     if (!activeQuoteId) return;
     setUploadingFile(true);
     try {
-      const path = `chat/${activeQuoteId}/${Date.now()}_${file.name}`;
+      const path = `chat/${activeQuoteId}/${Date.now()}_${sanitizeFilename(file.name)}`;
       const { error } = await supabase.storage.from('supplier-documents').upload(path, file);
       if (error) throw error;
       const { data: urlData } = supabase.storage.from('supplier-documents').getPublicUrl(path);

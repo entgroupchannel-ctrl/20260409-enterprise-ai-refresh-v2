@@ -77,7 +77,7 @@ export default function AcceptQuoteDialog({
   const uploadPOFiles = async () => {
     const uploaded: any[] = [];
     for (const file of poFiles) {
-      const fileName = `po-files/${quoteId}/${Date.now()}-${file.name}`;
+      const fileName = `po-files/${quoteId}/${Date.now()}-${sanitizeFilename(file.name)}`;
       const { error: uploadError } = await supabase.storage
         .from('quote-files')
         .upload(fileName, file);

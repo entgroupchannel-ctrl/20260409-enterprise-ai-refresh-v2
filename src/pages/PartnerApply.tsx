@@ -245,7 +245,7 @@ export default function PartnerApply() {
     }
     setUploadingCat(category);
     try {
-      const path = `${id}/${category}/${Date.now()}-${file.name}`;
+      const path = `${id}/${category}/${Date.now()}-${sanitizeFilename(file.name)}`;
       const { error: upErr } = await supabase.storage
         .from("partner-applications").upload(path, file, { upsert: false });
       if (upErr) throw upErr;

@@ -385,7 +385,7 @@ export default function MyQuoteDetail() {
       let uploadedFiles: any[] = [];
       if (requestFiles && requestFiles.length > 0) {
         for (const file of Array.from(requestFiles)) {
-          const fileName = `temp/${id}/${Date.now()}_${file.name}`;
+          const fileName = `temp/${id}/${Date.now()}_${sanitizeFilename(file.name)}`;
           const { data: uploadData } = await supabase.storage
             .from('quote-files')
             .upload(fileName, file);
