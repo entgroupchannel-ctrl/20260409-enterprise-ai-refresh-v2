@@ -135,8 +135,45 @@ export default function LinkBuilderTab({ affiliateCode }: { affiliateCode: strin
   const shareFB = () => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, "_blank");
   const shareMail = () => window.open(`mailto:?subject=${encodeURIComponent("ENT Group — Industrial B2B Platform")}&body=${encodeURIComponent(`สวัสดีครับ ลองดูสินค้าจาก ENT Group ได้ที่ลิงก์นี้: ${url}`)}`);
 
+  const loadPreset = (p: typeof PRESET_TEMPLATES[number]) => {
+    setPath(PRESET_PATHS.some(x => x.value === p.path) ? p.path : "/");
+    setCustomPath(PRESET_PATHS.some(x => x.value === p.path) ? "" : p.path);
+    setUtmSource(p.utm_source);
+    setUtmMedium(p.utm_medium);
+    setUtmCampaign(p.utm_campaign);
+    setLabel(p.label);
+    toast({ title: "โหลดเทมเพลตแล้ว", description: `แก้ไขให้เหมาะกับลูกค้าของคุณได้เลย` });
+  };
+
   return (
     <div className="grid lg:grid-cols-3 gap-6">
+      {/* Preset templates — quick start */}
+      <Card className="lg:col-span-3 border-primary/30 bg-gradient-to-br from-primary/5 to-transparent">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-base flex items-center gap-2">
+            <Sparkles className="w-4 h-4 text-primary" /> เทมเพลตเริ่มต้น — กดเพื่อโหลดและแก้ไขได้
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-2">
+            {PRESET_TEMPLATES.map((p, i) => (
+              <button
+                key={i}
+                onClick={() => loadPreset(p)}
+                className="text-left p-3 rounded-lg border bg-card hover:border-primary hover:shadow-sm transition-all"
+              >
+                <div className="text-xl mb-1">{p.emoji}</div>
+                <div className="text-xs font-medium leading-tight mb-1.5 line-clamp-2">{p.label}</div>
+                <div className="flex flex-wrap gap-1">
+                  <Badge variant="secondary" className="text-[10px] px-1 py-0">{p.utm_source}</Badge>
+                  <Badge variant="outline" className="text-[10px] px-1 py-0 font-mono">{p.path}</Badge>
+                </div>
+              </button>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Builder */}
       <Card className="lg:col-span-2">
         <CardHeader>
