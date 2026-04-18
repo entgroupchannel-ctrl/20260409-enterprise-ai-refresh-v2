@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, LogIn, UserCircle, ChevronDown, LayoutDashboard, FileText, Plus, User, LogOut, ShoppingBag } from 'lucide-react';
+import { Menu, X, LogIn, UserCircle, ChevronDown, LayoutDashboard, FileText, Plus, User, LogOut, ShoppingBag, Sparkles } from 'lucide-react';
 import CartBadge from '@/components/CartBadge';
 import ThemeToggle from '@/components/ThemeToggle';
 import MegaMenu, { MobileMegaMenu } from '@/components/MegaMenu';
@@ -83,6 +83,9 @@ export default function SiteNavbar() {
                       </Link>
                       <Link to="/request-quote" className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors">
                         <Plus size={16} /> ขอใบเสนอราคาใหม่
+                      </Link>
+                      <Link to="/affiliate" className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors">
+                        <Sparkles size={16} /> สร้างรายได้ (Affiliate)
                       </Link>
                     </>
                   )}
