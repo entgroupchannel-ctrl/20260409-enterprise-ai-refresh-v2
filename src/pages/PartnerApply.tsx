@@ -470,8 +470,29 @@ function Stage1({ data, update, L }: any) {
         <Field label={L("legalRep")}>
           <Input value={data.legal_representative} onChange={(e) => update("legal_representative", e.target.value)} />
         </Field>
-        <Field label={L("capital")}>
-          <Input type="number" value={data.registered_capital_cny} onChange={(e) => update("registered_capital_cny", e.target.value)} />
+        <Field label={`${L("capital")} (${capitalCurrency})`}>
+          <div className="flex gap-2">
+            <Input
+              type="number"
+              className="flex-1"
+              value={data.registered_capital_cny}
+              onChange={(e) => update("registered_capital_cny", e.target.value)}
+            />
+            <select
+              value={capitalCurrency}
+              onChange={(e) => setCapitalCurrency(e.target.value as any)}
+              className="h-10 rounded-md border border-input bg-background px-2 text-sm"
+            >
+              <option value="CNY">CNY ¥</option>
+              <option value="USD">USD $</option>
+              <option value="THB">THB ฿</option>
+            </select>
+          </div>
+          {capitalCurrency !== "CNY" && data.registered_capital_cny && (
+            <p className="text-[11px] text-muted-foreground mt-1">
+              ≈ ¥{Math.round(Number(data.registered_capital_cny) * (capitalCurrency === "USD" ? 7.2 : 0.2)).toLocaleString()} CNY
+            </p>
+          )}
         </Field>
         <Field label={L("established")}>
           <Input type="number" value={data.established_year} onChange={(e) => update("established_year", e.target.value)} />
