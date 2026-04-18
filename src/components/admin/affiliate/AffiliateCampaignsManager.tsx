@@ -427,9 +427,15 @@ export default function AffiliateCampaignsManager() {
           )}
 
           <DialogFooter className="gap-2">
-            {step > 1 && <Button variant="outline" onClick={() => setStep(step - 1)}>ย้อนกลับ</Button>}
+            {step > (editingId ? 2 : 1) && <Button variant="outline" onClick={() => setStep(step - 1)}>ย้อนกลับ</Button>}
             {step < 3 && <Button onClick={() => setStep(step + 1)} disabled={step === 2 && (!title || !slug)}>ถัดไป</Button>}
-            {step === 3 && (
+            {editingId && (
+              <Button onClick={handleSave} disabled={saving} variant={step === 3 ? "default" : "secondary"}>
+                {saving && <Loader2 className="w-4 h-4 mr-1 animate-spin" />}
+                บันทึกการแก้ไข
+              </Button>
+            )}
+            {!editingId && step === 3 && (
               <Button onClick={handleSave} disabled={saving}>
                 {saving && <Loader2 className="w-4 h-4 mr-1 animate-spin" />}
                 บันทึก Campaign
