@@ -7,10 +7,12 @@ import SEOHead from "@/components/SEOHead";
 import Footer from "@/components/Footer";
 import PageBanner from "@/components/PageBanner";
 import ShareButtons from "@/components/ShareButtons";
+import MiniNavbar from "@/components/MiniNavbar";
 
 const Blog = () => {
   return (
     <div className="min-h-screen bg-background">
+      <MiniNavbar />
       <SEOHead
         title="บทความเทคนิค | Blog — ENT Group"
 
