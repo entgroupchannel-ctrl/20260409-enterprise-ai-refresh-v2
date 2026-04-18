@@ -292,6 +292,9 @@ export default function AffiliateCampaignsManager() {
                       <Switch checked={c.is_active} onCheckedChange={() => toggleActive(c)} />
                     </div>
                     <div className="flex gap-1">
+                      <Button size="sm" variant="ghost" onClick={() => handleEdit(c)} title="แก้ไข">
+                        <Pencil className="w-3.5 h-3.5" />
+                      </Button>
                       <Button size="sm" variant="ghost" onClick={() => copyLink(c.slug)} title="คัดลอก URL">
                         <Copy className="w-3.5 h-3.5" />
                       </Button>
