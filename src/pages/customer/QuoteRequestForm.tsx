@@ -16,6 +16,7 @@ import { Plus, Trash2, Send, ArrowLeft, CheckCircle2, Building, User, Package, S
 import ProductAutocomplete from '@/components/admin/ProductAutocomplete';
 import type { ProductData } from '@/components/admin/ProductAutocomplete';
 import { getPendingQuote, clearPendingQuote } from '@/hooks/usePendingQuote';
+import { getAttributionFields, createAffiliateLead } from '@/lib/affiliate-attribution';
 import SiteNavbar from '@/components/SiteNavbar';
 import Footer from '@/components/Footer';
 
@@ -65,6 +66,9 @@ export default function QuoteRequestForm() {
     { model: '', description: '', qty: 1 },
   ]);
 
+  // Track campaign source (from /c/:slug "ขอใบเสนอราคา" button)
+  const [campaignInfo, setCampaignInfo] = useState<{ id: string; slug: string; title: string } | null>(null);
+
   // Restore pending products after login redirect
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -85,6 +89,44 @@ export default function QuoteRequestForm() {
       }
     }
   }, [user, location.search]);
+
+  // Pre-fill products & notes from campaign (when arrived via ?campaign=<slug>)
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const slug = params.get('campaign');
+    if (!slug) return;
+    (async () => {
+      const { data: c } = await (supabase.from as any)('affiliate_campaigns')
+        .select('id, slug, title, promo_note')
+        .eq('slug', slug)
+        .maybeSingle();
+      if (!c) return;
+      setCampaignInfo({ id: c.id, slug: c.slug, title: c.title });
+
+      const { data: rows } = await (supabase.from as any)('affiliate_campaign_items')
+        .select('product_model, product_name, product_description, quantity, display_order')
+        .eq('campaign_id', c.id)
+        .order('display_order', { ascending: true });
+
+      if (rows && rows.length > 0) {
+        setProducts(rows.map((r: any) => ({
+          model: r.product_name || r.product_model,
+          description: r.product_description || r.product_model,
+          qty: r.quantity || 1,
+        })));
+      }
+      setFormData(prev => ({
+        ...prev,
+        notes: prev.notes
+          ? prev.notes
+          : `อ้างอิงแคมเปญ: ${c.title} (${c.slug})${c.promo_note ? ` — ${c.promo_note}` : ''}`,
+      }));
+      toast({
+        title: '📦 โหลดสินค้าจากแคมเปญแล้ว',
+        description: c.title,
+      });
+    })();
+  }, [location.search]);
 
   // Auto-fill from user_profiles when logged in
   useEffect(() => {
@@ -287,12 +329,28 @@ export default function QuoteRequestForm() {
           vat_amount: 0,
           grand_total: 0,
           created_by: user?.id || null,
+          // Campaign traceability — overrides attribution_source when present
+          ...(campaignInfo
+            ? { source: `campaign:${campaignInfo.slug}`, attribution_source: 'campaign' }
+            : {}),
+          // Affiliate attribution (cookie-based, 90-day window)
+          ...getAttributionFields(),
         };
       const { data, error } = await (supabase.from('quote_requests') as any)
         .insert([insertPayload])
         .select().single();
 
       if (error) throw error;
+
+      // Best-effort affiliate lead row (no-op if no attribution cookie)
+      await createAffiliateLead({
+        source_type: 'quote_request',
+        source_id: data.id,
+        customer_name: formData.customer_name,
+        customer_email: formData.customer_email,
+        customer_company: formData.customer_company || null,
+      });
+
       toast({ title: 'ส่งคำขอสำเร็จ', description: `เลขที่ ${data.quote_number}` });
       navigate(user ? '/my-quotes' : '/');
     } catch (error: any) {
@@ -320,6 +378,16 @@ export default function QuoteRequestForm() {
       </div>
 
       <form onSubmit={handleSubmit} className="max-w-5xl mx-auto px-4 py-4">
+        {campaignInfo && (
+          <div className="mb-4 flex items-center gap-2 p-3 rounded-lg border border-primary/30 bg-primary/5">
+            <Package className="w-4 h-4 text-primary shrink-0" />
+            <div className="text-sm">
+              <span className="font-medium">โหลดสินค้าจากแคมเปญ:</span>{' '}
+              <span className="text-primary">{campaignInfo.title}</span>
+              <span className="text-xs text-muted-foreground ml-2">({campaignInfo.slug})</span>
+            </div>
+          </div>
+        )}
         {/* Honeypot field — hidden from users, bots will fill it */}
         <div aria-hidden="true" className="absolute -left-[9999px] w-px h-px overflow-hidden" tabIndex={-1}>
           <label>
