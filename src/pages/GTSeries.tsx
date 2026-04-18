@@ -1,5 +1,6 @@
 import SEOHead from "@/components/SEOHead";
 import AddToCartButton from "@/components/AddToCartButton";
+import ChatNowButton from "@/components/shop/ChatNowButton";
 import CartBadge from "@/components/CartBadge";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
@@ -1169,6 +1170,7 @@ const GTSeries = () => {
                              <div className="inline-flex items-center gap-1">
                                <AddToCartButton productModel="GT1000" productName={specLabel} iconOnly variant="outline" />
                                <QuoteRequestButton productModel="GT1000" productName={specLabel} iconOnly variant="outline" />
+                               <ChatNowButton productModel="GT1000" productName={specLabel} />
                              </div>
                            </td>
                          </tr>
@@ -1662,6 +1664,7 @@ const GTSeries = () => {
                              <div className="inline-flex items-center gap-1">
                                <AddToCartButton productModel="GT2000" productName={specLabel} iconOnly variant="outline" />
                                <QuoteRequestButton productModel="GT2000" productName={specLabel} iconOnly variant="outline" />
+                               <ChatNowButton productModel="GT2000" productName={specLabel} />
                              </div>
                            </td>
                          </tr>
@@ -2209,6 +2212,7 @@ const GTSeries = () => {
                                  <div className="inline-flex items-center gap-1">
                                    <AddToCartButton productModel="GT3000" productName={specLabel} iconOnly variant="outline" />
                                    <QuoteRequestButton productModel="GT3000" productName={specLabel} iconOnly variant="outline" />
+                                   <ChatNowButton productModel="GT3000" productName={specLabel} />
                                  </div>
                                </td>
                              </tr>
@@ -2495,6 +2499,7 @@ const GTSeries = () => {
                              <div className="inline-flex items-center gap-1">
                                <AddToCartButton productModel="GT4000" productName={specLabel} iconOnly variant="outline" />
                                <QuoteRequestButton productModel="GT4000" productName={specLabel} iconOnly variant="outline" />
+                               <ChatNowButton productModel="GT4000" productName={specLabel} />
                              </div>
                            </td>
                          </tr>
@@ -3062,6 +3067,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                              <div className="inline-flex items-center gap-1">
                                <AddToCartButton productModel="GT5000" productName={specLabel} iconOnly variant="outline" />
                                <QuoteRequestButton productModel="GT5000" productName={specLabel} iconOnly variant="outline" />
+                               <ChatNowButton productModel="GT5000" productName={specLabel} />
                              </div>
                            </td>
                          </tr>
@@ -3412,6 +3418,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                                  <div className="inline-flex items-center gap-1">
                                    <AddToCartButton productModel="GT6000" productName={specLabel} iconOnly variant="outline" />
                                    <QuoteRequestButton productModel="GT6000" productName={specLabel} iconOnly variant="outline" />
+                                   <ChatNowButton productModel="GT6000" productName={specLabel} />
                                  </div>
                                </td>
                              </tr>
@@ -3827,6 +3834,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                              <div className="inline-flex items-center gap-1">
                                <AddToCartButton productModel="GT7000" productName={specLabel} iconOnly variant="outline" />
                                <QuoteRequestButton productModel="GT7000" productName={specLabel} iconOnly variant="outline" />
+                               <ChatNowButton productModel="GT7000" productName={specLabel} />
                              </div>
                            </td>
                          </tr>
@@ -4164,6 +4172,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                              <div className="inline-flex items-center gap-1">
                                <AddToCartButton productModel="GT8000" productName={specLabel} iconOnly variant="outline" />
                                <QuoteRequestButton productModel="GT8000" productName={specLabel} iconOnly variant="outline" />
+                               <ChatNowButton productModel="GT8000" productName={specLabel} />
                              </div>
                            </td>
                          </tr>
@@ -4528,6 +4537,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                                            <div className="inline-flex items-center gap-1">
                                              <AddToCartButton productModel="GT9000" productName={specLabel} iconOnly variant="outline" />
                                              <QuoteRequestButton productModel="GT9000" productName={specLabel} iconOnly variant="outline" />
+                                             <ChatNowButton productModel="GT9000" productName={specLabel} />
                                            </div>
                                          </td>
                                        </tr>
@@ -4916,6 +4926,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                             <div className="inline-flex items-center gap-1">
                               <AddToCartButton productModel="GT4500" productName={specLabel} iconOnly variant="outline" />
                               <QuoteRequestButton productModel="GT4500" productName={specLabel} iconOnly variant="outline" />
+                              <ChatNowButton productModel="GT4500" productName={specLabel} />
                             </div>
                           </td>
                         </tr>
@@ -5257,6 +5268,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                                     <div className="inline-flex items-center gap-1">
                                       <AddToCartButton productModel="GT1400" productName={specLabel} iconOnly variant="outline" />
                                       <QuoteRequestButton productModel="GT1400" productName={specLabel} iconOnly variant="outline" />
+                                      <ChatNowButton productModel="GT1400" productName={specLabel} />
                                     </div>
                                   </td>
                                 </tr>
@@ -5824,6 +5836,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                                  <div className="inline-flex items-center gap-1">
                                    <AddToCartButton productModel="GT1200" productName={specLabel} iconOnly variant="outline" />
                                    <QuoteRequestButton productModel="GT1200" productName={specLabel} iconOnly variant="outline" />
+                                   <ChatNowButton productModel="GT1200" productName={specLabel} />
                                  </div>
                                </td>
                              </tr>
