@@ -13,10 +13,12 @@ import { template as quoteSent } from './quote-sent.tsx'
 import { template as invoiceCreated } from './invoice-created.tsx'
 import { template as paymentConfirmed } from './payment-confirmed.tsx'
 import { template as contactConfirmation } from './contact-confirmation.tsx'
+import { template as partnerApplicationReceived } from './partner-application-received.tsx'
 
 export const TEMPLATES: Record<string, TemplateEntry> = {
   'quote-sent': quoteSent,
   'invoice-created': invoiceCreated,
   'payment-confirmed': paymentConfirmed,
   'contact-confirmation': contactConfirmation,
+  'partner-application-received': partnerApplicationReceived,
 }
