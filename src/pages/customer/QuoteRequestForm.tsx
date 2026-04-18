@@ -297,7 +297,7 @@ export default function QuoteRequestForm() {
           <Button variant="ghost" size="sm" onClick={() => navigate(-1)}>
             <ArrowLeft className="w-4 h-4 mr-1" /> กลับ
           </Button>
-          <h1 className="text-lg font-semibold">ขอใบเสนอราคา</h1>
+          <h1 className="text-lg font-semibold">ขอใบเสนอราคา/RFQ</h1>
           <div className="w-16" />
         </div>
       </div>
