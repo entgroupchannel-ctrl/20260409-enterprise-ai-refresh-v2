@@ -93,6 +93,15 @@ export default function Register() {
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
             <PendingItemsBanner />
+            {prefilled && (
+              <div className="rounded-lg border border-primary/30 bg-primary/5 p-3 text-xs text-foreground flex items-start gap-2">
+                <Sparkles className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-semibold text-primary">เราเตรียมข้อมูลให้คุณแล้ว</p>
+                  <p className="text-muted-foreground mt-0.5">ตรวจสอบข้อมูลด้านล่าง ตั้งรหัสผ่าน แล้วยืนยันอีเมลเพื่อรับใบเสนอราคา</p>
+                </div>
+              </div>
+            )}
             <div className="space-y-2">
               <Label htmlFor="full_name">ชื่อ-นามสกุล <span className="text-destructive">*</span></Label>
               <Input id="full_name" placeholder="สมชาย ใจดี" value={formData.full_name} onChange={(e) => updateField('full_name', e.target.value)} required disabled={loading} />
