@@ -14,6 +14,7 @@ import CartBadge from "@/components/CartBadge";
 import ThemeToggle from "@/components/ThemeToggle";
 import logo from "@/assets/logo-entgroup.avif";
 import FooterCompact from "@/components/FooterCompact";
+import MiniNavbar from "@/components/MiniNavbar";
 import { LineQRDialog } from "@/components/LineQRDialog";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
 import gty121Front from "@/assets/gty121-front.jpg";
@@ -270,25 +271,7 @@ const PanelPC = () => {
         products={panelModels.map(m => ({ name: m.name, description: `${m.screen} ${m.resolution}`, category: "Industrial Panel PC" }))}      />
 
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "Panel PC GTG", path: "/panel-pc-gtg" }]} />
-      {/* Nav */}
-      <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
-        <div className="container max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-4">
-            <Link to="/" className="flex items-center gap-3">
-              <img src={logo} alt="ENT GROUP" className="h-8 w-auto" />
-            </Link>
-            <span className="text-muted-foreground">/</span>
-            <span className="text-sm font-semibold text-foreground">GTY/GTG Panel PC</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <CartBadge />
-            <ThemeToggle />
-            <Link to="/" className="hidden md:inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
-              <ArrowLeft size={16} /> กลับหน้าหลัก
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <MiniNavbar />
 
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-b from-primary/5 to-background">
