@@ -38,6 +38,7 @@ import {
   MessageCircle,
   BarChart3,
   Mail,
+  Award,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { supabase } from '@/integrations/supabase/client';
@@ -101,6 +102,7 @@ const navGroups: NavGroup[] = [
       { label: 'General Chat', icon: MessageCircle, path: '/admin/general-chat' },
       { label: 'จัดการ Supplier', icon: Building2, path: '/admin/suppliers', hiddenFromRoles: ['sales', 'warehouse', 'viewer'] },
       { label: 'Partner Applications', icon: Briefcase, path: '/admin/partners', hiddenFromRoles: ['warehouse', 'viewer'] },
+      { label: 'Affiliates', icon: Award, path: '/admin/affiliates', hiddenFromRoles: ['warehouse', 'viewer'] },
       { label: 'โอนเงินต่างประเทศ', icon: DollarSign, path: '/admin/international-transfer', hiddenFromRoles: ['sales', 'warehouse', 'viewer'] },
     ],
   },

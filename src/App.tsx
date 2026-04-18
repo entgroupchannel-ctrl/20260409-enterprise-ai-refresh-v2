@@ -106,6 +106,8 @@ const AdminContacts = lazyRetry(() => import("./pages/admin/AdminContacts"));
 const AdminCompanySettings = lazyRetry(() => import("./pages/admin/AdminCompanySettings"));
 const AdminProfile = lazyRetry(() => import("./pages/admin/AdminProfile"));
 const AdminPartnerApplications = lazyRetry(() => import("./pages/admin/AdminPartnerApplications"));
+const AdminAffiliatesList = lazyRetry(() => import("./pages/admin/AdminAffiliatesList"));
+const AdminAffiliateDetail = lazyRetry(() => import("./pages/admin/AdminAffiliateDetail"));
 const AdminPartnerApplicationDetail = lazyRetry(() => import("./pages/admin/AdminPartnerApplicationDetail"));
 const ProductDetail = lazyRetry(() => import("./pages/ProductDetail"));
 const QuoteRequestForm = lazyRetry(() => import("./pages/customer/QuoteRequestForm"));
@@ -265,6 +267,8 @@ const App = () => (
                     <Route path="/admin/customers" element={<ProtectedRoute requireSales><AdminCustomersList /></ProtectedRoute>} />
                     <Route path="/admin/customers/:id" element={<ProtectedRoute requireSales><AdminCustomerDetail /></ProtectedRoute>} />
                     <Route path="/admin/partners" element={<ProtectedRoute requireSales><AdminPartnerApplications /></ProtectedRoute>} />
+                    <Route path="/admin/affiliates" element={<ProtectedRoute requireSales><AdminAffiliatesList /></ProtectedRoute>} />
+                    <Route path="/admin/affiliates/:id" element={<ProtectedRoute requireSales><AdminAffiliateDetail /></ProtectedRoute>} />
                     <Route path="/admin/partners/:id" element={<ProtectedRoute requireSales><AdminPartnerApplicationDetail /></ProtectedRoute>} />
                     <Route path="/admin/audit-log" element={<ProtectedRoute allowedRoles={['super_admin']}><AdminAuditLog /></ProtectedRoute>} />
                     <Route path="/admin/sale-orders" element={<ProtectedRoute requireSales><AdminSaleOrders /></ProtectedRoute>} />
