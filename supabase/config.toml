@@ -15,3 +15,5 @@ project_id = "ugzdwmyylqmirrljtuej"
     verify_jwt = false
   [functions.parse-quote-pdf]
     verify_jwt = false
+  [functions.scan-business-card]
+    verify_jwt = false
