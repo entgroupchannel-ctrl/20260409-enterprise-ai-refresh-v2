@@ -135,13 +135,41 @@ const JetsonEdgeAI = () => {
       />
       <SiteNavbar />
 
-      {/* ── PROMO BAR ── */}
-      <div className="bg-gradient-to-r from-orange-500 via-rose-500 to-orange-500 text-white overflow-hidden">
-        <div className="container max-w-7xl mx-auto px-6 py-2.5 flex items-center justify-center gap-3 text-xs sm:text-sm font-semibold">
-          <Flame size={14} className="animate-pulse" />
-          <span>โปรโมชั่นพิเศษ ลดสูงสุด 15% ถึง 30 เม.ย. 2569</span>
-          <Link to="/shop?category=jetson" className="hidden sm:inline-flex items-center gap-1 underline underline-offset-2 hover:no-underline">
-            ดูสินค้าเลย <ArrowRight size={12} />
+      {/* ── PROMO BAR (marquee) ── */}
+      <div className="bg-gradient-to-r from-orange-500 via-rose-500 to-orange-500 text-white overflow-hidden border-b border-white/10">
+        <div className="relative flex items-center gap-3 py-2.5 text-xs sm:text-sm font-semibold">
+          <div className="flex shrink-0 items-center gap-2 px-4 border-r border-white/30">
+            <Flame size={14} className="animate-pulse" />
+            <span className="hidden sm:inline tracking-wider uppercase text-[11px]">Hot Deals</span>
+          </div>
+          <div className="flex-1 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)]">
+            <div className="flex gap-12 whitespace-nowrap animate-marquee hover:[animation-play-state:paused]">
+              {[...Array(2)].map((_, dup) => (
+                <div key={dup} className="flex shrink-0 gap-12" aria-hidden={dup === 1}>
+                  {[
+                    { text: "🔥 โปรโมชั่นพิเศษ ลดสูงสุด 15% ถึง 30 เม.ย. 2569", cta: "ดูสินค้าเลย", href: "/shop?category=jetson" },
+                    { text: "🎁 ซื้อ Orin Nano Super Devkit แถม SSD 256GB ฟรี", cta: "สั่งซื้อ", href: "/shop/orin-nano-super-devkit" },
+                    { text: "🚀 Jetson Thor IPC พร้อมส่ง — จองล็อตแรกรับส่วนลดพิเศษ", cta: "จองเลย", href: "/shop?category=jetson&q=thor" },
+                    { text: "🎓 ส่วนลดพิเศษสำหรับสถาบันการศึกษา & หน่วยงานราชการ", cta: "ขอใบเสนอราคา", href: "/contact" },
+                    { text: "🤝 SI/Reseller รับราคาพิเศษเมื่อสั่งซื้อจำนวนมาก", cta: "สมัครพาร์ทเนอร์", href: "/partner" },
+                  ].map((p, idx) => (
+                    <span key={`${dup}-${idx}`} className="inline-flex items-center gap-2 shrink-0">
+                      <span>{p.text}</span>
+                      <Link to={p.href} className="inline-flex items-center gap-1 underline underline-offset-2 hover:no-underline font-bold">
+                        {p.cta} <ArrowRight size={12} />
+                      </Link>
+                      <span className="text-white/50">•</span>
+                    </span>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+          <Link
+            to="/shop?category=jetson"
+            className="hidden md:inline-flex shrink-0 items-center gap-1.5 px-4 py-1 mr-3 rounded-full bg-white text-rose-600 hover:bg-white/90 text-xs font-bold transition-colors shadow-md"
+          >
+            🛒 Shop Jetson <ArrowRight size={12} />
           </Link>
         </div>
       </div>
