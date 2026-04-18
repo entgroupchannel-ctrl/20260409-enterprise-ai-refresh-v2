@@ -21,6 +21,12 @@ export default {
         glow: "hsl(var(--glow))",
         surface: "hsl(var(--surface))",
         "surface-hover": "hsl(var(--surface-hover))",
+        nv: {
+          DEFAULT: "hsl(var(--nv-green))",
+          foreground: "hsl(var(--nv-green-foreground))",
+          navy: "hsl(var(--nv-navy))",
+        },
+        line: "hsl(var(--line-green))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

@@ -13,7 +13,11 @@ import { jetsonProducts, jetsonCategories, type JetsonProduct, type JetsonCatego
 import { gpuServers, type GpuServer } from "@/data/gpu-servers";
 import { professionalGpus, proGpuFamilyLabel, type ProGpu } from "@/data/professional-gpus";
 
-const NV = "#76B900";
+// NVIDIA & LINE brand colors — third-party brand identifiers, not theme tokens.
+// Theme/UI surfaces use semantic tokens from index.css (bg-card, text-foreground, etc.)
+const NV = "#76B900";       // NVIDIA brand green
+const NV_NAVY = "#0a0e27";  // NVIDIA dark navy (logo background)
+const LINE_GREEN = "#06C755"; // LINE brand green
 
 /* ═══════════════════════════════════════════════════════════
    TABS
@@ -333,9 +337,9 @@ export default function JetsonRecommend() {
       <SiteNavbar />
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-[#0a0e27] text-white">
+      <section className="relative overflow-hidden text-white" style={{ background: NV_NAVY }}>
         <div className="absolute inset-0 opacity-30" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1920&q=80)", backgroundSize: "cover", backgroundPosition: "center" }} />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0e27]/80 via-[#0a0e27]/70 to-[#0a0e27]" />
+        <div className="absolute inset-0" style={{ background: `linear-gradient(to bottom, ${NV_NAVY}cc, ${NV_NAVY}b3, ${NV_NAVY})` }} />
         <div className="relative container max-w-7xl mx-auto px-6 py-14 md:py-20">
           <Link to="/nvidia-jetson" className="inline-flex items-center gap-1 text-sm text-white/70 hover:text-white mb-4">
             <ArrowLeft className="w-4 h-4" /> กลับ NVIDIA Jetson
@@ -434,7 +438,7 @@ export default function JetsonRecommend() {
                       </button>
                       <button onClick={recNext} disabled={!hasAnswer}
                         className="flex items-center gap-1 px-6 py-2.5 rounded-lg font-semibold text-sm disabled:opacity-30 hover:opacity-90 transition"
-                        style={{ background: NV, color: "#0a0e27" }}>
+                        style={{ background: NV, color: NV_NAVY }}>
                         {recStep === currentQuestions.length - 1 ? "ดูผลลัพธ์" : "ถัดไป"} <ArrowRight size={14} />
                       </button>
                     </div>
@@ -456,7 +460,7 @@ export default function JetsonRecommend() {
                     )}
                     <div className="text-center mt-8">
                       <Link to="/contact" className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm hover:opacity-90 transition"
-                        style={{ background: NV, color: "#0a0e27" }}>
+                        style={{ background: NV, color: NV_NAVY }}>
                         <FileText size={16} /> ขอใบเสนอราคา
                       </Link>
                     </div>
@@ -477,7 +481,7 @@ export default function JetsonRecommend() {
               {PRODUCT_LINES.map(pl => (
                 <button key={pl.id} onClick={() => setCompareCategory(pl.id)}
                   className={`px-4 py-2 rounded-md text-xs font-medium transition ${compareCategory === pl.id ? "text-white" : "text-muted-foreground hover:text-foreground"}`}
-                  style={compareCategory === pl.id ? { background: NV, color: "#0a0e27" } : {}}>
+                  style={compareCategory === pl.id ? { background: NV, color: NV_NAVY } : {}}>
                   {pl.label}
                 </button>
               ))}
@@ -524,7 +528,7 @@ export default function JetsonRecommend() {
                           <div className="flex flex-col items-center gap-2">
                             <img src={p.image} alt={p.name} className="w-16 h-16 object-contain" onError={e => { (e.target as HTMLImageElement).src = "/product-placeholder.svg"; }} />
                             <Link to={p.link} className="font-semibold hover:opacity-80 text-xs text-center" style={{ color: NV }}>{p.name}</Link>
-                            {p.badge && <span className="text-[9px] font-bold px-2 py-0.5 rounded-full uppercase" style={{ background: NV, color: "#0a0e27" }}>{p.badge}</span>}
+                            {p.badge && <span className="text-[9px] font-bold px-2 py-0.5 rounded-full uppercase" style={{ background: NV, color: NV_NAVY }}>{p.badge}</span>}
                           </div>
                         </th>
                       ))}
@@ -545,7 +549,7 @@ export default function JetsonRecommend() {
                       {selectedCompare.map(p => (
                         <td key={p.id} className="p-3 text-center">
                           <Link to="/contact" className="inline-flex items-center gap-1 px-4 py-2 rounded-lg text-xs font-semibold hover:opacity-90 transition"
-                            style={{ background: NV, color: "#0a0e27" }}>
+                            style={{ background: NV, color: NV_NAVY }}>
                             ขอใบเสนอราคา <ArrowRight size={12} />
                           </Link>
                         </td>
@@ -574,12 +578,12 @@ export default function JetsonRecommend() {
               <div className="flex gap-1 p-1 rounded-lg bg-muted">
                 <button onClick={() => { setCompatView("wizard"); compatReset(); }}
                   className="px-3 py-1.5 rounded-md text-xs font-medium transition"
-                  style={compatView === "wizard" ? { background: NV, color: "#0a0e27" } : { color: "hsl(var(--muted-foreground))" }}>
+                  style={compatView === "wizard" ? { background: NV, color: NV_NAVY } : { color: "hsl(var(--muted-foreground))" }}>
                   Wizard
                 </button>
                 <button onClick={() => setCompatView("matrix")}
                   className="px-3 py-1.5 rounded-md text-xs font-medium transition"
-                  style={compatView === "matrix" ? { background: NV, color: "#0a0e27" } : { color: "hsl(var(--muted-foreground))" }}>
+                  style={compatView === "matrix" ? { background: NV, color: NV_NAVY } : { color: "hsl(var(--muted-foreground))" }}>
                   ตาราง Matrix
                 </button>
               </div>
@@ -593,7 +597,7 @@ export default function JetsonRecommend() {
                       <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all"
                         style={{
                           background: i < compatStep ? NV : i === compatStep ? "transparent" : "hsl(var(--muted))",
-                          color: i < compatStep ? "#0a0e27" : i === compatStep ? NV : "hsl(var(--muted-foreground))",
+                          color: i < compatStep ? NV_NAVY : i === compatStep ? NV : "hsl(var(--muted-foreground))",
                           boxShadow: i === compatStep ? `0 0 0 2px ${NV}` : "none",
                         }}>
                         {i < compatStep ? "✓" : i + 1}
@@ -671,7 +675,7 @@ export default function JetsonRecommend() {
                             <div className="flex items-center gap-2 flex-wrap">
                               <span className="font-bold text-sm">{cb.full}</span>
                               {cb.tag && <span className="text-[10px] px-1.5 py-0.5 rounded font-semibold" style={cb.tag === "NEW" ? { background: `${NV}20`, color: NV } : { background: "hsl(var(--muted))", color: "hsl(var(--muted-foreground))" }}>{cb.tag}</span>}
-                              {cb.popular && <span className="text-[10px] px-1.5 py-0.5 rounded font-semibold bg-yellow-500/20 text-yellow-600">⭐ ยอดนิยม</span>}
+                              {cb.popular && <span className="text-[10px] px-1.5 py-0.5 rounded font-semibold bg-accent/20 text-accent-foreground border border-accent/30">⭐ ยอดนิยม</span>}
                             </div>
                             <div className="text-[11px] text-muted-foreground mt-1">{cb.io}</div>
                             <div className="text-[10px] text-muted-foreground mt-1">Form Factor: {cb.size}</div>
@@ -723,11 +727,11 @@ export default function JetsonRecommend() {
                       <div>• ยังไม่แน่ใจ? เริ่มจาก Dev Kit ทดสอบก่อน แล้วค่อยสั่ง Module + Carrier แยก</div>
                     </div>
                     <div className="flex flex-wrap gap-2">
-                      <Link to="/contact" className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition" style={{ background: NV, color: "#0a0e27" }}>
+                      <Link to="/contact" className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition" style={{ background: NV, color: NV_NAVY }}>
                         <FileText size={14} /> ขอใบเสนอราคา
                       </Link>
                       <a href="tel:020456104" className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border text-sm hover:border-primary transition"><Phone size={14} /> 02-045-6104</a>
-                      <LineQRButton className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold text-white hover:opacity-90 transition bg-[#06C755]">LINE @entgroup</LineQRButton>
+                      <LineQRButton className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold text-white hover:opacity-90 transition bg-[hsl(var(--line-green))]">LINE @entgroup</LineQRButton>
                       <button onClick={compatReset} className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border text-sm text-muted-foreground hover:text-primary hover:border-primary transition"><RotateCcw size={14} /> เริ่มใหม่</button>
                     </div>
                     <p className="text-[10px] text-muted-foreground mt-2">จ-ศ 8.30-17.30 น. | ราคาอาจเปลี่ยนแปลง กรุณาสอบถามก่อนสั่งซื้อ</p>
