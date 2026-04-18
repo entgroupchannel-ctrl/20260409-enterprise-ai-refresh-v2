@@ -153,22 +153,39 @@ export default function QuoteRequestForm() {
         body: { image: dataUrl },
       });
       if (error) throw error;
-      const card = (data && (data.card || data)) as any;
-      if (!card) throw new Error('ไม่สามารถอ่านข้อมูลได้');
+      // edge function returns { data: {...} } — supabase.invoke unwraps body, so payload sits at data.data
+      const card = (data?.data || data?.card || data) as any;
+      console.log('[scan-business-card] extracted:', card);
+      if (!card || typeof card !== 'object') throw new Error('ไม่สามารถอ่านข้อมูลได้');
+
+      const pick = (...keys: string[]): string => {
+        for (const k of keys) {
+          const v = card[k];
+          if (v && typeof v === 'string' && v.trim()) return v.trim();
+        }
+        return '';
+      };
+      const name = pick('name', 'full_name', 'fullName', 'contact_name');
+      const email = pick('email', 'e_mail');
+      const phone = pick('phone', 'mobile', 'tel', 'telephone', 'mobile_phone');
+      const company = pick('company', 'organization', 'company_name', 'org');
+      const address = pick('address', 'company_address');
+      const lineId = pick('lineId', 'line_id', 'line');
 
       setFormData(prev => ({
         ...prev,
-        customer_name: card.name || prev.customer_name,
-        customer_email: card.email || prev.customer_email,
-        customer_phone: card.phone || prev.customer_phone,
-        customer_company: card.company || prev.customer_company,
-        customer_address: card.address || prev.customer_address,
-        customer_line: card.lineId || prev.customer_line,
+        customer_name: name || prev.customer_name,
+        customer_email: email || prev.customer_email,
+        customer_phone: phone || prev.customer_phone,
+        customer_company: company || prev.customer_company,
+        customer_address: address || prev.customer_address,
+        customer_line: lineId || prev.customer_line,
       }));
 
+      const filled = [name && 'ชื่อ', company && 'บริษัท', email && 'อีเมล', phone && 'โทร'].filter(Boolean).join(', ');
       toast({
         title: '✅ สแกนนามบัตรสำเร็จ',
-        description: 'กรอกข้อมูลให้อัตโนมัติแล้ว — ตรวจสอบความถูกต้องก่อนส่ง',
+        description: filled ? `กรอกแล้ว: ${filled} — ตรวจสอบก่อนส่ง` : 'ไม่พบข้อมูลที่ชัดเจน — กรุณากรอกเอง',
       });
     } catch (err: any) {
       toast({
