@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,19 +8,39 @@ import {
   Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription,
 } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Sparkles } from 'lucide-react';
 import { getPendingQuote } from '@/hooks/usePendingQuote';
 import { PendingItemsBanner } from '@/components/PendingItemsBanner';
 
 export default function Register() {
+  const [searchParams] = useSearchParams();
   const [formData, setFormData] = useState({
     email: '', password: '', confirmPassword: '',
     full_name: '', phone: '', company: '',
   });
+  const [prefilled, setPrefilled] = useState(false);
   const [loading, setLoading] = useState(false);
   const { user, signUp } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
+
+  // Prefill from URL params (e.g., from RFQ form / business card scan)
+  useEffect(() => {
+    const email = searchParams.get('email') || '';
+    const full_name = searchParams.get('name') || '';
+    const phone = searchParams.get('phone') || '';
+    const company = searchParams.get('company') || '';
+    if (email || full_name || phone || company) {
+      setFormData(prev => ({
+        ...prev,
+        email: email || prev.email,
+        full_name: full_name || prev.full_name,
+        phone: phone || prev.phone,
+        company: company || prev.company,
+      }));
+      setPrefilled(true);
+    }
+  }, [searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
