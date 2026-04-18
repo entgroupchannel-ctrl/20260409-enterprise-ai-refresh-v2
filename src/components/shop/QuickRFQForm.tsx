@@ -274,6 +274,39 @@ export default function QuickRFQForm({ product, defaultQuantity = 1, configAddon
             </div>
           )}
 
+          {/* AI Business Card scan — quick prefill */}
+          <div className="rounded-lg border border-dashed border-primary/30 bg-primary/5 p-3 flex items-center gap-3">
+            <div className="shrink-0 w-9 h-9 rounded-md bg-primary/10 text-primary flex items-center justify-center">
+              <ScanLine className="w-5 h-5" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-foreground">มีนามบัตร? สแกนเพื่อกรอกอัตโนมัติ</p>
+              <p className="text-[11px] text-muted-foreground">AI จะอ่านชื่อ บริษัท อีเมล โทรศัพท์ ให้คุณ</p>
+            </div>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              capture="environment"
+              className="hidden"
+              onChange={(e) => {
+                const f = e.target.files?.[0];
+                if (f) handleScanCard(f);
+              }}
+            />
+            <Button
+              type="button"
+              size="sm"
+              variant="outline"
+              disabled={scanning}
+              onClick={() => fileInputRef.current?.click()}
+              className="shrink-0"
+            >
+              {scanning ? <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> : <Camera className="w-4 h-4 mr-1.5" />}
+              {scanning ? 'กำลังอ่าน...' : 'สแกนนามบัตร'}
+            </Button>
+          </div>
+
           {/* Core fields */}
           <div className="grid grid-cols-2 gap-3">
             <div>
