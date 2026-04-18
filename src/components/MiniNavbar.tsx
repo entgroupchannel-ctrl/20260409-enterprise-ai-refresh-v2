@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { LogIn, UserCircle, FileText, LogOut } from 'lucide-react';
+import { LogIn, UserCircle, FileText, LogOut, ArrowLeft } from 'lucide-react';
+import logo from '@/assets/logo-entgroup.avif';
 import CartBadge from '@/components/CartBadge';
 import ThemeToggle from '@/components/ThemeToggle';
 import { useAuth } from '@/hooks/useAuth';
@@ -15,6 +16,14 @@ export default function MiniNavbar() {
   return (
     <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
       <div className="container mx-auto px-4 flex items-center gap-3 h-14">
+        <Link to="/" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors shrink-0">
+          <ArrowLeft size={16} />
+          <span className="text-sm font-medium hidden sm:inline">กลับหน้าหลัก</span>
+        </Link>
+        <div className="w-px h-6 bg-border hidden sm:block" />
+        <Link to="/" className="flex items-center shrink-0">
+          <img src={logo} alt="ENT GROUP" className="h-7 w-auto" />
+        </Link>
 
         <div className="flex items-center gap-1 ml-auto">
           <TooltipProvider delayDuration={150}>
