@@ -1,0 +1,1 @@
+ALTER TABLE public.affiliates ALTER COLUMN linkedin_url DROP NOT NULL;
