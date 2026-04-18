@@ -40,6 +40,8 @@ export default function QuickRFQForm({ product, defaultQuantity = 1, configAddon
   const navigate = useNavigate();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [scanning, setScanning] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [form, setForm] = useState({
     quantity: defaultQuantity,
@@ -54,6 +56,38 @@ export default function QuickRFQForm({ product, defaultQuantity = 1, configAddon
     tax_id: '',
     notes: '',
   });
+
+  // AI business-card scan -> prefill
+  const handleScanCard = async (file: File) => {
+    if (!file) return;
+    setScanning(true);
+    try {
+      const reader = new FileReader();
+      const base64: string = await new Promise((resolve, reject) => {
+        reader.onload = () => resolve((reader.result as string).split(',')[1] || '');
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+      const { data, error } = await supabase.functions.invoke('scan-business-card', { body: { image: base64 } });
+      if (error) throw error;
+      const ex = (data as any)?.data || {};
+      setForm(prev => ({
+        ...prev,
+        customer_name: ex.full_name || ex.name || prev.customer_name,
+        customer_email: ex.email || prev.customer_email,
+        customer_phone: ex.phone || ex.mobile || prev.customer_phone,
+        customer_company: ex.company || ex.organization || prev.customer_company,
+        customer_line: ex.line_id || prev.customer_line,
+        shipping_address: ex.address || prev.shipping_address,
+      }));
+      toast({ title: 'อ่านนามบัตรสำเร็จ', description: 'ตรวจสอบและแก้ไขข้อมูลก่อนส่ง' });
+    } catch (err: any) {
+      toast({ title: 'อ่านนามบัตรไม่สำเร็จ', description: err.message || 'ลองใหม่หรือกรอกด้วยตนเอง', variant: 'destructive' });
+    } finally {
+      setScanning(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  };
 
   // Auto-fill from user profile
   useEffect(() => {
