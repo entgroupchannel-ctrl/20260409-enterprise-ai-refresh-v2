@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ThemeToggle from "@/components/ThemeToggle";
 import logo from "@/assets/logo-entgroup.avif";
 import FooterCompact from "@/components/FooterCompact";
+import MiniNavbar from "@/components/MiniNavbar";
 import { LineQRDialog } from "@/components/LineQRDialog";
 import AddToCartButton from "@/components/AddToCartButton";
 import CartBadge from "@/components/CartBadge";
@@ -1100,23 +1101,7 @@ const GKSeries = () => {
         products={gkModels.map(m => ({ name: m.name, price: m.priceTable?.[0]?.configs?.[0]?.price, image: m.image, description: `${m.screenSize} ${m.tagline}`, category: "Industrial Panel PC" }))}
       />
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "GK Series", path: "/gk-series" }]} />
-      <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
-        <div className="container max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-4">
-            <Link to="/" className="flex items-center gap-3">
-              <img src={logo} alt="ENT GROUP" className="h-8 w-auto" />
-            </Link>
-            <span className="text-muted-foreground">/</span>
-            <span className="text-sm font-semibold text-foreground">GK Series</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <ThemeToggle />
-            <Link to="/" className="hidden md:inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
-              <ArrowLeft size={16} /> กลับหน้าหลัก
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <MiniNavbar />
 
       {/* Hero */}
       <section className="relative overflow-hidden min-h-[500px] md:min-h-[600px]">
@@ -1221,7 +1206,7 @@ const GKSeries = () => {
       </section>
 
       {/* Quick Nav */}
-      <section className="py-6 border-b border-border sticky top-[65px] z-40 bg-background/90 backdrop-blur-lg">
+      <section className="py-6 border-b border-border sticky top-14 z-40 bg-background/90 backdrop-blur-lg">
         <div className="container max-w-7xl mx-auto px-6">
           <div className="flex items-center gap-2 overflow-x-auto">
             <span className="text-sm text-muted-foreground shrink-0 mr-2">รุ่น:</span>
