@@ -349,6 +349,30 @@ export default function CreateInvoiceFromSODialog({
         if (itemsErr) throw itemsErr;
       }
 
+      // 🔗 Auto-create public share link (30-day) for customer to download PDF without login
+      let pdfShareUrl: string | undefined;
+      try {
+        const shareToken = Array.from(crypto.getRandomValues(new Uint8Array(24)),
+          (b) => b.toString(36).padStart(2, '0')).join('').slice(0, 32);
+        const expiresAt = new Date();
+        expiresAt.setDate(expiresAt.getDate() + 30);
+        const { data: userData } = await supabase.auth.getUser();
+        const { error: shareErr } = await (supabase as any).from('invoice_share_links').insert({
+          invoice_id: invoice.id,
+          token: shareToken,
+          expires_at: expiresAt.toISOString(),
+          created_by: userData.user?.id,
+          note: 'Auto-created on invoice creation',
+        });
+        if (!shareErr) {
+          pdfShareUrl = `https://www.entgroup.co.th/inv/share/${shareToken}?download=1`;
+        } else {
+          console.warn('Auto share-link creation failed:', shareErr);
+        }
+      } catch (shareErr) {
+        console.warn('Auto share-link error:', shareErr);
+      }
+
       // 🔔 Notify customer (in-app + email)
       const customerUserId = (quote as any)?.user_id || (quote as any)?.created_by;
       if (customerUserId || quote?.customer_email) {
@@ -374,6 +398,7 @@ export default function CreateInvoiceFromSODialog({
               invoiceNumber: invoice.invoice_number,
               amount: formatCurrency(invoice.grand_total),
               viewUrl: `https://www.entgroup.co.th/my-account/invoices/${invoice.id}`,
+              pdfUrl: pdfShareUrl,
             });
           }
         });
