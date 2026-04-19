@@ -13,8 +13,13 @@ import {
   LayoutGrid,
   ShoppingBag,
   Pause,
+  Mail,
+  Loader2,
+  CheckCircle2,
 } from "lucide-react";
 import welcomeBg from "@/assets/welcome-callcenter.jpg";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 /** Storage keys */
 const STORAGE_PREFIX = "ent_welcome_dialog_v2:";
