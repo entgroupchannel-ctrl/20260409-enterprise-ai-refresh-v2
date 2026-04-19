@@ -245,6 +245,30 @@ export default function MyInvoiceDetail() {
           )}
         </div>
 
+        {/* Cancelled Alert */}
+        {invoice.status === 'cancelled' && (
+          <Card className="border-gray-300 bg-gray-50">
+            <CardContent className="pt-4 pb-4">
+              <div className="flex items-start gap-3">
+                <AlertCircle className="w-5 h-5 text-gray-600 shrink-0 mt-0.5" />
+                <div className="flex-1">
+                  <h3 className="font-semibold text-gray-900">ใบวางบิลนี้ถูกยกเลิกโดยผู้ดูแลระบบ</h3>
+                  {invoice.cancel_reason && (
+                    <p className="text-sm text-gray-700 mt-0.5">
+                      <strong>เหตุผล:</strong> {invoice.cancel_reason}
+                    </p>
+                  )}
+                  {invoice.cancelled_at && (
+                    <p className="text-xs text-gray-600 mt-1">
+                      ยกเลิกเมื่อ {formatDate(invoice.cancelled_at)} — กรุณาติดต่อฝ่ายขายหากมีข้อสงสัย
+                    </p>
+                  )}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         {/* Overdue Alert */}
         {isOverdue && (
           <Card className="border-red-300 bg-red-50">
