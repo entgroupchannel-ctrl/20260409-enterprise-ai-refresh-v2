@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ChevronDown, FileText } from "lucide-react";
+import { ChevronDown, FileText, ShoppingBag } from "lucide-react";
 
 const PEEK_STORAGE_KEY = "ent_popular_sidebar_peeked_v1";
 const PEEK_DURATION_MS = 3000;
