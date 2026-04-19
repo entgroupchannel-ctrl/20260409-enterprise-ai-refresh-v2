@@ -51,12 +51,9 @@ export default function MyReceiptDetail() {
       if (error) throw error;
 
       if (!rcp) {
-        toast({
-          title: 'ไม่พบใบเสร็จ',
-          description: 'อาจถูกลบหรือคุณไม่มีสิทธิ์เข้าถึง',
-          variant: 'destructive',
-        });
-        navigate('/my-receipts');
+        // Don't redirect — show inline message so users coming from email links
+        // understand what happened (deleted/voided or no access).
+        setReceipt(null);
         return;
       }
 
