@@ -40,18 +40,58 @@ export default function UnlockVisionDialog({ open, onOpenChange, onUnlocked }: P
     }
     setSubmitting(true);
     try {
-      const { error } = await supabase.from("investor_inquiries").insert({
-        full_name: parsed.data.full_name,
-        position: parsed.data.position || null,
-        email: parsed.data.email,
-        phone: parsed.data.phone,
-        source: "investors_unlock_dialog",
-      });
-      if (error) throw error;
+      // 1. Save inquiry
+      const { data: inquiry, error: inqErr } = await supabase
+        .from("investor_inquiries")
+        .insert({
+          full_name: parsed.data.full_name,
+          position: parsed.data.position || null,
+          email: parsed.data.email,
+          phone: parsed.data.phone,
+          source: "investors_unlock_dialog",
+        })
+        .select("id")
+        .single();
+      if (inqErr) throw inqErr;
+
+      // 2. Create access token (30-day)
+      const expires_at = new Date(Date.now() + 30 * 86400_000).toISOString();
+      const { data: token, error: tokErr } = await supabase
+        .from("investor_access_tokens")
+        .insert({
+          recipient_name: parsed.data.full_name,
+          recipient_email: parsed.data.email,
+          inquiry_id: inquiry?.id ?? null,
+          expires_at,
+          notes: `Self-served via /investors unlock dialog${parsed.data.position ? ` · ${parsed.data.position}` : ""}`,
+        })
+        .select("token")
+        .single();
+      if (tokErr) throw tokErr;
+
+      // 3. Send email with link (best-effort, non-blocking)
+      const briefUrl = `${window.location.origin}/investors/brief/${token!.token}`;
+      try {
+        await supabase.functions.invoke("send-transactional-email", {
+          body: {
+            templateName: "investor-vision-link",
+            recipientEmail: parsed.data.email,
+            idempotencyKey: `investor-vision-${token!.token}`,
+            templateData: {
+              recipient_name: parsed.data.full_name,
+              brief_url: briefUrl,
+              expires_at,
+            },
+          },
+        });
+      } catch (emailErr) {
+        console.warn("[UnlockVisionDialog] email send failed (non-blocking)", emailErr);
+      }
+
       try { localStorage.setItem("investor_unlocked_at", new Date().toISOString()); } catch {}
       toast({
         title: "ปลดล็อกเรียบร้อย ✓",
-        description: "เราได้ส่งลิงก์ฉบับเต็มไปยังอีเมลของท่านแล้ว และเปิดให้ดูได้ทันทีในหน้านี้",
+        description: "เราได้ส่งลิงก์ฉบับเต็มไปยังอีเมลของท่านแล้ว — กรุณาตรวจสอบกล่องอีเมล",
       });
       onUnlocked();
       onOpenChange(false);
