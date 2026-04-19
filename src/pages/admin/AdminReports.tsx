@@ -661,6 +661,103 @@ export default function AdminReports() {
           )}
 
           {/* ══════════════════════════════════════════════════════
+              TAB — SALES PERFORMANCE (per Salesperson)
+          ══════════════════════════════════════════════════════ */}
+          {canSales && (
+            <TabsContent value="performance" className="space-y-6 mt-4">
+              <SectionHeader
+                title="ผลงานทีมขาย"
+                sub="ยอดขายต่อ Sale แต่ละคน — อิงจาก Quote ที่ออก Invoice / รับชำระแล้ว"
+              />
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <MetricCard label="Sale ที่มีผลงาน" value={String(salesPerformance.length)} icon={UserCheck} color="blue" />
+                <MetricCard
+                  label="ยอด Invoice รวม"
+                  value={fmtTHB(salesPerformance.reduce((s, r) => s + r.invoicedValue, 0))}
+                  icon={FileText} color="purple"
+                  sub={`${salesPerformance.reduce((s, r) => s + r.invoiceCount, 0)} ใบ`}
+                />
+                <MetricCard
+                  label="รับชำระจริง"
+                  value={fmtTHB(salesPerformance.reduce((s, r) => s + r.receivedValue, 0))}
+                  icon={DollarSign} color="green"
+                />
+                <MetricCard
+                  label="Top Sale"
+                  value={salesPerformance[0]?.name?.split(' ')[0] ?? '—'}
+                  icon={Award} color="amber"
+                  sub={salesPerformance[0] ? fmtTHB(salesPerformance[0].invoicedValue) : '—'}
+                />
+              </div>
+
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <Award className="w-4 h-4 text-amber-500" />
+                    Sales Leaderboard
+                  </CardTitle>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    เรียงตามยอด Invoice (ออกบิลแล้ว) ในช่วง {periodLabel[period]}
+                  </p>
+                </CardHeader>
+                <CardContent className="p-0 overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="text-xs w-10">#</TableHead>
+                        <TableHead className="text-xs">Sale</TableHead>
+                        <TableHead className="text-xs text-right">Quote</TableHead>
+                        <TableHead className="text-xs text-right">ปิดได้</TableHead>
+                        <TableHead className="text-xs text-right">Win%</TableHead>
+                        <TableHead className="text-xs text-right">Invoice</TableHead>
+                        <TableHead className="text-xs text-right">ยอด Invoice</TableHead>
+                        <TableHead className="text-xs text-right">รับชำระจริง</TableHead>
+                        <TableHead className="text-xs text-right">Avg Deal</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {salesPerformance.map((r, i) => (
+                        <TableRow key={r.id} className={i === 0 ? 'bg-amber-50/40 dark:bg-amber-950/10' : ''}>
+                          <TableCell className="text-xs font-bold">{i === 0 ? '🏆' : i + 1}</TableCell>
+                          <TableCell>
+                            <div className="text-xs font-medium leading-tight">{r.name}</div>
+                            <div className="text-[10px] text-muted-foreground capitalize">{r.role}</div>
+                          </TableCell>
+                          <TableCell className="text-xs text-right tabular-nums">{r.quoteCount}</TableCell>
+                          <TableCell className="text-xs text-right tabular-nums text-emerald-600 font-medium">{r.wonCount}</TableCell>
+                          <TableCell className="text-xs text-right tabular-nums">
+                            <Badge className={`text-[10px] ${r.winRate >= 50 ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300' : r.winRate >= 25 ? 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300' : 'bg-muted text-muted-foreground'}`}>
+                              {r.winRate}%
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="text-xs text-right tabular-nums">{r.invoiceCount}</TableCell>
+                          <TableCell className="text-xs text-right tabular-nums font-semibold">{fmtTHB(r.invoicedValue)}</TableCell>
+                          <TableCell className="text-xs text-right tabular-nums text-emerald-600">{fmtTHB(r.receivedValue)}</TableCell>
+                          <TableCell className="text-xs text-right tabular-nums text-muted-foreground">{fmtTHB(r.avgDeal)}</TableCell>
+                        </TableRow>
+                      ))}
+                      {salesPerformance.length === 0 && (
+                        <TableRow>
+                          <TableCell colSpan={9} className="text-center text-xs text-muted-foreground py-8">
+                            ไม่มี Quote ที่กำหนด Sale ผู้รับผิดชอบในช่วงนี้
+                          </TableCell>
+                        </TableRow>
+                      )}
+                    </TableBody>
+                  </Table>
+                </CardContent>
+              </Card>
+
+              <div className="text-[11px] text-muted-foreground bg-muted/40 rounded-md px-3 py-2 leading-relaxed">
+                <strong>หมายเหตุ:</strong> ยอดของ Sale แต่ละคนคำนวณจาก Quote ที่ Sale รับผิดชอบ (assigned_to)
+                — นับเฉพาะ Quote ที่ <strong>ออก Invoice แล้ว</strong> (ผ่าน <code>invoices.quote_id</code>)
+                ส่วน &quot;รับชำระจริง&quot; นับจาก payment_records ที่ verified และผูกกับ Invoice ของ Sale คนนั้น
+              </div>
+            </TabsContent>
+          )}
+
+          {/* ══════════════════════════════════════════════════════
               TAB 3 — FINANCE
           ══════════════════════════════════════════════════════ */}
           {canFinance && (
