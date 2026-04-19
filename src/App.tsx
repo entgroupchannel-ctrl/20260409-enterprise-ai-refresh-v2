@@ -66,6 +66,7 @@ const ShopProductDetail = lazyRetry(() => import("./pages/shop/ShopProductDetail
 const ShopCompare = lazyRetry(() => import("./pages/shop/ShopCompare"));
 const Unsubscribe = lazyRetry(() => import("./pages/Unsubscribe"));
 const Partner = lazyRetry(() => import("./pages/Partner"));
+const Platform = lazyRetry(() => import("./pages/Platform"));
 const Affiliate = lazyRetry(() => import("./pages/Affiliate"));
 const AffiliateApply = lazyRetry(() => import("./pages/AffiliateApply"));
 const AffiliateRedirect = lazyRetry(() => import("./pages/AffiliateRedirect"));
@@ -218,6 +219,7 @@ const App = () => (
                     <Route path="/minipc-firewall" element={<MiniPCFirewall />} />
                     <Route path="/mini-pc-firewall" element={<MiniPCFirewall />} />
                     <Route path="/vcloudpoint" element={<VCloudPoint />} />
+                    <Route path="/platform" element={<Platform />} />
                     <Route path="/about-us" element={<AboutUs />} />
                     <Route path="/contact" element={<ContactUs />} />
                     <Route path="/warrantys" element={<Warrantys />} />
