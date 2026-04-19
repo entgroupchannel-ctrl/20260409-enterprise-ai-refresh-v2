@@ -23,6 +23,10 @@ const GLOBAL_KEY = `${STORAGE_PREFIX}__global__`;
 const AUTO_CLOSE_SECONDS = 15;       // default visible time (longer for reading)
 const TICK_MS = 100;                  // smooth countdown tick
 const FADE_OUT_MS = 600;              // gentle fade-out
+const INITIAL_DELAY_MS = 1500;        // wait for page to settle
+const SCROLL_SUPPRESS_PX = 200;       // don't interrupt active readers
+const PATH_COOLDOWN_MS = 7 * 24 * 60 * 60 * 1000;  // 7 days per path
+const GLOBAL_COOLDOWN_MS = 30 * 60 * 1000;          // 30 minutes across pages
 
 const BENEFITS = [
   { icon: FileText, title: "ขอใบเสนอราคาออนไลน์", desc: "สร้าง/ติดตามใบเสนอราคาได้ทันที" },
