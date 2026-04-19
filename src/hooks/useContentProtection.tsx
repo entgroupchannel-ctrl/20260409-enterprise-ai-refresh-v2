@@ -48,13 +48,10 @@ export function useContentProtection(enabled = true) {
     // Re-check on every event so login/logout takes effect immediately
     const isProtectedNow = () => !isLoggedIn() && !isInternalRoute();
 
-    // Toggle body class so CSS rules apply only on public routes
+    // Toggle body class so CSS rules apply only on public routes for guests
     const syncBodyClass = () => {
-      if (isInternalRoute()) {
-        document.body.classList.add("ent-internal-route");
-      } else {
-        document.body.classList.remove("ent-internal-route");
-      }
+      const open = isLoggedIn() || isInternalRoute();
+      document.body.classList.toggle("ent-internal-route", open);
     };
     syncBodyClass();
 
