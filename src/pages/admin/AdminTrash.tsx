@@ -18,6 +18,7 @@ import {
   Building2, Calendar, User, FileText, Receipt, Loader2,
 } from 'lucide-react';
 import { formatRelativeTime } from '@/lib/format';
+import { displayDocNumber } from '@/lib/document-numbers';
 
 type TabKey = 'quotes' | 'invoices' | 'tax-invoices' | 'receipts';
 
