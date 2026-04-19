@@ -11,6 +11,7 @@ import {
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { supabase } from '@/integrations/supabase/client';
+import { createNotification, sendQuoteStatusEmail } from '@/lib/notifications';
 import { useToast } from '@/hooks/use-toast';
 import {
   ArrowLeft, FileText, Printer, Loader2, Building2, Calendar, Receipt,
@@ -85,6 +86,7 @@ export default function AdminTaxInvoiceDetail() {
   const handleDelete = async () => {
     if (!taxInvoice) return;
     setDeleting(true);
+    const reason = deleteReason.trim() || 'ยกเลิกโดยผู้ดูแลระบบ';
     try {
       const { data, error } = await (supabase as any).rpc('soft_delete_tax_invoice', {
         p_tax_invoice_id: taxInvoice.id,
@@ -92,9 +94,40 @@ export default function AdminTaxInvoiceDetail() {
       });
       if (error) throw error;
 
+      // Notify customer (in-app + email) — fire-and-forget
+      if (taxInvoice.customer_id) {
+        createNotification({
+          userId: taxInvoice.customer_id,
+          type: 'tax_invoice_cancelled',
+          title: `ใบกำกับภาษี ${taxInvoice.tax_invoice_number} ถูกยกเลิก`,
+          message: `เหตุผล: ${reason}`,
+          priority: 'high',
+          actionUrl: `/my-account/tax-invoices/${taxInvoice.id}`,
+          actionLabel: 'ดูรายละเอียด',
+          linkType: 'tax_invoice',
+          linkId: taxInvoice.id,
+        });
+      }
+      if (taxInvoice.customer_email) {
+        const origin = typeof window !== 'undefined' ? window.location.origin : '';
+        sendQuoteStatusEmail({
+          recipientEmail: taxInvoice.customer_email,
+          customerName: taxInvoice.customer_name || taxInvoice.customer_company || undefined,
+          invoiceNumber: taxInvoice.tax_invoice_number,
+          status: 'cancelled',
+          amount: taxInvoice.grand_total ? String(taxInvoice.grand_total) : undefined,
+          viewUrl: origin ? `${origin}/my-account/tax-invoices/${taxInvoice.id}` : undefined,
+          note: `ใบกำกับภาษีถูกยกเลิกโดยผู้ดูแลระบบ — เหตุผล: ${reason}`,
+          relatedType: 'tax_invoice',
+          relatedId: taxInvoice.id,
+        });
+      }
+
       toast({
         title: '🗑️ ย้ายไปถังขยะแล้ว',
-        description: (data as any)?.message,
+        description: taxInvoice.customer_email
+          ? 'แจ้งเตือนลูกค้าทางอีเมลและในระบบเรียบร้อย'
+          : (data as any)?.message,
       });
       navigate('/admin/tax-invoices');
     } catch (e: any) {
@@ -405,7 +438,13 @@ export default function AdminTaxInvoiceDetail() {
                 <ul className="list-disc list-inside text-muted-foreground space-y-1">
                   <li>เอกสารจะถูกซ่อนจากรายการหลัก แต่ยังกู้คืนได้ภายใน 30 วันที่ <Link to="/admin/trash?tab=tax-invoices" className="text-blue-600 underline">ถังขยะ</Link></li>
                   <li>เลขที่เอกสารเดิมจะถูกปลดล็อก เพื่อนำกลับมาใช้สร้างใบใหม่ได้</li>
-                  <li>ลูกค้าจะไม่ได้รับการแจ้งเตือนใดๆ จากการลบครั้งนี้</li>
+                  {taxInvoice?.customer_email ? (
+                    <li className="text-orange-700">
+                      📧 ระบบจะส่งอีเมลแจ้งลูกค้า ({taxInvoice.customer_email}) และสร้างการแจ้งเตือนในระบบโดยอัตโนมัติ
+                    </li>
+                  ) : (
+                    <li>ลูกค้าจะไม่ได้รับการแจ้งเตือน (ไม่มีอีเมลในระบบ)</li>
+                  )}
                 </ul>
               </div>
             </AlertDialogDescription>
