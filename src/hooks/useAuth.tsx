@@ -183,17 +183,17 @@ export const useAuth = () => {
 
   const permCtx = { role: profile?.role, isActive: profile?.is_active };
 
-  // Sync staff flag for content protection bypass
-  useEffect(() => {
-    try {
-      const staffRoles = ['admin', 'super_admin', 'sales', 'accountant', 'warehouse', 'viewer'];
+  // Sync staff flag for content protection bypass (sync, no hook)
+  try {
+    const staffRoles = ['admin', 'super_admin', 'sales', 'accountant', 'warehouse', 'viewer'];
+    if (typeof window !== 'undefined') {
       if (profile?.role && staffRoles.includes(profile.role)) {
         localStorage.setItem('ent-is-staff', '1');
-      } else {
+      } else if (profile === null && !user) {
         localStorage.removeItem('ent-is-staff');
       }
-    } catch {}
-  }, [profile?.role]);
+    }
+  } catch {}
 
   return {
     user,
