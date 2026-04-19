@@ -387,7 +387,22 @@ export default function CreateInvoiceFromSODialog({
       onOpenChange(false);
       navigate('/admin/invoices');
     } catch (e: any) {
-      toast({ title: 'สร้างใบวางบิลไม่สำเร็จ', description: e.message, variant: 'destructive' });
+      const msg = String(e?.message || '');
+      const code = String(e?.code || '');
+      const isDuplicate =
+        code === '23505' ||
+        msg.includes('duplicate key') ||
+        msg.includes('invoices_invoice_number_key');
+
+      if (isDuplicate) {
+        setDuplicateAlert({
+          open: true,
+          message:
+            'ระบบตรวจพบว่ามีใบวางบิลถูกสร้างขึ้นในเวลาเดียวกัน (อาจกดซ้ำ หรือมีผู้ใช้รายอื่นกำลังสร้างพร้อมกัน) — กรุณารอสักครู่แล้วลองใหม่อีกครั้ง ระบบจะออกเลขถัดไปให้อัตโนมัติ',
+        });
+      } else {
+        toast({ title: 'สร้างใบวางบิลไม่สำเร็จ', description: msg, variant: 'destructive' });
+      }
     } finally {
       setLoading(false);
     }
