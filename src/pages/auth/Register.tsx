@@ -11,6 +11,8 @@ import { useToast } from '@/hooks/use-toast';
 import { Loader2, Sparkles, Eye, EyeOff } from 'lucide-react';
 import { getPendingQuote } from '@/hooks/usePendingQuote';
 import { PendingItemsBanner } from '@/components/PendingItemsBanner';
+import MiniNavbar from '@/components/MiniNavbar';
+import MiniFooter from '@/components/MiniFooter';
 
 export default function Register() {
   const [searchParams] = useSearchParams();
