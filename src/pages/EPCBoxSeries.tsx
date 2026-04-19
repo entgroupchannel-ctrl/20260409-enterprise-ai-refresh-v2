@@ -1188,16 +1188,16 @@ const EPCBoxSeries = () => {
           <p className="text-muted-foreground mb-8">
             ให้ทีมผู้เชี่ยวชาญช่วยเลือกรุ่นและ Configuration ที่เหมาะกับงานของคุณ
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <QuoteRequestButton productModel="EPC Box Series" productName="EPC Box Series Industrial PC" size="lg" />
+          <div className="flex flex-wrap justify-center items-stretch gap-4">
+            <QuoteRequestButton productModel="EPC Box Series" productName="EPC Box Series Industrial PC" size="lg" className="h-14 min-w-[220px] px-8 rounded-xl text-lg font-bold" />
             <button
               onClick={() => setShowLineQR(true)}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[hsl(142,70%,45%)] text-white font-bold text-lg hover:opacity-90 transition-opacity">
+              className="inline-flex items-center justify-center gap-2 h-14 min-w-[220px] px-8 rounded-xl bg-[hsl(142,70%,45%)] text-white font-bold text-lg hover:opacity-90 transition-opacity">
               LINE @entgroup
             </button>
             <Link
               to="/"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-border text-foreground font-bold text-lg hover:bg-muted transition-colors">
+              className="inline-flex items-center justify-center gap-2 h-14 min-w-[220px] px-8 rounded-xl border border-border text-foreground font-bold text-lg hover:bg-muted transition-colors">
               <ArrowLeft size={18} /> กลับหน้าหลัก
             </Link>
           </div>
