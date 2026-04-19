@@ -135,6 +135,27 @@ const AdminInvestors = () => {
     setOpenDialog(true);
   };
 
+  const sendBriefEmail = async (t: { token: string; recipient_name: string; recipient_email: string; expires_at: string | null }) => {
+    try {
+      await supabase.functions.invoke("send-transactional-email", {
+        body: {
+          templateName: "investor-vision-link",
+          recipientEmail: t.recipient_email,
+          idempotencyKey: `investor-vision-${t.token}-${Date.now()}`,
+          templateData: {
+            recipient_name: t.recipient_name,
+            brief_url: briefUrl(t.token),
+            expires_at: t.expires_at,
+          },
+        },
+      });
+      return true;
+    } catch (err: any) {
+      toast({ title: "ส่งอีเมลไม่สำเร็จ", description: err?.message ?? "เกิดข้อผิดพลาด", variant: "destructive" });
+      return false;
+    }
+  };
+
   const createToken = async () => {
     if (!newToken.recipient_name.trim() || !newToken.recipient_email.trim()) {
       toast({ title: "กรุณากรอกชื่อและอีเมล", variant: "destructive" });
@@ -164,10 +185,19 @@ const AdminInvestors = () => {
     if (linkedInquiryId) {
       await supabase.from("investor_inquiries").update({ status: "link_sent" } as any).eq("id", linkedInquiryId);
     }
-    toast({ title: "สร้างลิงก์สำเร็จ", description: "คัดลอกลิงก์ไปส่งผู้ลงทุนได้เลย" });
-    if (data) {
-      await navigator.clipboard.writeText(briefUrl((data as any).token));
-    }
+
+    const created = data as any;
+    const sent = await sendBriefEmail({
+      token: created.token,
+      recipient_name: created.recipient_name,
+      recipient_email: created.recipient_email,
+      expires_at: created.expires_at,
+    });
+    await navigator.clipboard.writeText(briefUrl(created.token));
+    toast({
+      title: sent ? "สร้างลิงก์ + ส่งอีเมลแล้ว ✓" : "สร้างลิงก์สำเร็จ",
+      description: sent ? "คัดลอกลิงก์ให้แล้ว และส่งอีเมลไปยังผู้รับเรียบร้อย" : "คัดลอกลิงก์ให้แล้ว (อีเมลส่งไม่สำเร็จ)",
+    });
     reload();
   };
 
@@ -182,6 +212,26 @@ const AdminInvestors = () => {
       return;
     }
     toast({ title: revoking ? "ยกเลิกลิงก์แล้ว" : "เปิดใช้งานลิงก์อีกครั้ง" });
+    reload();
+  };
+
+  const resendEmail = async (t: Token) => {
+    const ok = await sendBriefEmail(t);
+    if (ok) toast({ title: "ส่งอีเมลซ้ำแล้ว ✓", description: `ส่งไปยัง ${t.recipient_email}` });
+  };
+
+  const extendExpiry = async (t: Token, days: number) => {
+    const base = t.expires_at ? new Date(t.expires_at).getTime() : Date.now();
+    const newExpiry = new Date(Math.max(base, Date.now()) + days * 86400_000).toISOString();
+    const { error } = await supabase
+      .from("investor_access_tokens")
+      .update({ expires_at: newExpiry } as any)
+      .eq("id", t.id);
+    if (error) {
+      toast({ title: "ขยายอายุไม่สำเร็จ", description: error.message, variant: "destructive" });
+      return;
+    }
+    toast({ title: `ขยายอายุ +${days} วันแล้ว ✓` });
     reload();
   };
 
