@@ -290,15 +290,13 @@ const ProductLineup = () => {
         <div className="flex sm:hidden items-center justify-end gap-2 mt-3">
           <button
             onClick={() => scroll("left")}
-            disabled={!canScrollLeft}
-            className="w-8 h-8 rounded-full border border-border bg-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all disabled:opacity-30 disabled:pointer-events-none"
+            className="w-8 h-8 rounded-full border border-border bg-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all"
             aria-label="เลื่อนไปทางซ้าย">
             <ChevronLeft size={16} />
           </button>
           <button
             onClick={() => scroll("right")}
-            disabled={!canScrollRight}
-            className="w-8 h-8 rounded-full border border-border bg-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all disabled:opacity-30 disabled:pointer-events-none"
+            className="w-8 h-8 rounded-full border border-border bg-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all"
             aria-label="เลื่อนไปทางขวา">
             <ChevronRight size={16} />
           </button>
