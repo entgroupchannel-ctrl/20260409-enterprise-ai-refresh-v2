@@ -48,38 +48,38 @@ interface PartnerLogosProps {
 }
 
 const PartnerLogos = ({
-  title = "ลูกค้าและพาร์ทเนอร์ระดับโลก",
-  subtitle = "แบรนด์ชั้นนำทั่วโลกที่ไว้วางใจในเทคโนโลยี Industrial PC",
+  title = "Trusted by Global Brands",
+  subtitle = "ENT Group — Exclusive Distributor of CESIPC Industrial PC in Thailand · ลูกค้าและพาร์ทเนอร์ระดับโลกที่ไว้วางใจ",
 }: PartnerLogosProps) => {
   return (
-    <section className="section-padding bg-background border-y border-border">
+    <section className="py-10 md:py-12 bg-background border-y border-border">
       <div className="container max-w-7xl mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-display font-bold mb-3">
+        <div className="text-center mb-6">
+          <h2 className="text-xl md:text-2xl font-display font-bold mb-1.5">
             {title}
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">{subtitle}</p>
+          <p className="text-xs md:text-sm text-muted-foreground max-w-3xl mx-auto">{subtitle}</p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
+        <div className="grid grid-cols-5 sm:grid-cols-7 md:grid-cols-10 gap-2 md:gap-3">
           {PARTNERS.map((p) => (
             <div
               key={p.name}
-              className="group aspect-[3/2] flex items-center justify-center rounded-xl border border-border bg-card hover:bg-muted/40 hover:border-primary/40 transition-all p-4"
+              className="group aspect-[3/2] flex items-center justify-center rounded-md border border-border/60 bg-card hover:bg-muted/40 hover:border-primary/40 transition-all p-2"
               title={p.name}
             >
               <img
                 src={p.src}
                 alt={`${p.name} logo`}
                 loading="lazy"
-                className="max-h-12 md:max-h-14 w-auto object-contain opacity-60 group-hover:opacity-100 transition-opacity dark:invert dark:brightness-0 dark:contrast-200"
+                className="max-h-7 md:max-h-8 w-auto object-contain opacity-60 group-hover:opacity-100 transition-opacity dark:invert dark:brightness-0 dark:contrast-200"
               />
             </div>
           ))}
         </div>
 
-        <p className="text-center text-xs text-muted-foreground mt-6">
-          * โลโก้แสดงเพื่ออ้างอิงอุตสาหกรรม เครื่องหมายการค้าทั้งหมดเป็นทรัพย์สินของเจ้าของแบรนด์
+        <p className="text-center text-[10px] text-muted-foreground mt-4">
+          * เครื่องหมายการค้าทั้งหมดเป็นทรัพย์สินของเจ้าของแบรนด์ — แสดงเพื่ออ้างอิงอุตสาหกรรม
         </p>
       </div>
     </section>
