@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChevronDown, FileText } from "lucide-react";
+
+const PEEK_STORAGE_KEY = "ent_popular_sidebar_peeked_v1";
+const PEEK_DURATION_MS = 3000;
 
 const searchTags = [
   { label: "Mini PC สำนักงาน", href: "/mini-pc" },
@@ -14,6 +17,20 @@ const searchTags = [
 export default function PopularProductsSidebar() {
   const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
+
+  // First-visit peek: open for 3s, then auto-collapse
+  useEffect(() => {
+    try {
+      if (sessionStorage.getItem(PEEK_STORAGE_KEY)) return;
+      sessionStorage.setItem(PEEK_STORAGE_KEY, "1");
+    } catch { /* ignore */ }
+    const openTimer = setTimeout(() => setExpanded(true), 800);
+    const closeTimer = setTimeout(() => setExpanded(false), 800 + PEEK_DURATION_MS);
+    return () => {
+      clearTimeout(openTimer);
+      clearTimeout(closeTimer);
+    };
+  }, []);
 
   return (
     <div className={`hidden lg:flex fixed right-0 top-1/2 -translate-y-1/2 z-[9999] transition-all duration-500 ease-in-out ${expanded ? "translate-x-0" : "translate-x-[calc(100%-28px)]"}`}>

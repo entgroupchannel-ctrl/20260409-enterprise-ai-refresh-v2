@@ -1,5 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+
+const PEEK_STORAGE_KEY = "ent_social_ribbon_peeked_v1";
+const PEEK_DURATION_MS = 3000;
 import { Facebook, Instagram, Youtube, MessageCircle, Mail } from "lucide-react";
 import LineQRButton from "@/components/LineQRButton";
 
@@ -21,7 +24,22 @@ const SocialRibbon = () => {
   const location = useLocation();
   const p = location.pathname;
   const isHiddenPage = p.startsWith("/admin") || p.startsWith("/dashboard") || p.startsWith("/profile") || p.startsWith("/cart") || p.startsWith("/my-") || p.startsWith("/my/") || p.startsWith("/request-") || p.startsWith("/login") || p.startsWith("/register") || p.startsWith("/user-") || p.startsWith("/notifications") || p.startsWith("/affiliate/dashboard") || p.startsWith("/affiliate/apply");
-  const [expanded, setExpanded] = useState(true);
+  // Default collapsed; on first visit, peek open for 3s then auto-collapse
+  const [expanded, setExpanded] = useState(false);
+
+  useEffect(() => {
+    if (isHiddenPage) return;
+    try {
+      if (sessionStorage.getItem(PEEK_STORAGE_KEY)) return;
+      sessionStorage.setItem(PEEK_STORAGE_KEY, "1");
+    } catch { /* ignore */ }
+    const openTimer = setTimeout(() => setExpanded(true), 800);
+    const closeTimer = setTimeout(() => setExpanded(false), 800 + PEEK_DURATION_MS);
+    return () => {
+      clearTimeout(openTimer);
+      clearTimeout(closeTimer);
+    };
+  }, [isHiddenPage]);
 
   if (isHiddenPage) return null;
 
