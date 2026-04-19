@@ -93,7 +93,17 @@ export default function SpecComparisonTable({ products, onRemove }: CompareProps
                   <button onClick={() => onRemove(p.slug)} className="absolute top-1 right-1 text-muted-foreground hover:text-destructive"><X className="w-4 h-4" /></button>
                   <Link to={`/shop/${p.slug}`}>
                     <div className="w-24 h-24 mx-auto bg-muted rounded-lg overflow-hidden">
-                      <img src={p.thumbnail_url || '/placeholder.svg'} alt={p.model} className="w-full h-full object-contain" />
+                      <img
+                        src={p.thumbnail_url || '/product-placeholder.svg'}
+                        alt={p.model}
+                        className="w-full h-full object-contain"
+                        onError={(e) => {
+                          const img = e.currentTarget;
+                          if (!img.src.endsWith('/product-placeholder.svg')) {
+                            img.src = '/product-placeholder.svg';
+                          }
+                        }}
+                      />
                     </div>
                   </Link>
                   <p className="font-semibold text-sm">{p.model}</p>
