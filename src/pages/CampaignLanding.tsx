@@ -12,9 +12,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { setAffiliateCookie } from "@/lib/affiliate-attribution";
+import { getRelatedCatalogProducts, type CatalogProduct } from "@/lib/product-catalog";
 import {
   Loader2, ShoppingCart, Share2, Copy, Check, MessageCircle,
   Facebook, Sparkles, Package, Tag, Award, Clock, AlertCircle,
+  Store, ArrowRight, Flame,
 } from "lucide-react";
 
 interface Campaign {
