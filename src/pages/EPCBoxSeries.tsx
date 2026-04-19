@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ThemeToggle from "@/components/ThemeToggle";
 import logo from "@/assets/logo-entgroup.avif";
 import FooterCompact from "@/components/FooterCompact";
+import PartnerLogos from "@/components/PartnerLogos";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
 import { LineQRDialog } from "@/components/LineQRDialog";
 import AddToCartButton from "@/components/AddToCartButton";
@@ -1186,6 +1187,9 @@ const EPCBoxSeries = () => {
           </div>
         </div>
       </section>
+
+      {/* Partners */}
+      <PartnerLogos />
 
       {/* CTA */}
       <section className="section-padding bg-muted/30">
