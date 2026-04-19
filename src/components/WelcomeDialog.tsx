@@ -70,25 +70,54 @@ export default function WelcomeDialog() {
   const totalMsRef = useRef(AUTO_CLOSE_SECONDS * 1000);
   const closeTimerRef = useRef<number | null>(null);
 
-  /** Decide whether to show on route change (first-visit per path + global guard) */
+  /** Decide whether to show on route change (cooldowns + force/reset query) */
   useEffect(() => {
     setOpen(false);
     setClosing(false);
 
-    // Don't show on internal/auth pages or for logged-in users
+    // Parse query for QA hooks
+    const params = new URLSearchParams(window.location.search);
+    const welcomeParam = params.get("welcome");
+    const isForce = welcomeParam === "1";
+    const isReset = welcomeParam === "reset";
+
+    // Reset clears all welcome dialog keys then forces show
+    if (isReset) {
+      try {
+        Object.keys(localStorage)
+          .filter((k) => k.startsWith(STORAGE_PREFIX))
+          .forEach((k) => localStorage.removeItem(k));
+      } catch { /* ignore */ }
+    }
+
+    // Bypass for internal routes & logged-in users (even with force, keep these guards)
     if (isBypassPath(location.pathname)) return;
     if (isLoggedIn()) return;
 
-    try {
-      // Optional: don't show repeatedly per session even on different pages
-      // We still allow showing on first visit per path; global key prevents spam.
-      const seenPath = localStorage.getItem(pathKey);
-      if (seenPath) return;
-    } catch {
-      /* ignore */
+    // Cooldown checks (skipped when force/reset)
+    if (!isForce && !isReset) {
+      try {
+        const now = Date.now();
+        const seenPath = localStorage.getItem(pathKey);
+        if (seenPath) {
+          const t = Date.parse(seenPath);
+          if (!isNaN(t) && now - t < PATH_COOLDOWN_MS) return;
+        }
+        const seenGlobal = localStorage.getItem(GLOBAL_KEY);
+        if (seenGlobal) {
+          const t = Date.parse(seenGlobal);
+          if (!isNaN(t) && now - t < GLOBAL_COOLDOWN_MS) return;
+        }
+      } catch {
+        /* ignore */
+      }
     }
 
-    const t = window.setTimeout(() => setOpen(true), 600);
+    const t = window.setTimeout(() => {
+      // Don't interrupt active readers (skip if they've already scrolled)
+      if (!isForce && !isReset && window.scrollY > SCROLL_SUPPRESS_PX) return;
+      setOpen(true);
+    }, INITIAL_DELAY_MS);
     return () => window.clearTimeout(t);
   }, [location.pathname, pathKey]);
 
