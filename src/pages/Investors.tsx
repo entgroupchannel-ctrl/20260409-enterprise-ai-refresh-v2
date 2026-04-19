@@ -21,6 +21,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import StrategicVisionTabs from "@/components/investors/StrategicVisionTabs";
 import UnlockVisionDialog from "@/components/investors/UnlockVisionDialog";
+import FontSizeControl from "@/components/investors/FontSizeControl";
 
 /* ═══════ Schema ═══════ */
 const inquirySchema = z.object({
@@ -162,7 +163,7 @@ const Investors = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#FAF8F3" }}>
+    <div id="investor-content-root" className="min-h-screen flex flex-col" style={{ backgroundColor: "#FAF8F3" }}>
       <Helmet>
         <title>Strategic Partnership Inquiry | ENT Group</title>
         <meta
@@ -729,6 +730,7 @@ const Investors = () => {
       </section>
 
       <FooterCompact />
+      <FontSizeControl targetId="investor-content-root" />
     </div>
   );
 };
