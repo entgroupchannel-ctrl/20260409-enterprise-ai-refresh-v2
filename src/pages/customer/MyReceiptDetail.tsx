@@ -128,7 +128,29 @@ export default function MyReceiptDetail() {
     );
   }
 
-  if (!receipt) return null;
+  if (!receipt) {
+    return (
+      <CustomerLayout title="ไม่พบใบเสร็จ">
+        <SEOHead title="ไม่พบใบเสร็จ" description="ใบเสร็จนี้ไม่พบในระบบ" />
+        <div className="max-w-md mx-auto py-16 text-center space-y-4">
+          <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto">
+            <Receipt className="w-8 h-8 text-muted-foreground" />
+          </div>
+          <div className="space-y-2">
+            <h1 className="text-xl font-bold">ไม่พบใบเสร็จนี้</h1>
+            <p className="text-sm text-muted-foreground">
+              ใบเสร็จอาจถูกยกเลิก/ลบ หรือมีการออกเลขใหม่ทดแทน
+              กรุณาตรวจสอบรายการใบเสร็จล่าสุดของคุณ
+            </p>
+          </div>
+          <Button onClick={() => navigate('/my-receipts')}>
+            ดูใบเสร็จทั้งหมด
+          </Button>
+        </div>
+      </CustomerLayout>
+    );
+  }
+  return null;
 
   return (
     <CustomerLayout title={receipt.receipt_number}>
