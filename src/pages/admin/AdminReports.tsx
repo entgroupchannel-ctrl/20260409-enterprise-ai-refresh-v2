@@ -11,7 +11,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import {
   TrendingUp, TrendingDown, DollarSign, FileText, Users, Package,
   ShoppingCart, Wrench, BarChart3, Target, Clock, AlertTriangle,
-  CheckCircle, RefreshCw, Download, Star,
+  CheckCircle, RefreshCw, Download, Star, Award, UserCheck,
 } from 'lucide-react';
 import { format, subMonths, startOfMonth, endOfMonth, startOfYear } from 'date-fns';
 import { th } from 'date-fns/locale';
