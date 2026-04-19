@@ -295,6 +295,19 @@ const Investors = () => {
               </div>
             ))}
           </div>
+
+          <div className="mt-10 text-center">
+            <Link to="/investors/strategic-vision">
+              <Button
+                size="lg"
+                variant="outline"
+                className="gap-2"
+                style={{ borderColor: "#C9A961", color: "#0A1628" }}
+              >
+                ดูทิศทางเชิงกลยุทธ์ของ ENT Group <ArrowRight className="w-4 h-4" />
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
 

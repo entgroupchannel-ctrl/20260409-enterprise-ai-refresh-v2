@@ -38,7 +38,7 @@ const MiniPCFirewall = lazyRetry(() => import("./pages/MiniPCFirewall"));
 const VCloudPoint = lazyRetry(() => import("./pages/VCloudPoint"));
 const AboutUs = lazyRetry(() => import("./pages/AboutUs"));
 const Investors = lazyRetry(() => import("./pages/Investors"));
-const StrategicVision = lazyRetry(() => import("./pages/StrategicVision"));
+const InvestorStrategicVision = lazyRetry(() => import("./pages/InvestorStrategicVision"));
 const InvestorBrief = lazyRetry(() => import("./pages/InvestorBrief"));
 const AdminInvestors = lazyRetry(() => import("./pages/admin/AdminInvestors"));
 const ContactUs = lazyRetry(() => import("./pages/ContactUs"));
@@ -228,7 +228,7 @@ const App = () => (
                     <Route path="/platform" element={<Platform />} />
                     <Route path="/about-us" element={<AboutUs />} />
                     <Route path="/investors" element={<Investors />} />
-                    <Route path="/strategic-vision" element={<StrategicVision />} />
+                    <Route path="/investors/strategic-vision" element={<InvestorStrategicVision />} />
                     <Route path="/investors/brief/:token" element={<InvestorBrief />} />
                     <Route path="/admin/investors" element={<ProtectedRoute requireAdmin><AdminInvestors /></ProtectedRoute>} />
                     <Route path="/contact" element={<ContactUs />} />
