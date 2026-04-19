@@ -448,7 +448,7 @@ export default function AdminTrash() {
                         <div className="flex-1 min-w-0 space-y-1.5">
                           <div className="flex items-center gap-2 flex-wrap">
                             <span className="font-bold text-muted-foreground line-through">
-                              {quote.quote_number}
+                              {displayDocNumber(quote.quote_number)}
                             </span>
                             <Badge variant="outline" className="text-[10px]">{quote.status}</Badge>
                           </div>
