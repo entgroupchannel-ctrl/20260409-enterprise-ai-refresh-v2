@@ -243,9 +243,13 @@ export default function MyQuoteDetail() {
         .from('quote_requests')
         .select('*')
         .eq('id', id!)
-        .single();
+        .maybeSingle();
 
       if (error) throw error;
+      if (!data) {
+        setQuote(null);
+        return;
+      }
       setQuote({ ...data, products: (data.products as any) || [] } as any);
     } catch (error: any) {
       toast({
@@ -253,7 +257,6 @@ export default function MyQuoteDetail() {
         description: error.message,
         variant: 'destructive',
       });
-      navigate('/my-quotes');
     } finally {
       setLoading(false);
     }
