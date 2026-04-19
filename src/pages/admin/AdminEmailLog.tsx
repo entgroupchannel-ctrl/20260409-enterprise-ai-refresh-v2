@@ -22,6 +22,8 @@ type EmailLogRow = {
   created_at: string;
   related_id: string | null;
   related_type: string | null;
+  sales_id?: string | null;
+  sales_name?: string | null;
 };
 
 const RANGE_PRESETS = [
