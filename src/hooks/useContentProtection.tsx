@@ -44,9 +44,9 @@ export function useContentProtection(enabled = true) {
     if (!enabled) return;
     if (typeof window === "undefined") return;
     if (isBot()) return;
-    if (isLoggedIn()) return;
 
-    const isProtectedNow = () => !isInternalRoute();
+    // Re-check on every event so login/logout takes effect immediately
+    const isProtectedNow = () => !isLoggedIn() && !isInternalRoute();
 
     // Toggle body class so CSS rules apply only on public routes
     const syncBodyClass = () => {
