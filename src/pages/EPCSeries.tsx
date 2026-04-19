@@ -29,6 +29,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import FooterCompact from "@/components/FooterCompact";
+import PartnerLogos from "@/components/PartnerLogos";
 import MiniNavbar from "@/components/MiniNavbar";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
 import EPCSeriesCompare from "@/components/EPCSeriesCompare";
@@ -910,6 +911,7 @@ const EPCSeries = () => {
           </div>
         </div>
       </div>
+      <PartnerLogos />
       <B2BCTABanner variant="compact" />
       <FooterCompact />
     </div>
