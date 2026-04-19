@@ -543,7 +543,7 @@ export default function AdminTrash() {
                         <div className="flex-1 min-w-0 space-y-1.5">
                           <div className="flex items-center gap-2 flex-wrap">
                             <span className="font-bold text-muted-foreground line-through">
-                              {inv.invoice_number}
+                              {displayDocNumber(inv.invoice_number)}
                             </span>
                             <Badge variant="outline" className="text-[10px]">{inv.status}</Badge>
                             <Badge variant="outline" className="text-[10px] bg-blue-50 text-blue-700">
