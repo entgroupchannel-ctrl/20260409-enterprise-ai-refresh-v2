@@ -150,7 +150,6 @@ export default function MyReceiptDetail() {
       </CustomerLayout>
     );
   }
-  return null;
 
   return (
     <CustomerLayout title={receipt.receipt_number}>
