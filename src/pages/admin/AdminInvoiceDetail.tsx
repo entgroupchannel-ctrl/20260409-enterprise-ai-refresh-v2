@@ -15,6 +15,7 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { supabase } from '@/integrations/supabase/client';
+import { createNotification, sendQuoteStatusEmail } from '@/lib/notifications';
 import { useToast } from '@/hooks/use-toast';
 import {
   ArrowLeft, Loader2, Printer, Send, CircleCheckBig, Ban, FileText,
