@@ -238,6 +238,91 @@ export default function AdminReports() {
     });
   };
 
+  // ── Sales Performance per Salesperson ─────────────────────────────────
+  // ยอดขายของ sale แต่ละคน อิง quote_requests.assigned_to
+  // โดยเฉพาะ Quote ที่ถูกแปลงเป็น Invoice/PO แล้ว (= "ปิดได้จริง")
+  const loadSalesPerformance = async (from: string, to: string) => {
+    const [quoteRes, invoiceRes, payRes, staffRes] = await Promise.all([
+      supabase.from('quote_requests')
+        .select('id, status, grand_total, assigned_to, created_at')
+        .is('deleted_at', null)
+        .gte('created_at', from).lte('created_at', to)
+        .not('assigned_to', 'is', null),
+      supabase.from('invoices')
+        .select('id, quote_id, grand_total, status, invoice_date')
+        .is('deleted_at', null)
+        .not('quote_id', 'is', null)
+        .gte('invoice_date', from).lte('invoice_date', to),
+      supabase.from('payment_records')
+        .select('amount, invoice_id, verification_status, created_at')
+        .eq('verification_status', 'verified')
+        .gte('created_at', from).lte('created_at', to),
+      supabase.from('staff_members')
+        .select('id, full_name, role, email')
+        .eq('is_active', true),
+    ]);
+
+    const quotes = (quoteRes.data ?? []) as any[];
+    const invoices = (invoiceRes.data ?? []) as any[];
+    const payments = (payRes.data ?? []) as any[];
+    const staff = (staffRes.data ?? []) as any[];
+
+    const invByQuote: Record<string, { id: string; total: number }[]> = {};
+    for (const inv of invoices) {
+      if (!invByQuote[inv.quote_id]) invByQuote[inv.quote_id] = [];
+      invByQuote[inv.quote_id].push({ id: inv.id, total: inv.grand_total ?? 0 });
+    }
+    const quoteToSale: Record<string, string> = {};
+    const invoiceToSale: Record<string, string> = {};
+    for (const q of quotes) quoteToSale[q.id] = q.assigned_to;
+    for (const inv of invoices) {
+      const sid = quoteToSale[inv.quote_id];
+      if (sid) invoiceToSale[inv.id] = sid;
+    }
+
+    const perSale: Record<string, any> = {};
+    const ensure = (sid: string) => {
+      if (!perSale[sid]) {
+        const s = staff.find(x => x.id === sid);
+        perSale[sid] = {
+          id: sid, name: s?.full_name ?? 'Unknown', role: s?.role ?? '—',
+          quoteCount: 0, wonCount: 0, lostCount: 0,
+          quoteValue: 0, invoicedValue: 0, receivedValue: 0,
+          invoiceCount: 0,
+        };
+      }
+      return perSale[sid];
+    };
+
+    for (const q of quotes) {
+      const row = ensure(q.assigned_to);
+      row.quoteCount++;
+      row.quoteValue += q.grand_total ?? 0;
+      if (q.status === 'completed') row.wonCount++;
+      else if (['rejected','cancelled'].includes(q.status)) row.lostCount++;
+      const invs = invByQuote[q.id] ?? [];
+      row.invoiceCount += invs.length;
+      row.invoicedValue += invs.reduce((s: number, i: any) => s + i.total, 0);
+    }
+
+    for (const p of payments) {
+      const sid = p.invoice_id ? invoiceToSale[p.invoice_id] : null;
+      if (!sid) continue;
+      const row = ensure(sid);
+      row.receivedValue += p.amount ?? 0;
+    }
+
+    const list = Object.values(perSale)
+      .map((r: any) => ({
+        ...r,
+        winRate: r.quoteCount === 0 ? 0 : Math.round((r.wonCount / r.quoteCount) * 100),
+        avgDeal: r.wonCount === 0 ? 0 : r.invoicedValue / r.wonCount,
+      }))
+      .sort((a: any, b: any) => b.invoicedValue - a.invoicedValue);
+
+    setSalesPerformance(list);
+  };
+
   // ── Finance Data ──────────────────────────────────────────────────────
   const loadFinanceData = async (from: string, to: string) => {
     const [invRes, payRes, trRes, poRes] = await Promise.all([
