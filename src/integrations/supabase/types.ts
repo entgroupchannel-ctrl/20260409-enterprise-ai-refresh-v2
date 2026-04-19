@@ -2035,6 +2035,112 @@ export type Database = {
           },
         ]
       }
+      investor_access_tokens: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          expires_at: string | null
+          id: string
+          inquiry_id: string | null
+          is_active: boolean
+          last_viewed_at: string | null
+          max_views: number | null
+          notes: string | null
+          recipient_company: string | null
+          recipient_email: string
+          recipient_name: string
+          revoked_at: string | null
+          revoked_by: string | null
+          token: string
+          updated_at: string
+          view_count: number
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          expires_at?: string | null
+          id?: string
+          inquiry_id?: string | null
+          is_active?: boolean
+          last_viewed_at?: string | null
+          max_views?: number | null
+          notes?: string | null
+          recipient_company?: string | null
+          recipient_email: string
+          recipient_name: string
+          revoked_at?: string | null
+          revoked_by?: string | null
+          token?: string
+          updated_at?: string
+          view_count?: number
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          expires_at?: string | null
+          id?: string
+          inquiry_id?: string | null
+          is_active?: boolean
+          last_viewed_at?: string | null
+          max_views?: number | null
+          notes?: string | null
+          recipient_company?: string | null
+          recipient_email?: string
+          recipient_name?: string
+          revoked_at?: string | null
+          revoked_by?: string | null
+          token?: string
+          updated_at?: string
+          view_count?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "investor_access_tokens_inquiry_id_fkey"
+            columns: ["inquiry_id"]
+            isOneToOne: false
+            referencedRelation: "investor_inquiries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      investor_brief_views: {
+        Row: {
+          id: string
+          ip_address: string | null
+          referrer: string | null
+          token: string
+          token_id: string | null
+          user_agent: string | null
+          viewed_at: string
+        }
+        Insert: {
+          id?: string
+          ip_address?: string | null
+          referrer?: string | null
+          token: string
+          token_id?: string | null
+          user_agent?: string | null
+          viewed_at?: string
+        }
+        Update: {
+          id?: string
+          ip_address?: string | null
+          referrer?: string | null
+          token?: string
+          token_id?: string | null
+          user_agent?: string | null
+          viewed_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "investor_brief_views_token_id_fkey"
+            columns: ["token_id"]
+            isOneToOne: false
+            referencedRelation: "investor_access_tokens"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       investor_inquiries: {
         Row: {
           budget_range: string | null
@@ -7112,6 +7218,16 @@ export type Database = {
           p_repair_order_id: string
         }
         Returns: Json
+      }
+      verify_investor_token: {
+        Args: { _ref?: string; _token: string; _ua?: string }
+        Returns: {
+          reason: string
+          recipient_company: string
+          recipient_email: string
+          recipient_name: string
+          valid: boolean
+        }[]
       }
       void_registered_product: {
         Args: { p_id: string; p_reason: string }
