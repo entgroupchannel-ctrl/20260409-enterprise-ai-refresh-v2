@@ -11,6 +11,8 @@ import { useToast } from '@/hooks/use-toast';
 import { Loader2, Eye, EyeOff } from 'lucide-react';
 import { getPendingQuote } from '@/hooks/usePendingQuote';
 import { PendingItemsBanner } from '@/components/PendingItemsBanner';
+import MiniNavbar from '@/components/MiniNavbar';
+import MiniFooter from '@/components/MiniFooter';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -47,8 +49,10 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-muted/50 to-muted p-4">
-      <Card className="w-full max-w-md shadow-xl">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-muted/50 to-muted">
+      <MiniNavbar />
+      <div className="flex-1 flex items-center justify-center p-4">
+        <Card className="w-full max-w-md shadow-xl">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">เข้าสู่ระบบ</CardTitle>
           <CardDescription className="text-center">ENT Group B2B Platform</CardDescription>
@@ -143,7 +147,9 @@ export default function Login() {
             </div>
           </CardFooter>
         </form>
-      </Card>
+        </Card>
+      </div>
+      <MiniFooter />
     </div>
   );
 }
