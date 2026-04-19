@@ -98,7 +98,28 @@ export default function MyTaxInvoiceDetail() {
     );
   }
 
-  if (!taxInvoice) return null;
+  if (!taxInvoice) {
+    return (
+      <CustomerLayout title="ไม่พบใบกำกับภาษี">
+        <SEOHead title="ไม่พบใบกำกับภาษี" description="ใบกำกับภาษีนี้ไม่พบในระบบ" />
+        <div className="max-w-md mx-auto py-16 text-center space-y-4">
+          <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto">
+            <Receipt className="w-8 h-8 text-muted-foreground" />
+          </div>
+          <div className="space-y-2">
+            <h1 className="text-xl font-bold">ไม่พบใบกำกับภาษีนี้</h1>
+            <p className="text-sm text-muted-foreground">
+              ใบกำกับภาษีอาจถูกยกเลิก/ลบ หรือมีการออกเลขใหม่ทดแทน
+              กรุณาตรวจสอบรายการล่าสุดของคุณ
+            </p>
+          </div>
+          <Button onClick={() => navigate('/my-tax-invoices')}>
+            ดูใบกำกับภาษีทั้งหมด
+          </Button>
+        </div>
+      </CustomerLayout>
+    );
+  }
 
   const statusInfo = STATUS_LABELS[taxInvoice.status] || { label: taxInvoice.status, cls: '' };
 
