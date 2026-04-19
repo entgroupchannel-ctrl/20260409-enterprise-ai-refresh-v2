@@ -36,6 +36,7 @@ interface Quote {
   vat_amount: number;
   grand_total: number;
   created_by?: string | null;
+  customer_email?: string | null;
 }
 
 interface CreateSaleOrderDialogProps {
