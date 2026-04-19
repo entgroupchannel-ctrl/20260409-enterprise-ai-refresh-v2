@@ -157,7 +157,9 @@ export default function Register() {
             </div>
           </CardFooter>
         </form>
-      </Card>
+        </Card>
+      </div>
+      <MiniFooter />
     </div>
   );
 }
