@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { toast } from "sonner";
 
 /**
  * Soft content protection (anti-copy/scrape).
@@ -32,12 +31,8 @@ const isAllowedTarget = (el: EventTarget | null): boolean => {
   return false;
 };
 
-let warnedOnce = false;
-const warn = (msg: string) => {
-  if (warnedOnce) return;
-  warnedOnce = true;
-  toast.info(msg, { duration: 2500 });
-  setTimeout(() => { warnedOnce = false; }, 3000);
+const warn = (_msg: string) => {
+  // Silent: no user-facing notification
 };
 
 export function useContentProtection(enabled = true) {
