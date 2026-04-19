@@ -601,6 +601,35 @@ export default function CreateInvoiceFromSODialog({
           </Button>
         </DialogFooter>
       </DialogContent>
+
+      <AlertDialog
+        open={duplicateAlert.open}
+        onOpenChange={(open) => setDuplicateAlert((s) => ({ ...s, open }))}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center gap-2 text-amber-700">
+              <Receipt className="w-5 h-5" />
+              เลขใบวางบิลซ้ำ
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-base leading-relaxed pt-2">
+              {duplicateAlert.message}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>ปิด</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => {
+                setDuplicateAlert({ open: false, message: '' });
+                handleCreate();
+              }}
+              className="bg-primary hover:bg-primary/90"
+            >
+              ลองใหม่อีกครั้ง
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </Dialog>
   );
 }
