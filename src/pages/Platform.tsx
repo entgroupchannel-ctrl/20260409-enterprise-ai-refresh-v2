@@ -10,6 +10,7 @@ import SiteNavbar from "@/components/SiteNavbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import platformHero from "@/assets/platform-hero.jpg";
 
 const STEPS = [
   { n: "01", icon: UserPlus, title: "สมัครสมาชิก", desc: "ลงทะเบียนฟรี กรอกข้อมูลบริษัท" },
@@ -126,28 +127,75 @@ export default function Platform() {
 
       {/* Hero */}
       <section className="relative overflow-hidden border-b bg-gradient-to-br from-primary/5 via-background to-background">
-        <div className="container max-w-6xl mx-auto px-6 py-20 md:py-28 text-center">
-          <Badge variant="outline" className="mb-5 border-primary/30 text-primary">
-            B2B Industrial Platform
-          </Badge>
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 leading-tight">
-            แพลตฟอร์มจัดซื้ออุตสาหกรรม
-            <br />
-            <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-              แบบครบวงจร
-            </span>
-          </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed">
-            ตั้งแต่ค้นหาสินค้า เปรียบเทียบสเปก สร้างใบเสนอราคา ติดตามสถานะ จนถึงรับสินค้า — ทุกขั้นตอนอยู่บนระบบเดียว
-            มีทีมขายคอยช่วยเหลือตลอดเส้นทาง
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            <Button asChild size="lg" className="rounded-full px-7">
-              <Link to="/auth/register">สมัครสมาชิกฟรี <ArrowRight className="ml-1.5 w-4 h-4" /></Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="rounded-full px-7">
-              <a href="#workflow">ดูขั้นตอนการใช้งาน</a>
-            </Button>
+        {/* Decorative background blobs */}
+        <div className="pointer-events-none absolute -top-32 -left-24 w-96 h-96 rounded-full bg-primary/10 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-32 -right-24 w-96 h-96 rounded-full bg-orange-500/10 blur-3xl" />
+
+        <div className="container max-w-7xl mx-auto px-6 py-16 md:py-24 relative">
+          <div className="grid lg:grid-cols-[1.05fr_1fr] gap-12 lg:gap-8 items-center">
+            {/* Copy */}
+            <div className="text-center lg:text-left">
+              <Badge variant="outline" className="mb-5 border-primary/30 text-primary">
+                B2B Industrial Platform
+              </Badge>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 leading-tight">
+                แพลตฟอร์มจัดซื้ออุตสาหกรรม
+                <br />
+                <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+                  แบบครบวงจร
+                </span>
+              </h1>
+              <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                ตั้งแต่ค้นหาสินค้า เปรียบเทียบสเปก สร้างใบเสนอราคา ติดตามสถานะ จนถึงรับสินค้า —
+                ทุกขั้นตอนอยู่บนระบบเดียว มีทีมขายคอยช่วยเหลือตลอดเส้นทาง
+              </p>
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-8">
+                <Button asChild size="lg" className="rounded-full px-7">
+                  <Link to="/auth/register">สมัครสมาชิกฟรี <ArrowRight className="ml-1.5 w-4 h-4" /></Link>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="rounded-full px-7">
+                  <a href="#workflow">ดูขั้นตอนการใช้งาน</a>
+                </Button>
+              </div>
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-2 text-sm text-muted-foreground">
+                <span className="inline-flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary" /> ลงทะเบียนฟรี</span>
+                <span className="inline-flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary" /> ไม่มีค่าติดตั้ง</span>
+                <span className="inline-flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary" /> ทีมขายตอบใน 2 ชม.</span>
+              </div>
+            </div>
+
+            {/* Hero illustration */}
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-orange-500/10 blur-2xl rounded-[2rem]" />
+              <div className="relative rounded-3xl overflow-hidden border bg-card shadow-2xl">
+                <img
+                  src={platformHero}
+                  alt="ภาพประกอบแพลตฟอร์มจัดซื้ออุตสาหกรรม B2B — Quote, Cart, Chat, Notification"
+                  width={1280}
+                  height={960}
+                  className="w-full h-auto"
+                />
+              </div>
+              {/* Floating stat chip */}
+              <div className="hidden md:flex absolute -bottom-5 -left-5 bg-card border rounded-2xl shadow-lg px-4 py-3 items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center">
+                  <BarChart3 className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-xs text-muted-foreground">ลูกค้าองค์กรใช้งาน</div>
+                  <div className="text-lg font-bold">8,000+ บริษัท</div>
+                </div>
+              </div>
+              <div className="hidden md:flex absolute -top-4 -right-4 bg-card border rounded-2xl shadow-lg px-4 py-3 items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-orange-500/10 text-orange-600 flex items-center justify-center">
+                  <Bell className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-xs text-muted-foreground">ตอบกลับใบเสนอราคา</div>
+                  <div className="text-lg font-bold">&lt; 2 ชั่วโมง</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
