@@ -57,7 +57,7 @@ export default function PopularProductsSidebar() {
         <button
           type="button"
           onClick={() => navigate("/request-quote")}
-          className="mt-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-primary text-primary-foreground text-xs font-semibold border border-primary/40 hover:opacity-90 transition-all whitespace-nowrap shadow-sm"
+          className="mt-1 flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-lg bg-gradient-to-r from-primary via-primary to-emerald-500 text-primary-foreground text-xs font-bold border border-primary/50 hover:shadow-lg hover:shadow-primary/40 hover:scale-[1.02] transition-all whitespace-nowrap shadow-md ring-1 ring-white/20"
         >
           <FileText className="w-3.5 h-3.5" />
           ขอใบเสนอราคา (RFQ)
@@ -65,7 +65,7 @@ export default function PopularProductsSidebar() {
         <button
           type="button"
           onClick={() => navigate("/shop")}
-          className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-white/10 text-white text-xs font-semibold border border-white/20 hover:bg-white/20 transition-all whitespace-nowrap"
+          className="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-lg bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 text-white text-xs font-bold border border-amber-400/40 hover:shadow-lg hover:shadow-orange-500/40 hover:scale-[1.02] transition-all whitespace-nowrap shadow-md ring-1 ring-white/20"
         >
           <ShoppingBag className="w-3.5 h-3.5" />
           เข้าสู่ร้านค้า (Shop)
