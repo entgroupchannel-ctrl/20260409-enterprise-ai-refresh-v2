@@ -21,6 +21,7 @@ import {
   Zap, ThermometerSun, Droplets, Monitor, ShoppingCart, AlertTriangle, CalendarClock, TrendingUp, Info,
 } from 'lucide-react';
 import SiteNavbar from '@/components/SiteNavbar';
+import ShopActivityPanel from '@/components/shop/ShopActivityPanel';
 import b2bWorkflowImage from '@/assets/b2b-quote-workflow.jpg';
 
 interface Product {
@@ -669,6 +670,7 @@ const ShopProductDetail = () => {
         </div>
       )}
 
+      <ShopActivityPanel />
       <Footer />
     </div>
   );

@@ -16,10 +16,12 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Slider } from '@/components/ui/slider';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
-import { SearchCheck, LayoutGrid, List, SlidersHorizontal, X, FileSearch, ChevronLeft, ChevronRight, CircleCheckBig, ShieldCheck, Landmark, HeadsetIcon, DollarSign, Cpu, MemoryStick, HardDrive, Package, Tag, Link2, Share2, Check } from 'lucide-react';
+import { SearchCheck, LayoutGrid, List, SlidersHorizontal, X, FileSearch, ChevronLeft, ChevronRight, CircleCheckBig, ShieldCheck, Landmark, HeadsetIcon, DollarSign, Cpu, MemoryStick, HardDrive, Package, Tag, Link2, Share2, Check, Heart } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import SiteNavbar from '@/components/SiteNavbar';
 import ShopHotDeals from '@/components/shop/ShopHotDeals';
+import ShopActivityPanel from '@/components/shop/ShopActivityPanel';
+import { pushRecentSearch, useShopActivity, toggleWishlist } from '@/hooks/useShopActivity';
 import { useToast } from '@/hooks/use-toast';
 
 import imgSeriesGT from '@/assets/shop/series-gt.jpg';
@@ -104,6 +106,14 @@ const ShopStorefront = () => {
     setSearchParams(params, { replace: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seriesFilter, search, sortBy]);
+
+  // Persist recent search terms (debounced) for the activity panel
+  useEffect(() => {
+    const term = search.trim();
+    if (term.length < 2) return;
+    const t = setTimeout(() => pushRecentSearch(term), 800);
+    return () => clearTimeout(t);
+  }, [search]);
 
   const buildShareUrl = (seriesIds: string[] = []) => {
     const url = new URL(window.location.origin + '/shop');
@@ -733,6 +743,7 @@ const ShopStorefront = () => {
 
       <B2BWorkflowBanner variant="full" />
       <RFQCTABanner />
+      <ShopActivityPanel />
       <Footer />
     </div>
   );
@@ -745,6 +756,15 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
   const [imgSrc, setImgSrc] = useState<string>(p.thumbnail_url || p.image_url || '/placeholder.svg');
   const displayPrice = p.starting_price || p.unit_price;
   const bulkHint = Math.round(displayPrice * 0.93);
+
+  // Wishlist state — keep card UI in sync with localStorage
+  const { wishlist } = useShopActivity();
+  const isSaved = wishlist.includes(p.slug);
+  const handleToggleWishlist = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleWishlist(p.slug);
+  };
 
   const isNew = p.tags?.some(t => t.toLowerCase().includes('new'));
   const isHot = p.is_featured;
@@ -827,6 +847,19 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
           <Checkbox checked={isComparing} onCheckedChange={onToggleCompare} className="h-3 w-3" />
           เทียบ
         </label>
+
+        <button
+          type="button"
+          onClick={handleToggleWishlist}
+          aria-label={isSaved ? 'เอาออกจากรายการโปรด' : 'บันทึกรายการโปรด'}
+          aria-pressed={isSaved}
+          className={cn(
+            'absolute bottom-2 left-2 z-10 h-7 w-7 rounded-full flex items-center justify-center bg-background/85 backdrop-blur border border-border shadow-sm transition-colors',
+            isSaved ? 'text-rose-500 border-rose-200' : 'text-muted-foreground hover:text-rose-500',
+          )}
+        >
+          <Heart className={cn('h-3.5 w-3.5', isSaved && 'fill-current')} />
+        </button>
 
         <div className="absolute top-2 right-2 z-10 flex flex-col gap-1">
           {isNew && <Badge className="text-[10px] bg-emerald-500 text-white shadow-sm">NEW</Badge>}
