@@ -78,14 +78,22 @@ export default function AdminEmailLog() {
     const quoteIds = new Set<string>();
     const invoiceIds = new Set<string>();
     const saleOrderIds = new Set<string>();
+    const taxInvoiceIds = new Set<string>();
+    const receiptIds = new Set<string>();
+    const billingNoteIds = new Set<string>();
+    const creditNoteIds = new Set<string>();
     for (const r of baseRows) {
       if (!r.related_id) continue;
       if (r.related_type === 'quote') quoteIds.add(r.related_id);
       else if (r.related_type === 'invoice') invoiceIds.add(r.related_id);
       else if (r.related_type === 'sale_order') saleOrderIds.add(r.related_id);
+      else if (r.related_type === 'tax_invoice') taxInvoiceIds.add(r.related_id);
+      else if (r.related_type === 'receipt') receiptIds.add(r.related_id);
+      else if (r.related_type === 'billing_note') billingNoteIds.add(r.related_id);
+      else if (r.related_type === 'credit_note') creditNoteIds.add(r.related_id);
     }
 
-    const [quotesRes, invoicesRes, saleOrdersRes] = await Promise.all([
+    const [quotesRes, invoicesRes, saleOrdersRes, taxInvRes, receiptsRes, billingRes, creditRes] = await Promise.all([
       quoteIds.size
         ? supabase.from('quote_requests').select('id, assigned_to, created_by').in('id', Array.from(quoteIds))
         : Promise.resolve({ data: [] as any[] }),
@@ -94,6 +102,18 @@ export default function AdminEmailLog() {
         : Promise.resolve({ data: [] as any[] }),
       saleOrderIds.size
         ? (supabase as any).from('sale_orders').select('id, created_by').in('id', Array.from(saleOrderIds))
+        : Promise.resolve({ data: [] as any[] }),
+      taxInvoiceIds.size
+        ? (supabase as any).from('tax_invoices').select('id, created_by, invoice_id').in('id', Array.from(taxInvoiceIds))
+        : Promise.resolve({ data: [] as any[] }),
+      receiptIds.size
+        ? (supabase as any).from('receipts').select('id, created_by, invoice_id').in('id', Array.from(receiptIds))
+        : Promise.resolve({ data: [] as any[] }),
+      billingNoteIds.size
+        ? (supabase as any).from('billing_notes').select('id, created_by').in('id', Array.from(billingNoteIds))
+        : Promise.resolve({ data: [] as any[] }),
+      creditNoteIds.size
+        ? (supabase as any).from('credit_notes').select('id, created_by, original_invoice_id').in('id', Array.from(creditNoteIds))
         : Promise.resolve({ data: [] as any[] }),
     ]);
 
