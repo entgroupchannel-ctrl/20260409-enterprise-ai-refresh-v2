@@ -132,6 +132,7 @@ const footerSections: { title: string; links: FooterLink[] }[] = [
   {
     title: "บริการลูกค้า",
     links: [
+      { label: "วิธีใช้งานแพลตฟอร์ม", href: "/platform" },
       { label: "🛒 Shop — สั่งซื้อออนไลน์", href: "/shop" },
       { label: "เปรียบเทียบสินค้า", href: "/shop/compare" },
       { label: "ขอใบเสนอราคา", href: "/request-quote" },
