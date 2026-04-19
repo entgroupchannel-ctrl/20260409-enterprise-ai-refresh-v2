@@ -20,6 +20,8 @@ import { SearchCheck, LayoutGrid, List, SlidersHorizontal, X, FileSearch, Chevro
 import { cn } from '@/lib/utils';
 import SiteNavbar from '@/components/SiteNavbar';
 import ShopHotDeals from '@/components/shop/ShopHotDeals';
+import ShopActivityPanel from '@/components/shop/ShopActivityPanel';
+import { pushRecentSearch } from '@/hooks/useShopActivity';
 import { useToast } from '@/hooks/use-toast';
 
 import imgSeriesGT from '@/assets/shop/series-gt.jpg';
@@ -104,6 +106,14 @@ const ShopStorefront = () => {
     setSearchParams(params, { replace: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seriesFilter, search, sortBy]);
+
+  // Persist recent search terms (debounced) for the activity panel
+  useEffect(() => {
+    const term = search.trim();
+    if (term.length < 2) return;
+    const t = setTimeout(() => pushRecentSearch(term), 800);
+    return () => clearTimeout(t);
+  }, [search]);
 
   const buildShareUrl = (seriesIds: string[] = []) => {
     const url = new URL(window.location.origin + '/shop');
@@ -733,6 +743,7 @@ const ShopStorefront = () => {
 
       <B2BWorkflowBanner variant="full" />
       <RFQCTABanner />
+      <ShopActivityPanel />
       <Footer />
     </div>
   );
