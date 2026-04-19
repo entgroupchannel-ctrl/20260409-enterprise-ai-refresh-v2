@@ -153,7 +153,7 @@ export default function MyInvoices() {
     if (search.trim()) {
       const s = search.toLowerCase();
       const matches =
-        inv.invoice_number.toLowerCase().includes(s) ||
+        (inv.invoice_number || '').toLowerCase().includes(s) ||
         (inv.customer_company || '').toLowerCase().includes(s);
       if (!matches) return false;
     }
