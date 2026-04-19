@@ -68,6 +68,7 @@ const STATUS_LABELS: Record<string, { th: string; emoji: string }> = {
   tax_invoice_created: { th: "ออกใบกำกับภาษีแล้ว", emoji: "🧾" },
   receipt_created: { th: "ออกใบเสร็จรับเงินแล้ว", emoji: "🧾" },
   credit_note_created: { th: "ออกใบลดหนี้แล้ว", emoji: "📝" },
+  sale_order_created: { th: "สร้างใบสั่งขาย (Sales Order) แล้ว", emoji: "📦" },
 };
 
 // ---------- HTML builder ----------
