@@ -442,10 +442,10 @@ export default function AdminQuoteDetail() {
       });
 
       // 🔔 Notify customer (in-app + email)
-      if (quote?.created_by) {
-        import('@/lib/notifications').then(({ createNotification, sendQuoteStatusEmail }) => {
+      import('@/lib/notifications').then(({ createNotification, sendQuoteStatusEmail }) => {
+        if (quote?.created_by) {
           createNotification({
-            userId: quote.created_by!,
+            userId: quote.created_by,
             type: 'po_approved',
             title: 'อนุมัติ PO แล้ว',
             message: `PO ของใบเสนอราคา ${quote.quote_number} ได้รับการอนุมัติแล้ว — รอดำเนินการจัดส่ง`,
@@ -455,17 +455,19 @@ export default function AdminQuoteDetail() {
             linkType: 'quote',
             linkId: id,
           });
-          if (quote.customer_email) {
-            sendQuoteStatusEmail({
-              recipientEmail: quote.customer_email,
-              customerName: quote.customer_name,
-              quoteNumber: quote.quote_number,
-              status: 'po_approved',
-              viewUrl: `https://www.entgroup.co.th/my-account/quotes/${id}`,
-            });
-          }
-        });
-      }
+        }
+        if (quote?.customer_email) {
+          sendQuoteStatusEmail({
+            recipientEmail: quote.customer_email,
+            customerName: quote.customer_name,
+            quoteNumber: quote.quote_number,
+            status: 'po_approved',
+            viewUrl: `https://www.entgroup.co.th/my-account/quotes/${id}`,
+            relatedType: 'quote',
+            relatedId: id,
+          });
+        }
+      });
 
       toast({
         title: 'อนุมัติสำเร็จ',
@@ -516,11 +518,11 @@ export default function AdminQuoteDetail() {
       });
 
       // 🔔 Notify customer (in-app + email)
-      if (quote?.created_by) {
-        const reasonText = rejectReason;
-        import('@/lib/notifications').then(({ createNotification, sendQuoteStatusEmail }) => {
+      const reasonText = rejectReason;
+      import('@/lib/notifications').then(({ createNotification, sendQuoteStatusEmail }) => {
+        if (quote?.created_by) {
           createNotification({
-            userId: quote.created_by!,
+            userId: quote.created_by,
             type: 'po_rejected',
             title: 'PO ไม่ได้รับการอนุมัติ',
             message: `PO ของใบเสนอราคา ${quote.quote_number} ไม่ได้รับการอนุมัติ — เหตุผล: ${reasonText}`,
@@ -530,18 +532,20 @@ export default function AdminQuoteDetail() {
             linkType: 'quote',
             linkId: id,
           });
-          if (quote.customer_email) {
-            sendQuoteStatusEmail({
-              recipientEmail: quote.customer_email,
-              customerName: quote.customer_name,
-              quoteNumber: quote.quote_number,
-              status: 'po_rejected',
-              note: reasonText,
-              viewUrl: `https://www.entgroup.co.th/my-account/quotes/${id}`,
-            });
-          }
-        });
-      }
+        }
+        if (quote?.customer_email) {
+          sendQuoteStatusEmail({
+            recipientEmail: quote.customer_email,
+            customerName: quote.customer_name,
+            quoteNumber: quote.quote_number,
+            status: 'po_rejected',
+            note: reasonText,
+            viewUrl: `https://www.entgroup.co.th/my-account/quotes/${id}`,
+            relatedType: 'quote',
+            relatedId: id,
+          });
+        }
+      });
 
       toast({
         title: 'ปฏิเสธสำเร็จ',
@@ -715,10 +719,11 @@ export default function AdminQuoteDetail() {
 
       if (updateError) throw updateError;
 
-      if (quote.created_by) {
-        import('@/lib/notifications').then(({ createNotification, sendQuoteStatusEmail }) => {
+      // 🔔 Notify customer (in-app for registered users + email for everyone)
+      import('@/lib/notifications').then(({ createNotification, sendQuoteStatusEmail }) => {
+        if (quote.created_by) {
           createNotification({
-            userId: quote.created_by!,
+            userId: quote.created_by,
             type: 'quote_sent',
             title: 'ใบเสนอราคาพร้อมแล้ว',
             message: `ใบเสนอราคา ${quote.quote_number} ถูกส่งถึงคุณแล้ว กรุณาตรวจสอบ`,
@@ -728,17 +733,19 @@ export default function AdminQuoteDetail() {
             linkType: 'quote',
             linkId: id,
           });
-          if (quote.customer_email) {
-            sendQuoteStatusEmail({
-              recipientEmail: quote.customer_email,
-              customerName: quote.customer_name,
-              quoteNumber: quote.quote_number,
-              status: 'sent',
-              viewUrl: `https://www.entgroup.co.th/my-account/quotes/${id}`,
-            });
-          }
-        });
-      }
+        }
+        if (quote.customer_email) {
+          sendQuoteStatusEmail({
+            recipientEmail: quote.customer_email,
+            customerName: quote.customer_name,
+            quoteNumber: quote.quote_number,
+            status: 'sent',
+            viewUrl: `https://www.entgroup.co.th/my-account/quotes/${id}`,
+            relatedType: 'quote',
+            relatedId: id,
+          });
+        }
+      });
 
       toast({
         title: 'ส่งใบเสนอราคาสำเร็จ',
