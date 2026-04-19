@@ -106,29 +106,54 @@ export default function CreateInvoiceFromSODialog({
     ? source.quote.quote_number
     : '';
 
-  const baseSubtotal = source?.type === 'sale_order'
-    ? (source.saleOrder.subtotal || 0)
-    : source?.type === 'quote'
-    ? source.quote.subtotal
-    : 0;
-
-  const baseVat = source?.type === 'sale_order'
-    ? (source.saleOrder.vat_amount || 0)
-    : source?.type === 'quote'
-    ? (source.quote.vat_amount || 0)
-    : 0;
-
-  const baseTotal = source?.type === 'sale_order'
-    ? (source.saleOrder.grand_total || 0)
-    : source?.type === 'quote'
-    ? source.quote.grand_total
-    : 0;
-
   const baseProducts = source?.type === 'sale_order'
     ? source.saleOrder.products
     : source?.type === 'quote'
     ? source.quote.products
     : [];
+
+  // Compute subtotal from products as a robust fallback (in case header totals were not propagated)
+  const computedSubtotalFromProducts = (() => {
+    const arr = Array.isArray(baseProducts) ? baseProducts : [];
+    return arr.reduce((sum: number, p: any) => {
+      const qty = Number(p.qty ?? p.quantity) || 0;
+      const unit = Number(p.unit_price ?? p.unitPrice) || 0;
+      const itemDiscPct = Number(p.discount_percent ?? p.discountPercent) || 0;
+      const itemDiscAmt = Number(p.discount_amount) || 0;
+      const gross = qty * unit;
+      const disc = itemDiscAmt > 0 ? itemDiscAmt : gross * (itemDiscPct / 100);
+      const computed = gross - disc;
+      const lineTotal = computed > 0 ? computed : (Number(p.line_total) || 0);
+      return sum + lineTotal;
+    }, 0);
+  })();
+
+  const sourceSubtotal = source?.type === 'sale_order'
+    ? Number(source.saleOrder.subtotal) || 0
+    : source?.type === 'quote'
+    ? Number(source.quote.subtotal) || 0
+    : 0;
+
+  const sourceVat = source?.type === 'sale_order'
+    ? Number(source.saleOrder.vat_amount) || 0
+    : source?.type === 'quote'
+    ? Number(source.quote.vat_amount) || 0
+    : 0;
+
+  const sourceTotal = source?.type === 'sale_order'
+    ? Number(source.saleOrder.grand_total) || 0
+    : source?.type === 'quote'
+    ? Number(source.quote.grand_total) || 0
+    : 0;
+
+  // If header totals are zero but we have line items, recompute (subtotal + 7% VAT)
+  const baseSubtotal = sourceSubtotal > 0 ? sourceSubtotal : computedSubtotalFromProducts;
+  const baseVat = sourceVat > 0
+    ? sourceVat
+    : Math.round(baseSubtotal * 0.07 * 100) / 100;
+  const baseTotal = sourceTotal > 0
+    ? sourceTotal
+    : Math.round((baseSubtotal + baseVat) * 100) / 100;
 
   const loadQuoteFromDirect = async (q: QuoteSource) => {
     let userId: string | null = null;
