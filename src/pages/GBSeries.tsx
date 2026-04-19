@@ -645,18 +645,18 @@ const GBSeries = () => {
             พร้อมเริ่มต้น<span className="text-gradient">แล้วหรือยัง?</span>
           </h2>
           <p className="text-muted-foreground mb-8">ปรึกษาผู้เชี่ยวชาญของเราเพื่อหาโซลูชันที่เหมาะสมกับธุรกิจของคุณ</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <QuoteRequestButton productModel="GB Series" productName="GB Series Industrial PC" size="lg" />
+          <div className="flex flex-wrap justify-center items-stretch gap-4">
+            <QuoteRequestButton productModel="GB Series" productName="GB Series Industrial PC" size="lg" className="h-14 min-w-[220px] px-8 rounded-xl text-lg font-bold" />
             <button
               onClick={() => setShowLineQR(true)}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[hsl(142,70%,45%)] text-white font-bold text-lg hover:opacity-90 transition-opacity">
+              className="inline-flex items-center justify-center gap-2 h-14 min-w-[220px] px-8 rounded-xl bg-[hsl(142,70%,45%)] text-white font-bold text-lg hover:opacity-90 transition-opacity">
               LINE @entgroup
             </button>
             <a
               href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_7775cf506c644020a3239be2ef131caa.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border border-border bg-card text-foreground font-bold hover:bg-secondary/50 transition-colors">
+              className="inline-flex items-center justify-center gap-2 h-14 min-w-[220px] px-8 rounded-xl border border-border bg-card text-foreground font-bold text-lg hover:bg-secondary/50 transition-colors">
               <ExternalLink size={18} /> ดาวน์โหลดภาพรวมผลิตภัณฑ์
             </a>
           </div>
