@@ -190,12 +190,12 @@ export default function Platform() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {FEATURES.map(({ icon: Icon, title, desc, points, href, image }) => (
               <div key={title} className="group rounded-2xl border bg-card overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all flex flex-col">
-                <div className="relative aspect-[16/10] overflow-hidden bg-muted/40 border-b">
+                <div className="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-muted/60 to-muted/20 border-b flex items-center justify-center p-3">
                   <img
                     src={image}
                     alt={title}
                     loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                    className="max-w-full max-h-full object-contain group-hover:scale-[1.03] transition-transform duration-500 rounded-md shadow-sm"
                   />
                 </div>
                 <div className="p-6 flex-1 flex flex-col">
