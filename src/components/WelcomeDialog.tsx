@@ -13,8 +13,13 @@ import {
   LayoutGrid,
   ShoppingBag,
   Pause,
+  Mail,
+  Loader2,
+  CheckCircle2,
 } from "lucide-react";
 import welcomeBg from "@/assets/welcome-callcenter.jpg";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 /** Storage keys */
 const STORAGE_PREFIX = "ent_welcome_dialog_v2:";
@@ -70,6 +75,38 @@ export default function WelcomeDialog() {
   const [remainingMs, setRemainingMs] = useState(AUTO_CLOSE_SECONDS * 1000);
   const totalMsRef = useRef(AUTO_CLOSE_SECONDS * 1000);
   const closeTimerRef = useRef<number | null>(null);
+  const { toast } = useToast();
+
+  // Newsletter subscribe state
+  const [subEmail, setSubEmail] = useState("");
+  const [subLoading, setSubLoading] = useState(false);
+  const [subSuccess, setSubSuccess] = useState(false);
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const email = subEmail.trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      toast({ title: "อีเมลไม่ถูกต้อง", description: "กรุณากรอกอีเมลที่ถูกต้อง", variant: "destructive" });
+      return;
+    }
+    setSubLoading(true);
+    try {
+      const { error } = await supabase
+        .from("subscribers")
+        .insert({ email, source: "welcome_dialog", is_active: true } as any);
+      // Ignore unique-violation as success (already subscribed)
+      if (error && !String(error.message).toLowerCase().includes("duplicate")) {
+        throw error;
+      }
+      setSubSuccess(true);
+      setSubEmail("");
+      toast({ title: "สมัครรับข่าวสารสำเร็จ 🎉", description: "ขอบคุณที่ติดตาม ENT Group" });
+    } catch (err: any) {
+      toast({ title: "เกิดข้อผิดพลาด", description: err.message ?? "ลองใหม่อีกครั้ง", variant: "destructive" });
+    } finally {
+      setSubLoading(false);
+    }
+  };
 
   /** Decide whether to show on route change (cooldowns + force/reset query) */
   useEffect(() => {
@@ -291,6 +328,41 @@ export default function WelcomeDialog() {
                 <ShoppingBag className="h-4 w-4" /> เข้าสู่ร้านค้า
               </Link>
             </Button>
+          </div>
+
+          {/* Newsletter subscribe */}
+          <div className="mt-5 p-3.5 rounded-lg border border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="h-7 w-7 rounded-md bg-primary/10 text-primary flex items-center justify-center">
+                <Mail className="h-3.5 w-3.5" />
+              </div>
+              <div className="min-w-0">
+                <div className="text-sm font-semibold text-foreground">รับข่าวสารและโปรโมชั่นพิเศษ</div>
+                <div className="text-[11px] text-muted-foreground">สินค้าใหม่ ส่วนลดองค์กร และข่าวอุตสาหกรรม</div>
+              </div>
+            </div>
+            {subSuccess ? (
+              <div className="flex items-center gap-2 text-sm text-primary font-medium py-1.5">
+                <CheckCircle2 className="h-4 w-4" />
+                สมัครเรียบร้อยแล้ว ขอบคุณค่ะ
+              </div>
+            ) : (
+              <form onSubmit={handleSubscribe} className="flex gap-2">
+                <input
+                  type="email"
+                  required
+                  value={subEmail}
+                  onChange={(e) => setSubEmail(e.target.value)}
+                  placeholder="your@email.com"
+                  maxLength={255}
+                  disabled={subLoading}
+                  className="flex-1 h-9 px-3 rounded-md border border-input bg-background text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 disabled:opacity-50"
+                />
+                <Button type="submit" size="sm" disabled={subLoading} className="h-9 px-4">
+                  {subLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : "สมัคร"}
+                </Button>
+              </form>
+            )}
           </div>
 
           {/* Circular countdown footer */}
