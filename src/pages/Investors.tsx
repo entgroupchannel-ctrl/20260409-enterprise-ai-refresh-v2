@@ -730,6 +730,7 @@ const Investors = () => {
       </section>
 
       <FooterCompact />
+      <FontSizeControl targetId="investor-content-root" />
     </div>
   );
 };
