@@ -18,6 +18,7 @@ import GeneralChatWidget from "./components/chat/GeneralChatWidget.tsx";
 import RequestQuoteFab from "./components/RequestQuoteFab.tsx";
 import WelcomeDialog from "./components/WelcomeDialog.tsx";
 import ContentProtection from "./components/ContentProtection.tsx";
+import MyAccountRedirect from "./components/MyAccountRedirect.tsx";
 
 /* ── Lazy-loaded pages (with auto-retry on chunk errors) ── */
 const GTSeries = lazyRetry(() => import("./pages/GTSeries"));
@@ -345,6 +346,11 @@ const App = () => (
                     <Route path="/my/repairs/new" element={<ProtectedRoute><RequestRepairForm /></ProtectedRoute>} />
                     <Route path="/my/repairs/:id" element={<ProtectedRoute><MyRepairDetail /></ProtectedRoute>} />
                     <Route path="/my-receipts/:id" element={<ProtectedRoute><MyReceiptDetail /></ProtectedRoute>} />
+                    {/* Legacy /my-account/* aliases — redirect to canonical /my-* routes.
+                        Supports email links from notifications (quotes, invoices, tax-invoices, receipts, orders, documents). */}
+                    <Route path="/my-account/:section/*" element={<MyAccountRedirect />} />
+                    <Route path="/my-account/:section" element={<MyAccountRedirect />} />
+                    <Route path="/my-account" element={<MyAccountRedirect />} />
                     <Route path="/notifications" element={<ProtectedRoute><NotificationsPage /></ProtectedRoute>} />
                     <Route path="/profile" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
                     <Route path="/dashboard" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
