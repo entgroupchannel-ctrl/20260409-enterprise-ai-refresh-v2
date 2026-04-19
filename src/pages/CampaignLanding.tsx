@@ -112,6 +112,14 @@ export default function CampaignLanding() {
         .order("display_order", { ascending: true });
       setItems(rows || []);
 
+      // Load related products from shop catalog (based on first campaign item)
+      const firstModel = (rows || [])[0]?.product_model;
+      if (firstModel) {
+        setRelated(getRelatedCatalogProducts(firstModel, 8));
+      } else {
+        setRelated(getRelatedCatalogProducts("", 8));
+      }
+
       // Increment view counter (best-effort; non-blocking)
       try {
         await (supabase.from as any)("affiliate_campaigns")
