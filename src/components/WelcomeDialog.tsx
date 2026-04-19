@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 
 const STORAGE_KEY = "ent_welcome_dialog_seen_v1";
-const AUTO_CLOSE_SECONDS = 5;
+const AUTO_CLOSE_SECONDS = 7;
 
 const BENEFITS = [
   { icon: FileText, title: "ขอใบเสนอราคาออนไลน์", desc: "สร้าง/ติดตามใบเสนอราคาได้ทันที" },
