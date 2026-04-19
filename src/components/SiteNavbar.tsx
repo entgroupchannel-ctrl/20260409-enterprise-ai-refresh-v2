@@ -99,7 +99,7 @@ export default function SiteNavbar() {
                   <span className="max-w-[100px] truncate">{profile?.full_name || user.email?.split('@')[0]}</span>
                   <ChevronDown size={14} />
                 </button>
-                <div className="absolute right-0 top-full pt-1 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible focus-within:opacity-100 focus-within:visible transition-all z-50">
+                <div className="absolute right-0 top-full pt-2 w-56 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto focus-within:opacity-100 focus-within:pointer-events-auto transition-opacity z-50">
                   <div className="bg-card border border-border rounded-lg shadow-xl overflow-hidden">
                   {(profile?.role === 'admin' || profile?.role === 'sales') && (
                     <>
