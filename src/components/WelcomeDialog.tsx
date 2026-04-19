@@ -90,9 +90,11 @@ export default function WelcomeDialog() {
       } catch { /* ignore */ }
     }
 
-    // Bypass for internal routes & logged-in users (even with force, keep these guards)
-    if (isBypassPath(location.pathname)) return;
-    if (isLoggedIn()) return;
+    // Bypass for internal routes & logged-in users — but allow QA force/reset to override
+    if (!isForce && !isReset) {
+      if (isBypassPath(location.pathname)) return;
+      if (isLoggedIn()) return;
+    }
 
     // Cooldown checks (skipped when force/reset)
     if (!isForce && !isReset) {
