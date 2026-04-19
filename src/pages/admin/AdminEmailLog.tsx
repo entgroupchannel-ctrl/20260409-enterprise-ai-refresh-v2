@@ -14,7 +14,6 @@ import { th } from 'date-fns/locale';
 
 type EmailLogRow = {
   id: string;
-  message_id: string | null;
   template_name: string;
   recipient_email: string;
   subject: string | null;
