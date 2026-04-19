@@ -131,9 +131,10 @@ export default function SiteNavbar() {
                     </>
                   )}
                   <div className="border-t border-border" />
-                  <button onClick={() => signOut()} className="flex items-center gap-2 px-4 py-2.5 text-sm text-destructive hover:bg-muted transition-colors w-full text-left rounded-b-lg">
+                  <button onClick={() => signOut()} className="flex items-center gap-2 px-4 py-2.5 text-sm text-destructive hover:bg-muted transition-colors w-full text-left">
                     <LogOut size={16} /> ออกจากระบบ
                   </button>
+                  </div>
                 </div>
               </div>
             ) : (
