@@ -255,11 +255,62 @@ export default function AdminTrash() {
     if (!permReceiptTarget) return;
     setProcessing(true);
     try {
+      // 1) Resolve customer email/id BEFORE deletion (receipt row has customer_id only)
+      const { data: rcpRow } = await (supabase as any)
+        .from('receipts')
+        .select('id, receipt_number, customer_id, customer_name, customer_company, amount')
+        .eq('id', permReceiptTarget.id)
+        .maybeSingle();
+
+      let customerEmail: string | null = null;
+      if (rcpRow?.customer_id) {
+        const { data: cust } = await (supabase as any)
+          .from('customers')
+          .select('email')
+          .eq('id', rcpRow.customer_id)
+          .maybeSingle();
+        customerEmail = cust?.email || null;
+      }
+
+      // 2) Notify customer (in-app + email) — fire-and-forget BEFORE permanent delete
+      const reason = permReceiptTarget.delete_reason || 'ลบถาวรโดยผู้ดูแลระบบ';
+      if (rcpRow?.customer_id) {
+        createNotification({
+          userId: rcpRow.customer_id,
+          type: 'receipt_cancelled',
+          title: `ใบเสร็จ ${rcpRow.receipt_number} ถูกลบถาวร`,
+          message: `เหตุผล: ${reason}`,
+          priority: 'high',
+          linkType: 'receipt',
+          linkId: rcpRow.id,
+        });
+      }
+      if (customerEmail) {
+        const origin = typeof window !== 'undefined' ? window.location.origin : '';
+        sendQuoteStatusEmail({
+          recipientEmail: customerEmail,
+          customerName: rcpRow?.customer_name || rcpRow?.customer_company || undefined,
+          invoiceNumber: rcpRow?.receipt_number || permReceiptTarget.receipt_number,
+          status: 'cancelled',
+          amount: rcpRow?.amount ? String(rcpRow.amount) : undefined,
+          viewUrl: origin || undefined,
+          note: `ใบเสร็จรับเงินถูกลบถาวรจากระบบ — เหตุผล: ${reason}`,
+          relatedType: 'receipt',
+          relatedId: permReceiptTarget.id,
+        });
+      }
+
+      // 3) Permanent delete
       const { data, error } = await (supabase as any).rpc('permanent_delete_receipt', {
         p_receipt_id: permReceiptTarget.id,
       });
       if (error) throw error;
-      toast({ title: '🗑️ ลบถาวรแล้ว', description: (data as any)?.message });
+      toast({
+        title: '🗑️ ลบถาวรแล้ว',
+        description: customerEmail
+          ? `แจ้งลูกค้าทางอีเมล (${customerEmail}) เรียบร้อย`
+          : (data as any)?.message,
+      });
       setPermReceiptTarget(null);
       await loadTrash();
     } catch (e: any) {
