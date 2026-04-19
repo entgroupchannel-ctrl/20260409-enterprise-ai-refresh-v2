@@ -90,6 +90,55 @@ export default function QuoteRequestForm() {
     }
   }, [user, location.search]);
 
+  // Pre-fill products from ?products=slug1,slug2 (from Shop wishlist/compare bulk RFQ)
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const slugsParam = params.get('products');
+    if (!slugsParam) return;
+    const slugs = slugsParam.split(',').map(s => s.trim()).filter(Boolean);
+    if (slugs.length === 0) return;
+    (async () => {
+      const { data, error } = await supabase
+        .from('products')
+        .select('slug, model, name, description, cpu, ram_gb, storage_gb, storage_type, has_wifi, has_4g, os')
+        .in('slug', slugs)
+        .eq('is_active', true);
+      if (error || !data || data.length === 0) return;
+
+      // Preserve original order from URL
+      const bySlug = new Map(data.map((p: any) => [p.slug, p]));
+      const ordered = slugs.map(s => bySlug.get(s)).filter(Boolean) as any[];
+
+      const items: ProductItem[] = ordered.map((p) => {
+        const specParts: string[] = [];
+        if (p.cpu) specParts.push(`CPU: ${p.cpu}`);
+        if (p.ram_gb) specParts.push(`RAM: ${p.ram_gb}GB`);
+        if (p.storage_gb) specParts.push(`Storage: ${p.storage_gb}GB ${p.storage_type || ''}`.trim());
+        if (p.has_wifi || p.has_4g) {
+          const net: string[] = [];
+          if (p.has_wifi) net.push('WiFi');
+          if (p.has_4g) net.push('4G');
+          specParts.push(`Network: ${net.join(' + ')}`);
+        }
+        if (p.os) specParts.push(`OS: ${p.os}`);
+        return {
+          model: p.name || p.model,
+          description: specParts.join('\n') || p.description || '',
+          qty: 1,
+        };
+      });
+
+      setProducts(items);
+      toast({
+        title: '📦 นำเข้าสินค้าจากประวัติแล้ว',
+        description: `${items.length} รายการ — ตรวจสอบและส่งคำขอได้เลย`,
+      });
+      // Clean URL so refresh doesn't re-import
+      window.history.replaceState({}, '', location.pathname);
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Pre-fill products & notes from campaign (when arrived via ?campaign=<slug>)
   useEffect(() => {
     const params = new URLSearchParams(location.search);
