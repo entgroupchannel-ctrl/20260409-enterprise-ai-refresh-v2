@@ -37,6 +37,7 @@ const UTCSeries = lazyRetry(() => import("./pages/UTCSeries"));
 const MiniPCFirewall = lazyRetry(() => import("./pages/MiniPCFirewall"));
 const VCloudPoint = lazyRetry(() => import("./pages/VCloudPoint"));
 const AboutUs = lazyRetry(() => import("./pages/AboutUs"));
+const Investors = lazyRetry(() => import("./pages/Investors"));
 const ContactUs = lazyRetry(() => import("./pages/ContactUs"));
 const Warrantys = lazyRetry(() => import("./pages/Warrantys"));
 const Payment = lazyRetry(() => import("./pages/Payment"));
@@ -223,6 +224,7 @@ const App = () => (
                     <Route path="/vcloudpoint" element={<VCloudPoint />} />
                     <Route path="/platform" element={<Platform />} />
                     <Route path="/about-us" element={<AboutUs />} />
+                    <Route path="/investors" element={<Investors />} />
                     <Route path="/contact" element={<ContactUs />} />
                     <Route path="/warrantys" element={<Warrantys />} />
                     <Route path="/payment" element={<Payment />} />

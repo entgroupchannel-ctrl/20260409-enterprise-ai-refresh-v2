@@ -2035,6 +2035,75 @@ export type Database = {
           },
         ]
       }
+      investor_inquiries: {
+        Row: {
+          budget_range: string | null
+          company: string | null
+          contacted_at: string | null
+          contacted_by: string | null
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          internal_notes: string | null
+          investor_type: string | null
+          ip_address: string | null
+          line_id: string | null
+          message: string | null
+          phone: string | null
+          position: string | null
+          source: string | null
+          status: string
+          timeline: string | null
+          updated_at: string
+          user_agent: string | null
+        }
+        Insert: {
+          budget_range?: string | null
+          company?: string | null
+          contacted_at?: string | null
+          contacted_by?: string | null
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          internal_notes?: string | null
+          investor_type?: string | null
+          ip_address?: string | null
+          line_id?: string | null
+          message?: string | null
+          phone?: string | null
+          position?: string | null
+          source?: string | null
+          status?: string
+          timeline?: string | null
+          updated_at?: string
+          user_agent?: string | null
+        }
+        Update: {
+          budget_range?: string | null
+          company?: string | null
+          contacted_at?: string | null
+          contacted_by?: string | null
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          internal_notes?: string | null
+          investor_type?: string | null
+          ip_address?: string | null
+          line_id?: string | null
+          message?: string | null
+          phone?: string | null
+          position?: string | null
+          source?: string | null
+          status?: string
+          timeline?: string | null
+          updated_at?: string
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
       invoice_items: {
         Row: {
           created_at: string
