@@ -155,7 +155,8 @@ export default function AdminInvoicesList() {
 
       toast({
         title: '🗑️ ย้ายไปถังขยะแล้ว',
-        description: (data as any)?.message || `${deletingInvoice.invoice_number} ถูกย้ายไปถังขยะ`,
+        description:
+          `${deletingInvoice.invoice_number} อยู่ในถังขยะ — เลขเอกสารถูกปลดล็อกให้ใช้สร้างใบใหม่ได้ทันที (ดูที่ "ตั้งค่า → ถังขยะ")`,
       });
 
       setDeletingInvoice(null);
