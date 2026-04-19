@@ -27,6 +27,7 @@ const FEATURES = [
     desc: "เรียกดูสินค้ากว่า 200+ รุ่น พร้อมตัวกรองสเปก เปรียบเทียบราคาและคุณสมบัติ ช่วยให้คุณเลือกรุ่นที่เหมาะกับงานได้รวดเร็ว",
     points: ["ตัวกรองตามหมวดหมู่ ซีรีส์ ช่วงราคา", "ดู Datasheet PDF ได้ทันทีบนเว็บ", "ระบบแนะนำสินค้า Product Advisor"],
     href: "/shop",
+    image: "/images/platform/product-catalog.png",
   },
   {
     icon: Heart,
@@ -34,6 +35,7 @@ const FEATURES = [
     desc: "กดหัวใจเพื่อเก็บสินค้าที่สนใจไว้ดูทีหลัง เปรียบเทียบ shortlist ก่อนตัดสินใจ",
     points: ["บันทึกได้ไม่จำกัดจำนวน", "ดูรายการโปรดจากทุกหน้า", "ส่งต่อให้ทีมจัดซื้อได้ทันที"],
     href: "/shop/compare",
+    image: "/images/platform/wishlist.png",
   },
   {
     icon: FileText,
@@ -46,6 +48,7 @@ const FEATURES = [
       "ยืนยันก่อนส่งด้วย Dialog ปลอดภัย",
     ],
     href: "/request-quote",
+    image: "/images/platform/quote-create.png",
   },
   {
     icon: ClipboardCheck,
@@ -53,6 +56,7 @@ const FEATURES = [
     desc: "ดูสถานะแบบ Real-time ตั้งแต่ร่าง → ส่ง → ทีมขายตรวจสอบ → อนุมัติ → สั่งซื้อ พร้อม Timeline แสดงทุกขั้นตอน",
     points: ["Milestone Timeline แสดง 5 ขั้นตอน", "เปิดดูรายละเอียดเอกสารที่ส่งแล้ว", "แจ้งเตือนเมื่อสถานะเปลี่ยน"],
     href: "/my/quotes",
+    image: "/images/platform/quote-track.png",
   },
   {
     icon: MessageSquare,
@@ -60,6 +64,7 @@ const FEATURES = [
     desc: "ช่องทางสื่อสารตรงในระบบ ถาม-ตอบเรื่องราคา สเปก เงื่อนไข โดยไม่ต้องออกจากหน้าเว็บ",
     points: ["พิมพ์ข้อความตอบกลับได้ทันที", "ทีมขายตอบภายใน 2 ชั่วโมง (วันทำการ)", "ประวัติสนทนาเก็บไว้ตลอด"],
     href: "/my/quotes",
+    image: "/images/platform/negotiation.png",
   },
   {
     icon: Upload,
@@ -67,6 +72,7 @@ const FEATURES = [
     desc: "เมื่อราคาตกลงกันแล้ว อัปโหลด PO ได้ทันทีในระบบ พร้อมยืนยันสั่งซื้อด้วยคลิกเดียว",
     points: ["อัปโหลดไฟล์ PO (PDF, รูปภาพ)", "กดยืนยันสั่งซื้อได้จากหน้ารายการ", "ระบบแจ้ง Admin อัตโนมัติ"],
     href: "/my/quotes",
+    image: "/images/platform/po-upload.png",
   },
   {
     icon: Bell,
@@ -74,6 +80,7 @@ const FEATURES = [
     desc: "รับการแจ้งเตือนทันทีเมื่อมีการเปลี่ยนแปลง ไม่ว่าจะเป็นใบเสนอราคาอนุมัติ สินค้าพร้อมส่ง หรือมีข้อความใหม่",
     points: ["แจ้งเตือนในระบบ (กระดิ่ง)", "อีเมลอัตโนมัติ", "สรุปรายวัน (กำลังพัฒนา)"],
     href: "/notifications",
+    image: "/images/platform/notifications-illust.png",
   },
   {
     icon: User,
@@ -81,6 +88,7 @@ const FEATURES = [
     desc: "ศูนย์รวมข้อมูลส่วนตัว ประวัติใบเสนอราคา คำสั่งซื้อ เอกสาร และรายการโปรด ในหน้าเดียว",
     points: ["แก้ไขโปรไฟล์ ชื่อบริษัท เลขประจำตัวผู้เสียภาษี", "ดูประวัติ Quote / Order ทั้งหมด", "ขอเอกสาร ใบรับประกัน ใบกำกับภาษี"],
     href: "/my",
+    image: "/images/platform/account-illust.png",
   },
 ];
 
