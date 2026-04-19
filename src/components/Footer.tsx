@@ -227,12 +227,12 @@ const Footer = () => {
   return (
     <footer className="border-t border-border" id="contact">
       <div className="relative overflow-hidden bg-gradient-to-b from-white via-gray-100 to-gray-300 text-gray-700 dark:from-[hsl(220,15%,16%)] dark:via-[hsl(220,18%,10%)] dark:to-[hsl(220,20%,6%)] dark:text-[hsl(210,20%,85%)]">
-        {/* ลายกนกไทย — ผนังวัด มุมล่างขวา กลืนพื้นหลัง */}
+        {/* ลายไทย — ดอกประจำยาม/พิกุล มุมล่างขวา */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute bottom-0 right-0 w-[170px] h-[170px] md:w-[230px] md:h-[230px] opacity-[0.10] dark:opacity-[0.12] select-none z-0 mix-blend-multiply dark:mix-blend-screen"
           style={{
-            backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><g fill='none' stroke='%238B6F2A' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'><path d='M100 25 C 68 55, 68 95, 100 118 C 132 95, 132 55, 100 25 Z'/><path d='M100 42 C 82 62, 82 88, 100 105 C 118 88, 118 62, 100 42 Z'/><path d='M100 58 C 90 70, 90 90, 100 100 C 110 90, 110 70, 100 58 Z'/><circle cx='100' cy='78' r='2'/><path d='M55 115 C 68 138, 88 148, 100 138'/><path d='M145 115 C 132 138, 112 148, 100 138'/><path d='M68 138 C 74 153, 90 160, 100 152'/><path d='M132 138 C 126 153, 110 160, 100 152'/><path d='M100 152 C 95 168, 95 182, 100 190 C 105 182, 105 168, 100 152 Z'/><path d='M35 175 C 52 165, 70 170, 76 180'/><path d='M165 175 C 148 165, 130 170, 124 180'/></g></svg>")`,
+            backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><g fill='none' stroke='%238B6F2A' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'><circle cx='100' cy='100' r='70'/><circle cx='100' cy='100' r='52'/><circle cx='100' cy='100' r='30'/><circle cx='100' cy='100' r='6' fill='%238B6F2A'/><path d='M100 30 Q 115 70 100 100 Q 85 70 100 30 Z'/><path d='M100 170 Q 115 130 100 100 Q 85 130 100 170 Z'/><path d='M30 100 Q 70 115 100 100 Q 70 85 30 100 Z'/><path d='M170 100 Q 130 115 100 100 Q 130 85 170 100 Z'/><path d='M51 51 Q 80 80 100 100 Q 80 80 51 51 Z M149 51 Q 120 80 100 100 Q 120 80 149 51 Z M51 149 Q 80 120 100 100 Q 80 120 51 149 Z M149 149 Q 120 120 100 100 Q 120 120 149 149 Z'/><path d='M100 48 L 108 70 L 100 78 L 92 70 Z M100 152 L 108 130 L 100 122 L 92 130 Z M48 100 L 70 92 L 78 100 L 70 108 Z M152 100 L 130 92 L 122 100 L 130 108 Z'/></g></svg>")`,
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'bottom right',
             backgroundSize: 'contain',
