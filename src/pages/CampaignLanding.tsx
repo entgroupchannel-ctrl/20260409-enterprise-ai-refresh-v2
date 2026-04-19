@@ -374,6 +374,76 @@ export default function CampaignLanding() {
           ราคานี้เป็นข้อเสนอเบื้องต้น — ราคาจริงจะยืนยันในใบเสนอราคา
         </p>
 
+        {/* You-may-also-like grid (Shop catalog) */}
+        {related.length > 0 && (
+          <section className="mt-10">
+            <div className="flex items-end justify-between mb-4 gap-3 flex-wrap">
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <Flame className="w-4 h-4 text-primary" />
+                  <span className="text-xs font-semibold uppercase tracking-wider text-primary">
+                    สินค้าแนะนำเพิ่มเติม
+                  </span>
+                </div>
+                <h2 className="text-xl md:text-2xl font-bold">เสริมโซลูชันของคุณให้ครบ</h2>
+                <p className="text-sm text-muted-foreground mt-1">
+                  เลือกเพิ่มจากแคตตาล็อกของเรา ราคาดี พร้อมส่งทั่วประเทศ
+                </p>
+              </div>
+              <Button variant="outline" size="sm" asChild className="gap-1.5">
+                <Link to="/shop">
+                  <Store className="w-3.5 h-3.5" /> ดูร้านค้าทั้งหมด <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </Button>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+              {related.map((p) => (
+                <Link
+                  key={p.model}
+                  to={`/shop/${encodeURIComponent(p.model)}`}
+                  className="group rounded-xl border bg-card overflow-hidden hover:shadow-lg hover:border-primary/40 transition-all"
+                >
+                  <div className="aspect-square bg-muted overflow-hidden relative">
+                    {p.image ? (
+                      <img
+                        src={p.image}
+                        alt={p.name}
+                        loading="lazy"
+                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                        <Package className="w-8 h-8" />
+                      </div>
+                    )}
+                    <Badge
+                      variant="secondary"
+                      className="absolute top-2 left-2 text-[10px] px-1.5 py-0.5 bg-background/90 backdrop-blur"
+                    >
+                      {p.category}
+                    </Badge>
+                  </div>
+                  <div className="p-3">
+                    <p className="text-xs text-muted-foreground font-mono truncate">{p.model}</p>
+                    <p className="text-sm font-medium line-clamp-2 mt-0.5 min-h-[2.5rem]">
+                      {p.name}
+                    </p>
+                    <div className="flex items-center justify-between mt-2">
+                      {p.price ? (
+                        <span className="text-sm font-bold text-primary">{p.price}</span>
+                      ) : (
+                        <span className="text-xs text-muted-foreground">ขอใบเสนอราคา</span>
+                      )}
+                      <ArrowRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition" />
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* Compact share bar — bottom of page */}
         <Card className="mt-8 border-primary/30 bg-gradient-to-r from-primary/5 to-amber-500/5">
           <CardContent className="p-4">
