@@ -88,6 +88,10 @@ export default function CreateInvoiceFromSODialog({
   const [loading, setLoading] = useState(false);
   const [quote, setQuote] = useState<QuoteData | null>(null);
   const [loadingQuote, setLoadingQuote] = useState(false);
+  const [duplicateAlert, setDuplicateAlert] = useState<{ open: boolean; message: string }>({
+    open: false,
+    message: '',
+  });
 
   // Backward compat: if legacy saleOrder prop is passed, wrap it
   const source: InvoiceSource | null = useMemo(
