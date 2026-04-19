@@ -18,7 +18,7 @@ import GeneralChatWidget from "./components/chat/GeneralChatWidget.tsx";
 import RequestQuoteFab from "./components/RequestQuoteFab.tsx";
 import WelcomeDialog from "./components/WelcomeDialog.tsx";
 import ContentProtection from "./components/ContentProtection.tsx";
-import MyAccountRedirect from "./components/MyAccountRedirect.tsx";
+import MyAccountRedirect from "./components/MyAccountRedirect";
 
 /* ── Lazy-loaded pages (with auto-retry on chunk errors) ── */
 const GTSeries = lazyRetry(() => import("./pages/GTSeries"));
