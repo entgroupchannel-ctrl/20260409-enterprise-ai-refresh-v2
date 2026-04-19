@@ -231,6 +231,26 @@ export default function CreateTaxInvoiceFromInvoiceDialog({
         await (supabase as any).from('tax_invoice_items').insert(taxItems);
       }
 
+      // Auto-create public share link (30-day) for PDF download in email
+      let pdfShareUrl: string | undefined;
+      try {
+        const shareToken = Array.from(crypto.getRandomValues(new Uint8Array(24)),
+          (b) => b.toString(36).padStart(2, '0')).join('').slice(0, 32);
+        const expiresAt = new Date();
+        expiresAt.setDate(expiresAt.getDate() + 30);
+        const { error: shareErr } = await (supabase as any).from('tax_invoice_share_links').insert({
+          tax_invoice_id: taxInv.id,
+          token: shareToken,
+          expires_at: expiresAt.toISOString(),
+          created_by: user?.id,
+        });
+        if (!shareErr) {
+          pdfShareUrl = `https://www.entgroup.co.th/tx/share/${shareToken}?download=1`;
+        }
+      } catch (e) {
+        console.warn('share link create failed:', e);
+      }
+
       // 🔔 Notify customer (in-app + email)
       const amountStr = formatCurrency(invoiceTotal);
       if (invoice.customer_id || invoice.customer_email) {
@@ -256,6 +276,7 @@ export default function CreateTaxInvoiceFromInvoiceDialog({
               invoiceNumber: taxInv.tax_invoice_number,
               amount: amountStr,
               viewUrl: `https://www.entgroup.co.th/my-account/tax-invoices/${taxInv.id}`,
+              pdfUrl: pdfShareUrl,
             });
           }
         });

@@ -190,6 +190,26 @@ export default function CreateReceiptDialog({
         throw error;
       }
 
+      // Auto-create public share link (30-day) for PDF download in email
+      let pdfShareUrl: string | undefined;
+      try {
+        const shareToken = Array.from(crypto.getRandomValues(new Uint8Array(24)),
+          (b) => b.toString(36).padStart(2, '0')).join('').slice(0, 32);
+        const expiresAt = new Date();
+        expiresAt.setDate(expiresAt.getDate() + 30);
+        const { error: shareErr } = await (supabase as any).from('receipt_share_links').insert({
+          receipt_id: newReceipt.id,
+          token: shareToken,
+          expires_at: expiresAt.toISOString(),
+          created_by: user.id,
+        });
+        if (!shareErr) {
+          pdfShareUrl = `https://www.entgroup.co.th/rcp/share/${shareToken}?download=1`;
+        }
+      } catch (e) {
+        console.warn('share link create failed:', e);
+      }
+
       // 🔔 Notify customer (in-app + email)
       const rcpAmount = formatCurrency(Number(taxInvoice.grand_total));
       const customerId = invoice.customer_id;
@@ -217,6 +237,7 @@ export default function CreateReceiptDialog({
               invoiceNumber: newReceipt.receipt_number,
               amount: rcpAmount,
               viewUrl: `https://www.entgroup.co.th/my-account/receipts/${newReceipt.id}`,
+              pdfUrl: pdfShareUrl,
             });
           }
         });
