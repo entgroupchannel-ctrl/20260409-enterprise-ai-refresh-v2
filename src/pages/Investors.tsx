@@ -3,9 +3,9 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { z } from "zod";
 import {
-  TrendingUp, Shield, Users, Building2, Lock, FileText,
-  CheckCircle2, Loader2, ArrowRight, Mail, Phone,
-  Briefcase, Globe, Award, BarChart3, Target, Sparkles,
+  TrendingUp, Shield, Users, Building2, Lock,
+  CheckCircle2, Loader2, ArrowRight, Mail,
+  Award, BarChart3, Target, Sparkles, AlertTriangle,
 } from "lucide-react";
 import MiniNavbar from "@/components/MiniNavbar";
 import FooterCompact from "@/components/FooterCompact";
@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
@@ -27,13 +28,13 @@ const inquirySchema = z.object({
   email: z.string().trim().email("อีเมลไม่ถูกต้อง").max(255),
   phone: z.string().trim().max(30).optional().or(z.literal("")),
   line_id: z.string().trim().max(50).optional().or(z.literal("")),
-  investor_type: z.string().max(50).optional().or(z.literal("")),
+  investor_type: z.string().min(1, "กรุณาเลือกประเภทผู้ลงทุนที่ตรงกับคุณสมบัติ").max(50),
   budget_range: z.string().max(50).optional().or(z.literal("")),
   timeline: z.string().max(50).optional().or(z.literal("")),
   message: z.string().trim().max(1000).optional().or(z.literal("")),
 });
 
-/* ═══════ Highlights (สาธารณะ — เปิดเผยได้) ═══════ */
+/* ═══════ Highlights (เปิดเผยได้ — ข้อเท็จจริงทางธุรกิจ) ═══════ */
 const highlights = [
   { icon: Building2, value: "13+", label: "ปีในวงการ B2B Industrial" },
   { icon: Users, value: "8,000+", label: "ลูกค้าองค์กร" },
@@ -44,8 +45,8 @@ const highlights = [
 const pillars = [
   {
     icon: Target,
-    title: "ธุรกิจจริง ไม่ใช่ Startup เผาเงิน",
-    desc: "ดำเนินกิจการ 13 ปี มีรายได้สม่ำเสมอ ลูกค้าองค์กรกว่า 8,000 ราย ครอบคลุมราชการ โรงงาน โรงพยาบาล และสถาบันการศึกษา",
+    title: "ธุรกิจจริง ดำเนินงานต่อเนื่อง 13 ปี",
+    desc: "มีรายได้สม่ำเสมอจากลูกค้าองค์กรกว่า 8,000 ราย ครอบคลุมหน่วยงานราชการ โรงงาน โรงพยาบาล และสถาบันการศึกษา",
   },
   {
     icon: Sparkles,
@@ -55,12 +56,12 @@ const pillars = [
   {
     icon: BarChart3,
     title: "ตลาดที่กำลังเติบโต",
-    desc: "ตลาด Industrial PC + Edge Computing ในไทยมูลค่ากว่า 12,000 ล้านบาท — เรามีส่วนแบ่งพร้อมโตได้อีกหลายเท่า",
+    desc: "ตลาด Industrial PC + Edge Computing ในไทย มีมูลค่าระดับหมื่นล้านบาท พร้อมโอกาสในการขยายส่วนแบ่งตลาด",
   },
   {
     icon: Shield,
-    title: "โครงสร้างการลงทุนที่ปลอดภัย",
-    desc: "ระดมทุนในรูปแบบ เงินกู้ + ส่วนแบ่งรายได้ (Debt + Revenue Share) — ไม่เสียหุ้น ไม่เสียอำนาจควบคุม นักลงทุนได้ผลตอบแทนชัดเจน",
+    title: "พร้อมขยายความร่วมมือเชิงกลยุทธ์",
+    desc: "บริษัทกำลังเปิดรับการพูดคุยกับพันธมิตรเชิงกลยุทธ์เป็นการเฉพาะกลุ่ม — รายละเอียดทั้งหมดเปิดเผยเฉพาะผู้ที่ผ่านการคัดกรองคุณสมบัติและลงนาม NDA แล้วเท่านั้น",
   },
 ];
 
@@ -75,6 +76,8 @@ const Investors = () => {
   const { toast } = useToast();
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [eligibilityConfirmed, setEligibilityConfirmed] = useState(false);
+  const [ndaAccepted, setNdaAccepted] = useState(false);
   const [form, setForm] = useState({
     full_name: "",
     company: "",
@@ -93,6 +96,23 @@ const Investors = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (submitting) return;
+
+    if (!eligibilityConfirmed) {
+      toast({
+        title: "กรุณายืนยันคุณสมบัติ",
+        description: "ต้องยืนยันว่าคุณเป็นผู้ลงทุนที่เข้าเกณฑ์ตามประกาศ ก.ล.ต.",
+        variant: "destructive",
+      });
+      return;
+    }
+    if (!ndaAccepted) {
+      toast({
+        title: "กรุณายอมรับเงื่อนไขการรักษาความลับ",
+        description: "ต้องยอมรับเงื่อนไขก่อนส่งคำขอ",
+        variant: "destructive",
+      });
+      return;
+    }
 
     const parsed = inquirySchema.safeParse(form);
     if (!parsed.success) {
@@ -138,15 +158,33 @@ const Investors = () => {
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#FAF8F3" }}>
       <Helmet>
-        <title>Investor Relations | ENT Group — B2B Industrial Platform</title>
+        <title>Strategic Partnership Inquiry | ENT Group</title>
         <meta
           name="description"
-          content="ENT Group กำลังระดมทุนเพื่อขยาย B2B Industrial Digital Platform — 13 ปี ลูกค้าองค์กร 8,000+ ราย ขอ Pitch Deck ฉบับเต็มได้ที่นี่"
+          content="ENT Group — B2B Industrial Platform 13 ปี ลูกค้าองค์กร 8,000+ ราย ข้อมูลรายละเอียดเปิดเผยเฉพาะพันธมิตรที่ผ่านการคัดกรองคุณสมบัติเท่านั้น"
         />
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
       <MiniNavbar />
+
+      {/* ═══════ LEGAL DISCLAIMER BAR (top, non-dismissable) ═══════ */}
+      <div
+        className="w-full px-4 py-3"
+        style={{
+          backgroundColor: "#1A1410",
+          borderBottom: "1px solid rgba(201, 169, 97, 0.3)",
+        }}
+      >
+        <div className="container max-w-6xl mx-auto flex items-start gap-3">
+          <AlertTriangle size={16} style={{ color: "#C9A961" }} className="mt-0.5 shrink-0" />
+          <p className="text-[11px] leading-relaxed" style={{ color: "#D4B876" }}>
+            <strong>ประกาศทางกฎหมาย:</strong> ข้อมูลในหน้านี้ <u>มิใช่</u> การเสนอขายหลักทรัพย์ หุ้น หุ้นกู้ หรือการเชิญชวนให้ลงทุนต่อประชาชนทั่วไป
+            ตาม พ.ร.บ. หลักทรัพย์และตลาดหลักทรัพย์ พ.ศ. 2535 และ พ.ร.ก. การกู้ยืมเงินที่เป็นการฉ้อโกงประชาชน พ.ศ. 2527
+            จัดทำเพื่อการสื่อสารกับ <strong>พันธมิตรเชิงกลยุทธ์เฉพาะกลุ่ม</strong> (ผู้ลงทุนสถาบัน / ผู้ลงทุนรายใหญ่พิเศษตามนิยามของ ก.ล.ต. / บุคคลที่ได้รับเชิญเป็นการเฉพาะ) เท่านั้น
+          </p>
+        </div>
+      </div>
 
       {/* ═══════ HERO ═══════ */}
       <section
@@ -168,17 +206,17 @@ const Investors = () => {
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-semibold tracking-widest uppercase mb-6"
             style={{ backgroundColor: "rgba(201, 169, 97, 0.12)", color: "#D4B876", border: "1px solid rgba(201, 169, 97, 0.3)" }}>
             <Lock size={12} />
-            Investor Relations · Confidential
+            Strategic Partnership · By Invitation Only
           </div>
           <h1 className="text-4xl md:text-6xl font-display font-bold leading-tight mb-6" style={{ color: "#FFFFFF" }}>
-            ลงทุนใน <span style={{ color: "#C9A961" }}>ENT Group</span>
+            <span style={{ color: "#C9A961" }}>ENT Group</span>
             <br />
             B2B Industrial Platform ของไทย
           </h1>
           <p className="text-base md:text-lg leading-relaxed max-w-2xl mb-10" style={{ color: "#94A3B8" }}>
-            ธุรกิจ 13 ปี · ลูกค้าองค์กร 8,000+ ราย · กำลังระดมทุนเพื่อขยายแพลตฟอร์มจัดซื้ออุตสาหกรรมครบวงจร
+            ธุรกิจ 13 ปี · ลูกค้าองค์กร 8,000+ ราย · เปิดรับการพูดคุยกับพันธมิตรเชิงกลยุทธ์เฉพาะกลุ่ม เพื่อขยายแพลตฟอร์มจัดซื้ออุตสาหกรรมครบวงจร
             <br />
-            <span style={{ color: "#D4B876" }}>โครงสร้างการลงทุน: เงินกู้ + ส่วนแบ่งรายได้ (ไม่เสียหุ้น)</span>
+            <span style={{ color: "#D4B876" }}>รายละเอียดเปิดเผยเฉพาะผู้ที่ผ่านการคัดกรองคุณสมบัติและลงนาม NDA</span>
           </p>
 
           {/* Highlights strip */}
@@ -210,7 +248,7 @@ const Investors = () => {
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg text-sm font-bold transition-all hover:scale-[1.02] shadow-lg"
               style={{ backgroundColor: "#C9A961", color: "#0A1628" }}
             >
-              ขอ Pitch Deck ฉบับเต็ม + NDA
+              ขอข้อมูลเพิ่มเติม (สำหรับผู้ที่เข้าเกณฑ์)
               <ArrowRight size={16} />
             </a>
             <a
@@ -218,7 +256,7 @@ const Investors = () => {
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg text-sm font-semibold transition-all"
               style={{ backgroundColor: "transparent", color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.2)" }}
             >
-              ทำไมต้อง ENT Group
+              เกี่ยวกับ ENT Group
             </a>
           </div>
         </div>
@@ -229,10 +267,10 @@ const Investors = () => {
         <div className="container max-w-6xl mx-auto">
           <div className="max-w-2xl mb-12">
             <span className="text-xs font-semibold tracking-widest uppercase mb-3 block" style={{ color: "#C9A961" }}>
-              The Investment Thesis
+              Company Overview
             </span>
             <h2 className="text-3xl md:text-4xl font-display font-bold leading-tight" style={{ color: "#0A1628" }}>
-              4 เหตุผลที่ <span style={{ color: "#C9A961" }}>นักลงทุน</span> ควรพิจารณา ENT Group
+              ทำไมพันธมิตรเชิงกลยุทธ์ จึงเลือก <span style={{ color: "#C9A961" }}>ENT Group</span>
             </h2>
           </div>
           <div className="grid md:grid-cols-2 gap-5">
@@ -260,18 +298,19 @@ const Investors = () => {
         </div>
       </section>
 
-      {/* ═══════ Use of Funds (overview only) ═══════ */}
+      {/* ═══════ Areas of Strategic Focus (overview only) ═══════ */}
       <section className="py-20 px-4" style={{ backgroundColor: "#FFFFFF" }}>
         <div className="container max-w-6xl mx-auto">
           <div className="max-w-2xl mb-12">
             <span className="text-xs font-semibold tracking-widest uppercase mb-3 block" style={{ color: "#C9A961" }}>
-              Use of Funds · Overview
+              Areas of Strategic Focus
             </span>
             <h2 className="text-3xl md:text-4xl font-display font-bold leading-tight mb-3" style={{ color: "#0A1628" }}>
-              เงินทุนนำไปใช้ทำอะไร
+              ทิศทางการขยายธุรกิจ
             </h2>
             <p className="text-sm" style={{ color: "#64748B" }}>
-              สัดส่วนการจัดสรรและจำนวนเงินที่ระดมทุนเปิดเผยในเอกสาร Pitch Deck ฉบับเต็มเท่านั้น
+              ภาพรวมพื้นที่ที่บริษัทมุ่งขยาย — รายละเอียดเชิงลึก โครงสร้างความร่วมมือ
+              และเงื่อนไขทางการเงิน เปิดเผยเฉพาะในเอกสารสำหรับพันธมิตรที่ผ่านการคัดกรองและลงนาม NDA แล้วเท่านั้น
             </p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -311,11 +350,13 @@ const Investors = () => {
           >
             <Lock size={28} style={{ color: "#C9A961" }} className="mx-auto mb-4" />
             <h3 className="text-xl md:text-2xl font-display font-bold mb-3" style={{ color: "#FFFFFF" }}>
-              ข้อมูลเชิงลึกเปิดเผยตามคำขอเท่านั้น
+              ข้อมูลเชิงลึกเปิดเผยเฉพาะผู้ที่เข้าเกณฑ์เท่านั้น
             </h3>
             <p className="text-sm leading-relaxed max-w-2xl mx-auto" style={{ color: "#94A3B8" }}>
-              จำนวนเงินระดมทุน, โครงสร้าง Debt + Revenue Share, ผลตอบแทนคาดการณ์, งบการเงินย้อนหลัง,
-              และ Term Sheet จะถูกส่งให้นักลงทุนที่ผ่านการคัดกรองและลงนาม NDA แล้วเท่านั้น
+              โครงสร้างความร่วมมือ เงื่อนไขทางการเงิน ผลประกอบการย้อนหลัง และเอกสารประกอบการตัดสินใจ
+              จะถูกส่งให้ <strong style={{ color: "#D4B876" }}>เฉพาะผู้ที่มีคุณสมบัติเป็นผู้ลงทุนสถาบัน
+              ผู้ลงทุนรายใหญ่พิเศษตามประกาศ ก.ล.ต. ทจ. 8/2566 หรือบุคคลที่ได้รับเชิญเป็นการเฉพาะ</strong>
+              {" "}และลงนามในข้อตกลงรักษาความลับ (NDA) เรียบร้อยแล้ว
             </p>
           </div>
         </div>
@@ -329,10 +370,11 @@ const Investors = () => {
               Request Confidential Materials
             </span>
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-3" style={{ color: "#0A1628" }}>
-              ขอ Pitch Deck ฉบับเต็ม
+              ขอข้อมูลเพิ่มเติม
             </h2>
             <p className="text-sm" style={{ color: "#64748B" }}>
-              กรอกข้อมูลด้านล่าง — ทีม Investor Relations จะติดต่อกลับภายใน 24 ชั่วโมง พร้อมส่ง NDA และเอกสารฉบับเต็ม
+              สำหรับผู้ที่เข้าเกณฑ์เท่านั้น — ทีม Investor Relations จะติดต่อกลับภายใน 24 ชั่วโมง
+              พร้อมส่ง NDA และเอกสารฉบับเต็มหลังยืนยันคุณสมบัติ
             </p>
           </div>
 
@@ -351,7 +393,7 @@ const Investors = () => {
                 ขอบคุณสำหรับความสนใจ
               </h3>
               <p className="text-sm mb-6" style={{ color: "#64748B" }}>
-                เราได้รับคำขอของคุณแล้ว — ทีม IR จะติดต่อกลับภายใน 24 ชั่วโมง<br />
+                เราได้รับคำขอของคุณแล้ว — ทีม IR จะตรวจสอบคุณสมบัติและติดต่อกลับภายใน 24 ชั่วโมง<br />
                 ผ่านอีเมลที่ระบุไว้
               </p>
               <Link
@@ -368,7 +410,93 @@ const Investors = () => {
               className="rounded-2xl p-6 md:p-8 space-y-5"
               style={{ backgroundColor: "#FAF8F3", border: "1px solid #E2E8F0" }}
             >
-              <div className="grid md:grid-cols-2 gap-4">
+              {/* ═══ ELIGIBILITY GATE — ต้องเลือกก่อน ═══ */}
+              <div
+                className="rounded-lg p-5"
+                style={{
+                  backgroundColor: "rgba(220, 38, 38, 0.04)",
+                  border: "1px solid rgba(220, 38, 38, 0.25)",
+                }}
+              >
+                <div className="flex items-start gap-2 mb-3">
+                  <AlertTriangle size={16} style={{ color: "#DC2626" }} className="mt-0.5 shrink-0" />
+                  <h3 className="text-sm font-bold" style={{ color: "#0A1628" }}>
+                    การยืนยันคุณสมบัติผู้ลงทุน <span style={{ color: "#DC2626" }}>*</span>
+                  </h3>
+                </div>
+                <p className="text-[11px] mb-4 leading-relaxed" style={{ color: "#64748B" }}>
+                  ตามประกาศคณะกรรมการกำกับตลาดทุน ที่ ทจ. 8/2566 และที่แก้ไขเพิ่มเติม
+                  กรุณาเลือกประเภทที่ตรงกับคุณสมบัติของคุณ:
+                </p>
+                <Label className="text-xs font-semibold mb-1.5 block" style={{ color: "#0A1628" }}>
+                  ประเภทผู้ลงทุน <span style={{ color: "#DC2626" }}>*</span>
+                </Label>
+                <Select value={form.investor_type} onValueChange={(v) => update("investor_type", v)}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="เลือกประเภทที่ตรงกับคุณสมบัติของท่าน" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="institutional">
+                      ผู้ลงทุนสถาบัน (Institutional Investor) — บลจ. ประกัน กองทุน ธนาคาร
+                    </SelectItem>
+                    <SelectItem value="ultra_hnw">
+                      ผู้ลงทุนรายใหญ่พิเศษ (UHNW) — สินทรัพย์สุทธิ {">"} 70 ลบ. หรือรายได้ {">"} 10 ลบ./ปี
+                    </SelectItem>
+                    <SelectItem value="hnw">
+                      ผู้ลงทุนรายใหญ่ (HNW) — สินทรัพย์สุทธิ {">"} 30 ลบ. หรือรายได้ {">"} 3 ลบ./ปี
+                    </SelectItem>
+                    <SelectItem value="invited">
+                      บุคคลที่ได้รับเชิญเป็นการเฉพาะจาก ENT Group
+                    </SelectItem>
+                    <SelectItem value="not_qualified">
+                      ฉันไม่ได้อยู่ในกลุ่มข้างต้น (จะไม่สามารถส่งคำขอได้)
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+
+                {form.investor_type === "not_qualified" && (
+                  <div className="mt-3 p-3 rounded-md" style={{ backgroundColor: "rgba(220, 38, 38, 0.08)" }}>
+                    <p className="text-[11px] leading-relaxed" style={{ color: "#7F1D1D" }}>
+                      ขออภัย — ขณะนี้ ENT Group เปิดรับการพูดคุยเฉพาะผู้ลงทุนสถาบัน ผู้ลงทุนรายใหญ่
+                      ตามนิยามของ ก.ล.ต. หรือบุคคลที่ได้รับเชิญเป็นการเฉพาะเท่านั้น
+                      หากท่านสนใจสินค้าและบริการของเรา กรุณาติดต่อทีมขายผ่านหน้าหลักของเว็บไซต์
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* ═══ Eligibility checkbox ═══ */}
+              <div className="flex items-start gap-3 p-4 rounded-lg" style={{ backgroundColor: "rgba(10, 22, 40, 0.04)", border: "1px solid #E2E8F0" }}>
+                <Checkbox
+                  id="eligibility"
+                  checked={eligibilityConfirmed}
+                  onCheckedChange={(v) => setEligibilityConfirmed(v === true)}
+                  className="mt-0.5"
+                />
+                <Label htmlFor="eligibility" className="text-[11px] leading-relaxed cursor-pointer" style={{ color: "#0A1628" }}>
+                  ข้าพเจ้ายืนยันว่ามีคุณสมบัติตรงตามประเภทที่เลือกไว้ข้างต้น และเข้าใจว่าข้อมูลที่จะได้รับ
+                  เป็นการสื่อสารกับผู้ลงทุนเฉพาะกลุ่ม <strong>มิใช่</strong> การเสนอขายหลักทรัพย์ต่อประชาชนทั่วไป
+                  ตาม พ.ร.บ. หลักทรัพย์ฯ พ.ศ. 2535
+                </Label>
+              </div>
+
+              {/* ═══ NDA checkbox ═══ */}
+              <div className="flex items-start gap-3 p-4 rounded-lg" style={{ backgroundColor: "rgba(10, 22, 40, 0.04)", border: "1px solid #E2E8F0" }}>
+                <Checkbox
+                  id="nda"
+                  checked={ndaAccepted}
+                  onCheckedChange={(v) => setNdaAccepted(v === true)}
+                  className="mt-0.5"
+                />
+                <Label htmlFor="nda" className="text-[11px] leading-relaxed cursor-pointer" style={{ color: "#0A1628" }}>
+                  ข้าพเจ้ายอมรับว่าเอกสารและข้อมูลทั้งหมดที่ได้รับจาก ENT Group เป็น
+                  <strong> ข้อมูลความลับทางธุรกิจ</strong> และจะไม่เปิดเผย ส่งต่อ คัดลอก
+                  หรือนำไปใช้ในวัตถุประสงค์อื่น โดยไม่ได้รับอนุญาตเป็นลายลักษณ์อักษรจากบริษัท
+                  และพร้อมลงนามในเอกสาร NDA ฉบับสมบูรณ์เมื่อได้รับ
+                </Label>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4 pt-2">
                 <div>
                   <Label htmlFor="full_name" className="text-xs font-semibold mb-1.5 block" style={{ color: "#0A1628" }}>
                     ชื่อ-สกุล <span style={{ color: "#DC2626" }}>*</span>
@@ -396,13 +524,13 @@ const Investors = () => {
                 </div>
                 <div>
                   <Label htmlFor="company" className="text-xs font-semibold mb-1.5 block" style={{ color: "#0A1628" }}>
-                    บริษัท / Family Office
+                    บริษัท / Family Office / สถาบัน
                   </Label>
                   <Input
                     id="company"
                     value={form.company}
                     onChange={(e) => update("company", e.target.value)}
-                    placeholder="ชื่อบริษัทหรือกองทุน"
+                    placeholder="ชื่อนิติบุคคลหรือกองทุน"
                   />
                 </div>
                 <div>
@@ -439,53 +567,18 @@ const Investors = () => {
                     placeholder="@yourid"
                   />
                 </div>
-                <div>
-                  <Label className="text-xs font-semibold mb-1.5 block" style={{ color: "#0A1628" }}>
-                    ประเภทนักลงทุน
-                  </Label>
-                  <Select value={form.investor_type} onValueChange={(v) => update("investor_type", v)}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="เลือกประเภท" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="individual">บุคคลธรรมดา (HNWI)</SelectItem>
-                      <SelectItem value="family_office">Family Office</SelectItem>
-                      <SelectItem value="corporate">นิติบุคคล / บริษัท</SelectItem>
-                      <SelectItem value="fund">กองทุน / Private Fund</SelectItem>
-                      <SelectItem value="other">อื่นๆ</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <Label className="text-xs font-semibold mb-1.5 block" style={{ color: "#0A1628" }}>
-                    ช่วงงบลงทุนที่สนใจ
-                  </Label>
-                  <Select value={form.budget_range} onValueChange={(v) => update("budget_range", v)}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="เลือกช่วงงบ" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="under_5m">ต่ำกว่า 5 ลบ.</SelectItem>
-                      <SelectItem value="5_10m">5 – 10 ลบ.</SelectItem>
-                      <SelectItem value="10_20m">10 – 20 ลบ.</SelectItem>
-                      <SelectItem value="20_30m">20 – 30 ลบ.</SelectItem>
-                      <SelectItem value="over_30m">มากกว่า 30 ลบ.</SelectItem>
-                      <SelectItem value="discuss">ขอหารือเพิ่มเติม</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
               </div>
 
               <div>
                 <Label className="text-xs font-semibold mb-1.5 block" style={{ color: "#0A1628" }}>
-                  ระยะเวลาที่สนใจตัดสินใจ
+                  ระยะเวลาที่สนใจหารือ
                 </Label>
                 <Select value={form.timeline} onValueChange={(v) => update("timeline", v)}>
                   <SelectTrigger>
                     <SelectValue placeholder="เลือกระยะเวลา" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="immediate">พร้อมตัดสินใจทันที (ภายใน 1 เดือน)</SelectItem>
+                    <SelectItem value="immediate">พร้อมพูดคุยทันที (ภายใน 1 เดือน)</SelectItem>
                     <SelectItem value="1_3_months">1 – 3 เดือน</SelectItem>
                     <SelectItem value="3_6_months">3 – 6 เดือน</SelectItem>
                     <SelectItem value="exploring">ศึกษาข้อมูลก่อน</SelectItem>
@@ -502,7 +595,7 @@ const Investors = () => {
                   rows={4}
                   value={form.message}
                   onChange={(e) => update("message", e.target.value)}
-                  placeholder="คำถาม หรือข้อมูลเพิ่มเติมที่ต้องการ"
+                  placeholder="คำถามหรือข้อมูลเพิ่มเติมที่ต้องการทราบ"
                   maxLength={1000}
                 />
               </div>
@@ -510,15 +603,15 @@ const Investors = () => {
               <div className="flex items-start gap-3 p-4 rounded-lg" style={{ backgroundColor: "rgba(201, 169, 97, 0.06)", border: "1px solid rgba(201, 169, 97, 0.2)" }}>
                 <Lock size={16} style={{ color: "#C9A961" }} className="mt-0.5 shrink-0" />
                 <p className="text-[11px] leading-relaxed" style={{ color: "#64748B" }}>
-                  ข้อมูลของคุณจะถูกเก็บเป็นความลับและใช้สำหรับติดต่อกลับเรื่องการลงทุนเท่านั้น
-                  ทีม IR จะส่ง NDA ผ่านอีเมลก่อนเปิดเผยรายละเอียดเชิงลึก
+                  ข้อมูลของท่านจะถูกเก็บเป็นความลับและใช้สำหรับการตรวจสอบคุณสมบัติและติดต่อกลับเท่านั้น
+                  ทีม IR จะส่ง NDA ฉบับสมบูรณ์ผ่านอีเมลก่อนเปิดเผยรายละเอียดเชิงลึกใดๆ
                 </p>
               </div>
 
               <Button
                 type="submit"
-                disabled={submitting}
-                className="w-full h-12 text-sm font-bold transition-all hover:scale-[1.01]"
+                disabled={submitting || form.investor_type === "not_qualified" || !form.investor_type}
+                className="w-full h-12 text-sm font-bold transition-all hover:scale-[1.01] disabled:hover:scale-100 disabled:opacity-50"
                 style={{ backgroundColor: "#0A1628", color: "#C9A961" }}
               >
                 {submitting ? (
@@ -528,7 +621,7 @@ const Investors = () => {
                   </>
                 ) : (
                   <>
-                    ส่งคำขอ Pitch Deck
+                    ส่งคำขอข้อมูล
                     <ArrowRight className="ml-2" size={16} />
                   </>
                 )}
@@ -550,6 +643,17 @@ const Investors = () => {
                 <Mail size={13} /> ir@entgroup.co.th
               </a>
             </div>
+          </div>
+
+          {/* Final legal footer */}
+          <div className="mt-12 pt-6 border-t text-center" style={{ borderColor: "#E2E8F0" }}>
+            <p className="text-[10px] leading-relaxed max-w-2xl mx-auto" style={{ color: "#94A3B8" }}>
+              <strong>คำสงวนสิทธิ์ทางกฎหมาย:</strong> เว็บเพจนี้และข้อมูลที่ปรากฏ มิใช่หนังสือชี้ชวน (Prospectus)
+              มิใช่การเสนอขาย หรือการเชิญชวนให้เสนอซื้อหลักทรัพย์ หุ้น หุ้นกู้ ตราสารทางการเงิน
+              หรือการกู้ยืมเงินใดๆ ต่อประชาชนทั่วไป จัดทำเพื่อการสื่อสารกับพันธมิตรเชิงกลยุทธ์
+              ที่มีคุณสมบัติเข้าเกณฑ์ตามกฎหมาย ก.ล.ต. และที่ได้รับเชิญเป็นการเฉพาะเท่านั้น
+              บริษัทขอสงวนสิทธิ์ในการพิจารณาเปิดเผยข้อมูลเชิงลึกตามดุลพินิจของบริษัท
+            </p>
           </div>
         </div>
       </section>
