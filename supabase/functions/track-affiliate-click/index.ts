@@ -58,7 +58,7 @@ Deno.serve(async (req) => {
       .maybeSingle();
 
     if (lookupErr) throw lookupErr;
-    if (!aff) return json({ error: "affiliate not found or not approved" }, 404);
+    if (!aff) return json({ ok: false, error: "affiliate not found or not approved" }, 200);
 
     const ip =
       req.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
