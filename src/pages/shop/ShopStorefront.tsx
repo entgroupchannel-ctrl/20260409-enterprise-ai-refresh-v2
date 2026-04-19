@@ -16,12 +16,12 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Slider } from '@/components/ui/slider';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
-import { SearchCheck, LayoutGrid, List, SlidersHorizontal, X, FileSearch, ChevronLeft, ChevronRight, CircleCheckBig, ShieldCheck, Landmark, HeadsetIcon, DollarSign, Cpu, MemoryStick, HardDrive, Package, Tag, Link2, Share2, Check } from 'lucide-react';
+import { SearchCheck, LayoutGrid, List, SlidersHorizontal, X, FileSearch, ChevronLeft, ChevronRight, CircleCheckBig, ShieldCheck, Landmark, HeadsetIcon, DollarSign, Cpu, MemoryStick, HardDrive, Package, Tag, Link2, Share2, Check, Heart } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import SiteNavbar from '@/components/SiteNavbar';
 import ShopHotDeals from '@/components/shop/ShopHotDeals';
 import ShopActivityPanel from '@/components/shop/ShopActivityPanel';
-import { pushRecentSearch } from '@/hooks/useShopActivity';
+import { pushRecentSearch, useShopActivity, toggleWishlist } from '@/hooks/useShopActivity';
 import { useToast } from '@/hooks/use-toast';
 
 import imgSeriesGT from '@/assets/shop/series-gt.jpg';
@@ -756,6 +756,15 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
   const [imgSrc, setImgSrc] = useState<string>(p.thumbnail_url || p.image_url || '/placeholder.svg');
   const displayPrice = p.starting_price || p.unit_price;
   const bulkHint = Math.round(displayPrice * 0.93);
+
+  // Wishlist state — keep card UI in sync with localStorage
+  const { wishlist } = useShopActivity();
+  const isSaved = wishlist.includes(p.slug);
+  const handleToggleWishlist = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleWishlist(p.slug);
+  };
 
   const isNew = p.tags?.some(t => t.toLowerCase().includes('new'));
   const isHot = p.is_featured;
