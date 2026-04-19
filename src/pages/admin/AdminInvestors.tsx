@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import AdminLayout from "@/layouts/AdminLayout";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -237,19 +238,22 @@ const AdminInvestors = () => {
 
   if (!isAdmin) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-6">
-        <Card className="max-w-md">
-          <CardHeader><CardTitle>ไม่มีสิทธิ์เข้าถึง</CardTitle></CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground">หน้านี้สงวนสำหรับผู้ดูแลระบบเท่านั้น</p>
-          </CardContent>
-        </Card>
-      </div>
+      <AdminLayout>
+        <div className="flex items-center justify-center p-6">
+          <Card className="max-w-md">
+            <CardHeader><CardTitle>ไม่มีสิทธิ์เข้าถึง</CardTitle></CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground">หน้านี้สงวนสำหรับผู้ดูแลระบบเท่านั้น</p>
+            </CardContent>
+          </Card>
+        </div>
+      </AdminLayout>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background admin-content-area">
+    <AdminLayout>
+      <div className="admin-content-area">
       <Helmet><title>Investor Relations | Admin</title></Helmet>
       <div className="container max-w-7xl mx-auto p-6">
         <div className="flex items-center justify-between mb-6">
@@ -484,7 +488,8 @@ const AdminInvestors = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </div>
+      </div>
+    </AdminLayout>
   );
 };
 
