@@ -22,6 +22,8 @@ type EmailLogRow = {
   created_at: string;
   related_id: string | null;
   related_type: string | null;
+  sales_id?: string | null;
+  sales_name?: string | null;
 };
 
 const RANGE_PRESETS = [
@@ -48,6 +50,7 @@ export default function AdminEmailLog() {
   const [range, setRange] = useState('7d');
   const [templateFilter, setTemplateFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [salesFilter, setSalesFilter] = useState<string>('all');
   const [search, setSearch] = useState('');
 
   const loadLogs = async () => {
@@ -65,9 +68,81 @@ export default function AdminEmailLog() {
     if (error) {
       console.error('[AdminEmailLog] load error:', error);
       setRows([]);
-    } else {
-      setRows((data || []) as EmailLogRow[]);
+      setLoading(false);
+      return;
     }
+
+    const baseRows = (data || []) as EmailLogRow[];
+
+    // Group related_ids by type for batched lookups
+    const quoteIds = new Set<string>();
+    const invoiceIds = new Set<string>();
+    const saleOrderIds = new Set<string>();
+    for (const r of baseRows) {
+      if (!r.related_id) continue;
+      if (r.related_type === 'quote') quoteIds.add(r.related_id);
+      else if (r.related_type === 'invoice') invoiceIds.add(r.related_id);
+      else if (r.related_type === 'sale_order') saleOrderIds.add(r.related_id);
+    }
+
+    const [quotesRes, invoicesRes, saleOrdersRes] = await Promise.all([
+      quoteIds.size
+        ? supabase.from('quote_requests').select('id, assigned_to, created_by').in('id', Array.from(quoteIds))
+        : Promise.resolve({ data: [] as any[] }),
+      invoiceIds.size
+        ? supabase.from('invoices').select('id, created_by, quote_id').in('id', Array.from(invoiceIds))
+        : Promise.resolve({ data: [] as any[] }),
+      saleOrderIds.size
+        ? (supabase as any).from('sale_orders').select('id, created_by').in('id', Array.from(saleOrderIds))
+        : Promise.resolve({ data: [] as any[] }),
+    ]);
+
+    const ownerByQuote = new Map<string, string | null>();
+    (quotesRes.data || []).forEach((q: any) => ownerByQuote.set(q.id, q.assigned_to || q.created_by || null));
+    const ownerByInvoice = new Map<string, string | null>();
+    const invoiceQuoteIds = new Set<string>();
+    (invoicesRes.data || []).forEach((i: any) => {
+      ownerByInvoice.set(i.id, i.created_by || null);
+      if (i.quote_id) invoiceQuoteIds.add(i.quote_id);
+    });
+    // For invoices missing owner, fall back to their parent quote's assigned_to
+    if (invoiceQuoteIds.size) {
+      const { data: qExtra } = await supabase
+        .from('quote_requests').select('id, assigned_to').in('id', Array.from(invoiceQuoteIds));
+      (qExtra || []).forEach((q: any) => {
+        if (q.assigned_to && !ownerByQuote.has(q.id)) ownerByQuote.set(q.id, q.assigned_to);
+      });
+      (invoicesRes.data || []).forEach((i: any) => {
+        if (!ownerByInvoice.get(i.id) && i.quote_id) {
+          const fallback = ownerByQuote.get(i.quote_id);
+          if (fallback) ownerByInvoice.set(i.id, fallback);
+        }
+      });
+    }
+    const ownerBySaleOrder = new Map<string, string | null>();
+    (saleOrdersRes.data || []).forEach((s: any) => ownerBySaleOrder.set(s.id, s.created_by || null));
+
+    // Collect all sales user ids and fetch their names
+    const allSalesIds = new Set<string>();
+    const enriched = baseRows.map((r) => {
+      let sid: string | null = null;
+      if (r.related_id) {
+        if (r.related_type === 'quote') sid = ownerByQuote.get(r.related_id) || null;
+        else if (r.related_type === 'invoice') sid = ownerByInvoice.get(r.related_id) || null;
+        else if (r.related_type === 'sale_order') sid = ownerBySaleOrder.get(r.related_id) || null;
+      }
+      if (sid) allSalesIds.add(sid);
+      return { ...r, sales_id: sid } as EmailLogRow;
+    });
+
+    const nameById = new Map<string, string>();
+    if (allSalesIds.size) {
+      const { data: usersData } = await supabase
+        .from('users').select('id, full_name').in('id', Array.from(allSalesIds));
+      (usersData || []).forEach((u: any) => nameById.set(u.id, u.full_name || ''));
+    }
+
+    setRows(enriched.map((r) => ({ ...r, sales_name: r.sales_id ? nameById.get(r.sales_id) || null : null })));
     setLoading(false);
   };
 
@@ -84,6 +159,16 @@ export default function AdminEmailLog() {
     return Array.from(set).sort();
   }, [deduped]);
 
+  const salesOptions = useMemo(() => {
+    const map = new Map<string, string>();
+    deduped.forEach((r) => {
+      if (r.sales_id) map.set(r.sales_id, r.sales_name || r.sales_id.slice(0, 8));
+    });
+    return Array.from(map.entries())
+      .map(([id, name]) => ({ id, name }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }, [deduped]);
+
   const filtered = useMemo(() => {
     return deduped.filter((r) => {
       if (templateFilter !== 'all' && r.template_name !== templateFilter) return false;
@@ -91,14 +176,21 @@ export default function AdminEmailLog() {
         if (statusFilter === 'failed' && !['failed', 'dlq', 'bounced', 'complained'].includes(r.status)) return false;
         if (statusFilter !== 'failed' && r.status !== statusFilter) return false;
       }
+      if (salesFilter !== 'all') {
+        if (salesFilter === 'unassigned') {
+          if (r.sales_id) return false;
+        } else if (r.sales_id !== salesFilter) {
+          return false;
+        }
+      }
       if (search) {
         const q = search.toLowerCase();
-        const hay = `${r.recipient_email} ${r.subject || ''} ${r.template_name}`.toLowerCase();
+        const hay = `${r.recipient_email} ${r.subject || ''} ${r.template_name} ${r.sales_name || ''}`.toLowerCase();
         if (!hay.includes(q)) return false;
       }
       return true;
     });
-  }, [deduped, templateFilter, statusFilter, search]);
+  }, [deduped, templateFilter, statusFilter, salesFilter, search]);
 
   const stats = useMemo(() => {
     const s = { total: deduped.length, sent: 0, failed: 0, suppressed: 0, pending: 0 };
@@ -172,11 +264,11 @@ export default function AdminEmailLog() {
 
       {/* Filters */}
       <Card>
-        <CardContent className="pt-6 grid grid-cols-1 md:grid-cols-3 gap-3">
+        <CardContent className="pt-6 grid grid-cols-1 md:grid-cols-4 gap-3">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
-              placeholder="ค้นหา (อีเมล / หัวเรื่อง / template)"
+              placeholder="ค้นหา (อีเมล / หัวเรื่อง / template / sale)"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="pl-9"
@@ -201,6 +293,16 @@ export default function AdminEmailLog() {
               <SelectItem value="pending">รอส่ง</SelectItem>
             </SelectContent>
           </Select>
+          <Select value={salesFilter} onValueChange={setSalesFilter}>
+            <SelectTrigger><SelectValue placeholder="Sale ผู้รับผิดชอบทั้งหมด" /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Sale ทั้งหมด</SelectItem>
+              <SelectItem value="unassigned">ยังไม่มอบหมาย</SelectItem>
+              {salesOptions.map((s) => (
+                <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </CardContent>
       </Card>
 
@@ -216,15 +318,16 @@ export default function AdminEmailLog() {
                   <TableHead>Template</TableHead>
                   <TableHead>ผู้รับ</TableHead>
                   <TableHead>หัวเรื่อง</TableHead>
+                  <TableHead>Sale ผู้รับผิดชอบ</TableHead>
                   <TableHead>สถานะ</TableHead>
                   <TableHead>หมายเหตุ</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {loading ? (
-                  <TableRow><TableCell colSpan={6} className="text-center text-muted-foreground py-8">กำลังโหลด...</TableCell></TableRow>
+                  <TableRow><TableCell colSpan={7} className="text-center text-muted-foreground py-8">กำลังโหลด...</TableCell></TableRow>
                 ) : filtered.length === 0 ? (
-                  <TableRow><TableCell colSpan={6} className="text-center text-muted-foreground py-8">ไม่มีข้อมูลในช่วงเวลานี้</TableCell></TableRow>
+                  <TableRow><TableCell colSpan={7} className="text-center text-muted-foreground py-8">ไม่มีข้อมูลในช่วงเวลานี้</TableCell></TableRow>
                 ) : (
                   filtered.slice(0, 200).map((r) => (
                     <TableRow key={r.id}>
@@ -234,6 +337,13 @@ export default function AdminEmailLog() {
                       <TableCell className="text-xs font-mono">{r.template_name}</TableCell>
                       <TableCell className="text-sm">{r.recipient_email}</TableCell>
                       <TableCell className="text-sm max-w-xs truncate">{r.subject || '-'}</TableCell>
+                      <TableCell className="text-sm">
+                        {r.sales_name ? (
+                          <span className="font-medium">{r.sales_name}</span>
+                        ) : (
+                          <span className="text-muted-foreground text-xs">—</span>
+                        )}
+                      </TableCell>
                       <TableCell>{statusBadge(r.status)}</TableCell>
                       <TableCell className="text-xs text-destructive max-w-xs truncate" title={r.error_message || ''}>
                         {r.error_message || '-'}
