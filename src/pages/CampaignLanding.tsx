@@ -53,6 +53,7 @@ export default function CampaignLanding() {
   const [loading, setLoading] = useState(true);
   const [campaign, setCampaign] = useState<Campaign | null>(null);
   const [items, setItems] = useState<CampaignItem[]>([]);
+  const [related, setRelated] = useState<CatalogProduct[]>([]);
   const [myCode, setMyCode] = useState<string | null>(null);
   const [enrolling, setEnrolling] = useState(false);
   const [copied, setCopied] = useState(false);
