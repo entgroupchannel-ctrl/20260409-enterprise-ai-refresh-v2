@@ -1798,6 +1798,51 @@ export type Database = {
           },
         ]
       }
+      email_send_log: {
+        Row: {
+          created_at: string
+          error_message: string | null
+          id: string
+          metadata: Json | null
+          provider_message_id: string | null
+          recipient_email: string
+          related_id: string | null
+          related_type: string | null
+          status: string
+          subject: string | null
+          template_name: string
+          triggered_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          metadata?: Json | null
+          provider_message_id?: string | null
+          recipient_email: string
+          related_id?: string | null
+          related_type?: string | null
+          status?: string
+          subject?: string | null
+          template_name: string
+          triggered_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          metadata?: Json | null
+          provider_message_id?: string | null
+          recipient_email?: string
+          related_id?: string | null
+          related_type?: string | null
+          status?: string
+          subject?: string | null
+          template_name?: string
+          triggered_by?: string | null
+        }
+        Relationships: []
+      }
       email_template_settings: {
         Row: {
           body_text: string | null
