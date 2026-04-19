@@ -65,16 +65,18 @@ const PartnerLogos = ({
           {PARTNERS.map((p) => (
             <div
               key={p.name}
-              className="group aspect-[3/2] flex items-center justify-center rounded-md border border-border/60 bg-card hover:bg-muted/40 hover:border-primary/40 transition-all p-2"
+              className="group aspect-[3/2] flex items-center justify-center rounded-md border border-border/60 bg-card hover:bg-muted/40 hover:border-primary/40 transition-all p-1.5"
               title={p.name}
             >
               <img
                 src={p.src}
                 alt={`${p.name} logo`}
                 loading="lazy"
-                className="max-h-7 md:max-h-8 w-auto object-contain opacity-60 group-hover:opacity-100 transition-opacity dark:invert dark:brightness-0 dark:contrast-200"
+                className="max-h-12 md:max-h-14 w-auto object-contain dark:invert dark:brightness-0 dark:contrast-200"
               />
             </div>
+          ))}
+        </div>
           ))}
         </div>
 
