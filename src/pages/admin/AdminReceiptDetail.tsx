@@ -109,6 +109,17 @@ export default function AdminReceiptDetail() {
     setDeleting(true);
     const reason = deleteReason.trim() || 'ยกเลิกโดยผู้ดูแลระบบ';
     try {
+      // Resolve customer email from customers table (receipts has customer_id only)
+      let customerEmail: string | null = null;
+      if (receipt.customer_id) {
+        const { data: cust } = await (supabase as any)
+          .from('customers')
+          .select('email')
+          .eq('id', receipt.customer_id)
+          .maybeSingle();
+        customerEmail = cust?.email || null;
+      }
+
       const { data, error } = await (supabase as any).rpc('soft_delete_receipt', {
         p_receipt_id: receipt.id,
         p_reason: deleteReason.trim() || null,
@@ -129,10 +140,10 @@ export default function AdminReceiptDetail() {
           linkId: receipt.id,
         });
       }
-      if (receipt.customer_email) {
+      if (customerEmail) {
         const origin = typeof window !== 'undefined' ? window.location.origin : '';
         sendQuoteStatusEmail({
-          recipientEmail: receipt.customer_email,
+          recipientEmail: customerEmail,
           customerName: receipt.customer_name || receipt.customer_company || undefined,
           invoiceNumber: receipt.receipt_number,
           status: 'cancelled',
@@ -146,8 +157,8 @@ export default function AdminReceiptDetail() {
 
       toast({
         title: '🗑️ ย้ายไปถังขยะแล้ว',
-        description: receipt.customer_email
-          ? 'แจ้งเตือนลูกค้าทางอีเมลและในระบบเรียบร้อย'
+        description: customerEmail
+          ? `แจ้งลูกค้าทางอีเมล (${customerEmail}) และในระบบเรียบร้อย`
           : (data as any)?.message,
       });
       navigate('/admin/receipts');

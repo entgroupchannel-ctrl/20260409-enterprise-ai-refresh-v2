@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { createNotification, sendQuoteStatusEmail } from '@/lib/notifications';
 import { useAuth } from '@/hooks/useAuth';
 import {
   Trash2, ArrowLeft, RotateCcw, AlertTriangle, Search,
@@ -255,11 +256,62 @@ export default function AdminTrash() {
     if (!permReceiptTarget) return;
     setProcessing(true);
     try {
+      // 1) Resolve customer email/id BEFORE deletion (receipt row has customer_id only)
+      const { data: rcpRow } = await (supabase as any)
+        .from('receipts')
+        .select('id, receipt_number, customer_id, customer_name, customer_company, amount')
+        .eq('id', permReceiptTarget.id)
+        .maybeSingle();
+
+      let customerEmail: string | null = null;
+      if (rcpRow?.customer_id) {
+        const { data: cust } = await (supabase as any)
+          .from('customers')
+          .select('email')
+          .eq('id', rcpRow.customer_id)
+          .maybeSingle();
+        customerEmail = cust?.email || null;
+      }
+
+      // 2) Notify customer (in-app + email) — fire-and-forget BEFORE permanent delete
+      const reason = permReceiptTarget.delete_reason || 'ลบถาวรโดยผู้ดูแลระบบ';
+      if (rcpRow?.customer_id) {
+        createNotification({
+          userId: rcpRow.customer_id,
+          type: 'receipt_cancelled',
+          title: `ใบเสร็จ ${rcpRow.receipt_number} ถูกลบถาวร`,
+          message: `เหตุผล: ${reason}`,
+          priority: 'high',
+          linkType: 'receipt',
+          linkId: rcpRow.id,
+        });
+      }
+      if (customerEmail) {
+        const origin = typeof window !== 'undefined' ? window.location.origin : '';
+        sendQuoteStatusEmail({
+          recipientEmail: customerEmail,
+          customerName: rcpRow?.customer_name || rcpRow?.customer_company || undefined,
+          invoiceNumber: rcpRow?.receipt_number || permReceiptTarget.receipt_number,
+          status: 'cancelled',
+          amount: rcpRow?.amount ? String(rcpRow.amount) : undefined,
+          viewUrl: origin || undefined,
+          note: `ใบเสร็จรับเงินถูกลบถาวรจากระบบ — เหตุผล: ${reason}`,
+          relatedType: 'receipt',
+          relatedId: permReceiptTarget.id,
+        });
+      }
+
+      // 3) Permanent delete
       const { data, error } = await (supabase as any).rpc('permanent_delete_receipt', {
         p_receipt_id: permReceiptTarget.id,
       });
       if (error) throw error;
-      toast({ title: '🗑️ ลบถาวรแล้ว', description: (data as any)?.message });
+      toast({
+        title: '🗑️ ลบถาวรแล้ว',
+        description: customerEmail
+          ? `แจ้งลูกค้าทางอีเมล (${customerEmail}) เรียบร้อย`
+          : (data as any)?.message,
+      });
       setPermReceiptTarget(null);
       await loadTrash();
     } catch (e: any) {
@@ -883,11 +935,19 @@ export default function AdminTrash() {
       <AlertDialog open={!!permReceiptTarget} onOpenChange={(open) => !open && setPermReceiptTarget(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-red-700">ลบถาวร?</AlertDialogTitle>
-            <AlertDialogDescription>
-              คุณกำลังจะลบ <strong>{permReceiptTarget?.receipt_number}</strong> ถาวรออกจากระบบ
-              <br />
-              การกระทำนี้ <strong className="text-red-600">ไม่สามารถกู้คืนได้</strong>
+            <AlertDialogTitle className="text-red-700">ลบใบเสร็จถาวร?</AlertDialogTitle>
+            <AlertDialogDescription asChild>
+              <div className="space-y-2 text-sm">
+                <p>
+                  ใบเสร็จ <strong className="font-mono">{permReceiptTarget?.receipt_number}</strong> จะถูกลบถาวรออกจากระบบ
+                </p>
+                <p className="text-red-600 font-semibold">
+                  ⚠️ การกระทำนี้ไม่สามารถกู้คืนได้
+                </p>
+                <p className="text-orange-700">
+                  📧 ระบบจะส่งอีเมลแจ้งลูกค้าและสร้างการแจ้งเตือนในระบบโดยอัตโนมัติ (หากมีอีเมลในระบบ)
+                </p>
+              </div>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
