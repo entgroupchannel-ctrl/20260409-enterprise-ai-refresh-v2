@@ -16,7 +16,7 @@ import { getRelatedCatalogProducts, type CatalogProduct } from "@/lib/product-ca
 import {
   Loader2, ShoppingCart, Share2, Copy, Check, MessageCircle,
   Facebook, Sparkles, Package, Tag, Award, Clock, AlertCircle,
-  Store, ArrowRight, Flame,
+  Store, ArrowRight, Flame, TrendingUp, Wallet, Users, Zap, Crown, Gift,
 } from "lucide-react";
 
 interface Campaign {
