@@ -848,6 +848,19 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
           เทียบ
         </label>
 
+        <button
+          type="button"
+          onClick={handleToggleWishlist}
+          aria-label={isSaved ? 'เอาออกจากรายการโปรด' : 'บันทึกรายการโปรด'}
+          aria-pressed={isSaved}
+          className={cn(
+            'absolute bottom-2 left-2 z-10 h-7 w-7 rounded-full flex items-center justify-center bg-background/85 backdrop-blur border border-border shadow-sm transition-colors',
+            isSaved ? 'text-rose-500 border-rose-200' : 'text-muted-foreground hover:text-rose-500',
+          )}
+        >
+          <Heart className={cn('h-3.5 w-3.5', isSaved && 'fill-current')} />
+        </button>
+
         <div className="absolute top-2 right-2 z-10 flex flex-col gap-1">
           {isNew && <Badge className="text-[10px] bg-emerald-500 text-white shadow-sm">NEW</Badge>}
           {isHot && <Badge className="text-[10px] bg-primary text-primary-foreground shadow-sm">HOT</Badge>}
