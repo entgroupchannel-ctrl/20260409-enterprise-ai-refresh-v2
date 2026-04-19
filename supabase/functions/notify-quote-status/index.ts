@@ -203,6 +203,29 @@ serve(async (req) => {
     const relType = relatedType || (invoiceNumber ? "invoice" : "quote");
     const relId = relatedId || null;
 
+    // Visible log: which links/PDF are being sent
+    const linkSummary = {
+      recipient: recipientEmail,
+      template: templateName,
+      doc: docRef || null,
+      viewUrl: viewUrl || null,
+      pdfUrl: pdfUrl || null,
+      hasPdfAttachment: !!pdfUrl,
+    };
+    console.log(`[notify-quote-status] ${pdfUrl ? "📥 PDF link" : "🔗 view-only"} → ${recipientEmail} | ${JSON.stringify(linkSummary)}`);
+
+    const sharedMetadata = {
+      customerName,
+      quoteNumber,
+      invoiceNumber,
+      amount,
+      status,
+      viewUrl: viewUrl || null,
+      pdfUrl: pdfUrl || null,
+      hasPdfLink: !!pdfUrl,
+      linkType: pdfUrl ? "pdf_download" : "view_only",
+    };
+
     await logEmail({
       template_name: templateName,
       recipient_email: recipientEmail,
@@ -210,7 +233,7 @@ serve(async (req) => {
       status: "pending",
       related_type: relType,
       related_id: relId,
-      metadata: { customerName, quoteNumber, invoiceNumber, amount, status, viewUrl, pdfUrl: pdfUrl || null },
+      metadata: sharedMetadata,
     });
 
     const response = await fetch(`${GATEWAY_URL}/emails`, {
@@ -231,7 +254,7 @@ serve(async (req) => {
     const data = await response.json();
 
     if (!response.ok) {
-      console.error("Resend API error:", JSON.stringify(data));
+      console.error(`[notify-quote-status] ❌ FAILED → ${recipientEmail} | pdfUrl=${pdfUrl || "none"} | error=${JSON.stringify(data)}`);
       await logEmail({
         template_name: templateName,
         recipient_email: recipientEmail,
@@ -240,12 +263,15 @@ serve(async (req) => {
         error_message: typeof data === "object" ? JSON.stringify(data) : String(data),
         related_type: relType,
         related_id: relId,
+        metadata: sharedMetadata,
       });
       return new Response(
         JSON.stringify({ error: "Failed to send email", details: data }),
         { status: response.status, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
+
+    console.log(`[notify-quote-status] ✅ SENT → ${recipientEmail} | messageId=${data?.id} | pdfUrl=${pdfUrl ? "✓ included" : "✗ none"} | viewUrl=${viewUrl ? "✓" : "✗"}`);
 
     await logEmail({
       template_name: templateName,
@@ -255,6 +281,7 @@ serve(async (req) => {
       provider_message_id: data?.id ?? null,
       related_type: relType,
       related_id: relId,
+      metadata: sharedMetadata,
     });
 
     return new Response(JSON.stringify({ success: true, id: data.id }), {
