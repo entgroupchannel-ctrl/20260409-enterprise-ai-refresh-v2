@@ -11,6 +11,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { ChevronDown } from "lucide-react";
 
 const StrategicVision = () => {
   return (
@@ -163,6 +165,7 @@ const StrategicVision = () => {
                 <p className="text-muted-foreground">การประเมินตนเองในตลาด Industrial Computer ไทย (~4,550 ลบ.)</p>
               </div>
 
+              {/* Positive: Strengths + Opportunities */}
               <div className="grid md:grid-cols-2 gap-5">
                 {/* Strengths */}
                 <Card className="border-l-4 border-l-green-500">
@@ -184,32 +187,6 @@ const StrategicVision = () => {
                         <li key={s} className="flex items-start gap-2">
                           <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
                           <span className="text-muted-foreground">{s}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-
-                {/* Weaknesses */}
-                <Card className="border-l-4 border-l-orange-500">
-                  <CardContent className="p-6">
-                    <div className="flex items-center gap-2 mb-4">
-                      <AlertTriangle className="w-5 h-5 text-orange-600" />
-                      <h3 className="font-bold text-lg">😰 Weaknesses — จุดอ่อน</h3>
-                    </div>
-                    <ul className="space-y-2.5 text-sm">
-                      {[
-                        "ขนาดธุรกิจเล็ก ทุนจดทะเบียนจำกัด → เข้า tender ใหญ่ยาก",
-                        "ยังไม่มี certifications ระดับ enterprise (ISO 27001 ฯลฯ)",
-                        "Brand recognition ต่ำกว่าแบรนด์โกลบอล",
-                        "ยังไม่มี R&D ของตัวเอง (พึ่ง OEM)",
-                        "ทีมขายจำกัด ครอบคลุมไม่ทั่วทุกจังหวัด",
-                        "เงินทุนหมุนเวียนจำกัด → สต๊อกจำกัด",
-                        "Single-person risk ในการบริหาร",
-                      ].map((w) => (
-                        <li key={w} className="flex items-start gap-2">
-                          <span className="text-orange-600 mt-0.5">▸</span>
-                          <span className="text-muted-foreground">{w}</span>
                         </li>
                       ))}
                     </ul>
@@ -242,33 +219,85 @@ const StrategicVision = () => {
                     </ul>
                   </CardContent>
                 </Card>
+              </div>
 
-                {/* Threats */}
-                <Card className="border-l-4 border-l-red-500">
-                  <CardContent className="p-6">
-                    <div className="flex items-center gap-2 mb-4">
-                      <AlertTriangle className="w-5 h-5 text-red-600" />
-                      <h3 className="font-bold text-lg">⚠️ Threats — อุปสรรค</h3>
-                    </div>
-                    <ul className="space-y-2.5 text-sm">
-                      {[
-                        "แบรนด์โกลบอลกำลังหันมาเล่น sector-driven · จะแย่ง vertical SME",
-                        "Thai Distributor รายใหญ่ (อายุ 18+ ปี) มี brand premium แข็งแกร่ง",
-                        "China direct sellers บน Shopee/Lazada ราคาต่ำกว่า 40–60%",
-                        "Geopolitical risk · Tariff · Supply chain disruption",
-                        "Component shortage (ชิป) lead time ยาว",
-                        "ค่าเงินบาทผันผวน → ต้นทุนนำเข้าไม่แน่นอน",
-                        "ลูกค้าหันไป Cloud/SaaS แทน local PC",
-                        "PDPA/Cybersecurity compliance requirement สูงขึ้น",
-                      ].map((t) => (
-                        <li key={t} className="flex items-start gap-2">
-                          <span className="text-red-600 mt-0.5">▸</span>
-                          <span className="text-muted-foreground">{t}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
+              {/* Hidden: Weaknesses + Threats (collapsible) */}
+              <div className="pt-4">
+                <p className="text-center text-sm text-muted-foreground mb-4">
+                  เพื่อความโปร่งใส เรายังประเมินจุดที่ต้องพัฒนาและความเสี่ยงไว้ด้วย
+                </p>
+                <div className="grid md:grid-cols-2 gap-5">
+                  {/* Weaknesses Collapsible */}
+                  <Collapsible>
+                    <Card className="border-l-4 border-l-orange-500">
+                      <CollapsibleTrigger className="w-full text-left">
+                        <CardContent className="p-6 flex items-center justify-between hover:bg-muted/30 transition-colors">
+                          <div className="flex items-center gap-2">
+                            <AlertTriangle className="w-5 h-5 text-orange-600" />
+                            <h3 className="font-bold text-lg">😰 Weaknesses — จุดอ่อน</h3>
+                          </div>
+                          <ChevronDown className="w-5 h-5 text-muted-foreground transition-transform data-[state=open]:rotate-180" />
+                        </CardContent>
+                      </CollapsibleTrigger>
+                      <CollapsibleContent>
+                        <CardContent className="px-6 pb-6 pt-0">
+                          <ul className="space-y-2.5 text-sm">
+                            {[
+                              "ขนาดธุรกิจเล็ก ทุนจดทะเบียนจำกัด → เข้า tender ใหญ่ยาก",
+                              "ยังไม่มี certifications ระดับ enterprise (ISO 27001 ฯลฯ)",
+                              "Brand recognition ต่ำกว่าแบรนด์โกลบอล",
+                              "ยังไม่มี R&D ของตัวเอง (พึ่ง OEM)",
+                              "ทีมขายจำกัด ครอบคลุมไม่ทั่วทุกจังหวัด",
+                              "เงินทุนหมุนเวียนจำกัด → สต๊อกจำกัด",
+                              "Single-person risk ในการบริหาร",
+                            ].map((w) => (
+                              <li key={w} className="flex items-start gap-2">
+                                <span className="text-orange-600 mt-0.5">▸</span>
+                                <span className="text-muted-foreground">{w}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </CardContent>
+                      </CollapsibleContent>
+                    </Card>
+                  </Collapsible>
+
+                  {/* Threats Collapsible */}
+                  <Collapsible>
+                    <Card className="border-l-4 border-l-red-500">
+                      <CollapsibleTrigger className="w-full text-left">
+                        <CardContent className="p-6 flex items-center justify-between hover:bg-muted/30 transition-colors">
+                          <div className="flex items-center gap-2">
+                            <AlertTriangle className="w-5 h-5 text-red-600" />
+                            <h3 className="font-bold text-lg">⚠️ Threats — อุปสรรค</h3>
+                          </div>
+                          <ChevronDown className="w-5 h-5 text-muted-foreground transition-transform data-[state=open]:rotate-180" />
+                        </CardContent>
+                      </CollapsibleTrigger>
+                      <CollapsibleContent>
+                        <CardContent className="px-6 pb-6 pt-0">
+                          <ul className="space-y-2.5 text-sm">
+                            {[
+                              "แบรนด์โกลบอลกำลังหันมาเล่น sector-driven · จะแย่ง vertical SME",
+                              "Thai Distributor รายใหญ่ (อายุ 18+ ปี) มี brand premium แข็งแกร่ง",
+                              "China direct sellers บน Shopee/Lazada ราคาต่ำกว่า 40–60%",
+                              "Geopolitical risk · Tariff · Supply chain disruption",
+                              "Component shortage (ชิป) lead time ยาว",
+                              "ค่าเงินบาทผันผวน → ต้นทุนนำเข้าไม่แน่นอน",
+                              "ลูกค้าหันไป Cloud/SaaS แทน local PC",
+                              "PDPA/Cybersecurity compliance requirement สูงขึ้น",
+                            ].map((t) => (
+                              <li key={t} className="flex items-start gap-2">
+                                <span className="text-red-600 mt-0.5">▸</span>
+                                <span className="text-muted-foreground">{t}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </CardContent>
+                      </CollapsibleContent>
+                    </Card>
+                  </Collapsible>
+                </div>
               </div>
             </TabsContent>
 
