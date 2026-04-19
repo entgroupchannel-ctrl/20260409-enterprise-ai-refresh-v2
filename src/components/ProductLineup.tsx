@@ -134,30 +134,11 @@ const lineupCategories = [
 
 const ProductLineup = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
   const [isPaused, setIsPaused] = useState(false);
+  const manualPauseUntilRef = useRef<number>(0);
 
-  const checkScroll = () => {
-    const el = scrollRef.current;
-    if (!el) return;
-    setCanScrollLeft(el.scrollLeft > 10);
-    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 10);
-  };
-
-  useEffect(() => {
-    checkScroll();
-    const el = scrollRef.current;
-    if (el) el.addEventListener("scroll", checkScroll, { passive: true });
-    window.addEventListener("resize", checkScroll);
-    return () => {
-      el?.removeEventListener("scroll", checkScroll);
-      window.removeEventListener("resize", checkScroll);
-    };
-  }, []);
-
-  // Continuous marquee: smooth pixel flow, pauses on hover/focus/touch.
-  // Duplicates the list so when scrollLeft passes half-width, we reset to 0 seamlessly.
+  // Continuous marquee: smooth pixel flow, pauses on hover/focus/touch and briefly after manual nav.
+  // List is duplicated below; when scrollLeft passes half-width we reset for seamless looping.
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
@@ -167,9 +148,10 @@ const ProductLineup = () => {
     const SPEED = 0.5; // px per frame (~30 px/s @ 60fps)
 
     const tick = () => {
-      if (!isPaused && !document.hidden) {
+      const manualPaused = performance.now() < manualPauseUntilRef.current;
+      if (!isPaused && !manualPaused && !document.hidden) {
         const half = el.scrollWidth / 2;
-        if (el.scrollLeft >= half) {
+        if (half > 0 && el.scrollLeft >= half) {
           el.scrollLeft -= half; // seamless wrap
         } else {
           el.scrollLeft += SPEED;
@@ -184,8 +166,19 @@ const ProductLineup = () => {
   const scroll = (dir: "left" | "right") => {
     const el = scrollRef.current;
     if (!el) return;
-    const cardWidth = el.querySelector("div")?.offsetWidth ?? 340;
-    el.scrollBy({ left: dir === "left" ? -cardWidth - 20 : cardWidth + 20, behavior: "smooth" });
+    // Pause the marquee briefly so the smooth scroll isn't overwritten by RAF
+    manualPauseUntilRef.current = performance.now() + 1200;
+
+    const firstCard = el.querySelector<HTMLElement>(":scope > div");
+    const cardWidth = firstCard?.offsetWidth ?? 340;
+    const delta = (cardWidth + 20) * (dir === "left" ? -1 : 1);
+
+    // Wrap-around when going left from near the start of the duplicated list
+    const half = el.scrollWidth / 2;
+    if (dir === "left" && el.scrollLeft + delta < 0 && half > 0) {
+      el.scrollLeft += half;
+    }
+    el.scrollBy({ left: delta, behavior: "smooth" });
   };
 
   return (
@@ -209,15 +202,13 @@ const ProductLineup = () => {
           <div className="hidden sm:flex items-center gap-2">
             <button
               onClick={() => scroll("left")}
-              disabled={!canScrollLeft}
-              className="w-9 h-9 rounded-full border border-border bg-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all disabled:opacity-30 disabled:pointer-events-none"
+              className="w-9 h-9 rounded-full border border-border bg-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
               aria-label="เลื่อนไปทางซ้าย">
               <ChevronLeft size={18} />
             </button>
             <button
               onClick={() => scroll("right")}
-              disabled={!canScrollRight}
-              className="w-9 h-9 rounded-full border border-border bg-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all disabled:opacity-30 disabled:pointer-events-none"
+              className="w-9 h-9 rounded-full border border-border bg-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
               aria-label="เลื่อนไปทางขวา">
               <ChevronRight size={18} />
             </button>
@@ -299,15 +290,13 @@ const ProductLineup = () => {
         <div className="flex sm:hidden items-center justify-end gap-2 mt-3">
           <button
             onClick={() => scroll("left")}
-            disabled={!canScrollLeft}
-            className="w-8 h-8 rounded-full border border-border bg-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all disabled:opacity-30 disabled:pointer-events-none"
+            className="w-8 h-8 rounded-full border border-border bg-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all"
             aria-label="เลื่อนไปทางซ้าย">
             <ChevronLeft size={16} />
           </button>
           <button
             onClick={() => scroll("right")}
-            disabled={!canScrollRight}
-            className="w-8 h-8 rounded-full border border-border bg-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all disabled:opacity-30 disabled:pointer-events-none"
+            className="w-8 h-8 rounded-full border border-border bg-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all"
             aria-label="เลื่อนไปทางขวา">
             <ChevronRight size={16} />
           </button>
