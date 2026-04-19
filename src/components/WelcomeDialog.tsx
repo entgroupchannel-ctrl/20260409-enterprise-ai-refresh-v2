@@ -75,6 +75,38 @@ export default function WelcomeDialog() {
   const [remainingMs, setRemainingMs] = useState(AUTO_CLOSE_SECONDS * 1000);
   const totalMsRef = useRef(AUTO_CLOSE_SECONDS * 1000);
   const closeTimerRef = useRef<number | null>(null);
+  const { toast } = useToast();
+
+  // Newsletter subscribe state
+  const [subEmail, setSubEmail] = useState("");
+  const [subLoading, setSubLoading] = useState(false);
+  const [subSuccess, setSubSuccess] = useState(false);
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const email = subEmail.trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      toast({ title: "อีเมลไม่ถูกต้อง", description: "กรุณากรอกอีเมลที่ถูกต้อง", variant: "destructive" });
+      return;
+    }
+    setSubLoading(true);
+    try {
+      const { error } = await supabase
+        .from("subscribers")
+        .insert({ email, source: "welcome_dialog", is_active: true } as any);
+      // Ignore unique-violation as success (already subscribed)
+      if (error && !String(error.message).toLowerCase().includes("duplicate")) {
+        throw error;
+      }
+      setSubSuccess(true);
+      setSubEmail("");
+      toast({ title: "สมัครรับข่าวสารสำเร็จ 🎉", description: "ขอบคุณที่ติดตาม ENT Group" });
+    } catch (err: any) {
+      toast({ title: "เกิดข้อผิดพลาด", description: err.message ?? "ลองใหม่อีกครั้ง", variant: "destructive" });
+    } finally {
+      setSubLoading(false);
+    }
+  };
 
   /** Decide whether to show on route change (cooldowns + force/reset query) */
   useEffect(() => {
