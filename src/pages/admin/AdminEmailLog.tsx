@@ -142,6 +142,21 @@ export default function AdminEmailLog() {
     const ownerBySaleOrder = new Map<string, string | null>();
     (saleOrdersRes.data || []).forEach((s: any) => ownerBySaleOrder.set(s.id, s.created_by || null));
 
+    const ownerByTaxInvoice = new Map<string, string | null>();
+    (taxInvRes.data || []).forEach((t: any) => {
+      ownerByTaxInvoice.set(t.id, t.created_by || (t.invoice_id ? ownerByInvoice.get(t.invoice_id) ?? null : null));
+    });
+    const ownerByReceipt = new Map<string, string | null>();
+    (receiptsRes.data || []).forEach((r: any) => {
+      ownerByReceipt.set(r.id, r.created_by || (r.invoice_id ? ownerByInvoice.get(r.invoice_id) ?? null : null));
+    });
+    const ownerByBillingNote = new Map<string, string | null>();
+    (billingRes.data || []).forEach((b: any) => ownerByBillingNote.set(b.id, b.created_by || null));
+    const ownerByCreditNote = new Map<string, string | null>();
+    (creditRes.data || []).forEach((c: any) => {
+      ownerByCreditNote.set(c.id, c.created_by || (c.original_invoice_id ? ownerByInvoice.get(c.original_invoice_id) ?? null : null));
+    });
+
     // Collect all sales user ids and fetch their names
     const allSalesIds = new Set<string>();
     const enriched = baseRows.map((r) => {
@@ -150,6 +165,10 @@ export default function AdminEmailLog() {
         if (r.related_type === 'quote') sid = ownerByQuote.get(r.related_id) || null;
         else if (r.related_type === 'invoice') sid = ownerByInvoice.get(r.related_id) || null;
         else if (r.related_type === 'sale_order') sid = ownerBySaleOrder.get(r.related_id) || null;
+        else if (r.related_type === 'tax_invoice') sid = ownerByTaxInvoice.get(r.related_id) || null;
+        else if (r.related_type === 'receipt') sid = ownerByReceipt.get(r.related_id) || null;
+        else if (r.related_type === 'billing_note') sid = ownerByBillingNote.get(r.related_id) || null;
+        else if (r.related_type === 'credit_note') sid = ownerByCreditNote.get(r.related_id) || null;
       }
       if (sid) allSalesIds.add(sid);
       return { ...r, sales_id: sid } as EmailLogRow;
