@@ -112,28 +112,83 @@ const InvestorBrief = () => {
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
-      {/* Watermark */}
+      {/* Watermark — sparse diagonal pattern (light, non-distracting) */}
       <div
-        className="fixed inset-0 pointer-events-none z-50 overflow-hidden select-none"
+        className="fixed inset-0 pointer-events-none z-40 overflow-hidden select-none"
         aria-hidden="true"
-        style={{ opacity: 0.06 }}
+        style={{
+          opacity: 0.05,
+          backgroundImage: `repeating-linear-gradient(
+            -30deg,
+            transparent 0,
+            transparent 280px,
+            rgba(10, 22, 40, 0.6) 280px,
+            rgba(10, 22, 40, 0.6) 281px,
+            transparent 282px,
+            transparent 560px
+          )`,
+        }}
+      />
+
+      {/* Center diagonal label — single, subtle */}
+      <div
+        className="fixed inset-0 pointer-events-none z-40 flex items-center justify-center select-none"
+        aria-hidden="true"
       >
-        <div
-          className="absolute inset-0 flex flex-wrap content-around justify-around"
+        <span
+          className="text-4xl md:text-6xl font-black tracking-[0.3em] whitespace-nowrap"
           style={{
-            transform: "rotate(-30deg) scale(1.4)",
-            transformOrigin: "center",
+            color: "#0A1628",
+            opacity: 0.05,
+            transform: "rotate(-30deg)",
           }}
         >
-          {Array.from({ length: 60 }).map((_, i) => (
-            <span
-              key={i}
-              className="text-xs font-bold whitespace-nowrap mx-8"
-              style={{ color: "#0A1628" }}
-            >
-              CONFIDENTIAL · {recipientName.toUpperCase()} · {new Date().toLocaleDateString("th-TH")}
-            </span>
-          ))}
+          CONFIDENTIAL
+        </span>
+      </div>
+
+      {/* Corner stamp — recipient + date (top-right) */}
+      <div
+        className="fixed top-20 right-4 md:right-8 pointer-events-none z-40 select-none"
+        aria-hidden="true"
+        style={{ opacity: 0.55 }}
+      >
+        <div
+          className="px-3 py-2 border-2 rounded-sm rotate-[-8deg]"
+          style={{
+            borderColor: "#C9A961",
+            backgroundColor: "rgba(255,255,255,0.85)",
+            boxShadow: "0 1px 4px rgba(10,22,40,0.15)",
+          }}
+        >
+          <div className="text-[9px] font-black tracking-widest uppercase leading-tight" style={{ color: "#0A1628" }}>
+            ✦ Confidential ✦
+          </div>
+          <div className="text-[10px] font-bold leading-tight mt-0.5" style={{ color: "#0A1628" }}>
+            {recipientName}
+          </div>
+          <div className="text-[8px] font-medium tracking-wider" style={{ color: "#6B5B3E" }}>
+            {new Date().toLocaleDateString("th-TH")}
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom-left stamp — ENT Group seal */}
+      <div
+        className="fixed bottom-6 left-4 md:left-8 pointer-events-none z-40 select-none"
+        aria-hidden="true"
+        style={{ opacity: 0.45 }}
+      >
+        <div
+          className="w-20 h-20 rounded-full border-2 flex flex-col items-center justify-center rotate-[6deg]"
+          style={{
+            borderColor: "#C9A961",
+            backgroundColor: "rgba(255,255,255,0.7)",
+          }}
+        >
+          <div className="text-[8px] font-black tracking-widest" style={{ color: "#0A1628" }}>ENT GROUP</div>
+          <div className="text-[7px] font-bold mt-0.5" style={{ color: "#6B5B3E" }}>INVESTOR</div>
+          <div className="text-[7px] font-bold" style={{ color: "#6B5B3E" }}>BRIEF · 2026</div>
         </div>
       </div>
 
