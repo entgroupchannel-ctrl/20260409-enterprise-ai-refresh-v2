@@ -80,6 +80,7 @@ interface QuoteStatusData {
   invoiceNumber?: string;
   amount?: string;
   viewUrl?: string;
+  pdfUrl?: string;
   note?: string;
 }
 
@@ -105,24 +106,58 @@ function buildQuoteStatusHtml(data: QuoteStatusData): string {
     children.push(React.createElement("p", { key: "note", style: { fontSize: "14px", color: "#6b7280", lineHeight: "1.6", margin: "0 0 16px", fontStyle: "italic" } }, `หมายเหตุ: ${data.note}`));
   }
 
-  // CTA button
-  children.push(
-    React.createElement("div", { key: "cta", style: { textAlign: "center", margin: "30px 0" } },
+  // CTA buttons — show "Download PDF" first if available, then "View Online"
+  const ctaButtons: React.ReactNode[] = [];
+
+  if (data.pdfUrl) {
+    ctaButtons.push(
       React.createElement("a", {
-        href: viewUrl,
+        key: "pdf-btn",
+        href: data.pdfUrl,
         style: {
           backgroundColor: PRIMARY_COLOR,
           color: "#ffffff",
-          padding: "12px 28px",
+          padding: "12px 24px",
           borderRadius: "8px",
           fontSize: "14px",
           fontWeight: "600",
           textDecoration: "none",
           display: "inline-block",
+          margin: "0 6px 8px",
         },
-      }, "ดูรายละเอียด")
-    )
+      }, "📥 ดาวน์โหลด PDF")
+    );
+  }
+
+  ctaButtons.push(
+    React.createElement("a", {
+      key: "view-btn",
+      href: viewUrl,
+      style: {
+        backgroundColor: data.pdfUrl ? "#ffffff" : PRIMARY_COLOR,
+        color: data.pdfUrl ? PRIMARY_COLOR : "#ffffff",
+        border: data.pdfUrl ? `1.5px solid ${PRIMARY_COLOR}` : "none",
+        padding: "12px 24px",
+        borderRadius: "8px",
+        fontSize: "14px",
+        fontWeight: "600",
+        textDecoration: "none",
+        display: "inline-block",
+        margin: "0 6px 8px",
+      },
+    }, "🔗 ดูออนไลน์")
   );
+
+  children.push(
+    React.createElement("div", { key: "cta", style: { textAlign: "center", margin: "30px 0" } }, ...ctaButtons)
+  );
+
+  if (data.pdfUrl) {
+    children.push(
+      React.createElement("p", { key: "pdf-hint", style: { fontSize: "12px", color: "#9ca3af", textAlign: "center", margin: "0 0 16px" } },
+        "คลิกปุ่มดาวน์โหลด PDF เพื่อรับเอกสารทันที โดยไม่ต้องเข้าสู่ระบบ")
+    );
+  }
 
   children.push(React.createElement("hr", { key: "hr", style: { borderColor: "#e5e7eb", margin: "24px 0" } }));
   children.push(React.createElement("p", { key: "footer", style: { fontSize: "12px", color: "#9ca3af", textAlign: "center", margin: "0" } }, "ขอบคุณที่ไว้วางใจ ENT Group — แพลตฟอร์มจัดซื้ออุตสาหกรรมแบบครบวงจร"));
@@ -150,7 +185,7 @@ serve(async (req) => {
     if (!RESEND_API_KEY) throw new Error("RESEND_API_KEY is not configured");
 
     const body = await req.json();
-    const { recipientEmail, customerName, quoteNumber, status, invoiceNumber, amount, viewUrl, note, relatedType, relatedId } = body;
+    const { recipientEmail, customerName, quoteNumber, status, invoiceNumber, amount, viewUrl, pdfUrl, note, relatedType, relatedId } = body;
 
     if (!recipientEmail || !status) {
       return new Response(
@@ -162,7 +197,7 @@ serve(async (req) => {
     const label = STATUS_LABELS[status] || { th: status, emoji: "📌" };
     const docRef = invoiceNumber || quoteNumber || "";
     const subject = `${label.emoji} ${label.th}${docRef ? ` — ${docRef}` : ""}`;
-    const html = buildQuoteStatusHtml({ customerName, quoteNumber, status, invoiceNumber, amount, viewUrl, note });
+    const html = buildQuoteStatusHtml({ customerName, quoteNumber, status, invoiceNumber, amount, viewUrl, pdfUrl, note });
 
     const templateName = `quote-status-${status}`;
     const relType = relatedType || (invoiceNumber ? "invoice" : "quote");
@@ -175,7 +210,7 @@ serve(async (req) => {
       status: "pending",
       related_type: relType,
       related_id: relId,
-      metadata: { customerName, quoteNumber, invoiceNumber, amount, status, viewUrl },
+      metadata: { customerName, quoteNumber, invoiceNumber, amount, status, viewUrl, pdfUrl: pdfUrl || null },
     });
 
     const response = await fetch(`${GATEWAY_URL}/emails`, {
