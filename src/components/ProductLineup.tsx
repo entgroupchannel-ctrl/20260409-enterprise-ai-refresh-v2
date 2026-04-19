@@ -156,23 +156,29 @@ const ProductLineup = () => {
     };
   }, []);
 
-  // Auto-scroll carousel: advance one card every 3.5s, loop back at end.
-  // Pauses on hover/focus/touch, when tab is hidden, or with reduced-motion.
+  // Continuous marquee: smooth pixel flow, pauses on hover/focus/touch.
+  // Duplicates the list so when scrollLeft passes half-width, we reset to 0 seamlessly.
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const id = window.setInterval(() => {
-      if (isPaused || document.hidden) return;
-      const cardWidth = el.querySelector("div")?.offsetWidth ?? 340;
-      const atEnd = el.scrollLeft >= el.scrollWidth - el.clientWidth - 10;
-      el.scrollTo({
-        left: atEnd ? 0 : el.scrollLeft + cardWidth + 20,
-        behavior: "smooth",
-      });
-    }, 3500);
-    return () => window.clearInterval(id);
+    let rafId = 0;
+    const SPEED = 0.5; // px per frame (~30 px/s @ 60fps)
+
+    const tick = () => {
+      if (!isPaused && !document.hidden) {
+        const half = el.scrollWidth / 2;
+        if (el.scrollLeft >= half) {
+          el.scrollLeft -= half; // seamless wrap
+        } else {
+          el.scrollLeft += SPEED;
+        }
+      }
+      rafId = window.requestAnimationFrame(tick);
+    };
+    rafId = window.requestAnimationFrame(tick);
+    return () => window.cancelAnimationFrame(rafId);
   }, [isPaused]);
 
   const scroll = (dir: "left" | "right") => {
@@ -228,9 +234,9 @@ const ProductLineup = () => {
           onTouchStart={() => setIsPaused(true)}
           onTouchEnd={() => setIsPaused(false)}
           className="flex gap-5 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-4 -mx-4 px-4">
-          {lineupCategories.map((cat) => (
+          {[...lineupCategories, ...lineupCategories].map((cat, idx) => (
             <div
-              key={cat.title}
+              key={`${cat.title}-${idx}`}
               className="card-surface rounded-xl overflow-hidden snap-start shrink-0 w-[320px] sm:w-[340px] flex flex-col">
               {/* Image banner */}
               <Link to={cat.href} className="relative h-36 overflow-hidden block group">
