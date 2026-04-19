@@ -20,6 +20,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import StrategicVisionTabs from "@/components/investors/StrategicVisionTabs";
+import UnlockVisionDialog from "@/components/investors/UnlockVisionDialog";
 
 /* ═══════ Schema ═══════ */
 const inquirySchema = z.object({
@@ -79,6 +80,10 @@ const Investors = () => {
   const [success, setSuccess] = useState(false);
   const [eligibilityConfirmed, setEligibilityConfirmed] = useState(false);
   const [ndaAccepted, setNdaAccepted] = useState(false);
+  const [visionUnlocked, setVisionUnlocked] = useState<boolean>(() => {
+    try { return !!localStorage.getItem("investor_unlocked_at"); } catch { return false; }
+  });
+  const [unlockOpen, setUnlockOpen] = useState(false);
   const [form, setForm] = useState({
     full_name: "",
     company: "",
@@ -313,9 +318,55 @@ const Investors = () => {
               วิสัยทัศน์ · SWOT · ภาพการแข่งขัน · กลยุทธ์ · แผน ESG — ครบทุกมุมในที่เดียว
             </p>
           </div>
-          <StrategicVisionTabs />
+          {visionUnlocked ? (
+            <StrategicVisionTabs />
+          ) : (
+            <div
+              className="relative rounded-2xl overflow-hidden"
+              style={{
+                background: "linear-gradient(135deg, #0A1628 0%, #0F1E38 100%)",
+                border: "1px solid rgba(201, 169, 97, 0.25)",
+              }}
+            >
+              {/* Blurred preview */}
+              <div className="absolute inset-0 opacity-20 blur-md pointer-events-none select-none">
+                <StrategicVisionTabs />
+              </div>
+              <div className="relative px-6 py-14 md:py-20 text-center">
+                <div
+                  className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5"
+                  style={{ backgroundColor: "rgba(201, 169, 97, 0.12)", border: "1px solid rgba(201, 169, 97, 0.3)" }}
+                >
+                  <Lock size={22} style={{ color: "#C9A961" }} />
+                </div>
+                <h3 className="text-xl md:text-2xl font-display font-bold mb-3" style={{ color: "#FFFFFF" }}>
+                  เนื้อหานี้สงวนสำหรับนักลงทุนที่สนใจ
+                </h3>
+                <p className="text-sm leading-relaxed max-w-xl mx-auto mb-7" style={{ color: "#94A3B8" }}>
+                  วิสัยทัศน์ · SWOT · ภาพการแข่งขัน · กลยุทธ์ 2026–2028 · แผน ESG<br />
+                  กดปุ่มด้านล่างเพื่อกรอกข้อมูลติดต่อสั้นๆ — เราจะเปิดให้ดูทันที พร้อมส่งลิงก์ฉบับเต็มไปอีเมล
+                </p>
+                <Button
+                  onClick={() => setUnlockOpen(true)}
+                  className="h-12 px-8 text-sm font-bold transition-all hover:scale-[1.02] shadow-lg"
+                  style={{ backgroundColor: "#C9A961", color: "#0A1628" }}
+                >
+                  <Lock size={14} className="mr-2" /> เปิดดู Strategic Vision
+                </Button>
+                <p className="text-[11px] mt-4" style={{ color: "#64748B" }}>
+                  ใช้เวลาไม่ถึง 30 วินาที · ข้อมูลของท่านเป็นความลับ
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       </section>
+
+      <UnlockVisionDialog
+        open={unlockOpen}
+        onOpenChange={setUnlockOpen}
+        onUnlocked={() => setVisionUnlocked(true)}
+      />
 
       {/* ═══════ Areas of Strategic Focus (overview only) ═══════ */}
       <section className="py-20 px-4" style={{ backgroundColor: "#FFFFFF" }}>
