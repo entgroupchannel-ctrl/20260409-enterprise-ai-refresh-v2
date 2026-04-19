@@ -11,6 +11,8 @@ import { useToast } from '@/hooks/use-toast';
 import { Loader2, Sparkles, Eye, EyeOff } from 'lucide-react';
 import { getPendingQuote } from '@/hooks/usePendingQuote';
 import { PendingItemsBanner } from '@/components/PendingItemsBanner';
+import MiniNavbar from '@/components/MiniNavbar';
+import MiniFooter from '@/components/MiniFooter';
 
 export default function Register() {
   const [searchParams] = useSearchParams();
@@ -85,8 +87,10 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-muted/50 to-muted p-4">
-      <Card className="w-full max-w-md shadow-xl">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-muted/50 to-muted">
+      <MiniNavbar />
+      <div className="flex-1 flex items-center justify-center p-4">
+        <Card className="w-full max-w-md shadow-xl">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">สมัครสมาชิก</CardTitle>
           <CardDescription className="text-center">สร้างบัญชีเพื่อเข้าใช้งานระบบ</CardDescription>
@@ -153,7 +157,9 @@ export default function Register() {
             </div>
           </CardFooter>
         </form>
-      </Card>
+        </Card>
+      </div>
+      <MiniFooter />
     </div>
   );
 }
