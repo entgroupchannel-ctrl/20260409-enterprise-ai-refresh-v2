@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import {
   Loader2, Mail, Phone, Building2, Plus, Link as LinkIcon, Copy, Check,
-  Eye, Ban, RotateCcw, ChevronLeft, ShieldCheck, Calendar, Users,
+  Eye, Ban, RotateCcw, ChevronLeft, ShieldCheck, Calendar, Users, Send, CalendarPlus,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
