@@ -318,11 +318,22 @@ const AdminInvestors = () => {
                               <code className="block bg-muted text-[10px] p-1.5 rounded mt-1 break-all">{briefUrl(t.token)}</code>
                             </div>
                           </div>
-                          <div className="flex flex-col gap-2 shrink-0">
+                          <div className="flex flex-col gap-2 shrink-0 min-w-[160px]">
                             <Button size="sm" variant="outline" onClick={() => copyLink(t.id, t.token)}>
                               {copiedId === t.id ? <Check size={14} className="mr-1" /> : <Copy size={14} className="mr-1" />}
                               คัดลอกลิงก์
                             </Button>
+                            <Button size="sm" variant="outline" onClick={() => resendEmail(t)} disabled={revoked}>
+                              <Send size={14} className="mr-1" /> ส่งอีเมลซ้ำ
+                            </Button>
+                            <div className="grid grid-cols-2 gap-1">
+                              <Button size="sm" variant="outline" className="text-[10px] h-7" onClick={() => extendExpiry(t, 30)} disabled={revoked}>
+                                <CalendarPlus size={12} className="mr-0.5" /> +30วัน
+                              </Button>
+                              <Button size="sm" variant="outline" className="text-[10px] h-7" onClick={() => extendExpiry(t, 90)} disabled={revoked}>
+                                <CalendarPlus size={12} className="mr-0.5" /> +90วัน
+                              </Button>
+                            </div>
                             <Button size="sm" variant={revoked ? "default" : "destructive"} onClick={() => toggleRevoke(t)}>
                               {revoked ? <><RotateCcw size={14} className="mr-1" /> เปิดใช้งาน</> : <><Ban size={14} className="mr-1" /> ยกเลิก</>}
                             </Button>
