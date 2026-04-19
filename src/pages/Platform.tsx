@@ -187,30 +187,40 @@ export default function Platform() {
             <h2 className="text-3xl md:text-4xl font-bold mb-3">ฟีเจอร์ที่คุณใช้ได้ทันที</h2>
             <p className="text-muted-foreground">ลงทะเบียนแล้วเข้าใช้งานได้เลย ไม่มีค่าใช้จ่าย ไม่ต้องติดตั้งโปรแกรม</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {FEATURES.map(({ icon: Icon, title, desc, points, href }) => (
-              <div key={title} className="rounded-2xl border bg-card p-6 hover:shadow-md transition-all">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-11 h-11 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
-                    <Icon className="w-5 h-5" />
-                  </div>
-                  <h3 className="font-bold text-lg">{title}</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {FEATURES.map(({ icon: Icon, title, desc, points, href, image }) => (
+              <div key={title} className="group rounded-2xl border bg-card overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all flex flex-col">
+                <div className="relative aspect-[16/10] overflow-hidden bg-muted/40 border-b">
+                  <img
+                    src={image}
+                    alt={title}
+                    loading="lazy"
+                    className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                  />
                 </div>
-                <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{desc}</p>
-                <ul className="space-y-1.5 mb-4">
-                  {points.map((p) => (
-                    <li key={p} className="flex items-start gap-2 text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                      <span>{p}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  to={href}
-                  className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline"
-                >
-                  ลองใช้ฟีเจอร์นี้ <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
+                <div className="p-6 flex-1 flex flex-col">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-11 h-11 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <h3 className="font-bold text-lg leading-tight">{title}</h3>
+                  </div>
+                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{desc}</p>
+                  <ul className="space-y-1.5 mb-4">
+                    {points.map((p) => (
+                      <li key={p} className="flex items-start gap-2 text-sm">
+                        <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                        <span>{p}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link
+                    to={href}
+                    className="mt-auto inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline"
+                  >
+                    ลองใช้ฟีเจอร์นี้ <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
