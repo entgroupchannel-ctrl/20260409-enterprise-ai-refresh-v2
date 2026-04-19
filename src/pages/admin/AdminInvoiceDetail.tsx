@@ -178,10 +178,11 @@ export default function AdminInvoiceDetail() {
 
       toast({
         title: '🗑 ย้ายไปถังขยะแล้ว',
-        description: (data as any)?.message || `${invoice.invoice_number} อยู่ในถังขยะ — สามารถกู้คืนได้`,
+        description:
+          `${invoice.invoice_number} อยู่ในถังขยะ — เลขเอกสารถูกปลดล็อกให้ใช้สร้างใบใหม่ได้ทันที`,
       });
 
-      navigate('/admin/invoices');
+      navigate('/admin/trash?tab=invoices');
     } catch (e: any) {
       toast({ title: 'ย้ายไปถังขยะไม่สำเร็จ', description: e.message, variant: 'destructive' });
     } finally {
