@@ -488,18 +488,7 @@ const EPCSeries = () => {
 
       <div className="container max-w-7xl mx-auto px-4 py-10 space-y-16">
 
-        {/* Overview / Certifications */}
-        <section id="overview">
-          <div className="card-surface overflow-hidden">
-            <img
-              src="/images/wix/0597a3_7c3f2bd701f340ee993f725c168c1bec_e05257e7.png"
-              alt="CESIPC Certifications"
-              className="w-full h-auto p-6"
-              loading="lazy"
-            />
-          </div>
-          <p className="text-sm text-muted-foreground text-center mt-3">สินค้าของเราได้รับการยอมรับและติดตั้งใช้งานกับอุตสาหกรรมระดับโลก</p>
-        </section>
+
 
         {/* Industrial Grade Section */}
         <section className="card-surface p-6 md:p-8">

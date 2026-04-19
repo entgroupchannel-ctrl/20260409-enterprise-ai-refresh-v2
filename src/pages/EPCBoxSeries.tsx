@@ -885,20 +885,7 @@ const EPCBoxSeries = () => {
         </div>
       </section>
 
-      {/* Trusted by */}
-      <section className="py-8 border-y border-border">
-        <div className="container max-w-7xl mx-auto px-6">
-          <img
-            src="/images/wix/0597a3_7c3f2bd701f340ee993f725c168c1bec_e05257e7.png"
-            alt="Trusted by global industries"
-            className="w-full max-w-3xl mx-auto h-auto opacity-70"
-            loading="lazy"
-          />
-          <p className="text-center text-sm text-muted-foreground mt-4">
-            สินค้าของเราได้รับการยอมรับและติดตั้งใช้งานกับอุตสาหกรรมระดับโลก
-          </p>
-        </div>
-      </section>
+
 
       {/* Key Features */}
       <section className="section-padding">
