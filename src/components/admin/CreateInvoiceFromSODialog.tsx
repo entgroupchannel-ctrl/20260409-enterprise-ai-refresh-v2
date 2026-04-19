@@ -608,7 +608,7 @@ export default function CreateInvoiceFromSODialog({
       >
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle className="flex items-center gap-2 text-amber-700">
+            <AlertDialogTitle className="flex items-center gap-2 text-warning">
               <Receipt className="w-5 h-5" />
               เลขใบวางบิลซ้ำ
             </AlertDialogTitle>
