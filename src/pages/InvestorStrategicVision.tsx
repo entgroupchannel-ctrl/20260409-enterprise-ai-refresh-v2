@@ -472,6 +472,168 @@ const StrategicVision = () => {
                 </CardContent>
               </Card>
             </TabsContent>
+
+            {/* ─── TAB 5: ESG / CIRCULAR IT ─── */}
+            <TabsContent value="esg" className="space-y-10 mt-6">
+              <div className="text-center mb-2">
+                <Badge className="mb-3 bg-green-500/10 text-green-700 border-green-500/30 hover:bg-green-500/20">
+                  <Leaf className="w-3.5 h-3.5 mr-1.5" /> ESG Strategy 2026–2028
+                </Badge>
+                <h2 className="text-2xl md:text-3xl font-bold mb-3">ENT Circular IT Solutions</h2>
+                <p className="text-muted-foreground max-w-2xl mx-auto">
+                  ระบบเศรษฐกิจหมุนเวียนสำหรับอุปกรณ์ไอทีอุตสาหกรรม — แก้ปัญหา E-waste พร้อมสร้างมูลค่าเพิ่ม และยึดโยงลูกค้าระยะยาว
+                </p>
+              </div>
+
+              {/* The Problem & Opportunity */}
+              <Card className="border-l-4 border-l-green-500 bg-green-500/5">
+                <CardContent className="p-6">
+                  <h3 className="font-bold text-lg mb-3 flex items-center gap-2">
+                    <RefreshCw className="w-5 h-5 text-green-600" /> จุดเปลี่ยนสำคัญ: จากขายอย่างเดียว → ระบบหมุนเวียนครบวงจร
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Industrial PC ราคา 100,000 บาท เมื่อใช้งาน 3 ปี ยังมีมูลค่าตลาด 70–80% แต่ลูกค้าไม่รู้จะขายให้ใคร กลัวข้อมูลรั่ว
+                    ส่วนเราเองก็ปล่อยโอกาสและความสัมพันธ์หลุดลอยไป — <span className="text-foreground font-semibold">Circular IT แก้ทั้งสองฝั่ง</span>
+                  </p>
+                </CardContent>
+              </Card>
+
+              {/* 3 Pillars */}
+              <div>
+                <h3 className="text-xl md:text-2xl font-bold text-center mb-6">3 เสาหลักของระบบหมุนเวียน</h3>
+                <div className="grid md:grid-cols-3 gap-5">
+                  {[
+                    { icon: HandCoins, title: "Trade-in Program", color: "text-blue-600", bg: "bg-blue-500/10",
+                      desc: "ทำสัญญา Trade-in ล่วงหน้า 3 ปีตั้งแต่วันแรกที่ขาย รับซื้อคืน 30–50% ของราคาใหม่ พร้อมลบข้อมูลตามมาตรฐาน NIST" },
+                    { icon: RefreshCw, title: "Refurbishment", color: "text-purple-600", bg: "bg-purple-500/10",
+                      desc: "ปรับปรุงสภาพในศูนย์ ENT Refurbish · เปลี่ยนชิ้นส่วนสึกหรอ · ทดสอบมาตรฐานอุตสาหกรรม · รับประกัน 1 ปีเหมือนของใหม่" },
+                    { icon: Store, title: "Remarketing", color: "text-green-600", bg: "bg-green-500/10",
+                      desc: "จำหน่าย Refurbished IPC ในราคา 50–60% ของใหม่ ผ่าน B2B Platform · เจาะ SME รายเล็กที่งบจำกัด" },
+                  ].map((p) => (
+                    <Card key={p.title} className="border-border/60 hover:shadow-lg transition-all">
+                      <CardContent className="p-6">
+                        <div className={`w-12 h-12 rounded-lg ${p.bg} flex items-center justify-center mb-4`}>
+                          <p.icon className={`w-6 h-6 ${p.color}`} />
+                        </div>
+                        <h4 className="font-bold text-lg mb-2">{p.title}</h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+
+              {/* Customer Value: ESG Score + Carbon Credit */}
+              <div>
+                <h3 className="text-xl md:text-2xl font-bold text-center mb-6">สิ่งที่ลูกค้าได้รับเพิ่ม</h3>
+                <div className="grid md:grid-cols-2 gap-5">
+                  <Card className="border-border/60">
+                    <CardContent className="p-6 flex items-start gap-4">
+                      <div className="w-12 h-12 rounded-lg bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
+                        <Award className="w-6 h-6 text-emerald-600" />
+                      </div>
+                      <div>
+                        <h4 className="font-bold mb-1">Carbon Credit Certificate</h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          ทุกครั้งที่ Trade-in อุปกรณ์เก่า ลูกค้าได้รับใบรับรอง CO₂ Reduction นำไปใช้รายงาน ESG/SET ESG Rating ได้
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-border/60">
+                    <CardContent className="p-6 flex items-start gap-4">
+                      <div className="w-12 h-12 rounded-lg bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+                        <TrendingUp className="w-6 h-6 text-amber-600" />
+                      </div>
+                      <div>
+                        <h4 className="font-bold mb-1">ESG Score Boost + Cost Saving</h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          ปลดสินทรัพย์ตายตัว (ของเก่าค้างคลัง) → เป็นเงินสดทันที · พร้อมเพิ่มคะแนน ESG ด้านสิ่งแวดล้อมให้บริษัท
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+
+              {/* Win-Win-Win */}
+              <div>
+                <h3 className="text-xl md:text-2xl font-bold text-center mb-2">โมเดล Win-Win-Win</h3>
+                <p className="text-center text-sm text-muted-foreground mb-6">ทุกฝ่ายได้ประโยชน์ในระบบเดียว</p>
+                <div className="grid md:grid-cols-3 gap-4">
+                  {[
+                    { icon: Building2, title: "ลูกค้าองค์กร", desc: "ได้เงินคืน · ลด E-waste · เพิ่ม ESG Score · ไม่ต้องกังวลเรื่องข้อมูล" },
+                    { icon: Users, title: "SME รายเล็ก", desc: "เข้าถึง Industrial PC คุณภาพในราคาครึ่งหนึ่ง · พร้อมรับประกัน 1 ปี" },
+                    { icon: Leaf, title: "สิ่งแวดล้อม", desc: "ลด E-waste · ยืดอายุการใช้งานอุปกรณ์ · ลดการขุดทรัพยากรใหม่" },
+                  ].map((w) => (
+                    <Card key={w.title} className="border-border/60 bg-gradient-to-br from-background to-green-500/5">
+                      <CardContent className="p-5 text-center">
+                        <div className="w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center mx-auto mb-3">
+                          <w.icon className="w-6 h-6 text-green-600" />
+                        </div>
+                        <h4 className="font-bold mb-2">{w.title}</h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{w.desc}</p>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+
+              {/* Roadmap */}
+              <div>
+                <h3 className="text-xl md:text-2xl font-bold text-center mb-6">Roadmap การ Implement</h3>
+                <div className="space-y-3">
+                  {[
+                    { phase: "Phase 1", time: "Q1–Q2 2026", title: "Pilot Trade-in Program", desc: "เริ่มกับลูกค้าเก่า Top 100 · ตั้งศูนย์ Refurbish ขนาดเล็ก · พัฒนาระบบ Trade-in บน B2B Portal" },
+                    { phase: "Phase 2", time: "Q3–Q4 2026", title: "Refurbish Center + Certification", desc: "ขอ ISO 14001 (Environmental) · ออก Carbon Credit Certificate · ขยายลูกค้าเป็น 500 ราย" },
+                    { phase: "Phase 3", time: "2027", title: "Remarketing Marketplace", desc: "เปิดหน้า Refurbished IPC บน Platform · เจาะตลาด SME · ขยายไปยังกลุ่มอุปกรณ์อื่น (Server, Network)" },
+                    { phase: "Phase 4", time: "2028", title: "Scale + ASEAN", desc: "ขยายโมเดลไปยัง Vietnam/Indonesia · ร่วมมือกับ EPR Compliance · เป้า 30% รายได้จาก Circular Economy" },
+                  ].map((r) => (
+                    <Card key={r.phase} className="border-l-4 border-l-green-500">
+                      <CardContent className="p-5">
+                        <div className="flex flex-wrap items-center gap-3 mb-2">
+                          <Badge variant="secondary" className="text-xs">{r.phase}</Badge>
+                          <Badge variant="outline" className="text-xs">{r.time}</Badge>
+                          <h4 className="font-bold">{r.title}</h4>
+                        </div>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{r.desc}</p>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+
+              {/* Targets */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {[
+                  { value: "30%", label: "รายได้จาก Circular ใน 3 ปี" },
+                  { value: "1,000+", label: "ตันลด E-waste ต่อปี" },
+                  { value: "70–80%", label: "Customer Retention หลัง Trade-in" },
+                  { value: "ISO 14001", label: "ภายในปี 2026" },
+                ].map((t) => (
+                  <Card key={t.label} className="bg-primary/5 border-primary/20">
+                    <CardContent className="p-5 text-center">
+                      <p className="text-2xl md:text-3xl font-bold text-primary mb-1">{t.value}</p>
+                      <p className="text-xs text-muted-foreground leading-relaxed">{t.label}</p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              {/* Funding note */}
+              <Card className="border-green-500/30 bg-green-500/5">
+                <CardContent className="p-6 flex items-start gap-4">
+                  <Recycle className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
+                  <div>
+                    <h4 className="font-bold mb-1">รองรับ SME Green Productivity Loan + ESG Investment</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      โครงการนี้ออกแบบให้สอดคล้องกับสินเชื่อ SME Green Productivity ของธนาคารพัฒนาวิสาหกิจฯ
+                      และเปิดรับ ESG-focused Strategic Investors ที่เห็นโอกาสในตลาด Circular Economy ของไทย
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
           </Tabs>
         </div>
       </section>
