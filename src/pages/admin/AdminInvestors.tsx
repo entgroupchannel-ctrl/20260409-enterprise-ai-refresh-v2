@@ -8,6 +8,7 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import AdminLayout from "@/layouts/AdminLayout";
+import MiniFooter from "@/components/MiniFooter";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -489,6 +490,7 @@ const AdminInvestors = () => {
         </DialogContent>
       </Dialog>
       </div>
+      <MiniFooter />
     </AdminLayout>
   );
 };
