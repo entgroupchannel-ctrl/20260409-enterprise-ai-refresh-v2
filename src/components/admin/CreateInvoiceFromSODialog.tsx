@@ -3,6 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter,
 } from '@/components/ui/dialog';
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -84,6 +88,10 @@ export default function CreateInvoiceFromSODialog({
   const [loading, setLoading] = useState(false);
   const [quote, setQuote] = useState<QuoteData | null>(null);
   const [loadingQuote, setLoadingQuote] = useState(false);
+  const [duplicateAlert, setDuplicateAlert] = useState<{ open: boolean; message: string }>({
+    open: false,
+    message: '',
+  });
 
   // Backward compat: if legacy saleOrder prop is passed, wrap it
   const source: InvoiceSource | null = useMemo(
@@ -379,7 +387,22 @@ export default function CreateInvoiceFromSODialog({
       onOpenChange(false);
       navigate('/admin/invoices');
     } catch (e: any) {
-      toast({ title: 'สร้างใบวางบิลไม่สำเร็จ', description: e.message, variant: 'destructive' });
+      const msg = String(e?.message || '');
+      const code = String(e?.code || '');
+      const isDuplicate =
+        code === '23505' ||
+        msg.includes('duplicate key') ||
+        msg.includes('invoices_invoice_number_key');
+
+      if (isDuplicate) {
+        setDuplicateAlert({
+          open: true,
+          message:
+            'ระบบตรวจพบว่ามีใบวางบิลถูกสร้างขึ้นในเวลาเดียวกัน (อาจกดซ้ำ หรือมีผู้ใช้รายอื่นกำลังสร้างพร้อมกัน) — กรุณารอสักครู่แล้วลองใหม่อีกครั้ง ระบบจะออกเลขถัดไปให้อัตโนมัติ',
+        });
+      } else {
+        toast({ title: 'สร้างใบวางบิลไม่สำเร็จ', description: msg, variant: 'destructive' });
+      }
     } finally {
       setLoading(false);
     }
@@ -578,6 +601,35 @@ export default function CreateInvoiceFromSODialog({
           </Button>
         </DialogFooter>
       </DialogContent>
+
+      <AlertDialog
+        open={duplicateAlert.open}
+        onOpenChange={(open) => setDuplicateAlert((s) => ({ ...s, open }))}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center gap-2 text-warning">
+              <Receipt className="w-5 h-5" />
+              เลขใบวางบิลซ้ำ
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-base leading-relaxed pt-2">
+              {duplicateAlert.message}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>ปิด</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => {
+                setDuplicateAlert({ open: false, message: '' });
+                handleCreate();
+              }}
+              className="bg-primary hover:bg-primary/90"
+            >
+              ลองใหม่อีกครั้ง
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </Dialog>
   );
 }
