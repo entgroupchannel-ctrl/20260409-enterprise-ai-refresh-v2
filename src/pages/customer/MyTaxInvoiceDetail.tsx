@@ -53,12 +53,7 @@ export default function MyTaxInvoiceDetail() {
       if (itemsRes.error) throw itemsRes.error;
 
       if (!txRes.data) {
-        toast({
-          title: 'ไม่พบใบกำกับภาษี',
-          description: 'อาจถูกลบหรือคุณไม่มีสิทธิ์เข้าถึง',
-          variant: 'destructive',
-        });
-        navigate('/my-tax-invoices');
+        setTaxInvoice(null);
         return;
       }
 
