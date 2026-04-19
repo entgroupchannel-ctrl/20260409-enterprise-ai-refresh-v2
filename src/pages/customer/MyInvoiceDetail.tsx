@@ -114,8 +114,7 @@ export default function MyInvoiceDetail() {
 
       if (invRes.error) throw invRes.error;
       if (!invRes.data) {
-        toast({ title: 'ไม่พบใบวางบิล หรือไม่มีสิทธิ์ดู', variant: 'destructive' });
-        navigate('/my-invoices');
+        setInvoice(null);
         return;
       }
 
