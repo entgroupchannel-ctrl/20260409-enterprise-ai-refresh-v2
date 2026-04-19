@@ -498,6 +498,7 @@ export default function AdminReports() {
           <TabsList className="h-auto flex-wrap">
             {canExec    && <TabsTrigger value="executive" className="text-xs gap-1.5"><BarChart3 className="w-3.5 h-3.5" />Executive</TabsTrigger>}
             {canSales   && <TabsTrigger value="sales"     className="text-xs gap-1.5"><Target className="w-3.5 h-3.5" />ฝ่ายขาย</TabsTrigger>}
+            {canSales   && <TabsTrigger value="performance" className="text-xs gap-1.5"><Award className="w-3.5 h-3.5" />ผลงาน Sale</TabsTrigger>}
             {canFinance && <TabsTrigger value="finance"   className="text-xs gap-1.5"><DollarSign className="w-3.5 h-3.5" />การเงิน</TabsTrigger>}
             {(canSales || canFinance) && <TabsTrigger value="ops" className="text-xs gap-1.5"><Package className="w-3.5 h-3.5" />Operations</TabsTrigger>}
           </TabsList>
