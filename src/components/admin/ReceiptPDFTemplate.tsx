@@ -145,34 +145,44 @@ export default function ReceiptPDFTemplate({
   };
 
   return (
-    <div id="receipt-pdf-template" className="bg-white text-black p-8 font-sans" style={{ width: '210mm', minHeight: '297mm', fontFamily: "'IBM Plex Sans Thai', Arial, sans-serif" }}>
+    <div
+      id="receipt-pdf-template"
+      className="bg-white text-black font-sans"
+      style={{
+        width: '210mm',
+        minHeight: '297mm',
+        padding: '12mm 14mm',
+        boxSizing: 'border-box',
+        fontFamily: "'IBM Plex Sans Thai', Arial, sans-serif",
+      }}
+    >
       {/* Header — GREEN for Receipt */}
-      <div className="flex justify-between items-start mb-8 pb-4 border-b-2 border-green-600">
-        <div className="flex items-start gap-4 flex-1">
+      <div className="flex justify-between items-start mb-4 pb-3 border-b-2 border-green-600">
+        <div className="flex items-start gap-3 flex-1">
           {companyInfo.logo_url && (
-            <img src={companyInfo.logo_url} alt="Logo" className="w-20 h-20 object-contain" />
+            <img src={companyInfo.logo_url} alt="Logo" className="w-16 h-16 object-contain" />
           )}
           <div className="flex-1">
-            <h1 className="text-2xl font-bold text-green-700 mb-1">{companyInfo.name_th}</h1>
-            {companyInfo.name_en && <p className="text-sm text-gray-600 italic">{companyInfo.name_en}</p>}
-            {companyInfo.address_th && <p className="text-xs text-gray-700 mt-1">{companyInfo.address_th}</p>}
-            <div className="text-xs text-gray-700 mt-1 flex flex-wrap gap-x-3">
+            <h1 className="text-xl font-bold text-green-700 mb-0.5">{companyInfo.name_th}</h1>
+            {companyInfo.name_en && <p className="text-xs text-gray-600 italic">{companyInfo.name_en}</p>}
+            {companyInfo.address_th && <p className="text-xs text-gray-700 mt-0.5 leading-snug">{companyInfo.address_th}</p>}
+            <div className="text-xs text-gray-700 mt-0.5 flex flex-wrap gap-x-3">
               {companyInfo.phone && <span>โทร: {companyInfo.phone}</span>}
               {companyInfo.fax && <span>แฟกซ์: {companyInfo.fax}</span>}
               {companyInfo.email && <span>Email: {companyInfo.email}</span>}
             </div>
             {companyInfo.tax_id && (
-              <p className="text-xs text-gray-700 mt-1">
+              <p className="text-xs text-gray-700 mt-0.5">
                 เลขประจำตัวผู้เสียภาษี: <span className="font-semibold">{companyInfo.tax_id}</span>
                 {companyBranchDisplay()}
               </p>
             )}
           </div>
         </div>
-        <div className="shrink-0 ml-4 flex flex-col items-end">
-          <h2 className="text-3xl font-bold text-green-700">ใบเสร็จรับเงิน</h2>
-          <p className="text-sm text-gray-600">Receipt</p>
-          <div className={`mt-2 inline-flex items-center justify-center px-4 py-1 rounded text-xs font-semibold leading-none ${
+        <div className="shrink-0 ml-3 flex flex-col items-end">
+          <h2 className="text-2xl font-bold text-green-700 leading-tight">ใบเสร็จรับเงิน</h2>
+          <p className="text-xs text-gray-600">Receipt</p>
+          <div className={`mt-1 inline-flex items-center justify-center px-3 py-0.5 rounded text-xs font-semibold leading-none ${
             copyType === 'original'
               ? 'bg-green-100 text-green-800 border border-green-300'
               : 'bg-gray-100 text-gray-700 border border-gray-300'
@@ -185,7 +195,7 @@ export default function ReceiptPDFTemplate({
       </div>
 
       {/* Customer + Meta */}
-      <div className="grid grid-cols-2 gap-6 mb-6">
+      <div className="grid grid-cols-2 gap-6 mb-4">
         <div>
           <h3 className="text-sm font-semibold text-gray-700 mb-2 pb-1 border-b">ผู้จ่ายเงิน</h3>
           <p className="font-bold text-base">{receipt.customer_name}</p>
