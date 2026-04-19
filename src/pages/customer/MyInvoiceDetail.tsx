@@ -153,7 +153,28 @@ export default function MyInvoiceDetail() {
     );
   }
 
-  if (!invoice) return null;
+  if (!invoice) {
+    return (
+      <CustomerLayout title="ไม่พบใบวางบิล">
+        <SEOHead title="ไม่พบใบวางบิล" description="ใบวางบิลนี้ไม่พบในระบบ" />
+        <div className="max-w-md mx-auto py-16 text-center space-y-4">
+          <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto">
+            <Receipt className="w-8 h-8 text-muted-foreground" />
+          </div>
+          <div className="space-y-2">
+            <h1 className="text-xl font-bold">ไม่พบใบวางบิลนี้</h1>
+            <p className="text-sm text-muted-foreground">
+              ใบวางบิลอาจถูกยกเลิก/ลบ หรือมีการออกเลขใหม่ทดแทน
+              กรุณาตรวจสอบรายการใบวางบิลล่าสุดของคุณ
+            </p>
+          </div>
+          <Button onClick={() => navigate('/my-invoices')}>
+            ดูใบวางบิลทั้งหมด
+          </Button>
+        </div>
+      </CustomerLayout>
+    );
+  }
 
   const effectiveStatus = isOverdue ? 'overdue' : invoice.status;
   const statusInfo = STATUS_LABELS[effectiveStatus] || STATUS_LABELS.draft;
