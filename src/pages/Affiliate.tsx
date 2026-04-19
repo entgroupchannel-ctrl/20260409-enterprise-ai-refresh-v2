@@ -98,8 +98,18 @@ const Affiliate = () => {
       <SiteNavbar />
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-accent/10 pt-24 pb-20">
-        <div className="absolute inset-0 bg-grid-white/[0.02] [mask-image:radial-gradient(ellipse_at_center,white,transparent)]" />
+      <section className="relative overflow-hidden pt-24 pb-20 text-white">
+        {/* Background image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${affiliateHeroBg})` }}
+          aria-hidden="true"
+        />
+        {/* Color & readability overlays */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[hsl(220_60%_8%/0.85)] via-[hsl(220_55%_12%/0.75)] to-[hsl(265_50%_15%/0.85)]" aria-hidden="true" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" aria-hidden="true" />
+        <div className="absolute inset-0 bg-grid-white/[0.03] [mask-image:radial-gradient(ellipse_at_center,white,transparent)]" aria-hidden="true" />
+
         <div className="container max-w-6xl mx-auto px-6 relative">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
