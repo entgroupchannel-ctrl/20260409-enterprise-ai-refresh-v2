@@ -294,20 +294,24 @@ const Investors = () => {
                 </p>
               </div>
             ))}
-          </div>
+        </div>
+      </section>
 
-          <div className="mt-10 text-center">
-            <Link to="/investors/strategic-vision">
-              <Button
-                size="lg"
-                variant="outline"
-                className="gap-2"
-                style={{ borderColor: "#C9A961", color: "#0A1628" }}
-              >
-                ดูทิศทางเชิงกลยุทธ์ของ ENT Group <ArrowRight className="w-4 h-4" />
-              </Button>
-            </Link>
+      {/* ═══════ STRATEGIC VISION (Vision · SWOT · Landscape · Strategy · ESG) ═══════ */}
+      <section className="py-16 px-4" style={{ backgroundColor: "#FAF8F3" }}>
+        <div className="container max-w-6xl mx-auto">
+          <div className="text-center mb-10">
+            <span className="text-xs font-semibold tracking-widest uppercase mb-3 block" style={{ color: "#C9A961" }}>
+              Strategic Vision 2026–2028
+            </span>
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-3" style={{ color: "#0A1628" }}>
+              ทิศทางเชิงกลยุทธ์ของ ENT Group
+            </h2>
+            <p className="text-sm max-w-2xl mx-auto" style={{ color: "#64748B" }}>
+              วิสัยทัศน์ · SWOT · ภาพการแข่งขัน · กลยุทธ์ · แผน ESG — ครบทุกมุมในที่เดียว
+            </p>
           </div>
+          <StrategicVisionTabs />
         </div>
       </section>
 
