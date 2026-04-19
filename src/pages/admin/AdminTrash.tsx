@@ -707,7 +707,7 @@ export default function AdminTrash() {
                     <div className="flex items-start justify-between gap-3 flex-wrap">
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1 flex-wrap">
-                          <span className="font-mono font-semibold text-sm">{r.receipt_number}</span>
+                          <span className="font-mono font-semibold text-sm">{displayDocNumber(r.receipt_number)}</span>
                           {r.payment_method && (
                             <Badge variant="outline" className="text-[10px]">
                               {r.payment_method === 'bank_transfer' ? 'โอน' : r.payment_method}
