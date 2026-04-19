@@ -449,7 +449,27 @@ export default function MyQuoteDetail() {
     );
   }
 
-  if (!quote) return null;
+  if (!quote) {
+    return (
+      <CustomerLayout title="ไม่พบใบเสนอราคา">
+        <div className="max-w-md mx-auto py-16 text-center space-y-4">
+          <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto">
+            <FileText className="w-8 h-8 text-muted-foreground" />
+          </div>
+          <div className="space-y-2">
+            <h1 className="text-xl font-bold">ไม่พบใบเสนอราคานี้</h1>
+            <p className="text-sm text-muted-foreground">
+              ใบเสนอราคาอาจถูกยกเลิก/ลบ หรือมีการออกเลขใหม่ทดแทน
+              กรุณาตรวจสอบรายการใบเสนอราคาล่าสุดของคุณ
+            </p>
+          </div>
+          <Button onClick={() => navigate('/my-quotes')}>
+            ดูใบเสนอราคาทั้งหมด
+          </Button>
+        </div>
+      </CustomerLayout>
+    );
+  }
 
   return (
     <CustomerLayout title={quote.quote_number}>
