@@ -179,6 +179,8 @@ export async function sendQuoteStatusEmail(params: {
   amount?: string;
   viewUrl?: string;
   note?: string;
+  relatedType?: string;
+  relatedId?: string;
 }) {
   try {
     const { error } = await supabase.functions.invoke("notify-quote-status", {

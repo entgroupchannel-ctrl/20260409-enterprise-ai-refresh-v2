@@ -1,12 +1,49 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { renderToStaticMarkup } from "npm:react-dom@18.3.1/server";
 import * as React from "npm:react@18.3.1";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
     "authorization, x-client-info, apikey, content-type",
 };
+
+// Service-role client to write to email_send_log (bypasses RLS)
+const SUPABASE_URL = Deno.env.get("SUPABASE_URL") ?? "";
+const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
+const adminDb = SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY
+  ? createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } })
+  : null;
+
+async function logEmail(row: {
+  template_name: string;
+  recipient_email: string;
+  subject?: string;
+  status: "pending" | "sent" | "failed";
+  provider_message_id?: string | null;
+  error_message?: string | null;
+  related_type?: string | null;
+  related_id?: string | null;
+  metadata?: Record<string, unknown> | null;
+}) {
+  if (!adminDb) return;
+  try {
+    await adminDb.from("email_send_log").insert({
+      template_name: row.template_name,
+      recipient_email: row.recipient_email,
+      subject: row.subject ?? null,
+      status: row.status,
+      provider_message_id: row.provider_message_id ?? null,
+      error_message: row.error_message ?? null,
+      related_type: row.related_type ?? null,
+      related_id: row.related_id ?? null,
+      metadata: row.metadata ?? null,
+    });
+  } catch (e) {
+    console.error("logEmail failed:", e);
+  }
+}
 
 const GATEWAY_URL = "https://connector-gateway.lovable.dev/resend";
 const FROM_ADDRESS = "ENT Group <noreply@entgroup.co.th>";
@@ -112,7 +149,7 @@ serve(async (req) => {
     if (!RESEND_API_KEY) throw new Error("RESEND_API_KEY is not configured");
 
     const body = await req.json();
-    const { recipientEmail, customerName, quoteNumber, status, invoiceNumber, amount, viewUrl, note } = body;
+    const { recipientEmail, customerName, quoteNumber, status, invoiceNumber, amount, viewUrl, note, relatedType, relatedId } = body;
 
     if (!recipientEmail || !status) {
       return new Response(
@@ -122,10 +159,23 @@ serve(async (req) => {
     }
 
     const label = STATUS_LABELS[status] || { th: status, emoji: "📌" };
-    // Build subject based on which document number is provided
     const docRef = invoiceNumber || quoteNumber || "";
     const subject = `${label.emoji} ${label.th}${docRef ? ` — ${docRef}` : ""}`;
     const html = buildQuoteStatusHtml({ customerName, quoteNumber, status, invoiceNumber, amount, viewUrl, note });
+
+    const templateName = `quote-status-${status}`;
+    const relType = relatedType || (invoiceNumber ? "invoice" : "quote");
+    const relId = relatedId || null;
+
+    await logEmail({
+      template_name: templateName,
+      recipient_email: recipientEmail,
+      subject,
+      status: "pending",
+      related_type: relType,
+      related_id: relId,
+      metadata: { customerName, quoteNumber, invoiceNumber, amount, status, viewUrl },
+    });
 
     const response = await fetch(`${GATEWAY_URL}/emails`, {
       method: "POST",
@@ -146,11 +196,30 @@ serve(async (req) => {
 
     if (!response.ok) {
       console.error("Resend API error:", JSON.stringify(data));
+      await logEmail({
+        template_name: templateName,
+        recipient_email: recipientEmail,
+        subject,
+        status: "failed",
+        error_message: typeof data === "object" ? JSON.stringify(data) : String(data),
+        related_type: relType,
+        related_id: relId,
+      });
       return new Response(
         JSON.stringify({ error: "Failed to send email", details: data }),
         { status: response.status, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
+
+    await logEmail({
+      template_name: templateName,
+      recipient_email: recipientEmail,
+      subject,
+      status: "sent",
+      provider_message_id: data?.id ?? null,
+      related_type: relType,
+      related_id: relId,
+    });
 
     return new Response(JSON.stringify({ success: true, id: data.id }), {
       status: 200,
