@@ -237,7 +237,7 @@ export default function Platform() {
             ผ่านระบบ Admin Dashboard ที่ออกแบบมาเพื่อบริการลูกค้า B2B โดยเฉพาะ
           </p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
           {ADMIN_FEATURES.map(({ icon: Icon, title, desc }) => (
             <div key={title} className="rounded-xl border bg-card p-5 hover:border-primary/40 hover:shadow-sm transition-all">
               <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-3">
@@ -247,6 +247,14 @@ export default function Platform() {
               <p className="text-xs text-muted-foreground leading-relaxed">{desc}</p>
             </div>
           ))}
+        </div>
+        <div className="rounded-2xl border overflow-hidden bg-card shadow-md">
+          <img
+            src="/images/platform/admin-dashboard.png"
+            alt="Admin Dashboard — ภาพรวมระบบหลังบ้าน"
+            loading="lazy"
+            className="w-full h-auto"
+          />
         </div>
       </section>
 
