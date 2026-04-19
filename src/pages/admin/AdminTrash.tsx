@@ -935,11 +935,19 @@ export default function AdminTrash() {
       <AlertDialog open={!!permReceiptTarget} onOpenChange={(open) => !open && setPermReceiptTarget(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-red-700">ลบถาวร?</AlertDialogTitle>
-            <AlertDialogDescription>
-              คุณกำลังจะลบ <strong>{permReceiptTarget?.receipt_number}</strong> ถาวรออกจากระบบ
-              <br />
-              การกระทำนี้ <strong className="text-red-600">ไม่สามารถกู้คืนได้</strong>
+            <AlertDialogTitle className="text-red-700">ลบใบเสร็จถาวร?</AlertDialogTitle>
+            <AlertDialogDescription asChild>
+              <div className="space-y-2 text-sm">
+                <p>
+                  ใบเสร็จ <strong className="font-mono">{permReceiptTarget?.receipt_number}</strong> จะถูกลบถาวรออกจากระบบ
+                </p>
+                <p className="text-red-600 font-semibold">
+                  ⚠️ การกระทำนี้ไม่สามารถกู้คืนได้
+                </p>
+                <p className="text-orange-700">
+                  📧 ระบบจะส่งอีเมลแจ้งลูกค้าและสร้างการแจ้งเตือนในระบบโดยอัตโนมัติ (หากมีอีเมลในระบบ)
+                </p>
+              </div>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
