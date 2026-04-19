@@ -106,6 +106,7 @@ export default function AdminReports() {
   const [revenueTrend, setRevenueTrend] = useState<{ month: string; revenue: number }[]>([]);
   const [arApMonthly, setArApMonthly] = useState<{ month: string; ar: number; ap: number }[]>([]);
   const [supplierPoData, setSupplierPoData] = useState<{ name: string; value: number }[]>([]);
+  const [salesPerformance, setSalesPerformance] = useState<any[]>([]);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -116,6 +117,7 @@ export default function AdminReports() {
     await Promise.all([
       canExec    && loadExecData(fromISO, toISO),
       canSales   && loadSalesData(fromISO, toISO),
+      canSales   && loadSalesPerformance(fromISO, toISO),
       canFinance && loadFinanceData(fromISO, toISO),
       (canSales || canFinance) && loadOpsData(fromISO, toISO),
     ].filter(Boolean));
