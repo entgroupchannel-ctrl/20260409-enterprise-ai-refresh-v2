@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import {
   ArrowRight, Target, Compass, Layers, Shield, Rocket, Building2, TrendingUp,
   CheckCircle2, Factory, Store, Stethoscope, Swords, AlertTriangle, Lightbulb,
-  Zap, Globe, Lock,
+  Zap, Globe, Lock, Recycle, Leaf, RefreshCw, Award, Users, HandCoins,
 } from "lucide-react";
 import SiteNavbar from "@/components/SiteNavbar";
 import Footer from "@/components/Footer";
