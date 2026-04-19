@@ -112,42 +112,42 @@ const Affiliate = () => {
 
         <div className="container max-w-6xl mx-auto px-6 relative">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-400/15 text-amber-300 ring-1 ring-amber-400/30 backdrop-blur text-sm font-medium mb-6">
               <Sparkles size={14} />
               {isEn ? "For Thai Industrial Sales Pros" : "สำหรับมืออาชีพสายอุตสาหกรรมไทย"}
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 text-white drop-shadow-[0_2px_20px_rgba(0,0,0,0.5)]">
               {isEn ? (
-                <>Earn <span className="text-primary">฿30K–฿100K/month</span> referring B2B clients</>
+                <>Earn <span className="text-amber-300">฿30K–฿100K/month</span> referring B2B clients</>
               ) : (
-                <>สร้างรายได้ <span className="text-primary">฿30,000–฿100,000/เดือน</span> ด้วยการแนะนำลูกค้า B2B</>
+                <>สร้างรายได้ <span className="text-amber-300">฿30,000–฿100,000/เดือน</span> ด้วยการแนะนำลูกค้า B2B</>
               )}
             </h1>
-            <p className="text-lg text-muted-foreground mb-8">
+            <p className="text-lg text-slate-200/90 mb-8 max-w-2xl">
               {isEn
                 ? "Per-lead + per-sale commission. Promote industrial PCs, edge AI, and rugged devices to Thai businesses. Built for engineers, sales pros, and B2B influencers."
                 : "รับค่าตอบแทนทั้งต่อ Lead ที่ผ่านเกณฑ์ และต่อยอดขายที่ปิดได้ — โปรโมตคอมพิวเตอร์อุตสาหกรรม Edge AI และอุปกรณ์ Rugged สำหรับวิศวกร นักขาย B2B และอินฟลูเอนเซอร์สายเทค"}
             </p>
             <div className="flex flex-wrap gap-3">
-              <Button size="lg" asChild>
+              <Button size="lg" asChild className="bg-amber-400 text-slate-900 hover:bg-amber-300 shadow-lg shadow-amber-500/20">
                 <Link to="/affiliate/apply">
                   {isEn ? "Apply Now" : "สมัครเข้าร่วม"} <ArrowRight size={16} />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" asChild>
+              <Button size="lg" variant="outline" asChild className="border-white/30 bg-white/5 text-white hover:bg-white/10 hover:text-white backdrop-blur">
                 <a href="#calculator">{isEn ? "Calculate Earnings" : "คำนวณรายได้"}</a>
               </Button>
             </div>
 
-            <div className="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-border">
+            <div className="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-white/15">
               {[
                 { label: isEn ? "Per-lead" : "ต่อ Lead", value: "฿500–1,500" },
                 { label: isEn ? "Per-sale" : "ต่อยอดขาย", value: "3–10%" },
                 { label: isEn ? "Top earner/yr" : "Top earner/ปี", value: "฿6M+" },
               ].map((s) => (
                 <div key={s.label}>
-                  <div className="text-2xl md:text-3xl font-bold text-primary">{s.value}</div>
-                  <div className="text-sm text-muted-foreground mt-1">{s.label}</div>
+                  <div className="text-2xl md:text-3xl font-bold text-amber-300">{s.value}</div>
+                  <div className="text-sm text-slate-300 mt-1">{s.label}</div>
                 </div>
               ))}
             </div>
