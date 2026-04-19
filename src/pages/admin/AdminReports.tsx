@@ -11,7 +11,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import {
   TrendingUp, TrendingDown, DollarSign, FileText, Users, Package,
   ShoppingCart, Wrench, BarChart3, Target, Clock, AlertTriangle,
-  CheckCircle, RefreshCw, Download, Star,
+  CheckCircle, RefreshCw, Download, Star, Award, UserCheck,
 } from 'lucide-react';
 import { format, subMonths, startOfMonth, endOfMonth, startOfYear } from 'date-fns';
 import { th } from 'date-fns/locale';
@@ -106,6 +106,7 @@ export default function AdminReports() {
   const [revenueTrend, setRevenueTrend] = useState<{ month: string; revenue: number }[]>([]);
   const [arApMonthly, setArApMonthly] = useState<{ month: string; ar: number; ap: number }[]>([]);
   const [supplierPoData, setSupplierPoData] = useState<{ name: string; value: number }[]>([]);
+  const [salesPerformance, setSalesPerformance] = useState<any[]>([]);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -116,6 +117,7 @@ export default function AdminReports() {
     await Promise.all([
       canExec    && loadExecData(fromISO, toISO),
       canSales   && loadSalesData(fromISO, toISO),
+      canSales   && loadSalesPerformance(fromISO, toISO),
       canFinance && loadFinanceData(fromISO, toISO),
       (canSales || canFinance) && loadOpsData(fromISO, toISO),
     ].filter(Boolean));
@@ -234,6 +236,91 @@ export default function AdminReports() {
       chatActive,
       recentQuotes: quotes.slice(0, 10),
     });
+  };
+
+  // ── Sales Performance per Salesperson ─────────────────────────────────
+  // ยอดขายของ sale แต่ละคน อิง quote_requests.assigned_to
+  // โดยเฉพาะ Quote ที่ถูกแปลงเป็น Invoice/PO แล้ว (= "ปิดได้จริง")
+  const loadSalesPerformance = async (from: string, to: string) => {
+    const [quoteRes, invoiceRes, payRes, staffRes] = await Promise.all([
+      supabase.from('quote_requests')
+        .select('id, status, grand_total, assigned_to, created_at')
+        .is('deleted_at', null)
+        .gte('created_at', from).lte('created_at', to)
+        .not('assigned_to', 'is', null),
+      supabase.from('invoices')
+        .select('id, quote_id, grand_total, status, invoice_date')
+        .is('deleted_at', null)
+        .not('quote_id', 'is', null)
+        .gte('invoice_date', from).lte('invoice_date', to),
+      supabase.from('payment_records')
+        .select('amount, invoice_id, verification_status, created_at')
+        .eq('verification_status', 'verified')
+        .gte('created_at', from).lte('created_at', to),
+      supabase.from('staff_members')
+        .select('id, full_name, role, email')
+        .eq('is_active', true),
+    ]);
+
+    const quotes = (quoteRes.data ?? []) as any[];
+    const invoices = (invoiceRes.data ?? []) as any[];
+    const payments = (payRes.data ?? []) as any[];
+    const staff = (staffRes.data ?? []) as any[];
+
+    const invByQuote: Record<string, { id: string; total: number }[]> = {};
+    for (const inv of invoices) {
+      if (!invByQuote[inv.quote_id]) invByQuote[inv.quote_id] = [];
+      invByQuote[inv.quote_id].push({ id: inv.id, total: inv.grand_total ?? 0 });
+    }
+    const quoteToSale: Record<string, string> = {};
+    const invoiceToSale: Record<string, string> = {};
+    for (const q of quotes) quoteToSale[q.id] = q.assigned_to;
+    for (const inv of invoices) {
+      const sid = quoteToSale[inv.quote_id];
+      if (sid) invoiceToSale[inv.id] = sid;
+    }
+
+    const perSale: Record<string, any> = {};
+    const ensure = (sid: string) => {
+      if (!perSale[sid]) {
+        const s = staff.find(x => x.id === sid);
+        perSale[sid] = {
+          id: sid, name: s?.full_name ?? 'Unknown', role: s?.role ?? '—',
+          quoteCount: 0, wonCount: 0, lostCount: 0,
+          quoteValue: 0, invoicedValue: 0, receivedValue: 0,
+          invoiceCount: 0,
+        };
+      }
+      return perSale[sid];
+    };
+
+    for (const q of quotes) {
+      const row = ensure(q.assigned_to);
+      row.quoteCount++;
+      row.quoteValue += q.grand_total ?? 0;
+      if (q.status === 'completed') row.wonCount++;
+      else if (['rejected','cancelled'].includes(q.status)) row.lostCount++;
+      const invs = invByQuote[q.id] ?? [];
+      row.invoiceCount += invs.length;
+      row.invoicedValue += invs.reduce((s: number, i: any) => s + i.total, 0);
+    }
+
+    for (const p of payments) {
+      const sid = p.invoice_id ? invoiceToSale[p.invoice_id] : null;
+      if (!sid) continue;
+      const row = ensure(sid);
+      row.receivedValue += p.amount ?? 0;
+    }
+
+    const list = Object.values(perSale)
+      .map((r: any) => ({
+        ...r,
+        winRate: r.quoteCount === 0 ? 0 : Math.round((r.wonCount / r.quoteCount) * 100),
+        avgDeal: r.wonCount === 0 ? 0 : r.invoicedValue / r.wonCount,
+      }))
+      .sort((a: any, b: any) => b.invoicedValue - a.invoicedValue);
+
+    setSalesPerformance(list);
   };
 
   // ── Finance Data ──────────────────────────────────────────────────────
@@ -411,6 +498,7 @@ export default function AdminReports() {
           <TabsList className="h-auto flex-wrap">
             {canExec    && <TabsTrigger value="executive" className="text-xs gap-1.5"><BarChart3 className="w-3.5 h-3.5" />Executive</TabsTrigger>}
             {canSales   && <TabsTrigger value="sales"     className="text-xs gap-1.5"><Target className="w-3.5 h-3.5" />ฝ่ายขาย</TabsTrigger>}
+            {canSales   && <TabsTrigger value="performance" className="text-xs gap-1.5"><Award className="w-3.5 h-3.5" />ผลงาน Sale</TabsTrigger>}
             {canFinance && <TabsTrigger value="finance"   className="text-xs gap-1.5"><DollarSign className="w-3.5 h-3.5" />การเงิน</TabsTrigger>}
             {(canSales || canFinance) && <TabsTrigger value="ops" className="text-xs gap-1.5"><Package className="w-3.5 h-3.5" />Operations</TabsTrigger>}
           </TabsList>
@@ -568,6 +656,103 @@ export default function AdminReports() {
                     <TopCustomersBar customers={salesData.topCustomers ?? []} />
                   </CardContent>
                 </Card>
+              </div>
+            </TabsContent>
+          )}
+
+          {/* ══════════════════════════════════════════════════════
+              TAB — SALES PERFORMANCE (per Salesperson)
+          ══════════════════════════════════════════════════════ */}
+          {canSales && (
+            <TabsContent value="performance" className="space-y-6 mt-4">
+              <SectionHeader
+                title="ผลงานทีมขาย"
+                sub="ยอดขายต่อ Sale แต่ละคน — อิงจาก Quote ที่ออก Invoice / รับชำระแล้ว"
+              />
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <MetricCard label="Sale ที่มีผลงาน" value={String(salesPerformance.length)} icon={UserCheck} color="blue" />
+                <MetricCard
+                  label="ยอด Invoice รวม"
+                  value={fmtTHB(salesPerformance.reduce((s, r) => s + r.invoicedValue, 0))}
+                  icon={FileText} color="purple"
+                  sub={`${salesPerformance.reduce((s, r) => s + r.invoiceCount, 0)} ใบ`}
+                />
+                <MetricCard
+                  label="รับชำระจริง"
+                  value={fmtTHB(salesPerformance.reduce((s, r) => s + r.receivedValue, 0))}
+                  icon={DollarSign} color="green"
+                />
+                <MetricCard
+                  label="Top Sale"
+                  value={salesPerformance[0]?.name?.split(' ')[0] ?? '—'}
+                  icon={Award} color="amber"
+                  sub={salesPerformance[0] ? fmtTHB(salesPerformance[0].invoicedValue) : '—'}
+                />
+              </div>
+
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <Award className="w-4 h-4 text-amber-500" />
+                    Sales Leaderboard
+                  </CardTitle>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    เรียงตามยอด Invoice (ออกบิลแล้ว) ในช่วง {periodLabel[period]}
+                  </p>
+                </CardHeader>
+                <CardContent className="p-0 overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="text-xs w-10">#</TableHead>
+                        <TableHead className="text-xs">Sale</TableHead>
+                        <TableHead className="text-xs text-right">Quote</TableHead>
+                        <TableHead className="text-xs text-right">ปิดได้</TableHead>
+                        <TableHead className="text-xs text-right">Win%</TableHead>
+                        <TableHead className="text-xs text-right">Invoice</TableHead>
+                        <TableHead className="text-xs text-right">ยอด Invoice</TableHead>
+                        <TableHead className="text-xs text-right">รับชำระจริง</TableHead>
+                        <TableHead className="text-xs text-right">Avg Deal</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {salesPerformance.map((r, i) => (
+                        <TableRow key={r.id} className={i === 0 ? 'bg-amber-50/40 dark:bg-amber-950/10' : ''}>
+                          <TableCell className="text-xs font-bold">{i === 0 ? '🏆' : i + 1}</TableCell>
+                          <TableCell>
+                            <div className="text-xs font-medium leading-tight">{r.name}</div>
+                            <div className="text-[10px] text-muted-foreground capitalize">{r.role}</div>
+                          </TableCell>
+                          <TableCell className="text-xs text-right tabular-nums">{r.quoteCount}</TableCell>
+                          <TableCell className="text-xs text-right tabular-nums text-emerald-600 font-medium">{r.wonCount}</TableCell>
+                          <TableCell className="text-xs text-right tabular-nums">
+                            <Badge className={`text-[10px] ${r.winRate >= 50 ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300' : r.winRate >= 25 ? 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300' : 'bg-muted text-muted-foreground'}`}>
+                              {r.winRate}%
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="text-xs text-right tabular-nums">{r.invoiceCount}</TableCell>
+                          <TableCell className="text-xs text-right tabular-nums font-semibold">{fmtTHB(r.invoicedValue)}</TableCell>
+                          <TableCell className="text-xs text-right tabular-nums text-emerald-600">{fmtTHB(r.receivedValue)}</TableCell>
+                          <TableCell className="text-xs text-right tabular-nums text-muted-foreground">{fmtTHB(r.avgDeal)}</TableCell>
+                        </TableRow>
+                      ))}
+                      {salesPerformance.length === 0 && (
+                        <TableRow>
+                          <TableCell colSpan={9} className="text-center text-xs text-muted-foreground py-8">
+                            ไม่มี Quote ที่กำหนด Sale ผู้รับผิดชอบในช่วงนี้
+                          </TableCell>
+                        </TableRow>
+                      )}
+                    </TableBody>
+                  </Table>
+                </CardContent>
+              </Card>
+
+              <div className="text-[11px] text-muted-foreground bg-muted/40 rounded-md px-3 py-2 leading-relaxed">
+                <strong>หมายเหตุ:</strong> ยอดของ Sale แต่ละคนคำนวณจาก Quote ที่ Sale รับผิดชอบ (assigned_to)
+                — นับเฉพาะ Quote ที่ <strong>ออก Invoice แล้ว</strong> (ผ่าน <code>invoices.quote_id</code>)
+                ส่วน &quot;รับชำระจริง&quot; นับจาก payment_records ที่ verified และผูกกับ Invoice ของ Sale คนนั้น
               </div>
             </TabsContent>
           )}
