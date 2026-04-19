@@ -159,6 +159,16 @@ export default function AdminEmailLog() {
     return Array.from(set).sort();
   }, [deduped]);
 
+  const salesOptions = useMemo(() => {
+    const map = new Map<string, string>();
+    deduped.forEach((r) => {
+      if (r.sales_id) map.set(r.sales_id, r.sales_name || r.sales_id.slice(0, 8));
+    });
+    return Array.from(map.entries())
+      .map(([id, name]) => ({ id, name }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }, [deduped]);
+
   const filtered = useMemo(() => {
     return deduped.filter((r) => {
       if (templateFilter !== 'all' && r.template_name !== templateFilter) return false;
@@ -166,14 +176,21 @@ export default function AdminEmailLog() {
         if (statusFilter === 'failed' && !['failed', 'dlq', 'bounced', 'complained'].includes(r.status)) return false;
         if (statusFilter !== 'failed' && r.status !== statusFilter) return false;
       }
+      if (salesFilter !== 'all') {
+        if (salesFilter === 'unassigned') {
+          if (r.sales_id) return false;
+        } else if (r.sales_id !== salesFilter) {
+          return false;
+        }
+      }
       if (search) {
         const q = search.toLowerCase();
-        const hay = `${r.recipient_email} ${r.subject || ''} ${r.template_name}`.toLowerCase();
+        const hay = `${r.recipient_email} ${r.subject || ''} ${r.template_name} ${r.sales_name || ''}`.toLowerCase();
         if (!hay.includes(q)) return false;
       }
       return true;
     });
-  }, [deduped, templateFilter, statusFilter, search]);
+  }, [deduped, templateFilter, statusFilter, salesFilter, search]);
 
   const stats = useMemo(() => {
     const s = { total: deduped.length, sent: 0, failed: 0, suppressed: 0, pending: 0 };
