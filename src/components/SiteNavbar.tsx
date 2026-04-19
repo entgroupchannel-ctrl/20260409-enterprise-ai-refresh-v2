@@ -99,7 +99,8 @@ export default function SiteNavbar() {
                   <span className="max-w-[100px] truncate">{profile?.full_name || user.email?.split('@')[0]}</span>
                   <ChevronDown size={14} />
                 </button>
-                <div className="absolute right-0 top-full mt-1 w-56 bg-card border border-border rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+                <div className="absolute right-0 top-full pt-1 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible focus-within:opacity-100 focus-within:visible transition-all z-50">
+                  <div className="bg-card border border-border rounded-lg shadow-xl overflow-hidden">
                   {(profile?.role === 'admin' || profile?.role === 'sales') && (
                     <>
                       <Link to="/admin/dashboard" className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors rounded-t-lg">
@@ -130,9 +131,10 @@ export default function SiteNavbar() {
                     </>
                   )}
                   <div className="border-t border-border" />
-                  <button onClick={() => signOut()} className="flex items-center gap-2 px-4 py-2.5 text-sm text-destructive hover:bg-muted transition-colors w-full text-left rounded-b-lg">
+                  <button onClick={() => signOut()} className="flex items-center gap-2 px-4 py-2.5 text-sm text-destructive hover:bg-muted transition-colors w-full text-left">
                     <LogOut size={16} /> ออกจากระบบ
                   </button>
+                  </div>
                 </div>
               </div>
             ) : (
