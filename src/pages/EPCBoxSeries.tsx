@@ -1188,6 +1188,9 @@ const EPCBoxSeries = () => {
         </div>
       </section>
 
+      {/* Partners */}
+      <PartnerLogos />
+
       {/* CTA */}
       <section className="section-padding bg-muted/30">
         <div className="container max-w-3xl mx-auto text-center">
