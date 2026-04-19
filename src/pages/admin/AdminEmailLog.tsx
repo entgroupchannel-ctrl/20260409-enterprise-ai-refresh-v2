@@ -264,11 +264,11 @@ export default function AdminEmailLog() {
 
       {/* Filters */}
       <Card>
-        <CardContent className="pt-6 grid grid-cols-1 md:grid-cols-3 gap-3">
+        <CardContent className="pt-6 grid grid-cols-1 md:grid-cols-4 gap-3">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
-              placeholder="ค้นหา (อีเมล / หัวเรื่อง / template)"
+              placeholder="ค้นหา (อีเมล / หัวเรื่อง / template / sale)"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="pl-9"
@@ -293,6 +293,16 @@ export default function AdminEmailLog() {
               <SelectItem value="pending">รอส่ง</SelectItem>
             </SelectContent>
           </Select>
+          <Select value={salesFilter} onValueChange={setSalesFilter}>
+            <SelectTrigger><SelectValue placeholder="Sale ผู้รับผิดชอบทั้งหมด" /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Sale ทั้งหมด</SelectItem>
+              <SelectItem value="unassigned">ยังไม่มอบหมาย</SelectItem>
+              {salesOptions.map((s) => (
+                <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </CardContent>
       </Card>
 
@@ -308,6 +318,7 @@ export default function AdminEmailLog() {
                   <TableHead>Template</TableHead>
                   <TableHead>ผู้รับ</TableHead>
                   <TableHead>หัวเรื่อง</TableHead>
+                  <TableHead>Sale ผู้รับผิดชอบ</TableHead>
                   <TableHead>สถานะ</TableHead>
                   <TableHead>หมายเหตุ</TableHead>
                 </TableRow>
