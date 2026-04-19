@@ -178,6 +178,7 @@ export async function sendQuoteStatusEmail(params: {
   invoiceNumber?: string;
   amount?: string;
   viewUrl?: string;
+  pdfUrl?: string;
   note?: string;
   relatedType?: string;
   relatedId?: string;
