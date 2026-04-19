@@ -14,6 +14,7 @@ import {
   ShoppingBag,
   Pause,
 } from "lucide-react";
+import welcomeBg from "@/assets/welcome-callcenter.jpg";
 
 /** Storage keys */
 const STORAGE_PREFIX = "ent_welcome_dialog_v2:";
@@ -217,19 +218,31 @@ export default function WelcomeDialog() {
         onFocusCapture={handleMouseEnter}
         onBlurCapture={handleMouseLeave}
       >
-        {/* Header */}
-        <div className="relative bg-gradient-to-br from-primary via-primary to-primary/80 text-primary-foreground p-6 sm:p-8">
-          <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top_right,_white,_transparent_60%)]" />
+        {/* Header — Call Center hero */}
+        <div className="relative text-primary-foreground p-6 sm:p-8 min-h-[220px] sm:min-h-[260px] overflow-hidden">
+          {/* Background photo */}
+          <img
+            src={welcomeBg}
+            alt="ทีม Call Center ENT Group ยินดีต้อนรับ"
+            width={1280}
+            height={640}
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          />
+          {/* Brand color overlay for legibility */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/85 via-primary/70 to-primary/40 mix-blend-multiply" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/30 via-transparent to-transparent" />
+          <div className="absolute inset-0 opacity-25 bg-[radial-gradient(circle_at_top_right,_white,_transparent_60%)]" />
+
           <div className="relative">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-foreground/15 backdrop-blur-sm text-xs font-medium mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-foreground/20 backdrop-blur-sm text-xs font-medium mb-3">
               <Sparkles className="h-3.5 w-3.5" />
               ยินดีต้อนรับสู่ ENT Group
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold leading-tight">
+            <h2 className="text-2xl sm:text-3xl font-bold leading-tight drop-shadow-sm">
               B2B Industrial Platform
             </h2>
-            <p className="mt-2 text-sm sm:text-base text-primary-foreground/90 max-w-lg">
-              แพลตฟอร์มจัดซื้ออุตสาหกรรมแบบครบวงจร — สมัครสมาชิกฟรี เพื่อเข้าถึงราคาพิเศษและบริการเฉพาะองค์กร
+            <p className="mt-2 text-sm sm:text-base text-primary-foreground/95 max-w-lg drop-shadow-sm">
+              แพลตฟอร์มจัดซื้ออุตสาหกรรมแบบครบวงจร — ทีมงานพร้อมดูแลคุณตลอดการใช้งาน
             </p>
           </div>
         </div>
