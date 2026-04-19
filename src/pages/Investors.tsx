@@ -294,6 +294,7 @@ const Investors = () => {
                 </p>
               </div>
             ))}
+          </div>
         </div>
       </section>
 
