@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { createNotification, sendQuoteStatusEmail } from '@/lib/notifications';
 import { useAuth } from '@/hooks/useAuth';
 import {
   Trash2, ArrowLeft, RotateCcw, AlertTriangle, Search,
