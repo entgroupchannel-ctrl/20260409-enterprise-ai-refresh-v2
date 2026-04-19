@@ -11,11 +11,20 @@ const StrategicVision = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="ทิศทางเชิงกลยุทธ์ | ENT Group — Thai Industrial Champion"
+        title="ทิศทางเชิงกลยุทธ์ | ENT Group Investor Relations"
         description="วิสัยทัศน์และจุดยืนของ ENT Group ในตลาด Industrial Computer ของประเทศไทย — สนามที่เราเลือกครอง และเส้นทางสู่การเป็นผู้นำของ SME ไทย"
-        path="/strategic-vision"
+        path="/investors/strategic-vision"
       />
       <SiteNavbar />
+
+      {/* Breadcrumb */}
+      <div className="container mx-auto px-4 py-3 text-sm text-muted-foreground flex items-center gap-2">
+        <Link to="/" className="hover:text-primary">หน้าแรก</Link>
+        <ArrowRight className="w-3 h-3" />
+        <Link to="/investors" className="hover:text-primary">Investor Relations</Link>
+        <ArrowRight className="w-3 h-3" />
+        <span className="text-foreground font-medium">Strategic Vision</span>
+      </div>
 
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-accent/5 py-20 md:py-28">
