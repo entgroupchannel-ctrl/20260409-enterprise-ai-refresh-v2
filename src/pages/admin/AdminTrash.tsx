@@ -633,7 +633,7 @@ export default function AdminTrash() {
                     <div className="flex items-start justify-between gap-3 flex-wrap">
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1 flex-wrap">
-                          <span className="font-mono font-semibold text-sm line-through text-muted-foreground">{t.tax_invoice_number}</span>
+                          <span className="font-mono font-semibold text-sm line-through text-muted-foreground">{displayDocNumber(t.tax_invoice_number)}</span>
                           <Badge variant="outline" className="text-[10px]">{t.status}</Badge>
                         </div>
                         <p className="text-sm font-medium">{t.customer_name}</p>
