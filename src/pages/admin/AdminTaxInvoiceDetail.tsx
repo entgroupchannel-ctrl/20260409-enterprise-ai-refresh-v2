@@ -396,16 +396,26 @@ export default function AdminTaxInvoiceDetail() {
               <Trash2 className="w-5 h-5" />
               ย้ายใบกำกับภาษีไปถังขยะ?
             </AlertDialogTitle>
-            <AlertDialogDescription>
-              ใบกำกับภาษี <span className="font-mono font-semibold">{taxInvoice?.tax_invoice_number}</span>{' '}
-              จะถูกย้ายไปถังขยะ — สามารถกู้คืนได้ที่{' '}
-              <Link to="/admin/trash?tab=tax-invoices" className="text-blue-600 underline">ถังขยะ</Link>
+            <AlertDialogDescription asChild>
+              <div className="space-y-2 text-sm">
+                <p>
+                  เลขที่ <span className="font-mono font-semibold text-foreground">{taxInvoice?.tax_invoice_number}</span>
+                  {taxInvoice?.customer_name && <> — {taxInvoice.customer_name}</>}
+                </p>
+                <ul className="list-disc list-inside text-muted-foreground space-y-1">
+                  <li>เอกสารจะถูกซ่อนจากรายการหลัก แต่ยังกู้คืนได้ภายใน 30 วันที่ <Link to="/admin/trash?tab=tax-invoices" className="text-blue-600 underline">ถังขยะ</Link></li>
+                  <li>เลขที่เอกสารเดิมจะถูกปลดล็อก เพื่อนำกลับมาใช้สร้างใบใหม่ได้</li>
+                  <li>ลูกค้าจะไม่ได้รับการแจ้งเตือนใดๆ จากการลบครั้งนี้</li>
+                </ul>
+              </div>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <div className="space-y-2">
-            <label className="text-sm font-semibold">เหตุผล (ไม่บังคับ)</label>
+            <label className="text-sm font-semibold">
+              เหตุผลการลบ <span className="text-muted-foreground font-normal">(ไม่บังคับ แต่แนะนำเพื่อตรวจสอบย้อนหลัง)</span>
+            </label>
             <Textarea
-              placeholder="เช่น: ออกผิด, ลูกค้าขอยกเลิก..."
+              placeholder="เช่น: ออกผิดเลข, ลูกค้าขอยกเลิก, ข้อมูลที่อยู่ผิด..."
               value={deleteReason}
               onChange={(e) => setDeleteReason(e.target.value)}
               rows={2}
