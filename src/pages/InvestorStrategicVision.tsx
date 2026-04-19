@@ -58,11 +58,12 @@ const StrategicVision = () => {
       <section className="py-10 md:py-14">
         <div className="container mx-auto px-4 max-w-6xl">
           <Tabs defaultValue="vision" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 mb-8 h-auto">
+            <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 mb-8 h-auto">
               <TabsTrigger value="vision" className="py-2.5"><Target className="w-4 h-4 mr-1.5" />Vision</TabsTrigger>
               <TabsTrigger value="swot" className="py-2.5"><Layers className="w-4 h-4 mr-1.5" />SWOT</TabsTrigger>
               <TabsTrigger value="landscape" className="py-2.5"><Swords className="w-4 h-4 mr-1.5" />ภาพการแข่งขัน</TabsTrigger>
               <TabsTrigger value="strategy" className="py-2.5"><Lightbulb className="w-4 h-4 mr-1.5" />กลยุทธ์</TabsTrigger>
+              <TabsTrigger value="esg" className="py-2.5"><Leaf className="w-4 h-4 mr-1.5" />ESG</TabsTrigger>
             </TabsList>
 
             {/* ─── TAB 1: VISION ─── */}
