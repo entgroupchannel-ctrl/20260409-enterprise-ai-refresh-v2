@@ -225,8 +225,19 @@ const Footer = () => {
   const [pdpaOpen, setPdpaOpen] = useState(false);
 
   return (
-    <footer className="border-t border-border" id="contact">
-      <div className="bg-gradient-to-b from-white via-gray-100 to-gray-300 text-gray-700 dark:from-[hsl(220,15%,16%)] dark:via-[hsl(220,18%,10%)] dark:to-[hsl(220,20%,6%)] dark:text-[hsl(210,20%,85%)]">
+    <footer className="border-t border-border relative overflow-hidden" id="contact">
+      {/* ลายกนกไทย — มุมล่างขวา กลืนไปกับพื้นหลัง */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-0 right-0 w-[200px] h-[200px] opacity-[0.06] dark:opacity-[0.09] select-none z-0"
+        style={{
+          backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><g fill='none' stroke='%23C9A24C' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'><path d='M100 25 C 68 55, 68 95, 100 118 C 132 95, 132 55, 100 25 Z'/><path d='M100 42 C 82 62, 82 88, 100 105 C 118 88, 118 62, 100 42 Z'/><path d='M100 58 C 90 70, 90 90, 100 100 C 110 90, 110 70, 100 58 Z'/><circle cx='100' cy='78' r='2.5'/><path d='M55 115 C 68 138, 88 148, 100 138'/><path d='M145 115 C 132 138, 112 148, 100 138'/><path d='M68 138 C 74 153, 90 160, 100 152'/><path d='M132 138 C 126 153, 110 160, 100 152'/><path d='M100 152 C 95 168, 95 182, 100 190 C 105 182, 105 168, 100 152 Z'/><path d='M35 175 C 52 165, 70 170, 76 180'/><path d='M165 175 C 148 165, 130 170, 124 180'/></g></svg>")`,
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'bottom right',
+          backgroundSize: 'contain',
+        }}
+      />
+      <div className="bg-gradient-to-b from-white via-gray-100 to-gray-300 text-gray-700 dark:from-[hsl(220,15%,16%)] dark:via-[hsl(220,18%,10%)] dark:to-[hsl(220,20%,6%)] dark:text-[hsl(210,20%,85%)] relative">
         <div className="container max-w-7xl mx-auto px-6 py-12">
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-7 gap-8">
             <div className="md:col-span-1 lg:col-span-2">
