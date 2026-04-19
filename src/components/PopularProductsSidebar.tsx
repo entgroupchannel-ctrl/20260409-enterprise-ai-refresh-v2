@@ -56,11 +56,19 @@ export default function PopularProductsSidebar() {
         ))}
         <button
           type="button"
-          onClick={() => navigate("/shop")}
+          onClick={() => navigate("/request-quote")}
           className="mt-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-primary text-primary-foreground text-xs font-semibold border border-primary/40 hover:opacity-90 transition-all whitespace-nowrap shadow-sm"
         >
           <FileText className="w-3.5 h-3.5" />
           ขอใบเสนอราคา (RFQ)
+        </button>
+        <button
+          type="button"
+          onClick={() => navigate("/shop")}
+          className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-white/10 text-white text-xs font-semibold border border-white/20 hover:bg-white/20 transition-all whitespace-nowrap"
+        >
+          <ShoppingBag className="w-3.5 h-3.5" />
+          เข้าสู่ร้านค้า (Shop)
         </button>
       </div>
     </div>
