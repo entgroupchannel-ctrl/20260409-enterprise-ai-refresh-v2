@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import StrategicVisionTabs from "@/components/investors/StrategicVisionTabs";
 
 /* ═══════ Schema ═══════ */
 const inquirySchema = z.object({
