@@ -27,6 +27,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useI18n } from "@/contexts/I18nContext";
+import affiliateHeroBg from "@/assets/affiliate-hero-bg.jpg";
 
 const TIERS = [
   {
