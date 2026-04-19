@@ -85,8 +85,7 @@ const TYPE_LABELS: Record<string, string> = {
 
 export default function AdminTrash() {
   const { toast } = useToast();
-  const { profile } = useAuth();
-  const isSuperAdmin = profile?.role === 'admin';
+  const { profile, isSuperAdmin } = useAuth() as any;
   const [searchParams, setSearchParams] = useSearchParams();
   const initialTab = (searchParams.get('tab') as TabKey) || 'quotes';
 
