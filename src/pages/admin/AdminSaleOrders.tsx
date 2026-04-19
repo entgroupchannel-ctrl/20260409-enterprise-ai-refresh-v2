@@ -11,6 +11,13 @@ import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -729,12 +736,28 @@ export default function AdminSaleOrders() {
           <div className="space-y-4">
             <div>
               <Label>ผู้ให้บริการขนส่ง *</Label>
-              <Input
-                value={shippingProvider}
-                onChange={(e) => setShippingProvider(e.target.value)}
-                placeholder="Kerry Express, Flash Express, ไปรษณีย์..."
-                className="mt-1"
-              />
+              <Select
+                value={SHIPPING_PROVIDERS.includes(shippingProvider) ? shippingProvider : (shippingProvider ? '__other__' : '')}
+                onValueChange={(v) => setShippingProvider(v === '__other__' ? '' : v)}
+              >
+                <SelectTrigger className="mt-1">
+                  <SelectValue placeholder="เลือกผู้ให้บริการขนส่ง..." />
+                </SelectTrigger>
+                <SelectContent>
+                  {SHIPPING_PROVIDERS.map((p) => (
+                    <SelectItem key={p} value={p}>{p}</SelectItem>
+                  ))}
+                  <SelectItem value="__other__">อื่นๆ (ระบุเอง)</SelectItem>
+                </SelectContent>
+              </Select>
+              {!SHIPPING_PROVIDERS.includes(shippingProvider) && (
+                <Input
+                  value={shippingProvider}
+                  onChange={(e) => setShippingProvider(e.target.value)}
+                  placeholder="ระบุชื่อผู้ให้บริการขนส่ง..."
+                  className="mt-2"
+                />
+              )}
             </div>
             <div>
               <Label>เลข Tracking *</Label>
