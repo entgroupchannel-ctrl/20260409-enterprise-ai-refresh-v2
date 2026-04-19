@@ -77,8 +77,6 @@ const PartnerLogos = ({
             </div>
           ))}
         </div>
-          ))}
-        </div>
 
         <p className="text-center text-[10px] text-muted-foreground mt-4">
           * เครื่องหมายการค้าทั้งหมดเป็นทรัพย์สินของเจ้าของแบรนด์ — แสดงเพื่ออ้างอิงอุตสาหกรรม
