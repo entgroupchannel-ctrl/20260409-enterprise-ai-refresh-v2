@@ -27,6 +27,7 @@ const FEATURES = [
     desc: "เรียกดูสินค้ากว่า 200+ รุ่น พร้อมตัวกรองสเปก เปรียบเทียบราคาและคุณสมบัติ ช่วยให้คุณเลือกรุ่นที่เหมาะกับงานได้รวดเร็ว",
     points: ["ตัวกรองตามหมวดหมู่ ซีรีส์ ช่วงราคา", "ดู Datasheet PDF ได้ทันทีบนเว็บ", "ระบบแนะนำสินค้า Product Advisor"],
     href: "/shop",
+    image: "/images/platform/product-catalog.png",
   },
   {
     icon: Heart,
@@ -34,6 +35,7 @@ const FEATURES = [
     desc: "กดหัวใจเพื่อเก็บสินค้าที่สนใจไว้ดูทีหลัง เปรียบเทียบ shortlist ก่อนตัดสินใจ",
     points: ["บันทึกได้ไม่จำกัดจำนวน", "ดูรายการโปรดจากทุกหน้า", "ส่งต่อให้ทีมจัดซื้อได้ทันที"],
     href: "/shop/compare",
+    image: "/images/platform/wishlist.png",
   },
   {
     icon: FileText,
@@ -46,6 +48,7 @@ const FEATURES = [
       "ยืนยันก่อนส่งด้วย Dialog ปลอดภัย",
     ],
     href: "/request-quote",
+    image: "/images/platform/quote-create.png",
   },
   {
     icon: ClipboardCheck,
@@ -53,6 +56,7 @@ const FEATURES = [
     desc: "ดูสถานะแบบ Real-time ตั้งแต่ร่าง → ส่ง → ทีมขายตรวจสอบ → อนุมัติ → สั่งซื้อ พร้อม Timeline แสดงทุกขั้นตอน",
     points: ["Milestone Timeline แสดง 5 ขั้นตอน", "เปิดดูรายละเอียดเอกสารที่ส่งแล้ว", "แจ้งเตือนเมื่อสถานะเปลี่ยน"],
     href: "/my/quotes",
+    image: "/images/platform/quote-track.png",
   },
   {
     icon: MessageSquare,
@@ -60,6 +64,7 @@ const FEATURES = [
     desc: "ช่องทางสื่อสารตรงในระบบ ถาม-ตอบเรื่องราคา สเปก เงื่อนไข โดยไม่ต้องออกจากหน้าเว็บ",
     points: ["พิมพ์ข้อความตอบกลับได้ทันที", "ทีมขายตอบภายใน 2 ชั่วโมง (วันทำการ)", "ประวัติสนทนาเก็บไว้ตลอด"],
     href: "/my/quotes",
+    image: "/images/platform/negotiation.png",
   },
   {
     icon: Upload,
@@ -67,6 +72,7 @@ const FEATURES = [
     desc: "เมื่อราคาตกลงกันแล้ว อัปโหลด PO ได้ทันทีในระบบ พร้อมยืนยันสั่งซื้อด้วยคลิกเดียว",
     points: ["อัปโหลดไฟล์ PO (PDF, รูปภาพ)", "กดยืนยันสั่งซื้อได้จากหน้ารายการ", "ระบบแจ้ง Admin อัตโนมัติ"],
     href: "/my/quotes",
+    image: "/images/platform/po-upload.png",
   },
   {
     icon: Bell,
@@ -74,6 +80,7 @@ const FEATURES = [
     desc: "รับการแจ้งเตือนทันทีเมื่อมีการเปลี่ยนแปลง ไม่ว่าจะเป็นใบเสนอราคาอนุมัติ สินค้าพร้อมส่ง หรือมีข้อความใหม่",
     points: ["แจ้งเตือนในระบบ (กระดิ่ง)", "อีเมลอัตโนมัติ", "สรุปรายวัน (กำลังพัฒนา)"],
     href: "/notifications",
+    image: "/images/platform/notifications-illust.png",
   },
   {
     icon: User,
@@ -81,6 +88,7 @@ const FEATURES = [
     desc: "ศูนย์รวมข้อมูลส่วนตัว ประวัติใบเสนอราคา คำสั่งซื้อ เอกสาร และรายการโปรด ในหน้าเดียว",
     points: ["แก้ไขโปรไฟล์ ชื่อบริษัท เลขประจำตัวผู้เสียภาษี", "ดูประวัติ Quote / Order ทั้งหมด", "ขอเอกสาร ใบรับประกัน ใบกำกับภาษี"],
     href: "/my",
+    image: "/images/platform/account-illust.png",
   },
 ];
 
@@ -179,30 +187,40 @@ export default function Platform() {
             <h2 className="text-3xl md:text-4xl font-bold mb-3">ฟีเจอร์ที่คุณใช้ได้ทันที</h2>
             <p className="text-muted-foreground">ลงทะเบียนแล้วเข้าใช้งานได้เลย ไม่มีค่าใช้จ่าย ไม่ต้องติดตั้งโปรแกรม</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {FEATURES.map(({ icon: Icon, title, desc, points, href }) => (
-              <div key={title} className="rounded-2xl border bg-card p-6 hover:shadow-md transition-all">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-11 h-11 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
-                    <Icon className="w-5 h-5" />
-                  </div>
-                  <h3 className="font-bold text-lg">{title}</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {FEATURES.map(({ icon: Icon, title, desc, points, href, image }) => (
+              <div key={title} className="group rounded-2xl border bg-card overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all flex flex-col">
+                <div className="relative aspect-[16/10] overflow-hidden bg-muted/40 border-b">
+                  <img
+                    src={image}
+                    alt={title}
+                    loading="lazy"
+                    className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                  />
                 </div>
-                <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{desc}</p>
-                <ul className="space-y-1.5 mb-4">
-                  {points.map((p) => (
-                    <li key={p} className="flex items-start gap-2 text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                      <span>{p}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  to={href}
-                  className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline"
-                >
-                  ลองใช้ฟีเจอร์นี้ <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
+                <div className="p-6 flex-1 flex flex-col">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-11 h-11 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <h3 className="font-bold text-lg leading-tight">{title}</h3>
+                  </div>
+                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{desc}</p>
+                  <ul className="space-y-1.5 mb-4">
+                    {points.map((p) => (
+                      <li key={p} className="flex items-start gap-2 text-sm">
+                        <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                        <span>{p}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link
+                    to={href}
+                    className="mt-auto inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline"
+                  >
+                    ลองใช้ฟีเจอร์นี้ <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
@@ -219,7 +237,7 @@ export default function Platform() {
             ผ่านระบบ Admin Dashboard ที่ออกแบบมาเพื่อบริการลูกค้า B2B โดยเฉพาะ
           </p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
           {ADMIN_FEATURES.map(({ icon: Icon, title, desc }) => (
             <div key={title} className="rounded-xl border bg-card p-5 hover:border-primary/40 hover:shadow-sm transition-all">
               <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-3">
@@ -229,6 +247,14 @@ export default function Platform() {
               <p className="text-xs text-muted-foreground leading-relaxed">{desc}</p>
             </div>
           ))}
+        </div>
+        <div className="rounded-2xl border overflow-hidden bg-card shadow-md">
+          <img
+            src="/images/platform/admin-dashboard.png"
+            alt="Admin Dashboard — ภาพรวมระบบหลังบ้าน"
+            loading="lazy"
+            className="w-full h-auto"
+          />
         </div>
       </section>
 
