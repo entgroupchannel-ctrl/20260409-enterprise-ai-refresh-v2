@@ -141,16 +141,46 @@ export default function AdminInvoiceDetail() {
 
   const handleSend = () => updateStatus('sent');
   const handleMarkPaid = () => setShowConfirmPayment(true);
-  const handleCancel = () => {
+  const handleCancel = async () => {
     if (!cancelReason.trim()) {
       toast({ title: 'กรุณาระบุเหตุผล', variant: 'destructive' });
       return;
     }
-    updateStatus('cancelled', {
+    const reason = cancelReason.trim();
+    await updateStatus('cancelled', {
       cancelled_at: new Date().toISOString(),
-      cancel_reason: cancelReason,
+      cancel_reason: reason,
     });
     setCancelReason('');
+
+    // Notify customer (in-app + email) — fire-and-forget
+    if (invoice?.customer_id) {
+      createNotification({
+        userId: invoice.customer_id,
+        type: 'invoice_cancelled',
+        title: `ใบวางบิล ${invoice.invoice_number} ถูกยกเลิก`,
+        message: `เหตุผล: ${reason}`,
+        priority: 'high',
+        actionUrl: `/my-invoices/${invoice.id}`,
+        actionLabel: 'ดูรายละเอียด',
+        linkType: 'invoice',
+        linkId: invoice.id,
+      });
+    }
+    if (invoice?.customer_email) {
+      const origin = typeof window !== 'undefined' ? window.location.origin : '';
+      sendQuoteStatusEmail({
+        recipientEmail: invoice.customer_email,
+        customerName: invoice.customer_name || invoice.customer_company || undefined,
+        invoiceNumber: invoice.invoice_number,
+        status: 'cancelled',
+        amount: invoice.grand_total ? String(invoice.grand_total) : undefined,
+        viewUrl: origin ? `${origin}/my-invoices/${invoice.id}` : undefined,
+        note: `ใบวางบิลถูกยกเลิกโดยผู้ดูแลระบบ — เหตุผล: ${reason}`,
+        relatedType: 'invoice',
+        relatedId: invoice.id,
+      });
+    }
   };
 
   const handlePrint = () => {
