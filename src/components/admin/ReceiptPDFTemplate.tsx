@@ -145,34 +145,44 @@ export default function ReceiptPDFTemplate({
   };
 
   return (
-    <div id="receipt-pdf-template" className="bg-white text-black p-8 font-sans" style={{ width: '210mm', minHeight: '297mm', fontFamily: "'IBM Plex Sans Thai', Arial, sans-serif" }}>
+    <div
+      id="receipt-pdf-template"
+      className="bg-white text-black font-sans"
+      style={{
+        width: '210mm',
+        minHeight: '297mm',
+        padding: '12mm 14mm',
+        boxSizing: 'border-box',
+        fontFamily: "'IBM Plex Sans Thai', Arial, sans-serif",
+      }}
+    >
       {/* Header — GREEN for Receipt */}
-      <div className="flex justify-between items-start mb-8 pb-4 border-b-2 border-green-600">
-        <div className="flex items-start gap-4 flex-1">
+      <div className="flex justify-between items-start mb-4 pb-3 border-b-2 border-green-600">
+        <div className="flex items-start gap-3 flex-1">
           {companyInfo.logo_url && (
-            <img src={companyInfo.logo_url} alt="Logo" className="w-20 h-20 object-contain" />
+            <img src={companyInfo.logo_url} alt="Logo" className="w-16 h-16 object-contain" />
           )}
           <div className="flex-1">
-            <h1 className="text-2xl font-bold text-green-700 mb-1">{companyInfo.name_th}</h1>
-            {companyInfo.name_en && <p className="text-sm text-gray-600 italic">{companyInfo.name_en}</p>}
-            {companyInfo.address_th && <p className="text-xs text-gray-700 mt-1">{companyInfo.address_th}</p>}
-            <div className="text-xs text-gray-700 mt-1 flex flex-wrap gap-x-3">
+            <h1 className="text-xl font-bold text-green-700 mb-0.5">{companyInfo.name_th}</h1>
+            {companyInfo.name_en && <p className="text-xs text-gray-600 italic">{companyInfo.name_en}</p>}
+            {companyInfo.address_th && <p className="text-xs text-gray-700 mt-0.5 leading-snug">{companyInfo.address_th}</p>}
+            <div className="text-xs text-gray-700 mt-0.5 flex flex-wrap gap-x-3">
               {companyInfo.phone && <span>โทร: {companyInfo.phone}</span>}
               {companyInfo.fax && <span>แฟกซ์: {companyInfo.fax}</span>}
               {companyInfo.email && <span>Email: {companyInfo.email}</span>}
             </div>
             {companyInfo.tax_id && (
-              <p className="text-xs text-gray-700 mt-1">
+              <p className="text-xs text-gray-700 mt-0.5">
                 เลขประจำตัวผู้เสียภาษี: <span className="font-semibold">{companyInfo.tax_id}</span>
                 {companyBranchDisplay()}
               </p>
             )}
           </div>
         </div>
-        <div className="shrink-0 ml-4 flex flex-col items-end">
-          <h2 className="text-3xl font-bold text-green-700">ใบเสร็จรับเงิน</h2>
-          <p className="text-sm text-gray-600">Receipt</p>
-          <div className={`mt-2 inline-flex items-center justify-center px-4 py-1 rounded text-xs font-semibold leading-none ${
+        <div className="shrink-0 ml-3 flex flex-col items-end">
+          <h2 className="text-2xl font-bold text-green-700 leading-tight">ใบเสร็จรับเงิน</h2>
+          <p className="text-xs text-gray-600">Receipt</p>
+          <div className={`mt-1 inline-flex items-center justify-center px-3 py-0.5 rounded text-xs font-semibold leading-none ${
             copyType === 'original'
               ? 'bg-green-100 text-green-800 border border-green-300'
               : 'bg-gray-100 text-gray-700 border border-gray-300'
@@ -185,7 +195,7 @@ export default function ReceiptPDFTemplate({
       </div>
 
       {/* Customer + Meta */}
-      <div className="grid grid-cols-2 gap-6 mb-6">
+      <div className="grid grid-cols-2 gap-6 mb-4">
         <div>
           <h3 className="text-sm font-semibold text-gray-700 mb-2 pb-1 border-b">ผู้จ่ายเงิน</h3>
           <p className="font-bold text-base">{receipt.customer_name}</p>
@@ -234,41 +244,41 @@ export default function ReceiptPDFTemplate({
 
       {/* Items Table */}
       {items.length > 0 ? (
-        <table className="w-full mb-6 border-collapse">
+        <table className="w-full mb-4 border-collapse">
           <thead>
             <tr className="bg-green-600 text-white">
-              <th className="text-left p-2 text-sm">ลำดับ</th>
-              <th className="text-left p-2 text-sm">รายการ</th>
-              <th className="text-center p-2 text-sm w-16">จำนวน</th>
-              <th className="text-right p-2 text-sm w-24">ราคา/หน่วย</th>
-              <th className="text-right p-2 text-sm w-24">ส่วนลด</th>
-              <th className="text-right p-2 text-sm w-28">รวม</th>
+              <th className="text-left p-1.5 text-xs">ลำดับ</th>
+              <th className="text-left p-1.5 text-xs">รายการ</th>
+              <th className="text-center p-1.5 text-xs w-16">จำนวน</th>
+              <th className="text-right p-1.5 text-xs w-24">ราคา/หน่วย</th>
+              <th className="text-right p-1.5 text-xs w-24">ส่วนลด</th>
+              <th className="text-right p-1.5 text-xs w-28">รวม</th>
             </tr>
           </thead>
           <tbody>
             {items.map((item, idx) => (
               <tr key={item.id} className="border-b border-gray-200">
-                <td className="p-2 text-sm align-top">{idx + 1}</td>
-                <td className="p-2 text-sm align-top">
+                <td className="p-1.5 text-xs align-top">{idx + 1}</td>
+                <td className="p-1.5 text-xs align-top">
                   <p className="font-semibold">{item.product_name}</p>
-                  {item.sku && <p className="text-xs text-gray-500">SKU: {item.sku}</p>}
+                  {item.sku && <p className="text-[10px] text-gray-500">SKU: {item.sku}</p>}
                   {item.product_description && (
-                    <p className="text-xs text-gray-600 whitespace-pre-line mt-0.5">{item.product_description}</p>
+                    <p className="text-[10px] text-gray-600 whitespace-pre-line mt-0.5 leading-snug">{item.product_description}</p>
                   )}
                 </td>
-                <td className="p-2 text-sm text-center align-top">{item.quantity} {item.unit || ''}</td>
-                <td className="p-2 text-sm text-right align-top">{formatCurrency(item.unit_price)}</td>
-                <td className="p-2 text-sm text-right align-top">
+                <td className="p-1.5 text-xs text-center align-top">{item.quantity} {item.unit || ''}</td>
+                <td className="p-1.5 text-xs text-right align-top">{formatCurrency(item.unit_price)}</td>
+                <td className="p-1.5 text-xs text-right align-top">
                   {(item.discount_amount && item.discount_amount > 0) ? formatCurrency(item.discount_amount) : '-'}
                 </td>
-                <td className="p-2 text-sm text-right align-top font-semibold">{formatCurrency(item.line_total)}</td>
+                <td className="p-1.5 text-xs text-right align-top font-semibold">{formatCurrency(item.line_total)}</td>
               </tr>
             ))}
           </tbody>
         </table>
       ) : (
-        <div className="mb-6 p-4 border rounded bg-gray-50">
-          <p className="text-sm text-gray-700">
+        <div className="mb-4 p-3 border rounded bg-gray-50">
+          <p className="text-xs text-gray-700">
             ค่าสินค้า/บริการ
             {taxInvoiceNumber && ` ตามใบกำกับภาษีเลขที่ ${taxInvoiceNumber}`}
             {!taxInvoiceNumber && invoiceNumber && ` ตามใบวางบิลเลขที่ ${invoiceNumber}`}
@@ -277,72 +287,70 @@ export default function ReceiptPDFTemplate({
       )}
 
       {/* Totals */}
-      <div className="flex justify-end mb-6">
-        <table className="text-sm">
+      <div className="flex justify-end mb-3">
+        <table className="text-xs">
           <tbody>
             <tr>
-              <td className="py-1 pr-8 text-gray-700">ยอดรวม:</td>
-              <td className="py-1 text-right font-semibold w-32">{formatCurrency(subtotal)} บาท</td>
+              <td className="py-0.5 pr-8 text-gray-700">ยอดรวม:</td>
+              <td className="py-0.5 text-right font-semibold w-32">{formatCurrency(subtotal)} บาท</td>
             </tr>
             {discount_amount > 0 && (
               <tr>
-                <td className="py-1 pr-8 text-green-700">ส่วนลด {discount_percent ? `${discount_percent}%` : ''}:</td>
-                <td className="py-1 text-right text-green-700">-{formatCurrency(discount_amount)} บาท</td>
+                <td className="py-0.5 pr-8 text-green-700">ส่วนลด {discount_percent ? `${discount_percent}%` : ''}:</td>
+                <td className="py-0.5 text-right text-green-700">-{formatCurrency(discount_amount)} บาท</td>
               </tr>
             )}
             {vat_amount > 0 && (
               <tr>
-                <td className="py-1 pr-8 text-gray-700">VAT {vat_percent}%:</td>
-                <td className="py-1 text-right">{formatCurrency(vat_amount)} บาท</td>
+                <td className="py-0.5 pr-8 text-gray-700">VAT {vat_percent}%:</td>
+                <td className="py-0.5 text-right">{formatCurrency(vat_amount)} บาท</td>
               </tr>
             )}
             {withholding_tax_amount > 0 && (
               <tr>
-                <td className="py-1 pr-8 text-orange-700">หัก ณ ที่จ่าย {withholding_tax_percent}%:</td>
-                <td className="py-1 text-right text-orange-700">-{formatCurrency(withholding_tax_amount)} บาท</td>
+                <td className="py-0.5 pr-8 text-orange-700">หัก ณ ที่จ่าย {withholding_tax_percent}%:</td>
+                <td className="py-0.5 text-right text-orange-700">-{formatCurrency(withholding_tax_amount)} บาท</td>
               </tr>
             )}
             <tr className="border-t-2 border-gray-800">
-              <td className="py-2 pr-8 font-bold text-base">จำนวนเงินที่รับ:</td>
-              <td className="py-2 text-right font-bold text-base text-green-700">{formatCurrency(receipt.amount)} บาท</td>
+              <td className="py-1.5 pr-8 font-bold text-sm">จำนวนเงินที่รับ:</td>
+              <td className="py-1.5 text-right font-bold text-sm text-green-700">{formatCurrency(receipt.amount)} บาท</td>
             </tr>
           </tbody>
         </table>
       </div>
 
       {/* Thai amount text */}
-      <div className="mb-6 text-center italic text-sm text-gray-700">
+      <div className="mb-4 text-center italic text-xs text-gray-700">
         ({numberToThaiText(receipt.amount)})
       </div>
 
       {/* Notes */}
       {receipt.notes && (
-        <div className="space-y-4 text-sm border-t pt-4 mb-4">
-          <div>
-            <h4 className="font-semibold text-gray-800 mb-1">หมายเหตุ:</h4>
-            <p className="text-gray-600 whitespace-pre-line">{receipt.notes}</p>
-          </div>
+        <div className="text-xs border-t pt-3 mb-3">
+          <h4 className="font-semibold text-gray-800 mb-1">หมายเหตุ:</h4>
+          <p className="text-gray-600 whitespace-pre-line">{receipt.notes}</p>
         </div>
       )}
 
       {/* Signature */}
-      <div className="grid grid-cols-2 gap-8 mt-12">
+      <div className="grid grid-cols-2 gap-8 mt-8">
         <div className="text-center">
           <div className="border-t border-gray-400 pt-2">
-            <p className="text-sm font-semibold">ผู้จ่ายเงิน</p>
-            <p className="text-xs text-gray-600 mt-1">วันที่: ______________</p>
+            <p className="text-xs font-semibold">ผู้จ่ายเงิน</p>
+            <p className="text-[10px] text-gray-600 mt-0.5">วันที่: ______________</p>
           </div>
         </div>
         <div className="text-center">
           <div className="border-t border-gray-400 pt-2">
-            <p className="text-sm font-semibold">ผู้รับเงิน</p>
-            <p className="text-xs text-gray-600 mt-1">วันที่: ______________</p>
+            <p className="text-xs font-semibold">ผู้รับเงิน</p>
+            <p className="text-[10px] text-gray-600 mt-0.5">วันที่: ______________</p>
           </div>
         </div>
       </div>
 
       {/* Footer — มาตรา 105 */}
-      <div className="mt-8 pt-4 border-t text-center text-xs text-gray-500">
+      <div className="mt-6 pt-3 border-t text-center text-[10px] text-gray-500">
         เอกสารนี้ออกโดยระบบอัตโนมัติ — มาตรา 105 แห่งประมวลรัษฎากร
       </div>
     </div>
