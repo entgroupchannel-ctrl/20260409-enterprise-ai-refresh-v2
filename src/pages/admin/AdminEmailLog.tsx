@@ -57,7 +57,7 @@ export default function AdminEmailLog() {
 
     const { data, error } = await supabase
       .from('email_send_log')
-      .select('id, message_id, template_name, recipient_email, subject, status, error_message, created_at, related_id, related_type')
+      .select('id, template_name, recipient_email, subject, status, error_message, created_at, related_id, related_type')
       .gte('created_at', since)
       .order('created_at', { ascending: false })
       .limit(1000);
@@ -75,18 +75,8 @@ export default function AdminEmailLog() {
     loadLogs();
   }, [range]);
 
-  // Deduplicate by message_id (latest row wins; rows are already ordered desc)
-  const deduped = useMemo(() => {
-    const seen = new Set<string>();
-    const result: EmailLogRow[] = [];
-    for (const r of rows) {
-      const key = r.message_id || r.id;
-      if (seen.has(key)) continue;
-      seen.add(key);
-      result.push(r);
-    }
-    return result;
-  }, [rows]);
+  // Each row is one send event (no message_id in this schema — id is unique per send)
+  const deduped = useMemo(() => rows, [rows]);
 
   const templateOptions = useMemo(() => {
     const set = new Set<string>();
