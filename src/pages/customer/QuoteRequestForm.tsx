@@ -413,18 +413,7 @@ export default function QuoteRequestForm() {
   const isLoggedIn = !!user;
 
   return (
-    <div className="min-h-screen bg-background flex flex-col relative overflow-hidden">
-      {/* Thai pattern decoration - bottom right */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none fixed bottom-0 right-0 w-[420px] h-[420px] opacity-[0.07] dark:opacity-[0.10] z-0 select-none"
-        style={{
-          backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><g fill='none' stroke='%23C9A24C' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'><path d='M100 30 C 70 60, 70 90, 100 110 C 130 90, 130 60, 100 30 Z'/><path d='M100 45 C 85 65, 85 85, 100 100 C 115 85, 115 65, 100 45 Z'/><path d='M100 60 C 92 72, 92 88, 100 95 C 108 88, 108 72, 100 60 Z'/><path d='M60 110 C 70 130, 90 140, 100 130'/><path d='M140 110 C 130 130, 110 140, 100 130'/><path d='M70 130 C 75 145, 90 152, 100 145'/><path d='M130 130 C 125 145, 110 152, 100 145'/><circle cx='100' cy='75' r='3'/><path d='M100 145 C 95 160, 95 175, 100 185 C 105 175, 105 160, 100 145 Z'/><path d='M40 170 C 55 160, 70 165, 75 175'/><path d='M160 170 C 145 160, 130 165, 125 175'/></g></svg>")`,
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'bottom right',
-          backgroundSize: 'contain',
-        }}
-      />
+    <div className="min-h-screen bg-background flex flex-col">
       <SiteNavbar />
       {/* Sub header */}
       <div className="bg-card border-b border-border sticky top-14 z-10">
