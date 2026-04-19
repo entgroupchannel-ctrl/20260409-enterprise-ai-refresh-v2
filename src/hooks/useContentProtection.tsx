@@ -35,12 +35,26 @@ const warn = (_msg: string) => {
   // Silent: no user-facing notification
 };
 
+// Internal/backoffice routes — fully open for staff & customer portal
+const INTERNAL_ROUTE_RE = /^\/(admin|dashboard|profile|notifications|cart|my-account|my-quotes|my-orders|my-invoices|my-tax-invoices|my-receipts|my-documents|my-repairs|my|debug-test|affiliate-dashboard|partner-portal)(\/|$|\?)/i;
+
+const isInternalRoute = () => {
+  try {
+    return INTERNAL_ROUTE_RE.test(window.location.pathname);
+  } catch {
+    return false;
+  }
+};
+
 export function useContentProtection(enabled = true) {
   useEffect(() => {
     if (!enabled) return;
     if (typeof window === "undefined") return;
     if (isBot()) return; // SEO friendly
-    if (isAdminLogged()) return; // staff bypass
+    if (isAdminLogged()) return; // staff bypass (any page)
+
+    // Re-check route on every event (SPA navigation doesn't re-run effect)
+    const isProtectedNow = () => !isInternalRoute();
 
     const onContextMenu = (e: MouseEvent) => {
       if (isAllowedTarget(e.target)) return;
