@@ -10,12 +10,12 @@ import { useEffect } from "react";
 const BOT_RE = /bot|crawler|spider|crawling|googlebot|bingbot|yandex|duckduck|baidu|facebookexternalhit|slurp|sogou/i;
 const isBot = () => typeof navigator !== "undefined" && BOT_RE.test(navigator.userAgent);
 
-const isAdminLogged = () => {
+// Any authenticated user (customer or staff) bypasses protection on every page
+const isLoggedIn = () => {
   try {
-    const keys = Object.keys(localStorage);
-    const hasAuth = keys.some((k) => k.includes("auth-token") || k.includes("supabase"));
-    const isStaff = localStorage.getItem("ent-is-staff") === "1";
-    return hasAuth && isStaff;
+    return Object.keys(localStorage).some(
+      (k) => k.includes("auth-token") || (k.startsWith("sb-") && k.includes("-auth-"))
+    );
   } catch {
     return false;
   }
@@ -44,7 +44,7 @@ export function useContentProtection(enabled = true) {
     if (!enabled) return;
     if (typeof window === "undefined") return;
     if (isBot()) return;
-    if (isAdminLogged()) return;
+    if (isLoggedIn()) return;
 
     const isProtectedNow = () => !isInternalRoute();
 
