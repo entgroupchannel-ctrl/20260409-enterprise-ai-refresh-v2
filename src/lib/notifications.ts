@@ -45,32 +45,25 @@ export async function notifyAdmins(
   params: Omit<CreateNotificationParams, "userId">
 ) {
   try {
-    const { data: roles, error: rolesError } = await (supabase as any)
-      .from("user_roles")
-      .select("user_id")
-      .in("role", ["admin", "super_admin"]);
+    // Use SECURITY DEFINER RPC so non-admin users (e.g. customers uploading
+    // payment slips) can enqueue admin notifications without needing direct
+    // INSERT permission on the notifications table.
+    const { data, error } = await (supabase as any).rpc("notify_admins", {
+      p_type: params.type,
+      p_title: params.title,
+      p_message: params.message,
+      p_priority: params.priority ?? "normal",
+      p_action_url: params.actionUrl ?? null,
+      p_action_label: params.actionLabel ?? null,
+      p_link_type: params.linkType ?? null,
+      p_link_id: params.linkId ?? null,
+    });
 
-    if (rolesError || !roles?.length) {
-      console.error("notifyAdmins: could not fetch admin roles", rolesError);
+    if (error) {
+      console.error("notifyAdmins RPC error:", error);
       return;
     }
-
-    const notifications = roles.map((r: any) => ({
-      user_id: r.user_id,
-      type: params.type,
-      title: params.title,
-      message: params.message,
-      priority: params.priority ?? "normal",
-      action_url: params.actionUrl ?? null,
-      action_label: params.actionLabel ?? null,
-      link_type: params.linkType ?? null,
-      link_id: params.linkId ?? null,
-    }));
-
-    const { error } = await (supabase as any)
-      .from("notifications")
-      .insert(notifications);
-    if (error) console.error("notifyAdmins insert error:", error);
+    console.log(`[notifyAdmins] enqueued ${data ?? 0} admin notifications (${params.type})`);
   } catch (e) {
     console.error("notifyAdmins exception:", e);
   }
