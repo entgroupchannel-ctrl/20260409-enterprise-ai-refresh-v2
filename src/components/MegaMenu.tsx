@@ -48,7 +48,7 @@ const menuCategories = [
         links: [
           { label: "GK Series — Panel PC", href: "/gk-series", hot: true },
           { label: "Panel PC GTG/GTY", href: "/panel-pc-gtg" },
-          { label: "EPC Series", href: "/epc-series" },
+          { label: "EPC Panel PC Series", href: "/epc-series" },
           { label: "Waterproof PC IP69K", href: "/waterproof-pc" },
           { label: "UTC Series", href: "/utc-series" },
         ],
