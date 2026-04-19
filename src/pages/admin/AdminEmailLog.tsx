@@ -325,9 +325,9 @@ export default function AdminEmailLog() {
               </TableHeader>
               <TableBody>
                 {loading ? (
-                  <TableRow><TableCell colSpan={6} className="text-center text-muted-foreground py-8">กำลังโหลด...</TableCell></TableRow>
+                  <TableRow><TableCell colSpan={7} className="text-center text-muted-foreground py-8">กำลังโหลด...</TableCell></TableRow>
                 ) : filtered.length === 0 ? (
-                  <TableRow><TableCell colSpan={6} className="text-center text-muted-foreground py-8">ไม่มีข้อมูลในช่วงเวลานี้</TableCell></TableRow>
+                  <TableRow><TableCell colSpan={7} className="text-center text-muted-foreground py-8">ไม่มีข้อมูลในช่วงเวลานี้</TableCell></TableRow>
                 ) : (
                   filtered.slice(0, 200).map((r) => (
                     <TableRow key={r.id}>
@@ -337,6 +337,13 @@ export default function AdminEmailLog() {
                       <TableCell className="text-xs font-mono">{r.template_name}</TableCell>
                       <TableCell className="text-sm">{r.recipient_email}</TableCell>
                       <TableCell className="text-sm max-w-xs truncate">{r.subject || '-'}</TableCell>
+                      <TableCell className="text-sm">
+                        {r.sales_name ? (
+                          <span className="font-medium">{r.sales_name}</span>
+                        ) : (
+                          <span className="text-muted-foreground text-xs">—</span>
+                        )}
+                      </TableCell>
                       <TableCell>{statusBadge(r.status)}</TableCell>
                       <TableCell className="text-xs text-destructive max-w-xs truncate" title={r.error_message || ''}>
                         {r.error_message || '-'}
