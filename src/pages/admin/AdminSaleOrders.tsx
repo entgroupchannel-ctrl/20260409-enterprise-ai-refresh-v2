@@ -26,6 +26,22 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { supabase } from '@/integrations/supabase/client';
+
+const SHIPPING_PROVIDERS = [
+  'Kerry Express',
+  'Flash Express',
+  'J&T Express',
+  'ไปรษณีย์ไทย (Thailand Post)',
+  'EMS',
+  'DHL',
+  'FedEx',
+  'SCG Express',
+  'Ninja Van',
+  'Best Express',
+  'Lalamove',
+  'Grab Express',
+  'รถบริษัท',
+];
 import { useToast } from '@/hooks/use-toast';
 import {
   CheckCircle2,
