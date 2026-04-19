@@ -109,9 +109,12 @@ export default function SiteNavbar() {
                       <Link to="/admin/quotes" className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors">
                         <FileText size={16} /> จัดการใบเสนอราคา
                       </Link>
+                      <Link to="/admin/affiliate" className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors">
+                        <Sparkles size={16} /> จัดการ Affiliate
+                      </Link>
                     </>
                   )}
-                  {profile?.role === 'member' && (
+                  {profile?.role !== 'admin' && profile?.role !== 'sales' && (
                     <>
                       <Link to="/profile" className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors rounded-t-lg">
                         <User size={16} /> โปรไฟล์ของฉัน
@@ -124,6 +127,9 @@ export default function SiteNavbar() {
                       </Link>
                       <Link to="/request-quote" className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors">
                         <Plus size={16} /> ขอใบเสนอราคาใหม่
+                      </Link>
+                      <Link to="/affiliate/dashboard" className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors">
+                        <Sparkles size={16} /> Affiliate Dashboard
                       </Link>
                       <Link to="/affiliate" className="flex items-center gap-2 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors">
                         <Sparkles size={16} /> สร้างรายได้ (Affiliate)
