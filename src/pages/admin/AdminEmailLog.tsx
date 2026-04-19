@@ -50,6 +50,7 @@ export default function AdminEmailLog() {
   const [range, setRange] = useState('7d');
   const [templateFilter, setTemplateFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [salesFilter, setSalesFilter] = useState<string>('all');
   const [search, setSearch] = useState('');
 
   const loadLogs = async () => {
@@ -67,9 +68,81 @@ export default function AdminEmailLog() {
     if (error) {
       console.error('[AdminEmailLog] load error:', error);
       setRows([]);
-    } else {
-      setRows((data || []) as EmailLogRow[]);
+      setLoading(false);
+      return;
     }
+
+    const baseRows = (data || []) as EmailLogRow[];
+
+    // Group related_ids by type for batched lookups
+    const quoteIds = new Set<string>();
+    const invoiceIds = new Set<string>();
+    const saleOrderIds = new Set<string>();
+    for (const r of baseRows) {
+      if (!r.related_id) continue;
+      if (r.related_type === 'quote') quoteIds.add(r.related_id);
+      else if (r.related_type === 'invoice') invoiceIds.add(r.related_id);
+      else if (r.related_type === 'sale_order') saleOrderIds.add(r.related_id);
+    }
+
+    const [quotesRes, invoicesRes, saleOrdersRes] = await Promise.all([
+      quoteIds.size
+        ? supabase.from('quote_requests').select('id, assigned_to, created_by').in('id', Array.from(quoteIds))
+        : Promise.resolve({ data: [] as any[] }),
+      invoiceIds.size
+        ? supabase.from('invoices').select('id, created_by, quote_id').in('id', Array.from(invoiceIds))
+        : Promise.resolve({ data: [] as any[] }),
+      saleOrderIds.size
+        ? (supabase as any).from('sale_orders').select('id, created_by').in('id', Array.from(saleOrderIds))
+        : Promise.resolve({ data: [] as any[] }),
+    ]);
+
+    const ownerByQuote = new Map<string, string | null>();
+    (quotesRes.data || []).forEach((q: any) => ownerByQuote.set(q.id, q.assigned_to || q.created_by || null));
+    const ownerByInvoice = new Map<string, string | null>();
+    const invoiceQuoteIds = new Set<string>();
+    (invoicesRes.data || []).forEach((i: any) => {
+      ownerByInvoice.set(i.id, i.created_by || null);
+      if (i.quote_id) invoiceQuoteIds.add(i.quote_id);
+    });
+    // For invoices missing owner, fall back to their parent quote's assigned_to
+    if (invoiceQuoteIds.size) {
+      const { data: qExtra } = await supabase
+        .from('quote_requests').select('id, assigned_to').in('id', Array.from(invoiceQuoteIds));
+      (qExtra || []).forEach((q: any) => {
+        if (q.assigned_to && !ownerByQuote.has(q.id)) ownerByQuote.set(q.id, q.assigned_to);
+      });
+      (invoicesRes.data || []).forEach((i: any) => {
+        if (!ownerByInvoice.get(i.id) && i.quote_id) {
+          const fallback = ownerByQuote.get(i.quote_id);
+          if (fallback) ownerByInvoice.set(i.id, fallback);
+        }
+      });
+    }
+    const ownerBySaleOrder = new Map<string, string | null>();
+    (saleOrdersRes.data || []).forEach((s: any) => ownerBySaleOrder.set(s.id, s.created_by || null));
+
+    // Collect all sales user ids and fetch their names
+    const allSalesIds = new Set<string>();
+    const enriched = baseRows.map((r) => {
+      let sid: string | null = null;
+      if (r.related_id) {
+        if (r.related_type === 'quote') sid = ownerByQuote.get(r.related_id) || null;
+        else if (r.related_type === 'invoice') sid = ownerByInvoice.get(r.related_id) || null;
+        else if (r.related_type === 'sale_order') sid = ownerBySaleOrder.get(r.related_id) || null;
+      }
+      if (sid) allSalesIds.add(sid);
+      return { ...r, sales_id: sid } as EmailLogRow;
+    });
+
+    const nameById = new Map<string, string>();
+    if (allSalesIds.size) {
+      const { data: usersData } = await supabase
+        .from('users').select('id, full_name').in('id', Array.from(allSalesIds));
+      (usersData || []).forEach((u: any) => nameById.set(u.id, u.full_name || ''));
+    }
+
+    setRows(enriched.map((r) => ({ ...r, sales_name: r.sales_id ? nameById.get(r.sales_id) || null : null })));
     setLoading(false);
   };
 
