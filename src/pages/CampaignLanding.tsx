@@ -16,7 +16,7 @@ import { getRelatedCatalogProducts, type CatalogProduct } from "@/lib/product-ca
 import {
   Loader2, ShoppingCart, Share2, Copy, Check, MessageCircle,
   Facebook, Sparkles, Package, Tag, Award, Clock, AlertCircle,
-  Store, ArrowRight, Flame,
+  Store, ArrowRight, Flame, TrendingUp, Wallet, Users, Zap, Crown, Gift,
 } from "lucide-react";
 
 interface Campaign {
@@ -484,6 +484,111 @@ export default function CampaignLanding() {
             )}
           </CardContent>
         </Card>
+
+        {/* Creator Earnings — recruit new affiliates */}
+        <section className="mt-10 mb-4">
+          <div className="relative overflow-hidden rounded-2xl border-2 border-primary/40 bg-gradient-to-br from-primary/10 via-amber-500/10 to-primary/5 p-6 md:p-8">
+            <div className="pointer-events-none absolute -top-16 -right-16 w-64 h-64 rounded-full bg-primary/20 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-20 -left-10 w-72 h-72 rounded-full bg-amber-500/20 blur-3xl" />
+
+            <div className="relative">
+              <div className="flex items-center gap-2 mb-3 flex-wrap">
+                <Badge className="gap-1"><Crown className="w-3 h-3" /> Creator Program</Badge>
+                <Badge variant="outline" className="border-amber-500/50 text-amber-600 dark:text-amber-400 gap-1">
+                  <Zap className="w-3 h-3" /> สมัครฟรี ไม่มีค่าใช้จ่าย
+                </Badge>
+              </div>
+
+              <h2 className="text-2xl md:text-3xl font-bold mb-2">
+                แชร์แล้วมีรายได้ — สูงสุด <span className="text-primary">10%</span> ต่อดีล
+              </h2>
+              <p className="text-sm md:text-base text-muted-foreground mb-6 max-w-2xl">
+                เป็น Creator / Affiliate ของ ENT Group — แชร์แคมเปญหรือสินค้าที่คุณชอบ เมื่อมีลูกค้าซื้อผ่านลิงก์ของคุณ รับค่าคอมมิชชันทันที โอนเข้าบัญชีทุกเดือน
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+                <div className="rounded-xl border bg-card/80 backdrop-blur p-4">
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center">
+                      <Award className="w-4 h-4 text-muted-foreground" />
+                    </div>
+                    <span className="text-sm font-semibold">Starter</span>
+                  </div>
+                  <p className="text-2xl font-bold text-foreground">3%</p>
+                  <p className="text-xs text-muted-foreground mt-1">ยอดขาย &lt; ฿100K / เดือน</p>
+                </div>
+                <div className="rounded-xl border-2 border-primary bg-card p-4 relative shadow-md">
+                  <Badge className="absolute -top-2 left-4 text-[10px] px-2">ยอดนิยม</Badge>
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className="w-8 h-8 rounded-lg bg-primary/15 flex items-center justify-center">
+                      <TrendingUp className="w-4 h-4 text-primary" />
+                    </div>
+                    <span className="text-sm font-semibold">Pro</span>
+                  </div>
+                  <p className="text-2xl font-bold text-primary">5–7%</p>
+                  <p className="text-xs text-muted-foreground mt-1">ยอด ฿100K – ฿500K / เดือน</p>
+                </div>
+                <div className="rounded-xl border bg-gradient-to-br from-amber-500/10 to-primary/10 backdrop-blur p-4">
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center">
+                      <Crown className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                    </div>
+                    <span className="text-sm font-semibold">Elite</span>
+                  </div>
+                  <p className="text-2xl font-bold text-amber-600 dark:text-amber-400">สูงสุด 10%</p>
+                  <p className="text-xs text-muted-foreground mt-1">ยอด &gt; ฿500K / เดือน + โบนัส</p>
+                </div>
+              </div>
+
+              <div className="rounded-xl border bg-background/60 backdrop-blur p-4 mb-6">
+                <p className="text-xs uppercase tracking-wider font-semibold text-muted-foreground mb-2">
+                  ตัวอย่างรายได้
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+                  <div className="flex items-center gap-2">
+                    <Wallet className="w-4 h-4 text-primary shrink-0" />
+                    <span>แชร์แคมเปญนี้ ฿{Number(campaign.estimated_total || 50000).toLocaleString("th-TH")} → รับ <strong className="text-primary">฿{Math.round((campaign.estimated_total || 50000) * 0.05).toLocaleString("th-TH")}</strong></span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Users className="w-4 h-4 text-primary shrink-0" />
+                    <span>ปิดได้ 3 ดีล/เดือน → ประมาณ <strong className="text-primary">฿{Math.round((campaign.estimated_total || 50000) * 0.05 * 3).toLocaleString("th-TH")}</strong></span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Gift className="w-4 h-4 text-primary shrink-0" />
+                    <span>โบนัสพิเศษเมื่อทะลุเป้า + ของรางวัลทุกไตรมาส</span>
+                  </div>
+                </div>
+              </div>
+
+              <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm mb-6">
+                {[
+                  "Cookie ติดตาม 30 วัน — ลูกค้ากลับมาซื้อภายหลังก็ยังได้ค่าคอมฯ",
+                  "Dashboard ติดตามคลิก / ลีด / ยอดขาย แบบ Real-time",
+                  "โอนเงินอัตโนมัติทุกเดือน (ขั้นต่ำ ฿500)",
+                  "ทีม Sales ช่วยปิดดีลให้คุณ — แค่แชร์ก็พอ",
+                ].map((b) => (
+                  <li key={b} className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                    <span className="text-foreground/90">{b}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="flex flex-wrap gap-3">
+                <Button asChild size="lg" className="gap-2 shadow-lg">
+                  <Link to="/affiliate">
+                    <Crown className="w-4 h-4" /> สมัครเป็น Creator ฟรี
+                  </Link>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="gap-2">
+                  <Link to="/affiliate">
+                    ดูรายละเอียดโปรแกรม <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
 
       <FooterCompact />
