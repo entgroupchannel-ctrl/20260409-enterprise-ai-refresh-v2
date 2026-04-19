@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
 import { supabase } from '@/integrations/supabase/client';
+import { createNotification, sendQuoteStatusEmail } from '@/lib/notifications';
 import { useToast } from '@/hooks/use-toast';
 import {
   ArrowLeft, Receipt, Printer, Loader2, Building2, Calendar, Link as LinkIcon, CreditCard, Trash2, FileText, Share2,
@@ -106,6 +107,7 @@ export default function AdminReceiptDetail() {
   const handleDelete = async () => {
     if (!receipt) return;
     setDeleting(true);
+    const reason = deleteReason.trim() || 'ยกเลิกโดยผู้ดูแลระบบ';
     try {
       const { data, error } = await (supabase as any).rpc('soft_delete_receipt', {
         p_receipt_id: receipt.id,
@@ -113,9 +115,40 @@ export default function AdminReceiptDetail() {
       });
       if (error) throw error;
 
+      // Notify customer (in-app + email) — fire-and-forget
+      if (receipt.customer_id) {
+        createNotification({
+          userId: receipt.customer_id,
+          type: 'receipt_cancelled',
+          title: `ใบเสร็จ ${receipt.receipt_number} ถูกยกเลิก`,
+          message: `เหตุผล: ${reason}`,
+          priority: 'high',
+          actionUrl: `/my-account/receipts/${receipt.id}`,
+          actionLabel: 'ดูรายละเอียด',
+          linkType: 'receipt',
+          linkId: receipt.id,
+        });
+      }
+      if (receipt.customer_email) {
+        const origin = typeof window !== 'undefined' ? window.location.origin : '';
+        sendQuoteStatusEmail({
+          recipientEmail: receipt.customer_email,
+          customerName: receipt.customer_name || receipt.customer_company || undefined,
+          invoiceNumber: receipt.receipt_number,
+          status: 'cancelled',
+          amount: receipt.amount ? String(receipt.amount) : undefined,
+          viewUrl: origin ? `${origin}/my-account/receipts/${receipt.id}` : undefined,
+          note: `ใบเสร็จรับเงินถูกยกเลิกโดยผู้ดูแลระบบ — เหตุผล: ${reason}`,
+          relatedType: 'receipt',
+          relatedId: receipt.id,
+        });
+      }
+
       toast({
         title: '🗑️ ย้ายไปถังขยะแล้ว',
-        description: (data as any)?.message,
+        description: receipt.customer_email
+          ? 'แจ้งเตือนลูกค้าทางอีเมลและในระบบเรียบร้อย'
+          : (data as any)?.message,
       });
       navigate('/admin/receipts');
     } catch (e: any) {
@@ -373,10 +406,21 @@ export default function AdminReceiptDetail() {
               <Trash2 className="w-5 h-5" />
               ย้ายใบเสร็จไปถังขยะ?
             </AlertDialogTitle>
-            <AlertDialogDescription>
-              ใบเสร็จ <span className="font-mono font-semibold">{receipt?.receipt_number}</span>
-              {' '}จะถูกย้ายไปถังขยะ — สามารถกู้คืนได้ที่{' '}
-              <Link to="/admin/trash?tab=receipts" className="text-blue-600 underline">ถังขยะ</Link>
+            <AlertDialogDescription asChild>
+              <div className="space-y-2 text-sm">
+                <p>
+                  ใบเสร็จ <span className="font-mono font-semibold text-foreground">{receipt?.receipt_number}</span>
+                  {' '}จะถูกย้ายไปถังขยะ — สามารถกู้คืนได้ที่{' '}
+                  <Link to="/admin/trash?tab=receipts" className="text-blue-600 underline">ถังขยะ</Link>
+                </p>
+                {receipt?.customer_email ? (
+                  <p className="text-orange-700">
+                    📧 ระบบจะส่งอีเมลแจ้งลูกค้า ({receipt.customer_email}) และสร้างการแจ้งเตือนในระบบโดยอัตโนมัติ
+                  </p>
+                ) : (
+                  <p className="text-muted-foreground">ลูกค้าจะไม่ได้รับการแจ้งเตือน (ไม่มีอีเมลในระบบ)</p>
+                )}
+              </div>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <div className="space-y-2">
