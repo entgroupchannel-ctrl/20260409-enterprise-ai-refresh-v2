@@ -37,11 +37,14 @@ export default function MyReceiptDetail() {
     if (!id) return;
     setLoading(true);
     try {
+      // Fetch by id only — rely on RLS to enforce access (owner customer or staff).
+      // This allows admins/staff to open the same link from notification emails,
+      // and avoids false "not found" when customer_id on the receipt doesn't exactly
+      // match the logged-in user (e.g. receipt issued to a related company contact).
       const { data: rcp, error } = await (supabase as any)
         .from('receipts')
         .select('*')
         .eq('id', id)
-        .eq('customer_id', user?.id)
         .is('deleted_at', null)
         .maybeSingle();
 
