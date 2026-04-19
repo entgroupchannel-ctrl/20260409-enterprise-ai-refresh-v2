@@ -12,9 +12,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { setAffiliateCookie } from "@/lib/affiliate-attribution";
+import { getRelatedCatalogProducts, type CatalogProduct } from "@/lib/product-catalog";
 import {
   Loader2, ShoppingCart, Share2, Copy, Check, MessageCircle,
   Facebook, Sparkles, Package, Tag, Award, Clock, AlertCircle,
+  Store, ArrowRight, Flame,
 } from "lucide-react";
 
 interface Campaign {
@@ -51,6 +53,7 @@ export default function CampaignLanding() {
   const [loading, setLoading] = useState(true);
   const [campaign, setCampaign] = useState<Campaign | null>(null);
   const [items, setItems] = useState<CampaignItem[]>([]);
+  const [related, setRelated] = useState<CatalogProduct[]>([]);
   const [myCode, setMyCode] = useState<string | null>(null);
   const [enrolling, setEnrolling] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -108,6 +111,14 @@ export default function CampaignLanding() {
         .eq("campaign_id", c.id)
         .order("display_order", { ascending: true });
       setItems(rows || []);
+
+      // Load related products from shop catalog (based on first campaign item)
+      const firstModel = (rows || [])[0]?.product_model;
+      if (firstModel) {
+        setRelated(getRelatedCatalogProducts(firstModel, 8));
+      } else {
+        setRelated(getRelatedCatalogProducts("", 8));
+      }
 
       // Increment view counter (best-effort; non-blocking)
       try {
@@ -362,6 +373,76 @@ export default function CampaignLanding() {
           <Tag className="w-3 h-3 inline mr-1" />
           ราคานี้เป็นข้อเสนอเบื้องต้น — ราคาจริงจะยืนยันในใบเสนอราคา
         </p>
+
+        {/* You-may-also-like grid (Shop catalog) */}
+        {related.length > 0 && (
+          <section className="mt-10">
+            <div className="flex items-end justify-between mb-4 gap-3 flex-wrap">
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <Flame className="w-4 h-4 text-primary" />
+                  <span className="text-xs font-semibold uppercase tracking-wider text-primary">
+                    สินค้าแนะนำเพิ่มเติม
+                  </span>
+                </div>
+                <h2 className="text-xl md:text-2xl font-bold">เสริมโซลูชันของคุณให้ครบ</h2>
+                <p className="text-sm text-muted-foreground mt-1">
+                  เลือกเพิ่มจากแคตตาล็อกของเรา ราคาดี พร้อมส่งทั่วประเทศ
+                </p>
+              </div>
+              <Button variant="outline" size="sm" asChild className="gap-1.5">
+                <Link to="/shop">
+                  <Store className="w-3.5 h-3.5" /> ดูร้านค้าทั้งหมด <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </Button>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+              {related.map((p) => (
+                <Link
+                  key={p.model}
+                  to={`/shop/${encodeURIComponent(p.model)}`}
+                  className="group rounded-xl border bg-card overflow-hidden hover:shadow-lg hover:border-primary/40 transition-all"
+                >
+                  <div className="aspect-square bg-muted overflow-hidden relative">
+                    {p.image ? (
+                      <img
+                        src={p.image}
+                        alt={p.name}
+                        loading="lazy"
+                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                        <Package className="w-8 h-8" />
+                      </div>
+                    )}
+                    <Badge
+                      variant="secondary"
+                      className="absolute top-2 left-2 text-[10px] px-1.5 py-0.5 bg-background/90 backdrop-blur"
+                    >
+                      {p.category}
+                    </Badge>
+                  </div>
+                  <div className="p-3">
+                    <p className="text-xs text-muted-foreground font-mono truncate">{p.model}</p>
+                    <p className="text-sm font-medium line-clamp-2 mt-0.5 min-h-[2.5rem]">
+                      {p.name}
+                    </p>
+                    <div className="flex items-center justify-between mt-2">
+                      {p.price ? (
+                        <span className="text-sm font-bold text-primary">{p.price}</span>
+                      ) : (
+                        <span className="text-xs text-muted-foreground">ขอใบเสนอราคา</span>
+                      )}
+                      <ArrowRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition" />
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Compact share bar — bottom of page */}
         <Card className="mt-8 border-primary/30 bg-gradient-to-r from-primary/5 to-amber-500/5">
