@@ -90,7 +90,7 @@ export default function Register() {
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-muted/50 to-muted">
       <MiniNavbar />
       <div className="flex-1 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md shadow-xl">
+        <Card className="w-full max-w-3xl shadow-xl">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">สมัครสมาชิก</CardTitle>
           <CardDescription className="text-center">สร้างบัญชีเพื่อเข้าใช้งานระบบ</CardDescription>
@@ -108,38 +108,40 @@ export default function Register() {
                 </div>
               </div>
             )}
-            <div className="space-y-2">
-              <Label htmlFor="full_name">ชื่อ-นามสกุล <span className="text-destructive">*</span></Label>
-              <Input id="full_name" placeholder="สมชาย ใจดี" value={formData.full_name} onChange={(e) => updateField('full_name', e.target.value)} required disabled={loading} />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="email">อีเมล <span className="text-destructive">*</span></Label>
-              <Input id="email" type="email" placeholder="your@email.com" value={formData.email} onChange={(e) => updateField('email', e.target.value)} required disabled={loading} />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="phone">เบอร์โทร</Label>
-              <Input id="phone" type="tel" placeholder="081-234-5678" value={formData.phone} onChange={(e) => updateField('phone', e.target.value)} disabled={loading} />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="company">บริษัท</Label>
-              <Input id="company" placeholder="บริษัท ABC จำกัด" value={formData.company} onChange={(e) => updateField('company', e.target.value)} disabled={loading} />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">รหัสผ่าน <span className="text-destructive">*</span></Label>
-              <div className="relative">
-                <Input id="password" type={showPassword ? 'text' : 'password'} placeholder="อย่างน้อย 6 ตัวอักษร" value={formData.password} onChange={(e) => updateField('password', e.target.value)} required disabled={loading} minLength={6} className="pr-10" />
-                <button type="button" onClick={() => setShowPassword((s) => !s)} disabled={loading} aria-label={showPassword ? 'ซ่อนรหัสผ่าน' : 'แสดงรหัสผ่าน'} className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground transition-colors">
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="full_name">ชื่อ-นามสกุล <span className="text-destructive">*</span></Label>
+                <Input id="full_name" placeholder="สมชาย ใจดี" value={formData.full_name} onChange={(e) => updateField('full_name', e.target.value)} required disabled={loading} />
               </div>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="confirmPassword">ยืนยันรหัสผ่าน <span className="text-destructive">*</span></Label>
-              <div className="relative">
-                <Input id="confirmPassword" type={showConfirmPassword ? 'text' : 'password'} placeholder="พิมพ์รหัสผ่านอีกครั้ง" value={formData.confirmPassword} onChange={(e) => updateField('confirmPassword', e.target.value)} required disabled={loading} minLength={6} className="pr-10" />
-                <button type="button" onClick={() => setShowConfirmPassword((s) => !s)} disabled={loading} aria-label={showConfirmPassword ? 'ซ่อนรหัสผ่าน' : 'แสดงรหัสผ่าน'} className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground transition-colors">
-                  {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
+              <div className="space-y-2">
+                <Label htmlFor="email">อีเมล <span className="text-destructive">*</span></Label>
+                <Input id="email" type="email" placeholder="your@email.com" value={formData.email} onChange={(e) => updateField('email', e.target.value)} required disabled={loading} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="phone">เบอร์โทร</Label>
+                <Input id="phone" type="tel" placeholder="081-234-5678" value={formData.phone} onChange={(e) => updateField('phone', e.target.value)} disabled={loading} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="company">บริษัท</Label>
+                <Input id="company" placeholder="บริษัท ABC จำกัด" value={formData.company} onChange={(e) => updateField('company', e.target.value)} disabled={loading} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="password">รหัสผ่าน <span className="text-destructive">*</span></Label>
+                <div className="relative">
+                  <Input id="password" type={showPassword ? 'text' : 'password'} placeholder="อย่างน้อย 6 ตัวอักษร" value={formData.password} onChange={(e) => updateField('password', e.target.value)} required disabled={loading} minLength={6} className="pr-10" />
+                  <button type="button" onClick={() => setShowPassword((s) => !s)} disabled={loading} aria-label={showPassword ? 'ซ่อนรหัสผ่าน' : 'แสดงรหัสผ่าน'} className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground transition-colors">
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="confirmPassword">ยืนยันรหัสผ่าน <span className="text-destructive">*</span></Label>
+                <div className="relative">
+                  <Input id="confirmPassword" type={showConfirmPassword ? 'text' : 'password'} placeholder="พิมพ์รหัสผ่านอีกครั้ง" value={formData.confirmPassword} onChange={(e) => updateField('confirmPassword', e.target.value)} required disabled={loading} minLength={6} className="pr-10" />
+                  <button type="button" onClick={() => setShowConfirmPassword((s) => !s)} disabled={loading} aria-label={showConfirmPassword ? 'ซ่อนรหัสผ่าน' : 'แสดงรหัสผ่าน'} className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground transition-colors">
+                    {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                </div>
               </div>
             </div>
           </CardContent>
