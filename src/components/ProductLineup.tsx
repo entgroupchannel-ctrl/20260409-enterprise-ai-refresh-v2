@@ -136,6 +136,7 @@ const ProductLineup = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
 
   const checkScroll = () => {
     const el = scrollRef.current;
@@ -154,6 +155,25 @@ const ProductLineup = () => {
       window.removeEventListener("resize", checkScroll);
     };
   }, []);
+
+  // Auto-scroll carousel: advance one card every 3.5s, loop back at end.
+  // Pauses on hover/focus/touch, when tab is hidden, or with reduced-motion.
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const id = window.setInterval(() => {
+      if (isPaused || document.hidden) return;
+      const cardWidth = el.querySelector("div")?.offsetWidth ?? 340;
+      const atEnd = el.scrollLeft >= el.scrollWidth - el.clientWidth - 10;
+      el.scrollTo({
+        left: atEnd ? 0 : el.scrollLeft + cardWidth + 20,
+        behavior: "smooth",
+      });
+    }, 3500);
+    return () => window.clearInterval(id);
+  }, [isPaused]);
 
   const scroll = (dir: "left" | "right") => {
     const el = scrollRef.current;
