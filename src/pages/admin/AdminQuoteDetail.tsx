@@ -96,12 +96,19 @@ const calculateQuoteTotals = (
   vatPercent: number = 7
 ): QuoteTotals => {
   const subtotal = (products || []).reduce((sum: number, p: any) => {
-    const qty = Number(p.qty) || 0;
-    const unitPrice = Number(p.unit_price) || 0;
-    const itemDiscountPct = Number(p.discount_percent) || 0;
+    // Support both schemas: { qty, unit_price } (admin) and { quantity, unit_price } (cart/quote-dialog)
+    const qty = Number(p.qty ?? p.quantity) || 0;
+    const unitPrice = Number(p.unit_price ?? p.unitPrice) || 0;
+    const itemDiscountPct = Number(p.discount_percent ?? p.discountPercent) || 0;
+    const itemDiscountAmt = Number(p.discount_amount) || 0;
     const lineGross = qty * unitPrice;
-    const lineDiscount = lineGross * (itemDiscountPct / 100);
-    return sum + (lineGross - lineDiscount);
+    const lineDiscount = itemDiscountAmt > 0
+      ? itemDiscountAmt
+      : lineGross * (itemDiscountPct / 100);
+    const computed = lineGross - lineDiscount;
+    // Fallback to stored line_total when computed is 0 but line_total exists (legacy/cart items)
+    const lineTotal = computed > 0 ? computed : (Number(p.line_total) || 0);
+    return sum + lineTotal;
   }, 0);
 
   const discountAmount = discountType === 'baht'
