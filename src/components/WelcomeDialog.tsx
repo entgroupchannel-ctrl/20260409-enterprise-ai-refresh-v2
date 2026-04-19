@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,10 +12,17 @@ import {
   LogIn,
   LayoutGrid,
   ShoppingBag,
+  Pause,
 } from "lucide-react";
 
-const STORAGE_KEY = "ent_welcome_dialog_seen_v1";
-const AUTO_CLOSE_SECONDS = 7;
+/** Storage keys */
+const STORAGE_PREFIX = "ent_welcome_dialog_v2:";
+const GLOBAL_KEY = `${STORAGE_PREFIX}__global__`;
+
+/** Timing */
+const AUTO_CLOSE_SECONDS = 15;       // default visible time (longer for reading)
+const TICK_MS = 100;                  // smooth countdown tick
+const FADE_OUT_MS = 600;              // gentle fade-out
 
 const BENEFITS = [
   { icon: FileText, title: "ขอใบเสนอราคาออนไลน์", desc: "สร้าง/ติดตามใบเสนอราคาได้ทันที" },
@@ -24,53 +31,157 @@ const BENEFITS = [
   { icon: Headphones, title: "ทีมขายดูแลเฉพาะคุณ", desc: "ตอบกลับภายใน 2 ชั่วโมงทำการ" },
 ];
 
+/** Bypass dialog entirely on these route prefixes (internal/auth/admin) */
+const BYPASS_PREFIXES = [
+  "/admin", "/dashboard", "/profile", "/notifications", "/cart",
+  "/my-account", "/my-quotes", "/my-orders", "/my-invoices",
+  "/my-tax-invoices", "/my-receipts", "/my-documents", "/my-repairs", "/my",
+  "/login", "/register", "/forgot-password", "/reset-password", "/invite",
+  "/affiliate/dashboard", "/partner/portal", "/debug-test",
+  "/q/share", "/inv/share", "/tx/share", "/rcp/share",
+  "/unsubscribe",
+];
+
+const isBypassPath = (p: string) => BYPASS_PREFIXES.some((pre) => p === pre || p.startsWith(pre + "/"));
+
+/** Detect logged-in users via Supabase localStorage tokens */
+const isLoggedIn = (): boolean => {
+  try {
+    return Object.keys(localStorage).some(
+      (k) => k.includes("auth-token") || (k.startsWith("sb-") && k.includes("-auth-")),
+    );
+  } catch {
+    return false;
+  }
+};
+
 export default function WelcomeDialog() {
+  const location = useLocation();
+  const pathKey = useMemo(() => `${STORAGE_PREFIX}${location.pathname}`, [location.pathname]);
+
   const [open, setOpen] = useState(false);
-  const [seconds, setSeconds] = useState(AUTO_CLOSE_SECONDS);
+  const [closing, setClosing] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const [remainingMs, setRemainingMs] = useState(AUTO_CLOSE_SECONDS * 1000);
+  const totalMsRef = useRef(AUTO_CLOSE_SECONDS * 1000);
+  const closeTimerRef = useRef<number | null>(null);
 
+  /** Decide whether to show on route change (first-visit per path + global guard) */
   useEffect(() => {
+    setOpen(false);
+    setClosing(false);
+
+    // Don't show on internal/auth pages or for logged-in users
+    if (isBypassPath(location.pathname)) return;
+    if (isLoggedIn()) return;
+
     try {
-      const seen = localStorage.getItem(STORAGE_KEY);
-      if (seen) return;
-      // Show after a tiny delay so it doesn't fight initial paint
-      const t = setTimeout(() => setOpen(true), 600);
-      return () => clearTimeout(t);
+      // Optional: don't show repeatedly per session even on different pages
+      // We still allow showing on first visit per path; global key prevents spam.
+      const seenPath = localStorage.getItem(pathKey);
+      if (seenPath) return;
     } catch {
-      // ignore
+      /* ignore */
     }
-  }, []);
 
-  // Mark seen as soon as we decide to show
-  useEffect(() => {
-    if (open) {
-      try {
-        localStorage.setItem(STORAGE_KEY, new Date().toISOString());
-      } catch {
-        /* ignore */
-      }
-    }
-  }, [open]);
+    const t = window.setTimeout(() => setOpen(true), 600);
+    return () => window.clearTimeout(t);
+  }, [location.pathname, pathKey]);
 
-  // Countdown auto-close
+  /** Mark as seen as soon as it shows */
   useEffect(() => {
     if (!open) return;
-    setSeconds(AUTO_CLOSE_SECONDS);
-    const interval = setInterval(() => {
-      setSeconds((s) => {
-        if (s <= 1) {
-          clearInterval(interval);
-          setOpen(false);
+    try {
+      const now = new Date().toISOString();
+      localStorage.setItem(pathKey, now);
+      localStorage.setItem(GLOBAL_KEY, now);
+    } catch {
+      /* ignore */
+    }
+    // reset countdown each time it opens
+    totalMsRef.current = AUTO_CLOSE_SECONDS * 1000;
+    setRemainingMs(AUTO_CLOSE_SECONDS * 1000);
+    setPaused(false);
+  }, [open, pathKey]);
+
+  /** Countdown loop with pause support + smooth fade-out at 0 */
+  useEffect(() => {
+    if (!open || closing) return;
+    if (paused) return;
+
+    const id = window.setInterval(() => {
+      setRemainingMs((ms) => {
+        const next = ms - TICK_MS;
+        if (next <= 0) {
+          window.clearInterval(id);
+          // gentle fade-out
+          setClosing(true);
+          if (closeTimerRef.current) window.clearTimeout(closeTimerRef.current);
+          closeTimerRef.current = window.setTimeout(() => {
+            setOpen(false);
+            setClosing(false);
+          }, FADE_OUT_MS);
           return 0;
         }
-        return s - 1;
+        return next;
       });
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [open]);
+    }, TICK_MS);
+
+    return () => window.clearInterval(id);
+  }, [open, paused, closing]);
+
+  /** Cleanup pending close timer on unmount */
+  useEffect(() => {
+    return () => {
+      if (closeTimerRef.current) window.clearTimeout(closeTimerRef.current);
+    };
+  }, []);
+
+  const handleClose = () => {
+    setClosing(true);
+    if (closeTimerRef.current) window.clearTimeout(closeTimerRef.current);
+    closeTimerRef.current = window.setTimeout(() => {
+      setOpen(false);
+      setClosing(false);
+    }, FADE_OUT_MS);
+  };
+
+  const handleMouseEnter = () => {
+    setPaused(true);
+    // grant extra reading time when user re-engages: top up to full 15s if low
+    setRemainingMs((ms) => (ms < 8000 ? 15000 : ms));
+    totalMsRef.current = Math.max(totalMsRef.current, 15000);
+  };
+
+  const handleMouseLeave = () => setPaused(false);
+
+  // Circular countdown geometry
+  const SIZE = 36;
+  const STROKE = 3;
+  const R = (SIZE - STROKE) / 2;
+  const C = 2 * Math.PI * R;
+  const progress = Math.max(0, Math.min(1, remainingMs / totalMsRef.current));
+  const dashOffset = C * (1 - progress);
+  const secondsLeft = Math.ceil(remainingMs / 1000);
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="max-w-2xl p-0 overflow-hidden border-primary/20">
+    <Dialog
+      open={open}
+      onOpenChange={(v) => {
+        if (!v) handleClose();
+      }}
+    >
+      <DialogContent
+        className={[
+          "max-w-2xl p-0 overflow-hidden border-primary/20",
+          "transition-all duration-500 ease-out",
+          closing ? "opacity-0 scale-[0.98]" : "opacity-100 scale-100",
+        ].join(" ")}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onFocusCapture={handleMouseEnter}
+        onBlurCapture={handleMouseLeave}
+      >
         {/* Header */}
         <div className="relative bg-gradient-to-br from-primary via-primary to-primary/80 text-primary-foreground p-6 sm:p-8">
           <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top_right,_white,_transparent_60%)]" />
@@ -109,12 +220,12 @@ export default function WelcomeDialog() {
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-2">
-            <Button asChild className="flex-1" onClick={() => setOpen(false)}>
+            <Button asChild className="flex-1" onClick={handleClose}>
               <Link to="/register">
                 สมัครสมาชิกฟรี <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
-            <Button asChild variant="outline" className="flex-1" onClick={() => setOpen(false)}>
+            <Button asChild variant="outline" className="flex-1" onClick={handleClose}>
               <Link to="/login">
                 <LogIn className="h-4 w-4" /> เข้าสู่ระบบ
               </Link>
@@ -122,25 +233,59 @@ export default function WelcomeDialog() {
           </div>
 
           <div className="grid grid-cols-2 gap-2 mt-2">
-            <Button asChild variant="ghost" size="sm" onClick={() => setOpen(false)}>
+            <Button asChild variant="ghost" size="sm" onClick={handleClose}>
               <Link to="/platform">
                 <LayoutGrid className="h-4 w-4" /> ดู Platform Tour
               </Link>
             </Button>
-            <Button asChild variant="ghost" size="sm" onClick={() => setOpen(false)}>
+            <Button asChild variant="ghost" size="sm" onClick={handleClose}>
               <Link to="/shop">
                 <ShoppingBag className="h-4 w-4" /> เข้าสู่ร้านค้า
               </Link>
             </Button>
           </div>
 
-          {/* Auto-close countdown */}
-          <div className="mt-4 flex items-center justify-between text-xs text-muted-foreground">
-            <span>หน้าต่างนี้จะปิดใน {seconds} วินาที</span>
+          {/* Circular countdown footer */}
+          <div className="mt-5 flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5 text-xs text-muted-foreground">
+              <div className="relative" style={{ width: SIZE, height: SIZE }} aria-hidden="true">
+                <svg width={SIZE} height={SIZE} className="-rotate-90">
+                  <circle
+                    cx={SIZE / 2}
+                    cy={SIZE / 2}
+                    r={R}
+                    stroke="hsl(var(--muted))"
+                    strokeWidth={STROKE}
+                    fill="none"
+                  />
+                  <circle
+                    cx={SIZE / 2}
+                    cy={SIZE / 2}
+                    r={R}
+                    stroke="hsl(var(--primary))"
+                    strokeWidth={STROKE}
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeDasharray={C}
+                    strokeDashoffset={dashOffset}
+                    style={{ transition: `stroke-dashoffset ${TICK_MS}ms linear` }}
+                  />
+                </svg>
+                <div className="absolute inset-0 flex items-center justify-center text-[10px] font-semibold text-foreground tabular-nums">
+                  {paused ? <Pause className="h-3 w-3 text-muted-foreground" /> : secondsLeft}
+                </div>
+              </div>
+              <span>
+                {paused
+                  ? "หยุดชั่วคราว — เลื่อนเมาส์ออกเพื่อเริ่มนับต่อ"
+                  : `จะปิดอัตโนมัติใน ${secondsLeft} วินาที`}
+              </span>
+            </div>
+
             <button
               type="button"
-              onClick={() => setOpen(false)}
-              className="underline-offset-2 hover:underline hover:text-foreground transition-colors"
+              onClick={handleClose}
+              className="text-xs text-muted-foreground underline-offset-2 hover:underline hover:text-foreground transition-colors"
             >
               ปิดเลย
             </button>
