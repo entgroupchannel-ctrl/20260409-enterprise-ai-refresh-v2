@@ -11,6 +11,11 @@ import {
   Target,
   HandshakeIcon,
   ShieldCheck,
+  Crown,
+  Wallet,
+  Gift,
+  Zap,
+  Check,
 } from "lucide-react";
 import SiteNavbar from "@/components/SiteNavbar";
 import Footer from "@/components/Footer";
