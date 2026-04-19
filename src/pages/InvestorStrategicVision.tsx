@@ -62,7 +62,7 @@ const StrategicVision = () => {
           <div className="grid md:grid-cols-3 gap-6">
             {[
               { icon: Rocket, title: "ความเร็ว", desc: "ตอบกลับใบเสนอราคาภายใน 24 ชม. แก้ปัญหาเทคนิคใน 2 ชม. ไม่ใช่ 2 สัปดาห์" },
-              { icon: Shield, title: "ความใกล้ชิด", desc: "เจ้าของรับสายเอง ทีมเทคนิคพูดภาษาไทย เข้าหน้างานได้จริงทั่วประเทศ" },
+              { icon: Shield, title: "ดูแลใกล้ชิดทุกบัญชี", desc: "ลูกค้าทุกรายมี Sales Account Manager เฉพาะ พร้อมทีมเทคนิคภาษาไทย รองรับเข้าหน้างานทั่วประเทศ" },
               { icon: TrendingUp, title: "ราคาที่จับต้องได้", desc: "ต้นทุนต่ำกว่าแบรนด์โกลบอล 30–40% ด้วยคุณภาพ Industrial-grade เทียบเท่า" },
             ].map((item) => (
               <Card key={item.title} className="border-border/60 hover:border-primary/30 transition-colors">
