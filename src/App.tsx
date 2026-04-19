@@ -224,6 +224,7 @@ const App = () => (
                     <Route path="/vcloudpoint" element={<VCloudPoint />} />
                     <Route path="/platform" element={<Platform />} />
                     <Route path="/about-us" element={<AboutUs />} />
+                    <Route path="/investors" element={<Investors />} />
                     <Route path="/contact" element={<ContactUs />} />
                     <Route path="/warrantys" element={<Warrantys />} />
                     <Route path="/payment" element={<Payment />} />
