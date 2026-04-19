@@ -720,7 +720,61 @@ export default function AdminQuoteDetail() {
       if (updateError) throw updateError;
 
       // 🔔 Notify customer (in-app for registered users + email for everyone)
-      import('@/lib/notifications').then(({ createNotification, sendQuoteStatusEmail }) => {
+      // Step 1: try to generate + upload PDF in the background so the email
+      //         can include a one-click "Download PDF" button.
+      (async () => {
+        let pdfUrl: string | undefined;
+        try {
+          const [{ generateAndUploadQuotePdf }, companyRes, salePersonRes, bankRes] = await Promise.all([
+            import('@/lib/quote-pdf-upload'),
+            supabase.from('company_settings').select('*').eq('is_active', true).maybeSingle(),
+            (supabase as any).from('users')
+              .select('full_name, position, signature_url, show_signature_on_quotes, phone, email')
+              .eq('id', quote.assigned_to || authUser.id)
+              .maybeSingle(),
+            (async () => {
+              const { data: cs } = await supabase.from('company_settings').select('id').eq('is_active', true).maybeSingle();
+              if (!cs?.id) return { data: [] };
+              return (supabase as any).from('company_bank_accounts')
+                .select('bank_name, account_number, account_name, branch, account_type, is_default')
+                .eq('company_id', cs.id)
+                .eq('is_active', true)
+                .order('display_order', { ascending: true });
+            })(),
+          ]);
+
+          if (companyRes.data) {
+            const revisionForPdf = {
+              id: revData.id,
+              revision_number: nextRevNumber,
+              products: quote.products || [],
+              free_items: quote.free_items || [],
+              subtotal: totals.subtotal,
+              discount_percent: quote.discount_percent || 0,
+              discount_amount: totals.discountAmount,
+              discount_type: quote.discount_type || 'percent',
+              vat_percent: quote.vat_percent || 7,
+              vat_amount: totals.vatAmount,
+              grand_total: totals.grandTotal,
+              valid_until: quote.valid_until || null,
+              created_at: now,
+              created_by_name: (userData as any)?.full_name || authUser.email || 'Admin',
+              customer_message: null,
+            };
+            pdfUrl = (await generateAndUploadQuotePdf({
+              quote,
+              revision: revisionForPdf,
+              companyInfo: companyRes.data,
+              salePerson: salePersonRes?.data,
+              bankAccounts: bankRes?.data || [],
+            })) || undefined;
+          }
+        } catch (e) {
+          console.warn('PDF generation/upload failed — sending email without attachment link', e);
+        }
+
+        // Step 2: send notifications (with optional pdfUrl)
+        const { createNotification, sendQuoteStatusEmail } = await import('@/lib/notifications');
         if (quote.created_by) {
           createNotification({
             userId: quote.created_by,
@@ -741,11 +795,12 @@ export default function AdminQuoteDetail() {
             quoteNumber: quote.quote_number,
             status: 'sent',
             viewUrl: `https://www.entgroup.co.th/my-account/quotes/${id}`,
+            pdfUrl,
             relatedType: 'quote',
             relatedId: id,
           });
         }
-      });
+      })();
 
       toast({
         title: 'ส่งใบเสนอราคาสำเร็จ',
