@@ -7,6 +7,7 @@ import SpecComparisonTable from '@/components/shop/SpecComparisonTable';
 import { Button } from '@/components/ui/button';
 import { ChevronRight, Trash2 } from 'lucide-react';
 import SiteNavbar from '@/components/SiteNavbar';
+import ShopActivityPanel from '@/components/shop/ShopActivityPanel';
 
 interface Product {
   id: string; slug: string; model: string; name: string; thumbnail_url: string | null;
@@ -90,6 +91,7 @@ const ShopCompare = () => {
         )}
       </div>
 
+      <ShopActivityPanel />
       <Footer />
     </div>
   );
