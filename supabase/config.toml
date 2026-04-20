@@ -17,3 +17,5 @@ project_id = "ugzdwmyylqmirrljtuej"
     verify_jwt = false
   [functions.scan-business-card]
     verify_jwt = false
+  [functions.process-engagement-reminders]
+    verify_jwt = false
