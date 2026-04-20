@@ -81,9 +81,9 @@ const Investors = () => {
   const [success, setSuccess] = useState(false);
   const [eligibilityConfirmed, setEligibilityConfirmed] = useState(false);
   const [ndaAccepted, setNdaAccepted] = useState(false);
-  const [visionUnlocked, setVisionUnlocked] = useState<boolean>(() => {
-    try { return !!localStorage.getItem("investor_unlocked_at"); } catch { return false; }
-  });
+  // Vision tabs (SWOT, landscape, strategy, ESG) stay locked on this public page.
+  // Unlock happens only via admin-issued token link → /investors/brief/:token
+  const [visionUnlocked, setVisionUnlocked] = useState<boolean>(false);
   const [unlockOpen, setUnlockOpen] = useState(false);
   const [form, setForm] = useState({
     full_name: "",

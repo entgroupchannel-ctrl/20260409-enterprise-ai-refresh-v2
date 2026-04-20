@@ -88,13 +88,15 @@ export default function UnlockVisionDialog({ open, onOpenChange, onUnlocked }: P
         console.warn("[UnlockVisionDialog] email send failed (non-blocking)", emailErr);
       }
 
-      try { localStorage.setItem("investor_unlocked_at", new Date().toISOString()); } catch {}
+      // NOTE: do NOT auto-unlock locally — admin must review and send approval link.
+      try { localStorage.removeItem("investor_unlocked_at"); } catch {}
       toast({
-        title: "ปลดล็อกเรียบร้อย ✓",
-        description: "เราได้ส่งลิงก์ฉบับเต็มไปยังอีเมลของท่านแล้ว — กรุณาตรวจสอบกล่องอีเมล",
+        title: "ส่งคำขอเรียบร้อย ✓",
+        description: "ทีมงานจะตรวจสอบและส่งลิงก์เข้าถึง Strategic Vision ไปยังอีเมลของท่านภายใน 24 ชั่วโมง",
       });
       onUnlocked();
       onOpenChange(false);
+
     } catch (err: any) {
       toast({ title: "เกิดข้อผิดพลาด", description: err?.message ?? "กรุณาลองใหม่", variant: "destructive" });
     } finally {
