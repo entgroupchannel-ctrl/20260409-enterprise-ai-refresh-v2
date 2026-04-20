@@ -402,10 +402,14 @@ const StrategicVisionTabs = ({ locked = false, onUnlockRequest }: Props = {}) =>
             </p>
           </CardContent>
         </Card>
+        </>))}
       </TabsContent>
+
 
       {/* ─── TAB 4: STRATEGY ─── */}
       <TabsContent value="strategy" className="space-y-8 mt-6">
+        {lockedWrap("กลยุทธ์", (<>
+
         <div className="text-center mb-4">
           <h2 className="text-2xl md:text-3xl font-bold mb-3">Strategic Roadmap</h2>
           <p className="text-muted-foreground">แผนกลยุทธ์ระยะสั้น–ยาว เพื่อสร้าง moat และขยายธุรกิจ</p>
