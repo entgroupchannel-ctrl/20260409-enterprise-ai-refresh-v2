@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import FooterCompact from "@/components/FooterCompact";
+import B2BPlatformInterfaceShowcase from "@/components/B2BPlatformInterfaceShowcase";
 import MiniNavbar from "@/components/MiniNavbar";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
 import { LineQRDialog } from "@/components/LineQRDialog";
@@ -663,6 +664,7 @@ const GBSeries = () => {
         </div>
       </section>
 
+      <B2BPlatformInterfaceShowcase />
       <FooterCompact />
       <LineQRDialog open={showLineQR} onClose={() => setShowLineQR(false)} />
     </div>

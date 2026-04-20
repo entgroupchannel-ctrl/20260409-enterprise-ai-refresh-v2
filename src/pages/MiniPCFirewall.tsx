@@ -19,6 +19,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import ThemeToggle from "@/components/ThemeToggle";
 import logo from "@/assets/logo-entgroup.avif";
 import FooterCompact from "@/components/FooterCompact";
+import B2BPlatformInterfaceShowcase from "@/components/B2BPlatformInterfaceShowcase";
 import MiniNavbar from "@/components/MiniNavbar";
 
 /* ═══════════════════════════════════════════
@@ -1081,6 +1082,7 @@ const MiniPCFirewall = () => {
           </div>
         </div>
       </section>
+      <B2BPlatformInterfaceShowcase />
       <FooterCompact />
     </div>
   );
