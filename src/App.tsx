@@ -162,6 +162,7 @@ const AdminReports = lazyRetry(() => import("./pages/admin/AdminReports"));
 const AdminSubscribers = lazyRetry(() => import("./pages/admin/AdminSubscribers"));
 const AdminEmailTemplates = lazyRetry(() => import("./pages/admin/AdminEmailTemplates"));
 const AdminEmailLog = lazyRetry(() => import("./pages/admin/AdminEmailLog"));
+const AdminNotificationCoverage = lazyRetry(() => import("./pages/admin/AdminNotificationCoverage"));
 const SharedQuotePage = lazyRetry(() => import("./pages/SharedQuotePage"));
 const SharedInvoicePage = lazyRetry(() => import("./pages/SharedInvoicePage"));
 const SharedTaxInvoicePage = lazyRetry(() => import("./pages/SharedTaxInvoicePage"));
@@ -328,6 +329,7 @@ const App = () => (
                     <Route path="/admin/subscribers" element={<ProtectedRoute requireSales><AdminSubscribers /></ProtectedRoute>} />
                     <Route path="/admin/email-templates" element={<ProtectedRoute requireSuperAdmin><AdminEmailTemplates /></ProtectedRoute>} />
                     <Route path="/admin/email-log" element={<ProtectedRoute allowedRoles={['super_admin','admin']}><AdminEmailLog /></ProtectedRoute>} />
+                    <Route path="/admin/notification-coverage" element={<ProtectedRoute allowedRoles={['super_admin','admin']}><AdminNotificationCoverage /></ProtectedRoute>} />
                    <Route path="/admin/profile" element={<ProtectedRoute requireSales><AdminProfile /></ProtectedRoute>} />
                    <Route path="/admin/settings/profile" element={<ProtectedRoute requireSales><AdminProfile /></ProtectedRoute>} />
                     <Route path="/request-quote" element={<QuoteRequestForm />} />
