@@ -3387,6 +3387,75 @@ export type Database = {
         }
         Relationships: []
       }
+      product_likes: {
+        Row: {
+          id: string
+          liked_at: string
+          product_id: string | null
+          product_model: string | null
+          product_name: string | null
+          product_slug: string
+          reminded_at: string | null
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          liked_at?: string
+          product_id?: string | null
+          product_model?: string | null
+          product_name?: string | null
+          product_slug: string
+          reminded_at?: string | null
+          user_id: string
+        }
+        Update: {
+          id?: string
+          liked_at?: string
+          product_id?: string | null
+          product_model?: string | null
+          product_name?: string | null
+          product_slug?: string
+          reminded_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      product_shares: {
+        Row: {
+          channel: string | null
+          id: string
+          product_id: string | null
+          product_model: string | null
+          product_name: string | null
+          product_slug: string
+          reminded_at: string | null
+          shared_at: string
+          user_id: string
+        }
+        Insert: {
+          channel?: string | null
+          id?: string
+          product_id?: string | null
+          product_model?: string | null
+          product_name?: string | null
+          product_slug: string
+          reminded_at?: string | null
+          shared_at?: string
+          user_id: string
+        }
+        Update: {
+          channel?: string | null
+          id?: string
+          product_id?: string | null
+          product_model?: string | null
+          product_name?: string | null
+          product_slug?: string
+          reminded_at?: string | null
+          shared_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       product_tags: {
         Row: {
           color: string | null
@@ -3493,6 +3562,39 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      product_views: {
+        Row: {
+          duration_seconds: number | null
+          id: string
+          product_id: string | null
+          product_model: string | null
+          product_name: string | null
+          product_slug: string
+          user_id: string
+          viewed_at: string
+        }
+        Insert: {
+          duration_seconds?: number | null
+          id?: string
+          product_id?: string | null
+          product_model?: string | null
+          product_name?: string | null
+          product_slug: string
+          user_id: string
+          viewed_at?: string
+        }
+        Update: {
+          duration_seconds?: number | null
+          id?: string
+          product_id?: string | null
+          product_model?: string | null
+          product_name?: string | null
+          product_slug?: string
+          user_id?: string
+          viewed_at?: string
+        }
+        Relationships: []
       }
       products: {
         Row: {
@@ -4854,6 +4956,51 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      reminder_send_log: {
+        Row: {
+          error_message: string | null
+          id: string
+          metadata: Json | null
+          product_model: string | null
+          product_name: string | null
+          product_slug: string | null
+          recipient_email: string
+          sent_at: string
+          status: string
+          template_name: string
+          trigger_type: string
+          user_id: string
+        }
+        Insert: {
+          error_message?: string | null
+          id?: string
+          metadata?: Json | null
+          product_model?: string | null
+          product_name?: string | null
+          product_slug?: string | null
+          recipient_email: string
+          sent_at?: string
+          status?: string
+          template_name: string
+          trigger_type: string
+          user_id: string
+        }
+        Update: {
+          error_message?: string | null
+          id?: string
+          metadata?: Json | null
+          product_model?: string | null
+          product_name?: string | null
+          product_slug?: string | null
+          recipient_email?: string
+          sent_at?: string
+          status?: string
+          template_name?: string
+          trigger_type?: string
+          user_id?: string
+        }
+        Relationships: []
       }
       repair_order_history: {
         Row: {
@@ -7233,6 +7380,10 @@ export type Database = {
       restore_receipt: { Args: { p_receipt_id: string }; Returns: Json }
       restore_tax_invoice: { Args: { p_tax_invoice_id: string }; Returns: Json }
       rollback_product_migration: { Args: never; Returns: Json }
+      should_send_reminder: {
+        Args: { _product_slug: string; _trigger_type: string; _user_id: string }
+        Returns: boolean
+      }
       soft_delete_credit_note: {
         Args: { p_credit_note_id: string; p_reason?: string }
         Returns: Json
