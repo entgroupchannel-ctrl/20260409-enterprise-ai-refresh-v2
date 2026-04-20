@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import platformHero from "@/assets/platform-hero.jpg";
+import B2BMarketingShowcase from "@/components/B2BMarketingShowcase";
 
 const STEPS = [
   { n: "01", icon: UserPlus, title: "สมัครสมาชิก", desc: "ลงทะเบียนฟรี กรอกข้อมูลบริษัท" },
@@ -227,8 +228,11 @@ export default function Platform() {
         </div>
       </section>
 
+      {/* B2B Marketing Showcase — illustrated 5-step workflow */}
+      <B2BMarketingShowcase variant="muted" />
+
       {/* Customer Features */}
-      <section className="border-y bg-muted/30">
+      <section className="bg-background">
         <div className="container max-w-6xl mx-auto px-6 py-20">
           <div className="text-center mb-12">
             <Badge variant="outline" className="mb-3">สำหรับลูกค้า / ฝ่ายจัดซื้อ</Badge>
