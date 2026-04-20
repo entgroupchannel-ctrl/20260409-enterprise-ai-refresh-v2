@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import volktekCertifications from "@/assets/volktek-certifications.png";
 import FooterCompact from "@/components/FooterCompact";
+import B2BPlatformInterfaceShowcase from "@/components/B2BPlatformInterfaceShowcase";
 import MiniNavbar from "@/components/MiniNavbar";
 
 const productCategories = [
@@ -365,6 +366,7 @@ const Volktek = () => {
           </div>
         </div>
       </div>
+      <B2BPlatformInterfaceShowcase />
       <FooterCompact />
     </div>
   );

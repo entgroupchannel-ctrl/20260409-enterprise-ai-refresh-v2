@@ -18,6 +18,7 @@ import SEOHead from "@/components/SEOHead";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import FooterCompact from "@/components/FooterCompact";
+import B2BPlatformInterfaceShowcase from "@/components/B2BPlatformInterfaceShowcase";
 import B2BCTABanner from "@/components/B2BCTABanner";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
 import { Badge } from "@/components/ui/badge";
@@ -407,6 +408,7 @@ const RuggedNotebookPage = () => {
         ))}
       </section>
       <B2BCTABanner variant="compact" />
+      <B2BPlatformInterfaceShowcase />
       <FooterCompact />
     </div>
   );
