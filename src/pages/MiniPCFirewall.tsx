@@ -433,6 +433,7 @@ const FirewallComparisonTable = () => {
   const [filterMinLan, setFilterMinLan] = useState<number | null>(null);
   const [filterFanless, setFilterFanless] = useState<boolean | null>(null);
   const [filterAesni, setFilterAesni] = useState<boolean | null>(null);
+  const [filtersOpen, setFiltersOpen] = useState(true);
   const [searchText, setSearchText] = useState("");
 
   const hasFilter = filterTier !== null || filterLanSpeed !== null || filterMinLan !== null || filterFanless !== null || filterAesni !== null || searchText.length > 0;
@@ -477,16 +478,36 @@ const FirewallComparisonTable = () => {
       </div>
 
       {/* Filter Bar */}
-      <div className="card-surface rounded-2xl p-4 md:p-5 mb-6">
-        <div className="flex items-center gap-2 mb-3">
+      <div className="rounded-2xl border border-border overflow-hidden mb-6 bg-card">
+        <button
+          type="button"
+          onClick={() => setFiltersOpen((o) => !o)}
+          className="w-full flex items-center gap-2 px-4 md:px-5 py-3 bg-slate-900 dark:bg-slate-950 text-white hover:bg-slate-800 dark:hover:bg-slate-900 transition-colors"
+        >
           <Filter size={16} className="text-primary" />
-          <span className="text-sm font-bold text-foreground">กรองสเปก</span>
+          <span className="text-sm font-bold">กรองสเปก</span>
           {hasFilter && (
-            <button onClick={clearFilters} className="ml-auto flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors">
+            <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded-full bg-primary/20 text-primary text-[10px] font-bold">
+              ใช้งานอยู่
+            </span>
+          )}
+          {hasFilter && (
+            <button
+              type="button"
+              onClick={(e) => { e.stopPropagation(); clearFilters(); }}
+              className="ml-auto flex items-center gap-1 text-xs text-slate-300 hover:text-white transition-colors"
+            >
               <X size={14} /> ล้างตัวกรอง
             </button>
           )}
-        </div>
+          <ChevronDown
+            size={18}
+            className={`${hasFilter ? '' : 'ml-auto'} transition-transform ${filtersOpen ? 'rotate-180' : ''}`}
+          />
+        </button>
+
+        <div className={`overflow-hidden transition-[max-height] duration-300 ${filtersOpen ? 'max-h-[800px]' : 'max-h-0'}`}>
+          <div className="p-4 md:p-5">
 
         <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
           {/* Search */}
@@ -592,6 +613,8 @@ const FirewallComparisonTable = () => {
             <span className="text-xs text-muted-foreground">จาก {compRows.length} รุ่น</span>
           </div>
         )}
+          </div>
+        </div>
       </div>
 
       {/* Category Legend */}
