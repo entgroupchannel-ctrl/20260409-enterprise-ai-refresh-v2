@@ -481,10 +481,14 @@ const StrategicVisionTabs = ({ locked = false, onUnlockRequest }: Props = {}) =>
             </div>
           </CardContent>
         </Card>
+        </>))}
       </TabsContent>
+
 
       {/* ─── TAB 5: ESG / CIRCULAR IT ─── */}
       <TabsContent value="esg" className="space-y-10 mt-6">
+        {lockedWrap("ESG", (<>
+
         <div className="text-center mb-2">
           <Badge className="mb-3 bg-green-500/10 text-green-700 border-green-500/30 hover:bg-green-500/20">
             <Leaf className="w-3.5 h-3.5 mr-1.5" /> ESG Strategy 2026–2028
