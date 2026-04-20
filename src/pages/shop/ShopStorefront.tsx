@@ -861,7 +861,7 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
           aria-label={isSaved ? 'เอาออกจากรายการโปรด' : 'บันทึกรายการโปรด'}
           aria-pressed={isSaved}
           className={cn(
-            'absolute bottom-2 left-2 z-10 h-7 w-7 rounded-full flex items-center justify-center bg-background/85 backdrop-blur border border-border shadow-sm transition-colors',
+            'absolute top-2 left-20 z-10 h-7 w-7 rounded-full flex items-center justify-center bg-background/85 backdrop-blur border border-border shadow-sm transition-colors',
             isSaved ? 'text-rose-500 border-rose-200' : 'text-muted-foreground hover:text-rose-500',
           )}
         >
