@@ -190,6 +190,8 @@ const StrategicVisionTabs = ({ locked = false, onUnlockRequest }: Props = {}) =>
 
       {/* ─── TAB 2: SWOT ─── */}
       <TabsContent value="swot" className="space-y-6 mt-6">
+        {lockedWrap("SWOT", (<>
+
         <div className="text-center mb-6">
           <h2 className="text-2xl md:text-3xl font-bold mb-3">SWOT Analysis</h2>
           <p className="text-muted-foreground">การประเมินตนเองในตลาด Industrial Computer ไทย (~4,550 ลบ.)</p>
