@@ -5,6 +5,7 @@ import {
   Lock, Loader2, AlertTriangle, TrendingUp, Building2, Users, Award,
   BarChart3, Target, Sparkles, Shield, CheckCircle2, FileText, Mail,
   ArrowRight, Briefcase, LineChart, Layers, Globe2,
+  ShieldCheck, Wallet, Calculator, Star,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -374,6 +375,287 @@ const InvestorBrief = () => {
                 <p className="text-xs leading-relaxed" style={{ color: "#64748B" }}>{s.desc}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* DOWNSIDE PROTECTION (Deep-dive) */}
+      <section className="py-16 px-4" style={{ backgroundColor: "#FFFFFF" }}>
+        <div className="container max-w-6xl mx-auto">
+          <SectionLabel>6. Downside Protection — เนื้อหาเชิงลึก</SectionLabel>
+          <h2 className="text-2xl md:text-3xl font-display font-bold mb-3" style={{ color: "#0A1628" }}>
+            ถ้าธุรกิจไม่เป็นไปตามแผน — เงินของคุณจะได้อะไรคืน?
+          </h2>
+          <p className="text-sm mb-10 max-w-3xl" style={{ color: "#475569" }}>
+            สำหรับผู้สนใจโครงสร้าง <strong>Strategic Loan / Hybrid Partnership</strong> —
+            ส่วนนี้ตอบคำถามที่นักลงทุนสถาบันถามเป็นอันดับแรก: หลักประกันคืออะไร, ครอบคลุมเท่าไร,
+            และเรียงลำดับการคืนเงินอย่างไรในกรณีเลวร้ายที่สุด
+          </p>
+
+          {/* Hero stat */}
+          <div
+            className="rounded-2xl p-8 md:p-10 mb-8 relative overflow-hidden"
+            style={{ background: "linear-gradient(135deg, #0A1628 0%, #152948 100%)" }}
+          >
+            <div
+              className="absolute top-0 right-0 w-2/5 h-full"
+              style={{ background: "linear-gradient(115deg, transparent 40%, rgba(201,169,97,0.12))" }}
+              aria-hidden
+            />
+            <div className="relative">
+              <div className="text-[10px] font-bold tracking-[0.25em] uppercase mb-3" style={{ color: "#D4B876" }}>
+                Collateral Coverage Ratio
+              </div>
+              <div
+                className="font-display font-bold leading-none mb-3"
+                style={{ color: "#FFFFFF", fontSize: "clamp(2.5rem, 6vw, 4rem)", letterSpacing: "-0.03em" }}
+              >
+                1.X<em style={{ fontStyle: "italic", color: "#D4B876" }}>x</em> – 2.X<em style={{ fontStyle: "italic", color: "#D4B876" }}>x</em>
+              </div>
+              <p className="text-sm md:text-base max-w-2xl" style={{ color: "#E2E8F0" }}>
+                หลักประกันของเรา ครอบคลุมวงเงินกู้ <strong style={{ color: "#FFFFFF" }}>10–30 ล้านบาท</strong> หลายเท่า —
+                ตัวเลขที่นักลงทุนสถาบันดูเป็นอันดับแรก
+              </p>
+            </div>
+          </div>
+
+          {/* 4 info boxes */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            {[
+              { title: "หลักประกันรวม", value: "฿ XX.X M", note: "สต๊อก + ลูกหนี้ + สินทรัพย์ · ณ Q2 2026", icon: ShieldCheck },
+              { title: "วงเงินระดมสูงสุด", value: "฿ 30.0 M", note: "หลักประกันครอบคลุม > 1.5x", icon: Wallet },
+              { title: "ระยะเวลาชำระคืน", value: "24–36 เดือน", note: "Amortization schedule ชัดเจน", icon: Calculator },
+              { title: "ผลตอบแทนคาดการณ์", value: "8–12% p.a.", note: "Interest + Revenue share", icon: TrendingUp },
+            ].map((b) => (
+              <div key={b.title} className="rounded-xl p-5" style={{ backgroundColor: "#F8FAFC", borderLeft: "3px solid #1E3A5F" }}>
+                <div className="flex items-center gap-2 mb-2">
+                  <b.icon size={14} style={{ color: "#1E3A5F" }} />
+                  <div className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: "#1E3A5F" }}>{b.title}</div>
+                </div>
+                <div className="text-xl font-display font-bold mb-1" style={{ color: "#0A1628", letterSpacing: "-0.02em" }}>{b.value}</div>
+                <div className="text-[11px]" style={{ color: "#64748B" }}>{b.note}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="rounded-md p-4 mb-12 text-[12px] italic" style={{ backgroundColor: "#F8FAFC", borderLeft: "3px solid #94A3B8", color: "#64748B" }}>
+            <strong style={{ color: "#1E3A5F", fontStyle: "normal" }}>หมายเหตุ:</strong>{" "}
+            ตัวเลข XX ต้องปรับตามงบการเงินจริงและหลักประกันจริงของ ENT Group ก่อนเข้าสู่ขั้นตอน Term Sheet
+            — ตัวเลขสุดท้ายจะผ่านการรับรองจากผู้สอบบัญชีอิสระ
+          </div>
+
+          {/* 3 Scenarios */}
+          <h3 className="text-xl font-display font-bold mb-2" style={{ color: "#0A1628" }}>
+            6.1 · 3 สถานการณ์ — คุณจะได้เงินคืนเท่าไร
+          </h3>
+          <p className="text-sm mb-6" style={{ color: "#64748B" }}>
+            จำลอง 3 สถานการณ์ตั้งแต่ดีที่สุดถึงเลวร้ายที่สุด พร้อมประมาณการผลตอบแทน
+          </p>
+          <div className="grid md:grid-cols-3 gap-4 mb-12">
+            {[
+              { tag: "Best · 20%", title: "ธุรกิจโตตามแผน หรือดีกว่า", sub: "ผลตอบแทนรวม", metric: "14–18%", detail: "ENT บรรลุเป้าหมาย · Revenue share ส่งผลตอบแทนเพิ่มเติม · ได้ค่า premium จาก early buyback (optional)", color: "#059669", bg: "#F0FDF4" },
+              { tag: "Base · 65%", title: "ธุรกิจเป็นไปตามแผนปกติ", sub: "ผลตอบแทนรวม", metric: "8–12%", detail: "ดอกเบี้ยครบตามสัญญา + revenue share ปานกลาง · คืนเงินต้น 100% เมื่อครบกำหนด", color: "#1E3A5F", bg: "#FFFFFF" },
+              { tag: "Worst · 15%", title: "ธุรกิจชะลอ · ต้องชำระบัญชี", sub: "ได้เงินต้นคืน", metric: "85–100%", detail: "Liquidation สต๊อก + ลูกหนี้ + personal guarantee · คืนเงินต้นเกือบเต็ม", color: "#D97706", bg: "#FFFBEB" },
+            ].map((s) => (
+              <div key={s.tag} className="rounded-xl p-5" style={{ backgroundColor: s.bg, border: `1.5px solid ${s.color}` }}>
+                <div className="inline-block px-2 py-0.5 rounded-sm text-[9px] font-bold tracking-[0.2em] uppercase mb-3" style={{ backgroundColor: s.color, color: "#FFFFFF" }}>
+                  {s.tag}
+                </div>
+                <div className="text-base font-display font-bold mb-3 leading-tight" style={{ color: "#0A1628" }}>{s.title}</div>
+                <div className="text-[10px] uppercase tracking-[0.1em] mb-1" style={{ color: "#64748B" }}>{s.sub}</div>
+                <div className="text-3xl font-display font-bold mb-3" style={{ color: "#0A1628", letterSpacing: "-0.02em" }}>{s.metric}</div>
+                <div className="pt-3 text-xs leading-relaxed" style={{ color: "#475569", borderTop: "1px solid rgba(0,0,0,0.08)" }}>
+                  {s.detail}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Liquidation Value Table */}
+          <h3 className="text-xl font-display font-bold mb-3" style={{ color: "#0A1628" }}>
+            6.2 · ทำไมสถานการณ์เลวร้ายที่สุด <em style={{ fontStyle: "italic", color: "#C9A961" }}>ยังได้เงินคืน?</em>
+          </h3>
+          <p className="text-sm mb-4" style={{ color: "#475569" }}>
+            เพราะหลักประกันของ ENT ไม่ใช่สินทรัพย์นามธรรม — เป็นสิ่งที่แปลงเป็นเงินสดได้จริงในระยะเวลาสั้น
+          </p>
+          <div className="overflow-x-auto mb-4 rounded-lg" style={{ border: "1px solid #E2E8F0" }}>
+            <table className="w-full text-sm">
+              <thead>
+                <tr style={{ backgroundColor: "#0A1628", color: "#FFFFFF" }}>
+                  <th className="px-4 py-3 text-left text-xs font-semibold">ประเภทสินทรัพย์</th>
+                  <th className="px-4 py-3 text-right text-xs font-semibold">มูลค่าประมาณ</th>
+                  <th className="px-4 py-3 text-right text-xs font-semibold">Liquidation Value</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold">ระยะเวลาแปลงเป็นเงินสด</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ["สต๊อกสินค้า (Industrial PC)", "฿ X.X M", "70–80%", "30–60 วัน (ขายที่ 30–40% discount)"],
+                  ["ลูกหนี้การค้า (Aging ≤ 90 วัน)", "฿ X.X M", "85–95%", "45–90 วัน"],
+                  ["เงินสด + เทียบเท่า", "฿ X.X M", "100%", "ทันที"],
+                  ["อุปกรณ์สำนักงาน", "฿ X.X M", "30–40%", "30–60 วัน"],
+                ].map((r, i) => (
+                  <tr key={r[0]} style={{ backgroundColor: i % 2 === 1 ? "#F8FAFC" : "#FFFFFF" }}>
+                    <td className="px-4 py-3 text-sm font-medium" style={{ color: "#1E3A5F" }}>{r[0]}</td>
+                    <td className="px-4 py-3 text-right font-display font-medium" style={{ color: "#0A1628" }}>{r[1]}</td>
+                    <td className="px-4 py-3 text-right font-display font-medium" style={{ color: "#0A1628" }}>{r[2]}</td>
+                    <td className="px-4 py-3 text-sm" style={{ color: "#475569" }}>{r[3]}</td>
+                  </tr>
+                ))}
+                <tr style={{ backgroundColor: "#0A1628", color: "#FFFFFF" }}>
+                  <td className="px-4 py-3 text-sm font-bold">รวมมูลค่าหลังชำระบัญชี</td>
+                  <td className="px-4 py-3 text-right font-display font-bold" style={{ color: "#D4B876" }}>฿ XX.X M</td>
+                  <td className="px-4 py-3 text-right font-display font-bold" style={{ color: "#D4B876" }}>~85%</td>
+                  <td className="px-4 py-3 text-sm">90–180 วัน</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="rounded-md p-4 mb-12" style={{ backgroundColor: "#ECFDF5", borderLeft: "4px solid #059669" }}>
+            <div className="text-sm font-semibold mb-1" style={{ color: "#065F46" }}>📌 Key Insight</div>
+            <p className="text-sm leading-relaxed" style={{ color: "#1E3A5F" }}>
+              Industrial PC มี <strong>ตลาดมือสองที่ active</strong> — ไม่เหมือน inventory ประเภทเสื้อผ้า/อาหาร
+              ที่มูลค่าลดเร็ว สินค้าของเราขายได้ที่ 70–80% ของราคาต้นทุนแม้ในสถานการณ์ฉุกเฉิน
+              เพราะเป็น durable goods อายุการใช้งาน 5–10 ปี
+            </p>
+          </div>
+
+          {/* Payment Waterfall */}
+          <h3 className="text-xl font-display font-bold mb-3" style={{ color: "#0A1628" }}>
+            6.3 · Payment Waterfall — <em style={{ fontStyle: "italic", color: "#C9A961" }}>ใครได้ก่อน ใครได้หลัง</em>
+          </h3>
+          <p className="text-sm mb-5" style={{ color: "#475569" }}>
+            กฎหมายไทยกำหนดลำดับการจ่ายเงินไว้ชัดเจน — นักลงทุนของเราอยู่ในลำดับที่{" "}
+            <strong>ได้รับเงินคืนก่อนผู้ถือหุ้น</strong>
+          </p>
+          <div className="rounded-xl p-6 mb-6" style={{ backgroundColor: "#F8FAFC", border: "1px solid #E2E8F0" }}>
+            {[
+              { n: 1, title: "ภาษีและค่าธรรมเนียมกฎหมาย", desc: "ภาษีค้างชำระ · ค่าใช้จ่ายในการชำระบัญชี · ค่าทนาย", amount: "~ 3–5%", highlight: false },
+              { n: 2, title: "เงินเดือนค้างจ่ายพนักงาน", desc: "ตามกฎหมายแรงงาน · ไม่เกิน X เดือน", amount: "~ 2–3%", highlight: false },
+              { n: 3, title: "⭐ Secured Debt Investors (นักลงทุนของเรา)", desc: "เงินต้น + ดอกเบี้ยค้างชำระ · ได้จากสินทรัพย์หลักประกัน", amount: "85–100%", highlight: true },
+              { n: 4, title: "เจ้าหนี้การค้า (suppliers)", desc: "ได้เงินจากสินทรัพย์ที่เหลือ (ถ้ามี)", amount: "?", highlight: false },
+              { n: 5, title: "ผู้ถือหุ้น / ผู้ก่อตั้ง (สุดท้าย)", desc: "ได้ส่วนเหลือ (ถ้ามี) · เสียก่อนนักลงทุนเสมอ", amount: "สุดท้าย", highlight: false },
+            ].map((w, idx, arr) => (
+              <div
+                key={w.n}
+                className="flex items-center gap-4 py-3"
+                style={{
+                  backgroundColor: w.highlight ? "#FFFBEB" : "transparent",
+                  borderRadius: w.highlight ? "4px" : 0,
+                  paddingLeft: w.highlight ? "8px" : 0,
+                  paddingRight: w.highlight ? "8px" : 0,
+                  borderBottom: idx === arr.length - 1 ? "none" : "1px dashed #E2E8F0",
+                }}
+              >
+                <div
+                  className="w-7 h-7 rounded-full flex items-center justify-center font-display font-bold text-xs shrink-0"
+                  style={{ backgroundColor: w.highlight ? "#C9A961" : "#0A1628", color: w.highlight ? "#0A1628" : "#FFFFFF" }}
+                >
+                  {w.n}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-sm font-semibold" style={{ color: "#0A1628" }}>{w.title}</div>
+                  <div className="text-[12px] leading-snug" style={{ color: "#64748B" }}>{w.desc}</div>
+                </div>
+                <div className="font-display font-medium text-base whitespace-nowrap" style={{ color: "#C9A961" }}>{w.amount}</div>
+              </div>
+            ))}
+          </div>
+          <div className="rounded-md p-4 mb-12" style={{ backgroundColor: "#FFFBEB", borderLeft: "4px solid #D97706" }}>
+            <div className="text-sm font-semibold mb-1" style={{ color: "#78350F" }}>💡 สิ่งที่แตกต่างจากการซื้อหุ้น (Equity)</div>
+            <p className="text-sm leading-relaxed" style={{ color: "#1E3A5F" }}>
+              ถ้าคุณ <strong>ซื้อหุ้น</strong> ของ ENT (Equity) — คุณจะอยู่ลำดับ <strong>ที่ 5</strong> (หลังสุด)
+              เสี่ยงเสียเงิน 100% ถ้าธุรกิจเจ๊ง · แต่เมื่อคุณลงทุนในรูป <strong>Debt</strong> อยู่ลำดับที่ 3 —
+              ได้เงินก่อนผู้ถือหุ้น และได้จากหลักประกันที่กำหนดไว้เฉพาะ
+            </p>
+          </div>
+
+          {/* 3-Layer Collateral */}
+          <h3 className="text-xl font-display font-bold mb-5" style={{ color: "#0A1628" }}>
+            6.4 · หลักประกัน 3 ชั้น
+          </h3>
+          <div className="space-y-5 mb-12">
+            {[
+              { layer: "ชั้นที่ 1 · หลักประกันขั้นต้น (Primary Collateral)", left: "สต๊อก + ลูกหนี้การค้า", right: "ประเมินทุกไตรมาส", fill: "≥ 100% ของเงินต้น", width: "85%" },
+              { layer: "ชั้นที่ 2 · การค้ำประกันส่วนตัว (Personal Guarantee)", left: "ผู้ก่อตั้งค้ำประกันส่วนตัว", right: "ตามขนาดการลงทุน", fill: "เพิ่ม 50–60%", width: "60%" },
+              { layer: "ชั้นที่ 3 · Covenant Protection", left: "ห้ามก่อหนี้เพิ่ม · ห้ามขายสินทรัพย์", right: "แจ้งเตือนก่อนปัญหา", fill: "Early Warning System", width: "40%" },
+            ].map((c) => (
+              <div key={c.layer}>
+                <div className="text-base font-display font-semibold mb-2" style={{ color: "#152948" }}>{c.layer}</div>
+                <div className="h-7 rounded-sm overflow-hidden relative" style={{ backgroundColor: "#E2E8F0" }}>
+                  <div
+                    className="h-full flex items-center justify-end px-3 font-display font-bold text-xs"
+                    style={{ width: c.width, background: "linear-gradient(90deg, #059669, #C9A961)", color: "#FFFFFF" }}
+                  >
+                    {c.fill}
+                  </div>
+                </div>
+                <div className="flex justify-between text-xs mt-1" style={{ color: "#64748B" }}>
+                  <span>{c.left}</span>
+                  <span>{c.right}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Comparative Risk Table */}
+          <h3 className="text-xl font-display font-bold mb-3" style={{ color: "#0A1628" }}>
+            6.5 · เปรียบเทียบความเสี่ยง <em style={{ fontStyle: "italic", color: "#C9A961" }}>ต่อผลตอบแทน</em>
+          </h3>
+          <p className="text-sm mb-4" style={{ color: "#475569" }}>
+            ผลตอบแทน 8–12% อาจฟังดูไม่สูงเท่าหุ้น — แต่เมื่อพิจารณาความเสี่ยงและหลักประกันแล้ว
+            นี่คือหนึ่งในทางเลือก <strong>risk-adjusted return ดีที่สุด</strong> ในตลาด private debt
+          </p>
+          <div className="overflow-x-auto mb-4 rounded-lg" style={{ border: "1px solid #E2E8F0" }}>
+            <table className="w-full text-sm">
+              <thead>
+                <tr style={{ backgroundColor: "#0A1628", color: "#FFFFFF" }}>
+                  <th className="px-4 py-3 text-left text-xs font-semibold">ทางเลือก</th>
+                  <th className="px-4 py-3 text-right text-xs font-semibold">ผลตอบแทน</th>
+                  <th className="px-4 py-3 text-right text-xs font-semibold">ความเสี่ยงขาดทุนต้น</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold">หลักประกัน</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  { name: "เงินฝากธนาคาร", ret: "1–2%", risk: "~0%", riskColor: "#059669", coll: "ประกันเงินฝาก 1M" },
+                  { name: "พันธบัตรรัฐบาล 3 ปี", ret: "2–3%", risk: "~0%", riskColor: "#059669", coll: "Sovereign guarantee" },
+                  { name: "หุ้นกู้บริษัทมหาชน (Investment Grade)", ret: "3–5%", risk: "< 1%", riskColor: "#059669", coll: "แล้วแต่ issue" },
+                  { name: "⭐ ENT Group Debt + Revenue Share", ret: "8–12%", risk: "< 15%", riskColor: "#D97706", coll: "สต๊อก + ลูกหนี้ + Personal G", highlight: true },
+                  { name: "หุ้นกู้บริษัทเอกชน High Yield", ret: "7–10%", risk: "10–20%", riskColor: "#D97706", coll: "บางฉบับไม่มี" },
+                  { name: "การลงทุนในหุ้น SET", ret: "6–10%", risk: "30–50%", riskColor: "#DC2626", coll: "ไม่มี" },
+                  { name: "Venture Capital / Angel", ret: "0–30%", risk: "60–80%", riskColor: "#DC2626", coll: "ไม่มี" },
+                ].map((r, i) => (
+                  <tr
+                    key={r.name}
+                    style={{
+                      backgroundColor: r.highlight ? "#FFFBEB" : (i % 2 === 1 ? "#F8FAFC" : "#FFFFFF"),
+                      outline: r.highlight ? "2px solid #C9A961" : undefined,
+                    }}
+                  >
+                    <td className="px-4 py-3 text-sm" style={{ color: "#1E3A5F", fontWeight: r.highlight ? 600 : 500 }}>{r.name}</td>
+                    <td
+                      className="px-4 py-3 text-right font-display font-medium"
+                      style={{ color: r.highlight ? "#C9A961" : "#0A1628", fontSize: r.highlight ? "15px" : undefined }}
+                    >
+                      {r.ret}
+                    </td>
+                    <td className="px-4 py-3 text-right font-display font-medium" style={{ color: r.riskColor }}>{r.risk}</td>
+                    <td className="px-4 py-3 text-sm" style={{ color: "#475569", fontWeight: r.highlight ? 500 : 400 }}>{r.coll}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="rounded-md p-5" style={{ backgroundColor: "#ECFDF5", borderLeft: "4px solid #059669" }}>
+            <div className="text-sm font-semibold mb-1 flex items-center gap-2" style={{ color: "#065F46" }}>
+              <Star size={14} style={{ color: "#059669" }} /> ทำไม ENT คือ "Sweet Spot"
+            </div>
+            <p className="text-sm leading-relaxed" style={{ color: "#1E3A5F" }}>
+              ผลตอบแทน <strong>สูงกว่าหุ้นกู้ Investment Grade 2–3 เท่า</strong>
+              แต่ความเสี่ยงต่ำกว่าหุ้นสามัญ <strong>3–5 เท่า</strong> —
+              เพราะมีหลักประกันจริงและอยู่อันดับได้รับเงินก่อนผู้ถือหุ้น
+            </p>
           </div>
         </div>
       </section>
