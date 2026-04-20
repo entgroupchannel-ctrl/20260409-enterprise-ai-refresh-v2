@@ -21,7 +21,8 @@ import { cn } from '@/lib/utils';
 import SiteNavbar from '@/components/SiteNavbar';
 import ShopHotDeals from '@/components/shop/ShopHotDeals';
 import ShopActivityPanel from '@/components/shop/ShopActivityPanel';
-import { pushRecentSearch, useShopActivity, toggleWishlist } from '@/hooks/useShopActivity';
+import { pushRecentSearch, useShopActivity, toggleWishlist, getWishlist } from '@/hooks/useShopActivity';
+import { logProductLike, removeProductLike, logProductShare } from '@/hooks/useEngagementTracking';
 import { useToast } from '@/hooks/use-toast';
 
 import imgSeriesGT from '@/assets/shop/series-gt.jpg';
