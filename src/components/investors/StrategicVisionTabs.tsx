@@ -325,10 +325,14 @@ const StrategicVisionTabs = ({ locked = false, onUnlockRequest }: Props = {}) =>
             </Collapsible>
           </div>
         </div>
+        </>))}
       </TabsContent>
+
 
       {/* ─── TAB 3: COMPETITIVE LANDSCAPE ─── */}
       <TabsContent value="landscape" className="space-y-8 mt-6">
+        {lockedWrap("ภาพการแข่งขัน", (<>
+
         <div className="text-center mb-4">
           <h2 className="text-2xl md:text-3xl font-bold mb-3">ภาพการแข่งขันในตลาดไทย</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
