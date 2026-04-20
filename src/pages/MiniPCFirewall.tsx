@@ -763,11 +763,12 @@ const MiniPCFirewall = () => {
       <MiniNavbar />
 
       {/* ── Hero ── */}
-      <section className="relative overflow-hidden bg-slate-950">
+      <section className="relative overflow-hidden bg-slate-900">
         <div className="absolute inset-0">
-          <img src={heroFirewall} alt="Server room with firewall appliance" className="w-full h-full object-cover opacity-50" width={1920} height={768} />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/85 to-slate-950/40" />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/60 via-transparent to-slate-950/80" />
+          <img src={heroFirewall} alt="Server room with firewall appliance" className="w-full h-full object-cover" width={1920} height={768} />
+          {/* แสดงภาพชัดด้านขวา จางทางซ้ายเพื่อให้อ่านข้อความได้ */}
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/70 to-slate-900/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent" />
         </div>
         <div className="relative container max-w-7xl mx-auto px-6 py-16 md:py-24">
           <div className="max-w-2xl">
