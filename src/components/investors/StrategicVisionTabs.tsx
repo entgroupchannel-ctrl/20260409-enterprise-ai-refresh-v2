@@ -5,14 +5,68 @@ import {
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+
+interface Props {
+  /** When true, premium tabs (SWOT, landscape, strategy, ESG) are blurred behind an unlock CTA */
+  locked?: boolean;
+  /** Called when user clicks unlock button on a locked tab */
+  onUnlockRequest?: () => void;
+}
 
 /**
  * Reusable Strategic Vision Tabs
  * Used by both /investors (inline) and /investors/strategic-vision (standalone sub-page)
  */
-const StrategicVisionTabs = () => {
+const StrategicVisionTabs = ({ locked = false, onUnlockRequest }: Props = {}) => {
+  const LockedOverlay = ({ label }: { label: string }) => (
+    <div className="absolute inset-0 z-10 flex items-center justify-center px-4">
+      <div
+        className="max-w-md w-full text-center rounded-2xl px-6 py-8 shadow-2xl backdrop-blur-md"
+        style={{
+          background: "linear-gradient(135deg, rgba(10,22,40,0.92) 0%, rgba(18,37,68,0.92) 100%)",
+          border: "1px solid rgba(201,169,97,0.4)",
+        }}
+      >
+        <div
+          className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3"
+          style={{ backgroundColor: "rgba(201,169,97,0.15)", border: "1px solid rgba(201,169,97,0.35)" }}
+        >
+          <Lock size={18} style={{ color: "#C9A961" }} />
+        </div>
+        <h4 className="text-base md:text-lg font-bold mb-1.5" style={{ color: "#FFFFFF" }}>
+          เนื้อหา {label} สงวนสำหรับนักลงทุน
+        </h4>
+        <p className="text-xs leading-relaxed mb-5" style={{ color: "#94A3B8" }}>
+          กรอกข้อมูลสั้นๆ เพื่อรอแอดมินอนุมัติ — หลังจากนั้นจะเปิดดูได้ทันที
+        </p>
+        {onUnlockRequest && (
+          <Button
+            onClick={onUnlockRequest}
+            className="h-10 px-6 text-xs font-bold hover:scale-[1.02] transition-transform"
+            style={{ backgroundColor: "#C9A961", color: "#0A1628" }}
+          >
+            <Lock size={12} className="mr-1.5" /> ขอเปิดดูเนื้อหา
+          </Button>
+        )}
+      </div>
+    </div>
+  );
+
+  const lockedWrap = (label: string, children: React.ReactNode) =>
+    locked ? (
+      <div className="relative">
+        <div className="blur-[6px] select-none pointer-events-none opacity-60" aria-hidden>
+          {children}
+        </div>
+        <LockedOverlay label={label} />
+      </div>
+    ) : (
+      <>{children}</>
+    );
+
   const triggerClass =
     "py-3 px-2 rounded-lg text-[13px] md:text-sm font-semibold transition-all " +
     "text-slate-300 hover:text-white hover:bg-white/5 " +
