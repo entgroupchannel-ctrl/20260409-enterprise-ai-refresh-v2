@@ -41,18 +41,43 @@ const POUploadForm = ({ quoteId, onSuccess }: POUploadFormProps) => {
       // Update quote status
       await (supabase.from as any)("quote_requests").update({ status: "po_uploaded" }).eq("id", quoteId);
 
-      // Notify admins about new PO upload
-      import('@/lib/notifications').then(({ notifyAdmins }) => {
+      // Fetch quote info for email context
+      const { data: quoteRow } = await (supabase.from as any)("quote_requests")
+        .select("quote_number, customer_name, customer_email")
+        .eq("id", quoteId)
+        .maybeSingle();
+
+      const origin = typeof window !== 'undefined' ? window.location.origin : '';
+
+      // Notify admins (in-app + email) + send customer confirmation
+      import('@/lib/notifications').then(({ notifyAdmins, notifyAdminsByEmail, sendQuoteStatusEmail }) => {
         notifyAdmins({
           type: 'po_uploaded',
           title: 'ลูกค้าอัปโหลด PO ใหม่',
-          message: `มี PO ใหม่รอตรวจสอบ`,
+          message: `${quoteRow?.customer_name ?? ''} — ${quoteRow?.quote_number ?? quoteId}`,
           priority: 'high',
           actionUrl: `/admin/quotes/${quoteId}`,
           actionLabel: 'ตรวจสอบ PO',
           linkType: 'quote',
           linkId: quoteId,
         });
+        notifyAdminsByEmail({
+          subject: `[PO] ลูกค้าอัปโหลด PO ใหม่ ${quoteRow?.quote_number ?? ''}`,
+          status: 'po_uploaded',
+          customerName: quoteRow?.customer_name,
+          quoteNumber: quoteRow?.quote_number,
+          viewUrl: `${origin}/admin/quotes/${quoteId}`,
+        });
+        if (quoteRow?.customer_email) {
+          sendQuoteStatusEmail({
+            recipientEmail: quoteRow.customer_email,
+            customerName: quoteRow.customer_name,
+            quoteNumber: quoteRow.quote_number,
+            status: 'po_uploaded',
+            viewUrl: `${origin}/my/quotes/${quoteId}`,
+            note: 'เราได้รับ PO ของคุณแล้ว ทีมงานกำลังตรวจสอบและจะแจ้งผลภายในเร็ว ๆ นี้',
+          });
+        }
       });
 
       toast({ title: "อัปโหลด PO สำเร็จ" });

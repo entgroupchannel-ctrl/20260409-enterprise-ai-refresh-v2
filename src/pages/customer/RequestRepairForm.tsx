@@ -66,21 +66,58 @@ export default function RequestRepairForm() {
     }
     setSaving(true);
     try {
-      const { error } = await (supabase as any).from('repair_orders').insert({
+      const customerName = profile?.full_name || user?.email || '';
+      const customerEmail = user?.email || '';
+      const { data: ro, error } = await (supabase as any).from('repair_orders').insert({
         product_name: productName,
         serial_number: serialNumber || null,
         registered_product_id: selectedProductId || null,
         customer_id: user?.id,
-        customer_name: profile?.full_name || user?.email || '',
-        customer_email: user?.email || '',
+        customer_name: customerName,
+        customer_email: customerEmail,
         customer_phone: profile?.phone || null,
         customer_company: profile?.company || null,
         issue_category: issueCategory,
         issue_description: issueDescription,
         status: 'pending',
         created_by: user?.id,
-      });
+      }).select().single();
       if (error) throw error;
+
+      // 3-layer notification (fire-and-forget)
+      const origin = typeof window !== 'undefined' ? window.location.origin : '';
+      const repairNumber = ro?.repair_order_number || ro?.id;
+      import('@/lib/notifications').then(({ notifyAdmins, notifyAdminsByEmail, sendQuoteStatusEmail }) => {
+        notifyAdmins({
+          type: 'new_repair_request',
+          title: 'มีคำขอแจ้งซ่อมใหม่',
+          message: `${customerName} — ${productName}`,
+          priority: 'high',
+          actionUrl: `/admin/repairs/${ro?.id}`,
+          actionLabel: 'ดูรายละเอียด',
+          linkType: 'repair',
+          linkId: ro?.id,
+        });
+        notifyAdminsByEmail({
+          subject: `[Repair] แจ้งซ่อมใหม่ ${repairNumber}`,
+          status: 'new_repair_request',
+          customerName,
+          quoteNumber: repairNumber,
+          note: issueDescription,
+          viewUrl: `${origin}/admin/repairs/${ro?.id}`,
+        });
+        if (customerEmail) {
+          sendQuoteStatusEmail({
+            recipientEmail: customerEmail,
+            customerName,
+            quoteNumber: repairNumber,
+            status: 'repair_received',
+            viewUrl: `${origin}/my/repairs`,
+            note: 'เราได้รับคำขอแจ้งซ่อมของคุณแล้ว ทีมช่างจะติดต่อกลับโดยเร็วที่สุด',
+          });
+        }
+      });
+
       toast({ title: 'แจ้งซ่อมสำเร็จ', description: 'ทีมงานจะติดต่อกลับเร็วๆ นี้' });
       navigate('/my/repairs');
     } catch (err: any) {

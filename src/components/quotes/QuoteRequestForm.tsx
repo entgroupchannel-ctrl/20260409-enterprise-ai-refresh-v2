@@ -56,6 +56,28 @@ const QuoteRequestForm = ({ onSuccess, prefilledProducts }: QuoteRequestFormProp
         customer_company: form.company || null,
       });
 
+      // Notify admins (in-app + email)
+      import('@/lib/notifications').then(({ notifyAdmins, notifyAdminsByEmail }) => {
+        notifyAdmins({
+          type: 'new_quote_request',
+          title: 'มีคำขอใบเสนอราคาใหม่',
+          message: `${form.name}${form.company ? ` (${form.company})` : ''} — ${data.quote_number}`,
+          priority: 'high',
+          actionUrl: `/admin/quotes/${data.id}`,
+          actionLabel: 'ดูใบเสนอราคา',
+          linkType: 'quote',
+          linkId: data.id,
+        });
+        notifyAdminsByEmail({
+          subject: `[RFQ] คำขอใบเสนอราคาใหม่ ${data.quote_number}`,
+          status: 'new_quote_request',
+          customerName: form.name,
+          quoteNumber: data.quote_number,
+          note: form.details || undefined,
+          viewUrl: `${typeof window !== 'undefined' ? window.location.origin : ''}/admin/quotes/${data.id}`,
+        });
+      });
+
       // Guest invite: confirmation email with register link
       supabase.functions.invoke("send-transactional-email", {
         body: {
