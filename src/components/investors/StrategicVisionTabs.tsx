@@ -343,6 +343,31 @@ const StrategicVisionTabs = ({ locked = false, onUnlockRequest }: Props = {}) =>
             </Collapsible>
           </div>
         </div>
+
+        {/* Sources & Citations */}
+        <Card className="mt-6 border-border/60 bg-muted/30">
+          <CardContent className="p-5">
+            <h4 className="font-bold text-sm mb-3 flex items-center gap-2">
+              <Award className="w-4 h-4 text-primary" /> แหล่งที่มาของข้อมูล (Sources & References)
+            </h4>
+            <div className="grid md:grid-cols-2 gap-x-6 gap-y-2 text-xs text-muted-foreground leading-relaxed">
+              <div>
+                <p className="font-semibold text-foreground mb-1">ข้อมูลตลาด (External)</p>
+                <p>[1] ขนาดตลาด Industrial Computer ไทย ~4,550 ลบ. — ประมาณการจาก IDC Thailand IPC Tracker 2024 + Frost & Sullivan APAC Industrial PC Report 2024</p>
+                <p>[2] Automation Investment ไทย 150,000 ลบ. โต 8–12% YoY — BOI Investment Statistics 2023–2024 + สมาคมส่งเสริมเทคโนโลยี (ส.ส.ท.)</p>
+                <p>[3] Smart Factory Initiative 100,000 ลบ. — กระทรวงอุตสาหกรรม / DEPA Thailand 4.0 Roadmap 2025</p>
+                <p>[4] NVIDIA Jetson / Edge AI เติบโต 30%+ — NVIDIA Q3 FY25 Earnings + Omdia Edge AI Hardware Forecast 2024</p>
+                <p>[5] SME ไทย 3.2 ล้านกิจการ — สำนักงานส่งเสริมวิสาหกิจขนาดกลางและขนาดย่อม (สสว.) รายงานสถานการณ์ MSME 2024</p>
+              </div>
+              <div>
+                <p className="font-semibold text-foreground mb-1">ข้อมูลภายใน ENT (Internal)</p>
+                <p>[A] ข้อมูลฐานลูกค้า / SKU / ทีมงาน — ENT Group CRM &amp; ERP, ณ Q4/2025</p>
+                <p>[B] เปรียบเทียบราคา China direct sellers — สำรวจราคาตัวอย่าง Industrial Mini PC บน Shopee/Lazada/Alibaba (ตุลาคม 2025)</p>
+                <p className="mt-2 italic">หมายเหตุ: ตัวเลขประมาณการบางส่วน (เช่น size ตลาด, อัตราเติบโต) เป็นการอ้างอิงข้ามแหล่งและประมาณการของฝ่ายกลยุทธ์ ENT ไม่ถือเป็นข้อมูลตรวจสอบโดยผู้สอบบัญชี</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
         </>))}
       </TabsContent>
 
