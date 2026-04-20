@@ -6104,7 +6104,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
           </div>
         </div>
       </section>
-      <B2BWorkflowBanner variant="full" />
+      <B2BMarketingShowcase variant="muted" />
       <B2BCTABanner variant="compact" />
       <FooterCompact />
       <LineQRDialog open={showLineQR} onClose={() => setShowLineQR(false)} />
