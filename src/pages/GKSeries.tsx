@@ -16,6 +16,7 @@ import CartBadge from "@/components/CartBadge";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
 import ProductGallery from "@/components/ProductGallery";
+import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import gk1506img1 from "@/assets/gk-series/gk1506-1.jpg";
 import gk1506img2 from "@/assets/gk-series/gk1506-2.jpg";
 import gk1506img3 from "@/assets/gk-series/gk1506-3.jpg";
@@ -1541,6 +1542,8 @@ const GKSeries = () => {
           </div>
         </div>
       </section>
+
+      <B2BWorkflowBanner variant="full" />
 
       <FooterCompact />
       <LineQRDialog open={showLineQR} onClose={() => setShowLineQR(false)} />
