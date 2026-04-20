@@ -400,6 +400,39 @@ export default function QuoteRequestForm() {
         customer_company: formData.customer_company || null,
       });
 
+      // 📧 Email + in-app notifications (fire-and-forget)
+      import('@/lib/notifications').then(({ sendAutoReplyEmail, notifyAdmins, notifyAdminsByEmail }) => {
+        // 1) Auto-reply ลูกค้า
+        if (formData.customer_email) {
+          sendAutoReplyEmail({
+            type: 'quote-request',
+            recipientEmail: formData.customer_email,
+            recipientName: formData.customer_name,
+            quoteRef: data.quote_number,
+          });
+        }
+        // 2) แจ้งเตือนแอดมินใน-แอป
+        notifyAdmins({
+          type: 'new_quote_request',
+          title: `📩 คำขอใบเสนอราคาใหม่ ${data.quote_number}`,
+          message: `${formData.customer_name}${formData.customer_company ? ' / ' + formData.customer_company : ''} — ${validProducts.length} รายการ`,
+          priority: 'high',
+          actionUrl: `/admin/quotes/${data.id}`,
+          actionLabel: 'เปิดใบเสนอราคา',
+          linkType: 'quote',
+          linkId: data.id,
+        });
+        // 3) ส่งอีเมลแจ้งทีมขาย
+        notifyAdminsByEmail({
+          subject: `คำขอใบเสนอราคาใหม่ ${data.quote_number}`,
+          status: 'new_quote_request',
+          customerName: formData.customer_name,
+          quoteNumber: data.quote_number,
+          viewUrl: `${window.location.origin}/admin/quotes/${data.id}`,
+          note: formData.notes || undefined,
+        });
+      });
+
       toast({ title: 'ส่งคำขอสำเร็จ', description: `เลขที่ ${data.quote_number}` });
       navigate(user ? '/my-quotes' : '/');
     } catch (error: any) {

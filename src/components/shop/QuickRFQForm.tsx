@@ -219,6 +219,37 @@ export default function QuickRFQForm({ product, defaultQuantity = 1, configAddon
         customer_company: form.customer_company,
         deal_value: totalEstimate || null,
       });
+
+      // 📧 Email + in-app notifications (fire-and-forget)
+      import('@/lib/notifications').then(({ sendAutoReplyEmail, notifyAdmins, notifyAdminsByEmail }) => {
+        if (form.customer_email) {
+          sendAutoReplyEmail({
+            type: 'quote-request',
+            recipientEmail: form.customer_email,
+            recipientName: form.customer_name,
+            quoteRef: data.quote_number,
+          });
+        }
+        notifyAdmins({
+          type: 'new_quote_request',
+          title: `📩 RFQ ใหม่ ${data.quote_number}`,
+          message: `${form.customer_name}${form.customer_company ? ' / ' + form.customer_company : ''} — ${product.model} x${form.quantity}`,
+          priority: 'high',
+          actionUrl: `/admin/quotes/${data.id}`,
+          actionLabel: 'เปิดใบเสนอราคา',
+          linkType: 'quote',
+          linkId: data.id,
+        });
+        notifyAdminsByEmail({
+          subject: `RFQ ใหม่ ${data.quote_number} — ${product.model}`,
+          status: 'new_quote_request',
+          customerName: form.customer_name,
+          quoteNumber: data.quote_number,
+          viewUrl: `${window.location.origin}/admin/quotes/${data.id}`,
+          note: finalNotes || undefined,
+        });
+      });
+
       toast({ title: 'ส่งคำขอใบเสนอราคาเรียบร้อย!', description: `เลขที่: ${data.quote_number}` });
       onSubmit?.();
     } catch (err: any) {
