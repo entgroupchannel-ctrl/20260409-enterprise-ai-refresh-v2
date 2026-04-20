@@ -1,0 +1,1 @@
+INSERT INTO public.investor_access_tokens (recipient_name, recipient_email, expires_at, notes) VALUES ('Super Admin Test', 'entgroupchannel@gmail.com', now() + interval '30 days', 'Test token created via agent for QA');
