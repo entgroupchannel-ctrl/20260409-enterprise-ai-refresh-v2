@@ -100,6 +100,8 @@ const StrategicVisionTabs = ({ locked = false, onUnlockRequest }: Props = {}) =>
 
       {/* ─── TAB 1: VISION ─── */}
       <TabsContent value="vision" className="space-y-12 mt-6">
+        {lockedWrap("Vision", (<>
+
         <div>
           <div className="text-center mb-8">
             <h2 className="text-2xl md:text-3xl font-bold mb-3">"The Thai Champion" Narrative</h2>
@@ -142,7 +144,17 @@ const StrategicVisionTabs = ({ locked = false, onUnlockRequest }: Props = {}) =>
               <Card key={b.num} className="border-border/60">
                 <CardContent className="p-6">
                   <div className="flex items-start gap-6">
-                    <div className="text-5xl font-bold text-primary/20 leading-none">{b.num}</div>
+                    <div
+                      className="text-5xl font-extrabold leading-none tracking-tight"
+                      style={{
+                        background: "linear-gradient(135deg, #C9A961 0%, #8B6F2E 100%)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        backgroundClip: "text",
+                      }}
+                    >
+                      {b.num}
+                    </div>
                     <div className="flex-1">
                       <div className="flex flex-wrap items-center gap-3 mb-2">
                         <h3 className="font-bold text-lg">{b.title}</h3>
