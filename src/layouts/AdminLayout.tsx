@@ -139,6 +139,7 @@ const navGroups: NavGroup[] = [
       { label: 'ถังขยะ', icon: Trash2, path: '/admin/trash' },
       { label: 'เทมเพลตอีเมล', icon: Mail, path: '/admin/email-templates', superAdminOnly: true },
       { label: 'รายงานอีเมล', icon: Mail, path: '/admin/email-log' },
+      { label: 'แผนที่การแจ้งเตือน', icon: ShieldCheck, path: '/admin/notification-coverage' },
       { label: 'นักลงทุน', icon: Briefcase, path: '/admin/investors', superAdminOnly: true },
       { label: 'Audit Log', icon: Shield, path: '/admin/audit-log', superAdminOnly: true },
       { label: 'Product Migration', icon: Database, path: '/admin/product-migration', superAdminOnly: true },
