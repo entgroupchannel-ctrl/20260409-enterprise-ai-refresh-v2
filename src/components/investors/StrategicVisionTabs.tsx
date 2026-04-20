@@ -640,7 +640,9 @@ const StrategicVisionTabs = ({ locked = false, onUnlockRequest }: Props = {}) =>
             </div>
           </CardContent>
         </Card>
+        </>))}
       </TabsContent>
+
     </Tabs>
   );
 };
