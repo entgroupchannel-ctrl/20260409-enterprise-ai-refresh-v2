@@ -19,6 +19,7 @@ import RequestQuoteFab from "./components/RequestQuoteFab.tsx";
 import WelcomeDialog from "./components/WelcomeDialog.tsx";
 import ContentProtection from "./components/ContentProtection.tsx";
 import MyAccountRedirect from "./components/MyAccountRedirect";
+import EngagementSyncMount from "./components/EngagementSyncMount.tsx";
 
 /* ── Lazy-loaded pages (with auto-retry on chunk errors) ── */
 const GTSeries = lazyRetry(() => import("./pages/GTSeries"));
@@ -365,6 +366,7 @@ const App = () => (
                 <GeneralChatWidget />
                 <WelcomeDialog />
                 <ContentProtection />
+                <EngagementSyncMount />
                 </CartProvider>
               </BrowserRouter>
             </TooltipProvider>
