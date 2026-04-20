@@ -10,7 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 interface Props {
-  /** When true, premium tabs (SWOT, landscape, strategy, ESG) are blurred behind an unlock CTA */
+  /** When true, premium tabs (SWOT, landscape, strategy, ESG) are blurred behind an unlock CTA. Vision tab always stays open. */
   locked?: boolean;
   /** Called when user clicks unlock button on a locked tab */
   onUnlockRequest?: () => void;
@@ -19,6 +19,7 @@ interface Props {
 /**
  * Reusable Strategic Vision Tabs
  * Used by both /investors (inline) and /investors/strategic-vision (standalone sub-page)
+ * Vision tab is always public; other tabs honor the `locked` prop.
  */
 const StrategicVisionTabs = ({ locked = false, onUnlockRequest }: Props = {}) => {
   const LockedOverlay = ({ label }: { label: string }) => (
@@ -100,7 +101,8 @@ const StrategicVisionTabs = ({ locked = false, onUnlockRequest }: Props = {}) =>
 
       {/* ─── TAB 1: VISION ─── */}
       <TabsContent value="vision" className="space-y-12 mt-6">
-        {lockedWrap("Vision", (<>
+        {((children) => children)((<>
+
 
         <div>
           <div className="text-center mb-8">
