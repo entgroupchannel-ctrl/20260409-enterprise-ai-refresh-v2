@@ -768,10 +768,11 @@ const MiniPCFirewall = () => {
       <MiniNavbar />
 
       {/* ── Hero ── */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden bg-slate-950">
         <div className="absolute inset-0">
-          <img src={heroFirewall} alt="Server room with firewall appliance" className="w-full h-full object-cover" width={1920} height={768} />
-          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-background/30" />
+          <img src={heroFirewall} alt="Server room with firewall appliance" className="w-full h-full object-cover opacity-50" width={1920} height={768} />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/85 to-slate-950/40" />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/60 via-transparent to-slate-950/80" />
         </div>
         <div className="relative container max-w-7xl mx-auto px-6 py-16 md:py-24">
           <div className="max-w-2xl">
@@ -784,13 +785,13 @@ const MiniPCFirewall = () => {
               </span>
             </div>
 
-            <h1 className="text-4xl md:text-6xl font-black tracking-tight text-foreground mb-4">
+            <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white mb-4 drop-shadow-lg">
               Mini PC<span className="text-primary"> Firewall</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-6">
+            <p className="text-lg md:text-xl text-slate-200 leading-relaxed mb-6">
               Firewall Appliance ตั้งแต่ระดับ Home Office จนถึง Data Center —
-              ประหยัดค่าใช้จ่าย ปรับแต่งได้ รองรับ <span className="text-foreground font-semibold">Open Source Firewall</span> ทุกยี่ห้อ
+              ประหยัดค่าใช้จ่าย ปรับแต่งได้ รองรับ <span className="text-white font-semibold">Open Source Firewall</span> ทุกยี่ห้อ
             </p>
 
             <div className="flex flex-wrap gap-6 mb-8">
@@ -802,16 +803,16 @@ const MiniPCFirewall = () => {
               ].map((s) => (
                 <div key={s.label} className="text-center">
                   <p className="text-2xl md:text-3xl font-display font-extrabold text-primary">{s.value}</p>
-                  <p className="text-xs text-muted-foreground">{s.label}</p>
+                  <p className="text-xs text-slate-300">{s.label}</p>
                 </div>
               ))}
             </div>
 
             <div className="flex flex-wrap gap-3">
-              <a href="#products" className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white text-gray-900 font-semibold text-sm hover:bg-gray-100 transition-colors shadow-lg">
+              <a href="#products" className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary/90 transition-colors shadow-lg">
                 เลือกรุ่นที่เหมาะกับคุณ <ChevronDown size={16} />
               </a>
-              <a href="#comparison" className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border-2 border-white/40 text-foreground font-semibold text-sm hover:bg-white/10 transition-all">
+              <a href="#comparison" className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border-2 border-white/40 text-white font-semibold text-sm hover:bg-white/10 transition-all">
                 <Filter size={16} /> เปรียบเทียบสเปก
               </a>
             </div>
