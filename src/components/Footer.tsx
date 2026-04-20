@@ -147,6 +147,7 @@ const footerSections: { title: string; links: FooterLink[] }[] = [
     title: "เกี่ยวกับเรา & พันธมิตร",
     links: [
       { label: "เกี่ยวกับเรา", href: "/about-us" },
+      { label: "นักลงทุนสัมพันธ์ (Investors)", href: "/investors" },
       { label: "ติดต่อเรา / แผนที่", href: "/contact" },
       { label: "กรณีศึกษาลูกค้า", href: "/case-studies" },
       { label: "บทความเทคนิค", href: "/blog" },
