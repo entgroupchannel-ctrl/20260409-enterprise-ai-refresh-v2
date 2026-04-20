@@ -433,6 +433,7 @@ const FirewallComparisonTable = () => {
   const [filterMinLan, setFilterMinLan] = useState<number | null>(null);
   const [filterFanless, setFilterFanless] = useState<boolean | null>(null);
   const [filterAesni, setFilterAesni] = useState<boolean | null>(null);
+  const [filtersOpen, setFiltersOpen] = useState(true);
   const [searchText, setSearchText] = useState("");
 
   const hasFilter = filterTier !== null || filterLanSpeed !== null || filterMinLan !== null || filterFanless !== null || filterAesni !== null || searchText.length > 0;
@@ -612,6 +613,8 @@ const FirewallComparisonTable = () => {
             <span className="text-xs text-muted-foreground">จาก {compRows.length} รุ่น</span>
           </div>
         )}
+          </div>
+        </div>
       </div>
 
       {/* Category Legend */}
