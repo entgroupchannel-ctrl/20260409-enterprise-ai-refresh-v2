@@ -56,145 +56,71 @@ const STEPS = [
 
 const B2BPlatformInterfaceShowcase = () => {
   return (
-    <section className="section-padding bg-gradient-to-b from-background via-muted/20 to-background border-y">
-      <div className="container max-w-7xl mx-auto px-4 md:px-6">
-        {/* Heading */}
-        <div className="text-center mb-10 md:mb-14 max-w-3xl mx-auto">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider mb-3">
-            <Sparkles className="w-3.5 h-3.5" /> Inside the B2B Platform
+    <section className="bg-gradient-to-b from-background via-muted/20 to-background border-y">
+      <div className="container max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8 lg:min-h-[calc(100vh-4rem)] lg:flex lg:flex-col lg:justify-center">
+        {/* Heading — compact */}
+        <div className="text-center mb-4 md:mb-6 max-w-2xl mx-auto">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-wider mb-2">
+            <Sparkles className="w-3 h-3" /> Inside the B2B Platform
           </span>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 leading-tight">
+          <h2 className="text-xl md:text-2xl lg:text-3xl font-bold mb-1.5 leading-tight">
             ดูตัวอย่าง<span className="text-primary">หน้าจอจริง</span> ในแต่ละขั้นตอน
           </h2>
-          <p className="text-sm md:text-base text-muted-foreground">
-            ระบบ B2B Procurement ของ ENT Group ออกแบบให้ลูกค้าทำงานได้ครบทุกขั้นตอน
-            ตั้งแต่เลือกสินค้าจนถึงรับของ — ผ่านหน้าเว็บที่ใช้งานง่าย
+          <p className="text-xs md:text-sm text-muted-foreground">
+            ระบบ B2B Procurement ครบวงจร — จากเลือกสินค้าจนรับของ ผ่านหน้าเว็บที่ใช้งานง่าย
           </p>
         </div>
 
-        {/* Featured first step — large card */}
-        <div className="grid lg:grid-cols-5 gap-4 md:gap-6 mb-4 md:mb-6">
-          {STEPS.slice(0, 1).map(({ n, icon: Icon, title, desc, image, accent, badge }) => (
+        {/* 5 steps — single row on desktop */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5 md:gap-3">
+          {STEPS.map(({ n, icon: Icon, title, desc, image, accent, badge }) => (
             <div
               key={n}
-              className="lg:col-span-3 group relative rounded-2xl overflow-hidden border bg-card hover:shadow-2xl hover:border-primary/40 transition-all duration-500"
+              className="group relative rounded-xl overflow-hidden border bg-card hover:shadow-lg hover:border-primary/40 transition-all duration-300 flex flex-col"
             >
-              <div className={`relative aspect-[16/9] overflow-hidden bg-gradient-to-br ${accent} to-background`}>
+              {/* Image */}
+              <div className={`relative aspect-[4/3] overflow-hidden bg-gradient-to-br ${accent} to-background`}>
                 <img
                   src={image}
                   alt={`ขั้นตอน ${n}: ${title}`}
                   loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute top-3 left-3 flex items-center gap-2">
-                  <span className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-background/95 backdrop-blur-sm border text-primary font-black text-sm shadow-lg">
+                <div className="absolute top-1.5 left-1.5 flex items-center gap-1">
+                  <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-background/95 backdrop-blur-sm border text-primary font-black text-[10px] shadow">
                     {n}
                   </span>
-                  <span className="px-2.5 py-1 rounded-full bg-primary/95 backdrop-blur-sm text-primary-foreground text-[10px] font-bold uppercase tracking-wider shadow">
+                  <span className="px-1.5 py-0.5 rounded-full bg-primary/95 backdrop-blur-sm text-primary-foreground text-[8px] font-bold uppercase tracking-wider shadow hidden sm:inline-flex">
                     {badge}
                   </span>
                 </div>
               </div>
-              <div className="p-4 md:p-5">
-                <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                    <Icon className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-base md:text-lg mb-1 leading-tight">{title}</h3>
-                    <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{desc}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
 
-          {/* Step 02 — tall sidebar card */}
-          {STEPS.slice(1, 2).map(({ n, icon: Icon, title, desc, image, accent, badge }) => (
-            <div
-              key={n}
-              className="lg:col-span-2 group relative rounded-2xl overflow-hidden border bg-card hover:shadow-2xl hover:border-primary/40 transition-all duration-500"
-            >
-              <div className={`relative aspect-[4/3] lg:aspect-auto lg:h-[60%] overflow-hidden bg-gradient-to-br ${accent} to-background`}>
-                <img
-                  src={image}
-                  alt={`ขั้นตอน ${n}: ${title}`}
-                  loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute top-3 left-3 flex items-center gap-2">
-                  <span className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-background/95 backdrop-blur-sm border text-primary font-black text-sm shadow-lg">
-                    {n}
-                  </span>
-                  <span className="px-2.5 py-1 rounded-full bg-primary/95 backdrop-blur-sm text-primary-foreground text-[10px] font-bold uppercase tracking-wider shadow">
-                    {badge}
-                  </span>
-                </div>
-              </div>
-              <div className="p-4 md:p-5">
-                <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                    <Icon className="w-5 h-5" />
+              {/* Content — compact */}
+              <div className="p-2.5 flex-1 flex flex-col">
+                <div className="flex items-start gap-1.5 mb-1">
+                  <div className="w-6 h-6 rounded-md bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                    <Icon className="w-3 h-3" />
                   </div>
-                  <div>
-                    <h3 className="font-bold text-base md:text-lg mb-1 leading-tight">{title}</h3>
-                    <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{desc}</p>
-                  </div>
+                  <h3 className="font-bold text-xs md:text-sm leading-tight flex-1">{title}</h3>
                 </div>
+                <p className="text-[10px] md:text-[11px] text-muted-foreground leading-snug line-clamp-2">{desc}</p>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Bottom 3 steps */}
-        <div className="grid md:grid-cols-3 gap-4 md:gap-6">
-          {STEPS.slice(2).map(({ n, icon: Icon, title, desc, image, accent, badge }) => (
-            <div
-              key={n}
-              className="group relative rounded-2xl overflow-hidden border bg-card hover:shadow-xl hover:border-primary/40 transition-all duration-500 flex flex-col"
-            >
-              <div className={`relative aspect-[16/10] overflow-hidden bg-gradient-to-br ${accent} to-background`}>
-                <img
-                  src={image}
-                  alt={`ขั้นตอน ${n}: ${title}`}
-                  loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute top-3 left-3 flex items-center gap-2">
-                  <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-background/95 backdrop-blur-sm border text-primary font-black text-xs shadow-lg">
-                    {n}
-                  </span>
-                  <span className="px-2 py-0.5 rounded-full bg-primary/95 backdrop-blur-sm text-primary-foreground text-[9px] font-bold uppercase tracking-wider shadow">
-                    {badge}
-                  </span>
-                </div>
-              </div>
-              <div className="p-4 flex-1">
-                <div className="flex items-start gap-2.5">
-                  <div className="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                    <Icon className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-sm md:text-base mb-1 leading-tight">{title}</h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed">{desc}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* CTA */}
-        <div className="mt-8 md:mt-10 flex flex-wrap items-center justify-center gap-3">
+        {/* CTA — compact */}
+        <div className="mt-4 md:mt-5 flex flex-wrap items-center justify-center gap-2">
           <Link
             to="/shop"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity shadow-md"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md bg-primary text-primary-foreground text-xs md:text-sm font-semibold hover:opacity-90 transition-opacity shadow-sm"
           >
-            เริ่มเลือกสินค้าที่ Shop <ArrowRight className="w-4 h-4" />
+            เริ่มเลือกสินค้าที่ Shop <ArrowRight className="w-3.5 h-3.5" />
           </Link>
           <Link
             to="/contact"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border bg-background text-sm font-semibold text-foreground hover:border-primary/40 hover:text-primary transition-colors"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md border border-border bg-background text-xs md:text-sm font-semibold text-foreground hover:border-primary/40 hover:text-primary transition-colors"
           >
             ปรึกษาทีมแอดมิน
           </Link>
@@ -205,3 +131,4 @@ const B2BPlatformInterfaceShowcase = () => {
 };
 
 export default B2BPlatformInterfaceShowcase;
+
