@@ -608,22 +608,22 @@ const FirewallComparisonTable = () => {
       </div>
 
       {/* Table */}
-      <div className="card-surface overflow-hidden rounded-2xl">
+      <div className="card-surface overflow-hidden rounded-2xl border border-border/60">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-border bg-muted/50">
-                <th className="text-left p-4 font-bold text-foreground sticky left-0 bg-muted/50 min-w-[120px]">รุ่น</th>
-                <th className="text-left p-4 font-bold text-foreground min-w-[160px]">CPU</th>
-                <th className="text-left p-4 font-bold text-foreground min-w-[100px]">RAM</th>
-                <th className="text-center p-4 font-bold text-foreground">LAN</th>
-                <th className="text-center p-4 font-bold text-foreground">ความเร็ว</th>
-                <th className="text-center p-4 font-bold text-foreground">Cooling</th>
-                <th className="text-center p-4 font-bold text-foreground">AES-NI</th>
-                <th className="text-center p-4 font-bold text-foreground">SIM</th>
-                <th className="text-center p-4 font-bold text-foreground">Display</th>
-                <th className="text-center p-4 font-bold text-foreground">Form</th>
-                <th className="text-center p-4 font-bold text-foreground min-w-[50px]">PDF</th>
+              <tr className="border-b border-border bg-muted/40">
+                <th className="text-left p-4 font-semibold text-foreground sticky left-0 bg-muted/40 min-w-[120px]">รุ่น</th>
+                <th className="text-left p-4 font-semibold text-muted-foreground min-w-[160px]">CPU</th>
+                <th className="text-left p-4 font-semibold text-muted-foreground min-w-[100px]">RAM</th>
+                <th className="text-center p-4 font-semibold text-muted-foreground">LAN</th>
+                <th className="text-center p-4 font-semibold text-muted-foreground">ความเร็ว</th>
+                <th className="text-center p-4 font-semibold text-muted-foreground">Cooling</th>
+                <th className="text-center p-4 font-semibold text-muted-foreground">AES-NI</th>
+                <th className="text-center p-4 font-semibold text-muted-foreground">SIM</th>
+                <th className="text-center p-4 font-semibold text-muted-foreground">Display</th>
+                <th className="text-center p-4 font-semibold text-muted-foreground">Form</th>
+                <th className="text-center p-4 font-semibold text-muted-foreground min-w-[50px]">PDF</th>
               </tr>
             </thead>
             <tbody>
@@ -641,61 +641,56 @@ const FirewallComparisonTable = () => {
                 const ts = tierStyle(row.tier);
                 const tm = tierMeta[row.tier];
                 return (
-                  <tr key={row.name} className={`border-b border-border/50 transition-colors ${ts.row}`}>
+                  <tr key={row.name} className="border-b border-border/30 hover:bg-muted/30 transition-colors">
 
-                    <td className="p-4 sticky left-0 font-bold text-foreground" style={{ background: 'inherit' }}>
+                    <td className="p-4 sticky left-0 bg-card font-semibold text-foreground">
 
                       <div className="flex flex-col gap-1">
-                        <span className="text-base">{row.name}</span>
-                        <span className={`inline-block w-fit px-2 py-0.5 rounded-full text-[10px] font-bold ${ts.badge}`}>
-
+                        <span className="text-sm">{row.name}</span>
+                        <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-wide">
                           {tm.label}
                         </span>
                       </div>
                     </td>
                     <td className="p-4">
-                      <span className="text-xs text-foreground font-mono leading-tight block">{row.cpu}</span>
+                      <span className="text-xs text-foreground/80 font-mono leading-tight block">{row.cpu}</span>
                     </td>
                     <td className="p-4">
                       <span className="text-xs text-muted-foreground">{row.ram}</span>
                     </td>
                     <td className="p-4 text-center">
-                      <span className={`inline-flex items-center justify-center w-7 h-7 rounded-full text-xs font-bold ${
-                        row.lanCount >= 8 ? "bg-amber-500/20 text-amber-600 dark:text-amber-400" :
-                        row.lanCount >= 6 ? "bg-sky-500/20 text-sky-600 dark:text-sky-400" :
-                        "bg-muted text-muted-foreground"
+                      <span className={`text-sm font-semibold ${
+                        row.lanCount >= 6 ? "text-primary" : "text-foreground"
                       }`}>{row.lanCount}</span>
                     </td>
                     <td className="p-4 text-center">
-                      <span className={`inline-flex items-center px-2 py-1 rounded-full text-[10px] font-bold ${
-                        row.lanSpeed === "10G SFP+" ? "bg-purple-500/20 text-purple-600 dark:text-purple-400" :
-                        row.lanSpeed === "2.5G" ? "bg-sky-500/20 text-sky-600 dark:text-sky-400" :
-                        "bg-muted text-muted-foreground"
+                      <span className={`text-xs font-medium ${
+                        row.lanSpeed === "10G SFP+" ? "text-primary font-semibold" :
+                        row.lanSpeed === "2.5G" ? "text-foreground" :
+                        "text-muted-foreground"
                       }`}>{row.lanSpeed}</span>
                     </td>
                     <td className="p-4 text-center">
                       {row.cooling === "fanless" ? (
-                        <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold">
-                          <Wind size={12} /> Fanless
+                        <span className="inline-flex items-center gap-1 text-xs text-foreground">
+                          <Wind size={12} className="text-primary" /> Fanless
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400 text-[10px] font-bold">
-                          🌀 Fan
-                        </span>
+                        <span className="text-xs text-muted-foreground">Fan</span>
                       )}
                     </td>
                     <td className="p-4 text-center">
                       {row.aesni ? (
-                        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-bold">✓</span>
+                        <span className="text-primary text-base font-bold">✓</span>
                       ) : (
-                        <span className="text-muted-foreground/40">—</span>
+                        <span className="text-muted-foreground/30">—</span>
                       )}
                     </td>
                     <td className="p-4 text-center">
                       {row.sim ? (
-                        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-bold">✓</span>
+                        <span className="text-primary text-base font-bold">✓</span>
                       ) : (
-                        <span className="text-muted-foreground/40">—</span>
+                        <span className="text-muted-foreground/30">—</span>
                       )}
                     </td>
                     <td className="p-4 text-center">
@@ -706,11 +701,11 @@ const FirewallComparisonTable = () => {
                     </td>
                     <td className="p-4 text-center">
                       {row.pdf ? (
-                        <a href={row.pdf} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80">
+                        <a href={row.pdf} target="_blank" rel="noopener noreferrer" className="inline-flex text-muted-foreground hover:text-primary transition-colors">
                           <Download size={14} />
                         </a>
                       ) : (
-                        <span className="text-muted-foreground/40">—</span>
+                        <span className="text-muted-foreground/30">—</span>
                       )}
                     </td>
                   </tr>
