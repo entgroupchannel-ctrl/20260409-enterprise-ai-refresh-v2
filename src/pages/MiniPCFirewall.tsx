@@ -926,7 +926,11 @@ const MiniPCFirewall = () => {
       {/* ── IPC090 Xeon Comparison ── */}
       <section className="py-16">
         <div className="container max-w-7xl mx-auto px-6">
-          <CollapsibleSection title="IPC090 Xeon — เปรียบเทียบ 4 รุ่นย่อย" defaultOpen={false}>
+          <div className="mb-6">
+            <h2 className="text-2xl md:text-3xl font-black text-foreground">IPC090 Xeon — เปรียบเทียบ 4 รุ่นย่อย</h2>
+            <p className="text-sm text-muted-foreground mt-1">เลือกรุ่นย่อยตามจำนวน Cores และ SFP+ ที่ต้องการ</p>
+          </div>
+          <div className="card-surface rounded-xl overflow-hidden p-4 md:p-6">
 
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
@@ -957,7 +961,7 @@ const MiniPCFirewall = () => {
               </table>
             </div>
             <p className="text-xs text-muted-foreground mt-3">* ทุกรุ่นมี 6× Intel i211 1GbE + 2× PCIe X8 + 1× PCIe X16 + Console + VGA + HDMI + 2× USB</p>
-          </CollapsibleSection>
+          </div>
         </div>
       </section>
 
