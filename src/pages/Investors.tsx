@@ -615,8 +615,13 @@ const Investors = () => {
           ) : (
             <form
               onSubmit={handleSubmit}
-              className="rounded-2xl p-6 md:p-8 space-y-5"
-              style={{ backgroundColor: "#FAF8F3", border: "1px solid #E2E8F0" }}
+              className="relative rounded-2xl p-6 md:p-8 space-y-5"
+              style={{
+                background: "linear-gradient(160deg, #FFFFFF 0%, #FAF6EB 100%)",
+                border: "1px solid #E8E0CC",
+                boxShadow:
+                  "0 1px 3px rgba(10, 22, 40, 0.04), 0 12px 32px rgba(201, 169, 97, 0.08)",
+              }}
             >
               {/* ═══ ELIGIBILITY GATE — ต้องเลือกก่อน ═══ */}
               <div
