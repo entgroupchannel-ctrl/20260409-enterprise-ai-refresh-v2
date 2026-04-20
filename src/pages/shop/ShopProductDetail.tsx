@@ -10,6 +10,7 @@ import QuickRFQForm from '@/components/shop/QuickRFQForm';
 import RelatedProducts, { addToRecentlyViewed } from '@/components/shop/RelatedProducts';
 import AddToCartButton from '@/components/AddToCartButton';
 import ChatNowButton from '@/components/shop/ChatNowButton';
+import { useProductViewTracker } from '@/hooks/useEngagementTracking';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -61,6 +62,11 @@ const ShopProductDetail = () => {
   const [configuredVariant, setConfiguredVariant] = useState<Product | null>(null);
   const [configPrice, setConfigPrice] = useState(0);
   const [configAddons, setConfigAddons] = useState<AddonSummary[]>([]);
+
+  // Track view duration for marketing-automation Hot Interest detection
+  useProductViewTracker(
+    product ? { slug: product.slug, product_id: product.id, model: product.model, name: product.name } : null
+  );
 
   useEffect(() => {
     if (!slug) return;
