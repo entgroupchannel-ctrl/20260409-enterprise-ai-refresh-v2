@@ -353,8 +353,15 @@ const Investors = () => {
       </section>
 
       {/* ═══════ STRATEGIC VISION (Vision · SWOT · Landscape · Strategy · ESG) ═══════ */}
-      <section className="py-16 px-4" style={{ backgroundColor: "#FAF8F3" }}>
-        <div className="container max-w-6xl mx-auto">
+      <section
+        className="relative py-20 px-4 overflow-hidden"
+        style={{ background: "linear-gradient(180deg, #FAF8F3 0%, #F2EDDC 100%)" }}
+      >
+        <div
+          className="absolute top-1/2 left-1/2 w-[700px] h-[700px] opacity-[0.08] pointer-events-none"
+          style={{ background: "radial-gradient(circle, #C9A961 0%, transparent 60%)", transform: "translate(-50%, -50%)" }}
+        />
+        <div className="relative container max-w-6xl mx-auto">
           <div className="text-center mb-10">
             <span className="text-xs font-semibold tracking-widest uppercase mb-3 block" style={{ color: "#C9A961" }}>
               Strategic Vision 2026–2028
