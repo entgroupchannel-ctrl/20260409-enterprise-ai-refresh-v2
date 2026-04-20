@@ -17,6 +17,7 @@ import logo from "@/assets/logo-entgroup.avif";
 import smartDisplayHero from "@/assets/smart-display-hero.jpg";
 import FooterCompact from "@/components/FooterCompact";
 import MiniNavbar from "@/components/MiniNavbar";
+import B2BPlatformInterfaceShowcase from "@/components/B2BPlatformInterfaceShowcase";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
 import kioskVisitor from "@/assets/kiosk-usecase-visitor.jpg";
 import kioskQueue from "@/assets/kiosk-usecase-queue.jpg";
