@@ -39,16 +39,16 @@ const inquirySchema = z.object({
 
 /* ═══════ Highlights (เปิดเผยได้ — ข้อเท็จจริงทางธุรกิจ) ═══════ */
 const highlights = [
-  { icon: Building2, value: "13+", label: "ปีในวงการ B2B Industrial" },
+  { icon: Building2, value: "10+", label: "ปีดำเนินธุรกิจ (จดทะเบียน 2558)" },
   { icon: Users, value: "8,000+", label: "ลูกค้าองค์กร" },
   { icon: Award, value: "600+", label: "SKU สินค้าอุตสาหกรรม" },
-  { icon: TrendingUp, value: "100%", label: "เติบโตต่อเนื่องทุกปี" },
+  { icon: TrendingUp, value: "เติบโต", label: "ต่อเนื่องทุกปี" },
 ];
 
 const pillars = [
   {
     icon: Target,
-    title: "ธุรกิจจริง ดำเนินงานต่อเนื่อง 13 ปี",
+    title: "ธุรกิจจริง ดำเนินงานต่อเนื่องกว่า 10 ปี",
     desc: "มีรายได้สม่ำเสมอจากลูกค้าองค์กรกว่า 8,000 ราย ครอบคลุมหน่วยงานราชการ โรงงาน โรงพยาบาล และสถาบันการศึกษา",
   },
   {
@@ -168,7 +168,7 @@ const Investors = () => {
         <title>Strategic Partnership Inquiry | ENT Group</title>
         <meta
           name="description"
-          content="ENT Group — B2B Industrial Platform 13 ปี ลูกค้าองค์กร 8,000+ ราย ข้อมูลรายละเอียดเปิดเผยเฉพาะพันธมิตรที่ผ่านการคัดกรองคุณสมบัติเท่านั้น"
+          content="ENT Group — B2B Industrial Platform จดทะเบียน 2558 ลูกค้าองค์กร 8,000+ ราย ข้อมูลรายละเอียดเปิดเผยเฉพาะพันธมิตรที่ผ่านการคัดกรองคุณสมบัติเท่านั้น"
         />
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
@@ -221,7 +221,7 @@ const Investors = () => {
             B2B Industrial Platform ของไทย
           </h1>
           <p className="text-base md:text-lg leading-relaxed max-w-2xl mb-10" style={{ color: "#94A3B8" }}>
-            ธุรกิจ 13 ปี · ลูกค้าองค์กร 8,000+ ราย · เปิดรับการพูดคุยกับพันธมิตรเชิงกลยุทธ์เฉพาะกลุ่ม เพื่อขยายแพลตฟอร์มจัดซื้ออุตสาหกรรมครบวงจร
+            จดทะเบียน 2558 · ลูกค้าองค์กร 8,000+ ราย · เปิดรับการพูดคุยกับพันธมิตรเชิงกลยุทธ์เฉพาะกลุ่ม เพื่อขยายแพลตฟอร์มจัดซื้ออุตสาหกรรมครบวงจร
             <br />
             <span style={{ color: "#D4B876" }}>รายละเอียดเปิดเผยเฉพาะผู้ที่ผ่านการคัดกรองคุณสมบัติและลงนาม NDA</span>
           </p>
