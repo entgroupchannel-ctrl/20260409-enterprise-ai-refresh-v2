@@ -101,20 +101,21 @@ export default function AffiliateDashboard() {
 
   if (loading || authLoading) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen flex flex-col bg-background">
         <SiteNavbar />
-        <div className="flex items-center justify-center h-[60vh]">
+        <div className="flex-1 flex items-center justify-center">
           <Loader2 className="w-8 h-8 animate-spin text-primary" />
         </div>
+        <FooterCompact />
       </div>
     );
   }
 
   if (!affiliate) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen flex flex-col bg-background">
         <SiteNavbar />
-        <div className="container mx-auto px-4 py-16 max-w-2xl text-center">
+        <div className="flex-1 container mx-auto px-4 py-16 max-w-2xl text-center">
           <h1 className="text-2xl font-bold mb-3">คุณยังไม่ได้เป็น Affiliate</h1>
           <p className="text-muted-foreground mb-6">
             สมัครเป็น Affiliate Partner ของ ENT Group เพื่อเริ่มสร้างรายได้จากการแนะนำลูกค้า B2B
@@ -134,10 +135,10 @@ export default function AffiliateDashboard() {
     affiliate.status === "pending" ? "secondary" : "destructive";
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen flex flex-col bg-background">
       <SiteNavbar />
 
-      <div className="container mx-auto px-4 py-8 max-w-6xl">
+      <div className="flex-1 container mx-auto px-4 py-8 max-w-6xl">
         {/* Header */}
         <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
           <div>
