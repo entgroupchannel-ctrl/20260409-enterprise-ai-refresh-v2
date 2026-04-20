@@ -23,42 +23,46 @@ interface Props {
  */
 const StrategicVisionTabs = ({ locked = false, onUnlockRequest }: Props = {}) => {
   const LockedOverlay = ({ label }: { label: string }) => (
-    <div className="absolute inset-0 z-10 flex items-center justify-center px-4">
-      <div
-        className="max-w-md w-full text-center rounded-2xl px-6 py-8 shadow-2xl backdrop-blur-md"
-        style={{
-          background: "linear-gradient(135deg, rgba(10,22,40,0.92) 0%, rgba(18,37,68,0.92) 100%)",
-          border: "1px solid rgba(201,169,97,0.4)",
-        }}
-      >
+    <div className="absolute inset-0 z-10 pointer-events-none">
+      {/* Sticky wrapper keeps the dialog at a stable viewport position
+          even when tab content height changes between tabs. */}
+      <div className="sticky top-24 flex justify-center px-4 pointer-events-none">
         <div
-          className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3"
-          style={{ backgroundColor: "rgba(201,169,97,0.15)", border: "1px solid rgba(201,169,97,0.35)" }}
+          className="max-w-md w-full text-center rounded-2xl px-6 py-8 shadow-2xl backdrop-blur-md pointer-events-auto"
+          style={{
+            background: "linear-gradient(135deg, rgba(10,22,40,0.92) 0%, rgba(18,37,68,0.92) 100%)",
+            border: "1px solid rgba(201,169,97,0.4)",
+          }}
         >
-          <Lock size={18} style={{ color: "#C9A961" }} />
-        </div>
-        <h4 className="text-base md:text-lg font-bold mb-1.5" style={{ color: "#FFFFFF" }}>
-          เนื้อหา {label} จะเปิดเมื่อแอดมินอนุมัติ
-        </h4>
-        <p className="text-xs leading-relaxed mb-5" style={{ color: "#94A3B8" }}>
-          กรอกข้อมูลติดต่อสั้นๆ — ทีมงานจะตรวจสอบและอนุมัติสิทธิ์การเข้าถึงให้ภายใน 24 ชั่วโมง
-        </p>
-        {onUnlockRequest && (
-          <Button
-            onClick={onUnlockRequest}
-            className="h-10 px-6 text-xs font-bold hover:scale-[1.02] transition-transform"
-            style={{ backgroundColor: "#C9A961", color: "#0A1628" }}
+          <div
+            className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3"
+            style={{ backgroundColor: "rgba(201,169,97,0.15)", border: "1px solid rgba(201,169,97,0.35)" }}
           >
-            <Lock size={12} className="mr-1.5" /> ขอสิทธิ์เข้าถึง
-          </Button>
-        )}
+            <Lock size={18} style={{ color: "#C9A961" }} />
+          </div>
+          <h4 className="text-base md:text-lg font-bold mb-1.5" style={{ color: "#FFFFFF" }}>
+            เนื้อหา {label} จะเปิดเมื่อแอดมินอนุมัติ
+          </h4>
+          <p className="text-xs leading-relaxed mb-5" style={{ color: "#94A3B8" }}>
+            กรอกข้อมูลติดต่อสั้นๆ — ทีมงานจะตรวจสอบและอนุมัติสิทธิ์การเข้าถึงให้ภายใน 24 ชั่วโมง
+          </p>
+          {onUnlockRequest && (
+            <Button
+              onClick={onUnlockRequest}
+              className="h-10 px-6 text-xs font-bold hover:scale-[1.02] transition-transform"
+              style={{ backgroundColor: "#C9A961", color: "#0A1628" }}
+            >
+              <Lock size={12} className="mr-1.5" /> ขอสิทธิ์เข้าถึง
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );
 
   const lockedWrap = (label: string, children: React.ReactNode) =>
     locked ? (
-      <div className="relative">
+      <div className="relative min-h-[600px]">
         <div className="blur-[6px] select-none pointer-events-none opacity-60" aria-hidden>
           {children}
         </div>
