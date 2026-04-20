@@ -37,10 +37,10 @@ const StrategicVisionTabs = ({ locked = false, onUnlockRequest }: Props = {}) =>
           <Lock size={18} style={{ color: "#C9A961" }} />
         </div>
         <h4 className="text-base md:text-lg font-bold mb-1.5" style={{ color: "#FFFFFF" }}>
-          เนื้อหา {label} สงวนสำหรับนักลงทุน
+          เนื้อหา {label} จะเปิดเมื่อแอดมินอนุมัติ
         </h4>
         <p className="text-xs leading-relaxed mb-5" style={{ color: "#94A3B8" }}>
-          กรอกข้อมูลสั้นๆ เพื่อรอแอดมินอนุมัติ — หลังจากนั้นจะเปิดดูได้ทันที
+          กรอกข้อมูลติดต่อสั้นๆ — ทีมงานจะตรวจสอบและอนุมัติสิทธิ์การเข้าถึงให้ภายใน 24 ชั่วโมง
         </p>
         {onUnlockRequest && (
           <Button
@@ -48,7 +48,7 @@ const StrategicVisionTabs = ({ locked = false, onUnlockRequest }: Props = {}) =>
             className="h-10 px-6 text-xs font-bold hover:scale-[1.02] transition-transform"
             style={{ backgroundColor: "#C9A961", color: "#0A1628" }}
           >
-            <Lock size={12} className="mr-1.5" /> ขอเปิดดูเนื้อหา
+            <Lock size={12} className="mr-1.5" /> ขอสิทธิ์เข้าถึง
           </Button>
         )}
       </div>
@@ -100,6 +100,8 @@ const StrategicVisionTabs = ({ locked = false, onUnlockRequest }: Props = {}) =>
 
       {/* ─── TAB 1: VISION ─── */}
       <TabsContent value="vision" className="space-y-12 mt-6">
+        {lockedWrap("Vision", (<>
+
         <div>
           <div className="text-center mb-8">
             <h2 className="text-2xl md:text-3xl font-bold mb-3">"The Thai Champion" Narrative</h2>
@@ -142,7 +144,17 @@ const StrategicVisionTabs = ({ locked = false, onUnlockRequest }: Props = {}) =>
               <Card key={b.num} className="border-border/60">
                 <CardContent className="p-6">
                   <div className="flex items-start gap-6">
-                    <div className="text-5xl font-bold text-primary/20 leading-none">{b.num}</div>
+                    <div
+                      className="text-5xl font-extrabold leading-none tracking-tight"
+                      style={{
+                        background: "linear-gradient(135deg, #C9A961 0%, #8B6F2E 100%)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        backgroundClip: "text",
+                      }}
+                    >
+                      {b.num}
+                    </div>
                     <div className="flex-1">
                       <div className="flex flex-wrap items-center gap-3 mb-2">
                         <h3 className="font-bold text-lg">{b.title}</h3>
@@ -186,7 +198,9 @@ const StrategicVisionTabs = ({ locked = false, onUnlockRequest }: Props = {}) =>
             <p className="text-sm text-muted-foreground mt-2">ส่วนแบ่งตลาด 1% = 5 เท่าของรายได้ปัจจุบัน</p>
           </div>
         </div>
+        </>))}
       </TabsContent>
+
 
       {/* ─── TAB 2: SWOT ─── */}
       <TabsContent value="swot" className="space-y-6 mt-6">
