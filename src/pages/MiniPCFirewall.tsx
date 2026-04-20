@@ -961,7 +961,7 @@ const MiniPCFirewall = () => {
               </table>
             </div>
             <p className="text-xs text-muted-foreground mt-3">* ทุกรุ่นมี 6× Intel i211 1GbE + 2× PCIe X8 + 1× PCIe X16 + Console + VGA + HDMI + 2× USB</p>
-          </CollapsibleSection>
+          </div>
         </div>
       </section>
 
