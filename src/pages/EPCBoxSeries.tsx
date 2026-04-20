@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ThemeToggle from "@/components/ThemeToggle";
 import logo from "@/assets/logo-entgroup.avif";
 import FooterCompact from "@/components/FooterCompact";
+import B2BPlatformInterfaceShowcase from "@/components/B2BPlatformInterfaceShowcase";
 import PartnerLogos from "@/components/PartnerLogos";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
 import { LineQRDialog } from "@/components/LineQRDialog";
@@ -1203,6 +1204,7 @@ const EPCBoxSeries = () => {
           </div>
         </div>
       </section>
+      <B2BPlatformInterfaceShowcase />
       <FooterCompact />
       <LineQRDialog open={showLineQR} onClose={() => setShowLineQR(false)} />
     </div>
