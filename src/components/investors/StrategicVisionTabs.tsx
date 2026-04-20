@@ -210,7 +210,9 @@ const StrategicVisionTabs = ({ locked = false, onUnlockRequest }: Props = {}) =>
 
         <div className="text-center mb-6">
           <h2 className="text-2xl md:text-3xl font-bold mb-3">SWOT Analysis</h2>
-          <p className="text-muted-foreground">การประเมินตนเองในตลาด Industrial Computer ไทย (~4,550 ลบ.)</p>
+          <p className="text-muted-foreground">
+            การประเมินตนเองในตลาด Industrial Computer ไทย (~4,550 ลบ.<sup className="text-primary">[1]</sup>)
+          </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-5">
@@ -223,8 +225,8 @@ const StrategicVisionTabs = ({ locked = false, onUnlockRequest }: Props = {}) =>
               <ul className="space-y-2.5 text-sm">
                 {[
                   "B2B Digital Platform ครบลูป (RFQ→Quote→PO→Invoice) + AI Assistant",
-                  "ฐานลูกค้าสะสม 13 ปี · 8,000+ องค์กร · 4,275 active contacts",
-                  "Product Range 600+ SKU ใน 6 series",
+                  "ฐานลูกค้าสะสม 13 ปี · 8,000+ องค์กร · 4,275 active contacts [A]",
+                  "Product Range 600+ SKU ใน 6 series [A]",
                   "นำเข้าตรงจากโรงงาน ต้นทุนต่ำกว่า distributor หลายชั้น",
                   "ตัดสินใจเร็ว · Quote ใน 2 ชม. ไม่ต้องรอ HQ",
                   "ทีมไทย 100% เข้าใจวัฒนธรรม B2B ไทย",
@@ -247,10 +249,10 @@ const StrategicVisionTabs = ({ locked = false, onUnlockRequest }: Props = {}) =>
               </div>
               <ul className="space-y-2.5 text-sm">
                 {[
-                  "Automation Investment ของไทย 150,000 ลบ. โต 8–12% YoY",
-                  "Smart Factory Initiative มูลค่า 100,000 ลบ.",
-                  "Edge AI Boom · NVIDIA Jetson เติบโต 30%+",
-                  "SME ไทย 3.2 ล้านกิจการที่แบรนด์โกลบอลไม่คุ้มดูแล",
+                  "Automation Investment ของไทย 150,000 ลบ. โต 8–12% YoY [2]",
+                  "Smart Factory Initiative มูลค่า 100,000 ลบ. [3]",
+                  "Edge AI Boom · NVIDIA Jetson เติบโต 30%+ [4]",
+                  "SME ไทย 3.2 ล้านกิจการที่แบรนด์โกลบอลไม่คุ้มดูแล [5]",
                   "EV Manufacturing ขยายตัวในไทย",
                   "Medical Digitalization ของกระทรวงสาธารณสุข",
                   "ขยาย ASEAN ผ่าน Platform (VN, ID, KH, LA)",
@@ -322,7 +324,7 @@ const StrategicVisionTabs = ({ locked = false, onUnlockRequest }: Props = {}) =>
                       {[
                         "แบรนด์โกลบอลกำลังหันมาเล่น sector-driven · จะแย่ง vertical SME",
                         "Thai Distributor รายใหญ่ (อายุ 18+ ปี) มี brand premium แข็งแกร่ง",
-                        "China direct sellers บน Shopee/Lazada ราคาต่ำกว่า 40–60%",
+                        "China direct sellers บน Shopee/Lazada ราคาต่ำกว่า 40–60% [B]",
                         "Geopolitical risk · Tariff · Supply chain disruption",
                         "Component shortage (ชิป) lead time ยาว",
                         "ค่าเงินบาทผันผวน → ต้นทุนนำเข้าไม่แน่นอน",
