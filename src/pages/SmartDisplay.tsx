@@ -17,6 +17,7 @@ import logo from "@/assets/logo-entgroup.avif";
 import smartDisplayHero from "@/assets/smart-display-hero.jpg";
 import FooterCompact from "@/components/FooterCompact";
 import MiniNavbar from "@/components/MiniNavbar";
+import B2BPlatformInterfaceShowcase from "@/components/B2BPlatformInterfaceShowcase";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
 import kioskVisitor from "@/assets/kiosk-usecase-visitor.jpg";
 import kioskQueue from "@/assets/kiosk-usecase-queue.jpg";
@@ -1193,6 +1194,8 @@ const SmartDisplay = () => {
       </section>
 
       {/* Contact / CTA */}
+      <B2BPlatformInterfaceShowcase />
+
       <section className="section-padding">
         <div className="container max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
