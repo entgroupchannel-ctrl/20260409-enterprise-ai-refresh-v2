@@ -25,76 +25,73 @@ interface Props {
 const B2BMarketingShowcase = ({ showHeading = true, variant = "default", className = "" }: Props) => {
   return (
     <section className={`${variant === "muted" ? "bg-muted/30 border-y" : ""} ${className}`}>
-      <div className="container max-w-7xl mx-auto px-6 py-16 md:py-20">
+      <div className="container max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8 lg:min-h-[calc(100vh-4rem)] lg:flex lg:flex-col lg:justify-center">
         {showHeading && (
-          <div className="text-center mb-12 max-w-2xl mx-auto">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider mb-3">
+          <div className="text-center mb-4 md:mb-6 max-w-2xl mx-auto">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-wider mb-2">
               B2B Procurement Workflow
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold mb-3">
+            <h2 className="text-xl md:text-2xl lg:text-3xl font-bold mb-1.5">
               ขั้นตอนการสั่งซื้อแบบ B2B ที่<span className="text-primary">เข้าใจง่าย</span>
             </h2>
-            <p className="text-muted-foreground">
+            <p className="text-xs md:text-sm text-muted-foreground">
               จากเลือกสินค้าจนถึงรับของ — ทุกขั้นตอนชัดเจน มีทีมขายดูแลตลอด
             </p>
           </div>
         )}
 
-        {/* Featured (first card spans larger on desktop) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {STEPS.map(({ n, icon: Icon, title, desc, image, accent }, idx) => (
+        {/* Compact 3x2 grid — fits one viewport on desktop */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+          {STEPS.map(({ n, icon: Icon, title, desc, image, accent }) => (
             <div
               key={n}
-              className={`group relative rounded-2xl overflow-hidden border bg-card hover:shadow-xl hover:border-primary/40 transition-all duration-300 ${
-                idx === 0 ? "lg:col-span-1 md:col-span-2 lg:row-span-1" : ""
-              }`}
+              className="group relative rounded-xl overflow-hidden border bg-card hover:shadow-lg hover:border-primary/40 transition-all duration-300 flex flex-col"
             >
               {/* Image */}
-              <div className={`relative aspect-[4/3] overflow-hidden bg-gradient-to-br ${accent}`}>
+              <div className={`relative aspect-[16/10] overflow-hidden bg-gradient-to-br ${accent}`}>
                 <img
                   src={image}
                   alt={`ขั้นตอน ${n}: ${title}`}
                   loading="lazy"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                {/* Step number badge */}
-                <div className="absolute top-4 left-4 flex items-center gap-2">
-                  <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-background/90 backdrop-blur-sm border border-border text-primary font-black text-sm shadow-md">
+                <div className="absolute top-2 left-2 flex items-center gap-1.5">
+                  <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-background/90 backdrop-blur-sm border border-border text-primary font-black text-[11px] shadow">
                     {n}
                   </span>
-                  <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-primary/90 backdrop-blur-sm text-primary-foreground shadow-md">
-                    <Icon className="w-5 h-5" />
+                  <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-primary/90 backdrop-blur-sm text-primary-foreground shadow">
+                    <Icon className="w-3.5 h-3.5" />
                   </span>
                 </div>
               </div>
 
               {/* Content */}
-              <div className="p-5">
-                <h3 className="font-bold text-lg mb-1.5 leading-tight">{title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
+              <div className="p-3 md:p-3.5 flex-1">
+                <h3 className="font-bold text-sm md:text-base mb-0.5 leading-tight">{title}</h3>
+                <p className="text-[11px] md:text-xs text-muted-foreground leading-snug line-clamp-2">{desc}</p>
               </div>
             </div>
           ))}
 
-          {/* CTA card */}
-          <div className="group relative rounded-2xl overflow-hidden border-2 border-dashed border-primary/40 bg-gradient-to-br from-primary/10 via-primary/5 to-background p-6 flex flex-col justify-center items-center text-center hover:border-primary hover:shadow-xl transition-all">
-            <div className="w-14 h-14 rounded-full bg-primary text-primary-foreground flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-              <ArrowRight className="w-6 h-6" />
+          {/* CTA card — same compact size */}
+          <div className="group relative rounded-xl overflow-hidden border-2 border-dashed border-primary/40 bg-gradient-to-br from-primary/10 via-primary/5 to-background p-4 flex flex-col justify-center items-center text-center hover:border-primary hover:shadow-lg transition-all">
+            <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+              <ArrowRight className="w-5 h-5" />
             </div>
-            <h3 className="font-bold text-lg mb-2">เริ่มขั้นตอนแรก</h3>
-            <p className="text-sm text-muted-foreground mb-5">
+            <h3 className="font-bold text-sm md:text-base mb-1">เริ่มขั้นตอนแรก</h3>
+            <p className="text-[11px] md:text-xs text-muted-foreground mb-3 leading-snug">
               เลือกดูสินค้ากว่า 200+ รุ่น หรือปรึกษาทีมแอดมินก่อน
             </p>
-            <div className="flex flex-col sm:flex-row gap-2 w-full">
+            <div className="flex flex-col sm:flex-row gap-1.5 w-full">
               <Link
                 to="/shop"
-                className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity shadow-sm"
+                className="inline-flex items-center justify-center gap-1 px-3 py-1.5 rounded-md bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity shadow-sm"
               >
-                เลือกสินค้า <ArrowRight className="w-4 h-4" />
+                เลือกสินค้า <ArrowRight className="w-3 h-3" />
               </Link>
               <Link
                 to="/contact"
-                className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg border border-border bg-background text-sm font-semibold hover:border-primary/40 hover:text-primary transition-colors"
+                className="inline-flex items-center justify-center gap-1 px-3 py-1.5 rounded-md border border-border bg-background text-xs font-semibold hover:border-primary/40 hover:text-primary transition-colors"
               >
                 ปรึกษาแอดมิน
               </Link>
