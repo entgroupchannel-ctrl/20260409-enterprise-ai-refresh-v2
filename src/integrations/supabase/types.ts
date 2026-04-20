@@ -718,6 +718,21 @@ export type Database = {
         }
         Relationships: []
       }
+      cart_reminders: {
+        Row: {
+          reminded_at: string
+          user_id: string
+        }
+        Insert: {
+          reminded_at?: string
+          user_id: string
+        }
+        Update: {
+          reminded_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       chat_messages: {
         Row: {
           attachment_name: string | null
@@ -1930,6 +1945,27 @@ export type Database = {
           invited_by?: string | null
           role?: string
           token?: string
+        }
+        Relationships: []
+      }
+      hot_interest_reminders: {
+        Row: {
+          product_slug: string
+          reminded_at: string
+          user_id: string
+          view_count: number
+        }
+        Insert: {
+          product_slug: string
+          reminded_at?: string
+          user_id: string
+          view_count?: number
+        }
+        Update: {
+          product_slug?: string
+          reminded_at?: string
+          user_id?: string
+          view_count?: number
         }
         Relationships: []
       }
@@ -7250,6 +7286,7 @@ export type Database = {
         Args: { p_role: string; p_user_id: string }
         Returns: boolean
       }
+      invoke_engagement_reminders: { Args: never; Returns: undefined }
       is_admin_or_above: { Args: { p_user_id: string }; Returns: boolean }
       is_affiliate_owner: { Args: { _affiliate_id: string }; Returns: boolean }
       is_partner_reviewer: { Args: { _user_id: string }; Returns: boolean }
