@@ -557,7 +557,21 @@ const Investors = () => {
       </section>
 
       {/* ═══════ REQUEST FORM ═══════ */}
-      <section id="request-deck" className="py-20 px-4" style={{ backgroundColor: "#FFFFFF" }}>
+      <section
+        id="request-deck"
+        className="relative py-20 px-4 overflow-hidden"
+        style={{
+          background: "linear-gradient(180deg, #FFFFFF 0%, #FBF9F2 100%)",
+        }}
+      >
+        {/* Decorative gold corner accents */}
+        <div
+          className="absolute top-0 right-0 w-[400px] h-[400px] opacity-[0.06] pointer-events-none"
+          style={{
+            background: "radial-gradient(circle, #C9A961 0%, transparent 70%)",
+            transform: "translate(40%, -40%)",
+          }}
+        />
         <div className="container max-w-3xl mx-auto">
           <div className="text-center mb-10">
             <span className="text-xs font-semibold tracking-widest uppercase mb-3 block" style={{ color: "#C9A961" }}>
