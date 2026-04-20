@@ -270,12 +270,40 @@ const Investors = () => {
       </section>
 
       {/* ═══════ Pillars (สาธารณะ) ═══════ */}
-      <section id="why" className="py-20 px-4">
-        <div className="container max-w-6xl mx-auto">
+      <section
+        id="why"
+        className="relative py-20 px-4 overflow-hidden"
+        style={{
+          background:
+            "linear-gradient(180deg, #FAF8F3 0%, #F5F1E8 50%, #FAF8F3 100%)",
+        }}
+      >
+        {/* Decorative gold radial blobs */}
+        <div
+          className="absolute top-0 right-0 w-[500px] h-[500px] opacity-[0.08] pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(circle, #C9A961 0%, transparent 70%)",
+            transform: "translate(30%, -30%)",
+          }}
+        />
+        <div
+          className="absolute bottom-0 left-0 w-[400px] h-[400px] opacity-[0.06] pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(circle, #1E3A5F 0%, transparent 70%)",
+            transform: "translate(-30%, 30%)",
+          }}
+        />
+
+        <div className="relative container max-w-6xl mx-auto">
           <div className="max-w-2xl mb-12">
-            <span className="text-xs font-semibold tracking-widest uppercase mb-3 block" style={{ color: "#C9A961" }}>
-              Company Overview
-            </span>
+            <div className="inline-flex items-center gap-2 mb-3">
+              <div className="h-px w-8" style={{ backgroundColor: "#C9A961" }} />
+              <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "#C9A961" }}>
+                Company Overview
+              </span>
+            </div>
             <h2 className="text-3xl md:text-4xl font-display font-bold leading-tight" style={{ color: "#0A1628" }}>
               ทำไมพันธมิตรเชิงกลยุทธ์ จึงเลือก <span style={{ color: "#C9A961" }}>ENT Group</span>
             </h2>
@@ -284,12 +312,31 @@ const Investors = () => {
             {pillars.map((p) => (
               <div
                 key={p.title}
-                className="rounded-2xl p-7 transition-all hover:shadow-lg"
-                style={{ backgroundColor: "#FFFFFF", border: "1px solid #E2E8F0" }}
+                className="group relative rounded-2xl p-7 transition-all duration-300 hover:-translate-y-1"
+                style={{
+                  background:
+                    "linear-gradient(135deg, #FFFFFF 0%, #FDFCF8 100%)",
+                  border: "1px solid #E8E0CC",
+                  boxShadow:
+                    "0 1px 3px rgba(10, 22, 40, 0.04), 0 8px 24px rgba(201, 169, 97, 0.06)",
+                }}
               >
+                {/* Top accent line */}
                 <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
-                  style={{ backgroundColor: "rgba(201, 169, 97, 0.1)", border: "1px solid rgba(201, 169, 97, 0.3)" }}
+                  className="absolute top-0 left-7 right-7 h-[2px] rounded-full opacity-60 transition-opacity group-hover:opacity-100"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, transparent 0%, #C9A961 50%, transparent 100%)",
+                  }}
+                />
+                <div
+                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, rgba(201, 169, 97, 0.15) 0%, rgba(201, 169, 97, 0.05) 100%)",
+                    border: "1px solid rgba(201, 169, 97, 0.35)",
+                    boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.6)",
+                  }}
                 >
                   <p.icon size={22} style={{ color: "#C9A961" }} />
                 </div>
@@ -306,8 +353,15 @@ const Investors = () => {
       </section>
 
       {/* ═══════ STRATEGIC VISION (Vision · SWOT · Landscape · Strategy · ESG) ═══════ */}
-      <section className="py-16 px-4" style={{ backgroundColor: "#FAF8F3" }}>
-        <div className="container max-w-6xl mx-auto">
+      <section
+        className="relative py-20 px-4 overflow-hidden"
+        style={{ background: "linear-gradient(180deg, #FAF8F3 0%, #F2EDDC 100%)" }}
+      >
+        <div
+          className="absolute top-1/2 left-1/2 w-[700px] h-[700px] opacity-[0.08] pointer-events-none"
+          style={{ background: "radial-gradient(circle, #C9A961 0%, transparent 60%)", transform: "translate(-50%, -50%)" }}
+        />
+        <div className="relative container max-w-6xl mx-auto">
           <div className="text-center mb-10">
             <span className="text-xs font-semibold tracking-widest uppercase mb-3 block" style={{ color: "#C9A961" }}>
               Strategic Vision 2026–2028
@@ -370,12 +424,30 @@ const Investors = () => {
       />
 
       {/* ═══════ Areas of Strategic Focus (overview only) ═══════ */}
-      <section className="py-20 px-4" style={{ backgroundColor: "#FFFFFF" }}>
-        <div className="container max-w-6xl mx-auto">
+      <section
+        className="relative py-20 px-4 overflow-hidden"
+        style={{
+          background:
+            "linear-gradient(180deg, #FFFFFF 0%, #FBF9F2 100%)",
+        }}
+      >
+        {/* Subtle dot pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.03] pointer-events-none"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle, #0A1628 1px, transparent 1px)",
+            backgroundSize: "32px 32px",
+          }}
+        />
+        <div className="relative container max-w-6xl mx-auto">
           <div className="max-w-2xl mb-12">
-            <span className="text-xs font-semibold tracking-widest uppercase mb-3 block" style={{ color: "#C9A961" }}>
-              Areas of Strategic Focus
-            </span>
+            <div className="inline-flex items-center gap-2 mb-3">
+              <div className="h-px w-8" style={{ backgroundColor: "#C9A961" }} />
+              <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "#C9A961" }}>
+                Areas of Strategic Focus
+              </span>
+            </div>
             <h2 className="text-3xl md:text-4xl font-display font-bold leading-tight mb-3" style={{ color: "#0A1628" }}>
               ทิศทางการขยายธุรกิจ
             </h2>
@@ -388,12 +460,24 @@ const Investors = () => {
             {useOfFunds.map((u, i) => (
               <div
                 key={u.label}
-                className="rounded-xl p-6"
-                style={{ backgroundColor: "#FAF8F3", border: "1px solid #E2E8F0" }}
+                className="group relative rounded-xl p-6 transition-all duration-300 hover:-translate-y-1"
+                style={{
+                  background:
+                    "linear-gradient(160deg, #FFFFFF 0%, #FAF6EB 100%)",
+                  border: "1px solid #E8E0CC",
+                  boxShadow:
+                    "0 1px 2px rgba(10, 22, 40, 0.04), 0 6px 20px rgba(201, 169, 97, 0.05)",
+                }}
               >
                 <div
-                  className="w-9 h-9 rounded-lg flex items-center justify-center text-sm font-display font-black mb-3"
-                  style={{ backgroundColor: "#0A1628", color: "#C9A961" }}
+                  className="w-11 h-11 rounded-lg flex items-center justify-center text-base font-display font-black mb-3 transition-all group-hover:scale-110"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, #0A1628 0%, #1E3A5F 100%)",
+                    color: "#C9A961",
+                    boxShadow:
+                      "0 4px 12px rgba(10, 22, 40, 0.25), inset 0 1px 0 rgba(201, 169, 97, 0.2)",
+                  }}
                 >
                   {String(i + 1).padStart(2, "0")}
                 </div>
@@ -410,31 +494,84 @@ const Investors = () => {
       </section>
 
       {/* ═══════ Confidentiality Notice ═══════ */}
-      <section className="py-14 px-4">
+      <section
+        className="relative py-14 px-4 overflow-hidden"
+        style={{
+          background:
+            "linear-gradient(180deg, #FBF9F2 0%, #FAF8F3 100%)",
+        }}
+      >
         <div className="container max-w-4xl mx-auto">
           <div
-            className="rounded-2xl p-8 md:p-10 text-center"
+            className="relative rounded-2xl p-8 md:p-10 text-center overflow-hidden"
             style={{
-              background: "linear-gradient(135deg, #0A1628 0%, #0F1E38 100%)",
-              border: "1px solid rgba(201, 169, 97, 0.25)",
+              background:
+                "linear-gradient(135deg, #0A1628 0%, #0F1E38 50%, #1A2B4A 100%)",
+              border: "1px solid rgba(201, 169, 97, 0.35)",
+              boxShadow:
+                "0 20px 60px rgba(10, 22, 40, 0.25), inset 0 1px 0 rgba(201, 169, 97, 0.15)",
             }}
           >
-            <Lock size={28} style={{ color: "#C9A961" }} className="mx-auto mb-4" />
-            <h3 className="text-xl md:text-2xl font-display font-bold mb-3" style={{ color: "#FFFFFF" }}>
-              ข้อมูลเชิงลึกเปิดเผยเฉพาะผู้ที่เข้าเกณฑ์เท่านั้น
-            </h3>
-            <p className="text-sm leading-relaxed max-w-2xl mx-auto" style={{ color: "#94A3B8" }}>
-              โครงสร้างความร่วมมือ เงื่อนไขทางการเงิน ผลประกอบการย้อนหลัง และเอกสารประกอบการตัดสินใจ
-              จะถูกส่งให้ <strong style={{ color: "#D4B876" }}>เฉพาะผู้ที่มีคุณสมบัติเป็นผู้ลงทุนสถาบัน
-              ผู้ลงทุนรายใหญ่พิเศษตามประกาศ ก.ล.ต. ทจ. 8/2566 หรือบุคคลที่ได้รับเชิญเป็นการเฉพาะ</strong>
-              {" "}และลงนามในข้อตกลงรักษาความลับ (NDA) เรียบร้อยแล้ว
-            </p>
+            {/* Inner gold glow */}
+            <div
+              className="absolute top-0 left-1/2 w-[300px] h-[300px] opacity-20 pointer-events-none"
+              style={{
+                background:
+                  "radial-gradient(circle, #C9A961 0%, transparent 70%)",
+                transform: "translate(-50%, -50%)",
+              }}
+            />
+            {/* Subtle grid texture */}
+            <div
+              className="absolute inset-0 opacity-[0.05] pointer-events-none"
+              style={{
+                backgroundImage:
+                  "radial-gradient(circle at 30% 40%, #C9A961 1px, transparent 1px)",
+                backgroundSize: "40px 40px",
+              }}
+            />
+            <div className="relative">
+              <div
+                className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4"
+                style={{
+                  background:
+                    "linear-gradient(135deg, rgba(201, 169, 97, 0.2) 0%, rgba(201, 169, 97, 0.05) 100%)",
+                  border: "1px solid rgba(201, 169, 97, 0.4)",
+                  boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.1)",
+                }}
+              >
+                <Lock size={24} style={{ color: "#C9A961" }} />
+              </div>
+              <h3 className="text-xl md:text-2xl font-display font-bold mb-3" style={{ color: "#FFFFFF" }}>
+                ข้อมูลเชิงลึกเปิดเผยเฉพาะผู้ที่เข้าเกณฑ์เท่านั้น
+              </h3>
+              <p className="text-sm leading-relaxed max-w-2xl mx-auto" style={{ color: "#94A3B8" }}>
+                โครงสร้างความร่วมมือ เงื่อนไขทางการเงิน ผลประกอบการย้อนหลัง และเอกสารประกอบการตัดสินใจ
+                จะถูกส่งให้ <strong style={{ color: "#D4B876" }}>เฉพาะผู้ที่มีคุณสมบัติเป็นผู้ลงทุนสถาบัน
+                ผู้ลงทุนรายใหญ่พิเศษตามประกาศ ก.ล.ต. ทจ. 8/2566 หรือบุคคลที่ได้รับเชิญเป็นการเฉพาะ</strong>
+                {" "}และลงนามในข้อตกลงรักษาความลับ (NDA) เรียบร้อยแล้ว
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ═══════ REQUEST FORM ═══════ */}
-      <section id="request-deck" className="py-20 px-4" style={{ backgroundColor: "#FFFFFF" }}>
+      <section
+        id="request-deck"
+        className="relative py-20 px-4 overflow-hidden"
+        style={{
+          background: "linear-gradient(180deg, #FFFFFF 0%, #FBF9F2 100%)",
+        }}
+      >
+        {/* Decorative gold corner accents */}
+        <div
+          className="absolute top-0 right-0 w-[400px] h-[400px] opacity-[0.06] pointer-events-none"
+          style={{
+            background: "radial-gradient(circle, #C9A961 0%, transparent 70%)",
+            transform: "translate(40%, -40%)",
+          }}
+        />
         <div className="container max-w-3xl mx-auto">
           <div className="text-center mb-10">
             <span className="text-xs font-semibold tracking-widest uppercase mb-3 block" style={{ color: "#C9A961" }}>
@@ -478,8 +615,13 @@ const Investors = () => {
           ) : (
             <form
               onSubmit={handleSubmit}
-              className="rounded-2xl p-6 md:p-8 space-y-5"
-              style={{ backgroundColor: "#FAF8F3", border: "1px solid #E2E8F0" }}
+              className="relative rounded-2xl p-6 md:p-8 space-y-5"
+              style={{
+                background: "linear-gradient(160deg, #FFFFFF 0%, #FAF6EB 100%)",
+                border: "1px solid #E8E0CC",
+                boxShadow:
+                  "0 1px 3px rgba(10, 22, 40, 0.04), 0 12px 32px rgba(201, 169, 97, 0.08)",
+              }}
             >
               {/* ═══ ELIGIBILITY GATE — ต้องเลือกก่อน ═══ */}
               <div
