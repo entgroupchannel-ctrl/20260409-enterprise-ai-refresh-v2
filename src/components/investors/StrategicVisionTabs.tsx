@@ -13,15 +13,36 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
  * Used by both /investors (inline) and /investors/strategic-vision (standalone sub-page)
  */
 const StrategicVisionTabs = () => {
+  const triggerClass =
+    "py-3 px-2 rounded-lg text-[13px] md:text-sm font-semibold transition-all " +
+    "text-slate-300 hover:text-white hover:bg-white/5 " +
+    "data-[state=active]:bg-gradient-to-br data-[state=active]:from-[#C9A961] data-[state=active]:to-[#B8924A] " +
+    "data-[state=active]:text-[#0A1628] data-[state=active]:shadow-[0_4px_14px_rgba(201,169,97,0.45)] " +
+    "data-[state=active]:scale-[1.02]";
+
   return (
     <Tabs defaultValue="vision" className="w-full">
-      <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 mb-8 h-auto">
-        <TabsTrigger value="vision" className="py-2.5"><Target className="w-4 h-4 mr-1.5" />Vision</TabsTrigger>
-        <TabsTrigger value="swot" className="py-2.5"><Layers className="w-4 h-4 mr-1.5" />SWOT</TabsTrigger>
-        <TabsTrigger value="landscape" className="py-2.5"><Swords className="w-4 h-4 mr-1.5" />ภาพการแข่งขัน</TabsTrigger>
-        <TabsTrigger value="strategy" className="py-2.5"><Lightbulb className="w-4 h-4 mr-1.5" />กลยุทธ์</TabsTrigger>
-        <TabsTrigger value="esg" className="py-2.5"><Leaf className="w-4 h-4 mr-1.5" />ESG</TabsTrigger>
-      </TabsList>
+      {/* Helper hint above the tab bar */}
+      <div className="flex items-center justify-center gap-2 mb-3">
+        <span className="h-px w-8 bg-gradient-to-r from-transparent to-[#C9A961]/50" />
+        <span className="text-[11px] font-semibold tracking-[0.18em] uppercase text-[#C9A961]">
+          เลือกหัวข้อเพื่อดูรายละเอียด
+        </span>
+        <span className="h-px w-8 bg-gradient-to-l from-transparent to-[#C9A961]/50" />
+      </div>
+
+      <div
+        className="rounded-2xl p-2 mb-8 shadow-[0_10px_30px_-10px_rgba(10,22,40,0.35)] border border-[#C9A961]/30"
+        style={{ background: "linear-gradient(135deg, #0A1628 0%, #122544 100%)" }}
+      >
+        <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 h-auto bg-transparent gap-1 p-0">
+          <TabsTrigger value="vision" className={triggerClass}><Target className="w-4 h-4 mr-1.5" />Vision</TabsTrigger>
+          <TabsTrigger value="swot" className={triggerClass}><Layers className="w-4 h-4 mr-1.5" />SWOT</TabsTrigger>
+          <TabsTrigger value="landscape" className={triggerClass}><Swords className="w-4 h-4 mr-1.5" />ภาพการแข่งขัน</TabsTrigger>
+          <TabsTrigger value="strategy" className={triggerClass}><Lightbulb className="w-4 h-4 mr-1.5" />กลยุทธ์</TabsTrigger>
+          <TabsTrigger value="esg" className={triggerClass}><Leaf className="w-4 h-4 mr-1.5" />ESG</TabsTrigger>
+        </TabsList>
+      </div>
 
       {/* ─── TAB 1: VISION ─── */}
       <TabsContent value="vision" className="space-y-12 mt-6">
