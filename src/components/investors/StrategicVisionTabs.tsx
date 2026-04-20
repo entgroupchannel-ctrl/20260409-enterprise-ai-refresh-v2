@@ -5,14 +5,68 @@ import {
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+
+interface Props {
+  /** When true, premium tabs (SWOT, landscape, strategy, ESG) are blurred behind an unlock CTA */
+  locked?: boolean;
+  /** Called when user clicks unlock button on a locked tab */
+  onUnlockRequest?: () => void;
+}
 
 /**
  * Reusable Strategic Vision Tabs
  * Used by both /investors (inline) and /investors/strategic-vision (standalone sub-page)
  */
-const StrategicVisionTabs = () => {
+const StrategicVisionTabs = ({ locked = false, onUnlockRequest }: Props = {}) => {
+  const LockedOverlay = ({ label }: { label: string }) => (
+    <div className="absolute inset-0 z-10 flex items-center justify-center px-4">
+      <div
+        className="max-w-md w-full text-center rounded-2xl px-6 py-8 shadow-2xl backdrop-blur-md"
+        style={{
+          background: "linear-gradient(135deg, rgba(10,22,40,0.92) 0%, rgba(18,37,68,0.92) 100%)",
+          border: "1px solid rgba(201,169,97,0.4)",
+        }}
+      >
+        <div
+          className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3"
+          style={{ backgroundColor: "rgba(201,169,97,0.15)", border: "1px solid rgba(201,169,97,0.35)" }}
+        >
+          <Lock size={18} style={{ color: "#C9A961" }} />
+        </div>
+        <h4 className="text-base md:text-lg font-bold mb-1.5" style={{ color: "#FFFFFF" }}>
+          เนื้อหา {label} สงวนสำหรับนักลงทุน
+        </h4>
+        <p className="text-xs leading-relaxed mb-5" style={{ color: "#94A3B8" }}>
+          กรอกข้อมูลสั้นๆ เพื่อรอแอดมินอนุมัติ — หลังจากนั้นจะเปิดดูได้ทันที
+        </p>
+        {onUnlockRequest && (
+          <Button
+            onClick={onUnlockRequest}
+            className="h-10 px-6 text-xs font-bold hover:scale-[1.02] transition-transform"
+            style={{ backgroundColor: "#C9A961", color: "#0A1628" }}
+          >
+            <Lock size={12} className="mr-1.5" /> ขอเปิดดูเนื้อหา
+          </Button>
+        )}
+      </div>
+    </div>
+  );
+
+  const lockedWrap = (label: string, children: React.ReactNode) =>
+    locked ? (
+      <div className="relative">
+        <div className="blur-[6px] select-none pointer-events-none opacity-60" aria-hidden>
+          {children}
+        </div>
+        <LockedOverlay label={label} />
+      </div>
+    ) : (
+      <>{children}</>
+    );
+
   const triggerClass =
     "py-3 px-2 rounded-lg text-[13px] md:text-sm font-semibold transition-all " +
     "text-slate-300 hover:text-white hover:bg-white/5 " +
@@ -136,6 +190,8 @@ const StrategicVisionTabs = () => {
 
       {/* ─── TAB 2: SWOT ─── */}
       <TabsContent value="swot" className="space-y-6 mt-6">
+        {lockedWrap("SWOT", (<>
+
         <div className="text-center mb-6">
           <h2 className="text-2xl md:text-3xl font-bold mb-3">SWOT Analysis</h2>
           <p className="text-muted-foreground">การประเมินตนเองในตลาด Industrial Computer ไทย (~4,550 ลบ.)</p>
@@ -269,10 +325,14 @@ const StrategicVisionTabs = () => {
             </Collapsible>
           </div>
         </div>
+        </>))}
       </TabsContent>
+
 
       {/* ─── TAB 3: COMPETITIVE LANDSCAPE ─── */}
       <TabsContent value="landscape" className="space-y-8 mt-6">
+        {lockedWrap("ภาพการแข่งขัน", (<>
+
         <div className="text-center mb-4">
           <h2 className="text-2xl md:text-3xl font-bold mb-3">ภาพการแข่งขันในตลาดไทย</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -342,10 +402,14 @@ const StrategicVisionTabs = () => {
             </p>
           </CardContent>
         </Card>
+        </>))}
       </TabsContent>
+
 
       {/* ─── TAB 4: STRATEGY ─── */}
       <TabsContent value="strategy" className="space-y-8 mt-6">
+        {lockedWrap("กลยุทธ์", (<>
+
         <div className="text-center mb-4">
           <h2 className="text-2xl md:text-3xl font-bold mb-3">Strategic Roadmap</h2>
           <p className="text-muted-foreground">แผนกลยุทธ์ระยะสั้น–ยาว เพื่อสร้าง moat และขยายธุรกิจ</p>
@@ -417,10 +481,14 @@ const StrategicVisionTabs = () => {
             </div>
           </CardContent>
         </Card>
+        </>))}
       </TabsContent>
+
 
       {/* ─── TAB 5: ESG / CIRCULAR IT ─── */}
       <TabsContent value="esg" className="space-y-10 mt-6">
+        {lockedWrap("ESG", (<>
+
         <div className="text-center mb-2">
           <Badge className="mb-3 bg-green-500/10 text-green-700 border-green-500/30 hover:bg-green-500/20">
             <Leaf className="w-3.5 h-3.5 mr-1.5" /> ESG Strategy 2026–2028
@@ -572,7 +640,9 @@ const StrategicVisionTabs = () => {
             </div>
           </CardContent>
         </Card>
+        </>))}
       </TabsContent>
+
     </Tabs>
   );
 };
