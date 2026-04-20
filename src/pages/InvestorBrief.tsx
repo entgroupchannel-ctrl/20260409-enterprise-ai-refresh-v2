@@ -663,7 +663,7 @@ const InvestorBrief = () => {
       {/* NEXT STEPS */}
       <section className="py-16 px-4" style={{ backgroundColor: "#0A1628" }}>
         <div className="container max-w-4xl mx-auto text-center">
-          <SectionLabel light>6. Next Steps</SectionLabel>
+          <SectionLabel light>7. Next Steps</SectionLabel>
           <h2 className="text-2xl md:text-3xl font-display font-bold mb-6" style={{ color: "#FFFFFF" }}>
             ขั้นตอนต่อไป
           </h2>
