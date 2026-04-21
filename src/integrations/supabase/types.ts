@@ -2656,6 +2656,116 @@ export type Database = {
           },
         ]
       }
+      notification_dispatch_log: {
+        Row: {
+          actor_id: string | null
+          admin_email_status: string | null
+          admin_in_app_status: string | null
+          created_at: string
+          customer_email_status: string | null
+          customer_in_app_status: string | null
+          customer_user_id: string | null
+          entity_id: string | null
+          entity_type: string | null
+          error_message: string | null
+          event_key: string
+          id: string
+          idempotency_key: string
+          payload: Json | null
+        }
+        Insert: {
+          actor_id?: string | null
+          admin_email_status?: string | null
+          admin_in_app_status?: string | null
+          created_at?: string
+          customer_email_status?: string | null
+          customer_in_app_status?: string | null
+          customer_user_id?: string | null
+          entity_id?: string | null
+          entity_type?: string | null
+          error_message?: string | null
+          event_key: string
+          id?: string
+          idempotency_key: string
+          payload?: Json | null
+        }
+        Update: {
+          actor_id?: string | null
+          admin_email_status?: string | null
+          admin_in_app_status?: string | null
+          created_at?: string
+          customer_email_status?: string | null
+          customer_in_app_status?: string | null
+          customer_user_id?: string | null
+          entity_id?: string | null
+          entity_type?: string | null
+          error_message?: string | null
+          event_key?: string
+          id?: string
+          idempotency_key?: string
+          payload?: Json | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notification_dispatch_log_event_key_fkey"
+            columns: ["event_key"]
+            isOneToOne: false
+            referencedRelation: "notification_events"
+            referencedColumns: ["event_key"]
+          },
+        ]
+      }
+      notification_events: {
+        Row: {
+          category: string
+          created_at: string
+          description: string | null
+          display_name: string
+          email_template: string | null
+          event_key: string
+          is_active: boolean
+          is_critical: boolean
+          notify_admin_email: boolean
+          notify_admin_in_app: boolean
+          notify_customer_email: boolean
+          notify_customer_in_app: boolean
+          priority: string
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          description?: string | null
+          display_name: string
+          email_template?: string | null
+          event_key: string
+          is_active?: boolean
+          is_critical?: boolean
+          notify_admin_email?: boolean
+          notify_admin_in_app?: boolean
+          notify_customer_email?: boolean
+          notify_customer_in_app?: boolean
+          priority?: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string | null
+          display_name?: string
+          email_template?: string | null
+          event_key?: string
+          is_active?: boolean
+          is_critical?: boolean
+          notify_admin_email?: boolean
+          notify_admin_in_app?: boolean
+          notify_customer_email?: boolean
+          notify_customer_in_app?: boolean
+          priority?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       notifications: {
         Row: {
           action_label: string | null
@@ -6763,6 +6873,38 @@ export type Database = {
           },
         ]
       }
+      user_notification_preferences: {
+        Row: {
+          email_enabled: boolean
+          event_key: string
+          in_app_enabled: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          email_enabled?: boolean
+          event_key: string
+          in_app_enabled?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          email_enabled?: boolean
+          event_key?: string
+          in_app_enabled?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_notification_preferences_event_key_fkey"
+            columns: ["event_key"]
+            isOneToOne: false
+            referencedRelation: "notification_events"
+            referencedColumns: ["event_key"]
+          },
+        ]
+      }
       user_permissions: {
         Row: {
           granted_at: string
@@ -7312,6 +7454,23 @@ export type Database = {
         }
         Returns: string
       }
+      log_event_dispatch: {
+        Args: {
+          p_actor_id?: string
+          p_admin_email_status?: string
+          p_admin_in_app_status?: string
+          p_customer_email_status?: string
+          p_customer_in_app_status?: string
+          p_customer_user_id?: string
+          p_entity_id?: string
+          p_entity_type?: string
+          p_error_message?: string
+          p_event_key: string
+          p_idempotency_key: string
+          p_payload?: Json
+        }
+        Returns: string
+      }
       log_login_event: {
         Args: {
           p_failure_reason?: string
@@ -7410,6 +7569,16 @@ export type Database = {
       remove_user_permission: {
         Args: { p_module: string; p_user_id: string }
         Returns: boolean
+      }
+      resolve_notification_channels: {
+        Args: { p_event_key: string; p_user_id: string }
+        Returns: {
+          is_critical: boolean
+          send_admin_email: boolean
+          send_admin_in_app: boolean
+          send_customer_email: boolean
+          send_customer_in_app: boolean
+        }[]
       }
       restore_credit_note: { Args: { p_credit_note_id: string }; Returns: Json }
       restore_invoice: { Args: { p_invoice_id: string }; Returns: Json }
