@@ -7356,6 +7356,7 @@ export type Database = {
           p_metadata?: Json
           p_recipient_role?: string
           p_recipient_user_id?: string
+          p_safe_mode?: boolean
           p_title?: string
         }
         Returns: {
