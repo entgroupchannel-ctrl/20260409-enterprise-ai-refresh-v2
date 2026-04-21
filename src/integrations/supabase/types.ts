@@ -5584,6 +5584,33 @@ export type Database = {
           },
         ]
       }
+      smoke_test_results_p02: {
+        Row: {
+          dispatch_id: string | null
+          enqueued_count: number | null
+          ran_at: string | null
+          recipients_count: number | null
+          skipped_count: number | null
+          test_name: string
+        }
+        Insert: {
+          dispatch_id?: string | null
+          enqueued_count?: number | null
+          ran_at?: string | null
+          recipients_count?: number | null
+          skipped_count?: number | null
+          test_name: string
+        }
+        Update: {
+          dispatch_id?: string | null
+          enqueued_count?: number | null
+          ran_at?: string | null
+          recipients_count?: number | null
+          skipped_count?: number | null
+          test_name?: string
+        }
+        Relationships: []
+      }
       staff_details: {
         Row: {
           created_at: string
