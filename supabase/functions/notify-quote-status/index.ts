@@ -225,7 +225,8 @@ serve(async (req) => {
     // skip when the recipient itself is sales@ to avoid self-CC.
     const isInternalRecipient = recipientEmail.toLowerCase().endsWith("@entgroup.co.th");
     const isSalesItself = recipientEmail.toLowerCase() === SALES_TEAM_CC.toLowerCase();
-    const ccList = isInternalRecipient && !isSalesItself ? [SALES_TEAM_CC] : undefined;
+    const TEST_MODE = Deno.env.get("NOTIFICATION_TEST_MODE") === "true";
+    const ccList = (!TEST_MODE && isInternalRecipient && !isSalesItself) ? [SALES_TEAM_CC] : undefined;
 
     const label = STATUS_LABELS[status] || { th: status, emoji: "📌" };
     const docRef = invoiceNumber || quoteNumber || "";
