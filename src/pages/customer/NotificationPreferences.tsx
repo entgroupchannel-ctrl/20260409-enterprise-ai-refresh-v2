@@ -103,7 +103,7 @@ export default function NotificationPreferences() {
     };
     setPrefs((m) => ({ ...m, [eventKey]: updated }));
     const { error } = await (supabase as any)
-      .from("notification_preferences")
+      .from("user_notification_preferences")
       .upsert(
         {
           user_id: user.id,
