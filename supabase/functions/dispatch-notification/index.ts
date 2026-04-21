@@ -162,12 +162,9 @@ Deno.serve(async (req) => {
 
   // Step 3: persist email status to dispatch_log
   if (dispatchId) {
-    const updates: Record<string, unknown> = {}
-    if (outcome.adminStatus !== 'not_applicable') {
-      updates.admin_email_status = outcome.adminStatus
-    }
-    if (outcome.customerStatus !== 'not_applicable') {
-      updates.customer_email_status = outcome.customerStatus
+    const updates: Record<string, unknown> = {
+      admin_email_status: outcome.adminStatus === 'not_applicable' ? null : outcome.adminStatus,
+      customer_email_status: outcome.customerStatus === 'not_applicable' ? null : outcome.customerStatus,
     }
     if (outcome.errorMessage) {
       updates.error_message = outcome.errorMessage
