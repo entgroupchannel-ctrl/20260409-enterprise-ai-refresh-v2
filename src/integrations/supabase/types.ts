@@ -7346,7 +7346,10 @@ export type Database = {
           p_action_label?: string
           p_action_url?: string
           p_actor_id?: string
+          p_entity_id?: string
+          p_entity_type?: string
           p_event_key: string
+          p_idempotency_key?: string
           p_link_id?: string
           p_link_type?: string
           p_message?: string
