@@ -78,15 +78,90 @@ export async function dispatchNotificationEvent(params: DispatchEventParams) {
   }
 }
 
-// ──────────────── Legacy helpers (kept for backward compat) ────────────────
+// ──────────────── Legacy helpers (auto-route to dispatcher) ────────────────
+
+/**
+ * Map legacy `type` strings (used by old `notifyAdmins` / `createNotification`
+ * call sites) to the canonical event_key in `notification_events`.
+ *
+ * Any type not listed here falls back to a direct insert (legacy behaviour),
+ * so unknown types keep working but are NOT logged in dispatch_log.
+ */
+const LEGACY_TYPE_TO_EVENT_KEY: Record<string, string> = {
+  // Quote
+  new_quote_request: "quote.requested",
+  quote_sent: "quote.sent",
+  quote_revised: "quote.revised",
+  quote_accepted: "quote.accepted",
+  quote_rejected: "quote.rejected",
+  quote_expired: "quote.expired",
+  quote_status_change: "quote.sent", // generic — closest semantic
+  // PO
+  po_uploaded: "po.uploaded",
+  po_approved: "po.approved",
+  po_rejected: "po.rejected",
+  // Sale Order
+  sale_order_created: "so.created",
+  so_shipped: "so.shipped",
+  so_delivered: "so.delivered",
+  // Invoice / Tax invoice / Credit note / Receipt
+  invoice_created: "invoice.created",
+  invoice_sent: "invoice.sent",
+  invoice_paid: "invoice.paid",
+  invoice_overdue: "invoice.overdue",
+  invoice_cancelled: "invoice.voided",
+  tax_invoice_created: "tax_invoice.issued",
+  credit_note_created: "credit_note.issued",
+  receipt_issued: "receipt.issued",
+  receipt_cancelled: "receipt.issued",
+  // Payment
+  payment_confirmed: "payment.confirmed",
+  payment_refunded: "payment.refunded",
+  payment_slip_uploaded: "payment.slip_uploaded",
+  // Contact / partner / member
+  new_contact: "contact.submitted",
+  new_member: "contact.submitted", // no dedicated member event; reuse
+  partner_applied: "partner.applied",
+  // Repair
+  new_repair_request: "repair.requested",
+  repair_received: "repair.received",
+  repair_in_progress: "repair.in_progress",
+  repair_completed: "repair.completed",
+  repair_returned: "repair.returned",
+  // Affiliate
+  affiliate_approved: "affiliate.approved",
+  affiliate_lead_qualified: "affiliate.lead_qualified",
+  affiliate_payout_paid: "affiliate.payout_paid",
+  // Cart
+  cart_abandoned: "cart.abandoned",
+  cart_liked_reminder: "cart.liked_reminder",
+};
 
 /**
  * Insert a single in-app notification for a specific user.
- * Fires-and-forgets (logs errors but does not throw).
  *
- * @deprecated Prefer `dispatchNotificationEvent` with a registered event_key.
+ * Auto-routes to `dispatchNotificationEvent` if `type` maps to a known
+ * event_key, otherwise falls back to direct insert (legacy behaviour).
+ *
+ * @deprecated Prefer `dispatchNotificationEvent` with an explicit event_key.
  */
 export async function createNotification(params: CreateNotificationParams) {
+  const eventKey = LEGACY_TYPE_TO_EVENT_KEY[params.type];
+  if (eventKey) {
+    return dispatchNotificationEvent({
+      eventKey,
+      recipientUserId: params.userId,
+      title: params.title,
+      message: params.message,
+      actionUrl: params.actionUrl,
+      actionLabel: params.actionLabel,
+      linkType: params.linkType,
+      linkId: params.linkId,
+      entityType: params.linkType,
+      entityId: params.linkId,
+    });
+  }
+  // Fallback: unknown legacy type — direct insert
   try {
     const { error } = await (supabase as any).from("notifications").insert({
       user_id: params.userId,
@@ -108,11 +183,30 @@ export async function createNotification(params: CreateNotificationParams) {
 /**
  * Notify all admin users about an event.
  *
+ * Auto-routes to `dispatchNotificationEvent({ recipientRole: 'admin' })` if
+ * `type` maps to a known event_key, otherwise falls back to legacy RPC.
+ *
  * @deprecated Prefer `dispatchNotificationEvent({ recipientRole: 'admin', ... })`.
  */
 export async function notifyAdmins(
   params: Omit<CreateNotificationParams, "userId">
 ) {
+  const eventKey = LEGACY_TYPE_TO_EVENT_KEY[params.type];
+  if (eventKey) {
+    return dispatchNotificationEvent({
+      eventKey,
+      recipientRole: "admin",
+      title: params.title,
+      message: params.message,
+      actionUrl: params.actionUrl,
+      actionLabel: params.actionLabel,
+      linkType: params.linkType,
+      linkId: params.linkId,
+      entityType: params.linkType,
+      entityId: params.linkId,
+    });
+  }
+  // Fallback: unknown legacy type — use legacy RPC
   try {
     const { data, error } = await (supabase as any).rpc("notify_admins", {
       p_type: params.type,
