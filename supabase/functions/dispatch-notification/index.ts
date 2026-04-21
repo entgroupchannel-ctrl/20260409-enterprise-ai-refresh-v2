@@ -239,11 +239,21 @@ async function sendAdminLegacyEmails(
     }
   }
 
+  // TEST MODE: restrict to allowlist when NOTIFICATION_TEST_MODE=true
+  const TEST_MODE = Deno.env.get('NOTIFICATION_TEST_MODE') === 'true'
+  const TEST_ALLOWLIST = ['therdpoom@entgroup.co.th']
+  const finalEmails = TEST_MODE
+    ? emails.filter((e) => TEST_ALLOWLIST.includes(e.toLowerCase()))
+    : emails
+  if (TEST_MODE) {
+    console.log(`[dispatch-notification] TEST_MODE active — filtered ${emails.length} → ${finalEmails.length} admin recipient(s)`)
+  }
+
   let anyFailed = false
   let lastError: string | undefined
 
-  for (let i = 0; i < emails.length; i++) {
-    const email = emails[i]
+  for (let i = 0; i < finalEmails.length; i++) {
+    const email = finalEmails[i]
     try {
       const { error } = await supabase.functions.invoke('notify-quote-status', {
         body: {
@@ -268,7 +278,7 @@ async function sendAdminLegacyEmails(
       console.error(`[dispatch-notification] admin email exception (${email}):`, e)
     }
     // Throttle to respect Resend rate limit
-    if (i < emails.length - 1) {
+    if (i < finalEmails.length - 1) {
       await new Promise((r) => setTimeout(r, 600))
     }
   }
