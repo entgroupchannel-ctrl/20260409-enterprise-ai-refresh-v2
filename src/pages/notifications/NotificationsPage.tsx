@@ -251,17 +251,26 @@ export default function NotificationsPage() {
               </div>
             </div>
 
-            {unreadCount > 0 && (
+            <div className="flex items-center gap-2">
               <Button
-                variant="outline"
+                variant="ghost"
                 size="sm"
-                onClick={markAllAsRead}
-                disabled={processing}
+                onClick={() => navigate("/notifications/preferences")}
               >
-                <CheckCheck className="w-4 h-4 mr-1.5" />
-                {processing ? "กำลังทำเครื่องหมาย..." : "อ่านทั้งหมด"}
+                ตั้งค่า
               </Button>
-            )}
+              {unreadCount > 0 && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={markAllAsRead}
+                  disabled={processing}
+                >
+                  <CheckCheck className="w-4 h-4 mr-1.5" />
+                  {processing ? "กำลังทำเครื่องหมาย..." : "อ่านทั้งหมด"}
+                </Button>
+              )}
+            </div>
           </div>
 
           {/* Filters */}
