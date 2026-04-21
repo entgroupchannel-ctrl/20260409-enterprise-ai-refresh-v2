@@ -16,6 +16,7 @@ import {
   Mail,
   Loader2,
   CheckCircle2,
+  X,
 } from "lucide-react";
 import welcomeBg from "@/assets/welcome-callcenter.jpg";
 import { supabase } from "@/integrations/supabase/client";
