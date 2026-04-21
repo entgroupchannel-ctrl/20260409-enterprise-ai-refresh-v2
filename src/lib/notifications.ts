@@ -122,7 +122,9 @@ const LEGACY_TYPE_TO_EVENT_KEY: Record<string, string> = {
   credit_note_created: "credit_note.issued",
   receipt_issued: "receipt.issued",
   receipt_new: "receipt.issued",
+  receipt_created: "receipt.created",
   receipt_cancelled: "receipt.issued",
+  tax_invoice_cancelled: "tax_invoice.cancelled",
   // Payment
   payment_confirmed: "payment.confirmed",
   payment_verified: "payment.confirmed",
