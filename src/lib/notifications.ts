@@ -186,6 +186,7 @@ export async function createNotification(params: CreateNotificationParams) {
       entityId: params.linkId,
     });
   }
+  warnUnknownLegacyType(params.type);
   // Fallback: unknown legacy type — direct insert
   try {
     const { error } = await (supabase as any).from("notifications").insert({
@@ -231,6 +232,7 @@ export async function notifyAdmins(
       entityId: params.linkId,
     });
   }
+  warnUnknownLegacyType(params.type);
   // Fallback: unknown legacy type — use legacy RPC
   try {
     const { data, error } = await (supabase as any).rpc("notify_admins", {
