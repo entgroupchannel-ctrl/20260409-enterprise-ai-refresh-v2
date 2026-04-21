@@ -66,7 +66,7 @@ export default function NotificationPreferences() {
         .order("event_key");
 
       const { data: pr } = await (supabase as any)
-        .from("notification_preferences")
+        .from("user_notification_preferences")
         .select("event_key, email_enabled, in_app_enabled")
         .eq("user_id", user.id);
 
@@ -103,7 +103,7 @@ export default function NotificationPreferences() {
     };
     setPrefs((m) => ({ ...m, [eventKey]: updated }));
     const { error } = await (supabase as any)
-      .from("notification_preferences")
+      .from("user_notification_preferences")
       .upsert(
         {
           user_id: user.id,
