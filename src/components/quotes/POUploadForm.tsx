@@ -50,9 +50,10 @@ const POUploadForm = ({ quoteId, onSuccess }: POUploadFormProps) => {
       const origin = typeof window !== 'undefined' ? window.location.origin : '';
 
       // Notify admins (in-app + email) + send customer confirmation
-      import('@/lib/notifications').then(({ notifyAdmins, notifyAdminsByEmail, sendQuoteStatusEmail }) => {
-        notifyAdmins({
-          type: 'po_uploaded',
+      import('@/lib/notifications').then(({ dispatchNotification, sendQuoteStatusEmail }) => {
+        dispatchNotification({
+          eventKey: 'po.uploaded',
+          recipientRole: 'admin',
           title: 'ลูกค้าอัปโหลด PO ใหม่',
           message: `${quoteRow?.customer_name ?? ''} — ${quoteRow?.quote_number ?? quoteId}`,
           priority: 'high',
@@ -60,10 +61,8 @@ const POUploadForm = ({ quoteId, onSuccess }: POUploadFormProps) => {
           actionLabel: 'ตรวจสอบ PO',
           linkType: 'quote',
           linkId: quoteId,
-        });
-        notifyAdminsByEmail({
-          subject: `[PO] ลูกค้าอัปโหลด PO ใหม่ ${quoteRow?.quote_number ?? ''}`,
-          status: 'po_uploaded',
+          entityType: 'quote',
+          entityId: quoteId,
           customerName: quoteRow?.customer_name,
           quoteNumber: quoteRow?.quote_number,
           viewUrl: `${origin}/admin/quotes/${quoteId}`,
