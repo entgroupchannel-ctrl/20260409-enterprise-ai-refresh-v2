@@ -302,23 +302,16 @@ export async function notifyAdminsByEmail(params: {
   note?: string;
 }) {
   try {
-    // Get admin user IDs
-    const { data: roles } = await (supabase as any)
-      .from("user_roles")
-      .select("user_id")
-      .in("role", ["admin", "super_admin"]);
-
-    if (!roles?.length) return;
-    const userIds = roles.map((r: any) => r.user_id);
-
-    // Get admin emails from profiles
-    const { data: profiles } = await (supabase as any)
-      .from("profiles")
+    // Single query against public.users (single source of truth)
+    // Replaces ghost tables user_roles + profiles (P-0.1 fix)
+    const { data: admins } = await (supabase as any)
+      .from("users")
       .select("email")
-      .in("id", userIds);
+      .in("role", ["admin", "super_admin"])
+      .eq("is_active", true);
 
-    const emails = (profiles || [])
-      .map((p: any) => p?.email)
+    const emails = (admins || [])
+      .map((u: any) => u?.email)
       .filter((e: string | null | undefined): e is string => !!e);
 
     if (!emails.length) {
