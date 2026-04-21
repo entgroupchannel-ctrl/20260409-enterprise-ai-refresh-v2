@@ -7556,34 +7556,20 @@ export type Database = {
         Args: { p_channel: string; p_event_key: string; p_user_id: string }
         Returns: boolean
       }
-      notify_admins:
-        | {
-            Args: {
-              p_action_label?: string
-              p_action_url?: string
-              p_link_id?: string
-              p_link_type?: string
-              p_message: string
-              p_priority?: string
-              p_title: string
-              p_type: string
-            }
-            Returns: number
-          }
-        | {
-            Args: {
-              p_action_label?: string
-              p_action_url?: string
-              p_exclude_user_id?: string
-              p_link_id?: string
-              p_link_type?: string
-              p_message: string
-              p_priority?: string
-              p_title: string
-              p_type: string
-            }
-            Returns: number
-          }
+      notify_admins: {
+        Args: {
+          p_action_label?: string
+          p_action_url?: string
+          p_exclude_user_id?: string
+          p_link_id?: string
+          p_link_type?: string
+          p_message: string
+          p_priority?: string
+          p_title: string
+          p_type: string
+        }
+        Returns: number
+      }
       notify_all_admins: {
         Args: {
           p_label?: string
