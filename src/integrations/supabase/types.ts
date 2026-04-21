@@ -2766,6 +2766,44 @@ export type Database = {
         }
         Relationships: []
       }
+      notification_preferences: {
+        Row: {
+          created_at: string
+          email_enabled: boolean
+          event_key: string
+          id: string
+          in_app_enabled: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          email_enabled?: boolean
+          event_key: string
+          id?: string
+          in_app_enabled?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          email_enabled?: boolean
+          event_key?: string
+          id?: string
+          in_app_enabled?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notification_preferences_event_key_fkey"
+            columns: ["event_key"]
+            isOneToOne: false
+            referencedRelation: "notification_events"
+            referencedColumns: ["event_key"]
+          },
+        ]
+      }
       notifications: {
         Row: {
           action_label: string | null
@@ -7490,6 +7528,10 @@ export type Database = {
         }[]
       }
       next_document_number: { Args: { _doc_type: string }; Returns: string }
+      notification_is_enabled_for_user: {
+        Args: { p_channel: string; p_event_key: string; p_user_id: string }
+        Returns: boolean
+      }
       notify_admins:
         | {
             Args: {
