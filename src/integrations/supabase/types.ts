@@ -7666,6 +7666,7 @@ export type Database = {
       }
       sum_pending_payments: { Args: { p_invoice_id: string }; Returns: number }
       sum_verified_payments: { Args: { p_invoice_id: string }; Returns: number }
+      try_cast_uuid: { Args: { p_text: string }; Returns: string }
       update_quote_status: {
         Args: { p_admin_id?: string; p_new_status: string; p_quote_id: string }
         Returns: Json
