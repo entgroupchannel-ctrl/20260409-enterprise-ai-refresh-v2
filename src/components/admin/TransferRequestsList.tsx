@@ -17,6 +17,7 @@ import TransferEmailModal from './TransferEmailModal';
 import TransferPrintDialog from './TransferPrintDialog';
 import { useAuth } from '@/hooks/useAuth';
 import { sanitizeFilename } from "@/lib/sanitize-filename";
+import { dispatchNotificationEvent } from "@/lib/notifications";
 
 const DOC_TYPE_LABELS: Record<string, string> = {
   proforma_invoice: 'PI', commercial_invoice: 'CI', air_waybill: 'AWB',
@@ -49,7 +50,7 @@ interface Props {
 }
 
 export default function TransferRequestsList({ onEdit }: Props) {
-  const { isSuperAdmin, profile } = useAuth();
+  const { isSuperAdmin, profile, user } = useAuth();
   const [transfers, setTransfers] = useState<TransferRequest[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -199,7 +200,7 @@ export default function TransferRequestsList({ onEdit }: Props) {
     fetchTransfers();
   };
 
-  // Submit for approval (draft → pending) + notify super_admins
+  // Submit for approval (draft → pending) + notify super_admins via centralized dispatcher
   const handleSubmitForApproval = async (t: TransferRequest) => {
     setActionLoading(t.id);
     try {
@@ -209,22 +210,29 @@ export default function TransferRequestsList({ onEdit }: Props) {
         .eq('id', t.id);
       if (error) throw error;
 
-      // Notify all super_admins
-      const { data: admins } = await supabase.from('users').select('id').eq('role', 'super_admin').eq('is_active', true);
-      if (admins?.length) {
-        const notifs = admins.map((a: any) => ({
-          user_id: a.id,
-          type: 'transfer_approval',
-          title: '📋 คำขอโอนเงินต่างประเทศรออนุมัติ',
-          message: `${t.transfer_number} — ${t.currency} ${fmtNum(t.amount)} — ${t.supplier_name}`,
-          priority: 'high',
-          action_url: '/admin/international-transfer',
-          action_label: 'ตรวจสอบ',
-          link_type: 'transfer',
-          link_id: t.id,
-        }));
-        await supabase.from('notifications').insert(notifs);
-      }
+      // Route via centralized dispatcher → respects registry + preferences + audit log.
+      // Recipient = super_admin role (resolved server-side from user_roles by dispatch_notification_event).
+      await dispatchNotificationEvent({
+        eventKey: 'transfer.approval_requested',
+        recipientRole: 'super_admin',
+        title: '📋 คำขอโอนเงินต่างประเทศรออนุมัติ',
+        message: `${t.transfer_number} — ${t.currency} ${fmtNum(t.amount)} — ${t.supplier_name}`,
+        actionUrl: '/admin/international-transfer',
+        actionLabel: 'ตรวจสอบ',
+        linkType: 'transfer',
+        linkId: t.id,
+        entityType: 'international_transfer_request',
+        entityId: t.id,
+        actorId: user?.id ?? null,
+        metadata: {
+          transfer_number: t.transfer_number,
+          supplier_name: t.supplier_name,
+          amount: t.amount,
+          currency: t.currency,
+          amount_thb: t.amount_thb,
+        },
+        idempotencyKey: `transfer.approval_requested:${t.id}`,
+      });
 
       toast.success('ส่งอนุมัติแล้ว');
       fetchTransfers();
