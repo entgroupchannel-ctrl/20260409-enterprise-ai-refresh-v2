@@ -253,9 +253,6 @@ const CaseStudies = () => {
           <Link to="/contact-us">
             <Button>ติดต่อเรา</Button>
           </Link>
-          <Link to="/corporate-pricing">
-            <Button variant="outline">ดูราคาองค์กร</Button>
-          </Link>
           <Link to="/product-advisor">
             <Button variant="outline">ปรึกษาผู้เชี่ยวชาญ</Button>
           </Link>
