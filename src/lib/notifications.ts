@@ -28,20 +28,21 @@ interface DispatchEventParams {
   linkId?: string;
   metadata?: Record<string, unknown>;
   actorId?: string;
+  entityType?: string;
+  entityId?: string;
+  idempotencyKey?: string;
 }
 
 /**
  * Centralized notification dispatcher (Phase 1 Foundation).
  *
  * Single entry point for all notification events. Handles:
- * - Event registry validation (notification_events)
- * - User preference checks (notification_preferences)
- * - Critical event override (bypass preference)
- * - In-app notification insert
- * - Audit log (notification_dispatch_log)
+ * - Event registry validation (notification_events.is_active)
+ * - Channel gate from registry (notify_admin_in_app / notify_customer_in_app)
+ * - User preference checks (critical events bypass preference)
+ * - In-app notification insert + audit log (notification_dispatch_log)
  *
- * Prefer this over `createNotification` / `notifyAdmins` for new code.
- * Fire-and-forget; logs errors but does not throw.
+ * Prefer this over `createNotification` / `notifyAdmins`. Fire-and-forget.
  */
 export async function dispatchNotificationEvent(params: DispatchEventParams) {
   try {
@@ -57,6 +58,9 @@ export async function dispatchNotificationEvent(params: DispatchEventParams) {
       p_link_id: params.linkId ?? null,
       p_metadata: params.metadata ?? {},
       p_actor_id: params.actorId ?? null,
+      p_entity_type: params.entityType ?? null,
+      p_entity_id: params.entityId ?? null,
+      p_idempotency_key: params.idempotencyKey ?? null,
     });
 
     if (error) {
