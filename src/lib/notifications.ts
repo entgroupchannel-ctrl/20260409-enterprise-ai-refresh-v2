@@ -319,23 +319,33 @@ export async function notifyAdminsByEmail(params: {
       return;
     }
 
-    // Fan-out one email per admin (parallel)
-    await Promise.all(
-      emails.map((email: string) =>
-        supabase.functions.invoke("notify-quote-status", {
-          body: {
-            recipientEmail: email,
-            customerName: params.customerName,
-            quoteNumber: params.quoteNumber,
-            status: params.status,
-            invoiceNumber: params.invoiceNumber,
-            amount: params.amount,
-            viewUrl: params.viewUrl,
-            note: params.note,
-          },
-        }).catch((e) => console.error("notifyAdminsByEmail fanout error:", e))
-      )
-    );
+    // Sequential send with 600ms delay — respect Resend rate limit (2 req/sec)
+    // Fire-and-forget loop so the caller doesn't wait for full fan-out
+    (async () => {
+      for (let i = 0; i < emails.length; i++) {
+        const email = emails[i];
+        try {
+          await supabase.functions.invoke("notify-quote-status", {
+            body: {
+              recipientEmail: email,
+              customerName: params.customerName,
+              quoteNumber: params.quoteNumber,
+              status: params.status,
+              invoiceNumber: params.invoiceNumber,
+              amount: params.amount,
+              viewUrl: params.viewUrl,
+              note: params.note,
+            },
+          });
+        } catch (e) {
+          console.error(`notifyAdminsByEmail send error (${email}):`, e);
+        }
+        // Throttle to ~1.67 req/sec (under Resend's 2 req/sec limit)
+        if (i < emails.length - 1) {
+          await new Promise((resolve) => setTimeout(resolve, 600));
+        }
+      }
+    })();
   } catch (e) {
     console.error("notifyAdminsByEmail exception:", e);
   }
