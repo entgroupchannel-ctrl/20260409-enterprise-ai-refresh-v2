@@ -91,36 +91,48 @@ const LEGACY_TYPE_TO_EVENT_KEY: Record<string, string> = {
   // Quote
   new_quote_request: "quote.requested",
   quote_sent: "quote.sent",
+  quote_new: "quote.sent",
   quote_revised: "quote.revised",
+  negotiation_request: "quote.revised",
   quote_accepted: "quote.accepted",
   quote_rejected: "quote.rejected",
   quote_expired: "quote.expired",
-  quote_status_change: "quote.sent", // generic — closest semantic
+  quote_status_change: "quote.sent",
   // PO
   po_uploaded: "po.uploaded",
+  quote_po_uploaded: "po.uploaded",
+  po_received: "po.uploaded",
   po_approved: "po.approved",
   po_rejected: "po.rejected",
   // Sale Order
   sale_order_created: "so.created",
   so_shipped: "so.shipped",
   so_delivered: "so.delivered",
+  order_completed: "so.delivered",
   // Invoice / Tax invoice / Credit note / Receipt
   invoice_created: "invoice.created",
+  invoice_new: "invoice.created",
+  invoice_issued: "invoice.created",
   invoice_sent: "invoice.sent",
   invoice_paid: "invoice.paid",
   invoice_overdue: "invoice.overdue",
   invoice_cancelled: "invoice.voided",
   tax_invoice_created: "tax_invoice.issued",
+  tax_invoice_new: "tax_invoice.issued",
   credit_note_created: "credit_note.issued",
   receipt_issued: "receipt.issued",
+  receipt_new: "receipt.issued",
   receipt_cancelled: "receipt.issued",
   // Payment
   payment_confirmed: "payment.confirmed",
+  payment_verified: "payment.confirmed",
   payment_refunded: "payment.refunded",
+  payment_rejected: "payment.refunded",
   payment_slip_uploaded: "payment.slip_uploaded",
+  payment_uploaded: "payment.slip_uploaded",
   // Contact / partner / member
   new_contact: "contact.submitted",
-  new_member: "contact.submitted", // no dedicated member event; reuse
+  new_member: "contact.submitted",
   partner_applied: "partner.applied",
   // Repair
   new_repair_request: "repair.requested",
@@ -135,7 +147,20 @@ const LEGACY_TYPE_TO_EVENT_KEY: Record<string, string> = {
   // Cart
   cart_abandoned: "cart.abandoned",
   cart_liked_reminder: "cart.liked_reminder",
+  // Chat
+  new_message: "chat.message_received",
+  chat_message: "chat.message_received",
 };
+
+/** Warn once per unknown type so we can spot new legacy types in production. */
+const _warnedUnknownTypes = new Set<string>();
+function warnUnknownLegacyType(type: string) {
+  if (_warnedUnknownTypes.has(type)) return;
+  _warnedUnknownTypes.add(type);
+  console.warn(
+    `[notifications] Legacy type "${type}" has no event_key mapping — falling back to direct insert (no audit log, no preference check). Please add it to LEGACY_TYPE_TO_EVENT_KEY.`
+  );
+}
 
 /**
  * Insert a single in-app notification for a specific user.
