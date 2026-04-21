@@ -7386,6 +7386,12 @@ export type Database = {
       generate_next_base_number: { Args: never; Returns: string }
       generate_receipt_number: { Args: never; Returns: string }
       generate_tax_invoice_number: { Args: never; Returns: string }
+      get_admin_emails: {
+        Args: never
+        Returns: {
+          email: string
+        }[]
+      }
       get_company_docs_stats: {
         Args: never
         Returns: {
