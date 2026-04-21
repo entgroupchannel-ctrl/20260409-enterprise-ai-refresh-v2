@@ -16,6 +16,7 @@ import {
   Mail,
   Loader2,
   CheckCircle2,
+  X,
 } from "lucide-react";
 import welcomeBg from "@/assets/welcome-callcenter.jpg";
 import { supabase } from "@/integrations/supabase/client";
@@ -246,169 +247,155 @@ export default function WelcomeDialog() {
     >
       <DialogContent
         className={[
-          "max-w-2xl p-0 overflow-hidden border-primary/20",
+          "max-w-3xl p-0 overflow-hidden border-primary/20",
+          "sm:max-h-[92vh] max-h-[90vh] overflow-y-auto",
           "transition-all duration-500 ease-out",
           closing ? "opacity-0 scale-[0.98]" : "opacity-100 scale-100",
+          "[&>button.absolute]:hidden",
         ].join(" ")}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onFocusCapture={handleMouseEnter}
         onBlurCapture={handleMouseLeave}
       >
-        {/* Header — Call Center hero */}
-        <div className="relative text-primary-foreground p-6 sm:p-8 min-h-[220px] sm:min-h-[260px] overflow-hidden">
-          {/* Background photo */}
-          <img
-            src={welcomeBg}
-            alt="ทีม Call Center ENT Group ยินดีต้อนรับ"
-            width={1280}
-            height={640}
-            className="absolute inset-0 w-full h-full object-cover object-center"
-          />
-          {/* Brand color overlay for legibility */}
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/85 via-primary/70 to-primary/40 mix-blend-multiply" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background/30 via-transparent to-transparent" />
-          <div className="absolute inset-0 opacity-25 bg-[radial-gradient(circle_at_top_right,_white,_transparent_60%)]" />
+        {/* Prominent close button — top right, always visible */}
+        <button
+          type="button"
+          onClick={handleClose}
+          aria-label="ปิด"
+          className="absolute right-3 top-3 z-20 h-8 w-8 rounded-full bg-background/90 hover:bg-background border border-border shadow-md flex items-center justify-center text-foreground hover:text-primary transition-colors"
+        >
+          <X className="h-4 w-4" />
+        </button>
 
-          <div className="relative">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-foreground/20 backdrop-blur-sm text-xs font-medium mb-3">
-              <Sparkles className="h-3.5 w-3.5" />
-              ยินดีต้อนรับสู่ ENT Group
+        <div className="grid md:grid-cols-[42%_58%] grid-cols-1">
+          {/* LEFT: Hero — compact on mobile, full-height on desktop */}
+          <div className="relative text-primary-foreground p-5 md:p-6 min-h-[140px] md:min-h-[440px] overflow-hidden">
+            <img
+              src={welcomeBg}
+              alt="ทีม Call Center ENT Group ยินดีต้อนรับ"
+              width={1280}
+              height={640}
+              className="absolute inset-0 w-full h-full object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/75 to-primary/50 mix-blend-multiply" />
+            <div className="absolute inset-0 opacity-25 bg-[radial-gradient(circle_at_top_right,_white,_transparent_60%)]" />
+
+            <div className="relative">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary-foreground/20 backdrop-blur-sm text-[11px] font-medium mb-2.5">
+                <Sparkles className="h-3 w-3" />
+                ยินดีต้อนรับ
+              </div>
+              <h2 className="text-xl md:text-2xl font-bold leading-tight drop-shadow-sm">
+                B2B Industrial Platform
+              </h2>
+              <p className="mt-1.5 text-xs md:text-sm text-primary-foreground/95 drop-shadow-sm leading-relaxed">
+                แพลตฟอร์มจัดซื้ออุตสาหกรรมครบวงจร — ทีมงานพร้อมดูแลคุณ
+              </p>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold leading-tight drop-shadow-sm">
-              B2B Industrial Platform
-            </h2>
-            <p className="mt-2 text-sm sm:text-base text-primary-foreground/95 max-w-lg drop-shadow-sm">
-              แพลตฟอร์มจัดซื้ออุตสาหกรรมแบบครบวงจร — ทีมงานพร้อมดูแลคุณตลอดการใช้งาน
-            </p>
           </div>
-        </div>
 
-        {/* Benefits */}
-        <div className="p-6 sm:p-8 pt-5 sm:pt-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5">
-            {BENEFITS.map(({ icon: Icon, title, desc }) => (
-              <div
-                key={title}
-                className="flex items-start gap-3 p-3 rounded-lg border bg-card hover:border-primary/30 transition-colors"
+          {/* RIGHT: Content */}
+          <div className="p-5 md:p-6 flex flex-col gap-3.5">
+            {/* Benefits — compact 2-col always */}
+            <div className="grid grid-cols-2 gap-2">
+              {BENEFITS.map(({ icon: Icon, title }) => (
+                <div
+                  key={title}
+                  className="flex items-center gap-2 p-2 rounded-md border bg-card/50"
+                >
+                  <div className="shrink-0 h-7 w-7 rounded-md bg-primary/10 text-primary flex items-center justify-center">
+                    <Icon className="h-3.5 w-3.5" />
+                  </div>
+                  <div className="text-[11.5px] font-medium text-foreground leading-tight">{title}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* CTAs — primary row */}
+            <div className="flex gap-2">
+              <Button asChild size="sm" className="flex-1 h-9" onClick={handleClose}>
+                <Link to="/register">
+                  สมัครฟรี <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+              </Button>
+              <Button asChild size="sm" variant="outline" className="flex-1 h-9" onClick={handleClose}>
+                <Link to="/login">
+                  <LogIn className="h-3.5 w-3.5" /> เข้าสู่ระบบ
+                </Link>
+              </Button>
+            </div>
+
+            {/* Secondary links — inline */}
+            <div className="flex items-center justify-center gap-4 text-xs">
+              <Link to="/platform" onClick={handleClose} className="inline-flex items-center gap-1 text-muted-foreground hover:text-primary transition-colors">
+                <LayoutGrid className="h-3.5 w-3.5" /> Platform Tour
+              </Link>
+              <span className="text-border">·</span>
+              <Link to="/shop" onClick={handleClose} className="inline-flex items-center gap-1 text-muted-foreground hover:text-primary transition-colors">
+                <ShoppingBag className="h-3.5 w-3.5" /> ร้านค้า
+              </Link>
+            </div>
+
+            {/* Newsletter — compact */}
+            <div className="p-2.5 rounded-md border border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
+              <div className="flex items-center gap-1.5 mb-1.5">
+                <Mail className="h-3.5 w-3.5 text-primary" />
+                <div className="text-xs font-semibold text-foreground">รับข่าวสาร & โปรโมชั่น</div>
+              </div>
+              {subSuccess ? (
+                <div className="flex items-center gap-1.5 text-xs text-primary font-medium py-1">
+                  <CheckCircle2 className="h-3.5 w-3.5" />
+                  สมัครเรียบร้อยแล้ว
+                </div>
+              ) : (
+                <form onSubmit={handleSubscribe} className="flex gap-1.5">
+                  <input
+                    type="email"
+                    required
+                    value={subEmail}
+                    onChange={(e) => setSubEmail(e.target.value)}
+                    placeholder="your@email.com"
+                    maxLength={255}
+                    disabled={subLoading}
+                    className="flex-1 h-8 px-2.5 rounded-md border border-input bg-background text-xs placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 disabled:opacity-50"
+                  />
+                  <Button type="submit" size="sm" disabled={subLoading} className="h-8 px-3 text-xs">
+                    {subLoading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "สมัคร"}
+                  </Button>
+                </form>
+              )}
+            </div>
+
+            {/* Countdown footer */}
+            <div className="flex items-center justify-between gap-2 mt-auto pt-1">
+              <div className="flex items-center gap-2 text-[11px] text-muted-foreground min-w-0">
+                <div className="relative shrink-0" style={{ width: SIZE, height: SIZE }} aria-hidden="true">
+                  <svg width={SIZE} height={SIZE} className="-rotate-90">
+                    <circle cx={SIZE / 2} cy={SIZE / 2} r={R} stroke="hsl(var(--muted))" strokeWidth={STROKE} fill="none" />
+                    <circle
+                      cx={SIZE / 2} cy={SIZE / 2} r={R}
+                      stroke="hsl(var(--primary))" strokeWidth={STROKE} fill="none" strokeLinecap="round"
+                      strokeDasharray={C} strokeDashoffset={dashOffset}
+                      style={{ transition: `stroke-dashoffset ${TICK_MS}ms linear` }}
+                    />
+                  </svg>
+                  <div className="absolute inset-0 flex items-center justify-center text-[10px] font-semibold text-foreground tabular-nums">
+                    {paused ? <Pause className="h-3 w-3 text-muted-foreground" /> : secondsLeft}
+                  </div>
+                </div>
+                <span className="truncate">
+                  {paused ? "หยุดชั่วคราว" : `ปิดใน ${secondsLeft}s`}
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={handleClose}
+                className="text-xs font-medium text-muted-foreground hover:text-primary underline-offset-2 hover:underline transition-colors shrink-0"
               >
-                <div className="shrink-0 h-9 w-9 rounded-md bg-primary/10 text-primary flex items-center justify-center">
-                  <Icon className="h-4 w-4" />
-                </div>
-                <div className="min-w-0">
-                  <div className="text-sm font-semibold text-foreground">{title}</div>
-                  <div className="text-xs text-muted-foreground">{desc}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-2">
-            <Button asChild className="flex-1" onClick={handleClose}>
-              <Link to="/register">
-                สมัครสมาชิกฟรี <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
-            <Button asChild variant="outline" className="flex-1" onClick={handleClose}>
-              <Link to="/login">
-                <LogIn className="h-4 w-4" /> เข้าสู่ระบบ
-              </Link>
-            </Button>
-          </div>
-
-          <div className="grid grid-cols-2 gap-2 mt-2">
-            <Button asChild variant="ghost" size="sm" onClick={handleClose}>
-              <Link to="/platform">
-                <LayoutGrid className="h-4 w-4" /> ดู Platform Tour
-              </Link>
-            </Button>
-            <Button asChild variant="ghost" size="sm" onClick={handleClose}>
-              <Link to="/shop">
-                <ShoppingBag className="h-4 w-4" /> เข้าสู่ร้านค้า
-              </Link>
-            </Button>
-          </div>
-
-          {/* Newsletter subscribe */}
-          <div className="mt-5 p-3.5 rounded-lg border border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
-            <div className="flex items-center gap-2 mb-2">
-              <div className="h-7 w-7 rounded-md bg-primary/10 text-primary flex items-center justify-center">
-                <Mail className="h-3.5 w-3.5" />
-              </div>
-              <div className="min-w-0">
-                <div className="text-sm font-semibold text-foreground">รับข่าวสารและโปรโมชั่นพิเศษ</div>
-                <div className="text-[11px] text-muted-foreground">สินค้าใหม่ ส่วนลดองค์กร และข่าวอุตสาหกรรม</div>
-              </div>
+                ปิดเลย
+              </button>
             </div>
-            {subSuccess ? (
-              <div className="flex items-center gap-2 text-sm text-primary font-medium py-1.5">
-                <CheckCircle2 className="h-4 w-4" />
-                สมัครเรียบร้อยแล้ว ขอบคุณค่ะ
-              </div>
-            ) : (
-              <form onSubmit={handleSubscribe} className="flex gap-2">
-                <input
-                  type="email"
-                  required
-                  value={subEmail}
-                  onChange={(e) => setSubEmail(e.target.value)}
-                  placeholder="your@email.com"
-                  maxLength={255}
-                  disabled={subLoading}
-                  className="flex-1 h-9 px-3 rounded-md border border-input bg-background text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 disabled:opacity-50"
-                />
-                <Button type="submit" size="sm" disabled={subLoading} className="h-9 px-4">
-                  {subLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : "สมัคร"}
-                </Button>
-              </form>
-            )}
-          </div>
-
-          {/* Circular countdown footer */}
-          <div className="mt-5 flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2.5 text-xs text-muted-foreground">
-              <div className="relative" style={{ width: SIZE, height: SIZE }} aria-hidden="true">
-                <svg width={SIZE} height={SIZE} className="-rotate-90">
-                  <circle
-                    cx={SIZE / 2}
-                    cy={SIZE / 2}
-                    r={R}
-                    stroke="hsl(var(--muted))"
-                    strokeWidth={STROKE}
-                    fill="none"
-                  />
-                  <circle
-                    cx={SIZE / 2}
-                    cy={SIZE / 2}
-                    r={R}
-                    stroke="hsl(var(--primary))"
-                    strokeWidth={STROKE}
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeDasharray={C}
-                    strokeDashoffset={dashOffset}
-                    style={{ transition: `stroke-dashoffset ${TICK_MS}ms linear` }}
-                  />
-                </svg>
-                <div className="absolute inset-0 flex items-center justify-center text-[10px] font-semibold text-foreground tabular-nums">
-                  {paused ? <Pause className="h-3 w-3 text-muted-foreground" /> : secondsLeft}
-                </div>
-              </div>
-              <span>
-                {paused
-                  ? "หยุดชั่วคราว — เลื่อนเมาส์ออกเพื่อเริ่มนับต่อ"
-                  : `จะปิดอัตโนมัติใน ${secondsLeft} วินาที`}
-              </span>
-            </div>
-
-            <button
-              type="button"
-              onClick={handleClose}
-              className="text-xs text-muted-foreground underline-offset-2 hover:underline hover:text-foreground transition-colors"
-            >
-              ปิดเลย
-            </button>
           </div>
         </div>
       </DialogContent>
