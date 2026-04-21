@@ -25,7 +25,7 @@ Deno.serve(async (req) => {
   const { data: customer } = await supabase
     .from('users')
     .select('id, email')
-    .eq('role', 'customer')
+    .eq('role', 'member')
     .eq('is_active', true)
     .limit(1)
     .maybeSingle()
