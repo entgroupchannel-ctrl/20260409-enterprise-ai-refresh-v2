@@ -141,6 +141,7 @@ const UserDashboard = lazyRetry(() => import("./pages/customer/UserDashboard"));
 const CustomerSODetail = lazyRetry(() => import("./pages/customer/CustomerSODetail"));
 const CustomerOrders = lazyRetry(() => import("./pages/customer/CustomerOrders"));
 const NotificationsPage = lazyRetry(() => import("./pages/notifications/NotificationsPage"));
+const NotificationPreferences = lazyRetry(() => import("./pages/customer/NotificationPreferences"));
 const AdminRegisteredProductsList = lazyRetry(() => import("./pages/admin/AdminRegisteredProductsList"));
 const AdminRegisteredProductDetail = lazyRetry(() => import("./pages/admin/AdminRegisteredProductDetail"));
 const MyProducts = lazyRetry(() => import("./pages/customer/MyProducts"));
@@ -357,6 +358,7 @@ const App = () => (
                     <Route path="/my-account/:section" element={<MyAccountRedirect />} />
                     <Route path="/my-account" element={<MyAccountRedirect />} />
                     <Route path="/notifications" element={<ProtectedRoute><NotificationsPage /></ProtectedRoute>} />
+                    <Route path="/notifications/preferences" element={<ProtectedRoute><NotificationPreferences /></ProtectedRoute>} />
                     <Route path="/profile" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
                     <Route path="/dashboard" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
                     <Route path="/profile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
