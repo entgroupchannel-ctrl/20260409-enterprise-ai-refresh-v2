@@ -377,3 +377,60 @@ export async function sendQuoteStatusEmail(params: {
     console.error("sendQuoteStatusEmail exception:", e);
   }
 }
+
+// ──────────────── Phase 1a: dispatch-notification edge wrapper ────────────────
+
+interface DispatchNotificationParams {
+  eventKey: string;
+  recipientUserId?: string | null;
+  recipientRole?: "admin" | "super_admin" | "customer" | null;
+  recipientEmail?: string | null;
+  title: string;
+  message: string;
+  priority?: NotificationPriority;
+  actionUrl?: string | null;
+  actionLabel?: string | null;
+  linkType?: string | null;
+  linkId?: string | null;
+  entityType?: string | null;
+  entityId?: string | null;
+  metadata?: Record<string, unknown>;
+  actorId?: string | null;
+  idempotencyKey?: string | null;
+  // Legacy email passthrough fields (for 'legacy' / 'admin-only-legacy' strategies)
+  customerName?: string;
+  quoteNumber?: string;
+  invoiceNumber?: string;
+  amount?: string;
+  viewUrl?: string;
+  note?: string;
+  status?: string;
+}
+
+/**
+ * Phase 1a centralized dispatcher.
+ *
+ * Calls the `dispatch-notification` edge function which:
+ * 1. Invokes `dispatch_notification_event` RPC (in-app + audit log)
+ * 2. Routes email per hardcoded strategy (legacy / admin-only-legacy / registry / none)
+ * 3. Updates `notification_dispatch_log` email status columns
+ *
+ * Phase 1a: all email routing uses the legacy `notify-quote-status` path.
+ * Phase 2 will flip selected events to `registry` (send-transactional-email).
+ *
+ * Fire-and-forget. Existing `notifyAdminsByEmail` / `sendQuoteStatusEmail` /
+ * `notifyAdmins` / `createNotification` are NOT modified — caller migration
+ * happens in Phase 1b/1c.
+ */
+export async function dispatchNotification(params: DispatchNotificationParams) {
+  try {
+    const { error } = await supabase.functions.invoke("dispatch-notification", {
+      body: params,
+    });
+    if (error) {
+      console.error(`[dispatchNotification:${params.eventKey}] error:`, error);
+    }
+  } catch (e) {
+    console.error(`[dispatchNotification:${params.eventKey}] exception:`, e);
+  }
+}
