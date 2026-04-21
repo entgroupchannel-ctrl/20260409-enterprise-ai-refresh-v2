@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
@@ -251,6 +251,9 @@ const App = () => (
                     <Route path="/aio/:id" element={<AIODetail />} />
                     <Route path="/case-studies" element={<CaseStudies />} />
                     <Route path="/case-studies/:id" element={<CaseStudyDetail />} />
+                    {/* Legacy URL จาก Wix เก่า — redirect → /case-studies (มีส่วน "ภาพผลงานจริง" ฝังอยู่) */}
+                    <Route path="/site-references" element={<Navigate to="/case-studies" replace />} />
+                    <Route path="/site-reference" element={<Navigate to="/case-studies" replace />} />
                     <Route path="/blog" element={<Blog />} />
                     <Route path="/blog/:id" element={<BlogDetail />} />
                     <Route path="/shop" element={<ShopStorefront />} />
