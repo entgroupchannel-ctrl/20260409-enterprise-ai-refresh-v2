@@ -302,13 +302,13 @@ export async function notifyAdminsByEmail(params: {
   note?: string;
 }) {
   try {
-    // Single query against public.users (single source of truth)
-    // Replaces ghost tables user_roles + profiles (P-0.1 fix)
-    const { data: admins } = await (supabase as any)
-      .from("users")
-      .select("email")
-      .in("role", ["admin", "super_admin"])
-      .eq("is_active", true);
+    // Use SECURITY DEFINER RPC to bypass RLS on public.users
+    // (customer/guest clients cannot select admin rows directly — P-0.2 fix)
+    const { data: admins, error: rpcError } = await (supabase as any).rpc("get_admin_emails");
+    if (rpcError) {
+      console.error("notifyAdminsByEmail: get_admin_emails RPC error:", rpcError);
+      return;
+    }
 
     const emails = (admins || [])
       .map((u: any) => u?.email)
