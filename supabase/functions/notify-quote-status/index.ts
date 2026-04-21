@@ -49,6 +49,28 @@ const GATEWAY_URL = "https://connector-gateway.lovable.dev/resend";
 const FROM_ADDRESS = "ENT Group <noreply@entgroup.co.th>";
 const PRIMARY_COLOR = "#0fa888";
 const SITE_URL = "https://www.entgroup.co.th";
+const SALES_TEAM_CC = "sales@entgroup.co.th";
+
+// Rewrite preview/dev URLs to canonical production domain so emailed links
+// always point to www.entgroup.co.th (regardless of where the trigger ran).
+function canonicalizeUrl(url: string | null | undefined): string | null {
+  if (!url) return null;
+  try {
+    const u = new URL(url);
+    const isPreview =
+      u.hostname.endsWith(".lovableproject.com") ||
+      u.hostname.endsWith(".lovable.app") ||
+      u.hostname.endsWith(".lovable.dev") ||
+      u.hostname === "localhost" ||
+      u.hostname === "127.0.0.1";
+    if (isPreview) {
+      return `${SITE_URL}${u.pathname}${u.search}${u.hash}`;
+    }
+    return url;
+  } catch {
+    return url;
+  }
+}
 
 // ---------- Status label mapping ----------
 
