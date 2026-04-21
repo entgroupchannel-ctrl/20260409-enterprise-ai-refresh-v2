@@ -243,14 +243,15 @@ export default function UploadPaymentSlipDialog({
         throw insertError;
       }
 
-      // 🔔 Notify all admins (in-app + email) — fire-and-forget
-      import('@/lib/notifications').then(({ notifyAdmins, notifyAdminsByEmail }) => {
+      // 🔔 Notify all admins (in-app + email) — fire-and-forget via dispatcher
+      import('@/lib/notifications').then(({ dispatchNotification }) => {
         const amountStr = new Intl.NumberFormat('th-TH', {
           minimumFractionDigits: 2, maximumFractionDigits: 2,
         }).format(amountNum);
 
-        notifyAdmins({
-          type: 'payment_slip_uploaded',
+        dispatchNotification({
+          eventKey: 'payment.slip_uploaded',
+          recipientRole: 'admin',
           title: 'ลูกค้าส่งสลิปการชำระเงินใหม่',
           message: `${invoiceNumber} • ฿${amountStr} • รอการตรวจสอบ`,
           priority: 'high',
@@ -258,11 +259,8 @@ export default function UploadPaymentSlipDialog({
           actionLabel: 'ตรวจสอบสลิป',
           linkType: 'invoice',
           linkId: invoiceId,
-        });
-
-        notifyAdminsByEmail({
-          subject: `สลิปใหม่จากลูกค้า — ${invoiceNumber}`,
-          status: 'payment_slip_uploaded',
+          entityType: 'invoice',
+          entityId: invoiceId,
           quoteNumber: invoiceNumber,
           invoiceNumber,
           amount: amountStr,
