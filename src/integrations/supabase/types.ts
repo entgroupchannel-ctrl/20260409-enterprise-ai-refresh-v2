@@ -7341,6 +7341,27 @@ export type Database = {
         Args: { p_action: string; p_reason?: string; p_repair_order_id: string }
         Returns: Json
       }
+      dispatch_notification_event: {
+        Args: {
+          p_action_label?: string
+          p_action_url?: string
+          p_actor_id?: string
+          p_event_key: string
+          p_link_id?: string
+          p_link_type?: string
+          p_message?: string
+          p_metadata?: Json
+          p_recipient_role?: string
+          p_recipient_user_id?: string
+          p_title?: string
+        }
+        Returns: {
+          dispatch_id: string
+          enqueued_count: number
+          recipients_count: number
+          skipped_count: number
+        }[]
+      }
       empty_invoice_trash: { Args: never; Returns: Json }
       empty_quote_trash: { Args: never; Returns: Json }
       empty_receipt_trash: { Args: never; Returns: Json }
