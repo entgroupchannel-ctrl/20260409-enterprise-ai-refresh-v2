@@ -14,9 +14,73 @@ interface CreateNotificationParams {
   linkId?: string;
 }
 
+// ──────────────── Phase 1: Centralized Dispatcher ────────────────
+
+interface DispatchEventParams {
+  eventKey: string;
+  recipientUserId?: string;
+  recipientRole?: "admin" | "super_admin";
+  title?: string;
+  message?: string;
+  actionUrl?: string;
+  actionLabel?: string;
+  linkType?: string;
+  linkId?: string;
+  metadata?: Record<string, unknown>;
+  actorId?: string;
+}
+
+/**
+ * Centralized notification dispatcher (Phase 1 Foundation).
+ *
+ * Single entry point for all notification events. Handles:
+ * - Event registry validation (notification_events)
+ * - User preference checks (notification_preferences)
+ * - Critical event override (bypass preference)
+ * - In-app notification insert
+ * - Audit log (notification_dispatch_log)
+ *
+ * Prefer this over `createNotification` / `notifyAdmins` for new code.
+ * Fire-and-forget; logs errors but does not throw.
+ */
+export async function dispatchNotificationEvent(params: DispatchEventParams) {
+  try {
+    const { data, error } = await (supabase as any).rpc("dispatch_notification_event", {
+      p_event_key: params.eventKey,
+      p_recipient_user_id: params.recipientUserId ?? null,
+      p_recipient_role: params.recipientRole ?? null,
+      p_title: params.title ?? null,
+      p_message: params.message ?? null,
+      p_action_url: params.actionUrl ?? null,
+      p_action_label: params.actionLabel ?? null,
+      p_link_type: params.linkType ?? null,
+      p_link_id: params.linkId ?? null,
+      p_metadata: params.metadata ?? {},
+      p_actor_id: params.actorId ?? null,
+    });
+
+    if (error) {
+      console.error(`[dispatchNotificationEvent:${params.eventKey}] error:`, error);
+      return null;
+    }
+    const row = Array.isArray(data) ? data[0] : data;
+    console.log(
+      `[dispatchNotificationEvent:${params.eventKey}] recipients=${row?.recipients_count ?? 0} enqueued=${row?.enqueued_count ?? 0} skipped=${row?.skipped_count ?? 0}`
+    );
+    return row;
+  } catch (e) {
+    console.error(`[dispatchNotificationEvent:${params.eventKey}] exception:`, e);
+    return null;
+  }
+}
+
+// ──────────────── Legacy helpers (kept for backward compat) ────────────────
+
 /**
  * Insert a single in-app notification for a specific user.
  * Fires-and-forgets (logs errors but does not throw).
+ *
+ * @deprecated Prefer `dispatchNotificationEvent` with a registered event_key.
  */
 export async function createNotification(params: CreateNotificationParams) {
   try {
@@ -39,15 +103,13 @@ export async function createNotification(params: CreateNotificationParams) {
 
 /**
  * Notify all admin users about an event.
- * Looks up user_roles for admin/super_admin, then inserts one notification per admin.
+ *
+ * @deprecated Prefer `dispatchNotificationEvent({ recipientRole: 'admin', ... })`.
  */
 export async function notifyAdmins(
   params: Omit<CreateNotificationParams, "userId">
 ) {
   try {
-    // Use SECURITY DEFINER RPC so non-admin users (e.g. customers uploading
-    // payment slips) can enqueue admin notifications without needing direct
-    // INSERT permission on the notifications table.
     const { data, error } = await (supabase as any).rpc("notify_admins", {
       p_type: params.type,
       p_title: params.title,
