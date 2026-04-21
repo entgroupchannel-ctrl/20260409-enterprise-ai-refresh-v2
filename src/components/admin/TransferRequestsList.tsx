@@ -50,7 +50,7 @@ interface Props {
 }
 
 export default function TransferRequestsList({ onEdit }: Props) {
-  const { isSuperAdmin, profile } = useAuth();
+  const { isSuperAdmin, profile, user } = useAuth();
   const [transfers, setTransfers] = useState<TransferRequest[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -223,7 +223,7 @@ export default function TransferRequestsList({ onEdit }: Props) {
         linkId: t.id,
         entityType: 'international_transfer_request',
         entityId: t.id,
-        actorId: profile?.id ?? null,
+        actorId: user?.id ?? null,
         metadata: {
           transfer_number: t.transfer_number,
           supplier_name: t.supplier_name,
