@@ -133,10 +133,12 @@ export default function POUploadDialog({
         } as any);
       }
 
-      // 🔔 Notify admins about new PO upload (in-app)
-      import('@/lib/notifications').then(({ notifyAdmins }) => {
-        notifyAdmins({
-          type: 'po_uploaded',
+      // 🔔 Notify admins about new PO upload (unified dispatch)
+      const origin = typeof window !== 'undefined' ? window.location.origin : '';
+      import('@/lib/notifications').then(({ dispatchNotification }) => {
+        dispatchNotification({
+          eventKey: 'po.uploaded',
+          recipientRole: 'admin',
           title: 'ลูกค้าอัปโหลด PO ใหม่',
           message: `${customerName || 'ลูกค้า'} อัปโหลด PO ${uploadedFiles.length} ไฟล์ สำหรับ ${quoteNumber}`,
           priority: 'high',
@@ -144,6 +146,11 @@ export default function POUploadDialog({
           actionLabel: 'ตรวจสอบ PO',
           linkType: 'quote',
           linkId: quoteId,
+          entityType: 'quote',
+          entityId: quoteId,
+          customerName: customerName,
+          quoteNumber: quoteNumber,
+          viewUrl: `${origin}/admin/quotes/${quoteId}`,
         });
       });
 
