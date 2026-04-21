@@ -207,7 +207,7 @@ serve(async (req) => {
     if (!RESEND_API_KEY) throw new Error("RESEND_API_KEY is not configured");
 
     const body = await req.json();
-    const { recipientEmail, customerName, quoteNumber, status, invoiceNumber, amount, viewUrl, pdfUrl, note, relatedType, relatedId } = body;
+    const { recipientEmail, customerName, quoteNumber, status, invoiceNumber, amount, viewUrl: rawViewUrl, pdfUrl: rawPdfUrl, note, relatedType, relatedId } = body;
 
     if (!recipientEmail || !status) {
       return new Response(
@@ -215,6 +215,17 @@ serve(async (req) => {
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
+
+    // Canonicalize URLs → always point to www.entgroup.co.th
+    const viewUrl = canonicalizeUrl(rawViewUrl) ?? undefined;
+    const pdfUrl = canonicalizeUrl(rawPdfUrl) ?? undefined;
+
+    // CC sales team on every admin notification (i.e. when the recipient is
+    // an @entgroup.co.th address). Skip CC for customer-facing emails and
+    // skip when the recipient itself is sales@ to avoid self-CC.
+    const isInternalRecipient = recipientEmail.toLowerCase().endsWith("@entgroup.co.th");
+    const isSalesItself = recipientEmail.toLowerCase() === SALES_TEAM_CC.toLowerCase();
+    const ccList = isInternalRecipient && !isSalesItself ? [SALES_TEAM_CC] : undefined;
 
     const label = STATUS_LABELS[status] || { th: status, emoji: "📌" };
     const docRef = invoiceNumber || quoteNumber || "";
@@ -228,13 +239,14 @@ serve(async (req) => {
     // Visible log: which links/PDF are being sent
     const linkSummary = {
       recipient: recipientEmail,
+      cc: ccList || null,
       template: templateName,
       doc: docRef || null,
       viewUrl: viewUrl || null,
       pdfUrl: pdfUrl || null,
       hasPdfAttachment: !!pdfUrl,
     };
-    console.log(`[notify-quote-status] ${pdfUrl ? "📥 PDF link" : "🔗 view-only"} → ${recipientEmail} | ${JSON.stringify(linkSummary)}`);
+    console.log(`[notify-quote-status] ${pdfUrl ? "📥 PDF link" : "🔗 view-only"} → ${recipientEmail}${ccList ? ` (cc: ${ccList.join(",")})` : ""} | ${JSON.stringify(linkSummary)}`);
 
     const sharedMetadata = {
       customerName,
@@ -244,6 +256,7 @@ serve(async (req) => {
       status,
       viewUrl: viewUrl || null,
       pdfUrl: pdfUrl || null,
+      cc: ccList || null,
       hasPdfLink: !!pdfUrl,
       linkType: pdfUrl ? "pdf_download" : "view_only",
     };
@@ -268,6 +281,7 @@ serve(async (req) => {
       body: JSON.stringify({
         from: FROM_ADDRESS,
         to: [recipientEmail],
+        ...(ccList ? { cc: ccList } : {}),
         subject,
         html,
       }),
