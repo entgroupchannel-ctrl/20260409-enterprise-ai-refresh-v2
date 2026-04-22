@@ -227,8 +227,8 @@ const App = () => (
                     <Route path="/smart-display" element={<SmartDisplay />} />
                     <Route path="/promotions" element={<Promotions />} />
                     <Route path="/utc-series" element={<UTCSeries />} />
-                    <Route path="/minipc-firewall" element={<MiniPCFirewall />} />
                     <Route path="/mini-pc-firewall" element={<MiniPCFirewall />} />
+                    <Route path="/minipc-firewall" element={<Navigate to="/mini-pc-firewall" replace />} />
                     <Route path="/vcloudpoint" element={<VCloudPoint />} />
                     <Route path="/platform" element={<Platform />} />
                     <Route path="/about-us" element={<AboutUs />} />
