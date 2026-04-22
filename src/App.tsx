@@ -179,6 +179,8 @@ const App = () => (
                     <Route path="/mini-pc-firewall" element={<MiniPCFirewall />} />
                     <Route path="/vcloudpoint" element={<VCloudPoint />} />
                     <Route path="/about-us" element={<AboutUs />} />
+                    <Route path="/about-ent-group" element={<Navigate to="/about-us" replace />} />
+                    <Route path="/about" element={<Navigate to="/about-us" replace />} />
                     <Route path="/contact" element={<ContactUs />} />
                     <Route path="/warrantys" element={<Warrantys />} />
                     <Route path="/payment" element={<Payment />} />
