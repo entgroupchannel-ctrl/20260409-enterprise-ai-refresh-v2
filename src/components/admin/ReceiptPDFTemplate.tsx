@@ -160,7 +160,7 @@ export default function ReceiptPDFTemplate({
       <div className="flex justify-between items-start mb-4 pb-3 border-b-2 border-green-600">
         <div className="flex items-start gap-3 flex-1">
           {companyInfo.logo_url && (
-            <img src={companyInfo.logo_url} alt="Logo" className="w-16 h-16 object-contain" />
+            <img src={companyInfo.logo_url} alt="Logo" className="w-16 h-16 object-contain"  loading="lazy" decoding="async"/>
           )}
           <div className="flex-1">
             <h1 className="text-xl font-bold text-green-700 mb-0.5">{companyInfo.name_th}</h1>

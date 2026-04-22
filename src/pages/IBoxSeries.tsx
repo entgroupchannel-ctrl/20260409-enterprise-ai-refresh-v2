@@ -276,7 +276,7 @@ const IBoxSeries = () => {
 
       {/* Banner */}
       <div className="relative h-48 md:h-64 overflow-hidden">
-        <img src={bannerIBox} alt="iBox Series — Industrial Mini PC" className="w-full h-full object-cover" />
+        <img src={bannerIBox} alt="iBox Series — Industrial Mini PC" className="w-full h-full object-cover"  loading="lazy" decoding="async"/>
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
         <div className="absolute inset-0 flex items-center">
           <div className="container max-w-7xl mx-auto px-6">
@@ -437,7 +437,7 @@ const IBoxSeries = () => {
                         alt={model.name}
                         className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
                         loading="lazy"
-                      />
+                       decoding="async"/>
                     </div>
                     <div className="p-5 space-y-3">
                       <div className="flex items-center justify-between">
@@ -490,7 +490,7 @@ const IBoxSeries = () => {
                 {useCasesData.map((uc) => (
                   <div key={uc.title} className="group card-surface overflow-hidden hover:border-primary/30 transition-all">
                     <div className="relative h-44 overflow-hidden">
-                      <img src={uc.image} alt={uc.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                      <img src={uc.image} alt={uc.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy"  decoding="async"/>
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                       <div className="absolute bottom-3 left-4 flex items-center gap-2">
                         <div className="w-8 h-8 rounded-lg bg-primary/90 flex items-center justify-center">

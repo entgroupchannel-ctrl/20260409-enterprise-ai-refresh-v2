@@ -278,7 +278,7 @@ const UTCSeries = () => {
                 alt="UTC Series Industrial Panel PC"
                 className="relative w-full max-w-lg mx-auto drop-shadow-xl"
                 loading="eager"
-              />
+               decoding="async"/>
             </div>
           </div>
         </div>
@@ -342,7 +342,7 @@ const UTCSeries = () => {
                   alt="UTC Square Screen Models"
                   className="w-full rounded-lg mb-4"
                   loading="lazy"
-                />
+                 decoding="async"/>
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li className="flex items-start gap-2"><span className="text-primary mt-0.5">✓</span> พื้นที่แนวตั้งมาก — เหมาะกับ List, Portrait</li>
                   <li className="flex items-start gap-2"><span className="text-primary mt-0.5">✓</span> ประหยัดพื้นที่แนวนอน — พื้นที่จำกัด</li>
@@ -371,7 +371,7 @@ const UTCSeries = () => {
                   alt="UTC Wide Screen Models"
                   className="w-full rounded-lg mb-4"
                   loading="lazy"
-                />
+                 decoding="async"/>
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li className="flex items-start gap-2"><span className="text-primary mt-0.5">✓</span> พื้นที่แสดงผลกว้างขวาง — ข้อมูลหลายชุดพร้อมกัน</li>
                   <li className="flex items-start gap-2"><span className="text-primary mt-0.5">✓</span> ลดการเปลี่ยนหน้าจอ — เพิ่มประสิทธิภาพ</li>
@@ -396,7 +396,7 @@ const UTCSeries = () => {
               alt="UTC Multi-Display Setup"
               className="w-full rounded-lg"
               loading="lazy"
-            />
+             decoding="async"/>
           </div>
         </div>
       </section>
@@ -539,7 +539,7 @@ const UTCSeries = () => {
               "/images/wix/0597a3_5a42fd39caf242459aba8cca293d0946_c83115bc.png",
             ].map((src, i) => (
               <div key={i} className="rounded-xl overflow-hidden card-surface">
-                <img src={src} alt={`UTC Installation ${i + 1}`} className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                <img src={src} alt={`UTC Installation ${i + 1}`} className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300" loading="lazy"  decoding="async"/>
               </div>
             ))}
           </div>
@@ -551,7 +551,7 @@ const UTCSeries = () => {
               "/images/wix/005637_3f34740280de4be0ae521c5e00a002a9_3e45e999.jpg",
             ].map((src, i) => (
               <div key={i} className="rounded-xl overflow-hidden card-surface">
-                <img src={src} alt={`UTC Factory ${i + 1}`} className="w-full h-44 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                <img src={src} alt={`UTC Factory ${i + 1}`} className="w-full h-44 object-cover hover:scale-105 transition-transform duration-300" loading="lazy"  decoding="async"/>
               </div>
             ))}
           </div>

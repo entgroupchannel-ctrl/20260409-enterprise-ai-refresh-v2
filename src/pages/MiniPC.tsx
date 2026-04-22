@@ -659,7 +659,7 @@ const ProductCard = ({ model }: { model: any; onQuote?: (name: string) => void }
       <div className="flex flex-col md:flex-row gap-6 mb-6">
         <div className="md:w-1/3 flex items-center justify-center">
           <div className="relative bg-secondary/50 rounded-xl p-4 w-full flex items-center justify-center min-h-[200px]">
-            <img src={model.image} alt={model.name} className="max-w-full max-h-[200px] object-contain" loading="lazy" />
+            <img src={model.image} alt={model.name} className="max-w-full max-h-[200px] object-contain" loading="lazy"  decoding="async"/>
           </div>
         </div>
         <div className="md:w-2/3">
@@ -703,7 +703,7 @@ const ProductCard = ({ model }: { model: any; onQuote?: (name: string) => void }
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
               {model.gallery.map((img: string, i: number) => (
                 <div key={i} className="bg-secondary/30 rounded-lg overflow-hidden">
-                  <img src={img} alt={`${model.name} ${i + 1}`} className="w-full h-auto object-contain" loading="lazy" />
+                  <img src={img} alt={`${model.name} ${i + 1}`} className="w-full h-auto object-contain" loading="lazy"  decoding="async"/>
                 </div>
               ))}
             </div>
@@ -840,7 +840,7 @@ const MiniPC = () => {
       {/* ── Hero Section ── */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroMiniPC} alt="Mini PC on modern desk setup" className="w-full h-full object-cover" width={1920} height={768} />
+          <img src={heroMiniPC} alt="Mini PC on modern desk setup" className="w-full h-full object-cover" width={1920} height={768}  loading="lazy" decoding="async"/>
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/40" />
         </div>
         <div className="relative container max-w-7xl mx-auto px-4 py-16 md:py-24">

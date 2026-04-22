@@ -658,7 +658,7 @@ const ModelSection = ({ model, index, onQuote }: { model: GKModel; index: number
               alt={model.name}
               className="max-h-[240px] object-contain mb-4"
               loading="lazy"
-            />
+             decoding="async"/>
           )}
           {model.datasheetUrls.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-4 justify-center">
@@ -1114,7 +1114,7 @@ const GKSeries = () => {
             className="w-full h-full object-cover"
             width={1920}
             height={800}
-          />
+           loading="lazy" decoding="async"/>
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/40" />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
         </div>
@@ -1267,7 +1267,7 @@ const GKSeries = () => {
               "/images/wix/0597a3_1e39ed0fe74245629b16b5e5ea5d0a6c_573b67b0.jpg",
               "/images/wix/0597a3_27159c0c9ec54624b72408d7a94b8065_faf2eb07.jpg",
             ].map((img, i) => (
-              <img key={i} src={img} alt="GK Series installation" className="w-full aspect-square object-cover rounded-xl" loading="lazy" />
+              <img key={i} src={img} alt="GK Series installation" className="w-full aspect-square object-cover rounded-xl" loading="lazy"  decoding="async"/>
             ))}
           </div>
         </div>
@@ -1436,7 +1436,7 @@ const GKSeries = () => {
                   alt="GK Series SIM slot"
                   className="rounded-xl max-w-full"
                   loading="lazy"
-                />
+                 decoding="async"/>
               </div>
             </div>
           </div>

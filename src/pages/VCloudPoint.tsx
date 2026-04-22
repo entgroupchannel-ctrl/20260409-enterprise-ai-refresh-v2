@@ -305,14 +305,14 @@ const VCloudPoint = () => {
                 alt="vCloudPoint Zero Client"
                 className="relative w-full rounded-2xl"
                 loading="eager"
-              />
+               decoding="async"/>
               <div className="mt-4">
                 <img
                   src="/images/wix/0597a3_cbb51860864645c59b77aaa661958cdc_8fbba592.png"
                   alt="vCloudPoint System Diagram"
                   className="w-full rounded-2xl"
                   loading="eager"
-                />
+                 decoding="async"/>
               </div>
             </div>
           </div>
@@ -346,10 +346,10 @@ const VCloudPoint = () => {
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
-              <img src="https://vcloudpoint.info/assets/zero-client-1-D2hOci6Y.jpg" alt="Zero Client" className="rounded-xl w-full h-40 object-cover" loading="lazy" />
-              <img src="https://vcloudpoint.info/assets/zero-client-2-C3vMfNlz.jpg" alt="Zero Client ติดจอ" className="rounded-xl w-full h-40 object-cover" loading="lazy" />
-              <img src="https://vcloudpoint.info/assets/zero-client-3-Ct4JSYA7.jpg" alt="Zero Client กะทัดรัด" className="rounded-xl w-full h-40 object-cover" loading="lazy" />
-              <img src="https://vcloudpoint.info/assets/zero-client-4-55rvfPYj.jpg" alt="Zero Client พอร์ต" className="rounded-xl w-full h-40 object-cover" loading="lazy" />
+              <img src="https://vcloudpoint.info/assets/zero-client-1-D2hOci6Y.jpg" alt="Zero Client" className="rounded-xl w-full h-40 object-cover" loading="lazy"  decoding="async"/>
+              <img src="https://vcloudpoint.info/assets/zero-client-2-C3vMfNlz.jpg" alt="Zero Client ติดจอ" className="rounded-xl w-full h-40 object-cover" loading="lazy"  decoding="async"/>
+              <img src="https://vcloudpoint.info/assets/zero-client-3-Ct4JSYA7.jpg" alt="Zero Client กะทัดรัด" className="rounded-xl w-full h-40 object-cover" loading="lazy"  decoding="async"/>
+              <img src="https://vcloudpoint.info/assets/zero-client-4-55rvfPYj.jpg" alt="Zero Client พอร์ต" className="rounded-xl w-full h-40 object-cover" loading="lazy"  decoding="async"/>
             </div>
           </div>
         </div>
@@ -488,7 +488,7 @@ const VCloudPoint = () => {
                 alt="vMatrix Server Software"
                 className="w-full h-56 md:h-64 object-cover object-top"
                 loading="lazy"
-              />
+               decoding="async"/>
             </div>
             <div className="rounded-xl overflow-hidden border border-border bg-secondary/30">
               <img
@@ -496,7 +496,7 @@ const VCloudPoint = () => {
                 alt="vMatrix Control Panel"
                 className="w-full h-56 md:h-64 object-cover object-top"
                 loading="lazy"
-              />
+               decoding="async"/>
             </div>
           </div>
 

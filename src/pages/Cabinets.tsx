@@ -166,7 +166,7 @@ const Cabinets = () => {
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "ตู้ Rack & Cabinet", path: "/cabinets" }]} />
       <MiniNavbar />
       <div className="relative h-48 md:h-64 overflow-hidden">
-        <img src={bannerCabinets} alt="ตู้พาเนลพีซีเกรดอุตสาหกรรม" className="w-full h-full object-cover" />
+        <img src={bannerCabinets} alt="ตู้พาเนลพีซีเกรดอุตสาหกรรม" className="w-full h-full object-cover"  loading="lazy" decoding="async"/>
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
         <div className="absolute inset-0 flex items-center">
           <div className="container max-w-6xl mx-auto px-6">
@@ -237,7 +237,7 @@ const Cabinets = () => {
                     alt={model.name}
                     className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
-                  />
+                   decoding="async"/>
                 </div>
                 <div className="p-5 space-y-3">
                   <div className="flex items-center justify-between">
@@ -300,7 +300,7 @@ const Cabinets = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {galleryImages.map((img, i) => (
               <div key={i} className="rounded-xl overflow-hidden bg-secondary/30 border border-border">
-                <img src={img} alt={`ตัวอย่างผลงาน ${i + 1}`} className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                <img src={img} alt={`ตัวอย่างผลงาน ${i + 1}`} className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300" loading="lazy"  decoding="async"/>
               </div>
             ))}
           </div>

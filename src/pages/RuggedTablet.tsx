@@ -246,7 +246,7 @@ const TabletCard = ({
       {product.badge && (
         <Badge className="absolute bottom-3 left-3 bg-primary text-primary-foreground text-[10px]">{product.badge}</Badge>
       )}
-      <img src={product.image} alt={product.name} className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+      <img src={product.image} alt={product.name} className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300" loading="lazy"  decoding="async"/>
     </Link>
     <div className="p-5 space-y-3">
       <div className="flex items-center justify-between gap-2">
@@ -384,7 +384,7 @@ const RuggedTablet = () => {
       {/* ── Hero ── */}
       <div className="relative overflow-hidden min-h-[420px] md:min-h-[480px]">
         <div className="absolute inset-0">
-          <img src={tabletHero} alt="Rugged Tablet ใช้งานในโรงงาน" className="w-full h-full object-cover" width={1920} height={800} />
+          <img src={tabletHero} alt="Rugged Tablet ใช้งานในโรงงาน" className="w-full h-full object-cover" width={1920} height={800}  loading="lazy" decoding="async"/>
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/30" />
         </div>
         <div className="container max-w-7xl mx-auto px-4 py-16 md:py-24 relative z-10">
@@ -567,7 +567,7 @@ const RuggedTablet = () => {
               ].map((cat) => (
                 <Link key={cat.to} to={cat.to} className="card-surface overflow-hidden flex items-stretch group hover:border-primary/30 transition-all">
                   <div className="w-28 sm:w-36 shrink-0 relative">
-                    <img src={cat.image} alt={cat.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" width={768} height={512} />
+                    <img src={cat.image} alt={cat.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" width={768} height={512}  decoding="async"/>
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent to-background/20" />
                   </div>
                   <div className="flex-1 p-4 flex items-center justify-between">

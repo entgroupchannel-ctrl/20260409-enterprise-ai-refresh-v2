@@ -68,7 +68,7 @@ const ProductBanners = () => {
                     alt={banner.title}
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
-                  />
+                   decoding="async"/>
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
                 </div>
               ) : (
@@ -78,7 +78,7 @@ const ProductBanners = () => {
                     alt={banner.title}
                     className="max-h-full max-w-full object-contain drop-shadow-lg group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
-                  />
+                   decoding="async"/>
                 </div>
               )}
 

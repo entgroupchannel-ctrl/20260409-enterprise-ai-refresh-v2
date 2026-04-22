@@ -63,7 +63,7 @@ const AIOCard = ({
           alt={product.model}
           className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300 cursor-pointer"
           loading="lazy"
-        />
+         decoding="async"/>
       </Link>
     </div>
 
@@ -165,7 +165,7 @@ const AllInOnePC = () => {
       {/* ── Hero ── */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <img src={aioHero} alt="All-in-One PC ในโรงงานอุตสาหกรรม" className="w-full h-full object-cover" width={1920} height={640} />
+          <img src={aioHero} alt="All-in-One PC ในโรงงานอุตสาหกรรม" className="w-full h-full object-cover" width={1920} height={640}  loading="lazy" decoding="async"/>
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-background/30" />
           <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
         </div>
@@ -322,7 +322,7 @@ const AllInOnePC = () => {
         ].map((cat) => (
           <Link key={cat.to} to={cat.to} className="card-surface overflow-hidden flex items-stretch group hover:border-primary/30 transition-all">
             <div className="w-28 sm:w-36 shrink-0 relative">
-              <img src={cat.image} alt={cat.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" width={768} height={512} />
+              <img src={cat.image} alt={cat.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" width={768} height={512}  decoding="async"/>
               <div className="absolute inset-0 bg-gradient-to-r from-transparent to-background/20" />
             </div>
             <div className="flex-1 p-4 flex items-center justify-between">

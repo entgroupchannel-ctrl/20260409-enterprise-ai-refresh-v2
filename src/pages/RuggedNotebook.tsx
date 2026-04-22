@@ -153,7 +153,7 @@ const RuggedNotebookPage = () => {
       {/* ─── Hero ─── */}
       <section className="relative overflow-hidden min-h-[420px] md:min-h-[480px]">
         <div className="absolute inset-0">
-          <img src={notebookHero} alt="Rugged Notebook ใช้งานภาคสนาม" className="w-full h-full object-cover" width={1920} height={800} />
+          <img src={notebookHero} alt="Rugged Notebook ใช้งานภาคสนาม" className="w-full h-full object-cover" width={1920} height={800}  loading="lazy" decoding="async"/>
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/30" />
         </div>
         <div className="max-w-7xl mx-auto px-4 py-16 md:py-24 relative z-10">
@@ -392,7 +392,7 @@ const RuggedNotebookPage = () => {
         ].map((cat) => (
           <Link key={cat.to} to={cat.to} className="card-surface overflow-hidden flex items-stretch group hover:border-primary/30 transition-all">
             <div className="w-28 sm:w-36 shrink-0 relative">
-              <img src={cat.image} alt={cat.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" width={768} height={512} />
+              <img src={cat.image} alt={cat.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" width={768} height={512}  decoding="async"/>
               <div className="absolute inset-0 bg-gradient-to-r from-transparent to-background/20" />
             </div>
             <div className="flex-1 p-4 flex items-center justify-between">
@@ -430,7 +430,7 @@ const NotebookCard = ({ product, selected, onToggleSelect }: { product: RuggedNo
         <Badge className="absolute top-3 left-12 bg-primary/90 text-primary-foreground text-[10px]">
           {product.os}
         </Badge>
-        <img src={product.image} alt={product.model} className="max-h-[180px] object-contain group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+        <img src={product.image} alt={product.model} className="max-h-[180px] object-contain group-hover:scale-105 transition-transform duration-500" loading="lazy"  decoding="async"/>
       </Link>
 
       {/* Info */}

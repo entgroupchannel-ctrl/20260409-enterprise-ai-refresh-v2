@@ -275,7 +275,7 @@ export default function JetsonAIReady() {
                           width={768}
                           height={512}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
+                         decoding="async"/>
                         <div className={`absolute inset-0 bg-gradient-to-t ${meta.gradient} from-background/95 via-background/40 to-transparent`} />
                         <div className="absolute bottom-2 left-3 flex items-center gap-2">
                           <div className={`w-7 h-7 rounded-md bg-gradient-to-br ${meta.color} flex items-center justify-center shadow-lg`}>

@@ -386,7 +386,7 @@ const MegaMenu = ({
                           alt={active.featured.title}
                           className="h-16 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
                           loading="lazy"
-                        />
+                         decoding="async"/>
                       </div>
                     )}
                     <h4 className="text-sm font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
@@ -466,7 +466,7 @@ const MegaMenu = ({
                       alt={promo.title}
                       className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
-                    />
+                     decoding="async"/>
                     <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
                     <div className="relative z-10 flex items-center justify-between h-full px-5">
                       <div>

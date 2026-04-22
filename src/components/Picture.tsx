@@ -5,7 +5,7 @@ import { ImgHTMLAttributes, memo } from 'react';
  *
  * - Tries .webp first (auto-derived from src), falls back to original format.
  * - Defaults to lazy loading + async decoding (override with priority for above-fold images).
- * - Use anywhere instead of plain <img> for instant 60-90% bandwidth savings on large photos.
+ * - Use anywhere instead of plain <img loading="lazy" decoding="async"> for instant 60-90% bandwidth savings on large photos.
  *
  * Only rewrites local /public assets (paths starting with "/" or "./") that end with
  * .png / .jpg / .jpeg. Remote URLs and other formats pass through untouched.
@@ -49,14 +49,14 @@ const Picture = memo(function Picture({
   if (!webp) {
     // No WebP variant possible — render plain img with lazy defaults
     // eslint-disable-next-line jsx-a11y/alt-text
-    return <img {...imgProps} />;
+    return <img {...imgProps}  loading="lazy" decoding="async"/>;
   }
 
   return (
     <picture>
       <source srcSet={webp} type="image/webp" />
       {/* eslint-disable-next-line jsx-a11y/alt-text */}
-      <img {...imgProps} />
+      <img {...imgProps}  loading="lazy" decoding="async"/>
     </picture>
   );
 });

@@ -285,7 +285,7 @@ export default function CampaignLanding() {
         <Card className="overflow-hidden mb-6 border-primary/30">
           {campaign.hero_image_url && (
             <div className="aspect-[3/1] bg-muted overflow-hidden">
-              <img src={campaign.hero_image_url} alt={campaign.title} className="w-full h-full object-cover" />
+              <img src={campaign.hero_image_url} alt={campaign.title} className="w-full h-full object-cover"  loading="lazy" decoding="async"/>
             </div>
           )}
           <CardContent className="p-6">
@@ -411,7 +411,7 @@ export default function CampaignLanding() {
                         alt={p.name}
                         loading="lazy"
                         className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
-                      />
+                       decoding="async"/>
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-muted-foreground">
                         <Package className="w-8 h-8" />

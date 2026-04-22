@@ -16,7 +16,7 @@ const PageBanner = ({ image, title, subtitle }: PageBannerProps) => {
           src={image}
           alt={title}
           className="w-full h-full object-cover"
-        />
+         loading="lazy" decoding="async"/>
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
         <div className="absolute inset-0 flex items-center">
           <div className="container max-w-7xl mx-auto px-6">

@@ -22,7 +22,7 @@ export default function MiniNavbar() {
         </Link>
         <div className="w-px h-6 bg-border hidden sm:block" />
         <Link to="/" className="flex items-center shrink-0">
-          <img src={logo} alt="ENT GROUP" className="h-7 w-auto" />
+          <img src={logo} alt="ENT GROUP" className="h-7 w-auto"  loading="lazy" decoding="async"/>
         </Link>
 
         <div className="flex items-center gap-1 ml-auto">

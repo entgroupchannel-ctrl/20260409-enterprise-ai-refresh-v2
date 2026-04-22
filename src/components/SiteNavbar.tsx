@@ -24,7 +24,7 @@ export default function SiteNavbar() {
       <div className="container mx-auto px-4 flex items-center gap-3 h-16">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3 shrink-0">
-          <img src={logo} alt="ENT GROUP" className="h-8 w-auto" />
+          <img src={logo} alt="ENT GROUP" className="h-8 w-auto"  loading="lazy" decoding="async"/>
         </Link>
 
         {/* Desktop nav — MegaMenu ชิดซ้ายติดโลโก้, icon group ชิดขวา */}

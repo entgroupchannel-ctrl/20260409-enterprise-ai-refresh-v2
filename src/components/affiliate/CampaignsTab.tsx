@@ -156,7 +156,7 @@ export default function CampaignsTab({ affiliateCode }: { affiliateCode: string 
               <Card key={c.id} className="overflow-hidden hover:shadow-lg transition-shadow flex flex-col">
                 {c.hero_image_url ? (
                   <div className="aspect-video bg-muted overflow-hidden">
-                    <img src={c.hero_image_url} alt={c.title} className="w-full h-full object-cover" />
+                    <img src={c.hero_image_url} alt={c.title} className="w-full h-full object-cover"  loading="lazy" decoding="async"/>
                   </div>
                 ) : (
                   <div className="aspect-video bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center">
@@ -211,7 +211,7 @@ export default function CampaignsTab({ affiliateCode }: { affiliateCode: string 
               <div key={c.id} className="flex items-center gap-3 p-3 hover:bg-muted/40 transition-colors">
                 <div className="w-16 h-16 shrink-0 rounded-md overflow-hidden bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center">
                   {c.hero_image_url ? (
-                    <img src={c.hero_image_url} alt={c.title} className="w-full h-full object-cover" />
+                    <img src={c.hero_image_url} alt={c.title} className="w-full h-full object-cover"  loading="lazy" decoding="async"/>
                   ) : c.campaign_type === "cart" ? (
                     <ShoppingCart className="w-7 h-7 text-primary/40" />
                   ) : (

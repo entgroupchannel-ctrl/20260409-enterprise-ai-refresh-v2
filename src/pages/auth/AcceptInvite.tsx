@@ -180,7 +180,7 @@ export default function AcceptInvite() {
       <Card className="max-w-md w-full">
         <CardHeader className="text-center space-y-3">
           <div className="flex justify-center">
-            <img src={logo} alt="ENT GROUP" className="h-10 w-auto" />
+            <img src={logo} alt="ENT GROUP" className="h-10 w-auto"  loading="lazy" decoding="async"/>
           </div>
           <div className="flex items-center justify-center gap-2">
             <Building2 className="w-5 h-5 text-primary" />

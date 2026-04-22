@@ -87,7 +87,7 @@ export default function TaxInvoicePDFTemplate({
       <div className="flex justify-between items-start mb-6 pb-4 border-b-2 border-purple-600">
         <div className="flex items-start gap-4 flex-1">
           {companyInfo.logo_url && (
-            <img src={companyInfo.logo_url} alt={companyInfo.name_th} className="w-20 h-20 object-contain" />
+            <img src={companyInfo.logo_url} alt={companyInfo.name_th} className="w-20 h-20 object-contain"  loading="lazy" decoding="async"/>
           )}
           <div>
             <h1 className="text-2xl font-bold text-purple-700 mb-1">{companyInfo.name_th}</h1>

@@ -237,7 +237,7 @@ const JetsonEdgeAI = () => {
                 width={1280}
                 height={960}
                 className="relative w-full rounded-2xl border border-white/10 shadow-2xl"
-              />
+               loading="lazy" decoding="async"/>
             </div>
           </div>
         </div>
@@ -304,7 +304,7 @@ const JetsonEdgeAI = () => {
                     alt={s.title}
                     loading="lazy"
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
+                   decoding="async"/>
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0e27] via-[#0a0e27]/70 to-transparent z-10" />
                   <div className="absolute inset-x-0 bottom-0 p-5 z-20">
                     <span className="inline-block text-[10px] font-bold tracking-wider px-2 py-0.5 rounded mb-2" style={{ background: NV_GREEN, color: "#0a0e27" }}>
@@ -332,7 +332,7 @@ const JetsonEdgeAI = () => {
             {industries.map(({ tag, icon: Icon, image, title, desc, chips, cta }) => (
               <article key={title} className="group relative rounded-2xl overflow-hidden border border-border hover:border-[#76B900]/50 hover:shadow-[0_20px_60px_-15px_rgba(118,185,0,0.4)] transition-all">
                 <div className="relative h-56 overflow-hidden">
-                  <img src={image} alt={title} loading="lazy" width={1280} height={768} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                  <img src={image} alt={title} loading="lazy" width={1280} height={768} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"  decoding="async"/>
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0e27] via-[#0a0e27]/40 to-transparent" />
                   <div className="absolute top-4 left-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-semibold">
                     <Icon size={14} style={{ color: NV_GREEN }} />
@@ -375,7 +375,7 @@ const JetsonEdgeAI = () => {
                   to={`/shop?category=${encodeURIComponent(cat.slug)}`}
                   className="group relative rounded-2xl border border-border bg-card hover:border-[#76B900]/60 hover:shadow-[0_12px_40px_-8px_rgba(118,185,0,0.45)] transition-all overflow-hidden h-64"
                 >
-                  <img src={bgImg} alt={cat.nameTH} loading="lazy" width={1024} height={768} className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-110 transition-all duration-700" />
+                  <img src={bgImg} alt={cat.nameTH} loading="lazy" width={1024} height={768} className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-110 transition-all duration-700"  decoding="async"/>
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0e27] via-[#0a0e27]/80 to-transparent" />
                   <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-[#76B900]/10" />
                   <div className="relative h-full p-5 flex flex-col justify-between">
@@ -442,7 +442,7 @@ const JetsonEdgeAI = () => {
                   <img
                     src={p.image}
                     alt={p.name}
-                    onError={(e) => { (e.target as HTMLImageElement).src = "/product-placeholder.svg"; }}
+                    onError={(e) = loading="lazy" decoding="async"> { (e.target as HTMLImageElement).src = "/product-placeholder.svg"; }}
                     className="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
@@ -483,7 +483,7 @@ const JetsonEdgeAI = () => {
 
       {/* ── AI READY BANNER ── */}
       <section className="relative py-20 overflow-hidden">
-        <img src={aiReadyImg} alt="" loading="lazy" width={1600} height={640} className="absolute inset-0 w-full h-full object-cover" />
+        <img src={aiReadyImg} alt="" loading="lazy" width={1600} height={640} className="absolute inset-0 w-full h-full object-cover"  decoding="async"/>
         <div className="absolute inset-0 bg-gradient-to-r from-[#0a0e27] via-[#0a0e27]/85 to-[#0a0e27]/40" />
         <div className="container max-w-7xl mx-auto px-6 relative z-10">
           <div className="max-w-2xl text-white">

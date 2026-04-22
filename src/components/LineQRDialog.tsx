@@ -43,7 +43,7 @@ const LineQRDialog = ({ open, onClose }: LineQRDialogProps) => {
             src={LINE_QR_URL}
             alt="LINE QR Code @entgroup"
             className="w-48 h-48 object-contain"
-          />
+           loading="lazy" decoding="async"/>
         </div>
 
         <p className="text-sm text-muted-foreground">สแกน QR Code เพื่อเพิ่มเพื่อน</p>

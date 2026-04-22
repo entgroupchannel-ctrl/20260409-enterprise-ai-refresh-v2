@@ -309,7 +309,7 @@ const PanelPC = () => {
                 src={gty156Side}
                 alt="GTY156T Industrial Panel PC"
                 className="max-h-[420px] object-contain drop-shadow-2xl"
-              />
+               loading="lazy" decoding="async"/>
             </div>
           </div>
         </div>
@@ -348,7 +348,7 @@ const PanelPC = () => {
           {/* Product Image Grid */}
           <div className="grid md:grid-cols-3 gap-6 mb-8">
             <div className="card-surface p-4 flex flex-col items-center gap-3 relative">
-              <img src={gty121Front} alt="GTY121T ด้านหน้า — จอสัมผัส Windows 11" className="w-full max-h-[280px] object-contain rounded-lg" loading="lazy" />
+              <img src={gty121Front} alt="GTY121T ด้านหน้า — จอสัมผัส Windows 11" className="w-full max-h-[280px] object-contain rounded-lg" loading="lazy"  decoding="async"/>
               <div className="text-center">
                 <p className="font-bold text-foreground text-sm">GTY121T — ด้านหน้า</p>
                 <p className="text-xs text-muted-foreground">จอสัมผัส 12.1" XGA พร้อม Windows 11</p>
@@ -356,7 +356,7 @@ const PanelPC = () => {
             </div>
             <div className="card-surface p-4 flex flex-col items-center gap-3 justify-end relative">
               <div className="flex-1 flex items-end">
-                <img src={gty156Front} alt="GTY156T — มุมเอียง แสดงครีบระบายความร้อน Fanless" className="w-full max-h-[280px] object-contain rounded-lg" loading="lazy" />
+                <img src={gty156Front} alt="GTY156T — มุมเอียง แสดงครีบระบายความร้อน Fanless" className="w-full max-h-[280px] object-contain rounded-lg" loading="lazy"  decoding="async"/>
               </div>
               <div className="text-center">
                 <p className="font-bold text-foreground text-sm">GTY156T — มุมเอียง</p>
@@ -364,7 +364,7 @@ const PanelPC = () => {
               </div>
             </div>
             <div className="card-surface p-4 flex flex-col items-center gap-3">
-              <img src={gty156Side} alt="GTY156T — ด้านข้าง แสดงความบาง" className="w-full max-h-[280px] object-contain rounded-lg" loading="lazy" />
+              <img src={gty156Side} alt="GTY156T — ด้านข้าง แสดงความบาง" className="w-full max-h-[280px] object-contain rounded-lg" loading="lazy"  decoding="async"/>
               <div className="text-center">
                 <p className="font-bold text-foreground text-sm">GTY156T — ด้านข้าง</p>
                 <p className="text-xs text-muted-foreground">ดีไซน์บาง สวยงาม พร้อมติดตั้ง Panel Mount</p>
@@ -375,14 +375,14 @@ const PanelPC = () => {
           {/* I/O Port images */}
           <div className="grid md:grid-cols-2 gap-6">
             <div className="card-surface p-4 flex flex-col items-center gap-3">
-              <img src={gty121Rear} alt="GTY121T ด้านหลัง — พอร์ต I/O" className="w-full object-contain rounded-lg" loading="lazy" />
+              <img src={gty121Rear} alt="GTY121T ด้านหลัง — พอร์ต I/O" className="w-full object-contain rounded-lg" loading="lazy"  decoding="async"/>
               <div className="text-center">
                 <p className="font-bold text-foreground text-sm">GTY121T — พอร์ต I/O ด้านหลัง</p>
                 <p className="text-xs text-muted-foreground">HDMI, VGA, USB3.0, LAN ×2, RS232 ×2, Audio</p>
               </div>
             </div>
             <div className="card-surface p-4 flex flex-col items-center gap-3">
-              <img src={gty156Rear} alt="GTY156T ด้านหลัง — พอร์ต I/O" className="w-full object-contain rounded-lg" loading="lazy" />
+              <img src={gty156Rear} alt="GTY156T ด้านหลัง — พอร์ต I/O" className="w-full object-contain rounded-lg" loading="lazy"  decoding="async"/>
               <div className="text-center">
                 <p className="font-bold text-foreground text-sm">GTY156T — พอร์ต I/O ด้านหลัง</p>
                 <p className="text-xs text-muted-foreground">HDMI, VGA, USB3.0 ×2, USB2.0 ×2, LAN ×2, RS232, Audio</p>
@@ -442,7 +442,7 @@ const PanelPC = () => {
               alt={`Panel PC ${displayType === "wide" ? "Widescreen" : "Square"} Lineup`}
               className="max-h-[350px] mx-auto object-contain mb-6"
               loading="lazy"
-            />
+             decoding="async"/>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
               {displayType === "wide" ? (
                 <>
@@ -502,7 +502,7 @@ const PanelPC = () => {
             ].map((item) => (
               <div key={item.title} className="card-surface overflow-hidden group hover:border-primary/30 transition-all hover:-translate-y-1">
                 <div className="relative h-48 overflow-hidden">
-                  <img src={item.img} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" width={800} height={512} />
+                  <img src={item.img} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" width={800} height={512}  decoding="async"/>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                   <div className="absolute bottom-3 left-4 right-4">
                     <h3 className="text-lg font-bold text-white">{item.title}</h3>
@@ -544,7 +544,7 @@ import FooterCompact from "@/components/FooterCompact";
           </div>
           {/* Windows 11 Free */}
           <div className="card-surface p-6 flex flex-col md:flex-row items-center gap-6 border-primary/20">
-            <img src="https://gty-gtg-panelpc.lovable.app/assets/windows11-free-DTTOmS84.png" alt="Windows 11 OEM ฟรี" className="h-20 object-contain" />
+            <img src="https://gty-gtg-panelpc.lovable.app/assets/windows11-free-DTTOmS84.png" alt="Windows 11 OEM ฟรี" className="h-20 object-contain"  loading="lazy" decoding="async"/>
             <div>
               <h3 className="text-lg font-bold text-foreground">แถมฟรี! Windows 10/11 OEM License</h3>
               <p className="text-sm text-muted-foreground">มาพร้อมทุกเครื่อง ไม่ต้องซื้อ License เพิ่ม</p>
@@ -576,7 +576,7 @@ import FooterCompact from "@/components/FooterCompact";
                 </ul>
               </div>
               <div className="flex justify-center">
-                <img src={gtgSeries} alt="GTG Panel PC" className="max-h-[300px] object-contain" loading="lazy" />
+                <img src={gtgSeries} alt="GTG Panel PC" className="max-h-[300px] object-contain" loading="lazy"  decoding="async"/>
               </div>
             </div>
           </div>

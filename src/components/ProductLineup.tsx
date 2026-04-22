@@ -236,7 +236,7 @@ const ProductLineup = () => {
                   alt={cat.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
-                />
+                 decoding="async"/>
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
                 <div className="absolute bottom-3 left-4 z-10">
                   <div className="flex items-center gap-2 mb-0.5">

@@ -454,7 +454,7 @@ export default function JetsonSolutions() {
                               alt={p.name}
                               loading="lazy"
                               className="max-w-full max-h-full object-contain group-hover/img:scale-110 transition-transform duration-300"
-                              onError={(e) => { (e.target as HTMLImageElement).src = "/product-placeholder.svg"; }}
+                              onError={(e) = decoding="async"> { (e.target as HTMLImageElement).src = "/product-placeholder.svg"; }}
                             />
                           </div>
                           <div className="text-[9px] font-semibold text-center px-1 py-1 truncate border-t bg-card">
@@ -483,7 +483,7 @@ export default function JetsonSolutions() {
               width={1920}
               height={640}
               className="w-full h-[220px] md:h-[300px] object-cover"
-            />
+             decoding="async"/>
             <div className="absolute inset-0 bg-gradient-to-r from-[#0a0e27]/90 via-[#0a0e27]/60 to-transparent" />
             <div className="absolute inset-0 flex flex-col justify-center px-6 md:px-12 text-white max-w-2xl">
               <div className="inline-flex w-fit items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full mb-3"
@@ -510,7 +510,7 @@ export default function JetsonSolutions() {
                     width={768}
                     height={512}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
+                   decoding="async"/>
                   <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-card/20 to-transparent" />
                   <div className="absolute top-3 left-3 w-9 h-9 rounded-lg flex items-center justify-center backdrop-blur-md"
                        style={{ background: `${NV}30`, color: NV, border: `1px solid ${NV}60` }}>

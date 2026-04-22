@@ -322,7 +322,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
           <Checkbox checked={selected} className="h-5 w-5" />
         </button>
       )}
-      <img src={model.image} alt={model.name} className="max-h-44 object-contain group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+      <img src={model.image} alt={model.name} className="max-h-44 object-contain group-hover:scale-105 transition-transform duration-300" loading="lazy"  decoding="async"/>
     </div>
     <div className="p-5 space-y-3">
       <div className="flex items-center justify-between">
@@ -385,7 +385,7 @@ const EPCSeries = () => {
       {/* Hero */}
       <div className="relative overflow-hidden min-h-[480px] md:min-h-[520px]">
         {/* Background Image */}
-        <img src={epcHeroFactory} alt="Industrial factory environment" className="absolute inset-0 w-full h-full object-cover" width={1920} height={768} />
+        <img src={epcHeroFactory} alt="Industrial factory environment" className="absolute inset-0 w-full h-full object-cover" width={1920} height={768}  loading="lazy" decoding="async"/>
         <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/40" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
 
@@ -445,7 +445,7 @@ const EPCSeries = () => {
                 className="w-full max-w-md h-auto rounded-xl shadow-2xl border border-white/10"
                 width={896}
                 height={1024}
-              />
+               loading="lazy" decoding="async"/>
             </div>
           </div>
         </div>
@@ -537,7 +537,7 @@ const EPCSeries = () => {
               { image: badgeCertification, label: "มาตรฐานสากลครบ" },
             ].map((item) => (
               <div key={item.label} className="card-surface p-4 flex flex-col items-center text-center rounded-xl hover:shadow-md transition-shadow">
-                <img src={item.image} alt={item.label} className="w-16 h-16 object-contain mb-3" loading="lazy" />
+                <img src={item.image} alt={item.label} className="w-16 h-16 object-contain mb-3" loading="lazy"  decoding="async"/>
                 <span className="text-xs font-semibold text-foreground leading-tight">{item.label}</span>
               </div>
             ))}
@@ -753,7 +753,7 @@ const EPCSeries = () => {
             ].map((item) => (
               <div key={item.title} className="card-surface overflow-hidden rounded-xl group">
                 <div className="relative h-48 overflow-hidden">
-                  <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" width={768} height={512} />
+                  <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" width={768} height={512}  decoding="async"/>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                   <Badge className="absolute bottom-3 left-3 bg-primary/90 text-primary-foreground text-xs">{item.badge}</Badge>
                 </div>
@@ -796,7 +796,7 @@ const EPCSeries = () => {
               ].map((v) => (
                 <a key={v.id} href={`https://youtu.be/${v.id}`} target="_blank" rel="noopener noreferrer" className="card-surface rounded-lg overflow-hidden group">
                   <div className="relative">
-                    <img src={`https://img.youtube.com/vi/${v.id}/mqdefault.jpg`} alt={v.title} className="w-full aspect-video object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+                    <img src={`https://img.youtube.com/vi/${v.id}/mqdefault.jpg`} alt={v.title} className="w-full aspect-video object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy"  decoding="async"/>
                     <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center">
                       <div className="w-9 h-9 rounded-full bg-red-600 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
                         <Play className="w-4 h-4 text-white ml-0.5" fill="white" />

@@ -73,7 +73,7 @@ const PartnerLogos = ({
                 alt={`${p.name} logo`}
                 loading="lazy"
                 className="max-h-12 md:max-h-14 w-auto object-contain dark:invert dark:brightness-0 dark:contrast-200"
-              />
+               decoding="async"/>
             </div>
           ))}
         </div>

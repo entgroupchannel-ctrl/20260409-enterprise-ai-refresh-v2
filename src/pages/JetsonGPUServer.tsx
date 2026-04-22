@@ -339,7 +339,7 @@ function ProductRow({ p }: { p: Product }) {
             alt={p.name}
             loading="lazy"
             className="max-w-full max-h-full object-contain"
-            onError={(e) => { (e.target as HTMLImageElement).src = "/product-placeholder.svg"; }}
+            onError={(e) = decoding="async"> { (e.target as HTMLImageElement).src = "/product-placeholder.svg"; }}
           />
         </div>
         {/* Body */}

@@ -203,7 +203,7 @@ const WaterproofPC = () => {
                 src="/images/wix/0597a3_af08675d14124a59a86c4be31805907a_2f9d6714.png"
                 alt="Waterproof Panel PC Banner"
                 className="w-full h-auto rounded-xl"
-              />
+               loading="lazy" decoding="async"/>
             </div>
           </div>
         </div>
@@ -235,7 +235,7 @@ const WaterproofPC = () => {
                 alt="IP67 Protection"
                 className="w-full h-auto rounded-lg"
                 loading="lazy"
-              />
+               decoding="async"/>
             </div>
             <div className="md:w-1/2 flex flex-col justify-center">
               <h3 className="text-xl font-display font-bold text-foreground mb-3">ระดับการป้องกัน IP67 & IP69K</h3>
@@ -295,7 +295,7 @@ const WaterproofPC = () => {
                   <div className="flex flex-col md:flex-row gap-6 mb-6">
                     <div className="md:w-1/3 flex items-center justify-center">
                       <div className="relative bg-secondary/50 rounded-xl p-4 w-full flex items-center justify-center min-h-[200px]">
-                        <img src={m.image} alt={m.name} className="max-w-full max-h-[220px] object-contain" loading="lazy" />
+                        <img src={m.image} alt={m.name} className="max-w-full max-h-[220px] object-contain" loading="lazy"  decoding="async"/>
                       </div>
                     </div>
                     <div className="md:w-2/3">
@@ -347,7 +347,7 @@ const WaterproofPC = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {gallery.map((img, i) => (
               <div key={i} className="card-surface overflow-hidden">
-                <img src={img} alt={`Waterproof PC ${i + 1}`} className="w-full h-auto object-contain" loading="lazy" />
+                <img src={img} alt={`Waterproof PC ${i + 1}`} className="w-full h-auto object-contain" loading="lazy"  decoding="async"/>
               </div>
             ))}
           </div>
@@ -360,7 +360,7 @@ const WaterproofPC = () => {
             alt="Waterproof PC Applications"
             className="w-full h-auto"
             loading="lazy"
-          />
+           decoding="async"/>
         </section>
 
         {/* CTA */}

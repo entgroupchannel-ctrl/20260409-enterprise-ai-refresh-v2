@@ -286,7 +286,7 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
 
       {/* Banner */}
       <div className="relative h-48 md:h-64 overflow-hidden">
-        <img src={bannerContact} alt={i.bannerTitle} className="w-full h-full object-cover" />
+        <img src={bannerContact} alt={i.bannerTitle} className="w-full h-full object-cover"  loading="lazy" decoding="async"/>
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
         <div className="absolute inset-0 flex items-center">
           <div className="container max-w-6xl mx-auto px-6">
@@ -368,7 +368,7 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
                         src="https://nvidia-jetson.com/images/line-qr.png"
                         alt="LINE QR Code @entgroup"
                         className="w-24 h-24 rounded-lg border border-border bg-white p-1"
-                      />
+                       loading="lazy" decoding="async"/>
                       <LineQRButton className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[hsl(120,60%,40%)] text-white text-xs font-bold hover:bg-[hsl(120,60%,35%)] transition-colors">
                         {i.addLine}
                       </LineQRButton>
@@ -409,7 +409,7 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
 
                       </div>
                       <div className="relative rounded-lg overflow-hidden border border-border">
-                        <img src={cardPreview} alt="Business card" className="w-full h-auto max-h-48 object-contain bg-white" />
+                        <img src={cardPreview} alt="Business card" className="w-full h-auto max-h-48 object-contain bg-white"  loading="lazy" decoding="async"/>
                         {scanning && (
                           <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
                             <div className="flex items-center gap-2 text-white text-sm font-medium bg-black/60 px-4 py-2 rounded-lg">
@@ -533,7 +533,7 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
                     { name: "Preaw - Unthikan", role: i.salesStaff, img: teamPreaw },
                   ].map((person) => (
                     <div key={person.name} className="text-center">
-                      <img src={person.img} alt={person.name} className="w-20 h-20 rounded-full mx-auto mb-2 object-cover border-2 border-primary/20" />
+                      <img src={person.img} alt={person.name} className="w-20 h-20 rounded-full mx-auto mb-2 object-cover border-2 border-primary/20"  loading="lazy" decoding="async"/>
                       <p className="text-xs font-bold text-foreground">{person.name}</p>
                       <p className="text-[10px] text-muted-foreground">{person.role}</p>
                     </div>

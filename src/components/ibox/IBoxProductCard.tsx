@@ -28,7 +28,7 @@ const IBoxProductCard = ({ product, selectedProducts, toggleSelect, onQuote }: I
           alt={product.nameTH}
           className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300"
           loading="lazy"
-        />
+         decoding="async"/>
         <div className="absolute top-3 left-3 flex flex-col gap-2">
           {product.isNew && (
             <Badge>

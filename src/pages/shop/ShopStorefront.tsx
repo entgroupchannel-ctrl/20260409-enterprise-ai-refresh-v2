@@ -403,7 +403,7 @@ const ShopStorefront = () => {
                         : 'border-border hover:border-primary/40'
                     )}
                   >
-                    <img src={s.image} alt={s.label} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" />
+                    <img src={s.image} alt={s.label} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy"  decoding="async"/>
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
                     <div className="relative h-full flex flex-col justify-end p-2.5">
                       <div className="text-xs font-bold text-white">{s.label}</div>
@@ -788,7 +788,7 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
                 alt={p.model}
                 className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-300"
                 style={{ aspectRatio: '1/1' }}
-                onError={() => setImgSrc('/placeholder.svg')}
+                onError={() = loading="lazy" decoding="async"> setImgSrc('/placeholder.svg')}
               />
             </Link>
             <div className="flex-1 p-4 flex flex-col justify-between min-w-0">
@@ -884,7 +884,7 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
               alt={p.model}
               className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300"
               loading="lazy"
-              onError={() => setImgSrc('/placeholder.svg')}
+              onError={() = decoding="async"> setImgSrc('/placeholder.svg')}
             />
           </div>
         </Link>

@@ -65,7 +65,7 @@ const SoftwareSection = () => {
                   loading="lazy"
                   width={640}
                   height={512}
-                />
+                 decoding="async"/>
               </div>
               <div className="p-4 text-center">
                 <div className="w-9 h-9 mx-auto mb-2 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
@@ -92,7 +92,7 @@ const SoftwareSection = () => {
                   loading="lazy"
                   width={600}
                   height={450}
-                />
+                 decoding="async"/>
                 {/* Floating badge */}
                 <div className="absolute bottom-4 left-4 right-4 bg-background/80 backdrop-blur-md rounded-xl p-3 border border-border/50">
                   <div className="flex items-center gap-2">

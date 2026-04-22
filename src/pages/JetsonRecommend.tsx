@@ -531,7 +531,7 @@ export default function JetsonRecommend() {
                       {selectedCompare.map(p => (
                         <th key={p.id} className="p-4 border-b min-w-[180px]">
                           <div className="flex flex-col items-center gap-2">
-                            <img src={p.image} alt={p.name} className="w-16 h-16 object-contain" onError={e => { (e.target as HTMLImageElement).src = "/product-placeholder.svg"; }} />
+                            <img src={p.image} alt={p.name} className="w-16 h-16 object-contain" onError={e = loading="lazy" decoding="async"> { (e.target as HTMLImageElement).src = "/product-placeholder.svg"; }} />
                             <Link to={p.link} className="font-semibold hover:opacity-80 text-xs text-center" style={{ color: NV }}>{p.name}</Link>
                             {p.badge && <span className="text-[9px] font-bold px-2 py-0.5 rounded-full uppercase" style={{ background: NV, color: NV_NAVY }}>{p.badge}</span>}
                           </div>
@@ -826,7 +826,7 @@ function RecCard({ item }: { item:
       <Link to={link} className="block">
         <div className="aspect-video bg-muted/30 flex items-center justify-center overflow-hidden p-4">
           <img src={image} alt={item.name} loading="lazy" className="max-h-full max-w-full object-contain hover:scale-105 transition-transform"
-            onError={e => { (e.target as HTMLImageElement).src = "/product-placeholder.svg"; }} />
+            onError={e = decoding="async"> { (e.target as HTMLImageElement).src = "/product-placeholder.svg"; }} />
         </div>
       </Link>
       <div className="p-4 flex flex-col flex-1">

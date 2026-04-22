@@ -147,7 +147,7 @@ const Volktek = () => {
               src="/images/wix/0597a3_acc5fb9c15d549868644c80cf3d94d4f_1179ee4b.png"
               alt="Volktek Industrial Ethernet"
               className="w-full h-auto"
-            />
+             loading="lazy" decoding="async"/>
           </div>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
             <div>
@@ -194,7 +194,7 @@ const Volktek = () => {
               },
             ].map((card, i) => (
               <div key={i} className="card-surface overflow-hidden">
-                <img src={card.image} alt={card.title} className="w-full h-48 object-cover" loading="lazy" />
+                <img src={card.image} alt={card.title} className="w-full h-48 object-cover" loading="lazy"  decoding="async"/>
                 <div className="p-5">
                   <h3 className="font-semibold text-foreground mb-1">{card.title}</h3>
                   <p className="text-sm text-muted-foreground">{card.desc}</p>
@@ -209,7 +209,7 @@ const Volktek = () => {
           <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground leading-relaxed">
             ผลิตภัณฑ์ Volktek Ethernet ได้รับการรับรองระดับสากลสำหรับการใช้งานในอุตสาหกรรมและเชิงพาณิชย์ และสอดคล้องกับมาตรฐานตลาดเพื่อความปลอดภัยและการทำงานที่แม่นยำ
           </h2>
-          <img src={volktekCertifications} alt="Volktek Certifications - Profinet, Modbus, CE, FCC, RoHS, DNV GL" className="w-full max-w-4xl mx-auto h-auto" />
+          <img src={volktekCertifications} alt="Volktek Certifications - Profinet, Modbus, CE, FCC, RoHS, DNV GL" className="w-full max-w-4xl mx-auto h-auto"  loading="lazy" decoding="async"/>
         </section>
 
 
@@ -248,7 +248,7 @@ const Volktek = () => {
                 alt="Factory Automation Diagram"
                 className="w-full h-auto rounded-lg"
                 loading="lazy"
-              />
+               decoding="async"/>
             </div>
           </div>
         </section>
@@ -279,9 +279,9 @@ const Volktek = () => {
                   </div>
                   <p className="text-sm text-muted-foreground mb-4">{cat.desc}</p>
                   <div className="space-y-4">
-                    <img src={cat.image} alt={cat.title} className="w-full h-auto rounded-lg" loading="lazy" />
+                    <img src={cat.image} alt={cat.title} className="w-full h-auto rounded-lg" loading="lazy"  decoding="async"/>
                     {cat.modelImage && (
-                      <img src={`${cat.modelImage}`} alt={`${cat.title} models`} className="w-full h-auto rounded-lg" loading="lazy" />
+                      <img src={`${cat.modelImage}`} alt={`${cat.title} models`} className="w-full h-auto rounded-lg" loading="lazy"  decoding="async"/>
                     )}
                   </div>
                   <div className="flex gap-2 mt-4">
@@ -300,7 +300,7 @@ const Volktek = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {productGallery.map((img, i) => (
               <div key={i} className="card-surface overflow-hidden">
-                <img src={img} alt={`Volktek Product ${i + 1}`} className="w-full h-auto object-contain" loading="lazy" />
+                <img src={img} alt={`Volktek Product ${i + 1}`} className="w-full h-auto object-contain" loading="lazy"  decoding="async"/>
               </div>
             ))}
           </div>
@@ -312,7 +312,7 @@ const Volktek = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {applicationGallery.map((img, i) => (
               <div key={i} className="card-surface overflow-hidden">
-                <img src={img} alt={`Application ${i + 1}`} className="w-full h-auto object-contain" loading="lazy" />
+                <img src={img} alt={`Application ${i + 1}`} className="w-full h-auto object-contain" loading="lazy"  decoding="async"/>
               </div>
             ))}
           </div>

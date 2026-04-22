@@ -1182,7 +1182,7 @@ export default function AdminQuoteDetail() {
                           src={assignedSaleUser.avatar_url} 
                           alt={assignedSaleUser.full_name}
                           className="w-8 h-8 rounded-full object-cover"
-                        />
+                         loading="lazy" decoding="async"/>
                       ) : (
                         <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
                           <User className="w-4 h-4 text-primary" />

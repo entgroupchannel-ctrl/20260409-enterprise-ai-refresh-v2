@@ -306,7 +306,7 @@ const ModelCard = ({ model, isActive, onClick }: { model: typeof models[0]; isAc
         : "bg-primary text-primary-foreground"
       }`}>{model.badge}</span>
     )}
-    <img src={model.image} alt={model.name} className="w-20 h-20 object-contain mb-2" loading="lazy" />
+    <img src={model.image} alt={model.name} className="w-20 h-20 object-contain mb-2" loading="lazy"  decoding="async"/>
     <h3 className="text-base font-black text-foreground">{model.name}</h3>
     <p className="text-[10px] text-primary font-medium">{model.tagline}</p>
   </button>
@@ -402,7 +402,7 @@ const GBSeries = () => {
             </div>
 
             <div className="flex justify-center">
-              <img src={current.image} alt={current.name} className="max-w-sm w-full object-contain drop-shadow-2xl" loading="lazy" />
+              <img src={current.image} alt={current.name} className="max-w-sm w-full object-contain drop-shadow-2xl" loading="lazy"  decoding="async"/>
             </div>
           </div>
 
@@ -508,7 +508,7 @@ const GBSeries = () => {
 
             <TabsContent value="ports">
               <div className="card-surface p-4">
-                <img src={current.portImage} alt={`${current.name} Ports`} className="w-full max-w-4xl mx-auto object-contain rounded-lg" loading="lazy" />
+                <img src={current.portImage} alt={`${current.name} Ports`} className="w-full max-w-4xl mx-auto object-contain rounded-lg" loading="lazy"  decoding="async"/>
               </div>
             </TabsContent>
           </Tabs>

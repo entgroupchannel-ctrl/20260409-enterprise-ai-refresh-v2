@@ -164,7 +164,7 @@ const ProductHighlights = () => {
                   loading="lazy"
                   width={640}
                   height={512}
-                />
+                 decoding="async"/>
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
               </div>
 

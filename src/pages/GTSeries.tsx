@@ -642,7 +642,7 @@ const GTSeries = () => {
           <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
             {galleryImages.map((img, i) => (
               <div key={i} className="overflow-hidden rounded-lg aspect-square">
-                <img src={img} alt={`GT Series สีสัน ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                <img src={img} alt={`GT Series สีสัน ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy"  decoding="async"/>
               </div>
             ))}
           </div>
@@ -670,7 +670,7 @@ const GTSeries = () => {
           ].map((item, i) => (
             <div key={i} className="group overflow-hidden hover:bg-secondary/40 transition-colors">
               <div className="aspect-square overflow-hidden">
-                <img src={item.img} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" width={640} height={640} />
+                <img src={item.img} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" width={640} height={640}  decoding="async"/>
               </div>
               <div className="p-3 text-center">
                 <p className="text-xs font-bold text-foreground mb-1">{item.title}</p>
@@ -714,7 +714,7 @@ const GTSeries = () => {
             className="w-full h-full object-cover"
             width={1920}
             height={900}
-          />
+           loading="lazy" decoding="async"/>
           <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/30" />
           <div className="absolute inset-0 bg-gradient-to-t from-background/30 via-transparent to-black/20" />
         </div>
@@ -879,7 +879,7 @@ const GTSeries = () => {
                   src={gt1000Banner}
                   alt="GT1000 Industrial PC"
                   className="absolute inset-0 w-full h-full object-cover"
-                />
+                 loading="lazy" decoding="async"/>
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
                 <div className="relative z-10 p-8 md:p-12">
                   <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-sm border border-primary/30">
@@ -970,7 +970,7 @@ const GTSeries = () => {
                       alt="GT1000 ด้านหน้า — 2 LAN, HDMI, VGA, MIC, SPK"
                       className="w-full object-contain p-2"
                       loading="lazy"
-                    />
+                     decoding="async"/>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
@@ -980,7 +980,7 @@ const GTSeries = () => {
                       { src: "/images/wezhan/5874419.jpg", alt: "GT1000 ภายใน — Mainboard + WiFi" },
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden rounded-lg bg-muted/30">
-                        <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
+                        <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy"  decoding="async"/>
                       </div>
                     ))}
                   </div>
@@ -1084,7 +1084,7 @@ const GTSeries = () => {
                     alt="GT1000 Connectivity Diagram"
                     className="w-full rounded-lg"
                     loading="lazy"
-                  />
+                   decoding="async"/>
                 </div>
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
                   <img
@@ -1092,7 +1092,7 @@ const GTSeries = () => {
                     alt="GT1000 Port Layout"
                     className="w-full rounded-lg"
                     loading="lazy"
-                  />
+                   decoding="async"/>
                 </div>
               </div>
 
@@ -1152,11 +1152,11 @@ const GTSeries = () => {
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
                   <h4 className="font-bold text-foreground mb-3 text-sm"><CircuitBoard size={16} className="inline mr-1 text-primary" />Mainboard และการติดตั้ง</h4>
-                  <img src="/images/gt1000/ports-front.jpg" alt="GT1000 Mainboard และการติดตั้ง" className="w-full rounded-lg" loading="lazy" />
+                  <img src="/images/gt1000/ports-front.jpg" alt="GT1000 Mainboard และการติดตั้ง" className="w-full rounded-lg" loading="lazy"  decoding="async"/>
                 </div>
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
                   <h4 className="font-bold text-foreground mb-3 text-sm"><Plug size={16} className="inline mr-1 text-primary" />Ports — ด้านหลัง</h4>
-                  <img src="/images/gt1000/ports-rear.jpg" alt="GT1000 Ports ด้านหลัง" className="w-full rounded-lg" loading="lazy" />
+                  <img src="/images/gt1000/ports-rear.jpg" alt="GT1000 Ports ด้านหลัง" className="w-full rounded-lg" loading="lazy"  decoding="async"/>
                 </div>
               </div>
 
@@ -1169,7 +1169,7 @@ const GTSeries = () => {
                   { src: "/images/gt1000/bottom-view.jpg", alt: "GT1000 ด้านล่าง — VESA Mount" },
                 ].map((img, i) => (
                   <div key={i} className="card-surface overflow-hidden rounded-xl">
-                    <img src={img.src} alt={img.alt} className="w-full aspect-square object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                    <img src={img.src} alt={img.alt} className="w-full aspect-square object-cover hover:scale-105 transition-transform duration-300" loading="lazy"  decoding="async"/>
                   </div>
                 ))}
               </div>
@@ -1298,7 +1298,7 @@ const GTSeries = () => {
 
               {/* Factory Application Image */}
               <div className="card-surface overflow-hidden rounded-xl">
-                <img src="/images/gt1000/factory-app.avif" alt="GT1000 Factory Application" className="w-full h-auto rounded-xl" loading="lazy" />
+                <img src="/images/gt1000/factory-app.avif" alt="GT1000 Factory Application" className="w-full h-auto rounded-xl" loading="lazy"  decoding="async"/>
               </div>
 
               {/* Datasheet CTA */}
@@ -1323,7 +1323,7 @@ const GTSeries = () => {
                   src={gt2000Banner}
                   alt="GT2000 Industrial PC"
                   className="absolute inset-0 w-full h-full object-cover"
-                />
+                 loading="lazy" decoding="async"/>
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
                 <div className="relative z-10 p-8 md:p-12">
                   <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-sm border border-primary/30">
@@ -1415,7 +1415,7 @@ const GTSeries = () => {
                       "/images/wix/005637_bade0d66426d44dea1328e1b2eb149b1_eef91dfa.jpg",
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden">
-                        <img src={img} alt={`GT2000 มุมมอง ${i + 2}`} className="w-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                        <img src={img} alt={`GT2000 มุมมอง ${i + 2}`} className="w-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy"  decoding="async"/>
                       </div>
                     ))}
                   </div>
@@ -1425,7 +1425,7 @@ const GTSeries = () => {
                       "/images/wix/005637_78842837709848ea983945436f0822ee_591fff34.jpg",
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden">
-                        <img src={img} alt={`GT2000 ติดตั้งจริง ${i + 1}`} className="w-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                        <img src={img} alt={`GT2000 ติดตั้งจริง ${i + 1}`} className="w-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy"  decoding="async"/>
                       </div>
                     ))}
                   </div>
@@ -1457,7 +1457,7 @@ const GTSeries = () => {
                       alt="GT2000 Chassis Cooling"
                       className="w-full rounded-lg"
                       loading="lazy"
-                    />
+                     decoding="async"/>
                   </div>
                 </div>
               </div>
@@ -1474,7 +1474,7 @@ const GTSeries = () => {
                       alt="GT2000 CPU Detail"
                       className="w-full"
                       loading="lazy"
-                    />
+                     decoding="async"/>
                   </div>
                   <div>
                     <p className="text-muted-foreground leading-relaxed mb-4">
@@ -1501,7 +1501,7 @@ const GTSeries = () => {
                       alt="GT2000 I/O Ports Front"
                       className="w-full rounded-lg"
                       loading="lazy"
-                    />
+                     decoding="async"/>
                   </div>
                   <div>
                     <img
@@ -1509,7 +1509,7 @@ const GTSeries = () => {
                       alt="GT2000 I/O Ports Rear"
                       className="w-full rounded-lg"
                       loading="lazy"
-                    />
+                     decoding="async"/>
                   </div>
                 </div>
                 <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
@@ -1536,7 +1536,7 @@ const GTSeries = () => {
                   alt="GT2000 Full Port Diagram"
                   className="w-full max-w-2xl mx-auto rounded-lg"
                   loading="lazy"
-                />
+                 decoding="async"/>
               </div>
 
               {/* OS Support */}
@@ -1561,7 +1561,7 @@ const GTSeries = () => {
                       alt="GT2000 OS Support"
                       className="w-full"
                       loading="lazy"
-                    />
+                     decoding="async"/>
                   </div>
                 </div>
               </div>
@@ -1577,7 +1577,7 @@ const GTSeries = () => {
                   alt="GT2000 Dimensions"
                   className="max-w-sm mx-auto rounded-lg"
                   loading="lazy"
-                />
+                 decoding="async"/>
               </div>
 
               {/* Spec Summary */}
@@ -1588,7 +1588,7 @@ const GTSeries = () => {
                     alt="GT2000 Spec Summary"
                     className="w-full max-w-xl mx-auto rounded-lg"
                     loading="lazy"
-                  />
+                   decoding="async"/>
                 </div>
               </div>
 
@@ -1780,7 +1780,7 @@ const GTSeries = () => {
                   src={gt3000Banner}
                   alt="GT3000 Industrial PC"
                   className="absolute inset-0 w-full h-full object-cover"
-                />
+                 loading="lazy" decoding="async"/>
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
                 <div className="relative z-10 p-8 md:p-12">
                   <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-sm border border-primary/30">
@@ -1860,7 +1860,7 @@ const GTSeries = () => {
                       alt="GT3000 ด้านหน้า — USB3.0, LAN, VGA, HDMI, COM"
                       className="w-full object-contain p-2"
                       loading="lazy"
-                    />
+                     decoding="async"/>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
@@ -1870,7 +1870,7 @@ const GTSeries = () => {
                       { src: "/images/wezhan/5874080.jpg", alt: "GT3000 ภายใน — Mainboard" },
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden rounded-lg bg-muted/30">
-                        <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
+                        <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy"  decoding="async"/>
                       </div>
                     ))}
                   </div>
@@ -1958,7 +1958,7 @@ const GTSeries = () => {
                     alt="GT3000 CPU Options — Celeron, Core i3, i5, i7"
                     className="w-full rounded-lg"
                     loading="lazy"
-                  />
+                   decoding="async"/>
                 </div>
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
                   <img
@@ -1966,7 +1966,7 @@ const GTSeries = () => {
                     alt="GT3000 Connectivity"
                     className="w-full rounded-lg"
                     loading="lazy"
-                  />
+                   decoding="async"/>
                 </div>
               </div>
 
@@ -1994,7 +1994,7 @@ const GTSeries = () => {
                       alt="GT3000 Heatsink Side View"
                       className="w-full"
                       loading="lazy"
-                    />
+                     decoding="async"/>
                   </div>
                 </div>
               </div>
@@ -2010,7 +2010,7 @@ const GTSeries = () => {
                     "/images/wix/005637_60e2fe696a194526af7db7f90b6ac4bd_a0b45c95.jpg",
                   ].map((img, i) => (
                     <div key={i} className="card-surface overflow-hidden aspect-square rounded-xl">
-                      <img src={img} alt={`GT3000 ติดตั้งจริง ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                      <img src={img} alt={`GT3000 ติดตั้งจริง ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy"  decoding="async"/>
                     </div>
                   ))}
                 </div>
@@ -2235,7 +2235,7 @@ const GTSeries = () => {
             <div className="space-y-8 animate-fade-in">
               {/* Hero Banner */}
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
-                <img src={gt4000Banner} alt="GT4000 Industrial PC" className="absolute inset-0 w-full h-full object-cover" />
+                <img src={gt4000Banner} alt="GT4000 Industrial PC" className="absolute inset-0 w-full h-full object-cover"  loading="lazy" decoding="async"/>
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
                 <div className="relative z-10 p-8 md:p-12">
                   <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-sm border border-primary/30">
@@ -2315,7 +2315,7 @@ const GTSeries = () => {
                       alt="GT4000 ด้านหน้า — 6 COM, USB, LAN, VGA, HDMI"
                       className="w-full object-contain p-2"
                       loading="lazy"
-                    />
+                     decoding="async"/>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
@@ -2325,7 +2325,7 @@ const GTSeries = () => {
                       { src: "/images/gt4000/mainboard.jpg", alt: "GT4000 ภายใน — Mainboard" },
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden rounded-lg bg-muted/30">
-                        <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
+                        <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy"  decoding="async"/>
                       </div>
                     ))}
                   </div>
@@ -2413,7 +2413,7 @@ const GTSeries = () => {
                     alt="GT4000 Port Overview"
                     className="w-full rounded-lg"
                     loading="lazy"
-                  />
+                   decoding="async"/>
                 </div>
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
                   <img
@@ -2421,7 +2421,7 @@ const GTSeries = () => {
                     alt="GT4000 Port Detail"
                     className="w-full rounded-lg"
                     loading="lazy"
-                  />
+                   decoding="async"/>
                 </div>
               </div>
 
@@ -2487,7 +2487,7 @@ const GTSeries = () => {
                     "/images/wix/3e5003_b5289681b81a4e0dbb4e6bd6e3668f69_e45727bb.jpg",
                   ].map((img, i) => (
                     <div key={i} className="card-surface overflow-hidden rounded-xl aspect-video">
-                      <img src={img} alt={`GT4000 ติดตั้งจริง ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                      <img src={img} alt={`GT4000 ติดตั้งจริง ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy"  decoding="async"/>
                     </div>
                   ))}
                 </div>
@@ -2594,7 +2594,7 @@ const GTSeries = () => {
                   src={gt5000Banner}
                   alt="GT5000 Industrial PC"
                   className="absolute inset-0 w-full h-full object-cover"
-                />
+                 loading="lazy" decoding="async"/>
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
                 <div className="relative z-10 p-8 md:p-12">
                   <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-sm border border-primary/30">
@@ -2676,7 +2676,7 @@ const GTSeries = () => {
                       alt="GT5000 ภาพหลัก — ด้านหน้า"
                       className="w-full object-contain p-2"
                       loading="lazy"
-                    />
+                     decoding="async"/>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
@@ -2686,7 +2686,7 @@ const GTSeries = () => {
                       { src: "/images/gt5000/angle.jpg", alt: "GT5000 มุมเอียง — ภาพรวม" },
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden rounded-lg bg-muted/30">
-                        <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
+                        <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy"  decoding="async"/>
                       </div>
                     ))}
                   </div>
@@ -2701,7 +2701,7 @@ const GTSeries = () => {
                   { src: "/images/gt5000/spec.jpg", alt: "GT5000 Spec Overview" },
                 ].map((img, i) => (
                   <div key={i} className="card-surface overflow-hidden rounded-lg bg-muted/30">
-                    <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
+                    <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy"  decoding="async"/>
                   </div>
                 ))}
               </div>
@@ -3140,7 +3140,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   src={gt6000Banner}
                   alt="GT6000 Industrial PC"
                   className="absolute inset-0 w-full h-full object-cover"
-                />
+                 loading="lazy" decoding="async"/>
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
                 <div className="relative z-10 p-8 md:p-12">
                   <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-sm border border-primary/30">
@@ -3215,7 +3215,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       alt="GT6000 ภาพหลัก — ด้านหน้า"
                       className="w-full object-contain p-2"
                       loading="lazy"
-                    />
+                     decoding="async"/>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
@@ -3225,7 +3225,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       { src: "/images/gt6000/rear.jpg", alt: "GT6000 ด้านหลัง — พอร์ต" },
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden rounded-lg bg-muted/30">
-                        <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
+                        <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy"  decoding="async"/>
                       </div>
                     ))}
                   </div>
@@ -3238,8 +3238,8 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   <Plug size={18} className="inline mr-1 text-primary" />Port Connectivity — ครบจบในเครื่องเดียว
                 </h4>
                 <div className="grid md:grid-cols-2 gap-4 mb-6">
-                  <img src="/images/gt6000/ports1.jpg" alt="GT6000 พอร์ตด้านหน้า" className="w-full rounded-lg" loading="lazy" />
-                  <img src="/images/gt6000/ports2.jpg" alt="GT6000 พอร์ตด้านหลัง" className="w-full rounded-lg" loading="lazy" />
+                  <img src="/images/gt6000/ports1.jpg" alt="GT6000 พอร์ตด้านหน้า" className="w-full rounded-lg" loading="lazy"  decoding="async"/>
+                  <img src="/images/gt6000/ports2.jpg" alt="GT6000 พอร์ตด้านหลัง" className="w-full rounded-lg" loading="lazy"  decoding="async"/>
                 </div>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
                   {[
@@ -3266,7 +3266,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   { src: "/images/gt6000/bottom.jpg", alt: "GT6000 ด้านล่าง — VESA Mount" },
                 ].map((img, i) => (
                   <div key={i} className="card-surface overflow-hidden rounded-lg bg-muted/30">
-                    <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
+                    <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy"  decoding="async"/>
                   </div>
                 ))}
               </div>
@@ -3280,7 +3280,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   { src: "/images/gt6000/spec-overview.jpg", alt: "GT6000 Spec Overview" },
                 ].map((img, i) => (
                   <div key={i} className="card-surface overflow-hidden rounded-lg bg-muted/30">
-                    <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
+                    <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy"  decoding="async"/>
                   </div>
                 ))}
               </div>
@@ -3508,7 +3508,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   src={gt7000Banner}
                   alt="GT7000 Industrial PC"
                   className="absolute inset-0 w-full h-full object-cover"
-                />
+                 loading="lazy" decoding="async"/>
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
                 <div className="relative z-10 p-8 md:p-12">
                   <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-sm border border-primary/30">
@@ -3592,7 +3592,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       alt="GT7000 ภาพหลัก"
                       className="w-full object-contain p-2"
                       loading="lazy"
-                    />
+                     decoding="async"/>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
@@ -3602,7 +3602,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       { src: "/images/gt7000/rear.jpg", alt: "GT7000 ด้านหลัง" },
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden rounded-lg bg-muted/30">
-                        <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
+                        <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy"  decoding="async"/>
                       </div>
                     ))}
                   </div>
@@ -3612,10 +3612,10 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Feature Highlights — 2 คอลัมน์ จาก Wix */}
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="card-surface overflow-hidden rounded-xl">
-                  <img src="/images/gt7000-wix/cost-saving.png" alt="GT7000 ประหยัดต้นทุนระยะยาว" className="w-full h-auto rounded-xl" loading="lazy" />
+                  <img src="/images/gt7000-wix/cost-saving.png" alt="GT7000 ประหยัดต้นทุนระยะยาว" className="w-full h-auto rounded-xl" loading="lazy"  decoding="async"/>
                 </div>
                 <div className="card-surface overflow-hidden rounded-xl">
-                  <img src="/images/gt7000-wix/ports-overview.png" alt="GT7000 พอร์ตครบครัน พร้อมใช้งานอุตสาหกรรม" className="w-full h-auto rounded-xl" loading="lazy" />
+                  <img src="/images/gt7000-wix/ports-overview.png" alt="GT7000 พอร์ตครบครัน พร้อมใช้งานอุตสาหกรรม" className="w-full h-auto rounded-xl" loading="lazy"  decoding="async"/>
                 </div>
               </div>
 
@@ -3623,7 +3623,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="card-surface overflow-hidden rounded-xl p-4">
                   <h4 className="font-bold text-foreground mb-3 text-sm"><Package size={16} className="inline mr-1 text-primary" />กะทัดรัด แต่แกร่ง</h4>
-                  <img src="/images/gt7000-wix/compact-design.png" alt="GT7000 Compact Design" className="w-full rounded-lg" loading="lazy" />
+                  <img src="/images/gt7000-wix/compact-design.png" alt="GT7000 Compact Design" className="w-full rounded-lg" loading="lazy"  decoding="async"/>
                   <ul className="text-xs text-muted-foreground mt-3 space-y-1">
                     <li>• ขนาดเล็กเท่ากล่องรองเท้า 23×17.5×5 ซม.</li>
                     <li>• ติดตั้งง่าย ประหยัดพื้นที่</li>
@@ -3632,7 +3632,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 </div>
                 <div className="card-surface overflow-hidden rounded-xl p-4">
                   <h4 className="font-bold text-foreground mb-3 text-sm"><Flame size={16} className="inline mr-1 text-primary" />ครีบระบายความร้อนพิเศษ</h4>
-                  <img src="/images/gt7000-wix/heatsink.png" alt="GT7000 Heatsink Design" className="w-full rounded-lg" loading="lazy" />
+                  <img src="/images/gt7000-wix/heatsink.png" alt="GT7000 Heatsink Design" className="w-full rounded-lg" loading="lazy"  decoding="async"/>
                   <ul className="text-xs text-muted-foreground mt-3 space-y-1">
                     <li>• ไม่ต้องใช้พัดลม — เงียบสนิท 0 dB</li>
                     <li>• ทนความร้อนสูงถึง 70°C</li>
@@ -3644,16 +3644,16 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Spec Detail + Use Case — 2 คอลัมน์ */}
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="card-surface overflow-hidden rounded-xl">
-                  <img src="/images/gt7000-wix/spec-detail.png" alt="GT7000 Specifications Detail" className="w-full h-auto rounded-xl" loading="lazy" />
+                  <img src="/images/gt7000-wix/spec-detail.png" alt="GT7000 Specifications Detail" className="w-full h-auto rounded-xl" loading="lazy"  decoding="async"/>
                 </div>
                 <div className="card-surface overflow-hidden rounded-xl">
-                  <img src="/images/gt7000-wix/use-case.png" alt="GT7000 Use Case Applications" className="w-full h-auto rounded-xl" loading="lazy" />
+                  <img src="/images/gt7000-wix/use-case.png" alt="GT7000 Use Case Applications" className="w-full h-auto rounded-xl" loading="lazy"  decoding="async"/>
                 </div>
               </div>
 
               {/* Application Gallery — Full Width */}
               <div className="card-surface overflow-hidden rounded-xl">
-                <img src="/images/gt7000-wix/factory-app.jpg" alt="GT7000 Factory Automation Application" className="w-full h-auto rounded-xl" loading="lazy" />
+                <img src="/images/gt7000-wix/factory-app.jpg" alt="GT7000 Factory Automation Application" className="w-full h-auto rounded-xl" loading="lazy"  decoding="async"/>
               </div>
 
               {/* Port Connectivity */}
@@ -3681,7 +3681,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Application Scenarios — 2 คอลัมน์ */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="card-surface overflow-hidden rounded-xl">
-                  <img src="/images/gt7000-wix/app-restaurant.jpg" alt="GT7000 Restaurant & POS Application" className="w-full h-48 object-cover" loading="lazy" />
+                  <img src="/images/gt7000-wix/app-restaurant.jpg" alt="GT7000 Restaurant & POS Application" className="w-full h-48 object-cover" loading="lazy"  decoding="async"/>
                   <div className="p-5">
                     <h4 className="font-bold text-foreground mb-3">🍽️ ระบบร้านอาหาร & POS</h4>
                     <ul className="text-sm text-muted-foreground space-y-2">
@@ -3693,10 +3693,10 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 </div>
                 <div className="card-surface overflow-hidden rounded-xl">
                   <div className="grid grid-cols-2 gap-1">
-                    <img src="/images/gt7000-wix/install1.jpg" alt="GT7000 Installation 1" className="w-full h-24 object-cover" loading="lazy" />
-                    <img src="/images/gt7000-wix/install2.jpg" alt="GT7000 Installation 2" className="w-full h-24 object-cover" loading="lazy" />
-                    <img src="/images/gt7000-wix/install3.jpg" alt="GT7000 Installation 3" className="w-full h-24 object-cover" loading="lazy" />
-                    <img src="/images/gt7000-wix/install4.jpg" alt="GT7000 Installation 4" className="w-full h-24 object-cover" loading="lazy" />
+                    <img src="/images/gt7000-wix/install1.jpg" alt="GT7000 Installation 1" className="w-full h-24 object-cover" loading="lazy"  decoding="async"/>
+                    <img src="/images/gt7000-wix/install2.jpg" alt="GT7000 Installation 2" className="w-full h-24 object-cover" loading="lazy"  decoding="async"/>
+                    <img src="/images/gt7000-wix/install3.jpg" alt="GT7000 Installation 3" className="w-full h-24 object-cover" loading="lazy"  decoding="async"/>
+                    <img src="/images/gt7000-wix/install4.jpg" alt="GT7000 Installation 4" className="w-full h-24 object-cover" loading="lazy"  decoding="async"/>
                   </div>
                   <div className="p-5">
                     <h4 className="font-bold text-foreground mb-3"><Factory size={16} className="inline mr-1 text-primary" />ระบบโรงงานอัตโนมัติ</h4>
@@ -3911,7 +3911,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   src={gt8000Banner}
                   alt="GT8000 Industrial PC"
                   className="absolute inset-0 w-full h-full object-cover"
-                />
+                 loading="lazy" decoding="async"/>
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
                 <div className="relative z-10 p-8 md:p-12">
                    <span className="inline-block px-3 py-1 rounded-full bg-amber-500/20 text-amber-400 text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-sm border border-amber-500/30">
@@ -4010,7 +4010,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       alt="GT8000 ภาพหลัก"
                       className="w-full object-contain p-2"
                       loading="lazy"
-                    />
+                     decoding="async"/>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
@@ -4020,7 +4020,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       { src: "/images/gt8000/internal.jpg", alt: "GT8000 ภายใน — Mainboard" },
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden rounded-lg bg-muted/30">
-                        <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
+                        <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy"  decoding="async"/>
                       </div>
                     ))}
                   </div>
@@ -4030,7 +4030,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Factory Gallery — Bottom */}
               <div className="grid md:grid-cols-3 gap-4">
                 <div className="card-surface overflow-hidden rounded-lg bg-muted/30">
-                  <img src="/images/gt8000/bottom.jpg" alt="GT8000 ด้านล่าง — VESA Mount" className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
+                  <img src="/images/gt8000/bottom.jpg" alt="GT8000 ด้านล่าง — VESA Mount" className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy"  decoding="async"/>
                 </div>
               </div>
 
@@ -4259,7 +4259,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   src={gt9000Banner}
                   alt="GT9000 Industrial PC"
                   className="absolute inset-0 w-full h-full object-cover"
-                />
+                 loading="lazy" decoding="async"/>
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
                 <div className="relative z-10 p-8 md:p-12">
                   <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-sm border border-primary/30">
@@ -4331,7 +4331,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 {/* Factory Gallery */}
                 <div className="lg:col-span-2 space-y-4">
                   <div className="card-surface overflow-hidden">
-                    <img src="/images/gt9000/main.jpg" alt="GT9000 ภาพหลัก" className="w-full object-contain p-4" />
+                    <img src="/images/gt9000/main.jpg" alt="GT9000 ภาพหลัก" className="w-full object-contain p-4"  loading="lazy" decoding="async"/>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
@@ -4341,7 +4341,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       { src: "/images/gt9000/motherboard.png", alt: "GT9000 เมนบอร์ด" },
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden">
-                        <img src={img.src} alt={img.alt} className="w-full h-32 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                        <img src={img.src} alt={img.alt} className="w-full h-32 object-cover hover:scale-105 transition-transform duration-300" loading="lazy"  decoding="async"/>
                       </div>
                     ))}
                   </div>
@@ -4400,7 +4400,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   alt="GT9000 Product Overview"
                   className="w-full rounded-lg"
                   loading="lazy"
-                />
+                 decoding="async"/>
               </div>
 
               <div className="grid md:grid-cols-2 gap-4">
@@ -4418,7 +4418,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   "/images/wix/0597a3_d89ddcc7673d4492ad64911fb4825364_6535d1f1.png",
                 ].map((img, i) => (
                   <div key={i} className="card-surface p-3 overflow-hidden">
-                    <img src={img} alt={`GT9000 Detail ${i + 1}`} className="w-full rounded-lg" loading="lazy" />
+                    <img src={img} alt={`GT9000 Detail ${i + 1}`} className="w-full rounded-lg" loading="lazy"  decoding="async"/>
                   </div>
                 ))}
               </div>
@@ -4432,7 +4432,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   "/images/wix/005637_bf02ab6305244e028d18bbb27984eb3c_fbcfe5d0.jpg",
                 ].map((img, i) => (
                   <div key={i} className="card-surface overflow-hidden">
-                    <img src={img} alt={`GT9000 ใช้งานจริง ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                    <img src={img} alt={`GT9000 ใช้งานจริง ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy"  decoding="async"/>
                   </div>
                 ))}
               </div>
@@ -4644,7 +4644,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   src={gt4500Banner}
                   alt="GT4500 Industrial PC"
                   className="absolute inset-0 w-full h-full object-cover"
-                />
+                 loading="lazy" decoding="async"/>
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
                 <div className="relative z-10 p-8 md:p-12">
                   <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-sm border border-primary/30">
@@ -4716,7 +4716,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       alt="GT4500 Front"
                       className="w-full object-contain p-4"
                       loading="lazy"
-                    />
+                     decoding="async"/>
                   </div>
                   <div className="card-surface overflow-hidden">
                     <img
@@ -4724,7 +4724,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       alt="GT4500 Rear Ports"
                       className="w-full object-contain p-4"
                       loading="lazy"
-                    />
+                     decoding="async"/>
                   </div>
                 </div>
               </div>
@@ -4759,7 +4759,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   alt="GT4500 CPU Options"
                   className="w-full rounded-lg"
                   loading="lazy"
-                />
+                 decoding="async"/>
               </div>
 
               {/* Software Compatibility */}
@@ -4786,7 +4786,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       alt="GT4500 Software"
                       className="w-full"
                       loading="lazy"
-                    />
+                     decoding="async"/>
                   </div>
                 </div>
               </div>
@@ -4803,7 +4803,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   alt="GT4500 Heatsink"
                   className="w-full rounded-lg"
                   loading="lazy"
-                />
+                 decoding="async"/>
               </div>
 
               {/* Port Diagram */}
@@ -4814,7 +4814,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   alt="GT4500 Port Layout"
                   className="w-full rounded-lg mb-4"
                   loading="lazy"
-                />
+                 decoding="async"/>
                 <div className="grid md:grid-cols-3 gap-4 px-2">
                   <div className="text-sm">
                     <h5 className="font-bold text-foreground mb-1">พอร์ตสื่อสาร</h5>
@@ -4843,13 +4843,13 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     alt="GT4500 Dimensions"
                     className="rounded-lg w-full"
                     loading="lazy"
-                  />
+                   decoding="async"/>
                   <img
                     src="/images/wix/0597a3_c6c89af9190c48b992640615c77efcee_341c4637.png"
                     alt="GT4500 VESA Mount"
                     className="rounded-lg w-full"
                     loading="lazy"
-                  />
+                   decoding="async"/>
                 </div>
               </div>
 
@@ -4949,7 +4949,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       alt={`GT4500 การใช้งานจริง ${idx + 1}`}
                       className="w-full h-auto rounded-lg hover:scale-105 transition-transform duration-300"
                       loading="lazy"
-                    />
+                     decoding="async"/>
                   ))}
                 </div>
               </div>
@@ -5033,7 +5033,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
             <div className="space-y-8 animate-fade-in">
               {/* Hero Banner */}
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
-                <img src="/images/gt1400/main.jpg" alt="GT1400 Industrial PC" className="absolute inset-0 w-full h-full object-cover" />
+                <img src="/images/gt1400/main.jpg" alt="GT1400 Industrial PC" className="absolute inset-0 w-full h-full object-cover"  loading="lazy" decoding="async"/>
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
                 <div className="relative z-10 p-8 md:p-12">
                   <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-sm border border-primary/30">
@@ -5106,7 +5106,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 {/* Factory Gallery */}
                 <div className="lg:col-span-2 space-y-4">
                   <div className="card-surface overflow-hidden">
-                    <img src="/images/gt1400/main.jpg" alt="GT1400 ภาพหลัก" className="w-full object-contain p-4" />
+                    <img src="/images/gt1400/main.jpg" alt="GT1400 ภาพหลัก" className="w-full object-contain p-4"  loading="lazy" decoding="async"/>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
@@ -5116,7 +5116,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       { src: "/images/gt1400/internal.jpg", alt: "GT1400 ภายใน" },
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden">
-                        <img src={img.src} alt={img.alt} className="w-full h-32 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                        <img src={img.src} alt={img.alt} className="w-full h-32 object-cover hover:scale-105 transition-transform duration-300" loading="lazy"  decoding="async"/>
                       </div>
                     ))}
                   </div>
@@ -5127,11 +5127,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="card-surface p-4 overflow-hidden">
                   <h4 className="font-bold text-foreground mb-3 px-2 text-sm"><Plug size={16} className="inline mr-1 text-primary" />Ports & Connectivity</h4>
-                  <img src="/images/gt1400/ports.png" alt="GT1400 Ports Layout" className="w-full rounded-lg" loading="lazy" />
+                  <img src="/images/gt1400/ports.png" alt="GT1400 Ports Layout" className="w-full rounded-lg" loading="lazy"  decoding="async"/>
                 </div>
                 <div className="card-surface p-4 overflow-hidden">
                   <h4 className="font-bold text-foreground mb-3 px-2 text-sm"><Ruler size={16} className="inline mr-1 text-primary" />Dimension Drawing</h4>
-                  <img src="/images/gt1400/dimension.png" alt="GT1400 Dimension" className="w-full rounded-lg" loading="lazy" />
+                  <img src="/images/gt1400/dimension.png" alt="GT1400 Dimension" className="w-full rounded-lg" loading="lazy"  decoding="async"/>
                 </div>
               </div>
 
@@ -5349,7 +5349,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
             <div className="space-y-8 animate-fade-in">
               {/* Hero Banner */}
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
-                <img src="/images/gt1300/main.jpg" alt="GT1300 Industrial PC" className="absolute inset-0 w-full h-full object-cover" />
+                <img src="/images/gt1300/main.jpg" alt="GT1300 Industrial PC" className="absolute inset-0 w-full h-full object-cover"  loading="lazy" decoding="async"/>
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
                 <div className="relative z-10 p-8 md:p-12">
                   <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-sm border border-primary/30">
@@ -5426,7 +5426,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 {/* Factory Gallery */}
                 <div className="lg:col-span-2 space-y-4">
                   <div className="card-surface overflow-hidden">
-                    <img src="/images/gt1300/main.jpg" alt="GT1300 ภาพหลัก" className="w-full object-contain p-4" />
+                    <img src="/images/gt1300/main.jpg" alt="GT1300 ภาพหลัก" className="w-full object-contain p-4"  loading="lazy" decoding="async"/>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
@@ -5436,7 +5436,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       { src: "/images/gt1300/internal.jpg", alt: "GT1300 ภายใน" },
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden">
-                        <img src={img.src} alt={img.alt} className="w-full h-32 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                        <img src={img.src} alt={img.alt} className="w-full h-32 object-cover hover:scale-105 transition-transform duration-300" loading="lazy"  decoding="async"/>
                       </div>
                     ))}
                   </div>
@@ -5446,10 +5446,10 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Feature Highlights + Ports — 2 คอลัมน์ */}
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="card-surface overflow-hidden rounded-xl">
-                  <img src="/images/gt1300/feature-hdmi.png" alt="GT1300 Support 3x HDMI Triple Display" className="w-full h-auto rounded-xl" loading="lazy" />
+                  <img src="/images/gt1300/feature-hdmi.png" alt="GT1300 Support 3x HDMI Triple Display" className="w-full h-auto rounded-xl" loading="lazy"  decoding="async"/>
                 </div>
                 <div className="card-surface overflow-hidden rounded-xl">
-                  <img src="/images/gt1300/feature-dustproof.png" alt="GT1300 Industrial-Grade Dust-Proof and Corrosion-Resistant" className="w-full h-auto rounded-xl" loading="lazy" />
+                  <img src="/images/gt1300/feature-dustproof.png" alt="GT1300 Industrial-Grade Dust-Proof and Corrosion-Resistant" className="w-full h-auto rounded-xl" loading="lazy"  decoding="async"/>
                 </div>
               </div>
 
@@ -5457,11 +5457,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
                   <h4 className="font-bold text-foreground mb-3 text-sm"><Plug size={16} className="inline mr-1 text-primary" />Ports — ด้านหน้า</h4>
-                  <img src="/images/gt1300/ports-detail1.jpg" alt="GT1300 Ports ด้านหน้า" className="w-full rounded-lg" loading="lazy" />
+                  <img src="/images/gt1300/ports-detail1.jpg" alt="GT1300 Ports ด้านหน้า" className="w-full rounded-lg" loading="lazy"  decoding="async"/>
                 </div>
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
                   <h4 className="font-bold text-foreground mb-3 text-sm"><Plug size={16} className="inline mr-1 text-primary" />Ports — ด้านหลัง</h4>
-                  <img src="/images/gt1300/ports-detail2.jpg" alt="GT1300 Ports ด้านหลัง" className="w-full rounded-lg" loading="lazy" />
+                  <img src="/images/gt1300/ports-detail2.jpg" alt="GT1300 Ports ด้านหลัง" className="w-full rounded-lg" loading="lazy"  decoding="async"/>
                 </div>
               </div>
 
@@ -5469,7 +5469,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
                   <h4 className="font-bold text-foreground mb-3 text-sm"><Ruler size={16} className="inline mr-1 text-primary" />Dimension Drawing</h4>
-                  <img src="/images/gt1300/dimension.jpg" alt="GT1300 Dimension" className="w-full rounded-lg" loading="lazy" />
+                  <img src="/images/gt1300/dimension.jpg" alt="GT1300 Dimension" className="w-full rounded-lg" loading="lazy"  decoding="async"/>
                 </div>
               </div>
 
@@ -5588,7 +5588,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
             <div className="space-y-8 animate-fade-in">
               {/* Hero Banner */}
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
-                <img src="/images/gt1200/main.jpg" alt="GT1200 Industrial PC" className="absolute inset-0 w-full h-full object-cover" />
+                <img src="/images/gt1200/main.jpg" alt="GT1200 Industrial PC" className="absolute inset-0 w-full h-full object-cover"  loading="lazy" decoding="async"/>
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
                 <div className="relative z-10 p-8 md:p-12">
                   <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-sm border border-primary/30">
@@ -5660,7 +5660,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 {/* Factory Gallery */}
                 <div className="lg:col-span-2 space-y-4">
                   <div className="card-surface overflow-hidden">
-                    <img src="/images/gt1200/main.jpg" alt="GT1200 ภาพหลัก" className="w-full object-contain p-4" />
+                    <img src="/images/gt1200/main.jpg" alt="GT1200 ภาพหลัก" className="w-full object-contain p-4"  loading="lazy" decoding="async"/>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
@@ -5670,7 +5670,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       { src: "/images/gt1200/internal.jpg", alt: "GT1200 ภายใน" },
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden">
-                        <img src={img.src} alt={img.alt} className="w-full h-32 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                        <img src={img.src} alt={img.alt} className="w-full h-32 object-cover hover:scale-105 transition-transform duration-300" loading="lazy"  decoding="async"/>
                       </div>
                     ))}
                   </div>
@@ -5681,11 +5681,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
                   <h4 className="font-bold text-foreground mb-3 text-sm"><Plug size={16} className="inline mr-1 text-primary" />Ports — ด้านหน้า</h4>
-                  <img src="/images/gt1200/ports-front.jpg" alt="GT1200 Ports ด้านหน้า" className="w-full rounded-lg" loading="lazy" />
+                  <img src="/images/gt1200/ports-front.jpg" alt="GT1200 Ports ด้านหน้า" className="w-full rounded-lg" loading="lazy"  decoding="async"/>
                 </div>
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
                   <h4 className="font-bold text-foreground mb-3 text-sm"><Plug size={16} className="inline mr-1 text-primary" />Ports — ด้านหลัง</h4>
-                  <img src="/images/gt1200/ports-rear.jpg" alt="GT1200 Ports ด้านหลัง" className="w-full rounded-lg" loading="lazy" />
+                  <img src="/images/gt1200/ports-rear.jpg" alt="GT1200 Ports ด้านหลัง" className="w-full rounded-lg" loading="lazy"  decoding="async"/>
                 </div>
               </div>
 
@@ -5736,10 +5736,10 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Dimension Drawings */}
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="card-surface p-4 overflow-hidden">
-                  <img src="/images/gt1200/dimension1.jpg" alt="GT1200 Dimension Front" className="w-full rounded-lg" loading="lazy" />
+                  <img src="/images/gt1200/dimension1.jpg" alt="GT1200 Dimension Front" className="w-full rounded-lg" loading="lazy"  decoding="async"/>
                 </div>
                 <div className="card-surface p-4 overflow-hidden">
-                  <img src="/images/gt1200/dimension2.jpg" alt="GT1200 Dimension Side" className="w-full rounded-lg" loading="lazy" />
+                  <img src="/images/gt1200/dimension2.jpg" alt="GT1200 Dimension Side" className="w-full rounded-lg" loading="lazy"  decoding="async"/>
                 </div>
               </div>
 
@@ -5996,7 +5996,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               alt="GT Series รวม"
               className="w-full h-auto"
               loading="lazy"
-            />
+             decoding="async"/>
           </div>
         </div>
       </section>
@@ -6140,7 +6140,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
         alt={model.name}
         className="max-h-[160px] object-contain group-hover:scale-105 transition-transform duration-300"
         loading="lazy"
-      />
+       decoding="async"/>
     </div>
     <div className="p-5">
       <h3 className="text-xl font-display font-bold text-foreground mb-1 group-hover:text-primary transition-colors flex items-center gap-2">

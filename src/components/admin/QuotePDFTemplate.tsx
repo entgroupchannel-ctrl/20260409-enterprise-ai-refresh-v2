@@ -179,7 +179,7 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
       <div style={s.headerWrap}>
         <div style={s.companyCol}>
           {companyInfo.logo_url && (
-            <img src={companyInfo.logo_url} alt={companyInfo.name_th} style={s.logo} />
+            <img src={companyInfo.logo_url} alt={companyInfo.name_th} style={s.logo}  loading="lazy" decoding="async"/>
           )}
           <div>
             <p style={s.companyName}>{companyInfo.name_th}</p>
@@ -404,7 +404,7 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
         <div style={s.sigBox}>
           {salePerson?.signature_url && salePerson?.show_signature_on_quotes !== false ? (
             <>
-              <img src={salePerson.signature_url} alt="ลายเซ็น" style={{ maxHeight: '48px', margin: '0 auto 4px', display: 'block' }} />
+              <img src={salePerson.signature_url} alt="ลายเซ็น" style={{ maxHeight: '48px', margin: '0 auto 4px', display: 'block' }}  loading="lazy" decoding="async"/>
               <div style={{ borderTop: '1px solid #aaa', paddingTop: '4px' }}>
                 <p style={s.sigName}>{salePerson.full_name || 'พนักงานขาย'}</p>
                 {salePerson.position && <p style={s.sigRole}>{salePerson.position}</p>}

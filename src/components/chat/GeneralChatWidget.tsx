@@ -303,7 +303,7 @@ export default function GeneralChatWidget() {
             alt={fileName}
             className="max-w-[200px] max-h-[160px] rounded-lg object-cover border border-border/50"
             loading="lazy"
-          />
+           decoding="async"/>
           <span className="text-[10px] opacity-70 mt-1 block">{fileName}</span>
         </a>
       );

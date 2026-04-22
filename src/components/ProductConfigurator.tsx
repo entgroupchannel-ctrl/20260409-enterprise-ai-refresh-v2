@@ -193,7 +193,7 @@ export default function ProductConfigurator({ product }: Props) {
                       src={images[imgIdx]}
                       alt={product.model}
                       className="max-w-full max-h-full object-contain drop-shadow-lg transition-all duration-300"
-                    />
+                     loading="lazy" decoding="async"/>
                   ) : (
                     <Package className="w-32 h-32 text-muted-foreground/15" />
                   )}
@@ -208,7 +208,7 @@ export default function ProductConfigurator({ product }: Props) {
                           imgIdx === i ? 'border-primary ring-2 ring-primary/20' : 'border-border opacity-60 hover:opacity-100'
                         }`}
                       >
-                        <img src={url} alt="" className="w-full h-full object-contain" />
+                        <img src={url} alt="" className="w-full h-full object-contain"  loading="lazy" decoding="async"/>
                       </button>
                     ))}
                   </div>

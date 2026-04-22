@@ -451,7 +451,7 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
             alt={series.name}
             className="max-h-[220px] object-contain mb-4 transition-opacity duration-500"
             loading="lazy"
-          />
+           decoding="async"/>
           {allImages.length > 1 && (
             <div className="flex gap-2 mt-2">
               {allImages.map((img, i) => (
@@ -461,7 +461,7 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
                   className={`w-16 h-16 object-contain rounded-lg p-1 border-2 transition-all cursor-pointer ${
                     i === activeImg ? "border-primary bg-primary/10" : "border-transparent bg-background/50 hover:border-primary/40"
                   }`}>
-                  <img src={img} alt="" className="w-full h-full object-contain" loading="lazy" />
+                  <img src={img} alt="" className="w-full h-full object-contain" loading="lazy"  decoding="async"/>
                 </button>
               ))}
             </div>
@@ -800,7 +800,7 @@ const EPCBoxSeries = () => {
             </Link>
             <div className="h-6 w-px bg-border" />
             <Link to="/" className="flex items-center">
-              <img src={logo} alt="ENT GROUP" className="h-8 w-auto" />
+              <img src={logo} alt="ENT GROUP" className="h-8 w-auto"  loading="lazy" decoding="async"/>
             </Link>
           </div>
           <div className="flex items-center gap-2">
@@ -880,7 +880,7 @@ const EPCBoxSeries = () => {
                 src="/images/wix/0597a3_390ed059c959423d9c40be95b414b68f_fc93c220.png"
                 alt="EPC Box Series"
                 className="max-w-full"
-              />
+               loading="lazy" decoding="async"/>
             </div>
           </div>
         </div>
