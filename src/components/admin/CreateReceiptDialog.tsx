@@ -210,36 +210,32 @@ export default function CreateReceiptDialog({
         console.warn('share link create failed:', e);
       }
 
-      // 🔔 Notify customer (in-app + email)
+      // 🔔 Notify customer (in-app + email) — consolidated dispatcher
       const rcpAmount = formatCurrency(Number(taxInvoice.grand_total));
       const customerId = invoice.customer_id;
       const customerEmail = invoice.customer_email;
       if (customerId || customerEmail) {
-        import('@/lib/notifications').then(({ createNotification, sendQuoteStatusEmail }) => {
-          if (customerId) {
-            createNotification({
-              userId: customerId,
-              type: 'receipt_created',
-              title: 'ออกใบเสร็จรับเงินใหม่',
-              message: `ใบเสร็จ ${newReceipt.receipt_number} ยอดรวม ${rcpAmount} บาท`,
-              priority: 'high',
-              actionUrl: `/my-account/receipts/${newReceipt.id}`,
-              actionLabel: 'ดูใบเสร็จ',
-              linkType: 'receipt',
-              linkId: newReceipt.id,
-            });
-          }
-          if (customerEmail) {
-            sendQuoteStatusEmail({
-              recipientEmail: customerEmail,
-              customerName: invoice.customer_name,
-              status: 'receipt_created',
-              invoiceNumber: newReceipt.receipt_number,
-              amount: rcpAmount,
-              viewUrl: `https://www.entgroup.co.th/my-account/receipts/${newReceipt.id}`,
-              pdfUrl: pdfShareUrl,
-            });
-          }
+        const { dispatchNotification } = await import('@/lib/notifications');
+        await dispatchNotification({
+          eventKey: 'receipt.created',
+          recipientRole: 'customer',
+          recipientUserId: customerId || null,
+          recipientEmail: customerEmail || null,
+          title: 'ออกใบเสร็จรับเงินใหม่',
+          message: `ใบเสร็จ ${newReceipt.receipt_number} ยอดรวม ${rcpAmount} บาท`,
+          priority: 'high',
+          actionUrl: `/my-account/receipts/${newReceipt.id}`,
+          actionLabel: 'ดูใบเสร็จ',
+          linkType: 'receipt',
+          linkId: newReceipt.id,
+          entityType: 'receipt',
+          entityId: newReceipt.id,
+          customerName: invoice.customer_name,
+          invoiceNumber: newReceipt.receipt_number,
+          amount: rcpAmount,
+          viewUrl: `https://www.entgroup.co.th/my-account/receipts/${newReceipt.id}`,
+          pdfUrl: pdfShareUrl,
+          status: 'receipt_created',
         });
       }
 
