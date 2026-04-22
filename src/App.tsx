@@ -233,6 +233,39 @@ const App = () => (
                     <Route path="/partner/apply" element={<PartnerApply />} />
                     <Route path="/partner/portal" element={<ProtectedRoute><PartnerPortal /></ProtectedRoute>} />
                     <Route path="/platform" element={<Platform />} />
+                    {/* NVIDIA Jetson / GPU pages */}
+                    <Route path="/nvidia-jetson" element={<JetsonEdgeAI />} />
+                    <Route path="/nvidia-jetson/solutions" element={<JetsonSolutions />} />
+                    <Route path="/nvidia-jetson/ai-ready" element={<JetsonAIReady />} />
+                    <Route path="/nvidia-jetson/recommend" element={<JetsonRecommend />} />
+                    <Route path="/nvidia-jetson/products" element={<JetsonProducts />} />
+                    <Route path="/nvidia-jetson/case-studies" element={<JetsonCaseStudies />} />
+                    <Route path="/gpu-server" element={<JetsonGPUServer />} />
+                    <Route path="/professional-gpu" element={<JetsonProfessionalGPU />} />
+                    <Route path="/product-advisor" element={<JetsonRecommend />} />
+                    {/* Auth extras */}
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
+                    <Route path="/reset-password" element={<ResetPassword />} />
+                    {/* Customer extras */}
+                    <Route path="/notification-preferences" element={<ProtectedRoute><NotificationPreferences /></ProtectedRoute>} />
+                    {/* Campaigns & shared public docs */}
+                    <Route path="/c/:slug" element={<CampaignLanding />} />
+                    <Route path="/share/quote/:token" element={<SharedQuotePage />} />
+                    <Route path="/share/invoice/:token" element={<SharedInvoicePage />} />
+                    <Route path="/share/receipt/:token" element={<SharedReceiptPage />} />
+                    <Route path="/share/tax-invoice/:token" element={<SharedTaxInvoicePage />} />
+                    {/* Admin extras */}
+                    <Route path="/admin/investors" element={<ProtectedRoute requireSuperAdmin><AdminInvestors /></ProtectedRoute>} />
+                    <Route path="/admin/affiliates" element={<ProtectedRoute requireAdmin><AdminAffiliatesList /></ProtectedRoute>} />
+                    <Route path="/admin/affiliates/:id" element={<ProtectedRoute requireAdmin><AdminAffiliateDetail /></ProtectedRoute>} />
+                    <Route path="/admin/affiliate" element={<ProtectedRoute requireAdmin><AdminAffiliateHub /></ProtectedRoute>} />
+                    <Route path="/admin/affiliate-leads" element={<ProtectedRoute requireAdmin><AdminAffiliateLeads /></ProtectedRoute>} />
+                    <Route path="/admin/affiliate-payouts" element={<ProtectedRoute requireAdmin><AdminAffiliatePayouts /></ProtectedRoute>} />
+                    <Route path="/admin/partners" element={<ProtectedRoute requireAdmin><AdminPartnerApplications /></ProtectedRoute>} />
+                    <Route path="/admin/partners/:id" element={<ProtectedRoute requireAdmin><AdminPartnerApplicationDetail /></ProtectedRoute>} />
+                    <Route path="/admin/email-log" element={<ProtectedRoute requireSuperAdmin><AdminEmailLog /></ProtectedRoute>} />
+                    <Route path="/admin/notification-coverage" element={<ProtectedRoute requireSuperAdmin><AdminNotificationCoverage /></ProtectedRoute>} />
+                    <Route path="/admin/supplier-templates" element={<ProtectedRoute allowedRoles={['super_admin','admin','accountant']}><AdminSupplierTemplates /></ProtectedRoute>} />
                     <Route path="/contact" element={<ContactUs />} />
                     <Route path="/warrantys" element={<Warrantys />} />
                     <Route path="/payment" element={<Payment />} />
