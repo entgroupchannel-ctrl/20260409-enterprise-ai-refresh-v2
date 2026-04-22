@@ -77,3 +77,8 @@ Disallow: /invite
 
 # === Sitemaps ===
 Sitemap: https://www.entgroup.co.th/sitemap.xml
+
+# === LLM / AI Guide ===
+# AI crawlers: See /llms.txt for a structured index and /llms-full.txt for complete content
+# https://www.entgroup.co.th/llms.txt
+# https://www.entgroup.co.th/llms-full.txt

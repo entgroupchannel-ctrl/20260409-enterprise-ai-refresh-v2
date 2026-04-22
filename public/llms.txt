@@ -1,0 +1,66 @@
+# ENT Group (บริษัท อี เอ็น ที กรุ๊ป จำกัด)
+
+> ตัวแทนจำหน่ายและผู้เชี่ยวชาญด้าน Industrial PC, Mini PC, Panel PC, Rugged Tablet, Thin Client และอุปกรณ์คอมพิวเตอร์สำหรับอุตสาหกรรมในประเทศไทย ก่อตั้งปี 2015 สำนักงานตั้งอยู่ที่นนทบุรี บริการลูกค้าทั่วประเทศ
+
+**Website:** https://www.entgroup.co.th
+**Founded:** 2015
+**Location:** Nonthaburi, Thailand
+**Primary Market:** Thailand (ทั่วประเทศ)
+**Language:** ไทย (Thai) / English
+**Industry:** Industrial Computing, Enterprise IT Solutions
+
+ENT Group นำเข้าและจัดจำหน่ายคอมพิวเตอร์อุตสาหกรรมหลากหลายรูปแบบ ให้บริการทั้งการขาย การติดตั้ง และการบำรุงรักษาหลังการขาย มีประสบการณ์จัดทำระบบให้โรงงานอุตสาหกรรม โรงพยาบาล สถาบันการศึกษา สนามบิน ระบบขนส่งมวลชน และธุรกิจค้าปลีก
+
+## Products
+
+- [Mini PC (GT/GB Series)](https://www.entgroup.co.th/mini-pc): Fanless Industrial Mini PC สำหรับงาน 24/7
+- [Industrial PC (iBox / EPC Series)](https://www.entgroup.co.th/ibox-series): Embedded Box PC ทนทาน สำหรับโรงงาน
+- [Panel PC (GTG Series)](https://www.entgroup.co.th/panel-pc-gtg): คอมพิวเตอร์จอสัมผัสแบบ All-in-One
+- [Rugged Tablet](https://www.entgroup.co.th/rugged-tablet): แท็บเล็ตกันน้ำกันกระแทก IP65/IP67
+- [Rugged Notebook](https://www.entgroup.co.th/rugged-notebook): โน้ตบุ๊กทนทานสำหรับงานภาคสนาม
+- [Rugged Handheld](https://www.entgroup.co.th/handheld): Mobile Computer พร้อม Barcode Scanner
+- [Waterproof PC](https://www.entgroup.co.th/waterproof-pc): คอมพิวเตอร์กันน้ำ IP65/IP69K สำหรับโรงงานอาหาร
+- [Thin Client (vCloudPoint)](https://www.entgroup.co.th/vcloudpoint): ระบบ Zero Client ประหยัดไฟและค่าดูแล
+- [Smart Display](https://www.entgroup.co.th/smart-display): จอ Digital Signage และ Interactive Display
+- [Network Switch (Volktek)](https://www.entgroup.co.th/volktek): Industrial Network Switch
+- [All-in-One PC](https://www.entgroup.co.th/aio): Desktop AIO สำหรับสำนักงานและ POS
+- [UTC Series](https://www.entgroup.co.th/utc-series): UTC Control Computer
+- [Mini PC Firewall](https://www.entgroup.co.th/mini-pc-firewall): Mini PC สำหรับใช้เป็น Firewall / Router
+- [Server Cabinet](https://www.entgroup.co.th/cabinets): ตู้ Rack Server ขนาดมาตรฐาน
+
+## Case Studies
+
+- [Airport FIDS Display](https://www.entgroup.co.th/case-studies/airport-flight-info-display): ระบบแสดงข้อมูลเที่ยวบินด้วย Industrial PC
+- [MRT Underground System](https://www.entgroup.co.th/case-studies/mrt-underground-system): คอมพิวเตอร์สำหรับโครงการรถไฟฟ้าใต้ดิน
+- [Hospital Thin Client](https://www.entgroup.co.th/case-studies/hospital-mini-pc-thin-client): Thin Client 200+ จุดในโรงพยาบาล
+- [Automotive Factory Panel PC](https://www.entgroup.co.th/case-studies/automotive-factory-panel-pc): Panel PC สายการผลิตยานยนต์
+- [Warehouse Rugged Tablet](https://www.entgroup.co.th/case-studies/warehouse-rugged-tablet): Rugged Tablet จัดการคลังสินค้า
+- [Food Factory Waterproof PC](https://www.entgroup.co.th/case-studies/food-factory-waterproof-pc): Waterproof PC ในโรงงานอาหาร
+- [AI Classroom NVIDIA Jetson](https://www.entgroup.co.th/case-studies/ai-classroom-nvidia-jetson): ห้องเรียน AI ด้วย Jetson
+- [Amata Spring Golf Club IT](https://www.entgroup.co.th/case-studies/amata-spring-golf-club): ระบบ IT สนามกอล์ฟพรีเมียม
+- [Nanthanawich School vCloudPoint](https://www.entgroup.co.th/case-studies/nanthanawich-school-vcloudpoint): ห้องเรียนคอมพิวเตอร์ Thin Client
+- [Thaweephol vCloudPoint](https://www.entgroup.co.th/case-studies/thaweephol-vcloudpoint): vCloudPoint สำหรับสำนักงาน
+- [Shoe Manufacturer IT](https://www.entgroup.co.th/case-studies/shoe-manufacturer-it-services): IT Services ผู้ผลิตรองเท้า
+
+## Blog & Knowledge
+
+- [Industrial PC for Business (Nonthaburi)](https://www.entgroup.co.th/blog/industrial-pc-for-business-nonthaburi): ทำไมโรงงานถึงเปลี่ยนมาใช้ Industrial PC
+- [Mini PC for 24/7 Business](https://www.entgroup.co.th/blog/mini-pc-24-7-business): Mini PC เหมาะกับการใช้งานต่อเนื่อง 24/7 อย่างไร
+- [How to Choose Panel PC for SCADA](https://www.entgroup.co.th/blog/how-to-choose-panel-pc-for-scada): วิธีเลือก Panel PC สำหรับงาน SCADA
+- [Thin Client vs Desktop TCO](https://www.entgroup.co.th/blog/thin-client-vs-desktop-tco): เปรียบเทียบต้นทุน Thin Client vs Desktop
+- [Rugged Tablet vs Consumer Tablet](https://www.entgroup.co.th/blog/rugged-tablet-vs-consumer-tablet): แท็บเล็ตทนทานต่างจากแท็บเล็ตทั่วไปอย่างไร
+
+## Company Info
+
+- [About Us](https://www.entgroup.co.th/about-us): ประวัติบริษัท ทีมงาน พันธมิตร
+- [Contact](https://www.entgroup.co.th/contact): ติดต่อทีมขายและบริการหลังการขาย
+- [Warranty Policy](https://www.entgroup.co.th/warrantys): เงื่อนไขการรับประกัน 1 ปี
+- [Delivery](https://www.entgroup.co.th/delivery): นโยบายการจัดส่ง
+- [Payment](https://www.entgroup.co.th/payment): ช่องทางชำระเงิน
+- [Promotions](https://www.entgroup.co.th/promotions): โปรโมชั่นและส่วนลดประจำเดือน
+
+## Resources
+
+- [Full Content for LLMs](https://www.entgroup.co.th/llms-full.txt): รวมเนื้อหาทั้งหมดในรูปแบบ plain text สำหรับ AI
+- [Sitemap](https://www.entgroup.co.th/sitemap.xml): XML sitemap ทุกหน้า
+- [Robots.txt](https://www.entgroup.co.th/robots.txt): AI crawler policy
