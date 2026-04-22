@@ -22,7 +22,7 @@ import QuoteRequestButton from "@/components/QuoteRequestButton";
 const RelatedCard = ({ product }: { product: TabletDetailProduct }) => (
   <Link to={`/rugged-tablet/${product.id}`} className="group bg-card border border-border rounded-xl overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all">
     <div className="bg-secondary/30 p-4 flex items-center justify-center h-44">
-      <img src={product.image} alt={product.model} className="max-h-full object-contain group-hover:scale-105 transition-transform" loading="lazy"  decoding="async"/>
+      <img src={product.image} alt={product.model} className="max-h-full object-contain group-hover:scale-105 transition-transform"/>
     </div>
     <div className="p-4 space-y-1.5">
       <p className="font-mono text-xs text-muted-foreground">{product.model}</p>
@@ -215,7 +215,7 @@ const RuggedTabletDetail = () => {
                       {sec.image && (
                         <div className={`rounded-xl overflow-hidden bg-secondary/30 ${i % 2 === 1 ? "md:[direction:ltr]" : ""}`}>
 
-                          <img src={sec.image} alt={sec.titleTH} className="w-full h-auto object-cover max-h-[300px]" loading="lazy"  decoding="async"/>
+                          <img src={sec.image} alt={sec.titleTH} className="w-full h-auto object-cover max-h-[300px]"/>
                         </div>
                       )}
                       <div className={i % 2 === 1 ? "md:[direction:ltr]" : ""}>
@@ -284,7 +284,7 @@ const RuggedTabletDetail = () => {
                   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
                     {product.accessories.map((acc) => (
                       <div key={acc.nameEN} className="bg-card border border-border rounded-lg p-3 text-center">
-                        {acc.image && <img src={acc.image} alt={acc.name} className="w-full h-24 object-contain mb-2" loading="lazy"  decoding="async"/>}
+                        {acc.image && <img src={acc.image} alt={acc.name} className="w-full h-24 object-contain mb-2"/>}
 
                         <p className="text-xs font-bold text-foreground">{acc.name}</p>
                         <p className="text-[10px] text-muted-foreground">{acc.nameEN}</p>

@@ -24,7 +24,7 @@ const RelatedCard = ({ product, onQuote }: { product: ReturnType<typeof getHandh
   return (
     <Link to={`/handheld/${product.id}`} className="card-surface overflow-hidden group hover:border-primary/30 transition-all">
       <div className="bg-secondary/30 p-4 flex items-center justify-center h-48">
-        <img src={product.image} alt={product.model} className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300" loading="lazy"  decoding="async"/>
+        <img src={product.image} alt={product.model} className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"/>
       </div>
       <div className="p-4 space-y-2">
         <div className="flex items-center justify-between">

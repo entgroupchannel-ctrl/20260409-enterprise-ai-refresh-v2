@@ -233,9 +233,7 @@ const WaterproofPC = () => {
               <img
                 src="/images/wix/0597a3_0ad34056abce4284bb55ec5a2fb4ea1b_f03de733.png"
                 alt="IP67 Protection"
-                className="w-full h-auto rounded-lg"
-                loading="lazy"
-               decoding="async"/>
+                className="w-full h-auto rounded-lg"/>
             </div>
             <div className="md:w-1/2 flex flex-col justify-center">
               <h3 className="text-xl font-display font-bold text-foreground mb-3">ระดับการป้องกัน IP67 & IP69K</h3>
@@ -295,7 +293,7 @@ const WaterproofPC = () => {
                   <div className="flex flex-col md:flex-row gap-6 mb-6">
                     <div className="md:w-1/3 flex items-center justify-center">
                       <div className="relative bg-secondary/50 rounded-xl p-4 w-full flex items-center justify-center min-h-[200px]">
-                        <img src={m.image} alt={m.name} className="max-w-full max-h-[220px] object-contain" loading="lazy"  decoding="async"/>
+                        <img src={m.image} alt={m.name} className="max-w-full max-h-[220px] object-contain"/>
                       </div>
                     </div>
                     <div className="md:w-2/3">
@@ -347,7 +345,7 @@ const WaterproofPC = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {gallery.map((img, i) => (
               <div key={i} className="card-surface overflow-hidden">
-                <img src={img} alt={`Waterproof PC ${i + 1}`} className="w-full h-auto object-contain" loading="lazy"  decoding="async"/>
+                <img src={img} alt={`Waterproof PC ${i + 1}`} className="w-full h-auto object-contain"/>
               </div>
             ))}
           </div>
@@ -358,9 +356,7 @@ const WaterproofPC = () => {
           <img
             src="/images/wix/0597a3_ffe271d4f86b4f699e9760cb18da5733_29923812.png"
             alt="Waterproof PC Applications"
-            className="w-full h-auto"
-            loading="lazy"
-           decoding="async"/>
+            className="w-full h-auto"/>
         </section>
 
         {/* CTA */}

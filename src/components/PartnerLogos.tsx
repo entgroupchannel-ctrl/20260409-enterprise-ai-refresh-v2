@@ -71,9 +71,7 @@ const PartnerLogos = ({
               <img
                 src={p.src}
                 alt={`${p.name} logo`}
-                loading="lazy"
-                className="max-h-12 md:max-h-14 w-auto object-contain dark:invert dark:brightness-0 dark:contrast-200"
-               decoding="async"/>
+                className="max-h-12 md:max-h-14 w-auto object-contain dark:invert dark:brightness-0 dark:contrast-200"/>
             </div>
           ))}
         </div>

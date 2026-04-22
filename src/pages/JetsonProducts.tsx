@@ -205,9 +205,8 @@ function ProductCard({ p }: { p: JetsonProduct }) {
         <img
           src={p.image}
           alt={p.nameTH}
-          loading="lazy"
           className="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-500"
-          onError={(e) = decoding="async"> { (e.target as HTMLImageElement).src = "/product-placeholder.svg"; }}
+          onError={(e) => { (e.target as HTMLImageElement).src = "/product-placeholder.svg"; }}
         />
       </Link>
 

@@ -1356,5 +1356,5 @@ function SignedImage({ path, alt }: { path: string; alt: string }) {
       </div>
     );
   }
-  return <img src={url} alt={alt} className="w-full h-full object-cover" loading="lazy"  decoding="async"/>;
+  return <img src={url} alt={alt} className="w-full h-full object-cover"/>;
 }

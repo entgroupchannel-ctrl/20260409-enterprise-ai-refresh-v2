@@ -114,9 +114,7 @@ const CaseStudyDetail = () => {
                           title={v.title}
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                           allowFullScreen
-                          className="w-full h-full"
-
-                          loading="lazy"></iframe>
+                          className="w-full h-full"></iframe>
                       </div>
                       <p className="text-sm font-medium text-foreground p-3">{v.title}</p>
                     </div>

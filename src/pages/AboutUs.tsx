@@ -166,9 +166,7 @@ const AboutUs = () => {
               <img
                 src={entLogoFull}
                 alt="ENT Group Logo"
-                className="w-32 md:w-40 h-auto"
-                loading="lazy"
-               decoding="async"/>
+                className="w-32 md:w-40 h-auto"/>
             </div>
             {/* Meaning cards */}
             {entMeaning.map((item) => (

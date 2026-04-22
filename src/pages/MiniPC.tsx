@@ -659,7 +659,7 @@ const ProductCard = ({ model }: { model: any; onQuote?: (name: string) => void }
       <div className="flex flex-col md:flex-row gap-6 mb-6">
         <div className="md:w-1/3 flex items-center justify-center">
           <div className="relative bg-secondary/50 rounded-xl p-4 w-full flex items-center justify-center min-h-[200px]">
-            <img src={model.image} alt={model.name} className="max-w-full max-h-[200px] object-contain" loading="lazy"  decoding="async"/>
+            <img src={model.image} alt={model.name} className="max-w-full max-h-[200px] object-contain"/>
           </div>
         </div>
         <div className="md:w-2/3">
@@ -703,7 +703,7 @@ const ProductCard = ({ model }: { model: any; onQuote?: (name: string) => void }
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
               {model.gallery.map((img: string, i: number) => (
                 <div key={i} className="bg-secondary/30 rounded-lg overflow-hidden">
-                  <img src={img} alt={`${model.name} ${i + 1}`} className="w-full h-auto object-contain" loading="lazy"  decoding="async"/>
+                  <img src={img} alt={`${model.name} ${i + 1}`} className="w-full h-auto object-contain"/>
                 </div>
               ))}
             </div>

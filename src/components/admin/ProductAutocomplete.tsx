@@ -217,9 +217,7 @@ export default function ProductAutocomplete({
                     <img
                       src={p.thumbnail_url || p.image_url || ''}
                       alt={p.name}
-                      loading="lazy"
-                      className="w-10 h-10 object-cover rounded border flex-shrink-0"
-                     decoding="async"/>
+                      className="w-10 h-10 object-cover rounded border flex-shrink-0"/>
                   ) : (
                     <div className="w-10 h-10 rounded border bg-muted flex items-center justify-center flex-shrink-0">
                       <Package className="w-4 h-4 text-muted-foreground" />

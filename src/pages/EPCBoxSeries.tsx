@@ -449,9 +449,7 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
           <img
             src={allImages[activeImg]}
             alt={series.name}
-            className="max-h-[220px] object-contain mb-4 transition-opacity duration-500"
-            loading="lazy"
-           decoding="async"/>
+            className="max-h-[220px] object-contain mb-4 transition-opacity duration-500"/>
           {allImages.length > 1 && (
             <div className="flex gap-2 mt-2">
               {allImages.map((img, i) => (
@@ -461,7 +459,7 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
                   className={`w-16 h-16 object-contain rounded-lg p-1 border-2 transition-all cursor-pointer ${
                     i === activeImg ? "border-primary bg-primary/10" : "border-transparent bg-background/50 hover:border-primary/40"
                   }`}>
-                  <img src={img} alt="" className="w-full h-full object-contain" loading="lazy"  decoding="async"/>
+                  <img src={img} alt="" className="w-full h-full object-contain"/>
                 </button>
               ))}
             </div>
@@ -545,9 +543,7 @@ const SeriesSection = ({ series, index }: { series: SeriesData; index: number })
                     title={`EPC Box ${series.name} Video`}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="w-full h-full"
-
-                    loading="lazy"></iframe>
+                    className="w-full h-full"></iframe>
                 </div>
               </div>
             </div>
@@ -1102,9 +1098,7 @@ const EPCBoxSeries = () => {
 
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
-                  className="w-full h-full"
-
-                  loading="lazy"></iframe>
+                  className="w-full h-full"></iframe>
               </div>
             </div>
           </div>
@@ -1129,9 +1123,7 @@ const EPCBoxSeries = () => {
                       title={video.title}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
-                      className="w-full h-full"
-
-                      loading="lazy"></iframe>
+                      className="w-full h-full"></iframe>
                   </div>
                   <div className="p-3">
                     <p className="text-sm font-medium text-foreground">{video.title}</p>

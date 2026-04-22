@@ -246,7 +246,7 @@ const TabletCard = ({
       {product.badge && (
         <Badge className="absolute bottom-3 left-3 bg-primary text-primary-foreground text-[10px]">{product.badge}</Badge>
       )}
-      <img src={product.image} alt={product.name} className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300" loading="lazy"  decoding="async"/>
+      <img src={product.image} alt={product.name} className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"/>
     </Link>
     <div className="p-5 space-y-3">
       <div className="flex items-center justify-between gap-2">
@@ -567,7 +567,7 @@ const RuggedTablet = () => {
               ].map((cat) => (
                 <Link key={cat.to} to={cat.to} className="card-surface overflow-hidden flex items-stretch group hover:border-primary/30 transition-all">
                   <div className="w-28 sm:w-36 shrink-0 relative">
-                    <img src={cat.image} alt={cat.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" width={768} height={512}  decoding="async"/>
+                    <img src={cat.image} alt={cat.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" width={768} height={512}/>
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent to-background/20" />
                   </div>
                   <div className="flex-1 p-4 flex items-center justify-between">
@@ -622,8 +622,7 @@ const RuggedTablet = () => {
                     title="Rugged Tablet — Featured Video"
 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    loading="lazy"></iframe>
+                    allowFullScreen></iframe>
                 </div>
                 <div className="p-4 flex items-center justify-between">
                   <p className="font-bold text-foreground text-sm">Rugged Tablet — ทดสอบความทนทาน</p>
@@ -650,8 +649,7 @@ const RuggedTablet = () => {
                         src={`https://www.youtube.com/embed/${v.id}`}
                         title={v.title}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                        loading="lazy"></iframe>
+                        allowFullScreen></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between gap-2">
                       <p className="font-semibold text-foreground text-xs line-clamp-1">{v.title}</p>

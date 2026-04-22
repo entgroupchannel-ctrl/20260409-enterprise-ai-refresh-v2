@@ -194,7 +194,7 @@ const Volktek = () => {
               },
             ].map((card, i) => (
               <div key={i} className="card-surface overflow-hidden">
-                <img src={card.image} alt={card.title} className="w-full h-48 object-cover" loading="lazy"  decoding="async"/>
+                <img src={card.image} alt={card.title} className="w-full h-48 object-cover"/>
                 <div className="p-5">
                   <h3 className="font-semibold text-foreground mb-1">{card.title}</h3>
                   <p className="text-sm text-muted-foreground">{card.desc}</p>
@@ -246,9 +246,7 @@ const Volktek = () => {
               <img
                 src="/images/wix/0597a3_d5a5792c655647a392507ede27ec62a6_63339b10.png"
                 alt="Factory Automation Diagram"
-                className="w-full h-auto rounded-lg"
-                loading="lazy"
-               decoding="async"/>
+                className="w-full h-auto rounded-lg"/>
             </div>
           </div>
         </section>
@@ -279,9 +277,9 @@ const Volktek = () => {
                   </div>
                   <p className="text-sm text-muted-foreground mb-4">{cat.desc}</p>
                   <div className="space-y-4">
-                    <img src={cat.image} alt={cat.title} className="w-full h-auto rounded-lg" loading="lazy"  decoding="async"/>
+                    <img src={cat.image} alt={cat.title} className="w-full h-auto rounded-lg"/>
                     {cat.modelImage && (
-                      <img src={`${cat.modelImage}`} alt={`${cat.title} models`} className="w-full h-auto rounded-lg" loading="lazy"  decoding="async"/>
+                      <img src={`${cat.modelImage}`} alt={`${cat.title} models`} className="w-full h-auto rounded-lg"/>
                     )}
                   </div>
                   <div className="flex gap-2 mt-4">
@@ -300,7 +298,7 @@ const Volktek = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {productGallery.map((img, i) => (
               <div key={i} className="card-surface overflow-hidden">
-                <img src={img} alt={`Volktek Product ${i + 1}`} className="w-full h-auto object-contain" loading="lazy"  decoding="async"/>
+                <img src={img} alt={`Volktek Product ${i + 1}`} className="w-full h-auto object-contain"/>
               </div>
             ))}
           </div>
@@ -312,7 +310,7 @@ const Volktek = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {applicationGallery.map((img, i) => (
               <div key={i} className="card-surface overflow-hidden">
-                <img src={img} alt={`Application ${i + 1}`} className="w-full h-auto object-contain" loading="lazy"  decoding="async"/>
+                <img src={img} alt={`Application ${i + 1}`} className="w-full h-auto object-contain"/>
               </div>
             ))}
           </div>
@@ -335,9 +333,7 @@ const Volktek = () => {
 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
-                className="absolute inset-0 w-full h-full"
-
-                loading="lazy"></iframe>
+                className="absolute inset-0 w-full h-full"></iframe>
             </div>
             <div className="p-4 flex items-center justify-between">
               <a

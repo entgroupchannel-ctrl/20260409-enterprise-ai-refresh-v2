@@ -262,17 +262,13 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
               <img
                 src={promo.image}
                 alt={promo.title}
-                className={`object-contain ${featured ? "max-h-64" : "max-h-48"} hover:scale-105 transition-transform duration-300`}
-                loading="lazy"
-               decoding="async"/>
+                className={`object-contain ${featured ? "max-h-64" : "max-h-48"} hover:scale-105 transition-transform duration-300`}/>
             </Link>
           ) : (
             <img
               src={promo.image}
               alt={promo.title}
-              className={`object-contain ${featured ? "max-h-64" : "max-h-48"}`}
-              loading="lazy"
-             decoding="async"/>
+              className={`object-contain ${featured ? "max-h-64" : "max-h-48"}`}/>
           )}
         </div>
 

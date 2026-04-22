@@ -304,15 +304,13 @@ const VCloudPoint = () => {
                 src="/images/wix/0597a3_2ecc578ac2fa4e14b33ded599f607670_de783198.png"
                 alt="vCloudPoint Zero Client"
                 className="relative w-full rounded-2xl"
-                loading="eager"
-               decoding="async"/>
+                loading="eager"/>
               <div className="mt-4">
                 <img
                   src="/images/wix/0597a3_cbb51860864645c59b77aaa661958cdc_8fbba592.png"
                   alt="vCloudPoint System Diagram"
                   className="w-full rounded-2xl"
-                  loading="eager"
-                 decoding="async"/>
+                  loading="eager"/>
               </div>
             </div>
           </div>
@@ -346,10 +344,10 @@ const VCloudPoint = () => {
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
-              <img src="https://vcloudpoint.info/assets/zero-client-1-D2hOci6Y.jpg" alt="Zero Client" className="rounded-xl w-full h-40 object-cover" loading="lazy"  decoding="async"/>
-              <img src="https://vcloudpoint.info/assets/zero-client-2-C3vMfNlz.jpg" alt="Zero Client ติดจอ" className="rounded-xl w-full h-40 object-cover" loading="lazy"  decoding="async"/>
-              <img src="https://vcloudpoint.info/assets/zero-client-3-Ct4JSYA7.jpg" alt="Zero Client กะทัดรัด" className="rounded-xl w-full h-40 object-cover" loading="lazy"  decoding="async"/>
-              <img src="https://vcloudpoint.info/assets/zero-client-4-55rvfPYj.jpg" alt="Zero Client พอร์ต" className="rounded-xl w-full h-40 object-cover" loading="lazy"  decoding="async"/>
+              <img src="https://vcloudpoint.info/assets/zero-client-1-D2hOci6Y.jpg" alt="Zero Client" className="rounded-xl w-full h-40 object-cover"/>
+              <img src="https://vcloudpoint.info/assets/zero-client-2-C3vMfNlz.jpg" alt="Zero Client ติดจอ" className="rounded-xl w-full h-40 object-cover"/>
+              <img src="https://vcloudpoint.info/assets/zero-client-3-Ct4JSYA7.jpg" alt="Zero Client กะทัดรัด" className="rounded-xl w-full h-40 object-cover"/>
+              <img src="https://vcloudpoint.info/assets/zero-client-4-55rvfPYj.jpg" alt="Zero Client พอร์ต" className="rounded-xl w-full h-40 object-cover"/>
             </div>
           </div>
         </div>
@@ -386,9 +384,7 @@ const VCloudPoint = () => {
 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
-                className="absolute inset-0 w-full h-full"
-
-                loading="lazy"></iframe>
+                className="absolute inset-0 w-full h-full"></iframe>
             </div>
           </div>
         </div>
@@ -486,17 +482,13 @@ const VCloudPoint = () => {
               <img
                 src="/images/wix/0597a3_4370580a88c646c88a88dcdf9e7b6dd7_cfa390fb.jpg"
                 alt="vMatrix Server Software"
-                className="w-full h-56 md:h-64 object-cover object-top"
-                loading="lazy"
-               decoding="async"/>
+                className="w-full h-56 md:h-64 object-cover object-top"/>
             </div>
             <div className="rounded-xl overflow-hidden border border-border bg-secondary/30">
               <img
                 src="/images/wix/0597a3_f4c88e348b9e4916a08c834a965cc703_70b9fc48.jpg"
                 alt="vMatrix Control Panel"
-                className="w-full h-56 md:h-64 object-cover object-top"
-                loading="lazy"
-               decoding="async"/>
+                className="w-full h-56 md:h-64 object-cover object-top"/>
             </div>
           </div>
 
@@ -655,9 +647,7 @@ const VCloudPoint = () => {
                                 title={v.label}
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen
-                                className="absolute inset-0 w-full h-full"
-
-                                loading="lazy"></iframe>
+                                className="absolute inset-0 w-full h-full"></iframe>
                             </div>
                             <p className="text-[11px] text-muted-foreground font-medium">{v.label}</p>
                           </div>

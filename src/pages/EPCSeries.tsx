@@ -322,7 +322,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
           <Checkbox checked={selected} className="h-5 w-5" />
         </button>
       )}
-      <img src={model.image} alt={model.name} className="max-h-44 object-contain group-hover:scale-105 transition-transform duration-300" loading="lazy"  decoding="async"/>
+      <img src={model.image} alt={model.name} className="max-h-44 object-contain group-hover:scale-105 transition-transform duration-300"/>
     </div>
     <div className="p-5 space-y-3">
       <div className="flex items-center justify-between">
@@ -537,7 +537,7 @@ const EPCSeries = () => {
               { image: badgeCertification, label: "มาตรฐานสากลครบ" },
             ].map((item) => (
               <div key={item.label} className="card-surface p-4 flex flex-col items-center text-center rounded-xl hover:shadow-md transition-shadow">
-                <img src={item.image} alt={item.label} className="w-16 h-16 object-contain mb-3" loading="lazy"  decoding="async"/>
+                <img src={item.image} alt={item.label} className="w-16 h-16 object-contain mb-3"/>
                 <span className="text-xs font-semibold text-foreground leading-tight">{item.label}</span>
               </div>
             ))}
@@ -753,7 +753,7 @@ const EPCSeries = () => {
             ].map((item) => (
               <div key={item.title} className="card-surface overflow-hidden rounded-xl group">
                 <div className="relative h-48 overflow-hidden">
-                  <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" width={768} height={512}  decoding="async"/>
+                  <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" width={768} height={512}/>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                   <Badge className="absolute bottom-3 left-3 bg-primary/90 text-primary-foreground text-xs">{item.badge}</Badge>
                 </div>
@@ -784,7 +784,7 @@ const EPCSeries = () => {
                 <span className="font-bold text-foreground text-xs">วิดีโอแนะนำ EPC Panel PC</span>
               </div>
               <div className="aspect-video">
-                <iframe src="https://www.youtube.com/embed/mtamL6vkDv8" title="EPC Panel PC Introduction" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="w-full h-full" loading="lazy"></iframe>
+                <iframe src="https://www.youtube.com/embed/mtamL6vkDv8" title="EPC Panel PC Introduction" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="w-full h-full"></iframe>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
@@ -796,7 +796,7 @@ const EPCSeries = () => {
               ].map((v) => (
                 <a key={v.id} href={`https://youtu.be/${v.id}`} target="_blank" rel="noopener noreferrer" className="card-surface rounded-lg overflow-hidden group">
                   <div className="relative">
-                    <img src={`https://img.youtube.com/vi/${v.id}/mqdefault.jpg`} alt={v.title} className="w-full aspect-video object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy"  decoding="async"/>
+                    <img src={`https://img.youtube.com/vi/${v.id}/mqdefault.jpg`} alt={v.title} className="w-full aspect-video object-cover group-hover:scale-105 transition-transform duration-300"/>
                     <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center">
                       <div className="w-9 h-9 rounded-full bg-red-600 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
                         <Play className="w-4 h-4 text-white ml-0.5" fill="white" />

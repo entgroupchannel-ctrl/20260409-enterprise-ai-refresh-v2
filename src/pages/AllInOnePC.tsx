@@ -61,9 +61,7 @@ const AIOCard = ({
         <img
           src={product.image}
           alt={product.model}
-          className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300 cursor-pointer"
-          loading="lazy"
-         decoding="async"/>
+          className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300 cursor-pointer"/>
       </Link>
     </div>
 
@@ -322,7 +320,7 @@ const AllInOnePC = () => {
         ].map((cat) => (
           <Link key={cat.to} to={cat.to} className="card-surface overflow-hidden flex items-stretch group hover:border-primary/30 transition-all">
             <div className="w-28 sm:w-36 shrink-0 relative">
-              <img src={cat.image} alt={cat.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" width={768} height={512}  decoding="async"/>
+              <img src={cat.image} alt={cat.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" width={768} height={512}/>
               <div className="absolute inset-0 bg-gradient-to-r from-transparent to-background/20" />
             </div>
             <div className="flex-1 p-4 flex items-center justify-between">

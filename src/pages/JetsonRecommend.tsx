@@ -825,8 +825,8 @@ function RecCard({ item }: { item:
     <div className="rounded-xl border bg-card overflow-hidden hover:shadow-xl hover:border-primary/30 transition-all flex flex-col">
       <Link to={link} className="block">
         <div className="aspect-video bg-muted/30 flex items-center justify-center overflow-hidden p-4">
-          <img src={image} alt={item.name} loading="lazy" className="max-h-full max-w-full object-contain hover:scale-105 transition-transform"
-            onError={e = decoding="async"> { (e.target as HTMLImageElement).src = "/product-placeholder.svg"; }} />
+          <img src={image} alt={item.name} className="max-h-full max-w-full object-contain hover:scale-105 transition-transform"
+            onError={e => { (e.target as HTMLImageElement).src = "/product-placeholder.svg"; }} />
         </div>
       </Link>
       <div className="p-4 flex flex-col flex-1">

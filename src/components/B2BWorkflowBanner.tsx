@@ -54,9 +54,7 @@ const B2BWorkflowBanner = ({ variant = "full", className = "", showShopCta = fal
         <img
           src={b2bWorkflowImage}
           alt="ขั้นตอนการขอใบเสนอราคาแบบ B2B"
-          className={`w-full object-cover ${variant === "compact" ? "max-h-[260px]" : "max-h-[380px]"}`}
-          loading="lazy"
-         decoding="async"/>
+          className={`w-full object-cover ${variant === "compact" ? "max-h-[260px]" : "max-h-[380px]"}`}/>
         <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background via-background/85 to-transparent p-3 sm:p-5">
           <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs sm:text-sm font-semibold">
             {steps.map((s, i) => (

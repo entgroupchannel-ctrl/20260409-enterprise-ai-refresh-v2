@@ -52,9 +52,7 @@ const B2BMarketingShowcase = ({ showHeading = true, variant = "default", classNa
                 <img
                   src={image}
                   alt={`ขั้นตอน ${n}: ${title}`}
-                  loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                 decoding="async"/>
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
                 <div className="absolute top-2 left-2 flex items-center gap-1.5">
                   <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-background/90 backdrop-blur-sm border border-border text-primary font-black text-[11px] shadow">
                     {n}

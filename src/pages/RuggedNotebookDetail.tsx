@@ -22,7 +22,7 @@ import { getNotebook, getRelatedNotebooks, type RuggedNotebook } from "@/data/ru
 const RelatedCard = ({ nb }: { nb: RuggedNotebook }) => (
   <Link to={`/rugged-notebook/${nb.id}`} className="group bg-card border border-border rounded-xl overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all">
     <div className="bg-secondary/30 p-4 flex items-center justify-center h-44">
-      <img src={nb.image} alt={nb.model} className="max-h-full object-contain group-hover:scale-105 transition-transform" loading="lazy"  decoding="async"/>
+      <img src={nb.image} alt={nb.model} className="max-h-full object-contain group-hover:scale-105 transition-transform"/>
     </div>
     <div className="p-4 space-y-1.5">
       <p className="font-mono text-xs text-muted-foreground">{nb.model}</p>
@@ -213,7 +213,7 @@ const RuggedNotebookDetail = () => {
                       {h.image && (
                         <div className={`rounded-xl overflow-hidden bg-secondary/30 ${i % 2 === 1 ? "md:[direction:ltr]" : ""}`}>
 
-                          <img src={h.image} alt={h.titleEN} className="w-full h-auto object-cover max-h-[300px]" loading="lazy"  decoding="async"/>
+                          <img src={h.image} alt={h.titleEN} className="w-full h-auto object-cover max-h-[300px]"/>
                         </div>
                       )}
                       <div className={i % 2 === 1 ? "md:[direction:ltr]" : ""}>

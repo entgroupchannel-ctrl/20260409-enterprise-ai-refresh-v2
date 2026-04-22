@@ -164,8 +164,8 @@ export default function JetsonCaseStudies() {
                 return (
                   <Card key={a.tag} className="overflow-hidden group hover:shadow-2xl transition-all flex flex-col">
                     <div className="relative h-44 overflow-hidden">
-                      <img src={a.image} alt={a.tag} loading="lazy" width={768} height={512}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"  decoding="async"/>
+                      <img src={a.image} alt={a.tag} width={768} height={512}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
                       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
                       <div className="absolute top-3 left-3">
                         <Badge className="backdrop-blur bg-background/80 text-foreground border-border flex items-center gap-1.5">
@@ -212,8 +212,8 @@ export default function JetsonCaseStudies() {
               {cases.map((c) => (
                 <Card key={c.title} className="overflow-hidden group hover:shadow-2xl transition-all flex flex-col border-border/60">
                   <div className="relative aspect-[4/3] overflow-hidden">
-                    <img src={c.image} alt={c.title} loading="lazy" width={768} height={512}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"  decoding="async"/>
+                    <img src={c.image} alt={c.title} width={768} height={512}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                     <Badge className="absolute top-3 left-3 backdrop-blur bg-background/80 text-foreground border-border text-[10px]">
                       <Tag className="w-3 h-3 mr-1" style={{ color: NV }} />

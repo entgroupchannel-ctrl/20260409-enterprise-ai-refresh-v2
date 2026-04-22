@@ -100,10 +100,8 @@ const EdgeAISection = () => {
                     src={slide.src}
                     alt={slide.alt}
                     className="w-full h-full object-cover"
-                    loading="lazy"
                     width={1024}
-                    height={768}
-                   decoding="async"/>
+                    height={768}/>
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent p-4 pt-10">
                     <p className="text-white text-sm font-medium">{slide.caption}</p>
                   </div>
