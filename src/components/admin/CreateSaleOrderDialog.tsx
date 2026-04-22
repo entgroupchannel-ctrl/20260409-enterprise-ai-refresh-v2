@@ -126,33 +126,30 @@ export default function CreateSaleOrderDialog({ open, onOpenChange, quote, onSuc
         message_type: 'status_change',
       });
 
-      // 🔔 Notify customer (in-app for registered users + email for everyone with email)
+      // 🔔 Notify customer via centralized dispatcher (in-app + email)
       if (quote.created_by || quote.customer_email) {
-        import('@/lib/notifications').then(({ createNotification, sendQuoteStatusEmail }) => {
-          if (quote.created_by) {
-            createNotification({
-              userId: quote.created_by!,
-              type: 'sale_order_created',
-              title: 'สร้าง Sale Order แล้ว',
-              message: `Sale Order ${soData.so_number} สำหรับ ${quote.quote_number} ถูกสร้างเรียบร้อย`,
-              priority: 'high',
-              actionUrl: `/my-account/orders`,
-              actionLabel: 'ดู Sale Order',
-              linkType: 'sale_order',
-              linkId: soData.id,
-            });
-          }
-          if (quote.customer_email) {
-            sendQuoteStatusEmail({
-              recipientEmail: quote.customer_email,
-              customerName: quote.customer_name,
-              status: 'sale_order_created',
-              quoteNumber: soData.so_number,
-              viewUrl: `https://www.entgroup.co.th/my-account/orders/${soData.id}`,
-              relatedType: 'sale_order',
-              relatedId: soData.id,
-            });
-          }
+        import('@/lib/notifications').then(({ dispatchNotification }) => {
+          dispatchNotification({
+            eventKey: 'so.created',
+            recipientRole: 'customer',
+            recipientUserId: quote.created_by ?? null,
+            recipientEmail: quote.customer_email ?? null,
+            title: 'สร้าง Sale Order แล้ว',
+            message: `Sale Order ${soData.so_number} สำหรับ ${quote.quote_number} ถูกสร้างเรียบร้อย`,
+            priority: 'high',
+            actionUrl: `/my-account/orders`,
+            actionLabel: 'ดู Sale Order',
+            linkType: 'sale_order',
+            linkId: soData.id,
+            entityType: 'sale_order',
+            entityId: soData.id,
+            customerName: quote.customer_name,
+            quoteNumber: soData.so_number,
+            amount: formatCurrency(quote.grand_total),
+            viewUrl: `https://www.entgroup.co.th/my-account/orders/${soData.id}`,
+            status: 'sale_order_created',
+            idempotencyKey: `so-created-${soData.id}`,
+          });
         });
       }
 
