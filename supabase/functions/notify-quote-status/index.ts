@@ -223,6 +223,8 @@ serve(async (req) => {
     // CC sales team on every admin notification (i.e. when the recipient is
     // an @entgroup.co.th address). Skip CC for customer-facing emails and
     // skip when the recipient itself is sales@ to avoid self-CC.
+    // TEST_MODE guard on CC behavior — suppresses CC sales@ when testing.
+    // See dispatch-notification/index.ts for activation instructions.
     const isInternalRecipient = recipientEmail.toLowerCase().endsWith("@entgroup.co.th");
     const isSalesItself = recipientEmail.toLowerCase() === SALES_TEAM_CC.toLowerCase();
     const TEST_MODE = Deno.env.get("NOTIFICATION_TEST_MODE") === "true";

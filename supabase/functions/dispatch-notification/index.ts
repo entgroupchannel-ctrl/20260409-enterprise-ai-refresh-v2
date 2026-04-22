@@ -2,6 +2,11 @@
 // Single entry point for in-app + email notifications.
 // Routes email via legacy path (notify-quote-status) for now.
 // Phase 2 will flip routing to 'registry' (send-transactional-email) per event.
+//
+// TEST_MODE guard (NOTIFICATION_TEST_MODE env var) is preserved for
+// future testing phases (Phase 2 template migration, Phase 4 business
+// changes). When env var is unset/deleted = production behavior.
+// To activate: set NOTIFICATION_TEST_MODE=true in Supabase secrets.
 
 import { createClient } from 'npm:@supabase/supabase-js@2'
 
