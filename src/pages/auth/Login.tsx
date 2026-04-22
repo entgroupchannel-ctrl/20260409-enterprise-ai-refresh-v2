@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -23,10 +23,21 @@ export default function Login() {
   const { user, signIn, signInWithGoogle } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  // After login, if there's a pending quote, redirect to request-quote page
+  // Deep link the user was trying to reach before being bounced to /login
+  const fromState = (location.state as { from?: { pathname?: string; search?: string; hash?: string } } | null)?.from;
+  const returnTo = fromState
+    ? `${fromState.pathname || ''}${fromState.search || ''}${fromState.hash || ''}`
+    : undefined;
+
+  // If already logged in and arrived here with a deep link, honor it first
   useEffect(() => {
     if (user) {
+      if (returnTo && returnTo.startsWith('/') && !returnTo.startsWith('//')) {
+        navigate(returnTo, { replace: true });
+        return;
+      }
       const pending = getPendingQuote();
       if (pending && pending.products.length > 0) {
         navigate('/request-quote?action=continue', { replace: true });
@@ -38,7 +49,7 @@ export default function Login() {
     e.preventDefault();
     setLoading(true);
     try {
-      await signIn(email, password);
+      await signIn(email, password, returnTo);
       toast({ title: 'เข้าสู่ระบบสำเร็จ', description: 'ยินดีต้อนรับกลับ!' });
     } catch (error: unknown) {
       const msg = error instanceof Error ? error.message : 'กรุณาตรวจสอบอีเมลและรหัสผ่าน';

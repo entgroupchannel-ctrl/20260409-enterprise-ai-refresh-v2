@@ -90,7 +90,7 @@ export const useAuth = () => {
     setLoading(false);
   };
 
-  const signIn = async (email: string, password: string) => {
+  const signIn = async (email: string, password: string, redirectTo?: string) => {
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -104,14 +104,21 @@ export const useAuth = () => {
       .eq('id', data.user.id)
       .maybeSingle();
 
-    // Check for pending quote — redirect to continue flow instead of default
+    // Priority 1: explicit return-to (deep link from ProtectedRoute)
+    // Only honor internal paths to prevent open-redirect attacks
+    if (redirectTo && redirectTo.startsWith('/') && !redirectTo.startsWith('//')) {
+      navigate(redirectTo, { replace: true });
+      return data;
+    }
+
+    // Priority 2: pending quote flow
     const pending = getPendingQuote();
     if (pending && pending.products.length > 0) {
       navigate('/request-quote?action=continue');
       return data;
     }
 
-    // Default: redirect based on role
+    // Priority 3: default redirect by role
     const staffRoles = ['super_admin', 'admin', 'sales', 'accountant', 'warehouse', 'viewer'];
     if (userData?.role && staffRoles.includes(userData.role)) {
       navigate('/admin/dashboard');
