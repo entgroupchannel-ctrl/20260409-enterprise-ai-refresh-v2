@@ -261,36 +261,34 @@ export default function CreateCreditNoteDialog({
 
       if (itemsError) throw itemsError;
 
-      // 🔔 Notify customer (in-app + email)
+      // 🔔 Notify customer via centralized dispatcher (Phase 2 A-3)
       const cnAmount = formatCurrency(grandTotal);
       const customerId = taxInvoice.customer_id;
       const customerEmailAddr = (taxInvoice as any).customer_email;
       if (customerId || customerEmailAddr) {
-        import('@/lib/notifications').then(({ createNotification, sendQuoteStatusEmail }) => {
-          if (customerId) {
-            createNotification({
-              userId: customerId,
-              type: 'credit_note_created',
-              title: 'ออกใบลดหนี้ใหม่',
-              message: `ใบลดหนี้ ${cn.credit_note_number} ยอดลด ${cnAmount} บาท (เหตุผล: ${reasonDetail.trim()})`,
-              priority: 'high',
-              actionUrl: `/my-account/documents`,
-              actionLabel: 'ดูเอกสาร',
-              linkType: 'credit_note',
-              linkId: cn.id,
-            });
-          }
-          if (customerEmailAddr) {
-            sendQuoteStatusEmail({
-              recipientEmail: customerEmailAddr,
-              customerName: taxInvoice.customer_name,
-              status: 'credit_note_created',
-              invoiceNumber: cn.credit_note_number,
-              amount: cnAmount,
-              note: reasonDetail.trim(),
-              viewUrl: `https://www.entgroup.co.th/my-account/documents`,
-            });
-          }
+        import('@/lib/notifications').then(({ dispatchNotification }) => {
+          dispatchNotification({
+            eventKey: 'credit_note.issued',
+            recipientRole: 'customer',
+            recipientUserId: customerId ?? null,
+            recipientEmail: customerEmailAddr ?? null,
+            title: 'ออกใบลดหนี้ใหม่',
+            message: `ใบลดหนี้ ${cn.credit_note_number} ยอดลด ${cnAmount} บาท (เหตุผล: ${reasonDetail.trim()})`,
+            priority: 'high',
+            actionUrl: `/my-account/documents`,
+            actionLabel: 'ดูเอกสาร',
+            linkType: 'credit_note',
+            linkId: cn.id,
+            entityType: 'credit_note',
+            entityId: cn.id,
+            customerName: taxInvoice.customer_name,
+            invoiceNumber: cn.credit_note_number,
+            amount: cnAmount,
+            note: reasonDetail.trim(),
+            status: 'credit_note_created',
+            viewUrl: `https://www.entgroup.co.th/my-account/documents`,
+            idempotencyKey: `credit-note-issued-${cn.id}`,
+          });
         });
       }
 
