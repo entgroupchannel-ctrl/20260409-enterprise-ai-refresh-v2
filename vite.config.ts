@@ -21,47 +21,9 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     chunkSizeWarningLimit: 1200,
-    rollupOptions: {
-      output: {
-        // Split heavy vendor libraries into their own chunks so they cache
-        // separately and don't re-download on every app deploy.
-        manualChunks: (id) => {
-          if (!id.includes('node_modules')) return undefined;
-          if (id.includes('/react/') || id.includes('/react-dom/') || id.includes('/scheduler/')) {
-            return 'vendor-react';
-          }
-          if (id.includes('/react-router') || id.includes('/@remix-run/router')) {
-            return 'vendor-router';
-          }
-          if (id.includes('/@tanstack/')) {
-            return 'vendor-query';
-          }
-          if (id.includes('/@supabase/') || id.includes('/@supabase-')) {
-            return 'vendor-supabase';
-          }
-          if (id.includes('/@radix-ui/')) {
-            return 'vendor-radix';
-          }
-          if (id.includes('/lucide-react/')) {
-            return 'vendor-icons';
-          }
-          if (id.includes('/recharts/') || id.includes('/d3-')) {
-            return 'vendor-charts';
-          }
-          if (id.includes('/framer-motion/')) {
-            return 'vendor-motion';
-          }
-          if (
-            id.includes('/jspdf') ||
-            id.includes('/html2canvas') ||
-            id.includes('/xlsx') ||
-            id.includes('/docx')
-          ) {
-            return 'vendor-docs';
-          }
-          return 'vendor';
-        },
-      },
-    },
+    // Let Vite/Rollup handle chunking automatically based on the import graph.
+    // Manual chunks caused a Temporal Dead Zone error in production
+    // ("Cannot access 'X' before initialization") due to circular dependencies
+    // between split vendor chunks, resulting in a white screen on the live site.
   },
 }));
