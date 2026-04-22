@@ -18,6 +18,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { CheckCircle2, Gift, Upload, FileText, FileCheck, X, BadgeCheck, Sparkles, HandCoins, FileSignature, ShieldCheck } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { sanitizeFilename } from "@/lib/sanitize-filename";
+import { dispatchNotification } from '@/lib/notifications';
 
 interface AcceptQuoteDialogProps {
   quoteId: string;
@@ -158,6 +159,63 @@ export default function AcceptQuoteDialog({
         accepted_by: user?.id || null,
         ...(newQuoteStatus === 'po_uploaded' && { po_uploaded_at: new Date().toISOString() }),
       } as any).eq('id', quoteId);
+
+      // 3.5 Dispatch admin notification (per branch)
+      const customerDisplayName = user?.email || 'ลูกค้า';
+      const adminViewUrl = `${window.location.origin}/admin/quotes/${quoteId}`;
+
+      if (newQuoteStatus === 'po_uploaded') {
+        dispatchNotification({
+          eventKey: 'po.uploaded',
+          recipientRole: 'admin',
+          title: 'ลูกค้ายอมรับใบเสนอราคา + แนบ PO',
+          message: `${customerDisplayName} — ${quoteNumber}`,
+          priority: 'high',
+          actionUrl: `/admin/quotes/${quoteId}`,
+          actionLabel: 'ตรวจสอบ PO',
+          linkType: 'quote',
+          linkId: quoteId,
+          entityType: 'quote',
+          entityId: quoteId,
+          customerName: customerDisplayName,
+          quoteNumber: quoteNumber,
+          viewUrl: adminViewUrl,
+        });
+      } else if (newQuoteStatus === 'po_confirmed') {
+        dispatchNotification({
+          eventKey: 'po.uploaded',
+          recipientRole: 'admin',
+          title: 'ลูกค้ายอมรับ + ใช้ใบเสนอราคาเป็น PO',
+          message: `${customerDisplayName} — ${quoteNumber} (virtual PO — ไม่มีไฟล์ PO แยก)`,
+          priority: 'high',
+          actionUrl: `/admin/quotes/${quoteId}`,
+          actionLabel: 'ดำเนินการต่อ',
+          linkType: 'quote',
+          linkId: quoteId,
+          entityType: 'quote',
+          entityId: quoteId,
+          customerName: customerDisplayName,
+          quoteNumber: quoteNumber,
+          viewUrl: adminViewUrl,
+        });
+      } else if (newQuoteStatus === 'accepted') {
+        dispatchNotification({
+          eventKey: 'po.uploaded',
+          recipientRole: 'admin',
+          title: 'ลูกค้ายอมรับใบเสนอราคา (รอแนบ PO)',
+          message: `${customerDisplayName} — ${quoteNumber} (ลูกค้าจะแนบ PO ภายหลัง)`,
+          priority: 'high',
+          actionUrl: `/admin/quotes/${quoteId}`,
+          actionLabel: 'ดูใบเสนอราคา',
+          linkType: 'quote',
+          linkId: quoteId,
+          entityType: 'quote',
+          entityId: quoteId,
+          customerName: customerDisplayName,
+          quoteNumber: quoteNumber,
+          viewUrl: adminViewUrl,
+        });
+      }
 
       // 4. Send chat message
       await supabase.from('quote_messages').insert({
