@@ -207,31 +207,28 @@ export default function ConfirmPaymentDialog({
         .maybeSingle();
 
       if (invData?.customer_id || invData?.customer_email) {
-        import('@/lib/notifications').then(({ createNotification, sendQuoteStatusEmail }) => {
-          if (invData?.customer_id) {
-            createNotification({
-              userId: invData.customer_id,
-              type: 'payment_confirmed',
-              title: 'ยืนยันการชำระเงินเรียบร้อย',
-              message: `การชำระเงินสำหรับ ${invoiceNumber} ได้รับการยืนยันแล้ว`,
-              priority: 'high',
-              actionUrl: `/my-account/invoices/${invoiceId}`,
-              actionLabel: 'ดูใบแจ้งหนี้',
-              linkType: 'invoice',
-              linkId: invoiceId,
-            });
-          }
-          if (invData?.customer_email) {
-            sendQuoteStatusEmail({
-              recipientEmail: invData.customer_email,
-              customerName: invData.customer_name,
-              status: 'payment_confirmed',
-              invoiceNumber,
-              viewUrl: `https://www.entgroup.co.th/my-account/invoices/${invoiceId}`,
-              relatedType: 'invoice',
-              relatedId: invoiceId,
-            });
-          }
+        const amountStr = formatCurrency(amountNum);
+        import('@/lib/notifications').then(({ dispatchNotification }) => {
+          dispatchNotification({
+            eventKey: 'payment.confirmed',
+            recipientRole: 'customer',
+            recipientUserId: invData?.customer_id || null,
+            recipientEmail: invData?.customer_email || null,
+            title: 'ยืนยันการชำระเงินเรียบร้อย',
+            message: `การชำระเงินสำหรับ ${invoiceNumber} จำนวน ${amountStr} บาท ได้รับการยืนยันแล้ว`,
+            priority: 'high',
+            actionUrl: `/my-account/invoices/${invoiceId}`,
+            actionLabel: 'ดูใบแจ้งหนี้',
+            linkType: 'invoice',
+            linkId: invoiceId,
+            entityType: 'invoice',
+            entityId: invoiceId,
+            customerName: invData?.customer_name,
+            invoiceNumber,
+            amount: amountStr,
+            viewUrl: `https://www.entgroup.co.th/my-account/invoices/${invoiceId}`,
+            status: 'payment_confirmed',
+          });
         });
       }
 
