@@ -221,7 +221,8 @@ export default function QuickRFQForm({ product, defaultQuantity = 1, configAddon
       });
 
       // 📧 Email + in-app notifications (fire-and-forget)
-      import('@/lib/notifications').then(({ sendAutoReplyEmail, notifyAdmins, notifyAdminsByEmail }) => {
+      const origin = typeof window !== 'undefined' ? window.location.origin : '';
+      import('@/lib/notifications').then(({ sendAutoReplyEmail, dispatchNotification }) => {
         if (form.customer_email) {
           sendAutoReplyEmail({
             type: 'quote-request',
@@ -230,8 +231,9 @@ export default function QuickRFQForm({ product, defaultQuantity = 1, configAddon
             quoteRef: data.quote_number,
           });
         }
-        notifyAdmins({
-          type: 'new_quote_request',
+        dispatchNotification({
+          eventKey: 'quote.requested',
+          recipientRole: 'admin',
           title: `📩 RFQ ใหม่ ${data.quote_number}`,
           message: `${form.customer_name}${form.customer_company ? ' / ' + form.customer_company : ''} — ${product.model} x${form.quantity}`,
           priority: 'high',
@@ -239,13 +241,11 @@ export default function QuickRFQForm({ product, defaultQuantity = 1, configAddon
           actionLabel: 'เปิดใบเสนอราคา',
           linkType: 'quote',
           linkId: data.id,
-        });
-        notifyAdminsByEmail({
-          subject: `RFQ ใหม่ ${data.quote_number} — ${product.model}`,
-          status: 'new_quote_request',
+          entityType: 'quote',
+          entityId: data.id,
           customerName: form.customer_name,
           quoteNumber: data.quote_number,
-          viewUrl: `${window.location.origin}/admin/quotes/${data.id}`,
+          viewUrl: `${origin}/admin/quotes/${data.id}`,
           note: finalNotes || undefined,
         });
       });
