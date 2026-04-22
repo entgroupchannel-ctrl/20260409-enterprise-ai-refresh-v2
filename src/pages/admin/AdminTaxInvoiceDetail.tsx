@@ -11,7 +11,7 @@ import {
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { supabase } from '@/integrations/supabase/client';
-import { createNotification, sendQuoteStatusEmail } from '@/lib/notifications';
+import { dispatchNotification } from '@/lib/notifications';
 import { useToast } from '@/hooks/use-toast';
 import {
   ArrowLeft, FileText, Printer, Loader2, Building2, Calendar, Receipt,
@@ -94,34 +94,29 @@ export default function AdminTaxInvoiceDetail() {
       });
       if (error) throw error;
 
-      // Notify customer (in-app + email) — fire-and-forget
-      if (taxInvoice.customer_id) {
-        createNotification({
-          userId: taxInvoice.customer_id,
-          type: 'tax_invoice_cancelled',
-          title: `ใบกำกับภาษี ${taxInvoice.tax_invoice_number} ถูกยกเลิก`,
-          message: `เหตุผล: ${reason}`,
-          priority: 'high',
-          actionUrl: `/my-account/tax-invoices/${taxInvoice.id}`,
-          actionLabel: 'ดูรายละเอียด',
-          linkType: 'tax_invoice',
-          linkId: taxInvoice.id,
-        });
-      }
-      if (taxInvoice.customer_email) {
-        const origin = typeof window !== 'undefined' ? window.location.origin : '';
-        sendQuoteStatusEmail({
-          recipientEmail: taxInvoice.customer_email,
-          customerName: taxInvoice.customer_name || taxInvoice.customer_company || undefined,
-          invoiceNumber: taxInvoice.tax_invoice_number,
-          status: 'cancelled',
-          amount: taxInvoice.grand_total ? String(taxInvoice.grand_total) : undefined,
-          viewUrl: origin ? `${origin}/my-account/tax-invoices/${taxInvoice.id}` : undefined,
-          note: `ใบกำกับภาษีถูกยกเลิกโดยผู้ดูแลระบบ — เหตุผล: ${reason}`,
-          relatedType: 'tax_invoice',
-          relatedId: taxInvoice.id,
-        });
-      }
+      // 🔔 Notify customer (in-app + email) — fire-and-forget
+      const origin = typeof window !== 'undefined' ? window.location.origin : '';
+      await dispatchNotification({
+        eventKey: 'tax_invoice.cancelled',
+        recipientRole: 'customer',
+        recipientUserId: taxInvoice.customer_id || null,
+        recipientEmail: taxInvoice.customer_email || null,
+        title: `ใบกำกับภาษี ${taxInvoice.tax_invoice_number} ถูกยกเลิก`,
+        message: `เหตุผล: ${reason}`,
+        priority: 'high',
+        actionUrl: `/my-account/tax-invoices/${taxInvoice.id}`,
+        actionLabel: 'ดูรายละเอียด',
+        linkType: 'tax_invoice',
+        linkId: taxInvoice.id,
+        entityType: 'tax_invoice',
+        entityId: taxInvoice.id,
+        customerName: taxInvoice.customer_name || taxInvoice.customer_company || undefined,
+        invoiceNumber: taxInvoice.tax_invoice_number,
+        amount: taxInvoice.grand_total ? String(taxInvoice.grand_total) : undefined,
+        viewUrl: origin ? `${origin}/my-account/tax-invoices/${taxInvoice.id}` : undefined,
+        note: `ใบกำกับภาษีถูกยกเลิกโดยผู้ดูแลระบบ — เหตุผล: ${reason}`,
+        status: 'cancelled',
+      });
 
       toast({
         title: '🗑️ ย้ายไปถังขยะแล้ว',

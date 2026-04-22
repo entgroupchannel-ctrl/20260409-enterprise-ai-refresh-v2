@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
 import { supabase } from '@/integrations/supabase/client';
-import { createNotification, sendQuoteStatusEmail } from '@/lib/notifications';
+import { dispatchNotification } from '@/lib/notifications';
 import { useToast } from '@/hooks/use-toast';
 import {
   ArrowLeft, Receipt, Printer, Loader2, Building2, Calendar, Link as LinkIcon, CreditCard, Trash2, FileText, Share2,
@@ -126,34 +126,29 @@ export default function AdminReceiptDetail() {
       });
       if (error) throw error;
 
-      // Notify customer (in-app + email) — fire-and-forget
-      if (receipt.customer_id) {
-        createNotification({
-          userId: receipt.customer_id,
-          type: 'receipt_cancelled',
-          title: `ใบเสร็จ ${receipt.receipt_number} ถูกยกเลิก`,
-          message: `เหตุผล: ${reason}`,
-          priority: 'high',
-          actionUrl: `/my-account/receipts/${receipt.id}`,
-          actionLabel: 'ดูรายละเอียด',
-          linkType: 'receipt',
-          linkId: receipt.id,
-        });
-      }
-      if (customerEmail) {
-        const origin = typeof window !== 'undefined' ? window.location.origin : '';
-        sendQuoteStatusEmail({
-          recipientEmail: customerEmail,
-          customerName: receipt.customer_name || receipt.customer_company || undefined,
-          invoiceNumber: receipt.receipt_number,
-          status: 'cancelled',
-          amount: receipt.amount ? String(receipt.amount) : undefined,
-          viewUrl: origin ? `${origin}/my-account/receipts/${receipt.id}` : undefined,
-          note: `ใบเสร็จรับเงินถูกยกเลิกโดยผู้ดูแลระบบ — เหตุผล: ${reason}`,
-          relatedType: 'receipt',
-          relatedId: receipt.id,
-        });
-      }
+      // 🔔 Notify customer (in-app + email) — fire-and-forget
+      const origin = typeof window !== 'undefined' ? window.location.origin : '';
+      await dispatchNotification({
+        eventKey: 'receipt.cancelled',
+        recipientRole: 'customer',
+        recipientUserId: receipt.customer_id || null,
+        recipientEmail: customerEmail || null,
+        title: `ใบเสร็จ ${receipt.receipt_number} ถูกยกเลิก`,
+        message: `เหตุผล: ${reason}`,
+        priority: 'high',
+        actionUrl: `/my-account/receipts/${receipt.id}`,
+        actionLabel: 'ดูรายละเอียด',
+        linkType: 'receipt',
+        linkId: receipt.id,
+        entityType: 'receipt',
+        entityId: receipt.id,
+        customerName: receipt.customer_name || receipt.customer_company || undefined,
+        invoiceNumber: receipt.receipt_number,
+        amount: receipt.amount ? String(receipt.amount) : undefined,
+        viewUrl: origin ? `${origin}/my-account/receipts/${receipt.id}` : undefined,
+        note: `ใบเสร็จรับเงินถูกยกเลิกโดยผู้ดูแลระบบ — เหตุผล: ${reason}`,
+        status: 'cancelled',
+      });
 
       toast({
         title: '🗑️ ย้ายไปถังขยะแล้ว',
