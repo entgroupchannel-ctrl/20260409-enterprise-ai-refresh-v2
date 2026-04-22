@@ -28,3 +28,68 @@ type: feature
 
 **Decision owner:** rungarun / business team
 **Status:** ⏸️ DEFERRED — รอ business input
+
+---
+
+## P6-R1: receipt.cancelled — no clean replacement
+
+**Files:** `src/pages/admin/AdminReceiptDetail.tsx`, `src/pages/admin/AdminTrash.tsx`
+
+**Current state:**
+- 2 callers ใช้ `dispatchNotification({ eventKey: 'receipt.cancelled' })`
+- Registry row `receipt.cancelled` **inactive** + ทุก channel flag = false
+- ผล: ลูกค้าไม่ได้รับ notification เมื่อใบเสร็จถูกยกเลิก (silent no-op — latent bug)
+
+**Why deferred (Phase 6 audit, 2026-04-22):**
+- ไม่มี active event ที่ semantic ตรง:
+  - `receipt.issued` = "ออกแล้ว" (ตรงข้าม cancelled)
+  - `receipt.created` = "สร้างใหม่" (ตรงข้าม cancelled)
+  - `tax_invoice.cancelled` = entity ผิด
+- Activate registry row `receipt.cancelled` = ต้อง business approve channel flags
+
+**Stakeholder questions:**
+1. ลูกค้าต้องรู้เมื่อใบเสร็จถูกยกเลิกหรือไม่?
+2. ถ้าใช่ — ผ่านช่องทางไหน (in-app เท่านั้น / email ด้วย)?
+3. ถ้าใช่ — Activate `receipt.cancelled` row พร้อมตั้งค่า `notify_customer_in_app=true` (+ optional email)?
+
+**After decision:** activate registry flags (no code change needed in callers — they already use correct eventKey)
+
+**Decision owner:** business team
+**Status:** ⏸️ DEFERRED — รอ business input
+
+---
+
+## P6-Cleanup: tax_invoice.created row safe to DELETE
+
+**Status:** Ready for next maintenance window (zero risk)
+
+- Phase 6 D-1 (2026-04-22) migrated `CreateTaxInvoiceFromInvoiceDialog.tsx` → `tax_invoice.issued`
+- After migration: 0 callers, 0 dispatch_log uses in last 30 days
+- Registry row `tax_invoice.created` (inactive) is now orphan — symmetric to credit_note.created cleanup
+
+**Suggested migration (next session):**
+```sql
+DELETE FROM public.notification_events
+ WHERE event_key = 'tax_invoice.created' AND is_active = false;
+```
+
+Also recommend cleaning dead entries in `EVENT_EMAIL_STRATEGY` map of
+`supabase/functions/dispatch-notification/index.ts` for keys:
+`credit_note.created`, `quote.cancelled`, `tax_invoice.created` (after row delete).
+
+---
+
+## P6-Smoke leftovers (manual cleanup needed next session)
+
+Smoke test `smoke-p6-fix1` left 1 row in `notification_dispatch_log`
+(no in-app notification rows, no email_send_log entries to clean).
+REST DELETE returned 401 (service-role key mismatch in sandbox).
+
+**Suggested cleanup migration (next session):**
+```sql
+DELETE FROM public.notification_dispatch_log WHERE idempotency_key LIKE 'smoke-p6-%';
+DELETE FROM public.notifications WHERE title LIKE 'SMOKE-P6-%';
+DELETE FROM public.email_send_log
+ WHERE created_at > now() - interval '24 hours'
+   AND subject ILIKE '%SMOKE-P6-%';
+```

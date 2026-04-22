@@ -256,7 +256,7 @@ export default function CreateTaxInvoiceFromInvoiceDialog({
       if (invoice.customer_id || invoice.customer_email) {
         import('@/lib/notifications').then(({ dispatchNotification }) => {
           dispatchNotification({
-            eventKey: 'tax_invoice.created',
+            eventKey: 'tax_invoice.issued',
             recipientRole: 'customer',
             recipientUserId: invoice.customer_id || null,
             recipientEmail: invoice.customer_email || null,
