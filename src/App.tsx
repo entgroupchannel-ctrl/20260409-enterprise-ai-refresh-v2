@@ -187,6 +187,9 @@ const App = () => (
                     <Route path="/site-references" element={<Navigate to="/case-studies" replace />} />
                     <Route path="/pricelist" element={<Navigate to="/shop" replace />} />
                     <Route path="/price-list" element={<Navigate to="/shop" replace />} />
+                    <Route path="/investors" element={<Investors />} />
+                    <Route path="/investors/strategic-vision" element={<InvestorStrategicVision />} />
+                    <Route path="/investors/brief/:token" element={<InvestorBrief />} />
                     <Route path="/contact" element={<ContactUs />} />
                     <Route path="/warrantys" element={<Warrantys />} />
                     <Route path="/payment" element={<Payment />} />
