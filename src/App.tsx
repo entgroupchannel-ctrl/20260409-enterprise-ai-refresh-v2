@@ -125,6 +125,9 @@ const AdminGeneralChat = lazyRetry(() => import("./pages/admin/AdminGeneralChat"
 const AdminReports = lazyRetry(() => import("./pages/admin/AdminReports"));
 const AdminSubscribers = lazyRetry(() => import("./pages/admin/AdminSubscribers"));
 const AdminEmailTemplates = lazyRetry(() => import("./pages/admin/AdminEmailTemplates"));
+const Investors = lazyRetry(() => import("./pages/Investors"));
+const InvestorStrategicVision = lazyRetry(() => import("./pages/InvestorStrategicVision"));
+const InvestorBrief = lazyRetry(() => import("./pages/InvestorBrief"));
 
 /* ── Loading fallback ── */
 const PageLoader = () => (
@@ -184,6 +187,9 @@ const App = () => (
                     <Route path="/site-references" element={<Navigate to="/case-studies" replace />} />
                     <Route path="/pricelist" element={<Navigate to="/shop" replace />} />
                     <Route path="/price-list" element={<Navigate to="/shop" replace />} />
+                    <Route path="/investors" element={<Investors />} />
+                    <Route path="/investors/strategic-vision" element={<InvestorStrategicVision />} />
+                    <Route path="/investors/brief/:token" element={<InvestorBrief />} />
                     <Route path="/contact" element={<ContactUs />} />
                     <Route path="/warrantys" element={<Warrantys />} />
                     <Route path="/payment" element={<Payment />} />
