@@ -56,10 +56,11 @@ const QuoteRequestForm = ({ onSuccess, prefilledProducts }: QuoteRequestFormProp
         customer_company: form.company || null,
       });
 
-      // Notify admins (in-app + email)
-      import('@/lib/notifications').then(({ notifyAdmins, notifyAdminsByEmail }) => {
-        notifyAdmins({
-          type: 'new_quote_request',
+      // Notify admins (in-app + email via centralized dispatcher)
+      import('@/lib/notifications').then(({ dispatchNotification }) => {
+        dispatchNotification({
+          eventKey: 'quote.requested',
+          recipientRole: 'admin',
           title: 'มีคำขอใบเสนอราคาใหม่',
           message: `${form.name}${form.company ? ` (${form.company})` : ''} — ${data.quote_number}`,
           priority: 'high',
@@ -67,14 +68,13 @@ const QuoteRequestForm = ({ onSuccess, prefilledProducts }: QuoteRequestFormProp
           actionLabel: 'ดูใบเสนอราคา',
           linkType: 'quote',
           linkId: data.id,
-        });
-        notifyAdminsByEmail({
-          subject: `[RFQ] คำขอใบเสนอราคาใหม่ ${data.quote_number}`,
-          status: 'new_quote_request',
+          entityType: 'quote',
+          entityId: data.id,
           customerName: form.name,
           quoteNumber: data.quote_number,
           note: form.details || undefined,
           viewUrl: `${typeof window !== 'undefined' ? window.location.origin : ''}/admin/quotes/${data.id}`,
+          idempotencyKey: `quote-requested-${data.id}`,
         });
       });
 
