@@ -1,33 +1,35 @@
 import { Link } from "react-router-dom";
-import LineQRButton from "@/components/LineQRButton";
 import SEOHead from "@/components/SEOHead";
-import GEOMeta from "@/components/GEOMeta";
-
-const aboutJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "AboutPage",
-  name: "เกี่ยวกับ ENT Group — บริษัท อีเอ็นที กรุ๊ป จำกัด",
-  url: "https://www.entgroup.co.th/about",
-  mainEntity: {
-    "@type": "Organization",
-    name: "ENT Group",
-    legalName: "บริษัท อีเอ็นที กรุ๊ป จำกัด",
-    foundingDate: "2015",
-    url: "https://www.entgroup.co.th",
-    description: "B2B Industrial Platform — แพลตฟอร์มจัดซื้อ Industrial PC, Mini PC, Panel PC, Rugged Tablet และ Software License สำหรับองค์กร ครบวงจร ประสบการณ์กว่า 10 ปี",
-    slogan: "B2B Industrial Platform — แพลตฟอร์มจัดซื้ออุตสาหกรรมแบบครบวงจร",
-    areaServed: "TH",
-  },
-};
+import LineQRButton from "@/components/LineQRButton";
 import {
   Headset, ShieldCheck, Users, Handshake, Truck, Award, ArrowLeft,
   Building2, Rocket, Globe, ShoppingCart, Monitor, Cpu, TabletSmartphone,
   Network, Package, TrendingUp,
 } from "lucide-react";
 import FooterCompact from "@/components/FooterCompact";
-import MiniNavbar from "@/components/MiniNavbar";
 import heroGrowth from "@/assets/about-hero-growth.jpg";
 import entLogoFull from "@/assets/entgroup-logo-full.jpg";
+
+/* ═══════ SEO / JSON-LD ═══════ */
+const aboutJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "name": "เกี่ยวกับ ENT Group",
+  "url": "https://www.entgroup.co.th/about-us",
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "บริษัท อี เอ็น ที กรุ๊ป จำกัด (ENT Group)",
+    "legalName": "บริษัท อี เอ็น ที กรุ๊ป จำกัด",
+    "url": "https://www.entgroup.co.th",
+    "foundingDate": "2015",
+    "description": "ตัวแทนจำหน่ายและผู้เชี่ยวชาญด้าน Industrial PC, Mini PC, Panel PC, Rugged Tablet, Thin Client และอุปกรณ์คอมพิวเตอร์สำหรับอุตสาหกรรมในประเทศไทย",
+    "sameAs": [
+      "https://www.facebook.com/entgroup.th/",
+      "https://shopee.co.th/entgroup",
+      "https://www.lazada.co.th/shop/entgroup",
+    ],
+  },
+};
 
 /* ═══════ Timeline Data ═══════ */
 const timeline = [
@@ -111,26 +113,12 @@ const AboutUs = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead
-        title="เกี่ยวกับเรา — ENT Group ผู้นำเข้า Industrial PC ครบวงจร"
-        description="ENT Group ก่อตั้งปี 2558 — ผู้จัดจำหน่าย Industrial PC, Mini PC, Panel PC, Rugged Tablet และ Edge AI (NVIDIA Jetson) ลูกค้าองค์กร 8,000+ ราย Authorized Distributor GreenthinPC, Winmate, Volktek"
-        path="/about"
-        keywords="เกี่ยวกับ ENT Group, บริษัทอีเอ็นที กรุ๊ป, ผู้นำเข้า Industrial PC, ตัวแทนจำหน่าย Mini PC, B2B IT solution ไทย"
+        title="เกี่ยวกับเรา ENT Group — ตัวแทนจำหน่าย Industrial PC และ Rugged Computer"
+        description="บริษัท อี เอ็น ที กรุ๊ป จำกัด ผู้เชี่ยวชาญด้าน Industrial PC, Mini PC, Panel PC, Rugged Tablet และ Thin Client ก่อตั้งปี 2015 ให้บริการลูกค้าอุตสาหกรรมทั่วไทย"
+        path="/about-us"
+        keywords="ENT Group, อี เอ็น ที กรุ๊ป, Industrial PC ประเทศไทย, ตัวแทนจำหน่าย Mini PC, Panel PC, Rugged Tablet, Thin Client, เกี่ยวกับ ENT Group"
         jsonLd={aboutJsonLd}
       />
-      <GEOMeta
-        topic="ประวัติและธุรกิจของ ENT Group ผู้จัดจำหน่ายคอมพิวเตอร์อุตสาหกรรมในประเทศไทย"
-        summary="ENT Group (บริษัท อีเอ็นที กรุ๊ป จำกัด) เป็น B2B Industrial Platform ก่อตั้งปี 2558 จำหน่าย Industrial PC, Mini PC, Panel PC, Rugged Tablet, Edge AI (NVIDIA Jetson) และ Software License แบบครบวงจร เป็น Authorized Distributor ของ GreenthinPC, Winmate และ Volktek"
-        keyFacts={[
-          "ก่อตั้งปี 2558 (2015) มีประสบการณ์ 10+ ปี",
-          "ลูกค้าองค์กรกว่า 8,000 ราย ทั้งราชการ โรงงาน โรงพยาบาล สถาบันการศึกษา",
-          "Authorized Distributor: GreenthinPC, Winmate, Volktek",
-          "ผลิตภัณฑ์: Industrial PC, Mini PC, Panel PC, Rugged Tablet/Notebook, NVIDIA Jetson Edge AI, Zero Client, Industrial Switch, Firewall",
-          "บริการ B2B ใบเสนอราคาภายใน 24 ชม. รับประกัน 1-3 ปี พร้อมบริการ on-site",
-          "นำเข้าตรงจากโรงงาน ไม่ผ่านคนกลาง",
-        ]}
-        sourceAuthority="บริษัท อีเอ็นที กรุ๊ป จำกัด (ENT Group) — เว็บไซต์ทางการ"
-      />
-      <MiniNavbar />
       {/* ═══════ Hero with growth image ═══════ */}
       <section className="relative min-h-[420px] flex items-center overflow-hidden">
         <img
@@ -142,6 +130,9 @@ const AboutUs = () => {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/30" />
         <div className="relative z-10 container max-w-6xl mx-auto px-4 py-16 md:py-24">
+          <Link to="/" className="inline-flex items-center gap-1 text-xs text-primary mb-6 hover:underline">
+            <ArrowLeft size={12} /> กลับหน้าหลัก
+          </Link>
           <h1 className="text-3xl md:text-5xl font-display font-bold text-white mb-4">
             เกี่ยวกับ <span className="text-primary">ENT Group</span>
           </h1>
@@ -166,7 +157,9 @@ const AboutUs = () => {
               <img
                 src={entLogoFull}
                 alt="ENT Group Logo"
-                className="w-32 md:w-40 h-auto"/>
+                className="w-32 md:w-40 h-auto"
+                loading="lazy"
+              />
             </div>
             {/* Meaning cards */}
             {entMeaning.map((item) => (

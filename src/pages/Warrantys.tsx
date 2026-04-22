@@ -1,16 +1,48 @@
 import { Shield, AlertTriangle, Monitor, Truck, Phone, FileDown, CheckCircle, XCircle } from "lucide-react";
+import SEOHead from "@/components/SEOHead";
 import PageBanner from "@/components/PageBanner";
 import Footer from "@/components/Footer";
-import SEOHead from "@/components/SEOHead";
-import GEOMeta from "@/components/GEOMeta";
 import bannerImg from "@/assets/banner-warranty.jpg";
 
-const warrantyFaqs = [
-  { q: "ENT Group รับประกันสินค้านานเท่าไหร่?", a: "รับประกันมาตรฐาน 1 ปี สำหรับสินค้าทั่วไป และสูงสุด 3 ปีสำหรับ Industrial PC / Panel PC บางรุ่น โดยครอบคลุมการซ่อม-เปลี่ยนอะไหล่ที่เสียจากการใช้งานปกติ" },
-  { q: "หน้าจอแตก/ร้าว อยู่ในประกันหรือไม่?", a: "หน้าจอแสดงผลทั่วไปเปลี่ยนได้ 1 ครั้งภายใน 1 ปี โดยไม่มีค่าอะไหล่ ส่วนหน้าจอสัมผัส (Touch Screen) ที่แตก-ร้าว อยู่นอกเหนือการรับประกัน" },
-  { q: "สินค้าเสียภายในกี่วันสามารถเปลี่ยนตัวใหม่ได้?", a: "หากสินค้าชำรุด/ใช้งานไม่ได้ภายใน 7 วันหลังรับสินค้า บริษัทจะเปลี่ยนสินค้าตัวใหม่ (รุ่นเดียวกันหรือดีกว่า) ให้ทันที" },
-  { q: "ส่งเคลมประกันได้ที่ไหน?", a: "ส่งเคลมที่ ENT Group สำนักงานใหญ่ พร้อมเอกสารแจ้งซ่อมที่ดาวน์โหลดได้จากหน้านี้ หรือติดต่อ LINE @entgroup เพื่อนัดรับสินค้า" },
-];
+/* ═══════ SEO / JSON-LD (FAQ) ═══════ */
+const warrantyFaqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "ENT Group รับประกันสินค้านานเท่าไหร่?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "สินค้าโดยทั่วไปรับประกัน 1 ปี นับจากวันที่ซื้อ ครอบคลุมความเสียหายจากการใช้งานปกติและจากการผลิต ยกเว้นกรณีที่ระบุไว้ในเงื่อนไข",
+      },
+    },
+    {
+      "@type": "Question",
+      "name": "การรับประกันหน้าจอครอบคลุมอะไรบ้าง?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "หน้าจอแสดงผลเสียหาย เช่น แตก ร้าว หรือใช้งานไม่ปกติ สามารถเปลี่ยนได้ 1 ครั้งภายใน 1 ปี โดยไม่มีค่าใช้จ่ายสำหรับอะไหล่ ยกเว้นความเสียหายจากการตากแดด สารเคมี หรืออุบัติเหตุ",
+      },
+    },
+    {
+      "@type": "Question",
+      "name": "หากสินค้าชำรุดเมื่อได้รับ ต้องทำอย่างไร?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "หากสินค้าชำรุดหรือไม่สามารถใช้งานได้ภายใน 7 วันหลังรับสินค้า บริษัทฯ จะเปลี่ยนสินค้าตัวใหม่ (รุ่นเดียวกันหรือดีกว่า) และจัดส่งภายใน 3 วันทำการนับจากตรวจสอบเอกสาร",
+      },
+    },
+    {
+      "@type": "Question",
+      "name": "อะไรที่อยู่นอกเหนือการรับประกัน?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ไม่ครอบคลุมความเสียหายจากของเหลว ภัยธรรมชาติ ไฟฟ้าผิดปกติ อุบัติเหตุ การใช้งานผิดวิธี การดัดแปลง การติดตั้งไม่ถูกต้อง หรือหมายเลขเครื่องถูกแก้ไข",
+      },
+    },
+  ],
+};
 
 const generalExclusions = [
   "อาการเสียหรือความเสียหายอันเนื่องมาจากของเหลวหรืออาหารหกใส่ผลิตภัณฑ์ หรือภัยธรรมชาติ เช่น ไฟไหม้ น้ำท่วม แผ่นดินไหว หรือใช้แรงดันไฟฟ้าผิดจากที่กำหนด",
@@ -46,23 +78,11 @@ const Warrantys = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="เงื่อนไขการรับประกันสินค้า Industrial PC / Panel PC"
-        description="นโยบายรับประกัน ENT Group: Industrial PC, Mini PC, Panel PC, Touch Screen รับประกัน 1-3 ปี เปลี่ยนสินค้าใหม่ภายใน 7 วัน ครอบคลุมหน้าจอ อะไหล่ และค่าขนส่ง"
-        path="/warranty"
-        keywords="รับประกัน Industrial PC, ประกัน Mini PC, warranty panel pc, เคลมสินค้า ENT Group, นโยบายรับประกัน"
-      />
-      <GEOMeta
-        topic="นโยบายการรับประกันสินค้าคอมพิวเตอร์อุตสาหกรรมของ ENT Group"
-        summary="ENT Group รับประกันสินค้า Industrial PC, Mini PC และ Panel PC 1-3 ปี ครอบคลุมการซ่อม-เปลี่ยนอะไหล่จากการใช้งานปกติ พร้อมบริการเปลี่ยนสินค้าใหม่ภายใน 7 วันหากชำรุด"
-        keyFacts={[
-          "รับประกัน 1 ปีมาตรฐาน, สูงสุด 3 ปีสำหรับบางรุ่น",
-          "เปลี่ยนสินค้าใหม่ฟรีหากเสียภายใน 7 วันแรก",
-          "หน้าจอแสดงผลเปลี่ยนได้ 1 ครั้งใน 1 ปีโดยไม่มีค่าอะไหล่",
-          "หน้าจอสัมผัสแตก/ร้าวไม่อยู่ในเงื่อนไขรับประกัน",
-          "ไม่ครอบคลุมความเสียหายจากของเหลว ไฟไหม้ น้ำท่วม หรืออุบัติเหตุ",
-        ]}
-        sourceAuthority="บริษัท อีเอ็นที กรุ๊ป จำกัด (ENT Group) — Authorized Distributor"
-        faqs={warrantyFaqs}
+        title="เงื่อนไขการรับประกันสินค้า — ENT Group Warranty Policy"
+        description="เงื่อนไขการรับประกันสินค้า ENT Group รับประกัน 1 ปี ครอบคลุมหน้าจอ Touchscreen การขนส่ง พร้อมเงื่อนไขการเปลี่ยนสินค้าภายใน 7 วันหลังรับสินค้า"
+        path="/warrantys"
+        keywords="การรับประกัน ENT Group, warranty ENT Group, เงื่อนไขรับประกัน Industrial PC, รับประกัน Mini PC, รับประกัน Panel PC, การเคลมสินค้า ENT Group"
+        jsonLd={warrantyFaqJsonLd}
       />
       <PageBanner image={bannerImg} title="เงื่อนไขการรับประกัน" subtitle="Warranty Policy — ENT Group" />
 

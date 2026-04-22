@@ -12,8 +12,8 @@ const NotFound = () => {
   return (
     <div className="flex min-h-screen items-center justify-center bg-muted">
       <SEOHead
-        title="ไม่พบหน้าที่คุณค้นหา (404)"
-        description="ขออภัย ไม่พบหน้าที่คุณกำลังค้นหา กลับสู่หน้าหลัก ENT Group เพื่อเลือกชม Industrial PC, Mini PC และ Panel PC"
+        title="ไม่พบหน้าที่ค้นหา (404)"
+        description="ขออภัย ไม่พบหน้าที่คุณต้องการ กรุณากลับสู่หน้าแรกของ ENT Group"
         path={location.pathname}
         noindex
       />
