@@ -401,7 +401,8 @@ export default function QuoteRequestForm() {
       });
 
       // 📧 Email + in-app notifications (fire-and-forget)
-      import('@/lib/notifications').then(({ sendAutoReplyEmail, notifyAdmins, notifyAdminsByEmail }) => {
+      const origin = typeof window !== 'undefined' ? window.location.origin : '';
+      import('@/lib/notifications').then(({ sendAutoReplyEmail, dispatchNotification }) => {
         // 1) Auto-reply ลูกค้า
         if (formData.customer_email) {
           sendAutoReplyEmail({
@@ -411,9 +412,10 @@ export default function QuoteRequestForm() {
             quoteRef: data.quote_number,
           });
         }
-        // 2) แจ้งเตือนแอดมินใน-แอป
-        notifyAdmins({
-          type: 'new_quote_request',
+        // 2) แจ้งเตือนแอดมิน (in-app + email via unified dispatcher)
+        dispatchNotification({
+          eventKey: 'quote.requested',
+          recipientRole: 'admin',
           title: `📩 คำขอใบเสนอราคาใหม่ ${data.quote_number}`,
           message: `${formData.customer_name}${formData.customer_company ? ' / ' + formData.customer_company : ''} — ${validProducts.length} รายการ`,
           priority: 'high',
@@ -421,14 +423,11 @@ export default function QuoteRequestForm() {
           actionLabel: 'เปิดใบเสนอราคา',
           linkType: 'quote',
           linkId: data.id,
-        });
-        // 3) ส่งอีเมลแจ้งทีมขาย
-        notifyAdminsByEmail({
-          subject: `คำขอใบเสนอราคาใหม่ ${data.quote_number}`,
-          status: 'new_quote_request',
+          entityType: 'quote',
+          entityId: data.id,
           customerName: formData.customer_name,
           quoteNumber: data.quote_number,
-          viewUrl: `${window.location.origin}/admin/quotes/${data.id}`,
+          viewUrl: `${origin}/admin/quotes/${data.id}`,
           note: formData.notes || undefined,
         });
       });
