@@ -54,7 +54,7 @@ export default function Unsubscribe() {
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <SEOHead
         title="ยกเลิกรับอีเมล — ENT Group"
-        description="ยกเลิกการรับอีเมลข่าวสารและโปรโมชันจาก ENT Group"
+        description="หน้าสำหรับยกเลิกการรับอีเมลจาก ENT Group"
         path="/unsubscribe"
         noindex
       />

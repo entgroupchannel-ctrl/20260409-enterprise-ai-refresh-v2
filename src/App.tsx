@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
@@ -15,11 +15,6 @@ import ScrollToTop from "./components/ScrollToTop.tsx";
 import SocialRibbon from "./components/SocialRibbon.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import GeneralChatWidget from "./components/chat/GeneralChatWidget.tsx";
-import RequestQuoteFab from "./components/RequestQuoteFab.tsx";
-import WelcomeDialog from "./components/WelcomeDialog.tsx";
-import ContentProtection from "./components/ContentProtection.tsx";
-import MyAccountRedirect from "./components/MyAccountRedirect";
-import EngagementSyncMount from "./components/EngagementSyncMount.tsx";
 
 /* ── Lazy-loaded pages (with auto-retry on chunk errors) ── */
 const GTSeries = lazyRetry(() => import("./pages/GTSeries"));
@@ -39,10 +34,6 @@ const UTCSeries = lazyRetry(() => import("./pages/UTCSeries"));
 const MiniPCFirewall = lazyRetry(() => import("./pages/MiniPCFirewall"));
 const VCloudPoint = lazyRetry(() => import("./pages/VCloudPoint"));
 const AboutUs = lazyRetry(() => import("./pages/AboutUs"));
-const Investors = lazyRetry(() => import("./pages/Investors"));
-const InvestorStrategicVision = lazyRetry(() => import("./pages/InvestorStrategicVision"));
-const InvestorBrief = lazyRetry(() => import("./pages/InvestorBrief"));
-const AdminInvestors = lazyRetry(() => import("./pages/admin/AdminInvestors"));
 const ContactUs = lazyRetry(() => import("./pages/ContactUs"));
 const Warrantys = lazyRetry(() => import("./pages/Warrantys"));
 const Payment = lazyRetry(() => import("./pages/Payment"));
@@ -62,31 +53,12 @@ const Blog = lazyRetry(() => import("./pages/Blog"));
 const BlogDetail = lazyRetry(() => import("./pages/BlogDetail"));
 const NotFound = lazyRetry(() => import("./pages/NotFound"));
 const ShopStorefront = lazyRetry(() => import("./pages/shop/ShopStorefront"));
-const JetsonEdgeAI = lazyRetry(() => import("./pages/JetsonEdgeAI"));
-const JetsonSolutions = lazyRetry(() => import("./pages/JetsonSolutions"));
-const JetsonAIReady = lazyRetry(() => import("./pages/JetsonAIReady"));
-const JetsonCaseStudies = lazyRetry(() => import("./pages/JetsonCaseStudies"));
-const JetsonRecommend = lazyRetry(() => import("./pages/JetsonRecommend"));
-const JetsonProducts = lazyRetry(() => import("./pages/JetsonProducts"));
-const JetsonGPUServer = lazyRetry(() => import("./pages/JetsonGPUServer"));
-const JetsonProfessionalGPU = lazyRetry(() => import("./pages/JetsonProfessionalGPU"));
 const ShopProductDetail = lazyRetry(() => import("./pages/shop/ShopProductDetail"));
 const ShopCompare = lazyRetry(() => import("./pages/shop/ShopCompare"));
 const Unsubscribe = lazyRetry(() => import("./pages/Unsubscribe"));
-const Partner = lazyRetry(() => import("./pages/Partner"));
-const Platform = lazyRetry(() => import("./pages/Platform"));
-const Affiliate = lazyRetry(() => import("./pages/Affiliate"));
-const AffiliateApply = lazyRetry(() => import("./pages/AffiliateApply"));
-const AffiliateRedirect = lazyRetry(() => import("./pages/AffiliateRedirect"));
-const AffiliateDashboard = lazyRetry(() => import("./pages/AffiliateDashboard"));
-const CampaignLanding = lazyRetry(() => import("./pages/CampaignLanding"));
-const PartnerApply = lazyRetry(() => import("./pages/PartnerApply"));
-const PartnerPortal = lazyRetry(() => import("./pages/PartnerPortal"));
 const Login = lazyRetry(() => import("./pages/auth/Login"));
 const Register = lazyRetry(() => import("./pages/auth/Register"));
 const AcceptInvite = lazyRetry(() => import("./pages/auth/AcceptInvite"));
-const ForgotPassword = lazyRetry(() => import("./pages/auth/ForgotPassword"));
-const ResetPassword = lazyRetry(() => import("./pages/auth/ResetPassword"));
 const AdminDashboard = lazyRetry(() => import("./pages/admin/AdminDashboard"));
 const AdminQuotesList = lazyRetry(() => import("./pages/admin/AdminQuotesList"));
 const AdminQuoteDetail = lazyRetry(() => import("./pages/admin/AdminQuoteDetail"));
@@ -118,13 +90,6 @@ const AdminReceiptDetail = lazyRetry(() => import("./pages/admin/AdminReceiptDet
 const AdminContacts = lazyRetry(() => import("./pages/admin/AdminContacts"));
 const AdminCompanySettings = lazyRetry(() => import("./pages/admin/AdminCompanySettings"));
 const AdminProfile = lazyRetry(() => import("./pages/admin/AdminProfile"));
-const AdminPartnerApplications = lazyRetry(() => import("./pages/admin/AdminPartnerApplications"));
-const AdminAffiliatesList = lazyRetry(() => import("./pages/admin/AdminAffiliatesList"));
-const AdminAffiliateDetail = lazyRetry(() => import("./pages/admin/AdminAffiliateDetail"));
-const AdminAffiliateLeads = lazyRetry(() => import("./pages/admin/AdminAffiliateLeads"));
-const AdminAffiliatePayouts = lazyRetry(() => import("./pages/admin/AdminAffiliatePayouts"));
-const AdminPartnerApplicationDetail = lazyRetry(() => import("./pages/admin/AdminPartnerApplicationDetail"));
-const AdminAffiliateHub = lazyRetry(() => import("./pages/admin/AdminAffiliateHub"));
 const ProductDetail = lazyRetry(() => import("./pages/ProductDetail"));
 const QuoteRequestForm = lazyRetry(() => import("./pages/customer/QuoteRequestForm"));
 const MyQuotes = lazyRetry(() => import("./pages/customer/MyQuotes"));
@@ -141,7 +106,6 @@ const UserDashboard = lazyRetry(() => import("./pages/customer/UserDashboard"));
 const CustomerSODetail = lazyRetry(() => import("./pages/customer/CustomerSODetail"));
 const CustomerOrders = lazyRetry(() => import("./pages/customer/CustomerOrders"));
 const NotificationsPage = lazyRetry(() => import("./pages/notifications/NotificationsPage"));
-const NotificationPreferences = lazyRetry(() => import("./pages/customer/NotificationPreferences"));
 const AdminRegisteredProductsList = lazyRetry(() => import("./pages/admin/AdminRegisteredProductsList"));
 const AdminRegisteredProductDetail = lazyRetry(() => import("./pages/admin/AdminRegisteredProductDetail"));
 const MyProducts = lazyRetry(() => import("./pages/customer/MyProducts"));
@@ -155,19 +119,12 @@ const RequestRepairForm = lazyRetry(() => import("./pages/customer/RequestRepair
 const AdminInventory = lazyRetry(() => import("./pages/admin/AdminInventory"));
 const AdminSupplierManagement = lazyRetry(() => import("./pages/admin/AdminSupplierManagement"));
 const AdminSupplierDetail = lazyRetry(() => import("./pages/admin/AdminSupplierDetail"));
-const AdminSupplierTemplates = lazyRetry(() => import("./pages/admin/AdminSupplierTemplates"));
 const AdminInternationalTransfer = lazyRetry(() => import("./pages/admin/AdminInternationalTransfer"));
 const AdminLiveChat = lazyRetry(() => import("./pages/admin/AdminLiveChat"));
 const AdminGeneralChat = lazyRetry(() => import("./pages/admin/AdminGeneralChat"));
 const AdminReports = lazyRetry(() => import("./pages/admin/AdminReports"));
 const AdminSubscribers = lazyRetry(() => import("./pages/admin/AdminSubscribers"));
 const AdminEmailTemplates = lazyRetry(() => import("./pages/admin/AdminEmailTemplates"));
-const AdminEmailLog = lazyRetry(() => import("./pages/admin/AdminEmailLog"));
-const AdminNotificationCoverage = lazyRetry(() => import("./pages/admin/AdminNotificationCoverage"));
-const SharedQuotePage = lazyRetry(() => import("./pages/SharedQuotePage"));
-const SharedInvoicePage = lazyRetry(() => import("./pages/SharedInvoicePage"));
-const SharedTaxInvoicePage = lazyRetry(() => import("./pages/SharedTaxInvoicePage"));
-const SharedReceiptPage = lazyRetry(() => import("./pages/SharedReceiptPage"));
 
 /* ── Loading fallback ── */
 const PageLoader = () => (
@@ -203,15 +160,6 @@ const App = () => (
                 <Suspense fallback={<PageLoader />}>
                   <Routes>
                     <Route path="/" element={<Index />} />
-                    <Route path="/partner" element={<Partner />} />
-                    <Route path="/partners" element={<Partner />} />
-                    <Route path="/partner/apply" element={<PartnerApply />} />
-                    <Route path="/partner/portal" element={<PartnerPortal />} />
-                    <Route path="/affiliate" element={<Affiliate />} />
-                    <Route path="/affiliate/apply" element={<AffiliateApply />} />
-                    <Route path="/affiliate/dashboard" element={<AffiliateDashboard />} />
-                    <Route path="/r/:code" element={<AffiliateRedirect />} />
-                    <Route path="/c/:slug" element={<CampaignLanding />} />
                     <Route path="/gt-series" element={<GTSeries />} />
                     <Route path="/products/:slug" element={<ProductDetail />} />
                     <Route path="/gb-series" element={<GBSeries />} />
@@ -227,15 +175,10 @@ const App = () => (
                     <Route path="/smart-display" element={<SmartDisplay />} />
                     <Route path="/promotions" element={<Promotions />} />
                     <Route path="/utc-series" element={<UTCSeries />} />
-                    <Route path="/mini-pc-firewall" element={<MiniPCFirewall />} />
                     <Route path="/minipc-firewall" element={<Navigate to="/mini-pc-firewall" replace />} />
+                    <Route path="/mini-pc-firewall" element={<MiniPCFirewall />} />
                     <Route path="/vcloudpoint" element={<VCloudPoint />} />
-                    <Route path="/platform" element={<Platform />} />
                     <Route path="/about-us" element={<AboutUs />} />
-                    <Route path="/investors" element={<Investors />} />
-                    <Route path="/investors/strategic-vision" element={<InvestorStrategicVision />} />
-                    <Route path="/investors/brief/:token" element={<InvestorBrief />} />
-                    <Route path="/admin/investors" element={<ProtectedRoute requireAdmin><AdminInvestors /></ProtectedRoute>} />
                     <Route path="/contact" element={<ContactUs />} />
                     <Route path="/warrantys" element={<Warrantys />} />
                     <Route path="/payment" element={<Payment />} />
@@ -251,36 +194,15 @@ const App = () => (
                     <Route path="/aio/:id" element={<AIODetail />} />
                     <Route path="/case-studies" element={<CaseStudies />} />
                     <Route path="/case-studies/:id" element={<CaseStudyDetail />} />
-                    {/* Legacy URL จาก Wix เก่า — redirect → /case-studies (มีส่วน "ภาพผลงานจริง" ฝังอยู่) */}
-                    <Route path="/site-references" element={<Navigate to="/case-studies" replace />} />
-                    <Route path="/site-reference" element={<Navigate to="/case-studies" replace />} />
                     <Route path="/blog" element={<Blog />} />
                     <Route path="/blog/:id" element={<BlogDetail />} />
                     <Route path="/shop" element={<ShopStorefront />} />
-                    <Route path="/jetson" element={<JetsonEdgeAI />} />
-                    <Route path="/nvidia-jetson" element={<JetsonEdgeAI />} />
-                    <Route path="/nvidia-jetson/solutions" element={<JetsonSolutions />} />
-                    <Route path="/nvidia-jetson/ai-ready" element={<JetsonAIReady />} />
-                    <Route path="/nvidia-jetson/case-studies" element={<JetsonCaseStudies />} />
-                    <Route path="/nvidia-jetson/recommend" element={<JetsonRecommend />} />
-                    <Route path="/nvidia-jetson/products" element={<JetsonProducts />} />
-                    <Route path="/nvidia-jetson/gpu-server" element={<JetsonGPUServer />} />
-                    <Route path="/gpu-server" element={<JetsonGPUServer />} />
-                    <Route path="/nvidia-jetson/professional-gpu" element={<JetsonProfessionalGPU />} />
-                    <Route path="/professional-gpu" element={<JetsonProfessionalGPU />} />
-                    <Route path="/product-advisor" element={<JetsonRecommend />} />
                     <Route path="/shop/compare" element={<ShopCompare />} />
                     <Route path="/shop/:slug" element={<ShopProductDetail />} />
                     <Route path="/unsubscribe" element={<Unsubscribe />} />
-                    <Route path="/q/share/:token" element={<SharedQuotePage />} />
-                    <Route path="/inv/share/:token" element={<SharedInvoicePage />} />
-                    <Route path="/tx/share/:token" element={<SharedTaxInvoicePage />} />
-                    <Route path="/rcp/share/:token" element={<SharedReceiptPage />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/invite/:token" element={<AcceptInvite />} />
-                    <Route path="/forgot-password" element={<ForgotPassword />} />
-                    <Route path="/reset-password" element={<ResetPassword />} />
                     <Route path="/admin/dashboard" element={<ProtectedRoute requireSales><AdminDashboard /></ProtectedRoute>} />
                     <Route path="/admin/inventory" element={<ProtectedRoute requireSales><AdminInventory /></ProtectedRoute>} />
                     <Route path="/admin/quotes" element={<ProtectedRoute requireSales><AdminQuotesList /></ProtectedRoute>} />
@@ -297,13 +219,6 @@ const App = () => (
                     <Route path="/admin/employees/:id" element={<ProtectedRoute allowedRoles={['super_admin', 'admin']}><AdminEmployeeDetail /></ProtectedRoute>} />
                     <Route path="/admin/customers" element={<ProtectedRoute requireSales><AdminCustomersList /></ProtectedRoute>} />
                     <Route path="/admin/customers/:id" element={<ProtectedRoute requireSales><AdminCustomerDetail /></ProtectedRoute>} />
-                    <Route path="/admin/partners" element={<ProtectedRoute requireSales><AdminPartnerApplications /></ProtectedRoute>} />
-                    <Route path="/admin/affiliate" element={<ProtectedRoute requireSales><AdminAffiliateHub /></ProtectedRoute>} />
-                    <Route path="/admin/affiliates" element={<ProtectedRoute requireSales><AdminAffiliatesList /></ProtectedRoute>} />
-                    <Route path="/admin/affiliate-leads" element={<ProtectedRoute requireSales><AdminAffiliateLeads /></ProtectedRoute>} />
-                    <Route path="/admin/affiliate-payouts" element={<ProtectedRoute requireSales><AdminAffiliatePayouts /></ProtectedRoute>} />
-                    <Route path="/admin/affiliates/:id" element={<ProtectedRoute requireSales><AdminAffiliateDetail /></ProtectedRoute>} />
-                    <Route path="/admin/partners/:id" element={<ProtectedRoute requireSales><AdminPartnerApplicationDetail /></ProtectedRoute>} />
                     <Route path="/admin/audit-log" element={<ProtectedRoute allowedRoles={['super_admin']}><AdminAuditLog /></ProtectedRoute>} />
                     <Route path="/admin/sale-orders" element={<ProtectedRoute requireSales><AdminSaleOrders /></ProtectedRoute>} />
                     <Route path="/admin/sale-orders/:id" element={<ProtectedRoute requireSales><AdminSaleOrders /></ProtectedRoute>} />
@@ -324,7 +239,6 @@ const App = () => (
                     <Route path="/admin/products" element={<ProtectedRoute requireSales><ProductsList /></ProtectedRoute>} />
                     <Route path="/admin/settings/company" element={<ProtectedRoute requireSales><AdminCompanySettings /></ProtectedRoute>} />
                     <Route path="/admin/suppliers" element={<ProtectedRoute allowedRoles={['super_admin','admin','accountant']}><AdminSupplierManagement /></ProtectedRoute>} />
-                    <Route path="/admin/suppliers/templates" element={<ProtectedRoute allowedRoles={['super_admin','admin','accountant']}><AdminSupplierTemplates /></ProtectedRoute>} />
                     <Route path="/admin/suppliers/:id" element={<ProtectedRoute allowedRoles={['super_admin','admin','accountant']}><AdminSupplierDetail /></ProtectedRoute>} />
                     <Route path="/admin/international-transfer" element={<ProtectedRoute allowedRoles={['super_admin','admin','accountant']}><AdminInternationalTransfer /></ProtectedRoute>} />
                     <Route path="/admin/live-chat" element={<ProtectedRoute requireSales><AdminLiveChat /></ProtectedRoute>} />
@@ -332,8 +246,6 @@ const App = () => (
                     <Route path="/admin/reports" element={<ProtectedRoute allowedRoles={['super_admin','admin','sales','accountant']}><AdminReports /></ProtectedRoute>} />
                     <Route path="/admin/subscribers" element={<ProtectedRoute requireSales><AdminSubscribers /></ProtectedRoute>} />
                     <Route path="/admin/email-templates" element={<ProtectedRoute requireSuperAdmin><AdminEmailTemplates /></ProtectedRoute>} />
-                    <Route path="/admin/email-log" element={<ProtectedRoute allowedRoles={['super_admin','admin']}><AdminEmailLog /></ProtectedRoute>} />
-                    <Route path="/admin/notification-coverage" element={<ProtectedRoute allowedRoles={['super_admin','admin']}><AdminNotificationCoverage /></ProtectedRoute>} />
                    <Route path="/admin/profile" element={<ProtectedRoute requireSales><AdminProfile /></ProtectedRoute>} />
                    <Route path="/admin/settings/profile" element={<ProtectedRoute requireSales><AdminProfile /></ProtectedRoute>} />
                     <Route path="/request-quote" element={<QuoteRequestForm />} />
@@ -355,13 +267,7 @@ const App = () => (
                     <Route path="/my/repairs/new" element={<ProtectedRoute><RequestRepairForm /></ProtectedRoute>} />
                     <Route path="/my/repairs/:id" element={<ProtectedRoute><MyRepairDetail /></ProtectedRoute>} />
                     <Route path="/my-receipts/:id" element={<ProtectedRoute><MyReceiptDetail /></ProtectedRoute>} />
-                    {/* Legacy /my-account/* aliases — redirect to canonical /my-* routes.
-                        Supports email links from notifications (quotes, invoices, tax-invoices, receipts, orders, documents). */}
-                    <Route path="/my-account/:section/*" element={<MyAccountRedirect />} />
-                    <Route path="/my-account/:section" element={<MyAccountRedirect />} />
-                    <Route path="/my-account" element={<MyAccountRedirect />} />
                     <Route path="/notifications" element={<ProtectedRoute><NotificationsPage /></ProtectedRoute>} />
-                    <Route path="/notifications/preferences" element={<ProtectedRoute><NotificationPreferences /></ProtectedRoute>} />
                     <Route path="/profile" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
                     <Route path="/dashboard" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
                     <Route path="/profile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
@@ -369,11 +275,7 @@ const App = () => (
                   </Routes>
                 </Suspense>
                 <SocialRibbon />
-                <RequestQuoteFab />
                 <GeneralChatWidget />
-                <WelcomeDialog />
-                <ContentProtection />
-                <EngagementSyncMount />
                 </CartProvider>
               </BrowserRouter>
             </TooltipProvider>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import SEOHead from "@/components/SEOHead";
 import {
   ArrowLeft, Clock, Tag, Gift, Bell, ChevronDown, ExternalLink,
   Zap, Percent, Calendar, PartyPopper, Sparkles, Timer, FileDown, Flame, Phone
@@ -8,10 +9,21 @@ import promotionsHeroBg from "@/assets/promotions-hero-bg.jpg";
 import promoEmT195Hero from "@/assets/promo-em-t195-hero.jpg";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import FooterCompact from "@/components/FooterCompact";
-import MiniNavbar from "@/components/MiniNavbar";
 import LineQRButton from "@/components/LineQRButton";
-import SEOHead from "@/components/SEOHead";
-import GEOMeta from "@/components/GEOMeta";
+
+/* ───── SEO ───── */
+const promotionsJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "โปรโมชั่นและส่วนลด ENT Group",
+  "url": "https://www.entgroup.co.th/promotions",
+  "description": "รวมโปรโมชั่นพิเศษจาก ENT Group สำหรับ Industrial PC, Mini PC, Rugged Tablet และอุปกรณ์คอมพิวเตอร์อุตสาหกรรม",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "ENT Group",
+    "url": "https://www.entgroup.co.th",
+  },
+};
 
 /* ───── Types ───── */
 type PromoStatus = "active" | "ended" | "recurring";
@@ -262,13 +274,17 @@ const PromoCard = ({ promo, featured = false }: { promo: Promo; featured?: boole
               <img
                 src={promo.image}
                 alt={promo.title}
-                className={`object-contain ${featured ? "max-h-64" : "max-h-48"} hover:scale-105 transition-transform duration-300`}/>
+                className={`object-contain ${featured ? "max-h-64" : "max-h-48"} hover:scale-105 transition-transform duration-300`}
+                loading="lazy"
+              />
             </Link>
           ) : (
             <img
               src={promo.image}
               alt={promo.title}
-              className={`object-contain ${featured ? "max-h-64" : "max-h-48"}`}/>
+              className={`object-contain ${featured ? "max-h-64" : "max-h-48"}`}
+              loading="lazy"
+            />
           )}
         </div>
 
@@ -358,22 +374,22 @@ const Promotions = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead
-        title="โปรโมชั่นพิเศษสำหรับลูกค้าองค์กร — Industrial PC, Mini PC, Rugged Tablet"
-        description="รวมโปรโมชั่นล่าสุดจาก ENT Group — Mini PC, Panel PC, Rugged Tablet, NVIDIA Jetson ราคาพิเศษสำหรับลูกค้าองค์กร โรงงาน หน่วยงานราชการ พร้อมส่งฟรีและรับประกันถึง 3 ปี"
+        title="โปรโมชั่นและส่วนลด Industrial PC, Mini PC, Rugged Tablet — ENT Group"
+        description="รวมโปรโมชั่นพิเศษประจำเดือนจาก ENT Group ส่วนลด Industrial PC, Mini PC, Panel PC, Rugged Tablet และอุปกรณ์คอมพิวเตอร์อุตสาหกรรม พร้อมข้อเสนอสุดคุ้ม"
         path="/promotions"
-        keywords="โปรโมชั่น mini pc, ลด industrial pc, panel pc ราคา, rugged tablet ลด, โปรโมชั่น ENT Group"
+        keywords="โปรโมชั่น ENT Group, ส่วนลด Industrial PC, ส่วนลด Mini PC, โปรโมชั่น Rugged Tablet, ราคาพิเศษ ENT Group, Industrial PC ลดราคา"
+        jsonLd={promotionsJsonLd}
       />
-      <GEOMeta
-        topic="Industrial PC Promotions Thailand"
-        summary="โปรโมชั่นและส่วนลดสินค้าคอมพิวเตอร์อุตสาหกรรมจาก ENT Group สำหรับลูกค้าองค์กรในประเทศไทย รวม Mini PC, Panel PC, Rugged Tablet, NVIDIA Jetson"
-        keyFacts={[
-          "อัพสเปค RAM/SSD ฟรีทุกซีรีส์",
-          "ส่งฟรีทั่วไทยเมื่อสั่งครบ ฿20,000",
-          "รับประกันสูงสุด 3 ปี",
-          "ส่วนลดพิเศษสำหรับสถาบันการศึกษาและหน่วยงานราชการ",
-        ]}
-      />
-      <MiniNavbar />
+      {/* Nav */}
+      <div className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
+        <div className="container max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
+            <ArrowLeft size={16} /> หน้าแรก
+          </Link>
+          <h1 className="text-sm font-bold">​</h1>
+          <div className="w-16" />
+        </div>
+      </div>
 
       {/* Hero */}
       <section className="relative overflow-hidden min-h-[340px] md:min-h-[400px]">
