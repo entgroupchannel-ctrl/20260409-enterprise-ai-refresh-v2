@@ -254,31 +254,28 @@ export default function CreateTaxInvoiceFromInvoiceDialog({
       // 🔔 Notify customer (in-app + email)
       const amountStr = formatCurrency(invoiceTotal);
       if (invoice.customer_id || invoice.customer_email) {
-        import('@/lib/notifications').then(({ createNotification, sendQuoteStatusEmail }) => {
-          if (invoice.customer_id) {
-            createNotification({
-              userId: invoice.customer_id,
-              type: 'tax_invoice_created',
-              title: 'ออกใบกำกับภาษีใหม่',
-              message: `ใบกำกับภาษี ${taxInv.tax_invoice_number} ยอดรวม ${amountStr} บาท`,
-              priority: 'high',
-              actionUrl: `/my-account/tax-invoices/${taxInv.id}`,
-              actionLabel: 'ดูใบกำกับภาษี',
-              linkType: 'tax_invoice',
-              linkId: taxInv.id,
-            });
-          }
-          if (invoice.customer_email) {
-            sendQuoteStatusEmail({
-              recipientEmail: invoice.customer_email,
-              customerName: invoice.customer_name,
-              status: 'tax_invoice_created',
-              invoiceNumber: taxInv.tax_invoice_number,
-              amount: amountStr,
-              viewUrl: `https://www.entgroup.co.th/my-account/tax-invoices/${taxInv.id}`,
-              pdfUrl: pdfShareUrl,
-            });
-          }
+        import('@/lib/notifications').then(({ dispatchNotification }) => {
+          dispatchNotification({
+            eventKey: 'tax_invoice.created',
+            recipientRole: 'customer',
+            recipientUserId: invoice.customer_id || null,
+            recipientEmail: invoice.customer_email || null,
+            title: 'ออกใบกำกับภาษีใหม่',
+            message: `ใบกำกับภาษี ${taxInv.tax_invoice_number} ยอดรวม ${amountStr} บาท`,
+            priority: 'high',
+            actionUrl: `/my-account/tax-invoices/${taxInv.id}`,
+            actionLabel: 'ดูใบกำกับภาษี',
+            linkType: 'tax_invoice',
+            linkId: taxInv.id,
+            entityType: 'tax_invoice',
+            entityId: taxInv.id,
+            customerName: invoice.customer_name,
+            invoiceNumber: taxInv.tax_invoice_number,
+            amount: amountStr,
+            viewUrl: `https://www.entgroup.co.th/my-account/tax-invoices/${taxInv.id}`,
+            pdfUrl: pdfShareUrl,
+            status: 'tax_invoice_created',
+          });
         });
       }
 
