@@ -405,6 +405,7 @@ interface DispatchNotificationParams {
   viewUrl?: string;
   note?: string;
   status?: string;
+  pdfUrl?: string;
 }
 
 /**

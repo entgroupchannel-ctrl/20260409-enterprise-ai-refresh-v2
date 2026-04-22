@@ -78,6 +78,7 @@ interface DispatchPayload {
   viewUrl?: string
   note?: string
   status?: string // overrides default status string for legacy email
+  pdfUrl?: string // NEW — for quote.sent PDF attachment link
 }
 
 type EmailStatus = 'sent' | 'failed' | 'skipped' | 'not_applicable'
@@ -265,6 +266,7 @@ async function sendAdminLegacyEmails(
           amount: p.amount,
           viewUrl: p.viewUrl,
           note: p.note ?? p.message,
+          pdfUrl: p.pdfUrl,
         },
       })
       if (error) {
@@ -332,6 +334,7 @@ async function sendCustomerLegacyEmail(
         amount: p.amount,
         viewUrl: p.viewUrl,
         note: p.note ?? p.message,
+        pdfUrl: p.pdfUrl,
       },
     })
     if (error) {
