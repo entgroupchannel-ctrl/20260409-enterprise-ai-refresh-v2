@@ -792,6 +792,7 @@ export default function AdminQuoteDetail() {
           pdfUrl,
           status: 'sent',
         });
+      })();
 
       toast({
         title: 'ส่งใบเสนอราคาสำเร็จ',
