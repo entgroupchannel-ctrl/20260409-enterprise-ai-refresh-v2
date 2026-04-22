@@ -376,31 +376,28 @@ export default function CreateInvoiceFromSODialog({
       // 🔔 Notify customer (in-app + email)
       const customerUserId = (quote as any)?.user_id || (quote as any)?.created_by;
       if (customerUserId || quote?.customer_email) {
-        import('@/lib/notifications').then(({ createNotification, sendQuoteStatusEmail }) => {
-          if (customerUserId) {
-            createNotification({
-              userId: customerUserId,
-              type: 'invoice_created',
-              title: 'ออกใบวางบิลใหม่',
-              message: `ใบวางบิล ${invoice.invoice_number} ยอดรวม ${formatCurrency(invoice.grand_total)} บาท`,
-              priority: 'high',
-              actionUrl: `/my-account/invoices/${invoice.id}`,
-              actionLabel: 'ดูใบวางบิล',
-              linkType: 'invoice',
-              linkId: invoice.id,
-            });
-          }
-          if (quote?.customer_email) {
-            sendQuoteStatusEmail({
-              recipientEmail: quote.customer_email,
-              customerName: quote.customer_name,
-              status: 'invoice_created',
-              invoiceNumber: invoice.invoice_number,
-              amount: formatCurrency(invoice.grand_total),
-              viewUrl: `https://www.entgroup.co.th/my-account/invoices/${invoice.id}`,
-              pdfUrl: pdfShareUrl,
-            });
-          }
+        import('@/lib/notifications').then(({ dispatchNotification }) => {
+          dispatchNotification({
+            eventKey: 'invoice.created',
+            recipientRole: 'customer',
+            recipientUserId: customerUserId || null,
+            recipientEmail: quote?.customer_email || null,
+            title: 'ออกใบวางบิลใหม่',
+            message: `ใบวางบิล ${invoice.invoice_number} ยอดรวม ${formatCurrency(invoice.grand_total)} บาท`,
+            priority: 'high',
+            actionUrl: `/my-account/invoices/${invoice.id}`,
+            actionLabel: 'ดูใบวางบิล',
+            linkType: 'invoice',
+            linkId: invoice.id,
+            entityType: 'invoice',
+            entityId: invoice.id,
+            customerName: quote?.customer_name,
+            invoiceNumber: invoice.invoice_number,
+            amount: formatCurrency(invoice.grand_total),
+            viewUrl: `https://www.entgroup.co.th/my-account/invoices/${invoice.id}`,
+            pdfUrl: pdfShareUrl,
+            status: 'invoice_created',
+          });
         });
       }
 
