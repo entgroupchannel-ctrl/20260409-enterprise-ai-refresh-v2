@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, AlertCircle, Loader2, MailX } from 'lucide-react';
+import SEOHead from '@/components/SEOHead';
 
 type Status = 'loading' | 'valid' | 'already' | 'invalid' | 'success' | 'error';
 
@@ -51,6 +52,12 @@ export default function Unsubscribe() {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
+      <SEOHead
+        title="ยกเลิกรับอีเมล — ENT Group"
+        description="ยกเลิกการรับอีเมลข่าวสารและโปรโมชันจาก ENT Group"
+        path="/unsubscribe"
+        noindex
+      />
       <div className="max-w-md w-full bg-card rounded-xl border shadow-sm p-8 text-center space-y-4">
         {status === 'loading' && (
           <>
