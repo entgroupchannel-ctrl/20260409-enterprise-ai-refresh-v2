@@ -23,7 +23,7 @@ const ProductGallery = ({ images, alt, autoPlayInterval = 4000 }: ProductGallery
   if (images.length === 0) return null;
 
   if (images.length === 1) {
-    return <img src={images[0]} alt={alt} className="max-h-[240px] object-contain mx-auto" loading="lazy" />;
+    return <img src={images[0]} alt={alt} className="max-h-[240px] object-contain mx-auto"/>;
   }
 
   return (
@@ -37,9 +37,7 @@ const ProductGallery = ({ images, alt, autoPlayInterval = 4000 }: ProductGallery
         <img
           src={images[current]}
           alt={`${alt} - ${current + 1}`}
-          className="max-h-[240px] object-contain transition-opacity duration-500"
-          loading="lazy"
-        />
+          className="max-h-[240px] object-contain transition-opacity duration-500"/>
 
         <button
           type="button"
@@ -77,7 +75,7 @@ const ProductGallery = ({ images, alt, autoPlayInterval = 4000 }: ProductGallery
                 : "border-transparent opacity-60 hover:opacity-100"
             }`}
           >
-            <img src={img} alt="" className="w-full h-full object-contain bg-background/50 p-0.5" loading="lazy" />
+            <img src={img} alt="" className="w-full h-full object-contain bg-background/50 p-0.5"/>
           </button>
         ))}
       </div>

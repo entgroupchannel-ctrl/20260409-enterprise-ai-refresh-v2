@@ -307,7 +307,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: Firewa
               <Checkbox checked={selected} className="h-5 w-5" />
             </button>
           )}
-          <img src={model.image} alt={model.name} className="max-h-full max-w-full object-contain" loading="lazy" />
+          <img src={model.image} alt={model.name} className="max-h-full max-w-full object-contain"/>
         </div>
 
         {/* Info */}
@@ -1068,9 +1068,7 @@ const MiniPCFirewall = () => {
                     title={v.title}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="absolute inset-0 w-full h-full"
-
-                    loading="lazy"></iframe>
+                    className="absolute inset-0 w-full h-full"></iframe>
                 </div>
                 <div className="p-4">
                   <h3 className="text-sm font-bold text-foreground mb-2 leading-tight">{v.title}</h3>

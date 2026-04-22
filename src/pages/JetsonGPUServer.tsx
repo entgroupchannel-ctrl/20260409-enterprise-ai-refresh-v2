@@ -337,7 +337,6 @@ function ProductRow({ p }: { p: Product }) {
           <img
             src={p.image}
             alt={p.name}
-            loading="lazy"
             className="max-w-full max-h-full object-contain"
             onError={(e) => { (e.target as HTMLImageElement).src = "/product-placeholder.svg"; }}
           />

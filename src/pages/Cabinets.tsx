@@ -235,9 +235,7 @@ const Cabinets = () => {
                   <img
                     src={model.image}
                     alt={model.name}
-                    className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
-                    loading="lazy"
-                  />
+                    className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"/>
                 </div>
                 <div className="p-5 space-y-3">
                   <div className="flex items-center justify-between">
@@ -300,7 +298,7 @@ const Cabinets = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {galleryImages.map((img, i) => (
               <div key={i} className="rounded-xl overflow-hidden bg-secondary/30 border border-border">
-                <img src={img} alt={`ตัวอย่างผลงาน ${i + 1}`} className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                <img src={img} alt={`ตัวอย่างผลงาน ${i + 1}`} className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"/>
               </div>
             ))}
           </div>

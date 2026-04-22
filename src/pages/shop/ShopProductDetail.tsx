@@ -503,11 +503,9 @@ const ShopProductDetail = () => {
             <img
               src={b2bWorkflowImage}
               alt="ขั้นตอนการขอใบเสนอราคา B2B — แอดมิน, ตะกร้า, ใบเสนอราคา, รับ PO และส่งสลิปชำระเงิน"
-              loading="lazy"
               width={1600}
               height={896}
-              className="w-full h-auto object-cover"
-            />
+              className="w-full h-auto object-cover"/>
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/95 via-background/60 to-transparent p-4 sm:p-6">
               <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm font-medium">
                 <span className="flex items-center gap-1.5 text-foreground"><Headphones className="w-4 h-4 text-primary" /> ทีมแอดมินดูแล</span>

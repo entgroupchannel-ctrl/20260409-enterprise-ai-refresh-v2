@@ -254,7 +254,7 @@ const SmartDisplay = () => {
                 {indoorProducts.map((p) => (
                   <div key={p.model} className="card-surface p-6 hover:border-primary/30 transition-all hover:-translate-y-1 group">
                     <div className="bg-secondary/30 rounded-xl p-4 mb-4 flex items-center justify-center h-64 overflow-hidden">
-                      <img src={p.image} alt={p.model} className="max-h-full object-contain group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                      <img src={p.image} alt={p.model} className="max-h-full object-contain group-hover:scale-105 transition-transform duration-500"/>
                     </div>
                     <div className="flex items-center justify-between mb-2">
                       <h3 className="text-lg font-bold text-foreground">{p.model}</h3>
@@ -270,10 +270,10 @@ const SmartDisplay = () => {
               {/* Indoor gallery */}
               <div className="mt-10 grid md:grid-cols-2 gap-6">
                 <div className="card-surface overflow-hidden">
-                  <img src="/images/wix/0597a3_9b7b3b7aebd74c67b4ba73ce8cd35d2f_f62f3e54.png" alt="Indoor signage installation" className="w-full object-cover" loading="lazy" />
+                  <img src="/images/wix/0597a3_9b7b3b7aebd74c67b4ba73ce8cd35d2f_f62f3e54.png" alt="Indoor signage installation" className="w-full object-cover"/>
                 </div>
                 <div className="card-surface overflow-hidden">
-                  <img src="/images/wix/0597a3_57760701aff84e30b2efd1cdda15df62_45ac4be2.png" alt="Display showcase" className="w-full object-cover" loading="lazy" />
+                  <img src="/images/wix/0597a3_57760701aff84e30b2efd1cdda15df62_45ac4be2.png" alt="Display showcase" className="w-full object-cover"/>
                 </div>
               </div>
 
@@ -303,9 +303,7 @@ const SmartDisplay = () => {
                   <img
                     src="/images/wix/0597a3_7ae90fd5a4fd425d9cc9efad0a31c636_44990981.png"
                     alt="FPM Series Industrial Touch Monitor"
-                    className="w-full object-contain"
-                    loading="lazy"
-                  />
+                    className="w-full object-contain"/>
                 </div>
 
                 {/* Wide / Square screen comparison */}
@@ -314,17 +312,13 @@ const SmartDisplay = () => {
                     <img
                       src="/images/wix/0597a3_171a07409e364dd4b23631e28628341f_839b524c.png"
                       alt="Wide Screen & Square Screen options"
-                      className="w-full object-contain"
-                      loading="lazy"
-                    />
+                      className="w-full object-contain"/>
                   </div>
                   <div className="card-surface overflow-hidden rounded-xl">
                     <img
                       src="/images/wix/0597a3_2b37f8b836bf40e983200b7d2c7eec55_d29d91f9.png"
                       alt="FPM size options 8-24 inch"
-                      className="w-full object-contain"
-                      loading="lazy"
-                    />
+                      className="w-full object-contain"/>
                   </div>
                 </div>
 
@@ -334,18 +328,14 @@ const SmartDisplay = () => {
                     <img
                       src="/images/wix/0597a3_bd712d6f658443bbb2190fda091ee8b1_de7fec1c.png"
                       alt="Industrial Grade Computer + Touch Screen"
-                      className="w-full object-contain rounded-lg mb-4"
-                      loading="lazy"
-                    />
+                      className="w-full object-contain rounded-lg mb-4"/>
                     <p className="text-sm text-muted-foreground">ส่งมอบประสบการณ์ที่แข็งแกร่ง กับการเลือกใช้ Industrial Grade Computer ร่วมกับหน้าจอ Touch Screen เกรดอุตสาหกรรม</p>
                   </div>
                   <div className="card-surface p-6 rounded-xl">
                     <img
                       src="/images/wix/0597a3_099390617863452cb42bc0e2eeca3ab2_45701297.png"
                       alt="Easy connection USB + HDMI"
-                      className="w-full object-contain rounded-lg mb-4"
-                      loading="lazy"
-                    />
+                      className="w-full object-contain rounded-lg mb-4"/>
                     <p className="text-sm text-muted-foreground">เพียงเสียบสายไฟ USB และ HDMI — เปลี่ยนระบบการทำงานเป็นแบบสัมผัส พร้อมใช้งานทันที</p>
                   </div>
                 </div>
@@ -355,9 +345,7 @@ const SmartDisplay = () => {
                   <img
                     src="/images/wix/0597a3_c6e92eb018a04ed78ef653433323ccc4_23264789.png"
                     alt="FPM17 Special Edition"
-                    className="w-full object-contain"
-                    loading="lazy"
-                  />
+                    className="w-full object-contain"/>
                 </div>
 
                 {/* Mounting options */}
@@ -365,9 +353,7 @@ const SmartDisplay = () => {
                   <img
                     src="/images/wix/0597a3_5bbc918177214812816fca9cac808de6_3497905f.png"
                     alt="VESA Mounting options"
-                    className="w-full object-contain"
-                    loading="lazy"
-                  />
+                    className="w-full object-contain"/>
                 </div>
 
                 {/* Price table */}
@@ -440,7 +426,7 @@ const SmartDisplay = () => {
                     "/images/wix/005637_54259d2f8cf04757bfbf7bbabb983500_8e5061a6.jpg",
                   ].map((src, i) => (
                     <div key={i} className="card-surface overflow-hidden rounded-xl">
-                      <img src={src} alt={`FPM installation ${i + 1}`} className="w-full h-44 object-cover" loading="lazy" />
+                      <img src={src} alt={`FPM installation ${i + 1}`} className="w-full h-44 object-cover"/>
                     </div>
                   ))}
                 </div>
@@ -468,9 +454,7 @@ const SmartDisplay = () => {
                   <img
                     src="/images/wix/0597a3_4b83ca4062e04f0285200f3eba338ebc_8fa8824b.png"
                     alt="Outdoor Monitor 1600 Nits"
-                    className="max-h-[380px] object-contain drop-shadow-xl"
-                    loading="lazy"
-                  />
+                    className="max-h-[380px] object-contain drop-shadow-xl"/>
                 </div>
               </div>
 
@@ -510,7 +494,7 @@ const SmartDisplay = () => {
                   "/images/wix/0597a3_940c7a65cd59495980fe0a7d6fce64da_16e24e8a.png",
                 ].map((src, i) => (
                   <div key={i} className="card-surface overflow-hidden rounded-xl">
-                    <img src={src} alt={`Outdoor installation ${i + 1}`} className="w-full h-full object-cover" loading="lazy" />
+                    <img src={src} alt={`Outdoor installation ${i + 1}`} className="w-full h-full object-cover"/>
                   </div>
                 ))}
               </div>
@@ -559,9 +543,7 @@ const SmartDisplay = () => {
                     <img
                       src="/images/wix/0597a3_f8734b5a7dd9417bb93b82c09df3eccd_307dc478.png"
                       alt="KIOSK สำเร็จรูป"
-                      className="max-h-[400px] object-contain drop-shadow-2xl"
-                      loading="lazy"
-                    />
+                      className="max-h-[400px] object-contain drop-shadow-2xl"/>
                   </div>
                 </div>
               </div>
@@ -582,7 +564,7 @@ const SmartDisplay = () => {
                     <div key={uc.title} className={`rounded-xl overflow-hidden border ${uc.color} hover:shadow-md transition-shadow`}>
 
                       <div className="aspect-[3/2] overflow-hidden">
-                        <img src={uc.image} alt={uc.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
+                        <img src={uc.image} alt={uc.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/>
                       </div>
                       <div className="p-5">
                         <h4 className="font-bold text-foreground text-sm mb-1">{uc.title}</h4>
@@ -605,7 +587,7 @@ const SmartDisplay = () => {
                     "/images/wix/005637_795624203e2d469282900aab60a78bc3_31040573.jpg",
                   ].map((img, i) => (
                     <div key={i} className="rounded-xl overflow-hidden bg-secondary/30 border border-border aspect-[4/3]">
-                      <img src={img} alt={`KIOSK ผลงานจริง ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                      <img src={img} alt={`KIOSK ผลงานจริง ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"/>
                     </div>
                   ))}
                 </div>
@@ -626,7 +608,7 @@ const SmartDisplay = () => {
                   ].map((uc) => (
                     <div key={uc.title} className="card-surface overflow-hidden hover:border-primary/30 transition-all group">
                       <div className="aspect-[3/2] overflow-hidden">
-                        <img src={uc.image} alt={uc.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                        <img src={uc.image} alt={uc.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
                       </div>
                       <div className="p-4">
                         <h4 className="font-bold text-foreground text-sm mb-1">{uc.title}</h4>
@@ -647,7 +629,7 @@ const SmartDisplay = () => {
                 ].map((k) => (
                   <div key={k.title} className="card-surface p-5 hover:border-primary/30 transition-all hover:-translate-y-1 group">
                     <div className="relative bg-secondary/30 rounded-xl p-4 mb-4 flex items-center justify-center h-52 overflow-hidden">
-                      <img src={k.image} alt={k.title} className="max-h-full object-contain group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                      <img src={k.image} alt={k.title} className="max-h-full object-contain group-hover:scale-105 transition-transform duration-500"/>
                     </div>
                     <h3 className="font-bold text-foreground mb-1">{k.title}</h3>
                     <p className="text-sm text-muted-foreground mb-3">{k.desc}</p>
@@ -745,15 +727,11 @@ const SmartDisplay = () => {
                     <img
                       src="/images/wix/005637_bf1ac53c95244bfc9806b0757ab39272_604a8d91.png"
                       alt="KIOSK-GK2101 ด้านหน้า"
-                      className="max-h-[400px] object-contain drop-shadow-xl"
-                      loading="lazy"
-                    />
+                      className="max-h-[400px] object-contain drop-shadow-xl"/>
                     <img
                       src="/images/wix/005637_b48ec7c382e549ad853ae993207d740e_4c97c30b.png"
                       alt="KIOSK-GK2101 ด้านหลัง"
-                      className="max-h-[400px] object-contain drop-shadow-xl"
-                      loading="lazy"
-                    />
+                      className="max-h-[400px] object-contain drop-shadow-xl"/>
                   </div>
                 </div>
               </div>
@@ -770,7 +748,7 @@ const SmartDisplay = () => {
                   ].map((k) => (
                     <div key={k.title} className="card-surface overflow-hidden group hover:border-primary/30 transition-all">
                       <div className="bg-secondary/30 flex items-center justify-center h-72 overflow-hidden">
-                        <img src={k.image} alt={k.title} className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-500 p-4" loading="lazy" />
+                        <img src={k.image} alt={k.title} className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-500 p-4"/>
                       </div>
                       <div className="p-5">
                         <h4 className="font-bold text-foreground mb-1">{k.title}</h4>
@@ -809,9 +787,7 @@ const SmartDisplay = () => {
                     <img
                       src="/images/wix/0597a3_841bc593914c47cfa538b4dd7b57a27e_dad76eaa.png"
                       alt="Kiosk enclosures"
-                      className="max-h-[350px] object-contain"
-                      loading="lazy"
-                    />
+                      className="max-h-[350px] object-contain"/>
                   </div>
                 </div>
               </div>
@@ -841,7 +817,7 @@ const SmartDisplay = () => {
                     "/images/wix/005637_b94be3cae5d74c24bf620dfd192c2738_d7874fbe.jpg",
                   ].map((img, i) => (
                     <div key={i} className="rounded-xl overflow-hidden border border-border">
-                      <img src={img} alt={`ตัวอย่างการติดตั้ง ${i + 1}`} className="w-full h-48 md:h-56 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                      <img src={img} alt={`ตัวอย่างการติดตั้ง ${i + 1}`} className="w-full h-48 md:h-56 object-cover hover:scale-105 transition-transform duration-300"/>
                     </div>
                   ))}
                 </div>
@@ -922,9 +898,7 @@ const SmartDisplay = () => {
                     <img
                       src="/images/wix/0597a3_25107590998d467abb1b5b0f603701f3_2f9ce164.png"
                       alt="Window Display"
-                      className="max-h-[350px] object-contain"
-                      loading="lazy"
-                    />
+                      className="max-h-[350px] object-contain"/>
                   </div>
                 </div>
               </div>
@@ -932,10 +906,10 @@ const SmartDisplay = () => {
               {/* Window product images */}
               <div className="grid sm:grid-cols-2 gap-6">
                 <div className="card-surface overflow-hidden">
-                  <img src="/images/wix/0597a3_ed1ec55afde14b989d99ef11c84769a1_7823dc4c.png" alt="Window display 1" className="w-full object-contain p-4" loading="lazy" />
+                  <img src="/images/wix/0597a3_ed1ec55afde14b989d99ef11c84769a1_7823dc4c.png" alt="Window display 1" className="w-full object-contain p-4"/>
                 </div>
                 <div className="card-surface overflow-hidden">
-                  <img src="/images/wix/0597a3_e63651de999c48969d065ffa5606abab_89cf81f3.png" alt="Window display 2" className="w-full object-contain p-4" loading="lazy" />
+                  <img src="/images/wix/0597a3_e63651de999c48969d065ffa5606abab_89cf81f3.png" alt="Window display 2" className="w-full object-contain p-4"/>
                 </div>
               </div>
 
@@ -944,9 +918,7 @@ const SmartDisplay = () => {
                 <img
                   src="/images/wix/0597a3_394e2528ac014a72a46412c83b1d9acb_e7c706ab.png"
                   alt="Stretched bar display range"
-                  className="w-full object-cover"
-                  loading="lazy"
-                />
+                  className="w-full object-cover"/>
               </div>
             </div>
           )}
@@ -975,9 +947,7 @@ const SmartDisplay = () => {
                 <img
                   src="/images/wix/0597a3_75d6d2e9ade74554add617fef3ccca16_387324f9.png"
                   alt="Windows 10 Pro option"
-                  className="max-h-[260px] object-contain rounded-lg"
-                  loading="lazy"
-                />
+                  className="max-h-[260px] object-contain rounded-lg"/>
               </div>
             </div>
           </div>
@@ -1010,14 +980,14 @@ const SmartDisplay = () => {
           {/* Software screenshots */}
           <div className="grid md:grid-cols-3 gap-4">
             <div className="card-surface overflow-hidden md:col-span-2">
-              <img src="/images/wix/0597a3_4231366e9f4b4e59bc95d622fcf5e76c_810ad320.png" alt="Digital Signage System" className="w-full object-cover" loading="lazy" />
+              <img src="/images/wix/0597a3_4231366e9f4b4e59bc95d622fcf5e76c_810ad320.png" alt="Digital Signage System" className="w-full object-cover"/>
             </div>
             <div className="space-y-4">
               <div className="card-surface overflow-hidden">
-                <img src="/images/wix/0597a3_78e2fe344d5b46a4a0484f6c52ab9df7_fb969f91.png" alt="Software dashboard" className="w-full object-cover" loading="lazy" />
+                <img src="/images/wix/0597a3_78e2fe344d5b46a4a0484f6c52ab9df7_fb969f91.png" alt="Software dashboard" className="w-full object-cover"/>
               </div>
               <div className="card-surface overflow-hidden">
-                <img src="/images/wix/0597a3_ef72e14aac964a4591a8217c825dc8f2_d797cdb4.png" alt="Software device management" className="w-full object-cover" loading="lazy" />
+                <img src="/images/wix/0597a3_ef72e14aac964a4591a8217c825dc8f2_d797cdb4.png" alt="Software device management" className="w-full object-cover"/>
               </div>
             </div>
           </div>
@@ -1097,8 +1067,7 @@ const SmartDisplay = () => {
                       src={`https://www.youtube.com/embed/${v.id}`}
                       title={v.title}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      loading="lazy"></iframe>
+                      allowFullScreen></iframe>
                   </div>
                 </div>
               ))}
@@ -1117,8 +1086,7 @@ const SmartDisplay = () => {
                     title="FPM Touch Monitor"
 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    loading="lazy"></iframe>
+                    allowFullScreen></iframe>
                 </div>
               </div>
             </div>

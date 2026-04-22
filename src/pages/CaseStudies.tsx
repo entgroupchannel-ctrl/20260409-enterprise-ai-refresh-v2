@@ -123,7 +123,7 @@ const CaseStudies = () => {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
           {siteReferenceImages.map((img, i) => (
             <div key={i} className="rounded-lg overflow-hidden border border-border/50 hover:border-primary/30 transition-colors">
-              <img src={img.src} alt={img.alt} className="w-full h-auto object-cover" loading="lazy" />
+              <img src={img.src} alt={img.alt} className="w-full h-auto object-cover"/>
             </div>
           ))}
         </div>
@@ -144,9 +144,7 @@ const CaseStudies = () => {
                   <img
                     src={cs.image}
                     alt={cs.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                   <Badge className="absolute top-3 left-3 bg-primary/90 text-primary-foreground text-xs">
                     <Factory className="w-3 h-3 mr-1" />
@@ -236,7 +234,7 @@ const CaseStudies = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {installationImages.map((img, i) => (
             <div key={i} className="rounded-lg overflow-hidden border border-border/50">
-              <img src={img.src} alt={img.alt} className="w-full h-auto object-cover" loading="lazy" />
+              <img src={img.src} alt={img.alt} className="w-full h-auto object-cover"/>
             </div>
           ))}
         </div>

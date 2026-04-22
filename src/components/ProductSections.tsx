@@ -57,9 +57,7 @@ const ProductSections = () => {
             <img
               src={section.image}
               alt={section.title}
-              className="absolute inset-0 w-full h-full object-cover"
-              loading="lazy"
-            />
+              className="absolute inset-0 w-full h-full object-cover"/>
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
             <div className="relative z-10 p-8 md:p-10 w-full">
               <div className="flex flex-wrap items-end justify-between gap-4">

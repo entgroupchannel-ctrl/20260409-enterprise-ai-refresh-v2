@@ -301,9 +301,7 @@ export default function GeneralChatWidget() {
           <img
             src={msg.attachment_url}
             alt={fileName}
-            className="max-w-[200px] max-h-[160px] rounded-lg object-cover border border-border/50"
-            loading="lazy"
-          />
+            className="max-w-[200px] max-h-[160px] rounded-lg object-cover border border-border/50"/>
           <span className="text-[10px] opacity-70 mt-1 block">{fileName}</span>
         </a>
       );

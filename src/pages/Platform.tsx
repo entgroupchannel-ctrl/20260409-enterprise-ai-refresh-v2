@@ -246,9 +246,7 @@ export default function Platform() {
                   <img
                     src={image}
                     alt={title}
-                    loading="lazy"
-                    className="max-w-full max-h-full object-contain group-hover:scale-[1.03] transition-transform duration-500 rounded-md shadow-sm"
-                  />
+                    className="max-w-full max-h-full object-contain group-hover:scale-[1.03] transition-transform duration-500 rounded-md shadow-sm"/>
                 </div>
                 <div className="p-6 flex-1 flex flex-col">
                   <div className="flex items-center gap-3 mb-3">
@@ -304,9 +302,7 @@ export default function Platform() {
           <img
             src="/images/platform/admin-dashboard.png"
             alt="Admin Dashboard — ภาพรวมระบบหลังบ้าน"
-            loading="lazy"
-            className="w-full h-auto"
-          />
+            className="w-full h-auto"/>
         </div>
       </section>
 

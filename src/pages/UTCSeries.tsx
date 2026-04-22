@@ -277,8 +277,7 @@ const UTCSeries = () => {
                 src="/images/wix/0597a3_1045620b437c41d6ae8a1f76c791ca01_782dc747.png"
                 alt="UTC Series Industrial Panel PC"
                 className="relative w-full max-w-lg mx-auto drop-shadow-xl"
-                loading="eager"
-              />
+                loading="eager"/>
             </div>
           </div>
         </div>
@@ -340,9 +339,7 @@ const UTCSeries = () => {
                 <img
                   src="/images/wix/0597a3_48b4b6dd4b0844f1996977be9733e597_a37ce2a5.png"
                   alt="UTC Square Screen Models"
-                  className="w-full rounded-lg mb-4"
-                  loading="lazy"
-                />
+                  className="w-full rounded-lg mb-4"/>
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li className="flex items-start gap-2"><span className="text-primary mt-0.5">✓</span> พื้นที่แนวตั้งมาก — เหมาะกับ List, Portrait</li>
                   <li className="flex items-start gap-2"><span className="text-primary mt-0.5">✓</span> ประหยัดพื้นที่แนวนอน — พื้นที่จำกัด</li>
@@ -369,9 +366,7 @@ const UTCSeries = () => {
                 <img
                   src="/images/wix/0597a3_52951cbca38c439f8abc10f9e94fa03f_b157e1d3.png"
                   alt="UTC Wide Screen Models"
-                  className="w-full rounded-lg mb-4"
-                  loading="lazy"
-                />
+                  className="w-full rounded-lg mb-4"/>
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li className="flex items-start gap-2"><span className="text-primary mt-0.5">✓</span> พื้นที่แสดงผลกว้างขวาง — ข้อมูลหลายชุดพร้อมกัน</li>
                   <li className="flex items-start gap-2"><span className="text-primary mt-0.5">✓</span> ลดการเปลี่ยนหน้าจอ — เพิ่มประสิทธิภาพ</li>
@@ -394,9 +389,7 @@ const UTCSeries = () => {
             <img
               src="/images/wix/0597a3_48fd1fb952d44775b7bbc10381cd8233_354919d7.png"
               alt="UTC Multi-Display Setup"
-              className="w-full rounded-lg"
-              loading="lazy"
-            />
+              className="w-full rounded-lg"/>
           </div>
         </div>
       </section>
@@ -539,7 +532,7 @@ const UTCSeries = () => {
               "/images/wix/0597a3_5a42fd39caf242459aba8cca293d0946_c83115bc.png",
             ].map((src, i) => (
               <div key={i} className="rounded-xl overflow-hidden card-surface">
-                <img src={src} alt={`UTC Installation ${i + 1}`} className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                <img src={src} alt={`UTC Installation ${i + 1}`} className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"/>
               </div>
             ))}
           </div>
@@ -551,7 +544,7 @@ const UTCSeries = () => {
               "/images/wix/005637_3f34740280de4be0ae521c5e00a002a9_3e45e999.jpg",
             ].map((src, i) => (
               <div key={i} className="rounded-xl overflow-hidden card-surface">
-                <img src={src} alt={`UTC Factory ${i + 1}`} className="w-full h-44 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                <img src={src} alt={`UTC Factory ${i + 1}`} className="w-full h-44 object-cover hover:scale-105 transition-transform duration-300"/>
               </div>
             ))}
           </div>

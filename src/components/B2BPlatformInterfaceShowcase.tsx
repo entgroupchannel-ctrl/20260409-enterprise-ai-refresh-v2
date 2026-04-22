@@ -83,9 +83,7 @@ const B2BPlatformInterfaceShowcase = () => {
                 <img
                   src={image}
                   alt={`ขั้นตอน ${n}: ${title}`}
-                  loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
                 <div className="absolute top-1.5 left-1.5 flex items-center gap-1">
                   <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-background/95 backdrop-blur-sm border text-primary font-black text-[10px] shadow">
                     {n}

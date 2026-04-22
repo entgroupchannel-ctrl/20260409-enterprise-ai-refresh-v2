@@ -409,9 +409,7 @@ export default function CampaignLanding() {
                       <img
                         src={p.image}
                         alt={p.name}
-                        loading="lazy"
-                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
-                      />
+                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"/>
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-muted-foreground">
                         <Package className="w-8 h-8" />

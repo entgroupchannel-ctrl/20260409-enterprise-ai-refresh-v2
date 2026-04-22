@@ -62,10 +62,8 @@ const SoftwareSection = () => {
                   src={h.img}
                   alt={h.label}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
                   width={640}
-                  height={512}
-                />
+                  height={512}/>
               </div>
               <div className="p-4 text-center">
                 <div className="w-9 h-9 mx-auto mb-2 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
@@ -89,10 +87,8 @@ const SoftwareSection = () => {
                   src="/images/wix/0597a3_9e1fa56a9a7c40f9813a78e9e8b4edce_18a08837.jpg"
                   alt="ทีมพัฒนาซอฟต์แวร์"
                   className="w-full rounded-lg transition-transform duration-500 group-hover:scale-[1.02]"
-                  loading="lazy"
                   width={600}
-                  height={450}
-                />
+                  height={450}/>
                 {/* Floating badge */}
                 <div className="absolute bottom-4 left-4 right-4 bg-background/80 backdrop-blur-md rounded-xl p-3 border border-border/50">
                   <div className="flex items-center gap-2">

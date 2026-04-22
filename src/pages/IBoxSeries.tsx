@@ -435,9 +435,7 @@ const IBoxSeries = () => {
                       <img
                         src={model.image}
                         alt={model.name}
-                        className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
-                        loading="lazy"
-                      />
+                        className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"/>
                     </div>
                     <div className="p-5 space-y-3">
                       <div className="flex items-center justify-between">
@@ -490,7 +488,7 @@ const IBoxSeries = () => {
                 {useCasesData.map((uc) => (
                   <div key={uc.title} className="group card-surface overflow-hidden hover:border-primary/30 transition-all">
                     <div className="relative h-44 overflow-hidden">
-                      <img src={uc.image} alt={uc.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                      <img src={uc.image} alt={uc.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                       <div className="absolute bottom-3 left-4 flex items-center gap-2">
                         <div className="w-8 h-8 rounded-lg bg-primary/90 flex items-center justify-center">

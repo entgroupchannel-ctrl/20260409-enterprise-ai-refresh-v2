@@ -42,9 +42,7 @@ const Blog = () => {
                   <img
                     src={post.image}
                     alt={post.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
                   <Badge className="absolute top-3 left-3 bg-primary/90 text-primary-foreground text-xs">
                     {post.category}
                   </Badge>

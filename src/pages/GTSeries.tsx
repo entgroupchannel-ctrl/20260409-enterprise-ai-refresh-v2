@@ -642,7 +642,7 @@ const GTSeries = () => {
           <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
             {galleryImages.map((img, i) => (
               <div key={i} className="overflow-hidden rounded-lg aspect-square">
-                <img src={img} alt={`GT Series สีสัน ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                <img src={img} alt={`GT Series สีสัน ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"/>
               </div>
             ))}
           </div>
@@ -670,7 +670,7 @@ const GTSeries = () => {
           ].map((item, i) => (
             <div key={i} className="group overflow-hidden hover:bg-secondary/40 transition-colors">
               <div className="aspect-square overflow-hidden">
-                <img src={item.img} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" width={640} height={640} />
+                <img src={item.img} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" width={640} height={640}/>
               </div>
               <div className="p-3 text-center">
                 <p className="text-xs font-bold text-foreground mb-1">{item.title}</p>
@@ -968,9 +968,7 @@ const GTSeries = () => {
                     <img
                       src="/images/wezhan/5874413.jpg"
                       alt="GT1000 ด้านหน้า — 2 LAN, HDMI, VGA, MIC, SPK"
-                      className="w-full object-contain p-2"
-                      loading="lazy"
-                    />
+                      className="w-full object-contain p-2"/>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
@@ -980,7 +978,7 @@ const GTSeries = () => {
                       { src: "/images/wezhan/5874419.jpg", alt: "GT1000 ภายใน — Mainboard + WiFi" },
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden rounded-lg bg-muted/30">
-                        <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
+                        <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1"/>
                       </div>
                     ))}
                   </div>
@@ -1082,17 +1080,13 @@ const GTSeries = () => {
                   <img
                     src="/images/wix/3e5003_d438441c66734588bf92c3cb77e08aae_c34db0a8.jpg"
                     alt="GT1000 Connectivity Diagram"
-                    className="w-full rounded-lg"
-                    loading="lazy"
-                  />
+                    className="w-full rounded-lg"/>
                 </div>
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
                   <img
                     src="/images/wix/0597a3_813ed70f44da4e72b1f8d881cd8b30d9_e508c44a.png"
                     alt="GT1000 Port Layout"
-                    className="w-full rounded-lg"
-                    loading="lazy"
-                  />
+                    className="w-full rounded-lg"/>
                 </div>
               </div>
 
@@ -1152,11 +1146,11 @@ const GTSeries = () => {
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
                   <h4 className="font-bold text-foreground mb-3 text-sm"><CircuitBoard size={16} className="inline mr-1 text-primary" />Mainboard และการติดตั้ง</h4>
-                  <img src="/images/gt1000/ports-front.jpg" alt="GT1000 Mainboard และการติดตั้ง" className="w-full rounded-lg" loading="lazy" />
+                  <img src="/images/gt1000/ports-front.jpg" alt="GT1000 Mainboard และการติดตั้ง" className="w-full rounded-lg"/>
                 </div>
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
                   <h4 className="font-bold text-foreground mb-3 text-sm"><Plug size={16} className="inline mr-1 text-primary" />Ports — ด้านหลัง</h4>
-                  <img src="/images/gt1000/ports-rear.jpg" alt="GT1000 Ports ด้านหลัง" className="w-full rounded-lg" loading="lazy" />
+                  <img src="/images/gt1000/ports-rear.jpg" alt="GT1000 Ports ด้านหลัง" className="w-full rounded-lg"/>
                 </div>
               </div>
 
@@ -1169,7 +1163,7 @@ const GTSeries = () => {
                   { src: "/images/gt1000/bottom-view.jpg", alt: "GT1000 ด้านล่าง — VESA Mount" },
                 ].map((img, i) => (
                   <div key={i} className="card-surface overflow-hidden rounded-xl">
-                    <img src={img.src} alt={img.alt} className="w-full aspect-square object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                    <img src={img.src} alt={img.alt} className="w-full aspect-square object-cover hover:scale-105 transition-transform duration-300"/>
                   </div>
                 ))}
               </div>
@@ -1238,9 +1232,7 @@ const GTSeries = () => {
 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="absolute inset-0 w-full h-full"
-
-                        loading="lazy"></iframe>
+                        className="absolute inset-0 w-full h-full"></iframe>
                     </div>
                     <div className="mt-3">
                       <ShareButtons url="https://youtu.be/7wE6fxMpJB4" title="GT1000 Intro — ENT GROUP" />
@@ -1263,9 +1255,7 @@ const GTSeries = () => {
                               title={video.title}
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                               allowFullScreen
-                              className="absolute inset-0 w-full h-full"
-
-                              loading="lazy"></iframe>
+                              className="absolute inset-0 w-full h-full"></iframe>
                           </div>
                           <div className="flex items-center justify-between">
                             <p className="text-xs text-muted-foreground font-medium">{video.title}</p>
@@ -1298,7 +1288,7 @@ const GTSeries = () => {
 
               {/* Factory Application Image */}
               <div className="card-surface overflow-hidden rounded-xl">
-                <img src="/images/gt1000/factory-app.avif" alt="GT1000 Factory Application" className="w-full h-auto rounded-xl" loading="lazy" />
+                <img src="/images/gt1000/factory-app.avif" alt="GT1000 Factory Application" className="w-full h-auto rounded-xl"/>
               </div>
 
               {/* Datasheet CTA */}
@@ -1400,9 +1390,7 @@ const GTSeries = () => {
 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="absolute inset-0 w-full h-full"
-
-                        loading="lazy"></iframe>
+                        className="absolute inset-0 w-full h-full"></iframe>
                     </div>
                     <div className="p-3">
                       <ShareButtons url="https://youtu.be/Z4hTYAIDs2s" title="GT2000 สาธิตการใช้งาน — ENT GROUP" />
@@ -1415,7 +1403,7 @@ const GTSeries = () => {
                       "/images/wix/005637_bade0d66426d44dea1328e1b2eb149b1_eef91dfa.jpg",
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden">
-                        <img src={img} alt={`GT2000 มุมมอง ${i + 2}`} className="w-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                        <img src={img} alt={`GT2000 มุมมอง ${i + 2}`} className="w-full object-cover hover:scale-105 transition-transform duration-300"/>
                       </div>
                     ))}
                   </div>
@@ -1425,7 +1413,7 @@ const GTSeries = () => {
                       "/images/wix/005637_78842837709848ea983945436f0822ee_591fff34.jpg",
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden">
-                        <img src={img} alt={`GT2000 ติดตั้งจริง ${i + 1}`} className="w-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                        <img src={img} alt={`GT2000 ติดตั้งจริง ${i + 1}`} className="w-full object-cover hover:scale-105 transition-transform duration-300"/>
                       </div>
                     ))}
                   </div>
@@ -1455,9 +1443,7 @@ const GTSeries = () => {
                     <img
                       src="/images/wix/3e5003_6bf58ba61ae245ea82f96cb2171fb9b7_16926587.jpg"
                       alt="GT2000 Chassis Cooling"
-                      className="w-full rounded-lg"
-                      loading="lazy"
-                    />
+                      className="w-full rounded-lg"/>
                   </div>
                 </div>
               </div>
@@ -1472,9 +1458,7 @@ const GTSeries = () => {
                     <img
                       src="/images/wix/0597a3_2f4f2a02ac1542fb8ce44f6b78f5c5f9_98c59f5e.png"
                       alt="GT2000 CPU Detail"
-                      className="w-full"
-                      loading="lazy"
-                    />
+                      className="w-full"/>
                   </div>
                   <div>
                     <p className="text-muted-foreground leading-relaxed mb-4">
@@ -1499,17 +1483,13 @@ const GTSeries = () => {
                     <img
                       src="/images/wix/0597a3_126df8ab2d554a9a8b4a6074fe4f7647_c1e10423.png"
                       alt="GT2000 I/O Ports Front"
-                      className="w-full rounded-lg"
-                      loading="lazy"
-                    />
+                      className="w-full rounded-lg"/>
                   </div>
                   <div>
                     <img
                       src="/images/wix/0597a3_dac94b90d7444622918e2fe4f69de597_c78e860e.png"
                       alt="GT2000 I/O Ports Rear"
-                      className="w-full rounded-lg"
-                      loading="lazy"
-                    />
+                      className="w-full rounded-lg"/>
                   </div>
                 </div>
                 <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
@@ -1534,9 +1514,7 @@ const GTSeries = () => {
                 <img
                   src="/images/wix/0597a3_4843a18b6dfe4330bd22479aadd69b1d_771d3c49.png"
                   alt="GT2000 Full Port Diagram"
-                  className="w-full max-w-2xl mx-auto rounded-lg"
-                  loading="lazy"
-                />
+                  className="w-full max-w-2xl mx-auto rounded-lg"/>
               </div>
 
               {/* OS Support */}
@@ -1559,9 +1537,7 @@ const GTSeries = () => {
                     <img
                       src="/images/wix/0597a3_b5efadfa0e7b40619c90fec704966b11_8fec62ed.png"
                       alt="GT2000 OS Support"
-                      className="w-full"
-                      loading="lazy"
-                    />
+                      className="w-full"/>
                   </div>
                 </div>
               </div>
@@ -1575,9 +1551,7 @@ const GTSeries = () => {
                 <img
                   src="/images/wix/0597a3_46573ca6a9a644e29b30118c4f839098_da7c5153.png"
                   alt="GT2000 Dimensions"
-                  className="max-w-sm mx-auto rounded-lg"
-                  loading="lazy"
-                />
+                  className="max-w-sm mx-auto rounded-lg"/>
               </div>
 
               {/* Spec Summary */}
@@ -1586,9 +1560,7 @@ const GTSeries = () => {
                   <img
                     src="/images/wix/0597a3_8cc69bc674294dc9907277ccf8235ad1_e11caf5f.png"
                     alt="GT2000 Spec Summary"
-                    className="w-full max-w-xl mx-auto rounded-lg"
-                    loading="lazy"
-                  />
+                    className="w-full max-w-xl mx-auto rounded-lg"/>
                 </div>
               </div>
 
@@ -1693,9 +1665,7 @@ const GTSeries = () => {
 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="absolute inset-0 w-full h-full"
-
-                        loading="lazy"></iframe>
+                        className="absolute inset-0 w-full h-full"></iframe>
                     </div>
                     <div className="mt-3">
                       <ShareButtons url="https://youtu.be/XLhFAF_8Da4" title="GT2000 Intro — ENT GROUP" />
@@ -1718,9 +1688,7 @@ const GTSeries = () => {
                               title={video.title}
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                               allowFullScreen
-                              className="absolute inset-0 w-full h-full"
-
-                              loading="lazy"></iframe>
+                              className="absolute inset-0 w-full h-full"></iframe>
                           </div>
                           <div className="flex items-center justify-between">
                             <p className="text-xs text-muted-foreground font-medium">{video.title}</p>
@@ -1858,9 +1826,7 @@ const GTSeries = () => {
                     <img
                       src="/images/wezhan/5874079.jpg"
                       alt="GT3000 ด้านหน้า — USB3.0, LAN, VGA, HDMI, COM"
-                      className="w-full object-contain p-2"
-                      loading="lazy"
-                    />
+                      className="w-full object-contain p-2"/>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
@@ -1870,7 +1836,7 @@ const GTSeries = () => {
                       { src: "/images/wezhan/5874080.jpg", alt: "GT3000 ภายใน — Mainboard" },
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden rounded-lg bg-muted/30">
-                        <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
+                        <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1"/>
                       </div>
                     ))}
                   </div>
@@ -1956,17 +1922,13 @@ const GTSeries = () => {
                   <img
                     src={gt3000CpuOptions}
                     alt="GT3000 CPU Options — Celeron, Core i3, i5, i7"
-                    className="w-full rounded-lg"
-                    loading="lazy"
-                  />
+                    className="w-full rounded-lg"/>
                 </div>
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
                   <img
                     src="/images/wix/3e5003_fadd401364de4b7d9e31669c96695798_a2019e77.jpg"
                     alt="GT3000 Connectivity"
-                    className="w-full rounded-lg"
-                    loading="lazy"
-                  />
+                    className="w-full rounded-lg"/>
                 </div>
               </div>
 
@@ -1992,9 +1954,7 @@ const GTSeries = () => {
                     <img
                       src="/images/wezhan/5874076.jpg"
                       alt="GT3000 Heatsink Side View"
-                      className="w-full"
-                      loading="lazy"
-                    />
+                      className="w-full"/>
                   </div>
                 </div>
               </div>
@@ -2010,7 +1970,7 @@ const GTSeries = () => {
                     "/images/wix/005637_60e2fe696a194526af7db7f90b6ac4bd_a0b45c95.jpg",
                   ].map((img, i) => (
                     <div key={i} className="card-surface overflow-hidden aspect-square rounded-xl">
-                      <img src={img} alt={`GT3000 ติดตั้งจริง ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                      <img src={img} alt={`GT3000 ติดตั้งจริง ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"/>
                     </div>
                   ))}
                 </div>
@@ -2066,9 +2026,7 @@ const GTSeries = () => {
 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="absolute inset-0 w-full h-full"
-
-                        loading="lazy"></iframe>
+                        className="absolute inset-0 w-full h-full"></iframe>
                     </div>
                     <div className="mt-3">
                       <ShareButtons url="https://youtu.be/31SEStppvKw" title="GT3000 Intro — ENT GROUP" />
@@ -2091,9 +2049,7 @@ const GTSeries = () => {
                               title={video.title}
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                               allowFullScreen
-                              className="absolute inset-0 w-full h-full"
-
-                              loading="lazy"></iframe>
+                              className="absolute inset-0 w-full h-full"></iframe>
                           </div>
                           <div className="flex items-center justify-between">
                             <p className="text-xs text-muted-foreground font-medium">{video.title}</p>
@@ -2313,9 +2269,7 @@ const GTSeries = () => {
                     <img
                       src="/images/gt4000/front.jpg"
                       alt="GT4000 ด้านหน้า — 6 COM, USB, LAN, VGA, HDMI"
-                      className="w-full object-contain p-2"
-                      loading="lazy"
-                    />
+                      className="w-full object-contain p-2"/>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
@@ -2325,7 +2279,7 @@ const GTSeries = () => {
                       { src: "/images/gt4000/mainboard.jpg", alt: "GT4000 ภายใน — Mainboard" },
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden rounded-lg bg-muted/30">
-                        <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
+                        <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1"/>
                       </div>
                     ))}
                   </div>
@@ -2411,17 +2365,13 @@ const GTSeries = () => {
                   <img
                     src="/images/wix/3e5003_a4726520b0df4492b73e8646990df9ce_c6843bc4.jpg"
                     alt="GT4000 Port Overview"
-                    className="w-full rounded-lg"
-                    loading="lazy"
-                  />
+                    className="w-full rounded-lg"/>
                 </div>
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
                   <img
                     src="/images/wix/3e5003_91111c3b2ffb41c39bb2978c36ccd01c_4c9424b9.jpg"
                     alt="GT4000 Port Detail"
-                    className="w-full rounded-lg"
-                    loading="lazy"
-                  />
+                    className="w-full rounded-lg"/>
                 </div>
               </div>
 
@@ -2487,7 +2437,7 @@ const GTSeries = () => {
                     "/images/wix/3e5003_b5289681b81a4e0dbb4e6bd6e3668f69_e45727bb.jpg",
                   ].map((img, i) => (
                     <div key={i} className="card-surface overflow-hidden rounded-xl aspect-video">
-                      <img src={img} alt={`GT4000 ติดตั้งจริง ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                      <img src={img} alt={`GT4000 ติดตั้งจริง ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"/>
                     </div>
                   ))}
                 </div>
@@ -2510,9 +2460,7 @@ const GTSeries = () => {
 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="w-full h-full"
-
-                    loading="lazy"></iframe>
+                    className="w-full h-full"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT4000 Introduction</span>
@@ -2534,9 +2482,7 @@ const GTSeries = () => {
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="w-full h-full"
-
-                        loading="lazy"></iframe>
+                        className="w-full h-full"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>
@@ -2674,9 +2620,7 @@ const GTSeries = () => {
                     <img
                       src="/images/gt5000/main.jpg"
                       alt="GT5000 ภาพหลัก — ด้านหน้า"
-                      className="w-full object-contain p-2"
-                      loading="lazy"
-                    />
+                      className="w-full object-contain p-2"/>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
@@ -2686,7 +2630,7 @@ const GTSeries = () => {
                       { src: "/images/gt5000/angle.jpg", alt: "GT5000 มุมเอียง — ภาพรวม" },
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden rounded-lg bg-muted/30">
-                        <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
+                        <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1"/>
                       </div>
                     ))}
                   </div>
@@ -2701,7 +2645,7 @@ const GTSeries = () => {
                   { src: "/images/gt5000/spec.jpg", alt: "GT5000 Spec Overview" },
                 ].map((img, i) => (
                   <div key={i} className="card-surface overflow-hidden rounded-lg bg-muted/30">
-                    <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
+                    <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1"/>
                   </div>
                 ))}
               </div>
@@ -3061,9 +3005,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="w-full h-full"
-
-                    loading="lazy"></iframe>
+                    className="w-full h-full"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT5000 Introduction</span>
@@ -3085,9 +3027,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="w-full h-full"
-
-                        loading="lazy"></iframe>
+                        className="w-full h-full"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>
@@ -3213,9 +3153,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <img
                       src="/images/gt6000/main.jpg"
                       alt="GT6000 ภาพหลัก — ด้านหน้า"
-                      className="w-full object-contain p-2"
-                      loading="lazy"
-                    />
+                      className="w-full object-contain p-2"/>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
@@ -3225,7 +3163,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       { src: "/images/gt6000/rear.jpg", alt: "GT6000 ด้านหลัง — พอร์ต" },
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden rounded-lg bg-muted/30">
-                        <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
+                        <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1"/>
                       </div>
                     ))}
                   </div>
@@ -3238,8 +3176,8 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   <Plug size={18} className="inline mr-1 text-primary" />Port Connectivity — ครบจบในเครื่องเดียว
                 </h4>
                 <div className="grid md:grid-cols-2 gap-4 mb-6">
-                  <img src="/images/gt6000/ports1.jpg" alt="GT6000 พอร์ตด้านหน้า" className="w-full rounded-lg" loading="lazy" />
-                  <img src="/images/gt6000/ports2.jpg" alt="GT6000 พอร์ตด้านหลัง" className="w-full rounded-lg" loading="lazy" />
+                  <img src="/images/gt6000/ports1.jpg" alt="GT6000 พอร์ตด้านหน้า" className="w-full rounded-lg"/>
+                  <img src="/images/gt6000/ports2.jpg" alt="GT6000 พอร์ตด้านหลัง" className="w-full rounded-lg"/>
                 </div>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
                   {[
@@ -3266,7 +3204,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   { src: "/images/gt6000/bottom.jpg", alt: "GT6000 ด้านล่าง — VESA Mount" },
                 ].map((img, i) => (
                   <div key={i} className="card-surface overflow-hidden rounded-lg bg-muted/30">
-                    <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
+                    <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1"/>
                   </div>
                 ))}
               </div>
@@ -3280,7 +3218,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   { src: "/images/gt6000/spec-overview.jpg", alt: "GT6000 Spec Overview" },
                 ].map((img, i) => (
                   <div key={i} className="card-surface overflow-hidden rounded-lg bg-muted/30">
-                    <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
+                    <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1"/>
                   </div>
                 ))}
               </div>
@@ -3433,9 +3371,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="w-full h-full"
-
-                    loading="lazy"></iframe>
+                    className="w-full h-full"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT6000 Introduction</span>
@@ -3457,9 +3393,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="w-full h-full"
-
-                        loading="lazy"></iframe>
+                        className="w-full h-full"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>
@@ -3590,9 +3524,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <img
                       src="/images/gt7000/main.jpg"
                       alt="GT7000 ภาพหลัก"
-                      className="w-full object-contain p-2"
-                      loading="lazy"
-                    />
+                      className="w-full object-contain p-2"/>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
@@ -3602,7 +3534,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       { src: "/images/gt7000/rear.jpg", alt: "GT7000 ด้านหลัง" },
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden rounded-lg bg-muted/30">
-                        <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
+                        <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1"/>
                       </div>
                     ))}
                   </div>
@@ -3612,10 +3544,10 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Feature Highlights — 2 คอลัมน์ จาก Wix */}
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="card-surface overflow-hidden rounded-xl">
-                  <img src="/images/gt7000-wix/cost-saving.png" alt="GT7000 ประหยัดต้นทุนระยะยาว" className="w-full h-auto rounded-xl" loading="lazy" />
+                  <img src="/images/gt7000-wix/cost-saving.png" alt="GT7000 ประหยัดต้นทุนระยะยาว" className="w-full h-auto rounded-xl"/>
                 </div>
                 <div className="card-surface overflow-hidden rounded-xl">
-                  <img src="/images/gt7000-wix/ports-overview.png" alt="GT7000 พอร์ตครบครัน พร้อมใช้งานอุตสาหกรรม" className="w-full h-auto rounded-xl" loading="lazy" />
+                  <img src="/images/gt7000-wix/ports-overview.png" alt="GT7000 พอร์ตครบครัน พร้อมใช้งานอุตสาหกรรม" className="w-full h-auto rounded-xl"/>
                 </div>
               </div>
 
@@ -3623,7 +3555,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="card-surface overflow-hidden rounded-xl p-4">
                   <h4 className="font-bold text-foreground mb-3 text-sm"><Package size={16} className="inline mr-1 text-primary" />กะทัดรัด แต่แกร่ง</h4>
-                  <img src="/images/gt7000-wix/compact-design.png" alt="GT7000 Compact Design" className="w-full rounded-lg" loading="lazy" />
+                  <img src="/images/gt7000-wix/compact-design.png" alt="GT7000 Compact Design" className="w-full rounded-lg"/>
                   <ul className="text-xs text-muted-foreground mt-3 space-y-1">
                     <li>• ขนาดเล็กเท่ากล่องรองเท้า 23×17.5×5 ซม.</li>
                     <li>• ติดตั้งง่าย ประหยัดพื้นที่</li>
@@ -3632,7 +3564,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 </div>
                 <div className="card-surface overflow-hidden rounded-xl p-4">
                   <h4 className="font-bold text-foreground mb-3 text-sm"><Flame size={16} className="inline mr-1 text-primary" />ครีบระบายความร้อนพิเศษ</h4>
-                  <img src="/images/gt7000-wix/heatsink.png" alt="GT7000 Heatsink Design" className="w-full rounded-lg" loading="lazy" />
+                  <img src="/images/gt7000-wix/heatsink.png" alt="GT7000 Heatsink Design" className="w-full rounded-lg"/>
                   <ul className="text-xs text-muted-foreground mt-3 space-y-1">
                     <li>• ไม่ต้องใช้พัดลม — เงียบสนิท 0 dB</li>
                     <li>• ทนความร้อนสูงถึง 70°C</li>
@@ -3644,16 +3576,16 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Spec Detail + Use Case — 2 คอลัมน์ */}
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="card-surface overflow-hidden rounded-xl">
-                  <img src="/images/gt7000-wix/spec-detail.png" alt="GT7000 Specifications Detail" className="w-full h-auto rounded-xl" loading="lazy" />
+                  <img src="/images/gt7000-wix/spec-detail.png" alt="GT7000 Specifications Detail" className="w-full h-auto rounded-xl"/>
                 </div>
                 <div className="card-surface overflow-hidden rounded-xl">
-                  <img src="/images/gt7000-wix/use-case.png" alt="GT7000 Use Case Applications" className="w-full h-auto rounded-xl" loading="lazy" />
+                  <img src="/images/gt7000-wix/use-case.png" alt="GT7000 Use Case Applications" className="w-full h-auto rounded-xl"/>
                 </div>
               </div>
 
               {/* Application Gallery — Full Width */}
               <div className="card-surface overflow-hidden rounded-xl">
-                <img src="/images/gt7000-wix/factory-app.jpg" alt="GT7000 Factory Automation Application" className="w-full h-auto rounded-xl" loading="lazy" />
+                <img src="/images/gt7000-wix/factory-app.jpg" alt="GT7000 Factory Automation Application" className="w-full h-auto rounded-xl"/>
               </div>
 
               {/* Port Connectivity */}
@@ -3681,7 +3613,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Application Scenarios — 2 คอลัมน์ */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="card-surface overflow-hidden rounded-xl">
-                  <img src="/images/gt7000-wix/app-restaurant.jpg" alt="GT7000 Restaurant & POS Application" className="w-full h-48 object-cover" loading="lazy" />
+                  <img src="/images/gt7000-wix/app-restaurant.jpg" alt="GT7000 Restaurant & POS Application" className="w-full h-48 object-cover"/>
                   <div className="p-5">
                     <h4 className="font-bold text-foreground mb-3">🍽️ ระบบร้านอาหาร & POS</h4>
                     <ul className="text-sm text-muted-foreground space-y-2">
@@ -3693,10 +3625,10 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 </div>
                 <div className="card-surface overflow-hidden rounded-xl">
                   <div className="grid grid-cols-2 gap-1">
-                    <img src="/images/gt7000-wix/install1.jpg" alt="GT7000 Installation 1" className="w-full h-24 object-cover" loading="lazy" />
-                    <img src="/images/gt7000-wix/install2.jpg" alt="GT7000 Installation 2" className="w-full h-24 object-cover" loading="lazy" />
-                    <img src="/images/gt7000-wix/install3.jpg" alt="GT7000 Installation 3" className="w-full h-24 object-cover" loading="lazy" />
-                    <img src="/images/gt7000-wix/install4.jpg" alt="GT7000 Installation 4" className="w-full h-24 object-cover" loading="lazy" />
+                    <img src="/images/gt7000-wix/install1.jpg" alt="GT7000 Installation 1" className="w-full h-24 object-cover"/>
+                    <img src="/images/gt7000-wix/install2.jpg" alt="GT7000 Installation 2" className="w-full h-24 object-cover"/>
+                    <img src="/images/gt7000-wix/install3.jpg" alt="GT7000 Installation 3" className="w-full h-24 object-cover"/>
+                    <img src="/images/gt7000-wix/install4.jpg" alt="GT7000 Installation 4" className="w-full h-24 object-cover"/>
                   </div>
                   <div className="p-5">
                     <h4 className="font-bold text-foreground mb-3"><Factory size={16} className="inline mr-1 text-primary" />ระบบโรงงานอัตโนมัติ</h4>
@@ -3829,9 +3761,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="w-full h-full"
-
-                    loading="lazy"></iframe>
+                    className="w-full h-full"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT7000 Introduction</span>
@@ -3853,9 +3783,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="w-full h-full"
-
-                        loading="lazy"></iframe>
+                        className="w-full h-full"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>
@@ -4008,9 +3936,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <img
                       src="/images/gt8000/main.jpg"
                       alt="GT8000 ภาพหลัก"
-                      className="w-full object-contain p-2"
-                      loading="lazy"
-                    />
+                      className="w-full object-contain p-2"/>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
@@ -4020,7 +3946,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       { src: "/images/gt8000/internal.jpg", alt: "GT8000 ภายใน — Mainboard" },
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden rounded-lg bg-muted/30">
-                        <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
+                        <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1"/>
                       </div>
                     ))}
                   </div>
@@ -4030,7 +3956,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Factory Gallery — Bottom */}
               <div className="grid md:grid-cols-3 gap-4">
                 <div className="card-surface overflow-hidden rounded-lg bg-muted/30">
-                  <img src="/images/gt8000/bottom.jpg" alt="GT8000 ด้านล่าง — VESA Mount" className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1" loading="lazy" />
+                  <img src="/images/gt8000/bottom.jpg" alt="GT8000 ด้านล่าง — VESA Mount" className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1"/>
                 </div>
               </div>
 
@@ -4176,9 +4102,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="w-full h-full"
-
-                    loading="lazy"></iframe>
+                    className="w-full h-full"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT8000 Introduction</span>
@@ -4201,9 +4125,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="w-full h-full"
-
-                        loading="lazy"></iframe>
+                        className="w-full h-full"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>
@@ -4341,7 +4263,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       { src: "/images/gt9000/motherboard.png", alt: "GT9000 เมนบอร์ด" },
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden">
-                        <img src={img.src} alt={img.alt} className="w-full h-32 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                        <img src={img.src} alt={img.alt} className="w-full h-32 object-cover hover:scale-105 transition-transform duration-300"/>
                       </div>
                     ))}
                   </div>
@@ -4398,9 +4320,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 <img
                   src="/images/wix/0597a3_b68e0174e2b54d39b0bdf80ae71118e5_dbbc6602.png"
                   alt="GT9000 Product Overview"
-                  className="w-full rounded-lg"
-                  loading="lazy"
-                />
+                  className="w-full rounded-lg"/>
               </div>
 
               <div className="grid md:grid-cols-2 gap-4">
@@ -4418,7 +4338,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   "/images/wix/0597a3_d89ddcc7673d4492ad64911fb4825364_6535d1f1.png",
                 ].map((img, i) => (
                   <div key={i} className="card-surface p-3 overflow-hidden">
-                    <img src={img} alt={`GT9000 Detail ${i + 1}`} className="w-full rounded-lg" loading="lazy" />
+                    <img src={img} alt={`GT9000 Detail ${i + 1}`} className="w-full rounded-lg"/>
                   </div>
                 ))}
               </div>
@@ -4432,7 +4352,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   "/images/wix/005637_bf02ab6305244e028d18bbb27984eb3c_fbcfe5d0.jpg",
                 ].map((img, i) => (
                   <div key={i} className="card-surface overflow-hidden">
-                    <img src={img} alt={`GT9000 ใช้งานจริง ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                    <img src={img} alt={`GT9000 ใช้งานจริง ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"/>
                   </div>
                 ))}
               </div>
@@ -4547,9 +4467,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="w-full h-full"
-
-                    loading="lazy"></iframe>
+                    className="w-full h-full"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT9000 Introduction</span>
@@ -4571,9 +4489,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="w-full h-full"
-
-                        loading="lazy"></iframe>
+                        className="w-full h-full"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>
@@ -4714,17 +4630,13 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <img
                       src="/images/wix/0597a3_aea4cee9a1cb431b90886aa5b64e1f96_60f4ae42.png"
                       alt="GT4500 Front"
-                      className="w-full object-contain p-4"
-                      loading="lazy"
-                    />
+                      className="w-full object-contain p-4"/>
                   </div>
                   <div className="card-surface overflow-hidden">
                     <img
                       src="/images/wix/0597a3_2901e68aa51b482697a1d4c4fa9fc320_8f38391a.png"
                       alt="GT4500 Rear Ports"
-                      className="w-full object-contain p-4"
-                      loading="lazy"
-                    />
+                      className="w-full object-contain p-4"/>
                   </div>
                 </div>
               </div>
@@ -4757,9 +4669,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 <img
                   src={gt4500CpuOptions}
                   alt="GT4500 CPU Options"
-                  className="w-full rounded-lg"
-                  loading="lazy"
-                />
+                  className="w-full rounded-lg"/>
               </div>
 
               {/* Software Compatibility */}
@@ -4784,9 +4694,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                     <img
                       src="/images/wix/0597a3_840c03acd28147a89285de218f3a0a25_25c7410d.png"
                       alt="GT4500 Software"
-                      className="w-full"
-                      loading="lazy"
-                    />
+                      className="w-full"/>
                   </div>
                 </div>
               </div>
@@ -4801,9 +4709,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 <img
                   src="/images/wix/3e5003_5146d29438c1469084384085311877b6_98f6e0e9.jpg"
                   alt="GT4500 Heatsink"
-                  className="w-full rounded-lg"
-                  loading="lazy"
-                />
+                  className="w-full rounded-lg"/>
               </div>
 
               {/* Port Diagram */}
@@ -4812,9 +4718,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 <img
                   src="/images/wix/3e5003_fa1b7c0241e1439796bca055fb8c927d_880a3b61.jpg"
                   alt="GT4500 Port Layout"
-                  className="w-full rounded-lg mb-4"
-                  loading="lazy"
-                />
+                  className="w-full rounded-lg mb-4"/>
                 <div className="grid md:grid-cols-3 gap-4 px-2">
                   <div className="text-sm">
                     <h5 className="font-bold text-foreground mb-1">พอร์ตสื่อสาร</h5>
@@ -4841,15 +4745,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   <img
                     src="/images/wix/3e5003_b7535d8168ab4f7d8d657a3eef999b12_d9722688.jpg"
                     alt="GT4500 Dimensions"
-                    className="rounded-lg w-full"
-                    loading="lazy"
-                  />
+                    className="rounded-lg w-full"/>
                   <img
                     src="/images/wix/0597a3_c6c89af9190c48b992640615c77efcee_341c4637.png"
                     alt="GT4500 VESA Mount"
-                    className="rounded-lg w-full"
-                    loading="lazy"
-                  />
+                    className="rounded-lg w-full"/>
                 </div>
               </div>
 
@@ -4947,9 +4847,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       key={idx}
                       src={src}
                       alt={`GT4500 การใช้งานจริง ${idx + 1}`}
-                      className="w-full h-auto rounded-lg hover:scale-105 transition-transform duration-300"
-                      loading="lazy"
-                    />
+                      className="w-full h-auto rounded-lg hover:scale-105 transition-transform duration-300"/>
                   ))}
                 </div>
               </div>
@@ -4971,9 +4869,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="w-full h-full"
-
-                    loading="lazy"></iframe>
+                    className="w-full h-full"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT4500 Introduction</span>
@@ -4996,9 +4892,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="w-full h-full"
-
-                        loading="lazy"></iframe>
+                        className="w-full h-full"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>
@@ -5116,7 +5010,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       { src: "/images/gt1400/internal.jpg", alt: "GT1400 ภายใน" },
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden">
-                        <img src={img.src} alt={img.alt} className="w-full h-32 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                        <img src={img.src} alt={img.alt} className="w-full h-32 object-cover hover:scale-105 transition-transform duration-300"/>
                       </div>
                     ))}
                   </div>
@@ -5127,11 +5021,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="card-surface p-4 overflow-hidden">
                   <h4 className="font-bold text-foreground mb-3 px-2 text-sm"><Plug size={16} className="inline mr-1 text-primary" />Ports & Connectivity</h4>
-                  <img src="/images/gt1400/ports.png" alt="GT1400 Ports Layout" className="w-full rounded-lg" loading="lazy" />
+                  <img src="/images/gt1400/ports.png" alt="GT1400 Ports Layout" className="w-full rounded-lg"/>
                 </div>
                 <div className="card-surface p-4 overflow-hidden">
                   <h4 className="font-bold text-foreground mb-3 px-2 text-sm"><Ruler size={16} className="inline mr-1 text-primary" />Dimension Drawing</h4>
-                  <img src="/images/gt1400/dimension.png" alt="GT1400 Dimension" className="w-full rounded-lg" loading="lazy" />
+                  <img src="/images/gt1400/dimension.png" alt="GT1400 Dimension" className="w-full rounded-lg"/>
                 </div>
               </div>
 
@@ -5278,9 +5172,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="w-full h-full"
-
-                    loading="lazy"></iframe>
+                    className="w-full h-full"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT1400 Introduction</span>
@@ -5302,9 +5194,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="w-full h-full"
-
-                        loading="lazy"></iframe>
+                        className="w-full h-full"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>
@@ -5436,7 +5326,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       { src: "/images/gt1300/internal.jpg", alt: "GT1300 ภายใน" },
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden">
-                        <img src={img.src} alt={img.alt} className="w-full h-32 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                        <img src={img.src} alt={img.alt} className="w-full h-32 object-cover hover:scale-105 transition-transform duration-300"/>
                       </div>
                     ))}
                   </div>
@@ -5446,10 +5336,10 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Feature Highlights + Ports — 2 คอลัมน์ */}
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="card-surface overflow-hidden rounded-xl">
-                  <img src="/images/gt1300/feature-hdmi.png" alt="GT1300 Support 3x HDMI Triple Display" className="w-full h-auto rounded-xl" loading="lazy" />
+                  <img src="/images/gt1300/feature-hdmi.png" alt="GT1300 Support 3x HDMI Triple Display" className="w-full h-auto rounded-xl"/>
                 </div>
                 <div className="card-surface overflow-hidden rounded-xl">
-                  <img src="/images/gt1300/feature-dustproof.png" alt="GT1300 Industrial-Grade Dust-Proof and Corrosion-Resistant" className="w-full h-auto rounded-xl" loading="lazy" />
+                  <img src="/images/gt1300/feature-dustproof.png" alt="GT1300 Industrial-Grade Dust-Proof and Corrosion-Resistant" className="w-full h-auto rounded-xl"/>
                 </div>
               </div>
 
@@ -5457,11 +5347,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
                   <h4 className="font-bold text-foreground mb-3 text-sm"><Plug size={16} className="inline mr-1 text-primary" />Ports — ด้านหน้า</h4>
-                  <img src="/images/gt1300/ports-detail1.jpg" alt="GT1300 Ports ด้านหน้า" className="w-full rounded-lg" loading="lazy" />
+                  <img src="/images/gt1300/ports-detail1.jpg" alt="GT1300 Ports ด้านหน้า" className="w-full rounded-lg"/>
                 </div>
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
                   <h4 className="font-bold text-foreground mb-3 text-sm"><Plug size={16} className="inline mr-1 text-primary" />Ports — ด้านหลัง</h4>
-                  <img src="/images/gt1300/ports-detail2.jpg" alt="GT1300 Ports ด้านหลัง" className="w-full rounded-lg" loading="lazy" />
+                  <img src="/images/gt1300/ports-detail2.jpg" alt="GT1300 Ports ด้านหลัง" className="w-full rounded-lg"/>
                 </div>
               </div>
 
@@ -5469,7 +5359,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
                   <h4 className="font-bold text-foreground mb-3 text-sm"><Ruler size={16} className="inline mr-1 text-primary" />Dimension Drawing</h4>
-                  <img src="/images/gt1300/dimension.jpg" alt="GT1300 Dimension" className="w-full rounded-lg" loading="lazy" />
+                  <img src="/images/gt1300/dimension.jpg" alt="GT1300 Dimension" className="w-full rounded-lg"/>
                 </div>
               </div>
 
@@ -5545,9 +5435,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="w-full h-full"
-
-                    loading="lazy"></iframe>
+                    className="w-full h-full"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT1300 Introduction</span>
@@ -5569,9 +5457,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="w-full h-full"
-
-                        loading="lazy"></iframe>
+                        className="w-full h-full"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>
@@ -5670,7 +5556,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       { src: "/images/gt1200/internal.jpg", alt: "GT1200 ภายใน" },
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden">
-                        <img src={img.src} alt={img.alt} className="w-full h-32 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
+                        <img src={img.src} alt={img.alt} className="w-full h-32 object-cover hover:scale-105 transition-transform duration-300"/>
                       </div>
                     ))}
                   </div>
@@ -5681,11 +5567,11 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
                   <h4 className="font-bold text-foreground mb-3 text-sm"><Plug size={16} className="inline mr-1 text-primary" />Ports — ด้านหน้า</h4>
-                  <img src="/images/gt1200/ports-front.jpg" alt="GT1200 Ports ด้านหน้า" className="w-full rounded-lg" loading="lazy" />
+                  <img src="/images/gt1200/ports-front.jpg" alt="GT1200 Ports ด้านหน้า" className="w-full rounded-lg"/>
                 </div>
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
                   <h4 className="font-bold text-foreground mb-3 text-sm"><Plug size={16} className="inline mr-1 text-primary" />Ports — ด้านหลัง</h4>
-                  <img src="/images/gt1200/ports-rear.jpg" alt="GT1200 Ports ด้านหลัง" className="w-full rounded-lg" loading="lazy" />
+                  <img src="/images/gt1200/ports-rear.jpg" alt="GT1200 Ports ด้านหลัง" className="w-full rounded-lg"/>
                 </div>
               </div>
 
@@ -5736,10 +5622,10 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
               {/* Dimension Drawings */}
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="card-surface p-4 overflow-hidden">
-                  <img src="/images/gt1200/dimension1.jpg" alt="GT1200 Dimension Front" className="w-full rounded-lg" loading="lazy" />
+                  <img src="/images/gt1200/dimension1.jpg" alt="GT1200 Dimension Front" className="w-full rounded-lg"/>
                 </div>
                 <div className="card-surface p-4 overflow-hidden">
-                  <img src="/images/gt1200/dimension2.jpg" alt="GT1200 Dimension Side" className="w-full rounded-lg" loading="lazy" />
+                  <img src="/images/gt1200/dimension2.jpg" alt="GT1200 Dimension Side" className="w-full rounded-lg"/>
                 </div>
               </div>
 
@@ -5857,9 +5743,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="w-full h-full"
-
-                    loading="lazy"></iframe>
+                    className="w-full h-full"></iframe>
                 </div>
                 <div className="p-3 flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground">GT1200 Introduction</span>
@@ -5881,9 +5765,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                         title={v.label}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        className="w-full h-full"
-
-                        loading="lazy"></iframe>
+                        className="w-full h-full"></iframe>
                     </div>
                     <div className="p-3 flex items-center justify-between">
                       <span className="text-xs font-semibold text-foreground truncate">{v.label}</span>
@@ -5994,9 +5876,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
             <img
               src="/images/wix/3e5003_9a0970ee1f4f4d9aa2f4f3fef18faeb5_b40f0eb8.jpg"
               alt="GT Series รวม"
-              className="w-full h-auto"
-              loading="lazy"
-            />
+              className="w-full h-auto"/>
           </div>
         </div>
       </section>
@@ -6138,9 +6018,7 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
       <img
         src={model.image}
         alt={model.name}
-        className="max-h-[160px] object-contain group-hover:scale-105 transition-transform duration-300"
-        loading="lazy"
-      />
+        className="max-h-[160px] object-contain group-hover:scale-105 transition-transform duration-300"/>
     </div>
     <div className="p-5">
       <h3 className="text-xl font-display font-bold text-foreground mb-1 group-hover:text-primary transition-colors flex items-center gap-2">
