@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { createNotification, sendQuoteStatusEmail } from '@/lib/notifications';
+import { dispatchNotification } from '@/lib/notifications';
 import { useAuth } from '@/hooks/useAuth';
 import {
   Trash2, ArrowLeft, RotateCcw, AlertTriangle, Search,
@@ -273,33 +273,28 @@ export default function AdminTrash() {
         customerEmail = cust?.email || null;
       }
 
-      // 2) Notify customer (in-app + email) — fire-and-forget BEFORE permanent delete
+      // 2) 🔔 Notify customer (in-app + email) — fire-and-forget BEFORE permanent delete
       const reason = permReceiptTarget.delete_reason || 'ลบถาวรโดยผู้ดูแลระบบ';
-      if (rcpRow?.customer_id) {
-        createNotification({
-          userId: rcpRow.customer_id,
-          type: 'receipt_cancelled',
-          title: `ใบเสร็จ ${rcpRow.receipt_number} ถูกลบถาวร`,
-          message: `เหตุผล: ${reason}`,
-          priority: 'high',
-          linkType: 'receipt',
-          linkId: rcpRow.id,
-        });
-      }
-      if (customerEmail) {
-        const origin = typeof window !== 'undefined' ? window.location.origin : '';
-        sendQuoteStatusEmail({
-          recipientEmail: customerEmail,
-          customerName: rcpRow?.customer_name || rcpRow?.customer_company || undefined,
-          invoiceNumber: rcpRow?.receipt_number || permReceiptTarget.receipt_number,
-          status: 'cancelled',
-          amount: rcpRow?.amount ? String(rcpRow.amount) : undefined,
-          viewUrl: origin || undefined,
-          note: `ใบเสร็จรับเงินถูกลบถาวรจากระบบ — เหตุผล: ${reason}`,
-          relatedType: 'receipt',
-          relatedId: permReceiptTarget.id,
-        });
-      }
+      const origin = typeof window !== 'undefined' ? window.location.origin : '';
+      await dispatchNotification({
+        eventKey: 'receipt.cancelled',
+        recipientRole: 'customer',
+        recipientUserId: rcpRow?.customer_id || null,
+        recipientEmail: customerEmail || null,
+        title: `ใบเสร็จ ${rcpRow?.receipt_number} ถูกลบถาวร`,
+        message: `เหตุผล: ${reason}`,
+        priority: 'high',
+        linkType: 'receipt',
+        linkId: rcpRow?.id,
+        entityType: 'receipt',
+        entityId: permReceiptTarget.id,
+        customerName: rcpRow?.customer_name || rcpRow?.customer_company || undefined,
+        invoiceNumber: rcpRow?.receipt_number || permReceiptTarget.receipt_number,
+        amount: rcpRow?.amount ? String(rcpRow.amount) : undefined,
+        viewUrl: origin || undefined,
+        note: `ใบเสร็จรับเงินถูกลบถาวรจากระบบ — เหตุผล: ${reason}`,
+        status: 'cancelled',
+      });
 
       // 3) Permanent delete
       const { data, error } = await (supabase as any).rpc('permanent_delete_receipt', {

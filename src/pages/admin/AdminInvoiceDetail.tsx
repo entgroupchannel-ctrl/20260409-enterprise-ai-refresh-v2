@@ -15,7 +15,7 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { supabase } from '@/integrations/supabase/client';
-import { createNotification, sendQuoteStatusEmail } from '@/lib/notifications';
+import { dispatchNotification } from '@/lib/notifications';
 import { useToast } from '@/hooks/use-toast';
 import {
   ArrowLeft, Loader2, Printer, Send, CircleCheckBig, Ban, FileText,
@@ -153,34 +153,29 @@ export default function AdminInvoiceDetail() {
     });
     setCancelReason('');
 
-    // Notify customer (in-app + email) — fire-and-forget
-    if (invoice?.customer_id) {
-      createNotification({
-        userId: invoice.customer_id,
-        type: 'invoice_cancelled',
-        title: `ใบวางบิล ${invoice.invoice_number} ถูกยกเลิก`,
-        message: `เหตุผล: ${reason}`,
-        priority: 'high',
-        actionUrl: `/my-invoices/${invoice.id}`,
-        actionLabel: 'ดูรายละเอียด',
-        linkType: 'invoice',
-        linkId: invoice.id,
-      });
-    }
-    if (invoice?.customer_email) {
-      const origin = typeof window !== 'undefined' ? window.location.origin : '';
-      sendQuoteStatusEmail({
-        recipientEmail: invoice.customer_email,
-        customerName: invoice.customer_name || invoice.customer_company || undefined,
-        invoiceNumber: invoice.invoice_number,
-        status: 'cancelled',
-        amount: invoice.grand_total ? String(invoice.grand_total) : undefined,
-        viewUrl: origin ? `${origin}/my-invoices/${invoice.id}` : undefined,
-        note: `ใบวางบิลถูกยกเลิกโดยผู้ดูแลระบบ — เหตุผล: ${reason}`,
-        relatedType: 'invoice',
-        relatedId: invoice.id,
-      });
-    }
+    // 🔔 Notify customer (in-app + email) — fire-and-forget
+    const origin = typeof window !== 'undefined' ? window.location.origin : '';
+    await dispatchNotification({
+      eventKey: 'invoice.cancelled',
+      recipientRole: 'customer',
+      recipientUserId: invoice?.customer_id || null,
+      recipientEmail: invoice?.customer_email || null,
+      title: `ใบวางบิล ${invoice?.invoice_number} ถูกยกเลิก`,
+      message: `เหตุผล: ${reason}`,
+      priority: 'high',
+      actionUrl: `/my-invoices/${invoice?.id}`,
+      actionLabel: 'ดูรายละเอียด',
+      linkType: 'invoice',
+      linkId: invoice?.id,
+      entityType: 'invoice',
+      entityId: invoice?.id,
+      customerName: invoice?.customer_name || invoice?.customer_company || undefined,
+      invoiceNumber: invoice?.invoice_number,
+      amount: invoice?.grand_total ? String(invoice.grand_total) : undefined,
+      viewUrl: origin ? `${origin}/my-invoices/${invoice?.id}` : undefined,
+      note: `ใบวางบิลถูกยกเลิกโดยผู้ดูแลระบบ — เหตุผล: ${reason}`,
+      status: 'cancelled',
+    });
   };
 
   const handlePrint = () => {
