@@ -243,14 +243,22 @@ const ContactUs = () => {  const [lang, setLang] = useState<Lang>("th");
       }
 
       // Notify admins about new contact form submission
-      import('@/lib/notifications').then(({ notifyAdmins, sendAutoReplyEmail }) => {
-        notifyAdmins({
-          type: 'new_contact',
+      const origin = typeof window !== 'undefined' ? window.location.origin : '';
+      import('@/lib/notifications').then(({ dispatchNotification, sendAutoReplyEmail }) => {
+        dispatchNotification({
+          eventKey: 'contact.submitted',
+          recipientRole: 'admin',
           title: 'มีข้อความใหม่จากฟอร์มติดต่อ',
           message: `${form.name} (${form.email}) — ${form.message.substring(0, 80)}`,
           priority: 'high',
           actionUrl: '/admin/contacts',
           actionLabel: 'ดูรายละเอียด',
+          linkType: 'contact',
+          linkId: contactData?.id,
+          entityType: 'contact',
+          entityId: contactData?.id,
+          customerName: form.name,
+          viewUrl: `${origin}/admin/contacts`,
         });
         // Send confirmation email to customer via Resend
         sendAutoReplyEmail({
