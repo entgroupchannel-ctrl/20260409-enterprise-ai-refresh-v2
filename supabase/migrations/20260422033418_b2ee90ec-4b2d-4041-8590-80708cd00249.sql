@@ -1,0 +1,3 @@
+DELETE FROM email_send_log WHERE created_at > '2026-04-22 03:33:00' AND created_at < '2026-04-22 03:34:00' AND recipient_email IN ('adisak@entgroup.co.th','unthikarn@entgroup.co.th','rungarun@entgroup.co.th','therdpoom@entgroup.co.th','entgroupchannel@gmail.com');
+DELETE FROM notification_dispatch_log WHERE idempotency_key = 'restore-verify-prod-1';
+DELETE FROM notifications WHERE title = '[RESTORE-VERIFY] Production mode test';
