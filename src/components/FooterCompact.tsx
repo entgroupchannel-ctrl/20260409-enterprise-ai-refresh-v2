@@ -18,7 +18,7 @@ const socials = [
 
 const quickLinks = [
   { label: "GT Series", href: "/gt-series", icon: Server },
-  { label: "Mini PC Firewall", href: "/minipc-firewall", icon: ShieldCheck },
+  { label: "Mini PC Firewall", href: "/mini-pc-firewall", icon: ShieldCheck },
   { label: "Panel PC", href: "/panel-pc-gtg", icon: Monitor },
   { label: "Rugged Tablet", href: "/rugged-tablet", icon: Tablet },
   { label: "vCloudPoint", href: "/vcloudpoint", icon: Cloud },

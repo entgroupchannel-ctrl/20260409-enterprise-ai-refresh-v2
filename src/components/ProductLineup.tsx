@@ -119,15 +119,15 @@ const lineupCategories = [
     title: "Mini PC Firewall",
     subtitle: "Network Security Appliance",
     icon: Shield,
-    href: "/minipc-firewall",
+    href: "/mini-pc-firewall",
     image: imgFirewall,
     models: [
-      { name: "GT194L", href: "/minipc-firewall" },
-      { name: "GT196L", href: "/minipc-firewall" },
-      { name: "IPC068", href: "/minipc-firewall" },
+      { name: "GT194L", href: "/mini-pc-firewall" },
+      { name: "GT196L", href: "/mini-pc-firewall" },
+      { name: "IPC068", href: "/mini-pc-firewall" },
     ],
     cta: [
-      { label: "ดูทั้งหมด", href: "/minipc-firewall", icon: BarChart3, primary: true },
+      { label: "ดูทั้งหมด", href: "/mini-pc-firewall", icon: BarChart3, primary: true },
     ],
   },
 ];

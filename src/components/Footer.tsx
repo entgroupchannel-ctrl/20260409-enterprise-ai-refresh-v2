@@ -124,7 +124,7 @@ const footerSections: { title: string; links: FooterLink[] }[] = [
       { label: "GPU Server", href: "/gpu-server" },
       { label: "Professional GPU", href: "/professional-gpu" },
       { label: "ตัวช่วยเลือกสินค้า (Product Advisor)", href: "/product-advisor" },
-      { label: "Mini PC Firewall", href: "/minipc-firewall" },
+      { label: "Mini PC Firewall", href: "/mini-pc-firewall" },
       { label: "Volktek — Network Switch", href: "/volktek" },
       { label: "vCloudPoint — Zero Client", href: "/vcloudpoint" },
     ],

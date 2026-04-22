@@ -105,7 +105,7 @@ const categories = [
     subtitle: "Network Security Appliance",
     description: "Firewall สำหรับทุกขนาดองค์กร pfSense / OPNsense Ready",
     icon: Shield,
-    href: "/minipc-firewall",
+    href: "/mini-pc-firewall",
     models: ["GT194L", "GT196L", "IPC068", "IPC090"],
     badge: "Hot",
     image: imgFirewall,

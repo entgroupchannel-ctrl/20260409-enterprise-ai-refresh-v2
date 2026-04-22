@@ -19,7 +19,7 @@ const searchIndex = [
   { keywords: ["panel pc", "touch screen", "จอสัมผัส", "หน้าจอ"], label: "Panel PC GTG Touch", href: "/panel-pc-gtg" },
   { keywords: ["tablet", "rugged tablet", "แท็บเล็ต", "กันน้ำ", "ทนทาน"], label: "Rugged Tablet", href: "/rugged-tablet" },
   { keywords: ["handheld", "pda", "มือถือ", "สแกน"], label: "Rugged Handheld", href: "/handheld" },
-  { keywords: ["firewall", "network", "เครือข่าย", "ไฟร์วอลล์", "vpn", "pfsense", "opnsense"], label: "Mini PC Firewall", href: "/minipc-firewall" },
+  { keywords: ["firewall", "network", "เครือข่าย", "ไฟร์วอลล์", "vpn", "pfsense", "opnsense"], label: "Mini PC Firewall", href: "/mini-pc-firewall" },
   { keywords: ["volktek", "switch", "สวิตช์", "industrial switch", "โรงงาน"], label: "Volktek Industrial Switch", href: "/volktek" },
   { keywords: ["vcloudpoint", "zero client", "thin client", "ประหยัด"], label: "vCloudPoint Zero Client", href: "/vcloudpoint" },
   { keywords: ["smart display", "digital signage", "ป้ายดิจิตอล"], label: "Smart Display", href: "/smart-display" },
@@ -36,7 +36,7 @@ const searchTags = [
   { label: "Mini PC สำนักงาน", href: "/mini-pc" },
   { label: "Industrial PC ทนร้อนทนฝุ่น", href: "/gt-series" },
   { label: "Panel PC จอสัมผัสโรงงาน", href: "/panel-pc-gtg" },
-  { label: "Firewall สำหรับ SME", href: "/minipc-firewall" },
+  { label: "Firewall สำหรับ SME", href: "/mini-pc-firewall" },
   { label: "Zero Client ประหยัดพลังงาน", href: "/vcloudpoint" },
   { label: "Rugged Tablet กันน้ำกันกระแทก", href: "/rugged-tablet" },
 ];
