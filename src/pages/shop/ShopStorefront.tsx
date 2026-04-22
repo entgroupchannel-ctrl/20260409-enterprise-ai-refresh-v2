@@ -66,7 +66,7 @@ const seriesNavItems = [
   { id: 'iBox Series', label: 'iBox Series', icon: '🔧', sub: 'Embedded PC', link: '/ibox-series', image: imgSeriesIBox },
   { id: 'Mini PC', label: 'Mini PC', icon: '💻', sub: 'Compact Desktop', link: '/mini-pc', image: imgSeriesMiniPC },
   { id: 'Rugged', label: 'Rugged', icon: '🔒', sub: 'IP65/67 Tablet', link: '/rugged-tablet', image: imgSeriesRugged },
-  { id: 'Firewall', label: 'Firewall', icon: '🛡️', sub: 'Multi-LAN Router', link: '/minipc-firewall', image: imgSeriesFirewall },
+  { id: 'Firewall', label: 'Firewall', icon: '🛡️', sub: 'Multi-LAN Router', link: '/mini-pc-firewall', image: imgSeriesFirewall },
 ];
 
 const ShopStorefront = () => {

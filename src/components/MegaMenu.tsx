@@ -73,7 +73,7 @@ const menuCategories = [
     featured: {
       title: "Mini PC Firewall",
       desc: "pfSense / OPNsense Ready — Fanless 2.5G/10G พร้อม Smart Filter",
-      href: "/minipc-firewall",
+      href: "/mini-pc-firewall",
       badge: "Smart Filter",
       image: imgFirewall,
     },
@@ -81,10 +81,10 @@ const menuCategories = [
       {
         heading: "Firewall & Router",
         links: [
-          { label: "Mini PC Firewall — 10 รุ่น", href: "/minipc-firewall", hot: true },
-          { label: "GT194L — 2.5G Best Seller", href: "/minipc-firewall" },
-          { label: "IPC068 — N100 Fanless", href: "/minipc-firewall" },
-          { label: "IPC090 — Xeon 10G SFP+", href: "/minipc-firewall" },
+          { label: "Mini PC Firewall — 10 รุ่น", href: "/mini-pc-firewall", hot: true },
+          { label: "GT194L — 2.5G Best Seller", href: "/mini-pc-firewall" },
+          { label: "IPC068 — N100 Fanless", href: "/mini-pc-firewall" },
+          { label: "IPC090 — Xeon 10G SFP+", href: "/mini-pc-firewall" },
         ],
       },
       {
@@ -257,7 +257,7 @@ const menuCategories = [
         links: [
           { label: "Mini PC — Office & SME", href: "/mini-pc", hot: true },
           { label: "ตารางราคา Mini PC", href: "/mini-pc" },
-          { label: "Mini PC Firewall", href: "/minipc-firewall" },
+          { label: "Mini PC Firewall", href: "/mini-pc-firewall" },
         ],
       },
       {
@@ -293,7 +293,7 @@ const b2bBanners: Record<string, { icon: typeof Headset; title: string; desc: st
 
 const promoBanners: Record<string, { image: string; title: string; desc: string; href: string }> = {
   industrial: { image: bannerIndustrial, title: "Mini PC Fanless เกรดอุตสาหกรรม", desc: "ถึก ทน แกร่ง — 12 รุ่นครอบคลุมทุกงาน", href: "/gt-series" },
-  network: { image: bannerNetwork, title: "Firewall & Network Security", desc: "pfSense / OPNsense Ready — ปกป้องเครือข่ายของคุณ", href: "/minipc-firewall" },
+  network: { image: bannerNetwork, title: "Firewall & Network Security", desc: "pfSense / OPNsense Ready — ปกป้องเครือข่ายของคุณ", href: "/mini-pc-firewall" },
   display: { image: bannerDisplay, title: "Smart Display & Digital Signage", desc: "จอ Indoor/Outdoor ความสว่างสูง พร้อมซอฟต์แวร์ฟรี", href: "/smart-display" },
   rugged: { image: bannerRugged, title: "Rugged Tablet & Notebook", desc: "กันน้ำ กันกระแทก MIL-STD — สำหรับภาคสนาม", href: "/rugged-tablet" },
   solution: { image: bannerSolution, title: "vCloudPoint Zero Client", desc: "1 เครื่อง PC รองรับ 30 คน — ลดต้นทุน 60%", href: "/vcloudpoint" },

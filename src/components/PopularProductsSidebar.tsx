@@ -9,7 +9,7 @@ const searchTags = [
   { label: "Mini PC สำนักงาน", href: "/mini-pc" },
   { label: "Industrial PC ทนร้อนทนฝุ่น", href: "/gt-series" },
   { label: "Panel PC จอสัมผัสโรงงาน", href: "/panel-pc-gtg" },
-  { label: "Firewall สำหรับ SME", href: "/minipc-firewall" },
+  { label: "Firewall สำหรับ SME", href: "/mini-pc-firewall" },
   { label: "Zero Client ประหยัดพลังงาน", href: "/vcloudpoint" },
   { label: "Rugged Tablet กันน้ำกันกระแทก", href: "/rugged-tablet" },
 ];
