@@ -125,6 +125,9 @@ const AdminGeneralChat = lazyRetry(() => import("./pages/admin/AdminGeneralChat"
 const AdminReports = lazyRetry(() => import("./pages/admin/AdminReports"));
 const AdminSubscribers = lazyRetry(() => import("./pages/admin/AdminSubscribers"));
 const AdminEmailTemplates = lazyRetry(() => import("./pages/admin/AdminEmailTemplates"));
+const Investors = lazyRetry(() => import("./pages/Investors"));
+const InvestorStrategicVision = lazyRetry(() => import("./pages/InvestorStrategicVision"));
+const InvestorBrief = lazyRetry(() => import("./pages/InvestorBrief"));
 
 /* ── Loading fallback ── */
 const PageLoader = () => (
