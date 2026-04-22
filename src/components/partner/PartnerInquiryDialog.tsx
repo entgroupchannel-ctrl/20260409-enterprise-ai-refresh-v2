@@ -157,7 +157,7 @@ export default function PartnerInquiryDialog({ open, onOpenChange }: PartnerInqu
             ) : (
               <div className="space-y-2">
                 <div className="relative rounded-lg overflow-hidden border border-border">
-                  <img src={cardPreview} alt="นามบัตร" className="w-full h-auto max-h-40 object-contain bg-white"  loading="lazy" decoding="async"/>
+                  <img src={cardPreview} alt="นามบัตร" className="w-full h-auto max-h-40 object-contain bg-white" />
                   {scanning && (
                     <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
                       <div className="flex items-center gap-2 text-white text-sm">

@@ -561,7 +561,7 @@ function CartPickerStep({
                   className={`flex items-center gap-2 p-2 rounded-md border text-left hover:border-primary hover:bg-primary/5 transition-colors ${inCart ? "border-primary bg-primary/5" : "border-border"}`}
                 >
                   <div className="w-10 h-10 rounded bg-muted flex items-center justify-center shrink-0 overflow-hidden">
-                    {p.image ? <img src={p.image} alt={p.name} className="w-full h-full object-cover"  loading="lazy" decoding="async"/> : <Package className="w-4 h-4 text-muted-foreground" />}
+                    {p.image ? <img src={p.image} alt={p.name} className="w-full h-full object-cover" /> : <Package className="w-4 h-4 text-muted-foreground" />}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="text-xs font-medium truncate">{p.model}</div>

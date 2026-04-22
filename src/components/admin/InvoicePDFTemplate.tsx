@@ -116,7 +116,7 @@ export default function InvoicePDFTemplate({
       <div className="flex justify-between items-start mb-8 pb-4 border-b-2 border-blue-600">
         <div className="flex items-start gap-4 flex-1">
           {companyInfo.logo_url && (
-            <img src={companyInfo.logo_url} alt={companyInfo.name_th} className="w-20 h-20 object-contain"  loading="lazy" decoding="async"/>
+            <img src={companyInfo.logo_url} alt={companyInfo.name_th} className="w-20 h-20 object-contain" />
           )}
           <div>
             <h1 className="text-2xl font-bold text-blue-600 mb-1">{companyInfo.name_th}</h1>
@@ -325,7 +325,7 @@ export default function InvoicePDFTemplate({
         <div className="text-center">
           {salePerson?.signature_url && salePerson?.show_signature_on_quotes !== false ? (
             <div>
-              <img src={salePerson.signature_url} alt="ลายเซ็น" className="max-h-16 mx-auto mb-1"  loading="lazy" decoding="async"/>
+              <img src={salePerson.signature_url} alt="ลายเซ็น" className="max-h-16 mx-auto mb-1" />
               <div className="border-t border-gray-400 w-48 mx-auto pt-1">
                 <p className="text-sm font-medium">{salePerson.full_name || 'ผู้วางบิล'}</p>
                 {salePerson.position && <p className="text-xs text-gray-600">{salePerson.position}</p>}

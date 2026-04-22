@@ -29,7 +29,7 @@ const BlogDetail = () => {
 
       {/* Hero */}
       <div className="relative h-64 md:h-80">
-        <img src={post.image} alt={post.title} className="w-full h-full object-cover"  loading="lazy" decoding="async"/>
+        <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10">
           <div className="container mx-auto max-w-4xl">

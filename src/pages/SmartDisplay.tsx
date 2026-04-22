@@ -189,7 +189,7 @@ const SmartDisplay = () => {
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <img src={smartDisplayHero} alt="" className="w-full h-full object-cover" width={1920} height={900}  loading="lazy" decoding="async"/>
+          <img src={smartDisplayHero} alt="" className="w-full h-full object-cover" width={1920} height={900} />
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-black/20" />
         </div>

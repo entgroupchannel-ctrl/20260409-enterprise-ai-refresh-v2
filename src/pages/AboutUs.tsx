@@ -139,7 +139,7 @@ const AboutUs = () => {
           className="absolute inset-0 w-full h-full object-cover"
           width={1920}
           height={640}
-         loading="lazy" decoding="async"/>
+        />
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/30" />
         <div className="relative z-10 container max-w-6xl mx-auto px-4 py-16 md:py-24">
           <h1 className="text-3xl md:text-5xl font-display font-bold text-white mb-4">

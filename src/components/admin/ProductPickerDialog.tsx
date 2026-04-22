@@ -261,7 +261,7 @@ export default function ProductPickerDialog({ open, onOpenChange, onSelect }: Pr
                           src={p.thumbnail_url || p.image_url || ''}
                           alt={p.name}
                           className="w-16 h-16 object-cover rounded border bg-white"
-                         loading="lazy" decoding="async"/>
+                        />
                       ) : (
                         <div className="w-16 h-16 rounded border bg-muted flex items-center justify-center">
                           <Package className="w-6 h-6 text-muted-foreground" />

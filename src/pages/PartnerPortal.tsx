@@ -102,7 +102,7 @@ export default function PartnerPortal() {
       <header className="border-b bg-background/80 backdrop-blur sticky top-0 z-10">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between gap-4">
           <Link to="/" className="flex items-center gap-3 min-w-0">
-            <img src={logo} alt="ENT Group" className="h-9 w-auto"  loading="lazy" decoding="async"/>
+            <img src={logo} alt="ENT Group" className="h-9 w-auto" />
             <span className="hidden sm:inline text-xs text-muted-foreground truncate">
               B2B Industrial Platform — แพลตฟอร์มจัดซื้ออุตสาหกรรมแบบครบวงจร
             </span>

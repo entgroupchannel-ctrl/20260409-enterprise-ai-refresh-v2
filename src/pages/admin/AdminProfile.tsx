@@ -292,7 +292,7 @@ export default function AdminProfile() {
                         src={data.signature_url}
                         alt="Signature"
                         className="max-h-32 mx-auto"
-                       loading="lazy" decoding="async"/>
+                      />
                       <p className="text-xs text-center text-muted-foreground mt-2">
                         ขนาดที่แนะนำ: 400×140 px (PNG พื้นหลังโปร่งใส)
                       </p>
@@ -361,7 +361,7 @@ export default function AdminProfile() {
                       src={data.avatar_url}
                       alt="Avatar"
                       className="w-24 h-24 rounded-full object-cover border"
-                     loading="lazy" decoding="async"/>
+                    />
                   ) : (
                     <div className="w-24 h-24 rounded-full border-2 border-dashed flex items-center justify-center text-muted-foreground">
                       <User className="w-8 h-8" />

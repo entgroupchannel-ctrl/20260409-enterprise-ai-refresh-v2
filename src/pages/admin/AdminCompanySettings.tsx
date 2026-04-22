@@ -610,7 +610,7 @@ export default function AdminCompanySettings() {
                         src={settings.logo_url}
                         alt="Logo"
                         className="w-32 h-32 object-contain border rounded-lg bg-white p-2"
-                       loading="lazy" decoding="async"/>
+                      />
                     ) : (
                       <div className="w-32 h-32 border-2 border-dashed rounded-lg flex items-center justify-center text-muted-foreground">
                         <ImageIcon className="w-8 h-8" />

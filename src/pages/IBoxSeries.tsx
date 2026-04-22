@@ -276,7 +276,7 @@ const IBoxSeries = () => {
 
       {/* Banner */}
       <div className="relative h-48 md:h-64 overflow-hidden">
-        <img src={bannerIBox} alt="iBox Series — Industrial Mini PC" className="w-full h-full object-cover"  loading="lazy" decoding="async"/>
+        <img src={bannerIBox} alt="iBox Series — Industrial Mini PC" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
         <div className="absolute inset-0 flex items-center">
           <div className="container max-w-7xl mx-auto px-6">

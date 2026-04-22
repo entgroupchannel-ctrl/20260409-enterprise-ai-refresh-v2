@@ -487,7 +487,7 @@ export default function PartnerApply() {
             </Link>
             <div className="h-6 w-px bg-border" />
             <Link to="/" className="flex items-center gap-3">
-              <img src={logo} alt="ENT GROUP" className="h-8 w-auto"  loading="lazy" decoding="async"/>
+              <img src={logo} alt="ENT GROUP" className="h-8 w-auto" />
               <div className="hidden md:flex flex-col leading-tight">
                 <span className="text-[11px] font-semibold text-foreground">ENT Group</span>
                 <span className="text-[10px] text-muted-foreground">B2B Industrial Platform</span>
@@ -732,7 +732,7 @@ function Stage1({ data, update, L, capitalCurrency, setCapitalCurrency }: any) {
         ) : (
           <div className="space-y-2">
             <div className="relative rounded-lg overflow-hidden border border-border">
-              <img src={cardPreview} alt="นามบัตร" className="w-full h-auto max-h-40 object-contain bg-white"  loading="lazy" decoding="async"/>
+              <img src={cardPreview} alt="นามบัตร" className="w-full h-auto max-h-40 object-contain bg-white" />
               {scanning && (
                 <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
                   <div className="flex items-center gap-2 text-white text-sm">

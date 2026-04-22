@@ -788,7 +788,7 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
                 alt={p.model}
                 className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-300"
                 style={{ aspectRatio: '1/1' }}
-                onError={() = loading="lazy" decoding="async"> setImgSrc('/placeholder.svg')}
+                onError={() => setImgSrc('/placeholder.svg')}
               />
             </Link>
             <div className="flex-1 p-4 flex flex-col justify-between min-w-0">

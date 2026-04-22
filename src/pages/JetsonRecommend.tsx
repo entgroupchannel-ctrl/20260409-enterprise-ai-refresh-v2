@@ -531,7 +531,7 @@ export default function JetsonRecommend() {
                       {selectedCompare.map(p => (
                         <th key={p.id} className="p-4 border-b min-w-[180px]">
                           <div className="flex flex-col items-center gap-2">
-                            <img src={p.image} alt={p.name} className="w-16 h-16 object-contain" onError={e = loading="lazy" decoding="async"> { (e.target as HTMLImageElement).src = "/product-placeholder.svg"; }} />
+                            <img src={p.image} alt={p.name} className="w-16 h-16 object-contain" onError={e => { (e.target as HTMLImageElement).src = "/product-placeholder.svg"; }} />
                             <Link to={p.link} className="font-semibold hover:opacity-80 text-xs text-center" style={{ color: NV }}>{p.name}</Link>
                             {p.badge && <span className="text-[9px] font-bold px-2 py-0.5 rounded-full uppercase" style={{ background: NV, color: NV_NAVY }}>{p.badge}</span>}
                           </div>

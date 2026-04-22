@@ -296,7 +296,7 @@ export default function ConfirmPaymentDialog({
             ) : (
               <div className="relative border border-border rounded-lg overflow-hidden">
                 {previewUrl ? (
-                  <img src={previewUrl} alt="Preview" className="w-full max-h-64 object-contain bg-gray-50"  loading="lazy" decoding="async"/>
+                  <img src={previewUrl} alt="Preview" className="w-full max-h-64 object-contain bg-gray-50" />
                 ) : (
                   <div className="p-4 flex items-center gap-3 bg-muted/40">
                     <ImageIcon className="w-8 h-8 text-muted-foreground" />

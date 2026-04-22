@@ -17,7 +17,7 @@ export default function ProductSearchCard({ product, isAdded, onAdd }: ProductSe
             src={product.image}
             alt={product.model}
             className="w-12 h-12 object-contain rounded border border-border bg-background shrink-0"
-           loading="lazy" decoding="async"/>
+          />
         ) : (
           <div className="w-12 h-12 bg-muted rounded flex items-center justify-center shrink-0">
             <Package className="w-5 h-5 text-muted-foreground" />

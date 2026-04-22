@@ -350,7 +350,7 @@ export default function ProductDetail() {
           {/* Main image */}
           <div className="aspect-square bg-muted/30 rounded-lg border flex items-center justify-center overflow-hidden relative group">
             {galleryImages.length > 0 ? (
-              <img src={galleryImages[selectedImage] || galleryImages[0]} alt={product.model} className="w-full h-full object-contain"  loading="lazy" decoding="async"/>
+              <img src={galleryImages[selectedImage] || galleryImages[0]} alt={product.model} className="w-full h-full object-contain" />
             ) : (
               <div className="text-center">
                 <Package className="w-12 h-12 text-muted-foreground/20 mx-auto mb-1" />
@@ -375,7 +375,7 @@ export default function ProductDetail() {
                 onClick={() => setSelectedImage(i)}
                 className={`w-11 h-11 rounded border overflow-hidden shrink-0 transition-all relative group/thumb ${selectedImage === i ? 'ring-2 ring-primary border-primary' : 'opacity-60 hover:opacity-100'}`}
               >
-                <img src={url} alt={`${product.model} ${i + 1}`} className="w-full h-full object-contain"  loading="lazy" decoding="async"/>
+                <img src={url} alt={`${product.model} ${i + 1}`} className="w-full h-full object-contain" />
                 {isEditing && (
                   <div
                     onClick={(e) => { e.stopPropagation(); handleRemoveImage(i); }}
@@ -601,7 +601,7 @@ function CustomerProductView({ product, onAddToQuote }: { product: Product; onAd
             <CardContent className="p-8">
               <div className="aspect-square bg-gradient-to-br from-primary/5 to-primary/10 rounded-lg flex items-center justify-center">
                 {product.image_url ? (
-                  <img src={product.image_url} alt={product.model} className="w-full h-full object-contain"  loading="lazy" decoding="async"/>
+                  <img src={product.image_url} alt={product.model} className="w-full h-full object-contain" />
                 ) : (
                   <Package className="w-48 h-48 text-primary/20" />
                 )}

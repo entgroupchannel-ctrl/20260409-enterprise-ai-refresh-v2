@@ -1114,7 +1114,7 @@ const GKSeries = () => {
             className="w-full h-full object-cover"
             width={1920}
             height={800}
-           loading="lazy" decoding="async"/>
+          />
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/40" />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
         </div>

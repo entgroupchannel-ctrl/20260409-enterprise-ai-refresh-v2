@@ -237,7 +237,7 @@ export default function VerifyPaymentDialog({
                   src={signedUrl}
                   alt="Payment slip"
                   className="w-full max-h-96 object-contain"
-                  onError={(e) = loading="lazy" decoding="async"> {
+                  onError={(e) => {
                     (e.target as HTMLImageElement).style.display = 'none';
                   }}
                 />

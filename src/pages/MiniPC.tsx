@@ -840,7 +840,7 @@ const MiniPC = () => {
       {/* ── Hero Section ── */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroMiniPC} alt="Mini PC on modern desk setup" className="w-full h-full object-cover" width={1920} height={768}  loading="lazy" decoding="async"/>
+          <img src={heroMiniPC} alt="Mini PC on modern desk setup" className="w-full h-full object-cover" width={1920} height={768} />
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/40" />
         </div>
         <div className="relative container max-w-7xl mx-auto px-4 py-16 md:py-24">

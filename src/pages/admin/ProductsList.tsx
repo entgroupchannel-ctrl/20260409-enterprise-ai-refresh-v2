@@ -334,7 +334,7 @@ export default function ProductsList() {
                     <TableCell>
                       <div className="w-9 h-9 bg-muted rounded flex items-center justify-center overflow-hidden">
                         {(p.thumbnail_url || p.image_url) ? (
-                          <img src={p.thumbnail_url || p.image_url!} alt="" className="w-full h-full object-contain"  loading="lazy" decoding="async"/>
+                          <img src={p.thumbnail_url || p.image_url!} alt="" className="w-full h-full object-contain" />
                         ) : (
                           <Package className="w-3.5 h-3.5 text-muted-foreground/40" />
                         )}

@@ -309,7 +309,7 @@ const PanelPC = () => {
                 src={gty156Side}
                 alt="GTY156T Industrial Panel PC"
                 className="max-h-[420px] object-contain drop-shadow-2xl"
-               loading="lazy" decoding="async"/>
+              />
             </div>
           </div>
         </div>
@@ -544,7 +544,7 @@ import FooterCompact from "@/components/FooterCompact";
           </div>
           {/* Windows 11 Free */}
           <div className="card-surface p-6 flex flex-col md:flex-row items-center gap-6 border-primary/20">
-            <img src="https://gty-gtg-panelpc.lovable.app/assets/windows11-free-DTTOmS84.png" alt="Windows 11 OEM ฟรี" className="h-20 object-contain"  loading="lazy" decoding="async"/>
+            <img src="https://gty-gtg-panelpc.lovable.app/assets/windows11-free-DTTOmS84.png" alt="Windows 11 OEM ฟรี" className="h-20 object-contain" />
             <div>
               <h3 className="text-lg font-bold text-foreground">แถมฟรี! Windows 10/11 OEM License</h3>
               <p className="text-sm text-muted-foreground">มาพร้อมทุกเครื่อง ไม่ต้องซื้อ License เพิ่ม</p>

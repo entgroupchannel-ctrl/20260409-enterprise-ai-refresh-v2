@@ -147,7 +147,7 @@ const Volktek = () => {
               src="/images/wix/0597a3_acc5fb9c15d549868644c80cf3d94d4f_1179ee4b.png"
               alt="Volktek Industrial Ethernet"
               className="w-full h-auto"
-             loading="lazy" decoding="async"/>
+            />
           </div>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
             <div>
@@ -209,7 +209,7 @@ const Volktek = () => {
           <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground leading-relaxed">
             ผลิตภัณฑ์ Volktek Ethernet ได้รับการรับรองระดับสากลสำหรับการใช้งานในอุตสาหกรรมและเชิงพาณิชย์ และสอดคล้องกับมาตรฐานตลาดเพื่อความปลอดภัยและการทำงานที่แม่นยำ
           </h2>
-          <img src={volktekCertifications} alt="Volktek Certifications - Profinet, Modbus, CE, FCC, RoHS, DNV GL" className="w-full max-w-4xl mx-auto h-auto"  loading="lazy" decoding="async"/>
+          <img src={volktekCertifications} alt="Volktek Certifications - Profinet, Modbus, CE, FCC, RoHS, DNV GL" className="w-full max-w-4xl mx-auto h-auto" />
         </section>
 
 

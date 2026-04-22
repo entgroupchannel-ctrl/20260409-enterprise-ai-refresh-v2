@@ -277,7 +277,7 @@ export default function WelcomeDialog() {
               width={1280}
               height={640}
               className="absolute inset-0 w-full h-full object-cover object-center"
-             loading="lazy" decoding="async"/>
+            />
             <div className="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/75 to-primary/50 mix-blend-multiply" />
             <div className="absolute inset-0 opacity-25 bg-[radial-gradient(circle_at_top_right,_white,_transparent_60%)]" />
 

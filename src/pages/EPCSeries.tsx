@@ -385,7 +385,7 @@ const EPCSeries = () => {
       {/* Hero */}
       <div className="relative overflow-hidden min-h-[480px] md:min-h-[520px]">
         {/* Background Image */}
-        <img src={epcHeroFactory} alt="Industrial factory environment" className="absolute inset-0 w-full h-full object-cover" width={1920} height={768}  loading="lazy" decoding="async"/>
+        <img src={epcHeroFactory} alt="Industrial factory environment" className="absolute inset-0 w-full h-full object-cover" width={1920} height={768} />
         <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/40" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
 
@@ -445,7 +445,7 @@ const EPCSeries = () => {
                 className="w-full max-w-md h-auto rounded-xl shadow-2xl border border-white/10"
                 width={896}
                 height={1024}
-               loading="lazy" decoding="async"/>
+              />
             </div>
           </div>
         </div>

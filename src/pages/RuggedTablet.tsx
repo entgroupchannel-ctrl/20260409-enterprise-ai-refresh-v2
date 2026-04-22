@@ -384,7 +384,7 @@ const RuggedTablet = () => {
       {/* ── Hero ── */}
       <div className="relative overflow-hidden min-h-[420px] md:min-h-[480px]">
         <div className="absolute inset-0">
-          <img src={tabletHero} alt="Rugged Tablet ใช้งานในโรงงาน" className="w-full h-full object-cover" width={1920} height={800}  loading="lazy" decoding="async"/>
+          <img src={tabletHero} alt="Rugged Tablet ใช้งานในโรงงาน" className="w-full h-full object-cover" width={1920} height={800} />
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/30" />
         </div>
         <div className="container max-w-7xl mx-auto px-4 py-16 md:py-24 relative z-10">

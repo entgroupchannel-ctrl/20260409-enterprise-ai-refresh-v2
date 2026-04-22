@@ -731,7 +731,7 @@ export default function MyInvoiceDetail() {
                 src={slipPreviewUrl}
                 alt="สลิปการชำระเงิน"
                 className="max-w-full max-h-[70vh] object-contain rounded"
-               loading="lazy" decoding="async"/>
+              />
             )}
           </div>
         </DialogContent>

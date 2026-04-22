@@ -33,7 +33,7 @@ const FooterCompact = () => {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           {/* Logo + Contact */}
           <div className="flex items-center gap-4">
-            <img src={logo} alt="ENT GROUP" className="h-8 w-auto"  loading="lazy" decoding="async"/>
+            <img src={logo} alt="ENT GROUP" className="h-8 w-auto" />
             <div className="w-px h-8 bg-[hsl(220,15%,20%)]" />
             <div className="flex flex-col gap-0.5">
               <span className="text-xs font-bold text-white">บจก. อีเอ็นที กรุ๊ป</span>

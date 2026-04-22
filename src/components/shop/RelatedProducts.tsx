@@ -62,7 +62,7 @@ function ProductMiniCard({ p }: { p: RelatedProduct }) {
               src={imgSrc}
               alt={p.model}
               className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
-              onError={e = loading="lazy" decoding="async"> { (e.target as HTMLImageElement).src = '/placeholder.svg'; }}
+              onError={e => { (e.target as HTMLImageElement).src = '/placeholder.svg'; }}
             />
           </div>
           <p className="text-xs font-semibold truncate">{p.model}</p>

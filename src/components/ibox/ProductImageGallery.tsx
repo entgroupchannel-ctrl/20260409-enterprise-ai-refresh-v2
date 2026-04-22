@@ -38,7 +38,7 @@ const ProductImageGallery = ({
         {isNew && (
           <Badge className="absolute top-4 left-4 z-10">NEW</Badge>
         )}
-        <img src={mainImage} alt={productName} className="w-full h-full object-contain p-8"  loading="lazy" decoding="async"/>
+        <img src={mainImage} alt={productName} className="w-full h-full object-contain p-8" />
       </div>
     );
   }
@@ -53,7 +53,7 @@ const ProductImageGallery = ({
           src={allImages[selectedIndex].src}
           alt={`${productName} - ${allImages[selectedIndex].label}`}
           className="w-full h-full object-contain p-8 transition-opacity duration-300"
-         loading="lazy" decoding="async"/>
+        />
         <div className="absolute bottom-4 right-4 bg-background/80 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-border">
           <span className="text-sm font-medium text-foreground">{allImages[selectedIndex].label}</span>
         </div>
@@ -80,7 +80,7 @@ const ProductImageGallery = ({
                     src={image.src}
                     alt={`${productName} - ${image.label}`}
                     className="w-full h-full object-contain p-2 bg-secondary/30"
-                   loading="lazy" decoding="async"/>
+                  />
                 </button>
               </CarouselItem>
             ))}

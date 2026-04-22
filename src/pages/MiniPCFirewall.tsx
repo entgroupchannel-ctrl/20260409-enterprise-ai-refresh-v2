@@ -788,7 +788,7 @@ const MiniPCFirewall = () => {
       {/* ── Hero ── */}
       <section className="relative overflow-hidden bg-slate-900">
         <div className="absolute inset-0">
-          <img src={heroFirewall} alt="Server room with firewall appliance" className="w-full h-full object-cover" width={1920} height={768}  loading="lazy" decoding="async"/>
+          <img src={heroFirewall} alt="Server room with firewall appliance" className="w-full h-full object-cover" width={1920} height={768} />
           {/* แสดงภาพชัดด้านขวา จางทางซ้ายเพื่อให้อ่านข้อความได้ */}
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/70 to-slate-900/20" />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent" />

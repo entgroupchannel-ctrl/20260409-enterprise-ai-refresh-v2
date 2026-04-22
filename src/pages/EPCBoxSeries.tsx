@@ -800,7 +800,7 @@ const EPCBoxSeries = () => {
             </Link>
             <div className="h-6 w-px bg-border" />
             <Link to="/" className="flex items-center">
-              <img src={logo} alt="ENT GROUP" className="h-8 w-auto"  loading="lazy" decoding="async"/>
+              <img src={logo} alt="ENT GROUP" className="h-8 w-auto" />
             </Link>
           </div>
           <div className="flex items-center gap-2">
@@ -880,7 +880,7 @@ const EPCBoxSeries = () => {
                 src="/images/wix/0597a3_390ed059c959423d9c40be95b414b68f_fc93c220.png"
                 alt="EPC Box Series"
                 className="max-w-full"
-               loading="lazy" decoding="async"/>
+              />
             </div>
           </div>
         </div>

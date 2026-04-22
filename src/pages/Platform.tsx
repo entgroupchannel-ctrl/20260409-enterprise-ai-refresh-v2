@@ -175,7 +175,7 @@ export default function Platform() {
                   width={1280}
                   height={960}
                   className="w-full h-auto"
-                 loading="lazy" decoding="async"/>
+                />
               </div>
               {/* Floating stat chip */}
               <div className="hidden md:flex absolute -bottom-5 -left-5 bg-card border rounded-2xl shadow-lg px-4 py-3 items-center gap-3">

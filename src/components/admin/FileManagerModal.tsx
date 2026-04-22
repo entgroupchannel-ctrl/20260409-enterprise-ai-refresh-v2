@@ -145,7 +145,7 @@ export default function FileManagerModal({ open, onOpenChange, product }: Props)
               {files.images.map((f) => (
                 <div key={f.id} className="border rounded-lg overflow-hidden group relative">
                   <div className="aspect-square bg-muted flex items-center justify-center">
-                    <img src={f.file_url} alt={f.file_name} className="w-full h-full object-contain"  loading="lazy" decoding="async"/>
+                    <img src={f.file_url} alt={f.file_name} className="w-full h-full object-contain" />
                   </div>
                   <div className="p-2">
                     <p className="text-[11px] truncate text-muted-foreground">{f.file_name}</p>

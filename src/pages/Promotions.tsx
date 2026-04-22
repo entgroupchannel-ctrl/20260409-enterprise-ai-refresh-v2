@@ -387,7 +387,7 @@ const Promotions = () => {
           className="absolute inset-0 w-full h-full object-cover"
           width={1920}
           height={768}
-         loading="lazy" decoding="async"/>
+        />
         <div className="absolute inset-0 bg-black/50" />
         <div className="container max-w-5xl mx-auto px-6 py-16 relative text-center text-white">
           <PartyPopper className="mx-auto text-yellow-400 mb-4" size={48} />

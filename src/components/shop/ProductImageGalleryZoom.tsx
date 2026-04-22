@@ -57,7 +57,7 @@ export default function ProductImageGalleryZoom({ images, alt, enableZoom = true
             )}
             style={isZooming ? { transformOrigin: `${zoomPos.x}% ${zoomPos.y}%` } : undefined}
             draggable={false}
-            onError={() = loading="lazy" decoding="async"> {
+            onError={() => {
               setErroredImages(prev => new Set(prev).add(activeIndex));
               setIsZooming(false);
             }}
@@ -105,7 +105,7 @@ export default function ProductImageGalleryZoom({ images, alt, enableZoom = true
                   src={src}
                   alt={`${alt} thumbnail ${i + 1}`}
                   className="w-full h-full object-cover"
-                  onError={() = loading="lazy" decoding="async"> setErroredImages(prev => new Set(prev).add(i))}
+                  onError={() => setErroredImages(prev => new Set(prev).add(i))}
                 />
               )}
             </button>

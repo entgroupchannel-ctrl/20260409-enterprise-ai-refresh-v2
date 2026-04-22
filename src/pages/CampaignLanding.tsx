@@ -285,7 +285,7 @@ export default function CampaignLanding() {
         <Card className="overflow-hidden mb-6 border-primary/30">
           {campaign.hero_image_url && (
             <div className="aspect-[3/1] bg-muted overflow-hidden">
-              <img src={campaign.hero_image_url} alt={campaign.title} className="w-full h-full object-cover"  loading="lazy" decoding="async"/>
+              <img src={campaign.hero_image_url} alt={campaign.title} className="w-full h-full object-cover" />
             </div>
           )}
           <CardContent className="p-6">

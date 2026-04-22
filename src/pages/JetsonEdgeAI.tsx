@@ -237,7 +237,7 @@ const JetsonEdgeAI = () => {
                 width={1280}
                 height={960}
                 className="relative w-full rounded-2xl border border-white/10 shadow-2xl"
-               loading="lazy" decoding="async"/>
+              />
             </div>
           </div>
         </div>
@@ -442,7 +442,7 @@ const JetsonEdgeAI = () => {
                   <img
                     src={p.image}
                     alt={p.name}
-                    onError={(e) = loading="lazy" decoding="async"> { (e.target as HTMLImageElement).src = "/product-placeholder.svg"; }}
+                    onError={(e) => { (e.target as HTMLImageElement).src = "/product-placeholder.svg"; }}
                     className="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />

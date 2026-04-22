@@ -432,7 +432,7 @@ export default function UploadPaymentSlipDialog({
             ) : (
               <div className="relative border border-green-300 dark:border-green-700 rounded-lg overflow-hidden ring-1 ring-green-200 dark:ring-green-800">
                 {previewUrl ? (
-                  <img src={previewUrl} alt="Preview" className="w-full max-h-64 object-contain bg-muted/30"  loading="lazy" decoding="async"/>
+                  <img src={previewUrl} alt="Preview" className="w-full max-h-64 object-contain bg-muted/30" />
                 ) : (
                   <div className="p-4 flex items-center gap-3 bg-muted/40">
                     <FileCheck className="w-8 h-8 text-green-600" />

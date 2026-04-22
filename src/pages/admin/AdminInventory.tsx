@@ -346,7 +346,7 @@ export default function AdminInventory() {
                                   src={p.thumbnail_url || p.image_url || ''}
                                   alt={p.name}
                                   className="w-10 h-10 object-contain rounded border"
-                                 loading="lazy" decoding="async"/>
+                                />
                               ) : (
                                 <div className="w-10 h-10 bg-muted rounded flex items-center justify-center">
                                   <Package className="w-4 h-4 text-muted-foreground" />

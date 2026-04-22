@@ -165,7 +165,7 @@ const AllInOnePC = () => {
       {/* ── Hero ── */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <img src={aioHero} alt="All-in-One PC ในโรงงานอุตสาหกรรม" className="w-full h-full object-cover" width={1920} height={640}  loading="lazy" decoding="async"/>
+          <img src={aioHero} alt="All-in-One PC ในโรงงานอุตสาหกรรม" className="w-full h-full object-cover" width={1920} height={640} />
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-background/30" />
           <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
         </div>

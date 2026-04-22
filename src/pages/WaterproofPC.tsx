@@ -203,7 +203,7 @@ const WaterproofPC = () => {
                 src="/images/wix/0597a3_af08675d14124a59a86c4be31805907a_2f9d6714.png"
                 alt="Waterproof Panel PC Banner"
                 className="w-full h-auto rounded-xl"
-               loading="lazy" decoding="async"/>
+              />
             </div>
           </div>
         </div>

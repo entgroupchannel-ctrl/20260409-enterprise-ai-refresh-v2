@@ -79,7 +79,7 @@ const Partner = () => {
             </Link>
             <div className="h-6 w-px bg-border" />
             <Link to="/" className="flex items-center gap-3">
-              <img src={logo} alt="ENT GROUP" className="h-8 w-auto"  loading="lazy" decoding="async"/>
+              <img src={logo} alt="ENT GROUP" className="h-8 w-auto" />
               <div className="hidden md:flex flex-col leading-tight">
                 <span className="text-[11px] font-semibold text-foreground">ENT Group</span>
                 <span className="text-[10px] text-muted-foreground">B2B Industrial Platform</span>

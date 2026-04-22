@@ -714,7 +714,7 @@ const GTSeries = () => {
             className="w-full h-full object-cover"
             width={1920}
             height={900}
-           loading="lazy" decoding="async"/>
+          />
           <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/30" />
           <div className="absolute inset-0 bg-gradient-to-t from-background/30 via-transparent to-black/20" />
         </div>
@@ -879,7 +879,7 @@ const GTSeries = () => {
                   src={gt1000Banner}
                   alt="GT1000 Industrial PC"
                   className="absolute inset-0 w-full h-full object-cover"
-                 loading="lazy" decoding="async"/>
+                />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
                 <div className="relative z-10 p-8 md:p-12">
                   <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-sm border border-primary/30">
@@ -1323,7 +1323,7 @@ const GTSeries = () => {
                   src={gt2000Banner}
                   alt="GT2000 Industrial PC"
                   className="absolute inset-0 w-full h-full object-cover"
-                 loading="lazy" decoding="async"/>
+                />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
                 <div className="relative z-10 p-8 md:p-12">
                   <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-sm border border-primary/30">
@@ -1780,7 +1780,7 @@ const GTSeries = () => {
                   src={gt3000Banner}
                   alt="GT3000 Industrial PC"
                   className="absolute inset-0 w-full h-full object-cover"
-                 loading="lazy" decoding="async"/>
+                />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
                 <div className="relative z-10 p-8 md:p-12">
                   <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-sm border border-primary/30">
@@ -2235,7 +2235,7 @@ const GTSeries = () => {
             <div className="space-y-8 animate-fade-in">
               {/* Hero Banner */}
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
-                <img src={gt4000Banner} alt="GT4000 Industrial PC" className="absolute inset-0 w-full h-full object-cover"  loading="lazy" decoding="async"/>
+                <img src={gt4000Banner} alt="GT4000 Industrial PC" className="absolute inset-0 w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
                 <div className="relative z-10 p-8 md:p-12">
                   <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-sm border border-primary/30">
@@ -2594,7 +2594,7 @@ const GTSeries = () => {
                   src={gt5000Banner}
                   alt="GT5000 Industrial PC"
                   className="absolute inset-0 w-full h-full object-cover"
-                 loading="lazy" decoding="async"/>
+                />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
                 <div className="relative z-10 p-8 md:p-12">
                   <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-sm border border-primary/30">
@@ -3140,7 +3140,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   src={gt6000Banner}
                   alt="GT6000 Industrial PC"
                   className="absolute inset-0 w-full h-full object-cover"
-                 loading="lazy" decoding="async"/>
+                />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
                 <div className="relative z-10 p-8 md:p-12">
                   <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-sm border border-primary/30">
@@ -3508,7 +3508,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   src={gt7000Banner}
                   alt="GT7000 Industrial PC"
                   className="absolute inset-0 w-full h-full object-cover"
-                 loading="lazy" decoding="async"/>
+                />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
                 <div className="relative z-10 p-8 md:p-12">
                   <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-sm border border-primary/30">
@@ -3911,7 +3911,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   src={gt8000Banner}
                   alt="GT8000 Industrial PC"
                   className="absolute inset-0 w-full h-full object-cover"
-                 loading="lazy" decoding="async"/>
+                />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
                 <div className="relative z-10 p-8 md:p-12">
                    <span className="inline-block px-3 py-1 rounded-full bg-amber-500/20 text-amber-400 text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-sm border border-amber-500/30">
@@ -4259,7 +4259,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   src={gt9000Banner}
                   alt="GT9000 Industrial PC"
                   className="absolute inset-0 w-full h-full object-cover"
-                 loading="lazy" decoding="async"/>
+                />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
                 <div className="relative z-10 p-8 md:p-12">
                   <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-sm border border-primary/30">
@@ -4331,7 +4331,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 {/* Factory Gallery */}
                 <div className="lg:col-span-2 space-y-4">
                   <div className="card-surface overflow-hidden">
-                    <img src="/images/gt9000/main.jpg" alt="GT9000 ภาพหลัก" className="w-full object-contain p-4"  loading="lazy" decoding="async"/>
+                    <img src="/images/gt9000/main.jpg" alt="GT9000 ภาพหลัก" className="w-full object-contain p-4" />
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
@@ -4644,7 +4644,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   src={gt4500Banner}
                   alt="GT4500 Industrial PC"
                   className="absolute inset-0 w-full h-full object-cover"
-                 loading="lazy" decoding="async"/>
+                />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
                 <div className="relative z-10 p-8 md:p-12">
                   <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-sm border border-primary/30">
@@ -5033,7 +5033,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
             <div className="space-y-8 animate-fade-in">
               {/* Hero Banner */}
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
-                <img src="/images/gt1400/main.jpg" alt="GT1400 Industrial PC" className="absolute inset-0 w-full h-full object-cover"  loading="lazy" decoding="async"/>
+                <img src="/images/gt1400/main.jpg" alt="GT1400 Industrial PC" className="absolute inset-0 w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
                 <div className="relative z-10 p-8 md:p-12">
                   <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-sm border border-primary/30">
@@ -5106,7 +5106,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 {/* Factory Gallery */}
                 <div className="lg:col-span-2 space-y-4">
                   <div className="card-surface overflow-hidden">
-                    <img src="/images/gt1400/main.jpg" alt="GT1400 ภาพหลัก" className="w-full object-contain p-4"  loading="lazy" decoding="async"/>
+                    <img src="/images/gt1400/main.jpg" alt="GT1400 ภาพหลัก" className="w-full object-contain p-4" />
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
@@ -5349,7 +5349,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
             <div className="space-y-8 animate-fade-in">
               {/* Hero Banner */}
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
-                <img src="/images/gt1300/main.jpg" alt="GT1300 Industrial PC" className="absolute inset-0 w-full h-full object-cover"  loading="lazy" decoding="async"/>
+                <img src="/images/gt1300/main.jpg" alt="GT1300 Industrial PC" className="absolute inset-0 w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
                 <div className="relative z-10 p-8 md:p-12">
                   <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-sm border border-primary/30">
@@ -5426,7 +5426,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 {/* Factory Gallery */}
                 <div className="lg:col-span-2 space-y-4">
                   <div className="card-surface overflow-hidden">
-                    <img src="/images/gt1300/main.jpg" alt="GT1300 ภาพหลัก" className="w-full object-contain p-4"  loading="lazy" decoding="async"/>
+                    <img src="/images/gt1300/main.jpg" alt="GT1300 ภาพหลัก" className="w-full object-contain p-4" />
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
@@ -5588,7 +5588,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
             <div className="space-y-8 animate-fade-in">
               {/* Hero Banner */}
               <div className="card-surface overflow-hidden rounded-2xl relative min-h-[220px] md:min-h-[300px] flex items-center">
-                <img src="/images/gt1200/main.jpg" alt="GT1200 Industrial PC" className="absolute inset-0 w-full h-full object-cover"  loading="lazy" decoding="async"/>
+                <img src="/images/gt1200/main.jpg" alt="GT1200 Industrial PC" className="absolute inset-0 w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
                 <div className="relative z-10 p-8 md:p-12">
                   <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-sm border border-primary/30">
@@ -5660,7 +5660,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 {/* Factory Gallery */}
                 <div className="lg:col-span-2 space-y-4">
                   <div className="card-surface overflow-hidden">
-                    <img src="/images/gt1200/main.jpg" alt="GT1200 ภาพหลัก" className="w-full object-contain p-4"  loading="lazy" decoding="async"/>
+                    <img src="/images/gt1200/main.jpg" alt="GT1200 ภาพหลัก" className="w-full object-contain p-4" />
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[

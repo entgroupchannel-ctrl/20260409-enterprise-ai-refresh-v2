@@ -142,7 +142,7 @@ const Handheld = () => {
       {/* Hero */}
       <div className="relative overflow-hidden min-h-[420px] md:min-h-[480px]">
         <div className="absolute inset-0">
-          <img src={handheldHero} alt="Rugged Handheld ใช้งานในคลังสินค้า" className="w-full h-full object-cover" width={1920} height={768}  loading="lazy" decoding="async"/>
+          <img src={handheldHero} alt="Rugged Handheld ใช้งานในคลังสินค้า" className="w-full h-full object-cover" width={1920} height={768} />
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/30" />
         </div>
         <div className="container max-w-7xl mx-auto px-4 py-12 md:py-16 relative z-10">

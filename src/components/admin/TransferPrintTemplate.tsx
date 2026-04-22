@@ -83,7 +83,7 @@ export default function TransferPrintTemplate({
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px', borderBottom: '3px solid #2563eb', paddingBottom: '12px' }}>
         <div style={{ flex: 1 }}>
           {logoUrl && (
-            <img src={logoUrl} alt="logo" style={{ height: '40px', marginBottom: '6px' }} crossOrigin="anonymous"  loading="lazy" decoding="async"/>
+            <img src={logoUrl} alt="logo" style={{ height: '40px', marginBottom: '6px' }} crossOrigin="anonymous" />
           )}
           <div style={{ fontSize: '14px', fontWeight: 'bold' }}>{companyName || 'บริษัท'}</div>
           {companyAddress && <div style={{ fontSize: '10px', color: '#666', maxWidth: '300px' }}>{companyAddress}</div>}

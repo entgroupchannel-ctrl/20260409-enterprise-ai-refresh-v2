@@ -97,7 +97,7 @@ export default function SpecComparisonTable({ products, onRemove }: CompareProps
                         src={p.thumbnail_url || '/product-placeholder.svg'}
                         alt={p.model}
                         className="w-full h-full object-contain"
-                        onError={(e) = loading="lazy" decoding="async"> {
+                        onError={(e) => {
                           const img = e.currentTarget;
                           if (!img.src.endsWith('/product-placeholder.svg')) {
                             img.src = '/product-placeholder.svg';
