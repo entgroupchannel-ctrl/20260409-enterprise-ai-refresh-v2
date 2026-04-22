@@ -84,12 +84,13 @@ export default function RequestRepairForm() {
       }).select().single();
       if (error) throw error;
 
-      // 3-layer notification (fire-and-forget)
+      // Notification (fire-and-forget) — admin via unified dispatcher, customer via legacy
       const origin = typeof window !== 'undefined' ? window.location.origin : '';
       const repairNumber = ro?.repair_order_number || ro?.id;
-      import('@/lib/notifications').then(({ notifyAdmins, notifyAdminsByEmail, sendQuoteStatusEmail }) => {
-        notifyAdmins({
-          type: 'new_repair_request',
+      import('@/lib/notifications').then(({ dispatchNotification, sendQuoteStatusEmail }) => {
+        dispatchNotification({
+          eventKey: 'repair.requested',
+          recipientRole: 'admin',
           title: 'มีคำขอแจ้งซ่อมใหม่',
           message: `${customerName} — ${productName}`,
           priority: 'high',
@@ -97,13 +98,10 @@ export default function RequestRepairForm() {
           actionLabel: 'ดูรายละเอียด',
           linkType: 'repair',
           linkId: ro?.id,
-        });
-        notifyAdminsByEmail({
-          subject: `[Repair] แจ้งซ่อมใหม่ ${repairNumber}`,
-          status: 'new_repair_request',
-          customerName,
+          entityType: 'repair',
+          entityId: ro?.id,
+          customerName: customerName,
           quoteNumber: repairNumber,
-          note: issueDescription,
           viewUrl: `${origin}/admin/repairs/${ro?.id}`,
         });
         if (customerEmail) {
