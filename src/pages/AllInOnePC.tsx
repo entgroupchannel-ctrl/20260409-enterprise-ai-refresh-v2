@@ -101,15 +101,14 @@ const AIOCard = ({
         )}
       </ul>
 
-      <div className="flex gap-2 pt-1">
-        <Button variant="outline" size="sm" asChild className="flex-1">
+      <div className="grid grid-cols-2 gap-2 pt-1">
+        <Button variant="outline" size="sm" asChild className="w-full">
           <Link to={`/aio/${product.id}`}>
-
             <Monitor className="w-3.5 h-3.5 mr-1.5" /> ดูรายละเอียด
           </Link>
         </Button>
-        <QuoteRequestButton productModel={product.model} productName={`${product.model} ${product.title}`} size="sm" className="flex-1" />
-        <AddToCartButton productModel={product.model} productName={product.model} productDescription={`${product.title} — ${product.cpu}`} size="sm" variant="outline" />
+        <AddToCartButton productModel={product.model} productName={product.model} productDescription={`${product.title} — ${product.cpu}`} size="sm" variant="outline" className="w-full" />
+        <QuoteRequestButton productModel={product.model} productName={`${product.model} ${product.title}`} size="sm" className="col-span-2 w-full" />
       </div>
     </div>
   </div>
