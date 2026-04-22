@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { Loader2 } from 'lucide-react';
@@ -26,6 +26,7 @@ export default function ProtectedRoute({
   redirectTo = '/',
 }: ProtectedRouteProps) {
   const { user, profile, loading } = useAuth();
+  const location = useLocation();
   const [isSuperAdmin, setIsSuperAdmin] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -57,14 +58,14 @@ export default function ProtectedRoute({
     );
   }
 
-  // Not logged in
+  // Not logged in — preserve intended destination so we can return after login
   if (!user) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login" replace state={{ from: location }} />;
   }
 
   // Check user is active
   if (profile && profile.is_active === false) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login" replace state={{ from: location }} />;
   }
 
   // NEW: allowedRoles check (granular gates)
