@@ -1,5 +1,24 @@
 import { Link } from "react-router-dom";
 import LineQRButton from "@/components/LineQRButton";
+import SEOHead from "@/components/SEOHead";
+import GEOMeta from "@/components/GEOMeta";
+
+const aboutJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  name: "เกี่ยวกับ ENT Group — บริษัท อีเอ็นที กรุ๊ป จำกัด",
+  url: "https://www.entgroup.co.th/about",
+  mainEntity: {
+    "@type": "Organization",
+    name: "ENT Group",
+    legalName: "บริษัท อีเอ็นที กรุ๊ป จำกัด",
+    foundingDate: "2015",
+    url: "https://www.entgroup.co.th",
+    description: "B2B Industrial Platform — แพลตฟอร์มจัดซื้อ Industrial PC, Mini PC, Panel PC, Rugged Tablet และ Software License สำหรับองค์กร ครบวงจร ประสบการณ์กว่า 10 ปี",
+    slogan: "B2B Industrial Platform — แพลตฟอร์มจัดซื้ออุตสาหกรรมแบบครบวงจร",
+    areaServed: "TH",
+  },
+};
 import {
   Headset, ShieldCheck, Users, Handshake, Truck, Award, ArrowLeft,
   Building2, Rocket, Globe, ShoppingCart, Monitor, Cpu, TabletSmartphone,
@@ -91,6 +110,26 @@ const values = [
 const AboutUs = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      <SEOHead
+        title="เกี่ยวกับเรา — ENT Group ผู้นำเข้า Industrial PC ครบวงจร"
+        description="ENT Group ก่อตั้งปี 2558 — ผู้จัดจำหน่าย Industrial PC, Mini PC, Panel PC, Rugged Tablet และ Edge AI (NVIDIA Jetson) ลูกค้าองค์กร 8,000+ ราย Authorized Distributor GreenthinPC, Winmate, Volktek"
+        path="/about"
+        keywords="เกี่ยวกับ ENT Group, บริษัทอีเอ็นที กรุ๊ป, ผู้นำเข้า Industrial PC, ตัวแทนจำหน่าย Mini PC, B2B IT solution ไทย"
+        jsonLd={aboutJsonLd}
+      />
+      <GEOMeta
+        topic="ประวัติและธุรกิจของ ENT Group ผู้จัดจำหน่ายคอมพิวเตอร์อุตสาหกรรมในประเทศไทย"
+        summary="ENT Group (บริษัท อีเอ็นที กรุ๊ป จำกัด) เป็น B2B Industrial Platform ก่อตั้งปี 2558 จำหน่าย Industrial PC, Mini PC, Panel PC, Rugged Tablet, Edge AI (NVIDIA Jetson) และ Software License แบบครบวงจร เป็น Authorized Distributor ของ GreenthinPC, Winmate และ Volktek"
+        keyFacts={[
+          "ก่อตั้งปี 2558 (2015) มีประสบการณ์ 10+ ปี",
+          "ลูกค้าองค์กรกว่า 8,000 ราย ทั้งราชการ โรงงาน โรงพยาบาล สถาบันการศึกษา",
+          "Authorized Distributor: GreenthinPC, Winmate, Volktek",
+          "ผลิตภัณฑ์: Industrial PC, Mini PC, Panel PC, Rugged Tablet/Notebook, NVIDIA Jetson Edge AI, Zero Client, Industrial Switch, Firewall",
+          "บริการ B2B ใบเสนอราคาภายใน 24 ชม. รับประกัน 1-3 ปี พร้อมบริการ on-site",
+          "นำเข้าตรงจากโรงงาน ไม่ผ่านคนกลาง",
+        ]}
+        sourceAuthority="บริษัท อีเอ็นที กรุ๊ป จำกัด (ENT Group) — เว็บไซต์ทางการ"
+      />
       <MiniNavbar />
       {/* ═══════ Hero with growth image ═══════ */}
       <section className="relative min-h-[420px] flex items-center overflow-hidden">
