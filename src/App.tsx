@@ -198,6 +198,14 @@ const App = () => (
                     <Route path="/investors" element={<Investors />} />
                     <Route path="/investors/strategic-vision" element={<InvestorStrategicVision />} />
                     <Route path="/investors/brief/:token" element={<InvestorBrief />} />
+                    <Route path="/affiliate" element={<Affiliate />} />
+                    <Route path="/affiliate/apply" element={<AffiliateApply />} />
+                    <Route path="/affiliate/dashboard" element={<ProtectedRoute><AffiliateDashboard /></ProtectedRoute>} />
+                    <Route path="/r/:code" element={<AffiliateRedirect />} />
+                    <Route path="/partner" element={<Partner />} />
+                    <Route path="/partner/apply" element={<PartnerApply />} />
+                    <Route path="/partner/portal" element={<ProtectedRoute><PartnerPortal /></ProtectedRoute>} />
+                    <Route path="/platform" element={<Platform />} />
                     <Route path="/contact" element={<ContactUs />} />
                     <Route path="/warrantys" element={<Warrantys />} />
                     <Route path="/payment" element={<Payment />} />
