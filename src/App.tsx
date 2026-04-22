@@ -146,7 +146,7 @@ const JetsonGPUServer = lazyRetry(() => import("./pages/JetsonGPUServer"));
 const JetsonProfessionalGPU = lazyRetry(() => import("./pages/JetsonProfessionalGPU"));
 const ForgotPassword = lazyRetry(() => import("./pages/auth/ForgotPassword"));
 const ResetPassword = lazyRetry(() => import("./pages/auth/ResetPassword"));
-const NotificationPreferences = lazyRetry(() => import("./pages/NotificationPreferences"));
+const NotificationPreferences = lazyRetry(() => import("./pages/customer/NotificationPreferences"));
 const CampaignLanding = lazyRetry(() => import("./pages/CampaignLanding"));
 const SharedQuotePage = lazyRetry(() => import("./pages/SharedQuotePage"));
 const SharedInvoicePage = lazyRetry(() => import("./pages/SharedInvoicePage"));
