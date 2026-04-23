@@ -3,7 +3,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Download, CheckCircle2, Cpu, Zap, ExternalLink, Maximize2, X } from "lucide-react";
+import { Download, CheckCircle2, Cpu, Zap, ExternalLink, Maximize2, X, Shield, Sparkles, FileText, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import AddToCartButton from "@/components/AddToCartButton";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
 import { upcSeriesDetails } from "@/data/upcSeriesDetails";
@@ -109,7 +110,17 @@ const ProductDetailDialog = ({
                 </div>
               )}
 
-              <div className="mt-auto pt-4 border-t border-border space-y-2">
+              <div className="mt-auto pt-4 border-t border-border space-y-3">
+                {/* Warranty badges */}
+                <div className="flex flex-wrap gap-2">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 text-[11px] font-bold">
+                    <Shield className="w-3.5 h-3.5" /> รับประกัน 1 ปี (มาตรฐาน)
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-primary/10 border border-primary/30 text-primary text-[11px] font-bold">
+                    <Sparkles className="w-3.5 h-3.5" /> ขยายได้ถึง 3 ปี
+                  </span>
+                </div>
+
                 <div className="flex flex-wrap gap-2">
                   {productName && (
                     <AddToCartButton
@@ -128,6 +139,30 @@ const ProductDetailDialog = ({
                     </a>
                   </Button>
                 )}
+
+                {/* B2B Platform CTA */}
+                <div className="rounded-lg border border-primary/30 bg-gradient-to-br from-primary/10 via-primary/5 to-background p-3">
+                  <div className="flex items-start gap-2 mb-2">
+                    <div className="w-7 h-7 rounded-md bg-primary text-primary-foreground flex items-center justify-center shrink-0">
+                      <FileText className="w-4 h-4" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-bold text-foreground leading-tight">
+                        สร้างใบเสนอราคาอัตโนมัติ ภายใน 4 ชั่วโมง
+                      </p>
+                      <p className="text-[11px] text-muted-foreground mt-0.5 leading-snug">
+                        ใช้ระบบ B2B Platform จัดซื้อแบบมืออาชีพ — ติดตามสถานะ PO, ใบกำกับภาษี, จัดส่งครบในที่เดียว
+                      </p>
+                    </div>
+                  </div>
+                  <Link
+                    to="/request-quote"
+                    onClick={() => onOpenChange(false)}
+                    className="w-full inline-flex items-center justify-center gap-1 px-3 py-1.5 rounded-md bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity shadow-sm"
+                  >
+                    เริ่มขอใบเสนอราคา <ArrowRight className="w-3 h-3" />
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
