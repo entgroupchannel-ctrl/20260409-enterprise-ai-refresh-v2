@@ -24,6 +24,7 @@ const MiniPC = lazyRetry(() => import("./pages/MiniPC"));
 const WaterproofPC = lazyRetry(() => import("./pages/WaterproofPC"));
 const Volktek = lazyRetry(() => import("./pages/Volktek"));
 const EPCSeries = lazyRetry(() => import("./pages/EPCSeries"));
+const UPCSeries = lazyRetry(() => import("./pages/UPCSeries"));
 const RuggedTablet = lazyRetry(() => import("./pages/RuggedTablet"));
 const Handheld = lazyRetry(() => import("./pages/Handheld"));
 const GKSeries = lazyRetry(() => import("./pages/GKSeries"));
@@ -207,6 +208,7 @@ const App = () => (
                     <Route path="/waterproof-pc" element={<WaterproofPC />} />
                     <Route path="/volktek" element={<Volktek />} />
                     <Route path="/epc-series" element={<EPCSeries />} />
+                    <Route path="/upc-series" element={<UPCSeries />} />
                     <Route path="/rugged-tablet" element={<RuggedTablet />} />
                     <Route path="/handheld" element={<Handheld />} />
                     <Route path="/panel-pc-gtg" element={<PanelPCGTG />} />
