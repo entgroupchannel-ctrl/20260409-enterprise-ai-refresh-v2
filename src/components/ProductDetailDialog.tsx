@@ -103,7 +103,7 @@ const ProductDetailDialog = ({
 
               {detail?.highlights && (
                 <div className="space-y-1.5 mb-5">
-                  {detail.highlights.slice(0, 7).map((h, i) => (
+                  {detail.highlights.slice(0, 5).map((h, i) => (
                     <div key={i} className="flex items-start gap-2 text-sm">
                       <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
                       <span className="text-foreground/90">{h}</span>
@@ -123,17 +123,6 @@ const ProductDetailDialog = ({
                   </span>
                 </div>
 
-                <div className="flex flex-wrap gap-2">
-                  {productName && (
-                    <AddToCartButton
-                      productModel={productName}
-                      productName={`${productName}${highlight ? ` — ${highlight}` : ""}`}
-                      productDescription={`${cpu ?? ""}${detail?.intro ? ` • ${detail.intro}` : ""}`}
-                      size="sm"
-                    />
-                  )}
-                  <QuoteRequestButton productName={productName ?? productId ?? "UPC Series"} />
-                </div>
                 {datasheet && (
                   <Button asChild variant="outline" size="sm" className="w-full">
                     <a href={datasheet} target="_blank" rel="noreferrer">
@@ -153,21 +142,37 @@ const ProductDetailDialog = ({
                         สร้างใบเสนอราคาอัตโนมัติ ภายใน 4 ชั่วโมง
                       </p>
                       <p className="text-[11px] text-muted-foreground mt-0.5 leading-snug">
-                        ใช้ระบบ B2B Platform จัดซื้อแบบมืออาชีพ — ติดตามสถานะ PO, ใบกำกับภาษี, จัดส่งครบในที่เดียว
+                        ปรับสเปก → คำนวณราคา → ส่งคำขอ — ทำได้ในขั้นตอนเดียว
                       </p>
                     </div>
                   </div>
-                  <Link
-                    to="/request-quote"
-                    onClick={() => onOpenChange(false)}
-                    className="w-full inline-flex items-center justify-center gap-1 px-3 py-1.5 rounded-md bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity shadow-sm"
-                  >
-                    เริ่มขอใบเสนอราคา <ArrowRight className="w-3 h-3" />
-                  </Link>
                 </div>
               </div>
             </div>
           </div>
+
+          {/* ── Configurator แบบเต็มสูตร ── */}
+          {productId && productName && findPricing(productName) ? (
+            <div className="mt-6">
+              <UpcConfigurator
+                productId={productId}
+                productName={productName}
+                highlight={highlight}
+                onActionComplete={() => onOpenChange(false)}
+              />
+            </div>
+          ) : productName ? (
+            // Fallback สำหรับรุ่นที่ยังไม่มีตารางราคา
+            <div className="mt-6 flex flex-wrap gap-2">
+              <AddToCartButton
+                productModel={productName}
+                productName={`${productName}${highlight ? ` — ${highlight}` : ""}`}
+                productDescription={`${cpu ?? ""}${detail?.intro ? ` • ${detail.intro}` : ""}`}
+                size="sm"
+              />
+              <QuoteRequestButton productName={productName} productModel={productName} />
+            </div>
+          ) : null}
 
           {/* Tabs: Specs / Features / Dimensions */}
           {detail ? (
