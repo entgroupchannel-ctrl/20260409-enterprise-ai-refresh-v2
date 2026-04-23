@@ -244,6 +244,7 @@ const tagColor = (tag: Model["tag"]) => {
 
 const UPCSeries = () => {
   const [filter, setFilter] = useState<"all" | "UPC" | "EPC" | "CTN">("all");
+  const [selected, setSelected] = useState<Model | null>(null);
   const filtered = filter === "all" ? models : models.filter(m => m.tag === filter);
 
   return (
