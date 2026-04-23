@@ -109,17 +109,7 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex flex-col">
-      <div className="absolute inset-0 z-0">
-        <img
-          src={heroIndustrial}
-          alt="Industrial Computing Production Line"
-          className="w-full h-full object-cover"
-          width={1920}
-          height={900}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/35 to-black/20" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background/25 via-transparent to-black/15" />
-      </div>
+      <div className="absolute inset-0 z-0 bg-gradient-to-br from-slate-200 via-slate-400 to-slate-700 dark:from-slate-700 dark:via-slate-800 dark:to-slate-950" />
 
       <nav className="relative z-20 flex items-center justify-between px-6 md:px-12 py-5">
         <Link to="/" className="flex items-center gap-3">
