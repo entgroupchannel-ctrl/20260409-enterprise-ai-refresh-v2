@@ -156,32 +156,32 @@ export default function UpcPricingTable({ models, onViewDetail }: Props) {
               className="pl-8 h-9 text-sm"
             />
           </div>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-sm text-muted-foreground">
             แสดง <span className="font-semibold text-foreground">{filtered.length}</span> / {models.length} รุ่น • ราคาเริ่มต้น base config
           </p>
         </div>
 
         {/* Table — desktop */}
         <div className="hidden md:block overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full text-base">
             <thead className="bg-muted/50 border-b border-border">
               <tr className="text-left">
-                <th className="px-3 py-2.5 font-semibold text-xs text-muted-foreground uppercase tracking-wider w-16">รูป</th>
-                <th className="px-3 py-2.5 font-semibold text-xs text-muted-foreground uppercase tracking-wider">
-                  <button onClick={() => toggleSort('name')} className="inline-flex items-center gap-1 hover:text-foreground">
-                    รุ่น <ArrowUpDown className="w-3 h-3" />
+                <th className="px-3 py-3 font-semibold text-sm text-muted-foreground uppercase tracking-wider w-20">รูป</th>
+                <th className="px-3 py-3 font-semibold text-sm text-muted-foreground uppercase tracking-wider">
+                  <button onClick={() => toggleSort('name')} className="inline-flex items-center gap-1.5 hover:text-foreground">
+                    รุ่น <ArrowUpDown className="w-3.5 h-3.5" />
                   </button>
                 </th>
-                <th className="px-3 py-2.5 font-semibold text-xs text-muted-foreground uppercase tracking-wider">CPU</th>
-                <th className="px-3 py-2.5 font-semibold text-xs text-muted-foreground uppercase tracking-wider text-center w-20">RAM</th>
-                <th className="px-3 py-2.5 font-semibold text-xs text-muted-foreground uppercase tracking-wider text-center w-24">SSD</th>
-                <th className="px-3 py-2.5 font-semibold text-xs text-muted-foreground uppercase tracking-wider hidden xl:table-cell">พอร์ต / จุดเด่น</th>
-                <th className="px-3 py-2.5 font-semibold text-xs text-muted-foreground uppercase tracking-wider text-right">
-                  <button onClick={() => toggleSort('priceFrom')} className="inline-flex items-center gap-1 hover:text-foreground">
-                    ราคาเริ่มต้น <ArrowUpDown className="w-3 h-3" />
+                <th className="px-3 py-3 font-semibold text-sm text-muted-foreground uppercase tracking-wider">CPU</th>
+                <th className="px-3 py-3 font-semibold text-sm text-muted-foreground uppercase tracking-wider text-center w-24">RAM</th>
+                <th className="px-3 py-3 font-semibold text-sm text-muted-foreground uppercase tracking-wider text-center w-28">SSD</th>
+                <th className="px-3 py-3 font-semibold text-sm text-muted-foreground uppercase tracking-wider hidden xl:table-cell">พอร์ต / จุดเด่น</th>
+                <th className="px-3 py-3 font-semibold text-sm text-muted-foreground uppercase tracking-wider text-right">
+                  <button onClick={() => toggleSort('priceFrom')} className="inline-flex items-center gap-1.5 hover:text-foreground">
+                    ราคาเริ่มต้น <ArrowUpDown className="w-3.5 h-3.5" />
                   </button>
                 </th>
-                <th className="px-3 py-2.5 font-semibold text-xs text-muted-foreground uppercase tracking-wider text-center w-32">การกระทำ</th>
+                <th className="px-3 py-3 font-semibold text-sm text-muted-foreground uppercase tracking-wider text-center w-36">การกระทำ</th>
               </tr>
             </thead>
             <tbody>
@@ -193,73 +193,73 @@ export default function UpcPricingTable({ models, onViewDetail }: Props) {
                     i % 2 === 0 ? 'bg-background' : 'bg-muted/10'
                   )}
                 >
-                  <td className="px-3 py-2">
-                    <button onClick={() => onViewDetail?.(row)} className="block w-12 h-12 rounded-md bg-secondary/40 overflow-hidden hover:ring-2 hover:ring-primary/40 transition">
+                  <td className="px-3 py-3">
+                    <button onClick={() => onViewDetail?.(row)} className="block w-14 h-14 rounded-md bg-secondary/40 overflow-hidden hover:ring-2 hover:ring-primary/40 transition">
                       <img src={row.image} alt={row.name} className="w-full h-full object-contain" loading="lazy" />
                     </button>
                   </td>
-                  <td className="px-3 py-2">
-                    <div className="flex items-center gap-1.5 mb-0.5">
-                      <Badge variant="outline" className={cn('text-[9px] px-1.5 py-0', tagColor(row.tag))}>{row.tag}</Badge>
-                      {row.popular && <Badge className="text-[9px] px-1.5 py-0 bg-primary text-primary-foreground border-0">Hot</Badge>}
+                  <td className="px-3 py-3">
+                    <div className="flex items-center gap-1.5 mb-1">
+                      <Badge variant="outline" className={cn('text-[11px] px-2 py-0.5', tagColor(row.tag))}>{row.tag}</Badge>
+                      {row.popular && <Badge className="text-[11px] px-2 py-0.5 bg-primary text-primary-foreground border-0">Hot</Badge>}
                     </div>
-                    <button onClick={() => onViewDetail?.(row)} className="font-bold text-foreground hover:text-primary transition-colors text-left">
+                    <button onClick={() => onViewDetail?.(row)} className="font-bold text-base text-foreground hover:text-primary transition-colors text-left">
                       {row.name}
                     </button>
-                    {row.chassis && <p className="text-[10px] text-muted-foreground mt-0.5">{row.chassis} chassis</p>}
+                    {row.chassis && <p className="text-xs text-muted-foreground mt-0.5">{row.chassis} chassis</p>}
                   </td>
-                  <td className="px-3 py-2">
-                    <p className="text-xs text-foreground font-medium">{row.cpu}</p>
-                    <p className="text-[10px] text-muted-foreground mt-0.5">{row.cpuOptions} ตัวเลือก</p>
+                  <td className="px-3 py-3">
+                    <p className="text-sm text-foreground font-medium">{row.cpu}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">{row.cpuOptions} ตัวเลือก</p>
                   </td>
-                  <td className="px-3 py-2 text-center">
-                    <Badge variant="outline" className="text-[10px] font-mono px-1.5 py-0 bg-secondary/60 border-border text-foreground">
+                  <td className="px-3 py-3 text-center">
+                    <Badge variant="outline" className="text-xs font-mono px-2 py-0.5 bg-secondary/60 border-border text-foreground">
                       4 GB
                     </Badge>
-                    <p className="text-[9px] text-muted-foreground mt-1">→ 32 GB</p>
+                    <p className="text-xs text-muted-foreground mt-1">→ 32 GB</p>
                   </td>
-                  <td className="px-3 py-2 text-center">
-                    <Badge variant="outline" className="text-[10px] font-mono px-1.5 py-0 bg-secondary/60 border-border text-foreground">
+                  <td className="px-3 py-3 text-center">
+                    <Badge variant="outline" className="text-xs font-mono px-2 py-0.5 bg-secondary/60 border-border text-foreground">
                       128 GB
                     </Badge>
-                    <p className="text-[9px] text-muted-foreground mt-1">→ 2 TB</p>
+                    <p className="text-xs text-muted-foreground mt-1">→ 2 TB</p>
                   </td>
-                  <td className="px-3 py-2 hidden xl:table-cell max-w-xs">
+                  <td className="px-3 py-3 hidden xl:table-cell max-w-xs">
                     {row.included.length > 0 && (
-                      <div className="flex flex-wrap gap-1 mb-1">
+                      <div className="flex flex-wrap gap-1 mb-1.5">
                         {row.included.map((f) => (
-                          <span key={f} className="text-[10px] px-1.5 py-0.5 rounded bg-primary/10 text-primary border border-primary/20 font-medium">
+                          <span key={f} className="text-xs px-2 py-0.5 rounded bg-primary/10 text-primary border border-primary/20 font-medium">
                             {f}
                           </span>
                         ))}
                       </div>
                     )}
-                    <p className="text-[11px] text-muted-foreground line-clamp-2 leading-snug">{row.feature}</p>
+                    <p className="text-sm text-muted-foreground line-clamp-2 leading-snug">{row.feature}</p>
                   </td>
-                  <td className="px-3 py-2 text-right">
+                  <td className="px-3 py-3 text-right">
                     {row.priceFrom > 0 ? (
                       <>
-                        <p className="font-bold text-foreground whitespace-nowrap">฿{fmt(row.priceFrom)}</p>
+                        <p className="font-bold text-base text-foreground whitespace-nowrap">฿{fmt(row.priceFrom)}</p>
                         {row.priceTo > row.priceFrom && (
-                          <p className="text-[10px] text-muted-foreground whitespace-nowrap">สูงสุด ฿{fmt(row.priceTo)}</p>
+                          <p className="text-xs text-muted-foreground whitespace-nowrap mt-0.5">สูงสุด ฿{fmt(row.priceTo)}</p>
                         )}
                       </>
                     ) : (
-                      <span className="text-xs text-muted-foreground italic">สอบถาม</span>
+                      <span className="text-sm text-muted-foreground italic">สอบถาม</span>
                     )}
                   </td>
-                  <td className="px-3 py-2">
-                    <div className="flex items-center justify-center gap-1">
+                  <td className="px-3 py-3">
+                    <div className="flex items-center justify-center gap-1.5">
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <Button
                             size="icon"
                             variant="outline"
-                            className="h-8 w-8"
+                            className="h-9 w-9"
                             onClick={() => handleAddToCart(row)}
                             disabled={adding === row.id || !row.priceFrom}
                           >
-                            <ShoppingCart className="w-3.5 h-3.5" />
+                            <ShoppingCart className="w-4 h-4" />
                           </Button>
                         </TooltipTrigger>
                         <TooltipContent>เพิ่มลงตะกร้า (สเปกเริ่มต้น)</TooltipContent>
@@ -268,10 +268,10 @@ export default function UpcPricingTable({ models, onViewDetail }: Props) {
                         <TooltipTrigger asChild>
                           <Button
                             size="icon"
-                            className="h-8 w-8"
+                            className="h-9 w-9"
                             onClick={() => handleQuote(row)}
                           >
-                            <FileText className="w-3.5 h-3.5" />
+                            <FileText className="w-4 h-4" />
                           </Button>
                         </TooltipTrigger>
                         <TooltipContent>ขอใบเสนอราคา</TooltipContent>
@@ -282,10 +282,10 @@ export default function UpcPricingTable({ models, onViewDetail }: Props) {
                             asChild
                             size="icon"
                             variant="ghost"
-                            className="h-8 w-8"
+                            className="h-9 w-9"
                           >
                             <a href={row.datasheet} target="_blank" rel="noreferrer" aria-label="Datasheet">
-                              <Download className="w-3.5 h-3.5" />
+                              <Download className="w-4 h-4" />
                             </a>
                           </Button>
                         </TooltipTrigger>
@@ -297,7 +297,7 @@ export default function UpcPricingTable({ models, onViewDetail }: Props) {
               ))}
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={8} className="text-center py-10 text-sm text-muted-foreground">
+                  <td colSpan={8} className="text-center py-10 text-base text-muted-foreground">
                     ไม่พบรุ่นที่ตรงกับการค้นหา
                   </td>
                 </tr>
@@ -314,23 +314,23 @@ export default function UpcPricingTable({ models, onViewDetail }: Props) {
                 <img src={row.image} alt={row.name} className="w-full h-full object-contain" loading="lazy" />
               </button>
               <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-1.5 mb-0.5">
-                  <Badge variant="outline" className={cn('text-[9px] px-1.5 py-0', tagColor(row.tag))}>{row.tag}</Badge>
-                  {row.popular && <Badge className="text-[9px] px-1.5 py-0 bg-primary text-primary-foreground border-0">Hot</Badge>}
+                <div className="flex items-center gap-1.5 mb-1">
+                  <Badge variant="outline" className={cn('text-[11px] px-2 py-0.5', tagColor(row.tag))}>{row.tag}</Badge>
+                  {row.popular && <Badge className="text-[11px] px-2 py-0.5 bg-primary text-primary-foreground border-0">Hot</Badge>}
                 </div>
-                <button onClick={() => onViewDetail?.(row)} className="font-bold text-sm">{row.name}</button>
-                <p className="text-[11px] text-muted-foreground">{row.cpu}</p>
-                <p className="text-xs font-medium text-primary">{row.highlight}</p>
-                <div className="flex items-center justify-between mt-1.5">
+                <button onClick={() => onViewDetail?.(row)} className="font-bold text-base">{row.name}</button>
+                <p className="text-xs text-muted-foreground">{row.cpu}</p>
+                <p className="text-sm font-medium text-primary mt-0.5">{row.highlight}</p>
+                <div className="flex items-center justify-between mt-2">
                   {row.priceFrom > 0 ? (
-                    <p className="text-sm font-bold">฿{fmt(row.priceFrom)} <span className="text-[10px] text-muted-foreground font-normal">เริ่มต้น</span></p>
-                  ) : <span className="text-xs text-muted-foreground">สอบถามราคา</span>}
-                  <div className="flex gap-1">
-                    <Button size="icon" variant="outline" className="h-7 w-7" onClick={() => handleAddToCart(row)} disabled={adding === row.id || !row.priceFrom}>
-                      <ShoppingCart className="w-3 h-3" />
+                    <p className="text-base font-bold">฿{fmt(row.priceFrom)} <span className="text-xs text-muted-foreground font-normal">เริ่มต้น</span></p>
+                  ) : <span className="text-sm text-muted-foreground">สอบถามราคา</span>}
+                  <div className="flex gap-1.5">
+                    <Button size="icon" variant="outline" className="h-8 w-8" onClick={() => handleAddToCart(row)} disabled={adding === row.id || !row.priceFrom}>
+                      <ShoppingCart className="w-3.5 h-3.5" />
                     </Button>
-                    <Button size="icon" className="h-7 w-7" onClick={() => handleQuote(row)}>
-                      <FileText className="w-3 h-3" />
+                    <Button size="icon" className="h-8 w-8" onClick={() => handleQuote(row)}>
+                      <FileText className="w-3.5 h-3.5" />
                     </Button>
                   </div>
                 </div>
@@ -343,7 +343,7 @@ export default function UpcPricingTable({ models, onViewDetail }: Props) {
         </div>
 
         {/* Footer note */}
-        <div className="px-3 py-2 border-t border-border bg-muted/20 text-[10px] text-muted-foreground text-center">
+        <div className="px-3 py-2.5 border-t border-border bg-muted/20 text-xs text-muted-foreground text-center">
           ราคาเริ่มต้น = base config (4GB RAM / 128GB SSD / รับประกัน 1 ปี) ยังไม่รวม VAT 7% • คลิกชื่อรุ่นเพื่อปรับแต่งสเปกเอง
         </div>
       </Card>
