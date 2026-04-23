@@ -7,7 +7,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 import MegaMenu, { MobileMegaMenu } from "@/components/MegaMenu";
 import { useAuth } from "@/hooks/useAuth";
 import heroIndustrial from "@/assets/hero-industrial.jpg";
-import logo from "@/assets/logo-entgroup.avif";
+import logo from "@/assets/logo-entgroup-hero.png";
 
 const searchIndex = [
   { keywords: ["mini pc", "มินิพีซี", "สำนักงาน", "office", "thin client"], label: "Mini PC สำนักงาน", href: "/mini-pc" },
