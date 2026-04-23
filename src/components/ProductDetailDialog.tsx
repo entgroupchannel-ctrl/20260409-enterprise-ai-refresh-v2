@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Download, CheckCircle2, Cpu, Zap, ExternalLink } from "lucide-react";
+import { Download, CheckCircle2, Cpu, Zap, ExternalLink, Maximize2, X } from "lucide-react";
 import AddToCartButton from "@/components/AddToCartButton";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
 import { upcSeriesDetails } from "@/data/upcSeriesDetails";
@@ -35,6 +35,7 @@ const ProductDetailDialog = ({
   const detail = productId ? upcSeriesDetails[productId] : null;
   const gallery = detail?.gallery?.length ? detail.gallery : fallbackImage ? [fallbackImage] : [];
   const [activeImage, setActiveImage] = useState(0);
+  const [lightbox, setLightbox] = useState<string | null>(null);
 
   // reset image index when product changes
   useState(() => setActiveImage(0));
