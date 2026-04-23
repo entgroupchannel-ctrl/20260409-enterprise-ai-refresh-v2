@@ -7,8 +7,10 @@ import { Download, CheckCircle2, Cpu, Zap, ExternalLink, Maximize2, X, Shield, S
 import { Link } from "react-router-dom";
 import AddToCartButton from "@/components/AddToCartButton";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
+import UpcConfigurator from "@/components/upc/UpcConfigurator";
 import { upcSeriesDetails } from "@/data/upcSeriesDetails";
 import { upcDimensionImages } from "@/data/upcDimensionImages";
+import { findPricing } from "@/data/upcPricing";
 
 type Props = {
   open: boolean;
