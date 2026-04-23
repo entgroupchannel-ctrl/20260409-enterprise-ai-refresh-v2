@@ -7,7 +7,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 import MegaMenu, { MobileMegaMenu } from "@/components/MegaMenu";
 import { useAuth } from "@/hooks/useAuth";
 import heroIndustrial from "@/assets/hero-industrial.jpg";
-import logo from "@/assets/logo-entgroup-hero.png";
+import logo from "@/assets/logo-entgroup.avif";
 
 const searchIndex = [
   { keywords: ["mini pc", "มินิพีซี", "สำนักงาน", "office", "thin client"], label: "Mini PC สำนักงาน", href: "/mini-pc" },
@@ -122,8 +122,8 @@ const HeroSection = () => {
       </div>
 
       <nav className="relative z-20 flex items-center justify-between px-6 md:px-12 py-5">
-        <Link to="/" className="flex items-center gap-3 py-1">
-          <img src={logo} alt="ENT GROUP" className="h-12 md:h-14 w-auto object-contain" />
+        <Link to="/" className="flex items-center gap-3">
+          <img src={logo} alt="ENT GROUP" className="h-10 w-auto" />
         </Link>
 
         <div className="hidden md:flex items-center gap-1">
