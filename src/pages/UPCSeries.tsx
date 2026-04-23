@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Cpu, Puzzle, Shield, Zap, Thermometer, Network, Cable, Battery, Radio, Download, ExternalLink, CheckCircle2, Layers } from "lucide-react";
+import { ArrowLeft, Cpu, Puzzle, Shield, Zap, Thermometer, Network, Cable, Battery, Radio, Download, ExternalLink, CheckCircle2, Layers, FileText } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import MiniNavbar from "@/components/MiniNavbar";
@@ -442,6 +442,45 @@ const UPCSeries = () => {
             </div>
             <UpcPricingTable models={filtered} onViewDetail={(m) => setSelected(m)} />
           </div>
+        </div>
+      </section>
+
+      {/* Datasheet Downloads */}
+      <section className="py-12 md:py-14 bg-secondary/20 border-y border-border">
+        <div className="container max-w-7xl mx-auto px-6">
+          <div className="text-center max-w-2xl mx-auto mb-8">
+            <Badge variant="outline" className="mb-3">
+              <Download className="w-3 h-3 mr-1" /> Technical Datasheets
+            </Badge>
+            <h2 className="text-2xl md:text-3xl font-display font-bold mb-2">ดาวน์โหลด Datasheet ครบทั้ง 16 รุ่น</h2>
+            <p className="text-muted-foreground">เอกสารสเปกเทคนิครายละเอียด — Interface, Power, Environment พร้อมราคาอ้างอิง</p>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-2 max-w-4xl mx-auto">
+            {models.map((m) => (
+              <a
+                key={m.id}
+                href={m.datasheet}
+                target="_blank"
+                rel="noreferrer"
+                className="group flex items-center gap-3 p-3 rounded-lg bg-background border border-border hover:border-primary/50 hover:shadow-sm transition-all"
+              >
+                <div className="w-10 h-10 rounded-md bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
+                  <FileText className="w-5 h-5 text-primary" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1.5 mb-0.5">
+                    <span className="font-bold text-sm text-foreground group-hover:text-primary transition-colors">{m.name}</span>
+                    <Badge variant="outline" className={`text-[9px] px-1.5 py-0 ${tagColor(m.tag)}`}>{m.tag}</Badge>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground truncate">{m.cpu} • {m.highlight}</p>
+                </div>
+                <Download className="w-4 h-4 text-muted-foreground group-hover:text-primary shrink-0 transition-colors" />
+              </a>
+            ))}
+          </div>
+          <p className="text-center text-xs text-muted-foreground mt-5">
+            ไฟล์ PDF • อัปเดตล่าสุด 2025 • ภาษาอังกฤษ
+          </p>
         </div>
       </section>
 
