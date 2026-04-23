@@ -172,15 +172,13 @@ export default function UpcPricingTable({ models, onViewDetail }: Props) {
                     รุ่น <ArrowUpDown className="w-3 h-3" />
                   </button>
                 </th>
-                <th className="px-3 py-2.5 font-semibold text-xs text-muted-foreground uppercase tracking-wider">CPU / ไฮไลต์</th>
+                <th className="px-3 py-2.5 font-semibold text-xs text-muted-foreground uppercase tracking-wider">CPU</th>
+                <th className="px-3 py-2.5 font-semibold text-xs text-muted-foreground uppercase tracking-wider text-center w-20">RAM</th>
+                <th className="px-3 py-2.5 font-semibold text-xs text-muted-foreground uppercase tracking-wider text-center w-24">SSD</th>
+                <th className="px-3 py-2.5 font-semibold text-xs text-muted-foreground uppercase tracking-wider hidden xl:table-cell">พอร์ต / จุดเด่น</th>
                 <th className="px-3 py-2.5 font-semibold text-xs text-muted-foreground uppercase tracking-wider text-right">
                   <button onClick={() => toggleSort('priceFrom')} className="inline-flex items-center gap-1 hover:text-foreground">
                     ราคาเริ่มต้น <ArrowUpDown className="w-3 h-3" />
-                  </button>
-                </th>
-                <th className="px-3 py-2.5 font-semibold text-xs text-muted-foreground uppercase tracking-wider text-right hidden lg:table-cell">
-                  <button onClick={() => toggleSort('priceTo')} className="inline-flex items-center gap-1 hover:text-foreground">
-                    ราคาสูงสุด <ArrowUpDown className="w-3 h-3" />
                   </button>
                 </th>
                 <th className="px-3 py-2.5 font-semibold text-xs text-muted-foreground uppercase tracking-wider text-center w-32">การกระทำ</th>
@@ -211,23 +209,44 @@ export default function UpcPricingTable({ models, onViewDetail }: Props) {
                     {row.chassis && <p className="text-[10px] text-muted-foreground mt-0.5">{row.chassis} chassis</p>}
                   </td>
                   <td className="px-3 py-2">
-                    <p className="text-xs text-muted-foreground">{row.cpu}</p>
-                    <p className="text-xs font-medium text-primary mt-0.5">{row.highlight}</p>
+                    <p className="text-xs text-foreground font-medium">{row.cpu}</p>
+                    <p className="text-[10px] text-muted-foreground mt-0.5">{row.cpuOptions} ตัวเลือก</p>
+                  </td>
+                  <td className="px-3 py-2 text-center">
+                    <Badge variant="outline" className="text-[10px] font-mono px-1.5 py-0 bg-blue-500/5 border-blue-500/20 text-blue-700 dark:text-blue-400">
+                      4 GB
+                    </Badge>
+                    <p className="text-[9px] text-muted-foreground mt-1">→ 32 GB</p>
+                  </td>
+                  <td className="px-3 py-2 text-center">
+                    <Badge variant="outline" className="text-[10px] font-mono px-1.5 py-0 bg-emerald-500/5 border-emerald-500/20 text-emerald-700 dark:text-emerald-400">
+                      128 GB
+                    </Badge>
+                    <p className="text-[9px] text-muted-foreground mt-1">→ 2 TB</p>
+                  </td>
+                  <td className="px-3 py-2 hidden xl:table-cell max-w-xs">
+                    {row.included.length > 0 && (
+                      <div className="flex flex-wrap gap-1 mb-1">
+                        {row.included.map((f) => (
+                          <span key={f} className="text-[10px] px-1.5 py-0.5 rounded bg-primary/10 text-primary border border-primary/20 font-medium">
+                            {f}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    <p className="text-[11px] text-muted-foreground line-clamp-2 leading-snug">{row.feature}</p>
                   </td>
                   <td className="px-3 py-2 text-right">
                     {row.priceFrom > 0 ? (
                       <>
-                        <p className="font-bold text-foreground">฿{fmt(row.priceFrom)}</p>
-                        <p className="text-[10px] text-muted-foreground">{row.cpuOptions} CPU options</p>
+                        <p className="font-bold text-foreground whitespace-nowrap">฿{fmt(row.priceFrom)}</p>
+                        {row.priceTo > row.priceFrom && (
+                          <p className="text-[10px] text-muted-foreground whitespace-nowrap">สูงสุด ฿{fmt(row.priceTo)}</p>
+                        )}
                       </>
                     ) : (
                       <span className="text-xs text-muted-foreground italic">สอบถาม</span>
                     )}
-                  </td>
-                  <td className="px-3 py-2 text-right hidden lg:table-cell">
-                    {row.priceTo > 0 ? (
-                      <p className="text-sm text-muted-foreground">฿{fmt(row.priceTo)}</p>
-                    ) : <span className="text-xs text-muted-foreground">—</span>}
                   </td>
                   <td className="px-3 py-2">
                     <div className="flex items-center justify-center gap-1">
@@ -278,7 +297,7 @@ export default function UpcPricingTable({ models, onViewDetail }: Props) {
               ))}
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="text-center py-10 text-sm text-muted-foreground">
+                  <td colSpan={8} className="text-center py-10 text-sm text-muted-foreground">
                     ไม่พบรุ่นที่ตรงกับการค้นหา
                   </td>
                 </tr>
