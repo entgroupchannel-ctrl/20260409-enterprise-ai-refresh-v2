@@ -411,7 +411,7 @@ const UPCSeries = () => {
             ))}
           </div>
 
-          <PriceDisclaimer className="mt-6" />
+          <div className="mt-6"><PriceDisclaimer /></div>
         </div>
       </section>
 
@@ -442,10 +442,7 @@ const UPCSeries = () => {
 
       <PartnerLogos />
 
-      <B2BCTABanner
-        title="ต้องการ Customize UPC Series สำหรับงานของคุณ?"
-        subtitle="แจ้งสเปกที่ต้องการ — ทีมเราช่วยเลือก Module และเสนอราคาภายใน 24 ชม."
-      />
+      <B2BCTABanner />
 
       <FooterCompact />
     </>
