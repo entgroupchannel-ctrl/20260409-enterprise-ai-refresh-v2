@@ -111,10 +111,16 @@ const B2BPlatformInterfaceShowcase = () => {
         {/* CTA — compact */}
         <div className="mt-4 md:mt-5 flex flex-wrap items-center justify-center gap-2">
           <Link
-            to="/shop"
+            to="/request-quote"
             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md bg-primary text-primary-foreground text-xs md:text-sm font-semibold hover:opacity-90 transition-opacity shadow-sm"
           >
-            เริ่มเลือกสินค้าที่ Shop <ArrowRight className="w-3.5 h-3.5" />
+            ขอใบเสนอราคา <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+          <Link
+            to="/shop"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md border border-border bg-background text-xs md:text-sm font-semibold text-foreground hover:border-primary/40 hover:text-primary transition-colors"
+          >
+            เริ่มเลือกสินค้าที่ Shop
           </Link>
           <Link
             to="/contact"
