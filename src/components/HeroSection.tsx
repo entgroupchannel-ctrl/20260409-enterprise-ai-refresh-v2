@@ -117,15 +117,13 @@ const HeroSection = () => {
           width={1920}
           height={900}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/65 to-black/45" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background/30 via-transparent to-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/35 to-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/25 via-transparent to-black/15" />
       </div>
 
       <nav className="relative z-20 flex items-center justify-between px-6 md:px-12 py-5">
         <Link to="/" className="flex items-center gap-3">
-          <span className="inline-flex items-center bg-white/95 rounded-md px-2.5 py-1.5 shadow-sm">
-            <img src={logo} alt="ENT GROUP" className="h-8 md:h-9 w-auto" />
-          </span>
+          <img src={logo} alt="ENT GROUP" className="h-10 w-auto" />
         </Link>
 
         <div className="hidden md:flex items-center gap-1">
