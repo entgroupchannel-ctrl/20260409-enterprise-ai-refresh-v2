@@ -5,6 +5,7 @@ import CartBadge from "@/components/CartBadge";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
+import LineQRButton from "@/components/LineQRButton";
 import B2BCTABanner from "@/components/B2BCTABanner";
 import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import B2BMarketingShowcase from "@/components/B2BMarketingShowcase";
@@ -12,7 +13,7 @@ import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import { useState, useCallback } from "react";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, ExternalLink, Cpu, Thermometer, Wind, Shield, Zap, Server, Factory, Building, Home, Monitor, Download, Play, Filter, X, Search, FileText, Headphones, ChevronDown, Code, Phone, Star, Quote, Target, Palette, Plug, AlertTriangle, Ruler, DollarSign, Wrench, Package, Flame, Fan, Lightbulb, BarChart3, Battery, Bot, Radio, ThermometerSun, Laptop, CircuitBoard, LogIn, LogOut, UserRound } from "lucide-react";
+import { ArrowLeft, ExternalLink, Cpu, Thermometer, Wind, Shield, Zap, Server, Factory, Building, Home, Monitor, Download, Play, Filter, X, Search, FileText, Headphones, ChevronDown, Code, Phone, Star, Quote, Target, Palette, Plug, AlertTriangle, Ruler, DollarSign, Wrench, Package, Flame, Fan, Lightbulb, BarChart3, Battery, Bot, Radio, ThermometerSun, Laptop, CircuitBoard, LogIn, LogOut, UserRound, MessageSquare } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Checkbox } from "@/components/ui/checkbox";
 import { LineQRDialog } from "@/components/LineQRDialog";
@@ -948,16 +949,22 @@ const GTSeries = () => {
                   </div>
 
                   {/* Quick Quote CTA */}
-                  <div className="card-surface p-5 bg-primary/5 border-primary/20 flex items-center justify-between gap-4">
+                  <div className="card-surface p-5 bg-primary/5 border-primary/20 flex flex-col gap-4">
                     <div>
                       <p className="font-bold text-sm text-foreground">สนใจ GT1000?</p>
                       <p className="text-xs text-muted-foreground">ขอใบเสนอราคาตอนนี้</p>
                     </div>
-                    <QuoteRequestButton
-                      productModel="GT1000"
-                      productName="Intel Celeron N2920 Industrial Mini PC"
-                      size="sm"
-                    />
+                    <div className="flex gap-2">
+                      <QuoteRequestButton
+                        productModel="GT1000"
+                        productName="Intel Celeron N2920 Industrial Mini PC"
+                        size="sm"
+                        className="flex-1"
+                      />
+                      <LineQRButton className="flex-1 h-9 text-sm">
+                        <MessageSquare className="w-4 h-4" /> LINE @entgroup
+                      </LineQRButton>
+                    </div>
                   </div>
                 </div>
                 </div>
