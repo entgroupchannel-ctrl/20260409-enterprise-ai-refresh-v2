@@ -181,7 +181,7 @@ export default function UpcPricingTable({ models, onViewDetail }: Props) {
                     ราคาเริ่มต้น <ArrowUpDown className="w-3.5 h-3.5" />
                   </button>
                 </th>
-                <th className="px-3 py-3 font-semibold text-sm text-muted-foreground uppercase tracking-wider text-center w-36">การกระทำ</th>
+                <th className="px-3 py-3 font-semibold text-sm text-muted-foreground uppercase tracking-wider text-center w-36">เพิ่มเติม</th>
               </tr>
             </thead>
             <tbody>
