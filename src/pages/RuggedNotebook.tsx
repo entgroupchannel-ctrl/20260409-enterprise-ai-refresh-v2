@@ -182,6 +182,9 @@ const RuggedNotebookPage = () => {
         </div>
       </section>
 
+      {/* ─── Storytelling: Why Rugged Notebook ─── */}
+      <RuggedStorySection />
+
       {/* ─── Sticky Bar: Back + Quick Filters (อยู่ใต้ MiniNavbar) ─── */}
       <div className="sticky top-14 z-30 bg-background/90 backdrop-blur-md border-b border-border">
         <div className="max-w-7xl mx-auto px-4">
@@ -359,9 +362,6 @@ const RuggedNotebookPage = () => {
           ))}
         </div>
       </section>
-
-      {/* ─── Storytelling: Why Rugged ─── */}
-      <RuggedStorySection />
 
 
       {/* Floating Selection Bar */}
