@@ -360,6 +360,9 @@ const RuggedNotebookPage = () => {
         </div>
       </section>
 
+      {/* ─── Storytelling: Why Rugged ─── */}
+      <RuggedStorySection />
+
 
       {/* Floating Selection Bar */}
       {selectedProducts.size > 0 && (
