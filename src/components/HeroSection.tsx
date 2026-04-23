@@ -128,7 +128,9 @@ const HeroSection = () => {
         </Link>
 
         <div className="hidden md:flex items-center gap-1">
-          <MegaMenu />
+          <div className="[&_button]:!text-white/90 [&_button:hover]:!text-white [&_button]:[text-shadow:0_1px_2px_rgba(0,0,0,0.6)]">
+            <MegaMenu />
+          </div>
           <TooltipProvider delayDuration={150}>
             {navLinks.map((link) => {
               const Icon = link.icon;
