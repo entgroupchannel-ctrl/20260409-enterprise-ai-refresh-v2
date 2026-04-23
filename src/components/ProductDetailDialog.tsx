@@ -7,6 +7,7 @@ import { Download, CheckCircle2, Cpu, Zap, ExternalLink } from "lucide-react";
 import AddToCartButton from "@/components/AddToCartButton";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
 import { upcSeriesDetails } from "@/data/upcSeriesDetails";
+import { upcDimensionImages } from "@/data/upcDimensionImages";
 
 type Props = {
   open: boolean;
@@ -136,6 +137,9 @@ const ProductDetailDialog = ({
               <TabsList>
                 <TabsTrigger value="specs">Specifications</TabsTrigger>
                 <TabsTrigger value="features">Features</TabsTrigger>
+                {productId && upcDimensionImages[productId]?.length > 0 && (
+                  <TabsTrigger value="dimensions">Dimensions</TabsTrigger>
+                )}
                 {detail.selection && <TabsTrigger value="selection">Part Numbers</TabsTrigger>}
               </TabsList>
 
@@ -195,6 +199,31 @@ const ProductDetailDialog = ({
                         ))}
                       </tbody>
                     </table>
+                  </div>
+                </TabsContent>
+              )}
+
+              {productId && upcDimensionImages[productId]?.length > 0 && (
+                <TabsContent value="dimensions" className="mt-4">
+                  <div className="space-y-4">
+                    <p className="text-xs text-muted-foreground">
+                      ภาพสินค้าและขนาดมิติ (Product images & dimensions)
+                    </p>
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      {upcDimensionImages[productId].map((src, i) => (
+                        <div
+                          key={i}
+                          className="border border-border rounded-lg bg-secondary/20 overflow-hidden flex items-center justify-center p-3"
+                        >
+                          <img
+                            src={src}
+                            alt={`${productName ?? productId} dimension ${i + 1}`}
+                            className="max-h-72 w-auto object-contain"
+                            loading="lazy"
+                          />
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </TabsContent>
               )}
