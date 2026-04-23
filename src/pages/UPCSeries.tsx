@@ -7,6 +7,7 @@ import MiniNavbar from "@/components/MiniNavbar";
 import FooterCompact from "@/components/FooterCompact";
 import PartnerLogos from "@/components/PartnerLogos";
 import B2BCTABanner from "@/components/B2BCTABanner";
+import B2BMarketingShowcase from "@/components/B2BMarketingShowcase";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
 import AddToCartButton from "@/components/AddToCartButton";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
@@ -451,6 +452,8 @@ const UPCSeries = () => {
       </section>
 
       <PartnerLogos />
+
+      <B2BMarketingShowcase variant="muted" />
 
       <B2BCTABanner />
 
