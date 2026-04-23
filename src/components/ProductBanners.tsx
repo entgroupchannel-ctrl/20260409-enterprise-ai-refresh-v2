@@ -45,7 +45,7 @@ const productBanners = [
 
 const ProductBanners = () => {
   return (
-    <section className="py-12 md:py-16 px-4 md:px-8 bg-surface/50">
+    <section className="py-12 md:py-16 px-4 md:px-8">
       <div className="container max-w-7xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {productBanners.map((banner) => (
