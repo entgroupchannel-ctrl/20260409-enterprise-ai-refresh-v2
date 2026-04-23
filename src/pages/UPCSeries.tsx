@@ -430,6 +430,18 @@ const UPCSeries = () => {
           </div>
 
           <div className="mt-6"><PriceDisclaimer /></div>
+
+          {/* Pricing Comparison Table */}
+          <div className="mt-10">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-4">
+              <div>
+                <Badge variant="outline" className="mb-2">Quick Compare</Badge>
+                <h3 className="text-xl md:text-2xl font-display font-bold">ตารางสรุปราคาทุกรุ่น</h3>
+                <p className="text-sm text-muted-foreground mt-1">เปรียบเทียบราคาเริ่มต้นและฟีเจอร์ — กดไอคอนเพื่อหยิบใส่ตะกร้าหรือขอใบเสนอราคาทันที</p>
+              </div>
+            </div>
+            <UpcPricingTable models={filtered} onViewDetail={(m) => setSelected(m)} />
+          </div>
         </div>
       </section>
 
