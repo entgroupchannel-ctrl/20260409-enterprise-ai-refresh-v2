@@ -122,7 +122,7 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-transparent via-black/20 to-black/55" />
       </div>
 
-      <nav className="relative z-20 flex items-center justify-between px-6 md:px-12 py-5">
+      <nav className="relative z-20 container max-w-7xl mx-auto px-6 flex items-center justify-between py-5">
         <Link to="/" className="flex items-center gap-3">
           <img src={logo} alt="ENT GROUP" className="h-10 w-auto" />
         </Link>
