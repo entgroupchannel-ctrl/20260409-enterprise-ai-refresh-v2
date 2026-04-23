@@ -1,6 +1,6 @@
 /**
  * Detail data for UPC Series products
- * Source: cesipc.com (manufacturer's published specs)
+ * Source: ENT Group product specifications
  */
 
 export type SpecRow = { label: string; value: string };
@@ -23,7 +23,7 @@ const COMMON_INTRO_BULLETS = (extras: string[] = []): string[] => [
   "Wide-voltage 9–36V DC input",
   "Expansion: dual M.2 2280 NVMe + M.2 2230 Wi-Fi",
   "TPM 2.0 hardware security",
-  "CESIPC LEGO MODE™ modular design",
+  "LEGO MODE™ modular design",
   "SafeCore™ power-loss protection + Auto power-on",
   "Industrial-grade 6061 aluminum alloy enclosure",
 ];
@@ -33,7 +33,7 @@ export const upcSeriesDetails: Record<string, ProductDetail> = {
   "epc-102b": {
     id: "epc-102b",
     intro:
-      "EPC-102B Industrial PC ใช้เทคโนโลยี BlockCore ของ CESIPC รองรับ Intel® 12th Gen Core™ i3/i5/i7 พร้อมพอร์ต LAN 4 ช่อง ออกแบบมาเพื่อความเสถียรในงาน Mission-critical Industrial",
+      "EPC-102B Industrial PC ใช้เทคโนโลยี BlockCore รองรับ Intel® 12th Gen Core™ i3/i5/i7 พร้อมพอร์ต LAN 4 ช่อง ออกแบบมาเพื่อความเสถียรในงาน Mission-critical Industrial",
     highlights: COMMON_INTRO_BULLETS([
       "Intel® Core™ 12th Gen i3 / i5 / i7 (รองรับ Celeron ถึง Core i7)",
       "4× Intel® I210 Gigabit Ethernet",
