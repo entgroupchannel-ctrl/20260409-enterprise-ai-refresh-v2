@@ -21,27 +21,27 @@ const B2BWorkflowBanner = ({ variant = "full", className = "", showShopCta = fal
   return (
     <section className={`container mx-auto px-4 ${variant === "full" ? "py-10" : "py-6"} ${className}`}>
       {variant === "full" && (
-        <div className="text-center mb-5 max-w-2xl mx-auto">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider mb-2">
-            <Clock className="w-3.5 h-3.5" /> B2B Procurement · ภายใน 4 ชม.
+        <div className="text-center mb-6 max-w-3xl mx-auto">
+          <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-primary text-primary-foreground text-xs font-bold uppercase tracking-wider mb-3 shadow-md">
+            <Clock className="w-3.5 h-3.5" /> B2B Industrial Platform · ใบเสนอราคาภายใน 4 ชม.
           </span>
-          <h2 className="text-xl sm:text-2xl font-bold text-foreground">
-            ขั้นตอนง่ายๆ ในการขอใบเสนอราคา
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-foreground leading-tight">
+            แพลตฟอร์มจัดซื้อ <span className="text-primary">B2B ครบวงจร</span> สำหรับองค์กร
           </h2>
-          <p className="text-sm text-muted-foreground mt-1">
-            เลือกสินค้า → หยิบใส่ตะกร้า → กดขอใบเสนอราคา — ทีมเตรียมเอกสารให้ภายใน 4 ชั่วโมง
+          <p className="text-sm sm:text-base text-muted-foreground mt-2">
+            เลือกสินค้า → หยิบใส่ตะกร้า → กดขอใบเสนอราคา — ทีมเตรียมเอกสาร PDF พร้อมตราประทับให้ภายใน 4 ชั่วโมง
           </p>
           {showShopCta && (
-            <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
               <Link
                 to="/shop"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity shadow-sm"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity shadow-md"
               >
                 เริ่มเลือกสินค้าที่ Shop <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-border text-sm font-semibold text-foreground hover:border-primary/40 hover:text-primary transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border-2 border-primary/30 bg-background text-sm font-semibold text-foreground hover:border-primary hover:text-primary transition-colors"
               >
                 ปรึกษาแอดมิน
               </Link>
