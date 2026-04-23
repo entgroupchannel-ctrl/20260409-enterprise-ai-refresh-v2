@@ -213,13 +213,13 @@ export default function UpcPricingTable({ models, onViewDetail }: Props) {
                     <p className="text-[10px] text-muted-foreground mt-0.5">{row.cpuOptions} ตัวเลือก</p>
                   </td>
                   <td className="px-3 py-2 text-center">
-                    <Badge variant="outline" className="text-[10px] font-mono px-1.5 py-0 bg-blue-500/5 border-blue-500/20 text-blue-700 dark:text-blue-400">
+                    <Badge variant="outline" className="text-[10px] font-mono px-1.5 py-0 bg-secondary/60 border-border text-foreground">
                       4 GB
                     </Badge>
                     <p className="text-[9px] text-muted-foreground mt-1">→ 32 GB</p>
                   </td>
                   <td className="px-3 py-2 text-center">
-                    <Badge variant="outline" className="text-[10px] font-mono px-1.5 py-0 bg-emerald-500/5 border-emerald-500/20 text-emerald-700 dark:text-emerald-400">
+                    <Badge variant="outline" className="text-[10px] font-mono px-1.5 py-0 bg-secondary/60 border-border text-foreground">
                       128 GB
                     </Badge>
                     <p className="text-[9px] text-muted-foreground mt-1">→ 2 TB</p>
