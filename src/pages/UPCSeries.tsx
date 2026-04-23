@@ -455,6 +455,18 @@ const UPCSeries = () => {
       <B2BCTABanner />
 
       <FooterCompact />
+
+      <ProductDetailDialog
+        open={!!selected}
+        onOpenChange={(v) => !v && setSelected(null)}
+        productId={selected?.id ?? null}
+        productName={selected?.name}
+        cpu={selected?.cpu}
+        highlight={selected?.highlight}
+        tag={selected?.tag}
+        datasheet={selected?.datasheet}
+        fallbackImage={selected?.image}
+      />
     </>
   );
 };
