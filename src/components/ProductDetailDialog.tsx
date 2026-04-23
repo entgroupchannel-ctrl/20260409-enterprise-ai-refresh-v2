@@ -7,6 +7,7 @@ import { Download, CheckCircle2, Cpu, Zap, ExternalLink } from "lucide-react";
 import AddToCartButton from "@/components/AddToCartButton";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
 import { upcSeriesDetails } from "@/data/upcSeriesDetails";
+import { upcDimensionImages } from "@/data/upcDimensionImages";
 
 type Props = {
   open: boolean;
@@ -136,6 +137,9 @@ const ProductDetailDialog = ({
               <TabsList>
                 <TabsTrigger value="specs">Specifications</TabsTrigger>
                 <TabsTrigger value="features">Features</TabsTrigger>
+                {productId && upcDimensionImages[productId]?.length > 0 && (
+                  <TabsTrigger value="dimensions">Dimensions</TabsTrigger>
+                )}
                 {detail.selection && <TabsTrigger value="selection">Part Numbers</TabsTrigger>}
               </TabsList>
 
