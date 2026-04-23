@@ -17,6 +17,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import ProductDetailDialog from "@/components/ProductDetailDialog";
 import UpcPricingTable from "@/components/upc/UpcPricingTable";
+import UpcUseCases from "@/components/upc/UpcUseCases";
 
 /* ───── LEGO MODE Capabilities ───── */
 const legoCapabilities = [
@@ -444,6 +445,8 @@ const UPCSeries = () => {
           </div>
         </div>
       </section>
+
+      <UpcUseCases />
 
       {/* Why Industrial-Grade */}
       <section className="py-12 md:py-14">
