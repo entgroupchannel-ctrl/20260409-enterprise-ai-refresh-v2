@@ -21,6 +21,7 @@ import FooterCompact from "@/components/FooterCompact";
 import MiniNavbar from "@/components/MiniNavbar";
 import B2BPlatformInterfaceShowcase from "@/components/B2BPlatformInterfaceShowcase";
 import B2BCTABanner from "@/components/B2BCTABanner";
+import RuggedStorySection from "@/components/rugged-notebook/RuggedStorySection";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
