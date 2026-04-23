@@ -5902,7 +5902,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
             <QuoteRequestButton
               productModel="GT Series"
               productName="Mini PC Industrial Computer"
-              className="h-14 px-8 text-lg font-bold rounded-xl"
+              className="h-14 px-8 text-lg font-bold rounded-xl bg-primary text-primary-foreground hover:bg-primary/90"
             />
             <button
               onClick={() => setShowLineQR(true)}
