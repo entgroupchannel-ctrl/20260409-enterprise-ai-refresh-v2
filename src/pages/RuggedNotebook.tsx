@@ -21,6 +21,7 @@ import FooterCompact from "@/components/FooterCompact";
 import MiniNavbar from "@/components/MiniNavbar";
 import B2BPlatformInterfaceShowcase from "@/components/B2BPlatformInterfaceShowcase";
 import B2BCTABanner from "@/components/B2BCTABanner";
+import RuggedStorySection from "@/components/rugged-notebook/RuggedStorySection";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -180,6 +181,9 @@ const RuggedNotebookPage = () => {
           </div>
         </div>
       </section>
+
+      {/* ─── Storytelling: Why Rugged Notebook ─── */}
+      <RuggedStorySection />
 
       {/* ─── Sticky Bar: Back + Quick Filters (อยู่ใต้ MiniNavbar) ─── */}
       <div className="sticky top-14 z-30 bg-background/90 backdrop-blur-md border-b border-border">
