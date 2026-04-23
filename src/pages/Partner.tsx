@@ -14,6 +14,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 import FooterCompact from "@/components/FooterCompact";
 import PartnerInquiryDialog from "@/components/partner/PartnerInquiryDialog";
 import logo from "@/assets/logo-entgroup.avif";
+import partnerHero from "@/assets/partner-hero.jpg";
 
 const Partner = () => {
   const { t, lang } = useI18n();
@@ -99,26 +100,39 @@ const Partner = () => {
 
       {/* ── Hero ── */}
       <section className="relative overflow-hidden border-b border-border/50">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-background pointer-events-none" />
-        <div className="absolute top-0 right-0 -z-0 h-96 w-96 rounded-full bg-primary/10 blur-3xl" />
+        {/* Background image */}
+        <img
+          src={partnerHero}
+          alt=""
+          aria-hidden="true"
+          width={1920}
+          height={1080}
+          className="absolute inset-0 w-full h-full object-cover opacity-60 dark:opacity-25"
+        />
+        {/* Gradient overlays: white → blue → grey for depth & legibility */}
+        <div className="absolute inset-0 bg-gradient-to-br from-white/90 via-sky-50/70 to-slate-200/80 dark:from-background/90 dark:via-primary/10 dark:to-background/90 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-transparent to-transparent dark:from-background/80 pointer-events-none" />
+        <div className="absolute -top-24 -right-24 h-[28rem] w-[28rem] rounded-full bg-primary/15 blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-32 -left-24 h-96 w-96 rounded-full bg-slate-400/20 blur-3xl pointer-events-none" />
+
         <div className="container max-w-7xl relative mx-auto px-6 py-20 md:py-28">
           <div className="max-w-3xl">
-            <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold tracking-wider uppercase mb-6">
+            <span className="inline-block px-3 py-1 rounded-full bg-primary/15 text-primary text-xs font-semibold tracking-wider uppercase mb-6 backdrop-blur-sm border border-primary/20">
               {t("partner.eyebrow")}
             </span>
-            <h1 className="text-4xl md:text-6xl font-bold leading-tight tracking-tight mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold leading-tight tracking-tight mb-6 text-foreground drop-shadow-sm">
               {t("partner.heroTitle")}
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-2xl">
+            <p className="text-lg md:text-xl text-foreground/80 leading-relaxed mb-8 max-w-2xl">
               {t("partner.heroSubtitle")}
             </p>
             <div className="flex flex-wrap gap-3">
-              <Button size="lg" asChild>
+              <Button size="lg" asChild className="shadow-lg shadow-primary/20">
                 <Link to="/partner/apply">
                   {t("partner.ctaApply")} <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" asChild>
+              <Button size="lg" variant="outline" asChild className="bg-white/60 dark:bg-background/60 backdrop-blur-sm">
                 <a href="#why">{t("partner.ctaLearn")}</a>
               </Button>
             </div>
@@ -127,7 +141,7 @@ const Partner = () => {
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 max-w-4xl">
             {stats.map((s, i) => (
-              <div key={i} className="border-l-2 border-primary/40 pl-4">
+              <div key={i} className="border-l-2 border-primary/50 pl-4 bg-white/40 dark:bg-background/40 backdrop-blur-sm rounded-r-lg py-2">
                 <div className="text-3xl md:text-4xl font-bold text-foreground">{s.value}</div>
                 <div className="text-xs md:text-sm text-muted-foreground mt-1">{s.label}</div>
               </div>
