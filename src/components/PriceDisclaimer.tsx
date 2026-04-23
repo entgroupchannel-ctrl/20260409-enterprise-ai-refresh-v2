@@ -22,7 +22,7 @@ const PriceDisclaimer = () => {
           Line: @entgroup
         </button>
       </p>
-      <LineQRDialog open={openLine} onOpenChange={setOpenLine} />
+      <LineQRDialog open={openLine} onClose={() => setOpenLine(false)} />
     </div>
   );
 };
