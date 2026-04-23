@@ -184,10 +184,7 @@ const RuggedNotebookPage = () => {
       {/* ─── Sticky Bar: Back + Quick Filters (อยู่ใต้ MiniNavbar) ─── */}
       <div className="sticky top-14 z-30 bg-background/90 backdrop-blur-md border-b border-border">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-between py-1.5 border-b border-border/50">
-            <Link to="/" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors">
-              <ArrowLeft className="w-3.5 h-3.5" /> กลับหน้าหลัก
-            </Link>
+          <div className="flex items-center justify-end py-1.5 border-b border-border/50">
             <div className="flex items-center gap-3">
               <span className="text-[10px] text-muted-foreground">Rugged Notebook — {ruggedNotebooks.length} รุ่น</span>
               <CartBadge />
