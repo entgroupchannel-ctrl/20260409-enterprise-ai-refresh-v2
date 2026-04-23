@@ -949,16 +949,22 @@ const GTSeries = () => {
                   </div>
 
                   {/* Quick Quote CTA */}
-                  <div className="card-surface p-5 bg-primary/5 border-primary/20 flex items-center justify-between gap-4">
+                  <div className="card-surface p-5 bg-primary/5 border-primary/20 flex flex-col gap-4">
                     <div>
                       <p className="font-bold text-sm text-foreground">สนใจ GT1000?</p>
                       <p className="text-xs text-muted-foreground">ขอใบเสนอราคาตอนนี้</p>
                     </div>
-                    <QuoteRequestButton
-                      productModel="GT1000"
-                      productName="Intel Celeron N2920 Industrial Mini PC"
-                      size="sm"
-                    />
+                    <div className="flex gap-2">
+                      <QuoteRequestButton
+                        productModel="GT1000"
+                        productName="Intel Celeron N2920 Industrial Mini PC"
+                        size="sm"
+                        className="flex-1"
+                      />
+                      <LineQRButton className="flex-1 h-9 text-sm">
+                        <MessageSquare className="w-4 h-4" /> LINE @entgroup
+                      </LineQRButton>
+                    </div>
                   </div>
                 </div>
                 </div>
