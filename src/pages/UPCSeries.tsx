@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Cpu, Puzzle, Shield, Zap, Thermometer, Network, Cable, Battery, Radio, Download, ExternalLink, CheckCircle2, Layers } from "lucide-react";
+import { ArrowLeft, Cpu, Puzzle, Shield, Zap, Thermometer, Network, Cable, Battery, Radio, Download, ExternalLink, CheckCircle2, Layers, FileText } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import MiniNavbar from "@/components/MiniNavbar";
