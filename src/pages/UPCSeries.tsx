@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import ProductDetailDialog from "@/components/ProductDetailDialog";
+import UpcPricingTable from "@/components/upc/UpcPricingTable";
 
 /* ───── LEGO MODE Capabilities ───── */
 const legoCapabilities = [
