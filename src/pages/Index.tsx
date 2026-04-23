@@ -37,9 +37,12 @@ const Index = () => {
       />
       <PopularProductsSidebar />
       <HeroSection />
+      <div className="bg-gradient-to-b from-primary/5 via-background to-background border-y-2 border-primary/20 relative">
+        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent" />
+        <B2BWorkflowBanner variant="full" showShopCta />
+      </div>
       <div className="bg-white dark:bg-background"><EdgeAISection /></div>
       <div className="bg-slate-100 dark:bg-muted/30"><ProductHighlights /></div>
-      <div className="bg-white dark:bg-background"><B2BWorkflowBanner variant="full" showShopCta /></div>
       <div className="bg-slate-100 dark:bg-muted/30"><ProductBanners /></div>
       <div className="bg-white dark:bg-background"><ProductSections /></div>
       <div className="bg-slate-100 dark:bg-muted/30"><ProductLineup /></div>
