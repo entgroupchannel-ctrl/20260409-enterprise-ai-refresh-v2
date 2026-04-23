@@ -160,9 +160,6 @@ const RuggedNotebookPage = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/30" />
         </div>
         <div className="max-w-7xl mx-auto px-4 py-16 md:py-24 relative z-10">
-          <Link to="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors">
-            <ArrowLeft size={16} /> หน้าแรก
-          </Link>
           <div className="flex items-center gap-3 mb-4">
             <Laptop className="w-10 h-10 text-primary" />
             <Badge className="bg-primary/20 text-primary border-primary/30 text-xs">MIL-STD-810G/H</Badge>
@@ -184,8 +181,8 @@ const RuggedNotebookPage = () => {
         </div>
       </section>
 
-      {/* ─── Sticky Bar: Back + Quick Filters ─── */}
-      <div className="sticky top-0 z-30 bg-background/90 backdrop-blur-md border-b border-border">
+      {/* ─── Sticky Bar: Back + Quick Filters (อยู่ใต้ MiniNavbar) ─── */}
+      <div className="sticky top-14 z-30 bg-background/90 backdrop-blur-md border-b border-border">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between py-1.5 border-b border-border/50">
             <Link to="/" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors">
