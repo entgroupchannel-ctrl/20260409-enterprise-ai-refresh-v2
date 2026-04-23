@@ -292,13 +292,19 @@ const UPCSeries = () => {
                 </Button>
               </div>
             </div>
-            <div className="hidden md:block">
+            <div className="hidden md:block relative">
+              <div className="absolute -inset-4 bg-gradient-to-tr from-primary-foreground/10 via-transparent to-primary-foreground/5 blur-2xl rounded-3xl" />
               <img
-                src="/upc-images/2025_11_LEGO__________________.jpg"
-                alt="UPC Series LEGO MODE Industrial PC"
-                className="rounded-2xl shadow-2xl border border-primary-foreground/20"
+                src="/upc-images/upc-hero-lego-industrial.jpg"
+                alt="UPC Series — Modular Industrial PC ปรับแต่งได้แบบ LEGO MODE"
+                className="relative rounded-2xl shadow-2xl border border-primary-foreground/20 w-full"
                 loading="eager"
+                width={1280}
+                height={960}
               />
+              <div className="absolute -bottom-3 -right-3 bg-primary-foreground text-primary px-3 py-1.5 rounded-full text-xs font-bold shadow-lg flex items-center gap-1.5">
+                <Puzzle className="w-3.5 h-3.5" /> Snap-in I/O Modules
+              </div>
             </div>
           </div>
         </div>
