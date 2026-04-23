@@ -14,6 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
+import ProductDetailDialog from "@/components/ProductDetailDialog";
 
 /* ───── LEGO MODE Capabilities ───── */
 const legoCapabilities = [
@@ -243,6 +244,7 @@ const tagColor = (tag: Model["tag"]) => {
 
 const UPCSeries = () => {
   const [filter, setFilter] = useState<"all" | "UPC" | "EPC" | "CTN">("all");
+  const [selected, setSelected] = useState<Model | null>(null);
   const filtered = filter === "all" ? models : models.filter(m => m.tag === filter);
 
   return (
@@ -367,7 +369,12 @@ const UPCSeries = () => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {filtered.map((m) => (
               <Card key={m.id} className="group overflow-hidden border-border hover:border-primary/50 hover:shadow-lg transition-all flex flex-col">
-                <div className="relative bg-gradient-to-br from-secondary/40 to-background aspect-[4/3] flex items-center justify-center p-4 overflow-hidden">
+                <button
+                  type="button"
+                  onClick={() => setSelected(m)}
+                  className="relative bg-gradient-to-br from-secondary/40 to-background aspect-[4/3] flex items-center justify-center p-4 overflow-hidden text-left cursor-pointer"
+                  aria-label={`ดูรายละเอียด ${m.name}`}
+                >
                   <img
                     src={m.image}
                     alt={`${m.name} ${m.highlight}`}
@@ -378,16 +385,19 @@ const UPCSeries = () => {
                     <Badge variant="outline" className={`text-[10px] ${tagColor(m.tag)}`}>{m.tag}</Badge>
                     {m.popular && <Badge className="text-[10px] bg-primary text-primary-foreground border-0">Popular</Badge>}
                   </div>
-                </div>
+                  <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Badge className="text-[10px] bg-foreground text-background border-0">ดูรายละเอียด</Badge>
+                  </div>
+                </button>
                 <CardContent className="p-4 flex-1 flex flex-col">
-                  <div className="flex-1">
-                    <h3 className="font-display font-bold text-lg text-foreground">{m.name}</h3>
+                  <button type="button" onClick={() => setSelected(m)} className="text-left flex-1">
+                    <h3 className="font-display font-bold text-lg text-foreground hover:text-primary transition-colors">{m.name}</h3>
                     <p className="text-xs text-muted-foreground mt-0.5">{m.cpu}</p>
                     <div className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
                       <Zap className="w-3.5 h-3.5" /> {m.highlight}
                     </div>
                     <p className="text-xs text-muted-foreground mt-2 leading-relaxed line-clamp-2">{m.feature}</p>
-                  </div>
+                  </button>
                   <div className="mt-3 pt-3 border-t border-border flex items-center gap-2">
                     <AddToCartButton
                       productModel={m.name}
@@ -397,9 +407,12 @@ const UPCSeries = () => {
                       iconOnly
                       className="shrink-0"
                     />
-                    <Button asChild variant="outline" size="sm" className="flex-1 h-8 text-xs">
-                      <a href={m.datasheet} target="_blank" rel="noreferrer">
-                        <Download className="w-3 h-3 mr-1" /> Datasheet
+                    <Button variant="outline" size="sm" className="flex-1 h-8 text-xs" onClick={() => setSelected(m)}>
+                      ดูสเปก
+                    </Button>
+                    <Button asChild variant="ghost" size="sm" className="h-8 px-2 text-xs">
+                      <a href={m.datasheet} target="_blank" rel="noreferrer" aria-label="Datasheet PDF">
+                        <Download className="w-3.5 h-3.5" />
                       </a>
                     </Button>
                   </div>
@@ -442,6 +455,18 @@ const UPCSeries = () => {
       <B2BCTABanner />
 
       <FooterCompact />
+
+      <ProductDetailDialog
+        open={!!selected}
+        onOpenChange={(v) => !v && setSelected(null)}
+        productId={selected?.id ?? null}
+        productName={selected?.name}
+        cpu={selected?.cpu}
+        highlight={selected?.highlight}
+        tag={selected?.tag}
+        datasheet={selected?.datasheet}
+        fallbackImage={selected?.image}
+      />
     </>
   );
 };
