@@ -41,6 +41,7 @@ const menuCategories = [
           { label: "GB Series — Compact", href: "/gb-series" },
           { label: "iBox Series", href: "/ibox-series" },
           { label: "EPC Box Series", href: "/epc-box-series" },
+          { label: "UPC Series — LEGO Modular", href: "/upc-series", hot: true },
         ],
       },
       {
