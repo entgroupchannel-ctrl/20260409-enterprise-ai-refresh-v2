@@ -474,11 +474,16 @@ export default function PartnerApply() {
   const stageNames = [L("step1"), L("step2"), L("step3"), L("step4"), L("step5")];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen relative bg-gradient-to-br from-slate-100 via-sky-50 to-violet-100 dark:from-background dark:via-primary/10 dark:to-violet-950/40">
+      {/* Decorative gradient orbs for depth */}
+      <div className="pointer-events-none absolute top-0 right-0 h-[32rem] w-[32rem] rounded-full bg-sky-300/30 dark:bg-primary/20 blur-3xl -z-0" />
+      <div className="pointer-events-none absolute top-1/3 -left-32 h-96 w-96 rounded-full bg-violet-300/30 dark:bg-violet-500/15 blur-3xl -z-0" />
+      <div className="pointer-events-none absolute bottom-0 right-1/3 h-96 w-96 rounded-full bg-slate-300/40 dark:bg-slate-500/10 blur-3xl -z-0" />
+
       <Helmet><title>{L("applyTitle")} — ENT Group</title></Helmet>
 
       {/* Header */}
-      <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
+      <nav className="sticky top-0 z-50 bg-white/70 dark:bg-background/70 backdrop-blur-xl border-b border-border/60">
         <div className="container max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
           <div className="flex items-center gap-4">
             <Link to="/partner" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors">
