@@ -128,7 +128,7 @@ const HeroSection = () => {
         </Link>
 
         <div className="hidden md:flex items-center gap-1">
-          <div className="[&_button]:!text-white/90 [&_button:hover]:!text-white [&_button]:[text-shadow:0_1px_2px_rgba(0,0,0,0.6)]">
+          <div className="[&_button:not(.bg-muted)]:!text-white/90 [&_button:not(.bg-muted):hover]:!text-white [&_button:not(.bg-muted)]:[text-shadow:0_1px_2px_rgba(0,0,0,0.6)]">
             <MegaMenu />
           </div>
           <TooltipProvider delayDuration={150}>
