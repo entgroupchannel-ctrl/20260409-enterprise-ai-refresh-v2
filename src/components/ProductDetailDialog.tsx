@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Download, CheckCircle2, Cpu, Zap, ExternalLink } from "lucide-react";
+import { Download, CheckCircle2, Cpu, Zap, ExternalLink, Maximize2, X } from "lucide-react";
 import AddToCartButton from "@/components/AddToCartButton";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
 import { upcSeriesDetails } from "@/data/upcSeriesDetails";
@@ -35,6 +35,7 @@ const ProductDetailDialog = ({
   const detail = productId ? upcSeriesDetails[productId] : null;
   const gallery = detail?.gallery?.length ? detail.gallery : fallbackImage ? [fallbackImage] : [];
   const [activeImage, setActiveImage] = useState(0);
+  const [lightbox, setLightbox] = useState<string | null>(null);
 
   // reset image index when product changes
   useState(() => setActiveImage(0));
@@ -203,20 +204,48 @@ const ProductDetailDialog = ({
                 <TabsContent value="dimensions" className="mt-4">
                   <div className="space-y-4">
                     <p className="text-xs text-muted-foreground">
-                      ภาพสินค้าและขนาดมิติ (Product images & dimensions)
+                      ภาพสินค้าและขนาดมิติ — คลิกที่ภาพเพื่อขยาย หรือกดปุ่มดาวน์โหลด
                     </p>
                     <div className="grid sm:grid-cols-2 gap-4">
                       {upcDimensionImages[productId].map((src, i) => (
                         <div
                           key={i}
-                          className="border border-border rounded-lg bg-secondary/20 overflow-hidden flex items-center justify-center p-3"
+                          className="group relative border border-border rounded-lg bg-secondary/20 overflow-hidden"
                         >
-                          <img
-                            src={src}
-                            alt={`${productName ?? productId} dimension ${i + 1}`}
-                            className="max-h-72 w-auto object-contain"
-                            loading="lazy"
-                          />
+                          <button
+                            type="button"
+                            onClick={() => setLightbox(src)}
+                            className="w-full flex items-center justify-center p-3 cursor-zoom-in hover:bg-secondary/40 transition-colors"
+                            aria-label={`ขยายภาพ ${i + 1}`}
+                          >
+                            <img
+                              src={src}
+                              alt={`${productName ?? productId} dimension ${i + 1}`}
+                              className="max-h-72 w-auto object-contain group-hover:scale-[1.02] transition-transform"
+                              loading="lazy"
+                            />
+                          </button>
+                          <div className="absolute top-2 right-2 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button
+                              type="button"
+                              onClick={() => setLightbox(src)}
+                              className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-background/90 backdrop-blur border border-border shadow hover:bg-primary hover:text-primary-foreground transition-colors"
+                              title="ขยายภาพ"
+                              aria-label="ขยายภาพ"
+                            >
+                              <Maximize2 className="w-4 h-4" />
+                            </button>
+                            <a
+                              href={src}
+                              download
+                              className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-background/90 backdrop-blur border border-border shadow hover:bg-primary hover:text-primary-foreground transition-colors"
+                              title="ดาวน์โหลดภาพ"
+                              aria-label="ดาวน์โหลดภาพ"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <Download className="w-4 h-4" />
+                            </a>
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -231,6 +260,37 @@ const ProductDetailDialog = ({
           )}
         </div>
       </DialogContent>
+
+      {/* Lightbox for dimension images */}
+      {lightbox && (
+        <div
+          className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 animate-in fade-in"
+          onClick={() => setLightbox(null)}
+        >
+          <button
+            type="button"
+            onClick={() => setLightbox(null)}
+            className="absolute top-4 right-4 inline-flex items-center justify-center w-10 h-10 rounded-full bg-background/20 hover:bg-background/40 text-white transition-colors"
+            aria-label="ปิด"
+          >
+            <X className="w-5 h-5" />
+          </button>
+          <a
+            href={lightbox}
+            download
+            onClick={(e) => e.stopPropagation()}
+            className="absolute top-4 right-16 inline-flex items-center gap-1.5 px-3 h-10 rounded-full bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity shadow-lg"
+          >
+            <Download className="w-4 h-4" /> ดาวน์โหลด
+          </a>
+          <img
+            src={lightbox}
+            alt="Dimension preview"
+            className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
     </Dialog>
   );
 };
