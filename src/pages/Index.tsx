@@ -37,15 +37,15 @@ const Index = () => {
       />
       <PopularProductsSidebar />
       <HeroSection />
-      <EdgeAISection />
-      <ProductHighlights />
-      <B2BWorkflowBanner variant="full" showShopCta />
-      <ProductBanners />
-      <ProductSections />
-      <ProductLineup />
-      <SoftwareSection />
-      <CaseStudiesSection />
-      <PromoBanners />
+      <div className="bg-white dark:bg-background"><EdgeAISection /></div>
+      <div className="bg-slate-50 dark:bg-muted/20"><ProductHighlights /></div>
+      <div className="bg-white dark:bg-background"><B2BWorkflowBanner variant="full" showShopCta /></div>
+      <div className="bg-slate-100 dark:bg-muted/30"><ProductBanners /></div>
+      <div className="bg-white dark:bg-background"><ProductSections /></div>
+      <div className="bg-slate-50 dark:bg-muted/20"><ProductLineup /></div>
+      <div className="bg-white dark:bg-background"><SoftwareSection /></div>
+      <div className="bg-slate-100 dark:bg-muted/30"><CaseStudiesSection /></div>
+      <div className="bg-white dark:bg-background"><PromoBanners /></div>
       <Footer />
     </div>
   );
