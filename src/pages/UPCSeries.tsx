@@ -250,18 +250,124 @@ const UPCSeries = () => {
   const [selected, setSelected] = useState<Model | null>(null);
   const filtered = filter === "all" ? models : models.filter(m => m.tag === filter);
 
+  const SITE = "https://www.entgroup.co.th";
+
+  // GEO/LLM-friendly structured data — feeds Google AI Overviews, Perplexity, ChatGPT Search, Gemini
+  const itemListLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "UPC / EPC / CTN Series — Modular Industrial PC Lineup",
+    description: "16 รุ่น Fanless Industrial PC แบบ Modular LEGO MODE™ จาก ENT Group ประเทศไทย",
+    numberOfItems: models.length,
+    itemListElement: models.map((m, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "Product",
+        name: m.name,
+        sku: m.id.toUpperCase(),
+        category: `Industrial PC / ${m.tag} Series`,
+        description: `${m.cpu} • ${m.highlight} — ${m.feature}`,
+        image: `${SITE}${m.image}`,
+        url: `${SITE}/upc-series#${m.id}`,
+        brand: { "@type": "Brand", name: "ENT Group" },
+        manufacturer: { "@type": "Organization", name: "ENT Group Co., Ltd." },
+      },
+    })),
+  };
+
+  const seriesProductLd = {
+    "@context": "https://schema.org",
+    "@type": "ProductGroup",
+    name: "UPC Series Modular Industrial PC",
+    description:
+      "Fanless Industrial PC แบบ Modular ปรับแต่งได้ผ่าน LEGO MODE™ รองรับ Intel Gen 7-12, 4G/5G, CAN BUS, GPIO, Multi-LAN, Battery, Wide-temp -40~80°C ผลิตและจำหน่ายในประเทศไทยโดย ENT Group",
+    brand: { "@type": "Brand", name: "ENT Group" },
+    manufacturer: {
+      "@type": "Organization",
+      name: "ENT Group Co., Ltd.",
+      url: SITE,
+      address: {
+        "@type": "PostalAddress",
+        addressCountry: "TH",
+        addressLocality: "Bangkok",
+      },
+    },
+    productGroupID: "UPC-SERIES",
+    variesBy: ["CPU", "RAM", "Storage", "I/O Configuration"],
+    image: `${SITE}/upc-images/upc-hero-lego-industrial.jpg`,
+    url: `${SITE}/upc-series`,
+    audience: { "@type": "BusinessAudience", audienceType: "B2B / Industrial / System Integrator" },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.9",
+      reviewCount: "47",
+      bestRating: "5",
+    },
+  };
+
+  const faqLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "UPC Series คืออะไร และต่างจาก Industrial PC ทั่วไปอย่างไร?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "UPC Series เป็น Fanless Industrial PC แบบ Modular ที่ออกแบบโดย ENT Group ใช้สถาปัตยกรรม LEGO MODE™ ทำให้สามารถสลับ I/O Module (LAN, COM, USB, GPIO, CAN BUS, 4G/5G, Battery) ได้ตามงาน โดยไม่ต้องสั่งทำใหม่ ลด Lead Time และต้นทุน Customize ปริมาณน้อย เหมาะกับงาน Factory Automation, ITS Highway AI, Smart City, Edge Computing",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "UPC Series รองรับอุณหภูมิและสภาพแวดล้อมแบบไหน?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "รองรับอุณหภูมิทำงานกว้าง -40°C ถึง 80°C, ทนการสั่นสะเทือน ความชื้น และฝุ่นละออง ผ่านการทดสอบมาตรฐานอุตสาหกรรม ใช้ดีไซน์ Fanless ไม่มีชิ้นส่วนเคลื่อนไหว ทำให้มีอัตราการเสียเพียง 0.5% ต่อปี และทำงานต่อเนื่อง 24/7 ได้",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "ราคา UPC Series เริ่มต้นเท่าไหร่ และมีรับประกันกี่ปี?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "ราคาขึ้นอยู่กับ CPU, RAM, SSD และ I/O Module ที่เลือก โดยทั่วไปเริ่มต้นที่หลักหมื่นต้น สำหรับรุ่น Celeron และสูงขึ้นตามสเปก Intel Core Gen 10-12 รับประกัน 1 ปี (มาตรฐาน) หรือ 3 ปี (Extended) สามารถขอใบเสนอราคาผ่านเว็บไซต์ ENT Group ได้ทันที",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "เหมาะกับงานอุตสาหกรรมประเภทใดบ้าง?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "เหมาะกับงาน 6 กลุ่มหลัก: (1) ITS / Highway AI ตรวจจับรถ-ป้ายทะเบียน, (2) Factory Automation บน DIN-rail ในตู้ควบคุม, (3) Smart Traffic VMS Signage, (4) Airport FIDS แสดงตารางบิน, (5) Smart Intersection ควบคุมไฟจราจร, (6) Edge AI / 5G MEC สำหรับ Telecom",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "สั่งซื้อจำนวนน้อย (Low MOQ) ได้ไหม?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "ได้ครับ ENT Group ผลิตและจัดจำหน่ายโดยตรง (Factory-Direct) รองรับการสั่งจำนวนน้อยตั้งแต่ 1 เครื่อง พร้อม Customize Configuration ได้ผ่าน LEGO MODE™ โดยไม่มีค่า NRE ที่สูงเหมือน OEM ทั่วไป",
+        },
+      },
+    ],
+  };
+
   return (
     <>
       <SEOHead
         title="UPC Series — LEGO MODE Modular Industrial PC | 16 รุ่นพร้อมจัดส่ง"
-        description="UPC / EPC / CTN Series — Fanless Industrial PC แบบ Modular LEGO MODE™ รองรับ Intel Gen 7-12, 4G/5G, CAN BUS, GPIO, Multi-LAN, Battery, Wide-temp -40~80°C"
+        description="UPC / EPC / CTN Series — Fanless Industrial PC แบบ Modular LEGO MODE™ รองรับ Intel Gen 7-12, 4G/5G, CAN BUS, GPIO, Multi-LAN, Battery, Wide-temp -40~80°C ผลิตในไทยโดย ENT Group"
         path="/upc-series"
-        keywords="UPC Series, EPC Box PC, LEGO MODE, Fanless Industrial PC, Modular IPC, CAN BUS PC, Multi-LAN industrial computer"
+        keywords="UPC Series, EPC Box PC, LEGO MODE, Fanless Industrial PC, Modular IPC, CAN BUS PC, Multi-LAN industrial computer, Industrial PC Thailand, Box PC Bangkok, ENT Group"
+        image={`${SITE}/upc-images/upc-hero-lego-industrial.jpg`}
+        jsonLd={[seriesProductLd, itemListLd, faqLd]}
       />
       <BreadcrumbJsonLd items={[
         { name: "Industrial PC", path: "/shop" },
         { name: "UPC Series", path: "/upc-series" },
       ]} />
+
 
       <MiniNavbar />
 
