@@ -27,9 +27,9 @@ export default function SiteNavbar() {
           <img src={logo} alt="ENT GROUP" className="h-8 w-auto" />
         </Link>
 
-        {/* Desktop nav — MegaMenu ชิดซ้ายติดโลโก้, icon group ชิดขวา */}
+        {/* Desktop nav — MegaMenu ชิดขวาเหมือนหน้าแรก */}
         <div className="hidden md:flex items-center flex-1 min-w-0 gap-1">
-          <div className="flex items-center min-w-0 mr-auto pl-6 lg:pl-10">
+          <div className="flex items-center min-w-0 ml-auto">
             <MegaMenu />
           </div>
           <TooltipProvider delayDuration={150}>
