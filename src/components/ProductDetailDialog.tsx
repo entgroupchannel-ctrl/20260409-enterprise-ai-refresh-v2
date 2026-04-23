@@ -131,17 +131,37 @@ const ProductDetailDialog = ({
             </div>
           </div>
 
-          {/* Tabs: Specs / Selection / Highlights */}
+          {/* Tabs: Specs / Features / Dimensions */}
           {detail ? (
             <Tabs defaultValue="specs" className="mt-6">
-              <TabsList>
-                <TabsTrigger value="specs">Specifications</TabsTrigger>
-                <TabsTrigger value="features">Features</TabsTrigger>
-                {productId && upcDimensionImages[productId]?.length > 0 && (
-                  <TabsTrigger value="dimensions">Dimensions</TabsTrigger>
-                )}
-                {detail.selection && <TabsTrigger value="selection">Part Numbers</TabsTrigger>}
-              </TabsList>
+              <div className="mb-3">
+                <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-2 flex items-center gap-1.5">
+                  <span className="inline-block w-1 h-3 bg-primary rounded-full" />
+                  คลิกเพื่อดูข้อมูลเพิ่มเติม
+                </p>
+                <TabsList className="h-auto p-1 bg-secondary/60 border border-border rounded-lg flex flex-wrap gap-1">
+                  <TabsTrigger
+                    value="specs"
+                    className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md px-4 py-2 text-sm font-semibold rounded-md transition-all hover:bg-background"
+                  >
+                    📋 Specifications
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="features"
+                    className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md px-4 py-2 text-sm font-semibold rounded-md transition-all hover:bg-background"
+                  >
+                    ✨ Features
+                  </TabsTrigger>
+                  {productId && upcDimensionImages[productId]?.length > 0 && (
+                    <TabsTrigger
+                      value="dimensions"
+                      className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md px-4 py-2 text-sm font-semibold rounded-md transition-all hover:bg-background"
+                    >
+                      📐 Dimensions
+                    </TabsTrigger>
+                  )}
+                </TabsList>
+              </div>
 
               <TabsContent value="specs" className="mt-4">
                 <div className="grid md:grid-cols-2 gap-4">
@@ -176,32 +196,8 @@ const ProductDetailDialog = ({
                 </div>
               </TabsContent>
 
-              {detail.selection && (
-                <TabsContent value="selection" className="mt-4">
-                  <div className="border border-border rounded-lg overflow-hidden">
-                    <table className="w-full text-sm">
-                      <thead className="bg-secondary/50">
-                        <tr>
-                          <th className="px-3 py-2 text-left text-xs uppercase tracking-wide">Part Number</th>
-                          <th className="px-3 py-2 text-left text-xs uppercase tracking-wide">CPU</th>
-                          <th className="px-3 py-2 text-left text-xs uppercase tracking-wide">Memory</th>
-                          <th className="px-3 py-2 text-left text-xs uppercase tracking-wide">Storage</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {detail.selection.map((s, i) => (
-                          <tr key={i} className="border-t border-border">
-                            <td className="px-3 py-2 font-mono text-xs">{s.partNumber}</td>
-                            <td className="px-3 py-2">{s.cpu}</td>
-                            <td className="px-3 py-2">{s.memory}</td>
-                            <td className="px-3 py-2">{s.storage}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </TabsContent>
-              )}
+
+
 
               {productId && upcDimensionImages[productId]?.length > 0 && (
                 <TabsContent value="dimensions" className="mt-4">
