@@ -46,8 +46,8 @@ const models: Model[] = [
     cpu: "12th Gen Intel® Core™",
     highlight: "Smart Fan • 4×LAN",
     feature: "เหมาะกับงาน Network Edge และ Gateway ที่ต้องการพอร์ต LAN หลายช่อง",
-    image: "https://cesipc.com/wp-content/uploads/2025/12/EPC-102B.jpg",
-    datasheet: "https://cesipc.com/wp-content/uploads/2025/08/EPC-102B-EN-1.pdf",
+    image: "/upc-images/2025_12_EPC-102B.jpg",
+    datasheet: "/upc-datasheets/2025_08_EPC-102B-EN-1.pdf",
     tag: "EPC",
     popular: true,
   },
@@ -57,8 +57,8 @@ const models: Model[] = [
     cpu: "12th Gen Intel® Core™",
     highlight: "2×HDMI with EDID",
     feature: "Dual HDMI output รองรับ EDID emulation สำหรับงาน Digital Signage",
-    image: "https://cesipc.com/wp-content/uploads/2025/12/EPC-102C.jpg",
-    datasheet: "https://cesipc.com/wp-content/uploads/2025/08/CTN-102C-EN.pdf",
+    image: "/upc-images/2025_12_EPC-102C.jpg",
+    datasheet: "/upc-datasheets/2025_08_CTN-102C-EN.pdf",
     tag: "CTN",
   },
   {
@@ -67,8 +67,8 @@ const models: Model[] = [
     cpu: "12th Gen Intel® Core™",
     highlight: "8× COM Port",
     feature: "Multi-serial port สำหรับงานควบคุมอุปกรณ์อุตสาหกรรมจำนวนมาก",
-    image: "https://cesipc.com/wp-content/uploads/2025/12/WechatIMG3926.png",
-    datasheet: "https://cesipc.com/wp-content/uploads/2025/08/EPC-202B-EN.pdf",
+    image: "/upc-images/2025_12_WechatIMG3926.png",
+    datasheet: "/upc-datasheets/2025_08_EPC-202B-EN.pdf",
     tag: "EPC",
     popular: true,
   },
@@ -78,8 +78,8 @@ const models: Model[] = [
     cpu: "Intel® Celeron® J6412",
     highlight: "DB37 Multi-Serial",
     feature: "Serial port ขยายผ่าน DB37 — ประหยัดพื้นที่ติดตั้ง",
-    image: "https://cesipc.com/wp-content/uploads/2025/12/EPC-207B.jpg",
-    datasheet: "https://cesipc.com/wp-content/uploads/2025/08/EPC-207B-EN.pdf",
+    image: "/upc-images/2025_12_EPC-207B.jpg",
+    datasheet: "/upc-datasheets/2025_08_EPC-207B-EN.pdf",
     tag: "EPC",
   },
   {
@@ -88,8 +88,8 @@ const models: Model[] = [
     cpu: "10th Gen Intel® Core™",
     highlight: "4× Intel LAN",
     feature: "Quad Intel Ethernet สำหรับงาน Firewall / Routing / Edge Computing",
-    image: "https://cesipc.com/wp-content/uploads/2025/12/EPC-309E.jpg",
-    datasheet: "https://cesipc.com/wp-content/uploads/2025/08/EPC-309E-EN.pdf",
+    image: "/upc-images/2025_12_EPC-309E.jpg",
+    datasheet: "/upc-datasheets/2025_08_EPC-309E-EN.pdf",
     tag: "EPC",
   },
   {
@@ -98,8 +98,8 @@ const models: Model[] = [
     cpu: "12th Gen Intel® Core™",
     highlight: "Smart Fan • 5×LAN",
     feature: "Performance สูง พร้อม 5 พอร์ต LAN สำหรับงาน Network-intensive",
-    image: "https://cesipc.com/wp-content/uploads/2025/12/EPC-302B.jpg",
-    datasheet: "https://cesipc.com/wp-content/uploads/2025/08/UPC-302B-EN.pdf",
+    image: "/upc-images/2025_12_EPC-302B.jpg",
+    datasheet: "/upc-datasheets/2025_08_UPC-302B-EN.pdf",
     tag: "EPC",
   },
   {
@@ -108,8 +108,8 @@ const models: Model[] = [
     cpu: "12th Gen Intel® Core™",
     highlight: "9×USB • 2×LAN",
     feature: "Multi-USB สำหรับเชื่อมต่ออุปกรณ์ต่อพ่วงจำนวนมาก เช่น Scanner, Printer",
-    image: "https://cesipc.com/wp-content/uploads/2025/12/UPC-302D.jpg",
-    datasheet: "https://cesipc.com/wp-content/uploads/2025/08/UPC-302D-EN.pdf",
+    image: "/upc-images/2025_12_UPC-302D.jpg",
+    datasheet: "/upc-datasheets/2025_08_UPC-302D-EN.pdf",
     tag: "UPC",
     popular: true,
   },
@@ -119,8 +119,8 @@ const models: Model[] = [
     cpu: "7th Gen Intel® Core™",
     highlight: "Battery 4000mAh",
     feature: "มีแบตเตอรี่สำรองในตัว เหมาะกับงานที่ต้องการ UPS ฝังตัว",
-    image: "https://cesipc.com/wp-content/uploads/2025/12/UPC-108H.jpg",
-    datasheet: "https://cesipc.com/wp-content/uploads/2025/08/UPC-108H-EN.pdf",
+    image: "/upc-images/2025_12_UPC-108H.jpg",
+    datasheet: "/upc-datasheets/2025_08_UPC-108H-EN.pdf",
     tag: "UPC",
   },
   {
@@ -129,8 +129,8 @@ const models: Model[] = [
     cpu: "Intel® Celeron® J1900",
     highlight: "CAN BUS",
     feature: "รองรับ CAN BUS สำหรับงานควบคุมยานยนต์และเครื่องจักรอุตสาหกรรม",
-    image: "https://cesipc.com/wp-content/uploads/2025/12/UPC-206E.jpg",
-    datasheet: "https://cesipc.com/wp-content/uploads/2025/08/UPC-206E-EN.pdf",
+    image: "/upc-images/2025_12_UPC-206E.jpg",
+    datasheet: "/upc-datasheets/2025_08_UPC-206E-EN.pdf",
     tag: "UPC",
   },
   {
@@ -139,8 +139,8 @@ const models: Model[] = [
     cpu: "Intel® Celeron® J1900",
     highlight: "SIM / TF Card",
     feature: "รองรับ 4G SIM และ TF Card สำหรับงาน Mobile / Remote Site",
-    image: "https://cesipc.com/wp-content/uploads/2025/12/UPC-206F.jpg",
-    datasheet: "https://cesipc.com/wp-content/uploads/2025/08/UPC-206F-EN.pdf",
+    image: "/upc-images/2025_12_UPC-206F.jpg",
+    datasheet: "/upc-datasheets/2025_08_UPC-206F-EN.pdf",
     tag: "UPC",
   },
   {
@@ -149,8 +149,8 @@ const models: Model[] = [
     cpu: "10th Gen Intel® Core™",
     highlight: "DI/DO • MOD BUS",
     feature: "4×Line in / 8×Line out + Modbus สำหรับ Factory Automation",
-    image: "https://cesipc.com/wp-content/uploads/2025/12/UPC-209B.jpg",
-    datasheet: "https://cesipc.com/wp-content/uploads/2025/08/UPC-209B-EN.pdf",
+    image: "/upc-images/2025_12_UPC-209B.jpg",
+    datasheet: "/upc-datasheets/2025_08_UPC-209B-EN.pdf",
     tag: "UPC",
   },
   {
@@ -159,8 +159,8 @@ const models: Model[] = [
     cpu: "10th Gen Intel® Core™",
     highlight: "SIM / TF / 4G",
     feature: "Performance สูง พร้อม 4G สำหรับงาน Outdoor และ Telecom",
-    image: "https://cesipc.com/wp-content/uploads/2025/12/UPC-309C.jpg",
-    datasheet: "https://cesipc.com/wp-content/uploads/2025/08/UPC-309C-EN.pdf",
+    image: "/upc-images/2025_12_UPC-309C.jpg",
+    datasheet: "/upc-datasheets/2025_08_UPC-309C-EN.pdf",
     tag: "UPC",
   },
   {
@@ -169,8 +169,8 @@ const models: Model[] = [
     cpu: "10th Gen Intel® Core™",
     highlight: "Redundant DC Power",
     feature: "ไฟเลี้ยงสำรองคู่ — เหมาะกับงาน Mission-critical ที่ห้ามดับ",
-    image: "https://cesipc.com/wp-content/uploads/2025/12/UPC-309R.jpg",
-    datasheet: "https://cesipc.com/wp-content/uploads/2025/08/UPC-309R.pdf",
+    image: "/upc-images/2025_12_UPC-309R.jpg",
+    datasheet: "/upc-datasheets/2025_08_UPC-309R.pdf",
     tag: "UPC",
     popular: true,
   },
@@ -180,8 +180,8 @@ const models: Model[] = [
     cpu: "12th Gen Intel® Core™",
     highlight: "14×USB • 2×LAN",
     feature: "USB ขยายสูงสุดในซีรีส์ — สำหรับงาน Multi-device Hub",
-    image: "https://cesipc.com/wp-content/uploads/2025/12/UPC-302D-1.jpg",
-    datasheet: "https://cesipc.com/wp-content/uploads/2025/08/UPC-302F-EN.pdf",
+    image: "/upc-images/2025_12_UPC-302D-1.jpg",
+    datasheet: "/upc-datasheets/2025_08_UPC-302F-EN.pdf",
     tag: "UPC",
   },
   {
@@ -190,8 +190,8 @@ const models: Model[] = [
     cpu: "12th Gen Intel® Core™",
     highlight: "5× Intel LAN",
     feature: "5 LAN ports + ประสิทธิภาพ Gen 12 สำหรับ Network Appliance",
-    image: "https://cesipc.com/wp-content/uploads/2025/12/IMG_6256-1.jpg",
-    datasheet: "https://cesipc.com/wp-content/uploads/2025/09/EPC-302E-EN.pdf",
+    image: "/upc-images/2025_12_IMG_6256-1.jpg",
+    datasheet: "/upc-datasheets/2025_09_EPC-302E-EN.pdf",
     tag: "EPC",
   },
   {
@@ -200,8 +200,8 @@ const models: Model[] = [
     cpu: "12th Gen Intel® Core™",
     highlight: "GPIO 12V/24V",
     feature: "GPIO สำหรับงานควบคุม Sensor และ Actuator แบบ Embedded",
-    image: "https://cesipc.com/wp-content/uploads/2025/10/IMG_7514.jpg",
-    datasheet: "https://cesipc.com/wp-content/uploads/2025/10/EPC-302A-EN.pdf",
+    image: "/upc-images/2025_10_IMG_7514.jpg",
+    datasheet: "/upc-datasheets/2025_10_EPC-302A-EN.pdf",
     tag: "EPC",
   },
 ];
@@ -293,7 +293,7 @@ const UPCSeries = () => {
             </div>
             <div className="hidden md:block">
               <img
-                src="https://cesipc.com/wp-content/uploads/2025/11/LEGO%E5%AE%9A%E5%88%B6%E7%B1%BB%E5%B7%A5%E6%8E%A7%E6%9C%BA.jpg"
+                src="/upc-images/2025_11_LEGO__________________.jpg"
                 alt="UPC Series LEGO MODE Industrial PC"
                 className="rounded-2xl shadow-2xl border border-primary-foreground/20"
                 loading="eager"
