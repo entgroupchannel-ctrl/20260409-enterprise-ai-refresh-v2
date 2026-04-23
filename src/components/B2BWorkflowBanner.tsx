@@ -34,14 +34,20 @@ const B2BWorkflowBanner = ({ variant = "full", className = "", showShopCta = fal
           {showShopCta && (
             <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
               <Link
-                to="/shop"
+                to="/request-quote"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity shadow-md"
               >
-                เริ่มเลือกสินค้าที่ Shop <ArrowRight className="w-4 h-4" />
+                ขอใบเสนอราคา <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                to="/shop"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border-2 border-primary/30 bg-background text-sm font-semibold text-foreground hover:border-primary hover:text-primary transition-colors"
+              >
+                เลือกสินค้าที่ Shop
               </Link>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border-2 border-primary/30 bg-background text-sm font-semibold text-foreground hover:border-primary hover:text-primary transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border-2 border-border bg-background text-sm font-semibold text-foreground hover:border-primary hover:text-primary transition-colors"
               >
                 ปรึกษาแอดมิน
               </Link>
