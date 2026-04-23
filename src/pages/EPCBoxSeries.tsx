@@ -833,7 +833,7 @@ const EPCBoxSeries = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-6">
-                CESIPC Partner
+                ENT Industrial Partner
               </span>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-black mb-6 tracking-tight">
                 EPC Box <span className="text-gradient">Series</span>
@@ -857,7 +857,7 @@ const EPCBoxSeries = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
-                  CESIPC E-Catalog <ExternalLink size={16} />
+                  ดาวน์โหลด E-Catalog <ExternalLink size={16} />
                 </a>
                 <a
                   href="#pricing"
@@ -924,7 +924,7 @@ const EPCBoxSeries = () => {
               อะไรทำให้เป็น <span className="text-gradient">Industrial-Grade จริงๆ?</span>
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              CESIPC Industrial Box PC ไม่ได้แค่ติดป้าย "มาตรฐานอุตสาหกรรม" แต่ถูกออกแบบและผลิตให้ตอบสนองความต้องการที่เข้มงวดของสภาพแวดล้อมโรงงานจริง
+              EPC Industrial Box PC ไม่ได้แค่ติดป้าย "มาตรฐานอุตสาหกรรม" แต่ถูกออกแบบและผลิตให้ตอบสนองความต้องการที่เข้มงวดของสภาพแวดล้อมโรงงานจริง
             </p>
           </div>
           <div className="grid sm:grid-cols-2 gap-4 max-w-3xl mx-auto">

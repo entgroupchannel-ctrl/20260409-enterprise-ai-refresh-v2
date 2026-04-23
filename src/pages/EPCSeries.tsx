@@ -394,7 +394,7 @@ const EPCSeries = () => {
           <div className="flex flex-col md:flex-row gap-8 items-center">
             {/* Text Content */}
             <div className="md:w-3/5">
-              <Badge className="bg-white/10 text-white border-white/20 backdrop-blur-sm mb-4">CESIPC Industrial Panel PC</Badge>
+              <Badge className="bg-white/10 text-white border-white/20 backdrop-blur-sm mb-4">ENT Industrial Panel PC</Badge>
               <h1 className="text-3xl md:text-5xl font-display font-bold text-white mb-3 leading-tight">
                 EPC <span className="text-primary">Panel PC</span> Series
               </h1>
@@ -496,7 +496,7 @@ const EPCSeries = () => {
             อะไรทำให้คอมพิวเตอร์ของเราเป็น Industrial-Grade จริงๆ?
           </h2>
           <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
-            CESIPC Industrial Panel PC ไม่ได้แค่ติดป้าย "มาตรฐานอุตสาหกรรม" แต่ถูกออกแบบและผลิตให้ตอบสนองความต้องการที่เข้มงวดของสภาพแวดล้อมโรงงานจริง ผ่านการทดสอบอย่างครอบคลุม และได้รับการรับรองสำหรับการทำงานที่เชื่อถือได้
+            ENT Industrial Panel PC ไม่ได้แค่ติดป้าย "มาตรฐานอุตสาหกรรม" แต่ถูกออกแบบและผลิตให้ตอบสนองความต้องการที่เข้มงวดของสภาพแวดล้อมโรงงานจริง ผ่านการทดสอบอย่างครอบคลุม และได้รับการรับรองสำหรับการทำงานที่เชื่อถือได้
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
@@ -723,7 +723,7 @@ const EPCSeries = () => {
           <h2 className="text-lg font-display font-bold text-foreground mb-3 text-center">📥 Downloads</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {[
-              { name: "CESIPC & ENTGROUP E-Catalog", url: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_9dad5caa6c4d4410a723cab33c3177bf.pdf" },
+              { name: "ENT Group E-Catalog", url: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_9dad5caa6c4d4410a723cab33c3177bf.pdf" },
               ...squareModels.map((m) => ({ name: m.name, url: m.datasheet })),
               { name: "EPC-S17X2A", url: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_4aadb2eda8ae4dcdb9e1eab7d5ecf42e.pdf" },
               ...wideModels.map((m) => ({ name: m.name, url: m.datasheet })),
