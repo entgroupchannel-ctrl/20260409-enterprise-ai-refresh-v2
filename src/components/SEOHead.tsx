@@ -69,8 +69,6 @@ const SEOHead = ({
       <meta name="ai-content-declaration" content="human-authored, expert-reviewed" />
       <meta name="article:publisher" content="ENT Group Co., Ltd." />
       <meta name="author" content="ENT Group" />
-      {/* Allow AI training/citation for our public marketing pages */}
-      <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
       <meta name="google" content="notranslate" />
 
       {/* Open Graph */}
