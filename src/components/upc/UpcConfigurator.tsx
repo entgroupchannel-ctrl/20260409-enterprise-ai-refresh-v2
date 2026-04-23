@@ -200,13 +200,13 @@ export default function UpcConfigurator({ productId, productName, highlight, onA
 
   return (
     <Card className="border-primary/30 shadow-sm">
-      <CardContent className="p-4 space-y-4">
+      <CardContent className="p-4 space-y-3">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-border pb-3">
+        <div className="flex items-center justify-between border-b border-border pb-2.5">
           <div>
             <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">ปรับแต่งสเปก</p>
-            <h3 className="font-bold text-base flex items-center gap-2">
-              <Wand2 className="w-4 h-4 text-primary" />
+            <h3 className="font-bold text-sm flex items-center gap-1.5">
+              <Wand2 className="w-3.5 h-3.5 text-primary" />
               คำนวณราคาตามสเปกจริง
             </h3>
           </div>
@@ -215,7 +215,7 @@ export default function UpcConfigurator({ productId, productName, highlight, onA
           </Badge>
         </div>
 
-        {/* CPU */}
+        {/* CPU — full width */}
         <Section icon={Cpu} title="CPU / Processor" hint="ราคารวม chassis">
           <Select value={cpuKey} onValueChange={setCpuKey}>
             <SelectTrigger className="w-full h-9 text-sm">
@@ -239,126 +239,127 @@ export default function UpcConfigurator({ productId, productName, highlight, onA
           </Select>
         </Section>
 
-        {/* RAM */}
-        <Section icon={MemoryStick} title="RAM (หน่วยความจำ)">
-          <div className="flex flex-wrap gap-1.5">
-            {RAM_UPGRADES.map((r) => (
-              <Chip key={r.gb} active={ramGb === r.gb} onClick={() => setRamGb(r.gb)}
-                sub={r.addPrice > 0 ? `+฿${fmt(r.addPrice)}` : undefined}>
-                {r.gb} GB
-              </Chip>
-            ))}
-          </div>
-        </Section>
-
-        {/* SSD */}
-        <Section icon={HardDrive} title="SSD (พื้นที่จัดเก็บ)">
-          <div className="flex flex-wrap gap-1.5">
-            {SSD_UPGRADES.map((s) => (
-              <Chip key={s.gb} active={ssdGb === s.gb} onClick={() => setSsdGb(s.gb)}
-                sub={s.addPrice > 0 ? `+฿${fmt(s.addPrice)}` : undefined}>
-                {s.gb >= 1024 ? `${s.gb / 1024} TB` : `${s.gb} GB`}
-              </Chip>
-            ))}
-          </div>
-        </Section>
-
-        {/* Warranty */}
-        <Section icon={ShieldCheck} title="การรับประกัน">
-          <div className="space-y-1.5">
-            {WARRANTY_OPTIONS.map((w) => {
-              const cost = Math.round(calc.baseUnit * w.multiplier);
-              return (
-                <button
-                  key={w.years}
-                  type="button"
-                  onClick={() => setWarrantyYears(w.years)}
-                  className={cn(
-                    'w-full flex items-center justify-between p-2.5 rounded-lg border text-sm transition-all',
-                    warrantyYears === w.years
-                      ? 'border-primary bg-primary/5'
-                      : 'border-border hover:border-primary/50'
-                  )}
-                >
-                  <span className="flex items-center gap-2">
-                    {warrantyYears === w.years && <Check className="w-4 h-4 text-primary" />}
-                    {w.label}
-                  </span>
-                  <span className="text-xs font-medium">
-                    {cost === 0 ? 'รวมในราคา' : `+฿${fmt(cost)}`}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </Section>
-
-        {/* Included Features (informational) */}
-        {pricing.includedFeatures && pricing.includedFeatures.length > 0 && (
-          <Section icon={PackagePlus} title="ฟีเจอร์ที่ติดตัวรุ่น" hint="รวมในราคาแล้ว">
-            <div className="flex flex-wrap gap-1.5">
-              {pricing.includedFeatures.map((f) => (
-                <span key={f} className="inline-flex items-center gap-1 text-[11px] px-2 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 font-medium">
-                  <Check className="w-3 h-3" /> {f}
-                </span>
+        {/* RAM + SSD — 2 columns */}
+        <div className="grid sm:grid-cols-2 gap-3">
+          <Section icon={MemoryStick} title="RAM">
+            <div className="flex flex-wrap gap-1">
+              {RAM_UPGRADES.map((r) => (
+                <Chip key={r.gb} active={ramGb === r.gb} onClick={() => setRamGb(r.gb)}
+                  sub={r.addPrice > 0 ? `+${fmt(r.addPrice)}` : undefined}>
+                  {r.gb}GB
+                </Chip>
               ))}
             </div>
           </Section>
-        )}
 
-        {/* Quantity */}
-        <Section icon={Sparkles} title="จำนวน" hint="ส่วนลดตามจำนวน">
-          <div className="flex items-center gap-2">
-            <div className="flex items-center border border-border rounded-md">
-              <button type="button" onClick={() => setQty(Math.max(1, qty - 1))} className="px-3 py-1.5 hover:bg-muted text-sm font-bold">−</button>
-              <input
-                type="number"
-                min={1}
-                value={qty}
-                onChange={(e) => setQty(Math.max(1, parseInt(e.target.value) || 1))}
-                className="w-14 text-center text-sm font-semibold bg-transparent outline-none"
-              />
-              <button type="button" onClick={() => setQty(qty + 1)} className="px-3 py-1.5 hover:bg-muted text-sm font-bold">+</button>
-            </div>
-            <div className="flex flex-wrap gap-1.5">
-              {[5, 10, 50].map((q) => (
-                <button
-                  key={q}
-                  type="button"
-                  onClick={() => setQty(q)}
-                  className={cn(
-                    'text-[11px] px-2 py-1 rounded border transition-all',
-                    qty === q ? 'bg-primary text-primary-foreground border-primary' : 'border-border hover:border-primary/50'
-                  )}
-                >
-                  {q}+
-                </button>
+          <Section icon={HardDrive} title="SSD">
+            <div className="flex flex-wrap gap-1">
+              {SSD_UPGRADES.map((s) => (
+                <Chip key={s.gb} active={ssdGb === s.gb} onClick={() => setSsdGb(s.gb)}
+                  sub={s.addPrice > 0 ? `+${fmt(s.addPrice)}` : undefined}>
+                  {s.gb >= 1024 ? `${s.gb / 1024}TB` : `${s.gb}GB`}
+                </Chip>
               ))}
             </div>
+          </Section>
+        </div>
+
+        {/* Warranty + Quantity — 2 columns */}
+        <div className="grid sm:grid-cols-2 gap-3">
+          <Section icon={ShieldCheck} title="การรับประกัน">
+            <div className="space-y-1">
+              {WARRANTY_OPTIONS.map((w) => {
+                const cost = Math.round(calc.baseUnit * w.multiplier);
+                return (
+                  <button
+                    key={w.years}
+                    type="button"
+                    onClick={() => setWarrantyYears(w.years)}
+                    className={cn(
+                      'w-full flex items-center justify-between px-2.5 py-1.5 rounded-md border text-xs transition-all',
+                      warrantyYears === w.years
+                        ? 'border-primary bg-primary/5'
+                        : 'border-border hover:border-primary/50'
+                    )}
+                  >
+                    <span className="flex items-center gap-1.5">
+                      {warrantyYears === w.years && <Check className="w-3 h-3 text-primary" />}
+                      {w.label}
+                    </span>
+                    <span className="font-medium">
+                      {cost === 0 ? 'รวมแล้ว' : `+฿${fmt(cost)}`}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </Section>
+
+          <Section icon={Sparkles} title="จำนวน" hint="ส่วนลดตามจำนวน">
+            <div className="flex items-center gap-1.5">
+              <div className="flex items-center border border-border rounded-md">
+                <button type="button" onClick={() => setQty(Math.max(1, qty - 1))} className="px-2.5 py-1 hover:bg-muted text-sm font-bold">−</button>
+                <input
+                  type="number"
+                  min={1}
+                  value={qty}
+                  onChange={(e) => setQty(Math.max(1, parseInt(e.target.value) || 1))}
+                  className="w-10 text-center text-sm font-semibold bg-transparent outline-none"
+                />
+                <button type="button" onClick={() => setQty(qty + 1)} className="px-2.5 py-1 hover:bg-muted text-sm font-bold">+</button>
+              </div>
+              <div className="flex gap-1">
+                {[5, 10, 50].map((q) => (
+                  <button
+                    key={q}
+                    type="button"
+                    onClick={() => setQty(q)}
+                    className={cn(
+                      'text-[11px] px-1.5 py-1 rounded border transition-all',
+                      qty === q ? 'bg-primary text-primary-foreground border-primary' : 'border-border hover:border-primary/50'
+                    )}
+                  >
+                    {q}+
+                  </button>
+                ))}
+              </div>
+            </div>
+            {calc.tier.rate > 0 && (
+              <p className="text-[10px] text-emerald-600 dark:text-emerald-400 flex items-center gap-1 mt-1">
+                <TrendingDown className="w-3 h-3" />
+                {calc.tier.label} — ลด {(calc.tier.rate * 100).toFixed(0)}%
+              </p>
+            )}
+          </Section>
+        </div>
+
+        {/* Included Features — full width, compact */}
+        {pricing.includedFeatures && pricing.includedFeatures.length > 0 && (
+          <div className="flex flex-wrap items-center gap-1.5 pt-1">
+            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">รวมแล้ว:</span>
+            {pricing.includedFeatures.map((f) => (
+              <span key={f} className="inline-flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 font-medium">
+                <Check className="w-2.5 h-2.5" /> {f}
+              </span>
+            ))}
           </div>
-          {calc.tier.rate > 0 && (
-            <p className="text-[11px] text-emerald-600 dark:text-emerald-400 flex items-center gap-1 mt-1">
-              <TrendingDown className="w-3 h-3" />
-              {calc.tier.label} — ลด {(calc.tier.rate * 100).toFixed(0)}%
-            </p>
-          )}
-        </Section>
+        )}
 
         <Separator />
 
         {/* Price Breakdown */}
-        <div className="bg-muted/40 rounded-lg p-3 space-y-1.5">
-          <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-2">สรุปราคา</p>
+        <div className="bg-muted/40 rounded-lg p-3 space-y-1">
+          <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-1.5">สรุปราคา</p>
           <SummaryRow label={`${calc.cpu.cpu} + chassis`} value={`฿${fmt(calc.cpu.total)}`} />
           {calc.ram.addPrice > 0 && <SummaryRow label={`+ RAM ${calc.ram.gb} GB`} value={`฿${fmt(calc.ram.addPrice)}`} />}
           {calc.ssd.addPrice > 0 && <SummaryRow label={`+ SSD ${calc.ssd.gb >= 1024 ? `${calc.ssd.gb / 1024} TB` : `${calc.ssd.gb} GB`}`} value={`฿${fmt(calc.ssd.addPrice)}`} />}
           {calc.warrantyCost > 0 && <SummaryRow label={`+ ${calc.warranty.label}`} value={`฿${fmt(calc.warrantyCost)}`} />}
-          <Separator className="my-1.5" />
-          <SummaryRow label="ราคาต่อชิ้น (ก่อนส่วนลด)" value={`฿${fmt(calc.unitBeforeDiscount)}`} />
+          <Separator className="my-1" />
+          <SummaryRow label="ราคา/ชิ้น (ก่อนลด)" value={`฿${fmt(calc.unitBeforeDiscount)}`} />
           {calc.tier.rate > 0 && (
-            <SummaryRow label={`ราคาต่อชิ้น (${calc.tier.label})`} value={`฿${fmt(calc.unitAfterDiscount)}`} accent />
+            <SummaryRow label={`ราคา/ชิ้น (${calc.tier.label})`} value={`฿${fmt(calc.unitAfterDiscount)}`} accent />
           )}
-          <div className="flex justify-between text-base font-bold text-primary pt-2 border-t border-border">
+          <div className="flex justify-between text-base font-bold text-primary pt-1.5 border-t border-border">
             <span>รวมทั้งสิ้น × {qty}</span>
             <span>฿{fmt(calc.total)}</span>
           </div>
@@ -367,7 +368,7 @@ export default function UpcConfigurator({ productId, productName, highlight, onA
               💰 ประหยัด ฿{fmt(calc.savings)} จากราคาปกติ
             </p>
           )}
-          <p className="text-[10px] text-muted-foreground text-center pt-1">
+          <p className="text-[10px] text-muted-foreground text-center pt-0.5">
             ราคายังไม่รวม VAT 7% • อ้างอิงราคา 2025 • ราคาสุดท้ายตามใบเสนอราคา
           </p>
         </div>
