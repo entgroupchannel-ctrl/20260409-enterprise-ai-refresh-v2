@@ -266,9 +266,6 @@ const UPCSeries = () => {
           backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M0 0h20v20H0V0zm20 20h20v20H20V20z'/%3E%3C/g%3E%3C/svg%3E")`,
         }} />
         <div className="container max-w-7xl mx-auto px-6 py-12 md:py-16 relative">
-          <Link to="/" className="inline-flex items-center gap-1.5 text-sm text-primary-foreground/80 hover:text-primary-foreground mb-4">
-            <ArrowLeft size={14} /> กลับหน้าหลัก
-          </Link>
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
               <Badge className="bg-primary-foreground/15 text-primary-foreground border-primary-foreground/20 mb-3 backdrop-blur-sm">
