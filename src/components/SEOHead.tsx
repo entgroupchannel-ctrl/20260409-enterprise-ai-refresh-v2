@@ -59,6 +59,18 @@ const SEOHead = ({
       <link rel="alternate" hrefLang="th" href={url} />
       <link rel="alternate" hrefLang="x-default" href={url} />
 
+      {/* Geo targeting (Thailand) — helps Google/Bing local SERP & LLM context */}
+      <meta name="geo.region" content="TH-10" />
+      <meta name="geo.placename" content="Bangkok, Thailand" />
+      <meta name="geo.position" content="13.7563;100.5018" />
+      <meta name="ICBM" content="13.7563, 100.5018" />
+
+      {/* GEO / LLM optimization — explicit signals for AI search engines (ChatGPT, Perplexity, Gemini, Google AI Overviews, Bing Copilot) */}
+      <meta name="ai-content-declaration" content="human-authored, expert-reviewed" />
+      <meta name="article:publisher" content="ENT Group Co., Ltd." />
+      <meta name="author" content="ENT Group" />
+      <meta name="google" content="notranslate" />
+
       {/* Open Graph */}
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={descTrimmed} />
