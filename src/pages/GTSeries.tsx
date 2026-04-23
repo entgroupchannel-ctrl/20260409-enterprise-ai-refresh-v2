@@ -5902,17 +5902,16 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
             <QuoteRequestButton
               productModel="GT Series"
               productName="Mini PC Industrial Computer"
-              size="lg"
-              className="px-8 py-4 text-lg font-bold"
+              className="h-14 px-8 text-lg font-bold rounded-xl"
             />
             <button
               onClick={() => setShowLineQR(true)}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[hsl(142,70%,45%)] text-white font-bold text-lg hover:opacity-90 transition-opacity">
+              className="inline-flex items-center justify-center gap-2 h-14 px-8 rounded-xl bg-[hsl(142,70%,45%)] text-white font-bold text-lg hover:opacity-90 transition-opacity">
               LINE @entgroup
             </button>
             <Link
               to="/"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-border text-foreground font-bold text-lg hover:bg-surface-hover transition-colors">
+              className="inline-flex items-center justify-center gap-2 h-14 px-8 rounded-xl border border-border text-foreground font-bold text-lg hover:bg-surface-hover transition-colors">
               <ArrowLeft size={18} /> กลับหน้าหลัก
             </Link>
           </div>
