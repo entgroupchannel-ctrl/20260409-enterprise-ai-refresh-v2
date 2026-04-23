@@ -18,6 +18,7 @@ import SEOHead from "@/components/SEOHead";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import FooterCompact from "@/components/FooterCompact";
+import MiniNavbar from "@/components/MiniNavbar";
 import B2BPlatformInterfaceShowcase from "@/components/B2BPlatformInterfaceShowcase";
 import B2BCTABanner from "@/components/B2BCTABanner";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
@@ -149,6 +150,8 @@ const RuggedNotebookPage = () => {
 
         collectionUrl="/rugged-notebook"
       />
+
+      <MiniNavbar />
 
       {/* ─── Hero ─── */}
       <section className="relative overflow-hidden min-h-[420px] md:min-h-[480px]">
