@@ -260,6 +260,37 @@ const ProductDetailDialog = ({
           )}
         </div>
       </DialogContent>
+
+      {/* Lightbox for dimension images */}
+      {lightbox && (
+        <div
+          className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 animate-in fade-in"
+          onClick={() => setLightbox(null)}
+        >
+          <button
+            type="button"
+            onClick={() => setLightbox(null)}
+            className="absolute top-4 right-4 inline-flex items-center justify-center w-10 h-10 rounded-full bg-background/20 hover:bg-background/40 text-white transition-colors"
+            aria-label="ปิด"
+          >
+            <X className="w-5 h-5" />
+          </button>
+          <a
+            href={lightbox}
+            download
+            onClick={(e) => e.stopPropagation()}
+            className="absolute top-4 right-16 inline-flex items-center gap-1.5 px-3 h-10 rounded-full bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity shadow-lg"
+          >
+            <Download className="w-4 h-4" /> ดาวน์โหลด
+          </a>
+          <img
+            src={lightbox}
+            alt="Dimension preview"
+            className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
     </Dialog>
   );
 };
