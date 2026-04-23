@@ -1,17 +1,17 @@
 import { Badge } from "@/components/ui/badge";
-import { Factory, Warehouse, HardHat, Stethoscope, Building2, Store, ArrowRight, Cpu } from "lucide-react";
-import img1 from "@/assets/use-cases/01-smart-factory.jpg";
-import img2 from "@/assets/use-cases/02-warehouse-logistics.jpg";
-import img3 from "@/assets/use-cases/03-field-engineer.jpg";
-import img4 from "@/assets/use-cases/04-medical-healthcare.jpg";
-import img5 from "@/assets/use-cases/05-smart-city.jpg";
-import img6 from "@/assets/use-cases/06-retail-pos.jpg";
+import { Cctv, Cog, MonitorSmartphone, Plane, TrafficCone, Server, ArrowRight, Cpu } from "lucide-react";
+import img1 from "@/assets/use-cases/01-highway-ai.jpg";
+import img2 from "@/assets/use-cases/02-factory-automation.jpg";
+import img3 from "@/assets/use-cases/03-traffic-signage.jpg";
+import img4 from "@/assets/use-cases/04-airport-fids.jpg";
+import img5 from "@/assets/use-cases/05-smart-intersection.jpg";
+import img6 from "@/assets/use-cases/06-edge-ai-telecom.jpg";
 
 type RecModel = { name: string; why: string };
 
 const cases: Array<{
   image: string;
-  icon: typeof Factory;
+  icon: typeof Cctv;
   tag: string;
   title: string;
   desc: string;
@@ -20,79 +20,79 @@ const cases: Array<{
 }> = [
   {
     image: img1,
-    icon: Factory,
-    tag: "Smart Factory",
-    title: "ควบคุมไลน์ผลิตแบบเรียลไทม์",
-    desc: "Panel PC + Edge AI ติดหน้าเครื่อง CNC แสดง OEE / Production Dashboard ลด downtime ได้สูงสุด 40%",
-    accent: "from-orange-500/20 to-amber-500/5",
+    icon: Cctv,
+    tag: "ITS Highway AI",
+    title: "AI ตรวจจับรถ-ป้ายทะเบียน บนทางหลวง",
+    desc: "Multi-LAN รับ IP Camera หลายตัวพร้อมกัน + Intel Gen 12 ประมวลผล LPR / Vehicle Counting แบบ Edge ลด Bandwidth ขึ้น Cloud",
+    accent: "from-blue-500/20 to-cyan-500/5",
     models: [
-      { name: "UPC-209B", why: "DI/DO + Modbus เชื่อม PLC" },
-      { name: "EPC-302A", why: "GPIO 12V/24V คุม Sensor" },
+      { name: "EPC-302E", why: "5× Intel LAN รับกล้องหลายตัว" },
+      { name: "EPC-309E", why: "4× LAN + Edge AI Inference" },
     ],
   },
   {
     image: img2,
-    icon: Warehouse,
-    tag: "Warehouse & Logistics",
-    title: "WMS + Barcode รวดเร็วทันใจ",
-    desc: "เชื่อม Scanner / Printer / RFID ในคลังร้อน-เย็น ตรงเข้า WMS ไม่หลุดสัญญาณ ลดงานเอกสาร 60%",
-    accent: "from-blue-500/20 to-cyan-500/5",
+    icon: Cog,
+    tag: "Factory Automation",
+    title: "ควบคุมเครื่องจักรในไลน์ผลิต",
+    desc: "DI/DO + Modbus เชื่อม PLC, Sensor และ Actuator + GPIO 12V/24V — Fanless ทนฝุ่น/น้ำมันในโรงงาน 24/7",
+    accent: "from-orange-500/20 to-amber-500/5",
     models: [
-      { name: "UPC-302D", why: "9× USB ต่อ Scanner/Printer" },
-      { name: "UPC-302F", why: "14× USB Multi-device Hub" },
+      { name: "UPC-209B", why: "DI/DO + MOD BUS" },
+      { name: "EPC-302A", why: "GPIO 12V/24V คุม Sensor" },
     ],
   },
   {
     image: img3,
-    icon: HardHat,
-    tag: "Field Engineering",
-    title: "ทำงานกลางฝน-โรงกลั่นได้สบาย",
-    desc: "Wide-temp -40~80°C + 4G/SIM สื่อสารจาก Site ไกล ไม่กลัวไฟตก พร้อม Battery สำรองในตัว",
-    accent: "from-slate-500/20 to-zinc-500/5",
+    icon: TrafficCone,
+    tag: "Smart VMS Signage",
+    title: "ป้ายจราจรอัจฉริยะ (VMS) ริมทาง",
+    desc: "Wide-temp -40~80°C ทนแดด/ฝนในตู้ริมทาง + 4G/SIM อัปเดตข้อความสดจากศูนย์ พร้อม Watchdog ป้องกันเครื่องค้าง",
+    accent: "from-violet-500/20 to-indigo-500/5",
     models: [
       { name: "UPC-309C", why: "4G + SIM สำหรับ Outdoor" },
-      { name: "UPC-108H", why: "Battery 4000mAh ในตัว" },
+      { name: "UPC-309R", why: "Redundant DC ห้ามดับ" },
     ],
   },
   {
     image: img4,
-    icon: Stethoscope,
-    tag: "Medical & Healthcare",
-    title: "ห้องผ่าตัด-ICU ทำงาน 24/7",
-    desc: "Fanless ไร้พัดลม ลดการสะสมเชื้อ + Redundant Power ป้องกันไฟดับขณะใช้ PACS / EMR",
-    accent: "from-emerald-500/20 to-teal-500/5",
+    icon: Plane,
+    tag: "Airport FIDS",
+    title: "ป้ายแสดงตารางบินสนามบิน",
+    desc: "Dual HDMI + EDID Emulation รองรับ Display Wall และ Digital Signage — Fanless ฝังหลังจอ ใช้งานต่อเนื่องไม่มีเสียง ไม่มีพัดลมเสีย",
+    accent: "from-sky-500/20 to-blue-500/5",
     models: [
-      { name: "UPC-309R", why: "Redundant DC ห้ามดับ" },
-      { name: "EPC-102B", why: "Fanless + 4× LAN" },
+      { name: "CTN-102C", why: "2× HDMI + EDID Signage" },
+      { name: "EPC-102B", why: "Fanless + Smart Fan สำรอง" },
     ],
   },
   {
     image: img5,
-    icon: Building2,
-    tag: "Smart City & Surveillance",
-    title: "ศูนย์ควบคุม CCTV หลายร้อยกล้อง",
-    desc: "Multi-LAN + Intel Gen 12 รับสตรีมหลายร้อยกล้อง วิเคราะห์ License Plate / Crowd Analytics ตลอด 24 ชม.",
-    accent: "from-violet-500/20 to-indigo-500/5",
+    icon: MonitorSmartphone,
+    tag: "Smart Intersection",
+    title: "ตู้ควบคุมไฟจราจร & CCTV",
+    desc: "Industrial-grade ทนสภาพแวดล้อมในตู้ริมถนน + Multi-COM Port เชื่อมตู้ Signal Controller + Wide Voltage 9–36V",
+    accent: "from-emerald-500/20 to-teal-500/5",
     models: [
-      { name: "EPC-302E", why: "5× Intel LAN Network Appliance" },
-      { name: "EPC-309E", why: "4× Intel LAN Edge AI" },
+      { name: "EPC-202B", why: "8× COM Port คุมตู้ Signal" },
+      { name: "EPC-309E", why: "4× LAN + AI License Plate" },
     ],
   },
   {
     image: img6,
-    icon: Store,
-    tag: "Retail & Digital Signage",
-    title: "POS / Self-Order Kiosk เสถียร 24/7",
-    desc: "Dual HDMI + EDID Emulation รองรับ Digital Signage + COM Port หลายช่องเชื่อมเครื่อง POS",
-    accent: "from-rose-500/20 to-pink-500/5",
+    icon: Server,
+    tag: "Edge AI / Telecom",
+    title: "Edge Server ในตู้สื่อสาร 5G",
+    desc: "Intel Gen 12 ประสิทธิภาพสูง + Multi-LAN สำหรับ MEC (Multi-access Edge Computing) — ติดตั้งใน Base Station ใกล้ผู้ใช้ ลด Latency",
+    accent: "from-slate-500/20 to-zinc-500/5",
     models: [
-      { name: "CTN-102C", why: "2× HDMI + EDID Signage" },
-      { name: "EPC-202B", why: "8× COM ต่อเครื่อง POS" },
+      { name: "EPC-302E", why: "5× Intel LAN Network Appliance" },
+      { name: "UPC-302D", why: "Multi-USB + 2× LAN" },
     ],
   },
 ];
 
-const scrollToModel = (name: string) => {
+const scrollToModel = (_name: string) => {
   const el = document.getElementById("models");
   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
 };
