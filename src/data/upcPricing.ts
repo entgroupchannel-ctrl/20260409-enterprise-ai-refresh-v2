@@ -56,8 +56,8 @@ export const UPC_PRICING: Record<string, ModelPricing> = {
     model: 'EPC-102B', category: 'Multi-LAN', chassis: 'SMALL',
     includedFeatures: ['4× Intel LAN', 'Smart Fan'],
     cpus: [
-      { cpu: 'Celeron J6412', base: 15990, premium: 0, total: 15990 },
-      { cpu: 'Celeron J1900', base: 16990, premium: 0, total: 16990 },
+      { cpu: 'Celeron J6412', base: 18990, premium: 0, total: 18990 },
+      { cpu: 'Celeron J1900', base: 19990, premium: 0, total: 19990 },
       { cpu: 'i3-10110U', base: 34990, premium: 0, total: 34990 },
       { cpu: 'i3-1215U', base: 34990, premium: 0, total: 34990 },
       { cpu: 'i5-1235U', base: 39990, premium: 0, total: 39990 },
@@ -70,8 +70,8 @@ export const UPC_PRICING: Record<string, ModelPricing> = {
     model: 'CTN-102C', category: 'Dual HDMI', chassis: 'SMALL',
     includedFeatures: ['2× HDMI with EDID', 'Fanless'],
     cpus: [
-      { cpu: 'Celeron J6412', base: 15990, premium: 0, total: 15990 },
-      { cpu: 'Celeron J1900', base: 16990, premium: 0, total: 16990 },
+      { cpu: 'Celeron J6412', base: 18990, premium: 0, total: 18990 },
+      { cpu: 'Celeron J1900', base: 19990, premium: 0, total: 19990 },
       { cpu: 'i3-10110U', base: 34990, premium: 0, total: 34990 },
       { cpu: 'i3-1215U', base: 34990, premium: 0, total: 34990 },
       { cpu: 'i5-1235U', base: 39990, premium: 0, total: 39990 },
@@ -84,8 +84,8 @@ export const UPC_PRICING: Record<string, ModelPricing> = {
     model: 'EPC-202B', category: 'Multi-COM', chassis: 'SMALL',
     includedFeatures: ['10× USB', '7× COM Port'],
     cpus: [
-      { cpu: 'Celeron J6412', base: 15990, premium: 0, total: 15990 },
-      { cpu: 'Celeron J1900', base: 16990, premium: 0, total: 16990 },
+      { cpu: 'Celeron J6412', base: 18990, premium: 0, total: 18990 },
+      { cpu: 'Celeron J1900', base: 19990, premium: 0, total: 19990 },
       { cpu: 'i3-10110U', base: 34990, premium: 0, total: 34990 },
       { cpu: 'i3-1215U', base: 34990, premium: 0, total: 34990 },
       { cpu: 'i5-1235U', base: 39990, premium: 0, total: 39990 },
@@ -98,8 +98,8 @@ export const UPC_PRICING: Record<string, ModelPricing> = {
     model: 'EPC-207B', category: 'DB37 Multi-Serial', chassis: 'SMALL',
     includedFeatures: ['DB37 Multi-Serial Connector'],
     cpus: [
-      { cpu: 'Celeron J6412', base: 15990, premium: 0, total: 15990 },
-      { cpu: 'Celeron J1900', base: 16990, premium: 0, total: 16990 },
+      { cpu: 'Celeron J6412', base: 18990, premium: 0, total: 18990 },
+      { cpu: 'Celeron J1900', base: 19990, premium: 0, total: 19990 },
       { cpu: 'i3-10110U', base: 34990, premium: 0, total: 34990 },
       { cpu: 'i3-1215U', base: 34990, premium: 0, total: 34990 },
       { cpu: 'i5-1235U', base: 39990, premium: 0, total: 39990 },
@@ -112,8 +112,8 @@ export const UPC_PRICING: Record<string, ModelPricing> = {
     model: 'EPC-309E', category: '4× Intel LAN', chassis: 'LARGE',
     includedFeatures: ['4× Intel LAN', 'Large chassis expandability'],
     cpus: [
-      { cpu: 'Celeron J6412', base: 15990, premium: 0, total: 15990 },
-      { cpu: 'Celeron J1900', base: 17990, premium: 0, total: 17990 },
+      { cpu: 'Celeron J6412', base: 18990, premium: 0, total: 18990 },
+      { cpu: 'Celeron J1900', base: 20990, premium: 0, total: 20990 },
       { cpu: 'i3-10110U', base: 35990, premium: 0, total: 35990 },
       { cpu: 'i3-1215U', base: 35990, premium: 0, total: 35990 },
       { cpu: 'i5-1235U', base: 40990, premium: 0, total: 40990 },
@@ -144,8 +144,8 @@ export const UPC_PRICING: Record<string, ModelPricing> = {
     model: 'UPC-302D', category: 'Multi-USB (9× USB)', chassis: 'LARGE',
     includedFeatures: ['9× USB', '2× LAN'],
     cpus: [
-      { cpu: 'Celeron J6412', base: 15990, premium: 500, total: 16490 },
-      { cpu: 'Celeron J1900', base: 17990, premium: 500, total: 18490 },
+      { cpu: 'Celeron J6412', base: 18990, premium: 500, total: 19490 },
+      { cpu: 'Celeron J1900', base: 20990, premium: 500, total: 21490 },
       { cpu: 'i3-10110U', base: 35990, premium: 500, total: 36490 },
       { cpu: 'i3-1215U', base: 35990, premium: 500, total: 36490 },
       { cpu: 'i5-1235U', base: 40990, premium: 500, total: 41490 },
@@ -158,8 +158,8 @@ export const UPC_PRICING: Record<string, ModelPricing> = {
     model: 'UPC-108H', category: 'Battery Backup', chassis: 'SMALL',
     includedFeatures: ['4000mAh Battery Backup'],
     cpus: [
-      { cpu: 'Celeron J6412', base: 15990, premium: 2000, total: 17990 },
-      { cpu: 'Celeron J1900', base: 16990, premium: 2000, total: 18990 },
+      { cpu: 'Celeron J6412', base: 18990, premium: 2000, total: 20990 },
+      { cpu: 'Celeron J1900', base: 19990, premium: 2000, total: 21990 },
       { cpu: 'i3-7100U', base: 34990, premium: 2000, total: 36990 },
       { cpu: 'i3-1215U', base: 34990, premium: 2000, total: 36990 },
       { cpu: 'i5-7200U', base: 39990, premium: 2000, total: 41990 },
@@ -172,14 +172,14 @@ export const UPC_PRICING: Record<string, ModelPricing> = {
     model: 'UPC-206E', category: 'CAN Bus', chassis: 'SMALL',
     includedFeatures: ['CAN Bus Module'],
     cpus: [
-      { cpu: 'Celeron J1900', base: 16990, premium: 1500, total: 18490 },
+      { cpu: 'Celeron J1900', base: 19990, premium: 1500, total: 21490 },
     ],
   },
   'UPC-206F': {
     model: 'UPC-206F', category: '4G / SIM + TF', chassis: 'SMALL',
     includedFeatures: ['SIM + TF Card Slot', '4G LTE Module'],
     cpus: [
-      { cpu: 'Celeron J1900', base: 16990, premium: 1500, total: 18490 },
+      { cpu: 'Celeron J1900', base: 19990, premium: 1500, total: 21490 },
     ],
   },
   'UPC-209B': {
@@ -213,8 +213,8 @@ export const UPC_PRICING: Record<string, ModelPricing> = {
     model: 'UPC-302F', category: '14× USB', chassis: 'LARGE',
     includedFeatures: ['14× USB Maximum Expansion'],
     cpus: [
-      { cpu: 'Celeron J6412', base: 15990, premium: 1000, total: 16990 },
-      { cpu: 'Celeron J1900', base: 17990, premium: 1000, total: 18990 },
+      { cpu: 'Celeron J6412', base: 18990, premium: 1000, total: 19990 },
+      { cpu: 'Celeron J1900', base: 20990, premium: 1000, total: 21990 },
       { cpu: 'i3-10110U', base: 35990, premium: 1000, total: 36990 },
       { cpu: 'i3-1215U', base: 35990, premium: 1000, total: 36990 },
       { cpu: 'i5-1235U', base: 40990, premium: 1000, total: 41990 },
@@ -227,8 +227,8 @@ export const UPC_PRICING: Record<string, ModelPricing> = {
     model: 'EPC-302E', category: '5× Intel LAN', chassis: 'LARGE',
     includedFeatures: ['5× Intel LAN'],
     cpus: [
-      { cpu: 'Celeron J6412', base: 15990, premium: 1000, total: 16990 },
-      { cpu: 'Celeron J1900', base: 17990, premium: 1000, total: 18990 },
+      { cpu: 'Celeron J6412', base: 18990, premium: 1000, total: 19990 },
+      { cpu: 'Celeron J1900', base: 20990, premium: 1000, total: 21990 },
       { cpu: 'i3-10110U', base: 35990, premium: 1000, total: 36990 },
       { cpu: 'i3-1215U', base: 35990, premium: 1000, total: 36990 },
       { cpu: 'i5-1235U', base: 40990, premium: 1000, total: 41990 },
@@ -241,8 +241,8 @@ export const UPC_PRICING: Record<string, ModelPricing> = {
     model: 'EPC-302A', category: '8×8 GPIO', chassis: 'LARGE',
     includedFeatures: ['8-in / 8-out GPIO'],
     cpus: [
-      { cpu: 'Celeron J6412', base: 15990, premium: 0, total: 15990 },
-      { cpu: 'Celeron J1900', base: 17990, premium: 0, total: 17990 },
+      { cpu: 'Celeron J6412', base: 18990, premium: 0, total: 18990 },
+      { cpu: 'Celeron J1900', base: 20990, premium: 0, total: 20990 },
       { cpu: 'i3-10110U', base: 35990, premium: 0, total: 35990 },
       { cpu: 'i3-1215U', base: 35990, premium: 0, total: 35990 },
       { cpu: 'i5-1235U', base: 40990, premium: 0, total: 40990 },
