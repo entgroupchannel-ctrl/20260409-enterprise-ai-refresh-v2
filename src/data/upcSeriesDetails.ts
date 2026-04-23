@@ -100,10 +100,10 @@ export const upcSeriesDetails: Record<string, ProductDetail> = {
       },
     ],
     gallery: [
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_4684-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_4685-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_4690-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_4691-1024x683.jpg",
+      "/upc-images/2025_08_IMG_4684-1024x683.jpg",
+      "/upc-images/2025_08_IMG_4685-1024x683.jpg",
+      "/upc-images/2025_08_IMG_4690-1024x683.jpg",
+      "/upc-images/2025_08_IMG_4691-1024x683.jpg",
     ],
     selection: [
       { partNumber: "C10.01.04.001", cpu: "Intel® Core™ i3-1215U", memory: "8GB", storage: "mSATA SSD 256GB" },
@@ -162,10 +162,10 @@ export const upcSeriesDetails: Record<string, ProductDetail> = {
       },
     ],
     gallery: [
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_9890-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_9891-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_9894-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_9895-1024x683.jpg",
+      "/upc-images/2025_08_IMG_9890-1024x683.jpg",
+      "/upc-images/2025_08_IMG_9891-1024x683.jpg",
+      "/upc-images/2025_08_IMG_9894-1024x683.jpg",
+      "/upc-images/2025_08_IMG_9895-1024x683.jpg",
     ],
   },
 
@@ -208,10 +208,10 @@ export const upcSeriesDetails: Record<string, ProductDetail> = {
       },
     ],
     gallery: [
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_6388-1024x576.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_6390-1024x576.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_6389-1-1024x576.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_6391-1024x576.jpg",
+      "/upc-images/2025_08_IMG_6388-1024x576.jpg",
+      "/upc-images/2025_08_IMG_6390-1024x576.jpg",
+      "/upc-images/2025_08_IMG_6389-1-1024x576.jpg",
+      "/upc-images/2025_08_IMG_6391-1024x576.jpg",
     ],
   },
 
@@ -254,10 +254,10 @@ export const upcSeriesDetails: Record<string, ProductDetail> = {
       },
     ],
     gallery: [
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_9449-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_9448-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_9443-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_9442-1024x683.jpg",
+      "/upc-images/2025_08_IMG_9449-1024x683.jpg",
+      "/upc-images/2025_08_IMG_9448-1024x683.jpg",
+      "/upc-images/2025_08_IMG_9443-1024x683.jpg",
+      "/upc-images/2025_08_IMG_9442-1024x683.jpg",
     ],
   },
 
@@ -299,10 +299,10 @@ export const upcSeriesDetails: Record<string, ProductDetail> = {
       },
     ],
     gallery: [
-      "https://cesipc.com/wp-content/uploads/2025/08/EPC-309E-3-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/08/EPC-309E-4-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/08/EPC-309E-5-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/08/EPC-309E-6-1024x683.jpg",
+      "/upc-images/2025_08_EPC-309E-3-1024x683.jpg",
+      "/upc-images/2025_08_EPC-309E-4-1024x683.jpg",
+      "/upc-images/2025_08_EPC-309E-5-1024x683.jpg",
+      "/upc-images/2025_08_EPC-309E-6-1024x683.jpg",
     ],
   },
 
@@ -341,8 +341,8 @@ export const upcSeriesDetails: Record<string, ProductDetail> = {
       },
     ],
     gallery: [
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_5898-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_5901-1024x683.jpg",
+      "/upc-images/2025_08_IMG_5898-1024x683.jpg",
+      "/upc-images/2025_08_IMG_5901-1024x683.jpg",
     ],
   },
 
@@ -380,10 +380,10 @@ export const upcSeriesDetails: Record<string, ProductDetail> = {
       },
     ],
     gallery: [
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_6194-1024x576.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_6193-1024x576.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_6197-1024x576.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_6198-1024x576.jpg",
+      "/upc-images/2025_08_IMG_6194-1024x576.jpg",
+      "/upc-images/2025_08_IMG_6193-1024x576.jpg",
+      "/upc-images/2025_08_IMG_6197-1024x576.jpg",
+      "/upc-images/2025_08_IMG_6198-1024x576.jpg",
     ],
   },
 
@@ -425,10 +425,10 @@ export const upcSeriesDetails: Record<string, ProductDetail> = {
       },
     ],
     gallery: [
-      "https://cesipc.com/wp-content/uploads/2025/02/UPC-108H-5-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/02/UPC-108H-6-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/02/UPC-108H-1-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/02/UPC-108H-2-1024x683.jpg",
+      "/upc-images/2025_02_UPC-108H-5-1024x683.jpg",
+      "/upc-images/2025_02_UPC-108H-6-1024x683.jpg",
+      "/upc-images/2025_02_UPC-108H-1-1024x683.jpg",
+      "/upc-images/2025_02_UPC-108H-2-1024x683.jpg",
     ],
   },
 
@@ -467,8 +467,8 @@ export const upcSeriesDetails: Record<string, ProductDetail> = {
       },
     ],
     gallery: [
-      "https://cesipc.com/wp-content/uploads/2025/02/UPC-206E%E5%B8%A61%E4%B8%AACAN-1-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/02/UPC-206E%E5%B8%A61%E4%B8%AACAN-2-1024x683.jpg",
+      "/upc-images/2025_02_UPC-206E___1___CAN-1-1024x683.jpg",
+      "/upc-images/2025_02_UPC-206E___1___CAN-2-1024x683.jpg",
     ],
   },
 
@@ -508,10 +508,10 @@ export const upcSeriesDetails: Record<string, ProductDetail> = {
       },
     ],
     gallery: [
-      "https://cesipc.com/wp-content/uploads/2025/04/IMG_9213-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/04/IMG_9214-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/04/IMG_9219-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/04/IMG_9220-1024x683.jpg",
+      "/upc-images/2025_04_IMG_9213-1024x683.jpg",
+      "/upc-images/2025_04_IMG_9214-1024x683.jpg",
+      "/upc-images/2025_04_IMG_9219-1024x683.jpg",
+      "/upc-images/2025_04_IMG_9220-1024x683.jpg",
     ],
   },
 
@@ -550,9 +550,9 @@ export const upcSeriesDetails: Record<string, ProductDetail> = {
       },
     ],
     gallery: [
-      "https://cesipc.com/wp-content/uploads/2025/02/UPC-209B%E8%83%8C%E9%9D%A2%E4%BE%A7%E9%9D%A2-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/02/UPC-209B%E8%83%8C%E9%9D%A2-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/02/UPC-209B%E6%AD%A3%E9%9D%A2-1024x683.jpg",
+      "/upc-images/2025_02_UPC-209B____________-1024x683.jpg",
+      "/upc-images/2025_02_UPC-209B______-1024x683.jpg",
+      "/upc-images/2025_02_UPC-209B______-1024x683.jpg",
     ],
   },
 
@@ -592,10 +592,10 @@ export const upcSeriesDetails: Record<string, ProductDetail> = {
       },
     ],
     gallery: [
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_9980-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_9978-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_9982-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_9984-1024x683.jpg",
+      "/upc-images/2025_08_IMG_9980-1024x683.jpg",
+      "/upc-images/2025_08_IMG_9978-1024x683.jpg",
+      "/upc-images/2025_08_IMG_9982-1024x683.jpg",
+      "/upc-images/2025_08_IMG_9984-1024x683.jpg",
     ],
   },
 
@@ -664,10 +664,10 @@ export const upcSeriesDetails: Record<string, ProductDetail> = {
       },
     ],
     gallery: [
-      "https://cesipc.com/wp-content/uploads/2025/02/IMG_9867-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/02/IMG_9857-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/02/IMG_9864-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/02/IMG_9866-1024x683.jpg",
+      "/upc-images/2025_02_IMG_9867-1024x683.jpg",
+      "/upc-images/2025_02_IMG_9857-1024x683.jpg",
+      "/upc-images/2025_02_IMG_9864-1024x683.jpg",
+      "/upc-images/2025_02_IMG_9866-1024x683.jpg",
     ],
   },
 
@@ -705,10 +705,10 @@ export const upcSeriesDetails: Record<string, ProductDetail> = {
       },
     ],
     gallery: [
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_6685-2-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_6686-1-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_6692-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/08/IMG_6693-1024x683.jpg",
+      "/upc-images/2025_08_IMG_6685-2-1024x683.jpg",
+      "/upc-images/2025_08_IMG_6686-1-1024x683.jpg",
+      "/upc-images/2025_08_IMG_6692-1024x683.jpg",
+      "/upc-images/2025_08_IMG_6693-1024x683.jpg",
     ],
   },
 
@@ -746,10 +746,10 @@ export const upcSeriesDetails: Record<string, ProductDetail> = {
       },
     ],
     gallery: [
-      "https://cesipc.com/wp-content/uploads/2025/09/IMG_6256-1-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/09/302e-1024x576.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/08/EPC-309E-4-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/08/EPC-309E-5-1024x683.jpg",
+      "/upc-images/2025_09_IMG_6256-1-1024x683.jpg",
+      "/upc-images/2025_09_302e-1024x576.jpg",
+      "/upc-images/2025_08_EPC-309E-4-1024x683.jpg",
+      "/upc-images/2025_08_EPC-309E-5-1024x683.jpg",
     ],
   },
 
@@ -789,10 +789,10 @@ export const upcSeriesDetails: Record<string, ProductDetail> = {
       },
     ],
     gallery: [
-      "https://cesipc.com/wp-content/uploads/2025/10/IMG_7514-1-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/10/IMG_7512-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/10/IMG_7513-1024x683.jpg",
-      "https://cesipc.com/wp-content/uploads/2025/10/IMG_7515-1024x683.jpg",
+      "/upc-images/2025_10_IMG_7514-1-1024x683.jpg",
+      "/upc-images/2025_10_IMG_7512-1024x683.jpg",
+      "/upc-images/2025_10_IMG_7513-1024x683.jpg",
+      "/upc-images/2025_10_IMG_7515-1024x683.jpg",
     ],
   },
 };
