@@ -379,7 +379,7 @@ const UPCSeries = () => {
                   />
                   <div className="absolute top-2 left-2 flex gap-1.5">
                     <Badge variant="outline" className={`text-[10px] ${tagColor(m.tag)}`}>{m.tag}</Badge>
-                    {m.popular && <Badge className="text-[10px] bg-amber-500/90 text-white border-0">Popular</Badge>}
+                    {m.popular && <Badge className="text-[10px] bg-primary text-primary-foreground border-0">Popular</Badge>}
                   </div>
                 </div>
                 <CardContent className="p-4 flex-1 flex flex-col">
