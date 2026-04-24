@@ -299,6 +299,125 @@ const FPMSeriesDetail = () => {
         </div>
       </section>
 
+      {/* ═══ Build Your Solution — Compact Bundle Picker ═══ */}
+      <section className="py-10 border-b border-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-end justify-between flex-wrap gap-3 mb-5">
+            <div>
+              <span className="text-xs font-semibold tracking-widest uppercase text-primary block mb-1">
+                Build Your Solution
+              </span>
+              <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground">
+                จับคู่ {data.model} กับ Industrial PC
+              </h2>
+              <p className="text-sm text-muted-foreground mt-1">
+                เลือกใส่ตะกร้าได้ทีละชิ้น — ส่งคำขอใบเสนอราคารวมในใบเดียว
+              </p>
+            </div>
+            <Link to="/cart" className="text-xs font-bold text-primary hover:underline inline-flex items-center gap-1">
+              ดูตะกร้า <ArrowRight size={12} />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {/* Compact bundle items: 3 PC families + 1 warranty card */}
+            {[
+              {
+                model: "GT-Series",
+                name: "GT Series Industrial PC",
+                desc: "Compact Fanless รุ่นเริ่มต้น — เหมาะ HMI/PLC ทั่วไป",
+                tag: "เริ่มต้น",
+                Icon: Cpu,
+                href: "/gt-series",
+              },
+              {
+                model: "EPC-Box",
+                name: "EPC Box Series",
+                desc: "Performance Box PC — รองรับงานประมวลผลหนัก",
+                tag: "Performance",
+                Icon: Server,
+                href: "/epc-box-series",
+              },
+              {
+                model: "UPC-Series",
+                name: "UPC Industrial Computer",
+                desc: "Mission-critical — Wide-Temp, Expansion Slots",
+                tag: "Flagship",
+                Icon: HardDrive,
+                href: "/upc-series",
+              },
+            ].map(({ model: m, name, desc, tag, Icon, href }) => (
+              <div key={m} className="group p-4 rounded-xl border border-border bg-card hover:border-primary/50 hover:shadow-md transition-all flex flex-col">
+                <div className="flex items-start justify-between mb-3">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/15 to-primary/5 text-primary flex items-center justify-center">
+                    <Icon size={18} strokeWidth={2.25} />
+                  </div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
+                    {tag}
+                  </span>
+                </div>
+                <h3 className="font-display font-bold text-foreground text-sm mb-1">{name}</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed mb-3 flex-1">{desc}</p>
+                <div className="flex items-center gap-2 mt-auto">
+                  <AddToCartButton
+                    productModel={m}
+                    productName={name}
+                    productDescription={`เชื่อมกับ ${data.model}`}
+                  />
+                  <Link
+                    to={href}
+                    className="text-[11px] font-bold text-primary hover:underline whitespace-nowrap"
+                  >
+                    ดู →
+                  </Link>
+                </div>
+              </div>
+            ))}
+
+            {/* Warranty card */}
+            {(() => {
+              const basePrice = parseInt(data.price.replace(/,/g, ""), 10);
+              const isNumeric = !isNaN(basePrice);
+              const y2 = isNumeric ? Math.round(basePrice * 0.15) : null;
+              const y3 = isNumeric ? Math.round(basePrice * 0.20) : null;
+              const fmt = (n: number) => `฿${n.toLocaleString("th-TH")}`;
+              return (
+                <div className="p-4 rounded-xl border-2 border-dashed border-primary/40 bg-primary/5 flex flex-col">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="w-10 h-10 rounded-lg bg-primary/15 text-primary flex items-center justify-center">
+                      <ShieldCheck size={18} strokeWidth={2.25} />
+                    </div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">
+                      Optional
+                    </span>
+                  </div>
+                  <h3 className="font-display font-bold text-foreground text-sm mb-2">Extended Warranty</h3>
+                  <ul className="text-[11px] space-y-1.5 mb-3 flex-1">
+                    <li className="flex items-center justify-between gap-2">
+                      <span className="text-muted-foreground">ปีที่ 1</span>
+                      <span className="font-bold text-emerald-600 dark:text-emerald-400">ฟรี</span>
+                    </li>
+                    <li className="flex items-center justify-between gap-2">
+                      <span className="text-muted-foreground">ปีที่ 2 (+15%)</span>
+                      <span className="font-bold text-foreground">{y2 ? fmt(y2) : "สอบถาม"}</span>
+                    </li>
+                    <li className="flex items-center justify-between gap-2">
+                      <span className="text-muted-foreground">ปีที่ 3 (+20%)</span>
+                      <span className="font-bold text-foreground">{y3 ? fmt(y3) : "สอบถาม"}</span>
+                    </li>
+                  </ul>
+                  <AddToCartButton
+                    productModel={`WARRANTY-Y2-${data.model}`}
+                    productName={`Extended Warranty Y2 — ${data.model}`}
+                    productDescription={`ขยายประกันปีที่ 2 (15% ของราคาสินค้า)${y2 ? ` ≈ ${fmt(y2)}` : ""}`}
+                  />
+                </div>
+              );
+            })()}
+          </div>
+        </div>
+      </section>
+
       {/* Tabs: Gallery / Specifications / FAQ */}
       <section className="py-12 border-b border-border bg-muted/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
