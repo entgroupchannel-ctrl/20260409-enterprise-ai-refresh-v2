@@ -748,6 +748,23 @@ const FPMSeriesDetail = () => {
       </section>
 
       <FooterCompact />
+
+      {/* Lightbox */}
+      <Dialog open={!!lightbox} onOpenChange={(o) => !o && setLightbox(null)}>
+        <DialogContent className="max-w-4xl p-0 overflow-hidden bg-card">
+          <DialogTitle className="sr-only">{lightbox?.caption ?? "Image"}</DialogTitle>
+          {lightbox && (
+            <div className="flex flex-col">
+              <div className="aspect-video bg-muted/40 flex items-center justify-center p-6">
+                <img src={lightbox.src} alt={lightbox.caption} className="max-w-full max-h-full object-contain" />
+              </div>
+              <div className="px-5 py-3 border-t border-border text-sm font-medium text-foreground">
+                {lightbox.caption}
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
