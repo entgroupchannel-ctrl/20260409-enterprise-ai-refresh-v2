@@ -2,7 +2,8 @@ import { useParams, Link, Navigate } from "react-router-dom";
 import { useState } from "react";
 import {
   ArrowLeft, ArrowRight, Download, Shield, ThermometerSun, Sparkles,
-  Maximize, Settings, Zap, CheckCircle2, Monitor,
+  Maximize, Settings, Zap, CheckCircle2, Monitor, Truck, Wrench, Phone,
+  RefreshCw, Cpu, Server, HardDrive, Cable, AlertTriangle, ShieldCheck,
 } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
@@ -310,6 +311,170 @@ const FPMSeriesDetail = () => {
                 {p}
               </span>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Trust / Service Badges */}
+      <section className="py-12 border-b border-border bg-muted/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider border border-primary/30 mb-3">
+              <ShieldCheck size={12} /> ENT Service Promise
+            </div>
+            <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground">
+              ซื้อกับ ENT Group มั่นใจได้
+            </h2>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              { icon: Shield, title: "รับประกัน 2 ปี", desc: "เคลม On-site ภายใน 48 ชม. ทั่วประเทศ" },
+              { icon: Truck, title: "จัดส่งฟรี", desc: "ทั่วประเทศ พร้อมประกันภัยขนส่ง" },
+              { icon: Wrench, title: "ติดตั้ง & เทรน", desc: "ทีมวิศวกรช่วย Setup และอบรมการใช้งาน" },
+              { icon: Phone, title: "Support 24/7", desc: "Hotline + Remote Support ตลอดอายุการใช้งาน" },
+            ].map((item, i) => (
+              <div key={i} className="p-5 rounded-xl border border-border bg-card hover:border-primary/40 transition-all">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 text-primary flex items-center justify-center mb-3">
+                  <item.icon size={22} />
+                </div>
+                <h3 className="font-bold text-foreground mb-1">{item.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Separate Display vs Panel PC */}
+      <section className="py-12 border-b border-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-8 items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-bold uppercase tracking-wider border border-amber-500/30 mb-3">
+                <AlertTriangle size={12} /> ลดความเสี่ยง
+              </div>
+              <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-4">
+                ทำไม "แยกจอ + แยก PC" ดีกว่า Panel PC?
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                Panel PC แบบ All-in-One เมื่อชิ้นส่วนใดชิ้นหนึ่งเสีย ต้องส่งซ่อมยกชุด
+                หยุดสายการผลิตนานหลายวัน ค่าซ่อมแพง — FPM Touch Monitor ออกแบบให้
+                <span className="text-foreground font-bold"> เชื่อมต่อกับ Industrial PC</span> ที่คุณมีอยู่ หรือเลือก ENT GT/EPC/UPC Series
+                เปลี่ยนเฉพาะส่วนที่เสียได้ทันที
+              </p>
+              <div className="space-y-3">
+                {[
+                  "เปลี่ยน PC ได้โดยไม่ต้องเปลี่ยนจอ",
+                  "อัปเกรด CPU/RAM/Storage ตามต้องการ",
+                  "ซ่อมเฉพาะจุด ไม่ต้องหยุดทั้งระบบ",
+                  "ใช้ร่วมกับ PC เดิมที่มีอยู่ได้ทันที",
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <div className="w-6 h-6 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
+                      <CheckCircle2 size={14} />
+                    </div>
+                    <p className="text-foreground">{item}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="p-5 rounded-xl border-2 border-destructive/30 bg-destructive/5">
+                <div className="text-xs font-bold uppercase tracking-wider text-destructive mb-2">Panel PC</div>
+                <h4 className="font-display font-bold text-foreground mb-3">All-in-One</h4>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2"><span className="text-destructive">✕</span> เสียยกชุด</li>
+                  <li className="flex items-start gap-2"><span className="text-destructive">✕</span> ซ่อมนาน 7-14 วัน</li>
+                  <li className="flex items-start gap-2"><span className="text-destructive">✕</span> อัปเกรดยาก</li>
+                  <li className="flex items-start gap-2"><span className="text-destructive">✕</span> ค่าซ่อมแพง</li>
+                </ul>
+              </div>
+              <div className="p-5 rounded-xl border-2 border-primary/40 bg-primary/5 relative">
+                <div className="absolute -top-2 -right-2 px-2 py-0.5 rounded-full bg-primary text-primary-foreground text-[10px] font-bold uppercase">
+                  แนะนำ
+                </div>
+                <div className="text-xs font-bold uppercase tracking-wider text-primary mb-2">FPM + PC</div>
+                <h4 className="font-display font-bold text-foreground mb-3">Modular</h4>
+                <ul className="space-y-2 text-sm text-foreground">
+                  <li className="flex items-start gap-2"><CheckCircle2 size={14} className="text-emerald-500 shrink-0 mt-0.5" /> เปลี่ยนเฉพาะจุด</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 size={14} className="text-emerald-500 shrink-0 mt-0.5" /> สลับใช้ภายใน 5 นาที</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 size={14} className="text-emerald-500 shrink-0 mt-0.5" /> อัปเกรดอิสระ</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 size={14} className="text-emerald-500 shrink-0 mt-0.5" /> ประหยัดระยะยาว</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Compatible Solutions */}
+      <section className="py-12 border-b border-border bg-gradient-to-br from-primary/5 via-background to-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider border border-primary/30 mb-3">
+              <Cable size={12} /> Integration Ready
+            </div>
+            <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-2">
+              เชื่อมต่อกับ Industrial PC ของ ENT
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              {data.model} ใช้พอร์ตมาตรฐาน (HDMI / VGA / USB) เชื่อมต่อกับ Industrial PC ได้ทุกรุ่น
+              หรือเลือกชุด Bundle ที่ ENT จัดให้พอดี
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-4">
+            {[
+              {
+                icon: Cpu, name: "GT Series", tagline: "Embedded Box PC", to: "/gt-series",
+                desc: "Mini PC ทนทาน Fanless สำหรับ HMI โรงงาน — เลือกได้หลายรุ่นตาม CPU/RAM",
+                badge: "Best Match",
+              },
+              {
+                icon: Server, name: "EPC Box Series", tagline: "Edge Computing", to: "/epc-box-series",
+                desc: "Industrial Box PC พลังสูง รองรับ AI/Edge Computing ขยาย I/O ได้",
+                badge: "High Performance",
+              },
+              {
+                icon: HardDrive, name: "UPC Series", tagline: "Ultra-Compact PC", to: "/upc-series",
+                desc: "Mini PC ขนาดเล็กพิเศษ ติดตั้งหลังจอแบบ VESA Mount เนียนกริบ",
+                badge: "Space Saving",
+              },
+            ].map((sol) => (
+              <Link
+                key={sol.name}
+                to={sol.to}
+                className="group p-6 rounded-2xl border border-border bg-card hover:border-primary/40 hover:shadow-lg transition-all"
+              >
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <sol.icon size={22} />
+                  </div>
+                  <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold uppercase border border-emerald-500/30">
+                    {sol.badge}
+                  </span>
+                </div>
+                <div className="text-xs font-bold uppercase tracking-wider text-primary mb-1">{sol.tagline}</div>
+                <h3 className="text-lg font-display font-bold text-foreground mb-2">{sol.name}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4">{sol.desc}</p>
+                <div className="inline-flex items-center gap-1 text-sm text-primary font-bold group-hover:gap-2 transition-all">
+                  ดูรุ่นทั้งหมด <ArrowRight size={14} />
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* Bundle CTA */}
+          <div className="mt-6 p-5 rounded-xl border border-primary/30 bg-card/60 backdrop-blur flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                <RefreshCw size={18} />
+              </div>
+              <div>
+                <div className="font-bold text-foreground">ต้องการชุด Bundle: จอ + PC + ติดตั้ง?</div>
+                <div className="text-sm text-muted-foreground">ทีม ENT จัดสเปกพร้อมใช้งาน + ส่วนลดพิเศษ</div>
+              </div>
+            </div>
+            <QuoteRequestButton productModel={`Bundle: ${data.model} + Industrial PC`} productName={`${data.model} Bundle Solution`} />
           </div>
         </div>
       </section>
