@@ -478,7 +478,7 @@ export default function TouchWork() {
             },
             {
               icon: ShieldCheck,
-              title: "ทนทาน Industrial Grade เบา",
+              title: "ทนทาน Industrial Grade แบบ Entry",
               desc: "หน้าจอ IP65 กันฝุ่นและน้ำกระเซ็น โครงโลหะ ทนต่อการใช้งานต่อเนื่อง 24/7",
             },
             {
