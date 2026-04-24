@@ -1,5 +1,6 @@
 import { useParams, Link, Navigate } from "react-router-dom";
 import { useState } from "react";
+type TabKey = "gallery" | "specs" | "faq";
 import {
   ArrowLeft, ArrowRight, Download, Shield, ThermometerSun, Sparkles,
   Maximize, Settings, Zap, CheckCircle2, Monitor, Truck, Wrench, Phone,
@@ -180,6 +181,7 @@ const pickIcon = (text: string) => {
 const FPMSeriesDetail = () => {
   const { model } = useParams<{ model: string }>();
   const data = model ? MODELS[model.toLowerCase()] : null;
+  const [activeTab, setActiveTab] = useState<TabKey>("gallery");
   const [activeImg, setActiveImg] = useState(0);
 
   if (!data) return <Navigate to="/fpm-series" replace />;
