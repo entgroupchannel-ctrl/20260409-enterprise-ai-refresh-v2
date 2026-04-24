@@ -184,6 +184,7 @@ const FPMSeriesDetail = () => {
   const data = model ? MODELS[model.toLowerCase()] : null;
   const [activeTab, setActiveTab] = useState<TabKey>("gallery");
   const [activeImg, setActiveImg] = useState(0);
+  const [lightbox, setLightbox] = useState<{ src: string; caption: string } | null>(null);
 
   if (!data) return <Navigate to="/fpm-series" replace />;
 
