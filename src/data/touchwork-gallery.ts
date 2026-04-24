@@ -126,4 +126,11 @@ export function getTouchWorkDimensionImages(model: string, arch: Arch): string[]
     .filter((u): u is string => Boolean(u));
 }
 
+/** Interface I/O port diagram — image #04 in the touchwoipc gallery convention. */
+export function getTouchWorkInterfaceImage(model: string, arch: Arch): string | undefined {
+  const files = manifest[model]?.[arch] ?? [];
+  if (!files.includes("04.jpg")) return undefined;
+  return resolve(model, arch, "04.jpg");
+}
+
 export const touchworkGalleryManifest = manifest;
