@@ -304,15 +304,6 @@ export default function TouchWorkDetail() {
         </div>
       </section>
 
-      {/* Product Configurator — Architecture + Spec ในที่เดียว */}
-      <ProductConfigurator
-        product={product}
-        arch={selectedArch}
-        sku={sku}
-        productName={productName}
-        basePrice={variant.priceTHB}
-        onArchChange={setSelectedArch}
-      />
       {/* Detailed Tabs */}
       <section className="container max-w-7xl mx-auto px-6 py-8 border-t border-border/40">
         <h2 className="text-2xl font-bold mb-1">รายละเอียดสินค้า</h2>
@@ -637,6 +628,16 @@ export default function TouchWorkDetail() {
           </div>
         </section>
       )}
+
+      {/* Product Configurator — ย้ายไปท้ายเพจตามคำขอ */}
+      <ProductConfigurator
+        product={product}
+        arch={selectedArch}
+        sku={sku}
+        productName={productName}
+        basePrice={variant.priceTHB}
+        onArchChange={setSelectedArch}
+      />
 
       <FooterCompact />
     </div>
