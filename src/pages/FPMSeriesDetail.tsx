@@ -422,7 +422,7 @@ const FPMSeriesDetail = () => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
               { icon: Shield, title: "รับประกัน 1 ปี (ฟรี)", desc: "ต่อปี 2: +15% / ปี 3: +20% ของราคาสินค้า" },
-              { icon: Truck, title: "จัดส่งฟรี", desc: "ทั่วประเทศ พร้อมประกันภัยขนส่ง" },
+              { icon: Truck, title: "ส่งทั่วประเทศ", desc: "คิดค่าขนส่งตามจริง — โครงการต่อรองเป็นเคส" },
               { icon: Wrench, title: "ติดตั้ง & เทรน", desc: "ทีมวิศวกรช่วย Setup และอบรมการใช้งาน" },
               { icon: Phone, title: "Support 24/7", desc: "Hotline + Remote Support ตลอดอายุการใช้งาน" },
             ].map((item, i) => (
