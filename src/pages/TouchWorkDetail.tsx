@@ -196,75 +196,143 @@ export default function TouchWorkDetail() {
         </div>
       </section>
 
-      {/* Highlights & Mounting */}
+      {/* Detailed Tabs */}
       <section className="container max-w-7xl mx-auto px-6 py-8 border-t border-border/40">
-        <div className="grid md:grid-cols-2 gap-6">
-          <div>
-            <h2 className="text-xl font-bold mb-3 flex items-center gap-2">
-              <CheckCircle2 className="h-5 w-5 text-primary" />
-              จุดเด่น
-            </h2>
-            <ul className="space-y-2">
-              {product.highlights.map((h) => (
-                <li key={h} className="flex items-start gap-2 text-sm">
-                  <ArrowRight className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                  <span>{h}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+        <h2 className="text-2xl font-bold mb-1">รายละเอียดสินค้า</h2>
+        <p className="text-sm text-muted-foreground mb-5">
+          ข้อมูลเทคนิคครบถ้วน — เลือกแท็บเพื่อดูสเปกแต่ละหมวด
+        </p>
 
-          <div>
-            <h2 className="text-xl font-bold mb-3 flex items-center gap-2">
-              <Box className="h-5 w-5 text-primary" />
-              รูปแบบการติดตั้ง
-            </h2>
-            <div className="flex flex-wrap gap-2">
-              {product.mounting.map((m) => (
-                <span
-                  key={m}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-card text-sm"
-                >
-                  <Box className="h-3.5 w-3.5 text-muted-foreground" /> {m}
-                </span>
-              ))}
-            </div>
-            <div className="mt-4 flex items-start gap-2 text-xs text-muted-foreground">
-              <Info className="h-3.5 w-3.5 mt-0.5 flex-shrink-0" />
-              <span>รองรับการสั่งทำพิเศษ — ติดต่อทีมขายเพื่อสอบถามอุปกรณ์ติดตั้งเสริม</span>
-            </div>
-          </div>
-        </div>
-      </section>
+        <Tabs defaultValue="overview" className="w-full">
+          <TabsList className="w-full h-auto flex-wrap justify-start gap-1 bg-muted/50 p-1">
+            <TabsTrigger value="overview" className="gap-1.5"><Info className="h-3.5 w-3.5"/>ภาพรวม</TabsTrigger>
+            <TabsTrigger value="lcd" className="gap-1.5"><MonitorSmartphone className="h-3.5 w-3.5"/>หน้าจอ LCD</TabsTrigger>
+            <TabsTrigger value="touch" className="gap-1.5"><Hand className="h-3.5 w-3.5"/>ระบบสัมผัส</TabsTrigger>
+            <TabsTrigger value="dimension" className="gap-1.5"><Ruler className="h-3.5 w-3.5"/>ขนาด/น้ำหนัก</TabsTrigger>
+            <TabsTrigger value="environment" className="gap-1.5"><Thermometer className="h-3.5 w-3.5"/>สภาพแวดล้อม</TabsTrigger>
+            <TabsTrigger value="power" className="gap-1.5"><Plug className="h-3.5 w-3.5"/>พลังงาน</TabsTrigger>
+            {(product.specs.androidOptions || product.specs.windowsOptions) && (
+              <TabsTrigger value="cpu" className="gap-1.5"><Cpu className="h-3.5 w-3.5"/>CPU/OS</TabsTrigger>
+            )}
+            <TabsTrigger value="delivery" className="gap-1.5"><Package className="h-3.5 w-3.5"/>ในกล่อง</TabsTrigger>
+          </TabsList>
 
-      {/* All variants gallery */}
-      <section className="container max-w-7xl mx-auto px-6 py-8 border-t border-border/40">
-        <h2 className="text-xl font-bold mb-4">ทุกตัวเลือกของ {product.model}</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-          {product.variants.map((v) => {
-            const Icon = archIcon[v.arch];
-            const active = selectedArch === v.arch;
-            return (
-              <button
-                key={v.arch}
-                onClick={() => setSelectedArch(v.arch)}
-                className={`text-left rounded-xl border bg-card overflow-hidden hover:border-primary/50 transition ${
-                  active ? "border-primary ring-2 ring-primary/20" : "border-border"
-                }`}
-              >
-                <div className="aspect-square bg-muted/30">
-                  <img src={v.image} alt={`${product.model} ${v.arch}`} className="w-full h-full object-contain p-3" loading="lazy" />
+          {/* OVERVIEW */}
+          <TabsContent value="overview" className="mt-6">
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <h3 className="text-lg font-bold mb-3 flex items-center gap-2">
+                  <CheckCircle2 className="h-5 w-5 text-primary" />
+                  จุดเด่น
+                </h3>
+                <ul className="space-y-2">
+                  {product.highlights.map((h) => (
+                    <li key={h} className="flex items-start gap-2 text-sm">
+                      <ArrowRight className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                      <span>{h}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-bold mb-3 flex items-center gap-2">
+                  <Box className="h-5 w-5 text-primary" />
+                  รูปแบบการติดตั้ง
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {product.mounting.map((m) => (
+                    <span
+                      key={m}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-card text-sm"
+                    >
+                      <Box className="h-3.5 w-3.5 text-muted-foreground" /> {m}
+                    </span>
+                  ))}
                 </div>
-                <div className="p-3">
-                  <div className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium border ${archColor[v.arch]} mb-1`}>
-                    <Icon className="h-3 w-3" /> {v.arch}
-                  </div>
-                  <div className="text-sm font-semibold">{v.os}</div>
+                <div className="mt-4 flex items-start gap-2 text-xs text-muted-foreground">
+                  <Info className="h-3.5 w-3.5 mt-0.5 flex-shrink-0" />
+                  <span>รองรับการสั่งทำพิเศษ — ติดต่อทีมขายเพื่อสอบถามอุปกรณ์ติดตั้งเสริม</span>
                 </div>
-              </button>
-            );
-          })}
-        </div>
+              </div>
+            </div>
+
+            {/* All variants gallery */}
+            <div className="mt-8 pt-6 border-t border-border/40">
+              <h3 className="text-lg font-bold mb-4">ทุกตัวเลือกของ {product.model}</h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                {product.variants.map((v) => {
+                  const Icon = archIcon[v.arch];
+                  const active = selectedArch === v.arch;
+                  return (
+                    <button
+                      key={v.arch}
+                      onClick={() => setSelectedArch(v.arch)}
+                      className={`text-left rounded-xl border bg-card overflow-hidden hover:border-primary/50 transition ${
+                        active ? "border-primary ring-2 ring-primary/20" : "border-border"
+                      }`}
+                    >
+                      <div className="aspect-square bg-muted/30">
+                        <img src={v.image} alt={`${product.model} ${v.arch}`} className="w-full h-full object-contain p-3" loading="lazy" />
+                      </div>
+                      <div className="p-3">
+                        <div className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium border ${archColor[v.arch]} mb-1`}>
+                          <Icon className="h-3 w-3" /> {v.arch}
+                        </div>
+                        <div className="text-sm font-semibold">{v.os}</div>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="lcd" className="mt-6"><SpecTable rows={product.specs.lcd} /></TabsContent>
+          <TabsContent value="touch" className="mt-6"><SpecTable rows={product.specs.touch} /></TabsContent>
+          <TabsContent value="dimension" className="mt-6"><SpecTable rows={product.specs.dimension} /></TabsContent>
+          <TabsContent value="environment" className="mt-6"><SpecTable rows={product.specs.environment} /></TabsContent>
+          <TabsContent value="power" className="mt-6"><SpecTable rows={product.specs.power} /></TabsContent>
+
+          {(product.specs.androidOptions || product.specs.windowsOptions) && (
+            <TabsContent value="cpu" className="mt-6 space-y-8">
+              {product.specs.androidOptions && (
+                <CpuTable
+                  title="ตัวเลือก Android (ARM)"
+                  color="emerald"
+                  options={product.specs.androidOptions}
+                />
+              )}
+              {product.specs.windowsOptions && (
+                <CpuTable
+                  title="ตัวเลือก Windows (X86)"
+                  color="violet"
+                  options={product.specs.windowsOptions}
+                />
+              )}
+              <p className="text-xs text-muted-foreground flex items-start gap-2">
+                <Info className="h-3.5 w-3.5 mt-0.5 flex-shrink-0" />
+                <span>ตัวเลือก CPU/OS เป็นค่ามาตรฐานจากผู้ผลิต — สามารถสั่งทำพิเศษได้ ติดต่อทีมขายเพื่อยืนยันสเปกที่ต้องการ</span>
+              </p>
+            </TabsContent>
+          )}
+
+          <TabsContent value="delivery" className="mt-6">
+            <div className="rounded-xl border border-border bg-card p-5">
+              <h3 className="font-bold mb-3 flex items-center gap-2">
+                <Package className="h-4 w-4 text-primary" /> สิ่งที่อยู่ในกล่อง
+              </h3>
+              <ul className="space-y-2">
+                {product.specs.delivery.map((d) => (
+                  <li key={d} className="flex items-center gap-2 text-sm">
+                    <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0" />
+                    {d}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </TabsContent>
+        </Tabs>
       </section>
 
       {/* Related */}
