@@ -31,14 +31,21 @@ UA = {"User-Agent": "Mozilla/5.0 (compatible; ENT-Group-Bot/1.0)"}
 ARCH_PREF = ["Monitor", "ARM", "X86"]
 
 
+def _encode_url(url: str) -> str:
+    # Percent-encode non-ASCII path/query while preserving scheme/host
+    from urllib.parse import urlsplit, urlunsplit, quote
+    s = urlsplit(url)
+    return urlunsplit((s.scheme, s.netloc, quote(s.path, safe="/%"), quote(s.query, safe="=&%"), s.fragment))
+
+
 def fetch(url: str) -> str:
-    req = urllib.request.Request(url, headers=UA)
+    req = urllib.request.Request(_encode_url(url), headers=UA)
     return urllib.request.urlopen(req, timeout=30).read().decode("utf-8", "ignore")
 
 
 def download(url: str, dest: Path) -> bool:
     try:
-        req = urllib.request.Request(url, headers=UA)
+        req = urllib.request.Request(_encode_url(url), headers=UA)
         data = urllib.request.urlopen(req, timeout=30).read()
         dest.write_bytes(data)
         return True
