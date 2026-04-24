@@ -405,7 +405,6 @@ export default function TouchWork() {
               );
             })}
           </div>
-          </div>
         )}
 
         <div className="mt-8">
