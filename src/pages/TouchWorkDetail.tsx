@@ -28,6 +28,7 @@ import installEmbedImg from "@/assets/touchwork/shared/install-embed.png";
 import ProductGallery from "@/components/ProductGallery";
 import ImageLightbox, { ZoomHintBadge } from "@/components/ImageLightbox";
 import { getTouchWorkProductImages, getTouchWorkDimensionImages, getTouchWorkInterfaceImage } from "@/data/touchwork-gallery";
+import { getTouchworkHardware } from "@/data/touchwork-hardware";
 import ProductConfigurator from "@/components/touchwork/ProductConfigurator";
 
 // ---- Helpers (declared before default export for HMR safety) -------------
