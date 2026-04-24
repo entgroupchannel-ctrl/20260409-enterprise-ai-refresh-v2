@@ -26,7 +26,8 @@ import installWallImg from "@/assets/touchwork/shared/install-wall.png";
 import installDeskImg from "@/assets/touchwork/shared/install-desk.png";
 import installEmbedImg from "@/assets/touchwork/shared/install-embed.png";
 import ProductGallery from "@/components/ProductGallery";
-import { getTouchWorkGallery } from "@/data/touchwork-gallery";
+import ImageLightbox, { ZoomHintBadge } from "@/components/ImageLightbox";
+import { getTouchWorkProductImages, getTouchWorkDimensionImages } from "@/data/touchwork-gallery";
 
 // ---- Helpers (declared before default export for HMR safety) -------------
 
