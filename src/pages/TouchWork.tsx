@@ -16,6 +16,9 @@ import {
   archOptions,
   type TouchWorkArch,
 } from "@/data/touchwork-products";
+import archMonitorImg from "@/assets/touchwork/arch-monitor.jpg";
+import archArmImg from "@/assets/touchwork/arch-arm.jpg";
+import archX86Img from "@/assets/touchwork/arch-x86.jpg";
 
 const archIcon: Record<TouchWorkArch, typeof Monitor> = {
   Monitor: Monitor,
