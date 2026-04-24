@@ -5,9 +5,10 @@ interface ProductGalleryProps {
   images: string[];
   alt: string;
   autoPlayInterval?: number;
+  onImageClick?: (index: number) => void;
 }
 
-const ProductGallery = ({ images, alt, autoPlayInterval = 4000 }: ProductGalleryProps) => {
+const ProductGallery = ({ images, alt, autoPlayInterval = 4000, onImageClick }: ProductGalleryProps) => {
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
 
