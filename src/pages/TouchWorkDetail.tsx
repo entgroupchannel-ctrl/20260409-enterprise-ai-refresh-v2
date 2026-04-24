@@ -269,11 +269,26 @@ export default function TouchWorkDetail() {
               ))}
             </div>
 
+            {/* Price */}
+            {variant.priceTHB ? (
+              <div className="rounded-2xl border border-primary/30 bg-primary/5 p-4 mb-4">
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">ราคาขายปลีกแนะนำ (Base config)</div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-bold text-primary">฿{variant.priceTHB.toLocaleString("en-US")}</span>
+                  <span className="text-xs text-muted-foreground">/ เครื่อง (ยังไม่รวม VAT)</span>
+                </div>
+                <div className="text-[11px] text-muted-foreground mt-1">
+                  * ราคาอ้างอิงสำหรับสเปกพื้นฐาน — ปรับสเปกในส่วน "ปรับแต่งสเปก" ด้านล่างเพื่อรับใบเสนอราคาที่ตรงงาน
+                </div>
+              </div>
+            ) : null}
+
             {/* CTAs */}
             <div className="flex flex-wrap gap-2">
               <AddToCartButton
                 productModel={sku}
                 productName={productName}
+                estimatedPrice={variant.priceTHB}
                 size="lg"
               />
               <QuoteRequestButton
@@ -307,7 +322,7 @@ export default function TouchWorkDetail() {
       </section>
 
       {/* Product Configurator — minimal 3-column build-to-order */}
-      <ProductConfigurator product={product} arch={selectedArch} sku={sku} productName={productName} />
+      <ProductConfigurator product={product} arch={selectedArch} sku={sku} productName={productName} basePrice={variant.priceTHB} />
 
       {/* Detailed Tabs */}
       <section className="container max-w-7xl mx-auto px-6 py-8 border-t border-border/40">
