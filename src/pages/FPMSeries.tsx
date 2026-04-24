@@ -280,6 +280,7 @@ const FPMSeries = () => {
             </div>
           </div>
         </div>
+      </section>
 
       {/* ═══ Why Industrial Grade — Feature Grid ═══ */}
       <section className="py-16 border-b border-border bg-muted/20">
