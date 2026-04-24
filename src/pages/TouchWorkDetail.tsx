@@ -119,7 +119,7 @@ export default function TouchWorkDetail() {
   const variant = product.variants.find((v) => v.arch === selectedArch) || product.variants[0];
   const sku = `${product.model}-${variant.arch}`;
   const productName = `TouchWork ${product.model} ${product.size}″ ${variant.arch}`;
-  const { download: downloadDatasheet, isDownloading } = useDownloadTouchWorkDatasheet();
+  
 
   return (
     <div className="min-h-screen bg-background">
