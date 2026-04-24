@@ -269,9 +269,18 @@ export default function ProductConfigurator({ product, arch, sku, productName, b
                 <SummaryChip>{selection.warranty}</SummaryChip>
               </div>
             </div>
-            <Button size="lg" onClick={handleAdd} disabled={adding} className="shrink-0">
-              {adding ? "กำลังเพิ่ม..." : "เพิ่มสเปกนี้เข้าตะกร้า"}
-            </Button>
+            <div className="shrink-0 text-right">
+              {basePrice ? (
+                <div className="mb-2">
+                  <div className="text-[10px] uppercase tracking-wide text-muted-foreground">ราคาเริ่มต้น</div>
+                  <div className="text-xl font-bold text-primary leading-tight">฿{basePrice.toLocaleString("en-US")}</div>
+                  <div className="text-[10px] text-muted-foreground">+ ปรับตามสเปก</div>
+                </div>
+              ) : null}
+              <Button size="lg" onClick={handleAdd} disabled={adding}>
+                {adding ? "กำลังเพิ่ม..." : "เพิ่มสเปกนี้เข้าตะกร้า"}
+              </Button>
+            </div>
           </div>
           <p className="text-[11px] text-muted-foreground mt-3 flex items-center gap-1.5">
             <Info className="h-3 w-3" />
