@@ -168,9 +168,22 @@ export default function TouchWorkDetail() {
           <div className="relative">
             <div className="rounded-3xl bg-gradient-to-br from-muted/30 via-background to-muted/20 border border-border overflow-hidden p-6">
               {(() => {
-                const gallery = getTouchWorkGallery(product.model, variant.arch);
+                const gallery = getTouchWorkProductImages(product.model, variant.arch);
                 const images = gallery.length > 0 ? gallery : [variant.image];
-                return <ProductGallery images={images} alt={productName} />;
+                return (
+                  <ImageLightbox
+                    images={images}
+                    alt={productName}
+                    downloadPrefix={`${product.model}-${variant.arch}`}
+                  >
+                    {(open) => (
+                      <div className="relative group cursor-zoom-in" onClick={() => open(0)}>
+                        <ProductGallery images={images} alt={productName} />
+                        <ZoomHintBadge />
+                      </div>
+                    )}
+                  </ImageLightbox>
+                );
               })()}
             </div>
             <div className="absolute top-4 right-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-foreground/90 text-background text-sm font-bold z-10">
