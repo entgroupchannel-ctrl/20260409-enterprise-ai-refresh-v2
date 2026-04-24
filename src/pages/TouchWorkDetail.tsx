@@ -27,7 +27,7 @@ import installDeskImg from "@/assets/touchwork/shared/install-desk.png";
 import installEmbedImg from "@/assets/touchwork/shared/install-embed.png";
 import ProductGallery from "@/components/ProductGallery";
 import ImageLightbox, { ZoomHintBadge } from "@/components/ImageLightbox";
-import { getTouchWorkProductImages, getTouchWorkDimensionImages } from "@/data/touchwork-gallery";
+import { getTouchWorkProductImages, getTouchWorkDimensionImages, getTouchWorkInterfaceImage } from "@/data/touchwork-gallery";
 import ProductConfigurator from "@/components/touchwork/ProductConfigurator";
 
 // ---- Helpers (declared before default export for HMR safety) -------------
@@ -489,13 +489,13 @@ export default function TouchWorkDetail() {
               </div>
               <div className="p-5 bg-gradient-to-br from-muted/20 to-background">
                 <img
-                  src={ioPortsImg}
-                  alt={`${product.model} interface I/O ports diagram`}
+                  src={getTouchWorkInterfaceImage(product.model, selectedArch) || ioPortsImg}
+                  alt={`${product.model} ${selectedArch} interface I/O ports diagram`}
                   className="w-full max-w-3xl mx-auto object-contain"
                   loading="lazy"
                 />
                 <p className="mt-3 text-xs text-muted-foreground text-center">
-                  * แผนผังพอร์ตอ้างอิงจากผู้ผลิต — รายละเอียดจริงตามรุ่นและ Architecture ที่เลือก ติดต่อทีมขายเพื่อยืนยันก่อนสั่งซื้อ
+                  * แผนผังพอร์ต {product.model} ({selectedArch}) — ติดต่อทีมขายเพื่อยืนยันสเปกพอร์ตจริงก่อนสั่งซื้อ
                 </p>
               </div>
             </div>
