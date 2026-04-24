@@ -13,11 +13,18 @@ import QuoteRequestButton from "@/components/QuoteRequestButton";
 import AddToCartButton from "@/components/AddToCartButton";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
 
-/* ─── Detail data per model ─── */
+/* ─── Image sets per real cesipc model ─── */
 const IMG_10 = "/images/fpm/products/fpm-1002s-10inch.jpg";
 const IMG_15K = "/images/fpm/products/fpm-1502k-15-6inch.jpg";
 const IMG_17 = "/images/fpm/products/fpm-1702k-17-3inch.jpg";
 const IMG_RFID = "/images/fpm/products/fpm-1502b-rfid.jpg";
+
+// Real product gallery sets (downloaded from cesipc.com)
+const GALLERY_1002S = ["/images/fpm/products/fpm-1002s-01.png", "/images/fpm/products/fpm-1002s-02.png"];
+const GALLERY_1202C = ["/images/fpm/products/fpm-1202c-01.png", "/images/fpm/products/fpm-1202c-02.png", "/images/fpm/products/fpm-1202c-03.png", "/images/fpm/products/fpm-1202c-04.png"];
+const GALLERY_1502K = ["/images/fpm/products/fpm-1502k-01.png", "/images/fpm/products/fpm-1502k-02.png", "/images/fpm/products/fpm-1502k-03.png", "/images/fpm/products/fpm-1502k-04.png"];
+const GALLERY_1702K = ["/images/fpm/products/fpm-1702k-01.png", "/images/fpm/products/fpm-1702k-02.png", "/images/fpm/products/fpm-1702k-03.png", "/images/fpm/products/fpm-1702k-04.png"];
+const GALLERY_2102K = ["/images/fpm/products/fpm-2102k-01.png", "/images/fpm/products/fpm-2102k-02.png", "/images/fpm/products/fpm-2102k-03.png"];
 
 const lifestyleAll = [
   "/images/fpm/lifestyle/install-1.jpg",
