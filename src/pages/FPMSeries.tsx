@@ -82,7 +82,7 @@ const FPMSeries = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead
-        title="FPM Series — Industrial Touch Monitor 8\"–24\" | IP65, Wide-Temp"
+        title='FPM Series — Industrial Touch Monitor 8"–24" | IP65, Wide-Temp'
         description="จอภาพสัมผัสเกรดอุตสาหกรรม FPM Series ขนาด 8 ถึง 24 นิ้ว IP65, Optical Bonding, Wide Temperature -40°C ถึง 80°C สำหรับ HMI, CNC, Factory Automation, Smart Warehouse"
         path="/fpm-series"
       />
