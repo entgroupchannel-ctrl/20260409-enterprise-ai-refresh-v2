@@ -5,6 +5,7 @@ import {
   ArrowLeft, ArrowRight, Download, Shield, ThermometerSun, Sparkles,
   Maximize, Settings, Zap, CheckCircle2, Monitor, Truck, Wrench, Phone,
   RefreshCw, Cpu, Server, HardDrive, Cable, AlertTriangle, ShieldCheck,
+  Images, ClipboardList, HelpCircle,
 } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
@@ -302,21 +303,31 @@ const FPMSeriesDetail = () => {
       <section className="py-12 border-b border-border bg-muted/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex gap-2 mb-6 border-b border-border overflow-x-auto">
-            {(["gallery", "specs", "faq"] as const).map((t) => (
-              <button
-                key={t}
-                onClick={() => setActiveTab(t)}
-                className={`px-5 py-3 font-bold text-sm whitespace-nowrap transition-colors border-b-2 -mb-px ${
-                  activeTab === t
-                    ? "border-primary text-primary"
-                    : "border-transparent text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {t === "gallery" && "📸 Product Images & Sizes"}
-                {t === "specs" && "📋 Specifications"}
-                {t === "faq" && "❓ FAQ"}
-              </button>
-            ))}
+            {([
+              { key: "gallery" as const, label: "Product Images & Sizes", Icon: Images },
+              { key: "specs" as const, label: "Specifications", Icon: ClipboardList },
+              { key: "faq" as const, label: "FAQ", Icon: HelpCircle },
+            ]).map(({ key, label, Icon }) => {
+              const isActive = activeTab === key;
+              return (
+                <button
+                  key={key}
+                  onClick={() => setActiveTab(key)}
+                  className={`group inline-flex items-center gap-2 px-5 py-3 font-bold text-sm whitespace-nowrap transition-all border-b-2 -mb-px ${
+                    isActive
+                      ? "border-primary text-primary"
+                      : "border-transparent text-muted-foreground hover:text-foreground hover:border-border"
+                  }`}
+                >
+                  <span className={`inline-flex items-center justify-center w-7 h-7 rounded-lg transition-colors ${
+                    isActive ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground group-hover:bg-primary/5 group-hover:text-foreground"
+                  }`}>
+                    <Icon size={15} strokeWidth={2.25} />
+                  </span>
+                  {label}
+                </button>
+              );
+            })}
           </div>
 
           {activeTab === "gallery" && (
