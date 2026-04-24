@@ -287,7 +287,7 @@ function buildSpecs(p: RawProduct): DetailedSpecs {
     { label: "สีที่แสดงผลได้", value: "16.7M (8-bit)" },
     { label: "ความสว่าง", value: `${p.brightness} (≥${p.brightness.replace(/\D/g, "")} cd/m²)` },
     { label: "Contrast Ratio", value: "1000:1 (Typical)" },
-    { label: "มุมมอง H / V", value: "178° / 178°" },
+    { label: "มุมมอง H / V", value: "85/85/85/85(Typ.)(CR≥10)" },
     { label: "Response Time (LCD)", value: "≤ 25 ms" },
     { label: "Refresh Rate", value: "60 Hz" },
     { label: "Backlight", value: "LED, อายุการใช้งาน 30,000 ชม." },
