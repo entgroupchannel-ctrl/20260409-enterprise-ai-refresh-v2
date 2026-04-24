@@ -87,7 +87,7 @@ function getOptionsForArch(arch: TouchWorkArch) {
   };
 }
 
-export default function ProductConfigurator({ product, arch, sku, productName, basePrice }: Props) {
+export default function ProductConfigurator({ product, arch, sku, productName, basePrice, onArchChange }: Props) {
   const { user } = useAuth();
   const { addToCart } = useCart();
   const navigate = useNavigate();
