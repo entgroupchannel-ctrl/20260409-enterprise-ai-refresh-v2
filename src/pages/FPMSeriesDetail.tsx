@@ -445,10 +445,11 @@ const FPMSeriesDetail = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex gap-2 mb-6 border-b border-border overflow-x-auto">
             {([
-              { key: "gallery" as const, label: "Product Images & Sizes", Icon: Images },
-              { key: "specs" as const, label: "Specifications", Icon: ClipboardList },
-              { key: "faq" as const, label: "FAQ", Icon: HelpCircle },
-            ]).map(({ key, label, Icon }) => {
+              { key: "gallery" as const, label: "Product Images & Sizes", Icon: Images, show: true },
+              { key: "specs" as const, label: "Specifications", Icon: ClipboardList, show: true },
+              { key: "dimensions" as const, label: "Dimensions", Icon: Ruler, show: !!(data.dimensions && data.dimensions.length) },
+              { key: "faq" as const, label: "FAQ", Icon: HelpCircle, show: true },
+            ]).filter((t) => t.show).map(({ key, label, Icon }) => {
               const isActive = activeTab === key;
               return (
                 <button
@@ -472,22 +473,27 @@ const FPMSeriesDetail = () => {
           </div>
 
           {activeTab === "gallery" && (() => {
-            // Sort: product images first, dimension/lifestyle last
+            // Gallery now contains ONLY product photos + lifestyle/install shots
+            // (Dimension drawings live in their own tab)
             const sorted = [...data.images].sort((a, b) => {
-              const aIsExtra = /lifestyle|dimension|install/i.test(a) ? 1 : 0;
-              const bIsExtra = /lifestyle|dimension|install/i.test(b) ? 1 : 0;
+              const aIsExtra = /lifestyle|install/i.test(a) ? 1 : 0;
+              const bIsExtra = /lifestyle|install/i.test(b) ? 1 : 0;
               return aIsExtra - bIsExtra;
             });
             const captionFor = (src: string, i: number) => {
               if (/lifestyle|install/i.test(src)) return `การติดตั้งจริง #${i + 1}`;
-              if (/dimension/i.test(src)) return `Dimension Drawing`;
               return `${data.model} — มุมที่ ${i + 1}`;
             };
             return (
               <div>
                 <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
                   <p className="text-sm text-muted-foreground">
-                    ภาพสินค้าหลัก ตามด้วย Dimension และภาพการติดตั้งจริง — คลิกภาพเพื่อขยาย
+                    ภาพสินค้าหลัก ตามด้วยภาพการติดตั้งจริง — คลิกภาพเพื่อขยาย
+                    {data.dimensions && data.dimensions.length > 0 && (
+                      <span className="ml-1">
+                        (ดูแบบมิติได้ที่แท็บ <button onClick={() => setActiveTab("dimensions")} className="text-primary font-bold hover:underline">Dimensions</button>)
+                      </span>
+                    )}
                   </p>
                   <span className="text-xs text-muted-foreground inline-flex items-center gap-1">
                     <ZoomIn size={12} /> {sorted.length} ภาพ
@@ -521,6 +527,58 @@ const FPMSeriesDetail = () => {
               </div>
             );
           })()}
+
+          {activeTab === "dimensions" && data.dimensions && data.dimensions.length > 0 && (
+            <div>
+              <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+                <div>
+                  <h3 className="text-lg font-display font-bold text-foreground flex items-center gap-2">
+                    <Ruler size={18} className="text-primary" />
+                    Mechanical Dimensions
+                  </h3>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    แบบมิติทางวิศวกรรมของ {data.model} — คลิกภาพเพื่อขยาย หรือดาวน์โหลดได้จาก Datasheet
+                  </p>
+                </div>
+                {data.datasheet && (
+                  <a
+                    href={data.datasheet}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border bg-card text-foreground hover:bg-muted transition text-sm font-bold"
+                  >
+                    <Download size={14} /> Datasheet PDF
+                  </a>
+                )}
+              </div>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {data.dimensions.map((src, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setLightbox({ src, caption: `${data.model} — Dimension Drawing` })}
+                    className="group relative rounded-xl border-2 border-border bg-card overflow-hidden hover:border-primary/50 hover:shadow-lg transition-all"
+                  >
+                    <div className="aspect-[4/3] bg-white flex items-center justify-center p-4">
+                      <img
+                        src={src}
+                        alt={`${data.model} mechanical dimensions ${i + 1}`}
+                        className="max-w-full max-h-full object-contain group-hover:scale-[1.02] transition-transform duration-300"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="px-4 py-3 border-t border-border flex items-center justify-between">
+                      <span className="text-sm font-bold text-foreground">
+                        {data.model} Dimension {data.dimensions!.length > 1 ? `#${i + 1}` : ""}
+                      </span>
+                      <span className="inline-flex items-center gap-1 text-xs text-primary font-semibold">
+                        <ZoomIn size={12} /> ขยายดู
+                      </span>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
 
           {activeTab === "specs" && (
             <div className="grid lg:grid-cols-2 gap-8">
