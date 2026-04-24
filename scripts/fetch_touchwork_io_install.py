@@ -16,7 +16,7 @@ from pathlib import Path
 
 # Reuse URL list from gallery script
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from fetch_touchwork_galleries import MODEL_URLS  # type: ignore
+from fetch_touchwork_galleries import URLS as MODEL_URLS  # type: ignore
 
 ROOT = Path(__file__).resolve().parent.parent
 IO_DIR = ROOT / "src" / "assets" / "touchwork" / "io"
