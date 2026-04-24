@@ -373,7 +373,7 @@ const FPMSeriesDetail = () => {
                   {[
                     ["ขนาดหน้าจอ", data.size], ["ความละเอียด", data.resolution], ["อัตราส่วน", data.ratio],
                     ["ระบบสัมผัส", data.touch], ["ความสว่าง", `${data.brightness} nits`],
-                    ["มาตรฐาน", "IP65 Front Panel"], ["รับประกัน", "2 ปี (เคลม On-site)"],
+                    ["มาตรฐาน", "IP65 Front Panel"], ["รับประกัน", "1 ปี (ต่อปี 2: +15%, ปี 3: +20%)"],
                   ].map(([k, v]) => (
                     <div key={k} className="flex justify-between py-2 border-b border-border">
                       <span className="text-muted-foreground">{k}</span>
