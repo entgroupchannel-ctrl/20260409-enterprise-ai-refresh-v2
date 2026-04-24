@@ -106,6 +106,8 @@ const MODELS: Record<string, ModelDetail> = {
     features: ["IP65", "Resistive", "Wide Temp -20°C ถึง 70°C", "VESA 100"],
     ports: ["VGA", "HDMI", "USB", "DC 12V"],
     datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/fpm/FPM-1501A-Datasheet.pdf",
+  },
+  "fpm-1502a": {
     model: "FPM-1502A", size: '15"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "19,990",
     images: [IMG_RFID, ...GALLERY_1502K, ...lifestyleAll],
     highlight: "15-inch Capacitive — Customizable RFID Edition",
