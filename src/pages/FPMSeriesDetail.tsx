@@ -5,8 +5,9 @@ import {
   ArrowLeft, ArrowRight, Download, Shield, ThermometerSun, Sparkles,
   Maximize, Settings, Zap, CheckCircle2, Monitor, Truck, Wrench, Phone,
   RefreshCw, Cpu, Server, HardDrive, Cable, AlertTriangle, ShieldCheck,
-  Images, ClipboardList, HelpCircle,
+  Images, ClipboardList, HelpCircle, ZoomIn, X,
 } from "lucide-react";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import SEOHead from "@/components/SEOHead";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import MiniNavbar from "@/components/MiniNavbar";
@@ -184,6 +185,7 @@ const FPMSeriesDetail = () => {
   const data = model ? MODELS[model.toLowerCase()] : null;
   const [activeTab, setActiveTab] = useState<TabKey>("gallery");
   const [activeImg, setActiveImg] = useState(0);
+  const [lightbox, setLightbox] = useState<{ src: string; caption: string } | null>(null);
 
   if (!data) return <Navigate to="/fpm-series" replace />;
 
@@ -449,18 +451,56 @@ const FPMSeriesDetail = () => {
             })}
           </div>
 
-          {activeTab === "gallery" && (
-            <div>
-              <p className="text-muted-foreground mb-6">ภาพสินค้าและการติดตั้งจริงในสภาพแวดล้อมอุตสาหกรรม</p>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {data.images.map((src, i) => (
-                  <div key={i} className="aspect-square rounded-xl border border-border bg-card overflow-hidden flex items-center justify-center p-3">
-                    <img src={src} alt={`${data.model} - ${i + 1}`} className="max-w-full max-h-full object-contain" loading="lazy" />
-                  </div>
-                ))}
+          {activeTab === "gallery" && (() => {
+            // Sort: product images first, dimension/lifestyle last
+            const sorted = [...data.images].sort((a, b) => {
+              const aIsExtra = /lifestyle|dimension|install/i.test(a) ? 1 : 0;
+              const bIsExtra = /lifestyle|dimension|install/i.test(b) ? 1 : 0;
+              return aIsExtra - bIsExtra;
+            });
+            const captionFor = (src: string, i: number) => {
+              if (/lifestyle|install/i.test(src)) return `การติดตั้งจริง #${i + 1}`;
+              if (/dimension/i.test(src)) return `Dimension Drawing`;
+              return `${data.model} — มุมที่ ${i + 1}`;
+            };
+            return (
+              <div>
+                <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+                  <p className="text-sm text-muted-foreground">
+                    ภาพสินค้าหลัก ตามด้วย Dimension และภาพการติดตั้งจริง — คลิกภาพเพื่อขยาย
+                  </p>
+                  <span className="text-xs text-muted-foreground inline-flex items-center gap-1">
+                    <ZoomIn size={12} /> {sorted.length} ภาพ
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5">
+                  {sorted.map((src, i) => {
+                    const caption = captionFor(src, i);
+                    return (
+                      <button
+                        key={i}
+                        onClick={() => setLightbox({ src, caption })}
+                        className="group relative aspect-square rounded-lg border border-border bg-card overflow-hidden flex items-center justify-center p-2 hover:border-primary/50 hover:shadow-md transition-all"
+                      >
+                        <img
+                          src={src}
+                          alt={caption}
+                          className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                          loading="lazy"
+                        />
+                        <span className="absolute top-1.5 right-1.5 w-6 h-6 rounded-md bg-background/80 backdrop-blur text-foreground flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                          <ZoomIn size={12} />
+                        </span>
+                        <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/95 via-background/70 to-transparent px-2 py-1.5 text-[10px] font-medium text-foreground text-left leading-tight">
+                          {caption}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          )}
+            );
+          })()}
 
           {activeTab === "specs" && (
             <div className="grid lg:grid-cols-2 gap-8">
@@ -708,6 +748,23 @@ const FPMSeriesDetail = () => {
       </section>
 
       <FooterCompact />
+
+      {/* Lightbox */}
+      <Dialog open={!!lightbox} onOpenChange={(o) => !o && setLightbox(null)}>
+        <DialogContent className="max-w-4xl p-0 overflow-hidden bg-card">
+          <DialogTitle className="sr-only">{lightbox?.caption ?? "Image"}</DialogTitle>
+          {lightbox && (
+            <div className="flex flex-col">
+              <div className="aspect-video bg-muted/40 flex items-center justify-center p-6">
+                <img src={lightbox.src} alt={lightbox.caption} className="max-w-full max-h-full object-contain" />
+              </div>
+              <div className="px-5 py-3 border-t border-border text-sm font-medium text-foreground">
+                {lightbox.caption}
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
