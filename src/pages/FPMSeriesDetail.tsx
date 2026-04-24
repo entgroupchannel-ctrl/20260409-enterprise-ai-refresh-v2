@@ -181,6 +181,7 @@ const pickIcon = (text: string) => {
 const FPMSeriesDetail = () => {
   const { model } = useParams<{ model: string }>();
   const data = model ? MODELS[model.toLowerCase()] : null;
+  const [activeTab, setActiveTab] = useState<TabKey>("gallery");
   const [activeImg, setActiveImg] = useState(0);
 
   if (!data) return <Navigate to="/fpm-series" replace />;
