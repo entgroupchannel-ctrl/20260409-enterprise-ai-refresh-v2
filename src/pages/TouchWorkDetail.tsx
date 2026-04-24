@@ -202,52 +202,34 @@ export default function TouchWorkDetail() {
               จอสัมผัสอุตสาหกรรม {product.size}″ — {product.resolution} ({product.ratio})
             </p>
 
-            {/* Variant Switcher — KEY UX */}
+            {/* Active variant summary (Architecture selection moved into the Configurator below for better UX) */}
             <div className="rounded-2xl border border-border bg-card p-4 mb-5">
-              <div className="text-xs font-medium text-muted-foreground mb-2.5 uppercase tracking-wide">
-                เลือก Architecture
+              <div className="flex items-center justify-between gap-3 flex-wrap">
+                <div className="min-w-0">
+                  <div className="text-[10px] font-medium text-muted-foreground uppercase tracking-wide mb-1">
+                    Architecture ที่กำลังดู
+                  </div>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    {(() => {
+                      const Icon = archIcon[selectedArch];
+                      return (
+                        <span className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-md border text-xs font-semibold ${archColor[selectedArch]}`}>
+                          <Icon className="h-3.5 w-3.5" /> {selectedArch}
+                        </span>
+                      );
+                    })()}
+                    <span className="text-sm font-semibold">{variant.os}</span>
+                  </div>
+                  <div className="text-xs text-muted-foreground mt-1">{variant.cpuHint}</div>
+                </div>
+                <a
+                  href="#configurator"
+                  className="text-xs font-semibold text-primary hover:underline whitespace-nowrap"
+                >
+                  เปลี่ยน Architecture / ปรับสเปก ↓
+                </a>
               </div>
-              <div className="grid grid-cols-3 gap-2">
-                {(["Monitor", "ARM", "X86"] as TouchWorkArch[]).map((a) => {
-                  const available = product.variants.some((v) => v.arch === a);
-                  const active = selectedArch === a;
-                  const Icon = archIcon[a];
-                  return (
-                    <button
-                      key={a}
-                      disabled={!available}
-                      onClick={() => setSelectedArch(a)}
-                      className={`relative rounded-xl border-2 p-3 text-left transition-all ${
-                        active
-                          ? "border-primary bg-primary/5"
-                          : available
-                          ? "border-border hover:border-primary/50"
-                          : "border-border/30 opacity-40 cursor-not-allowed"
-                      }`}
-                    >
-                      <div className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium border mb-1.5 ${archColor[a]}`}>
-                        <Icon className="h-3 w-3" />
-                        {a}
-                      </div>
-                      <div className="text-xs font-semibold">
-                        {a === "Monitor" ? "จอเปล่า" : a === "ARM" ? "Android" : "Windows"}
-                      </div>
-                      {!available && (
-                        <div className="text-[10px] text-muted-foreground mt-0.5">ไม่มีรุ่นนี้</div>
-                      )}
-                      {active && (
-                        <CheckCircle2 className="absolute top-2 right-2 h-4 w-4 text-primary" />
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-
-              <div className="mt-3 pt-3 border-t border-border/50 text-sm">
-                <div className="font-medium mb-1">{variant.os}</div>
-                <div className="text-xs text-muted-foreground mb-1.5">{variant.cpuHint}</div>
-                <p className="text-xs text-foreground/70">{variant.description}</p>
-              </div>
+              <p className="text-xs text-foreground/70 mt-2">{variant.description}</p>
             </div>
 
             {/* Quick specs */}
@@ -321,9 +303,15 @@ export default function TouchWorkDetail() {
         </div>
       </section>
 
-      {/* Product Configurator — minimal 3-column build-to-order */}
-      <ProductConfigurator product={product} arch={selectedArch} sku={sku} productName={productName} basePrice={variant.priceTHB} />
-
+      {/* Product Configurator — Architecture + Spec ในที่เดียว */}
+      <ProductConfigurator
+        product={product}
+        arch={selectedArch}
+        sku={sku}
+        productName={productName}
+        basePrice={variant.priceTHB}
+        onArchChange={setSelectedArch}
+      />
       {/* Detailed Tabs */}
       <section className="container max-w-7xl mx-auto px-6 py-8 border-t border-border/40">
         <h2 className="text-2xl font-bold mb-1">รายละเอียดสินค้า</h2>

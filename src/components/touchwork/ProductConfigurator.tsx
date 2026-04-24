@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { Monitor, Cpu, MemoryStick, HardDrive, Wifi, Smartphone, ShieldCheck, CheckCircle2, Sparkles, Info } from "lucide-react";
+import { useMemo, useState, useEffect } from "react";
+import { Monitor, Cpu, MemoryStick, HardDrive, Wifi, Smartphone, ShieldCheck, CheckCircle2, Sparkles, Info, Layers } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -27,7 +27,14 @@ interface Props {
   sku: string;
   productName: string;
   basePrice?: number;
+  onArchChange?: (arch: TouchWorkArch) => void;
 }
+
+const ARCH_META: Record<TouchWorkArch, { label: string; sub: string; icon: typeof Monitor; tone: string }> = {
+  Monitor: { label: "Monitor", sub: "จอเปล่า · HDMI/VGA", icon: Monitor, tone: "text-sky-700 dark:text-sky-300" },
+  ARM: { label: "ARM", sub: "Android / Linux", icon: Smartphone, tone: "text-emerald-700 dark:text-emerald-300" },
+  X86: { label: "X86", sub: "Windows / Linux", icon: Cpu, tone: "text-violet-700 dark:text-violet-300" },
+};
 
 // ---- Option presets per architecture --------------------------------------
 
@@ -80,7 +87,7 @@ function getOptionsForArch(arch: TouchWorkArch) {
   };
 }
 
-export default function ProductConfigurator({ product, arch, sku, productName, basePrice }: Props) {
+export default function ProductConfigurator({ product, arch, sku, productName, basePrice, onArchChange }: Props) {
   const { user } = useAuth();
   const { addToCart } = useCart();
   const navigate = useNavigate();
@@ -101,7 +108,7 @@ export default function ProductConfigurator({ product, arch, sku, productName, b
   }));
 
   // Reset config when arch changes
-  useMemo(() => {
+  useEffect(() => {
     setSelection({
       screen: screenLabel,
       cpu: opts.cpu[0],
@@ -143,23 +150,66 @@ export default function ProductConfigurator({ product, arch, sku, productName, b
   };
 
   return (
-    <section className="container max-w-7xl mx-auto px-6 py-8 border-t border-border/40">
+    <section id="configurator" className="container max-w-7xl mx-auto px-6 py-8 border-t border-border/40 scroll-mt-24">
       <div className="flex items-start justify-between gap-4 mb-6 flex-wrap">
         <div>
           <div className="inline-flex items-center gap-2 mb-2">
             <Sparkles className="h-4 w-4 text-primary" />
             <span className="text-xs font-semibold uppercase tracking-wider text-primary">ปรับแต่งสเปก</span>
           </div>
-          <h2 className="text-2xl font-bold">เลือกสเปกที่ใช่ — แล้วใส่ตะกร้า</h2>
+          <h2 className="text-2xl font-bold">เลือก Architecture แล้วปรับสเปก — ใส่ตะกร้าได้ทันที</h2>
           <p className="text-sm text-muted-foreground mt-1">
-            เลือกสเปกตามการใช้งานจริง · ทีมงานจะส่งใบเสนอราคาภายใน <strong>4 ชั่วโมง</strong>
+            เลือกแพลตฟอร์มที่ใช่ก่อน แล้วปรับสเปกในแถวเดียว · ทีมงานจะส่งใบเสนอราคาภายใน <strong>4 ชั่วโมง</strong>
           </p>
         </div>
         <Badge variant="secondary" className="gap-1.5"><Info className="h-3 w-3" /> ราคาอ้างอิงต้องสอบถาม</Badge>
       </div>
 
       <div className="rounded-2xl border border-border bg-card overflow-hidden">
-        {/* 3-column minimal grid */}
+        {/* Architecture switcher — row 0 (sits next to spec config so user เลือกได้ครบในที่เดียว) */}
+        <div className="bg-gradient-to-br from-primary/5 via-card to-card p-5 border-b border-border">
+          <FieldHeader icon={Layers} title="1. เลือก Architecture (แพลตฟอร์ม)" />
+          <div className="grid grid-cols-3 gap-2 mt-3">
+            {(["Monitor", "ARM", "X86"] as TouchWorkArch[]).map((a) => {
+              const available = product.variants.some((v) => v.arch === a);
+              const active = arch === a;
+              const meta = ARCH_META[a];
+              const Icon = meta.icon;
+              return (
+                <button
+                  key={a}
+                  type="button"
+                  disabled={!available || !onArchChange}
+                  onClick={() => onArchChange?.(a)}
+                  className={`relative rounded-xl border-2 p-3 text-left transition-all ${
+                    active
+                      ? "border-primary bg-primary/10 shadow-sm"
+                      : available
+                      ? "border-border hover:border-primary/50 bg-card"
+                      : "border-border/30 opacity-40 cursor-not-allowed bg-card"
+                  }`}
+                >
+                  <div className={`inline-flex items-center gap-1.5 text-xs font-bold ${meta.tone}`}>
+                    <Icon className="h-3.5 w-3.5" />
+                    {meta.label}
+                  </div>
+                  <div className="text-[11px] text-muted-foreground mt-0.5">{meta.sub}</div>
+                  {!available && (
+                    <div className="text-[10px] text-muted-foreground mt-0.5">ไม่มีรุ่นนี้</div>
+                  )}
+                  {active && (
+                    <CheckCircle2 className="absolute top-2 right-2 h-4 w-4 text-primary" />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* 2. Spec configurator — 3-column minimal grid */}
+        <div className="px-5 pt-4 pb-2">
+          <FieldHeader icon={Sparkles} title="2. ปรับสเปกตามการใช้งาน" />
+        </div>
         <div className="grid md:grid-cols-3 gap-px bg-border/60">
           {/* COL 1 — Display + CPU */}
           <div className="bg-card p-5 space-y-5">
