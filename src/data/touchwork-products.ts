@@ -1,4 +1,4 @@
-// TouchWork Series — Indoor Touch Display catalog (12 core models, 35 SKUs)
+// TouchWork Series — Indoor Touch Display catalog (16 core models, 3 families: DM/GD/JD)
 // Partner-sourced products. Architecture variants: Monitor / ARM (Android) / X86 (Windows)
 
 import DM080NF_ARM from "@/assets/touchwork/DM080NF-ARM.jpg";
@@ -36,6 +36,18 @@ import GD133_X86 from "@/assets/touchwork/GD133-X86.jpg";
 import JD185B_ARM from "@/assets/touchwork/JD185B-ARM.jpg";
 import JD185B_Monitor from "@/assets/touchwork/JD185B-Monitor.jpg";
 import JD185B_X86 from "@/assets/touchwork/JD185B-X86.jpg";
+// New 2026 additions (4 models — sourced from TouchWo catalog)
+import GD101E_Monitor from "@/assets/touchwork/products/gd101e-monitor.jpg";
+import GD101E_ARM from "@/assets/touchwork/products/gd101e-arm.jpg";
+import GD101E_X86 from "@/assets/touchwork/products/gd101e-x86.jpg";
+import JD133_Monitor from "@/assets/touchwork/products/jd133-monitor.jpg";
+import JD133_ARM from "@/assets/touchwork/products/jd133-arm.jpg";
+import JD156B_Monitor from "@/assets/touchwork/products/jd156b-monitor.jpg";
+import JD156B_ARM from "@/assets/touchwork/products/jd156b-arm.jpg";
+import JD156B_X86 from "@/assets/touchwork/products/jd156b-x86.jpg";
+import JD215B_Monitor from "@/assets/touchwork/products/jd215b-monitor.jpg";
+import JD215B_ARM from "@/assets/touchwork/products/jd215b-arm.jpg";
+import JD215B_X86 from "@/assets/touchwork/products/jd215b-x86.jpg";
 
 export type TouchWorkArch = "Monitor" | "ARM" | "X86";
 
@@ -126,6 +138,10 @@ function buildVariants(model: string, archs: TouchWorkArch[]): TouchWorkVariant[
     DM215G: { ARM: DM215G_ARM, Monitor: DM215G_Monitor, X86: DM215G_X86 },
     GD133: { ARM: GD133_ARM, Monitor: GD133_Monitor, X86: GD133_X86 },
     JD185B: { ARM: JD185B_ARM, Monitor: JD185B_Monitor, X86: JD185B_X86 },
+    GD101E: { Monitor: GD101E_Monitor, ARM: GD101E_ARM, X86: GD101E_X86 },
+    JD133: { Monitor: JD133_Monitor, ARM: JD133_ARM },
+    JD156B: { Monitor: JD156B_Monitor, ARM: JD156B_ARM, X86: JD156B_X86 },
+    JD215B: { Monitor: JD215B_Monitor, ARM: JD215B_ARM, X86: JD215B_X86 },
   };
   return archs.map((arch) => ({
     arch,
@@ -296,6 +312,11 @@ const rawProducts: RawProduct[] = [
   { model: "DM215G", size: 21.5, resolution: "1920 × 1080", ratio: "16:9", touch: "Capacitive 10-point", brightness: "400 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 100", "ฝัง Embedded", "ตั้งโต๊ะ"], highlights: ["Full HD จอใหญ่", "เหมาะกับ Digital Signage และ Self-Order", "ดีไซน์ทันสมัย"], archs: ["Monitor", "ARM", "X86"] },
   { model: "GD133", size: 13.3, resolution: "1920 × 1080", ratio: "16:9", touch: "Capacitive 10-point", brightness: "250 nits", ipRating: "IP65 (หน้า)", mounting: ["Wall Mount (ติดผนังเฉพาะรุ่น)", "VESA 75"], highlights: ["ดีไซน์ติดผนังเฉพาะ", "Full HD บางเฉียบ", "เหมาะกับโรงแรม/ออฟฟิศ"], archs: ["Monitor", "ARM", "X86"], dimensionMm: "337.53 × 297.13 × 42.8 mm", activeArea: "239.4 × 165 mm", netWeight: "3.33 kg", grossWeight: "4.51 kg" },
   { model: "JD185B", size: 18.5, resolution: "1366 × 768", ratio: "16:9", touch: "Capacitive 10-point", brightness: "350 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 100", "ฝัง Embedded"], highlights: ["ขนาดกลางคุ้มค่า", "เหมาะกับ Kiosk ทั่วไป", "ดีไซน์เรียบร้อย"], archs: ["Monitor", "ARM", "X86"] },
+  // ── New 2026 additions ──
+  { model: "GD101E", size: 10.1, resolution: "1280 × 800", ratio: "16:10", touch: "Capacitive 10-point", brightness: "300 nits", ipRating: "IP65 (หน้า)", mounting: ["Wall Mount (ติดผนังเฉพาะรุ่น)", "VESA 75"], highlights: ["ดีไซน์ Wall-Mount Kiosk", "Aluminum Unibody", "Slim Bezel ทันสมัย"], archs: ["Monitor", "ARM", "X86"] },
+  { model: "JD133", size: 13.3, resolution: "1920 × 1080", ratio: "16:9", touch: "Capacitive 10-point", brightness: "300 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 75", "ตั้งโต๊ะ"], highlights: ["Ultra-slim Die-cast Body", "Curved Streamlined Back", "เหมาะกับ Premium Self-Service"], archs: ["Monitor", "ARM"] },
+  { model: "JD156B", size: 15.6, resolution: "1920 × 1080", ratio: "16:9", touch: "Capacitive 10-point", brightness: "300 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 75/100", "ตั้งโต๊ะ"], highlights: ["Ultra-slim Premium", "Optional LED Ring สำหรับ Branding", "เหมาะกับ POS/Self-Order"], archs: ["Monitor", "ARM", "X86"] },
+  { model: "JD215B", size: 21.5, resolution: "1920 × 1080", ratio: "16:9", touch: "Capacitive 10-point", brightness: "300 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 100", "ตั้งโต๊ะ"], highlights: ["Full HD จอใหญ่ ราคาประหยัด", "Die-cast Unibody", "เหมาะกับ Digital Signage"], archs: ["Monitor", "ARM", "X86"] },
 ];
 
 export const touchworkProducts: TouchWorkProduct[] = rawProducts.map((p) => ({

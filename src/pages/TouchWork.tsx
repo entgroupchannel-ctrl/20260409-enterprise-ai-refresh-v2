@@ -106,11 +106,11 @@ export default function TouchWork() {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-2xl">
               <div className="rounded-xl border border-border/50 bg-card/50 backdrop-blur p-3">
-                <div className="text-2xl font-bold text-primary">12</div>
+                <div className="text-2xl font-bold text-primary">16</div>
                 <div className="text-xs text-muted-foreground">รุ่นหลัก</div>
               </div>
               <div className="rounded-xl border border-border/50 bg-card/50 backdrop-blur p-3">
-                <div className="text-2xl font-bold text-primary">35</div>
+                <div className="text-2xl font-bold text-primary">46</div>
                 <div className="text-xs text-muted-foreground">SKU ทั้งหมด</div>
               </div>
               <div className="rounded-xl border border-border/50 bg-card/50 backdrop-blur p-3">
