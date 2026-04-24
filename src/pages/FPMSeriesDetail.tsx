@@ -1,5 +1,6 @@
 import { useParams, Link, Navigate } from "react-router-dom";
 import { useState } from "react";
+type TabKey = "gallery" | "specs" | "faq";
 import {
   ArrowLeft, ArrowRight, Download, Shield, ThermometerSun, Sparkles,
   Maximize, Settings, Zap, CheckCircle2, Monitor, Truck, Wrench, Phone,
