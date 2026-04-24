@@ -1,4 +1,4 @@
-// TouchWork Series — Indoor Touch Display catalog (12 core models, 35 SKUs)
+// TouchWork Series — Indoor Touch Display catalog (16 core models, 3 families: DM/GD/JD)
 // Partner-sourced products. Architecture variants: Monitor / ARM (Android) / X86 (Windows)
 
 import DM080NF_ARM from "@/assets/touchwork/DM080NF-ARM.jpg";
