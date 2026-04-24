@@ -6,10 +6,9 @@ import {
   ArrowLeft, Monitor, Cpu, Smartphone, ArrowRight, Maximize,
   ShieldCheck, CheckCircle2, Layers, Sun, Box, Tag, Info,
   Ruler, Thermometer, Plug, Package, MonitorSmartphone, Hand,
-  Link2, Download, Loader2,
+  Link2, Download,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useDownloadTouchWorkDatasheet } from "@/hooks/useDownloadTouchWorkDatasheet";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import FooterCompact from "@/components/FooterCompact";
@@ -120,7 +119,7 @@ export default function TouchWorkDetail() {
   const variant = product.variants.find((v) => v.arch === selectedArch) || product.variants[0];
   const sku = `${product.model}-${variant.arch}`;
   const productName = `TouchWork ${product.model} ${product.size}″ ${variant.arch}`;
-  const { download: downloadDatasheet, isDownloading } = useDownloadTouchWorkDatasheet();
+  
 
   return (
     <div className="min-h-screen bg-background">
@@ -267,17 +266,19 @@ export default function TouchWorkDetail() {
                 variant="outline"
               />
               <Button
+                asChild
                 size="lg"
                 variant="outline"
-                onClick={() => downloadDatasheet(product)}
-                disabled={isDownloading}
                 className="gap-2"
               >
-                {isDownloading ? (
-                  <><Loader2 className="h-4 w-4 animate-spin" /> กำลังสร้าง PDF...</>
-                ) : (
-                  <><Download className="h-4 w-4" /> Datasheet (PDF)</>
-                )}
+                <a
+                  href={`/datasheets/${product.model}-Datasheet-ENTGroup.pdf`}
+                  target="_blank"
+                  rel="noreferrer"
+                  download={`${product.model}-Datasheet-ENTGroup.pdf`}
+                >
+                  <Download className="h-4 w-4" /> Datasheet (PDF)
+                </a>
               </Button>
             </div>
 
