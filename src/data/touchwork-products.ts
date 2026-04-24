@@ -57,6 +57,8 @@ export interface TouchWorkVariant {
   os: string;
   cpuHint: string;
   description: string;
+  /** ราคาขายปลีกแนะนำ (บาท) — base config ของ variant */
+  priceTHB?: number;
 }
 
 export interface SpecRow {
