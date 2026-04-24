@@ -30,6 +30,7 @@ const Handheld = lazyRetry(() => import("./pages/Handheld"));
 const GKSeries = lazyRetry(() => import("./pages/GKSeries"));
 const PanelPCGTG = lazyRetry(() => import("./pages/PanelPCGTG"));
 const SmartDisplay = lazyRetry(() => import("./pages/SmartDisplay"));
+const FPMSeries = lazyRetry(() => import("./pages/FPMSeries"));
 const Promotions = lazyRetry(() => import("./pages/Promotions"));
 const UTCSeries = lazyRetry(() => import("./pages/UTCSeries"));
 const MiniPCFirewall = lazyRetry(() => import("./pages/MiniPCFirewall"));
@@ -213,6 +214,7 @@ const App = () => (
                     <Route path="/handheld" element={<Handheld />} />
                     <Route path="/panel-pc-gtg" element={<PanelPCGTG />} />
                     <Route path="/smart-display" element={<SmartDisplay />} />
+                    <Route path="/fpm-series" element={<FPMSeries />} />
                     <Route path="/promotions" element={<Promotions />} />
                     <Route path="/utc-series" element={<UTCSeries />} />
                     <Route path="/minipc-firewall" element={<Navigate to="/mini-pc-firewall" replace />} />

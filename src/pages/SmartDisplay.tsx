@@ -277,159 +277,76 @@ const SmartDisplay = () => {
                 </div>
               </div>
 
-              {/* Industrial Touch Monitor — FPM Series */}
+              {/* Industrial Touch Monitor — FPM Series (moved to /fpm-series) */}
               <div className="mt-16">
-                <div className="flex items-center gap-3 mb-2">
-                  <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">Touch Only</span>
-                  <span className="px-3 py-1 rounded-full bg-accent/10 text-accent-foreground text-xs font-bold">เกรดอุตสาหกรรม</span>
-                </div>
-                <h3 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-2">
-                  Industrial Touch Monitor — <span className="text-primary">FPM Series</span>
-                </h3>
-                <p className="text-muted-foreground max-w-3xl mb-3">
-                  จอภาพสัมผัสเกรดอุตสาหกรรม IP65 สำหรับงาน HMI, CNC, Factory Automation, ระบบทหาร และ Big Data — เชื่อมต่อ USB + HDMI กับคอมพิวเตอร์ที่มีอยู่ เปลี่ยนเป็นระบบสัมผัสได้ทันที
-                </p>
-                <div className="flex flex-wrap gap-4 mb-8 text-sm text-muted-foreground">
-                  <span className="inline-flex items-center gap-1.5"><Monitor size={14} className="text-primary" /> ขนาด 8"–24"</span>
-                  <span className="inline-flex items-center gap-1.5"><ScanLine size={14} className="text-primary" /> Capacitive / Resistive Touch</span>
-                  <span className="inline-flex items-center gap-1.5"><Shield size={14} className="text-primary" /> IP65 Front Panel</span>
-                  <span className="inline-flex items-center gap-1.5"><Layers size={14} className="text-primary" /> Wide & Square Screen</span>
-                  <span className="inline-flex items-center gap-1.5"><Sun size={14} className="text-primary" /> สูงสุด 1000 Nits</span>
-                  <span className="inline-flex items-center gap-1.5"><Cpu size={14} className="text-primary" /> ทำงาน 24/7</span>
-                </div>
-
-                {/* Product hero image */}
-                <div className="card-surface overflow-hidden rounded-xl mb-6">
-                  <img
-                    src="/images/wix/0597a3_7ae90fd5a4fd425d9cc9efad0a31c636_44990981.png"
-                    alt="FPM Series Industrial Touch Monitor"
-                    className="w-full object-contain"/>
-                </div>
-
-                {/* Wide / Square screen comparison */}
-                <div className="grid md:grid-cols-2 gap-6 mb-6">
-                  <div className="card-surface overflow-hidden rounded-xl">
-                    <img
-                      src="/images/wix/0597a3_171a07409e364dd4b23631e28628341f_839b524c.png"
-                      alt="Wide Screen & Square Screen options"
-                      className="w-full object-contain"/>
-                  </div>
-                  <div className="card-surface overflow-hidden rounded-xl">
-                    <img
-                      src="/images/wix/0597a3_2b37f8b836bf40e983200b7d2c7eec55_d29d91f9.png"
-                      alt="FPM size options 8-24 inch"
-                      className="w-full object-contain"/>
-                  </div>
-                </div>
-
-                {/* Connection & usage info */}
-                <div className="grid md:grid-cols-2 gap-6 mb-6">
-                  <div className="card-surface p-6 rounded-xl">
-                    <img
-                      src="/images/wix/0597a3_bd712d6f658443bbb2190fda091ee8b1_de7fec1c.png"
-                      alt="Industrial Grade Computer + Touch Screen"
-                      className="w-full object-contain rounded-lg mb-4"/>
-                    <p className="text-sm text-muted-foreground">ส่งมอบประสบการณ์ที่แข็งแกร่ง กับการเลือกใช้ Industrial Grade Computer ร่วมกับหน้าจอ Touch Screen เกรดอุตสาหกรรม</p>
-                  </div>
-                  <div className="card-surface p-6 rounded-xl">
-                    <img
-                      src="/images/wix/0597a3_099390617863452cb42bc0e2eeca3ab2_45701297.png"
-                      alt="Easy connection USB + HDMI"
-                      className="w-full object-contain rounded-lg mb-4"/>
-                    <p className="text-sm text-muted-foreground">เพียงเสียบสายไฟ USB และ HDMI — เปลี่ยนระบบการทำงานเป็นแบบสัมผัส พร้อมใช้งานทันที</p>
-                  </div>
-                </div>
-
-                {/* FPM17 Special Edition */}
-                <div className="card-surface overflow-hidden rounded-xl mb-6">
-                  <img
-                    src="/images/wix/0597a3_c6e92eb018a04ed78ef653433323ccc4_23264789.png"
-                    alt="FPM17 Special Edition"
-                    className="w-full object-contain"/>
-                </div>
-
-                {/* Mounting options */}
-                <div className="card-surface overflow-hidden rounded-xl mb-8">
-                  <img
-                    src="/images/wix/0597a3_5bbc918177214812816fca9cac808de6_3497905f.png"
-                    alt="VESA Mounting options"
-                    className="w-full object-contain"/>
-                </div>
-
-                {/* Price table */}
-                <div className="card-surface overflow-hidden rounded-xl">
-                  <div className="p-4 border-b border-border bg-secondary/30">
-                    <h4 className="font-bold text-foreground">ราคา FPM Touch Monitor — เริ่มต้น ฿10,990</h4>
-                  </div>
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-sm">
-                      <thead>
-                        <tr className="border-b border-border bg-secondary/20">
-                          <th className="text-left p-3 font-semibold text-muted-foreground">#</th>
-                          <th className="text-left p-3 font-semibold text-muted-foreground">รุ่น</th>
-                          <th className="text-left p-3 font-semibold text-muted-foreground">สเปค</th>
-                          <th className="text-right p-3 font-semibold text-muted-foreground">ราคา (฿)</th>
-                          <th className="p-3"></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {fpmTouchMonitors.map((item) => (
-                          <tr key={item.no} className="border-b border-border/50 hover:bg-secondary/20 transition-colors">
-                            <td className="p-3 text-muted-foreground">{item.no}</td>
-                            <td className="p-3 font-semibold text-foreground">{item.model}</td>
-                            <td className="p-3 text-muted-foreground">{item.config}</td>
-                            <td className="p-3 text-right font-bold text-primary">{item.price}</td>
-                            <td className="p-3 text-right">
-                              <QuoteRequestButton productModel={item.model} productName={item.model} size="sm" />
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <PriceDisclaimer />
-
-                {/* Datasheet downloads */}
-                <div className="mt-6">
-                  <h4 className="font-bold text-foreground mb-3 flex items-center gap-2"><Download size={16} /> ดาวน์โหลด Datasheet</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {fpmDatasheets.map((d) => (
-                      d.href ? (
-                        <a
-                          key={d.model}
-                          href={d.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-sm font-medium text-foreground hover:bg-secondary hover:border-primary/30 transition-all">
-                          <Download size={12} /> {d.model}
-                        </a>
-                      ) : (
-                        <span key={d.model} className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border/50 text-sm text-muted-foreground italic">
-                          {d.model} — {'note' in d ? (d as any).note : 'ไม่มีไฟล์'}
+                <Link
+                  to="/fpm-series"
+                  className="group block rounded-2xl border border-border bg-gradient-to-br from-primary/10 via-card to-card overflow-hidden hover:border-primary/40 hover:shadow-2xl transition-all"
+                >
+                  <div className="grid md:grid-cols-2 gap-0 items-center">
+                    {/* Image */}
+                    <div className="relative aspect-[4/3] md:aspect-auto md:h-full bg-muted/30 overflow-hidden">
+                      <img
+                        src="/images/wix/0597a3_7ae90fd5a4fd425d9cc9efad0a31c636_44990981.png"
+                        alt="FPM Series Industrial Touch Monitor"
+                        className="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute top-4 left-4 flex flex-col gap-1.5">
+                        <span className="px-3 py-1 rounded-full bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-wider shadow-lg">
+                          New หน้าใหม่
                         </span>
-                      )
-                    ))}
-                  </div>
-                </div>
-
-                {/* Gallery — all images from original page */}
-                <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {[
-                    "/images/wix/0597a3_bcb05795214544aaaa6de89e36e1240d_1e304dda.jpg",
-                    "/images/wix/0597a3_5296e6c18d9c46eda07b3c9a4747484d_d08efd28.jpg",
-                    "/images/wix/0597a3_772cb29089e6441683f42be27f12dd10_b821819c.jpg",
-                    "/images/wix/0597a3_c12a57b72528451194c0e554b3a7876e_95272f86.jpg",
-                    "/images/wix/0597a3_8d732a24969b4605a70e4c8b1f199a4d_b06ddd94.jpg",
-                    "/images/wix/005637_c40ca1d586a44b1ca9fc90cf2c49af6a_b4610452.jpg",
-                    "/images/wix/005637_6ba3b2af125d4948b5d9d6c626135c1f_ddf0f886.jpg",
-                    "/images/wix/005637_54259d2f8cf04757bfbf7bbabb983500_8e5061a6.jpg",
-                  ].map((src, i) => (
-                    <div key={i} className="card-surface overflow-hidden rounded-xl">
-                      <img src={src} alt={`FPM installation ${i + 1}`} className="w-full h-44 object-cover"/>
+                        <span className="px-3 py-1 rounded-full bg-amber-500/90 text-white text-[10px] font-bold uppercase tracking-wider shadow-lg">
+                          12 รุ่น
+                        </span>
+                      </div>
                     </div>
-                  ))}
-                </div>
+
+                    {/* Content */}
+                    <div className="p-6 md:p-8">
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="px-2.5 py-1 rounded-md bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-wider border border-primary/30">
+                          Industrial Grade
+                        </span>
+                        <span className="px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold uppercase border border-emerald-500/30">
+                          IP65
+                        </span>
+                      </div>
+
+                      <h3 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+                        Industrial Touch Monitor — FPM Series
+                      </h3>
+                      <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-5">
+                        จอภาพสัมผัสเกรดอุตสาหกรรม IP65 ขนาด 8"–24" สำหรับงาน HMI, CNC, Factory Automation
+                        — เปลี่ยน PC เดิมให้ Touch ได้ทันทีด้วย USB + HDMI
+                      </p>
+
+                      <div className="grid grid-cols-3 gap-3 mb-5">
+                        <div>
+                          <div className="text-2xl font-display font-black text-primary">12</div>
+                          <div className="text-[10px] uppercase tracking-wider text-muted-foreground">รุ่น</div>
+                        </div>
+                        <div>
+                          <div className="text-2xl font-display font-black text-primary">8-24"</div>
+                          <div className="text-[10px] uppercase tracking-wider text-muted-foreground">ขนาด</div>
+                        </div>
+                        <div>
+                          <div className="text-2xl font-display font-black text-primary">฿10,990</div>
+                          <div className="text-[10px] uppercase tracking-wider text-muted-foreground">เริ่มต้น</div>
+                        </div>
+                      </div>
+
+                      <div className="inline-flex items-center gap-2 text-primary font-bold text-sm group-hover:gap-3 transition-all">
+                        ดูรายละเอียด FPM Series ทั้งหมด
+                        <ArrowLeft size={16} className="rotate-180" />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+
+                {/* Helper note */}
+                <p className="text-xs text-muted-foreground text-center mt-3">
+                  💡 FPM Series เป็น Touch Monitor สำหรับโรงงาน — แยกจากกลุ่ม Smart Display / KIOSK
+                </p>
               </div>
             </div>
           )}
