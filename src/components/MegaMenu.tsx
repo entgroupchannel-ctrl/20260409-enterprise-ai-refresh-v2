@@ -419,6 +419,12 @@ const MegaMenu = ({
                               className="group flex items-center gap-1.5 py-1.5 px-2 -mx-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors">
                               <ChevronRight size={10} className="text-muted-foreground/40 group-hover:text-primary transition-colors" />
                               <span className="text-xs font-medium">{link.label}</span>
+                              {link.new2026 && (
+                                <span className="flex items-center gap-0.5 px-1 py-0.5 rounded text-[7px] font-bold uppercase bg-gradient-to-r from-amber-500 to-orange-500 text-white border border-amber-400/50">
+                                  <Sparkles size={8} />
+                                  New 2026
+                                </span>
+                              )}
                               {link.hot && (
                                 <span className="px-1 py-0.5 rounded text-[7px] font-bold uppercase bg-red-500/20 text-red-400 border border-red-500/30">
                                   Hot
