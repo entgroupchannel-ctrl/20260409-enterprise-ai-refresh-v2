@@ -13,11 +13,18 @@ import QuoteRequestButton from "@/components/QuoteRequestButton";
 import AddToCartButton from "@/components/AddToCartButton";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
 
-/* ─── Detail data per model ─── */
+/* ─── Image sets per real cesipc model ─── */
 const IMG_10 = "/images/fpm/products/fpm-1002s-10inch.jpg";
 const IMG_15K = "/images/fpm/products/fpm-1502k-15-6inch.jpg";
 const IMG_17 = "/images/fpm/products/fpm-1702k-17-3inch.jpg";
 const IMG_RFID = "/images/fpm/products/fpm-1502b-rfid.jpg";
+
+// Real product gallery sets (downloaded from cesipc.com)
+const GALLERY_1002S = ["/images/fpm/products/fpm-1002s-01.png", "/images/fpm/products/fpm-1002s-02.png"];
+const GALLERY_1202C = ["/images/fpm/products/fpm-1202c-01.png", "/images/fpm/products/fpm-1202c-02.png", "/images/fpm/products/fpm-1202c-03.png", "/images/fpm/products/fpm-1202c-04.png"];
+const GALLERY_1502K = ["/images/fpm/products/fpm-1502k-01.png", "/images/fpm/products/fpm-1502k-02.png", "/images/fpm/products/fpm-1502k-03.png", "/images/fpm/products/fpm-1502k-04.png"];
+const GALLERY_1702K = ["/images/fpm/products/fpm-1702k-01.png", "/images/fpm/products/fpm-1702k-02.png", "/images/fpm/products/fpm-1702k-03.png", "/images/fpm/products/fpm-1702k-04.png"];
+const GALLERY_2102K = ["/images/fpm/products/fpm-2102k-01.png", "/images/fpm/products/fpm-2102k-02.png", "/images/fpm/products/fpm-2102k-03.png"];
 
 const lifestyleAll = [
   "/images/fpm/lifestyle/install-1.jpg",
@@ -47,7 +54,7 @@ type ModelDetail = {
 const MODELS: Record<string, ModelDetail> = {
   "fpm-0801a": {
     model: "FPM-0801A", size: '8"', resolution: "1024x768", ratio: "4:3", touch: "Resistive", brightness: 300, price: "10,990",
-    images: [IMG_10, ...lifestyleAll],
+    images: [...GALLERY_1002S, ...lifestyleAll],
     highlight: "8-inch Resistive Touch — Embedded Compact",
     description: "จอภาพสัมผัสขนาดเล็ก 8 นิ้ว เหมาะสำหรับงาน Embedded ในเครื่องจักรขนาดเล็ก รองรับการสัมผัสด้วยปากกาและถุงมือ",
     features: ["IP65 Front Panel", "Wide Temp -20°C ถึง 70°C", "Resistive Touch (ปากกา/ถุงมือใช้ได้)", "VESA 75 Mounting"],
@@ -55,7 +62,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-0802a": {
     model: "FPM-0802A", size: '8"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "12,990",
-    images: [IMG_10, ...lifestyleAll],
+    images: [...GALLERY_1002S, ...lifestyleAll],
     highlight: "8-inch Capacitive — Multi-touch",
     description: "จอ 8 นิ้ว Capacitive Multi-touch สำหรับงานที่ต้องการการสัมผัสที่ลื่นไหลและรองรับนิ้ว",
     features: ["IP65 Front Panel", "Multi-touch", "Optical Bonding Optional", "VESA 75"],
@@ -63,7 +70,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-1001a": {
     model: "FPM-1001A", size: '10"', resolution: "1024x768", ratio: "4:3", touch: "Resistive", brightness: 300, price: "12,990",
-    images: [IMG_10, ...lifestyleAll],
+    images: [...GALLERY_1002S, ...lifestyleAll],
     highlight: "10-inch Resistive — Industrial Workhorse",
     description: "จอ 10 นิ้ว Resistive ทนทานสำหรับสายการผลิต ทำงานได้กับถุงมือและปากกา Stylus",
     features: ["IP65", "Wide Temp", "Resistive (ปากกา/ถุงมือ)", "VESA 75/100"],
@@ -72,7 +79,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-1002a": {
     model: "FPM-1002A", size: '10"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "14,990",
-    images: [IMG_10, ...lifestyleAll],
+    images: [...GALLERY_1002S, ...lifestyleAll],
     highlight: "10-inch Capacitive — Modern Touch UX",
     description: "จอ 10 นิ้ว Capacitive Multi-touch ระดับสมาร์ทโฟน เหมาะกับ HMI ยุคใหม่ที่ต้องการประสบการณ์ลื่นไหล",
     features: ["IP65 Front Panel", "10-point Multi-touch", "Anti-glare", "Optical Bonding"],
@@ -81,7 +88,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-1202a": {
     model: "FPM-1202A", size: '12"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "15,990",
-    images: [IMG_10, ...lifestyleAll],
+    images: [...GALLERY_1202C, ...lifestyleAll],
     highlight: "12-inch Capacitive — Best Seller",
     description: "ขนาดยอดนิยมสำหรับงาน HMI โรงงาน ขนาด 12 นิ้วลงตัวพอดีไม่ใหญ่ไม่เล็ก",
     features: ["IP65", "Multi-touch", "Wide Temp", "VESA 75/100", "Optical Bonding"],
@@ -90,7 +97,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-1501a": {
     model: "FPM-1501A", size: '15"', resolution: "1024x768", ratio: "4:3", touch: "Resistive", brightness: 300, price: "17,990",
-    images: [IMG_RFID, ...lifestyleAll],
+    images: [...GALLERY_1502K, ...lifestyleAll],
     highlight: "15-inch Resistive — Heavy Duty",
     description: "จอ 15 นิ้ว Resistive ขนาดมาตรฐานสำหรับสายการผลิตและงานควบคุมเครื่องจักร",
     features: ["IP65", "Resistive", "Wide Temp -20°C ถึง 70°C", "VESA 100"],
@@ -99,7 +106,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-1502a": {
     model: "FPM-1502A", size: '15"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "19,990",
-    images: [IMG_RFID, ...lifestyleAll],
+    images: [IMG_RFID, ...GALLERY_1502K, ...lifestyleAll],
     highlight: "15-inch Capacitive — Customizable RFID Edition",
     description: "จอ 15 นิ้ว Capacitive Multi-touch รองรับการเพิ่ม RFID Reader สำหรับงาน Smart Warehouse และ Production Line Traceability",
     features: ["IP65 Front Panel", "Multi-touch", "RFID Customization", "Optical Bonding", "Aviation Connector"],
@@ -109,7 +116,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-1702a": {
     model: "FPM-1702A", size: '17"', resolution: "1280x1024", ratio: "5:4", touch: "Capacitive", brightness: 300, price: "21,990",
-    images: [IMG_17, ...lifestyleAll],
+    images: [...GALLERY_1702K, ...lifestyleAll],
     highlight: "17-inch SXGA — Square Screen",
     description: "จอ 17 นิ้ว 5:4 SXGA สำหรับห้องคอนโทรล CNC และงานที่ต้องการพื้นที่แสดงผลแบบสี่เหลี่ยมจัตุรัส",
     features: ["IP65", "5:4 SXGA", "Multi-touch", "Optical Bonding", "VESA 100"],
@@ -118,7 +125,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-1902a": {
     model: "FPM-1902A", size: '19"', resolution: "1280x1024", ratio: "5:4", touch: "Capacitive", brightness: 300, price: "21,990",
-    images: [IMG_17, ...lifestyleAll],
+    images: [...GALLERY_1702K, ...lifestyleAll],
     highlight: "19-inch SXGA — Control Room Standard",
     description: "จอ 19 นิ้ว 5:4 ขนาดมาตรฐานห้องคอนโทรล รองรับการแสดงผลพร้อมกันหลาย Window",
     features: ["IP65", "5:4 SXGA", "Multi-touch", "Wide Viewing Angle"],
@@ -127,7 +134,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-1502k": {
     model: "FPM-1502K", size: '15.6"', resolution: "1920x1080", ratio: "16:9", touch: "Capacitive", brightness: 300, price: "19,990",
-    images: [IMG_15K, ...lifestyleAll],
+    images: [...GALLERY_1502K, ...lifestyleAll],
     highlight: "15.6-inch FHD Wide — Modern HMI",
     description: "จอ 15.6 นิ้ว Full HD 16:9 สำหรับ HMI และ Dashboard ยุคใหม่ ดีไซน์บางเฉียบ Optical Bonding",
     features: ["IP65", "Full HD 1920x1080", "Multi-touch", "Slim Bezel", "Optical Bonding"],
@@ -135,7 +142,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-2102k": {
     model: "FPM-2102K", size: '21.5"', resolution: "1920x1080", ratio: "16:9", touch: "Capacitive", brightness: 300, price: "24,990",
-    images: [IMG_17, ...lifestyleAll],
+    images: [...GALLERY_2102K, ...lifestyleAll],
     highlight: "21.5-inch FHD — Big Picture HMI",
     description: "จอใหญ่ 21.5 นิ้ว Full HD 16:9 เหมาะกับ Dashboard, Big Data Visualization และงานที่ต้องการพื้นที่กว้าง",
     features: ["IP65", "Full HD", "Multi-touch", "Wide Viewing", "Optical Bonding"],
@@ -144,7 +151,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-2402ka": {
     model: "FPM-2402KA", size: '24"', resolution: "1920x1080", ratio: "16:9", touch: "Capacitive", brightness: 300, price: "Call",
-    images: [IMG_17, ...lifestyleAll],
+    images: [...GALLERY_2102K, ...lifestyleAll],
     highlight: "24-inch FHD — Maximum Visibility",
     description: "จอใหญ่สุดในซีรีส์ 24 นิ้ว Full HD สำหรับห้องคอนโทรลใหญ่ Big Data, Military, Mission-critical",
     features: ["IP65", "Full HD", "Multi-touch", "Wide Temperature", "Customizable"],
@@ -289,41 +296,102 @@ const FPMSeriesDetail = () => {
         </div>
       </section>
 
-      {/* Features */}
+      {/* Tabs: Gallery / Specifications / FAQ */}
       <section className="py-12 border-b border-border bg-muted/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-6">
-            คุณสมบัติเด่น
-          </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {data.features.map((f, i) => {
-              const Icon = pickIcon(f);
-              return (
-                <div key={i} className="flex items-start gap-3 p-4 rounded-xl border border-border bg-card">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                    <Icon size={18} />
-                  </div>
-                  <p className="text-sm text-foreground font-medium leading-relaxed">{f}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Ports */}
-      <section className="py-12 border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-6">
-            พอร์ตเชื่อมต่อ
-          </h2>
-          <div className="flex flex-wrap gap-2">
-            {data.ports.map((p) => (
-              <span key={p} className="px-4 py-2 rounded-lg border border-border bg-card text-foreground font-mono text-sm">
-                {p}
-              </span>
+          <div className="flex gap-2 mb-6 border-b border-border overflow-x-auto">
+            {(["gallery", "specs", "faq"] as const).map((t) => (
+              <button
+                key={t}
+                onClick={() => setActiveTab(t)}
+                className={`px-5 py-3 font-bold text-sm whitespace-nowrap transition-colors border-b-2 -mb-px ${
+                  activeTab === t
+                    ? "border-primary text-primary"
+                    : "border-transparent text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {t === "gallery" && "📸 Product Images & Sizes"}
+                {t === "specs" && "📋 Specifications"}
+                {t === "faq" && "❓ FAQ"}
+              </button>
             ))}
           </div>
+
+          {activeTab === "gallery" && (
+            <div>
+              <p className="text-muted-foreground mb-6">ภาพสินค้าและการติดตั้งจริงในสภาพแวดล้อมอุตสาหกรรม</p>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {data.images.map((src, i) => (
+                  <div key={i} className="aspect-square rounded-xl border border-border bg-card overflow-hidden flex items-center justify-center p-3">
+                    <img src={src} alt={`${data.model} - ${i + 1}`} className="max-w-full max-h-full object-contain" loading="lazy" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {activeTab === "specs" && (
+            <div className="grid lg:grid-cols-2 gap-8">
+              <div>
+                <h3 className="text-lg font-display font-bold text-foreground mb-4">คุณสมบัติเด่น</h3>
+                <div className="space-y-3">
+                  {data.features.map((f, i) => {
+                    const Icon = pickIcon(f);
+                    return (
+                      <div key={i} className="flex items-start gap-3 p-4 rounded-xl border border-border bg-card">
+                        <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                          <Icon size={18} />
+                        </div>
+                        <p className="text-sm text-foreground font-medium leading-relaxed">{f}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+              <div>
+                <h3 className="text-lg font-display font-bold text-foreground mb-4">พอร์ตเชื่อมต่อ</h3>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {data.ports.map((p) => (
+                    <span key={p} className="px-4 py-2 rounded-lg border border-border bg-card text-foreground font-mono text-sm">{p}</span>
+                  ))}
+                </div>
+                <h3 className="text-lg font-display font-bold text-foreground mb-4">ข้อมูลทั่วไป</h3>
+                <div className="space-y-2 text-sm">
+                  {[
+                    ["ขนาดหน้าจอ", data.size], ["ความละเอียด", data.resolution], ["อัตราส่วน", data.ratio],
+                    ["ระบบสัมผัส", data.touch], ["ความสว่าง", `${data.brightness} nits`],
+                    ["มาตรฐาน", "IP65 Front Panel"], ["รับประกัน", "2 ปี (เคลม On-site)"],
+                  ].map(([k, v]) => (
+                    <div key={k} className="flex justify-between py-2 border-b border-border">
+                      <span className="text-muted-foreground">{k}</span>
+                      <span className="text-foreground font-medium">{v}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === "faq" && (
+            <div className="max-w-3xl space-y-4">
+              {[
+                { q: `${data.model} ใช้กับงานอะไรได้บ้าง?`, a: `${data.model} เหมาะกับ HMI โรงงาน, SCADA, PLC Operator Interface, Machine Control Panel, ห้องคอนโทรล CNC และงาน Mission-critical ที่ต้องการมาตรฐาน IP65` },
+                { q: "รับประกันกี่ปี และมีบริการ On-site ไหม?", a: "รับประกัน 2 ปี เคลม On-site ภายใน 48 ชม. ทั่วประเทศ พร้อมทีมวิศวกรช่วยติดตั้งและอบรมการใช้งาน" },
+                { q: "ต่อกับ Industrial PC ของ ENT รุ่นไหนได้บ้าง?", a: "เชื่อมต่อได้กับ GT Series, EPC Box Series, UPC Series หรือ Industrial PC ที่ลูกค้ามีอยู่แล้ว ผ่านพอร์ตมาตรฐาน HDMI / VGA / USB" },
+                { q: "ทำไมไม่ใช้ Panel PC แบบรวมในตัวเดียว?", a: "Panel PC แบบ All-in-One หากชิ้นส่วนใดเสียต้องส่งซ่อมยกชุด หยุดสายผลิตหลายวัน — แบบแยกจอ-แยก PC สามารถเปลี่ยนเฉพาะส่วนที่เสีย ลดเวลา Downtime" },
+                { q: "สั่งทำสเปกพิเศษ (RFID / Custom Logo / Wide Voltage) ได้ไหม?", a: "ได้ ENT รับสั่งทำ ODM Custom: เพิ่ม RFID Reader, Custom BIOS, Boot Logo, รองรับไฟ 9V-36V DC ติดต่อทีมขายเพื่อสอบถาม MOQ" },
+                { q: "จัดส่งและติดตั้งอย่างไร?", a: "จัดส่งฟรีทั่วประเทศพร้อมประกันภัยขนส่ง ทีมวิศวกร ENT ช่วยติดตั้งและทดสอบระบบที่ไซต์งานได้ตามแพ็กเกจที่เลือก" },
+              ].map((item, i) => (
+                <details key={i} className="group p-4 rounded-xl border border-border bg-card">
+                  <summary className="cursor-pointer font-bold text-foreground flex items-center justify-between gap-4 list-none">
+                    <span>Q: {item.q}</span>
+                    <ArrowRight size={16} className="text-primary group-open:rotate-90 transition-transform shrink-0" />
+                  </summary>
+                  <p className="mt-3 text-muted-foreground leading-relaxed pl-4 border-l-2 border-primary/30">A: {item.a}</p>
+                </details>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
