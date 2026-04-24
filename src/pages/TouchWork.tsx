@@ -428,6 +428,16 @@ export default function TouchWork() {
                               <div>• {p.touch}</div>
                               <div>• {p.brightness}</div>
                             </div>
+                            {(() => {
+                              const prices = p.variants.map((v) => v.priceTHB).filter((x): x is number => !!x);
+                              const minPrice = prices.length ? Math.min(...prices) : null;
+                              return minPrice ? (
+                                <div className="mb-2 -mt-1">
+                                  <span className="text-[10px] text-muted-foreground">เริ่มต้น </span>
+                                  <span className="text-sm font-bold text-primary">฿{minPrice.toLocaleString("en-US")}</span>
+                                </div>
+                              ) : null;
+                            })()}
                             <div className="flex items-center justify-between border-t border-border/50 pt-2">
                               <span className="text-[10px] text-muted-foreground inline-flex items-center gap-1">
                                 <Tag className="h-2.5 w-2.5" />
