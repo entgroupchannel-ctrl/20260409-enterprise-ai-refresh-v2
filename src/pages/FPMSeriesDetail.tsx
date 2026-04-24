@@ -68,7 +68,7 @@ type ModelDetail = {
 const MODELS: Record<string, ModelDetail> = {
   "fpm-0801a": {
     model: "FPM-0801A", size: '8"', resolution: "1024x768", ratio: "4:3", touch: "Resistive", brightness: 300, price: "10,990",
-    images: [...GALLERY_1002S, ...lifestyleAll],
+    images: [...GALLERY_1002S, ...lifestyleAll], dimensions: DIM_1002S,
     highlight: "8-inch Resistive Touch — Embedded Compact",
     description: "จอภาพสัมผัสขนาดเล็ก 8 นิ้ว เหมาะสำหรับงาน Embedded ในเครื่องจักรขนาดเล็ก รองรับการสัมผัสด้วยปากกาและถุงมือ",
     features: ["IP65 Front Panel", "Wide Temp -20°C ถึง 70°C", "Resistive Touch (ปากกา/ถุงมือใช้ได้)", "VESA 75 Mounting"],
@@ -76,7 +76,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-0802a": {
     model: "FPM-0802A", size: '8"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "12,990",
-    images: [...GALLERY_1002S, ...lifestyleAll],
+    images: [...GALLERY_1002S, ...lifestyleAll], dimensions: DIM_1002S,
     highlight: "8-inch Capacitive — Multi-touch",
     description: "จอ 8 นิ้ว Capacitive Multi-touch สำหรับงานที่ต้องการการสัมผัสที่ลื่นไหลและรองรับนิ้ว",
     features: ["IP65 Front Panel", "Multi-touch", "Optical Bonding Optional", "VESA 75"],
@@ -84,7 +84,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-1001a": {
     model: "FPM-1001A", size: '10"', resolution: "1024x768", ratio: "4:3", touch: "Resistive", brightness: 300, price: "12,990",
-    images: [...GALLERY_1002S, ...lifestyleAll],
+    images: [...GALLERY_1002S, ...lifestyleAll], dimensions: DIM_1002S,
     highlight: "10-inch Resistive — Industrial Workhorse",
     description: "จอ 10 นิ้ว Resistive ทนทานสำหรับสายการผลิต ทำงานได้กับถุงมือและปากกา Stylus",
     features: ["IP65", "Wide Temp", "Resistive (ปากกา/ถุงมือ)", "VESA 75/100"],
@@ -93,7 +93,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-1002a": {
     model: "FPM-1002A", size: '10"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "14,990",
-    images: [...GALLERY_1002S, ...lifestyleAll],
+    images: [...GALLERY_1002S, ...lifestyleAll], dimensions: DIM_1002S,
     highlight: "10-inch Capacitive — Modern Touch UX",
     description: "จอ 10 นิ้ว Capacitive Multi-touch ระดับสมาร์ทโฟน เหมาะกับ HMI ยุคใหม่ที่ต้องการประสบการณ์ลื่นไหล",
     features: ["IP65 Front Panel", "10-point Multi-touch", "Anti-glare", "Optical Bonding"],
@@ -102,7 +102,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-1202a": {
     model: "FPM-1202A", size: '12"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "15,990",
-    images: [...GALLERY_1202C, ...lifestyleAll],
+    images: [...GALLERY_1202C, ...lifestyleAll], dimensions: DIM_1202C,
     highlight: "12-inch Capacitive — Best Seller",
     description: "ขนาดยอดนิยมสำหรับงาน HMI โรงงาน ขนาด 12 นิ้วลงตัวพอดีไม่ใหญ่ไม่เล็ก",
     features: ["IP65", "Multi-touch", "Wide Temp", "VESA 75/100", "Optical Bonding"],
@@ -111,7 +111,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-1501a": {
     model: "FPM-1501A", size: '15"', resolution: "1024x768", ratio: "4:3", touch: "Resistive", brightness: 300, price: "17,990",
-    images: [...GALLERY_1502K, ...lifestyleAll],
+    images: [...GALLERY_1502K, ...lifestyleAll], dimensions: DIM_1502K,
     highlight: "15-inch Resistive — Heavy Duty",
     description: "จอ 15 นิ้ว Resistive ขนาดมาตรฐานสำหรับสายการผลิตและงานควบคุมเครื่องจักร",
     features: ["IP65", "Resistive", "Wide Temp -20°C ถึง 70°C", "VESA 100"],
@@ -120,7 +120,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-1502a": {
     model: "FPM-1502A", size: '15"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "19,990",
-    images: [IMG_RFID, ...GALLERY_1502K, ...lifestyleAll],
+    images: [IMG_RFID, ...GALLERY_1502K, ...lifestyleAll], dimensions: DIM_1502K,
     highlight: "15-inch Capacitive — Customizable RFID Edition",
     description: "จอ 15 นิ้ว Capacitive Multi-touch รองรับการเพิ่ม RFID Reader สำหรับงาน Smart Warehouse และ Production Line Traceability",
     features: ["IP65 Front Panel", "Multi-touch", "RFID Customization", "Optical Bonding", "Aviation Connector"],
@@ -130,7 +130,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-1702a": {
     model: "FPM-1702A", size: '17"', resolution: "1280x1024", ratio: "5:4", touch: "Capacitive", brightness: 300, price: "21,990",
-    images: [...GALLERY_1702K, ...lifestyleAll],
+    images: [...GALLERY_1702K, ...lifestyleAll], dimensions: DIM_1702K,
     highlight: "17-inch SXGA — Square Screen",
     description: "จอ 17 นิ้ว 5:4 SXGA สำหรับห้องคอนโทรล CNC และงานที่ต้องการพื้นที่แสดงผลแบบสี่เหลี่ยมจัตุรัส",
     features: ["IP65", "5:4 SXGA", "Multi-touch", "Optical Bonding", "VESA 100"],
@@ -139,7 +139,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-1902a": {
     model: "FPM-1902A", size: '19"', resolution: "1280x1024", ratio: "5:4", touch: "Capacitive", brightness: 300, price: "21,990",
-    images: [...GALLERY_1702K, ...lifestyleAll],
+    images: [...GALLERY_1702K, ...lifestyleAll], dimensions: DIM_1702K,
     highlight: "19-inch SXGA — Control Room Standard",
     description: "จอ 19 นิ้ว 5:4 ขนาดมาตรฐานห้องคอนโทรล รองรับการแสดงผลพร้อมกันหลาย Window",
     features: ["IP65", "5:4 SXGA", "Multi-touch", "Wide Viewing Angle"],
@@ -148,7 +148,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-1502k": {
     model: "FPM-1502K", size: '15.6"', resolution: "1920x1080", ratio: "16:9", touch: "Capacitive", brightness: 300, price: "19,990",
-    images: [...GALLERY_1502K, ...lifestyleAll],
+    images: [...GALLERY_1502K, ...lifestyleAll], dimensions: DIM_1502K,
     highlight: "15.6-inch FHD Wide — Modern HMI",
     description: "จอ 15.6 นิ้ว Full HD 16:9 สำหรับ HMI และ Dashboard ยุคใหม่ ดีไซน์บางเฉียบ Optical Bonding",
     features: ["IP65", "Full HD 1920x1080", "Multi-touch", "Slim Bezel", "Optical Bonding"],
@@ -157,7 +157,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-2102k": {
     model: "FPM-2102K", size: '21.5"', resolution: "1920x1080", ratio: "16:9", touch: "Capacitive", brightness: 300, price: "24,990",
-    images: [...GALLERY_2102K, ...lifestyleAll],
+    images: [...GALLERY_2102K, ...lifestyleAll], dimensions: DIM_2102K,
     highlight: "21.5-inch FHD — Big Picture HMI",
     description: "จอใหญ่ 21.5 นิ้ว Full HD 16:9 เหมาะกับ Dashboard, Big Data Visualization และงานที่ต้องการพื้นที่กว้าง",
     features: ["IP65", "Full HD", "Multi-touch", "Wide Viewing", "Optical Bonding"],
@@ -166,7 +166,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-2402ka": {
     model: "FPM-2402KA", size: '24"', resolution: "1920x1080", ratio: "16:9", touch: "Capacitive", brightness: 300, price: "Call",
-    images: [...GALLERY_2102K, ...lifestyleAll],
+    images: [...GALLERY_2102K, ...lifestyleAll], dimensions: DIM_2102K,
     highlight: "24-inch FHD — Maximum Visibility",
     description: "จอใหญ่สุดในซีรีส์ 24 นิ้ว Full HD สำหรับห้องคอนโทรลใหญ่ Big Data, Military, Mission-critical",
     features: ["IP65", "Full HD", "Multi-touch", "Wide Temperature", "Customizable"],
