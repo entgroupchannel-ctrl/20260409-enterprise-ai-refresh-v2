@@ -1,0 +1,66 @@
+{
+  "DM080NF": {
+    "io": "@/assets/touchwork/io/DM080NF.png",
+    "install": []
+  },
+  "DM080WG": {
+    "io": "@/assets/touchwork/io/DM080WG.png",
+    "install": []
+  },
+  "DM101G": {
+    "io": "@/assets/touchwork/io/DM101G.png",
+    "install": []
+  },
+  "DM104G": {
+    "io": "@/assets/touchwork/io/DM104G.png",
+    "install": []
+  },
+  "DM121G": {
+    "io": "@/assets/touchwork/io/DM121G.png",
+    "install": []
+  },
+  "DM156G": {
+    "io": "@/assets/touchwork/io/DM156G.png",
+    "install": []
+  },
+  "DM15G": {
+    "io": "@/assets/touchwork/io/DM15G.png",
+    "install": []
+  },
+  "DM17G": {
+    "io": "@/assets/touchwork/io/DM17G.png",
+    "install": []
+  },
+  "DM19G": {
+    "io": "@/assets/touchwork/io/DM19G.png",
+    "install": []
+  },
+  "DM215G": {
+    "io": "@/assets/touchwork/io/DM215G.png",
+    "install": []
+  },
+  "GD101E": {
+    "io": "@/assets/touchwork/io/GD101E.png",
+    "install": []
+  },
+  "GD133": {
+    "io": "@/assets/touchwork/io/GD133.jpg",
+    "install": []
+  },
+  "JD133": {
+    "io": "@/assets/touchwork/io/JD133.png",
+    "install": []
+  },
+  "JD156B": {
+    "io": "@/assets/touchwork/io/JD156B.png",
+    "install": []
+  },
+  "JD185B": {
+    "io": "@/assets/touchwork/io/JD185B.png",
+    "install": []
+  },
+  "JD215B": {
+    "io": "@/assets/touchwork/io/JD215B.png",
+    "install": []
+  }
+}
