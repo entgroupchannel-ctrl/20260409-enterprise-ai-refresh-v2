@@ -96,7 +96,7 @@ const MODELS: Record<string, ModelDetail> = {
     description: "ขนาดยอดนิยมสำหรับงาน HMI โรงงาน ขนาด 12 นิ้วลงตัวพอดีไม่ใหญ่ไม่เล็ก",
     features: ["IP65", "Multi-touch", "Wide Temp", "VESA 75/100", "Optical Bonding"],
     ports: ["VGA", "HDMI", "USB 2.0", "Aviation Connector (Optional)"],
-    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_a3754cf13eaa40b09346e93fdb46c16a.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/fpm/FPM-1202A-Datasheet.pdf",
   },
   "fpm-1501a": {
     model: "FPM-1501A", size: '15"', resolution: "1024x768", ratio: "4:3", touch: "Resistive", brightness: 300, price: "17,990",
@@ -105,16 +105,14 @@ const MODELS: Record<string, ModelDetail> = {
     description: "จอ 15 นิ้ว Resistive ขนาดมาตรฐานสำหรับสายการผลิตและงานควบคุมเครื่องจักร",
     features: ["IP65", "Resistive", "Wide Temp -20°C ถึง 70°C", "VESA 100"],
     ports: ["VGA", "HDMI", "USB", "DC 12V"],
-    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_69e01e1d7ddb4da6a215f9b617bf7bd4.pdf",
-  },
-  "fpm-1502a": {
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/fpm/FPM-1501A-Datasheet.pdf",
     model: "FPM-1502A", size: '15"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "19,990",
     images: [IMG_RFID, ...GALLERY_1502K, ...lifestyleAll],
     highlight: "15-inch Capacitive — Customizable RFID Edition",
     description: "จอ 15 นิ้ว Capacitive Multi-touch รองรับการเพิ่ม RFID Reader สำหรับงาน Smart Warehouse และ Production Line Traceability",
     features: ["IP65 Front Panel", "Multi-touch", "RFID Customization", "Optical Bonding", "Aviation Connector"],
     ports: ["VGA", "HDMI", "USB 2.0", "RS-232/485 Optional", "RFID Module Optional"],
-    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_69e01e1d7ddb4da6a215f9b617bf7bd4.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/fpm/FPM-1502A-Datasheet.pdf",
     badge: "RFID Ready",
   },
   "fpm-1702a": {
@@ -124,7 +122,7 @@ const MODELS: Record<string, ModelDetail> = {
     description: "จอ 17 นิ้ว 5:4 SXGA สำหรับห้องคอนโทรล CNC และงานที่ต้องการพื้นที่แสดงผลแบบสี่เหลี่ยมจัตุรัส",
     features: ["IP65", "5:4 SXGA", "Multi-touch", "Optical Bonding", "VESA 100"],
     ports: ["VGA", "HDMI", "DVI", "USB 2.0"],
-    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_8753cbe1d9c5428b8b55f81c9b98ee3a.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/fpm/FPM-1702A-Datasheet.pdf",
   },
   "fpm-1902a": {
     model: "FPM-1902A", size: '19"', resolution: "1280x1024", ratio: "5:4", touch: "Capacitive", brightness: 300, price: "21,990",
@@ -133,7 +131,7 @@ const MODELS: Record<string, ModelDetail> = {
     description: "จอ 19 นิ้ว 5:4 ขนาดมาตรฐานห้องคอนโทรล รองรับการแสดงผลพร้อมกันหลาย Window",
     features: ["IP65", "5:4 SXGA", "Multi-touch", "Wide Viewing Angle"],
     ports: ["VGA", "HDMI", "DVI", "USB 2.0"],
-    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_2e25c9d6f2974be5bcfbcf356f82f568.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/fpm/FPM-1902A-Datasheet.pdf",
   },
   "fpm-1502k": {
     model: "FPM-1502K", size: '15.6"', resolution: "1920x1080", ratio: "16:9", touch: "Capacitive", brightness: 300, price: "19,990",
@@ -142,6 +140,7 @@ const MODELS: Record<string, ModelDetail> = {
     description: "จอ 15.6 นิ้ว Full HD 16:9 สำหรับ HMI และ Dashboard ยุคใหม่ ดีไซน์บางเฉียบ Optical Bonding",
     features: ["IP65", "Full HD 1920x1080", "Multi-touch", "Slim Bezel", "Optical Bonding"],
     ports: ["HDMI", "DisplayPort", "USB Type-C", "USB 2.0"],
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/fpm/FPM-1502K-Datasheet.pdf",
   },
   "fpm-2102k": {
     model: "FPM-2102K", size: '21.5"', resolution: "1920x1080", ratio: "16:9", touch: "Capacitive", brightness: 300, price: "24,990",
@@ -150,7 +149,7 @@ const MODELS: Record<string, ModelDetail> = {
     description: "จอใหญ่ 21.5 นิ้ว Full HD 16:9 เหมาะกับ Dashboard, Big Data Visualization และงานที่ต้องการพื้นที่กว้าง",
     features: ["IP65", "Full HD", "Multi-touch", "Wide Viewing", "Optical Bonding"],
     ports: ["HDMI", "DisplayPort", "VGA", "USB 2.0"],
-    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_ccc895a9d8314d8396843387d8120e18.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/fpm/FPM-2102K-Datasheet.pdf",
   },
   "fpm-2402ka": {
     model: "FPM-2402KA", size: '24"', resolution: "1920x1080", ratio: "16:9", touch: "Capacitive", brightness: 300, price: "Call",
@@ -159,7 +158,7 @@ const MODELS: Record<string, ModelDetail> = {
     description: "จอใหญ่สุดในซีรีส์ 24 นิ้ว Full HD สำหรับห้องคอนโทรลใหญ่ Big Data, Military, Mission-critical",
     features: ["IP65", "Full HD", "Multi-touch", "Wide Temperature", "Customizable"],
     ports: ["HDMI", "DisplayPort", "VGA", "USB 2.0", "Aviation Connector"],
-    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_21234f29c0c045f380e17e101ce14e17.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/fpm/FPM-2402KA-Datasheet.pdf",
     badge: "Flagship",
   },
 };
