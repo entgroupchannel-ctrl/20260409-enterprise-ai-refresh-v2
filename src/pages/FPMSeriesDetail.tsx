@@ -79,13 +79,15 @@ const MODELS: Record<string, ModelDetail> = {
     features: ["IP65", "Wide Temp", "Resistive (ปากกา/ถุงมือ)", "VESA 75/100"],
     ports: ["VGA", "HDMI", "USB", "DC 12V"],
     datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/fpm/FPM-1001A-Datasheet.pdf",
+  },
+  "fpm-1002a": {
     model: "FPM-1002A", size: '10"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "14,990",
     images: [...GALLERY_1002S, ...lifestyleAll],
     highlight: "10-inch Capacitive — Modern Touch UX",
     description: "จอ 10 นิ้ว Capacitive Multi-touch ระดับสมาร์ทโฟน เหมาะกับ HMI ยุคใหม่ที่ต้องการประสบการณ์ลื่นไหล",
     features: ["IP65 Front Panel", "10-point Multi-touch", "Anti-glare", "Optical Bonding"],
     ports: ["VGA", "HDMI", "USB 2.0", "DC 12V"],
-    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_5d760f5082bb435aaa29a55ab6298a02.pdf",
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/fpm/FPM-1002A-Datasheet.pdf",
   },
   "fpm-1202a": {
     model: "FPM-1202A", size: '12"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "15,990",
