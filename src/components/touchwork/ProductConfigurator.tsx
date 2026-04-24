@@ -130,7 +130,8 @@ export default function ProductConfigurator({ product, arch, sku, productName, b
         name: `${productName} (Custom)`,
         description: summary,
         quantity: 1,
-        configuration: { ...selection, arch, baseModel: product.model },
+        price: basePrice,
+        configuration: { ...selection, arch, baseModel: product.model, basePrice },
       });
       toast({
         title: "เพิ่มสเปกที่ปรับแต่งเข้าตะกร้าแล้ว",
