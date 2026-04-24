@@ -78,9 +78,7 @@ const MODELS: Record<string, ModelDetail> = {
     description: "จอ 10 นิ้ว Resistive ทนทานสำหรับสายการผลิต ทำงานได้กับถุงมือและปากกา Stylus",
     features: ["IP65", "Wide Temp", "Resistive (ปากกา/ถุงมือ)", "VESA 75/100"],
     ports: ["VGA", "HDMI", "USB", "DC 12V"],
-    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/005637_5d760f5082bb435aaa29a55ab6298a02.pdf",
-  },
-  "fpm-1002a": {
+    datasheet: "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/fpm/FPM-1001A-Datasheet.pdf",
     model: "FPM-1002A", size: '10"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "14,990",
     images: [...GALLERY_1002S, ...lifestyleAll],
     highlight: "10-inch Capacitive — Modern Touch UX",
