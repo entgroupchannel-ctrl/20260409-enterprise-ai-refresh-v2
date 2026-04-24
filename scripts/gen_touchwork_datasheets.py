@@ -450,12 +450,14 @@ def build_page2(c: canvas.Canvas, p: dict, qr_product: Image.Image, qr_quote: Im
     pwr_y = y - 14 * mm
     section_title(c, CONTENT_X, pwr_y, "Power Supply")
     pwr_rows = [
-        ["Power Input", "110–240V AC 50/60Hz"],
-        ["Power Output", "DC 12V 3A"],
-        ["Standby Power", "≤ 0.5W"],
-        ["Power สูงสุด (Monitor)", "< 30W"],
-        ["Power สูงสุด (Android)", "< 36W"],
-        ["Power สูงสุด (Windows)", "< 48W"],
+        ["Power Input", p.get("powerInput") or "110–240V AC 50/60Hz"],
+        ["Power Output", p.get("powerOutput") or "DC 12V / 3A"],
+        ["Standby Power", p.get("powerStandby") or "≤ 0.5W"],
+        ["Power สูงสุด (Monitor)", p.get("powerMaxMonitor") or "< 24 W"],
+        ["Power สูงสุด (Android/ARM)", p.get("powerMaxArm") or "< 30 W"],
+        ["Power สูงสุด (Windows/X86)", p.get("powerMaxX86") or "< 48 W"],
+        ["DC UPS (Optional)", "รองรับ DC UPS module"],
+        ["PoE (Optional)", "รองรับ PoE input บางรุ่น"],
     ]
     col_w = (CONTENT_W - 6 * mm) / 2
     pwr_tbl = spec_table(pwr_rows, [col_w * 0.55, col_w * 0.45])
