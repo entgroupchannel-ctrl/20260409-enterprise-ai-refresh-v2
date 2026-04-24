@@ -151,8 +151,44 @@ function buildVariants(model: string, archs: TouchWorkArch[]): TouchWorkVariant[
     arch,
     image: imageMap[model]?.[arch] || "",
     ...archMeta[arch],
+    priceTHB: priceMap[model]?.[arch],
   }));
 }
+
+/**
+ * ราคาขายปลีกแนะนำ (บาท) — อ้างอิง Touchwork Price List 2024-10-08
+ * + 1,500 บาท แล้วปัดให้ลงท้าย 990
+ * (เช่น 13,900 + 1,500 = 15,400 → 15,990)
+ */
+const priceMap: Record<string, Partial<Record<TouchWorkArch, number>>> = {
+  // 8" — TD070/TD08 series
+  DM080NF: { Monitor: 13990, ARM: 15990, X86: 20990 },
+  DM080WG: { Monitor: 13990, ARM: 15990 },
+  // 10.1" — TD101 series
+  DM101G: { Monitor: 13990, ARM: 18990, X86: 19990 },
+  GD101E: { Monitor: 13990, ARM: 18990, X86: 19990 },
+  // 10.4" — ใช้ฐาน TD101 (4:3)
+  DM104G: { Monitor: 13990, ARM: 18990, X86: 19990 },
+  // 12.1" — เทียบ TD116B (11.6") + adjust
+  DM121G: { Monitor: 14990, ARM: 18990, X86: 19990 },
+  // 13.3" — TD133C / JD133
+  GD133: { Monitor: 14990, ARM: 17990, X86: 21990 },
+  JD133: { Monitor: 14990, ARM: 17990 },
+  // 15" — เทียบ TD156D
+  DM15G: { Monitor: 15990, ARM: 17990, X86: 20990 },
+  // 15.6" — TD156D / JD156
+  DM156G: { Monitor: 15990, ARM: 17990, X86: 20990 },
+  JD156B: { Monitor: 15990, ARM: 17990, X86: 20990 },
+  // 17" — interpolate (ระหว่าง 15.6 กับ 18.5)
+  DM17G: { Monitor: 15990, ARM: 18990, X86: 21990 },
+  // 18.5" — TD185C / JD185B
+  JD185B: { Monitor: 16990, ARM: 19990, X86: 22990 },
+  // 19" — เทียบ TD185C + adjust
+  DM19G: { Monitor: 16990, ARM: 19990, X86: 22990 },
+  // 21.5" — HD215 / TD215
+  DM215G: { Monitor: 17990, ARM: 20990, X86: 26990 },
+  JD215B: { Monitor: 17990, ARM: 20990, X86: 26990 },
+};
 
 // ---- Spec derivation ------------------------------------------------------
 
