@@ -286,11 +286,19 @@ const defaultWindowsOptions: CpuOption[] = [
 ];
 
 function buildSpecs(p: RawProduct): DetailedSpecs {
-  // คำนวณ panel type จาก resolution
-  const panelType = p.size <= 10.4
-    ? "TFT-LCD (a-Si)"
-    : "TFT-LCD (IPS)"; // จอใหญ่ส่วนมากใช้ IPS
+  // Panel type: GD/JD ใช้ IPS, DM ใช้ TN (a-Si) เว้นแต่ override
+  const panelType = p.panelType || (
+    p.model.startsWith("GD") || p.model.startsWith("JD")
+      ? "TFT-LCD (IPS)"
+      : "TFT-LCD (TN, a-Si)"
+  );
   const aspectActive = p.activeArea || `อ้างอิงตามมาตรฐานหน้าจอ ${p.size}″ ${p.ratio}`;
+  const brightnessDisplay = p.brightnessSpec || "≥250 cd/m²";
+  const contrastDisplay = p.contrast || "800:1 (Typical)";
+  const viewAngleDisplay = p.viewingAngle
+    ? `${p.viewingAngle} (Typ., CR≥10)`
+    : "85/85/85/85 (Typ., CR≥10)";
+  const backlightHrs = p.backlightLifetime ?? 30000;
 
   const lcd: SpecRow[] = [
     { label: "ขนาดหน้าจอ", value: `${p.size} นิ้ว` },
@@ -300,12 +308,13 @@ function buildSpecs(p: RawProduct): DetailedSpecs {
     { label: "พื้นที่แสดงผล (Active Area)", value: aspectActive },
     { label: "Pixel Pitch", value: "ตามมาตรฐาน Panel" },
     { label: "สีที่แสดงผลได้", value: "16.7M (8-bit)" },
-    { label: "ความสว่าง", value: `${p.brightness} (≥${p.brightness.replace(/\D/g, "")} cd/m²)` },
-    { label: "Contrast Ratio", value: "1000:1 (Typical)" },
-    { label: "มุมมอง H / V", value: "85/85/85/85(Typ.)(CR≥10)" },
+    { label: "ความสว่าง", value: brightnessDisplay },
+    { label: "Contrast Ratio", value: contrastDisplay },
+    ...(p.colorGamut ? [{ label: "Color Gamut", value: p.colorGamut }] : []),
+    { label: "มุมมอง H / V", value: viewAngleDisplay },
     { label: "Response Time (LCD)", value: "≤ 25 ms" },
     { label: "Refresh Rate", value: "60 Hz" },
-    { label: "Backlight", value: "LED, อายุการใช้งาน 30,000 ชม." },
+    { label: "Backlight", value: `LED, อายุการใช้งาน ${backlightHrs.toLocaleString()} ชม.` },
     { label: "Surface Treatment", value: "Anti-glare / Anti-fingerprint" },
   ];
 
@@ -338,7 +347,7 @@ function buildSpecs(p: RawProduct): DetailedSpecs {
   ];
 
   const environment: SpecRow[] = [
-    { label: "อุณหภูมิใช้งาน", value: "0 °C – 50 °C" },
+    { label: "อุณหภูมิใช้งาน", value: "0 °C – 50 °C (Wide-temp option: −20 °C – 70 °C)" },
     { label: "อุณหภูมิเก็บรักษา", value: "−20 °C – 60 °C" },
     { label: "ความชื้นใช้งาน", value: "10% – 80% RH (non-condensing)" },
     { label: "ความชื้นเก็บรักษา", value: "5% – 85% RH (non-condensing)" },
@@ -349,16 +358,19 @@ function buildSpecs(p: RawProduct): DetailedSpecs {
     { label: "ระดับเสียงรบกวน", value: "0 dB (ไม่มีพัดลม)" },
   ];
 
+  const powerOutput = p.powerOutput || "DC 12V / 3A (มาตรฐาน) • DC 12V / 5A (X86 รุ่นพิเศษ)";
   const power: SpecRow[] = [
     { label: "Power Adapter Input", value: "110–240V AC, 50/60 Hz (Auto-sensing)" },
-    { label: "Power Adapter Output", value: "DC 12V / 3A (Monitor, ARM) • DC 12V / 5A (X86)" },
+    { label: "Power Adapter Output", value: powerOutput },
     { label: "Standby Power", value: "≤ 0.5 W" },
-    { label: "Power สูงสุด (Monitor)", value: "< 30 W" },
-    { label: "Power สูงสุด (Android/ARM)", value: "< 36 W" },
+    { label: "Power สูงสุด (Monitor)", value: "< 24 W" },
+    { label: "Power สูงสุด (Android/ARM)", value: "< 30 W" },
     { label: "Power สูงสุด (Windows/X86)", value: "< 48 W" },
     { label: "Power Connector", value: "DC Jack 5.5 × 2.5 mm" },
     { label: "Power Switch", value: "Momentary push-button (ด้านข้าง)" },
     { label: "ป้องกันไฟกระชาก", value: "Over-voltage / Over-current / Short-circuit" },
+    { label: "DC UPS (Optional)", value: "รองรับ DC UPS module — สำรองไฟชั่วคราวเมื่อไฟดับ" },
+    { label: "PoE (Optional)", value: "รองรับ PoE input บางรุ่น (สอบถามทีมขาย)" },
   ];
 
   const certification: SpecRow[] = [
@@ -370,6 +382,7 @@ function buildSpecs(p: RawProduct): DetailedSpecs {
     { label: "MTBF (Reliability)", value: "≥ 50,000 ชม." },
     { label: "Origin", value: "Designed by TouchWo • Distributed by ENT Group" },
   ];
+
 
   const delivery = [
     "เครื่องหลัก (Main Unit) × 1",
