@@ -54,7 +54,7 @@ const seriesMeta: Record<SeriesKey, { label: string; desc: string; color: string
   },
   JD: {
     label: "JD Series",
-    desc: "Economic — ราคาประหยัด เน้นใช้งาน POS / Signage",
+    desc: "Industrial Grade แบบ Entry — ราคาประหยัด เน้นใช้งาน POS / Signage",
     color: "bg-rose-500/10 text-rose-700 dark:text-rose-300 border-rose-500/30",
   },
 };
@@ -478,7 +478,7 @@ export default function TouchWork() {
             },
             {
               icon: ShieldCheck,
-              title: "ทนทาน Industrial Grade เบา",
+              title: "ทนทาน Industrial Grade แบบ Entry",
               desc: "หน้าจอ IP65 กันฝุ่นและน้ำกระเซ็น โครงโลหะ ทนต่อการใช้งานต่อเนื่อง 24/7",
             },
             {
