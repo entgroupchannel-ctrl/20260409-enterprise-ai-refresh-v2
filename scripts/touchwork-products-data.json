@@ -1,18 +1,487 @@
 [
-  {"model":"DM080NF","size":8,"resolution":"1024 × 768","ratio":"4:3","brightness":"300 nits","ipRating":"IP65 (หน้า)","mounting":["VESA 75","ฝัง Embedded","ตั้งโต๊ะ"],"highlights":["จอเล็กกะทัดรัด","เหมาะกับเครื่องคิดเงิน/Kiosk","ใช้พื้นที่น้อย"],"archs":["Monitor","ARM","X86"]},
-  {"model":"DM080WG","size":8,"resolution":"1280 × 800","ratio":"16:10","brightness":"350 nits","ipRating":"IP65 (หน้า)","mounting":["VESA 75","ฝัง Embedded"],"highlights":["Widescreen 16:10","ภาพคมชัด","เหมาะกับโชว์รูมและ Smart Home"],"archs":["Monitor","ARM"]},
-  {"model":"DM101G","size":10.1,"resolution":"1280 × 800","ratio":"16:10","brightness":"350 nits","ipRating":"IP65 (หน้า)","mounting":["VESA 75","ฝัง Embedded","ตั้งโต๊ะ"],"highlights":["ขนาดยอดนิยม","เหมาะกับ Self-Order ในร้านอาหาร","ราคาเข้าถึงได้"],"archs":["Monitor","ARM","X86"]},
-  {"model":"DM104G","size":10.4,"resolution":"1024 × 768","ratio":"4:3","brightness":"350 nits","ipRating":"IP65 (หน้า)","mounting":["VESA 75","ฝัง Embedded"],"highlights":["จอ 4:3 คลาสสิก","เหมาะกับสายการผลิต MES","ทนทาน"],"archs":["Monitor","ARM","X86"]},
-  {"model":"DM121G","size":12.1,"resolution":"1024 × 768","ratio":"4:3","brightness":"400 nits","ipRating":"IP65 (หน้า)","mounting":["VESA 75","ฝัง Embedded"],"highlights":["แสดงผลคมชัด","เหมาะกับ HMI โรงงาน","ใช้งานยาวนาน 24/7"],"archs":["Monitor","ARM","X86"]},
-  {"model":"DM15G","size":15,"resolution":"1024 × 768","ratio":"4:3","brightness":"350 nits","ipRating":"IP65 (หน้า)","mounting":["VESA 75/100","ฝัง Embedded","ตั้งโต๊ะ"],"highlights":["ขนาดมาตรฐานโรงงาน","เหมาะกับเครื่องจักร","ทนฝุ่นและความชื้น"],"archs":["Monitor","ARM","X86"]},
-  {"model":"DM156G","size":15.6,"resolution":"1920 × 1080","ratio":"16:9","brightness":"400 nits","ipRating":"IP65 (หน้า)","mounting":["VESA 75/100","ฝัง Embedded"],"highlights":["Full HD คมชัด","ขนาด Widescreen ยอดนิยม","เหมาะกับ POS และ Self-Service"],"archs":["Monitor","ARM","X86"]},
-  {"model":"DM17G","size":17,"resolution":"1280 × 1024","ratio":"5:4","brightness":"350 nits","ipRating":"IP65 (หน้า)","mounting":["VESA 100","ฝัง Embedded"],"highlights":["จอใหญ่อ่านง่าย","เหมาะกับห้องควบคุม","ทนทานต่อการใช้งานหนัก"],"archs":["Monitor","ARM","X86"]},
-  {"model":"DM19G","size":19,"resolution":"1280 × 1024","ratio":"5:4","brightness":"350 nits","ipRating":"IP65 (หน้า)","mounting":["VESA 100","ฝัง Embedded","ตั้งโต๊ะ"],"highlights":["จอใหญ่ระดับ Workstation","เหมาะกับ ERP และระบบจัดการ","พื้นที่ทำงานกว้าง"],"archs":["Monitor","ARM","X86"]},
-  {"model":"DM215G","size":21.5,"resolution":"1920 × 1080","ratio":"16:9","brightness":"400 nits","ipRating":"IP65 (หน้า)","mounting":["VESA 100","ฝัง Embedded","ตั้งโต๊ะ"],"highlights":["Full HD จอใหญ่","เหมาะกับ Digital Signage และ Self-Order","ดีไซน์ทันสมัย"],"archs":["Monitor","ARM","X86"]},
-  {"model":"GD133","size":13.3,"resolution":"1920 × 1080","ratio":"16:9","brightness":"250 nits","ipRating":"IP65 (หน้า)","mounting":["Wall Mount","VESA 75"],"highlights":["ดีไซน์ติดผนังเฉพาะ","Full HD บางเฉียบ","เหมาะกับโรงแรม/ออฟฟิศ"],"archs":["Monitor","ARM","X86"],"dimensionMm":"337.53 × 297.13 × 42.8 mm","activeArea":"239.4 × 165 mm","netWeight":"3.33 kg","grossWeight":"4.51 kg"},
-  {"model":"JD185B","size":18.5,"resolution":"1366 × 768","ratio":"16:9","brightness":"350 nits","ipRating":"IP65 (หน้า)","mounting":["VESA 100","ฝัง Embedded"],"highlights":["ขนาดกลางคุ้มค่า","เหมาะกับ Kiosk ทั่วไป","ดีไซน์เรียบร้อย"],"archs":["Monitor","ARM","X86"]},
-  {"model":"GD101E","size":10.1,"resolution":"1280 × 800","ratio":"16:10","brightness":"300 nits","ipRating":"IP65 (หน้า)","mounting":["Wall Mount","VESA 75"],"highlights":["ดีไซน์ Wall-Mount Kiosk","Aluminum Unibody","Slim Bezel ทันสมัย"],"archs":["Monitor","ARM","X86"]},
-  {"model":"JD133","size":13.3,"resolution":"1920 × 1080","ratio":"16:9","brightness":"300 nits","ipRating":"IP65 (หน้า)","mounting":["VESA 75","ตั้งโต๊ะ"],"highlights":["Ultra-slim Die-cast Body","Curved Streamlined Back","เหมาะกับ Premium Self-Service"],"archs":["Monitor","ARM"]},
-  {"model":"JD156B","size":15.6,"resolution":"1920 × 1080","ratio":"16:9","brightness":"300 nits","ipRating":"IP65 (หน้า)","mounting":["VESA 75/100","ตั้งโต๊ะ"],"highlights":["Ultra-slim Premium","Optional LED Ring สำหรับ Branding","เหมาะกับ POS/Self-Order"],"archs":["Monitor","ARM","X86"]},
-  {"model":"JD215B","size":21.5,"resolution":"1920 × 1080","ratio":"16:9","brightness":"300 nits","ipRating":"IP65 (หน้า)","mounting":["VESA 100","ตั้งโต๊ะ"],"highlights":["Full HD จอใหญ่ ราคาประหยัด","Die-cast Unibody","เหมาะกับ Digital Signage"],"archs":["Monitor","ARM","X86"]}
+  {
+    "model": "DM080NF",
+    "size": 8,
+    "resolution": "1024 × 768",
+    "ratio": "4:3",
+    "brightness": "≥250 cd/m²",
+    "ipRating": "IP65 (หน้า)",
+    "mounting": [
+      "VESA 75",
+      "ฝัง Embedded",
+      "ตั้งโต๊ะ"
+    ],
+    "highlights": [
+      "จอเล็กกะทัดรัด 8″",
+      "Mohs Class 7 Tempered Glass",
+      "เหมาะกับ Kiosk / POS"
+    ],
+    "archs": [
+      "Monitor",
+      "ARM",
+      "X86"
+    ],
+    "panelType": "TFT-LCD (TN, a-Si)",
+    "brightnessSpec": "≥250 cd/m²",
+    "contrast": "≥800:1",
+    "colorGamut": "52% CIE1931",
+    "touchTech": "PCAP (Projected Capacitive)",
+    "envOpTemp": "0 °C – 50 °C (Wide-temp option: −20 °C – 70 °C)",
+    "envOpHum": "10% – 80% RH (non-condensing)",
+    "powerOutput": "DC 12V / 3A (มาตรฐาน) • DC 12V / 5A (X86 รุ่นพิเศษ)",
+    "powerStandby": "≤ 0.5 W"
+  },
+  {
+    "model": "DM080WG",
+    "size": 8,
+    "resolution": "1280 × 800",
+    "ratio": "16:10",
+    "brightness": "≥250 cd/m²",
+    "ipRating": "IP65 (หน้า)",
+    "mounting": [
+      "VESA 75",
+      "ฝัง Embedded"
+    ],
+    "highlights": [
+      "Widescreen 16:10",
+      "Mohs Class 7 Glass",
+      "เหมาะกับโชว์รูม / Smart Home"
+    ],
+    "archs": [
+      "Monitor",
+      "ARM"
+    ],
+    "panelType": "TFT-LCD (TN, a-Si)",
+    "brightnessSpec": "≥250 cd/m²",
+    "contrast": "≥800:1",
+    "touchTech": "PCAP (Projected Capacitive)",
+    "envOpTemp": "0 °C – 50 °C (Wide-temp option: −20 °C – 70 °C)",
+    "envOpHum": "10% – 80% RH (non-condensing)",
+    "powerOutput": "DC 12V / 3A (มาตรฐาน) • DC 12V / 5A (X86 รุ่นพิเศษ)",
+    "powerStandby": "≤ 0.5 W"
+  },
+  {
+    "model": "DM101G",
+    "size": 10.1,
+    "resolution": "1280 × 800",
+    "ratio": "16:10",
+    "brightness": "≥250 cd/m²",
+    "ipRating": "IP65 (หน้า)",
+    "mounting": [
+      "VESA 75",
+      "ฝัง Embedded",
+      "ตั้งโต๊ะ"
+    ],
+    "highlights": [
+      "ขนาดยอดนิยม 10.1″",
+      "รองรับ Resolution Upgrade 1920×1200",
+      "เหมาะกับ Self-Order"
+    ],
+    "archs": [
+      "Monitor",
+      "ARM",
+      "X86"
+    ],
+    "panelType": "TFT-LCD (TN, a-Si)",
+    "brightnessSpec": "≥250 cd/m² (option 1920×1200 HD+)",
+    "contrast": "≥800:1",
+    "touchTech": "PCAP (Projected Capacitive)",
+    "envOpTemp": "0 °C – 50 °C (Wide-temp option: −20 °C – 70 °C)",
+    "envOpHum": "10% – 80% RH (non-condensing)",
+    "powerOutput": "DC 12V / 3A (มาตรฐาน) • DC 12V / 5A (X86 รุ่นพิเศษ)",
+    "powerStandby": "≤ 0.5 W"
+  },
+  {
+    "model": "DM104G",
+    "size": 10.4,
+    "resolution": "1024 × 768",
+    "ratio": "4:3",
+    "brightness": "≥250 cd/m²",
+    "ipRating": "IP65 (หน้า)",
+    "mounting": [
+      "VESA 75",
+      "ฝัง Embedded"
+    ],
+    "highlights": [
+      "จอ 4:3 คลาสสิก",
+      "Backlight อายุ 30,000 ชม.",
+      "เหมาะกับสายการผลิต MES"
+    ],
+    "archs": [
+      "Monitor",
+      "ARM",
+      "X86"
+    ],
+    "panelType": "TFT-LCD (TN, a-Si)",
+    "brightnessSpec": "≥250 cd/m²",
+    "contrast": "≥1000:1",
+    "touchTech": "PCAP (Projected Capacitive)",
+    "envOpTemp": "0 °C – 50 °C (Wide-temp option: −20 °C – 70 °C)",
+    "envOpHum": "10% – 80% RH (non-condensing)",
+    "powerOutput": "DC 12V / 3A (มาตรฐาน) • DC 12V / 5A (X86 รุ่นพิเศษ)",
+    "powerStandby": "≤ 0.5 W"
+  },
+  {
+    "model": "DM121G",
+    "size": 12.1,
+    "resolution": "1024 × 768",
+    "ratio": "4:3",
+    "brightness": "≥250 cd/m²",
+    "ipRating": "IP65 (หน้า)",
+    "mounting": [
+      "VESA 75",
+      "ฝัง Embedded"
+    ],
+    "highlights": [
+      "แสดงผลคมชัด",
+      "ใช้งาน 24/7",
+      "เหมาะกับ HMI โรงงาน"
+    ],
+    "archs": [
+      "Monitor",
+      "ARM",
+      "X86"
+    ],
+    "panelType": "TFT-LCD (TN, a-Si)",
+    "brightnessSpec": "≥250 cd/m²",
+    "contrast": "≥800:1",
+    "touchTech": "PCAP (Projected Capacitive)",
+    "envOpTemp": "0 °C – 50 °C (Wide-temp option: −20 °C – 70 °C)",
+    "envOpHum": "10% – 80% RH (non-condensing)",
+    "powerOutput": "DC 12V / 3A (มาตรฐาน) • DC 12V / 5A (X86 รุ่นพิเศษ)",
+    "powerStandby": "≤ 0.5 W"
+  },
+  {
+    "model": "DM15G",
+    "size": 15,
+    "resolution": "1024 × 768",
+    "ratio": "4:3",
+    "brightness": "≥250 cd/m²",
+    "ipRating": "IP65 (หน้า)",
+    "mounting": [
+      "VESA 75/100",
+      "ฝัง Embedded",
+      "ตั้งโต๊ะ"
+    ],
+    "highlights": [
+      "ขนาดมาตรฐานโรงงาน",
+      "Mohs Class 7 Glass",
+      "ทนฝุ่นและความชื้น"
+    ],
+    "archs": [
+      "Monitor",
+      "ARM",
+      "X86"
+    ],
+    "panelType": "TFT-LCD (TN, a-Si)",
+    "brightnessSpec": "≥250 cd/m²",
+    "contrast": "≥800:1",
+    "touchTech": "PCAP (Projected Capacitive)",
+    "envOpTemp": "0 °C – 50 °C (Wide-temp option: −20 °C – 70 °C)",
+    "envOpHum": "10% – 80% RH (non-condensing)",
+    "powerOutput": "DC 12V / 3A (มาตรฐาน) • DC 12V / 5A (X86 รุ่นพิเศษ)",
+    "powerStandby": "≤ 0.5 W"
+  },
+  {
+    "model": "DM156G",
+    "size": 15.6,
+    "resolution": "1920 × 1080",
+    "ratio": "16:9",
+    "brightness": "≥250 cd/m²",
+    "ipRating": "IP65 (หน้า)",
+    "mounting": [
+      "VESA 75/100",
+      "ฝัง Embedded"
+    ],
+    "highlights": [
+      "Full HD คมชัด 1920×1080",
+      "ขนาด Widescreen ยอดนิยม",
+      "เหมาะกับ POS และ Self-Service"
+    ],
+    "archs": [
+      "Monitor",
+      "ARM",
+      "X86"
+    ],
+    "panelType": "TFT-LCD (TN, a-Si)",
+    "brightnessSpec": "≥250 cd/m²",
+    "contrast": "≥800:1",
+    "touchTech": "PCAP (Projected Capacitive)",
+    "envOpTemp": "0 °C – 50 °C (Wide-temp option: −20 °C – 70 °C)",
+    "envOpHum": "10% – 80% RH (non-condensing)",
+    "powerOutput": "DC 12V / 3A (มาตรฐาน) • DC 12V / 5A (X86 รุ่นพิเศษ)",
+    "powerStandby": "≤ 0.5 W"
+  },
+  {
+    "model": "DM17G",
+    "size": 17,
+    "resolution": "1280 × 1024",
+    "ratio": "5:4",
+    "brightness": "≥250 cd/m²",
+    "ipRating": "IP65 (หน้า)",
+    "mounting": [
+      "VESA 100",
+      "ฝัง Embedded"
+    ],
+    "highlights": [
+      "จอใหญ่อ่านง่าย 17″",
+      "เหมาะกับห้องควบคุม",
+      "Tempered Glass 7H"
+    ],
+    "archs": [
+      "Monitor",
+      "ARM",
+      "X86"
+    ],
+    "panelType": "TFT-LCD (TN, a-Si)",
+    "brightnessSpec": "≥250 cd/m²",
+    "contrast": "≥1000:1",
+    "touchTech": "PCAP (Projected Capacitive)",
+    "envOpTemp": "0 °C – 50 °C (Wide-temp option: −20 °C – 70 °C)",
+    "envOpHum": "10% – 80% RH (non-condensing)",
+    "powerOutput": "DC 12V / 3A (มาตรฐาน) • DC 12V / 5A (X86 รุ่นพิเศษ)",
+    "powerStandby": "≤ 0.5 W"
+  },
+  {
+    "model": "DM19G",
+    "size": 19,
+    "resolution": "1280 × 1024",
+    "ratio": "5:4",
+    "brightness": "≥250 cd/m²",
+    "ipRating": "IP65 (หน้า)",
+    "mounting": [
+      "VESA 100",
+      "ฝัง Embedded",
+      "ตั้งโต๊ะ"
+    ],
+    "highlights": [
+      "จอใหญ่ระดับ Workstation",
+      "เหมาะกับ ERP",
+      "พื้นที่ทำงานกว้าง"
+    ],
+    "archs": [
+      "Monitor",
+      "ARM",
+      "X86"
+    ],
+    "panelType": "TFT-LCD (TN, a-Si)",
+    "brightnessSpec": "≥250 cd/m²",
+    "contrast": "≥1000:1",
+    "touchTech": "PCAP (Projected Capacitive)",
+    "envOpTemp": "0 °C – 50 °C (Wide-temp option: −20 °C – 70 °C)",
+    "envOpHum": "10% – 80% RH (non-condensing)",
+    "powerOutput": "DC 12V / 3A (มาตรฐาน) • DC 12V / 5A (X86 รุ่นพิเศษ)",
+    "powerStandby": "≤ 0.5 W"
+  },
+  {
+    "model": "DM215G",
+    "size": 21.5,
+    "resolution": "1920 × 1080",
+    "ratio": "16:9",
+    "brightness": "≥250 cd/m²",
+    "ipRating": "IP65 (หน้า)",
+    "mounting": [
+      "VESA 100",
+      "ฝัง Embedded",
+      "ตั้งโต๊ะ"
+    ],
+    "highlights": [
+      "Full HD จอใหญ่ 21.5″",
+      "Contrast 3000:1 + 72% NTSC",
+      "เหมาะกับ Digital Signage"
+    ],
+    "archs": [
+      "Monitor",
+      "ARM",
+      "X86"
+    ],
+    "panelType": "TFT-LCD (TN, a-Si)",
+    "brightnessSpec": "≥250 cd/m²",
+    "contrast": "≥3000:1 (สูงพิเศษ)",
+    "colorGamut": "72% NTSC",
+    "touchTech": "PCAP (Projected Capacitive)",
+    "envOpTemp": "0 °C – 50 °C (Wide-temp option: −20 °C – 70 °C)",
+    "envOpHum": "10% – 80% RH (non-condensing)",
+    "powerOutput": "DC 12V / 3A (มาตรฐาน) • DC 12V / 5A (X86 รุ่นพิเศษ)",
+    "powerStandby": "≤ 0.5 W"
+  },
+  {
+    "model": "GD133",
+    "size": 13.3,
+    "resolution": "1920 × 1080",
+    "ratio": "16:9",
+    "brightness": "≥250 cd/m²",
+    "ipRating": "IP65 (หน้า)",
+    "mounting": [
+      "Wall Mount (ติดผนังเฉพาะรุ่น)",
+      "VESA 75"
+    ],
+    "highlights": [
+      "IPS 178°/178° มุมมองกว้าง",
+      "Wall-Mount บางเฉียบ 42.8 mm",
+      "เหมาะกับโรงแรม/ออฟฟิศ"
+    ],
+    "archs": [
+      "Monitor",
+      "ARM",
+      "X86"
+    ],
+    "panelType": "TFT-LCD (IPS)",
+    "brightnessSpec": "≥250 cd/m²",
+    "contrast": "≥1000:1",
+    "touchTech": "PCAP (Projected Capacitive)",
+    "envOpTemp": "0 °C – 50 °C (Wide-temp option: −20 °C – 70 °C)",
+    "envOpHum": "10% – 80% RH (non-condensing)",
+    "powerOutput": "DC 12V / 3A (มาตรฐาน) • DC 12V / 5A (X86 รุ่นพิเศษ)",
+    "powerStandby": "≤ 0.5 W"
+  },
+  {
+    "model": "GD101E",
+    "size": 10.1,
+    "resolution": "1280 × 800",
+    "ratio": "16:10",
+    "brightness": "≥250 cd/m²",
+    "ipRating": "IP65 (หน้า)",
+    "mounting": [
+      "Wall Mount (ติดผนังเฉพาะรุ่น)",
+      "VESA 75"
+    ],
+    "highlights": [
+      "Wall-Mount Kiosk Aluminum Unibody",
+      "IPS 178°/178°",
+      "Slim Bezel ทันสมัย"
+    ],
+    "archs": [
+      "Monitor",
+      "ARM",
+      "X86"
+    ],
+    "panelType": "TFT-LCD (IPS)",
+    "brightnessSpec": "≥250 cd/m²",
+    "contrast": "≥800:1",
+    "touchTech": "PCAP (Projected Capacitive)",
+    "envOpTemp": "0 °C – 50 °C (Wide-temp option: −20 °C – 70 °C)",
+    "envOpHum": "10% – 80% RH (non-condensing)",
+    "powerOutput": "DC 12V / 3A (มาตรฐาน) • DC 12V / 5A (X86 รุ่นพิเศษ)",
+    "powerStandby": "≤ 0.5 W"
+  },
+  {
+    "model": "JD133",
+    "size": 13.3,
+    "resolution": "1920 × 1080",
+    "ratio": "16:9",
+    "brightness": "≥250 cd/m²",
+    "ipRating": "IP65 (หน้า)",
+    "mounting": [
+      "VESA 75",
+      "ตั้งโต๊ะ"
+    ],
+    "highlights": [
+      "Ultra-slim Die-cast Body",
+      "IPS 175°/175°",
+      "Premium Self-Service"
+    ],
+    "archs": [
+      "Monitor",
+      "ARM"
+    ],
+    "panelType": "TFT-LCD (IPS)",
+    "brightnessSpec": "≥250 cd/m²",
+    "contrast": "≥800:1",
+    "touchTech": "PCAP (Projected Capacitive)",
+    "envOpTemp": "0 °C – 50 °C (Wide-temp option: −20 °C – 70 °C)",
+    "envOpHum": "10% – 80% RH (non-condensing)",
+    "powerOutput": "DC 12V / 3A (มาตรฐาน) • DC 12V / 5A (X86 รุ่นพิเศษ)",
+    "powerStandby": "≤ 0.5 W"
+  },
+  {
+    "model": "JD156B",
+    "size": 15.6,
+    "resolution": "1920 × 1080",
+    "ratio": "16:9",
+    "brightness": "≥250 cd/m²",
+    "ipRating": "IP65 (หน้า)",
+    "mounting": [
+      "VESA 75/100",
+      "ตั้งโต๊ะ"
+    ],
+    "highlights": [
+      "Ultra-slim Premium IPS",
+      "Optional LED Ring สำหรับ Branding",
+      "เหมาะกับ POS/Self-Order"
+    ],
+    "archs": [
+      "Monitor",
+      "ARM",
+      "X86"
+    ],
+    "panelType": "TFT-LCD (IPS)",
+    "brightnessSpec": "≥250 cd/m²",
+    "contrast": "≥800:1",
+    "touchTech": "PCAP (Projected Capacitive)",
+    "envOpTemp": "0 °C – 50 °C (Wide-temp option: −20 °C – 70 °C)",
+    "envOpHum": "10% – 80% RH (non-condensing)",
+    "powerOutput": "DC 12V / 3A (มาตรฐาน) • DC 12V / 5A (X86 รุ่นพิเศษ)",
+    "powerStandby": "≤ 0.5 W"
+  },
+  {
+    "model": "JD185B",
+    "size": 18.5,
+    "resolution": "1366 × 768",
+    "ratio": "16:9",
+    "brightness": "≥250 cd/m²",
+    "ipRating": "IP65 (หน้า)",
+    "mounting": [
+      "VESA 100",
+      "ฝัง Embedded"
+    ],
+    "highlights": [
+      "IPS 175°/175°",
+      "ขนาดกลางคุ้มค่า",
+      "เหมาะกับ Kiosk ทั่วไป"
+    ],
+    "archs": [
+      "Monitor",
+      "ARM",
+      "X86"
+    ],
+    "panelType": "TFT-LCD (IPS)",
+    "brightnessSpec": "≥250 cd/m²",
+    "contrast": "≥800:1",
+    "touchTech": "PCAP (Projected Capacitive)",
+    "envOpTemp": "0 °C – 50 °C (Wide-temp option: −20 °C – 70 °C)",
+    "envOpHum": "10% – 80% RH (non-condensing)",
+    "powerOutput": "DC 12V / 3A (มาตรฐาน) • DC 12V / 5A (X86 รุ่นพิเศษ)",
+    "powerStandby": "≤ 0.5 W"
+  },
+  {
+    "model": "JD215B",
+    "size": 21.5,
+    "resolution": "1920 × 1080",
+    "ratio": "16:9",
+    "brightness": "≥250 cd/m²",
+    "ipRating": "IP65 (หน้า)",
+    "mounting": [
+      "VESA 100",
+      "ตั้งโต๊ะ"
+    ],
+    "highlights": [
+      "Full HD จอใหญ่ 21.5″ ราคาประหยัด",
+      "IPS 175°/175°",
+      "Die-cast Unibody"
+    ],
+    "archs": [
+      "Monitor",
+      "ARM",
+      "X86"
+    ],
+    "panelType": "TFT-LCD (IPS)",
+    "brightnessSpec": "≥250 cd/m²",
+    "contrast": "≥800:1",
+    "touchTech": "PCAP (Projected Capacitive)",
+    "envOpTemp": "0 °C – 50 °C (Wide-temp option: −20 °C – 70 °C)",
+    "envOpHum": "10% – 80% RH (non-condensing)",
+    "powerOutput": "DC 12V / 3A (มาตรฐาน) • DC 12V / 5A (X86 รุ่นพิเศษ)",
+    "powerStandby": "≤ 0.5 W"
+  }
 ]
