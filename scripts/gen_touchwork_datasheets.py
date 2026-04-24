@@ -214,12 +214,37 @@ def subheading(c: canvas.Canvas, x: float, y: float, label: str):
     c.drawString(x, y, label.upper())
 
 
+_cell_label_style = ParagraphStyle(
+    "cell_label", fontName="Sarabun", fontSize=8, leading=10, textColor=TEXT_MUTED
+)
+_cell_value_style = ParagraphStyle(
+    "cell_value", fontName="Sarabun-Semi", fontSize=8, leading=10, textColor=TEXT_DARK
+)
+
+
+def _wrap_cells(rows):
+    """Wrap row values in Paragraphs so long text reflows inside table cells."""
+    out = []
+    for r in rows:
+        cells = []
+        for i, v in enumerate(r):
+            if isinstance(v, str):
+                style = _cell_label_style if i == 0 else _cell_value_style
+                cells.append(Paragraph(v.replace("\n", "<br/>"), style))
+            else:
+                cells.append(v)
+        out.append(cells)
+    return out
+
+
 def spec_table(rows, col_widths, header_row=None, font_size=8) -> Table:
     """Build a clean technical spec table."""
     data = []
     if header_row:
         data.append(header_row)
-    data.extend(rows)
+        data.extend(rows)
+    else:
+        data.extend(_wrap_cells(rows))
     t = Table(data, colWidths=col_widths, hAlign="LEFT")
     style = [
         ("FONT", (0, 0), (-1, -1), "Sarabun", font_size),
@@ -240,13 +265,6 @@ def spec_table(rows, col_widths, header_row=None, font_size=8) -> Table:
         data_rows_start = 1
     else:
         data_rows_start = 0
-        # First column = label (muted)
-        style += [
-            ("TEXTCOLOR", (0, 0), (0, -1), TEXT_MUTED),
-            ("FONT", (0, 0), (0, -1), "Sarabun", font_size),
-            ("FONT", (1, 0), (-1, -1), "Sarabun-Semi", font_size),
-            ("TEXTCOLOR", (1, 0), (-1, -1), TEXT_DARK),
-        ]
     # alternating rows
     for i in range(data_rows_start, len(data)):
         if (i - data_rows_start) % 2 == 0:
