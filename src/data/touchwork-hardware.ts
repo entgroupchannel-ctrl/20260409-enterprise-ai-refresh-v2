@@ -26,6 +26,7 @@ import dm101gIn1 from "@/assets/touchwork/install/DM101G-1.png";
 import dm101gIn2 from "@/assets/touchwork/install/DM101G-2.png";
 import dm104gIn1 from "@/assets/touchwork/install/DM104G-1.png";
 import dm104gIn2 from "@/assets/touchwork/install/DM104G-2.png";
+import dm104gIn3 from "@/assets/touchwork/install/DM104G-3.png";
 import dm121gIn1 from "@/assets/touchwork/install/DM121G-1.png";
 import dm121gIn2 from "@/assets/touchwork/install/DM121G-2.png";
 import dm156gIn1 from "@/assets/touchwork/install/DM156G-1.png";
@@ -66,7 +67,7 @@ export const touchworkHardware: Record<string, TouchWorkHardwareImages> = {
   DM080NF: { io: dm080nfIo, install: [dm080nfIn1] },
   DM080WG: { io: dm080wgIo, install: [dm080wgIn1, dm080wgIn2] },
   DM101G:  { io: dm101gIo,  install: [dm101gIn1, dm101gIn2] },
-  DM104G:  { io: dm104gIo,  install: [dm104gIn1, dm104gIn2] },
+  DM104G:  { io: dm104gIo,  install: [dm104gIn1, dm104gIn2, dm104gIn3] },
   DM121G:  { io: dm121gIo,  install: [dm121gIn1, dm121gIn2] },
   DM156G:  { io: dm156gIo,  install: [dm156gIn1, dm156gIn2] },
   DM15G:   { io: dm15gIo,   install: [dm15gIn1, dm15gIn2] },
