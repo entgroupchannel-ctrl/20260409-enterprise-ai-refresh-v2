@@ -69,7 +69,7 @@ export default function TouchWorkDetail() {
       <MiniNavbar />
 
       {/* Breadcrumb back link */}
-      <div className="container mx-auto px-4 pt-6">
+      <div className="container max-w-7xl mx-auto px-6 pt-6">
         <Link
           to="/touchwork"
           className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
@@ -79,7 +79,7 @@ export default function TouchWorkDetail() {
       </div>
 
       {/* Hero — image + info */}
-      <section className="container mx-auto px-4 py-6 md:py-10">
+      <section className="container max-w-7xl mx-auto px-6 py-6 md:py-10">
         <div className="grid lg:grid-cols-2 gap-8 items-start">
           {/* Image */}
           <div className="relative">
@@ -195,7 +195,7 @@ export default function TouchWorkDetail() {
       </section>
 
       {/* Highlights & Mounting */}
-      <section className="container mx-auto px-4 py-8 border-t border-border/40">
+      <section className="container max-w-7xl mx-auto px-6 py-8 border-t border-border/40">
         <div className="grid md:grid-cols-2 gap-6">
           <div>
             <h2 className="text-xl font-bold mb-3 flex items-center gap-2">
@@ -236,7 +236,7 @@ export default function TouchWorkDetail() {
       </section>
 
       {/* All variants gallery */}
-      <section className="container mx-auto px-4 py-8 border-t border-border/40">
+      <section className="container max-w-7xl mx-auto px-6 py-8 border-t border-border/40">
         <h2 className="text-xl font-bold mb-4">ทุกตัวเลือกของ {product.model}</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
           {product.variants.map((v) => {
@@ -267,7 +267,7 @@ export default function TouchWorkDetail() {
 
       {/* Related */}
       {related.length > 0 && (
-        <section className="container mx-auto px-4 py-10 border-t border-border/40">
+        <section className="container max-w-7xl mx-auto px-6 py-10 border-t border-border/40">
           <h2 className="text-xl font-bold mb-4">รุ่นใกล้เคียง</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {related.map((p) => {
