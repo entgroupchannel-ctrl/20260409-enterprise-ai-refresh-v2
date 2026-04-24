@@ -214,6 +214,21 @@ interface RawProduct {
   androidOptions?: CpuOption[];
   /** X86 CPU options ที่ระบุเฉพาะ */
   windowsOptions?: CpuOption[];
+  // ── Per-model spec overrides (จาก touchwoipc.com — verified 24 เม.ย. 2026) ──
+  /** ชนิด Panel: TN / IPS / a-Si */
+  panelType?: string;
+  /** Brightness display value (เช่น "≥250 cd/m²") — ถ้าไม่ระบุจะ derive จาก field brightness */
+  brightnessSpec?: string;
+  /** Contrast Ratio (เช่น "800:1", "3000:1") */
+  contrast?: string;
+  /** Viewing Angle H/V (เช่น "85/85", "178/178", "175/175") */
+  viewingAngle?: string;
+  /** Backlight lifetime ชม. (15000 หรือ 30000) */
+  backlightLifetime?: number;
+  /** Color Gamut (เช่น "52% CIE1931", "72% NTSC") */
+  colorGamut?: string;
+  /** Power Output override — default "DC 12V / 3A" */
+  powerOutput?: string;
 }
 
 const defaultAndroidOptions: CpuOption[] = [
