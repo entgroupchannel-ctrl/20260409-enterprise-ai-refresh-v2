@@ -183,7 +183,7 @@ const menuCategories = [
         links: [
           { label: "Stainless Steel IP69K", href: "/smart-display" },
           { label: "Food Grade Display", href: "/smart-display" },
-          { label: "Touch Monitor FPM Series", href: "/smart-display" },
+          { label: "Touch Monitor FPM Series", href: "/fpm-series", new2026: true },
         ],
       },
     ],
