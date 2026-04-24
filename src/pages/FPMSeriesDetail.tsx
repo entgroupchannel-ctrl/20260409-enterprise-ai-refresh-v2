@@ -15,6 +15,9 @@ import FooterCompact from "@/components/FooterCompact";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
 import AddToCartButton from "@/components/AddToCartButton";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
+import bundleGT from "@/assets/fpm-bundle-gt.jpg";
+import bundleEPC from "@/assets/fpm-bundle-epc.jpg";
+import bundleUPC from "@/assets/fpm-bundle-upc.jpg";
 
 /* ─── Image sets per real cesipc model ─── */
 const IMG_10 = "/images/fpm/products/fpm-1002s-10inch.jpg";
@@ -683,42 +686,53 @@ const FPMSeriesDetail = () => {
               หรือเลือกชุด Bundle ที่ ENT จัดให้พอดี
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-4">
+          <div className="grid md:grid-cols-3 gap-5">
             {[
               {
                 icon: Cpu, name: "GT Series", tagline: "Embedded Box PC", to: "/gt-series",
                 desc: "Mini PC ทนทาน Fanless สำหรับ HMI โรงงาน — เลือกได้หลายรุ่นตาม CPU/RAM",
-                badge: "Best Match",
+                badge: "Best Match", img: bundleGT,
+                alt: `${data.model} เชื่อมต่อกับ GT Series Mini PC ผ่าน HDMI`,
               },
               {
                 icon: Server, name: "EPC Box Series", tagline: "Edge Computing", to: "/epc-box-series",
                 desc: "Industrial Box PC พลังสูง รองรับ AI/Edge Computing ขยาย I/O ได้",
-                badge: "High Performance",
+                badge: "High Performance", img: bundleEPC,
+                alt: `${data.model} เชื่อมต่อกับ EPC Box Series สำหรับ AI/Edge Computing`,
               },
               {
                 icon: HardDrive, name: "UPC Series", tagline: "Ultra-Compact PC", to: "/upc-series",
                 desc: "Mini PC ขนาดเล็กพิเศษ ติดตั้งหลังจอแบบ VESA Mount เนียนกริบ",
-                badge: "Space Saving",
+                badge: "Space Saving", img: bundleUPC,
+                alt: `${data.model} ติดตั้ง UPC Series หลังจอแบบ VESA Mount`,
               },
             ].map((sol) => (
               <Link
                 key={sol.name}
                 to={sol.to}
-                className="group p-6 rounded-2xl border border-border bg-card hover:border-primary/40 hover:shadow-lg transition-all"
+                className="group rounded-2xl border border-border bg-card hover:border-primary/40 hover:shadow-xl transition-all overflow-hidden flex flex-col"
               >
-                <div className="flex items-start justify-between mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <sol.icon size={22} />
-                  </div>
-                  <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold uppercase border border-emerald-500/30">
+                <div className="relative aspect-[16/9] bg-gradient-to-br from-secondary/40 to-background overflow-hidden">
+                  <img
+                    src={sol.img}
+                    alt={sol.alt}
+                    loading="lazy"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <span className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-emerald-500/95 text-white text-[10px] font-bold uppercase shadow-md backdrop-blur">
                     {sol.badge}
                   </span>
+                  <div className="absolute bottom-3 left-3 w-10 h-10 rounded-xl bg-background/95 text-primary flex items-center justify-center shadow-lg backdrop-blur group-hover:scale-110 transition-transform">
+                    <sol.icon size={20} />
+                  </div>
                 </div>
-                <div className="text-xs font-bold uppercase tracking-wider text-primary mb-1">{sol.tagline}</div>
-                <h3 className="text-lg font-display font-bold text-foreground mb-2">{sol.name}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">{sol.desc}</p>
-                <div className="inline-flex items-center gap-1 text-sm text-primary font-bold group-hover:gap-2 transition-all">
-                  ดูรุ่นทั้งหมด <ArrowRight size={14} />
+                <div className="p-5 flex-1 flex flex-col">
+                  <div className="text-xs font-bold uppercase tracking-wider text-primary mb-1">{sol.tagline}</div>
+                  <h3 className="text-lg font-display font-bold text-foreground mb-2">{sol.name}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">{sol.desc}</p>
+                  <div className="inline-flex items-center gap-1 text-sm text-primary font-bold group-hover:gap-2 transition-all">
+                    ดูรุ่นทั้งหมด <ArrowRight size={14} />
+                  </div>
                 </div>
               </Link>
             ))}
