@@ -496,6 +496,7 @@ const FPMSeries = () => {
                 <thead>
                   <tr className="border-b border-border bg-muted/40">
                     <th className="text-left p-3 font-semibold text-muted-foreground text-xs uppercase tracking-wider">#</th>
+                    <th className="text-left p-3 font-semibold text-muted-foreground text-xs uppercase tracking-wider w-16">รูป</th>
                     <th className="text-left p-3 font-semibold text-muted-foreground text-xs uppercase tracking-wider">รุ่น</th>
                     <th className="text-left p-3 font-semibold text-muted-foreground text-xs uppercase tracking-wider">ขนาด</th>
                     <th className="text-left p-3 font-semibold text-muted-foreground text-xs uppercase tracking-wider hidden md:table-cell">ความละเอียด</th>
