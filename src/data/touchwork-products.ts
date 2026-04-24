@@ -47,6 +47,39 @@ export interface TouchWorkVariant {
   description: string;
 }
 
+export interface SpecRow {
+  label: string;
+  value: string;
+}
+
+export interface CpuOption {
+  cpu: string;
+  gpu: string;
+  memory: string;
+  storage: string;
+  network: string;
+  os: string;
+}
+
+export interface DetailedSpecs {
+  /** LCD Panel — เหมือนทุก variant ของรุ่นเดียวกัน */
+  lcd: SpecRow[];
+  /** Touch Panel */
+  touch: SpecRow[];
+  /** Dimension & Weight */
+  dimension: SpecRow[];
+  /** Operation Environment */
+  environment: SpecRow[];
+  /** Power Supply */
+  power: SpecRow[];
+  /** สิ่งที่อยู่ในกล่อง */
+  delivery: string[];
+  /** ตัวเลือก CPU สำหรับ Android (ARM variant) */
+  androidOptions?: CpuOption[];
+  /** ตัวเลือก CPU สำหรับ Windows (X86 variant) */
+  windowsOptions?: CpuOption[];
+}
+
 export interface TouchWorkProduct {
   model: string;
   size: number; // inches
@@ -58,6 +91,7 @@ export interface TouchWorkProduct {
   mounting: string[];
   highlights: string[];
   variants: TouchWorkVariant[];
+  specs: DetailedSpecs;
 }
 
 const archMeta: Record<TouchWorkArch, { os: string; cpuHint: string; description: string }> = {
@@ -100,152 +134,183 @@ function buildVariants(model: string, archs: TouchWorkArch[]): TouchWorkVariant[
   }));
 }
 
-export const touchworkProducts: TouchWorkProduct[] = [
+// ---- Spec derivation ------------------------------------------------------
+
+interface RawProduct {
+  model: string;
+  size: number;
+  resolution: string;
+  ratio: string;
+  touch: string;
+  brightness: string;
+  ipRating: string;
+  mounting: string[];
+  highlights: string[];
+  archs: TouchWorkArch[];
+  /** ข้อมูลขนาดเครื่องจริง (ถ้ามีจาก spec sheet) */
+  dimensionMm?: string;
+  /** ข้อมูลน้ำหนัก (kg) */
+  netWeight?: string;
+  grossWeight?: string;
+  /** active area (mm) */
+  activeArea?: string;
+  /** ARM CPU options ที่ระบุเฉพาะ */
+  androidOptions?: CpuOption[];
+  /** X86 CPU options ที่ระบุเฉพาะ */
+  windowsOptions?: CpuOption[];
+}
+
+const defaultAndroidOptions: CpuOption[] = [
   {
-    model: "DM080NF",
-    size: 8,
-    resolution: "1024 × 768",
-    ratio: "4:3",
-    touch: "Capacitive 10-point",
-    brightness: "300 nits",
-    ipRating: "IP65 (หน้า)",
-    mounting: ["VESA 75", "ฝัง Embedded", "ตั้งโต๊ะ"],
-    highlights: ["จอเล็กกะทัดรัด", "เหมาะกับเครื่องคิดเงิน/Kiosk", "ใช้พื้นที่น้อย"],
-    variants: buildVariants("DM080NF", ["Monitor", "ARM", "X86"]),
+    cpu: "Rockchip RK3568",
+    gpu: "ARM Mali-G52 2EE",
+    memory: "2GB (เลือก 4GB ได้)",
+    storage: "16GB / 32GB eMMC",
+    network: "10/100M RJ45, Wi-Fi 802.11 a/b/g/n/ac",
+    os: "Android 11",
   },
   {
-    model: "DM080WG",
-    size: 8,
-    resolution: "1280 × 800",
-    ratio: "16:10",
-    touch: "Capacitive 10-point",
-    brightness: "350 nits",
-    ipRating: "IP65 (หน้า)",
-    mounting: ["VESA 75", "ฝัง Embedded"],
-    highlights: ["Widescreen 16:10", "ภาพคมชัด", "เหมาะกับโชว์รูมและ Smart Home"],
-    variants: buildVariants("DM080WG", ["Monitor", "ARM"]),
+    cpu: "Rockchip RK3588",
+    gpu: "ARM Mali-G610",
+    memory: "4GB (เลือก 8GB ได้)",
+    storage: "64GB / 128GB eMMC",
+    network: "1Gbps RJ45, Wi-Fi 802.11 a/b/g/n/ac",
+    os: "Android 12",
   },
   {
-    model: "DM101G",
-    size: 10.1,
-    resolution: "1280 × 800",
-    ratio: "16:10",
-    touch: "Capacitive 10-point",
-    brightness: "350 nits",
-    ipRating: "IP65 (หน้า)",
-    mounting: ["VESA 75", "ฝัง Embedded", "ตั้งโต๊ะ"],
-    highlights: ["ขนาดยอดนิยม", "เหมาะกับ Self-Order ในร้านอาหาร", "ราคาเข้าถึงได้"],
-    variants: buildVariants("DM101G", ["Monitor", "ARM", "X86"]),
-  },
-  {
-    model: "DM104G",
-    size: 10.4,
-    resolution: "1024 × 768",
-    ratio: "4:3",
-    touch: "Capacitive 10-point",
-    brightness: "350 nits",
-    ipRating: "IP65 (หน้า)",
-    mounting: ["VESA 75", "ฝัง Embedded"],
-    highlights: ["จอ 4:3 คลาสสิก", "เหมาะกับสายการผลิต MES", "ทนทาน"],
-    variants: buildVariants("DM104G", ["Monitor", "ARM", "X86"]),
-  },
-  {
-    model: "DM121G",
-    size: 12.1,
-    resolution: "1024 × 768",
-    ratio: "4:3",
-    touch: "Capacitive 10-point",
-    brightness: "400 nits",
-    ipRating: "IP65 (หน้า)",
-    mounting: ["VESA 75", "ฝัง Embedded"],
-    highlights: ["แสดงผลคมชัด", "เหมาะกับ HMI โรงงาน", "ใช้งานยาวนาน 24/7"],
-    variants: buildVariants("DM121G", ["Monitor", "ARM", "X86"]),
-  },
-  {
-    model: "DM15G",
-    size: 15,
-    resolution: "1024 × 768",
-    ratio: "4:3",
-    touch: "Capacitive 10-point",
-    brightness: "350 nits",
-    ipRating: "IP65 (หน้า)",
-    mounting: ["VESA 75/100", "ฝัง Embedded", "ตั้งโต๊ะ"],
-    highlights: ["ขนาดมาตรฐานโรงงาน", "เหมาะกับเครื่องจักร", "ทนฝุ่นและความชื้น"],
-    variants: buildVariants("DM15G", ["Monitor", "ARM", "X86"]),
-  },
-  {
-    model: "DM156G",
-    size: 15.6,
-    resolution: "1920 × 1080",
-    ratio: "16:9",
-    touch: "Capacitive 10-point",
-    brightness: "400 nits",
-    ipRating: "IP65 (หน้า)",
-    mounting: ["VESA 75/100", "ฝัง Embedded"],
-    highlights: ["Full HD คมชัด", "ขนาด Widescreen ยอดนิยม", "เหมาะกับ POS และ Self-Service"],
-    variants: buildVariants("DM156G", ["Monitor", "ARM", "X86"]),
-  },
-  {
-    model: "DM17G",
-    size: 17,
-    resolution: "1280 × 1024",
-    ratio: "5:4",
-    touch: "Capacitive 10-point",
-    brightness: "350 nits",
-    ipRating: "IP65 (หน้า)",
-    mounting: ["VESA 100", "ฝัง Embedded"],
-    highlights: ["จอใหญ่อ่านง่าย", "เหมาะกับห้องควบคุม", "ทนทานต่อการใช้งานหนัก"],
-    variants: buildVariants("DM17G", ["Monitor", "ARM", "X86"]),
-  },
-  {
-    model: "DM19G",
-    size: 19,
-    resolution: "1280 × 1024",
-    ratio: "5:4",
-    touch: "Capacitive 10-point",
-    brightness: "350 nits",
-    ipRating: "IP65 (หน้า)",
-    mounting: ["VESA 100", "ฝัง Embedded", "ตั้งโต๊ะ"],
-    highlights: ["จอใหญ่ระดับ Workstation", "เหมาะกับ ERP และระบบจัดการ", "พื้นที่ทำงานกว้าง"],
-    variants: buildVariants("DM19G", ["Monitor", "ARM", "X86"]),
-  },
-  {
-    model: "DM215G",
-    size: 21.5,
-    resolution: "1920 × 1080",
-    ratio: "16:9",
-    touch: "Capacitive 10-point",
-    brightness: "400 nits",
-    ipRating: "IP65 (หน้า)",
-    mounting: ["VESA 100", "ฝัง Embedded", "ตั้งโต๊ะ"],
-    highlights: ["Full HD จอใหญ่", "เหมาะกับ Digital Signage และ Self-Order", "ดีไซน์ทันสมัย"],
-    variants: buildVariants("DM215G", ["Monitor", "ARM", "X86"]),
-  },
-  {
-    model: "GD133",
-    size: 13.3,
-    resolution: "1920 × 1080",
-    ratio: "16:9",
-    touch: "Capacitive 10-point",
-    brightness: "400 nits",
-    ipRating: "IP65 (หน้า)",
-    mounting: ["Wall Mount (ติดผนังเฉพาะรุ่น)", "VESA 75"],
-    highlights: ["ดีไซน์ติดผนังเฉพาะ", "Full HD บางเฉียบ", "เหมาะกับโรงแรม/ออฟฟิศ"],
-    variants: buildVariants("GD133", ["Monitor", "ARM", "X86"]),
-  },
-  {
-    model: "JD185B",
-    size: 18.5,
-    resolution: "1366 × 768",
-    ratio: "16:9",
-    touch: "Capacitive 10-point",
-    brightness: "350 nits",
-    ipRating: "IP65 (หน้า)",
-    mounting: ["VESA 100", "ฝัง Embedded"],
-    highlights: ["ขนาดกลางคุ้มค่า", "เหมาะกับ Kiosk ทั่วไป", "ดีไซน์เรียบร้อย"],
-    variants: buildVariants("JD185B", ["Monitor", "ARM", "X86"]),
+    cpu: "Rockchip RK3576",
+    gpu: "ARM Mali-G52",
+    memory: "4GB (เลือก 8GB ได้)",
+    storage: "32GB / 64GB eMMC",
+    network: "1Gbps RJ45, Wi-Fi 802.11 a/b/g/n/ac",
+    os: "Android 14",
   },
 ];
+
+const defaultWindowsOptions: CpuOption[] = [
+  {
+    cpu: "Intel® Celeron® J6412",
+    gpu: "Intel® UHD Graphics",
+    memory: "DDR4-2666 SODIMM 8GB",
+    storage: "mSATA 128GB",
+    network: "Gigabit RJ45, Wi-Fi 802.11 a/b/g/n/ac",
+    os: "Windows 10 Enterprise 2019 LTSC",
+  },
+  {
+    cpu: "Intel® Core™ i5-8257U",
+    gpu: "Intel® Iris® Plus Graphics 645",
+    memory: "DDR4-2666 SODIMM 8GB",
+    storage: "mSATA 256GB",
+    network: "Gigabit RJ45, Wi-Fi 802.11 a/b/g/n/ac",
+    os: "Windows 10 / 11 รองรับ",
+  },
+  {
+    cpu: "Intel® Core™ i7-10510U",
+    gpu: "Intel® UHD Graphics",
+    memory: "DDR4-2666 SODIMM 8GB",
+    storage: "mSATA 256GB",
+    network: "Gigabit RJ45, Wi-Fi 802.11 a/b/g/n/ac",
+    os: "Windows 10 / 11 รองรับ",
+  },
+];
+
+function buildSpecs(p: RawProduct): DetailedSpecs {
+  const lcd: SpecRow[] = [
+    { label: "ขนาดหน้าจอ", value: `${p.size} นิ้ว` },
+    { label: "ความละเอียด", value: p.resolution },
+    { label: "อัตราส่วน", value: p.ratio },
+    ...(p.activeArea ? [{ label: "พื้นที่แสดงผล (mm)", value: p.activeArea }] : []),
+    { label: "สีที่แสดงผลได้", value: "16.7M" },
+    { label: "ความสว่าง", value: `${p.brightness} (≥${p.brightness.replace(/\D/g, "")} cd/m²)` },
+    { label: "Contrast Ratio", value: "1000:1" },
+    { label: "มุมมอง H/V", value: "178° / 178°" },
+    { label: "อายุ Backlight", value: "LED 30,000 ชม." },
+    { label: "Refresh Rate", value: "60 Hz" },
+  ];
+
+  const touch: SpecRow[] = [
+    { label: "เทคโนโลยี", value: "PCAP (Projected Capacitive)" },
+    { label: "Response Time", value: "< 5 ms" },
+    { label: "จำนวนจุดสัมผัส", value: "10 จุด (Multi-touch)" },
+    { label: "ความแม่นยำขั้นต่ำ", value: "> 1.5 mm" },
+    { label: "Scanning Frequency", value: "200 Hz" },
+    { label: "Scanning Accuracy", value: "4096 × 4096" },
+    { label: "กระแส/แรงดันใช้งาน", value: "180mA / DC +5V ±5%" },
+    { label: "ความแข็งผิวหน้า", value: "Mohs Class 7 (Explosion-proof Glass)" },
+  ];
+
+  const dimension: SpecRow[] = [
+    { label: "ขนาดเครื่อง (W×H×T)", value: p.dimensionMm || "ติดต่อทีมขายเพื่อขอแบบเต็ม" },
+    { label: "ขนาดช่องฝัง (Embedded)", value: "ตามรุ่น — แจ้งทีมขาย" },
+    { label: "น้ำหนักสุทธิ", value: p.netWeight || "ตามรุ่น" },
+    { label: "น้ำหนักรวมหีบห่อ", value: p.grossWeight || "ตามรุ่น" },
+    { label: "มาตรฐานป้องกัน", value: p.ipRating },
+    { label: "รูปแบบติดตั้ง", value: p.mounting.join(" • ") },
+  ];
+
+  const environment: SpecRow[] = [
+    { label: "อุณหภูมิใช้งาน", value: "0 °C – 50 °C" },
+    { label: "ความชื้นใช้งาน", value: "10% – 80% RH" },
+    { label: "อุณหภูมิเก็บรักษา", value: "−5 °C – 60 °C" },
+    { label: "ความชื้นเก็บรักษา", value: "10% – 85% RH" },
+  ];
+
+  const power: SpecRow[] = [
+    { label: "Power Input", value: "110–240V AC 50/60Hz" },
+    { label: "Power Output", value: "DC 12V 3A" },
+    { label: "Standby Power", value: "≤ 0.5W" },
+    { label: "Power สูงสุด (Monitor)", value: "< 30W" },
+    { label: "Power สูงสุด (Android)", value: "< 36W" },
+    { label: "Power สูงสุด (Windows)", value: "< 48W" },
+  ];
+
+  const delivery = [
+    "คู่มือการใช้งาน × 1",
+    "อุปกรณ์ติดตั้ง (Bracket / Mount) × 1",
+    "สาย AC Power × 1",
+    ...(p.archs.includes("ARM") || p.archs.includes("X86") ? ["เสาอากาศ Wi-Fi × 1"] : []),
+  ];
+
+  return {
+    lcd,
+    touch,
+    dimension,
+    environment,
+    power,
+    delivery,
+    androidOptions: p.archs.includes("ARM") ? (p.androidOptions || defaultAndroidOptions) : undefined,
+    windowsOptions: p.archs.includes("X86") ? (p.windowsOptions || defaultWindowsOptions) : undefined,
+  };
+}
+
+const rawProducts: RawProduct[] = [
+  { model: "DM080NF", size: 8, resolution: "1024 × 768", ratio: "4:3", touch: "Capacitive 10-point", brightness: "300 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 75", "ฝัง Embedded", "ตั้งโต๊ะ"], highlights: ["จอเล็กกะทัดรัด", "เหมาะกับเครื่องคิดเงิน/Kiosk", "ใช้พื้นที่น้อย"], archs: ["Monitor", "ARM", "X86"] },
+  { model: "DM080WG", size: 8, resolution: "1280 × 800", ratio: "16:10", touch: "Capacitive 10-point", brightness: "350 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 75", "ฝัง Embedded"], highlights: ["Widescreen 16:10", "ภาพคมชัด", "เหมาะกับโชว์รูมและ Smart Home"], archs: ["Monitor", "ARM"] },
+  { model: "DM101G", size: 10.1, resolution: "1280 × 800", ratio: "16:10", touch: "Capacitive 10-point", brightness: "350 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 75", "ฝัง Embedded", "ตั้งโต๊ะ"], highlights: ["ขนาดยอดนิยม", "เหมาะกับ Self-Order ในร้านอาหาร", "ราคาเข้าถึงได้"], archs: ["Monitor", "ARM", "X86"] },
+  { model: "DM104G", size: 10.4, resolution: "1024 × 768", ratio: "4:3", touch: "Capacitive 10-point", brightness: "350 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 75", "ฝัง Embedded"], highlights: ["จอ 4:3 คลาสสิก", "เหมาะกับสายการผลิต MES", "ทนทาน"], archs: ["Monitor", "ARM", "X86"] },
+  { model: "DM121G", size: 12.1, resolution: "1024 × 768", ratio: "4:3", touch: "Capacitive 10-point", brightness: "400 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 75", "ฝัง Embedded"], highlights: ["แสดงผลคมชัด", "เหมาะกับ HMI โรงงาน", "ใช้งานยาวนาน 24/7"], archs: ["Monitor", "ARM", "X86"] },
+  { model: "DM15G", size: 15, resolution: "1024 × 768", ratio: "4:3", touch: "Capacitive 10-point", brightness: "350 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 75/100", "ฝัง Embedded", "ตั้งโต๊ะ"], highlights: ["ขนาดมาตรฐานโรงงาน", "เหมาะกับเครื่องจักร", "ทนฝุ่นและความชื้น"], archs: ["Monitor", "ARM", "X86"] },
+  { model: "DM156G", size: 15.6, resolution: "1920 × 1080", ratio: "16:9", touch: "Capacitive 10-point", brightness: "400 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 75/100", "ฝัง Embedded"], highlights: ["Full HD คมชัด", "ขนาด Widescreen ยอดนิยม", "เหมาะกับ POS และ Self-Service"], archs: ["Monitor", "ARM", "X86"] },
+  { model: "DM17G", size: 17, resolution: "1280 × 1024", ratio: "5:4", touch: "Capacitive 10-point", brightness: "350 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 100", "ฝัง Embedded"], highlights: ["จอใหญ่อ่านง่าย", "เหมาะกับห้องควบคุม", "ทนทานต่อการใช้งานหนัก"], archs: ["Monitor", "ARM", "X86"] },
+  { model: "DM19G", size: 19, resolution: "1280 × 1024", ratio: "5:4", touch: "Capacitive 10-point", brightness: "350 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 100", "ฝัง Embedded", "ตั้งโต๊ะ"], highlights: ["จอใหญ่ระดับ Workstation", "เหมาะกับ ERP และระบบจัดการ", "พื้นที่ทำงานกว้าง"], archs: ["Monitor", "ARM", "X86"] },
+  { model: "DM215G", size: 21.5, resolution: "1920 × 1080", ratio: "16:9", touch: "Capacitive 10-point", brightness: "400 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 100", "ฝัง Embedded", "ตั้งโต๊ะ"], highlights: ["Full HD จอใหญ่", "เหมาะกับ Digital Signage และ Self-Order", "ดีไซน์ทันสมัย"], archs: ["Monitor", "ARM", "X86"] },
+  { model: "GD133", size: 13.3, resolution: "1920 × 1080", ratio: "16:9", touch: "Capacitive 10-point", brightness: "250 nits", ipRating: "IP65 (หน้า)", mounting: ["Wall Mount (ติดผนังเฉพาะรุ่น)", "VESA 75"], highlights: ["ดีไซน์ติดผนังเฉพาะ", "Full HD บางเฉียบ", "เหมาะกับโรงแรม/ออฟฟิศ"], archs: ["Monitor", "ARM", "X86"], dimensionMm: "337.53 × 297.13 × 42.8 mm", activeArea: "239.4 × 165 mm", netWeight: "3.33 kg", grossWeight: "4.51 kg" },
+  { model: "JD185B", size: 18.5, resolution: "1366 × 768", ratio: "16:9", touch: "Capacitive 10-point", brightness: "350 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 100", "ฝัง Embedded"], highlights: ["ขนาดกลางคุ้มค่า", "เหมาะกับ Kiosk ทั่วไป", "ดีไซน์เรียบร้อย"], archs: ["Monitor", "ARM", "X86"] },
+];
+
+export const touchworkProducts: TouchWorkProduct[] = rawProducts.map((p) => ({
+  model: p.model,
+  size: p.size,
+  resolution: p.resolution,
+  ratio: p.ratio,
+  touch: p.touch,
+  brightness: p.brightness,
+  ipRating: p.ipRating,
+  mounting: p.mounting,
+  highlights: p.highlights,
+  variants: buildVariants(p.model, p.archs),
+  specs: buildSpecs(p),
+}));
 
 export const sizeOptions = [8, 10.1, 10.4, 12.1, 13.3, 15, 15.6, 17, 18.5, 19, 21.5];
 export const archOptions: TouchWorkArch[] = ["Monitor", "ARM", "X86"];
