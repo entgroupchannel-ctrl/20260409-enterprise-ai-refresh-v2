@@ -384,6 +384,54 @@ export default function TouchWorkDetail() {
             </TabsContent>
           )}
 
+          {/* I/O & Installation — รูปจากผู้ผลิต TouchWo (เป็น generic diagram ใช้ได้ทุกรุ่น) */}
+          <TabsContent value="io" className="mt-6 space-y-8">
+            <div className="rounded-xl border border-border bg-card overflow-hidden">
+              <div className="px-5 py-3 border-b border-border bg-muted/30 flex items-center gap-2">
+                <Link2 className="h-4 w-4 text-primary" />
+                <h3 className="font-bold">พอร์ตเชื่อมต่อ (Interface I/O)</h3>
+              </div>
+              <div className="p-5 bg-gradient-to-br from-muted/20 to-background">
+                <img
+                  src={ioPortsImg}
+                  alt={`${product.model} interface I/O ports diagram`}
+                  className="w-full max-w-3xl mx-auto object-contain"
+                  loading="lazy"
+                />
+                <p className="mt-3 text-xs text-muted-foreground text-center">
+                  * แผนผังพอร์ตอ้างอิงจากผู้ผลิต — รายละเอียดจริงตามรุ่นและ Architecture ที่เลือก ติดต่อทีมขายเพื่อยืนยันก่อนสั่งซื้อ
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <Box className="h-4 w-4 text-primary" />
+                <h3 className="font-bold">รูปแบบการติดตั้ง (Versatile Installation)</h3>
+              </div>
+              <p className="text-sm text-muted-foreground mb-4">
+                รองรับการติดตั้งหลากหลายรูปแบบเพื่อความยืดหยุ่นในการใช้งาน
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                {[
+                  { img: installWallImg, label: "ติดผนัง (Wall Mount)", desc: "ใช้พื้นที่น้อย เหมาะกับ Kiosk และจุดบริการตนเอง" },
+                  { img: installDeskImg, label: "ตั้งโต๊ะ (Desktop)", desc: "เคลื่อนย้ายสะดวก ใช้กับ POS, Reception" },
+                  { img: installEmbedImg, label: "ฝัง (Embedded)", desc: "ฝังในตู้/แผงควบคุม HMI โรงงาน" },
+                ].map((m) => (
+                  <div key={m.label} className="rounded-xl border border-border bg-card overflow-hidden">
+                    <div className="aspect-square bg-gradient-to-br from-muted/30 to-background p-4">
+                      <img src={m.img} alt={m.label} className="w-full h-full object-contain" loading="lazy" />
+                    </div>
+                    <div className="p-3 border-t border-border/60">
+                      <div className="text-sm font-semibold mb-1">{m.label}</div>
+                      <div className="text-xs text-muted-foreground">{m.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </TabsContent>
+
           <TabsContent value="delivery" className="mt-6">
             <div className="rounded-xl border border-border bg-card p-5">
               <h3 className="font-bold mb-3 flex items-center gap-2">
