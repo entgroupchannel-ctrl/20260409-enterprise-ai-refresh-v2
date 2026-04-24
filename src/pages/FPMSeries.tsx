@@ -16,19 +16,44 @@ import PriceDisclaimer from "@/components/PriceDisclaimer";
 import smartDisplayHero from "@/assets/smart-display-hero.jpg";
 
 /* ─── Data ─── */
+// Image map: รุ่น → ภาพ (ใช้ภาพจริงจาก cesipc.com)
+const IMG_10 = "/images/fpm/products/fpm-1002s-10inch.jpg";
+const IMG_15K = "/images/fpm/products/fpm-1502k-15-6inch.jpg";
+const IMG_17 = "/images/fpm/products/fpm-1702k-17-3inch.jpg";
+const IMG_RFID = "/images/fpm/products/fpm-1502b-rfid.jpg";
+
 const fpmTouchMonitors = [
-  { no: 1, model: "FPM-0801A", size: '8"', resolution: "1024x768", ratio: "4:3", touch: "Resistive", brightness: 300, price: "10,990" },
-  { no: 2, model: "FPM-0802A", size: '8"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "12,990" },
-  { no: 3, model: "FPM-1001A", size: '10"', resolution: "1024x768", ratio: "4:3", touch: "Resistive", brightness: 300, price: "12,990" },
-  { no: 4, model: "FPM-1002A", size: '10"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "14,990" },
-  { no: 5, model: "FPM-1202A", size: '12"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "15,990" },
-  { no: 6, model: "FPM-1501A", size: '15"', resolution: "1024x768", ratio: "4:3", touch: "Resistive", brightness: 300, price: "17,990" },
-  { no: 7, model: "FPM-1502A", size: '15"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "19,990" },
-  { no: 8, model: "FPM-1702A", size: '17"', resolution: "1280x1024", ratio: "5:4", touch: "Capacitive", brightness: 300, price: "21,990" },
-  { no: 9, model: "FPM-1902A", size: '19"', resolution: "1280x1024", ratio: "5:4", touch: "Capacitive", brightness: 300, price: "21,990" },
-  { no: 10, model: "FPM-1502K", size: '16"', resolution: "1920x1080", ratio: "16:9", touch: "Capacitive", brightness: 300, price: "19,990" },
-  { no: 11, model: "FPM-2102K", size: '21.5"', resolution: "1920x1080", ratio: "16:9", touch: "Capacitive", brightness: 300, price: "24,990" },
-  { no: 12, model: "FPM-2402KA", size: '24"', resolution: "1920x1080", ratio: "16:9", touch: "Capacitive", brightness: 300, price: "Call" },
+  { no: 1, model: "FPM-0801A", size: '8"', resolution: "1024x768", ratio: "4:3", touch: "Resistive", brightness: 300, price: "10,990", image: IMG_10, slug: "fpm-0801a" },
+  { no: 2, model: "FPM-0802A", size: '8"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "12,990", image: IMG_10, slug: "fpm-0802a" },
+  { no: 3, model: "FPM-1001A", size: '10"', resolution: "1024x768", ratio: "4:3", touch: "Resistive", brightness: 300, price: "12,990", image: IMG_10, slug: "fpm-1001a" },
+  { no: 4, model: "FPM-1002A", size: '10"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "14,990", image: IMG_10, slug: "fpm-1002a" },
+  { no: 5, model: "FPM-1202A", size: '12"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "15,990", image: IMG_10, slug: "fpm-1202a" },
+  { no: 6, model: "FPM-1501A", size: '15"', resolution: "1024x768", ratio: "4:3", touch: "Resistive", brightness: 300, price: "17,990", image: IMG_RFID, slug: "fpm-1501a" },
+  { no: 7, model: "FPM-1502A", size: '15"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "19,990", image: IMG_RFID, slug: "fpm-1502a" },
+  { no: 8, model: "FPM-1702A", size: '17"', resolution: "1280x1024", ratio: "5:4", touch: "Capacitive", brightness: 300, price: "21,990", image: IMG_17, slug: "fpm-1702a" },
+  { no: 9, model: "FPM-1902A", size: '19"', resolution: "1280x1024", ratio: "5:4", touch: "Capacitive", brightness: 300, price: "21,990", image: IMG_17, slug: "fpm-1902a" },
+  { no: 10, model: "FPM-1502K", size: '16"', resolution: "1920x1080", ratio: "16:9", touch: "Capacitive", brightness: 300, price: "19,990", image: IMG_15K, slug: "fpm-1502k" },
+  { no: 11, model: "FPM-2102K", size: '21.5"', resolution: "1920x1080", ratio: "16:9", touch: "Capacitive", brightness: 300, price: "24,990", image: IMG_17, slug: "fpm-2102k" },
+  { no: 12, model: "FPM-2402KA", size: '24"', resolution: "1920x1080", ratio: "16:9", touch: "Capacitive", brightness: 300, price: "Call", image: IMG_17, slug: "fpm-2402ka" },
+];
+
+// Product Showcase — 6 highlight models (จาก cesipc.com landing)
+const productShowcase = [
+  { model: "FPM-1002S", size: '10"', label: "10-inch Industrial", image: IMG_10, slug: "fpm-1002a" },
+  { model: "FPM-1202C", size: '12"', label: "12-inch Industrial", image: IMG_10, slug: "fpm-1202a" },
+  { model: "FPM-1502B-RFID", size: '15"', label: "15-inch RFID Edition", image: IMG_RFID, slug: "fpm-1502a", badge: "RFID" },
+  { model: "FPM-1502K", size: '15.6"', label: "15.6-inch Wide", image: IMG_15K, slug: "fpm-1502k" },
+  { model: "FPM-1702K", size: '17.3"', label: "17.3-inch Industrial", image: IMG_17, slug: "fpm-1702a" },
+  { model: "FPM-2102K", size: '21.5"', label: "21.5-inch Wide", image: IMG_17, slug: "fpm-2102k" },
+];
+
+// Lifestyle / Real-world installation gallery
+const lifestyleGallery = [
+  { src: "/images/fpm/lifestyle/install-1.jpg", caption: "ติดตั้งบน Arm Mount ในสายการผลิต" },
+  { src: "/images/fpm/lifestyle/install-2.jpg", caption: "Embedded Cabinet ในห้องคอนโทรล" },
+  { src: "/images/fpm/lifestyle/install-3.jpg", caption: "ใช้งาน RFID อ่าน Tag คลังสินค้า" },
+  { src: "/images/fpm/lifestyle/install-4.jpg", caption: "หน้าจอ HMI สำหรับ CNC" },
+  { src: "/images/fpm/lifestyle/install-5.jpg", caption: "ติดตั้ง VESA บนผนัง" },
 ];
 
 const fpmDatasheets = [
@@ -218,6 +243,97 @@ const FPMSeries = () => {
         </div>
       </section>
 
+      {/* ═══ Product Showcase — 6 Highlight Models ═══ */}
+      <section className="py-16 border-b border-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <span className="text-xs font-semibold tracking-widest uppercase text-primary mb-3 block">
+              Product Lineup
+            </span>
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-3">
+              รุ่นเด่น <span className="text-primary">6 รุ่นยอดนิยม</span>
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              จาก 10" ถึง 21.5" — ครอบคลุมทุกการใช้งาน HMI, Smart Warehouse, CNC Control
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {productShowcase.map((p) => (
+              <Link
+                key={p.model}
+                to={`/fpm-series/${p.slug}`}
+                className="group rounded-2xl border border-border bg-card overflow-hidden hover:border-primary/50 hover:shadow-xl transition-all"
+              >
+                <div className="relative aspect-[4/3] bg-muted overflow-hidden flex items-center justify-center p-6">
+                  <img
+                    src={p.image}
+                    alt={`${p.model} ${p.label}`}
+                    className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  {p.badge && (
+                    <span className="absolute top-3 right-3 px-2 py-1 rounded-full bg-amber-500/90 text-amber-50 text-[10px] font-black uppercase tracking-wider shadow-md">
+                      {p.badge}
+                    </span>
+                  )}
+                  <span className="absolute top-3 left-3 px-2 py-1 rounded-md bg-primary/90 text-primary-foreground text-[10px] font-black uppercase tracking-wider">
+                    {p.size}
+                  </span>
+                </div>
+                <div className="p-4 border-t border-border">
+                  <div className="text-xs text-muted-foreground uppercase tracking-wider mb-1">{p.label}</div>
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-display font-bold text-foreground group-hover:text-primary transition-colors">{p.model}</h3>
+                    <ArrowRight size={16} className="text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ Lifestyle / Real-world Showcase ═══ */}
+      <section className="py-16 border-b border-border bg-muted/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <span className="text-xs font-semibold tracking-widest uppercase text-primary mb-3 block">
+              Real Installation
+            </span>
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-3">
+              ภาพจาก <span className="text-primary">การติดตั้งจริง</span>
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              ดูบรรยากาศการใช้งาน FPM Series ในโรงงานและสถานที่จริง
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+            {lifestyleGallery.map((g, i) => (
+              <figure
+                key={i}
+                className={`group relative rounded-xl overflow-hidden border border-border bg-card ${
+                  i === 0 ? "col-span-2 row-span-2 md:col-span-1 md:row-span-1 lg:col-span-2 lg:row-span-2" : ""
+                }`}
+              >
+                <div className={`${i === 0 ? "aspect-square lg:aspect-auto lg:h-full" : "aspect-[3/2]"} overflow-hidden`}>
+                  <img
+                    src={g.src}
+                    alt={g.caption}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    loading="lazy"
+                  />
+                </div>
+                <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 text-white text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                  {g.caption}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ═══ Size Matrix ═══ */}
       <section id="size-matrix" className="py-16 border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -380,6 +496,7 @@ const FPMSeries = () => {
                 <thead>
                   <tr className="border-b border-border bg-muted/40">
                     <th className="text-left p-3 font-semibold text-muted-foreground text-xs uppercase tracking-wider">#</th>
+                    <th className="text-left p-3 font-semibold text-muted-foreground text-xs uppercase tracking-wider w-16">รูป</th>
                     <th className="text-left p-3 font-semibold text-muted-foreground text-xs uppercase tracking-wider">รุ่น</th>
                     <th className="text-left p-3 font-semibold text-muted-foreground text-xs uppercase tracking-wider">ขนาด</th>
                     <th className="text-left p-3 font-semibold text-muted-foreground text-xs uppercase tracking-wider hidden md:table-cell">ความละเอียด</th>
@@ -393,7 +510,14 @@ const FPMSeries = () => {
                   {filtered.map((item) => (
                     <tr key={item.no} className="border-b border-border/50 hover:bg-muted/30 transition-colors">
                       <td className="p-3 text-muted-foreground">{item.no}</td>
-                      <td className="p-3 font-bold text-foreground">{item.model}</td>
+                      <td className="p-3">
+                        <Link to={`/fpm-series/${item.slug}`} className="block w-12 h-12 rounded-md bg-muted overflow-hidden border border-border hover:ring-2 hover:ring-primary/40 transition">
+                          <img src={item.image} alt={item.model} className="w-full h-full object-contain" loading="lazy" />
+                        </Link>
+                      </td>
+                      <td className="p-3 font-bold text-foreground">
+                        <Link to={`/fpm-series/${item.slug}`} className="hover:text-primary transition-colors">{item.model}</Link>
+                      </td>
                       <td className="p-3 text-foreground font-semibold">{item.size}</td>
                       <td className="p-3 text-muted-foreground hidden md:table-cell">{item.resolution}</td>
                       <td className="p-3 text-muted-foreground hidden lg:table-cell">{item.ratio}</td>
