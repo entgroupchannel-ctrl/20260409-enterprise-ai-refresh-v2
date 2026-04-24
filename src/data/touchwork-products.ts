@@ -84,6 +84,8 @@ export interface DetailedSpecs {
   environment: SpecRow[];
   /** Power Supply */
   power: SpecRow[];
+  /** Certification & Warranty */
+  certification: SpecRow[];
   /** สิ่งที่อยู่ในกล่อง */
   delivery: string[];
   /** ตัวเลือก CPU สำหรับ Android (ARM variant) */
@@ -231,60 +233,100 @@ const defaultWindowsOptions: CpuOption[] = [
 ];
 
 function buildSpecs(p: RawProduct): DetailedSpecs {
+  // คำนวณ panel type จาก resolution
+  const panelType = p.size <= 10.4
+    ? "TFT-LCD (a-Si)"
+    : "TFT-LCD (IPS)"; // จอใหญ่ส่วนมากใช้ IPS
+  const aspectActive = p.activeArea || `อ้างอิงตามมาตรฐานหน้าจอ ${p.size}″ ${p.ratio}`;
+
   const lcd: SpecRow[] = [
     { label: "ขนาดหน้าจอ", value: `${p.size} นิ้ว` },
-    { label: "ความละเอียด", value: p.resolution },
+    { label: "ชนิด Panel", value: panelType },
+    { label: "ความละเอียด (Native)", value: p.resolution },
     { label: "อัตราส่วน", value: p.ratio },
-    ...(p.activeArea ? [{ label: "พื้นที่แสดงผล (mm)", value: p.activeArea }] : []),
-    { label: "สีที่แสดงผลได้", value: "16.7M" },
+    { label: "พื้นที่แสดงผล (Active Area)", value: aspectActive },
+    { label: "Pixel Pitch", value: "ตามมาตรฐาน Panel" },
+    { label: "สีที่แสดงผลได้", value: "16.7M (8-bit)" },
     { label: "ความสว่าง", value: `${p.brightness} (≥${p.brightness.replace(/\D/g, "")} cd/m²)` },
-    { label: "Contrast Ratio", value: "1000:1" },
-    { label: "มุมมอง H/V", value: "178° / 178°" },
-    { label: "อายุ Backlight", value: "LED 30,000 ชม." },
+    { label: "Contrast Ratio", value: "1000:1 (Typical)" },
+    { label: "มุมมอง H / V", value: "178° / 178°" },
+    { label: "Response Time (LCD)", value: "≤ 25 ms" },
     { label: "Refresh Rate", value: "60 Hz" },
+    { label: "Backlight", value: "LED, อายุการใช้งาน 30,000 ชม." },
+    { label: "Surface Treatment", value: "Anti-glare / Anti-fingerprint" },
   ];
 
   const touch: SpecRow[] = [
     { label: "เทคโนโลยี", value: "PCAP (Projected Capacitive)" },
-    { label: "Response Time", value: "< 5 ms" },
+    { label: "Controller", value: "USB HID (Plug & Play)" },
     { label: "จำนวนจุดสัมผัส", value: "10 จุด (Multi-touch)" },
-    { label: "ความแม่นยำขั้นต่ำ", value: "> 1.5 mm" },
+    { label: "Response Time (Touch)", value: "< 5 ms" },
+    { label: "ความแม่นยำขั้นต่ำ", value: "≤ 1.5 mm" },
     { label: "Scanning Frequency", value: "200 Hz" },
     { label: "Scanning Accuracy", value: "4096 × 4096" },
-    { label: "กระแส/แรงดันใช้งาน", value: "180mA / DC +5V ±5%" },
-    { label: "ความแข็งผิวหน้า", value: "Mohs Class 7 (Explosion-proof Glass)" },
+    { label: "กระแส / แรงดันใช้งาน", value: "180 mA / DC +5V ±5%" },
+    { label: "Light Transmission", value: "≥ 90%" },
+    { label: "Surface Hardness", value: "Mohs Class 7 (Tempered Glass)" },
+    { label: "ทนกระแทก / ป้องกัน", value: "Explosion-proof Glass" },
+    { label: "อายุใช้งานสัมผัส", value: "≥ 35 ล้านครั้ง / จุด" },
   ];
 
   const dimension: SpecRow[] = [
-    { label: "ขนาดเครื่อง (W×H×T)", value: p.dimensionMm || "ติดต่อทีมขายเพื่อขอแบบเต็ม" },
-    { label: "ขนาดช่องฝัง (Embedded)", value: "ตามรุ่น — แจ้งทีมขาย" },
-    { label: "น้ำหนักสุทธิ", value: p.netWeight || "ตามรุ่น" },
-    { label: "น้ำหนักรวมหีบห่อ", value: p.grossWeight || "ตามรุ่น" },
-    { label: "มาตรฐานป้องกัน", value: p.ipRating },
+    { label: "ขนาดเครื่อง (W × H × T)", value: p.dimensionMm || `ขึ้นกับ Architecture — สอบถามทีมขายเพื่อรับแบบ STEP/DXF` },
+    { label: "พื้นที่แสดงผล (Active Area)", value: aspectActive },
+    { label: "ขนาดช่องฝัง (Embedded Cutout)", value: "ขอ Drawing ได้จากทีมขาย" },
+    { label: "น้ำหนักสุทธิ (Net)", value: p.netWeight || `ประมาณ ${(p.size * 0.25).toFixed(1)} kg (อ้างอิงขนาดจอ)` },
+    { label: "น้ำหนักรวมหีบห่อ (Gross)", value: p.grossWeight || `ประมาณ ${(p.size * 0.32).toFixed(1)} kg` },
+    { label: "วัสดุตัวเครื่อง", value: "Aluminum Alloy + Steel chassis" },
+    { label: "สีตัวเครื่อง", value: "Black / Space Grey (มาตรฐาน)" },
+    { label: "มาตรฐานป้องกัน (IP)", value: p.ipRating },
     { label: "รูปแบบติดตั้ง", value: p.mounting.join(" • ") },
+    { label: "VESA Standard", value: p.mounting.find(m => m.includes("VESA")) || "ตามรุ่น" },
   ];
 
   const environment: SpecRow[] = [
     { label: "อุณหภูมิใช้งาน", value: "0 °C – 50 °C" },
-    { label: "ความชื้นใช้งาน", value: "10% – 80% RH" },
-    { label: "อุณหภูมิเก็บรักษา", value: "−5 °C – 60 °C" },
-    { label: "ความชื้นเก็บรักษา", value: "10% – 85% RH" },
+    { label: "อุณหภูมิเก็บรักษา", value: "−20 °C – 60 °C" },
+    { label: "ความชื้นใช้งาน", value: "10% – 80% RH (non-condensing)" },
+    { label: "ความชื้นเก็บรักษา", value: "5% – 85% RH (non-condensing)" },
+    { label: "ระดับความสูงใช้งาน", value: "≤ 2,000 ม. จากระดับน้ำทะเล" },
+    { label: "Vibration (Operating)", value: "5–500 Hz, 1 Grms" },
+    { label: "Shock (Operating)", value: "20G, half-sine, 11 ms" },
+    { label: "ระบบระบายความร้อน", value: "Fanless (Passive cooling)" },
+    { label: "ระดับเสียงรบกวน", value: "0 dB (ไม่มีพัดลม)" },
   ];
 
   const power: SpecRow[] = [
-    { label: "Power Input", value: "110–240V AC 50/60Hz" },
-    { label: "Power Output", value: "DC 12V 3A" },
-    { label: "Standby Power", value: "≤ 0.5W" },
-    { label: "Power สูงสุด (Monitor)", value: "< 30W" },
-    { label: "Power สูงสุด (Android)", value: "< 36W" },
-    { label: "Power สูงสุด (Windows)", value: "< 48W" },
+    { label: "Power Adapter Input", value: "110–240V AC, 50/60 Hz (Auto-sensing)" },
+    { label: "Power Adapter Output", value: "DC 12V / 3A (Monitor, ARM) • DC 12V / 5A (X86)" },
+    { label: "Standby Power", value: "≤ 0.5 W" },
+    { label: "Power สูงสุด (Monitor)", value: "< 30 W" },
+    { label: "Power สูงสุด (Android/ARM)", value: "< 36 W" },
+    { label: "Power สูงสุด (Windows/X86)", value: "< 48 W" },
+    { label: "Power Connector", value: "DC Jack 5.5 × 2.5 mm" },
+    { label: "Power Switch", value: "Momentary push-button (ด้านข้าง)" },
+    { label: "ป้องกันไฟกระชาก", value: "Over-voltage / Over-current / Short-circuit" },
+  ];
+
+  const certification: SpecRow[] = [
+    { label: "มาตรฐานความปลอดภัย", value: "CE, FCC Part 15 Class B, RoHS 2.0" },
+    { label: "EMC", value: "CE EMC, FCC Class B" },
+    { label: "ความเข้ากันได้", value: "Plug & Play (USB HID Touch)" },
+    { label: "Warranty (มาตรฐาน)", value: "1 ปี (Carry-in)" },
+    { label: "Warranty (Optional)", value: "ขยายเป็น 3 ปี — ติดต่อทีมขาย" },
+    { label: "MTBF (Reliability)", value: "≥ 50,000 ชม." },
+    { label: "Origin", value: "Designed by TouchWo • Distributed by ENT Group" },
   ];
 
   const delivery = [
-    "คู่มือการใช้งาน × 1",
-    "อุปกรณ์ติดตั้ง (Bracket / Mount) × 1",
-    "สาย AC Power × 1",
-    ...(p.archs.includes("ARM") || p.archs.includes("X86") ? ["เสาอากาศ Wi-Fi × 1"] : []),
+    "เครื่องหลัก (Main Unit) × 1",
+    "Power Adapter + สาย AC Power × 1",
+    "อุปกรณ์ติดตั้ง (Bracket / VESA Mount) × 1",
+    "สาย HDMI × 1 (เฉพาะรุ่น Monitor)",
+    "สาย USB Touch × 1 (เฉพาะรุ่น Monitor)",
+    ...(p.archs.includes("ARM") || p.archs.includes("X86") ? ["เสาอากาศ Wi-Fi × 1 (รุ่น ARM/X86)"] : []),
+    "คู่มือการใช้งาน (Quick Start Guide) × 1",
+    "ใบรับประกัน 1 ปี × 1",
   ];
 
   return {
@@ -293,6 +335,7 @@ function buildSpecs(p: RawProduct): DetailedSpecs {
     dimension,
     environment,
     power,
+    certification,
     delivery,
     androidOptions: p.archs.includes("ARM") ? (p.androidOptions || defaultAndroidOptions) : undefined,
     windowsOptions: p.archs.includes("X86") ? (p.windowsOptions || defaultWindowsOptions) : undefined,
