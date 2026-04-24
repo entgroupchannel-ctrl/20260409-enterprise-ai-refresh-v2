@@ -26,6 +26,7 @@ interface Props {
   arch: TouchWorkArch;
   sku: string;
   productName: string;
+  basePrice?: number;
 }
 
 // ---- Option presets per architecture --------------------------------------
