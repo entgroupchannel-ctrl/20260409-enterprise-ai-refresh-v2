@@ -108,7 +108,7 @@ export default function ProductConfigurator({ product, arch, sku, productName, b
   }));
 
   // Reset config when arch changes
-  useMemo(() => {
+  useEffect(() => {
     setSelection({
       screen: screenLabel,
       cpu: opts.cpu[0],
