@@ -322,7 +322,7 @@ export default function TouchWorkDetail() {
       </section>
 
       {/* Product Configurator — minimal 3-column build-to-order */}
-      <ProductConfigurator product={product} arch={selectedArch} sku={sku} productName={productName} />
+      <ProductConfigurator product={product} arch={selectedArch} sku={sku} productName={productName} basePrice={variant.priceTHB} />
 
       {/* Detailed Tabs */}
       <section className="container max-w-7xl mx-auto px-6 py-8 border-t border-border/40">
