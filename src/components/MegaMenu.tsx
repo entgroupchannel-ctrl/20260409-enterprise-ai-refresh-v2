@@ -169,6 +169,7 @@ const menuCategories = [
           { label: "Digital Signage 35\"–75\"", href: "/smart-display", hot: true },
           { label: "Stretched Bar Display", href: "/smart-display" },
           { label: "Standing Kiosk", href: "/smart-display?tab=kiosk" },
+          { label: "TouchWork Series (Indoor 8\"–21.5\")", href: "/touchwork", new2026: true },
         ],
       },
       {
@@ -184,7 +185,6 @@ const menuCategories = [
           { label: "Stainless Steel IP69K", href: "/smart-display" },
           { label: "Food Grade Display", href: "/smart-display" },
           { label: "Touch Monitor FPM Series", href: "/fpm-series", new2026: true },
-          { label: "TouchWork Series (Indoor 8\"–21.5\")", href: "/touchwork", new2026: true },
         ],
       },
     ],
