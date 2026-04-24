@@ -5,6 +5,7 @@ import {
   ArrowLeft, ArrowRight, Download, Shield, ThermometerSun, Sparkles,
   Maximize, Settings, Zap, CheckCircle2, Monitor, Truck, Wrench, Phone,
   RefreshCw, Cpu, Server, HardDrive, Cable, AlertTriangle, ShieldCheck,
+  Images, ClipboardList, HelpCircle,
 } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
