@@ -36,23 +36,53 @@ const sizeBuckets = [
   { label: "21.5″+", min: 19.1, max: 99 },
 ];
 
+type SeriesKey = "DM" | "GD" | "JD";
+const seriesMeta: Record<SeriesKey, { label: string; desc: string; color: string }> = {
+  DM: {
+    label: "DM Series",
+    desc: "Mainstream — รุ่นมาตรฐานครบทุกขนาด 8″–21.5″",
+    color: "bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-500/30",
+  },
+  GD: {
+    label: "GD Series",
+    desc: "Slim & Wall-mount — ดีไซน์บาง ติดผนัง โรงแรม/ออฟฟิศ",
+    color: "bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/30",
+  },
+  JD: {
+    label: "JD Series",
+    desc: "Economic — ราคาประหยัด เน้นใช้งาน POS / Signage",
+    color: "bg-rose-500/10 text-rose-700 dark:text-rose-300 border-rose-500/30",
+  },
+};
+const getSeries = (model: string): SeriesKey =>
+  (model.startsWith("GD") ? "GD" : model.startsWith("JD") ? "JD" : "DM");
+
 export default function TouchWork() {
+  const [selectedSeries, setSelectedSeries] = useState<SeriesKey[]>([]);
   const [selectedArchs, setSelectedArchs] = useState<TouchWorkArch[]>([]);
   const [selectedBuckets, setSelectedBuckets] = useState<string[]>([]);
 
+  const toggleSeries = (s: SeriesKey) =>
+    setSelectedSeries((p) => (p.includes(s) ? p.filter((x) => x !== s) : [...p, s]));
   const toggleArch = (a: TouchWorkArch) =>
     setSelectedArchs((p) => (p.includes(a) ? p.filter((x) => x !== a) : [...p, a]));
   const toggleBucket = (b: string) =>
     setSelectedBuckets((p) => (p.includes(b) ? p.filter((x) => x !== b) : [...p, b]));
 
+  // Counts per series for chip badges
+  const seriesCounts = useMemo(() => {
+    const c: Record<SeriesKey, number> = { DM: 0, GD: 0, JD: 0 };
+    touchworkProducts.forEach((p) => { c[getSeries(p.model)]++; });
+    return c;
+  }, []);
+
   const filtered = useMemo(() => {
     return touchworkProducts.filter((p) => {
-      // arch filter: product must offer ALL selected archs
+      if (selectedSeries.length > 0 && !selectedSeries.includes(getSeries(p.model))) return false;
       if (selectedArchs.length > 0) {
         const archs = p.variants.map((v) => v.arch);
         if (!selectedArchs.every((a) => archs.includes(a))) return false;
       }
-      // size bucket filter: product size in any selected bucket
       if (selectedBuckets.length > 0) {
         const inBucket = sizeBuckets
           .filter((b) => selectedBuckets.includes(b.label))
@@ -61,7 +91,14 @@ export default function TouchWork() {
       }
       return true;
     });
-  }, [selectedArchs, selectedBuckets]);
+  }, [selectedSeries, selectedArchs, selectedBuckets]);
+
+  // Group filtered products by series for the grid
+  const groupedFiltered = useMemo(() => {
+    const groups: Record<SeriesKey, typeof filtered> = { DM: [], GD: [], JD: [] };
+    filtered.forEach((p) => groups[getSeries(p.model)].push(p));
+    return groups;
+  }, [filtered]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -180,6 +217,32 @@ export default function TouchWork() {
             </div>
 
             <div className="flex flex-wrap gap-1.5">
+              <span className="text-xs text-muted-foreground self-center mr-1">ตระกูล:</span>
+              {(["DM", "GD", "JD"] as SeriesKey[]).map((s) => {
+                const active = selectedSeries.includes(s);
+                return (
+                  <button
+                    key={s}
+                    onClick={() => toggleSeries(s)}
+                    title={seriesMeta[s].desc}
+                    className={`px-3 py-1 rounded-full text-xs font-semibold border transition-all inline-flex items-center gap-1.5 ${
+                      active
+                        ? "bg-primary text-primary-foreground border-primary"
+                        : `${seriesMeta[s].color} hover:opacity-80`
+                    }`}
+                  >
+                    {s}
+                    <span className={`text-[10px] px-1 rounded ${active ? "bg-primary-foreground/20" : "bg-foreground/10"}`}>
+                      {seriesCounts[s]}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="h-5 w-px bg-border" />
+
+            <div className="flex flex-wrap gap-1.5">
               <span className="text-xs text-muted-foreground self-center mr-1">ระบบ:</span>
               {archOptions.map((a) => {
                 const active = selectedArchs.includes(a);
@@ -221,9 +284,10 @@ export default function TouchWork() {
               })}
             </div>
 
-            {(selectedArchs.length > 0 || selectedBuckets.length > 0) && (
+            {(selectedSeries.length > 0 || selectedArchs.length > 0 || selectedBuckets.length > 0) && (
               <button
                 onClick={() => {
+                  setSelectedSeries([]);
                   setSelectedArchs([]);
                   setSelectedBuckets([]);
                 }}
@@ -247,71 +311,97 @@ export default function TouchWork() {
             ไม่พบรุ่นที่ตรงกับเงื่อนไข — ลองปรับตัวกรอง
           </div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {filtered.map((p) => {
-              const cover =
-                p.variants.find((v) => v.arch === "Monitor")?.image ||
-                p.variants[0]?.image;
+          <div className="space-y-12">
+            {(["DM", "GD", "JD"] as SeriesKey[]).map((s) => {
+              const items = groupedFiltered[s];
+              if (items.length === 0) return null;
               return (
-                <Link
-                  key={p.model}
-                  to={`/touchwork/${p.model.toLowerCase()}`}
-                  className="group rounded-xl border border-border bg-card overflow-hidden hover:border-primary/50 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
-                >
-                  <div className="relative aspect-[4/3] bg-gradient-to-br from-muted/40 to-muted overflow-hidden">
-                    <img
-                      src={cover}
-                      alt={`TouchWork ${p.model} ${p.size}″`}
-                      loading="lazy"
-                      className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute top-2 left-2 flex flex-wrap gap-1">
-                      {p.variants.map((v) => {
-                        const Icon = archIcon[v.arch];
-                        return (
-                          <span
-                            key={v.arch}
-                            className={`inline-flex items-center gap-0.5 px-1 py-0.5 rounded text-[9px] font-medium border ${archColor[v.arch]}`}
-                          >
-                            <Icon className="h-2 w-2" />
-                            {v.arch}
-                          </span>
-                        );
-                      })}
-                    </div>
-                    <div className="absolute top-2 right-2">
-                      <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-md bg-foreground/90 text-background text-[11px] font-bold">
-                        <Maximize className="h-2.5 w-2.5" />
-                        {p.size}″
+                <div key={s}>
+                  {/* Series header */}
+                  <div className="flex items-end justify-between mb-4 pb-3 border-b border-border/60">
+                    <div className="flex items-center gap-3">
+                      <span className={`inline-flex items-center px-2.5 py-1 rounded-md border text-xs font-bold ${seriesMeta[s].color}`}>
+                        {s}
                       </span>
+                      <div>
+                        <h2 className="text-lg md:text-xl font-bold tracking-tight">{seriesMeta[s].label}</h2>
+                        <p className="text-xs text-muted-foreground mt-0.5">{seriesMeta[s].desc}</p>
+                      </div>
                     </div>
+                    <span className="text-xs text-muted-foreground whitespace-nowrap">
+                      {items.length} รุ่น
+                    </span>
                   </div>
 
-                  <div className="p-3">
-                    <div className="flex items-start justify-between gap-2 mb-1.5">
-                      <h3 className="text-base font-bold tracking-tight group-hover:text-primary transition-colors">
-                        {p.model}
-                      </h3>
-                      <span className="text-[10px] text-muted-foreground whitespace-nowrap mt-1">
-                        {p.ratio}
-                      </span>
-                    </div>
-                    <div className="text-[11px] text-muted-foreground mb-2.5 space-y-0.5">
-                      <div>• {p.resolution}</div>
-                      <div>• {p.touch}</div>
-                      <div>• {p.brightness}</div>
-                    </div>
-                    <div className="flex items-center justify-between border-t border-border/50 pt-2">
-                      <span className="text-[10px] text-muted-foreground inline-flex items-center gap-1">
-                        <Tag className="h-2.5 w-2.5" />
-                        {p.variants.length} ตัวเลือก
-                      </span>
-                      <span className="text-xs font-medium text-primary inline-flex items-center gap-0.5 group-hover:gap-1 transition-all">
-                        ดูเพิ่ม <ArrowRight className="h-3 w-3" />
-                      </span>
-                    </div>
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    {items.map((p) => {
+                      const cover =
+                        p.variants.find((v) => v.arch === "Monitor")?.image ||
+                        p.variants[0]?.image;
+                      return (
+                        <Link
+                          key={p.model}
+                          to={`/touchwork/${p.model.toLowerCase()}`}
+                          className="group rounded-xl border border-border bg-card overflow-hidden hover:border-primary/50 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
+                        >
+                          <div className="relative aspect-[4/3] bg-gradient-to-br from-muted/40 to-muted overflow-hidden">
+                            <img
+                              src={cover}
+                              alt={`TouchWork ${p.model} ${p.size}″`}
+                              loading="lazy"
+                              className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-300"
+                            />
+                            <div className="absolute top-2 left-2 flex flex-wrap gap-1">
+                              {p.variants.map((v) => {
+                                const Icon = archIcon[v.arch];
+                                return (
+                                  <span
+                                    key={v.arch}
+                                    className={`inline-flex items-center gap-0.5 px-1 py-0.5 rounded text-[9px] font-medium border ${archColor[v.arch]}`}
+                                  >
+                                    <Icon className="h-2 w-2" />
+                                    {v.arch}
+                                  </span>
+                                );
+                              })}
+                            </div>
+                            <div className="absolute top-2 right-2">
+                              <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-md bg-foreground/90 text-background text-[11px] font-bold">
+                                <Maximize className="h-2.5 w-2.5" />
+                                {p.size}″
+                              </span>
+                            </div>
+                          </div>
+
+                          <div className="p-3">
+                            <div className="flex items-start justify-between gap-2 mb-1.5">
+                              <h3 className="text-base font-bold tracking-tight group-hover:text-primary transition-colors">
+                                {p.model}
+                              </h3>
+                              <span className="text-[10px] text-muted-foreground whitespace-nowrap mt-1">
+                                {p.ratio}
+                              </span>
+                            </div>
+                            <div className="text-[11px] text-muted-foreground mb-2.5 space-y-0.5">
+                              <div>• {p.resolution}</div>
+                              <div>• {p.touch}</div>
+                              <div>• {p.brightness}</div>
+                            </div>
+                            <div className="flex items-center justify-between border-t border-border/50 pt-2">
+                              <span className="text-[10px] text-muted-foreground inline-flex items-center gap-1">
+                                <Tag className="h-2.5 w-2.5" />
+                                {p.variants.length} ตัวเลือก
+                              </span>
+                              <span className="text-xs font-medium text-primary inline-flex items-center gap-0.5 group-hover:gap-1 transition-all">
+                                ดูเพิ่ม <ArrowRight className="h-3 w-3" />
+                              </span>
+                            </div>
+                          </div>
+                        </Link>
+                      );
+                    })}
                   </div>
-                </Link>
+                </div>
               );
             })}
           </div>
