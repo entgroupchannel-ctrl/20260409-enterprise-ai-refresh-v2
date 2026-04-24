@@ -6,7 +6,7 @@ import {
   ArrowLeft, Monitor, Cpu, Smartphone, ArrowRight, Maximize,
   ShieldCheck, CheckCircle2, Layers, Sun, Box, Tag, Info,
   Ruler, Thermometer, Plug, Package, MonitorSmartphone, Hand,
-  Link2, Download,
+  Link2, Download, Award,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -308,6 +308,7 @@ export default function TouchWorkDetail() {
             {(product.specs.androidOptions || product.specs.windowsOptions) && (
               <TabsTrigger value="cpu" className="gap-1.5"><Cpu className="h-3.5 w-3.5"/>CPU/OS</TabsTrigger>
             )}
+            <TabsTrigger value="certification" className="gap-1.5"><Award className="h-3.5 w-3.5"/>มาตรฐาน/ประกัน</TabsTrigger>
             <TabsTrigger value="delivery" className="gap-1.5"><Package className="h-3.5 w-3.5"/>ในกล่อง</TabsTrigger>
           </TabsList>
 
@@ -457,6 +458,31 @@ export default function TouchWorkDetail() {
                 ))}
               </div>
             </div>
+          </TabsContent>
+
+          <TabsContent value="certification" className="mt-6">
+            <div className="grid md:grid-cols-3 gap-3 mb-5">
+              {[
+                { label: "CE", desc: "European Conformity" },
+                { label: "FCC", desc: "Class B (USA)" },
+                { label: "RoHS 2.0", desc: "Hazardous Substances" },
+              ].map((b) => (
+                <div key={b.label} className="rounded-xl border border-border bg-card p-4 flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                    <Award className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <div className="font-bold">{b.label}</div>
+                    <div className="text-xs text-muted-foreground">{b.desc}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <SpecTable rows={product.specs.certification} />
+            <p className="mt-3 text-xs text-muted-foreground flex items-start gap-2">
+              <Info className="h-3.5 w-3.5 mt-0.5 flex-shrink-0" />
+              <span>ระยะเวลารับประกันมาตรฐาน 1 ปี (Carry-in) ขยายได้สูงสุด 3 ปี — ติดต่อทีมขายเพื่อรับใบเสนอราคาประกันเพิ่มเติม</span>
+            </p>
           </TabsContent>
 
           <TabsContent value="delivery" className="mt-6">
