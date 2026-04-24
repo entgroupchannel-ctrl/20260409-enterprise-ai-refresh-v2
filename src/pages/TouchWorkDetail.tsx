@@ -267,17 +267,19 @@ export default function TouchWorkDetail() {
                 variant="outline"
               />
               <Button
+                asChild
                 size="lg"
                 variant="outline"
-                onClick={() => downloadDatasheet(product)}
-                disabled={isDownloading}
                 className="gap-2"
               >
-                {isDownloading ? (
-                  <><Loader2 className="h-4 w-4 animate-spin" /> กำลังสร้าง PDF...</>
-                ) : (
-                  <><Download className="h-4 w-4" /> Datasheet (PDF)</>
-                )}
+                <a
+                  href={`/datasheets/${product.model}-Datasheet-ENTGroup.pdf`}
+                  target="_blank"
+                  rel="noreferrer"
+                  download={`${product.model}-Datasheet-ENTGroup.pdf`}
+                >
+                  <Download className="h-4 w-4" /> Datasheet (PDF)
+                </a>
               </Button>
             </div>
 
