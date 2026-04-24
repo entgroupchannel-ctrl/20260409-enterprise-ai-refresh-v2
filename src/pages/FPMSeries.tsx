@@ -211,6 +211,76 @@ const FPMSeries = () => {
         </div>
       </section>
 
+      {/* ═══ Size Matrix (moved up — right under Hero) ═══ */}
+      <section id="size-matrix" className="py-14 border-b border-border bg-gradient-to-b from-primary/5 to-transparent">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <span className="text-xs font-semibold tracking-widest uppercase text-primary mb-3 block">
+              Size Matrix
+            </span>
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-3">
+              เลือกขนาดที่ <span className="text-primary">เหมาะกับงาน</span>
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              จาก 8 นิ้วสำหรับงาน Embedded ถึง 24 นิ้วสำหรับห้องคอนโทรล — ครอบคลุมทุก Aspect Ratio
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-6">
+            {sizeMatrix.map((s) => (
+              <Link
+                key={s.size}
+                to={`/fpm-series/${s.slug}`}
+                className="group p-4 rounded-xl border border-border bg-card hover:border-primary hover:shadow-lg hover:-translate-y-0.5 transition-all text-center"
+              >
+                <div className="text-3xl font-display font-black text-foreground group-hover:text-primary transition-colors">
+                  {s.size}
+                </div>
+                <div className="text-xs text-muted-foreground mt-1">
+                  {s.ratios.join(", ")}
+                </div>
+                <div className="text-[10px] uppercase tracking-wider text-primary font-bold mt-2 inline-flex items-center gap-1">
+                  {s.models} รุ่น <ArrowRight size={10} className="group-hover:translate-x-0.5 transition-transform" />
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <a href="#models" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition shadow-md shadow-primary/20">
+              ดูตารางสินค้าทั้ง 12 รุ่น <ArrowRight size={14} />
+            </a>
+            <a href="#models" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-border bg-card text-foreground font-semibold text-sm hover:border-primary hover:text-primary transition">
+              เปรียบเทียบสเปก & ดาวน์โหลด Datasheet
+            </a>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 mt-10">
+            <div className="rounded-xl border border-border overflow-hidden bg-card">
+              <img
+                src="/images/wix/0597a3_171a07409e364dd4b23631e28628341f_839b524c.png"
+                alt="Wide Screen & Square Screen options"
+                className="w-full object-contain"
+              />
+              <div className="p-4 border-t border-border">
+                <h4 className="font-bold text-foreground text-sm mb-1">Wide & Square Screen</h4>
+                <p className="text-xs text-muted-foreground">เลือก 4:3, 5:4 สำหรับงาน HMI หรือ 16:9 สำหรับการแสดงผลกว้าง</p>
+              </div>
+            </div>
+            <div className="rounded-xl border border-border overflow-hidden bg-card">
+              <img
+                src="/images/wix/0597a3_2b37f8b836bf40e983200b7d2c7eec55_d29d91f9.png"
+                alt="FPM size options 8-24 inch"
+                className="w-full object-contain"
+              />
+              <div className="p-4 border-t border-border">
+                <h4 className="font-bold text-foreground text-sm mb-1">เปรียบเทียบขนาดจริง</h4>
+                <p className="text-xs text-muted-foreground">ดูสัดส่วนขนาดจอทั้ง 9 ขนาดในแบบที่จับต้องได้</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
       {/* ═══ Why Industrial Grade — Feature Grid ═══ */}
       <section className="py-16 border-b border-border bg-muted/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
