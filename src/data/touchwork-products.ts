@@ -47,6 +47,39 @@ export interface TouchWorkVariant {
   description: string;
 }
 
+export interface SpecRow {
+  label: string;
+  value: string;
+}
+
+export interface CpuOption {
+  cpu: string;
+  gpu: string;
+  memory: string;
+  storage: string;
+  network: string;
+  os: string;
+}
+
+export interface DetailedSpecs {
+  /** LCD Panel — เหมือนทุก variant ของรุ่นเดียวกัน */
+  lcd: SpecRow[];
+  /** Touch Panel */
+  touch: SpecRow[];
+  /** Dimension & Weight */
+  dimension: SpecRow[];
+  /** Operation Environment */
+  environment: SpecRow[];
+  /** Power Supply */
+  power: SpecRow[];
+  /** สิ่งที่อยู่ในกล่อง */
+  delivery: string[];
+  /** ตัวเลือก CPU สำหรับ Android (ARM variant) */
+  androidOptions?: CpuOption[];
+  /** ตัวเลือก CPU สำหรับ Windows (X86 variant) */
+  windowsOptions?: CpuOption[];
+}
+
 export interface TouchWorkProduct {
   model: string;
   size: number; // inches
@@ -58,6 +91,7 @@ export interface TouchWorkProduct {
   mounting: string[];
   highlights: string[];
   variants: TouchWorkVariant[];
+  specs: DetailedSpecs;
 }
 
 const archMeta: Record<TouchWorkArch, { os: string; cpuHint: string; description: string }> = {
