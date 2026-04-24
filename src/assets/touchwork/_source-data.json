@@ -1,0 +1,597 @@
+[
+  {
+    "id": 5130,
+    "slug": "13-3-industrial-wall-mounting-touch-kioskmonitor-gd133",
+    "title": "13.3″ Industrial Wall Mounting Touch Kiosk(Monitor) GD133",
+    "model": "GD133",
+    "size": "13.3",
+    "arch": "Monitor",
+    "mount": "Wall Mounting",
+    "touch": "Capacitive",
+    "category": "Industrial Touch Monitor",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/GD13.3-1.jpg",
+    "description": "This is 13.3\" Industrial Wall Mounting Touch Kiosk(Monitor) GD133, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/13-3-industrial-wall-mounting-touch-kioskmonitor-gd133/"
+  },
+  {
+    "id": 5120,
+    "slug": "13-3-industrial-wall-mounting-touch-kioskx86-gd133",
+    "title": "13.3″ Industrial Wall Mounting Touch Kiosk(X86) GD133",
+    "model": "GD133",
+    "size": "13.3",
+    "arch": "X86",
+    "mount": "Wall Mounting",
+    "touch": "Capacitive",
+    "category": "X86 Type Panel Pc",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/GD13.3-1W.jpg",
+    "description": "This is Touchwo Industrial Wall Mounting Touch Kiosk(X86) GD133, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/13-3-industrial-wall-mounting-touch-kioskx86-gd133/"
+  },
+  {
+    "id": 5110,
+    "slug": "13-3-industrial-wall-mounting-touch-kioskarm-gd133",
+    "title": "13.3″ Industrial Wall Mounting Touch Kiosk(ARM) GD133",
+    "model": "GD133",
+    "size": "13.3",
+    "arch": "ARM",
+    "mount": "Wall Mounting",
+    "touch": "Capacitive",
+    "category": "Arm Type Panel Pc",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/GD13.3-1a.jpg",
+    "description": "This is Touchwo Industrial Wall Mounting Touch Kiosk(ARM) GD133, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/13-3-industrial-wall-mounting-touch-kioskarm-gd133/"
+  },
+  {
+    "id": 4984,
+    "slug": "21-5-industrial-touch-pc-dm215g",
+    "title": "21.5″ Industrial Touch PC DM215G",
+    "model": "DM215G",
+    "size": "21.5",
+    "arch": "X86",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "X86 Type Panel Pc",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/DM21.5-1W.jpg",
+    "description": "This is Touchwo Industrial Touch PC DM215G, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/21-5-industrial-touch-pc-dm215g/"
+  },
+  {
+    "id": 4974,
+    "slug": "21-5-industrial-touch-screen-monitor-dm215g",
+    "title": "21.5″ Industrial Touch Screen Monitor DM215G",
+    "model": "DM215G",
+    "size": "21.5",
+    "arch": "Monitor",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "Industrial Touch Monitor",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/DM21.5-1.jpg",
+    "description": "This is 21.5\" Industrial Touch Screen Monitor DM215G, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/21-5-industrial-touch-screen-monitor-dm215g/"
+  },
+  {
+    "id": 4964,
+    "slug": "21-5-industrial-android-touch-pc-dm215g",
+    "title": "21.5″ Industrial Android Touch PC DM215G",
+    "model": "DM215G",
+    "size": "21.5",
+    "arch": "ARM",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "Arm Type Panel Pc",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/DM21.5-1A.jpg",
+    "description": "This is 21.5\" Industrial Android Touch PC DM215G, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/21-5-industrial-android-touch-pc-dm215g/"
+  },
+  {
+    "id": 4952,
+    "slug": "19-industrial-touch-screen-monitor-dm19g",
+    "title": "19″ Industrial Touch Screen Monitor DM19G",
+    "model": "DM19G",
+    "size": "19",
+    "arch": "Monitor",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "Industrial Touch Monitor",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/DM19-1-1.jpg",
+    "description": "This is 19\" Industrial Touch Screen Monitor DM19G, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/19-industrial-touch-screen-monitor-dm19g/"
+  },
+  {
+    "id": 4942,
+    "slug": "19-industrial-android-touch-pc-dm19g",
+    "title": "19″ Industrial Android Touch PC DM19G",
+    "model": "DM19G",
+    "size": "19",
+    "arch": "ARM",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "Arm Type Panel Pc",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/DM19-1A.jpg",
+    "description": "This is 19\" Industrial Android Touch PC DM19G, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/19-industrial-android-touch-pc-dm19g/"
+  },
+  {
+    "id": 4932,
+    "slug": "19-industrial-touch-pc-dm19g",
+    "title": "19″ Industrial Touch PC DM19G",
+    "model": "DM19G",
+    "size": "19",
+    "arch": "X86",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "X86 Type Panel Pc",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/DM19-1w.jpg",
+    "description": "This is Touchwo Industrial Touch PC DM19G, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/19-industrial-touch-pc-dm19g/"
+  },
+  {
+    "id": 4906,
+    "slug": "17-industrial-touch-screen-monitor-dm17g",
+    "title": "17″ Industrial Touch Screen Monitor DM17G",
+    "model": "DM17G",
+    "size": "17",
+    "arch": "Monitor",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "Industrial Touch Monitor",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/DM17.jpg",
+    "description": "This is 17\" Industrial Touch Screen Monitor DM17G, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/17-industrial-touch-screen-monitor-dm17g/"
+  },
+  {
+    "id": 4895,
+    "slug": "17-industrial-touch-pc-dm17g",
+    "title": "17″ Industrial Touch PC DM17G",
+    "model": "DM17G",
+    "size": "17",
+    "arch": "X86",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "X86 Type Panel Pc",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/DM17-1W.jpg",
+    "description": "This is Touchwo Industrial Touch PC DM17G, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/17-industrial-touch-pc-dm17g/"
+  },
+  {
+    "id": 4885,
+    "slug": "17-industrial-android-touch-pc-dm17g",
+    "title": "17″ Industrial Android Touch PC DM17G",
+    "model": "DM17G",
+    "size": "17",
+    "arch": "ARM",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "Arm Type Panel Pc",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/DM17-1A.jpg",
+    "description": "This is 17\" Industrial Android Touch PC DM17G, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/17-industrial-android-touch-pc-dm17g/"
+  },
+  {
+    "id": 4875,
+    "slug": "15-6-industrial-touch-screen-monitor-dm156g",
+    "title": "15.6″ Industrial Touch Screen Monitor DM156G",
+    "model": "DM156G",
+    "size": "15.6",
+    "arch": "Monitor",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "Industrial Touch Monitor",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/15.6-1.jpg",
+    "description": "This is 15.6\" Industrial Touch Screen Monitor DM156G, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/15-6-industrial-touch-screen-monitor-dm156g/"
+  },
+  {
+    "id": 4865,
+    "slug": "15-6-industrial-android-touch-pc-dm156g",
+    "title": "15.6″ Industrial Android Touch PC DM156G",
+    "model": "DM156G",
+    "size": "15.6",
+    "arch": "ARM",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "Arm Type Panel Pc",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/DM15.6-1A.jpg",
+    "description": "This is 15.6\" Industrial Android Touch PC DM156G, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/15-6-industrial-android-touch-pc-dm156g/"
+  },
+  {
+    "id": 4855,
+    "slug": "15-6-industrial-touch-pc-dm156g",
+    "title": "15.6″ Industrial Touch PC DM156G",
+    "model": "DM156G",
+    "size": "15.6",
+    "arch": "X86",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "X86 Type Panel Pc",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/DM15.6-1W.jpg",
+    "description": "This is Touchwo Industrial Touch PC DM156G, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/15-6-industrial-touch-pc-dm156g/"
+  },
+  {
+    "id": 4829,
+    "slug": "15-industrial-android-touch-pc-dm15g",
+    "title": "15″ Industrial Android Touch PC DM15G",
+    "model": "DM15G",
+    "size": "15",
+    "arch": "ARM",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "Arm Type Panel Pc",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/DM15-1A.jpg",
+    "description": "This is 15\" Industrial Android Touch PC DM15G, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/15-industrial-android-touch-pc-dm15g/"
+  },
+  {
+    "id": 4819,
+    "slug": "15-industrial-touch-pc-dm15g",
+    "title": "15″ Industrial Touch PC DM15G",
+    "model": "DM15G",
+    "size": "15",
+    "arch": "X86",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "X86 Type Panel Pc",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/DM15-1W.jpg",
+    "description": "This is Touchwo Industrial Touch PC DM15G, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/15-industrial-touch-pc-dm15g/"
+  },
+  {
+    "id": 4797,
+    "slug": "15-industrial-touch-screen-monitor-dm15g",
+    "title": "15″ Industrial Touch Screen Monitor DM15G",
+    "model": "DM15G",
+    "size": "15",
+    "arch": "Monitor",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "Industrial Touch Monitor",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/DM15-1.jpg",
+    "description": "This is 15\" Industrial Touch Screen Monitor DM15G, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/15-industrial-touch-screen-monitor-dm15g/"
+  },
+  {
+    "id": 4787,
+    "slug": "12-1-industrial-touch-screen-monitor-dm121g",
+    "title": "12.1″ Industrial Touch Screen Monitor DM121G",
+    "model": "DM121G",
+    "size": "12.1",
+    "arch": "Monitor",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "Industrial Touch Monitor",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/12.1-1.jpg",
+    "description": "This is 12.1\" Industrial Touch Screen Monitor DM121G, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/12-1-industrial-touch-screen-monitor-dm121g/"
+  },
+  {
+    "id": 4777,
+    "slug": "12-1-industrial-touch-pc-dm121g",
+    "title": "12.1″ Industrial Touch PC DM121G",
+    "model": "DM121G",
+    "size": "12.1",
+    "arch": "X86",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "X86 Type Panel Pc",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/12.1-1W.jpg",
+    "description": "This is Touchwo Industrial Touch PC DM121G, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/12-1-industrial-touch-pc-dm121g/"
+  },
+  {
+    "id": 4767,
+    "slug": "12-1-industrial-android-touch-pc-dm121g",
+    "title": "12.1″ Industrial Android Touch PC DM121G",
+    "model": "DM121G",
+    "size": "12.1",
+    "arch": "ARM",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "Arm Type Panel Pc",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/12.1-1a.jpg",
+    "description": "This is 12.1\" Industrial Android Touch PC DM121G, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/12-1-industrial-android-touch-pc-dm121g/"
+  },
+  {
+    "id": 4753,
+    "slug": "10-4-industrial-touch-pc-dm104g",
+    "title": "10.4″ Industrial Touch PC DM104G",
+    "model": "DM104G",
+    "size": "10.4",
+    "arch": "X86",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "X86 Type Panel Pc",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/10.4-1W.jpg",
+    "description": "This is Touchwo Industrial Touch PC DM104G, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/10-4-industrial-touch-pc-dm104g/"
+  },
+  {
+    "id": 4743,
+    "slug": "10-4-industrial-touch-screen-monitor-dm104g",
+    "title": "10.4″ Industrial Touch Screen Monitor DM104G",
+    "model": "DM104G",
+    "size": "10.4",
+    "arch": "Monitor",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "Industrial Touch Monitor",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/10.4-1.jpg",
+    "description": "This is 10.4\" Industrial Touch Screen Monitor DM104G, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/10-4-industrial-touch-screen-monitor-dm104g/"
+  },
+  {
+    "id": 4733,
+    "slug": "10-4-industrial-android-touch-pc-dm104g",
+    "title": "10.4″ Industrial Android Touch PC DM104G",
+    "model": "DM104G",
+    "size": "10.4",
+    "arch": "ARM",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "Arm Type Panel Pc",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/10.4-1A.jpg",
+    "description": "This is 10.4\" Industrial Android Touch PC DM104G, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/10-4-industrial-android-touch-pc-dm104g/"
+  },
+  {
+    "id": 4723,
+    "slug": "10-1-industrial-android-touch-pc-dm101g",
+    "title": "10.1″ Industrial Android Touch PC DM101G",
+    "model": "DM101G",
+    "size": "10.1",
+    "arch": "ARM",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "Arm Type Panel Pc",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/10.1-1A.jpg",
+    "description": "This is 10.1\" Industrial Android Touch PC DM101G, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/10-1-industrial-android-touch-pc-dm101g/"
+  },
+  {
+    "id": 4713,
+    "slug": "10-1-industrial-touch-pc-dm101g",
+    "title": "10.1″ Industrial Touch PC DM101G",
+    "model": "DM101G",
+    "size": "10.1",
+    "arch": "X86",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "X86 Type Panel Pc",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/10.1-1W.jpg",
+    "description": "This is Touchwo Industrial Touch PC DM101G, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/10-1-industrial-touch-pc-dm101g/"
+  },
+  {
+    "id": 4703,
+    "slug": "10-1-industrial-touch-screen-monitor-dm101g",
+    "title": "10.1″ Industrial Touch Screen Monitor DM101G",
+    "model": "DM101G",
+    "size": "10.1",
+    "arch": "Monitor",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "Industrial Touch Monitor",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/10.1-1.jpg",
+    "description": "This is 10.1\" Industrial Touch Screen Monitor DM101G, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/10-1-industrial-touch-screen-monitor-dm101g/"
+  },
+  {
+    "id": 4673,
+    "slug": "8-industrial-touch-screen-monitor-dm080wg",
+    "title": "8″ Industrial Touch Screen Monitor DM080WG",
+    "model": "DM080WG",
+    "size": "8",
+    "arch": "Monitor",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "Industrial Touch Monitor",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/8-1.jpg",
+    "description": "This is 8\" Industrial Touch Screen Monitor DM080WG, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/8-industrial-touch-screen-monitor-dm080wg/"
+  },
+  {
+    "id": 4662,
+    "slug": "8-industrial-android-touch-pc-dm080ng-2",
+    "title": "8″ Industrial Android Touch PC DM080WG",
+    "model": "DM080WG",
+    "size": "8",
+    "arch": "ARM",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "Arm Type Panel Pc",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/8w-1.jpg",
+    "description": "This is 8\" Industrial Android Touch PC DM080WG, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/8-industrial-android-touch-pc-dm080ng-2/"
+  },
+  {
+    "id": 4583,
+    "slug": "18-5-industrial-android-touch-pc-jd185b",
+    "title": "18.5″ Industrial Android Touch PC JD185B",
+    "model": "JD185B",
+    "size": "18.5",
+    "arch": "ARM",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "Arm Type Panel Pc",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/JD18.5B-1A.jpg",
+    "description": "This is 18.5\" Industrial Android Touch PC JD185B, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/18-5-industrial-android-touch-pc-jd185b/"
+  },
+  {
+    "id": 4573,
+    "slug": "18-5-industrial-touch-pc-jd185b",
+    "title": "18.5″ Industrial Touch PC JD185B",
+    "model": "JD185B",
+    "size": "18.5",
+    "arch": "X86",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "X86 Type Panel Pc",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/JD18.5B-1W.jpg",
+    "description": "This is Touchwo Industrial Touch PC JD185B, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/18-5-industrial-touch-pc-jd185b/"
+  },
+  {
+    "id": 4563,
+    "slug": "18-5-industrial-touch-screen-monitor-jd185b",
+    "title": "18.5″ Industrial Touch Screen Monitor JD185B",
+    "model": "JD185B",
+    "size": "18.5",
+    "arch": "Monitor",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "Industrial Touch Monitor",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/03/JD18.5B-1.jpg",
+    "description": "This is 18.5\" Industrial Touch Screen Monitor JD185, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/18-5-industrial-touch-screen-monitor-jd185b/"
+  },
+  {
+    "id": 4353,
+    "slug": "8-industrial-touch-pc-dm080nf",
+    "title": "8″ Industrial Touch PC DM080NF",
+    "model": "DM080NF",
+    "size": "8",
+    "arch": "X86",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "X86 Type Panel Pc",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/02/DM8N-1电脑.jpg",
+    "description": "This is Touchwo Industrial Touch PC DM080NF, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/8-industrial-touch-pc-dm080nf/"
+  },
+  {
+    "id": 4343,
+    "slug": "8-industrial-touch-screen-monitor-dm080nf",
+    "title": "8″ Industrial Touch Screen Monitor DM080NF",
+    "model": "DM080NF",
+    "size": "8",
+    "arch": "Monitor",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "Industrial Touch Monitor",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/02/DM8N-1.jpg",
+    "description": "This is 8\" Industrial Touch Screen Monitor DM080NF, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/8-industrial-touch-screen-monitor-dm080nf/"
+  },
+  {
+    "id": 4333,
+    "slug": "8-industrial-android-touch-pc-dm080nf",
+    "title": "8″ Industrial Android Touch PC DM080NF",
+    "model": "DM080NF",
+    "size": "8",
+    "arch": "ARM",
+    "mount": "",
+    "touch": "Capacitive",
+    "category": "Arm Type Panel Pc",
+    "features": [
+      "IP69K"
+    ],
+    "image_url": "https://touchwoipc.com/wp-content/uploads/2026/02/DM8N-1安卓.jpg",
+    "description": "This is 8\" Industrial Android Touch PC DM080NF, designed specifically for retail, hotel, office and other fields",
+    "url": "https://touchwoipc.com/product/8-industrial-android-touch-pc-dm080nf/"
+  }
+]
