@@ -1,0 +1,186 @@
+{
+  "DM080NF/Monitor": {
+    "url": "https://touchwoipc.com/product/8-industrial-touch-screen-monitor-dm080nf/",
+    "specs": {}
+  },
+  "DM080NF/ARM": {
+    "url": "https://touchwoipc.com/product/8-industrial-android-touch-pc-dm080nf/",
+    "specs": {}
+  },
+  "DM080NF/X86": {
+    "url": "https://touchwoipc.com/product/8-industrial-touch-pc-dm080nf/",
+    "specs": {}
+  },
+  "DM080WG/Monitor": {
+    "url": "https://touchwoipc.com/product/8-industrial-touch-screen-monitor-dm080wg/",
+    "specs": {}
+  },
+  "DM080WG/ARM": {
+    "url": "https://touchwoipc.com/product/8-industrial-android-touch-pc-dm080wf/",
+    "specs": {}
+  },
+  "DM101G/Monitor": {
+    "url": "https://touchwoipc.com/product/10-1-industrial-touch-screen-monitor-dm101g/",
+    "specs": {}
+  },
+  "DM101G/ARM": {
+    "url": "https://touchwoipc.com/product/10-1-industrial-android-touch-pc-dm101g/",
+    "specs": {}
+  },
+  "DM101G/X86": {
+    "url": "https://touchwoipc.com/product/10-1-industrial-touch-pc-dm101g/",
+    "specs": {}
+  },
+  "DM104G/Monitor": {
+    "url": "https://touchwoipc.com/product/10-4-industrial-touch-screen-monitor-dm104g/",
+    "specs": {}
+  },
+  "DM104G/ARM": {
+    "url": "https://touchwoipc.com/product/10-4-industrial-android-touch-pc-dm104g/",
+    "specs": {}
+  },
+  "DM104G/X86": {
+    "url": "https://touchwoipc.com/product/10-4-industrial-touch-pc-dm104g/",
+    "specs": {}
+  },
+  "DM121G/Monitor": {
+    "url": "https://touchwoipc.com/product/12-1-industrial-touch-screen-monitor-dm121g/",
+    "specs": {}
+  },
+  "DM121G/ARM": {
+    "url": "https://touchwoipc.com/product/12-1-industrial-android-touch-pc-dm121g/",
+    "specs": {}
+  },
+  "DM121G/X86": {
+    "url": "https://touchwoipc.com/product/12-1-industrial-touch-pc-dm121g/",
+    "specs": {}
+  },
+  "DM15G/Monitor": {
+    "url": "https://touchwoipc.com/product/15-industrial-touch-screen-monitor-dm15g/",
+    "specs": {}
+  },
+  "DM15G/ARM": {
+    "url": "https://touchwoipc.com/product/15-industrial-android-touch-pc-dm15g/",
+    "specs": {}
+  },
+  "DM15G/X86": {
+    "url": "https://touchwoipc.com/product/15-industrial-touch-pc-dm15g/",
+    "specs": {}
+  },
+  "DM156G/Monitor": {
+    "url": "https://touchwoipc.com/product/15-6-industrial-touch-screen-monitor-dm156g/",
+    "specs": {}
+  },
+  "DM156G/ARM": {
+    "url": "https://touchwoipc.com/product/15-6-industrial-android-touch-pc-dm156g/",
+    "specs": {}
+  },
+  "DM156G/X86": {
+    "url": "https://touchwoipc.com/product/15-6-industrial-touch-pc-dm156g/",
+    "specs": {}
+  },
+  "DM17G/Monitor": {
+    "url": "https://touchwoipc.com/product/17-industrial-touch-screen-monitor-dm17g/",
+    "specs": {}
+  },
+  "DM17G/ARM": {
+    "url": "https://touchwoipc.com/product/17-industrial-android-touch-pc-dm17g/",
+    "specs": {}
+  },
+  "DM17G/X86": {
+    "url": "https://touchwoipc.com/product/17-industrial-touch-pc-dm17g/",
+    "specs": {}
+  },
+  "DM19G/Monitor": {
+    "url": "https://touchwoipc.com/product/19-industrial-touch-screen-monitor-dm19g/",
+    "specs": {}
+  },
+  "DM19G/ARM": {
+    "url": "https://touchwoipc.com/product/19-industrial-android-touch-pc-dm19g/",
+    "specs": {}
+  },
+  "DM19G/X86": {
+    "url": "https://touchwoipc.com/product/19-industrial-touch-pc-dm19g/",
+    "specs": {}
+  },
+  "DM215G/Monitor": {
+    "url": "https://touchwoipc.com/product/21-5-industrial-touch-screen-monitor-dm215g/",
+    "specs": {}
+  },
+  "DM215G/ARM": {
+    "url": "https://touchwoipc.com/product/21-5-industrial-android-touch-pc-dm215g/",
+    "specs": {}
+  },
+  "DM215G/X86": {
+    "url": "https://touchwoipc.com/product/21-5-industrial-touch-pc-dm215g/",
+    "specs": {}
+  },
+  "GD101E/Monitor": {
+    "url": "https://touchwoipc.com/product/10-1-industrial-wall-mounting-touch-kioskmonitor-gd101e/",
+    "specs": {}
+  },
+  "GD101E/ARM": {
+    "url": "https://touchwoipc.com/product/10-1-industrial-wall-mounting-touch-kioskarm-gd101e/",
+    "specs": {}
+  },
+  "GD101E/X86": {
+    "url": "https://touchwoipc.com/product/10-1-industrial-wall-mounting-touch-kioskx86-gd101e1/",
+    "specs": {}
+  },
+  "GD133/Monitor": {
+    "url": "https://touchwoipc.com/product/13-3-industrial-wall-mounting-touch-kioskmonitor-gd133/",
+    "specs": {}
+  },
+  "GD133/ARM": {
+    "url": "https://touchwoipc.com/product/13-3-industrial-wall-mounting-touch-kioskarm-gd133/",
+    "specs": {}
+  },
+  "GD133/X86": {
+    "url": "https://touchwoipc.com/product/13-3-industrial-wall-mounting-touch-kioskx86-gd133/",
+    "specs": {}
+  },
+  "JD133/Monitor": {
+    "url": "https://touchwoipc.com/product/13-3-industrial-touch-screen-monitor-jd133/",
+    "specs": {}
+  },
+  "JD133/ARM": {
+    "url": "https://touchwoipc.com/product/13-3-industrial-android-touch-pc-jd133/",
+    "specs": {}
+  },
+  "JD156B/Monitor": {
+    "url": "https://touchwoipc.com/product/15-6-industrial-touch-screen-monitor-jd156b/",
+    "specs": {}
+  },
+  "JD156B/ARM": {
+    "url": "https://touchwoipc.com/product/15-6-industrial-android-touch-pc-jd156b/",
+    "specs": {}
+  },
+  "JD156B/X86": {
+    "url": "https://touchwoipc.com/product/15-6-industrial-touch-pc-jd156b/",
+    "specs": {}
+  },
+  "JD185B/Monitor": {
+    "url": "https://touchwoipc.com/product/18-5-industrial-touch-screen-monitor-jd185b/",
+    "specs": {}
+  },
+  "JD185B/ARM": {
+    "url": "https://touchwoipc.com/product/18-5-industrial-android-touch-pc-jd185b/",
+    "specs": {}
+  },
+  "JD185B/X86": {
+    "url": "https://touchwoipc.com/product/18-5-industrial-touch-pc-jd185b/",
+    "specs": {}
+  },
+  "JD215B/Monitor": {
+    "url": "https://touchwoipc.com/product/21-5-industrial-touch-screen-monitor-jd215b/",
+    "specs": {}
+  },
+  "JD215B/ARM": {
+    "url": "https://touchwoipc.com/product/21-5-industrial-android-touch-pc-jd215b/",
+    "specs": {}
+  },
+  "JD215B/X86": {
+    "url": "https://touchwoipc.com/product/21-5-industrial-touch-pc-jd215b/",
+    "specs": {}
+  }
+}

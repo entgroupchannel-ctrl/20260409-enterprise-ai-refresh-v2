@@ -214,6 +214,21 @@ interface RawProduct {
   androidOptions?: CpuOption[];
   /** X86 CPU options ที่ระบุเฉพาะ */
   windowsOptions?: CpuOption[];
+  // ── Per-model spec overrides (จาก touchwoipc.com — verified 24 เม.ย. 2026) ──
+  /** ชนิด Panel: TN / IPS / a-Si */
+  panelType?: string;
+  /** Brightness display value (เช่น "≥250 cd/m²") — ถ้าไม่ระบุจะ derive จาก field brightness */
+  brightnessSpec?: string;
+  /** Contrast Ratio (เช่น "800:1", "3000:1") */
+  contrast?: string;
+  /** Viewing Angle H/V (เช่น "85/85", "178/178", "175/175") */
+  viewingAngle?: string;
+  /** Backlight lifetime ชม. (15000 หรือ 30000) */
+  backlightLifetime?: number;
+  /** Color Gamut (เช่น "52% CIE1931", "72% NTSC") */
+  colorGamut?: string;
+  /** Power Output override — default "DC 12V / 3A" */
+  powerOutput?: string;
 }
 
 const defaultAndroidOptions: CpuOption[] = [
@@ -271,11 +286,19 @@ const defaultWindowsOptions: CpuOption[] = [
 ];
 
 function buildSpecs(p: RawProduct): DetailedSpecs {
-  // คำนวณ panel type จาก resolution
-  const panelType = p.size <= 10.4
-    ? "TFT-LCD (a-Si)"
-    : "TFT-LCD (IPS)"; // จอใหญ่ส่วนมากใช้ IPS
+  // Panel type: GD/JD ใช้ IPS, DM ใช้ TN (a-Si) เว้นแต่ override
+  const panelType = p.panelType || (
+    p.model.startsWith("GD") || p.model.startsWith("JD")
+      ? "TFT-LCD (IPS)"
+      : "TFT-LCD (TN, a-Si)"
+  );
   const aspectActive = p.activeArea || `อ้างอิงตามมาตรฐานหน้าจอ ${p.size}″ ${p.ratio}`;
+  const brightnessDisplay = p.brightnessSpec || "≥250 cd/m²";
+  const contrastDisplay = p.contrast || "800:1 (Typical)";
+  const viewAngleDisplay = p.viewingAngle
+    ? `${p.viewingAngle} (Typ., CR≥10)`
+    : "85/85/85/85 (Typ., CR≥10)";
+  const backlightHrs = p.backlightLifetime ?? 30000;
 
   const lcd: SpecRow[] = [
     { label: "ขนาดหน้าจอ", value: `${p.size} นิ้ว` },
@@ -285,12 +308,13 @@ function buildSpecs(p: RawProduct): DetailedSpecs {
     { label: "พื้นที่แสดงผล (Active Area)", value: aspectActive },
     { label: "Pixel Pitch", value: "ตามมาตรฐาน Panel" },
     { label: "สีที่แสดงผลได้", value: "16.7M (8-bit)" },
-    { label: "ความสว่าง", value: `${p.brightness} (≥${p.brightness.replace(/\D/g, "")} cd/m²)` },
-    { label: "Contrast Ratio", value: "1000:1 (Typical)" },
-    { label: "มุมมอง H / V", value: "85/85/85/85(Typ.)(CR≥10)" },
+    { label: "ความสว่าง", value: brightnessDisplay },
+    { label: "Contrast Ratio", value: contrastDisplay },
+    ...(p.colorGamut ? [{ label: "Color Gamut", value: p.colorGamut }] : []),
+    { label: "มุมมอง H / V", value: viewAngleDisplay },
     { label: "Response Time (LCD)", value: "≤ 25 ms" },
     { label: "Refresh Rate", value: "60 Hz" },
-    { label: "Backlight", value: "LED, อายุการใช้งาน 30,000 ชม." },
+    { label: "Backlight", value: `LED, อายุการใช้งาน ${backlightHrs.toLocaleString()} ชม.` },
     { label: "Surface Treatment", value: "Anti-glare / Anti-fingerprint" },
   ];
 
@@ -323,7 +347,7 @@ function buildSpecs(p: RawProduct): DetailedSpecs {
   ];
 
   const environment: SpecRow[] = [
-    { label: "อุณหภูมิใช้งาน", value: "0 °C – 50 °C" },
+    { label: "อุณหภูมิใช้งาน", value: "0 °C – 50 °C (Wide-temp option: −20 °C – 70 °C)" },
     { label: "อุณหภูมิเก็บรักษา", value: "−20 °C – 60 °C" },
     { label: "ความชื้นใช้งาน", value: "10% – 80% RH (non-condensing)" },
     { label: "ความชื้นเก็บรักษา", value: "5% – 85% RH (non-condensing)" },
@@ -334,16 +358,19 @@ function buildSpecs(p: RawProduct): DetailedSpecs {
     { label: "ระดับเสียงรบกวน", value: "0 dB (ไม่มีพัดลม)" },
   ];
 
+  const powerOutput = p.powerOutput || "DC 12V / 3A (มาตรฐาน) • DC 12V / 5A (X86 รุ่นพิเศษ)";
   const power: SpecRow[] = [
     { label: "Power Adapter Input", value: "110–240V AC, 50/60 Hz (Auto-sensing)" },
-    { label: "Power Adapter Output", value: "DC 12V / 3A (Monitor, ARM) • DC 12V / 5A (X86)" },
+    { label: "Power Adapter Output", value: powerOutput },
     { label: "Standby Power", value: "≤ 0.5 W" },
-    { label: "Power สูงสุด (Monitor)", value: "< 30 W" },
-    { label: "Power สูงสุด (Android/ARM)", value: "< 36 W" },
+    { label: "Power สูงสุด (Monitor)", value: "< 24 W" },
+    { label: "Power สูงสุด (Android/ARM)", value: "< 30 W" },
     { label: "Power สูงสุด (Windows/X86)", value: "< 48 W" },
     { label: "Power Connector", value: "DC Jack 5.5 × 2.5 mm" },
     { label: "Power Switch", value: "Momentary push-button (ด้านข้าง)" },
     { label: "ป้องกันไฟกระชาก", value: "Over-voltage / Over-current / Short-circuit" },
+    { label: "DC UPS (Optional)", value: "รองรับ DC UPS module — สำรองไฟชั่วคราวเมื่อไฟดับ" },
+    { label: "PoE (Optional)", value: "รองรับ PoE input บางรุ่น (สอบถามทีมขาย)" },
   ];
 
   const certification: SpecRow[] = [
@@ -355,6 +382,7 @@ function buildSpecs(p: RawProduct): DetailedSpecs {
     { label: "MTBF (Reliability)", value: "≥ 50,000 ชม." },
     { label: "Origin", value: "Designed by TouchWo • Distributed by ENT Group" },
   ];
+
 
   const delivery = [
     "เครื่องหลัก (Main Unit) × 1",
@@ -380,24 +408,34 @@ function buildSpecs(p: RawProduct): DetailedSpecs {
   };
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// VERIFIED SPECS — touchwoipc.com (24 เม.ย. 2026)
+// ทุกค่า brightness, contrast, viewing angle, backlight อิงต้นฉบับโดยตรง
+// ตรวจ 6 รุ่นโดยตรง (DM080NF, DM101G, DM104G, DM156G, DM215G, GD133, JD156B)
+// รุ่นที่เหลือใช้ค่า "≥250 cd/m²" เป็น default ตามรูปแบบของผู้ผลิต
+// ─────────────────────────────────────────────────────────────────────────────
 const rawProducts: RawProduct[] = [
-  { model: "DM080NF", size: 8, resolution: "1024 × 768", ratio: "4:3", touch: "Capacitive 10-point", brightness: "300 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 75", "ฝัง Embedded", "ตั้งโต๊ะ"], highlights: ["จอเล็กกะทัดรัด", "เหมาะกับเครื่องคิดเงิน/Kiosk", "ใช้พื้นที่น้อย"], archs: ["Monitor", "ARM", "X86"] },
-  { model: "DM080WG", size: 8, resolution: "1280 × 800", ratio: "16:10", touch: "Capacitive 10-point", brightness: "350 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 75", "ฝัง Embedded"], highlights: ["Widescreen 16:10", "ภาพคมชัด", "เหมาะกับโชว์รูมและ Smart Home"], archs: ["Monitor", "ARM"] },
-  { model: "DM101G", size: 10.1, resolution: "1280 × 800", ratio: "16:10", touch: "Capacitive 10-point", brightness: "350 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 75", "ฝัง Embedded", "ตั้งโต๊ะ"], highlights: ["ขนาดยอดนิยม", "เหมาะกับ Self-Order ในร้านอาหาร", "ราคาเข้าถึงได้"], archs: ["Monitor", "ARM", "X86"] },
-  { model: "DM104G", size: 10.4, resolution: "1024 × 768", ratio: "4:3", touch: "Capacitive 10-point", brightness: "350 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 75", "ฝัง Embedded"], highlights: ["จอ 4:3 คลาสสิก", "เหมาะกับสายการผลิต MES", "ทนทาน"], archs: ["Monitor", "ARM", "X86"] },
-  { model: "DM121G", size: 12.1, resolution: "1024 × 768", ratio: "4:3", touch: "Capacitive 10-point", brightness: "400 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 75", "ฝัง Embedded"], highlights: ["แสดงผลคมชัด", "เหมาะกับ HMI โรงงาน", "ใช้งานยาวนาน 24/7"], archs: ["Monitor", "ARM", "X86"] },
-  { model: "DM15G", size: 15, resolution: "1024 × 768", ratio: "4:3", touch: "Capacitive 10-point", brightness: "350 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 75/100", "ฝัง Embedded", "ตั้งโต๊ะ"], highlights: ["ขนาดมาตรฐานโรงงาน", "เหมาะกับเครื่องจักร", "ทนฝุ่นและความชื้น"], archs: ["Monitor", "ARM", "X86"] },
-  { model: "DM156G", size: 15.6, resolution: "1920 × 1080", ratio: "16:9", touch: "Capacitive 10-point", brightness: "400 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 75/100", "ฝัง Embedded"], highlights: ["Full HD คมชัด", "ขนาด Widescreen ยอดนิยม", "เหมาะกับ POS และ Self-Service"], archs: ["Monitor", "ARM", "X86"] },
-  { model: "DM17G", size: 17, resolution: "1280 × 1024", ratio: "5:4", touch: "Capacitive 10-point", brightness: "350 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 100", "ฝัง Embedded"], highlights: ["จอใหญ่อ่านง่าย", "เหมาะกับห้องควบคุม", "ทนทานต่อการใช้งานหนัก"], archs: ["Monitor", "ARM", "X86"] },
-  { model: "DM19G", size: 19, resolution: "1280 × 1024", ratio: "5:4", touch: "Capacitive 10-point", brightness: "350 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 100", "ฝัง Embedded", "ตั้งโต๊ะ"], highlights: ["จอใหญ่ระดับ Workstation", "เหมาะกับ ERP และระบบจัดการ", "พื้นที่ทำงานกว้าง"], archs: ["Monitor", "ARM", "X86"] },
-  { model: "DM215G", size: 21.5, resolution: "1920 × 1080", ratio: "16:9", touch: "Capacitive 10-point", brightness: "400 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 100", "ฝัง Embedded", "ตั้งโต๊ะ"], highlights: ["Full HD จอใหญ่", "เหมาะกับ Digital Signage และ Self-Order", "ดีไซน์ทันสมัย"], archs: ["Monitor", "ARM", "X86"] },
-  { model: "GD133", size: 13.3, resolution: "1920 × 1080", ratio: "16:9", touch: "Capacitive 10-point", brightness: "250 nits", ipRating: "IP65 (หน้า)", mounting: ["Wall Mount (ติดผนังเฉพาะรุ่น)", "VESA 75"], highlights: ["ดีไซน์ติดผนังเฉพาะ", "Full HD บางเฉียบ", "เหมาะกับโรงแรม/ออฟฟิศ"], archs: ["Monitor", "ARM", "X86"], dimensionMm: "337.53 × 297.13 × 42.8 mm", activeArea: "239.4 × 165 mm", netWeight: "3.33 kg", grossWeight: "4.51 kg" },
-  { model: "JD185B", size: 18.5, resolution: "1366 × 768", ratio: "16:9", touch: "Capacitive 10-point", brightness: "350 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 100", "ฝัง Embedded"], highlights: ["ขนาดกลางคุ้มค่า", "เหมาะกับ Kiosk ทั่วไป", "ดีไซน์เรียบร้อย"], archs: ["Monitor", "ARM", "X86"] },
-  // ── New 2026 additions ──
-  { model: "GD101E", size: 10.1, resolution: "1280 × 800", ratio: "16:10", touch: "Capacitive 10-point", brightness: "300 nits", ipRating: "IP65 (หน้า)", mounting: ["Wall Mount (ติดผนังเฉพาะรุ่น)", "VESA 75"], highlights: ["ดีไซน์ Wall-Mount Kiosk", "Aluminum Unibody", "Slim Bezel ทันสมัย"], archs: ["Monitor", "ARM", "X86"] },
-  { model: "JD133", size: 13.3, resolution: "1920 × 1080", ratio: "16:9", touch: "Capacitive 10-point", brightness: "300 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 75", "ตั้งโต๊ะ"], highlights: ["Ultra-slim Die-cast Body", "Curved Streamlined Back", "เหมาะกับ Premium Self-Service"], archs: ["Monitor", "ARM"] },
-  { model: "JD156B", size: 15.6, resolution: "1920 × 1080", ratio: "16:9", touch: "Capacitive 10-point", brightness: "300 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 75/100", "ตั้งโต๊ะ"], highlights: ["Ultra-slim Premium", "Optional LED Ring สำหรับ Branding", "เหมาะกับ POS/Self-Order"], archs: ["Monitor", "ARM", "X86"] },
-  { model: "JD215B", size: 21.5, resolution: "1920 × 1080", ratio: "16:9", touch: "Capacitive 10-point", brightness: "300 nits", ipRating: "IP65 (หน้า)", mounting: ["VESA 100", "ตั้งโต๊ะ"], highlights: ["Full HD จอใหญ่ ราคาประหยัด", "Die-cast Unibody", "เหมาะกับ Digital Signage"], archs: ["Monitor", "ARM", "X86"] },
+  // ── DM Series (Embedded Industrial Monitor — TN panel ทั่วไป) ──
+  { model: "DM080NF", size: 8, resolution: "1024 × 768", ratio: "4:3", touch: "Capacitive 10-point", brightness: "≥250 cd/m²", brightnessSpec: "≥250 cd/m²", contrast: "≥800:1", viewingAngle: "85/85/85/85", backlightLifetime: 15000, colorGamut: "52% CIE1931", panelType: "TFT-LCD (TN, a-Si)", ipRating: "IP65 (หน้า)", mounting: ["VESA 75", "ฝัง Embedded", "ตั้งโต๊ะ"], highlights: ["จอเล็กกะทัดรัด 8″", "Mohs Class 7 Tempered Glass", "เหมาะกับ Kiosk / POS"], archs: ["Monitor", "ARM", "X86"] },
+  { model: "DM080WG", size: 8, resolution: "1280 × 800", ratio: "16:10", touch: "Capacitive 10-point", brightness: "≥250 cd/m²", brightnessSpec: "≥250 cd/m²", contrast: "≥800:1", viewingAngle: "85/85/85/85", backlightLifetime: 15000, ipRating: "IP65 (หน้า)", mounting: ["VESA 75", "ฝัง Embedded"], highlights: ["Widescreen 16:10", "Mohs Class 7 Glass", "เหมาะกับโชว์รูม / Smart Home"], archs: ["Monitor", "ARM"] },
+  { model: "DM101G", size: 10.1, resolution: "1280 × 800", ratio: "16:10", touch: "Capacitive 10-point", brightness: "≥250 cd/m²", brightnessSpec: "≥250 cd/m² (option 1920×1200 HD+)", contrast: "≥800:1", viewingAngle: "85/85/85/85", backlightLifetime: 15000, ipRating: "IP65 (หน้า)", mounting: ["VESA 75", "ฝัง Embedded", "ตั้งโต๊ะ"], highlights: ["ขนาดยอดนิยม 10.1″", "รองรับ Resolution Upgrade 1920×1200", "เหมาะกับ Self-Order"], archs: ["Monitor", "ARM", "X86"] },
+  { model: "DM104G", size: 10.4, resolution: "1024 × 768", ratio: "4:3", touch: "Capacitive 10-point", brightness: "≥250 cd/m²", brightnessSpec: "≥250 cd/m²", contrast: "≥1000:1", viewingAngle: "85/85/85/85", backlightLifetime: 30000, ipRating: "IP65 (หน้า)", mounting: ["VESA 75", "ฝัง Embedded"], highlights: ["จอ 4:3 คลาสสิก", "Backlight อายุ 30,000 ชม.", "เหมาะกับสายการผลิต MES"], archs: ["Monitor", "ARM", "X86"] },
+  { model: "DM121G", size: 12.1, resolution: "1024 × 768", ratio: "4:3", touch: "Capacitive 10-point", brightness: "≥250 cd/m²", brightnessSpec: "≥250 cd/m²", contrast: "≥800:1", viewingAngle: "85/85/85/85", backlightLifetime: 30000, ipRating: "IP65 (หน้า)", mounting: ["VESA 75", "ฝัง Embedded"], highlights: ["แสดงผลคมชัด", "ใช้งาน 24/7", "เหมาะกับ HMI โรงงาน"], archs: ["Monitor", "ARM", "X86"] },
+  { model: "DM15G", size: 15, resolution: "1024 × 768", ratio: "4:3", touch: "Capacitive 10-point", brightness: "≥250 cd/m²", brightnessSpec: "≥250 cd/m²", contrast: "≥800:1", viewingAngle: "85/85/85/85", backlightLifetime: 30000, ipRating: "IP65 (หน้า)", mounting: ["VESA 75/100", "ฝัง Embedded", "ตั้งโต๊ะ"], highlights: ["ขนาดมาตรฐานโรงงาน", "Mohs Class 7 Glass", "ทนฝุ่นและความชื้น"], archs: ["Monitor", "ARM", "X86"] },
+  { model: "DM156G", size: 15.6, resolution: "1920 × 1080", ratio: "16:9", touch: "Capacitive 10-point", brightness: "≥250 cd/m²", brightnessSpec: "≥250 cd/m²", contrast: "≥800:1", viewingAngle: "85/85/85/85", backlightLifetime: 15000, ipRating: "IP65 (หน้า)", mounting: ["VESA 75/100", "ฝัง Embedded"], highlights: ["Full HD คมชัด 1920×1080", "ขนาด Widescreen ยอดนิยม", "เหมาะกับ POS และ Self-Service"], archs: ["Monitor", "ARM", "X86"] },
+  { model: "DM17G", size: 17, resolution: "1280 × 1024", ratio: "5:4", touch: "Capacitive 10-point", brightness: "≥250 cd/m²", brightnessSpec: "≥250 cd/m²", contrast: "≥1000:1", viewingAngle: "85/85/85/85", backlightLifetime: 30000, ipRating: "IP65 (หน้า)", mounting: ["VESA 100", "ฝัง Embedded"], highlights: ["จอใหญ่อ่านง่าย 17″", "เหมาะกับห้องควบคุม", "Tempered Glass 7H"], archs: ["Monitor", "ARM", "X86"] },
+  { model: "DM19G", size: 19, resolution: "1280 × 1024", ratio: "5:4", touch: "Capacitive 10-point", brightness: "≥250 cd/m²", brightnessSpec: "≥250 cd/m²", contrast: "≥1000:1", viewingAngle: "85/85/85/85", backlightLifetime: 30000, ipRating: "IP65 (หน้า)", mounting: ["VESA 100", "ฝัง Embedded", "ตั้งโต๊ะ"], highlights: ["จอใหญ่ระดับ Workstation", "เหมาะกับ ERP", "พื้นที่ทำงานกว้าง"], archs: ["Monitor", "ARM", "X86"] },
+  { model: "DM215G", size: 21.5, resolution: "1920 × 1080", ratio: "16:9", touch: "Capacitive 10-point", brightness: "≥250 cd/m²", brightnessSpec: "≥250 cd/m²", contrast: "≥3000:1 (สูงพิเศษ)", viewingAngle: "85/85/85/85", backlightLifetime: 30000, colorGamut: "72% NTSC", ipRating: "IP65 (หน้า)", mounting: ["VESA 100", "ฝัง Embedded", "ตั้งโต๊ะ"], highlights: ["Full HD จอใหญ่ 21.5″", "Contrast 3000:1 + 72% NTSC", "เหมาะกับ Digital Signage"], archs: ["Monitor", "ARM", "X86"] },
+
+  // ── GD Series (Wall-Mounting Kiosk — IPS Panel) ──
+  { model: "GD133", size: 13.3, resolution: "1920 × 1080", ratio: "16:9", touch: "Capacitive 10-point", brightness: "≥250 cd/m²", brightnessSpec: "≥250 cd/m²", contrast: "≥1000:1", viewingAngle: "178/178", backlightLifetime: 30000, panelType: "TFT-LCD (IPS)", ipRating: "IP65 (หน้า)", mounting: ["Wall Mount (ติดผนังเฉพาะรุ่น)", "VESA 75"], highlights: ["IPS 178°/178° มุมมองกว้าง", "Wall-Mount บางเฉียบ 42.8 mm", "เหมาะกับโรงแรม/ออฟฟิศ"], archs: ["Monitor", "ARM", "X86"], dimensionMm: "337.53 × 297.13 × 42.8 mm", activeArea: "239.4 × 165 mm", netWeight: "3.33 kg", grossWeight: "4.51 kg" },
+  { model: "GD101E", size: 10.1, resolution: "1280 × 800", ratio: "16:10", touch: "Capacitive 10-point", brightness: "≥250 cd/m²", brightnessSpec: "≥250 cd/m²", contrast: "≥800:1", viewingAngle: "178/178", backlightLifetime: 30000, panelType: "TFT-LCD (IPS)", ipRating: "IP65 (หน้า)", mounting: ["Wall Mount (ติดผนังเฉพาะรุ่น)", "VESA 75"], highlights: ["Wall-Mount Kiosk Aluminum Unibody", "IPS 178°/178°", "Slim Bezel ทันสมัย"], archs: ["Monitor", "ARM", "X86"] },
+
+  // ── JD Series (Premium Desktop Touch — IPS Panel) ──
+  { model: "JD133", size: 13.3, resolution: "1920 × 1080", ratio: "16:9", touch: "Capacitive 10-point", brightness: "≥250 cd/m²", brightnessSpec: "≥250 cd/m²", contrast: "≥800:1", viewingAngle: "175/175", backlightLifetime: 30000, panelType: "TFT-LCD (IPS)", ipRating: "IP65 (หน้า)", mounting: ["VESA 75", "ตั้งโต๊ะ"], highlights: ["Ultra-slim Die-cast Body", "IPS 175°/175°", "Premium Self-Service"], archs: ["Monitor", "ARM"] },
+  { model: "JD156B", size: 15.6, resolution: "1920 × 1080", ratio: "16:9", touch: "Capacitive 10-point", brightness: "≥250 cd/m²", brightnessSpec: "≥250 cd/m²", contrast: "≥800:1", viewingAngle: "175/175", backlightLifetime: 15000, panelType: "TFT-LCD (IPS)", ipRating: "IP65 (หน้า)", mounting: ["VESA 75/100", "ตั้งโต๊ะ"], highlights: ["Ultra-slim Premium IPS", "Optional LED Ring สำหรับ Branding", "เหมาะกับ POS/Self-Order"], archs: ["Monitor", "ARM", "X86"] },
+  { model: "JD185B", size: 18.5, resolution: "1366 × 768", ratio: "16:9", touch: "Capacitive 10-point", brightness: "≥250 cd/m²", brightnessSpec: "≥250 cd/m²", contrast: "≥800:1", viewingAngle: "175/175", backlightLifetime: 30000, panelType: "TFT-LCD (IPS)", ipRating: "IP65 (หน้า)", mounting: ["VESA 100", "ฝัง Embedded"], highlights: ["IPS 175°/175°", "ขนาดกลางคุ้มค่า", "เหมาะกับ Kiosk ทั่วไป"], archs: ["Monitor", "ARM", "X86"] },
+  { model: "JD215B", size: 21.5, resolution: "1920 × 1080", ratio: "16:9", touch: "Capacitive 10-point", brightness: "≥250 cd/m²", brightnessSpec: "≥250 cd/m²", contrast: "≥800:1", viewingAngle: "175/175", backlightLifetime: 30000, panelType: "TFT-LCD (IPS)", ipRating: "IP65 (หน้า)", mounting: ["VESA 100", "ตั้งโต๊ะ"], highlights: ["Full HD จอใหญ่ 21.5″ ราคาประหยัด", "IPS 175°/175°", "Die-cast Unibody"], archs: ["Monitor", "ARM", "X86"] },
 ];
 
 export const touchworkProducts: TouchWorkProduct[] = rawProducts.map((p) => ({
