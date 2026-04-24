@@ -5,9 +5,11 @@ import { Link, useParams, Navigate } from "react-router-dom";
 import {
   ArrowLeft, Monitor, Cpu, Smartphone, ArrowRight, Maximize,
   ShieldCheck, CheckCircle2, Layers, Sun, Box, Tag, Info,
+  Ruler, Thermometer, Plug, Package, MonitorSmartphone, Hand,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import FooterCompact from "@/components/FooterCompact";
 import MiniNavbar from "@/components/MiniNavbar";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
