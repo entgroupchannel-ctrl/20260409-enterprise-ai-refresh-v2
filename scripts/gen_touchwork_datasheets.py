@@ -277,7 +277,7 @@ def build_page1(c: canvas.Canvas, p: dict):
     chips = [
         f'{p["size"]}"',
         p["resolution"],
-        p["brightness"],
+        p.get("brightnessSpec") or p["brightness"],
         p["ipRating"].split("(")[0].strip(),
         " / ".join(p["mounting"][:2]),
     ]
