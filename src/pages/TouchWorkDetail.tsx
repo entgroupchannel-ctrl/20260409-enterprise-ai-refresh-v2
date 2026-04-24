@@ -177,8 +177,8 @@ export default function TouchWorkDetail() {
                     downloadPrefix={`${product.model}-${variant.arch}`}
                   >
                     {(open) => (
-                      <div className="relative group cursor-zoom-in" onClick={() => open(0)}>
-                        <ProductGallery images={images} alt={productName} />
+                      <div className="relative group">
+                        <ProductGallery images={images} alt={productName} onImageClick={open} />
                         <ZoomHintBadge />
                       </div>
                     )}
