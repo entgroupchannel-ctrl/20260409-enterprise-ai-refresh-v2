@@ -450,29 +450,47 @@ export default function TouchWorkDetail() {
         </Tabs>
       </section>
 
-      {/* Related */}
+      {/* Related — compact list (ลดความเด่น ไม่ให้แข่งกับสินค้าหลัก) */}
       {related.length > 0 && (
-        <section className="container max-w-7xl mx-auto px-6 py-10 border-t border-border/40">
-          <h2 className="text-xl font-bold mb-4">รุ่นใกล้เคียง</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <section className="container max-w-7xl mx-auto px-6 py-8 border-t border-border/40">
+          <div className="flex items-baseline justify-between mb-3">
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+              รุ่นใกล้เคียงในซีรีส์
+            </h2>
+            <Link
+              to="/touchwork"
+              className="text-xs text-muted-foreground hover:text-primary inline-flex items-center gap-1"
+            >
+              ดูทั้งหมด <ArrowRight className="h-3 w-3" />
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
             {related.map((p) => {
               const cover = p.variants.find((v) => v.arch === "Monitor")?.image || p.variants[0]?.image;
               return (
                 <Link
                   key={p.model}
                   to={`/touchwork/${p.model.toLowerCase()}`}
-                  className="group rounded-xl border border-border bg-card overflow-hidden hover:border-primary/50 hover:shadow-md transition"
+                  className="group flex items-center gap-3 rounded-lg border border-border/60 bg-card/50 p-2.5 hover:border-border hover:bg-card transition"
                 >
-                  <div className="aspect-[4/3] bg-muted/30">
-                    <img src={cover} alt={p.model} className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform" loading="lazy" />
+                  <div className="w-14 h-14 rounded-md bg-muted/40 flex-shrink-0 flex items-center justify-center overflow-hidden">
+                    <img
+                      src={cover}
+                      alt={p.model}
+                      className="w-full h-full object-contain p-1.5"
+                      loading="lazy"
+                    />
                   </div>
-                  <div className="p-3">
-                    <div className="flex items-center justify-between mb-1">
-                      <div className="font-bold">{p.model}</div>
-                      <span className="text-xs text-muted-foreground">{p.size}″</span>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-sm font-semibold truncate">{p.model}</span>
+                      <span className="text-[11px] text-muted-foreground">{p.size}″</span>
                     </div>
-                    <div className="text-xs text-muted-foreground">{p.resolution} • {p.touch}</div>
+                    <div className="text-[11px] text-muted-foreground truncate">
+                      {p.resolution}
+                    </div>
                   </div>
+                  <ArrowRight className="h-3.5 w-3.5 text-muted-foreground/50 group-hover:text-primary group-hover:translate-x-0.5 transition flex-shrink-0" />
                 </Link>
               );
             })}
@@ -481,77 +499,6 @@ export default function TouchWorkDetail() {
       )}
 
       <FooterCompact />
-    </div>
-  );
-}
-
-// ---- Helpers --------------------------------------------------------------
-
-function SpecTable({ rows }: { rows: { label: string; value: string }[] }) {
-  return (
-    <div className="rounded-xl border border-border bg-card overflow-hidden">
-      <dl className="divide-y divide-border/60">
-        {rows.map((r) => (
-          <div key={r.label} className="grid grid-cols-1 sm:grid-cols-3 gap-1 px-4 py-3 hover:bg-muted/30 transition-colors">
-            <dt className="text-sm font-medium text-muted-foreground sm:col-span-1">{r.label}</dt>
-            <dd className="text-sm font-semibold sm:col-span-2">{r.value}</dd>
-          </div>
-        ))}
-      </dl>
-    </div>
-  );
-}
-
-function CpuTable({
-  title,
-  color,
-  options,
-}: {
-  title: string;
-  color: "emerald" | "violet";
-  options: { cpu: string; gpu: string; memory: string; storage: string; network: string; os: string }[];
-}) {
-  const headerColor =
-    color === "emerald"
-      ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/30"
-      : "bg-violet-500/10 text-violet-700 dark:text-violet-300 border-violet-500/30";
-  const fields: { key: keyof typeof options[number]; label: string }[] = [
-    { key: "cpu", label: "CPU" },
-    { key: "gpu", label: "Graphics" },
-    { key: "memory", label: "Memory" },
-    { key: "storage", label: "Storage" },
-    { key: "network", label: "Network" },
-    { key: "os", label: "OS" },
-  ];
-  return (
-    <div>
-      <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-md border text-xs font-semibold mb-3 ${headerColor}`}>
-        <Cpu className="h-3.5 w-3.5" /> {title}
-      </div>
-      <div className="overflow-x-auto rounded-xl border border-border">
-        <table className="w-full text-sm">
-          <thead className="bg-muted/40">
-            <tr>
-              <th className="text-left px-4 py-2.5 font-semibold w-32">รายการ</th>
-              {options.map((_, i) => (
-                <th key={i} className="text-left px-4 py-2.5 font-semibold">
-                  ตัวเลือก {i + 1}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border/60">
-            {fields.map((f) => (
-              <tr key={f.key} className="hover:bg-muted/20">
-                <td className="px-4 py-2.5 text-muted-foreground font-medium">{f.label}</td>
-                {options.map((o, i) => (
-                  <td key={i} className="px-4 py-2.5">{o[f.key]}</td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
     </div>
   );
 }
