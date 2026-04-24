@@ -40,7 +40,7 @@ const menuCategories = [
           { label: "GT Series — 12 รุ่น", href: "/gt-series", hot: true },
           { label: "GB Series — Compact", href: "/gb-series" },
           { label: "iBox Series", href: "/ibox-series" },
-          { label: "EPC Box Series", href: "/epc-box-series" },
+          { label: "EPC Box Series", href: "/epc-box-series", new2026: true },
           { label: "UPC Series — LEGO Modular", href: "/upc-series", hot: true },
         ],
       },
