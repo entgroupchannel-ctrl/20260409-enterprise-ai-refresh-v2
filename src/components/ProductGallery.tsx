@@ -5,9 +5,10 @@ interface ProductGalleryProps {
   images: string[];
   alt: string;
   autoPlayInterval?: number;
+  onImageClick?: (index: number) => void;
 }
 
-const ProductGallery = ({ images, alt, autoPlayInterval = 4000 }: ProductGalleryProps) => {
+const ProductGallery = ({ images, alt, autoPlayInterval = 4000, onImageClick }: ProductGalleryProps) => {
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
 
@@ -23,7 +24,14 @@ const ProductGallery = ({ images, alt, autoPlayInterval = 4000 }: ProductGallery
   if (images.length === 0) return null;
 
   if (images.length === 1) {
-    return <img src={images[0]} alt={alt} className="max-h-[240px] object-contain mx-auto"/>;
+    return (
+      <img
+        src={images[0]}
+        alt={alt}
+        className={`max-h-[240px] object-contain mx-auto ${onImageClick ? "cursor-zoom-in" : ""}`}
+        onClick={onImageClick ? () => onImageClick(0) : undefined}
+      />
+    );
   }
 
   return (
@@ -37,7 +45,8 @@ const ProductGallery = ({ images, alt, autoPlayInterval = 4000 }: ProductGallery
         <img
           src={images[current]}
           alt={`${alt} - ${current + 1}`}
-          className="max-h-[240px] object-contain transition-opacity duration-500"/>
+          className={`max-h-[240px] object-contain transition-opacity duration-500 ${onImageClick ? "cursor-zoom-in" : ""}`}
+          onClick={onImageClick ? () => onImageClick(current) : undefined}/>
 
         <button
           type="button"
