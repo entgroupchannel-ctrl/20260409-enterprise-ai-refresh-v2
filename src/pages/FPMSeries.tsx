@@ -510,7 +510,14 @@ const FPMSeries = () => {
                   {filtered.map((item) => (
                     <tr key={item.no} className="border-b border-border/50 hover:bg-muted/30 transition-colors">
                       <td className="p-3 text-muted-foreground">{item.no}</td>
-                      <td className="p-3 font-bold text-foreground">{item.model}</td>
+                      <td className="p-3">
+                        <Link to={`/fpm-series/${item.slug}`} className="block w-12 h-12 rounded-md bg-muted overflow-hidden border border-border hover:ring-2 hover:ring-primary/40 transition">
+                          <img src={item.image} alt={item.model} className="w-full h-full object-contain" loading="lazy" />
+                        </Link>
+                      </td>
+                      <td className="p-3 font-bold text-foreground">
+                        <Link to={`/fpm-series/${item.slug}`} className="hover:text-primary transition-colors">{item.model}</Link>
+                      </td>
                       <td className="p-3 text-foreground font-semibold">{item.size}</td>
                       <td className="p-3 text-muted-foreground hidden md:table-cell">{item.resolution}</td>
                       <td className="p-3 text-muted-foreground hidden lg:table-cell">{item.ratio}</td>
