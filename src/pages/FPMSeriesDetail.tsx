@@ -1,11 +1,11 @@
 import { useParams, Link, Navigate } from "react-router-dom";
 import { useState } from "react";
-type TabKey = "gallery" | "specs" | "faq";
+type TabKey = "gallery" | "specs" | "dimensions" | "faq";
 import {
   ArrowLeft, ArrowRight, Download, Shield, ThermometerSun, Sparkles,
   Maximize, Settings, Zap, CheckCircle2, Monitor, Truck, Wrench, Phone,
   RefreshCw, Cpu, Server, HardDrive, Cable, AlertTriangle, ShieldCheck,
-  Images, ClipboardList, HelpCircle, ZoomIn, X,
+  Images, ClipboardList, HelpCircle, ZoomIn, X, Ruler,
 } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import SEOHead from "@/components/SEOHead";
