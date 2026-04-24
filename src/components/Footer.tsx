@@ -108,6 +108,7 @@ const footerSections: { title: string; links: FooterLink[] }[] = [
       { label: "GK Series — Panel PC", href: "/gk-series" },
       { label: "Panel PC GTG — Stainless", href: "/panel-pc-gtg" },
       { label: "Smart Display / KIOSK", href: "/smart-display" },
+      { label: "FPM Touch Monitor", href: "/fpm-series" },
       { label: "UTC Series", href: "/utc-series" },
       { label: "All-in-One PC", href: "/aio" },
       { label: "Rugged Tablet", href: "/rugged-tablet" },
