@@ -184,6 +184,7 @@ const menuCategories = [
           { label: "Stainless Steel IP69K", href: "/smart-display" },
           { label: "Food Grade Display", href: "/smart-display" },
           { label: "Touch Monitor FPM Series", href: "/fpm-series", new2026: true },
+          { label: "TouchWork Series (Indoor 8\"–21.5\")", href: "/touchwork", new2026: true },
         ],
       },
     ],
