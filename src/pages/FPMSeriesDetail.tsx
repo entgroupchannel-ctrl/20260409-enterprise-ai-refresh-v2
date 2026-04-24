@@ -382,14 +382,14 @@ const FPMSeriesDetail = () => {
                 { q: "ต่อกับ Industrial PC ของ ENT รุ่นไหนได้บ้าง?", a: "เชื่อมต่อได้กับ GT Series, EPC Box Series, UPC Series หรือ Industrial PC ที่ลูกค้ามีอยู่แล้ว ผ่านพอร์ตมาตรฐาน HDMI / VGA / USB" },
                 { q: "ทำไมไม่ใช้ Panel PC แบบรวมในตัวเดียว?", a: "Panel PC แบบ All-in-One หากชิ้นส่วนใดเสียต้องส่งซ่อมยกชุด หยุดสายผลิตหลายวัน — แบบแยกจอ-แยก PC สามารถเปลี่ยนเฉพาะส่วนที่เสีย ลดเวลา Downtime" },
                 { q: "สั่งทำสเปกพิเศษ (RFID / Custom Logo / Wide Voltage) ได้ไหม?", a: "ได้ ENT รับสั่งทำ ODM Custom: เพิ่ม RFID Reader, Custom BIOS, Boot Logo, รองรับไฟ 9V-36V DC ติดต่อทีมขายเพื่อสอบถาม MOQ" },
-                { q: "จัดส่งและติดตั้งอย่างไร?", a: "จัดส่งฟรีทั่วประเทศพร้อมประกันภัยขนส่ง ทีมวิศวกร ENT ช่วยติดตั้งและทดสอบระบบที่ไซต์งานได้ตามแพ็กเกจที่เลือก" },
+                { q: "จัดส่งและติดตั้งอย่างไร?", a: "จัดส่ง: คิดค่าขนส่งตามจริง (ไม่ฟรี) — กรณีงานโครงการต่อรองเป็นเคส ๆ ไป\nติดตั้ง: ลูกค้าติดตั้งเองได้ หรือจ้างทีมวิศวกร ENT ติดตั้ง/ทดสอบที่ไซต์งาน โดยต้องกำหนด SOW (Scope of Work) ก่อนเสนอราคา\nรับประกัน: 1 ปี (มาตรฐาน) — สามารถซื้อ Extended Warranty ปีที่ 2 และ 3 ในราคาพิเศษ" },
               ].map((item, i) => (
                 <details key={i} className="group p-4 rounded-xl border border-border bg-card">
                   <summary className="cursor-pointer font-bold text-foreground flex items-center justify-between gap-4 list-none">
                     <span>Q: {item.q}</span>
                     <ArrowRight size={16} className="text-primary group-open:rotate-90 transition-transform shrink-0" />
                   </summary>
-                  <p className="mt-3 text-muted-foreground leading-relaxed pl-4 border-l-2 border-primary/30">A: {item.a}</p>
+                  <p className="mt-3 text-muted-foreground leading-relaxed pl-4 border-l-2 border-primary/30 whitespace-pre-line">A: {item.a}</p>
                 </details>
               ))}
             </div>
