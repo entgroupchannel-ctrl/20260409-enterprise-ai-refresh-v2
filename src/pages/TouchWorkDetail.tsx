@@ -401,7 +401,52 @@ export default function TouchWorkDetail() {
 
           <TabsContent value="lcd" className="mt-6"><SpecTable rows={product.specs.lcd} /></TabsContent>
           <TabsContent value="touch" className="mt-6"><SpecTable rows={product.specs.touch} /></TabsContent>
-          <TabsContent value="dimension" className="mt-6"><SpecTable rows={product.specs.dimension} /></TabsContent>
+          <TabsContent value="dimension" className="mt-6 space-y-6">
+            <SpecTable rows={product.specs.dimension} />
+            {(() => {
+              const dims = getTouchWorkDimensionImages(product.model, variant.arch);
+              if (dims.length === 0) return null;
+              return (
+                <div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <Ruler className="h-4 w-4 text-primary" />
+                    <h3 className="font-bold text-base">แบบทางเทคนิค (Mechanical Drawings)</h3>
+                  </div>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    คลิกที่ภาพเพื่อขยาย และดาวน์โหลดเป็นไฟล์อ้างอิงสำหรับงานติดตั้ง
+                  </p>
+                  <ImageLightbox
+                    images={dims}
+                    alt={`${productName} - แบบทางเทคนิค`}
+                    downloadPrefix={`${product.model}-${variant.arch}-dimension`}
+                  >
+                    {(open) => (
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        {dims.map((src, i) => (
+                          <button
+                            key={i}
+                            type="button"
+                            onClick={() => open(i)}
+                            className="relative group rounded-xl border border-border bg-card hover:border-primary/60 hover:shadow-lg transition-all overflow-hidden cursor-zoom-in"
+                          >
+                            <img
+                              src={src}
+                              alt={`${productName} dimension drawing ${i + 1}`}
+                              className="w-full aspect-square object-contain bg-white p-4"
+                            />
+                            <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-background/95 to-transparent px-3 py-2 text-xs font-medium text-left">
+                              {i === 0 ? "มุมมองด้านหน้า / Front View" : "มุมมองด้านหลัง / Rear & Mounting"}
+                            </div>
+                            <ZoomHintBadge />
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </ImageLightbox>
+                </div>
+              );
+            })()}
+          </TabsContent>
           <TabsContent value="environment" className="mt-6"><SpecTable rows={product.specs.environment} /></TabsContent>
           <TabsContent value="power" className="mt-6"><SpecTable rows={product.specs.power} /></TabsContent>
 
