@@ -28,6 +28,7 @@ import installEmbedImg from "@/assets/touchwork/shared/install-embed.png";
 import ProductGallery from "@/components/ProductGallery";
 import ImageLightbox, { ZoomHintBadge } from "@/components/ImageLightbox";
 import { getTouchWorkProductImages, getTouchWorkDimensionImages } from "@/data/touchwork-gallery";
+import ProductConfigurator from "@/components/touchwork/ProductConfigurator";
 
 // ---- Helpers (declared before default export for HMR safety) -------------
 
@@ -304,6 +305,9 @@ export default function TouchWorkDetail() {
           </div>
         </div>
       </section>
+
+      {/* Product Configurator — minimal 3-column build-to-order */}
+      <ProductConfigurator product={product} arch={selectedArch} sku={sku} productName={productName} />
 
       {/* Detailed Tabs */}
       <section className="container max-w-7xl mx-auto px-6 py-8 border-t border-border/40">

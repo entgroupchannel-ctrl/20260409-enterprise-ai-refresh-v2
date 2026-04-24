@@ -685,6 +685,7 @@ export type Database = {
       cart_items: {
         Row: {
           added_at: string
+          configuration: Json | null
           estimated_price: number | null
           id: string
           product_description: string | null
@@ -696,6 +697,7 @@ export type Database = {
         }
         Insert: {
           added_at?: string
+          configuration?: Json | null
           estimated_price?: number | null
           id?: string
           product_description?: string | null
@@ -707,6 +709,7 @@ export type Database = {
         }
         Update: {
           added_at?: string
+          configuration?: Json | null
           estimated_price?: number | null
           id?: string
           product_description?: string | null
