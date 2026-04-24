@@ -6,10 +6,9 @@ import {
   ArrowLeft, Monitor, Cpu, Smartphone, ArrowRight, Maximize,
   ShieldCheck, CheckCircle2, Layers, Sun, Box, Tag, Info,
   Ruler, Thermometer, Plug, Package, MonitorSmartphone, Hand,
-  Link2, Download, Loader2,
+  Link2, Download,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useDownloadTouchWorkDatasheet } from "@/hooks/useDownloadTouchWorkDatasheet";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import FooterCompact from "@/components/FooterCompact";
