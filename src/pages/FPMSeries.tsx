@@ -273,7 +273,7 @@ const FPMSeries = () => {
                     loading="lazy"
                   />
                   {p.badge && (
-                    <span className="absolute top-3 right-3 px-2 py-1 rounded-full bg-amber-500 text-white text-[10px] font-black uppercase tracking-wider shadow-md">
+                    <span className="absolute top-3 right-3 px-2 py-1 rounded-full bg-amber-500/90 text-amber-50 text-[10px] font-black uppercase tracking-wider shadow-md">
                       {p.badge}
                     </span>
                   )}
