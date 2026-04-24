@@ -368,21 +368,25 @@ def build_page1(c: canvas.Canvas, p: dict):
 
     lcd_rows = [
         ["ขนาดหน้าจอ", f'{p["size"]} นิ้ว'],
+        ["ชนิด Panel", p.get("panelType") or "TFT-LCD"],
         ["ความละเอียด", p["resolution"]],
         ["อัตราส่วน", p["ratio"]],
-        ["ความสว่าง", p["brightness"]],
-        ["Contrast Ratio", "1000:1"],
-        ["มุมมอง H/V", "178° / 178°"],
-        ["Refresh Rate", "60 Hz"],
+        ["ความสว่าง", p.get("brightnessSpec") or p["brightness"]],
+        ["Contrast Ratio", p.get("contrast") or "≥800:1"],
+        ["มุมมอง H/V", p.get("viewingAngle") or "85/85/85/85"],
+        ["Backlight", p.get("backlight") or "LED, 30,000 ชม."],
     ]
+    if p.get("colorGamut"):
+        lcd_rows.append(["Color Gamut", p["colorGamut"]])
     touch_rows = [
-        ["เทคโนโลยี", "PCAP Multi-touch"],
-        ["จุดสัมผัส", "10 จุด"],
+        ["เทคโนโลยี", p.get("touchTech") or "PCAP (Projected Capacitive)"],
+        ["จุดสัมผัส", p.get("touchPoints") or "10 จุด (Multi-touch)"],
         ["Response Time", "< 5 ms"],
         ["Scanning Freq.", "200 Hz"],
-        ["Glass", "Mohs Class 7"],
+        ["Glass", p.get("touchGlass") or "Mohs Class 7 (Tempered Glass)"],
         ["Operating Voltage", "DC +5V ±5%"],
-        ["Surface", "Explosion-proof"],
+        ["Surface", "Anti-glare / Anti-fingerprint"],
+        ["Light Transmission", "≥ 90%"],
     ]
 
     # LCD card
@@ -402,10 +406,10 @@ def build_page1(c: canvas.Canvas, p: dict):
     # Environment + Dimension row
     env_y = grid_bottom - 7 * mm
     env_rows = [
-        ["อุณหภูมิใช้งาน", "0°C – 50°C"],
-        ["ความชื้นใช้งาน", "10% – 80% RH"],
-        ["อุณหภูมิเก็บ", "−5°C – 60°C"],
-        ["ความชื้นเก็บ", "10% – 85% RH"],
+        ["อุณหภูมิใช้งาน", p.get("envOpTemp") or "0°C – 50°C"],
+        ["ความชื้นใช้งาน", p.get("envOpHum") or "10% – 80% RH"],
+        ["อุณหภูมิเก็บ", p.get("envStTemp") or "−20°C – 60°C"],
+        ["ความชื้นเก็บ", p.get("envStHum") or "5% – 85% RH"],
     ]
     dim_rows = [
         ["IP Rating", p["ipRating"]],
