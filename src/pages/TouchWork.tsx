@@ -68,12 +68,11 @@ export default function TouchWork() {
       <SEOHead
         title="TouchWork Series — จอสัมผัสอุตสาหกรรม Indoor Display 8″–21.5″"
         description="TouchWork Series จอสัมผัส Indoor Display 12 รุ่นหลัก ขนาด 8″–21.5″ พร้อมตัวเลือก Monitor / Android (ARM) / Windows (X86) ราคาประหยัด เหมาะกับ Kiosk, POS, HMI"
-        canonical="https://entgroup.co.th/touchwork"
       />
       <BreadcrumbJsonLd
         items={[
-          { name: "หน้าแรก", url: "https://entgroup.co.th/" },
-          { name: "TouchWork Series", url: "https://entgroup.co.th/touchwork" },
+          { name: "หน้าแรก", path: "/" },
+          { name: "TouchWork Series", path: "/touchwork" },
         ]}
       />
 
