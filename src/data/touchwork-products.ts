@@ -36,6 +36,18 @@ import GD133_X86 from "@/assets/touchwork/GD133-X86.jpg";
 import JD185B_ARM from "@/assets/touchwork/JD185B-ARM.jpg";
 import JD185B_Monitor from "@/assets/touchwork/JD185B-Monitor.jpg";
 import JD185B_X86 from "@/assets/touchwork/JD185B-X86.jpg";
+// New 2026 additions (4 models — sourced from TouchWo catalog)
+import GD101E_Monitor from "@/assets/touchwork/products/gd101e-monitor.jpg";
+import GD101E_ARM from "@/assets/touchwork/products/gd101e-arm.jpg";
+import GD101E_X86 from "@/assets/touchwork/products/gd101e-x86.jpg";
+import JD133_Monitor from "@/assets/touchwork/products/jd133-monitor.jpg";
+import JD133_ARM from "@/assets/touchwork/products/jd133-arm.jpg";
+import JD156B_Monitor from "@/assets/touchwork/products/jd156b-monitor.jpg";
+import JD156B_ARM from "@/assets/touchwork/products/jd156b-arm.jpg";
+import JD156B_X86 from "@/assets/touchwork/products/jd156b-x86.jpg";
+import JD215B_Monitor from "@/assets/touchwork/products/jd215b-monitor.jpg";
+import JD215B_ARM from "@/assets/touchwork/products/jd215b-arm.jpg";
+import JD215B_X86 from "@/assets/touchwork/products/jd215b-x86.jpg";
 
 export type TouchWorkArch = "Monitor" | "ARM" | "X86";
 
