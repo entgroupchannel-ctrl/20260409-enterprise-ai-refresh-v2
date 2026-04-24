@@ -27,7 +27,14 @@ interface Props {
   sku: string;
   productName: string;
   basePrice?: number;
+  onArchChange?: (arch: TouchWorkArch) => void;
 }
+
+const ARCH_META: Record<TouchWorkArch, { label: string; sub: string; icon: typeof Monitor; tone: string }> = {
+  Monitor: { label: "Monitor", sub: "จอเปล่า · HDMI/VGA", icon: Monitor, tone: "text-sky-700 dark:text-sky-300" },
+  ARM: { label: "ARM", sub: "Android / Linux", icon: Smartphone, tone: "text-emerald-700 dark:text-emerald-300" },
+  X86: { label: "X86", sub: "Windows / Linux", icon: Cpu, tone: "text-violet-700 dark:text-violet-300" },
+};
 
 // ---- Option presets per architecture --------------------------------------
 
