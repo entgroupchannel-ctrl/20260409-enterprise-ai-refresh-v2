@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import FooterCompact from "@/components/FooterCompact";
 import MiniNavbar from "@/components/MiniNavbar";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
+import UseCasesSection from "@/components/touchwork/UseCasesSection";
 import {
   touchworkProducts,
   archOptions,
@@ -248,6 +249,9 @@ export default function TouchWork() {
           })}
         </div>
       </section>
+
+      {/* Real-world Use Cases — แรงบันดาลใจก่อนเลือกสเปก */}
+      <UseCasesSection />
 
       {/* Filter Bar */}
       <section className="border-y border-border/40 bg-muted/30 sticky top-0 z-30 backdrop-blur">
