@@ -24,7 +24,14 @@ const ProductGallery = ({ images, alt, autoPlayInterval = 4000, onImageClick }: 
   if (images.length === 0) return null;
 
   if (images.length === 1) {
-    return <img src={images[0]} alt={alt} className="max-h-[240px] object-contain mx-auto"/>;
+    return (
+      <img
+        src={images[0]}
+        alt={alt}
+        className={`max-h-[240px] object-contain mx-auto ${onImageClick ? "cursor-zoom-in" : ""}`}
+        onClick={onImageClick ? () => onImageClick(0) : undefined}
+      />
+    );
   }
 
   return (
