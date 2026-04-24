@@ -247,7 +247,7 @@ export default function TouchWork() {
             ไม่พบรุ่นที่ตรงกับเงื่อนไข — ลองปรับตัวกรอง
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {filtered.map((p) => {
               const cover =
                 p.variants.find((v) => v.arch === "Monitor")?.image ||
@@ -256,68 +256,58 @@ export default function TouchWork() {
                 <Link
                   key={p.model}
                   to={`/touchwork/${p.model.toLowerCase()}`}
-                  className="group rounded-2xl border border-border bg-card overflow-hidden hover:border-primary/50 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
+                  className="group rounded-xl border border-border bg-card overflow-hidden hover:border-primary/50 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
                 >
                   <div className="relative aspect-[4/3] bg-gradient-to-br from-muted/40 to-muted overflow-hidden">
                     <img
                       src={cover}
                       alt={`TouchWork ${p.model} ${p.size}″`}
                       loading="lazy"
-                      className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-300"
                     />
-                    <div className="absolute top-3 left-3 flex flex-wrap gap-1">
+                    <div className="absolute top-2 left-2 flex flex-wrap gap-1">
                       {p.variants.map((v) => {
                         const Icon = archIcon[v.arch];
                         return (
                           <span
                             key={v.arch}
-                            className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium border ${archColor[v.arch]}`}
+                            className={`inline-flex items-center gap-0.5 px-1 py-0.5 rounded text-[9px] font-medium border ${archColor[v.arch]}`}
                           >
-                            <Icon className="h-2.5 w-2.5" />
+                            <Icon className="h-2 w-2" />
                             {v.arch}
                           </span>
                         );
                       })}
                     </div>
-                    <div className="absolute top-3 right-3">
-                      <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-foreground/90 text-background text-xs font-bold">
-                        <Maximize className="h-3 w-3" />
+                    <div className="absolute top-2 right-2">
+                      <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-md bg-foreground/90 text-background text-[11px] font-bold">
+                        <Maximize className="h-2.5 w-2.5" />
                         {p.size}″
                       </span>
                     </div>
                   </div>
 
-                  <div className="p-4">
-                    <div className="flex items-start justify-between gap-2 mb-2">
-                      <h3 className="text-lg font-bold tracking-tight group-hover:text-primary transition-colors">
+                  <div className="p-3">
+                    <div className="flex items-start justify-between gap-2 mb-1.5">
+                      <h3 className="text-base font-bold tracking-tight group-hover:text-primary transition-colors">
                         {p.model}
                       </h3>
-                      <span className="text-xs text-muted-foreground whitespace-nowrap">
+                      <span className="text-[10px] text-muted-foreground whitespace-nowrap mt-1">
                         {p.ratio}
                       </span>
                     </div>
-                    <div className="text-xs text-muted-foreground mb-3 space-y-0.5">
-                      <div>• ความละเอียด: {p.resolution}</div>
-                      <div>• สัมผัส: {p.touch}</div>
-                      <div>• สว่าง: {p.brightness}</div>
+                    <div className="text-[11px] text-muted-foreground mb-2.5 space-y-0.5">
+                      <div>• {p.resolution}</div>
+                      <div>• {p.touch}</div>
+                      <div>• {p.brightness}</div>
                     </div>
-                    <div className="flex flex-wrap gap-1 mb-3">
-                      {p.highlights.slice(0, 2).map((h) => (
-                        <span
-                          key={h}
-                          className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-foreground/70"
-                        >
-                          {h}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="flex items-center justify-between border-t border-border/50 pt-3">
-                      <span className="text-xs text-muted-foreground inline-flex items-center gap-1">
-                        <Tag className="h-3 w-3" />
+                    <div className="flex items-center justify-between border-t border-border/50 pt-2">
+                      <span className="text-[10px] text-muted-foreground inline-flex items-center gap-1">
+                        <Tag className="h-2.5 w-2.5" />
                         {p.variants.length} ตัวเลือก
                       </span>
-                      <span className="text-sm font-medium text-primary inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-                        ดูรายละเอียด <ArrowRight className="h-3.5 w-3.5" />
+                      <span className="text-xs font-medium text-primary inline-flex items-center gap-0.5 group-hover:gap-1 transition-all">
+                        ดูเพิ่ม <ArrowRight className="h-3 w-3" />
                       </span>
                     </div>
                   </div>
