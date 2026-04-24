@@ -369,3 +369,74 @@ export default function TouchWorkDetail() {
     </div>
   );
 }
+
+// ---- Helpers --------------------------------------------------------------
+
+function SpecTable({ rows }: { rows: { label: string; value: string }[] }) {
+  return (
+    <div className="rounded-xl border border-border bg-card overflow-hidden">
+      <dl className="divide-y divide-border/60">
+        {rows.map((r) => (
+          <div key={r.label} className="grid grid-cols-1 sm:grid-cols-3 gap-1 px-4 py-3 hover:bg-muted/30 transition-colors">
+            <dt className="text-sm font-medium text-muted-foreground sm:col-span-1">{r.label}</dt>
+            <dd className="text-sm font-semibold sm:col-span-2">{r.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+}
+
+function CpuTable({
+  title,
+  color,
+  options,
+}: {
+  title: string;
+  color: "emerald" | "violet";
+  options: { cpu: string; gpu: string; memory: string; storage: string; network: string; os: string }[];
+}) {
+  const headerColor =
+    color === "emerald"
+      ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/30"
+      : "bg-violet-500/10 text-violet-700 dark:text-violet-300 border-violet-500/30";
+  const fields: { key: keyof typeof options[number]; label: string }[] = [
+    { key: "cpu", label: "CPU" },
+    { key: "gpu", label: "Graphics" },
+    { key: "memory", label: "Memory" },
+    { key: "storage", label: "Storage" },
+    { key: "network", label: "Network" },
+    { key: "os", label: "OS" },
+  ];
+  return (
+    <div>
+      <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-md border text-xs font-semibold mb-3 ${headerColor}`}>
+        <Cpu className="h-3.5 w-3.5" /> {title}
+      </div>
+      <div className="overflow-x-auto rounded-xl border border-border">
+        <table className="w-full text-sm">
+          <thead className="bg-muted/40">
+            <tr>
+              <th className="text-left px-4 py-2.5 font-semibold w-32">รายการ</th>
+              {options.map((_, i) => (
+                <th key={i} className="text-left px-4 py-2.5 font-semibold">
+                  ตัวเลือก {i + 1}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border/60">
+            {fields.map((f) => (
+              <tr key={f.key} className="hover:bg-muted/20">
+                <td className="px-4 py-2.5 text-muted-foreground font-medium">{f.label}</td>
+                {options.map((o, i) => (
+                  <td key={i} className="px-4 py-2.5">{o[f.key]}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
