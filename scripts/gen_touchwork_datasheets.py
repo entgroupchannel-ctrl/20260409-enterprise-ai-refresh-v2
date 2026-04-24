@@ -460,10 +460,7 @@ def build_page2(c: canvas.Canvas, p: dict, qr_product: Image.Image, qr_quote: Im
 
     # Delivery contents (right column)
     del_y = pwr_y - 6 * mm
-    c.setFillColor(BRAND_PRIMARY)
-    c.setFont("Sarabun-Bold", 8)
-    c.drawString(CONTENT_X + col_w + 6 * mm, del_y - 2, "IN THE BOX")
-    c.rect(CONTENT_X + col_w + 6 * mm, del_y - 4, 30, 0.8, fill=1, stroke=0)
+    subheading(c, CONTENT_X + col_w + 6 * mm, del_y - 2, "IN THE BOX")
     items = [
         "✓ คู่มือการใช้งาน × 1",
         "✓ อุปกรณ์ติดตั้ง (Bracket/Mount) × 1",
