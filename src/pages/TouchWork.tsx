@@ -36,23 +36,53 @@ const sizeBuckets = [
   { label: "21.5″+", min: 19.1, max: 99 },
 ];
 
+type SeriesKey = "DM" | "GD" | "JD";
+const seriesMeta: Record<SeriesKey, { label: string; desc: string; color: string }> = {
+  DM: {
+    label: "DM Series",
+    desc: "Mainstream — รุ่นมาตรฐานครบทุกขนาด 8″–21.5″",
+    color: "bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-500/30",
+  },
+  GD: {
+    label: "GD Series",
+    desc: "Slim & Wall-mount — ดีไซน์บาง ติดผนัง โรงแรม/ออฟฟิศ",
+    color: "bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/30",
+  },
+  JD: {
+    label: "JD Series",
+    desc: "Economic — ราคาประหยัด เน้นใช้งาน POS / Signage",
+    color: "bg-rose-500/10 text-rose-700 dark:text-rose-300 border-rose-500/30",
+  },
+};
+const getSeries = (model: string): SeriesKey =>
+  (model.startsWith("GD") ? "GD" : model.startsWith("JD") ? "JD" : "DM");
+
 export default function TouchWork() {
+  const [selectedSeries, setSelectedSeries] = useState<SeriesKey[]>([]);
   const [selectedArchs, setSelectedArchs] = useState<TouchWorkArch[]>([]);
   const [selectedBuckets, setSelectedBuckets] = useState<string[]>([]);
 
+  const toggleSeries = (s: SeriesKey) =>
+    setSelectedSeries((p) => (p.includes(s) ? p.filter((x) => x !== s) : [...p, s]));
   const toggleArch = (a: TouchWorkArch) =>
     setSelectedArchs((p) => (p.includes(a) ? p.filter((x) => x !== a) : [...p, a]));
   const toggleBucket = (b: string) =>
     setSelectedBuckets((p) => (p.includes(b) ? p.filter((x) => x !== b) : [...p, b]));
 
+  // Counts per series for chip badges
+  const seriesCounts = useMemo(() => {
+    const c: Record<SeriesKey, number> = { DM: 0, GD: 0, JD: 0 };
+    touchworkProducts.forEach((p) => { c[getSeries(p.model)]++; });
+    return c;
+  }, []);
+
   const filtered = useMemo(() => {
     return touchworkProducts.filter((p) => {
-      // arch filter: product must offer ALL selected archs
+      if (selectedSeries.length > 0 && !selectedSeries.includes(getSeries(p.model))) return false;
       if (selectedArchs.length > 0) {
         const archs = p.variants.map((v) => v.arch);
         if (!selectedArchs.every((a) => archs.includes(a))) return false;
       }
-      // size bucket filter: product size in any selected bucket
       if (selectedBuckets.length > 0) {
         const inBucket = sizeBuckets
           .filter((b) => selectedBuckets.includes(b.label))
@@ -61,7 +91,14 @@ export default function TouchWork() {
       }
       return true;
     });
-  }, [selectedArchs, selectedBuckets]);
+  }, [selectedSeries, selectedArchs, selectedBuckets]);
+
+  // Group filtered products by series for the grid
+  const groupedFiltered = useMemo(() => {
+    const groups: Record<SeriesKey, typeof filtered> = { DM: [], GD: [], JD: [] };
+    filtered.forEach((p) => groups[getSeries(p.model)].push(p));
+    return groups;
+  }, [filtered]);
 
   return (
     <div className="min-h-screen bg-background">
