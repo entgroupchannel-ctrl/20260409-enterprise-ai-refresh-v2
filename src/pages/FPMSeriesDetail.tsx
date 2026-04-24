@@ -389,7 +389,7 @@ const FPMSeriesDetail = () => {
                     <span>Q: {item.q}</span>
                     <ArrowRight size={16} className="text-primary group-open:rotate-90 transition-transform shrink-0" />
                   </summary>
-                  <p className="mt-3 text-muted-foreground leading-relaxed pl-4 border-l-2 border-primary/30">A: {item.a}</p>
+                  <p className="mt-3 text-muted-foreground leading-relaxed pl-4 border-l-2 border-primary/30 whitespace-pre-line">A: {item.a}</p>
                 </details>
               ))}
             </div>
