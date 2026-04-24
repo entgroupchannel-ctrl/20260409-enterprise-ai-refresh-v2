@@ -25,6 +25,8 @@ import ioPortsImg from "@/assets/touchwork/shared/io-ports.png";
 import installWallImg from "@/assets/touchwork/shared/install-wall.png";
 import installDeskImg from "@/assets/touchwork/shared/install-desk.png";
 import installEmbedImg from "@/assets/touchwork/shared/install-embed.png";
+import ProductGallery from "@/components/ProductGallery";
+import { getTouchWorkGallery } from "@/data/touchwork-gallery";
 
 // ---- Helpers (declared before default export for HMR safety) -------------
 
@@ -163,14 +165,14 @@ export default function TouchWorkDetail() {
         <div className="grid lg:grid-cols-2 gap-8 items-start">
           {/* Image */}
           <div className="relative">
-            <div className="aspect-square rounded-3xl bg-gradient-to-br from-muted/30 via-background to-muted/20 border border-border overflow-hidden">
-              <img
-                src={variant.image}
-                alt={productName}
-                className="w-full h-full object-contain p-8 transition-all duration-300"
-              />
+            <div className="rounded-3xl bg-gradient-to-br from-muted/30 via-background to-muted/20 border border-border overflow-hidden p-6">
+              {(() => {
+                const gallery = getTouchWorkGallery(product.model, variant.arch);
+                const images = gallery.length > 0 ? gallery : [variant.image];
+                return <ProductGallery images={images} alt={productName} />;
+              })()}
             </div>
-            <div className="absolute top-4 right-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-foreground/90 text-background text-sm font-bold">
+            <div className="absolute top-4 right-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-foreground/90 text-background text-sm font-bold z-10">
               <Maximize className="h-3.5 w-3.5" /> {product.size}″
             </div>
           </div>
