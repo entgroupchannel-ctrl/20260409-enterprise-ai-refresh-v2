@@ -322,49 +322,57 @@ const FPMSeriesDetail = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            {/* Compact bundle items: 3 PC families + 1 warranty card */}
+            {/* Compact bundle items: 3 GT models with real pricing + 1 warranty card */}
             {[
               {
-                model: "GT-Series",
-                name: "GT Series Industrial PC",
-                desc: "Compact Fanless รุ่นเริ่มต้น — เหมาะ HMI/PLC ทั่วไป",
+                model: "GT1000",
+                name: "GT1000 Fanless PC",
+                desc: "Celeron N2920 · USB 6 · COM 2 · LAN 2 · VGA+HDMI",
                 tag: "เริ่มต้น",
+                price: 15990,
                 Icon: Cpu,
-                href: "/gt-series",
+                href: "/gt-series#gt1000",
               },
               {
-                model: "EPC-Box",
-                name: "EPC Box Series",
-                desc: "Performance Box PC — รองรับงานประมวลผลหนัก",
-                tag: "Performance",
+                model: "GT2000",
+                name: "GT2000 — ยอดนิยม",
+                desc: "i5-3317U · USB 8 (4×3.0) · COM 4 · LAN 2 · VGA+HDMI",
+                tag: "Best Seller",
+                price: 15990,
                 Icon: Server,
-                href: "/epc-box-series",
+                href: "/gt-series#gt2000",
               },
               {
-                model: "UPC-Series",
-                name: "UPC Industrial Computer",
-                desc: "Mission-critical — Wide-Temp, Expansion Slots",
-                tag: "Flagship",
+                model: "GT4000",
+                name: "GT4000 + GPIO",
+                desc: "i5-4200U · USB 8 · COM 6 · GPIO · VESA Mount",
+                tag: "GPIO",
+                price: 24990,
                 Icon: HardDrive,
-                href: "/upc-series",
+                href: "/gt-series#gt4000",
               },
-            ].map(({ model: m, name, desc, tag, Icon, href }) => (
+            ].map(({ model: m, name, desc, tag, price, Icon, href }) => (
               <div key={m} className="group p-4 rounded-xl border border-border bg-card hover:border-primary/50 hover:shadow-md transition-all flex flex-col">
                 <div className="flex items-start justify-between mb-3">
                   <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/15 to-primary/5 text-primary flex items-center justify-center">
                     <Icon size={18} strokeWidth={2.25} />
                   </div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary/10 text-primary">
                     {tag}
                   </span>
                 </div>
                 <h3 className="font-display font-bold text-foreground text-sm mb-1">{name}</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed mb-3 flex-1">{desc}</p>
+                <p className="text-[11px] text-muted-foreground leading-relaxed mb-2 flex-1">{desc}</p>
+                <div className="flex items-baseline gap-1 mb-3">
+                  <span className="text-[10px] text-muted-foreground">เริ่มต้น</span>
+                  <span className="text-base font-bold text-primary">฿{price.toLocaleString("th-TH")}</span>
+                </div>
                 <div className="flex items-center gap-2 mt-auto">
                   <AddToCartButton
                     productModel={m}
                     productName={name}
-                    productDescription={`เชื่อมกับ ${data.model}`}
+                    productDescription={`จับคู่กับ ${data.model}`}
+                    estimatedPrice={price}
                   />
                   <Link
                     to={href}
