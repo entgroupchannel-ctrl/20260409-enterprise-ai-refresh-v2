@@ -574,20 +574,33 @@ const FPMSeries = () => {
             </h2>
           </div>
 
-          <div className="rounded-xl border border-border overflow-hidden bg-card">
-            <img
-              src="/images/wix/0597a3_c6e92eb018a04ed78ef653433323ccc4_23264789.png"
-              alt="FPM17 Special Edition"
-              className="w-full object-contain"
-            />
-          </div>
-
-          <div className="rounded-xl border border-border overflow-hidden bg-card">
-            <img
-              src="/images/wix/0597a3_5bbc918177214812816fca9cac808de6_3497905f.png"
-              alt="VESA Mounting options"
-              className="w-full object-contain"
-            />
+          <div className="grid md:grid-cols-2 gap-5">
+            <figure className="rounded-xl border border-border overflow-hidden bg-card flex flex-col">
+              <div className="aspect-[4/3] bg-secondary/30 flex items-center justify-center p-3 overflow-hidden">
+                <img
+                  src="/images/wix/0597a3_c6e92eb018a04ed78ef653433323ccc4_23264789.png"
+                  alt="FPM17 Special Edition"
+                  loading="lazy"
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
+              <figcaption className="px-4 py-3 border-t border-border text-sm font-semibold text-foreground">
+                FPM17 Special Edition
+              </figcaption>
+            </figure>
+            <figure className="rounded-xl border border-border overflow-hidden bg-card flex flex-col">
+              <div className="aspect-[4/3] bg-secondary/30 flex items-center justify-center p-3 overflow-hidden">
+                <img
+                  src="/images/wix/0597a3_5bbc918177214812816fca9cac808de6_3497905f.png"
+                  alt="VESA Mounting options"
+                  loading="lazy"
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
+              <figcaption className="px-4 py-3 border-t border-border text-sm font-semibold text-foreground">
+                VESA Mounting Options
+              </figcaption>
+            </figure>
           </div>
         </div>
       </section>
