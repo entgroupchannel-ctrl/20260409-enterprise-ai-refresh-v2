@@ -45,7 +45,8 @@ const ProductGallery = ({ images, alt, autoPlayInterval = 4000, onImageClick }: 
         <img
           src={images[current]}
           alt={`${alt} - ${current + 1}`}
-          className="max-h-[240px] object-contain transition-opacity duration-500"/>
+          className={`max-h-[240px] object-contain transition-opacity duration-500 ${onImageClick ? "cursor-zoom-in" : ""}`}
+          onClick={onImageClick ? () => onImageClick(current) : undefined}/>
 
         <button
           type="button"
