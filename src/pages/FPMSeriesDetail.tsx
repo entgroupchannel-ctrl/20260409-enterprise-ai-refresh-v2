@@ -296,41 +296,102 @@ const FPMSeriesDetail = () => {
         </div>
       </section>
 
-      {/* Features */}
+      {/* Tabs: Gallery / Specifications / FAQ */}
       <section className="py-12 border-b border-border bg-muted/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-6">
-            คุณสมบัติเด่น
-          </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {data.features.map((f, i) => {
-              const Icon = pickIcon(f);
-              return (
-                <div key={i} className="flex items-start gap-3 p-4 rounded-xl border border-border bg-card">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                    <Icon size={18} />
-                  </div>
-                  <p className="text-sm text-foreground font-medium leading-relaxed">{f}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Ports */}
-      <section className="py-12 border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-6">
-            พอร์ตเชื่อมต่อ
-          </h2>
-          <div className="flex flex-wrap gap-2">
-            {data.ports.map((p) => (
-              <span key={p} className="px-4 py-2 rounded-lg border border-border bg-card text-foreground font-mono text-sm">
-                {p}
-              </span>
+          <div className="flex gap-2 mb-6 border-b border-border overflow-x-auto">
+            {(["gallery", "specs", "faq"] as const).map((t) => (
+              <button
+                key={t}
+                onClick={() => setActiveTab(t)}
+                className={`px-5 py-3 font-bold text-sm whitespace-nowrap transition-colors border-b-2 -mb-px ${
+                  activeTab === t
+                    ? "border-primary text-primary"
+                    : "border-transparent text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {t === "gallery" && "📸 Product Images & Sizes"}
+                {t === "specs" && "📋 Specifications"}
+                {t === "faq" && "❓ FAQ"}
+              </button>
             ))}
           </div>
+
+          {activeTab === "gallery" && (
+            <div>
+              <p className="text-muted-foreground mb-6">ภาพสินค้าและการติดตั้งจริงในสภาพแวดล้อมอุตสาหกรรม</p>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {data.images.map((src, i) => (
+                  <div key={i} className="aspect-square rounded-xl border border-border bg-card overflow-hidden flex items-center justify-center p-3">
+                    <img src={src} alt={`${data.model} - ${i + 1}`} className="max-w-full max-h-full object-contain" loading="lazy" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {activeTab === "specs" && (
+            <div className="grid lg:grid-cols-2 gap-8">
+              <div>
+                <h3 className="text-lg font-display font-bold text-foreground mb-4">คุณสมบัติเด่น</h3>
+                <div className="space-y-3">
+                  {data.features.map((f, i) => {
+                    const Icon = pickIcon(f);
+                    return (
+                      <div key={i} className="flex items-start gap-3 p-4 rounded-xl border border-border bg-card">
+                        <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                          <Icon size={18} />
+                        </div>
+                        <p className="text-sm text-foreground font-medium leading-relaxed">{f}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+              <div>
+                <h3 className="text-lg font-display font-bold text-foreground mb-4">พอร์ตเชื่อมต่อ</h3>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {data.ports.map((p) => (
+                    <span key={p} className="px-4 py-2 rounded-lg border border-border bg-card text-foreground font-mono text-sm">{p}</span>
+                  ))}
+                </div>
+                <h3 className="text-lg font-display font-bold text-foreground mb-4">ข้อมูลทั่วไป</h3>
+                <div className="space-y-2 text-sm">
+                  {[
+                    ["ขนาดหน้าจอ", data.size], ["ความละเอียด", data.resolution], ["อัตราส่วน", data.ratio],
+                    ["ระบบสัมผัส", data.touch], ["ความสว่าง", `${data.brightness} nits`],
+                    ["มาตรฐาน", "IP65 Front Panel"], ["รับประกัน", "2 ปี (เคลม On-site)"],
+                  ].map(([k, v]) => (
+                    <div key={k} className="flex justify-between py-2 border-b border-border">
+                      <span className="text-muted-foreground">{k}</span>
+                      <span className="text-foreground font-medium">{v}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === "faq" && (
+            <div className="max-w-3xl space-y-4">
+              {[
+                { q: `${data.model} ใช้กับงานอะไรได้บ้าง?`, a: `${data.model} เหมาะกับ HMI โรงงาน, SCADA, PLC Operator Interface, Machine Control Panel, ห้องคอนโทรล CNC และงาน Mission-critical ที่ต้องการมาตรฐาน IP65` },
+                { q: "รับประกันกี่ปี และมีบริการ On-site ไหม?", a: "รับประกัน 2 ปี เคลม On-site ภายใน 48 ชม. ทั่วประเทศ พร้อมทีมวิศวกรช่วยติดตั้งและอบรมการใช้งาน" },
+                { q: "ต่อกับ Industrial PC ของ ENT รุ่นไหนได้บ้าง?", a: "เชื่อมต่อได้กับ GT Series, EPC Box Series, UPC Series หรือ Industrial PC ที่ลูกค้ามีอยู่แล้ว ผ่านพอร์ตมาตรฐาน HDMI / VGA / USB" },
+                { q: "ทำไมไม่ใช้ Panel PC แบบรวมในตัวเดียว?", a: "Panel PC แบบ All-in-One หากชิ้นส่วนใดเสียต้องส่งซ่อมยกชุด หยุดสายผลิตหลายวัน — แบบแยกจอ-แยก PC สามารถเปลี่ยนเฉพาะส่วนที่เสีย ลดเวลา Downtime" },
+                { q: "สั่งทำสเปกพิเศษ (RFID / Custom Logo / Wide Voltage) ได้ไหม?", a: "ได้ ENT รับสั่งทำ ODM Custom: เพิ่ม RFID Reader, Custom BIOS, Boot Logo, รองรับไฟ 9V-36V DC ติดต่อทีมขายเพื่อสอบถาม MOQ" },
+                { q: "จัดส่งและติดตั้งอย่างไร?", a: "จัดส่งฟรีทั่วประเทศพร้อมประกันภัยขนส่ง ทีมวิศวกร ENT ช่วยติดตั้งและทดสอบระบบที่ไซต์งานได้ตามแพ็กเกจที่เลือก" },
+              ].map((item, i) => (
+                <details key={i} className="group p-4 rounded-xl border border-border bg-card">
+                  <summary className="cursor-pointer font-bold text-foreground flex items-center justify-between gap-4 list-none">
+                    <span>Q: {item.q}</span>
+                    <ArrowRight size={16} className="text-primary group-open:rotate-90 transition-transform shrink-0" />
+                  </summary>
+                  <p className="mt-3 text-muted-foreground leading-relaxed pl-4 border-l-2 border-primary/30">A: {item.a}</p>
+                </details>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
