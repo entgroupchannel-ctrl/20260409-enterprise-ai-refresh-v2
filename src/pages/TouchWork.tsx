@@ -167,8 +167,16 @@ export default function TouchWork() {
       </section>
 
       {/* Architecture explainer */}
-      <section className="container max-w-7xl mx-auto px-6 py-10">
-        <div className="grid md:grid-cols-3 gap-4">
+      <section className="container max-w-7xl mx-auto px-6 py-12">
+        <div className="text-center mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-2">
+            เลือก Architecture ที่เหมาะกับงานของคุณ
+          </h2>
+          <p className="text-sm text-muted-foreground max-w-xl mx-auto">
+            TouchWork ทุกรุ่นเลือกได้ 3 แบบสถาปัตยกรรม — แต่ละแบบเหมาะกับการใช้งานต่างกัน
+          </p>
+        </div>
+        <div className="grid md:grid-cols-3 gap-5">
           {(["Monitor", "ARM", "X86"] as TouchWorkArch[]).map((a) => {
             const Icon = archIcon[a];
             const meta = {
@@ -177,33 +185,63 @@ export default function TouchWork() {
                 sub: "จอสัมผัสล้วน",
                 desc: "ต่อกับ PC/Mini PC ผ่าน HDMI/VGA — ใช้เป็นหน้าจอแสดงผลพร้อมระบบสัมผัส",
                 use: "เหมาะกับ: ระบบที่มี PC อยู่แล้ว, จอเสริม, หน้าจอควบคุม",
+                image: archMonitorImg,
+                glow: "from-sky-500/20 via-sky-400/5 to-transparent",
+                ring: "group-hover:ring-sky-500/40",
               },
               ARM: {
                 title: "ARM (Android)",
                 sub: "Touch PC พร้อมใช้",
                 desc: "มาพร้อม Android 11/13 ในตัว ประหยัดไฟ ใช้แอป Kiosk และ Self-Order ได้ทันที",
                 use: "เหมาะกับ: Self-Order, Queue, Digital Menu, ตู้ถ่ายรูป",
+                image: archArmImg,
+                glow: "from-emerald-500/20 via-emerald-400/5 to-transparent",
+                ring: "group-hover:ring-emerald-500/40",
               },
               X86: {
                 title: "X86 (Windows)",
                 sub: "Touch PC ระดับ Workstation",
                 desc: "Intel CPU รองรับ Windows 10/11 — ใช้กับโปรแกรมสำเร็จรูป POS, ERP, MES ได้",
                 use: "เหมาะกับ: POS ร้านอาหาร, ERP, MES โรงงาน, ระบบจัดการคลัง",
+                image: archX86Img,
+                glow: "from-violet-500/20 via-violet-400/5 to-transparent",
+                ring: "group-hover:ring-violet-500/40",
               },
             }[a];
             return (
               <div
                 key={a}
-                className="rounded-2xl border border-border bg-card p-5 hover:border-primary/40 transition-colors"
+                className={`group relative rounded-2xl border border-border bg-card overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 ring-1 ring-transparent ${meta.ring} transition-all duration-300`}
               >
-                <div className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-md border text-xs font-medium ${archColor[a]} mb-3`}>
-                  <Icon className="h-3.5 w-3.5" />
-                  {meta.title}
+                {/* Hero image with overlay */}
+                <div className="relative aspect-[16/9] overflow-hidden">
+                  <img
+                    src={meta.image}
+                    alt={meta.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  {/* Dark gradient at bottom for text legibility */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
+                  {/* Color glow accent */}
+                  <div className={`absolute inset-0 bg-gradient-to-tr ${meta.glow} mix-blend-screen pointer-events-none`} />
+                  {/* Floating badge on image */}
+                  <div className="absolute top-3 left-3">
+                    <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md backdrop-blur-md text-xs font-semibold border ${archColor[a]} shadow-lg`}>
+                      <Icon className="h-3.5 w-3.5" />
+                      {meta.title}
+                    </div>
+                  </div>
                 </div>
-                <div className="text-lg font-semibold mb-1">{meta.sub}</div>
-                <p className="text-sm text-muted-foreground mb-3">{meta.desc}</p>
-                <div className="text-xs text-foreground/70 border-t border-border/50 pt-3">
-                  {meta.use}
+
+                {/* Body */}
+                <div className="relative p-5 -mt-2">
+                  <div className="text-lg font-bold mb-1.5 tracking-tight">{meta.sub}</div>
+                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{meta.desc}</p>
+                  <div className="text-xs text-foreground/80 border-t border-border/60 pt-3 leading-relaxed">
+                    <span className="font-semibold text-foreground">✓ </span>
+                    {meta.use}
+                  </div>
                 </div>
               </div>
             );
