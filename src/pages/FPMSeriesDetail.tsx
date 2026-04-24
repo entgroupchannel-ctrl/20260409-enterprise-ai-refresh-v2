@@ -389,7 +389,7 @@ const FPMSeriesDetail = () => {
             <div className="max-w-3xl space-y-4">
               {[
                 { q: `${data.model} ใช้กับงานอะไรได้บ้าง?`, a: `${data.model} เหมาะกับ HMI โรงงาน, SCADA, PLC Operator Interface, Machine Control Panel, ห้องคอนโทรล CNC และงาน Mission-critical ที่ต้องการมาตรฐาน IP65` },
-                { q: "รับประกันกี่ปี และมีบริการ On-site ไหม?", a: "รับประกัน 2 ปี เคลม On-site ภายใน 48 ชม. ทั่วประเทศ พร้อมทีมวิศวกรช่วยติดตั้งและอบรมการใช้งาน" },
+                { q: "รับประกันกี่ปี และมีบริการ On-site ไหม?", a: "รับประกันมาตรฐาน 1 ปี (ฟรี) — ขยายความคุ้มครองได้: ปีที่ 2 = 15% ของราคาสินค้า, ปีที่ 3 = 20% ของราคาสินค้า พร้อมเคลม On-site ภายใน 48 ชม. ทั่วประเทศ" },
                 { q: "ต่อกับ Industrial PC ของ ENT รุ่นไหนได้บ้าง?", a: "เชื่อมต่อได้กับ GT Series, EPC Box Series, UPC Series หรือ Industrial PC ที่ลูกค้ามีอยู่แล้ว ผ่านพอร์ตมาตรฐาน HDMI / VGA / USB" },
                 { q: "ทำไมไม่ใช้ Panel PC แบบรวมในตัวเดียว?", a: "Panel PC แบบ All-in-One หากชิ้นส่วนใดเสียต้องส่งซ่อมยกชุด หยุดสายผลิตหลายวัน — แบบแยกจอ-แยก PC สามารถเปลี่ยนเฉพาะส่วนที่เสีย ลดเวลา Downtime" },
                 { q: "สั่งทำสเปกพิเศษ (RFID / Custom Logo / Wide Voltage) ได้ไหม?", a: "ได้ ENT รับสั่งทำ ODM Custom: เพิ่ม RFID Reader, Custom BIOS, Boot Logo, รองรับไฟ 9V-36V DC ติดต่อทีมขายเพื่อสอบถาม MOQ" },
