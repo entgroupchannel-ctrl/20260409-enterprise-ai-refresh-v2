@@ -217,6 +217,32 @@ export default function TouchWork() {
             </div>
 
             <div className="flex flex-wrap gap-1.5">
+              <span className="text-xs text-muted-foreground self-center mr-1">ตระกูล:</span>
+              {(["DM", "GD", "JD"] as SeriesKey[]).map((s) => {
+                const active = selectedSeries.includes(s);
+                return (
+                  <button
+                    key={s}
+                    onClick={() => toggleSeries(s)}
+                    title={seriesMeta[s].desc}
+                    className={`px-3 py-1 rounded-full text-xs font-semibold border transition-all inline-flex items-center gap-1.5 ${
+                      active
+                        ? "bg-primary text-primary-foreground border-primary"
+                        : `${seriesMeta[s].color} hover:opacity-80`
+                    }`}
+                  >
+                    {s}
+                    <span className={`text-[10px] px-1 rounded ${active ? "bg-primary-foreground/20" : "bg-foreground/10"}`}>
+                      {seriesCounts[s]}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="h-5 w-px bg-border" />
+
+            <div className="flex flex-wrap gap-1.5">
               <span className="text-xs text-muted-foreground self-center mr-1">ระบบ:</span>
               {archOptions.map((a) => {
                 const active = selectedArchs.includes(a);
@@ -258,9 +284,10 @@ export default function TouchWork() {
               })}
             </div>
 
-            {(selectedArchs.length > 0 || selectedBuckets.length > 0) && (
+            {(selectedSeries.length > 0 || selectedArchs.length > 0 || selectedBuckets.length > 0) && (
               <button
                 onClick={() => {
+                  setSelectedSeries([]);
                   setSelectedArchs([]);
                   setSelectedBuckets([]);
                 }}
