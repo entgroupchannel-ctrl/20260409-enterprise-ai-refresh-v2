@@ -138,6 +138,10 @@ function buildVariants(model: string, archs: TouchWorkArch[]): TouchWorkVariant[
     DM215G: { ARM: DM215G_ARM, Monitor: DM215G_Monitor, X86: DM215G_X86 },
     GD133: { ARM: GD133_ARM, Monitor: GD133_Monitor, X86: GD133_X86 },
     JD185B: { ARM: JD185B_ARM, Monitor: JD185B_Monitor, X86: JD185B_X86 },
+    GD101E: { Monitor: GD101E_Monitor, ARM: GD101E_ARM, X86: GD101E_X86 },
+    JD133: { Monitor: JD133_Monitor, ARM: JD133_ARM },
+    JD156B: { Monitor: JD156B_Monitor, ARM: JD156B_ARM, X86: JD156B_X86 },
+    JD215B: { Monitor: JD215B_Monitor, ARM: JD215B_ARM, X86: JD215B_X86 },
   };
   return archs.map((arch) => ({
     arch,
