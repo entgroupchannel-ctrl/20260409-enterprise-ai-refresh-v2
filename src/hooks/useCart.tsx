@@ -48,22 +48,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => { fetchCart(); }, [fetchCart]);
 
-  const addToCart = useCallback(async (product: { model: string; name?: string; description?: string; quantity?: number; price?: number }) => {
+  const addToCart = useCallback(async (product: { model: string; name?: string; description?: string; quantity?: number; price?: number; configuration?: Record<string, unknown> }) => {
     if (!user) return;
     const qty = product.quantity || 1;
+    const hasConfig = !!product.configuration && Object.keys(product.configuration).length > 0;
 
-    // Check existing
-    const { data: existing } = await (supabase.from as any)('cart_items')
-      .select('*')
-      .eq('user_id', user.id)
-      .eq('product_model', product.model)
-      .maybeSingle();
-
-    if (existing) {
-      await (supabase.from as any)('cart_items')
-        .update({ quantity: existing.quantity + qty })
-        .eq('id', existing.id);
-    } else {
+    // If a configuration is supplied, always insert as a NEW line item (configs are unique).
+    if (hasConfig) {
       await (supabase.from as any)('cart_items')
         .insert({
           user_id: user.id,
@@ -72,7 +63,32 @@ export function CartProvider({ children }: { children: ReactNode }) {
           product_description: product.description || null,
           quantity: qty,
           estimated_price: product.price || null,
+          configuration: product.configuration,
         });
+    } else {
+      // Check existing (only merge non-configured items)
+      const { data: existing } = await (supabase.from as any)('cart_items')
+        .select('*')
+        .eq('user_id', user.id)
+        .eq('product_model', product.model)
+        .is('configuration', null)
+        .maybeSingle();
+
+      if (existing) {
+        await (supabase.from as any)('cart_items')
+          .update({ quantity: existing.quantity + qty })
+          .eq('id', existing.id);
+      } else {
+        await (supabase.from as any)('cart_items')
+          .insert({
+            user_id: user.id,
+            product_model: product.model,
+            product_name: product.name || null,
+            product_description: product.description || null,
+            quantity: qty,
+            estimated_price: product.price || null,
+          });
+      }
     }
 
     toast({ title: 'เพิ่มเข้าตะกร้าแล้ว', description: `${product.model} x ${qty}` });
