@@ -6,7 +6,7 @@ import {
   ArrowLeft, Monitor, Cpu, Smartphone, ArrowRight, Maximize,
   ShieldCheck, CheckCircle2, Layers, Sun, Box, Tag, Info,
   Ruler, Thermometer, Plug, Package, MonitorSmartphone, Hand,
-  Plug2, Link2,
+  Link2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -277,6 +277,7 @@ export default function TouchWorkDetail() {
             <TabsTrigger value="dimension" className="gap-1.5"><Ruler className="h-3.5 w-3.5"/>ขนาด/น้ำหนัก</TabsTrigger>
             <TabsTrigger value="environment" className="gap-1.5"><Thermometer className="h-3.5 w-3.5"/>สภาพแวดล้อม</TabsTrigger>
             <TabsTrigger value="power" className="gap-1.5"><Plug className="h-3.5 w-3.5"/>พลังงาน</TabsTrigger>
+            <TabsTrigger value="io" className="gap-1.5"><Link2 className="h-3.5 w-3.5"/>I/O และการติดตั้ง</TabsTrigger>
             {(product.specs.androidOptions || product.specs.windowsOptions) && (
               <TabsTrigger value="cpu" className="gap-1.5"><Cpu className="h-3.5 w-3.5"/>CPU/OS</TabsTrigger>
             )}
