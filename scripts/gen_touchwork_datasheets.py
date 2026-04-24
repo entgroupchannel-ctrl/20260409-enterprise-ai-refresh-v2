@@ -191,20 +191,27 @@ def draw_footer(c: canvas.Canvas):
 
 
 def section_title(c: canvas.Canvas, x: float, y: float, label: str, w: float = None):
-    """Section header bar with brand accent."""
+    """Section header bar with brand accent (vertical bar + label + horizontal divider)."""
     if w is None:
         w = CONTENT_W
-    # Accent square
+    # Vertical accent bar
     c.setFillColor(BRAND_PRIMARY)
-    c.rect(x, y - 1, 3, 9, fill=1, stroke=0)
+    c.rect(x, y - 1, 3, 10, fill=1, stroke=0)
     c.setFillColor(TEXT_DARK)
     c.setFont("Sarabun-Bold", 9)
-    c.drawString(x + 6, y + 1, label.upper())
-    # Right divider
+    c.drawString(x + 7, y + 2, label.upper())
+    # Horizontal divider — starts AFTER the label, sits BELOW baseline
     c.setStrokeColor(BORDER)
     c.setLineWidth(0.4)
-    label_w = c.stringWidth(label.upper(), "Sarabun-Bold", 9) + 12
-    c.line(x + label_w, y + 4, x + w, y + 4)
+    label_w = c.stringWidth(label.upper(), "Sarabun-Bold", 9) + 14
+    c.line(x + label_w, y + 5, x + w, y + 5)
+
+
+def subheading(c: canvas.Canvas, x: float, y: float, label: str):
+    """Small blue subheading without underline (used above each spec table)."""
+    c.setFillColor(BRAND_PRIMARY)
+    c.setFont("Sarabun-Bold", 8)
+    c.drawString(x, y, label.upper())
 
 
 def spec_table(rows, col_widths, header_row=None, font_size=8) -> Table:
