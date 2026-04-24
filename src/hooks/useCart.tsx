@@ -11,6 +11,7 @@ export interface CartItem {
   product_description: string | null;
   quantity: number;
   estimated_price: number | null;
+  configuration: Record<string, unknown> | null;
   added_at: string;
   updated_at: string;
 }
@@ -19,7 +20,7 @@ interface CartContextValue {
   items: CartItem[];
   loading: boolean;
   count: number;
-  addToCart: (product: { model: string; name?: string; description?: string; quantity?: number; price?: number }) => Promise<void>;
+  addToCart: (product: { model: string; name?: string; description?: string; quantity?: number; price?: number; configuration?: Record<string, unknown> }) => Promise<void>;
   updateQuantity: (itemId: string, quantity: number) => Promise<void>;
   removeItem: (itemId: string) => Promise<void>;
   clearCart: () => Promise<void>;
