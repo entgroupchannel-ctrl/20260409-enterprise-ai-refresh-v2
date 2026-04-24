@@ -16,19 +16,44 @@ import PriceDisclaimer from "@/components/PriceDisclaimer";
 import smartDisplayHero from "@/assets/smart-display-hero.jpg";
 
 /* ─── Data ─── */
+// Image map: รุ่น → ภาพ (ใช้ภาพจริงจาก cesipc.com)
+const IMG_10 = "/images/fpm/products/fpm-1002s-10inch.jpg";
+const IMG_15K = "/images/fpm/products/fpm-1502k-15-6inch.jpg";
+const IMG_17 = "/images/fpm/products/fpm-1702k-17-3inch.jpg";
+const IMG_RFID = "/images/fpm/products/fpm-1502b-rfid.jpg";
+
 const fpmTouchMonitors = [
-  { no: 1, model: "FPM-0801A", size: '8"', resolution: "1024x768", ratio: "4:3", touch: "Resistive", brightness: 300, price: "10,990" },
-  { no: 2, model: "FPM-0802A", size: '8"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "12,990" },
-  { no: 3, model: "FPM-1001A", size: '10"', resolution: "1024x768", ratio: "4:3", touch: "Resistive", brightness: 300, price: "12,990" },
-  { no: 4, model: "FPM-1002A", size: '10"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "14,990" },
-  { no: 5, model: "FPM-1202A", size: '12"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "15,990" },
-  { no: 6, model: "FPM-1501A", size: '15"', resolution: "1024x768", ratio: "4:3", touch: "Resistive", brightness: 300, price: "17,990" },
-  { no: 7, model: "FPM-1502A", size: '15"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "19,990" },
-  { no: 8, model: "FPM-1702A", size: '17"', resolution: "1280x1024", ratio: "5:4", touch: "Capacitive", brightness: 300, price: "21,990" },
-  { no: 9, model: "FPM-1902A", size: '19"', resolution: "1280x1024", ratio: "5:4", touch: "Capacitive", brightness: 300, price: "21,990" },
-  { no: 10, model: "FPM-1502K", size: '16"', resolution: "1920x1080", ratio: "16:9", touch: "Capacitive", brightness: 300, price: "19,990" },
-  { no: 11, model: "FPM-2102K", size: '21.5"', resolution: "1920x1080", ratio: "16:9", touch: "Capacitive", brightness: 300, price: "24,990" },
-  { no: 12, model: "FPM-2402KA", size: '24"', resolution: "1920x1080", ratio: "16:9", touch: "Capacitive", brightness: 300, price: "Call" },
+  { no: 1, model: "FPM-0801A", size: '8"', resolution: "1024x768", ratio: "4:3", touch: "Resistive", brightness: 300, price: "10,990", image: IMG_10, slug: "fpm-0801a" },
+  { no: 2, model: "FPM-0802A", size: '8"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "12,990", image: IMG_10, slug: "fpm-0802a" },
+  { no: 3, model: "FPM-1001A", size: '10"', resolution: "1024x768", ratio: "4:3", touch: "Resistive", brightness: 300, price: "12,990", image: IMG_10, slug: "fpm-1001a" },
+  { no: 4, model: "FPM-1002A", size: '10"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "14,990", image: IMG_10, slug: "fpm-1002a" },
+  { no: 5, model: "FPM-1202A", size: '12"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "15,990", image: IMG_10, slug: "fpm-1202a" },
+  { no: 6, model: "FPM-1501A", size: '15"', resolution: "1024x768", ratio: "4:3", touch: "Resistive", brightness: 300, price: "17,990", image: IMG_RFID, slug: "fpm-1501a" },
+  { no: 7, model: "FPM-1502A", size: '15"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "19,990", image: IMG_RFID, slug: "fpm-1502a" },
+  { no: 8, model: "FPM-1702A", size: '17"', resolution: "1280x1024", ratio: "5:4", touch: "Capacitive", brightness: 300, price: "21,990", image: IMG_17, slug: "fpm-1702a" },
+  { no: 9, model: "FPM-1902A", size: '19"', resolution: "1280x1024", ratio: "5:4", touch: "Capacitive", brightness: 300, price: "21,990", image: IMG_17, slug: "fpm-1902a" },
+  { no: 10, model: "FPM-1502K", size: '16"', resolution: "1920x1080", ratio: "16:9", touch: "Capacitive", brightness: 300, price: "19,990", image: IMG_15K, slug: "fpm-1502k" },
+  { no: 11, model: "FPM-2102K", size: '21.5"', resolution: "1920x1080", ratio: "16:9", touch: "Capacitive", brightness: 300, price: "24,990", image: IMG_17, slug: "fpm-2102k" },
+  { no: 12, model: "FPM-2402KA", size: '24"', resolution: "1920x1080", ratio: "16:9", touch: "Capacitive", brightness: 300, price: "Call", image: IMG_17, slug: "fpm-2402ka" },
+];
+
+// Product Showcase — 6 highlight models (จาก cesipc.com landing)
+const productShowcase = [
+  { model: "FPM-1002S", size: '10"', label: "10-inch Industrial", image: IMG_10, slug: "fpm-1002a" },
+  { model: "FPM-1202C", size: '12"', label: "12-inch Industrial", image: IMG_10, slug: "fpm-1202a" },
+  { model: "FPM-1502B-RFID", size: '15"', label: "15-inch RFID Edition", image: IMG_RFID, slug: "fpm-1502a", badge: "RFID" },
+  { model: "FPM-1502K", size: '15.6"', label: "15.6-inch Wide", image: IMG_15K, slug: "fpm-1502k" },
+  { model: "FPM-1702K", size: '17.3"', label: "17.3-inch Industrial", image: IMG_17, slug: "fpm-1702a" },
+  { model: "FPM-2102K", size: '21.5"', label: "21.5-inch Wide", image: IMG_17, slug: "fpm-2102k" },
+];
+
+// Lifestyle / Real-world installation gallery
+const lifestyleGallery = [
+  { src: "/images/fpm/lifestyle/install-1.jpg", caption: "ติดตั้งบน Arm Mount ในสายการผลิต" },
+  { src: "/images/fpm/lifestyle/install-2.jpg", caption: "Embedded Cabinet ในห้องคอนโทรล" },
+  { src: "/images/fpm/lifestyle/install-3.jpg", caption: "ใช้งาน RFID อ่าน Tag คลังสินค้า" },
+  { src: "/images/fpm/lifestyle/install-4.jpg", caption: "หน้าจอ HMI สำหรับ CNC" },
+  { src: "/images/fpm/lifestyle/install-5.jpg", caption: "ติดตั้ง VESA บนผนัง" },
 ];
 
 const fpmDatasheets = [
