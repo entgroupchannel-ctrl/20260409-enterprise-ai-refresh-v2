@@ -47,17 +47,28 @@ const ProductDetailDialog = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-5xl max-h-[92vh] overflow-y-auto p-0">
         <DialogHeader className="px-6 pt-6 pb-3 border-b border-border sticky top-0 bg-background z-10">
-          <div className="flex items-start gap-3 flex-wrap">
-            {tag && <Badge variant="outline" className="text-xs">{tag}</Badge>}
-            <div className="flex-1 min-w-0">
-              <DialogTitle className="text-xl md:text-2xl font-display font-bold">
-                {productName ?? productId}
-              </DialogTitle>
-              <DialogDescription className="text-sm mt-1 flex flex-wrap gap-3">
-                {cpu && <span className="inline-flex items-center gap-1"><Cpu className="w-3.5 h-3.5" /> {cpu}</span>}
-                {highlight && <span className="inline-flex items-center gap-1 text-primary font-medium"><Zap className="w-3.5 h-3.5" /> {highlight}</span>}
-              </DialogDescription>
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex items-start gap-3 flex-wrap flex-1 min-w-0">
+              {tag && <Badge variant="outline" className="text-xs">{tag}</Badge>}
+              <div className="flex-1 min-w-0">
+                <DialogTitle className="text-xl md:text-2xl font-display font-bold">
+                  {productName ?? productId}
+                </DialogTitle>
+                <DialogDescription className="text-sm mt-1 flex flex-wrap gap-3">
+                  {cpu && <span className="inline-flex items-center gap-1"><Cpu className="w-3.5 h-3.5" /> {cpu}</span>}
+                  {highlight && <span className="inline-flex items-center gap-1 text-primary font-medium"><Zap className="w-3.5 h-3.5" /> {highlight}</span>}
+                </DialogDescription>
+              </div>
             </div>
+            {/* Close button for mobile - easier to tap */}
+            <button
+              type="button"
+              onClick={() => onOpenChange(false)}
+              className="shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-full bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground transition-colors"
+              aria-label="ปิด"
+            >
+              <X className="w-5 h-5" />
+            </button>
           </div>
         </DialogHeader>
 
