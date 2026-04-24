@@ -28,6 +28,7 @@ import installEmbedImg from "@/assets/touchwork/shared/install-embed.png";
 import ProductGallery from "@/components/ProductGallery";
 import ImageLightbox, { ZoomHintBadge } from "@/components/ImageLightbox";
 import { getTouchWorkProductImages, getTouchWorkDimensionImages, getTouchWorkInterfaceImage } from "@/data/touchwork-gallery";
+import { getTouchworkHardware } from "@/data/touchwork-hardware";
 import ProductConfigurator from "@/components/touchwork/ProductConfigurator";
 
 // ---- Helpers (declared before default export for HMR safety) -------------
@@ -480,52 +481,70 @@ export default function TouchWorkDetail() {
             </TabsContent>
           )}
 
-          {/* I/O & Installation — รูปจากผู้ผลิต TouchWo (เป็น generic diagram ใช้ได้ทุกรุ่น) */}
+          {/* I/O & Installation — รูปจริงจากผู้ผลิตต่อรุ่น (fallback เป็น generic diagram) */}
           <TabsContent value="io" className="mt-6 space-y-8">
-            <div className="rounded-xl border border-border bg-card overflow-hidden">
-              <div className="px-5 py-3 border-b border-border bg-muted/30 flex items-center gap-2">
-                <Link2 className="h-4 w-4 text-primary" />
-                <h3 className="font-bold">พอร์ตเชื่อมต่อ (Interface I/O)</h3>
-              </div>
-              <div className="p-5 bg-gradient-to-br from-muted/20 to-background">
-                <img
-                  src={getTouchWorkInterfaceImage(product.model, selectedArch) || ioPortsImg}
-                  alt={`${product.model} ${selectedArch} interface I/O ports diagram`}
-                  className="w-full max-w-3xl mx-auto object-contain"
-                  loading="lazy"
-                />
-                <p className="mt-3 text-xs text-muted-foreground text-center">
-                  * แผนผังพอร์ต {product.model} ({selectedArch}) — ติดต่อทีมขายเพื่อยืนยันสเปกพอร์ตจริงก่อนสั่งซื้อ
-                </p>
-              </div>
-            </div>
-
-            <div>
-              <div className="flex items-center gap-2 mb-3">
-                <Box className="h-4 w-4 text-primary" />
-                <h3 className="font-bold">รูปแบบการติดตั้ง (Versatile Installation)</h3>
-              </div>
-              <p className="text-sm text-muted-foreground mb-4">
-                รองรับการติดตั้งหลากหลายรูปแบบเพื่อความยืดหยุ่นในการใช้งาน
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                {[
-                  { img: installWallImg, label: "ติดผนัง (Wall Mount)", desc: "ใช้พื้นที่น้อย เหมาะกับ Kiosk และจุดบริการตนเอง" },
-                  { img: installDeskImg, label: "ตั้งโต๊ะ (Desktop)", desc: "เคลื่อนย้ายสะดวก ใช้กับ POS, Reception" },
-                  { img: installEmbedImg, label: "ฝัง (Embedded)", desc: "ฝังในตู้/แผงควบคุม HMI โรงงาน" },
-                ].map((m) => (
-                  <div key={m.label} className="rounded-xl border border-border bg-card overflow-hidden">
-                    <div className="aspect-square bg-gradient-to-br from-muted/30 to-background p-4">
-                      <img src={m.img} alt={m.label} className="w-full h-full object-contain" loading="lazy" />
+            {(() => {
+              const hw = getTouchworkHardware(product.model);
+              const ioSrc = hw.io || getTouchWorkInterfaceImage(product.model, selectedArch) || ioPortsImg;
+              const installImgs = hw.install.length > 0
+                ? hw.install.map((src, i) => ({ img: src, label: `รูปแบบที่ ${i + 1}`, desc: "" }))
+                : [
+                    { img: installWallImg, label: "ติดผนัง (Wall Mount)", desc: "ใช้พื้นที่น้อย เหมาะกับ Kiosk และจุดบริการตนเอง" },
+                    { img: installDeskImg, label: "ตั้งโต๊ะ (Desktop)", desc: "เคลื่อนย้ายสะดวก ใช้กับ POS, Reception" },
+                    { img: installEmbedImg, label: "ฝัง (Embedded)", desc: "ฝังในตู้/แผงควบคุม HMI โรงงาน" },
+                  ];
+              return (
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* I/O — ซ้าย */}
+                  <div className="rounded-xl border border-border bg-card overflow-hidden">
+                    <div className="px-5 py-3 border-b border-border bg-muted/30 flex items-center gap-2">
+                      <Link2 className="h-4 w-4 text-primary" />
+                      <h3 className="font-bold">พอร์ตเชื่อมต่อ (Interface I/O)</h3>
                     </div>
-                    <div className="p-3 border-t border-border/60">
-                      <div className="text-sm font-semibold mb-1">{m.label}</div>
-                      <div className="text-xs text-muted-foreground">{m.desc}</div>
+                    <div className="p-5 bg-gradient-to-br from-muted/20 to-background">
+                      <img
+                        key={ioSrc}
+                        src={ioSrc}
+                        alt={`${product.model} interface I/O ports diagram`}
+                        className="w-full max-w-2xl mx-auto object-contain"
+                        loading="lazy"
+                      />
+                      <p className="mt-3 text-xs text-muted-foreground text-center">
+                        * แผนผังพอร์ต {product.model} — ติดต่อทีมขายเพื่อยืนยันสเปกพอร์ตจริงก่อนสั่งซื้อ
+                      </p>
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
+
+                  {/* Installation — ขวา */}
+                  <div className="rounded-xl border border-border bg-card overflow-hidden">
+                    <div className="px-5 py-3 border-b border-border bg-muted/30 flex items-center gap-2">
+                      <Box className="h-4 w-4 text-primary" />
+                      <h3 className="font-bold">รูปแบบการติดตั้ง (Versatile Installation)</h3>
+                    </div>
+                    <div className="p-5 bg-gradient-to-br from-muted/20 to-background">
+                      <p className="text-sm text-muted-foreground mb-4">
+                        รองรับการติดตั้งหลากหลายรูปแบบเพื่อความยืดหยุ่นในการใช้งาน
+                      </p>
+                      <div className={`grid gap-4 ${installImgs.length === 1 ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2"}`}>
+                        {installImgs.map((m, idx) => (
+                          <div key={`${m.img}-${idx}`} className="rounded-lg border border-border/60 bg-background overflow-hidden">
+                            <div className="aspect-square bg-gradient-to-br from-muted/30 to-background p-3">
+                              <img src={m.img} alt={m.label} className="w-full h-full object-contain" loading="lazy" />
+                            </div>
+                            {m.desc && (
+                              <div className="p-2 border-t border-border/60">
+                                <div className="text-xs font-semibold mb-0.5">{m.label}</div>
+                                <div className="text-[11px] text-muted-foreground">{m.desc}</div>
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
           </TabsContent>
 
           <TabsContent value="certification" className="mt-6">
