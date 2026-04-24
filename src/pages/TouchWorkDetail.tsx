@@ -136,15 +136,26 @@ export default function TouchWorkDetail() {
 
       <MiniNavbar />
 
-      {/* Breadcrumb back link */}
-      <div className="container max-w-7xl mx-auto px-6 pt-6">
-        <Link
-          to="/touchwork"
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
-        >
-          <ArrowLeft className="h-4 w-4" /> กลับหน้า TouchWork Series
-        </Link>
-      </div>
+      {/* Breadcrumb + Series Nav */}
+      <section className="border-b border-border">
+        <div className="container max-w-7xl mx-auto px-6 py-6">
+          <div className="flex items-center gap-2 text-xs text-muted-foreground mb-4">
+            <Link to="/" className="hover:text-primary transition">หน้าหลัก</Link>
+            <span>/</span>
+            <Link to="/touchwork" className="hover:text-primary transition">TouchWork Series</Link>
+            <span>/</span>
+            <span className="text-foreground font-medium">{product.model}</span>
+          </div>
+          <Link
+            to="/touchwork"
+            className="group inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-primary/30 bg-primary/5 text-primary hover:bg-primary hover:text-primary-foreground transition-all text-sm font-bold"
+          >
+            <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+            ดูรุ่นอื่นใน TouchWork Series ทั้งหมด
+            <Monitor size={14} className="opacity-60" />
+          </Link>
+        </div>
+      </section>
 
       {/* Hero — image + info */}
       <section className="container max-w-7xl mx-auto px-6 py-6 md:py-10">
