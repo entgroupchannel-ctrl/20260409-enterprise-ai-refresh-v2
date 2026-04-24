@@ -1,0 +1,423 @@
+{
+  "DM080NF": {
+    "Monitor": [
+      "src/assets/touchwork/gallery/DM080NF-Monitor/01.jpg",
+      "src/assets/touchwork/gallery/DM080NF-Monitor/02.jpg",
+      "src/assets/touchwork/gallery/DM080NF-Monitor/03.jpg",
+      "src/assets/touchwork/gallery/DM080NF-Monitor/04.jpg",
+      "src/assets/touchwork/gallery/DM080NF-Monitor/06.jpg",
+      "src/assets/touchwork/gallery/DM080NF-Monitor/07.jpg"
+    ],
+    "ARM": [
+      "src/assets/touchwork/gallery/DM080NF-ARM/03.jpg",
+      "src/assets/touchwork/gallery/DM080NF-ARM/06.jpg",
+      "src/assets/touchwork/gallery/DM080NF-ARM/07.jpg"
+    ],
+    "X86": [
+      "src/assets/touchwork/gallery/DM080NF-X86/03.jpg",
+      "src/assets/touchwork/gallery/DM080NF-X86/04.jpg",
+      "src/assets/touchwork/gallery/DM080NF-X86/06.jpg",
+      "src/assets/touchwork/gallery/DM080NF-X86/07.jpg"
+    ]
+  },
+  "DM080WG": {
+    "Monitor": [
+      "src/assets/touchwork/gallery/DM080WG-Monitor/01.jpg",
+      "src/assets/touchwork/gallery/DM080WG-Monitor/02.jpg",
+      "src/assets/touchwork/gallery/DM080WG-Monitor/03.jpg",
+      "src/assets/touchwork/gallery/DM080WG-Monitor/04.jpg",
+      "src/assets/touchwork/gallery/DM080WG-Monitor/05.jpg",
+      "src/assets/touchwork/gallery/DM080WG-Monitor/06.jpg",
+      "src/assets/touchwork/gallery/DM080WG-Monitor/07.jpg"
+    ],
+    "ARM": [
+      "src/assets/touchwork/gallery/DM080WG-ARM/03.jpg",
+      "src/assets/touchwork/gallery/DM080WG-ARM/04.jpg",
+      "src/assets/touchwork/gallery/DM080WG-ARM/05.jpg",
+      "src/assets/touchwork/gallery/DM080WG-ARM/06.jpg",
+      "src/assets/touchwork/gallery/DM080WG-ARM/07.jpg"
+    ]
+  },
+  "DM101G": {
+    "Monitor": [
+      "src/assets/touchwork/gallery/DM101G-Monitor/01.jpg",
+      "src/assets/touchwork/gallery/DM101G-Monitor/02.jpg",
+      "src/assets/touchwork/gallery/DM101G-Monitor/03.jpg",
+      "src/assets/touchwork/gallery/DM101G-Monitor/04.jpg",
+      "src/assets/touchwork/gallery/DM101G-Monitor/05.jpg",
+      "src/assets/touchwork/gallery/DM101G-Monitor/06.jpg",
+      "src/assets/touchwork/gallery/DM101G-Monitor/07.jpg"
+    ],
+    "ARM": [
+      "src/assets/touchwork/gallery/DM101G-ARM/01.jpg",
+      "src/assets/touchwork/gallery/DM101G-ARM/02.jpg",
+      "src/assets/touchwork/gallery/DM101G-ARM/03.jpg",
+      "src/assets/touchwork/gallery/DM101G-ARM/04.jpg",
+      "src/assets/touchwork/gallery/DM101G-ARM/05.jpg",
+      "src/assets/touchwork/gallery/DM101G-ARM/06.jpg",
+      "src/assets/touchwork/gallery/DM101G-ARM/07.jpg"
+    ],
+    "X86": [
+      "src/assets/touchwork/gallery/DM101G-X86/01.jpg",
+      "src/assets/touchwork/gallery/DM101G-X86/02.jpg",
+      "src/assets/touchwork/gallery/DM101G-X86/03.jpg",
+      "src/assets/touchwork/gallery/DM101G-X86/04.jpg",
+      "src/assets/touchwork/gallery/DM101G-X86/05.jpg",
+      "src/assets/touchwork/gallery/DM101G-X86/06.jpg",
+      "src/assets/touchwork/gallery/DM101G-X86/07.jpg"
+    ]
+  },
+  "DM104G": {
+    "Monitor": [
+      "src/assets/touchwork/gallery/DM104G-Monitor/01.jpg",
+      "src/assets/touchwork/gallery/DM104G-Monitor/02.jpg",
+      "src/assets/touchwork/gallery/DM104G-Monitor/03.jpg",
+      "src/assets/touchwork/gallery/DM104G-Monitor/04.jpg",
+      "src/assets/touchwork/gallery/DM104G-Monitor/05.jpg",
+      "src/assets/touchwork/gallery/DM104G-Monitor/06.jpg",
+      "src/assets/touchwork/gallery/DM104G-Monitor/07.jpg"
+    ],
+    "ARM": [
+      "src/assets/touchwork/gallery/DM104G-ARM/01.jpg",
+      "src/assets/touchwork/gallery/DM104G-ARM/02.jpg",
+      "src/assets/touchwork/gallery/DM104G-ARM/03.jpg",
+      "src/assets/touchwork/gallery/DM104G-ARM/04.jpg",
+      "src/assets/touchwork/gallery/DM104G-ARM/05.jpg",
+      "src/assets/touchwork/gallery/DM104G-ARM/06.jpg",
+      "src/assets/touchwork/gallery/DM104G-ARM/07.jpg"
+    ],
+    "X86": [
+      "src/assets/touchwork/gallery/DM104G-X86/01.jpg",
+      "src/assets/touchwork/gallery/DM104G-X86/02.jpg",
+      "src/assets/touchwork/gallery/DM104G-X86/03.jpg",
+      "src/assets/touchwork/gallery/DM104G-X86/04.jpg",
+      "src/assets/touchwork/gallery/DM104G-X86/05.jpg",
+      "src/assets/touchwork/gallery/DM104G-X86/06.jpg",
+      "src/assets/touchwork/gallery/DM104G-X86/07.jpg"
+    ]
+  },
+  "DM121G": {
+    "Monitor": [
+      "src/assets/touchwork/gallery/DM121G-Monitor/01.jpg",
+      "src/assets/touchwork/gallery/DM121G-Monitor/02.jpg",
+      "src/assets/touchwork/gallery/DM121G-Monitor/03.jpg",
+      "src/assets/touchwork/gallery/DM121G-Monitor/04.jpg",
+      "src/assets/touchwork/gallery/DM121G-Monitor/05.jpg",
+      "src/assets/touchwork/gallery/DM121G-Monitor/06.jpg",
+      "src/assets/touchwork/gallery/DM121G-Monitor/07.jpg"
+    ],
+    "ARM": [
+      "src/assets/touchwork/gallery/DM121G-ARM/01.jpg",
+      "src/assets/touchwork/gallery/DM121G-ARM/02.jpg",
+      "src/assets/touchwork/gallery/DM121G-ARM/03.jpg",
+      "src/assets/touchwork/gallery/DM121G-ARM/04.jpg",
+      "src/assets/touchwork/gallery/DM121G-ARM/05.jpg",
+      "src/assets/touchwork/gallery/DM121G-ARM/06.jpg",
+      "src/assets/touchwork/gallery/DM121G-ARM/07.jpg"
+    ],
+    "X86": [
+      "src/assets/touchwork/gallery/DM121G-X86/01.jpg",
+      "src/assets/touchwork/gallery/DM121G-X86/02.jpg",
+      "src/assets/touchwork/gallery/DM121G-X86/03.jpg",
+      "src/assets/touchwork/gallery/DM121G-X86/04.jpg",
+      "src/assets/touchwork/gallery/DM121G-X86/05.jpg",
+      "src/assets/touchwork/gallery/DM121G-X86/06.jpg",
+      "src/assets/touchwork/gallery/DM121G-X86/07.jpg"
+    ]
+  },
+  "DM15G": {
+    "Monitor": [
+      "src/assets/touchwork/gallery/DM15G-Monitor/01.jpg",
+      "src/assets/touchwork/gallery/DM15G-Monitor/02.jpg",
+      "src/assets/touchwork/gallery/DM15G-Monitor/03.jpg",
+      "src/assets/touchwork/gallery/DM15G-Monitor/04.jpg",
+      "src/assets/touchwork/gallery/DM15G-Monitor/05.jpg",
+      "src/assets/touchwork/gallery/DM15G-Monitor/06.jpg",
+      "src/assets/touchwork/gallery/DM15G-Monitor/07.jpg"
+    ],
+    "ARM": [
+      "src/assets/touchwork/gallery/DM15G-ARM/01.jpg",
+      "src/assets/touchwork/gallery/DM15G-ARM/02.jpg",
+      "src/assets/touchwork/gallery/DM15G-ARM/03.jpg",
+      "src/assets/touchwork/gallery/DM15G-ARM/04.jpg",
+      "src/assets/touchwork/gallery/DM15G-ARM/05.jpg",
+      "src/assets/touchwork/gallery/DM15G-ARM/06.jpg",
+      "src/assets/touchwork/gallery/DM15G-ARM/07.jpg"
+    ],
+    "X86": [
+      "src/assets/touchwork/gallery/DM15G-X86/01.jpg",
+      "src/assets/touchwork/gallery/DM15G-X86/02.jpg",
+      "src/assets/touchwork/gallery/DM15G-X86/03.jpg",
+      "src/assets/touchwork/gallery/DM15G-X86/04.jpg",
+      "src/assets/touchwork/gallery/DM15G-X86/05.jpg",
+      "src/assets/touchwork/gallery/DM15G-X86/06.jpg",
+      "src/assets/touchwork/gallery/DM15G-X86/07.jpg"
+    ]
+  },
+  "DM156G": {
+    "Monitor": [
+      "src/assets/touchwork/gallery/DM156G-Monitor/01.jpg",
+      "src/assets/touchwork/gallery/DM156G-Monitor/02.jpg",
+      "src/assets/touchwork/gallery/DM156G-Monitor/03.jpg",
+      "src/assets/touchwork/gallery/DM156G-Monitor/04.jpg",
+      "src/assets/touchwork/gallery/DM156G-Monitor/05.jpg",
+      "src/assets/touchwork/gallery/DM156G-Monitor/06.jpg",
+      "src/assets/touchwork/gallery/DM156G-Monitor/07.jpg"
+    ],
+    "ARM": [
+      "src/assets/touchwork/gallery/DM156G-ARM/01.jpg",
+      "src/assets/touchwork/gallery/DM156G-ARM/02.jpg",
+      "src/assets/touchwork/gallery/DM156G-ARM/03.jpg",
+      "src/assets/touchwork/gallery/DM156G-ARM/04.jpg",
+      "src/assets/touchwork/gallery/DM156G-ARM/05.jpg",
+      "src/assets/touchwork/gallery/DM156G-ARM/06.jpg",
+      "src/assets/touchwork/gallery/DM156G-ARM/07.jpg"
+    ],
+    "X86": [
+      "src/assets/touchwork/gallery/DM156G-X86/01.jpg",
+      "src/assets/touchwork/gallery/DM156G-X86/02.jpg",
+      "src/assets/touchwork/gallery/DM156G-X86/03.jpg",
+      "src/assets/touchwork/gallery/DM156G-X86/04.jpg",
+      "src/assets/touchwork/gallery/DM156G-X86/05.jpg",
+      "src/assets/touchwork/gallery/DM156G-X86/06.jpg",
+      "src/assets/touchwork/gallery/DM156G-X86/07.jpg"
+    ]
+  },
+  "DM17G": {
+    "Monitor": [
+      "src/assets/touchwork/gallery/DM17G-Monitor/01.jpg",
+      "src/assets/touchwork/gallery/DM17G-Monitor/02.jpg",
+      "src/assets/touchwork/gallery/DM17G-Monitor/03.jpg",
+      "src/assets/touchwork/gallery/DM17G-Monitor/04.jpg",
+      "src/assets/touchwork/gallery/DM17G-Monitor/05.jpg",
+      "src/assets/touchwork/gallery/DM17G-Monitor/06.jpg",
+      "src/assets/touchwork/gallery/DM17G-Monitor/07.jpg"
+    ],
+    "ARM": [
+      "src/assets/touchwork/gallery/DM17G-ARM/01.jpg",
+      "src/assets/touchwork/gallery/DM17G-ARM/02.jpg",
+      "src/assets/touchwork/gallery/DM17G-ARM/03.jpg",
+      "src/assets/touchwork/gallery/DM17G-ARM/04.jpg",
+      "src/assets/touchwork/gallery/DM17G-ARM/05.jpg",
+      "src/assets/touchwork/gallery/DM17G-ARM/06.jpg",
+      "src/assets/touchwork/gallery/DM17G-ARM/07.jpg"
+    ],
+    "X86": [
+      "src/assets/touchwork/gallery/DM17G-X86/01.jpg",
+      "src/assets/touchwork/gallery/DM17G-X86/02.jpg",
+      "src/assets/touchwork/gallery/DM17G-X86/03.jpg",
+      "src/assets/touchwork/gallery/DM17G-X86/04.jpg",
+      "src/assets/touchwork/gallery/DM17G-X86/05.jpg",
+      "src/assets/touchwork/gallery/DM17G-X86/06.jpg",
+      "src/assets/touchwork/gallery/DM17G-X86/07.jpg"
+    ]
+  },
+  "DM19G": {
+    "Monitor": [
+      "src/assets/touchwork/gallery/DM19G-Monitor/01.jpg",
+      "src/assets/touchwork/gallery/DM19G-Monitor/02.jpg",
+      "src/assets/touchwork/gallery/DM19G-Monitor/03.jpg",
+      "src/assets/touchwork/gallery/DM19G-Monitor/04.jpg",
+      "src/assets/touchwork/gallery/DM19G-Monitor/05.jpg",
+      "src/assets/touchwork/gallery/DM19G-Monitor/06.jpg",
+      "src/assets/touchwork/gallery/DM19G-Monitor/07.jpg"
+    ],
+    "ARM": [
+      "src/assets/touchwork/gallery/DM19G-ARM/01.jpg",
+      "src/assets/touchwork/gallery/DM19G-ARM/02.jpg",
+      "src/assets/touchwork/gallery/DM19G-ARM/03.jpg",
+      "src/assets/touchwork/gallery/DM19G-ARM/04.jpg",
+      "src/assets/touchwork/gallery/DM19G-ARM/05.jpg",
+      "src/assets/touchwork/gallery/DM19G-ARM/06.jpg",
+      "src/assets/touchwork/gallery/DM19G-ARM/07.jpg"
+    ],
+    "X86": [
+      "src/assets/touchwork/gallery/DM19G-X86/01.jpg",
+      "src/assets/touchwork/gallery/DM19G-X86/02.jpg",
+      "src/assets/touchwork/gallery/DM19G-X86/03.jpg",
+      "src/assets/touchwork/gallery/DM19G-X86/04.jpg",
+      "src/assets/touchwork/gallery/DM19G-X86/05.jpg",
+      "src/assets/touchwork/gallery/DM19G-X86/06.jpg",
+      "src/assets/touchwork/gallery/DM19G-X86/07.jpg"
+    ]
+  },
+  "DM215G": {
+    "Monitor": [
+      "src/assets/touchwork/gallery/DM215G-Monitor/01.jpg",
+      "src/assets/touchwork/gallery/DM215G-Monitor/02.jpg",
+      "src/assets/touchwork/gallery/DM215G-Monitor/03.jpg",
+      "src/assets/touchwork/gallery/DM215G-Monitor/04.jpg",
+      "src/assets/touchwork/gallery/DM215G-Monitor/05.jpg",
+      "src/assets/touchwork/gallery/DM215G-Monitor/06.jpg",
+      "src/assets/touchwork/gallery/DM215G-Monitor/07.jpg"
+    ],
+    "ARM": [
+      "src/assets/touchwork/gallery/DM215G-ARM/01.jpg",
+      "src/assets/touchwork/gallery/DM215G-ARM/02.jpg",
+      "src/assets/touchwork/gallery/DM215G-ARM/03.jpg",
+      "src/assets/touchwork/gallery/DM215G-ARM/04.jpg",
+      "src/assets/touchwork/gallery/DM215G-ARM/05.jpg",
+      "src/assets/touchwork/gallery/DM215G-ARM/06.jpg",
+      "src/assets/touchwork/gallery/DM215G-ARM/07.jpg"
+    ],
+    "X86": [
+      "src/assets/touchwork/gallery/DM215G-X86/01.jpg",
+      "src/assets/touchwork/gallery/DM215G-X86/02.jpg",
+      "src/assets/touchwork/gallery/DM215G-X86/03.jpg",
+      "src/assets/touchwork/gallery/DM215G-X86/04.jpg",
+      "src/assets/touchwork/gallery/DM215G-X86/05.jpg",
+      "src/assets/touchwork/gallery/DM215G-X86/06.jpg",
+      "src/assets/touchwork/gallery/DM215G-X86/07.jpg"
+    ]
+  },
+  "GD101E": {
+    "Monitor": [
+      "src/assets/touchwork/gallery/GD101E-Monitor/01.jpg",
+      "src/assets/touchwork/gallery/GD101E-Monitor/02.jpg",
+      "src/assets/touchwork/gallery/GD101E-Monitor/03.jpg",
+      "src/assets/touchwork/gallery/GD101E-Monitor/04.jpg"
+    ],
+    "ARM": [
+      "src/assets/touchwork/gallery/GD101E-ARM/01.jpg",
+      "src/assets/touchwork/gallery/GD101E-ARM/02.jpg",
+      "src/assets/touchwork/gallery/GD101E-ARM/03.jpg",
+      "src/assets/touchwork/gallery/GD101E-ARM/04.jpg",
+      "src/assets/touchwork/gallery/GD101E-ARM/05.jpg",
+      "src/assets/touchwork/gallery/GD101E-ARM/06.jpg",
+      "src/assets/touchwork/gallery/GD101E-ARM/07.jpg"
+    ],
+    "X86": [
+      "src/assets/touchwork/gallery/GD101E-X86/01.jpg",
+      "src/assets/touchwork/gallery/GD101E-X86/02.jpg",
+      "src/assets/touchwork/gallery/GD101E-X86/03.jpg",
+      "src/assets/touchwork/gallery/GD101E-X86/04.jpg",
+      "src/assets/touchwork/gallery/GD101E-X86/05.jpg"
+    ]
+  },
+  "GD133": {
+    "Monitor": [
+      "src/assets/touchwork/gallery/GD133-Monitor/01.jpg",
+      "src/assets/touchwork/gallery/GD133-Monitor/02.jpg",
+      "src/assets/touchwork/gallery/GD133-Monitor/03.jpg",
+      "src/assets/touchwork/gallery/GD133-Monitor/04.jpg",
+      "src/assets/touchwork/gallery/GD133-Monitor/05.jpg",
+      "src/assets/touchwork/gallery/GD133-Monitor/06.jpg",
+      "src/assets/touchwork/gallery/GD133-Monitor/07.jpg"
+    ],
+    "ARM": [
+      "src/assets/touchwork/gallery/GD133-ARM/01.jpg",
+      "src/assets/touchwork/gallery/GD133-ARM/02.jpg",
+      "src/assets/touchwork/gallery/GD133-ARM/03.jpg",
+      "src/assets/touchwork/gallery/GD133-ARM/04.jpg",
+      "src/assets/touchwork/gallery/GD133-ARM/05.jpg",
+      "src/assets/touchwork/gallery/GD133-ARM/06.jpg",
+      "src/assets/touchwork/gallery/GD133-ARM/07.jpg"
+    ],
+    "X86": [
+      "src/assets/touchwork/gallery/GD133-X86/01.jpg",
+      "src/assets/touchwork/gallery/GD133-X86/02.jpg",
+      "src/assets/touchwork/gallery/GD133-X86/03.jpg",
+      "src/assets/touchwork/gallery/GD133-X86/04.jpg",
+      "src/assets/touchwork/gallery/GD133-X86/05.jpg",
+      "src/assets/touchwork/gallery/GD133-X86/06.jpg",
+      "src/assets/touchwork/gallery/GD133-X86/07.jpg"
+    ]
+  },
+  "JD133": {
+    "Monitor": [
+      "src/assets/touchwork/gallery/JD133-Monitor/01.jpg",
+      "src/assets/touchwork/gallery/JD133-Monitor/02.jpg",
+      "src/assets/touchwork/gallery/JD133-Monitor/03.jpg",
+      "src/assets/touchwork/gallery/JD133-Monitor/04.jpg",
+      "src/assets/touchwork/gallery/JD133-Monitor/05.jpg"
+    ],
+    "ARM": [
+      "src/assets/touchwork/gallery/JD133-ARM/01.jpg",
+      "src/assets/touchwork/gallery/JD133-ARM/02.jpg",
+      "src/assets/touchwork/gallery/JD133-ARM/03.jpg",
+      "src/assets/touchwork/gallery/JD133-ARM/04.jpg",
+      "src/assets/touchwork/gallery/JD133-ARM/05.jpg",
+      "src/assets/touchwork/gallery/JD133-ARM/06.jpg",
+      "src/assets/touchwork/gallery/JD133-ARM/07.jpg"
+    ]
+  },
+  "JD156B": {
+    "Monitor": [
+      "src/assets/touchwork/gallery/JD156B-Monitor/01.jpg",
+      "src/assets/touchwork/gallery/JD156B-Monitor/02.jpg",
+      "src/assets/touchwork/gallery/JD156B-Monitor/03.jpg",
+      "src/assets/touchwork/gallery/JD156B-Monitor/04.jpg",
+      "src/assets/touchwork/gallery/JD156B-Monitor/05.jpg"
+    ],
+    "ARM": [
+      "src/assets/touchwork/gallery/JD156B-ARM/01.jpg",
+      "src/assets/touchwork/gallery/JD156B-ARM/02.jpg",
+      "src/assets/touchwork/gallery/JD156B-ARM/03.jpg",
+      "src/assets/touchwork/gallery/JD156B-ARM/04.jpg",
+      "src/assets/touchwork/gallery/JD156B-ARM/05.jpg"
+    ],
+    "X86": [
+      "src/assets/touchwork/gallery/JD156B-X86/01.jpg",
+      "src/assets/touchwork/gallery/JD156B-X86/02.jpg",
+      "src/assets/touchwork/gallery/JD156B-X86/03.jpg",
+      "src/assets/touchwork/gallery/JD156B-X86/04.jpg",
+      "src/assets/touchwork/gallery/JD156B-X86/05.jpg",
+      "src/assets/touchwork/gallery/JD156B-X86/06.jpg",
+      "src/assets/touchwork/gallery/JD156B-X86/07.jpg"
+    ]
+  },
+  "JD185B": {
+    "Monitor": [
+      "src/assets/touchwork/gallery/JD185B-Monitor/01.jpg",
+      "src/assets/touchwork/gallery/JD185B-Monitor/02.jpg",
+      "src/assets/touchwork/gallery/JD185B-Monitor/03.jpg",
+      "src/assets/touchwork/gallery/JD185B-Monitor/04.jpg",
+      "src/assets/touchwork/gallery/JD185B-Monitor/05.jpg",
+      "src/assets/touchwork/gallery/JD185B-Monitor/06.jpg",
+      "src/assets/touchwork/gallery/JD185B-Monitor/07.jpg"
+    ],
+    "ARM": [
+      "src/assets/touchwork/gallery/JD185B-ARM/01.jpg",
+      "src/assets/touchwork/gallery/JD185B-ARM/02.jpg",
+      "src/assets/touchwork/gallery/JD185B-ARM/03.jpg",
+      "src/assets/touchwork/gallery/JD185B-ARM/04.jpg",
+      "src/assets/touchwork/gallery/JD185B-ARM/05.jpg"
+    ],
+    "X86": [
+      "src/assets/touchwork/gallery/JD185B-X86/01.jpg",
+      "src/assets/touchwork/gallery/JD185B-X86/02.jpg",
+      "src/assets/touchwork/gallery/JD185B-X86/03.jpg",
+      "src/assets/touchwork/gallery/JD185B-X86/04.jpg",
+      "src/assets/touchwork/gallery/JD185B-X86/05.jpg",
+      "src/assets/touchwork/gallery/JD185B-X86/06.jpg",
+      "src/assets/touchwork/gallery/JD185B-X86/07.jpg"
+    ]
+  },
+  "JD215B": {
+    "Monitor": [
+      "src/assets/touchwork/gallery/JD215B-Monitor/01.jpg",
+      "src/assets/touchwork/gallery/JD215B-Monitor/02.jpg",
+      "src/assets/touchwork/gallery/JD215B-Monitor/03.jpg",
+      "src/assets/touchwork/gallery/JD215B-Monitor/04.jpg",
+      "src/assets/touchwork/gallery/JD215B-Monitor/05.jpg",
+      "src/assets/touchwork/gallery/JD215B-Monitor/06.jpg",
+      "src/assets/touchwork/gallery/JD215B-Monitor/07.jpg"
+    ],
+    "ARM": [
+      "src/assets/touchwork/gallery/JD215B-ARM/01.jpg",
+      "src/assets/touchwork/gallery/JD215B-ARM/02.jpg",
+      "src/assets/touchwork/gallery/JD215B-ARM/03.jpg",
+      "src/assets/touchwork/gallery/JD215B-ARM/04.jpg",
+      "src/assets/touchwork/gallery/JD215B-ARM/05.jpg",
+      "src/assets/touchwork/gallery/JD215B-ARM/06.jpg",
+      "src/assets/touchwork/gallery/JD215B-ARM/07.jpg"
+    ],
+    "X86": [
+      "src/assets/touchwork/gallery/JD215B-X86/01.jpg",
+      "src/assets/touchwork/gallery/JD215B-X86/02.jpg",
+      "src/assets/touchwork/gallery/JD215B-X86/03.jpg",
+      "src/assets/touchwork/gallery/JD215B-X86/04.jpg",
+      "src/assets/touchwork/gallery/JD215B-X86/05.jpg"
+    ]
+  }
+}
