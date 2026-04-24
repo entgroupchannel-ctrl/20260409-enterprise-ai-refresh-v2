@@ -386,28 +386,21 @@ def build_page1(c: canvas.Canvas, p: dict):
     ]
 
     # LCD card
-    c.setFillColor(BRAND_PRIMARY)
-    c.setFont("Sarabun-Bold", 8)
-    c.drawString(CONTENT_X, spec_y - 2, "LCD PANEL")
-    c.setFillColor(BRAND_PRIMARY)
-    c.rect(CONTENT_X, spec_y - 4, 30, 0.8, fill=1, stroke=0)
+    subheading(c, CONTENT_X, spec_y - 2, "LCD PANEL")
     t1 = spec_table(lcd_rows, [col_w * 0.45, col_w * 0.55])
     t1.wrapOn(c, col_w, 200)
-    t1.drawOn(c, CONTENT_X, spec_y - 6 * mm - t1._height)
+    t1.drawOn(c, CONTENT_X, spec_y - 7 * mm - t1._height)
 
     # Touch card
-    c.setFillColor(BRAND_PRIMARY)
-    c.setFont("Sarabun-Bold", 8)
-    c.drawString(CONTENT_X + col_w + 6 * mm, spec_y - 2, "TOUCH PANEL")
-    c.rect(CONTENT_X + col_w + 6 * mm, spec_y - 4, 30, 0.8, fill=1, stroke=0)
+    subheading(c, CONTENT_X + col_w + 6 * mm, spec_y - 2, "TOUCH PANEL")
     t2 = spec_table(touch_rows, [col_w * 0.45, col_w * 0.55])
     t2.wrapOn(c, col_w, 200)
-    t2.drawOn(c, CONTENT_X + col_w + 6 * mm, spec_y - 6 * mm - t2._height)
+    t2.drawOn(c, CONTENT_X + col_w + 6 * mm, spec_y - 7 * mm - t2._height)
 
-    grid_bottom = spec_y - 6 * mm - max(t1._height, t2._height)
+    grid_bottom = spec_y - 7 * mm - max(t1._height, t2._height)
 
     # Environment + Dimension row
-    env_y = grid_bottom - 6 * mm
+    env_y = grid_bottom - 7 * mm
     env_rows = [
         ["อุณหภูมิใช้งาน", "0°C – 50°C"],
         ["ความชื้นใช้งาน", "10% – 80% RH"],
@@ -423,21 +416,15 @@ def build_page1(c: canvas.Canvas, p: dict):
     if p.get("netWeight"):
         dim_rows.append(["น้ำหนัก", p["netWeight"]])
 
-    c.setFillColor(BRAND_PRIMARY)
-    c.setFont("Sarabun-Bold", 8)
-    c.drawString(CONTENT_X, env_y - 2, "ENVIRONMENT")
-    c.rect(CONTENT_X, env_y - 4, 30, 0.8, fill=1, stroke=0)
+    subheading(c, CONTENT_X, env_y - 2, "ENVIRONMENT")
     t3 = spec_table(env_rows, [col_w * 0.45, col_w * 0.55])
     t3.wrapOn(c, col_w, 200)
-    t3.drawOn(c, CONTENT_X, env_y - 6 * mm - t3._height)
+    t3.drawOn(c, CONTENT_X, env_y - 7 * mm - t3._height)
 
-    c.setFillColor(BRAND_PRIMARY)
-    c.setFont("Sarabun-Bold", 8)
-    c.drawString(CONTENT_X + col_w + 6 * mm, env_y - 2, "DIMENSION & MOUNTING")
-    c.rect(CONTENT_X + col_w + 6 * mm, env_y - 4, 30, 0.8, fill=1, stroke=0)
+    subheading(c, CONTENT_X + col_w + 6 * mm, env_y - 2, "DIMENSION & MOUNTING")
     t4 = spec_table(dim_rows, [col_w * 0.45, col_w * 0.55])
     t4.wrapOn(c, col_w, 200)
-    t4.drawOn(c, CONTENT_X + col_w + 6 * mm, env_y - 6 * mm - t4._height)
+    t4.drawOn(c, CONTENT_X + col_w + 6 * mm, env_y - 7 * mm - t4._height)
 
 
 def build_page2(c: canvas.Canvas, p: dict, qr_product: Image.Image, qr_quote: Image.Image):
