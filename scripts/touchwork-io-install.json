@@ -1,0 +1,119 @@
+{
+  "DM080NF": {
+    "io": "@/assets/touchwork/io/DM080NF.png",
+    "install": [
+      "@/assets/touchwork/install/DM080NF-1.png"
+    ]
+  },
+  "DM080WG": {
+    "io": "@/assets/touchwork/io/DM080WG.png",
+    "install": [
+      "@/assets/touchwork/install/DM080WG-1.png",
+      "@/assets/touchwork/install/DM080WG-2.png"
+    ]
+  },
+  "DM101G": {
+    "io": "@/assets/touchwork/io/DM101G.png",
+    "install": [
+      "@/assets/touchwork/install/DM101G-1.png",
+      "@/assets/touchwork/install/DM101G-2.png"
+    ]
+  },
+  "DM104G": {
+    "io": "@/assets/touchwork/io/DM104G.png",
+    "install": [
+      "@/assets/touchwork/install/DM104G-1.png",
+      "@/assets/touchwork/install/DM104G-2.png"
+    ]
+  },
+  "DM121G": {
+    "io": "@/assets/touchwork/io/DM121G.png",
+    "install": [
+      "@/assets/touchwork/install/DM121G-1.png",
+      "@/assets/touchwork/install/DM121G-2.png"
+    ]
+  },
+  "DM156G": {
+    "io": "@/assets/touchwork/io/DM156G.png",
+    "install": [
+      "@/assets/touchwork/install/DM156G-1.png",
+      "@/assets/touchwork/install/DM156G-2.png"
+    ]
+  },
+  "DM15G": {
+    "io": "@/assets/touchwork/io/DM15G.png",
+    "install": [
+      "@/assets/touchwork/install/DM15G-1.png",
+      "@/assets/touchwork/install/DM15G-2.png"
+    ]
+  },
+  "DM17G": {
+    "io": "@/assets/touchwork/io/DM17G.png",
+    "install": [
+      "@/assets/touchwork/install/DM17G-1.png",
+      "@/assets/touchwork/install/DM17G-2.png"
+    ]
+  },
+  "DM19G": {
+    "io": "@/assets/touchwork/io/DM19G.png",
+    "install": [
+      "@/assets/touchwork/install/DM19G-1.png",
+      "@/assets/touchwork/install/DM19G-2.png"
+    ]
+  },
+  "DM215G": {
+    "io": "@/assets/touchwork/io/DM215G.png",
+    "install": [
+      "@/assets/touchwork/install/DM215G-1.png",
+      "@/assets/touchwork/install/DM215G-2.png"
+    ]
+  },
+  "GD101E": {
+    "io": "@/assets/touchwork/io/GD101E.png",
+    "install": [
+      "@/assets/touchwork/install/GD101E-1.png",
+      "@/assets/touchwork/install/GD101E-2.png",
+      "@/assets/touchwork/install/GD101E-3.png"
+    ]
+  },
+  "GD133": {
+    "io": "@/assets/touchwork/io/GD133.jpg",
+    "install": [
+      "@/assets/touchwork/install/GD133-1.png",
+      "@/assets/touchwork/install/GD133-2.png",
+      "@/assets/touchwork/install/GD133-3.png"
+    ]
+  },
+  "JD133": {
+    "io": "@/assets/touchwork/io/JD133.png",
+    "install": [
+      "@/assets/touchwork/install/JD133-1.png",
+      "@/assets/touchwork/install/JD133-2.png",
+      "@/assets/touchwork/install/JD133-3.png"
+    ]
+  },
+  "JD156B": {
+    "io": "@/assets/touchwork/io/JD156B.png",
+    "install": [
+      "@/assets/touchwork/install/JD156B-1.png",
+      "@/assets/touchwork/install/JD156B-2.png",
+      "@/assets/touchwork/install/JD156B-3.png"
+    ]
+  },
+  "JD185B": {
+    "io": "@/assets/touchwork/io/JD185B.png",
+    "install": [
+      "@/assets/touchwork/install/JD185B-1.png",
+      "@/assets/touchwork/install/JD185B-2.png",
+      "@/assets/touchwork/install/JD185B-3.png"
+    ]
+  },
+  "JD215B": {
+    "io": "@/assets/touchwork/io/JD215B.png",
+    "install": [
+      "@/assets/touchwork/install/JD215B-1.png",
+      "@/assets/touchwork/install/JD215B-2.png",
+      "@/assets/touchwork/install/JD215B-3.png"
+    ]
+  }
+}
