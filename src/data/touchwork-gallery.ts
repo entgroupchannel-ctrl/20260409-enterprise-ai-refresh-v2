@@ -98,10 +98,32 @@ function resolve(model: string, arch: Arch, file: string): string | undefined {
   return key ? modules[key] : undefined;
 }
 
-/** Get full gallery image URL list for a model + architecture. */
+// Files that are technical dimension drawings (front view + rear/mounting view)
+// — sourced from touchwoipc and consistent across all 16 models.
+const DIMENSION_FILES = new Set(["06.jpg", "07.jpg"]);
+
+/** Get full gallery image URL list for a model + architecture (all images). */
 export function getTouchWorkGallery(model: string, arch: Arch): string[] {
   const files = manifest[model]?.[arch] ?? [];
   return files.map((f) => resolve(model, arch, f)).filter((u): u is string => Boolean(u));
+}
+
+/** Product/lifestyle images only — dimension drawings excluded. */
+export function getTouchWorkProductImages(model: string, arch: Arch): string[] {
+  const files = manifest[model]?.[arch] ?? [];
+  return files
+    .filter((f) => !DIMENSION_FILES.has(f))
+    .map((f) => resolve(model, arch, f))
+    .filter((u): u is string => Boolean(u));
+}
+
+/** Dimension/mechanical drawings only (front + rear views). */
+export function getTouchWorkDimensionImages(model: string, arch: Arch): string[] {
+  const files = manifest[model]?.[arch] ?? [];
+  return files
+    .filter((f) => DIMENSION_FILES.has(f))
+    .map((f) => resolve(model, arch, f))
+    .filter((u): u is string => Boolean(u));
 }
 
 export const touchworkGalleryManifest = manifest;
