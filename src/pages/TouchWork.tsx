@@ -80,7 +80,7 @@ export default function TouchWork() {
 
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border/40 bg-gradient-to-br from-primary/10 via-background to-background">
-        <div className="container mx-auto px-4 py-12 md:py-16">
+        <div className="container max-w-7xl mx-auto px-6 py-12 md:py-16">
           <Link
             to="/"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6"
@@ -127,7 +127,7 @@ export default function TouchWork() {
       </section>
 
       {/* Architecture explainer */}
-      <section className="container mx-auto px-4 py-10">
+      <section className="container max-w-7xl mx-auto px-6 py-10">
         <div className="grid md:grid-cols-3 gap-4">
           {(["Monitor", "ARM", "X86"] as TouchWorkArch[]).map((a) => {
             const Icon = archIcon[a];
@@ -173,7 +173,7 @@ export default function TouchWork() {
 
       {/* Filter Bar */}
       <section className="border-y border-border/40 bg-muted/30 sticky top-0 z-30 backdrop-blur">
-        <div className="container mx-auto px-4 py-4">
+        <div className="container max-w-7xl mx-auto px-6 py-4">
           <div className="flex flex-wrap items-center gap-3">
             <div className="flex items-center gap-2 text-sm font-medium">
               <Filter className="h-4 w-4" /> ตัวกรอง:
@@ -241,7 +241,7 @@ export default function TouchWork() {
       </section>
 
       {/* Product Grid */}
-      <section className="container mx-auto px-4 py-10">
+      <section className="container max-w-7xl mx-auto px-6 py-10">
         {filtered.length === 0 ? (
           <div className="text-center py-20 text-muted-foreground">
             ไม่พบรุ่นที่ตรงกับเงื่อนไข — ลองปรับตัวกรอง
@@ -333,7 +333,7 @@ export default function TouchWork() {
       </section>
 
       {/* Why TouchWork */}
-      <section className="container mx-auto px-4 py-10 border-t border-border/40">
+      <section className="container max-w-7xl mx-auto px-6 py-10 border-t border-border/40">
         <div className="grid md:grid-cols-3 gap-4">
           {[
             {
@@ -367,7 +367,7 @@ export default function TouchWork() {
       </section>
 
       {/* CTA */}
-      <section className="container mx-auto px-4 py-12">
+      <section className="container max-w-7xl mx-auto px-6 py-12">
         <div className="rounded-3xl bg-gradient-to-br from-primary/15 via-primary/5 to-background border border-primary/20 p-8 md:p-10 text-center">
           <h2 className="text-2xl md:text-3xl font-bold mb-3">
             ต้องการคำแนะนำเลือกรุ่นที่เหมาะกับคุณ?
