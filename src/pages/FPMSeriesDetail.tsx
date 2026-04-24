@@ -56,6 +56,7 @@ type ModelDetail = {
   brightness: number;
   price: string;
   images: string[];
+  dimensions?: string[];
   highlight: string;
   description: string;
   features: string[];
