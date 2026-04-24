@@ -2,7 +2,8 @@ import { useParams, Link, Navigate } from "react-router-dom";
 import { useState } from "react";
 import {
   ArrowLeft, ArrowRight, Download, Shield, ThermometerSun, Sparkles,
-  Maximize, Settings, Zap, CheckCircle2, Monitor,
+  Maximize, Settings, Zap, CheckCircle2, Monitor, Truck, Wrench, Phone,
+  RefreshCw, Cpu, Server, HardDrive, Cable, AlertTriangle, ShieldCheck,
 } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
