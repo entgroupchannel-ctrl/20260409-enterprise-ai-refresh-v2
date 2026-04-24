@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { Monitor, Cpu, MemoryStick, HardDrive, Wifi, Smartphone, ShieldCheck, CheckCircle2, Sparkles, Info } from "lucide-react";
+import { useMemo, useState, useEffect } from "react";
+import { Monitor, Cpu, MemoryStick, HardDrive, Wifi, Smartphone, ShieldCheck, CheckCircle2, Sparkles, Info, Layers } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
