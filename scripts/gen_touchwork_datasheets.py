@@ -214,12 +214,37 @@ def subheading(c: canvas.Canvas, x: float, y: float, label: str):
     c.drawString(x, y, label.upper())
 
 
+_cell_label_style = ParagraphStyle(
+    "cell_label", fontName="Sarabun", fontSize=8, leading=10, textColor=TEXT_MUTED
+)
+_cell_value_style = ParagraphStyle(
+    "cell_value", fontName="Sarabun-Semi", fontSize=8, leading=10, textColor=TEXT_DARK
+)
+
+
+def _wrap_cells(rows):
+    """Wrap row values in Paragraphs so long text reflows inside table cells."""
+    out = []
+    for r in rows:
+        cells = []
+        for i, v in enumerate(r):
+            if isinstance(v, str):
+                style = _cell_label_style if i == 0 else _cell_value_style
+                cells.append(Paragraph(v.replace("\n", "<br/>"), style))
+            else:
+                cells.append(v)
+        out.append(cells)
+    return out
+
+
 def spec_table(rows, col_widths, header_row=None, font_size=8) -> Table:
     """Build a clean technical spec table."""
     data = []
     if header_row:
         data.append(header_row)
-    data.extend(rows)
+        data.extend(rows)
+    else:
+        data.extend(_wrap_cells(rows))
     t = Table(data, colWidths=col_widths, hAlign="LEFT")
     style = [
         ("FONT", (0, 0), (-1, -1), "Sarabun", font_size),
@@ -240,13 +265,6 @@ def spec_table(rows, col_widths, header_row=None, font_size=8) -> Table:
         data_rows_start = 1
     else:
         data_rows_start = 0
-        # First column = label (muted)
-        style += [
-            ("TEXTCOLOR", (0, 0), (0, -1), TEXT_MUTED),
-            ("FONT", (0, 0), (0, -1), "Sarabun", font_size),
-            ("FONT", (1, 0), (-1, -1), "Sarabun-Semi", font_size),
-            ("TEXTCOLOR", (1, 0), (-1, -1), TEXT_DARK),
-        ]
     # alternating rows
     for i in range(data_rows_start, len(data)):
         if (i - data_rows_start) % 2 == 0:
@@ -277,7 +295,7 @@ def build_page1(c: canvas.Canvas, p: dict):
     chips = [
         f'{p["size"]}"',
         p["resolution"],
-        p["brightness"],
+        p.get("brightnessSpec") or p["brightness"],
         p["ipRating"].split("(")[0].strip(),
         " / ".join(p["mounting"][:2]),
     ]
@@ -368,21 +386,25 @@ def build_page1(c: canvas.Canvas, p: dict):
 
     lcd_rows = [
         ["ขนาดหน้าจอ", f'{p["size"]} นิ้ว'],
+        ["ชนิด Panel", p.get("panelType") or "TFT-LCD"],
         ["ความละเอียด", p["resolution"]],
         ["อัตราส่วน", p["ratio"]],
-        ["ความสว่าง", p["brightness"]],
-        ["Contrast Ratio", "1000:1"],
-        ["มุมมอง H/V", "178° / 178°"],
-        ["Refresh Rate", "60 Hz"],
+        ["ความสว่าง", p.get("brightnessSpec") or p["brightness"]],
+        ["Contrast Ratio", p.get("contrast") or "≥800:1"],
+        ["มุมมอง H/V", p.get("viewingAngle") or "85/85/85/85"],
+        ["Backlight", p.get("backlight") or "LED, 30,000 ชม."],
     ]
+    if p.get("colorGamut"):
+        lcd_rows.append(["Color Gamut", p["colorGamut"]])
     touch_rows = [
-        ["เทคโนโลยี", "PCAP Multi-touch"],
-        ["จุดสัมผัส", "10 จุด"],
+        ["เทคโนโลยี", p.get("touchTech") or "PCAP (Projected Capacitive)"],
+        ["จุดสัมผัส", p.get("touchPoints") or "10 จุด (Multi-touch)"],
         ["Response Time", "< 5 ms"],
         ["Scanning Freq.", "200 Hz"],
-        ["Glass", "Mohs Class 7"],
+        ["Glass", p.get("touchGlass") or "Mohs Class 7 (Tempered Glass)"],
         ["Operating Voltage", "DC +5V ±5%"],
-        ["Surface", "Explosion-proof"],
+        ["Surface", "Anti-glare / Anti-fingerprint"],
+        ["Light Transmission", "≥ 90%"],
     ]
 
     # LCD card
@@ -402,10 +424,10 @@ def build_page1(c: canvas.Canvas, p: dict):
     # Environment + Dimension row
     env_y = grid_bottom - 7 * mm
     env_rows = [
-        ["อุณหภูมิใช้งาน", "0°C – 50°C"],
-        ["ความชื้นใช้งาน", "10% – 80% RH"],
-        ["อุณหภูมิเก็บ", "−5°C – 60°C"],
-        ["ความชื้นเก็บ", "10% – 85% RH"],
+        ["อุณหภูมิใช้งาน", p.get("envOpTemp") or "0°C – 50°C"],
+        ["ความชื้นใช้งาน", p.get("envOpHum") or "10% – 80% RH"],
+        ["อุณหภูมิเก็บ", p.get("envStTemp") or "−20°C – 60°C"],
+        ["ความชื้นเก็บ", p.get("envStHum") or "5% – 85% RH"],
     ]
     dim_rows = [
         ["IP Rating", p["ipRating"]],
@@ -446,12 +468,14 @@ def build_page2(c: canvas.Canvas, p: dict, qr_product: Image.Image, qr_quote: Im
     pwr_y = y - 14 * mm
     section_title(c, CONTENT_X, pwr_y, "Power Supply")
     pwr_rows = [
-        ["Power Input", "110–240V AC 50/60Hz"],
-        ["Power Output", "DC 12V 3A"],
-        ["Standby Power", "≤ 0.5W"],
-        ["Power สูงสุด (Monitor)", "< 30W"],
-        ["Power สูงสุด (Android)", "< 36W"],
-        ["Power สูงสุด (Windows)", "< 48W"],
+        ["Power Input", p.get("powerInput") or "110–240V AC 50/60Hz"],
+        ["Power Output", p.get("powerOutput") or "DC 12V / 3A"],
+        ["Standby Power", p.get("powerStandby") or "≤ 0.5W"],
+        ["Power สูงสุด (Monitor)", p.get("powerMaxMonitor") or "< 24 W"],
+        ["Power สูงสุด (Android/ARM)", p.get("powerMaxArm") or "< 30 W"],
+        ["Power สูงสุด (Windows/X86)", p.get("powerMaxX86") or "< 48 W"],
+        ["DC UPS (Optional)", "รองรับ DC UPS module"],
+        ["PoE (Optional)", "รองรับ PoE input บางรุ่น"],
     ]
     col_w = (CONTENT_W - 6 * mm) / 2
     pwr_tbl = spec_table(pwr_rows, [col_w * 0.55, col_w * 0.45])
