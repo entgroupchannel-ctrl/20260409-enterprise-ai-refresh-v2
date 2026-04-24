@@ -194,8 +194,20 @@ const FPMSeriesDetail = () => {
 
       <section className="border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <Link to="/fpm-series" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition mb-4">
-            <ArrowLeft size={14} /> กลับ FPM Series
+          <div className="flex items-center gap-2 text-xs text-muted-foreground mb-4">
+            <Link to="/" className="hover:text-primary transition">หน้าหลัก</Link>
+            <span>/</span>
+            <Link to="/fpm-series" className="hover:text-primary transition">FPM Series</Link>
+            <span>/</span>
+            <span className="text-foreground font-medium">{data.model}</span>
+          </div>
+          <Link
+            to="/fpm-series"
+            className="group inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-primary/30 bg-primary/5 text-primary hover:bg-primary hover:text-primary-foreground transition-all text-sm font-bold mb-6"
+          >
+            <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+            ดูรุ่นอื่นใน FPM Series ทั้งหมด
+            <Monitor size={14} className="opacity-60" />
           </Link>
 
           <div className="grid lg:grid-cols-2 gap-8">
