@@ -1,11 +1,11 @@
 import { useParams, Link, Navigate } from "react-router-dom";
 import { useState } from "react";
-type TabKey = "gallery" | "specs" | "faq";
+type TabKey = "gallery" | "specs" | "dimensions" | "faq";
 import {
   ArrowLeft, ArrowRight, Download, Shield, ThermometerSun, Sparkles,
   Maximize, Settings, Zap, CheckCircle2, Monitor, Truck, Wrench, Phone,
   RefreshCw, Cpu, Server, HardDrive, Cable, AlertTriangle, ShieldCheck,
-  Images, ClipboardList, HelpCircle, ZoomIn, X,
+  Images, ClipboardList, HelpCircle, ZoomIn, X, Ruler,
 } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import SEOHead from "@/components/SEOHead";
@@ -26,11 +26,18 @@ const IMG_17 = "/images/fpm/products/fpm-1702k-17-3inch.jpg";
 const IMG_RFID = "/images/fpm/products/fpm-1502b-rfid.jpg";
 
 // Real product gallery sets (downloaded from cesipc.com)
+// Note: For 1202C/1502K/1702K/2102K series the *-01.png file is a DIMENSION DRAWING
+// (separated into its own array so it can be shown in the Dimensions tab, not the gallery)
 const GALLERY_1002S = ["/images/fpm/products/fpm-1002s-01.png", "/images/fpm/products/fpm-1002s-02.png"];
-const GALLERY_1202C = ["/images/fpm/products/fpm-1202c-01.png", "/images/fpm/products/fpm-1202c-02.png", "/images/fpm/products/fpm-1202c-03.png", "/images/fpm/products/fpm-1202c-04.png"];
-const GALLERY_1502K = ["/images/fpm/products/fpm-1502k-01.png", "/images/fpm/products/fpm-1502k-02.png", "/images/fpm/products/fpm-1502k-03.png", "/images/fpm/products/fpm-1502k-04.png"];
-const GALLERY_1702K = ["/images/fpm/products/fpm-1702k-01.png", "/images/fpm/products/fpm-1702k-02.png", "/images/fpm/products/fpm-1702k-03.png", "/images/fpm/products/fpm-1702k-04.png"];
-const GALLERY_2102K = ["/images/fpm/products/fpm-2102k-01.png", "/images/fpm/products/fpm-2102k-02.png", "/images/fpm/products/fpm-2102k-03.png"];
+const DIM_1002S: string[] = []; // no dimension drawing available
+const GALLERY_1202C = ["/images/fpm/products/fpm-1202c-02.png", "/images/fpm/products/fpm-1202c-03.png", "/images/fpm/products/fpm-1202c-04.png"];
+const DIM_1202C = ["/images/fpm/products/fpm-1202c-01.png"];
+const GALLERY_1502K = ["/images/fpm/products/fpm-1502k-02.png", "/images/fpm/products/fpm-1502k-03.png", "/images/fpm/products/fpm-1502k-04.png"];
+const DIM_1502K = ["/images/fpm/products/fpm-1502k-01.png"];
+const GALLERY_1702K = ["/images/fpm/products/fpm-1702k-02.png", "/images/fpm/products/fpm-1702k-03.png", "/images/fpm/products/fpm-1702k-04.png"];
+const DIM_1702K = ["/images/fpm/products/fpm-1702k-01.png"];
+const GALLERY_2102K = ["/images/fpm/products/fpm-2102k-02.png", "/images/fpm/products/fpm-2102k-03.png"];
+const DIM_2102K = ["/images/fpm/products/fpm-2102k-01.png"];
 
 const lifestyleAll = [
   "/images/fpm/lifestyle/install-1.jpg",
@@ -49,6 +56,7 @@ type ModelDetail = {
   brightness: number;
   price: string;
   images: string[];
+  dimensions?: string[];
   highlight: string;
   description: string;
   features: string[];
@@ -60,7 +68,7 @@ type ModelDetail = {
 const MODELS: Record<string, ModelDetail> = {
   "fpm-0801a": {
     model: "FPM-0801A", size: '8"', resolution: "1024x768", ratio: "4:3", touch: "Resistive", brightness: 300, price: "10,990",
-    images: [...GALLERY_1002S, ...lifestyleAll],
+    images: [...GALLERY_1002S, ...lifestyleAll], dimensions: DIM_1002S,
     highlight: "8-inch Resistive Touch — Embedded Compact",
     description: "จอภาพสัมผัสขนาดเล็ก 8 นิ้ว เหมาะสำหรับงาน Embedded ในเครื่องจักรขนาดเล็ก รองรับการสัมผัสด้วยปากกาและถุงมือ",
     features: ["IP65 Front Panel", "Wide Temp -20°C ถึง 70°C", "Resistive Touch (ปากกา/ถุงมือใช้ได้)", "VESA 75 Mounting"],
@@ -68,7 +76,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-0802a": {
     model: "FPM-0802A", size: '8"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "12,990",
-    images: [...GALLERY_1002S, ...lifestyleAll],
+    images: [...GALLERY_1002S, ...lifestyleAll], dimensions: DIM_1002S,
     highlight: "8-inch Capacitive — Multi-touch",
     description: "จอ 8 นิ้ว Capacitive Multi-touch สำหรับงานที่ต้องการการสัมผัสที่ลื่นไหลและรองรับนิ้ว",
     features: ["IP65 Front Panel", "Multi-touch", "Optical Bonding Optional", "VESA 75"],
@@ -76,7 +84,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-1001a": {
     model: "FPM-1001A", size: '10"', resolution: "1024x768", ratio: "4:3", touch: "Resistive", brightness: 300, price: "12,990",
-    images: [...GALLERY_1002S, ...lifestyleAll],
+    images: [...GALLERY_1002S, ...lifestyleAll], dimensions: DIM_1002S,
     highlight: "10-inch Resistive — Industrial Workhorse",
     description: "จอ 10 นิ้ว Resistive ทนทานสำหรับสายการผลิต ทำงานได้กับถุงมือและปากกา Stylus",
     features: ["IP65", "Wide Temp", "Resistive (ปากกา/ถุงมือ)", "VESA 75/100"],
@@ -85,7 +93,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-1002a": {
     model: "FPM-1002A", size: '10"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "14,990",
-    images: [...GALLERY_1002S, ...lifestyleAll],
+    images: [...GALLERY_1002S, ...lifestyleAll], dimensions: DIM_1002S,
     highlight: "10-inch Capacitive — Modern Touch UX",
     description: "จอ 10 นิ้ว Capacitive Multi-touch ระดับสมาร์ทโฟน เหมาะกับ HMI ยุคใหม่ที่ต้องการประสบการณ์ลื่นไหล",
     features: ["IP65 Front Panel", "10-point Multi-touch", "Anti-glare", "Optical Bonding"],
@@ -94,7 +102,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-1202a": {
     model: "FPM-1202A", size: '12"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "15,990",
-    images: [...GALLERY_1202C, ...lifestyleAll],
+    images: [...GALLERY_1202C, ...lifestyleAll], dimensions: DIM_1202C,
     highlight: "12-inch Capacitive — Best Seller",
     description: "ขนาดยอดนิยมสำหรับงาน HMI โรงงาน ขนาด 12 นิ้วลงตัวพอดีไม่ใหญ่ไม่เล็ก",
     features: ["IP65", "Multi-touch", "Wide Temp", "VESA 75/100", "Optical Bonding"],
@@ -103,7 +111,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-1501a": {
     model: "FPM-1501A", size: '15"', resolution: "1024x768", ratio: "4:3", touch: "Resistive", brightness: 300, price: "17,990",
-    images: [...GALLERY_1502K, ...lifestyleAll],
+    images: [...GALLERY_1502K, ...lifestyleAll], dimensions: DIM_1502K,
     highlight: "15-inch Resistive — Heavy Duty",
     description: "จอ 15 นิ้ว Resistive ขนาดมาตรฐานสำหรับสายการผลิตและงานควบคุมเครื่องจักร",
     features: ["IP65", "Resistive", "Wide Temp -20°C ถึง 70°C", "VESA 100"],
@@ -112,7 +120,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-1502a": {
     model: "FPM-1502A", size: '15"', resolution: "1024x768", ratio: "4:3", touch: "Capacitive", brightness: 300, price: "19,990",
-    images: [IMG_RFID, ...GALLERY_1502K, ...lifestyleAll],
+    images: [IMG_RFID, ...GALLERY_1502K, ...lifestyleAll], dimensions: DIM_1502K,
     highlight: "15-inch Capacitive — Customizable RFID Edition",
     description: "จอ 15 นิ้ว Capacitive Multi-touch รองรับการเพิ่ม RFID Reader สำหรับงาน Smart Warehouse และ Production Line Traceability",
     features: ["IP65 Front Panel", "Multi-touch", "RFID Customization", "Optical Bonding", "Aviation Connector"],
@@ -122,7 +130,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-1702a": {
     model: "FPM-1702A", size: '17"', resolution: "1280x1024", ratio: "5:4", touch: "Capacitive", brightness: 300, price: "21,990",
-    images: [...GALLERY_1702K, ...lifestyleAll],
+    images: [...GALLERY_1702K, ...lifestyleAll], dimensions: DIM_1702K,
     highlight: "17-inch SXGA — Square Screen",
     description: "จอ 17 นิ้ว 5:4 SXGA สำหรับห้องคอนโทรล CNC และงานที่ต้องการพื้นที่แสดงผลแบบสี่เหลี่ยมจัตุรัส",
     features: ["IP65", "5:4 SXGA", "Multi-touch", "Optical Bonding", "VESA 100"],
@@ -131,7 +139,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-1902a": {
     model: "FPM-1902A", size: '19"', resolution: "1280x1024", ratio: "5:4", touch: "Capacitive", brightness: 300, price: "21,990",
-    images: [...GALLERY_1702K, ...lifestyleAll],
+    images: [...GALLERY_1702K, ...lifestyleAll], dimensions: DIM_1702K,
     highlight: "19-inch SXGA — Control Room Standard",
     description: "จอ 19 นิ้ว 5:4 ขนาดมาตรฐานห้องคอนโทรล รองรับการแสดงผลพร้อมกันหลาย Window",
     features: ["IP65", "5:4 SXGA", "Multi-touch", "Wide Viewing Angle"],
@@ -140,7 +148,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-1502k": {
     model: "FPM-1502K", size: '15.6"', resolution: "1920x1080", ratio: "16:9", touch: "Capacitive", brightness: 300, price: "19,990",
-    images: [...GALLERY_1502K, ...lifestyleAll],
+    images: [...GALLERY_1502K, ...lifestyleAll], dimensions: DIM_1502K,
     highlight: "15.6-inch FHD Wide — Modern HMI",
     description: "จอ 15.6 นิ้ว Full HD 16:9 สำหรับ HMI และ Dashboard ยุคใหม่ ดีไซน์บางเฉียบ Optical Bonding",
     features: ["IP65", "Full HD 1920x1080", "Multi-touch", "Slim Bezel", "Optical Bonding"],
@@ -149,7 +157,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-2102k": {
     model: "FPM-2102K", size: '21.5"', resolution: "1920x1080", ratio: "16:9", touch: "Capacitive", brightness: 300, price: "24,990",
-    images: [...GALLERY_2102K, ...lifestyleAll],
+    images: [...GALLERY_2102K, ...lifestyleAll], dimensions: DIM_2102K,
     highlight: "21.5-inch FHD — Big Picture HMI",
     description: "จอใหญ่ 21.5 นิ้ว Full HD 16:9 เหมาะกับ Dashboard, Big Data Visualization และงานที่ต้องการพื้นที่กว้าง",
     features: ["IP65", "Full HD", "Multi-touch", "Wide Viewing", "Optical Bonding"],
@@ -158,7 +166,7 @@ const MODELS: Record<string, ModelDetail> = {
   },
   "fpm-2402ka": {
     model: "FPM-2402KA", size: '24"', resolution: "1920x1080", ratio: "16:9", touch: "Capacitive", brightness: 300, price: "Call",
-    images: [...GALLERY_2102K, ...lifestyleAll],
+    images: [...GALLERY_2102K, ...lifestyleAll], dimensions: DIM_2102K,
     highlight: "24-inch FHD — Maximum Visibility",
     description: "จอใหญ่สุดในซีรีส์ 24 นิ้ว Full HD สำหรับห้องคอนโทรลใหญ่ Big Data, Military, Mission-critical",
     features: ["IP65", "Full HD", "Multi-touch", "Wide Temperature", "Customizable"],
@@ -437,10 +445,11 @@ const FPMSeriesDetail = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex gap-2 mb-6 border-b border-border overflow-x-auto">
             {([
-              { key: "gallery" as const, label: "Product Images & Sizes", Icon: Images },
-              { key: "specs" as const, label: "Specifications", Icon: ClipboardList },
-              { key: "faq" as const, label: "FAQ", Icon: HelpCircle },
-            ]).map(({ key, label, Icon }) => {
+              { key: "gallery" as const, label: "Product Images & Sizes", Icon: Images, show: true },
+              { key: "specs" as const, label: "Specifications", Icon: ClipboardList, show: true },
+              { key: "dimensions" as const, label: "Dimensions", Icon: Ruler, show: !!(data.dimensions && data.dimensions.length) },
+              { key: "faq" as const, label: "FAQ", Icon: HelpCircle, show: true },
+            ]).filter((t) => t.show).map(({ key, label, Icon }) => {
               const isActive = activeTab === key;
               return (
                 <button
@@ -464,22 +473,27 @@ const FPMSeriesDetail = () => {
           </div>
 
           {activeTab === "gallery" && (() => {
-            // Sort: product images first, dimension/lifestyle last
+            // Gallery now contains ONLY product photos + lifestyle/install shots
+            // (Dimension drawings live in their own tab)
             const sorted = [...data.images].sort((a, b) => {
-              const aIsExtra = /lifestyle|dimension|install/i.test(a) ? 1 : 0;
-              const bIsExtra = /lifestyle|dimension|install/i.test(b) ? 1 : 0;
+              const aIsExtra = /lifestyle|install/i.test(a) ? 1 : 0;
+              const bIsExtra = /lifestyle|install/i.test(b) ? 1 : 0;
               return aIsExtra - bIsExtra;
             });
             const captionFor = (src: string, i: number) => {
               if (/lifestyle|install/i.test(src)) return `การติดตั้งจริง #${i + 1}`;
-              if (/dimension/i.test(src)) return `Dimension Drawing`;
               return `${data.model} — มุมที่ ${i + 1}`;
             };
             return (
               <div>
                 <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
                   <p className="text-sm text-muted-foreground">
-                    ภาพสินค้าหลัก ตามด้วย Dimension และภาพการติดตั้งจริง — คลิกภาพเพื่อขยาย
+                    ภาพสินค้าหลัก ตามด้วยภาพการติดตั้งจริง — คลิกภาพเพื่อขยาย
+                    {data.dimensions && data.dimensions.length > 0 && (
+                      <span className="ml-1">
+                        (ดูแบบมิติได้ที่แท็บ <button onClick={() => setActiveTab("dimensions")} className="text-primary font-bold hover:underline">Dimensions</button>)
+                      </span>
+                    )}
                   </p>
                   <span className="text-xs text-muted-foreground inline-flex items-center gap-1">
                     <ZoomIn size={12} /> {sorted.length} ภาพ
@@ -513,6 +527,58 @@ const FPMSeriesDetail = () => {
               </div>
             );
           })()}
+
+          {activeTab === "dimensions" && data.dimensions && data.dimensions.length > 0 && (
+            <div>
+              <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+                <div>
+                  <h3 className="text-lg font-display font-bold text-foreground flex items-center gap-2">
+                    <Ruler size={18} className="text-primary" />
+                    Mechanical Dimensions
+                  </h3>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    แบบมิติทางวิศวกรรมของ {data.model} — คลิกภาพเพื่อขยาย หรือดาวน์โหลดได้จาก Datasheet
+                  </p>
+                </div>
+                {data.datasheet && (
+                  <a
+                    href={data.datasheet}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border bg-card text-foreground hover:bg-muted transition text-sm font-bold"
+                  >
+                    <Download size={14} /> Datasheet PDF
+                  </a>
+                )}
+              </div>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {data.dimensions.map((src, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setLightbox({ src, caption: `${data.model} — Dimension Drawing` })}
+                    className="group relative rounded-xl border-2 border-border bg-card overflow-hidden hover:border-primary/50 hover:shadow-lg transition-all"
+                  >
+                    <div className="aspect-[4/3] bg-white flex items-center justify-center p-4">
+                      <img
+                        src={src}
+                        alt={`${data.model} mechanical dimensions ${i + 1}`}
+                        className="max-w-full max-h-full object-contain group-hover:scale-[1.02] transition-transform duration-300"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="px-4 py-3 border-t border-border flex items-center justify-between">
+                      <span className="text-sm font-bold text-foreground">
+                        {data.model} Dimension {data.dimensions!.length > 1 ? `#${i + 1}` : ""}
+                      </span>
+                      <span className="inline-flex items-center gap-1 text-xs text-primary font-semibold">
+                        <ZoomIn size={12} /> ขยายดู
+                      </span>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
 
           {activeTab === "specs" && (
             <div className="grid lg:grid-cols-2 gap-8">
