@@ -764,7 +764,7 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
           className="scroll-mt-32"
         >
           <SectionTitle eyebrow="Comparison" title="เปรียบเทียบ 5 รุ่นในหมวด 32 นิ้ว" />
-          <ComparisonTable activeSlug={requested} onSwitch={switchModel} />
+          <ComparisonTable activeSlug={requested} onSwitch={switchModel} data={group.data} order={group.order} />
         </section>
 
         {/* Datasheet CTA */}
@@ -832,7 +832,7 @@ const QuickStat = ({ label, value }: { label: string; value: string }) => (
   </div>
 );
 
-const ComparisonTable = ({ activeSlug, onSwitch }: { activeSlug: Display32Slug; onSwitch: (s: Display32Slug) => void }) => {
+const ComparisonTable = ({ activeSlug, onSwitch, data, order }: { activeSlug: string; onSwitch: (s: string) => void; data: Record<string, Display32>; order: string[] }) => {
   const rows: { label: string; key: keyof Display32["quick"] }[] = [
     { label: "Form Factor", key: "formFactor" },
     { label: "ความละเอียด", key: "resolution" },
@@ -851,8 +851,8 @@ const ComparisonTable = ({ activeSlug, onSwitch }: { activeSlug: Display32Slug; 
         <thead>
           <tr className="bg-muted/40 border-b border-border">
             <th className="text-left px-4 py-3 font-semibold w-44">รายการ</th>
-            {DISPLAY_32_ORDER.map(s => {
-              const m = DISPLAYS_32[s];
+            {order.map(s => {
+              const m = data[s];
               const active = s === activeSlug;
               return (
                 <th key={s} className={`text-left px-4 py-3 font-semibold ${active ? "bg-primary/10 text-primary" : ""}`}>
@@ -869,11 +869,11 @@ const ComparisonTable = ({ activeSlug, onSwitch }: { activeSlug: Display32Slug; 
           {rows.map(r => (
             <tr key={r.key} className="border-b border-border/60 hover:bg-muted/20">
               <td className="px-4 py-2.5 text-muted-foreground font-medium">{r.label}</td>
-              {DISPLAY_32_ORDER.map(s => {
+              {order.map(s => {
                 const active = s === activeSlug;
                 return (
                   <td key={s} className={`px-4 py-2.5 ${active ? "bg-primary/5 font-semibold" : ""}`}>
-                    {DISPLAYS_32[s].quick[r.key]}
+                    {data[s].quick[r.key]}
                   </td>
                 );
               })}
