@@ -275,6 +275,9 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
               <td style={s.tdTop}>
                 <p style={s.productName}>{p.name || p.model}</p>
                 {p.description && <p style={s.productDesc}>{p.description}</p>}
+                {p.specs && p.specs !== p.description && (
+                  <p style={{ ...s.productDesc, whiteSpace: 'pre-wrap' }}>{p.specs}</p>
+                )}
                 {p.notes && <p style={s.productNote}>* {p.notes}</p>}
               </td>
               <td style={s.tdCenter}>{p.quantity ?? p.qty}</td>
