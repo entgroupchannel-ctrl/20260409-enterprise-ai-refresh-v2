@@ -100,6 +100,15 @@ export interface Display32 {
     callouts?: { label: string; value: string }[];
   }[];
   osSupport: OSKey[];
+  /** Optional CPU configurations available for AIO models */
+  cpuOptions?: {
+    tier: "Entry" | "Mid" | "High";
+    cpu: string;
+    gpu: string;
+    ram: string;
+    storage: string;
+    targetUseCase: string;
+  }[];
   datasheetUrl: string;
   dimensionUrl?: string;
   specs: SpecGroup[];
