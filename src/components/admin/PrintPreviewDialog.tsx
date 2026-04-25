@@ -12,7 +12,7 @@ import { Printer, Download, Loader2, AlertCircle } from 'lucide-react';
 import QuotePDFTemplate from './QuotePDFTemplate';
 import { useCompanySettings } from '@/hooks/useCompanySettings';
 import { supabase } from '@/integrations/supabase/client';
-import { mergeRevisionWithQuote } from '@/lib/quote-pdf-merge';
+import { mergeRevisionWithQuote, checkQuoteRevisionConsistency } from '@/lib/quote-pdf-merge';
 
 interface PrintPreviewDialogProps {
   open: boolean;
@@ -168,6 +168,44 @@ export default function PrintPreviewDialog({
             </div>
           </div>
         </DialogHeader>
+
+        {/* Consistency warning — flagged when revision pricing differs from quote */}
+        {(() => {
+          const check = checkQuoteRevisionConsistency(revision, quote);
+          if (check.ok) return null;
+          const fmt = (n: number) =>
+            new Intl.NumberFormat('th-TH', { minimumFractionDigits: 2 }).format(n);
+          return (
+            <div className="rounded-md border border-amber-300 bg-amber-50 dark:bg-amber-950/30 dark:border-amber-700 p-3 text-sm">
+              <div className="flex items-start gap-2">
+                <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                <div className="flex-1 min-w-0">
+                  <div className="font-semibold text-amber-900 dark:text-amber-200">
+                    ข้อมูลไม่สอดคล้อง: ราคาใน Revision ไม่ตรงกับใบเสนอราคาหลัก
+                  </div>
+                  <div className="text-amber-800 dark:text-amber-300 mt-1 text-xs">
+                    PDF จะใช้ค่าจากใบเสนอราคาหลักโดยอัตโนมัติเพื่อให้ตรงกับที่แสดงบนหน้าจอ
+                    หากต้องการแก้ที่ต้นทาง กรุณาบันทึก Revision ใหม่
+                  </div>
+                  <ul className="mt-2 space-y-0.5 text-xs">
+                    {check.mismatches.slice(0, 6).map((m) => (
+                      <li key={m.field} className="font-mono">
+                        • {m.label}: <span className="text-emerald-700 dark:text-emerald-400">Quote ฿{fmt(m.quoteValue)}</span>
+                        {' ≠ '}
+                        <span className="text-red-700 dark:text-red-400">Revision ฿{fmt(m.revisionValue)}</span>
+                      </li>
+                    ))}
+                    {check.mismatches.length > 6 && (
+                      <li className="text-amber-700 dark:text-amber-400">
+                        … และอีก {check.mismatches.length - 6} รายการ
+                      </li>
+                    )}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          );
+        })()}
 
         {/* PDF Preview */}
         <div className="border rounded-lg overflow-hidden bg-gray-100 p-4">

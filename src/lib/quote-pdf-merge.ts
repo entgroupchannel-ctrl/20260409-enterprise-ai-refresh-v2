@@ -26,8 +26,15 @@ function mergeProductLine(revLine: AnyObj, qLine?: AnyObj): AnyObj {
     }
   }
   // Text fields: prefer revision if present, else quote
-  for (const k of ['description', 'name', 'model', 'notes', 'specs']) {
+  for (const k of ['name', 'model', 'notes']) {
     if (!revLine?.[k] && qLine?.[k]) merged[k] = qLine[k];
+  }
+  // Description / specs: prefer the LONGER one (revision often stores only the headline,
+  // while the quote row keeps the full spec sheet). This ensures full specs reach the PDF.
+  for (const k of ['description', 'specs']) {
+    const rv = (revLine?.[k] ?? '').toString();
+    const qv = (qLine?.[k] ?? '').toString();
+    merged[k] = qv.length > rv.length ? qv : rv;
   }
   return merged;
 }
@@ -82,4 +89,68 @@ export function mergeRevisionWithQuote(revision: AnyObj | null | undefined, quot
     valid_until: rev.valid_until ?? q.valid_until,
     customer_message: rev.customer_message ?? null,
   };
+}
+
+/* ---------------------------------------------------------------------- */
+/* Consistency check                                                       */
+/* ---------------------------------------------------------------------- */
+
+export interface ConsistencyMismatch {
+  field: string;          // 'unit_price' | 'subtotal' | 'grand_total' | 'line_total[idx]' | ...
+  label: string;          // Human-readable Thai label
+  quoteValue: number;
+  revisionValue: number;
+  diff: number;
+}
+
+export interface ConsistencyResult {
+  ok: boolean;
+  mismatches: ConsistencyMismatch[];
+}
+
+const eq = (a: any, b: any, tol = 0.01) => Math.abs(Number(a || 0) - Number(b || 0)) < tol;
+
+/**
+ * Compare key pricing fields between the canonical quote_requests row and the
+ * quote_revisions row that the PDF will render from. Returns mismatches so the
+ * UI can surface a warning before the user generates / sends the PDF.
+ *
+ * Read-only — never mutates either side.
+ */
+export function checkQuoteRevisionConsistency(
+  revision: AnyObj | null | undefined,
+  quote: AnyObj | null | undefined
+): ConsistencyResult {
+  const mismatches: ConsistencyMismatch[] = [];
+  if (!revision || !quote) return { ok: true, mismatches };
+
+  const push = (field: string, label: string, qv: any, rv: any) => {
+    const q = Number(qv || 0);
+    const r = Number(rv || 0);
+    if (!eq(q, r)) {
+      mismatches.push({ field, label, quoteValue: q, revisionValue: r, diff: q - r });
+    }
+  };
+
+  // Top-level totals
+  push('subtotal', 'ยอดรวม (Subtotal)', quote.subtotal, revision.subtotal);
+  push('vat_amount', 'VAT', quote.vat_amount, revision.vat_amount);
+  push('grand_total', 'รวมสุทธิ (Grand Total)', quote.grand_total, revision.grand_total);
+  push('discount_amount', 'ส่วนลด', quote.discount_amount, revision.discount_amount);
+
+  // Per-line check (matched by index, fallback by model)
+  const qProducts: AnyObj[] = Array.isArray(quote.products) ? quote.products : [];
+  const rProducts: AnyObj[] = Array.isArray(revision.products) ? revision.products : [];
+  const max = Math.max(qProducts.length, rProducts.length);
+  for (let i = 0; i < max; i++) {
+    const rp = rProducts[i];
+    const qp = qProducts[i] || qProducts.find((x) => x?.model && rp?.model && x.model === rp.model);
+    if (!rp || !qp) continue;
+    const tag = `[${i + 1}] ${rp.model || qp.model || ''}`;
+    push(`unit_price#${i}`, `${tag} ราคา/หน่วย`, qp.unit_price, rp.unit_price);
+    push(`line_total#${i}`, `${tag} รวม`, qp.line_total, rp.line_total);
+    push(`qty#${i}`, `${tag} จำนวน`, qp.qty ?? qp.quantity, rp.qty ?? rp.quantity);
+  }
+
+  return { ok: mismatches.length === 0, mismatches };
 }
