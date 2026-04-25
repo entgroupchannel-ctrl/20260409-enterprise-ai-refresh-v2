@@ -89,15 +89,15 @@ const s = {
   metaTdLabel: { color: '#666', paddingBottom: '2px', whiteSpace: 'nowrap' as const } as React.CSSProperties,
   metaTdValue: { textAlign: 'right' as const, fontWeight: 'bold' as const, paddingBottom: '2px' } as React.CSSProperties,
   // Product table
-  table: { width: '100%', borderCollapse: 'collapse' as const, fontSize: '9pt', marginBottom: '8px' } as React.CSSProperties,
-  th: { background: '#1d4ed8', color: '#fff', padding: '6px 8px', textAlign: 'left' as const, fontWeight: 'bold', fontSize: '9pt' } as React.CSSProperties,
-  thRight: { background: '#1d4ed8', color: '#fff', padding: '6px 8px', textAlign: 'right' as const, fontWeight: 'bold', fontSize: '9pt' } as React.CSSProperties,
-  thCenter: { background: '#1d4ed8', color: '#fff', padding: '6px 8px', textAlign: 'center' as const, fontWeight: 'bold', fontSize: '9pt' } as React.CSSProperties,
-  tdTop: { padding: '6px 8px', verticalAlign: 'top' as const, borderBottom: '1px solid #e5e7eb' } as React.CSSProperties,
-  tdRight: { padding: '6px 8px', verticalAlign: 'top' as const, textAlign: 'right' as const, borderBottom: '1px solid #e5e7eb' } as React.CSSProperties,
+  table: { width: '100%', borderCollapse: 'collapse' as const, tableLayout: 'fixed' as const, fontSize: '9pt', marginBottom: '8px' } as React.CSSProperties,
+  th: { padding: '6px 8px', textAlign: 'left' as const, borderBottom: '2px solid #1a1a1a', fontWeight: 'bold', backgroundColor: '#f8f9fa' } as React.CSSProperties,
+  thCenter: { padding: '6px 8px', textAlign: 'center' as const, borderBottom: '2px solid #1a1a1a', fontWeight: 'bold', backgroundColor: '#f8f9fa' } as React.CSSProperties,
+  thRight: { padding: '6px 8px', textAlign: 'right' as const, borderBottom: '2px solid #1a1a1a', fontWeight: 'bold', backgroundColor: '#f8f9fa' } as React.CSSProperties,
+  tdTop: { padding: '6px 8px', verticalAlign: 'top' as const, borderBottom: '1px solid #e5e7eb', wordBreak: 'break-word' as const, overflowWrap: 'break-word' as const } as React.CSSProperties,
   tdCenter: { padding: '6px 8px', verticalAlign: 'top' as const, textAlign: 'center' as const, borderBottom: '1px solid #e5e7eb' } as React.CSSProperties,
-  productName: { fontWeight: 'bold', margin: '0 0 2px' } as React.CSSProperties,
-  productDesc: { color: '#555', fontSize: '8.5pt', whiteSpace: 'pre-wrap' as const, margin: 0 } as React.CSSProperties,
+  tdRight: { padding: '6px 8px', verticalAlign: 'top' as const, textAlign: 'right' as const, borderBottom: '1px solid #e5e7eb' } as React.CSSProperties,
+  productName: { fontWeight: 'bold', margin: '0 0 2px', wordBreak: 'break-word' as const } as React.CSSProperties,
+  productDesc: { color: '#555', fontSize: '8.5pt', whiteSpace: 'pre-wrap' as const, wordBreak: 'break-word' as const, overflowWrap: 'break-word' as const, margin: 0 } as React.CSSProperties,
   productNote: { color: '#1d4ed8', fontSize: '8.5pt', margin: '2px 0 0' } as React.CSSProperties,
   // Totals
   totalsWrap: { display: 'flex', justifyContent: 'flex-end', marginBottom: '16px' } as React.CSSProperties,
@@ -287,14 +287,22 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
 
       {/* ── PRODUCTS TABLE (thead repeats on each page) ───────────────── */}
       <table className="products" style={s.table}>
+        <colgroup>
+          <col style={{ width: '32px' }} />
+          <col />
+          <col style={{ width: '56px' }} />
+          <col style={{ width: '92px' }} />
+          <col style={{ width: '72px' }} />
+          <col style={{ width: '100px' }} />
+        </colgroup>
         <thead>
           <tr>
-            <th style={{ ...s.th, width: '32px' }}>#</th>
+            <th style={s.th}>#</th>
             <th style={s.th}>รายการ</th>
-            <th style={{ ...s.thCenter, width: '52px' }}>จำนวน</th>
-            <th style={{ ...s.thRight, width: '88px' }}>ราคา/หน่วย</th>
-            <th style={{ ...s.thRight, width: '80px' }}>ส่วนลด</th>
-            <th style={{ ...s.thRight, width: '96px' }}>รวม</th>
+            <th style={s.thCenter}>จำนวน</th>
+            <th style={s.thRight}>ราคา/หน่วย</th>
+            <th style={s.thRight}>ส่วนลด</th>
+            <th style={s.thRight}>รวม</th>
           </tr>
         </thead>
         <tbody>
