@@ -43,7 +43,7 @@ export async function generateAndUploadQuotePdf(
     root.render(
       createElement(QuotePDFTemplate as any, {
         quote,
-        revision,
+        revision: mergeRevisionWithQuote(revision, quote),
         companyInfo,
         salePerson,
         bankAccounts: bankAccounts || [],
