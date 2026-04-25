@@ -99,7 +99,7 @@ export default function PrintPreviewDialog({
       if (!element) return;
 
       const opt = {
-        margin: [15, 15, 20, 15],   // top, right, bottom, left (mm)
+        margin: [22, 15, 18, 15],   // top, right, bottom, left (mm) — top wider for running header
         filename: `${quote.quote_number}-Rev${revision.revision_number}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: {
@@ -108,9 +108,11 @@ export default function PrintPreviewDialog({
           letterRendering: true,
           scrollX: 0,
           scrollY: 0,
+          windowWidth: 794,  // A4 @ 96dpi for stable layout
         },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
+        // Allow content to flow naturally; only avoid breaking inside rows/blocks marked .pdf-keep
+        pagebreak: { mode: ['css', 'legacy'], avoid: ['tr', '.pdf-keep'] },
       };
 
       await html2pdf().set(opt).from(element).save();
