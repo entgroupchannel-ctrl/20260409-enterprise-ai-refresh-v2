@@ -229,9 +229,11 @@ export default function InteractiveDisplay() {
             {filtered.map((p) => {
               // Override links for series pages with multiple OS variants
               const is32 = p.tags?.includes("32-inch") || p.slug === "interactive-display-hd32";
-              const is43 = p.tags?.includes("43-inch") || p.slug === "interactive-display-hr43";
+              const is43 = p.tags?.includes("43-inch") || p.slug === "interactive-display-hr43" || p.slug === "interactive-display-hd43";
+              // Map specific 43" SKUs to dedicated HR43/HD43 detail
+              const model43 = p.slug === "interactive-display-hr43" ? "hr43" : "hd43";
               const detailHref = is43
-                ? "/products/displays-43?model=hd43"
+                ? `/products/displays-43?model=${model43}`
                 : is32
                 ? "/products/displays-32?model=hd32"
                 : `/products/${p.slug}`;
