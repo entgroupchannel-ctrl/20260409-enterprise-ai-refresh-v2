@@ -340,6 +340,32 @@ export default function TouchWork() {
             <div className="h-5 w-px bg-border" />
 
             <div className="flex flex-wrap gap-1.5">
+              <span className="text-xs text-muted-foreground self-center mr-1">Panel:</span>
+              {(["IPS", "TN"] as PanelType[]).map((pt) => {
+                const active = selectedPanels.includes(pt);
+                return (
+                  <button
+                    key={pt}
+                    onClick={() => togglePanel(pt)}
+                    title={panelMeta[pt].desc}
+                    className={`px-3 py-1 rounded-full text-xs font-semibold border transition-all inline-flex items-center gap-1.5 ${
+                      active
+                        ? "bg-primary text-primary-foreground border-primary"
+                        : `${panelMeta[pt].color} hover:opacity-80`
+                    }`}
+                  >
+                    {panelMeta[pt].label}
+                    <span className={`text-[10px] px-1 rounded ${active ? "bg-primary-foreground/20" : "bg-foreground/10"}`}>
+                      {panelCounts[pt]}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="h-5 w-px bg-border" />
+
+            <div className="flex flex-wrap gap-1.5">
               <span className="text-xs text-muted-foreground self-center mr-1">ขนาด:</span>
               {sizeBuckets.map((b) => {
                 const active = selectedBuckets.includes(b.label);
@@ -359,12 +385,13 @@ export default function TouchWork() {
               })}
             </div>
 
-            {(selectedSeries.length > 0 || selectedArchs.length > 0 || selectedBuckets.length > 0) && (
+            {(selectedSeries.length > 0 || selectedArchs.length > 0 || selectedBuckets.length > 0 || selectedPanels.length > 0) && (
               <button
                 onClick={() => {
                   setSelectedSeries([]);
                   setSelectedArchs([]);
                   setSelectedBuckets([]);
+                  setSelectedPanels([]);
                 }}
                 className="ml-auto text-xs text-muted-foreground hover:text-foreground underline"
               >
