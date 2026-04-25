@@ -17,7 +17,7 @@ interface CartAbandonedProps {
 const CartAbandonedEmail = ({ customerName, itemCount, firstItemName, cartUrl }: CartAbandonedProps) => (
   <Html lang="th" dir="ltr">
     <Head />
-    <Preview>คุณยังมีสินค้า {itemCount || ''} รายการในตะกร้า — กลับมาขอใบเสนอราคาได้เลย</Preview>
+    <Preview>{`คุณยังมีสินค้า ${itemCount ?? ''} รายการในตะกร้า — กลับมาขอใบเสนอราคาได้เลย`}</Preview>
     <Body style={main}>
       <Container style={container}>
         <Section style={header}>
