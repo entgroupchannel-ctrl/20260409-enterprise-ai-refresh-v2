@@ -11,6 +11,11 @@ import osWindows from "@/assets/touchwo/os-windows.jpg";
 import osLinux from "@/assets/touchwo/os-linux.jpg";
 import osAndroid from "@/assets/touchwo/os-android.jpg";
 
+// Clean hero shots (logo/watermark removed)
+import hd32HeroClean from "@/assets/touchwo/hd32-hero-clean.jpg";
+import hr32HeroClean from "@/assets/touchwo/hr32-hero-clean.jpg";
+import kd32bHeroClean from "@/assets/touchwo/kd32b-hero-clean.jpg";
+
 export const OS_BACKGROUNDS = {
   windows: { src: osWindows, label: "Windows", subtitle: "x86 Intel/AMD รองรับ Windows 10/11 IoT" },
   linux:   { src: osLinux,   label: "Linux",   subtitle: "Ubuntu / Debian / Custom Distros" },
@@ -91,9 +96,10 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
     ],
     useCases: ["Retail / ร้านค้าปลีก", "โรงแรม & ที่พัก", "สำนักงาน", "POS Self-service"],
     gallery: [
-      "gallery-01.jpg","gallery-02.jpg","gallery-03.jpg","gallery-04.jpg",
-      "gallery-05.jpg","gallery-06.jpg","gallery-07.jpg","gallery-08.jpg","gallery-09.webp",
-    ].map(n => IMG("hd32", n)),
+      hd32HeroClean,
+      ...["gallery-02.jpg","gallery-03.jpg","gallery-04.jpg",
+      "gallery-05.jpg","gallery-06.jpg","gallery-07.jpg","gallery-08.jpg","gallery-09.webp"].map(n => IMG("hd32", n)),
+    ],
     ioImage: IMG("hd32", "io-01.png"),
     installImages: ["install-01.jpg","install-02.jpg","install-03.jpg"].map(n => IMG("hd32", n)),
     featureImages: [],
@@ -171,7 +177,7 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       "เคลือบกันรอย กันสนิม",
     ],
     useCases: ["พื้นที่สาธารณะ", "สถานีบริการตนเอง", "Education", "ห้างสรรพสินค้า"],
-    gallery: Array.from({length:7},(_,i)=>IMG("hr32",`gallery-0${i+1}.jpg`)),
+    gallery: [hr32HeroClean, ...Array.from({length:6},(_,i)=>IMG("hr32",`gallery-0${i+2}.jpg`))],
     ioImage: IMG("hr32", "io-01.jpg"),
     installImages: [],
     featureImages: [],
@@ -401,7 +407,7 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       "อายุ LCD 30,000 ชั่วโมง",
     ],
     useCases: ["Retail / ร้านค้า", "Banking / ธนาคาร", "Logistics", "พื้นที่สาธารณะ"],
-    gallery: Array.from({length:9},(_,i)=>IMG("kd32b",`gallery-0${i+1}.jpg`)),
+    gallery: [kd32bHeroClean, ...Array.from({length:7},(_,i)=>IMG("kd32b",`gallery-0${i+2}.jpg`)), IMG("kd32b","gallery-09.webp")],
     ioImage: IMG("kd32b", "io-01.jpg"),
     installImages: [],
     featureImages: [],
