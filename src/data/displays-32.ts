@@ -11,6 +11,11 @@ import osWindows from "@/assets/touchwo/os-windows.jpg";
 import osLinux from "@/assets/touchwo/os-linux.jpg";
 import osAndroid from "@/assets/touchwo/os-android.jpg";
 
+// Clean hero shots (logo/watermark removed)
+import hd32HeroClean from "@/assets/touchwo/hd32-hero-clean.jpg";
+import hr32HeroClean from "@/assets/touchwo/hr32-hero-clean.jpg";
+import kd32bHeroClean from "@/assets/touchwo/kd32b-hero-clean.jpg";
+
 export const OS_BACKGROUNDS = {
   windows: { src: osWindows, label: "Windows", subtitle: "x86 Intel/AMD รองรับ Windows 10/11 IoT" },
   linux:   { src: osLinux,   label: "Linux",   subtitle: "Ubuntu / Debian / Custom Distros" },
