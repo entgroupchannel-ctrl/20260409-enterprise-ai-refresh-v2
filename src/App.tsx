@@ -228,6 +228,8 @@ const App = () => (
                     <Route path="/products/interactive-display-hr32" element={<Navigate to="/products/displays-32?model=hr32" replace />} />
                     <Route path="/products/interactive-display-hr32-android" element={<Navigate to="/products/displays-32?model=hr32-android" replace />} />
                     <Route path="/products/interactive-display-gd32c" element={<Navigate to="/products/displays-32?model=gd32c" replace />} />
+                    <Route path="/products/interactive-display-kd32b" element={<Navigate to="/products/displays-32?model=kd32b" replace />} />
+                    <Route path="/products/interactive-display-hd43" element={<Navigate to="/products/displays-32?model=hd43" replace />} />
                     <Route path="/fpm-series" element={<FPMSeries />} />
                     <Route path="/fpm-series/:model" element={<FPMSeriesDetail />} />
                     <Route path="/touchwork" element={<TouchWork />} />
