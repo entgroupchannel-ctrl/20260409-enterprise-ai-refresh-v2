@@ -62,12 +62,12 @@ export async function generateAndUploadQuotePdf(
     const html2pdf = (await import('html2pdf.js')).default;
     const blob: Blob = await html2pdf()
       .set({
-        margin: [15, 15, 20, 15],
+        margin: [22, 15, 18, 15],
         filename: `${quote.quote_number}-Rev${revision.revision_number}.pdf`,
         image: { type: 'jpeg', quality: 0.95 },
-        html2canvas: { scale: 2, useCORS: true, letterRendering: true },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] },
+        html2canvas: { scale: 2, useCORS: true, letterRendering: true, windowWidth: 794 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
+        pagebreak: { mode: ['css', 'legacy'], avoid: ['tr', '.pdf-keep'] },
       })
       .from(element)
       .outputPdf('blob');

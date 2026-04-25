@@ -158,7 +158,26 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
       <style>{`
         @page {
           size: A4 portrait;
-          margin: 15mm 15mm 20mm 15mm;
+          margin: 22mm 15mm 18mm 15mm;
+          /* Running header — repeats on every page (print only) */
+          @top-left {
+            content: "${(companyInfo.name_th || '').replace(/"/g, '\\"')}";
+            font-size: 8pt; color: #1d4ed8; font-weight: bold;
+            border-bottom: 1px solid #1d4ed8; padding-bottom: 2mm; width: 100%;
+          }
+          @top-right {
+            content: "ใบเสนอราคา ${quote.quote_number} • Rev ${revision.revision_number}";
+            font-size: 8pt; color: #555;
+            border-bottom: 1px solid #1d4ed8; padding-bottom: 2mm;
+          }
+          @bottom-right {
+            content: "หน้า " counter(page) " / " counter(pages);
+            font-size: 8pt; color: #aaa;
+          }
+          @bottom-left {
+            content: "${(quote.quote_number || '').replace(/"/g, '\\"')}";
+            font-size: 8pt; color: #aaa;
+          }
         }
         #quote-pdf-template {
           font-family: Arial, Helvetica, sans-serif;
@@ -166,17 +185,25 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
           color: #222;
           line-height: 1.5;
         }
-        /* Repeat table header on every page */
-        thead { display: table-header-group; }
-        tfoot { display: table-footer-group; }
-        /* Avoid breaking product rows mid-row */
-        tbody tr { page-break-inside: avoid; }
-        /* Page number via CSS counter */
-        @page { @bottom-right { content: "หน้า " counter(page) " / " counter(pages); font-size: 8pt; color: #aaa; } }
+        /* Repeat the products table header on every page when it spans pages */
+        #quote-pdf-template table.products thead { display: table-header-group; }
+        #quote-pdf-template table.products tfoot { display: table-footer-group; }
+        /* Allow long product rows (with full spec sheets) to break across pages,
+           but try to keep the row together if it fits */
+        #quote-pdf-template table.products tbody tr { page-break-inside: auto; }
+        /* Blocks that must not be split across pages */
+        #quote-pdf-template .pdf-keep { page-break-inside: avoid; break-inside: avoid; }
+        /* Force a fresh page when needed */
+        #quote-pdf-template .pdf-page-break { page-break-before: always; break-before: page; }
+        /* Headings shouldn't be the last line on a page */
+        #quote-pdf-template h1, #quote-pdf-template h2, #quote-pdf-template h3,
+        #quote-pdf-template .pdf-keep-with-next { page-break-after: avoid; break-after: avoid; }
       `}</style>
 
       {/* ── HEADER ────────────────────────────────────────────────────── */}
-      <div style={s.headerWrap}>
+      {/* ── HEADER + META (kept together at start, doesn't repeat on page 2+) ─ */}
+      <div className="pdf-keep-with-next">
+      <div className="pdf-keep" style={s.headerWrap}>
         <div style={s.companyCol}>
           {companyInfo.logo_url && (
             <img src={companyInfo.logo_url} alt={companyInfo.name_th} style={s.logo} />
@@ -255,9 +282,10 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
           </table>
         </div>
       </div>
+      </div>
 
       {/* ── PRODUCTS TABLE (thead repeats on each page) ───────────────── */}
-      <table style={s.table}>
+      <table className="products" style={s.table}>
         <thead>
           <tr>
             <th style={{ ...s.th, width: '32px' }}>#</th>
@@ -297,7 +325,7 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
 
       {/* ── FREE ITEMS ────────────────────────────────────────────────── */}
       {freeItems.length > 0 && (
-        <div style={s.freeItemsBox}>
+        <div className="pdf-keep" style={s.freeItemsBox}>
           <p style={{ fontWeight: 'bold', margin: '0 0 4px' }}>🎁 ของแถม</p>
           {freeItems.map((item: any, idx: number) => (
             <div key={idx} style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -312,14 +340,14 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
 
       {/* ── CUSTOMER MESSAGE ──────────────────────────────────────────── */}
       {revision.customer_message && (
-        <div style={s.customerMsgBox}>
+        <div className="pdf-keep" style={s.customerMsgBox}>
           <p style={{ margin: '0 0 2px', color: '#666', fontSize: '8.5pt' }}>ข้อความจากลูกค้า:</p>
           <p style={{ margin: 0, fontStyle: 'italic' }}>"{revision.customer_message}"</p>
         </div>
       )}
 
       {/* ── TOTALS ────────────────────────────────────────────────────── */}
-      <div style={s.totalsWrap}>
+      <div className="pdf-keep" style={s.totalsWrap}>
         <table style={s.totalsTable}>
           <tbody>
             <tr>
@@ -352,7 +380,7 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
 
       {/* ── TERMS ─────────────────────────────────────────────────────── */}
       {(quote.payment_terms || quote.delivery_terms || quote.warranty_terms || quote.notes) && (
-        <div style={s.termsWrap}>
+        <div className="pdf-keep" style={s.termsWrap}>
           <div style={s.termsGrid}>
             {quote.payment_terms && (
               <div>
@@ -384,7 +412,7 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
 
       {/* ── BANK ACCOUNTS ─────────────────────────────────────────────── */}
       {bankAccounts && bankAccounts.length > 0 && (
-        <div style={s.bankWrap}>
+        <div className="pdf-keep" style={s.bankWrap}>
           <p style={s.bankLabel}>การชำระเงิน — โอนเข้าบัญชี:</p>
           <div style={s.bankGrid}>
             {bankAccounts.map((bank, idx) => (
@@ -403,7 +431,7 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
       )}
 
       {/* ── SIGNATURES ────────────────────────────────────────────────── */}
-      <div style={s.sigGrid}>
+      <div className="pdf-keep" style={s.sigGrid}>
         <div style={s.sigBox}>
           {salePerson?.signature_url && salePerson?.show_signature_on_quotes !== false ? (
             <>
