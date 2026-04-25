@@ -312,6 +312,66 @@ const Display32Detail = () => {
           </div>
         </section>
 
+        {/* Dimensions / Mechanical Drawing */}
+        {product.dimensionDrawings && product.dimensionDrawings.length > 0 && (
+          <section
+            id="dimensions"
+            ref={el => (sectionRefs.current.dimensions = el)}
+            className="scroll-mt-32"
+          >
+            <SectionTitle eyebrow="Dimensions" title="ขนาดและการติดตั้งทางวิศวกรรม" />
+            <p className="text-sm text-muted-foreground -mt-2 mb-6 max-w-2xl">
+              แบบทางวิศวกรรมจากผู้ผลิต — ใช้สำหรับวางแผนพื้นที่ติดตั้ง เลือกขายึด VESA และเดินสายไฟ/สาย LAN ก่อนหน้างานจริง
+            </p>
+            <div className="space-y-8">
+              {product.dimensionDrawings.map((d, i) => (
+                <div
+                  key={i}
+                  className="grid grid-cols-1 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-6 rounded-2xl border border-border bg-card p-4 sm:p-6"
+                >
+                  <button
+                    type="button"
+                    onClick={() => setLightbox({ images: product.dimensionDrawings!.map(x => x.image), index: i })}
+                    className="rounded-xl bg-white p-3 sm:p-4 border border-border/60 cursor-zoom-in hover:border-primary/40 transition-colors"
+                  >
+                    <img
+                      src={d.image}
+                      alt={`${product.modelCode} — ${d.title}`}
+                      className="w-full h-auto object-contain max-h-[420px] mx-auto"
+                      loading="lazy"
+                    />
+                  </button>
+                  <div className="flex flex-col gap-4">
+                    <div>
+                      <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-2">
+                        <Ruler className="h-3.5 w-3.5" /> Drawing {i + 1}
+                      </div>
+                      <h3 className="text-lg font-bold">{d.title}</h3>
+                      <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">{d.caption}</p>
+                    </div>
+                    {d.callouts && (
+                      <dl className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-1">
+                        {d.callouts.map((c, j) => (
+                          <div key={j} className="rounded-lg border border-border/60 bg-background/50 p-3">
+                            <dt className="text-[11px] uppercase tracking-wide text-muted-foreground font-medium">{c.label}</dt>
+                            <dd className="text-sm font-bold text-foreground mt-0.5">{c.value}</dd>
+                          </div>
+                        ))}
+                      </dl>
+                    )}
+                  </div>
+                </div>
+              ))}
+              <div className="rounded-xl border border-dashed border-primary/30 bg-primary/5 p-4 text-sm text-foreground/80 flex items-start gap-3">
+                <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                <span>
+                  ทุกค่าตามมาตรฐานโรงงาน (หน่วย mm) — ENT Group มีบริการสำรวจหน้างานและจัดทำแบบติดตั้ง (Shop Drawing) ก่อนส่งมอบทุกโครงการ
+                </span>
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* I/O */}
         <section
           id="io"
