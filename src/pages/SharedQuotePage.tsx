@@ -185,7 +185,7 @@ export default function SharedQuotePage() {
             {company ? (
               <QuotePDFTemplate
                 quote={quote}
-                revision={safeRevision}
+                revision={mergeRevisionWithQuote(safeRevision, quote)}
                 companyInfo={{
                   name_th: company.name_th,
                   name_en: company.name_en,
