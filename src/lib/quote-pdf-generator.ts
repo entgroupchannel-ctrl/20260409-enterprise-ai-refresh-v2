@@ -83,13 +83,11 @@ async function getPdfMake() {
         fetchBase64('/fonts/Sarabun-Regular.ttf'),
         fetchBase64('/fonts/Sarabun-Bold.ttf'),
       ]);
-      pdfMake.vfs = {
-        ...(pdfMake.vfs || {}),
+      const vfs = {
         'Sarabun-Regular.ttf': regular,
         'Sarabun-Bold.ttf': bold,
       };
-      pdfMake.fonts = {
-        ...(pdfMake.fonts || {}),
+      const fonts = {
         Sarabun: {
           normal: 'Sarabun-Regular.ttf',
           bold: 'Sarabun-Bold.ttf',
@@ -97,6 +95,18 @@ async function getPdfMake() {
           bolditalics: 'Sarabun-Bold.ttf',
         },
       };
+
+      if (typeof pdfMake.addVirtualFileSystem === 'function') {
+        pdfMake.addVirtualFileSystem(vfs);
+      } else {
+        pdfMake.vfs = { ...(pdfMake.vfs || {}), ...vfs };
+      }
+
+      if (typeof pdfMake.addFonts === 'function') {
+        pdfMake.addFonts(fonts);
+      } else {
+        pdfMake.fonts = { ...(pdfMake.fonts || {}), ...fonts };
+      }
       return pdfMake;
     })();
   }
