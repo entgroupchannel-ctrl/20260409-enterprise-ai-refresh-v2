@@ -122,28 +122,33 @@ const Display32Detail = () => {
         </div>
       </div>
 
-      {/* Sticky section nav */}
+      {/* Sticky section nav (TouchWork-style chips) */}
       <div className="sticky top-[calc(var(--mn-h,0px)+96px)] z-20 border-b border-border bg-background/95 backdrop-blur">
-        <div className="container mx-auto px-4">
-          <div className="flex gap-1 overflow-x-auto scrollbar-hide py-2">
-            {SECTIONS.map(s => (
-              <button
-                key={s.id}
-                onClick={() => scrollTo(s.id)}
-                className={`shrink-0 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
-                  activeSection === s.id
-                    ? "bg-primary/10 text-primary"
-                    : "text-muted-foreground hover:bg-muted"
-                }`}
-              >
-                {s.label}
-              </button>
-            ))}
+        <div className="container max-w-7xl mx-auto px-6 py-2">
+          <div className="flex flex-wrap gap-1 bg-muted/50 p-1 rounded-lg">
+            {SECTIONS.map(s => {
+              const Icon = s.icon;
+              const active = activeSection === s.id;
+              return (
+                <button
+                  key={s.id}
+                  onClick={() => scrollTo(s.id)}
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-all ${
+                    active
+                      ? "bg-background text-foreground shadow-sm"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  <Icon className="h-3.5 w-3.5" />
+                  {s.label}
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
 
-      <main className="container mx-auto px-4 py-8 space-y-16">
+      <main className="container max-w-7xl mx-auto px-6 py-8 space-y-16">
         {/* Hero / Overview */}
         <section
           id="overview"
