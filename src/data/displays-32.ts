@@ -100,6 +100,15 @@ export interface Display32 {
     callouts?: { label: string; value: string }[];
   }[];
   osSupport: OSKey[];
+  /** Optional CPU configurations available for AIO models */
+  cpuOptions?: {
+    tier: "Entry" | "Mid" | "High";
+    cpu: string;
+    gpu: string;
+    ram: string;
+    storage: string;
+    targetUseCase: string;
+  }[];
   datasheetUrl: string;
   dimensionUrl?: string;
   specs: SpecGroup[];
@@ -123,27 +132,29 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
   hd32: {
     slug: "hd32",
     modelCode: "HD32",
-    name: '32" Touch Monitor HD32',
-    shortName: "HD32 Monitor",
-    category: "VESA Mount Touch Monitor",
-    formFactor: "Monitor",
-    tagline: "จอสัมผัส 32 นิ้ว ขอบบาง 13mm — ออกแบบเรียบหรู ติดตั้งได้หลากหลาย",
+    name: '32" Touch PC HD32 (X86 All-in-One)',
+    shortName: "HD32 Touch PC",
+    category: "Windows / Linux Touch PC",
+    formFactor: "All-in-One PC",
+    tagline: "All-in-One PC จอสัมผัส 32 นิ้ว — เลือก CPU ได้ 3 ระดับ Celeron / i5 / i7 รองรับ Windows & Linux",
     description:
-      "จอสัมผัส Capacitive 10 จุด พร้อมพาแนล LCD อายุการใช้งาน 30,000 ชั่วโมง ขอบจอบางพิเศษ 13mm ออกแบบสไตล์ iPad รองรับการติดตั้งทั้งแบบแขวนผนัง วางตั้งโต๊ะ และฝังในเฟอร์นิเจอร์ เหมาะสำหรับร้านค้าปลีก โรงแรม และสำนักงาน",
+      "AIO Touch PC จอ Capacitive 10 จุด พร้อม PC ในตัวที่เลือกสเปกได้ตั้งแต่ Intel Celeron J6412 (Entry), Core i5 รุ่น 8 (Mid) ไปจนถึง Core i7 รุ่น 10 (High Performance) ติดตั้ง Windows 10/11 หรือ Linux ได้จากโรงงาน ขอบจอบาง 13mm รองรับการติดตั้งแบบแขวนผนัง วางตั้งโต๊ะ และฝังเฟอร์นิเจอร์ — เหมาะสำหรับ POS Self-service, Kiosk องค์กร, ระบบ Queue และห้องประชุม",
     highlights: [
+      { icon: "Cpu", title: "เลือก CPU ได้ 3 ระดับ", subtitle: "Celeron / i5 / i7" },
+      { icon: "Monitor", title: "Windows 10/11 & Linux", subtitle: "Pre-installed OS" },
       { icon: "Maximize", title: "ขอบจอบาง 13mm", subtitle: "Ultra-small Bezel" },
-      { icon: "Smartphone", title: "รองรับ Square POS", subtitle: "POS Compatibility" },
-      { icon: "Layers", title: "ติดตั้งหลากหลาย", subtitle: "Wall / Desk / Embed" },
       { icon: "ShieldCheck", title: "ทำงาน 24/7", subtitle: "Industrial Grade" },
     ],
     features: [
-      "Industrial-grade Power Supply",
+      "Intel x86 PC ภายในตัวเครื่อง — เลือก Celeron / i5 / i7",
+      "ติดตั้ง Windows 10 / 11 หรือ Linux จากโรงงาน",
+      "RAM DDR4 4-16GB + mSATA SSD 128-512GB",
+      "Industrial-grade Power Supply ทำงานต่อเนื่อง 24/7",
       "LCD อายุการใช้งานยาว 30,000 ชั่วโมง",
       "ติดตั้งแบบแขวนผนัง / ตั้งโต๊ะ / ฝังเฟอร์นิเจอร์",
-      "ผิวหน้าจอกันน้ำ IP65",
-      "ทดสอบการทำงานต่อเนื่อง 24/7",
+      "ผิวหน้าจอกันน้ำ IP65 + Mohs class 7 explosion-proof glass",
     ],
-    useCases: ["Retail / ร้านค้าปลีก", "โรงแรม & ที่พัก", "สำนักงาน", "POS Self-service"],
+    useCases: ["POS Self-service", "Kiosk องค์กร", "ระบบ Queue / Check-in", "ห้องประชุม"],
     useCaseScenarios: [
       { image: hd32UcRetail,  title: "ร้านค้าปลีก / Boutique", description: "วางบนเคาน์เตอร์ POS ช่วยลูกค้าเลือกสินค้า ค้นหาสต็อก และชำระเงินแบบ self-service ขอบจอบางช่วยให้ดูพรีเมียมเข้ากับร้านดีไซน์โมเดิร์น" },
       { image: hd32UcHotel,   title: "โรงแรม & รีสอร์ท",       description: "เคาน์เตอร์ Check-in/out อัตโนมัติ ลดคิวที่ Front desk รองรับการพิมพ์ใบเสร็จและสแกนเอกสารเชื่อมต่อผ่าน USB/COM ได้ทันที" },
@@ -184,11 +195,46 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
         ],
       },
     ],
-    osSupport: [],
+    osSupport: ["windows", "linux"],
+    cpuOptions: [
+      {
+        tier: "Entry",
+        cpu: "Intel Celeron® J6412 (4-core, Elkhart Lake)",
+        gpu: "Intel® UHD Graphics",
+        ram: "DDR4-2666 SODIMM 4GB",
+        storage: "mSATA SSD 128GB",
+        targetUseCase: "POS, Digital Signage, Self-service Kiosk งานทั่วไป",
+      },
+      {
+        tier: "Mid",
+        cpu: "Intel® Core™ i5-8th Gen",
+        gpu: "Intel® Iris® Plus Graphics 645",
+        ram: "DDR4-2666 SODIMM 8GB",
+        storage: "mSATA SSD 256GB",
+        targetUseCase: "ระบบ Queue / Check-in, Conference, ERP / CRM Front-end",
+      },
+      {
+        tier: "High",
+        cpu: "Intel® Core™ i7-10th Gen",
+        gpu: "Intel® UHD Graphics",
+        ram: "DDR4-2666 SODIMM 16GB",
+        storage: "mSATA SSD 512GB",
+        targetUseCase: "Industrial HMI, AI / Vision, Multi-tasking, Workstation",
+      },
+    ],
     datasheetUrl: "/datasheets/ENT-Datasheet-HD32.pdf",
     dimensionUrl: "/datasheets/ENT-Dimension-HD32.pdf",
-    ports: ["HDMI in × 1", "USB × 1", "VGA × 1", "Audio in/out × 1", "Power Socket × 1"],
+    ports: ["RJ45 × 1", "USB × 4", "VGA × 1", "HDMI out × 1", "Audio in/out × 1", "Power Socket × 1"],
     specs: [
+      { title: "PC System (Windows / Linux)", rows: [
+        { label: "CPU (เลือกได้)", value: "Celeron J6412 / Core i5-8th / Core i7-10th" },
+        { label: "Graphic GPU", value: "Intel UHD / Iris Plus 645 / UHD" },
+        { label: "หน่วยความจำ (RAM)", value: "DDR4-2666 SODIMM 4 / 8 / 16 GB" },
+        { label: "หน่วยเก็บข้อมูล", value: "mSATA SSD 128 / 256 / 512 GB" },
+        { label: "เครือข่าย", value: "10/100/1000M RJ45 + Wi-Fi 802.11a/b/g/n/ac" },
+        { label: "Audio", value: "HD Audio: ALC269" },
+        { label: "OS ที่ติดตั้งให้", value: "Windows 10 / 11 / Linux (เลือกได้)" },
+      ]},
       { title: "LCD Panel", rows: [
         { label: "ขนาดหน้าจอ", value: "32 นิ้ว" },
         { label: "ความละเอียด", value: "1920 × 1080 (FHD)" },
@@ -204,15 +250,17 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       { title: "Touch Panel", rows: [
         { label: "เทคโนโลยี", value: "PCAP (Capacitive)" },
         { label: "เวลาตอบสนอง", value: "< 5ms" },
-        { label: "จำนวนจุดสัมผัส", value: "10 จุด" },
+        { label: "จำนวนจุดสัมผัส", value: "10 จุด standard" },
         { label: "ความแม่นยำ", value: "4096 × 4096" },
+        { label: "Scanning Frequency", value: "200 Hz" },
         { label: "ผิวหน้า", value: "Mohs class 7 explosion-proof glass" },
       ]},
       { title: "Environment & Power", rows: [
         { label: "อุณหภูมิทำงาน", value: "0°C - 50°C" },
         { label: "ความชื้น", value: "0% - 90%" },
         { label: "Power Input", value: "110-240V AC 50/60Hz" },
-        { label: "Power Consumption", value: "< 110W" },
+        { label: "Standby Power", value: "≤ 0.5W" },
+        { label: "Overall Power", value: "< 140W" },
       ]},
       { title: "Dimension & Weight", rows: [
         { label: "ขนาดเครื่อง", value: "74.14 × 43.62 × 5.19 cm" },
@@ -226,11 +274,11 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       brightness: "250 cd/m²",
       contrast: "1200:1",
       touch: "PCAP 10pt",
-      os: "—",
-      formFactor: "Monitor",
+      os: "Windows / Linux",
+      formFactor: "All-in-One PC",
       dimensionCm: "74.1 × 43.6 × 5.2",
       weightKg: "11.3",
-      power: "< 110W",
+      power: "< 140W",
       install: "Wall / Desk / Embed",
     },
   },

@@ -27,6 +27,7 @@ const ALL_SECTIONS = [
   { id: "overview",   label: "ภาพรวม",      icon: Info },
   { id: "highlights", label: "ไฮไลต์",       icon: Sparkles },
   { id: "features",   label: "Feature",     icon: Star },
+  { id: "cpu",        label: "CPU Options", icon: Cpu },
   { id: "specs",      label: "สเปก",         icon: Settings2 },
   { id: "dimensions", label: "ขนาด/ติดตั้ง", icon: Ruler },
   { id: "io",         label: "I/O Ports",   icon: Link2 },
@@ -306,6 +307,75 @@ const Display32Detail = () => {
             )}
           </div>
         </section>
+
+        {/* CPU Configurations — for AIO PC models with multiple CPU tiers */}
+        {product.cpuOptions && product.cpuOptions.length > 0 && (
+          <section
+            id="cpu"
+            ref={el => (sectionRefs.current.cpu = el)}
+            className="scroll-mt-32"
+          >
+            <SectionTitle
+              eyebrow="CPU Configurations"
+              title="เลือก CPU ได้ 3 ระดับตามความต้องการ"
+            />
+            <p className="text-sm text-muted-foreground mb-6 -mt-2">
+              รุ่นเดียวกัน — ปรับสเปก PC ภายในให้เหมาะกับงาน ตั้งแต่ POS ทั่วไป จนถึงงาน Industrial / AI Workstation
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {product.cpuOptions.map((opt, i) => {
+                const tierColor =
+                  opt.tier === "Entry"
+                    ? "bg-muted text-muted-foreground border-border"
+                    : opt.tier === "Mid"
+                      ? "bg-primary/10 text-primary border-primary/30"
+                      : "bg-gradient-to-br from-primary to-primary/80 text-primary-foreground border-primary";
+                const ringColor = opt.tier === "High" ? "ring-2 ring-primary/40 shadow-lg" : "";
+                return (
+                  <div
+                    key={i}
+                    className={`relative rounded-2xl border bg-card overflow-hidden flex flex-col ${ringColor}`}
+                  >
+                    {opt.tier === "Mid" && (
+                      <div className="absolute top-3 right-3 text-[10px] font-bold uppercase tracking-wider bg-primary text-primary-foreground px-2 py-1 rounded-full">
+                        Recommended
+                      </div>
+                    )}
+                    <div className={`px-5 py-4 border-b ${tierColor}`}>
+                      <div className="text-xs font-semibold uppercase tracking-wider opacity-80">
+                        {opt.tier === "Entry" ? "Entry Level" : opt.tier === "Mid" ? "Mid Range" : "High Performance"}
+                      </div>
+                      <div className="font-bold text-base mt-1 leading-tight">{opt.cpu}</div>
+                    </div>
+                    <dl className="divide-y divide-border/60 text-sm flex-1">
+                      <div className="px-5 py-3 grid grid-cols-3 gap-2">
+                        <dt className="text-muted-foreground col-span-1 flex items-center gap-1.5">
+                          <Cpu className="h-3.5 w-3.5" /> GPU
+                        </dt>
+                        <dd className="font-medium col-span-2">{opt.gpu}</dd>
+                      </div>
+                      <div className="px-5 py-3 grid grid-cols-3 gap-2">
+                        <dt className="text-muted-foreground col-span-1">RAM</dt>
+                        <dd className="font-medium col-span-2">{opt.ram}</dd>
+                      </div>
+                      <div className="px-5 py-3 grid grid-cols-3 gap-2">
+                        <dt className="text-muted-foreground col-span-1">Storage</dt>
+                        <dd className="font-medium col-span-2">{opt.storage}</dd>
+                      </div>
+                      <div className="px-5 py-3">
+                        <dt className="text-xs uppercase tracking-wider text-muted-foreground mb-1.5">เหมาะกับงาน</dt>
+                        <dd className="text-sm leading-relaxed">{opt.targetUseCase}</dd>
+                      </div>
+                    </dl>
+                  </div>
+                );
+              })}
+            </div>
+            <p className="text-xs text-muted-foreground mt-4 text-center">
+              * ทุกรุ่นมาพร้อม Network 10/100/1000M RJ45 + Wi-Fi 802.11ac และเลือกติดตั้ง Windows 10/11 หรือ Linux จากโรงงานได้ตามต้องการ
+            </p>
+          </section>
+        )}
 
         {/* Specs */}
         <section
