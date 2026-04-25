@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Loader2, Download, AlertCircle, Eye, Clock, FileText } from 'lucide-react';
 import QuotePDFTemplate from '@/components/admin/QuotePDFTemplate';
+import { mergeRevisionWithQuote } from '@/lib/quote-pdf-merge';
 import { format } from 'date-fns';
 import { th } from 'date-fns/locale';
 
