@@ -14,7 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import ProductGallery from "@/components/ProductGallery";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
-import { DISPLAYS_32, DISPLAY_32_ORDER, type Display32, type Display32Slug } from "@/data/displays-32";
+import { DISPLAYS_32, DISPLAY_32_ORDER, OS_BACKGROUNDS, type Display32, type Display32Slug } from "@/data/displays-32";
 
 const ICONS: Record<string, any> = {
   Monitor, Cpu, Smartphone, Maximize, ShieldCheck, Layers, Box,
