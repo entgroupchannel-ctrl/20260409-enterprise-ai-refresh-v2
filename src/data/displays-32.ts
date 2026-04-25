@@ -26,6 +26,8 @@ import hd32Install03Clean from "@/assets/touchwo/hd32-install-03-clean.jpg";
 // Mechanical dimension drawings
 import hr32DimFront from "@/assets/touchwo/hr32-dim-front.jpg";
 import hr32DimBack from "@/assets/touchwo/hr32-dim-back.jpg";
+import gd32cDimFront from "@/assets/touchwo/gd32c-dim-front.png";
+import gd32cDimBack from "@/assets/touchwo/gd32c-dim-back.png";
 
 export const OS_BACKGROUNDS = {
   windows: { src: osWindows, label: "Windows", subtitle: "x86 Intel/AMD รองรับ Windows 10/11 IoT" },
