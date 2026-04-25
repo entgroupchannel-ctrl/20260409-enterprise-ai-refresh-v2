@@ -222,14 +222,16 @@ const App = () => (
                     <Route path="/panel-pc-gtg" element={<PanelPCGTG />} />
                     <Route path="/smart-display" element={<SmartDisplay />} />
                     <Route path="/interactive-display" element={<InteractiveDisplay />} />
-                    <Route path="/products/displays-32" element={<Display32Detail />} />
-                    <Route path="/products/displays-32/:model" element={<Display32Detail />} />
+                    <Route path="/products/displays-32" element={<Display32Detail groupSize={32} />} />
+                    <Route path="/products/displays-32/:model" element={<Display32Detail groupSize={32} />} />
+                    <Route path="/products/displays-43" element={<Display32Detail groupSize={43} />} />
+                    <Route path="/products/displays-43/:model" element={<Display32Detail groupSize={43} />} />
                     <Route path="/products/interactive-display-hd32" element={<Navigate to="/products/displays-32?model=hd32" replace />} />
                     <Route path="/products/interactive-display-hr32" element={<Navigate to="/products/displays-32?model=hr32" replace />} />
                     <Route path="/products/interactive-display-hr32-android" element={<Navigate to="/products/displays-32?model=hr32-android" replace />} />
                     <Route path="/products/interactive-display-gd32c" element={<Navigate to="/products/displays-32?model=gd32c" replace />} />
                     <Route path="/products/interactive-display-kd32b" element={<Navigate to="/products/displays-32?model=kd32b" replace />} />
-                    <Route path="/products/interactive-display-hd43" element={<Navigate to="/products/displays-32?model=hd43" replace />} />
+                    <Route path="/products/interactive-display-hd43" element={<Navigate to="/products/displays-43?model=hd43" replace />} />
                     <Route path="/fpm-series" element={<FPMSeries />} />
                     <Route path="/fpm-series/:model" element={<FPMSeriesDetail />} />
                     <Route path="/touchwork" element={<TouchWork />} />

@@ -231,7 +231,7 @@ export default function InteractiveDisplay() {
               const is32 = p.tags?.includes("32-inch") || p.slug === "interactive-display-hd32";
               const is43 = p.tags?.includes("43-inch") || p.slug === "interactive-display-hr43";
               const detailHref = is43
-                ? "/products/displays-32?model=hd43"
+                ? "/products/displays-43?model=hd43"
                 : is32
                 ? "/products/displays-32?model=hd32"
                 : `/products/${p.slug}`;
