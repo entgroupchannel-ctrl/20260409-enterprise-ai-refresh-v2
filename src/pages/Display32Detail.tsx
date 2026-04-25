@@ -125,7 +125,7 @@ const Display32Detail = () => {
       </section>
 
       {/* Top bar with model tabs */}
-      <div className="border-b border-border bg-card/80 backdrop-blur-md sticky top-0 z-30">
+      <div className="border-b border-border bg-card/80 backdrop-blur-md">
         <div className="container max-w-7xl mx-auto px-6 py-3">
           {/* Model tabs */}
           <div className="flex gap-1.5 overflow-x-auto scrollbar-hide -mx-1 px-1">
@@ -152,7 +152,7 @@ const Display32Detail = () => {
       </div>
 
       {/* Sticky section nav (TouchWork-style chips) */}
-      <div className="sticky top-[calc(var(--mn-h,0px)+96px)] z-20 border-b border-border bg-background/95 backdrop-blur">
+      <div className="sticky top-0 z-30 border-b border-border bg-background/95 backdrop-blur">
         <div className="container max-w-7xl mx-auto px-6 py-2">
           <div className="flex flex-wrap gap-1 bg-muted/50 p-1 rounded-lg">
             {SECTIONS.map(s => {
