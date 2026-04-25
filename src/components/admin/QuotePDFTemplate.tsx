@@ -344,7 +344,7 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
       )}
 
       {/* ── TOTALS ────────────────────────────────────────────────────── */}
-      <div style={s.totalsWrap}>
+      <div className="pdf-keep" style={s.totalsWrap}>
         <table style={s.totalsTable}>
           <tbody>
             <tr>
