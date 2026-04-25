@@ -15,6 +15,10 @@ import osAndroid from "@/assets/touchwo/os-android.jpg";
 import hd32HeroClean from "@/assets/touchwo/hd32-hero-clean.jpg";
 import hr32HeroClean from "@/assets/touchwo/hr32-hero-clean.jpg";
 import kd32bHeroClean from "@/assets/touchwo/kd32b-hero-clean.jpg";
+// Clean gallery-02 replacements (TouchWo watermark removed)
+import hd32Gallery02Clean from "@/assets/touchwo/hd32-gallery-02-clean.jpg";
+import hr32Gallery02Clean from "@/assets/touchwo/hr32-gallery-02-clean.jpg";
+import kd32bGallery02Clean from "@/assets/touchwo/kd32b-gallery-02-clean.jpg";
 
 export const OS_BACKGROUNDS = {
   windows: { src: osWindows, label: "Windows", subtitle: "x86 Intel/AMD รองรับ Windows 10/11 IoT" },
@@ -97,7 +101,8 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
     useCases: ["Retail / ร้านค้าปลีก", "โรงแรม & ที่พัก", "สำนักงาน", "POS Self-service"],
     gallery: [
       hd32HeroClean,
-      ...["gallery-02.jpg","gallery-03.jpg","gallery-04.jpg",
+      hd32Gallery02Clean,
+      ...["gallery-03.jpg","gallery-04.jpg",
       "gallery-05.jpg","gallery-06.jpg","gallery-07.jpg","gallery-08.jpg","gallery-09.webp"].map(n => IMG("hd32", n)),
     ],
     ioImage: IMG("hd32", "io-01.png"),
@@ -177,7 +182,7 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       "เคลือบกันรอย กันสนิม",
     ],
     useCases: ["พื้นที่สาธารณะ", "สถานีบริการตนเอง", "Education", "ห้างสรรพสินค้า"],
-    gallery: [hr32HeroClean, ...Array.from({length:6},(_,i)=>IMG("hr32",`gallery-0${i+2}.jpg`))],
+    gallery: [hr32HeroClean, hr32Gallery02Clean, ...Array.from({length:5},(_,i)=>IMG("hr32",`gallery-0${i+3}.jpg`))],
     ioImage: IMG("hr32", "io-01.jpg"),
     installImages: [],
     featureImages: [],
@@ -407,7 +412,7 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       "อายุ LCD 30,000 ชั่วโมง",
     ],
     useCases: ["Retail / ร้านค้า", "Banking / ธนาคาร", "Logistics", "พื้นที่สาธารณะ"],
-    gallery: [kd32bHeroClean, ...Array.from({length:7},(_,i)=>IMG("kd32b",`gallery-0${i+2}.jpg`)), IMG("kd32b","gallery-09.webp")],
+    gallery: [kd32bHeroClean, kd32bGallery02Clean, ...Array.from({length:6},(_,i)=>IMG("kd32b",`gallery-0${i+3}.jpg`)), IMG("kd32b","gallery-09.webp")],
     ioImage: IMG("kd32b", "io-01.jpg"),
     installImages: [],
     featureImages: [],
