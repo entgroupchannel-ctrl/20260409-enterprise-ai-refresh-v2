@@ -19,6 +19,9 @@ import hr49HeroX86 from "@/assets/touchwo/hr49/hero-x86.jpg";
 import hr49HeroMonitor from "@/assets/touchwo/hr49/hero-monitor.jpg";
 import hr49HeroAndroid from "@/assets/touchwo/hr49/hero-android.jpg";
 import hr49IoMonitor from "@/assets/touchwo/hr49/io-monitor.jpg";
+import hr49IoX86Diagram from "@/assets/touchwo/hr49/io-x86.png";
+import hr49IoMonitorDiagram from "@/assets/touchwo/hr49/io-monitor-diagram.png";
+import hr49IoAndroidDiagram from "@/assets/touchwo/hr49/io-android.png";
 import hr49Feat1 from "@/assets/touchwo/hr49/feat-1.png";
 import hr49Feat2 from "@/assets/touchwo/hr49/feat-2.png";
 import hr49Feat3 from "@/assets/touchwo/hr49/feat-3.png";
@@ -70,13 +73,49 @@ export const DISPLAYS_49: Record<Display49Slug, Display32> = {
       { image: hr49UcQsr,        title: "QSR / Self-order Counter",       description: "ตู้สั่งอาหารตัวเองในร้าน QSR — เมนูภาพคมชัดบนจอใหญ่ 49\" เพิ่ม upsell 20-30% รองรับ Square / Clover / Shopify POS โดยตรง (Android) ลดคิวและเพิ่มความเร็วในการบริการ" },
     ],
     gallery: [
-      hr49HeroX86, hr49HeroMonitor, hr49HeroAndroid,
       hr49P1, hr49P2, hr49P3, hr49P4, hr49P5, hr49P6, hr49P7,
     ],
     ioImage: hr49IoMonitor,
     installImages: [hr49Feat1, hr49Feat2, hr49Feat3],
     featureImages: [hr49Feat4],
-    dimensionDrawings: [],
+    dimensionDrawings: [
+      {
+        image: hr49IoMonitorDiagram,
+        title: "HR49 — Touch Monitor (I/O Layout)",
+        caption: "เลย์เอาต์พอร์ตของรุ่น Touch Monitor (เฉพาะจอสัมผัส ไม่มี PC ในตัว) — รองรับการต่อกับ PC/OPS/Media Player ภายนอกผ่าน HDMI หรือ DVI/VGA พร้อม Audio in/out และ USB สำหรับสัญญาณ Touch",
+        callouts: [
+          { label: "Power", value: "Power Button + DC 12V" },
+          { label: "Video In", value: "HDMI + DVI + VGA" },
+          { label: "USB", value: "USB × 1 (Touch)" },
+          { label: "Audio", value: "Audio in/out (3.5mm)" },
+        ],
+      },
+      {
+        image: hr49IoX86Diagram,
+        title: "HR49 — Windows / Linux PC OPS (I/O Layout)",
+        caption: "เลย์เอาต์พอร์ตของรุ่น All-in-One PC พร้อม OPS Intel x86 (i3-4Gen / i5-10Gen / i7-11Gen) — ครบทุก I/O หลักสำหรับ Enterprise: HDMI out, VGA, USB ×2, LAN RJ45 Gigabit, MIC และ Wi-Fi เหมาะกับงาน Conference / Wayfinding / Digital Signage",
+        callouts: [
+          { label: "Power", value: "Power Button + DC 12V" },
+          { label: "Video Out", value: "HDMI + VGA" },
+          { label: "USB", value: "USB × 2 (เพิ่มได้สูงสุด 4)" },
+          { label: "Network", value: "LAN RJ45 + Wi-Fi" },
+          { label: "Audio", value: "MIC in" },
+        ],
+      },
+      {
+        image: hr49IoAndroidDiagram,
+        title: "HR49 — Android PC (I/O Layout)",
+        caption: "เลย์เอาต์พอร์ตของรุ่น All-in-One Android (Rockchip RK3568 / RK3288 / RK3588) — มี TD/SD Card Slot สำหรับขยายพื้นที่จัดเก็บ พร้อม HDMI out, USB ×2, LAN RJ45, Audio และ Wi-Fi รองรับ Square / Stripe / Clover / Shopify POS",
+        callouts: [
+          { label: "Power", value: "Power Button + DC 12V" },
+          { label: "Video Out", value: "HDMI" },
+          { label: "USB", value: "USB × 2" },
+          { label: "Network", value: "LAN RJ45 + Wi-Fi" },
+          { label: "Storage", value: "TD/SD Card Slot" },
+          { label: "Audio", value: "Audio (3.5mm)" },
+        ],
+      },
+    ],
     osSupport: ["windows", "linux", "android"],
     variants: [
       {
