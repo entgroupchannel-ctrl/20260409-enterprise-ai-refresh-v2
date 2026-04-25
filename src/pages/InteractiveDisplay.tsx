@@ -31,10 +31,71 @@ type Product = {
 
 const SIZE_FILTERS = [
   { label: "ทั้งหมด", value: "all" },
+  { label: '23.8"', value: "23.8" },
+  { label: '27"', value: "27" },
   { label: '32"', value: "32" },
   { label: '43"', value: "43" },
   { label: '55"', value: "55" },
   { label: '65"', value: "65" },
+];
+
+// Series ที่มีหน้ารายละเอียดเฉพาะ (Android/x86/Monitor variants) แต่ยังไม่ถูก seed ลง DB
+const EXTRA_PRODUCTS: Product[] = [
+  {
+    id: "extra-hd43",
+    sku: "HD43",
+    model: "HD43",
+    name: 'Interactive Touch Display HD43 — 43" Configurable AIO',
+    description: '43" PCAP 10-point — เลือกได้ทั้ง Touch Monitor / Android PC / Windows x86 PC',
+    slug: "interactive-display-hd43",
+    form_factor: "Wall / VESA / Desktop",
+    image_url: null,
+    tags: ["43-inch", "pcap", "android", "x86", "touch-monitor"],
+  },
+  {
+    id: "extra-kd43b",
+    sku: "KD43B",
+    model: "KD43B",
+    name: 'Interactive Touch Kiosk KD43B — 43" Floor Stand',
+    description: '43" Floor-Stand Kiosk — Monitor / Android RK3568 / Windows x86 พร้อมขาตั้งพื้น',
+    slug: "interactive-kiosk-kd43b",
+    form_factor: "Floor Stand Kiosk",
+    image_url: null,
+    tags: ["43-inch", "kiosk", "floor-stand", "pcap"],
+  },
+  {
+    id: "extra-gd238c",
+    sku: "GD238C",
+    model: "GD238C",
+    name: 'Wall-Mount Touch Kiosk GD238C — 23.8" FHD',
+    description: '23.8" Wall-Mount Kiosk — PCAP 10-point, Mohs 7 glass, Android/x86 พร้อมแนว Portrait/Landscape',
+    slug: "interactive-kiosk-gd238c",
+    form_factor: "Wall-Mount Kiosk",
+    image_url: null,
+    tags: ["23.8-inch", "kiosk", "wall-mount", "pcap", "fhd"],
+  },
+  {
+    id: "extra-hd27",
+    sku: "HD27",
+    model: "HD27",
+    name: 'Interactive Touch Display HD27 — 27" Configurable AIO',
+    description: '27" FHD PCAP 10-point — Touch Monitor / Android (RK3568/3288/3588) / Windows x86 (J6412/i5/i7)',
+    slug: "interactive-display-hd27",
+    form_factor: "Wall / VESA / Desktop",
+    image_url: null,
+    tags: ["27-inch", "pcap", "android", "x86", "touch-monitor"],
+  },
+  {
+    id: "extra-gd27c",
+    sku: "GD27C",
+    model: "GD27C",
+    name: 'Wall-Mount Touch Kiosk GD27C — 27" FHD',
+    description: '27" Wall-Mount Kiosk — PCAP 10-point, Android RK3568/RK3588 หรือ x86 (Optional)',
+    slug: "interactive-kiosk-gd27c",
+    form_factor: "Wall-Mount Kiosk",
+    image_url: null,
+    tags: ["27-inch", "kiosk", "wall-mount", "pcap"],
+  },
 ];
 
 const FEATURES = [
@@ -89,9 +150,15 @@ export default function InteractiveDisplay() {
     return () => { mounted = false; };
   }, []);
 
+  // Merge สินค้าที่ seed อยู่ใน DB เข้ากับซีรีส์เสริม (ไม่ซ้ำ slug)
+  const allProducts: Product[] = [
+    ...products,
+    ...EXTRA_PRODUCTS.filter(e => !products.some(p => p.slug === e.slug)),
+  ];
+
   const filtered = size === "all"
-    ? products
-    : products.filter(p => p.tags?.some(t => t === `${size}-inch`));
+    ? allProducts
+    : allProducts.filter(p => p.tags?.some(t => t === `${size}-inch`));
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -204,7 +271,7 @@ export default function InteractiveDisplay() {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold">เลือกขนาดที่เหมาะกับงานคุณ</h2>
-            <p className="text-muted-foreground mt-2">มี 4 ขนาด: 32", 43", 55", 65"</p>
+            <p className="text-muted-foreground mt-2">มี 6 ขนาด: 23.8", 27", 32", 43", 55", 65"</p>
           </div>
           <div className="flex flex-wrap gap-2">
             {SIZE_FILTERS.map(f => (
@@ -229,10 +296,18 @@ export default function InteractiveDisplay() {
             {filtered.map((p) => {
               // Override links for series pages with multiple OS variants
               const is32 = p.tags?.includes("32-inch") || p.slug === "interactive-display-hd32";
-              const is43 = p.tags?.includes("43-inch") || p.slug === "interactive-display-hr43" || p.slug === "interactive-display-hd43";
-              // Map specific 43" SKUs to dedicated HR43/HD43 detail
-              const model43 = p.slug === "interactive-display-hr43" ? "hr43" : "hd43";
-              const detailHref = is43
+              const is43 = p.tags?.includes("43-inch") || ["interactive-display-hr43","interactive-display-hd43","interactive-kiosk-kd43b"].includes(p.slug);
+              const is238 = p.tags?.includes("23.8-inch") || p.slug === "interactive-kiosk-gd238c";
+              const is27 = p.tags?.includes("27-inch") || ["interactive-display-hd27","interactive-kiosk-gd27c"].includes(p.slug);
+              const model43 =
+                p.slug === "interactive-display-hr43" ? "hr43" :
+                p.slug === "interactive-kiosk-kd43b" ? "kd43b" : "hd43";
+              const model27 = p.slug === "interactive-kiosk-gd27c" ? "gd27c" : "hd27";
+              const detailHref = is27
+                ? `/products/displays-27?model=${model27}`
+                : is238
+                ? "/products/displays-23.8?model=gd238c"
+                : is43
                 ? `/products/displays-43?model=${model43}`
                 : is32
                 ? "/products/displays-32?model=hd32"
