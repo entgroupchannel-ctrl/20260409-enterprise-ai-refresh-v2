@@ -17,6 +17,34 @@ import ProductGalleryPortrait from "@/components/ProductGalleryPortrait";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
 import { DISPLAYS_32, DISPLAY_32_ORDER, OS_BACKGROUNDS, type Display32, type Display32Slug, type OSKey } from "@/data/displays-32";
+import { DISPLAYS_43, DISPLAY_43_ORDER } from "@/data/displays-43";
+
+type GroupSize = 32 | 43;
+const GROUPS: Record<GroupSize, {
+  data: Record<string, Display32>;
+  order: string[];
+  basePath: string;
+  defaultModel: string;
+  label: string; // เช่น "Touch Display 32\""
+  parentLink: string; // ลิงก์ "ดูรุ่นอื่น..."
+}> = {
+  32: {
+    data: DISPLAYS_32 as Record<string, Display32>,
+    order: DISPLAY_32_ORDER as unknown as string[],
+    basePath: "/products/displays-32",
+    defaultModel: "hd32",
+    label: 'Touch Display 32"',
+    parentLink: "/interactive-display",
+  },
+  43: {
+    data: DISPLAYS_43 as Record<string, Display32>,
+    order: DISPLAY_43_ORDER as unknown as string[],
+    basePath: "/products/displays-43",
+    defaultModel: "hd43",
+    label: 'Touch Display 43"',
+    parentLink: "/interactive-display",
+  },
+};
 
 const ICONS: Record<string, any> = {
   Monitor, Cpu, Smartphone, Maximize, ShieldCheck, Layers, Box,
