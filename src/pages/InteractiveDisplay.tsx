@@ -229,18 +229,34 @@ export default function InteractiveDisplay() {
             {filtered.map((p) => (
               <Card key={p.id} className="overflow-hidden hover:shadow-lg transition-shadow group">
                 <Link to={`/products/${p.slug}`} className="block">
-                  <div className="aspect-[4/3] bg-gradient-to-br from-muted to-muted/40 flex items-center justify-center relative overflow-hidden">
-                    {p.image_url ? (
-                      <img
-                        src={p.image_url}
-                        alt={p.name}
-                        loading="lazy"
-                        className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300"
-                      />
-                    ) : (
-                      <Monitor className="h-20 w-20 text-muted-foreground/40" />
-                    )}
-                    <Badge className="absolute top-3 left-3" variant="secondary">{p.model}</Badge>
+                  <div className="aspect-[4/3] relative overflow-hidden bg-gradient-to-br from-[#0078D4] via-[#1a4a8a] to-[#3DDC84]">
+                    {/* Windows mesh */}
+                    <div
+                      className="absolute inset-0 opacity-30"
+                      style={{
+                        backgroundImage:
+                          "radial-gradient(circle at 20% 30%, rgba(255,255,255,0.35) 0%, transparent 45%), radial-gradient(circle at 80% 70%, rgba(61,220,132,0.45) 0%, transparent 50%)",
+                      }}
+                    />
+                    {/* Subtle grid */}
+                    <div
+                      className="absolute inset-0 opacity-[0.12]"
+                      style={{
+                        backgroundImage:
+                          "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
+                        backgroundSize: "32px 32px",
+                      }}
+                    />
+                    {/* OS chips */}
+                    <div className="absolute top-3 right-3 flex gap-1.5 z-10">
+                      <span className="px-2 py-0.5 rounded-full bg-white/95 text-[10px] font-bold text-[#0078D4] shadow-sm">Windows</span>
+                      <span className="px-2 py-0.5 rounded-full bg-[#3DDC84] text-[10px] font-bold text-[#0a3d1f] shadow-sm">Android</span>
+                    </div>
+                    {/* Monitor silhouette */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <Monitor className="h-24 w-24 text-white/85 drop-shadow-lg group-hover:scale-110 transition-transform duration-300" strokeWidth={1.25} />
+                    </div>
+                    <Badge className="absolute top-3 left-3 z-10" variant="secondary">{p.model}</Badge>
                   </div>
                 </Link>
                 <CardContent className="p-5">
