@@ -33,6 +33,7 @@ export default function PrintPreviewDialog({
   const [isPrinting, setIsPrinting] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
   const [autoFired, setAutoFired] = useState(false);
+  const renderHostRef = useRef<PDFRenderHostHandle>(null);
 
   const { settings: companySettings, loading: companyLoading } = useCompanySettings();
   const [salePerson, setSalePerson] = useState<any>(null);
