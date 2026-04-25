@@ -101,6 +101,7 @@ export interface Display32 {
   }[];
   osSupport: OSKey[];
   datasheetUrl: string;
+  dimensionUrl?: string;
   specs: SpecGroup[];
   ports: string[];
   // Quick facts for comparison table
