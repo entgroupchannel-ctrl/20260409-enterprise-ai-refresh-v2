@@ -213,7 +213,7 @@ const HR32_VARIANTS: Display32["variants"] = [
   },
 ];
 
-
+export const DISPLAYS_32: Record<Display32Slug, Display32> = {
   hd32: {
     slug: "hd32",
     modelCode: "HD32",
