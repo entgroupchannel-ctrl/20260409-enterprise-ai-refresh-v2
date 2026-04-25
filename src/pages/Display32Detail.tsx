@@ -222,6 +222,13 @@ const Display32Detail = () => {
                   <Download className="h-4 w-4 mr-2" /> Datasheet
                 </a>
               </Button>
+              {product.dimensionUrl && (
+                <Button variant="outline" asChild>
+                  <a href={product.dimensionUrl} target="_blank" rel="noopener noreferrer">
+                    <Download className="h-4 w-4 mr-2" /> Dimension Drawing
+                  </a>
+                </Button>
+              )}
             </div>
           </div>
         </section>
