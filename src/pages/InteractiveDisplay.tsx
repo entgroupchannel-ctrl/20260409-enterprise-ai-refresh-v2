@@ -31,10 +31,71 @@ type Product = {
 
 const SIZE_FILTERS = [
   { label: "ทั้งหมด", value: "all" },
+  { label: '23.8"', value: "23.8" },
+  { label: '27"', value: "27" },
   { label: '32"', value: "32" },
   { label: '43"', value: "43" },
   { label: '55"', value: "55" },
   { label: '65"', value: "65" },
+];
+
+// Series ที่มีหน้ารายละเอียดเฉพาะ (Android/x86/Monitor variants) แต่ยังไม่ถูก seed ลง DB
+const EXTRA_PRODUCTS: Product[] = [
+  {
+    id: "extra-hd43",
+    sku: "HD43",
+    model: "HD43",
+    name: 'Interactive Touch Display HD43 — 43" Configurable AIO',
+    description: '43" PCAP 10-point — เลือกได้ทั้ง Touch Monitor / Android PC / Windows x86 PC',
+    slug: "interactive-display-hd43",
+    form_factor: "Wall / VESA / Desktop",
+    image_url: null,
+    tags: ["43-inch", "pcap", "android", "x86", "touch-monitor"],
+  },
+  {
+    id: "extra-kd43b",
+    sku: "KD43B",
+    model: "KD43B",
+    name: 'Interactive Touch Kiosk KD43B — 43" Floor Stand',
+    description: '43" Floor-Stand Kiosk — Monitor / Android RK3568 / Windows x86 พร้อมขาตั้งพื้น',
+    slug: "interactive-kiosk-kd43b",
+    form_factor: "Floor Stand Kiosk",
+    image_url: null,
+    tags: ["43-inch", "kiosk", "floor-stand", "pcap"],
+  },
+  {
+    id: "extra-gd238c",
+    sku: "GD238C",
+    model: "GD238C",
+    name: 'Wall-Mount Touch Kiosk GD238C — 23.8" FHD',
+    description: '23.8" Wall-Mount Kiosk — PCAP 10-point, Mohs 7 glass, Android/x86 พร้อมแนว Portrait/Landscape',
+    slug: "interactive-kiosk-gd238c",
+    form_factor: "Wall-Mount Kiosk",
+    image_url: null,
+    tags: ["23.8-inch", "kiosk", "wall-mount", "pcap", "fhd"],
+  },
+  {
+    id: "extra-hd27",
+    sku: "HD27",
+    model: "HD27",
+    name: 'Interactive Touch Display HD27 — 27" Configurable AIO',
+    description: '27" FHD PCAP 10-point — Touch Monitor / Android (RK3568/3288/3588) / Windows x86 (J6412/i5/i7)',
+    slug: "interactive-display-hd27",
+    form_factor: "Wall / VESA / Desktop",
+    image_url: null,
+    tags: ["27-inch", "pcap", "android", "x86", "touch-monitor"],
+  },
+  {
+    id: "extra-gd27c",
+    sku: "GD27C",
+    model: "GD27C",
+    name: 'Wall-Mount Touch Kiosk GD27C — 27" FHD',
+    description: '27" Wall-Mount Kiosk — PCAP 10-point, Android RK3568/RK3588 หรือ x86 (Optional)',
+    slug: "interactive-kiosk-gd27c",
+    form_factor: "Wall-Mount Kiosk",
+    image_url: null,
+    tags: ["27-inch", "kiosk", "wall-mount", "pcap"],
+  },
 ];
 
 const FEATURES = [
