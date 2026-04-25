@@ -19,8 +19,9 @@ import QuoteRequestButton from "@/components/QuoteRequestButton";
 import { DISPLAYS_32, DISPLAY_32_ORDER, OS_BACKGROUNDS, type Display32, type Display32Slug, type OSKey } from "@/data/displays-32";
 import { DISPLAYS_43, DISPLAY_43_ORDER } from "@/data/displays-43";
 import { DISPLAYS_238, DISPLAY_238_ORDER } from "@/data/displays-238";
+import { DISPLAYS_27, DISPLAY_27_ORDER } from "@/data/displays-27";
 
-type GroupSize = 32 | 43 | 238;
+type GroupSize = 32 | 43 | 238 | 27;
 const GROUPS: Record<GroupSize, {
   data: Record<string, Display32>;
   order: string[];
@@ -51,6 +52,14 @@ const GROUPS: Record<GroupSize, {
     basePath: "/products/displays-23.8",
     defaultModel: "gd238c",
     label: 'Touch Display 23.8"',
+    parentLink: "/interactive-display",
+  },
+  27: {
+    data: DISPLAYS_27 as Record<string, Display32>,
+    order: DISPLAY_27_ORDER as unknown as string[],
+    basePath: "/products/displays-27",
+    defaultModel: "hd27",
+    label: 'Touch Display 27"',
     parentLink: "/interactive-display",
   },
 };
