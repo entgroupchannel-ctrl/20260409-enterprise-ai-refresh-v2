@@ -108,6 +108,17 @@ const EXTRA_PRODUCTS: Product[] = [
     image_url: null,
     tags: ["49-inch", "pcap", "android", "x86", "touch-monitor", "large-format"],
   },
+  {
+    id: "extra-hd49",
+    sku: "HD49",
+    model: "HD49",
+    name: 'Interactive Touch Display HD49 — 49" Slim Bezel 13mm',
+    description: '49" FHD PCAP 10-point — Ultra-slim 13mm Bezel (iPad-like) / IP65 / Mohs 7 — Touch Monitor / Windows (J6412/i5/i7) / Android (RK3568/3288/3588) + Wi-Fi 5GHz + BLE 5.0',
+    slug: "interactive-display-hd49",
+    form_factor: "Wall / Floor / Desktop / Embedded",
+    image_url: null,
+    tags: ["49-inch", "pcap", "android", "x86", "touch-monitor", "slim-bezel", "large-format"],
+  },
 ];
 
 const FEATURES = [
