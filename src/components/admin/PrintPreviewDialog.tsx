@@ -1,5 +1,5 @@
 // src/components/admin/PrintPreviewDialog.tsx
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -10,6 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Printer, Download, Loader2, AlertCircle } from 'lucide-react';
 import QuotePDFTemplate from './QuotePDFTemplate';
+import PDFRenderHost, { PDFRenderHostHandle } from './PDFRenderHost';
 import { useCompanySettings } from '@/hooks/useCompanySettings';
 import { supabase } from '@/integrations/supabase/client';
 import { mergeRevisionWithQuote, checkQuoteRevisionConsistency } from '@/lib/quote-pdf-merge';
@@ -32,6 +33,7 @@ export default function PrintPreviewDialog({
   const [isPrinting, setIsPrinting] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
   const [autoFired, setAutoFired] = useState(false);
+  const renderHostRef = useRef<PDFRenderHostHandle>(null);
 
   const { settings: companySettings, loading: companyLoading } = useCompanySettings();
   const [salePerson, setSalePerson] = useState<any>(null);
@@ -77,31 +79,26 @@ export default function PrintPreviewDialog({
     new Intl.NumberFormat('th-TH', { minimumFractionDigits: 0 }).format(amount);
 
   const handlePrint = async () => {
+    if (!renderHostRef.current) return;
     setIsPrinting(true);
-    const printContent = document.getElementById('quote-pdf-template');
-    if (!printContent) { setIsPrinting(false); return; }
-
-    const { openPrintPreview } = await import('@/lib/print-helper');
-    openPrintPreview({
-      element: printContent,
-      title: `${quote.quote_number} - Rev ${revision.revision_number}`,
-      onDone: () => setIsPrinting(false),
-    });
+    try {
+      renderHostRef.current.print();
+    } finally {
+      // Browser print dialog is sync-blocking; clear flag after it returns
+      setIsPrinting(false);
+    }
   };
 
   const handleDownloadPDF = async () => {
+    if (!renderHostRef.current) return;
     setIsDownloading(true);
     try {
-      const element = document.getElementById('quote-pdf-template');
-      if (!element) return;
-
-      const { generatePDFWithHeaderFooter } = await import('@/lib/pdf-helper');
-      await generatePDFWithHeaderFooter(element, {
-        filename: `${quote.quote_number}-Rev${revision.revision_number}.pdf`,
-        headerLeft: companySettings?.name_th || 'ENT Group',
-        headerRight: `${quote.quote_number} Rev #${revision.revision_number}`,
-        footerCenter: 'เอกสารนี้ออกโดยระบบอัตโนมัติ',
-      });
+      await renderHostRef.current.download(
+        `${quote.quote_number}-Rev${revision.revision_number}.pdf`,
+        companySettings?.name_th || 'ENT Group',
+        `${quote.quote_number} Rev #${revision.revision_number}`,
+        'เอกสารนี้ออกโดยระบบอัตโนมัติ',
+      );
     } catch (error) {
       console.error('Error generating PDF:', error);
       alert('เกิดข้อผิดพลาดในการสร้าง PDF');
@@ -240,6 +237,33 @@ export default function PrintPreviewDialog({
           )}
         </div>
       </DialogContent>
+
+      {/* Hidden iframe host: render template at exact A4 inner-width (720px),
+          isolated from Dialog/admin layout. Used for download + print. */}
+      {open && companySettings && (
+        <PDFRenderHost
+          ref={renderHostRef}
+          quote={quote}
+          revision={mergeRevisionWithQuote(revision, quote)}
+          companyInfo={{
+            name_th: companySettings.name_th,
+            name_en: companySettings.name_en,
+            address_th: companySettings.address_th,
+            address_en: companySettings.address_en,
+            phone: companySettings.phone,
+            fax: companySettings.fax,
+            email: companySettings.email,
+            website: companySettings.website,
+            tax_id: companySettings.tax_id,
+            branch_type: companySettings.branch_type,
+            branch_code: companySettings.branch_code,
+            branch_name: companySettings.branch_name,
+            logo_url: companySettings.logo_url,
+          }}
+          salePerson={salePerson}
+          bankAccounts={bankAccounts}
+        />
+      )}
     </Dialog>
   );
 }
