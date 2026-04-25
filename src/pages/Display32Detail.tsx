@@ -79,12 +79,11 @@ const Display32Detail = () => {
       <SEOHead
         title={`${product.name} | จอสัมผัส 32 นิ้ว — ENT Group`}
         description={product.tagline}
-        canonical={`https://entgroup.co.th/products/displays-32?model=${product.slug}`}
+        path={`/products/displays-32?model=${product.slug}`}
       />
       <BreadcrumbJsonLd items={[
-        { name: "หน้าหลัก", url: "/" },
-        { name: "Touch Display 32\"", url: "/products/displays-32" },
-        { name: product.shortName, url: `/products/displays-32?model=${product.slug}` },
+        { name: "Touch Display 32\"", path: "/products/displays-32" },
+        { name: product.shortName, path: `/products/displays-32?model=${product.slug}` },
       ]}/>
 
       <MiniNavbar />
