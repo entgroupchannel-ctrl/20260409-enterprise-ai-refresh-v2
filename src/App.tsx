@@ -32,6 +32,7 @@ const GKSeries = lazyRetry(() => import("./pages/GKSeries"));
 const PanelPCGTG = lazyRetry(() => import("./pages/PanelPCGTG"));
 const SmartDisplay = lazyRetry(() => import("./pages/SmartDisplay"));
 const InteractiveDisplay = lazyRetry(() => import("./pages/InteractiveDisplay"));
+const Display32Detail = lazyRetry(() => import("./pages/Display32Detail"));
 const FPMSeries = lazyRetry(() => import("./pages/FPMSeries"));
 const FPMSeriesDetail = lazyRetry(() => import("./pages/FPMSeriesDetail"));
 const TouchWork = lazyRetry(() => import("./pages/TouchWork"));
@@ -221,6 +222,12 @@ const App = () => (
                     <Route path="/panel-pc-gtg" element={<PanelPCGTG />} />
                     <Route path="/smart-display" element={<SmartDisplay />} />
                     <Route path="/interactive-display" element={<InteractiveDisplay />} />
+                    <Route path="/products/displays-32" element={<Display32Detail />} />
+                    <Route path="/products/displays-32/:model" element={<Display32Detail />} />
+                    <Route path="/products/interactive-display-hd32" element={<Navigate to="/products/displays-32?model=hd32" replace />} />
+                    <Route path="/products/interactive-display-hr32" element={<Navigate to="/products/displays-32?model=hr32" replace />} />
+                    <Route path="/products/interactive-display-hr32-android" element={<Navigate to="/products/displays-32?model=hr32-android" replace />} />
+                    <Route path="/products/interactive-display-gd32c" element={<Navigate to="/products/displays-32?model=gd32c" replace />} />
                     <Route path="/fpm-series" element={<FPMSeries />} />
                     <Route path="/fpm-series/:model" element={<FPMSeriesDetail />} />
                     <Route path="/touchwork" element={<TouchWork />} />
