@@ -914,7 +914,7 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       brightness: "300 cd/m²",
       contrast: "1200:1",
       touch: "PCAP 10pt",
-      os: "Android หรือ x86",
+      os: "Monitor / Windows / Android (เลือกได้)",
       formFactor: "Floor Kiosk",
       dimensionCm: "47 × 168.8 × 47.0",
       weightKg: "23.3",
