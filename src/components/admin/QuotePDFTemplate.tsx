@@ -201,7 +201,9 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
       `}</style>
 
       {/* ── HEADER ────────────────────────────────────────────────────── */}
-      <div style={s.headerWrap}>
+      {/* ── HEADER + META (kept together at start, doesn't repeat on page 2+) ─ */}
+      <div className="pdf-keep-with-next">
+      <div className="pdf-keep" style={s.headerWrap}>
         <div style={s.companyCol}>
           {companyInfo.logo_url && (
             <img src={companyInfo.logo_url} alt={companyInfo.name_th} style={s.logo} />
