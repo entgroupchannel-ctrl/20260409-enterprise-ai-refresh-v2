@@ -41,7 +41,7 @@ function mergeProductLine(revLine: AnyObj, qLine?: AnyObj): AnyObj {
  *   - discount_amount / discount_percent: same
  *   - valid_until / customer_message: keep revision if set, else quote
  */
-export function mergeRevisionWithQuote(revision: AnyObj | null | undefined, quote: AnyObj | null | undefined): AnyObj {
+export function mergeRevisionWithQuote(revision: AnyObj | null | undefined, quote: AnyObj | null | undefined): any {
   const rev: AnyObj = revision ? { ...revision } : {};
   const q: AnyObj = quote || {};
 
