@@ -257,7 +257,6 @@ const HD32_VARIANTS: Display32["variants"] = [
     cpu: "Rockchip RK3568 / 3288 / 3588",
     ram: "2–8GB LPDDR4",
     storage: "eMMC 16–128GB",
-    targetSlug: "hd32",
     accent: "secondary",
   },
 ];
