@@ -30,6 +30,8 @@ import gd32cDimFront from "@/assets/touchwo/gd32c-dim-front.png";
 import gd32cDimBack from "@/assets/touchwo/gd32c-dim-back.png";
 import hd32DimBack1 from "@/assets/touchwo/hd32-dim-back-1.png";
 import hd32DimBack2 from "@/assets/touchwo/hd32-dim-back-2.png";
+import kd32bDim1 from "@/assets/touchwo/kd32b-dim-1.png";
+import kd32bDim2 from "@/assets/touchwo/kd32b-dim-2.png";
 
 export const OS_BACKGROUNDS = {
   windows: { src: osWindows, label: "Windows", subtitle: "x86 Intel/AMD รองรับ Windows 10/11 IoT" },
@@ -532,10 +534,40 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       "อายุ LCD 30,000 ชั่วโมง",
     ],
     useCases: ["Retail / ร้านค้า", "Banking / ธนาคาร", "Logistics", "พื้นที่สาธารณะ"],
-    gallery: [kd32bHeroClean, kd32bGallery02Clean, ...Array.from({length:6},(_,i)=>IMG("kd32b",`gallery-0${i+3}.jpg`)), IMG("kd32b","gallery-09.webp")],
+    // Gallery: ย้ายรูป mechanical drawing (gallery-07) ออกไปไว้ section "Dimensions"
+    gallery: [
+      kd32bHeroClean,
+      kd32bGallery02Clean,
+      ...["gallery-03.jpg","gallery-04.jpg","gallery-05.jpg","gallery-06.jpg","gallery-08.jpg"].map(n => IMG("kd32b", n)),
+      IMG("kd32b","gallery-09.webp"),
+    ],
     ioImage: IMG("kd32b", "io-01.jpg"),
     installImages: [],
     featureImages: [],
+    dimensionDrawings: [
+      {
+        image: kd32bDim1,
+        title: "มุมมองรอบตัว — ด้านหน้า / ข้าง / บน-ล่าง",
+        caption: "แบบทางวิศวกรรมของตู้คีออสก์ตั้งพื้น KD32B แสดงสัดส่วนรอบทิศทาง: หน้าจอ 32 นิ้ว แนวตั้งเอียงตามหลัก Ergonomic 15° + ฐานล่างถ่วงน้ำหนัก ป้องกันล้ม — เหมาะกับการวางในธนาคาร, สนามบิน, ห้างสรรพสินค้า ใต้จอมีพื้นที่สำหรับ Printer / Scanner / NFC ขนาด 276 × 114 mm",
+        callouts: [
+          { label: "ความสูงรวม", value: "1688.1 mm" },
+          { label: "หน้ากว้างตู้", value: "470 mm" },
+          { label: "ความลึกฐาน", value: "290.1 mm (ฐาน) / 124.5 mm (ตัวเครื่อง)" },
+          { label: "ความสูงจุดสัมผัส", value: "960.4 mm (จากพื้นถึงกึ่งกลางจอ)" },
+        ],
+      },
+      {
+        image: kd32bDim2,
+        title: "มุมมองรายละเอียด — มุมเอียงและจุดติดตั้งอุปกรณ์",
+        caption: "ภาพขยายแสดงมุมเอียงจอ 15° จากแนวตั้ง พร้อมมุมฐาน 75°/95° ที่คำนวณให้สมดุลรับน้ำหนักได้ดี — ระบุตำแหน่งลำโพง (音响) และมือจับเคลื่อนย้าย (把手) สำหรับติดตั้งและบำรุงรักษา ออกแบบให้สามารถเปลี่ยนหน้ากากด้านหน้า (Replaceable Front Panel) ได้ตามอัตลักษณ์แบรนด์",
+        callouts: [
+          { label: "มุมเอียงจอ", value: "15° (Ergonomic)" },
+          { label: "มุมฐานยึด", value: "75° / 95°" },
+          { label: "ความสูงช่องอุปกรณ์", value: "789.3 mm" },
+          { label: "ความหนาตัวเครื่อง (max)", value: "55.3 mm" },
+        ],
+      },
+    ],
     osSupport: ["android", "windows", "linux"],
     datasheetUrl: PDF("KD32B-Datasheet.pdf"),
     ports: ["RJ45 × 1", "USB 2.0 × 2", "Power Socket × 1"],
