@@ -412,7 +412,7 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       "อายุ LCD 30,000 ชั่วโมง",
     ],
     useCases: ["Retail / ร้านค้า", "Banking / ธนาคาร", "Logistics", "พื้นที่สาธารณะ"],
-    gallery: [kd32bHeroClean, ...Array.from({length:7},(_,i)=>IMG("kd32b",`gallery-0${i+2}.jpg`)), IMG("kd32b","gallery-09.webp")],
+    gallery: [kd32bHeroClean, kd32bGallery02Clean, ...Array.from({length:6},(_,i)=>IMG("kd32b",`gallery-0${i+3}.jpg`)), IMG("kd32b","gallery-09.webp")],
     ioImage: IMG("kd32b", "io-01.jpg"),
     installImages: [],
     featureImages: [],
