@@ -38,7 +38,8 @@ async function buildPdfWithHeaderFooter(
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2, useCORS: true, letterRendering: true, windowWidth: 794 },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
-      pagebreak: { mode: ['css', 'legacy'], avoid: ['tr', '.pdf-keep'] },
+      // CSS-driven breaks only. Long rows split across pages; td/.pdf-keep stay intact (see template CSS).
+      pagebreak: { mode: ['css', 'legacy'] },
     })
     .from(element)
     .toPdf();
