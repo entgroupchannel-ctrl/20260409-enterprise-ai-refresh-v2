@@ -12,6 +12,9 @@ import FooterCompact from "@/components/FooterCompact";
 import MiniNavbar from "@/components/MiniNavbar";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
 import UseCasesSection from "@/components/touchwork/UseCasesSection";
+import B2BCTABanner from "@/components/B2BCTABanner";
+import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
+import B2BMarketingShowcase from "@/components/B2BMarketingShowcase";
 import {
   touchworkProducts,
   archOptions,
@@ -527,6 +530,11 @@ export default function TouchWork() {
           </div>
         </div>
       </section>
+
+      {/* B2B Banners — เหมือนหน้า GT Series */}
+      <B2BMarketingShowcase variant="muted" />
+      <B2BWorkflowBanner />
+      <B2BCTABanner variant="compact" />
 
       <FooterCompact />
     </div>
