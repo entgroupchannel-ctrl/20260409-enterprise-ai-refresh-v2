@@ -158,7 +158,7 @@ function buildHeader(companyInfo: AnyObj, quote: AnyObj, revision: AnyObj, logoD
         cell({ stack: companyStack } as any, { border: [false, false, false, true], borderColor: [LIGHT, LIGHT, LIGHT, BLUE], margin: [0, 0, 0, 8] }),
         cell({
           stack: [
-            { text: 'ใบเสนอราคา', bold: true, fontSize: 18, alignment: 'right', color: TEXT },
+          { text: 'ใบเสนอราคา', bold: true, fontSize: 17, alignment: 'right', color: TEXT, noWrap: true },
             { text: 'QUOTATION', fontSize: 8, alignment: 'right', color: MUTED, margin: [0, 0, 0, 4] },
             { text: `Revision ${revision.revision_number ?? 1}`, bold: true, fontSize: 9, alignment: 'center', color: BLUE, margin: [42, 0, 0, 0] },
             { text: quote.quote_number || '', fontSize: 8, alignment: 'right', color: MUTED, margin: [0, 5, 0, 0] },
@@ -232,8 +232,8 @@ function buildProductTable(products: AnyObj[]): Content {
       cell({
         stack: [
           { text: text(p.name || p.model), bold: true, fontSize: 8.8, color: TEXT, margin: [0, 0, 0, 1] },
-          description ? { text: description, fontSize: 7.2, color: '#444444', lineHeight: 1.05, margin: [0, 1, 0, 0] } : null,
-          specs ? { text: specs, fontSize: 7.2, color: '#444444', lineHeight: 1.05, margin: [0, 1, 0, 0] } : null,
+          description ? { text: description, fontSize: 6.7, color: '#444444', lineHeight: 0.98, margin: [0, 1, 0, 0] } : null,
+          specs ? { text: specs, fontSize: 6.7, color: '#444444', lineHeight: 0.98, margin: [0, 1, 0, 0] } : null,
           p.notes ? { text: `* ${p.notes}`, fontSize: 7.2, color: BLUE, margin: [0, 2, 0, 0] } : null,
         ].filter(Boolean),
       } as any, { margin: [4, 5, 5, 5] }),
@@ -248,6 +248,7 @@ function buildProductTable(products: AnyObj[]): Content {
     table: {
       headerRows: 1,
       widths: [24, 271, 38, 64, 52, 74],
+      keepWithHeaderRows: 1,
       dontBreakRows: false,
       body: [header, ...rows],
     },
