@@ -1141,7 +1141,7 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
   },
 };
 
-export const DISPLAY_32_ORDER: Display32Slug[] = ["hd32", "hr32", "gd32c", "kd32b", "hd43"];
+export const DISPLAY_32_ORDER: Display32Slug[] = ["hd32", "hr32", "gd32c", "kd32b"];
 
 export const getDisplay32 = (slug: string): Display32 | undefined =>
   (DISPLAYS_32 as Record<string, Display32>)[slug];
