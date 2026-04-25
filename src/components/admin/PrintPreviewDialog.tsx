@@ -91,31 +91,17 @@ export default function PrintPreviewDialog({
 
   const handleDownloadPDF = async () => {
     setIsDownloading(true);
-    
     try {
-      const html2pdf = (await import('html2pdf.js')).default;
-      
       const element = document.getElementById('quote-pdf-template');
       if (!element) return;
 
-      const opt = {
-        margin: [22, 15, 18, 15],   // top, right, bottom, left (mm) — top wider for running header
+      const { generatePDFWithHeaderFooter } = await import('@/lib/pdf-helper');
+      await generatePDFWithHeaderFooter(element, {
         filename: `${quote.quote_number}-Rev${revision.revision_number}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: {
-          scale: 2,
-          useCORS: true,
-          letterRendering: true,
-          scrollX: 0,
-          scrollY: 0,
-          windowWidth: 794,  // A4 @ 96dpi for stable layout
-        },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
-        // Allow content to flow naturally; only avoid breaking inside rows/blocks marked .pdf-keep
-        pagebreak: { mode: ['css', 'legacy'], avoid: ['tr', '.pdf-keep'] },
-      };
-
-      await html2pdf().set(opt).from(element).save();
+        headerLeft: companySettings?.name_th || 'ENT Group',
+        headerRight: `${quote.quote_number} Rev #${revision.revision_number}`,
+        footerCenter: 'เอกสารนี้ออกโดยระบบอัตโนมัติ',
+      });
     } catch (error) {
       console.error('Error generating PDF:', error);
       alert('เกิดข้อผิดพลาดในการสร้าง PDF');
