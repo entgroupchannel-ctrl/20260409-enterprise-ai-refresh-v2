@@ -20,8 +20,9 @@ import { DISPLAYS_32, DISPLAY_32_ORDER, OS_BACKGROUNDS, type Display32, type Dis
 import { DISPLAYS_43, DISPLAY_43_ORDER } from "@/data/displays-43";
 import { DISPLAYS_238, DISPLAY_238_ORDER } from "@/data/displays-238";
 import { DISPLAYS_27, DISPLAY_27_ORDER } from "@/data/displays-27";
+import { DISPLAYS_49, DISPLAY_49_ORDER } from "@/data/displays-49";
 
-type GroupSize = 32 | 43 | 238 | 27;
+type GroupSize = 32 | 43 | 238 | 27 | 49;
 const GROUPS: Record<GroupSize, {
   data: Record<string, Display32>;
   order: string[];
@@ -60,6 +61,14 @@ const GROUPS: Record<GroupSize, {
     basePath: "/products/displays-27",
     defaultModel: "hd27",
     label: 'Touch Display 27"',
+    parentLink: "/interactive-display",
+  },
+  49: {
+    data: DISPLAYS_49 as Record<string, Display32>,
+    order: DISPLAY_49_ORDER as unknown as string[],
+    basePath: "/products/displays-49",
+    defaultModel: "hr49",
+    label: 'Touch Display 49"',
     parentLink: "/interactive-display",
   },
 };
