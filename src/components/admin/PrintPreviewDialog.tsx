@@ -12,7 +12,7 @@ import { Printer, Download, Loader2, AlertCircle } from 'lucide-react';
 import QuotePDFTemplate from './QuotePDFTemplate';
 import { useCompanySettings } from '@/hooks/useCompanySettings';
 import { supabase } from '@/integrations/supabase/client';
-import { mergeRevisionWithQuote, checkQuoteRevisionConsistency } from '@/lib/quote-pdf-merge';
+import { mergeRevisionWithQuote } from '@/lib/quote-pdf-merge';
 import { downloadQuotePdf, printQuotePdf } from '@/lib/quote-pdf-generator';
 
 interface PrintPreviewDialogProps {
