@@ -467,11 +467,22 @@ export default function TouchWork() {
                                 );
                               })}
                             </div>
-                            <div className="absolute top-2 right-2">
+                            <div className="absolute top-2 right-2 flex flex-col items-end gap-1">
                               <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-md bg-foreground/90 text-background text-[11px] font-bold">
                                 <Maximize className="h-2.5 w-2.5" />
                                 {p.size}″
                               </span>
+                              {(() => {
+                                const pt = getPanelType(p.model);
+                                return (
+                                  <span
+                                    title={panelMeta[pt].desc}
+                                    className={`inline-flex items-center px-1.5 py-0.5 rounded-md text-[10px] font-bold border backdrop-blur ${panelMeta[pt].color}`}
+                                  >
+                                    {panelMeta[pt].label}
+                                  </span>
+                                );
+                              })()}
                             </div>
                           </div>
 
