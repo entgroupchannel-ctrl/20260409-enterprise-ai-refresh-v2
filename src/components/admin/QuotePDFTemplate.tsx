@@ -184,12 +184,7 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
           font-size: 10pt;
           color: #222;
           line-height: 1.5;
-          width: 720px;
-          max-width: 720px;
-          box-sizing: border-box;
-          margin: 0 auto;
         }
-        #quote-pdf-template table.products { width: 720px; max-width: 720px; }
         /* Repeat the products table header on every page when it spans pages */
         #quote-pdf-template table.products thead { display: table-header-group; }
         #quote-pdf-template table.products tfoot { display: table-footer-group; }
