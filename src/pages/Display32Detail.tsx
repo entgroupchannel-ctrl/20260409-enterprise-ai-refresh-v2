@@ -23,15 +23,15 @@ const ICONS: Record<string, any> = {
 };
 
 const SECTIONS = [
-  { id: "overview", label: "ภาพรวม" },
-  { id: "highlights", label: "ไฮไลต์" },
-  { id: "features", label: "Feature" },
-  { id: "specs", label: "สเปก" },
-  { id: "io", label: "I/O Ports" },
-  { id: "install", label: "การติดตั้ง" },
-  { id: "use-cases", label: "Use Cases" },
-  { id: "compare", label: "เปรียบเทียบ" },
-  { id: "download", label: "Datasheet" },
+  { id: "overview",   label: "ภาพรวม",      icon: Info },
+  { id: "highlights", label: "ไฮไลต์",       icon: Sparkles },
+  { id: "features",   label: "Feature",     icon: Star },
+  { id: "specs",      label: "สเปก",         icon: Settings2 },
+  { id: "io",         label: "I/O Ports",   icon: Link2 },
+  { id: "install",    label: "การติดตั้ง",   icon: Wrench },
+  { id: "use-cases",  label: "Use Cases",   icon: Briefcase },
+  { id: "compare",    label: "เปรียบเทียบ",  icon: GitCompare },
+  { id: "download",   label: "Datasheet",   icon: Download },
 ];
 
 const Display32Detail = () => {
