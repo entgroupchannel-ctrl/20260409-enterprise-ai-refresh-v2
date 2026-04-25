@@ -470,7 +470,7 @@ export const DISPLAYS_43: Record<Display43Slug, Display32> = {
     name: '43" KD43B Series — Floor-Stand Touch Kiosk (Monitor / Windows / Android)',
     shortName: "KD43B Series",
     category: "Configurable 43\" Floor-Stand Touch Kiosk",
-    formFactor: "Floor-Stand Kiosk",
+    formFactor: "Floor Kiosk",
     tagline: "ตู้คีออสก์ตั้งพื้น 43\" PCAP — เปลี่ยนหน้ากากด้านหน้าได้ (Interchangeable Front Panel) เลือก Configuration ได้ 3 แบบ",
     description:
       "KD43B คือซีรีส์ตู้คีออสก์ตั้งพื้น (Floor-Stand Kiosk) ขนาด 43 นิ้ว PCAP 10-point Touch ตัวเครื่องเหล็กพ่นสีฝุ่น (Powder-coated Steel) ดีไซน์ Unibody เอียงหน้าจอ 45° เพื่อ Ergonomic — จุดเด่นคือ \"Industry-First Replaceable Front Panel\" เปลี่ยนหน้ากากด้านหน้าได้รวดเร็ว เพิ่ม Printer / Scanner / Fingerprint / NFC ได้ตามสถานการณ์ — ตัวเครื่องเดียวกัน เลือก Configuration ได้ 3 แบบ: (1) Touch Monitor เฉพาะจอสัมผัส, (2) Windows/Linux PC พร้อม Intel Celeron J6412 / Core i5-8th / Core i7-10th, (3) Android PC พร้อม Rockchip RK3568 / RK3288 / RK3588 — เหมาะกับงาน Retail, Bank, Exhibition, Healthcare, Public Self-service และ QSR",
