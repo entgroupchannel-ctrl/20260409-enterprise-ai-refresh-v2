@@ -55,7 +55,9 @@ async function buildPdfWithHeaderFooter(
 
   const safeHeaderLeft = toAscii(opts.headerLeft) || 'ENT Group';
   const safeHeaderRight = toAscii(opts.headerRight);
-  const safeFooterCenter = opts.footerCenter ? toAscii(opts.footerCenter) : '';
+  // jsPDF Helvetica strips Thai → fall back to English disclaimer if caller sent Thai.
+  const asciiFooter = opts.footerCenter ? toAscii(opts.footerCenter) : '';
+  const safeFooterCenter = asciiFooter || 'System-generated document — signature not required';
 
   for (let i = 1; i <= totalPages; i++) {
     pdfWorker.setPage(i);
