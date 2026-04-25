@@ -364,9 +364,9 @@ function buildSignatures(salePerson?: AnyObj, signatureDataUrl?: string | null):
   }
   sellerStack.push(
     { canvas: [{ type: 'line', x1: 18, y1: 0, x2: 160, y2: 0, lineWidth: 0.5, lineColor: '#999999' }], margin: [0, 0, 0, 4] } as any,
-    { text: salePerson?.full_name || 'พนักงานขาย', bold: true, fontSize: 8.5, alignment: 'center' },
-    salePerson?.position ? { text: salePerson.position, fontSize: 7.5, color: MUTED, alignment: 'center' } : { text: 'ผู้เสนอราคา', fontSize: 7.5, color: MUTED, alignment: 'center' },
-    { text: `วันที่: ${new Date().toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' })}`, fontSize: 7, color: MUTED, alignment: 'center' }
+    { text: salePerson?.full_name || ' ', bold: true, fontSize: 8.5, alignment: 'center' },
+    { text: salePerson?.position || (salePerson?.full_name ? 'ผู้เสนอราคา' : ' '), fontSize: 7.5, color: MUTED, alignment: 'center' },
+    { text: salePerson?.full_name ? `วันที่: ${new Date().toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' })}` : ' ', fontSize: 7, color: MUTED, alignment: 'center' }
   );
 
   return {
