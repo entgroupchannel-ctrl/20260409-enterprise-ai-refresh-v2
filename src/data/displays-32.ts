@@ -13,8 +13,11 @@ import osAndroid from "@/assets/touchwo/os-android.jpg";
 
 // Clean hero shots (logo/watermark removed)
 import hd32HeroClean from "@/assets/touchwo/hd32-hero-clean.jpg";
+import hd32Gallery02Clean from "@/assets/touchwo/hd32-gallery-02-clean.jpg";
 import hr32HeroClean from "@/assets/touchwo/hr32-hero-clean.jpg";
+import hr32Gallery02Clean from "@/assets/touchwo/hr32-gallery-02-clean.jpg";
 import kd32bHeroClean from "@/assets/touchwo/kd32b-hero-clean.jpg";
+import kd32bGallery02Clean from "@/assets/touchwo/kd32b-gallery-02-clean.jpg";
 // HD43 — ภาพต้นฉบับจาก touchwo.com (ทั้ง 3 variants ใช้ตัวเครื่องดีไซน์เดียวกัน)
 import hd43Mon1 from "@/assets/touchwo/hd43/mon-1.jpg";
 import hd43Mon2 from "@/assets/touchwo/hd43/mon-2.jpg";
