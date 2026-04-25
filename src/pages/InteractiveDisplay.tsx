@@ -269,7 +269,7 @@ export default function InteractiveDisplay() {
                   </div>
                 </Link>
                 <CardContent className="p-5">
-                  <Link to={`/products/${p.slug}`} className="block group/title">
+                <Link to={detailHref} className="block group/title">
                     <h3 className="font-semibold text-base mb-1 line-clamp-2 min-h-[3rem] group-hover/title:text-primary transition-colors">
                       {p.name.replace("Interactive Touch Display ", "")}
                     </h3>
