@@ -3,7 +3,8 @@ import { useParams, useSearchParams, Navigate, Link } from "react-router-dom";
 import {
   ArrowLeft, Download, Monitor, Cpu, Smartphone, Maximize, ShieldCheck,
   Layers, Box, MonitorSmartphone, Hand, Award, CheckCircle2, Plug,
-  Ruler, Package, Settings2,
+  Ruler, Package, Settings2, Info, Sparkles, Star, Link2, Wrench,
+  Briefcase, GitCompare,
 } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
