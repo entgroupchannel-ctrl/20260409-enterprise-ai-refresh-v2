@@ -109,6 +109,23 @@ export interface Display32 {
     storage: string;
     targetUseCase: string;
   }[];
+  /** Optional configuration variants — สำหรับรุ่นเดียวกันที่เลือก OS/Hardware ได้หลายแบบ
+   *  เช่น HR32: Touch-only Monitor / Windows PC / Android PC */
+  variants?: {
+    key: string;                 // unique slug e.g. "monitor", "windows", "android"
+    label: string;               // "Touch Monitor" / "Windows PC" / "Android PC"
+    badge: string;               // short tag e.g. "เฉพาะจอสัมผัส"
+    osBackground?: OSKey | "none"; // background image key
+    icon: string;                // lucide icon name
+    description: string;
+    bestFor: string;             // 1-line use case
+    highlights: string[];        // 3-4 short bullets
+    cpu?: string;                // optional CPU note
+    ram?: string;
+    storage?: string;
+    targetSlug?: Display32Slug;  // optional link to dedicated detail page
+    accent: "neutral" | "primary" | "secondary"; // visual accent
+  }[];
   datasheetUrl: string;
   dimensionUrl?: string;
   specs: SpecGroup[];
