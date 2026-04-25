@@ -251,7 +251,8 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
     gallery: Array.from({length:7},(_,i)=>IMG("hr32-android",`gallery-0${i+1}.jpg`)),
     ioImage: IMG("hr32-android", "io-01.jpg"),
     installImages: [],
-    featureImages: Array.from({length:9},(_,i)=>IMG("hr32-android",`feature-0${i+1}.png`)),
+    featureImages: [],
+    osSupport: ["android"],
     datasheetUrl: PDF("HR32-ANDROID-Datasheet.pdf"),
     ports: ["HDMI out × 1", "RJ45 × 1", "USB × 2", "Audio × 1", "TF/SD × 1", "Wi-Fi Antenna × 1", "DC 12V × 1", "Power Button × 1"],
     specs: [
