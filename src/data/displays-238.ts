@@ -149,7 +149,7 @@ export const DISPLAYS_238: Record<Display238Slug, Display32> = {
     name: '23.8" GD238C Series — Wall Mounting Touch Kiosk (Portrait 9:16)',
     shortName: "GD238C (Portrait)",
     category: "Wall-Mounting 23.8\" Touch Kiosk",
-    formFactor: "Wall-Mount Portrait",
+    formFactor: "Wall Kiosk",
     tagline: "ตู้คีออสก์แขวนผนัง 23.8\" PCAP แนวตั้ง 9:16 — Square POS Ready / Android 11–12 / Mohs 7",
     description:
       "GD238C คือตู้คีออสก์แขวนผนังขนาด 23.8 นิ้ว PCAP 10-point Touch แนวตั้ง (Portrait 9:16) เหมาะกับงาน POS / Self-order / Wayfinding ที่ต้องการประหยัดพื้นที่ — ดีไซน์ Ultra-thin Bezel 13mm สไตล์ iPad-like พร้อม Industrial-grade Power Supply รองรับ 7×24H Stable Working — เลือก Configuration ได้: (1) Android (ARM) ติดตั้ง Android 11/12 พร้อม Rockchip RK3568 / RK3588 รองรับ Square / Stripe / Clover / Shopify POS โดยตรง, (2) Windows / Linux (x86) Optional ติดตั้งได้ทั้งแขวนผนัง วางโต๊ะ หรือยึดพื้น (Pre-drilled Optional)",
@@ -166,7 +166,7 @@ export const DISPLAYS_238: Record<Display238Slug, Display32> = {
     variants: [COMMON_VARIANT_ARM, COMMON_VARIANT_X86],
     cpuOptions: [
       {
-        tier: "Cost-effective",
+        tier: "Entry",
         cpu: "Rockchip RK3568 (Quad-core ARM Cortex-A55)",
         gpu: "ARM Mali-G52 2EE",
         ram: "LPDDR4 2–4GB",
@@ -174,7 +174,7 @@ export const DISPLAYS_238: Record<Display238Slug, Display32> = {
         targetUseCase: "Digital Signage, POS Self-order, Wayfinding ทั่วไป",
       },
       {
-        tier: "High-performance",
+        tier: "High",
         cpu: "Rockchip RK3588 (Octa-core, 8nm)",
         gpu: "ARM Mali-G610 MP4",
         ram: "LPDDR4 4–8GB",
@@ -242,7 +242,7 @@ export const DISPLAYS_238: Record<Display238Slug, Display32> = {
     name: '23.8" GD238C3 Series — Wall Mounting Touch Kiosk (Landscape 16:9)',
     shortName: "GD238C3 (Landscape)",
     category: "Wall-Mounting 23.8\" Touch Kiosk",
-    formFactor: "Wall-Mount Landscape",
+    formFactor: "Wall Kiosk",
     tagline: "ตู้คีออสก์แขวนผนัง 23.8\" PCAP แนวนอน 16:9 — Square POS Ready / Android 11–12 / Mohs 7",
     description:
       "GD238C3 คือรุ่นแนวนอน (Landscape 16:9) ของตระกูล GD238 — ตู้คีออสก์แขวนผนังขนาด 23.8 นิ้ว PCAP 10-point Touch ดีไซน์ Ultra-thin Bezel 13mm สไตล์ iPad-like เหมาะกับงาน Conference Check-in, Reception, Wayfinding หรือ Digital Menu Board ขนาดเล็ก — ตัวเครื่องเดียวกับ GD238C เพียงสลับการวางจอเป็นแนวนอน รองรับ Configuration เดียวกัน: (1) Android (ARM) RK3568 / RK3588 พร้อม Square / Stripe / Clover / Shopify POS, (2) Windows / Linux (x86) Optional พร้อม Industrial-grade Power Supply รองรับ 7×24H",
@@ -259,7 +259,7 @@ export const DISPLAYS_238: Record<Display238Slug, Display32> = {
     variants: [COMMON_VARIANT_ARM, COMMON_VARIANT_X86],
     cpuOptions: [
       {
-        tier: "Cost-effective",
+        tier: "Entry",
         cpu: "Rockchip RK3568 (Quad-core ARM Cortex-A55)",
         gpu: "ARM Mali-G52 2EE",
         ram: "LPDDR4 2–4GB",
@@ -267,7 +267,7 @@ export const DISPLAYS_238: Record<Display238Slug, Display32> = {
         targetUseCase: "Digital Signage, Reception, Wayfinding ทั่วไป",
       },
       {
-        tier: "High-performance",
+        tier: "High",
         cpu: "Rockchip RK3588 (Octa-core, 8nm)",
         gpu: "ARM Mali-G610 MP4",
         ram: "LPDDR4 4–8GB",
