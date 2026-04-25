@@ -288,12 +288,12 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
       {/* ── PRODUCTS TABLE (thead repeats on each page) ───────────────── */}
       <table className="products" style={s.table}>
         <colgroup>
-          <col style={{ width: '32px' }} />
+          <col style={{ width: '36px' }} />
           <col />
-          <col style={{ width: '56px' }} />
-          <col style={{ width: '92px' }} />
-          <col style={{ width: '72px' }} />
-          <col style={{ width: '100px' }} />
+          <col style={{ width: '60px' }} />
+          <col style={{ width: '95px' }} />
+          <col style={{ width: '75px' }} />
+          <col style={{ width: '105px' }} />
         </colgroup>
         <thead>
           <tr>
