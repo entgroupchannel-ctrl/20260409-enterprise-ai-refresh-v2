@@ -145,7 +145,75 @@ export interface Display32 {
   };
 }
 
-export const DISPLAYS_32: Record<Display32Slug, Display32> = {
+// ───────────────────────────────────────────────────────────
+// HR32 Series — Configuration Variants (shared between hr32 / hr32-android)
+// แนวคิด: หน้าจอ 32" ตัวเดียวกัน — เลือก Configuration ได้ 3 แบบ
+// (Touch-only Monitor / Windows-Linux PC / Android PC)
+// ───────────────────────────────────────────────────────────
+const HR32_VARIANTS: Display32["variants"] = [
+  {
+    key: "monitor",
+    label: "HR32 — Touch Monitor",
+    badge: "เฉพาะจอสัมผัส (ไม่มี PC ในตัว)",
+    osBackground: "none",
+    icon: "Monitor",
+    description:
+      "จอสัมผัส 32\" ล้วน ๆ — ต่อกับ External PC, Mini PC หรือ Media Player ผ่าน HDMI/DVI/VGA + USB Touch ใช้กับระบบ POS, Signage หรือสายการผลิตที่มีคอมพิวเตอร์อยู่แล้ว",
+    bestFor: "ลูกค้ามี PC/Mini PC อยู่แล้ว ต้องการเฉพาะจอสัมผัสคุณภาพสูง",
+    highlights: [
+      "ไม่มี PC ในตัว — ต้นทุนต่ำกว่า ปรับเปลี่ยน PC ภายนอกได้อิสระ",
+      "Input: HDMI / DVI / VGA + USB Touch",
+      "Plug-and-play กับ Windows / Linux / macOS",
+      "Power Consumption ต่ำสุดในซีรีส์ < 60W",
+    ],
+    targetSlug: "hr32",
+    accent: "neutral",
+  },
+  {
+    key: "windows",
+    label: "HR32 — Windows / Linux PC",
+    badge: "All-in-One PC (x86)",
+    osBackground: "windows",
+    icon: "Cpu",
+    description:
+      "All-in-One PC พร้อม Intel x86 ภายใน เลือกติดตั้ง Windows 10/11 IoT หรือ Linux Ubuntu/Debian จากโรงงาน รองรับซอฟต์แวร์ POS / ERP / Signage Player แบบ Native ที่ลูกค้าใช้อยู่แล้ว",
+    bestFor: "Enterprise / POS / Signage ที่ใช้ซอฟต์แวร์ Windows-based",
+    highlights: [
+      "Intel Celeron / Core i3 / Core i5 (เลือกได้)",
+      "RAM 4–16GB DDR4 + SSD 128–512GB",
+      "Pre-install Windows 10/11 IoT หรือ Linux",
+      "RJ45 + Wi-Fi 802.11ac + Bluetooth",
+    ],
+    cpu: "Intel Celeron / Core i3 / i5",
+    ram: "4–16GB DDR4",
+    storage: "SSD 128–512GB",
+    targetSlug: "hr32",
+    accent: "primary",
+  },
+  {
+    key: "android",
+    label: "HR32 — Android PC",
+    badge: "All-in-One PC (ARM)",
+    osBackground: "android",
+    icon: "Smartphone",
+    description:
+      "All-in-One PC พร้อม Rockchip ARM ภายใน เลือก Android 9/11/12 จากโรงงาน — ประหยัดพลังงาน ราคาคุ้มค่ากว่า x86 เหมาะกับ Digital Signage, Self-service Kiosk และ POS ที่ใช้ App แบบ Android",
+    bestFor: "Digital Signage / Self-service Kiosk ที่ใช้ Android App",
+    highlights: [
+      "Rockchip RK3568 / RK3288 / RK3588 (เลือกได้)",
+      "RAM 2–8GB + eMMC 16–128GB",
+      "Pre-install Android 9 / 11 / 12",
+      "Wi-Fi 802.11ac + Ethernet — เปิด 24/7 ประหยัดไฟ",
+    ],
+    cpu: "Rockchip RK3568 / 3288 / 3588",
+    ram: "2–8GB LPDDR4",
+    storage: "eMMC 16–128GB",
+    targetSlug: "hr32-android",
+    accent: "secondary",
+  },
+];
+
+
   hd32: {
     slug: "hd32",
     modelCode: "HD32",
