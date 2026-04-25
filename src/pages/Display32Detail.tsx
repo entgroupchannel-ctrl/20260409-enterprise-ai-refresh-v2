@@ -16,7 +16,7 @@ import ProductGallery from "@/components/ProductGallery";
 import ProductGalleryPortrait from "@/components/ProductGalleryPortrait";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
-import { DISPLAYS_32, DISPLAY_32_ORDER, OS_BACKGROUNDS, type Display32, type Display32Slug } from "@/data/displays-32";
+import { DISPLAYS_32, DISPLAY_32_ORDER, OS_BACKGROUNDS, type Display32, type Display32Slug, type OSKey } from "@/data/displays-32";
 
 const ICONS: Record<string, any> = {
   Monitor, Cpu, Smartphone, Maximize, ShieldCheck, Layers, Box,
@@ -24,17 +24,18 @@ const ICONS: Record<string, any> = {
 };
 
 const ALL_SECTIONS = [
-  { id: "overview",   label: "ภาพรวม",      icon: Info },
-  { id: "highlights", label: "ไฮไลต์",       icon: Sparkles },
-  { id: "features",   label: "Feature",     icon: Star },
-  { id: "cpu",        label: "CPU Options", icon: Cpu },
-  { id: "specs",      label: "สเปก",         icon: Settings2 },
-  { id: "dimensions", label: "ขนาด/ติดตั้ง", icon: Ruler },
-  { id: "io",         label: "I/O Ports",   icon: Link2 },
-  { id: "install",    label: "การติดตั้ง",   icon: Wrench },
-  { id: "use-cases",  label: "Use Cases",   icon: Briefcase },
-  { id: "compare",    label: "เปรียบเทียบ",  icon: GitCompare },
-  { id: "download",   label: "Datasheet",   icon: Download },
+  { id: "overview",       label: "ภาพรวม",          icon: Info },
+  { id: "configurations", label: "Configurations", icon: Layers },
+  { id: "highlights",     label: "ไฮไลต์",           icon: Sparkles },
+  { id: "features",       label: "Feature",         icon: Star },
+  { id: "cpu",            label: "CPU Options",     icon: Cpu },
+  { id: "specs",          label: "สเปก",             icon: Settings2 },
+  { id: "dimensions",     label: "ขนาด/ติดตั้ง",     icon: Ruler },
+  { id: "io",             label: "I/O Ports",       icon: Link2 },
+  { id: "install",        label: "การติดตั้ง",       icon: Wrench },
+  { id: "use-cases",      label: "Use Cases",       icon: Briefcase },
+  { id: "compare",        label: "เปรียบเทียบ",      icon: GitCompare },
+  { id: "download",       label: "Datasheet",       icon: Download },
 ];
 
 const Display32Detail = () => {
@@ -47,7 +48,12 @@ const Display32Detail = () => {
   const [lightbox, setLightbox] = useState<{ images: string[]; index: number } | null>(null);
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
   const SECTIONS = useMemo(
-    () => ALL_SECTIONS.filter(s => s.id !== "dimensions" || (product?.dimensionDrawings?.length ?? 0) > 0),
+    () => ALL_SECTIONS.filter(s => {
+      if (s.id === "dimensions") return (product?.dimensionDrawings?.length ?? 0) > 0;
+      if (s.id === "configurations") return (product?.variants?.length ?? 0) > 0;
+      if (s.id === "cpu") return (product?.cpuOptions?.length ?? 0) > 0;
+      return true;
+    }),
     [product]
   );
 
@@ -256,6 +262,141 @@ const Display32Detail = () => {
             })}
           </div>
         </section>
+
+        {/* Configurations — สำหรับซีรีส์ที่หน้าจอเดียวกันแต่เลือก OS/Hardware ได้หลายแบบ (HR32) */}
+        {product.variants && product.variants.length > 0 && (
+          <section
+            id="configurations"
+            ref={el => (sectionRefs.current.configurations = el)}
+            className="scroll-mt-32"
+          >
+            <SectionTitle
+              eyebrow="Configurations"
+              title="หน้าจอ 32&quot; แบบเดียวกัน — เลือก Configuration ได้ 3 แบบ"
+            />
+            <p className="text-sm text-muted-foreground mb-6 -mt-2 max-w-3xl">
+              โครงสร้างภายนอก (ขนาด, น้ำหนัก, ระบบสัมผัส PCAP 10 จุด, จอ FHD 300 nit, Vandal-Proof) เหมือนกันทั้ง 3 รุ่น —
+              ต่างกันที่ <strong>ภายใน</strong> เท่านั้น เลือกได้เหมือนเลือกสเปก PC: จะใช้เป็นแค่จอสัมผัส, หรือเพิ่ม Windows/Linux PC, หรือเพิ่ม Android PC ก็ได้
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {product.variants.map((v) => {
+                const VIcon = ICONS[v.icon] ?? Monitor;
+                const isCurrent = v.targetSlug === product.slug;
+                const accentClass =
+                  v.accent === "primary"
+                    ? "ring-2 ring-primary/40 shadow-lg"
+                    : v.accent === "secondary"
+                      ? "ring-1 ring-secondary"
+                      : "";
+                const headerClass =
+                  v.accent === "primary"
+                    ? "bg-gradient-to-br from-primary to-primary/80 text-primary-foreground"
+                    : v.accent === "secondary"
+                      ? "bg-secondary text-secondary-foreground"
+                      : "bg-muted text-muted-foreground";
+                const bgImage = v.osBackground && v.osBackground !== "none"
+                  ? OS_BACKGROUNDS[v.osBackground as OSKey]?.src
+                  : undefined;
+                return (
+                  <div
+                    key={v.key}
+                    className={`relative rounded-2xl border bg-card overflow-hidden flex flex-col ${accentClass}`}
+                  >
+                    {isCurrent && (
+                      <div className="absolute top-3 right-3 z-10 text-[10px] font-bold uppercase tracking-wider bg-foreground text-background px-2 py-1 rounded-full">
+                        กำลังดูอยู่
+                      </div>
+                    )}
+                    <div className={`relative px-5 py-5 border-b overflow-hidden ${headerClass}`}>
+                      {bgImage && (
+                        <>
+                          <img
+                            src={bgImage}
+                            alt=""
+                            className="absolute inset-0 w-full h-full object-cover opacity-25"
+                            loading="lazy"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-br from-black/40 to-transparent" />
+                        </>
+                      )}
+                      <div className="relative">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="h-9 w-9 rounded-lg bg-background/20 backdrop-blur flex items-center justify-center">
+                            <VIcon className="h-5 w-5" />
+                          </div>
+                          <div className="text-[11px] font-semibold uppercase tracking-wider opacity-90">
+                            {v.badge}
+                          </div>
+                        </div>
+                        <div className="font-bold text-lg leading-tight">{v.label}</div>
+                      </div>
+                    </div>
+                    <div className="p-5 flex-1 flex flex-col">
+                      <p className="text-sm leading-relaxed mb-4">{v.description}</p>
+                      <div className="rounded-lg bg-muted/40 px-3 py-2 mb-4">
+                        <div className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">เหมาะกับ</div>
+                        <div className="text-xs font-medium mt-0.5">{v.bestFor}</div>
+                      </div>
+                      {(v.cpu || v.ram || v.storage) && (
+                        <dl className="grid grid-cols-3 gap-1 mb-4 text-[11px]">
+                          {v.cpu && (
+                            <div className="rounded border border-border/60 px-2 py-1.5">
+                              <dt className="text-muted-foreground">CPU</dt>
+                              <dd className="font-semibold leading-tight mt-0.5 truncate" title={v.cpu}>{v.cpu}</dd>
+                            </div>
+                          )}
+                          {v.ram && (
+                            <div className="rounded border border-border/60 px-2 py-1.5">
+                              <dt className="text-muted-foreground">RAM</dt>
+                              <dd className="font-semibold leading-tight mt-0.5">{v.ram}</dd>
+                            </div>
+                          )}
+                          {v.storage && (
+                            <div className="rounded border border-border/60 px-2 py-1.5">
+                              <dt className="text-muted-foreground">Storage</dt>
+                              <dd className="font-semibold leading-tight mt-0.5">{v.storage}</dd>
+                            </div>
+                          )}
+                        </dl>
+                      )}
+                      <ul className="space-y-1.5 mb-5 flex-1">
+                        {v.highlights.map((h, hi) => (
+                          <li key={hi} className="flex items-start gap-2 text-xs">
+                            <CheckCircle2 className="h-3.5 w-3.5 text-primary shrink-0 mt-0.5" />
+                            <span className="leading-snug">{h}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      {v.targetSlug && !isCurrent && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="w-full"
+                          onClick={() => switchModel(v.targetSlug as Display32Slug)}
+                        >
+                          ดูสเปก {v.label.split("—")[1]?.trim() ?? "รุ่นนี้"}
+                        </Button>
+                      )}
+                      {isCurrent && (
+                        <div className="text-center text-[11px] text-muted-foreground py-2">
+                          ↓ เลื่อนลงเพื่อดูสเปกฉบับเต็ม
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="mt-6 rounded-xl border border-dashed border-primary/30 bg-primary/5 p-4 text-sm text-foreground/80 flex items-start gap-3">
+              <Info className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+              <span>
+                <strong>คำแนะนำ:</strong> ถ้ามี PC อยู่แล้ว เลือก <em>Touch Monitor</em> ประหยัดที่สุด —
+                ถ้าใช้ซอฟต์แวร์ Windows-based ที่มีอยู่ เลือก <em>Windows PC</em> —
+                ถ้าทำ Digital Signage / Self-service ที่ใช้ Android App เลือก <em>Android PC</em> ราคาคุ้มค่ากว่า
+              </span>
+            </div>
+          </section>
+        )}
 
         {/* Features */}
         <section

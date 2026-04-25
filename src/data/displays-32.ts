@@ -109,6 +109,23 @@ export interface Display32 {
     storage: string;
     targetUseCase: string;
   }[];
+  /** Optional configuration variants — สำหรับรุ่นเดียวกันที่เลือก OS/Hardware ได้หลายแบบ
+   *  เช่น HR32: Touch-only Monitor / Windows PC / Android PC */
+  variants?: {
+    key: string;                 // unique slug e.g. "monitor", "windows", "android"
+    label: string;               // "Touch Monitor" / "Windows PC" / "Android PC"
+    badge: string;               // short tag e.g. "เฉพาะจอสัมผัส"
+    osBackground?: OSKey | "none"; // background image key
+    icon: string;                // lucide icon name
+    description: string;
+    bestFor: string;             // 1-line use case
+    highlights: string[];        // 3-4 short bullets
+    cpu?: string;                // optional CPU note
+    ram?: string;
+    storage?: string;
+    targetSlug?: Display32Slug;  // optional link to dedicated detail page
+    accent: "neutral" | "primary" | "secondary"; // visual accent
+  }[];
   datasheetUrl: string;
   dimensionUrl?: string;
   specs: SpecGroup[];
@@ -127,6 +144,74 @@ export interface Display32 {
     install: string;
   };
 }
+
+// ───────────────────────────────────────────────────────────
+// HR32 Series — Configuration Variants (shared between hr32 / hr32-android)
+// แนวคิด: หน้าจอ 32" ตัวเดียวกัน — เลือก Configuration ได้ 3 แบบ
+// (Touch-only Monitor / Windows-Linux PC / Android PC)
+// ───────────────────────────────────────────────────────────
+const HR32_VARIANTS: Display32["variants"] = [
+  {
+    key: "monitor",
+    label: "HR32 — Touch Monitor",
+    badge: "เฉพาะจอสัมผัส (ไม่มี PC ในตัว)",
+    osBackground: "none",
+    icon: "Monitor",
+    description:
+      "จอสัมผัส 32\" ล้วน ๆ — ต่อกับ External PC, Mini PC หรือ Media Player ผ่าน HDMI/DVI/VGA + USB Touch ใช้กับระบบ POS, Signage หรือสายการผลิตที่มีคอมพิวเตอร์อยู่แล้ว",
+    bestFor: "ลูกค้ามี PC/Mini PC อยู่แล้ว ต้องการเฉพาะจอสัมผัสคุณภาพสูง",
+    highlights: [
+      "ไม่มี PC ในตัว — ต้นทุนต่ำกว่า ปรับเปลี่ยน PC ภายนอกได้อิสระ",
+      "Input: HDMI / DVI / VGA + USB Touch",
+      "Plug-and-play กับ Windows / Linux / macOS",
+      "Power Consumption ต่ำสุดในซีรีส์ < 60W",
+    ],
+    targetSlug: "hr32",
+    accent: "neutral",
+  },
+  {
+    key: "windows",
+    label: "HR32 — Windows / Linux PC",
+    badge: "All-in-One PC (x86)",
+    osBackground: "windows",
+    icon: "Cpu",
+    description:
+      "All-in-One PC พร้อม Intel x86 ภายใน เลือกติดตั้ง Windows 10/11 IoT หรือ Linux Ubuntu/Debian จากโรงงาน รองรับซอฟต์แวร์ POS / ERP / Signage Player แบบ Native ที่ลูกค้าใช้อยู่แล้ว",
+    bestFor: "Enterprise / POS / Signage ที่ใช้ซอฟต์แวร์ Windows-based",
+    highlights: [
+      "Intel Celeron / Core i3 / Core i5 (เลือกได้)",
+      "RAM 4–16GB DDR4 + SSD 128–512GB",
+      "Pre-install Windows 10/11 IoT หรือ Linux",
+      "RJ45 + Wi-Fi 802.11ac + Bluetooth",
+    ],
+    cpu: "Intel Celeron / Core i3 / i5",
+    ram: "4–16GB DDR4",
+    storage: "SSD 128–512GB",
+    targetSlug: "hr32",
+    accent: "primary",
+  },
+  {
+    key: "android",
+    label: "HR32 — Android PC",
+    badge: "All-in-One PC (ARM)",
+    osBackground: "android",
+    icon: "Smartphone",
+    description:
+      "All-in-One PC พร้อม Rockchip ARM ภายใน เลือก Android 9/11/12 จากโรงงาน — ประหยัดพลังงาน ราคาคุ้มค่ากว่า x86 เหมาะกับ Digital Signage, Self-service Kiosk และ POS ที่ใช้ App แบบ Android",
+    bestFor: "Digital Signage / Self-service Kiosk ที่ใช้ Android App",
+    highlights: [
+      "Rockchip RK3568 / RK3288 / RK3588 (เลือกได้)",
+      "RAM 2–8GB + eMMC 16–128GB",
+      "Pre-install Android 9 / 11 / 12",
+      "Wi-Fi 802.11ac + Ethernet — เปิด 24/7 ประหยัดไฟ",
+    ],
+    cpu: "Rockchip RK3568 / 3288 / 3588",
+    ram: "2–8GB LPDDR4",
+    storage: "eMMC 16–128GB",
+    targetSlug: "hr32-android",
+    accent: "secondary",
+  },
+];
 
 export const DISPLAYS_32: Record<Display32Slug, Display32> = {
   hd32: {
@@ -285,13 +370,13 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
   hr32: {
     slug: "hr32",
     modelCode: "HR32",
-    name: '32" Touch Monitor HR32',
-    shortName: "HR32 Monitor",
-    category: "VESA Mount Touch Monitor",
+    name: '32" HR32 Series — Touch Monitor / Windows PC / Android PC',
+    shortName: "HR32 Series",
+    category: "Configurable 32\" Touch Display",
     formFactor: "Monitor",
-    tagline: "Unibody Aluminum Design — โครงสร้างเหล็ก/อลูมิเนียม ทนทานแบบ Vandal-Proof",
+    tagline: "หน้าจอ 32\" แบบเดียวกัน — เลือก Configuration ได้ 3 แบบ: Touch-only / Windows / Android",
     description:
-      "จอสัมผัส 32 นิ้ว ตัวเครื่อง Unibody อลูมิเนียมตัดด้วยเลเซอร์ ทนทาน กันการทุบทำลาย รองรับ PCAP 10 จุด ตอบสนอง <5ms อ่านง่ายแม้แสงแดดส่อง เหมาะสำหรับสถานที่สาธารณะที่ใช้งานหนัก",
+      "HR32 คือซีรีส์จอสัมผัส 32 นิ้ว ตัวเครื่อง Unibody อลูมิเนียมเลเซอร์คัตที่แชร์โครงสร้างเดียวกันทั้ง 3 รุ่น — สามารถเลือกได้ว่าจะเป็น (1) Touch Monitor เฉพาะจอสัมผัสที่ต่อกับ PC ภายนอก, (2) Windows/Linux PC แบบ All-in-One หรือ (3) Android PC แบบ All-in-One — โดยขนาดภายนอก, ระบบสัมผัส PCAP 10 จุด, ความสว่าง 300 nit และโครงสร้าง Vandal-Proof จะเหมือนกันทุกรุ่น ต่างกันที่ภายในเท่านั้น เหมือนการเลือกสเปก PC",
     highlights: [
       { icon: "Award", title: "4K-Ready Display", subtitle: "FHD พร้อมขยาย" },
       { icon: "Maximize", title: "Ultra-Slim Unibody", subtitle: "อลูมิเนียมเสริมเหล็ก" },
@@ -343,7 +428,8 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
         ],
       },
     ],
-    osSupport: [],
+    osSupport: ["windows", "linux", "android"],
+    variants: HR32_VARIANTS,
     datasheetUrl: "/datasheets/ENT-Datasheet-HR32-Monitor.pdf",
     dimensionUrl: "/datasheets/ENT-Dimension-HR32-Monitor.pdf",
     ports: ["HDMI in × 1", "DVI × 1", "VGA × 1", "USB × 1", "Audio in/out × 1", "DC 12V × 1", "Power Socket × 1"],
@@ -384,7 +470,7 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       brightness: "300 cd/m²",
       contrast: "1200:1",
       touch: "PCAP 10pt",
-      os: "—",
+      os: "Touch-only / Windows / Android (เลือกได้)",
       formFactor: "Monitor (Unibody)",
       dimensionCm: "75.2 × 44.6 × 6.0",
       weightKg: "14.2",
@@ -453,7 +539,8 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
         ],
       },
     ],
-    osSupport: ["android"],
+    osSupport: ["windows", "linux", "android"],
+    variants: HR32_VARIANTS,
     datasheetUrl: "/datasheets/ENT-Datasheet-HR32-ARM.pdf",
     dimensionUrl: "/datasheets/ENT-Dimension-HR32-ARM.pdf",
     ports: ["HDMI out × 1", "RJ45 × 1", "USB × 2", "Audio × 1", "TF/SD × 1", "Wi-Fi Antenna × 1", "DC 12V × 1", "Power Button × 1"],
