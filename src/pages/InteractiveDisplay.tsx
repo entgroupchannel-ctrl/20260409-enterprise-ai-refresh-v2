@@ -280,7 +280,7 @@ export default function InteractiveDisplay() {
                   </p>
                   <div className="flex flex-col gap-2">
                     <Button asChild size="sm" variant="secondary" className="w-full">
-                      <Link to={`/products/${p.slug}`}>ดูรายละเอียด</Link>
+                      <Link to={detailHref}>ดูรายละเอียด</Link>
                     </Button>
                     <QuoteRequestButton
                       productModel={p.model}
@@ -298,7 +298,8 @@ export default function InteractiveDisplay() {
                   </div>
                 </CardContent>
               </Card>
-            ))}
+              );
+            })}
           </div>
         )}
       </section>
