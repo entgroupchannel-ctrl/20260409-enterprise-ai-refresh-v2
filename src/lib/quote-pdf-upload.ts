@@ -59,18 +59,13 @@ export async function generateAndUploadQuotePdf(
       return null;
     }
 
-    const html2pdf = (await import('html2pdf.js')).default;
-    const blob: Blob = await html2pdf()
-      .set({
-        margin: [22, 15, 18, 15],
-        filename: `${quote.quote_number}-Rev${revision.revision_number}.pdf`,
-        image: { type: 'jpeg', quality: 0.95 },
-        html2canvas: { scale: 2, useCORS: true, letterRendering: true, windowWidth: 794 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
-        pagebreak: { mode: ['css', 'legacy'], avoid: ['tr', '.pdf-keep'] },
-      })
-      .from(element)
-      .outputPdf('blob');
+    const { generatePDFBlobWithHeaderFooter } = await import('@/lib/pdf-helper');
+    const blob: Blob = await generatePDFBlobWithHeaderFooter(element, {
+      filename: `${quote.quote_number}-Rev${revision.revision_number}.pdf`,
+      headerLeft: companyInfo?.name_th || 'ENT Group',
+      headerRight: `${quote.quote_number} Rev #${revision.revision_number}`,
+      footerCenter: 'เอกสารนี้ออกโดยระบบอัตโนมัติ',
+    });
 
     // Upload — overwrite if exists so re-sending always uses latest revision
     const path = `${quote.id}/${quote.quote_number}-Rev${revision.revision_number}.pdf`;

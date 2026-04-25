@@ -55,18 +55,16 @@ export default function SharedQuotePage() {
       // Log download
       await (supabase as any).rpc('get_shared_quote', { p_token: token, p_action: 'download' });
 
-      const html2pdf = (await import('html2pdf.js')).default;
       const element = document.getElementById('quote-pdf-template');
       if (!element) return;
-      const opt = {
-        margin: [22, 15, 18, 15],
-        filename: `${data.quote.quote_number}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, letterRendering: true, windowWidth: 794 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
-        pagebreak: { mode: ['css', 'legacy'], avoid: ['tr', '.pdf-keep'] },
-      };
-      await html2pdf().set(opt).from(element).save();
+      const { generatePDFWithHeaderFooter } = await import('@/lib/pdf-helper');
+      const revNum = data?.revision?.revision_number ?? 1;
+      await generatePDFWithHeaderFooter(element, {
+        filename: `${data.quote.quote_number}-Rev${revNum}.pdf`,
+        headerLeft: data?.company?.name_th || 'ENT Group',
+        headerRight: `${data.quote.quote_number} Rev #${revNum}`,
+        footerCenter: 'เอกสารนี้ออกโดยระบบอัตโนมัติ',
+      });
     } catch (e) {
       console.error(e);
     } finally {

@@ -22,10 +22,10 @@ interface PDFHeaderFooterOptions {
   bottomMargin?: number;
 }
 
-export async function generatePDFWithHeaderFooter(
+async function buildPdfWithHeaderFooter(
   element: HTMLElement,
   opts: PDFHeaderFooterOptions
-): Promise<void> {
+) {
   const html2pdf = (await import('html2pdf.js')).default;
   const margin = opts.margin ?? 12;
   const topMargin = opts.topMargin ?? 22;
@@ -36,9 +36,9 @@ export async function generatePDFWithHeaderFooter(
       margin: [topMargin, margin, bottomMargin, margin],
       filename: opts.filename,
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true, letterRendering: true },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-      pagebreak: { mode: ['css', 'legacy', 'avoid-all'] },
+      html2canvas: { scale: 2, useCORS: true, letterRendering: true, windowWidth: 794 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
+      pagebreak: { mode: ['css', 'legacy'], avoid: ['tr', '.pdf-keep'] },
     })
     .from(element)
     .toPdf();
@@ -48,8 +48,7 @@ export async function generatePDFWithHeaderFooter(
   const pageWidth = pdfWorker.internal.pageSize.getWidth();
   const pageHeight = pdfWorker.internal.pageSize.getHeight();
 
-  // jsPDF built-in fonts (Helvetica) ไม่รองรับภาษาไทย → ต้อง ASCII-only
-  // มิฉะนั้นจะกลายเป็นอักขระเพี้ยน เช่น "@ - * 2 # 5"
+  // jsPDF built-in fonts (Helvetica) ไม่รองรับภาษาไทย → ASCII-only
   const toAscii = (s: string) =>
     (s || '').replace(/[^\x20-\x7E]/g, '').replace(/\s+/g, ' ').trim();
 
@@ -60,27 +59,40 @@ export async function generatePDFWithHeaderFooter(
   for (let i = 1; i <= totalPages; i++) {
     pdfWorker.setPage(i);
 
-    // ===== Header (page 2+) =====
     if (i > 1) {
       pdfWorker.setFontSize(9);
       pdfWorker.setTextColor(80);
       if (safeHeaderLeft) pdfWorker.text(safeHeaderLeft, margin, 12);
       if (safeHeaderRight) pdfWorker.text(safeHeaderRight, pageWidth - margin, 12, { align: 'right' });
-
       pdfWorker.setDrawColor(180);
       pdfWorker.setLineWidth(0.3);
       pdfWorker.line(margin, 15, pageWidth - margin, 15);
     }
 
-    // ===== Footer: page number (ASCII) =====
     pdfWorker.setFontSize(8);
     pdfWorker.setTextColor(120);
     pdfWorker.text(`Page ${i} / ${totalPages}`, pageWidth - margin, pageHeight - 8, { align: 'right' });
-
     if (safeFooterCenter) {
       pdfWorker.text(safeFooterCenter, pageWidth / 2, pageHeight - 8, { align: 'center' });
     }
   }
 
+  return pdfWorker;
+}
+
+export async function generatePDFWithHeaderFooter(
+  element: HTMLElement,
+  opts: PDFHeaderFooterOptions
+): Promise<void> {
+  const pdfWorker = await buildPdfWithHeaderFooter(element, opts);
   pdfWorker.save(opts.filename);
+}
+
+/** Same as generatePDFWithHeaderFooter but returns a Blob for upload flows. */
+export async function generatePDFBlobWithHeaderFooter(
+  element: HTMLElement,
+  opts: PDFHeaderFooterOptions
+): Promise<Blob> {
+  const pdfWorker = await buildPdfWithHeaderFooter(element, opts);
+  return pdfWorker.output('blob') as Blob;
 }
