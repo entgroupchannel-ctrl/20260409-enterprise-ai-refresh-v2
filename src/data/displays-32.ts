@@ -174,7 +174,8 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
     gallery: Array.from({length:7},(_,i)=>IMG("hr32",`gallery-0${i+1}.jpg`)),
     ioImage: IMG("hr32", "io-01.jpg"),
     installImages: [],
-    featureImages: Array.from({length:9},(_,i)=>IMG("hr32",`feature-0${i+1}.png`)),
+    featureImages: [],
+    osSupport: [],
     datasheetUrl: PDF("HR32-Datasheet.pdf"),
     ports: ["HDMI in × 1", "DVI × 1", "VGA × 1", "USB × 1", "Audio in/out × 1", "DC 12V × 1", "Power Socket × 1"],
     specs: [
