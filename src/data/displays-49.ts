@@ -1,0 +1,287 @@
+/**
+ * Touch Display 49" — HR49 Configurable AIO (Monitor / Windows / Android)
+ * แหล่งสเปก: touchwo.com (HR49 Series)
+ *  - HR49 Touch Monitor:  https://touchwo.com/product/elo-monitor-49-touch-monitor-hr49/
+ *  - HR49 Windows PC:     https://touchwo.com/product/49-touch-pc-hr49/
+ *  - HR49 Android PC:     https://touchwo.com/product/49-android-touch-pc-hr49/
+ */
+import type { Display32, OSKey } from "./displays-32";
+import { OS_BACKGROUNDS } from "./displays-32";
+
+import hr49P1 from "@/assets/touchwo/hr49/p-1.jpg";
+import hr49P2 from "@/assets/touchwo/hr49/p-2.jpg";
+import hr49P3 from "@/assets/touchwo/hr49/p-3.jpg";
+import hr49P4 from "@/assets/touchwo/hr49/p-4.jpg";
+import hr49P5 from "@/assets/touchwo/hr49/p-5.jpg";
+import hr49P6 from "@/assets/touchwo/hr49/p-6.jpg";
+import hr49P7 from "@/assets/touchwo/hr49/p-7.jpg";
+import hr49HeroX86 from "@/assets/touchwo/hr49/hero-x86.jpg";
+import hr49HeroMonitor from "@/assets/touchwo/hr49/hero-monitor.jpg";
+import hr49HeroAndroid from "@/assets/touchwo/hr49/hero-android.jpg";
+import hr49IoMonitor from "@/assets/touchwo/hr49/io-monitor.jpg";
+import hr49Feat1 from "@/assets/touchwo/hr49/feat-1.png";
+import hr49Feat2 from "@/assets/touchwo/hr49/feat-2.png";
+import hr49Feat3 from "@/assets/touchwo/hr49/feat-3.png";
+import hr49Feat4 from "@/assets/touchwo/hr49/feat-4.png";
+
+import hr49UcWayfinding from "@/assets/touchwo/usecases/hr49-uc-wayfinding.jpg";
+import hr49UcBoardroom from "@/assets/touchwo/usecases/hr49-uc-boardroom.jpg";
+import hr49UcHotel from "@/assets/touchwo/usecases/hr49-uc-hotel.jpg";
+import hr49UcQsr from "@/assets/touchwo/usecases/hr49-uc-qsr.jpg";
+
+export type Display49Slug = "hr49";
+export { OS_BACKGROUNDS };
+export type { OSKey };
+
+export const DISPLAYS_49: Record<Display49Slug, Display32> = {
+  hr49: {
+    slug: "hr49",
+    modelCode: "HR49",
+    name: '49" HR49 Series — Touch Monitor / Windows PC / Android PC',
+    shortName: "HR49 Series",
+    category: "Configurable 49\" Large-Format Touch Display",
+    formFactor: "Configurable AIO",
+    tagline: "จอสัมผัส 49\" PCAP FHD — Sleek Unibody / IP65 Surface — เลือก 3 Configuration: Monitor / Windows / Android",
+    description:
+      "HR49 คือซีรีส์จอสัมผัส 49 นิ้ว FHD 1920×1080 PCAP 10-point ตัวเครื่องเดียวกัน — ใช้ดีไซน์ Sleek Unibody อะลูมิเนียมอัลลอยพร้อมแผ่นหลัง laser-cut, กระจกผิว Mohs class 7 explosion-proof, พื้นผิว IP65 waterproof, อายุ Backlight 30,000 ชม. สามารถเลือก Configuration ได้ 3 แบบ: (1) Touch Monitor เฉพาะจอสัมผัส (PCAP) ต่อกับ PC ภายนอก, (2) Windows/Linux All-in-One พร้อม OPS i3 4Gen / i5 10Gen / i7 11Gen, (3) Android All-in-One พร้อม Rockchip RK3568 / RK3288 / RK3588 — รองรับ Square / Stripe / Clover / Shopify POS — ขนาดเครื่อง 112.7×65.7×6 cm น้ำหนัก 25.9-26.2 kg เหมาะกับ Wayfinding, Conference, Self-order, Hotel Lobby, Digital Signage",
+    highlights: [
+      { icon: "Layers", title: "เลือก 3 Configuration", subtitle: "Monitor / Windows / Android" },
+      { icon: "Maximize", title: "49\" FHD 1920×1080", subtitle: "16:9 / 300 cd/m² / 60 Hz" },
+      { icon: "Hand", title: "PCAP 10-Point Touch", subtitle: "Mohs 7 + IP65 Surface" },
+      { icon: "ShieldCheck", title: "Industrial 7×24H", subtitle: "30,000-hr LED Backlight" },
+    ],
+    features: [
+      "PCAP 10-point Touch — เวลาตอบสนอง < 5ms / Scanning 200Hz / Accuracy 4096×4096",
+      "Mohs class 7 explosion-proof glass — ผิวหน้ากระจกกันระเบิด",
+      "Surface IP65 waterproof — ทนน้ำสาดและฝุ่นที่ผิวหน้า",
+      "Sleek Unibody อะลูมิเนียมอัลลอย + laser-cut backplate ทนต่อการกระแทก/กัดกร่อน",
+      "Industrial-grade Power Supply — 7×24H Stable Working",
+      "30,000-hour Extended-life LED Backlight",
+      "Pre-install Windows 10/11 / Linux / Android 9/11/12",
+      "รองรับ Square POS / Stripe POS / Clover POS / Shopify POS (Android)",
+      "Wi-Fi 802.11a/b/g/n/ac + RJ45 — เชื่อมต่อเสถียร",
+      "ติดตั้งได้: Wall mount / Floor stand / Mobile stand",
+    ],
+    useCases: ["Mall / Public Wayfinding", "Conference / Boardroom", "Hotel Lobby Self-service", "QSR / Self-order Counter"],
+    useCaseScenarios: [
+      { image: hr49UcWayfinding, title: "Mall / Public Wayfinding",      description: "ป้ายนำทางในห้างสรรพสินค้า สนามบิน หรือโรงพยาบาลขนาดใหญ่ — แสดงแผนที่อาคารและค้นหาร้านค้า/แผนกได้ละเอียด ขนาด 49\" มองเห็นชัดจากระยะไกล รองรับ Multi-touch 10 จุดให้หลายคนใช้พร้อมกัน" },
+      { image: hr49UcBoardroom,  title: "Conference / Boardroom",         description: "จอประชุมสัมผัส 49\" ในห้องประชุมระดับ Executive — รองรับ Video Conference, Interactive Whiteboard, BYOD ผ่าน HDMI/USB เพิ่มประสิทธิภาพการประชุม Hybrid และนำเสนอแบบ Real-time" },
+      { image: hr49UcHotel,      title: "Hotel Lobby / Self Check-in",    description: "ตู้เช็คอินตัวเองในล็อบบี้โรงแรม — แขกสแกน Booking/QR เลือกห้องและรับคีย์การ์ดเองได้ ลดคิวที่ Front desk รองรับ 7×24H พร้อม Mohs 7 ทนการใช้งานหนัก" },
+      { image: hr49UcQsr,        title: "QSR / Self-order Counter",       description: "ตู้สั่งอาหารตัวเองในร้าน QSR — เมนูภาพคมชัดบนจอใหญ่ 49\" เพิ่ม upsell 20-30% รองรับ Square / Clover / Shopify POS โดยตรง (Android) ลดคิวและเพิ่มความเร็วในการบริการ" },
+    ],
+    gallery: [
+      hr49HeroX86, hr49HeroMonitor, hr49HeroAndroid,
+      hr49P1, hr49P2, hr49P3, hr49P4, hr49P5, hr49P6, hr49P7,
+    ],
+    ioImage: hr49IoMonitor,
+    installImages: [hr49Feat1, hr49Feat2, hr49Feat3],
+    featureImages: [hr49Feat4],
+    dimensionDrawings: [],
+    osSupport: ["windows", "linux", "android"],
+    variants: [
+      {
+        key: "monitor",
+        label: "HR49 — Touch Monitor",
+        badge: "เฉพาะจอสัมผัส (ไม่มี PC ในตัว)",
+        osBackground: "none",
+        icon: "Monitor",
+        description:
+          "จอสัมผัส 49\" PCAP ล้วน ๆ — ต่อกับ External PC, OPS หรือ Media Player ผ่าน HDMI in + USB Touch (Plug-and-play) ความสว่าง 300 cd/m² Power Consumption < 100W เหมาะกับ Digital Signage, Wayfinding, Reception ที่มี PC อยู่แล้ว",
+        bestFor: "ลูกค้ามี PC/OPS อยู่แล้ว ต้องการเฉพาะจอสัมผัสขนาดใหญ่ 49\"",
+        highlights: [
+          "ไม่มี PC ในตัว — ปรับเปลี่ยน PC ภายนอกได้",
+          "Input: HDMI in + USB Touch + DVI + VGA + Audio in/out",
+          "Brightness 300 cd/m² / 60 Hz / 16.7M colors",
+          "Power Consumption < 100W",
+          "น้ำหนัก 25.9 kg (สุทธิ)",
+        ],
+        accent: "neutral",
+      },
+      {
+        key: "x86",
+        label: "HR49 — Windows / Linux PC (OPS)",
+        badge: "All-in-One PC (x86 OPS)",
+        osBackground: "windows",
+        icon: "Cpu",
+        description:
+          "All-in-One PC จอ 49\" พร้อม OPS Intel x86 ภายใน เลือก CPU ได้ 3 ระดับ — i3 4th Gen (Entry) / i5 10th Gen (Mid) / i7 11th Gen (High) ติดตั้ง Windows 10/11 หรือ Linux จากโรงงาน รองรับซอฟต์แวร์ Wayfinding / Digital Signage CMS / Conference / ERP",
+        bestFor: "Enterprise / Conference / Wayfinding ที่ใช้ซอฟต์แวร์ Windows-based",
+        highlights: [
+          "OPS: Intel® Core™ i3-4Gen / i5-10Gen / i7-11Gen",
+          "RAM Kingston 4 / 8 / 16 GB",
+          "Storage Seagate 128 / 256 / 512 GB",
+          "Gigabit RJ45 + Wi-Fi 802.11a/b/g/n/ac",
+          "Power Consumption < 130W",
+        ],
+        cpu: "Intel Core i3-4Gen / i5-10Gen / i7-11Gen (OPS)",
+        ram: "4–16GB Kingston",
+        storage: "Seagate 128–512GB",
+        accent: "primary",
+      },
+      {
+        key: "android",
+        label: "HR49 — Android PC",
+        badge: "All-in-One PC (ARM)",
+        osBackground: "android",
+        icon: "Smartphone",
+        description:
+          "All-in-One PC จอ 49\" พร้อม Rockchip ARM ภายใน เลือก CPU ได้ 3 ระดับ — RK3568 (Android 11) / RK3288 (Android 9) / RK3588 (Android 12) รองรับ Square / Stripe / Clover / Shopify POS โดยตรง พร้อม Wi-Fi 802.11ac",
+        bestFor: "POS Self-order / Hotel Self-service / Wayfinding / Digital Signage ที่ใช้ Android App",
+        highlights: [
+          "Rockchip RK3568 / RK3288 / RK3588 (เลือกได้)",
+          "RAM 2–8GB + eMMC 16–128GB",
+          "Pre-install Android 11 / 9 / 12 (ตามรุ่น CPU)",
+          "Wi-Fi 802.11a/b/g/n/ac + RJ45",
+          "Power Consumption < 105W",
+        ],
+        cpu: "Rockchip RK3568 / RK3288 / RK3588",
+        ram: "2–8GB LPDDR4",
+        storage: "eMMC 16–128GB",
+        accent: "secondary",
+      },
+    ],
+    cpuOptions: [
+      {
+        tier: "Entry",
+        cpu: "Intel® Core™ i3 4th Gen (OPS)",
+        gpu: "Intel® HD Graphics 4600",
+        ram: "Kingston 4GB",
+        storage: "Seagate 128GB",
+        targetUseCase: "Digital Signage, Wayfinding, Self-service Kiosk งานทั่วไป",
+      },
+      {
+        tier: "Mid",
+        cpu: "Intel® Core™ i5 10th Gen (OPS)",
+        gpu: "Intel® UHD Graphics 630",
+        ram: "Kingston 8GB",
+        storage: "Seagate 256GB",
+        targetUseCase: "Conference Boardroom, Multi-app Wayfinding, ERP/CRM Front-end",
+      },
+      {
+        tier: "High",
+        cpu: "Intel® Core™ i7 11th Gen (OPS)",
+        gpu: "Intel® Iris® Xe Graphics",
+        ram: "Kingston 16GB",
+        storage: "Seagate 512GB",
+        targetUseCase: "Industrial HMI, 4K Multimedia, AI Video Wall, Healthcare",
+      },
+      {
+        tier: "Entry",
+        cpu: "Rockchip RK3568 (Quad-core ARM Cortex-A55)",
+        gpu: "ARM Mali-G52 2EE",
+        ram: "LPDDR4 2GB (4GB optional)",
+        storage: "eMMC 16GB (32GB optional)",
+        targetUseCase: "POS Self-order (Android 11), Digital Signage, Wayfinding",
+      },
+      {
+        tier: "Mid",
+        cpu: "Rockchip RK3288 (Quad-core ARM Cortex-A17)",
+        gpu: "ARM Mali-T864",
+        ram: "LPDDR3 2GB",
+        storage: "eMMC 16GB",
+        targetUseCase: "Pre-install Android 9 — งาน Legacy POS App ที่ต้องการ Android 9",
+      },
+      {
+        tier: "High",
+        cpu: "Rockchip RK3588 (Octa-core, 8nm)",
+        gpu: "ARM Mali-G610",
+        ram: "LPDDR4 4GB (8GB optional)",
+        storage: "eMMC 64GB (128GB optional)",
+        targetUseCase: "AI Vision, Multi-app POS, 4K Multimedia, Smart Retail (Android 12)",
+      },
+    ],
+    datasheetUrl: "https://touchwo.com/product/49-touch-pc-hr49/",
+    ports: [
+      "Power Button × 1", "DC 12V × 1", "HDMI in/out × 1",
+      "VGA × 1", "DVI × 1 (Monitor)", "Audio in/out × 1", "MIC × 1 (PC)",
+      "RJ45 × 1", "USB × 1–4 (ตามรุ่น)", "TF/SD × 1 (Android)", "Wi-Fi Antenna × 1",
+    ],
+    specs: [
+      { title: "Windows / Linux System (OPS x86)", rows: [
+        { label: "CPU (เลือกได้)", value: "OPS Intel® Core™ i3-4Gen / i5-10Gen / i7-11Gen" },
+        { label: "Graphic GPU", value: "HD Graphics 4600 / UHD 630 / Iris Xe" },
+        { label: "Audio", value: "HD Audio: ALC269" },
+        { label: "หน่วยความจำ (RAM)", value: "Kingston 4 / 8 / 16 GB" },
+        { label: "หน่วยเก็บข้อมูล", value: "Seagate 128 / 256 / 512 GB" },
+        { label: "เครือข่าย", value: "10/100/1000M RJ45 + Wi-Fi 802.11a/b/g/n/ac" },
+        { label: "OS ที่ติดตั้งให้", value: "Windows 10 / 11 / Linux (เลือกได้)" },
+      ]},
+      { title: "Android System (ARM)", rows: [
+        { label: "CPU (เลือกได้)", value: "Rockchip RK3568 / RK3288 / RK3588" },
+        { label: "Graphic GPU", value: "ARM G52 2EE / Mali-T864 / Mali-G610" },
+        { label: "หน่วยความจำ (RAM)", value: "RK3568 2GB (4GB opt) / RK3288 2GB / RK3588 4GB (8GB opt)" },
+        { label: "หน่วยเก็บข้อมูล", value: "RK3568 16GB (32GB opt) / RK3288 16GB / RK3588 64GB (128GB opt)" },
+        { label: "เครือข่าย", value: "10/100M RJ45 + Wi-Fi 802.11a/b/g/n/ac" },
+        { label: "OS ที่ติดตั้งให้", value: "Android 11 (RK3568) / Android 9 (RK3288) / Android 12 (RK3588)" },
+      ]},
+      { title: "LCD Panel", rows: [
+        { label: "ขนาดหน้าจอ", value: "49 นิ้ว" },
+        { label: "ความละเอียด", value: "1920 × 1080 (FHD)" },
+        { label: "อัตราส่วนภาพ", value: "16 : 9" },
+        { label: "พื้นที่แสดงผล", value: "1076 × 606 mm" },
+        { label: "จำนวนสี", value: "16.7M" },
+        { label: "ความสว่าง", value: "300 cd/m²" },
+        { label: "อัตราส่วนความเปรียบต่าง", value: "3000:1 (Windows OPS) / 1400:1 (Android, Monitor)" },
+        { label: "มุมมอง H/V", value: "175° / 175°" },
+        { label: "อายุ Backlight", value: "LED 30,000 ชม." },
+        { label: "Refresh Rate", value: "60 Hz" },
+      ]},
+      { title: "Touch Panel", rows: [
+        { label: "เทคโนโลยี", value: "PCAP (Capacitive)" },
+        { label: "เวลาตอบสนอง", value: "< 5ms" },
+        { label: "จำนวนจุดสัมผัส", value: "10 จุด standard" },
+        { label: "Touch Recognition", value: "> 1.5mm" },
+        { label: "Scanning Frequency", value: "200 Hz" },
+        { label: "Scanning Accuracy", value: "4096 × 4096" },
+        { label: "Working Voltage", value: "180mA / DC +5V ±5%" },
+        { label: "ผิวหน้า", value: "Mohs class 7 explosion-proof glass + Surface IP65 waterproof" },
+      ]},
+      { title: "Operation Environment", rows: [
+        { label: "อุณหภูมิทำงาน", value: "0°C - 50°C" },
+        { label: "ความชื้นทำงาน", value: "10% - 80%" },
+        { label: "อุณหภูมิเก็บรักษา", value: "-5°C - 60°C" },
+        { label: "ความชื้นเก็บรักษา", value: "10% - 85%" },
+      ]},
+      { title: "Dimension & Weight", rows: [
+        { label: "ขนาดเครื่อง (L×W×H)", value: "112.7 × 65.7 × 6 cm" },
+        { label: "ขนาดกล่อง (L×W×H)", value: "122.5 × 66.2 × 14.5 cm" },
+        { label: "น้ำหนักสุทธิ", value: "25.9 kg (Monitor) / 26.2 kg (PC/Android)" },
+        { label: "น้ำหนักรวม", value: "32.9 kg (Monitor) / 33.2 kg (PC/Android)" },
+      ]},
+      { title: "Power Supply", rows: [
+        { label: "Power Input", value: "110-240V AC 50/60Hz" },
+        { label: "Power Output", value: "DC 12V 5A" },
+        { label: "Standby Power", value: "≤ 0.5W" },
+        { label: "Overall Power", value: "Monitor < 100W / Android < 105W / Windows OPS < 130W" },
+      ]},
+      { title: "External Connectors", rows: [
+        { label: "Touch Monitor", value: "Power Socket × 1, DC12V × 1, HDMI in × 1, Audio in/out × 1, DVI × 1, VGA × 1, USB × 1" },
+        { label: "Windows / Linux PC (OPS)", value: "Power Button × 1, DC12V × 1, HDMI out × 1, MIC × 1, RJ45 × 1, Wi-Fi × 1, USB × 4, VGA × 1" },
+        { label: "Android PC", value: "Power Button × 1, DC12V × 1, HDMI out × 1, Audio × 1, RJ45 × 1, TF/SD × 1, USB × 2, Wi-Fi × 1" },
+      ]},
+      { title: "Included in the Delivery", rows: [
+        { label: "Manual / คู่มือ", value: "× 1" },
+        { label: "Wall mount bracket", value: "× 1" },
+        { label: "USB & HDMI cable (Monitor) / Wi-Fi Antenna (PC)", value: "× 1" },
+        { label: "Power cable", value: "× 1" },
+      ]},
+    ],
+    quick: {
+      resolution: "1920×1080 FHD",
+      brightness: "300 cd/m²",
+      contrast: "1400-3000:1",
+      touch: "PCAP 10pt + Mohs 7 + IP65",
+      os: "Monitor / Windows / Linux / Android",
+      formFactor: "Configurable AIO 49\"",
+      dimensionCm: "112.7 × 65.7 × 6",
+      weightKg: "25.9-26.2",
+      power: "< 130W",
+      install: "Wall / Floor / Mobile Stand",
+    },
+  },
+};
+
+export const DISPLAY_49_ORDER: Display49Slug[] = ["hr49"];
+
+export const getDisplay49 = (slug: string): Display32 | undefined =>
+  (DISPLAYS_49 as Record<string, Display32>)[slug];
