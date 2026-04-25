@@ -213,20 +213,68 @@ const HR32_VARIANTS: Display32["variants"] = [
   },
 ];
 
+// ───────────────────────────────────────────────────────────
+// HD32 Series — Configuration Variants (Windows/Linux x86 vs Android ARM)
+// ตัวเครื่อง 13mm bezel เหมือนกัน — ต่างที่ภายใน CPU + OS
+// ───────────────────────────────────────────────────────────
+const HD32_VARIANTS: Display32["variants"] = [
+  {
+    key: "x86",
+    label: "HD32 — Windows / Linux PC",
+    badge: "All-in-One PC (x86)",
+    osBackground: "windows",
+    icon: "Cpu",
+    description:
+      "All-in-One PC พร้อม Intel x86 ภายใน เลือก CPU ได้ 3 ระดับ — Celeron J6412 (Entry), Core i5-8th (Mid), Core i7-10th (High Performance) ติดตั้ง Windows 10/11 หรือ Linux จากโรงงาน รองรับซอฟต์แวร์ POS/ERP/Industrial HMI ที่ใช้กันทั่วไป",
+    bestFor: "Enterprise / Industrial HMI / ระบบที่ใช้ซอฟต์แวร์ Windows-based",
+    highlights: [
+      "Intel Celeron J6412 / Core i5-8th / Core i7-10th (เลือกได้)",
+      "RAM DDR4 4–16GB + SSD 128–512GB",
+      "Pre-install Windows 10/11 หรือ Linux",
+      "RJ45 + Wi-Fi 802.11ac + พอร์ตครบ HDMI/VGA/USB×4",
+    ],
+    cpu: "Intel Celeron / i5 / i7",
+    ram: "4–16GB DDR4",
+    storage: "SSD 128–512GB",
+    accent: "primary",
+  },
+  // (HD32 มีหน้ารายละเอียดเดียว — ไม่ต้องตั้ง targetSlug ของ variant นี้)
+  {
+    key: "android",
+    label: "HD32 — Android PC",
+    badge: "All-in-One PC (ARM)",
+    osBackground: "android",
+    icon: "Smartphone",
+    description:
+      "All-in-One PC พร้อม Rockchip ARM ภายใน เลือก CPU ได้ 3 ระดับ — RK3568 / RK3288 / RK3588 ติดตั้ง Android 9/11/12 จากโรงงาน รองรับ Square / Stripe / Clover / Shopify POS พร้อม 5GHz Wi-Fi + BLE 5.0 ประหยัดพลังงานกว่า x86 (≤115W) เหมาะกับ Self-service Kiosk และ POS Android-based",
+    bestFor: "Square POS / Self-service Kiosk / Digital Signage ที่ใช้ Android App",
+    highlights: [
+      "Rockchip RK3568 / RK3288 / RK3588 (เลือกได้)",
+      "RAM 2–8GB + eMMC 16–128GB",
+      "Pre-install Android 9 / 11 / 12",
+      "5GHz Wi-Fi + BLE 5.0 — รองรับ Square POS โดยตรง",
+    ],
+    cpu: "Rockchip RK3568 / 3288 / 3588",
+    ram: "2–8GB LPDDR4",
+    storage: "eMMC 16–128GB",
+    accent: "secondary",
+  },
+];
+
 export const DISPLAYS_32: Record<Display32Slug, Display32> = {
   hd32: {
     slug: "hd32",
     modelCode: "HD32",
-    name: '32" Touch PC HD32 (X86 All-in-One)',
-    shortName: "HD32 Touch PC",
-    category: "Windows / Linux Touch PC",
+    name: '32" HD32 Series — All-in-One Touch PC (Windows / Linux / Android)',
+    shortName: "HD32 Series",
+    category: "Configurable 32\" All-in-One Touch PC",
     formFactor: "All-in-One PC",
-    tagline: "All-in-One PC จอสัมผัส 32 นิ้ว — เลือก CPU ได้ 3 ระดับ Celeron / i5 / i7 รองรับ Windows & Linux",
+    tagline: "All-in-One Touch PC จอ 32\" — เลือก OS และ CPU ได้ Windows/Linux (x86) หรือ Android (ARM)",
     description:
-      "AIO Touch PC จอ Capacitive 10 จุด พร้อม PC ในตัวที่เลือกสเปกได้ตั้งแต่ Intel Celeron J6412 (Entry), Core i5 รุ่น 8 (Mid) ไปจนถึง Core i7 รุ่น 10 (High Performance) ติดตั้ง Windows 10/11 หรือ Linux ได้จากโรงงาน ขอบจอบาง 13mm รองรับการติดตั้งแบบแขวนผนัง วางตั้งโต๊ะ และฝังเฟอร์นิเจอร์ — เหมาะสำหรับ POS Self-service, Kiosk องค์กร, ระบบ Queue และห้องประชุม",
+      "HD32 คือซีรีส์ All-in-One Touch PC จอสัมผัส 32 นิ้ว ขอบจอบาง 13mm ตัวเครื่องเดียวกัน — เลือก Configuration ได้ 2 แบบ: (1) Windows/Linux PC พร้อม Intel x86 (Celeron J6412 / Core i5-8th / Core i7-10th) หรือ (2) Android PC พร้อม Rockchip ARM (RK3568 / RK3288 / RK3588) ติดตั้ง OS จากโรงงาน รองรับการติดตั้งแบบแขวนผนัง วางตั้งโต๊ะ และฝังเฟอร์นิเจอร์ — เหมาะสำหรับ POS Self-service, Square POS, Kiosk องค์กร, ระบบ Queue และห้องประชุม",
     highlights: [
-      { icon: "Cpu", title: "เลือก CPU ได้ 3 ระดับ", subtitle: "Celeron / i5 / i7" },
-      { icon: "Monitor", title: "Windows 10/11 & Linux", subtitle: "Pre-installed OS" },
+      { icon: "Layers", title: "เลือก OS ได้ 2 แบบ", subtitle: "Windows/Linux หรือ Android" },
+      { icon: "Cpu", title: "เลือก CPU ได้หลายระดับ", subtitle: "Intel x86 หรือ Rockchip ARM" },
       { icon: "Maximize", title: "ขอบจอบาง 13mm", subtitle: "Ultra-small Bezel" },
       { icon: "ShieldCheck", title: "ทำงาน 24/7", subtitle: "Industrial Grade" },
     ],
@@ -280,7 +328,8 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
         ],
       },
     ],
-    osSupport: ["windows", "linux"],
+    osSupport: ["windows", "linux", "android"],
+    variants: HD32_VARIANTS,
     cpuOptions: [
       {
         tier: "Entry",
@@ -359,7 +408,7 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       brightness: "250 cd/m²",
       contrast: "1200:1",
       touch: "PCAP 10pt",
-      os: "Windows / Linux",
+      os: "Windows / Linux / Android (เลือกได้)",
       formFactor: "All-in-One PC",
       dimensionCm: "74.1 × 43.6 × 5.2",
       weightKg: "11.3",
