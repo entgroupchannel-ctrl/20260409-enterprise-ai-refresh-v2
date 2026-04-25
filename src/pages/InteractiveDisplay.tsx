@@ -108,6 +108,17 @@ const EXTRA_PRODUCTS: Product[] = [
     image_url: null,
     tags: ["49-inch", "pcap", "android", "x86", "touch-monitor", "large-format"],
   },
+  {
+    id: "extra-hd49",
+    sku: "HD49",
+    model: "HD49",
+    name: 'Interactive Touch Display HD49 — 49" Slim Bezel 13mm',
+    description: '49" FHD PCAP 10-point — Ultra-slim 13mm Bezel (iPad-like) / IP65 / Mohs 7 — Touch Monitor / Windows (J6412/i5/i7) / Android (RK3568/3288/3588) + Wi-Fi 5GHz + BLE 5.0',
+    slug: "interactive-display-hd49",
+    form_factor: "Wall / Floor / Desktop / Embedded",
+    image_url: null,
+    tags: ["49-inch", "pcap", "android", "x86", "touch-monitor", "slim-bezel", "large-format"],
+  },
 ];
 
 const FEATURES = [
@@ -311,13 +322,14 @@ export default function InteractiveDisplay() {
               const is43 = p.tags?.includes("43-inch") || ["interactive-display-hr43","interactive-display-hd43","interactive-kiosk-kd43b"].includes(p.slug);
               const is238 = p.tags?.includes("23.8-inch") || p.slug === "interactive-kiosk-gd238c";
               const is27 = p.tags?.includes("27-inch") || ["interactive-display-hd27","interactive-kiosk-gd27c"].includes(p.slug);
-              const is49 = p.tags?.includes("49-inch") || p.slug === "interactive-display-hr49";
+              const is49 = p.tags?.includes("49-inch") || ["interactive-display-hr49","interactive-display-hd49"].includes(p.slug);
+              const model49 = p.slug === "interactive-display-hd49" ? "hd49" : "hr49";
               const model43 =
                 p.slug === "interactive-display-hr43" ? "hr43" :
                 p.slug === "interactive-kiosk-kd43b" ? "kd43b" : "hd43";
               const model27 = p.slug === "interactive-kiosk-gd27c" ? "gd27c" : "hd27";
               const detailHref = is49
-                ? "/products/displays-49?model=hr49"
+                ? `/products/displays-49?model=${model49}`
                 : is27
                 ? `/products/displays-27?model=${model27}`
                 : is238
