@@ -19,6 +19,8 @@ import hr49IoMonitor from "@/assets/touchwo/hr49/io-monitor.jpg";
 import hr49IoX86Diagram from "@/assets/touchwo/hr49/io-x86.png";
 import hr49IoMonitorDiagram from "@/assets/touchwo/hr49/io-monitor-diagram.png";
 import hr49IoAndroidDiagram from "@/assets/touchwo/hr49/io-android.png";
+import hr49DimFront from "@/assets/touchwo/hr49/dim-front.png";
+import hr49DimBack from "@/assets/touchwo/hr49/dim-back.png";
 import hr49Feat1 from "@/assets/touchwo/hr49/feat-1.png";
 import hr49Feat2 from "@/assets/touchwo/hr49/feat-2.png";
 import hr49Feat3 from "@/assets/touchwo/hr49/feat-3.png";
@@ -77,8 +79,30 @@ export const DISPLAYS_49: Record<Display49Slug, Display32> = {
     featureImages: [hr49Feat4],
     dimensionDrawings: [
       {
+        image: hr49DimFront,
+        title: "Mechanical Dimension — Front View",
+        caption: "แบบทางวิศวกรรมด้านหน้าและด้านข้าง — ขนาดภายนอกเครื่อง 1127.2 × 657.4 mm พื้นที่แสดงผล Active Area 1075.8 × 606 mm ความหนาตัวเครื่องจริง 28 mm (ส่วนบาง) ถึง 72 mm (ส่วนกล่อง I/O) เหมาะสำหรับวางแผนช่องเปิดในเฟอร์นิเจอร์/ผนังก่อนติดตั้ง",
+        callouts: [
+          { label: "ขนาดเครื่อง", value: "1127.2 × 657.4 mm" },
+          { label: "Active Area", value: "1075.8 × 606 mm" },
+          { label: "ความหนา", value: "28 mm (ขอบ) / 72 mm (กล่อง I/O)" },
+          { label: "ขอบจอ (Bezel)", value: "26 mm" },
+        ],
+      },
+      {
+        image: hr49DimBack,
+        title: "Back View — VESA Mount Layout",
+        caption: "แบบด้านหลังพร้อมจุดยึด VESA Mount มาตรฐาน 400 × 400 mm (สกรู 4-M6) — ใช้สำหรับเลือกขายึดผนัง / Floor Stand / Mobile Stand ที่รองรับ VESA 400×400 และวางตำแหน่งช่องเดินสายไฟ/สาย LAN ก่อนหน้างานจริง",
+        callouts: [
+          { label: "VESA Pattern", value: "400 × 400 mm" },
+          { label: "สกรูยึด", value: "4 × M6" },
+          { label: "ระยะจาก Top", value: "129.7 mm" },
+          { label: "ระยะจาก Bottom", value: "147.7 mm" },
+        ],
+      },
+      {
         image: hr49IoMonitorDiagram,
-        title: "HR49 — Touch Monitor (I/O Layout)",
+        title: "Product Diagram — HR49 Touch Monitor (I/O Layout)",
         caption: "เลย์เอาต์พอร์ตของรุ่น Touch Monitor (เฉพาะจอสัมผัส ไม่มี PC ในตัว) — รองรับการต่อกับ PC/OPS/Media Player ภายนอกผ่าน HDMI หรือ DVI/VGA พร้อม Audio in/out และ USB สำหรับสัญญาณ Touch",
         callouts: [
           { label: "Power", value: "Power Button + DC 12V" },
@@ -89,7 +113,7 @@ export const DISPLAYS_49: Record<Display49Slug, Display32> = {
       },
       {
         image: hr49IoX86Diagram,
-        title: "HR49 — Windows / Linux PC OPS (I/O Layout)",
+        title: "Product Diagram — HR49 Windows / Linux PC OPS (I/O Layout)",
         caption: "เลย์เอาต์พอร์ตของรุ่น All-in-One PC พร้อม OPS Intel x86 (i3-4Gen / i5-10Gen / i7-11Gen) — ครบทุก I/O หลักสำหรับ Enterprise: HDMI out, VGA, USB ×2, LAN RJ45 Gigabit, MIC และ Wi-Fi เหมาะกับงาน Conference / Wayfinding / Digital Signage",
         callouts: [
           { label: "Power", value: "Power Button + DC 12V" },
@@ -101,7 +125,7 @@ export const DISPLAYS_49: Record<Display49Slug, Display32> = {
       },
       {
         image: hr49IoAndroidDiagram,
-        title: "HR49 — Android PC (I/O Layout)",
+        title: "Product Diagram — HR49 Android PC (I/O Layout)",
         caption: "เลย์เอาต์พอร์ตของรุ่น All-in-One Android (Rockchip RK3568 / RK3288 / RK3588) — มี TD/SD Card Slot สำหรับขยายพื้นที่จัดเก็บ พร้อม HDMI out, USB ×2, LAN RJ45, Audio และ Wi-Fi รองรับ Square / Stripe / Clover / Shopify POS",
         callouts: [
           { label: "Power", value: "Power Button + DC 12V" },
