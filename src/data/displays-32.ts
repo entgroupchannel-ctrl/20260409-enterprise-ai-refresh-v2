@@ -814,18 +814,18 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
   kd32b: {
     slug: "kd32b",
     modelCode: "KD32B",
-    name: '32" Floor Stand Touch Kiosk KD32B',
-    shortName: "KD32B Floor Kiosk",
-    category: "Floor-standing Kiosk",
+    name: '32" KD32B Series — Floor Stand Kiosk (Monitor / Windows / Android)',
+    shortName: "KD32B Series",
+    category: "Configurable 32\" Floor Stand Kiosk",
     formFactor: "Floor Kiosk",
-    tagline: "ตู้คีออสก์ตั้งพื้น 32 นิ้ว — เปลี่ยนหน้ากากได้ ปรับแต่งตามธุรกิจ",
+    tagline: "ตู้คีออสก์ตั้งพื้น 32\" — เลือก Configuration ได้ 3 แบบ: Monitor / Windows / Android",
     description:
-      "ตู้คีออสก์ตั้งพื้น 32 นิ้ว พร้อมหน้ากากด้านหน้าแบบเปลี่ยนได้ (Replaceable Front Panel) ปรับแต่งตามการใช้งาน เพิ่ม Printer, Scanner, Fingerprint ได้อย่างรวดเร็ว ตัวเครื่องเหล็กพ่นสีอบ ทนทานสำหรับใช้งาน 24/7",
+      "KD32B คือซีรีส์ตู้คีออสก์ตั้งพื้น 32 นิ้วที่ใช้โครงสร้างเดียวกันทั้ง 3 รุ่น — สามารถเลือกได้ว่าจะเป็น (1) Monitor Kiosk เฉพาะตู้+จอสัมผัสที่ต่อกับ PC ภายนอก, (2) Windows/Linux PC แบบ All-in-One หรือ (3) Android PC แบบ All-in-One — ทุกรุ่นมีหน้ากากด้านหน้าแบบเปลี่ยนได้ (Replaceable Front Panel) ปรับแต่งตามแบรนด์ เพิ่ม Printer, Scanner, Fingerprint, NFC ได้อย่างรวดเร็ว ตัวตู้เหล็กพ่นสีอบ ทนทานสำหรับใช้งาน 24/7",
     highlights: [
+      { icon: "Layers", title: "เลือก Configuration ได้ 3 แบบ", subtitle: "Monitor / Windows / Android" },
       { icon: "Hand", title: "10-Point Touch", subtitle: "PCAP Capacitive" },
-      { icon: "Box", title: "One-piece Streamlined", subtitle: "ดีไซน์ชิ้นเดียวเรียบ" },
-      { icon: "Award", title: "ATEX-certified", subtitle: "มาตรฐานความปลอดภัย" },
-      { icon: "ShieldCheck", title: "Plug-and-play", subtitle: "ติดตั้งง่าย" },
+      { icon: "Box", title: "Replaceable Front Panel", subtitle: "เปลี่ยนหน้ากากตามแบรนด์" },
+      { icon: "ShieldCheck", title: "24/7 Industrial-grade", subtitle: "เหล็กพ่นสีอบ ทนทาน" },
     ],
     features: [
       "หน้ากากด้านหน้าเปลี่ยนได้ (Replaceable Front Panel)",
