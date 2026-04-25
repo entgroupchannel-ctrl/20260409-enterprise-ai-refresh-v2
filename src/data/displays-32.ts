@@ -13,14 +13,23 @@ import osAndroid from "@/assets/touchwo/os-android.jpg";
 
 // Clean hero shots (logo/watermark removed)
 import hd32HeroClean from "@/assets/touchwo/hd32-hero-clean.jpg";
-import hr32HeroClean from "@/assets/touchwo/hr32-hero-clean.jpg";
-import kd32bHeroClean from "@/assets/touchwo/kd32b-hero-clean.jpg";
-import hd43HeroClean from "@/assets/touchwo/hd43-hero-clean.jpg";
-// Clean gallery-02 replacements (TouchWo watermark removed)
 import hd32Gallery02Clean from "@/assets/touchwo/hd32-gallery-02-clean.jpg";
+import hr32HeroClean from "@/assets/touchwo/hr32-hero-clean.jpg";
 import hr32Gallery02Clean from "@/assets/touchwo/hr32-gallery-02-clean.jpg";
+import kd32bHeroClean from "@/assets/touchwo/kd32b-hero-clean.jpg";
 import kd32bGallery02Clean from "@/assets/touchwo/kd32b-gallery-02-clean.jpg";
-import hd43Gallery02Clean from "@/assets/touchwo/hd43-gallery-02-clean.jpg";
+// HD43 — ภาพต้นฉบับจาก touchwo.com (ทั้ง 3 variants ใช้ตัวเครื่องดีไซน์เดียวกัน)
+import hd43Mon1 from "@/assets/touchwo/hd43/mon-1.jpg";
+import hd43Mon2 from "@/assets/touchwo/hd43/mon-2.jpg";
+import hd43Mon3 from "@/assets/touchwo/hd43/mon-3.jpg";
+import hd43Mon4 from "@/assets/touchwo/hd43/mon-4.jpg";
+import hd43Mon5 from "@/assets/touchwo/hd43/mon-5.jpg";
+import hd43Mon6 from "@/assets/touchwo/hd43/mon-6.jpg";
+import hd43Mon7 from "@/assets/touchwo/hd43/mon-7.jpg";
+import hd43X861 from "@/assets/touchwo/hd43/x86-1.jpg";
+import hd43X862 from "@/assets/touchwo/hd43/x86-2.jpg";
+import hd43Arm1 from "@/assets/touchwo/hd43/arm-1.jpg";
+import hd43Arm2 from "@/assets/touchwo/hd43/arm-2.jpg";
 // Clean install images (TouchWo watermark removed → Android theme)
 import hd32Install01Clean from "@/assets/touchwo/hd32-install-01-clean.jpg";
 import hd32Install02Clean from "@/assets/touchwo/hd32-install-02-clean.jpg";
@@ -962,12 +971,18 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       { image: hd43UcReception,   title: "Hotel Reception / Concierge", description: "จุด Self check-in โรงแรม แสดงข้อมูลห้องพัก แผนที่ และ Concierge Services ลดภาระ Front desk และยกระดับประสบการณ์ลูกค้าระดับพรีเมียม" },
     ],
     gallery: [
-      hd43HeroClean,
-      hd43Gallery02Clean,
-      hd32HeroClean, // shared design — ตัวเครื่องเดียวกัน scale-up
+      hd43Mon1,   // Front view (ภาพต้นฉบับ touchwo)
+      hd43Mon2,   // Side / angle view
+      hd43X861,   // Windows variant front
+      hd43X862,   // Windows variant angle
+      hd43Arm1,   // Android variant front
+      hd43Arm2,   // Android variant angle
+      hd43Mon5,   // Detail / bezel
+      hd43Mon6,   // I/O ports
+      hd43Mon7,   // Mounting options
     ],
-    ioImage: "",
-    installImages: [hd32Install01Clean, hd32Install02Clean, hd32Install03Clean],
+    ioImage: hd43Mon6,
+    installImages: [hd43Mon3, hd43Mon4, hd43Mon7],
     featureImages: [],
     dimensionDrawings: [],
     osSupport: ["windows", "linux", "android"],
