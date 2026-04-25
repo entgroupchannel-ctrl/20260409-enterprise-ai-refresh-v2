@@ -119,7 +119,7 @@ export default function InteractiveDisplay() {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/40" />
         </div>
-        <div className="container mx-auto px-4 py-16 md:py-24">
+        <div className="container max-w-7xl mx-auto px-6 py-16 md:py-24">
           <Link to="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6">
             <ArrowLeft className="h-4 w-4" /> กลับหน้าหลัก
           </Link>
@@ -146,7 +146,7 @@ export default function InteractiveDisplay() {
       </section>
 
       {/* Features */}
-      <section className="container mx-auto px-4 py-16">
+      <section className="container max-w-7xl mx-auto px-6 py-16">
         <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl font-bold">ทำไมต้องเลือก Interactive Touch Display</h2>
           <p className="text-muted-foreground mt-3">มาตรฐานอุตสาหกรรม ทนทาน พร้อมใช้งานต่อเนื่อง 24/7</p>
@@ -170,7 +170,7 @@ export default function InteractiveDisplay() {
 
       {/* Use cases */}
       <section className="border-y border-border bg-muted/30">
-        <div className="container mx-auto px-4 py-16">
+        <div className="container max-w-7xl mx-auto px-6 py-16">
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold">ใช้งานได้หลากหลาย</h2>
             <p className="text-muted-foreground mt-3">3 กลุ่มเป้าหมายหลักที่ลูกค้าเลือกใช้งาน</p>
@@ -200,7 +200,7 @@ export default function InteractiveDisplay() {
       </section>
 
       {/* Products */}
-      <section id="products" className="container mx-auto px-4 py-16">
+      <section id="products" className="container max-w-7xl mx-auto px-6 py-16">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold">เลือกขนาดที่เหมาะกับงานคุณ</h2>
@@ -280,7 +280,7 @@ export default function InteractiveDisplay() {
 
       {/* CTA */}
       <section className="border-t border-border">
-        <div className="container mx-auto px-4 py-16 text-center">
+        <div className="container max-w-7xl mx-auto px-6 py-16 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">ต้องการคำแนะนำเฉพาะโครงการ?</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
             ทีมวิศวกรของเราพร้อมช่วยออกแบบ-สำรวจหน้างาน-เลือกขนาด-รูปแบบติดตั้ง
