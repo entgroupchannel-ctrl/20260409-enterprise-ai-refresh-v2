@@ -251,11 +251,7 @@ export const DISPLAYS_49: Record<Display49Slug, Display32> = {
       },
     ],
     datasheetUrl: "https://touchwo.com/product/49-touch-pc-hr49/",
-    ports: [
-      "Power Button × 1", "DC 12V × 1", "HDMI in/out × 1",
-      "VGA × 1", "DVI × 1 (Monitor)", "Audio in/out × 1", "MIC × 1 (PC)",
-      "RJ45 × 1", "USB × 1–4 (ตามรุ่น)", "TF/SD × 1 (Android)", "Wi-Fi Antenna × 1",
-    ],
+    ports: [],
     specs: [
       { title: "Windows / Linux System (OPS x86)", rows: [
         { label: "CPU (เลือกได้)", value: "OPS Intel® Core™ i3-4Gen / i5-10Gen / i7-11Gen" },
