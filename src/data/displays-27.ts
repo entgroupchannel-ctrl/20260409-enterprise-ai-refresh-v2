@@ -24,6 +24,16 @@ import hd27Install1 from "@/assets/touchwo/hd27/install-1.jpg";
 import hd27Install2 from "@/assets/touchwo/hd27/install-2.jpg";
 import hd27Install3 from "@/assets/touchwo/hd27/install-3.jpg";
 
+// Use Case scenes — รูปการใช้งานจริง
+import hd27UcPos from "@/assets/touchwo/usecases/hd27-uc-pos.jpg";
+import hd27UcMeeting from "@/assets/touchwo/usecases/hd27-uc-meeting.jpg";
+import hd27UcHealthcare from "@/assets/touchwo/usecases/hd27-uc-healthcare.jpg";
+import hd27UcEducation from "@/assets/touchwo/usecases/hd27-uc-education.jpg";
+import gd27UcRetail from "@/assets/touchwo/usecases/gd27c-uc-retail.jpg";
+import gd27UcHealthcare from "@/assets/touchwo/usecases/gd27c-uc-healthcare.jpg";
+import gd27UcBank from "@/assets/touchwo/usecases/gd27c-uc-bank.jpg";
+import gd27UcWayfinding from "@/assets/touchwo/usecases/gd27c-uc-wayfinding.jpg";
+
 // GD27C — Wall-Mounting Touch Kiosk (Portrait)
 import gd27P1 from "@/assets/touchwo/gd27c/p-1.jpg";
 import gd27P2 from "@/assets/touchwo/gd27c/p-2.jpg";
