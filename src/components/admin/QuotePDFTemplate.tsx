@@ -282,7 +282,7 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
       </div>
 
       {/* ── PRODUCTS TABLE (thead repeats on each page) ───────────────── */}
-      <table style={s.table}>
+      <table className="products" style={s.table}>
         <thead>
           <tr>
             <th style={{ ...s.th, width: '32px' }}>#</th>
