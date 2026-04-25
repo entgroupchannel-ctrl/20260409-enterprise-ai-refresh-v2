@@ -1,5 +1,5 @@
 // src/components/admin/PrintPreviewDialog.tsx
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -10,10 +10,10 @@ import {
 import { Button } from '@/components/ui/button';
 import { Printer, Download, Loader2, AlertCircle } from 'lucide-react';
 import QuotePDFTemplate from './QuotePDFTemplate';
-import PDFRenderHost, { PDFRenderHostHandle } from './PDFRenderHost';
 import { useCompanySettings } from '@/hooks/useCompanySettings';
 import { supabase } from '@/integrations/supabase/client';
 import { mergeRevisionWithQuote, checkQuoteRevisionConsistency } from '@/lib/quote-pdf-merge';
+import { downloadQuotePdf, printQuotePdf } from '@/lib/quote-pdf-generator';
 
 interface PrintPreviewDialogProps {
   open: boolean;
@@ -33,7 +33,6 @@ export default function PrintPreviewDialog({
   const [isPrinting, setIsPrinting] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
   const [autoFired, setAutoFired] = useState(false);
-  const renderHostRef = useRef<PDFRenderHostHandle>(null);
 
   const { settings: companySettings, loading: companyLoading } = useCompanySettings();
   const [salePerson, setSalePerson] = useState<any>(null);
@@ -78,27 +77,46 @@ export default function PrintPreviewDialog({
   const formatCurrency = (amount: number) =>
     new Intl.NumberFormat('th-TH', { minimumFractionDigits: 0 }).format(amount);
 
+  const getPdfParams = () => ({
+    quote,
+    revision: mergeRevisionWithQuote(revision, quote),
+    companyInfo: {
+      name_th: companySettings?.name_th,
+      name_en: companySettings?.name_en,
+      address_th: companySettings?.address_th,
+      address_en: companySettings?.address_en,
+      phone: companySettings?.phone,
+      fax: companySettings?.fax,
+      email: companySettings?.email,
+      website: companySettings?.website,
+      tax_id: companySettings?.tax_id,
+      branch_type: companySettings?.branch_type,
+      branch_code: companySettings?.branch_code,
+      branch_name: companySettings?.branch_name,
+      logo_url: companySettings?.logo_url,
+    },
+    salePerson,
+    bankAccounts,
+  });
+
   const handlePrint = async () => {
-    if (!renderHostRef.current) return;
+    if (!companySettings) return;
     setIsPrinting(true);
     try {
-      renderHostRef.current.print();
+      await printQuotePdf(getPdfParams());
+    } catch (error) {
+      console.error('Error printing PDF:', error);
+      alert('เกิดข้อผิดพลาดในการพิมพ์ PDF');
     } finally {
-      // Browser print dialog is sync-blocking; clear flag after it returns
       setIsPrinting(false);
     }
   };
 
   const handleDownloadPDF = async () => {
-    if (!renderHostRef.current) return;
+    if (!companySettings) return;
     setIsDownloading(true);
     try {
-      await renderHostRef.current.download(
-        `${quote.quote_number}-Rev${revision.revision_number}.pdf`,
-        companySettings?.name_th || 'ENT Group',
-        `${quote.quote_number} Rev #${revision.revision_number}`,
-        'เอกสารนี้ออกโดยระบบอัตโนมัติ',
-      );
+      await downloadQuotePdf(getPdfParams(), `${quote.quote_number}-Rev${revision.revision_number}.pdf`);
     } catch (error) {
       console.error('Error generating PDF:', error);
       alert('เกิดข้อผิดพลาดในการสร้าง PDF');
@@ -238,32 +256,6 @@ export default function PrintPreviewDialog({
         </div>
       </DialogContent>
 
-      {/* Hidden iframe host: render template at exact A4 inner-width (720px),
-          isolated from Dialog/admin layout. Used for download + print. */}
-      {open && companySettings && (
-        <PDFRenderHost
-          ref={renderHostRef}
-          quote={quote}
-          revision={mergeRevisionWithQuote(revision, quote)}
-          companyInfo={{
-            name_th: companySettings.name_th,
-            name_en: companySettings.name_en,
-            address_th: companySettings.address_th,
-            address_en: companySettings.address_en,
-            phone: companySettings.phone,
-            fax: companySettings.fax,
-            email: companySettings.email,
-            website: companySettings.website,
-            tax_id: companySettings.tax_id,
-            branch_type: companySettings.branch_type,
-            branch_code: companySettings.branch_code,
-            branch_name: companySettings.branch_name,
-            logo_url: companySettings.logo_url,
-          }}
-          salePerson={salePerson}
-          bankAccounts={bankAccounts}
-        />
-      )}
     </Dialog>
   );
 }
