@@ -25,6 +25,9 @@ import hr49Feat1 from "@/assets/touchwo/hr49/feat-1.png";
 import hr49Feat2 from "@/assets/touchwo/hr49/feat-2.png";
 import hr49Feat3 from "@/assets/touchwo/hr49/feat-3.png";
 import hr49Feat4 from "@/assets/touchwo/hr49/feat-4.png";
+import hr49InstallWall from "@/assets/touchwo/hr49/install-wall.jpg";
+import hr49InstallFloor from "@/assets/touchwo/hr49/install-floor.jpg";
+import hr49InstallMobile from "@/assets/touchwo/hr49/install-mobile.jpg";
 
 import hr49UcWayfinding from "@/assets/touchwo/usecases/hr49-uc-wayfinding.jpg";
 import hr49UcBoardroom from "@/assets/touchwo/usecases/hr49-uc-boardroom.jpg";
@@ -75,7 +78,7 @@ export const DISPLAYS_49: Record<Display49Slug, Display32> = {
       hr49P1, hr49P2, hr49P3, hr49P4, hr49P5, hr49P6, hr49P7,
     ],
     ioImage: hr49IoMonitor,
-    installImages: [hr49Feat1, hr49Feat2, hr49Feat3],
+    installImages: [hr49InstallWall, hr49InstallFloor, hr49InstallMobile],
     featureImages: [hr49Feat4],
     dimensionDrawings: [
       {
