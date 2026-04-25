@@ -409,7 +409,7 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
 
       {/* ── BANK ACCOUNTS ─────────────────────────────────────────────── */}
       {bankAccounts && bankAccounts.length > 0 && (
-        <div style={s.bankWrap}>
+        <div className="pdf-keep" style={s.bankWrap}>
           <p style={s.bankLabel}>การชำระเงิน — โอนเข้าบัญชี:</p>
           <div style={s.bankGrid}>
             {bankAccounts.map((bank, idx) => (
