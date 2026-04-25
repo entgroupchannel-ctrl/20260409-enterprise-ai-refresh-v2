@@ -222,6 +222,13 @@ const Display32Detail = () => {
                   <Download className="h-4 w-4 mr-2" /> Datasheet
                 </a>
               </Button>
+              {product.dimensionUrl && (
+                <Button variant="outline" asChild>
+                  <a href={product.dimensionUrl} target="_blank" rel="noopener noreferrer">
+                    <Download className="h-4 w-4 mr-2" /> Dimension Drawing
+                  </a>
+                </Button>
+              )}
             </div>
           </div>
         </section>
@@ -518,18 +525,32 @@ const Display32Detail = () => {
         >
           <div className="rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 via-card to-card p-6 sm:p-10 text-center">
             <h2 className="text-2xl sm:text-3xl font-bold mb-2">สนใจ {product.modelCode}?</h2>
-            <p className="text-muted-foreground mb-6">ดาวน์โหลดเอกสารสเปกฉบับเต็ม หรือขอใบเสนอราคาพร้อมราคาพิเศษสำหรับองค์กร</p>
+            <p className="text-muted-foreground mb-6">
+              ดาวน์โหลดเอกสารฉบับเต็มสำหรับฝ่ายจัดซื้อและทีมวิศวกร
+              {product.dimensionUrl && " — มีทั้ง Datasheet และแบบเขียนทางวิศวกรรม (Mechanical Dimension)"}
+            </p>
             <div className="flex flex-wrap justify-center gap-3">
               <Button asChild size="lg">
                 <a href={product.datasheetUrl} target="_blank" rel="noopener noreferrer">
                   <Download className="h-4 w-4 mr-2" /> ดาวน์โหลด Datasheet (PDF)
                 </a>
               </Button>
+              {product.dimensionUrl && (
+                <Button asChild size="lg" variant="secondary">
+                  <a href={product.dimensionUrl} target="_blank" rel="noopener noreferrer">
+                    <Download className="h-4 w-4 mr-2" /> ดาวน์โหลด Mechanical Dimension (PDF)
+                  </a>
+                </Button>
+              )}
               <QuoteRequestButton
                 productName={product.name}
-               
               />
             </div>
+            {product.dimensionUrl && (
+              <p className="text-xs text-muted-foreground mt-4">
+                Datasheet — สเปกฉบับเต็ม 4 หน้า  ·  Mechanical Dimension — แบบเขียน A3 ความละเอียดสูง พร้อม Legend และหน่วย mm
+              </p>
+            )}
           </div>
         </section>
       </main>

@@ -101,6 +101,7 @@ export interface Display32 {
   }[];
   osSupport: OSKey[];
   datasheetUrl: string;
+  dimensionUrl?: string;
   specs: SpecGroup[];
   ports: string[];
   // Quick facts for comparison table
@@ -184,7 +185,8 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       },
     ],
     osSupport: [],
-    datasheetUrl: PDF("HD32-Datasheet.pdf"),
+    datasheetUrl: "/datasheets/ENT-Datasheet-HD32.pdf",
+    dimensionUrl: "/datasheets/ENT-Dimension-HD32.pdf",
     ports: ["HDMI in × 1", "USB × 1", "VGA × 1", "Audio in/out × 1", "Power Socket × 1"],
     specs: [
       { title: "LCD Panel", rows: [
@@ -294,7 +296,8 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       },
     ],
     osSupport: [],
-    datasheetUrl: PDF("HR32-Datasheet.pdf"),
+    datasheetUrl: "/datasheets/ENT-Datasheet-HR32-Monitor.pdf",
+    dimensionUrl: "/datasheets/ENT-Dimension-HR32-Monitor.pdf",
     ports: ["HDMI in × 1", "DVI × 1", "VGA × 1", "USB × 1", "Audio in/out × 1", "DC 12V × 1", "Power Socket × 1"],
     specs: [
       { title: "LCD Panel", rows: [
@@ -403,7 +406,8 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       },
     ],
     osSupport: ["android"],
-    datasheetUrl: PDF("HR32-ANDROID-Datasheet.pdf"),
+    datasheetUrl: "/datasheets/ENT-Datasheet-HR32-ARM.pdf",
+    dimensionUrl: "/datasheets/ENT-Dimension-HR32-ARM.pdf",
     ports: ["HDMI out × 1", "RJ45 × 1", "USB × 2", "Audio × 1", "TF/SD × 1", "Wi-Fi Antenna × 1", "DC 12V × 1", "Power Button × 1"],
     specs: [
       { title: "Android System (เลือก 1 ตัวเลือก)", rows: [
@@ -514,7 +518,8 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       },
     ],
     osSupport: ["android", "windows"],
-    datasheetUrl: PDF("GD32C-Datasheet.pdf"),
+    datasheetUrl: "/datasheets/ENT-Datasheet-GD32C.pdf",
+    dimensionUrl: "/datasheets/ENT-Dimension-GD32C.pdf",
     ports: ["RJ45", "USB", "HDMI", "Wi-Fi Antenna × 1", "AC Power"],
     specs: [
       { title: "LCD Panel", rows: [
@@ -623,7 +628,8 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       },
     ],
     osSupport: ["android", "windows", "linux"],
-    datasheetUrl: PDF("KD32B-Datasheet.pdf"),
+    datasheetUrl: "/datasheets/ENT-Datasheet-KD32B.pdf",
+    dimensionUrl: "/datasheets/ENT-Dimension-KD32B.pdf",
     ports: ["RJ45 × 1", "USB 2.0 × 2", "Power Socket × 1"],
     specs: [
       { title: "LCD Panel", rows: [
