@@ -402,7 +402,7 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       brightness: "300 cd/m²",
       contrast: "1200:1",
       touch: "PCAP 10pt",
-      os: "—",
+      os: "Touch-only / Windows / Android (เลือกได้)",
       formFactor: "Monitor (Unibody)",
       dimensionCm: "75.2 × 44.6 × 6.0",
       weightKg: "14.2",
