@@ -101,8 +101,9 @@ async function getPdfMake() {
 }
 
 function cell(content: Content, options: AnyObj = {}): TableCell {
+  const base = (typeof content === 'string' || Array.isArray(content)) ? { text: content } : (content as AnyObj);
   return {
-    ...((typeof content === 'string' || Array.isArray(content)) ? { text: content } : content),
+    ...base,
     margin: options.margin ?? [3, 4, 3, 4],
     ...options,
   } as TableCell;
