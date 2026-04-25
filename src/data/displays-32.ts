@@ -262,7 +262,8 @@ const HD32_VARIANTS: Display32["variants"] = [
   },
 ];
 
-
+export const DISPLAYS_32: Record<Display32Slug, Display32> = {
+  hd32: {
     slug: "hd32",
     modelCode: "HD32",
     name: '32" Touch PC HD32 (X86 All-in-One)',
