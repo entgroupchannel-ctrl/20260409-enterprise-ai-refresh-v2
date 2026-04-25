@@ -322,7 +322,7 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
 
       {/* ── FREE ITEMS ────────────────────────────────────────────────── */}
       {freeItems.length > 0 && (
-        <div style={s.freeItemsBox}>
+        <div className="pdf-keep" style={s.freeItemsBox}>
           <p style={{ fontWeight: 'bold', margin: '0 0 4px' }}>🎁 ของแถม</p>
           {freeItems.map((item: any, idx: number) => (
             <div key={idx} style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -337,7 +337,7 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
 
       {/* ── CUSTOMER MESSAGE ──────────────────────────────────────────── */}
       {revision.customer_message && (
-        <div style={s.customerMsgBox}>
+        <div className="pdf-keep" style={s.customerMsgBox}>
           <p style={{ margin: '0 0 2px', color: '#666', fontSize: '8.5pt' }}>ข้อความจากลูกค้า:</p>
           <p style={{ margin: 0, fontStyle: 'italic' }}>"{revision.customer_message}"</p>
         </div>
