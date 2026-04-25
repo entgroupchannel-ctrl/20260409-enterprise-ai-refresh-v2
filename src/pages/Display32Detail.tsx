@@ -66,13 +66,15 @@ const ALL_SECTIONS = [
   { id: "download",       label: "Datasheet",       icon: Download },
 ];
 
-const Display32Detail = () => {
+interface Props { groupSize?: GroupSize }
+const Display32Detail = ({ groupSize = 32 }: Props) => {
+  const group = GROUPS[groupSize];
   const { model } = useParams<{ model?: string }>();
   const [params, setParams] = useSearchParams();
-  const rawRequested = (model ?? params.get("model") ?? "hd32") as Display32Slug;
+  const rawRequested = (model ?? params.get("model") ?? group.defaultModel) as string;
   // Backward-compat: รวม HR32 Android เข้ากับ HR32 Series แล้ว
-  const requested = (rawRequested === ("hr32-android" as Display32Slug) ? "hr32" : rawRequested) as Display32Slug;
-  const product = DISPLAYS_32[requested];
+  const requested = (rawRequested === "hr32-android" ? "hr32" : rawRequested);
+  const product = group.data[requested];
 
   const [activeSection, setActiveSection] = useState("overview");
   const [lightbox, setLightbox] = useState<{ images: string[]; index: number } | null>(null);
@@ -112,12 +114,12 @@ const Display32Detail = () => {
     }
   };
 
-  const switchModel = (s: Display32Slug) => {
+  const switchModel = (s: string) => {
     setParams({ model: s });
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  if (!product) return <Navigate to="/products/displays-32" replace />;
+  if (!product) return <Navigate to={group.basePath} replace />;
 
   return (
     <div className="min-h-screen bg-background">
