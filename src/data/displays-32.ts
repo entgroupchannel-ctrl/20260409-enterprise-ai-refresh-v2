@@ -29,7 +29,7 @@ import hr32DimBack from "@/assets/touchwo/hr32-dim-back.jpg";
 import gd32cDimFront from "@/assets/touchwo/gd32c-dim-front.png";
 import gd32cDimBack from "@/assets/touchwo/gd32c-dim-back.png";
 import hd32DimBack1 from "@/assets/touchwo/hd32-dim-back-1.png";
-import hd32DimBack2 from "@/assets/touchwo/hd32-dim-back-2.png";
+import hd32DimMultiview from "@/assets/touchwo/hd32-dim-multiview.png";
 import kd32bDim1 from "@/assets/touchwo/kd32b-dim-1.png";
 import kd32bDim2 from "@/assets/touchwo/kd32b-dim-2.png";
 
@@ -172,13 +172,13 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
         ],
       },
       {
-        image: hd32DimBack2,
-        title: "ด้านหลัง — จุดเจาะฐาน (Desk/Embed Mount)",
-        caption: "มุมมองด้านหลังเสริม แสดงตำแหน่งจุดเจาะฐานล่าง 3 จุด (236 / 220 / 236 mm) สำหรับการติดตั้งบนขาตั้งโต๊ะ หรือฝังในเฟอร์นิเจอร์/Counter — เหมาะกับงาน POS, Reception และ Self-service Kiosk ที่ต้องการความมั่นคงสูง",
+        image: hd32DimMultiview,
+        title: "มุมมองรอบตัวเครื่อง — Top / Front / Side / Bottom",
+        caption: "แบบทางวิศวกรรมแสดงสัดส่วนรอบตัวเครื่อง HD32 — ขอบจอบาง 20.61 mm, ความหนาตัวเครื่อง 51.9 mm, พื้นที่แสดงผล 700.19 × 394.99 mm (32\" diagonal) พร้อมตำแหน่งช่อง I/O ด้านบน และช่องระบายอากาศด้านล่าง 140.7 / 60.3 mm — เหมาะสำหรับการออกแบบช่องฝัง/ตู้ Embed",
         callouts: [
-          { label: "จุดเจาะฐานล่าง", value: "236 + 220 + 236 mm" },
-          { label: "ความสูงตัวเครื่อง", value: "425.2 mm" },
-          { label: "ความหนา (max)", value: "51.9 mm (รวม I/O)" },
+          { label: "ความกว้างตัวเครื่อง", value: "741.4 mm" },
+          { label: "ขอบจอ (Bezel)", value: "20.61 mm" },
+          { label: "ความหนา (max)", value: "51.9 mm" },
           { label: "พื้นที่แสดงผล", value: "700.19 × 394.99 mm (32\")" },
         ],
       },
