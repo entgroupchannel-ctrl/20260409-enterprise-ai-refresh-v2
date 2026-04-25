@@ -15,6 +15,10 @@ import osAndroid from "@/assets/touchwo/os-android.jpg";
 import hd32HeroClean from "@/assets/touchwo/hd32-hero-clean.jpg";
 import hr32HeroClean from "@/assets/touchwo/hr32-hero-clean.jpg";
 import kd32bHeroClean from "@/assets/touchwo/kd32b-hero-clean.jpg";
+// Clean gallery-02 replacements (TouchWo watermark removed)
+import hd32Gallery02Clean from "@/assets/touchwo/hd32-gallery-02-clean.jpg";
+import hr32Gallery02Clean from "@/assets/touchwo/hr32-gallery-02-clean.jpg";
+import kd32bGallery02Clean from "@/assets/touchwo/kd32b-gallery-02-clean.jpg";
 
 export const OS_BACKGROUNDS = {
   windows: { src: osWindows, label: "Windows", subtitle: "x86 Intel/AMD รองรับ Windows 10/11 IoT" },
