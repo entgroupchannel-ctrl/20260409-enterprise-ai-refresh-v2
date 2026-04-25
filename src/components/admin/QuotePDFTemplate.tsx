@@ -377,7 +377,7 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
 
       {/* ── TERMS ─────────────────────────────────────────────────────── */}
       {(quote.payment_terms || quote.delivery_terms || quote.warranty_terms || quote.notes) && (
-        <div style={s.termsWrap}>
+        <div className="pdf-keep" style={s.termsWrap}>
           <div style={s.termsGrid}>
             {quote.payment_terms && (
               <div>
