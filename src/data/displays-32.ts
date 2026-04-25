@@ -208,7 +208,7 @@ const HR32_VARIANTS: Display32["variants"] = [
     cpu: "Rockchip RK3568 / 3288 / 3588",
     ram: "2–8GB LPDDR4",
     storage: "eMMC 16–128GB",
-    targetSlug: "hr32-android",
+    targetSlug: "hr32",
     accent: "secondary",
   },
 ];
@@ -924,7 +924,7 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
   },
 };
 
-export const DISPLAY_32_ORDER: Display32Slug[] = ["hd32", "hr32", "hr32-android", "gd32c", "kd32b"];
+export const DISPLAY_32_ORDER: Display32Slug[] = ["hd32", "hr32", "gd32c", "kd32b"];
 
 export const getDisplay32 = (slug: string): Display32 | undefined =>
   (DISPLAYS_32 as Record<string, Display32>)[slug];
