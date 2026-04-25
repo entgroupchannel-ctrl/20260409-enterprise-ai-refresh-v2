@@ -81,6 +81,14 @@ const GROUPS: Record<GroupSize, {
     label: 'Touch Display 55"',
     parentLink: "/interactive-display",
   },
+  65: {
+    data: DISPLAYS_65 as Record<string, Display32>,
+    order: DISPLAY_65_ORDER as unknown as string[],
+    basePath: "/products/displays-65",
+    defaultModel: "hr65",
+    label: 'Touch Display 65"',
+    parentLink: "/interactive-display",
+  },
 };
 
 const ICONS: Record<string, any> = {
