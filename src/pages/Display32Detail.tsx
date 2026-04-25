@@ -318,8 +318,10 @@ const Display32Detail = () => {
             <SectionTitle
               eyebrow="CPU Configurations"
               title="เลือก CPU ได้ 3 ระดับตามความต้องการ"
-              subtitle="รุ่นเดียวกัน — ปรับสเปก PC ภายในให้เหมาะกับงาน ตั้งแต่ POS ทั่วไป จนถึงงาน Industrial / AI Workstation"
             />
+            <p className="text-sm text-muted-foreground mb-6 -mt-2">
+              รุ่นเดียวกัน — ปรับสเปก PC ภายในให้เหมาะกับงาน ตั้งแต่ POS ทั่วไป จนถึงงาน Industrial / AI Workstation
+            </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               {product.cpuOptions.map((opt, i) => {
                 const tierColor =
