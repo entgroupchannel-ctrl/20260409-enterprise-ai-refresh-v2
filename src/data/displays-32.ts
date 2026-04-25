@@ -266,16 +266,16 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
   hd32: {
     slug: "hd32",
     modelCode: "HD32",
-    name: '32" Touch PC HD32 (X86 All-in-One)',
-    shortName: "HD32 Touch PC",
-    category: "Windows / Linux Touch PC",
+    name: '32" HD32 Series — All-in-One Touch PC (Windows / Linux / Android)',
+    shortName: "HD32 Series",
+    category: "Configurable 32\" All-in-One Touch PC",
     formFactor: "All-in-One PC",
-    tagline: "All-in-One PC จอสัมผัส 32 นิ้ว — เลือก CPU ได้ 3 ระดับ Celeron / i5 / i7 รองรับ Windows & Linux",
+    tagline: "All-in-One Touch PC จอ 32\" — เลือก OS และ CPU ได้ Windows/Linux (x86) หรือ Android (ARM)",
     description:
-      "AIO Touch PC จอ Capacitive 10 จุด พร้อม PC ในตัวที่เลือกสเปกได้ตั้งแต่ Intel Celeron J6412 (Entry), Core i5 รุ่น 8 (Mid) ไปจนถึง Core i7 รุ่น 10 (High Performance) ติดตั้ง Windows 10/11 หรือ Linux ได้จากโรงงาน ขอบจอบาง 13mm รองรับการติดตั้งแบบแขวนผนัง วางตั้งโต๊ะ และฝังเฟอร์นิเจอร์ — เหมาะสำหรับ POS Self-service, Kiosk องค์กร, ระบบ Queue และห้องประชุม",
+      "HD32 คือซีรีส์ All-in-One Touch PC จอสัมผัส 32 นิ้ว ขอบจอบาง 13mm ตัวเครื่องเดียวกัน — เลือก Configuration ได้ 2 แบบ: (1) Windows/Linux PC พร้อม Intel x86 (Celeron J6412 / Core i5-8th / Core i7-10th) หรือ (2) Android PC พร้อม Rockchip ARM (RK3568 / RK3288 / RK3588) ติดตั้ง OS จากโรงงาน รองรับการติดตั้งแบบแขวนผนัง วางตั้งโต๊ะ และฝังเฟอร์นิเจอร์ — เหมาะสำหรับ POS Self-service, Square POS, Kiosk องค์กร, ระบบ Queue และห้องประชุม",
     highlights: [
-      { icon: "Cpu", title: "เลือก CPU ได้ 3 ระดับ", subtitle: "Celeron / i5 / i7" },
-      { icon: "Monitor", title: "Windows 10/11 & Linux", subtitle: "Pre-installed OS" },
+      { icon: "Layers", title: "เลือก OS ได้ 2 แบบ", subtitle: "Windows/Linux หรือ Android" },
+      { icon: "Cpu", title: "เลือก CPU ได้หลายระดับ", subtitle: "Intel x86 หรือ Rockchip ARM" },
       { icon: "Maximize", title: "ขอบจอบาง 13mm", subtitle: "Ultra-small Bezel" },
       { icon: "ShieldCheck", title: "ทำงาน 24/7", subtitle: "Industrial Grade" },
     ],
