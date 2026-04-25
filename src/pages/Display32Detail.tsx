@@ -12,7 +12,7 @@ import FooterCompact from "@/components/FooterCompact";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import ProductGallery from "@/components/ProductGallery";
-import ImageLightbox from "@/components/ImageLightbox";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
 import { DISPLAYS_32, DISPLAY_32_ORDER, type Display32, type Display32Slug } from "@/data/displays-32";
 
@@ -377,7 +377,7 @@ const Display32Detail = () => {
       <FooterCompact />
 
       {lightbox && (
-        <ImageLightbox
+        <SimpleLightbox
           images={lightbox.images}
           startIndex={lightbox.index}
           onClose={() => setLightbox(null)}
