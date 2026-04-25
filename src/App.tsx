@@ -12,6 +12,7 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { lazyRetry } from "@/lib/route-loader";
 import Index from "./pages/Index.tsx";
 import ScrollToTop from "./components/ScrollToTop.tsx";
+import PrintInterceptor from "./components/PrintInterceptor.tsx";
 import SocialRibbon from "./components/SocialRibbon.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import GeneralChatWidget from "./components/chat/GeneralChatWidget.tsx";
