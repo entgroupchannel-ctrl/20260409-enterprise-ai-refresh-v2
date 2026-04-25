@@ -236,9 +236,9 @@ const HD32_VARIANTS: Display32["variants"] = [
     cpu: "Intel Celeron / i5 / i7",
     ram: "4–16GB DDR4",
     storage: "SSD 128–512GB",
-    targetSlug: "hd32",
     accent: "primary",
   },
+  // (HD32 มีหน้ารายละเอียดเดียว — ไม่ต้องตั้ง targetSlug ของ variant นี้)
   {
     key: "android",
     label: "HD32 — Android PC",
