@@ -34,7 +34,19 @@ import hr49UcBoardroom from "@/assets/touchwo/usecases/hr49-uc-boardroom.jpg";
 import hr49UcHotel from "@/assets/touchwo/usecases/hr49-uc-hotel.jpg";
 import hr49UcQsr from "@/assets/touchwo/usecases/hr49-uc-qsr.jpg";
 
-export type Display49Slug = "hr49";
+// HD49 — slim-bezel 13mm series (Monitor / Windows / Android)
+import hd49Hero from "@/assets/touchwo/hd49/hero.png";
+import hd49PMain from "@/assets/touchwo/hd49/p-main.jpg";
+import hd49PFront from "@/assets/touchwo/hd49/p-front.jpg";
+import hd49PPortrait from "@/assets/touchwo/hd49/p-portrait.jpg";
+import hd49PSide from "@/assets/touchwo/hd49/p-side.jpg";
+import hd49P2 from "@/assets/touchwo/hd49/p-2.jpg";
+import hd49P3 from "@/assets/touchwo/hd49/p-3.png";
+import hd49Install1 from "@/assets/touchwo/hd49/install-1.jpg";
+import hd49Install2 from "@/assets/touchwo/hd49/install-2.jpg";
+import hd49Install3 from "@/assets/touchwo/hd49/install-3.jpg";
+
+export type Display49Slug = "hr49" | "hd49";
 export { OS_BACKGROUNDS };
 export type { OSKey };
 
