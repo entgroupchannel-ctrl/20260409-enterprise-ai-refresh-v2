@@ -971,12 +971,18 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       { image: hd43UcReception,   title: "Hotel Reception / Concierge", description: "จุด Self check-in โรงแรม แสดงข้อมูลห้องพัก แผนที่ และ Concierge Services ลดภาระ Front desk และยกระดับประสบการณ์ลูกค้าระดับพรีเมียม" },
     ],
     gallery: [
-      hd43HeroClean,
-      hd43Gallery02Clean,
-      hd32HeroClean, // shared design — ตัวเครื่องเดียวกัน scale-up
+      hd43Mon1,   // Front view (ภาพต้นฉบับ touchwo)
+      hd43Mon2,   // Side / angle view
+      hd43X861,   // Windows variant front
+      hd43X862,   // Windows variant angle
+      hd43Arm1,   // Android variant front
+      hd43Arm2,   // Android variant angle
+      hd43Mon5,   // Detail / bezel
+      hd43Mon6,   // I/O ports
+      hd43Mon7,   // Mounting options
     ],
-    ioImage: "",
-    installImages: [hd32Install01Clean, hd32Install02Clean, hd32Install03Clean],
+    ioImage: hd43Mon6,
+    installImages: [hd43Mon3, hd43Mon4, hd43Mon7],
     featureImages: [],
     dimensionDrawings: [],
     osSupport: ["windows", "linux", "android"],
