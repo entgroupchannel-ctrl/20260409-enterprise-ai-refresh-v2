@@ -42,13 +42,14 @@ export default function PrintPreviewDialog({
   useEffect(() => {
     if (!open) { setAutoFired(false); return; }
     loadExtraData();
-  }, [open, revision?.created_by, companySettings?.id]);
+  }, [open, quote?.assigned_to, companySettings?.id]);
 
   const loadExtraData = async () => {
     setLoadingExtra(true);
     try {
-      // Load sale person from quote.assigned_to first, fallback to revision.created_by
-      const saleUserId = quote?.assigned_to || revision?.created_by;
+      // Load sale person from the quote owner only. Do not fall back to revision creator/customer.
+      const saleUserId = quote?.assigned_to;
+      setSalePerson(null);
       if (saleUserId) {
         const { data: userData } = await (supabase as any).from('users')
           .select('full_name, position, signature_url, show_signature_on_quotes, phone, email')
