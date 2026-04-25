@@ -12,6 +12,7 @@ import { Printer, Download, Loader2, AlertCircle } from 'lucide-react';
 import QuotePDFTemplate from './QuotePDFTemplate';
 import { useCompanySettings } from '@/hooks/useCompanySettings';
 import { supabase } from '@/integrations/supabase/client';
+import { mergeRevisionWithQuote } from '@/lib/quote-pdf-merge';
 
 interface PrintPreviewDialogProps {
   open: boolean;
@@ -191,7 +192,7 @@ export default function PrintPreviewDialog({
           ) : (
             <QuotePDFTemplate 
               quote={quote}
-              revision={revision}
+              revision={mergeRevisionWithQuote(revision, quote)}
               companyInfo={{
                 name_th: companySettings.name_th,
                 name_en: companySettings.name_en,

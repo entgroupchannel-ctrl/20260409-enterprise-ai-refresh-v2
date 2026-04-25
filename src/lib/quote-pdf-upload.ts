@@ -6,6 +6,7 @@ import { createRoot } from 'react-dom/client';
 import { createElement } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import QuotePDFTemplate from '@/components/admin/QuotePDFTemplate';
+import { mergeRevisionWithQuote } from '@/lib/quote-pdf-merge';
 
 interface GenerateQuotePdfParams {
   quote: any;
@@ -42,7 +43,7 @@ export async function generateAndUploadQuotePdf(
     root.render(
       createElement(QuotePDFTemplate as any, {
         quote,
-        revision,
+        revision: mergeRevisionWithQuote(revision, quote),
         companyInfo,
         salePerson,
         bankAccounts: bankAccounts || [],
