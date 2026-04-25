@@ -255,3 +255,91 @@ html {
     font-size: 0.875rem !important;
   }
 }
+
+/* ==========================================================================
+   Browser Print (Ctrl+P) safety net
+   The proper way to export PDFs is via the in-app "พิมพ์ / PDF" button which
+   renders QuotePDFTemplate via html2pdf. But if a user still hits Ctrl+P on
+   an admin page, we hide the admin chrome (header, nav, sidebars, action
+   buttons, sticky badges, chat widgets) so the printed output at least shows
+   the document content cleanly instead of the full admin UI.
+   ========================================================================== */
+@media print {
+  /* Reset background for print */
+  html, body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  /* Hide top-level admin chrome */
+  header,
+  nav,
+  aside,
+  footer.app-footer,
+  .admin-sidebar,
+  .admin-topbar,
+  [data-print-hide],
+  .no-print {
+    display: none !important;
+  }
+
+  /* Hide common floating / sticky widgets */
+  [data-radix-popper-content-wrapper],
+  [data-sonner-toaster],
+  .live-chat-widget,
+  .notification-bell,
+  .sticky,
+  .fixed {
+    display: none !important;
+  }
+
+  /* Hide vertical/rotated sticky labels (e.g. "ใบเสนอราคา QT… Rev 1") */
+  [style*="writing-mode"],
+  .writing-vertical,
+  .vertical-rl {
+    display: none !important;
+  }
+
+  /* Hide all buttons / form controls inside admin content by default */
+  .admin-content-area button,
+  .admin-content-area [role="tablist"],
+  .admin-content-area [role="combobox"],
+  .admin-content-area input,
+  .admin-content-area select,
+  .admin-content-area textarea,
+  .admin-content-area .negotiation-panel,
+  .admin-content-area .template-picker,
+  .admin-content-area .quote-actions {
+    display: none !important;
+  }
+
+  /* But always show the dedicated print-friendly area if present */
+  .print-area,
+  .print-area * {
+    display: revert !important;
+    visibility: visible !important;
+  }
+
+  .print-area {
+    position: absolute !important;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+
+  /* Page setup */
+  @page {
+    size: A4;
+    margin: 12mm 10mm;
+  }
+
+  /* Avoid breaking key blocks */
+  .pdf-keep,
+  thead { page-break-inside: avoid; }
+  thead { display: table-header-group; }
+  tr { page-break-inside: auto; }
+  td { page-break-inside: avoid; }
+}
