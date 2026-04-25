@@ -23,6 +23,9 @@ import kd32bGallery02Clean from "@/assets/touchwo/kd32b-gallery-02-clean.jpg";
 import hd32Install01Clean from "@/assets/touchwo/hd32-install-01-clean.jpg";
 import hd32Install02Clean from "@/assets/touchwo/hd32-install-02-clean.jpg";
 import hd32Install03Clean from "@/assets/touchwo/hd32-install-03-clean.jpg";
+// Mechanical dimension drawings
+import hr32DimFront from "@/assets/touchwo/hr32-dim-front.jpg";
+import hr32DimBack from "@/assets/touchwo/hr32-dim-back.jpg";
 
 export const OS_BACKGROUNDS = {
   windows: { src: osWindows, label: "Windows", subtitle: "x86 Intel/AMD รองรับ Windows 10/11 IoT" },
@@ -59,6 +62,13 @@ export interface Display32 {
   ioImage: string;
   installImages: string[];
   featureImages: string[];
+  /** Optional mechanical/dimension drawings for "Dimensions" section */
+  dimensionDrawings?: {
+    image: string;
+    title: string;
+    caption: string;
+    callouts?: { label: string; value: string }[];
+  }[];
   osSupport: OSKey[];
   datasheetUrl: string;
   specs: SpecGroup[];
@@ -190,6 +200,32 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
     ioImage: IMG("hr32", "io-01.jpg"),
     installImages: [],
     featureImages: [],
+    dimensionDrawings: [
+      {
+        image: hr32DimFront,
+        title: "ด้านหน้า + ด้านข้าง",
+        caption: "ขอบจอบางพิเศษ R6 ตัวเครื่องบางเพียง 28 mm — เหมาะกับงานติดตั้งฝังผนังหรือ Open Frame",
+        callouts: [
+          { label: "กว้าง × สูง (โครง)", value: "752 × 446 mm" },
+          { label: "พื้นที่แสดงผล", value: "700 × 395 mm" },
+          { label: "ความหนาขอบจอ", value: "26 mm" },
+          { label: "ความหนาตัวเครื่อง", value: "28 mm (ขั้นต่ำ) / 72 mm (รวมการ์ด)" },
+          { label: "มุมโค้งขอบ", value: "R6" },
+        ],
+      },
+      {
+        image: hr32DimBack,
+        title: "ด้านหลัง — รูยึด VESA + ช่องระบายอากาศ",
+        caption: "รองรับ VESA 400 × 200 พร้อมรูยึด M6 และรู Ø8 สำหรับขายึดเสริม ช่องระบายอากาศแนวนอน 2 แถว",
+        callouts: [
+          { label: "VESA Mounting", value: "400 × 200 mm" },
+          { label: "รูเกลียวยึด", value: "4 × M6 (รับน้ำหนักหลัก)" },
+          { label: "รูสำรอง", value: "6 × Ø8 (Bracket เสริม)" },
+          { label: "ตำแหน่ง connector", value: "ด้านล่าง — ออกสาย 211 mm จากกลาง" },
+          { label: "ระยะหลัง-รูยึด", value: "บน 109 / ล่าง 137 mm" },
+        ],
+      },
+    ],
     osSupport: [],
     datasheetUrl: PDF("HR32-Datasheet.pdf"),
     ports: ["HDMI in × 1", "DVI × 1", "VGA × 1", "USB × 1", "Audio in/out × 1", "DC 12V × 1", "Power Socket × 1"],
@@ -267,6 +303,32 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
     ioImage: IMG("hr32-android", "io-01.jpg"),
     installImages: [],
     featureImages: [],
+    dimensionDrawings: [
+      {
+        image: hr32DimFront,
+        title: "ด้านหน้า + ด้านข้าง",
+        caption: "ขอบจอบางพิเศษ R6 ตัวเครื่องบางเพียง 28 mm — เหมาะกับงานติดตั้งฝังผนังหรือ Open Frame",
+        callouts: [
+          { label: "กว้าง × สูง (โครง)", value: "752 × 446 mm" },
+          { label: "พื้นที่แสดงผล", value: "700 × 395 mm" },
+          { label: "ความหนาขอบจอ", value: "26 mm" },
+          { label: "ความหนาตัวเครื่อง", value: "28 mm (ขั้นต่ำ) / 72 mm (รวมการ์ด)" },
+          { label: "มุมโค้งขอบ", value: "R6" },
+        ],
+      },
+      {
+        image: hr32DimBack,
+        title: "ด้านหลัง — รูยึด VESA + ช่องระบายอากาศ",
+        caption: "รองรับ VESA 400 × 200 พร้อมรูยึด M6 และรู Ø8 สำหรับขายึดเสริม ช่องระบายอากาศแนวนอน 2 แถว",
+        callouts: [
+          { label: "VESA Mounting", value: "400 × 200 mm" },
+          { label: "รูเกลียวยึด", value: "4 × M6 (รับน้ำหนักหลัก)" },
+          { label: "รูสำรอง", value: "6 × Ø8 (Bracket เสริม)" },
+          { label: "ตำแหน่ง connector", value: "ด้านล่าง — ออกสาย 211 mm จากกลาง" },
+          { label: "ระยะหลัง-รูยึด", value: "บน 109 / ล่าง 137 mm" },
+        ],
+      },
+    ],
     osSupport: ["android"],
     datasheetUrl: PDF("HR32-ANDROID-Datasheet.pdf"),
     ports: ["HDMI out × 1", "RJ45 × 1", "USB × 2", "Audio × 1", "TF/SD × 1", "Wi-Fi Antenna × 1", "DC 12V × 1", "Power Button × 1"],
