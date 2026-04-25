@@ -98,11 +98,11 @@ export default function InteractiveDisplay() {
       <SEOHead
         title='Interactive Touch Display 32"–65" | จอทัชสกรีนอุตสาหกรรม | ENT Group'
         description='จอทัชสกรีนอุตสาหกรรมขนาด 32"-65" สำหรับห้องประชุม, Retail, Education, Factory HMI — IR Touch 10 จุด, IP65, Anti-glare, รับประกัน On-site 24 เดือน'
-        canonical="/interactive-display"
+        path="/interactive-display"
       />
       <BreadcrumbJsonLd items={[
-        { name: "หน้าแรก", url: "/" },
-        { name: "Interactive Touch Display", url: "/interactive-display" },
+        { name: "หน้าแรก", path: "/" },
+        { name: "Interactive Touch Display", path: "/interactive-display" },
       ]} />
 
       <MiniNavbar />
@@ -246,13 +246,13 @@ export default function InteractiveDisplay() {
                   </p>
                   <div className="flex flex-col gap-2">
                     <QuoteRequestButton
-                      productId={p.id}
+                      productModel={p.model}
                       productName={p.name}
                       size="sm"
                       className="w-full"
                     />
                     <AddToCartButton
-                      productId={p.id}
+                      productModel={p.model}
                       productName={p.name}
                       variant="outline"
                       size="sm"
@@ -288,7 +288,7 @@ export default function InteractiveDisplay() {
       </section>
 
       <FooterCompact />
-      <LineQRDialog open={lineOpen} onOpenChange={setLineOpen} />
+      <LineQRDialog open={lineOpen} onClose={() => setLineOpen(false)} />
     </div>
   );
 }

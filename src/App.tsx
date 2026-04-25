@@ -31,6 +31,7 @@ const Handheld = lazyRetry(() => import("./pages/Handheld"));
 const GKSeries = lazyRetry(() => import("./pages/GKSeries"));
 const PanelPCGTG = lazyRetry(() => import("./pages/PanelPCGTG"));
 const SmartDisplay = lazyRetry(() => import("./pages/SmartDisplay"));
+const InteractiveDisplay = lazyRetry(() => import("./pages/InteractiveDisplay"));
 const FPMSeries = lazyRetry(() => import("./pages/FPMSeries"));
 const FPMSeriesDetail = lazyRetry(() => import("./pages/FPMSeriesDetail"));
 const TouchWork = lazyRetry(() => import("./pages/TouchWork"));
@@ -219,6 +220,7 @@ const App = () => (
                     <Route path="/handheld" element={<Handheld />} />
                     <Route path="/panel-pc-gtg" element={<PanelPCGTG />} />
                     <Route path="/smart-display" element={<SmartDisplay />} />
+                    <Route path="/interactive-display" element={<InteractiveDisplay />} />
                     <Route path="/fpm-series" element={<FPMSeries />} />
                     <Route path="/fpm-series/:model" element={<FPMSeriesDetail />} />
                     <Route path="/touchwork" element={<TouchWork />} />
