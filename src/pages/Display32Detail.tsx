@@ -17,6 +17,34 @@ import ProductGalleryPortrait from "@/components/ProductGalleryPortrait";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
 import { DISPLAYS_32, DISPLAY_32_ORDER, OS_BACKGROUNDS, type Display32, type Display32Slug, type OSKey } from "@/data/displays-32";
+import { DISPLAYS_43, DISPLAY_43_ORDER } from "@/data/displays-43";
+
+type GroupSize = 32 | 43;
+const GROUPS: Record<GroupSize, {
+  data: Record<string, Display32>;
+  order: string[];
+  basePath: string;
+  defaultModel: string;
+  label: string; // เช่น "Touch Display 32\""
+  parentLink: string; // ลิงก์ "ดูรุ่นอื่น..."
+}> = {
+  32: {
+    data: DISPLAYS_32 as Record<string, Display32>,
+    order: DISPLAY_32_ORDER as unknown as string[],
+    basePath: "/products/displays-32",
+    defaultModel: "hd32",
+    label: 'Touch Display 32"',
+    parentLink: "/interactive-display",
+  },
+  43: {
+    data: DISPLAYS_43 as Record<string, Display32>,
+    order: DISPLAY_43_ORDER as unknown as string[],
+    basePath: "/products/displays-43",
+    defaultModel: "hd43",
+    label: 'Touch Display 43"',
+    parentLink: "/interactive-display",
+  },
+};
 
 const ICONS: Record<string, any> = {
   Monitor, Cpu, Smartphone, Maximize, ShieldCheck, Layers, Box,
@@ -38,13 +66,15 @@ const ALL_SECTIONS = [
   { id: "download",       label: "Datasheet",       icon: Download },
 ];
 
-const Display32Detail = () => {
+interface Props { groupSize?: GroupSize }
+const Display32Detail = ({ groupSize = 32 }: Props) => {
+  const group = GROUPS[groupSize];
   const { model } = useParams<{ model?: string }>();
   const [params, setParams] = useSearchParams();
-  const rawRequested = (model ?? params.get("model") ?? "hd32") as Display32Slug;
+  const rawRequested = (model ?? params.get("model") ?? group.defaultModel) as string;
   // Backward-compat: รวม HR32 Android เข้ากับ HR32 Series แล้ว
-  const requested = (rawRequested === ("hr32-android" as Display32Slug) ? "hr32" : rawRequested) as Display32Slug;
-  const product = DISPLAYS_32[requested];
+  const requested = (rawRequested === "hr32-android" ? "hr32" : rawRequested);
+  const product = group.data[requested];
 
   const [activeSection, setActiveSection] = useState("overview");
   const [lightbox, setLightbox] = useState<{ images: string[]; index: number } | null>(null);
@@ -84,12 +114,12 @@ const Display32Detail = () => {
     }
   };
 
-  const switchModel = (s: Display32Slug) => {
+  const switchModel = (s: string) => {
     setParams({ model: s });
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  if (!product) return <Navigate to="/products/displays-32" replace />;
+  if (!product) return <Navigate to={group.basePath} replace />;
 
   return (
     <div className="min-h-screen bg-background">
@@ -734,7 +764,7 @@ const Display32Detail = () => {
           className="scroll-mt-32"
         >
           <SectionTitle eyebrow="Comparison" title="เปรียบเทียบ 5 รุ่นในหมวด 32 นิ้ว" />
-          <ComparisonTable activeSlug={requested} onSwitch={switchModel} />
+          <ComparisonTable activeSlug={requested} onSwitch={switchModel} data={group.data} order={group.order} />
         </section>
 
         {/* Datasheet CTA */}
@@ -802,7 +832,7 @@ const QuickStat = ({ label, value }: { label: string; value: string }) => (
   </div>
 );
 
-const ComparisonTable = ({ activeSlug, onSwitch }: { activeSlug: Display32Slug; onSwitch: (s: Display32Slug) => void }) => {
+const ComparisonTable = ({ activeSlug, onSwitch, data, order }: { activeSlug: string; onSwitch: (s: string) => void; data: Record<string, Display32>; order: string[] }) => {
   const rows: { label: string; key: keyof Display32["quick"] }[] = [
     { label: "Form Factor", key: "formFactor" },
     { label: "ความละเอียด", key: "resolution" },
@@ -821,8 +851,8 @@ const ComparisonTable = ({ activeSlug, onSwitch }: { activeSlug: Display32Slug; 
         <thead>
           <tr className="bg-muted/40 border-b border-border">
             <th className="text-left px-4 py-3 font-semibold w-44">รายการ</th>
-            {DISPLAY_32_ORDER.map(s => {
-              const m = DISPLAYS_32[s];
+            {order.map(s => {
+              const m = data[s];
               const active = s === activeSlug;
               return (
                 <th key={s} className={`text-left px-4 py-3 font-semibold ${active ? "bg-primary/10 text-primary" : ""}`}>
@@ -839,11 +869,11 @@ const ComparisonTable = ({ activeSlug, onSwitch }: { activeSlug: Display32Slug; 
           {rows.map(r => (
             <tr key={r.key} className="border-b border-border/60 hover:bg-muted/20">
               <td className="px-4 py-2.5 text-muted-foreground font-medium">{r.label}</td>
-              {DISPLAY_32_ORDER.map(s => {
+              {order.map(s => {
                 const active = s === activeSlug;
                 return (
                   <td key={s} className={`px-4 py-2.5 ${active ? "bg-primary/5 font-semibold" : ""}`}>
-                    {DISPLAYS_32[s].quick[r.key]}
+                    {data[s].quick[r.key]}
                   </td>
                 );
               })}
