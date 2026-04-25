@@ -1,9 +1,12 @@
 /**
- * Touch Display 55" — HD55 Configurable AIO (Monitor / Windows / Android)
- * แหล่งสเปก: touchwo.com (HD55 Series)
+ * Touch Display 55" — HD55 + HR55 Configurable AIO (Monitor / Windows / Android)
+ * แหล่งสเปก: touchwo.com (HD55 + HR55 Series)
  *  - HD55 Touch Monitor:  https://touchwo.com/product/55-touch-monitor-hd55/
  *  - HD55 Windows PC:     https://touchwo.com/product/55-touch-pc-hd55/
  *  - HD55 Android PC:     https://touchwo.com/product/55-android-touch-pc-hd55/
+ *  - HR55 Touch Monitor:  https://touchwo.com/product/55-touch-monitor-hr55/
+ *  - HR55 Windows PC:     https://touchwo.com/product/elo-monitor-55-touch-pc-hr55/
+ *  - HR55 Android PC:     https://touchwo.com/product/55-android-touch-pc-hr55/
  */
 import type { Display32, OSKey } from "./displays-32";
 import { OS_BACKGROUNDS } from "./displays-32";
@@ -27,9 +30,24 @@ import hd55Install3 from "@/assets/touchwo/hd55/install-3.jpg";
 import hd55Pos1 from "@/assets/touchwo/hd55/pos-1.jpg";
 import hd55Pos2 from "@/assets/touchwo/hd55/pos-2.png";
 
-export type Display55Slug = "hd55";
+import hr55P1 from "@/assets/touchwo/hr55/p-1.jpg";
+import hr55P2 from "@/assets/touchwo/hr55/p-2.jpg";
+import hr55P3 from "@/assets/touchwo/hr55/p-3.jpg";
+import hr55P4 from "@/assets/touchwo/hr55/p-4.jpg";
+import hr55P5 from "@/assets/touchwo/hr55/p-5.jpg";
+import hr55P6 from "@/assets/touchwo/hr55/p-6.jpg";
+import hr55P7 from "@/assets/touchwo/hr55/p-7.jpg";
+import hr55Io from "@/assets/touchwo/hr55/io.jpg";
+import hr55Install1 from "@/assets/touchwo/hr55/install-1.png";
+import hr55Install2 from "@/assets/touchwo/hr55/install-2.png";
+import hr55Feat1 from "@/assets/touchwo/hr55/feat-1.png";
+import hr55Feat2 from "@/assets/touchwo/hr55/feat-2.png";
+import hr55Feat3 from "@/assets/touchwo/hr55/feat-3.png";
+
+export type Display55Slug = "hd55" | "hr55";
 export { OS_BACKGROUNDS };
 export type { OSKey };
+
 
 export const DISPLAYS_55: Record<Display55Slug, Display32> = {
   hd55: {
