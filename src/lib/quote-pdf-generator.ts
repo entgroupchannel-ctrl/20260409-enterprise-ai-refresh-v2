@@ -77,23 +77,26 @@ async function loadImageDataUrl(url?: string | null): Promise<string | null> {
 async function getPdfMake() {
   if (!pdfMakeReady) {
     pdfMakeReady = (async () => {
-      const pdfMake = await import('pdfmake');
+      const mod: any = await import('pdfmake/build/pdfmake');
+      const pdfMake = mod.default ?? mod;
       const [regular, bold] = await Promise.all([
         fetchBase64('/fonts/Sarabun-Regular.ttf'),
         fetchBase64('/fonts/Sarabun-Bold.ttf'),
       ]);
-      pdfMake.addVirtualFileSystem({
+      pdfMake.vfs = {
+        ...(pdfMake.vfs || {}),
         'Sarabun-Regular.ttf': regular,
         'Sarabun-Bold.ttf': bold,
-      });
-      pdfMake.addFonts({
+      };
+      pdfMake.fonts = {
+        ...(pdfMake.fonts || {}),
         Sarabun: {
           normal: 'Sarabun-Regular.ttf',
           bold: 'Sarabun-Bold.ttf',
           italics: 'Sarabun-Regular.ttf',
           bolditalics: 'Sarabun-Bold.ttf',
         },
-      });
+      };
       return pdfMake;
     })();
   }
