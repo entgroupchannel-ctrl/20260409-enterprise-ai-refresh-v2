@@ -261,9 +261,72 @@ const HD32_VARIANTS: Display32["variants"] = [
   },
 ];
 
-export const DISPLAYS_32: Record<Display32Slug, Display32> = {
-  hd32: {
-    slug: "hd32",
+// ───────────────────────────────────────────────────────────
+// KD32B Series — Floor Stand Kiosk Configuration Variants
+// ตู้ตั้งพื้นโครงสร้างเดียวกัน — เลือก Configuration ได้ 3 แบบ
+// (Monitor only / Windows-Linux PC / Android PC)
+// ───────────────────────────────────────────────────────────
+const KD32B_VARIANTS: Display32["variants"] = [
+  {
+    key: "monitor",
+    label: "KD32B — Monitor Kiosk",
+    badge: "ตู้คีออสก์ (ไม่มี PC ในตัว)",
+    osBackground: "none",
+    icon: "Monitor",
+    description:
+      "ตู้คีออสก์ตั้งพื้น 32\" เฉพาะจอสัมผัส — ต่อกับ External PC, Mini PC หรือ Media Player ที่มีอยู่ผ่าน HDMI + USB Touch ใต้จอมีช่องสำหรับ Printer / Scanner / NFC ที่เปลี่ยนหน้ากากปรับแต่งได้",
+    bestFor: "ลูกค้ามี PC อยู่แล้ว ต้องการเฉพาะตู้คีออสก์ + จอสัมผัส",
+    highlights: [
+      "ไม่มี PC ในตัว — ต้นทุนต่ำกว่า เปลี่ยน PC ภายนอกได้อิสระ",
+      "Input: HDMI + USB Touch (Plug-and-play)",
+      "ใช้กับ Windows / Linux / macOS / Android Box",
+      "Power Consumption ต่ำสุด < 60W",
+    ],
+    accent: "neutral",
+  },
+  {
+    key: "x86",
+    label: "KD32B — Windows / Linux PC",
+    badge: "Floor Kiosk + AIO PC (x86)",
+    osBackground: "windows",
+    icon: "Cpu",
+    description:
+      "ตู้คีออสก์ตั้งพื้น 32\" พร้อม Intel x86 PC ภายใน เลือก Windows 10/11 IoT หรือ Linux จากโรงงาน รองรับซอฟต์แวร์ POS / ERP / Industrial HMI ที่ลูกค้าใช้อยู่ ไม่ต้องต่อ PC ภายนอก",
+    bestFor: "Self-service Banking / POS / ระบบที่ใช้ซอฟต์แวร์ Windows-based",
+    highlights: [
+      "Intel Celeron / Core i3 / Core i5 (เลือกได้)",
+      "RAM 4–16GB DDR4 + SSD 128–512GB",
+      "Pre-install Windows 10/11 IoT หรือ Linux",
+      "RJ45 + Wi-Fi 802.11ac + Bluetooth ภายในตู้",
+    ],
+    cpu: "Intel Celeron / Core i3 / i5",
+    ram: "4–16GB DDR4",
+    storage: "SSD 128–512GB",
+    accent: "primary",
+  },
+  {
+    key: "android",
+    label: "KD32B — Android PC",
+    badge: "Floor Kiosk + AIO PC (ARM)",
+    osBackground: "android",
+    icon: "Smartphone",
+    description:
+      "ตู้คีออสก์ตั้งพื้น 32\" พร้อม Rockchip ARM PC ภายใน เลือก Android 9/11/12 จากโรงงาน — ประหยัดพลังงานกว่า x86 (≤115W) เหมาะกับ Digital Signage, Self-service Kiosk และระบบ Wayfinding ที่ใช้ App แบบ Android",
+    bestFor: "Wayfinding / Digital Signage / Self-service Kiosk ที่ใช้ Android App",
+    highlights: [
+      "Rockchip RK3568 / RK3288 / RK3588 (เลือกได้)",
+      "RAM 2–8GB + eMMC 16–128GB",
+      "Pre-install Android 9 / 11 / 12",
+      "5GHz Wi-Fi + BLE 5.0 — รองรับ POS Android โดยตรง",
+    ],
+    cpu: "Rockchip RK3568 / 3288 / 3588",
+    ram: "2–8GB LPDDR4",
+    storage: "eMMC 16–128GB",
+    accent: "secondary",
+  },
+];
+
+
     modelCode: "HD32",
     name: '32" HD32 Series — All-in-One Touch PC (Windows / Linux / Android)',
     shortName: "HD32 Series",
