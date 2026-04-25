@@ -38,14 +38,23 @@ const ProductGalleryPortrait = ({
     return () => clearInterval(timer);
   }, [paused, next, autoPlayInterval, images.length]);
 
-  // Keep active thumbnail in view
+  // Keep active thumbnail visible inside the rail WITHOUT scrolling the page.
+  // Using scrollIntoView would bubble up and yank the whole window to the top
+  // when the user is reading content further down — so we scroll the rail manually.
   useEffect(() => {
     const rail = railRef.current;
     if (!rail) return;
     const active = rail.querySelector<HTMLButtonElement>(
       `[data-idx="${current}"]`
     );
-    if (active) active.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    if (!active) return;
+    const railRect = rail.getBoundingClientRect();
+    const activeRect = active.getBoundingClientRect();
+    if (activeRect.top < railRect.top) {
+      rail.scrollTop += activeRect.top - railRect.top;
+    } else if (activeRect.bottom > railRect.bottom) {
+      rail.scrollTop += activeRect.bottom - railRect.bottom;
+    }
   }, [current]);
 
   if (images.length === 0) return null;
