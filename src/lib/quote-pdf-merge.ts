@@ -26,8 +26,15 @@ function mergeProductLine(revLine: AnyObj, qLine?: AnyObj): AnyObj {
     }
   }
   // Text fields: prefer revision if present, else quote
-  for (const k of ['description', 'name', 'model', 'notes', 'specs']) {
+  for (const k of ['name', 'model', 'notes']) {
     if (!revLine?.[k] && qLine?.[k]) merged[k] = qLine[k];
+  }
+  // Description / specs: prefer the LONGER one (revision often stores only the headline,
+  // while the quote row keeps the full spec sheet). This ensures full specs reach the PDF.
+  for (const k of ['description', 'specs']) {
+    const rv = (revLine?.[k] ?? '').toString();
+    const qv = (qLine?.[k] ?? '').toString();
+    merged[k] = qv.length > rv.length ? qv : rv;
   }
   return merged;
 }
