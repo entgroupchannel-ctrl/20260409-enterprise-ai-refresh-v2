@@ -237,6 +237,33 @@ export default function PrintPreviewDialog({
           )}
         </div>
       </DialogContent>
+
+      {/* Hidden iframe host: render template at exact A4 inner-width (720px),
+          isolated from Dialog/admin layout. Used for download + print. */}
+      {open && companySettings && (
+        <PDFRenderHost
+          ref={renderHostRef}
+          quote={quote}
+          revision={mergeRevisionWithQuote(revision, quote)}
+          companyInfo={{
+            name_th: companySettings.name_th,
+            name_en: companySettings.name_en,
+            address_th: companySettings.address_th,
+            address_en: companySettings.address_en,
+            phone: companySettings.phone,
+            fax: companySettings.fax,
+            email: companySettings.email,
+            website: companySettings.website,
+            tax_id: companySettings.tax_id,
+            branch_type: companySettings.branch_type,
+            branch_code: companySettings.branch_code,
+            branch_name: companySettings.branch_name,
+            logo_url: companySettings.logo_url,
+          }}
+          salePerson={salePerson}
+          bankAccounts={bankAccounts}
+        />
+      )}
     </Dialog>
   );
 }
