@@ -174,7 +174,7 @@ function buildHeader(companyInfo: AnyObj, quote: AnyObj, revision: AnyObj, logoD
   } as any;
 }
 
-function buildMeta(quote: AnyObj, revision: AnyObj): Content {
+function buildMeta(quote: AnyObj, revision: AnyObj, salePerson?: AnyObj): Content {
   return {
     columns: [
       {
@@ -199,7 +199,7 @@ function buildMeta(quote: AnyObj, revision: AnyObj): Content {
             labelValue('Revision:', `#${revision.revision_number ?? 1}`),
             labelValue('วันที่:', thaiDate(revision.created_at || quote.created_at)),
             ...(revision.valid_until ? [labelValue('ใช้ได้ถึง:', thaiDate(revision.valid_until))] : []),
-            labelValue('ผู้เสนอราคา:', revision.created_by_name || '-'),
+            labelValue('ผู้เสนอราคา:', salePerson?.full_name || '-'),
           ],
         },
         layout: 'noBorders',
@@ -393,7 +393,7 @@ export function createQuotePdfDefinition(params: QuotePdfParams, assets: { logoD
   const freeItems = Array.isArray(revision.free_items) ? revision.free_items : [];
   const content: Content[] = [
     buildHeader(companyInfo, quote, revision, assets.logoDataUrl),
-    buildMeta(quote, revision),
+    buildMeta(quote, revision, salePerson),
     buildProductTable(products),
   ];
 
