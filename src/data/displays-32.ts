@@ -409,7 +409,7 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       brightness: "250 cd/m²",
       contrast: "1200:1",
       touch: "PCAP 10pt",
-      os: "Windows / Linux",
+      os: "Windows / Linux / Android (เลือกได้)",
       formFactor: "All-in-One PC",
       dimensionCm: "74.1 × 43.6 × 5.2",
       weightKg: "11.3",
