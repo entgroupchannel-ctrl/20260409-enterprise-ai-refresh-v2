@@ -147,7 +147,7 @@ export const DISPLAYS_27: Record<Display27Slug, Display32> = {
     ],
     cpuOptions: [
       {
-        tier: "Entry (x86)",
+        tier: "Entry",
         cpu: "Intel Celeron® J6412 (4-core, Elkhart Lake)",
         gpu: "Intel® UHD Graphics",
         ram: "DDR4-2666 SODIMM 4GB",
@@ -155,7 +155,7 @@ export const DISPLAYS_27: Record<Display27Slug, Display32> = {
         targetUseCase: "Digital Signage, POS, Self-service Kiosk งานทั่วไป",
       },
       {
-        tier: "Mid (x86)",
+        tier: "Mid",
         cpu: "Intel® Core™ i5 8th Gen",
         gpu: "Intel® Iris® Plus Graphics 645",
         ram: "DDR4-2666 SODIMM 8GB",
@@ -163,7 +163,7 @@ export const DISPLAYS_27: Record<Display27Slug, Display32> = {
         targetUseCase: "Conference Room, POS Self-order, ERP / CRM Front-end",
       },
       {
-        tier: "High (x86)",
+        tier: "High",
         cpu: "Intel® Core™ i7 10th Gen",
         gpu: "Intel® UHD Graphics",
         ram: "DDR4-2666 SODIMM 16GB",
@@ -171,7 +171,7 @@ export const DISPLAYS_27: Record<Display27Slug, Display32> = {
         targetUseCase: "Industrial HMI, Multi-tasking Workstation, Healthcare",
       },
       {
-        tier: "Entry (ARM)",
+        tier: "Entry",
         cpu: "Rockchip RK3568 (Quad-core ARM Cortex-A55)",
         gpu: "ARM Mali-G52 2EE",
         ram: "LPDDR4 2GB (4GB optional)",
@@ -179,7 +179,7 @@ export const DISPLAYS_27: Record<Display27Slug, Display32> = {
         targetUseCase: "POS Self-order (Android), Digital Signage, Wayfinding",
       },
       {
-        tier: "Mid (ARM)",
+        tier: "Mid",
         cpu: "Rockchip RK3288 (Quad-core ARM Cortex-A17)",
         gpu: "Mali-T864",
         ram: "LPDDR3 2GB (4GB optional)",
@@ -187,7 +187,7 @@ export const DISPLAYS_27: Record<Display27Slug, Display32> = {
         targetUseCase: "Pre-install Android 9 — งาน Legacy POS App ที่ต้องการ Android 9",
       },
       {
-        tier: "High (ARM)",
+        tier: "High",
         cpu: "Rockchip RK3588 (Octa-core, 8nm)",
         gpu: "ARM Mali-G610 MP4",
         ram: "LPDDR4 4GB (8GB optional)",
