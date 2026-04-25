@@ -226,9 +226,18 @@ export default function InteractiveDisplay() {
           <div className="text-center py-12 text-muted-foreground">ไม่พบสินค้าในขนาดนี้</div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {filtered.map((p) => (
+            {filtered.map((p) => {
+              // Override links for series pages with multiple OS variants
+              const is32 = p.tags?.includes("32-inch") || p.slug === "interactive-display-hd32";
+              const is43 = p.tags?.includes("43-inch") || p.slug === "interactive-display-hr43";
+              const detailHref = is43
+                ? "/products/displays-32?model=hd43"
+                : is32
+                ? "/products/displays-32?model=hd32"
+                : `/products/${p.slug}`;
+              return (
               <Card key={p.id} className="overflow-hidden hover:shadow-lg transition-shadow group">
-                <Link to={`/products/${p.slug}`} className="block">
+                <Link to={detailHref} className="block">
                   <div className="aspect-[4/3] relative overflow-hidden bg-gradient-to-br from-[#0078D4] via-[#1a4a8a] to-[#3DDC84]">
                     {/* Windows mesh */}
                     <div
@@ -260,7 +269,7 @@ export default function InteractiveDisplay() {
                   </div>
                 </Link>
                 <CardContent className="p-5">
-                  <Link to={`/products/${p.slug}`} className="block group/title">
+                <Link to={detailHref} className="block group/title">
                     <h3 className="font-semibold text-base mb-1 line-clamp-2 min-h-[3rem] group-hover/title:text-primary transition-colors">
                       {p.name.replace("Interactive Touch Display ", "")}
                     </h3>
@@ -271,7 +280,7 @@ export default function InteractiveDisplay() {
                   </p>
                   <div className="flex flex-col gap-2">
                     <Button asChild size="sm" variant="secondary" className="w-full">
-                      <Link to={`/products/${p.slug}`}>ดูรายละเอียด</Link>
+                      <Link to={detailHref}>ดูรายละเอียด</Link>
                     </Button>
                     <QuoteRequestButton
                       productModel={p.model}
@@ -289,7 +298,8 @@ export default function InteractiveDisplay() {
                   </div>
                 </CardContent>
               </Card>
-            ))}
+              );
+            })}
           </div>
         )}
       </section>
