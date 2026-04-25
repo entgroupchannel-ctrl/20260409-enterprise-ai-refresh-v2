@@ -3,7 +3,8 @@ import { useParams, useSearchParams, Navigate, Link } from "react-router-dom";
 import {
   ArrowLeft, Download, Monitor, Cpu, Smartphone, Maximize, ShieldCheck,
   Layers, Box, MonitorSmartphone, Hand, Award, CheckCircle2, Plug,
-  Ruler, Package, Settings2,
+  Ruler, Package, Settings2, Info, Sparkles, Star, Link2, Wrench,
+  Briefcase, GitCompare,
 } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
@@ -22,15 +23,15 @@ const ICONS: Record<string, any> = {
 };
 
 const SECTIONS = [
-  { id: "overview", label: "ภาพรวม" },
-  { id: "highlights", label: "ไฮไลต์" },
-  { id: "features", label: "Feature" },
-  { id: "specs", label: "สเปก" },
-  { id: "io", label: "I/O Ports" },
-  { id: "install", label: "การติดตั้ง" },
-  { id: "use-cases", label: "Use Cases" },
-  { id: "compare", label: "เปรียบเทียบ" },
-  { id: "download", label: "Datasheet" },
+  { id: "overview",   label: "ภาพรวม",      icon: Info },
+  { id: "highlights", label: "ไฮไลต์",       icon: Sparkles },
+  { id: "features",   label: "Feature",     icon: Star },
+  { id: "specs",      label: "สเปก",         icon: Settings2 },
+  { id: "io",         label: "I/O Ports",   icon: Link2 },
+  { id: "install",    label: "การติดตั้ง",   icon: Wrench },
+  { id: "use-cases",  label: "Use Cases",   icon: Briefcase },
+  { id: "compare",    label: "เปรียบเทียบ",  icon: GitCompare },
+  { id: "download",   label: "Datasheet",   icon: Download },
 ];
 
 const Display32Detail = () => {
@@ -90,7 +91,7 @@ const Display32Detail = () => {
 
       {/* Top bar with model tabs */}
       <div className="border-b border-border bg-card/80 backdrop-blur-md sticky top-0 z-30">
-        <div className="container mx-auto px-4 py-3">
+        <div className="container max-w-7xl mx-auto px-6 py-3">
           <div className="flex items-center justify-between gap-4 mb-3">
             <Link to="/interactive-display" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
               <ArrowLeft className="h-4 w-4" /> กลับหน้าหลัก
@@ -121,28 +122,33 @@ const Display32Detail = () => {
         </div>
       </div>
 
-      {/* Sticky section nav */}
+      {/* Sticky section nav (TouchWork-style chips) */}
       <div className="sticky top-[calc(var(--mn-h,0px)+96px)] z-20 border-b border-border bg-background/95 backdrop-blur">
-        <div className="container mx-auto px-4">
-          <div className="flex gap-1 overflow-x-auto scrollbar-hide py-2">
-            {SECTIONS.map(s => (
-              <button
-                key={s.id}
-                onClick={() => scrollTo(s.id)}
-                className={`shrink-0 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
-                  activeSection === s.id
-                    ? "bg-primary/10 text-primary"
-                    : "text-muted-foreground hover:bg-muted"
-                }`}
-              >
-                {s.label}
-              </button>
-            ))}
+        <div className="container max-w-7xl mx-auto px-6 py-2">
+          <div className="flex flex-wrap gap-1 bg-muted/50 p-1 rounded-lg">
+            {SECTIONS.map(s => {
+              const Icon = s.icon;
+              const active = activeSection === s.id;
+              return (
+                <button
+                  key={s.id}
+                  onClick={() => scrollTo(s.id)}
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-all ${
+                    active
+                      ? "bg-background text-foreground shadow-sm"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  <Icon className="h-3.5 w-3.5" />
+                  {s.label}
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
 
-      <main className="container mx-auto px-4 py-8 space-y-16">
+      <main className="container max-w-7xl mx-auto px-6 py-8 space-y-16">
         {/* Hero / Overview */}
         <section
           id="overview"
