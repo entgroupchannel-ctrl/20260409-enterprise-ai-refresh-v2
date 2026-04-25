@@ -201,6 +201,7 @@ const App = () => (
               <BrowserRouter>
                 <CartProvider>
                 <ScrollToTop />
+                <PrintInterceptor />
                 <Suspense fallback={<PageLoader />}>
                   <Routes>
                     <Route path="/" element={<Index />} />
