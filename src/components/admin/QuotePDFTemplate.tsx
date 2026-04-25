@@ -55,7 +55,7 @@ interface QuotePDFTemplateProps {
     position: string | null;
     signature_url: string | null;
     show_signature_on_quotes: boolean | null;
-  };
+  } | null;
   bankAccounts?: Array<{
     bank_name: string;
     account_number: string;
@@ -277,7 +277,7 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
               )}
               <tr>
                 <td style={s.metaTdLabel}>ผู้เสนอราคา:</td>
-                <td style={s.metaTdValue}>{revision.created_by_name}</td>
+                <td style={s.metaTdValue}>{salePerson?.full_name || '-'}</td>
               </tr>
             </tbody>
           </table>
@@ -453,8 +453,8 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
           ) : (
             <div style={s.sigLine} />
           )}
-          <p style={s.sigRole}>ผู้เสนอราคา</p>
-          <p style={s.sigDate}>วันที่: {new Date().toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+          <p style={s.sigRole}>{salePerson?.position || 'ผู้เสนอราคา'}</p>
+          <p style={s.sigDate}>{salePerson?.full_name ? `วันที่: ${new Date().toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}` : 'วันที่: ______________'}</p>
         </div>
         <div style={s.sigBox}>
           <div style={s.sigLine} />
