@@ -150,9 +150,15 @@ export default function InteractiveDisplay() {
     return () => { mounted = false; };
   }, []);
 
+  // Merge สินค้าที่ seed อยู่ใน DB เข้ากับซีรีส์เสริม (ไม่ซ้ำ slug)
+  const allProducts: Product[] = [
+    ...products,
+    ...EXTRA_PRODUCTS.filter(e => !products.some(p => p.slug === e.slug)),
+  ];
+
   const filtered = size === "all"
-    ? products
-    : products.filter(p => p.tags?.some(t => t === `${size}-inch`));
+    ? allProducts
+    : allProducts.filter(p => p.tags?.some(t => t === `${size}-inch`));
 
   return (
     <div className="min-h-screen bg-background text-foreground">
