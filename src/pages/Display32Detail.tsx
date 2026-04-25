@@ -22,8 +22,9 @@ import { DISPLAYS_238, DISPLAY_238_ORDER } from "@/data/displays-238";
 import { DISPLAYS_27, DISPLAY_27_ORDER } from "@/data/displays-27";
 import { DISPLAYS_49, DISPLAY_49_ORDER } from "@/data/displays-49";
 import { DISPLAYS_55, DISPLAY_55_ORDER } from "@/data/displays-55";
+import { DISPLAYS_65, DISPLAY_65_ORDER } from "@/data/displays-65";
 
-type GroupSize = 32 | 43 | 238 | 27 | 49 | 55;
+type GroupSize = 32 | 43 | 238 | 27 | 49 | 55 | 65;
 const GROUPS: Record<GroupSize, {
   data: Record<string, Display32>;
   order: string[];
