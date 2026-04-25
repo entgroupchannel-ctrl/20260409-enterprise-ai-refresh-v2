@@ -38,7 +38,8 @@ async function buildPdfWithHeaderFooter(
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2, useCORS: true, letterRendering: true, windowWidth: 794 },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
-      pagebreak: { mode: ['css', 'legacy'], avoid: ['tr', '.pdf-keep'] },
+      // CSS-driven breaks only. Long rows split across pages; td/.pdf-keep stay intact (see template CSS).
+      pagebreak: { mode: ['css', 'legacy'] },
     })
     .from(element)
     .toPdf();
@@ -54,7 +55,9 @@ async function buildPdfWithHeaderFooter(
 
   const safeHeaderLeft = toAscii(opts.headerLeft) || 'ENT Group';
   const safeHeaderRight = toAscii(opts.headerRight);
-  const safeFooterCenter = opts.footerCenter ? toAscii(opts.footerCenter) : '';
+  // jsPDF Helvetica strips Thai → fall back to English disclaimer if caller sent Thai.
+  const asciiFooter = opts.footerCenter ? toAscii(opts.footerCenter) : '';
+  const safeFooterCenter = asciiFooter || 'System-generated document — signature not required';
 
   for (let i = 1; i <= totalPages; i++) {
     pdfWorker.setPage(i);

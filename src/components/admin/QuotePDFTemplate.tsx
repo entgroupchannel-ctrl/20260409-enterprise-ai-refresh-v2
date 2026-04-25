@@ -188,9 +188,10 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
         /* Repeat the products table header on every page when it spans pages */
         #quote-pdf-template table.products thead { display: table-header-group; }
         #quote-pdf-template table.products tfoot { display: table-footer-group; }
-        /* Allow long product rows (with full spec sheets) to break across pages,
-           but try to keep the row together if it fits */
-        #quote-pdf-template table.products tbody tr { page-break-inside: auto; }
+        /* Allow long product rows to split across pages,
+           but never split a single cell mid-line (keeps Thai/Eng glyphs intact) */
+        #quote-pdf-template table.products tbody tr { page-break-inside: auto; break-inside: auto; }
+        #quote-pdf-template table.products tbody td { page-break-inside: avoid; break-inside: avoid; }
         /* Blocks that must not be split across pages */
         #quote-pdf-template .pdf-keep { page-break-inside: avoid; break-inside: avoid; }
         /* Force a fresh page when needed */
@@ -454,10 +455,8 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
         </div>
       </div>
 
-      {/* ── FOOTER ────────────────────────────────────────────────────── */}
-      <div style={s.footer}>
-        <p style={{ margin: 0 }}>เอกสารนี้ออกโดยระบบอัตโนมัติ ไม่ต้องลงนามเพื่อให้มีผลบังคับใช้</p>
-      </div>
+      {/* ── FOOTER disclaimer is rendered by jsPDF in pdf-helper (footerCenter)
+            to avoid being clipped by the page-bottom band ─────────────── */}
 
     </div>
   );
