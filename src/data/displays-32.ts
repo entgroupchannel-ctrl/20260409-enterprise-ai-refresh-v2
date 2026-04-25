@@ -15,10 +15,12 @@ import osAndroid from "@/assets/touchwo/os-android.jpg";
 import hd32HeroClean from "@/assets/touchwo/hd32-hero-clean.jpg";
 import hr32HeroClean from "@/assets/touchwo/hr32-hero-clean.jpg";
 import kd32bHeroClean from "@/assets/touchwo/kd32b-hero-clean.jpg";
+import hd43HeroClean from "@/assets/touchwo/hd43-hero-clean.jpg";
 // Clean gallery-02 replacements (TouchWo watermark removed)
 import hd32Gallery02Clean from "@/assets/touchwo/hd32-gallery-02-clean.jpg";
 import hr32Gallery02Clean from "@/assets/touchwo/hr32-gallery-02-clean.jpg";
 import kd32bGallery02Clean from "@/assets/touchwo/kd32b-gallery-02-clean.jpg";
+import hd43Gallery02Clean from "@/assets/touchwo/hd43-gallery-02-clean.jpg";
 // Clean install images (TouchWo watermark removed → Android theme)
 import hd32Install01Clean from "@/assets/touchwo/hd32-install-01-clean.jpg";
 import hd32Install02Clean from "@/assets/touchwo/hd32-install-02-clean.jpg";
@@ -54,6 +56,10 @@ import kd32bUcMall from "@/assets/touchwo/usecases/kd32b-uc-mall.jpg";
 import kd32bUcBank from "@/assets/touchwo/usecases/kd32b-uc-bank.jpg";
 import kd32bUcLogistics from "@/assets/touchwo/usecases/kd32b-uc-logistics.jpg";
 import kd32bUcTransit from "@/assets/touchwo/usecases/kd32b-uc-transit.jpg";
+import hd43UcRestaurant from "@/assets/touchwo/usecases/hd43-uc-restaurant.jpg";
+import hd43UcMeeting from "@/assets/touchwo/usecases/hd43-uc-meeting.jpg";
+import hd43UcSelforder from "@/assets/touchwo/usecases/hd43-uc-selforder.jpg";
+import hd43UcReception from "@/assets/touchwo/usecases/hd43-uc-reception.jpg";
 
 export const OS_BACKGROUNDS = {
   windows: { src: osWindows, label: "Windows", subtitle: "x86 Intel/AMD รองรับ Windows 10/11 IoT" },
@@ -62,7 +68,7 @@ export const OS_BACKGROUNDS = {
 } as const;
 export type OSKey = keyof typeof OS_BACKGROUNDS;
 
-export type Display32Slug = "hd32" | "hr32" | "hr32-android" | "gd32c" | "kd32b";
+export type Display32Slug = "hd32" | "hr32" | "hr32-android" | "gd32c" | "kd32b" | "hd43";
 
 export interface SpecRow {
   label: string;
@@ -80,7 +86,7 @@ export interface Display32 {
   name: string;
   shortName: string;
   category: string;
-  formFactor: "Monitor" | "All-in-One PC" | "Wall Kiosk" | "Floor Kiosk";
+  formFactor: "Monitor" | "All-in-One PC" | "Wall Kiosk" | "Floor Kiosk" | "Configurable AIO";
   tagline: string;
   description: string;
   highlights: { icon: string; title: string; subtitle?: string }[];
