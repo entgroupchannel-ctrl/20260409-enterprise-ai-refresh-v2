@@ -79,31 +79,26 @@ export default function PrintPreviewDialog({
     new Intl.NumberFormat('th-TH', { minimumFractionDigits: 0 }).format(amount);
 
   const handlePrint = async () => {
+    if (!renderHostRef.current) return;
     setIsPrinting(true);
-    const printContent = document.getElementById('quote-pdf-template');
-    if (!printContent) { setIsPrinting(false); return; }
-
-    const { openPrintPreview } = await import('@/lib/print-helper');
-    openPrintPreview({
-      element: printContent,
-      title: `${quote.quote_number} - Rev ${revision.revision_number}`,
-      onDone: () => setIsPrinting(false),
-    });
+    try {
+      renderHostRef.current.print();
+    } finally {
+      // Browser print dialog is sync-blocking; clear flag after it returns
+      setIsPrinting(false);
+    }
   };
 
   const handleDownloadPDF = async () => {
+    if (!renderHostRef.current) return;
     setIsDownloading(true);
     try {
-      const element = document.getElementById('quote-pdf-template');
-      if (!element) return;
-
-      const { generatePDFWithHeaderFooter } = await import('@/lib/pdf-helper');
-      await generatePDFWithHeaderFooter(element, {
-        filename: `${quote.quote_number}-Rev${revision.revision_number}.pdf`,
-        headerLeft: companySettings?.name_th || 'ENT Group',
-        headerRight: `${quote.quote_number} Rev #${revision.revision_number}`,
-        footerCenter: 'เอกสารนี้ออกโดยระบบอัตโนมัติ',
-      });
+      await renderHostRef.current.download(
+        `${quote.quote_number}-Rev${revision.revision_number}.pdf`,
+        companySettings?.name_th || 'ENT Group',
+        `${quote.quote_number} Rev #${revision.revision_number}`,
+        'เอกสารนี้ออกโดยระบบอัตโนมัติ',
+      );
     } catch (error) {
       console.error('Error generating PDF:', error);
       alert('เกิดข้อผิดพลาดในการสร้าง PDF');
