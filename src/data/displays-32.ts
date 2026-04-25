@@ -110,7 +110,7 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       "gallery-05.jpg","gallery-06.jpg","gallery-07.jpg","gallery-08.jpg","gallery-09.webp"].map(n => IMG("hd32", n)),
     ],
     ioImage: IMG("hd32", "io-01.png"),
-    installImages: ["install-01.jpg","install-02.jpg","install-03.jpg"].map(n => IMG("hd32", n)),
+    installImages: [hd32Install01Clean, hd32Install02Clean, hd32Install03Clean],
     featureImages: [],
     osSupport: [],
     datasheetUrl: PDF("HD32-Datasheet.pdf"),
