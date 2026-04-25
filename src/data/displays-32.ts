@@ -329,7 +329,8 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
         ],
       },
     ],
-    osSupport: ["windows", "linux"],
+    osSupport: ["windows", "linux", "android"],
+    variants: HD32_VARIANTS,
     cpuOptions: [
       {
         tier: "Entry",
