@@ -46,6 +46,7 @@ export interface Display32 {
   ioImage: string;
   installImages: string[];
   featureImages: string[];
+  osSupport: OSKey[];
   datasheetUrl: string;
   specs: SpecGroup[];
   ports: string[];
