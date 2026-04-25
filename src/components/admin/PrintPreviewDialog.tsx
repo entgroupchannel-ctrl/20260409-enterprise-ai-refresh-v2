@@ -1,5 +1,5 @@
 // src/components/admin/PrintPreviewDialog.tsx
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -10,6 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Printer, Download, Loader2, AlertCircle } from 'lucide-react';
 import QuotePDFTemplate from './QuotePDFTemplate';
+import PDFRenderHost, { PDFRenderHostHandle } from './PDFRenderHost';
 import { useCompanySettings } from '@/hooks/useCompanySettings';
 import { supabase } from '@/integrations/supabase/client';
 import { mergeRevisionWithQuote, checkQuoteRevisionConsistency } from '@/lib/quote-pdf-merge';
