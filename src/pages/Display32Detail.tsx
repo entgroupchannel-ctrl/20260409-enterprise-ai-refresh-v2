@@ -13,6 +13,7 @@ import FooterCompact from "@/components/FooterCompact";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import ProductGallery from "@/components/ProductGallery";
+import ProductGalleryPortrait from "@/components/ProductGalleryPortrait";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
 import { DISPLAYS_32, DISPLAY_32_ORDER, OS_BACKGROUNDS, type Display32, type Display32Slug } from "@/data/displays-32";
@@ -153,14 +154,26 @@ const Display32Detail = () => {
         <section
           id="overview"
           ref={el => (sectionRefs.current.overview = el)}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start scroll-mt-32"
+          className={`grid grid-cols-1 ${
+            product.formFactor.includes("Kiosk")
+              ? "lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]"
+              : "lg:grid-cols-2"
+          } gap-8 items-start scroll-mt-32`}
         >
           <div className="rounded-2xl border border-border bg-card p-4">
-            <ProductGallery
-              images={product.gallery}
-              alt={product.name}
-              onImageClick={(i) => setLightbox({ images: product.gallery, index: i })}
-            />
+            {product.formFactor.includes("Kiosk") ? (
+              <ProductGalleryPortrait
+                images={product.gallery}
+                alt={product.name}
+                onImageClick={(i) => setLightbox({ images: product.gallery, index: i })}
+              />
+            ) : (
+              <ProductGallery
+                images={product.gallery}
+                alt={product.name}
+                onImageClick={(i) => setLightbox({ images: product.gallery, index: i })}
+              />
+            )}
           </div>
           <div className="space-y-4">
             <div className="flex flex-wrap items-center gap-2">
@@ -182,7 +195,7 @@ const Display32Detail = () => {
             <div className="flex flex-wrap gap-3 pt-4">
               <QuoteRequestButton
                 productName={product.name}
-               
+
               />
               <Button variant="outline" asChild>
                 <a href={product.datasheetUrl} target="_blank" rel="noopener noreferrer">
