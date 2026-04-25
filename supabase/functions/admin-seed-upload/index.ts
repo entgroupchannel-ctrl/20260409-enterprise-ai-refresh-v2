@@ -1,7 +1,10 @@
 // One-off admin upload: fetches an image URL and stores it in product-images bucket.
-// Called from sandbox to seed touchwo product images. Auth via shared admin token.
-import { corsHeaders } from "https://esm.sh/@supabase/supabase-js@2.45.4/cors";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.4";
+
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-seed-token",
+};
 
 const SHARED_TOKEN = Deno.env.get("ADMIN_SEED_TOKEN") || "touchwo-seed-2026-x9k2m4n8p";
 
