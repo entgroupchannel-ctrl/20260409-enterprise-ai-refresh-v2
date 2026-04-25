@@ -33,6 +33,28 @@ import hd32DimBack2 from "@/assets/touchwo/hd32-dim-back-2.png";
 import kd32bDim1 from "@/assets/touchwo/kd32b-dim-1.png";
 import kd32bDim2 from "@/assets/touchwo/kd32b-dim-2.png";
 
+// Use-case lifestyle scenes (AI-generated for inspiration)
+import hd32UcRetail from "@/assets/touchwo/usecases/hd32-uc-retail.jpg";
+import hd32UcHotel from "@/assets/touchwo/usecases/hd32-uc-hotel.jpg";
+import hd32UcOffice from "@/assets/touchwo/usecases/hd32-uc-office.jpg";
+import hd32UcPos from "@/assets/touchwo/usecases/hd32-uc-pos.jpg";
+import hr32UcAirport from "@/assets/touchwo/usecases/hr32-uc-airport.jpg";
+import hr32UcHospital from "@/assets/touchwo/usecases/hr32-uc-hospital.jpg";
+import hr32UcEducation from "@/assets/touchwo/usecases/hr32-uc-education.jpg";
+import hr32UcMall from "@/assets/touchwo/usecases/hr32-uc-mall.jpg";
+import hr32aUcSignage from "@/assets/touchwo/usecases/hr32a-uc-signage.jpg";
+import hr32aUcSelfservice from "@/assets/touchwo/usecases/hr32a-uc-selfservice.jpg";
+import hr32aUcPos from "@/assets/touchwo/usecases/hr32a-uc-pos.jpg";
+import hr32aUcMeeting from "@/assets/touchwo/usecases/hr32a-uc-meeting.jpg";
+import gd32cUcRetail from "@/assets/touchwo/usecases/gd32c-uc-retail.jpg";
+import gd32cUcBank from "@/assets/touchwo/usecases/gd32c-uc-bank.jpg";
+import gd32cUcHotel from "@/assets/touchwo/usecases/gd32c-uc-hotel.jpg";
+import gd32cUcMuseum from "@/assets/touchwo/usecases/gd32c-uc-museum.jpg";
+import kd32bUcMall from "@/assets/touchwo/usecases/kd32b-uc-mall.jpg";
+import kd32bUcBank from "@/assets/touchwo/usecases/kd32b-uc-bank.jpg";
+import kd32bUcLogistics from "@/assets/touchwo/usecases/kd32b-uc-logistics.jpg";
+import kd32bUcTransit from "@/assets/touchwo/usecases/kd32b-uc-transit.jpg";
+
 export const OS_BACKGROUNDS = {
   windows: { src: osWindows, label: "Windows", subtitle: "x86 Intel/AMD รองรับ Windows 10/11 IoT" },
   linux:   { src: osLinux,   label: "Linux",   subtitle: "Ubuntu / Debian / Custom Distros" },
