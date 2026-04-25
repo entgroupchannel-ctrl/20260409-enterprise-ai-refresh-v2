@@ -48,7 +48,12 @@ const Display32Detail = () => {
   const [lightbox, setLightbox] = useState<{ images: string[]; index: number } | null>(null);
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
   const SECTIONS = useMemo(
-    () => ALL_SECTIONS.filter(s => s.id !== "dimensions" || (product?.dimensionDrawings?.length ?? 0) > 0),
+    () => ALL_SECTIONS.filter(s => {
+      if (s.id === "dimensions") return (product?.dimensionDrawings?.length ?? 0) > 0;
+      if (s.id === "configurations") return (product?.variants?.length ?? 0) > 0;
+      if (s.id === "cpu") return (product?.cpuOptions?.length ?? 0) > 0;
+      return true;
+    }),
     [product]
   );
 
