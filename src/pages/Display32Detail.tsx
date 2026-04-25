@@ -91,7 +91,7 @@ const Display32Detail = () => {
 
       {/* Top bar with model tabs */}
       <div className="border-b border-border bg-card/80 backdrop-blur-md sticky top-0 z-30">
-        <div className="container mx-auto px-4 py-3">
+        <div className="container max-w-7xl mx-auto px-6 py-3">
           <div className="flex items-center justify-between gap-4 mb-3">
             <Link to="/interactive-display" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
               <ArrowLeft className="h-4 w-4" /> กลับหน้าหลัก
