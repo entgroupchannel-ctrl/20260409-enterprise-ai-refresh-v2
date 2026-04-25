@@ -41,7 +41,9 @@ const ALL_SECTIONS = [
 const Display32Detail = () => {
   const { model } = useParams<{ model?: string }>();
   const [params, setParams] = useSearchParams();
-  const requested = (model ?? params.get("model") ?? "hd32") as Display32Slug;
+  const rawRequested = (model ?? params.get("model") ?? "hd32") as Display32Slug;
+  // Backward-compat: รวม HR32 Android เข้ากับ HR32 Series แล้ว
+  const requested = (rawRequested === ("hr32-android" as Display32Slug) ? "hr32" : rawRequested) as Display32Slug;
   const product = DISPLAYS_32[requested];
 
   const [activeSection, setActiveSection] = useState("overview");
