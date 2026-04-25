@@ -182,7 +182,7 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       "เคลือบกันรอย กันสนิม",
     ],
     useCases: ["พื้นที่สาธารณะ", "สถานีบริการตนเอง", "Education", "ห้างสรรพสินค้า"],
-    gallery: [hr32HeroClean, ...Array.from({length:6},(_,i)=>IMG("hr32",`gallery-0${i+2}.jpg`))],
+    gallery: [hr32HeroClean, hr32Gallery02Clean, ...Array.from({length:5},(_,i)=>IMG("hr32",`gallery-0${i+3}.jpg`))],
     ioImage: IMG("hr32", "io-01.jpg"),
     installImages: [],
     featureImages: [],
