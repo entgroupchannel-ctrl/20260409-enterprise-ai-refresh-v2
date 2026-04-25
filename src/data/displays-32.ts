@@ -213,8 +213,56 @@ const HR32_VARIANTS: Display32["variants"] = [
   },
 ];
 
-export const DISPLAYS_32: Record<Display32Slug, Display32> = {
-  hd32: {
+// ───────────────────────────────────────────────────────────
+// HD32 Series — Configuration Variants (Windows/Linux x86 vs Android ARM)
+// ตัวเครื่อง 13mm bezel เหมือนกัน — ต่างที่ภายใน CPU + OS
+// ───────────────────────────────────────────────────────────
+const HD32_VARIANTS: Display32["variants"] = [
+  {
+    key: "x86",
+    label: "HD32 — Windows / Linux PC",
+    badge: "All-in-One PC (x86)",
+    osBackground: "windows",
+    icon: "Cpu",
+    description:
+      "All-in-One PC พร้อม Intel x86 ภายใน เลือก CPU ได้ 3 ระดับ — Celeron J6412 (Entry), Core i5-8th (Mid), Core i7-10th (High Performance) ติดตั้ง Windows 10/11 หรือ Linux จากโรงงาน รองรับซอฟต์แวร์ POS/ERP/Industrial HMI ที่ใช้กันทั่วไป",
+    bestFor: "Enterprise / Industrial HMI / ระบบที่ใช้ซอฟต์แวร์ Windows-based",
+    highlights: [
+      "Intel Celeron J6412 / Core i5-8th / Core i7-10th (เลือกได้)",
+      "RAM DDR4 4–16GB + SSD 128–512GB",
+      "Pre-install Windows 10/11 หรือ Linux",
+      "RJ45 + Wi-Fi 802.11ac + พอร์ตครบ HDMI/VGA/USB×4",
+    ],
+    cpu: "Intel Celeron / i5 / i7",
+    ram: "4–16GB DDR4",
+    storage: "SSD 128–512GB",
+    targetSlug: "hd32",
+    accent: "primary",
+  },
+  {
+    key: "android",
+    label: "HD32 — Android PC",
+    badge: "All-in-One PC (ARM)",
+    osBackground: "android",
+    icon: "Smartphone",
+    description:
+      "All-in-One PC พร้อม Rockchip ARM ภายใน เลือก CPU ได้ 3 ระดับ — RK3568 / RK3288 / RK3588 ติดตั้ง Android 9/11/12 จากโรงงาน รองรับ Square / Stripe / Clover / Shopify POS พร้อม 5GHz Wi-Fi + BLE 5.0 ประหยัดพลังงานกว่า x86 (≤115W) เหมาะกับ Self-service Kiosk และ POS Android-based",
+    bestFor: "Square POS / Self-service Kiosk / Digital Signage ที่ใช้ Android App",
+    highlights: [
+      "Rockchip RK3568 / RK3288 / RK3588 (เลือกได้)",
+      "RAM 2–8GB + eMMC 16–128GB",
+      "Pre-install Android 9 / 11 / 12",
+      "5GHz Wi-Fi + BLE 5.0 — รองรับ Square POS โดยตรง",
+    ],
+    cpu: "Rockchip RK3568 / 3288 / 3588",
+    ram: "2–8GB LPDDR4",
+    storage: "eMMC 16–128GB",
+    targetSlug: "hd32",
+    accent: "secondary",
+  },
+];
+
+
     slug: "hd32",
     modelCode: "HD32",
     name: '32" Touch PC HD32 (X86 All-in-One)',
