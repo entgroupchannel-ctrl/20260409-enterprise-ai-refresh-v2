@@ -124,13 +124,13 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title={`${product.name} | จอสัมผัส 32 นิ้ว — ENT Group`}
+        title={`${product.name} | จอสัมผัส ${groupSize} นิ้ว — ENT Group`}
         description={product.tagline}
-        path={`/products/displays-32?model=${product.slug}`}
+        path={`${group.basePath}?model=${product.slug}`}
       />
       <BreadcrumbJsonLd items={[
-        { name: "Touch Display 32\"", path: "/products/displays-32" },
-        { name: product.shortName, path: `/products/displays-32?model=${product.slug}` },
+        { name: group.label, path: group.basePath },
+        { name: product.shortName, path: `${group.basePath}?model=${product.slug}` },
       ]}/>
 
       <MiniNavbar />
@@ -141,16 +141,16 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
           <div className="flex items-center gap-2 text-xs text-muted-foreground mb-4">
             <Link to="/" className="hover:text-primary transition">หน้าหลัก</Link>
             <span>/</span>
-            <Link to="/interactive-display" className="hover:text-primary transition">Touch Display 32"</Link>
+            <Link to={group.parentLink} className="hover:text-primary transition">{group.label}</Link>
             <span>/</span>
             <span className="text-foreground font-medium">{product.modelCode}</span>
           </div>
           <Link
-            to="/interactive-display"
+            to={group.parentLink}
             className="group inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-primary/30 bg-primary/5 text-primary hover:bg-primary hover:text-primary-foreground transition-all text-sm font-bold"
           >
             <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-            ดูรุ่นอื่นใน Touch Display 32" ทั้งหมด
+            ดูรุ่นอื่นใน {group.label} ทั้งหมด
             <Monitor size={14} className="opacity-60" />
           </Link>
         </div>
@@ -161,8 +161,8 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
         <div className="container max-w-7xl mx-auto px-6 py-3">
           {/* Model tabs */}
           <div className="flex gap-1.5 overflow-x-auto scrollbar-hide -mx-1 px-1">
-            {DISPLAY_32_ORDER.map((s) => {
-              const m = DISPLAYS_32[s];
+            {group.order.map((s) => {
+              const m = group.data[s];
               const active = s === requested;
               return (
                 <button
@@ -763,7 +763,7 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
           ref={el => (sectionRefs.current.compare = el)}
           className="scroll-mt-32"
         >
-          <SectionTitle eyebrow="Comparison" title="เปรียบเทียบ 5 รุ่นในหมวด 32 นิ้ว" />
+          <SectionTitle eyebrow="Comparison" title={`เปรียบเทียบรุ่นในหมวด ${groupSize} นิ้ว`} />
           <ComparisonTable activeSlug={requested} onSwitch={switchModel} data={group.data} order={group.order} />
         </section>
 
