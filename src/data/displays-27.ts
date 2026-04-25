@@ -80,12 +80,12 @@ export const DISPLAYS_27: Record<Display27Slug, Display32> = {
       "ขอบจอบาง — ติดตั้งได้ Wall mount / Desktop / Floor Stand",
       "30,000-hour Extended-life LED Backlight",
     ],
-    useCases: ["POS Self-order", "Conference / Meeting Room", "Healthcare", "Parcel Locker / Education"],
+    useCases: ["POS Self-order", "Conference / Meeting Room", "Healthcare", "Education / Lab"],
     useCaseScenarios: [
-      { image: hd27Install1, title: "Healthcare / Self-check-in",  description: "จุดลงทะเบียนผู้ป่วยขนาด 27\" ติดตั้งบนเคาน์เตอร์หรือแขวนผนัง รองรับการกรอกข้อมูล/สแกน QR ลดคิวที่เคาน์เตอร์ Front-desk" },
-      { image: hd27Install2, title: "Restaurant / Self-order POS", description: "ตู้สั่งอาหาร QSR / Casual Dining ขนาด 27\" รองรับ Square / Stripe / Clover / Shopify POS โดยตรง เพิ่ม upsell ผ่านเมนูภาพชัด" },
-      { image: hd27Install3, title: "Public / Self-service",        description: "เครื่องบริการสาธารณะ — ATM, Ticket, Wayfinding หรือ Information Kiosk PCAP 10-point ตอบสนองไว Mohs 7 ทนการใช้งานหนัก" },
-      { image: hd27Mon7,     title: "Industrial Automation / HMI",  description: "หน้าจอควบคุมเครื่องจักรในโรงงาน — รองรับ 7×24H Stable Working ทำงานต่อเนื่องโดยไม่หยุดพัก พร้อม Industrial-grade Power Supply" },
+      { image: hd27UcPos,        title: "QSR / Self-order Counter",         description: "ตั้งบนเคาน์เตอร์ร้าน QSR / Cafe ขนาด 27\" PCAP 10-point ตอบสนองไว ลูกค้าสั่งและจ่ายเองได้ ลดคิวที่เคาน์เตอร์ เพิ่ม upsell เฉลี่ย 20-30% ผ่านเมนูภาพคมชัด FHD" },
+      { image: hd27UcMeeting,    title: "Conference / Meeting Room",        description: "จอสัมผัสในห้องประชุม 4-8 คน รองรับ Video Conference, Interactive Whiteboard, BYOD ผ่าน HDMI/USB เพิ่มประสิทธิภาพการประชุมแบบ Hybrid" },
+      { image: hd27UcHealthcare, title: "Healthcare / Clinical Workstation", description: "ติดตั้งบน Articulating Arm ที่ Nurse Station หรือห้องตรวจ — แสดง EMR / Patient Records / Diagnostic Imaging กระจก Mohs 7 ทำความสะอาดง่าย ทนน้ำยาฆ่าเชื้อ" },
+      { image: hd27UcEducation,  title: "Education / Computer Lab",         description: "ห้องปฏิบัติการคอมพิวเตอร์ — All-in-One 27\" ลดสายและประหยัดพื้นที่บนโต๊ะ รองรับ Active Learning และ Touch UI สำหรับวิชา STEM / Design" },
     ],
     gallery: [
       hd27Mon1, hd27Mon2, hd27X861, hd27X862, hd27Arm1,
