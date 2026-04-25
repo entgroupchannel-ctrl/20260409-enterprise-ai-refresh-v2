@@ -404,7 +404,8 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
     gallery: Array.from({length:9},(_,i)=>IMG("kd32b",`gallery-0${i+1}.jpg`)),
     ioImage: IMG("kd32b", "io-01.jpg"),
     installImages: [],
-    featureImages: Array.from({length:7},(_,i)=>IMG("kd32b",`io-0${i+1}.jpg`)), // KD32B has io shots used as feature
+    featureImages: [],
+    osSupport: ["android", "windows", "linux"],
     datasheetUrl: PDF("KD32B-Datasheet.pdf"),
     ports: ["RJ45 × 1", "USB 2.0 × 2", "Power Socket × 1"],
     specs: [
