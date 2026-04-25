@@ -302,13 +302,13 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
   hr32: {
     slug: "hr32",
     modelCode: "HR32",
-    name: '32" Touch Monitor HR32',
-    shortName: "HR32 Monitor",
-    category: "VESA Mount Touch Monitor",
+    name: '32" HR32 Series — Touch Monitor / Windows PC / Android PC',
+    shortName: "HR32 Series",
+    category: "Configurable 32\" Touch Display",
     formFactor: "Monitor",
-    tagline: "Unibody Aluminum Design — โครงสร้างเหล็ก/อลูมิเนียม ทนทานแบบ Vandal-Proof",
+    tagline: "หน้าจอ 32\" แบบเดียวกัน — เลือก Configuration ได้ 3 แบบ: Touch-only / Windows / Android",
     description:
-      "จอสัมผัส 32 นิ้ว ตัวเครื่อง Unibody อลูมิเนียมตัดด้วยเลเซอร์ ทนทาน กันการทุบทำลาย รองรับ PCAP 10 จุด ตอบสนอง <5ms อ่านง่ายแม้แสงแดดส่อง เหมาะสำหรับสถานที่สาธารณะที่ใช้งานหนัก",
+      "HR32 คือซีรีส์จอสัมผัส 32 นิ้ว ตัวเครื่อง Unibody อลูมิเนียมเลเซอร์คัตที่แชร์โครงสร้างเดียวกันทั้ง 3 รุ่น — สามารถเลือกได้ว่าจะเป็น (1) Touch Monitor เฉพาะจอสัมผัสที่ต่อกับ PC ภายนอก, (2) Windows/Linux PC แบบ All-in-One หรือ (3) Android PC แบบ All-in-One — โดยขนาดภายนอก, ระบบสัมผัส PCAP 10 จุด, ความสว่าง 300 nit และโครงสร้าง Vandal-Proof จะเหมือนกันทุกรุ่น ต่างกันที่ภายในเท่านั้น เหมือนการเลือกสเปก PC",
     highlights: [
       { icon: "Award", title: "4K-Ready Display", subtitle: "FHD พร้อมขยาย" },
       { icon: "Maximize", title: "Ultra-Slim Unibody", subtitle: "อลูมิเนียมเสริมเหล็ก" },
