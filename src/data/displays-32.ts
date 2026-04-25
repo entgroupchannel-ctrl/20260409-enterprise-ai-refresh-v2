@@ -96,7 +96,8 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
     ].map(n => IMG("hd32", n)),
     ioImage: IMG("hd32", "io-01.png"),
     installImages: ["install-01.jpg","install-02.jpg","install-03.jpg"].map(n => IMG("hd32", n)),
-    featureImages: ["feature-01.png","feature-02.png","feature-03.png","feature-04.png"].map(n => IMG("hd32", n)),
+    featureImages: [],
+    osSupport: [],
     datasheetUrl: PDF("HD32-Datasheet.pdf"),
     ports: ["HDMI in × 1", "USB × 1", "VGA × 1", "Audio in/out × 1", "Power Socket × 1"],
     specs: [
