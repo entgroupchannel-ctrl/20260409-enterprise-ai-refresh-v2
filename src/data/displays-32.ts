@@ -261,6 +261,71 @@ const HD32_VARIANTS: Display32["variants"] = [
   },
 ];
 
+// ───────────────────────────────────────────────────────────
+// KD32B Series — Floor Stand Kiosk Configuration Variants
+// ตู้ตั้งพื้นโครงสร้างเดียวกัน — เลือก Configuration ได้ 3 แบบ
+// (Monitor only / Windows-Linux PC / Android PC)
+// ───────────────────────────────────────────────────────────
+const KD32B_VARIANTS: Display32["variants"] = [
+  {
+    key: "monitor",
+    label: "KD32B — Monitor Kiosk",
+    badge: "ตู้คีออสก์ (ไม่มี PC ในตัว)",
+    osBackground: "none",
+    icon: "Monitor",
+    description:
+      "ตู้คีออสก์ตั้งพื้น 32\" เฉพาะจอสัมผัส — ต่อกับ External PC, Mini PC หรือ Media Player ที่มีอยู่ผ่าน HDMI + USB Touch ใต้จอมีช่องสำหรับ Printer / Scanner / NFC ที่เปลี่ยนหน้ากากปรับแต่งได้",
+    bestFor: "ลูกค้ามี PC อยู่แล้ว ต้องการเฉพาะตู้คีออสก์ + จอสัมผัส",
+    highlights: [
+      "ไม่มี PC ในตัว — ต้นทุนต่ำกว่า เปลี่ยน PC ภายนอกได้อิสระ",
+      "Input: HDMI + USB Touch (Plug-and-play)",
+      "ใช้กับ Windows / Linux / macOS / Android Box",
+      "Power Consumption ต่ำสุด < 60W",
+    ],
+    accent: "neutral",
+  },
+  {
+    key: "x86",
+    label: "KD32B — Windows / Linux PC",
+    badge: "Floor Kiosk + AIO PC (x86)",
+    osBackground: "windows",
+    icon: "Cpu",
+    description:
+      "ตู้คีออสก์ตั้งพื้น 32\" พร้อม Intel x86 PC ภายใน เลือก Windows 10/11 IoT หรือ Linux จากโรงงาน รองรับซอฟต์แวร์ POS / ERP / Industrial HMI ที่ลูกค้าใช้อยู่ ไม่ต้องต่อ PC ภายนอก",
+    bestFor: "Self-service Banking / POS / ระบบที่ใช้ซอฟต์แวร์ Windows-based",
+    highlights: [
+      "Intel Celeron / Core i3 / Core i5 (เลือกได้)",
+      "RAM 4–16GB DDR4 + SSD 128–512GB",
+      "Pre-install Windows 10/11 IoT หรือ Linux",
+      "RJ45 + Wi-Fi 802.11ac + Bluetooth ภายในตู้",
+    ],
+    cpu: "Intel Celeron / Core i3 / i5",
+    ram: "4–16GB DDR4",
+    storage: "SSD 128–512GB",
+    accent: "primary",
+  },
+  {
+    key: "android",
+    label: "KD32B — Android PC",
+    badge: "Floor Kiosk + AIO PC (ARM)",
+    osBackground: "android",
+    icon: "Smartphone",
+    description:
+      "ตู้คีออสก์ตั้งพื้น 32\" พร้อม Rockchip ARM PC ภายใน เลือก Android 9/11/12 จากโรงงาน — ประหยัดพลังงานกว่า x86 (≤115W) เหมาะกับ Digital Signage, Self-service Kiosk และระบบ Wayfinding ที่ใช้ App แบบ Android",
+    bestFor: "Wayfinding / Digital Signage / Self-service Kiosk ที่ใช้ Android App",
+    highlights: [
+      "Rockchip RK3568 / RK3288 / RK3588 (เลือกได้)",
+      "RAM 2–8GB + eMMC 16–128GB",
+      "Pre-install Android 9 / 11 / 12",
+      "5GHz Wi-Fi + BLE 5.0 — รองรับ POS Android โดยตรง",
+    ],
+    cpu: "Rockchip RK3568 / 3288 / 3588",
+    ram: "2–8GB LPDDR4",
+    storage: "eMMC 16–128GB",
+    accent: "secondary",
+  },
+];
+
 export const DISPLAYS_32: Record<Display32Slug, Display32> = {
   hd32: {
     slug: "hd32",
@@ -749,18 +814,18 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
   kd32b: {
     slug: "kd32b",
     modelCode: "KD32B",
-    name: '32" Floor Stand Touch Kiosk KD32B',
-    shortName: "KD32B Floor Kiosk",
-    category: "Floor-standing Kiosk",
+    name: '32" KD32B Series — Floor Stand Kiosk (Monitor / Windows / Android)',
+    shortName: "KD32B Series",
+    category: "Configurable 32\" Floor Stand Kiosk",
     formFactor: "Floor Kiosk",
-    tagline: "ตู้คีออสก์ตั้งพื้น 32 นิ้ว — เปลี่ยนหน้ากากได้ ปรับแต่งตามธุรกิจ",
+    tagline: "ตู้คีออสก์ตั้งพื้น 32\" — เลือก Configuration ได้ 3 แบบ: Monitor / Windows / Android",
     description:
-      "ตู้คีออสก์ตั้งพื้น 32 นิ้ว พร้อมหน้ากากด้านหน้าแบบเปลี่ยนได้ (Replaceable Front Panel) ปรับแต่งตามการใช้งาน เพิ่ม Printer, Scanner, Fingerprint ได้อย่างรวดเร็ว ตัวเครื่องเหล็กพ่นสีอบ ทนทานสำหรับใช้งาน 24/7",
+      "KD32B คือซีรีส์ตู้คีออสก์ตั้งพื้น 32 นิ้วที่ใช้โครงสร้างเดียวกันทั้ง 3 รุ่น — สามารถเลือกได้ว่าจะเป็น (1) Monitor Kiosk เฉพาะตู้+จอสัมผัสที่ต่อกับ PC ภายนอก, (2) Windows/Linux PC แบบ All-in-One หรือ (3) Android PC แบบ All-in-One — ทุกรุ่นมีหน้ากากด้านหน้าแบบเปลี่ยนได้ (Replaceable Front Panel) ปรับแต่งตามแบรนด์ เพิ่ม Printer, Scanner, Fingerprint, NFC ได้อย่างรวดเร็ว ตัวตู้เหล็กพ่นสีอบ ทนทานสำหรับใช้งาน 24/7",
     highlights: [
+      { icon: "Layers", title: "เลือก Configuration ได้ 3 แบบ", subtitle: "Monitor / Windows / Android" },
       { icon: "Hand", title: "10-Point Touch", subtitle: "PCAP Capacitive" },
-      { icon: "Box", title: "One-piece Streamlined", subtitle: "ดีไซน์ชิ้นเดียวเรียบ" },
-      { icon: "Award", title: "ATEX-certified", subtitle: "มาตรฐานความปลอดภัย" },
-      { icon: "ShieldCheck", title: "Plug-and-play", subtitle: "ติดตั้งง่าย" },
+      { icon: "Box", title: "Replaceable Front Panel", subtitle: "เปลี่ยนหน้ากากตามแบรนด์" },
+      { icon: "ShieldCheck", title: "24/7 Industrial-grade", subtitle: "เหล็กพ่นสีอบ ทนทาน" },
     ],
     features: [
       "หน้ากากด้านหน้าเปลี่ยนได้ (Replaceable Front Panel)",
@@ -811,7 +876,8 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
         ],
       },
     ],
-    osSupport: ["android", "windows", "linux"],
+    osSupport: ["windows", "linux", "android"],
+    variants: KD32B_VARIANTS,
     datasheetUrl: "/datasheets/ENT-Datasheet-KD32B.pdf",
     dimensionUrl: "/datasheets/ENT-Dimension-KD32B.pdf",
     ports: ["RJ45 × 1", "USB 2.0 × 2", "Power Socket × 1"],
@@ -848,7 +914,7 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       brightness: "300 cd/m²",
       contrast: "1200:1",
       touch: "PCAP 10pt",
-      os: "Android หรือ x86",
+      os: "Monitor / Windows / Android (เลือกได้)",
       formFactor: "Floor Kiosk",
       dimensionCm: "47 × 168.8 × 47.0",
       weightKg: "23.3",
