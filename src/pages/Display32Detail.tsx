@@ -457,11 +457,15 @@ const Display32Detail = () => {
             className="scroll-mt-32"
           >
             <SectionTitle
-              eyebrow="CPU Configurations"
-              title="เลือก CPU ได้ 3 ระดับตามความต้องการ"
+              eyebrow={product.variants && product.variants.length > 0 ? "CPU Options · Windows/Linux Variant" : "CPU Configurations"}
+              title={product.variants && product.variants.length > 0
+                ? "เลือก CPU ได้ 3 ระดับ (สำหรับรุ่น Windows / Linux)"
+                : "เลือก CPU ได้ 3 ระดับตามความต้องการ"}
             />
             <p className="text-sm text-muted-foreground mb-6 -mt-2">
-              รุ่นเดียวกัน — ปรับสเปก PC ภายในให้เหมาะกับงาน ตั้งแต่ POS ทั่วไป จนถึงงาน Industrial / AI Workstation
+              {product.variants && product.variants.length > 0
+                ? "สเปก CPU ด้านล่างใช้กับรุ่น Windows/Linux (x86) — ถ้าเลือกรุ่น Android (ARM) จะใช้ Rockchip RK3568/3288/3588 แทน (ดูรายละเอียดในหัวข้อ Configurations ด้านบน)"
+                : "รุ่นเดียวกัน — ปรับสเปก PC ภายในให้เหมาะกับงาน ตั้งแต่ POS ทั่วไป จนถึงงาน Industrial / AI Workstation"}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               {product.cpuOptions.map((opt, i) => {
