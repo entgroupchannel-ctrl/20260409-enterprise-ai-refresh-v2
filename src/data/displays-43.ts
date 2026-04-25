@@ -33,13 +33,26 @@ import hr43X862 from "@/assets/touchwo/hr43/x86-2.jpg";
 import hr43Arm1 from "@/assets/touchwo/hr43/arm-1.jpg";
 import hr43Arm2 from "@/assets/touchwo/hr43/arm-2.jpg";
 
+// KD43B — Floor-Stand Touch Kiosk (ภาพต้นฉบับจาก touchwo.com)
+import kd43Mon1 from "@/assets/touchwo/kd43b/mon-1.jpg";
+import kd43Mon2 from "@/assets/touchwo/kd43b/mon-2.jpg";
+import kd43Mon3 from "@/assets/touchwo/kd43b/mon-3.jpg";
+import kd43Mon4 from "@/assets/touchwo/kd43b/mon-4.jpg";
+import kd43Mon5 from "@/assets/touchwo/kd43b/mon-5.jpg";
+import kd43Mon6 from "@/assets/touchwo/kd43b/mon-6.jpg";
+import kd43Mon7 from "@/assets/touchwo/kd43b/mon-7.jpg";
+import kd43Arm1 from "@/assets/touchwo/kd43b/arm-1.jpg";
+import kd43Arm2 from "@/assets/touchwo/kd43b/arm-2.jpg";
+import kd43X861 from "@/assets/touchwo/kd43b/x86-1.jpg";
+import kd43X862 from "@/assets/touchwo/kd43b/x86-2.jpg";
+
 // Use-case lifestyle scenes
 import hd43UcRestaurant from "@/assets/touchwo/usecases/hd43-uc-restaurant.jpg";
 import hd43UcMeeting from "@/assets/touchwo/usecases/hd43-uc-meeting.jpg";
 import hd43UcSelforder from "@/assets/touchwo/usecases/hd43-uc-selforder.jpg";
 import hd43UcReception from "@/assets/touchwo/usecases/hd43-uc-reception.jpg";
 
-export type Display43Slug = "hd43" | "hr43";
+export type Display43Slug = "hd43" | "hr43" | "kd43b";
 
 export { OS_BACKGROUNDS };
 export type { OSKey };
