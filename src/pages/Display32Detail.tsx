@@ -454,4 +454,55 @@ const ComparisonTable = ({ activeSlug, onSwitch }: { activeSlug: Display32Slug; 
   );
 };
 
+const SimpleLightbox = ({ images, startIndex, onClose }: { images: string[]; startIndex: number; onClose: () => void }) => {
+  const [idx, setIdx] = useState(startIndex);
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowRight") setIdx((i) => (i + 1) % images.length);
+      if (e.key === "ArrowLeft") setIdx((i) => (i - 1 + images.length) % images.length);
+    };
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [images.length, onClose]);
+  return (
+    <div className="fixed inset-0 z-[100] bg-background/95 backdrop-blur-sm flex items-center justify-center p-4" onClick={onClose}>
+      <button onClick={onClose} className="absolute top-4 right-4 p-2 rounded-full bg-background border border-border hover:bg-muted z-10">
+        <X className="h-5 w-5" />
+      </button>
+      {images.length > 1 && (
+        <>
+          <button
+            onClick={(e) => { e.stopPropagation(); setIdx((i) => (i - 1 + images.length) % images.length); }}
+            className="absolute left-4 p-2 rounded-full bg-background border border-border hover:bg-muted z-10"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+          <button
+            onClick={(e) => { e.stopPropagation(); setIdx((i) => (i + 1) % images.length); }}
+            className="absolute right-4 p-2 rounded-full bg-background border border-border hover:bg-muted z-10"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
+        </>
+      )}
+      <img
+        src={images[idx]}
+        alt={`zoom-${idx}`}
+        className="max-h-[90vh] max-w-[92vw] object-contain rounded-lg"
+        onClick={(e) => e.stopPropagation()}
+      />
+      {images.length > 1 && (
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-background/80 border border-border text-xs">
+          {idx + 1} / {images.length}
+        </div>
+      )}
+    </div>
+  );
+};
+
 export default Display32Detail;
