@@ -45,6 +45,10 @@ const Display32Detail = () => {
   const [activeSection, setActiveSection] = useState("overview");
   const [lightbox, setLightbox] = useState<{ images: string[]; index: number } | null>(null);
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
+  const SECTIONS = useMemo(
+    () => ALL_SECTIONS.filter(s => s.id !== "dimensions" || (product?.dimensionDrawings?.length ?? 0) > 0),
+    [product]
+  );
 
   // Track active section on scroll
   useEffect(() => {
