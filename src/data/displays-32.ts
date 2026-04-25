@@ -26,6 +26,8 @@ import hd32Install03Clean from "@/assets/touchwo/hd32-install-03-clean.jpg";
 // Mechanical dimension drawings
 import hr32DimFront from "@/assets/touchwo/hr32-dim-front.jpg";
 import hr32DimBack from "@/assets/touchwo/hr32-dim-back.jpg";
+import gd32cDimFront from "@/assets/touchwo/gd32c-dim-front.png";
+import gd32cDimBack from "@/assets/touchwo/gd32c-dim-back.png";
 
 export const OS_BACKGROUNDS = {
   windows: { src: osWindows, label: "Windows", subtitle: "x86 Intel/AMD รองรับ Windows 10/11 IoT" },
@@ -405,10 +407,35 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       "รองรับ Square / Stripe / Clover / Shopify POS",
     ],
     useCases: ["ร้านค้าปลีก / POS", "ธนาคาร / สาขา", "Self-service Kiosk", "พิพิธภัณฑ์ / นิทรรศการ"],
-    gallery: Array.from({length:8},(_,i)=>IMG("gd32c",`gallery-0${i+1}.jpg`)),
+    // Gallery: เอารูป dimension drawings (เดิม gallery-06, 07) ออก ย้ายไป section "Dimensions"
+    gallery: ["gallery-01.jpg","gallery-02.jpg","gallery-03.jpg","gallery-04.jpg","gallery-05.jpg","gallery-08.jpg"].map(n => IMG("gd32c", n)),
     ioImage: IMG("gd32c", "io-01.png"),
     installImages: ["install-01.jpg","install-02.jpg","install-03.jpg"].map(n => IMG("gd32c", n)),
     featureImages: [],
+    dimensionDrawings: [
+      {
+        image: gd32cDimFront,
+        title: "ด้านหน้า / ด้านข้าง / บน-ล่าง",
+        caption: "แบบมาตรฐานทางวิศวกรรมของตู้คีออสก์ติดผนัง GD32C — แสดงสัดส่วนตัวเครื่องโดยรวม พื้นที่จอแสดงผล (ทแยงมุม 32 นิ้ว) ตำแหน่งกล้อง/เซ็นเซอร์ด้านบน และช่องสำหรับเครื่องพิมพ์ใบเสร็จ + เครื่องสแกนบาร์โค้ด/QR ใต้จอ ใช้สำหรับวางผังการติดตั้ง การเดินสายไฟ และเจาะช่องผนัง",
+        callouts: [
+          { label: "กว้าง × สูง (ตัวเครื่อง)", value: "470 × 1101.3 mm" },
+          { label: "พื้นที่แสดงผล (Active Area)", value: "393.3 × 698.7 mm (32\")" },
+          { label: "ความหนา", value: "57.5 mm (min) / 97.1 mm (max)" },
+          { label: "ฐานล่าง (ช่องระบายอากาศ)", value: "240.6 mm" },
+        ],
+      },
+      {
+        image: gd32cDimBack,
+        title: "ด้านหลัง — ตำแหน่งยึดผนัง VESA",
+        caption: "มุมมองด้านหลังแสดงรูยึด VESA mount มาตรฐาน 200 × 200 mm พร้อมสกรู 4-M8 สำหรับยึดกับ Wall Bracket — เหมาะกับการติดตั้งในห้างสรรพสินค้า ธนาคาร หรือจุด Self-service ที่ต้องการความมั่นคงสูง ด้านล่างมีช่องเดินสายไฟและขั้วต่อ AC แบบฝัง",
+        callouts: [
+          { label: "VESA Mount", value: "200 × 200 mm" },
+          { label: "สกรูยึด", value: "4 × M8" },
+          { label: "ระยะจุดยึดถึงขอบบน", value: "404 mm" },
+          { label: "การระบายอากาศ", value: "ช่องระบายรอบตัวเครื่อง + ฐานล่าง" },
+        ],
+      },
+    ],
     osSupport: ["android", "windows"],
     datasheetUrl: PDF("GD32C-Datasheet.pdf"),
     ports: ["RJ45", "USB", "HDMI", "Wi-Fi Antenna × 1", "AC Power"],
