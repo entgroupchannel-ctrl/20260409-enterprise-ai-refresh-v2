@@ -74,7 +74,7 @@ export interface SpecGroup {
 }
 
 export interface Display32 {
-  slug: Display32Slug;
+  slug: string;
   modelCode: string;
   name: string;
   shortName: string;
