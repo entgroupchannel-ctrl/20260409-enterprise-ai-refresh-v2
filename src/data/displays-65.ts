@@ -22,7 +22,23 @@ import hr65Feat1 from "@/assets/touchwo/hr65/feat-1.png";
 import hr65Feat2 from "@/assets/touchwo/hr65/feat-2.png";
 import hr65Feat3 from "@/assets/touchwo/hr65/feat-3.png";
 
-export type Display65Slug = "hr65";
+import rz65Monitor from "@/assets/touchwo/rz65b/p-monitor.jpg";
+import rz65Windows from "@/assets/touchwo/rz65b/p-windows.jpg";
+import rz65Android from "@/assets/touchwo/rz65b/p-android.jpg";
+import rz65P3 from "@/assets/touchwo/rz65b/p-3.jpg";
+import rz65P4 from "@/assets/touchwo/rz65b/p-4.jpg";
+import rz65P5 from "@/assets/touchwo/rz65b/p-5.jpg";
+import rz65P6 from "@/assets/touchwo/rz65b/p-6.jpg";
+import rz65P7 from "@/assets/touchwo/rz65b/p-7.jpg";
+import rz65IoMonitor from "@/assets/touchwo/rz65b/io-monitor.jpg";
+import rz65IoWindows from "@/assets/touchwo/rz65b/io-windows.jpg";
+import rz65IoAndroid from "@/assets/touchwo/rz65b/io-android.jpg";
+import rz65Feat1 from "@/assets/touchwo/rz65b/feat-1.png";
+import rz65Feat2 from "@/assets/touchwo/rz65b/feat-2.png";
+import rz65Feat3 from "@/assets/touchwo/rz65b/feat-3.png";
+import rz65Feat4 from "@/assets/touchwo/rz65b/feat-4.png";
+
+export type Display65Slug = "hr65" | "rz65b";
 export { OS_BACKGROUNDS };
 export type { OSKey };
 
