@@ -289,7 +289,7 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
       <table className="products" style={s.table}>
         <colgroup>
           <col style={{ width: '36px' }} />
-          <col />
+          <col style={{ width: '349px' }} />
           <col style={{ width: '60px' }} />
           <col style={{ width: '95px' }} />
           <col style={{ width: '75px' }} />
