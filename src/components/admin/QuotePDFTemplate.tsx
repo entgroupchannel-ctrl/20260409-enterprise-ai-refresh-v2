@@ -428,7 +428,7 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
       )}
 
       {/* ── SIGNATURES ────────────────────────────────────────────────── */}
-      <div style={s.sigGrid}>
+      <div className="pdf-keep" style={s.sigGrid}>
         <div style={s.sigBox}>
           {salePerson?.signature_url && salePerson?.show_signature_on_quotes !== false ? (
             <>
