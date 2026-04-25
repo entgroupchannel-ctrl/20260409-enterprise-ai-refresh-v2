@@ -210,7 +210,7 @@ Deno.serve(async (req) => {
       type: linkType,
       email,
       options: linkOptions,
-    })
+    } as Parameters<typeof adminClient.auth.admin.generateLink>[0])
 
     // Fallback: if signup/invite fails because user already exists, use magiclink for testing
     if (linkError && (linkError as any).code === 'email_exists') {
