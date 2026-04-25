@@ -23,11 +23,12 @@ const ICONS: Record<string, any> = {
   MonitorSmartphone, Hand, Award,
 };
 
-const SECTIONS = [
+const ALL_SECTIONS = [
   { id: "overview",   label: "ภาพรวม",      icon: Info },
   { id: "highlights", label: "ไฮไลต์",       icon: Sparkles },
   { id: "features",   label: "Feature",     icon: Star },
   { id: "specs",      label: "สเปก",         icon: Settings2 },
+  { id: "dimensions", label: "ขนาด/ติดตั้ง", icon: Ruler },
   { id: "io",         label: "I/O Ports",   icon: Link2 },
   { id: "install",    label: "การติดตั้ง",   icon: Wrench },
   { id: "use-cases",  label: "Use Cases",   icon: Briefcase },
