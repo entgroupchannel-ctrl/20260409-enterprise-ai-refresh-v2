@@ -331,7 +331,8 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
     gallery: Array.from({length:8},(_,i)=>IMG("gd32c",`gallery-0${i+1}.jpg`)),
     ioImage: IMG("gd32c", "io-01.png"),
     installImages: ["install-01.jpg","install-02.jpg","install-03.jpg"].map(n => IMG("gd32c", n)),
-    featureImages: ["feature-01.png","feature-02.png","feature-03.png","feature-04.png"].map(n => IMG("gd32c", n)),
+    featureImages: [],
+    osSupport: ["android", "windows"],
     datasheetUrl: PDF("GD32C-Datasheet.pdf"),
     ports: ["RJ45", "USB", "HDMI", "Wi-Fi Antenna × 1", "AC Power"],
     specs: [
