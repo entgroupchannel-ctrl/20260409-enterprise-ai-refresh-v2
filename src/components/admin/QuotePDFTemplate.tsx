@@ -90,9 +90,12 @@ const s = {
   metaTdValue: { textAlign: 'right' as const, fontWeight: 'bold' as const, paddingBottom: '2px' } as React.CSSProperties,
   // Product table
   table: { width: '100%', borderCollapse: 'collapse' as const, tableLayout: 'fixed' as const, fontSize: '9pt', marginBottom: '8px' } as React.CSSProperties,
-  // ... keep existing code (other style entries)
+  th: { padding: '6px 8px', textAlign: 'left' as const, borderBottom: '2px solid #1a1a1a', fontWeight: 'bold', backgroundColor: '#f8f9fa' } as React.CSSProperties,
+  thCenter: { padding: '6px 8px', textAlign: 'center' as const, borderBottom: '2px solid #1a1a1a', fontWeight: 'bold', backgroundColor: '#f8f9fa' } as React.CSSProperties,
+  thRight: { padding: '6px 8px', textAlign: 'right' as const, borderBottom: '2px solid #1a1a1a', fontWeight: 'bold', backgroundColor: '#f8f9fa' } as React.CSSProperties,
   tdTop: { padding: '6px 8px', verticalAlign: 'top' as const, borderBottom: '1px solid #e5e7eb', wordBreak: 'break-word' as const, overflowWrap: 'break-word' as const } as React.CSSProperties,
-  // ... keep existing code (other tdTop-adjacent entries)
+  tdCenter: { padding: '6px 8px', verticalAlign: 'top' as const, textAlign: 'center' as const, borderBottom: '1px solid #e5e7eb' } as React.CSSProperties,
+  tdRight: { padding: '6px 8px', verticalAlign: 'top' as const, textAlign: 'right' as const, borderBottom: '1px solid #e5e7eb' } as React.CSSProperties,
   productName: { fontWeight: 'bold', margin: '0 0 2px', wordBreak: 'break-word' as const } as React.CSSProperties,
   productDesc: { color: '#555', fontSize: '8.5pt', whiteSpace: 'pre-wrap' as const, wordBreak: 'break-word' as const, overflowWrap: 'break-word' as const, margin: 0 } as React.CSSProperties,
   productNote: { color: '#1d4ed8', fontSize: '8.5pt', margin: '2px 0 0' } as React.CSSProperties,
