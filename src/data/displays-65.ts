@@ -38,7 +38,27 @@ import rz65Feat2 from "@/assets/touchwo/rz65b/feat-2.png";
 import rz65Feat3 from "@/assets/touchwo/rz65b/feat-3.png";
 import rz65Feat4 from "@/assets/touchwo/rz65b/feat-4.png";
 
-export type Display65Slug = "hr65" | "rz65b";
+import hd65Monitor from "@/assets/touchwo/hd65/p-monitor.jpg";
+import hd65Windows from "@/assets/touchwo/hd65/p-windows.jpg";
+import hd65Android from "@/assets/touchwo/hd65/p-android.jpg";
+import hd65P2 from "@/assets/touchwo/hd65/p-2.jpg";
+import hd65P3 from "@/assets/touchwo/hd65/p-3.jpg";
+import hd65P4 from "@/assets/touchwo/hd65/p-4.jpg";
+import hd65P5 from "@/assets/touchwo/hd65/p-5.jpg";
+import hd65P6 from "@/assets/touchwo/hd65/p-6.jpg";
+import hd65P7 from "@/assets/touchwo/hd65/p-7.jpg";
+import hd65IoMonitor from "@/assets/touchwo/hd65/io-monitor.jpg";
+import hd65IoWindows from "@/assets/touchwo/hd65/io-windows.jpg";
+import hd65IoAndroid from "@/assets/touchwo/hd65/io-android.jpg";
+import hd65Install1 from "@/assets/touchwo/hd65/install-1.jpg";
+import hd65Install2 from "@/assets/touchwo/hd65/install-2.jpg";
+import hd65Install3 from "@/assets/touchwo/hd65/install-3.jpg";
+import hd65Feat1 from "@/assets/touchwo/hd65/feat-1.png";
+import hd65Feat2 from "@/assets/touchwo/hd65/feat-2.png";
+import hd65Feat3 from "@/assets/touchwo/hd65/feat-3.png";
+import hd65Feat4 from "@/assets/touchwo/hd65/feat-4.png";
+
+export type Display65Slug = "hr65" | "rz65b" | "hd65";
 export { OS_BACKGROUNDS };
 export type { OSKey };
 
@@ -522,9 +542,251 @@ export const DISPLAYS_65: Record<Display65Slug, Display32> = {
       install: "Wall / Floor / Mobile Stand",
     },
   },
+
+  hd65: {
+    slug: "hd65",
+    modelCode: "HD65",
+    name: '65" HD65 Series — Touch Monitor / Windows PC / Android PC',
+    shortName: "HD65 Series",
+    category: "65\" FHD Touch Display (Cost-Effective Series)",
+    formFactor: "Configurable AIO",
+    tagline: "จอสัมผัส 65\" FHD PCAP — ดีไซน์เรียบง่าย คุ้มค่า — เลือก 3 Configuration: Monitor / Windows PC / Android",
+    description:
+      "HD65 คือซีรีส์จอสัมผัสขนาด 65 นิ้ว ความละเอียด FHD 1920×1080 (4K Optional) PCAP 10-point — ออกแบบเน้นความคุ้มค่าและความทนทานสำหรับงานเชิงพาณิชย์ ผิวหน้ากระจก Mohs class 7 explosion-proof, อายุ Backlight LED 30,000 ชม. มุมมองกว้าง 178°/178° — เลือก Configuration ได้ 3 แบบ: (1) Touch Monitor (HDMI in / VGA / USB / Audio), (2) Windows All-in-One — Intel Celeron J6412 / Core i5-8Gen / Core i7-10Gen + DDR4 SODIMM + mSATA SSD, (3) Android All-in-One พร้อม Rockchip RK3568 / RK3288 / RK3588 (Android 9/11/12) รองรับการติดตั้ง Wall-mount หรือ Floor-standing",
+    highlights: [
+      { icon: "Maximize", title: "65\" FHD 1920×1080", subtitle: "16:9 / 300 cd/m² / 4K Optional" },
+      { icon: "Hand", title: "PCAP 10-Point Touch", subtitle: "Mohs 7 Explosion-Proof Glass" },
+      { icon: "Eye", title: "Wide Viewing 178°/178°", subtitle: "16.7M Colours / 60Hz" },
+      { icon: "Award", title: "Cost-Effective Design", subtitle: "Backlight 30,000 ชม. ทนทาน" },
+    ],
+    features: [
+      "PCAP 10-point Touch — เวลาตอบสนองเร็ว Scanning Frequency 200Hz",
+      "FHD 1920×1080 (4K Optional) — ความละเอียดมาตรฐาน รองรับอัปเกรด 4K",
+      "Mohs class 7 explosion-proof glass — ผิวหน้ากันรอยและการกระแทก",
+      "Backlight LED อายุ 30,000 ชั่วโมง",
+      "มุมมองกว้าง 178° / 178° — ดูได้ทุกมุมห้อง",
+      "Brightness 300 cd/m² / Contrast 1200:1",
+      "Pre-install Windows 10/11 / Linux / Android 9/11/12",
+      "Touch Recognition > 1.5mm / Scanning Accuracy 4096 × 4096",
+      "ติดตั้งได้: Wall-mount / Floor-standing / Mobile Stand",
+      "Standby Power ≤ 0.5W — ประหยัดพลังงานเมื่อไม่ใช้งาน",
+      "Wi-Fi 802.11a/b/g/n/ac + Gigabit Ethernet (PC variant)",
+      "Aspect Ratio 16:9 / Active Area 1430.5 × 806 mm",
+      "ดีไซน์ Slim Profile หนาเพียง 8.09 cm",
+      "เหมาะกับ Education, Healthcare, Retail, Public Self-service",
+    ],
+    useCases: ["Education / Smart Classroom", "Healthcare", "Industrial", "Public Self-service Kiosk", "Restaurant / QSR", "Parcel Locker"],
+    useCaseScenarios: [],
+    gallery: [hd65Monitor, hd65Windows, hd65Android, hd65P2, hd65P3, hd65P4, hd65P5, hd65P6, hd65P7],
+    ioImage: hd65IoMonitor,
+    installImages: [hd65Install1, hd65Install2, hd65Install3],
+    featureImages: [hd65Feat1, hd65Feat2, hd65Feat3, hd65Feat4],
+    dimensionDrawings: [
+      {
+        image: hd65P3,
+        title: "Mechanical Dimension — 65\" FHD Display",
+        caption: "ตัวเครื่อง 65\" FHD — ขนาด 1484.9 × 860.4 × 80.9 mm (กว้าง × สูง × ลึก) Active Area 1430.5 × 806 mm น้ำหนักสุทธิ 39 kg / รวม 48 kg — ดีไซน์ Slim Profile หนาเพียง 8.09 cm",
+        callouts: [
+          { label: "ขนาดเครื่อง", value: "148.49 × 86.04 × 8.09 cm" },
+          { label: "Active Area", value: "1430.5 × 806 mm" },
+          { label: "น้ำหนักสุทธิ / รวม", value: "39 kg / 48 kg" },
+          { label: "ขนาดกล่อง", value: "156 × 101 × 17.3 cm" },
+        ],
+      },
+      {
+        image: hd65IoMonitor,
+        title: "I/O Layout — Touch Monitor",
+        caption: "พอร์ต Touch Monitor: HDMI in × 1, VGA × 1, USB × 1, Audio in/out × 1, Power Socket × 1",
+        callouts: [
+          { label: "Video Input", value: "HDMI × 1, VGA × 1" },
+          { label: "Touch / USB", value: "USB × 1" },
+          { label: "Audio", value: "Audio in/out × 1" },
+          { label: "Power", value: "110-240V AC 50/60Hz" },
+        ],
+      },
+      {
+        image: hd65IoWindows,
+        title: "I/O Layout — Windows PC",
+        caption: "พอร์ต Windows All-in-One PC — รองรับ Intel Celeron J6412 / Core i5-8Gen / Core i7-10Gen + RJ45 Gigabit + Wi-Fi 802.11a/b/g/n/ac",
+        callouts: [
+          { label: "Network", value: "RJ45 10/100/1000M + Wi-Fi" },
+          { label: "USB", value: "USB × 4" },
+          { label: "Display", value: "VGA × 1" },
+          { label: "Power", value: "110-240V AC" },
+        ],
+      },
+      {
+        image: hd65IoAndroid,
+        title: "I/O Layout — Android PC",
+        caption: "พอร์ต Android All-in-One: RJ45, USB ×2, TF slot, HDMI out, Audio in/out, Power Socket",
+        callouts: [
+          { label: "Network", value: "RJ45 10/100M + Wi-Fi 802.11ac" },
+          { label: "Video Out", value: "HDMI out × 1" },
+          { label: "USB / Storage", value: "USB × 2, TF slot × 1" },
+          { label: "Audio", value: "Audio in/out × 1" },
+        ],
+      },
+    ],
+    osSupport: ["windows", "linux", "android"],
+    variants: [
+      {
+        key: "monitor",
+        label: "HD65 — Touch Monitor",
+        badge: "เฉพาะจอสัมผัส (ไม่มี PC ในตัว)",
+        osBackground: "none",
+        icon: "Monitor",
+        description:
+          "จอสัมผัส 65\" FHD PCAP ล้วน ๆ ดีไซน์เรียบง่าย — ต่อกับ External PC, OPS หรือ Media Player ผ่าน HDMI in + VGA + USB Touch (Plug-and-play) มาพร้อม USB & HDMI cable, Wall mount bracket, Power cable — น้ำหนักสุทธิ 39 kg",
+        bestFor: "ลูกค้ามี PC/OPS อยู่แล้ว ต้องการเฉพาะจอสัมผัสขนาดใหญ่ 65\" FHD ในงบประมาณคุ้มค่า",
+        highlights: [
+          "ไม่มี PC ในตัว — ต่อ PC ภายนอกผ่าน HDMI + VGA + USB Touch",
+          "FHD 1920×1080 (4K Optional) / 16:9 / 60Hz",
+          "Brightness 300 cd/m² / Contrast 1200:1",
+          "PCAP 10-point Touch / Mohs 7 Glass",
+          "Audio in/out + Power Socket × 1",
+          "น้ำหนักสุทธิ 39 kg / Profile 8.09 cm",
+        ],
+        accent: "neutral",
+      },
+      {
+        key: "x86",
+        label: "HD65 — Windows / Linux PC",
+        badge: "All-in-One PC (Built-in)",
+        osBackground: "windows",
+        icon: "Cpu",
+        description:
+          "All-in-One PC จอ 65\" FHD พร้อม PC ภายใน เลือก CPU ได้ 3 ระดับ — Intel Celeron J6412 (Entry) / Core i5-8Gen (Mid) / Core i7-10Gen (High) — RAM DDR4-2666MHz SODIMM 4-16GB + mSATA SSD 128-512GB ติดตั้ง Windows 10/11 หรือ Linux จากโรงงาน",
+        bestFor: "ห้องประชุม / Education / Digital Signage ที่ต้องการ All-in-One ในงบประมาณคุ้มค่า",
+        highlights: [
+          "CPU: Intel Celeron J6412 / Core i5-8Gen / Core i7-10Gen",
+          "GPU: UHD Graphics / Iris® Plus 645 / UHD Graphics",
+          "RAM DDR4-2666MHz SODIMM 4 / 8 / 16 GB",
+          "Storage mSATA SSD 128 / 256 / 512 GB",
+          "Audio: HD Audio ALC269",
+          "Gigabit RJ45 + Wi-Fi 802.11a/b/g/n/ac",
+          "Pre-installed Windows 10 / 11 / Linux",
+        ],
+        cpu: "Intel Celeron J6412 / Core i5-8Gen / Core i7-10Gen",
+        ram: "4–16GB DDR4 SODIMM",
+        storage: "mSATA SSD 128–512GB",
+        accent: "primary",
+      },
+      {
+        key: "android",
+        label: "HD65 — Android PC",
+        badge: "All-in-One PC (ARM)",
+        osBackground: "android",
+        icon: "Smartphone",
+        description:
+          "All-in-One PC จอ 65\" FHD พร้อม Rockchip ARM ภายใน เลือก CPU ได้ 3 ระดับ — RK3568 (Android 11) / RK3288 (Android 9) / RK3588 (Android 12) พร้อม Wi-Fi 802.11ac — เหมาะกับ Education App, Public Self-service และ Digital Signage",
+        bestFor: "Smart Classroom / Public Kiosk / Digital Signage ที่ใช้ Android App ในงบคุ้มค่า",
+        highlights: [
+          "Rockchip RK3568 / RK3288 / RK3588 (เลือกได้)",
+          "RAM 2–8GB + eMMC 16–128GB (Optional)",
+          "Pre-install Android 11 / 9 / 12 (ตามรุ่น CPU)",
+          "10/100M หรือ 100/1000M RJ45 + Wi-Fi 802.11ac",
+          "HDMI out + USB ×2 + TF slot",
+          "Audio in/out + Power Socket",
+        ],
+        cpu: "Rockchip RK3568 / RK3288 / RK3588",
+        ram: "2–8GB",
+        storage: "eMMC 16–128GB",
+        accent: "secondary",
+      },
+    ],
+    cpuOptions: [
+      { tier: "Entry", cpu: "Intel® Celeron® J6412 (Quad-core Elkhart Lake)", gpu: "Intel® UHD Graphics", ram: "DDR4-2666 SODIMM 4GB", storage: "mSATA SSD 128GB", targetUseCase: "Digital Signage งานทั่วไป / Self-service Kiosk" },
+      { tier: "Mid", cpu: "Intel® Core™ i5 8th Gen", gpu: "Intel® Iris® Plus Graphics 645", ram: "DDR4-2666 SODIMM 8GB", storage: "mSATA SSD 256GB", targetUseCase: "Smart Classroom, Conference Room, Wireless Presentation" },
+      { tier: "High", cpu: "Intel® Core™ i7 10th Gen", gpu: "Intel® UHD Graphics", ram: "DDR4-2666 SODIMM 16GB", storage: "mSATA SSD 512GB", targetUseCase: "Boardroom, Video Conferencing, Multi-tasking Workloads" },
+      { tier: "Entry", cpu: "Rockchip RK3568 (Quad-core ARM Cortex-A55)", gpu: "ARM Mali-G52 2EE", ram: "LPDDR4 2GB (4GB optional)", storage: "eMMC 32GB", targetUseCase: "Education App, Self-service Kiosk (Android 11)" },
+      { tier: "Mid", cpu: "Rockchip RK3288 (Quad-core ARM Cortex-A17)", gpu: "ARM Mali-T864", ram: "LPDDR3 2GB (4GB optional)", storage: "eMMC 16GB (32GB optional)", targetUseCase: "Pre-install Android 9 — งาน Legacy App" },
+      { tier: "High", cpu: "Rockchip RK3588 (Octa-core, 8nm)", gpu: "ARM Mali-G610", ram: "LPDDR4 4GB (8GB optional)", storage: "eMMC 64GB (128GB optional)", targetUseCase: "AI Vision, 4K Multimedia, Smart Whiteboard (Android 12)" },
+    ],
+    datasheetUrl: "https://touchwo.com/product/65-touch-monitor-hd65/",
+    ports: [],
+    specs: [
+      { title: "Windows / Linux System", rows: [
+        { label: "CPU (เลือกได้)", value: "Intel® Celeron® J6412 / Core™ i5-8Gen / Core™ i7-10Gen" },
+        { label: "Graphic GPU", value: "Intel® UHD / Iris® Plus 645 / UHD Graphics" },
+        { label: "Audio", value: "HD Audio: ALC269" },
+        { label: "หน่วยความจำ (RAM)", value: "DDR4-2666MHz SODIMM 4 / 8 / 16 GB" },
+        { label: "หน่วยเก็บข้อมูล", value: "mSATA SSD 128 / 256 / 512 GB" },
+        { label: "เครือข่าย", value: "10/100/1000M RJ45 + Wi-Fi 802.11a/b/g/n/ac" },
+        { label: "OS ที่ติดตั้งให้", value: "Windows 10 / 11 / Linux (เลือกได้)" },
+      ]},
+      { title: "Android System (ARM)", rows: [
+        { label: "CPU (เลือกได้)", value: "Rockchip RK3568 / RK3288 / RK3588" },
+        { label: "Graphic GPU", value: "ARM G52 2EE / Mali-T864 / Mali-G610" },
+        { label: "หน่วยความจำ (RAM)", value: "RK3568 2GB (4GB opt) / RK3288 2GB (4GB opt) / RK3588 4GB (8GB opt)" },
+        { label: "หน่วยเก็บข้อมูล", value: "RK3568 32GB / RK3288 16GB (32GB opt) / RK3588 64GB (128GB opt)" },
+        { label: "เครือข่าย", value: "10/100M หรือ 100/1000M RJ45 + Wi-Fi 802.11a/b/g/n/ac" },
+        { label: "OS ที่ติดตั้งให้", value: "Android 11 (RK3568) / Android 9 (RK3288) / Android 12 (RK3588)" },
+      ]},
+      { title: "LCD Panel", rows: [
+        { label: "ขนาดหน้าจอ", value: "65 นิ้ว" },
+        { label: "ความละเอียด", value: "1920 × 1080 (FHD) — 4K Optional" },
+        { label: "อัตราส่วนภาพ", value: "16 : 9" },
+        { label: "พื้นที่แสดงผล", value: "1430.5 × 806 mm" },
+        { label: "จำนวนสี", value: "16.7M" },
+        { label: "ความสว่าง", value: "300 cd/m²" },
+        { label: "อัตราส่วนความเปรียบต่าง", value: "1200:1" },
+        { label: "มุมมอง H/V", value: "178° / 178°" },
+        { label: "อายุ Backlight", value: "LED 30,000 ชม." },
+        { label: "Refresh Rate", value: "60 Hz" },
+      ]},
+      { title: "Touch Panel", rows: [
+        { label: "เทคโนโลยี", value: "PCAP (Capacitive)" },
+        { label: "จำนวนจุดสัมผัส", value: "10 จุด standard" },
+        { label: "Touch Recognition", value: "> 1.5mm" },
+        { label: "Scanning Frequency", value: "200 Hz" },
+        { label: "Scanning Accuracy", value: "4096 × 4096" },
+        { label: "Working Voltage", value: "180mA / DC +5V ±5%" },
+        { label: "ผิวหน้า", value: "Mohs class 7 explosion-proof glass" },
+      ]},
+      { title: "Operation Environment", rows: [
+        { label: "อุณหภูมิทำงาน", value: "0°C - 50°C" },
+        { label: "ความชื้นทำงาน", value: "0% - 90%" },
+        { label: "อุณหภูมิเก็บรักษา", value: "0°C - 60°C" },
+        { label: "ความชื้นเก็บรักษา", value: "0% - 65%" },
+      ]},
+      { title: "Dimension & Weight", rows: [
+        { label: "ขนาดเครื่อง (W×H×T)", value: "148.49 × 86.04 × 8.09 cm" },
+        { label: "ขนาดกล่อง (W×H×T)", value: "156 × 101 × 17.3 cm" },
+        { label: "น้ำหนักสุทธิ", value: "39 kg" },
+        { label: "น้ำหนักรวม", value: "48 kg" },
+      ]},
+      { title: "Power Supply", rows: [
+        { label: "Power Input", value: "110-240V AC 50/60Hz" },
+        { label: "Standby Power", value: "≤ 0.5W" },
+      ]},
+      { title: "External Connectors", rows: [
+        { label: "Touch Monitor", value: "HDMI in × 1, VGA × 1, USB × 1, Audio in/out × 1, Power Socket × 1" },
+        { label: "Windows / Linux PC", value: "RJ45 × 1, USB × 4, VGA × 1, Power Socket" },
+        { label: "Android PC", value: "RJ45 × 1, USB × 2, TF slot × 1, HDMI out × 1, Audio in/out × 1, Power Socket × 1" },
+      ]},
+      { title: "Included in the Delivery", rows: [
+        { label: "Manual / คู่มือ", value: "× 1" },
+        { label: "Wall mount bracket", value: "× 1" },
+        { label: "USB & HDMI cable (Monitor) / Wi-Fi Antenna (PC/Android)", value: "× 1" },
+        { label: "Power cable", value: "× 1" },
+      ]},
+    ],
+    quick: {
+      resolution: "1920×1080 FHD (4K opt)",
+      brightness: "300 cd/m²",
+      contrast: "1200:1",
+      touch: "PCAP 10pt + Mohs 7",
+      os: "Monitor / Windows / Linux / Android",
+      formFactor: "Slim 8.09 cm 65\"",
+      dimensionCm: "148.49 × 86.04 × 8.09",
+      weightKg: "39",
+      power: "110-240V AC",
+      install: "Wall / Floor / Mobile Stand",
+    },
+  },
 };
 
-export const DISPLAY_65_ORDER: Display65Slug[] = ["hr65", "rz65b"];
+export const DISPLAY_65_ORDER: Display65Slug[] = ["hr65", "rz65b", "hd65"];
 
 export const getDisplay65 = (slug: string): Display32 | undefined =>
   DISPLAYS_65[slug as Display65Slug];
