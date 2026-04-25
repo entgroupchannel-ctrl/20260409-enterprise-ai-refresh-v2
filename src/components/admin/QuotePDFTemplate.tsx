@@ -158,7 +158,26 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
       <style>{`
         @page {
           size: A4 portrait;
-          margin: 15mm 15mm 20mm 15mm;
+          margin: 22mm 15mm 18mm 15mm;
+          /* Running header — repeats on every page (print only) */
+          @top-left {
+            content: "${(companyInfo.name_th || '').replace(/"/g, '\\"')}";
+            font-size: 8pt; color: #1d4ed8; font-weight: bold;
+            border-bottom: 1px solid #1d4ed8; padding-bottom: 2mm; width: 100%;
+          }
+          @top-right {
+            content: "ใบเสนอราคา ${quote.quote_number} • Rev ${revision.revision_number}";
+            font-size: 8pt; color: #555;
+            border-bottom: 1px solid #1d4ed8; padding-bottom: 2mm;
+          }
+          @bottom-right {
+            content: "หน้า " counter(page) " / " counter(pages);
+            font-size: 8pt; color: #aaa;
+          }
+          @bottom-left {
+            content: "${(quote.quote_number || '').replace(/"/g, '\\"')}";
+            font-size: 8pt; color: #aaa;
+          }
         }
         #quote-pdf-template {
           font-family: Arial, Helvetica, sans-serif;
@@ -166,13 +185,19 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
           color: #222;
           line-height: 1.5;
         }
-        /* Repeat table header on every page */
-        thead { display: table-header-group; }
-        tfoot { display: table-footer-group; }
-        /* Avoid breaking product rows mid-row */
-        tbody tr { page-break-inside: avoid; }
-        /* Page number via CSS counter */
-        @page { @bottom-right { content: "หน้า " counter(page) " / " counter(pages); font-size: 8pt; color: #aaa; } }
+        /* Repeat the products table header on every page when it spans pages */
+        #quote-pdf-template table.products thead { display: table-header-group; }
+        #quote-pdf-template table.products tfoot { display: table-footer-group; }
+        /* Allow long product rows (with full spec sheets) to break across pages,
+           but try to keep the row together if it fits */
+        #quote-pdf-template table.products tbody tr { page-break-inside: auto; }
+        /* Blocks that must not be split across pages */
+        #quote-pdf-template .pdf-keep { page-break-inside: avoid; break-inside: avoid; }
+        /* Force a fresh page when needed */
+        #quote-pdf-template .pdf-page-break { page-break-before: always; break-before: page; }
+        /* Headings shouldn't be the last line on a page */
+        #quote-pdf-template h1, #quote-pdf-template h2, #quote-pdf-template h3,
+        #quote-pdf-template .pdf-keep-with-next { page-break-after: avoid; break-after: avoid; }
       `}</style>
 
       {/* ── HEADER ────────────────────────────────────────────────────── */}
