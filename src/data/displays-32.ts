@@ -326,7 +326,9 @@ const KD32B_VARIANTS: Display32["variants"] = [
   },
 ];
 
-
+export const DISPLAYS_32: Record<Display32Slug, Display32> = {
+  hd32: {
+    slug: "hd32",
     modelCode: "HD32",
     name: '32" HD32 Series — All-in-One Touch PC (Windows / Linux / Android)',
     shortName: "HD32 Series",
