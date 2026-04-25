@@ -226,6 +226,10 @@ const App = () => (
                     <Route path="/products/displays-32/:model" element={<Display32Detail groupSize={32} />} />
                     <Route path="/products/displays-43" element={<Display32Detail groupSize={43} />} />
                     <Route path="/products/displays-43/:model" element={<Display32Detail groupSize={43} />} />
+                    <Route path="/products/displays-23.8" element={<Display32Detail groupSize={238} />} />
+                    <Route path="/products/displays-23.8/:model" element={<Display32Detail groupSize={238} />} />
+                    <Route path="/products/interactive-display-gd238c" element={<Navigate to="/products/displays-23.8?model=gd238c" replace />} />
+                    <Route path="/products/interactive-display-gd238c3" element={<Navigate to="/products/displays-23.8?model=gd238c3" replace />} />
                     <Route path="/products/interactive-display-hd32" element={<Navigate to="/products/displays-32?model=hd32" replace />} />
                     <Route path="/products/interactive-display-hr32" element={<Navigate to="/products/displays-32?model=hr32" replace />} />
                     <Route path="/products/interactive-display-hr32-android" element={<Navigate to="/products/displays-32?model=hr32-android" replace />} />
