@@ -33,6 +33,28 @@ import hd32DimBack2 from "@/assets/touchwo/hd32-dim-back-2.png";
 import kd32bDim1 from "@/assets/touchwo/kd32b-dim-1.png";
 import kd32bDim2 from "@/assets/touchwo/kd32b-dim-2.png";
 
+// Use-case lifestyle scenes (AI-generated for inspiration)
+import hd32UcRetail from "@/assets/touchwo/usecases/hd32-uc-retail.jpg";
+import hd32UcHotel from "@/assets/touchwo/usecases/hd32-uc-hotel.jpg";
+import hd32UcOffice from "@/assets/touchwo/usecases/hd32-uc-office.jpg";
+import hd32UcPos from "@/assets/touchwo/usecases/hd32-uc-pos.jpg";
+import hr32UcAirport from "@/assets/touchwo/usecases/hr32-uc-airport.jpg";
+import hr32UcHospital from "@/assets/touchwo/usecases/hr32-uc-hospital.jpg";
+import hr32UcEducation from "@/assets/touchwo/usecases/hr32-uc-education.jpg";
+import hr32UcMall from "@/assets/touchwo/usecases/hr32-uc-mall.jpg";
+import hr32aUcSignage from "@/assets/touchwo/usecases/hr32a-uc-signage.jpg";
+import hr32aUcSelfservice from "@/assets/touchwo/usecases/hr32a-uc-selfservice.jpg";
+import hr32aUcPos from "@/assets/touchwo/usecases/hr32a-uc-pos.jpg";
+import hr32aUcMeeting from "@/assets/touchwo/usecases/hr32a-uc-meeting.jpg";
+import gd32cUcRetail from "@/assets/touchwo/usecases/gd32c-uc-retail.jpg";
+import gd32cUcBank from "@/assets/touchwo/usecases/gd32c-uc-bank.jpg";
+import gd32cUcHotel from "@/assets/touchwo/usecases/gd32c-uc-hotel.jpg";
+import gd32cUcMuseum from "@/assets/touchwo/usecases/gd32c-uc-museum.jpg";
+import kd32bUcMall from "@/assets/touchwo/usecases/kd32b-uc-mall.jpg";
+import kd32bUcBank from "@/assets/touchwo/usecases/kd32b-uc-bank.jpg";
+import kd32bUcLogistics from "@/assets/touchwo/usecases/kd32b-uc-logistics.jpg";
+import kd32bUcTransit from "@/assets/touchwo/usecases/kd32b-uc-transit.jpg";
+
 export const OS_BACKGROUNDS = {
   windows: { src: osWindows, label: "Windows", subtitle: "x86 Intel/AMD รองรับ Windows 10/11 IoT" },
   linux:   { src: osLinux,   label: "Linux",   subtitle: "Ubuntu / Debian / Custom Distros" },
@@ -64,6 +86,8 @@ export interface Display32 {
   highlights: { icon: string; title: string; subtitle?: string }[];
   features: string[];
   useCases: string[];
+  /** Visual lifestyle scenarios with photo + short caption (4 scenes) */
+  useCaseScenarios?: { image: string; title: string; description: string }[];
   gallery: string[];
   ioImage: string;
   installImages: string[];
@@ -119,6 +143,12 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       "ทดสอบการทำงานต่อเนื่อง 24/7",
     ],
     useCases: ["Retail / ร้านค้าปลีก", "โรงแรม & ที่พัก", "สำนักงาน", "POS Self-service"],
+    useCaseScenarios: [
+      { image: hd32UcRetail,  title: "ร้านค้าปลีก / Boutique", description: "วางบนเคาน์เตอร์ POS ช่วยลูกค้าเลือกสินค้า ค้นหาสต็อก และชำระเงินแบบ self-service ขอบจอบางช่วยให้ดูพรีเมียมเข้ากับร้านดีไซน์โมเดิร์น" },
+      { image: hd32UcHotel,   title: "โรงแรม & รีสอร์ท",       description: "เคาน์เตอร์ Check-in/out อัตโนมัติ ลดคิวที่ Front desk รองรับการพิมพ์ใบเสร็จและสแกนเอกสารเชื่อมต่อผ่าน USB/COM ได้ทันที" },
+      { image: hd32UcOffice,  title: "ห้องประชุม / สำนักงาน",  description: "จอ Touch สำหรับการนำเสนอ ระดมสมอง และจดบันทึกร่วมกัน FHD 1920×1080 พร้อม HDMI/VGA เชื่อม Notebook ได้หลากหลาย" },
+      { image: hd32UcPos,     title: "POS Self-service",       description: "เครื่องสั่งอาหารด้วยตนเองสำหรับร้านอาหาร/QSR ลดภาระพนักงานและเพิ่มยอด upsell ผ่านเมนูภาพชัดบนหน้าจอ Touch ตอบสนองไว" },
+    ],
     // Gallery: ย้ายรูป mechanical drawing (gallery-06, gallery-07) ออกไปไว้ section "Dimensions"
     gallery: [
       hd32HeroClean,
@@ -227,6 +257,12 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       "เคลือบกันรอย กันสนิม",
     ],
     useCases: ["พื้นที่สาธารณะ", "สถานีบริการตนเอง", "Education", "ห้างสรรพสินค้า"],
+    useCaseScenarios: [
+      { image: hr32UcAirport,   title: "สนามบิน / สถานีขนส่ง",  description: "จอความสว่างสูง อ่านง่ายแม้แสงแดดส่อง รองรับ Public Touch ใช้งานหนัก เหมาะกับจุดข้อมูลและเช็คเที่ยวบินแบบ 24/7" },
+      { image: hr32UcHospital,  title: "โรงพยาบาล / คลินิก",    description: "ตู้รับบัตรคิวและลงทะเบียนผู้ป่วย ลดการสัมผัสกับเจ้าหน้าที่ Touch ทนน้ำกระเซ็นและเช็ดทำความสะอาดด้วยน้ำยาฆ่าเชื้อได้บ่อย" },
+      { image: hr32UcEducation, title: "สถานศึกษา / ห้องสมุด", description: "สื่อการเรียนรู้แบบ Interactive สำหรับนักเรียน-นักศึกษา รองรับการสืบค้นหนังสือ ดูสื่อ Video และเล่นแอปพลิเคชันการศึกษาได้ลื่นไหล" },
+      { image: hr32UcMall,      title: "ห้างสรรพสินค้า",        description: "ตู้แผนผังร้าน (Wayfinding) นำทางลูกค้าหาร้านค้าและโปรโมชั่น เพิ่มประสบการณ์ shopping ที่ทันสมัยและน่าจดจำ" },
+    ],
     gallery: [hr32HeroClean, hr32Gallery02Clean, ...Array.from({length:5},(_,i)=>IMG("hr32",`gallery-0${i+3}.jpg`))],
     ioImage: IMG("hr32", "io-01.jpg"),
     installImages: [],
@@ -330,6 +366,12 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       "LCD อายุการใช้งาน 30,000 ชั่วโมง",
     ],
     useCases: ["Digital Signage", "Self-service Kiosk", "POS System", "Smart Meeting Room"],
+    useCaseScenarios: [
+      { image: hr32aUcSignage,     title: "Digital Signage",       description: "ป้ายโฆษณาดิจิทัลหน้าร้าน เปิดใช้งานต่อเนื่อง 24/7 ผ่าน Android OS ในตัว ไม่ต้องต่อ PC แยก ประหยัดพื้นที่และค่าใช้จ่าย" },
+      { image: hr32aUcSelfservice, title: "Self-service Kiosk",   description: "ตู้บริการตนเองสำหรับธนาคาร โรงพยาบาล หรือหน่วยงานราชการ Android เปิดเครื่องอัตโนมัติและรัน App แบบ Kiosk Mode ได้ทันที" },
+      { image: hr32aUcPos,         title: "POS / Order Station",   description: "เครื่องรับออเดอร์สำหรับคาเฟ่และร้านอาหาร ใช้แอป POS บน Android ที่ลื่นไหล รองรับ Wi-Fi, Bluetooth, USB เชื่อมเครื่องพิมพ์ใบเสร็จและลิ้นชักเก็บเงิน" },
+      { image: hr32aUcMeeting,     title: "Smart Meeting Room",   description: "แผงจองห้องประชุมหน้าประตู แสดงตารางจอง real-time จาก Google Calendar/Outlook ช่วยให้พนักงานบริหารห้องประชุมอย่างมีประสิทธิภาพ" },
+    ],
     gallery: Array.from({length:7},(_,i)=>IMG("hr32-android",`gallery-0${i+1}.jpg`)),
     ioImage: IMG("hr32-android", "io-01.jpg"),
     installImages: [],
@@ -436,6 +478,12 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       "รองรับ Square / Stripe / Clover / Shopify POS",
     ],
     useCases: ["ร้านค้าปลีก / POS", "ธนาคาร / สาขา", "Self-service Kiosk", "พิพิธภัณฑ์ / นิทรรศการ"],
+    useCaseScenarios: [
+      { image: gd32cUcRetail, title: "ร้านค้าปลีก / Brand Store", description: "ตู้แค็ตตาล็อกสินค้าติดผนัง ให้ลูกค้าค้นหารุ่น/สี/ขนาดที่ต้องการ ไม่ต้องรบกวนพนักงาน เพิ่มความเป็นมืออาชีพให้ Brand" },
+      { image: gd32cUcBank,   title: "ธนาคาร / จุดให้บริการ",     description: "ตู้บัตรคิวและลงทะเบียนติดผนัง ประหยัดพื้นที่สาขา รองรับการแสดงผลแนวตั้งที่อ่านง่าย ลดเวลารอของลูกค้า" },
+      { image: gd32cUcHotel,  title: "โรงแรม / Self Check-in",    description: "ติดข้างประตู Lobby สำหรับ Check-in อัตโนมัติ 24/7 รองรับการสแกน Passport/QR และพิมพ์ Key Card เชื่อมต่อ PMS ของโรงแรม" },
+      { image: gd32cUcMuseum, title: "พิพิธภัณฑ์ / นิทรรศการ",    description: "ติดข้างผลงานศิลปะ แสดงข้อมูลภัณฑ์แบบ Interactive รองรับ Multi-language Touch Multi-touch ให้ผู้ชมโต้ตอบกับเนื้อหาได้ลึกซึ้ง" },
+    ],
     // Gallery: เอารูป dimension drawings (เดิม gallery-06, 07) ออก ย้ายไป section "Dimensions"
     gallery: ["gallery-01.jpg","gallery-02.jpg","gallery-03.jpg","gallery-04.jpg","gallery-05.jpg","gallery-08.jpg"].map(n => IMG("gd32c", n)),
     ioImage: IMG("gd32c", "io-01.png"),
@@ -534,6 +582,12 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       "อายุ LCD 30,000 ชั่วโมง",
     ],
     useCases: ["Retail / ร้านค้า", "Banking / ธนาคาร", "Logistics", "พื้นที่สาธารณะ"],
+    useCaseScenarios: [
+      { image: kd32bUcMall,      title: "ห้างสรรพสินค้า / Wayfinding", description: "ตู้ตั้งพื้นทรงสูงโดดเด่นกลางห้าง ช่วยลูกค้านำทางหาร้านค้า โปรโมชั่น และอีเวนต์ พร้อมโฆษณาในตัวเพื่อเพิ่มรายได้" },
+      { image: kd32bUcBank,      title: "ธนาคาร / สถาบันการเงิน",     description: "ตู้บริการตนเองตั้งพื้นในสาขา เปิดบัญชี กดบัตรคิว สมัครสินเชื่อ ทำงานแบบ Stand-alone ไม่ต้องติดผนัง เคลื่อนย้ายปรับวางได้สะดวก" },
+      { image: kd32bUcLogistics, title: "Logistics / Warehouse",        description: "จุด Check-in ของ Driver และพนักงานขนส่ง ติดตามพัสดุ พิมพ์ใบรับสินค้า โครงสร้างแข็งแรงทนการใช้งานในพื้นที่ industrial" },
+      { image: kd32bUcTransit,   title: "สถานีรถไฟฟ้า / Transit Hub",   description: "ตู้แผนที่และซื้อตั๋วโดยสาร ตั้งกลางชานชาลา ลูกค้าเข้าถึงได้รอบทิศทาง รองรับการใช้งานหนักของผู้โดยสารจำนวนมาก" },
+    ],
     // Gallery: ย้ายรูป mechanical drawing (gallery-07) ออกไปไว้ section "Dimensions"
     gallery: [
       kd32bHeroClean,

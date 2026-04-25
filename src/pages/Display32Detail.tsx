@@ -436,11 +436,53 @@ const Display32Detail = () => {
           className="scroll-mt-32"
         >
           <SectionTitle eyebrow="Use Cases" title="เหมาะสำหรับการใช้งาน" />
-          <div className="flex flex-wrap gap-2">
-            {product.useCases.map((u, i) => (
-              <Badge key={i} variant="secondary" className="text-sm py-2 px-4">{u}</Badge>
-            ))}
-          </div>
+
+          {product.useCaseScenarios && product.useCaseScenarios.length > 0 ? (
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                {product.useCaseScenarios.map((sc, i) => (
+                  <article
+                    key={i}
+                    className="group relative overflow-hidden rounded-2xl border border-border bg-card shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5"
+                  >
+                    <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+                      <img
+                        src={sc.image}
+                        alt={sc.title}
+                        loading="lazy"
+                        width={1024}
+                        height={768}
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                      <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-background/90 backdrop-blur text-[11px] font-semibold text-foreground tracking-wide">
+                        {String(i + 1).padStart(2, "0")} · USE CASE
+                      </div>
+                      <h3 className="absolute bottom-3 left-4 right-4 text-white font-bold text-lg sm:text-xl drop-shadow">
+                        {sc.title}
+                      </h3>
+                    </div>
+                    <div className="p-4 sm:p-5">
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {sc.description}
+                      </p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-2 mt-6">
+                {product.useCases.map((u, i) => (
+                  <Badge key={i} variant="secondary" className="text-xs py-1.5 px-3">{u}</Badge>
+                ))}
+              </div>
+            </>
+          ) : (
+            <div className="flex flex-wrap gap-2">
+              {product.useCases.map((u, i) => (
+                <Badge key={i} variant="secondary" className="text-sm py-2 px-4">{u}</Badge>
+              ))}
+            </div>
+          )}
         </section>
 
         {/* Comparison */}
