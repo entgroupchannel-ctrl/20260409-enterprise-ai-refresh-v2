@@ -6,6 +6,18 @@ const IMG = (model: string, name: string) =>
   `${STORAGE}/product-images/touchwo/${model}/${name}`;
 const PDF = (name: string) => `${STORAGE}/datasheets/touchwo/${name}`;
 
+// OS background wallpapers (replaces source-site branded icons)
+import osWindows from "@/assets/touchwo/os-windows.jpg";
+import osLinux from "@/assets/touchwo/os-linux.jpg";
+import osAndroid from "@/assets/touchwo/os-android.jpg";
+
+export const OS_BACKGROUNDS = {
+  windows: { src: osWindows, label: "Windows", subtitle: "x86 Intel/AMD รองรับ Windows 10/11 IoT" },
+  linux:   { src: osLinux,   label: "Linux",   subtitle: "Ubuntu / Debian / Custom Distros" },
+  android: { src: osAndroid, label: "Android", subtitle: "Android 9 / 11 / 12 (RK35xx)" },
+} as const;
+export type OSKey = keyof typeof OS_BACKGROUNDS;
+
 export type Display32Slug = "hd32" | "hr32" | "hr32-android" | "gd32c" | "kd32b";
 
 export interface SpecRow {
