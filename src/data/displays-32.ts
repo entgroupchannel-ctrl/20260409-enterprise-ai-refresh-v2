@@ -59,6 +59,13 @@ export interface Display32 {
   ioImage: string;
   installImages: string[];
   featureImages: string[];
+  /** Optional mechanical/dimension drawings for "Dimensions" section */
+  dimensionDrawings?: {
+    image: string;
+    title: string;
+    caption: string;
+    callouts?: { label: string; value: string }[];
+  }[];
   osSupport: OSKey[];
   datasheetUrl: string;
   specs: SpecGroup[];
