@@ -28,6 +28,8 @@ import hr32DimFront from "@/assets/touchwo/hr32-dim-front.jpg";
 import hr32DimBack from "@/assets/touchwo/hr32-dim-back.jpg";
 import gd32cDimFront from "@/assets/touchwo/gd32c-dim-front.png";
 import gd32cDimBack from "@/assets/touchwo/gd32c-dim-back.png";
+import hd32DimBack1 from "@/assets/touchwo/hd32-dim-back-1.png";
+import hd32DimBack2 from "@/assets/touchwo/hd32-dim-back-2.png";
 
 export const OS_BACKGROUNDS = {
   windows: { src: osWindows, label: "Windows", subtitle: "x86 Intel/AMD รองรับ Windows 10/11 IoT" },
@@ -115,15 +117,40 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       "ทดสอบการทำงานต่อเนื่อง 24/7",
     ],
     useCases: ["Retail / ร้านค้าปลีก", "โรงแรม & ที่พัก", "สำนักงาน", "POS Self-service"],
+    // Gallery: ย้ายรูป mechanical drawing (gallery-06, gallery-07) ออกไปไว้ section "Dimensions"
     gallery: [
       hd32HeroClean,
       hd32Gallery02Clean,
       ...["gallery-03.jpg","gallery-04.jpg",
-      "gallery-05.jpg","gallery-06.jpg","gallery-07.jpg","gallery-08.jpg","gallery-09.webp"].map(n => IMG("hd32", n)),
+      "gallery-05.jpg","gallery-08.jpg","gallery-09.webp"].map(n => IMG("hd32", n)),
     ],
     ioImage: IMG("hd32", "io-01.png"),
     installImages: [hd32Install01Clean, hd32Install02Clean, hd32Install03Clean],
     featureImages: [],
+    dimensionDrawings: [
+      {
+        image: hd32DimBack1,
+        title: "ด้านหลัง — โครงสร้าง VESA Mount",
+        caption: "แบบทางวิศวกรรมด้านหลังของ HD32 แสดงรูยึด VESA mount มาตรฐาน 200 × 200 mm พร้อมสกรู 4-M8 สำหรับยึดกับ Wall Bracket หรือขาตั้งจอแบบ Industrial — ระยะจุดยึดวัดจากขอบบน 118.1 mm และจากขอบข้าง 270.7 mm สะดวกต่อการเดินสายและการระบายอากาศโดยรอบ",
+        callouts: [
+          { label: "ขนาดตัวเครื่อง (W × H)", value: "730.4 × 425.2 mm" },
+          { label: "VESA Mount", value: "200 × 200 mm" },
+          { label: "สกรูยึด", value: "4 × M8" },
+          { label: "ระยะจุดยึดถึงขอบบน", value: "118.1 mm" },
+        ],
+      },
+      {
+        image: hd32DimBack2,
+        title: "ด้านหลัง — จุดเจาะฐาน (Desk/Embed Mount)",
+        caption: "มุมมองด้านหลังเสริม แสดงตำแหน่งจุดเจาะฐานล่าง 3 จุด (236 / 220 / 236 mm) สำหรับการติดตั้งบนขาตั้งโต๊ะ หรือฝังในเฟอร์นิเจอร์/Counter — เหมาะกับงาน POS, Reception และ Self-service Kiosk ที่ต้องการความมั่นคงสูง",
+        callouts: [
+          { label: "จุดเจาะฐานล่าง", value: "236 + 220 + 236 mm" },
+          { label: "ความสูงตัวเครื่อง", value: "425.2 mm" },
+          { label: "ความหนา (max)", value: "51.9 mm (รวม I/O)" },
+          { label: "พื้นที่แสดงผล", value: "700.19 × 394.99 mm (32\")" },
+        ],
+      },
+    ],
     osSupport: [],
     datasheetUrl: PDF("HD32-Datasheet.pdf"),
     ports: ["HDMI in × 1", "USB × 1", "VGA × 1", "Audio in/out × 1", "Power Socket × 1"],
