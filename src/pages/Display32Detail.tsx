@@ -14,7 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import ProductGallery from "@/components/ProductGallery";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
-import { DISPLAYS_32, DISPLAY_32_ORDER, type Display32, type Display32Slug } from "@/data/displays-32";
+import { DISPLAYS_32, DISPLAY_32_ORDER, OS_BACKGROUNDS, type Display32, type Display32Slug } from "@/data/displays-32";
 
 const ICONS: Record<string, any> = {
   Monitor, Cpu, Smartphone, Maximize, ShieldCheck, Layers, Box,
@@ -226,17 +226,36 @@ const Display32Detail = () => {
                 </li>
               ))}
             </ul>
-            {product.featureImages.length > 0 && (
-              <div className="grid grid-cols-2 gap-3">
-                {product.featureImages.slice(0, 4).map((src, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setLightbox({ images: product.featureImages, index: i })}
-                    className="rounded-xl border border-border bg-card overflow-hidden hover:shadow-md transition-shadow"
-                  >
-                    <img src={src} alt={`${product.modelCode} feature ${i+1}`} className="w-full h-32 object-cover" loading="lazy" />
-                  </button>
-                ))}
+            {product.osSupport.length > 0 && (
+              <div className="space-y-3">
+                <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  ระบบปฏิบัติการที่รองรับ
+                </div>
+                <div className={`grid gap-3 ${product.osSupport.length === 1 ? "grid-cols-1" : product.osSupport.length === 2 ? "grid-cols-2" : "grid-cols-1 sm:grid-cols-3"}`}>
+                  {product.osSupport.map((os) => {
+                    const meta = OS_BACKGROUNDS[os];
+                    return (
+                      <div
+                        key={os}
+                        className="relative rounded-xl overflow-hidden border border-border group hover:shadow-lg transition-shadow"
+                      >
+                        <img
+                          src={meta.src}
+                          alt={`${meta.label} OS background`}
+                          className="w-full h-32 object-cover group-hover:scale-105 transition-transform duration-500"
+                          loading="lazy"
+                          width={1280}
+                          height={800}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                        <div className="absolute bottom-0 left-0 right-0 p-3 text-white">
+                          <div className="font-bold text-lg leading-tight">{meta.label}</div>
+                          <div className="text-[11px] opacity-90 mt-0.5 leading-snug">{meta.subtitle}</div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             )}
           </div>

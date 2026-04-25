@@ -6,6 +6,18 @@ const IMG = (model: string, name: string) =>
   `${STORAGE}/product-images/touchwo/${model}/${name}`;
 const PDF = (name: string) => `${STORAGE}/datasheets/touchwo/${name}`;
 
+// OS background wallpapers (replaces source-site branded icons)
+import osWindows from "@/assets/touchwo/os-windows.jpg";
+import osLinux from "@/assets/touchwo/os-linux.jpg";
+import osAndroid from "@/assets/touchwo/os-android.jpg";
+
+export const OS_BACKGROUNDS = {
+  windows: { src: osWindows, label: "Windows", subtitle: "x86 Intel/AMD รองรับ Windows 10/11 IoT" },
+  linux:   { src: osLinux,   label: "Linux",   subtitle: "Ubuntu / Debian / Custom Distros" },
+  android: { src: osAndroid, label: "Android", subtitle: "Android 9 / 11 / 12 (RK35xx)" },
+} as const;
+export type OSKey = keyof typeof OS_BACKGROUNDS;
+
 export type Display32Slug = "hd32" | "hr32" | "hr32-android" | "gd32c" | "kd32b";
 
 export interface SpecRow {
@@ -34,6 +46,7 @@ export interface Display32 {
   ioImage: string;
   installImages: string[];
   featureImages: string[];
+  osSupport: OSKey[];
   datasheetUrl: string;
   specs: SpecGroup[];
   ports: string[];
@@ -83,7 +96,8 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
     ].map(n => IMG("hd32", n)),
     ioImage: IMG("hd32", "io-01.png"),
     installImages: ["install-01.jpg","install-02.jpg","install-03.jpg"].map(n => IMG("hd32", n)),
-    featureImages: ["feature-01.png","feature-02.png","feature-03.png","feature-04.png"].map(n => IMG("hd32", n)),
+    featureImages: [],
+    osSupport: [],
     datasheetUrl: PDF("HD32-Datasheet.pdf"),
     ports: ["HDMI in × 1", "USB × 1", "VGA × 1", "Audio in/out × 1", "Power Socket × 1"],
     specs: [
@@ -160,7 +174,8 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
     gallery: Array.from({length:7},(_,i)=>IMG("hr32",`gallery-0${i+1}.jpg`)),
     ioImage: IMG("hr32", "io-01.jpg"),
     installImages: [],
-    featureImages: Array.from({length:9},(_,i)=>IMG("hr32",`feature-0${i+1}.png`)),
+    featureImages: [],
+    osSupport: [],
     datasheetUrl: PDF("HR32-Datasheet.pdf"),
     ports: ["HDMI in × 1", "DVI × 1", "VGA × 1", "USB × 1", "Audio in/out × 1", "DC 12V × 1", "Power Socket × 1"],
     specs: [
@@ -236,7 +251,8 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
     gallery: Array.from({length:7},(_,i)=>IMG("hr32-android",`gallery-0${i+1}.jpg`)),
     ioImage: IMG("hr32-android", "io-01.jpg"),
     installImages: [],
-    featureImages: Array.from({length:9},(_,i)=>IMG("hr32-android",`feature-0${i+1}.png`)),
+    featureImages: [],
+    osSupport: ["android"],
     datasheetUrl: PDF("HR32-ANDROID-Datasheet.pdf"),
     ports: ["HDMI out × 1", "RJ45 × 1", "USB × 2", "Audio × 1", "TF/SD × 1", "Wi-Fi Antenna × 1", "DC 12V × 1", "Power Button × 1"],
     specs: [
@@ -315,7 +331,8 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
     gallery: Array.from({length:8},(_,i)=>IMG("gd32c",`gallery-0${i+1}.jpg`)),
     ioImage: IMG("gd32c", "io-01.png"),
     installImages: ["install-01.jpg","install-02.jpg","install-03.jpg"].map(n => IMG("gd32c", n)),
-    featureImages: ["feature-01.png","feature-02.png","feature-03.png","feature-04.png"].map(n => IMG("gd32c", n)),
+    featureImages: [],
+    osSupport: ["android", "windows"],
     datasheetUrl: PDF("GD32C-Datasheet.pdf"),
     ports: ["RJ45", "USB", "HDMI", "Wi-Fi Antenna × 1", "AC Power"],
     specs: [
@@ -387,7 +404,8 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
     gallery: Array.from({length:9},(_,i)=>IMG("kd32b",`gallery-0${i+1}.jpg`)),
     ioImage: IMG("kd32b", "io-01.jpg"),
     installImages: [],
-    featureImages: Array.from({length:7},(_,i)=>IMG("kd32b",`io-0${i+1}.jpg`)), // KD32B has io shots used as feature
+    featureImages: [],
+    osSupport: ["android", "windows", "linux"],
     datasheetUrl: PDF("KD32B-Datasheet.pdf"),
     ports: ["RJ45 × 1", "USB 2.0 × 2", "Power Socket × 1"],
     specs: [
