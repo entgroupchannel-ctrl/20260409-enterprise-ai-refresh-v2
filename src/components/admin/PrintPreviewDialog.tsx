@@ -191,7 +191,7 @@ export default function PrintPreviewDialog({
           ) : (
             <QuotePDFTemplate 
               quote={quote}
-              revision={revision}
+              revision={mergeRevisionWithQuote(revision, quote)}
               companyInfo={{
                 name_th: companySettings.name_th,
                 name_en: companySettings.name_en,
