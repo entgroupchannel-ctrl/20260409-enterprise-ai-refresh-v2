@@ -24,6 +24,16 @@ import hd27Install1 from "@/assets/touchwo/hd27/install-1.jpg";
 import hd27Install2 from "@/assets/touchwo/hd27/install-2.jpg";
 import hd27Install3 from "@/assets/touchwo/hd27/install-3.jpg";
 
+// Use Case scenes — รูปการใช้งานจริง
+import hd27UcPos from "@/assets/touchwo/usecases/hd27-uc-pos.jpg";
+import hd27UcMeeting from "@/assets/touchwo/usecases/hd27-uc-meeting.jpg";
+import hd27UcHealthcare from "@/assets/touchwo/usecases/hd27-uc-healthcare.jpg";
+import hd27UcEducation from "@/assets/touchwo/usecases/hd27-uc-education.jpg";
+import gd27UcRetail from "@/assets/touchwo/usecases/gd27c-uc-retail.jpg";
+import gd27UcHealthcare from "@/assets/touchwo/usecases/gd27c-uc-healthcare.jpg";
+import gd27UcBank from "@/assets/touchwo/usecases/gd27c-uc-bank.jpg";
+import gd27UcWayfinding from "@/assets/touchwo/usecases/gd27c-uc-wayfinding.jpg";
+
 // GD27C — Wall-Mounting Touch Kiosk (Portrait)
 import gd27P1 from "@/assets/touchwo/gd27c/p-1.jpg";
 import gd27P2 from "@/assets/touchwo/gd27c/p-2.jpg";
@@ -70,12 +80,12 @@ export const DISPLAYS_27: Record<Display27Slug, Display32> = {
       "ขอบจอบาง — ติดตั้งได้ Wall mount / Desktop / Floor Stand",
       "30,000-hour Extended-life LED Backlight",
     ],
-    useCases: ["POS Self-order", "Conference / Meeting Room", "Healthcare", "Parcel Locker / Education"],
+    useCases: ["POS Self-order", "Conference / Meeting Room", "Healthcare", "Education / Lab"],
     useCaseScenarios: [
-      { image: hd27Install1, title: "Healthcare / Self-check-in",  description: "จุดลงทะเบียนผู้ป่วยขนาด 27\" ติดตั้งบนเคาน์เตอร์หรือแขวนผนัง รองรับการกรอกข้อมูล/สแกน QR ลดคิวที่เคาน์เตอร์ Front-desk" },
-      { image: hd27Install2, title: "Restaurant / Self-order POS", description: "ตู้สั่งอาหาร QSR / Casual Dining ขนาด 27\" รองรับ Square / Stripe / Clover / Shopify POS โดยตรง เพิ่ม upsell ผ่านเมนูภาพชัด" },
-      { image: hd27Install3, title: "Public / Self-service",        description: "เครื่องบริการสาธารณะ — ATM, Ticket, Wayfinding หรือ Information Kiosk PCAP 10-point ตอบสนองไว Mohs 7 ทนการใช้งานหนัก" },
-      { image: hd27Mon7,     title: "Industrial Automation / HMI",  description: "หน้าจอควบคุมเครื่องจักรในโรงงาน — รองรับ 7×24H Stable Working ทำงานต่อเนื่องโดยไม่หยุดพัก พร้อม Industrial-grade Power Supply" },
+      { image: hd27UcPos,        title: "QSR / Self-order Counter",         description: "ตั้งบนเคาน์เตอร์ร้าน QSR / Cafe ขนาด 27\" PCAP 10-point ตอบสนองไว ลูกค้าสั่งและจ่ายเองได้ ลดคิวที่เคาน์เตอร์ เพิ่ม upsell เฉลี่ย 20-30% ผ่านเมนูภาพคมชัด FHD" },
+      { image: hd27UcMeeting,    title: "Conference / Meeting Room",        description: "จอสัมผัสในห้องประชุม 4-8 คน รองรับ Video Conference, Interactive Whiteboard, BYOD ผ่าน HDMI/USB เพิ่มประสิทธิภาพการประชุมแบบ Hybrid" },
+      { image: hd27UcHealthcare, title: "Healthcare / Clinical Workstation", description: "ติดตั้งบน Articulating Arm ที่ Nurse Station หรือห้องตรวจ — แสดง EMR / Patient Records / Diagnostic Imaging กระจก Mohs 7 ทำความสะอาดง่าย ทนน้ำยาฆ่าเชื้อ" },
+      { image: hd27UcEducation,  title: "Education / Computer Lab",         description: "ห้องปฏิบัติการคอมพิวเตอร์ — All-in-One 27\" ลดสายและประหยัดพื้นที่บนโต๊ะ รองรับ Active Learning และ Touch UI สำหรับวิชา STEM / Design" },
     ],
     gallery: [
       hd27Mon1, hd27Mon2, hd27X861, hd27X862, hd27Arm1,
@@ -312,12 +322,12 @@ export const DISPLAYS_27: Record<Display27Slug, Display32> = {
       "5GHz Wi-Fi + BLE — เชื่อม POS / Printer ได้เสถียร",
       "ติดตั้งได้: Wall-mount / Desktop / Floor (Optional)",
     ],
-    useCases: ["Retail POS / Self-order", "Healthcare / Self check-in", "Education", "Public Self-service"],
+    useCases: ["Retail POS / Self-order", "Healthcare Check-in", "Self-service Banking", "Mall Wayfinding"],
     useCaseScenarios: [
-      { image: gd27Scene1,    title: "Retail POS / Self-order",     description: "ตู้คีออสก์แขวนผนัง 27\" สำหรับสั่งอาหาร/จ่ายเงินในร้าน QSR และร้านค้าปลีก รองรับ Square / Stripe / Clover / Shopify POS โดยตรง" },
-      { image: gd27Scene2,    title: "Healthcare / Self check-in",  description: "จุดลงทะเบียนผู้ป่วยในโรงพยาบาล แขวนผนังบริเวณล็อบบี้ ลดภาระ Front desk และเพิ่มประสบการณ์ผู้ใช้บริการ" },
-      { image: gd27Install1,  title: "Public / Self-service",        description: "เครื่องบริการสาธารณะในศูนย์การค้าหรือหน่วยงานราชการ — UI เรียบง่ายไม่ต้องฝึกอบรม รองรับการใช้งานหนักในพื้นที่สาธารณะ" },
-      { image: gd27Install2,  title: "Education / Smart Classroom", description: "จอสัมผัสในห้องเรียน — แขวนผนังประหยัดพื้นที่ Multi-touch 10 จุด สำหรับงานกลุ่มและกิจกรรม Interactive Learning" },
+      { image: gd27UcRetail,      title: "Retail / Self-order Kiosk",          description: "ตู้คีออสก์แขวนผนังในร้านค้าปลีก / Showroom — ลูกค้าค้นหาสินค้า ดูสต็อก สั่งซื้อหรือเรียกพนักงานได้เอง รองรับ Square / Stripe / Clover / Shopify POS" },
+      { image: gd27UcHealthcare,  title: "Healthcare / Self Check-in",         description: "จุดลงทะเบียนผู้ป่วยในล็อบบี้โรงพยาบาล — สแกนบัตร/QR กรอกอาการ และรับบัตรคิวอัตโนมัติ ลดเวลารอและภาระเจ้าหน้าที่ Front desk" },
+      { image: gd27UcBank,        title: "Banking / Self-service Branch",       description: "สาขาธนาคารแบบ Digital — ทำธุรกรรมพื้นฐาน เปิดบัญชี รับบัตรคิว หรือปรึกษาเจ้าหน้าที่ผ่าน Video Banking ทรงสูงเทียบสายตา ใช้งานง่ายแบบ Stand-up" },
+      { image: gd27UcWayfinding,  title: "Mall / Public Wayfinding",            description: "ป้ายนำทางในห้างสรรพสินค้า / สนามบิน / โรงพยาบาล — แสดงแผนที่อาคาร ค้นหาร้านค้า และเส้นทางเดินอย่างละเอียด รองรับ Multi-touch 10 จุดพร้อมกันหลายคน" },
     ],
     gallery: [gd27P1, gd27P2, gd27P3, gd27P4, gd27P5, gd27P6, gd27P7],
     ioImage: gd27P5,
