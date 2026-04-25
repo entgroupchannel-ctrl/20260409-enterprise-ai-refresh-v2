@@ -176,7 +176,7 @@ const Display32Detail = () => {
             <div className="flex flex-wrap gap-3 pt-4">
               <QuoteRequestButton
                 productName={product.name}
-                productSlug={`displays-32-${product.slug}`}
+               
               />
               <Button variant="outline" asChild>
                 <a href={product.datasheetUrl} target="_blank" rel="noopener noreferrer">
@@ -367,7 +367,7 @@ const Display32Detail = () => {
               </Button>
               <QuoteRequestButton
                 productName={product.name}
-                productSlug={`displays-32-${product.slug}`}
+               
               />
             </div>
           </div>
