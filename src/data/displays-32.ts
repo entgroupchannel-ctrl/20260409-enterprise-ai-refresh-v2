@@ -849,7 +849,7 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
       ...["gallery-03.jpg","gallery-04.jpg","gallery-05.jpg","gallery-06.jpg","gallery-08.jpg"].map(n => IMG("kd32b", n)),
       IMG("kd32b","gallery-09.webp"),
     ],
-    ioImage: IMG("kd32b", "io-01.jpg"),
+    ioImage: "",
     installImages: [],
     featureImages: [],
     dimensionDrawings: [
@@ -880,7 +880,7 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
     variants: KD32B_VARIANTS,
     datasheetUrl: "/datasheets/ENT-Datasheet-KD32B.pdf",
     dimensionUrl: "/datasheets/ENT-Dimension-KD32B.pdf",
-    ports: ["RJ45 × 1", "USB 2.0 × 2", "Power Socket × 1"],
+    ports: [],
     specs: [
       { title: "LCD Panel", rows: [
         { label: "ขนาดหน้าจอ", value: "32 นิ้ว" },

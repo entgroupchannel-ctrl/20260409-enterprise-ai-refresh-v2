@@ -52,6 +52,7 @@ const Display32Detail = () => {
       if (s.id === "dimensions") return (product?.dimensionDrawings?.length ?? 0) > 0;
       if (s.id === "configurations") return (product?.variants?.length ?? 0) > 0;
       if (s.id === "cpu") return (product?.cpuOptions?.length ?? 0) > 0;
+      if (s.id === "io") return !!product?.ioImage && (product?.ports?.length ?? 0) > 0;
       return true;
     }),
     [product]
@@ -610,6 +611,7 @@ const Display32Detail = () => {
         )}
 
         {/* I/O */}
+        {product.ioImage && product.ports.length > 0 && (
         <section
           id="io"
           ref={el => (sectionRefs.current.io = el)}
@@ -638,6 +640,7 @@ const Display32Detail = () => {
             </div>
           </div>
         </section>
+        )}
 
         {/* Installation */}
         <section
