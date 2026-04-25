@@ -287,14 +287,22 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
 
       {/* ── PRODUCTS TABLE (thead repeats on each page) ───────────────── */}
       <table className="products" style={s.table}>
+        <colgroup>
+          <col style={{ width: '32px' }} />
+          <col />
+          <col style={{ width: '56px' }} />
+          <col style={{ width: '92px' }} />
+          <col style={{ width: '72px' }} />
+          <col style={{ width: '100px' }} />
+        </colgroup>
         <thead>
           <tr>
-            <th style={{ ...s.th, width: '32px' }}>#</th>
+            <th style={s.th}>#</th>
             <th style={s.th}>รายการ</th>
-            <th style={{ ...s.thCenter, width: '52px' }}>จำนวน</th>
-            <th style={{ ...s.thRight, width: '88px' }}>ราคา/หน่วย</th>
-            <th style={{ ...s.thRight, width: '80px' }}>ส่วนลด</th>
-            <th style={{ ...s.thRight, width: '96px' }}>รวม</th>
+            <th style={s.thCenter}>จำนวน</th>
+            <th style={s.thRight}>ราคา/หน่วย</th>
+            <th style={s.thRight}>ส่วนลด</th>
+            <th style={s.thRight}>รวม</th>
           </tr>
         </thead>
         <tbody>
