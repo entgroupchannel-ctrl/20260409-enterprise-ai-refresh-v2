@@ -200,6 +200,32 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
     ioImage: IMG("hr32", "io-01.jpg"),
     installImages: [],
     featureImages: [],
+    dimensionDrawings: [
+      {
+        image: hr32DimFront,
+        title: "ด้านหน้า + ด้านข้าง",
+        caption: "ขอบจอบางพิเศษ R6 ตัวเครื่องบางเพียง 28 mm — เหมาะกับงานติดตั้งฝังผนังหรือ Open Frame",
+        callouts: [
+          { label: "กว้าง × สูง (โครง)", value: "752 × 446 mm" },
+          { label: "พื้นที่แสดงผล", value: "700 × 395 mm" },
+          { label: "ความหนาขอบจอ", value: "26 mm" },
+          { label: "ความหนาตัวเครื่อง", value: "28 mm (ขั้นต่ำ) / 72 mm (รวมการ์ด)" },
+          { label: "มุมโค้งขอบ", value: "R6" },
+        ],
+      },
+      {
+        image: hr32DimBack,
+        title: "ด้านหลัง — รูยึด VESA + ช่องระบายอากาศ",
+        caption: "รองรับ VESA 400 × 200 พร้อมรูยึด M6 และรู Ø8 สำหรับขายึดเสริม ช่องระบายอากาศแนวนอน 2 แถว",
+        callouts: [
+          { label: "VESA Mounting", value: "400 × 200 mm" },
+          { label: "รูเกลียวยึด", value: "4 × M6 (รับน้ำหนักหลัก)" },
+          { label: "รูสำรอง", value: "6 × Ø8 (Bracket เสริม)" },
+          { label: "ตำแหน่ง connector", value: "ด้านล่าง — ออกสาย 211 mm จากกลาง" },
+          { label: "ระยะหลัง-รูยึด", value: "บน 109 / ล่าง 137 mm" },
+        ],
+      },
+    ],
     osSupport: [],
     datasheetUrl: PDF("HR32-Datasheet.pdf"),
     ports: ["HDMI in × 1", "DVI × 1", "VGA × 1", "USB × 1", "Audio in/out × 1", "DC 12V × 1", "Power Socket × 1"],
