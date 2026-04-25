@@ -7,6 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Loader2, Download, AlertCircle, Eye, Clock, FileText } from 'lucide-react';
 import QuotePDFTemplate from '@/components/admin/QuotePDFTemplate';
 import { mergeRevisionWithQuote } from '@/lib/quote-pdf-merge';
+import { downloadQuotePdf } from '@/lib/quote-pdf-generator';
 import { format } from 'date-fns';
 import { th } from 'date-fns/locale';
 
@@ -55,16 +56,14 @@ export default function SharedQuotePage() {
       // Log download
       await (supabase as any).rpc('get_shared_quote', { p_token: token, p_action: 'download' });
 
-      const element = document.getElementById('quote-pdf-template');
-      if (!element) return;
-      const { generatePDFWithHeaderFooter } = await import('@/lib/pdf-helper');
       const revNum = data?.revision?.revision_number ?? 1;
-      await generatePDFWithHeaderFooter(element, {
-        filename: `${data.quote.quote_number}-Rev${revNum}.pdf`,
-        headerLeft: data?.company?.name_th || 'ENT Group',
-        headerRight: `${data.quote.quote_number} Rev #${revNum}`,
-        footerCenter: 'เอกสารนี้ออกโดยระบบอัตโนมัติ',
-      });
+      await downloadQuotePdf({
+        quote: data.quote,
+        revision: mergeRevisionWithQuote(data.revision || safeRevision, data.quote),
+        companyInfo: data.company,
+        salePerson: data.salePerson,
+        bankAccounts: data.bankAccounts || [],
+      }, `${data.quote.quote_number}-Rev${revNum}.pdf`);
     } catch (e) {
       console.error(e);
     } finally {
