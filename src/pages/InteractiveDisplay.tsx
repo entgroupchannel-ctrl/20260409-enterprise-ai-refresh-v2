@@ -228,23 +228,35 @@ export default function InteractiveDisplay() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {filtered.map((p) => (
               <Card key={p.id} className="overflow-hidden hover:shadow-lg transition-shadow group">
-                <div className="aspect-[4/3] bg-gradient-to-br from-muted to-muted/40 flex items-center justify-center relative">
-                  {p.image_url ? (
-                    <img src={p.image_url} alt={p.name} loading="lazy" className="w-full h-full object-contain p-4" />
-                  ) : (
-                    <Monitor className="h-20 w-20 text-muted-foreground/40" />
-                  )}
-                  <Badge className="absolute top-3 left-3" variant="secondary">{p.model}</Badge>
-                </div>
+                <Link to={`/products/${p.slug}`} className="block">
+                  <div className="aspect-[4/3] bg-gradient-to-br from-muted to-muted/40 flex items-center justify-center relative overflow-hidden">
+                    {p.image_url ? (
+                      <img
+                        src={p.image_url}
+                        alt={p.name}
+                        loading="lazy"
+                        className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300"
+                      />
+                    ) : (
+                      <Monitor className="h-20 w-20 text-muted-foreground/40" />
+                    )}
+                    <Badge className="absolute top-3 left-3" variant="secondary">{p.model}</Badge>
+                  </div>
+                </Link>
                 <CardContent className="p-5">
-                  <h3 className="font-semibold text-base mb-1 line-clamp-2 min-h-[3rem]">
-                    {p.name.replace("Interactive Touch Display ", "")}
-                  </h3>
+                  <Link to={`/products/${p.slug}`} className="block group/title">
+                    <h3 className="font-semibold text-base mb-1 line-clamp-2 min-h-[3rem] group-hover/title:text-primary transition-colors">
+                      {p.name.replace("Interactive Touch Display ", "")}
+                    </h3>
+                  </Link>
                   <p className="text-xs text-muted-foreground mb-3">{p.form_factor}</p>
                   <p className="text-sm text-muted-foreground line-clamp-3 mb-4 min-h-[3.75rem]">
                     {p.description}
                   </p>
                   <div className="flex flex-col gap-2">
+                    <Button asChild size="sm" variant="secondary" className="w-full">
+                      <Link to={`/products/${p.slug}`}>ดูรายละเอียด</Link>
+                    </Button>
                     <QuoteRequestButton
                       productModel={p.model}
                       productName={p.name}
