@@ -77,7 +77,7 @@ export const OS_BACKGROUNDS = {
 } as const;
 export type OSKey = keyof typeof OS_BACKGROUNDS;
 
-export type Display32Slug = "hd32" | "hr32" | "hr32-android" | "gd32c" | "kd32b" | "hd43";
+export type Display32Slug = "hd32" | "hr32" | "hr32-android" | "gd32c" | "kd32b";
 
 export interface SpecRow {
   label: string;
