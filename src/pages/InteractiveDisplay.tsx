@@ -35,6 +35,7 @@ const SIZE_FILTERS = [
   { label: '27"', value: "27" },
   { label: '32"', value: "32" },
   { label: '43"', value: "43" },
+  { label: '49"', value: "49" },
   { label: '55"', value: "55" },
   { label: '65"', value: "65" },
 ];
@@ -95,6 +96,17 @@ const EXTRA_PRODUCTS: Product[] = [
     form_factor: "Wall-Mount Kiosk",
     image_url: null,
     tags: ["27-inch", "kiosk", "wall-mount", "pcap"],
+  },
+  {
+    id: "extra-hr49",
+    sku: "HR49",
+    model: "HR49",
+    name: 'Interactive Touch Display HR49 — 49" Configurable AIO',
+    description: '49" FHD PCAP 10-point — Sleek Unibody / IP65 / Mohs 7 — Touch Monitor / Windows OPS (i3/i5/i7) / Android (RK3568/3288/3588)',
+    slug: "interactive-display-hr49",
+    form_factor: "Wall / Floor / Mobile Stand",
+    image_url: null,
+    tags: ["49-inch", "pcap", "android", "x86", "touch-monitor", "large-format"],
   },
 ];
 
@@ -299,11 +311,14 @@ export default function InteractiveDisplay() {
               const is43 = p.tags?.includes("43-inch") || ["interactive-display-hr43","interactive-display-hd43","interactive-kiosk-kd43b"].includes(p.slug);
               const is238 = p.tags?.includes("23.8-inch") || p.slug === "interactive-kiosk-gd238c";
               const is27 = p.tags?.includes("27-inch") || ["interactive-display-hd27","interactive-kiosk-gd27c"].includes(p.slug);
+              const is49 = p.tags?.includes("49-inch") || p.slug === "interactive-display-hr49";
               const model43 =
                 p.slug === "interactive-display-hr43" ? "hr43" :
                 p.slug === "interactive-kiosk-kd43b" ? "kd43b" : "hd43";
               const model27 = p.slug === "interactive-kiosk-gd27c" ? "gd27c" : "hd27";
-              const detailHref = is27
+              const detailHref = is49
+                ? "/products/displays-49?model=hr49"
+                : is27
                 ? `/products/displays-27?model=${model27}`
                 : is238
                 ? "/products/displays-23.8?model=gd238c"
