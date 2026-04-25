@@ -455,10 +455,8 @@ export default function QuotePDFTemplate({ quote, revision, companyInfo, salePer
         </div>
       </div>
 
-      {/* ── FOOTER ────────────────────────────────────────────────────── */}
-      <div style={s.footer}>
-        <p style={{ margin: 0 }}>เอกสารนี้ออกโดยระบบอัตโนมัติ ไม่ต้องลงนามเพื่อให้มีผลบังคับใช้</p>
-      </div>
+      {/* ── FOOTER disclaimer is rendered by jsPDF in pdf-helper (footerCenter)
+            to avoid being clipped by the page-bottom band ─────────────── */}
 
     </div>
   );
