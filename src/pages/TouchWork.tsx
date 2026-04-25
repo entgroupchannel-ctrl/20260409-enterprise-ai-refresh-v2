@@ -64,10 +64,28 @@ const seriesMeta: Record<SeriesKey, { label: string; desc: string; color: string
 const getSeries = (model: string): SeriesKey =>
   (model.startsWith("GD") ? "GD" : model.startsWith("JD") ? "JD" : "DM");
 
+type PanelType = "IPS" | "TN";
+const getPanelType = (model: string): PanelType =>
+  (model.startsWith("GD") || model.startsWith("JD")) ? "IPS" : "TN";
+
+const panelMeta: Record<PanelType, { label: string; desc: string; color: string }> = {
+  IPS: {
+    label: "IPS",
+    desc: "มุมมองกว้าง 175°/178° — สีสวย เหมาะกับงาน Premium / Hospitality",
+    color: "bg-violet-500/10 text-violet-700 dark:text-violet-300 border-violet-500/30",
+  },
+  TN: {
+    label: "TN (a-Si)",
+    desc: "มุมมอง 85° — ตอบสนองไว ทนทาน เหมาะกับ HMI / Industrial",
+    color: "bg-slate-500/10 text-slate-700 dark:text-slate-300 border-slate-500/30",
+  },
+};
+
 export default function TouchWork() {
   const [selectedSeries, setSelectedSeries] = useState<SeriesKey[]>([]);
   const [selectedArchs, setSelectedArchs] = useState<TouchWorkArch[]>([]);
   const [selectedBuckets, setSelectedBuckets] = useState<string[]>([]);
+  const [selectedPanels, setSelectedPanels] = useState<PanelType[]>([]);
 
   const toggleSeries = (s: SeriesKey) =>
     setSelectedSeries((p) => (p.includes(s) ? p.filter((x) => x !== s) : [...p, s]));
@@ -75,6 +93,8 @@ export default function TouchWork() {
     setSelectedArchs((p) => (p.includes(a) ? p.filter((x) => x !== a) : [...p, a]));
   const toggleBucket = (b: string) =>
     setSelectedBuckets((p) => (p.includes(b) ? p.filter((x) => x !== b) : [...p, b]));
+  const togglePanel = (pt: PanelType) =>
+    setSelectedPanels((p) => (p.includes(pt) ? p.filter((x) => x !== pt) : [...p, pt]));
 
   // Counts per series for chip badges
   const seriesCounts = useMemo(() => {
@@ -83,9 +103,16 @@ export default function TouchWork() {
     return c;
   }, []);
 
+  const panelCounts = useMemo(() => {
+    const c: Record<PanelType, number> = { IPS: 0, TN: 0 };
+    touchworkProducts.forEach((p) => { c[getPanelType(p.model)]++; });
+    return c;
+  }, []);
+
   const filtered = useMemo(() => {
     return touchworkProducts.filter((p) => {
       if (selectedSeries.length > 0 && !selectedSeries.includes(getSeries(p.model))) return false;
+      if (selectedPanels.length > 0 && !selectedPanels.includes(getPanelType(p.model))) return false;
       if (selectedArchs.length > 0) {
         const archs = p.variants.map((v) => v.arch);
         if (!selectedArchs.every((a) => archs.includes(a))) return false;
@@ -98,7 +125,7 @@ export default function TouchWork() {
       }
       return true;
     });
-  }, [selectedSeries, selectedArchs, selectedBuckets]);
+  }, [selectedSeries, selectedArchs, selectedBuckets, selectedPanels]);
 
   // Group filtered products by series for the grid
   const groupedFiltered = useMemo(() => {
@@ -313,6 +340,32 @@ export default function TouchWork() {
             <div className="h-5 w-px bg-border" />
 
             <div className="flex flex-wrap gap-1.5">
+              <span className="text-xs text-muted-foreground self-center mr-1">Panel:</span>
+              {(["IPS", "TN"] as PanelType[]).map((pt) => {
+                const active = selectedPanels.includes(pt);
+                return (
+                  <button
+                    key={pt}
+                    onClick={() => togglePanel(pt)}
+                    title={panelMeta[pt].desc}
+                    className={`px-3 py-1 rounded-full text-xs font-semibold border transition-all inline-flex items-center gap-1.5 ${
+                      active
+                        ? "bg-primary text-primary-foreground border-primary"
+                        : `${panelMeta[pt].color} hover:opacity-80`
+                    }`}
+                  >
+                    {panelMeta[pt].label}
+                    <span className={`text-[10px] px-1 rounded ${active ? "bg-primary-foreground/20" : "bg-foreground/10"}`}>
+                      {panelCounts[pt]}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="h-5 w-px bg-border" />
+
+            <div className="flex flex-wrap gap-1.5">
               <span className="text-xs text-muted-foreground self-center mr-1">ขนาด:</span>
               {sizeBuckets.map((b) => {
                 const active = selectedBuckets.includes(b.label);
@@ -332,12 +385,13 @@ export default function TouchWork() {
               })}
             </div>
 
-            {(selectedSeries.length > 0 || selectedArchs.length > 0 || selectedBuckets.length > 0) && (
+            {(selectedSeries.length > 0 || selectedArchs.length > 0 || selectedBuckets.length > 0 || selectedPanels.length > 0) && (
               <button
                 onClick={() => {
                   setSelectedSeries([]);
                   setSelectedArchs([]);
                   setSelectedBuckets([]);
+                  setSelectedPanels([]);
                 }}
                 className="ml-auto text-xs text-muted-foreground hover:text-foreground underline"
               >
@@ -413,11 +467,22 @@ export default function TouchWork() {
                                 );
                               })}
                             </div>
-                            <div className="absolute top-2 right-2">
+                            <div className="absolute top-2 right-2 flex flex-col items-end gap-1">
                               <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-md bg-foreground/90 text-background text-[11px] font-bold">
                                 <Maximize className="h-2.5 w-2.5" />
                                 {p.size}″
                               </span>
+                              {(() => {
+                                const pt = getPanelType(p.model);
+                                return (
+                                  <span
+                                    title={panelMeta[pt].desc}
+                                    className={`inline-flex items-center px-1.5 py-0.5 rounded-md text-[10px] font-bold border backdrop-blur ${panelMeta[pt].color}`}
+                                  >
+                                    {panelMeta[pt].label}
+                                  </span>
+                                );
+                              })()}
                             </div>
                           </div>
 

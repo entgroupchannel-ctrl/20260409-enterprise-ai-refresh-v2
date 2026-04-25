@@ -198,7 +198,27 @@ export default function TouchWorkDetail() {
 
           {/* Info */}
           <div>
-            <Badge variant="secondary" className="mb-3">TouchWork Series • Indoor Display</Badge>
+            <div className="flex items-center gap-2 mb-3 flex-wrap">
+              <Badge variant="secondary">TouchWork Series • Indoor Display</Badge>
+              {(() => {
+                const isIPS = product.model.startsWith("GD") || product.model.startsWith("JD");
+                return isIPS ? (
+                  <Badge
+                    className="bg-violet-500/10 text-violet-700 dark:text-violet-300 border border-violet-500/30 hover:bg-violet-500/15"
+                    title="IPS Panel — มุมมอง 175°/178° สีสวย"
+                  >
+                    IPS Panel
+                  </Badge>
+                ) : (
+                  <Badge
+                    className="bg-slate-500/10 text-slate-700 dark:text-slate-300 border border-slate-500/30 hover:bg-slate-500/15"
+                    title="TN (a-Si) — ตอบสนองไว ทนทาน เหมาะกับ HMI"
+                  >
+                    TN (a-Si)
+                  </Badge>
+                );
+              })()}
+            </div>
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">
               {product.model}
             </h1>
