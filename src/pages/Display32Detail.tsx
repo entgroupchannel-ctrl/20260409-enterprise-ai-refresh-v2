@@ -1,0 +1,458 @@
+import { useState, useEffect, useMemo, useRef } from "react";
+import { useParams, useSearchParams, Navigate, Link } from "react-router-dom";
+import {
+  ArrowLeft, Download, Monitor, Cpu, Smartphone, Maximize, ShieldCheck,
+  Layers, Box, MonitorSmartphone, Hand, Award, CheckCircle2, Plug,
+  Ruler, Package, Settings2,
+} from "lucide-react";
+import SEOHead from "@/components/SEOHead";
+import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
+import MiniNavbar from "@/components/MiniNavbar";
+import FooterCompact from "@/components/FooterCompact";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import ProductGallery from "@/components/ProductGallery";
+import ImageLightbox from "@/components/ImageLightbox";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
+import { DISPLAYS_32, DISPLAY_32_ORDER, type Display32, type Display32Slug } from "@/data/displays-32";
+
+const ICONS: Record<string, any> = {
+  Monitor, Cpu, Smartphone, Maximize, ShieldCheck, Layers, Box,
+  MonitorSmartphone, Hand, Award,
+};
+
+const SECTIONS = [
+  { id: "overview", label: "ภาพรวม" },
+  { id: "highlights", label: "ไฮไลต์" },
+  { id: "features", label: "Feature" },
+  { id: "specs", label: "สเปก" },
+  { id: "io", label: "I/O Ports" },
+  { id: "install", label: "การติดตั้ง" },
+  { id: "use-cases", label: "Use Cases" },
+  { id: "compare", label: "เปรียบเทียบ" },
+  { id: "download", label: "Datasheet" },
+];
+
+const Display32Detail = () => {
+  const { model } = useParams<{ model?: string }>();
+  const [params, setParams] = useSearchParams();
+  const requested = (model ?? params.get("model") ?? "hd32") as Display32Slug;
+  const product = DISPLAYS_32[requested];
+
+  const [activeSection, setActiveSection] = useState("overview");
+  const [lightbox, setLightbox] = useState<{ images: string[]; index: number } | null>(null);
+  const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
+
+  // Track active section on scroll
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter(e => e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio);
+        if (visible[0]) setActiveSection(visible[0].target.id);
+      },
+      { rootMargin: "-120px 0px -55% 0px", threshold: [0, 0.2, 0.5] }
+    );
+    SECTIONS.forEach(s => {
+      const el = sectionRefs.current[s.id];
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, [requested]);
+
+  const scrollTo = (id: string) => {
+    const el = sectionRefs.current[id];
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY - 110;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
+  };
+
+  const switchModel = (s: Display32Slug) => {
+    setParams({ model: s });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  if (!product) return <Navigate to="/products/displays-32" replace />;
+
+  return (
+    <div className="min-h-screen bg-background">
+      <SEOHead
+        title={`${product.name} | จอสัมผัส 32 นิ้ว — ENT Group`}
+        description={product.tagline}
+        canonical={`https://entgroup.co.th/products/displays-32?model=${product.slug}`}
+      />
+      <BreadcrumbJsonLd items={[
+        { name: "หน้าหลัก", url: "/" },
+        { name: "Touch Display 32\"", url: "/products/displays-32" },
+        { name: product.shortName, url: `/products/displays-32?model=${product.slug}` },
+      ]}/>
+
+      <MiniNavbar />
+
+      {/* Top bar with model tabs */}
+      <div className="border-b border-border bg-card/80 backdrop-blur-md sticky top-0 z-30">
+        <div className="container mx-auto px-4 py-3">
+          <div className="flex items-center justify-between gap-4 mb-3">
+            <Link to="/interactive-display" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
+              <ArrowLeft className="h-4 w-4" /> กลับหน้าหลัก
+            </Link>
+            <Badge variant="outline" className="text-xs">Touch Display 32"</Badge>
+          </div>
+          {/* Model tabs */}
+          <div className="flex gap-1.5 overflow-x-auto scrollbar-hide -mx-1 px-1">
+            {DISPLAY_32_ORDER.map((s) => {
+              const m = DISPLAYS_32[s];
+              const active = s === requested;
+              return (
+                <button
+                  key={s}
+                  onClick={() => switchModel(s)}
+                  className={`shrink-0 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all border ${
+                    active
+                      ? "bg-primary text-primary-foreground border-primary shadow-sm"
+                      : "bg-background border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                  }`}
+                >
+                  <span className="font-bold">{m.modelCode}</span>
+                  <span className="hidden sm:inline ml-1.5 opacity-80">· {m.formFactor}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* Sticky section nav */}
+      <div className="sticky top-[calc(var(--mn-h,0px)+96px)] z-20 border-b border-border bg-background/95 backdrop-blur">
+        <div className="container mx-auto px-4">
+          <div className="flex gap-1 overflow-x-auto scrollbar-hide py-2">
+            {SECTIONS.map(s => (
+              <button
+                key={s.id}
+                onClick={() => scrollTo(s.id)}
+                className={`shrink-0 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                  activeSection === s.id
+                    ? "bg-primary/10 text-primary"
+                    : "text-muted-foreground hover:bg-muted"
+                }`}
+              >
+                {s.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <main className="container mx-auto px-4 py-8 space-y-16">
+        {/* Hero / Overview */}
+        <section
+          id="overview"
+          ref={el => (sectionRefs.current.overview = el)}
+          className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start scroll-mt-32"
+        >
+          <div className="rounded-2xl border border-border bg-card p-4">
+            <ProductGallery
+              images={product.gallery}
+              alt={product.name}
+              onImageClick={(i) => setLightbox({ images: product.gallery, index: i })}
+            />
+          </div>
+          <div className="space-y-4">
+            <div className="flex flex-wrap items-center gap-2">
+              <Badge className="bg-primary/10 text-primary border-primary/20">{product.modelCode}</Badge>
+              <Badge variant="outline">{product.category}</Badge>
+              <Badge variant="outline">{product.formFactor}</Badge>
+            </div>
+            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">{product.name}</h1>
+            <p className="text-lg text-muted-foreground">{product.tagline}</p>
+            <p className="text-base leading-relaxed">{product.description}</p>
+
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4">
+              <QuickStat label="ความละเอียด" value={product.quick.resolution} />
+              <QuickStat label="ความสว่าง" value={product.quick.brightness} />
+              <QuickStat label="Touch" value={product.quick.touch} />
+              <QuickStat label="ติดตั้ง" value={product.quick.install} />
+            </div>
+
+            <div className="flex flex-wrap gap-3 pt-4">
+              <QuoteRequestButton
+                productName={product.name}
+                productSlug={`displays-32-${product.slug}`}
+              />
+              <Button variant="outline" asChild>
+                <a href={product.datasheetUrl} target="_blank" rel="noopener noreferrer">
+                  <Download className="h-4 w-4 mr-2" /> Datasheet
+                </a>
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        {/* Highlights */}
+        <section
+          id="highlights"
+          ref={el => (sectionRefs.current.highlights = el)}
+          className="scroll-mt-32"
+        >
+          <SectionTitle eyebrow="Highlights" title="จุดเด่นของรุ่นนี้" />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {product.highlights.map((h, i) => {
+              const Icon = ICONS[h.icon] ?? Monitor;
+              return (
+                <div key={i} className="rounded-xl border border-border bg-card p-5 hover:shadow-md transition-shadow">
+                  <div className="h-10 w-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-3">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <div className="font-semibold text-sm">{h.title}</div>
+                  {h.subtitle && <div className="text-xs text-muted-foreground mt-1">{h.subtitle}</div>}
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Features */}
+        <section
+          id="features"
+          ref={el => (sectionRefs.current.features = el)}
+          className="scroll-mt-32"
+        >
+          <SectionTitle eyebrow="Features" title="คุณสมบัติเด่น" />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+            <ul className="space-y-3">
+              {product.features.map((f, i) => (
+                <li key={i} className="flex items-start gap-3 rounded-lg border border-border bg-card px-4 py-3">
+                  <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                  <span className="text-sm">{f}</span>
+                </li>
+              ))}
+            </ul>
+            {product.featureImages.length > 0 && (
+              <div className="grid grid-cols-2 gap-3">
+                {product.featureImages.slice(0, 4).map((src, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setLightbox({ images: product.featureImages, index: i })}
+                    className="rounded-xl border border-border bg-card overflow-hidden hover:shadow-md transition-shadow"
+                  >
+                    <img src={src} alt={`${product.modelCode} feature ${i+1}`} className="w-full h-32 object-cover" loading="lazy" />
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* Specs */}
+        <section
+          id="specs"
+          ref={el => (sectionRefs.current.specs = el)}
+          className="scroll-mt-32"
+        >
+          <SectionTitle eyebrow="Specifications" title="สเปกฉบับเต็ม" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {product.specs.map((g, gi) => (
+              <div key={gi} className="rounded-xl border border-border bg-card overflow-hidden">
+                <div className="px-4 py-3 bg-muted/40 border-b border-border flex items-center gap-2">
+                  <Settings2 className="h-4 w-4 text-primary" />
+                  <h3 className="font-semibold text-sm">{g.title}</h3>
+                </div>
+                <dl className="divide-y divide-border/60">
+                  {g.rows.map((r) => (
+                    <div key={r.label} className="grid grid-cols-5 gap-2 px-4 py-2.5 text-sm hover:bg-muted/30">
+                      <dt className="col-span-2 text-muted-foreground">{r.label}</dt>
+                      <dd className="col-span-3 font-medium">{r.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* I/O */}
+        <section
+          id="io"
+          ref={el => (sectionRefs.current.io = el)}
+          className="scroll-mt-32"
+        >
+          <SectionTitle eyebrow="Interface I/O" title="พอร์ตเชื่อมต่อ" />
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-start">
+            <div className="lg:col-span-3 rounded-2xl border border-border bg-card p-4">
+              <button
+                onClick={() => setLightbox({ images: [product.ioImage], index: 0 })}
+                className="block w-full"
+              >
+                <img src={product.ioImage} alt={`${product.modelCode} I/O`} className="w-full h-auto object-contain rounded-lg" loading="lazy" />
+              </button>
+            </div>
+            <div className="lg:col-span-2 space-y-2">
+              <h3 className="font-semibold text-sm flex items-center gap-2 mb-3">
+                <Plug className="h-4 w-4 text-primary" /> รายการพอร์ต
+              </h3>
+              {product.ports.map((p, i) => (
+                <div key={i} className="flex items-center gap-2 rounded-md border border-border bg-card px-3 py-2 text-sm">
+                  <CheckCircle2 className="h-4 w-4 text-primary/70 shrink-0" />
+                  <span>{p}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Installation */}
+        <section
+          id="install"
+          ref={el => (sectionRefs.current.install = el)}
+          className="scroll-mt-32"
+        >
+          <SectionTitle eyebrow="Installation" title="ตัวเลือกการติดตั้ง" />
+          {product.installImages.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {product.installImages.map((src, i) => (
+                <button
+                  key={i}
+                  onClick={() => setLightbox({ images: product.installImages, index: i })}
+                  className="rounded-xl border border-border bg-card overflow-hidden hover:shadow-md transition-shadow"
+                >
+                  <img src={src} alt={`${product.modelCode} install ${i+1}`} className="w-full aspect-square object-cover" loading="lazy" />
+                  <div className="px-3 py-2 text-xs font-medium text-left">ขั้นตอน {i+1}</div>
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-xl border border-dashed border-border bg-muted/20 p-8 text-center text-sm text-muted-foreground">
+              รูปแบบการติดตั้ง: <span className="font-semibold text-foreground">{product.quick.install}</span> — ติดต่อทีมงานเพื่อขอคำแนะนำการติดตั้งเฉพาะหน้างาน
+            </div>
+          )}
+        </section>
+
+        {/* Use cases */}
+        <section
+          id="use-cases"
+          ref={el => (sectionRefs.current["use-cases"] = el)}
+          className="scroll-mt-32"
+        >
+          <SectionTitle eyebrow="Use Cases" title="เหมาะสำหรับการใช้งาน" />
+          <div className="flex flex-wrap gap-2">
+            {product.useCases.map((u, i) => (
+              <Badge key={i} variant="secondary" className="text-sm py-2 px-4">{u}</Badge>
+            ))}
+          </div>
+        </section>
+
+        {/* Comparison */}
+        <section
+          id="compare"
+          ref={el => (sectionRefs.current.compare = el)}
+          className="scroll-mt-32"
+        >
+          <SectionTitle eyebrow="Comparison" title="เปรียบเทียบ 5 รุ่นในหมวด 32 นิ้ว" />
+          <ComparisonTable activeSlug={requested} onSwitch={switchModel} />
+        </section>
+
+        {/* Datasheet CTA */}
+        <section
+          id="download"
+          ref={el => (sectionRefs.current.download = el)}
+          className="scroll-mt-32"
+        >
+          <div className="rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 via-card to-card p-6 sm:p-10 text-center">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-2">สนใจ {product.modelCode}?</h2>
+            <p className="text-muted-foreground mb-6">ดาวน์โหลดเอกสารสเปกฉบับเต็ม หรือขอใบเสนอราคาพร้อมราคาพิเศษสำหรับองค์กร</p>
+            <div className="flex flex-wrap justify-center gap-3">
+              <Button asChild size="lg">
+                <a href={product.datasheetUrl} target="_blank" rel="noopener noreferrer">
+                  <Download className="h-4 w-4 mr-2" /> ดาวน์โหลด Datasheet (PDF)
+                </a>
+              </Button>
+              <QuoteRequestButton
+                productName={product.name}
+                productSlug={`displays-32-${product.slug}`}
+              />
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <FooterCompact />
+
+      {lightbox && (
+        <ImageLightbox
+          images={lightbox.images}
+          startIndex={lightbox.index}
+          onClose={() => setLightbox(null)}
+        />
+      )}
+    </div>
+  );
+};
+
+const SectionTitle = ({ eyebrow, title }: { eyebrow: string; title: string }) => (
+  <div className="mb-6">
+    <div className="text-xs font-semibold uppercase tracking-wider text-primary mb-1">{eyebrow}</div>
+    <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">{title}</h2>
+  </div>
+);
+
+const QuickStat = ({ label, value }: { label: string; value: string }) => (
+  <div className="rounded-lg border border-border bg-card px-3 py-2.5">
+    <div className="text-[10px] uppercase tracking-wider text-muted-foreground">{label}</div>
+    <div className="text-sm font-semibold mt-0.5 leading-tight">{value}</div>
+  </div>
+);
+
+const ComparisonTable = ({ activeSlug, onSwitch }: { activeSlug: Display32Slug; onSwitch: (s: Display32Slug) => void }) => {
+  const rows: { label: string; key: keyof Display32["quick"] }[] = [
+    { label: "Form Factor", key: "formFactor" },
+    { label: "ความละเอียด", key: "resolution" },
+    { label: "ความสว่าง", key: "brightness" },
+    { label: "Contrast", key: "contrast" },
+    { label: "ระบบสัมผัส", key: "touch" },
+    { label: "ระบบปฏิบัติการ", key: "os" },
+    { label: "ขนาด (cm)", key: "dimensionCm" },
+    { label: "น้ำหนัก", key: "weightKg" },
+    { label: "Power", key: "power" },
+    { label: "ติดตั้ง", key: "install" },
+  ];
+  return (
+    <div className="overflow-x-auto rounded-2xl border border-border bg-card">
+      <table className="w-full text-sm min-w-[760px]">
+        <thead>
+          <tr className="bg-muted/40 border-b border-border">
+            <th className="text-left px-4 py-3 font-semibold w-44">รายการ</th>
+            {DISPLAY_32_ORDER.map(s => {
+              const m = DISPLAYS_32[s];
+              const active = s === activeSlug;
+              return (
+                <th key={s} className={`text-left px-4 py-3 font-semibold ${active ? "bg-primary/10 text-primary" : ""}`}>
+                  <button onClick={() => onSwitch(s)} className="text-left hover:underline">
+                    <div className="font-bold">{m.modelCode}</div>
+                    <div className="text-[11px] font-normal opacity-70">{m.formFactor}</div>
+                  </button>
+                </th>
+              );
+            })}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map(r => (
+            <tr key={r.key} className="border-b border-border/60 hover:bg-muted/20">
+              <td className="px-4 py-2.5 text-muted-foreground font-medium">{r.label}</td>
+              {DISPLAY_32_ORDER.map(s => {
+                const active = s === activeSlug;
+                return (
+                  <td key={s} className={`px-4 py-2.5 ${active ? "bg-primary/5 font-semibold" : ""}`}>
+                    {DISPLAYS_32[s].quick[r.key]}
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default Display32Detail;
