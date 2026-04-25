@@ -86,6 +86,8 @@ export interface Display32 {
   highlights: { icon: string; title: string; subtitle?: string }[];
   features: string[];
   useCases: string[];
+  /** Visual lifestyle scenarios with photo + short caption (4 scenes) */
+  useCaseScenarios?: { image: string; title: string; description: string }[];
   gallery: string[];
   ioImage: string;
   installImages: string[];
