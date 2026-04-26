@@ -91,9 +91,10 @@ const DATASHEETS: Record<string, string | { label: string; file: string }[]> = {
 interface Props {
   productModel: string;
   variant?: "default" | "outline" | "secondary" | "ghost";
-  size?: "sm" | "default" | "lg";
+  size?: "sm" | "default" | "lg" | "icon";
   className?: string;
   fullWidth?: boolean;
+  iconOnly?: boolean;
 }
 
 export function DatasheetButton({
@@ -102,11 +103,13 @@ export function DatasheetButton({
   size = "sm",
   className,
   fullWidth = true,
+  iconOnly = false,
 }: Props) {
   const entry = DATASHEETS[productModel];
   if (!entry) return null;
 
-  const w = fullWidth ? "w-full" : "";
+  const w = iconOnly ? "" : (fullWidth ? "w-full" : "");
+  const btnSize = iconOnly ? "icon" : size;
 
   // Single file → direct download link
   if (typeof entry === "string") {
@@ -114,8 +117,9 @@ export function DatasheetButton({
       <Button
         asChild
         variant={variant}
-        size={size}
+        size={btnSize as any}
         className={`${w} ${className ?? ""}`}
+        title={iconOnly ? `ดาวน์โหลด Datasheet ${productModel} (PDF)` : undefined}
       >
         <a
           href={`/datasheets/${entry}`}
@@ -124,8 +128,8 @@ export function DatasheetButton({
           rel="noopener noreferrer"
           aria-label={`ดาวน์โหลด Datasheet ${productModel} (PDF)`}
         >
-          <FileText className="h-4 w-4 mr-1.5" />
-          Datasheet (PDF)
+          <FileText className={iconOnly ? "h-4 w-4" : "h-4 w-4 mr-1.5"} />
+          {!iconOnly && "Datasheet (PDF)"}
         </a>
       </Button>
     );
@@ -137,11 +141,13 @@ export function DatasheetButton({
       <DropdownMenuTrigger asChild>
         <Button
           variant={variant}
-          size={size}
+          size={btnSize as any}
           className={`${w} ${className ?? ""}`}
+          title={iconOnly ? `Datasheet ${productModel} (PDF)` : undefined}
+          aria-label={iconOnly ? `Datasheet ${productModel} (PDF)` : undefined}
         >
-          <FileText className="h-4 w-4 mr-1.5" />
-          Datasheet (PDF) ▾
+          <FileText className={iconOnly ? "h-4 w-4" : "h-4 w-4 mr-1.5"} />
+          {!iconOnly && "Datasheet (PDF) ▾"}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-72 z-50 bg-popover">
