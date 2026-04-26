@@ -37,8 +37,8 @@ const productBanners = [
     description: "พร้อม Windows 11 ประหยัดกว่าตลาด 15-30%",
     backgroundImage: kioskBanner,
     links: [
-      { label: "ดู KIOSK", href: "/smart-display?tab=kiosk" },
-      { label: "Smart Display", href: "/smart-display" },
+      { label: "ดู KIOSK", href: "/interactive-display" },
+      { label: "15.6\" Kiosk", href: "/products/displays-15.6" },
     ],
   },
 ];

@@ -3,6 +3,7 @@ import EdgeAISection from "@/components/EdgeAISection";
 import SoftwareSection from "@/components/SoftwareSection";
 import ProductHighlights from "@/components/ProductHighlights";
 import ProductBanners from "@/components/ProductBanners";
+import InteractiveDisplayBanner from "@/components/InteractiveDisplayBanner";
 import ProductSections from "@/components/ProductSections";
 import ProductLineup from "@/components/ProductLineup";
 import PromoBanners from "@/components/PromoBanners";
@@ -44,6 +45,7 @@ const Index = () => {
       <div className="bg-white dark:bg-background"><EdgeAISection /></div>
       <div className="bg-slate-100 dark:bg-muted/30"><ProductHighlights /></div>
       <div className="bg-slate-100 dark:bg-muted/30"><ProductBanners /></div>
+      <div className="bg-white dark:bg-background"><InteractiveDisplayBanner /></div>
       <div className="bg-white dark:bg-background"><ProductSections /></div>
       <div className="bg-slate-100 dark:bg-muted/30"><ProductLineup /></div>
       <div className="bg-white dark:bg-background"><SoftwareSection /></div>
