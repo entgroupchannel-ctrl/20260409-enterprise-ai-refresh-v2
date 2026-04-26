@@ -47,6 +47,7 @@ import hd49Install2 from "@/assets/touchwo/hd49/install-2.jpg";
 import hd49Install3 from "@/assets/touchwo/hd49/install-3.jpg";
 import hd49IoAndroid from "@/assets/touchwo/hd49/io-android.png";
 import hd49IoWindows from "@/assets/touchwo/hd49/io-windows.png";
+import hd49IoMonitor from "@/assets/touchwo/hd49/io-monitor.png";
 
 export type Display49Slug = "hr49" | "hd49";
 export { OS_BACKGROUNDS };
@@ -405,6 +406,18 @@ export const DISPLAYS_49: Record<Display49Slug, Display32> = {
           { label: "Active Area", value: "1076 × 606 mm" },
           { label: "Bezel", value: "13 mm (-53% vs ทั่วไป)" },
           { label: "น้ำหนัก", value: "23.8 / 24.1 kg" },
+        ],
+      },
+      {
+        image: hd49IoMonitor,
+        title: "I/O Layout — Touch Monitor Configuration",
+        caption: "พอร์ตเชื่อมต่อรุ่น Touch Monitor (จอสัมผัสล้วน ไม่มี PC ในตัว) — ออกแบบให้กระชับเรียบง่าย ใช้งานแบบ Plug-and-play กับ External PC / OPS / Media Player: USB สำหรับส่งสัญญาณ Touch (HID Class — ไม่ต้องลง Driver), HDMI + VGA รองรับการต่อสัญญาณภาพจากแหล่งหลากหลาย, Audio Out 3.5mm สำหรับลำโพงภายนอก, DC 12V กินไฟต่ำเหมาะกับ 24/7 Operation",
+        callouts: [
+          { label: "Touch Signal", value: "USB (HID Plug-and-play)" },
+          { label: "Video Input", value: "HDMI + VGA (Dual Source)" },
+          { label: "Audio Out", value: "3.5mm Stereo (ลำโพงภายนอก)" },
+          { label: "Power", value: "DC 12V (Low-power < 100W)" },
+          { label: "OS รองรับ", value: "Windows / Linux / macOS / Android" },
         ],
       },
       {
