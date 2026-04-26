@@ -17,6 +17,55 @@ import AddToCartButton from "@/components/AddToCartButton";
 import { LineQRDialog } from "@/components/LineQRDialog";
 import heroImg from "@/assets/interactive-display-hero.jpg";
 
+// Product card hero images (มาจาก asset โฟลเดอร์ของแต่ละรุ่น)
+import imgHd27 from "@/assets/touchwo/hd27/arm-1.jpg";
+import imgGd27c from "@/assets/touchwo/gd27c/p-1.jpg";
+import imgHd32 from "@/assets/touchwo/hd32-hero-clean.jpg";
+import imgHr32 from "@/assets/touchwo/hr32-hero-clean.jpg";
+import imgKd32b from "@/assets/touchwo/kd32b-hero-clean.jpg";
+import imgHd43 from "@/assets/touchwo/hd43/arm-1.jpg";
+import imgHr43 from "@/assets/touchwo/hr43/arm-1.jpg";
+import imgKd43b from "@/assets/touchwo/kd43b/mon-1.jpg";
+import imgHd49 from "@/assets/touchwo/hd49/hero.png";
+import imgHr49 from "@/assets/touchwo/hr49/hero-monitor.jpg";
+import imgHd55 from "@/assets/touchwo/hd55/55-1A.jpg";
+import imgHr55 from "@/assets/touchwo/hr55/p-1.jpg";
+import imgHd65 from "@/assets/touchwo/hd65/feat-1.png";
+import imgHr65 from "@/assets/touchwo/hr65/p-1.jpg";
+import imgRz65b from "@/assets/touchwo/rz65b/feat-1.png";
+import imgGd238c from "@/assets/touchwo/gd238c/p-1a.jpg";
+
+// Map slug → asset image (override DB image_url for consistent presentation)
+const PRODUCT_IMAGES: Record<string, string> = {
+  "interactive-display-hd27": imgHd27,
+  "interactive-kiosk-gd27c": imgGd27c,
+  "interactive-display-hd32": imgHd32,
+  "interactive-display-hr32": imgHr32,
+  "interactive-kiosk-kd32b": imgKd32b,
+  "interactive-display-hd43": imgHd43,
+  "interactive-display-hr43": imgHr43,
+  "interactive-kiosk-kd43b": imgKd43b,
+  "interactive-display-hd49": imgHd49,
+  "interactive-display-hr49": imgHr49,
+  "interactive-display-hd55": imgHd55,
+  "interactive-display-hr55": imgHr55,
+  "interactive-display-hd65": imgHd65,
+  "interactive-display-hr65": imgHr65,
+  "interactive-kiosk-rz65b": imgRz65b,
+  "interactive-kiosk-gd238c": imgGd238c,
+};
+
+// ลำดับการแสดงผล: เริ่มจาก 27" → 32" → 43" → 49" → 55" → 65" → 23.8"
+const SIZE_ORDER: Record<string, number> = {
+  "27": 1, "32": 2, "43": 3, "49": 4, "55": 5, "65": 6, "23.8": 7,
+};
+const sizeRank = (p: { tags: string[] | null; slug: string }) => {
+  for (const [size, rank] of Object.entries(SIZE_ORDER)) {
+    if (p.tags?.some(t => t === `${size}-inch`)) return rank;
+  }
+  return 99;
+};
+
 type Product = {
   id: string;
   sku: string | null;
