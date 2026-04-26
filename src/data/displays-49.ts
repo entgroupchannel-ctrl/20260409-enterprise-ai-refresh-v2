@@ -408,6 +408,7 @@ export const DISPLAYS_49: Record<Display49Slug, Display32> = {
       },
       {
         image: hd49IoAndroid,
+        title: "I/O Layout — External Connectors",
         caption: "พอร์ตเชื่อมต่อด้านหลังตัวเครื่อง — รองรับครบทั้ง 3 Configuration: Monitor (HDMI in / VGA / USB / Audio), Windows OPS (HDMI out / VGA / USB ×4 / RJ45 / Wi-Fi), Android (HDMI out / USB ×2 / RJ45 / TF Slot / Audio + BLE 5.0)",
         callouts: [
           { label: "Monitor", value: "HDMI in + VGA + USB + Audio" },
