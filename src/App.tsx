@@ -32,6 +32,7 @@ const GKSeries = lazyRetry(() => import("./pages/GKSeries"));
 const PanelPCGTG = lazyRetry(() => import("./pages/PanelPCGTG"));
 const SmartDisplay = lazyRetry(() => import("./pages/SmartDisplay"));
 const InteractiveDisplay = lazyRetry(() => import("./pages/InteractiveDisplay"));
+const Accessories = lazyRetry(() => import("./pages/Accessories"));
 const Display32Detail = lazyRetry(() => import("./pages/Display32Detail"));
 const FPMSeries = lazyRetry(() => import("./pages/FPMSeries"));
 const FPMSeriesDetail = lazyRetry(() => import("./pages/FPMSeriesDetail"));
@@ -222,6 +223,7 @@ const App = () => (
                     <Route path="/panel-pc-gtg" element={<PanelPCGTG />} />
                     <Route path="/smart-display" element={<SmartDisplay />} />
                     <Route path="/interactive-display" element={<InteractiveDisplay />} />
+                    <Route path="/accessories" element={<Accessories />} />
                     <Route path="/products/displays-32" element={<Display32Detail groupSize={32} />} />
                     <Route path="/products/displays-32/:model" element={<Display32Detail groupSize={32} />} />
                     <Route path="/products/displays-43" element={<Display32Detail groupSize={43} />} />
