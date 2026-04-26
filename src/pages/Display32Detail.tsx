@@ -169,6 +169,9 @@ const ALL_SECTIONS = [
   { id: "download",       label: "Datasheet",       icon: Download },
 ];
 
+// กลุ่มสินค้าที่ไม่แสดง Datasheet (ซ่อนแหล่งที่มา OEM)
+const HIDE_DATASHEET_GROUPS: GroupSize[] = [156, 215];
+
 interface Props { groupSize?: GroupSize }
 const Display32Detail = ({ groupSize = 32 }: Props) => {
   const group = GROUPS[groupSize];
