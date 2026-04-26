@@ -202,6 +202,8 @@ const Accessories = () => {
         image={heroBanner}
         title="Accessories — อุปกรณ์เสริมของแท้"
         subtitle="ขาตั้ง / ขายึดผนัง / แขนจอ สำหรับ Touch Screen และ KIOSK ทุกขนาด"
+        backTo="/interactive-display"
+        backLabel="กลับไปหน้า Interactive Display"
       />
 
       {/* Intro */}
