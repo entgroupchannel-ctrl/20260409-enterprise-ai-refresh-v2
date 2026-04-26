@@ -261,6 +261,15 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
                 </button>
               );
             })}
+            {/* Accessories cross-link — filtered by current screen size */}
+            <Link
+              to={`/accessories?size=${groupSize === 238 ? "23.8" : groupSize}`}
+              className="shrink-0 inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all border border-dashed border-primary/40 text-primary hover:bg-primary/10 hover:border-primary"
+            >
+              <Package className="h-3.5 w-3.5" />
+              <span className="font-bold">Accessories</span>
+              <span className="hidden sm:inline opacity-80">· ขาตั้ง / ขายึด</span>
+            </Link>
           </div>
         </div>
       </div>

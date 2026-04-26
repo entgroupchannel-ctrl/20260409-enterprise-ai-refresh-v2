@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
-import { ArrowRight, Factory, Package, Wrench, ShieldCheck, Truck } from "lucide-react";
+import { useMemo } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import { ArrowRight, Factory, Package, Wrench, ShieldCheck, Truck, X } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import PageBanner from "@/components/PageBanner";
@@ -23,6 +24,9 @@ interface Accessory {
   id: string;
   title: string;
   size: string;
+  /** Min/max screen size in inches that this accessory supports */
+  sizeMin: number;
+  sizeMax: number;
   image: string;
   features: string[];
   compatibleWith?: string;
@@ -31,6 +35,7 @@ interface Accessory {
 const ACCESSORIES: Accessory[] = [
   {
     id: "dm-open-frame",
+    sizeMin: 10.1, sizeMax: 10.1,
     title: "Open Frame Touch Monitor — DM Series",
     size: "10.1\"",
     image: dmMonitor,
@@ -43,6 +48,7 @@ const ACCESSORIES: Accessory[] = [
   },
   {
     id: "desktop-stand",
+    sizeMin: 15, sizeMax: 27,
     title: "Desktop Stand — ขาตั้งวางโต๊ะมาตรฐาน",
     size: "15\" – 27\"",
     image: desktopStand,
@@ -54,6 +60,7 @@ const ACCESSORIES: Accessory[] = [
   },
   {
     id: "foldable-stand",
+    sizeMin: 15, sizeMax: 23.8,
     title: "Foldable Stand — ขาตั้งพับเก็บได้",
     size: "15\" – 23.8\"",
     image: foldableStand,
@@ -65,6 +72,7 @@ const ACCESSORIES: Accessory[] = [
   },
   {
     id: "adjustable-arm",
+    sizeMin: 7, sizeMax: 23.8,
     title: "Adjustable Arm — แขนปรับระดับ",
     size: "7\" – 23.8\"",
     image: adjustableArm,
@@ -76,6 +84,7 @@ const ACCESSORIES: Accessory[] = [
   },
   {
     id: "wall-mount",
+    sizeMin: 5, sizeMax: 65,
     title: "Wall Mount — ขายึดผนัง",
     size: "5\" – 65\"",
     image: wallMount,
@@ -87,6 +96,7 @@ const ACCESSORIES: Accessory[] = [
   },
   {
     id: "l-shape-stand",
+    sizeMin: 15, sizeMax: 27,
     title: "L-Shape Stand — ขาตั้งทรง L",
     size: "15\" – 27\"",
     image: lShapeStand,
@@ -98,6 +108,7 @@ const ACCESSORIES: Accessory[] = [
   },
   {
     id: "designer-stand",
+    sizeMin: 32, sizeMax: 65,
     title: "Designer Stand — ขาตั้งดีไซน์เฉพาะตัว",
     size: "32\" – 65\"",
     image: designerStand,
@@ -109,6 +120,7 @@ const ACCESSORIES: Accessory[] = [
   },
   {
     id: "premium-stand",
+    sizeMin: 17, sizeMax: 32,
     title: "Premium Stand — ขาตั้งระดับพรีเมียม",
     size: "17\" – 32\"",
     image: premiumStand,
@@ -120,6 +132,7 @@ const ACCESSORIES: Accessory[] = [
   },
   {
     id: "aio-desktop-stand",
+    sizeMin: 15.6, sizeMax: 43,
     title: "All-Metal Desktop Stand — สำหรับ All-in-One (GD Series)",
     size: "15.6\" – 43\"",
     image: aioDesktopStand,
@@ -132,6 +145,7 @@ const ACCESSORIES: Accessory[] = [
   },
   {
     id: "aio-wall-mount",
+    sizeMin: 15.6, sizeMax: 43,
     title: "All-Metal Wall Mount — สำหรับ All-in-One (GD Series)",
     size: "15.6\" – 43\"",
     image: aioWallMount,
@@ -168,6 +182,22 @@ const PROMISES = [
 ];
 
 const Accessories = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sizeParam = searchParams.get("size");
+  // Convert "23.8" → 23.8, "98" → 98, ignore invalid
+  const targetSize = sizeParam && !isNaN(parseFloat(sizeParam)) ? parseFloat(sizeParam) : null;
+
+  const filtered = useMemo(() => {
+    if (targetSize === null) return ACCESSORIES;
+    return ACCESSORIES.filter(a => targetSize >= a.sizeMin && targetSize <= a.sizeMax);
+  }, [targetSize]);
+
+  const clearFilter = () => {
+    const next = new URLSearchParams(searchParams);
+    next.delete("size");
+    setSearchParams(next);
+  };
+
   return (
     <>
       <SEOHead
@@ -226,50 +256,72 @@ const Accessories = () => {
       {/* Accessories grid */}
       <section className="pb-16 px-4 md:px-8">
         <div className="container max-w-7xl mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-display font-bold mb-2">
-              เลือก Accessories ที่ใช่กับงานของคุณ
-            </h2>
-            <p className="text-muted-foreground">9 ประเภท ครอบคลุมหน้าจอตั้งแต่ 5" ถึง 65"</p>
-          </div>
+          {targetSize !== null && (
+            <div className="mb-6 flex flex-wrap items-center justify-between gap-3 p-4 rounded-xl border border-primary/30 bg-primary/5">
+              <div className="text-sm">
+                <span className="text-muted-foreground">กำลังกรอง Accessories ที่รองรับหน้าจอ </span>
+                <span className="font-bold text-primary">{sizeParam}"</span>
+                <span className="text-muted-foreground"> — พบ {filtered.length} รายการ</span>
+              </div>
+              <Button variant="ghost" size="sm" onClick={clearFilter}>
+                <X size={14} className="mr-1" /> ล้างตัวกรอง · ดูทั้งหมด
+              </Button>
+            </div>
+          )}
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {ACCESSORIES.map((acc) => (
-              <Card key={acc.id} className="overflow-hidden group hover:shadow-lg transition-all border-border flex flex-col">
-                <div className="aspect-[4/3] overflow-hidden bg-muted">
-                  <img
-                    src={acc.image}
-                    alt={acc.title}
-                    width={1024}
-                    height={768}
-                    loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-5 flex-1 flex flex-col">
-                  <div className="flex items-start justify-between gap-2 mb-1">
-                    <h3 className="font-display font-bold text-lg leading-tight">{acc.title}</h3>
+          {targetSize === null && (
+            <div className="text-center mb-10">
+              <h2 className="text-2xl md:text-3xl font-display font-bold mb-2">
+                เลือก Accessories ที่ใช่กับงานของคุณ
+              </h2>
+              <p className="text-muted-foreground">10 รายการ ครอบคลุมหน้าจอตั้งแต่ 5" ถึง 65"</p>
+            </div>
+          )}
+
+          {filtered.length === 0 ? (
+            <div className="text-center py-16 border border-dashed border-border rounded-xl">
+              <p className="text-muted-foreground mb-4">ไม่พบ Accessories ที่รองรับขนาดนี้โดยตรง</p>
+              <Button variant="outline" onClick={clearFilter}>ดู Accessories ทั้งหมด</Button>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filtered.map((acc) => (
+                <Card key={acc.id} className="overflow-hidden group hover:shadow-lg transition-all border-border flex flex-col">
+                  <div className="aspect-[4/3] overflow-hidden bg-muted">
+                    <img
+                      src={acc.image}
+                      alt={acc.title}
+                      width={1024}
+                      height={768}
+                      loading="lazy"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
                   </div>
-                  <div className="text-xs font-semibold text-primary mb-3">
-                    Available in {acc.size}
-                  </div>
-                  <ul className="space-y-1.5 text-sm text-muted-foreground flex-1 mb-4">
-                    {acc.features.map((f, i) => (
-                      <li key={i} className="flex gap-2">
-                        <span className="text-primary mt-1">•</span>
-                        <span className="leading-relaxed">{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  {acc.compatibleWith && (
-                    <div className="text-xs px-2.5 py-1.5 rounded-md bg-muted text-muted-foreground border border-border">
-                      <span className="font-semibold text-foreground">เข้ากันได้กับ:</span> {acc.compatibleWith}
+                  <div className="p-5 flex-1 flex flex-col">
+                    <div className="flex items-start justify-between gap-2 mb-1">
+                      <h3 className="font-display font-bold text-lg leading-tight">{acc.title}</h3>
                     </div>
-                  )}
-                </div>
-              </Card>
-            ))}
-          </div>
+                    <div className="text-xs font-semibold text-primary mb-3">
+                      Available in {acc.size}
+                    </div>
+                    <ul className="space-y-1.5 text-sm text-muted-foreground flex-1 mb-4">
+                      {acc.features.map((f, i) => (
+                        <li key={i} className="flex gap-2">
+                          <span className="text-primary mt-1">•</span>
+                          <span className="leading-relaxed">{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    {acc.compatibleWith && (
+                      <div className="text-xs px-2.5 py-1.5 rounded-md bg-muted text-muted-foreground border border-border">
+                        <span className="font-semibold text-foreground">เข้ากันได้กับ:</span> {acc.compatibleWith}
+                      </div>
+                    )}
+                  </div>
+                </Card>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
