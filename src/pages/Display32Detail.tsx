@@ -708,11 +708,11 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               {product.peripherals.map((p, i) => (
                 <div key={i} className="rounded-2xl border border-border bg-card overflow-hidden flex flex-col group hover:shadow-lg hover:border-primary/40 transition-all">
-                  <div className="aspect-[4/3] bg-gradient-to-br from-muted/40 to-muted/10 flex items-center justify-center p-6 border-b border-border">
+                  <div className="h-36 bg-gradient-to-br from-muted/40 to-muted/10 flex items-center justify-center p-4 border-b border-border">
                     <img
                       src={p.image}
                       alt={`${p.name} ${p.model}`}
-                      className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform"
+                      className="max-h-24 max-w-[60%] object-contain group-hover:scale-105 transition-transform"
                       loading="lazy"
                     />
                   </div>
@@ -762,17 +762,17 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
                 {product.customizationLeadTime}
               </div>
             )}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-3">
               {product.customizationOptions.map((opt, i) => (
                 <div
                   key={i}
                   className="group rounded-xl border border-border bg-card overflow-hidden hover:border-primary/40 hover:shadow-md transition-all"
                 >
-                  <div className="aspect-square bg-gradient-to-br from-muted/30 to-background flex items-center justify-center p-5 border-b border-border/60">
+                  <div className="h-24 bg-gradient-to-br from-muted/30 to-background flex items-center justify-center p-3 border-b border-border/60">
                     <img
                       src={opt.image}
                       alt={opt.name}
-                      className="max-h-full max-w-full object-contain group-hover:scale-110 transition-transform"
+                      className="max-h-16 max-w-[55%] object-contain group-hover:scale-110 transition-transform"
                       loading="lazy"
                     />
                   </div>
