@@ -129,6 +129,22 @@ export interface Display32 {
     targetSlug?: Display32Slug;  // optional link to dedicated detail page
     accent: "neutral" | "primary" | "secondary"; // visual accent
   }[];
+  /** Built-in peripherals shipped with the kiosk (printer / scanner / RFID) */
+  peripherals?: {
+    image: string;
+    name: string;        // เช่น "Thermal Printer"
+    model: string;       // เช่น "MS-E80I"
+    description?: string;
+    specs: { label: string; value: string }[];
+  }[];
+  /** Optional add-on / customization modules (icon-style cards) */
+  customizationOptions?: {
+    image: string;
+    name: string;
+    description?: string;
+  }[];
+  /** Lead time note for customization */
+  customizationLeadTime?: string;
   datasheetUrl: string;
   dimensionUrl?: string;
   specs: SpecGroup[];
