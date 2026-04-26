@@ -417,7 +417,7 @@ export default function InteractiveDisplay() {
 
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border">
-        <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 z-0">
           <img
             src={heroImg}
             alt="คนไทยใช้งานตู้ KIOSK ในห้างสรรพสินค้า"
@@ -425,9 +425,9 @@ export default function InteractiveDisplay() {
             width={1920}
             height={1080}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-background/30" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/75 to-background/20" />
         </div>
-        <div className="container max-w-7xl mx-auto px-6 py-16 md:py-24">
+        <div className="relative z-10 container max-w-7xl mx-auto px-6 py-16 md:py-24">
           <Badge variant="secondary" className="mb-4">B2B • Enterprise Grade</Badge>
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight max-w-4xl">
             Interactive Touch Display
