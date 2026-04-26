@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  ArrowLeft, Monitor, Hand, ShieldCheck, Zap, Sun, Maximize2,
+  ArrowLeft, ArrowRight, Monitor, Hand, ShieldCheck, Zap, Sun, Maximize2,
   Building2, GraduationCap, Factory, Sparkles, Phone, MessageCircle,
   PackageCheck, Boxes, Ruler, BadgeCheck
 } from "lucide-react";
