@@ -516,7 +516,11 @@ export default function InteractiveDisplay() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {filtered.map((p) => {
               // Override links for series pages with multiple OS variants
-              const is32 = p.tags?.includes("32-inch") || p.slug === "interactive-display-hd32";
+              const is32 = p.tags?.includes("32-inch") || ["interactive-display-hd32","interactive-display-hr32","interactive-display-gd32c","interactive-display-kd32b"].includes(p.slug);
+              const model32 =
+                p.slug === "interactive-display-hr32" ? "hr32" :
+                p.slug === "interactive-display-gd32c" ? "gd32c" :
+                p.slug === "interactive-display-kd32b" ? "kd32b" : "hd32";
               const is43 = p.tags?.includes("43-inch") || ["interactive-display-hr43","interactive-display-hd43","interactive-kiosk-kd43b"].includes(p.slug);
               const is238 = p.tags?.includes("23.8-inch") || p.slug === "interactive-kiosk-gd238c";
               const is27 = p.tags?.includes("27-inch") || ["interactive-display-hd27","interactive-kiosk-gd27c"].includes(p.slug);
