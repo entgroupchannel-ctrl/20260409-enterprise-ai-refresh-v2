@@ -168,13 +168,22 @@
   <url><loc>https://www.entgroup.co.th/promotions</loc><lastmod>2026-04-16</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.entgroup.co.th/shop</loc><lastmod>2026-04-16</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
 
+  <!-- ═══ Promotions & Shop ═══ -->
+  <url><loc>https://www.entgroup.co.th/promotions</loc><lastmod>2026-04-16</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.entgroup.co.th/shop</loc><lastmod>2026-04-16</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+
+  <!-- ═══ B2B Platform & Programs ═══ -->
+  <url><loc>https://www.entgroup.co.th/platform</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/corporate-pricing</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/affiliate</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.entgroup.co.th/partner</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.entgroup.co.th/investors</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+
   <!-- ═══ Company Pages ═══ -->
   <url><loc>https://www.entgroup.co.th/about-us</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://www.entgroup.co.th/contact</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.entgroup.co.th/warrantys</loc><lastmod>2026-04-01</lastmod><changefreq>yearly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.entgroup.co.th/payment</loc><lastmod>2026-04-01</lastmod><changefreq>yearly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.entgroup.co.th/delivery</loc><lastmod>2026-04-01</lastmod><changefreq>yearly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.entgroup.co.th/platform</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.entgroup.co.th/corporate-pricing</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
 
 </urlset>
