@@ -349,19 +349,20 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
                 productName={product.name}
 
               />
-              {hasDatasheet(product.modelCode) && (
+              {hasDatasheet(product.modelCode) ? (
                 <DatasheetButton
                   productModel={product.modelCode}
                   variant="default"
                   size="default"
                   fullWidth={false}
                 />
+              ) : (
+                <Button variant="outline" asChild>
+                  <a href={product.datasheetUrl} target="_blank" rel="noopener noreferrer">
+                    <Download className="h-4 w-4 mr-2" /> Datasheet
+                  </a>
+                </Button>
               )}
-              <Button variant="outline" asChild>
-                <a href={product.datasheetUrl} target="_blank" rel="noopener noreferrer">
-                  <Download className="h-4 w-4 mr-2" /> Datasheet (Source)
-                </a>
-              </Button>
               {product.dimensionUrl && (
                 <Button variant="outline" asChild>
                   <a href={product.dimensionUrl} target="_blank" rel="noopener noreferrer">
