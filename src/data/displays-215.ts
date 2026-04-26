@@ -449,7 +449,6 @@ export const DISPLAYS_215: Record<Display215Slug, Display32> = {
     useCases: ["Retail Self-Order", "Banking Self-service", "Parcel Locker", "Public Self-service"],
     useCaseScenarios: GD215C_USECASES,
     gallery: [gd215g1, gd215g2, gd215g3, gd215g4a, gd215g4b, gd215g5, gd215g6, gd215g7],
-    galleryOrientation: "portrait",
     ioImage: gd215g6,
     installImages: [gd215Install1, gd215Install2, gd215Install3],
     installCaptions: GD215C_INSTALL_CAPTIONS,
