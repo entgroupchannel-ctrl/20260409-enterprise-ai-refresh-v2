@@ -23,6 +23,7 @@ import {
 import archMonitorImg from "@/assets/touchwork/arch-monitor.jpg";
 import archArmImg from "@/assets/touchwork/arch-arm.jpg";
 import archX86Img from "@/assets/touchwork/arch-x86.jpg";
+import heroBg from "@/assets/touchwork/hero-bg.jpg";
 
 const archIcon: Record<TouchWorkArch, typeof Monitor> = {
   Monitor: Monitor,
@@ -150,8 +151,24 @@ export default function TouchWork() {
       <MiniNavbar />
 
       {/* Hero */}
-      <section className="relative overflow-hidden border-b border-border/40 bg-gradient-to-br from-primary/10 via-background to-background">
-        <div className="container max-w-7xl mx-auto px-6 py-12 md:py-16">
+      <section className="relative overflow-hidden border-b border-border/40">
+        {/* Background image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${heroBg})` }}
+          aria-hidden="true"
+        />
+        {/* Readability overlays — strong on the left where text sits, fade to right */}
+        <div
+          className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/30"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-background/20"
+          aria-hidden="true"
+        />
+
+        <div className="container max-w-7xl mx-auto px-6 py-12 md:py-16 relative">
 
 
           <div className="max-w-4xl">
