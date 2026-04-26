@@ -38,6 +38,11 @@ const DATASHEETS: Record<string, string | { label: string; file: string }[]> = {
     { label: "RZ65B 4K Windows / Linux (OPS x86)", file: "ENTGROUP-RZ65B-X86.pdf" },
     { label: "RZ65B 4K Android (Rockchip ARM)", file: "ENTGROUP-RZ65B-ARM.pdf" },
   ],
+  RZ75B: [
+    { label: "RZ75B 4K IR Touch Monitor (no PC)", file: "ENTGROUP-RZ75B-Monitor.pdf" },
+    { label: "RZ75B 4K Windows / Linux (OPS x86)", file: "ENTGROUP-RZ75B-X86.pdf" },
+    { label: "RZ75B 4K Android (Rockchip ARM)", file: "ENTGROUP-RZ75B-ARM.pdf" },
+  ],
 };
 
 interface Props {
