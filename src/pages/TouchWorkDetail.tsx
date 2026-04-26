@@ -31,7 +31,7 @@ import { getTouchWorkProductImages, getTouchWorkDimensionImages, getTouchWorkInt
 import { getTouchworkHardware } from "@/data/touchwork-hardware";
 import ProductConfigurator from "@/components/touchwork/ProductConfigurator";
 import B2BCTABanner from "@/components/B2BCTABanner";
-import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
+
 import B2BMarketingShowcase from "@/components/B2BMarketingShowcase";
 
 // ---- Helpers (declared before default export for HMR safety) -------------
@@ -664,7 +664,7 @@ export default function TouchWorkDetail() {
 
       {/* B2B Banners — เหมือนหน้า GT Series */}
       <B2BMarketingShowcase variant="muted" />
-      <B2BWorkflowBanner />
+      
       <B2BCTABanner variant="compact" />
 
       <FooterCompact />
