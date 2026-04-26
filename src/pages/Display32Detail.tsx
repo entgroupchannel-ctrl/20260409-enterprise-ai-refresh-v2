@@ -172,6 +172,9 @@ const ALL_SECTIONS = [
 // กลุ่มสินค้าที่ไม่แสดง Datasheet (ซ่อนแหล่งที่มา OEM)
 const HIDE_DATASHEET_GROUPS: GroupSize[] = [156, 215];
 
+// กลุ่ม KIOSK ที่มีรุ่นย่อย Monitor / Windows-x86 / Android — แสดงตารางเปรียบเทียบ Variant
+const KIOSK_GROUP_SIZES: GroupSize[] = [156, 215, 238];
+
 interface Props { groupSize?: GroupSize }
 const Display32Detail = ({ groupSize = 32 }: Props) => {
   const group = GROUPS[groupSize];
@@ -1096,6 +1099,18 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
           </section>
         )}
 
+        {/* Variant Comparison — เฉพาะกลุ่ม KIOSK ที่มี Monitor / x86 / Android ในรุ่นเดียว */}
+        {KIOSK_GROUP_SIZES.includes(groupSize) && product.variants && product.variants.length >= 2 && (
+          <section className="scroll-mt-32">
+            <SectionTitle
+              eyebrow="Variant Comparison"
+              title={`เลือก Configuration: ${product.modelCode}`}
+              subtitle="เปรียบเทียบสเปกระหว่างรุ่นย่อย Monitor / Windows-x86 / Android — ตัวเครื่องเดียวกัน เลือกตามซอฟต์แวร์และงบประมาณ"
+            />
+            <VariantComparisonTable variants={product.variants} />
+          </section>
+        )}
+
         {/* Comparison */}
         <section
           id="compare"
@@ -1159,10 +1174,11 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
   );
 };
 
-const SectionTitle = ({ eyebrow, title }: { eyebrow: string; title: string }) => (
+const SectionTitle = ({ eyebrow, title, subtitle }: { eyebrow: string; title: string; subtitle?: string }) => (
   <div className="mb-6">
     <div className="text-xs font-semibold uppercase tracking-wider text-primary mb-1">{eyebrow}</div>
     <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">{title}</h2>
+    {subtitle && <p className="text-sm text-muted-foreground mt-2 max-w-3xl">{subtitle}</p>}
   </div>
 );
 
@@ -1172,6 +1188,117 @@ const QuickStat = ({ label, value }: { label: string; value: string }) => (
     <div className="text-sm font-semibold mt-0.5 leading-tight">{value}</div>
   </div>
 );
+
+type Variant = NonNullable<Display32["variants"]>[number];
+
+const VARIANT_ICONS: Record<string, typeof Monitor> = {
+  monitor: Monitor,
+  x86: Cpu,
+  android: Smartphone,
+};
+
+const VariantComparisonTable = ({ variants }: { variants: Variant[] }) => {
+  const [activeKey, setActiveKey] = useState<string>(variants[0]?.key ?? "");
+  const active = variants.find(v => v.key === activeKey) ?? variants[0];
+
+  const rows: { label: string; get: (v: Variant) => string | undefined }[] = [
+    { label: "Form Factor / Badge", get: v => v.badge },
+    { label: "CPU", get: v => v.cpu ?? "—" },
+    { label: "RAM", get: v => v.ram ?? "—" },
+    { label: "Storage", get: v => v.storage ?? "—" },
+    { label: "ระบบปฏิบัติการ", get: v => {
+        if (v.osBackground === "windows") return "Windows 10 / 11 / Linux";
+        if (v.osBackground === "android") return "Android (เลือกได้)";
+        return "ไม่มี OS (ต่อ PC ภายนอก)";
+      } },
+    { label: "เหมาะกับ", get: v => v.bestFor },
+  ];
+
+  return (
+    <div className="space-y-6">
+      {/* Selector chips */}
+      <div className="flex flex-wrap gap-2">
+        {variants.map(v => {
+          const Icon = VARIANT_ICONS[v.key] ?? Layers;
+          const isActive = v.key === active.key;
+          return (
+            <button
+              key={v.key}
+              onClick={() => setActiveKey(v.key)}
+              className={`inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium transition-colors ${
+                isActive
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "border-border bg-card hover:border-primary/40"
+              }`}
+            >
+              <Icon className="h-4 w-4" />
+              {v.label}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Active variant detail */}
+      <div className="rounded-xl border border-primary/30 bg-gradient-to-br from-primary/5 via-card to-card p-5">
+        <div className="flex items-start gap-3 mb-3">
+          <Badge variant="secondary">{active.badge}</Badge>
+        </div>
+        <p className="text-sm text-muted-foreground leading-relaxed mb-4">{active.description}</p>
+        {active.highlights && active.highlights.length > 0 && (
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {active.highlights.map((h, i) => (
+              <li key={i} className="flex items-start gap-2 text-sm">
+                <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                <span>{h}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      {/* Comparison table */}
+      <div className="overflow-x-auto rounded-2xl border border-border bg-card">
+        <table className="w-full text-sm min-w-[640px]">
+          <thead>
+            <tr className="bg-muted/40 border-b border-border">
+              <th className="text-left px-4 py-3 font-semibold w-44">รายการ</th>
+              {variants.map(v => {
+                const Icon = VARIANT_ICONS[v.key] ?? Layers;
+                const isActive = v.key === active.key;
+                return (
+                  <th key={v.key} className={`text-left px-4 py-3 font-semibold ${isActive ? "bg-primary/10 text-primary" : ""}`}>
+                    <button onClick={() => setActiveKey(v.key)} className="text-left hover:underline">
+                      <div className="flex items-center gap-2 font-bold">
+                        <Icon className="h-4 w-4" />
+                        {v.key === "monitor" ? "Monitor" : v.key === "x86" ? "Windows / x86" : v.key === "android" ? "Android" : v.label}
+                      </div>
+                      <div className="text-[11px] font-normal opacity-70 mt-0.5">{v.badge}</div>
+                    </button>
+                  </th>
+                );
+              })}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r, i) => (
+              <tr key={i} className="border-b border-border/60 hover:bg-muted/20 align-top">
+                <td className="px-4 py-2.5 text-muted-foreground font-medium">{r.label}</td>
+                {variants.map(v => {
+                  const isActive = v.key === active.key;
+                  return (
+                    <td key={v.key} className={`px-4 py-2.5 ${isActive ? "bg-primary/5 font-semibold" : ""}`}>
+                      {r.get(v)}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
 
 const ComparisonTable = ({ activeSlug, onSwitch, data, order }: { activeSlug: string; onSwitch: (s: string) => void; data: Record<string, Display32>; order: string[] }) => {
   const rows: { label: string; key: keyof Display32["quick"] }[] = [
