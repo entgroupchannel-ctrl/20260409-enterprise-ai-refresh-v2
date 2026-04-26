@@ -160,15 +160,16 @@ const PRODUCT_IMAGES: Record<string, string> = {
 const SIZE_ORDER: Record<string, number> = {
   "15.6": 1, "21.5": 2, "23.8": 3, "27": 4, "32": 5, "43": 6, "49": 7, "55": 8, "65": 9, "75": 10, "85": 11, "86": 12, "98": 13,
 };
-const KIOSK_SIZES = new Set(["15.6", "21.5", "23.8"]);
 const sizeRank = (p: { tags: string[] | null; slug: string }) => {
   for (const [size, rank] of Object.entries(SIZE_ORDER)) {
     if (p.tags?.some(t => t === `${size}-inch`)) return rank;
   }
   return 99;
 };
-const isKioskProduct = (p: { tags: string[] | null }) => {
-  return p.tags?.some(t => Array.from(KIOSK_SIZES).some(s => t === `${s}-inch`)) ?? false;
+// KIOSK = สินค้าที่มี tag "kiosk" หรือ slug ขึ้นต้นด้วย "interactive-kiosk-"
+const isKioskProduct = (p: { tags: string[] | null; slug: string }) => {
+  if (p.slug?.startsWith("interactive-kiosk-")) return true;
+  return p.tags?.some(t => t === "kiosk" || t === "wall-mount" || t === "floor-stand") ?? false;
 };
 
 type Product = {
@@ -185,9 +186,9 @@ type Product = {
 
 const SIZE_FILTERS = [
   { label: "ทั้งหมด", value: "all" },
-  { label: '15.6" Kiosk', value: "15.6" },
-  { label: '21.5" Kiosk', value: "21.5" },
-  { label: '23.8" Kiosk', value: "23.8" },
+  { label: '15.6"', value: "15.6" },
+  { label: '21.5"', value: "21.5" },
+  { label: '23.8"', value: "23.8" },
   { label: '27"', value: "27" },
   { label: '32"', value: "32" },
   { label: '43"', value: "43" },
@@ -491,12 +492,18 @@ export default function InteractiveDisplay() {
       ? allProducts.filter(isKioskProduct)
       : allProducts.filter(p => !isKioskProduct(p));
 
-  // เมื่อเลือกหมวด KIOSK/Display แล้ว ตัวเลือกขนาดต้องสอดคล้องกัน
+  // เมื่อเลือกหมวด KIOSK/Display แล้ว ตัวเลือกขนาดต้องสอดคล้องกัน (อิงจากสินค้าจริงในหมวดนั้น)
+  const sizesInCategory = new Set<string>();
+  filteredByCategory.forEach(p => {
+    p.tags?.forEach(t => {
+      const m = t.match(/^([\d.]+)-inch$/);
+      if (m) sizesInCategory.add(m[1]);
+    });
+  });
   const visibleSizeFilters = SIZE_FILTERS.filter(f => {
     if (f.value === "all") return true;
-    if (category === "kiosk") return KIOSK_SIZES.has(f.value);
-    if (category === "display") return !KIOSK_SIZES.has(f.value);
-    return true;
+    if (category === "all") return true;
+    return sizesInCategory.has(f.value);
   });
 
   const filtered = size === "all"
