@@ -54,8 +54,6 @@ import hd65P2 from "@/assets/touchwo/hd65/p-2.jpg";
 import hd65P3 from "@/assets/touchwo/hd65/p-3.jpg";
 import hd65P4 from "@/assets/touchwo/hd65/p-4.jpg";
 import hd65P5 from "@/assets/touchwo/hd65/p-5.jpg";
-import hd65P6 from "@/assets/touchwo/hd65/p-6.jpg";
-import hd65P7 from "@/assets/touchwo/hd65/p-7.jpg";
 import hd65IoMonitor from "@/assets/touchwo/hd65/io-monitor.jpg";
 import hd65IoWindows from "@/assets/touchwo/hd65/io-windows.jpg";
 import hd65IoAndroid from "@/assets/touchwo/hd65/io-android.jpg";
@@ -66,6 +64,8 @@ import hd65Feat1 from "@/assets/touchwo/hd65/feat-1.png";
 import hd65Feat2 from "@/assets/touchwo/hd65/feat-2.png";
 import hd65Feat3 from "@/assets/touchwo/hd65/feat-3.png";
 import hd65Feat4 from "@/assets/touchwo/hd65/feat-4.png";
+import hd65DimFront from "@/assets/touchwo/hd65/dim-front.png";
+import hd65DimBack from "@/assets/touchwo/hd65/dim-back.png";
 
 export type Display65Slug = "hr65" | "rz65b" | "hd65";
 export { OS_BACKGROUNDS };
@@ -652,20 +652,31 @@ export const DISPLAYS_65: Record<Display65Slug, Display32> = {
     ],
     useCases: ["Education / Smart Classroom", "Healthcare", "Industrial", "Public Self-service Kiosk", "Restaurant / QSR", "Parcel Locker"],
     useCaseScenarios: [],
-    gallery: [hd65Monitor, hd65Windows, hd65Android, hd65P2, hd65P3, hd65P4, hd65P5, hd65P6, hd65P7],
+    gallery: [hd65Monitor, hd65Windows, hd65Android, hd65P2, hd65P3, hd65P4, hd65P5],
     ioImage: hd65IoMonitor,
     installImages: [hd65Install1, hd65Install2, hd65Install3],
     featureImages: [hd65Feat1, hd65Feat2, hd65Feat3, hd65Feat4],
     dimensionDrawings: [
       {
-        image: hd65P3,
-        title: "Mechanical Dimension — 65\" FHD Display",
-        caption: "ตัวเครื่อง 65\" FHD — ขนาด 1484.9 × 860.4 × 80.9 mm (กว้าง × สูง × ลึก) Active Area 1430.5 × 806 mm น้ำหนักสุทธิ 39 kg / รวม 48 kg — ดีไซน์ Slim Profile หนาเพียง 8.09 cm",
+        image: hd65DimFront,
+        title: "Mechanical Dimension — Front, Side & Top View",
+        caption: "แบบทางวิศวกรรมด้านหน้า, ด้านข้าง และด้านบน — ขนาดตัวเครื่อง 1484.9 × 860.34 × 80.85 mm (กว้าง × สูง × ลึก) พื้นที่จอแสดงผล (Active Area) 1430.5 × 806 mm มุมโค้ง R14.8 — ใช้สำหรับวางแผนช่องเปิดผนัง, เคาน์เตอร์ฝัง หรือเลือกขายึด VESA ก่อนติดตั้ง",
         callouts: [
-          { label: "ขนาดเครื่อง", value: "148.49 × 86.04 × 8.09 cm" },
-          { label: "Active Area", value: "1430.5 × 806 mm" },
-          { label: "น้ำหนักสุทธิ / รวม", value: "39 kg / 48 kg" },
-          { label: "ขนาดกล่อง", value: "156 × 101 × 17.3 cm" },
+          { label: "ขนาดตัวเครื่อง (W×H×D)", value: "1484.9 × 860.34 × 80.85 mm" },
+          { label: "Active Display Area", value: "1430.5 × 806 mm" },
+          { label: "ความหนา (Slim Profile)", value: "80.85 mm (≈ 8 cm)" },
+          { label: "Bezel Radius", value: "R14.8 mm" },
+        ],
+      },
+      {
+        image: hd65DimBack,
+        title: "VESA Mount Pattern — Rear View",
+        caption: "ผังจุดยึด VESA ด้านหลัง — รูยึด 4-M8 ระยะ 500 × 400 mm (มาตรฐาน VESA 500×400) ตำแหน่งจากขอบบน 286.17 mm — รองรับขายึดติดผนัง, ขาตั้งพื้น หรือ Cantilever Arm ทั่วไปในตลาด",
+        callouts: [
+          { label: "VESA Pattern", value: "500 × 400 mm" },
+          { label: "ประเภทรูยึด", value: "4 × M8 (4 จุด)" },
+          { label: "ระยะจากขอบบน", value: "286.17 mm" },
+          { label: "รองรับการติดตั้ง", value: "Wall / Floor / Cantilever" },
         ],
       },
       {
