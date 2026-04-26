@@ -182,6 +182,22 @@ const PROMISES = [
 ];
 
 const Accessories = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sizeParam = searchParams.get("size");
+  // Convert "23.8" → 23.8, "98" → 98, ignore invalid
+  const targetSize = sizeParam && !isNaN(parseFloat(sizeParam)) ? parseFloat(sizeParam) : null;
+
+  const filtered = useMemo(() => {
+    if (targetSize === null) return ACCESSORIES;
+    return ACCESSORIES.filter(a => targetSize >= a.sizeMin && targetSize <= a.sizeMax);
+  }, [targetSize]);
+
+  const clearFilter = () => {
+    const next = new URLSearchParams(searchParams);
+    next.delete("size");
+    setSearchParams(next);
+  };
+
   return (
     <>
       <SEOHead
