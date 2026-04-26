@@ -18,6 +18,53 @@ import AddToCartButton from "@/components/AddToCartButton";
 import { LineQRDialog } from "@/components/LineQRDialog";
 import heroImg from "@/assets/interactive-display-hero.jpg";
 
+// Use case images by screen size (small → large)
+import uc27 from "@/assets/usecase/uc-27-checkin.jpg";
+import uc32 from "@/assets/usecase/uc-32-selforder.jpg";
+import uc43 from "@/assets/usecase/uc-43-wayfinding.jpg";
+import uc55 from "@/assets/usecase/uc-55-classroom.jpg";
+import uc65 from "@/assets/usecase/uc-65-boardroom.jpg";
+import uc86 from "@/assets/usecase/uc-86-controlroom.jpg";
+
+const SIZE_USE_CASES = [
+  {
+    img: uc27,
+    size: '27"',
+    title: "Self Check-in คลินิก / โรงพยาบาล",
+    desc: "วางบนเคาน์เตอร์ลงทะเบียนผู้ป่วย ลดคิว ลดงานพนักงาน รองรับสแกนบัตรประชาชนและพิมพ์บัตรคิว",
+  },
+  {
+    img: uc32,
+    size: '32"',
+    title: "Self-Order ร้านอาหาร / คาเฟ่",
+    desc: "หน้าจอแนวตั้ง สั่งอาหารด้วยตัวเอง ชำระเงินผ่าน QR PromptPay เชื่อมต่อ POS และเครื่องพิมพ์ใบเสร็จ",
+  },
+  {
+    img: uc43,
+    size: '43"',
+    title: "Wayfinding ห้างสรรพสินค้า / อาคาร",
+    desc: "แผนที่นำทางภายในอาคาร ค้นหาร้านค้า ห้องน้ำ ลิฟต์ รองรับหลายภาษา ใช้กับ Wall-Mount หรือ Floor Stand",
+  },
+  {
+    img: uc55,
+    size: '55"',
+    title: "Smart Classroom / ห้องเรียนยุคใหม่",
+    desc: "แทนกระดานดำ เขียน-วาด-นำเสนอ Active Learning เชื่อมแท็บเล็ตนักเรียน บันทึกและแชร์บทเรียนได้ทันที",
+  },
+  {
+    img: uc65,
+    size: '65"',
+    title: "Boardroom / ห้องประชุมผู้บริหาร",
+    desc: "ประชุมไฮบริด นำเสนอ Dashboard / KPI พร้อม Video Conference (Zoom / Teams) และ Wireless Casting",
+  },
+  {
+    img: uc86,
+    size: '86"',
+    title: "Control Room / War Room โรงงาน",
+    desc: "แสดง MES / SCADA / Andon แบบ Real-time ติดตามสายการผลิต OEE และคุณภาพ ใช้งาน 24/7 เกรดอุตสาหกรรม",
+  },
+];
+
 // Product card hero images — เลือกภาพที่สื่อความหมายชัดเจน + variation ของ wallpaper เพื่อลดความซ้ำซ้อน
 import imgHd27 from "@/assets/touchwo/hd27/mon-2.jpg";          // bloom green wallpaper
 import imgGd27c from "@/assets/touchwo/gd27c/p-1.jpg";          // portrait kiosk Win10
