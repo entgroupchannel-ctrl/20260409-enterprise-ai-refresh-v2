@@ -261,12 +261,12 @@ const EXTRA_PRODUCTS: Product[] = [
 ];
 
 const FEATURES = [
-  { icon: Hand, title: "10-Point Multi-Touch", desc: "IR Touch รุ่น 7 ตอบสนอง <5ms รองรับการเขียน-วาด-สัมผัสพร้อมกัน 10 จุด" },
-  { icon: ShieldCheck, title: "IP65 Vandal-Proof", desc: "กระจกนิรภัย 4mm ทนการกระแทก กันน้ำ-ฝุ่นระดับอุตสาหกรรม" },
-  { icon: Sun, title: "Sunlight-Readable", desc: "Anti-glare ความสว่างสูง มองเห็นชัดแม้ในพื้นที่แสงจ้า" },
-  { icon: Zap, title: "Plug-and-Play", desc: "เสียบใช้งานได้ทันที พร้อม Auto Power Management ประหยัดพลังงาน" },
-  { icon: Maximize2, title: "Wall / Floor / Embedded", desc: "ติดตั้งได้หลายรูปแบบ — ผนัง, ขาตั้งพื้น, ฝังในเฟอร์นิเจอร์" },
-  { icon: Sparkles, title: "30,000-hr Lifespan", desc: "หน้าจอ LCD เกรดอุตสาหกรรม อายุการใช้งานยาวนานกว่า 3 ปี 24/7" },
+  { icon: PackageCheck, title: "KIOSK สำเร็จรูป พร้อมใช้งาน", desc: "ครบทั้งจอ + คอมพิวเตอร์ + OS ในเครื่องเดียว เปิดกล่อง เสียบปลั๊ก ใช้งานได้ทันที ไม่ต้องประกอบเอง" },
+  { icon: Boxes, title: "ไม่มียอดขั้นต่ำ (No MOQ)", desc: "สั่งซื้อ 1 เครื่องก็ได้ ทุกองค์กรเป็นเจ้าของได้ ไม่ว่าจะ SME, ร้านค้า, โรงเรียน หรือองค์กรขนาดใหญ่" },
+  { icon: Ruler, title: "11 ขนาด ตั้งแต่ 23.8\" – 98\"", desc: "เลือกขนาดได้ครบ — เคาน์เตอร์เล็ก, ห้องประชุม, ออดิทอเรียม, จุดบริการลูกค้า ทุก use case มีรุ่นที่ใช่" },
+  { icon: Hand, title: "PCAP / IR Touch 10 จุด", desc: "หน้าจอสัมผัสเกรดอุตสาหกรรม ตอบสนอง <5ms รองรับเขียน-วาด-สัมผัสพร้อมกัน 10 จุด" },
+  { icon: ShieldCheck, title: "กระจกนิรภัย Mohs 7", desc: "ทนการกระแทก กันรอยขีดข่วน เกรด IP65 ใช้งานได้ในพื้นที่สาธารณะและสภาพแวดล้อมหนัก" },
+  { icon: BadgeCheck, title: "รับประกัน On-site 24 เดือน", desc: "บริการหลังการขายโดยทีมวิศวกรในประเทศไทย พร้อมอะไหล่สำรอง — ใช้งาน 24/7 ได้อย่างมั่นใจ" },
 ];
 
 const USE_CASES = [
