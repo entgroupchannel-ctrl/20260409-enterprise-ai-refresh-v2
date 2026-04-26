@@ -485,9 +485,23 @@ export default function InteractiveDisplay() {
     ...EXTRA_PRODUCTS.filter(e => !products.some(p => p.slug === e.slug)),
   ].sort((a, b) => sizeRank(a) - sizeRank(b));
 
-  const filtered = size === "all"
+  const filteredByCategory = category === "all"
     ? allProducts
-    : allProducts.filter(p => p.tags?.some(t => t === `${size}-inch`));
+    : category === "kiosk"
+      ? allProducts.filter(isKioskProduct)
+      : allProducts.filter(p => !isKioskProduct(p));
+
+  // เมื่อเลือกหมวด KIOSK/Display แล้ว ตัวเลือกขนาดต้องสอดคล้องกัน
+  const visibleSizeFilters = SIZE_FILTERS.filter(f => {
+    if (f.value === "all") return true;
+    if (category === "kiosk") return KIOSK_SIZES.has(f.value);
+    if (category === "display") return !KIOSK_SIZES.has(f.value);
+    return true;
+  });
+
+  const filtered = size === "all"
+    ? filteredByCategory
+    : filteredByCategory.filter(p => p.tags?.some(t => t === `${size}-inch`));
 
   return (
     <div className="min-h-screen bg-background text-foreground">
