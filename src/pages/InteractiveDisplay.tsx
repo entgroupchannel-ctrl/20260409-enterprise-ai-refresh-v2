@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowLeft, Monitor, Hand, ShieldCheck, Zap, Sun, Maximize2,
-  Building2, GraduationCap, Factory, Sparkles, Phone, MessageCircle
+  Building2, GraduationCap, Factory, Sparkles, Phone, MessageCircle,
+  PackageCheck, Boxes, Ruler, BadgeCheck
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import SEOHead from "@/components/SEOHead";
