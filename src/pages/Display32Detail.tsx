@@ -24,8 +24,9 @@ import { DISPLAYS_27, DISPLAY_27_ORDER } from "@/data/displays-27";
 import { DISPLAYS_49, DISPLAY_49_ORDER } from "@/data/displays-49";
 import { DISPLAYS_55, DISPLAY_55_ORDER } from "@/data/displays-55";
 import { DISPLAYS_65, DISPLAY_65_ORDER } from "@/data/displays-65";
+import { DISPLAYS_75, DISPLAY_75_ORDER } from "@/data/displays-75";
 
-type GroupSize = 32 | 43 | 238 | 27 | 49 | 55 | 65;
+type GroupSize = 32 | 43 | 238 | 27 | 49 | 55 | 65 | 75;
 const GROUPS: Record<GroupSize, {
   data: Record<string, Display32>;
   order: string[];
@@ -88,6 +89,14 @@ const GROUPS: Record<GroupSize, {
     basePath: "/products/displays-65",
     defaultModel: "hr65",
     label: 'Touch Display 65"',
+    parentLink: "/interactive-display",
+  },
+  75: {
+    data: DISPLAYS_75 as Record<string, Display32>,
+    order: DISPLAY_75_ORDER as unknown as string[],
+    basePath: "/products/displays-75",
+    defaultModel: "rz75b",
+    label: 'Touch Display 75"',
     parentLink: "/interactive-display",
   },
 };

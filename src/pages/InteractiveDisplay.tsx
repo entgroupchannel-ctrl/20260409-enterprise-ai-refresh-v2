@@ -33,6 +33,7 @@ import imgHr55 from "@/assets/touchwo/hr55/card-hero.jpg";      // Material You 
 import imgHd65 from "@/assets/touchwo/hd65/p-monitor.jpg";      // Win10 monitor (large)
 import imgHr65 from "@/assets/touchwo/hr65/card-hero.jpg";      // Aurora green/teal
 import imgRz65b from "@/assets/touchwo/rz65b/p-windows.jpg";    // floor stand kiosk Win10
+import imgRz75b from "@/assets/touchwo/rz75b/p-windows.jpg";    // 75" mobile stand Win11
 import imgGd238c from "@/assets/touchwo/gd238c/p-1a.jpg";       // wall-mount portrait
 
 // Map slug → asset image (override DB image_url for consistent presentation)
@@ -52,12 +53,13 @@ const PRODUCT_IMAGES: Record<string, string> = {
   "interactive-display-hd65": imgHd65,
   "interactive-display-hr65": imgHr65,
   "interactive-kiosk-rz65b": imgRz65b,
+  "interactive-kiosk-rz75b": imgRz75b,
   "interactive-kiosk-gd238c": imgGd238c,
 };
 
 // ลำดับการแสดงผล: เริ่มจาก 27" → 32" → 43" → 49" → 55" → 65" → 23.8"
 const SIZE_ORDER: Record<string, number> = {
-  "27": 1, "32": 2, "43": 3, "49": 4, "55": 5, "65": 6, "23.8": 7,
+  "27": 1, "32": 2, "43": 3, "49": 4, "55": 5, "65": 6, "75": 7, "23.8": 8,
 };
 const sizeRank = (p: { tags: string[] | null; slug: string }) => {
   for (const [size, rank] of Object.entries(SIZE_ORDER)) {
@@ -87,6 +89,7 @@ const SIZE_FILTERS = [
   { label: '49"', value: "49" },
   { label: '55"', value: "55" },
   { label: '65"', value: "65" },
+  { label: '75"', value: "75" },
 ];
 
 // Series ที่มีหน้ารายละเอียดเฉพาะ (Android/x86/Monitor variants) แต่ยังไม่ถูก seed ลง DB
@@ -200,6 +203,17 @@ const EXTRA_PRODUCTS: Product[] = [
     form_factor: "Floor Stand Kiosk",
     image_url: null,
     tags: ["65-inch", "kiosk", "floor-stand", "pcap", "vandal-proof"],
+  },
+  {
+    id: "extra-rz75b",
+    sku: "RZ75B",
+    model: "RZ75B",
+    name: 'Interactive Touch Display RZ75B — 75" 4K UHD Modular',
+    description: '75" 4K UHD PCAP 10-point — Modular Smart Terminal — Touch Monitor / Windows OPS (i3/i5/i7) / Android (RK3568/3288/3588) — IP65 / Mohs 7',
+    slug: "interactive-kiosk-rz75b",
+    form_factor: "Wall / Floor / Mobile Stand",
+    image_url: null,
+    tags: ["75-inch", "pcap", "android", "x86", "touch-monitor", "large-format", "4k-uhd"],
   },
 ];
 
@@ -407,6 +421,7 @@ export default function InteractiveDisplay() {
               const is49 = p.tags?.includes("49-inch") || ["interactive-display-hr49","interactive-display-hd49"].includes(p.slug);
               const is55 = p.tags?.includes("55-inch") || ["interactive-display-hd55","interactive-display-hr55"].includes(p.slug);
               const is65 = p.tags?.includes("65-inch") || ["interactive-display-hd65","interactive-display-hr65","interactive-kiosk-rz65b"].includes(p.slug);
+              const is75 = p.tags?.includes("75-inch") || p.slug === "interactive-kiosk-rz75b";
               const model49 = p.slug === "interactive-display-hd49" ? "hd49" : "hr49";
               const model55 = p.slug === "interactive-display-hd55" ? "hd55" : "hr55";
               const model65 =
@@ -416,7 +431,9 @@ export default function InteractiveDisplay() {
                 p.slug === "interactive-display-hr43" ? "hr43" :
                 p.slug === "interactive-kiosk-kd43b" ? "kd43b" : "hd43";
               const model27 = p.slug === "interactive-kiosk-gd27c" ? "gd27c" : "hd27";
-              const detailHref = is65
+              const detailHref = is75
+                ? `/products/displays-75?model=rz75b`
+                : is65
                 ? `/products/displays-65?model=${model65}`
                 : is55
                 ? `/products/displays-55?model=${model55}`
