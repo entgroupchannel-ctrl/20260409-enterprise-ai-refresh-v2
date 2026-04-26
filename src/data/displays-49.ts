@@ -40,7 +40,7 @@ import hd49PMain from "@/assets/touchwo/hd49/p-main.jpg";
 import hd49PFront from "@/assets/touchwo/hd49/p-front.jpg";
 import hd49PPortrait from "@/assets/touchwo/hd49/p-portrait.jpg";
 import hd49PSide from "@/assets/touchwo/hd49/p-side.jpg";
-import hd49P2 from "@/assets/touchwo/hd49/p-2.jpg";
+import hd49PLifestyle from "@/assets/touchwo/hd49/p-lifestyle.jpg";
 import hd49P3 from "@/assets/touchwo/hd49/p-3.png";
 import hd49Install1 from "@/assets/touchwo/hd49/install-1.jpg";
 import hd49Install2 from "@/assets/touchwo/hd49/install-2.jpg";
@@ -386,7 +386,7 @@ export const DISPLAYS_49: Record<Display49Slug, Display32> = {
       { image: hr49UcBoardroom,  title: "Smart Restaurant / Showroom",   description: "แสดงเมนู/โปรโมชันในร้านอาหารหรือ Showroom — ภาพ FHD 300 cd/m² Contrast 1200:1 มุมมอง 178° ดูคมชัดทุกมุม Mohs 7 ทนการใช้งานหนัก" },
     ],
     gallery: [
-      hd49PMain, hd49PFront, hd49PSide, hd49PPortrait, hd49Hero, hd49P2,
+      hd49PMain, hd49PFront, hd49PSide, hd49PPortrait, hd49Hero, hd49PLifestyle,
     ],
     ioImage: hd49PSide,
     installImages: [hd49Install1, hd49Install2, hd49Install3],
