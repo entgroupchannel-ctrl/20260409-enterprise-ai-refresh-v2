@@ -54,8 +54,6 @@ import hd65P2 from "@/assets/touchwo/hd65/p-2.jpg";
 import hd65P3 from "@/assets/touchwo/hd65/p-3.jpg";
 import hd65P4 from "@/assets/touchwo/hd65/p-4.jpg";
 import hd65P5 from "@/assets/touchwo/hd65/p-5.jpg";
-import hd65P6 from "@/assets/touchwo/hd65/p-6.jpg";
-import hd65P7 from "@/assets/touchwo/hd65/p-7.jpg";
 import hd65IoMonitor from "@/assets/touchwo/hd65/io-monitor.jpg";
 import hd65IoWindows from "@/assets/touchwo/hd65/io-windows.jpg";
 import hd65IoAndroid from "@/assets/touchwo/hd65/io-android.jpg";
