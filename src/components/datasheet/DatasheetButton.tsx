@@ -23,6 +23,11 @@ const DATASHEETS: Record<string, string | { label: string; file: string }[]> = {
     { label: "HD55 Windows / Linux (Intel x86)", file: "ENTGROUP-HD55-X86.pdf" },
     { label: "HD55 Android (Rockchip ARM)", file: "ENTGROUP-HD55-ARM.pdf" },
   ],
+  HR55: [
+    { label: "HR55 IR Touch Monitor (no PC)", file: "ENTGROUP-HR55-Monitor.pdf" },
+    { label: "HR55 Windows / Linux (OPS x86)", file: "ENTGROUP-HR55-X86.pdf" },
+    { label: "HR55 Android (Rockchip ARM)", file: "ENTGROUP-HR55-ARM.pdf" },
+  ],
 };
 
 interface Props {
