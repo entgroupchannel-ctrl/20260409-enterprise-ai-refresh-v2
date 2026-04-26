@@ -171,8 +171,8 @@ const Accessories = () => {
   return (
     <>
       <SEOHead
-        title="Accessories — ขาตั้ง ขายึดผนัง สำหรับ Touch Screen & KIOSK"
-        description="อุปกรณ์เสริมของแท้สำหรับหน้าจอสัมผัสและ KIOSK — Desktop Stand, Wall Mount, Adjustable Arm รองรับขนาด 5\"–65\" ส่งตรงจากโรงงาน TouchWO รับประกัน 1 ปี"
+        title='Accessories — ขาตั้ง ขายึดผนัง สำหรับ Touch Screen & KIOSK'
+        description={`อุปกรณ์เสริมของแท้สำหรับหน้าจอสัมผัสและ KIOSK — Desktop Stand, Wall Mount, Adjustable Arm รองรับขนาด 5"–65" ส่งตรงจากโรงงาน TouchWO รับประกัน 1 ปี`}
         path="/accessories"
         keywords="ขาตั้งจอ, wall mount, monitor stand, kiosk accessories, vesa mount, ขายึดผนัง"
       />
