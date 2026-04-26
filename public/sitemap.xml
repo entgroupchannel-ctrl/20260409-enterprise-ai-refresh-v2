@@ -46,6 +46,24 @@
   <url><loc>https://www.entgroup.co.th/fpm-series</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://www.entgroup.co.th/touchwork</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://www.entgroup.co.th/utc-series</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/upc-series</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/accessories</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- ═══ Interactive Touch Display & KIOSK (NEW 2026) ═══ -->
+  <url><loc>https://www.entgroup.co.th/interactive-display</loc><lastmod>2026-04-26</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://www.entgroup.co.th/products/displays-15.6</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.entgroup.co.th/products/displays-21.5</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.entgroup.co.th/products/displays-23.8</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.entgroup.co.th/products/displays-27</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.entgroup.co.th/products/displays-32</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.entgroup.co.th/products/displays-43</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.entgroup.co.th/products/displays-49</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.entgroup.co.th/products/displays-55</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.entgroup.co.th/products/displays-65</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.entgroup.co.th/products/displays-75</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.entgroup.co.th/products/displays-85</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.entgroup.co.th/products/displays-86</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.entgroup.co.th/products/displays-98</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
   <!-- ═══ Rugged Tablet ═══ -->
   <url><loc>https://www.entgroup.co.th/rugged-tablet</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
@@ -146,9 +164,17 @@
   <url><loc>https://www.entgroup.co.th/case-studies/ai-classroom-nvidia-jetson</loc><lastmod>2026-04-22</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.entgroup.co.th/case-studies/food-factory-waterproof-pc</loc><lastmod>2026-04-22</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
 
+
   <!-- ═══ Promotions & Shop ═══ -->
   <url><loc>https://www.entgroup.co.th/promotions</loc><lastmod>2026-04-16</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.entgroup.co.th/shop</loc><lastmod>2026-04-16</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+
+  <!-- ═══ B2B Platform & Programs ═══ -->
+  <url><loc>https://www.entgroup.co.th/platform</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/corporate-pricing</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/affiliate</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.entgroup.co.th/partner</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.entgroup.co.th/investors</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
 
   <!-- ═══ Company Pages ═══ -->
   <url><loc>https://www.entgroup.co.th/about-us</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -156,7 +182,5 @@
   <url><loc>https://www.entgroup.co.th/warrantys</loc><lastmod>2026-04-01</lastmod><changefreq>yearly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.entgroup.co.th/payment</loc><lastmod>2026-04-01</lastmod><changefreq>yearly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.entgroup.co.th/delivery</loc><lastmod>2026-04-01</lastmod><changefreq>yearly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.entgroup.co.th/platform</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.entgroup.co.th/corporate-pricing</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
 
 </urlset>
