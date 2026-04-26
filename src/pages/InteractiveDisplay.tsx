@@ -114,6 +114,7 @@ import imgRz86b from "@/assets/touchwo/rz86b/p-windows.jpg";    // 86" auditoriu
 import imgRz98b from "@/assets/touchwo/rz98b/p-windows.jpg";    // 98" mega auditorium Win11
 import imgGd238c from "@/assets/touchwo/gd238c/p-1a.jpg";       // wall-mount portrait
 import imgKd156b from "@/assets/touchwo/kd156b/KD156-1A.jpg";   // 15.6" floor-stand kiosk
+import imgKd215b from "@/assets/touchwo/kd215b/KD215-1.jpg";    // 21.5" floor-stand kiosk
 
 // Accessory images for filter chips & feature cards
 import accDesktopStand from "@/assets/accessories/desktop-stand.jpg";
@@ -148,11 +149,13 @@ const PRODUCT_IMAGES: Record<string, string> = {
   "interactive-kiosk-gd238c": imgGd238c,
   "interactive-display-kd156b": imgKd156b,
   "interactive-kiosk-kd156b": imgKd156b,
+  "interactive-display-kd215b": imgKd215b,
+  "interactive-kiosk-kd215b": imgKd215b,
 };
 
 // ลำดับการแสดงผล: เริ่มจาก 27" → 32" → 43" → 49" → 55" → 65" → 23.8"
 const SIZE_ORDER: Record<string, number> = {
-  "27": 1, "32": 2, "43": 3, "49": 4, "55": 5, "65": 6, "75": 7, "85": 8, "86": 9, "98": 10, "23.8": 11, "15.6": 12,
+  "27": 1, "32": 2, "43": 3, "49": 4, "55": 5, "65": 6, "75": 7, "85": 8, "86": 9, "98": 10, "23.8": 11, "21.5": 11.5, "15.6": 12,
 };
 const sizeRank = (p: { tags: string[] | null; slug: string }) => {
   for (const [size, rank] of Object.entries(SIZE_ORDER)) {
@@ -186,6 +189,7 @@ const SIZE_FILTERS = [
   { label: '86"', value: "86" },
   { label: '98"', value: "98" },
   { label: '23.8" Kiosk', value: "23.8" },
+  { label: '21.5" Kiosk', value: "21.5" },
   { label: '15.6" Kiosk', value: "15.6" },
 ];
 
