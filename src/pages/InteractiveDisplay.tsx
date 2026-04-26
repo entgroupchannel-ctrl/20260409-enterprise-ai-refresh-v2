@@ -160,15 +160,16 @@ const PRODUCT_IMAGES: Record<string, string> = {
 const SIZE_ORDER: Record<string, number> = {
   "15.6": 1, "21.5": 2, "23.8": 3, "27": 4, "32": 5, "43": 6, "49": 7, "55": 8, "65": 9, "75": 10, "85": 11, "86": 12, "98": 13,
 };
-const KIOSK_SIZES = new Set(["15.6", "21.5", "23.8"]);
 const sizeRank = (p: { tags: string[] | null; slug: string }) => {
   for (const [size, rank] of Object.entries(SIZE_ORDER)) {
     if (p.tags?.some(t => t === `${size}-inch`)) return rank;
   }
   return 99;
 };
-const isKioskProduct = (p: { tags: string[] | null }) => {
-  return p.tags?.some(t => Array.from(KIOSK_SIZES).some(s => t === `${s}-inch`)) ?? false;
+// KIOSK = สินค้าที่มี tag "kiosk" หรือ slug ขึ้นต้นด้วย "interactive-kiosk-"
+const isKioskProduct = (p: { tags: string[] | null; slug: string }) => {
+  if (p.slug?.startsWith("interactive-kiosk-")) return true;
+  return p.tags?.some(t => t === "kiosk" || t === "wall-mount" || t === "floor-stand") ?? false;
 };
 
 type Product = {
