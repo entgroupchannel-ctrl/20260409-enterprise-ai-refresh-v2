@@ -18,6 +18,53 @@ import AddToCartButton from "@/components/AddToCartButton";
 import { LineQRDialog } from "@/components/LineQRDialog";
 import heroImg from "@/assets/interactive-display-hero.jpg";
 
+// Use case images by screen size (small → large)
+import uc27 from "@/assets/usecase/uc-27-checkin.jpg";
+import uc32 from "@/assets/usecase/uc-32-selforder.jpg";
+import uc43 from "@/assets/usecase/uc-43-wayfinding.jpg";
+import uc55 from "@/assets/usecase/uc-55-classroom.jpg";
+import uc65 from "@/assets/usecase/uc-65-boardroom.jpg";
+import uc86 from "@/assets/usecase/uc-86-controlroom.jpg";
+
+const SIZE_USE_CASES = [
+  {
+    img: uc27,
+    size: '27"',
+    title: "Self Check-in คลินิก / โรงพยาบาล",
+    desc: "วางบนเคาน์เตอร์ลงทะเบียนผู้ป่วย ลดคิว ลดงานพนักงาน รองรับสแกนบัตรประชาชนและพิมพ์บัตรคิว",
+  },
+  {
+    img: uc32,
+    size: '32"',
+    title: "Self-Order ร้านอาหาร / คาเฟ่",
+    desc: "หน้าจอแนวตั้ง สั่งอาหารด้วยตัวเอง ชำระเงินผ่าน QR PromptPay เชื่อมต่อ POS และเครื่องพิมพ์ใบเสร็จ",
+  },
+  {
+    img: uc43,
+    size: '43"',
+    title: "Wayfinding ห้างสรรพสินค้า / อาคาร",
+    desc: "แผนที่นำทางภายในอาคาร ค้นหาร้านค้า ห้องน้ำ ลิฟต์ รองรับหลายภาษา ใช้กับ Wall-Mount หรือ Floor Stand",
+  },
+  {
+    img: uc55,
+    size: '55"',
+    title: "Smart Classroom / ห้องเรียนยุคใหม่",
+    desc: "แทนกระดานดำ เขียน-วาด-นำเสนอ Active Learning เชื่อมแท็บเล็ตนักเรียน บันทึกและแชร์บทเรียนได้ทันที",
+  },
+  {
+    img: uc65,
+    size: '65"',
+    title: "Boardroom / ห้องประชุมผู้บริหาร",
+    desc: "ประชุมไฮบริด นำเสนอ Dashboard / KPI พร้อม Video Conference (Zoom / Teams) และ Wireless Casting",
+  },
+  {
+    img: uc86,
+    size: '86"',
+    title: "Control Room / War Room โรงงาน",
+    desc: "แสดง MES / SCADA / Andon แบบ Real-time ติดตามสายการผลิต OEE และคุณภาพ ใช้งาน 24/7 เกรดอุตสาหกรรม",
+  },
+];
+
 // Product card hero images — เลือกภาพที่สื่อความหมายชัดเจน + variation ของ wallpaper เพื่อลดความซ้ำซ้อน
 import imgHd27 from "@/assets/touchwo/hd27/mon-2.jpg";          // bloom green wallpaper
 import imgGd27c from "@/assets/touchwo/gd27c/p-1.jpg";          // portrait kiosk Win10
@@ -438,8 +485,43 @@ export default function InteractiveDisplay() {
         </div>
       </section>
 
+      {/* Use cases by screen size */}
+      <section className="container max-w-7xl mx-auto px-6 py-16">
+        <div className="text-center mb-10">
+          <Badge variant="outline" className="mb-3">Use Case ตามขนาดจอ</Badge>
+          <h2 className="text-3xl md:text-4xl font-bold">เลือกขนาดให้เหมาะกับการใช้งานจริง</h2>
+          <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
+            ตัวอย่างการนำจอแต่ละขนาดไปใช้งานในสถานการณ์จริง — จากเคาน์เตอร์เล็กถึงห้องประชุม / Control Room
+          </p>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {SIZE_USE_CASES.map((uc) => (
+            <Card key={uc.size + uc.title} className="overflow-hidden border-border hover:border-primary/50 hover:shadow-lg transition-all group">
+              <div className="aspect-[4/3] relative overflow-hidden bg-muted">
+                <img
+                  src={uc.img}
+                  alt={`${uc.size} — ${uc.title}`}
+                  loading="lazy"
+                  width={1280}
+                  height={896}
+                  className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                <Badge className="absolute top-3 left-3 z-10 text-sm font-bold px-3 py-1">{uc.size}</Badge>
+                <div className="absolute bottom-3 left-3 right-3 z-10">
+                  <h3 className="text-white font-semibold text-lg drop-shadow-md">{uc.title}</h3>
+                </div>
+              </div>
+              <CardContent className="p-5">
+                <p className="text-sm text-muted-foreground leading-relaxed">{uc.desc}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
+
       {/* Products */}
-      <section id="products" className="container max-w-7xl mx-auto px-6 py-16">
+      <section id="products" className="container max-w-7xl mx-auto px-6 py-16 border-t border-border">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold">เลือกขนาดที่เหมาะกับงานคุณ</h2>
