@@ -167,6 +167,7 @@ const EXTRA_PRODUCTS: Product[] = [
     form_factor: "Wall / Floor / Desktop / Embedded",
     image_url: null,
     tags: ["49-inch", "pcap", "android", "x86", "touch-monitor", "slim-bezel", "large-format"],
+  },
   {
     id: "extra-hd55",
     sku: "HD55",
@@ -201,6 +202,8 @@ const EXTRA_PRODUCTS: Product[] = [
     tags: ["65-inch", "kiosk", "floor-stand", "pcap", "vandal-proof"],
   },
 ];
+
+const FEATURES = [
   { icon: Hand, title: "10-Point Multi-Touch", desc: "IR Touch รุ่น 7 ตอบสนอง <5ms รองรับการเขียน-วาด-สัมผัสพร้อมกัน 10 จุด" },
   { icon: ShieldCheck, title: "IP65 Vandal-Proof", desc: "กระจกนิรภัย 4mm ทนการกระแทก กันน้ำ-ฝุ่นระดับอุตสาหกรรม" },
   { icon: Sun, title: "Sunlight-Readable", desc: "Anti-glare ความสว่างสูง มองเห็นชัดแม้ในพื้นที่แสงจ้า" },
