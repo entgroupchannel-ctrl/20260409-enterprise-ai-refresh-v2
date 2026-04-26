@@ -172,6 +172,9 @@ const ALL_SECTIONS = [
 // กลุ่มสินค้าที่ไม่แสดง Datasheet (ซ่อนแหล่งที่มา OEM)
 const HIDE_DATASHEET_GROUPS: GroupSize[] = [156, 215];
 
+// กลุ่ม KIOSK ที่มีรุ่นย่อย Monitor / Windows-x86 / Android — แสดงตารางเปรียบเทียบ Variant
+const KIOSK_GROUP_SIZES: GroupSize[] = [156, 215, 238];
+
 interface Props { groupSize?: GroupSize }
 const Display32Detail = ({ groupSize = 32 }: Props) => {
   const group = GROUPS[groupSize];
