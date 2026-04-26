@@ -63,6 +63,11 @@ const DATASHEETS: Record<string, string | { label: string; file: string }[]> = {
     { label: "RZ85B 4K Windows / Linux (OPS x86)", file: "ENTGROUP-RZ85B-X86.pdf" },
     { label: "RZ85B 4K Android (Rockchip ARM)", file: "ENTGROUP-RZ85B-ARM.pdf" },
   ],
+  RZ86B: [
+    { label: "RZ86B 4K IR Touch Monitor (no PC)", file: "ENTGROUP-RZ86B-Monitor.pdf" },
+    { label: "RZ86B 4K Windows / Linux (OPS x86)", file: "ENTGROUP-RZ86B-X86.pdf" },
+    { label: "RZ86B 4K Android (Rockchip ARM)", file: "ENTGROUP-RZ86B-ARM.pdf" },
+  ],
   GD27C: [
     { label: "GD27C Wall-Mount Kiosk · Android (Rockchip ARM)", file: "ENTGROUP-GD27C-ARM.pdf" },
   ],
