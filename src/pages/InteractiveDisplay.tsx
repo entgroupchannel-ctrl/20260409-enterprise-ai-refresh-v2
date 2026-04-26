@@ -87,6 +87,14 @@ import imgRz86b from "@/assets/touchwo/rz86b/p-windows.jpg";    // 86" auditoriu
 import imgRz98b from "@/assets/touchwo/rz98b/p-windows.jpg";    // 98" mega auditorium Win11
 import imgGd238c from "@/assets/touchwo/gd238c/p-1a.jpg";       // wall-mount portrait
 
+// Accessory images for filter chips & feature cards
+import accDesktopStand from "@/assets/accessories/desktop-stand.jpg";
+import accFoldableStand from "@/assets/accessories/foldable-stand.jpg";
+import accAdjustableArm from "@/assets/accessories/adjustable-arm.jpg";
+import accWallMount from "@/assets/accessories/wall-mount.jpg";
+import accAioDesktopStand from "@/assets/accessories/aio-desktop-stand.jpg";
+import accAioWallMount from "@/assets/accessories/aio-wall-mount.jpg";
+
 // Map slug → asset image (override DB image_url for consistent presentation)
 const PRODUCT_IMAGES: Record<string, string> = {
   "interactive-display-hd27": imgHd27,
@@ -668,45 +676,73 @@ export default function InteractiveDisplay() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 mb-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 mb-10">
             {[
-              { size: "27", label: '27"' },
-              { size: "32", label: '32"' },
-              { size: "43", label: '43"' },
-              { size: "49", label: '49"' },
-              { size: "55", label: '55"' },
-              { size: "65", label: '65"' },
-              { size: "", label: "ดูทั้งหมด" },
+              { size: "27", label: '27"', img: accDesktopStand },
+              { size: "32", label: '32"', img: accFoldableStand },
+              { size: "43", label: '43"', img: accAdjustableArm },
+              { size: "49", label: '49"', img: accWallMount },
+              { size: "55", label: '55"', img: accAioDesktopStand },
+              { size: "65", label: '65"', img: accAioWallMount },
+              { size: "", label: "ดูทั้งหมด", img: accWallMount },
             ].map((s) => (
               <Link
                 key={s.label}
                 to={s.size ? `/accessories?size=${s.size}` : "/accessories"}
-                className="group flex flex-col items-center justify-center gap-1 rounded-xl border border-border bg-card hover:border-primary hover:bg-primary/5 transition-all p-4 text-center"
+                className="group relative overflow-hidden rounded-xl border border-border bg-card hover:border-primary hover:shadow-lg transition-all aspect-square"
               >
-                <Boxes className="h-5 w-5 text-primary group-hover:scale-110 transition-transform" />
-                <div className="text-sm font-bold">{s.label}</div>
-                <div className="text-[11px] text-muted-foreground">Accessories</div>
+                <img
+                  src={s.img}
+                  alt={`Accessories สำหรับจอ ${s.label}`}
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-3 text-center">
+                  <div className="text-base font-bold text-white drop-shadow-md">{s.label}</div>
+                  <div className="text-[11px] text-white/80">Accessories</div>
+                </div>
               </Link>
             ))}
           </div>
 
-          <div className="grid md:grid-cols-3 gap-4">
+          <div className="grid md:grid-cols-3 gap-5">
             {[
-              { icon: Ruler, title: "Desktop / Foldable Stand", desc: "ขาตั้งวางโต๊ะมาตรฐาน + พับเก็บได้ รองรับ 15\"–27\"" },
-              { icon: Maximize2, title: "Wall Mount + Adjustable Arm", desc: "ขายึดผนัง VESA + แขนปรับระดับ รองรับ 5\"–65\"" },
-              { icon: PackageCheck, title: "All-in-One Stand (GD Series)", desc: "ขาตั้ง / ขายึดโลหะทั้งชิ้น สำหรับ AIO 15.6\"–43\"" },
+              {
+                img: accDesktopStand,
+                title: "Desktop / Foldable Stand",
+                desc: "ขาตั้งวางโต๊ะมาตรฐาน + พับเก็บได้ รองรับ 15\"–27\"",
+                href: "/accessories?size=27",
+              },
+              {
+                img: accWallMount,
+                title: "Wall Mount + Adjustable Arm",
+                desc: "ขายึดผนัง VESA + แขนปรับระดับ รองรับ 5\"–65\"",
+                href: "/accessories?size=43",
+              },
+              {
+                img: accAioDesktopStand,
+                title: "All-in-One Stand (GD Series)",
+                desc: "ขาตั้ง / ขายึดโลหะทั้งชิ้น สำหรับ AIO 15.6\"–43\"",
+                href: "/accessories",
+              },
             ].map((c) => (
-              <Card key={c.title} className="border-border">
-                <CardContent className="p-5 flex gap-3">
-                  <div className="rounded-lg bg-primary/10 p-2.5 h-fit">
-                    <c.icon className="h-5 w-5 text-primary" />
+              <Link key={c.title} to={c.href} className="group">
+                <Card className="border-border overflow-hidden hover:border-primary/50 hover:shadow-lg transition-all h-full">
+                  <div className="aspect-[16/10] relative overflow-hidden bg-muted">
+                    <img
+                      src={c.img}
+                      alt={c.title}
+                      loading="lazy"
+                      className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
                   </div>
-                  <div>
-                    <h3 className="font-semibold mb-1">{c.title}</h3>
+                  <CardContent className="p-5">
+                    <h3 className="font-semibold mb-1.5 group-hover:text-primary transition-colors">{c.title}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">{c.desc}</p>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
 
