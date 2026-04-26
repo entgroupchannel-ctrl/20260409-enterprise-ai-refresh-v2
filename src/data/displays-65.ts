@@ -102,6 +102,22 @@ export const DISPLAYS_65: Record<Display65Slug, Display32> = {
     gallery: [hr65P1, hr65P2, hr65P4, hr65P5],
     ioImage: hr65Io,
     installImages: [hr65Install1, hr65Install2],
+    installSection: {
+      eyebrow: "Mount / Layout",
+      title: "รูปแบบการติดตั้ง & เลย์เอาต์การวาง",
+    },
+    installCaptions: [
+      {
+        title: "Floor-Standing — ติดตั้งบนขาตั้งเคลื่อนที่",
+        description:
+          "ยึดจอ 65\" บน Mobile Cart พร้อมล้อเลื่อน 4 จุด — เหมาะกับห้องประชุม / ห้องเรียน / Showroom ที่ต้องการเคลื่อนย้ายระหว่างห้อง รองรับการต่อ OPS PC ใต้จอ ปรับความสูงได้ตามมาตรฐาน Ergonomic (ระดับสายตา 1.4–1.6 m)",
+      },
+      {
+        title: "Wall-Mount — ยึดผนังด้วย VESA 400×400",
+        description:
+          "ติดตั้งแนบผนังด้วย Wall Bracket มาตรฐาน VESA 400 × 400 mm รับน้ำหนักจอ 38 kg ได้อย่างมั่นคง — เหมาะกับ Lobby / Wayfinding / Digital Signage ที่ต้องการประหยัดพื้นที่ ระยะห่างจากผนังเพียง ~7 cm (Slim Profile)",
+      },
+    ],
     featureImages: [hr65Feat1, hr65Feat2, hr65Feat3],
     dimensionDrawings: [
       {

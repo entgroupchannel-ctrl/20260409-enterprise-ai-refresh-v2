@@ -756,19 +756,32 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
           ref={el => (sectionRefs.current.install = el)}
           className="scroll-mt-32"
         >
-          <SectionTitle eyebrow="Installation" title="ตัวเลือกการติดตั้ง" />
+          <SectionTitle
+            eyebrow={product.installSection?.eyebrow ?? "Installation"}
+            title={product.installSection?.title ?? "ตัวเลือกการติดตั้ง"}
+          />
           {product.installImages.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {product.installImages.map((src, i) => (
-                <button
-                  key={i}
-                  onClick={() => setLightbox({ images: product.installImages, index: i })}
-                  className="rounded-xl border border-border bg-card overflow-hidden hover:shadow-md transition-shadow"
-                >
-                  <img src={src} alt={`${product.modelCode} install ${i+1}`} className="w-full aspect-square object-cover" loading="lazy" />
-                  <div className="px-3 py-2 text-xs font-medium text-left">ขั้นตอน {i+1}</div>
-                </button>
-              ))}
+              {product.installImages.map((src, i) => {
+                const cap = product.installCaptions?.[i];
+                return (
+                  <button
+                    key={i}
+                    onClick={() => setLightbox({ images: product.installImages, index: i })}
+                    className="rounded-xl border border-border bg-card overflow-hidden hover:shadow-md transition-shadow text-left flex flex-col"
+                  >
+                    <img src={src} alt={cap?.title ?? `${product.modelCode} install ${i+1}`} className="w-full aspect-square object-cover" loading="lazy" />
+                    <div className="px-3 py-2.5 space-y-1">
+                      <div className="text-sm font-semibold text-foreground">
+                        {cap?.title ?? `ขั้นตอน ${i+1}`}
+                      </div>
+                      {cap?.description && (
+                        <p className="text-xs text-muted-foreground leading-relaxed">{cap.description}</p>
+                      )}
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           ) : (
             <div className="rounded-xl border border-dashed border-border bg-muted/20 p-8 text-center text-sm text-muted-foreground">
