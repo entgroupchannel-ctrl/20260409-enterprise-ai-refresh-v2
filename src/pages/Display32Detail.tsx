@@ -1096,6 +1096,18 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
           </section>
         )}
 
+        {/* Variant Comparison — เฉพาะกลุ่ม KIOSK ที่มี Monitor / x86 / Android ในรุ่นเดียว */}
+        {KIOSK_GROUP_SIZES.includes(groupSize) && product.variants && product.variants.length >= 2 && (
+          <section className="scroll-mt-32">
+            <SectionTitle
+              eyebrow="Variant Comparison"
+              title={`เลือก Configuration: ${product.modelCode}`}
+              subtitle="เปรียบเทียบสเปกระหว่างรุ่นย่อย Monitor / Windows-x86 / Android — ตัวเครื่องเดียวกัน เลือกตามซอฟต์แวร์และงบประมาณ"
+            />
+            <VariantComparisonTable variants={product.variants} />
+          </section>
+        )}
+
         {/* Comparison */}
         <section
           id="compare"
