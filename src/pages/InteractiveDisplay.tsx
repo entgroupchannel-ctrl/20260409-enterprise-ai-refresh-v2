@@ -361,7 +361,7 @@ export default function InteractiveDisplay() {
           </h1>
           <p className="mt-6 text-lg text-muted-foreground max-w-2xl">
             จอสัมผัส IR Touch 10 จุด ระดับอุตสาหกรรม ตอบสนอง &lt;5ms — สำหรับห้องประชุม, ร้านค้า,
-            ห้องเรียน, โรงงาน และจุดบริการลูกค้า รับประกัน On-site 24 เดือน
+            ห้องเรียน, โรงงาน และจุดบริการลูกค้า รับประกัน 1 ปี · ซื้อขยายเพิ่มได้สูงสุด 3 ปี
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button size="lg" asChild>
