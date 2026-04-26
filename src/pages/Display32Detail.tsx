@@ -522,6 +522,37 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
                     );
                   })}
                 </div>
+
+                {/* Compact info chips — moved out of features list to keep it concise */}
+                <div className="space-y-2.5 pt-2">
+                  <div className="rounded-lg border border-border bg-card px-3 py-2.5">
+                    <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-1">
+                      Pre-installed OS
+                    </div>
+                    <div className="text-xs font-medium leading-snug">
+                      Windows 10 / 11 · Linux Ubuntu · Android 9 / 11 / 12 (เลือกได้จากโรงงาน)
+                    </div>
+                  </div>
+                  <div className="rounded-lg border border-border bg-card px-3 py-2.5">
+                    <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-1">
+                      POS Software รองรับ
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {["Square POS", "Stripe POS", "Clover POS", "Shopify POS"].map((p) => (
+                        <span key={p} className="text-[11px] px-2 py-0.5 rounded-full bg-primary/10 text-primary font-medium">
+                          {p}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="rounded-lg border border-primary/20 bg-primary/5 px-3 py-2.5 flex items-center gap-2">
+                    <ShieldCheck className="h-4 w-4 text-primary shrink-0" />
+                    <div className="text-xs">
+                      <span className="font-semibold">Proven Reliability:</span>{" "}
+                      <span className="text-muted-foreground">อัตราซ่อม 2 ปีต่ำเพียง 1.5%</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
           </div>
