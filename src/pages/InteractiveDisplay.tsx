@@ -246,6 +246,17 @@ const EXTRA_PRODUCTS: Product[] = [
     image_url: null,
     tags: ["86-inch", "pcap", "android", "x86", "touch-monitor", "large-format", "4k-uhd"],
   },
+  {
+    id: "extra-rz98b",
+    sku: "RZ98B",
+    model: "RZ98B",
+    name: 'Interactive Touch Display RZ98B — 98" 4K UHD Modular',
+    description: '98" 4K UHD PCAP 10-point — Modular Smart Terminal — Touch Monitor / Windows OPS (i3/i5/i7) / Android (RK3568/3288/3588) — IP65 / Mohs 7 / Mega Auditorium-grade',
+    slug: "interactive-kiosk-rz98b",
+    form_factor: "Wall / Floor / Mobile Stand",
+    image_url: null,
+    tags: ["98-inch", "pcap", "android", "x86", "touch-monitor", "large-format", "4k-uhd"],
+  },
 ];
 
 const FEATURES = [
@@ -455,6 +466,7 @@ export default function InteractiveDisplay() {
               const is75 = p.tags?.includes("75-inch") || p.slug === "interactive-kiosk-rz75b";
               const is85 = p.tags?.includes("85-inch") || p.slug === "interactive-kiosk-rz85b";
               const is86 = p.tags?.includes("86-inch") || p.slug === "interactive-kiosk-rz86b";
+              const is98 = p.tags?.includes("98-inch") || p.slug === "interactive-kiosk-rz98b";
               const model49 = p.slug === "interactive-display-hd49" ? "hd49" : "hr49";
               const model55 = p.slug === "interactive-display-hd55" ? "hd55" : "hr55";
               const model65 =
@@ -464,7 +476,9 @@ export default function InteractiveDisplay() {
                 p.slug === "interactive-display-hr43" ? "hr43" :
                 p.slug === "interactive-kiosk-kd43b" ? "kd43b" : "hd43";
               const model27 = p.slug === "interactive-kiosk-gd27c" ? "gd27c" : "hd27";
-              const detailHref = is86
+              const detailHref = is98
+                ? `/products/displays-98?model=rz98b`
+                : is86
                 ? `/products/displays-86?model=rz86b`
                 : is85
                 ? `/products/displays-85?model=rz85b`
