@@ -47,6 +47,8 @@ import gd27Scene2 from "@/assets/touchwo/gd27c/scene-2.jpg";
 import gd27Install1 from "@/assets/touchwo/gd27c/install-1.jpg";
 import gd27Install2 from "@/assets/touchwo/gd27c/install-2.jpg";
 import gd27Install3 from "@/assets/touchwo/gd27c/install-3.jpg";
+import gd27DimFront from "@/assets/touchwo/gd27c/dim-front.png";
+import gd27DimBack from "@/assets/touchwo/gd27c/dim-back.png";
 
 export type Display27Slug = "hd27" | "gd27c";
 
@@ -330,10 +332,35 @@ export const DISPLAYS_27: Record<Display27Slug, Display32> = {
       { image: gd27UcWayfinding,  title: "Mall / Public Wayfinding",            description: "ป้ายนำทางในห้างสรรพสินค้า / สนามบิน / โรงพยาบาล — แสดงแผนที่อาคาร ค้นหาร้านค้า และเส้นทางเดินอย่างละเอียด รองรับ Multi-touch 10 จุดพร้อมกันหลายคน" },
     ],
     gallery: [gd27P1, gd27P2, gd27P3, gd27P4, gd27P5, gd27P6, gd27P7],
-    ioImage: gd27P5,
+    ioImage: gd27DimFront,
     installImages: [gd27Install1, gd27Install2, gd27Install3],
     featureImages: [gd27Scene1, gd27Scene2],
-    dimensionDrawings: [],
+    dimensionDrawings: [
+      {
+        image: gd27DimFront,
+        title: "Mechanical Dimension — Front, Side & Top View",
+        caption: "แบบทางวิศวกรรมตัวเครื่องคีออสก์แขวนผนัง 27\" GD27C — ขนาดภายนอก 413 × 867 mm พื้นที่แสดงผล Active Area 337.5 × 599 mm (จอ 27 นิ้ว 16:9), ความหนาตัวเครื่อง 52–75 mm พร้อม Bezel บางเพียง 16 mm รอบทุกด้าน ส่วนล่างเตรียมช่อง Built-in สำหรับเครื่องพิมพ์ใบเสร็จ (Receipt Printer), เครื่องสแกน QR Code 2D และจุดแสดงสถานะ ส่วนบนรองรับ Webcam + Microphone ด้านข้างมีปุ่ม PC Power Switch และเสาอากาศ Wi-Fi เหมาะสำหรับงาน Self-order, Self-checkout และ Self-service Banking ที่ต้องวางแผนช่องเปิดในผนัง/เคาน์เตอร์ก่อนติดตั้ง",
+        callouts: [
+          { label: "ขนาดเครื่อง (W × H)", value: "413 × 867 mm" },
+          { label: "Active Area", value: "337.5 × 599 mm (27\")" },
+          { label: "ความหนา (Depth)", value: "52 – 75 mm" },
+          { label: "Bezel", value: "16 mm รอบทุกด้าน" },
+          { label: "Built-in I/O", value: "Receipt Printer + QR Scanner + Webcam + Wi-Fi" },
+        ],
+      },
+      {
+        image: gd27DimBack,
+        title: "Back View — VESA Mount Layout",
+        caption: "แบบด้านหลังแสดงจุดยึดมาตรฐาน VESA 200 × 200 mm (สกรู 4-M8) — ออกแบบเฉพาะสำหรับ Wall Mount แบบฝังเรียบกับผนัง พร้อมช่องระบายอากาศ (Heat Vent) แนวยาวเพื่อรองรับการทำงานต่อเนื่อง 7×24H ระยะจากขอบบนถึงรู VESA ด้านบน 363.5 mm และระยะระหว่างรู VESA แนวตั้ง 200 mm ใช้สำหรับเลือก Wall Bracket / Floor Stand / Counter Stand ที่รองรับ VESA 200×200 และวางตำแหน่งช่องเดินสายไฟ/สาย LAN ก่อนหน้างานจริง",
+        callouts: [
+          { label: "VESA Pattern", value: "200 × 200 mm" },
+          { label: "สกรูยึด", value: "4 × M8" },
+          { label: "ระยะจาก Top", value: "363.5 mm" },
+          { label: "ระยะระหว่างรู VESA", value: "200 mm (แนวตั้ง)" },
+          { label: "การระบายความร้อน", value: "Heat Vent ทั้งด้านหลัง — รองรับ 7×24H" },
+        ],
+      },
+    ],
     osSupport: ["android", "windows", "linux"],
     variants: [
       {
