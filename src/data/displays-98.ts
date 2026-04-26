@@ -16,11 +16,10 @@ import rz98Monitor from "@/assets/touchwo/rz98b/p-monitor.jpg";
 import rz98Windows from "@/assets/touchwo/rz98b/p-windows.jpg";
 import rz98Android from "@/assets/touchwo/rz98b/p-android.jpg";
 import rz98P1 from "@/assets/touchwo/rz98b/p-1.jpg";
-import rz98P3 from "@/assets/touchwo/rz98b/p-3.jpg";
-import rz98P4 from "@/assets/touchwo/rz98b/p-4.jpg";
-import rz98P5 from "@/assets/touchwo/rz98b/p-5.jpg";
-import rz98P6 from "@/assets/touchwo/rz98b/p-6.jpg";
-import rz98P7 from "@/assets/touchwo/rz98b/p-7.jpg";
+import rz98DimBack from "@/assets/touchwo/rz98b/p-7.jpg";
+import rz98IoMonitor from "@/assets/touchwo/rz98b/dim-io-monitor.jpg";
+import rz98IoPc from "@/assets/touchwo/rz98b/dim-io-pc.jpg";
+import rz98IoAndroid from "@/assets/touchwo/rz98b/dim-io-android.jpg";
 import rz98Io from "@/assets/touchwo/rz98b/io.jpg";
 import rz98Feat1 from "@/assets/touchwo/rz98b/feat-1.png";
 import rz98Feat2 from "@/assets/touchwo/rz98b/feat-2.png";
@@ -116,31 +115,53 @@ export const DISPLAYS_98: Record<Display98Slug, Display32> = {
           "จอ 98\" Wall-mount ในล็อบบี้โรงแรมระดับ 5 ดาว — Directory ห้องอาหาร, สปา, Activities, Local Attractions พร้อม Map เห็นภาพชัดในระยะ 10-25 เมตร Mohs 7 ทนการสัมผัสต่อเนื่อง รองรับหลายภาษา (Multi-language UI)",
       },
     ],
-    gallery: [rz98P1, rz98Monitor, rz98Windows, rz98Android, rz98P3, rz98P4, rz98P5, rz98P6, rz98P7],
+    gallery: [rz98P1, rz98Monitor, rz98Windows, rz98Android],
     ioImage: rz98Io,
     installImages: [rz98InstallFloor, rz98InstallWall, rz98InstallAcc],
     featureImages: [rz98Feat1, rz98Feat2, rz98Feat3, rz98Feat4],
     dimensionDrawings: [
       {
-        image: rz98P3,
-        title: "Mechanical Dimension — 98\" 4K Modular Display",
-        caption: "ตัวเครื่อง 98\" 4K UHD — ขนาด 2216 × 1317 × 107 mm (กว้าง × สูง × ลึก) Active Area 2157.9 × 1213.35 mm น้ำหนักสุทธิ 88 kg / รวม 102 kg — ดีไซน์ Modular Smart Terminal สามารถเปลี่ยน OPS PC หรือ Android Module ได้ง่ายแบบ Plug-and-Play",
+        image: rz98DimBack,
+        title: "Mechanical Dimension & VESA Mount — Rear View",
+        caption: "แบบทางวิศวกรรมด้านหลังของ RZ98B ขนาด 98\" 4K UHD — ตัวเครื่อง 2216 × 1317 × 107 mm (กว้าง × สูง × ลึก) Active Area 2157.9 × 1213.35 mm พร้อมโครงสร้างเหล็กเสริมแกร่งรองรับน้ำหนัก 88 kg มาตรฐานยึด VESA 800 × 400 mm ใช้สกรู 4-M8 รองรับ Wall-mount, Floor Stand และ Mobile Stand งาน Heavy-duty",
         callouts: [
-          { label: "ขนาดเครื่อง", value: "221.6 × 131.7 × 10.7 cm" },
-          { label: "Active Area", value: "2157.9 × 1213.35 mm" },
+          { label: "ขนาดภายนอก (W×H×D)", value: "2216 × 1317 × 107 mm" },
+          { label: "พื้นที่แสดงผล (Active Area)", value: "2157.9 × 1213.35 mm" },
+          { label: "VESA Pattern / สกรู", value: "800 × 400 mm / 4-M8" },
           { label: "น้ำหนักสุทธิ / รวม", value: "88 kg / 102 kg" },
-          { label: "ขนาดกล่อง", value: "235.5 × 145.5 × 23.5 cm" },
         ],
       },
       {
-        image: rz98Io,
-        title: "I/O Layout — RZ98B Series",
-        caption: "ผังพอร์ต I/O รวมของ RZ98B — ครอบคลุมทั้ง 3 Configuration (Monitor / Windows OPS / Android) — รองรับ HDMI, VGA, USB, RJ45, RS232, Audio, Touch out, AV in/out, Coaxial, RF",
+        image: rz98IoMonitor,
+        title: "I/O Layout — Touch Monitor Variant",
+        caption: "ผังพอร์ต I/O สำหรับรุ่น Touch Monitor (ไม่มี PC ในตัว) — ออกแบบให้ต่อกับ External PC, OPS หรือ Media Player ได้ง่าย รองรับสัญญาณภาพ HDMI / VGA / AV และส่งสัญญาณสัมผัสกลับผ่าน USB Touch (Plug-and-play)",
         callouts: [
-          { label: "Video", value: "HDMI in/out, VGA, AV in/out, Coaxial" },
-          { label: "USB / Touch", value: "USB ×6 (PC) / ×2 (Android), Touch out" },
-          { label: "Network", value: "RJ45 Gigabit / 10-100M + Wi-Fi 802.11ac" },
-          { label: "Serial / Audio", value: "RS232, MIC, Audio in/out, RF" },
+          { label: "Video In", value: "HDMI, VGA, AV" },
+          { label: "Touch Out", value: "USB ×1" },
+          { label: "Audio", value: "Audio in/out (3.5mm)" },
+          { label: "อื่น ๆ", value: "RF Antenna" },
+        ],
+      },
+      {
+        image: rz98IoPc,
+        title: "I/O Layout — Windows OPS PC Variant",
+        caption: "ผังพอร์ต I/O สำหรับรุ่น Windows / Linux OPS PC (All-in-One) — ครบครันด้วย LAN Gigabit, USB ×3, HDMI, VGA และ Wi-Fi 802.11ac เพื่อให้ติดตั้งใช้งานได้ทันทีในห้องประชุม Auditorium หรือ Wayfinding ขนาดใหญ่",
+        callouts: [
+          { label: "Network", value: "LAN RJ45 + Wi-Fi 802.11ac" },
+          { label: "Video", value: "HDMI, VGA" },
+          { label: "USB", value: "USB ×3" },
+          { label: "Audio / Power", value: "Audio in/out + Power Button" },
+        ],
+      },
+      {
+        image: rz98IoAndroid,
+        title: "I/O Layout — Android PC Variant",
+        caption: "ผังพอร์ต I/O สำหรับรุ่น Android All-in-One PC (Rockchip RK3568 / RK3288 / RK3588) — รองรับการเชื่อมต่อแบบครบวงจรเช่นเดียวกับรุ่น Windows OPS เหมาะกับงาน Digital Signage, Self-service Kiosk และ Wayfinding ที่ต้องการความเสถียรสูง 7×24H",
+        callouts: [
+          { label: "Network", value: "LAN RJ45 + Wi-Fi 802.11ac" },
+          { label: "Video", value: "HDMI, VGA" },
+          { label: "USB", value: "USB ×3" },
+          { label: "Audio / Power", value: "Audio in/out + Power Button" },
         ],
       },
     ],
