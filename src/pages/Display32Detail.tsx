@@ -140,6 +140,8 @@ const ALL_SECTIONS = [
   { id: "highlights",     label: "ไฮไลต์",           icon: Sparkles },
   { id: "features",       label: "Feature",         icon: Star },
   { id: "cpu",            label: "CPU Options",     icon: Cpu },
+  { id: "peripherals",    label: "Peripherals",     icon: Printer },
+  { id: "customization",  label: "Customization",   icon: Puzzle },
   { id: "specs",          label: "สเปก",             icon: Settings2 },
   { id: "dimensions",     label: "ขนาด/ติดตั้ง",     icon: Ruler },
   { id: "io",             label: "I/O Ports",       icon: Link2 },
@@ -167,6 +169,8 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
       if (s.id === "dimensions") return (product?.dimensionDrawings?.length ?? 0) > 0;
       if (s.id === "configurations") return (product?.variants?.length ?? 0) > 0;
       if (s.id === "cpu") return (product?.cpuOptions?.length ?? 0) > 0;
+      if (s.id === "peripherals") return (product?.peripherals?.length ?? 0) > 0;
+      if (s.id === "customization") return (product?.customizationOptions?.length ?? 0) > 0;
       if (s.id === "io") return !!product?.ioImage && (product?.ports?.length ?? 0) > 0;
       return true;
     }),
