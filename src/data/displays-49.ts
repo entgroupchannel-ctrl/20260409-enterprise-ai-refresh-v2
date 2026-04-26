@@ -417,6 +417,17 @@ export const DISPLAYS_49: Record<Display49Slug, Display32> = {
           { label: "Power", value: "100-240V AC 50/60Hz" },
         ],
       },
+      {
+        image: hd49P3,
+        title: "Size Lineup — เลือกขนาดได้ตามการใช้งาน",
+        caption: "TouchWo HD Series มีให้เลือกครบ 8 ขนาด ตั้งแต่ 21.5\" สำหรับ POS / Self-order Counter ไปจนถึง 65\" สำหรับ Digital Signage / Wayfinding ขนาดใหญ่ ทุกรุ่นใช้แพลตฟอร์มเดียวกัน — Slim Bezel 13mm, PCAP 10-point Touch, Mohs 7 Glass — เปลี่ยนขนาดได้โดยไม่ต้องเปลี่ยนซอฟต์แวร์หรืออุปกรณ์เสริม รุ่น 49\" คือจุดสมดุลระหว่างพื้นที่แสดงผลกับต้นทุน เหมาะกับ Self-service Kiosk, Smart Menu Board และ Boardroom ขนาดกลาง",
+        callouts: [
+          { label: "ขนาดที่เลือกได้", value: "21.5\" / 23.8\" / 27\" / 32\" / 43\" / 49\" / 55\" / 65\"" },
+          { label: "Touch Technology", value: "PCAP 10-point (เหมือนกันทุกขนาด)" },
+          { label: "Bezel", value: "13 mm Slim (Unified Design)" },
+          { label: "รุ่นนี้", value: "49\" — Smart Kiosk / Boardroom / Signage" },
+        ],
+      },
     ],
     osSupport: ["windows", "linux", "android"],
     variants: [
