@@ -5,9 +5,17 @@ interface PageBannerProps {
   image: string;
   title: string;
   subtitle?: string;
+  backTo?: string;
+  backLabel?: string;
 }
 
-const PageBanner = ({ image, title, subtitle }: PageBannerProps) => {
+const PageBanner = ({
+  image,
+  title,
+  subtitle,
+  backTo = "/",
+  backLabel = "กลับหน้าหลัก",
+}: PageBannerProps) => {
   return (
     <div className="relative">
       {/* Banner Image */}
@@ -27,13 +35,13 @@ const PageBanner = ({ image, title, subtitle }: PageBannerProps) => {
         </div>
       </div>
 
-      {/* Back to Home */}
+      {/* Back link */}
       <div className="container max-w-7xl mx-auto px-6 py-3 border-b border-border">
         <Link
-          to="/"
+          to={backTo}
           className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors">
           <ArrowLeft size={14} />
-          กลับหน้าหลัก
+          {backLabel}
         </Link>
       </div>
     </div>
@@ -41,4 +49,3 @@ const PageBanner = ({ image, title, subtitle }: PageBannerProps) => {
 };
 
 export default PageBanner;
-
