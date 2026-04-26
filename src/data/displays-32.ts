@@ -90,6 +90,10 @@ export interface Display32 {
   gallery: string[];
   ioImage: string;
   installImages: string[];
+  /** Optional override for Installation section heading (e.g. "Port / Layout") */
+  installSection?: { eyebrow: string; title: string };
+  /** Optional per-image captions for installImages — falls back to "ขั้นตอน N" if absent */
+  installCaptions?: { title: string; description?: string }[];
   featureImages: string[];
   /** Optional mechanical/dimension drawings for "Dimensions" section */
   dimensionDrawings?: {
