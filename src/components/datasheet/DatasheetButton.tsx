@@ -81,6 +81,9 @@ const DATASHEETS: Record<string, string | { label: string; file: string }[]> = {
   GD27C: [
     { label: "GD27C Wall-Mount Kiosk · Android (Rockchip ARM)", file: "ENTGROUP-GD27C-ARM.pdf" },
   ],
+  GD238C: [
+    { label: "GD238C 23.8\" Wall-Mount Kiosk · Android (Rockchip ARM)", file: "ENTGROUP-GD238C-ARM.pdf" },
+  ],
 };
 
 interface Props {
