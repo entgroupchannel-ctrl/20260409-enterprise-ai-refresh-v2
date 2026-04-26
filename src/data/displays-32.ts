@@ -54,6 +54,19 @@ import kd32bUcBank from "@/assets/touchwo/usecases/kd32b-uc-bank.jpg";
 import kd32bUcLogistics from "@/assets/touchwo/usecases/kd32b-uc-logistics.jpg";
 import kd32bUcTransit from "@/assets/touchwo/usecases/kd32b-uc-transit.jpg";
 
+// GD32C peripherals & customization
+import gd32cPThermal from "@/assets/touchwo/gd32c/peripherals/thermal-printer.jpg";
+import gd32cPScanner from "@/assets/touchwo/gd32c/peripherals/barcode-scanner.jpg";
+import gd32cPRfid from "@/assets/touchwo/gd32c/peripherals/rfid-reader.jpg";
+import gd32cCFinger from "@/assets/touchwo/gd32c/peripherals/fingerprint.jpg";
+import gd32cCKeyboard from "@/assets/touchwo/gd32c/peripherals/keyboard.jpg";
+import gd32cCDispenser from "@/assets/touchwo/gd32c/peripherals/card-dispenser.jpg";
+import gd32cCPayment from "@/assets/touchwo/gd32c/peripherals/payment-terminal.jpg";
+import gd32cCCamera from "@/assets/touchwo/gd32c/peripherals/camera.jpg";
+import gd32cCNfc from "@/assets/touchwo/gd32c/peripherals/nfc-payment.jpg";
+import gd32cC4g from "@/assets/touchwo/gd32c/peripherals/4g-lte.jpg";
+import gd32cCBattery from "@/assets/touchwo/gd32c/peripherals/battery-ups.jpg";
+
 export const OS_BACKGROUNDS = {
   windows: { src: osWindows, label: "Windows", subtitle: "x86 Intel/AMD รองรับ Windows 10/11 IoT" },
   linux:   { src: osLinux,   label: "Linux",   subtitle: "Ubuntu / Debian / Custom Distros" },
