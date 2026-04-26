@@ -545,7 +545,20 @@ export default function InteractiveDisplay() {
                 </div>
               </div>
               <CardContent className="p-5">
-                <p className="text-sm text-muted-foreground leading-relaxed">{uc.desc}</p>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4">{uc.desc}</p>
+                <div className="flex flex-wrap gap-2 pt-3 border-t border-border">
+                  <span className="text-xs text-muted-foreground self-center mr-1">รุ่นแนะนำ:</span>
+                  {uc.products.map((pr) => (
+                    <Link
+                      key={pr.href}
+                      to={pr.href}
+                      className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-primary/80 hover:underline underline-offset-4 transition-colors"
+                    >
+                      {pr.label}
+                      <ArrowRight className="h-3 w-3" />
+                    </Link>
+                  ))}
+                </div>
               </CardContent>
             </Card>
           ))}
