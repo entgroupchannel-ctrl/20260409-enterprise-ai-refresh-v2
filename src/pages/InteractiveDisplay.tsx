@@ -266,7 +266,7 @@ const FEATURES = [
   { icon: Ruler, title: "11 ขนาด ตั้งแต่ 23.8\" – 98\"", desc: "เลือกขนาดได้ครบ — เคาน์เตอร์เล็ก, ห้องประชุม, ออดิทอเรียม, จุดบริการลูกค้า ทุก use case มีรุ่นที่ใช่" },
   { icon: Hand, title: "PCAP / IR Touch 10 จุด", desc: "หน้าจอสัมผัสเกรดอุตสาหกรรม ตอบสนอง <5ms รองรับเขียน-วาด-สัมผัสพร้อมกัน 10 จุด" },
   { icon: ShieldCheck, title: "กระจกนิรภัย Mohs 7", desc: "ทนการกระแทก กันรอยขีดข่วน เกรด IP65 ใช้งานได้ในพื้นที่สาธารณะและสภาพแวดล้อมหนัก" },
-  { icon: BadgeCheck, title: "รับประกัน On-site 24 เดือน", desc: "บริการหลังการขายโดยทีมวิศวกรในประเทศไทย พร้อมอะไหล่สำรอง — ใช้งาน 24/7 ได้อย่างมั่นใจ" },
+  { icon: BadgeCheck, title: "รับประกัน 1 ปี · ขยายได้สูงสุด 3 ปี", desc: "รับประกันมาตรฐาน 1 ปี และซื้อขยายประกันเพิ่มได้สูงสุด 3 ปี ดูแลโดยทีมวิศวกรในประเทศไทย พร้อมอะไหล่สำรอง" },
 ];
 
 const USE_CASES = [
@@ -326,7 +326,7 @@ export default function InteractiveDisplay() {
     <div className="min-h-screen bg-background text-foreground">
       <SEOHead
         title='Interactive Touch Display 27"–98" | จอทัชสกรีนอุตสาหกรรม | ENT Group'
-        description='จอทัชสกรีนอุตสาหกรรมขนาด 27"-98" สำหรับห้องประชุม, Retail, Education, Factory HMI — IR Touch 10 จุด, IP65, Anti-glare, รับประกัน On-site 24 เดือน'
+        description='จอทัชสกรีนอุตสาหกรรมขนาด 27"-98" สำหรับห้องประชุม, Retail, Education, Factory HMI — IR Touch 10 จุด, IP65, Anti-glare, รับประกัน 1 ปี ขยายได้สูงสุด 3 ปี'
         path="/interactive-display"
       />
       <BreadcrumbJsonLd items={[
@@ -361,7 +361,7 @@ export default function InteractiveDisplay() {
           </h1>
           <p className="mt-6 text-lg text-muted-foreground max-w-2xl">
             จอสัมผัส IR Touch 10 จุด ระดับอุตสาหกรรม ตอบสนอง &lt;5ms — สำหรับห้องประชุม, ร้านค้า,
-            ห้องเรียน, โรงงาน และจุดบริการลูกค้า รับประกัน On-site 24 เดือน
+            ห้องเรียน, โรงงาน และจุดบริการลูกค้า รับประกัน 1 ปี · ซื้อขยายเพิ่มได้สูงสุด 3 ปี
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button size="lg" asChild>
