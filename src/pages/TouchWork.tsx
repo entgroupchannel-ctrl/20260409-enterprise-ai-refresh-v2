@@ -569,7 +569,10 @@ export default function TouchWork() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* B2B Marketing Showcase — สื่อสารคุณค่าก่อนปิดการขาย */}
+      <B2BMarketingShowcase variant="muted" />
+
+      {/* CTA — ปิดท้ายด้วย Call-to-Action เฉพาะ TouchWork */}
       <section className="container max-w-7xl mx-auto px-6 py-12">
         <div className="rounded-3xl bg-gradient-to-br from-primary/15 via-primary/5 to-background border border-primary/20 p-8 md:p-10 text-center">
           <h2 className="text-2xl md:text-3xl font-bold mb-3">
@@ -595,11 +598,6 @@ export default function TouchWork() {
           </div>
         </div>
       </section>
-
-      {/* B2B Banners — เหมือนหน้า GT Series */}
-      <B2BMarketingShowcase variant="muted" />
-      
-      <B2BCTABanner variant="compact" />
 
       <FooterCompact />
     </div>
