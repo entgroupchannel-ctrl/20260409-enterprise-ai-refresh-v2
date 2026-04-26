@@ -793,11 +793,11 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
                   key={i}
                   className="group rounded-xl border border-border bg-card overflow-hidden hover:border-primary/40 hover:shadow-md transition-all"
                 >
-                  <div className="h-24 bg-gradient-to-br from-muted/30 to-background flex items-center justify-center p-3 border-b border-border/60">
+                  <div className="h-44 sm:h-48 bg-gradient-to-br from-muted/30 to-background flex items-center justify-center p-4 border-b border-border/60">
                     <img
                       src={opt.image}
                       alt={opt.name}
-                      className="max-h-16 max-w-[55%] object-contain group-hover:scale-110 transition-transform"
+                      className="max-h-40 sm:max-h-44 max-w-[88%] object-contain group-hover:scale-105 transition-transform"
                       loading="lazy"
                     />
                   </div>
