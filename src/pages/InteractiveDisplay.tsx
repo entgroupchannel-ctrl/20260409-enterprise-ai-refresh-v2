@@ -578,6 +578,8 @@ export default function InteractiveDisplay() {
                 ? `/products/displays-43?model=${model43}`
                 : is32
                 ? `/products/displays-32?model=${model32}`
+                : is156
+                ? `/products/displays-15.6?model=kd156b`
                 : `/products/${p.slug}`;
               const cardImg = PRODUCT_IMAGES[p.slug] || p.image_url;
               return (
