@@ -23,6 +23,9 @@ import hd27Arm1 from "@/assets/touchwo/hd27/arm-1.jpg";
 import hd27Install1 from "@/assets/touchwo/hd27/install-1.jpg";
 import hd27Install2 from "@/assets/touchwo/hd27/install-2.jpg";
 import hd27Install3 from "@/assets/touchwo/hd27/install-3.jpg";
+import hd27DimFront from "@/assets/touchwo/hd27/dim-front.png";
+import hd27DimBack from "@/assets/touchwo/hd27/dim-back.png";
+import hd27DimSides from "@/assets/touchwo/hd27/dim-sides.png";
 
 // Use Case scenes — รูปการใช้งานจริง
 import hd27UcPos from "@/assets/touchwo/usecases/hd27-uc-pos.jpg";
@@ -91,12 +94,44 @@ export const DISPLAYS_27: Record<Display27Slug, Display32> = {
     ],
     gallery: [
       hd27Mon1, hd27Mon2, hd27X861, hd27X862, hd27Arm1,
-      hd27Mon5, hd27Mon3, hd27Mon4, hd27Mon6, hd27Mon7,
+      hd27Mon5, hd27Mon7,
     ],
     ioImage: hd27Mon6,
     installImages: [hd27Install1, hd27Install2, hd27Install3],
     featureImages: [],
-    dimensionDrawings: [],
+    dimensionDrawings: [
+      {
+        image: hd27DimFront,
+        title: "Mechanical Dimension — Front, Side & Top View",
+        caption: "แบบทางวิศวกรรม HD27 — ขนาดเครื่อง 635.5 × 379 × 40.4 mm จอภาพแสดงผล 599 × 337.5 mm (27\" diagonal) ขอบจอบาง 18.25–20.75 mm รัศมีมุม R10 มีช่องระบายอากาศด้านข้างซ้าย-ขวา และแถบ I/O บริเวณกึ่งกลางขอบล่าง",
+        callouts: [
+          { label: "ขนาดเครื่อง", value: "635.5 × 379 × 40.4 mm" },
+          { label: "พื้นที่แสดงผล", value: "599 × 337.5 mm (27\")" },
+          { label: "ความหนา", value: "40.4 mm (Slim Bezel)" },
+          { label: "มุมโค้ง", value: "4-R10" },
+        ],
+      },
+      {
+        image: hd27DimBack,
+        title: "Back View — VESA Mount Layout",
+        caption: "ฝาหลัง HD27 รองรับการยึด VESA pattern 100 × 100 mm (สกรู 4-M4) สำหรับติดตั้งบน Wall Mount, Articulating Arm หรือ Floor Stand — ตำแหน่งจุดยึดอยู่กึ่งกลางตัวเครื่อง (offset 267.3 × 138.45 mm จากขอบ) มีช่องระบายความร้อนแบบ perforated รองรับการทำงานต่อเนื่อง 7×24 ชั่วโมง",
+        callouts: [
+          { label: "VESA Pattern", value: "100 × 100 mm" },
+          { label: "Mount Screw", value: "4-M4" },
+          { label: "การระบายความร้อน", value: "Perforated Vent — 7×24H" },
+        ],
+      },
+      {
+        image: hd27DimSides,
+        title: "Top & Bottom View — I/O Layout",
+        caption: "มุมมองด้านบนและด้านล่างของ HD27 — แสดงตำแหน่งพอร์ต I/O ทั้งหมดที่ขอบล่างของตัวเครื่อง (USB / Audio / VGA / HDMI / Power) จัดวางแบบ Recessed เพื่อรองรับการเดินสายแบบซ่อน (Cable Management) เหมาะกับงาน Wall-mount ที่ต้องการความเรียบร้อยของหน้าตัด",
+        callouts: [
+          { label: "ตำแหน่ง I/O", value: "Bottom Edge — Recessed" },
+          { label: "พอร์ตหลัก", value: "HDMI / VGA / USB / Audio / DC12V" },
+          { label: "Cable Management", value: "รองรับการเดินสายซ่อน" },
+        ],
+      },
+    ],
     osSupport: ["windows", "linux", "android"],
     variants: [
       {
