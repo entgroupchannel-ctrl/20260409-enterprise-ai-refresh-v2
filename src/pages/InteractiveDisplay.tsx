@@ -324,8 +324,8 @@ export default function InteractiveDisplay() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SEOHead
-        title='Interactive Touch Display 32"–65" | จอทัชสกรีนอุตสาหกรรม | ENT Group'
-        description='จอทัชสกรีนอุตสาหกรรมขนาด 32"-65" สำหรับห้องประชุม, Retail, Education, Factory HMI — IR Touch 10 จุด, IP65, Anti-glare, รับประกัน On-site 24 เดือน'
+        title='Interactive Touch Display 27"–98" | จอทัชสกรีนอุตสาหกรรม | ENT Group'
+        description='จอทัชสกรีนอุตสาหกรรมขนาด 27"-98" สำหรับห้องประชุม, Retail, Education, Factory HMI — IR Touch 10 จุด, IP65, Anti-glare, รับประกัน On-site 24 เดือน'
         path="/interactive-display"
       />
       <BreadcrumbJsonLd items={[
@@ -355,7 +355,7 @@ export default function InteractiveDisplay() {
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight max-w-4xl">
             Interactive Touch Display
             <span className="block text-primary mt-2 text-3xl md:text-5xl">
-              จอทัชสกรีน 32" – 65" สำหรับงานอุตสาหกรรม
+              จอทัชสกรีน 27" – 98" สำหรับงานอุตสาหกรรม
             </span>
           </h1>
           <p className="mt-6 text-lg text-muted-foreground max-w-2xl">
