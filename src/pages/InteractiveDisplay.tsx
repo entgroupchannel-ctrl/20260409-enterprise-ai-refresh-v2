@@ -492,12 +492,18 @@ export default function InteractiveDisplay() {
       ? allProducts.filter(isKioskProduct)
       : allProducts.filter(p => !isKioskProduct(p));
 
-  // เมื่อเลือกหมวด KIOSK/Display แล้ว ตัวเลือกขนาดต้องสอดคล้องกัน
+  // เมื่อเลือกหมวด KIOSK/Display แล้ว ตัวเลือกขนาดต้องสอดคล้องกัน (อิงจากสินค้าจริงในหมวดนั้น)
+  const sizesInCategory = new Set<string>();
+  filteredByCategory.forEach(p => {
+    p.tags?.forEach(t => {
+      const m = t.match(/^([\d.]+)-inch$/);
+      if (m) sizesInCategory.add(m[1]);
+    });
+  });
   const visibleSizeFilters = SIZE_FILTERS.filter(f => {
     if (f.value === "all") return true;
-    if (category === "kiosk") return KIOSK_SIZES.has(f.value);
-    if (category === "display") return !KIOSK_SIZES.has(f.value);
-    return true;
+    if (category === "all") return true;
+    return sizesInCategory.has(f.value);
   });
 
   const filtered = size === "all"
