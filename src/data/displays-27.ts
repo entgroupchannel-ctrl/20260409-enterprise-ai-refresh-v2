@@ -8,6 +8,11 @@
  */
 import type { Display32, OSKey } from "./displays-32";
 import { OS_BACKGROUNDS } from "./displays-32";
+import {
+  KIOSK_PERIPHERALS,
+  KIOSK_CUSTOMIZATION_OPTIONS,
+  KIOSK_CUSTOMIZATION_LEAD_TIME,
+} from "./kiosk-peripherals";
 
 // HD27 — ใช้ตัวเครื่องเดียวกันทั้ง 3 variants (Monitor/x86/Android)
 import hd27Mon1 from "@/assets/touchwo/hd27/mon-1.jpg";
@@ -397,6 +402,9 @@ export const DISPLAYS_27: Record<Display27Slug, Display32> = {
       },
     ],
     osSupport: ["android", "windows", "linux"],
+    peripherals: KIOSK_PERIPHERALS,
+    customizationLeadTime: KIOSK_CUSTOMIZATION_LEAD_TIME,
+    customizationOptions: KIOSK_CUSTOMIZATION_OPTIONS,
     variants: [
       {
         key: "android",
