@@ -460,6 +460,7 @@ export default function InteractiveDisplay() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [size, setSize] = useState<string>("all");
+  const [category, setCategory] = useState<CategoryFilter>("all");
   const [lineOpen, setLineOpen] = useState(false);
 
   useEffect(() => {
