@@ -586,6 +586,11 @@ export default function InteractiveDisplay() {
         )}
       </section>
 
+      {/* B2B Workflow Banner — แจ้งให้ลูกค้าทราบว่าสั่งผ่านใบเสนอราคา ไม่ใช่ขายออนไลน์ */}
+      <section className="border-y border-border bg-muted/30">
+        <B2BWorkflowBanner variant="full" showShopCta={false} />
+      </section>
+
       {/* Use cases by screen size */}
       <section className="container max-w-7xl mx-auto px-6 py-16">
         <div className="text-center mb-10">
