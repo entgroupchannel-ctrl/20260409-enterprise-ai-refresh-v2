@@ -29,8 +29,9 @@ import { DISPLAYS_75, DISPLAY_75_ORDER } from "@/data/displays-75";
 import { DISPLAYS_85, DISPLAY_85_ORDER } from "@/data/displays-85";
 import { DISPLAYS_86, DISPLAY_86_ORDER } from "@/data/displays-86";
 import { DISPLAYS_98, DISPLAY_98_ORDER } from "@/data/displays-98";
+import { DISPLAYS_156, DISPLAY_156_ORDER } from "@/data/displays-156";
 
-type GroupSize = 32 | 43 | 238 | 27 | 49 | 55 | 65 | 75 | 85 | 86 | 98;
+type GroupSize = 32 | 43 | 238 | 27 | 49 | 55 | 65 | 75 | 85 | 86 | 98 | 156;
 const GROUPS: Record<GroupSize, {
   data: Record<string, Display32>;
   order: string[];
@@ -125,6 +126,14 @@ const GROUPS: Record<GroupSize, {
     basePath: "/products/displays-98",
     defaultModel: "rz98b",
     label: 'Touch Display 98"',
+    parentLink: "/interactive-display",
+  },
+  156: {
+    data: DISPLAYS_156 as Record<string, Display32>,
+    order: DISPLAY_156_ORDER as unknown as string[],
+    basePath: "/products/displays-15.6",
+    defaultModel: "kd156b",
+    label: 'Touch Kiosk 15.6"',
     parentLink: "/interactive-display",
   },
 };
@@ -268,7 +277,7 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
             })}
             {/* Accessories cross-link — filtered by current screen size */}
             <Link
-              to={`/accessories?size=${groupSize === 238 ? "23.8" : groupSize}`}
+              to={`/accessories?size=${groupSize === 238 ? "23.8" : groupSize === 156 ? "15.6" : groupSize}`}
               className="shrink-0 inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all border border-dashed border-primary/40 text-primary hover:bg-primary/10 hover:border-primary"
             >
               <Package className="h-3.5 w-3.5" />
