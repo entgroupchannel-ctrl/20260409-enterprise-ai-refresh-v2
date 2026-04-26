@@ -58,6 +58,9 @@ const DATASHEETS: Record<string, string | { label: string; file: string }[]> = {
     { label: "RZ85B 4K Windows / Linux (OPS x86)", file: "ENTGROUP-RZ85B-X86.pdf" },
     { label: "RZ85B 4K Android (Rockchip ARM)", file: "ENTGROUP-RZ85B-ARM.pdf" },
   ],
+  GD27C: [
+    { label: "GD27C Wall-Mount Kiosk · Android (Rockchip ARM)", file: "ENTGROUP-GD27C-ARM.pdf" },
+  ],
 };
 
 interface Props {
