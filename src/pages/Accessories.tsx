@@ -256,24 +256,45 @@ const Accessories = () => {
       {/* Accessories grid */}
       <section className="pb-16 px-4 md:px-8">
         <div className="container max-w-7xl mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-display font-bold mb-2">
-              เลือก Accessories ที่ใช่กับงานของคุณ
-            </h2>
-            <p className="text-muted-foreground">9 ประเภท ครอบคลุมหน้าจอตั้งแต่ 5" ถึง 65"</p>
-          </div>
+          {targetSize !== null && (
+            <div className="mb-6 flex flex-wrap items-center justify-between gap-3 p-4 rounded-xl border border-primary/30 bg-primary/5">
+              <div className="text-sm">
+                <span className="text-muted-foreground">กำลังกรอง Accessories ที่รองรับหน้าจอ </span>
+                <span className="font-bold text-primary">{sizeParam}"</span>
+                <span className="text-muted-foreground"> — พบ {filtered.length} รายการ</span>
+              </div>
+              <Button variant="ghost" size="sm" onClick={clearFilter}>
+                <X size={14} className="mr-1" /> ล้างตัวกรอง · ดูทั้งหมด
+              </Button>
+            </div>
+          )}
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {ACCESSORIES.map((acc) => (
-              <Card key={acc.id} className="overflow-hidden group hover:shadow-lg transition-all border-border flex flex-col">
-                <div className="aspect-[4/3] overflow-hidden bg-muted">
-                  <img
-                    src={acc.image}
-                    alt={acc.title}
-                    width={1024}
-                    height={768}
-                    loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          {targetSize === null && (
+            <div className="text-center mb-10">
+              <h2 className="text-2xl md:text-3xl font-display font-bold mb-2">
+                เลือก Accessories ที่ใช่กับงานของคุณ
+              </h2>
+              <p className="text-muted-foreground">10 รายการ ครอบคลุมหน้าจอตั้งแต่ 5" ถึง 65"</p>
+            </div>
+          )}
+
+          {filtered.length === 0 ? (
+            <div className="text-center py-16 border border-dashed border-border rounded-xl">
+              <p className="text-muted-foreground mb-4">ไม่พบ Accessories ที่รองรับขนาดนี้โดยตรง</p>
+              <Button variant="outline" onClick={clearFilter}>ดู Accessories ทั้งหมด</Button>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filtered.map((acc) => (
+                <Card key={acc.id} className="overflow-hidden group hover:shadow-lg transition-all border-border flex flex-col">
+                  <div className="aspect-[4/3] overflow-hidden bg-muted">
+                    <img
+                      src={acc.image}
+                      alt={acc.title}
+                      width={1024}
+                      height={768}
+                      loading="lazy"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
                 <div className="p-5 flex-1 flex flex-col">
