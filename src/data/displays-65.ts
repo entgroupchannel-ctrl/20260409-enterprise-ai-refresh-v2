@@ -21,6 +21,7 @@ import hr65Install2 from "@/assets/touchwo/hr65/install-2.png";
 import hr65Feat1 from "@/assets/touchwo/hr65/feat-1.png";
 import hr65Feat2 from "@/assets/touchwo/hr65/feat-2.png";
 import hr65Feat3 from "@/assets/touchwo/hr65/feat-3.png";
+import hr65DimBack from "@/assets/touchwo/hr65/dim-back.png";
 
 import rz65Monitor from "@/assets/touchwo/rz65b/p-monitor.jpg";
 import rz65Windows from "@/assets/touchwo/rz65b/p-windows.jpg";
@@ -98,26 +99,39 @@ export const DISPLAYS_65: Record<Display65Slug, Display32> = {
     ],
     useCases: ["Education / Smart Classroom", "Corporate Boardroom", "Public Self-Service Kiosk", "Digital Signage / Wayfinding"],
     useCaseScenarios: [],
-    gallery: [hr65P1, hr65P2, hr65P3, hr65P4, hr65P5, hr65P6, hr65P7],
+    gallery: [hr65P1, hr65P2, hr65P4, hr65P5],
     ioImage: hr65Io,
     installImages: [hr65Install1, hr65Install2],
     featureImages: [hr65Feat1, hr65Feat2, hr65Feat3],
     dimensionDrawings: [
       {
-        image: hr65P3,
-        title: "Mechanical Dimension — Unibody Slim Profile",
-        caption: "ตัวเครื่อง 65\" ดีไซน์ Unibody — ขนาด 1482 × 857 × 60 mm (กว้าง × สูง × ลึก) Active Area 1428 × 803 mm น้ำหนักสุทธิ 37.8 kg (Monitor) / 38.1 kg (PC/Android) — โครงสร้าง Aluminum Alloy + Sheet-metal ขึ้นรูปชิ้นเดียว ทนทาน Vandal-proof เหมาะกับงาน Public Self-service และ Education",
+        image: hr65P6,
+        title: "Mechanical Dimension — Front, Side & Top View",
+        caption: "ตัวเครื่อง 65\" ดีไซน์ Unibody — ขนาด 1482 × 857 × 60 mm (กว้าง × สูง × ลึก) Active Area 1428 × 803 mm น้ำหนักสุทธิ 37.8 kg (Monitor) / 38.1 kg (PC/Android) — โครงสร้าง Aluminum Alloy + Sheet-metal ขึ้นรูปชิ้นเดียว ขอบจอบาง R6 มุมโค้งมน ทนทาน Vandal-proof เหมาะกับงาน Public Self-service และ Education",
         callouts: [
           { label: "ขนาดเครื่อง", value: "1482 × 857 × 60 mm" },
           { label: "Active Area", value: "1428 × 803 mm" },
           { label: "Profile", value: "Slim 6 cm Unibody" },
+          { label: "Bezel Radius", value: "R6 — มุมโค้งมน" },
           { label: "น้ำหนักสุทธิ / รวม", value: "37.8–38.1 kg / 47.8–48.1 kg" },
+        ],
+      },
+      {
+        image: hr65DimBack,
+        title: "Back View — VESA Mount & Heat Dissipation Layout",
+        caption: "ฝาหลัง HR65 รองรับการยึด VESA pattern 400 × 400 mm สำหรับติดตั้งบน Wall Mount, Floor Stand หรือ Articulating Arm รับน้ำหนักจอขนาดใหญ่ได้อย่างมั่นคง — ตำแหน่งจุดยึดอยู่กึ่งกลางตัวเครื่อง (offset 541 mm จากขอบซ้าย-ขวา และ 229.5 mm จากขอบบน) มีช่องระบายความร้อน (Heat Vent) บริเวณกึ่งกลางด้านล่าง รองรับการทำงานต่อเนื่อง 24/7 และจุดเสียบสาย Power แบบ Recessed เพื่อความเรียบร้อยของหน้าตัด",
+        callouts: [
+          { label: "VESA Pattern", value: "400 × 400 mm" },
+          { label: "Mount Plate", value: "380 × 400 mm internal frame" },
+          { label: "VESA Offset", value: "541 mm (ซ้าย-ขวา) × 229.5 mm (บน)" },
+          { label: "การระบายความร้อน", value: "Bottom Heat Vent — รองรับ 24/7" },
+          { label: "Cable Outlet", value: "Recessed Power Connector ด้านล่าง" },
         ],
       },
       {
         image: hr65Io,
         title: "I/O Layout — External Connectors",
-        caption: "พอร์ตเชื่อมต่อด้านหลัง — รองรับครบทั้ง 3 Configuration: Monitor (HDMI in / DVI / VGA / USB / Audio), Windows OPS (HDMI out / VGA / USB ×4 / RJ45 / Wi-Fi / MIC), Android (HDMI out / USB ×2 / RJ45 / TF/SD / Audio + Wi-Fi)",
+        caption: "พอร์ตเชื่อมต่อด้านหลัง — รองรับครบทั้ง 3 Configuration: Monitor (HDMI in / DVI / VGA / USB), Windows OPS (HDMI out / VGA / USB ×4 / RJ45 / Wi-Fi / MIC), Android (HDMI out / USB ×2 / RJ45 / TF/SD / Audio + Wi-Fi)",
         callouts: [
           { label: "Monitor", value: "HDMI in + DVI + VGA + USB + Audio" },
           { label: "Windows OPS", value: "HDMI + VGA + USB×4 + RJ45 + Wi-Fi + MIC" },
