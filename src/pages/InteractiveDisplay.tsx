@@ -113,6 +113,7 @@ import imgRz85b from "@/assets/touchwo/rz85b/p-windows.jpg";    // 85" boardroom
 import imgRz86b from "@/assets/touchwo/rz86b/p-windows.jpg";    // 86" auditorium Win11
 import imgRz98b from "@/assets/touchwo/rz98b/p-windows.jpg";    // 98" mega auditorium Win11
 import imgGd238c from "@/assets/touchwo/gd238c/p-1a.jpg";       // wall-mount portrait
+import imgKd156b from "@/assets/touchwo/kd156b/KD156-1A.jpg";   // 15.6" floor-stand kiosk
 
 // Accessory images for filter chips & feature cards
 import accDesktopStand from "@/assets/accessories/desktop-stand.jpg";
@@ -145,11 +146,13 @@ const PRODUCT_IMAGES: Record<string, string> = {
   "interactive-kiosk-rz86b": imgRz86b,
   "interactive-kiosk-rz98b": imgRz98b,
   "interactive-kiosk-gd238c": imgGd238c,
+  "interactive-display-kd156b": imgKd156b,
+  "interactive-kiosk-kd156b": imgKd156b,
 };
 
 // ลำดับการแสดงผล: เริ่มจาก 27" → 32" → 43" → 49" → 55" → 65" → 23.8"
 const SIZE_ORDER: Record<string, number> = {
-  "27": 1, "32": 2, "43": 3, "49": 4, "55": 5, "65": 6, "75": 7, "85": 8, "86": 9, "98": 10, "23.8": 11,
+  "27": 1, "32": 2, "43": 3, "49": 4, "55": 5, "65": 6, "75": 7, "85": 8, "86": 9, "98": 10, "23.8": 11, "15.6": 12,
 };
 const sizeRank = (p: { tags: string[] | null; slug: string }) => {
   for (const [size, rank] of Object.entries(SIZE_ORDER)) {
@@ -183,6 +186,7 @@ const SIZE_FILTERS = [
   { label: '86"', value: "86" },
   { label: '98"', value: "98" },
   { label: '23.8" Kiosk', value: "23.8" },
+  { label: '15.6" Kiosk', value: "15.6" },
 ];
 
 // Series ที่มีหน้ารายละเอียดเฉพาะ (Android/x86/Monitor variants) แต่ยังไม่ถูก seed ลง DB
@@ -374,6 +378,17 @@ const EXTRA_PRODUCTS: Product[] = [
     image_url: null,
     tags: ["98-inch", "pcap", "android", "x86", "touch-monitor", "large-format", "4k-uhd"],
   },
+  {
+    id: "extra-kd156b",
+    sku: "KD156B",
+    model: "KD156B",
+    name: 'Interactive Touch Kiosk KD156B — 15.6" Floor Stand',
+    description: '15.6" FHD Floor-Stand Kiosk — Monitor / Android (RK3568/3288/3588) / Windows x86 (J6412/i5/i7) พร้อม Peripherals ครบชุด',
+    slug: "interactive-kiosk-kd156b",
+    form_factor: "Floor Stand Kiosk",
+    image_url: null,
+    tags: ["15.6-inch", "kiosk", "floor-stand", "pcap", "fhd"],
+  },
 ];
 
 const FEATURES = [
@@ -531,6 +546,7 @@ export default function InteractiveDisplay() {
               const is85 = p.tags?.includes("85-inch") || p.slug === "interactive-kiosk-rz85b";
               const is86 = p.tags?.includes("86-inch") || p.slug === "interactive-kiosk-rz86b";
               const is98 = p.tags?.includes("98-inch") || p.slug === "interactive-kiosk-rz98b";
+              const is156 = p.tags?.includes("15.6-inch") || ["interactive-kiosk-kd156b","interactive-display-kd156b"].includes(p.slug);
               const model49 = p.slug === "interactive-display-hd49" ? "hd49" : "hr49";
               const model55 = p.slug === "interactive-display-hd55" ? "hd55" : "hr55";
               const model65 =
@@ -562,6 +578,8 @@ export default function InteractiveDisplay() {
                 ? `/products/displays-43?model=${model43}`
                 : is32
                 ? `/products/displays-32?model=${model32}`
+                : is156
+                ? `/products/displays-15.6?model=kd156b`
                 : `/products/${p.slug}`;
               const cardImg = PRODUCT_IMAGES[p.slug] || p.image_url;
               return (
