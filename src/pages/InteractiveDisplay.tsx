@@ -185,6 +185,9 @@ type Product = {
 
 const SIZE_FILTERS = [
   { label: "ทั้งหมด", value: "all" },
+  { label: '15.6" Kiosk', value: "15.6" },
+  { label: '21.5" Kiosk', value: "21.5" },
+  { label: '23.8" Kiosk', value: "23.8" },
   { label: '27"', value: "27" },
   { label: '32"', value: "32" },
   { label: '43"', value: "43" },
@@ -195,10 +198,9 @@ const SIZE_FILTERS = [
   { label: '85"', value: "85" },
   { label: '86"', value: "86" },
   { label: '98"', value: "98" },
-  { label: '23.8" Kiosk', value: "23.8" },
-  { label: '21.5" Kiosk', value: "21.5" },
-  { label: '15.6" Kiosk', value: "15.6" },
 ];
+
+type CategoryFilter = "all" | "kiosk" | "display";
 
 // Series ที่มีหน้ารายละเอียดเฉพาะ (Android/x86/Monitor variants) แต่ยังไม่ถูก seed ลง DB
 const EXTRA_PRODUCTS: Product[] = [
