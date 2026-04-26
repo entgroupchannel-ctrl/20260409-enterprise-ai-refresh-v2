@@ -1171,10 +1171,11 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
   );
 };
 
-const SectionTitle = ({ eyebrow, title }: { eyebrow: string; title: string }) => (
+const SectionTitle = ({ eyebrow, title, subtitle }: { eyebrow: string; title: string; subtitle?: string }) => (
   <div className="mb-6">
     <div className="text-xs font-semibold uppercase tracking-wider text-primary mb-1">{eyebrow}</div>
     <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">{title}</h2>
+    {subtitle && <p className="text-sm text-muted-foreground mt-2 max-w-3xl">{subtitle}</p>}
   </div>
 );
 
