@@ -562,29 +562,31 @@ export default function InteractiveDisplay() {
                   <p className="text-sm text-muted-foreground line-clamp-3 mb-4 min-h-[3.75rem]">
                     {p.description}
                   </p>
-                  <div className="flex flex-col gap-2">
-                    <Button asChild size="sm" variant="secondary" className="w-full">
-                      <Link to={detailHref}>ดูรายละเอียด</Link>
+                  <div className="flex items-center justify-between gap-2">
+                    <Button asChild size="icon" variant="secondary" title="ดูรายละเอียด" aria-label="ดูรายละเอียด">
+                      <Link to={detailHref}>
+                        <Eye className="h-4 w-4" />
+                      </Link>
                     </Button>
                     <QuoteRequestButton
                       productModel={p.model}
                       productName={p.name}
-                      size="sm"
-                      className="w-full"
+                      size="icon"
+                      iconOnly
                     />
                     <AddToCartButton
                       productModel={p.model}
                       productName={p.name}
                       variant="outline"
-                      size="sm"
-                      className="w-full"
+                      size="icon"
+                      iconOnly
                     />
                     {hasDatasheet(p.model) && (
                       <DatasheetButton
                         productModel={p.model}
                         variant="ghost"
-                        size="sm"
-                        className="w-full text-primary hover:bg-primary/5"
+                        iconOnly
+                        className="text-primary hover:bg-primary/5 border border-primary/20"
                       />
                     )}
                   </div>
