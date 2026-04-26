@@ -7,6 +7,11 @@
  */
 import type { Display32, OSKey } from "./displays-32";
 import { OS_BACKGROUNDS } from "./displays-32";
+import {
+  KIOSK_PERIPHERALS,
+  KIOSK_CUSTOMIZATION_OPTIONS,
+  KIOSK_CUSTOMIZATION_LEAD_TIME,
+} from "./kiosk-peripherals";
 
 // GD238C — Portrait 9:16 (ภาพต้นฉบับจาก touchwo.com)
 import gdP1 from "@/assets/touchwo/gd238c/p-1a.jpg";
@@ -163,6 +168,9 @@ export const DISPLAYS_238: Record<Display238Slug, Display32> = {
     featureImages: [gdDesign],
     dimensionDrawings: [],
     osSupport: ["android", "windows", "linux"],
+    peripherals: KIOSK_PERIPHERALS,
+    customizationLeadTime: KIOSK_CUSTOMIZATION_LEAD_TIME,
+    customizationOptions: KIOSK_CUSTOMIZATION_OPTIONS,
     variants: [COMMON_VARIANT_ARM, COMMON_VARIANT_X86],
     cpuOptions: [
       {
@@ -256,6 +264,9 @@ export const DISPLAYS_238: Record<Display238Slug, Display32> = {
     featureImages: [gdDesign],
     dimensionDrawings: [],
     osSupport: ["android", "windows", "linux"],
+    peripherals: KIOSK_PERIPHERALS,
+    customizationLeadTime: KIOSK_CUSTOMIZATION_LEAD_TIME,
+    customizationOptions: KIOSK_CUSTOMIZATION_OPTIONS,
     variants: [COMMON_VARIANT_ARM, COMMON_VARIANT_X86],
     cpuOptions: [
       {

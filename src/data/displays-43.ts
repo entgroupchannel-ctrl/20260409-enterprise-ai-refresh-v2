@@ -6,6 +6,11 @@
  */
 import type { Display32, OSKey } from "./displays-32";
 import { OS_BACKGROUNDS } from "./displays-32";
+import {
+  KIOSK_PERIPHERALS,
+  KIOSK_CUSTOMIZATION_OPTIONS,
+  KIOSK_CUSTOMIZATION_LEAD_TIME,
+} from "./kiosk-peripherals";
 
 // HD43 — ภาพต้นฉบับจาก touchwo.com (ทั้ง 3 variants ใช้ตัวเครื่องดีไซน์เดียวกัน)
 import hd43Mon1 from "@/assets/touchwo/hd43/mon-1.jpg";
@@ -506,6 +511,9 @@ export const DISPLAYS_43: Record<Display43Slug, Display32> = {
     featureImages: [],
     dimensionDrawings: [],
     osSupport: ["windows", "linux", "android"],
+    peripherals: KIOSK_PERIPHERALS,
+    customizationLeadTime: KIOSK_CUSTOMIZATION_LEAD_TIME,
+    customizationOptions: KIOSK_CUSTOMIZATION_OPTIONS,
     variants: [
       {
         key: "monitor",
