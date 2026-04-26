@@ -33,6 +33,11 @@ const DATASHEETS: Record<string, string | { label: string; file: string }[]> = {
     { label: "HR65 Windows / Linux (OPS x86)", file: "ENTGROUP-HR65-X86.pdf" },
     { label: "HR65 Android (Rockchip ARM)", file: "ENTGROUP-HR65-ARM.pdf" },
   ],
+  HD65: [
+    { label: "HD65 PCAP Touch Monitor (no PC)", file: "ENTGROUP-HD65-Monitor.pdf" },
+    { label: "HD65 Windows / Linux (Intel x86)", file: "ENTGROUP-HD65-X86.pdf" },
+    { label: "HD65 Android (Rockchip ARM)", file: "ENTGROUP-HD65-ARM.pdf" },
+  ],
   RZ65B: [
     { label: "RZ65B 4K IR Touch Monitor (no PC)", file: "ENTGROUP-RZ65B-Monitor.pdf" },
     { label: "RZ65B 4K Windows / Linux (OPS x86)", file: "ENTGROUP-RZ65B-X86.pdf" },
