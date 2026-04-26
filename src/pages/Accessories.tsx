@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
 import heroBanner from "@/assets/accessories/hero-banner.jpg";
-import dmMonitor from "@/assets/accessories/dm-monitor.jpg";
+
 import desktopStand from "@/assets/accessories/desktop-stand.jpg";
 import foldableStand from "@/assets/accessories/foldable-stand.jpg";
 import adjustableArm from "@/assets/accessories/adjustable-arm.jpg";
@@ -33,19 +33,6 @@ interface Accessory {
 }
 
 const ACCESSORIES: Accessory[] = [
-  {
-    id: "dm-open-frame",
-    sizeMin: 10.1, sizeMax: 10.1,
-    title: "Open Frame Touch Monitor — DM Series",
-    size: "10.1\"",
-    image: dmMonitor,
-    features: [
-      "หน้าจอสัมผัสแบบ Capacitive ความแม่นยำสูง",
-      "ดีไซน์ Open Frame ติดตั้งกับตู้ KIOSK / เครื่องจักรได้",
-      "ใช้ร่วมกับ EPC / EPC Box เพื่อสร้าง Touch Solution แบบ Custom",
-    ],
-    compatibleWith: "EPC / EPC Box / KIOSK Custom",
-  },
   {
     id: "desktop-stand",
     sizeMin: 15, sizeMax: 27,
