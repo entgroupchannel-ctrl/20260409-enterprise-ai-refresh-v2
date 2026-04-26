@@ -381,19 +381,32 @@ export default function InteractiveDisplay() {
           <p className="text-muted-foreground mt-3">ครบ จบในเครื่องเดียว — ไม่ต้องประกอบ ไม่มียอดขั้นต่ำ ทุกองค์กรเป็นเจ้าของได้</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {FEATURES.map((f) => (
-            <Card key={f.title} className="border-border hover:border-primary/50 transition-colors">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="rounded-lg bg-primary/10 p-2.5">
-                    <f.icon className="h-5 w-5 text-primary" />
+          {FEATURES.map((f, idx) => {
+            const gradients = [
+              "bg-gradient-to-br from-primary/10 via-primary/5 to-transparent",
+              "bg-gradient-to-br from-sky-500/10 via-sky-500/5 to-transparent",
+              "bg-gradient-to-br from-emerald-500/10 via-emerald-500/5 to-transparent",
+              "bg-gradient-to-br from-violet-500/10 via-violet-500/5 to-transparent",
+              "bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent",
+              "bg-gradient-to-br from-rose-500/10 via-rose-500/5 to-transparent",
+              "bg-gradient-to-br from-cyan-500/10 via-cyan-500/5 to-transparent",
+              "bg-gradient-to-br from-fuchsia-500/10 via-fuchsia-500/5 to-transparent",
+              "bg-gradient-to-br from-teal-500/10 via-teal-500/5 to-transparent",
+            ];
+            return (
+              <Card key={f.title} className={`border-border hover:border-primary/50 transition-all hover:shadow-md ${gradients[idx % gradients.length]}`}>
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="rounded-lg bg-background/70 backdrop-blur-sm p-2.5 shadow-sm">
+                      <f.icon className="h-5 w-5 text-primary" />
+                    </div>
+                    <h3 className="font-semibold">{f.title}</h3>
                   </div>
-                  <h3 className="font-semibold">{f.title}</h3>
-                </div>
-                <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
-              </CardContent>
-            </Card>
-          ))}
+                  <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       </section>
 
