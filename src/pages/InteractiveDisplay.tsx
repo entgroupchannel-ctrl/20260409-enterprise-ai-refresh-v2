@@ -128,7 +128,8 @@ const PRODUCT_IMAGES: Record<string, string> = {
   "interactive-kiosk-gd27c": imgGd27c,
   "interactive-display-hd32": imgHd32,
   "interactive-display-hr32": imgHr32,
-  "interactive-kiosk-kd32b": imgKd32b,
+  "interactive-display-kd32b": imgKd32b,
+  "interactive-display-gd32c": imgGd238c,
   "interactive-display-hd43": imgHd43,
   "interactive-display-hr43": imgHr43,
   "interactive-kiosk-kd43b": imgKd43b,
@@ -186,6 +187,39 @@ const SIZE_FILTERS = [
 
 // Series ที่มีหน้ารายละเอียดเฉพาะ (Android/x86/Monitor variants) แต่ยังไม่ถูก seed ลง DB
 const EXTRA_PRODUCTS: Product[] = [
+  {
+    id: "extra-hr32",
+    sku: "HR32",
+    model: "HR32",
+    name: 'Interactive Touch Display HR32 — 32" Slim Bezel AIO',
+    description: '32" FHD PCAP 10-point — Sleek Unibody / IP65 / Mohs 7 — Touch Monitor / Android (RK3568/3288/3588) / Windows x86 (J6412/i5/i7)',
+    slug: "interactive-display-hr32",
+    form_factor: "Wall / VESA / Desktop",
+    image_url: null,
+    tags: ["32-inch", "pcap", "android", "x86", "touch-monitor", "slim-bezel"],
+  },
+  {
+    id: "extra-gd32c",
+    sku: "GD32C",
+    model: "GD32C",
+    name: 'Wall-Mount Touch Kiosk GD32C — 32" FHD',
+    description: '32" Wall-Mount Kiosk — PCAP 10-point, Mohs 7 glass, Android RK3568/RK3588 หรือ x86 (Optional) พร้อม Peripherals',
+    slug: "interactive-display-gd32c",
+    form_factor: "Wall-Mount Kiosk",
+    image_url: null,
+    tags: ["32-inch", "kiosk", "wall-mount", "pcap"],
+  },
+  {
+    id: "extra-kd32b",
+    sku: "KD32B",
+    model: "KD32B",
+    name: 'Interactive Touch Kiosk KD32B — 32" Floor Stand',
+    description: '32" Floor-Stand Kiosk — Monitor / Android RK3568 / Windows x86 พร้อมขาตั้งพื้น และ Peripherals ครบชุด',
+    slug: "interactive-display-kd32b",
+    form_factor: "Floor Stand Kiosk",
+    image_url: null,
+    tags: ["32-inch", "kiosk", "floor-stand", "pcap"],
+  },
   {
     id: "extra-hd43",
     sku: "HD43",
@@ -482,7 +516,11 @@ export default function InteractiveDisplay() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {filtered.map((p) => {
               // Override links for series pages with multiple OS variants
-              const is32 = p.tags?.includes("32-inch") || p.slug === "interactive-display-hd32";
+              const is32 = p.tags?.includes("32-inch") || ["interactive-display-hd32","interactive-display-hr32","interactive-display-gd32c","interactive-display-kd32b"].includes(p.slug);
+              const model32 =
+                p.slug === "interactive-display-hr32" ? "hr32" :
+                p.slug === "interactive-display-gd32c" ? "gd32c" :
+                p.slug === "interactive-display-kd32b" ? "kd32b" : "hd32";
               const is43 = p.tags?.includes("43-inch") || ["interactive-display-hr43","interactive-display-hd43","interactive-kiosk-kd43b"].includes(p.slug);
               const is238 = p.tags?.includes("23.8-inch") || p.slug === "interactive-kiosk-gd238c";
               const is27 = p.tags?.includes("27-inch") || ["interactive-display-hd27","interactive-kiosk-gd27c"].includes(p.slug);
@@ -523,7 +561,7 @@ export default function InteractiveDisplay() {
                 : is43
                 ? `/products/displays-43?model=${model43}`
                 : is32
-                ? "/products/displays-32?model=hd32"
+                ? `/products/displays-32?model=${model32}`
                 : `/products/${p.slug}`;
               const cardImg = PRODUCT_IMAGES[p.slug] || p.image_url;
               return (
