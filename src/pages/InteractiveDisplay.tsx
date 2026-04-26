@@ -156,15 +156,19 @@ const PRODUCT_IMAGES: Record<string, string> = {
   "interactive-display-gd215c": imgGd215c,
 };
 
-// ลำดับการแสดงผล: เริ่มจาก 27" → 32" → 43" → 49" → 55" → 65" → 23.8"
+// ลำดับการแสดงผล: เล็ก → ใหญ่ (KIOSK เริ่มจาก 15.6" → 21.5" → 23.8" แล้วต่อด้วยจอใหญ่ 27"→98")
 const SIZE_ORDER: Record<string, number> = {
-  "27": 1, "32": 2, "43": 3, "49": 4, "55": 5, "65": 6, "75": 7, "85": 8, "86": 9, "98": 10, "23.8": 11, "21.5": 11.5, "15.6": 12,
+  "15.6": 1, "21.5": 2, "23.8": 3, "27": 4, "32": 5, "43": 6, "49": 7, "55": 8, "65": 9, "75": 10, "85": 11, "86": 12, "98": 13,
 };
+const KIOSK_SIZES = new Set(["15.6", "21.5", "23.8"]);
 const sizeRank = (p: { tags: string[] | null; slug: string }) => {
   for (const [size, rank] of Object.entries(SIZE_ORDER)) {
     if (p.tags?.some(t => t === `${size}-inch`)) return rank;
   }
   return 99;
+};
+const isKioskProduct = (p: { tags: string[] | null }) => {
+  return p.tags?.some(t => Array.from(KIOSK_SIZES).some(s => t === `${s}-inch`)) ?? false;
 };
 
 type Product = {
@@ -181,6 +185,9 @@ type Product = {
 
 const SIZE_FILTERS = [
   { label: "ทั้งหมด", value: "all" },
+  { label: '15.6" Kiosk', value: "15.6" },
+  { label: '21.5" Kiosk', value: "21.5" },
+  { label: '23.8" Kiosk', value: "23.8" },
   { label: '27"', value: "27" },
   { label: '32"', value: "32" },
   { label: '43"', value: "43" },
@@ -191,10 +198,9 @@ const SIZE_FILTERS = [
   { label: '85"', value: "85" },
   { label: '86"', value: "86" },
   { label: '98"', value: "98" },
-  { label: '23.8" Kiosk', value: "23.8" },
-  { label: '21.5" Kiosk', value: "21.5" },
-  { label: '15.6" Kiosk', value: "15.6" },
 ];
+
+type CategoryFilter = "all" | "kiosk" | "display";
 
 // Series ที่มีหน้ารายละเอียดเฉพาะ (Android/x86/Monitor variants) แต่ยังไม่ถูก seed ลง DB
 const EXTRA_PRODUCTS: Product[] = [
@@ -454,6 +460,7 @@ export default function InteractiveDisplay() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [size, setSize] = useState<string>("all");
+  const [category, setCategory] = useState<CategoryFilter>("all");
   const [lineOpen, setLineOpen] = useState(false);
 
   useEffect(() => {
@@ -478,9 +485,23 @@ export default function InteractiveDisplay() {
     ...EXTRA_PRODUCTS.filter(e => !products.some(p => p.slug === e.slug)),
   ].sort((a, b) => sizeRank(a) - sizeRank(b));
 
-  const filtered = size === "all"
+  const filteredByCategory = category === "all"
     ? allProducts
-    : allProducts.filter(p => p.tags?.some(t => t === `${size}-inch`));
+    : category === "kiosk"
+      ? allProducts.filter(isKioskProduct)
+      : allProducts.filter(p => !isKioskProduct(p));
+
+  // เมื่อเลือกหมวด KIOSK/Display แล้ว ตัวเลือกขนาดต้องสอดคล้องกัน
+  const visibleSizeFilters = SIZE_FILTERS.filter(f => {
+    if (f.value === "all") return true;
+    if (category === "kiosk") return KIOSK_SIZES.has(f.value);
+    if (category === "display") return !KIOSK_SIZES.has(f.value);
+    return true;
+  });
+
+  const filtered = size === "all"
+    ? filteredByCategory
+    : filteredByCategory.filter(p => p.tags?.some(t => t === `${size}-inch`));
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -533,13 +554,38 @@ export default function InteractiveDisplay() {
 
       {/* Products */}
       <section id="products" className="container max-w-7xl mx-auto px-6 py-16 border-t border-border">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold">เลือกขนาดที่เหมาะกับงานคุณ</h2>
-            <p className="text-muted-foreground mt-2">มี 11 ขนาด: 27", 32", 43", 49", 55", 65", 75", 85", 86", 98" และ 23.8" Kiosk</p>
+        <div className="flex flex-col gap-4 mb-8">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold">เลือกขนาดที่เหมาะกับงานคุณ</h2>
+              <p className="text-muted-foreground mt-2">เรียงจากเล็กไปใหญ่ — KIOSK 15.6", 21.5", 23.8" และจอใหญ่ 27"–98"</p>
+            </div>
+            {/* Category toggle: ทั้งหมด / KIOSK / Display */}
+            <div className="inline-flex rounded-lg border border-border p-1 bg-card self-start">
+              {([
+                { v: "all" as const, label: "ทั้งหมด" },
+                { v: "kiosk" as const, label: "KIOSK เท่านั้น" },
+                { v: "display" as const, label: "จอใหญ่ 27\"+" },
+              ]).map(opt => (
+                <Button
+                  key={opt.v}
+                  size="sm"
+                  variant={category === opt.v ? "default" : "ghost"}
+                  onClick={() => {
+                    setCategory(opt.v);
+                    setSize("all");
+                  }}
+                  className="rounded-md"
+                >
+                  {opt.label}
+                </Button>
+              ))}
+            </div>
           </div>
+
+          {/* Size chips */}
           <div className="flex flex-wrap gap-2">
-            {SIZE_FILTERS.map(f => (
+            {visibleSizeFilters.map(f => (
               <Button
                 key={f.value}
                 size="sm"
