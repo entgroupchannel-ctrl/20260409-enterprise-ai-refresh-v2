@@ -255,11 +255,11 @@ export default function InteractiveDisplay() {
     return () => { mounted = false; };
   }, []);
 
-  // Merge สินค้าที่ seed อยู่ใน DB เข้ากับซีรีส์เสริม (ไม่ซ้ำ slug)
+  // Merge สินค้าที่ seed อยู่ใน DB เข้ากับซีรีส์เสริม (ไม่ซ้ำ slug) แล้วจัดเรียงตามขนาด
   const allProducts: Product[] = [
     ...products,
     ...EXTRA_PRODUCTS.filter(e => !products.some(p => p.slug === e.slug)),
-  ];
+  ].sort((a, b) => sizeRank(a) - sizeRank(b));
 
   const filtered = size === "all"
     ? allProducts
