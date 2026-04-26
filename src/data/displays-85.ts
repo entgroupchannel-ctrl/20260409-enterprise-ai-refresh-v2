@@ -18,8 +18,8 @@ import rz85P1 from "@/assets/touchwo/rz85b/p-1.jpg";
 import rz85P3 from "@/assets/touchwo/rz85b/p-3.jpg";
 import rz85P4 from "@/assets/touchwo/rz85b/p-4.jpg";
 import rz85P5 from "@/assets/touchwo/rz85b/p-5.jpg";
-import rz85P6 from "@/assets/touchwo/rz85b/p-6.jpg";
-import rz85P7 from "@/assets/touchwo/rz85b/p-7.jpg";
+import rz85DimFront from "@/assets/touchwo/rz85b/dim-front.png";
+import rz85DimBack from "@/assets/touchwo/rz85b/dim-back.png";
 import rz85Io from "@/assets/touchwo/rz85b/io.jpg";
 import rz85Feat1 from "@/assets/touchwo/rz85b/feat-1.png";
 import rz85Feat2 from "@/assets/touchwo/rz85b/feat-2.png";
@@ -116,31 +116,31 @@ export const DISPLAYS_85: Record<Display85Slug, Display32> = {
           "จอ 85\" Wall-mount ในล็อบบี้โรงแรม — Directory ห้องอาหาร, สปา, Activities, Local Attractions พร้อม Map เห็นภาพชัดในระยะ 5-15 เมตร Mohs 7 ทนการสัมผัสต่อเนื่อง รองรับหลายภาษา (Multi-language UI)",
       },
     ],
-    gallery: [rz85P1, rz85Monitor, rz85Windows, rz85Android, rz85P3, rz85P4, rz85P5, rz85P6, rz85P7],
+    gallery: [rz85P1, rz85Monitor, rz85Windows, rz85Android, rz85P3, rz85P4, rz85P5],
     ioImage: rz85Io,
     installImages: [rz85InstallFloor, rz85InstallWall, rz85InstallAcc],
     featureImages: [rz85Feat1, rz85Feat2, rz85Feat3, rz85Feat4],
     dimensionDrawings: [
       {
-        image: rz85P3,
-        title: "Mechanical Dimension — 85\" 4K Modular Display",
-        caption: "ตัวเครื่อง 85\" 4K UHD — ขนาด 1954 × 1153 × 93 mm (กว้าง × สูง × ลึก) Active Area 1872 × 1053 mm น้ำหนักสุทธิ 63 kg / รวม 74 kg — ดีไซน์ Modular Smart Terminal สามารถเปลี่ยน OPS PC หรือ Android Module ได้ง่ายแบบ Plug-and-Play",
+        image: rz85DimFront,
+        title: "Mechanical Dimension — Front, Side & Top View",
+        caption: "แบบทางวิศวกรรม 85\" 4K UHD — ขนาดตัวเครื่อง 1953.6 × 1152.7 × 93 mm (กว้าง × สูง × ลึก) Active Area 1872 × 1053 mm — ตัวเครื่องบางเพียง 93 mm (ส่วนกลาง 52.9 mm / ขอบ 23.9 mm) เหมาะกับการติดตั้ง Wall-mount หรือ Floor-standing ในห้องประชุมขนาดใหญ่ Auditorium และพื้นที่สาธารณะ",
         callouts: [
-          { label: "ขนาดเครื่อง", value: "195.4 × 115.3 × 9.3 cm" },
-          { label: "Active Area", value: "1872 × 1053 mm" },
+          { label: "ขนาดภายนอก (W×H×D)", value: "1953.6 × 1152.7 × 93 mm" },
+          { label: "พื้นที่แสดงผล (Active Area)", value: "1872 × 1053 mm" },
+          { label: "ความหนาตัวเครื่อง", value: "93 mm (ขอบบาง 23.9 mm)" },
           { label: "น้ำหนักสุทธิ / รวม", value: "63 kg / 74 kg" },
-          { label: "ขนาดกล่อง", value: "200 × 129 × 21.5 cm" },
         ],
       },
       {
-        image: rz85Io,
-        title: "I/O Layout — RZ85B Series",
-        caption: "ผังพอร์ต I/O รวมของ RZ85B — ครอบคลุมทั้ง 3 Configuration (Monitor / Windows OPS / Android) — รองรับ HDMI, VGA, USB, RJ45, RS232, Audio, Touch out, AV in/out, Coaxial, RF",
+        image: rz85DimBack,
+        title: "VESA Mount Pattern — Rear View",
+        caption: "ผังจุดยึด VESA ด้านหลัง RZ85B — มาตรฐาน VESA 800 × 400 mm ใช้สกรู 4-M8 รองรับการติดตั้งกับ Wall Bracket, Floor Stand หรือ Mobile Stand สำหรับงาน Heavy-duty — โครงสร้างเหล็กเสริมแกร่งรองรับน้ำหนัก 63 kg พร้อมหูจับด้านข้างสำหรับการขนย้าย",
         callouts: [
-          { label: "Video", value: "HDMI in/out, VGA, AV in/out, Coaxial" },
-          { label: "USB / Touch", value: "USB ×6 (PC) / ×2 (Android), Touch out" },
-          { label: "Network", value: "RJ45 Gigabit / 10-100M + Wi-Fi 802.11ac" },
-          { label: "Serial / Audio", value: "RS232, MIC, Audio in/out, RF" },
+          { label: "VESA Pattern", value: "800 × 400 mm" },
+          { label: "ขนาดสกรูยึด", value: "4-M8" },
+          { label: "ระยะขอบบน → จุดยึด", value: "437 mm" },
+          { label: "รองรับการติดตั้ง", value: "Wall / Floor / Mobile Stand" },
         ],
       },
     ],
