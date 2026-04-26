@@ -405,12 +405,22 @@ export default function InteractiveDisplay() {
               const is238 = p.tags?.includes("23.8-inch") || p.slug === "interactive-kiosk-gd238c";
               const is27 = p.tags?.includes("27-inch") || ["interactive-display-hd27","interactive-kiosk-gd27c"].includes(p.slug);
               const is49 = p.tags?.includes("49-inch") || ["interactive-display-hr49","interactive-display-hd49"].includes(p.slug);
+              const is55 = p.tags?.includes("55-inch") || ["interactive-display-hd55","interactive-display-hr55"].includes(p.slug);
+              const is65 = p.tags?.includes("65-inch") || ["interactive-display-hd65","interactive-display-hr65","interactive-kiosk-rz65b"].includes(p.slug);
               const model49 = p.slug === "interactive-display-hd49" ? "hd49" : "hr49";
+              const model55 = p.slug === "interactive-display-hd55" ? "hd55" : "hr55";
+              const model65 =
+                p.slug === "interactive-display-hd65" ? "hd65" :
+                p.slug === "interactive-kiosk-rz65b" ? "rz65b" : "hr65";
               const model43 =
                 p.slug === "interactive-display-hr43" ? "hr43" :
                 p.slug === "interactive-kiosk-kd43b" ? "kd43b" : "hd43";
               const model27 = p.slug === "interactive-kiosk-gd27c" ? "gd27c" : "hd27";
-              const detailHref = is49
+              const detailHref = is65
+                ? `/products/displays-65?model=${model65}`
+                : is55
+                ? `/products/displays-55?model=${model55}`
+                : is49
                 ? `/products/displays-49?model=${model49}`
                 : is27
                 ? `/products/displays-27?model=${model27}`
@@ -421,35 +431,30 @@ export default function InteractiveDisplay() {
                 : is32
                 ? "/products/displays-32?model=hd32"
                 : `/products/${p.slug}`;
+              const cardImg = PRODUCT_IMAGES[p.slug] || p.image_url;
               return (
               <Card key={p.id} className="overflow-hidden hover:shadow-lg transition-shadow group">
                 <Link to={detailHref} className="block">
-                  <div className="aspect-[4/3] relative overflow-hidden bg-gradient-to-br from-[#0078D4] via-[#1a4a8a] to-[#3DDC84]">
-                    {/* Windows mesh */}
-                    <div
-                      className="absolute inset-0 opacity-30"
-                      style={{
-                        backgroundImage:
-                          "radial-gradient(circle at 20% 30%, rgba(255,255,255,0.35) 0%, transparent 45%), radial-gradient(circle at 80% 70%, rgba(61,220,132,0.45) 0%, transparent 50%)",
-                      }}
-                    />
-                    {/* Subtle grid */}
-                    <div
-                      className="absolute inset-0 opacity-[0.12]"
-                      style={{
-                        backgroundImage:
-                          "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
-                        backgroundSize: "32px 32px",
-                      }}
-                    />
+                  <div className="aspect-[4/3] relative overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900">
+                    {cardImg ? (
+                      <img
+                        src={cardImg}
+                        alt={`${p.model} ${p.name}`}
+                        loading="lazy"
+                        className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <>
+                        <div className="absolute inset-0 bg-gradient-to-br from-[#0078D4] via-[#1a4a8a] to-[#3DDC84]" />
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <Monitor className="h-24 w-24 text-white/85 drop-shadow-lg group-hover:scale-110 transition-transform duration-300" strokeWidth={1.25} />
+                        </div>
+                      </>
+                    )}
                     {/* OS chips */}
                     <div className="absolute top-3 right-3 flex gap-1.5 z-10">
                       <span className="px-2 py-0.5 rounded-full bg-white/95 text-[10px] font-bold text-[#0078D4] shadow-sm">Windows</span>
                       <span className="px-2 py-0.5 rounded-full bg-[#3DDC84] text-[10px] font-bold text-[#0a3d1f] shadow-sm">Android</span>
-                    </div>
-                    {/* Monitor silhouette */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <Monitor className="h-24 w-24 text-white/85 drop-shadow-lg group-hover:scale-110 transition-transform duration-300" strokeWidth={1.25} />
                     </div>
                     <Badge className="absolute top-3 left-3 z-10" variant="secondary">{p.model}</Badge>
                   </div>
