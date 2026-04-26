@@ -21,6 +21,7 @@ import hr65Install2 from "@/assets/touchwo/hr65/install-2.png";
 import hr65Feat1 from "@/assets/touchwo/hr65/feat-1.png";
 import hr65Feat2 from "@/assets/touchwo/hr65/feat-2.png";
 import hr65Feat3 from "@/assets/touchwo/hr65/feat-3.png";
+import hr65DimBack from "@/assets/touchwo/hr65/dim-back.png";
 
 import rz65Monitor from "@/assets/touchwo/rz65b/p-monitor.jpg";
 import rz65Windows from "@/assets/touchwo/rz65b/p-windows.jpg";
