@@ -17,6 +17,7 @@ import QuoteRequestButton from "@/components/QuoteRequestButton";
 import AddToCartButton from "@/components/AddToCartButton";
 import { LineQRDialog } from "@/components/LineQRDialog";
 import heroImg from "@/assets/interactive-display-hero.jpg";
+import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 
 // Use case images by screen size (small → large)
 import uc27 from "@/assets/usecase/uc-27-checkin.jpg";
