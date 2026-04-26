@@ -427,7 +427,7 @@ export default function InteractiveDisplay() {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/75 to-background/20" />
         </div>
-        <div className="relative z-10 container max-w-7xl mx-auto px-6 py-16 md:py-24">
+        <div className="relative z-10 container max-w-7xl mx-auto px-6 py-12 md:py-16">
           <Badge variant="secondary" className="mb-4">B2B • Enterprise Grade</Badge>
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight max-w-4xl">
             Interactive Touch Display
@@ -447,121 +447,6 @@ export default function InteractiveDisplay() {
               <MessageCircle className="mr-2 h-4 w-4" /> ปรึกษาผู้เชี่ยวชาญ
             </Button>
           </div>
-        </div>
-      </section>
-
-      {/* Features */}
-      <section className="container max-w-7xl mx-auto px-6 py-16">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold">ทำไม KIOSK สำเร็จรูปของเราถึงต่าง</h2>
-          <p className="text-muted-foreground mt-3">ครบ จบในเครื่องเดียว — ไม่ต้องประกอบ ไม่มียอดขั้นต่ำ ทุกองค์กรเป็นเจ้าของได้</p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {FEATURES.map((f, idx) => {
-            const gradients = [
-              "bg-gradient-to-br from-primary/10 via-primary/5 to-transparent",
-              "bg-gradient-to-br from-sky-500/10 via-sky-500/5 to-transparent",
-              "bg-gradient-to-br from-emerald-500/10 via-emerald-500/5 to-transparent",
-              "bg-gradient-to-br from-violet-500/10 via-violet-500/5 to-transparent",
-              "bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent",
-              "bg-gradient-to-br from-rose-500/10 via-rose-500/5 to-transparent",
-              "bg-gradient-to-br from-cyan-500/10 via-cyan-500/5 to-transparent",
-              "bg-gradient-to-br from-fuchsia-500/10 via-fuchsia-500/5 to-transparent",
-              "bg-gradient-to-br from-teal-500/10 via-teal-500/5 to-transparent",
-            ];
-            return (
-              <Card key={f.title} className={`border-border hover:border-primary/50 transition-all hover:shadow-md ${gradients[idx % gradients.length]}`}>
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="rounded-lg bg-background/70 backdrop-blur-sm p-2.5 shadow-sm">
-                      <f.icon className="h-5 w-5 text-primary" />
-                    </div>
-                    <h3 className="font-semibold">{f.title}</h3>
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Use cases */}
-      <section className="border-y border-border bg-muted/30">
-        <div className="container max-w-7xl mx-auto px-6 py-16">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold">ใช้งานได้หลากหลาย</h2>
-            <p className="text-muted-foreground mt-3">3 กลุ่มเป้าหมายหลักที่ลูกค้าเลือกใช้งาน</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {USE_CASES.map((u) => (
-              <Card key={u.title} className="bg-background">
-                <CardContent className="p-6">
-                  <div className="rounded-lg bg-primary/10 p-3 w-fit mb-4">
-                    <u.icon className="h-6 w-6 text-primary" />
-                  </div>
-                  <h3 className="text-lg font-semibold mb-2">{u.title}</h3>
-                  <p className="text-sm text-muted-foreground mb-4">{u.desc}</p>
-                  <ul className="space-y-1.5">
-                    {u.bullets.map(b => (
-                      <li key={b} className="text-sm flex items-center gap-2">
-                        <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Use cases by screen size */}
-      <section className="container max-w-7xl mx-auto px-6 py-16">
-        <div className="text-center mb-10">
-          <Badge variant="outline" className="mb-3">Use Case ตามขนาดจอ</Badge>
-          <h2 className="text-3xl md:text-4xl font-bold">เลือกขนาดให้เหมาะกับการใช้งานจริง</h2>
-          <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
-            ตัวอย่างการนำจอแต่ละขนาดไปใช้งานในสถานการณ์จริง — จากเคาน์เตอร์เล็กถึงห้องประชุม / Control Room
-          </p>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {SIZE_USE_CASES.map((uc) => (
-            <Card key={uc.size + uc.title} className="overflow-hidden border-border hover:border-primary/50 hover:shadow-lg transition-all group">
-              <div className="aspect-[4/3] relative overflow-hidden bg-muted">
-                <img
-                  src={uc.img}
-                  alt={`${uc.size} — ${uc.title}`}
-                  loading="lazy"
-                  width={1280}
-                  height={896}
-                  className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                <Badge className="absolute top-3 left-3 z-10 text-sm font-bold px-3 py-1">{uc.size}</Badge>
-                <div className="absolute bottom-3 left-3 right-3 z-10">
-                  <h3 className="text-white font-semibold text-lg drop-shadow-md">{uc.title}</h3>
-                </div>
-              </div>
-              <CardContent className="p-5">
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">{uc.desc}</p>
-                <div className="flex flex-wrap gap-2 pt-3 border-t border-border">
-                  <span className="text-xs text-muted-foreground self-center mr-1">รุ่นแนะนำ:</span>
-                  {uc.products.map((pr) => (
-                    <Link
-                      key={pr.href}
-                      to={pr.href}
-                      className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-primary/80 hover:underline underline-offset-4 transition-colors"
-                    >
-                      {pr.label}
-                      <ArrowRight className="h-3 w-3" />
-                    </Link>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
         </div>
       </section>
 
@@ -701,6 +586,54 @@ export default function InteractiveDisplay() {
         )}
       </section>
 
+      {/* Use cases by screen size */}
+      <section className="container max-w-7xl mx-auto px-6 py-16">
+        <div className="text-center mb-10">
+          <Badge variant="outline" className="mb-3">Use Case ตามขนาดจอ</Badge>
+          <h2 className="text-3xl md:text-4xl font-bold">เลือกขนาดให้เหมาะกับการใช้งานจริง</h2>
+          <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
+            ตัวอย่างการนำจอแต่ละขนาดไปใช้งานในสถานการณ์จริง — จากเคาน์เตอร์เล็กถึงห้องประชุม / Control Room
+          </p>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {SIZE_USE_CASES.map((uc) => (
+            <Card key={uc.size + uc.title} className="overflow-hidden border-border hover:border-primary/50 hover:shadow-lg transition-all group">
+              <div className="aspect-[4/3] relative overflow-hidden bg-muted">
+                <img
+                  src={uc.img}
+                  alt={`${uc.size} — ${uc.title}`}
+                  loading="lazy"
+                  width={1280}
+                  height={896}
+                  className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                <Badge className="absolute top-3 left-3 z-10 text-sm font-bold px-3 py-1">{uc.size}</Badge>
+                <div className="absolute bottom-3 left-3 right-3 z-10">
+                  <h3 className="text-white font-semibold text-lg drop-shadow-md">{uc.title}</h3>
+                </div>
+              </div>
+              <CardContent className="p-5">
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4">{uc.desc}</p>
+                <div className="flex flex-wrap gap-2 pt-3 border-t border-border">
+                  <span className="text-xs text-muted-foreground self-center mr-1">รุ่นแนะนำ:</span>
+                  {uc.products.map((pr) => (
+                    <Link
+                      key={pr.href}
+                      to={pr.href}
+                      className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-primary/80 hover:underline underline-offset-4 transition-colors"
+                    >
+                      {pr.label}
+                      <ArrowRight className="h-3 w-3" />
+                    </Link>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
+
       {/* Accessories */}
       <section className="border-t border-border bg-gradient-to-br from-primary/5 via-background to-background">
         <div className="container max-w-7xl mx-auto px-6 py-16">
@@ -789,6 +722,73 @@ export default function InteractiveDisplay() {
                 <Boxes className="mr-2 h-4 w-4" /> ดู Accessories ทั้งหมด
               </Link>
             </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="container max-w-7xl mx-auto px-6 py-16">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl md:text-4xl font-bold">ทำไม KIOSK สำเร็จรูปของเราถึงต่าง</h2>
+          <p className="text-muted-foreground mt-3">ครบ จบในเครื่องเดียว — ไม่ต้องประกอบ ไม่มียอดขั้นต่ำ ทุกองค์กรเป็นเจ้าของได้</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {FEATURES.map((f, idx) => {
+            const gradients = [
+              "bg-gradient-to-br from-primary/10 via-primary/5 to-transparent",
+              "bg-gradient-to-br from-sky-500/10 via-sky-500/5 to-transparent",
+              "bg-gradient-to-br from-emerald-500/10 via-emerald-500/5 to-transparent",
+              "bg-gradient-to-br from-violet-500/10 via-violet-500/5 to-transparent",
+              "bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent",
+              "bg-gradient-to-br from-rose-500/10 via-rose-500/5 to-transparent",
+              "bg-gradient-to-br from-cyan-500/10 via-cyan-500/5 to-transparent",
+              "bg-gradient-to-br from-fuchsia-500/10 via-fuchsia-500/5 to-transparent",
+              "bg-gradient-to-br from-teal-500/10 via-teal-500/5 to-transparent",
+            ];
+            return (
+              <Card key={f.title} className={`border-border hover:border-primary/50 transition-all hover:shadow-md ${gradients[idx % gradients.length]}`}>
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="rounded-lg bg-background/70 backdrop-blur-sm p-2.5 shadow-sm">
+                      <f.icon className="h-5 w-5 text-primary" />
+                    </div>
+                    <h3 className="font-semibold">{f.title}</h3>
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Use cases */}
+      <section className="border-y border-border bg-muted/30">
+        <div className="container max-w-7xl mx-auto px-6 py-16">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold">ใช้งานได้หลากหลาย</h2>
+            <p className="text-muted-foreground mt-3">3 กลุ่มเป้าหมายหลักที่ลูกค้าเลือกใช้งาน</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {USE_CASES.map((u) => (
+              <Card key={u.title} className="bg-background">
+                <CardContent className="p-6">
+                  <div className="rounded-lg bg-primary/10 p-3 w-fit mb-4">
+                    <u.icon className="h-6 w-6 text-primary" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">{u.title}</h3>
+                  <p className="text-sm text-muted-foreground mb-4">{u.desc}</p>
+                  <ul className="space-y-1.5">
+                    {u.bullets.map(b => (
+                      <li key={b} className="text-sm flex items-center gap-2">
+                        <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
