@@ -128,7 +128,7 @@ export function DatasheetButton({
           rel="noopener noreferrer"
           aria-label={`ดาวน์โหลด Datasheet ${productModel} (PDF)`}
         >
-          <FileText className={iconOnly ? "h-4 w-4" : "h-4 w-4 mr-1.5"} />
+          <Download className={iconOnly ? "h-4 w-4" : "h-4 w-4 mr-1.5"} />
           {!iconOnly && "Datasheet (PDF)"}
         </a>
       </Button>
@@ -146,7 +146,7 @@ export function DatasheetButton({
           title={iconOnly ? `Datasheet ${productModel} (PDF)` : undefined}
           aria-label={iconOnly ? `Datasheet ${productModel} (PDF)` : undefined}
         >
-          <FileText className={iconOnly ? "h-4 w-4" : "h-4 w-4 mr-1.5"} />
+          <Download className={iconOnly ? "h-4 w-4" : "h-4 w-4 mr-1.5"} />
           {!iconOnly && "Datasheet (PDF) ▾"}
         </Button>
       </DropdownMenuTrigger>
