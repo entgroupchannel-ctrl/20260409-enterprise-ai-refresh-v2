@@ -396,12 +396,12 @@ export default function InteractiveDisplay() {
         <div className="absolute inset-0 -z-10">
           <img
             src={heroImg}
-            alt="Interactive Touch Display in modern conference room"
-            className="h-full w-full object-cover opacity-25"
-            width={1600}
-            height={900}
+            alt="คนไทยใช้งานตู้ KIOSK ในห้างสรรพสินค้า"
+            className="h-full w-full object-cover"
+            width={1920}
+            height={1080}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/40" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-background/30" />
         </div>
         <div className="container max-w-7xl mx-auto px-6 py-16 md:py-24">
           <Badge variant="secondary" className="mb-4">B2B • Enterprise Grade</Badge>
