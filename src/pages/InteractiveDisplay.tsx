@@ -393,6 +393,17 @@ const EXTRA_PRODUCTS: Product[] = [
     image_url: null,
     tags: ["15.6-inch", "kiosk", "floor-stand", "pcap", "fhd"],
   },
+  {
+    id: "extra-kd215b",
+    sku: "KD215B",
+    model: "KD215B",
+    name: 'Interactive Touch Kiosk KD215B — 21.5" Floor Stand',
+    description: '21.5" FHD Floor-Stand Kiosk — Monitor / Android (RK3568/3288/3588) / Windows x86 (J6412/i5/i7) พร้อม Replaceable Front Panel + Peripherals ครบชุด',
+    slug: "interactive-kiosk-kd215b",
+    form_factor: "Floor Stand Kiosk",
+    image_url: null,
+    tags: ["21.5-inch", "kiosk", "floor-stand", "pcap", "fhd"],
+  },
 ];
 
 const FEATURES = [
@@ -551,6 +562,7 @@ export default function InteractiveDisplay() {
               const is86 = p.tags?.includes("86-inch") || p.slug === "interactive-kiosk-rz86b";
               const is98 = p.tags?.includes("98-inch") || p.slug === "interactive-kiosk-rz98b";
               const is156 = p.tags?.includes("15.6-inch") || ["interactive-kiosk-kd156b","interactive-display-kd156b"].includes(p.slug);
+              const is215 = p.tags?.includes("21.5-inch") || ["interactive-kiosk-kd215b","interactive-display-kd215b"].includes(p.slug);
               const model49 = p.slug === "interactive-display-hd49" ? "hd49" : "hr49";
               const model55 = p.slug === "interactive-display-hd55" ? "hd55" : "hr55";
               const model65 =
@@ -584,6 +596,8 @@ export default function InteractiveDisplay() {
                 ? `/products/displays-32?model=${model32}`
                 : is156
                 ? `/products/displays-15.6?model=kd156b`
+                : is215
+                ? `/products/displays-21.5?model=kd215b`
                 : `/products/${p.slug}`;
               const cardImg = PRODUCT_IMAGES[p.slug] || p.image_url;
               return (
