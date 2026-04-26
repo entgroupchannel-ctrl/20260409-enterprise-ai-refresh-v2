@@ -349,9 +349,6 @@ export default function InteractiveDisplay() {
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/40" />
         </div>
         <div className="container max-w-7xl mx-auto px-6 py-16 md:py-24">
-          <Link to="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6">
-            <ArrowLeft className="h-4 w-4" /> กลับหน้าหลัก
-          </Link>
           <Badge variant="secondary" className="mb-4">B2B • Enterprise Grade</Badge>
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight max-w-4xl">
             Interactive Touch Display
