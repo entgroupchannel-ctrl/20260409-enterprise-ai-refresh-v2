@@ -546,6 +546,7 @@ export default function InteractiveDisplay() {
               const is85 = p.tags?.includes("85-inch") || p.slug === "interactive-kiosk-rz85b";
               const is86 = p.tags?.includes("86-inch") || p.slug === "interactive-kiosk-rz86b";
               const is98 = p.tags?.includes("98-inch") || p.slug === "interactive-kiosk-rz98b";
+              const is156 = p.tags?.includes("15.6-inch") || ["interactive-kiosk-kd156b","interactive-display-kd156b"].includes(p.slug);
               const model49 = p.slug === "interactive-display-hd49" ? "hd49" : "hr49";
               const model55 = p.slug === "interactive-display-hd55" ? "hd55" : "hr55";
               const model65 =
