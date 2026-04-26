@@ -13,7 +13,6 @@ import { OS_BACKGROUNDS } from "./displays-32";
 
 import hd55P1 from "@/assets/touchwo/hd55/55-1A.jpg";
 import hd55P2 from "@/assets/touchwo/hd55/55-2A.jpg";
-import hd55P3 from "@/assets/touchwo/hd55/55-3.jpg";
 import hd55P4 from "@/assets/touchwo/hd55/55-4.jpg";
 import hd55P5 from "@/assets/touchwo/hd55/55-5A-1.jpg";
 import hd55P6 from "@/assets/touchwo/hd55/55-6A.jpg";
@@ -29,10 +28,11 @@ import hd55Install2 from "@/assets/touchwo/hd55/install-2.jpg";
 import hd55Install3 from "@/assets/touchwo/hd55/install-3.jpg";
 import hd55Pos1 from "@/assets/touchwo/hd55/pos-1.jpg";
 import hd55Pos2 from "@/assets/touchwo/hd55/pos-2.png";
+import hd55DimFront from "@/assets/touchwo/hd55/dim-front.png";
+import hd55DimBack from "@/assets/touchwo/hd55/dim-back.png";
 
 import hr55P1 from "@/assets/touchwo/hr55/p-1.jpg";
 import hr55P2 from "@/assets/touchwo/hr55/p-2.jpg";
-import hr55P3 from "@/assets/touchwo/hr55/p-3.jpg";
 import hr55P4 from "@/assets/touchwo/hr55/p-4.jpg";
 import hr55P5 from "@/assets/touchwo/hr55/p-5.jpg";
 import hr55P6 from "@/assets/touchwo/hr55/p-6.jpg";
@@ -43,6 +43,8 @@ import hr55Install2 from "@/assets/touchwo/hr55/install-2.png";
 import hr55Feat1 from "@/assets/touchwo/hr55/feat-1.png";
 import hr55Feat2 from "@/assets/touchwo/hr55/feat-2.png";
 import hr55Feat3 from "@/assets/touchwo/hr55/feat-3.png";
+import hr55DimFront from "@/assets/touchwo/hr55/dim-front.png";
+import hr55DimBack from "@/assets/touchwo/hr55/dim-back.png";
 
 export type Display55Slug = "hd55" | "hr55";
 export { OS_BACKGROUNDS };
@@ -84,21 +86,33 @@ export const DISPLAYS_55: Record<Display55Slug, Display32> = {
     useCases: ["QSR / Self-order Counter", "Retail / POS Self-checkout", "Hotel / Lobby Self-service", "Smart Restaurant Menu"],
     useCaseScenarios: [],
     gallery: [
-      hd55P1, hd55P2, hd55P3, hd55P4, hd55P5, hd55P6, hd55P7,
+      hd55P1, hd55P2, hd55P4, hd55P5, hd55P6, hd55P7,
     ],
     ioImage: hd55Io,
     installImages: [hd55Install1, hd55Install2, hd55Install3],
     featureImages: [hd55Hero, hd55Pos1, hd55Pos2],
     dimensionDrawings: [
       {
-        image: hd55P3,
-        title: "Mechanical Dimension — Slim Profile",
-        caption: "ตัวเครื่อง 55\" ดีไซน์ Ultra-slim — ขนาด 1264 × 734.8 × 76.7 mm (กว้าง × สูง × ลึก) Bezel เพียง 13mm Active Area 1213.6 × 684.4 mm น้ำหนักสุทธิ 30 kg — บางและเบาเหมาะกับงาน Embedded หรือ Wall Mount ในงานตกแต่งภายในที่ต้องการความเรียบหรู",
+        image: hd55DimFront,
+        title: "Mechanical Dimension — Front / Side / Top View",
+        caption: "แบบทางวิศวกรรมด้าน Front / Side / Top — ขนาดตัวเครื่องโดยรวม 1264 × 734.8 mm หน้าจอแสดงผล (Active Area) 1213.6 × 684.4 mm Bezel เพียง 25.2 mm รอบด้าน — มุมโค้ง R11 ตัวเครื่องบาง ด้านข้างมีพอร์ต I/O และปุ่มควบคุม ขอบล่างมีลำโพง + ช่องระบายความร้อน เหมาะกับงาน Wall mount / Embedded ที่ต้องการความเรียบหรู",
         callouts: [
-          { label: "ขนาดเครื่อง", value: "1264 × 734.8 × 76.7 mm" },
+          { label: "ขนาดเครื่อง (W×H)", value: "1264 × 734.8 mm" },
           { label: "Active Area", value: "1213.6 × 684.4 mm" },
-          { label: "Bezel", value: "13 mm (-53% vs ทั่วไป)" },
-          { label: "น้ำหนักสุทธิ / รวม", value: "30 kg / 35 kg" },
+          { label: "Bezel รอบด้าน", value: "25.2 mm" },
+          { label: "มุมโค้ง", value: "4-R11 (Round Corner)" },
+          { label: "ความหนาเครื่อง", value: "76.65 mm (รวมฐาน 93.19 mm)" },
+        ],
+      },
+      {
+        image: hd55DimBack,
+        title: "VESA Mount Pattern — Rear View",
+        caption: "แบบทางวิศวกรรมด้านหลัง — รองรับ VESA Mount มาตรฐาน 400 × 400 mm พร้อมจุดยึดเสริม 432 × 232.4 mm สำหรับ Bracket แบบพิเศษ ใช้น็อต M6 จำนวน 4 ตัว (4-M6) — ด้านหลังมีช่องระบายความร้อนกว้างพร้อมโครงสร้างเหล็กรับน้ำหนัก รองรับการติดตั้งแบบ Wall mount / Floor stand / Mobile cart ตามมาตรฐานอุตสาหกรรม",
+        callouts: [
+          { label: "VESA Standard", value: "400 × 400 mm" },
+          { label: "VESA Extended", value: "432 × 232.4 mm" },
+          { label: "ขนาดน็อต", value: "M6 × 4 ตัว (4-M6)" },
+          { label: "ติดตั้งได้", value: "Wall / Floor / Mobile / Embedded" },
         ],
       },
       {
@@ -308,21 +322,34 @@ export const DISPLAYS_55: Record<Display55Slug, Display32> = {
     useCases: ["Education / Smart Classroom", "Corporate Boardroom", "Public Self-Service Kiosk", "Digital Signage / Wayfinding"],
     useCaseScenarios: [],
     gallery: [
-      hr55P1, hr55P2, hr55P3, hr55P4, hr55P5, hr55P6, hr55P7,
+      hr55P1, hr55P2, hr55P4, hr55P5, hr55P6, hr55P7,
     ],
     ioImage: hr55Io,
     installImages: [hr55Install1, hr55Install2],
     featureImages: [hr55Feat1, hr55Feat2, hr55Feat3],
     dimensionDrawings: [
       {
-        image: hr55P3,
-        title: "Mechanical Dimension — Unibody Slim Profile",
-        caption: "ตัวเครื่อง 55\" ดีไซน์ Unibody — ขนาด 1363 × 734 × 60 mm (กว้าง × สูง × ลึก) Active Area 1211 × 652 mm น้ำหนักสุทธิ 31.4 kg (Monitor) / 31.7 kg (PC/Android) — โครงสร้าง Aluminum Alloy + Sheet-metal ขึ้นรูปชิ้นเดียว ทนทาน Vandal-proof เหมาะกับงาน Public Self-service และ Education",
+        image: hr55DimFront,
+        title: "Mechanical Dimension — Front / Side / Top View",
+        caption: "แบบทางวิศวกรรมด้าน Front / Side / Top — ตัวเครื่อง 55\" ดีไซน์ Unibody Aluminum + Sheet-metal ขนาดหน้าจอแสดงผล (Active Area) 1213.6 × 684.4 mm Bezel 25.2 mm มุมโค้ง R11 — โครงสร้างขึ้นรูปชิ้นเดียว ด้านบนมีลำโพง + ช่องระบายความร้อน ด้านข้างมีพอร์ต I/O รองรับการติดตั้งแบบ Wall mount / Mobile stand เหมาะกับงาน Public Self-service ที่ต้องการความทนทาน Vandal-proof",
         callouts: [
-          { label: "ขนาดเครื่อง", value: "1363 × 734 × 60 mm" },
-          { label: "Active Area", value: "1211 × 652 mm" },
+          { label: "Active Area", value: "1213.6 × 684.4 mm" },
+          { label: "Bezel รอบด้าน", value: "25.2 mm" },
+          { label: "มุมโค้ง", value: "4-R11 (Round Corner)" },
+          { label: "Construction", value: "Unibody Aluminum + Sheet-metal" },
           { label: "Profile", value: "Slim 6 cm Unibody" },
-          { label: "น้ำหนักสุทธิ / รวม", value: "31.4–31.7 kg / 39.5–39.8 kg" },
+        ],
+      },
+      {
+        image: hr55DimBack,
+        title: "VESA Mount Pattern — Rear View",
+        caption: "แบบทางวิศวกรรมด้านหลัง — รองรับ VESA Mount มาตรฐาน 400 × 400 mm พร้อมจุดยึดเสริม 432 × 232.4 mm สำหรับ Bracket แบบพิเศษ ใช้น็อต M6 จำนวน 4 ตัว (4-M6) — ด้านหลัง Laser-cut Backplate เคลือบกันสึก/กันสนิม พร้อมช่องระบายความร้อนและช่องใส่ OPS Slot รองรับการอัปเกรด PC ในอนาคต",
+        callouts: [
+          { label: "VESA Standard", value: "400 × 400 mm" },
+          { label: "VESA Extended", value: "432 × 232.4 mm" },
+          { label: "ขนาดน็อต", value: "M6 × 4 ตัว (4-M6)" },
+          { label: "Backplate", value: "Laser-cut + Wear/Corrosion-proof" },
+          { label: "PC Slot", value: "OPS Architecture (Upgradable)" },
         ],
       },
       {
