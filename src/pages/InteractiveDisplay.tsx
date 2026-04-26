@@ -146,6 +146,8 @@ const PRODUCT_IMAGES: Record<string, string> = {
   "interactive-kiosk-rz86b": imgRz86b,
   "interactive-kiosk-rz98b": imgRz98b,
   "interactive-kiosk-gd238c": imgGd238c,
+  "interactive-display-kd156b": imgKd156b,
+  "interactive-kiosk-kd156b": imgKd156b,
 };
 
 // ลำดับการแสดงผล: เริ่มจาก 27" → 32" → 43" → 49" → 55" → 65" → 23.8"
