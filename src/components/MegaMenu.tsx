@@ -167,7 +167,7 @@ const menuCategories = [
         heading: "Indoor Display",
         links: [
           { label: "Digital Signage 35\"–75\"", href: "/smart-display", hot: true },
-          { label: "Interactive Touch Display 27\"–98\"", href: "/interactive-display", new2026: true },
+          { label: "Interactive Touch Display 27\"–98\" + 23.8\" Kiosk", href: "/interactive-display", new2026: true },
           { label: "Stretched Bar Display", href: "/smart-display" },
           { label: "Standing Kiosk", href: "/smart-display?tab=kiosk" },
           { label: "TouchWork Series (Indoor 8\"–21.5\")", href: "/touchwork", new2026: true },

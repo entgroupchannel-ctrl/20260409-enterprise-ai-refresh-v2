@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowLeft, Monitor, Hand, ShieldCheck, Zap, Sun, Maximize2,
-  Building2, GraduationCap, Factory, Sparkles, Phone, MessageCircle
+  Building2, GraduationCap, Factory, Sparkles, Phone, MessageCircle,
+  PackageCheck, Boxes, Ruler, BadgeCheck
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import SEOHead from "@/components/SEOHead";
@@ -88,7 +89,6 @@ type Product = {
 
 const SIZE_FILTERS = [
   { label: "ทั้งหมด", value: "all" },
-  { label: '23.8"', value: "23.8" },
   { label: '27"', value: "27" },
   { label: '32"', value: "32" },
   { label: '43"', value: "43" },
@@ -99,6 +99,7 @@ const SIZE_FILTERS = [
   { label: '85"', value: "85" },
   { label: '86"', value: "86" },
   { label: '98"', value: "98" },
+  { label: '23.8" Kiosk', value: "23.8" },
 ];
 
 // Series ที่มีหน้ารายละเอียดเฉพาะ (Android/x86/Monitor variants) แต่ยังไม่ถูก seed ลง DB
@@ -260,12 +261,12 @@ const EXTRA_PRODUCTS: Product[] = [
 ];
 
 const FEATURES = [
-  { icon: Hand, title: "10-Point Multi-Touch", desc: "IR Touch รุ่น 7 ตอบสนอง <5ms รองรับการเขียน-วาด-สัมผัสพร้อมกัน 10 จุด" },
-  { icon: ShieldCheck, title: "IP65 Vandal-Proof", desc: "กระจกนิรภัย 4mm ทนการกระแทก กันน้ำ-ฝุ่นระดับอุตสาหกรรม" },
-  { icon: Sun, title: "Sunlight-Readable", desc: "Anti-glare ความสว่างสูง มองเห็นชัดแม้ในพื้นที่แสงจ้า" },
-  { icon: Zap, title: "Plug-and-Play", desc: "เสียบใช้งานได้ทันที พร้อม Auto Power Management ประหยัดพลังงาน" },
-  { icon: Maximize2, title: "Wall / Floor / Embedded", desc: "ติดตั้งได้หลายรูปแบบ — ผนัง, ขาตั้งพื้น, ฝังในเฟอร์นิเจอร์" },
-  { icon: Sparkles, title: "30,000-hr Lifespan", desc: "หน้าจอ LCD เกรดอุตสาหกรรม อายุการใช้งานยาวนานกว่า 3 ปี 24/7" },
+  { icon: PackageCheck, title: "KIOSK สำเร็จรูป พร้อมใช้งาน", desc: "ครบทั้งจอ + คอมพิวเตอร์ + OS ในเครื่องเดียว เปิดกล่อง เสียบปลั๊ก ใช้งานได้ทันที ไม่ต้องประกอบเอง" },
+  { icon: Boxes, title: "ไม่มียอดขั้นต่ำ (No MOQ)", desc: "สั่งซื้อ 1 เครื่องก็ได้ ทุกองค์กรเป็นเจ้าของได้ ไม่ว่าจะ SME, ร้านค้า, โรงเรียน หรือองค์กรขนาดใหญ่" },
+  { icon: Ruler, title: "11 ขนาด ตั้งแต่ 23.8\" – 98\"", desc: "เลือกขนาดได้ครบ — เคาน์เตอร์เล็ก, ห้องประชุม, ออดิทอเรียม, จุดบริการลูกค้า ทุก use case มีรุ่นที่ใช่" },
+  { icon: Hand, title: "PCAP / IR Touch 10 จุด", desc: "หน้าจอสัมผัสเกรดอุตสาหกรรม ตอบสนอง <5ms รองรับเขียน-วาด-สัมผัสพร้อมกัน 10 จุด" },
+  { icon: ShieldCheck, title: "กระจกนิรภัย Mohs 7", desc: "ทนการกระแทก กันรอยขีดข่วน เกรด IP65 ใช้งานได้ในพื้นที่สาธารณะและสภาพแวดล้อมหนัก" },
+  { icon: BadgeCheck, title: "รับประกัน On-site 24 เดือน", desc: "บริการหลังการขายโดยทีมวิศวกรในประเทศไทย พร้อมอะไหล่สำรอง — ใช้งาน 24/7 ได้อย่างมั่นใจ" },
 ];
 
 const USE_CASES = [
@@ -376,8 +377,8 @@ export default function InteractiveDisplay() {
       {/* Features */}
       <section className="container max-w-7xl mx-auto px-6 py-16">
         <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold">ทำไมต้องเลือก Interactive Touch Display</h2>
-          <p className="text-muted-foreground mt-3">มาตรฐานอุตสาหกรรม ทนทาน พร้อมใช้งานต่อเนื่อง 24/7</p>
+          <h2 className="text-3xl md:text-4xl font-bold">ทำไม KIOSK สำเร็จรูปของเราถึงต่าง</h2>
+          <p className="text-muted-foreground mt-3">ครบ จบในเครื่องเดียว — ไม่ต้องประกอบ ไม่มียอดขั้นต่ำ ทุกองค์กรเป็นเจ้าของได้</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {FEATURES.map((f) => (
@@ -432,7 +433,7 @@ export default function InteractiveDisplay() {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold">เลือกขนาดที่เหมาะกับงานคุณ</h2>
-            <p className="text-muted-foreground mt-2">มี 7 ขนาด: 23.8", 27", 32", 43", 49", 55", 65"</p>
+            <p className="text-muted-foreground mt-2">มี 11 ขนาด: 27", 32", 43", 49", 55", 65", 75", 85", 86", 98" และ 23.8" Kiosk</p>
           </div>
           <div className="flex flex-wrap gap-2">
             {SIZE_FILTERS.map(f => (
