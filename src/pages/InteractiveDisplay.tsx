@@ -377,8 +377,8 @@ export default function InteractiveDisplay() {
       {/* Features */}
       <section className="container max-w-7xl mx-auto px-6 py-16">
         <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold">ทำไมต้องเลือก Interactive Touch Display</h2>
-          <p className="text-muted-foreground mt-3">มาตรฐานอุตสาหกรรม ทนทาน พร้อมใช้งานต่อเนื่อง 24/7</p>
+          <h2 className="text-3xl md:text-4xl font-bold">ทำไม KIOSK สำเร็จรูปของเราถึงต่าง</h2>
+          <p className="text-muted-foreground mt-3">ครบ จบในเครื่องเดียว — ไม่ต้องประกอบ ไม่มียอดขั้นต่ำ ทุกองค์กรเป็นเจ้าของได้</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {FEATURES.map((f) => (
