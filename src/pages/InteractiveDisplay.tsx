@@ -15,6 +15,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
 import AddToCartButton from "@/components/AddToCartButton";
+import { DatasheetButton, hasDatasheet } from "@/components/datasheet/DatasheetButton";
 import { LineQRDialog } from "@/components/LineQRDialog";
 import heroImg from "@/assets/interactive-display-hero.jpg";
 import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
@@ -578,6 +579,14 @@ export default function InteractiveDisplay() {
                       size="sm"
                       className="w-full"
                     />
+                    {hasDatasheet(p.model) && (
+                      <DatasheetButton
+                        productModel={p.model}
+                        variant="ghost"
+                        size="sm"
+                        className="w-full text-primary hover:bg-primary/5"
+                      />
+                    )}
                   </div>
                 </CardContent>
               </Card>

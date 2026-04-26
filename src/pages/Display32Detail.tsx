@@ -17,6 +17,7 @@ import ProductGalleryPortrait from "@/components/ProductGalleryPortrait";
 import { X, ChevronLeft, ChevronRight, Lightbulb, Sun } from "lucide-react";
 import sizeRoadmapImg from "@/assets/touchwo/size-roadmap.png";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
+import { DatasheetButton, hasDatasheet } from "@/components/datasheet/DatasheetButton";
 import { DISPLAYS_32, DISPLAY_32_ORDER, OS_BACKGROUNDS, type Display32, type Display32Slug, type OSKey } from "@/data/displays-32";
 import { DISPLAYS_43, DISPLAY_43_ORDER } from "@/data/displays-43";
 import { DISPLAYS_238, DISPLAY_238_ORDER } from "@/data/displays-238";
@@ -348,9 +349,17 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
                 productName={product.name}
 
               />
+              {hasDatasheet(product.modelCode) && (
+                <DatasheetButton
+                  productModel={product.modelCode}
+                  variant="default"
+                  size="default"
+                  fullWidth={false}
+                />
+              )}
               <Button variant="outline" asChild>
                 <a href={product.datasheetUrl} target="_blank" rel="noopener noreferrer">
-                  <Download className="h-4 w-4 mr-2" /> Datasheet
+                  <Download className="h-4 w-4 mr-2" /> Datasheet (Source)
                 </a>
               </Button>
               {product.dimensionUrl && (
