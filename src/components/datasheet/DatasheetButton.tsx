@@ -15,13 +15,13 @@ import {
  * Files served from /public/datasheets/ — fully public, no auth required.
  */
 const DATASHEETS: Record<string, string | { label: string; file: string }[]> = {
-  HD43: "HD43.pdf",
-  HR43: "HR43.pdf",
-  KD43B: "KD43B.pdf",
+  HD43: "ENTGROUP-HD43.pdf",
+  HR43: "ENTGROUP-HR43.pdf",
+  KD43B: "ENTGROUP-KD43B.pdf",
   HD55: [
-    { label: "HD55 Touch Monitor (no PC)", file: "HD55-Monitor.pdf" },
-    { label: "HD55 Windows / Linux (Intel x86)", file: "HD55-X86.pdf" },
-    { label: "HD55 Android (Rockchip ARM)", file: "HD55-ARM.pdf" },
+    { label: "HD55 Touch Monitor (no PC)", file: "ENTGROUP-HD55-Monitor.pdf" },
+    { label: "HD55 Windows / Linux (Intel x86)", file: "ENTGROUP-HD55-X86.pdf" },
+    { label: "HD55 Android (Rockchip ARM)", file: "ENTGROUP-HD55-ARM.pdf" },
   ],
 };
 
