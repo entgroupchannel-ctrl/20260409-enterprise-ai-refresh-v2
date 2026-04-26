@@ -389,7 +389,7 @@ export const DISPLAYS_49: Record<Display49Slug, Display32> = {
       { image: hr49UcBoardroom,  title: "Smart Restaurant / Showroom",   description: "แสดงเมนู/โปรโมชันในร้านอาหารหรือ Showroom — ภาพ FHD 300 cd/m² Contrast 1200:1 มุมมอง 178° ดูคมชัดทุกมุม Mohs 7 ทนการใช้งานหนัก" },
     ],
     gallery: [
-      hd49PMain, hd49PFront, hd49PSide, hd49PPortrait, hd49Hero, hd49P2, hd49P3,
+      hd49PMain, hd49PFront, hd49PSide, hd49PPortrait, hd49Hero, hd49P2,
     ],
     ioImage: hd49PSide,
     installImages: [hd49Install1, hd49Install2, hd49Install3],
