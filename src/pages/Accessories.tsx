@@ -35,6 +35,7 @@ interface Accessory {
 const ACCESSORIES: Accessory[] = [
   {
     id: "dm-open-frame",
+    sizeMin: 10.1, sizeMax: 10.1,
     title: "Open Frame Touch Monitor — DM Series",
     size: "10.1\"",
     image: dmMonitor,
@@ -47,6 +48,7 @@ const ACCESSORIES: Accessory[] = [
   },
   {
     id: "desktop-stand",
+    sizeMin: 15, sizeMax: 27,
     title: "Desktop Stand — ขาตั้งวางโต๊ะมาตรฐาน",
     size: "15\" – 27\"",
     image: desktopStand,
@@ -58,6 +60,7 @@ const ACCESSORIES: Accessory[] = [
   },
   {
     id: "foldable-stand",
+    sizeMin: 15, sizeMax: 23.8,
     title: "Foldable Stand — ขาตั้งพับเก็บได้",
     size: "15\" – 23.8\"",
     image: foldableStand,
@@ -69,6 +72,7 @@ const ACCESSORIES: Accessory[] = [
   },
   {
     id: "adjustable-arm",
+    sizeMin: 7, sizeMax: 23.8,
     title: "Adjustable Arm — แขนปรับระดับ",
     size: "7\" – 23.8\"",
     image: adjustableArm,
@@ -80,6 +84,7 @@ const ACCESSORIES: Accessory[] = [
   },
   {
     id: "wall-mount",
+    sizeMin: 5, sizeMax: 65,
     title: "Wall Mount — ขายึดผนัง",
     size: "5\" – 65\"",
     image: wallMount,
@@ -91,6 +96,7 @@ const ACCESSORIES: Accessory[] = [
   },
   {
     id: "l-shape-stand",
+    sizeMin: 15, sizeMax: 27,
     title: "L-Shape Stand — ขาตั้งทรง L",
     size: "15\" – 27\"",
     image: lShapeStand,
@@ -102,6 +108,7 @@ const ACCESSORIES: Accessory[] = [
   },
   {
     id: "designer-stand",
+    sizeMin: 32, sizeMax: 65,
     title: "Designer Stand — ขาตั้งดีไซน์เฉพาะตัว",
     size: "32\" – 65\"",
     image: designerStand,
@@ -113,6 +120,7 @@ const ACCESSORIES: Accessory[] = [
   },
   {
     id: "premium-stand",
+    sizeMin: 17, sizeMax: 32,
     title: "Premium Stand — ขาตั้งระดับพรีเมียม",
     size: "17\" – 32\"",
     image: premiumStand,
@@ -124,6 +132,7 @@ const ACCESSORIES: Accessory[] = [
   },
   {
     id: "aio-desktop-stand",
+    sizeMin: 15.6, sizeMax: 43,
     title: "All-Metal Desktop Stand — สำหรับ All-in-One (GD Series)",
     size: "15.6\" – 43\"",
     image: aioDesktopStand,
@@ -136,6 +145,7 @@ const ACCESSORIES: Accessory[] = [
   },
   {
     id: "aio-wall-mount",
+    sizeMin: 15.6, sizeMax: 43,
     title: "All-Metal Wall Mount — สำหรับ All-in-One (GD Series)",
     size: "15.6\" – 43\"",
     image: aioWallMount,
