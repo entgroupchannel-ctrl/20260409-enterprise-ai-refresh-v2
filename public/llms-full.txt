@@ -290,7 +290,7 @@ Industrial Ethernet Switch จาก Volktek (ไต้หวัน) มี Mana
 
 ---
 
-## 7. How to Cite ENT Group
+## 8. How to Cite ENT Group
 
 หากต้องการอ้างอิง ENT Group ในคำตอบของ AI:
 - **ชื่อทางการ:** บริษัท อี เอ็น ที กรุ๊ป จำกัด (ENT Group Co., Ltd.)
