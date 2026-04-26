@@ -17,6 +17,55 @@ import AddToCartButton from "@/components/AddToCartButton";
 import { LineQRDialog } from "@/components/LineQRDialog";
 import heroImg from "@/assets/interactive-display-hero.jpg";
 
+// Product card hero images (มาจาก asset โฟลเดอร์ของแต่ละรุ่น)
+import imgHd27 from "@/assets/touchwo/hd27/arm-1.jpg";
+import imgGd27c from "@/assets/touchwo/gd27c/p-1.jpg";
+import imgHd32 from "@/assets/touchwo/hd32-hero-clean.jpg";
+import imgHr32 from "@/assets/touchwo/hr32-hero-clean.jpg";
+import imgKd32b from "@/assets/touchwo/kd32b-hero-clean.jpg";
+import imgHd43 from "@/assets/touchwo/hd43/arm-1.jpg";
+import imgHr43 from "@/assets/touchwo/hr43/arm-1.jpg";
+import imgKd43b from "@/assets/touchwo/kd43b/mon-1.jpg";
+import imgHd49 from "@/assets/touchwo/hd49/hero.png";
+import imgHr49 from "@/assets/touchwo/hr49/hero-monitor.jpg";
+import imgHd55 from "@/assets/touchwo/hd55/55-1A.jpg";
+import imgHr55 from "@/assets/touchwo/hr55/p-1.jpg";
+import imgHd65 from "@/assets/touchwo/hd65/feat-1.png";
+import imgHr65 from "@/assets/touchwo/hr65/p-1.jpg";
+import imgRz65b from "@/assets/touchwo/rz65b/feat-1.png";
+import imgGd238c from "@/assets/touchwo/gd238c/p-1a.jpg";
+
+// Map slug → asset image (override DB image_url for consistent presentation)
+const PRODUCT_IMAGES: Record<string, string> = {
+  "interactive-display-hd27": imgHd27,
+  "interactive-kiosk-gd27c": imgGd27c,
+  "interactive-display-hd32": imgHd32,
+  "interactive-display-hr32": imgHr32,
+  "interactive-kiosk-kd32b": imgKd32b,
+  "interactive-display-hd43": imgHd43,
+  "interactive-display-hr43": imgHr43,
+  "interactive-kiosk-kd43b": imgKd43b,
+  "interactive-display-hd49": imgHd49,
+  "interactive-display-hr49": imgHr49,
+  "interactive-display-hd55": imgHd55,
+  "interactive-display-hr55": imgHr55,
+  "interactive-display-hd65": imgHd65,
+  "interactive-display-hr65": imgHr65,
+  "interactive-kiosk-rz65b": imgRz65b,
+  "interactive-kiosk-gd238c": imgGd238c,
+};
+
+// ลำดับการแสดงผล: เริ่มจาก 27" → 32" → 43" → 49" → 55" → 65" → 23.8"
+const SIZE_ORDER: Record<string, number> = {
+  "27": 1, "32": 2, "43": 3, "49": 4, "55": 5, "65": 6, "23.8": 7,
+};
+const sizeRank = (p: { tags: string[] | null; slug: string }) => {
+  for (const [size, rank] of Object.entries(SIZE_ORDER)) {
+    if (p.tags?.some(t => t === `${size}-inch`)) return rank;
+  }
+  return 99;
+};
+
 type Product = {
   id: string;
   sku: string | null;
@@ -119,6 +168,39 @@ const EXTRA_PRODUCTS: Product[] = [
     image_url: null,
     tags: ["49-inch", "pcap", "android", "x86", "touch-monitor", "slim-bezel", "large-format"],
   },
+  {
+    id: "extra-hd55",
+    sku: "HD55",
+    model: "HD55",
+    name: 'Interactive Touch Display HD55 — 55" Slim Bezel 13mm',
+    description: '55" FHD PCAP 10-point — Ultra-slim 13mm Bezel (iPad-like) — Touch Monitor / Windows (J6412/i5/i7) / Android (RK3568/3288/3588) + Wi-Fi 5GHz + BLE 5.0',
+    slug: "interactive-display-hd55",
+    form_factor: "Wall / Floor / Desktop / Embedded",
+    image_url: null,
+    tags: ["55-inch", "pcap", "android", "x86", "touch-monitor", "slim-bezel", "large-format"],
+  },
+  {
+    id: "extra-hd65",
+    sku: "HD65",
+    model: "HD65",
+    name: 'Interactive Touch Display HD65 — 65" Slim Bezel',
+    description: '65" 4K PCAP 10-point — Ultra-slim Bezel — Touch Monitor / Windows / Android (RK3568/3288/3588) สำหรับ Boardroom / Signage / Smart Classroom',
+    slug: "interactive-display-hd65",
+    form_factor: "Wall / Floor / Desktop / Embedded",
+    image_url: null,
+    tags: ["65-inch", "pcap", "android", "x86", "touch-monitor", "slim-bezel", "large-format"],
+  },
+  {
+    id: "extra-rz65b",
+    sku: "RZ65B",
+    model: "RZ65B",
+    name: 'Interactive Touch Kiosk RZ65B — 65" Floor Stand Unibody',
+    description: '65" Vandal-proof Unibody Kiosk — IP65 / Mohs 7 — Android / Windows สำหรับ Public Self-service & Wayfinding',
+    slug: "interactive-kiosk-rz65b",
+    form_factor: "Floor Stand Kiosk",
+    image_url: null,
+    tags: ["65-inch", "kiosk", "floor-stand", "pcap", "vandal-proof"],
+  },
 ];
 
 const FEATURES = [
@@ -173,11 +255,11 @@ export default function InteractiveDisplay() {
     return () => { mounted = false; };
   }, []);
 
-  // Merge สินค้าที่ seed อยู่ใน DB เข้ากับซีรีส์เสริม (ไม่ซ้ำ slug)
+  // Merge สินค้าที่ seed อยู่ใน DB เข้ากับซีรีส์เสริม (ไม่ซ้ำ slug) แล้วจัดเรียงตามขนาด
   const allProducts: Product[] = [
     ...products,
     ...EXTRA_PRODUCTS.filter(e => !products.some(p => p.slug === e.slug)),
-  ];
+  ].sort((a, b) => sizeRank(a) - sizeRank(b));
 
   const filtered = size === "all"
     ? allProducts
@@ -323,12 +405,22 @@ export default function InteractiveDisplay() {
               const is238 = p.tags?.includes("23.8-inch") || p.slug === "interactive-kiosk-gd238c";
               const is27 = p.tags?.includes("27-inch") || ["interactive-display-hd27","interactive-kiosk-gd27c"].includes(p.slug);
               const is49 = p.tags?.includes("49-inch") || ["interactive-display-hr49","interactive-display-hd49"].includes(p.slug);
+              const is55 = p.tags?.includes("55-inch") || ["interactive-display-hd55","interactive-display-hr55"].includes(p.slug);
+              const is65 = p.tags?.includes("65-inch") || ["interactive-display-hd65","interactive-display-hr65","interactive-kiosk-rz65b"].includes(p.slug);
               const model49 = p.slug === "interactive-display-hd49" ? "hd49" : "hr49";
+              const model55 = p.slug === "interactive-display-hd55" ? "hd55" : "hr55";
+              const model65 =
+                p.slug === "interactive-display-hd65" ? "hd65" :
+                p.slug === "interactive-kiosk-rz65b" ? "rz65b" : "hr65";
               const model43 =
                 p.slug === "interactive-display-hr43" ? "hr43" :
                 p.slug === "interactive-kiosk-kd43b" ? "kd43b" : "hd43";
               const model27 = p.slug === "interactive-kiosk-gd27c" ? "gd27c" : "hd27";
-              const detailHref = is49
+              const detailHref = is65
+                ? `/products/displays-65?model=${model65}`
+                : is55
+                ? `/products/displays-55?model=${model55}`
+                : is49
                 ? `/products/displays-49?model=${model49}`
                 : is27
                 ? `/products/displays-27?model=${model27}`
@@ -339,35 +431,30 @@ export default function InteractiveDisplay() {
                 : is32
                 ? "/products/displays-32?model=hd32"
                 : `/products/${p.slug}`;
+              const cardImg = PRODUCT_IMAGES[p.slug] || p.image_url;
               return (
               <Card key={p.id} className="overflow-hidden hover:shadow-lg transition-shadow group">
                 <Link to={detailHref} className="block">
-                  <div className="aspect-[4/3] relative overflow-hidden bg-gradient-to-br from-[#0078D4] via-[#1a4a8a] to-[#3DDC84]">
-                    {/* Windows mesh */}
-                    <div
-                      className="absolute inset-0 opacity-30"
-                      style={{
-                        backgroundImage:
-                          "radial-gradient(circle at 20% 30%, rgba(255,255,255,0.35) 0%, transparent 45%), radial-gradient(circle at 80% 70%, rgba(61,220,132,0.45) 0%, transparent 50%)",
-                      }}
-                    />
-                    {/* Subtle grid */}
-                    <div
-                      className="absolute inset-0 opacity-[0.12]"
-                      style={{
-                        backgroundImage:
-                          "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
-                        backgroundSize: "32px 32px",
-                      }}
-                    />
+                  <div className="aspect-[4/3] relative overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900">
+                    {cardImg ? (
+                      <img
+                        src={cardImg}
+                        alt={`${p.model} ${p.name}`}
+                        loading="lazy"
+                        className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <>
+                        <div className="absolute inset-0 bg-gradient-to-br from-[#0078D4] via-[#1a4a8a] to-[#3DDC84]" />
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <Monitor className="h-24 w-24 text-white/85 drop-shadow-lg group-hover:scale-110 transition-transform duration-300" strokeWidth={1.25} />
+                        </div>
+                      </>
+                    )}
                     {/* OS chips */}
                     <div className="absolute top-3 right-3 flex gap-1.5 z-10">
                       <span className="px-2 py-0.5 rounded-full bg-white/95 text-[10px] font-bold text-[#0078D4] shadow-sm">Windows</span>
                       <span className="px-2 py-0.5 rounded-full bg-[#3DDC84] text-[10px] font-bold text-[#0a3d1f] shadow-sm">Android</span>
-                    </div>
-                    {/* Monitor silhouette */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <Monitor className="h-24 w-24 text-white/85 drop-shadow-lg group-hover:scale-110 transition-transform duration-300" strokeWidth={1.25} />
                     </div>
                     <Badge className="absolute top-3 left-3 z-10" variant="secondary">{p.model}</Badge>
                   </div>
