@@ -152,12 +152,7 @@ export default function TouchWork() {
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border/40 bg-gradient-to-br from-primary/10 via-background to-background">
         <div className="container max-w-7xl mx-auto px-6 py-12 md:py-16">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6"
-          >
-            <ArrowLeft className="h-4 w-4" /> กลับหน้าแรก
-          </Link>
+
 
           <div className="max-w-4xl">
             <Badge variant="secondary" className="mb-3">
