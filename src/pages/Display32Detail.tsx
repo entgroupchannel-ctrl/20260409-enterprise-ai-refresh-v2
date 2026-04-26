@@ -691,6 +691,111 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
           </section>
         )}
 
+        {/* Built-in Peripherals — printer / scanner / RFID etc. */}
+        {product.peripherals && product.peripherals.length > 0 && (
+          <section
+            id="peripherals"
+            ref={el => (sectionRefs.current.peripherals = el)}
+            className="scroll-mt-32"
+          >
+            <SectionTitle
+              eyebrow="Built-in Peripherals"
+              title="อุปกรณ์ต่อพ่วงในตัวเครื่อง"
+            />
+            <p className="text-sm text-muted-foreground mb-6 -mt-2">
+              ตัวเครื่องมาพร้อม Thermal Printer, Barcode Scanner และ RFID Card Reader ติดตั้งจากโรงงาน — พร้อมใช้งาน POS / จองคิว / สมาชิก ทันทีไม่ต้องต่ออุปกรณ์ภายนอก
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {product.peripherals.map((p, i) => (
+                <div key={i} className="rounded-2xl border border-border bg-card overflow-hidden flex flex-col group hover:shadow-lg hover:border-primary/40 transition-all">
+                  <div className="aspect-[4/3] bg-gradient-to-br from-muted/40 to-muted/10 flex items-center justify-center p-6 border-b border-border">
+                    <img
+                      src={p.image}
+                      alt={`${p.name} ${p.model}`}
+                      className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="p-5 flex-1 flex flex-col">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Printer className="h-4 w-4 text-primary" />
+                      <h3 className="font-bold text-base">{p.name}</h3>
+                    </div>
+                    <div className="text-xs text-muted-foreground mb-3 font-mono">
+                      Model: <span className="text-foreground font-semibold">{p.model}</span>
+                    </div>
+                    {p.description && (
+                      <p className="text-xs text-muted-foreground leading-relaxed mb-3">{p.description}</p>
+                    )}
+                    <dl className="divide-y divide-border/60 text-xs mt-auto border-t border-border/60">
+                      {p.specs.map((s) => (
+                        <div key={s.label} className="grid grid-cols-5 gap-2 py-1.5">
+                          <dt className="col-span-2 text-muted-foreground">{s.label}</dt>
+                          <dd className="col-span-3 font-medium">{s.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Customization Options — add-on modules */}
+        {product.customizationOptions && product.customizationOptions.length > 0 && (
+          <section
+            id="customization"
+            ref={el => (sectionRefs.current.customization = el)}
+            className="scroll-mt-32"
+          >
+            <SectionTitle
+              eyebrow="Customization"
+              title="ปรับแต่งตามการใช้งานของคุณ"
+            />
+            <p className="text-sm text-muted-foreground mb-4 -mt-2">
+              เพิ่มโมดูลเสริมตามลักษณะธุรกิจ — Fingerprint, Face Camera, NFC Payment, 4G LTE, Battery UPS และอื่น ๆ ทีมวิศวกรของเรารับออกแบบและประกอบให้จากโรงงาน
+            </p>
+            {product.customizationLeadTime && (
+              <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-4 py-1.5 text-xs font-medium text-primary mb-6">
+                <Clock className="h-3.5 w-3.5" />
+                {product.customizationLeadTime}
+              </div>
+            )}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              {product.customizationOptions.map((opt, i) => (
+                <div
+                  key={i}
+                  className="group rounded-xl border border-border bg-card overflow-hidden hover:border-primary/40 hover:shadow-md transition-all"
+                >
+                  <div className="aspect-square bg-gradient-to-br from-muted/30 to-background flex items-center justify-center p-5 border-b border-border/60">
+                    <img
+                      src={opt.image}
+                      alt={opt.name}
+                      className="max-h-full max-w-full object-contain group-hover:scale-110 transition-transform"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="p-3 text-center">
+                    <div className="font-semibold text-sm text-foreground">{opt.name}</div>
+                    {opt.description && (
+                      <div className="text-[11px] text-muted-foreground mt-1 leading-snug line-clamp-2">{opt.description}</div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 flex items-center justify-center">
+              <QuoteRequestButton
+                productSlug={product.slug}
+                productName={`${product.name} — ปรับแต่ง`}
+                variant="default"
+                size="lg"
+              />
+            </div>
+          </section>
+        )}
+
         {/* Specs */}
         <section
           id="specs"
