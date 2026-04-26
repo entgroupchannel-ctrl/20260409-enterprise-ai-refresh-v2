@@ -664,7 +664,7 @@ export default function TouchWorkDetail() {
 
       {/* B2B Banners — เหมือนหน้า GT Series */}
       <B2BMarketingShowcase variant="muted" />
-      <B2BWorkflowBanner />
+      
       <B2BCTABanner variant="compact" />
 
       <FooterCompact />
