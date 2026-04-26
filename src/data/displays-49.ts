@@ -45,6 +45,7 @@ import hd49P3 from "@/assets/touchwo/hd49/p-3.png";
 import hd49Install1 from "@/assets/touchwo/hd49/install-1.jpg";
 import hd49Install2 from "@/assets/touchwo/hd49/install-2.jpg";
 import hd49Install3 from "@/assets/touchwo/hd49/install-3.jpg";
+import hd49IoAndroid from "@/assets/touchwo/hd49/io-android.png";
 
 export type Display49Slug = "hr49" | "hd49";
 export { OS_BACKGROUNDS };
@@ -406,7 +407,7 @@ export const DISPLAYS_49: Record<Display49Slug, Display32> = {
         ],
       },
       {
-        image: hd49PSide,
+        image: hd49IoAndroid,
         title: "I/O Layout — External Connectors",
         caption: "พอร์ตเชื่อมต่อด้านหลังตัวเครื่อง — รองรับครบทั้ง 3 Configuration: Monitor (HDMI in / VGA / USB / Audio), Windows OPS (HDMI out / VGA / USB ×4 / RJ45 / Wi-Fi), Android (HDMI out / USB ×2 / RJ45 / TF Slot / Audio + BLE 5.0)",
         callouts: [
