@@ -87,6 +87,14 @@ import imgRz86b from "@/assets/touchwo/rz86b/p-windows.jpg";    // 86" auditoriu
 import imgRz98b from "@/assets/touchwo/rz98b/p-windows.jpg";    // 98" mega auditorium Win11
 import imgGd238c from "@/assets/touchwo/gd238c/p-1a.jpg";       // wall-mount portrait
 
+// Accessory images for filter chips & feature cards
+import accDesktopStand from "@/assets/accessories/desktop-stand.jpg";
+import accFoldableStand from "@/assets/accessories/foldable-stand.jpg";
+import accAdjustableArm from "@/assets/accessories/adjustable-arm.jpg";
+import accWallMount from "@/assets/accessories/wall-mount.jpg";
+import accAioDesktopStand from "@/assets/accessories/aio-desktop-stand.jpg";
+import accAioWallMount from "@/assets/accessories/aio-wall-mount.jpg";
+
 // Map slug → asset image (override DB image_url for consistent presentation)
 const PRODUCT_IMAGES: Record<string, string> = {
   "interactive-display-hd27": imgHd27,
