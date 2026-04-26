@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
-import { ArrowRight, Factory, Package, Wrench, ShieldCheck, Truck } from "lucide-react";
+import { useMemo } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import { ArrowRight, Factory, Package, Wrench, ShieldCheck, Truck, X } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import PageBanner from "@/components/PageBanner";
@@ -23,6 +24,9 @@ interface Accessory {
   id: string;
   title: string;
   size: string;
+  /** Min/max screen size in inches that this accessory supports */
+  sizeMin: number;
+  sizeMax: number;
   image: string;
   features: string[];
   compatibleWith?: string;
