@@ -373,7 +373,44 @@ export const DISPLAYS_55: Record<Display55Slug, Display32> = {
       "Windows OPS Architecture — เปลี่ยน OPS PC ได้ในอนาคต",
     ],
     useCases: ["Education / Smart Classroom", "Corporate Boardroom", "Public Self-Service Kiosk", "Digital Signage / Wayfinding"],
-    useCaseScenarios: [],
+    useCaseScenarios: [
+      {
+        image: hr55UcClassroom,
+        title: "Smart Classroom — ห้องเรียนอัจฉริยะ",
+        description:
+          "Interactive Whiteboard สำหรับห้องเรียนยุคใหม่ — ครูเขียน อธิบาย และนำเสนอสื่อการสอนได้บนจอ 55\" PCAP 10-point Mohs 7 ทนการเขียนต่อเนื่อง โครงสร้าง Unibody Aluminum + Sheet-metal แข็งแรง รองรับการใช้งานหนักในโรงเรียน Pre-install Android 12 + แอปการศึกษาได้",
+      },
+      {
+        image: hr55UcBoardroom,
+        title: "Corporate Boardroom — ห้องประชุมผู้บริหาร",
+        description:
+          "จอประชุมระดับ Boardroom พร้อม OPS Slot รองรับ Intel Core i7-11Gen + Iris® Xe — แสดง Dashboard, BI Analytics, Video Conferencing คมชัด ติดตั้งบน Mobile Stand ย้ายระหว่างห้องประชุมได้ Wireless Presentation พร้อม MIC ในตัว เปลี่ยน OPS PC ได้ในอนาคต ไม่ต้องเปลี่ยนทั้งจอ",
+      },
+      {
+        image: hr55UcAirport,
+        title: "Airport Self-Service — ตู้เช็คอิน / Wayfinding สนามบิน",
+        description:
+          "ตู้บริการตนเองในสนามบิน — เช็คอินเที่ยวบิน, พิมพ์ Boarding Pass, ดูแผนที่อาคารผู้โดยสาร โครงสร้าง Unibody Vandal-proof + Mohs 7 ทนการใช้งานสาธารณะหนาแน่น 24/7 อายุ Backlight 30,000 ชม. รองรับการใช้งาน 3.5 ปีต่อเนื่องแบบ Industrial-grade",
+      },
+      {
+        image: hr55UcHospital,
+        title: "Healthcare — Nurse Station / EMR Display",
+        description:
+          "หน้าจอ EMR + Patient Vitals + Ward Map ที่สถานีพยาบาล — จอ 55\" Contrast 3000:1 อ่านกราฟ ECG / SpO2 / BP ชัดจากระยะไกล โครงสร้าง Unibody เคลือบกันสึก/กันสนิม ทำความสะอาดด้วยน้ำยาฆ่าเชื้อได้ รองรับการทำงาน 24/7 พร้อม Wi-Fi 5GHz เชื่อมต่อ HIS",
+      },
+      {
+        image: hr55UcGovernment,
+        title: "E-Government Kiosk — ตู้บริการประชาชน",
+        description:
+          "ตู้บริการ E-Government สำหรับสำนักงานเขต / ที่ทำการอำเภอ / ศาลากลาง — ประชาชนยื่นคำร้อง ต่อทะเบียน ขอเอกสารราชการได้ด้วยตนเอง โครงสร้าง Vandal-proof Security Construction ทนการใช้งานสาธารณะ Ultra-Low Failure Rate ลดภาระเจ้าหน้าที่ ลดเวลารอคิว",
+      },
+      {
+        image: hr55UcSignage,
+        title: "Public Digital Signage — ห้างฯ / สถานีรถไฟฟ้า",
+        description:
+          "Digital Signage + Wayfinding สำหรับห้างสรรพสินค้า / สถานีรถไฟฟ้า / Transit Hub — แสดงแผนที่ห้าง, โปรโมชั่น, ตารางรถ ตัวเครื่อง Unibody บาง 6 cm ติดตั้งใน Enclosure ทนต่อสภาพการใช้งานสาธารณะหนาแน่น Brightness 300 cd/m² อ่านชัดในแสงสว่างจ้า",
+      },
+    ],
     gallery: [
       hr55P1, hr55P2, hr55P4, hr55P5, hr55P6, hr55P7,
     ],
