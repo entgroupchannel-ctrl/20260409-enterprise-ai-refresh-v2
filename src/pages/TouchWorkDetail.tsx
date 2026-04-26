@@ -652,7 +652,10 @@ export default function TouchWorkDetail() {
         </section>
       )}
 
-      {/* Product Configurator — ย้ายไปท้ายเพจตามคำขอ */}
+      {/* B2B Marketing Showcase — สื่อสารคุณค่าก่อน Configurator */}
+      <B2BMarketingShowcase variant="muted" />
+
+      {/* Product Configurator — ปิดท้ายด้วยตัวเลือกซื้อ/ขอใบเสนอราคา */}
       <ProductConfigurator
         product={product}
         arch={selectedArch}
@@ -661,11 +664,6 @@ export default function TouchWorkDetail() {
         basePrice={variant.priceTHB}
         onArchChange={setSelectedArch}
       />
-
-      {/* B2B Banners — เหมือนหน้า GT Series */}
-      <B2BMarketingShowcase variant="muted" />
-      
-      <B2BCTABanner variant="compact" />
 
       <FooterCompact />
     </div>
