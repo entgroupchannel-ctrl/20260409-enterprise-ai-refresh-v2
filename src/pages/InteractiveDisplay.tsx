@@ -433,7 +433,7 @@ export default function InteractiveDisplay() {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold">เลือกขนาดที่เหมาะกับงานคุณ</h2>
-            <p className="text-muted-foreground mt-2">มี 7 ขนาด: 23.8", 27", 32", 43", 49", 55", 65"</p>
+            <p className="text-muted-foreground mt-2">มี 11 ขนาด: 27", 32", 43", 49", 55", 65", 75", 85", 86", 98" และ 23.8" Kiosk</p>
           </div>
           <div className="flex flex-wrap gap-2">
             {SIZE_FILTERS.map(f => (
