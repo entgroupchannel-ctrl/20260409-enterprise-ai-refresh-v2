@@ -43,6 +43,22 @@ import hr55Install2 from "@/assets/touchwo/hr55/install-2.png";
 import hr55Feat1 from "@/assets/touchwo/hr55/feat-1.png";
 import hr55Feat2 from "@/assets/touchwo/hr55/feat-2.png";
 import hr55Feat3 from "@/assets/touchwo/hr55/feat-3.png";
+
+// Use case scenarios — HD55
+import hd55UcQsr from "@/assets/touchwo/usecases/hd55/uc-qsr.jpg";
+import hd55UcRetail from "@/assets/touchwo/usecases/hd55/uc-retail.jpg";
+import hd55UcHotel from "@/assets/touchwo/usecases/hd55/uc-hotel.jpg";
+import hd55UcCafe from "@/assets/touchwo/usecases/hd55/uc-cafe.jpg";
+import hd55UcBank from "@/assets/touchwo/usecases/hd55/uc-bank.jpg";
+import hd55UcWayfinding from "@/assets/touchwo/usecases/hd55/uc-wayfinding.jpg";
+
+// Use case scenarios — HR55
+import hr55UcClassroom from "@/assets/touchwo/usecases/hr55/uc-classroom.jpg";
+import hr55UcBoardroom from "@/assets/touchwo/usecases/hr55/uc-boardroom.jpg";
+import hr55UcAirport from "@/assets/touchwo/usecases/hr55/uc-airport.jpg";
+import hr55UcHospital from "@/assets/touchwo/usecases/hr55/uc-hospital.jpg";
+import hr55UcGovernment from "@/assets/touchwo/usecases/hr55/uc-government.jpg";
+import hr55UcSignage from "@/assets/touchwo/usecases/hr55/uc-signage.jpg";
 import hr55DimFront from "@/assets/touchwo/hr55/dim-front.png";
 import hr55DimBack from "@/assets/touchwo/hr55/dim-back.png";
 
