@@ -378,6 +378,17 @@ const EXTRA_PRODUCTS: Product[] = [
     image_url: null,
     tags: ["98-inch", "pcap", "android", "x86", "touch-monitor", "large-format", "4k-uhd"],
   },
+  {
+    id: "extra-kd156b",
+    sku: "KD156B",
+    model: "KD156B",
+    name: 'Interactive Touch Kiosk KD156B — 15.6" Floor Stand',
+    description: '15.6" FHD Floor-Stand Kiosk — Monitor / Android (RK3568/3288/3588) / Windows x86 (J6412/i5/i7) พร้อม Peripherals ครบชุด',
+    slug: "interactive-kiosk-kd156b",
+    form_factor: "Floor Stand Kiosk",
+    image_url: null,
+    tags: ["15.6-inch", "kiosk", "floor-stand", "pcap", "fhd"],
+  },
 ];
 
 const FEATURES = [
