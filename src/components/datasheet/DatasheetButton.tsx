@@ -21,6 +21,11 @@ const DATASHEETS: Record<string, string | { label: string; file: string }[]> = {
     { label: "HD27 Android (Rockchip ARM)", file: "ENTGROUP-HD27-ARM.pdf" },
   ],
   HD43: "ENTGROUP-HD43.pdf",
+  HD49: [
+    { label: "HD49 PCAP Touch Monitor (no PC)", file: "ENTGROUP-HD49-Monitor.pdf" },
+    { label: "HD49 Windows / Linux (Intel x86)", file: "ENTGROUP-HD49-X86.pdf" },
+    { label: "HD49 Android (Rockchip ARM)", file: "ENTGROUP-HD49-ARM.pdf" },
+  ],
   HR43: "ENTGROUP-HR43.pdf",
   KD43B: "ENTGROUP-KD43B.pdf",
   HD55: [
