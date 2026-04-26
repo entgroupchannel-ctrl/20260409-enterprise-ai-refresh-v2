@@ -577,6 +577,70 @@ export default function InteractiveDisplay() {
         )}
       </section>
 
+      {/* Accessories */}
+      <section className="border-t border-border bg-gradient-to-br from-primary/5 via-background to-background">
+        <div className="container max-w-7xl mx-auto px-6 py-16">
+          <div className="text-center max-w-3xl mx-auto mb-10">
+            <Badge variant="outline" className="mb-3">Accessories — ส่งตรงจากโรงงาน</Badge>
+            <h2 className="text-3xl md:text-4xl font-bold mb-3">อุปกรณ์เสริมของแท้ สำหรับ Interactive Display ทุกขนาด</h2>
+            <p className="text-muted-foreground">
+              ขาตั้งโต๊ะ / ขายึดผนัง / แขนปรับระดับ / ขาตั้ง AIO — รองรับหน้าจอ 5"–65"+
+              เลือกตามขนาดจอของคุณเพื่อดูเฉพาะรุ่นที่เข้ากันได้
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 mb-6">
+            {[
+              { size: "27", label: '27"' },
+              { size: "32", label: '32"' },
+              { size: "43", label: '43"' },
+              { size: "49", label: '49"' },
+              { size: "55", label: '55"' },
+              { size: "65", label: '65"' },
+              { size: "", label: "ดูทั้งหมด" },
+            ].map((s) => (
+              <Link
+                key={s.label}
+                to={s.size ? `/accessories?size=${s.size}` : "/accessories"}
+                className="group flex flex-col items-center justify-center gap-1 rounded-xl border border-border bg-card hover:border-primary hover:bg-primary/5 transition-all p-4 text-center"
+              >
+                <Boxes className="h-5 w-5 text-primary group-hover:scale-110 transition-transform" />
+                <div className="text-sm font-bold">{s.label}</div>
+                <div className="text-[11px] text-muted-foreground">Accessories</div>
+              </Link>
+            ))}
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-4">
+            {[
+              { icon: Ruler, title: "Desktop / Foldable Stand", desc: "ขาตั้งวางโต๊ะมาตรฐาน + พับเก็บได้ รองรับ 15\"–27\"" },
+              { icon: Maximize2, title: "Wall Mount + Adjustable Arm", desc: "ขายึดผนัง VESA + แขนปรับระดับ รองรับ 5\"–65\"" },
+              { icon: PackageCheck, title: "All-in-One Stand (GD Series)", desc: "ขาตั้ง / ขายึดโลหะทั้งชิ้น สำหรับ AIO 15.6\"–43\"" },
+            ].map((c) => (
+              <Card key={c.title} className="border-border">
+                <CardContent className="p-5 flex gap-3">
+                  <div className="rounded-lg bg-primary/10 p-2.5 h-fit">
+                    <c.icon className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-1">{c.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{c.desc}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="text-center mt-8">
+            <Button asChild size="lg" variant="outline">
+              <Link to="/accessories">
+                <Boxes className="mr-2 h-4 w-4" /> ดู Accessories ทั้งหมด
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="border-t border-border">
         <div className="container max-w-7xl mx-auto px-6 py-16 text-center">
