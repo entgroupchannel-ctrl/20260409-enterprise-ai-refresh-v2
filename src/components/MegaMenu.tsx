@@ -171,6 +171,7 @@ const menuCategories = [
           { label: "Stretched Bar Display", href: "/smart-display" },
           { label: "Standing Kiosk", href: "/smart-display?tab=kiosk" },
           { label: "TouchWork Series (Indoor 8\"–21.5\")", href: "/touchwork", new2026: true },
+          { label: "Accessories — ขาตั้ง / ขายึดผนัง", href: "/accessories" },
         ],
       },
       {
