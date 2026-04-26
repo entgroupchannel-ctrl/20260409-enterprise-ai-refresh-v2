@@ -115,6 +115,7 @@ import imgRz98b from "@/assets/touchwo/rz98b/p-windows.jpg";    // 98" mega audi
 import imgGd238c from "@/assets/touchwo/gd238c/p-1a.jpg";       // wall-mount portrait
 import imgKd156b from "@/assets/touchwo/kd156b/KD156-1A.jpg";   // 15.6" floor-stand kiosk
 import imgKd215b from "@/assets/touchwo/kd215b/KD215-1.jpg";    // 21.5" floor-stand kiosk
+import imgGd215c from "@/assets/touchwo/gd215c/GD215-1A.jpg";   // 21.5" wall-mount kiosk
 
 // Accessory images for filter chips & feature cards
 import accDesktopStand from "@/assets/accessories/desktop-stand.jpg";
@@ -151,6 +152,8 @@ const PRODUCT_IMAGES: Record<string, string> = {
   "interactive-kiosk-kd156b": imgKd156b,
   "interactive-display-kd215b": imgKd215b,
   "interactive-kiosk-kd215b": imgKd215b,
+  "interactive-kiosk-gd215c": imgGd215c,
+  "interactive-display-gd215c": imgGd215c,
 };
 
 // ลำดับการแสดงผล: เริ่มจาก 27" → 32" → 43" → 49" → 55" → 65" → 23.8"
@@ -404,6 +407,17 @@ const EXTRA_PRODUCTS: Product[] = [
     image_url: null,
     tags: ["21.5-inch", "kiosk", "floor-stand", "pcap", "fhd"],
   },
+  {
+    id: "extra-gd215c",
+    sku: "GD215C",
+    model: "GD215C",
+    name: 'Interactive Touch Kiosk GD215C — 21.5" Wall Mount (3-in-1)',
+    description: '21.5" Portrait FHD Wall-Mount Kiosk — Bezel 13mm + Android 11/12 (RK3568/RK3588) ติดตั้งได้ 3 แบบ: Wall / Floor / Desktop รองรับ Square/Stripe/Clover/Shopify POS',
+    slug: "interactive-kiosk-gd215c",
+    form_factor: "Wall Mount Kiosk",
+    image_url: null,
+    tags: ["21.5-inch", "kiosk", "wall-mount", "pcap", "fhd", "android"],
+  },
 ];
 
 const FEATURES = [
@@ -562,7 +576,8 @@ export default function InteractiveDisplay() {
               const is86 = p.tags?.includes("86-inch") || p.slug === "interactive-kiosk-rz86b";
               const is98 = p.tags?.includes("98-inch") || p.slug === "interactive-kiosk-rz98b";
               const is156 = p.tags?.includes("15.6-inch") || ["interactive-kiosk-kd156b","interactive-display-kd156b"].includes(p.slug);
-              const is215 = p.tags?.includes("21.5-inch") || ["interactive-kiosk-kd215b","interactive-display-kd215b"].includes(p.slug);
+              const is215 = p.tags?.includes("21.5-inch") || ["interactive-kiosk-kd215b","interactive-display-kd215b","interactive-kiosk-gd215c","interactive-display-gd215c"].includes(p.slug);
+              const model215 = (p.slug === "interactive-kiosk-gd215c" || p.slug === "interactive-display-gd215c") ? "gd215c" : "kd215b";
               const model49 = p.slug === "interactive-display-hd49" ? "hd49" : "hr49";
               const model55 = p.slug === "interactive-display-hd55" ? "hd55" : "hr55";
               const model65 =
@@ -597,7 +612,7 @@ export default function InteractiveDisplay() {
                 : is156
                 ? `/products/displays-15.6?model=kd156b`
                 : is215
-                ? `/products/displays-21.5?model=kd215b`
+                ? `/products/displays-21.5?model=${model215}`
                 : `/products/${p.slug}`;
               const cardImg = PRODUCT_IMAGES[p.slug] || p.image_url;
               return (
