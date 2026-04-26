@@ -39,6 +39,14 @@ import rz65Feat2 from "@/assets/touchwo/rz65b/feat-2.png";
 import rz65Feat3 from "@/assets/touchwo/rz65b/feat-3.png";
 import rz65Feat4 from "@/assets/touchwo/rz65b/feat-4.png";
 
+// RZ65B — Use Case lifestyle scenes
+import rz65UcEducation from "@/assets/touchwo/usecases/rz65b/uc-education.jpg";
+import rz65UcHealthcare from "@/assets/touchwo/usecases/rz65b/uc-healthcare.jpg";
+import rz65UcIndustrial from "@/assets/touchwo/usecases/rz65b/uc-industrial.jpg";
+import rz65UcKiosk from "@/assets/touchwo/usecases/rz65b/uc-kiosk.jpg";
+import rz65UcQsr from "@/assets/touchwo/usecases/rz65b/uc-qsr.jpg";
+import rz65UcLocker from "@/assets/touchwo/usecases/rz65b/uc-locker.jpg";
+
 import hd65Monitor from "@/assets/touchwo/hd65/p-monitor.jpg";
 import hd65Windows from "@/assets/touchwo/hd65/p-windows.jpg";
 import hd65Android from "@/assets/touchwo/hd65/p-android.jpg";
@@ -356,7 +364,44 @@ export const DISPLAYS_65: Record<Display65Slug, Display32> = {
       "รองรับขนาดจอ 55\" - 110\" ในซีรีส์เดียวกัน",
     ],
     useCases: ["Education / Smart Classroom", "Healthcare", "Industrial", "Public Self-service Kiosk", "Restaurant / QSR", "Parcel Locker"],
-    useCaseScenarios: [],
+    useCaseScenarios: [
+      {
+        image: rz65UcEducation,
+        title: "Smart Classroom — ห้องเรียนอัจฉริยะ",
+        description:
+          "จอสัมผัส 4K UHD 65\" เป็นกระดานดิจิทัลกลางห้องเรียน ครูสามารถเขียน อธิบาย และแสดงสื่อมัลติมีเดียได้พร้อมกัน — PCAP 10-point รองรับการเขียนหลายมือ Mohs 7 ทนการกดเขียนต่อเนื่อง เหมาะกับ Active Learning ทุกระดับชั้น",
+      },
+      {
+        image: rz65UcHealthcare,
+        title: "Healthcare — Nurse Station / OR Workstation",
+        description:
+          "แสดงผล EMR / PACS / Patient Vitals แบบ Real-time ที่สถานีพยาบาล — กระจกผิวเรียบทำความสะอาดง่ายด้วยน้ำยาฆ่าเชื้อ Front-facing Speaker สื่อสารชัดเจนกับทีมแพทย์ รองรับการทำงานต่อเนื่อง 24/7",
+      },
+      {
+        image: rz65UcIndustrial,
+        title: "Industrial SCADA — Smart Factory Control",
+        description:
+          "Dashboard ควบคุมสายการผลิตในโรงงาน — แสดง KPI, OEE, Machine Status แบบ Real-time จอ 4K UHD เห็นข้อมูลละเอียดจากระยะไกล Mohs 7 ทนต่อสภาวะอุตสาหกรรม รองรับการสัมผัสด้วยถุงมือ",
+      },
+      {
+        image: rz65UcKiosk,
+        title: "Public Self-Service Kiosk — Mall / Airport",
+        description:
+          "ตู้บริการตนเองในห้างสรรพสินค้า สนามบิน หรืออาคารราชการ — Wayfinding, Directory, Information Lookup ติดตั้งแบบ Floor-standing หรือ Wall-mount พร้อม PCAP กันรอยขีดข่วน รองรับการใช้งานหนาแน่น",
+      },
+      {
+        image: rz65UcQsr,
+        title: "Restaurant / QSR — Self-Order Terminal",
+        description:
+          "ตู้สั่งอาหารด้วยตนเองสำหรับร้าน QSR / Cafe — เมนูภาพคมชัด 4K UHD เพิ่ม upsell เฉลี่ย 20-30% ลดเวลารอคิว รองรับ Square / Stripe / Clover POS แบบ Plug-and-Play",
+      },
+      {
+        image: rz65UcLocker,
+        title: "Parcel Locker — Smart Pickup Station",
+        description:
+          "หน้าจอควบคุมตู้รับ-ส่งพัสดุอัจฉริยะในคอนโด/หมู่บ้าน — สแกน QR Code รับพัสดุ 24 ชม. PCAP ทนต่อสภาพอากาศและการใช้งานสาธารณะ Industrial-grade Power รองรับ 7×24H ไม่มีวันหยุด",
+      },
+    ],
     gallery: [rz65Monitor, rz65Windows, rz65Android, rz65P3, rz65P4, rz65P5, rz65P6, rz65P7],
     ioImage: rz65IoMonitor,
     installImages: [rz65P5, rz65P6, rz65P7],
