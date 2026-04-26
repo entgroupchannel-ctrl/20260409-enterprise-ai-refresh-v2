@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import {
   ArrowLeft, ArrowRight, Monitor, Hand, ShieldCheck, Zap, Sun, Maximize2,
   Building2, GraduationCap, Factory, Sparkles, Phone, MessageCircle,
-  PackageCheck, Boxes, Ruler, BadgeCheck
+  PackageCheck, Boxes, Ruler, BadgeCheck, Eye
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import SEOHead from "@/components/SEOHead";
