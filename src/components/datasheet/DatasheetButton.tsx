@@ -15,6 +15,11 @@ import {
  * Files served from /public/datasheets/ — fully public, no auth required.
  */
 const DATASHEETS: Record<string, string | { label: string; file: string }[]> = {
+  HD27: [
+    { label: "HD27 PCAP Touch Monitor (no PC)", file: "ENTGROUP-HD27-Monitor.pdf" },
+    { label: "HD27 Windows / Linux (Intel x86)", file: "ENTGROUP-HD27-X86.pdf" },
+    { label: "HD27 Android (Rockchip ARM)", file: "ENTGROUP-HD27-ARM.pdf" },
+  ],
   HD43: "ENTGROUP-HD43.pdf",
   HR43: "ENTGROUP-HR43.pdf",
   KD43B: "ENTGROUP-KD43B.pdf",
