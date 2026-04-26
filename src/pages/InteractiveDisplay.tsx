@@ -13,6 +13,7 @@ import FooterCompact from "@/components/FooterCompact";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
 import AddToCartButton from "@/components/AddToCartButton";
 import { DatasheetButton, hasDatasheet } from "@/components/datasheet/DatasheetButton";
@@ -563,31 +564,60 @@ export default function InteractiveDisplay() {
                     {p.description}
                   </p>
                   <div className="flex items-center justify-between gap-2">
-                    <Button asChild size="icon" variant="secondary" title="ดูรายละเอียด" aria-label="ดูรายละเอียด">
-                      <Link to={detailHref}>
-                        <Eye className="h-4 w-4" />
-                      </Link>
-                    </Button>
-                    <QuoteRequestButton
-                      productModel={p.model}
-                      productName={p.name}
-                      size="icon"
-                      iconOnly
-                    />
-                    <AddToCartButton
-                      productModel={p.model}
-                      productName={p.name}
-                      variant="outline"
-                      size="icon"
-                      iconOnly
-                    />
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button asChild size="icon" variant="secondary" aria-label="ดูรายละเอียดสินค้า">
+                          <Link to={detailHref}>
+                            <Eye className="h-4 w-4" />
+                          </Link>
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>ดูรายละเอียดสินค้า</TooltipContent>
+                    </Tooltip>
+
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <span>
+                          <QuoteRequestButton
+                            productModel={p.model}
+                            productName={p.name}
+                            size="icon"
+                            iconOnly
+                          />
+                        </span>
+                      </TooltipTrigger>
+                      <TooltipContent>ขอใบเสนอราคา</TooltipContent>
+                    </Tooltip>
+
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <span>
+                          <AddToCartButton
+                            productModel={p.model}
+                            productName={p.name}
+                            variant="outline"
+                            size="icon"
+                            iconOnly
+                          />
+                        </span>
+                      </TooltipTrigger>
+                      <TooltipContent>เพิ่มเข้าตะกร้า</TooltipContent>
+                    </Tooltip>
+
                     {hasDatasheet(p.model) && (
-                      <DatasheetButton
-                        productModel={p.model}
-                        variant="ghost"
-                        iconOnly
-                        className="text-primary hover:bg-primary/5 border border-primary/20"
-                      />
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <span>
+                            <DatasheetButton
+                              productModel={p.model}
+                              variant="outline"
+                              iconOnly
+                              className="text-primary border-primary/30 hover:bg-primary hover:text-primary-foreground"
+                            />
+                          </span>
+                        </TooltipTrigger>
+                        <TooltipContent>ดาวน์โหลด Datasheet (PDF)</TooltipContent>
+                      </Tooltip>
                     )}
                   </div>
                 </CardContent>

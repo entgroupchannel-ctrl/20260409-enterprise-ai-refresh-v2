@@ -7,7 +7,7 @@ import {
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { FileText, ShoppingBag, Lock, LogIn, UserPlus, Check, Package } from 'lucide-react';
+import { FileText, FileSignature, ShoppingBag, Lock, LogIn, UserPlus, Check, Package } from 'lucide-react';
 import { getRelatedCatalogProducts, searchCatalogProducts, type CatalogProduct } from '@/lib/product-catalog';
 import { savePendingQuote, getPendingQuote, clearPendingQuote, type PendingQuoteData } from '@/hooks/usePendingQuote';
 import { getAttributionFields, createAffiliateLead } from '@/lib/affiliate-attribution';
@@ -274,8 +274,8 @@ export default function QuoteRequestButton({
 
   return (
     <>
-      <Button variant={variant} size={iconOnly ? 'icon' : size} className={`${fullWidth ? 'w-full' : ''} ${className}`} onClick={handleQuickRequest} title="ขอใบเสนอราคา">
-        <FileText className={iconOnly ? "w-4 h-4" : "w-4 h-4 mr-2"} />
+      <Button variant={variant} size={iconOnly ? 'icon' : size} className={`${fullWidth ? 'w-full' : ''} ${className}`} onClick={handleQuickRequest} title="ขอใบเสนอราคา" aria-label="ขอใบเสนอราคา">
+        <FileSignature className={iconOnly ? "w-4 h-4" : "w-4 h-4 mr-2"} />
         {!iconOnly && 'ขอใบเสนอราคา'}
       </Button>
 
