@@ -82,6 +82,8 @@ const DATASHEETS: Record<string, string | { label: string; file: string }[]> = {
     { label: "GD27C Wall-Mount Kiosk · Android (Rockchip ARM)", file: "ENTGROUP-GD27C-ARM.pdf" },
   ],
   GD238C: [
+    { label: "GD238C 23.8\" Wall-Mount Touch Monitor (no PC)", file: "ENTGROUP-GD238C-Monitor.pdf" },
+    { label: "GD238C 23.8\" Wall-Mount Kiosk · Windows (Intel x86)", file: "ENTGROUP-GD238C-X86.pdf" },
     { label: "GD238C 23.8\" Wall-Mount Kiosk · Android (Rockchip ARM)", file: "ENTGROUP-GD238C-ARM.pdf" },
   ],
 };
