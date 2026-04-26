@@ -32,36 +32,60 @@ const SIZE_USE_CASES = [
     size: '27"',
     title: "Self Check-in คลินิก / โรงพยาบาล",
     desc: "วางบนเคาน์เตอร์ลงทะเบียนผู้ป่วย ลดคิว ลดงานพนักงาน รองรับสแกนบัตรประชาชนและพิมพ์บัตรคิว",
+    products: [
+      { label: "HD27", href: "/products/displays-27?model=hd27" },
+      { label: "GD27C Kiosk", href: "/products/displays-27?model=gd27c" },
+    ],
   },
   {
     img: uc32,
     size: '32"',
     title: "Self-Order ร้านอาหาร / คาเฟ่",
     desc: "หน้าจอแนวตั้ง สั่งอาหารด้วยตัวเอง ชำระเงินผ่าน QR PromptPay เชื่อมต่อ POS และเครื่องพิมพ์ใบเสร็จ",
+    products: [
+      { label: "HD32", href: "/products/displays-32?model=hd32" },
+      { label: "KD32B Kiosk", href: "/products/displays-32?model=kd32b" },
+    ],
   },
   {
     img: uc43,
     size: '43"',
     title: "Wayfinding ห้างสรรพสินค้า / อาคาร",
     desc: "แผนที่นำทางภายในอาคาร ค้นหาร้านค้า ห้องน้ำ ลิฟต์ รองรับหลายภาษา ใช้กับ Wall-Mount หรือ Floor Stand",
+    products: [
+      { label: "HD43", href: "/products/displays-43?model=hd43" },
+      { label: "KD43B Floor Stand", href: "/products/displays-43?model=kd43b" },
+    ],
   },
   {
     img: uc55,
     size: '55"',
     title: "Smart Classroom / ห้องเรียนยุคใหม่",
     desc: "แทนกระดานดำ เขียน-วาด-นำเสนอ Active Learning เชื่อมแท็บเล็ตนักเรียน บันทึกและแชร์บทเรียนได้ทันที",
+    products: [
+      { label: "HD55", href: "/products/displays-55?model=hd55" },
+      { label: "HR55", href: "/products/displays-55?model=hr55" },
+    ],
   },
   {
     img: uc65,
     size: '65"',
     title: "Boardroom / ห้องประชุมผู้บริหาร",
     desc: "ประชุมไฮบริด นำเสนอ Dashboard / KPI พร้อม Video Conference (Zoom / Teams) และ Wireless Casting",
+    products: [
+      { label: "HD65", href: "/products/displays-65?model=hd65" },
+      { label: "HR65", href: "/products/displays-65?model=hr65" },
+    ],
   },
   {
     img: uc86,
     size: '86"',
     title: "Control Room / War Room โรงงาน",
     desc: "แสดง MES / SCADA / Andon แบบ Real-time ติดตามสายการผลิต OEE และคุณภาพ ใช้งาน 24/7 เกรดอุตสาหกรรม",
+    products: [
+      { label: "RZ86B", href: "/products/displays-86?model=rz86b" },
+      { label: "RZ98B (98\")", href: "/products/displays-98?model=rz98b" },
+    ],
   },
 ];
 
