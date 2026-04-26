@@ -100,7 +100,44 @@ export const DISPLAYS_55: Record<Display55Slug, Display32> = {
       "ความละเอียด 4K (3840×2160) เป็น Option เสริม",
     ],
     useCases: ["QSR / Self-order Counter", "Retail / POS Self-checkout", "Hotel / Lobby Self-service", "Smart Restaurant Menu"],
-    useCaseScenarios: [],
+    useCaseScenarios: [
+      {
+        image: hd55UcQsr,
+        title: "QSR / Self-Order Kiosk — ตู้สั่งอาหารด้วยตนเอง",
+        description:
+          "ตู้สั่งอาหารแบบ Self-order สำหรับร้าน Fast Food / QSR — จอ 55\" Slim Bezel 13mm ดูทันสมัย ดึงดูดสายตา PCAP 10-point กดเร็ว แม่นยำ ลดเวลารอคิวหน้าเคาน์เตอร์ พร้อม Android Wi-Fi 5GHz + BLE 5.0 รองรับ Square / Stripe / Clover POS โดยตรง — เพิ่มยอด upsell เฉลี่ย 20-30% ต่อบิล",
+      },
+      {
+        image: hd55UcRetail,
+        title: "Luxury Retail — Digital Lookbook & Self-Checkout",
+        description:
+          "จอแสดงสินค้า / Digital Lookbook สำหรับร้านแฟชั่นพรีเมียม — Bezel เพียง 13mm ให้ความรู้สึก iPad-like กลมกลืนกับการตกแต่งร้านระดับ Hi-end ภาพคมชัด FHD (4K Optional) แสดงสินค้าได้น่าซื้อ พร้อมเชื่อมต่อระบบ POS / Inventory ลูกค้าค้นหาสินค้าได้เอง ลดภาระพนักงาน",
+      },
+      {
+        image: hd55UcHotel,
+        title: "Hotel Self Check-In — Lobby Concierge",
+        description:
+          "ตู้เช็คอินด้วยตนเองในล็อบบี้โรงแรม — ดีไซน์ Slim Bezel ทันสมัยเข้ากับการตกแต่ง Luxury Lobby แขกสามารถเช็คอิน เลือกห้อง รับ Key Card และเรียก Concierge Service ได้ผ่าน Android App — ลดความหนาแน่นที่ Front Desk รองรับการใช้งาน 24/7",
+      },
+      {
+        image: hd55UcCafe,
+        title: "Cafe Digital Menu Board — เมนูบอร์ดดิจิทัล",
+        description:
+          "จอเมนูดิจิทัลขนาดใหญ่ติดผนังเหนือเคาน์เตอร์ Cafe / Coffee Shop — แสดงรูปอาหารและเครื่องดื่มคมชัด FHD ปรับเปลี่ยนเมนูตามช่วงเวลาได้ทันที (Breakfast / Lunch / Happy Hour) ตัวเครื่องบางเพียง 7.67cm ติดตั้งสวยงาม Power Consumption < 160W ประหยัดค่าไฟ",
+      },
+      {
+        image: hd55UcBank,
+        title: "Bank Queue Management — ตู้บัตรคิวธนาคาร",
+        description:
+          "ตู้บัตรคิวและ Self-service Banking ในสาขาธนาคาร — ลูกค้ากดเลือกประเภทธุรกรรมเอง รับบัตรคิว และตรวจสอบเวลารอ จอ FHD 300 cd/m² อ่านชัดในแสงสว่างสูงของสาขา PCAP Mohs 7 ทนการใช้งานหนัก รองรับการใช้งาน 24/7",
+      },
+      {
+        image: hd55UcWayfinding,
+        title: "Museum / Gallery — Interactive Wayfinding",
+        description:
+          "จอ Interactive Wayfinding และ Exhibit ในพิพิธภัณฑ์ / Gallery / Showroom — ผู้เข้าชมแตะแผนที่ 3D เพื่อนำทาง หรือดูข้อมูลผลงานจัดแสดงแบบ Multimedia 4K Optional ดีไซน์ Slim Bezel ติดตั้ง Embedded กับผนังได้สวยงาม",
+      },
+    ],
     gallery: [
       hd55P1, hd55P2, hd55P4, hd55P5, hd55P6, hd55P7,
     ],
