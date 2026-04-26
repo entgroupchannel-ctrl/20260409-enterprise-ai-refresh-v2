@@ -350,7 +350,7 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
           >
             <SectionTitle
               eyebrow="Configurations"
-              title="หน้าจอ 32&quot; แบบเดียวกัน — เลือก Configuration ได้ 3 แบบ"
+              title={`หน้าจอ ${params.size?.toString() === "23.8" ? "23.8" : params.size}" แบบเดียวกัน — เลือก Configuration ได้ 3 แบบ`}
             />
             <p className="text-sm text-muted-foreground mb-6 -mt-2 max-w-3xl">
               โครงสร้างภายนอก (ขนาด, น้ำหนัก, ระบบสัมผัส PCAP 10 จุด, จอ FHD 300 nit, Vandal-Proof) เหมือนกันทั้ง 3 รุ่น —
