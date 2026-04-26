@@ -355,7 +355,7 @@ export default function InteractiveDisplay() {
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight max-w-4xl">
             Interactive Touch Display
             <span className="block text-primary mt-2 text-3xl md:text-5xl">
-              จอทัชสกรีน 32" – 65" สำหรับงานอุตสาหกรรม
+              จอทัชสกรีน 27" – 98" สำหรับงานอุตสาหกรรม
             </span>
           </h1>
           <p className="mt-6 text-lg text-muted-foreground max-w-2xl">
