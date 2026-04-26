@@ -295,32 +295,33 @@ const Accessories = () => {
                       height={768}
                       loading="lazy"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-5 flex-1 flex flex-col">
-                  <div className="flex items-start justify-between gap-2 mb-1">
-                    <h3 className="font-display font-bold text-lg leading-tight">{acc.title}</h3>
+                    />
                   </div>
-                  <div className="text-xs font-semibold text-primary mb-3">
-                    Available in {acc.size}
-                  </div>
-                  <ul className="space-y-1.5 text-sm text-muted-foreground flex-1 mb-4">
-                    {acc.features.map((f, i) => (
-                      <li key={i} className="flex gap-2">
-                        <span className="text-primary mt-1">•</span>
-                        <span className="leading-relaxed">{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  {acc.compatibleWith && (
-                    <div className="text-xs px-2.5 py-1.5 rounded-md bg-muted text-muted-foreground border border-border">
-                      <span className="font-semibold text-foreground">เข้ากันได้กับ:</span> {acc.compatibleWith}
+                  <div className="p-5 flex-1 flex flex-col">
+                    <div className="flex items-start justify-between gap-2 mb-1">
+                      <h3 className="font-display font-bold text-lg leading-tight">{acc.title}</h3>
                     </div>
-                  )}
-                </div>
-              </Card>
-            ))}
-          </div>
+                    <div className="text-xs font-semibold text-primary mb-3">
+                      Available in {acc.size}
+                    </div>
+                    <ul className="space-y-1.5 text-sm text-muted-foreground flex-1 mb-4">
+                      {acc.features.map((f, i) => (
+                        <li key={i} className="flex gap-2">
+                          <span className="text-primary mt-1">•</span>
+                          <span className="leading-relaxed">{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    {acc.compatibleWith && (
+                      <div className="text-xs px-2.5 py-1.5 rounded-md bg-muted text-muted-foreground border border-border">
+                        <span className="font-semibold text-foreground">เข้ากันได้กับ:</span> {acc.compatibleWith}
+                      </div>
+                    )}
+                  </div>
+                </Card>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
