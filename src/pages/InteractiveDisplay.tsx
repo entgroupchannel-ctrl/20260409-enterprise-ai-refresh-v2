@@ -36,6 +36,7 @@ import imgRz65b from "@/assets/touchwo/rz65b/p-windows.jpg";    // floor stand k
 import imgRz75b from "@/assets/touchwo/rz75b/p-windows.jpg";    // 75" mobile stand Win11
 import imgRz85b from "@/assets/touchwo/rz85b/p-windows.jpg";    // 85" boardroom Win11
 import imgRz86b from "@/assets/touchwo/rz86b/p-windows.jpg";    // 86" auditorium Win11
+import imgRz98b from "@/assets/touchwo/rz98b/p-windows.jpg";    // 98" mega auditorium Win11
 import imgGd238c from "@/assets/touchwo/gd238c/p-1a.jpg";       // wall-mount portrait
 
 // Map slug → asset image (override DB image_url for consistent presentation)
@@ -58,6 +59,7 @@ const PRODUCT_IMAGES: Record<string, string> = {
   "interactive-kiosk-rz75b": imgRz75b,
   "interactive-kiosk-rz85b": imgRz85b,
   "interactive-kiosk-rz86b": imgRz86b,
+  "interactive-kiosk-rz98b": imgRz98b,
   "interactive-kiosk-gd238c": imgGd238c,
 };
 
