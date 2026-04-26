@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import ProductGallery from "@/components/ProductGallery";
 import ProductGalleryPortrait from "@/components/ProductGalleryPortrait";
-import { X, ChevronLeft, ChevronRight, Maximize, Lightbulb, Layers, Sun } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, Lightbulb, Sun } from "lucide-react";
 import sizeRoadmapImg from "@/assets/touchwo/size-roadmap.png";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
 import { DISPLAYS_32, DISPLAY_32_ORDER, OS_BACKGROUNDS, type Display32, type Display32Slug, type OSKey } from "@/data/displays-32";
