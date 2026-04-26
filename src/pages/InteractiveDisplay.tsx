@@ -17,23 +17,23 @@ import AddToCartButton from "@/components/AddToCartButton";
 import { LineQRDialog } from "@/components/LineQRDialog";
 import heroImg from "@/assets/interactive-display-hero.jpg";
 
-// Product card hero images (มาจาก asset โฟลเดอร์ของแต่ละรุ่น)
-import imgHd27 from "@/assets/touchwo/hd27/arm-1.jpg";
-import imgGd27c from "@/assets/touchwo/gd27c/p-1.jpg";
-import imgHd32 from "@/assets/touchwo/hd32-hero-clean.jpg";
+// Product card hero images — เลือกภาพที่สื่อความหมายชัดเจน + variation ของ wallpaper เพื่อลดความซ้ำซ้อน
+import imgHd27 from "@/assets/touchwo/hd27/mon-2.jpg";          // bloom green wallpaper
+import imgGd27c from "@/assets/touchwo/gd27c/p-1.jpg";          // portrait kiosk Win10
+import imgHd32 from "@/assets/touchwo/hd32-hero-clean.jpg";     // Win11 bloom
 import imgHr32 from "@/assets/touchwo/hr32-hero-clean.jpg";
 import imgKd32b from "@/assets/touchwo/kd32b-hero-clean.jpg";
-import imgHd43 from "@/assets/touchwo/hd43/arm-1.jpg";
-import imgHr43 from "@/assets/touchwo/hr43/arm-1.jpg";
-import imgKd43b from "@/assets/touchwo/kd43b/mon-1.jpg";
-import imgHd49 from "@/assets/touchwo/hd49/hero.png";
-import imgHr49 from "@/assets/touchwo/hr49/hero-monitor.jpg";
-import imgHd55 from "@/assets/touchwo/hd55/55-1A.jpg";
-import imgHr55 from "@/assets/touchwo/hr55/p-1.jpg";
-import imgHd65 from "@/assets/touchwo/hd65/feat-1.png";
-import imgHr65 from "@/assets/touchwo/hr65/p-1.jpg";
-import imgRz65b from "@/assets/touchwo/rz65b/feat-1.png";
-import imgGd238c from "@/assets/touchwo/gd238c/p-1a.jpg";
+import imgHd43 from "@/assets/touchwo/hd43/card-hero.jpg";      // Win11 bloom (purple)
+import imgHr43 from "@/assets/touchwo/hr43/card-hero.jpg";      // Ubuntu sunset mountains
+import imgKd43b from "@/assets/touchwo/kd43b/mon-1.jpg";        // floor stand kiosk Win10
+import imgHd49 from "@/assets/touchwo/hd49/p-front.jpg";        // Touch-to-Order menu (use case)
+import imgHr49 from "@/assets/touchwo/hr49/p-1.jpg";            // Win10 monitor
+import imgHd55 from "@/assets/touchwo/hd55/card-hero.jpg";      // Win11 bloom (slim bezel)
+import imgHr55 from "@/assets/touchwo/hr55/card-hero.jpg";      // Material You pastel waves
+import imgHd65 from "@/assets/touchwo/hd65/p-monitor.jpg";      // Win10 monitor (large)
+import imgHr65 from "@/assets/touchwo/hr65/card-hero.jpg";      // Aurora green/teal
+import imgRz65b from "@/assets/touchwo/rz65b/p-windows.jpg";    // floor stand kiosk Win10
+import imgGd238c from "@/assets/touchwo/gd238c/p-1a.jpg";       // wall-mount portrait
 
 // Map slug → asset image (override DB image_url for consistent presentation)
 const PRODUCT_IMAGES: Record<string, string> = {
