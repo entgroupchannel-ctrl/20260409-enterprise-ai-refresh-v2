@@ -185,6 +185,7 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
   const [activeSection, setActiveSection] = useState("overview");
   const [lightbox, setLightbox] = useState<{ images: string[]; index: number } | null>(null);
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
+  const hideDatasheet = HIDE_DATASHEET_GROUPS.includes(groupSize);
   const SECTIONS = useMemo(
     () => ALL_SECTIONS.filter(s => {
       if (s.id === "dimensions") return (product?.dimensionDrawings?.length ?? 0) > 0;
@@ -193,9 +194,10 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
       if (s.id === "peripherals") return (product?.peripherals?.length ?? 0) > 0;
       if (s.id === "customization") return (product?.customizationOptions?.length ?? 0) > 0;
       if (s.id === "io") return !!product?.ioImage && (product?.ports?.length ?? 0) > 0;
+      if (s.id === "download") return !hideDatasheet;
       return true;
     }),
-    [product]
+    [product, hideDatasheet]
   );
 
   // Track active section on scroll
