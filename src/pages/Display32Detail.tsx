@@ -14,7 +14,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import ProductGallery from "@/components/ProductGallery";
 import ProductGalleryPortrait from "@/components/ProductGalleryPortrait";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, Lightbulb, Sun } from "lucide-react";
+import sizeRoadmapImg from "@/assets/touchwo/size-roadmap.png";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
 import { DISPLAYS_32, DISPLAY_32_ORDER, OS_BACKGROUNDS, type Display32, type Display32Slug, type OSKey } from "@/data/displays-32";
 import { DISPLAYS_43, DISPLAY_43_ORDER } from "@/data/displays-43";
@@ -845,6 +846,66 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
             </div>
           )}
         </section>
+
+        {/* Versatile Sizes Roadmap — แสดงเฉพาะกลุ่ม 55" */}
+        {groupSize === 55 && (
+          <section className="scroll-mt-32">
+            <SectionTitle eyebrow="Size Roadmap" title="Versatile Options, Tailored for You" />
+            <div className="rounded-2xl border border-border bg-gradient-to-br from-card via-card to-primary/5 overflow-hidden">
+              <div className="grid lg:grid-cols-5 gap-0">
+                {/* Image */}
+                <div className="lg:col-span-3 bg-white dark:bg-slate-950 p-6 sm:p-8 flex items-center justify-center">
+                  <img
+                    src={sizeRoadmapImg}
+                    alt='Touch Display size roadmap — 32" to 85" with Windows desktop background'
+                    loading="lazy"
+                    className="w-full h-auto object-contain"
+                    width={1280}
+                    height={853}
+                  />
+                </div>
+                {/* Copy */}
+                <div className="lg:col-span-2 p-6 sm:p-10 flex flex-col justify-center">
+                  <p className="text-sm text-muted-foreground mb-4">เลือกขนาดได้ตามการใช้งาน</p>
+                  <h3 className="text-2xl sm:text-3xl font-bold mb-6 leading-tight">
+                    7 ขนาดมาตรฐาน <span className="text-primary">32" – 85"</span>
+                  </h3>
+                  <ul className="space-y-4">
+                    <li className="flex gap-3">
+                      <Maximize className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span className="text-sm leading-relaxed">
+                        <strong>Available in sizes from 32″ to 85″</strong> — รองรับทุกสภาพแวดล้อมการติดตั้ง ตั้งแต่หน้าเคาน์เตอร์เล็กไปจนถึง Boardroom ขนาดใหญ่
+                      </span>
+                    </li>
+                    <li className="flex gap-3">
+                      <Lightbulb className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span className="text-sm leading-relaxed">
+                        <strong>Ideal for a wide range of applications</strong> — ตั้งแต่ห้องเรียน Smart Classroom, Retail / POS, ห้องประชุมองค์กร ไปจนถึง Public Signage
+                      </span>
+                    </li>
+                    <li className="flex gap-3">
+                      <Layers className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span className="text-sm leading-relaxed">
+                        <strong>Multiple system options</strong> — เลือกระบบได้ทั้ง Touch Monitor, Windows x86 (J6412/i5/i7) และ Android (RK3568/3288/3588) ตามความเหมาะสมของแต่ละ Use Case
+                      </span>
+                    </li>
+                    <li className="flex gap-3">
+                      <Sun className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span className="text-sm leading-relaxed">
+                        <strong>Anti-glare technology</strong> — ผิวหน้ากระจกตัดแสงสะท้อน ใช้งานสัมผัสได้แม่นยำแม้ในพื้นที่แสงจ้า เช่น ใกล้หน้าต่าง หรือใต้ Spotlight
+                      </span>
+                    </li>
+                  </ul>
+                  <div className="mt-6 pt-6 border-t border-border">
+                    <p className="text-xs text-muted-foreground">
+                      * ขนาดที่นำเสนอ: 32" / 43" / 49" / 55" / 65" / 75" / 85" — ติดต่อทีมขายเพื่อสอบถามรุ่น 75" / 85" สำหรับโครงการขนาดใหญ่
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* Comparison */}
         <section
