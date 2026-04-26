@@ -380,7 +380,7 @@ function buildSpecs(p: RawProduct): DetailedSpecs {
     { label: "Warranty (มาตรฐาน)", value: "1 ปี (Carry-in)" },
     { label: "Warranty (Optional)", value: "ขยายเป็น 3 ปี — ติดต่อทีมขาย" },
     { label: "MTBF (Reliability)", value: "≥ 50,000 ชม." },
-    { label: "Origin", value: "Designed by TouchWo • Distributed by ENT Group" },
+    { label: "Origin", value: "Interactive Display by ENT Group" },
   ];
 
 
