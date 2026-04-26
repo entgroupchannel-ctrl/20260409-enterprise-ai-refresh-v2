@@ -275,9 +275,6 @@ export default function TouchWork() {
         </div>
       </section>
 
-      {/* Real-world Use Cases — แรงบันดาลใจก่อนเลือกสเปก */}
-      <UseCasesSection />
-
       {/* Filter Bar */}
       <section className="border-y border-border/40 bg-muted/30 sticky top-0 z-30 backdrop-blur">
         <div className="container max-w-7xl mx-auto px-6 py-4">
@@ -529,6 +526,9 @@ export default function TouchWork() {
           <PriceDisclaimer />
         </div>
       </section>
+
+      {/* Real-world Use Cases — หลังเห็นสินค้าแล้ว ค่อยแสดงตัวอย่างการนำไปใช้งานจริง */}
+      <UseCasesSection />
 
       {/* Why TouchWork */}
       <section className="container max-w-7xl mx-auto px-6 py-10 border-t border-border/40">
