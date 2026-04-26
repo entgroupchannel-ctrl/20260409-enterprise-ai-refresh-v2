@@ -47,6 +47,7 @@ import hd49Install2 from "@/assets/touchwo/hd49/install-2.jpg";
 import hd49Install3 from "@/assets/touchwo/hd49/install-3.jpg";
 import hd49IoAndroid from "@/assets/touchwo/hd49/io-android.png";
 import hd49IoWindows from "@/assets/touchwo/hd49/io-windows.png";
+import hd49IoMonitor from "@/assets/touchwo/hd49/io-monitor.png";
 
 export type Display49Slug = "hr49" | "hd49";
 export { OS_BACKGROUNDS };
