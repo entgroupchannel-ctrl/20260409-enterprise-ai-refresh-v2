@@ -46,6 +46,24 @@
   <url><loc>https://www.entgroup.co.th/fpm-series</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://www.entgroup.co.th/touchwork</loc><lastmod>2026-04-24</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://www.entgroup.co.th/utc-series</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/upc-series</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.entgroup.co.th/accessories</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- ═══ Interactive Touch Display & KIOSK (NEW 2026) ═══ -->
+  <url><loc>https://www.entgroup.co.th/interactive-display</loc><lastmod>2026-04-26</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://www.entgroup.co.th/products/displays-15.6</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.entgroup.co.th/products/displays-21.5</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.entgroup.co.th/products/displays-23.8</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.entgroup.co.th/products/displays-27</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.entgroup.co.th/products/displays-32</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.entgroup.co.th/products/displays-43</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.entgroup.co.th/products/displays-49</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.entgroup.co.th/products/displays-55</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.entgroup.co.th/products/displays-65</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.entgroup.co.th/products/displays-75</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.entgroup.co.th/products/displays-85</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.entgroup.co.th/products/displays-86</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.entgroup.co.th/products/displays-98</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
   <!-- ═══ Rugged Tablet ═══ -->
   <url><loc>https://www.entgroup.co.th/rugged-tablet</loc><lastmod>2026-04-01</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
