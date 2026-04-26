@@ -186,6 +186,7 @@ const SIZE_FILTERS = [
   { label: '86"', value: "86" },
   { label: '98"', value: "98" },
   { label: '23.8" Kiosk', value: "23.8" },
+  { label: '15.6" Kiosk', value: "15.6" },
 ];
 
 // Series ที่มีหน้ารายละเอียดเฉพาะ (Android/x86/Monitor variants) แต่ยังไม่ถูก seed ลง DB
