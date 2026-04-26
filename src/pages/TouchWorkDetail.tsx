@@ -30,7 +30,7 @@ import ImageLightbox, { ZoomHintBadge } from "@/components/ImageLightbox";
 import { getTouchWorkProductImages, getTouchWorkDimensionImages, getTouchWorkInterfaceImage } from "@/data/touchwork-gallery";
 import { getTouchworkHardware } from "@/data/touchwork-hardware";
 import ProductConfigurator from "@/components/touchwork/ProductConfigurator";
-import B2BCTABanner from "@/components/B2BCTABanner";
+
 
 import B2BMarketingShowcase from "@/components/B2BMarketingShowcase";
 
