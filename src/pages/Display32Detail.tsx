@@ -169,6 +169,9 @@ const ALL_SECTIONS = [
   { id: "download",       label: "Datasheet",       icon: Download },
 ];
 
+// กลุ่มสินค้าที่ไม่แสดง Datasheet (ซ่อนแหล่งที่มา OEM)
+const HIDE_DATASHEET_GROUPS: GroupSize[] = [156, 215];
+
 interface Props { groupSize?: GroupSize }
 const Display32Detail = ({ groupSize = 32 }: Props) => {
   const group = GROUPS[groupSize];
@@ -182,6 +185,7 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
   const [activeSection, setActiveSection] = useState("overview");
   const [lightbox, setLightbox] = useState<{ images: string[]; index: number } | null>(null);
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
+  const hideDatasheet = HIDE_DATASHEET_GROUPS.includes(groupSize);
   const SECTIONS = useMemo(
     () => ALL_SECTIONS.filter(s => {
       if (s.id === "dimensions") return (product?.dimensionDrawings?.length ?? 0) > 0;
@@ -190,9 +194,10 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
       if (s.id === "peripherals") return (product?.peripherals?.length ?? 0) > 0;
       if (s.id === "customization") return (product?.customizationOptions?.length ?? 0) > 0;
       if (s.id === "io") return !!product?.ioImage && (product?.ports?.length ?? 0) > 0;
+      if (s.id === "download") return !hideDatasheet;
       return true;
     }),
-    [product]
+    [product, hideDatasheet]
   );
 
   // Track active section on scroll
@@ -371,19 +376,21 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
                 productName={product.name}
 
               />
-              {hasDatasheet(product.modelCode) ? (
-                <DatasheetButton
-                  productModel={product.modelCode}
-                  variant="default"
-                  size="default"
-                  fullWidth={false}
-                />
-              ) : (
-                <Button variant="outline" asChild>
-                  <a href={product.datasheetUrl} target="_blank" rel="noopener noreferrer">
-                    <Download className="h-4 w-4 mr-2" /> Datasheet
-                  </a>
-                </Button>
+              {!hideDatasheet && (
+                hasDatasheet(product.modelCode) ? (
+                  <DatasheetButton
+                    productModel={product.modelCode}
+                    variant="default"
+                    size="default"
+                    fullWidth={false}
+                  />
+                ) : (
+                  <Button variant="outline" asChild>
+                    <a href={product.datasheetUrl} target="_blank" rel="noopener noreferrer">
+                      <Download className="h-4 w-4 mr-2" /> Datasheet
+                    </a>
+                  </Button>
+                )
               )}
               {product.dimensionUrl && (
                 <Button variant="outline" asChild>
@@ -1099,7 +1106,8 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
           <ComparisonTable activeSlug={requested} onSwitch={switchModel} data={group.data} order={group.order} />
         </section>
 
-        {/* Datasheet CTA */}
+        {/* Datasheet CTA — ซ่อนสำหรับกลุ่มที่ไม่ต้องการเปิดเผยแหล่งที่มา */}
+        {!hideDatasheet && (
         <section
           id="download"
           ref={el => (sectionRefs.current.download = el)}
@@ -1135,6 +1143,7 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
             )}
           </div>
         </section>
+        )}
       </main>
 
       <FooterCompact />
