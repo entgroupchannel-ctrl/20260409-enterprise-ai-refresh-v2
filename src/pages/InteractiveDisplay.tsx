@@ -156,15 +156,19 @@ const PRODUCT_IMAGES: Record<string, string> = {
   "interactive-display-gd215c": imgGd215c,
 };
 
-// ลำดับการแสดงผล: เริ่มจาก 27" → 32" → 43" → 49" → 55" → 65" → 23.8"
+// ลำดับการแสดงผล: เล็ก → ใหญ่ (KIOSK เริ่มจาก 15.6" → 21.5" → 23.8" แล้วต่อด้วยจอใหญ่ 27"→98")
 const SIZE_ORDER: Record<string, number> = {
-  "27": 1, "32": 2, "43": 3, "49": 4, "55": 5, "65": 6, "75": 7, "85": 8, "86": 9, "98": 10, "23.8": 11, "21.5": 11.5, "15.6": 12,
+  "15.6": 1, "21.5": 2, "23.8": 3, "27": 4, "32": 5, "43": 6, "49": 7, "55": 8, "65": 9, "75": 10, "85": 11, "86": 12, "98": 13,
 };
+const KIOSK_SIZES = new Set(["15.6", "21.5", "23.8"]);
 const sizeRank = (p: { tags: string[] | null; slug: string }) => {
   for (const [size, rank] of Object.entries(SIZE_ORDER)) {
     if (p.tags?.some(t => t === `${size}-inch`)) return rank;
   }
   return 99;
+};
+const isKioskProduct = (p: { tags: string[] | null }) => {
+  return p.tags?.some(t => Array.from(KIOSK_SIZES).some(s => t === `${s}-inch`)) ?? false;
 };
 
 type Product = {
