@@ -409,6 +409,18 @@ export const DISPLAYS_49: Record<Display49Slug, Display32> = {
         ],
       },
       {
+        image: hd49IoMonitor,
+        title: "I/O Layout — Touch Monitor Configuration",
+        caption: "พอร์ตเชื่อมต่อรุ่น Touch Monitor (จอสัมผัสล้วน ไม่มี PC ในตัว) — ออกแบบให้กระชับเรียบง่าย ใช้งานแบบ Plug-and-play กับ External PC / OPS / Media Player: USB สำหรับส่งสัญญาณ Touch (HID Class — ไม่ต้องลง Driver), HDMI + VGA รองรับการต่อสัญญาณภาพจากแหล่งหลากหลาย, Audio Out 3.5mm สำหรับลำโพงภายนอก, DC 12V กินไฟต่ำเหมาะกับ 24/7 Operation",
+        callouts: [
+          { label: "Touch Signal", value: "USB (HID Plug-and-play)" },
+          { label: "Video Input", value: "HDMI + VGA (Dual Source)" },
+          { label: "Audio Out", value: "3.5mm Stereo (ลำโพงภายนอก)" },
+          { label: "Power", value: "DC 12V (Low-power < 100W)" },
+          { label: "OS รองรับ", value: "Windows / Linux / macOS / Android" },
+        ],
+      },
+      {
         image: hd49IoWindows,
         title: "I/O Layout — Windows OPS Configuration",
         caption: "พอร์ตเชื่อมต่อรุ่น Windows / Linux PC OPS — ครบทุกการใช้งานสำหรับองค์กร: HDMI out สำหรับต่อจอเสริม, VGA สำหรับอุปกรณ์รุ่นเก่า, USB ×4 สำหรับเครื่องพิมพ์ใบเสร็จ / Barcode Scanner / Cash Drawer, LAN RJ45 สำหรับเครือข่ายองค์กร พร้อม Audio Out + MIC In รองรับงาน Conference / Video Call ผ่าน Windows 10/11 หรือ Linux Ubuntu",
