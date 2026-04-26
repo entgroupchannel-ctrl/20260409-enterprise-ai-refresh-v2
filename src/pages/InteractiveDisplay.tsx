@@ -113,6 +113,7 @@ import imgRz85b from "@/assets/touchwo/rz85b/p-windows.jpg";    // 85" boardroom
 import imgRz86b from "@/assets/touchwo/rz86b/p-windows.jpg";    // 86" auditorium Win11
 import imgRz98b from "@/assets/touchwo/rz98b/p-windows.jpg";    // 98" mega auditorium Win11
 import imgGd238c from "@/assets/touchwo/gd238c/p-1a.jpg";       // wall-mount portrait
+import imgKd156b from "@/assets/touchwo/kd156b/KD156-1A.jpg";   // 15.6" floor-stand kiosk
 
 // Accessory images for filter chips & feature cards
 import accDesktopStand from "@/assets/accessories/desktop-stand.jpg";
