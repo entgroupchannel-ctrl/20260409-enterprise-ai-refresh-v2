@@ -174,7 +174,7 @@ export const DISPLAYS_65: Record<Display65Slug, Display32> = {
         icon: "Monitor",
         description:
           "จอสัมผัส 65\" PCAP ล้วน ๆ ดีไซน์ Unibody ทนทาน — ต่อกับ External PC, OPS หรือ Media Player ผ่าน HDMI in / DVI / VGA + USB Touch (Plug-and-play) Power Consumption < 110W น้ำหนักสุทธิ 37.8 kg พร้อม USB & HDMI cable",
-        bestFor: "ลูกค้ามี PC/OPS อยู่แล้ว ต้องการเฉพาะจอสัมผัสขนาดใหญ่ 65\" ดีไซน์ Unibody กันทำลาย",
+        bestFor: "ลูกค้ามี PC/OPS อยู่แล้ว ต้องการเฉพาะจอสัมผัสขนาดใหญ่ 65\" ดีไซน์ Unibody ทนทานสุด",
         highlights: [
           "ไม่มี PC ในตัว — ต่อ PC ภายนอกผ่าน HDMI in / DVI / VGA",
           "Brightness 300 cd/m² / 60 Hz / Contrast 3000:1",
