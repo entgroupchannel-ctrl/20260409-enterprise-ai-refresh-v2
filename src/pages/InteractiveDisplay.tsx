@@ -17,6 +17,7 @@ import QuoteRequestButton from "@/components/QuoteRequestButton";
 import AddToCartButton from "@/components/AddToCartButton";
 import { LineQRDialog } from "@/components/LineQRDialog";
 import heroImg from "@/assets/interactive-display-hero.jpg";
+import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 
 // Use case images by screen size (small → large)
 import uc27 from "@/assets/usecase/uc-27-checkin.jpg";
@@ -584,6 +585,11 @@ export default function InteractiveDisplay() {
             })}
           </div>
         )}
+      </section>
+
+      {/* B2B Workflow Banner — แจ้งให้ลูกค้าทราบว่าสั่งผ่านใบเสนอราคา ไม่ใช่ขายออนไลน์ */}
+      <section className="border-y border-border bg-muted/30">
+        <B2BWorkflowBanner variant="full" showShopCta={false} />
       </section>
 
       {/* Use cases by screen size */}
