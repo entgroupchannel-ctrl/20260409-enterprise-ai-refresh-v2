@@ -324,8 +324,8 @@ export default function InteractiveDisplay() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SEOHead
-        title='Interactive Touch Display 32"–65" | จอทัชสกรีนอุตสาหกรรม | ENT Group'
-        description='จอทัชสกรีนอุตสาหกรรมขนาด 32"-65" สำหรับห้องประชุม, Retail, Education, Factory HMI — IR Touch 10 จุด, IP65, Anti-glare, รับประกัน On-site 24 เดือน'
+        title='Interactive Touch Display 27"–98" | จอทัชสกรีนอุตสาหกรรม | ENT Group'
+        description='จอทัชสกรีนอุตสาหกรรมขนาด 27"-98" สำหรับห้องประชุม, Retail, Education, Factory HMI — IR Touch 10 จุด, IP65, Anti-glare, รับประกัน On-site 24 เดือน'
         path="/interactive-display"
       />
       <BreadcrumbJsonLd items={[
