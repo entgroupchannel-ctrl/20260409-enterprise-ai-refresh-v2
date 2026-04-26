@@ -239,6 +239,8 @@ const App = () => (
                     <Route path="/products/displays-21.5/:model" element={<Display32Detail groupSize={215} />} />
                     <Route path="/products/interactive-display-kd215b" element={<Navigate to="/products/displays-21.5?model=kd215b" replace />} />
                     <Route path="/products/interactive-kiosk-kd215b" element={<Navigate to="/products/displays-21.5?model=kd215b" replace />} />
+                    <Route path="/products/interactive-display-gd215c" element={<Navigate to="/products/displays-21.5?model=gd215c" replace />} />
+                    <Route path="/products/interactive-kiosk-gd215c" element={<Navigate to="/products/displays-21.5?model=gd215c" replace />} />
                     <Route path="/products/displays-27" element={<Display32Detail groupSize={27} />} />
                     <Route path="/products/displays-27/:model" element={<Display32Detail groupSize={27} />} />
                     <Route path="/products/interactive-display-hd27" element={<Navigate to="/products/displays-27?model=hd27" replace />} />
