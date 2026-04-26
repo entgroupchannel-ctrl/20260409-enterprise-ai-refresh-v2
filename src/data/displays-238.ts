@@ -264,6 +264,9 @@ export const DISPLAYS_238: Record<Display238Slug, Display32> = {
     featureImages: [gdDesign],
     dimensionDrawings: [],
     osSupport: ["android", "windows", "linux"],
+    peripherals: KIOSK_PERIPHERALS,
+    customizationLeadTime: KIOSK_CUSTOMIZATION_LEAD_TIME,
+    customizationOptions: KIOSK_CUSTOMIZATION_OPTIONS,
     variants: [COMMON_VARIANT_ARM, COMMON_VARIANT_X86],
     cpuOptions: [
       {
