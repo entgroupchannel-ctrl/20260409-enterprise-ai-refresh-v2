@@ -787,7 +787,7 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
             </div>
             <div className="mt-6 flex items-center justify-center">
               <QuoteRequestButton
-                productSlug={product.slug}
+                productModel={product.modelCode}
                 productName={`${product.name} — ปรับแต่ง`}
                 variant="default"
                 size="lg"
