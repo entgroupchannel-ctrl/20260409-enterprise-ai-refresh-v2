@@ -554,13 +554,38 @@ export default function InteractiveDisplay() {
 
       {/* Products */}
       <section id="products" className="container max-w-7xl mx-auto px-6 py-16 border-t border-border">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold">เลือกขนาดที่เหมาะกับงานคุณ</h2>
-            <p className="text-muted-foreground mt-2">มี 11 ขนาด: 27", 32", 43", 49", 55", 65", 75", 85", 86", 98" และ 23.8" Kiosk</p>
+        <div className="flex flex-col gap-4 mb-8">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold">เลือกขนาดที่เหมาะกับงานคุณ</h2>
+              <p className="text-muted-foreground mt-2">เรียงจากเล็กไปใหญ่ — KIOSK 15.6", 21.5", 23.8" และจอใหญ่ 27"–98"</p>
+            </div>
+            {/* Category toggle: ทั้งหมด / KIOSK / Display */}
+            <div className="inline-flex rounded-lg border border-border p-1 bg-card self-start">
+              {([
+                { v: "all" as const, label: "ทั้งหมด" },
+                { v: "kiosk" as const, label: "KIOSK เท่านั้น" },
+                { v: "display" as const, label: "จอใหญ่ 27\"+" },
+              ]).map(opt => (
+                <Button
+                  key={opt.v}
+                  size="sm"
+                  variant={category === opt.v ? "default" : "ghost"}
+                  onClick={() => {
+                    setCategory(opt.v);
+                    setSize("all");
+                  }}
+                  className="rounded-md"
+                >
+                  {opt.label}
+                </Button>
+              ))}
+            </div>
           </div>
+
+          {/* Size chips */}
           <div className="flex flex-wrap gap-2">
-            {SIZE_FILTERS.map(f => (
+            {visibleSizeFilters.map(f => (
               <Button
                 key={f.value}
                 size="sm"
