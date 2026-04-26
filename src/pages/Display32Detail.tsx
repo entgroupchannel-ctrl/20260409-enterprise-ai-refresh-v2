@@ -1106,7 +1106,8 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
           <ComparisonTable activeSlug={requested} onSwitch={switchModel} data={group.data} order={group.order} />
         </section>
 
-        {/* Datasheet CTA */}
+        {/* Datasheet CTA — ซ่อนสำหรับกลุ่มที่ไม่ต้องการเปิดเผยแหล่งที่มา */}
+        {!hideDatasheet && (
         <section
           id="download"
           ref={el => (sectionRefs.current.download = el)}
@@ -1142,6 +1143,7 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
             )}
           </div>
         </section>
+        )}
       </main>
 
       <FooterCompact />
