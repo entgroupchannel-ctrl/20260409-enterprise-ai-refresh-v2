@@ -66,6 +66,8 @@ import hd65Feat1 from "@/assets/touchwo/hd65/feat-1.png";
 import hd65Feat2 from "@/assets/touchwo/hd65/feat-2.png";
 import hd65Feat3 from "@/assets/touchwo/hd65/feat-3.png";
 import hd65Feat4 from "@/assets/touchwo/hd65/feat-4.png";
+import hd65DimFront from "@/assets/touchwo/hd65/dim-front.png";
+import hd65DimBack from "@/assets/touchwo/hd65/dim-back.png";
 
 export type Display65Slug = "hr65" | "rz65b" | "hd65";
 export { OS_BACKGROUNDS };
