@@ -156,12 +156,13 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
                   />
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
+                  <div className="md:col-span-2">
                     <Label>รุ่น/Model *</Label>
                     <Input
                       value={editForm.model}
                       onChange={(e) => handleFormChange('model', e.target.value)}
                       placeholder="เช่น GT-156"
+                      className="font-mono"
                     />
                   </div>
                   <div className="md:col-span-2">
