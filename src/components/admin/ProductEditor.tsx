@@ -264,7 +264,7 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
           ) : (
             // View Mode
             <div 
-              className="p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors group cursor-pointer relative"
+              className="p-4 border border-border rounded-lg bg-muted/40 hover:bg-muted/60 transition-colors group cursor-pointer relative"
               onClick={() => handleEdit(index)}
             >
               <div className="flex justify-between items-start mb-2">
