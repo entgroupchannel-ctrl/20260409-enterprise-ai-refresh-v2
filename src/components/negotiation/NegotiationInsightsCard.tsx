@@ -61,7 +61,7 @@ export default function NegotiationInsightsCard({ quoteId }: Props) {
           Negotiation Insights
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-3">
+      <CardContent className="space-y-3 bg-gray-200 rounded-b-lg pt-6">
         <div className="grid grid-cols-2 gap-3 text-center">
           <div className="p-2 bg-muted/30 rounded">
             <p className="text-xs text-muted-foreground">Revisions</p>
