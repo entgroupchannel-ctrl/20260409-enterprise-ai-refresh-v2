@@ -271,9 +271,9 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
                 <div className="flex-1">
                   <h4 className="font-semibold flex items-center gap-2 text-foreground">
                     {product.model || 'N/A'}
-                    <span className="text-xs text-muted-foreground font-normal bg-slate-200 px-1 rounded">x{product.qty}</span>
+                    <span className="text-xs text-muted-foreground font-normal bg-muted px-1.5 rounded">x{product.qty}</span>
                   </h4>
-                  <p className="text-sm text-muted-foreground whitespace-pre-line bg-slate-200">{product.description}</p>
+                  <p className="text-sm text-muted-foreground whitespace-pre-line mt-1">{product.description}</p>
                   {product.notes && (
                     <p className="text-sm text-primary mt-1">หมายเหตุ: {product.notes}</p>
                   )}
@@ -282,7 +282,7 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
                   <p className="font-semibold text-primary">
                     {formatCurrency(product.line_total || 0)}
                   </p>
-                  <p className="text-xs text-muted-foreground bg-slate-200 px-1 rounded inline-block">
+                  <p className="text-xs text-muted-foreground">
                     {formatCurrency(product.unit_price)} / หน่วย
                   </p>
                 </div>
