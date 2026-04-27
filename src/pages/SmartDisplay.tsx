@@ -252,14 +252,14 @@ const SmartDisplay = () => {
                 สำหรับ Self-Service, Wayfinding, Education, Boardroom และ Smart Retail
               </p>
 
-              <div className="grid grid-cols-3 gap-3 mb-6 max-w-md">
+              <div className="grid grid-cols-3 gap-3 mb-6 max-w-lg">
                 {[
                   { num: "20+", label: "รุ่น" },
                   { num: '23.8″–98″', label: "ขนาด" },
                   { num: "Android/Win", label: "OS" },
                 ].map((s) => (
-                  <div key={s.label} className="rounded-xl border border-white/10 bg-white/5 backdrop-blur p-3">
-                    <div className="text-lg md:text-xl font-display font-black text-primary">{s.num}</div>
+                  <div key={s.label} className="rounded-xl border border-white/10 bg-white/5 backdrop-blur px-4 py-3 min-w-0">
+                    <div className="text-base md:text-lg font-display font-black text-primary whitespace-nowrap truncate">{s.num}</div>
                     <div className="text-[10px] uppercase tracking-wider text-white/60">{s.label}</div>
                   </div>
                 ))}
