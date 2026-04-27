@@ -126,7 +126,7 @@ const ProductGalleryPortrait = ({
                 src={img}
                 alt={`${alt} - ${i + 1}`}
                 loading={i === 0 ? "eager" : "lazy"}
-                className={`absolute inset-0 m-auto h-full w-full object-cover scale-[1.12] transition-opacity duration-500 ${
+                className={`absolute inset-0 m-auto h-full w-full object-contain p-1 sm:p-2 transition-opacity duration-500 ${
                   i === current ? "opacity-100" : "opacity-0 pointer-events-none"
                 } ${onImageClick ? "cursor-zoom-in" : ""}`}
                 onClick={onImageClick ? () => onImageClick(current) : undefined}
