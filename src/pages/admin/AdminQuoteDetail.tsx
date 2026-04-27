@@ -1676,7 +1676,7 @@ export default function AdminQuoteDetail() {
               <CardHeader>
                 <CardTitle className="text-lg">ข้อความ</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="bg-gray-200 rounded-b-lg pt-6">
                 <div className="space-y-3 max-h-[400px] overflow-y-auto mb-4 p-3 rounded-lg bg-slate-100 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800">
                   {messages.length > 0 ? (
                     messages.map((msg) => {

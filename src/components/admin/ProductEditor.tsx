@@ -262,7 +262,10 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
             </Card>
           ) : (
             // View Mode
-            <div className="p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors group">
+            <div 
+              className="p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors group cursor-pointer relative"
+              onClick={() => handleEdit(index)}
+            >
               <div className="flex justify-between items-start mb-2">
                 <div className="flex-1">
                   <h4 className="font-semibold flex items-center gap-2 text-foreground">
