@@ -14,9 +14,9 @@ import {
   KIOSK_CUSTOMIZATION_LEAD_TIME,
 } from "./kiosk-peripherals";
 
-// Gallery — KD215B Floor Stand Kiosk (7 รูปจาก touchwo)
-import kd215g1 from "@/assets/touchwo/kd215b/KD215-1.jpg";
-import kd215g2 from "@/assets/touchwo/kd215b/KD215-2.jpg";
+// Gallery — KD215B Floor Stand Kiosk (7 รูปจาก touchwo + 2 รูปติดโลโก้ ENT)
+import kd215g1 from "@/assets/touchwo/kd215b/KD215-1-branded.jpg";
+import kd215g2 from "@/assets/touchwo/kd215b/KD215-2-branded.jpg";
 import kd215g3 from "@/assets/touchwo/kd215b/KD215-3.jpg";
 import kd215g4 from "@/assets/touchwo/kd215b/KD215-4.jpg";
 import kd215g5 from "@/assets/touchwo/kd215b/KD215-5.jpg";
