@@ -12,7 +12,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { Plus, Trash2, Edit, Save, X } from 'lucide-react';
+import { Plus, Trash2, Edit, Save, X, Pencil } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import ProductAutocomplete, { type ProductData } from './ProductAutocomplete';
 import DiscountInput, { type DiscountType } from '@/components/shared/DiscountInput';
@@ -145,8 +145,15 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
         <div key={index}>
           {editingIndex === index ? (
             // Edit Mode
-            <Card className="border-primary/30 bg-primary/5">
-              <CardContent className="pt-6 space-y-4">
+            <Card className="border-2 border-primary border-dashed bg-primary/5 shadow-md ring-2 ring-primary/20">
+              <CardContent className="pt-4 space-y-4">
+                <div className="flex items-center gap-2 -mt-1 mb-1">
+                  <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-primary text-primary-foreground text-[11px] font-bold uppercase tracking-wide animate-pulse">
+                    <Pencil className="w-3 h-3" />
+                    กำลังแก้ไข
+                  </span>
+                  <span className="text-xs text-muted-foreground">รายการที่ {index + 1}</span>
+                </div>
                 <div>
                   <Label className="mb-1.5 block">ค้นหาสินค้าจากคลัง (เลือกเพื่อเติมข้อมูลอัตโนมัติ)</Label>
                   <ProductAutocomplete
