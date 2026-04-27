@@ -260,13 +260,93 @@ const FPMSeriesDetail = () => {
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Gallery */}
             <div>
-              <div className="aspect-square rounded-2xl border border-border bg-muted/40 overflow-hidden flex items-center justify-center p-8">
-                <img
-                  src={data.images[activeImg]}
-                  alt={`${data.model} - ${activeImg + 1}`}
-                  className="max-w-full max-h-full object-contain"
-                />
+              <div
+                className="relative aspect-square rounded-2xl border border-border bg-muted/40 overflow-hidden flex items-center justify-center p-8 group"
+                onMouseEnter={() => setPaused(true)}
+                onMouseLeave={() => setPaused(false)}
+              >
+                {data.images.map((src, i) => (
+                  <img
+                    key={i}
+                    src={src}
+                    alt={`${data.model} - ${i + 1}`}
+                    loading={i === 0 ? "eager" : "lazy"}
+                    className={`absolute inset-0 m-auto max-w-full max-h-full object-contain p-8 transition-opacity duration-500 ${
+                      i === activeImg ? "opacity-100" : "opacity-0 pointer-events-none"
+                    }`}
+                  />
+                ))}
+
+                {/* Counter */}
+                <div className="absolute top-3 left-3 z-10 px-2.5 py-1 rounded-full bg-background/85 backdrop-blur-sm border border-border text-xs font-semibold text-muted-foreground">
+                  {activeImg + 1} <span className="opacity-60">/ {totalImgs}</span>
+                </div>
+
+                {/* Auto-play toggle */}
+                {totalImgs > 1 && (
+                  <button
+                    type="button"
+                    onClick={() => setAutoPlay((v) => !v)}
+                    aria-label={autoPlay ? "หยุดเลื่อนอัตโนมัติ" : "เริ่มเลื่อนอัตโนมัติ"}
+                    className="absolute top-3 right-3 z-10 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-background/85 backdrop-blur-sm border border-border text-xs font-semibold text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary transition"
+                  >
+                    {autoPlay ? <Pause size={12} /> : <Play size={12} />}
+                    {autoPlay ? "Auto" : "หยุด"}
+                  </button>
+                )}
+
+                {/* Prev / Next */}
+                {totalImgs > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={goPrev}
+                      aria-label="ภาพก่อนหน้า"
+                      className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-background/90 backdrop-blur-sm border border-border flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-all hover:bg-primary hover:text-primary-foreground hover:scale-110"
+                    >
+                      <ChevronLeft size={18} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={goNext}
+                      aria-label="ภาพถัดไป"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-background/90 backdrop-blur-sm border border-border flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-all hover:bg-primary hover:text-primary-foreground hover:scale-110"
+                    >
+                      <ChevronRight size={18} />
+                    </button>
+                  </>
+                )}
+
+                {/* Auto-play progress bar */}
+                {autoPlay && !paused && totalImgs > 1 && (
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-border/40 z-10 overflow-hidden">
+                    <div
+                      key={activeImg}
+                      className="h-full bg-primary"
+                      style={{ animation: "fpm-progress 4s linear forwards" }}
+                    />
+                  </div>
+                )}
               </div>
+
+              {/* Progress dots */}
+              {totalImgs > 1 && (
+                <div className="flex gap-1.5 justify-center mt-3">
+                  {data.images.map((_, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => setActiveImg(i)}
+                      aria-label={`ไปยังภาพที่ ${i + 1}`}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        i === activeImg ? "w-8 bg-primary" : "w-1.5 bg-muted-foreground/30 hover:bg-muted-foreground/60"
+                      }`}
+                    />
+                  ))}
+                </div>
+              )}
+
+              {/* Thumbnails */}
               <div className="grid grid-cols-6 gap-2 mt-3">
                 {data.images.map((src, i) => (
                   <button
@@ -280,6 +360,8 @@ const FPMSeriesDetail = () => {
                   </button>
                 ))}
               </div>
+
+              <style>{`@keyframes fpm-progress { from { width: 0% } to { width: 100% } }`}</style>
             </div>
 
             {/* Info */}
