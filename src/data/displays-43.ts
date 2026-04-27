@@ -299,6 +299,10 @@ export const DISPLAYS_43: Record<Display43Slug, Display32> = {
       hr43Mon1, hr43Mon2, hr43X861, hr43X862, hr43Arm1, hr43Arm2,
       hr43Mon5, hr43Mon6, hr43Mon7,
     ],
+    galleryCaptions: [
+      "ตัวอย่างการใช้งาน: จอนำทาง / เช็คอินในล็อบบี้โรงแรม (Hotel Wayfinding) — แผนที่อาคาร + หลายภาษา",
+      "ตัวอย่างการใช้งาน: จอ Digital Signage ในร้านค้าปลีก (Retail Promotion) — โชว์คอลเลกชันใหม่ + QR สั่งซื้อ",
+    ],
     ioImage: hr43Mon6,
     installImages: [hr43Mon3, hr43Mon4, hr43Mon7],
     featureImages: [],
