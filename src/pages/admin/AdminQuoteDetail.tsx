@@ -1075,7 +1075,7 @@ export default function AdminQuoteDetail() {
                  </Button>
                </div>
              </CardHeader>
-            <CardContent className="text-sm space-y-1.5">
+            <CardContent className="text-sm space-y-1.5 bg-gray-200 rounded-b-lg pt-6">
               <div className="font-semibold text-base">{quote.customer_name}</div>
               {quote.customer_company && (
                 <div className="text-muted-foreground">{quote.customer_company}</div>
@@ -1113,7 +1113,7 @@ export default function AdminQuoteDetail() {
                 วันที่ & ผู้รับผิดชอบ
               </CardTitle>
             </CardHeader>
-            <CardContent className="text-sm space-y-1.5">
+            <CardContent className="text-sm space-y-1.5 bg-gray-200 rounded-b-lg pt-6">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">วันที่สร้าง:</span>
                 <span>{formatShortDateTime(quote.created_at)}</span>
