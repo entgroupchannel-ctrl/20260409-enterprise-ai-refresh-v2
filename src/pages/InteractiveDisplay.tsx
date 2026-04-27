@@ -666,7 +666,7 @@ export default function InteractiveDisplay() {
                 : is32
                 ? `/products/displays-32?model=${model32}`
                 : is156
-                ? `/products/displays-15.6?model=kd156b`
+                ? `/interactive-display`
                 : is215
                 ? `/products/displays-21.5?model=${model215}`
                 : `/products/${p.slug}`;
