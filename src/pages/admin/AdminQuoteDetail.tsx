@@ -1677,45 +1677,56 @@ export default function AdminQuoteDetail() {
                 <CardTitle className="text-lg">ข้อความ</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-3 max-h-[400px] overflow-y-auto mb-4">
+                <div className="space-y-3 max-h-[400px] overflow-y-auto mb-4 p-3 rounded-lg bg-slate-100 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800">
                   {messages.length > 0 ? (
-                    messages.map((msg) => (
-                      <div
-                        key={msg.id}
-                        className={`p-3 rounded-lg ${
-                          msg.sender_role === 'admin' || msg.sender_role === 'sales'
-                            ? 'bg-blue-50 ml-4'
-                            : msg.sender_role === 'system'
-                            ? 'bg-gray-100'
-                            : 'bg-green-50 mr-4'
-                        }`}
-                      >
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="text-xs font-semibold">{msg.sender_name}</span>
-                          <span className="text-xs text-gray-500">
-                            {formatRelativeTime(msg.created_at)}
-                          </span>
+                    messages.map((msg) => {
+                      const isAdmin = msg.sender_role === 'admin' || msg.sender_role === 'sales';
+                      const isSystem = msg.sender_role === 'system';
+                      return (
+                        <div
+                          key={msg.id}
+                          className={`p-3 rounded-lg border shadow-sm ${
+                            isAdmin
+                              ? 'bg-blue-100 dark:bg-blue-950/60 border-blue-300 dark:border-blue-800 ml-6 text-blue-950 dark:text-blue-100'
+                              : isSystem
+                              ? 'bg-slate-200 dark:bg-slate-800 border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200'
+                              : 'bg-emerald-100 dark:bg-emerald-950/60 border-emerald-300 dark:border-emerald-800 mr-6 text-emerald-950 dark:text-emerald-100'
+                          }`}
+                        >
+                          <div className="flex items-center justify-between mb-1">
+                            <span className="text-xs font-bold">
+                              {isAdmin ? '👤 ' : isSystem ? '⚙️ ' : '💬 '}
+                              {msg.sender_name}
+                            </span>
+                            <span className="text-[11px] opacity-70 font-medium">
+                              {formatRelativeTime(msg.created_at)}
+                            </span>
+                          </div>
+                          <p className="text-sm font-medium leading-relaxed whitespace-pre-wrap">{msg.content}</p>
                         </div>
-                        <p className="text-sm">{msg.content}</p>
-                      </div>
-                    ))
+                      );
+                    })
                   ) : (
-                    <p className="text-center text-gray-500 py-8">ยังไม่มีข้อความ</p>
+                    <p className="text-center text-muted-foreground py-8 text-sm">ยังไม่มีข้อความ</p>
                   )}
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2 p-3 rounded-lg bg-amber-50 dark:bg-amber-950/20 border-2 border-dashed border-amber-300 dark:border-amber-800">
+                  <div className="text-xs font-semibold text-amber-800 dark:text-amber-300 flex items-center gap-1.5">
+                    <SendHorizonal className="w-3.5 h-3.5" />
+                    พิมพ์ข้อความตอบลูกค้า (ส่งจากฝั่งแอดมิน)
+                  </div>
                   <Textarea
-                    placeholder="พิมพ์ข้อความ..."
+                    placeholder="พิมพ์ข้อความที่ต้องการส่งให้ลูกค้า..."
                     value={messageText}
                     onChange={(e) => setMessageText(e.target.value)}
                     rows={3}
-                    className="text-foreground bg-background border-border"
+                    className="text-foreground bg-background border border-input font-medium placeholder:text-muted-foreground/60 focus-visible:border-amber-500"
                   />
                   <Button
                     onClick={handleSendMessage}
                     disabled={sendingMessage || !messageText.trim()}
-                    className="w-full"
+                    className="w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold"
                   >
                     <SendHorizonal className="w-4 h-4 mr-2" />
                     {sendingMessage ? 'กำลังส่ง...' : 'ส่งข้อความ'}

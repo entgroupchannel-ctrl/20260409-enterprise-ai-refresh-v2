@@ -180,7 +180,7 @@ export default function QuoteTermsEditor({
     if (tpls.length === 0) return null;
     return (
       <Select onValueChange={(v) => applyTemplate(type, v, setter)} disabled={disabled}>
-        <SelectTrigger className="h-9 text-sm bg-background border-2 border-input/80 hover:border-primary/50 text-foreground font-medium shadow-sm">
+        <SelectTrigger className="h-9 text-sm border border-input bg-muted/60 dark:bg-muted/30 hover:border-primary/50 text-foreground font-medium">
           <SelectValue placeholder="เลือกจาก template หรือพิมพ์เอง" />
         </SelectTrigger>
         <SelectContent>
@@ -231,7 +231,7 @@ export default function QuoteTermsEditor({
                 onChange={(e) => setPaymentTerms(e.target.value)}
                 placeholder="เช่น: เงินสด / โอน / เช็ค ชำระก่อนส่งมอบ"
                 rows={2} disabled={disabled}
-                className="text-sm resize-none bg-background border-2 border-input/80 focus-visible:border-primary text-foreground font-medium shadow-sm"
+                className="text-sm resize-none border border-input bg-muted/60 dark:bg-muted/30 focus-visible:border-primary text-foreground font-medium"
               />
             </div>
 
@@ -245,7 +245,7 @@ export default function QuoteTermsEditor({
                 onChange={(e) => setDeliveryTerms(e.target.value)}
                 placeholder="เช่น: จัดส่งฟรีในเขต กทม."
                 rows={2} disabled={disabled}
-                className="text-sm resize-none bg-background border-2 border-input/80 focus-visible:border-primary text-foreground font-medium shadow-sm"
+                className="text-sm resize-none border border-input bg-muted/60 dark:bg-muted/30 focus-visible:border-primary text-foreground font-medium"
               />
             </div>
 
@@ -259,7 +259,7 @@ export default function QuoteTermsEditor({
                 onChange={(e) => setWarrantyTerms(e.target.value)}
                 placeholder="เช่น: รับประกัน 1 ปี"
                 rows={2} disabled={disabled}
-                className="text-sm resize-none bg-background border-2 border-input/80 focus-visible:border-primary text-foreground font-medium shadow-sm"
+                className="text-sm resize-none border border-input bg-muted/60 dark:bg-muted/30 focus-visible:border-primary text-foreground font-medium"
               />
             </div>
 
@@ -272,7 +272,7 @@ export default function QuoteTermsEditor({
                   type="date" value={validUntil}
                   onChange={(e) => setValidUntil(e.target.value)}
                   disabled={disabled}
-                  className="text-sm h-9 flex-1 bg-background border-2 border-input/80 focus-visible:border-primary text-foreground font-medium shadow-sm"
+                  className="text-sm h-9 flex-1 border border-input bg-muted/60 dark:bg-muted/30 focus-visible:border-primary text-foreground font-medium"
                 />
                 {daysUntilExpiry !== null && (
                   <span className={`text-xs whitespace-nowrap ${daysUntilExpiry < 7 ? 'text-destructive font-medium' : 'text-muted-foreground'}`}>
@@ -299,7 +299,7 @@ export default function QuoteTermsEditor({
                   value={notes} onChange={(e) => setNotes(e.target.value)}
                   placeholder="หมายเหตุทั่วไปที่ลูกค้าจะเห็น..."
                   rows={2} disabled={disabled}
-                  className="text-sm resize-none bg-background border-2 border-input/80 focus-visible:border-primary text-foreground font-medium shadow-sm"
+                  className="text-sm resize-none border border-input bg-muted/60 dark:bg-muted/30 focus-visible:border-primary text-foreground font-medium"
                 />
               </div>
             </div>
@@ -326,7 +326,7 @@ export default function QuoteTermsEditor({
             value={internalNotes} onChange={(e) => setInternalNotes(e.target.value)}
             placeholder="โน้ตภายใน เช่น: Margin, strategy, ประวัติลูกค้า..."
             rows={3} disabled={disabled}
-            className="text-sm resize-none bg-background border-2 border-amber-400/60 dark:border-amber-600/60 focus-visible:border-amber-500 text-foreground font-medium shadow-sm"
+            className="text-sm resize-none bg-background border border-amber-400/70 dark:border-amber-600/70 bg-amber-50/60 dark:bg-amber-950/30 focus-visible:border-amber-500 text-foreground font-medium"
           />
         </CardContent>
       </Card>
