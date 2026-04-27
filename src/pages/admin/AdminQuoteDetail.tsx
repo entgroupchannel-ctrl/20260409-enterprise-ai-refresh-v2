@@ -1317,7 +1317,7 @@ export default function AdminQuoteDetail() {
 
         {/* PO Action Banner (review needed) */}
         {(quote.status === 'po_uploaded' || quote.status === 'po_confirmed') && (
-          <Card className="border-orange-200 bg-orange-50">
+          <Card className="border-2 border-orange-300 bg-orange-50 shadow-md dark:border-orange-700/70 dark:bg-orange-900/20">
             <CardContent className="pt-6 space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -1356,7 +1356,7 @@ export default function AdminQuoteDetail() {
 
         {/* Expired Quote Banner */}
         {quote.status === 'expired' && (
-          <Card className="border-gray-300 bg-gray-50 dark:border-gray-700 dark:bg-gray-900/20">
+          <Card className="border-2 border-gray-300 bg-gray-50 shadow-md dark:border-gray-700 dark:bg-gray-900/20">
             <CardContent className="p-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <Timer className="w-6 h-6 text-gray-500" />
