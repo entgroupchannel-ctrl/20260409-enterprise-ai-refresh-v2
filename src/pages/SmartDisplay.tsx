@@ -15,6 +15,14 @@ import CartBadge from "@/components/CartBadge";
 import ThemeToggle from "@/components/ThemeToggle";
 import logo from "@/assets/logo-entgroup.avif";
 import smartDisplayHero from "@/assets/smart-display-hero.jpg";
+
+// Highlight images for Interactive Display banner (use existing TouchWo assets)
+import idHighlightKd215b from "@/assets/touchwo/kd215b/KD215-1.jpg";
+import idHighlightKd43b from "@/assets/touchwo/kd43b/mon-1.jpg";
+import idHighlightGd238c from "@/assets/touchwo/gd238c/p-1a.jpg";
+import idHighlightHd55 from "@/assets/touchwo/hd55/card-hero.jpg";
+import idHighlightRz86b from "@/assets/touchwo/rz86b/p-windows.jpg";
+import idHighlightHd27 from "@/assets/touchwo/hd27/mon-1.jpg";
 import FooterCompact from "@/components/FooterCompact";
 import MiniNavbar from "@/components/MiniNavbar";
 import B2BPlatformInterfaceShowcase from "@/components/B2BPlatformInterfaceShowcase";
@@ -214,6 +222,111 @@ const SmartDisplay = () => {
               <a href="#downloads" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold hover:bg-white/20 transition-colors">
                 <Download size={18} /> ดาวน์โหลด Price List
               </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ Interactive Display Banner — ดึงลูกค้าไปหน้า /interactive-display ═══ */}
+      <section className="relative overflow-hidden border-y border-border bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-950">
+        <div aria-hidden className="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full bg-primary/20 blur-3xl pointer-events-none" />
+        <div aria-hidden className="absolute -bottom-40 -right-40 w-[520px] h-[520px] rounded-full bg-fuchsia-500/15 blur-3xl pointer-events-none" />
+        <div aria-hidden className="absolute inset-0 opacity-[0.05] pointer-events-none"
+          style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "28px 28px" }} />
+
+        <div className="relative container max-w-7xl mx-auto px-6 py-14 md:py-20">
+          <div className="grid lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-7">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 text-primary text-[11px] font-bold uppercase tracking-widest border border-primary/30 backdrop-blur mb-4">
+                <Star size={12} /> Featured Collection
+              </span>
+              <h2 className="text-3xl md:text-5xl font-display font-black text-white leading-tight mb-4">
+                Interactive Touch Display
+                <span className="block text-xl md:text-2xl font-bold text-white/70 mt-2">
+                  จอสัมผัสอินเทอร์แอคทีฟ 23.8″–98″ — Wall Mount, Floor Stand, AIO Kiosk
+                </span>
+              </h2>
+              <p className="text-base md:text-lg text-white/70 leading-relaxed mb-6 max-w-2xl">
+                คอลเลกชันจอสัมผัสครบทุกขนาดและรูปแบบติดตั้ง — Android / Windows / Linux
+                พร้อม Peripherals (Printer, Scanner, RFID, Card Reader) และ Software Suite
+                สำหรับ Self-Service, Wayfinding, Education, Boardroom และ Smart Retail
+              </p>
+
+              <div className="grid grid-cols-3 gap-3 mb-6 max-w-md">
+                {[
+                  { num: "20+", label: "รุ่น" },
+                  { num: '23.8″–98″', label: "ขนาด" },
+                  { num: "Android/Win", label: "OS" },
+                ].map((s) => (
+                  <div key={s.label} className="rounded-xl border border-white/10 bg-white/5 backdrop-blur p-3">
+                    <div className="text-lg md:text-xl font-display font-black text-primary">{s.num}</div>
+                    <div className="text-[10px] uppercase tracking-wider text-white/60">{s.label}</div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex flex-wrap gap-3">
+                <Link to="/interactive-display" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold hover:opacity-90 transition shadow-lg shadow-primary/30">
+                  เข้าสู่หน้า Interactive Display →
+                </Link>
+                <Link to="/interactive-display#models" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-white/20 bg-white/5 backdrop-blur text-white font-bold hover:bg-white/10 transition">
+                  ดูรุ่นทั้งหมด
+                </Link>
+              </div>
+            </div>
+
+            <div className="lg:col-span-5">
+              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-white/10 bg-black/30 shadow-2xl">
+                <img src={idHighlightKd215b} alt="Interactive Touch Display collection" className="w-full h-full object-cover" loading="lazy" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-fuchsia-500/10 mix-blend-overlay" />
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                  <span className="px-2.5 py-1 rounded-md bg-black/70 backdrop-blur text-white text-[11px] font-bold">KIOSK · Wall · Floor Stand</span>
+                  <span className="px-2.5 py-1 rounded-md bg-primary text-primary-foreground text-[11px] font-bold">NEW LINEUP</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-12">
+            <div className="flex items-end justify-between mb-5">
+              <div>
+                <h3 className="text-xl md:text-2xl font-display font-bold text-white">รุ่นไฮไลต์ที่ลูกค้าสนใจมากที่สุด</h3>
+                <p className="text-sm text-white/60 mt-1">คลิกที่รุ่นเพื่อดูรายละเอียดและขอใบเสนอราคา</p>
+              </div>
+              <Link to="/interactive-display" className="hidden md:inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:gap-2.5 transition-all">ดูทั้งหมด →</Link>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {[
+                { model: "KD215B", size: '21.5"', type: "Floor-Stand Kiosk", desc: "Self check-in / Queue — Android หรือ Windows", image: idHighlightKd215b, href: "/products/displays-21.5?model=kd215b", accent: "bg-orange-500" },
+                { model: "KD43B", size: '43"', type: "Floor-Stand Kiosk", desc: "Self-Order / Wayfinding — PCAP 10-point", image: idHighlightKd43b, href: "/products/displays-43?model=kd43b", accent: "bg-rose-500" },
+                { model: "GD238C", size: '23.8"', type: "Wall-Mount Kiosk", desc: "Portrait / Landscape — Smart Retail", image: idHighlightGd238c, href: "/products/displays-23.8?model=gd238c", accent: "bg-cyan-500" },
+                { model: "HD55", size: '55"', type: "Slim Bezel AIO", desc: "Boardroom / Education — Win11 ready", image: idHighlightHd55, href: "/products/displays-55?model=hd55", accent: "bg-violet-500" },
+                { model: "RZ86B", size: '86"', type: "Auditorium Display", desc: "Mega touch — Lecture / Conference", image: idHighlightRz86b, href: "/products/displays-86?model=rz86b", accent: "bg-emerald-500" },
+                { model: "HD27", size: '27"', type: "Compact Touch", desc: "Reception / POS — desktop or VESA", image: idHighlightHd27, href: "/products/displays-27?model=hd27", accent: "bg-amber-500" },
+              ].map((p) => (
+                <Link key={p.model} to={p.href} className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur hover:border-primary/50 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-black/40">
+                    <img src={p.image} alt={`${p.model} ${p.size} ${p.type}`} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+                    <div className="absolute top-3 left-3">
+                      <span className={`inline-flex items-center px-2 py-1 rounded-md ${p.accent} text-white text-[10px] font-bold tracking-wider shadow-lg`}>{p.size}</span>
+                    </div>
+                  </div>
+                  <div className="p-4">
+                    <div className="flex items-baseline justify-between mb-1">
+                      <h4 className="font-display font-black text-white text-lg group-hover:text-primary transition-colors">{p.model}</h4>
+                      <span className="text-[10px] uppercase tracking-wider text-white/50 font-semibold">{p.type}</span>
+                    </div>
+                    <p className="text-xs text-white/60 leading-relaxed mb-3 line-clamp-2">{p.desc}</p>
+                    <span className="inline-flex items-center gap-1 text-xs font-bold text-primary group-hover:gap-2 transition-all">ดูรายละเอียด →</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            <div className="mt-6 text-center md:hidden">
+              <Link to="/interactive-display" className="inline-flex items-center gap-1.5 text-sm font-bold text-primary">ดูทั้งหมด →</Link>
             </div>
           </div>
         </div>
