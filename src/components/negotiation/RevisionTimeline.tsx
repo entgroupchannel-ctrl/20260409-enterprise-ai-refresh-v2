@@ -460,18 +460,19 @@ export default function RevisionTimeline({
 
                   {/* Action buttons */}
                   <div className="flex gap-2 mt-2">
-                    {/* Print this revision — ทุก revision ยกเว้น draft */}
-                    {onPrintRevision && rev.status !== 'draft' && (
-                      <Button 
-                        size="sm" 
-                        variant="outline" 
-                        className="flex-1"
+                    {/* Print this revision — ทุก revision (รวม draft สำหรับ admin preview) */}
+                    {onPrintRevision && (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className={cn(
+                          'flex-1 font-medium',
+                          isDraft && 'border-amber-400 text-amber-700 hover:bg-amber-50 dark:text-amber-300 dark:hover:bg-amber-900/30'
+                        )}
                         onClick={() => onPrintRevision(rev)}
                       >
-                        <Printer className="w-3.5 h-3.5 mr-1" />
-                        พิมพ์ Rev {rev.revision_number}
-                      </Button>
-                    )}
+                        <Printer className="w-3.5 h-3.5 mr-1.5" />
+                        พิมพ์ Rev {rev.revision_number}{isDraft ? ' (Preview)
 
                     {/* Use as base */}
                     {onSelectRevision && viewerRole === 'admin' && !isCurrent && !isDraft && (
