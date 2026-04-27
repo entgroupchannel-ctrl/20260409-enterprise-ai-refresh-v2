@@ -264,17 +264,7 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
             // View Mode
             <div 
               className="p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors group cursor-pointer relative"
-              onClick={() => {
-                setEditingId(product.id);
-                setEditForm({
-                  model: product.model,
-                  description: product.description || '',
-                  qty: product.qty,
-                  unit_price: product.unit_price,
-                  discount_percent: product.discount_percent || 0,
-                  notes: product.notes || '',
-                });
-              }}
+              onClick={() => handleEdit(index)}
             >
               <div className="flex justify-between items-start mb-2">
                 <div className="flex-1">
