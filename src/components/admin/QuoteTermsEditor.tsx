@@ -175,20 +175,23 @@ export default function QuoteTermsEditor({
     ? Math.ceil((new Date(validUntil).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))
     : null;
 
-  const renderTemplateSelect = (type: string, setter: (v: string) => void) => {
+  const renderTemplateChips = (type: string, setter: (v: string) => void) => {
     const tpls = getTemplatesByType(type);
     if (tpls.length === 0) return null;
     return (
-      <Select onValueChange={(v) => applyTemplate(type, v, setter)} disabled={disabled}>
-        <SelectTrigger className="h-9 text-sm border border-input bg-muted/60 dark:bg-muted/30 hover:border-primary/50 text-foreground font-medium">
-          <SelectValue placeholder="เลือกจาก template หรือพิมพ์เอง" />
-        </SelectTrigger>
-        <SelectContent>
-          {tpls.map(t => (
-            <SelectItem key={t.id} value={t.id}>{t.label}</SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      <div className="flex flex-wrap gap-1">
+        {tpls.map(t => (
+          <button
+            key={t.id}
+            type="button"
+            disabled={disabled}
+            onClick={() => setter(t.content)}
+            className="text-[11px] px-2 py-0.5 rounded-full border border-primary/30 bg-primary/5 text-primary hover:bg-primary/15 hover:border-primary/50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
     );
   };
 
