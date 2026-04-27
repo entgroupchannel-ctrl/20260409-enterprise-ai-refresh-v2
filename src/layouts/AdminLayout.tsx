@@ -260,7 +260,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                   if (group.adminOnly && !isAdminUser) return null;
 
                   return (
-                    <DropdownMenu key={group.label}>
+                    <DropdownMenu key={group.label} open={openGroup === group.label} onOpenChange={(o) => setOpenGroup(o ? group.label : null)}>
                       <DropdownMenuTrigger asChild>
                         <Button variant={groupActive ? 'secondary' : 'ghost'} size="sm" className="gap-1.5 relative text-xs px-2.5">
                           <GroupIcon className="w-3.5 h-3.5" />
