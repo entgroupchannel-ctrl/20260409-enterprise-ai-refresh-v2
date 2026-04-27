@@ -271,7 +271,7 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
                 <div className="flex-1">
                   <h4 className="font-semibold flex items-center gap-2 text-foreground">
                     {product.model || 'N/A'}
-                    <span className="text-xs text-muted-foreground font-normal">x{product.qty}</span>
+                    <span className="text-xs text-muted-foreground font-normal bg-slate-200 px-1 rounded">x{product.qty}</span>
                   </h4>
                   <p className="text-sm text-muted-foreground whitespace-pre-line bg-slate-200">{product.description}</p>
                   {product.notes && (
