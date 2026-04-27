@@ -170,6 +170,13 @@ const ProductGalleryPortrait = ({
             </button>
           </div>
 
+          {/* Caption (optional, per active image) */}
+          {captions?.[current] ? (
+            <p className="mt-3 text-sm text-muted-foreground text-center px-2 leading-relaxed">
+              {captions[current]}
+            </p>
+          ) : null}
+
           {/* Progress dots (bottom) */}
           <div className="flex gap-1.5 justify-center mt-3">
             {images.map((_, i) => (
