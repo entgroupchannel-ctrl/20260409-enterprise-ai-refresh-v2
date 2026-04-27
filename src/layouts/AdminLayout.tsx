@@ -160,6 +160,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const [isAdminUser, setIsAdminUser] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
+  const [openGroup, setOpenGroup] = useState<string | null>(null);
+
+  // Close any open dropdown when route changes (prevents menu lingering during page load)
+  useEffect(() => {
+    setOpenGroup(null);
+  }, [location.pathname]);
 
   useEffect(() => {
     const loadPendingCount = async () => {
