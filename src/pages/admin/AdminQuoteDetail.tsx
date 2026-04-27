@@ -1489,7 +1489,7 @@ export default function AdminQuoteDetail() {
                 internal_notes: quote.internal_notes,
                 valid_until: quote.valid_until,
               }}
-              disabled={quote.status !== 'pending' && quote.status !== 'quote_sent' && quote.status !== 'negotiating'}
+              disabled={quote.status !== 'pending' && quote.status !== 'draft' && quote.status !== 'quote_sent' && quote.status !== 'negotiating'}
               onSaved={loadQuoteDetails}
             />
 
