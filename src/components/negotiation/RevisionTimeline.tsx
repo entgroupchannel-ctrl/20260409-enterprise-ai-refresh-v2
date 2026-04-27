@@ -472,9 +472,11 @@ export default function RevisionTimeline({
                         onClick={() => onPrintRevision(rev)}
                       >
                         <Printer className="w-3.5 h-3.5 mr-1.5" />
-                        พิมพ์ Rev {rev.revision_number}{isDraft ? ' (Preview)
+                        พิมพ์ Rev {rev.revision_number}{isDraft ? ' (Preview)' : ''}
+                      </Button>
+                    )}
 
-                    {/* Use as base */}
+
                     {onSelectRevision && viewerRole === 'admin' && !isCurrent && !isDraft && (
                       <Button size="sm" variant="outline" className="flex-1" onClick={() => onSelectRevision(rev)}>
                         ใช้เป็นฐานสร้าง Revision ใหม่
