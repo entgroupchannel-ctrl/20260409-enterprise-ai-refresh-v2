@@ -325,7 +325,8 @@ export default function QuoteTermsEditor({
           <Textarea
             value={internalNotes} onChange={(e) => setInternalNotes(e.target.value)}
             placeholder="โน้ตภายใน เช่น: Margin, strategy, ประวัติลูกค้า..."
-            rows={3} disabled={disabled} className="text-sm bg-background resize-none"
+            rows={3} disabled={disabled}
+            className="text-sm resize-none bg-background border-2 border-amber-400/60 dark:border-amber-600/60 focus-visible:border-amber-500 text-foreground font-medium shadow-sm"
           />
         </CardContent>
       </Card>
