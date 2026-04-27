@@ -244,7 +244,8 @@ export default function QuoteTermsEditor({
                 value={deliveryTerms}
                 onChange={(e) => setDeliveryTerms(e.target.value)}
                 placeholder="เช่น: จัดส่งฟรีในเขต กทม."
-                rows={2} disabled={disabled} className="text-sm resize-none"
+                rows={2} disabled={disabled}
+                className="text-sm resize-none bg-background border-2 border-input/80 focus-visible:border-primary text-foreground font-medium shadow-sm"
               />
             </div>
 
