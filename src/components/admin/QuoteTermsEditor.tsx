@@ -228,7 +228,7 @@ export default function QuoteTermsEditor({
               <Label className="flex items-center gap-1.5 text-xs font-medium">
                 <CreditCard className="w-3.5 h-3.5 text-green-600" />เงื่อนไขการชำระเงิน
               </Label>
-              {renderTemplateSelect('payment', setPaymentTerms)}
+              {renderTemplateChips('payment', setPaymentTerms)}
               <Textarea
                 value={paymentTerms}
                 onChange={(e) => setPaymentTerms(e.target.value)}
@@ -242,7 +242,7 @@ export default function QuoteTermsEditor({
               <Label className="flex items-center gap-1.5 text-xs font-medium">
                 <Truck className="w-3.5 h-3.5 text-blue-600" />เงื่อนไขการจัดส่ง
               </Label>
-              {renderTemplateSelect('delivery', setDeliveryTerms)}
+              {renderTemplateChips('delivery', setDeliveryTerms)}
               <Textarea
                 value={deliveryTerms}
                 onChange={(e) => setDeliveryTerms(e.target.value)}
@@ -256,7 +256,7 @@ export default function QuoteTermsEditor({
               <Label className="flex items-center gap-1.5 text-xs font-medium">
                 <ShieldCheck className="w-3.5 h-3.5 text-purple-600" />เงื่อนไขการรับประกัน
               </Label>
-              {renderTemplateSelect('warranty', setWarrantyTerms)}
+              {renderTemplateChips('warranty', setWarrantyTerms)}
               <Textarea
                 value={warrantyTerms}
                 onChange={(e) => setWarrantyTerms(e.target.value)}
@@ -297,7 +297,7 @@ export default function QuoteTermsEditor({
                 <FileText className="w-3.5 h-3.5 text-muted-foreground" />หมายเหตุเพิ่มเติม (ลูกค้าเห็น)
               </Label>
               <div className="grid grid-cols-1 md:grid-cols-[1fr,2fr] gap-2">
-                {renderTemplateSelect('notes', setNotes)}
+                {renderTemplateChips('notes', setNotes)}
                 <Textarea
                   value={notes} onChange={(e) => setNotes(e.target.value)}
                   placeholder="หมายเหตุทั่วไปที่ลูกค้าจะเห็น..."
