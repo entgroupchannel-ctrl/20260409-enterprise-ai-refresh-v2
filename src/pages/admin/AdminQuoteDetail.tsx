@@ -1243,19 +1243,33 @@ export default function AdminQuoteDetail() {
                   </div>
                   <Pencil className="w-3 h-3 text-muted-foreground cursor-pointer" />
                 </div>
-                <select
-                  className="w-full text-xs border rounded px-2 py-1.5 bg-background text-foreground mb-2"
-                  value={quote.assigned_to || ''}
+                <Select
+                  value={quote.assigned_to || 'unassigned'}
                   disabled={assigningStaff}
-                  onChange={(e) => handleAssignSale(e.target.value || null)}
+                  onValueChange={(v) => handleAssignSale(v === 'unassigned' ? null : v)}
                 >
-                  <option value="">— ยังไม่มอบหมาย —</option>
-                  {staffList.map((s) => (
-                    <option key={s.id} value={s.id}>
-                      {s.full_name || s.email} {s.position ? `(${s.position})` : ''}
-                    </option>
-                  ))}
-                </select>
+                  <SelectTrigger className="w-full h-9 text-sm bg-background mb-2">
+                    <SelectValue placeholder="เลือกผู้รับผิดชอบ" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="unassigned">
+                      <span className="text-muted-foreground italic">— ยังไม่มอบหมาย —</span>
+                    </SelectItem>
+                    {staffList.map((s) => (
+                      <SelectItem key={s.id} value={s.id}>
+                        <div className="flex items-center gap-2">
+                          <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                            <User className="w-3 h-3 text-primary" />
+                          </div>
+                          <span className="font-medium">{s.full_name || s.email}</span>
+                          {s.position && (
+                            <span className="text-xs text-muted-foreground">· {s.position}</span>
+                          )}
+                        </div>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
                 {assignedSaleUser && (
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
