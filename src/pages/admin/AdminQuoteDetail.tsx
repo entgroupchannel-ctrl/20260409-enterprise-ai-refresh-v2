@@ -1731,6 +1731,13 @@ export default function AdminQuoteDetail() {
               </CardContent>
             </Card>
 
+            {/* Internal Notes (admin/sales only — moved here from terms editor for better space usage) */}
+            <InternalNotesEditor
+              quoteId={quote.id}
+              initialValue={quote.internal_notes}
+              onSaved={loadQuoteDetails}
+            />
+
             {/* PO Files — compact below chat */}
             {poFiles.length > 0 && (
               <Card>
