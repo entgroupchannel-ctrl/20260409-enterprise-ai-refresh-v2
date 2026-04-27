@@ -953,7 +953,7 @@ export default function AdminQuoteDetail() {
         {/* Summary + Timeline — 2 columns to save space */}
         <div className="grid md:grid-cols-2 gap-4">
           {/* Summary Card */}
-          <Card>
+          <Card className="border-2 border-border/70 shadow-md">
             <CardContent className="pt-6 h-full flex flex-col justify-between">
               <div className="flex items-start justify-between gap-4 flex-wrap">
                 <div className="flex-1 min-w-0">
@@ -993,7 +993,7 @@ export default function AdminQuoteDetail() {
           </Card>
 
           {/* Quote Timeline */}
-          <Card>
+          <Card className="border-2 border-border/70 shadow-md">
             <CardContent className="pt-6 h-full flex items-center">
               <div className="w-full">
                 <QuoteTimeline status={quote.status} />
@@ -1060,7 +1060,7 @@ export default function AdminQuoteDetail() {
         {/* Two-column Meta Grid — Customer | Dates & Sale Person */}
         <div className="grid md:grid-cols-2 gap-4">
           {/* Customer Card */}
-           <Card>
+           <Card className="border-2 border-border/70 shadow-md">
              <CardHeader className="pb-3">
                <div className="flex items-center justify-between">
                  <CardTitle className="text-sm flex items-center gap-2">
@@ -1109,7 +1109,7 @@ export default function AdminQuoteDetail() {
           </Card>
 
           {/* Dates & Sale Person */}
-          <Card>
+          <Card className="border-2 border-border/70 shadow-md">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm flex items-center gap-2">
                 <Calendar className="w-4 h-4" />
@@ -1317,7 +1317,7 @@ export default function AdminQuoteDetail() {
 
         {/* PO Action Banner (review needed) */}
         {(quote.status === 'po_uploaded' || quote.status === 'po_confirmed') && (
-          <Card className="border-orange-200 bg-orange-50">
+          <Card className="border-2 border-orange-300 bg-orange-50 shadow-md dark:border-orange-700/70 dark:bg-orange-900/20">
             <CardContent className="pt-6 space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -1356,7 +1356,7 @@ export default function AdminQuoteDetail() {
 
         {/* Expired Quote Banner */}
         {quote.status === 'expired' && (
-          <Card className="border-gray-300 bg-gray-50 dark:border-gray-700 dark:bg-gray-900/20">
+          <Card className="border-2 border-gray-300 bg-gray-50 shadow-md dark:border-gray-700 dark:bg-gray-900/20">
             <CardContent className="p-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <Timer className="w-6 h-6 text-gray-500" />
@@ -1379,7 +1379,7 @@ export default function AdminQuoteDetail() {
           <div className="lg:col-span-2 space-y-6">
 
             {/* Products */}
-            <Card>
+            <Card className="border-2 border-border/70 shadow-md">
               <CardHeader>
                 <CardTitle>รายการสินค้า</CardTitle>
               </CardHeader>
@@ -1628,7 +1628,7 @@ export default function AdminQuoteDetail() {
             <QuoteShareActivity quoteId={quote.id} />
 
             {/* Chat/Messages */}
-            <Card>
+            <Card className="border-2 border-border/70 shadow-md">
               <CardHeader>
                 <CardTitle className="text-lg">ข้อความ</CardTitle>
               </CardHeader>
@@ -1757,7 +1757,7 @@ export default function AdminQuoteDetail() {
 
             {/* PO Files — compact below chat */}
             {poFiles.length > 0 && (
-              <Card>
+              <Card className="border-2 border-border/70 shadow-md">
                 <CardContent className="pt-4 pb-3">
                   <p className="text-xs font-semibold text-muted-foreground mb-2 flex items-center gap-1"><Paperclip className="w-3 h-3" /> PO จากลูกค้า ({poFiles.length})</p>
                   <div className="space-y-1">
