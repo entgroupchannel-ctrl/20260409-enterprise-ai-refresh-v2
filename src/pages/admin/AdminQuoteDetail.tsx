@@ -1296,6 +1296,7 @@ export default function AdminQuoteDetail() {
                   </div>
                 )}
               </div>
+              </div>
             </CardContent>
           </Card>
         </div>
