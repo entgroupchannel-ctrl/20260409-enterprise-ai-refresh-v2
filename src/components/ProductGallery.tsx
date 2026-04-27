@@ -74,6 +74,12 @@ const ProductGallery = ({ images, alt, autoPlayInterval = 4000, onImageClick, ca
         </button>
       </div>
 
+      {captions?.[current] ? (
+        <p className="mt-3 text-sm text-muted-foreground text-center px-2 leading-relaxed">
+          {captions[current]}
+        </p>
+      ) : null}
+
       <div className="flex gap-2 mt-3 justify-center items-center">
         {images.map((img, i) => (
           <button
