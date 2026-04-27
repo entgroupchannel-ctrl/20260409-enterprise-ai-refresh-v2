@@ -15,6 +15,14 @@ import CartBadge from "@/components/CartBadge";
 import ThemeToggle from "@/components/ThemeToggle";
 import logo from "@/assets/logo-entgroup.avif";
 import smartDisplayHero from "@/assets/smart-display-hero.jpg";
+
+// Highlight images for Interactive Display banner (use existing TouchWo assets)
+import idHighlightKd215b from "@/assets/touchwo/kd215b/KD215-1.jpg";
+import idHighlightKd43b from "@/assets/touchwo/kd43b/mon-1.jpg";
+import idHighlightGd238c from "@/assets/touchwo/gd238c/p-1a.jpg";
+import idHighlightHd55 from "@/assets/touchwo/hd55/card-hero.jpg";
+import idHighlightRz86b from "@/assets/touchwo/rz86b/p-windows.jpg";
+import idHighlightHd27 from "@/assets/touchwo/hd27/card-hero.jpg";
 import FooterCompact from "@/components/FooterCompact";
 import MiniNavbar from "@/components/MiniNavbar";
 import B2BPlatformInterfaceShowcase from "@/components/B2BPlatformInterfaceShowcase";
