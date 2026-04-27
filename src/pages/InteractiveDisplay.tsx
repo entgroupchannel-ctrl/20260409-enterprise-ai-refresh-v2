@@ -726,14 +726,17 @@ export default function InteractiveDisplay() {
                 ? `/products/displays-21.5?model=${model215}`
                 : `/products/${p.slug}`;
               const cardImg = PRODUCT_IMAGES[p.slug] || p.image_url;
+              const scenarioKey = PRODUCT_SCENARIO[p.slug];
+              const scenario = scenarioKey ? SCENARIOS[scenarioKey] : null;
+              const heroImg = scenario?.image ?? cardImg;
               return (
-              <Card key={p.id} className="overflow-hidden hover:shadow-lg transition-shadow group">
+              <Card key={p.id} className="overflow-hidden hover:shadow-xl transition-all duration-300 group">
                 <Link to={detailHref} className="block">
                   <div className="aspect-[4/3] relative overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900">
-                    {cardImg ? (
+                    {heroImg ? (
                       <img
-                        src={cardImg}
-                        alt={`${p.model} ${p.name}`}
+                        src={heroImg}
+                        alt={scenario ? `${p.model} — ${scenario.label}` : `${p.model} ${p.name}`}
                         loading="lazy"
                         className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
@@ -745,6 +748,24 @@ export default function InteractiveDisplay() {
                         </div>
                       </>
                     )}
+
+                    {/* Bottom gradient + scenario tagline (เห็นเสมอบน scenario card) */}
+                    {scenario && (
+                      <>
+                        <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/80 via-black/40 to-transparent pointer-events-none" />
+                        <div className="absolute inset-x-0 bottom-0 p-3 flex items-end justify-between gap-2 z-10">
+                          <div className="min-w-0">
+                            <div className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold ${scenario.accent} shadow-md mb-1`}>
+                              {scenario.label}
+                            </div>
+                            <p className="text-[11px] sm:text-xs text-white font-medium leading-tight line-clamp-2 drop-shadow">
+                              {scenario.tagline}
+                            </p>
+                          </div>
+                        </div>
+                      </>
+                    )}
+
                     {/* OS chips */}
                     <div className="absolute top-3 right-3 flex gap-1.5 z-10">
                       <span className="px-2 py-0.5 rounded-full bg-white/95 text-[10px] font-bold text-[#0078D4] shadow-sm">Windows</span>
