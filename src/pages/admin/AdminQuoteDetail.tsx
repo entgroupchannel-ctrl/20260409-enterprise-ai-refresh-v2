@@ -626,26 +626,83 @@ export default function AdminQuoteDetail() {
 
       if (updateError) throw updateError;
 
-      // 🔄 Sync the current revision snapshot so every Print button (top-right + timeline)
-      // reflects the latest admin edits. Only sync drafts/sent revisions — never touch
-      // superseded/accepted history.
+      // 🔄 Revision sync logic — protect audit trail
+      // Rule:
+      //   • If current revision is a `draft` (admin-only, customer hasn't seen it) → overwrite it
+      //   • If current revision is `sent` (customer has seen it) → create a NEW draft revision
+      //     so the original snapshot stays intact for the audit trail.
       if (quote.current_revision_id) {
-        await (supabase.from as any)('quote_revisions')
-          .update({
-            products: quote.products || [],
-            free_items: quote.free_items || [],
-            subtotal: totals.subtotal,
-            discount_type: quote.discount_type || 'percent',
-            discount_percent: quote.discount_percent || 0,
-            discount_amount: totals.discountAmount,
-            vat_percent: quote.vat_percent || 7,
-            vat_amount: totals.vatAmount,
-            grand_total: totals.grandTotal,
-            valid_until: quote.valid_until || null,
-            internal_notes: quote.internal_notes || null,
-          })
+        const { data: currentRev } = await (supabase.from as any)('quote_revisions')
+          .select('id, status, revision_number')
           .eq('id', quote.current_revision_id)
-          .in('status', ['draft', 'sent']);
+          .maybeSingle();
+
+        const revisionPayload = {
+          products: quote.products || [],
+          free_items: quote.free_items || [],
+          subtotal: totals.subtotal,
+          discount_type: quote.discount_type || 'percent',
+          discount_percent: quote.discount_percent || 0,
+          discount_amount: totals.discountAmount,
+          vat_percent: quote.vat_percent || 7,
+          vat_amount: totals.vatAmount,
+          grand_total: totals.grandTotal,
+          valid_until: quote.valid_until || null,
+          internal_notes: quote.internal_notes || null,
+        };
+
+        if (currentRev?.status === 'draft') {
+          // Safe to overwrite — admin draft, customer never saw it
+          await (supabase.from as any)('quote_revisions')
+            .update(revisionPayload)
+            .eq('id', quote.current_revision_id);
+        } else if (currentRev?.status === 'sent') {
+          // Customer has seen this revision → create a NEW draft (preserve history)
+          const { data: { user: authUser } } = await supabase.auth.getUser();
+          const { data: userData } = authUser
+            ? await supabase.from('users').select('full_name, role').eq('id', authUser.id).single()
+            : { data: null };
+
+          // Compute next revision_number safely
+          const { data: lastRev } = await (supabase.from as any)('quote_revisions')
+            .select('revision_number')
+            .eq('quote_id', id)
+            .order('revision_number', { ascending: false })
+            .limit(1)
+            .maybeSingle();
+          const nextRevNumber = ((lastRev?.revision_number as number) || 0) + 1;
+
+          const { data: newRev, error: revInsertErr } = await (supabase.from as any)('quote_revisions')
+            .insert({
+              quote_id: id,
+              revision_number: nextRevNumber,
+              revision_type: 'admin_revision',
+              created_by: authUser?.id,
+              created_by_name: (userData as any)?.full_name || authUser?.email || 'Admin',
+              created_by_role: (userData as any)?.role || 'admin',
+              ...revisionPayload,
+              discount_percent: quote.discount_percent || 0,
+              vat_percent: quote.vat_percent || 7,
+              change_reason: 'Admin saved draft after customer viewed previous revision',
+              requires_approval: false,
+              approval_status: 'none',
+              status: 'draft',
+            })
+            .select('id')
+            .single();
+
+          if (revInsertErr) throw revInsertErr;
+
+          // Point quote_requests at the new draft revision
+          await supabase
+            .from('quote_requests')
+            .update({
+              current_revision_id: newRev.id,
+              current_revision_number: nextRevNumber,
+              total_revisions: nextRevNumber,
+            } as any)
+            .eq('id', id);
+        }
       }
 
       toast({
