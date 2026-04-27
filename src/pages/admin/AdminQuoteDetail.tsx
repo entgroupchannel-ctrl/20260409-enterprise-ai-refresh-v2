@@ -1116,7 +1116,9 @@ export default function AdminQuoteDetail() {
                 วันที่ & ผู้รับผิดชอบ
               </CardTitle>
             </CardHeader>
-            <CardContent className="text-sm space-y-1.5 bg-muted/40 rounded-b-lg border-t border-border pt-6">
+            <CardContent className="text-sm bg-muted/40 rounded-b-lg border-t border-border pt-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3">
+                <div className="space-y-1.5">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">วันที่สร้าง:</span>
                 <span>{formatShortDateTime(quote.created_at)}</span>
