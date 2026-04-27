@@ -6,9 +6,11 @@ interface ProductGalleryProps {
   alt: string;
   autoPlayInterval?: number;
   onImageClick?: (index: number) => void;
+  /** Optional per-image short captions (Thai). Index-aligned with `images`. */
+  captions?: string[];
 }
 
-const ProductGallery = ({ images, alt, autoPlayInterval = 4000, onImageClick }: ProductGalleryProps) => {
+const ProductGallery = ({ images, alt, autoPlayInterval = 4000, onImageClick, captions }: ProductGalleryProps) => {
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
 
