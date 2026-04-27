@@ -955,35 +955,6 @@ const SmartDisplay = () => {
         </div>
       </section>
 
-      {/* Windows OS Option */}
-      <section className="section-padding bg-surface/50">
-        <div className="container max-w-7xl mx-auto">
-          <div className="card-surface overflow-hidden p-6 md:p-10">
-            <div className="grid lg:grid-cols-2 gap-8 items-center">
-              <div>
-                <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold mb-4">
-                  <Lightbulb size={14} className="inline mr-1" /> ทางเลือกเพิ่มเติม
-                </span>
-                <h3 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-4">
-                  เปลี่ยนเป็น <span className="text-primary">Windows 10 Pro</span> ได้
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  กรณีที่ไม่ต้องการใช้ Android OS ที่มากับหน้าจอ สามารถเปลี่ยนเป็น Windows 10 Pro OEM
-                  เพื่อเข้ากันได้กับโครงการ โดยเลือกประสิทธิภาพ CPU ได้ เช่น Core i3/i5/i7
-                  ทำให้โครงการมีความยืดหยุ่นสูง
-                </p>
-              </div>
-              <div className="flex justify-center">
-                <img
-                  src="/images/wix/0597a3_75d6d2e9ade74554add617fef3ccca16_387324f9.png"
-                  alt="Windows 10 Pro option"
-                  className="max-h-[260px] object-contain rounded-lg"/>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Digital Signage Software */}
       <section className="section-padding">
         <div className="container max-w-7xl mx-auto">
