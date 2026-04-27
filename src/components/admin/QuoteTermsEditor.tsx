@@ -296,15 +296,13 @@ export default function QuoteTermsEditor({
               <Label className="flex items-center gap-1.5 text-xs font-medium">
                 <FileText className="w-3.5 h-3.5 text-muted-foreground" />หมายเหตุเพิ่มเติม (ลูกค้าเห็น)
               </Label>
-              <div className="grid grid-cols-1 md:grid-cols-[1fr,2fr] gap-2">
-                {renderTemplateChips('notes', setNotes)}
-                <Textarea
-                  value={notes} onChange={(e) => setNotes(e.target.value)}
-                  placeholder="หมายเหตุทั่วไปที่ลูกค้าจะเห็น..."
-                  rows={2} disabled={disabled}
-                  className="text-sm resize-none border border-input bg-muted/60 dark:bg-muted/30 focus-visible:border-primary text-foreground font-medium"
-                />
-              </div>
+              {renderTemplateChips('notes', setNotes)}
+              <Textarea
+                value={notes} onChange={(e) => setNotes(e.target.value)}
+                placeholder="หมายเหตุทั่วไปที่ลูกค้าจะเห็น..."
+                rows={2} disabled={disabled}
+                className="text-sm resize-none border border-input bg-muted/60 dark:bg-muted/30 focus-visible:border-primary text-foreground font-medium"
+              />
             </div>
 
           </div>
