@@ -269,7 +269,7 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
                     {product.model || 'N/A'}
                     <span className="text-xs text-muted-foreground font-normal">x{product.qty}</span>
                   </h4>
-                  <p className="text-sm text-muted-foreground whitespace-pre-line">{product.description}</p>
+                  <p className="text-sm text-muted-foreground whitespace-pre-line bg-slate-200">{product.description}</p>
                   {product.notes && (
                     <p className="text-sm text-primary mt-1">หมายเหตุ: {product.notes}</p>
                   )}
