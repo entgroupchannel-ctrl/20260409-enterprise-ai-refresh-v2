@@ -100,6 +100,10 @@ export const DISPLAYS_43: Record<Display43Slug, Display32> = {
       hd43Mon1, hd43Mon2, hd43X861, hd43X862, hd43Arm1, hd43Arm2,
       hd43Mon5, hd43Mon6, hd43Mon7,
     ],
+    galleryCaptions: [
+      "ตัวอย่างการใช้งาน: ตู้สั่งอาหารด้วยตนเอง (QSR Self-order Kiosk) — เมนูภาพคมชัด เพิ่มยอด upsell 20-30%",
+      "ตัวอย่างการใช้งาน: จอประชุมไฮบริด (Hybrid Meeting Room) — Whiteboard + Video Conference 6-10 คน",
+    ],
     ioImage: hd43Mon6,
     installImages: [hd43Mon3, hd43Mon4, hd43Mon7],
     featureImages: [],
