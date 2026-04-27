@@ -17,10 +17,12 @@ import smartDisplayHero from "@/assets/smart-display-hero.jpg";
 
 /* ─── Data ─── */
 // Image map: รุ่น → ภาพ (ใช้ภาพจริงจาก cesipc.com)
-const IMG_10 = "/images/fpm/products/fpm-1002s-10inch.jpg";
-const IMG_15K = "/images/fpm/products/fpm-1502k-15-6inch.jpg";
-const IMG_17 = "/images/fpm/products/fpm-1702k-17-3inch.jpg";
-const IMG_RFID = "/images/fpm/products/fpm-1502b-rfid.jpg";
+// Manufacturing-themed product images — หน้าจอแสดง HMI / SCADA / MES / RFID
+// เพื่อสื่อสาร use case จริงในไลน์ผลิต / ตู้คอนโทรล / Smart Warehouse
+const IMG_10 = "/images/fpm/products/fpm-1002s-mfg.jpg";
+const IMG_15K = "/images/fpm/products/fpm-1502k-mfg.jpg";
+const IMG_17 = "/images/fpm/products/fpm-1702k-mfg.jpg";
+const IMG_RFID = "/images/fpm/products/fpm-1502b-rfid-mfg.jpg";
 
 const fpmTouchMonitors = [
   { no: 1, model: "FPM-0801A", size: '8"', resolution: "1024x768", ratio: "4:3", touch: "Resistive", brightness: 300, price: "10,990", image: IMG_10, slug: "fpm-0801a" },
