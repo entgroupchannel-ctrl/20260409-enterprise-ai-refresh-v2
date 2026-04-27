@@ -198,7 +198,29 @@ const FPMSeriesDetail = () => {
   const data = model ? MODELS[model.toLowerCase()] : null;
   const [activeTab, setActiveTab] = useState<TabKey>("gallery");
   const [activeImg, setActiveImg] = useState(0);
+  const [autoPlay, setAutoPlay] = useState(true);
+  const [paused, setPaused] = useState(false);
   const [lightbox, setLightbox] = useState<{ src: string; caption: string } | null>(null);
+  const totalImgs = data?.images?.length ?? 0;
+  const goNext = () => setActiveImg((i) => (i + 1) % Math.max(totalImgs, 1));
+  const goPrev = () => setActiveImg((i) => (i - 1 + Math.max(totalImgs, 1)) % Math.max(totalImgs, 1));
+
+  useEffect(() => {
+    if (!autoPlay || paused || totalImgs <= 1) return;
+    const t = setInterval(() => setActiveImg((i) => (i + 1) % totalImgs), 4000);
+    return () => clearInterval(t);
+  }, [autoPlay, paused, totalImgs]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (lightbox) return;
+      if (e.key === "ArrowLeft") goPrev();
+      if (e.key === "ArrowRight") goNext();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [totalImgs, lightbox]);
 
   if (!data) return <Navigate to="/fpm-series" replace />;
 
