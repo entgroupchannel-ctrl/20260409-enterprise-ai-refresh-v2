@@ -6,6 +6,8 @@ interface ProductGalleryPortraitProps {
   alt: string;
   autoPlayInterval?: number;
   onImageClick?: (index: number) => void;
+  /** Optional per-image short captions (Thai). Index-aligned with `images`. */
+  captions?: string[];
 }
 
 /**
@@ -18,6 +20,7 @@ const ProductGalleryPortrait = ({
   alt,
   autoPlayInterval = 5000,
   onImageClick,
+  captions,
 }: ProductGalleryPortraitProps) => {
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
