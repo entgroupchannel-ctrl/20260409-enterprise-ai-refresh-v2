@@ -156,6 +156,64 @@ const PRODUCT_IMAGES: Record<string, string> = {
   "interactive-display-gd215c": imgGd215c,
 };
 
+// Application scenes — ภาพ Application จริงเพื่อกระตุ้นการตัดสินใจ
+import appRetail from "@/assets/applications/app-retail.jpg";
+import appHotel from "@/assets/applications/app-hotel.jpg";
+import appHospital from "@/assets/applications/app-hospital.jpg";
+
+type Scenario = {
+  image: string;
+  label: string;       // ภาษาไทยสั้นๆ
+  tagline: string;     // ประโยคกระตุ้นความสนใจ
+  accent: string;      // tailwind color class สำหรับ chip
+};
+
+const SCENARIOS = {
+  retail: {
+    image: appRetail,
+    label: "Retail / Self-checkout",
+    tagline: "เพิ่มยอดขาย ลดคิวหน้าเคาน์เตอร์",
+    accent: "bg-orange-500/95 text-white",
+  },
+  hotel: {
+    image: appHotel,
+    label: "Hotel Self Check-in",
+    tagline: "เช็คอินเร็วใน 60 วินาที — ลดภาระพนักงาน",
+    accent: "bg-amber-600/95 text-white",
+  },
+  hospital: {
+    image: appHospital,
+    label: "Hospital Queue / Q-Ticket",
+    tagline: "บริหารคิวอัตโนมัติ ลดความแออัด",
+    accent: "bg-emerald-600/95 text-white",
+  },
+} as const satisfies Record<string, Scenario>;
+
+// Map slug → scenario เพื่อแสดงภาพ Application ที่สอดคล้องกับสินค้า
+// KIOSK ตั้งพื้น/ติดผนัง = ใช้ภาพ Application จริง
+// Interactive display ขนาดใหญ่ (43"+) = ยังคงใช้ภาพสินค้าเดิม (ห้องประชุม/Edu — ดูในรุ่น)
+const PRODUCT_SCENARIO: Record<string, keyof typeof SCENARIOS> = {
+  // Floor-stand & Wall-mount KIOSK (15.6" – 32") — เน้น Self-service
+  "interactive-display-kd156b": "retail",
+  "interactive-kiosk-kd156b": "retail",
+  "interactive-display-kd215b": "hotel",
+  "interactive-kiosk-kd215b": "hotel",
+  "interactive-kiosk-gd215c": "hospital",
+  "interactive-display-gd215c": "hospital",
+  "interactive-kiosk-gd238c": "hospital",
+  "interactive-kiosk-gd27c": "retail",
+  "interactive-display-kd32b": "retail",
+  "interactive-display-gd32c": "hospital",
+  "interactive-kiosk-kd43b": "retail",
+  // จอใหญ่กลุ่ม RZ-series (65"+ portrait) เน้น Retail signage
+  "interactive-kiosk-rz65b": "retail",
+  "interactive-kiosk-rz75b": "retail",
+  "interactive-kiosk-rz85b": "hotel",
+  "interactive-kiosk-rz86b": "hotel",
+  "interactive-kiosk-rz98b": "hotel",
+};
+
+
 // ลำดับการแสดงผล: เล็ก → ใหญ่ (KIOSK เริ่มจาก 15.6" → 21.5" → 23.8" แล้วต่อด้วยจอใหญ่ 27"→98")
 const SIZE_ORDER: Record<string, number> = {
   "15.6": 1, "21.5": 2, "23.8": 3, "27": 4, "32": 5, "43": 6, "49": 7, "55": 8, "65": 9, "75": 10, "85": 11, "86": 12, "98": 13,
@@ -668,14 +726,17 @@ export default function InteractiveDisplay() {
                 ? `/products/displays-21.5?model=${model215}`
                 : `/products/${p.slug}`;
               const cardImg = PRODUCT_IMAGES[p.slug] || p.image_url;
+              const scenarioKey = PRODUCT_SCENARIO[p.slug];
+              const scenario = scenarioKey ? SCENARIOS[scenarioKey] : null;
+              const heroImg = scenario?.image ?? cardImg;
               return (
-              <Card key={p.id} className="overflow-hidden hover:shadow-lg transition-shadow group">
+              <Card key={p.id} className="overflow-hidden hover:shadow-xl transition-all duration-300 group">
                 <Link to={detailHref} className="block">
                   <div className="aspect-[4/3] relative overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900">
-                    {cardImg ? (
+                    {heroImg ? (
                       <img
-                        src={cardImg}
-                        alt={`${p.model} ${p.name}`}
+                        src={heroImg}
+                        alt={scenario ? `${p.model} — ${scenario.label}` : `${p.model} ${p.name}`}
                         loading="lazy"
                         className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
@@ -687,6 +748,24 @@ export default function InteractiveDisplay() {
                         </div>
                       </>
                     )}
+
+                    {/* Bottom gradient + scenario tagline (เห็นเสมอบน scenario card) */}
+                    {scenario && (
+                      <>
+                        <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/80 via-black/40 to-transparent pointer-events-none" />
+                        <div className="absolute inset-x-0 bottom-0 p-3 flex items-end justify-between gap-2 z-10">
+                          <div className="min-w-0">
+                            <div className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold ${scenario.accent} shadow-md mb-1`}>
+                              {scenario.label}
+                            </div>
+                            <p className="text-[11px] sm:text-xs text-white font-medium leading-tight line-clamp-2 drop-shadow">
+                              {scenario.tagline}
+                            </p>
+                          </div>
+                        </div>
+                      </>
+                    )}
+
                     {/* OS chips */}
                     <div className="absolute top-3 right-3 flex gap-1.5 z-10">
                       <span className="px-2 py-0.5 rounded-full bg-white/95 text-[10px] font-bold text-[#0078D4] shadow-sm">Windows</span>
