@@ -95,6 +95,8 @@ export interface Display32 {
   /** Visual lifestyle scenarios with photo + short caption (4 scenes) */
   useCaseScenarios?: { image: string; title: string; description: string }[];
   gallery: string[];
+  /** Optional per-image short captions for the main gallery (Thai). Index-aligned with `gallery`. Use empty string to skip an image. */
+  galleryCaptions?: string[];
   ioImage: string;
   installImages: string[];
   /** Optional override for Installation section heading (e.g. "Port / Layout") */
