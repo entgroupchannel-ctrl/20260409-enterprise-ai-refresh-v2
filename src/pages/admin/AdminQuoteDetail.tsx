@@ -1125,8 +1125,15 @@ export default function AdminQuoteDetail() {
               </div>
 
               {/* ใช้ได้ถึง — inline editable */}
-              <div className="flex justify-between items-center gap-2">
-                <span className="text-muted-foreground shrink-0">ใช้ได้ถึง:</span>
+              <div className={`flex justify-between items-center gap-2 ${editingValidUntil ? '-mx-2 px-2 py-1.5 rounded-md ring-2 ring-primary/40 bg-primary/5' : ''}`}>
+                <span className="text-muted-foreground shrink-0 flex items-center gap-1.5">
+                  ใช้ได้ถึง:
+                  {editingValidUntil && (
+                    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-primary text-primary-foreground text-[10px] font-bold">
+                      <Pencil className="w-2.5 h-2.5" /> แก้ไข
+                    </span>
+                  )}
+                </span>
                 {editingValidUntil ? (
                   <div className="flex items-center gap-1 flex-1 justify-end">
                     <Input
