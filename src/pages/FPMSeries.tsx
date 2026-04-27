@@ -285,8 +285,14 @@ const FPMSeries = () => {
       </section>
 
       {/* ═══ Why Industrial Grade — Feature Grid ═══ */}
-      <section className="py-16 border-b border-border bg-muted/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative py-20 border-b border-border overflow-hidden bg-gradient-to-b from-background via-muted/30 to-background">
+        {/* Ambient background */}
+        <div aria-hidden className="absolute inset-0 opacity-[0.04] pointer-events-none"
+          style={{ backgroundImage: "radial-gradient(circle at 1px 1px, hsl(var(--foreground)) 1px, transparent 0)", backgroundSize: "32px 32px" }} />
+        <div aria-hidden className="absolute -top-32 -right-32 w-[480px] h-[480px] rounded-full bg-primary/10 blur-3xl pointer-events-none" />
+        <div aria-hidden className="absolute -bottom-32 -left-32 w-[480px] h-[480px] rounded-full bg-amber-500/10 blur-3xl pointer-events-none" />
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <span className="text-xs font-semibold tracking-widest uppercase text-primary mb-3 block">
               Why FPM Series
@@ -299,17 +305,37 @@ const FPMSeries = () => {
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {features.map((f, i) => {
               const Icon = f.icon;
               return (
-                <div key={i} className="group p-6 rounded-xl border border-border bg-card hover:border-primary/40 hover:shadow-lg transition-all">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                    <Icon size={22} />
+                <article
+                  key={i}
+                  className="group relative overflow-hidden rounded-2xl border border-border bg-card hover:border-primary/50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+                >
+                  <div className="relative aspect-[16/10] overflow-hidden bg-muted">
+                    <img
+                      src={f.image}
+                      alt={f.title}
+                      loading="lazy"
+                      width={800}
+                      height={512}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
+                    <div className="absolute bottom-3 left-3 w-12 h-12 rounded-xl bg-primary text-primary-foreground flex items-center justify-center shadow-lg shadow-primary/30 ring-2 ring-background/60 group-hover:scale-110 transition-transform">
+                      <Icon size={22} />
+                    </div>
                   </div>
-                  <h3 className="font-bold text-foreground mb-2">{f.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
-                </div>
+                  <div className="p-5">
+                    <h3 className="font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+                      {f.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {f.desc}
+                    </p>
+                  </div>
+                </article>
               );
             })}
           </div>
