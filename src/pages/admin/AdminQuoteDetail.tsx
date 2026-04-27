@@ -1681,6 +1681,63 @@ export default function AdminQuoteDetail() {
               onSaved={loadQuoteDetails}
             />
 
+            {/* Toggle: Allow customer to request negotiation */}
+            {(() => {
+              const negotiationOn = !!(quote as any).negotiation_enabled;
+              return (
+                <div
+                  className={`flex items-start justify-between gap-3 rounded-lg border-2 p-4 transition-colors ${
+                    negotiationOn
+                      ? 'border-emerald-500/60 bg-emerald-500/10'
+                      : 'border-muted-foreground/20 bg-muted/40'
+                  }`}
+                >
+                  <div className="space-y-1 flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <p className="text-sm font-semibold flex items-center gap-1.5">
+                        💬 อนุญาตให้ลูกค้าขอต่อรองราคา
+                      </p>
+                      <span
+                        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wide ${
+                          negotiationOn
+                            ? 'bg-emerald-600 text-white'
+                            : 'bg-muted-foreground/20 text-muted-foreground'
+                        }`}
+                      >
+                        {negotiationOn ? '● เปิดอยู่' : '○ ปิดอยู่'}
+                      </span>
+                    </div>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      {negotiationOn
+                        ? 'ลูกค้าจะเห็นปุ่ม "ขอต่อรองราคา" ในพอร์ทัล สามารถส่งคำขอต่อรองมาได้'
+                        : 'ปิดไว้เป็นค่าเริ่มต้น — เปิดเมื่อลูกค้าทักแชทมาขอต่อรอง เพื่อให้ปุ่ม "ขอต่อรองราคา" ปรากฏในพอร์ทัลลูกค้า'}
+                    </p>
+                  </div>
+                  <label className="inline-flex items-center cursor-pointer mt-0.5 shrink-0" title={negotiationOn ? 'คลิกเพื่อปิด' : 'คลิกเพื่อเปิด'}>
+                    <input
+                      type="checkbox"
+                      className="sr-only peer"
+                      checked={negotiationOn}
+                      onChange={async (e) => {
+                        const next = e.target.checked;
+                        const { error } = await (supabase as any)
+                          .from('quote_requests')
+                          .update({ negotiation_enabled: next })
+                          .eq('id', quote.id);
+                        if (error) {
+                          toast({ title: 'อัปเดตไม่สำเร็จ', description: error.message, variant: 'destructive' });
+                        } else {
+                          toast({ title: next ? '✅ เปิดให้ลูกค้าต่อรองได้แล้ว' : '🔒 ปิดการต่อรองฝั่งลูกค้าแล้ว' });
+                          loadQuoteDetails();
+                        }
+                      }}
+                    />
+                    <div className="relative w-14 h-7 bg-muted-foreground/30 border-2 border-muted-foreground/30 rounded-full peer-checked:bg-emerald-600 peer-checked:border-emerald-600 transition-colors after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:shadow-md after:transition-all peer-checked:after:translate-x-7" />
+                  </label>
+                </div>
+              );
+            })()}
+
             {/* PO Files — compact below chat */}
             {poFiles.length > 0 && (
               <Card>
