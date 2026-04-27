@@ -1270,39 +1270,16 @@ export default function AdminQuoteDetail() {
                     ))}
                   </SelectContent>
                 </Select>
-                {assignedSaleUser && (
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2">
-                      {assignedSaleUser.avatar_url ? (
-                        <img 
-                          src={assignedSaleUser.avatar_url} 
-                          alt={assignedSaleUser.full_name}
-                          className="w-8 h-8 rounded-full object-cover"
-                        />
-                      ) : (
-                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                          <User className="w-4 h-4 text-primary" />
-                        </div>
-                      )}
-                      <div className="flex-1 min-w-0">
-                        <div className="font-semibold text-sm truncate">
-                          {assignedSaleUser.full_name || assignedSaleUser.email}
-                        </div>
-                        {assignedSaleUser.position && (
-                          <div className="text-[10px] text-muted-foreground truncate">
-                            {assignedSaleUser.position}
-                          </div>
-                        )}
-                      </div>
-                    </div>
+                {assignedSaleUser && (assignedSaleUser.phone || assignedSaleUser.email) && (
+                  <div className="space-y-1 pl-1">
                     {assignedSaleUser.phone && (
-                      <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                      <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                         <Phone className="w-3 h-3" />
                         <span>{assignedSaleUser.phone}</span>
                       </div>
                     )}
                     {assignedSaleUser.email && (
-                      <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                      <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                         <Mail className="w-3 h-3" />
                         <span className="truncate">{assignedSaleUser.email}</span>
                       </div>
