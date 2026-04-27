@@ -1248,20 +1248,25 @@ export default function AdminQuoteDetail() {
                   disabled={assigningStaff}
                   onValueChange={(v) => handleAssignSale(v === 'unassigned' ? null : v)}
                 >
-                  <SelectTrigger className="w-full h-9 text-sm bg-background mb-2">
+                  <SelectTrigger className="max-w-xs h-9 text-sm bg-background mb-2">
                     <SelectValue placeholder="เลือกผู้รับผิดชอบ" />
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="unassigned">
-                      <span className="text-muted-foreground italic">— ยังไม่มอบหมาย —</span>
+                  <SelectContent className="max-w-xs">
+                    <SelectItem value="unassigned" className="py-2">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center shrink-0">
+                          <UserX className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+                        </div>
+                        <span className="text-sm font-medium text-amber-700 dark:text-amber-400">ยังไม่มอบหมาย</span>
+                      </div>
                     </SelectItem>
                     {staffList.map((s) => (
-                      <SelectItem key={s.id} value={s.id}>
+                      <SelectItem key={s.id} value={s.id} className="py-2">
                         <div className="flex items-center gap-2">
                           <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                            <User className="w-3 h-3 text-primary" />
+                            <User className="w-3.5 h-3.5 text-primary" />
                           </div>
-                          <span className="font-medium">{s.full_name || s.email}</span>
+                          <span className="text-sm font-medium">{s.full_name || s.email}</span>
                           {s.position && (
                             <span className="text-xs text-muted-foreground">· {s.position}</span>
                           )}
