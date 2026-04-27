@@ -288,7 +288,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                             return (
                               <DropdownMenuItem
                                 key={item.path}
-                                onClick={() => navigate(item.path)}
+                                onClick={() => { setOpenGroup(null); navigate(item.path); }}
                                 className={`gap-2 cursor-pointer ${isActive ? 'bg-accent' : ''}`}
                               >
                                 <Icon className="w-4 h-4 text-muted-foreground shrink-0" />
