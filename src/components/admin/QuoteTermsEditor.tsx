@@ -219,7 +219,7 @@ export default function QuoteTermsEditor({
             เงื่อนไข (ลูกค้าเห็น)
           </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="bg-gray-200 rounded-b-lg">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-4">
 
             <div className="space-y-1.5">
