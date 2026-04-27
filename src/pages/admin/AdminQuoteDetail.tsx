@@ -1236,10 +1236,10 @@ export default function AdminQuoteDetail() {
                   </p>
                 )}
               </div>
+              </div>
 
-              
-              {/* Sale Admin Assignment */}
-              <div className="pt-3 mt-2 border-t">
+              {/* Sale Admin Assignment — right column */}
+              <div className="space-y-1.5">
                 <div className="flex items-center justify-between mb-1.5">
                   <div className="flex items-center gap-2">
                     <Briefcase className="w-3.5 h-3.5 text-muted-foreground" />
