@@ -14,9 +14,9 @@ import {
   KIOSK_CUSTOMIZATION_LEAD_TIME,
 } from "./kiosk-peripherals";
 
-// Gallery — KD215B Floor Stand Kiosk (7 รูปจาก touchwo)
-import kd215g1 from "@/assets/touchwo/kd215b/KD215-1.jpg";
-import kd215g2 from "@/assets/touchwo/kd215b/KD215-2.jpg";
+// Gallery — KD215B Floor Stand Kiosk (7 รูปจาก touchwo + 2 รูปติดโลโก้ ENT)
+import kd215g1 from "@/assets/touchwo/kd215b/KD215-1-branded.jpg";
+import kd215g2 from "@/assets/touchwo/kd215b/KD215-2-branded.jpg";
 import kd215g3 from "@/assets/touchwo/kd215b/KD215-3.jpg";
 import kd215g4 from "@/assets/touchwo/kd215b/KD215-4.jpg";
 import kd215g5 from "@/assets/touchwo/kd215b/KD215-5.jpg";
@@ -258,6 +258,15 @@ export const DISPLAYS_215: Record<Display215Slug, Display32> = {
     useCases: ["Retail Self-service", "Banking / Self-checkout", "Exhibition", "Public Self-service"],
     useCaseScenarios: KD215B_SHARED_USECASES,
     gallery: [kd215g1, kd215g2, kd215g3, kd215g4, kd215g5, kd215g6, kd215g7],
+    galleryCaptions: [
+      "มุมมอง 3/4 — ตู้คีออสก์ตั้งพื้น 21.5\" หน้าจอเอียง 45° ตามหลัก Ergonomic เหมาะกับงาน Retail Self-service พร้อม branding ENT บนตัวตู้",
+      "มุมตรง — Configurable Front Panel พร้อม Thermal Printer และ RFID/QR Scanner สำหรับงานธนาคารและบริการตัวเอง พร้อมโลโก้แบรนด์",
+      "ด้านหลัง — ฝาเหล็กพ่นสีล็อกได้ 3 ชั้น (Lockable Rear Panel) ออกแบบเพื่อการบำรุงรักษาที่ปลอดภัยและเข้าถึงสาย/PC ได้ง่าย",
+      "มุมข้าง — โครงสร้าง Sleek Unibody Powder-coated Steel ทรงเพรียว พร้อมช่องระบายอากาศด้านข้างเพื่อใช้งานต่อเนื่อง 24/7",
+      "รายละเอียดอุปกรณ์ในตัว — กล้องด้านบน, QR/Barcode Scanner, RFID Reader และ Thermal Printer 80mm พร้อมไฟแสดงสถานะ",
+      "Top View — โครงสร้างฝาบนพร้อมช่องระบายอากาศและจุดติดตั้งกล้อง/Sensor เพิ่มเติมได้ตามความต้องการ",
+      "Technical Drawing — แบบเทคนิคแสดงโครงสร้างภายใน, ตำแหน่งช่องระบายอากาศ และจุดติดตั้งอุปกรณ์ Add-on Module",
+    ],
     ioImage: kd215g7,
     installImages: [kd215Feat5, kd215Feat6, kd215Feat7],
     installCaptions: KD215B_INSTALL_CAPTIONS,
