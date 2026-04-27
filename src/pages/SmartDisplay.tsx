@@ -22,7 +22,7 @@ import idHighlightKd43b from "@/assets/touchwo/kd43b/mon-1.jpg";
 import idHighlightGd238c from "@/assets/touchwo/gd238c/p-1a.jpg";
 import idHighlightHd55 from "@/assets/touchwo/hd55/card-hero.jpg";
 import idHighlightRz86b from "@/assets/touchwo/rz86b/p-windows.jpg";
-import idHighlightHd27 from "@/assets/touchwo/hd27/card-hero.jpg";
+import idHighlightHd27 from "@/assets/touchwo/hd27/mon-1.jpg";
 import FooterCompact from "@/components/FooterCompact";
 import MiniNavbar from "@/components/MiniNavbar";
 import B2BPlatformInterfaceShowcase from "@/components/B2BPlatformInterfaceShowcase";
