@@ -49,6 +49,7 @@ import DiscountInput from '@/components/shared/DiscountInput';
 import ProductSpecDisplay from '@/components/shared/ProductSpecDisplay';
 import { useToast } from '@/hooks/use-toast';
 import ProductEditor from '@/components/admin/ProductEditor';
+import InternalNotesEditor from '@/components/admin/InternalNotesEditor';
 import {
   ArrowLeft,
   CircleCheckBig,
