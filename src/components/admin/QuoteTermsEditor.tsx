@@ -180,7 +180,7 @@ export default function QuoteTermsEditor({
     if (tpls.length === 0) return null;
     return (
       <Select onValueChange={(v) => applyTemplate(type, v, setter)} disabled={disabled}>
-        <SelectTrigger className="h-9 text-sm">
+        <SelectTrigger className="h-9 text-sm bg-background border-2 border-input/80 hover:border-primary/50 text-foreground font-medium shadow-sm">
           <SelectValue placeholder="เลือกจาก template หรือพิมพ์เอง" />
         </SelectTrigger>
         <SelectContent>
