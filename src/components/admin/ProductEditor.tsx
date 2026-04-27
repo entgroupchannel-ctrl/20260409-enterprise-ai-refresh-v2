@@ -262,7 +262,20 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
             </Card>
           ) : (
             // View Mode
-            <div className="p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors group">
+            <div 
+              className="p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors group cursor-pointer relative"
+              onClick={() => {
+                setEditingId(product.id);
+                setEditForm({
+                  model: product.model,
+                  description: product.description || '',
+                  qty: product.qty,
+                  unit_price: product.unit_price,
+                  discount_percent: product.discount_percent || 0,
+                  notes: product.notes || '',
+                });
+              }}
+            >
               <div className="flex justify-between items-start mb-2">
                 <div className="flex-1">
                   <h4 className="font-semibold flex items-center gap-2 text-foreground">
