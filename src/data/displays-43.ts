@@ -100,6 +100,10 @@ export const DISPLAYS_43: Record<Display43Slug, Display32> = {
       hd43Mon1, hd43Mon2, hd43X861, hd43X862, hd43Arm1, hd43Arm2,
       hd43Mon5, hd43Mon6, hd43Mon7,
     ],
+    galleryCaptions: [
+      "ตัวอย่างการใช้งาน: ตู้สั่งอาหารด้วยตนเอง (QSR Self-order Kiosk) — เมนูภาพคมชัด เพิ่มยอด upsell 20-30%",
+      "ตัวอย่างการใช้งาน: จอประชุมไฮบริด (Hybrid Meeting Room) — Whiteboard + Video Conference 6-10 คน",
+    ],
     ioImage: hd43Mon6,
     installImages: [hd43Mon3, hd43Mon4, hd43Mon7],
     featureImages: [],
@@ -294,6 +298,10 @@ export const DISPLAYS_43: Record<Display43Slug, Display32> = {
     gallery: [
       hr43Mon1, hr43Mon2, hr43X861, hr43X862, hr43Arm1, hr43Arm2,
       hr43Mon5, hr43Mon6, hr43Mon7,
+    ],
+    galleryCaptions: [
+      "ตัวอย่างการใช้งาน: จอนำทาง / เช็คอินในล็อบบี้โรงแรม (Hotel Wayfinding) — แผนที่อาคาร + หลายภาษา",
+      "ตัวอย่างการใช้งาน: จอ Digital Signage ในร้านค้าปลีก (Retail Promotion) — โชว์คอลเลกชันใหม่ + QR สั่งซื้อ",
     ],
     ioImage: hr43Mon6,
     installImages: [hr43Mon3, hr43Mon4, hr43Mon7],
@@ -505,6 +513,10 @@ export const DISPLAYS_43: Record<Display43Slug, Display32> = {
     gallery: [
       kd43Mon1, kd43Mon2, kd43X861, kd43X862, kd43Arm1, kd43Arm2,
       kd43Mon3, kd43Mon5, kd43Mon7,
+    ],
+    galleryCaptions: [
+      "ตัวอย่างการใช้งาน: ตู้เช็คอินโรงพยาบาล / รับคิวผู้ป่วย (Hospital Check-in) — TH/EN + แสดงเลขคิวอัตโนมัติ",
+      "ตัวอย่างการใช้งาน: หน้าจอ HMI โรงงานอัจฉริยะ (Smart Factory Dashboard) — OEE + แจ้งเตือน Real-time",
     ],
     ioImage: kd43Mon6,
     installImages: [kd43Mon3, kd43Mon4, kd43Mon7],

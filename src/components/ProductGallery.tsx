@@ -6,9 +6,11 @@ interface ProductGalleryProps {
   alt: string;
   autoPlayInterval?: number;
   onImageClick?: (index: number) => void;
+  /** Optional per-image short captions (Thai). Index-aligned with `images`. */
+  captions?: string[];
 }
 
-const ProductGallery = ({ images, alt, autoPlayInterval = 4000, onImageClick }: ProductGalleryProps) => {
+const ProductGallery = ({ images, alt, autoPlayInterval = 4000, onImageClick, captions }: ProductGalleryProps) => {
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
 
@@ -71,6 +73,12 @@ const ProductGallery = ({ images, alt, autoPlayInterval = 4000, onImageClick }: 
           <ChevronRight size={16} className="text-foreground" />
         </button>
       </div>
+
+      {captions?.[current] ? (
+        <p className="mt-3 text-sm text-muted-foreground text-center px-2 leading-relaxed">
+          {captions[current]}
+        </p>
+      ) : null}
 
       <div className="flex gap-2 mt-3 justify-center items-center">
         {images.map((img, i) => (

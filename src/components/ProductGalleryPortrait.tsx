@@ -6,6 +6,8 @@ interface ProductGalleryPortraitProps {
   alt: string;
   autoPlayInterval?: number;
   onImageClick?: (index: number) => void;
+  /** Optional per-image short captions (Thai). Index-aligned with `images`. */
+  captions?: string[];
 }
 
 /**
@@ -18,6 +20,7 @@ const ProductGalleryPortrait = ({
   alt,
   autoPlayInterval = 5000,
   onImageClick,
+  captions,
 }: ProductGalleryPortraitProps) => {
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -166,6 +169,13 @@ const ProductGalleryPortrait = ({
               <ChevronRight size={18} />
             </button>
           </div>
+
+          {/* Caption (optional, per active image) */}
+          {captions?.[current] ? (
+            <p className="mt-3 text-sm text-muted-foreground text-center px-2 leading-relaxed">
+              {captions[current]}
+            </p>
+          ) : null}
 
           {/* Progress dots (bottom) */}
           <div className="flex gap-1.5 justify-center mt-3">
