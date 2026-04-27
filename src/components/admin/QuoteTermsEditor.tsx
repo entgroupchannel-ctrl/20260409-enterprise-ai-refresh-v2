@@ -25,6 +25,7 @@ interface QuoteTermsEditorProps {
   };
   disabled?: boolean;
   onSaved?: () => void;
+  hideInternalNotes?: boolean;
 }
 
 interface Template {
