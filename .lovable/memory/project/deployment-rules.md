@@ -1,11 +1,20 @@
 ---
-name: Deployment Rules
-description: กฎ deploy — ทำตามที่ผู้ใช้แจ้งเท่านั้น ไม่ refactor/rename/แตะไฟล์อื่น
-type: preference
+name: deployment-rules
+description: กฎ 5 ข้อบังคับใช้ทุก deploy ห้ามแตะไฟล์/โค้ดนอก scope ของ prompt และต้องยืนยันก่อนแก้ทุกครั้ง
+type: constraint
 ---
 
-ทำตามที่ผู้ใช้แจ้งใน prompt เท่านั้น
-- ห้ามแตะไฟล์นอกเหนือจากที่ระบุ
-- ห้าม refactor, clean up, rename variable/function/type
-- ห้าม reorder หรือลบ imports ที่คิดว่า "ไม่ใช้"
-- ไม่ต้องพิมพ์ข้อความยืนยัน "ฉันจะแก้เฉพาะ..." ก่อนทุกครั้ง — แค่ทำตามขอบเขตที่แจ้ง
+## กฎที่ต้องปฏิบัติตามทุก deploy
+
+1. ⛔ ห้ามแตะไฟล์นอกเหนือจากที่ระบุใน prompt
+2. ⛔ ห้าม refactor, clean up, หรือ "improve" โค้ดที่ไม่เกี่ยวข้อง
+3. ⛔ ห้าม rename variable, function, หรือ type ใดๆ
+4. ⛔ ห้าม reorder imports หรือลบ import ที่คิดว่า "ไม่ใช้"
+5. ✅ แก้เฉพาะสิ่งที่ prompt ขอเท่านั้น
+
+## ข้อความยืนยันก่อน deploy ทุกครั้ง
+
+> "ฉันจะแก้เฉพาะ [ชื่อไฟล์] โดยเปลี่ยนเฉพาะ [สิ่งที่แก้]
+> ฉันไม่ได้แตะไฟล์อื่น และไม่ได้ refactor โค้ดที่ไม่เกี่ยวข้อง"
+
+**Why:** ป้องกัน regression จากการแก้นอก scope และทำให้ผู้ใช้ตรวจสอบได้ชัดเจนว่ามีการแก้อะไรบ้าง
