@@ -259,7 +259,7 @@ export const DISPLAYS_215: Record<Display215Slug, Display32> = {
     useCaseScenarios: KD215B_SHARED_USECASES,
     gallery: [kd215g1, kd215g2, kd215g3, kd215g4, kd215g5, kd215g6, kd215g7],
     galleryCaptions: [
-      "มุมมอง 3/4 — ตู้คีออสก์ตั้งพื้น 21.5\" หน้าจอเอียง 45° ตามหลัก Ergonomic เหมาะกับงาน Retail Self-service พร้อม branding ENT บนตัวตู้",
+      "ตัวอย่างการใช้งานจริง — Retail Self-Checkout บนหน้าจอ 21.5\" แสดงตะกร้าสินค้า, ยอดรวม, ปุ่มชำระเงิน และ QR PromptPay พร้อม branding ENT บนตัวตู้",
       "มุมตรง — Configurable Front Panel พร้อม Thermal Printer และ RFID/QR Scanner สำหรับงานธนาคารและบริการตัวเอง พร้อมโลโก้แบรนด์",
       "ด้านหลัง — ฝาเหล็กพ่นสีล็อกได้ 3 ชั้น (Lockable Rear Panel) ออกแบบเพื่อการบำรุงรักษาที่ปลอดภัยและเข้าถึงสาย/PC ได้ง่าย",
       "มุมข้าง — โครงสร้าง Sleek Unibody Powder-coated Steel ทรงเพรียว พร้อมช่องระบายอากาศด้านข้างเพื่อใช้งานต่อเนื่อง 24/7",
