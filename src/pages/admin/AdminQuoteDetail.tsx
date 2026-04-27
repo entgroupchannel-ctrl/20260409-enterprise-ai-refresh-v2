@@ -1567,6 +1567,7 @@ export default function AdminQuoteDetail() {
               }}
               disabled={!isSuperAdmin && quote.status !== 'pending' && quote.status !== 'draft' && quote.status !== 'quote_sent' && quote.status !== 'negotiating'}
               onSaved={loadQuoteDetails}
+              hideInternalNotes
             />
 
             {/* Toggle: Allow customer to request negotiation */}
