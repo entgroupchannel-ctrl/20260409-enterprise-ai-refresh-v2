@@ -329,18 +329,23 @@ export default function RevisionTimeline({
                   </div>
                 </div>
 
-                {/* Inline print button (collapsed view) */}
-                {onPrintRevision && rev.status !== 'draft' && (
+                {/* Inline print button (collapsed view) — ทุก revision */}
+                {onPrintRevision && (
                   <button
                     type="button"
                     onClick={(e) => {
                       e.stopPropagation();
                       onPrintRevision(rev);
                     }}
-                    className="p-1 hover:bg-accent rounded transition-colors"
-                    title={`พิมพ์ Rev ${rev.revision_number}`}
+                    className={cn(
+                      'p-1.5 rounded-md transition-colors border',
+                      isDraft
+                        ? 'border-amber-300 bg-amber-50 hover:bg-amber-100 dark:border-amber-700 dark:bg-amber-900/20 dark:hover:bg-amber-900/40'
+                        : 'border-border bg-muted/50 hover:bg-accent'
+                    )}
+                    title={`พิมพ์ Rev ${rev.revision_number}${isDraft ? ' (Draft)' : ''}`}
                   >
-                    <Printer className="w-4 h-4 text-muted-foreground hover:text-primary" />
+                    <Printer className={cn('w-4 h-4', isDraft ? 'text-amber-600 dark:text-amber-400' : 'text-muted-foreground hover:text-primary')} />
                   </button>
                 )}
 
@@ -455,20 +460,23 @@ export default function RevisionTimeline({
 
                   {/* Action buttons */}
                   <div className="flex gap-2 mt-2">
-                    {/* Print this revision — ทุก revision ยกเว้น draft */}
-                    {onPrintRevision && rev.status !== 'draft' && (
-                      <Button 
-                        size="sm" 
-                        variant="outline" 
-                        className="flex-1"
+                    {/* Print this revision — ทุก revision (รวม draft สำหรับ admin preview) */}
+                    {onPrintRevision && (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className={cn(
+                          'flex-1 font-medium',
+                          isDraft && 'border-amber-400 text-amber-700 hover:bg-amber-50 dark:text-amber-300 dark:hover:bg-amber-900/30'
+                        )}
                         onClick={() => onPrintRevision(rev)}
                       >
-                        <Printer className="w-3.5 h-3.5 mr-1" />
-                        พิมพ์ Rev {rev.revision_number}
+                        <Printer className="w-3.5 h-3.5 mr-1.5" />
+                        พิมพ์ Rev {rev.revision_number}{isDraft ? ' (Preview)' : ''}
                       </Button>
                     )}
 
-                    {/* Use as base */}
+
                     {onSelectRevision && viewerRole === 'admin' && !isCurrent && !isDraft && (
                       <Button size="sm" variant="outline" className="flex-1" onClick={() => onSelectRevision(rev)}>
                         ใช้เป็นฐานสร้าง Revision ใหม่
