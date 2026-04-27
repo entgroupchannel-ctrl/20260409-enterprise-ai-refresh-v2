@@ -626,6 +626,28 @@ export default function AdminQuoteDetail() {
 
       if (updateError) throw updateError;
 
+      // 🔄 Sync the current revision snapshot so every Print button (top-right + timeline)
+      // reflects the latest admin edits. Only sync drafts/sent revisions — never touch
+      // superseded/accepted history.
+      if (quote.current_revision_id) {
+        await (supabase.from as any)('quote_revisions')
+          .update({
+            products: quote.products || [],
+            free_items: quote.free_items || [],
+            subtotal: totals.subtotal,
+            discount_type: quote.discount_type || 'percent',
+            discount_percent: quote.discount_percent || 0,
+            discount_amount: totals.discountAmount,
+            vat_percent: quote.vat_percent || 7,
+            vat_amount: totals.vatAmount,
+            grand_total: totals.grandTotal,
+            valid_until: quote.valid_until || null,
+            internal_notes: quote.internal_notes || null,
+          })
+          .eq('id', quote.current_revision_id)
+          .in('status', ['draft', 'sent']);
+      }
+
       toast({
         title: 'บันทึกฉบับร่างแล้ว',
         description: 'ข้อมูลถูกบันทึกแล้ว ยังไม่ได้ส่งให้ลูกค้า',
