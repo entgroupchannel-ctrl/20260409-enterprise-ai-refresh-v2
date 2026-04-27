@@ -1,13 +1,19 @@
 // src/components/admin/QuoteShareActivity.tsx
 // Activity timeline for shared quote links — shows views/downloads per link.
+// Includes inline "create share link" + copy active link.
 import { useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Eye, Download, Link2, Clock, ShieldOff, RefreshCw, Activity } from 'lucide-react';
+import {
+  Eye, Download, Link2, Clock, ShieldOff, RefreshCw, Activity,
+  Plus, Copy, ExternalLink, Loader2, Ban,
+} from 'lucide-react';
 import { formatShortDateTime, formatRelativeTime } from '@/lib/format';
+import { useToast } from '@/hooks/use-toast';
 
 interface ShareLink {
   id: string;
@@ -33,8 +39,18 @@ interface Props {
   quoteId: string;
 }
 
+const generateToken = () => {
+  const arr = new Uint8Array(24);
+  crypto.getRandomValues(arr);
+  return Array.from(arr, (b) => b.toString(36).padStart(2, '0')).join('').slice(0, 32);
+};
+
+const buildUrl = (token: string) => `https://www.entgroup.co.th/q/share/${token}`;
+
 export default function QuoteShareActivity({ quoteId }: Props) {
+  const { toast } = useToast();
   const [loading, setLoading] = useState(true);
+  const [creating, setCreating] = useState(false);
   const [links, setLinks] = useState<ShareLink[]>([]);
   const [logs, setLogs] = useState<AccessLog[]>([]);
 
@@ -68,9 +84,57 @@ export default function QuoteShareActivity({ quoteId }: Props) {
     fetchData();
   }, [quoteId]);
 
+  const handleCreate = async (days: number = 7) => {
+    setCreating(true);
+    try {
+      const { data: userData } = await supabase.auth.getUser();
+      const token = generateToken();
+      const expiresAt = new Date();
+      expiresAt.setDate(expiresAt.getDate() + days);
+      const { error } = await (supabase as any).from('quote_share_links').insert({
+        quote_id: quoteId,
+        token,
+        expires_at: expiresAt.toISOString(),
+        created_by: userData.user?.id,
+      });
+      if (error) throw error;
+      toast({ title: '✅ สร้างลิงก์แชร์แล้ว', description: `ลิงก์มีอายุ ${days} วัน` });
+      await fetchData();
+    } catch (e: any) {
+      toast({ title: 'สร้างลิงก์ไม่สำเร็จ', description: e.message, variant: 'destructive' });
+    } finally {
+      setCreating(false);
+    }
+  };
+
+  const handleCopy = async (token: string) => {
+    const url = buildUrl(token);
+    try {
+      await navigator.clipboard.writeText(url);
+      toast({ title: '📋 คัดลอกลิงก์แล้ว' });
+    } catch {
+      toast({ title: 'คัดลอกไม่สำเร็จ', variant: 'destructive' });
+    }
+  };
+
+  const handleRevoke = async (id: string) => {
+    try {
+      const { data: userData } = await supabase.auth.getUser();
+      const { error } = await (supabase as any)
+        .from('quote_share_links')
+        .update({ revoked_at: new Date().toISOString(), revoked_by: userData.user?.id })
+        .eq('id', id);
+      if (error) throw error;
+      toast({ title: '🚫 ยกเลิกลิงก์แล้ว' });
+      await fetchData();
+    } catch (e: any) {
+      toast({ title: 'ยกเลิกไม่สำเร็จ', description: e.message, variant: 'destructive' });
+    }
+  };
+
   const totalViews = links.reduce((s, l) => s + (l.view_count || 0), 0);
   const totalDownloads = links.reduce((s, l) => s + (l.download_count || 0), 0);
-  const activeLinks = links.filter((l) => !l.revoked_at && new Date(l.expires_at) > new Date()).length;
+  const activeLinks = links.filter((l) => !l.revoked_at && new Date(l.expires_at) > new Date());
 
   const linkLabel = (id: string) => {
     const idx = links.findIndex((l) => l.id === id);
@@ -85,35 +149,95 @@ export default function QuoteShareActivity({ quoteId }: Props) {
           <Activity className="h-5 w-5 text-primary" />
           การเข้าถึงลิงก์แชร์
         </CardTitle>
-        <Button variant="ghost" size="sm" onClick={fetchData} disabled={loading}>
-          <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
-        </Button>
+        <div className="flex items-center gap-1">
+          <Button
+            size="sm"
+            onClick={() => handleCreate(7)}
+            disabled={creating}
+            className="h-8"
+          >
+            {creating ? <Loader2 className="h-3.5 w-3.5 mr-1.5 animate-spin" /> : <Plus className="h-3.5 w-3.5 mr-1.5" />}
+            สร้างลิงก์ใหม่
+          </Button>
+          <Button variant="ghost" size="sm" onClick={fetchData} disabled={loading} className="h-8 w-8 p-0">
+            <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
+          </Button>
+        </div>
       </CardHeader>
-      <CardContent className="space-y-4 bg-gray-200 rounded-b-lg pt-6">
+      <CardContent className="space-y-4 bg-muted/40 rounded-b-lg border-t border-border pt-6">
         {loading ? (
           <Skeleton className="h-32 w-full" />
         ) : links.length === 0 ? (
-          <p className="text-sm text-muted-foreground text-center py-6">
-            ยังไม่มีลิงก์แชร์ — กดปุ่ม "แชร์" ในรายการใบเสนอราคาเพื่อสร้างลิงก์
-          </p>
+          <div className="text-center py-8 space-y-3">
+            <p className="text-sm text-muted-foreground">
+              ยังไม่มีลิงก์แชร์ — กดปุ่ม "สร้างลิงก์ใหม่" ด้านบนเพื่อสร้างลิงก์แรก
+            </p>
+            <Button onClick={() => handleCreate(7)} disabled={creating} variant="outline">
+              {creating ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <Plus className="h-4 w-4 mr-2" />}
+              สร้างลิงก์แชร์ (อายุ 7 วัน)
+            </Button>
+          </div>
         ) : (
           <>
+            {/* Active link quick-copy box */}
+            {activeLinks.length > 0 && (
+              <div className="rounded-lg border-2 border-primary/30 bg-primary/5 p-3 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-primary uppercase tracking-wide flex items-center gap-1.5">
+                    <Link2 className="h-3.5 w-3.5" />
+                    ลิงก์ใช้งานล่าสุด
+                  </span>
+                  <Badge variant="default" className="text-[10px]">
+                    หมดอายุ {formatShortDateTime(activeLinks[0].expires_at)}
+                  </Badge>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Input
+                    readOnly
+                    value={buildUrl(activeLinks[0].token)}
+                    className="h-9 text-xs font-mono bg-background"
+                    onFocus={(e) => e.target.select()}
+                  />
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="h-9 shrink-0"
+                    onClick={() => handleCopy(activeLinks[0].token)}
+                    title="คัดลอกลิงก์"
+                  >
+                    <Copy className="h-3.5 w-3.5" />
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="h-9 shrink-0"
+                    asChild
+                    title="เปิดในแท็บใหม่"
+                  >
+                    <a href={buildUrl(activeLinks[0].token)} target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="h-3.5 w-3.5" />
+                    </a>
+                  </Button>
+                </div>
+              </div>
+            )}
+
             {/* Stats */}
             <div className="grid grid-cols-3 gap-3">
-              <div className="rounded-lg border p-3 text-center">
+              <div className="rounded-lg border bg-background p-3 text-center">
                 <div className="text-2xl font-bold text-primary">{totalViews}</div>
                 <div className="text-xs text-muted-foreground flex items-center justify-center gap-1 mt-1">
                   <Eye className="h-3 w-3" /> เปิดดู
                 </div>
               </div>
-              <div className="rounded-lg border p-3 text-center">
+              <div className="rounded-lg border bg-background p-3 text-center">
                 <div className="text-2xl font-bold text-primary">{totalDownloads}</div>
                 <div className="text-xs text-muted-foreground flex items-center justify-center gap-1 mt-1">
                   <Download className="h-3 w-3" /> ดาวน์โหลด
                 </div>
               </div>
-              <div className="rounded-lg border p-3 text-center">
-                <div className="text-2xl font-bold">{activeLinks}<span className="text-sm text-muted-foreground">/{links.length}</span></div>
+              <div className="rounded-lg border bg-background p-3 text-center">
+                <div className="text-2xl font-bold">{activeLinks.length}<span className="text-sm text-muted-foreground">/{links.length}</span></div>
                 <div className="text-xs text-muted-foreground flex items-center justify-center gap-1 mt-1">
                   <Link2 className="h-3 w-3" /> ลิงก์ใช้งานได้
                 </div>
@@ -128,12 +252,24 @@ export default function QuoteShareActivity({ quoteId }: Props) {
                 const revoked = !!link.revoked_at;
                 const status = revoked ? 'revoked' : expired ? 'expired' : 'active';
                 return (
-                  <div key={link.id} className="rounded-lg border p-3 text-sm">
+                  <div key={link.id} className="rounded-lg border bg-background p-3 text-sm">
                     <div className="flex items-center justify-between gap-2">
                       <span className="font-medium">ลิงก์ #{links.length - i}</span>
-                      {status === 'active' && <Badge variant="default">ใช้งานได้</Badge>}
-                      {status === 'expired' && <Badge variant="secondary">หมดอายุ</Badge>}
-                      {status === 'revoked' && <Badge variant="destructive"><ShieldOff className="h-3 w-3 mr-1" />ยกเลิก</Badge>}
+                      <div className="flex items-center gap-1.5">
+                        {status === 'active' && <Badge variant="default">ใช้งานได้</Badge>}
+                        {status === 'expired' && <Badge variant="secondary">หมดอายุ</Badge>}
+                        {status === 'revoked' && <Badge variant="destructive"><ShieldOff className="h-3 w-3 mr-1" />ยกเลิก</Badge>}
+                        {status === 'active' && (
+                          <>
+                            <Button size="sm" variant="ghost" className="h-7 w-7 p-0" onClick={() => handleCopy(link.token)} title="คัดลอกลิงก์">
+                              <Copy className="h-3.5 w-3.5" />
+                            </Button>
+                            <Button size="sm" variant="ghost" className="h-7 w-7 p-0 text-destructive" onClick={() => handleRevoke(link.id)} title="ยกเลิกลิงก์">
+                              <Ban className="h-3.5 w-3.5" />
+                            </Button>
+                          </>
+                        )}
+                      </div>
                     </div>
                     <div className="text-xs text-muted-foreground mt-1 flex flex-wrap gap-x-3 gap-y-1">
                       <span>สร้าง: {formatShortDateTime(link.created_at)}</span>
