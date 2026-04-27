@@ -91,12 +91,12 @@ const useCases = [
 ];
 
 const features = [
-  { icon: Shield, title: "IP65 Front Panel", desc: "ทนน้ำกระเซ็น ฝุ่น เหมาะกับสภาพแวดล้อมโรงงาน" },
-  { icon: ThermometerSun, title: "Wide Temperature", desc: "-40°C ถึง +80°C ทำงานได้ทั้งห้องเย็นและเตาอบ" },
-  { icon: Sparkles, title: "Optical Bonding", desc: "ลด Glare กระจกเสริมแรง เห็นชัดทุกมุมมอง" },
-  { icon: Zap, title: "Low 0.5% Failure Rate", desc: "อัตราเสียต่อปีเพียง 0.5% — ออกแบบมาเพื่อใช้งาน 24/7" },
-  { icon: Settings, title: "Flexible Customization", desc: "เพิ่ม RFID, ปรับพอร์ต, หรือตู้ตามแบบลูกค้า" },
-  { icon: Maximize, title: "VESA 75/100", desc: "ติดตั้งบน Arm, ฝังตู้, หรือยึดผนังได้มาตรฐาน" },
+  { icon: Shield, title: "IP65 Front Panel", desc: "ทนน้ำกระเซ็น ฝุ่น เหมาะกับสภาพแวดล้อมโรงงาน", image: "/images/fpm/features/01-ip65.jpg" },
+  { icon: ThermometerSun, title: "Wide Temperature", desc: "-40°C ถึง +80°C ทำงานได้ทั้งห้องเย็นและเตาอบ", image: "/images/fpm/features/02-wide-temp.jpg" },
+  { icon: Sparkles, title: "Optical Bonding", desc: "ลด Glare กระจกเสริมแรง เห็นชัดทุกมุมมอง", image: "/images/fpm/features/03-optical-bonding.jpg" },
+  { icon: Zap, title: "Low 0.5% Failure Rate", desc: "อัตราเสียต่อปีเพียง 0.5% — ออกแบบมาเพื่อใช้งาน 24/7", image: "/images/fpm/features/04-reliability.jpg" },
+  { icon: Settings, title: "Flexible Customization", desc: "เพิ่ม RFID, ปรับพอร์ต, หรือตู้ตามแบบลูกค้า", image: "/images/fpm/features/05-customization.jpg" },
+  { icon: Maximize, title: "VESA 75/100", desc: "ติดตั้งบน Arm, ฝังตู้, หรือยึดผนังได้มาตรฐาน", image: "/images/fpm/features/06-vesa-mount.jpg" },
 ];
 
 const FPMSeries = () => {
