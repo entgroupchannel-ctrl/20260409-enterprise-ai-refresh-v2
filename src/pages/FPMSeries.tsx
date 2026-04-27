@@ -71,12 +71,12 @@ const fpmDatasheets = [
 
 const sizeMatrix = [
   { size: "8\"", ratios: ["4:3"], models: 2, slug: "fpm-0801a" },
-  { size: "10\"", ratios: ["4:3"], models: 2, slug: "fpm-1002s" },
-  { size: "12\"", ratios: ["4:3"], models: 1, slug: "fpm-1202c" },
-  { size: "15\"", ratios: ["4:3"], models: 2, slug: "fpm-1502k" },
-  { size: "16\"", ratios: ["16:9"], models: 1, slug: "fpm-1602k" },
-  { size: "17\"", ratios: ["5:4"], models: 1, slug: "fpm-1702k" },
-  { size: "19\"", ratios: ["5:4"], models: 1, slug: "fpm-1902k" },
+  { size: "10\"", ratios: ["4:3"], models: 2, slug: "fpm-1002a" },
+  { size: "12\"", ratios: ["4:3"], models: 1, slug: "fpm-1202a" },
+  { size: "15\"", ratios: ["4:3"], models: 2, slug: "fpm-1502a" },
+  { size: "16\"", ratios: ["16:9"], models: 1, slug: "fpm-1502k" },
+  { size: "17\"", ratios: ["5:4"], models: 1, slug: "fpm-1702a" },
+  { size: "19\"", ratios: ["5:4"], models: 1, slug: "fpm-1902a" },
   { size: "21.5\"", ratios: ["16:9"], models: 1, slug: "fpm-2102k" },
   { size: "24\"", ratios: ["16:9"], models: 1, slug: "fpm-2402ka" },
 ];
