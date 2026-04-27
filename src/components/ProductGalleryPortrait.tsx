@@ -119,14 +119,14 @@ const ProductGalleryPortrait = ({
 
         {/* Hero image — portrait aspect, tall stage */}
         <div className="relative flex-1 group">
-          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-muted/40 to-background flex items-center justify-center min-h-[520px] sm:min-h-[640px] lg:min-h-[720px] aspect-[4/5] sm:aspect-auto">
+          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-muted/40 to-background flex items-center justify-center min-h-[460px] sm:min-h-[560px] lg:min-h-[640px] aspect-[3/4] sm:aspect-auto">
             {images.map((img, i) => (
               <img
                 key={i}
                 src={img}
                 alt={`${alt} - ${i + 1}`}
                 loading={i === 0 ? "eager" : "lazy"}
-                className={`absolute inset-0 m-auto max-h-[98%] max-w-[96%] object-contain transition-opacity duration-500 ${
+                className={`absolute inset-0 m-auto h-full w-full object-contain p-2 sm:p-3 transition-opacity duration-500 ${
                   i === current ? "opacity-100" : "opacity-0 pointer-events-none"
                 } ${onImageClick ? "cursor-zoom-in" : ""}`}
                 onClick={onImageClick ? () => onImageClick(current) : undefined}
