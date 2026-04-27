@@ -751,13 +751,20 @@ const FPMSeriesDetail = () => {
       </section>
 
       {/* Trust / Service Badges */}
-      <section className="py-12 border-b border-border bg-muted/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative py-14 border-y border-border/60 overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 dark:from-slate-950 dark:via-slate-900 dark:to-black">
+        {/* Ambient glows */}
+        <div aria-hidden className="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full bg-primary/15 blur-3xl pointer-events-none" />
+        <div aria-hidden className="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full bg-amber-500/10 blur-3xl pointer-events-none" />
+        {/* Subtle dot pattern */}
+        <div aria-hidden className="absolute inset-0 opacity-[0.06] pointer-events-none"
+          style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "28px 28px" }} />
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider border border-primary/30 mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold uppercase tracking-wider border border-primary/40 mb-3 backdrop-blur">
               <ShieldCheck size={12} /> ENT Service Promise
             </div>
-            <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground">
+            <h2 className="text-2xl md:text-3xl font-display font-bold text-white">
               ซื้อกับ ENT Group มั่นใจได้
             </h2>
           </div>
@@ -768,12 +775,12 @@ const FPMSeriesDetail = () => {
               { icon: Wrench, title: "ติดตั้ง & เทรน", desc: "ทีมวิศวกรช่วย Setup และอบรมการใช้งาน" },
               { icon: Phone, title: "Support 24/7", desc: "Hotline + Remote Support ตลอดอายุการใช้งาน" },
             ].map((item, i) => (
-              <div key={i} className="p-5 rounded-xl border border-border bg-card hover:border-primary/40 transition-all">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 text-primary flex items-center justify-center mb-3">
+              <div key={i} className="p-5 rounded-xl border border-white/10 bg-white/5 backdrop-blur hover:border-primary/50 hover:bg-white/[0.07] transition-all">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/30 to-primary/10 text-primary flex items-center justify-center mb-3 ring-1 ring-primary/30">
                   <item.icon size={22} />
                 </div>
-                <h3 className="font-bold text-foreground mb-1">{item.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                <h3 className="font-bold text-white mb-1">{item.title}</h3>
+                <p className="text-sm text-slate-300/90 leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
