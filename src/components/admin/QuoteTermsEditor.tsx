@@ -301,7 +301,7 @@ export default function QuoteTermsEditor({
                 value={notes} onChange={(e) => setNotes(e.target.value)}
                 placeholder="หมายเหตุทั่วไปที่ลูกค้าจะเห็น..."
                 rows={2} disabled={disabled}
-                className="flex min-h-[80px] w-full rounded-md px-3 py-2 ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 text-sm resize-none border border-input focus-visible:border-primary text-foreground font-medium bg-slate-300"
+                className="flex min-h-[80px] w-full rounded-md px-3 py-2 ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 text-sm resize-none border border-input focus-visible:border-primary text-foreground font-medium bg-slate-100"
               />
             </div>
 
