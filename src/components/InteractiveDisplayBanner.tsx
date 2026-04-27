@@ -130,9 +130,9 @@ const InteractiveDisplayBanner = () => {
             primaryHref="/interactive-display"
             side="left"
             chips={[
-              { label: '15.6" Floor', href: "/products/displays-15.6" },
               { label: '21.5" Floor / Wall', href: "/products/displays-21.5" },
               { label: '23.8" Wall Mount', href: "/products/displays-23.8" },
+              { label: '32" Floor Kiosk', href: "/products/displays-32?model=kd32b" },
             ]}
           />
           <BannerCard
