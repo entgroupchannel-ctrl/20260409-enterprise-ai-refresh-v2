@@ -230,7 +230,8 @@ export default function QuoteTermsEditor({
                 value={paymentTerms}
                 onChange={(e) => setPaymentTerms(e.target.value)}
                 placeholder="เช่น: เงินสด / โอน / เช็ค ชำระก่อนส่งมอบ"
-                rows={2} disabled={disabled} className="text-sm resize-none"
+                rows={2} disabled={disabled}
+                className="text-sm resize-none bg-background border-2 border-input/80 focus-visible:border-primary text-foreground font-medium shadow-sm"
               />
             </div>
 
