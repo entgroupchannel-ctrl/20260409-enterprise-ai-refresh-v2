@@ -271,7 +271,8 @@ export default function QuoteTermsEditor({
                 <Input
                   type="date" value={validUntil}
                   onChange={(e) => setValidUntil(e.target.value)}
-                  disabled={disabled} className="text-sm h-9 flex-1"
+                  disabled={disabled}
+                  className="text-sm h-9 flex-1 bg-background border-2 border-input/80 focus-visible:border-primary text-foreground font-medium shadow-sm"
                 />
                 {daysUntilExpiry !== null && (
                   <span className={`text-xs whitespace-nowrap ${daysUntilExpiry < 7 ? 'text-destructive font-medium' : 'text-muted-foreground'}`}>
