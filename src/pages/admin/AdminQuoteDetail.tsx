@@ -77,6 +77,7 @@ import {
   Save,
 } from 'lucide-react';
 import { formatShortDateTime, formatFullDate, formatRelativeTime } from '@/lib/format';
+import { useAuth } from '@/hooks/useAuth';
 
 // ============================================
 // 🧮 Centralized Quote Calculation
@@ -189,6 +190,7 @@ export default function AdminQuoteDetail() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { toast } = useToast();
+  const { isSuperAdmin } = useAuth();
 
   const [quote, setQuote] = useState<Quote | null>(null);
   const [files, setFiles] = useState<QuoteFile[]>([]);
@@ -1489,7 +1491,7 @@ export default function AdminQuoteDetail() {
                 internal_notes: quote.internal_notes,
                 valid_until: quote.valid_until,
               }}
-              disabled={quote.status !== 'pending' && quote.status !== 'draft' && quote.status !== 'quote_sent' && quote.status !== 'negotiating'}
+              disabled={!isSuperAdmin && quote.status !== 'pending' && quote.status !== 'draft' && quote.status !== 'quote_sent' && quote.status !== 'negotiating'}
               onSaved={loadQuoteDetails}
             />
 
