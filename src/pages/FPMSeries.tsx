@@ -289,8 +289,8 @@ const FPMSeries = () => {
         {/* Ambient background */}
         <div aria-hidden className="absolute inset-0 opacity-[0.04] pointer-events-none"
           style={{ backgroundImage: "radial-gradient(circle at 1px 1px, hsl(var(--foreground)) 1px, transparent 0)", backgroundSize: "32px 32px" }} />
-        <div aria-hidden className="absolute -top-32 -right-32 w-[480px] h-[480px] rounded-full bg-primary/10 blur-3xl pointer-events-none" />
-        <div aria-hidden className="absolute -bottom-32 -left-32 w-[480px] h-[480px] rounded-full bg-amber-500/10 blur-3xl pointer-events-none" />
+        <div aria-hidden className="absolute -top-32 -right-32 w-[480px] h-[480px] rounded-full bg-primary/5 blur-3xl pointer-events-none" />
+        <div aria-hidden className="absolute -bottom-32 -left-32 w-[480px] h-[480px] rounded-full bg-amber-500/5 blur-3xl pointer-events-none" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
