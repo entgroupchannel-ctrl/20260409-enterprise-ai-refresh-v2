@@ -82,7 +82,7 @@ const ProductGalleryPortrait = ({
 
           <div
             ref={railRef}
-            className="flex flex-col gap-2.5 max-h-[600px] lg:max-h-[680px] overflow-y-auto scrollbar-hide py-1"
+            className="flex flex-col gap-2.5 max-h-[520px] lg:max-h-[600px] overflow-y-auto scrollbar-hide py-1"
           >
             {images.map((img, i) => (
               <button
