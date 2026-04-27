@@ -69,6 +69,7 @@ import {
   Printer,
   Receipt,
   User,
+  UserX,
   Calendar,
   Briefcase,
   Phone,
