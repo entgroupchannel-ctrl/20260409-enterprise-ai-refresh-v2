@@ -38,7 +38,7 @@ const productBanners = [
     backgroundImage: kioskBanner,
     links: [
       { label: "ดู KIOSK", href: "/interactive-display" },
-      { label: "15.6\" Kiosk", href: "/products/displays-15.6" },
+      { label: "21.5\" Kiosk", href: "/products/displays-21.5" },
     ],
   },
 ];
