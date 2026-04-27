@@ -372,12 +372,14 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
               <ProductGalleryPortrait
                 images={product.gallery}
                 alt={product.name}
+                captions={product.galleryCaptions}
                 onImageClick={(i) => setLightbox({ images: product.gallery, index: i })}
               />
             ) : (
               <ProductGallery
                 images={product.gallery}
                 alt={product.name}
+                captions={product.galleryCaptions}
                 onImageClick={(i) => setLightbox({ images: product.gallery, index: i })}
               />
             )}
