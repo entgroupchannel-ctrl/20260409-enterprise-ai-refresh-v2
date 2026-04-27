@@ -73,16 +73,16 @@ const ProductGalleryPortrait = ({
         <div className="hidden sm:flex flex-col items-center gap-2 shrink-0">
           <button
             type="button"
-            onClick={prev}
-            className="w-16 h-7 rounded-md border border-border bg-card hover:bg-muted text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors"
-            aria-label="Previous"
+            onClick={() => railRef.current?.scrollBy({ top: -180, behavior: "smooth" })}
+            className="w-20 h-8 rounded-lg border border-border bg-card hover:bg-primary hover:text-primary-foreground hover:border-primary text-muted-foreground flex items-center justify-center transition-all shadow-sm hover:shadow-md"
+            aria-label="Scroll thumbnails up"
           >
-            <ChevronUp size={14} />
+            <ChevronUp size={16} />
           </button>
 
           <div
             ref={railRef}
-            className="flex flex-col gap-2 max-h-[460px] overflow-y-auto scrollbar-hide py-1"
+            className="flex flex-col gap-2.5 max-h-[600px] lg:max-h-[680px] overflow-y-auto scrollbar-hide py-1"
           >
             {images.map((img, i) => (
               <button
@@ -90,7 +90,7 @@ const ProductGalleryPortrait = ({
                 data-idx={i}
                 type="button"
                 onClick={() => setCurrent(i)}
-                className={`w-16 h-20 rounded-lg overflow-hidden border-2 bg-white transition-all duration-200 shrink-0 ${
+                className={`w-20 h-24 rounded-lg overflow-hidden border-2 bg-white transition-all duration-200 shrink-0 ${
                   i === current
                     ? "border-primary ring-2 ring-primary/25 shadow-md"
                     : "border-border/60 opacity-70 hover:opacity-100 hover:border-primary/40"
@@ -109,24 +109,24 @@ const ProductGalleryPortrait = ({
 
           <button
             type="button"
-            onClick={next}
-            className="w-16 h-7 rounded-md border border-border bg-card hover:bg-muted text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors"
-            aria-label="Next"
+            onClick={() => railRef.current?.scrollBy({ top: 180, behavior: "smooth" })}
+            className="w-20 h-8 rounded-lg border border-border bg-card hover:bg-primary hover:text-primary-foreground hover:border-primary text-muted-foreground flex items-center justify-center transition-all shadow-sm hover:shadow-md"
+            aria-label="Scroll thumbnails down"
           >
-            <ChevronDown size={14} />
+            <ChevronDown size={16} />
           </button>
         </div>
 
         {/* Hero image — portrait aspect, tall stage */}
         <div className="relative flex-1 group">
-          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-muted/40 to-background flex items-center justify-center min-h-[420px] sm:min-h-[520px] aspect-[4/5] sm:aspect-auto">
+          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-muted/40 to-background flex items-center justify-center min-h-[520px] sm:min-h-[640px] lg:min-h-[720px] aspect-[4/5] sm:aspect-auto">
             {images.map((img, i) => (
               <img
                 key={i}
                 src={img}
                 alt={`${alt} - ${i + 1}`}
                 loading={i === 0 ? "eager" : "lazy"}
-                className={`absolute inset-0 m-auto max-h-[95%] max-w-[88%] object-contain transition-opacity duration-500 ${
+                className={`absolute inset-0 m-auto max-h-[98%] max-w-[96%] object-contain transition-opacity duration-500 ${
                   i === current ? "opacity-100" : "opacity-0 pointer-events-none"
                 } ${onImageClick ? "cursor-zoom-in" : ""}`}
                 onClick={onImageClick ? () => onImageClick(current) : undefined}
