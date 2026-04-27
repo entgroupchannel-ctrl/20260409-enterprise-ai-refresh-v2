@@ -41,6 +41,7 @@ export default function QuoteTermsEditor({
   initialValues,
   disabled = false,
   onSaved,
+  hideInternalNotes = false,
 }: QuoteTermsEditorProps) {
   const { toast } = useToast();
   const [templates, setTemplates] = useState<Template[]>([]);
