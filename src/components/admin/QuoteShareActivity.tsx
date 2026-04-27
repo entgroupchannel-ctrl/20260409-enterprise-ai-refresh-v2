@@ -89,7 +89,7 @@ export default function QuoteShareActivity({ quoteId }: Props) {
           <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
         </Button>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 bg-gray-200 rounded-b-lg pt-6">
         {loading ? (
           <Skeleton className="h-32 w-full" />
         ) : links.length === 0 ? (
