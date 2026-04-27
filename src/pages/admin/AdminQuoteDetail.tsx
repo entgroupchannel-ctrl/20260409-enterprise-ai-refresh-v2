@@ -49,6 +49,7 @@ import DiscountInput from '@/components/shared/DiscountInput';
 import ProductSpecDisplay from '@/components/shared/ProductSpecDisplay';
 import { useToast } from '@/hooks/use-toast';
 import ProductEditor from '@/components/admin/ProductEditor';
+import InternalNotesEditor from '@/components/admin/InternalNotesEditor';
 import {
   ArrowLeft,
   CircleCheckBig,
@@ -1566,6 +1567,7 @@ export default function AdminQuoteDetail() {
               }}
               disabled={!isSuperAdmin && quote.status !== 'pending' && quote.status !== 'draft' && quote.status !== 'quote_sent' && quote.status !== 'negotiating'}
               onSaved={loadQuoteDetails}
+              hideInternalNotes
             />
 
             {/* Toggle: Allow customer to request negotiation */}
@@ -1728,6 +1730,13 @@ export default function AdminQuoteDetail() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* Internal Notes (admin/sales only — moved here from terms editor for better space usage) */}
+            <InternalNotesEditor
+              quoteId={quote.id}
+              initialValue={quote.internal_notes}
+              onSaved={loadQuoteDetails}
+            />
 
             {/* PO Files — compact below chat */}
             {poFiles.length > 0 && (

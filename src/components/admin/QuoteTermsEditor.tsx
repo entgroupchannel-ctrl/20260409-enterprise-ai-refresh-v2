@@ -25,6 +25,7 @@ interface QuoteTermsEditorProps {
   };
   disabled?: boolean;
   onSaved?: () => void;
+  hideInternalNotes?: boolean;
 }
 
 interface Template {
@@ -40,6 +41,7 @@ export default function QuoteTermsEditor({
   initialValues,
   disabled = false,
   onSaved,
+  hideInternalNotes = false,
 }: QuoteTermsEditorProps) {
   const { toast } = useToast();
   const [templates, setTemplates] = useState<Template[]>([]);
@@ -308,27 +310,29 @@ export default function QuoteTermsEditor({
       </Card>
 
       {/* Internal Notes */}
-      <Card className="border-amber-300 dark:border-amber-700 bg-amber-50/30 dark:bg-amber-900/10">
-        <CardHeader className="pb-2">
-          <CardTitle className="text-sm flex items-center justify-between gap-2">
-            <div className="flex items-center gap-2">
-              <Lock className="w-4 h-4 text-amber-600" />
-              หมายเหตุภายในทีม (ลูกค้าไม่เห็น)
-            </div>
-            <span className="text-[10px] text-amber-700 dark:text-amber-400 font-normal">
-              🔒 admin/sales เท่านั้น
-            </span>
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="pt-0 bg-muted/40 rounded-b-lg border-t border-border">
-          <Textarea
-            value={internalNotes} onChange={(e) => setInternalNotes(e.target.value)}
-            placeholder="โน้ตภายใน เช่น: Margin, strategy, ประวัติลูกค้า..."
-            rows={3} disabled={disabled}
-            className="text-sm resize-none bg-background border border-amber-400/70 dark:border-amber-600/70 bg-amber-50/60 dark:bg-amber-950/30 focus-visible:border-amber-500 text-foreground font-medium"
-          />
-        </CardContent>
-      </Card>
+      {!hideInternalNotes && (
+        <Card className="border-amber-300 dark:border-amber-700 bg-amber-50/30 dark:bg-amber-900/10">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <Lock className="w-4 h-4 text-amber-600" />
+                หมายเหตุภายในทีม (ลูกค้าไม่เห็น)
+              </div>
+              <span className="text-[10px] text-amber-700 dark:text-amber-400 font-normal">
+                🔒 admin/sales เท่านั้น
+              </span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="pt-0 bg-muted/40 rounded-b-lg border-t border-border">
+            <Textarea
+              value={internalNotes} onChange={(e) => setInternalNotes(e.target.value)}
+              placeholder="โน้ตภายใน เช่น: Margin, strategy, ประวัติลูกค้า..."
+              rows={3} disabled={disabled}
+              className="text-sm resize-none bg-background border border-amber-400/70 dark:border-amber-600/70 bg-amber-50/60 dark:bg-amber-950/30 focus-visible:border-amber-500 text-foreground font-medium"
+            />
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }
