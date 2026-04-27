@@ -840,13 +840,22 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
                 </div>
               ))}
             </div>
-            <div className="mt-6 flex items-center justify-center">
-              <QuoteRequestButton
-                productModel={product.modelCode}
-                productName={`${product.name} — ปรับแต่ง`}
-                variant="default"
-                size="lg"
-              />
+            <div className="mt-8 rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent p-6 sm:p-8 text-center">
+              <h3 className="text-lg sm:text-xl font-bold text-foreground">
+                ต้องการปรับแต่งตามสเปกของคุณ?
+              </h3>
+              <p className="text-sm text-muted-foreground mt-2 mb-5 max-w-xl mx-auto">
+                ทีมวิศวกรพร้อมออกแบบ Configuration เฉพาะธุรกิจของคุณ — ระบุโมดูลที่ต้องการแล้วขอใบเสนอราคาได้ทันที
+              </p>
+              <div className="flex items-center justify-center">
+                <QuoteRequestButton
+                  productModel={product.modelCode}
+                  productName={`${product.name} — ปรับแต่ง`}
+                  variant="default"
+                  size="lg"
+                  className="shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-shadow text-base px-10"
+                />
+              </div>
             </div>
           </section>
         )}
