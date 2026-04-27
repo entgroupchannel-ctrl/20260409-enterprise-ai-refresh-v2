@@ -329,18 +329,23 @@ export default function RevisionTimeline({
                   </div>
                 </div>
 
-                {/* Inline print button (collapsed view) */}
-                {onPrintRevision && rev.status !== 'draft' && (
+                {/* Inline print button (collapsed view) — ทุก revision */}
+                {onPrintRevision && (
                   <button
                     type="button"
                     onClick={(e) => {
                       e.stopPropagation();
                       onPrintRevision(rev);
                     }}
-                    className="p-1 hover:bg-accent rounded transition-colors"
-                    title={`พิมพ์ Rev ${rev.revision_number}`}
+                    className={cn(
+                      'p-1.5 rounded-md transition-colors border',
+                      isDraft
+                        ? 'border-amber-300 bg-amber-50 hover:bg-amber-100 dark:border-amber-700 dark:bg-amber-900/20 dark:hover:bg-amber-900/40'
+                        : 'border-border bg-muted/50 hover:bg-accent'
+                    )}
+                    title={`พิมพ์ Rev ${rev.revision_number}${isDraft ? ' (Draft)' : ''}`}
                   >
-                    <Printer className="w-4 h-4 text-muted-foreground hover:text-primary" />
+                    <Printer className={cn('w-4 h-4', isDraft ? 'text-amber-600 dark:text-amber-400' : 'text-muted-foreground hover:text-primary')} />
                   </button>
                 )}
 
