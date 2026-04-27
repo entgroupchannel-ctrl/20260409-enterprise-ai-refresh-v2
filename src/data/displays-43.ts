@@ -514,6 +514,10 @@ export const DISPLAYS_43: Record<Display43Slug, Display32> = {
       kd43Mon1, kd43Mon2, kd43X861, kd43X862, kd43Arm1, kd43Arm2,
       kd43Mon3, kd43Mon5, kd43Mon7,
     ],
+    galleryCaptions: [
+      "ตัวอย่างการใช้งาน: ตู้เช็คอินโรงพยาบาล / รับคิวผู้ป่วย (Hospital Check-in) — TH/EN + แสดงเลขคิวอัตโนมัติ",
+      "ตัวอย่างการใช้งาน: หน้าจอ HMI โรงงานอัจฉริยะ (Smart Factory Dashboard) — OEE + แจ้งเตือน Real-time",
+    ],
     ioImage: kd43Mon6,
     installImages: [kd43Mon3, kd43Mon4, kd43Mon7],
     featureImages: [],
