@@ -258,7 +258,8 @@ export default function QuoteTermsEditor({
                 value={warrantyTerms}
                 onChange={(e) => setWarrantyTerms(e.target.value)}
                 placeholder="เช่น: รับประกัน 1 ปี"
-                rows={2} disabled={disabled} className="text-sm resize-none"
+                rows={2} disabled={disabled}
+                className="text-sm resize-none bg-background border-2 border-input/80 focus-visible:border-primary text-foreground font-medium shadow-sm"
               />
             </div>
 
