@@ -166,6 +166,7 @@ const menuCategories = [
       {
         heading: "🛎️ KIOSK Series — ตู้บริการตัวเอง",
         links: [
+          { label: '15.6" Floor Kiosk (KD156B)', href: "/products/displays-15.6", new2026: true },
           { label: '21.5" Floor / Wall Kiosk', href: "/products/displays-21.5", new2026: true },
           { label: '23.8" Wall-Mount Kiosk', href: "/products/displays-23.8", hot: true },
           { label: '32" Floor Kiosk (KD32B)', href: "/products/displays-32?model=kd32b" },

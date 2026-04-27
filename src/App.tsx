@@ -232,9 +232,9 @@ const App = () => (
                     <Route path="/products/displays-23.8/:model" element={<Display32Detail groupSize={238} />} />
                     <Route path="/products/interactive-display-gd238c" element={<Navigate to="/products/displays-23.8?model=gd238c" replace />} />
                     <Route path="/products/interactive-display-gd238c3" element={<Navigate to="/products/displays-23.8?model=gd238c3" replace />} />
-                    <Route path="/products/displays-15.6" element={<Navigate to="/interactive-display" replace />} />
-                    <Route path="/products/displays-15.6/:model" element={<Navigate to="/interactive-display" replace />} />
-                    <Route path="/products/interactive-display-kd156b" element={<Navigate to="/interactive-display" replace />} />
+                    <Route path="/products/displays-15.6" element={<Display32Detail groupSize={156} />} />
+                    <Route path="/products/displays-15.6/:model" element={<Display32Detail groupSize={156} />} />
+                    <Route path="/products/interactive-display-kd156b" element={<Navigate to="/products/displays-15.6?model=kd156b" replace />} />
                     <Route path="/products/displays-21.5" element={<Display32Detail groupSize={215} />} />
                     <Route path="/products/displays-21.5/:model" element={<Display32Detail groupSize={215} />} />
                     <Route path="/products/interactive-display-kd215b" element={<Navigate to="/products/displays-21.5?model=kd215b" replace />} />
