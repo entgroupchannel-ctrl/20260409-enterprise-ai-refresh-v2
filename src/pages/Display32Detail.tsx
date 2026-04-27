@@ -258,14 +258,39 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
             <span>/</span>
             <span className="text-foreground font-medium">{product.modelCode}</span>
           </div>
-          <Link
-            to={group.parentLink}
-            className="group inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-primary/30 bg-primary/5 text-primary hover:bg-primary hover:text-primary-foreground transition-all text-sm font-bold"
-          >
-            <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-            ดูรุ่นอื่นใน {group.label} ทั้งหมด
-            <Monitor size={14} className="opacity-60" />
-          </Link>
+          <div className="flex flex-col md:flex-row md:items-stretch gap-3">
+            <Link
+              to={group.parentLink}
+              className="group inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-primary/30 bg-primary/5 text-primary hover:bg-primary hover:text-primary-foreground transition-all text-sm font-bold shrink-0"
+            >
+              <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+              ดูรุ่นอื่นใน {group.label} ทั้งหมด
+              <Monitor size={14} className="opacity-60" />
+            </Link>
+
+            {/* B2B Platform mini-banner — กระตุ้นให้เพิ่มลงตะกร้า/ขอใบเสนอราคา */}
+            <Link
+              to="/request-quote"
+              className="group relative flex-1 min-w-0 hidden md:flex items-center gap-3 px-4 py-2 rounded-lg overflow-hidden bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border border-primary/20 hover:border-primary/50 hover:from-primary/15 transition-all"
+            >
+              <div className="flex items-center justify-center w-9 h-9 rounded-md bg-primary/15 text-primary shrink-0">
+                <Briefcase size={18} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-primary">
+                  <Sparkles size={11} />
+                  B2B Platform
+                </div>
+                <p className="text-xs text-foreground/80 leading-tight truncate">
+                  เพิ่มสินค้าหลายรายการ → ขอใบเสนอราคารวม รับส่วนลดองค์กร
+                </p>
+              </div>
+              <div className="hidden lg:inline-flex items-center gap-1 px-3 py-1.5 rounded-md bg-primary text-primary-foreground text-xs font-bold shrink-0 group-hover:gap-2 transition-all">
+                ขอใบเสนอราคา
+                <ArrowLeft size={12} className="rotate-180" />
+              </div>
+            </Link>
+          </div>
         </div>
       </section>
 
