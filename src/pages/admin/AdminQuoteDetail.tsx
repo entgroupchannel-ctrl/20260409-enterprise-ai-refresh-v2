@@ -1076,31 +1076,31 @@ export default function AdminQuoteDetail() {
                  </Button>
                </div>
              </CardHeader>
-            <CardContent className="text-sm space-y-1.5 bg-muted/40 rounded-b-lg border-t border-border pt-6">
-              <div className="font-semibold text-base">{quote.customer_name}</div>
+            <CardContent className="space-y-2 bg-muted/40 rounded-b-lg border-t border-border pt-6">
+              <div className="font-bold text-lg text-foreground">{quote.customer_name}</div>
               {quote.customer_company && (
-                <div className="text-muted-foreground">{quote.customer_company}</div>
+                <div className="text-base text-foreground/80">{quote.customer_company}</div>
               )}
               {quote.customer_address && (
-                <div className="text-xs text-muted-foreground whitespace-pre-line leading-relaxed">
+                <div className="text-sm text-muted-foreground whitespace-pre-line leading-relaxed">
                   {quote.customer_address}
                 </div>
               )}
               {quote.customer_tax_id && (
-                <div className="text-xs pt-1">
+                <div className="text-sm pt-1">
                   <span className="text-muted-foreground">เลขประจำตัวผู้เสียภาษี: </span>
-                  <span className="font-mono">{quote.customer_tax_id}</span>
+                  <span className="font-mono font-semibold text-foreground">{quote.customer_tax_id}</span>
                 </div>
               )}
-              <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground pt-1">
+              <div className="flex flex-wrap gap-x-5 gap-y-1.5 text-sm text-muted-foreground pt-2">
                 {quote.customer_phone && (
-                  <span className="flex items-center gap-1"><Phone className="w-3 h-3" /> {quote.customer_phone}</span>
+                  <span className="flex items-center gap-1.5"><Phone className="w-4 h-4" /> {quote.customer_phone}</span>
                 )}
                 {quote.customer_email && (
-                  <span className="flex items-center gap-1"><Mail className="w-3 h-3" /> {quote.customer_email}</span>
+                  <span className="flex items-center gap-1.5"><Mail className="w-4 h-4" /> {quote.customer_email}</span>
                 )}
                 {quote.customer_line && (
-                  <span className="flex items-center gap-1"><MessageCircle className="w-3 h-3" /> {quote.customer_line}</span>
+                  <span className="flex items-center gap-1.5"><MessageCircle className="w-4 h-4" /> {quote.customer_line}</span>
                 )}
               </div>
             </CardContent>
