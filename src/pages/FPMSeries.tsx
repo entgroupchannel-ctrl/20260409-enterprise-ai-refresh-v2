@@ -686,7 +686,7 @@ const FPMSeries = () => {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link
             to="/smart-display"
-            className="group flex items-center gap-4 p-6 rounded-2xl border border-border bg-gradient-to-r from-primary/5 to-transparent hover:border-primary/40 hover:shadow-lg transition-all"
+            className="group flex items-center gap-4 p-6 rounded-2xl border border-border bg-gradient-to-r from-primary/5 to-transparent hover:border-primary/40 hover:shadow-lg transition-all bg-[#575c60]"
           >
             <div className="w-14 h-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
               <Monitor size={24} />
