@@ -298,7 +298,8 @@ export default function QuoteTermsEditor({
                 <Textarea
                   value={notes} onChange={(e) => setNotes(e.target.value)}
                   placeholder="หมายเหตุทั่วไปที่ลูกค้าจะเห็น..."
-                  rows={2} disabled={disabled} className="text-sm resize-none"
+                  rows={2} disabled={disabled}
+                  className="text-sm resize-none bg-background border-2 border-input/80 focus-visible:border-primary text-foreground font-medium shadow-sm"
                 />
               </div>
             </div>
