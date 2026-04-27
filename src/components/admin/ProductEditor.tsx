@@ -282,7 +282,7 @@ export default function ProductEditor({ products, onUpdate, disabled = false }: 
                   <p className="font-semibold text-primary">
                     {formatCurrency(product.line_total || 0)}
                   </p>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-xs text-muted-foreground bg-slate-200 px-1 rounded inline-block">
                     {formatCurrency(product.unit_price)} / หน่วย
                   </p>
                 </div>
