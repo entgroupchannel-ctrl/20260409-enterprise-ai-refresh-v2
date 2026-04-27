@@ -1,5 +1,5 @@
 import { useParams, Link, Navigate } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 type TabKey = "gallery" | "specs" | "dimensions" | "faq";
 import {
   ArrowLeft, ArrowRight, Download, Shield, ThermometerSun, Sparkles,
