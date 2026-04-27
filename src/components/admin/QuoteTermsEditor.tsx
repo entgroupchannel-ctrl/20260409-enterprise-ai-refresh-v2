@@ -5,9 +5,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
-} from '@/components/ui/select';
+// (Select removed — replaced with chip buttons)
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import {
@@ -175,20 +173,23 @@ export default function QuoteTermsEditor({
     ? Math.ceil((new Date(validUntil).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))
     : null;
 
-  const renderTemplateSelect = (type: string, setter: (v: string) => void) => {
+  const renderTemplateChips = (type: string, setter: (v: string) => void) => {
     const tpls = getTemplatesByType(type);
     if (tpls.length === 0) return null;
     return (
-      <Select onValueChange={(v) => applyTemplate(type, v, setter)} disabled={disabled}>
-        <SelectTrigger className="h-9 text-sm border border-input bg-muted/60 dark:bg-muted/30 hover:border-primary/50 text-foreground font-medium">
-          <SelectValue placeholder="เลือกจาก template หรือพิมพ์เอง" />
-        </SelectTrigger>
-        <SelectContent>
-          {tpls.map(t => (
-            <SelectItem key={t.id} value={t.id}>{t.label}</SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      <div className="flex flex-wrap gap-1">
+        {tpls.map(t => (
+          <button
+            key={t.id}
+            type="button"
+            disabled={disabled}
+            onClick={() => setter(t.content)}
+            className="text-[11px] px-2 py-0.5 rounded-full border border-primary/30 bg-primary/5 text-primary hover:bg-primary/15 hover:border-primary/50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
     );
   };
 
@@ -225,7 +226,7 @@ export default function QuoteTermsEditor({
               <Label className="flex items-center gap-1.5 text-xs font-medium">
                 <CreditCard className="w-3.5 h-3.5 text-green-600" />เงื่อนไขการชำระเงิน
               </Label>
-              {renderTemplateSelect('payment', setPaymentTerms)}
+              {renderTemplateChips('payment', setPaymentTerms)}
               <Textarea
                 value={paymentTerms}
                 onChange={(e) => setPaymentTerms(e.target.value)}
@@ -239,7 +240,7 @@ export default function QuoteTermsEditor({
               <Label className="flex items-center gap-1.5 text-xs font-medium">
                 <Truck className="w-3.5 h-3.5 text-blue-600" />เงื่อนไขการจัดส่ง
               </Label>
-              {renderTemplateSelect('delivery', setDeliveryTerms)}
+              {renderTemplateChips('delivery', setDeliveryTerms)}
               <Textarea
                 value={deliveryTerms}
                 onChange={(e) => setDeliveryTerms(e.target.value)}
@@ -253,7 +254,7 @@ export default function QuoteTermsEditor({
               <Label className="flex items-center gap-1.5 text-xs font-medium">
                 <ShieldCheck className="w-3.5 h-3.5 text-purple-600" />เงื่อนไขการรับประกัน
               </Label>
-              {renderTemplateSelect('warranty', setWarrantyTerms)}
+              {renderTemplateChips('warranty', setWarrantyTerms)}
               <Textarea
                 value={warrantyTerms}
                 onChange={(e) => setWarrantyTerms(e.target.value)}
@@ -293,15 +294,13 @@ export default function QuoteTermsEditor({
               <Label className="flex items-center gap-1.5 text-xs font-medium">
                 <FileText className="w-3.5 h-3.5 text-muted-foreground" />หมายเหตุเพิ่มเติม (ลูกค้าเห็น)
               </Label>
-              <div className="grid grid-cols-1 md:grid-cols-[1fr,2fr] gap-2">
-                {renderTemplateSelect('notes', setNotes)}
-                <Textarea
-                  value={notes} onChange={(e) => setNotes(e.target.value)}
-                  placeholder="หมายเหตุทั่วไปที่ลูกค้าจะเห็น..."
-                  rows={2} disabled={disabled}
-                  className="text-sm resize-none border border-input bg-muted/60 dark:bg-muted/30 focus-visible:border-primary text-foreground font-medium"
-                />
-              </div>
+              {renderTemplateChips('notes', setNotes)}
+              <Textarea
+                value={notes} onChange={(e) => setNotes(e.target.value)}
+                placeholder="หมายเหตุทั่วไปที่ลูกค้าจะเห็น..."
+                rows={2} disabled={disabled}
+                className="text-sm resize-none border border-input bg-muted/60 dark:bg-muted/30 focus-visible:border-primary text-foreground font-medium"
+              />
             </div>
 
           </div>
