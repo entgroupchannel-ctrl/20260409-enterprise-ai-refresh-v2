@@ -354,7 +354,7 @@ export default function QuoteRequestButton({
 
       {/* Auth Guard Dialog */}
       <Dialog open={showAuthGuard} onOpenChange={setShowAuthGuard}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="w-[calc(100vw-2rem)] max-w-md overflow-hidden p-5 sm:p-6">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Lock className="w-5 h-5 text-primary" />
@@ -365,18 +365,18 @@ export default function QuoteRequestButton({
             </DialogDescription>
           </DialogHeader>
 
-          <div className="space-y-4">
-            <div className="p-4 bg-primary/5 border border-primary/20 rounded-lg">
+          <div className="min-w-0 space-y-4">
+            <div className="min-w-0 overflow-hidden p-4 bg-primary/5 border border-primary/20 rounded-lg">
               <p className="text-sm font-medium mb-3 text-primary">คุณได้เลือก:</p>
-              <div className="space-y-2">
+              <div className="min-w-0 space-y-2">
                 {products.map((product, index) => (
-                  <div key={index} className="flex items-center gap-3 p-3 bg-background rounded-lg">
+                  <div key={index} className="flex w-full min-w-0 items-center gap-3 p-3 bg-background rounded-lg">
                     <div className="w-12 h-12 bg-muted rounded flex items-center justify-center shrink-0">
                       <Package className="w-6 h-6 text-muted-foreground" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-sm">{product.model}</p>
-                      <p className="text-xs text-muted-foreground truncate">{product.description}</p>
+                      <p className="font-semibold text-sm truncate">{product.model}</p>
+                      <p className="text-xs text-muted-foreground break-words line-clamp-2">{product.description}</p>
                       {product.unit_price > 0 && (
                         <p className="text-sm font-semibold text-primary mt-0.5">
                           ฿{product.unit_price.toLocaleString()}
@@ -388,13 +388,13 @@ export default function QuoteRequestButton({
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <Button onClick={() => handleAuthRedirect('/login')} className="w-full">
-                <LogIn className="w-4 h-4 mr-2" />
+            <div className="grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-2">
+              <Button onClick={() => handleAuthRedirect('/login')} className="w-full min-w-0">
+                <LogIn className="w-4 h-4 mr-2 shrink-0" />
                 เข้าสู่ระบบ
               </Button>
-              <Button onClick={() => handleAuthRedirect('/register')} variant="outline" className="w-full">
-                <UserPlus className="w-4 h-4 mr-2" />
+              <Button onClick={() => handleAuthRedirect('/register')} variant="outline" className="w-full min-w-0">
+                <UserPlus className="w-4 h-4 mr-2 shrink-0" />
                 สมัครสมาชิก
               </Button>
             </div>
