@@ -12,7 +12,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { Plus, Trash2, Edit, Save, X } from 'lucide-react';
+import { Plus, Trash2, Edit, Save, X, Pencil } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import ProductAutocomplete, { type ProductData } from './ProductAutocomplete';
 import DiscountInput, { type DiscountType } from '@/components/shared/DiscountInput';
