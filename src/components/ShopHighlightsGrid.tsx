@@ -63,13 +63,17 @@ const ShopHighlightsGrid = () => {
         {/* Promo Ribbon — กระตุ้นการขาย */}
         <div className="mb-8 rounded-2xl overflow-hidden border-2 border-primary/30 bg-gradient-to-r from-primary/10 via-primary/5 to-accent/10 shadow-md">
           <div className="flex flex-col md:flex-row items-stretch">
-            <div className="flex items-center gap-3 px-5 py-4 bg-primary text-primary-foreground md:w-auto">
+            <Link
+              to="/shop?sort=price-asc"
+              className="flex items-center gap-3 px-5 py-4 bg-primary text-primary-foreground md:w-auto hover:bg-primary/90 transition-colors"
+              aria-label="ดูสินค้าโปรโมชันพิเศษทั้งหมดในร้าน"
+            >
               <Flame className="w-6 h-6 shrink-0" />
               <div>
                 <div className="text-xs font-semibold uppercase tracking-wider opacity-90">โปรโมชันพิเศษ</div>
                 <div className="text-lg font-bold leading-tight">สินค้าพร้อมส่งทุกรุ่น*</div>
               </div>
-            </div>
+            </Link>
             <div className="flex-1 flex flex-wrap items-center justify-center md:justify-around gap-x-6 gap-y-2 px-5 py-3 text-sm">
               <div className="flex items-center gap-2 text-foreground">
                 <Truck className="w-4 h-4 text-primary" />
@@ -90,6 +94,12 @@ const ShopHighlightsGrid = () => {
                 <Tag className="w-4 h-4 text-primary" />
                 <span>ขอใบเสนอราคา <strong>ภายใน 4 ชม.</strong></span>
               </Link>
+              <Button asChild size="sm" variant="outline" className="gap-1.5 h-8">
+                <Link to="/shop?sort=price-asc">
+                  <ShoppingBag className="w-3.5 h-3.5" />
+                  ดูสินค้าโปร
+                </Link>
+              </Button>
               <Button asChild size="sm" className="gap-1.5 h-8">
                 <Link to="/request-quote">
                   <FileText className="w-3.5 h-3.5" />
