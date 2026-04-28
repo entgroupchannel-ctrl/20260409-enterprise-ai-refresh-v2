@@ -1,7 +1,14 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Monitor, Maximize2 } from "lucide-react";
+import { ArrowRight, Monitor, Maximize2, ShoppingBag, Tag } from "lucide-react";
 import kioskBanner from "@/assets/banners/home-kiosk-banner.jpg";
 import largeDisplayBanner from "@/assets/banners/home-largedisplay-banner.jpg";
+import { SHOP_STATIC_COMPARE_PRODUCTS } from "@/data/shop-static-products";
+
+// สินค้าใน /shop ที่ตรงกับหัวข้อ (Touch Kiosk + Indoor Display ขนาดใหญ่)
+const SHOP_MATCHED_SLUGS = [
+  "gd215c", "gd238c3", "gd27c", "gd32c",
+  "jd156b", "jd185b", "jd215b", "gd133",
+];
 
 /**
  * Interactive Display & KIOSK Banner — Home page
