@@ -38,7 +38,12 @@ const ShopHighlightsGrid = () => {
     return 1;
   });
 
-  const items = useMemo(() => shuffleStable(SHOP_STATIC_COMPARE_PRODUCTS, seed), [seed]);
+  // จำกัดให้แสดง 3 แถว: 2 คอล (มือถือ) = 6, 3 คอล (sm) = 9, 4 คอล (md) = 12, 5 คอล (lg) = 15
+  // ใช้จำนวนสูงสุด (15) เพื่อให้ครบ 3 แถวบน desktop
+  const items = useMemo(
+    () => shuffleStable(SHOP_STATIC_COMPARE_PRODUCTS, seed).slice(0, 15),
+    [seed]
+  );
 
   const reshuffle = useCallback(() => {
     const fresh = Date.now() + Math.floor(Math.random() * 100000);
