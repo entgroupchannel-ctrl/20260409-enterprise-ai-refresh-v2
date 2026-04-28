@@ -634,7 +634,7 @@ export default function ShopDisplays156() {
                     <Phone className="w-3.5 h-3.5" /> 095-739-1053
                   </a>
                   <span>•</span>
-                  <Link to={`/products/${PRODUCT.slug ?? "displays-15.6"}`} className="flex items-center gap-1 hover:text-primary">
+                  <Link to="/products/displays-15.6?model=kd156b" className="flex items-center gap-1 hover:text-primary">
                     <ArrowRight className="w-3.5 h-3.5" /> สเปกเต็ม
                   </Link>
                 </div>
