@@ -452,6 +452,14 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
                 productName={product.name}
 
               />
+              {shopSlug && (
+                <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-md shadow-primary/20">
+                  <Link to={`/shop/${shopSlug}`}>
+                    <ShoppingCart className="h-4 w-4 mr-2" />
+                    หยิบใส่ตะกร้า
+                  </Link>
+                </Button>
+              )}
               {!hideDatasheet && (
                 hasDatasheet(product.modelCode) ? (
                   <DatasheetButton
