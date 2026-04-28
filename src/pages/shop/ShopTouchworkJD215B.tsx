@@ -54,7 +54,7 @@ import g_x86_07 from "@/assets/touchwork/gallery/JD215B-X86/07.jpg";
 /*  - Capacitive 10-point, ≥250 cd/m², IPS 175°/175°                  */
 /*  - IP65 (front), Wi-Fi 5 + BT 4.2                                  */
 /*  - VESA 100 + Embedded mounting                                     */
-/*  - ขนาดกลางคุ้มค่า เหมาะกับ Kiosk ทั่วไป                              */
+/*  - Full HD จอใหญ่ ราคาประหยัด                              */
 /*  Indicative prices (THB / 1 unit, base config):                    */
 /*  - Monitor: 16,990 / ARM (Android 11/13): 19,990                   */
 /*  - X86 (Windows 10/11): 23,990 (อ้างอิง — กรณี CPU model อื่น        */
@@ -297,7 +297,7 @@ export default function ShopTouchworkJD215B() {
       <ShopKioskSEO
         slug="jd215b"
         modelCode="JD215B"
-        shortName='TouchWork Indoor Display 21.5" 16:9 IPS — ขนาดกลางคุ้มค่า สำหรับ Kiosk ทั่วไป (Capacitive 10pt, IP65 Front)'
+        shortName='TouchWork Indoor Display 21.5" 16:9 IPS — Full HD จอใหญ่ ราคาประหยัด (Capacitive 10pt, IP65 Front)'
         sizeInch={21.5}
         image={JD215B_Monitor}
         resolution="1920×1080 (16:9)"
@@ -412,10 +412,10 @@ export default function ShopTouchworkJD215B() {
                 <Sparkles className="w-3 h-3 mr-1" /> TouchWork Series • Indoor Display
               </Badge>
               <h1 className="text-2xl md:text-3xl font-bold leading-tight">
-                JD215B — TouchWork Indoor Display 21.5″ 16:9 IPS (ขนาดกลางคุ้มค่า สำหรับ Kiosk ทั่วไป)
+                JD215B — TouchWork Indoor Display 21.5″ 16:9 IPS (Full HD จอใหญ่ ราคาประหยัด)
               </h1>
               <p className="text-muted-foreground mt-1.5 text-sm md:text-base">
-                จอสัมผัสอุตสาหกรรม 21.5″ 16:9 (1920×1080) IPS — ขนาดกลางคุ้มค่า เหมาะกับ Kiosk ทั่วไป / Self-Service / Reception • Capacitive 10pt, IP65 ด้านหน้า, IPS 175°/175° • รองรับ Monitor (HDMI/VGA), Android 11/13 (ARM) และ Windows 10/11/Linux — กรณีไม่ระบุ CPU Model แจ้งแอดมินขอราคา
+                จอสัมผัสอุตสาหกรรม 21.5″ 16:9 (1920×1080) IPS — Full HD จอใหญ่ ราคาประหยัด / Self-Service / Reception • Capacitive 10pt, IP65 ด้านหน้า, IPS 175°/175° • รองรับ Monitor (HDMI/VGA), Android 11/13 (ARM) และ Windows 10/11/Linux — กรณีไม่ระบุ CPU Model แจ้งแอดมินขอราคา
               </p>
             </div>
 
@@ -427,7 +427,7 @@ export default function ShopTouchworkJD215B() {
               <QuickSpec label="Panel" value="IPS 175°/175°" />
               <QuickSpec label="ความสว่าง" value="≥250 cd/m²" />
               <QuickSpec label="มาตรฐาน" value="IP65 (หน้า)" />
-              <QuickSpec label="ติดตั้ง" value="VESA 100 / Embedded" />
+              <QuickSpec label="ติดตั้ง" value="VESA 100 / Desktop" />
               <QuickSpec label="X86 CPU" value="แจ้งแอดมิน" />
             </div>
 
@@ -437,7 +437,7 @@ export default function ShopTouchworkJD215B() {
                 { icon: "Sparkles" as const, title: "Ultra-slim Die-cast Body", subtitle: "บอดี้อะลูมิเนียมหล่อ บางสวยพรีเมียม" },
                 { icon: "ShieldCheck" as const, title: "IP65 ด้านหน้า", subtitle: "ทนฝุ่นและละอองน้ำ" },
                 { icon: "Layers" as const, title: "IPS 175°/175°", subtitle: "มุมมองกว้าง สีคมชัด Full HD" },
-                { icon: "Box" as const, title: "Kiosk-Ready", subtitle: "ขนาดกลางคุ้มค่า เหมาะกับงาน Kiosk ทั่วไป" },
+                { icon: "Box" as const, title: "Kiosk-Ready", subtitle: "Full HD จอใหญ่ 21.5″ ราคาประหยัด" },
               ].map((h, i) => {
                 const Icon = ICON_MAP[h.icon] ?? Sparkles;
                 return (
@@ -510,7 +510,7 @@ export default function ShopTouchworkJD215B() {
                   </>
                 )}
 
-                <ConfigBlock icon={Layers} label="รูปแบบติดตั้ง (VESA 100 / Embedded)">
+                <ConfigBlock icon={Layers} label="รูปแบบติดตั้ง (VESA 100 / Desktop)">
                   <ChipRow options={INSTALL_OPTIONS} activeIdx={installIdx} onSelect={setInstallIdx} />
                 </ConfigBlock>
 
