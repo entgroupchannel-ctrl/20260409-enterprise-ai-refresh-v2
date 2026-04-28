@@ -105,7 +105,9 @@ const manifest: Record<string, Partial<Record<Arch, string[]>>> = {
 };
 
 function resolve(model: string, arch: Arch, file: string): string | undefined {
-  const key = Object.keys(modules).find((k) => k.endsWith(`/gallery/${model}-${arch}/${file}`));
+  // GD156E ใช้ asset ชุดเดียวกับ GD156 (โฟลเดอร์ GD156-* บน disk)
+  const folderModel = model === "GD156E" ? "GD156" : model;
+  const key = Object.keys(modules).find((k) => k.endsWith(`/gallery/${folderModel}-${arch}/${file}`));
   return key ? modules[key] : undefined;
 }
 
