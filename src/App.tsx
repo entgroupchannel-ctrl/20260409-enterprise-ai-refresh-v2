@@ -389,6 +389,7 @@ const App = () => (
                     <Route path="/shop/dm17g" element={<ShopTouchworkDM17G />} />
                     <Route path="/shop/dm19g" element={<ShopTouchworkDM19G />} />
                     <Route path="/shop/dm215g" element={<ShopTouchworkDM215G />} />
+                    <Route path="/shop/gd133" element={<ShopTouchworkGD133 />} />
                     <Route path="/shop/:slug" element={<ShopProductDetail />} />
                     <Route path="/unsubscribe" element={<Unsubscribe />} />
                     <Route path="/login" element={<Login />} />
