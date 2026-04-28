@@ -47,34 +47,53 @@ const PRODUCT = DISPLAYS_238.gd238c3;
  */
 const VARIANT_BASE_PRICE: Record<string, number> = {
   rk3568: 42990,
-  rk3588: 58990,
+  intel: 58990,
 };
+
+/* Local shop variants — override PRODUCT.variants for this page */
+const SHOP_VARIANTS = [
+  {
+    key: "rk3568",
+    title: "RK3568 — Cost-effective",
+    badge: "Rockchip RK3568 Quad-core ARM Cortex-A55 (Android)",
+    icon: "Smartphone" as const,
+  },
+  {
+    key: "intel",
+    title: "Intel Core i3 / i5 / i7",
+    badge: "x86 (Windows / Linux) — แจ้ง Generation กับแอดมินเป็นกรณี",
+    icon: "Cpu" as const,
+  },
+];
 
 /* RAM / Storage upgrade options per SoC */
 const RAM_OPTIONS_RK3568 = [
   { label: "2GB LPDDR4", delta: 0 },
   { label: "4GB LPDDR4", delta: 1500 },
 ];
-const RAM_OPTIONS_RK3588 = [
-  { label: "4GB LPDDR4", delta: 0 },
-  { label: "8GB LPDDR4", delta: 2800 },
+const RAM_OPTIONS_INTEL = [
+  { label: "4GB DDR4", delta: 0 },
+  { label: "8GB DDR4", delta: 2800 },
+  { label: "16GB DDR4", delta: 5600 },
 ];
 const STORAGE_OPTIONS_RK3568 = [
   { label: "eMMC 16GB", delta: 0 },
   { label: "eMMC 32GB", delta: 1200 },
 ];
-const STORAGE_OPTIONS_RK3588 = [
-  { label: "eMMC 64GB", delta: 0 },
-  { label: "eMMC 128GB", delta: 2200 },
+const STORAGE_OPTIONS_INTEL = [
+  { label: "SSD 128GB", delta: 0 },
+  { label: "SSD 256GB", delta: 2200 },
+  { label: "SSD 512GB", delta: 4800 },
 ];
 
-/* OS options (Android) */
+/* OS options */
 const OS_OPTIONS_RK3568 = [
   { label: "Android 11", delta: 0 },
 ];
-const OS_OPTIONS_RK3588 = [
-  { label: "Android 12", delta: 0 },
-  { label: "Android 13", delta: 1200 },
+const OS_OPTIONS_INTEL = [
+  { label: "Windows 10 Pro OEM", delta: 0 },
+  { label: "Windows 11 Pro OEM", delta: 0 },
+  { label: "Ubuntu Linux", delta: 0 },
 ];
 
 /* Install mount option (3-in-1) */
