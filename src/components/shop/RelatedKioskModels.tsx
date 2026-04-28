@@ -23,6 +23,7 @@ import gd133Hero from "@/assets/touchwork/GD133-Monitor.jpg";
 import jd133Hero from "@/assets/touchwork/JD133-Monitor.jpg";
 import jd156bHero from "@/assets/touchwork/JD156B-Monitor.jpg";
 import jd185bHero from "@/assets/touchwork/JD185B-Monitor.jpg";
+import jd215bHero from "@/assets/touchwork/JD215B-Monitor.jpg";
 
 const gd32cHero = "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg";
 
@@ -257,6 +258,16 @@ const ALL_MODELS: KioskModel[] = [
     startingPrice: 16990,
     image: jd185bHero,
     productHref: "/touchwork/jd185b",
+  },
+  {
+    slug: "jd215b",
+    modelCode: "JD215B",
+    size: '21.5"',
+    shortName: "JD215B Indoor Display Touch PC",
+    tagline: 'Indoor Display 21.5" 16:9 Full HD IPS — จอใหญ่ราคาประหยัด • Monitor / Android 11-13 / Windows 10-11',
+    startingPrice: 17990,
+    image: jd215bHero,
+    productHref: "/touchwork/jd215b",
   },
 ];
 

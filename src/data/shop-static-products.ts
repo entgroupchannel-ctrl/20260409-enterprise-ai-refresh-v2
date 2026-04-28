@@ -21,6 +21,7 @@ import gd133Hero from '@/assets/touchwork/GD133-Monitor.jpg';
 import jd133Hero from '@/assets/touchwork/JD133-Monitor.jpg';
 import jd156bHero from '@/assets/touchwork/JD156B-Monitor.jpg';
 import jd185bHero from '@/assets/touchwork/JD185B-Monitor.jpg';
+import jd215bHero from '@/assets/touchwork/JD215B-Monitor.jpg';
 
 const gd32cHero = 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg';
 
@@ -347,6 +348,23 @@ export const SHOP_STATIC_COMPARE_PRODUCTS: ShopStaticCompareProduct[] = [
     os: 'Plug & Play / Android 11-13 / Windows 10-11 / Linux',
     form_factor: 'Indoor Display Touch PC',
     unit_price: 16990,
+    stock_status: 'available',
+  },
+  {
+    id: 'static-jd215b',
+    slug: 'jd215b',
+    model: 'JD215B',
+    name: 'TouchWork 21.5" Indoor Display Full HD IPS — จอใหญ่ราคาประหยัด (Monitor / Android / Windows)',
+    thumbnail_url: jd215bHero,
+    cpu: 'Plug & Play / RK3568 / Intel (TBD — แจ้งแอดมิน)',
+    ram_gb: 4,
+    storage_gb: 64,
+    storage_type: 'eMMC / mSATA',
+    has_wifi: true,
+    has_4g: false,
+    os: 'Plug & Play / Android 11-13 / Windows 10-11 / Linux',
+    form_factor: 'Indoor Display Touch PC',
+    unit_price: 17990,
     stock_status: 'available',
   },
 ];
