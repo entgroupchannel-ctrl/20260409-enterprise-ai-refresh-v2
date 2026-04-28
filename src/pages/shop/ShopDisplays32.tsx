@@ -283,12 +283,12 @@ export default function ShopDisplays32() {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Shop — KD215B Floor-Stand Touch Kiosk 21.5" | ENT Group</title>
+        <title>Shop — KD32B Floor-Stand Touch Kiosk 32" | ENT Group</title>
         <meta
           name="description"
-          content="เลือกซื้อตู้คีออสก์ตั้งพื้น 21.5 นิ้ว KD215B — เลือก CPU/RAM/SSD/Wi-Fi/อุปกรณ์เสริมได้ครบ พร้อมขอใบเสนอราคาออนไลน์"
+          content="เลือกซื้อตู้คีออสก์ตั้งพื้น 32 นิ้ว KD32B — เลือก CPU/RAM/SSD/Wi-Fi/อุปกรณ์เสริมได้ครบ พร้อมขอใบเสนอราคาออนไลน์"
         />
-        <link rel="canonical" href="https://www.entgroup.co.th/shop/displays-21.5" />
+        <link rel="canonical" href="https://www.entgroup.co.th/shop/displays-32" />
       </Helmet>
 
       <SiteNavbar />
