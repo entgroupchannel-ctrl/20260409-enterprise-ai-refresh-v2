@@ -43,6 +43,7 @@ import gd215cHero from '@/assets/touchwo/gd215c/GD215-1A.jpg';
 import gd238c3Hero from '@/assets/touchwo/gd238c/L-1.jpg';
 import gd27cHero from '@/assets/touchwo/gd27c/p-1.jpg';
 import dm080nfHero from '@/assets/touchwork/DM080NF-Monitor.jpg';
+import dm080wgHero from '@/assets/touchwork/DM080WG-Monitor.jpg';
 
 const gd32cHero = 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg';
 
@@ -409,6 +410,33 @@ const ShopStorefront = () => {
               is_active: true,
               slug: 'dm080nf',
               tags: ['new', 'touch-pc', 'industrial', '8-inch'],
+              is_featured: true,
+              variant_count: 3,
+              starting_price: 13990,
+              warranty_months: 12,
+              warranty_type: 'carry-in',
+            },
+            {
+              id: 'static-dm080wg',
+              sku: 'DM080WG-TOUCHPC',
+              model: 'DM080WG',
+              series: 'Industrial Touch PC',
+              name: 'TouchWork 8" Widescreen 16:10 Touch PC (Monitor / Android / Windows)',
+              description: 'จอสัมผัสอุตสาหกรรม Widescreen 8" 16:10 PCAP 10pt Mohs 7 IP65 (หน้า) — เลือกได้ทั้ง Monitor (HDMI/VGA), Android (RK3568/RK3399) และ Windows (Intel) — กรณีไม่ระบุ CPU Model แจ้งแอดมินขอราคา',
+              category: 'Industrial Touch PC',
+              cpu: 'Plug & Play / RK3568 / Intel (TBD)',
+              ram_gb: 4,
+              storage_gb: 32,
+              storage_type: 'eMMC / SSD',
+              unit_price: 13990,
+              unit_price_vat: null,
+              image_url: dm080wgHero,
+              thumbnail_url: dm080wgHero,
+              gallery_urls: null,
+              stock_status: 'available',
+              is_active: true,
+              slug: 'dm080wg',
+              tags: ['new', 'touch-pc', 'industrial', '8-inch', 'widescreen'],
               is_featured: true,
               variant_count: 3,
               starting_price: 13990,

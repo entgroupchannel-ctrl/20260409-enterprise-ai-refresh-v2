@@ -318,13 +318,13 @@ export default function TouchWorkDetail() {
                   <Download className="h-4 w-4" /> Datasheet (PDF)
                 </a>
               </Button>
-              {product.model === "DM080NF" && (
+              {(product.model === "DM080NF" || product.model === "DM080WG") && (
                 <Button
                   asChild
                   size="lg"
                   className="gap-2 bg-primary hover:bg-primary/90"
                 >
-                  <Link to="/shop/dm080nf">
+                  <Link to={`/shop/${product.model.toLowerCase()}`}>
                     <ArrowRight className="h-4 w-4" /> สั่งซื้อ / ปรับสเปกใน Shop
                   </Link>
                 </Button>
