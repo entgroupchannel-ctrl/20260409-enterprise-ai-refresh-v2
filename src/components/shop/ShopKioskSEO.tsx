@@ -75,12 +75,11 @@ export default function ShopKioskSEO({
     "ENT Group",
   ].join(", ");
 
-  // Breadcrumb
+  // Breadcrumb (BreadcrumbJsonLd ใช้ field "path" และเติม "หน้าแรก" ให้อัตโนมัติ)
   const breadcrumbItems = [
-    { name: "หน้าแรก", url: "/" },
-    { name: "Shop", url: "/shop" },
-    { name: `Display ${sizeInch}"`, url: `/products/${slug}` },
-    { name: modelCode, url: path },
+    { name: "Shop", path: "/shop" },
+    { name: `Display ${sizeInch}"`, path: `/products/${slug}` },
+    { name: modelCode, path },
   ];
 
   // Product JSON-LD inputs
