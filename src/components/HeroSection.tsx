@@ -495,6 +495,38 @@ const HeroSection = () => {
           <ChevronDown size={28} />
         </a>
       </div>
+
+      {/* Sales team strip — มุมล่างขวาของ Hero สื่อสาร "คุยกับคนจริงๆ" */}
+      <Link
+        to="/contact"
+        aria-label="ติดต่อทีมขายของเรา"
+        className="hidden md:flex absolute bottom-6 right-6 z-20 items-center gap-3 px-4 py-2.5 rounded-full bg-white/10 backdrop-blur-xl border border-white/25 hover:bg-white/20 hover:border-white/40 shadow-2xl transition-all group animate-fade-up"
+        style={{ animationDelay: "0.6s" }}
+      >
+        <div className="flex -space-x-2">
+          {[
+            { img: teamSky, name: "Sky" },
+            { img: teamSom, name: "Som" },
+            { img: teamPreaw, name: "Preaw" },
+          ].map((m) => (
+            <img
+              key={m.name}
+              src={m.img}
+              alt={m.name}
+              loading="lazy"
+              className="w-9 h-9 rounded-full object-cover border-2 border-white/80 ring-1 ring-black/10"
+            />
+          ))}
+        </div>
+        <div className="flex flex-col leading-tight pr-1">
+          <span className="text-[10px] uppercase tracking-wider text-white/70 font-semibold">ทีมขาย ENT</span>
+          <span className="text-xs text-white font-medium">คุยกับคนจริง — พร้อมช่วย</span>
+        </div>
+        <span className="relative flex h-2.5 w-2.5">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+        </span>
+      </Link>
     </section>
   );
 };
