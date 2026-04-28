@@ -6,6 +6,7 @@ import ruggedDevicesBanner from "@/assets/rugged-devices-banner.jpg";
 import volktekBanner from "@/assets/volktek-banner.jpg";
 import touchscreenBanner from "@/assets/touchscreen-kiosk-banner.jpg";
 import EPCRecommendedRow from "@/components/EPCRecommendedRow";
+import RuggedRecommendedRow from "@/components/RuggedRecommendedRow";
 
 const sections = [
   {
@@ -90,6 +91,11 @@ const ProductSections = () => {
           {section.title === "หน้าจอสัมผัสและคีออสก์" && (
             <div className="mt-6">
               <EPCRecommendedRow />
+            </div>
+          )}
+          {section.title === "Rugged Devices — ทนร้อน ทนกระแทก เกรดทหาร" && (
+            <div className="mt-6">
+              <RuggedRecommendedRow />
             </div>
           )}
           </div>
