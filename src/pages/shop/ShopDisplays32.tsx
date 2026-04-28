@@ -123,7 +123,7 @@ function tierMultiplier(qty: number) {
 /* ------------------------------------------------------------------ */
 /*  Component                                                          */
 /* ------------------------------------------------------------------ */
-export default function ShopDisplays215() {
+export default function ShopDisplays32() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { addToCart } = useCart();
