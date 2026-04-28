@@ -394,6 +394,65 @@ const HeroSection = () => {
           </div>
 
 
+          {/* Featured Products card — แสดงสินค้าเด่น 3 รุ่น พร้อมลิงก์ /shop */}
+          <aside
+            aria-label="สินค้าเด่นแนะนำ"
+            className="hidden lg:block w-[360px] xl:w-[400px] shrink-0 animate-fade-up"
+            style={{ animationDelay: "0.4s" }}
+          >
+            <div className="relative rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl p-5 overflow-hidden">
+              <div className="absolute -top-16 -right-16 w-40 h-40 rounded-full bg-primary/30 blur-3xl pointer-events-none" />
+              <div className="relative">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-wider">
+                    <Flame className="w-3 h-3" /> สินค้าเด่น
+                  </div>
+                  <Link to="/shop" className="text-[11px] text-white/70 hover:text-white inline-flex items-center gap-1">
+                    ดูทั้งหมด <ArrowRight className="w-3 h-3" />
+                  </Link>
+                </div>
+
+                <h3 className="text-white font-bold text-base mb-3">
+                  รุ่นแนะนำ พร้อมส่ง — มีราคา
+                </h3>
+
+                <div className="space-y-2.5">
+                  {SHOP_STATIC_COMPARE_PRODUCTS.slice(0, 3).map((p) => (
+                    <Link
+                      key={p.id}
+                      to={`/shop/${p.slug}`}
+                      className="group flex items-center gap-3 p-2.5 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 hover:border-white/30 transition-all"
+                    >
+                      <div className="w-14 h-14 rounded-lg bg-white/90 overflow-hidden shrink-0">
+                        {p.thumbnail_url && (
+                          <img
+                            src={p.thumbnail_url}
+                            alt={p.name}
+                            loading="lazy"
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform"
+                          />
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-[10px] font-mono text-primary/90">{p.model}</div>
+                        <div className="text-xs font-semibold text-white line-clamp-1">{p.name}</div>
+                        <div className="text-sm font-bold text-primary">฿{p.unit_price.toLocaleString("th-TH")}</div>
+                      </div>
+                      <ArrowRight className="w-4 h-4 text-white/40 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                    </Link>
+                  ))}
+                </div>
+
+                <Link
+                  to="/shop"
+                  className="mt-4 w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"
+                >
+                  <ShoppingCart className="w-4 h-4" /> เปิดดูสินค้าทั้งหมดใน Shop
+                </Link>
+              </div>
+            </div>
+          </aside>
+
           <div className="flex flex-wrap gap-2 lg:hidden animate-fade-up" style={{ animationDelay: "0.4s" }}>
             {searchTags.map((tag) => (
               <button
