@@ -230,7 +230,7 @@ export default function ShopDisplays32() {
   const handleAddToCart = async () => {
     if (!user) {
       toast({ title: "กรุณาเข้าสู่ระบบ", description: "เข้าสู่ระบบเพื่อบันทึกสินค้าลงตะกร้าและขอใบเสนอราคา" });
-      navigate("/login?redirect=/shop/displays-21.5");
+      navigate("/login?redirect=/shop/displays-32");
       return;
     }
     setSubmitting(true);
