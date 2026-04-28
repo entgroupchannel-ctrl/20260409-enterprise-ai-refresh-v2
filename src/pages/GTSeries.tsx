@@ -2632,8 +2632,8 @@ const GTSeries = () => {
                   <div className="grid grid-cols-2 gap-3">
                     {[
                       { src: "/images/gt5000/front.jpg", alt: "GT5000 ด้านหน้า — พอร์ต COM, USB" },
-                      { src: "/images/gt5000/rear.jpg", alt: "GT5000 ด้านหลัง — LAN, HDMI, VGA" },
-                      { src: "/images/gt5000/side.jpg", alt: "GT5000 ด้านข้าง — ครีบระบายความร้อน" },
+                      { src: "/images/gt5000/rear.jpg", alt: "GT5000 ​ขาจับแบบ VESA Mouting — LAN, HDMI, VGA" },
+                      { src: "/images/gt5000/side.jpg", alt: "GT5000 ​ขาตั้งพื้น — ครีบระบายความร้อน" },
                       { src: "/images/gt5000/angle.jpg", alt: "GT5000 มุมเอียง — ภาพรวม" },
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden rounded-lg bg-muted/30">
