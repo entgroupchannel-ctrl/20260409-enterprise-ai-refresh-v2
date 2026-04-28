@@ -382,9 +382,9 @@ const PanelPC = () => {
               </div>
             </div>
             <div className="card-surface p-4 flex flex-col items-center gap-3">
-              <img src={gty156Rear} alt="GTY156T ด้านหลัง — พอร์ต I/O" className="w-full object-contain rounded-lg"/>
+              <img src={gty156Rear} alt="GTY156T ​ขาจับแบบ VESA Mouting — พอร์ต I/O" className="w-full object-contain rounded-lg"/>
               <div className="text-center">
-                <p className="font-bold text-foreground text-sm">GTY156T — พอร์ต I/O ด้านหลัง</p>
+                <p className="font-bold text-foreground text-sm">GTY156T — พอร์ต I/O ​ขาจับแบบ VESA Mouting</p>
                 <p className="text-xs text-muted-foreground">HDMI, VGA, USB3.0 ×2, USB2.0 ×2, LAN ×2, RS232, Audio</p>
               </div>
             </div>
