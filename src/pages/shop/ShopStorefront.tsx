@@ -16,7 +16,8 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Slider } from '@/components/ui/slider';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
-import { SearchCheck, LayoutGrid, List, SlidersHorizontal, X, FileSearch, ChevronLeft, ChevronRight, CircleCheckBig, ShieldCheck, Landmark, HeadsetIcon, DollarSign, Cpu, MemoryStick, HardDrive, Package, Tag, Link2, Share2, Check, Heart } from 'lucide-react';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { SearchCheck, LayoutGrid, List, SlidersHorizontal, X, FileSearch, ChevronLeft, ChevronRight, ChevronDown, CircleCheckBig, ShieldCheck, Landmark, HeadsetIcon, DollarSign, Cpu, MemoryStick, HardDrive, Package, Tag, Link2, Share2, Check, Heart, LayoutGrid as GridIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import SiteNavbar from '@/components/SiteNavbar';
 import ShopHotDeals from '@/components/shop/ShopHotDeals';
@@ -38,6 +39,7 @@ import kd156bHero from '@/assets/touchwo/kd156b/KD156-1A.jpg';
 import kd215bHero from '@/assets/touchwo/kd215b/KD215-1.jpg';
 import kd32bHeroShop from '@/assets/touchwo/kd32b-hero-clean.jpg';
 import kd43bHero from '@/assets/touchwo/kd43b/mon-1.jpg';
+import gd215cHero from '@/assets/touchwo/gd215c/GD215-1A.jpg';
 
 interface Product {
   id: string; sku: string; model: string; series: string | null; name: string; description: string | null;
@@ -261,7 +263,37 @@ const ShopStorefront = () => {
               image_url: modelOverride || fileImg || p.image_url || fallback,
             };
           });
-          setProducts(enriched as Product[]);
+          // Inject static products that don't live in DB but have dedicated /shop/:slug pages
+          const staticProducts: Product[] = [
+            {
+              id: 'static-gd215c',
+              sku: 'GD215C-KIOSK',
+              model: 'GD215C',
+              series: 'GD215 Series',
+              name: 'Wall Mounting Touch Kiosk 21.5"',
+              description: 'ตู้คีออสก์ติดผนัง 21.5" Bezel 13mm — Android (RK3568/RK3588) ติดตั้งได้ 3 แบบ',
+              category: 'Industrial Kiosk',
+              cpu: 'RK3568 / RK3588',
+              ram_gb: 4,
+              storage_gb: 32,
+              storage_type: 'eMMC',
+              unit_price: 36990,
+              unit_price_vat: null,
+              image_url: gd215cHero,
+              thumbnail_url: gd215cHero,
+              gallery_urls: null,
+              stock_status: 'available',
+              is_active: true,
+              slug: 'gd215c',
+              tags: ['new', 'kiosk', 'wall-mount'],
+              is_featured: true,
+              variant_count: 2,
+              starting_price: 36990,
+              warranty_months: 12,
+              warranty_type: 'on-site',
+            },
+          ];
+          setProducts([...staticProducts, ...(enriched as Product[])]);
         } else {
           setProducts(data as Product[]);
         }
@@ -433,38 +465,31 @@ const ShopStorefront = () => {
         </div>
       </section>
 
-      {/* ── Sticky Series Filter Bar (with shareable links) ── */}
+      {/* ── Sticky Series Filter Bar — Smart Display (no horizontal scroll) ── */}
       <div className="sticky top-16 z-30 bg-background/90 backdrop-blur border-b border-border">
         <div className="container max-w-7xl mx-auto px-4">
-          <div className="flex items-center gap-2 py-2 overflow-x-auto scrollbar-hide">
-            {/* "ทั้งหมด" pill */}
-            <div className="shrink-0 inline-flex items-stretch rounded-md overflow-hidden border border-border/60">
-              <Button
-                variant={seriesFilter.length === 0 ? 'default' : 'ghost'}
-                size="sm"
-                className="h-8 text-xs rounded-none border-0"
-                onClick={() => { setSeriesFilter([]); setPage(1); }}
-              >
-                ทั้งหมด ({products.length})
-              </Button>
-              <button
-                type="button"
-                title="คัดลอกลิงก์ไปหน้า Shop ทั้งหมด"
-                aria-label="คัดลอกลิงก์ไปหน้า Shop ทั้งหมด"
-                onClick={() => copyShareLink('all', [])}
-                className="px-2 flex items-center justify-center bg-muted/40 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {copiedKey === 'all' ? <Check className="w-3.5 h-3.5 text-green-600" /> : <Link2 className="w-3.5 h-3.5" />}
-              </button>
-            </div>
+          {(() => {
+            // Sort series by product count (most popular first)
+            const seriesByCount = [...filterOptions.series]
+              .map(s => ({ s, count: products.filter(p => p.series === s).length }))
+              .sort((a, b) => b.count - a.count);
 
-            {/* Series tabs */}
-            {filterOptions.series.map(s => {
+            // Show top N series + any selected series not in top N
+            const TOP_N = 4;
+            const topSeries = seriesByCount.slice(0, TOP_N).map(x => x.s);
+            const extraSelected = seriesFilter.filter(s => !topSeries.includes(s));
+            const visibleSeries = [...topSeries, ...extraSelected];
+            const hiddenSeries = seriesByCount
+              .map(x => x.s)
+              .filter(s => !visibleSeries.includes(s));
+
+            const renderPill = (s: string) => {
               const nav = seriesNavItems.find(n => n.id === s);
               const active = seriesFilter.includes(s);
               const key = `series-${s}`;
+              const count = products.filter(p => p.series === s).length;
               return (
-                <div key={s} className="shrink-0 inline-flex items-stretch rounded-md overflow-hidden border border-border/60">
+                <div key={s} className="inline-flex items-stretch rounded-md overflow-hidden border border-border/60">
                   <Button
                     variant={active ? 'default' : 'ghost'}
                     size="sm"
@@ -472,9 +497,7 @@ const ShopStorefront = () => {
                     onClick={() => { toggleSeriesFilter(s); setPage(1); }}
                   >
                     {nav?.icon} {s}
-                    <Badge variant="secondary" className="text-[9px] ml-0.5 h-4 px-1">
-                      {products.filter(p => p.series === s).length}
-                    </Badge>
+                    <Badge variant="secondary" className="text-[9px] ml-0.5 h-4 px-1">{count}</Badge>
                   </Button>
                   <button
                     type="button"
@@ -487,24 +510,96 @@ const ShopStorefront = () => {
                   </button>
                 </div>
               );
-            })}
+            };
 
-            {/* Trailing share-current button */}
-            <div className="shrink-0 ml-auto pl-2">
-              <Button
-                variant="outline"
-                size="sm"
-                className="h-8 text-xs gap-1.5"
-                onClick={() => shareNative(
-                  seriesFilter.length > 0 ? `Shop — ${seriesFilter.join(', ')}` : 'Shop ทั้งหมด',
-                  seriesFilter,
+            return (
+              <div className="flex items-center gap-2 py-2 flex-wrap">
+                {/* "ทั้งหมด" pill */}
+                <div className="inline-flex items-stretch rounded-md overflow-hidden border border-border/60">
+                  <Button
+                    variant={seriesFilter.length === 0 ? 'default' : 'ghost'}
+                    size="sm"
+                    className="h-8 text-xs rounded-none border-0"
+                    onClick={() => { setSeriesFilter([]); setPage(1); }}
+                  >
+                    ทั้งหมด ({products.length})
+                  </Button>
+                  <button
+                    type="button"
+                    title="คัดลอกลิงก์ไปหน้า Shop ทั้งหมด"
+                    aria-label="คัดลอกลิงก์ไปหน้า Shop ทั้งหมด"
+                    onClick={() => copyShareLink('all', [])}
+                    className="px-2 flex items-center justify-center bg-muted/40 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {copiedKey === 'all' ? <Check className="w-3.5 h-3.5 text-green-600" /> : <Link2 className="w-3.5 h-3.5" />}
+                  </button>
+                </div>
+
+                {/* Visible top series */}
+                {visibleSeries.map(renderPill)}
+
+                {/* "หมวดอื่นๆ" dropdown — แทน scroll bar */}
+                {hiddenSeries.length > 0 && (
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button variant="outline" size="sm" className="h-8 text-xs gap-1.5">
+                        <GridIcon className="w-3.5 h-3.5" />
+                        หมวดอื่นๆ
+                        <Badge variant="secondary" className="text-[9px] h-4 px-1">+{hiddenSeries.length}</Badge>
+                        <ChevronDown className="w-3 h-3" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent align="start" className="w-[320px] sm:w-[440px] p-3 max-h-[60vh] overflow-y-auto">
+                      <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-2 px-1">
+                        เลือกหมวด ({hiddenSeries.length})
+                      </p>
+                      <div className="grid grid-cols-2 gap-1.5">
+                        {hiddenSeries.map(s => {
+                          const nav = seriesNavItems.find(n => n.id === s);
+                          const active = seriesFilter.includes(s);
+                          const count = products.filter(p => p.series === s).length;
+                          return (
+                            <button
+                              key={s}
+                              onClick={() => { toggleSeriesFilter(s); setPage(1); }}
+                              className={cn(
+                                'flex items-center justify-between gap-2 px-2.5 py-2 rounded-md text-left text-xs border transition-colors',
+                                active
+                                  ? 'border-primary bg-primary/10 text-primary font-semibold'
+                                  : 'border-border/60 hover:border-primary/40 hover:bg-accent'
+                              )}
+                            >
+                              <span className="flex items-center gap-1.5 min-w-0">
+                                <span className="shrink-0">{nav?.icon ?? '•'}</span>
+                                <span className="truncate">{s}</span>
+                              </span>
+                              <Badge variant="secondary" className="text-[9px] h-4 px-1 shrink-0">{count}</Badge>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </PopoverContent>
+                  </Popover>
                 )}
-                title="แชร์ลิงก์ของแท็บที่เลือก"
-              >
-                <Share2 className="w-3.5 h-3.5" /> แชร์
-              </Button>
-            </div>
-          </div>
+
+                {/* Trailing share-current button */}
+                <div className="ml-auto">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="h-8 text-xs gap-1.5"
+                    onClick={() => shareNative(
+                      seriesFilter.length > 0 ? `Shop — ${seriesFilter.join(', ')}` : 'Shop ทั้งหมด',
+                      seriesFilter,
+                    )}
+                    title="แชร์ลิงก์ของแท็บที่เลือก"
+                  >
+                    <Share2 className="w-3.5 h-3.5" /> แชร์
+                  </Button>
+                </div>
+              </div>
+            );
+          })()}
         </div>
       </div>
 
