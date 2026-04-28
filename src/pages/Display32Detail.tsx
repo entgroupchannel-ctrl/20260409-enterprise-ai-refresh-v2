@@ -302,6 +302,7 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
             {/* B2B Platform mini-banner — กระตุ้นให้เพิ่มลงตะกร้า/ขอใบเสนอราคา */}
             {(() => {
               const shopSlug =
+                product.slug === "gd215c" ? "gd215c" :
                 groupSize === 156 ? "displays-15.6" :
                 groupSize === 215 ? "displays-21.5" :
                 groupSize === 32 ? "displays-32" :
