@@ -30,46 +30,39 @@ import g_mon_01 from "@/assets/touchwork/gallery/GD101E-Monitor/01.jpg";
 import g_mon_02 from "@/assets/touchwork/gallery/GD101E-Monitor/02.jpg";
 import g_mon_03 from "@/assets/touchwork/gallery/GD101E-Monitor/03.jpg";
 import g_mon_04 from "@/assets/touchwork/gallery/GD101E-Monitor/04.jpg";
-import g_mon_05 from "@/assets/touchwork/gallery/GD101E-Monitor/05.jpg";
-import g_mon_06 from "@/assets/touchwork/gallery/GD101E-Monitor/06.jpg";
-import g_mon_07 from "@/assets/touchwork/gallery/GD101E-Monitor/07.jpg";
 import g_arm_01 from "@/assets/touchwork/gallery/GD101E-ARM/01.jpg";
-import g_arm_02 from "@/assets/touchwork/gallery/GD101E-ARM/02.jpg";
 import g_arm_03 from "@/assets/touchwork/gallery/GD101E-ARM/03.jpg";
 import g_arm_04 from "@/assets/touchwork/gallery/GD101E-ARM/04.jpg";
 import g_arm_05 from "@/assets/touchwork/gallery/GD101E-ARM/05.jpg";
 import g_arm_06 from "@/assets/touchwork/gallery/GD101E-ARM/06.jpg";
 import g_arm_07 from "@/assets/touchwork/gallery/GD101E-ARM/07.jpg";
 import g_x86_01 from "@/assets/touchwork/gallery/GD101E-X86/01.jpg";
-import g_x86_02 from "@/assets/touchwork/gallery/GD101E-X86/02.jpg";
 import g_x86_03 from "@/assets/touchwork/gallery/GD101E-X86/03.jpg";
 import g_x86_04 from "@/assets/touchwork/gallery/GD101E-X86/04.jpg";
 import g_x86_05 from "@/assets/touchwork/gallery/GD101E-X86/05.jpg";
-import g_x86_06 from "@/assets/touchwork/gallery/GD101E-X86/06.jpg";
-import g_x86_07 from "@/assets/touchwork/gallery/GD101E-X86/07.jpg";
 
 /* ------------------------------------------------------------------ */
-/*  GD101E — 13.3" Industrial Wall-Mount Touch PC (Touchwork series)  */
+/*  GD101E — 10.1" Industrial Wall-Mount Touch PC (Touchwork series) */
 /*  Specs verified from /touchwork/gd101e:                            */
-/*  - 13.3" 16:9 IPS Panel, 1920 × 1080 Full HD                       */
-/*  - Capacitive 10-point, ≥250 cd/m², IPS 178°/178°                  */
+/*  - 10.1" 16:10 IPS Panel, 1280 × 800                               */
+/*  - Capacitive 10-point, ≥250 cd/m²                                 */
 /*  - IP65 (front), Wi-Fi 5 + BT 4.2                                  */
-/*  - Wall Mount บางเฉียบ 42.8 mm + VESA 75                            */
+/*  - Wall Mount + VESA 75                                            */
 /*  Indicative prices (THB / 1 unit, base config):                    */
-/*  - Monitor: 14,990 / ARM (Android 11/13): 17,990                   */
-/*  - X86 (Windows 10/11): 20,990 (CPU Model — แจ้งแอดมินขอราคา)       */
+/*  - Monitor: 13,990 / ARM (Android 11/13): 16,990                   */
+/*  - X86 (Windows 10/11): 19,990 (CPU Model — แจ้งแอดมินขอราคา)       */
 /* ------------------------------------------------------------------ */
 
 const VARIANT_BASE_PRICE: Record<string, number> = {
-  monitor: 14990,
-  arm: 17990,
-  x86: 20990,
+  monitor: 13990,
+  arm: 16990,
+  x86: 19990,
 };
 
 const VARIANT_GALLERIES: Record<string, string[]> = {
-  monitor: [g_mon_04, g_mon_03, g_mon_02, g_mon_05, g_mon_06, g_mon_07],
-  arm: [g_arm_04, g_arm_03, g_arm_05, g_arm_06, g_arm_07],
-  x86: [g_x86_04, g_x86_03, g_x86_05, g_x86_06, g_x86_07],
+  monitor: [g_mon_01, g_mon_04, g_mon_03, g_mon_02],
+  arm: [g_arm_01, g_arm_04, g_arm_03, g_arm_05, g_arm_06, g_arm_07],
+  x86: [g_x86_01, g_x86_04, g_x86_03, g_x86_05],
 };
 
 const SHOP_VARIANTS = [
