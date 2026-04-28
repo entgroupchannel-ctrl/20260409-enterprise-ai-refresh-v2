@@ -115,7 +115,7 @@ const STORAGE_OPTIONS_X86 = [
 ];
 const OS_OPTIONS_ARM = [
   { label: "Android 11", delta: 0 },
-  { label: "Android 12", delta: 0 },
+  { label: "Android 13", delta: 0 },
 ];
 const OS_OPTIONS_X86 = [
   { label: "Windows 10 Pro OEM", delta: 0 },
@@ -297,8 +297,8 @@ export default function ShopTouchworkDM19G() {
       <ShopKioskSEO
         slug="dm19g"
         modelCode="DM19G"
-        shortName='Industrial Touch PC 17" 5:4 (PCAP, IP65 Front, Tempered Glass 7H)'
-        sizeInch={17}
+        shortName='Industrial Touch PC 19" 5:4 (PCAP 10pt, IP65 Front, VESA 100)'
+        sizeInch={19}
         image={DM19G_Monitor}
         resolution="1280×1024 (5:4)"
         brightness="≥ 250 cd/m²"
@@ -412,32 +412,32 @@ export default function ShopTouchworkDM19G() {
                 <Sparkles className="w-3 h-3 mr-1" /> TouchWork Series
               </Badge>
               <h1 className="text-2xl md:text-3xl font-bold leading-tight">
-                DM19G — Industrial Touch PC 17″ 5:4 (PCAP, IP65 Front, Tempered Glass 7H)
+                DM19G — Industrial Touch PC 19″ 5:4 (PCAP 10pt, IP65 Front, VESA 100)
               </h1>
               <p className="text-muted-foreground mt-1.5 text-sm md:text-base">
-                จอสัมผัสอุตสาหกรรม 17″ 5:4 ขนาดใหญ่อ่านง่าย — Capacitive 10pt, Backlight 30,000 ชม., IP65 ด้านหน้า • เลือกได้ทั้ง Monitor, Android และ Windows
+                จอสัมผัสอุตสาหกรรม 19″ 5:4 ระดับ Workstation — Capacitive 10pt, IP65 ด้านหน้า, รองรับ VESA 100 + Embedded + ตั้งโต๊ะ • เลือกได้ทั้ง Monitor, Android และ Windows
               </p>
             </div>
 
             {/* Quick Specs (จาก /touchwork/dm19g) */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2 p-3 rounded-lg border bg-muted/20">
-              <QuickSpec label="หน้าจอ" value='17" 5:4' />
+              <QuickSpec label="หน้าจอ" value='19" 5:4' />
               <QuickSpec label="ความละเอียด" value="1280 × 1024" />
               <QuickSpec label="Touch" value="Capacitive 10pt" />
-              <QuickSpec label="กระจก" value="Tempered 7H" />
+              <QuickSpec label="Panel" value="TN (a-Si)" />
               <QuickSpec label="ความสว่าง" value="≥250 cd/m²" />
-              <QuickSpec label="Contrast" value="≥1000:1" />
-              <QuickSpec label="Backlight" value="30,000 hr" />
-              <QuickSpec label="VESA / IP" value="VESA 100 / IP65" />
+              <QuickSpec label="มาตรฐาน" value="IP65 (หน้า)" />
+              <QuickSpec label="เชื่อมต่อ" value="Wi-Fi 5 + BT 4.2" />
+              <QuickSpec label="ติดตั้ง" value="VESA 100 / Embedded" />
             </div>
 
             {/* Highlights */}
             <div className="grid grid-cols-2 gap-2">
               {[
-                { icon: "Sparkles" as const, title: "จอใหญ่ 17″ อ่านง่าย", subtitle: "เหมาะกับห้องควบคุม / SCADA" },
-                { icon: "ShieldCheck" as const, title: "Tempered Glass 7H + IP65", subtitle: "ทนรอย ทนฝุ่นและละอองน้ำ" },
-                { icon: "Layers" as const, title: "VESA 100 + Embedded", subtitle: "ติดตั้งได้หลายรูปแบบ" },
-                { icon: "Box" as const, title: "Backlight 30,000 ชม.", subtitle: "Contrast ≥1000:1 ใช้งาน 24/7" },
+                { icon: "Sparkles" as const, title: "จอใหญ่ 19″ Workstation", subtitle: "พื้นที่ทำงานกว้าง เหมาะกับ ERP" },
+                { icon: "ShieldCheck" as const, title: "IP65 ด้านหน้า", subtitle: "ทนฝุ่นและละอองน้ำ ใช้ในโรงงาน" },
+                { icon: "Layers" as const, title: "VESA 100 + Embedded + ตั้งโต๊ะ", subtitle: "ติดตั้งได้หลายรูปแบบ" },
+                { icon: "Box" as const, title: "Capacitive 10pt", subtitle: "สัมผัสแม่นยำ รองรับมัลติทัช" },
               ].map((h, i) => {
                 const Icon = ICON_MAP[h.icon] ?? Sparkles;
                 return (
