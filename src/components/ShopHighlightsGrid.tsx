@@ -136,7 +136,25 @@ const ShopHighlightsGrid = () => {
                   </p>
                 )}
 
-                <div className="mt-auto pt-2 flex items-end justify-between">
+                {/* Rating สุ่ม 3-5 ดาว (เสถียรต่อ slug) */}
+                {(() => {
+                  let h = 0;
+                  for (let i = 0; i < p.slug.length; i++) h = (h * 31 + p.slug.charCodeAt(i)) >>> 0;
+                  const rating = 3 + (h % 3); // 3, 4, หรือ 5
+                  return (
+                    <div className="mt-1.5 flex items-center gap-0.5" aria-label={`เรตติ้ง ${rating} จาก 5 ดาว`}>
+                      {[1, 2, 3, 4, 5].map((i) => (
+                        <Star
+                          key={i}
+                          className={`w-3 h-3 ${i <= rating ? "fill-amber-400 text-amber-400" : "fill-muted text-muted-foreground/40"}`}
+                        />
+                      ))}
+                      <span className="ml-1 text-[10px] text-muted-foreground">({rating}.0)</span>
+                    </div>
+                  );
+                })()}
+
+                <div className="mt-auto pt-2 flex items-end justify-between gap-2">
                   <div>
                     <div className="text-[10px] text-muted-foreground flex items-center gap-1">
                       <Tag className="w-2.5 h-2.5" /> เริ่มต้น
@@ -145,6 +163,26 @@ const ShopHighlightsGrid = () => {
                       ฿{fmt(p.unit_price)}
                     </div>
                   </div>
+                </div>
+
+                {/* ปุ่ม action: ขอใบเสนอราคา + หยิบใส่ตะกร้า */}
+                <div className="mt-2 grid grid-cols-2 gap-1.5">
+                  <span
+                    className="inline-flex items-center justify-center gap-1 px-2 py-1.5 rounded-md border border-border bg-background text-[10px] md:text-xs font-medium text-foreground hover:bg-primary/10 hover:border-primary hover:text-primary transition-colors"
+                    title="ขอใบเสนอราคา"
+                  >
+                    <FileText className="w-3 h-3" />
+                    <span className="hidden sm:inline">ใบเสนอราคา</span>
+                    <span className="sm:hidden">QT</span>
+                  </span>
+                  <span
+                    className="inline-flex items-center justify-center gap-1 px-2 py-1.5 rounded-md bg-primary text-primary-foreground text-[10px] md:text-xs font-medium hover:bg-primary/90 transition-colors"
+                    title="หยิบใส่ตะกร้า"
+                  >
+                    <ShoppingCart className="w-3 h-3" />
+                    <span className="hidden sm:inline">ใส่ตะกร้า</span>
+                    <span className="sm:hidden">+</span>
+                  </span>
                 </div>
               </div>
             </Link>
