@@ -405,31 +405,31 @@ export default function ShopTouchworkGD101E() {
                 <Sparkles className="w-3 h-3 mr-1" /> TouchWork Series
               </Badge>
               <h1 className="text-2xl md:text-3xl font-bold leading-tight">
-                GD101E — Industrial Wall-Mount Touch PC 13.3″ 16:9 Full HD IPS (PCAP 10pt, IP65 Front)
+                GD101E — Industrial Wall-Mount Touch PC 10.1″ 16:10 IPS (PCAP 10pt, IP65 Front)
               </h1>
               <p className="text-muted-foreground mt-1.5 text-sm md:text-base">
-                จอสัมผัสอุตสาหกรรม 13.3″ 16:9 Full HD IPS — บางเฉียบ 42.8 mm สำหรับ Wall-Mount โรงแรม/ออฟฟิศ • Capacitive 10pt, IP65 ด้านหน้า, IPS 178°/178° • เลือกได้ทั้ง Monitor, Android และ Windows
+                จอสัมผัสอุตสาหกรรม 10.1″ 16:10 IPS ขนาดกะทัดรัด — Capacitive 10pt, IP65 ด้านหน้า, Wi-Fi 5 + BT 4.2 • เหมาะกับ Kiosk หน้าห้อง, Meeting Room Booking, POS เล็ก • เลือกได้ทั้ง Monitor, Android และ Windows
               </p>
             </div>
 
             {/* Quick Specs (จาก /touchwork/gd101e) */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2 p-3 rounded-lg border bg-muted/20">
-              <QuickSpec label="หน้าจอ" value='13.3" 16:9' />
-              <QuickSpec label="ความละเอียด" value="1920 × 1080" />
+              <QuickSpec label="หน้าจอ" value='10.1" 16:10' />
+              <QuickSpec label="ความละเอียด" value="1280 × 800" />
               <QuickSpec label="Touch" value="Capacitive 10pt" />
-              <QuickSpec label="Panel" value="IPS 178°/178°" />
+              <QuickSpec label="Panel" value="IPS" />
               <QuickSpec label="ความสว่าง" value="≥250 cd/m²" />
               <QuickSpec label="มาตรฐาน" value="IP65 (หน้า)" />
-              <QuickSpec label="ความหนา" value="42.8 mm" />
+              <QuickSpec label="เชื่อมต่อ" value="Wi-Fi 5 + BT 4.2" />
               <QuickSpec label="ติดตั้ง" value="Wall-Mount / VESA 75" />
             </div>
 
             {/* Highlights */}
             <div className="grid grid-cols-2 gap-2">
               {[
-                { icon: "Sparkles" as const, title: "IPS 178°/178° Full HD", subtitle: "มุมมองกว้าง สีคมชัด เหมาะกับโรงแรม/ออฟฟิศ" },
+                { icon: "Sparkles" as const, title: "IPS 10.1″ ขนาดกะทัดรัด", subtitle: "เหมาะ Kiosk หน้าห้อง / Meeting Room" },
                 { icon: "ShieldCheck" as const, title: "IP65 ด้านหน้า", subtitle: "ทนฝุ่นและละอองน้ำ" },
-                { icon: "Layers" as const, title: "Wall-Mount บางเฉียบ 42.8 mm", subtitle: "ติดผนังเรียบร้อย VESA 75" },
+                { icon: "Layers" as const, title: "Wall-Mount + VESA 75", subtitle: "ติดผนังหรือฝัง Panel ได้" },
                 { icon: "Box" as const, title: "Capacitive 10pt", subtitle: "สัมผัสแม่นยำ รองรับมัลติทัช" },
               ].map((h, i) => {
                 const Icon = ICON_MAP[h.icon] ?? Sparkles;
