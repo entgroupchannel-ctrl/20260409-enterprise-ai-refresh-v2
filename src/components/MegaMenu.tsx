@@ -344,6 +344,15 @@ const MegaMenu = ({
     <div ref={menuRef} className="relative">
       {/* Nav items */}
       <div className="flex items-center gap-0.5 flex-nowrap">
+        {/* Shop CTA — เด่นที่สุดใน nav */}
+        <Link
+          to="/shop"
+          onMouseEnter={() => setActiveMenu(null)}
+          className="flex items-center gap-1.5 px-3 py-2 mr-1 rounded-lg text-sm font-bold bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm hover:shadow-md transition-all whitespace-nowrap shrink-0"
+        >
+          <ShoppingBag size={14} />
+          Shop ทั้งหมด
+        </Link>
         {menuCategories.map((cat) => (
           <button
             key={cat.id}
