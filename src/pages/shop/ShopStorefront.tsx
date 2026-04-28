@@ -248,6 +248,14 @@ const ShopStorefront = () => {
             'gt990-i77820hk-16gb-256gb-wifi-4g': `${SB}/gt9000-primary.jpg`,
           };
 
+          // Series remap: รวม series ย่อยที่มีสินค้าน้อย เข้าหมวดใหญ่ เพื่อไม่ให้ category list บวม
+          const seriesRemap: Record<string, string> = {
+            'KD156': 'Interactive Display',
+            'KD215': 'Interactive Display',
+            'KD32':  'Interactive Display',
+            'KD43':  'Interactive Display',
+          };
+
           const enriched = data.map(p => {
             const fileImg = fileImgByProduct[p.id];
             const modelOverride = modelImageMap[p.sku];
@@ -255,8 +263,10 @@ const ShopStorefront = () => {
             const fallback = (p.series && seriesFallback[p.series]) || '/product-placeholder.svg';
             // Use model override if available, otherwise use DB image
             const bestImg = modelOverride || fileImg || dbImg || fallback;
+            const remappedSeries = (p.series && seriesRemap[p.series]) || p.series;
             return {
               ...p,
+              series: remappedSeries,
               variant_count: variantCounts[p.id] || 0,
               starting_price: minPriceByProduct[p.id] || p.unit_price,
               thumbnail_url: bestImg,
@@ -269,7 +279,7 @@ const ShopStorefront = () => {
               id: 'static-gd215c',
               sku: 'GD215C-KIOSK',
               model: 'GD215C',
-              series: 'GD215 Series',
+              series: 'Interactive Display',
               name: 'Wall Mounting Touch Kiosk 21.5"',
               description: 'ตู้คีออสก์ติดผนัง 21.5" Bezel 13mm — Android (RK3568/RK3588) ติดตั้งได้ 3 แบบ',
               category: 'Industrial Kiosk',
