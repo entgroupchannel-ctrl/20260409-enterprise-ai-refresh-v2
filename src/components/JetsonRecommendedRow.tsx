@@ -28,7 +28,7 @@ const JetsonRecommendedRow = () => {
   return (
     <section
       aria-labelledby="jetson-recommended-title"
-      className="container max-w-7xl mx-auto px-4 md:px-8 mt-10 md:mt-14 relative z-10"
+      className="relative z-10"
     >
       <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-5">
         <div>
