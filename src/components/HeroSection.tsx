@@ -9,6 +9,9 @@ import { useAuth } from "@/hooks/useAuth";
 import { SHOP_STATIC_COMPARE_PRODUCTS } from "@/data/shop-static-products";
 import heroIndustrial from "@/assets/hero-industrial.jpg";
 import logo from "@/assets/logo-entgroup.avif";
+import teamSky from "@/assets/team-sky.png";
+import teamSom from "@/assets/team-som.png";
+import teamPreaw from "@/assets/team-preaw.png";
 
 const searchIndex = [
   { keywords: ["mini pc", "มินิพีซี", "สำนักงาน", "office", "thin client"], label: "Mini PC สำนักงาน", href: "/mini-pc" },
