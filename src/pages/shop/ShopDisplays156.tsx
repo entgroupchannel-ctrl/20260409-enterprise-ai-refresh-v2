@@ -123,6 +123,7 @@ export default function ShopDisplays156() {
   const [ramIdx, setRamIdx] = useState(0);
   const [ssdIdx, setSsdIdx] = useState(0);
   const [wifiIdx, setWifiIdx] = useState(0);
+  const [osIdx, setOsIdx] = useState(0);
   const [addons, setAddons] = useState<string[]>([]);
   const [qty, setQty] = useState<number>(1);
   const [submitting, setSubmitting] = useState(false);
