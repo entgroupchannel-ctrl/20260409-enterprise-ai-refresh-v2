@@ -28,16 +28,18 @@ const PRODUCT = DISPLAYS_156.kd156b;
 /* Estimated indicative prices per variant (THB, 1 unit). Used for the
    quote estimator only — the official price is confirmed by sales. */
 const VARIANT_BASE_PRICE: Record<string, number> = {
-  monitor: 28900,
-  x86: 49900,
-  android: 36900,
+  monitor: 22990,   // จอเปล่า (ไม่มี PC ในตัว) — ปรับลดลงจาก 28,900
+  x86: 68990,       // Windows/Linux x86 base = J6412 Entry (อิงราคาประเมิน)
+  android: 42990,   // Android (RK3568 Entry)
 };
 
-/* CPU tier delta (THB) — relative to the variant base */
+/* CPU tier delta (THB) — relative to the variant base
+   x86: J6412 → i5-8th → i7-10th (สเปกสูงขึ้น ราคาขึ้นตาม)
+   android: RK3568 → RK3288 → RK3588 */
 const CPU_TIER_DELTA: Record<string, number> = {
   Entry: 0,
-  Mid: 8000,
-  High: 18000,
+  Mid: 18000,    // +18,000 (i5-8th / RK3288)
+  High: 38000,   // +38,000 (i7-10th / RK3588 octa-core)
 };
 
 const ICON_MAP = {
