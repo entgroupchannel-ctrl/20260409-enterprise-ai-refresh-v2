@@ -697,6 +697,7 @@ export default function ShopDisplays156() {
         </div>
       )}
 
+      <RelatedKioskModels currentSlug="displays-15.6" />
       <Footer />
     </div>
   );

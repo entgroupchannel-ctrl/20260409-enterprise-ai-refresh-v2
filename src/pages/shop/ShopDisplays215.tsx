@@ -700,6 +700,7 @@ export default function ShopDisplays215() {
         </div>
       )}
 
+      <RelatedKioskModels currentSlug="displays-21.5" />
       <Footer />
     </div>
   );
