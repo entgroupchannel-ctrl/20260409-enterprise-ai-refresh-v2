@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { ChevronRight, Trash2 } from 'lucide-react';
 import SiteNavbar from '@/components/SiteNavbar';
 import ShopActivityPanel from '@/components/shop/ShopActivityPanel';
+import { getShopStaticCompareProducts } from '@/data/shop-static-products';
 
 interface Product {
   id: string; slug: string; model: string; name: string; thumbnail_url: string | null;
@@ -30,12 +31,26 @@ const ShopCompare = () => {
     if (slugs.length === 0) { setLoading(false); return; }
     const fetchProducts = async () => {
       setLoading(true);
-      const { data } = await supabase
-        .from('products')
-        .select('id, slug, model, name, thumbnail_url, cpu, ram_gb, storage_gb, storage_type, has_wifi, has_4g, os, form_factor, unit_price, stock_status')
-        .in('slug', slugs)
-        .eq('is_active', true);
-      setProducts((data || []) as Product[]);
+      // 1) ดึงสินค้า static (สินค้าที่มีหน้า /shop/:slug แต่ไม่ได้อยู่ใน Supabase products table)
+      const staticMatches = getShopStaticCompareProducts(slugs) as unknown as Product[];
+      const staticSlugs = new Set(staticMatches.map((p) => p.slug.toLowerCase()));
+      // 2) สำหรับ slug ที่เหลือ (ไม่ใช่ static) → query Supabase
+      const dbSlugs = slugs.filter((s) => !staticSlugs.has(s.toLowerCase()));
+      let dbProducts: Product[] = [];
+      if (dbSlugs.length > 0) {
+        const { data } = await supabase
+          .from('products')
+          .select('id, slug, model, name, thumbnail_url, cpu, ram_gb, storage_gb, storage_type, has_wifi, has_4g, os, form_factor, unit_price, stock_status')
+          .in('slug', dbSlugs)
+          .eq('is_active', true);
+        dbProducts = (data || []) as Product[];
+      }
+      // 3) รวมผล + เรียงตามลำดับ slugs ที่ผู้ใช้เลือก
+      const combined = [...staticMatches, ...dbProducts];
+      const ordered = slugs
+        .map((s) => combined.find((p) => p.slug.toLowerCase() === s.toLowerCase()))
+        .filter((p): p is Product => Boolean(p));
+      setProducts(ordered);
       setLoading(false);
     };
     fetchProducts();
