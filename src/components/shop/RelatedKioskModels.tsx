@@ -13,6 +13,7 @@ import dm080nfHero from "@/assets/touchwork/DM080NF-Monitor.jpg";
 import dm080wgHero from "@/assets/touchwork/DM080WG-Monitor.jpg";
 import dm101gHero from "@/assets/touchwork/DM101G-Monitor.jpg";
 import dm104gHero from "@/assets/touchwork/DM104G-Monitor.jpg";
+import dm121gHero from "@/assets/touchwork/DM121G-Monitor.jpg";
 
 const gd32cHero = "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg";
 
@@ -147,6 +148,16 @@ const ALL_MODELS: KioskModel[] = [
     startingPrice: 13990,
     image: dm104gHero,
     productHref: "/touchwork/dm104g",
+  },
+  {
+    slug: "dm121g",
+    modelCode: "DM121G",
+    size: '12.1"',
+    shortName: "DM121G Industrial Touch PC",
+    tagline: 'จอสัมผัส 12.1" 4:3 Capacitive 10pt — Monitor / Android / Windows • Backlight 30,000 ชม.',
+    startingPrice: 14990,
+    image: dm121gHero,
+    productHref: "/touchwork/dm121g",
   },
 ];
 
