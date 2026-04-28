@@ -4265,7 +4265,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   <div className="grid grid-cols-2 gap-3">
                     {[
                       { src: "/images/gt9000/front.jpg", alt: "GT9000 ด้านหน้า" },
-                      { src: "/images/gt9000/side.jpg", alt: "GT9000 ด้านข้าง" },
+                      { src: "/images/gt9000/side.jpg", alt: "GT9000 ​ขาตั้งพื้น" },
                       { src: "/images/gt9000/angle.jpg", alt: "GT9000 มุมเฉียง" },
                       { src: "/images/gt9000/motherboard.png", alt: "GT9000 เมนบอร์ด" },
                     ].map((img, i) => (
