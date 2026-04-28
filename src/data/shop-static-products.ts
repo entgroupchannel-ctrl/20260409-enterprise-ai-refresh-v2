@@ -18,6 +18,7 @@ import dm17gHero from '@/assets/touchwork/DM17G-Monitor.jpg';
 import dm19gHero from '@/assets/touchwork/DM19G-Monitor.jpg';
 import dm215gHero from '@/assets/touchwork/DM215G-Monitor.jpg';
 import gd133Hero from '@/assets/touchwork/GD133-Monitor.jpg';
+import gd156Hero from '@/assets/touchwork/GD156-Monitor.jpg';
 import jd133Hero from '@/assets/touchwork/JD133-Monitor.jpg';
 import jd156bHero from '@/assets/touchwork/JD156B-Monitor.jpg';
 import jd185bHero from '@/assets/touchwork/JD185B-Monitor.jpg';
@@ -297,6 +298,23 @@ export const SHOP_STATIC_COMPARE_PRODUCTS: ShopStaticCompareProduct[] = [
     os: 'Plug & Play / Android 11-13 / Windows 10-11',
     form_factor: 'Wall-Mount Touch PC',
     unit_price: 14990,
+    stock_status: 'available',
+  },
+  {
+    id: 'static-gd156',
+    slug: 'gd156',
+    model: 'GD156',
+    name: 'TouchWork 15.6" Wall-Mount Touch Kiosk IPS Full HD — 13mm Bezel, Mohs 7 (Monitor / Android / Windows)',
+    thumbnail_url: gd156Hero,
+    cpu: 'Plug & Play / RK3568 / Intel (TBD)',
+    ram_gb: 4,
+    storage_gb: 32,
+    storage_type: 'eMMC / SSD',
+    has_wifi: true,
+    has_4g: false,
+    os: 'Plug & Play / Android 11-12 / Windows 10-11 / Linux',
+    form_factor: 'Wall-Mount Touch Kiosk',
+    unit_price: 16990,
     stock_status: 'available',
   },
   {

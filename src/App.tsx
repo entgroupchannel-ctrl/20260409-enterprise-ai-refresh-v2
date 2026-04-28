@@ -83,6 +83,7 @@ const ShopTouchworkDM17G = lazyRetry(() => import("./pages/shop/ShopTouchworkDM1
 const ShopTouchworkDM19G = lazyRetry(() => import("./pages/shop/ShopTouchworkDM19G"));
 const ShopTouchworkDM215G = lazyRetry(() => import("./pages/shop/ShopTouchworkDM215G"));
 const ShopTouchworkGD133 = lazyRetry(() => import("./pages/shop/ShopTouchworkGD133"));
+const ShopTouchworkGD156 = lazyRetry(() => import("./pages/shop/ShopTouchworkGD156"));
 const ShopTouchworkJD133 = lazyRetry(() => import("./pages/shop/ShopTouchworkJD133"));
 const ShopTouchworkJD156B = lazyRetry(() => import("./pages/shop/ShopTouchworkJD156B"));
 const ShopTouchworkJD185B = lazyRetry(() => import("./pages/shop/ShopTouchworkJD185B"));
@@ -394,6 +395,7 @@ const App = () => (
                     <Route path="/shop/dm19g" element={<ShopTouchworkDM19G />} />
                     <Route path="/shop/dm215g" element={<ShopTouchworkDM215G />} />
                     <Route path="/shop/gd133" element={<ShopTouchworkGD133 />} />
+                    <Route path="/shop/gd156" element={<ShopTouchworkGD156 />} />
                     <Route path="/shop/jd133" element={<ShopTouchworkJD133 />} />
                     <Route path="/shop/jd156b" element={<ShopTouchworkJD156B />} />
                     <Route path="/shop/jd185b" element={<ShopTouchworkJD185B />} />
