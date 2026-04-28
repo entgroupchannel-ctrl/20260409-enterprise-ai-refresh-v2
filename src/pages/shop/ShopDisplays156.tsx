@@ -695,17 +695,17 @@ export default function ShopDisplays156() {
 function QuickSpec({ label, value }: { label: string; value: string }) {
   return (
     <div className="text-center">
-      <p className="text-[9px] uppercase tracking-wider text-muted-foreground">{label}</p>
-      <p className="text-[11px] font-semibold leading-tight">{value}</p>
+      <p className="text-[10px] uppercase tracking-wider text-muted-foreground">{label}</p>
+      <p className="text-sm font-semibold leading-tight">{value}</p>
     </div>
   );
 }
 
 function ConfigBlock({ icon: Icon, label, children }: { icon: React.ElementType; label: string; children: React.ReactNode }) {
   return (
-    <div className="space-y-1">
-      <div className="flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-        <Icon className="w-3 h-3" />
+    <div className="space-y-1.5">
+      <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+        <Icon className="w-3.5 h-3.5" />
         <span>{label}</span>
       </div>
       {children}
@@ -721,21 +721,25 @@ function ChipRow({
   onSelect: (i: number) => void;
 }) {
   return (
-    <div className="flex flex-wrap gap-1">
+    <div className="flex flex-wrap gap-1.5">
       {options.map((o, i) => {
         const active = i === activeIdx;
+        const sign = o.delta > 0 ? "+" : o.delta < 0 ? "−" : "";
+        const absDelta = Math.abs(o.delta);
         return (
           <button
             key={i}
             onClick={() => onSelect(i)}
             className={cn(
-              "px-2 py-1 rounded-full border text-[10px] transition-all flex items-center gap-1",
+              "px-2.5 py-1.5 rounded-full border text-xs transition-all flex items-center gap-1",
               active ? "border-primary bg-primary text-primary-foreground" : "border-border hover:border-primary/50",
             )}
           >
             {o.label}
-            {o.delta > 0 && (
-              <span className={cn(active ? "opacity-80" : "text-primary")}>+฿{(o.delta).toLocaleString("th-TH")}</span>
+            {o.delta !== 0 && (
+              <span className={cn(active ? "opacity-80" : o.delta < 0 ? "text-green-600" : "text-primary")}>
+                {sign}฿{absDelta.toLocaleString("th-TH")}
+              </span>
             )}
           </button>
         );
