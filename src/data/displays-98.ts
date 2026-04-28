@@ -118,7 +118,7 @@ export const DISPLAYS_98: Record<Display98Slug, Display32> = {
           "จอ 98\" Wall-mount ในล็อบบี้โรงแรมระดับ 5 ดาว — Directory ห้องอาหาร, สปา, Activities, Local Attractions พร้อม Map เห็นภาพชัดในระยะ 10-25 เมตร Mohs 7 ทนการสัมผัสต่อเนื่อง รองรับหลายภาษา (Multi-language UI)",
       },
     ],
-    gallery: [rz98P1, rz98Monitor, rz98Windows, rz98Android],
+    gallery: [rz98P1, rz98Monitor, rz98Windows, rz98Android, rz98GalleryNew1, rz98GalleryNew2, rz98GalleryNew3],
     ioImage: rz98Io,
     installImages: [rz98InstallFloor, rz98InstallWall, rz98InstallAcc],
     featureImages: [rz98Feat1, rz98Feat2, rz98Feat3, rz98Feat4],
