@@ -19,19 +19,22 @@ import { toast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/hooks/useCart";
 import { savePendingQuote } from "@/hooks/usePendingQuote";
-import { DISPLAYS_156 } from "@/data/displays-156";
+import { DISPLAYS_215 } from "@/data/displays-215";
 import LineQRButton from "@/components/LineQRButton";
 
 /* ------------------------------------------------------------------ */
-/*  Source product (single model: KD156B with 3 configurations)       */
+/*  Source product (single model: KD215B with 3 configurations)       */
 /* ------------------------------------------------------------------ */
-const PRODUCT = DISPLAYS_156.kd156b;
+const PRODUCT = DISPLAYS_215.kd215b;
 
-/* Estimated indicative prices per variant (THB, 1 unit). */
+/* Estimated indicative prices per variant (THB, 1 unit).
+ * สูตร: USD × 35 × 2.3 × 1.07 (VAT/import) + 10,000 (shipping) → ลงท้าย 990
+ * KD215B Windows Entry (J6412/4GB/128GB Ubuntu): $708 → ~70,990
+ */
 const VARIANT_BASE_PRICE: Record<string, number> = {
-  monitor: 22990,
-  x86: 68990,
-  android: 42990,
+  monitor: 27990,
+  x86: 70990,
+  android: 48990,
 };
 
 /* CPU tier delta */
