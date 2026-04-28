@@ -1,4 +1,5 @@
-import { ShoppingCart, FileText, MessageCircle, ShieldCheck, Sparkles } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ShoppingCart, FileText, MessageCircle, ShieldCheck, Sparkles, Mail, Phone } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
 /**
