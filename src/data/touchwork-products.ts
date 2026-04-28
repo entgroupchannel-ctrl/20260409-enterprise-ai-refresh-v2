@@ -37,6 +37,9 @@ import GD133_X86 from "@/assets/touchwork/GD133-X86.jpg";
 import GD156_Monitor from "@/assets/touchwork/gallery/GD156-Monitor/01.jpg";
 import GD156_ARM from "@/assets/touchwork/gallery/GD156-ARM/01.jpg";
 import GD156_X86 from "@/assets/touchwork/gallery/GD156-X86/windows-desktop-01.jpg";
+import GD156E_Monitor from "@/assets/touchwork/gallery/GD156E-Monitor/01.jpg";
+import GD156E_ARM from "@/assets/touchwork/gallery/GD156E-ARM/01.jpg";
+import GD156E_X86 from "@/assets/touchwork/gallery/GD156E-X86/01.jpg";
 import JD185B_ARM from "@/assets/touchwork/JD185B-ARM.jpg";
 import JD185B_Monitor from "@/assets/touchwork/JD185B-Monitor.jpg";
 import JD185B_X86 from "@/assets/touchwork/JD185B-X86.jpg";
@@ -146,7 +149,7 @@ function buildVariants(model: string, archs: TouchWorkArch[]): TouchWorkVariant[
     DM215G: { ARM: DM215G_ARM, Monitor: DM215G_Monitor, X86: DM215G_X86 },
     GD133: { ARM: GD133_ARM, Monitor: GD133_Monitor, X86: GD133_X86 },
     GD156: { ARM: GD156_ARM, Monitor: GD156_Monitor, X86: GD156_X86 },
-    GD156E: { ARM: GD156_ARM, Monitor: GD156_Monitor, X86: GD156_X86 },
+    GD156E: { ARM: GD156E_ARM, Monitor: GD156E_Monitor, X86: GD156E_X86 },
     JD185B: { ARM: JD185B_ARM, Monitor: JD185B_Monitor, X86: JD185B_X86 },
     GD101E: { Monitor: GD101E_Monitor, ARM: GD101E_ARM, X86: GD101E_X86 },
     JD133: { Monitor: JD133_Monitor, ARM: JD133_ARM },
