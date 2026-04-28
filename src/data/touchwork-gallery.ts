@@ -64,8 +64,8 @@ const manifest: Record<string, Partial<Record<Arch, string[]>>> = {
   },
   GD101E: {
     Monitor: ["01.jpg", "02.jpg", "03.jpg", "04.jpg"],
-    ARM: ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg", "06.jpg", "07.jpg"],
-    X86: ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg"],
+    ARM: ["01.jpg", "03.jpg", "04.jpg", "05.jpg", "06.jpg", "07.jpg"],
+    X86: ["01.jpg", "03.jpg", "04.jpg", "05.jpg"],
   },
   GD133: {
     Monitor: ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg", "06.jpg", "07.jpg"],
