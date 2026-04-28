@@ -75,9 +75,9 @@ const EPCRecommendedRow = () => {
   return (
     <section
       aria-labelledby="epc-recommended-title"
-      className="px-4 md:px-8 pb-8 md:pb-12"
+      className="pb-2"
     >
-      <div className="container max-w-7xl mx-auto">
+      <div className="w-full">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-5">
           <div>
             <Badge variant="secondary" className="mb-2 gap-1.5">
