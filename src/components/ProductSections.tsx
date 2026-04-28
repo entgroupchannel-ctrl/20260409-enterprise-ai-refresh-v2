@@ -5,6 +5,7 @@ import waterproofPcBanner from "@/assets/waterproof-pc-banner.jpg";
 import ruggedDevicesBanner from "@/assets/rugged-devices-banner.jpg";
 import volktekBanner from "@/assets/volktek-banner.jpg";
 import touchscreenBanner from "@/assets/touchscreen-kiosk-banner.jpg";
+import EPCRecommendedRow from "@/components/EPCRecommendedRow";
 
 const sections = [
   {
