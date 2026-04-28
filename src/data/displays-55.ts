@@ -445,7 +445,7 @@ export const DISPLAYS_55: Record<Display55Slug, Display32> = {
       {
         image: hr55Io,
         title: "I/O Layout — External Connectors",
-        caption: "พอร์ตเชื่อมต่อด้านหลัง — รองรับครบทั้ง 3 Configuration: Monitor (HDMI in / DVI / VGA / USB / Audio), Windows OPS (HDMI out / VGA / USB ×4 / RJ45 / Wi-Fi / MIC), Android (HDMI out / USB ×2 / RJ45 / TF/SD / Audio + Wi-Fi)",
+        caption: "พอร์ตเชื่อมต่อ​ขาจับแบบ VESA Mouting — รองรับครบทั้ง 3 Configuration: Monitor (HDMI in / DVI / VGA / USB / Audio), Windows OPS (HDMI out / VGA / USB ×4 / RJ45 / Wi-Fi / MIC), Android (HDMI out / USB ×2 / RJ45 / TF/SD / Audio + Wi-Fi)",
         callouts: [
           { label: "Monitor", value: "HDMI in + DVI + VGA + USB + Audio" },
           { label: "Windows OPS", value: "HDMI + VGA + USB×4 + RJ45 + Wi-Fi + MIC" },
