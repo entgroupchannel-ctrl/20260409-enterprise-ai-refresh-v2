@@ -1,7 +1,14 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Monitor, Maximize2 } from "lucide-react";
+import { ArrowRight, Monitor, Maximize2, ShoppingBag, Tag } from "lucide-react";
 import kioskBanner from "@/assets/banners/home-kiosk-banner.jpg";
 import largeDisplayBanner from "@/assets/banners/home-largedisplay-banner.jpg";
+import { SHOP_STATIC_COMPARE_PRODUCTS } from "@/data/shop-static-products";
+
+// สินค้าใน /shop ที่ตรงกับหัวข้อ (Touch Kiosk + Indoor Display ขนาดใหญ่)
+const SHOP_MATCHED_SLUGS = [
+  "gd215c", "gd238c3", "gd27c", "gd32c",
+  "jd156b", "jd185b", "jd215b", "gd133",
+];
 
 /**
  * Interactive Display & KIOSK Banner — Home page
@@ -152,6 +159,63 @@ const InteractiveDisplayBanner = () => {
               { label: '86" – 98"', href: "/products/displays-86" },
             ]}
           />
+        </div>
+
+        {/* CTA: ไปหน้า /shop */}
+        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <Link
+            to="/shop"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground text-sm font-bold hover:bg-primary/90 transition-colors shadow-md"
+          >
+            <ShoppingBag className="w-4 h-4" />
+            ดูทั้งหมดใน /shop พร้อมราคา
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+          <p className="text-xs text-muted-foreground">
+            เลือกสเปก Monitor / Android / Windows — มีราคาแสดงชัดเจน
+          </p>
+        </div>
+
+        {/* สินค้าจาก /shop ที่ตรงกับหัวข้อ */}
+        <div className="mt-6">
+          <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3 text-center">
+            รุ่นแนะนำใน Shop ที่ตรงหัวข้อนี้
+          </h3>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-2 md:gap-3">
+            {SHOP_MATCHED_SLUGS.map((slug) => {
+              const p = SHOP_STATIC_COMPARE_PRODUCTS.find((x) => x.slug === slug);
+              if (!p) return null;
+              return (
+                <Link
+                  key={p.id}
+                  to={`/shop/${p.slug}`}
+                  className="group flex flex-col bg-card border border-border rounded-lg overflow-hidden hover:border-primary hover:shadow-md transition-all"
+                >
+                  <div className="relative aspect-square bg-muted overflow-hidden">
+                    {p.thumbnail_url && (
+                      <img
+                        src={p.thumbnail_url}
+                        alt={p.name}
+                        loading="lazy"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    )}
+                    <span className="absolute top-1 left-1 text-[9px] font-mono px-1.5 py-0.5 rounded bg-background/90 border border-border">
+                      {p.model}
+                    </span>
+                  </div>
+                  <div className="p-2">
+                    <div className="text-[10px] text-muted-foreground flex items-center gap-1">
+                      <Tag className="w-2.5 h-2.5" /> เริ่มต้น
+                    </div>
+                    <div className="text-xs md:text-sm font-bold text-primary leading-tight">
+                      ฿{p.unit_price.toLocaleString("th-TH")}
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
