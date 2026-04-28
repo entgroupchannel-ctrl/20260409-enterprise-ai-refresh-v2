@@ -215,6 +215,11 @@ const ShopStorefront = () => {
           const SB = 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/gt-series';
           const modelImageMap: Record<string, string> = {
             'ITD-HD32': hd32HeroClean,
+            // KD-Series Floor-Stand Kiosks (4 รุ่น Shop)
+            'KD156B-KIOSK': kd156bHero,
+            'KD215B-KIOSK': kd215bHero,
+            'KD32B-KIOSK': kd32bHeroShop,
+            'KD43B-KIOSK': kd43bHero,
             // GTY Series
             'gty121t-base': '/images/panelpc/gty121-front.jpg',
             'gty150t-base': '/images/panelpc/gty156-front.png',
