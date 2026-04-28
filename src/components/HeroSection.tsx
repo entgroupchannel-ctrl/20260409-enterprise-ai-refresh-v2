@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Search, Menu, X, ChevronDown, LogIn, UserCircle, LayoutDashboard, LogOut, FileText, Plus, User, Tag, Mail, ShoppingCart, ArrowRight, Flame } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -62,6 +62,20 @@ const HeroSection = () => {
   const navigate = useNavigate();
   const searchRef = useRef<HTMLDivElement>(null);
   const { user, profile, signOut, loading: authLoading } = useAuth();
+
+  // สุ่มสินค้า 3 รุ่นจาก Shop พร้อม badge สุ่ม (ขายดี/ลดราคา/ยอดนิยม/มาใหม่)
+  const featuredPicks = useMemo(() => {
+    const badges = [
+      { label: "ขายดี", className: "bg-orange-500 text-white" },
+      { label: "ลดราคา", className: "bg-red-500 text-white" },
+      { label: "ยอดนิยม", className: "bg-primary text-primary-foreground" },
+      { label: "มาใหม่", className: "bg-emerald-500 text-white" },
+      { label: "แนะนำ", className: "bg-blue-500 text-white" },
+    ];
+    const shuffled = [...SHOP_STATIC_COMPARE_PRODUCTS].sort(() => Math.random() - 0.5).slice(0, 3);
+    const shuffledBadges = [...badges].sort(() => Math.random() - 0.5);
+    return shuffled.map((p, i) => ({ ...p, badge: shuffledBadges[i % shuffledBadges.length] }));
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => setTagsExpanded(false), 10000);
@@ -417,13 +431,13 @@ const HeroSection = () => {
                 </h3>
 
                 <div className="space-y-2.5">
-                  {SHOP_STATIC_COMPARE_PRODUCTS.slice(0, 3).map((p) => (
+                  {featuredPicks.map((p) => (
                     <Link
                       key={p.id}
                       to={`/shop/${p.slug}`}
                       className="group flex items-center gap-3 p-2.5 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 hover:border-white/30 transition-all"
                     >
-                      <div className="w-14 h-14 rounded-lg bg-white/90 overflow-hidden shrink-0">
+                      <div className="relative w-14 h-14 rounded-lg bg-white/90 overflow-hidden shrink-0">
                         {p.thumbnail_url && (
                           <img
                             src={p.thumbnail_url}
@@ -434,7 +448,12 @@ const HeroSection = () => {
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="text-[10px] font-mono text-primary/90">{p.model}</div>
+                        <div className="flex items-center gap-1.5 mb-0.5">
+                          <span className={`inline-block px-1.5 py-0.5 rounded text-[9px] font-bold uppercase ${p.badge.className}`}>
+                            {p.badge.label}
+                          </span>
+                          <span className="text-[10px] font-mono text-primary/90 truncate">{p.model}</span>
+                        </div>
                         <div className="text-xs font-semibold text-white line-clamp-1">{p.name}</div>
                         <div className="text-sm font-bold text-primary">฿{p.unit_price.toLocaleString("th-TH")}</div>
                       </div>
