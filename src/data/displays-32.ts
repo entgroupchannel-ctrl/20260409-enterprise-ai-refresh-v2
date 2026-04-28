@@ -14,6 +14,9 @@ import osAndroid from "@/assets/touchwo/os-android.jpg";
 // Clean hero shots (logo/watermark removed)
 import hd32HeroClean from "@/assets/touchwo/hd32-hero-clean.jpg";
 import hd32Gallery02Clean from "@/assets/touchwo/hd32-gallery-02-clean.jpg";
+import hd32Gallery05Clean from "@/assets/touchwo/hd32-gallery-05-clean.jpg";
+import hd32Gallery08Clean from "@/assets/touchwo/hd32-gallery-08-clean.jpg";
+import hd32Gallery09Clean from "@/assets/touchwo/hd32-gallery-09-clean.jpg";
 import hr32HeroClean from "@/assets/touchwo/hr32-hero-clean.jpg";
 import hr32Gallery02Clean from "@/assets/touchwo/hr32-gallery-02-clean.jpg";
 import kd32bHeroClean from "@/assets/touchwo/kd32b-hero-clean.jpg";
@@ -391,8 +394,10 @@ export const DISPLAYS_32: Record<Display32Slug, Display32> = {
     gallery: [
       hd32HeroClean,
       hd32Gallery02Clean,
-      ...["gallery-03.jpg","gallery-04.jpg",
-      "gallery-05.jpg","gallery-08.jpg","gallery-09.webp"].map(n => IMG("hd32", n)),
+      hd32Gallery05Clean,
+      hd32Gallery08Clean,
+      hd32Gallery09Clean,
+      ...["gallery-03.jpg","gallery-04.jpg"].map(n => IMG("hd32", n)),
     ],
     ioImage: IMG("hd32", "io-01.png"),
     installImages: [hd32Install01Clean, hd32Install02Clean, hd32Install03Clean],
