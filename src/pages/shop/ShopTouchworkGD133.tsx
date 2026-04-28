@@ -68,8 +68,8 @@ const VARIANT_BASE_PRICE: Record<string, number> = {
 
 const VARIANT_GALLERIES: Record<string, string[]> = {
   monitor: [g_mon_04, g_mon_03, g_mon_02, g_mon_05, g_mon_06, g_mon_07],
-  arm: [g_arm_04, g_arm_03, g_arm_02, g_arm_05, g_arm_06, g_arm_07],
-  x86: [g_x86_04, g_x86_03, g_x86_02, g_x86_05, g_x86_06, g_x86_07],
+  arm: [g_arm_04, g_arm_03, g_arm_05, g_arm_06, g_arm_07],
+  x86: [g_x86_04, g_x86_03, g_x86_05, g_x86_06, g_x86_07],
 };
 
 const SHOP_VARIANTS = [
