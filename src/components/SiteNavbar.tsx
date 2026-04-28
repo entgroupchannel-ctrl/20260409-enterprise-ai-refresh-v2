@@ -201,6 +201,17 @@ export default function SiteNavbar() {
       {/* Mobile menu */}
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-border p-4 bg-card animate-fade-in max-h-[80vh] overflow-y-auto">
+          {/* Shop CTA — เด่นด้านบนสุดของเมนูมือถือ */}
+          {!isOnShop && (
+            <Link
+              to="/shop"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center justify-center gap-2 w-full px-4 py-3 mb-4 rounded-lg text-base font-bold bg-primary text-primary-foreground hover:bg-primary/90 shadow-md transition-all"
+            >
+              <ShoppingBag size={18} />
+              Shop สินค้าทั้งหมด
+            </Link>
+          )}
           <MobileMegaMenu onNavigate={() => setMobileMenuOpen(false)} />
           <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-border">
             {!authLoading && (
