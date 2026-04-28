@@ -1223,7 +1223,14 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
         )}
       </main>
 
+      <YouMayAlsoLike
+        currentSizeNumeric={groupSize}
+        candidates={suggestions}
+        browseAllHref="/interactive-display"
+      />
+
       <FooterCompact />
+
 
       {lightbox && (
         <SimpleLightbox
