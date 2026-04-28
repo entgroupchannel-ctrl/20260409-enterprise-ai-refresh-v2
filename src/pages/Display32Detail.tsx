@@ -295,27 +295,42 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
             </Link>
 
             {/* B2B Platform mini-banner — กระตุ้นให้เพิ่มลงตะกร้า/ขอใบเสนอราคา */}
-            <Link
-              to="/request-quote"
-              className="group relative flex-1 min-w-0 hidden md:flex items-center gap-3 px-4 py-2 rounded-lg overflow-hidden bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border border-primary/20 hover:border-primary/50 hover:from-primary/15 transition-all"
-            >
-              <div className="flex items-center justify-center w-9 h-9 rounded-md bg-primary/15 text-primary shrink-0">
-                <Briefcase size={18} />
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-primary">
-                  <Sparkles size={11} />
-                  B2B Platform
-                </div>
-                <p className="text-xs text-foreground/80 leading-tight truncate">
-                  เพิ่มสินค้าหลายรายการ → ขอใบเสนอราคารวม รับส่วนลดองค์กร
-                </p>
-              </div>
-              <div className="hidden lg:inline-flex items-center gap-1 px-3 py-1.5 rounded-md bg-primary text-primary-foreground text-xs font-bold shrink-0 group-hover:gap-2 transition-all">
-                ขอใบเสนอราคา
-                <ArrowLeft size={12} className="rotate-180" />
-              </div>
-            </Link>
+            {(() => {
+              const shopSlug =
+                groupSize === 156 ? "displays-15.6" :
+                groupSize === 215 ? "displays-21.5" :
+                groupSize === 32 ? "displays-32" :
+                groupSize === 43 ? "displays-43" : null;
+              const hasShop = shopSlug !== null;
+              const linkTo = hasShop ? `/shop/${shopSlug}` : "/request-quote";
+              const ctaLabel = hasShop ? "หยิบใส่ตะกร้า" : "ขอใบเสนอราคา";
+              const description = hasShop
+                ? "สั่งซื้อออนไลน์ผ่าน Shop → แอดมินช่วยปรับสเปก/ใบเสนอราคาให้จนลงตัว"
+                : "เพิ่มสินค้าหลายรายการ → ขอใบเสนอราคารวม รับส่วนลดองค์กร";
+              return (
+                <Link
+                  to={linkTo}
+                  className="group relative flex-1 min-w-0 hidden md:flex items-center gap-3 px-4 py-2 rounded-lg overflow-hidden bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border border-primary/20 hover:border-primary/50 hover:from-primary/15 transition-all"
+                >
+                  <div className="flex items-center justify-center w-9 h-9 rounded-md bg-primary/15 text-primary shrink-0">
+                    <Briefcase size={18} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-primary">
+                      <Sparkles size={11} />
+                      B2B Platform
+                    </div>
+                    <p className="text-xs text-foreground/80 leading-tight truncate">
+                      {description}
+                    </p>
+                  </div>
+                  <div className="hidden lg:inline-flex items-center gap-1 px-3 py-1.5 rounded-md bg-primary text-primary-foreground text-xs font-bold shrink-0 group-hover:gap-2 transition-all">
+                    {ctaLabel}
+                    <ArrowLeft size={12} className="rotate-180" />
+                  </div>
+                </Link>
+              );
+            })()}
           </div>
         </div>
       </section>
