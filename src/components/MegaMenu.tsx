@@ -351,7 +351,7 @@ const MegaMenu = ({
           className="flex items-center gap-1.5 px-3 py-2 mr-1 rounded-lg text-sm font-bold bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm hover:shadow-md transition-all whitespace-nowrap shrink-0"
         >
           <ShoppingBag size={14} />
-          Shop ทั้งหมด
+          Shop
         </Link>
         {menuCategories.map((cat) => (
           <button
