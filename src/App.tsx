@@ -355,6 +355,7 @@ const App = () => (
                     <Route path="/shop" element={<ShopStorefront />} />
                     <Route path="/shop/compare" element={<ShopCompare />} />
                     <Route path="/shop/displays-15.6" element={<ShopDisplays156 />} />
+                    <Route path="/shop/displays-21.5" element={<ShopDisplays215 />} />
                     <Route path="/shop/:slug" element={<ShopProductDetail />} />
                     <Route path="/unsubscribe" element={<Unsubscribe />} />
                     <Route path="/login" element={<Login />} />
