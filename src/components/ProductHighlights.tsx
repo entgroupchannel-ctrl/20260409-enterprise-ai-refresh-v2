@@ -151,12 +151,17 @@ const ProductHighlights = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {categories.map((cat) => (
-            <Link
+            <div
               key={cat.title}
-              to={cat.href}
-              className="group relative card-surface rounded-xl overflow-hidden hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+              className="group relative card-surface rounded-xl overflow-hidden hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg flex flex-col">
+              {/* Overlay link สำหรับคลิกการ์ดทั้งใบ → หน้ารายละเอียด */}
+              <Link
+                to={cat.href}
+                aria-label={`ดูรายละเอียด ${cat.title}`}
+                className="absolute inset-0 z-10"
+              />
               {cat.badge && (
-                <span className={`absolute top-3 right-3 z-10 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+                <span className={`absolute top-3 right-3 z-20 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
                   cat.badge === "Hot" 
                     ? "bg-destructive text-destructive-foreground" 
                     : "bg-primary text-primary-foreground"
@@ -177,7 +182,7 @@ const ProductHighlights = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
               </div>
 
-              <div className="p-5">
+              <div className="p-5 flex-1 flex flex-col">
                 {/* Icon + Text */}
                 <div className="flex items-start gap-3 mb-3">
                   <div className="shrink-0 w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
@@ -209,13 +214,23 @@ const ProductHighlights = () => {
                   )}
                 </div>
 
-                {/* Bottom action hint */}
-                <div className="flex items-center justify-between text-xs text-muted-foreground group-hover:text-primary transition-colors">
-                  <span className="font-medium">ดูรายละเอียด →</span>
-                  <span>{cat.models.length} หมวดหมู่</span>
+                {/* Bottom action row */}
+                <div className="mt-auto pt-3 border-t border-border/60 flex items-center justify-between gap-2">
+                  <span className="text-xs text-muted-foreground group-hover:text-primary transition-colors font-medium">
+                    ดูรายละเอียด →
+                  </span>
+                  <Link
+                    to={cat.shopHref}
+                    onClick={(e) => e.stopPropagation()}
+                    className="relative z-20 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity shadow-sm"
+                    aria-label={`ดู ${cat.title} ใน /shop`}
+                  >
+                    <ShoppingBag className="w-3.5 h-3.5" />
+                    ดูใน /shop
+                  </Link>
                 </div>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       </div>
