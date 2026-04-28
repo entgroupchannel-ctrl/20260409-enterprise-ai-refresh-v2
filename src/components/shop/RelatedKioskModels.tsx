@@ -83,6 +83,16 @@ const ALL_MODELS: KioskModel[] = [
     image: gd238c3Hero,
     productHref: "/products/displays-23.8?model=gd238c3",
   },
+  {
+    slug: "gd32c",
+    modelCode: "GD32C",
+    size: '32"',
+    shortName: "GD32C Wall Kiosk (Portrait)",
+    tagline: 'Wall-Mount 32" 9:16 Bezel 13mm — Retail / Self-service / POS',
+    startingPrice: 39990,
+    image: gd32cHero,
+    productHref: "/products/displays-32?model=gd32c",
+  },
 ];
 
 const fmt = (n: number) => n.toLocaleString("th-TH");
