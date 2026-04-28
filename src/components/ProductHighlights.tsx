@@ -137,7 +137,7 @@ const ProductHighlights = () => {
   return (
     <section className="section-padding" id="products">
       <div className="container max-w-7xl mx-auto">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <span className="text-xs font-semibold tracking-widest uppercase text-primary mb-4 block">
             Product Categories
           </span>

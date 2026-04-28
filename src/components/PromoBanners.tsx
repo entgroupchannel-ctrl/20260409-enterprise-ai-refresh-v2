@@ -61,7 +61,7 @@ const PromoBanners = () => {
   return (
     <section className="section-padding" id="promotions">
       <div className="container max-w-7xl mx-auto">
-        <div className="text-center mb-10">
+        <div className="text-center mb-6">
           <span className="text-xs font-semibold tracking-widest uppercase text-primary mb-3 block">
             Promotions
           </span>
