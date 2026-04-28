@@ -353,6 +353,7 @@ const App = () => (
                     <Route path="/blog/:id" element={<BlogDetail />} />
                     <Route path="/shop" element={<ShopStorefront />} />
                     <Route path="/shop/compare" element={<ShopCompare />} />
+                    <Route path="/shop/displays-15.6" element={<ShopDisplays156 />} />
                     <Route path="/shop/:slug" element={<ShopProductDetail />} />
                     <Route path="/unsubscribe" element={<Unsubscribe />} />
                     <Route path="/login" element={<Login />} />
