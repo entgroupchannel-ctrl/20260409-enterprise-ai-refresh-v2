@@ -555,33 +555,33 @@ export default function ShopDisplays156() {
                 <Separator />
 
                 {/* Quantity */}
-                <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground shrink-0">จำนวน</span>
-                  <Button size="icon" variant="outline" className="h-7 w-7" onClick={() => setQty(Math.max(1, qty - 1))}>
-                    <Minus className="w-3 h-3" />
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground shrink-0">จำนวน</span>
+                  <Button size="icon" variant="outline" className="h-8 w-8" onClick={() => setQty(Math.max(1, qty - 1))}>
+                    <Minus className="w-3.5 h-3.5" />
                   </Button>
                   <Input
                     type="number"
                     value={qty}
                     min={1}
                     onChange={(e) => setQty(Math.max(1, parseInt(e.target.value) || 1))}
-                    className="text-center font-bold w-14 h-7 text-sm"
+                    className="text-center font-bold w-16 h-8 text-sm"
                   />
-                  <Button size="icon" variant="outline" className="h-7 w-7" onClick={() => setQty(qty + 1)}>
-                    <Plus className="w-3 h-3" />
+                  <Button size="icon" variant="outline" className="h-8 w-8" onClick={() => setQty(qty + 1)}>
+                    <Plus className="w-3.5 h-3.5" />
                   </Button>
                   <div className="flex gap-1 ml-1">
                     {[5, 10, 50].map((n) => (
-                      <Button key={n} size="sm" variant="outline" className="h-7 px-2 text-[10px]" onClick={() => setQty(n)}>
+                      <Button key={n} size="sm" variant="outline" className="h-8 px-2.5 text-xs" onClick={() => setQty(n)}>
                         {n}
                       </Button>
                     ))}
                   </div>
                   {qty >= 5 && (
-                    <Badge variant="secondary" className="ml-auto text-[10px]">ลด {pricing.tierPct}%</Badge>
+                    <Badge variant="secondary" className="ml-auto text-xs">ลด {pricing.tierPct}%</Badge>
                   )}
                 </div>
-                <p className="text-[10px] text-muted-foreground -mt-1">💡 5+ ลด 7% • 10+ ลด 14% • 50+ ลด 20%</p>
+                <p className="text-xs text-muted-foreground -mt-1">💡 5+ ลด 7% • 10+ ลด 14% • 50+ ลด 20%</p>
 
                 {/* Price summary */}
                 <div className="bg-primary/5 border border-primary/20 rounded-lg p-2.5 space-y-1">
