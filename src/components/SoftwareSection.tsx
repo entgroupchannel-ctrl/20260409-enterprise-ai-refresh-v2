@@ -35,7 +35,7 @@ const SoftwareSection = () => {
 
       <div className="container max-w-7xl mx-auto relative">
         {/* Header */}
-        <div className="text-center mb-12 animate-fade-in">
+        <div className="text-center mb-8 animate-fade-in">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-semibold mb-4">
             <Code2 size={16} />
             <span>บริการใหม่ 2026</span>
@@ -50,7 +50,7 @@ const SoftwareSection = () => {
         </div>
 
         {/* Highlight stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           {highlights.map((h, i) => (
             <div
               key={h.label}

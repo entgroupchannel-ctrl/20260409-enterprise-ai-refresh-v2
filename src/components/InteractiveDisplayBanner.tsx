@@ -111,9 +111,9 @@ const BannerCard = ({
 
 const InteractiveDisplayBanner = () => {
   return (
-    <section className="py-12 md:py-16 px-4 md:px-8">
+    <section className="py-10 md:py-14 px-4 md:px-8">
       <div className="container max-w-7xl mx-auto">
-        <div className="text-center mb-8 md:mb-10">
+        <div className="text-center mb-6 md:mb-8">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold uppercase tracking-wider mb-3">
             Interactive Touch Display
           </div>
@@ -162,7 +162,7 @@ const InteractiveDisplayBanner = () => {
         </div>
 
         {/* CTA: ไปหน้า /shop */}
-        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+        <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
           <Link
             to="/shop"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground text-sm font-bold hover:bg-primary/90 transition-colors shadow-md"

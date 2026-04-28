@@ -9,9 +9,9 @@ const CaseStudiesSection = () => {
   const featured = caseStudies.slice(0, 3);
 
   return (
-    <section className="py-16 bg-muted/30">
+    <section className="py-10 md:py-14 bg-muted/30">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-10">
+        <div className="text-center mb-6">
           <Badge variant="outline" className="mb-3 text-primary border-primary/30">
             <Factory className="w-3.5 h-3.5 mr-1.5" /> Case Studies
           </Badge>

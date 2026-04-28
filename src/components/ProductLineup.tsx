@@ -182,10 +182,10 @@ const ProductLineup = () => {
   };
 
   return (
-    <section className="py-12 md:py-16 px-4 md:px-8 bg-surface/50">
+    <section className="py-10 md:py-14 px-4 md:px-8 bg-surface/50">
       <div className="container max-w-7xl mx-auto">
         {/* Header + Nav arrows */}
-        <div className="flex items-end justify-between mb-8">
+        <div className="flex items-end justify-between mb-6">
           <div>
             <span className="text-xs font-semibold tracking-widest uppercase text-primary mb-2 block">
               Product Finder
