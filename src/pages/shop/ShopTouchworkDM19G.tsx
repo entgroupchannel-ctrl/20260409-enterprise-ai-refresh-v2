@@ -49,21 +49,21 @@ import g_x86_06 from "@/assets/touchwork/gallery/DM19G-X86/06.jpg";
 import g_x86_07 from "@/assets/touchwork/gallery/DM19G-X86/07.jpg";
 
 /* ------------------------------------------------------------------ */
-/*  DM19G — 15.6" Industrial Touch PC / Monitor (Touchwork series)   */
+/*  DM19G — 19" Industrial Touch PC / Monitor (Touchwork series)     */
 /*  Specs verified from /touchwork/dm19g:                            */
-/*  - 15.6" 16:9 Widescreen, 1920 × 1080 Full HD                      */
-/*  - Capacitive 10-point, ≥250 cd/m², ≥800:1                         */
-/*  - Backlight 15,000 hr, IP65 (front)                               */
-/*  - VESA 75/100 + Embedded                                          */
+/*  - 19" 5:4 (TN a-Si), 1280 × 1024                                  */
+/*  - Capacitive 10-point, ≥250 cd/m²                                 */
+/*  - IP65 (front), Wi-Fi 5 + BT 4.2                                  */
+/*  - VESA 100 + Embedded + Desktop Stand                             */
 /*  Indicative prices (THB / 1 unit, base config):                    */
-/*  - Monitor: 16,990 / ARM (Android): 18,990                         */
-/*  - X86 (Windows): 21,990 (CPU Model — แจ้งแอดมินขอราคา)             */
+/*  - Monitor: 16,990 / ARM (Android 11/13): 19,990                   */
+/*  - X86 (Windows 10/11): 22,990 (CPU Model — แจ้งแอดมินขอราคา)       */
 /* ------------------------------------------------------------------ */
 
 const VARIANT_BASE_PRICE: Record<string, number> = {
-  monitor: 15990,
-  arm: 18990,
-  x86: 21990,
+  monitor: 16990,
+  arm: 19990,
+  x86: 22990,
 };
 
 const VARIANT_GALLERIES: Record<string, string[]> = {
