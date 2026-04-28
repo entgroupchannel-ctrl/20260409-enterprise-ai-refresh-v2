@@ -477,7 +477,7 @@ export default function ShopDisplaysGD238C3() {
                   </ConfigBlock>
                 </div>
 
-                <ConfigBlock icon={Disc} label="Android / OS Version">
+                <ConfigBlock icon={Disc} label={isIntel ? "ระบบปฏิบัติการ (OS)" : "Android / OS Version"}>
                   <ChipRow options={osOptions} activeIdx={osIdx} onSelect={setOsIdx} />
                 </ConfigBlock>
 
