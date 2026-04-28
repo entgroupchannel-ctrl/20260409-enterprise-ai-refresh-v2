@@ -14,6 +14,7 @@ import dm080wgHero from "@/assets/touchwork/DM080WG-Monitor.jpg";
 import dm101gHero from "@/assets/touchwork/DM101G-Monitor.jpg";
 import dm104gHero from "@/assets/touchwork/DM104G-Monitor.jpg";
 import dm121gHero from "@/assets/touchwork/DM121G-Monitor.jpg";
+import dm15gHero from "@/assets/touchwork/DM15G-Monitor.jpg";
 
 const gd32cHero = "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg";
 
@@ -158,6 +159,16 @@ const ALL_MODELS: KioskModel[] = [
     startingPrice: 14990,
     image: dm121gHero,
     productHref: "/touchwork/dm121g",
+  },
+  {
+    slug: "dm15g",
+    modelCode: "DM15G",
+    size: '15"',
+    shortName: "DM15G Industrial Touch PC",
+    tagline: 'จอสัมผัส 15" 4:3 Mohs 7 — Monitor / Android / Windows • ขนาดมาตรฐานโรงงาน',
+    startingPrice: 15990,
+    image: dm15gHero,
+    productHref: "/touchwork/dm15g",
   },
 ];
 
