@@ -19,6 +19,7 @@ import dm156gHero from "@/assets/touchwork/DM156G-Monitor.jpg";
 import dm17gHero from "@/assets/touchwork/DM17G-Monitor.jpg";
 import dm19gHero from "@/assets/touchwork/DM19G-Monitor.jpg";
 import dm215gHero from "@/assets/touchwork/DM215G-Monitor.jpg";
+import gd133Hero from "@/assets/touchwork/GD133-Monitor.jpg";
 
 const gd32cHero = "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg";
 
@@ -213,6 +214,16 @@ const ALL_MODELS: KioskModel[] = [
     startingPrice: 17990,
     image: dm215gHero,
     productHref: "/touchwork/dm215g",
+  },
+  {
+    slug: "gd133",
+    modelCode: "GD133",
+    size: '13.3"',
+    shortName: "GD133 Wall-Mount Touch PC",
+    tagline: 'Wall-Mount 13.3" 16:9 Full HD IPS — บาง 42.8 mm • Monitor / Android 11-13 / Windows 10-11',
+    startingPrice: 14990,
+    image: gd133Hero,
+    productHref: "/touchwork/gd133",
   },
 ];
 
