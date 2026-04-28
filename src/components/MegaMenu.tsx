@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import {
   Cpu, Monitor, Shield, Tablet, Wifi, Server, Box, Layers,
   Factory, Zap, ChevronRight, ArrowRight, Sparkles, Tv, Sun,
-  Droplets, UtensilsCrossed, Headset, ShieldCheck, Users, Handshake
+  Droplets, UtensilsCrossed, Headset, ShieldCheck, Users, Handshake, ShoppingBag
 } from "lucide-react";
 
 import imgGT from "@/assets/gt-series-mega-menu.jpg";
