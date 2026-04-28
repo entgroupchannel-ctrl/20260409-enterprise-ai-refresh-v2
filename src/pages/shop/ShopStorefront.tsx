@@ -50,6 +50,7 @@ import dm121gHero from '@/assets/touchwork/DM121G-Monitor.jpg';
 import dm15gHero from '@/assets/touchwork/DM15G-Monitor.jpg';
 import dm156gHero from '@/assets/touchwork/DM156G-Monitor.jpg';
 import dm17gHero from '@/assets/touchwork/DM17G-Monitor.jpg';
+import dm19gHero from '@/assets/touchwork/DM19G-Monitor.jpg';
 
 const gd32cHero = 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg';
 
@@ -608,6 +609,33 @@ const ShopStorefront = () => {
               is_featured: true,
               variant_count: 3,
               starting_price: 15990,
+              warranty_months: 12,
+              warranty_type: 'carry-in',
+            },
+            {
+              id: 'static-dm19g',
+              sku: 'DM19G-TOUCHPC',
+              model: 'DM19G',
+              series: 'Industrial Touch PC',
+              name: 'TouchWork 19" Industrial Touch PC 5:4 (Monitor / Android / Windows)',
+              description: 'จอสัมผัสอุตสาหกรรม 19" 5:4 (1280×1024) Capacitive 10pt — TN (a-Si), IP65 ด้านหน้า, Wi-Fi 5 + BT 4.2, รองรับ VESA 100 + Embedded + ตั้งโต๊ะ ระดับ Workstation เหมาะกับ ERP / ห้องควบคุม • เลือกได้ทั้ง Monitor (HDMI/VGA), Android 11/13 (RK3568) และ Windows 10/11 (Intel) — กรณีไม่ระบุ CPU Model แจ้งแอดมินขอราคา',
+              category: 'Industrial Touch PC',
+              cpu: 'Plug & Play / RK3568 / Intel (TBD)',
+              ram_gb: 4,
+              storage_gb: 32,
+              storage_type: 'eMMC / SSD',
+              unit_price: 16990,
+              unit_price_vat: null,
+              image_url: dm19gHero,
+              thumbnail_url: dm19gHero,
+              gallery_urls: null,
+              stock_status: 'available',
+              is_active: true,
+              slug: 'dm19g',
+              tags: ['new', 'touch-pc', 'industrial', '19-inch', '5-4', 'workstation'],
+              is_featured: true,
+              variant_count: 3,
+              starting_price: 16990,
               warranty_months: 12,
               warranty_type: 'carry-in',
             },

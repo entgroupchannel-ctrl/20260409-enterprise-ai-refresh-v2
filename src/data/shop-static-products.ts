@@ -15,6 +15,7 @@ import dm121gHero from '@/assets/touchwork/DM121G-Monitor.jpg';
 import dm15gHero from '@/assets/touchwork/DM15G-Monitor.jpg';
 import dm156gHero from '@/assets/touchwork/DM156G-Monitor.jpg';
 import dm17gHero from '@/assets/touchwork/DM17G-Monitor.jpg';
+import dm19gHero from '@/assets/touchwork/DM19G-Monitor.jpg';
 
 const gd32cHero = 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg';
 
@@ -239,6 +240,23 @@ export const SHOP_STATIC_COMPARE_PRODUCTS: ShopStaticCompareProduct[] = [
     os: 'Plug & Play / Android / Windows',
     form_factor: 'Industrial Touch PC',
     unit_price: 15990,
+    stock_status: 'available',
+  },
+  {
+    id: 'static-dm19g',
+    slug: 'dm19g',
+    model: 'DM19G',
+    name: 'TouchWork 19" Industrial Touch PC 5:4 (Monitor / Android / Windows)',
+    thumbnail_url: dm19gHero,
+    cpu: 'Plug & Play / RK3568 / Intel (TBD)',
+    ram_gb: 4,
+    storage_gb: 32,
+    storage_type: 'eMMC / SSD',
+    has_wifi: true,
+    has_4g: false,
+    os: 'Plug & Play / Android 11-13 / Windows 10-11',
+    form_factor: 'Industrial Touch PC',
+    unit_price: 16990,
     stock_status: 'available',
   },
 ];
