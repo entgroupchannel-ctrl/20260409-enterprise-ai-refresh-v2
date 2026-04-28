@@ -260,6 +260,23 @@ export const SHOP_STATIC_COMPARE_PRODUCTS: ShopStaticCompareProduct[] = [
     unit_price: 16990,
     stock_status: 'available',
   },
+  {
+    id: 'static-dm215g',
+    slug: 'dm215g',
+    model: 'DM215G',
+    name: 'TouchWork 21.5" Industrial Touch PC 16:9 Full HD (Monitor / Android / Windows)',
+    thumbnail_url: dm215gHero,
+    cpu: 'Plug & Play / RK3568 / Intel (TBD)',
+    ram_gb: 4,
+    storage_gb: 32,
+    storage_type: 'eMMC / SSD',
+    has_wifi: true,
+    has_4g: false,
+    os: 'Plug & Play / Android 11-13 / Windows 10-11',
+    form_factor: 'Industrial Touch PC',
+    unit_price: 17990,
+    stock_status: 'available',
+  },
 ];
 
 export function getShopStaticCompareProducts(slugs: string[]): ShopStaticCompareProduct[] {
