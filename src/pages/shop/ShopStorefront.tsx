@@ -279,7 +279,7 @@ const ShopStorefront = () => {
               id: 'static-gd215c',
               sku: 'GD215C-KIOSK',
               model: 'GD215C',
-              series: 'GD215 Series',
+              series: 'Interactive Display',
               name: 'Wall Mounting Touch Kiosk 21.5"',
               description: 'ตู้คีออสก์ติดผนัง 21.5" Bezel 13mm — Android (RK3568/RK3588) ติดตั้งได้ 3 แบบ',
               category: 'Industrial Kiosk',
