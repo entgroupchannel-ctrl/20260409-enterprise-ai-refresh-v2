@@ -53,7 +53,8 @@ import dm17gHero from '@/assets/touchwork/DM17G-Monitor.jpg';
 import dm19gHero from '@/assets/touchwork/DM19G-Monitor.jpg';
 import dm215gHero from '@/assets/touchwork/DM215G-Monitor.jpg';
 import gd133Hero from '@/assets/touchwork/GD133-Monitor.jpg';
-import gd156Hero from '@/assets/touchwork/GD156-Monitor.jpg';
+import gd156Hero from '@/assets/touchwork/gallery/GD156-Monitor/01.jpg';
+import gd156eHero from '@/assets/touchwork/gallery/GD156-Monitor/01.jpg';
 import jd133Hero from '@/assets/touchwork/JD133-Monitor.jpg';
 import jd156bHero from '@/assets/touchwork/JD156B-Monitor.jpg';
 import jd185bHero from '@/assets/touchwork/JD185B-Monitor.jpg';
@@ -726,6 +727,33 @@ const ShopStorefront = () => {
               is_featured: true,
               variant_count: 3,
               starting_price: 16990,
+              warranty_months: 12,
+              warranty_type: 'carry-in',
+            },
+            {
+              id: 'static-gd156e',
+              sku: 'GD156E-TOUCHKIOSK',
+              model: 'GD156E',
+              series: 'Wall-Mount Touch Kiosk',
+              name: 'TouchWork 15.6" Wall-Mount Touch Kiosk GD156E — SCADA Compatible (Monitor / Android / Windows)',
+              description: 'จอสัมผัสอุตสาหกรรม 15.6" Full HD (1920×1080) — รองรับ SCADA Software, Serial RS-232/422/485 และ USB • Active Area 345.2×194.6 mm • PCAP 10pt scan 200Hz, 4096×4096, แม่นยำ >1.5mm • Mohs 7 กันระเบิด • LED 30,000 ชม. • ไฟ 110-240V AC → DC 12V 5A, Standby ≤0.5W (Monitor <30W / Android <36W / X86 <60W) • ARM: Rockchip RK3568 / RK3399 / RK3588 (Android 9/11/12) • รองรับ Camera, Card Reader, 4G Module, Fingerprint Scanner • ติดตั้งได้ทั้ง Wall-Mount, Floor Mount, Desktop และ Embedded',
+              category: 'Wall-Mount Touch Kiosk',
+              cpu: 'Plug & Play / RK3568-RK3399-RK3588 / Intel (TBD)',
+              ram_gb: 4,
+              storage_gb: 64,
+              storage_type: 'eMMC / SSD',
+              unit_price: 0,
+              unit_price_vat: null,
+              image_url: gd156eHero,
+              thumbnail_url: gd156eHero,
+              gallery_urls: null,
+              stock_status: 'available',
+              is_active: true,
+              slug: 'gd156e',
+              tags: ['new', 'touch-kiosk', 'wall-mount', '15.6-inch', '16-9', 'full-hd', 'scada', 'industrial', 'mohs-7'],
+              is_featured: true,
+              variant_count: 3,
+              starting_price: 0,
               warranty_months: 12,
               warranty_type: 'carry-in',
             },
