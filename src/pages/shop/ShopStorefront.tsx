@@ -262,7 +262,37 @@ const ShopStorefront = () => {
               image_url: modelOverride || fileImg || p.image_url || fallback,
             };
           });
-          setProducts(enriched as Product[]);
+          // Inject static products that don't live in DB but have dedicated /shop/:slug pages
+          const staticProducts: Product[] = [
+            {
+              id: 'static-gd215c',
+              sku: 'GD215C-KIOSK',
+              model: 'GD215C',
+              series: 'GD215 Series',
+              name: 'Wall Mounting Touch Kiosk 21.5"',
+              description: 'ตู้คีออสก์ติดผนัง 21.5" Bezel 13mm — Android (RK3568/RK3588) ติดตั้งได้ 3 แบบ',
+              category: 'Industrial Kiosk',
+              cpu: 'RK3568 / RK3588',
+              ram_gb: 4,
+              storage_gb: 32,
+              storage_type: 'eMMC',
+              unit_price: 36990,
+              unit_price_vat: null,
+              image_url: gd215cHero,
+              thumbnail_url: gd215cHero,
+              gallery_urls: null,
+              stock_status: 'available',
+              is_active: true,
+              slug: 'gd215c',
+              tags: ['new', 'kiosk', 'wall-mount'],
+              is_featured: true,
+              variant_count: 2,
+              starting_price: 36990,
+              warranty_months: 12,
+              warranty_type: 'on-site',
+            },
+          ];
+          setProducts([...staticProducts, ...(enriched as Product[])]);
         } else {
           setProducts(data as Product[]);
         }
