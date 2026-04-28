@@ -55,6 +55,7 @@ import dm215gHero from '@/assets/touchwork/DM215G-Monitor.jpg';
 import gd133Hero from '@/assets/touchwork/GD133-Monitor.jpg';
 import jd133Hero from '@/assets/touchwork/JD133-Monitor.jpg';
 import jd156bHero from '@/assets/touchwork/JD156B-Monitor.jpg';
+import jd185bHero from '@/assets/touchwork/JD185B-Monitor.jpg';
 
 const gd32cHero = 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg';
 
@@ -748,6 +749,33 @@ const ShopStorefront = () => {
               is_featured: true,
               variant_count: 3,
               starting_price: 15990,
+              warranty_months: 12,
+              warranty_type: 'carry-in',
+            },
+            {
+              id: 'static-jd185b',
+              sku: 'JD185B-TOUCHPC',
+              model: 'JD185B',
+              series: 'Indoor Display Touch PC',
+              name: 'TouchWork 18.5" Indoor Display IPS — ขนาดกลางคุ้มค่า สำหรับ Kiosk ทั่วไป (Monitor / Android / Windows)',
+              description: 'จอสัมผัสอุตสาหกรรม 18.5" 16:9 (1366×768) IPS 175°/175° Capacitive 10pt — ขนาดกลางคุ้มค่า เหมาะกับงาน Kiosk ทั่วไป / Self-Service / Reception • IP65 ด้านหน้า, Wi-Fi 5 + BT 4.2, รองรับ VESA 100 + Embedded • เลือกได้ทั้ง Monitor (HDMI/VGA), Android 11/13 (RK3568) และ Windows 10/11/Linux — กรณีไม่ระบุ CPU Model แจ้งแอดมินขอราคาเป็นกรณี',
+              category: 'Indoor Display Touch PC',
+              cpu: 'Plug & Play / RK3568 / Intel (TBD — แจ้งแอดมิน)',
+              ram_gb: 4,
+              storage_gb: 64,
+              storage_type: 'eMMC / mSATA',
+              unit_price: 16990,
+              unit_price_vat: null,
+              image_url: jd185bHero,
+              thumbnail_url: jd185bHero,
+              gallery_urls: null,
+              stock_status: 'available',
+              is_active: true,
+              slug: 'jd185b',
+              tags: ['new', 'touch-pc', 'indoor-display', '18.5-inch', '16-9', 'ips', 'kiosk'],
+              is_featured: true,
+              variant_count: 3,
+              starting_price: 16990,
               warranty_months: 12,
               warranty_type: 'carry-in',
             },
