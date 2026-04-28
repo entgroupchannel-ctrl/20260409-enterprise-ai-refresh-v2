@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Search, Menu, X, ChevronDown, LogIn, UserCircle, LayoutDashboard, LogOut, FileText, Plus, User, Tag, Mail, ShoppingCart } from "lucide-react";
+import { Search, Menu, X, ChevronDown, LogIn, UserCircle, LayoutDashboard, LogOut, FileText, Plus, User, Tag, Mail, ShoppingCart, ArrowRight, Flame } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import CartBadge from "@/components/CartBadge";
 import ThemeToggle from "@/components/ThemeToggle";
 import MegaMenu, { MobileMegaMenu } from "@/components/MegaMenu";
 import { useAuth } from "@/hooks/useAuth";
+import { SHOP_STATIC_COMPARE_PRODUCTS } from "@/data/shop-static-products";
 import heroIndustrial from "@/assets/hero-industrial.jpg";
 import logo from "@/assets/logo-entgroup.avif";
 
