@@ -52,8 +52,8 @@ const sections = [
 
 const ProductSections = () => {
   return (
-    <section className="pt-8 md:pt-12 pb-16 md:pb-24 px-4 md:px-8">
-      <div className="container max-w-7xl mx-auto space-y-12">
+    <section className="pt-6 md:pt-10 pb-10 md:pb-14 px-4 md:px-8">
+      <div className="container max-w-7xl mx-auto space-y-8">
         {sections.map((section) => (
           <div key={section.title}>
           <div className="card-surface overflow-hidden relative rounded-2xl min-h-[340px] flex items-end">

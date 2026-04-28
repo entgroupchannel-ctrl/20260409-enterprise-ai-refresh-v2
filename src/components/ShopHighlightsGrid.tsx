@@ -57,11 +57,11 @@ const ShopHighlightsGrid = () => {
     <section
       id="shop-highlights"
       aria-labelledby="shop-highlights-title"
-      className="py-12 md:py-16 px-4 md:px-8"
+      className="py-10 md:py-14 px-4 md:px-8"
     >
       <div className="container max-w-7xl mx-auto">
         {/* Promo Ribbon — กระตุ้นการขาย */}
-        <div className="mb-8 rounded-2xl overflow-hidden border-2 border-primary/30 bg-gradient-to-r from-primary/10 via-primary/5 to-accent/10 shadow-md">
+        <div className="mb-6 rounded-2xl overflow-hidden border-2 border-primary/30 bg-gradient-to-r from-primary/10 via-primary/5 to-accent/10 shadow-md">
           <div className="flex flex-col md:flex-row items-stretch">
             <Link
               to="/shop?sort=price-asc"
