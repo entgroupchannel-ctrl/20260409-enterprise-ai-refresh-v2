@@ -375,9 +375,9 @@ const PanelPC = () => {
           {/* I/O Port images */}
           <div className="grid md:grid-cols-2 gap-6">
             <div className="card-surface p-4 flex flex-col items-center gap-3">
-              <img src={gty121Rear} alt="GTY121T ด้านหลัง — พอร์ต I/O" className="w-full object-contain rounded-lg"/>
+              <img src={gty121Rear} alt="GTY121T ​ขาจับแบบ VESA Mouting — พอร์ต I/O" className="w-full object-contain rounded-lg"/>
               <div className="text-center">
-                <p className="font-bold text-foreground text-sm">GTY121T — พอร์ต I/O ด้านหลัง</p>
+                <p className="font-bold text-foreground text-sm">GTY121T — พอร์ต I/O ​ขาจับแบบ VESA Mouting</p>
                 <p className="text-xs text-muted-foreground">HDMI, VGA, USB3.0, LAN ×2, RS232 ×2, Audio</p>
               </div>
             </div>
