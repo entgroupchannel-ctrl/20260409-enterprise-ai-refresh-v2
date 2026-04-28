@@ -1,4 +1,5 @@
-import { ShoppingCart, FileText, MessageCircle, ShieldCheck, Sparkles } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ShoppingCart, FileText, MessageCircle, ShieldCheck, Sparkles, Mail, Phone } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
 /**
@@ -48,8 +49,25 @@ export default function B2BPlatformBanner() {
               <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                 <ShieldCheck className="h-3.5 w-3.5 text-primary" />
                 <span>ไม่มีผลผูกพันจนกว่าจะยืนยัน</span>
-              </div>
             </div>
+
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-3 border-t border-border/50 mt-1">
+              <a
+                href="mailto:Sale@entgroup.co.th"
+                className="inline-flex items-center gap-1.5 text-xs font-medium text-foreground hover:text-primary transition-colors"
+              >
+                <Mail className="h-3.5 w-3.5 text-primary" />
+                Sale@entgroup.co.th
+              </a>
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline"
+              >
+                <Phone className="h-3.5 w-3.5" />
+                ดูช่องทางติดต่อทั้งหมด →
+              </Link>
+            </div>
+          </div>
           </div>
         </div>
       </Card>
