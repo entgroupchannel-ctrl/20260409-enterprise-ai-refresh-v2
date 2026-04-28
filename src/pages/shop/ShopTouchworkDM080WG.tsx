@@ -499,7 +499,6 @@ export default function ShopTouchworkDM080WG() {
                   </>
                 )}
 
-                <ConfigBlock icon={Layers} label="รูปแบบติดตั้ง (VESA / Embedded / Desktop)">
                 <ConfigBlock icon={Layers} label="รูปแบบติดตั้ง (VESA / Embedded)">
                   <ChipRow options={INSTALL_OPTIONS} activeIdx={installIdx} onSelect={setInstallIdx} />
                 </ConfigBlock>
