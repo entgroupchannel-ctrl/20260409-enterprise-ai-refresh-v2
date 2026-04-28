@@ -32,9 +32,9 @@ const PRODUCT = DISPLAYS_43.kd43b;
  * KD43B Windows Entry (J6412/4GB/128GB Ubuntu): $1,022 → ~99,990
  */
 const VARIANT_BASE_PRICE: Record<string, number> = {
-  monitor: 39990,
-  x86: 84990,
-  android: 59990,
+  monitor: 49990,
+  x86: 99990,
+  android: 74990,
 };
 
 /* CPU tier delta */
