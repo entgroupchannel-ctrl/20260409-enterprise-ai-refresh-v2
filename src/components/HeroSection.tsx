@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Search, Menu, X, ChevronDown, LogIn, UserCircle, LayoutDashboard, LogOut, FileText, Plus, User, Tag, Mail, ShoppingCart, ArrowRight, Flame } from "lucide-react";
+import { Search, Menu, X, ChevronDown, LogIn, UserCircle, LayoutDashboard, LogOut, FileText, Plus, User, Tag, Mail, ShoppingCart, ArrowRight, Flame, MessageCircle } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import CartBadge from "@/components/CartBadge";
 import ThemeToggle from "@/components/ThemeToggle";
 import MegaMenu, { MobileMegaMenu } from "@/components/MegaMenu";
