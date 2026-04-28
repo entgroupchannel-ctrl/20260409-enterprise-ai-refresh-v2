@@ -11,6 +11,7 @@ import gd238c3Hero from "@/assets/touchwo/gd238c/L-1.jpg";
 import gd27cHero from "@/assets/touchwo/gd27c/p-1.jpg";
 import dm080nfHero from "@/assets/touchwork/DM080NF-Monitor.jpg";
 import dm080wgHero from "@/assets/touchwork/DM080WG-Monitor.jpg";
+import dm101gHero from "@/assets/touchwork/DM101G-Monitor.jpg";
 
 const gd32cHero = "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg";
 
@@ -125,6 +126,16 @@ const ALL_MODELS: KioskModel[] = [
     startingPrice: 13990,
     image: dm080wgHero,
     productHref: "/touchwork/dm080wg",
+  },
+  {
+    slug: "dm101g",
+    modelCode: "DM101G",
+    size: '10.1"',
+    shortName: "DM101G Industrial Touch PC",
+    tagline: 'จอสัมผัส 10.1" 16:10 PCAP — Monitor / Android / Windows • รองรับ 1920×1200',
+    startingPrice: 13990,
+    image: dm101gHero,
+    productHref: "/touchwork/dm101g",
   },
 ];
 

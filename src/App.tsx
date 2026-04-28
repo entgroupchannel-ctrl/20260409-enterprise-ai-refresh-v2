@@ -74,6 +74,7 @@ const ShopDisplaysGD32C = lazyRetry(() => import("./pages/shop/ShopDisplaysGD32C
 const ShopDisplaysGD27C = lazyRetry(() => import("./pages/shop/ShopDisplaysGD27C"));
 const ShopTouchworkDM080NF = lazyRetry(() => import("./pages/shop/ShopTouchworkDM080NF"));
 const ShopTouchworkDM080WG = lazyRetry(() => import("./pages/shop/ShopTouchworkDM080WG"));
+const ShopTouchworkDM101G = lazyRetry(() => import("./pages/shop/ShopTouchworkDM101G"));
 const Unsubscribe = lazyRetry(() => import("./pages/Unsubscribe"));
 const Login = lazyRetry(() => import("./pages/auth/Login"));
 const Register = lazyRetry(() => import("./pages/auth/Register"));
@@ -372,6 +373,7 @@ const App = () => (
                     <Route path="/shop/gd27c" element={<ShopDisplaysGD27C />} />
                     <Route path="/shop/dm080nf" element={<ShopTouchworkDM080NF />} />
                     <Route path="/shop/dm080wg" element={<ShopTouchworkDM080WG />} />
+                    <Route path="/shop/dm101g" element={<ShopTouchworkDM101G />} />
                     <Route path="/shop/:slug" element={<ShopProductDetail />} />
                     <Route path="/unsubscribe" element={<Unsubscribe />} />
                     <Route path="/login" element={<Login />} />
