@@ -114,6 +114,7 @@ const ShopStorefront = () => {
   const [categoryFilter, setCategoryFilter] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState(searchParams.get('sort') || 'featured');
   const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState<number>(DEFAULT_PAGE_SIZE);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [compareList, setCompareListState] = useState<string[]>(getCompareList());
   const [showFilters, setShowFilters] = useState(false);
