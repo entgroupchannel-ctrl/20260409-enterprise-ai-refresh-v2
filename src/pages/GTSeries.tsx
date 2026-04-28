@@ -2280,8 +2280,8 @@ const GTSeries = () => {
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
-                      { src: "/images/gt4000/rear.jpg", alt: "GT4000 ด้านหลัง — USB, COM ports" },
-                      { src: "/images/gt4000/side.jpg", alt: "GT4000 ด้านข้าง — ครีบระบายความร้อน" },
+                      { src: "/images/gt4000/rear.jpg", alt: "GT4000 ​ขาจับแบบ VESA Mouting — USB, COM ports" },
+                      { src: "/images/gt4000/side.jpg", alt: "GT4000 ​ขาตั้งพื้น — ครีบระบายความร้อน" },
                       { src: "/images/gt4000/angle.jpg", alt: "GT4000 มุมเอียง — ภาพรวม" },
                       { src: "/images/gt4000/mainboard.jpg", alt: "GT4000 ภายใน — Mainboard" },
                     ].map((img, i) => (
