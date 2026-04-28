@@ -53,6 +53,7 @@ import dm17gHero from '@/assets/touchwork/DM17G-Monitor.jpg';
 import dm19gHero from '@/assets/touchwork/DM19G-Monitor.jpg';
 import dm215gHero from '@/assets/touchwork/DM215G-Monitor.jpg';
 import gd133Hero from '@/assets/touchwork/GD133-Monitor.jpg';
+import jd133Hero from '@/assets/touchwork/JD133-Monitor.jpg';
 
 const gd32cHero = 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg';
 
@@ -689,6 +690,33 @@ const ShopStorefront = () => {
               is_active: true,
               slug: 'gd133',
               tags: ['new', 'touch-pc', 'wall-mount', '13.3-inch', '16-9', 'full-hd', 'ips'],
+              is_featured: true,
+              variant_count: 3,
+              starting_price: 14990,
+              warranty_months: 12,
+              warranty_type: 'carry-in',
+            },
+            {
+              id: 'static-jd133',
+              sku: 'JD133-TOUCHPC',
+              model: 'JD133',
+              series: 'Indoor Display Touch PC',
+              name: 'TouchWork 13.3" Indoor Display IPS Full HD — Ultra-slim Die-cast (Monitor / Android / Windows)',
+              description: 'จอสัมผัสอุตสาหกรรม 13.3" 16:9 Full HD (1920×1080) IPS 175°/175° Capacitive 10pt — Ultra-slim Die-cast Body สำหรับงาน Premium Self-Service / Reception / Hotel • IP65 ด้านหน้า, Wi-Fi 5 + BT 4.2, รองรับ VESA 75 + ตั้งโต๊ะ • เลือกได้ทั้ง Monitor (HDMI/VGA), Android 11/13 (RK3568) และ Windows 10/11 (Intel) — กรณีไม่ระบุ CPU Model แจ้งแอดมินขอราคา',
+              category: 'Indoor Display Touch PC',
+              cpu: 'Plug & Play / RK3568 / Intel (TBD)',
+              ram_gb: 4,
+              storage_gb: 32,
+              storage_type: 'eMMC / SSD',
+              unit_price: 14990,
+              unit_price_vat: null,
+              image_url: jd133Hero,
+              thumbnail_url: jd133Hero,
+              gallery_urls: null,
+              stock_status: 'available',
+              is_active: true,
+              slug: 'jd133',
+              tags: ['new', 'touch-pc', 'indoor-display', '13.3-inch', '16-9', 'full-hd', 'ips', 'die-cast'],
               is_featured: true,
               variant_count: 3,
               starting_price: 14990,
