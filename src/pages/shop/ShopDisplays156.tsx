@@ -20,6 +20,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/hooks/useCart";
 import { savePendingQuote } from "@/hooks/usePendingQuote";
 import { DISPLAYS_156 } from "@/data/displays-156";
+import LineQRButton from "@/components/LineQRButton";
 
 /* ------------------------------------------------------------------ */
 /*  Source product (single model: KD156B with 3 configurations)       */
@@ -85,17 +86,23 @@ const OS_OPTIONS_ARM = [
   { label: "Linux (Debian/Ubuntu ARM)", delta: 800 },
 ];
 
-/* Add-on peripherals (with images) */
-const ADDON_OPTIONS = [
-  { key: "printer",     label: "Thermal Printer",    price: 4500, image: "https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=300&h=200&fit=crop" },
-  { key: "scanner",     label: "Barcode/QR Scanner", price: 3200, image: "https://images.unsplash.com/photo-1607349913338-fca6f7fc42d0?w=300&h=200&fit=crop" },
-  { key: "rfid",        label: "RFID Reader",        price: 2800, image: "https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=300&h=200&fit=crop" },
-  { key: "fingerprint", label: "Fingerprint",        price: 3500, image: "https://images.unsplash.com/photo-1633265486064-086b219458ec?w=300&h=200&fit=crop" },
-  { key: "camera",      label: "Camera + e-KYC",     price: 2500, image: "https://images.unsplash.com/photo-1606986628253-49a4cb3a32a4?w=300&h=200&fit=crop" },
-  { key: "nfc",         label: "NFC Payment",        price: 2200, image: "https://images.unsplash.com/photo-1556742111-a301076d9d18?w=300&h=200&fit=crop" },
-  { key: "dispenser",   label: "Card Dispenser",     price: 8500, image: "https://images.unsplash.com/photo-1580508174046-170816f65662?w=300&h=200&fit=crop" },
-  { key: "ups",         label: "Battery UPS",        price: 4200, image: "https://images.unsplash.com/photo-1601132359864-c974e79890ac?w=300&h=200&fit=crop" },
-];
+/* Add-on peripherals — ดึงภาพจริงจากหน้าสินค้า /products/displays-15.6 */
+const ADDON_PRICE_MAP: Record<string, number> = {
+  "Fingerprint Sensor": 3500,
+  "Metal Keyboard": 4200,
+  "Card Dispenser": 8500,
+  "Payment Terminal": 6500,
+  "Camera": 2500,
+  "NFC Payment": 2200,
+  "4G LTE": 3800,
+  "Battery UPS": 4200,
+};
+const ADDON_OPTIONS = (PRODUCT.customizationOptions ?? []).map((o) => ({
+  key: o.name,
+  label: o.name,
+  price: ADDON_PRICE_MAP[o.name] ?? 2500,
+  image: o.image,
+}));
 
 const ICON_MAP = {
   Monitor, Cpu, Smartphone, Layers, Hand, ShieldCheck, Box,
@@ -604,25 +611,28 @@ export default function ShopDisplays156() {
                   )}
                 </div>
 
-                {/* Actions */}
-                <div className="grid grid-cols-2 gap-2">
-                  <Button variant="outline" onClick={handleAddToCart} disabled={submitting}>
+                {/* Actions — compact, ไม่ยืดเต็มแถว */}
+                <div className="flex flex-wrap items-center gap-2">
+                  <Button size="sm" variant="outline" onClick={handleAddToCart} disabled={submitting} className="h-9 px-3">
                     <ShoppingCart className="w-4 h-4 mr-1.5" />
                     เพิ่มลงตะกร้า
                   </Button>
-                  <Button onClick={handleQuickQuote}>
+                  <Button size="sm" onClick={handleQuickQuote} className="h-9 px-3">
                     <FileText className="w-4 h-4 mr-1.5" />
                     ขอใบเสนอราคา
                   </Button>
+                  <LineQRButton className="inline-flex items-center gap-1.5 h-9 px-3 rounded-md text-xs font-medium border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500/20 transition-colors">
+                    <MessageCircle className="w-4 h-4" /> เพิ่มเพื่อน LINE
+                  </LineQRButton>
                 </div>
-                <div className="flex items-center justify-center gap-3 text-xs text-muted-foreground flex-wrap">
-                  <a href="tel:0959244966" className="flex items-center gap-1 hover:text-primary">
-                    <Phone className="w-3.5 h-3.5" /> 095-924-4966
+                <div className="flex items-center justify-center gap-3 text-xs text-muted-foreground flex-wrap pt-1">
+                  <a href="tel:020456104" className="flex items-center gap-1 hover:text-primary">
+                    <Phone className="w-3.5 h-3.5" /> 02-045-6104
                   </a>
                   <span>•</span>
-                  <Link to="/contact" className="flex items-center gap-1 hover:text-primary">
-                    <MessageCircle className="w-3.5 h-3.5" /> สอบถามแอดมิน
-                  </Link>
+                  <a href="tel:0957391053" className="flex items-center gap-1 hover:text-primary">
+                    <Phone className="w-3.5 h-3.5" /> 095-739-1053
+                  </a>
                   <span>•</span>
                   <Link to={`/products/${PRODUCT.slug ?? "displays-15.6"}`} className="flex items-center gap-1 hover:text-primary">
                     <ArrowRight className="w-3.5 h-3.5" /> สเปกเต็ม
