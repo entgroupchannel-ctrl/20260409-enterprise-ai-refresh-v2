@@ -105,10 +105,13 @@ const manifest: Record<string, Partial<Record<Arch, string[]>>> = {
 };
 
 function resolve(model: string, arch: Arch, file: string): string | undefined {
-  // GD156E ใช้ asset ชุดเดียวกับ GD156 (โฟลเดอร์ GD156-* บน disk)
-  const folderModel = model === "GD156E" ? "GD156" : model;
-  const key = Object.keys(modules).find((k) => k.endsWith(`/gallery/${folderModel}-${arch}/${file}`));
-  return key ? modules[key] : undefined;
+  // GD156E: ลองใช้โฟลเดอร์ GD156E-* ก่อน ถ้าไม่มีให้ fallback ไปที่ GD156-*
+  const candidates = model === "GD156E" ? ["GD156E", "GD156"] : [model];
+  for (const folderModel of candidates) {
+    const key = Object.keys(modules).find((k) => k.endsWith(`/gallery/${folderModel}-${arch}/${file}`));
+    if (key) return modules[key];
+  }
+  return undefined;
 }
 
 // Files that are technical dimension drawings (front view + rear/mounting view)
