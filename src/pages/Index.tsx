@@ -1,5 +1,6 @@
 import HeroSection from "@/components/HeroSection";
 import EdgeAISection from "@/components/EdgeAISection";
+import JetsonRecommendedRow from "@/components/JetsonRecommendedRow";
 import ShopHighlightsGrid from "@/components/ShopHighlightsGrid";
 import SoftwareSection from "@/components/SoftwareSection";
 import ProductHighlights from "@/components/ProductHighlights";
