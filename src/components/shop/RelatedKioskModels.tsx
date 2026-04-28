@@ -18,6 +18,7 @@ import dm15gHero from "@/assets/touchwork/DM15G-Monitor.jpg";
 import dm156gHero from "@/assets/touchwork/DM156G-Monitor.jpg";
 import dm17gHero from "@/assets/touchwork/DM17G-Monitor.jpg";
 import dm19gHero from "@/assets/touchwork/DM19G-Monitor.jpg";
+import dm215gHero from "@/assets/touchwork/DM215G-Monitor.jpg";
 
 const gd32cHero = "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg";
 
@@ -202,6 +203,16 @@ const ALL_MODELS: KioskModel[] = [
     startingPrice: 16990,
     image: dm19gHero,
     productHref: "/touchwork/dm19g",
+  },
+  {
+    slug: "dm215g",
+    modelCode: "DM215G",
+    size: '21.5"',
+    shortName: "DM215G Industrial Touch PC",
+    tagline: 'จอสัมผัส 21.5" 16:9 Full HD Workstation — Monitor / Android 11-13 / Windows 10-11 • IP65 + VESA 100',
+    startingPrice: 17990,
+    image: dm215gHero,
+    productHref: "/touchwork/dm215g",
   },
 ];
 

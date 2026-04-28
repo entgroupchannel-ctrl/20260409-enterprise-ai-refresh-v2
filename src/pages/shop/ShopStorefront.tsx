@@ -51,6 +51,7 @@ import dm15gHero from '@/assets/touchwork/DM15G-Monitor.jpg';
 import dm156gHero from '@/assets/touchwork/DM156G-Monitor.jpg';
 import dm17gHero from '@/assets/touchwork/DM17G-Monitor.jpg';
 import dm19gHero from '@/assets/touchwork/DM19G-Monitor.jpg';
+import dm215gHero from '@/assets/touchwork/DM215G-Monitor.jpg';
 
 const gd32cHero = 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg';
 
@@ -636,6 +637,33 @@ const ShopStorefront = () => {
               is_featured: true,
               variant_count: 3,
               starting_price: 16990,
+              warranty_months: 12,
+              warranty_type: 'carry-in',
+            },
+            {
+              id: 'static-dm215g',
+              sku: 'DM215G-TOUCHPC',
+              model: 'DM215G',
+              series: 'Industrial Touch PC',
+              name: 'TouchWork 21.5" Industrial Touch PC 16:9 Full HD (Monitor / Android / Windows)',
+              description: 'จอสัมผัสอุตสาหกรรม 21.5" 16:9 Full HD (1920×1080) Capacitive 10pt — TN (a-Si), IP65 ด้านหน้า, Wi-Fi 5 + BT 4.2, รองรับ VESA 100 + Embedded + ตั้งโต๊ะ ระดับ Workstation จอใหญ่ Widescreen เหมาะกับ ERP / Dashboard / ห้องควบคุม • เลือกได้ทั้ง Monitor (HDMI/VGA), Android 11/13 (RK3568) และ Windows 10/11 (Intel) — กรณีไม่ระบุ CPU Model แจ้งแอดมินขอราคา',
+              category: 'Industrial Touch PC',
+              cpu: 'Plug & Play / RK3568 / Intel (TBD)',
+              ram_gb: 4,
+              storage_gb: 32,
+              storage_type: 'eMMC / SSD',
+              unit_price: 17990,
+              unit_price_vat: null,
+              image_url: dm215gHero,
+              thumbnail_url: dm215gHero,
+              gallery_urls: null,
+              stock_status: 'available',
+              is_active: true,
+              slug: 'dm215g',
+              tags: ['new', 'touch-pc', 'industrial', '21.5-inch', '16-9', 'full-hd', 'workstation'],
+              is_featured: true,
+              variant_count: 3,
+              starting_price: 17990,
               warranty_months: 12,
               warranty_type: 'carry-in',
             },
