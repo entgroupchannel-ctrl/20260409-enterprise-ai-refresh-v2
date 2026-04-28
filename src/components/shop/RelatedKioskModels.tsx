@@ -204,6 +204,16 @@ const ALL_MODELS: KioskModel[] = [
     image: dm19gHero,
     productHref: "/touchwork/dm19g",
   },
+  {
+    slug: "dm215g",
+    modelCode: "DM215G",
+    size: '21.5"',
+    shortName: "DM215G Industrial Touch PC",
+    tagline: 'จอสัมผัส 21.5" 16:9 Full HD Workstation — Monitor / Android 11-13 / Windows 10-11 • IP65 + VESA 100',
+    startingPrice: 17990,
+    image: dm215gHero,
+    productHref: "/touchwork/dm215g",
+  },
 ];
 
 const fmt = (n: number) => n.toLocaleString("th-TH");
