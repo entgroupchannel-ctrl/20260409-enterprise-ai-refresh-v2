@@ -68,16 +68,33 @@ const WIFI_OPTIONS = [
   { label: "+ 4G LTE", delta: 3500 },
 ];
 
-/* Add-on peripherals */
+/* OS options per variant family */
+const OS_OPTIONS_X86 = [
+  { label: "Windows 10 Pro", delta: 0 },
+  { label: "Windows 11 Pro", delta: 1500 },
+  { label: "Windows 10 IoT Enterprise", delta: 4500 },
+  { label: "Windows 11 IoT Enterprise", delta: 5500 },
+  { label: "Ubuntu Linux 22.04 LTS", delta: -2500 },
+  { label: "ไม่ลง OS (No OS)", delta: -3500 },
+];
+const OS_OPTIONS_ARM = [
+  { label: "Android 11", delta: 0 },
+  { label: "Android 12", delta: 600 },
+  { label: "Android 13", delta: 1200 },
+  { label: "Android 14", delta: 1800 },
+  { label: "Linux (Debian/Ubuntu ARM)", delta: 800 },
+];
+
+/* Add-on peripherals (with images) */
 const ADDON_OPTIONS = [
-  { key: "printer",    label: "Thermal Printer",  price: 4500 },
-  { key: "scanner",    label: "Barcode/QR Scanner", price: 3200 },
-  { key: "rfid",       label: "RFID Reader",      price: 2800 },
-  { key: "fingerprint",label: "Fingerprint",      price: 3500 },
-  { key: "camera",     label: "Camera + e-KYC",   price: 2500 },
-  { key: "nfc",        label: "NFC Payment",      price: 2200 },
-  { key: "dispenser",  label: "Card Dispenser",   price: 8500 },
-  { key: "ups",        label: "Battery UPS",      price: 4200 },
+  { key: "printer",     label: "Thermal Printer",    price: 4500, image: "https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=300&h=200&fit=crop" },
+  { key: "scanner",     label: "Barcode/QR Scanner", price: 3200, image: "https://images.unsplash.com/photo-1607349913338-fca6f7fc42d0?w=300&h=200&fit=crop" },
+  { key: "rfid",        label: "RFID Reader",        price: 2800, image: "https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=300&h=200&fit=crop" },
+  { key: "fingerprint", label: "Fingerprint",        price: 3500, image: "https://images.unsplash.com/photo-1633265486064-086b219458ec?w=300&h=200&fit=crop" },
+  { key: "camera",      label: "Camera + e-KYC",     price: 2500, image: "https://images.unsplash.com/photo-1606986628253-49a4cb3a32a4?w=300&h=200&fit=crop" },
+  { key: "nfc",         label: "NFC Payment",        price: 2200, image: "https://images.unsplash.com/photo-1556742111-a301076d9d18?w=300&h=200&fit=crop" },
+  { key: "dispenser",   label: "Card Dispenser",     price: 8500, image: "https://images.unsplash.com/photo-1580508174046-170816f65662?w=300&h=200&fit=crop" },
+  { key: "ups",         label: "Battery UPS",        price: 4200, image: "https://images.unsplash.com/photo-1601132359864-c974e79890ac?w=300&h=200&fit=crop" },
 ];
 
 const ICON_MAP = {
