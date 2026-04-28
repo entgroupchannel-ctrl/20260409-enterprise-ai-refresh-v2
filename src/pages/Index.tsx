@@ -1,5 +1,6 @@
 import HeroSection from "@/components/HeroSection";
 import EdgeAISection from "@/components/EdgeAISection";
+import ShopHighlightsGrid from "@/components/ShopHighlightsGrid";
 import SoftwareSection from "@/components/SoftwareSection";
 import ProductHighlights from "@/components/ProductHighlights";
 import ProductBanners from "@/components/ProductBanners";
@@ -43,6 +44,9 @@ const Index = () => {
         <B2BWorkflowBanner variant="full" showShopCta />
       </div>
       <div className="bg-white dark:bg-background"><EdgeAISection /></div>
+      <div className="bg-gradient-to-b from-background via-primary/5 to-background border-y border-primary/10">
+        <ShopHighlightsGrid />
+      </div>
       <div className="bg-slate-100 dark:bg-muted/30"><ProductHighlights /></div>
       <div className="bg-slate-100 dark:bg-muted/30"><ProductBanners /></div>
       <div className="bg-white dark:bg-background"><InteractiveDisplayBanner /></div>
