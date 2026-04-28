@@ -42,6 +42,8 @@ import kd43bHero from '@/assets/touchwo/kd43b/mon-1.jpg';
 import gd215cHero from '@/assets/touchwo/gd215c/GD215-1A.jpg';
 import gd238c3Hero from '@/assets/touchwo/gd238c/L-1.jpg';
 
+const gd32cHero = 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg';
+
 interface Product {
   id: string; sku: string; model: string; series: string | null; name: string; description: string | null;
   category: string | null; cpu: string | null; ram_gb: number | null; storage_gb: number | null;
@@ -327,6 +329,33 @@ const ShopStorefront = () => {
               is_featured: true,
               variant_count: 2,
               starting_price: 42990,
+              warranty_months: 12,
+              warranty_type: 'on-site',
+            },
+            {
+              id: 'static-gd32c',
+              sku: 'GD32C-KIOSK',
+              model: 'GD32C',
+              series: 'Interactive Display',
+              name: 'Wall Mounting Touch Kiosk 32" (Portrait 9:16, ARM)',
+              description: 'ตู้คีออสก์ติดผนัง 32" Portrait 9:16 Bezel 13mm — Android RK3568 หรือ Intel Core i3/i5/i7 — VESA 200×200',
+              category: 'Industrial Kiosk',
+              cpu: 'RK3568 / Intel Core i3-i7',
+              ram_gb: 4,
+              storage_gb: 32,
+              storage_type: 'eMMC',
+              unit_price: 39990,
+              unit_price_vat: null,
+              image_url: gd32cHero,
+              thumbnail_url: gd32cHero,
+              gallery_urls: null,
+              stock_status: 'available',
+              is_active: true,
+              slug: 'gd32c',
+              tags: ['new', 'kiosk', 'wall-mount', 'portrait'],
+              is_featured: true,
+              variant_count: 2,
+              starting_price: 39990,
               warranty_months: 12,
               warranty_type: 'on-site',
             },

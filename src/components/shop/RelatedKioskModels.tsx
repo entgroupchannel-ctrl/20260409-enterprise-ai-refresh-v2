@@ -9,6 +9,8 @@ import kd43bHero from "@/assets/touchwo/kd43b/mon-1.jpg";
 import gd215cHero from "@/assets/touchwo/gd215c/GD215-1A.jpg";
 import gd238c3Hero from "@/assets/touchwo/gd238c/L-1.jpg";
 
+const gd32cHero = "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg";
+
 interface KioskModel {
   slug: string;            // e.g. "displays-32"
   modelCode: string;       // e.g. "KD32B"
@@ -80,6 +82,16 @@ const ALL_MODELS: KioskModel[] = [
     startingPrice: 42990,
     image: gd238c3Hero,
     productHref: "/products/displays-23.8?model=gd238c3",
+  },
+  {
+    slug: "gd32c",
+    modelCode: "GD32C",
+    size: '32"',
+    shortName: "GD32C Wall Kiosk (Portrait)",
+    tagline: 'Wall-Mount 32" 9:16 Bezel 13mm — Retail / Self-service / POS',
+    startingPrice: 39990,
+    image: gd32cHero,
+    productHref: "/products/displays-32?model=gd32c",
   },
 ];
 
