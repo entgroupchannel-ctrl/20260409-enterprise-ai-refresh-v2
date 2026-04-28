@@ -89,7 +89,7 @@ const OS_OPTIONS_ARM = [
   { label: "Linux (Debian/Ubuntu ARM)", delta: 800 },
 ];
 
-/* Add-on peripherals — ดึงภาพจริงจากหน้าสินค้า /products/displays-15.6 */
+/* Add-on peripherals — ดึงภาพจริงจากหน้าสินค้า /products/displays-21.5 */
 const ADDON_PRICE_MAP: Record<string, number> = {
   "Fingerprint Sensor": 3500,
   "Metal Keyboard": 4200,
@@ -123,7 +123,7 @@ function tierMultiplier(qty: number) {
 /* ------------------------------------------------------------------ */
 /*  Component                                                          */
 /* ------------------------------------------------------------------ */
-export default function ShopDisplays156() {
+export default function ShopDisplays215() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { addToCart } = useCart();
@@ -230,7 +230,7 @@ export default function ShopDisplays156() {
   const handleAddToCart = async () => {
     if (!user) {
       toast({ title: "กรุณาเข้าสู่ระบบ", description: "เข้าสู่ระบบเพื่อบันทึกสินค้าลงตะกร้าและขอใบเสนอราคา" });
-      navigate("/login?redirect=/shop/displays-15.6");
+      navigate("/login?redirect=/shop/displays-21.5");
       return;
     }
     setSubmitting(true);
@@ -283,12 +283,12 @@ export default function ShopDisplays156() {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Shop — KD156B Floor-Stand Touch Kiosk 15.6" | ENT Group</title>
+        <title>Shop — KD215B Floor-Stand Touch Kiosk 21.5" | ENT Group</title>
         <meta
           name="description"
-          content="เลือกซื้อตู้คีออสก์ตั้งพื้น 15.6 นิ้ว KD156B — เลือก CPU/RAM/SSD/Wi-Fi/อุปกรณ์เสริมได้ครบ พร้อมขอใบเสนอราคาออนไลน์"
+          content="เลือกซื้อตู้คีออสก์ตั้งพื้น 21.5 นิ้ว KD215B — เลือก CPU/RAM/SSD/Wi-Fi/อุปกรณ์เสริมได้ครบ พร้อมขอใบเสนอราคาออนไลน์"
         />
-        <link rel="canonical" href="https://www.entgroup.co.th/shop/displays-15.6" />
+        <link rel="canonical" href="https://www.entgroup.co.th/shop/displays-21.5" />
       </Helmet>
 
       <SiteNavbar />
@@ -299,7 +299,7 @@ export default function ShopDisplays156() {
         <ChevronRight className="w-3 h-3" />
         <Link to="/shop" className="hover:text-foreground">Shop</Link>
         <ChevronRight className="w-3 h-3" />
-        <Link to="/products/displays-15.6" className="hover:text-foreground">Display 15.6"</Link>
+        <Link to="/products/displays-21.5" className="hover:text-foreground">Display 21.5"</Link>
         <ChevronRight className="w-3 h-3" />
         <span className="text-foreground font-medium">{PRODUCT.modelCode}</span>
       </nav>
@@ -405,12 +405,12 @@ export default function ShopDisplays156() {
 
             {/* Quick Specs (จากหน้าสินค้า) — compact 4-col */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2 p-3 rounded-lg border bg-muted/20">
-              <QuickSpec label="หน้าจอ" value={'15.6" FHD'} />
+              <QuickSpec label="หน้าจอ" value={'21.5" FHD'} />
               <QuickSpec label="Touch" value="PCAP 10pt" />
               <QuickSpec label="กระจก" value="Mohs 7" />
               <QuickSpec label="Response" value="< 5ms" />
-              <QuickSpec label="ความสว่าง" value="250 cd/m²" />
-              <QuickSpec label="น้ำหนัก" value="20.1 kg" />
+              <QuickSpec label="ความสว่าง" value="300 cd/m²" />
+              <QuickSpec label="น้ำหนัก" value="23 kg" />
               <QuickSpec label="ติดตั้ง" value="Floor Stand" />
               <QuickSpec label="ใช้งาน" value="7×24H" />
             </div>
@@ -637,7 +637,7 @@ export default function ShopDisplays156() {
                     <Phone className="w-3.5 h-3.5" /> 095-739-1053
                   </a>
                   <span>•</span>
-                  <Link to={`/products/${PRODUCT.slug ?? "displays-15.6"}`} className="flex items-center gap-1 hover:text-primary">
+                  <Link to={`/products/${PRODUCT.slug ?? "displays-21.5"}`} className="flex items-center gap-1 hover:text-primary">
                     <ArrowRight className="w-3.5 h-3.5" /> สเปกเต็ม
                   </Link>
                 </div>
