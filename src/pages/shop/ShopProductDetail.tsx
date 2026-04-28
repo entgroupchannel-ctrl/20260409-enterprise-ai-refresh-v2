@@ -24,6 +24,11 @@ import {
 import SiteNavbar from '@/components/SiteNavbar';
 import ShopActivityPanel from '@/components/shop/ShopActivityPanel';
 import b2bWorkflowImage from '@/assets/b2b-quote-workflow.jpg';
+import hd32HeroClean from '@/assets/touchwo/hd32-hero-clean.jpg';
+import hd32Gallery02Clean from '@/assets/touchwo/hd32-gallery-02-clean.jpg';
+import hd32Gallery05Clean from '@/assets/touchwo/hd32-gallery-05-clean.jpg';
+import hd32Gallery08Clean from '@/assets/touchwo/hd32-gallery-08-clean.jpg';
+import hd32Gallery09Clean from '@/assets/touchwo/hd32-gallery-09-clean.jpg';
 
 interface Product {
   id: string; sku: string; slug: string; model: string; series: string | null; name: string;
@@ -50,6 +55,14 @@ const PRODUCT_HIGHLIGHTS = [
   { icon: ThermometerSun, text: 'ทำงานได้ -10°C ถึง 50°C' },
   { icon: Droplets, text: 'ป้องกันฝุ่นและน้ำ (IP-rated)' },
   { icon: Zap, text: 'กินไฟต่ำ 10-25W เหมาะงาน 24/7' },
+];
+
+const HD32_CLEAN_IMAGES = [
+  hd32HeroClean,
+  hd32Gallery02Clean,
+  hd32Gallery05Clean,
+  hd32Gallery08Clean,
+  hd32Gallery09Clean,
 ];
 
 const ShopProductDetail = () => {
@@ -85,16 +98,19 @@ const ShopProductDetail = () => {
 
         const fileUrls: string[] = (productFiles || []).map((f: any) => f.file_url).filter(Boolean);
         const primaryFileUrl = (productFiles || []).find((f: any) => f.is_primary)?.file_url || fileUrls[0] || null;
+        const isHd32 = data.slug === 'interactive-display-hd32' || data.sku === 'ITD-HD32';
 
         // Merge: use product_files URLs when product fields are empty
         const enriched = {
           ...data,
-          image_url: data.image_url || primaryFileUrl,
-          thumbnail_url: data.thumbnail_url || primaryFileUrl,
-          gallery_urls: [
-            ...(data.gallery_urls || []),
-            ...fileUrls.filter((u: string) => u !== data.image_url && !(data.gallery_urls || []).includes(u)),
-          ],
+          image_url: isHd32 ? HD32_CLEAN_IMAGES[0] : data.image_url || primaryFileUrl,
+          thumbnail_url: isHd32 ? HD32_CLEAN_IMAGES[0] : data.thumbnail_url || primaryFileUrl,
+          gallery_urls: isHd32
+            ? HD32_CLEAN_IMAGES.slice(1)
+            : [
+                ...(data.gallery_urls || []),
+                ...fileUrls.filter((u: string) => u !== data.image_url && !(data.gallery_urls || []).includes(u)),
+              ],
         } as Product;
 
         setProduct(enriched);
