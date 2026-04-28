@@ -60,6 +60,16 @@ const ALL_MODELS: KioskModel[] = [
     image: kd43bHero,
     productHref: "/products/displays-43?model=kd43b",
   },
+  {
+    slug: "gd215c",
+    modelCode: "GD215C",
+    size: '21.5"',
+    shortName: "GD215C Wall Kiosk",
+    tagline: 'Wall-Mount 21.5" Bezel 13mm — แขวนผนัง / ตั้งพื้น / วางเคาน์เตอร์',
+    startingPrice: 36990,
+    image: gd215cHero,
+    productHref: "/products/displays-21.5?model=gd215c",
+  },
 ];
 
 const fmt = (n: number) => n.toLocaleString("th-TH");
