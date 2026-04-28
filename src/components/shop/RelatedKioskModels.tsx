@@ -7,6 +7,7 @@ import kd215bHero from "@/assets/touchwo/kd215b/KD215-1.jpg";
 import kd32bHero from "@/assets/touchwo/kd32b-hero-clean.jpg";
 import kd43bHero from "@/assets/touchwo/kd43b/mon-1.jpg";
 import gd215cHero from "@/assets/touchwo/gd215c/GD215-1A.jpg";
+import gd238c3Hero from "@/assets/touchwo/gd238c/L-1.jpg";
 
 interface KioskModel {
   slug: string;            // e.g. "displays-32"
@@ -69,6 +70,16 @@ const ALL_MODELS: KioskModel[] = [
     startingPrice: 36990,
     image: gd215cHero,
     productHref: "/products/displays-21.5?model=gd215c",
+  },
+  {
+    slug: "gd238c3",
+    modelCode: "GD238C3",
+    size: '23.8"',
+    shortName: "GD238C3 Wall Kiosk (Landscape)",
+    tagline: 'Wall-Mount 23.8" 16:9 Bezel 13mm — Reception / Digital Menu',
+    startingPrice: 42990,
+    image: gd238c3Hero,
+    productHref: "/products/displays-23.8?model=gd238c3",
   },
 ];
 

@@ -40,6 +40,7 @@ import kd215bHero from '@/assets/touchwo/kd215b/KD215-1.jpg';
 import kd32bHeroShop from '@/assets/touchwo/kd32b-hero-clean.jpg';
 import kd43bHero from '@/assets/touchwo/kd43b/mon-1.jpg';
 import gd215cHero from '@/assets/touchwo/gd215c/GD215-1A.jpg';
+import gd238c3Hero from '@/assets/touchwo/gd238c/L-1.jpg';
 
 interface Product {
   id: string; sku: string; model: string; series: string | null; name: string; description: string | null;
@@ -299,6 +300,33 @@ const ShopStorefront = () => {
               is_featured: true,
               variant_count: 2,
               starting_price: 36990,
+              warranty_months: 12,
+              warranty_type: 'on-site',
+            },
+            {
+              id: 'static-gd238c3',
+              sku: 'GD238C3-KIOSK',
+              model: 'GD238C3',
+              series: 'Interactive Display',
+              name: 'Wall Mounting Touch Kiosk 23.8" (Landscape 16:9)',
+              description: 'ตู้คีออสก์ติดผนัง 23.8" Landscape 16:9 Bezel 13mm — Android (RK3568/RK3588) ติดตั้งได้ 3 แบบ',
+              category: 'Industrial Kiosk',
+              cpu: 'RK3568 / RK3588',
+              ram_gb: 4,
+              storage_gb: 32,
+              storage_type: 'eMMC',
+              unit_price: 42990,
+              unit_price_vat: null,
+              image_url: gd238c3Hero,
+              thumbnail_url: gd238c3Hero,
+              gallery_urls: null,
+              stock_status: 'available',
+              is_active: true,
+              slug: 'gd238c3',
+              tags: ['new', 'kiosk', 'wall-mount', 'landscape'],
+              is_featured: true,
+              variant_count: 2,
+              starting_price: 42990,
               warranty_months: 12,
               warranty_type: 'on-site',
             },
