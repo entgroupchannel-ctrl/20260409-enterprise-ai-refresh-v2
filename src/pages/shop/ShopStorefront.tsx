@@ -47,6 +47,7 @@ import dm080wgHero from '@/assets/touchwork/DM080WG-Monitor.jpg';
 import dm101gHero from '@/assets/touchwork/DM101G-Monitor.jpg';
 import dm104gHero from '@/assets/touchwork/DM104G-Monitor.jpg';
 import dm121gHero from '@/assets/touchwork/DM121G-Monitor.jpg';
+import dm15gHero from '@/assets/touchwork/DM15G-Monitor.jpg';
 
 const gd32cHero = 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg';
 
