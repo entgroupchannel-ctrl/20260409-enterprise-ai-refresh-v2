@@ -138,6 +138,16 @@ const ALL_MODELS: KioskModel[] = [
     image: dm101gHero,
     productHref: "/touchwork/dm101g",
   },
+  {
+    slug: "dm104g",
+    modelCode: "DM104G",
+    size: '10.4"',
+    shortName: "DM104G Industrial Touch PC",
+    tagline: 'จอสัมผัส 10.4" 4:3 — Backlight 30,000 ชม. • Monitor / Android / Windows',
+    startingPrice: 13990,
+    image: dm104gHero,
+    productHref: "/touchwork/dm104g",
+  },
 ];
 
 const fmt = (n: number) => n.toLocaleString("th-TH");
