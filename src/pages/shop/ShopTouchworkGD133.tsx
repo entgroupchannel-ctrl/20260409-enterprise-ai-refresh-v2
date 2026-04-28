@@ -49,21 +49,21 @@ import g_x86_06 from "@/assets/touchwork/gallery/GD133-X86/06.jpg";
 import g_x86_07 from "@/assets/touchwork/gallery/GD133-X86/07.jpg";
 
 /* ------------------------------------------------------------------ */
-/*  GD133 — 21.5" Industrial Touch PC / Monitor (Touchwork series)  */
+/*  GD133 — 13.3" Industrial Wall-Mount Touch PC (Touchwork series)  */
 /*  Specs verified from /touchwork/gd133:                            */
-/*  - 21.5" 16:9 (TN a-Si), 1920 × 1080 Full HD                       */
-/*  - Capacitive 10-point, ≥250 cd/m²                                 */
+/*  - 13.3" 16:9 IPS Panel, 1920 × 1080 Full HD                       */
+/*  - Capacitive 10-point, ≥250 cd/m², IPS 178°/178°                  */
 /*  - IP65 (front), Wi-Fi 5 + BT 4.2                                  */
-/*  - VESA 100 + Embedded + Desktop Stand                             */
+/*  - Wall Mount บางเฉียบ 42.8 mm + VESA 75                            */
 /*  Indicative prices (THB / 1 unit, base config):                    */
-/*  - Monitor: 17,990 / ARM (Android 11/13): 20,990                   */
-/*  - X86 (Windows 10/11): 23,990 (CPU Model — แจ้งแอดมินขอราคา)       */
+/*  - Monitor: 14,990 / ARM (Android 11/13): 17,990                   */
+/*  - X86 (Windows 10/11): 20,990 (CPU Model — แจ้งแอดมินขอราคา)       */
 /* ------------------------------------------------------------------ */
 
 const VARIANT_BASE_PRICE: Record<string, number> = {
-  monitor: 17990,
-  arm: 20990,
-  x86: 23990,
+  monitor: 14990,
+  arm: 17990,
+  x86: 20990,
 };
 
 const VARIANT_GALLERIES: Record<string, string[]> = {
@@ -297,13 +297,13 @@ export default function ShopTouchworkGD133() {
       <ShopKioskSEO
         slug="gd133"
         modelCode="GD133"
-        shortName='Industrial Touch PC 21.5" 16:9 Full HD (PCAP 10pt, IP65 Front, VESA 100)'
-        sizeInch={21.5}
+        shortName='Industrial Wall-Mount Touch PC 13.3" 16:9 Full HD IPS (PCAP 10pt, IP65 Front)'
+        sizeInch={13.3}
         image={GD133_Monitor}
         resolution="1920×1080 (16:9)"
         brightness="≥ 250 cd/m²"
         touch="Capacitive 10pt"
-        useCases={["ห้องควบคุม / Control Room", "HMI โรงงาน / SCADA", "POS / Counter จอใหญ่", "Healthcare / Banking"]}
+        useCases={["Wall-Mount โรงแรม / Office", "Meeting Room Booking", "Kiosk หน้าห้อง / Wayfinding", "Smart Home / Building Automation"]}
         variants={[
           { key: "monitor", label: "Monitor (Plug & Play HDMI/VGA)", price: VARIANT_BASE_PRICE.monitor, description: "จอสัมผัสเปล่า — ต่อกับ PC/Mini PC" },
           { key: "arm", label: "Android — RK3568 / RK3399", price: VARIANT_BASE_PRICE.arm, description: "Touch PC ระบบ Android พร้อมใช้งาน" },
@@ -412,31 +412,31 @@ export default function ShopTouchworkGD133() {
                 <Sparkles className="w-3 h-3 mr-1" /> TouchWork Series
               </Badge>
               <h1 className="text-2xl md:text-3xl font-bold leading-tight">
-                GD133 — Industrial Touch PC 21.5″ 16:9 Full HD (PCAP 10pt, IP65 Front, VESA 100)
+                GD133 — Industrial Wall-Mount Touch PC 13.3″ 16:9 Full HD IPS (PCAP 10pt, IP65 Front)
               </h1>
               <p className="text-muted-foreground mt-1.5 text-sm md:text-base">
-                จอสัมผัสอุตสาหกรรม 21.5″ 16:9 Full HD ระดับ Workstation — Capacitive 10pt, IP65 ด้านหน้า, รองรับ VESA 100 + Embedded + ตั้งโต๊ะ • เลือกได้ทั้ง Monitor, Android และ Windows
+                จอสัมผัสอุตสาหกรรม 13.3″ 16:9 Full HD IPS — บางเฉียบ 42.8 mm สำหรับ Wall-Mount โรงแรม/ออฟฟิศ • Capacitive 10pt, IP65 ด้านหน้า, IPS 178°/178° • เลือกได้ทั้ง Monitor, Android และ Windows
               </p>
             </div>
 
             {/* Quick Specs (จาก /touchwork/gd133) */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2 p-3 rounded-lg border bg-muted/20">
-              <QuickSpec label="หน้าจอ" value='21.5" 16:9' />
+              <QuickSpec label="หน้าจอ" value='13.3" 16:9' />
               <QuickSpec label="ความละเอียด" value="1920 × 1080" />
               <QuickSpec label="Touch" value="Capacitive 10pt" />
-              <QuickSpec label="Panel" value="TN (a-Si)" />
+              <QuickSpec label="Panel" value="IPS 178°/178°" />
               <QuickSpec label="ความสว่าง" value="≥250 cd/m²" />
               <QuickSpec label="มาตรฐาน" value="IP65 (หน้า)" />
-              <QuickSpec label="เชื่อมต่อ" value="Wi-Fi 5 + BT 4.2" />
-              <QuickSpec label="ติดตั้ง" value="VESA 100 / Embedded" />
+              <QuickSpec label="ความหนา" value="42.8 mm" />
+              <QuickSpec label="ติดตั้ง" value="Wall-Mount / VESA 75" />
             </div>
 
             {/* Highlights */}
             <div className="grid grid-cols-2 gap-2">
               {[
-                { icon: "Sparkles" as const, title: "จอใหญ่ 21.5″ Full HD", subtitle: "Widescreen 16:9 ภาพคมชัด เหมาะ ERP/Dashboard" },
-                { icon: "ShieldCheck" as const, title: "IP65 ด้านหน้า", subtitle: "ทนฝุ่นและละอองน้ำ ใช้ในโรงงาน" },
-                { icon: "Layers" as const, title: "VESA 100 + Embedded + ตั้งโต๊ะ", subtitle: "ติดตั้งได้หลายรูปแบบ" },
+                { icon: "Sparkles" as const, title: "IPS 178°/178° Full HD", subtitle: "มุมมองกว้าง สีคมชัด เหมาะกับโรงแรม/ออฟฟิศ" },
+                { icon: "ShieldCheck" as const, title: "IP65 ด้านหน้า", subtitle: "ทนฝุ่นและละอองน้ำ" },
+                { icon: "Layers" as const, title: "Wall-Mount บางเฉียบ 42.8 mm", subtitle: "ติดผนังเรียบร้อย VESA 75" },
                 { icon: "Box" as const, title: "Capacitive 10pt", subtitle: "สัมผัสแม่นยำ รองรับมัลติทัช" },
               ].map((h, i) => {
                 const Icon = ICON_MAP[h.icon] ?? Sparkles;
