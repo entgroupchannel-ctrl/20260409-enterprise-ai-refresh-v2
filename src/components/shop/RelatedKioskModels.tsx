@@ -20,6 +20,7 @@ import dm17gHero from "@/assets/touchwork/DM17G-Monitor.jpg";
 import dm19gHero from "@/assets/touchwork/DM19G-Monitor.jpg";
 import dm215gHero from "@/assets/touchwork/DM215G-Monitor.jpg";
 import gd133Hero from "@/assets/touchwork/GD133-Monitor.jpg";
+import jd133Hero from "@/assets/touchwork/JD133-Monitor.jpg";
 
 const gd32cHero = "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg";
 
@@ -224,6 +225,16 @@ const ALL_MODELS: KioskModel[] = [
     startingPrice: 14990,
     image: gd133Hero,
     productHref: "/touchwork/gd133",
+  },
+  {
+    slug: "jd133",
+    modelCode: "JD133",
+    size: '13.3"',
+    shortName: "JD133 Indoor Display Touch PC",
+    tagline: 'Indoor Display 13.3" 16:9 Full HD IPS — Ultra-slim Die-cast Body • Monitor / Android 11-13 / Windows 10-11',
+    startingPrice: 14990,
+    image: jd133Hero,
+    productHref: "/touchwork/jd133",
   },
 ];
 
