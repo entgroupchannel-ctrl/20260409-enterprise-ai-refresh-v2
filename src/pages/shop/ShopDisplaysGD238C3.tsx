@@ -142,7 +142,7 @@ export default function ShopDisplaysGD238C3() {
   const { user } = useAuth();
   const { addToCart } = useCart();
 
-  const [variantKey, setVariantKey] = useState<string>(PRODUCT.variants?.[0]?.key ?? "rk3568");
+  const [variantKey, setVariantKey] = useState<string>(SHOP_VARIANTS[0].key);
   const [ramIdx, setRamIdx] = useState(0);
   const [storageIdx, setStorageIdx] = useState(0);
   const [osIdx, setOsIdx] = useState(0);
