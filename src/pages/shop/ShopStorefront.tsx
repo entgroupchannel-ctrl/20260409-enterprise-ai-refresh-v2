@@ -17,7 +17,7 @@ import { Slider } from '@/components/ui/slider';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { SearchCheck, LayoutGrid, List, SlidersHorizontal, X, FileSearch, ChevronLeft, ChevronRight, CircleCheckBig, ShieldCheck, Landmark, HeadsetIcon, DollarSign, Cpu, MemoryStick, HardDrive, Package, Tag, Link2, Share2, Check, Heart } from 'lucide-react';
+import { SearchCheck, LayoutGrid, List, SlidersHorizontal, X, FileSearch, ChevronLeft, ChevronRight, ChevronDown, CircleCheckBig, ShieldCheck, Landmark, HeadsetIcon, DollarSign, Cpu, MemoryStick, HardDrive, Package, Tag, Link2, Share2, Check, Heart, LayoutGrid as GridIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import SiteNavbar from '@/components/SiteNavbar';
 import ShopHotDeals from '@/components/shop/ShopHotDeals';
