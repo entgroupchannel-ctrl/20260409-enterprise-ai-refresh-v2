@@ -24,6 +24,7 @@ import LineQRButton from "@/components/LineQRButton";
 import RelatedKioskModels from "@/components/shop/RelatedKioskModels";
 import B2BPlatformBanner from "@/components/shop/B2BPlatformBanner";
 import UseCaseGallery from "@/components/shop/UseCaseGallery";
+import ShopKioskSEO from "@/components/shop/ShopKioskSEO";
 import ucRetail156 from "@/assets/shop/usecases/kd156-retail.jpg";
 import ucBanking156 from "@/assets/shop/usecases/kd156-banking.jpg";
 import ucLogistics156 from "@/assets/shop/usecases/kd156-logistics.jpg";
@@ -293,14 +294,22 @@ export default function ShopDisplays156() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Helmet>
-        <title>Shop — KD156B Floor-Stand Touch Kiosk 15.6" | ENT Group</title>
-        <meta
-          name="description"
-          content="เลือกซื้อตู้คีออสก์ตั้งพื้น 15.6 นิ้ว KD156B — เลือก CPU/RAM/SSD/Wi-Fi/อุปกรณ์เสริมได้ครบ พร้อมขอใบเสนอราคาออนไลน์"
-        />
-        <link rel="canonical" href="https://www.entgroup.co.th/shop/displays-15.6" />
-      </Helmet>
+      <ShopKioskSEO
+        slug="displays-15.6"
+        modelCode="KD156B"
+        shortName='Floor-Stand Touch Kiosk 15.6"'
+        sizeInch={15.6}
+        image={PRODUCT.gallery[0]}
+        resolution="1920×1080 FHD"
+        brightness="250 cd/m²"
+        touch="PCAP 10pt + Mohs 7"
+        useCases={["Retail Self-service", "Banking", "Logistics", "Transit Ticketing"]}
+        variants={[
+          { key: "monitor", label: "Touch Monitor", price: VARIANT_BASE_PRICE.monitor, description: "จอสัมผัสอย่างเดียว ต่อกับ PC ภายนอก" },
+          { key: "x86", label: "Windows/Linux x86 PC", price: VARIANT_BASE_PRICE.x86, description: "PC ในตัว Celeron J6412 / Core i5 / Core i7" },
+          { key: "android", label: "Android RK3568/RK3288", price: VARIANT_BASE_PRICE.android, description: "Android ในตัว สำหรับงานเบา-ปานกลาง" },
+        ]}
+      />
 
       <SiteNavbar />
 
