@@ -1,6 +1,6 @@
-import { useMemo } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, ShoppingBag, Cpu, MonitorSmartphone, Tag, Truck, ShieldCheck, Flame, Sparkles, FileText, ShoppingCart, Star } from "lucide-react";
+import { ArrowRight, ShoppingBag, Cpu, MonitorSmartphone, Tag, Truck, ShieldCheck, Flame, Sparkles, FileText, ShoppingCart, Star, Shuffle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { SHOP_STATIC_COMPARE_PRODUCTS } from "@/data/shop-static-products";
@@ -21,11 +21,31 @@ function shuffleStable<T>(arr: T[], seed: number): T[] {
   return a;
 }
 
+const SEED_STORAGE_KEY = "shop-highlights-seed";
+
 const ShopHighlightsGrid = () => {
-  const items = useMemo(() => {
-    // สุ่มใหม่ทุกครั้งที่เข้าหน้า (ใช้ timestamp + random เป็น seed)
-    const seed = Date.now() + Math.floor(Math.random() * 100000);
-    return shuffleStable(SHOP_STATIC_COMPARE_PRODUCTS, seed);
+  const [seed, setSeed] = useState<number>(() => {
+    if (typeof window !== "undefined") {
+      const saved = window.localStorage.getItem(SEED_STORAGE_KEY);
+      if (saved) {
+        const n = Number(saved);
+        if (!Number.isNaN(n)) return n;
+      }
+      const fresh = Date.now() + Math.floor(Math.random() * 100000);
+      window.localStorage.setItem(SEED_STORAGE_KEY, String(fresh));
+      return fresh;
+    }
+    return 1;
+  });
+
+  const items = useMemo(() => shuffleStable(SHOP_STATIC_COMPARE_PRODUCTS, seed), [seed]);
+
+  const reshuffle = useCallback(() => {
+    const fresh = Date.now() + Math.floor(Math.random() * 100000);
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem(SEED_STORAGE_KEY, String(fresh));
+    }
+    setSeed(fresh);
   }, []);
 
   return (
@@ -94,12 +114,23 @@ const ShopHighlightsGrid = () => {
             </p>
           </div>
 
-          <Button asChild variant="outline" className="self-start md:self-end">
-            <Link to="/shop" className="gap-2">
-              ดูสินค้าทั้งหมดใน Shop
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </Button>
+          <div className="flex flex-wrap gap-2 self-start md:self-end">
+            <Button
+              variant="secondary"
+              onClick={reshuffle}
+              className="gap-2"
+              title="สุ่มลำดับสินค้าแนะนำใหม่ — ผลลัพธ์จะถูกบันทึกไว้"
+            >
+              <Shuffle className="w-4 h-4" />
+              สุ่มใหม่
+            </Button>
+            <Button asChild variant="outline">
+              <Link to="/shop" className="gap-2">
+                ดูสินค้าทั้งหมดใน Shop
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </Button>
+          </div>
         </div>
 
         {/* Grid: 5 คอลัมน์บน desktop ประหยัดพื้นที่ */}
