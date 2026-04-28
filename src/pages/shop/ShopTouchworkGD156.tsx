@@ -153,7 +153,7 @@ const ICON_MAP = {
 
 const fmt = (n: number) => n.toLocaleString("th-TH");
 
-const GALLERY_CACHE_BUSTER = "gd156-gallery-20260428-windows-desktop-v2";
+const GALLERY_CACHE_BUSTER = "gd156-gallery-20260428-monitor-windows-v3";
 const withGalleryCacheBuster = (src: string) => `${src}${src.includes("?") ? "&" : "?"}v=${GALLERY_CACHE_BUSTER}`;
 
 function tierMultiplier(qty: number) {
