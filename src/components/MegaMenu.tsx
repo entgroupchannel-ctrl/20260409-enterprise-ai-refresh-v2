@@ -385,6 +385,15 @@ const MegaMenu = ({
                 <active.icon size={16} className="text-primary" />
                 <h3 className="text-foreground font-bold text-sm">{active.label}</h3>
                 <span className="text-muted-foreground text-xs">— {active.tagline}</span>
+                <Link
+                  to="/shop"
+                  onClick={() => { setActiveMenu(null); }}
+                  className="ml-auto inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-primary text-primary-foreground text-[11px] font-bold hover:bg-primary/90 transition-colors"
+                >
+                  <ShoppingBag size={11} />
+                  ดูใน Shop
+                  <ArrowRight size={11} />
+                </Link>
               </div>
 
               <div className="grid grid-cols-12 gap-5">
