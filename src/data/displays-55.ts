@@ -171,7 +171,7 @@ export const DISPLAYS_55: Record<Display55Slug, Display32> = {
       {
         image: hd55Io,
         title: "I/O Layout — External Connectors",
-        caption: "พอร์ตเชื่อมต่อด้านหลังตัวเครื่อง — รองรับครบทั้ง 3 Configuration: Monitor (HDMI in / VGA / USB / Audio), Windows PC (HDMI out / VGA / USB ×4 / RJ45 / Wi-Fi), Android (HDMI out / USB ×2 / RJ45 / TF Slot / Audio + BLE 5.0)",
+        caption: "พอร์ตเชื่อมต่อ​ขาจับแบบ VESA Moutingตัวเครื่อง — รองรับครบทั้ง 3 Configuration: Monitor (HDMI in / VGA / USB / Audio), Windows PC (HDMI out / VGA / USB ×4 / RJ45 / Wi-Fi), Android (HDMI out / USB ×2 / RJ45 / TF Slot / Audio + BLE 5.0)",
         callouts: [
           { label: "Monitor", value: "HDMI in + VGA + USB + Audio" },
           { label: "Windows PC", value: "HDMI + VGA + USB×4 + RJ45 + Wi-Fi" },
