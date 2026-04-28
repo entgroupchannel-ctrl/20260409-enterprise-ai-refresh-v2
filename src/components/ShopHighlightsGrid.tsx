@@ -34,7 +34,7 @@ const ShopHighlightsGrid = () => {
       aria-labelledby="shop-highlights-title"
       className="py-12 md:py-16"
     >
-      <div className="container mx-auto px-4">
+      <div className="container max-w-7xl mx-auto px-4">
         {/* Promo Ribbon — กระตุ้นการขาย */}
         <div className="mb-8 rounded-2xl overflow-hidden border-2 border-primary/30 bg-gradient-to-r from-primary/10 via-primary/5 to-accent/10 shadow-md">
           <div className="flex flex-col md:flex-row items-stretch">
