@@ -611,25 +611,28 @@ export default function ShopDisplays156() {
                   )}
                 </div>
 
-                {/* Actions */}
-                <div className="grid grid-cols-2 gap-2">
-                  <Button variant="outline" onClick={handleAddToCart} disabled={submitting}>
+                {/* Actions — compact, ไม่ยืดเต็มแถว */}
+                <div className="flex flex-wrap items-center gap-2">
+                  <Button size="sm" variant="outline" onClick={handleAddToCart} disabled={submitting} className="h-9 px-3">
                     <ShoppingCart className="w-4 h-4 mr-1.5" />
                     เพิ่มลงตะกร้า
                   </Button>
-                  <Button onClick={handleQuickQuote}>
+                  <Button size="sm" onClick={handleQuickQuote} className="h-9 px-3">
                     <FileText className="w-4 h-4 mr-1.5" />
                     ขอใบเสนอราคา
                   </Button>
+                  <LineQRButton className="inline-flex items-center gap-1.5 h-9 px-3 rounded-md text-xs font-medium border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500/20 transition-colors">
+                    <MessageCircle className="w-4 h-4" /> เพิ่มเพื่อน LINE
+                  </LineQRButton>
                 </div>
-                <div className="flex items-center justify-center gap-3 text-xs text-muted-foreground flex-wrap">
-                  <a href="tel:0959244966" className="flex items-center gap-1 hover:text-primary">
-                    <Phone className="w-3.5 h-3.5" /> 095-924-4966
+                <div className="flex items-center justify-center gap-3 text-xs text-muted-foreground flex-wrap pt-1">
+                  <a href="tel:020456104" className="flex items-center gap-1 hover:text-primary">
+                    <Phone className="w-3.5 h-3.5" /> 02-045-6104
                   </a>
                   <span>•</span>
-                  <Link to="/contact" className="flex items-center gap-1 hover:text-primary">
-                    <MessageCircle className="w-3.5 h-3.5" /> สอบถามแอดมิน
-                  </Link>
+                  <a href="tel:0957391053" className="flex items-center gap-1 hover:text-primary">
+                    <Phone className="w-3.5 h-3.5" /> 095-739-1053
+                  </a>
                   <span>•</span>
                   <Link to={`/products/${PRODUCT.slug ?? "displays-15.6"}`} className="flex items-center gap-1 hover:text-primary">
                     <ArrowRight className="w-3.5 h-3.5" /> สเปกเต็ม
