@@ -79,6 +79,7 @@ const ShopTouchworkDM104G = lazyRetry(() => import("./pages/shop/ShopTouchworkDM
 const ShopTouchworkDM121G = lazyRetry(() => import("./pages/shop/ShopTouchworkDM121G"));
 const ShopTouchworkDM15G = lazyRetry(() => import("./pages/shop/ShopTouchworkDM15G"));
 const ShopTouchworkDM156G = lazyRetry(() => import("./pages/shop/ShopTouchworkDM156G"));
+const ShopTouchworkDM17G = lazyRetry(() => import("./pages/shop/ShopTouchworkDM17G"));
 const Unsubscribe = lazyRetry(() => import("./pages/Unsubscribe"));
 const Login = lazyRetry(() => import("./pages/auth/Login"));
 const Register = lazyRetry(() => import("./pages/auth/Register"));
@@ -382,6 +383,7 @@ const App = () => (
                     <Route path="/shop/dm121g" element={<ShopTouchworkDM121G />} />
                     <Route path="/shop/dm15g" element={<ShopTouchworkDM15G />} />
                     <Route path="/shop/dm156g" element={<ShopTouchworkDM156G />} />
+                    <Route path="/shop/dm17g" element={<ShopTouchworkDM17G />} />
                     <Route path="/shop/:slug" element={<ShopProductDetail />} />
                     <Route path="/unsubscribe" element={<Unsubscribe />} />
                     <Route path="/login" element={<Login />} />

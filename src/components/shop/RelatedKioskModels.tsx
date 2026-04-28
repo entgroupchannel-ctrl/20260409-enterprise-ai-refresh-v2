@@ -16,6 +16,7 @@ import dm104gHero from "@/assets/touchwork/DM104G-Monitor.jpg";
 import dm121gHero from "@/assets/touchwork/DM121G-Monitor.jpg";
 import dm15gHero from "@/assets/touchwork/DM15G-Monitor.jpg";
 import dm156gHero from "@/assets/touchwork/DM156G-Monitor.jpg";
+import dm17gHero from "@/assets/touchwork/DM17G-Monitor.jpg";
 
 const gd32cHero = "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg";
 
@@ -180,6 +181,16 @@ const ALL_MODELS: KioskModel[] = [
     startingPrice: 16990,
     image: dm156gHero,
     productHref: "/touchwork/dm156g",
+  },
+  {
+    slug: "dm17g",
+    modelCode: "DM17G",
+    size: '17"',
+    shortName: "DM17G Industrial Touch PC",
+    tagline: 'จอสัมผัส 17" 5:4 Tempered 7H — Monitor / Android / Windows • Backlight 30,000 ชม.',
+    startingPrice: 15990,
+    image: dm17gHero,
+    productHref: "/touchwork/dm17g",
   },
 ];
 
