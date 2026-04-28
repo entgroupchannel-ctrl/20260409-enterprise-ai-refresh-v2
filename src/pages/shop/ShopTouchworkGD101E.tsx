@@ -290,10 +290,10 @@ export default function ShopTouchworkGD101E() {
       <ShopKioskSEO
         slug="gd101e"
         modelCode="GD101E"
-        shortName='Industrial Wall-Mount Touch PC 13.3" 16:9 Full HD IPS (PCAP 10pt, IP65 Front)'
-        sizeInch={13.3}
+        shortName='Industrial Wall-Mount Touch PC 10.1" 16:10 IPS (PCAP 10pt, IP65 Front)'
+        sizeInch={10.1}
         image={GD101E_Monitor}
-        resolution="1920×1080 (16:9)"
+        resolution="1280×800 (16:10)"
         brightness="≥ 250 cd/m²"
         touch="Capacitive 10pt"
         useCases={["Wall-Mount โรงแรม / Office", "Meeting Room Booking", "Kiosk หน้าห้อง / Wayfinding", "Smart Home / Building Automation"]}
@@ -323,7 +323,7 @@ export default function ShopTouchworkGD101E() {
           {/* Slideshow (5:4 frame to match panel ratio) */}
           <div className="space-y-2 lg:sticky lg:top-20">
             <div
-              className="relative aspect-[5/4] rounded-2xl overflow-hidden bg-gradient-to-b from-muted/40 to-muted/10 border group cursor-zoom-in"
+              className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-gradient-to-b from-muted/40 to-muted/10 border group cursor-zoom-in"
               onClick={() => setZoomOpen(true)}
             >
               {gallery.map((img, i) => (
