@@ -34,6 +34,10 @@ import imgSeriesMiniPC from '@/assets/shop/series-minipc.jpg';
 import imgSeriesRugged from '@/assets/shop/series-rugged.jpg';
 import imgSeriesFirewall from '@/assets/shop/series-firewall.jpg';
 import hd32HeroClean from '@/assets/touchwo/hd32-hero-clean.jpg';
+import kd156bHero from '@/assets/touchwo/kd156b/KD156-1A.jpg';
+import kd215bHero from '@/assets/touchwo/kd215b/KD215-1.jpg';
+import kd32bHeroShop from '@/assets/touchwo/kd32b-hero-clean.jpg';
+import kd43bHero from '@/assets/touchwo/kd43b/mon-1.jpg';
 
 interface Product {
   id: string; sku: string; model: string; series: string | null; name: string; description: string | null;
