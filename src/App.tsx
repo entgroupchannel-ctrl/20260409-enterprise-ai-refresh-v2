@@ -395,6 +395,7 @@ const App = () => (
                     <Route path="/shop/dm19g" element={<ShopTouchworkDM19G />} />
                     <Route path="/shop/dm215g" element={<ShopTouchworkDM215G />} />
                     <Route path="/shop/gd133" element={<ShopTouchworkGD133 />} />
+                    <Route path="/shop/gd156" element={<ShopTouchworkGD156 />} />
                     <Route path="/shop/jd133" element={<ShopTouchworkJD133 />} />
                     <Route path="/shop/jd156b" element={<ShopTouchworkJD156B />} />
                     <Route path="/shop/jd185b" element={<ShopTouchworkJD185B />} />
