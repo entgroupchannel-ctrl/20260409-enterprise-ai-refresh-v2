@@ -5,6 +5,7 @@ import thaiPattern from "@/assets/thai-suphannahong-pattern.png";
 import edgeAi1 from "@/assets/edge-ai-hero-1.jpg";
 import edgeAi2 from "@/assets/edge-ai-hero-2.jpg";
 import edgeAi3 from "@/assets/edge-ai-hero-3.jpg";
+import JetsonRecommendedRow from "@/components/JetsonRecommendedRow";
 
 const slides = [
   { src: edgeAi1, alt: "NVIDIA Jetson Module กับหุ่นยนต์ AI — ENT GROUP", caption: "โมดูล NVIDIA Jetson พร้อมระบบ AI อัจฉริยะ" },
@@ -142,6 +143,11 @@ const EdgeAISection = () => {
 
             <div className="absolute -bottom-4 -right-4 w-24 h-24 rounded-full bg-primary/10 blur-2xl" />
           </div>
+        </div>
+
+        {/* รุ่นแนะนำ Jetson — อยู่ภายใน section เดียวกัน */}
+        <div className="mt-12 md:mt-16">
+          <JetsonRecommendedRow />
         </div>
       </div>
     </section>
