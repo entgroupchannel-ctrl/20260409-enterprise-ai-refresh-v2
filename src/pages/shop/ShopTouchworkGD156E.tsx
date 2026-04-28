@@ -60,7 +60,7 @@ import g_x86_08 from "@/assets/touchwork/gallery/GD156-X86/windows-desktop-08.jp
 /*   - Dimension: 37.56(W)×33.38(L)×4.83(T) cm                        */
 /*   - Net 4.1 KG / Gross 5.6 KG (Pkg 69.2×34.7×15.5 cm)              */
 /*   - Power: AC 110-240V 50/60Hz → DC 12V 5A; Standby ≤0.5W          */
-/*           Monitor <30W / Android <36W / X86 <60W                   */
+/*           Monitor <30W / Android <36W / X86 <48W                   */
 /*   - Op Temp 0–50°C, Humidity 10–80%                                */
 /*   - In box: Manual ×1, AC cable ×1, Wall mount bracket ×1,         */
 /*             WiFi antenna ×1 (ARM/X86)                              */
@@ -768,7 +768,7 @@ export default function ShopTouchworkGD156E() {
                 <SpecRow k="Power Input" v="110 – 240 V AC, 50/60 Hz" />
                 <SpecRow k="Power Output" v="DC 12 V 5 A" />
                 <SpecRow k="Standby Consumption" v="≤ 0.5 W" />
-                <SpecRow k="Overall Consumption" v="Monitor < 30W / Android < 36W / X86 < 60W" />
+                <SpecRow k="Overall Consumption" v="Monitor < 30W / Android < 36W / X86 < 48W" />
               </SpecGroup>
 
               <SpecGroup title="In the Box">
