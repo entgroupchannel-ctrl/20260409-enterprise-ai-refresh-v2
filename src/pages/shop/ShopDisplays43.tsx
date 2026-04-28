@@ -19,17 +19,17 @@ import { toast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/hooks/useCart";
 import { savePendingQuote } from "@/hooks/usePendingQuote";
-import { DISPLAYS_32 } from "@/data/displays-32";
+import { DISPLAYS_43 } from "@/data/displays-43";
 import LineQRButton from "@/components/LineQRButton";
 
 /* ------------------------------------------------------------------ */
-/*  Source product (single model: KD32B with 3 configurations)        */
+/*  Source product (single model: KD43B with 3 configurations)        */
 /* ------------------------------------------------------------------ */
-const PRODUCT = DISPLAYS_32.kd32b;
+const PRODUCT = DISPLAYS_43.kd43b;
 
 /* Estimated indicative prices per variant (THB, 1 unit).
  * สูตร: USD × 35 × 2.3 × 1.07 (VAT/import) + 10,000 (shipping) → ลงท้าย 990
- * KD32B Windows Entry (J6412/4GB/128GB Ubuntu): $858 → ~84,990
+ * KD43B Windows Entry (J6412/4GB/128GB Ubuntu): $1,022 → ~99,990
  */
 const VARIANT_BASE_PRICE: Record<string, number> = {
   monitor: 39990,
@@ -123,7 +123,7 @@ function tierMultiplier(qty: number) {
 /* ------------------------------------------------------------------ */
 /*  Component                                                          */
 /* ------------------------------------------------------------------ */
-export default function ShopDisplays32() {
+export default function ShopDisplays43() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { addToCart } = useCart();
@@ -230,7 +230,7 @@ export default function ShopDisplays32() {
   const handleAddToCart = async () => {
     if (!user) {
       toast({ title: "กรุณาเข้าสู่ระบบ", description: "เข้าสู่ระบบเพื่อบันทึกสินค้าลงตะกร้าและขอใบเสนอราคา" });
-      navigate("/login?redirect=/shop/displays-32");
+      navigate("/login?redirect=/shop/displays-43");
       return;
     }
     setSubmitting(true);
@@ -283,12 +283,12 @@ export default function ShopDisplays32() {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Shop — KD32B Floor-Stand Touch Kiosk 32" | ENT Group</title>
+        <title>Shop — KD43B Floor-Stand Touch Kiosk 43" | ENT Group</title>
         <meta
           name="description"
-          content="เลือกซื้อตู้คีออสก์ตั้งพื้น 32 นิ้ว KD32B — เลือก CPU/RAM/SSD/Wi-Fi/อุปกรณ์เสริมได้ครบ พร้อมขอใบเสนอราคาออนไลน์"
+          content="เลือกซื้อตู้คีออสก์ตั้งพื้น 43 นิ้ว KD43B — เลือก CPU/RAM/SSD/Wi-Fi/อุปกรณ์เสริมได้ครบ พร้อมขอใบเสนอราคาออนไลน์"
         />
-        <link rel="canonical" href="https://www.entgroup.co.th/shop/displays-32" />
+        <link rel="canonical" href="https://www.entgroup.co.th/shop/displays-43" />
       </Helmet>
 
       <SiteNavbar />
@@ -299,7 +299,7 @@ export default function ShopDisplays32() {
         <ChevronRight className="w-3 h-3" />
         <Link to="/shop" className="hover:text-foreground">Shop</Link>
         <ChevronRight className="w-3 h-3" />
-        <Link to="/products/displays-32" className="hover:text-foreground">Display 32"</Link>
+        <Link to="/products/displays-43" className="hover:text-foreground">Display 43"</Link>
         <ChevronRight className="w-3 h-3" />
         <span className="text-foreground font-medium">{PRODUCT.modelCode}</span>
       </nav>
@@ -405,12 +405,12 @@ export default function ShopDisplays32() {
 
             {/* Quick Specs (จากหน้าสินค้า) — compact 4-col */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2 p-3 rounded-lg border bg-muted/20">
-              <QuickSpec label="หน้าจอ" value={'32" FHD'} />
+              <QuickSpec label="หน้าจอ" value={'43" FHD'} />
               <QuickSpec label="Touch" value="PCAP 10pt" />
               <QuickSpec label="กระจก" value="Mohs 7" />
               <QuickSpec label="Response" value="< 5ms" />
               <QuickSpec label="ความสว่าง" value="300 cd/m²" />
-              <QuickSpec label="น้ำหนัก" value="23.3 kg" />
+              <QuickSpec label="น้ำหนัก" value="36 kg" />
               <QuickSpec label="ติดตั้ง" value="Floor Stand" />
               <QuickSpec label="ใช้งาน" value="7×24H" />
             </div>
@@ -637,7 +637,7 @@ export default function ShopDisplays32() {
                     <Phone className="w-3.5 h-3.5" /> 095-739-1053
                   </a>
                   <span>•</span>
-                  <Link to={`/products/${PRODUCT.slug ?? "displays-32"}`} className="flex items-center gap-1 hover:text-primary">
+                  <Link to={`/products/${PRODUCT.slug ?? "displays-43"}`} className="flex items-center gap-1 hover:text-primary">
                     <ArrowRight className="w-3.5 h-3.5" /> สเปกเต็ม
                   </Link>
                 </div>
