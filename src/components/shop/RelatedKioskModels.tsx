@@ -94,6 +94,16 @@ const ALL_MODELS: KioskModel[] = [
     image: gd32cHero,
     productHref: "/products/displays-32?model=gd32c",
   },
+  {
+    slug: "gd27c",
+    modelCode: "GD27C",
+    size: '27"',
+    shortName: "GD27C Wall Kiosk",
+    tagline: 'Wall-Mount 27" PCAP Bezel 16mm — POS / Healthcare / Banking',
+    startingPrice: 34990,
+    image: gd27cHero,
+    productHref: "/products/displays-27?model=gd27c",
+  },
 ];
 
 const fmt = (n: number) => n.toLocaleString("th-TH");
