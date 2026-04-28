@@ -299,7 +299,7 @@ export default function ShopDisplays32() {
         <ChevronRight className="w-3 h-3" />
         <Link to="/shop" className="hover:text-foreground">Shop</Link>
         <ChevronRight className="w-3 h-3" />
-        <Link to="/products/displays-21.5" className="hover:text-foreground">Display 21.5"</Link>
+        <Link to="/products/displays-32" className="hover:text-foreground">Display 32"</Link>
         <ChevronRight className="w-3 h-3" />
         <span className="text-foreground font-medium">{PRODUCT.modelCode}</span>
       </nav>
