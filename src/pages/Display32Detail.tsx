@@ -190,6 +190,11 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
   const [lightbox, setLightbox] = useState<{ images: string[]; index: number } | null>(null);
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
   const hideDatasheet = HIDE_DATASHEET_GROUPS.includes(groupSize);
+  const shopSlug =
+    groupSize === 156 ? "displays-15.6" :
+    groupSize === 215 ? "displays-21.5" :
+    groupSize === 32 ? "displays-32" :
+    groupSize === 43 ? "displays-43" : null;
   const SECTIONS = useMemo(
     () => ALL_SECTIONS.filter(s => {
       if (s.id === "dimensions") return (product?.dimensionDrawings?.length ?? 0) > 0;
