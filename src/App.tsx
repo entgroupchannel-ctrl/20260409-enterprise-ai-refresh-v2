@@ -71,6 +71,7 @@ const ShopDisplays43 = lazyRetry(() => import("./pages/shop/ShopDisplays43"));
 const ShopDisplaysGD215C = lazyRetry(() => import("./pages/shop/ShopDisplaysGD215C"));
 const ShopDisplaysGD238C3 = lazyRetry(() => import("./pages/shop/ShopDisplaysGD238C3"));
 const ShopDisplaysGD32C = lazyRetry(() => import("./pages/shop/ShopDisplaysGD32C"));
+const ShopDisplaysGD27C = lazyRetry(() => import("./pages/shop/ShopDisplaysGD27C"));
 const Unsubscribe = lazyRetry(() => import("./pages/Unsubscribe"));
 const Login = lazyRetry(() => import("./pages/auth/Login"));
 const Register = lazyRetry(() => import("./pages/auth/Register"));
