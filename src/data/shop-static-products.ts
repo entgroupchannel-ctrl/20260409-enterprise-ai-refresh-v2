@@ -224,6 +224,23 @@ export const SHOP_STATIC_COMPARE_PRODUCTS: ShopStaticCompareProduct[] = [
     unit_price: 16990,
     stock_status: 'available',
   },
+  {
+    id: 'static-dm17g',
+    slug: 'dm17g',
+    model: 'DM17G',
+    name: 'TouchWork 17" Industrial Touch PC 5:4 (Monitor / Android / Windows)',
+    thumbnail_url: dm17gHero,
+    cpu: 'Plug & Play / RK3568 / Intel (TBD)',
+    ram_gb: 4,
+    storage_gb: 32,
+    storage_type: 'eMMC / SSD',
+    has_wifi: true,
+    has_4g: false,
+    os: 'Plug & Play / Android / Windows',
+    form_factor: 'Industrial Touch PC',
+    unit_price: 15990,
+    stock_status: 'available',
+  },
 ];
 
 export function getShopStaticCompareProducts(slugs: string[]): ShopStaticCompareProduct[] {
