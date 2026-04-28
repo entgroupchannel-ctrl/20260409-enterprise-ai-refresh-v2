@@ -45,8 +45,6 @@ const Index = () => {
       </div>
       <div className="bg-white dark:bg-background">
         <EdgeAISection />
-        <JetsonRecommendedRow />
-        <div className="h-10 md:h-14" />
       </div>
       <div className="bg-gradient-to-b from-background via-primary/5 to-background border-y border-primary/10">
         <ShopHighlightsGrid />
