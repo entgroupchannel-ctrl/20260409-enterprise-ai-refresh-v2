@@ -45,6 +45,8 @@ import g_x86_03 from "@/assets/touchwork/gallery/GD156-X86/03.jpg";
 import g_x86_04 from "@/assets/touchwork/gallery/GD156-X86/04.jpg";
 import g_x86_05 from "@/assets/touchwork/gallery/GD156-X86/05.jpg";
 import g_x86_06 from "@/assets/touchwork/gallery/GD156-X86/06.jpg";
+import g_x86_07 from "@/assets/touchwork/gallery/GD156-X86/07.jpg";
+import g_x86_08 from "@/assets/touchwork/gallery/GD156-X86/08.jpg";
 
 /* ------------------------------------------------------------------ */
 /*  GD156 — 15.6" Industrial Wall-Mount Touch Kiosk (Touchwork)       */
