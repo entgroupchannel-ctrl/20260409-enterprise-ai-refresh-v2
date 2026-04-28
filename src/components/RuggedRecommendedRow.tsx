@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Shield } from "lucide-react";
+import { ArrowRight, Shield, FileText, ShoppingCart, Tag } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 // รุ่นแนะนำ 8 รุ่น: 3 Rugged Tablet + 3 Rugged Notebook + 2 Handheld
@@ -22,6 +22,7 @@ const RECOMMENDED = [
     series: "Rugged Tablet",
     name: "F9A",
     desc: '10.1" Industrial Tablet — Windows 11',
+    price: "฿24,900",
     image: "/images/rugged/f9a-_j8J-x2I.jpg",
     href: "/rugged-tablet/f9a",
     promoIdx: 0, // ขายดี
@@ -31,6 +32,7 @@ const RECOMMENDED = [
     series: "Rugged Notebook",
     name: "EM-X15A",
     desc: '15.6" FHD 1000 nits — MIL-STD-810H',
+    price: "สอบถามราคา",
     image: "/images/rugged/em-x15a-V7O0Cy_Y.png",
     href: "/rugged-notebook/em-x15a",
     promoIdx: 2, // ทนทาน
@@ -40,6 +42,7 @@ const RECOMMENDED = [
     series: "Handheld",
     name: "W65G",
     desc: 'Handheld PDA — IP67 + Barcode Scanner',
+    price: "สอบถามราคา",
     image: "/images/rugged/w65g-N3AQKXJb.png",
     href: "/handheld/w65g",
     promoIdx: 1, // ส่งไว
@@ -49,6 +52,7 @@ const RECOMMENDED = [
     series: "Rugged Tablet",
     name: "F9E",
     desc: '10.1" Elite — Intel i5 / Dual USB-C',
+    price: "สอบถามราคา",
     image: "/images/rugged/f9e-C3MseYpo.png",
     href: "/rugged-tablet/f9e",
     promoIdx: 3, // ประหยัด
@@ -58,6 +62,7 @@ const RECOMMENDED = [
     series: "Rugged Notebook",
     name: "EM-X14A",
     desc: '14" Intel i7 — Thunderbolt 4',
+    price: "สอบถามราคา",
     image: "/images/rugged/em-x14a-CeYNitLa.png",
     href: "/rugged-notebook/em-x14a",
     promoIdx: 0, // ขายดี
@@ -67,6 +72,7 @@ const RECOMMENDED = [
     series: "Handheld",
     name: "A55GT",
     desc: 'Android 5G Handheld — กันน้ำกันกระแทก',
+    price: "สอบถามราคา",
     image: "/images/rugged/a55gt-8EiW4LT7.jpg",
     href: "/handheld/a55gt",
     promoIdx: 1, // ส่งไว
@@ -76,6 +82,7 @@ const RECOMMENDED = [
     series: "Rugged Notebook",
     name: "EM-X15M",
     desc: 'AI PC — Intel Core Ultra + Intel Arc',
+    price: "สอบถามราคา",
     image: "/images/rugged/em-x15a-V7O0Cy_Y.png",
     href: "/rugged-notebook/em-x15m",
     promoIdx: 2, // ทนทาน
@@ -85,6 +92,7 @@ const RECOMMENDED = [
     series: "Rugged Tablet",
     name: "EM-I22J",
     desc: '12.2" 2-in-1 — คีย์บอร์ดถอดได้',
+    price: "สอบถามราคา",
     image: "/images/rugged/em-i22j-BG1wttE6.png",
     href: "/rugged-tablet/em-i22j",
     promoIdx: 3, // ประหยัด
@@ -132,9 +140,10 @@ const RuggedRecommendedRow = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
           {RECOMMENDED.map((p) => {
             const tag = PROMO_TAGS[p.promoIdx];
+            const hasPriceNumber = p.price.startsWith("฿");
             return (
               <Link
                 key={p.id}
@@ -150,23 +159,53 @@ const RuggedRecommendedRow = () => {
                   />
                   <Badge
                     variant="secondary"
-                    className="absolute top-1.5 left-1.5 text-[9px] font-semibold"
+                    className="absolute top-2 left-2 text-[10px] font-semibold"
                   >
                     {p.series}
                   </Badge>
                   <span
-                    className={`absolute top-1.5 right-1.5 text-[9px] md:text-[10px] font-bold px-1.5 py-0.5 rounded-md shadow-md animate-pulse ${tag.cls}`}
+                    className={`absolute top-2 right-2 text-[10px] md:text-[11px] font-bold px-2 py-0.5 rounded-md shadow-md animate-pulse ${tag.cls}`}
                   >
                     {tag.label}
                   </span>
                 </div>
-                <div className="flex-1 flex flex-col p-2">
-                  <h4 className="text-xs font-bold leading-snug line-clamp-1 group-hover:text-primary transition-colors">
+                <div className="flex-1 flex flex-col p-3">
+                  <h4 className="text-sm font-bold leading-snug line-clamp-1 group-hover:text-primary transition-colors">
                     {p.name}
                   </h4>
-                  <p className="mt-1 text-[10px] text-muted-foreground line-clamp-2">
+                  <p className="mt-1 text-xs text-muted-foreground line-clamp-2 min-h-[2.25rem]">
                     {p.desc}
                   </p>
+
+                  {/* ราคา */}
+                  <div className="mt-2">
+                    <div className="text-[10px] text-muted-foreground flex items-center gap-1">
+                      <Tag className="w-3 h-3" /> เริ่มต้น
+                    </div>
+                    <div className={`font-bold ${hasPriceNumber ? "text-base text-primary" : "text-xs text-foreground"}`}>
+                      {p.price}
+                    </div>
+                  </div>
+
+                  {/* ปุ่ม action */}
+                  <div className="mt-2.5 grid grid-cols-2 gap-1.5">
+                    <span
+                      className="inline-flex items-center justify-center gap-1 px-2 py-1.5 rounded-md border border-border bg-background text-[11px] font-medium text-foreground hover:bg-primary/10 hover:border-primary hover:text-primary transition-colors"
+                      title="ขอใบเสนอราคา"
+                    >
+                      <FileText className="w-3.5 h-3.5" />
+                      <span className="hidden sm:inline">ใบเสนอราคา</span>
+                      <span className="sm:hidden">QT</span>
+                    </span>
+                    <span
+                      className="inline-flex items-center justify-center gap-1 px-2 py-1.5 rounded-md bg-primary text-primary-foreground text-[11px] font-medium hover:bg-primary/90 transition-colors"
+                      title="หยิบใส่ตะกร้า"
+                    >
+                      <ShoppingCart className="w-3.5 h-3.5" />
+                      <span className="hidden sm:inline">ใส่ตะกร้า</span>
+                      <span className="sm:hidden">+</span>
+                    </span>
+                  </div>
                 </div>
               </Link>
             );
