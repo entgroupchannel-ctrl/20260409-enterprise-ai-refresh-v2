@@ -48,6 +48,7 @@ import dm101gHero from '@/assets/touchwork/DM101G-Monitor.jpg';
 import dm104gHero from '@/assets/touchwork/DM104G-Monitor.jpg';
 import dm121gHero from '@/assets/touchwork/DM121G-Monitor.jpg';
 import dm15gHero from '@/assets/touchwork/DM15G-Monitor.jpg';
+import dm156gHero from '@/assets/touchwork/DM156G-Monitor.jpg';
 
 const gd32cHero = 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg';
 
@@ -552,6 +553,33 @@ const ShopStorefront = () => {
               is_featured: true,
               variant_count: 3,
               starting_price: 15990,
+              warranty_months: 12,
+              warranty_type: 'carry-in',
+            },
+            {
+              id: 'static-dm156g',
+              sku: 'DM156G-TOUCHPC',
+              model: 'DM156G',
+              series: 'Industrial Touch PC',
+              name: 'TouchWork 15.6" Industrial Touch PC 16:9 Full HD (Monitor / Android / Windows)',
+              description: 'จอสัมผัสอุตสาหกรรม 15.6" 16:9 Widescreen Full HD 1920×1080 — Capacitive 10pt, IP65 (หน้า), Backlight 15,000 ชม. ขนาด Widescreen ยอดนิยมสำหรับ POS / Self-service • เลือกได้ทั้ง Monitor (HDMI/VGA), Android (RK3568/RK3399) และ Windows (Intel Celeron / Core i3-i7) — กรณีไม่ระบุ CPU Model แจ้งแอดมินขอราคา',
+              category: 'Industrial Touch PC',
+              cpu: 'Plug & Play / RK3568 / Intel (TBD)',
+              ram_gb: 4,
+              storage_gb: 32,
+              storage_type: 'eMMC / SSD',
+              unit_price: 16990,
+              unit_price_vat: null,
+              image_url: dm156gHero,
+              thumbnail_url: dm156gHero,
+              gallery_urls: null,
+              stock_status: 'available',
+              is_active: true,
+              slug: 'dm156g',
+              tags: ['new', 'touch-pc', 'industrial', '15.6-inch', '16-9', 'full-hd'],
+              is_featured: true,
+              variant_count: 3,
+              starting_price: 16990,
               warranty_months: 12,
               warranty_type: 'carry-in',
             },

@@ -13,6 +13,7 @@ import dm101gHero from '@/assets/touchwork/DM101G-Monitor.jpg';
 import dm104gHero from '@/assets/touchwork/DM104G-Monitor.jpg';
 import dm121gHero from '@/assets/touchwork/DM121G-Monitor.jpg';
 import dm15gHero from '@/assets/touchwork/DM15G-Monitor.jpg';
+import dm156gHero from '@/assets/touchwork/DM156G-Monitor.jpg';
 
 const gd32cHero = 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg';
 
@@ -203,6 +204,23 @@ export const SHOP_STATIC_COMPARE_PRODUCTS: ShopStaticCompareProduct[] = [
     os: 'Plug & Play / Android / Windows',
     form_factor: 'Industrial Touch PC',
     unit_price: 15990,
+    stock_status: 'available',
+  },
+  {
+    id: 'static-dm156g',
+    slug: 'dm156g',
+    model: 'DM156G',
+    name: 'TouchWork 15.6" Industrial Touch PC 16:9 Full HD (Monitor / Android / Windows)',
+    thumbnail_url: dm156gHero,
+    cpu: 'Plug & Play / RK3568 / Intel (TBD)',
+    ram_gb: 4,
+    storage_gb: 32,
+    storage_type: 'eMMC / SSD',
+    has_wifi: true,
+    has_4g: false,
+    os: 'Plug & Play / Android / Windows',
+    form_factor: 'Industrial Touch PC',
+    unit_price: 16990,
     stock_status: 'available',
   },
 ];
