@@ -439,9 +439,9 @@ export default function ShopDisplaysGD238C3() {
                   <h3 className="font-bold text-sm uppercase tracking-wider">ปรับแต่งสเปก</h3>
                 </div>
 
-                {/* Variant: 2-col (RK3568 vs RK3588) */}
+                {/* Variant: 2-col (RK3568 vs Intel Core i3/i5/i7) */}
                 <div className="grid grid-cols-2 gap-2">
-                  {PRODUCT.variants?.map((v) => {
+                  {SHOP_VARIANTS.map((v) => {
                     const VIcon = ICON_MAP[v.icon as keyof typeof ICON_MAP] ?? Cpu;
                     const active = v.key === variantKey;
                     return (
@@ -454,15 +454,18 @@ export default function ShopDisplaysGD238C3() {
                         )}
                       >
                         <VIcon className={cn("w-5 h-5 mb-1", active ? "text-primary" : "text-muted-foreground")} />
-                        <p className="font-semibold text-sm leading-tight">
-                          {v.key === "rk3568" ? "RK3568 — Cost-effective" : "RK3588 — High Performance"}
-                        </p>
-                        <p className="text-xs text-muted-foreground line-clamp-1 mt-0.5">{v.badge}</p>
+                        <p className="font-semibold text-sm leading-tight">{v.title}</p>
+                        <p className="text-xs text-muted-foreground line-clamp-2 mt-0.5">{v.badge}</p>
                         <p className="text-xs text-primary font-bold mt-1">฿{fmt(VARIANT_BASE_PRICE[v.key] ?? 0)}</p>
                       </button>
                     );
                   })}
                 </div>
+                {isIntel && (
+                  <p className="text-[11px] text-amber-600 dark:text-amber-500 -mt-2">
+                    💡 รุ่น Intel Core i3 / i5 / i7 — ยังไม่ระบุ Generation กรุณาแจ้งความต้องการกับแอดมินเพื่อรับใบเสนอราคาตามรุ่น CPU ที่เลือก
+                  </p>
+                )}
 
                 {/* RAM / Storage */}
                 <div className="grid grid-cols-2 gap-3">
