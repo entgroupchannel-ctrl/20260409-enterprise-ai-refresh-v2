@@ -901,7 +901,7 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
               <p className="text-sm text-muted-foreground mt-2 mb-5 max-w-xl mx-auto">
                 ทีมวิศวกรพร้อมออกแบบ Configuration เฉพาะธุรกิจของคุณ — ระบุโมดูลที่ต้องการแล้วขอใบเสนอราคาได้ทันที
               </p>
-              <div className="flex items-center justify-center">
+              <div className="flex flex-wrap items-center justify-center gap-3">
                 <QuoteRequestButton
                   productModel={product.modelCode}
                   productName={`${product.name} — ปรับแต่ง`}
@@ -909,6 +909,14 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
                   size="lg"
                   className="shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-shadow text-base px-10"
                 />
+                {shopSlug && (
+                  <Button asChild size="lg" variant="outline" className="border-primary/40 text-primary hover:bg-primary hover:text-primary-foreground text-base px-8">
+                    <Link to={`/shop/${shopSlug}`}>
+                      <ShoppingCart className="h-4 w-4 mr-2" />
+                      หยิบใส่ตะกร้า
+                    </Link>
+                  </Button>
+                )}
               </div>
             </div>
           </section>
