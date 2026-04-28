@@ -146,7 +146,7 @@ const EdgeAISection = () => {
         </div>
 
         {/* รุ่นแนะนำ Jetson — อยู่ภายใน section เดียวกัน */}
-        <div className="mt-12 md:mt-16">
+        <div className="mt-6 md:mt-8">
           <JetsonRecommendedRow />
         </div>
       </div>

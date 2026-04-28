@@ -30,9 +30,9 @@ const JetsonRecommendedRow = () => {
       aria-labelledby="jetson-recommended-title"
       className="relative z-10"
     >
-      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-5">
+      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-2 mb-3">
         <div>
-          <Badge variant="secondary" className="mb-2 gap-1.5">
+          <Badge variant="secondary" className="mb-1.5 gap-1.5">
             <Cpu className="w-3.5 h-3.5" />
             รุ่นแนะนำสำหรับ Edge AI
           </Badge>
@@ -43,9 +43,6 @@ const JetsonRecommendedRow = () => {
             NVIDIA Jetson — <span className="text-primary">IPC</span> &{" "}
             <span className="text-primary">Y Series Dev Kit</span>
           </h3>
-          <p className="text-sm text-muted-foreground mt-1">
-            8 รุ่นยอดนิยม — Industrial PC สำหรับ Production และ Y-Series Dev Kit สำหรับ Prototyping
-          </p>
         </div>
         <Link
           to="/shop?category=jetson"
