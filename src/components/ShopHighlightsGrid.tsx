@@ -114,12 +114,23 @@ const ShopHighlightsGrid = () => {
             </p>
           </div>
 
-          <Button asChild variant="outline" className="self-start md:self-end">
-            <Link to="/shop" className="gap-2">
-              ดูสินค้าทั้งหมดใน Shop
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </Button>
+          <div className="flex flex-wrap gap-2 self-start md:self-end">
+            <Button
+              variant="secondary"
+              onClick={reshuffle}
+              className="gap-2"
+              title="สุ่มลำดับสินค้าแนะนำใหม่ — ผลลัพธ์จะถูกบันทึกไว้"
+            >
+              <Shuffle className="w-4 h-4" />
+              สุ่มใหม่
+            </Button>
+            <Button asChild variant="outline">
+              <Link to="/shop" className="gap-2">
+                ดูสินค้าทั้งหมดใน Shop
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </Button>
+          </div>
         </div>
 
         {/* Grid: 5 คอลัมน์บน desktop ประหยัดพื้นที่ */}
