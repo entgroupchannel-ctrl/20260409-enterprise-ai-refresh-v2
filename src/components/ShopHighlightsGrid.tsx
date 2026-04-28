@@ -266,7 +266,7 @@ const ShopHighlightsGrid = () => {
         </div>
 
         {/* Footer CTA */}
-        <div className="mt-8 text-center">
+        <div className="mt-6 text-center">
           <Button asChild size="lg" className="gap-2">
             <Link to="/shop">
               เปิดดู Shop ทั้งหมด ({SHOP_STATIC_COMPARE_PRODUCTS.length}+ รุ่น)
