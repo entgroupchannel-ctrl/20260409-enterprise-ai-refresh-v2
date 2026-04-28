@@ -184,14 +184,15 @@ export default function ShopDisplays156() {
     const ramDelta = isPC ? (ramOptions[ramIdx]?.delta ?? 0) : 0;
     const ssdDelta = isPC ? (ssdOptions[ssdIdx]?.delta ?? 0) : 0;
     const wifiDelta = isPC ? (WIFI_OPTIONS[wifiIdx]?.delta ?? 0) : 0;
+    const osDelta = isPC ? (osOptions[osIdx]?.delta ?? 0) : 0;
     const addonsTotal = addons.reduce((s, k) => s + (ADDON_OPTIONS.find(a => a.key === k)?.price ?? 0), 0);
-    const unit = base + cpuDelta + ramDelta + ssdDelta + wifiDelta + addonsTotal;
+    const unit = Math.max(0, base + cpuDelta + ramDelta + ssdDelta + wifiDelta + osDelta + addonsTotal);
     const tier = tierMultiplier(qty);
     const tierUnit = Math.round(unit * tier);
     const total = tierUnit * qty;
     const savings = (unit - tierUnit) * qty;
     return { unit, tierUnit, total, savings, addonsTotal, tierPct: Math.round((1 - tier) * 100) };
-  }, [variantKey, cpuTier, ramIdx, ssdIdx, wifiIdx, addons, qty, isPC, ramOptions, ssdOptions]);
+  }, [variantKey, cpuTier, ramIdx, ssdIdx, wifiIdx, osIdx, addons, qty, isPC, ramOptions, ssdOptions, osOptions]);
 
   const buildConfigSummary = () => {
     const parts: string[] = [variant?.label ?? PRODUCT.name];
