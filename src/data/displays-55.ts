@@ -160,7 +160,7 @@ export const DISPLAYS_55: Record<Display55Slug, Display32> = {
       {
         image: hd55DimBack,
         title: "VESA Mount Pattern — Rear View",
-        caption: "แบบทางวิศวกรรมด้านหลัง — รองรับ VESA Mount มาตรฐาน 400 × 400 mm พร้อมจุดยึดเสริม 432 × 232.4 mm สำหรับ Bracket แบบพิเศษ ใช้น็อต M6 จำนวน 4 ตัว (4-M6) — ด้านหลังมีช่องระบายความร้อนกว้างพร้อมโครงสร้างเหล็กรับน้ำหนัก รองรับการติดตั้งแบบ Wall mount / Floor stand / Mobile cart ตามมาตรฐานอุตสาหกรรม",
+        caption: "แบบทางวิศวกรรม​ขาจับแบบ VESA Mouting — รองรับ VESA Mount มาตรฐาน 400 × 400 mm พร้อมจุดยึดเสริม 432 × 232.4 mm สำหรับ Bracket แบบพิเศษ ใช้น็อต M6 จำนวน 4 ตัว (4-M6) — ​ขาจับแบบ VESA Moutingมีช่องระบายความร้อนกว้างพร้อมโครงสร้างเหล็กรับน้ำหนัก รองรับการติดตั้งแบบ Wall mount / Floor stand / Mobile cart ตามมาตรฐานอุตสาหกรรม",
         callouts: [
           { label: "VESA Standard", value: "400 × 400 mm" },
           { label: "VESA Extended", value: "432 × 232.4 mm" },
