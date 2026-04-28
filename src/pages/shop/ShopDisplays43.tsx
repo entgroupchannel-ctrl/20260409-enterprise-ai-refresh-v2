@@ -24,6 +24,7 @@ import LineQRButton from "@/components/LineQRButton";
 import RelatedKioskModels from "@/components/shop/RelatedKioskModels";
 import B2BPlatformBanner from "@/components/shop/B2BPlatformBanner";
 import UseCaseGallery from "@/components/shop/UseCaseGallery";
+import ShopKioskSEO from "@/components/shop/ShopKioskSEO";
 import ucRetail43 from "@/assets/shop/usecases/kd43-retail.jpg";
 import ucBanking43 from "@/assets/shop/usecases/kd43-banking.jpg";
 import ucExhibition43 from "@/assets/shop/usecases/kd43-exhibition.jpg";
