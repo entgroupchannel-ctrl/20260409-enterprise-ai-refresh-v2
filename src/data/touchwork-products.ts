@@ -33,6 +33,10 @@ import DM215G_X86 from "@/assets/touchwork/DM215G-X86.jpg";
 import GD133_ARM from "@/assets/touchwork/GD133-ARM.jpg";
 import GD133_Monitor from "@/assets/touchwork/GD133-Monitor.jpg";
 import GD133_X86 from "@/assets/touchwork/GD133-X86.jpg";
+// GD156 / GD156E — ใช้ภาพจาก gallery ที่ไม่มี TouchWo logo (Windows desktop / Android boot)
+import GD156_Monitor from "@/assets/touchwork/gallery/GD156-Monitor/01.jpg";
+import GD156_ARM from "@/assets/touchwork/gallery/GD156-ARM/01.jpg";
+import GD156_X86 from "@/assets/touchwork/gallery/GD156-X86/windows-desktop-01.jpg";
 import JD185B_ARM from "@/assets/touchwork/JD185B-ARM.jpg";
 import JD185B_Monitor from "@/assets/touchwork/JD185B-Monitor.jpg";
 import JD185B_X86 from "@/assets/touchwork/JD185B-X86.jpg";
@@ -141,6 +145,8 @@ function buildVariants(model: string, archs: TouchWorkArch[]): TouchWorkVariant[
     DM19G: { ARM: DM19G_ARM, Monitor: DM19G_Monitor, X86: DM19G_X86 },
     DM215G: { ARM: DM215G_ARM, Monitor: DM215G_Monitor, X86: DM215G_X86 },
     GD133: { ARM: GD133_ARM, Monitor: GD133_Monitor, X86: GD133_X86 },
+    GD156: { ARM: GD156_ARM, Monitor: GD156_Monitor, X86: GD156_X86 },
+    GD156E: { ARM: GD156_ARM, Monitor: GD156_Monitor, X86: GD156_X86 },
     JD185B: { ARM: JD185B_ARM, Monitor: JD185B_Monitor, X86: JD185B_X86 },
     GD101E: { Monitor: GD101E_Monitor, ARM: GD101E_ARM, X86: GD101E_X86 },
     JD133: { Monitor: JD133_Monitor, ARM: JD133_ARM },
@@ -173,6 +179,9 @@ const priceMap: Record<string, Partial<Record<TouchWorkArch, number>>> = {
   DM121G: { Monitor: 14990, ARM: 18990, X86: 19990 },
   // 13.3" — TD133C / JD133
   GD133: { Monitor: 14990, ARM: 17990, X86: 21990 },
+  // 15.6" Wall-Mount Kiosk — GD156 (TouchWork) / GD156E (Enterprise/SCADA)
+  GD156: { Monitor: 16990, ARM: 19990, X86: 22990 },
+  GD156E: { Monitor: 0, ARM: 0, X86: 0 },
   JD133: { Monitor: 14990, ARM: 17990 },
   // 15" — เทียบ TD156D
   DM15G: { Monitor: 15990, ARM: 17990, X86: 20990 },
@@ -429,6 +438,8 @@ const rawProducts: RawProduct[] = [
 
   // ── GD Series (Wall-Mounting Kiosk — IPS Panel) ──
   { model: "GD133", size: 13.3, resolution: "1920 × 1080", ratio: "16:9", touch: "Capacitive 10-point", brightness: "≥250 cd/m²", brightnessSpec: "≥250 cd/m²", contrast: "≥1000:1", viewingAngle: "178/178", backlightLifetime: 30000, panelType: "TFT-LCD (IPS)", ipRating: "IP65 (หน้า)", mounting: ["Wall Mount (ติดผนังเฉพาะรุ่น)", "VESA 75"], highlights: ["IPS 178°/178° มุมมองกว้าง", "Wall-Mount บางเฉียบ 42.8 mm", "เหมาะกับโรงแรม/ออฟฟิศ"], archs: ["Monitor", "ARM", "X86"], dimensionMm: "337.53 × 297.13 × 42.8 mm", activeArea: "239.4 × 165 mm", netWeight: "3.33 kg", grossWeight: "4.51 kg" },
+  { model: "GD156", size: 15.6, resolution: "1920 × 1080", ratio: "16:9", touch: "Capacitive 10-point", brightness: "≥250 cd/m²", brightnessSpec: "≥250 cd/m²", contrast: "1000:1", viewingAngle: "178/178", backlightLifetime: 30000, panelType: "TFT-LCD (IPS)", ipRating: "IP65 (หน้า)", mounting: ["Wall Mount (มาตรฐาน)", "Embedded (ฝัง Panel)", "Desktop Stand"], highlights: ["13mm Ultra-small Bezel", "Mohs 7 Explosion-proof Glass", "Square / Stripe / Clover / Shopify POS"], archs: ["Monitor", "ARM", "X86"], dimensionMm: "395.1 × 323.6 × 42.8 mm", activeArea: "344 × 194 mm", netWeight: "4.8 kg", grossWeight: "6.3 kg", powerOutput: "DC 12V / 5A" },
+  { model: "GD156E", size: 15.6, resolution: "1920 × 1080", ratio: "16:9", touch: "Capacitive 10-point", brightness: "≥250 cd/m²", brightnessSpec: "≥250 cd/m²", contrast: "1000:1", viewingAngle: "178/178", backlightLifetime: 30000, panelType: "TFT-LCD (IPS)", ipRating: "IP65 (หน้า)", mounting: ["Wall Mount", "Floor Mount", "Desktop Stand", "Embedded"], highlights: ["SCADA-compatible (RS-232/422/485)", "RK3568 / RK3399 / RK3588 + X86", "รองรับ Camera, Card Reader, 4G, Fingerprint"], archs: ["Monitor", "ARM", "X86"], dimensionMm: "375.6 × 333.8 × 48.3 mm", activeArea: "345.2 × 194.6 mm", netWeight: "4.1 kg", grossWeight: "5.6 kg", powerOutput: "DC 12V / 5A" },
   { model: "GD101E", size: 10.1, resolution: "1280 × 800", ratio: "16:10", touch: "Capacitive 10-point", brightness: "≥250 cd/m²", brightnessSpec: "≥250 cd/m²", contrast: "≥800:1", viewingAngle: "178/178", backlightLifetime: 30000, panelType: "TFT-LCD (IPS)", ipRating: "IP65 (หน้า)", mounting: ["Wall Mount (ติดผนังเฉพาะรุ่น)", "VESA 75"], highlights: ["Wall-Mount Kiosk Aluminum Unibody", "IPS 178°/178°", "Slim Bezel ทันสมัย"], archs: ["Monitor", "ARM", "X86"] },
 
   // ── JD Series (Premium Desktop Touch — IPS Panel) ──
