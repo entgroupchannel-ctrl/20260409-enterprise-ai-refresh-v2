@@ -1837,8 +1837,8 @@ const GTSeries = () => {
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
-                      { src: "/images/wezhan/5874078.jpg", alt: "GT3000 ด้านหลัง — USB, COM ports" },
-                      { src: "/images/wezhan/5874077.jpg", alt: "GT3000 ด้านข้าง — ครีบระบายความร้อน" },
+                      { src: "/images/wezhan/5874078.jpg", alt: "GT3000 ​ขาจับแบบ VESA Mouting — USB, COM ports" },
+                      { src: "/images/wezhan/5874077.jpg", alt: "GT3000 ​ขาตั้งพื้น — ครีบระบายความร้อน" },
                       { src: "/images/wezhan/5874075.jpg", alt: "GT3000 มุมบน — Heatsink" },
                       { src: "/images/wezhan/5874080.jpg", alt: "GT3000 ภายใน — Mainboard" },
                     ].map((img, i) => (
