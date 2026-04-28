@@ -21,6 +21,7 @@ import { useCart } from "@/hooks/useCart";
 import { savePendingQuote } from "@/hooks/usePendingQuote";
 import { DISPLAYS_32 } from "@/data/displays-32";
 import LineQRButton from "@/components/LineQRButton";
+import RelatedKioskModels from "@/components/shop/RelatedKioskModels";
 
 /* ------------------------------------------------------------------ */
 /*  Source product (single model: KD32B with 3 configurations)        */
@@ -637,7 +638,7 @@ export default function ShopDisplays32() {
                     <Phone className="w-3.5 h-3.5" /> 095-739-1053
                   </a>
                   <span>•</span>
-                  <Link to={`/products/${PRODUCT.slug ?? "displays-32"}`} className="flex items-center gap-1 hover:text-primary">
+                  <Link to="/products/displays-32?model=kd32b" className="flex items-center gap-1 hover:text-primary">
                     <ArrowRight className="w-3.5 h-3.5" /> สเปกเต็ม
                   </Link>
                 </div>
@@ -699,6 +700,7 @@ export default function ShopDisplays32() {
         </div>
       )}
 
+      <RelatedKioskModels currentSlug="displays-32" />
       <Footer />
     </div>
   );

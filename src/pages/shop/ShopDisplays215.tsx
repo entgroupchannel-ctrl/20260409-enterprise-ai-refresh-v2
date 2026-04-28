@@ -21,6 +21,7 @@ import { useCart } from "@/hooks/useCart";
 import { savePendingQuote } from "@/hooks/usePendingQuote";
 import { DISPLAYS_215 } from "@/data/displays-215";
 import LineQRButton from "@/components/LineQRButton";
+import RelatedKioskModels from "@/components/shop/RelatedKioskModels";
 
 /* ------------------------------------------------------------------ */
 /*  Source product (single model: KD215B with 3 configurations)       */
@@ -637,7 +638,7 @@ export default function ShopDisplays215() {
                     <Phone className="w-3.5 h-3.5" /> 095-739-1053
                   </a>
                   <span>•</span>
-                  <Link to={`/products/${PRODUCT.slug ?? "displays-21.5"}`} className="flex items-center gap-1 hover:text-primary">
+                  <Link to="/products/displays-21.5?model=kd215b" className="flex items-center gap-1 hover:text-primary">
                     <ArrowRight className="w-3.5 h-3.5" /> สเปกเต็ม
                   </Link>
                 </div>
@@ -699,6 +700,7 @@ export default function ShopDisplays215() {
         </div>
       )}
 
+      <RelatedKioskModels currentSlug="displays-21.5" />
       <Footer />
     </div>
   );
