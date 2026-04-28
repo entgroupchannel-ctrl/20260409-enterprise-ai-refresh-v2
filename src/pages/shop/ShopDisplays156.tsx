@@ -386,15 +386,15 @@ export default function ShopDisplays156() {
           {/* ── Info + Configurator ── */}
           <div className="space-y-3">
             <div>
-              <Badge variant="secondary" className="mb-1.5 text-[10px]">
+              <Badge variant="secondary" className="mb-2 text-xs">
                 <Sparkles className="w-3 h-3 mr-1" /> {PRODUCT.category}
               </Badge>
-              <h1 className="text-xl md:text-2xl font-bold leading-tight">{PRODUCT.shortName}</h1>
-              <p className="text-muted-foreground mt-1 text-xs md:text-sm">{PRODUCT.tagline}</p>
+              <h1 className="text-2xl md:text-3xl font-bold leading-tight">{PRODUCT.shortName}</h1>
+              <p className="text-muted-foreground mt-1.5 text-sm md:text-base">{PRODUCT.tagline}</p>
             </div>
 
             {/* Quick Specs (จากหน้าสินค้า) — compact 4-col */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-1.5 p-2 rounded-lg border bg-muted/20">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 p-3 rounded-lg border bg-muted/20">
               <QuickSpec label="หน้าจอ" value={'15.6" FHD'} />
               <QuickSpec label="Touch" value="PCAP 10pt" />
               <QuickSpec label="กระจก" value="Mohs 7" />
