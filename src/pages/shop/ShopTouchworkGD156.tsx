@@ -39,14 +39,14 @@ import g_arm_04 from "@/assets/touchwork/gallery/GD156-ARM/04.jpg";
 import g_arm_05 from "@/assets/touchwork/gallery/GD156-ARM/05.jpg";
 import g_arm_06 from "@/assets/touchwork/gallery/GD156-ARM/06.jpg";
 import g_arm_07 from "@/assets/touchwork/gallery/GD156-ARM/07.jpg";
-import g_x86_01 from "@/assets/touchwork/gallery/GD156-X86/01.jpg";
-import g_x86_02 from "@/assets/touchwork/gallery/GD156-X86/02.jpg";
-import g_x86_03 from "@/assets/touchwork/gallery/GD156-X86/03.jpg";
-import g_x86_04 from "@/assets/touchwork/gallery/GD156-X86/04.jpg";
-import g_x86_05 from "@/assets/touchwork/gallery/GD156-X86/05.jpg";
-import g_x86_06 from "@/assets/touchwork/gallery/GD156-X86/06.jpg";
-import g_x86_07 from "@/assets/touchwork/gallery/GD156-X86/07.jpg";
-import g_x86_08 from "@/assets/touchwork/gallery/GD156-X86/08.jpg";
+import g_x86_01 from "@/assets/touchwork/gallery/GD156-X86/windows-desktop-01.jpg";
+import g_x86_02 from "@/assets/touchwork/gallery/GD156-X86/windows-desktop-02.jpg";
+import g_x86_03 from "@/assets/touchwork/gallery/GD156-X86/windows-desktop-03.jpg";
+import g_x86_04 from "@/assets/touchwork/gallery/GD156-X86/windows-desktop-04.jpg";
+import g_x86_05 from "@/assets/touchwork/gallery/GD156-X86/windows-desktop-05.jpg";
+import g_x86_06 from "@/assets/touchwork/gallery/GD156-X86/windows-desktop-06.jpg";
+import g_x86_07 from "@/assets/touchwork/gallery/GD156-X86/windows-desktop-07.jpg";
+import g_x86_08 from "@/assets/touchwork/gallery/GD156-X86/windows-desktop-08.jpg";
 
 /* ------------------------------------------------------------------ */
 /*  GD156 — 15.6" Industrial Wall-Mount Touch Kiosk (Touchwork)       */
