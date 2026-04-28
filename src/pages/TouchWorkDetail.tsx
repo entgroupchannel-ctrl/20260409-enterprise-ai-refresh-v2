@@ -318,7 +318,7 @@ export default function TouchWorkDetail() {
                   <Download className="h-4 w-4" /> Datasheet (PDF)
                 </a>
               </Button>
-              {(product.model === "DM080NF" || product.model === "DM080WG" || product.model === "DM101G" || product.model === "DM104G" || product.model === "DM121G" || product.model === "DM15G" || product.model === "DM156G" || product.model === "DM17G" || product.model === "DM19G" || product.model === "DM215G") && (
+              {(product.model === "DM080NF" || product.model === "DM080WG" || product.model === "DM101G" || product.model === "DM104G" || product.model === "DM121G" || product.model === "DM15G" || product.model === "DM156G" || product.model === "DM17G" || product.model === "DM19G" || product.model === "DM215G" || product.model === "GD133") && (
                 <Button
                   asChild
                   size="lg"
