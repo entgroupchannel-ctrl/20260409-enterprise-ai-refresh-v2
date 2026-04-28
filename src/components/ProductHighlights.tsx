@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Monitor, Cpu, TabletSmartphone, Wifi, Shield, LayoutGrid, Server, Tv } from "lucide-react";
+import { Monitor, Cpu, TabletSmartphone, Wifi, Shield, LayoutGrid, Server, Tv, ShoppingBag } from "lucide-react";
 
 import imgGT from "@/assets/product-gt-series.jpg";
 import imgGB from "@/assets/product-gb-series.jpg";
@@ -20,6 +20,7 @@ const categories = [
     description: "คอมพิวเตอร์อุตสาหกรรมไร้พัดลม 13 รุ่น ครบทุกสเปก ตั้งแต่ Celeron ถึง i7 Gen 12",
     icon: Cpu,
     href: "/gt-series",
+    shopHref: "/shop?series=GT%20Series",
     models: ["GT1000", "GT1200", "GT1300", "GT1400", "GT2000", "GT3000", "GT4000", "GT4500", "GT5000", "GT6000", "GT7000", "GT8000", "GT9000"],
     badge: "Hot",
     image: imgGT,
@@ -30,6 +31,7 @@ const categories = [
     description: "คอมพิวเตอร์อุตสาหกรรมไร้พัดลม สำหรับ Edge AI, IoT Gateway, Machine Vision และงานโครงการ",
     icon: Server,
     href: "/ibox-series",
+    shopHref: "/shop?series=iBox%20Series",
     models: ["AI Edge/GPU", "Embedded Box", "Gateway/DIN Rail", "PoE Multi-LAN", "Vehicle", "AEOLUS"],
     badge: "Hot",
     image: imgIBox,
@@ -40,6 +42,7 @@ const categories = [
     description: "4 รุ่น 4 สไตล์ ตอบโจทย์ทุกความต้องการอุตสาหกรรม",
     icon: Server,
     href: "/gb-series",
+    shopHref: "/shop?series=GB%20Series",
     models: ["GB1000", "GB2000", "GB4000", "GB5000"],
     badge: "New",
     image: imgGB,
@@ -50,6 +53,7 @@ const categories = [
     description: "จอสัมผัสอุตสาหกรรม GTG/GTY, GK Series และ EPC Panel Series",
     icon: Monitor,
     href: "/panel-pc-gtg",
+    shopHref: "/shop?series=GK%20Series",
     models: ["GTG Series", "GK Series", "EPC Panel", "Stainless Steel"],
     image: imgPanel,
   },
@@ -59,6 +63,7 @@ const categories = [
     description: "จอสัมผัสอุตสาหกรรม Modular Design 8\"–24\" พร้อม iDoor Technology",
     icon: Monitor,
     href: "/utc-series",
+    shopHref: "/shop?q=UTC",
     models: ["Square 4:3", "Wide 16:9", "J6412"],
     badge: "New",
     image: imgUTC,
@@ -69,6 +74,7 @@ const categories = [
     description: "จอแสดงผลอุตสาหกรรม Indoor/Outdoor และตู้ Kiosk",
     icon: Tv,
     href: "/smart-display",
+    shopHref: "/shop?q=Display",
     models: ["Indoor", "Outdoor", "Stainless", "Food Grade"],
     badge: "New",
     image: imgSmart,
@@ -79,6 +85,7 @@ const categories = [
     description: "แท็บเล็ตและโน้ตบุ๊กเกรดทหาร กันน้ำ กันกระแทก",
     icon: TabletSmartphone,
     href: "/rugged-tablet",
+    shopHref: "/shop?series=Rugged",
     models: ["Tablet", "Notebook", "Handheld"],
     image: imgRugged,
   },
@@ -88,6 +95,7 @@ const categories = [
     description: "สวิตช์เครือข่ายอุตสาหกรรม Managed/Unmanaged",
     icon: Wifi,
     href: "/volktek",
+    shopHref: "/shop?q=Volktek",
     models: ["Managed", "Unmanaged", "PoE"],
     image: imgVolktek,
   },
@@ -97,6 +105,7 @@ const categories = [
     description: "คอมพิวเตอร์ขนาดเล็ก EPC Box, Mini PC สำหรับงาน Embedded",
     icon: Shield,
     href: "/epc-box-series",
+    shopHref: "/shop?series=EPC%20Series",
     models: ["EPC Box", "Mini PC"],
     image: imgEPC,
   },
@@ -106,6 +115,7 @@ const categories = [
     description: "Firewall สำหรับทุกขนาดองค์กร pfSense / OPNsense Ready",
     icon: Shield,
     href: "/mini-pc-firewall",
+    shopHref: "/shop?series=Firewall",
     models: ["GT194L", "GT196L", "IPC068", "IPC090"],
     badge: "Hot",
     image: imgFirewall,
@@ -116,6 +126,7 @@ const categories = [
     description: "PC 1 เครื่อง ใช้ได้ 30 คน ประหยัดต้นทุน ประหยัดไฟ ทดลองฟรี 30 วัน",
     icon: Monitor,
     href: "/vcloudpoint",
+    shopHref: "/shop?q=vCloudPoint",
     models: ["S100", "S100-v1", "A1", "vMatrix"],
     badge: "Hot",
     image: imgVCloud,
@@ -140,12 +151,17 @@ const ProductHighlights = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {categories.map((cat) => (
-            <Link
+            <div
               key={cat.title}
-              to={cat.href}
-              className="group relative card-surface rounded-xl overflow-hidden hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+              className="group relative card-surface rounded-xl overflow-hidden hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg flex flex-col">
+              {/* Overlay link สำหรับคลิกการ์ดทั้งใบ → หน้ารายละเอียด */}
+              <Link
+                to={cat.href}
+                aria-label={`ดูรายละเอียด ${cat.title}`}
+                className="absolute inset-0 z-10"
+              />
               {cat.badge && (
-                <span className={`absolute top-3 right-3 z-10 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+                <span className={`absolute top-3 right-3 z-20 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
                   cat.badge === "Hot" 
                     ? "bg-destructive text-destructive-foreground" 
                     : "bg-primary text-primary-foreground"
@@ -166,7 +182,7 @@ const ProductHighlights = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
               </div>
 
-              <div className="p-5">
+              <div className="p-5 flex-1 flex flex-col">
                 {/* Icon + Text */}
                 <div className="flex items-start gap-3 mb-3">
                   <div className="shrink-0 w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
@@ -198,13 +214,23 @@ const ProductHighlights = () => {
                   )}
                 </div>
 
-                {/* Bottom action hint */}
-                <div className="flex items-center justify-between text-xs text-muted-foreground group-hover:text-primary transition-colors">
-                  <span className="font-medium">ดูรายละเอียด →</span>
-                  <span>{cat.models.length} หมวดหมู่</span>
+                {/* Bottom action row */}
+                <div className="mt-auto pt-3 border-t border-border/60 flex items-center justify-between gap-2">
+                  <span className="text-xs text-muted-foreground group-hover:text-primary transition-colors font-medium">
+                    ดูรายละเอียด →
+                  </span>
+                  <Link
+                    to={cat.shopHref}
+                    onClick={(e) => e.stopPropagation()}
+                    className="relative z-20 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity shadow-sm"
+                    aria-label={`ดู ${cat.title} ใน /shop`}
+                  >
+                    <ShoppingBag className="w-3.5 h-3.5" />
+                    ดูใน /shop
+                  </Link>
                 </div>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       </div>
