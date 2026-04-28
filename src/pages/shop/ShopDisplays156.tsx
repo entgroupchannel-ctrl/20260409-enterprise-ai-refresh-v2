@@ -21,6 +21,7 @@ import { useCart } from "@/hooks/useCart";
 import { savePendingQuote } from "@/hooks/usePendingQuote";
 import { DISPLAYS_156 } from "@/data/displays-156";
 import LineQRButton from "@/components/LineQRButton";
+import RelatedKioskModels from "@/components/shop/RelatedKioskModels";
 
 /* ------------------------------------------------------------------ */
 /*  Source product (single model: KD156B with 3 configurations)       */

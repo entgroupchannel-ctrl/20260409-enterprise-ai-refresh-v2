@@ -21,6 +21,7 @@ import { useCart } from "@/hooks/useCart";
 import { savePendingQuote } from "@/hooks/usePendingQuote";
 import { DISPLAYS_43 } from "@/data/displays-43";
 import LineQRButton from "@/components/LineQRButton";
+import RelatedKioskModels from "@/components/shop/RelatedKioskModels";
 
 /* ------------------------------------------------------------------ */
 /*  Source product (single model: KD43B with 3 configurations)        */
