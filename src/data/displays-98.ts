@@ -28,6 +28,9 @@ import rz98Feat4 from "@/assets/touchwo/rz98b/feat-4.png";
 import rz98InstallFloor from "@/assets/touchwo/rz98b/install-floor.png";
 import rz98InstallWall from "@/assets/touchwo/rz98b/install-wall.png";
 import rz98InstallAcc from "@/assets/touchwo/rz98b/install-acc.png";
+import rz98GalleryNew1 from "@/assets/touchwo/rz98b/gallery-new-1.jpg";
+import rz98GalleryNew2 from "@/assets/touchwo/rz98b/gallery-new-2.jpg";
+import rz98GalleryNew3 from "@/assets/touchwo/rz98b/gallery-new-3.jpg";
 
 import rz98UcClassroom from "@/assets/touchwo/usecases/rz98b/uc-classroom.jpg";
 import rz98UcBoardroom from "@/assets/touchwo/usecases/rz98b/uc-boardroom.jpg";
@@ -115,7 +118,7 @@ export const DISPLAYS_98: Record<Display98Slug, Display32> = {
           "จอ 98\" Wall-mount ในล็อบบี้โรงแรมระดับ 5 ดาว — Directory ห้องอาหาร, สปา, Activities, Local Attractions พร้อม Map เห็นภาพชัดในระยะ 10-25 เมตร Mohs 7 ทนการสัมผัสต่อเนื่อง รองรับหลายภาษา (Multi-language UI)",
       },
     ],
-    gallery: [rz98P1, rz98Monitor, rz98Windows, rz98Android],
+    gallery: [rz98P1, rz98Monitor, rz98Windows, rz98Android, rz98GalleryNew1, rz98GalleryNew2, rz98GalleryNew3],
     ioImage: rz98Io,
     installImages: [rz98InstallFloor, rz98InstallWall, rz98InstallAcc],
     featureImages: [rz98Feat1, rz98Feat2, rz98Feat3, rz98Feat4],
