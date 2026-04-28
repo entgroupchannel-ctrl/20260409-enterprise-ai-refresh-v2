@@ -181,7 +181,7 @@ const priceMap: Record<string, Partial<Record<TouchWorkArch, number>>> = {
   GD133: { Monitor: 14990, ARM: 17990, X86: 21990 },
   // 15.6" Wall-Mount Kiosk — GD156 (TouchWork) / GD156E (Enterprise/SCADA)
   GD156: { Monitor: 16990, ARM: 19990, X86: 22990 },
-  GD156E: { Monitor: 0, ARM: 0, X86: 0 },
+  GD156E: { Monitor: 19900, ARM: 23900, X86: 26900 },
   JD133: { Monitor: 14990, ARM: 17990 },
   // 15" — เทียบ TD156D
   DM15G: { Monitor: 15990, ARM: 17990, X86: 20990 },
