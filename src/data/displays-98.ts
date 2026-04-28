@@ -28,6 +28,9 @@ import rz98Feat4 from "@/assets/touchwo/rz98b/feat-4.png";
 import rz98InstallFloor from "@/assets/touchwo/rz98b/install-floor.png";
 import rz98InstallWall from "@/assets/touchwo/rz98b/install-wall.png";
 import rz98InstallAcc from "@/assets/touchwo/rz98b/install-acc.png";
+import rz98GalleryNew1 from "@/assets/touchwo/rz98b/gallery-new-1.jpg";
+import rz98GalleryNew2 from "@/assets/touchwo/rz98b/gallery-new-2.jpg";
+import rz98GalleryNew3 from "@/assets/touchwo/rz98b/gallery-new-3.jpg";
 
 import rz98UcClassroom from "@/assets/touchwo/usecases/rz98b/uc-classroom.jpg";
 import rz98UcBoardroom from "@/assets/touchwo/usecases/rz98b/uc-boardroom.jpg";
