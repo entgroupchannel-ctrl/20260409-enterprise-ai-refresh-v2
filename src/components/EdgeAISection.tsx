@@ -60,7 +60,7 @@ const EdgeAISection = () => {
                 ดูหน้า NVIDIA Jetson <ArrowRight size={16} />
               </Link>
               <Link
-                to="/shop?category=jetson"
+                to={`/shop?series=${encodeURIComponent('Jetson Series')}`}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-semibold hover:bg-surface-hover transition-colors"
               >
                 ดูสินค้าทั้งหมด
