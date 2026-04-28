@@ -23,31 +23,31 @@ import RelatedKioskModels from "@/components/shop/RelatedKioskModels";
 import B2BPlatformBanner from "@/components/shop/B2BPlatformBanner";
 import ShopKioskSEO from "@/components/shop/ShopKioskSEO";
 
-import DM080NF_Monitor from "@/assets/touchwork/DM080NF-Monitor.jpg";
-import DM080NF_ARM from "@/assets/touchwork/DM080NF-ARM.jpg";
-import DM080NF_X86 from "@/assets/touchwork/DM080NF-X86.jpg";
-import g_mon_01 from "@/assets/touchwork/gallery/DM080NF-Monitor/01.jpg";
-import g_mon_02 from "@/assets/touchwork/gallery/DM080NF-Monitor/02.jpg";
-import g_mon_03 from "@/assets/touchwork/gallery/DM080NF-Monitor/03.jpg";
-import g_mon_04 from "@/assets/touchwork/gallery/DM080NF-Monitor/04.jpg";
-import g_mon_06 from "@/assets/touchwork/gallery/DM080NF-Monitor/06.jpg";
-import g_mon_07 from "@/assets/touchwork/gallery/DM080NF-Monitor/07.jpg";
-import g_arm_03 from "@/assets/touchwork/gallery/DM080NF-ARM/03.jpg";
-import g_arm_06 from "@/assets/touchwork/gallery/DM080NF-ARM/06.jpg";
-import g_arm_07 from "@/assets/touchwork/gallery/DM080NF-ARM/07.jpg";
-import g_x86_03 from "@/assets/touchwork/gallery/DM080NF-X86/03.jpg";
-import g_x86_04 from "@/assets/touchwork/gallery/DM080NF-X86/04.jpg";
-import g_x86_06 from "@/assets/touchwork/gallery/DM080NF-X86/06.jpg";
-import g_x86_07 from "@/assets/touchwork/gallery/DM080NF-X86/07.jpg";
+import DM080WG_Monitor from "@/assets/touchwork/DM080WG-Monitor.jpg";
+import DM080WG_ARM from "@/assets/touchwork/DM080WG-ARM.jpg";
+import g_mon_01 from "@/assets/touchwork/gallery/DM080WG-Monitor/01.jpg";
+import g_mon_02 from "@/assets/touchwork/gallery/DM080WG-Monitor/02.jpg";
+import g_mon_03 from "@/assets/touchwork/gallery/DM080WG-Monitor/03.jpg";
+import g_mon_04 from "@/assets/touchwork/gallery/DM080WG-Monitor/04.jpg";
+import g_mon_05 from "@/assets/touchwork/gallery/DM080WG-Monitor/05.jpg";
+import g_mon_06 from "@/assets/touchwork/gallery/DM080WG-Monitor/06.jpg";
+import g_mon_07 from "@/assets/touchwork/gallery/DM080WG-Monitor/07.jpg";
+import g_arm_03 from "@/assets/touchwork/gallery/DM080WG-ARM/03.jpg";
+import g_arm_04 from "@/assets/touchwork/gallery/DM080WG-ARM/04.jpg";
+import g_arm_05 from "@/assets/touchwork/gallery/DM080WG-ARM/05.jpg";
+import g_arm_06 from "@/assets/touchwork/gallery/DM080WG-ARM/06.jpg";
+import g_arm_07 from "@/assets/touchwork/gallery/DM080WG-ARM/07.jpg";
 
 /* ------------------------------------------------------------------ */
-/*  DM080NF — 8" Industrial Touch PC / Monitor (Touchwork series)     */
-/*  Specs verified from /touchwork/dm080nf:                           */
-/*  - 8" TFT-LCD (TN, a-Si), 1024×768 4:3                             */
-/*  - PCAP 10-point, Mohs 7, ≥250 cd/m², ≥800:1, backlight 15,000 h   */
-/*  - VESA 75 / Embedded / Desktop, IP65 (front)                      */
+/*  DM080WG — 8" Widescreen Touch PC / Monitor (Touchwork series)     */
+/*  Specs verified from /touchwork/dm080wg:                           */
+/*  - 8" Widescreen 16:10, 1280 × 800                                 */
+/*  - PCAP 10-point, Mohs Class 7, ≥250 cd/m², ≥800:1                 */
+/*  - Backlight 15,000 hr, VESA 75 + Embedded, IP65 (front)           */
 /*  Indicative prices (THB / 1 unit, base config):                    */
-/*  - Monitor: 13,990 / ARM (Android): 15,990 / X86 (Windows): 20,990 */
+/*  - Monitor: 13,990 / ARM (Android): 15,990                         */
+/*  - X86 (Windows): 20,990 (CPU Model — แจ้งแอดมินขอราคา)             */
+/*  X86 ใช้ตัวเครื่องเดียวกับ ARM (ภาพ ARM แทน) เพราะโรงงาน config CPU    */
 /* ------------------------------------------------------------------ */
 
 const VARIANT_BASE_PRICE: Record<string, number> = {
@@ -57,9 +57,9 @@ const VARIANT_BASE_PRICE: Record<string, number> = {
 };
 
 const VARIANT_GALLERIES: Record<string, string[]> = {
-  monitor: [DM080NF_Monitor, g_mon_01, g_mon_02, g_mon_03, g_mon_04, g_mon_06, g_mon_07],
-  arm: [DM080NF_ARM, g_arm_03, g_arm_06, g_arm_07],
-  x86: [DM080NF_X86, g_x86_03, g_x86_04, g_x86_06, g_x86_07],
+  monitor: [DM080WG_Monitor, g_mon_01, g_mon_02, g_mon_03, g_mon_04, g_mon_05, g_mon_06, g_mon_07],
+  arm: [DM080WG_ARM, g_arm_03, g_arm_04, g_arm_05, g_arm_06, g_arm_07],
+  x86: [DM080WG_ARM, g_arm_03, g_arm_04, g_arm_05, g_arm_06, g_arm_07],
 };
 
 const SHOP_VARIANTS = [
