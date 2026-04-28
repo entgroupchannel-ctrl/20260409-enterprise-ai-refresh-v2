@@ -63,6 +63,20 @@ const HeroSection = () => {
   const searchRef = useRef<HTMLDivElement>(null);
   const { user, profile, signOut, loading: authLoading } = useAuth();
 
+  // สุ่มสินค้า 3 รุ่นจาก Shop พร้อม badge สุ่ม (ขายดี/ลดราคา/ยอดนิยม/มาใหม่)
+  const featuredPicks = useMemo(() => {
+    const badges = [
+      { label: "ขายดี", className: "bg-orange-500 text-white" },
+      { label: "ลดราคา", className: "bg-red-500 text-white" },
+      { label: "ยอดนิยม", className: "bg-primary text-primary-foreground" },
+      { label: "มาใหม่", className: "bg-emerald-500 text-white" },
+      { label: "แนะนำ", className: "bg-blue-500 text-white" },
+    ];
+    const shuffled = [...SHOP_STATIC_COMPARE_PRODUCTS].sort(() => Math.random() - 0.5).slice(0, 3);
+    const shuffledBadges = [...badges].sort(() => Math.random() - 0.5);
+    return shuffled.map((p, i) => ({ ...p, badge: shuffledBadges[i % shuffledBadges.length] }));
+  }, []);
+
   useEffect(() => {
     const timer = setTimeout(() => setTagsExpanded(false), 10000);
     return () => clearTimeout(timer);
