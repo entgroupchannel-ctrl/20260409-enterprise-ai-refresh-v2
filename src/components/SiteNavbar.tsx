@@ -31,7 +31,7 @@ export default function SiteNavbar() {
 
         {/* Shop slot — สำรองพื้นที่เท่ากันทุกหน้าเพื่อให้ logo + nav alignment สม่ำเสมอ
             - หน้าอื่น: ปุ่ม CTA สีหลัก (animate-pulse)
-            - หน้า /shop: pill แสดงสถานะ "อยู่ที่ Shop" (ไม่ใช่ลิงก์, ขนาดใกล้เคียงกัน) */}
+            - หน้า /shop: spacer โปร่งใสขนาดเท่ากัน (ไม่แสดงปุ่มซ้ำกับเมนู) */}
         {!isOnShop ? (
           <Link
             to="/shop"
@@ -42,10 +42,7 @@ export default function SiteNavbar() {
             <span>Shop</span>
           </Link>
         ) : (
-          <span
-            aria-current="page"
-            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-bold bg-primary/10 text-primary border border-primary/30 shrink-0"
-          >
+          <span aria-hidden="true" className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-bold shrink-0 invisible">
             <ShoppingBag size={16} />
             <span>Shop</span>
           </span>
