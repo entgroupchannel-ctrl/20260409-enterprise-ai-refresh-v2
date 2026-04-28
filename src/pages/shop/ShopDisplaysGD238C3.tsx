@@ -157,15 +157,19 @@ export default function ShopDisplaysGD238C3() {
   const [zoomOpen, setZoomOpen] = useState(false);
   const slideTimer = useRef<ReturnType<typeof setInterval> | null>(null);
 
+  const shopVariant = useMemo(
+    () => SHOP_VARIANTS.find((v) => v.key === variantKey) ?? SHOP_VARIANTS[0],
+    [variantKey],
+  );
   const variant = useMemo(
-    () => PRODUCT.variants?.find((v) => v.key === variantKey) ?? PRODUCT.variants?.[0],
+    () => PRODUCT.variants?.find((v) => v.key === (variantKey === "intel" ? "x86" : "android")) ?? PRODUCT.variants?.[0],
     [variantKey],
   );
 
-  const isHigh = variantKey === "rk3588";
-  const ramOptions = isHigh ? RAM_OPTIONS_RK3588 : RAM_OPTIONS_RK3568;
-  const storageOptions = isHigh ? STORAGE_OPTIONS_RK3588 : STORAGE_OPTIONS_RK3568;
-  const osOptions = isHigh ? OS_OPTIONS_RK3588 : OS_OPTIONS_RK3568;
+  const isIntel = variantKey === "intel";
+  const ramOptions = isIntel ? RAM_OPTIONS_INTEL : RAM_OPTIONS_RK3568;
+  const storageOptions = isIntel ? STORAGE_OPTIONS_INTEL : STORAGE_OPTIONS_RK3568;
+  const osOptions = isIntel ? OS_OPTIONS_INTEL : OS_OPTIONS_RK3568;
 
   /* Reset selections when variant changes */
   useEffect(() => {
