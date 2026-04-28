@@ -160,6 +160,16 @@ const ALL_MODELS: KioskModel[] = [
     image: dm121gHero,
     productHref: "/touchwork/dm121g",
   },
+  {
+    slug: "dm15g",
+    modelCode: "DM15G",
+    size: '15"',
+    shortName: "DM15G Industrial Touch PC",
+    tagline: 'จอสัมผัส 15" 4:3 Mohs 7 — Monitor / Android / Windows • ขนาดมาตรฐานโรงงาน',
+    startingPrice: 15990,
+    image: dm15gHero,
+    productHref: "/touchwork/dm15g",
+  },
 ];
 
 const fmt = (n: number) => n.toLocaleString("th-TH");
