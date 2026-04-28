@@ -373,7 +373,7 @@ export default function ShopDisplays156() {
 
             {/* Quick Specs (จากหน้าสินค้า) — compact 4-col */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-1.5 p-2 rounded-lg border bg-muted/20">
-              <QuickSpec label="หน้าจอ" value="15.6\" FHD" />
+              <QuickSpec label="หน้าจอ" value={'15.6" FHD'} />
               <QuickSpec label="Touch" value="PCAP 10pt" />
               <QuickSpec label="กระจก" value="Mohs 7" />
               <QuickSpec label="Response" value="< 5ms" />
