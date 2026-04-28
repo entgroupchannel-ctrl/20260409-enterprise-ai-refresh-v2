@@ -431,13 +431,13 @@ const HeroSection = () => {
                 </h3>
 
                 <div className="space-y-2.5">
-                  {SHOP_STATIC_COMPARE_PRODUCTS.slice(0, 3).map((p) => (
+                  {featuredPicks.map((p) => (
                     <Link
                       key={p.id}
                       to={`/shop/${p.slug}`}
                       className="group flex items-center gap-3 p-2.5 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 hover:border-white/30 transition-all"
                     >
-                      <div className="w-14 h-14 rounded-lg bg-white/90 overflow-hidden shrink-0">
+                      <div className="relative w-14 h-14 rounded-lg bg-white/90 overflow-hidden shrink-0">
                         {p.thumbnail_url && (
                           <img
                             src={p.thumbnail_url}
@@ -448,7 +448,12 @@ const HeroSection = () => {
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="text-[10px] font-mono text-primary/90">{p.model}</div>
+                        <div className="flex items-center gap-1.5 mb-0.5">
+                          <span className={`inline-block px-1.5 py-0.5 rounded text-[9px] font-bold uppercase ${p.badge.className}`}>
+                            {p.badge.label}
+                          </span>
+                          <span className="text-[10px] font-mono text-primary/90 truncate">{p.model}</span>
+                        </div>
                         <div className="text-xs font-semibold text-white line-clamp-1">{p.name}</div>
                         <div className="text-sm font-bold text-primary">฿{p.unit_price.toLocaleString("th-TH")}</div>
                       </div>
