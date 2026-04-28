@@ -19,6 +19,7 @@ import dm19gHero from '@/assets/touchwork/DM19G-Monitor.jpg';
 import dm215gHero from '@/assets/touchwork/DM215G-Monitor.jpg';
 import gd133Hero from '@/assets/touchwork/GD133-Monitor.jpg';
 import jd133Hero from '@/assets/touchwork/JD133-Monitor.jpg';
+import jd156bHero from '@/assets/touchwork/JD156B-Monitor.jpg';
 
 const gd32cHero = 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg';
 
@@ -311,6 +312,23 @@ export const SHOP_STATIC_COMPARE_PRODUCTS: ShopStaticCompareProduct[] = [
     os: 'Plug & Play / Android 11-13 / Windows 10-11',
     form_factor: 'Indoor Display Touch PC',
     unit_price: 14990,
+    stock_status: 'available',
+  },
+  {
+    id: 'static-jd156b',
+    slug: 'jd156b',
+    model: 'JD156B',
+    name: 'TouchWork 15.6" Indoor Display IPS Full HD — Ultra-slim Die-cast 27mm (Monitor / Android / Windows N100)',
+    thumbnail_url: jd156bHero,
+    cpu: 'Plug & Play / RK3568 / Intel N100',
+    ram_gb: 4,
+    storage_gb: 64,
+    storage_type: 'eMMC / mSATA',
+    has_wifi: true,
+    has_4g: false,
+    os: 'Plug & Play / Android 11-13 / Windows 10-11 / Linux',
+    form_factor: 'Indoor Display Touch PC',
+    unit_price: 15990,
     stock_status: 'available',
   },
 ];
