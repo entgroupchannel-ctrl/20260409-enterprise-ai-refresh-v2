@@ -318,7 +318,7 @@ export default function TouchWorkDetail() {
                   <Download className="h-4 w-4" /> Datasheet (PDF)
                 </a>
               </Button>
-              {(product.model === "DM080NF" || product.model === "DM080WG" || product.model === "DM101G") && (
+              {(product.model === "DM080NF" || product.model === "DM080WG" || product.model === "DM101G" || product.model === "DM104G") && (
                 <Button
                   asChild
                   size="lg"
