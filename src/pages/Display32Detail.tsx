@@ -4,7 +4,7 @@ import {
   ArrowLeft, Download, Monitor, Cpu, Smartphone, Maximize, ShieldCheck,
   Layers, Box, MonitorSmartphone, Hand, Award, CheckCircle2, Plug,
   Ruler, Package, Settings2, Info, Sparkles, Star, Link2, Wrench,
-  Briefcase, GitCompare, Printer, Puzzle, Clock,
+  Briefcase, GitCompare, Printer, Puzzle, Clock, ShoppingCart,
 } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
@@ -190,6 +190,11 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
   const [lightbox, setLightbox] = useState<{ images: string[]; index: number } | null>(null);
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
   const hideDatasheet = HIDE_DATASHEET_GROUPS.includes(groupSize);
+  const shopSlug =
+    groupSize === 156 ? "displays-15.6" :
+    groupSize === 215 ? "displays-21.5" :
+    groupSize === 32 ? "displays-32" :
+    groupSize === 43 ? "displays-43" : null;
   const SECTIONS = useMemo(
     () => ALL_SECTIONS.filter(s => {
       if (s.id === "dimensions") return (product?.dimensionDrawings?.length ?? 0) > 0;
@@ -447,6 +452,14 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
                 productName={product.name}
 
               />
+              {shopSlug && (
+                <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-md shadow-primary/20">
+                  <Link to={`/shop/${shopSlug}`}>
+                    <ShoppingCart className="h-4 w-4 mr-2" />
+                    หยิบใส่ตะกร้า
+                  </Link>
+                </Button>
+              )}
               {!hideDatasheet && (
                 hasDatasheet(product.modelCode) ? (
                   <DatasheetButton
@@ -888,7 +901,7 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
               <p className="text-sm text-muted-foreground mt-2 mb-5 max-w-xl mx-auto">
                 ทีมวิศวกรพร้อมออกแบบ Configuration เฉพาะธุรกิจของคุณ — ระบุโมดูลที่ต้องการแล้วขอใบเสนอราคาได้ทันที
               </p>
-              <div className="flex items-center justify-center">
+              <div className="flex flex-wrap items-center justify-center gap-3">
                 <QuoteRequestButton
                   productModel={product.modelCode}
                   productName={`${product.name} — ปรับแต่ง`}
@@ -896,6 +909,14 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
                   size="lg"
                   className="shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-shadow text-base px-10"
                 />
+                {shopSlug && (
+                  <Button asChild size="lg" variant="outline" className="border-primary/40 text-primary hover:bg-primary hover:text-primary-foreground text-base px-8">
+                    <Link to={`/shop/${shopSlug}`}>
+                      <ShoppingCart className="h-4 w-4 mr-2" />
+                      หยิบใส่ตะกร้า
+                    </Link>
+                  </Button>
+                )}
               </div>
             </div>
           </section>
