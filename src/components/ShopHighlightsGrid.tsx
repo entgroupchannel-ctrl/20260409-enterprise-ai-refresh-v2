@@ -130,6 +130,24 @@ const ShopHighlightsGrid = () => {
                 >
                   {p.model}
                 </Badge>
+                {(() => {
+                  // ป้ายโปรสุ่ม เสถียรต่อ slug
+                  let h = 0;
+                  for (let i = 0; i < p.slug.length; i++) h = (h * 33 + p.slug.charCodeAt(i)) >>> 0;
+                  const tags = [
+                    { label: "🔥 ขายดี", cls: "bg-red-500 text-white" },
+                    { label: "🛡 ทนทาน", cls: "bg-blue-600 text-white" },
+                    { label: "💰 ประหยัด", cls: "bg-emerald-600 text-white" },
+                  ];
+                  const t = tags[h % tags.length];
+                  return (
+                    <span
+                      className={`absolute top-2 right-2 text-[9px] md:text-[10px] font-bold px-1.5 py-0.5 rounded-md shadow-md animate-pulse ${t.cls}`}
+                    >
+                      {t.label}
+                    </span>
+                  );
+                })()}
               </div>
 
               {/* Body */}
