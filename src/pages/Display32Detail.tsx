@@ -194,6 +194,7 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
     product?.slug === "gd215c" ? "gd215c" :
     product?.slug === "gd238c3" ? "gd238c3" :
     product?.slug === "gd32c" ? "gd32c" :
+    product?.slug === "gd27c" ? "gd27c" :
     groupSize === 156 ? "displays-15.6" :
     groupSize === 215 ? "displays-21.5" :
     groupSize === 32 ? "displays-32" :
@@ -308,6 +309,7 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
                 product.slug === "gd215c" ? "gd215c" :
                 product.slug === "gd238c3" ? "gd238c3" :
                 product.slug === "gd32c" ? "gd32c" :
+                product.slug === "gd27c" ? "gd27c" :
                 groupSize === 156 ? "displays-15.6" :
                 groupSize === 215 ? "displays-21.5" :
                 groupSize === 32 ? "displays-32" :

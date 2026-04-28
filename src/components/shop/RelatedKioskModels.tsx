@@ -8,6 +8,7 @@ import kd32bHero from "@/assets/touchwo/kd32b-hero-clean.jpg";
 import kd43bHero from "@/assets/touchwo/kd43b/mon-1.jpg";
 import gd215cHero from "@/assets/touchwo/gd215c/GD215-1A.jpg";
 import gd238c3Hero from "@/assets/touchwo/gd238c/L-1.jpg";
+import gd27cHero from "@/assets/touchwo/gd27c/p-1.jpg";
 
 const gd32cHero = "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg";
 
@@ -92,6 +93,16 @@ const ALL_MODELS: KioskModel[] = [
     startingPrice: 39990,
     image: gd32cHero,
     productHref: "/products/displays-32?model=gd32c",
+  },
+  {
+    slug: "gd27c",
+    modelCode: "GD27C",
+    size: '27"',
+    shortName: "GD27C Wall Kiosk",
+    tagline: 'Wall-Mount 27" PCAP Bezel 16mm — POS / Healthcare / Banking',
+    startingPrice: 34990,
+    image: gd27cHero,
+    productHref: "/products/displays-27?model=gd27c",
   },
 ];
 
