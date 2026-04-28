@@ -22,6 +22,18 @@ import { savePendingQuote } from "@/hooks/usePendingQuote";
 import { DISPLAYS_156 } from "@/data/displays-156";
 import LineQRButton from "@/components/LineQRButton";
 import RelatedKioskModels from "@/components/shop/RelatedKioskModels";
+import UseCaseGallery from "@/components/shop/UseCaseGallery";
+import ucRetail156 from "@/assets/shop/usecases/kd156-retail.jpg";
+import ucBanking156 from "@/assets/shop/usecases/kd156-banking.jpg";
+import ucLogistics156 from "@/assets/shop/usecases/kd156-logistics.jpg";
+import ucTransit156 from "@/assets/shop/usecases/kd156-transit.jpg";
+
+const USE_CASE_GALLERY = [
+  { image: ucRetail156, title: "Retail Self-service", caption: "ให้ลูกค้าสั่งสินค้า ดูโปรโมชั่น และชำระเงินด้วยตัวเอง — ลดคิว เพิ่มยอดขายต่อบิล" },
+  { image: ucBanking156, title: "Banking / Self-checkout", caption: "บริการเปิดบัญชี กดบัตรคิว ทำธุรกรรมพื้นฐานในสาขา ลดภาระพนักงาน" },
+  { image: ucLogistics156, title: "Logistics Check-in", caption: "จุด Check-in ของ Driver และพนักงานขนส่ง — สแกน QR ติดตามพัสดุได้ทันที" },
+  { image: ucTransit156, title: "Transit Ticketing", caption: "ตู้ขายตั๋วและแผนที่ในสถานีขนส่ง รองรับการใช้งานหนักของผู้โดยสาร" },
+];
 
 /* ------------------------------------------------------------------ */
 /*  Source product (single model: KD156B with 3 configurations)       */
