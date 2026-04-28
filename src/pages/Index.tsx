@@ -3,7 +3,7 @@ import EdgeAISection from "@/components/EdgeAISection";
 import ShopHighlightsGrid from "@/components/ShopHighlightsGrid";
 import SoftwareSection from "@/components/SoftwareSection";
 import ProductHighlights from "@/components/ProductHighlights";
-import ProductBanners from "@/components/ProductBanners";
+
 import InteractiveDisplayBanner from "@/components/InteractiveDisplayBanner";
 import ProductSections from "@/components/ProductSections";
 import ProductLineup from "@/components/ProductLineup";
