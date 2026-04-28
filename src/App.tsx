@@ -365,6 +365,7 @@ const App = () => (
                     <Route path="/shop/displays-43" element={<ShopDisplays43 />} />
                     <Route path="/shop/gd215c" element={<ShopDisplaysGD215C />} />
                     <Route path="/shop/gd238c3" element={<ShopDisplaysGD238C3 />} />
+                    <Route path="/shop/gd32c" element={<ShopDisplaysGD32C />} />
                     <Route path="/shop/:slug" element={<ShopProductDetail />} />
                     <Route path="/unsubscribe" element={<Unsubscribe />} />
                     <Route path="/login" element={<Login />} />
