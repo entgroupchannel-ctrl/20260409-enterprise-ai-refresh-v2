@@ -9,6 +9,7 @@ import gd238c3Hero from '@/assets/touchwo/gd238c/L-1.jpg';
 import gd27cHero from '@/assets/touchwo/gd27c/p-1.jpg';
 import dm080nfHero from '@/assets/touchwork/DM080NF-Monitor.jpg';
 import dm080wgHero from '@/assets/touchwork/DM080WG-Monitor.jpg';
+import dm101gHero from '@/assets/touchwork/DM101G-Monitor.jpg';
 
 const gd32cHero = 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg';
 
@@ -130,6 +131,23 @@ export const SHOP_STATIC_COMPARE_PRODUCTS: ShopStaticCompareProduct[] = [
     has_4g: false,
     os: 'Plug & Play / Android / Windows',
     form_factor: 'Industrial Touch PC (Widescreen)',
+    unit_price: 13990,
+    stock_status: 'available',
+  },
+  {
+    id: 'static-dm101g',
+    slug: 'dm101g',
+    model: 'DM101G',
+    name: 'TouchWork 10.1" Industrial Touch PC 16:10 (Monitor / Android / Windows)',
+    thumbnail_url: dm101gHero,
+    cpu: 'Plug & Play / RK3568 / Intel (TBD)',
+    ram_gb: 4,
+    storage_gb: 32,
+    storage_type: 'eMMC / SSD',
+    has_wifi: true,
+    has_4g: false,
+    os: 'Plug & Play / Android / Windows',
+    form_factor: 'Industrial Touch PC',
     unit_price: 13990,
     stock_status: 'available',
   },
