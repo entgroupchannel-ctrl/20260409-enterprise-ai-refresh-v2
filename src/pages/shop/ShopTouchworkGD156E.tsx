@@ -72,9 +72,9 @@ import g_x86_08 from "@/assets/touchwork/gallery/GD156-X86/windows-desktop-08.jp
 /* ------------------------------------------------------------------ */
 
 const VARIANT_BASE_PRICE: Record<string, number> = {
-  monitor: 0,
-  arm: 0,
-  x86: 0,
+  monitor: 19900,
+  arm: 23900, // Monitor + ~4,000 (Android +3,000–5,000)
+  x86: 26900, // Monitor + ~7,000 (Windows X86 +5,000–9,000)
 };
 
 const VARIANT_GALLERIES: Record<string, string[]> = {
@@ -514,13 +514,13 @@ export default function ShopTouchworkGD156E() {
                         <VIcon className={cn("w-5 h-5 mb-1", active ? "text-primary" : "text-muted-foreground")} />
                         <p className="font-semibold text-sm leading-tight">{v.title}</p>
                         <p className="text-xs text-muted-foreground line-clamp-2 mt-0.5">{v.badge}</p>
-                        <p className="text-xs text-amber-600 dark:text-amber-500 font-bold mt-1">ติดต่อสอบถามราคา</p>
+                        <p className="text-xs text-primary font-bold mt-1">฿{fmt(VARIANT_BASE_PRICE[v.key] ?? 0)}</p>
                       </button>
                     );
                   })}
                 </div>
-                <p className="text-[11px] text-amber-600 dark:text-amber-500 -mt-2">
-                  💡 GD156E เป็นรุ่นใหม่ — ราคายังไม่ประกาศ กรุณาขอใบเสนอราคาจากแอดมิน
+                <p className="text-[11px] text-muted-foreground -mt-2">
+                  💡 ราคาเริ่มต้น Monitor ฿19,900 • Android +3,000–5,000 • Windows X86 +5,000–9,000 — ติดต่อพนักงานขายหรือขอใบเสนอราคาจากระบบได้ทันที
                 </p>
                 {isMonitor && (
                   <p className="text-[11px] text-muted-foreground -mt-2">
@@ -792,7 +792,7 @@ export default function ShopTouchworkGD156E() {
                 <li><b>ARM (Android)</b> — Rockchip RK3568 / RK3399 / RK3588, รองรับ Android 9/11/12, Wi-Fi + Bluetooth + RJ45</li>
                 <li><b>X86 (Windows)</b> — Intel Celeron / Core i3-i7, รองรับ Windows 10/11 หรือ Linux — กรุณาแจ้งแอดมินเพื่อรับใบเสนอราคาตามรุ่น CPU</li>
                 <li>Compatible: SCADA Software, Square POS / Stripe POS / Clover POS / Shopify POS</li>
-                <li><b>ราคา GD156E</b> — รุ่นใหม่ ราคายังไม่ประกาศ กรุณาขอใบเสนอราคา</li>
+                <li><b>ราคา GD156E</b> — เริ่มต้น Monitor ฿19,900 / Android +3,000–5,000 / Windows X86 +5,000–9,000 (ติดต่อพนักงานขายหรือขอใบเสนอราคาจากระบบ)</li>
               </ul>
             </div>
 

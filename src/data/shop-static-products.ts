@@ -332,7 +332,7 @@ export const SHOP_STATIC_COMPARE_PRODUCTS: ShopStaticCompareProduct[] = [
     has_4g: true,
     os: 'Plug & Play / Android 9-11-12 / Windows 10-11 / Linux',
     form_factor: 'Wall-Mount Touch Kiosk',
-    unit_price: 0,
+    unit_price: 19900,
     stock_status: 'available',
   },
   {
