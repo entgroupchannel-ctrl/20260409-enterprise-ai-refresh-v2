@@ -98,6 +98,9 @@ const ShopHighlightsGrid = () => {
               </Button>
             </div>
           </div>
+          {/* หมายเหตุกรณีสินค้าหมด */}
+          <div className="border-t border-primary/20 bg-background/50 px-5 py-2 text-[11px] md:text-xs text-muted-foreground leading-relaxed">
+            <strong className="text-foreground">หมายเหตุ:</strong> กรณีสินค้าหมดสต็อก ระยะเวลาจัดส่งประมาณ <strong>7–15</strong>, <strong>15–30</strong> หรือ <strong>30–45 วัน</strong> แล้วแต่รุ่น — พนักงานจะแจ้งรายละเอียดในใบเสนอราคา</div>
         </div>
 
         {/* Header */}
