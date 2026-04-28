@@ -71,6 +71,16 @@ const ALL_MODELS: KioskModel[] = [
     image: gd215cHero,
     productHref: "/products/displays-21.5?model=gd215c",
   },
+  {
+    slug: "gd238c3",
+    modelCode: "GD238C3",
+    size: '23.8"',
+    shortName: "GD238C3 Wall Kiosk (Landscape)",
+    tagline: 'Wall-Mount 23.8" 16:9 Bezel 13mm — Reception / Digital Menu',
+    startingPrice: 42990,
+    image: gd238c3Hero,
+    productHref: "/products/displays-23.8?model=gd238c3",
+  },
 ];
 
 const fmt = (n: number) => n.toLocaleString("th-TH");
