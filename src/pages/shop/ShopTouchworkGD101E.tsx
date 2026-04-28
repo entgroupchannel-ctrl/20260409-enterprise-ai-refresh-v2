@@ -23,53 +23,46 @@ import RelatedKioskModels from "@/components/shop/RelatedKioskModels";
 import B2BPlatformBanner from "@/components/shop/B2BPlatformBanner";
 import ShopKioskSEO from "@/components/shop/ShopKioskSEO";
 
-import GD133_Monitor from "@/assets/touchwork/GD133-Monitor.jpg";
-import GD133_ARM from "@/assets/touchwork/GD133-ARM.jpg";
-import GD133_X86 from "@/assets/touchwork/GD133-X86.jpg";
-import g_mon_01 from "@/assets/touchwork/gallery/GD133-Monitor/01.jpg";
-import g_mon_02 from "@/assets/touchwork/gallery/GD133-Monitor/02.jpg";
-import g_mon_03 from "@/assets/touchwork/gallery/GD133-Monitor/03.jpg";
-import g_mon_04 from "@/assets/touchwork/gallery/GD133-Monitor/04.jpg";
-import g_mon_05 from "@/assets/touchwork/gallery/GD133-Monitor/05.jpg";
-import g_mon_06 from "@/assets/touchwork/gallery/GD133-Monitor/06.jpg";
-import g_mon_07 from "@/assets/touchwork/gallery/GD133-Monitor/07.jpg";
-import g_arm_01 from "@/assets/touchwork/gallery/GD133-ARM/01.jpg";
-import g_arm_02 from "@/assets/touchwork/gallery/GD133-ARM/02.jpg";
-import g_arm_03 from "@/assets/touchwork/gallery/GD133-ARM/03.jpg";
-import g_arm_04 from "@/assets/touchwork/gallery/GD133-ARM/04.jpg";
-import g_arm_05 from "@/assets/touchwork/gallery/GD133-ARM/05.jpg";
-import g_arm_06 from "@/assets/touchwork/gallery/GD133-ARM/06.jpg";
-import g_arm_07 from "@/assets/touchwork/gallery/GD133-ARM/07.jpg";
-import g_x86_01 from "@/assets/touchwork/gallery/GD133-X86/01.jpg";
-import g_x86_02 from "@/assets/touchwork/gallery/GD133-X86/02.jpg";
-import g_x86_03 from "@/assets/touchwork/gallery/GD133-X86/03.jpg";
-import g_x86_04 from "@/assets/touchwork/gallery/GD133-X86/04.jpg";
-import g_x86_05 from "@/assets/touchwork/gallery/GD133-X86/05.jpg";
-import g_x86_06 from "@/assets/touchwork/gallery/GD133-X86/06.jpg";
-import g_x86_07 from "@/assets/touchwork/gallery/GD133-X86/07.jpg";
+import GD101E_Monitor from "@/assets/touchwork/GD101E-Monitor.jpg";
+import GD101E_ARM from "@/assets/touchwork/GD101E-ARM.jpg";
+import GD101E_X86 from "@/assets/touchwork/GD101E-X86.jpg";
+import g_mon_01 from "@/assets/touchwork/gallery/GD101E-Monitor/01.jpg";
+import g_mon_02 from "@/assets/touchwork/gallery/GD101E-Monitor/02.jpg";
+import g_mon_03 from "@/assets/touchwork/gallery/GD101E-Monitor/03.jpg";
+import g_mon_04 from "@/assets/touchwork/gallery/GD101E-Monitor/04.jpg";
+import g_arm_01 from "@/assets/touchwork/gallery/GD101E-ARM/01.jpg";
+import g_arm_03 from "@/assets/touchwork/gallery/GD101E-ARM/03.jpg";
+import g_arm_04 from "@/assets/touchwork/gallery/GD101E-ARM/04.jpg";
+import g_arm_05 from "@/assets/touchwork/gallery/GD101E-ARM/05.jpg";
+import g_arm_06 from "@/assets/touchwork/gallery/GD101E-ARM/06.jpg";
+import g_arm_07 from "@/assets/touchwork/gallery/GD101E-ARM/07.jpg";
+import g_x86_01 from "@/assets/touchwork/gallery/GD101E-X86/01.jpg";
+import g_x86_03 from "@/assets/touchwork/gallery/GD101E-X86/03.jpg";
+import g_x86_04 from "@/assets/touchwork/gallery/GD101E-X86/04.jpg";
+import g_x86_05 from "@/assets/touchwork/gallery/GD101E-X86/05.jpg";
 
 /* ------------------------------------------------------------------ */
-/*  GD133 — 13.3" Industrial Wall-Mount Touch PC (Touchwork series)  */
-/*  Specs verified from /touchwork/gd133:                            */
-/*  - 13.3" 16:9 IPS Panel, 1920 × 1080 Full HD                       */
-/*  - Capacitive 10-point, ≥250 cd/m², IPS 178°/178°                  */
+/*  GD101E — 10.1" Industrial Wall-Mount Touch PC (Touchwork series) */
+/*  Specs verified from /touchwork/gd101e:                            */
+/*  - 10.1" 16:10 IPS Panel, 1280 × 800                               */
+/*  - Capacitive 10-point, ≥250 cd/m²                                 */
 /*  - IP65 (front), Wi-Fi 5 + BT 4.2                                  */
-/*  - Wall Mount บางเฉียบ 42.8 mm + VESA 75                            */
+/*  - Wall Mount + VESA 75                                            */
 /*  Indicative prices (THB / 1 unit, base config):                    */
-/*  - Monitor: 14,990 / ARM (Android 11/13): 17,990                   */
-/*  - X86 (Windows 10/11): 20,990 (CPU Model — แจ้งแอดมินขอราคา)       */
+/*  - Monitor: 13,990 / ARM (Android 11/13): 16,990                   */
+/*  - X86 (Windows 10/11): 19,990 (CPU Model — แจ้งแอดมินขอราคา)       */
 /* ------------------------------------------------------------------ */
 
 const VARIANT_BASE_PRICE: Record<string, number> = {
-  monitor: 14990,
-  arm: 17990,
-  x86: 20990,
+  monitor: 13990,
+  arm: 16990,
+  x86: 19990,
 };
 
 const VARIANT_GALLERIES: Record<string, string[]> = {
-  monitor: [g_mon_04, g_mon_03, g_mon_02, g_mon_05, g_mon_06, g_mon_07],
-  arm: [g_arm_04, g_arm_03, g_arm_05, g_arm_06, g_arm_07],
-  x86: [g_x86_04, g_x86_03, g_x86_05, g_x86_06, g_x86_07],
+  monitor: [g_mon_01, g_mon_04, g_mon_03, g_mon_02],
+  arm: [g_arm_01, g_arm_04, g_arm_03, g_arm_05, g_arm_06, g_arm_07],
+  x86: [g_x86_01, g_x86_04, g_x86_03, g_x86_05],
 };
 
 const SHOP_VARIANTS = [
@@ -149,7 +142,7 @@ function tierMultiplier(qty: number) {
   return 1;
 }
 
-export default function ShopTouchworkGD133() {
+export default function ShopTouchworkGD101E() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { addToCart } = useCart();
@@ -217,10 +210,10 @@ export default function ShopTouchworkGD133() {
     return { unit, tierUnit, total, savings, tierPct: Math.round((1 - tier) * 100) };
   }, [variantKey, ramIdx, storageIdx, osIdx, installIdx, addons, qty, isMonitor, ramOptions, storageOptions, osOptions]);
 
-  const variantLabel = SHOP_VARIANTS.find(v => v.key === variantKey)?.title ?? "GD133";
+  const variantLabel = SHOP_VARIANTS.find(v => v.key === variantKey)?.title ?? "GD101E";
 
   const buildConfigSummary = () => {
-    const parts: string[] = [`GD133 — ${variantLabel}`];
+    const parts: string[] = [`GD101E — ${variantLabel}`];
     if (!isMonitor) {
       parts.push(`RAM: ${ramOptions[ramIdx].label}`);
       parts.push(`Storage: ${storageOptions[storageIdx].label}`);
@@ -238,7 +231,7 @@ export default function ShopTouchworkGD133() {
   };
 
   const buildModelSku = () => {
-    const head = `GD133-${variantKey.toUpperCase()}`;
+    const head = `GD101E-${variantKey.toUpperCase()}`;
     if (isMonitor) return head;
     return `${head}-${ramOptions[ramIdx].label.replace(/\s/g, "")}-${storageOptions[storageIdx].label.replace(/\s/g, "")}`;
   };
@@ -246,13 +239,13 @@ export default function ShopTouchworkGD133() {
   const handleAddToCart = async () => {
     if (!user) {
       toast({ title: "กรุณาเข้าสู่ระบบ", description: "เข้าสู่ระบบเพื่อบันทึกสินค้าลงตะกร้าและขอใบเสนอราคา" });
-      navigate("/login?redirect=/shop/gd133");
+      navigate("/login?redirect=/shop/gd101e");
       return;
     }
     setSubmitting(true);
     await addToCart({
       model: buildModelSku(),
-      name: `GD133 — ${variantLabel}`,
+      name: `GD101E — ${variantLabel}`,
       description: buildConfigSummary(),
       quantity: qty,
       price: pricing.tierUnit,
@@ -282,7 +275,7 @@ export default function ShopTouchworkGD133() {
     };
     savePendingQuote({
       customer_name: "", customer_email: "", customer_phone: null, customer_company: null,
-      notes: `รุ่น: GD133 — ${variantLabel}\nสเปก: ${buildConfigSummary()}\nจำนวน: ${qty} ชิ้น`,
+      notes: `รุ่น: GD101E — ${variantLabel}\nสเปก: ${buildConfigSummary()}\nจำนวน: ${qty} ชิ้น`,
       products: [product],
     });
     navigate(user ? "/my-account/quotes/new" : "/login?redirect=/my-account/quotes/new");
@@ -295,12 +288,12 @@ export default function ShopTouchworkGD133() {
   return (
     <div className="min-h-screen bg-background">
       <ShopKioskSEO
-        slug="gd133"
-        modelCode="GD133"
-        shortName='Industrial Wall-Mount Touch PC 13.3" 16:9 Full HD IPS (PCAP 10pt, IP65 Front)'
-        sizeInch={13.3}
-        image={GD133_Monitor}
-        resolution="1920×1080 (16:9)"
+        slug="gd101e"
+        modelCode="GD101E"
+        shortName='Industrial Wall-Mount Touch PC 10.1" 16:10 IPS (PCAP 10pt, IP65 Front)'
+        sizeInch={10.1}
+        image={GD101E_Monitor}
+        resolution="1280×800 (16:10)"
         brightness="≥ 250 cd/m²"
         touch="Capacitive 10pt"
         useCases={["Wall-Mount โรงแรม / Office", "Meeting Room Booking", "Kiosk หน้าห้อง / Wayfinding", "Smart Home / Building Automation"]}
@@ -319,9 +312,9 @@ export default function ShopTouchworkGD133() {
         <ChevronRight className="w-3 h-3" />
         <Link to="/shop" className="hover:text-foreground">Shop</Link>
         <ChevronRight className="w-3 h-3" />
-        <Link to="/touchwork/gd133" className="hover:text-foreground">TouchWork</Link>
+        <Link to="/touchwork/gd101e" className="hover:text-foreground">TouchWork</Link>
         <ChevronRight className="w-3 h-3" />
-        <span className="text-foreground font-medium">GD133</span>
+        <span className="text-foreground font-medium">GD101E</span>
       </nav>
 
       {/* HERO — 2-column */}
@@ -330,14 +323,14 @@ export default function ShopTouchworkGD133() {
           {/* Slideshow (5:4 frame to match panel ratio) */}
           <div className="space-y-2 lg:sticky lg:top-20">
             <div
-              className="relative aspect-[5/4] rounded-2xl overflow-hidden bg-gradient-to-b from-muted/40 to-muted/10 border group cursor-zoom-in"
+              className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-gradient-to-b from-muted/40 to-muted/10 border group cursor-zoom-in"
               onClick={() => setZoomOpen(true)}
             >
               {gallery.map((img, i) => (
                 <img
                   key={img + i}
                   src={img}
-                  alt={`GD133 ${variantLabel} ${i + 1}`}
+                  alt={`GD101E ${variantLabel} ${i + 1}`}
                   className={cn(
                     "absolute inset-0 w-full h-full object-contain transition-opacity duration-700",
                     i === slideIdx ? "opacity-100" : "opacity-0",
@@ -412,31 +405,31 @@ export default function ShopTouchworkGD133() {
                 <Sparkles className="w-3 h-3 mr-1" /> TouchWork Series
               </Badge>
               <h1 className="text-2xl md:text-3xl font-bold leading-tight">
-                GD133 — Industrial Wall-Mount Touch PC 13.3″ 16:9 Full HD IPS (PCAP 10pt, IP65 Front)
+                GD101E — Industrial Wall-Mount Touch PC 10.1″ 16:10 IPS (PCAP 10pt, IP65 Front)
               </h1>
               <p className="text-muted-foreground mt-1.5 text-sm md:text-base">
-                จอสัมผัสอุตสาหกรรม 13.3″ 16:9 Full HD IPS — บางเฉียบ 42.8 mm สำหรับ Wall-Mount โรงแรม/ออฟฟิศ • Capacitive 10pt, IP65 ด้านหน้า, IPS 178°/178° • เลือกได้ทั้ง Monitor, Android และ Windows
+                จอสัมผัสอุตสาหกรรม 10.1″ 16:10 IPS ขนาดกะทัดรัด — Capacitive 10pt, IP65 ด้านหน้า, Wi-Fi 5 + BT 4.2 • เหมาะกับ Kiosk หน้าห้อง, Meeting Room Booking, POS เล็ก • เลือกได้ทั้ง Monitor, Android และ Windows
               </p>
             </div>
 
-            {/* Quick Specs (จาก /touchwork/gd133) */}
+            {/* Quick Specs (จาก /touchwork/gd101e) */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2 p-3 rounded-lg border bg-muted/20">
-              <QuickSpec label="หน้าจอ" value='13.3" 16:9' />
-              <QuickSpec label="ความละเอียด" value="1920 × 1080" />
+              <QuickSpec label="หน้าจอ" value='10.1" 16:10' />
+              <QuickSpec label="ความละเอียด" value="1280 × 800" />
               <QuickSpec label="Touch" value="Capacitive 10pt" />
-              <QuickSpec label="Panel" value="IPS 178°/178°" />
+              <QuickSpec label="Panel" value="IPS" />
               <QuickSpec label="ความสว่าง" value="≥250 cd/m²" />
               <QuickSpec label="มาตรฐาน" value="IP65 (หน้า)" />
-              <QuickSpec label="ความหนา" value="42.8 mm" />
+              <QuickSpec label="เชื่อมต่อ" value="Wi-Fi 5 + BT 4.2" />
               <QuickSpec label="ติดตั้ง" value="Wall-Mount / VESA 75" />
             </div>
 
             {/* Highlights */}
             <div className="grid grid-cols-2 gap-2">
               {[
-                { icon: "Sparkles" as const, title: "IPS 178°/178° Full HD", subtitle: "มุมมองกว้าง สีคมชัด เหมาะกับโรงแรม/ออฟฟิศ" },
+                { icon: "Sparkles" as const, title: "IPS 10.1″ ขนาดกะทัดรัด", subtitle: "เหมาะ Kiosk หน้าห้อง / Meeting Room" },
                 { icon: "ShieldCheck" as const, title: "IP65 ด้านหน้า", subtitle: "ทนฝุ่นและละอองน้ำ" },
-                { icon: "Layers" as const, title: "Wall-Mount บางเฉียบ 42.8 mm", subtitle: "ติดผนังเรียบร้อย VESA 75" },
+                { icon: "Layers" as const, title: "Wall-Mount + VESA 75", subtitle: "ติดผนังหรือฝัง Panel ได้" },
                 { icon: "Box" as const, title: "Capacitive 10pt", subtitle: "สัมผัสแม่นยำ รองรับมัลติทัช" },
               ].map((h, i) => {
                 const Icon = ICON_MAP[h.icon] ?? Sparkles;
@@ -614,7 +607,7 @@ export default function ShopTouchworkGD133() {
                     <Phone className="w-3.5 h-3.5" /> 095-739-1053
                   </a>
                   <span>•</span>
-                  <Link to="/touchwork/gd133" className="flex items-center gap-1 hover:text-primary">
+                  <Link to="/touchwork/gd101e" className="flex items-center gap-1 hover:text-primary">
                     <ArrowRight className="w-3.5 h-3.5" /> สเปกเต็ม
                   </Link>
                 </div>
@@ -653,7 +646,7 @@ export default function ShopTouchworkGD133() {
           </button>
           <img
             src={gallery[slideIdx]}
-            alt="GD133 zoomed"
+            alt="GD101E zoomed"
             className="max-h-[90vh] max-w-[90vw] object-contain"
             onClick={(e) => e.stopPropagation()}
           />
@@ -664,7 +657,7 @@ export default function ShopTouchworkGD133() {
       )}
 
       <B2BPlatformBanner />
-      <RelatedKioskModels currentSlug="gd133" />
+      <RelatedKioskModels currentSlug="gd101e" />
       <Footer />
     </div>
   );
