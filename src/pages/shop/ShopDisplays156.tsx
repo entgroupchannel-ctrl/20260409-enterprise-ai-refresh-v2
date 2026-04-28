@@ -85,17 +85,23 @@ const OS_OPTIONS_ARM = [
   { label: "Linux (Debian/Ubuntu ARM)", delta: 800 },
 ];
 
-/* Add-on peripherals (with images) */
-const ADDON_OPTIONS = [
-  { key: "printer",     label: "Thermal Printer",    price: 4500, image: "https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=300&h=200&fit=crop" },
-  { key: "scanner",     label: "Barcode/QR Scanner", price: 3200, image: "https://images.unsplash.com/photo-1607349913338-fca6f7fc42d0?w=300&h=200&fit=crop" },
-  { key: "rfid",        label: "RFID Reader",        price: 2800, image: "https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=300&h=200&fit=crop" },
-  { key: "fingerprint", label: "Fingerprint",        price: 3500, image: "https://images.unsplash.com/photo-1633265486064-086b219458ec?w=300&h=200&fit=crop" },
-  { key: "camera",      label: "Camera + e-KYC",     price: 2500, image: "https://images.unsplash.com/photo-1606986628253-49a4cb3a32a4?w=300&h=200&fit=crop" },
-  { key: "nfc",         label: "NFC Payment",        price: 2200, image: "https://images.unsplash.com/photo-1556742111-a301076d9d18?w=300&h=200&fit=crop" },
-  { key: "dispenser",   label: "Card Dispenser",     price: 8500, image: "https://images.unsplash.com/photo-1580508174046-170816f65662?w=300&h=200&fit=crop" },
-  { key: "ups",         label: "Battery UPS",        price: 4200, image: "https://images.unsplash.com/photo-1601132359864-c974e79890ac?w=300&h=200&fit=crop" },
-];
+/* Add-on peripherals — ดึงภาพจริงจากหน้าสินค้า /products/displays-15.6 */
+const ADDON_PRICE_MAP: Record<string, number> = {
+  "Fingerprint Sensor": 3500,
+  "Metal Keyboard": 4200,
+  "Card Dispenser": 8500,
+  "Payment Terminal": 6500,
+  "Camera": 2500,
+  "NFC Payment": 2200,
+  "4G LTE": 3800,
+  "Battery UPS": 4200,
+};
+const ADDON_OPTIONS = (PRODUCT.customizationOptions ?? []).map((o) => ({
+  key: o.name,
+  label: o.name,
+  price: ADDON_PRICE_MAP[o.name] ?? 2500,
+  image: o.image,
+}));
 
 const ICON_MAP = {
   Monitor, Cpu, Smartphone, Layers, Hand, ShieldCheck, Box,
