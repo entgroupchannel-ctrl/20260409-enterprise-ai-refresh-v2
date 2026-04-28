@@ -61,7 +61,7 @@ import g_x86_07 from "@/assets/touchwork/gallery/DM17G-X86/07.jpg";
 /* ------------------------------------------------------------------ */
 
 const VARIANT_BASE_PRICE: Record<string, number> = {
-  monitor: 16990,
+  monitor: 15990,
   arm: 18990,
   x86: 21990,
 };
@@ -297,13 +297,13 @@ export default function ShopTouchworkDM17G() {
       <ShopKioskSEO
         slug="dm17g"
         modelCode="DM17G"
-        shortName='Industrial Touch PC 15.6" 16:9 Full HD (PCAP, IP65 Front)'
-        sizeInch={15.6}
+        shortName='Industrial Touch PC 17" 5:4 (PCAP, IP65 Front, Tempered Glass 7H)'
+        sizeInch={17}
         image={DM17G_Monitor}
-        resolution="1920×1080 (16:9)"
+        resolution="1280×1024 (5:4)"
         brightness="≥ 250 cd/m²"
         touch="Capacitive 10pt"
-        useCases={["POS / Self-Order Kiosk", "HMI Widescreen", "Digital Signage Touch", "Banking / Healthcare"]}
+        useCases={["ห้องควบคุม / Control Room", "HMI โรงงาน / SCADA", "POS / Counter จอใหญ่", "Healthcare / Banking"]}
         variants={[
           { key: "monitor", label: "Monitor (Plug & Play HDMI/VGA)", price: VARIANT_BASE_PRICE.monitor, description: "จอสัมผัสเปล่า — ต่อกับ PC/Mini PC" },
           { key: "arm", label: "Android — RK3568 / RK3399", price: VARIANT_BASE_PRICE.arm, description: "Touch PC ระบบ Android พร้อมใช้งาน" },
@@ -327,10 +327,10 @@ export default function ShopTouchworkDM17G() {
       {/* HERO — 2-column */}
       <section className="container mx-auto px-4 py-4">
         <div className="grid lg:grid-cols-[minmax(0,420px)_1fr] gap-6 items-start">
-          {/* Slideshow (16:9 frame to match panel ratio) */}
+          {/* Slideshow (5:4 frame to match panel ratio) */}
           <div className="space-y-2 lg:sticky lg:top-20">
             <div
-              className="relative aspect-[16/9] rounded-2xl overflow-hidden bg-gradient-to-b from-muted/40 to-muted/10 border group cursor-zoom-in"
+              className="relative aspect-[5/4] rounded-2xl overflow-hidden bg-gradient-to-b from-muted/40 to-muted/10 border group cursor-zoom-in"
               onClick={() => setZoomOpen(true)}
             >
               {gallery.map((img, i) => (
@@ -412,32 +412,32 @@ export default function ShopTouchworkDM17G() {
                 <Sparkles className="w-3 h-3 mr-1" /> TouchWork Series
               </Badge>
               <h1 className="text-2xl md:text-3xl font-bold leading-tight">
-                DM17G — Industrial Touch PC 15.6″ 16:9 Full HD (PCAP, IP65 Front)
+                DM17G — Industrial Touch PC 17″ 5:4 (PCAP, IP65 Front, Tempered Glass 7H)
               </h1>
               <p className="text-muted-foreground mt-1.5 text-sm md:text-base">
-                จอสัมผัสอุตสาหกรรม 15.6″ Widescreen Full HD 1920×1080 — Capacitive 10pt, IP65 ด้านหน้า • เลือกได้ทั้ง Monitor, Android และ Windows
+                จอสัมผัสอุตสาหกรรม 17″ 5:4 ขนาดใหญ่อ่านง่าย — Capacitive 10pt, Backlight 30,000 ชม., IP65 ด้านหน้า • เลือกได้ทั้ง Monitor, Android และ Windows
               </p>
             </div>
 
             {/* Quick Specs (จาก /touchwork/dm17g) */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2 p-3 rounded-lg border bg-muted/20">
-              <QuickSpec label="หน้าจอ" value='15.6" 16:9' />
-              <QuickSpec label="ความละเอียด" value="1920 × 1080" />
+              <QuickSpec label="หน้าจอ" value='17" 5:4' />
+              <QuickSpec label="ความละเอียด" value="1280 × 1024" />
               <QuickSpec label="Touch" value="Capacitive 10pt" />
+              <QuickSpec label="กระจก" value="Tempered 7H" />
               <QuickSpec label="ความสว่าง" value="≥250 cd/m²" />
-              <QuickSpec label="Contrast" value="≥800:1" />
-              <QuickSpec label="Viewing Angle" value="85/85/85/85" />
-              <QuickSpec label="Backlight" value="15,000 hr" />
-              <QuickSpec label="VESA / IP" value="VESA 75/100 / IP65" />
+              <QuickSpec label="Contrast" value="≥1000:1" />
+              <QuickSpec label="Backlight" value="30,000 hr" />
+              <QuickSpec label="VESA / IP" value="VESA 100 / IP65" />
             </div>
 
             {/* Highlights */}
             <div className="grid grid-cols-2 gap-2">
               {[
-                { icon: "Sparkles" as const, title: "Full HD 1920×1080 คมชัด", subtitle: "16:9 Widescreen ยอดนิยม POS" },
-                { icon: "ShieldCheck" as const, title: "IP65 ด้านหน้า", subtitle: "ทนฝุ่นและละอองน้ำ" },
-                { icon: "Layers" as const, title: "VESA 75/100 + Embedded", subtitle: "ติดตั้งได้หลายรูปแบบ" },
-                { icon: "Box" as const, title: "Capacitive 10pt + Mohs Glass", subtitle: "สัมผัสแม่นยำ ทนรอย" },
+                { icon: "Sparkles" as const, title: "จอใหญ่ 17″ อ่านง่าย", subtitle: "เหมาะกับห้องควบคุม / SCADA" },
+                { icon: "ShieldCheck" as const, title: "Tempered Glass 7H + IP65", subtitle: "ทนรอย ทนฝุ่นและละอองน้ำ" },
+                { icon: "Layers" as const, title: "VESA 100 + Embedded", subtitle: "ติดตั้งได้หลายรูปแบบ" },
+                { icon: "Box" as const, title: "Backlight 30,000 ชม.", subtitle: "Contrast ≥1000:1 ใช้งาน 24/7" },
               ].map((h, i) => {
                 const Icon = ICON_MAP[h.icon] ?? Sparkles;
                 return (
