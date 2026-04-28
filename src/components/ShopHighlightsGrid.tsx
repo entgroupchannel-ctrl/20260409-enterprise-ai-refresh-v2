@@ -1,30 +1,32 @@
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, ShoppingBag, Cpu, MonitorSmartphone, Tag } from "lucide-react";
+import { ArrowRight, ShoppingBag, Cpu, MonitorSmartphone, Tag, Truck, ShieldCheck, Flame, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { SHOP_STATIC_COMPARE_PRODUCTS } from "@/data/shop-static-products";
-
-// คัดสินค้า /shop มาแสดงหน้าแรก 4 แถว × 4 คอลัมน์ = 16 รายการเด่น
-// ครอบคลุมทั้ง Touch Kiosk, Industrial Touch PC, Indoor Display
-const FEATURED_SLUGS = [
-  // แถว 1 — Touch Kiosk เด่น
-  "gd215c", "gd238c3", "gd32c", "gd27c",
-  // แถว 2 — Indoor Display Touch PC (รุ่นใหม่ JD-series)
-  "jd133", "jd156b", "jd185b", "jd215b",
-  // แถว 3 — Industrial Touch PC ขนาดยอดนิยม
-  "dm101g", "dm121g", "dm156g", "dm215g",
-  // แถว 4 — รุ่นเล็ก / เฉพาะทาง
-  "dm080nf", "dm080wg", "dm15g", "gd133",
-];
 
 function fmt(n: number) {
   return n.toLocaleString("th-TH");
 }
 
+// สุ่มลำดับสินค้าแบบเสถียรต่อวัน (เปลี่ยนทุกวัน แต่คงที่ภายในวันเดียว เพื่อไม่ให้ layout กระโดดทุก render)
+function shuffleStable<T>(arr: T[], seed: number): T[] {
+  const a = [...arr];
+  let s = seed;
+  for (let i = a.length - 1; i > 0; i--) {
+    s = (s * 9301 + 49297) % 233280;
+    const j = Math.floor((s / 233280) * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 const ShopHighlightsGrid = () => {
-  const items = FEATURED_SLUGS
-    .map((slug) => SHOP_STATIC_COMPARE_PRODUCTS.find((p) => p.slug === slug))
-    .filter((p): p is NonNullable<typeof p> => Boolean(p));
+  const items = useMemo(() => {
+    const today = new Date();
+    const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+    return shuffleStable(SHOP_STATIC_COMPARE_PRODUCTS, seed);
+  }, []);
 
   return (
     <section
@@ -33,8 +35,39 @@ const ShopHighlightsGrid = () => {
       className="py-12 md:py-16"
     >
       <div className="container mx-auto px-4">
+        {/* Promo Ribbon — กระตุ้นการขาย */}
+        <div className="mb-8 rounded-2xl overflow-hidden border-2 border-primary/30 bg-gradient-to-r from-primary/10 via-primary/5 to-accent/10 shadow-md">
+          <div className="flex flex-col md:flex-row items-stretch">
+            <div className="flex items-center gap-3 px-5 py-4 bg-primary text-primary-foreground md:w-auto">
+              <Flame className="w-6 h-6 shrink-0" />
+              <div>
+                <div className="text-xs font-semibold uppercase tracking-wider opacity-90">โปรโมชันพิเศษ</div>
+                <div className="text-lg font-bold leading-tight">สินค้าพร้อมส่งทุกรุ่น</div>
+              </div>
+            </div>
+            <div className="flex-1 flex flex-wrap items-center justify-center md:justify-around gap-x-6 gap-y-2 px-5 py-3 text-sm">
+              <div className="flex items-center gap-2 text-foreground">
+                <Truck className="w-4 h-4 text-primary" />
+                <span><strong>ส่งฟรี</strong> กรุงเทพ-ปริมณฑล</span>
+              </div>
+              <div className="flex items-center gap-2 text-foreground">
+                <ShieldCheck className="w-4 h-4 text-primary" />
+                <span>รับประกัน <strong>1-3 ปี</strong></span>
+              </div>
+              <div className="flex items-center gap-2 text-foreground">
+                <Sparkles className="w-4 h-4 text-primary" />
+                <span>ราคา <strong>โรงงานโดยตรง</strong></span>
+              </div>
+              <div className="flex items-center gap-2 text-foreground">
+                <Tag className="w-4 h-4 text-primary" />
+                <span>ขอใบเสนอราคา <strong>ภายใน 1 ชม.</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
           <div>
             <Badge variant="secondary" className="mb-3 gap-1.5">
               <ShoppingBag className="w-3.5 h-3.5" />
@@ -60,8 +93,8 @@ const ShopHighlightsGrid = () => {
           </Button>
         </div>
 
-        {/* Grid: 4 แถว × 4 คอลัมน์ บน desktop */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">
+        {/* Grid: 5 คอลัมน์บน desktop ประหยัดพื้นที่ */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
           {items.map((p) => (
             <Link
               key={p.id}
@@ -91,31 +124,27 @@ const ShopHighlightsGrid = () => {
               </div>
 
               {/* Body */}
-              <div className="flex-1 flex flex-col p-3 md:p-4">
-                <h3 className="text-sm font-semibold leading-snug line-clamp-2 group-hover:text-primary transition-colors">
+              <div className="flex-1 flex flex-col p-2.5 md:p-3">
+                <h3 className="text-xs md:text-sm font-semibold leading-snug line-clamp-2 group-hover:text-primary transition-colors">
                   {p.name}
                 </h3>
 
                 {p.cpu && (
-                  <p className="mt-2 text-xs text-muted-foreground line-clamp-1 flex items-center gap-1">
+                  <p className="mt-1.5 text-[10px] md:text-xs text-muted-foreground line-clamp-1 flex items-center gap-1">
                     <Cpu className="w-3 h-3 shrink-0" />
                     {p.cpu}
                   </p>
                 )}
 
-                <div className="mt-auto pt-3 flex items-end justify-between">
+                <div className="mt-auto pt-2 flex items-end justify-between">
                   <div>
                     <div className="text-[10px] text-muted-foreground flex items-center gap-1">
                       <Tag className="w-2.5 h-2.5" /> เริ่มต้น
                     </div>
-                    <div className="text-base md:text-lg font-bold text-primary">
+                    <div className="text-sm md:text-base font-bold text-primary">
                       ฿{fmt(p.unit_price)}
                     </div>
                   </div>
-                  <span className="text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
-                    ดูสินค้า
-                    <ArrowRight className="w-3 h-3" />
-                  </span>
                 </div>
               </div>
             </Link>
