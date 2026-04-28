@@ -50,7 +50,7 @@ const Index = () => {
         <ShopHighlightsGrid />
       </div>
       <div className="bg-slate-100 dark:bg-muted/30"><ProductHighlights /></div>
-      <div className="bg-slate-100 dark:bg-muted/30"><ProductBanners /></div>
+      
       <div className="bg-white dark:bg-background"><InteractiveDisplayBanner /></div>
       <div className="bg-white dark:bg-background"><ProductSections /></div>
       <div className="bg-slate-100 dark:bg-muted/30"><ProductLineup /></div>
