@@ -5,6 +5,7 @@ import thaiPattern from "@/assets/thai-suphannahong-pattern.png";
 import edgeAi1 from "@/assets/edge-ai-hero-1.jpg";
 import edgeAi2 from "@/assets/edge-ai-hero-2.jpg";
 import edgeAi3 from "@/assets/edge-ai-hero-3.jpg";
+import JetsonRecommendedRow from "@/components/JetsonRecommendedRow";
 
 const slides = [
   { src: edgeAi1, alt: "NVIDIA Jetson Module กับหุ่นยนต์ AI — ENT GROUP", caption: "โมดูล NVIDIA Jetson พร้อมระบบ AI อัจฉริยะ" },
