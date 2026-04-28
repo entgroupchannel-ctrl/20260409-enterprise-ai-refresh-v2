@@ -202,6 +202,7 @@ export default function ShopDisplays156() {
         parts.push(`RAM: ${ramOptions[ramIdx].label}`);
         parts.push(`SSD: ${ssdOptions[ssdIdx].label}`);
         parts.push(`Wi-Fi: ${WIFI_OPTIONS[wifiIdx].label}`);
+        if (osOptions[osIdx]) parts.push(`OS: ${osOptions[osIdx].label}`);
       }
     }
     if (addons.length) {
