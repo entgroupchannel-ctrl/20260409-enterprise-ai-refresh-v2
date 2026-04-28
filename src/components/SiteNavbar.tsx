@@ -24,13 +24,15 @@ export default function SiteNavbar() {
   return (
     <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
       <div className="container mx-auto px-4 flex items-center gap-3 h-16">
-        {/* Logo — บน /shop เลื่อนเข้ามาด้านขวาเพื่อให้ตำแหน่งสมดุลกับหน้าแรก (ที่มีปุ่ม Shop ข้าง logo) */}
-        <Link to="/" className={cn("flex items-center gap-3 shrink-0", isOnShop && "ml-16 md:ml-20")}>
+        {/* Logo — ตำแหน่งคงที่ทุกหน้า */}
+        <Link to="/" className="flex items-center gap-3 shrink-0">
           <img src={logo} alt="ENT GROUP" className="h-8 w-auto" />
         </Link>
 
-        {/* Shop CTA — ติดข้าง logo เด่นชัด ซ่อนเมื่ออยู่หน้า /shop อยู่แล้ว */}
-        {!isOnShop && (
+        {/* Shop slot — สำรองพื้นที่เท่ากันทุกหน้าเพื่อให้ logo + nav alignment สม่ำเสมอ
+            - หน้าอื่น: ปุ่ม CTA สีหลัก (animate-pulse)
+            - หน้า /shop: pill แสดงสถานะ "อยู่ที่ Shop" (ไม่ใช่ลิงก์, ขนาดใกล้เคียงกัน) */}
+        {!isOnShop ? (
           <Link
             to="/shop"
             aria-label="Shop สินค้าทั้งหมด"
@@ -39,6 +41,14 @@ export default function SiteNavbar() {
             <ShoppingBag size={16} />
             <span>Shop</span>
           </Link>
+        ) : (
+          <span
+            aria-current="page"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-bold bg-primary/10 text-primary border border-primary/30 shrink-0"
+          >
+            <ShoppingBag size={16} />
+            <span>Shop</span>
+          </span>
         )}
 
         {/* Desktop nav — MegaMenu ชิดขวาเหมือนหน้าแรก */}
