@@ -88,8 +88,8 @@ const SHOP_VARIANTS = [
   },
   {
     key: "x86",
-    title: "Windows (Intel N100)",
-    badge: "Intel N100 + UHD Graphics — Windows 10/11/Linux (CPU อื่นแจ้งแอดมิน)",
+    title: "Windows (Intel x86)",
+    badge: "Windows 10/11 / Linux — กรณีไม่ระบุ CPU Model แจ้งแอดมินขอราคา",
     icon: "Cpu" as const,
   },
 ];
@@ -125,7 +125,7 @@ const OS_OPTIONS_X86 = [
 ];
 
 const INSTALL_OPTIONS = [
-  { label: "VESA 75 (มาตรฐาน)", delta: 0 },
+  { label: "VESA 100 (มาตรฐาน)", delta: 0 },
   { label: "Desktop Stand (ตั้งโต๊ะ)", delta: 1200 },
 ];
 
@@ -297,13 +297,13 @@ export default function ShopTouchworkJD185B() {
       <ShopKioskSEO
         slug="jd185b"
         modelCode="JD185B"
-        shortName='TouchWork Indoor Display 15.6" 16:9 Full HD IPS — Ultra-slim Die-cast 27mm (PCAP 10pt, IP65 Front, Intel N100)'
-        sizeInch={15.6}
+        shortName='TouchWork Indoor Display 18.5" 16:9 IPS — ขนาดกลางคุ้มค่า สำหรับ Kiosk ทั่วไป (Capacitive 10pt, IP65 Front)'
+        sizeInch={18.5}
         image={JD185B_Monitor}
-        resolution="1920×1080 (16:9)"
+        resolution="1366×768 (16:9)"
         brightness="≥ 250 cd/m²"
         touch="Capacitive 10pt"
-        useCases={["Premium Self-Service", "Reception / Front Desk", "Meeting Room Booking", "Hotel In-Room Display"]}
+        useCases={["Kiosk ทั่วไป", "Self-Service", "Reception / Front Desk", "Meeting Room Booking"]}
         variants={[
           { key: "monitor", label: "Monitor (Plug & Play HDMI/VGA)", price: VARIANT_BASE_PRICE.monitor, description: "จอสัมผัสเปล่า — ต่อกับ PC/Mini PC" },
           { key: "arm", label: "Android — RK3568 / RK3399", price: VARIANT_BASE_PRICE.arm, description: "Touch PC ระบบ Android 11/13 พร้อมใช้งาน" },
@@ -412,10 +412,10 @@ export default function ShopTouchworkJD185B() {
                 <Sparkles className="w-3 h-3 mr-1" /> TouchWork Series • Indoor Display
               </Badge>
               <h1 className="text-2xl md:text-3xl font-bold leading-tight">
-                JD185B — TouchWork Indoor Display 15.6″ 16:9 Full HD IPS (Ultra-slim Die-cast 27mm)
+                JD185B — TouchWork Indoor Display 18.5″ 16:9 IPS (ขนาดกลางคุ้มค่า สำหรับ Kiosk ทั่วไป)
               </h1>
               <p className="text-muted-foreground mt-1.5 text-sm md:text-base">
-                จอสัมผัสอุตสาหกรรม 15.6″ 16:9 Full HD (1920×1080) IPS — บอดี้ Die-cast บางเพียง 27mm สำหรับงาน Premium Self-Service / POS / Self-Order • PCAP 10pt (Mohs 7), IP65 ด้านหน้า, IPS 175°/175° • รองรับ Monitor (HDMI), Android 11/13 (ARM) และ Windows 10/11/Linux (Intel N100)
+                จอสัมผัสอุตสาหกรรม 18.5″ 16:9 (1366×768) IPS — ขนาดกลางคุ้มค่า เหมาะกับ Kiosk ทั่วไป / Self-Service / Reception • Capacitive 10pt, IP65 ด้านหน้า, IPS 175°/175° • รองรับ Monitor (HDMI/VGA), Android 11/13 (ARM) และ Windows 10/11/Linux — กรณีไม่ระบุ CPU Model แจ้งแอดมินขอราคา
               </p>
             </div>
 
@@ -437,7 +437,7 @@ export default function ShopTouchworkJD185B() {
                 { icon: "Sparkles" as const, title: "Ultra-slim Die-cast Body", subtitle: "บอดี้อะลูมิเนียมหล่อ บางสวยพรีเมียม" },
                 { icon: "ShieldCheck" as const, title: "IP65 ด้านหน้า", subtitle: "ทนฝุ่นและละอองน้ำ" },
                 { icon: "Layers" as const, title: "IPS 175°/175°", subtitle: "มุมมองกว้าง สีคมชัด Full HD" },
-                { icon: "Box" as const, title: "Premium Self-Service", subtitle: "เหมาะกับ Reception / Hotel / Booking" },
+                { icon: "Box" as const, title: "Kiosk-Ready", subtitle: "ขนาดกลางคุ้มค่า เหมาะกับงาน Kiosk ทั่วไป" },
               ].map((h, i) => {
                 const Icon = ICON_MAP[h.icon] ?? Sparkles;
                 return (
@@ -510,7 +510,7 @@ export default function ShopTouchworkJD185B() {
                   </>
                 )}
 
-                <ConfigBlock icon={Layers} label="รูปแบบติดตั้ง (VESA 75 / ตั้งโต๊ะ)">
+                <ConfigBlock icon={Layers} label="รูปแบบติดตั้ง (VESA 100 / Embedded)">
                   <ChipRow options={INSTALL_OPTIONS} activeIdx={installIdx} onSelect={setInstallIdx} />
                 </ConfigBlock>
 
