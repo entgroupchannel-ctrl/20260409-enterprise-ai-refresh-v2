@@ -18,7 +18,8 @@ import dm17gHero from '@/assets/touchwork/DM17G-Monitor.jpg';
 import dm19gHero from '@/assets/touchwork/DM19G-Monitor.jpg';
 import dm215gHero from '@/assets/touchwork/DM215G-Monitor.jpg';
 import gd133Hero from '@/assets/touchwork/GD133-Monitor.jpg';
-import gd156Hero from '@/assets/touchwork/GD156-Monitor.jpg';
+import gd156Hero from '@/assets/touchwork/gallery/GD156-Monitor/01.jpg';
+import gd156eHero from '@/assets/touchwork/gallery/GD156-Monitor/01.jpg';
 import jd133Hero from '@/assets/touchwork/JD133-Monitor.jpg';
 import jd156bHero from '@/assets/touchwork/JD156B-Monitor.jpg';
 import jd185bHero from '@/assets/touchwork/JD185B-Monitor.jpg';
@@ -315,6 +316,23 @@ export const SHOP_STATIC_COMPARE_PRODUCTS: ShopStaticCompareProduct[] = [
     os: 'Plug & Play / Android 11-12 / Windows 10-11 / Linux',
     form_factor: 'Wall-Mount Touch Kiosk',
     unit_price: 16990,
+    stock_status: 'available',
+  },
+  {
+    id: 'static-gd156e',
+    slug: 'gd156e',
+    model: 'GD156E',
+    name: 'TouchWork 15.6" Wall-Mount Touch Kiosk GD156E — SCADA Compatible (Monitor / Android / Windows)',
+    thumbnail_url: gd156eHero,
+    cpu: 'Plug & Play / RK3568-RK3399-RK3588 / Intel (TBD)',
+    ram_gb: 4,
+    storage_gb: 64,
+    storage_type: 'eMMC / SSD',
+    has_wifi: true,
+    has_4g: true,
+    os: 'Plug & Play / Android 9-11-12 / Windows 10-11 / Linux',
+    form_factor: 'Wall-Mount Touch Kiosk',
+    unit_price: 0,
     stock_status: 'available',
   },
   {
