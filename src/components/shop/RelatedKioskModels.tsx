@@ -182,6 +182,16 @@ const ALL_MODELS: KioskModel[] = [
     image: dm156gHero,
     productHref: "/touchwork/dm156g",
   },
+  {
+    slug: "dm17g",
+    modelCode: "DM17G",
+    size: '17"',
+    shortName: "DM17G Industrial Touch PC",
+    tagline: 'จอสัมผัส 17" 5:4 Tempered 7H — Monitor / Android / Windows • Backlight 30,000 ชม.',
+    startingPrice: 15990,
+    image: dm17gHero,
+    productHref: "/touchwork/dm17g",
+  },
 ];
 
 const fmt = (n: number) => n.toLocaleString("th-TH");
