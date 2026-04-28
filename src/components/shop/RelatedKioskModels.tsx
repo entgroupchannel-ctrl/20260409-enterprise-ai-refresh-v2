@@ -116,6 +116,16 @@ const ALL_MODELS: KioskModel[] = [
     image: dm080nfHero,
     productHref: "/touchwork/dm080nf",
   },
+  {
+    slug: "dm080wg",
+    modelCode: "DM080WG",
+    size: '8"',
+    shortName: "DM080WG Widescreen Touch PC",
+    tagline: 'จอสัมผัส 8" 16:10 Mohs 7 — Monitor / Android / Windows',
+    startingPrice: 13990,
+    image: dm080wgHero,
+    productHref: "/touchwork/dm080wg",
+  },
 ];
 
 const fmt = (n: number) => n.toLocaleString("th-TH");
