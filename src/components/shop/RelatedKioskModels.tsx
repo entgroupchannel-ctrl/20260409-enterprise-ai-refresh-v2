@@ -15,6 +15,7 @@ import dm101gHero from "@/assets/touchwork/DM101G-Monitor.jpg";
 import dm104gHero from "@/assets/touchwork/DM104G-Monitor.jpg";
 import dm121gHero from "@/assets/touchwork/DM121G-Monitor.jpg";
 import dm15gHero from "@/assets/touchwork/DM15G-Monitor.jpg";
+import dm156gHero from "@/assets/touchwork/DM156G-Monitor.jpg";
 
 const gd32cHero = "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg";
 
@@ -169,6 +170,16 @@ const ALL_MODELS: KioskModel[] = [
     startingPrice: 15990,
     image: dm15gHero,
     productHref: "/touchwork/dm15g",
+  },
+  {
+    slug: "dm156g",
+    modelCode: "DM156G",
+    size: '15.6"',
+    shortName: "DM156G Industrial Touch PC",
+    tagline: 'จอสัมผัส 15.6" 16:9 Full HD 1920×1080 — Monitor / Android / Windows • Widescreen ยอดนิยม',
+    startingPrice: 16990,
+    image: dm156gHero,
+    productHref: "/touchwork/dm156g",
   },
 ];
 
