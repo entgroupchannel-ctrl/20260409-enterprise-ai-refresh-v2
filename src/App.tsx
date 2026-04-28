@@ -65,6 +65,7 @@ const ShopStorefront = lazyRetry(() => import("./pages/shop/ShopStorefront"));
 const ShopProductDetail = lazyRetry(() => import("./pages/shop/ShopProductDetail"));
 const ShopCompare = lazyRetry(() => import("./pages/shop/ShopCompare"));
 const ShopDisplays156 = lazyRetry(() => import("./pages/shop/ShopDisplays156"));
+const ShopDisplays215 = lazyRetry(() => import("./pages/shop/ShopDisplays215"));
 const Unsubscribe = lazyRetry(() => import("./pages/Unsubscribe"));
 const Login = lazyRetry(() => import("./pages/auth/Login"));
 const Register = lazyRetry(() => import("./pages/auth/Register"));
