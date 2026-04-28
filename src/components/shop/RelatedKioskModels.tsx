@@ -21,6 +21,7 @@ import dm19gHero from "@/assets/touchwork/DM19G-Monitor.jpg";
 import dm215gHero from "@/assets/touchwork/DM215G-Monitor.jpg";
 import gd133Hero from "@/assets/touchwork/GD133-Monitor.jpg";
 import jd133Hero from "@/assets/touchwork/JD133-Monitor.jpg";
+import jd156bHero from "@/assets/touchwork/JD156B-Monitor.jpg";
 
 const gd32cHero = "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg";
 
@@ -235,6 +236,16 @@ const ALL_MODELS: KioskModel[] = [
     startingPrice: 14990,
     image: jd133Hero,
     productHref: "/touchwork/jd133",
+  },
+  {
+    slug: "jd156b",
+    modelCode: "JD156B",
+    size: '15.6"',
+    shortName: "JD156B Indoor Display Touch PC",
+    tagline: 'Indoor Display 15.6" 16:9 Full HD IPS — Die-cast 27mm • Monitor / Android 11-13 / Windows 10-11 (Intel N100)',
+    startingPrice: 15990,
+    image: jd156bHero,
+    productHref: "/touchwork/jd156b",
   },
 ];
 
