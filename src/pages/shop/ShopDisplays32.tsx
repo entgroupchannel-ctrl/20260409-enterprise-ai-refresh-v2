@@ -405,12 +405,12 @@ export default function ShopDisplays32() {
 
             {/* Quick Specs (จากหน้าสินค้า) — compact 4-col */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2 p-3 rounded-lg border bg-muted/20">
-              <QuickSpec label="หน้าจอ" value={'21.5" FHD'} />
+              <QuickSpec label="หน้าจอ" value={'32" FHD'} />
               <QuickSpec label="Touch" value="PCAP 10pt" />
               <QuickSpec label="กระจก" value="Mohs 7" />
               <QuickSpec label="Response" value="< 5ms" />
               <QuickSpec label="ความสว่าง" value="300 cd/m²" />
-              <QuickSpec label="น้ำหนัก" value="23 kg" />
+              <QuickSpec label="น้ำหนัก" value="23.3 kg" />
               <QuickSpec label="ติดตั้ง" value="Floor Stand" />
               <QuickSpec label="ใช้งาน" value="7×24H" />
             </div>
