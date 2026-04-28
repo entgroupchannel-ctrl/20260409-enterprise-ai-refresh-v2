@@ -47,34 +47,53 @@ const PRODUCT = DISPLAYS_238.gd238c3;
  */
 const VARIANT_BASE_PRICE: Record<string, number> = {
   rk3568: 42990,
-  rk3588: 58990,
+  intel: 58990,
 };
+
+/* Local shop variants — override PRODUCT.variants for this page */
+const SHOP_VARIANTS = [
+  {
+    key: "rk3568",
+    title: "RK3568 — Cost-effective",
+    badge: "Rockchip RK3568 Quad-core ARM Cortex-A55 (Android)",
+    icon: "Smartphone" as const,
+  },
+  {
+    key: "intel",
+    title: "Intel Core i3 / i5 / i7",
+    badge: "x86 (Windows / Linux) — แจ้ง Generation กับแอดมินเป็นกรณี",
+    icon: "Cpu" as const,
+  },
+];
 
 /* RAM / Storage upgrade options per SoC */
 const RAM_OPTIONS_RK3568 = [
   { label: "2GB LPDDR4", delta: 0 },
   { label: "4GB LPDDR4", delta: 1500 },
 ];
-const RAM_OPTIONS_RK3588 = [
-  { label: "4GB LPDDR4", delta: 0 },
-  { label: "8GB LPDDR4", delta: 2800 },
+const RAM_OPTIONS_INTEL = [
+  { label: "4GB DDR4", delta: 0 },
+  { label: "8GB DDR4", delta: 2800 },
+  { label: "16GB DDR4", delta: 5600 },
 ];
 const STORAGE_OPTIONS_RK3568 = [
   { label: "eMMC 16GB", delta: 0 },
   { label: "eMMC 32GB", delta: 1200 },
 ];
-const STORAGE_OPTIONS_RK3588 = [
-  { label: "eMMC 64GB", delta: 0 },
-  { label: "eMMC 128GB", delta: 2200 },
+const STORAGE_OPTIONS_INTEL = [
+  { label: "SSD 128GB", delta: 0 },
+  { label: "SSD 256GB", delta: 2200 },
+  { label: "SSD 512GB", delta: 4800 },
 ];
 
-/* OS options (Android) */
+/* OS options */
 const OS_OPTIONS_RK3568 = [
   { label: "Android 11", delta: 0 },
 ];
-const OS_OPTIONS_RK3588 = [
-  { label: "Android 12", delta: 0 },
-  { label: "Android 13", delta: 1200 },
+const OS_OPTIONS_INTEL = [
+  { label: "Windows 10 Pro OEM", delta: 0 },
+  { label: "Windows 11 Pro OEM", delta: 0 },
+  { label: "Ubuntu Linux", delta: 0 },
 ];
 
 /* Install mount option (3-in-1) */
@@ -123,7 +142,7 @@ export default function ShopDisplaysGD238C3() {
   const { user } = useAuth();
   const { addToCart } = useCart();
 
-  const [variantKey, setVariantKey] = useState<string>(PRODUCT.variants?.[0]?.key ?? "rk3568");
+  const [variantKey, setVariantKey] = useState<string>(SHOP_VARIANTS[0].key);
   const [ramIdx, setRamIdx] = useState(0);
   const [storageIdx, setStorageIdx] = useState(0);
   const [osIdx, setOsIdx] = useState(0);
@@ -138,15 +157,19 @@ export default function ShopDisplaysGD238C3() {
   const [zoomOpen, setZoomOpen] = useState(false);
   const slideTimer = useRef<ReturnType<typeof setInterval> | null>(null);
 
+  const shopVariant = useMemo(
+    () => SHOP_VARIANTS.find((v) => v.key === variantKey) ?? SHOP_VARIANTS[0],
+    [variantKey],
+  );
   const variant = useMemo(
-    () => PRODUCT.variants?.find((v) => v.key === variantKey) ?? PRODUCT.variants?.[0],
+    () => PRODUCT.variants?.find((v) => v.key === (variantKey === "intel" ? "x86" : "android")) ?? PRODUCT.variants?.[0],
     [variantKey],
   );
 
-  const isHigh = variantKey === "rk3588";
-  const ramOptions = isHigh ? RAM_OPTIONS_RK3588 : RAM_OPTIONS_RK3568;
-  const storageOptions = isHigh ? STORAGE_OPTIONS_RK3588 : STORAGE_OPTIONS_RK3568;
-  const osOptions = isHigh ? OS_OPTIONS_RK3588 : OS_OPTIONS_RK3568;
+  const isIntel = variantKey === "intel";
+  const ramOptions = isIntel ? RAM_OPTIONS_INTEL : RAM_OPTIONS_RK3568;
+  const storageOptions = isIntel ? STORAGE_OPTIONS_INTEL : STORAGE_OPTIONS_RK3568;
+  const osOptions = isIntel ? OS_OPTIONS_INTEL : OS_OPTIONS_RK3568;
 
   /* Reset selections when variant changes */
   useEffect(() => {
@@ -270,7 +293,7 @@ export default function ShopDisplaysGD238C3() {
         useCases={["Reception / Check-in", "Digital Menu Board", "Conference / Hot-desk", "Wayfinding / Info"]}
         variants={[
           { key: "rk3568", label: "RK3568 (Android 11)", price: VARIANT_BASE_PRICE.rk3568, description: "Rockchip RK3568 Quad-core ARM Cortex-A55 — Cost-effective" },
-          { key: "rk3588", label: "RK3588 (Android 12)", price: VARIANT_BASE_PRICE.rk3588, description: "Rockchip RK3588 Octa-core 8nm — High Performance / AI Vision" },
+          { key: "intel", label: "Intel Core i3 / i5 / i7 (Windows / Linux)", price: VARIANT_BASE_PRICE.intel, description: "Intel x86 Core i3 / i5 / i7 — แจ้ง Generation กับแอดมินเป็นกรณี" },
         ]}
       />
 
@@ -416,9 +439,9 @@ export default function ShopDisplaysGD238C3() {
                   <h3 className="font-bold text-sm uppercase tracking-wider">ปรับแต่งสเปก</h3>
                 </div>
 
-                {/* Variant: 2-col (RK3568 vs RK3588) */}
+                {/* Variant: 2-col (RK3568 vs Intel Core i3/i5/i7) */}
                 <div className="grid grid-cols-2 gap-2">
-                  {PRODUCT.variants?.map((v) => {
+                  {SHOP_VARIANTS.map((v) => {
                     const VIcon = ICON_MAP[v.icon as keyof typeof ICON_MAP] ?? Cpu;
                     const active = v.key === variantKey;
                     return (
@@ -431,15 +454,18 @@ export default function ShopDisplaysGD238C3() {
                         )}
                       >
                         <VIcon className={cn("w-5 h-5 mb-1", active ? "text-primary" : "text-muted-foreground")} />
-                        <p className="font-semibold text-sm leading-tight">
-                          {v.key === "rk3568" ? "RK3568 — Cost-effective" : "RK3588 — High Performance"}
-                        </p>
-                        <p className="text-xs text-muted-foreground line-clamp-1 mt-0.5">{v.badge}</p>
+                        <p className="font-semibold text-sm leading-tight">{v.title}</p>
+                        <p className="text-xs text-muted-foreground line-clamp-2 mt-0.5">{v.badge}</p>
                         <p className="text-xs text-primary font-bold mt-1">฿{fmt(VARIANT_BASE_PRICE[v.key] ?? 0)}</p>
                       </button>
                     );
                   })}
                 </div>
+                {isIntel && (
+                  <p className="text-[11px] text-amber-600 dark:text-amber-500 -mt-2">
+                    💡 รุ่น Intel Core i3 / i5 / i7 — ยังไม่ระบุ Generation กรุณาแจ้งความต้องการกับแอดมินเพื่อรับใบเสนอราคาตามรุ่น CPU ที่เลือก
+                  </p>
+                )}
 
                 {/* RAM / Storage */}
                 <div className="grid grid-cols-2 gap-3">
@@ -451,7 +477,7 @@ export default function ShopDisplaysGD238C3() {
                   </ConfigBlock>
                 </div>
 
-                <ConfigBlock icon={Disc} label="Android / OS Version">
+                <ConfigBlock icon={Disc} label={isIntel ? "ระบบปฏิบัติการ (OS)" : "Android / OS Version"}>
                   <ChipRow options={osOptions} activeIdx={osIdx} onSelect={setOsIdx} />
                 </ConfigBlock>
 
