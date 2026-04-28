@@ -58,10 +58,19 @@ const ShopHighlightsGrid = () => {
                 <Sparkles className="w-4 h-4 text-primary" />
                 <span>ราคา <strong>โรงงานโดยตรง</strong></span>
               </div>
-              <div className="flex items-center gap-2 text-foreground">
+              <Link
+                to="/request-quote"
+                className="flex items-center gap-2 text-foreground hover:text-primary transition-colors"
+              >
                 <Tag className="w-4 h-4 text-primary" />
-                <span>ขอใบเสนอราคา <strong>ภายใน 1 ชม.</strong></span>
-              </div>
+                <span>ขอใบเสนอราคา <strong>ภายใน 4 ชม.</strong></span>
+              </Link>
+              <Button asChild size="sm" className="gap-1.5 h-8">
+                <Link to="/request-quote">
+                  <FileText className="w-3.5 h-3.5" />
+                  ขอใบเสนอราคา
+                </Link>
+              </Button>
             </div>
           </div>
         </div>
