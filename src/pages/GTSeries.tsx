@@ -3221,7 +3221,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 {[
                   { src: "/images/gt6000/side1.jpg", alt: "GT6000 ด้านข้าง 1" },
                   { src: "/images/gt6000/side2.jpg", alt: "GT6000 ด้านข้าง 2" },
-                  { src: "/images/gt6000/side3.jpg", alt: "GT6000 ด้านข้าง — ครีบระบายความร้อน" },
+                  { src: "/images/gt6000/side3.jpg", alt: "GT6000 ​ขาตั้งพื้น — ครีบระบายความร้อน" },
                   { src: "/images/gt6000/spec-overview.jpg", alt: "GT6000 Spec Overview" },
                 ].map((img, i) => (
                   <div key={i} className="card-surface overflow-hidden rounded-lg bg-muted/30">
