@@ -1002,7 +1002,7 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
                     <img src={src} alt={cap?.title ?? `${product.modelCode} install ${i+1}`} className="w-full aspect-square object-cover" loading="lazy" />
                     <div className="px-3 py-2.5 space-y-1">
                       <div className="text-sm font-semibold text-foreground">
-                        {cap?.title ?? (i === 0 ? "ด้านหลัง" : i === 1 ? "ด้านข้าง" : i === 2 ? "แบบ Drawing" : `ขั้นตอน ${i+1}`)}
+                        {cap?.title ?? (i === 0 ? "​ขาจับแบบ VESA Mouting" : i === 1 ? "​ขาตั้งพื้น" : i === 2 ? "แบบ Drawing" : `ขั้นตอน ${i+1}`)}
                       </div>
                       {cap?.description && (
                         <p className="text-xs text-muted-foreground leading-relaxed">{cap.description}</p>
