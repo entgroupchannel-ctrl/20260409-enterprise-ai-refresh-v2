@@ -421,14 +421,14 @@ export default function ShopTouchworkJD185B() {
 
             {/* Quick Specs (จาก /touchwork/jd185b) */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2 p-3 rounded-lg border bg-muted/20">
-              <QuickSpec label="หน้าจอ" value='15.6" 16:9' />
-              <QuickSpec label="ความละเอียด" value="1920 × 1080" />
-              <QuickSpec label="Touch" value="PCAP 10pt (Mohs 7)" />
+              <QuickSpec label="หน้าจอ" value='18.5" 16:9' />
+              <QuickSpec label="ความละเอียด" value="1366 × 768" />
+              <QuickSpec label="Touch" value="Capacitive 10pt" />
               <QuickSpec label="Panel" value="IPS 175°/175°" />
-              <QuickSpec label="ความสว่าง" value="250 cd/m²" />
+              <QuickSpec label="ความสว่าง" value="≥250 cd/m²" />
               <QuickSpec label="มาตรฐาน" value="IP65 (หน้า)" />
-              <QuickSpec label="บอดี้" value="Die-cast 27mm" />
-              <QuickSpec label="X86 CPU" value="Intel N100" />
+              <QuickSpec label="ติดตั้ง" value="VESA 100 / Embedded" />
+              <QuickSpec label="X86 CPU" value="แจ้งแอดมิน" />
             </div>
 
             {/* Highlights */}
