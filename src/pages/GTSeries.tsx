@@ -3184,7 +3184,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 </h4>
                 <div className="grid md:grid-cols-2 gap-4 mb-6">
                   <img src="/images/gt6000/ports1.jpg" alt="GT6000 พอร์ตด้านหน้า" className="w-full rounded-lg"/>
-                  <img src="/images/gt6000/ports2.jpg" alt="GT6000 พอร์ตด้านหลัง" className="w-full rounded-lg"/>
+                  <img src="/images/gt6000/ports2.jpg" alt="GT6000 พอร์ต​ขาจับแบบ VESA Mouting" className="w-full rounded-lg"/>
                 </div>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
                   {[
