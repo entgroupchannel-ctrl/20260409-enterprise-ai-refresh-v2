@@ -27,6 +27,16 @@ export default function SiteNavbar() {
           <img src={logo} alt="ENT GROUP" className="h-8 w-auto" />
         </Link>
 
+        {/* Shop CTA — ติดข้าง logo เพื่อให้ user หาเจอง่าย */}
+        <Link
+          to="/shop"
+          aria-label="Shop สินค้าทั้งหมด"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20 transition-colors shrink-0"
+        >
+          <ShoppingBag size={16} />
+          <span className="hidden sm:inline">Shop</span>
+        </Link>
+
         {/* Desktop nav — MegaMenu ชิดขวาเหมือนหน้าแรก */}
         <div className="hidden md:flex items-center flex-1 min-w-0 gap-1">
           <div className="flex items-center min-w-0 ml-auto">
