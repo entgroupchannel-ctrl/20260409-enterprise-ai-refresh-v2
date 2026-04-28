@@ -296,8 +296,8 @@ export default function ShopTouchworkJD156B() {
       <ShopKioskSEO
         slug="jd156b"
         modelCode="JD156B"
-        shortName='TouchWork Indoor Display 13.3" 16:9 Full HD IPS — Ultra-slim Die-cast Body (PCAP 10pt, IP65 Front)'
-        sizeInch={13.3}
+        shortName='TouchWork Indoor Display 15.6" 16:9 Full HD IPS — Ultra-slim Die-cast 27mm (PCAP 10pt, IP65 Front, Intel N100)'
+        sizeInch={15.6}
         image={JD156B_Monitor}
         resolution="1920×1080 (16:9)"
         brightness="≥ 250 cd/m²"
@@ -411,10 +411,10 @@ export default function ShopTouchworkJD156B() {
                 <Sparkles className="w-3 h-3 mr-1" /> TouchWork Series • Indoor Display
               </Badge>
               <h1 className="text-2xl md:text-3xl font-bold leading-tight">
-                JD156B — TouchWork Indoor Display 13.3″ 16:9 Full HD IPS (Ultra-slim Die-cast Body)
+                JD156B — TouchWork Indoor Display 15.6″ 16:9 Full HD IPS (Ultra-slim Die-cast 27mm)
               </h1>
               <p className="text-muted-foreground mt-1.5 text-sm md:text-base">
-                จอสัมผัสอุตสาหกรรม 13.3″ 16:9 Full HD IPS — บอดี้ Die-cast บางพิเศษ สำหรับงาน Premium Self-Service • Capacitive 10pt, IP65 ด้านหน้า, IPS 175°/175° • เลือกได้ทั้ง Monitor, Android และ Windows
+                จอสัมผัสอุตสาหกรรม 15.6″ 16:9 Full HD (1920×1080) IPS — บอดี้ Die-cast บางเพียง 27mm สำหรับงาน Premium Self-Service / POS / Self-Order • PCAP 10pt (Mohs 7), IP65 ด้านหน้า, IPS 175°/175° • รองรับ Monitor (HDMI), Android 11/13 (ARM) และ Windows 10/11/Linux (Intel N100)
               </p>
             </div>
 
