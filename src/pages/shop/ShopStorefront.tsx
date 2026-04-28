@@ -1255,11 +1255,27 @@ const ShopStorefront = () => {
             )}
 
             {/* View mode + count */}
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between mb-4 gap-3 flex-wrap">
               <p className="text-sm text-muted-foreground">แสดง {paged.length} จาก {filtered.length} สินค้า</p>
-              <div className="flex gap-1">
-                <Button variant={viewMode === 'grid' ? 'default' : 'ghost'} size="icon" className="h-8 w-8" onClick={() => setViewMode('grid')}><LayoutGrid className="w-4 h-4" /></Button>
-                <Button variant={viewMode === 'list' ? 'default' : 'ghost'} size="icon" className="h-8 w-8" onClick={() => setViewMode('list')}><List className="w-4 h-4" /></Button>
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-muted-foreground hidden sm:inline">ต่อหน้า:</span>
+                <Select
+                  value={String(pageSize)}
+                  onValueChange={(v) => { setPageSize(Number(v)); setPage(1); }}
+                >
+                  <SelectTrigger className="h-8 w-[90px]">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {PAGE_SIZE_OPTIONS.map((n) => (
+                      <SelectItem key={n} value={String(n)}>{n}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <div className="flex gap-1">
+                  <Button variant={viewMode === 'grid' ? 'default' : 'ghost'} size="icon" className="h-8 w-8" onClick={() => setViewMode('grid')}><LayoutGrid className="w-4 h-4" /></Button>
+                  <Button variant={viewMode === 'list' ? 'default' : 'ghost'} size="icon" className="h-8 w-8" onClick={() => setViewMode('list')}><List className="w-4 h-4" /></Button>
+                </div>
               </div>
             </div>
 
