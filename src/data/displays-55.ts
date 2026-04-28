@@ -421,7 +421,7 @@ export const DISPLAYS_55: Record<Display55Slug, Display32> = {
       {
         image: hr55DimFront,
         title: "Mechanical Dimension — Front / Side / Top View",
-        caption: "แบบทางวิศวกรรมด้าน Front / Side / Top — ตัวเครื่อง 55\" ดีไซน์ Unibody Aluminum + Sheet-metal ขนาดหน้าจอแสดงผล (Active Area) 1213.6 × 684.4 mm Bezel 25.2 mm มุมโค้ง R11 — โครงสร้างขึ้นรูปชิ้นเดียว ด้านบนมีลำโพง + ช่องระบายความร้อน ด้านข้างมีพอร์ต I/O รองรับการติดตั้งแบบ Wall mount / Mobile stand เหมาะกับงาน Public Self-service ที่ต้องการความทนทาน Vandal-proof",
+        caption: "แบบทางวิศวกรรมด้าน Front / Side / Top — ตัวเครื่อง 55\" ดีไซน์ Unibody Aluminum + Sheet-metal ขนาดหน้าจอแสดงผล (Active Area) 1213.6 × 684.4 mm Bezel 25.2 mm มุมโค้ง R11 — โครงสร้างขึ้นรูปชิ้นเดียว ด้านบนมีลำโพง + ช่องระบายความร้อน ​ขาตั้งพื้นมีพอร์ต I/O รองรับการติดตั้งแบบ Wall mount / Mobile stand เหมาะกับงาน Public Self-service ที่ต้องการความทนทาน Vandal-proof",
         callouts: [
           { label: "Active Area", value: "1213.6 × 684.4 mm" },
           { label: "Bezel รอบด้าน", value: "25.2 mm" },
