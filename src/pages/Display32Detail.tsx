@@ -31,6 +31,7 @@ import { DISPLAYS_86, DISPLAY_86_ORDER } from "@/data/displays-86";
 import { DISPLAYS_98, DISPLAY_98_ORDER } from "@/data/displays-98";
 import { DISPLAYS_156, DISPLAY_156_ORDER } from "@/data/displays-156";
 import { DISPLAYS_215, DISPLAY_215_ORDER } from "@/data/displays-215";
+import YouMayAlsoLike, { type SuggestedDisplay } from "@/components/displays/YouMayAlsoLike";
 
 type GroupSize = 32 | 43 | 238 | 27 | 49 | 55 | 65 | 75 | 85 | 86 | 98 | 156 | 215;
 const GROUPS: Record<GroupSize, {
@@ -231,6 +232,31 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
     setParams({ model: s });
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  // สร้างรายการ "รุ่นที่คุณอาจชอบ" — เลือก default model จากแต่ละขนาดในตระกูล Interactive Display
+  const suggestions = useMemo<SuggestedDisplay[]>(() => {
+    const sizeMap: Record<number, string> = {
+      156: '15.6"', 215: '21.5"', 238: '23.8"', 27: '27"', 32: '32"',
+      43: '43"', 49: '49"', 55: '55"', 65: '65"', 75: '75"',
+      85: '85"', 86: '86"', 98: '98"',
+    };
+    const out: SuggestedDisplay[] = [];
+    (Object.keys(GROUPS) as unknown as GroupSize[]).forEach((g) => {
+      const size = Number(g) as GroupSize;
+      if (size === groupSize) return;
+      const cfg = GROUPS[size];
+      const p = cfg.data[cfg.defaultModel];
+      if (!p) return;
+      out.push({
+        sizeLabel: sizeMap[size] ?? `${size}"`,
+        sizeNumeric: size,
+        href: `${cfg.basePath}?model=${cfg.defaultModel}`,
+        product: p,
+        formFactor: p.formFactor,
+      });
+    });
+    return out;
+  }, [groupSize]);
 
   if (!product) return <Navigate to={group.basePath} replace />;
 
@@ -1197,7 +1223,14 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
         )}
       </main>
 
+      <YouMayAlsoLike
+        currentSizeNumeric={groupSize}
+        candidates={suggestions}
+        browseAllHref="/interactive-display"
+      />
+
       <FooterCompact />
+
 
       {lightbox && (
         <SimpleLightbox
