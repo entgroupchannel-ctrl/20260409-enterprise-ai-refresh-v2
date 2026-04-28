@@ -62,9 +62,9 @@ import g_x86_07 from "@/assets/touchwork/gallery/JD215B-X86/07.jpg";
 /* ------------------------------------------------------------------ */
 
 const VARIANT_BASE_PRICE: Record<string, number> = {
-  monitor: 16990,
-  arm: 19990,
-  x86: 23990,
+  monitor: 17990,
+  arm: 20990,
+  x86: 24990,
 };
 
 const VARIANT_GALLERIES: Record<string, string[]> = {
