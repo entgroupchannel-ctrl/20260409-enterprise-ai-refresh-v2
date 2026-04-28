@@ -67,7 +67,7 @@ const ShopHighlightsGrid = () => {
               <Flame className="w-6 h-6 shrink-0" />
               <div>
                 <div className="text-xs font-semibold uppercase tracking-wider opacity-90">โปรโมชันพิเศษ</div>
-                <div className="text-lg font-bold leading-tight">สินค้าพร้อมส่งทุกรุ่น</div>
+                <div className="text-lg font-bold leading-tight">สินค้าพร้อมส่งทุกรุ่น*</div>
               </div>
             </div>
             <div className="flex-1 flex flex-wrap items-center justify-center md:justify-around gap-x-6 gap-y-2 px-5 py-3 text-sm">
