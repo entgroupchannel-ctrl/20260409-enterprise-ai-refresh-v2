@@ -38,6 +38,7 @@ import kd156bHero from '@/assets/touchwo/kd156b/KD156-1A.jpg';
 import kd215bHero from '@/assets/touchwo/kd215b/KD215-1.jpg';
 import kd32bHeroShop from '@/assets/touchwo/kd32b-hero-clean.jpg';
 import kd43bHero from '@/assets/touchwo/kd43b/mon-1.jpg';
+import gd215cHero from '@/assets/touchwo/gd215c/GD215-1A.jpg';
 
 interface Product {
   id: string; sku: string; model: string; series: string | null; name: string; description: string | null;
