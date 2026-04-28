@@ -124,7 +124,7 @@ const OS_OPTIONS_X86 = [
 ];
 
 const INSTALL_OPTIONS = [
-  { label: "VESA 75/100 (มาตรฐาน)", delta: 0 },
+  { label: "Wall-Mount VESA 75 (มาตรฐาน)", delta: 0 },
   { label: "Embedded (ฝัง Panel)", delta: 800 },
   { label: "Desktop Stand (ตั้งโต๊ะ)", delta: 1200 },
 ];

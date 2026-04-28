@@ -82,6 +82,7 @@ const ShopTouchworkDM156G = lazyRetry(() => import("./pages/shop/ShopTouchworkDM
 const ShopTouchworkDM17G = lazyRetry(() => import("./pages/shop/ShopTouchworkDM17G"));
 const ShopTouchworkDM19G = lazyRetry(() => import("./pages/shop/ShopTouchworkDM19G"));
 const ShopTouchworkDM215G = lazyRetry(() => import("./pages/shop/ShopTouchworkDM215G"));
+const ShopTouchworkGD133 = lazyRetry(() => import("./pages/shop/ShopTouchworkGD133"));
 const Unsubscribe = lazyRetry(() => import("./pages/Unsubscribe"));
 const Login = lazyRetry(() => import("./pages/auth/Login"));
 const Register = lazyRetry(() => import("./pages/auth/Register"));
