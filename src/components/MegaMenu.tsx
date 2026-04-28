@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import {
   Cpu, Monitor, Shield, Tablet, Wifi, Server, Box, Layers,
   Factory, Zap, ChevronRight, ArrowRight, Sparkles, Tv, Sun,
-  Droplets, UtensilsCrossed, Headset, ShieldCheck, Users, Handshake
+  Droplets, UtensilsCrossed, Headset, ShieldCheck, Users, Handshake, ShoppingBag
 } from "lucide-react";
 
 import imgGT from "@/assets/gt-series-mega-menu.jpg";
@@ -344,6 +344,15 @@ const MegaMenu = ({
     <div ref={menuRef} className="relative">
       {/* Nav items */}
       <div className="flex items-center gap-0.5 flex-nowrap">
+        {/* Shop CTA — เด่นที่สุดใน nav */}
+        <Link
+          to="/shop"
+          onMouseEnter={() => setActiveMenu(null)}
+          className="flex items-center gap-1.5 px-3 py-2 mr-1 rounded-lg text-sm font-bold bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm hover:shadow-md transition-all whitespace-nowrap shrink-0"
+        >
+          <ShoppingBag size={14} />
+          Shop ทั้งหมด
+        </Link>
         {menuCategories.map((cat) => (
           <button
             key={cat.id}
@@ -376,6 +385,15 @@ const MegaMenu = ({
                 <active.icon size={16} className="text-primary" />
                 <h3 className="text-foreground font-bold text-sm">{active.label}</h3>
                 <span className="text-muted-foreground text-xs">— {active.tagline}</span>
+                <Link
+                  to="/shop"
+                  onClick={() => { setActiveMenu(null); }}
+                  className="ml-auto inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-primary text-primary-foreground text-[11px] font-bold hover:bg-primary/90 transition-colors"
+                >
+                  <ShoppingBag size={11} />
+                  ดูใน Shop
+                  <ArrowRight size={11} />
+                </Link>
               </div>
 
               <div className="grid grid-cols-12 gap-5">
