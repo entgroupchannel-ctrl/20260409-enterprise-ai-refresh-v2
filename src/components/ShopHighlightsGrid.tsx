@@ -23,8 +23,8 @@ function shuffleStable<T>(arr: T[], seed: number): T[] {
 
 const ShopHighlightsGrid = () => {
   const items = useMemo(() => {
-    const today = new Date();
-    const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+    // สุ่มใหม่ทุกครั้งที่เข้าหน้า (ใช้ timestamp + random เป็น seed)
+    const seed = Date.now() + Math.floor(Math.random() * 100000);
     return shuffleStable(SHOP_STATIC_COMPARE_PRODUCTS, seed);
   }, []);
 
