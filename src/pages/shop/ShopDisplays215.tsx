@@ -22,6 +22,7 @@ import { savePendingQuote } from "@/hooks/usePendingQuote";
 import { DISPLAYS_215 } from "@/data/displays-215";
 import LineQRButton from "@/components/LineQRButton";
 import RelatedKioskModels from "@/components/shop/RelatedKioskModels";
+import B2BPlatformBanner from "@/components/shop/B2BPlatformBanner";
 import UseCaseGallery from "@/components/shop/UseCaseGallery";
 import ucRetail215 from "@/assets/shop/usecases/kd215-retail.jpg";
 import ucBanking215 from "@/assets/shop/usecases/kd215-banking.jpg";
@@ -702,6 +703,7 @@ export default function ShopDisplays215() {
         </div>
       )}
 
+      <B2BPlatformBanner />
       <RelatedKioskModels currentSlug="displays-21.5" />
       <Footer />
     </div>
