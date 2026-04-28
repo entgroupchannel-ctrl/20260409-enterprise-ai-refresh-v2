@@ -3536,9 +3536,9 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   <div className="grid grid-cols-2 gap-3">
                     {[
                       { src: "/images/gt7000/front.jpg", alt: "GT7000 ด้านหน้า — พอร์ต COM" },
-                      { src: "/images/gt7000/side.jpg", alt: "GT7000 ด้านข้าง — ครีบระบายความร้อน" },
+                      { src: "/images/gt7000/side.jpg", alt: "GT7000 ​ขาตั้งพื้น — ครีบระบายความร้อน" },
                       { src: "/images/gt7000/angle.jpg", alt: "GT7000 มุมเอียง" },
-                      { src: "/images/gt7000/rear.jpg", alt: "GT7000 ด้านหลัง" },
+                      { src: "/images/gt7000/rear.jpg", alt: "GT7000 ​ขาจับแบบ VESA Mouting" },
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden rounded-lg bg-muted/30">
                         <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1"/>
