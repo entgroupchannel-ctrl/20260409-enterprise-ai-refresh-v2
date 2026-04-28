@@ -149,6 +149,16 @@ const ALL_MODELS: KioskModel[] = [
     image: dm104gHero,
     productHref: "/touchwork/dm104g",
   },
+  {
+    slug: "dm121g",
+    modelCode: "DM121G",
+    size: '12.1"',
+    shortName: "DM121G Industrial Touch PC",
+    tagline: 'จอสัมผัส 12.1" 4:3 Capacitive 10pt — Monitor / Android / Windows • Backlight 30,000 ชม.',
+    startingPrice: 14990,
+    image: dm121gHero,
+    productHref: "/touchwork/dm121g",
+  },
 ];
 
 const fmt = (n: number) => n.toLocaleString("th-TH");
