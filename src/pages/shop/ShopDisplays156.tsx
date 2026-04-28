@@ -406,15 +406,15 @@ export default function ShopDisplays156() {
             </div>
 
             {/* Highlights — 2x2 compact */}
-            <div className="grid grid-cols-2 gap-1.5">
+            <div className="grid grid-cols-2 gap-2">
               {PRODUCT.highlights.map((h, i) => {
                 const Icon = ICON_MAP[h.icon as keyof typeof ICON_MAP] ?? Sparkles;
                 return (
-                  <div key={i} className="flex items-start gap-1.5 p-1.5 rounded-md bg-primary/5 border border-primary/10">
-                    <Icon className="w-3.5 h-3.5 text-primary mt-0.5 shrink-0" />
+                  <div key={i} className="flex items-start gap-2 p-2 rounded-md bg-primary/5 border border-primary/10">
+                    <Icon className="w-4 h-4 text-primary mt-0.5 shrink-0" />
                     <div className="min-w-0">
-                      <p className="text-[11px] font-semibold leading-tight truncate">{h.title}</p>
-                      <p className="text-[10px] text-muted-foreground leading-tight truncate">{h.subtitle}</p>
+                      <p className="text-sm font-semibold leading-tight">{h.title}</p>
+                      <p className="text-xs text-muted-foreground leading-tight">{h.subtitle}</p>
                     </div>
                   </div>
                 );
@@ -423,14 +423,14 @@ export default function ShopDisplays156() {
 
             {/* Configurator Card */}
             <Card className="border-primary/20">
-              <CardContent className="p-3 space-y-3">
-                <div className="flex items-center gap-1.5">
-                  <Wand2 className="w-3.5 h-3.5 text-primary" />
-                  <h3 className="font-bold text-xs uppercase tracking-wider">ปรับแต่งสเปก</h3>
+              <CardContent className="p-4 space-y-4">
+                <div className="flex items-center gap-2">
+                  <Wand2 className="w-4 h-4 text-primary" />
+                  <h3 className="font-bold text-sm uppercase tracking-wider">ปรับแต่งสเปก</h3>
                 </div>
 
                 {/* Variant: 3-col compact */}
-                <div className="grid grid-cols-3 gap-1.5">
+                <div className="grid grid-cols-3 gap-2">
                   {PRODUCT.variants?.map((v) => {
                     const VIcon = ICON_MAP[v.icon as keyof typeof ICON_MAP] ?? Monitor;
                     const active = v.key === variantKey;
@@ -439,13 +439,13 @@ export default function ShopDisplays156() {
                         key={v.key}
                         onClick={() => setVariantKey(v.key)}
                         className={cn(
-                          "text-left p-2 rounded-lg border transition-all",
+                          "text-left p-2.5 rounded-lg border transition-all",
                           active ? "border-primary bg-primary/5 ring-1 ring-primary/30" : "border-border hover:border-primary/50",
                         )}
                       >
-                        <VIcon className={cn("w-4 h-4 mb-1", active ? "text-primary" : "text-muted-foreground")} />
-                        <p className="font-semibold text-[11px] leading-tight">{v.key === "monitor" ? "Monitor" : v.key === "x86" ? "Windows/Linux" : "Android"}</p>
-                        <p className="text-[10px] text-primary font-bold mt-0.5">฿{fmt(VARIANT_BASE_PRICE[v.key] ?? 0)}</p>
+                        <VIcon className={cn("w-5 h-5 mb-1", active ? "text-primary" : "text-muted-foreground")} />
+                        <p className="font-semibold text-sm leading-tight">{v.key === "monitor" ? "Monitor" : v.key === "x86" ? "Windows/Linux" : "Android"}</p>
+                        <p className="text-xs text-primary font-bold mt-0.5">฿{fmt(VARIANT_BASE_PRICE[v.key] ?? 0)}</p>
                       </button>
                     );
                   })}
@@ -454,7 +454,7 @@ export default function ShopDisplays156() {
                 {/* CPU tier (PC only) */}
                 {cpuTiers.length > 0 && (
                   <ConfigBlock icon={Cpu} label="ระดับ CPU">
-                    <div className="grid grid-cols-3 gap-1">
+                    <div className="grid grid-cols-3 gap-1.5">
                       {cpuTiers.map((c, i) => {
                         const active = i === cpuTierIdx;
                         const delta = CPU_TIER_DELTA[c.tier] ?? 0;
@@ -463,13 +463,13 @@ export default function ShopDisplays156() {
                             key={i}
                             onClick={() => setCpuTierIdx(i)}
                             className={cn(
-                              "p-1.5 rounded-md border text-[10px] transition-all text-left",
+                              "p-2 rounded-md border text-xs transition-all text-left",
                               active ? "border-primary bg-primary/5" : "border-border hover:border-primary/50",
                             )}
                           >
-                            <p className="font-bold text-[11px]">{c.tier}</p>
-                            <p className="text-muted-foreground line-clamp-1">{c.cpu.split("(")[0].trim()}</p>
-                            {delta > 0 && <p className="text-primary font-medium">+฿{fmt(delta)}</p>}
+                            <p className="font-bold text-sm">{c.tier}</p>
+                            <p className="text-muted-foreground line-clamp-1 text-xs">{c.cpu.split("(")[0].trim()}</p>
+                            {delta > 0 && <p className="text-primary font-medium text-xs">+฿{fmt(delta)}</p>}
                           </button>
                         );
                       })}
@@ -477,10 +477,10 @@ export default function ShopDisplays156() {
                   </ConfigBlock>
                 )}
 
-                {/* RAM / SSD / Wi-Fi (PC only) */}
+                {/* RAM / SSD / Wi-Fi / OS (PC only) */}
                 {isPC && (
                   <>
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-2 gap-3">
                       <ConfigBlock icon={MemoryStick} label="RAM">
                         <ChipRow
                           options={ramOptions}
@@ -503,12 +503,19 @@ export default function ShopDisplays156() {
                         onSelect={setWifiIdx}
                       />
                     </ConfigBlock>
+                    <ConfigBlock icon={Disc} label={variantKey === "x86" ? "ระบบปฏิบัติการ (OS)" : "Android / OS Version"}>
+                      <ChipRow
+                        options={osOptions}
+                        activeIdx={osIdx}
+                        onSelect={setOsIdx}
+                      />
+                    </ConfigBlock>
                   </>
                 )}
 
-                {/* Add-on peripherals */}
+                {/* Add-on peripherals — visual cards with images */}
                 <ConfigBlock icon={Box} label="อุปกรณ์เสริม (เลือกได้หลายรายการ)">
-                  <div className="flex flex-wrap gap-1">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                     {ADDON_OPTIONS.map((a) => {
                       const active = addons.includes(a.key);
                       return (
@@ -516,15 +523,29 @@ export default function ShopDisplays156() {
                           key={a.key}
                           onClick={() => toggleAddon(a.key)}
                           className={cn(
-                            "px-2 py-1 rounded-full border text-[10px] transition-all flex items-center gap-1",
+                            "relative text-left rounded-lg border-2 overflow-hidden transition-all bg-card hover:shadow-md",
                             active
-                              ? "border-primary bg-primary text-primary-foreground"
+                              ? "border-primary ring-2 ring-primary/30"
                               : "border-border hover:border-primary/50",
                           )}
                         >
-                          {active && <Check className="w-2.5 h-2.5" />}
-                          {a.label}
-                          <span className={cn("opacity-80", active ? "" : "text-primary")}>+฿{fmt(a.price)}</span>
+                          <div className="aspect-[4/3] bg-muted/30 overflow-hidden">
+                            <img
+                              src={a.image}
+                              alt={a.label}
+                              loading="lazy"
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          {active && (
+                            <div className="absolute top-1.5 right-1.5 bg-primary text-primary-foreground rounded-full p-1 shadow">
+                              <Check className="w-3 h-3" />
+                            </div>
+                          )}
+                          <div className="p-1.5">
+                            <p className="text-xs font-semibold leading-tight line-clamp-1">{a.label}</p>
+                            <p className="text-xs text-primary font-bold mt-0.5">+฿{fmt(a.price)}</p>
+                          </div>
                         </button>
                       );
                     })}
