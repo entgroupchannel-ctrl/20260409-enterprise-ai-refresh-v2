@@ -364,9 +364,9 @@ const PanelPC = () => {
               </div>
             </div>
             <div className="card-surface p-4 flex flex-col items-center gap-3">
-              <img src={gty156Side} alt="GTY156T — ด้านข้าง แสดงความบาง" className="w-full max-h-[280px] object-contain rounded-lg"/>
+              <img src={gty156Side} alt="GTY156T — ​ขาตั้งพื้น แสดงความบาง" className="w-full max-h-[280px] object-contain rounded-lg"/>
               <div className="text-center">
-                <p className="font-bold text-foreground text-sm">GTY156T — ด้านข้าง</p>
+                <p className="font-bold text-foreground text-sm">GTY156T — ​ขาตั้งพื้น</p>
                 <p className="text-xs text-muted-foreground">ดีไซน์บาง สวยงาม พร้อมติดตั้ง Panel Mount</p>
               </div>
             </div>
