@@ -615,17 +615,17 @@ export default function ShopDisplays156() {
                     ขอใบเสนอราคา
                   </Button>
                 </div>
-                <div className="flex items-center justify-center gap-2 text-[10px] text-muted-foreground">
+                <div className="flex items-center justify-center gap-3 text-xs text-muted-foreground flex-wrap">
                   <a href="tel:0959244966" className="flex items-center gap-1 hover:text-primary">
-                    <Phone className="w-3 h-3" /> 095-924-4966
+                    <Phone className="w-3.5 h-3.5" /> 095-924-4966
                   </a>
                   <span>•</span>
                   <Link to="/contact" className="flex items-center gap-1 hover:text-primary">
-                    <MessageCircle className="w-3 h-3" /> สอบถามแอดมิน
+                    <MessageCircle className="w-3.5 h-3.5" /> สอบถามแอดมิน
                   </Link>
                   <span>•</span>
                   <Link to={`/products/${PRODUCT.slug ?? "displays-15.6"}`} className="flex items-center gap-1 hover:text-primary">
-                    <ArrowRight className="w-3 h-3" /> สเปกเต็ม
+                    <ArrowRight className="w-3.5 h-3.5" /> สเปกเต็ม
                   </Link>
                 </div>
               </CardContent>
