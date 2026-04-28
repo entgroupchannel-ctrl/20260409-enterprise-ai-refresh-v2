@@ -22,6 +22,18 @@ import { savePendingQuote } from "@/hooks/usePendingQuote";
 import { DISPLAYS_215 } from "@/data/displays-215";
 import LineQRButton from "@/components/LineQRButton";
 import RelatedKioskModels from "@/components/shop/RelatedKioskModels";
+import UseCaseGallery from "@/components/shop/UseCaseGallery";
+import ucRetail215 from "@/assets/shop/usecases/kd215-retail.jpg";
+import ucBanking215 from "@/assets/shop/usecases/kd215-banking.jpg";
+import ucExhibition215 from "@/assets/shop/usecases/kd215-exhibition.jpg";
+import ucPublic215 from "@/assets/shop/usecases/kd215-public.jpg";
+
+const USE_CASE_GALLERY = [
+  { image: ucRetail215, title: "Retail Self-service", caption: "เปลี่ยนหน้าร้านให้ลูกค้าเลือกสินค้าและชำระเงินเองได้ — ประสบการณ์ทันสมัย เพิ่ม conversion" },
+  { image: ucBanking215, title: "Banking / Self-checkout", caption: "ตู้บริการเปิดบัญชี สมัครสินเชื่อ ตรวจสอบยอด — ลดเวลารอคิวในสาขา" },
+  { image: ucExhibition215, title: "Exhibition / Museum", caption: "จุด Interactive ในงานนิทรรศการ พิพิธภัณฑ์ — ดึงดูดผู้เข้าชมและบอกเล่าเรื่องราว" },
+  { image: ucPublic215, title: "Public Self-service", caption: "บริการข้อมูลในสนามบิน ศาลากลาง โรงพยาบาล — ลูกค้าหาข้อมูลได้ตลอด 24 ชม." },
+];
 
 /* ------------------------------------------------------------------ */
 /*  Source product (single model: KD215B with 3 configurations)       */
@@ -648,18 +660,8 @@ export default function ShopDisplays215() {
         </div>
       </section>
 
-      {/* USE CASES — compact strip */}
-      <section className="container mx-auto px-4 pb-8">
-        <h2 className="text-sm font-bold mb-2 uppercase tracking-wider text-muted-foreground">ใช้งานเหมาะกับ</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-          {PRODUCT.useCases.map((uc, i) => (
-            <div key={i} className="flex items-center gap-1.5 p-2 rounded-md border bg-muted/20">
-              <Zap className="w-3.5 h-3.5 text-primary shrink-0" />
-              <p className="text-xs">{uc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* USE CASES — inspirational image gallery */}
+      <UseCaseGallery items={USE_CASE_GALLERY} />
 
       {/* ── Zoom Lightbox ── */}
       {zoomOpen && (

@@ -22,6 +22,18 @@ import { savePendingQuote } from "@/hooks/usePendingQuote";
 import { DISPLAYS_43 } from "@/data/displays-43";
 import LineQRButton from "@/components/LineQRButton";
 import RelatedKioskModels from "@/components/shop/RelatedKioskModels";
+import UseCaseGallery from "@/components/shop/UseCaseGallery";
+import ucRetail43 from "@/assets/shop/usecases/kd43-retail.jpg";
+import ucBanking43 from "@/assets/shop/usecases/kd43-banking.jpg";
+import ucExhibition43 from "@/assets/shop/usecases/kd43-exhibition.jpg";
+import ucQsr43 from "@/assets/shop/usecases/kd43-qsr.jpg";
+
+const USE_CASE_GALLERY = [
+  { image: ucRetail43, title: "Retail Self-checkout", caption: "Self-checkout จอใหญ่ในซูเปอร์มาร์เก็ต — ลูกค้าสแกนสินค้าเองได้สะดวก ลดคิวยาว" },
+  { image: ucBanking43, title: "Banking / ATM Lobby", caption: "ตู้ ATM Lobby แถวยาวขนาดใหญ่ — ภาพลักษณ์มืออาชีพ ใช้งาน 24 ชม." },
+  { image: ucExhibition43, title: "Exhibition / Wayfinding", caption: "ตู้ Wayfinding จอใหญ่ในงานแสดงสินค้า — ดึงดูดสายตา หาบูธได้ง่าย" },
+  { image: ucQsr43, title: "QSR Self-order", caption: "ตู้สั่งอาหารเองในร้าน Fast-food — เพิ่ม upsell, ลดเวลารอ, สั่งง่ายด้วยภาพเมนูใหญ่" },
+];
 
 /* ------------------------------------------------------------------ */
 /*  Source product (single model: KD43B with 3 configurations)        */
@@ -648,18 +660,8 @@ export default function ShopDisplays43() {
         </div>
       </section>
 
-      {/* USE CASES — compact strip */}
-      <section className="container mx-auto px-4 pb-8">
-        <h2 className="text-sm font-bold mb-2 uppercase tracking-wider text-muted-foreground">ใช้งานเหมาะกับ</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-          {PRODUCT.useCases.map((uc, i) => (
-            <div key={i} className="flex items-center gap-1.5 p-2 rounded-md border bg-muted/20">
-              <Zap className="w-3.5 h-3.5 text-primary shrink-0" />
-              <p className="text-xs">{uc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* USE CASES — inspirational image gallery */}
+      <UseCaseGallery items={USE_CASE_GALLERY} />
 
       {/* ── Zoom Lightbox ── */}
       {zoomOpen && (
