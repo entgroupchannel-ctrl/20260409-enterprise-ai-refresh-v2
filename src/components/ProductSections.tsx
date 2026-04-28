@@ -54,7 +54,8 @@ const ProductSections = () => {
     <section className="pt-8 md:pt-12 pb-16 md:pb-24 px-4 md:px-8">
       <div className="container max-w-7xl mx-auto space-y-12">
         {sections.map((section) => (
-          <div key={section.title} className="card-surface overflow-hidden relative rounded-2xl min-h-[340px] flex items-end">
+          <div key={section.title}>
+          <div className="card-surface overflow-hidden relative rounded-2xl min-h-[340px] flex items-end">
             <img
               src={section.image}
               alt={section.title}
@@ -85,6 +86,12 @@ const ProductSections = () => {
                 </div>
               </div>
             </div>
+          </div>
+          {section.title === "หน้าจอสัมผัสและคีออสก์" && (
+            <div className="mt-6">
+              <EPCRecommendedRow />
+            </div>
+          )}
           </div>
         ))}
       </div>
