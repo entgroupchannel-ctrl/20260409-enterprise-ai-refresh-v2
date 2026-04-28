@@ -760,7 +760,7 @@ const SmartDisplay = () => {
                       className="max-h-[400px] object-contain drop-shadow-xl"/>
                     <img
                       src="/images/wix/005637_b48ec7c382e549ad853ae993207d740e_4c97c30b.png"
-                      alt="KIOSK-GK2101 ด้านหลัง"
+                      alt="KIOSK-GK2101 ​ขาจับแบบ VESA Mouting"
                       className="max-h-[400px] object-contain drop-shadow-xl"/>
                   </div>
                 </div>

@@ -979,8 +979,8 @@ const GTSeries = () => {
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
-                      { src: "/images/wezhan/5874414.jpg", alt: "GT1000 ด้านหลัง — USB, COM ports" },
-                      { src: "/images/wezhan/5874418.jpg", alt: "GT1000 ด้านข้าง — ครีบระบายความร้อน" },
+                      { src: "/images/wezhan/5874414.jpg", alt: "GT1000 ​ขาจับแบบ VESA Mouting — USB, COM ports" },
+                      { src: "/images/wezhan/5874418.jpg", alt: "GT1000 ​ขาตั้งพื้น — ครีบระบายความร้อน" },
                       { src: "/images/wezhan/5874416.jpg", alt: "GT1000 ด้านล่าง — VESA Mount" },
                       { src: "/images/wezhan/5874419.jpg", alt: "GT1000 ภายใน — Mainboard + WiFi" },
                     ].map((img, i) => (
@@ -1156,8 +1156,8 @@ const GTSeries = () => {
                   <img src="/images/gt1000/ports-front.jpg" alt="GT1000 Mainboard และการติดตั้ง" className="w-full rounded-lg"/>
                 </div>
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
-                  <h4 className="font-bold text-foreground mb-3 text-sm"><Plug size={16} className="inline mr-1 text-primary" />Ports — ด้านหลัง</h4>
-                  <img src="/images/gt1000/ports-rear.jpg" alt="GT1000 Ports ด้านหลัง" className="w-full rounded-lg"/>
+                  <h4 className="font-bold text-foreground mb-3 text-sm"><Plug size={16} className="inline mr-1 text-primary" />Ports — ​ขาจับแบบ VESA Mouting</h4>
+                  <img src="/images/gt1000/ports-rear.jpg" alt="GT1000 Ports ​ขาจับแบบ VESA Mouting" className="w-full rounded-lg"/>
                 </div>
               </div>
 
@@ -1166,7 +1166,7 @@ const GTSeries = () => {
                 {[
                   { src: "/images/gt1000/product-angle1.jpg", alt: "GT1000 มุมด้านหน้า" },
                   { src: "/images/gt1000/product-angle2.jpg", alt: "GT1000 มุมเอียง" },
-                  { src: "/images/gt1000/side-view.jpg", alt: "GT1000 ด้านข้าง — ครีบระบายความร้อน" },
+                  { src: "/images/gt1000/side-view.jpg", alt: "GT1000 ​ขาตั้งพื้น — ครีบระบายความร้อน" },
                   { src: "/images/gt1000/bottom-view.jpg", alt: "GT1000 ด้านล่าง — VESA Mount" },
                 ].map((img, i) => (
                   <div key={i} className="card-surface overflow-hidden rounded-xl">
@@ -1837,8 +1837,8 @@ const GTSeries = () => {
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
-                      { src: "/images/wezhan/5874078.jpg", alt: "GT3000 ด้านหลัง — USB, COM ports" },
-                      { src: "/images/wezhan/5874077.jpg", alt: "GT3000 ด้านข้าง — ครีบระบายความร้อน" },
+                      { src: "/images/wezhan/5874078.jpg", alt: "GT3000 ​ขาจับแบบ VESA Mouting — USB, COM ports" },
+                      { src: "/images/wezhan/5874077.jpg", alt: "GT3000 ​ขาตั้งพื้น — ครีบระบายความร้อน" },
                       { src: "/images/wezhan/5874075.jpg", alt: "GT3000 มุมบน — Heatsink" },
                       { src: "/images/wezhan/5874080.jpg", alt: "GT3000 ภายใน — Mainboard" },
                     ].map((img, i) => (
@@ -2280,8 +2280,8 @@ const GTSeries = () => {
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     {[
-                      { src: "/images/gt4000/rear.jpg", alt: "GT4000 ด้านหลัง — USB, COM ports" },
-                      { src: "/images/gt4000/side.jpg", alt: "GT4000 ด้านข้าง — ครีบระบายความร้อน" },
+                      { src: "/images/gt4000/rear.jpg", alt: "GT4000 ​ขาจับแบบ VESA Mouting — USB, COM ports" },
+                      { src: "/images/gt4000/side.jpg", alt: "GT4000 ​ขาตั้งพื้น — ครีบระบายความร้อน" },
                       { src: "/images/gt4000/angle.jpg", alt: "GT4000 มุมเอียง — ภาพรวม" },
                       { src: "/images/gt4000/mainboard.jpg", alt: "GT4000 ภายใน — Mainboard" },
                     ].map((img, i) => (
@@ -2632,8 +2632,8 @@ const GTSeries = () => {
                   <div className="grid grid-cols-2 gap-3">
                     {[
                       { src: "/images/gt5000/front.jpg", alt: "GT5000 ด้านหน้า — พอร์ต COM, USB" },
-                      { src: "/images/gt5000/rear.jpg", alt: "GT5000 ด้านหลัง — LAN, HDMI, VGA" },
-                      { src: "/images/gt5000/side.jpg", alt: "GT5000 ด้านข้าง — ครีบระบายความร้อน" },
+                      { src: "/images/gt5000/rear.jpg", alt: "GT5000 ​ขาจับแบบ VESA Mouting — LAN, HDMI, VGA" },
+                      { src: "/images/gt5000/side.jpg", alt: "GT5000 ​ขาตั้งพื้น — ครีบระบายความร้อน" },
                       { src: "/images/gt5000/angle.jpg", alt: "GT5000 มุมเอียง — ภาพรวม" },
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden rounded-lg bg-muted/30">
@@ -3167,7 +3167,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                       { src: "/images/gt6000/front.jpg", alt: "GT6000 ด้านหน้า" },
                       { src: "/images/gt6000/top.jpg", alt: "GT6000 ด้านบน" },
                       { src: "/images/gt6000/angle.jpg", alt: "GT6000 มุมเอียง" },
-                      { src: "/images/gt6000/rear.jpg", alt: "GT6000 ด้านหลัง — พอร์ต" },
+                      { src: "/images/gt6000/rear.jpg", alt: "GT6000 ​ขาจับแบบ VESA Mouting — พอร์ต" },
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden rounded-lg bg-muted/30">
                         <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1"/>
@@ -3184,7 +3184,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 </h4>
                 <div className="grid md:grid-cols-2 gap-4 mb-6">
                   <img src="/images/gt6000/ports1.jpg" alt="GT6000 พอร์ตด้านหน้า" className="w-full rounded-lg"/>
-                  <img src="/images/gt6000/ports2.jpg" alt="GT6000 พอร์ตด้านหลัง" className="w-full rounded-lg"/>
+                  <img src="/images/gt6000/ports2.jpg" alt="GT6000 พอร์ต​ขาจับแบบ VESA Mouting" className="w-full rounded-lg"/>
                 </div>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
                   {[
@@ -3221,7 +3221,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                 {[
                   { src: "/images/gt6000/side1.jpg", alt: "GT6000 ด้านข้าง 1" },
                   { src: "/images/gt6000/side2.jpg", alt: "GT6000 ด้านข้าง 2" },
-                  { src: "/images/gt6000/side3.jpg", alt: "GT6000 ด้านข้าง — ครีบระบายความร้อน" },
+                  { src: "/images/gt6000/side3.jpg", alt: "GT6000 ​ขาตั้งพื้น — ครีบระบายความร้อน" },
                   { src: "/images/gt6000/spec-overview.jpg", alt: "GT6000 Spec Overview" },
                 ].map((img, i) => (
                   <div key={i} className="card-surface overflow-hidden rounded-lg bg-muted/30">
@@ -3536,9 +3536,9 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   <div className="grid grid-cols-2 gap-3">
                     {[
                       { src: "/images/gt7000/front.jpg", alt: "GT7000 ด้านหน้า — พอร์ต COM" },
-                      { src: "/images/gt7000/side.jpg", alt: "GT7000 ด้านข้าง — ครีบระบายความร้อน" },
+                      { src: "/images/gt7000/side.jpg", alt: "GT7000 ​ขาตั้งพื้น — ครีบระบายความร้อน" },
                       { src: "/images/gt7000/angle.jpg", alt: "GT7000 มุมเอียง" },
-                      { src: "/images/gt7000/rear.jpg", alt: "GT7000 ด้านหลัง" },
+                      { src: "/images/gt7000/rear.jpg", alt: "GT7000 ​ขาจับแบบ VESA Mouting" },
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden rounded-lg bg-muted/30">
                         <img src={img.src} alt={img.alt} className="w-full object-cover aspect-[4/3] hover:scale-105 transition-transform duration-300 p-1"/>
@@ -3948,7 +3948,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   <div className="grid grid-cols-2 gap-3">
                     {[
                       { src: "/images/gt8000/front.jpg", alt: "GT8000 ด้านหน้า" },
-                      { src: "/images/gt8000/side.jpg", alt: "GT8000 ด้านข้าง" },
+                      { src: "/images/gt8000/side.jpg", alt: "GT8000 ​ขาตั้งพื้น" },
                       { src: "/images/gt8000/angle.jpg", alt: "GT8000 มุมเอียง" },
                       { src: "/images/gt8000/internal.jpg", alt: "GT8000 ภายใน — Mainboard" },
                     ].map((img, i) => (
@@ -4265,7 +4265,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   <div className="grid grid-cols-2 gap-3">
                     {[
                       { src: "/images/gt9000/front.jpg", alt: "GT9000 ด้านหน้า" },
-                      { src: "/images/gt9000/side.jpg", alt: "GT9000 ด้านข้าง" },
+                      { src: "/images/gt9000/side.jpg", alt: "GT9000 ​ขาตั้งพื้น" },
                       { src: "/images/gt9000/angle.jpg", alt: "GT9000 มุมเฉียง" },
                       { src: "/images/gt9000/motherboard.png", alt: "GT9000 เมนบอร์ด" },
                     ].map((img, i) => (
@@ -5012,8 +5012,8 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   <div className="grid grid-cols-2 gap-3">
                     {[
                       { src: "/images/gt1400/front.jpg", alt: "GT1400 ด้านหน้า" },
-                      { src: "/images/gt1400/rear.jpg", alt: "GT1400 ด้านหลัง" },
-                      { src: "/images/gt1400/side.jpg", alt: "GT1400 ด้านข้าง" },
+                      { src: "/images/gt1400/rear.jpg", alt: "GT1400 ​ขาจับแบบ VESA Mouting" },
+                      { src: "/images/gt1400/side.jpg", alt: "GT1400 ​ขาตั้งพื้น" },
                       { src: "/images/gt1400/internal.jpg", alt: "GT1400 ภายใน" },
                     ].map((img, i) => (
                       <div key={i} className="card-surface overflow-hidden">
@@ -5357,8 +5357,8 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   <img src="/images/gt1300/ports-detail1.jpg" alt="GT1300 Ports ด้านหน้า" className="w-full rounded-lg"/>
                 </div>
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
-                  <h4 className="font-bold text-foreground mb-3 text-sm"><Plug size={16} className="inline mr-1 text-primary" />Ports — ด้านหลัง</h4>
-                  <img src="/images/gt1300/ports-detail2.jpg" alt="GT1300 Ports ด้านหลัง" className="w-full rounded-lg"/>
+                  <h4 className="font-bold text-foreground mb-3 text-sm"><Plug size={16} className="inline mr-1 text-primary" />Ports — ​ขาจับแบบ VESA Mouting</h4>
+                  <img src="/images/gt1300/ports-detail2.jpg" alt="GT1300 Ports ​ขาจับแบบ VESA Mouting" className="w-full rounded-lg"/>
                 </div>
               </div>
 
@@ -5558,7 +5558,7 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   <div className="grid grid-cols-2 gap-3">
                     {[
                       { src: "/images/gt1200/front.jpg", alt: "GT1200 ด้านหน้า" },
-                      { src: "/images/gt1200/side.jpg", alt: "GT1200 ด้านข้าง" },
+                      { src: "/images/gt1200/side.jpg", alt: "GT1200 ​ขาตั้งพื้น" },
                       { src: "/images/gt1200/top.jpg", alt: "GT1200 ด้านบน" },
                       { src: "/images/gt1200/internal.jpg", alt: "GT1200 ภายใน" },
                     ].map((img, i) => (
@@ -5577,8 +5577,8 @@ int sensor = (inb_p(0xA04) >> 2) & 0x01;       // GPIO5 → อ่าน Sensor`
                   <img src="/images/gt1200/ports-front.jpg" alt="GT1200 Ports ด้านหน้า" className="w-full rounded-lg"/>
                 </div>
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
-                  <h4 className="font-bold text-foreground mb-3 text-sm"><Plug size={16} className="inline mr-1 text-primary" />Ports — ด้านหลัง</h4>
-                  <img src="/images/gt1200/ports-rear.jpg" alt="GT1200 Ports ด้านหลัง" className="w-full rounded-lg"/>
+                  <h4 className="font-bold text-foreground mb-3 text-sm"><Plug size={16} className="inline mr-1 text-primary" />Ports — ​ขาจับแบบ VESA Mouting</h4>
+                  <img src="/images/gt1200/ports-rear.jpg" alt="GT1200 Ports ​ขาจับแบบ VESA Mouting" className="w-full rounded-lg"/>
                 </div>
               </div>
 

@@ -257,7 +257,7 @@ const gkModels: GKModel[] = [
     screenSize: "15.6\"",
     resolution: "1920×1080 Full HD",
     tagline: "Full HD — Best Seller!",
-    desc: "Panel PC อุตสาหกรรม 15.6 นิ้ว Full HD จอสัมผัส 10 จุด โครงสร้าง IP65 ทั้งด้านหน้าและด้านหลัง ทนฝุ่น ทนน้ำ รองรับ CPU ตั้งแต่ Pentium ถึง Core i7 — เลือกสเปกให้ตรงกับงบประมาณและการใช้งาน",
+    desc: "Panel PC อุตสาหกรรม 15.6 นิ้ว Full HD จอสัมผัส 10 จุด โครงสร้าง IP65 ทั้งด้านหน้าและ​ขาจับแบบ VESA Mouting ทนฝุ่น ทนน้ำ รองรับ CPU ตั้งแต่ Pentium ถึง Core i7 — เลือกสเปกให้ตรงกับงบประมาณและการใช้งาน",
     image: gk1506img1,
     bannerImage: gk1506banner,
     datasheetUrls: [
@@ -266,7 +266,7 @@ const gkModels: GKModel[] = [
     ],
     highlights: [
       "หน้าจอ Full HD 15.6\" (1920×1080) Capacitive Touch 10 จุด",
-      "IP65 ทั้งด้านหน้าและด้านหลัง — กันฝุ่น กันน้ำระดับอุตสาหกรรม",
+      "IP65 ทั้งด้านหน้าและ​ขาจับแบบ VESA Mouting — กันฝุ่น กันน้ำระดับอุตสาหกรรม",
       "รองรับไฟฟ้าแรงดันกว้าง 12-64V + AC 100-240V",
       "พอร์ต COM (RS232/RS485) สูงสุด 4 พอร์ต, USB สูงสุด 6 พอร์ต",
       "รองรับ 4G LTE Module, mini PCIe/M.2 expansion",

@@ -148,7 +148,7 @@ export const DISPLAYS_55: Record<Display55Slug, Display32> = {
       {
         image: hd55DimFront,
         title: "Mechanical Dimension — Front / Side / Top View",
-        caption: "แบบทางวิศวกรรมด้าน Front / Side / Top — ขนาดตัวเครื่องโดยรวม 1264 × 734.8 mm หน้าจอแสดงผล (Active Area) 1213.6 × 684.4 mm Bezel เพียง 25.2 mm รอบด้าน — มุมโค้ง R11 ตัวเครื่องบาง ด้านข้างมีพอร์ต I/O และปุ่มควบคุม ขอบล่างมีลำโพง + ช่องระบายความร้อน เหมาะกับงาน Wall mount / Embedded ที่ต้องการความเรียบหรู",
+        caption: "แบบทางวิศวกรรมด้าน Front / Side / Top — ขนาดตัวเครื่องโดยรวม 1264 × 734.8 mm หน้าจอแสดงผล (Active Area) 1213.6 × 684.4 mm Bezel เพียง 25.2 mm รอบด้าน — มุมโค้ง R11 ตัวเครื่องบาง ​ขาตั้งพื้นมีพอร์ต I/O และปุ่มควบคุม ขอบล่างมีลำโพง + ช่องระบายความร้อน เหมาะกับงาน Wall mount / Embedded ที่ต้องการความเรียบหรู",
         callouts: [
           { label: "ขนาดเครื่อง (W×H)", value: "1264 × 734.8 mm" },
           { label: "Active Area", value: "1213.6 × 684.4 mm" },
@@ -160,7 +160,7 @@ export const DISPLAYS_55: Record<Display55Slug, Display32> = {
       {
         image: hd55DimBack,
         title: "VESA Mount Pattern — Rear View",
-        caption: "แบบทางวิศวกรรมด้านหลัง — รองรับ VESA Mount มาตรฐาน 400 × 400 mm พร้อมจุดยึดเสริม 432 × 232.4 mm สำหรับ Bracket แบบพิเศษ ใช้น็อต M6 จำนวน 4 ตัว (4-M6) — ด้านหลังมีช่องระบายความร้อนกว้างพร้อมโครงสร้างเหล็กรับน้ำหนัก รองรับการติดตั้งแบบ Wall mount / Floor stand / Mobile cart ตามมาตรฐานอุตสาหกรรม",
+        caption: "แบบทางวิศวกรรม​ขาจับแบบ VESA Mouting — รองรับ VESA Mount มาตรฐาน 400 × 400 mm พร้อมจุดยึดเสริม 432 × 232.4 mm สำหรับ Bracket แบบพิเศษ ใช้น็อต M6 จำนวน 4 ตัว (4-M6) — ​ขาจับแบบ VESA Moutingมีช่องระบายความร้อนกว้างพร้อมโครงสร้างเหล็กรับน้ำหนัก รองรับการติดตั้งแบบ Wall mount / Floor stand / Mobile cart ตามมาตรฐานอุตสาหกรรม",
         callouts: [
           { label: "VESA Standard", value: "400 × 400 mm" },
           { label: "VESA Extended", value: "432 × 232.4 mm" },
@@ -171,7 +171,7 @@ export const DISPLAYS_55: Record<Display55Slug, Display32> = {
       {
         image: hd55Io,
         title: "I/O Layout — External Connectors",
-        caption: "พอร์ตเชื่อมต่อด้านหลังตัวเครื่อง — รองรับครบทั้ง 3 Configuration: Monitor (HDMI in / VGA / USB / Audio), Windows PC (HDMI out / VGA / USB ×4 / RJ45 / Wi-Fi), Android (HDMI out / USB ×2 / RJ45 / TF Slot / Audio + BLE 5.0)",
+        caption: "พอร์ตเชื่อมต่อ​ขาจับแบบ VESA Moutingตัวเครื่อง — รองรับครบทั้ง 3 Configuration: Monitor (HDMI in / VGA / USB / Audio), Windows PC (HDMI out / VGA / USB ×4 / RJ45 / Wi-Fi), Android (HDMI out / USB ×2 / RJ45 / TF Slot / Audio + BLE 5.0)",
         callouts: [
           { label: "Monitor", value: "HDMI in + VGA + USB + Audio" },
           { label: "Windows PC", value: "HDMI + VGA + USB×4 + RJ45 + Wi-Fi" },
@@ -421,7 +421,7 @@ export const DISPLAYS_55: Record<Display55Slug, Display32> = {
       {
         image: hr55DimFront,
         title: "Mechanical Dimension — Front / Side / Top View",
-        caption: "แบบทางวิศวกรรมด้าน Front / Side / Top — ตัวเครื่อง 55\" ดีไซน์ Unibody Aluminum + Sheet-metal ขนาดหน้าจอแสดงผล (Active Area) 1213.6 × 684.4 mm Bezel 25.2 mm มุมโค้ง R11 — โครงสร้างขึ้นรูปชิ้นเดียว ด้านบนมีลำโพง + ช่องระบายความร้อน ด้านข้างมีพอร์ต I/O รองรับการติดตั้งแบบ Wall mount / Mobile stand เหมาะกับงาน Public Self-service ที่ต้องการความทนทาน Vandal-proof",
+        caption: "แบบทางวิศวกรรมด้าน Front / Side / Top — ตัวเครื่อง 55\" ดีไซน์ Unibody Aluminum + Sheet-metal ขนาดหน้าจอแสดงผล (Active Area) 1213.6 × 684.4 mm Bezel 25.2 mm มุมโค้ง R11 — โครงสร้างขึ้นรูปชิ้นเดียว ด้านบนมีลำโพง + ช่องระบายความร้อน ​ขาตั้งพื้นมีพอร์ต I/O รองรับการติดตั้งแบบ Wall mount / Mobile stand เหมาะกับงาน Public Self-service ที่ต้องการความทนทาน Vandal-proof",
         callouts: [
           { label: "Active Area", value: "1213.6 × 684.4 mm" },
           { label: "Bezel รอบด้าน", value: "25.2 mm" },
@@ -433,7 +433,7 @@ export const DISPLAYS_55: Record<Display55Slug, Display32> = {
       {
         image: hr55DimBack,
         title: "VESA Mount Pattern — Rear View",
-        caption: "แบบทางวิศวกรรมด้านหลัง — รองรับ VESA Mount มาตรฐาน 400 × 400 mm พร้อมจุดยึดเสริม 432 × 232.4 mm สำหรับ Bracket แบบพิเศษ ใช้น็อต M6 จำนวน 4 ตัว (4-M6) — ด้านหลัง Laser-cut Backplate เคลือบกันสึก/กันสนิม พร้อมช่องระบายความร้อนและช่องใส่ OPS Slot รองรับการอัปเกรด PC ในอนาคต",
+        caption: "แบบทางวิศวกรรม​ขาจับแบบ VESA Mouting — รองรับ VESA Mount มาตรฐาน 400 × 400 mm พร้อมจุดยึดเสริม 432 × 232.4 mm สำหรับ Bracket แบบพิเศษ ใช้น็อต M6 จำนวน 4 ตัว (4-M6) — ​ขาจับแบบ VESA Mouting Laser-cut Backplate เคลือบกันสึก/กันสนิม พร้อมช่องระบายความร้อนและช่องใส่ OPS Slot รองรับการอัปเกรด PC ในอนาคต",
         callouts: [
           { label: "VESA Standard", value: "400 × 400 mm" },
           { label: "VESA Extended", value: "432 × 232.4 mm" },
@@ -445,7 +445,7 @@ export const DISPLAYS_55: Record<Display55Slug, Display32> = {
       {
         image: hr55Io,
         title: "I/O Layout — External Connectors",
-        caption: "พอร์ตเชื่อมต่อด้านหลัง — รองรับครบทั้ง 3 Configuration: Monitor (HDMI in / DVI / VGA / USB / Audio), Windows OPS (HDMI out / VGA / USB ×4 / RJ45 / Wi-Fi / MIC), Android (HDMI out / USB ×2 / RJ45 / TF/SD / Audio + Wi-Fi)",
+        caption: "พอร์ตเชื่อมต่อ​ขาจับแบบ VESA Mouting — รองรับครบทั้ง 3 Configuration: Monitor (HDMI in / DVI / VGA / USB / Audio), Windows OPS (HDMI out / VGA / USB ×4 / RJ45 / Wi-Fi / MIC), Android (HDMI out / USB ×2 / RJ45 / TF/SD / Audio + Wi-Fi)",
         callouts: [
           { label: "Monitor", value: "HDMI in + DVI + VGA + USB + Audio" },
           { label: "Windows OPS", value: "HDMI + VGA + USB×4 + RJ45 + Wi-Fi + MIC" },

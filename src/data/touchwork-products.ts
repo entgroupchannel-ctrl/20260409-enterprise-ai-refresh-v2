@@ -367,7 +367,7 @@ function buildSpecs(p: RawProduct): DetailedSpecs {
     { label: "Power สูงสุด (Android/ARM)", value: "< 30 W" },
     { label: "Power สูงสุด (Windows/X86)", value: "< 48 W" },
     { label: "Power Connector", value: "DC Jack 5.5 × 2.5 mm" },
-    { label: "Power Switch", value: "Momentary push-button (ด้านข้าง)" },
+    { label: "Power Switch", value: "Momentary push-button (​ขาตั้งพื้น)" },
     { label: "ป้องกันไฟกระชาก", value: "Over-voltage / Over-current / Short-circuit" },
     { label: "DC UPS (Optional)", value: "รองรับ DC UPS module — สำรองไฟชั่วคราวเมื่อไฟดับ" },
     { label: "PoE (Optional)", value: "รองรับ PoE input บางรุ่น (สอบถามทีมขาย)" },
