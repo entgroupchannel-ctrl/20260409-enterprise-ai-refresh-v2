@@ -192,6 +192,7 @@ const Display32Detail = ({ groupSize = 32 }: Props) => {
   const hideDatasheet = HIDE_DATASHEET_GROUPS.includes(groupSize);
   const shopSlug =
     product?.slug === "gd215c" ? "gd215c" :
+    product?.slug === "gd238c3" ? "gd238c3" :
     groupSize === 156 ? "displays-15.6" :
     groupSize === 215 ? "displays-21.5" :
     groupSize === 32 ? "displays-32" :
