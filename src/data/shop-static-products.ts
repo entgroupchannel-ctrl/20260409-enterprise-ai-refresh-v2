@@ -332,6 +332,23 @@ export const SHOP_STATIC_COMPARE_PRODUCTS: ShopStaticCompareProduct[] = [
     unit_price: 15990,
     stock_status: 'available',
   },
+  {
+    id: 'static-jd185b',
+    slug: 'jd185b',
+    model: 'JD185B',
+    name: 'TouchWork 18.5" Indoor Display IPS — ขนาดกลางคุ้มค่า สำหรับ Kiosk ทั่วไป (Monitor / Android / Windows)',
+    thumbnail_url: jd185bHero,
+    cpu: 'Plug & Play / RK3568 / Intel (TBD — แจ้งแอดมิน)',
+    ram_gb: 4,
+    storage_gb: 64,
+    storage_type: 'eMMC / mSATA',
+    has_wifi: true,
+    has_4g: false,
+    os: 'Plug & Play / Android 11-13 / Windows 10-11 / Linux',
+    form_factor: 'Indoor Display Touch PC',
+    unit_price: 16990,
+    stock_status: 'available',
+  },
 ];
 
 export function getShopStaticCompareProducts(slugs: string[]): ShopStaticCompareProduct[] {
