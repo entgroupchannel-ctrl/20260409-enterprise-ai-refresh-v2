@@ -24,8 +24,8 @@ export default function SiteNavbar() {
   return (
     <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
       <div className="container mx-auto px-4 flex items-center gap-3 h-16">
-        {/* Logo — ตำแหน่งคงที่ทุกหน้า */}
-        <Link to="/" className="flex items-center gap-3 shrink-0">
+        {/* Logo — บน /shop ขยับเข้าขวาเพิ่มเพื่อ alignment สมดุลกับ slot ปุ่ม Shop ของหน้าอื่น */}
+        <Link to="/" className={cn("flex items-center gap-3 shrink-0", isOnShop && "ml-4 md:ml-8")}>
           <img src={logo} alt="ENT GROUP" className="h-8 w-auto" />
         </Link>
 
