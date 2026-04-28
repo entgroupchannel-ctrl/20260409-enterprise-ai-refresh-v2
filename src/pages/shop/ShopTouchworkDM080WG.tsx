@@ -116,7 +116,6 @@ const OS_OPTIONS_X86 = [
 const INSTALL_OPTIONS = [
   { label: "VESA 75 (มาตรฐาน)", delta: 0 },
   { label: "Embedded (ฝัง Panel)", delta: 800 },
-  { label: "Desktop Stand (ตั้งโต๊ะ)", delta: 1500 },
 ];
 
 const ADDON_OPTIONS = [
@@ -139,7 +138,7 @@ function tierMultiplier(qty: number) {
   return 1;
 }
 
-export default function ShopTouchworkDM080NF() {
+export default function ShopTouchworkDM080WG() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { addToCart } = useCart();
@@ -207,10 +206,10 @@ export default function ShopTouchworkDM080NF() {
     return { unit, tierUnit, total, savings, tierPct: Math.round((1 - tier) * 100) };
   }, [variantKey, ramIdx, storageIdx, osIdx, installIdx, addons, qty, isMonitor, ramOptions, storageOptions, osOptions]);
 
-  const variantLabel = SHOP_VARIANTS.find(v => v.key === variantKey)?.title ?? "DM080NF";
+  const variantLabel = SHOP_VARIANTS.find(v => v.key === variantKey)?.title ?? "DM080WG";
 
   const buildConfigSummary = () => {
-    const parts: string[] = [`DM080NF — ${variantLabel}`];
+    const parts: string[] = [`DM080WG — ${variantLabel}`];
     if (!isMonitor) {
       parts.push(`RAM: ${ramOptions[ramIdx].label}`);
       parts.push(`Storage: ${storageOptions[storageIdx].label}`);
@@ -223,12 +222,12 @@ export default function ShopTouchworkDM080NF() {
       const list = addons.map(k => ADDON_OPTIONS.find(a => a.key === k)?.label).filter(Boolean).join(", ");
       parts.push(`อุปกรณ์เสริม: ${list}`);
     }
-    if (isX86) parts.push("⚠ Intel Generation: รอแอดมินยืนยันตามรุ่น CPU");
+    if (isX86) parts.push("⚠ CPU Model: ไม่ได้ระบุ — รอแอดมินยืนยันตามรุ่น Intel ที่ลูกค้าต้องการ");
     return parts.join(" • ");
   };
 
   const buildModelSku = () => {
-    const head = `DM080NF-${variantKey.toUpperCase()}`;
+    const head = `DM080WG-${variantKey.toUpperCase()}`;
     if (isMonitor) return head;
     return `${head}-${ramOptions[ramIdx].label.replace(/\s/g, "")}-${storageOptions[storageIdx].label.replace(/\s/g, "")}`;
   };
@@ -236,13 +235,13 @@ export default function ShopTouchworkDM080NF() {
   const handleAddToCart = async () => {
     if (!user) {
       toast({ title: "กรุณาเข้าสู่ระบบ", description: "เข้าสู่ระบบเพื่อบันทึกสินค้าลงตะกร้าและขอใบเสนอราคา" });
-      navigate("/login?redirect=/shop/dm080nf");
+      navigate("/login?redirect=/shop/dm080wg");
       return;
     }
     setSubmitting(true);
     await addToCart({
       model: buildModelSku(),
-      name: `DM080NF — ${variantLabel}`,
+      name: `DM080WG — ${variantLabel}`,
       description: buildConfigSummary(),
       quantity: qty,
       price: pricing.tierUnit,
@@ -272,7 +271,7 @@ export default function ShopTouchworkDM080NF() {
     };
     savePendingQuote({
       customer_name: "", customer_email: "", customer_phone: null, customer_company: null,
-      notes: `รุ่น: DM080NF — ${variantLabel}\nสเปก: ${buildConfigSummary()}\nจำนวน: ${qty} ชิ้น`,
+      notes: `รุ่น: DM080WG — ${variantLabel}\nสเปก: ${buildConfigSummary()}\nจำนวน: ${qty} ชิ้น`,
       products: [product],
     });
     navigate(user ? "/my-account/quotes/new" : "/login?redirect=/my-account/quotes/new");
@@ -285,19 +284,19 @@ export default function ShopTouchworkDM080NF() {
   return (
     <div className="min-h-screen bg-background">
       <ShopKioskSEO
-        slug="dm080nf"
-        modelCode="DM080NF"
-        shortName='Industrial Touch PC 8" (PCAP, IP65 Front)'
+        slug="dm080wg"
+        modelCode="DM080WG"
+        shortName='Widescreen Touch PC 8" 16:10 (PCAP, IP65 Front)'
         sizeInch={8}
-        image={DM080NF_Monitor}
-        resolution="1024×768 (4:3)"
+        image={DM080WG_Monitor}
+        resolution="1280×800 (16:10)"
         brightness="≥ 250 cd/m²"
         touch="PCAP 10pt + Mohs 7"
-        useCases={["Kiosk / Self-Order", "POS / Retail", "HMI โรงงาน", "Smart Home Control"]}
+        useCases={["โชว์รูม / Smart Home", "Self-Order Widescreen", "POS ขนาดเล็ก", "HMI โรงงาน"]}
         variants={[
           { key: "monitor", label: "Monitor (Plug & Play HDMI/VGA)", price: VARIANT_BASE_PRICE.monitor, description: "จอสัมผัสเปล่า — ต่อกับ PC/Mini PC" },
           { key: "arm", label: "Android — RK3568 / RK3399", price: VARIANT_BASE_PRICE.arm, description: "Touch PC ระบบ Android พร้อมใช้งาน" },
-          { key: "x86", label: "Windows — Intel Celeron / Core i3-i7", price: VARIANT_BASE_PRICE.x86, description: "Touch PC x86 รองรับ Windows / Linux — แจ้ง Generation กับแอดมินเป็นกรณี" },
+          { key: "x86", label: "Windows (Intel x86)", price: VARIANT_BASE_PRICE.x86, description: "Touch PC x86 รองรับ Windows / Linux — กรณีไม่มี CPU Model ให้ระบุ ให้แจ้งแอดมินขอราคาเป็นกรณี" },
         ]}
       />
 
@@ -309,25 +308,25 @@ export default function ShopTouchworkDM080NF() {
         <ChevronRight className="w-3 h-3" />
         <Link to="/shop" className="hover:text-foreground">Shop</Link>
         <ChevronRight className="w-3 h-3" />
-        <Link to="/touchwork/dm080nf" className="hover:text-foreground">TouchWork</Link>
+        <Link to="/touchwork/dm080wg" className="hover:text-foreground">TouchWork</Link>
         <ChevronRight className="w-3 h-3" />
-        <span className="text-foreground font-medium">DM080NF</span>
+        <span className="text-foreground font-medium">DM080WG</span>
       </nav>
 
       {/* HERO — 2-column */}
       <section className="container mx-auto px-4 py-4">
         <div className="grid lg:grid-cols-[minmax(0,420px)_1fr] gap-6 items-start">
-          {/* Slideshow (4:3 frame to match panel ratio) */}
+          {/* Slideshow (16:10 frame to match panel ratio) */}
           <div className="space-y-2 lg:sticky lg:top-20">
             <div
-              className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-b from-muted/40 to-muted/10 border group cursor-zoom-in"
+              className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-gradient-to-b from-muted/40 to-muted/10 border group cursor-zoom-in"
               onClick={() => setZoomOpen(true)}
             >
               {gallery.map((img, i) => (
                 <img
                   key={img + i}
                   src={img}
-                  alt={`DM080NF ${variantLabel} ${i + 1}`}
+                  alt={`DM080WG ${variantLabel} ${i + 1}`}
                   className={cn(
                     "absolute inset-0 w-full h-full object-contain transition-opacity duration-700",
                     i === slideIdx ? "opacity-100" : "opacity-0",
@@ -402,17 +401,17 @@ export default function ShopTouchworkDM080NF() {
                 <Sparkles className="w-3 h-3 mr-1" /> TouchWork Series
               </Badge>
               <h1 className="text-2xl md:text-3xl font-bold leading-tight">
-                DM080NF — Industrial Touch PC 8″ (PCAP, IP65 Front)
+                DM080WG — Widescreen Touch PC 8″ 16:10 (PCAP, IP65 Front)
               </h1>
               <p className="text-muted-foreground mt-1.5 text-sm md:text-base">
-                จอสัมผัสอุตสาหกรรมขนาดกะทัดรัด 8″ Mohs 7 — เลือกได้ทั้ง Monitor, Android และ Windows
+                จอสัมผัสอุตสาหกรรม Widescreen 8″ 16:10 Mohs 7 — เลือกได้ทั้ง Monitor, Android และ Windows
               </p>
             </div>
 
-            {/* Quick Specs (จาก /touchwork/dm080nf) */}
+            {/* Quick Specs (จาก /touchwork/dm080wg) */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2 p-3 rounded-lg border bg-muted/20">
-              <QuickSpec label="หน้าจอ" value='8" TFT-LCD' />
-              <QuickSpec label="ความละเอียด" value="1024×768 (4:3)" />
+              <QuickSpec label="หน้าจอ" value='8" Widescreen' />
+              <QuickSpec label="ความละเอียด" value="1280×800 (16:10)" />
               <QuickSpec label="Touch" value="PCAP 10pt" />
               <QuickSpec label="กระจก" value="Mohs 7" />
               <QuickSpec label="ความสว่าง" value="≥250 cd/m²" />
@@ -424,9 +423,9 @@ export default function ShopTouchworkDM080NF() {
             {/* Highlights */}
             <div className="grid grid-cols-2 gap-2">
               {[
-                { icon: "Sparkles" as const, title: "จอเล็กกะทัดรัด 8″", subtitle: "เหมาะกับ Kiosk/POS ที่จำกัดพื้นที่" },
+                { icon: "Sparkles" as const, title: "Widescreen 16:10 ขนาด 8″", subtitle: "เหมาะกับโชว์รูม / Smart Home" },
                 { icon: "ShieldCheck" as const, title: "Mohs Class 7 Tempered Glass", subtitle: "กันรอย ทนการใช้งานสาธารณะ" },
-                { icon: "Layers" as const, title: "VESA 75 + Embedded + Desktop", subtitle: "ติดตั้งได้ 3 รูปแบบ" },
+                { icon: "Layers" as const, title: "VESA 75 + Embedded", subtitle: "ติดตั้งได้ 2 รูปแบบ" },
                 { icon: "Box" as const, title: "IP65 (หน้า)", subtitle: "ทนฝุ่นและความชื้นด้านหน้า" },
               ].map((h, i) => {
                 const Icon = ICON_MAP[h.icon] ?? Sparkles;
@@ -474,7 +473,7 @@ export default function ShopTouchworkDM080NF() {
                 </div>
                 {isX86 && (
                   <p className="text-[11px] text-amber-600 dark:text-amber-500 -mt-2">
-                    💡 รุ่น Intel Core i3 / i5 / i7 — ยังไม่ระบุ Generation กรุณาแจ้งความต้องการกับแอดมินเพื่อรับใบเสนอราคาตามรุ่น CPU ที่เลือก
+                    💡 รุ่น Windows (Intel x86) — กรณีไม่ได้ระบุ CPU Model กรุณาแจ้งความต้องการกับแอดมินเพื่อรับใบเสนอราคาเป็นกรณีไป
                   </p>
                 )}
                 {isMonitor && (
@@ -501,6 +500,7 @@ export default function ShopTouchworkDM080NF() {
                 )}
 
                 <ConfigBlock icon={Layers} label="รูปแบบติดตั้ง (VESA / Embedded / Desktop)">
+                <ConfigBlock icon={Layers} label="รูปแบบติดตั้ง (VESA / Embedded)">
                   <ChipRow options={INSTALL_OPTIONS} activeIdx={installIdx} onSelect={setInstallIdx} />
                 </ConfigBlock>
 
@@ -604,7 +604,7 @@ export default function ShopTouchworkDM080NF() {
                     <Phone className="w-3.5 h-3.5" /> 095-739-1053
                   </a>
                   <span>•</span>
-                  <Link to="/touchwork/dm080nf" className="flex items-center gap-1 hover:text-primary">
+                  <Link to="/touchwork/dm080wg" className="flex items-center gap-1 hover:text-primary">
                     <ArrowRight className="w-3.5 h-3.5" /> สเปกเต็ม
                   </Link>
                 </div>
@@ -643,7 +643,7 @@ export default function ShopTouchworkDM080NF() {
           </button>
           <img
             src={gallery[slideIdx]}
-            alt="DM080NF zoomed"
+            alt="DM080WG zoomed"
             className="max-h-[90vh] max-w-[90vw] object-contain"
             onClick={(e) => e.stopPropagation()}
           />
@@ -654,7 +654,7 @@ export default function ShopTouchworkDM080NF() {
       )}
 
       <B2BPlatformBanner />
-      <RelatedKioskModels currentSlug="dm080nf" />
+      <RelatedKioskModels currentSlug="dm080wg" />
       <Footer />
     </div>
   );
