@@ -140,7 +140,7 @@ const RuggedRecommendedRow = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2 md:gap-3">
           {RECOMMENDED.map((p) => {
             const tag = PROMO_TAGS[p.promoIdx];
             const hasPriceNumber = p.price.startsWith("฿");
@@ -159,51 +159,49 @@ const RuggedRecommendedRow = () => {
                   />
                   <Badge
                     variant="secondary"
-                    className="absolute top-2 left-2 text-[10px] font-semibold"
+                    className="absolute top-1.5 left-1.5 text-[9px] font-semibold"
                   >
                     {p.series}
                   </Badge>
                   <span
-                    className={`absolute top-2 right-2 text-[10px] md:text-[11px] font-bold px-2 py-0.5 rounded-md shadow-md animate-pulse ${tag.cls}`}
+                    className={`absolute top-1.5 right-1.5 text-[9px] font-bold px-1.5 py-0.5 rounded-md shadow-md animate-pulse ${tag.cls}`}
                   >
                     {tag.label}
                   </span>
                 </div>
-                <div className="flex-1 flex flex-col p-3">
-                  <h4 className="text-sm font-bold leading-snug line-clamp-1 group-hover:text-primary transition-colors">
+                <div className="flex-1 flex flex-col p-2">
+                  <h4 className="text-xs font-bold leading-snug line-clamp-1 group-hover:text-primary transition-colors">
                     {p.name}
                   </h4>
-                  <p className="mt-1 text-xs text-muted-foreground line-clamp-2 min-h-[2.25rem]">
+                  <p className="mt-0.5 text-[10px] text-muted-foreground line-clamp-2 min-h-[2rem]">
                     {p.desc}
                   </p>
 
                   {/* ราคา */}
-                  <div className="mt-2">
-                    <div className="text-[10px] text-muted-foreground flex items-center gap-1">
-                      <Tag className="w-3 h-3" /> เริ่มต้น
+                  <div className="mt-1.5">
+                    <div className="text-[9px] text-muted-foreground flex items-center gap-1 leading-tight">
+                      <Tag className="w-2.5 h-2.5" /> เริ่มต้น
                     </div>
-                    <div className={`font-bold ${hasPriceNumber ? "text-base text-primary" : "text-xs text-foreground"}`}>
+                    <div className={`font-bold leading-tight ${hasPriceNumber ? "text-sm text-primary" : "text-[11px] text-foreground"}`}>
                       {p.price}
                     </div>
                   </div>
 
                   {/* ปุ่ม action */}
-                  <div className="mt-2.5 grid grid-cols-2 gap-1.5">
+                  <div className="mt-2 grid grid-cols-2 gap-1">
                     <span
-                      className="inline-flex items-center justify-center gap-1 px-2 py-1.5 rounded-md border border-border bg-background text-[11px] font-medium text-foreground hover:bg-primary/10 hover:border-primary hover:text-primary transition-colors"
+                      className="inline-flex items-center justify-center gap-0.5 px-1 py-1 rounded-md border border-border bg-background text-[10px] font-medium text-foreground hover:bg-primary/10 hover:border-primary hover:text-primary transition-colors"
                       title="ขอใบเสนอราคา"
                     >
-                      <FileText className="w-3.5 h-3.5" />
-                      <span className="hidden sm:inline">ใบเสนอราคา</span>
-                      <span className="sm:hidden">QT</span>
+                      <FileText className="w-3 h-3" />
+                      <span>QT</span>
                     </span>
                     <span
-                      className="inline-flex items-center justify-center gap-1 px-2 py-1.5 rounded-md bg-primary text-primary-foreground text-[11px] font-medium hover:bg-primary/90 transition-colors"
+                      className="inline-flex items-center justify-center gap-0.5 px-1 py-1 rounded-md bg-primary text-primary-foreground text-[10px] font-medium hover:bg-primary/90 transition-colors"
                       title="หยิบใส่ตะกร้า"
                     >
-                      <ShoppingCart className="w-3.5 h-3.5" />
-                      <span className="hidden sm:inline">ใส่ตะกร้า</span>
-                      <span className="sm:hidden">+</span>
+                      <ShoppingCart className="w-3 h-3" />
+                      <span>+</span>
                     </span>
                   </div>
                 </div>
