@@ -862,8 +862,8 @@ const ShopStorefront = () => {
     return result;
   }, [products, search, seriesFilter, categoryFilter, sortBy, priceRange, cpuFilter, ramFilter, storageFilter]);
 
-  const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
-  const paged = filtered.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
+  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+  const paged = filtered.slice((page - 1) * pageSize, page * pageSize);
 
   const toggleCompare = (slug: string) => {
     let list = [...compareList];
