@@ -9,6 +9,7 @@ import kd43bHero from "@/assets/touchwo/kd43b/mon-1.jpg";
 import gd215cHero from "@/assets/touchwo/gd215c/GD215-1A.jpg";
 import gd238c3Hero from "@/assets/touchwo/gd238c/L-1.jpg";
 import gd27cHero from "@/assets/touchwo/gd27c/p-1.jpg";
+import dm080nfHero from "@/assets/touchwork/DM080NF-Monitor.jpg";
 
 const gd32cHero = "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg";
 
@@ -103,6 +104,16 @@ const ALL_MODELS: KioskModel[] = [
     startingPrice: 34990,
     image: gd27cHero,
     productHref: "/products/displays-27?model=gd27c",
+  },
+  {
+    slug: "dm080nf",
+    modelCode: "DM080NF",
+    size: '8"',
+    shortName: "DM080NF Industrial Touch PC",
+    tagline: 'จอสัมผัส 8" PCAP Mohs 7 — Monitor / Android / Windows',
+    startingPrice: 13990,
+    image: dm080nfHero,
+    productHref: "/touchwork/dm080nf",
   },
 ];
 

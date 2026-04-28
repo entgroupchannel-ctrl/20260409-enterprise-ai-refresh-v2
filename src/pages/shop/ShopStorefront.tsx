@@ -42,6 +42,7 @@ import kd43bHero from '@/assets/touchwo/kd43b/mon-1.jpg';
 import gd215cHero from '@/assets/touchwo/gd215c/GD215-1A.jpg';
 import gd238c3Hero from '@/assets/touchwo/gd238c/L-1.jpg';
 import gd27cHero from '@/assets/touchwo/gd27c/p-1.jpg';
+import dm080nfHero from '@/assets/touchwork/DM080NF-Monitor.jpg';
 
 const gd32cHero = 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg';
 
@@ -386,6 +387,33 @@ const ShopStorefront = () => {
               starting_price: 34990,
               warranty_months: 12,
               warranty_type: 'on-site',
+            },
+            {
+              id: 'static-dm080nf',
+              sku: 'DM080NF-TOUCHPC',
+              model: 'DM080NF',
+              series: 'Industrial Touch PC',
+              name: 'TouchWork 8" Industrial Touch PC (Monitor / Android / Windows)',
+              description: 'จอสัมผัสอุตสาหกรรม 8" PCAP 10pt Mohs 7 IP65 (หน้า) — เลือกได้ทั้ง Monitor (HDMI/VGA), Android (RK3568/RK3399) และ Windows (Intel Celeron / Core i3-i7)',
+              category: 'Industrial Touch PC',
+              cpu: 'Plug & Play / RK3568 / Intel i3-i7',
+              ram_gb: 4,
+              storage_gb: 32,
+              storage_type: 'eMMC / SSD',
+              unit_price: 13990,
+              unit_price_vat: null,
+              image_url: dm080nfHero,
+              thumbnail_url: dm080nfHero,
+              gallery_urls: null,
+              stock_status: 'available',
+              is_active: true,
+              slug: 'dm080nf',
+              tags: ['new', 'touch-pc', 'industrial', '8-inch'],
+              is_featured: true,
+              variant_count: 3,
+              starting_price: 13990,
+              warranty_months: 12,
+              warranty_type: 'carry-in',
             },
           ];
           setProducts([...staticProducts, ...(enriched as Product[])]);
