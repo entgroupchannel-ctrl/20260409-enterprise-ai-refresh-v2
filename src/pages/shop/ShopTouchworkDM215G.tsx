@@ -49,21 +49,21 @@ import g_x86_06 from "@/assets/touchwork/gallery/DM215G-X86/06.jpg";
 import g_x86_07 from "@/assets/touchwork/gallery/DM215G-X86/07.jpg";
 
 /* ------------------------------------------------------------------ */
-/*  DM215G — 19" Industrial Touch PC / Monitor (Touchwork series)     */
+/*  DM215G — 21.5" Industrial Touch PC / Monitor (Touchwork series)  */
 /*  Specs verified from /touchwork/dm215g:                            */
-/*  - 19" 5:4 (TN a-Si), 1280 × 1024                                  */
+/*  - 21.5" 16:9 (TN a-Si), 1920 × 1080 Full HD                       */
 /*  - Capacitive 10-point, ≥250 cd/m²                                 */
 /*  - IP65 (front), Wi-Fi 5 + BT 4.2                                  */
 /*  - VESA 100 + Embedded + Desktop Stand                             */
 /*  Indicative prices (THB / 1 unit, base config):                    */
-/*  - Monitor: 16,990 / ARM (Android 11/13): 19,990                   */
-/*  - X86 (Windows 10/11): 22,990 (CPU Model — แจ้งแอดมินขอราคา)       */
+/*  - Monitor: 17,990 / ARM (Android 11/13): 20,990                   */
+/*  - X86 (Windows 10/11): 23,990 (CPU Model — แจ้งแอดมินขอราคา)       */
 /* ------------------------------------------------------------------ */
 
 const VARIANT_BASE_PRICE: Record<string, number> = {
-  monitor: 16990,
-  arm: 19990,
-  x86: 22990,
+  monitor: 17990,
+  arm: 20990,
+  x86: 23990,
 };
 
 const VARIANT_GALLERIES: Record<string, string[]> = {
@@ -297,10 +297,10 @@ export default function ShopTouchworkDM215G() {
       <ShopKioskSEO
         slug="dm215g"
         modelCode="DM215G"
-        shortName='Industrial Touch PC 19" 5:4 (PCAP 10pt, IP65 Front, VESA 100)'
-        sizeInch={19}
+        shortName='Industrial Touch PC 21.5" 16:9 Full HD (PCAP 10pt, IP65 Front, VESA 100)'
+        sizeInch={21.5}
         image={DM215G_Monitor}
-        resolution="1280×1024 (5:4)"
+        resolution="1920×1080 (16:9)"
         brightness="≥ 250 cd/m²"
         touch="Capacitive 10pt"
         useCases={["ห้องควบคุม / Control Room", "HMI โรงงาน / SCADA", "POS / Counter จอใหญ่", "Healthcare / Banking"]}
@@ -412,17 +412,17 @@ export default function ShopTouchworkDM215G() {
                 <Sparkles className="w-3 h-3 mr-1" /> TouchWork Series
               </Badge>
               <h1 className="text-2xl md:text-3xl font-bold leading-tight">
-                DM215G — Industrial Touch PC 19″ 5:4 (PCAP 10pt, IP65 Front, VESA 100)
+                DM215G — Industrial Touch PC 21.5″ 16:9 Full HD (PCAP 10pt, IP65 Front, VESA 100)
               </h1>
               <p className="text-muted-foreground mt-1.5 text-sm md:text-base">
-                จอสัมผัสอุตสาหกรรม 19″ 5:4 ระดับ Workstation — Capacitive 10pt, IP65 ด้านหน้า, รองรับ VESA 100 + Embedded + ตั้งโต๊ะ • เลือกได้ทั้ง Monitor, Android และ Windows
+                จอสัมผัสอุตสาหกรรม 21.5″ 16:9 Full HD ระดับ Workstation — Capacitive 10pt, IP65 ด้านหน้า, รองรับ VESA 100 + Embedded + ตั้งโต๊ะ • เลือกได้ทั้ง Monitor, Android และ Windows
               </p>
             </div>
 
             {/* Quick Specs (จาก /touchwork/dm215g) */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2 p-3 rounded-lg border bg-muted/20">
-              <QuickSpec label="หน้าจอ" value='19" 5:4' />
-              <QuickSpec label="ความละเอียด" value="1280 × 1024" />
+              <QuickSpec label="หน้าจอ" value='21.5" 16:9' />
+              <QuickSpec label="ความละเอียด" value="1920 × 1080" />
               <QuickSpec label="Touch" value="Capacitive 10pt" />
               <QuickSpec label="Panel" value="TN (a-Si)" />
               <QuickSpec label="ความสว่าง" value="≥250 cd/m²" />
@@ -434,7 +434,7 @@ export default function ShopTouchworkDM215G() {
             {/* Highlights */}
             <div className="grid grid-cols-2 gap-2">
               {[
-                { icon: "Sparkles" as const, title: "จอใหญ่ 19″ Workstation", subtitle: "พื้นที่ทำงานกว้าง เหมาะกับ ERP" },
+                { icon: "Sparkles" as const, title: "จอใหญ่ 21.5″ Full HD", subtitle: "Widescreen 16:9 ภาพคมชัด เหมาะ ERP/Dashboard" },
                 { icon: "ShieldCheck" as const, title: "IP65 ด้านหน้า", subtitle: "ทนฝุ่นและละอองน้ำ ใช้ในโรงงาน" },
                 { icon: "Layers" as const, title: "VESA 100 + Embedded + ตั้งโต๊ะ", subtitle: "ติดตั้งได้หลายรูปแบบ" },
                 { icon: "Box" as const, title: "Capacitive 10pt", subtitle: "สัมผัสแม่นยำ รองรับมัลติทัช" },
