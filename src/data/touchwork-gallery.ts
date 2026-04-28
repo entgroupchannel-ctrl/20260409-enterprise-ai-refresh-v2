@@ -78,10 +78,13 @@ const manifest: Record<string, Partial<Record<Arch, string[]>>> = {
     ARM: ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg", "06.jpg", "07.jpg"],
     X86: ["windows-desktop-01.jpg", "windows-desktop-02.jpg", "windows-desktop-03.jpg", "windows-desktop-04.jpg", "windows-desktop-05.jpg", "windows-desktop-06.jpg", "windows-desktop-07.jpg", "windows-desktop-08.jpg"],
   },
+  // GD156E ใช้ภาพจริงจาก touchwo.com (โฟลเดอร์ GD156E-*)
+  // 01,02 = product Windows desktop, 03 = installation, 04 = I/O diagram,
+  // 05 = features chart, 06,07 = dimension drawings
   GD156E: {
-    Monitor: ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg", "06.jpg"],
-    ARM: ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg", "06.jpg", "07.jpg"],
-    X86: ["windows-desktop-01.jpg", "windows-desktop-02.jpg", "windows-desktop-03.jpg", "windows-desktop-04.jpg", "windows-desktop-05.jpg", "windows-desktop-06.jpg", "windows-desktop-07.jpg", "windows-desktop-08.jpg"],
+    Monitor: ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg", "06.jpg", "07.jpg"],
+    ARM:     ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg", "06.jpg", "07.jpg"],
+    X86:     ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg", "06.jpg", "07.jpg"],
   },
   JD133: {
     Monitor: ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg"],
