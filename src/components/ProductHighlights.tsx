@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Monitor, Cpu, TabletSmartphone, Wifi, Shield, LayoutGrid, Server, Tv } from "lucide-react";
+import { Monitor, Cpu, TabletSmartphone, Wifi, Shield, LayoutGrid, Server, Tv, ShoppingBag } from "lucide-react";
 
 import imgGT from "@/assets/product-gt-series.jpg";
 import imgGB from "@/assets/product-gb-series.jpg";
