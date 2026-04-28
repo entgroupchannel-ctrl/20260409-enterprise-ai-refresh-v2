@@ -237,6 +237,7 @@ export default function ShopDisplays156() {
         ram: isPC ? ramOptions[ramIdx].label : cpuTier?.ram,
         storage: isPC ? ssdOptions[ssdIdx].label : cpuTier?.storage,
         wifi: isPC ? WIFI_OPTIONS[wifiIdx].label : undefined,
+        os: isPC ? osOptions[osIdx]?.label : undefined,
         addons,
         tier: cpuTier?.tier,
       },
