@@ -33,6 +33,7 @@ import imgSeriesIBox from '@/assets/shop/series-ibox.jpg';
 import imgSeriesMiniPC from '@/assets/shop/series-minipc.jpg';
 import imgSeriesRugged from '@/assets/shop/series-rugged.jpg';
 import imgSeriesFirewall from '@/assets/shop/series-firewall.jpg';
+import hd32HeroClean from '@/assets/touchwo/hd32-hero-clean.jpg';
 
 interface Product {
   id: string; sku: string; model: string; series: string | null; name: string; description: string | null;
@@ -209,6 +210,7 @@ const ShopStorefront = () => {
           // Model-specific image overrides for products whose DB image_url points to missing files
           const SB = 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/gt-series';
           const modelImageMap: Record<string, string> = {
+            'ITD-HD32': hd32HeroClean,
             // GTY Series
             'gty121t-base': '/images/panelpc/gty121-front.jpg',
             'gty150t-base': '/images/panelpc/gty156-front.png',
