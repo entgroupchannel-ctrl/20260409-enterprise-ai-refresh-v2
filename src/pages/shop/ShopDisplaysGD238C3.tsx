@@ -293,7 +293,7 @@ export default function ShopDisplaysGD238C3() {
         useCases={["Reception / Check-in", "Digital Menu Board", "Conference / Hot-desk", "Wayfinding / Info"]}
         variants={[
           { key: "rk3568", label: "RK3568 (Android 11)", price: VARIANT_BASE_PRICE.rk3568, description: "Rockchip RK3568 Quad-core ARM Cortex-A55 — Cost-effective" },
-          { key: "rk3588", label: "RK3588 (Android 12)", price: VARIANT_BASE_PRICE.rk3588, description: "Rockchip RK3588 Octa-core 8nm — High Performance / AI Vision" },
+          { key: "intel", label: "Intel Core i3 / i5 / i7 (Windows / Linux)", price: VARIANT_BASE_PRICE.intel, description: "Intel x86 Core i3 / i5 / i7 — แจ้ง Generation กับแอดมินเป็นกรณี" },
         ]}
       />
 
