@@ -773,7 +773,7 @@ const ShopStorefront = () => {
               <div className="flex gap-6 justify-center lg:justify-start text-center">
                 {[
                   { n: `${products.length}+`, label: 'สินค้า' },
-                  { n: '500+', label: 'ลูกค้า' },
+                  { n: '8000+', label: 'ลูกค้า' },
                   { n: '24/7', label: 'ซัพพอร์ต' },
                 ].map(s => (
                   <div key={s.label}>
@@ -1189,7 +1189,7 @@ const ShopStorefront = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-sm">
             <div className="flex flex-col items-center gap-2"><CircleCheckBig className="w-6 h-6 text-primary" /><span>ISO 9001 Certified</span></div>
             <div className="flex flex-col items-center gap-2"><ShieldCheck className="w-6 h-6 text-primary" /><span>รับประกัน 1-3 ปี</span></div>
-            <div className="flex flex-col items-center gap-2"><Landmark className="w-6 h-6 text-primary" /><span>500+ Enterprise Customers</span></div>
+            <div className="flex flex-col items-center gap-2"><Landmark className="w-6 h-6 text-primary" /><span>8000+ Enterprise Customers</span></div>
             <div className="flex flex-col items-center gap-2"><HeadsetIcon className="w-6 h-6 text-primary" /><span>ซัพพอร์ตภาษาไทย</span></div>
           </div>
         </div>
