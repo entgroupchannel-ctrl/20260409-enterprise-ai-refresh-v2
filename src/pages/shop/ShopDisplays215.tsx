@@ -660,18 +660,8 @@ export default function ShopDisplays215() {
         </div>
       </section>
 
-      {/* USE CASES — compact strip */}
-      <section className="container mx-auto px-4 pb-8">
-        <h2 className="text-sm font-bold mb-2 uppercase tracking-wider text-muted-foreground">ใช้งานเหมาะกับ</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-          {PRODUCT.useCases.map((uc, i) => (
-            <div key={i} className="flex items-center gap-1.5 p-2 rounded-md border bg-muted/20">
-              <Zap className="w-3.5 h-3.5 text-primary shrink-0" />
-              <p className="text-xs">{uc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* USE CASES — inspirational image gallery */}
+      <UseCaseGallery items={USE_CASE_GALLERY} />
 
       {/* ── Zoom Lightbox ── */}
       {zoomOpen && (
