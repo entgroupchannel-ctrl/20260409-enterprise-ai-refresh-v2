@@ -584,34 +584,34 @@ export default function ShopDisplays156() {
                 <p className="text-xs text-muted-foreground -mt-1">💡 5+ ลด 7% • 10+ ลด 14% • 50+ ลด 20%</p>
 
                 {/* Price summary */}
-                <div className="bg-primary/5 border border-primary/20 rounded-lg p-2.5 space-y-1">
-                  <div className="flex justify-between text-[11px]">
+                <div className="bg-primary/5 border border-primary/20 rounded-lg p-3 space-y-1.5">
+                  <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">ราคาเริ่มต้น / ชิ้น</span>
                     <span>฿{fmt(pricing.unit)}</span>
                   </div>
                   {qty >= 5 && (
-                    <div className="flex justify-between text-[11px] text-green-600">
+                    <div className="flex justify-between text-sm text-green-600">
                       <span>ราคาส่ง × {qty}</span>
                       <span>฿{fmt(pricing.tierUnit)} / ชิ้น</span>
                     </div>
                   )}
-                  <div className="flex justify-between font-bold text-base text-primary pt-1 border-t border-primary/20">
+                  <div className="flex justify-between font-bold text-lg text-primary pt-1.5 border-t border-primary/20">
                     <span>ยอดรวม</span>
                     <span>฿{fmt(pricing.total)}</span>
                   </div>
                   {pricing.savings > 0 && (
-                    <p className="text-[10px] text-green-600 text-center">💰 ประหยัด ฿{fmt(pricing.savings)}</p>
+                    <p className="text-xs text-green-600 text-center">💰 ประหยัด ฿{fmt(pricing.savings)}</p>
                   )}
                 </div>
 
                 {/* Actions */}
-                <div className="grid grid-cols-2 gap-1.5">
-                  <Button size="sm" variant="outline" onClick={handleAddToCart} disabled={submitting}>
-                    <ShoppingCart className="w-3.5 h-3.5 mr-1" />
+                <div className="grid grid-cols-2 gap-2">
+                  <Button variant="outline" onClick={handleAddToCart} disabled={submitting}>
+                    <ShoppingCart className="w-4 h-4 mr-1.5" />
                     เพิ่มลงตะกร้า
                   </Button>
-                  <Button size="sm" onClick={handleQuickQuote}>
-                    <FileText className="w-3.5 h-3.5 mr-1" />
+                  <Button onClick={handleQuickQuote}>
+                    <FileText className="w-4 h-4 mr-1.5" />
                     ขอใบเสนอราคา
                   </Button>
                 </div>
