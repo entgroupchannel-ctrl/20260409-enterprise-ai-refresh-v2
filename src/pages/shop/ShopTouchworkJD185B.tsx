@@ -30,11 +30,15 @@ import g_mon_02 from "@/assets/touchwork/gallery/JD185B-Monitor/02.jpg";
 import g_mon_03 from "@/assets/touchwork/gallery/JD185B-Monitor/03.jpg";
 import g_mon_04 from "@/assets/touchwork/gallery/JD185B-Monitor/04.jpg";
 import g_mon_05 from "@/assets/touchwork/gallery/JD185B-Monitor/05.jpg";
+import g_mon_06 from "@/assets/touchwork/gallery/JD185B-Monitor/06.jpg";
+import g_mon_07 from "@/assets/touchwork/gallery/JD185B-Monitor/07.jpg";
 import g_arm_01 from "@/assets/touchwork/gallery/JD185B-ARM/01.jpg";
 import g_arm_02 from "@/assets/touchwork/gallery/JD185B-ARM/02.jpg";
 import g_arm_03 from "@/assets/touchwork/gallery/JD185B-ARM/03.jpg";
 import g_arm_04 from "@/assets/touchwork/gallery/JD185B-ARM/04.jpg";
 import g_arm_05 from "@/assets/touchwork/gallery/JD185B-ARM/05.jpg";
+import g_arm_06 from "@/assets/touchwork/gallery/JD185B-ARM/06.jpg";
+import g_arm_07 from "@/assets/touchwork/gallery/JD185B-ARM/07.jpg";
 import g_x86_01 from "@/assets/touchwork/gallery/JD185B-X86/01.jpg";
 import g_x86_02 from "@/assets/touchwork/gallery/JD185B-X86/02.jpg";
 import g_x86_03 from "@/assets/touchwork/gallery/JD185B-X86/03.jpg";
@@ -44,31 +48,28 @@ import g_x86_06 from "@/assets/touchwork/gallery/JD185B-X86/06.jpg";
 import g_x86_07 from "@/assets/touchwork/gallery/JD185B-X86/07.jpg";
 
 /* ------------------------------------------------------------------ */
-/*  JD185B — 15.6" TouchWork Series Indoor Display (X86 spec sheet)   */
-/*  Specs verified from touchwo.com & /touchwork/jd185b:               */
-/*  - 15.6" 16:9 IPS Panel, 1920 × 1080 Full HD, 250 cd/m², 175°/175° */
-/*  - Capacitive 10-point PCAP, Mohs 7 explosion-proof glass          */
-/*  - IP65 (front), Wi-Fi 5 (802.11a/b/g/n/ac) + BT 4.2               */
-/*  - X86 CPU: Intel N100 + UHD Graphics, RAM 4GB (8GB opt),          */
-/*    mSATA 64/128/256/512GB, Win 10/11/Linux                         */
-/*  - I/O: RJ45×1, USB×3, Type-C×1, HDMI out×1, Audio in/out×1        */
-/*  - Power: 110-240V AC → DC 12V 3A, <25W                            */
-/*  - Ultra-slim Die-cast Body 27mm • Wall/Desktop/Embedded            */
+/*  JD185B — 18.5" TouchWork Series Indoor Display                     */
+/*  Specs verified from /touchwork/jd185b:                             */
+/*  - 18.5" 16:9 IPS Panel, 1366 × 768                                 */
+/*  - Capacitive 10-point, ≥250 cd/m², IPS 175°/175°                  */
+/*  - IP65 (front), Wi-Fi 5 + BT 4.2                                  */
+/*  - VESA 100 + Embedded mounting                                     */
+/*  - ขนาดกลางคุ้มค่า เหมาะกับ Kiosk ทั่วไป                              */
 /*  Indicative prices (THB / 1 unit, base config):                    */
-/*  - Monitor: 15,990 / ARM (Android 11/13): 18,990                   */
-/*  - X86 (Intel N100 / Win 10/11): 22,990                            */
-/*  - กรณี CPU Model อื่น (i3/i5/i7) — แจ้งแอดมินขอราคาเป็นกรณี        */
+/*  - Monitor: 16,990 / ARM (Android 11/13): 19,990                   */
+/*  - X86 (Windows 10/11): 23,990 (อ้างอิง — กรณี CPU model อื่น        */
+/*    เช่น Celeron / i3 / i5 / i7 ให้แจ้งแอดมินขอราคาเป็นกรณี)         */
 /* ------------------------------------------------------------------ */
 
 const VARIANT_BASE_PRICE: Record<string, number> = {
-  monitor: 15990,
-  arm: 18990,
-  x86: 22990,
+  monitor: 16990,
+  arm: 19990,
+  x86: 23990,
 };
 
 const VARIANT_GALLERIES: Record<string, string[]> = {
-  monitor: [g_mon_01, g_mon_03, g_mon_02, g_mon_04, g_mon_05],
-  arm: [g_arm_01, g_arm_03, g_arm_02, g_arm_04, g_arm_05],
+  monitor: [g_mon_01, g_mon_03, g_mon_02, g_mon_04, g_mon_05, g_mon_06, g_mon_07],
+  arm: [g_arm_01, g_arm_03, g_arm_02, g_arm_04, g_arm_05, g_arm_06, g_arm_07],
   x86: [g_x86_01, g_x86_03, g_x86_02, g_x86_04, g_x86_05, g_x86_06, g_x86_07],
 };
 
