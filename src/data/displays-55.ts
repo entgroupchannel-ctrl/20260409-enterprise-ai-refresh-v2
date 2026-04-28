@@ -148,7 +148,7 @@ export const DISPLAYS_55: Record<Display55Slug, Display32> = {
       {
         image: hd55DimFront,
         title: "Mechanical Dimension — Front / Side / Top View",
-        caption: "แบบทางวิศวกรรมด้าน Front / Side / Top — ขนาดตัวเครื่องโดยรวม 1264 × 734.8 mm หน้าจอแสดงผล (Active Area) 1213.6 × 684.4 mm Bezel เพียง 25.2 mm รอบด้าน — มุมโค้ง R11 ตัวเครื่องบาง ด้านข้างมีพอร์ต I/O และปุ่มควบคุม ขอบล่างมีลำโพง + ช่องระบายความร้อน เหมาะกับงาน Wall mount / Embedded ที่ต้องการความเรียบหรู",
+        caption: "แบบทางวิศวกรรมด้าน Front / Side / Top — ขนาดตัวเครื่องโดยรวม 1264 × 734.8 mm หน้าจอแสดงผล (Active Area) 1213.6 × 684.4 mm Bezel เพียง 25.2 mm รอบด้าน — มุมโค้ง R11 ตัวเครื่องบาง ​ขาตั้งพื้นมีพอร์ต I/O และปุ่มควบคุม ขอบล่างมีลำโพง + ช่องระบายความร้อน เหมาะกับงาน Wall mount / Embedded ที่ต้องการความเรียบหรู",
         callouts: [
           { label: "ขนาดเครื่อง (W×H)", value: "1264 × 734.8 mm" },
           { label: "Active Area", value: "1213.6 × 684.4 mm" },
