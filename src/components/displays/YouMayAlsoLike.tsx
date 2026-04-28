@@ -39,15 +39,23 @@ export default function YouMayAlsoLike({
   title = "รุ่นที่คุณอาจชอบ",
   subtitle = "เลือกขนาดอื่นในตระกูล Interactive Display — เปรียบเทียบสเปก ราคา และการใช้งานได้ทันที",
 }: YouMayAlsoLikeProps) {
-  // เรียงตาม "ระยะห่าง" จากขนาดปัจจุบัน → ใกล้สุดก่อน
-  const sorted = [...candidates]
-    .filter((c) => c.sizeNumeric !== currentSizeNumeric)
-    .sort(
-      (a, b) =>
-        Math.abs(a.sizeNumeric - currentSizeNumeric) -
-        Math.abs(b.sizeNumeric - currentSizeNumeric),
-    )
-    .slice(0, limit);
+  // กลยุทธ์ "กระจายสินค้า": นำรุ่นที่ใกล้ขนาดปัจจุบันที่สุด 1 รุ่น
+  // + สุ่มรุ่นที่เหลือเพื่อให้ลูกค้าได้เห็นสินค้าหลากหลายขนาดในหมวดเดียวกัน
+  const pool = candidates.filter((c) => c.sizeNumeric !== currentSizeNumeric);
+  const byProximity = [...pool].sort(
+    (a, b) =>
+      Math.abs(a.sizeNumeric - currentSizeNumeric) -
+      Math.abs(b.sizeNumeric - currentSizeNumeric),
+  );
+  const anchors = byProximity.slice(0, 1); // รุ่นใกล้ที่สุด 1 ตัว (anchor)
+  const anchorHrefs = new Set(anchors.map((a) => a.href));
+  const rest = pool.filter((c) => !anchorHrefs.has(c.href));
+  // Fisher-Yates shuffle (re-seed ทุกครั้งที่ render เพื่อกระจายการแสดงผล)
+  for (let i = rest.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [rest[i], rest[j]] = [rest[j], rest[i]];
+  }
+  const sorted = [...anchors, ...rest].slice(0, limit);
 
   if (sorted.length === 0) return null;
 
