@@ -150,10 +150,11 @@ export default function ShopDisplays156() {
   const isPC = variantKey === "x86" || variantKey === "android";
   const ramOptions = variantKey === "x86" ? RAM_OPTIONS_X86 : RAM_OPTIONS_ARM;
   const ssdOptions = variantKey === "x86" ? SSD_OPTIONS_X86 : SSD_OPTIONS_ARM;
+  const osOptions = variantKey === "x86" ? OS_OPTIONS_X86 : variantKey === "android" ? OS_OPTIONS_ARM : [];
 
   /* Reset selections when variant changes */
   useEffect(() => {
-    setCpuTierIdx(0); setRamIdx(0); setSsdIdx(0); setWifiIdx(0);
+    setCpuTierIdx(0); setRamIdx(0); setSsdIdx(0); setWifiIdx(0); setOsIdx(0);
   }, [variantKey]);
 
   /* Auto-rotate slideshow */
