@@ -22,6 +22,7 @@ import dm215gHero from "@/assets/touchwork/DM215G-Monitor.jpg";
 import gd133Hero from "@/assets/touchwork/GD133-Monitor.jpg";
 import jd133Hero from "@/assets/touchwork/JD133-Monitor.jpg";
 import jd156bHero from "@/assets/touchwork/JD156B-Monitor.jpg";
+import jd185bHero from "@/assets/touchwork/JD185B-Monitor.jpg";
 
 const gd32cHero = "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg";
 
