@@ -153,6 +153,9 @@ const ICON_MAP = {
 
 const fmt = (n: number) => n.toLocaleString("th-TH");
 
+const GALLERY_CACHE_BUSTER = "gd156-gallery-20260428-windows-desktop";
+const withGalleryCacheBuster = (src: string) => `${src}${src.includes("?") ? "&" : "?"}v=${GALLERY_CACHE_BUSTER}`;
+
 function tierMultiplier(qty: number) {
   if (qty >= 50) return 0.8;
   if (qty >= 10) return 0.86;
@@ -185,7 +188,10 @@ export default function ShopTouchworkGD156() {
   const storageOptions = isX86 ? STORAGE_OPTIONS_X86 : STORAGE_OPTIONS_ARM;
   const osOptions = isX86 ? OS_OPTIONS_X86 : OS_OPTIONS_ARM;
 
-  const gallery = VARIANT_GALLERIES[variantKey] ?? VARIANT_GALLERIES.monitor;
+  const gallery = useMemo(
+    () => (VARIANT_GALLERIES[variantKey] ?? VARIANT_GALLERIES.monitor).map(withGalleryCacheBuster),
+    [variantKey],
+  );
 
   useEffect(() => {
     setRamIdx(0); setStorageIdx(0); setOsIdx(0); setSlideIdx(0);
