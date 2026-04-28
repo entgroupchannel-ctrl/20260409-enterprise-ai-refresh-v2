@@ -1,13 +1,24 @@
-import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useLocation, Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import SEOHead from "@/components/SEOHead";
 
 const NotFound = () => {
   const location = useLocation();
+  const [shouldRedirect, setShouldRedirect] = useState(false);
 
   useEffect(() => {
     console.error("404 Error: User attempted to access non-existent route:", location.pathname);
+
+    // Redirect legacy traffic from old Wix site (therdpume.wixsite.com/therdpume) to homepage
+    const ref = document.referrer || "";
+    if (ref.includes("therdpume.wixsite.com")) {
+      setShouldRedirect(true);
+    }
   }, [location.pathname]);
+
+  if (shouldRedirect) {
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-muted">
