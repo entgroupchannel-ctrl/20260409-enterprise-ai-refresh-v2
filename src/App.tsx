@@ -66,6 +66,7 @@ const ShopProductDetail = lazyRetry(() => import("./pages/shop/ShopProductDetail
 const ShopCompare = lazyRetry(() => import("./pages/shop/ShopCompare"));
 const ShopDisplays156 = lazyRetry(() => import("./pages/shop/ShopDisplays156"));
 const ShopDisplays215 = lazyRetry(() => import("./pages/shop/ShopDisplays215"));
+const ShopDisplays32 = lazyRetry(() => import("./pages/shop/ShopDisplays32"));
 const Unsubscribe = lazyRetry(() => import("./pages/Unsubscribe"));
 const Login = lazyRetry(() => import("./pages/auth/Login"));
 const Register = lazyRetry(() => import("./pages/auth/Register"));
@@ -356,6 +357,7 @@ const App = () => (
                     <Route path="/shop/compare" element={<ShopCompare />} />
                     <Route path="/shop/displays-15.6" element={<ShopDisplays156 />} />
                     <Route path="/shop/displays-21.5" element={<ShopDisplays215 />} />
+                    <Route path="/shop/displays-32" element={<ShopDisplays32 />} />
                     <Route path="/shop/:slug" element={<ShopProductDetail />} />
                     <Route path="/unsubscribe" element={<Unsubscribe />} />
                     <Route path="/login" element={<Login />} />
