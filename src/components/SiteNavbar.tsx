@@ -18,6 +18,8 @@ const navLinks = [
 export default function SiteNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, profile, signOut, loading: authLoading } = useAuth();
+  const location = useLocation();
+  const isOnShop = location.pathname === '/shop' || location.pathname.startsWith('/shop/');
 
   return (
     <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
