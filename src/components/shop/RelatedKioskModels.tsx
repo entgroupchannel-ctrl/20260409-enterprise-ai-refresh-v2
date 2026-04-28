@@ -215,6 +215,16 @@ const ALL_MODELS: KioskModel[] = [
     image: dm215gHero,
     productHref: "/touchwork/dm215g",
   },
+  {
+    slug: "gd133",
+    modelCode: "GD133",
+    size: '13.3"',
+    shortName: "GD133 Wall-Mount Touch PC",
+    tagline: 'Wall-Mount 13.3" 16:9 Full HD IPS — บาง 42.8 mm • Monitor / Android 11-13 / Windows 10-11',
+    startingPrice: 14990,
+    image: gd133Hero,
+    productHref: "/touchwork/gd133",
+  },
 ];
 
 const fmt = (n: number) => n.toLocaleString("th-TH");
