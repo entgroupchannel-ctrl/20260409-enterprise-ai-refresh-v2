@@ -5,7 +5,7 @@ import {
   ChevronRight, Monitor, Cpu, Smartphone, Layers, Hand, ShieldCheck, Box,
   Check, Minus, Plus, ShoppingCart, FileText, Phone, MessageCircle, Sparkles,
   Wand2, Wifi, MemoryStick, HardDrive, Zap, ArrowRight, BadgeCheck,
-  ZoomIn, X, ChevronLeft, Pause, Play,
+  ZoomIn, X, ChevronLeft, Pause, Play, Disc,
 } from "lucide-react";
 import SiteNavbar from "@/components/SiteNavbar";
 import Footer from "@/components/Footer";
@@ -68,16 +68,33 @@ const WIFI_OPTIONS = [
   { label: "+ 4G LTE", delta: 3500 },
 ];
 
-/* Add-on peripherals */
+/* OS options per variant family */
+const OS_OPTIONS_X86 = [
+  { label: "Windows 10 Pro", delta: 0 },
+  { label: "Windows 11 Pro", delta: 1500 },
+  { label: "Windows 10 IoT Enterprise", delta: 4500 },
+  { label: "Windows 11 IoT Enterprise", delta: 5500 },
+  { label: "Ubuntu Linux 22.04 LTS", delta: -2500 },
+  { label: "ไม่ลง OS (No OS)", delta: -3500 },
+];
+const OS_OPTIONS_ARM = [
+  { label: "Android 11", delta: 0 },
+  { label: "Android 12", delta: 600 },
+  { label: "Android 13", delta: 1200 },
+  { label: "Android 14", delta: 1800 },
+  { label: "Linux (Debian/Ubuntu ARM)", delta: 800 },
+];
+
+/* Add-on peripherals (with images) */
 const ADDON_OPTIONS = [
-  { key: "printer",    label: "Thermal Printer",  price: 4500 },
-  { key: "scanner",    label: "Barcode/QR Scanner", price: 3200 },
-  { key: "rfid",       label: "RFID Reader",      price: 2800 },
-  { key: "fingerprint",label: "Fingerprint",      price: 3500 },
-  { key: "camera",     label: "Camera + e-KYC",   price: 2500 },
-  { key: "nfc",        label: "NFC Payment",      price: 2200 },
-  { key: "dispenser",  label: "Card Dispenser",   price: 8500 },
-  { key: "ups",        label: "Battery UPS",      price: 4200 },
+  { key: "printer",     label: "Thermal Printer",    price: 4500, image: "https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=300&h=200&fit=crop" },
+  { key: "scanner",     label: "Barcode/QR Scanner", price: 3200, image: "https://images.unsplash.com/photo-1607349913338-fca6f7fc42d0?w=300&h=200&fit=crop" },
+  { key: "rfid",        label: "RFID Reader",        price: 2800, image: "https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=300&h=200&fit=crop" },
+  { key: "fingerprint", label: "Fingerprint",        price: 3500, image: "https://images.unsplash.com/photo-1633265486064-086b219458ec?w=300&h=200&fit=crop" },
+  { key: "camera",      label: "Camera + e-KYC",     price: 2500, image: "https://images.unsplash.com/photo-1606986628253-49a4cb3a32a4?w=300&h=200&fit=crop" },
+  { key: "nfc",         label: "NFC Payment",        price: 2200, image: "https://images.unsplash.com/photo-1556742111-a301076d9d18?w=300&h=200&fit=crop" },
+  { key: "dispenser",   label: "Card Dispenser",     price: 8500, image: "https://images.unsplash.com/photo-1580508174046-170816f65662?w=300&h=200&fit=crop" },
+  { key: "ups",         label: "Battery UPS",        price: 4200, image: "https://images.unsplash.com/photo-1601132359864-c974e79890ac?w=300&h=200&fit=crop" },
 ];
 
 const ICON_MAP = {
@@ -106,6 +123,7 @@ export default function ShopDisplays156() {
   const [ramIdx, setRamIdx] = useState(0);
   const [ssdIdx, setSsdIdx] = useState(0);
   const [wifiIdx, setWifiIdx] = useState(0);
+  const [osIdx, setOsIdx] = useState(0);
   const [addons, setAddons] = useState<string[]>([]);
   const [qty, setQty] = useState<number>(1);
   const [submitting, setSubmitting] = useState(false);
@@ -132,10 +150,11 @@ export default function ShopDisplays156() {
   const isPC = variantKey === "x86" || variantKey === "android";
   const ramOptions = variantKey === "x86" ? RAM_OPTIONS_X86 : RAM_OPTIONS_ARM;
   const ssdOptions = variantKey === "x86" ? SSD_OPTIONS_X86 : SSD_OPTIONS_ARM;
+  const osOptions = variantKey === "x86" ? OS_OPTIONS_X86 : variantKey === "android" ? OS_OPTIONS_ARM : [];
 
   /* Reset selections when variant changes */
   useEffect(() => {
-    setCpuTierIdx(0); setRamIdx(0); setSsdIdx(0); setWifiIdx(0);
+    setCpuTierIdx(0); setRamIdx(0); setSsdIdx(0); setWifiIdx(0); setOsIdx(0);
   }, [variantKey]);
 
   /* Auto-rotate slideshow */
@@ -165,14 +184,15 @@ export default function ShopDisplays156() {
     const ramDelta = isPC ? (ramOptions[ramIdx]?.delta ?? 0) : 0;
     const ssdDelta = isPC ? (ssdOptions[ssdIdx]?.delta ?? 0) : 0;
     const wifiDelta = isPC ? (WIFI_OPTIONS[wifiIdx]?.delta ?? 0) : 0;
+    const osDelta = isPC ? (osOptions[osIdx]?.delta ?? 0) : 0;
     const addonsTotal = addons.reduce((s, k) => s + (ADDON_OPTIONS.find(a => a.key === k)?.price ?? 0), 0);
-    const unit = base + cpuDelta + ramDelta + ssdDelta + wifiDelta + addonsTotal;
+    const unit = Math.max(0, base + cpuDelta + ramDelta + ssdDelta + wifiDelta + osDelta + addonsTotal);
     const tier = tierMultiplier(qty);
     const tierUnit = Math.round(unit * tier);
     const total = tierUnit * qty;
     const savings = (unit - tierUnit) * qty;
     return { unit, tierUnit, total, savings, addonsTotal, tierPct: Math.round((1 - tier) * 100) };
-  }, [variantKey, cpuTier, ramIdx, ssdIdx, wifiIdx, addons, qty, isPC, ramOptions, ssdOptions]);
+  }, [variantKey, cpuTier, ramIdx, ssdIdx, wifiIdx, osIdx, addons, qty, isPC, ramOptions, ssdOptions, osOptions]);
 
   const buildConfigSummary = () => {
     const parts: string[] = [variant?.label ?? PRODUCT.name];
@@ -182,6 +202,7 @@ export default function ShopDisplays156() {
         parts.push(`RAM: ${ramOptions[ramIdx].label}`);
         parts.push(`SSD: ${ssdOptions[ssdIdx].label}`);
         parts.push(`Wi-Fi: ${WIFI_OPTIONS[wifiIdx].label}`);
+        if (osOptions[osIdx]) parts.push(`OS: ${osOptions[osIdx].label}`);
       }
     }
     if (addons.length) {
@@ -216,6 +237,7 @@ export default function ShopDisplays156() {
         ram: isPC ? ramOptions[ramIdx].label : cpuTier?.ram,
         storage: isPC ? ssdOptions[ssdIdx].label : cpuTier?.storage,
         wifi: isPC ? WIFI_OPTIONS[wifiIdx].label : undefined,
+        os: isPC ? osOptions[osIdx]?.label : undefined,
         addons,
         tier: cpuTier?.tier,
       },
@@ -364,15 +386,15 @@ export default function ShopDisplays156() {
           {/* ── Info + Configurator ── */}
           <div className="space-y-3">
             <div>
-              <Badge variant="secondary" className="mb-1.5 text-[10px]">
+              <Badge variant="secondary" className="mb-2 text-xs">
                 <Sparkles className="w-3 h-3 mr-1" /> {PRODUCT.category}
               </Badge>
-              <h1 className="text-xl md:text-2xl font-bold leading-tight">{PRODUCT.shortName}</h1>
-              <p className="text-muted-foreground mt-1 text-xs md:text-sm">{PRODUCT.tagline}</p>
+              <h1 className="text-2xl md:text-3xl font-bold leading-tight">{PRODUCT.shortName}</h1>
+              <p className="text-muted-foreground mt-1.5 text-sm md:text-base">{PRODUCT.tagline}</p>
             </div>
 
             {/* Quick Specs (จากหน้าสินค้า) — compact 4-col */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-1.5 p-2 rounded-lg border bg-muted/20">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 p-3 rounded-lg border bg-muted/20">
               <QuickSpec label="หน้าจอ" value={'15.6" FHD'} />
               <QuickSpec label="Touch" value="PCAP 10pt" />
               <QuickSpec label="กระจก" value="Mohs 7" />
@@ -384,15 +406,15 @@ export default function ShopDisplays156() {
             </div>
 
             {/* Highlights — 2x2 compact */}
-            <div className="grid grid-cols-2 gap-1.5">
+            <div className="grid grid-cols-2 gap-2">
               {PRODUCT.highlights.map((h, i) => {
                 const Icon = ICON_MAP[h.icon as keyof typeof ICON_MAP] ?? Sparkles;
                 return (
-                  <div key={i} className="flex items-start gap-1.5 p-1.5 rounded-md bg-primary/5 border border-primary/10">
-                    <Icon className="w-3.5 h-3.5 text-primary mt-0.5 shrink-0" />
+                  <div key={i} className="flex items-start gap-2 p-2 rounded-md bg-primary/5 border border-primary/10">
+                    <Icon className="w-4 h-4 text-primary mt-0.5 shrink-0" />
                     <div className="min-w-0">
-                      <p className="text-[11px] font-semibold leading-tight truncate">{h.title}</p>
-                      <p className="text-[10px] text-muted-foreground leading-tight truncate">{h.subtitle}</p>
+                      <p className="text-sm font-semibold leading-tight">{h.title}</p>
+                      <p className="text-xs text-muted-foreground leading-tight">{h.subtitle}</p>
                     </div>
                   </div>
                 );
@@ -401,14 +423,14 @@ export default function ShopDisplays156() {
 
             {/* Configurator Card */}
             <Card className="border-primary/20">
-              <CardContent className="p-3 space-y-3">
-                <div className="flex items-center gap-1.5">
-                  <Wand2 className="w-3.5 h-3.5 text-primary" />
-                  <h3 className="font-bold text-xs uppercase tracking-wider">ปรับแต่งสเปก</h3>
+              <CardContent className="p-4 space-y-4">
+                <div className="flex items-center gap-2">
+                  <Wand2 className="w-4 h-4 text-primary" />
+                  <h3 className="font-bold text-sm uppercase tracking-wider">ปรับแต่งสเปก</h3>
                 </div>
 
                 {/* Variant: 3-col compact */}
-                <div className="grid grid-cols-3 gap-1.5">
+                <div className="grid grid-cols-3 gap-2">
                   {PRODUCT.variants?.map((v) => {
                     const VIcon = ICON_MAP[v.icon as keyof typeof ICON_MAP] ?? Monitor;
                     const active = v.key === variantKey;
@@ -417,13 +439,13 @@ export default function ShopDisplays156() {
                         key={v.key}
                         onClick={() => setVariantKey(v.key)}
                         className={cn(
-                          "text-left p-2 rounded-lg border transition-all",
+                          "text-left p-2.5 rounded-lg border transition-all",
                           active ? "border-primary bg-primary/5 ring-1 ring-primary/30" : "border-border hover:border-primary/50",
                         )}
                       >
-                        <VIcon className={cn("w-4 h-4 mb-1", active ? "text-primary" : "text-muted-foreground")} />
-                        <p className="font-semibold text-[11px] leading-tight">{v.key === "monitor" ? "Monitor" : v.key === "x86" ? "Windows/Linux" : "Android"}</p>
-                        <p className="text-[10px] text-primary font-bold mt-0.5">฿{fmt(VARIANT_BASE_PRICE[v.key] ?? 0)}</p>
+                        <VIcon className={cn("w-5 h-5 mb-1", active ? "text-primary" : "text-muted-foreground")} />
+                        <p className="font-semibold text-sm leading-tight">{v.key === "monitor" ? "Monitor" : v.key === "x86" ? "Windows/Linux" : "Android"}</p>
+                        <p className="text-xs text-primary font-bold mt-0.5">฿{fmt(VARIANT_BASE_PRICE[v.key] ?? 0)}</p>
                       </button>
                     );
                   })}
@@ -432,7 +454,7 @@ export default function ShopDisplays156() {
                 {/* CPU tier (PC only) */}
                 {cpuTiers.length > 0 && (
                   <ConfigBlock icon={Cpu} label="ระดับ CPU">
-                    <div className="grid grid-cols-3 gap-1">
+                    <div className="grid grid-cols-3 gap-1.5">
                       {cpuTiers.map((c, i) => {
                         const active = i === cpuTierIdx;
                         const delta = CPU_TIER_DELTA[c.tier] ?? 0;
@@ -441,13 +463,13 @@ export default function ShopDisplays156() {
                             key={i}
                             onClick={() => setCpuTierIdx(i)}
                             className={cn(
-                              "p-1.5 rounded-md border text-[10px] transition-all text-left",
+                              "p-2 rounded-md border text-xs transition-all text-left",
                               active ? "border-primary bg-primary/5" : "border-border hover:border-primary/50",
                             )}
                           >
-                            <p className="font-bold text-[11px]">{c.tier}</p>
-                            <p className="text-muted-foreground line-clamp-1">{c.cpu.split("(")[0].trim()}</p>
-                            {delta > 0 && <p className="text-primary font-medium">+฿{fmt(delta)}</p>}
+                            <p className="font-bold text-sm">{c.tier}</p>
+                            <p className="text-muted-foreground line-clamp-1 text-xs">{c.cpu.split("(")[0].trim()}</p>
+                            {delta > 0 && <p className="text-primary font-medium text-xs">+฿{fmt(delta)}</p>}
                           </button>
                         );
                       })}
@@ -455,10 +477,10 @@ export default function ShopDisplays156() {
                   </ConfigBlock>
                 )}
 
-                {/* RAM / SSD / Wi-Fi (PC only) */}
+                {/* RAM / SSD / Wi-Fi / OS (PC only) */}
                 {isPC && (
                   <>
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-2 gap-3">
                       <ConfigBlock icon={MemoryStick} label="RAM">
                         <ChipRow
                           options={ramOptions}
@@ -481,12 +503,19 @@ export default function ShopDisplays156() {
                         onSelect={setWifiIdx}
                       />
                     </ConfigBlock>
+                    <ConfigBlock icon={Disc} label={variantKey === "x86" ? "ระบบปฏิบัติการ (OS)" : "Android / OS Version"}>
+                      <ChipRow
+                        options={osOptions}
+                        activeIdx={osIdx}
+                        onSelect={setOsIdx}
+                      />
+                    </ConfigBlock>
                   </>
                 )}
 
-                {/* Add-on peripherals */}
+                {/* Add-on peripherals — visual cards with images */}
                 <ConfigBlock icon={Box} label="อุปกรณ์เสริม (เลือกได้หลายรายการ)">
-                  <div className="flex flex-wrap gap-1">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                     {ADDON_OPTIONS.map((a) => {
                       const active = addons.includes(a.key);
                       return (
@@ -494,15 +523,29 @@ export default function ShopDisplays156() {
                           key={a.key}
                           onClick={() => toggleAddon(a.key)}
                           className={cn(
-                            "px-2 py-1 rounded-full border text-[10px] transition-all flex items-center gap-1",
+                            "relative text-left rounded-lg border-2 overflow-hidden transition-all bg-card hover:shadow-md",
                             active
-                              ? "border-primary bg-primary text-primary-foreground"
+                              ? "border-primary ring-2 ring-primary/30"
                               : "border-border hover:border-primary/50",
                           )}
                         >
-                          {active && <Check className="w-2.5 h-2.5" />}
-                          {a.label}
-                          <span className={cn("opacity-80", active ? "" : "text-primary")}>+฿{fmt(a.price)}</span>
+                          <div className="aspect-[4/3] bg-muted/30 overflow-hidden">
+                            <img
+                              src={a.image}
+                              alt={a.label}
+                              loading="lazy"
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          {active && (
+                            <div className="absolute top-1.5 right-1.5 bg-primary text-primary-foreground rounded-full p-1 shadow">
+                              <Check className="w-3 h-3" />
+                            </div>
+                          )}
+                          <div className="p-1.5">
+                            <p className="text-xs font-semibold leading-tight line-clamp-1">{a.label}</p>
+                            <p className="text-xs text-primary font-bold mt-0.5">+฿{fmt(a.price)}</p>
+                          </div>
                         </button>
                       );
                     })}
@@ -512,77 +555,77 @@ export default function ShopDisplays156() {
                 <Separator />
 
                 {/* Quantity */}
-                <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground shrink-0">จำนวน</span>
-                  <Button size="icon" variant="outline" className="h-7 w-7" onClick={() => setQty(Math.max(1, qty - 1))}>
-                    <Minus className="w-3 h-3" />
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground shrink-0">จำนวน</span>
+                  <Button size="icon" variant="outline" className="h-8 w-8" onClick={() => setQty(Math.max(1, qty - 1))}>
+                    <Minus className="w-3.5 h-3.5" />
                   </Button>
                   <Input
                     type="number"
                     value={qty}
                     min={1}
                     onChange={(e) => setQty(Math.max(1, parseInt(e.target.value) || 1))}
-                    className="text-center font-bold w-14 h-7 text-sm"
+                    className="text-center font-bold w-16 h-8 text-sm"
                   />
-                  <Button size="icon" variant="outline" className="h-7 w-7" onClick={() => setQty(qty + 1)}>
-                    <Plus className="w-3 h-3" />
+                  <Button size="icon" variant="outline" className="h-8 w-8" onClick={() => setQty(qty + 1)}>
+                    <Plus className="w-3.5 h-3.5" />
                   </Button>
                   <div className="flex gap-1 ml-1">
                     {[5, 10, 50].map((n) => (
-                      <Button key={n} size="sm" variant="outline" className="h-7 px-2 text-[10px]" onClick={() => setQty(n)}>
+                      <Button key={n} size="sm" variant="outline" className="h-8 px-2.5 text-xs" onClick={() => setQty(n)}>
                         {n}
                       </Button>
                     ))}
                   </div>
                   {qty >= 5 && (
-                    <Badge variant="secondary" className="ml-auto text-[10px]">ลด {pricing.tierPct}%</Badge>
+                    <Badge variant="secondary" className="ml-auto text-xs">ลด {pricing.tierPct}%</Badge>
                   )}
                 </div>
-                <p className="text-[10px] text-muted-foreground -mt-1">💡 5+ ลด 7% • 10+ ลด 14% • 50+ ลด 20%</p>
+                <p className="text-xs text-muted-foreground -mt-1">💡 5+ ลด 7% • 10+ ลด 14% • 50+ ลด 20%</p>
 
                 {/* Price summary */}
-                <div className="bg-primary/5 border border-primary/20 rounded-lg p-2.5 space-y-1">
-                  <div className="flex justify-between text-[11px]">
+                <div className="bg-primary/5 border border-primary/20 rounded-lg p-3 space-y-1.5">
+                  <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">ราคาเริ่มต้น / ชิ้น</span>
                     <span>฿{fmt(pricing.unit)}</span>
                   </div>
                   {qty >= 5 && (
-                    <div className="flex justify-between text-[11px] text-green-600">
+                    <div className="flex justify-between text-sm text-green-600">
                       <span>ราคาส่ง × {qty}</span>
                       <span>฿{fmt(pricing.tierUnit)} / ชิ้น</span>
                     </div>
                   )}
-                  <div className="flex justify-between font-bold text-base text-primary pt-1 border-t border-primary/20">
+                  <div className="flex justify-between font-bold text-lg text-primary pt-1.5 border-t border-primary/20">
                     <span>ยอดรวม</span>
                     <span>฿{fmt(pricing.total)}</span>
                   </div>
                   {pricing.savings > 0 && (
-                    <p className="text-[10px] text-green-600 text-center">💰 ประหยัด ฿{fmt(pricing.savings)}</p>
+                    <p className="text-xs text-green-600 text-center">💰 ประหยัด ฿{fmt(pricing.savings)}</p>
                   )}
                 </div>
 
                 {/* Actions */}
-                <div className="grid grid-cols-2 gap-1.5">
-                  <Button size="sm" variant="outline" onClick={handleAddToCart} disabled={submitting}>
-                    <ShoppingCart className="w-3.5 h-3.5 mr-1" />
+                <div className="grid grid-cols-2 gap-2">
+                  <Button variant="outline" onClick={handleAddToCart} disabled={submitting}>
+                    <ShoppingCart className="w-4 h-4 mr-1.5" />
                     เพิ่มลงตะกร้า
                   </Button>
-                  <Button size="sm" onClick={handleQuickQuote}>
-                    <FileText className="w-3.5 h-3.5 mr-1" />
+                  <Button onClick={handleQuickQuote}>
+                    <FileText className="w-4 h-4 mr-1.5" />
                     ขอใบเสนอราคา
                   </Button>
                 </div>
-                <div className="flex items-center justify-center gap-2 text-[10px] text-muted-foreground">
+                <div className="flex items-center justify-center gap-3 text-xs text-muted-foreground flex-wrap">
                   <a href="tel:0959244966" className="flex items-center gap-1 hover:text-primary">
-                    <Phone className="w-3 h-3" /> 095-924-4966
+                    <Phone className="w-3.5 h-3.5" /> 095-924-4966
                   </a>
                   <span>•</span>
                   <Link to="/contact" className="flex items-center gap-1 hover:text-primary">
-                    <MessageCircle className="w-3 h-3" /> สอบถามแอดมิน
+                    <MessageCircle className="w-3.5 h-3.5" /> สอบถามแอดมิน
                   </Link>
                   <span>•</span>
                   <Link to={`/products/${PRODUCT.slug ?? "displays-15.6"}`} className="flex items-center gap-1 hover:text-primary">
-                    <ArrowRight className="w-3 h-3" /> สเปกเต็ม
+                    <ArrowRight className="w-3.5 h-3.5" /> สเปกเต็ม
                   </Link>
                 </div>
               </CardContent>
@@ -652,17 +695,17 @@ export default function ShopDisplays156() {
 function QuickSpec({ label, value }: { label: string; value: string }) {
   return (
     <div className="text-center">
-      <p className="text-[9px] uppercase tracking-wider text-muted-foreground">{label}</p>
-      <p className="text-[11px] font-semibold leading-tight">{value}</p>
+      <p className="text-[10px] uppercase tracking-wider text-muted-foreground">{label}</p>
+      <p className="text-sm font-semibold leading-tight">{value}</p>
     </div>
   );
 }
 
 function ConfigBlock({ icon: Icon, label, children }: { icon: React.ElementType; label: string; children: React.ReactNode }) {
   return (
-    <div className="space-y-1">
-      <div className="flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-        <Icon className="w-3 h-3" />
+    <div className="space-y-1.5">
+      <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+        <Icon className="w-3.5 h-3.5" />
         <span>{label}</span>
       </div>
       {children}
@@ -678,21 +721,25 @@ function ChipRow({
   onSelect: (i: number) => void;
 }) {
   return (
-    <div className="flex flex-wrap gap-1">
+    <div className="flex flex-wrap gap-1.5">
       {options.map((o, i) => {
         const active = i === activeIdx;
+        const sign = o.delta > 0 ? "+" : o.delta < 0 ? "−" : "";
+        const absDelta = Math.abs(o.delta);
         return (
           <button
             key={i}
             onClick={() => onSelect(i)}
             className={cn(
-              "px-2 py-1 rounded-full border text-[10px] transition-all flex items-center gap-1",
+              "px-2.5 py-1.5 rounded-full border text-xs transition-all flex items-center gap-1",
               active ? "border-primary bg-primary text-primary-foreground" : "border-border hover:border-primary/50",
             )}
           >
             {o.label}
-            {o.delta > 0 && (
-              <span className={cn(active ? "opacity-80" : "text-primary")}>+฿{(o.delta).toLocaleString("th-TH")}</span>
+            {o.delta !== 0 && (
+              <span className={cn(active ? "opacity-80" : o.delta < 0 ? "text-green-600" : "text-primary")}>
+                {sign}฿{absDelta.toLocaleString("th-TH")}
+              </span>
             )}
           </button>
         );
