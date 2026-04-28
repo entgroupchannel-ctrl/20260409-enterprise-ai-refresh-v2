@@ -45,6 +45,8 @@ import g_x86_03 from "@/assets/touchwork/gallery/GD156-X86/03.jpg";
 import g_x86_04 from "@/assets/touchwork/gallery/GD156-X86/04.jpg";
 import g_x86_05 from "@/assets/touchwork/gallery/GD156-X86/05.jpg";
 import g_x86_06 from "@/assets/touchwork/gallery/GD156-X86/06.jpg";
+import g_x86_07 from "@/assets/touchwork/gallery/GD156-X86/07.jpg";
+import g_x86_08 from "@/assets/touchwork/gallery/GD156-X86/08.jpg";
 
 /* ------------------------------------------------------------------ */
 /*  GD156 — 15.6" Industrial Wall-Mount Touch Kiosk (Touchwork)       */
@@ -78,7 +80,7 @@ const VARIANT_BASE_PRICE: Record<string, number> = {
 const VARIANT_GALLERIES: Record<string, string[]> = {
   monitor: [g_mon_01, g_mon_02, g_mon_03, g_mon_04, g_mon_05, g_mon_06],
   arm: [g_arm_01, g_arm_02, g_arm_03, g_arm_04, g_arm_05, g_arm_06, g_arm_07],
-  x86: [g_x86_01, g_x86_02, g_x86_03, g_x86_04, g_x86_05, g_x86_06],
+  x86: [g_x86_01, g_x86_02, g_x86_03, g_x86_04, g_x86_05, g_x86_06, g_x86_07, g_x86_08],
 };
 
 const SHOP_VARIANTS = [
