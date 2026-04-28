@@ -35,33 +35,41 @@ import g_arm_02 from "@/assets/touchwork/gallery/JD156B-ARM/02.jpg";
 import g_arm_03 from "@/assets/touchwork/gallery/JD156B-ARM/03.jpg";
 import g_arm_04 from "@/assets/touchwork/gallery/JD156B-ARM/04.jpg";
 import g_arm_05 from "@/assets/touchwork/gallery/JD156B-ARM/05.jpg";
-import g_arm_06 from "@/assets/touchwork/gallery/JD156B-ARM/06.jpg";
-import g_arm_07 from "@/assets/touchwork/gallery/JD156B-ARM/07.jpg";
+import g_x86_01 from "@/assets/touchwork/gallery/JD156B-X86/01.jpg";
+import g_x86_02 from "@/assets/touchwork/gallery/JD156B-X86/02.jpg";
+import g_x86_03 from "@/assets/touchwork/gallery/JD156B-X86/03.jpg";
+import g_x86_04 from "@/assets/touchwork/gallery/JD156B-X86/04.jpg";
+import g_x86_05 from "@/assets/touchwork/gallery/JD156B-X86/05.jpg";
+import g_x86_06 from "@/assets/touchwork/gallery/JD156B-X86/06.jpg";
+import g_x86_07 from "@/assets/touchwork/gallery/JD156B-X86/07.jpg";
 
 /* ------------------------------------------------------------------ */
-/*  JD156B — 13.3" TouchWork Series Indoor Display                     */
-/*  Specs verified from /touchwork/jd156b:                             */
-/*  - 13.3" 16:9 IPS Panel, 1920 × 1080 Full HD                       */
-/*  - Capacitive 10-point, ≥250 cd/m², IPS 175°/175°                  */
-/*  - IP65 (front), Wi-Fi 5 + BT 4.2                                  */
-/*  - Ultra-slim Die-cast Body • VESA 75 + ตั้งโต๊ะ                    */
-/*  - Premium Self-Service                                            */
+/*  JD156B — 15.6" TouchWork Series Indoor Display (X86 spec sheet)   */
+/*  Specs verified from touchwo.com & /touchwork/jd156b:               */
+/*  - 15.6" 16:9 IPS Panel, 1920 × 1080 Full HD, 250 cd/m², 175°/175° */
+/*  - Capacitive 10-point PCAP, Mohs 7 explosion-proof glass          */
+/*  - IP65 (front), Wi-Fi 5 (802.11a/b/g/n/ac) + BT 4.2               */
+/*  - X86 CPU: Intel N100 + UHD Graphics, RAM 4GB (8GB opt),          */
+/*    mSATA 64/128/256/512GB, Win 10/11/Linux                         */
+/*  - I/O: RJ45×1, USB×3, Type-C×1, HDMI out×1, Audio in/out×1        */
+/*  - Power: 110-240V AC → DC 12V 3A, <25W                            */
+/*  - Ultra-slim Die-cast Body 27mm • Wall/Desktop/Embedded            */
 /*  Indicative prices (THB / 1 unit, base config):                    */
-/*  - Monitor: 14,990 / ARM (Android 11/13): 17,990                   */
-/*  - X86 (Windows 10/11): แจ้งแอดมินขอราคา (base 20,990 อ้างอิง)      */
+/*  - Monitor: 15,990 / ARM (Android 11/13): 18,990                   */
+/*  - X86 (Intel N100 / Win 10/11): 22,990                            */
+/*  - กรณี CPU Model อื่น (i3/i5/i7) — แจ้งแอดมินขอราคาเป็นกรณี        */
 /* ------------------------------------------------------------------ */
 
 const VARIANT_BASE_PRICE: Record<string, number> = {
-  monitor: 14990,
-  arm: 17990,
-  x86: 20990,
+  monitor: 15990,
+  arm: 18990,
+  x86: 22990,
 };
 
-// JD156B site lists Monitor + ARM only — reuse ARM gallery for X86 placeholder
 const VARIANT_GALLERIES: Record<string, string[]> = {
   monitor: [g_mon_01, g_mon_03, g_mon_02, g_mon_04, g_mon_05],
-  arm: [g_arm_01, g_arm_03, g_arm_02, g_arm_04, g_arm_05, g_arm_06, g_arm_07],
-  x86: [g_arm_01, g_arm_03, g_arm_04, g_arm_05, g_arm_06],
+  arm: [g_arm_01, g_arm_03, g_arm_02, g_arm_04, g_arm_05],
+  x86: [g_x86_01, g_x86_03, g_x86_02, g_x86_04, g_x86_05, g_x86_06, g_x86_07],
 };
 
 const SHOP_VARIANTS = [
@@ -79,21 +87,20 @@ const SHOP_VARIANTS = [
   },
   {
     key: "x86",
-    title: "Windows (Intel x86)",
-    badge: "Intel Celeron / Core i3-i7 — Windows 10/11 (แจ้งแอดมินขอราคา)",
+    title: "Windows (Intel N100)",
+    badge: "Intel N100 + UHD Graphics — Windows 10/11/Linux (CPU อื่นแจ้งแอดมิน)",
     icon: "Cpu" as const,
   },
 ];
 
-/* ── Architecture-specific options ── */
+/* ── Architecture-specific options (จาก JD156B spec sheet) ── */
 const RAM_OPTIONS_ARM = [
   { label: "2GB LPDDR4", delta: 0 },
   { label: "4GB LPDDR4", delta: 1500 },
 ];
 const RAM_OPTIONS_X86 = [
-  { label: "4GB DDR4", delta: 0 },
-  { label: "8GB DDR4", delta: 2800 },
-  { label: "16GB DDR4", delta: 5600 },
+  { label: "4GB DDR4 (มาตรฐาน)", delta: 0 },
+  { label: "8GB DDR4", delta: 2200 },
 ];
 const STORAGE_OPTIONS_ARM = [
   { label: "eMMC 16GB", delta: 0 },
@@ -101,9 +108,10 @@ const STORAGE_OPTIONS_ARM = [
   { label: "eMMC 64GB", delta: 2400 },
 ];
 const STORAGE_OPTIONS_X86 = [
-  { label: "SSD 128GB", delta: 0 },
-  { label: "SSD 256GB", delta: 2200 },
-  { label: "SSD 512GB", delta: 4800 },
+  { label: "mSATA 64GB", delta: 0 },
+  { label: "mSATA 128GB", delta: 1500 },
+  { label: "mSATA 256GB", delta: 3500 },
+  { label: "mSATA 512GB", delta: 6800 },
 ];
 const OS_OPTIONS_ARM = [
   { label: "Android 11", delta: 0 },
