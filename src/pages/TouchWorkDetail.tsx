@@ -457,7 +457,7 @@ export default function TouchWorkDetail() {
                               className="w-full aspect-square object-contain bg-white p-4"
                             />
                             <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-background/95 to-transparent px-3 py-2 text-xs font-medium text-left">
-                              {i === 0 ? "มุมมองด้านหน้า / Front View" : "มุมมองด้านหลัง / Rear & Mounting"}
+                              {i === 0 ? "มุมมองด้านหน้า / Front View" : "​ขาจับแบบ VESA Mouting / Rear & Mounting"}
                             </div>
                             <ZoomHintBadge />
                           </button>
