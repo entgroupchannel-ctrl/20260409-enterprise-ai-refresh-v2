@@ -5,7 +5,7 @@ import {
   ChevronRight, Monitor, Cpu, Smartphone, Layers, Hand, ShieldCheck, Box,
   Check, Minus, Plus, ShoppingCart, FileText, Phone, MessageCircle, Sparkles,
   Wand2, Wifi, MemoryStick, HardDrive, Zap, ArrowRight, BadgeCheck,
-  ZoomIn, X, ChevronLeft, Pause, Play,
+  ZoomIn, X, ChevronLeft, Pause, Play, Disc,
 } from "lucide-react";
 import SiteNavbar from "@/components/SiteNavbar";
 import Footer from "@/components/Footer";
