@@ -12,6 +12,7 @@ import gd27cHero from "@/assets/touchwo/gd27c/p-1.jpg";
 import dm080nfHero from "@/assets/touchwork/DM080NF-Monitor.jpg";
 import dm080wgHero from "@/assets/touchwork/DM080WG-Monitor.jpg";
 import dm101gHero from "@/assets/touchwork/DM101G-Monitor.jpg";
+import dm104gHero from "@/assets/touchwork/DM104G-Monitor.jpg";
 
 const gd32cHero = "https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg";
 
@@ -136,6 +137,16 @@ const ALL_MODELS: KioskModel[] = [
     startingPrice: 13990,
     image: dm101gHero,
     productHref: "/touchwork/dm101g",
+  },
+  {
+    slug: "dm104g",
+    modelCode: "DM104G",
+    size: '10.4"',
+    shortName: "DM104G Industrial Touch PC",
+    tagline: 'จอสัมผัส 10.4" 4:3 — Backlight 30,000 ชม. • Monitor / Android / Windows',
+    startingPrice: 13990,
+    image: dm104gHero,
+    productHref: "/touchwork/dm104g",
   },
 ];
 

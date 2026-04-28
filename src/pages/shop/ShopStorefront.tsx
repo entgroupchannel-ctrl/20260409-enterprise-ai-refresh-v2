@@ -45,6 +45,7 @@ import gd27cHero from '@/assets/touchwo/gd27c/p-1.jpg';
 import dm080nfHero from '@/assets/touchwork/DM080NF-Monitor.jpg';
 import dm080wgHero from '@/assets/touchwork/DM080WG-Monitor.jpg';
 import dm101gHero from '@/assets/touchwork/DM101G-Monitor.jpg';
+import dm104gHero from '@/assets/touchwork/DM104G-Monitor.jpg';
 
 const gd32cHero = 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/product-images/touchwo/gd32c/gallery-01.jpg';
 
@@ -465,6 +466,33 @@ const ShopStorefront = () => {
               is_active: true,
               slug: 'dm101g',
               tags: ['new', 'touch-pc', 'industrial', '10-inch'],
+              is_featured: true,
+              variant_count: 3,
+              starting_price: 13990,
+              warranty_months: 12,
+              warranty_type: 'carry-in',
+            },
+            {
+              id: 'static-dm104g',
+              sku: 'DM104G-TOUCHPC',
+              model: 'DM104G',
+              series: 'Industrial Touch PC',
+              name: 'TouchWork 10.4" Industrial Touch PC 4:3 (Monitor / Android / Windows)',
+              description: 'จอสัมผัสอุตสาหกรรม 10.4" 4:3 (TN a-Si) PCAP 10pt IP65 (หน้า) — Backlight 30,000 ชม. เหมาะกับสายการผลิต MES • เลือกได้ทั้ง Monitor (HDMI/VGA), Android (RK3568/RK3399) และ Windows (Intel Celeron / Core i3-i7) — กรณีไม่ระบุ CPU Model แจ้งแอดมินขอราคา',
+              category: 'Industrial Touch PC',
+              cpu: 'Plug & Play / RK3568 / Intel (TBD)',
+              ram_gb: 4,
+              storage_gb: 32,
+              storage_type: 'eMMC / SSD',
+              unit_price: 13990,
+              unit_price_vat: null,
+              image_url: dm104gHero,
+              thumbnail_url: dm104gHero,
+              gallery_urls: null,
+              stock_status: 'available',
+              is_active: true,
+              slug: 'dm104g',
+              tags: ['new', 'touch-pc', 'industrial', '10-inch', '4-3'],
               is_featured: true,
               variant_count: 3,
               starting_price: 13990,
