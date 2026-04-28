@@ -1156,8 +1156,8 @@ const GTSeries = () => {
                   <img src="/images/gt1000/ports-front.jpg" alt="GT1000 Mainboard และการติดตั้ง" className="w-full rounded-lg"/>
                 </div>
                 <div className="card-surface p-4 overflow-hidden rounded-xl">
-                  <h4 className="font-bold text-foreground mb-3 text-sm"><Plug size={16} className="inline mr-1 text-primary" />Ports — ด้านหลัง</h4>
-                  <img src="/images/gt1000/ports-rear.jpg" alt="GT1000 Ports ด้านหลัง" className="w-full rounded-lg"/>
+                  <h4 className="font-bold text-foreground mb-3 text-sm"><Plug size={16} className="inline mr-1 text-primary" />Ports — ​ขาจับแบบ VESA Mouting</h4>
+                  <img src="/images/gt1000/ports-rear.jpg" alt="GT1000 Ports ​ขาจับแบบ VESA Mouting" className="w-full rounded-lg"/>
                 </div>
               </div>
 
