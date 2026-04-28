@@ -1166,7 +1166,7 @@ const GTSeries = () => {
                 {[
                   { src: "/images/gt1000/product-angle1.jpg", alt: "GT1000 มุมด้านหน้า" },
                   { src: "/images/gt1000/product-angle2.jpg", alt: "GT1000 มุมเอียง" },
-                  { src: "/images/gt1000/side-view.jpg", alt: "GT1000 ด้านข้าง — ครีบระบายความร้อน" },
+                  { src: "/images/gt1000/side-view.jpg", alt: "GT1000 ​ขาตั้งพื้น — ครีบระบายความร้อน" },
                   { src: "/images/gt1000/bottom-view.jpg", alt: "GT1000 ด้านล่าง — VESA Mount" },
                 ].map((img, i) => (
                   <div key={i} className="card-surface overflow-hidden rounded-xl">
