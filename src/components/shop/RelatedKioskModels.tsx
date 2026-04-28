@@ -248,6 +248,16 @@ const ALL_MODELS: KioskModel[] = [
     image: jd156bHero,
     productHref: "/touchwork/jd156b",
   },
+  {
+    slug: "jd185b",
+    modelCode: "JD185B",
+    size: '18.5"',
+    shortName: "JD185B Indoor Display Touch PC",
+    tagline: 'Indoor Display 18.5" 16:9 IPS — ขนาดกลางคุ้มค่า สำหรับ Kiosk ทั่วไป • Monitor / Android 11-13 / Windows 10-11',
+    startingPrice: 16990,
+    image: jd185bHero,
+    productHref: "/touchwork/jd185b",
+  },
 ];
 
 const fmt = (n: number) => n.toLocaleString("th-TH");
