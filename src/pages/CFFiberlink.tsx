@@ -184,7 +184,11 @@ const industries = [
   { icon: Ship, label: "Marine & Petrochemical", desc: "ท่าเรือ ปิโตรเคมี เหมือง" },
 ];
 
+const allCatalogModels: CFFiberlinkModel[] = cffiberlinkCatalog.flatMap((c) => c.models);
+
 const CFFiberlink = () => {
+  const [selected, setSelected] = useState<{ model: CFFiberlinkModel; cat: CFFiberlinkCategoryDef } | null>(null);
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead
@@ -196,9 +200,9 @@ const CFFiberlink = () => {
         collectionName="CF Fiberlink Industrial Ethernet Switch"
         collectionDescription="CF Fiberlink Industrial Managed / PoE / Cloud Switch สำหรับงานอุตสาหกรรม Smart City และระบบราง"
         collectionUrl="/partners/cffiberlink"
-        products={featuredModels.map((m) => ({
-          name: `${m.model} — ${m.name}`,
-          description: m.spec,
+        products={allCatalogModels.map((m) => ({
+          name: `CF Fiberlink ${m.model}`,
+          description: `${m.ports} — Switching ${m.switchingCapacity}, ${m.packetRate}`,
           category: "Industrial Ethernet Switch",
         }))}
       />
