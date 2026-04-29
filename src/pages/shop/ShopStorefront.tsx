@@ -919,8 +919,9 @@ const ShopStorefront = () => {
     return result;
   }, [products, search, seriesFilter, categoryFilter, sortBy, priceRange, cpuFilter, ramFilter, storageFilter]);
 
-  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
-  const paged = filtered.slice((page - 1) * pageSize, page * pageSize);
+  const effectivePageSize = pageSize === 0 ? Math.max(1, filtered.length) : pageSize;
+  const totalPages = Math.max(1, Math.ceil(filtered.length / effectivePageSize));
+  const paged = pageSize === 0 ? filtered : filtered.slice((page - 1) * pageSize, page * pageSize);
 
   const toggleCompare = (slug: string) => {
     let list = [...compareList];
