@@ -233,10 +233,11 @@ const getPortCount = (ports: string): number => {
     const m = seg.match(/(\d+)\s*[×x]/);
     if (!m) continue;
     const n = parseInt(m[1], 10) || 0;
-    // ข้าม SFP / SFP+ / Console — เก็บเฉพาะ RJ45-class
-    const isAccess = /RJ45|PoE|Ethernet|10\/100M|GbE(?!\s*PoE)/i.test(seg) && !/SFP|Console|Combo only/i.test(seg);
-    // กรณีพิเศษ: "GbE PoE" / "100M PoE" = access; "SFP" = ข้าม
-    if (isAccess || (/PoE/i.test(seg) && !/SFP/i.test(seg))) sum += n;
+    // เก็บถ้ามีคำที่บ่งบอกว่าเป็น electric/RJ45 access (RJ45, PoE, Ethernet, 10/100M, GbE, Uplink, 100M)
+    // ข้ามถ้ามีคำว่า SFP, Console, SC (fiber connector), Multimode, Single-mode
+    const hasFiber = /SFP|Console|\bSC\b|Multimode|Single-mode|OPTICAL/i.test(seg);
+    const hasAccess = /RJ45|PoE|Ethernet|GbE|10\/100M|100M|Uplink/i.test(seg);
+    if (hasAccess && !hasFiber) sum += n;
   }
   return sum;
 };
