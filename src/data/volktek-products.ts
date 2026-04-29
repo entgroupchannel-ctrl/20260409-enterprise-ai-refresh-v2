@@ -1428,10 +1428,13 @@ export const volktekIndustrialPoe: VolktekCategory = {
             ],
             power: {
               input: "24~57VDC (Terminal Block + 4-pin mini-DIN)",
+              consumption: "System: 14W",
               poeBudget: "120W (30W/port)",
             },
             environment: {
               tempOperating: "-40°C ~ 75°C (UL: -40°C ~ 70°C)",
+              tempStorage: "-40°C ~ 85°C (-40°F ~ 185°F)",
+              humidity: "5 ~ 95% RH (non-condensing)",
               housing: "Aluminum (IP30)",
             },
             datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/2a29a5f2c301509edf00d32d375dbfcb.pdf",
