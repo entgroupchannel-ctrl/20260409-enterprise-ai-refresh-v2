@@ -1,14 +1,12 @@
 import { Plug, Zap } from "lucide-react";
 import { cfPowerSupplyCatalog, voltageBadgeClass, type PowerSupplyModel, type PowerSeries } from "@/data/cffiberlink-power";
 import { getCFPrice, formatTHB } from "@/data/cffiberlink-prices";
-import sgd75Img from "@/assets/cffiberlink/power-sgd-75.png";
-import sgd24Img from "@/assets/cffiberlink/power-sgd-24.png";
-import lgd75Img from "@/assets/cffiberlink/power-lgd-75.png";
-import lgd24Img from "@/assets/cffiberlink/power-lgd-24.png";
+import sgdHeroImg from "@/assets/cffiberlink/power-sgd-hero.jpg";
+import lgdHeroImg from "@/assets/cffiberlink/power-lgd-hero.jpg";
 
-const SERIES_IMAGES: Record<PowerSeries, { large: string; small: string; alt: string }> = {
-  SGD: { large: sgd75Img, small: sgd24Img, alt: "CF Fiberlink SGD Series — Plastic DIN-Rail Power Supply" },
-  LGD: { large: lgd75Img, small: lgd24Img, alt: "CF Fiberlink LGD Series — Aluminum Alloy DIN-Rail Power Supply" },
+const SERIES_IMAGES: Record<PowerSeries, { hero: string; alt: string }> = {
+  SGD: { hero: sgdHeroImg, alt: "CF Fiberlink SGD Series — Plastic DIN-Rail Power Supply" },
+  LGD: { hero: lgdHeroImg, alt: "CF Fiberlink LGD Series — Aluminum Alloy DIN-Rail Power Supply" },
 };
 
 /**
@@ -44,25 +42,16 @@ const PowerSupplySection = () => {
             <div key={series.id} className="card-surface overflow-hidden">
               {/* Series Header — รูปสินค้า + ข้อมูล */}
               <div className="border-b border-border bg-gradient-to-br from-muted/40 via-card to-card">
-                <div className="grid grid-cols-[auto,1fr] gap-3 p-4 items-center">
-                  {/* Product Photos */}
-                  <div className="relative w-28 sm:w-32 h-28 sm:h-32 shrink-0 flex items-center justify-center">
+                <div className="grid grid-cols-[auto,1fr] gap-4 p-4 items-center">
+                  {/* Product Photo */}
+                  <div className="relative w-32 sm:w-40 h-32 sm:h-40 shrink-0 flex items-center justify-center bg-white rounded-lg border border-border/50 overflow-hidden">
                     <img
-                      src={imgs.large}
+                      src={imgs.hero}
                       alt={imgs.alt}
-                      className="absolute inset-0 w-full h-full object-contain drop-shadow-md"
+                      className="w-full h-full object-contain"
                       loading="lazy"
-                      width={400}
-                      height={400}
-                    />
-                    <img
-                      src={imgs.small}
-                      alt=""
-                      aria-hidden="true"
-                      className="absolute -bottom-1 -right-1 w-12 sm:w-14 h-12 sm:h-14 object-contain drop-shadow-sm opacity-90"
-                      loading="lazy"
-                      width={200}
-                      height={200}
+                      width={1024}
+                      height={1024}
                     />
                   </div>
 
