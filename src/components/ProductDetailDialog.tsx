@@ -39,6 +39,26 @@ const ProductDetailDialog = ({
   const gallery = detail?.gallery?.length ? detail.gallery : fallbackImage ? [fallbackImage] : [];
   const [activeImage, setActiveImage] = useState(0);
   const [lightbox, setLightbox] = useState<string | null>(null);
+  const [zoom, setZoom] = useState(1);
+  const [pan, setPan] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+
+  // reset zoom when lightbox image changes/closes
+  useEffect(() => {
+    setZoom(1);
+    setPan({ x: 0, y: 0 });
+  }, [lightbox]);
+
+  // index of currently lightboxed gallery image (for prev/next nav)
+  const lightboxIndex = lightbox ? gallery.indexOf(lightbox) : -1;
+  const showLightboxNav = lightbox && lightboxIndex >= 0 && gallery.length > 1;
+  const goLightbox = (delta: number) => {
+    if (lightboxIndex < 0) return;
+    const next = (lightboxIndex + delta + gallery.length) % gallery.length;
+    setLightbox(gallery[next]);
+    setActiveImage(next);
+  };
   const [isPaused, setIsPaused] = useState(false);
   const [progress, setProgress] = useState(0);
 
