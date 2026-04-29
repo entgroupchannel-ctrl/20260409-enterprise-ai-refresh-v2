@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import SEOHead from '@/components/SEOHead';
+import SiteNavbar from '@/components/SiteNavbar';
+import Footer from '@/components/Footer';
 import {
   Cpu, MemoryStick, HardDrive, ShieldCheck, Sparkles, TrendingDown, Check,
   ShoppingCart, FileText, ChevronLeft, ChevronRight, ZoomIn, Wifi, Signal,
