@@ -1837,7 +1837,8 @@ export const volktekIndustrialEthernet: VolktekCategory = {
       title: "NEMA TS2",
       blurb: "ผ่าน NEMA TS2 — สำหรับงานควบคุมไฟจราจรและ Intelligent Transportation System",
       products: [
-        { model: "IEN-9648M (NEMA TS2)", description: "8x GbE + 4x GbE SFP — Managed, NEMA TS2", image: ie_IEN_9648M_NEMA, features: ["NEMA TS2", "Managed", "Fiber"], sourceUrl: detail(1709) },
+        { model: "IEN-9648M (NEMA TS2)", description: "8x GbE + 4x GbE SFP — Managed, NEMA TS2 Approval", image: ie_IEN_9648M_NEMA, features: ["NEMA TS2", "Managed", "Fiber"], sourceUrl: detail(1709) },
+        { model: "9560-16GT4XS-I", description: "16x 10/100/1000 RJ45 + 4x 1G/10G SFP+ — Managed, NEMA TS2 Approval", image: ie_9560_16GT4XS_I, features: ["NEMA TS2", "Managed", "16-port", "10G SFP+"], sourceUrl: detail(1616) },
       ],
     },
     {
