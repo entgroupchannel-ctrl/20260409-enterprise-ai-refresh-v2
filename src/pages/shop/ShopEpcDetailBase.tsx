@@ -800,6 +800,126 @@ export default function ShopEpcDetailBase({ slug }: Props) {
         </section>
       )}
 
+      {/* Industries & Applications (S-Series only) — Visual showcase */}
+      {typeof slug === 'string' && slug.startsWith('epc-s') && (
+        <section className="container mx-auto px-4 py-6 lg:py-10">
+          <div className="flex items-start gap-3 mb-6">
+            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+              <Factory className="w-5 h-5 text-primary" />
+            </div>
+            <div className="flex-1">
+              <h2 className="text-xl font-bold text-foreground">Industries & Real-World Applications</h2>
+              <p className="text-sm text-muted-foreground">
+                ตัวอย่างการนำ Panel PC ไปใช้งานในอุตสาหกรรมไทย — พร้อม Total Solution จาก ENT Group
+              </p>
+            </div>
+          </div>
+
+          {/* ENT Differentiation Badges */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
+            <Card className="p-4 border-primary/30 bg-primary/5">
+              <div className="flex items-start gap-3">
+                <div className="w-9 h-9 rounded-md bg-primary text-primary-foreground flex items-center justify-center shrink-0">
+                  <ShieldCheck className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-sm font-bold text-foreground">Exclusive Authorized Partner</div>
+                  <div className="text-xs text-muted-foreground mt-0.5">ตัวแทนจำหน่ายอย่างเป็นทางการเพียงรายเดียวในประเทศไทย</div>
+                </div>
+              </div>
+            </Card>
+            <Card className="p-4 border-primary/30 bg-primary/5">
+              <div className="flex items-start gap-3">
+                <div className="w-9 h-9 rounded-md bg-primary text-primary-foreground flex items-center justify-center shrink-0">
+                  <Wrench className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-sm font-bold text-foreground">Local Service & Support</div>
+                  <div className="text-xs text-muted-foreground mt-0.5">ทีมวิศวกรไทย ดูแลตลอดอายุการใช้งาน รับประกันถึงหน้างาน</div>
+                </div>
+              </div>
+            </Card>
+            <Card className="p-4 border-primary/30 bg-primary/5">
+              <div className="flex items-start gap-3">
+                <div className="w-9 h-9 rounded-md bg-primary text-primary-foreground flex items-center justify-center shrink-0">
+                  <Settings2 className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-sm font-bold text-foreground">Total Solution</div>
+                  <div className="text-xs text-muted-foreground mt-0.5">Hardware + Software + System Integration ครบวงจรในที่เดียว</div>
+                </div>
+              </div>
+            </Card>
+          </div>
+
+          {/* Industry showcase grid */}
+          <div className="grid md:grid-cols-2 gap-4">
+            {[
+              {
+                src: '/images/applications/smart-factory.jpg',
+                title: 'Smart Factory & Production Line',
+                subtitle: 'HMI ข้างเครื่องจักร · SCADA · MES Dashboard',
+                desc: 'ติดตั้งบนแขนสแตนเลสข้างเครื่อง CNC, Robot, Conveyor — ติดตาม OEE, Production KPI แบบเรียลไทม์',
+              },
+              {
+                src: '/images/applications/food-pharma.jpg',
+                title: 'Food, Beverage & Pharma',
+                subtitle: 'IP65 Wash-down · Batch Control · Recipe Management',
+                desc: 'หน้าจอกันน้ำกันฝุ่น IP65 รองรับการล้างทำความสะอาดแรงดันสูง เหมาะสำหรับโรงงานอาหารและยา',
+              },
+              {
+                src: '/images/applications/logistics-wms.jpg',
+                title: 'Logistics & Warehouse (WMS)',
+                subtitle: 'Packing Station · Barcode · Inventory Tracking',
+                desc: 'ใช้คู่กับ Barcode Scanner ที่ Packing Station — บริหารสต็อก, Order Picking, Shipping ครบจบในจอเดียว',
+              },
+              {
+                src: '/images/applications/energy-utilities.jpg',
+                title: 'Energy, Oil & Gas, Utilities',
+                subtitle: 'Substation · Control Room · Grid Monitoring',
+                desc: 'ทนทานในสภาพแวดล้อมหนัก รองรับการมอนิเตอร์ Power Grid, Solar Farm, Substation 24/7',
+              },
+            ].map((item) => (
+              <Card key={item.title} className="overflow-hidden group hover:shadow-lg transition-shadow">
+                <div className="aspect-video bg-muted overflow-hidden relative">
+                  <img
+                    src={item.src}
+                    alt={item.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/0 to-transparent pointer-events-none" />
+                  <div className="absolute bottom-3 left-3 right-3">
+                    <div className="text-base font-bold text-foreground drop-shadow-sm">{item.title}</div>
+                    <div className="text-xs text-foreground/80 mt-0.5">{item.subtitle}</div>
+                  </div>
+                </div>
+                <CardContent className="p-3">
+                  <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* Bottom CTA strip */}
+          <Card className="mt-6 p-4 lg:p-5 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border-primary/30">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
+              <div className="flex items-start gap-3">
+                <Sparkles className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+                <div>
+                  <div className="text-sm font-bold text-foreground">ต้องการคำปรึกษาเฉพาะอุตสาหกรรมของคุณ?</div>
+                  <div className="text-xs text-muted-foreground mt-0.5">
+                    ทีมวิศวกร ENT Group พร้อมออกแบบระบบ HMI/SCADA/WMS ให้ตรงโจทย์โรงงานคุณ
+                  </div>
+                </div>
+              </div>
+              <LineQRButton size="sm" />
+            </div>
+          </Card>
+        </section>
+      )}
+
       {/* Gallery */}
       {detail.gallery && detail.gallery.length > 0 && (
         <section className="container mx-auto px-4 py-6 lg:py-10">
