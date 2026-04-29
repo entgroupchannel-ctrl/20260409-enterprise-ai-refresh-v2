@@ -9,7 +9,7 @@
  *  - L3 10G Core              : Industrial 10G Core Switch
  */
 
-export type CFFiberlinkCategory = "l2-rtl" | "l2-vts" | "l3-10g";
+export type CFFiberlinkCategory = "l2-rtl" | "l2-vts" | "l3-10g" | "cctv-poe" | "rack-poe";
 
 export interface CFFiberlinkModel {
   model: string;
@@ -39,6 +39,12 @@ const IMG = {
   rack: "https://cdnus.globalso.com/cffiberlink/604b25fdafe0b0fe8dba3998bed93d0.jpg",
   l3Core: "https://cdnus.globalso.com/cffiberlink/4%E4%B8%87%E5%85%86%E5%85%8916%E5%8D%83%E5%85%86%E7%94%B58%E4%B8%AA%E5%8D%83%E5%85%86%E5%85%89-CF-HY4T8016G-SFP-2.jpg",
   l3Poe: "https://cdnus.globalso.com/cffiberlink/IMG_433110.jpg",
+  cctv24: "https://cdnus.globalso.com/cffiberlink/12.jpg",
+  cctv4: "https://cdnus.globalso.com/cffiberlink/poe1.jpg",
+  cctv8: "https://cdnus.globalso.com/cffiberlink/poe11.jpg",
+  cctv4g: "https://cdnus.globalso.com/cffiberlink/21.jpg",
+  cctv27: "https://cdnus.globalso.com/cffiberlink/IMG_3772.jpg",
+  cctv27b: "https://cdnus.globalso.com/cffiberlink/IMG_38642.jpg",
 };
 
 const SW_L2 = [
