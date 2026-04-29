@@ -19,6 +19,16 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { cn } from '@/lib/utils';
 import qyU4000Hero from '@/assets/ipctech/qy-u4000-hero.jpg';
 import qyU4000Dimensions from '@/assets/ipctech/qy-u4000-dimensions.jpg';
+import qyU4000RealFront from '@/assets/ipctech/qy-u4000-real-front-rack.jpg';
+import qyU4000RealRearIO from '@/assets/ipctech/qy-u4000-real-rear-io.jpg';
+import qyU4000RealTowerFront from '@/assets/ipctech/qy-u4000-real-tower-front.jpg';
+import qyU4000RealRearCloseup from '@/assets/ipctech/qy-u4000-real-rear-closeup.jpg';
+import qyU4000RealDoorOpen from '@/assets/ipctech/qy-u4000-real-door-open.jpg';
+import qyU4000RealRearFull from '@/assets/ipctech/qy-u4000-real-rear-full.jpg';
+import useCctvCity from '@/assets/ipctech/usecase-cctv-city.jpg';
+import useItsTraffic from '@/assets/ipctech/usecase-its-traffic.jpg';
+import useScadaPower from '@/assets/ipctech/usecase-scada-power.jpg';
+import useRailEdge from '@/assets/ipctech/usecase-rail-edge.jpg';
 import qyB5700 from '@/assets/ipctech/qy-b5700.jpg';
 import qyP8000 from '@/assets/ipctech/qy-p8000.jpg';
 import qyU3500 from '@/assets/ipctech/qy-u3500.jpg';
