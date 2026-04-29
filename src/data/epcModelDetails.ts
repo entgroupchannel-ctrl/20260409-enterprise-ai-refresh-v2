@@ -78,6 +78,15 @@ export const epcModelDetails: Record<string, EpcModelDetail> = {
     landingHref: '/epc-series#wide',
     popular: true,
   },
+  'epc-w24x2a': {
+    slug: 'epc-w24x2a', model: 'EPC-W24X2A', series: 'EPC Panel PC', category: 'Touch Panel PC',
+    tagline: '23.6" Wide Touch Panel PC — จอใหญ่สุดของ Wide Series',
+    intro: 'EPC-W24X2A จอ 23.6" 16:9 Full HD ขนาดใหญ่สุดของซีรีส์ Wide — เหมาะกับ Control Room, Visualization, Andon Board และ Self-service Kiosk ระดับพรีเมียม',
+    highlights: ['จอ 23.6" Full HD', 'P-CAP Touch 10 จุด', 'รองรับ VESA 100', 'รุ่นใหญ่สุดของ Wide Series'],
+    specs: [{ label: 'Display', value: '23.6" 16:9 Full HD (1920×1080)' }, ...PANEL_COMMON_SPECS],
+    image: '/images/wix/0597a3_cfe6c90e6ba44ef3ba3a0aa5a698f32d_2b0c00e1.png',
+    landingHref: '/epc-series#wide',
+  },
   'epc-10xa': {
     slug: 'epc-10xa', model: 'EPC-10XA', series: 'EPC Box', category: 'Box PC',
     tagline: 'Compact 200mm Box PC — Edge / POS',
