@@ -107,7 +107,9 @@ const EPCRecommendedRow = () => {
 
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
           {RECOMMENDED.map((p) => {
-            const shopHref = `/shop?q=${encodeURIComponent(p.name)}`;
+            // Map row id (e.g. 'epc-w13') to shop detail slug (e.g. 'epc-w13x2a' / 'epc-10xa')
+            const shopSlug = p.name.toLowerCase().replace(/\s+series$/, '');
+            const shopHref = `/shop/${shopSlug}`;
             return (
               <div
                 key={p.id}
