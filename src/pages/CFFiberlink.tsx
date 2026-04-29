@@ -494,6 +494,19 @@ const CFFiberlink = () => {
                       <div className="p-2 flex flex-col flex-1 gap-1">
                         <p className="font-mono text-xs text-foreground font-semibold leading-tight break-all">{m.model}</p>
                         <p className="text-[10px] text-muted-foreground leading-snug line-clamp-2">{m.ports}</p>
+                        {/* Spotlight chips — จุดขาย PR เด่นของรุ่นนี้ (เฉพาะรุ่นที่มี) */}
+                        {m.spotlight && m.spotlight.length > 0 && (
+                          <div className="flex flex-wrap gap-1">
+                            {m.spotlight.slice(0, 2).map((s) => (
+                              <span
+                                key={s}
+                                className="inline-flex items-center gap-0.5 text-[9px] font-semibold text-primary bg-primary/10 border border-primary/20 rounded px-1 py-0.5 leading-tight"
+                              >
+                                ⭐ {s}
+                              </span>
+                            ))}
+                          </div>
+                        )}
                         {/* Use case icons — บอกลูกค้าว่ารุ่นนี้เหมาะกับงานไหน */}
                         <div className="flex flex-wrap gap-1 mt-auto pt-1 border-t border-border/40">
                           {useCases.map((uc) => {
