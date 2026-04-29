@@ -422,7 +422,10 @@ const CFFiberlink = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-              {heroPicks.map(({ model: m, cat }) => (
+              {heroPicks.map(({ model: m, cat }) => {
+                const heroRange = m.tempRange ?? cat.defaultTempRange;
+                const heroTempInfo = TEMP_INFO[getTempClass(heroRange)];
+                return (
                 <button
                   key={m.model}
                   type="button"
@@ -434,13 +437,21 @@ const CFFiberlink = () => {
                     ⭐ Pick · {cat.title}
                   </div>
 
-                  <div className="aspect-[4/3] overflow-hidden bg-gradient-to-br from-muted to-secondary/40 pt-6">
+                  <div className="aspect-[4/3] overflow-hidden bg-gradient-to-br from-muted to-secondary/40 pt-6 relative">
                     <img
                       src={m.image}
                       alt={`CF Fiberlink ${m.model} — ${m.heroTitle ?? ""}`}
                       className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
                     />
+                    {/* Temperature badge บนรูป Hero */}
+                    <span
+                      title={heroTempInfo.useCase}
+                      className={`absolute bottom-2 right-2 inline-flex items-center gap-1 text-[10px] font-bold border rounded-full px-2 py-0.5 backdrop-blur-sm ${heroTempInfo.badgeClass}`}
+                    >
+                      <span>{heroTempInfo.icon}</span>
+                      <span className="font-mono">{heroRange}</span>
+                    </span>
                   </div>
 
                   <div className="p-4 flex flex-col flex-1 gap-2">
@@ -477,7 +488,8 @@ const CFFiberlink = () => {
                     </div>
                   </div>
                 </button>
-              ))}
+                );
+              })}
             </div>
           </section>
         )}
@@ -616,6 +628,8 @@ const CFFiberlink = () => {
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
                   {filtered.map((m) => {
                     const useCases = (m.useCases && m.useCases.length > 0 ? m.useCases : cat.defaultUseCases).slice(0, 4);
+                    const cardRange = m.tempRange ?? cat.defaultTempRange;
+                    const cardTempInfo = TEMP_INFO[getTempClass(cardRange)];
                     return (
                     <button
                       key={m.model}
@@ -635,6 +649,14 @@ const CFFiberlink = () => {
                             {m.badge}
                           </Badge>
                         )}
+                        {/* Temperature badge — มุมขวาบน */}
+                        <span
+                          title={cardTempInfo.useCase}
+                          className={`absolute top-1.5 right-1.5 inline-flex items-center gap-0.5 text-[9px] font-bold border rounded-full px-1.5 py-0.5 backdrop-blur-sm ${cardTempInfo.badgeClass}`}
+                        >
+                          <span>{cardTempInfo.icon}</span>
+                          <span className="font-mono">{cardRange}</span>
+                        </span>
                       </div>
                       <div className="p-2 flex flex-col flex-1 gap-1">
                         <p className="font-mono text-xs text-foreground font-semibold leading-tight break-all">{m.model}</p>
