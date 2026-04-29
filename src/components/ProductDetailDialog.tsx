@@ -211,6 +211,20 @@ const ProductDetailDialog = ({
                   </Button>
                 )}
 
+                {/* Shop link — กรองสินค้าในหมวดเดียวกัน */}
+                {tag && (
+                  <Button asChild variant="default" size="sm" className="w-full">
+                    <Link
+                      to={`/shop?q=${encodeURIComponent(tag)}`}
+                      onClick={() => onOpenChange(false)}
+                    >
+                      <ExternalLink className="w-3.5 h-3.5 mr-1.5" />
+                      ดูสินค้าทั้งหมดในหมวด {tag} ที่ Shop
+                      <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                    </Link>
+                  </Button>
+                )}
+
                 {/* B2B Platform CTA */}
                 <div className="rounded-lg border border-primary/30 bg-gradient-to-br from-primary/10 via-primary/5 to-background p-3">
                   <div className="flex items-start gap-2 mb-2">
