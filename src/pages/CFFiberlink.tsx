@@ -708,7 +708,7 @@ const CFFiberlink = () => {
                                 key={s}
                                 className="inline-flex items-center gap-0.5 text-[9px] font-semibold text-primary bg-primary/10 border border-primary/20 rounded px-1 py-0.5 leading-tight"
                               >
-                                ⭐ {s}
+                                <Star className="w-2.5 h-2.5 fill-current" /> {s}
                               </span>
                             ))}
                           </div>
