@@ -145,11 +145,41 @@ const ShopProductDetail = () => {
   );
 
   if (!product) return (
-    <div className="min-h-screen bg-background flex items-center justify-center">
-      <div className="text-center space-y-3">
-        <p className="text-lg font-semibold">ไม่พบสินค้า</p>
-        <Link to="/shop"><Button variant="outline">กลับหน้า Shop</Button></Link>
+    <div className="min-h-screen bg-background flex flex-col">
+      <SEOHead title="ไม่พบสินค้า | ENT Group" description="ไม่พบสินค้าตามลิงก์ที่ร้องขอ" path="/shop" />
+      <SiteNavbar />
+      <div className="flex-1 flex items-center justify-center px-4 py-16">
+        <div className="max-w-md w-full text-center space-y-5 rounded-xl border border-border bg-card p-8 shadow-sm">
+          <div className="w-14 h-14 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mx-auto">
+            <AlertTriangle className="w-7 h-7 text-amber-500" />
+          </div>
+          <div className="space-y-1.5">
+            <h1 className="text-xl font-bold text-foreground">ไม่พบสินค้าที่คุณค้นหา</h1>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              สินค้าสำหรับลิงก์ <span className="font-mono text-foreground">/shop/{slug}</span> อาจถูกย้าย
+              เปลี่ยนชื่อ หรือยังไม่ได้เผยแพร่ ลองเลือกจากรายการด้านล่าง
+            </p>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-2 justify-center pt-2">
+            <Link to="/shop" className="flex-1">
+              <Button variant="default" className="w-full">
+                <ShoppingCart className="w-4 h-4 mr-1.5" /> ดูสินค้าทั้งหมด
+              </Button>
+            </Link>
+            <Link to="/epc-series" className="flex-1">
+              <Button variant="outline" className="w-full">
+                <Server className="w-4 h-4 mr-1.5" /> EPC Series
+              </Button>
+            </Link>
+          </div>
+          <div className="pt-2">
+            <Link to="/" className="text-xs text-muted-foreground hover:text-primary transition-colors">
+              ← กลับสู่หน้าแรก
+            </Link>
+          </div>
+        </div>
       </div>
+      <Footer />
     </div>
   );
 
