@@ -185,8 +185,7 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
       "VLAN ป้องกัน Network Storm",
       "Status LED ต่อพอร์ตชัดเจน",
     ],
-    models: [
-      { model: "CF-PE204N", ports: "4× 100M PoE + 2× 100M Uplink", switchingCapacity: "1.2 Gbps", packetRate: "0.89 Mpps", size: "Desktop / Wall-mount", poe: true, badge: "4+2 PoE", image: IMG.cctv4 },
+    defaultUseCases: ["cctv", "wifi-ap", "smb", "hotel"],
       { model: "CF-PE208N", ports: "8× 100M PoE + 2× 100M Uplink", switchingCapacity: "2.0 Gbps", packetRate: "1.49 Mpps", size: "Desktop / Wall-mount", poe: true, badge: "8+2 PoE 120W", image: IMG.cctv8 },
       { model: "CF-PE2421G", ports: "24× 100M PoE + 2× GbE Uplink + 1× SFP", switchingCapacity: "8.8 Gbps", packetRate: "6.55 Mpps", size: "Rack 1U", poe: true, badge: "24+2+1 PoE 400W", image: IMG.cctv24 },
       { model: "CF-PE204G", ports: "4× GbE PoE + 2× GbE Uplink", switchingCapacity: "12 Gbps", packetRate: "8.93 Mpps", size: "Desktop / Wall-mount", poe: true, badge: "4+2 GbE PoE", image: IMG.cctv4g },
