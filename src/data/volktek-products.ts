@@ -86,7 +86,54 @@ export const volktekLayer3: VolktekCategory = {
             "Layer 3 Industrial TSN Switch — 8x 10/100/1000BASE-T RJ45 + 4x 100M/1G/10G SFP+",
           image: l3Managed8GT4XS,
           features: ["TSN", "L3", "10G SFP+", "-40~70°C", "IP30", "HSR/PRP"],
-          sourceUrl: "https://www.volktek.com/productdetail_en.php?id=1726",
+          sourceUrl: "https://www.volktek.com/productdetail/9561-8gt4xs-tsn.html",
+          details: {
+            overview:
+              "สวิตช์อุตสาหกรรม Layer 3 ที่ออกแบบมาเพื่อความเสถียรในสภาพแวดล้อมโรงงาน ให้พอร์ต 8x 10/100/1000Mbps RJ45 พร้อม Uplink 4x 100M/1G/10G SFP+ — รองรับ Time-Sensitive Networking (TSN) เต็มรูปแบบและ IEEE 1588v2 / 802.1AS-2020 (gPTP) สำหรับงาน Automation, SCADA, Smart Manufacturing ที่ต้องการการซิงค์เวลาแม่นยำระดับนาโนวินาที",
+            highlights: [
+              {
+                title: "Precision Timing & TSN ครบชุด",
+                desc: "รองรับ IEEE 802.1Qci/Qav/Qbv/Qbu, 802.1CB FRER, gPTP — ส่งข้อมูลแบบ deterministic เหมาะกับ Robot, PLC, Motion Control",
+              },
+              {
+                title: "Redundancy ระดับ Sub-millisecond",
+                desc: "G.8032, MRP (IEC-62439-2), HSR, PRP — กู้คืนเครือข่ายเร็ว ไม่กระทบสายการผลิต",
+              },
+              {
+                title: "Network Security ครบ",
+                desc: "802.1X, TACACS+, ACL, DHCP Snooping, ARP Inspection, BPDU/Root Guard, IP Source Guard",
+              },
+              {
+                title: "Layer 3 Routing & QoS",
+                desc: "Static Route, Inter-VLAN Routing, QinQ, IGMP Snooping, Storm Control, SPAN/RSPAN — ควบคุม bandwidth ละเอียด",
+              },
+            ],
+            ports: [
+              "8 x 10/100/1000BASE-T RJ45",
+              "4 x 100M/1G/10G SFP+ Slots",
+              "1 x RS232 Console Port",
+              "1 x USB Port",
+              "2 x pairs Dry Contact Digital Inputs (DI)",
+              "1 x Alarm Relay Digital Output (DO)",
+            ],
+            ledPanel: "PWR, RPS, ALM, POST, 1000, 10G, LNK/ACT",
+            power: {
+              input: "Primary 12~48VDC + Redundant 12~48VDC (Dual Input)",
+              consumption: "System: 19W",
+            },
+            environment: {
+              tempOperating: "-40°C ~ 70°C (-40°F ~ 158°F)",
+              tempStorage: "-40°C ~ 85°C (-40°F ~ 185°F)",
+              humidity: "5 ~ 95% RH (non-condensing)",
+              housing: "Aluminum (IP30 Protection)",
+            },
+            physical: {
+              weight: "1,590 g (3.51 lb)",
+              dimension: "80 x 160 x 140.3 mm (W x H x D)",
+            },
+            datasheetUrl:
+              "https://www.volktek.com/_i/assets/file/productdownload/ce45e139045fcc80f28ec219fa36ab04.pdf",
+          },
         },
       ],
     },
@@ -102,7 +149,55 @@ export const volktekLayer3: VolktekCategory = {
             "Layer 3 Industrial TSN PoE++ Switch — 8x 10/100/1000BASE-T btPoE RJ45 + 4x 100M/1G/10G SFP+",
           image: l3PoE8GP4XS,
           features: ["TSN", "L3", "btPoE 90W", "10G SFP+", "-40~70°C", "IP30"],
-          sourceUrl: "https://www.volktek.com/productdetail_en.php?id=1725",
+          sourceUrl: "https://www.volktek.com/productdetail/9561-8gp4xs-tsn.html",
+          details: {
+            overview:
+              "สวิตช์อุตสาหกรรม Layer 3 TSN พร้อม btPoE (IEEE 802.3bt) จ่ายไฟสูงสุด 90W ต่อพอร์ต — เหมาะกับกล้อง PTZ ความละเอียดสูง, AP Wi-Fi 6/7, จอแสดงผลอุตสาหกรรม โดยไม่ต้องเดินไฟแยก รองรับ Power Budget รวม 360W และ Per-Port Monitoring/Scheduling เพื่อจัดการพลังงานแบบยืดหยุ่น",
+            highlights: [
+              {
+                title: "btPoE 90W ต่อพอร์ต · 360W Total",
+                desc: "IEEE 802.3af/at/bt — Auto Power Class Detection, Priority, Power Scheduling จ่ายไฟอุปกรณ์ปลายทางได้เต็มประสิทธิภาพ",
+              },
+              {
+                title: "Precision Timing & TSN ครบชุด",
+                desc: "IEEE 802.1Qci/Qav/Qbv/Qbu, 802.1CB FRER, 802.1AS-2020 gPTP, IEEE 1588v2 — งาน Automation ที่ต้องซิงค์เวลาแม่นยำ",
+              },
+              {
+                title: "Redundancy & Reliability",
+                desc: "G.8032, MRP, HSR, PRP — เครือข่ายไม่หยุด แม้สาย/อุปกรณ์ขาดหาย กู้คืนระดับมิลลิวินาที",
+              },
+              {
+                title: "ทนอุตสาหกรรมหนัก",
+                desc: "Aluminum IP30, ทนสั่นสะเทือน/กระแทก, อุณหภูมิ -40°C ~ 70°C — ติดตั้งในโรงงาน, สถานี, กลางแจ้ง",
+              },
+            ],
+            ports: [
+              "8 x 10/100/1000BASE-T btPoE RJ45 (90W per port)",
+              "4 x 100M/1G/10G SFP+ Slots",
+              "1 x RS232 Console Port",
+              "1 x USB Port",
+              "2 x pairs Dry Contact Digital Inputs (DI)",
+              "1 x Alarm Relay Digital Output (DO)",
+            ],
+            ledPanel: "PWR, RPS, ALM, POST, 1000, 10G, LNK/ACT, PoE",
+            power: {
+              input: "Primary 48~57VDC + Redundant 48~57VDC (Dual Input)",
+              consumption: "System: 19W",
+              poeBudget: "PoE Power Budget: 360W (สูงสุด 90W ต่อพอร์ต)",
+            },
+            environment: {
+              tempOperating: "-40°C ~ 70°C (-40°F ~ 158°F)",
+              tempStorage: "-40°C ~ 85°C (-40°F ~ 185°F)",
+              humidity: "5 ~ 95% RH (non-condensing)",
+              housing: "Aluminum (IP30 Protection)",
+            },
+            physical: {
+              weight: "1,590 g (3.51 lb)",
+              dimension: "80 x 160 x 140.3 mm (W x H x D)",
+            },
+            datasheetUrl:
+              "https://www.volktek.com/_i/assets/file/productdownload/c4ff5692dd233f889ef4f756b2459979.pdf",
+          },
         },
       ],
     },
