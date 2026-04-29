@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Download, CheckCircle2, Cpu, Zap, ExternalLink, Maximize2, X, Shield, Sparkles, FileText, ArrowRight } from "lucide-react";
+import { Download, CheckCircle2, Cpu, Zap, ExternalLink, Maximize2, X, Shield, Sparkles, FileText, ArrowRight, ZoomIn, ZoomOut, ChevronLeft, ChevronRight, RotateCcw } from "lucide-react";
 import { Link } from "react-router-dom";
 import AddToCartButton from "@/components/AddToCartButton";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
@@ -431,34 +431,126 @@ const ProductDetailDialog = ({
         </div>
       </DialogContent>
 
-      {/* Lightbox for dimension images */}
+      {/* Lightbox with zoom & pan */}
       {lightbox && (
         <div
-          className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 animate-in fade-in"
+          className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center animate-in fade-in select-none"
           onClick={() => setLightbox(null)}
+          onWheel={(e) => {
+            e.preventDefault();
+            const delta = e.deltaY < 0 ? 0.2 : -0.2;
+            setZoom((z) => Math.min(5, Math.max(1, +(z + delta).toFixed(2))));
+          }}
         >
-          <button
-            type="button"
-            onClick={() => setLightbox(null)}
-            className="absolute top-4 right-4 inline-flex items-center justify-center w-10 h-10 rounded-full bg-background/20 hover:bg-background/40 text-white transition-colors"
-            aria-label="ปิด"
-          >
-            <X className="w-5 h-5" />
-          </button>
-          <a
-            href={lightbox}
-            download
+          {/* Top toolbar */}
+          <div
+            className="absolute top-4 right-4 flex items-center gap-2 z-10"
             onClick={(e) => e.stopPropagation()}
-            className="absolute top-4 right-16 inline-flex items-center gap-1.5 px-3 h-10 rounded-full bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity shadow-lg"
           >
-            <Download className="w-4 h-4" /> ดาวน์โหลด
-          </a>
-          <img
-            src={lightbox}
-            alt="Dimension preview"
-            className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+            <button
+              type="button"
+              onClick={() => setZoom((z) => Math.max(1, +(z - 0.5).toFixed(2)))}
+              disabled={zoom <= 1}
+              className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-background/20 hover:bg-background/40 disabled:opacity-40 disabled:cursor-not-allowed text-white transition-colors"
+              aria-label="ซูมออก"
+            >
+              <ZoomOut className="w-5 h-5" />
+            </button>
+            <div className="px-3 h-10 inline-flex items-center rounded-full bg-background/20 text-white text-xs font-semibold tabular-nums min-w-[60px] justify-center">
+              {Math.round(zoom * 100)}%
+            </div>
+            <button
+              type="button"
+              onClick={() => setZoom((z) => Math.min(5, +(z + 0.5).toFixed(2)))}
+              disabled={zoom >= 5}
+              className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-background/20 hover:bg-background/40 disabled:opacity-40 disabled:cursor-not-allowed text-white transition-colors"
+              aria-label="ซูมเข้า"
+            >
+              <ZoomIn className="w-5 h-5" />
+            </button>
+            <button
+              type="button"
+              onClick={() => { setZoom(1); setPan({ x: 0, y: 0 }); }}
+              className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-background/20 hover:bg-background/40 text-white transition-colors"
+              aria-label="รีเซ็ตซูม"
+            >
+              <RotateCcw className="w-5 h-5" />
+            </button>
+            <a
+              href={lightbox}
+              download
+              onClick={(e) => e.stopPropagation()}
+              className="inline-flex items-center gap-1.5 px-3 h-10 rounded-full bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity shadow-lg"
+            >
+              <Download className="w-4 h-4" /> ดาวน์โหลด
+            </a>
+            <button
+              type="button"
+              onClick={() => setLightbox(null)}
+              className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-background/20 hover:bg-background/40 text-white transition-colors"
+              aria-label="ปิด"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          {/* Prev / Next */}
+          {showLightboxNav && (
+            <>
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); goLightbox(-1); }}
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-10 inline-flex items-center justify-center w-12 h-12 rounded-full bg-background/20 hover:bg-background/40 text-white transition-colors"
+                aria-label="ภาพก่อนหน้า"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); goLightbox(1); }}
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-10 inline-flex items-center justify-center w-12 h-12 rounded-full bg-background/20 hover:bg-background/40 text-white transition-colors"
+                aria-label="ภาพถัดไป"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 px-3 py-1 rounded-full bg-background/20 text-white text-xs font-semibold">
+                {lightboxIndex + 1} / {gallery.length}
+              </div>
+            </>
+          )}
+
+          {/* Image with pan & zoom */}
+          <div
+            className="w-full h-full flex items-center justify-center overflow-hidden p-4"
             onClick={(e) => e.stopPropagation()}
-          />
+            onMouseDown={(e) => {
+              if (zoom <= 1) return;
+              setIsDragging(true);
+              setDragStart({ x: e.clientX - pan.x, y: e.clientY - pan.y });
+            }}
+            onMouseMove={(e) => {
+              if (!isDragging) return;
+              setPan({ x: e.clientX - dragStart.x, y: e.clientY - dragStart.y });
+            }}
+            onMouseUp={() => setIsDragging(false)}
+            onMouseLeave={() => setIsDragging(false)}
+            onDoubleClick={() => {
+              if (zoom === 1) setZoom(2);
+              else { setZoom(1); setPan({ x: 0, y: 0 }); }
+            }}
+            style={{ cursor: zoom > 1 ? (isDragging ? "grabbing" : "grab") : "zoom-in" }}
+          >
+            <img
+              src={lightbox}
+              alt="Product preview"
+              draggable={false}
+              className="max-w-full max-h-full object-contain rounded-lg shadow-2xl transition-transform"
+              style={{
+                transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
+                transitionDuration: isDragging ? "0ms" : "150ms",
+              }}
+            />
+          </div>
         </div>
       )}
     </Dialog>
