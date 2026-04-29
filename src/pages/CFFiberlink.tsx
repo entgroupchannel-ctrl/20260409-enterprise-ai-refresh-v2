@@ -46,6 +46,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import FooterCompact from "@/components/FooterCompact";
 import MiniNavbar from "@/components/MiniNavbar";
 import { cffiberlinkCatalog, getTempClass, type CFFiberlinkModel, type CFFiberlinkCategoryDef, type CFUseCase } from "@/data/cffiberlink-models";
+import { getCFPrice, formatTHB } from "@/data/cffiberlink-prices";
 import PowerSupplySection from "@/components/cffiberlink/PowerSupplySection";
 
 // แมป use case → icon + label สั้น (ภาษาไทย) สำหรับแสดงในการ์ด
@@ -677,6 +678,12 @@ const CFFiberlink = () => {
                       <div className="p-2 flex flex-col flex-1 gap-1">
                         <p className="font-mono text-xs text-foreground font-semibold leading-tight break-all">{m.model}</p>
                         <p className="text-[10px] text-muted-foreground leading-snug line-clamp-2">{m.ports}</p>
+                        {(() => {
+                          const price = getCFPrice(m.model);
+                          return price ? (
+                            <p className="font-mono text-xs font-bold text-primary leading-none">{formatTHB(price)}</p>
+                          ) : null;
+                        })()}
                         {/* Spotlight chips — จุดขาย PR เด่นของรุ่นนี้ (เฉพาะรุ่นที่มี) */}
                         {m.spotlight && m.spotlight.length > 0 && (
                           <div className="flex flex-wrap gap-1">
@@ -892,6 +899,15 @@ const CFFiberlink = () => {
                   )}
                 </div>
                 <div className="space-y-3">
+                  {(() => {
+                    const price = getCFPrice(selected.model.model);
+                    return price ? (
+                      <div className="rounded-lg border border-primary/30 bg-primary/5 px-3 py-2 flex items-baseline justify-between gap-2">
+                        <span className="text-[10px] uppercase tracking-wide text-muted-foreground font-semibold">ราคาขาย</span>
+                        <span className="font-mono text-xl font-bold text-primary leading-none">{formatTHB(price)}</span>
+                      </div>
+                    ) : null;
+                  })()}
                   <div>
                     <p className="text-[10px] uppercase tracking-wide text-muted-foreground font-semibold mb-1">พอร์ต</p>
                     <p className="text-sm text-foreground font-medium">{selected.model.ports}</p>
