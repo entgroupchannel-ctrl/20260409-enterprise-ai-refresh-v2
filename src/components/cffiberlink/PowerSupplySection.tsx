@@ -1,6 +1,6 @@
 import { Plug, Zap } from "lucide-react";
 import { cfPowerSupplyCatalog, voltageBadgeClass, type PowerSupplyModel, type PowerSeries } from "@/data/cffiberlink-power";
-import { getCFPrice, formatTHB } from "@/data/cffiberlink-prices";
+
 import sgdHeroImg from "@/assets/cffiberlink/power-sgd-hero.jpg";
 import lgdHeroImg from "@/assets/cffiberlink/power-lgd-hero.jpg";
 
