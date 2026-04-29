@@ -63,6 +63,7 @@ const BlogDetail = lazyRetry(() => import("./pages/BlogDetail"));
 const NotFound = lazyRetry(() => import("./pages/NotFound"));
 const ShopStorefront = lazyRetry(() => import("./pages/shop/ShopStorefront"));
 const ShopProductDetail = lazyRetry(() => import("./pages/shop/ShopProductDetail"));
+const ShopUpcDetail = lazyRetry(() => import("./pages/shop/ShopUpcDetail"));
 const ShopCompare = lazyRetry(() => import("./pages/shop/ShopCompare"));
 const ShopDisplays156 = lazyRetry(() => import("./pages/shop/ShopDisplays156"));
 const ShopDisplays215 = lazyRetry(() => import("./pages/shop/ShopDisplays215"));
@@ -402,6 +403,7 @@ const App = () => (
                     <Route path="/shop/jd156b" element={<ShopTouchworkJD156B />} />
                     <Route path="/shop/jd185b" element={<ShopTouchworkJD185B />} />
                     <Route path="/shop/jd215b" element={<ShopTouchworkJD215B />} />
+                    <Route path="/shop/upc/:model" element={<ShopUpcDetail />} />
                     <Route path="/shop/:slug" element={<ShopProductDetail />} />
                     <Route path="/unsubscribe" element={<Unsubscribe />} />
                     <Route path="/login" element={<Login />} />
