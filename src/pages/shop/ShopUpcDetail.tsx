@@ -117,7 +117,7 @@ export default function ShopUpcDetail({ modelOverride }: { modelOverride?: strin
     return (
       <div className="min-h-screen bg-background flex flex-col">
         <SiteNavbar />
-        <div className="container mx-auto px-4 py-20 text-center flex-1">
+        <div className="container max-w-7xl mx-auto px-4 py-20 text-center flex-1">
           <h1 className="text-2xl font-bold mb-2">ไม่พบรุ่นสินค้า</h1>
           <p className="text-muted-foreground mb-6">รุ่น "{effectiveParam}" ไม่อยู่ในรายการที่กำหนดสเปกได้</p>
           <Button onClick={() => navigate('/shop?series=UPC+Series')}>
@@ -231,7 +231,7 @@ export default function ShopUpcDetail({ modelOverride }: { modelOverride?: strin
         const storeHref = `/shop?series=${seriesParam}&q=${encodeURIComponent(pricing.model)}`;
         return (
           <div className="border-b border-border bg-muted/30">
-            <div className="container mx-auto px-4 py-3 text-sm text-muted-foreground flex items-center gap-2 flex-wrap">
+            <div className="container max-w-7xl mx-auto px-4 py-3 text-sm text-muted-foreground flex items-center gap-2 flex-wrap">
               <Link to="/shop" className="hover:text-primary">Shop</Link>
               <span>›</span>
               <Link to={`/shop?series=${seriesParam}`} className="hover:text-primary">{prefix} Series</Link>
@@ -251,7 +251,7 @@ export default function ShopUpcDetail({ modelOverride }: { modelOverride?: strin
       })()}
 
       {/* HERO */}
-      <section className="container mx-auto px-4 py-6 lg:py-10">
+      <section className="container max-w-7xl mx-auto px-4 py-6 lg:py-10">
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Gallery */}
           <div className="space-y-3">
@@ -346,7 +346,7 @@ export default function ShopUpcDetail({ modelOverride }: { modelOverride?: strin
       </section>
 
       {/* CONFIGURATOR + PRICE — 2 cols */}
-      <section id="configurator" className="container mx-auto px-4 py-6 lg:py-10 scroll-mt-20">
+      <section id="configurator" className="container max-w-7xl mx-auto px-4 py-6 lg:py-10 scroll-mt-20">
         <SectionHeader icon={Wrench} title="ปรับแต่งสเปก" subtitle="คำนวณราคาตามสเปกจริง — เพิ่มลงตะกร้าหรือขอใบเสนอราคาได้ทันที" />
 
         <div className="grid lg:grid-cols-3 gap-4">
@@ -572,7 +572,7 @@ export default function ShopUpcDetail({ modelOverride }: { modelOverride?: strin
 
       {/* I/O & Built-in Features */}
       {pricing.includedFeatures && (
-        <section className="container mx-auto px-4 py-6 lg:py-10">
+        <section className="container max-w-7xl mx-auto px-4 py-6 lg:py-10">
           <SectionHeader icon={Cable} title="Built-in I/O & Connectivity" subtitle="ฟีเจอร์ที่ติดตัวรุ่นนี้ — รวมในราคาแล้ว" />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {pricing.includedFeatures.map((f) => (
@@ -591,7 +591,7 @@ export default function ShopUpcDetail({ modelOverride }: { modelOverride?: strin
 
       {/* Full Specifications */}
       {detail?.specs && (
-        <section className="container mx-auto px-4 py-6 lg:py-10">
+        <section className="container max-w-7xl mx-auto px-4 py-6 lg:py-10">
           <SectionHeader icon={Package} title="ข้อมูลจำเพาะทั้งหมด" subtitle="Specifications สมบูรณ์ตามจริงจากผู้ผลิต" />
           <div className="grid md:grid-cols-2 gap-4">
             {detail.specs.map((group) => (
@@ -615,7 +615,7 @@ export default function ShopUpcDetail({ modelOverride }: { modelOverride?: strin
 
       {/* Selection Guide */}
       {detail?.selection && detail.selection.length > 0 && (
-        <section className="container mx-auto px-4 py-6 lg:py-10">
+        <section className="container max-w-7xl mx-auto px-4 py-6 lg:py-10">
           <SectionHeader icon={FileText} title="Selection Guide / Part Numbers" subtitle="รหัสสินค้าและสเปกพร้อมจัดส่ง" />
           <Card>
             <CardContent className="p-0 overflow-x-auto">
@@ -646,7 +646,7 @@ export default function ShopUpcDetail({ modelOverride }: { modelOverride?: strin
 
       {/* Related */}
       {related.length > 0 && (
-        <section className="container mx-auto px-4 py-6 lg:py-10">
+        <section className="container max-w-7xl mx-auto px-4 py-6 lg:py-10">
           <SectionHeader icon={Sparkles} title={`รุ่นอื่นใน ${tag} Series`} subtitle="สินค้าในตระกูลเดียวกันที่อาจเหมาะกับคุณ" />
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
             {related.map((r) => {
