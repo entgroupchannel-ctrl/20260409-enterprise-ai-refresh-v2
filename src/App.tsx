@@ -95,6 +95,11 @@ const ShopEpcW15X2A = lazyRetry(() => import("./pages/shop/ShopEpcW15X2A"));
 const ShopEpcW18X2A = lazyRetry(() => import("./pages/shop/ShopEpcW18X2A"));
 const ShopEpcW21X2A = lazyRetry(() => import("./pages/shop/ShopEpcW21X2A"));
 const ShopEpcW24X2A = lazyRetry(() => import("./pages/shop/ShopEpcW24X2A"));
+const ShopEpcS10X2A = lazyRetry(() => import("./pages/shop/ShopEpcS10X2A"));
+const ShopEpcS12X2A = lazyRetry(() => import("./pages/shop/ShopEpcS12X2A"));
+const ShopEpcS15X2A = lazyRetry(() => import("./pages/shop/ShopEpcS15X2A"));
+const ShopEpcS17X2A = lazyRetry(() => import("./pages/shop/ShopEpcS17X2A"));
+const ShopEpcS19X2A = lazyRetry(() => import("./pages/shop/ShopEpcS19X2A"));
 const ShopEpc10XA = lazyRetry(() => import("./pages/shop/ShopEpc10XA"));
 const ShopEpc20XA = lazyRetry(() => import("./pages/shop/ShopEpc20XA"));
 const ShopEpc30XA = lazyRetry(() => import("./pages/shop/ShopEpc30XA"));
@@ -418,6 +423,11 @@ const App = () => (
                     <Route path="/shop/epc-w18x2a" element={<ShopEpcW18X2A />} />
                     <Route path="/shop/epc-w21x2a" element={<ShopEpcW21X2A />} />
                     <Route path="/shop/epc-w24x2a" element={<ShopEpcW24X2A />} />
+                    <Route path="/shop/epc-s10x2a" element={<ShopEpcS10X2A />} />
+                    <Route path="/shop/epc-s12x2a" element={<ShopEpcS12X2A />} />
+                    <Route path="/shop/epc-s15x2a" element={<ShopEpcS15X2A />} />
+                    <Route path="/shop/epc-s17x2a" element={<ShopEpcS17X2A />} />
+                    <Route path="/shop/epc-s19x2a" element={<ShopEpcS19X2A />} />
                     <Route path="/shop/epc-10xa" element={<ShopEpc10XA />} />
                     <Route path="/shop/epc-20xa" element={<ShopEpc20XA />} />
                     <Route path="/shop/epc-30xa" element={<ShopEpc30XA />} />
