@@ -5,6 +5,7 @@ import SEOHead from "@/components/SEOHead";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import PageBanner from "@/components/PageBanner";
 import FooterCompact from "@/components/FooterCompact";
+import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
@@ -205,6 +206,8 @@ const Accessories = () => {
         backTo="/interactive-display"
         backLabel="กลับไปหน้า Interactive Display"
       />
+
+      <B2BWorkflowBanner variant="compact" />
 
       {/* Intro */}
       <section className="py-12 px-4 md:px-8">

@@ -21,6 +21,7 @@ import ProductJsonLd from "@/components/ProductJsonLd";
 import FooterCompact from "@/components/FooterCompact";
 import MiniNavbar from "@/components/MiniNavbar";
 import B2BCTABanner from "@/components/B2BCTABanner";
+import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import ShareButtons from "@/components/ShareButtons";
 import { handheldProducts, type HandheldProduct } from "@/data/rugged-handheld-products";
 
@@ -173,6 +174,8 @@ const Handheld = () => {
           </div>
         </div>
       </div>
+
+      <B2BWorkflowBanner variant="compact" />
 
       {/* Sticky Bar: Back + Quick Filters */}
       <MiniNavbar />

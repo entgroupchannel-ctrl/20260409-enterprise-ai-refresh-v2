@@ -10,6 +10,7 @@ import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import FooterCompact from "@/components/FooterCompact";
 import MiniNavbar from "@/components/MiniNavbar";
 import B2BCTABanner from "@/components/B2BCTABanner";
+import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -203,6 +204,8 @@ const AllInOnePC = () => {
           </div>
         </div>
       </div>
+
+      <B2BWorkflowBanner variant="compact" />
 
       {/* ── Sticky Bar: Quick Filters ── */}
       <div className="sticky top-14 z-40 bg-background/90 backdrop-blur-xl border-b border-border">

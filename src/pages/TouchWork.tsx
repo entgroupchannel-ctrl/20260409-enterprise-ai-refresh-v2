@@ -15,6 +15,7 @@ import UseCasesSection from "@/components/touchwork/UseCasesSection";
 
 
 import B2BMarketingShowcase from "@/components/B2BMarketingShowcase";
+import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import {
   touchworkProducts,
   archOptions,
@@ -208,6 +209,8 @@ export default function TouchWork() {
           </div>
         </div>
       </section>
+
+      <B2BWorkflowBanner variant="compact" />
 
       {/* Architecture explainer */}
       <section className="container max-w-7xl mx-auto px-6 py-12">

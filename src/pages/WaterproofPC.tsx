@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import FooterCompact from "@/components/FooterCompact";
 import MiniNavbar from "@/components/MiniNavbar";
+import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 
 const models = [
   {
@@ -208,6 +209,8 @@ const WaterproofPC = () => {
           </div>
         </div>
       </div>
+
+      <B2BWorkflowBanner variant="compact" />
 
       <div className="container max-w-7xl mx-auto px-4 py-10 space-y-16">
         {/* Features */}

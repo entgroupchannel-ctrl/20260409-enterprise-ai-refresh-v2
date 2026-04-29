@@ -7,6 +7,7 @@ import MiniNavbar from "@/components/MiniNavbar";
 import FooterCompact from "@/components/FooterCompact";
 import PartnerLogos from "@/components/PartnerLogos";
 import B2BCTABanner from "@/components/B2BCTABanner";
+import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import B2BMarketingShowcase from "@/components/B2BMarketingShowcase";
 import PriceDisclaimer from "@/components/PriceDisclaimer";
 import AddToCartButton from "@/components/AddToCartButton";
@@ -417,6 +418,8 @@ const UPCSeries = () => {
           </div>
         </div>
       </section>
+
+      <B2BWorkflowBanner variant="compact" />
 
       {/* Trust Badges */}
       <section className="bg-secondary/30 border-b border-border">
