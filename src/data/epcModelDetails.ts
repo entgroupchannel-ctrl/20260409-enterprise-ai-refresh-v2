@@ -1052,11 +1052,7 @@ export const epcModelDetails: Record<string, EpcModelDetail> = {
       { src: '/images/products/w24x2a/dimensions.png', alt: 'EPC-W24X2A Dimensions Drawing', caption: 'Dimensions: 589.3 × 361.2 × 75.1 mm • Cutout: 562.7 × 338.4 mm' },
       { src: '/images/products/w24x2a/io-labels-detail.png', alt: 'EPC-W24X2A I/O Layout Diagram — Bottom & Rear Ports', caption: 'I/O Layout — ด้านล่าง: Wi-Fi, COM1–5, USB1–2, On/Off · ด้านหลัง: HDMI, USB3–6, LAN1–2, Audio, VGA, COM1, DC IN, GND' },
     ],
-    gallery: [
-      { src: '/images/products/w24x2a/app-mes-factory.jpg', alt: 'EPC-W24X2A — MES Factory Application', caption: 'MES Industry — Factory Application Case' },
-      { src: '/images/products/w24x2a/app-medical.jpg', alt: 'EPC-W24X2A — Medical Tablet Application', caption: 'Medical Tablet PC Application' },
-      { src: '/images/products/w24x2a/app-power.jpg', alt: 'EPC-W24X2A — Power & Energy Application', caption: 'Power & Energy Substation Visualization' },
-    ],
+    gallery: [],
     selectionTable: [
       { no: '1', model: 'EPC-W2462A', partNumber: 'C11.01.01.001', cpu: 'Intel® Celeron® J1900', memory: '4GB', storage: 'mSATA SSD 128GB' },
       { no: '2', model: 'EPC-W2472A', partNumber: 'C11.01.05.001', cpu: 'Intel® Celeron® J6412', memory: '8GB', storage: 'mSATA SSD 256GB' },
