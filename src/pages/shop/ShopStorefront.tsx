@@ -74,8 +74,9 @@ interface Product {
   warranty_type?: string;
 }
 
-const PAGE_SIZE_OPTIONS = [50, 100, 200] as const;
+const PAGE_SIZE_OPTIONS = [50, 100, 200, 300, 0] as const; // 0 = ทั้งหมด
 const DEFAULT_PAGE_SIZE = 50;
+const pageSizeLabel = (n: number) => (n === 0 ? 'ทั้งหมด' : String(n));
 const COMPARE_KEY = 'shopCompareList';
 
 function fmt(n: number) { return n.toLocaleString('th-TH'); }
