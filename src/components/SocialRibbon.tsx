@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 const PEEK_STORAGE_KEY = "ent_social_ribbon_peeked_v1";
-const PEEK_DURATION_MS = 3000;
+const PEEK_DURATION_MS = 4000;
 import { Facebook, Instagram, Youtube, MessageCircle, Mail } from "lucide-react";
 import LineQRButton from "@/components/LineQRButton";
 

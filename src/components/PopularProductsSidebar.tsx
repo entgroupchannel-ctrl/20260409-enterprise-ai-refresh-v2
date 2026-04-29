@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ChevronDown, FileText, ShoppingBag } from "lucide-react";
 
 const PEEK_STORAGE_KEY = "ent_popular_sidebar_peeked_v1";
-const PEEK_DURATION_MS = 3000;
+const PEEK_DURATION_MS = 4000;
 
 const searchTags = [
   { label: "Mini PC สำนักงาน", href: "/mini-pc" },
