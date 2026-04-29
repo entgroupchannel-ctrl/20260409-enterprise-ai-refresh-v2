@@ -65,6 +65,7 @@ const NotFound = lazyRetry(() => import("./pages/NotFound"));
 const ShopStorefront = lazyRetry(() => import("./pages/shop/ShopStorefront"));
 const ShopProductDetail = lazyRetry(() => import("./pages/shop/ShopProductDetail"));
 const ShopUpcDetail = lazyRetry(() => import("./pages/shop/ShopUpcDetail"));
+const ShopIpctechQyU4000 = lazyRetry(() => import("./pages/shop/ShopIpctechQyU4000"));
 const ShopCompare = lazyRetry(() => import("./pages/shop/ShopCompare"));
 const ShopDisplays156 = lazyRetry(() => import("./pages/shop/ShopDisplays156"));
 const ShopDisplays215 = lazyRetry(() => import("./pages/shop/ShopDisplays215"));
@@ -421,6 +422,8 @@ const App = () => (
                     <Route path="/shop/jd185b" element={<ShopTouchworkJD185B />} />
                     <Route path="/shop/jd215b" element={<ShopTouchworkJD215B />} />
                     <Route path="/shop/upc/:model" element={<ShopUpcDetail />} />
+                    <Route path="/shop/ipctech/qy-u4000" element={<ShopIpctechQyU4000 />} />
+                    <Route path="/shop/ipctech/QY-U4000" element={<Navigate to="/shop/ipctech/qy-u4000" replace />} />
                     <Route path="/shop/epc-w13x2a" element={<ShopEpcW13X2A />} />
                     <Route path="/shop/epc-w15x2a" element={<ShopEpcW15X2A />} />
                     <Route path="/shop/epc-w18x2a" element={<ShopEpcW18X2A />} />
