@@ -102,17 +102,56 @@ const ProductDetailDialog = ({
         <div className="px-6 pb-6">
           <div className="grid md:grid-cols-2 gap-6 pt-4">
             {/* Gallery */}
-            <div>
-              <div className="aspect-[4/3] rounded-xl bg-secondary/40 border border-border overflow-hidden flex items-center justify-center p-4">
+            <div
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
+            >
+              <div className="relative aspect-[4/3] rounded-xl bg-secondary/40 border border-border overflow-hidden flex items-center justify-center p-4 group">
                 {gallery[activeImage] ? (
                   <img
+                    key={activeImage}
                     src={gallery[activeImage]}
                     alt={`${productName ?? productId} ${activeImage + 1}`}
-                    className="max-h-full max-w-full object-contain"
+                    className="max-h-full max-w-full object-contain animate-in fade-in zoom-in-95 duration-500"
                     loading="lazy"
                   />
                 ) : (
                   <div className="text-muted-foreground text-sm">ไม่มีรูป</div>
+                )}
+
+                {gallery.length > 1 && (
+                  <>
+                    {/* Image counter */}
+                    <div className="absolute top-2 right-2 inline-flex items-center gap-1 px-2 py-1 rounded-full bg-background/80 backdrop-blur border border-border text-[11px] font-semibold text-foreground">
+                      {activeImage + 1} / {gallery.length}
+                      {isPaused && <span className="text-muted-foreground ml-1">⏸</span>}
+                    </div>
+
+                    {/* Dot indicators */}
+                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5">
+                      {gallery.map((_, i) => (
+                        <button
+                          key={i}
+                          type="button"
+                          onClick={() => { setActiveImage(i); setProgress(0); }}
+                          aria-label={`ไปที่ภาพที่ ${i + 1}`}
+                          className={`h-1.5 rounded-full transition-all ${
+                            activeImage === i
+                              ? "w-6 bg-primary"
+                              : "w-1.5 bg-foreground/30 hover:bg-foreground/50"
+                          }`}
+                        />
+                      ))}
+                    </div>
+
+                    {/* Progress bar */}
+                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-border/40">
+                      <div
+                        className="h-full bg-primary transition-[width] duration-75 ease-linear"
+                        style={{ width: `${isPaused ? 0 : progress}%` }}
+                      />
+                    </div>
+                  </>
                 )}
               </div>
               {gallery.length > 1 && (
@@ -121,12 +160,15 @@ const ProductDetailDialog = ({
                     <button
                       key={i}
                       type="button"
-                      onClick={() => setActiveImage(i)}
-                      className={`aspect-square rounded-lg overflow-hidden border-2 bg-secondary/30 flex items-center justify-center p-1 transition-all ${
-                        activeImage === i ? "border-primary" : "border-border hover:border-primary/50"
+                      onClick={() => { setActiveImage(i); setProgress(0); }}
+                      className={`relative aspect-square rounded-lg overflow-hidden border-2 bg-secondary/30 flex items-center justify-center p-1 transition-all ${
+                        activeImage === i ? "border-primary ring-2 ring-primary/30" : "border-border hover:border-primary/50"
                       }`}
                     >
                       <img src={src} alt="" className="max-h-full max-w-full object-contain" loading="lazy" />
+                      {activeImage === i && (
+                        <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
+                      )}
                     </button>
                   ))}
                 </div>
