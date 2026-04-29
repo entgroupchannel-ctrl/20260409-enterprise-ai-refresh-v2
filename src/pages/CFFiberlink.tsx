@@ -52,6 +52,7 @@ import MiniNavbar from "@/components/MiniNavbar";
 import { cffiberlinkCatalog, getTempClass, type CFFiberlinkModel, type CFFiberlinkCategoryDef, type CFUseCase } from "@/data/cffiberlink-models";
 import { getCFPrice, formatTHB } from "@/data/cffiberlink-prices";
 import PowerSupplySection from "@/components/cffiberlink/PowerSupplySection";
+import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import heroBgFactory from "@/assets/cffiberlink/hero-cffiberlink-factory.jpg";
 
 // แมป use case → icon + label สั้น (ภาษาไทย) สำหรับแสดงในการ์ด
