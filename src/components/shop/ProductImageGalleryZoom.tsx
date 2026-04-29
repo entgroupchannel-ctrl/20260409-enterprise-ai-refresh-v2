@@ -30,6 +30,15 @@ export default function ProductImageGalleryZoom({ images, alt, enableZoom = true
   const prev = () => setActiveIndex(i => (i - 1 + validImages.length) % validImages.length);
   const next = () => setActiveIndex(i => (i + 1) % validImages.length);
 
+  // Autoplay
+  useEffect(() => {
+    if (validImages.length <= 1 || isPaused || isZooming) return;
+    const id = setInterval(() => {
+      setActiveIndex(i => (i + 1) % validImages.length);
+    }, 4000);
+    return () => clearInterval(id);
+  }, [validImages.length, isPaused, isZooming]);
+
   const isCurrentErrored = erroredImages.has(activeIndex);
 
   return (
