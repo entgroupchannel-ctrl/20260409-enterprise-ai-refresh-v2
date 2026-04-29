@@ -84,7 +84,7 @@ export const epcModelDetails: Record<string, EpcModelDetail> = {
     intro: 'EPC-W24X2A จอ 23.6" 16:9 Full HD ขนาดใหญ่สุดของซีรีส์ Wide — เหมาะกับ Control Room, Visualization, Andon Board และ Self-service Kiosk ระดับพรีเมียม',
     highlights: ['จอ 23.6" Full HD', 'P-CAP Touch 10 จุด', 'รองรับ VESA 100', 'รุ่นใหญ่สุดของ Wide Series'],
     specs: [{ label: 'Display', value: '23.6" 16:9 Full HD (1920×1080)' }, ...PANEL_COMMON_SPECS],
-    image: '/images/wix/0597a3_cfe6c90e6ba44ef3ba3a0aa5a698f32d_2b0c00e1.png',
+    image: '/images/products/epc-w24x2a.jpg',
     landingHref: '/epc-series#wide',
   },
   'epc-10xa': {
