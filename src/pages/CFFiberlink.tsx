@@ -475,7 +475,7 @@ const CFFiberlink = () => {
                       title={heroTempInfo.useCase}
                       className={`absolute bottom-2 right-2 inline-flex items-center gap-1 text-[10px] font-bold border rounded-full px-2 py-0.5 backdrop-blur-sm ${heroTempInfo.badgeClass}`}
                     >
-                      <span>{heroTempInfo.icon}</span>
+                      <heroTempInfo.icon className="w-3 h-3" />
                       <span className="font-mono">{heroRange}</span>
                     </span>
                   </div>
