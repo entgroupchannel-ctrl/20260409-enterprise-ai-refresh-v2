@@ -116,17 +116,66 @@ const features = [
   { icon: Shield, title: "IP40 + 6KV Lightning", desc: "ป้องกันฟ้าผ่า + EMC4 EMI ป้องกันไฟกระชาก" },
   { icon: Network, title: "ERPS Ring < 20ms", desc: "Ring Protocol ความเร็วระดับมิลลิวินาที ป้องกันเครือข่ายล่ม" },
   { icon: Server, title: "Dual Power Redundancy", desc: "ไฟสำรองคู่ AC+DC พร้อม PoE Self-healing" },
-  { icon: Cpu, title: "MTBF สูงสุด 35 ปี", desc: "อายุการใช้งานยาวนาน รับประกัน 5 ปี" },
+  { icon: Cpu, title: "MTBF สูงสุด 35 ปี", desc: "อายุการใช้งานยาวนาน รับประกัน 2 ปี จากโรงงาน" },
   { icon: Globe, title: "OEM/ODM Service", desc: "สั่งผลิตตามสเปก ปรับแต่งฟังก์ชันได้" },
 ];
 
-const industries = [
-  { icon: TrafficCone, label: "Smart Traffic / ITS", desc: "สัญญาณไฟจราจร ANPR กล้องตรวจจับความเร็ว" },
-  { icon: Camera, label: "Safe City / CCTV", desc: "ระบบกล้องวงจรปิดเมือง โรงเรียน หน่วยราชการ" },
-  { icon: Factory, label: "Smart Manufacturing", desc: "PLC / SCADA / MES ในโรงงาน 24/7" },
-  { icon: Zap, label: "Smart Grid / Power", desc: "Substation / โรงไฟฟ้า / Solar Farm" },
-  { icon: Train, label: "Rail Transit", desc: "รถไฟฟ้า / สถานี / ระบบสัญญาณ" },
-  { icon: Ship, label: "Marine & Petrochemical", desc: "ท่าเรือ ปิโตรเคมี เหมือง" },
+const industries: Array<{
+  icon: LucideIcon;
+  label: string;
+  desc: string;
+  image: string;
+  detail: string;
+  recommended: string[]; // model codes ที่แนะนำสำหรับงานนี้
+}> = [
+  {
+    icon: TrafficCone,
+    label: "Smart Traffic / ITS",
+    desc: "สัญญาณไฟจราจร ANPR กล้องตรวจจับความเร็ว",
+    image: "/cffiberlink/industry-traffic.jpg",
+    detail: "ติดตั้งในตู้ริมถนนที่ร้อน 60°C+ — ต้องการ ERPS Ring เพื่อกันไฟเบอร์ขาด, PoE จ่ายไฟกล้อง ANPR และ 6KV กันฟ้าผ่า",
+    recommended: ["CF-HY2008GP-SFP", "CF-HY4008GP-SFP", "CF-HY2004GP-SFP"],
+  },
+  {
+    icon: Camera,
+    label: "Safe City / CCTV",
+    desc: "ระบบกล้องวงจรปิดเมือง โรงเรียน หน่วยราชการ",
+    image: "/cffiberlink/industry-cctv.jpg",
+    detail: "Aggregation จากกล้อง IP หลายร้อยตัว ส่งกลับศูนย์ควบคุมผ่าน 10G Uplink — ใช้ PoE Switch หน้างาน + Core L3 ที่ห้อง NOC",
+    recommended: ["CF-PE2421G", "CF-SE2724G-B", "CF-HY4T8024GP-SFP+"],
+  },
+  {
+    icon: Factory,
+    label: "Smart Manufacturing",
+    desc: "PLC / SCADA / MES ในโรงงาน 24/7",
+    image: "/cffiberlink/industry-factory.jpg",
+    detail: "เครือข่าย OT ที่ห้ามล่ม — ERPS <20ms self-healing, DIN-Rail mount ในตู้คอนโทรล, รองรับ Modbus/Profinet ผ่าน VLAN แยก",
+    recommended: ["CF-HY8008G-SFP", "CF-HY4016G-SFP", "CF-HY4T8016G-SFP+"],
+  },
+  {
+    icon: Zap,
+    label: "Smart Grid / Power",
+    desc: "Substation / โรงไฟฟ้า / Solar Farm",
+    image: "/cffiberlink/industry-power.jpg",
+    detail: "L2+ ขั้นสูง ทนสนามแม่เหล็กไฟฟ้าสูงใน Substation — IPv4/IPv6 routing สำหรับ Solar Inverter หลายพันตัว",
+    recommended: ["CF-HY4008GV-SFP", "CF-HY8016GV-SFP", "CF-HY4024GV-SFP"],
+  },
+  {
+    icon: Train,
+    label: "Rail Transit",
+    desc: "รถไฟฟ้า / สถานี / ระบบสัญญาณ",
+    image: "/cffiberlink/industry-rail.jpg",
+    detail: "ระบบสื่อสารระหว่างขบวน-สถานี-ศูนย์ควบคุม — ทนสั่นสะเทือน, redundant power, ERPS Ring backbone ตามแนวราง",
+    recommended: ["CF-HY4T8016GP-SFP+", "CF-HY8016GVP-SFP", "CF-HY4C024GP-SFP"],
+  },
+  {
+    icon: Ship,
+    label: "Marine & Petrochemical",
+    desc: "ท่าเรือ ปิโตรเคมี เหมือง",
+    image: "/cffiberlink/industry-marine.jpg",
+    detail: "ทนเค็ม ทนไอกรด ทนฝุ่นเหมือง — L2+ VTS รองรับ Bypass Optical กันไฟดับ, ใช้ใน Loading Arm และ Pipeline Monitoring",
+    recommended: ["CF-HY4008GVP-SFP", "CF-HY2008GVP-SFP", "CF-HY8008GVP-SFP"],
+  },
 ];
 
 const allCatalogModels: CFFiberlinkModel[] = cffiberlinkCatalog.flatMap((c) => c.models);
