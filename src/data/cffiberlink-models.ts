@@ -143,6 +143,22 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
       { model: "CF-HY8016GP-SFP", ports: "16× GbE PoE + 8× SFP + 1× Console", switchingCapacity: "32 Gbps", packetRate: "23.8 Mpps", size: "174×148×69.5", poe: true, badge: "PoE+", image: IMG.smallPoE },
       { model: "CF-HY1608G-SFP", ports: "8× GbE RJ45 + 16× SFP + 1× Console", switchingCapacity: "32 Gbps", packetRate: "23.8 Mpps", size: "174×148×69.5", poe: false, badge: "16 SFP", image: IMG.midL2 },
       { model: "CF-HY1608GP-SFP", ports: "8× GbE PoE + 16× SFP + 1× Console", switchingCapacity: "32 Gbps", packetRate: "23.8 Mpps", size: "174×148×69.5", poe: true, badge: "16 SFP PoE", image: IMG.smallPoE },
+      // ⭐ Hero Pick — L2 Web Managed + Multimode Fiber 2km Built-in
+      {
+        model: "CFW-HY2024M-2",
+        ports: "4× GbE RJ45 + 2× SC Multimode 2km (Built-in)",
+        switchingCapacity: "12 Gbps",
+        packetRate: "8.92 Mpps",
+        size: "142×101×42 (DIN-Rail)",
+        poe: false,
+        badge: "Fiber 2km Built-in",
+        image: IMG.heroHY2024M2,
+        useCases: ["factory", "campus", "rail", "traffic"],
+        spotlight: ["Multimode SC 2km มากับเครื่อง", "Web Managed", "MSTP <50ms", "ไม่ต้องซื้อ SFP เพิ่ม"],
+        heroPick: true,
+        heroTitle: "L2 Web Managed + ใยแก้ว 2km",
+        heroPitch: "มาพร้อม Multimode SC fiber 2km จากโรงงาน — ไม่ต้องซื้อ SFP module เพิ่ม จัดการผ่าน Web ได้ทันที เหมาะอาคารหลายชั้นหรือเชื่อมตู้คอนโทรลข้ามอาคาร",
+      },
     ],
   },
 
