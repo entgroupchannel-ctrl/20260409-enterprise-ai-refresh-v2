@@ -648,11 +648,18 @@ const CFFiberlink = () => {
                     const cardRange = m.tempRange ?? cat.defaultTempRange;
                     const cardTempInfo = TEMP_INFO[getTempClass(cardRange)];
                     return (
-                    <button
+                    <div
                       key={m.model}
-                      type="button"
+                      role="button"
+                      tabIndex={0}
                       onClick={() => setSelected({ model: m, cat })}
-                      className="card-surface overflow-hidden flex flex-col text-left hover:border-primary/50 hover:-translate-y-0.5 transition-all"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          setSelected({ model: m, cat });
+                        }
+                      }}
+                      className="card-surface overflow-hidden flex flex-col text-left hover:border-primary/50 hover:-translate-y-0.5 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/40"
                     >
                       <div className="aspect-square overflow-hidden bg-muted relative">
                         <img
@@ -698,7 +705,7 @@ const CFFiberlink = () => {
                           </div>
                         )}
                         {/* Use case icons — บอกลูกค้าว่ารุ่นนี้เหมาะกับงานไหน */}
-                        <div className="flex flex-wrap gap-1 mt-auto pt-1 border-t border-border/40">
+                        <div className="flex flex-wrap gap-1 pt-1 border-t border-border/40">
                           {useCases.map((uc) => {
                             const meta = USE_CASE_META[uc];
                             const Icon = meta.icon;
@@ -714,8 +721,30 @@ const CFFiberlink = () => {
                             );
                           })}
                         </div>
+                        {/* Action buttons — หยิบใส่ตะกร้า / ขอใบเสนอราคา */}
+                        <div
+                          className="flex gap-1 mt-auto pt-1.5"
+                          onClick={(e) => e.stopPropagation()}
+                          onKeyDown={(e) => e.stopPropagation()}
+                        >
+                          <AddToCartButton
+                            productModel={m.model}
+                            productName={`CF Fiberlink ${m.model}`}
+                            productDescription={m.ports}
+                            size="sm"
+                            variant="outline"
+                            fullWidth
+                          />
+                          <QuoteRequestButton
+                            productModel={m.model}
+                            productName={`CF Fiberlink ${m.model}`}
+                            size="sm"
+                            variant="default"
+                            iconOnly
+                          />
+                        </div>
                       </div>
-                    </button>
+                    </div>
                     );
                   })}
                 </div>
