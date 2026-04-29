@@ -221,15 +221,31 @@ export default function ShopUpcDetail() {
       <SiteNavbar />
 
       {/* Breadcrumb */}
-      <div className="border-b border-border bg-muted/30">
-        <div className="container mx-auto px-4 py-3 text-sm text-muted-foreground flex items-center gap-2 flex-wrap">
-          <Link to="/shop" className="hover:text-primary">Shop</Link>
-          <span>›</span>
-          <Link to="/shop?series=UPC+Series" className="hover:text-primary">UPC / EPC / CTN Series</Link>
-          <span>›</span>
-          <span className="text-foreground font-medium">{pricing.model}</span>
-        </div>
-      </div>
+      {(() => {
+        // Resolve correct series filter based on model prefix (EPC/UPC/CTN)
+        const prefix = pricing.model.split('-')[0]?.toUpperCase() || 'UPC';
+        const seriesParam = `${prefix}+Series`;
+        const storeHref = `/shop?series=${seriesParam}&q=${encodeURIComponent(pricing.model)}`;
+        return (
+          <div className="border-b border-border bg-muted/30">
+            <div className="container mx-auto px-4 py-3 text-sm text-muted-foreground flex items-center gap-2 flex-wrap">
+              <Link to="/shop" className="hover:text-primary">Shop</Link>
+              <span>›</span>
+              <Link to={`/shop?series=${seriesParam}`} className="hover:text-primary">{prefix} Series</Link>
+              <span>›</span>
+              <span className="text-foreground font-medium">{pricing.model}</span>
+              <div className="ml-auto">
+                <Button asChild size="sm" variant="outline" className="h-8 gap-1.5">
+                  <Link to={storeHref}>
+                    <Package className="w-3.5 h-3.5" />
+                    ดูในร้านค้า
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
 
       {/* HERO */}
       <section className="container mx-auto px-4 py-6 lg:py-10">
