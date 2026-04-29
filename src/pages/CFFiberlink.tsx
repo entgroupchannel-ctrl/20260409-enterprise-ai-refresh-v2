@@ -347,7 +347,6 @@ const CFFiberlink = () => {
                   </Link>
                 </Button>
               </div>
-              </div>
             </div>
             <div className="card-surface overflow-hidden">
               <img
