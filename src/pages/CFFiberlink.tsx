@@ -102,8 +102,38 @@ const industries = [
 
 const allCatalogModels: CFFiberlinkModel[] = cffiberlinkCatalog.flatMap((c) => c.models);
 
+type PortFilter = "all" | "1-8" | "9-16" | "17-24" | "25+";
+type PoeFilter = "all" | "poe" | "no-poe";
+type FormFilter = "all" | "din" | "rack";
+
+const getPortCount = (ports: string): number => {
+  // Sum first 1-2 numeric tokens that look like port counts (e.g., "16× GbE PoE + 4× SFP")
+  const matches = ports.match(/(\d+)\s*[×x]/g) || [];
+  return matches.reduce((sum, t) => sum + parseInt(t, 10), 0);
+};
+
+const isRack = (size: string) => /rack/i.test(size);
+
 const CFFiberlink = () => {
   const [selected, setSelected] = useState<{ model: CFFiberlinkModel; cat: CFFiberlinkCategoryDef } | null>(null);
+  const [portFilter, setPortFilter] = useState<PortFilter>("all");
+  const [poeFilter, setPoeFilter] = useState<PoeFilter>("all");
+  const [formFilter, setFormFilter] = useState<FormFilter>("all");
+
+  const filterModel = (m: CFFiberlinkModel): boolean => {
+    if (poeFilter === "poe" && !m.poe) return false;
+    if (poeFilter === "no-poe" && m.poe) return false;
+    if (formFilter === "rack" && !isRack(m.size)) return false;
+    if (formFilter === "din" && isRack(m.size)) return false;
+    if (portFilter !== "all") {
+      const n = getPortCount(m.ports);
+      if (portFilter === "1-8" && !(n >= 1 && n <= 8)) return false;
+      if (portFilter === "9-16" && !(n >= 9 && n <= 16)) return false;
+      if (portFilter === "17-24" && !(n >= 17 && n <= 24)) return false;
+      if (portFilter === "25+" && !(n >= 25)) return false;
+    }
+    return true;
+  };
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
