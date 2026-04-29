@@ -203,6 +203,7 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
     th: "L3 Rack PoE — โรงแรม / โรงเรียน / ออฟฟิศ",
     desc: "L3 Managed PoE Switch ระดับ Campus — มี 10G Uplink, Dynamic Routing (RIP/OSPF), เหมาะ Access/Aggregation/Core ของโรงแรม โรงเรียน ออฟฟิศที่ต้องจ่ายไฟ AP/กล้อง จำนวนมาก",
     software: SW_L3,
+    defaultUseCases: ["hotel", "campus", "office", "cctv"],
     models: [
       { model: "CF-S5328X-4X8S16P", ports: "16× GbE PoE + 8× SFP + 4× 10G SFP+", switchingCapacity: "168 Gbps", packetRate: "78 Mpps", size: "Rack 1U (440×220×44)", poe: true, badge: "Campus 10G PoE", image: IMG.l3Poe },
       { model: "CF-S5328X-4X24P", ports: "24× GbE PoE + 4× 10G SFP+", switchingCapacity: "128 Gbps", packetRate: "95 Mpps", size: "Rack 1U (440×220×44)", poe: true, badge: "24P PoE + 10G", image: IMG.l3Poe },
