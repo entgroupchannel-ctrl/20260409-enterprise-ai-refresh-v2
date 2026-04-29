@@ -402,6 +402,9 @@ const Volktek = () => {
         {/* Phase 1 — Layer 3 detailed catalog (รุ่นจริงจากโรงงาน) */}
         <Layer3Section />
 
+        {/* Phase 3 — Industrial PoE Switches detailed catalog */}
+        <IndustrialPoeSection />
+
         {/* LAMUNGAN Platform — EMS spotlight */}
         <section className="card-surface overflow-hidden">
           <div className="grid grid-cols-1 md:grid-cols-5">
