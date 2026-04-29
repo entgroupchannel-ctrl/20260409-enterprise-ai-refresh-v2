@@ -788,7 +788,7 @@ const CFFiberlink = () => {
                     <div className="p-1.5 rounded-md bg-primary text-primary-foreground shrink-0 shadow-lg">
                       <ind.icon className="w-4 h-4" />
                     </div>
-                    <h3 className="font-display font-bold text-base text-foreground drop-shadow-sm">{ind.label}</h3>
+                    <h3 className="font-display font-bold text-base text-white drop-shadow-md">{ind.label}</h3>
                   </div>
                 </div>
                 <div className="p-4 flex flex-col flex-1 gap-3">
