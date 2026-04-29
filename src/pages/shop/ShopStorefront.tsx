@@ -1504,8 +1504,8 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
   const [imgSrc, setImgSrc] = useState<string>(p.thumbnail_url || p.image_url || '/placeholder.svg');
   const displayPrice = p.starting_price || p.unit_price;
   const bulkHint = Math.round(displayPrice * 0.93);
-  const detailHref = p.external_link || `/shop/${p.slug}`;
-  const rfqHref = p.external_link || `/shop/${p.slug}#rfq-form`;
+  const detailHref = p.external_link || detailHref;
+  const rfqHref = p.external_link || rfqHref;
 
   // Wishlist state — keep card UI in sync with localStorage
   const { wishlist } = useShopActivity();
@@ -1531,7 +1531,7 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
       <Card className="group hover:shadow-md hover:border-primary/30 transition-all border-border">
         <CardContent className="p-0">
           <div className="flex gap-0">
-            <Link to={`/shop/${p.slug}`} className="w-32 md:w-44 shrink-0 bg-white dark:bg-zinc-900 rounded-l-xl overflow-hidden border-r border-border">
+            <Link to={detailHref} className="w-32 md:w-44 shrink-0 bg-white dark:bg-zinc-900 rounded-l-xl overflow-hidden border-r border-border">
               <img
                 src={imgSrc}
                 alt={p.model}
@@ -1543,7 +1543,7 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
             <div className="flex-1 p-4 flex flex-col justify-between min-w-0">
               <div className="space-y-1">
                 <div className="flex items-start gap-2 flex-wrap">
-                  <Link to={`/shop/${p.slug}`}>
+                  <Link to={detailHref}>
                     <h3 className="font-bold text-base hover:text-primary transition-colors">{p.model}</h3>
                   </Link>
                   {isNew && <Badge className="text-[10px] bg-emerald-500 text-white">NEW</Badge>}
@@ -1580,10 +1580,10 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
                 </div>
                 <div className="flex gap-2 items-center">
                   <ChatNowButton productModel={p.model} productName={p.name} />
-                  <Link to={`/shop/${p.slug}#rfq-form`}>
+                  <Link to={rfqHref}>
                     <Button size="sm" variant="outline" className="text-xs"><FileSearch className="w-3.5 h-3.5 mr-1" /> RFQ</Button>
                   </Link>
-                  <Link to={`/shop/${p.slug}`}>
+                  <Link to={detailHref}>
                     <Button size="sm" className="text-xs">ดูสเปก</Button>
                   </Link>
                 </div>
@@ -1626,7 +1626,7 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
           )}
         </div>
 
-        <Link to={`/shop/${p.slug}`}>
+        <Link to={detailHref}>
           <div className="bg-white dark:bg-zinc-900 rounded-t-xl overflow-hidden border-b border-border/50 aspect-[4/3]">
             <img
               src={imgSrc}
@@ -1640,7 +1640,7 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
         <div className="p-3 space-y-2">
           <div>
             <div className="flex items-start justify-between gap-1">
-              <Link to={`/shop/${p.slug}`}>
+              <Link to={detailHref}>
                 <h3 className="font-bold text-sm hover:text-primary transition-colors leading-tight">{p.model}</h3>
               </Link>
               {p.series && <span className="text-[9px] bg-muted text-muted-foreground px-1.5 py-0.5 rounded shrink-0 font-mono">{p.series}</span>}
@@ -1680,10 +1680,10 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
           {/* CTA buttons */}
           <div className="flex gap-1.5 pt-0.5 items-center">
             <ChatNowButton productModel={p.model} productName={p.name} />
-            <Link to={`/shop/${p.slug}#rfq-form`} className="flex-1">
+            <Link to={rfqHref} className="flex-1">
               <Button size="sm" variant="outline" className="w-full text-xs h-8"><FileSearch className="w-3 h-3 mr-1" /> RFQ</Button>
             </Link>
-            <Link to={`/shop/${p.slug}`} className="flex-1">
+            <Link to={detailHref} className="flex-1">
               <Button size="sm" className="w-full text-xs h-8">ดูรายละเอียด</Button>
             </Link>
           </div>
