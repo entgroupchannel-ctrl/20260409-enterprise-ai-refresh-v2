@@ -152,12 +152,17 @@ const CFFiberlink = () => {
                 <Badge variant="outline" className="text-xs">MTBF 35Y</Badge>
                 <Badge variant="outline" className="text-xs">รับประกัน 5 ปี</Badge>
               </div>
-              <div className="flex gap-3">
+              <div className="flex flex-wrap gap-3">
                 <QuoteRequestButton
                   productModel="CF Fiberlink Switch"
                   productName="CF Fiberlink Industrial Switch"
                   size="default"
                 />
+                <Button variant="outline" asChild>
+                  <Link to="/shop">
+                    <ShoppingBag className="w-4 h-4 mr-1.5" /> เลือกซื้อสินค้าอื่นในร้าน
+                  </Link>
+                </Button>
                 <Button variant="outline" asChild>
                   <a href="https://www.cffiberlink.com/" target="_blank" rel="noopener noreferrer">
                     <ExternalLink className="w-4 h-4 mr-1.5" /> เว็บโรงงาน
