@@ -113,6 +113,22 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
     software: SW_L2,
     defaultUseCases: ["factory", "traffic", "rail", "mining"],
     models: [
+      // ⭐ Hero Pick — Entry Unmanaged DIN-Rail สำหรับงานเริ่มต้นโรงงาน
+      {
+        model: "CF-YE1005D",
+        ports: "5× 10/100M RJ45 (Unmanaged)",
+        switchingCapacity: "1 Gbps",
+        packetRate: "Wire-speed",
+        size: "116×86.5×32.5 (DIN-Rail)",
+        poe: false,
+        badge: "Entry Fanless",
+        image: IMG.heroYE1005D,
+        useCases: ["factory", "rail", "power", "mining"],
+        spotlight: ["MTBF 35 ปี", "Fanless / IP40", "DIN-Rail", "-40~75°C"],
+        heroPick: true,
+        heroTitle: "เริ่มต้นโรงงาน — Fanless DIN-Rail",
+        heroPitch: "5 พอร์ต Unmanaged สำหรับ PLC/Sensor — ทนความร้อน -40~75°C ไร้พัดลม MTBF สูงสุด 35 ปี ติดตั้งง่ายบนราง DIN",
+      },
       { model: "CF-HY2004G-SFP", ports: "4× GbE RJ45 + 2× SFP + 1× Console", switchingCapacity: "12 Gbps", packetRate: "8.93 Mpps", size: "172×144×54.5", poe: false, image: IMG.smallL2 },
       { model: "CF-HY2004GP-SFP", ports: "4× GbE PoE + 2× SFP + 1× Console", switchingCapacity: "12 Gbps", packetRate: "8.93 Mpps", size: "172×144×54.5", poe: true, badge: "PoE+", image: IMG.smallPoE },
       { model: "CF-HY2008G-SFP", ports: "8× GbE RJ45 + 2× SFP + 1× Console", switchingCapacity: "20 Gbps", packetRate: "14.88 Mpps", size: "172×144×54.5", poe: false, image: IMG.smallL2 },
