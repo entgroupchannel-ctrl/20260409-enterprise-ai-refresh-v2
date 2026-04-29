@@ -289,8 +289,8 @@ const windowsOptions = [
   { no: 3, product: "Windows 10 IOT", price: "฿3,950" },
   { no: 4, product: "Windows 11 IOT", price: "฿4,590" },
   { no: 5, product: "Upgrade จาก Wifi ABGN/AC > Wifi6", price: "Call" },
-  { no: 6, product: "4G Sim Card", price: "Call" },
-  { no: 7, product: "5G Sim Card", price: "Call" },
+  { no: 6, product: "4G Sim Card Module + SIM Slot", price: "฿5,900" },
+  { no: 7, product: "5G Sim Card Module + SIM Slot", price: "฿5,900" },
   { no: 8, product: "ซื้อประกันเพิ่ม ปีที่ 2", price: "15%" },
   { no: 9, product: "ซื้อประกันเพิ่ม ปีที่ 3", price: "20%" },
 ];
