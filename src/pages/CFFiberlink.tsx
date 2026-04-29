@@ -1155,6 +1155,11 @@ const CFFiberlink = () => {
         </DialogContent>
       </Dialog>
 
+      {/* B2B Platform mini banner — ตกแต่งท้ายเพจ */}
+      <div className="bg-gradient-to-b from-background via-primary/5 to-background border-y border-primary/10">
+        <B2BWorkflowBanner variant="compact" className="container max-w-7xl mx-auto px-4 py-6" />
+      </div>
+
       <FooterCompact />
     </div>
   );
