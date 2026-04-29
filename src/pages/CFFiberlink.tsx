@@ -46,6 +46,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import FooterCompact from "@/components/FooterCompact";
 import MiniNavbar from "@/components/MiniNavbar";
 import { cffiberlinkCatalog, getTempClass, type CFFiberlinkModel, type CFFiberlinkCategoryDef, type CFUseCase } from "@/data/cffiberlink-models";
+import PowerSupplySection from "@/components/cffiberlink/PowerSupplySection";
 
 // แมป use case → icon + label สั้น (ภาษาไทย) สำหรับแสดงในการ์ด
 const USE_CASE_META: Record<CFUseCase, { icon: LucideIcon; label: string }> = {
@@ -789,6 +790,9 @@ const CFFiberlink = () => {
           </div>
         </div>
       </div>
+
+      {/* Industrial Power Supply Section */}
+      <PowerSupplySection />
 
       {/* Product Detail Modal */}
       <Dialog open={!!selected} onOpenChange={(open) => !open && setSelected(null)}>
