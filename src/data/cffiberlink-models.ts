@@ -75,6 +75,12 @@ const IMG = {
   cctv4g: "/cffiberlink/cctv4g.jpg",
   cctv27: "/cffiberlink/cctv27.jpg",
   cctv27b: "/cffiberlink/cctv27b.jpg",
+  // Hero Picks — ภาพจริงของรุ่นเด่นจาก CDN ของโรงงาน
+  heroYE1005D: "/cffiberlink/hero-ye1005d.jpg",
+  heroPE204NT: "/cffiberlink/hero-pe204nt.jpg",
+  heroPE208N: "/cffiberlink/hero-pe208n.jpg",
+  heroHY2024M2: "/cffiberlink/hero-hy2024m2.jpg",
+  heroHY4T1608S: "/cffiberlink/hero-hy4t1608s.jpg",
 };
 
 const SW_L2 = [
