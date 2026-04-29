@@ -70,7 +70,16 @@ function Chip({ active, onClick, children }: { active: boolean; onClick: () => v
 const MODEL = 'QY-U4000';
 const CATEGORY = '4U Industrial Computer (Government Spec)';
 
-const GALLERY = [qyU4000Hero, qyU4000Dimensions];
+const GALLERY = [
+  qyU4000Hero,
+  qyU4000RealFront,
+  qyU4000RealTowerFront,
+  qyU4000RealRearIO,
+  qyU4000RealRearCloseup,
+  qyU4000RealRearFull,
+  qyU4000RealDoorOpen,
+  qyU4000Dimensions,
+];
 
 const INTRO =
   'QY-U4000 คือคอมพิวเตอร์อุตสาหกรรมระดับเรือธงจาก IPCTECH สำหรับงานโครงการภาครัฐและงานวางสเปกราชการโดยเฉพาะ ' +
