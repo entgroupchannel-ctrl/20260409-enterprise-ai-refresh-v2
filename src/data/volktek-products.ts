@@ -1054,7 +1054,53 @@ export const volktekIndustrialPoe: VolktekCategory = {
       title: "Managed PoE++",
       blurb: "PoE++ (90W) สำหรับกล้อง PTZ, AP กำลังสูง, อุปกรณ์โหลดหนัก",
       products: [
-        { model: "9060-4GP2GS", description: "4x PoE++ + 2x GbE SFP + 2x DI + Console — Managed Industrial", image: poe9060, features: ["PoE++ 90W", "Managed", "DI"], sourceUrl: detail(1678) },
+        {
+          model: "9060-4GP2GS",
+          description: "4x PoE++ + 2x GbE SFP + 2x DI + Console — Managed Industrial",
+          image: poe9060,
+          features: ["PoE++ 90W", "Managed", "DI"],
+          sourceUrl: detail(1678),
+          details: {
+            overview:
+              "9060-4GP2GS เป็น L2+ Managed Industrial PoE++ Switch ประสิทธิภาพสูง 4 พอร์ต 10/100/1000 GbE PoE++ (IEEE 802.3bt Type 3/4) downlink + 2 พอร์ต GbE SFP uplink พร้อม Digital Input 2 ช่องสำหรับเชื่อมต่อเซนเซอร์ ออกแบบมาสำหรับงาน IP Surveillance, Smart Lighting และ Smart City ที่ต้องการกำลังไฟสูง 60W/90W ต่อพอร์ต พร้อม Perpetual PoE และ Fast PoE จ่ายไฟต่อเนื่องแม้ระบบรีบูต รองรับ Modbus TCP, Console RJ45 + USB Port สำหรับอัปเกรดเฟิร์มแวร์/บันทึก log ไฟล์ ทนอุณหภูมิ -40°C~75°C เคส Aluminum IP30",
+            highlights: [
+              { title: "PoE++ 60/90W ต่อพอร์ต (802.3bt)", desc: "4 พอร์ต PoE Type 3/4 รองรับกล้อง PTZ, AP กำลังสูง, Smart Lighting" },
+              { title: "Power Budget 240W / 360W", desc: "เลือกได้ 2 รุ่นย่อย: 9060-4GP2GS-240W-I และ 9060-4GP2GS-360W-I" },
+              { title: "Perpetual & Fast PoE", desc: "จ่ายไฟต่อเนื่องไม่ขาดตอนแม้สวิตช์รีสตาร์ท เหมาะกับกล้องกลางแจ้งและไฟส่องสว่าง" },
+              { title: "Redundant Power + Alarm Relay", desc: "ไฟเข้าซ้ำซ้อน 48~57VDC + Relay 1A @ 24VDC แจ้งเตือนผ่าน Terminal Block" },
+              { title: "Console RJ45 + USB", desc: "USB ใช้บันทึก config, log files และอัปเกรดเฟิร์มแวร์ ลดเวลา downtime" },
+              { title: "Ring Protection", desc: "RSTP / ERPS / Xpress Ring กู้คืน sub-millisecond" },
+              { title: "Cybersecurity", desc: "TACACS+, RADIUS, RMON, 802.1X Port Authentication" },
+              { title: "Smart Topology Map", desc: "ค้นหาอุปกรณ์ third-party พร้อมแสดงสถานะ link แบบ tri-color" },
+              { title: "Industrial Grade", desc: "-40°C~75°C, IP30 Aluminum, DIN-Rail, UL Listed (-40°C~60°C)" },
+            ],
+            ports: [
+              "4 x 10/100/1000BASE-T (PoE RJ45, IEEE 802.3bt Type 3/4)",
+              "2 x GbE SFP Slots (uplink, fiber long-distance)",
+              "1 x RJ45 Console Port",
+              "1 x USB Port (firmware/config/log)",
+              "2 x Digital Input (Dry contacts)",
+              "DIP Switch: Primary/Redundant Power Voltage Drop Alarm",
+              "LED: PWR, RPS, ALM, POST, SFP, PoE, 1000M, LNK/ACT",
+            ],
+            power: {
+              input: "Primary 48~57VDC + Redundant 48~57VDC (Terminal Block)",
+              consumption: "System: 20W",
+              poeBudget: "240W (9060-4GP2GS-240W-I) หรือ 360W (9060-4GP2GS-360W-I) — 60/90W ต่อพอร์ต",
+            },
+            environment: {
+              tempOperating: "-40°C ~ 75°C (-40°F ~ 167°F)",
+              tempStorage: "-40°C ~ 85°C (-40°F ~ 185°F)",
+              humidity: "5 ~ 95% RH (non-condensing)",
+              housing: "Aluminum (IP30 Protection), DIN-Rail Mounting",
+            },
+            physical: {
+              weight: "970 g (2.14 lb)",
+              dimension: "50 x 161.5 x 119.9 mm (1.97 x 6.35 x 4.72 in)",
+            },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/65dcd3520347dc3afb09b807697fb371.pdf",
+          },
+        },
       ],
     },
     {
