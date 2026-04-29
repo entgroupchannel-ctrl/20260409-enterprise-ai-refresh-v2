@@ -258,16 +258,21 @@ const CFFiberlink = () => {
             ดึงสเปกจริงจากโรงงาน — แบ่งเป็น 3 หมวดตามระดับ Layer (L2 / L2+ / L3 10G) — คลิกที่รุ่นเพื่อดูสเปกและขอใบเสนอราคา
           </p>
 
-          <div className="space-y-10">
+          <Tabs defaultValue={cffiberlinkCatalog[0].id} className="w-full">
+            <TabsList className="w-full h-auto flex-wrap justify-start gap-1 bg-secondary/40 p-1">
+              {cffiberlinkCatalog.map((cat) => (
+                <TabsTrigger key={cat.id} value={cat.id} className="text-xs md:text-sm gap-2">
+                  {cat.title}
+                  <Badge variant="outline" className="text-[10px] px-1.5 py-0">{cat.models.length}</Badge>
+                </TabsTrigger>
+              ))}
+            </TabsList>
+
             {cffiberlinkCatalog.map((cat) => (
-              <div key={cat.id}>
-                <div className="flex items-baseline gap-3 mb-1 flex-wrap">
-                  <h3 className="text-lg font-display font-bold text-foreground">{cat.title}</h3>
-                  <Badge variant="outline" className="text-[10px]">{cat.models.length} รุ่น</Badge>
-                </div>
+              <TabsContent key={cat.id} value={cat.id} className="mt-6">
                 <p className="text-sm text-muted-foreground mb-4">{cat.desc}</p>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2.5">
                   {cat.models.map((m) => (
                     <button
                       key={m.model}
@@ -279,25 +284,25 @@ const CFFiberlink = () => {
                         <img
                           src={m.image}
                           alt={`CF Fiberlink ${m.model}`}
-                          className="w-full h-full object-contain p-2"
+                          className="w-full h-full object-contain p-1.5"
                           loading="lazy"
                         />
                         {m.badge && (
-                          <Badge className="absolute top-1.5 left-1.5 bg-primary/90 text-primary-foreground text-[9px] px-1.5 py-0">
+                          <Badge className="absolute top-1 left-1 bg-primary/90 text-primary-foreground text-[8px] px-1 py-0 leading-tight">
                             {m.badge}
                           </Badge>
                         )}
                       </div>
-                      <div className="p-2.5 flex flex-col flex-1">
-                        <p className="font-mono text-[11px] text-foreground font-semibold leading-tight mb-1">{m.model}</p>
-                        <p className="text-[10px] text-muted-foreground leading-snug line-clamp-2">{m.ports}</p>
+                      <div className="p-1.5 flex flex-col flex-1">
+                        <p className="font-mono text-[10px] text-foreground font-semibold leading-tight mb-0.5 break-all">{m.model}</p>
+                        <p className="text-[9px] text-muted-foreground leading-snug line-clamp-2">{m.ports}</p>
                       </div>
                     </button>
                   ))}
                 </div>
-              </div>
+              </TabsContent>
             ))}
-          </div>
+          </Tabs>
         </section>
 
         {/* Industries */}
