@@ -74,8 +74,9 @@ interface Product {
   warranty_type?: string;
 }
 
-const PAGE_SIZE_OPTIONS = [50, 100, 200] as const;
+const PAGE_SIZE_OPTIONS = [50, 100, 200, 300, 0] as const; // 0 = ทั้งหมด
 const DEFAULT_PAGE_SIZE = 50;
+const pageSizeLabel = (n: number) => (n === 0 ? 'ทั้งหมด' : String(n));
 const COMPARE_KEY = 'shopCompareList';
 
 function fmt(n: number) { return n.toLocaleString('th-TH'); }
@@ -918,8 +919,9 @@ const ShopStorefront = () => {
     return result;
   }, [products, search, seriesFilter, categoryFilter, sortBy, priceRange, cpuFilter, ramFilter, storageFilter]);
 
-  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
-  const paged = filtered.slice((page - 1) * pageSize, page * pageSize);
+  const effectivePageSize = pageSize === 0 ? Math.max(1, filtered.length) : pageSize;
+  const totalPages = Math.max(1, Math.ceil(filtered.length / effectivePageSize));
+  const paged = pageSize === 0 ? filtered : filtered.slice((page - 1) * pageSize, page * pageSize);
 
   const toggleCompare = (slug: string) => {
     let list = [...compareList];
@@ -1319,12 +1321,12 @@ const ShopStorefront = () => {
                   value={String(pageSize)}
                   onValueChange={(v) => { setPageSize(Number(v)); setPage(1); }}
                 >
-                  <SelectTrigger className="h-8 w-[90px]">
+                  <SelectTrigger className="h-8 w-[110px]">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
                     {PAGE_SIZE_OPTIONS.map((n) => (
-                      <SelectItem key={n} value={String(n)}>{n}</SelectItem>
+                      <SelectItem key={n} value={String(n)}>{pageSizeLabel(n)}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
