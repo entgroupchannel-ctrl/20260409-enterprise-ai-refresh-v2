@@ -184,7 +184,7 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
         packetRate: "8.92 Mpps",
         size: "142×101×42 (DIN-Rail)",
         poe: false,
-        badge: "Fiber 2km Built-in",
+        tempRange: "-40~75°C", // ยืนยันจาก scrape (working temp)
         image: IMG.heroHY2024M2,
         useCases: ["factory", "campus", "rail", "traffic"],
         spotlight: ["Multimode SC 2km มากับเครื่อง", "Web Managed", "MSTP <50ms", "ไม่ต้องซื้อ SFP เพิ่ม"],
