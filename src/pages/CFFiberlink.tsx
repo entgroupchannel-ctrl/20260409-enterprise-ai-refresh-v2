@@ -640,7 +640,7 @@ const CFFiberlink = () => {
                         }`}
                         title={c.v === "all" ? "แสดงทุกระดับอุณหภูมิ" : TEMP_INFO[c.v].useCase}
                       >
-                        <span className="mr-0.5">{c.emoji}</span>{c.label}
+                        <span className="inline-flex items-center gap-1"><c.icon className="w-3 h-3" />{c.label}</span>
                       </button>
                     ))}
                   </div>
