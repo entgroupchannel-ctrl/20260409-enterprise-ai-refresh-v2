@@ -299,12 +299,92 @@ const CFFiberlink = () => {
               ))}
             </TabsList>
 
-            {cffiberlinkCatalog.map((cat) => (
+            {cffiberlinkCatalog.map((cat) => {
+              const filtered = cat.models.filter(filterModel);
+              const portChips: { v: PortFilter; label: string }[] = [
+                { v: "all", label: "ทุกขนาด" },
+                { v: "1-8", label: "1-8 พอร์ต" },
+                { v: "9-16", label: "9-16 พอร์ต" },
+                { v: "17-24", label: "17-24 พอร์ต" },
+                { v: "25+", label: "25+ พอร์ต" },
+              ];
+              const poeChips: { v: PoeFilter; label: string }[] = [
+                { v: "all", label: "ทั้งหมด" },
+                { v: "poe", label: "PoE" },
+                { v: "no-poe", label: "Non-PoE" },
+              ];
+              const formChips: { v: FormFilter; label: string }[] = [
+                { v: "all", label: "ทุกแบบ" },
+                { v: "din", label: "DIN-Rail" },
+                { v: "rack", label: "Rack 1U" },
+              ];
+              return (
               <TabsContent key={cat.id} value={cat.id} className="mt-6">
                 <p className="text-sm text-muted-foreground mb-4">{cat.desc}</p>
 
+                {/* Chip Filters */}
+                <div className="flex flex-col gap-2 mb-4 p-3 rounded-lg bg-secondary/30 border border-border/50">
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <span className="text-[11px] font-semibold text-muted-foreground mr-1 min-w-[60px]">จำนวนพอร์ต:</span>
+                    {portChips.map((c) => (
+                      <button
+                        key={c.v}
+                        type="button"
+                        onClick={() => setPortFilter(c.v)}
+                        className={`text-[11px] px-2 py-0.5 rounded-full border transition-colors ${
+                          portFilter === c.v
+                            ? "bg-primary text-primary-foreground border-primary"
+                            : "bg-background text-foreground/70 border-border hover:border-primary/50"
+                        }`}
+                      >
+                        {c.label}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <span className="text-[11px] font-semibold text-muted-foreground mr-1 min-w-[60px]">PoE:</span>
+                    {poeChips.map((c) => (
+                      <button
+                        key={c.v}
+                        type="button"
+                        onClick={() => setPoeFilter(c.v)}
+                        className={`text-[11px] px-2 py-0.5 rounded-full border transition-colors ${
+                          poeFilter === c.v
+                            ? "bg-primary text-primary-foreground border-primary"
+                            : "bg-background text-foreground/70 border-border hover:border-primary/50"
+                        }`}
+                      >
+                        {c.label}
+                      </button>
+                    ))}
+                    <span className="text-[11px] font-semibold text-muted-foreground mx-1 ml-3 min-w-[55px]">รูปแบบ:</span>
+                    {formChips.map((c) => (
+                      <button
+                        key={c.v}
+                        type="button"
+                        onClick={() => setFormFilter(c.v)}
+                        className={`text-[11px] px-2 py-0.5 rounded-full border transition-colors ${
+                          formFilter === c.v
+                            ? "bg-primary text-primary-foreground border-primary"
+                            : "bg-background text-foreground/70 border-border hover:border-primary/50"
+                        }`}
+                      >
+                        {c.label}
+                      </button>
+                    ))}
+                    <span className="text-[11px] text-muted-foreground ml-auto">
+                      แสดง {filtered.length}/{cat.models.length} รุ่น
+                    </span>
+                  </div>
+                </div>
+
+                {filtered.length === 0 ? (
+                  <p className="text-sm text-muted-foreground text-center py-8">
+                    ไม่พบรุ่นที่ตรงกับเงื่อนไข — ลองปรับ filter
+                  </p>
+                ) : (
                 <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2.5">
-                  {cat.models.map((m) => (
+                  {filtered.map((m) => (
                     <button
                       key={m.model}
                       type="button"
@@ -331,8 +411,10 @@ const CFFiberlink = () => {
                     </button>
                   ))}
                 </div>
+                )}
               </TabsContent>
-            ))}
+              );
+            })}
           </Tabs>
         </section>
 
