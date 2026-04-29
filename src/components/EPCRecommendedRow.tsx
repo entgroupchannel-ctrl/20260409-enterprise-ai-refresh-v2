@@ -1,6 +1,16 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Cpu, ShoppingBag } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { epcModelDetails } from "@/data/epcModelDetails";
+
+// คืนค่า price range "เริ่มต้น ฿X,XXX" จาก configurator ของแต่ละรุ่น
+const fmtBaht = (n: number) => n.toLocaleString("en-US");
+const getPriceRange = (slug: string): { min: number; max: number } | null => {
+  const d = epcModelDetails[slug];
+  if (!d?.configurator?.cpus?.length) return null;
+  const prices = d.configurator.cpus.map((c) => c.basePrice);
+  return { min: Math.min(...prices), max: Math.max(...prices) };
+};
 
 // รุ่นแนะนำ 8 รุ่น: 4 EPC Panel PC (Wide) + 4 EPC Box Series
 // ใช้ข้อมูลตรงกับ src/pages/EPCSeries.tsx และ src/pages/EPCBoxSeries.tsx
@@ -110,6 +120,7 @@ const EPCRecommendedRow = () => {
             // Map row id (e.g. 'epc-w13') to shop detail slug (e.g. 'epc-w13x2a' / 'epc-10xa')
             const shopSlug = p.name.toLowerCase().replace(/\s+series$/, '');
             const shopHref = `/shop/${shopSlug}`;
+            const range = getPriceRange(shopSlug);
             return (
               <div
                 key={p.id}
@@ -140,6 +151,17 @@ const EPCRecommendedRow = () => {
                       {p.desc}
                     </p>
                   </Link>
+                  {range && (
+                    <div className="mt-1.5 flex items-baseline gap-1">
+                      <span className="text-[9px] text-muted-foreground">เริ่มต้น</span>
+                      <span className="text-xs font-bold text-primary leading-none">
+                        ฿{fmtBaht(range.min)}
+                      </span>
+                      <span className="text-[9px] text-muted-foreground">
+                        – ฿{fmtBaht(range.max)}
+                      </span>
+                    </div>
+                  )}
                   <div className="mt-2 flex items-center gap-2 text-[10px]">
                     <Link
                       to={p.href}
