@@ -1504,6 +1504,8 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
   const [imgSrc, setImgSrc] = useState<string>(p.thumbnail_url || p.image_url || '/placeholder.svg');
   const displayPrice = p.starting_price || p.unit_price;
   const bulkHint = Math.round(displayPrice * 0.93);
+  const detailHref = p.external_link || `/shop/${p.slug}`;
+  const rfqHref = p.external_link || `/shop/${p.slug}#rfq-form`;
 
   // Wishlist state — keep card UI in sync with localStorage
   const { wishlist } = useShopActivity();
