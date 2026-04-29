@@ -24,6 +24,7 @@ import {
 } from '@/data/upcPricing';
 import { upcSeriesDetails } from '@/data/upcSeriesDetails';
 import { upcDimensionImages } from '@/data/upcDimensionImages';
+import EpcXaUseCases from '@/components/shop/EpcXaUseCases';
 
 const fmt = (n: number) => n.toLocaleString('th-TH');
 
@@ -642,6 +643,11 @@ export default function ShopUpcDetail({ modelOverride }: { modelOverride?: strin
             </CardContent>
           </Card>
         </section>
+      )}
+
+      {/* Use Cases — เฉพาะ EPC-XA Series */}
+      {['epc-10xa','epc-20xa','epc-30xa','epc-40xa'].includes(detailKey) && (
+        <EpcXaUseCases model={pricing.model} />
       )}
 
       {/* Related */}
