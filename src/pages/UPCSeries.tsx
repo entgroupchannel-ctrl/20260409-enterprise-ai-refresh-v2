@@ -509,16 +509,16 @@ const UPCSeries = () => {
                     <Badge className="text-[10px] bg-foreground text-background border-0">ดูรายละเอียด</Badge>
                   </div>
                 </button>
-                <CardContent className="p-4 flex-1 flex flex-col">
+                <CardContent className="p-4 flex-1 flex flex-col bg-slate-900/40">
                   <button type="button" onClick={() => setSelected(m)} className="text-left flex-1">
-                    <h3 className="font-display font-bold text-lg text-foreground hover:text-primary transition-colors">{m.name}</h3>
-                    <p className="text-xs text-muted-foreground mt-0.5">{m.cpu}</p>
+                    <h3 className="font-display font-bold text-lg text-white hover:text-primary transition-colors">{m.name}</h3>
+                    <p className="text-xs text-slate-400 mt-0.5">{m.cpu}</p>
                     <div className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
                       <Zap className="w-3.5 h-3.5" /> {m.highlight}
                     </div>
-                    <p className="text-xs text-muted-foreground mt-2 leading-relaxed line-clamp-2">{m.feature}</p>
+                    <p className="text-xs text-slate-300 mt-2 leading-relaxed line-clamp-2">{m.feature}</p>
                   </button>
-                  <div className="mt-3 pt-3 border-t border-border flex items-center gap-2">
+                  <div className="mt-3 pt-3 border-t border-white/10 flex items-center gap-2">
                     <AddToCartButton
                       productModel={m.name}
                       productName={`${m.name} — ${m.highlight}`}
@@ -527,10 +527,10 @@ const UPCSeries = () => {
                       iconOnly
                       className="shrink-0"
                     />
-                    <Button variant="outline" size="sm" className="flex-1 h-8 text-xs" onClick={() => setSelected(m)}>
+                    <Button variant="outline" size="sm" className="flex-1 h-8 text-xs bg-transparent border-white/20 text-white hover:bg-white/10 hover:text-white" onClick={() => setSelected(m)}>
                       ดูสเปก
                     </Button>
-                    <Button asChild variant="ghost" size="sm" className="h-8 px-2 text-xs">
+                    <Button asChild variant="ghost" size="sm" className="h-8 px-2 text-xs text-slate-300 hover:bg-white/10 hover:text-white">
                       <a href={m.datasheet} target="_blank" rel="noreferrer" aria-label="Datasheet PDF">
                         <Download className="w-3.5 h-3.5" />
                       </a>
