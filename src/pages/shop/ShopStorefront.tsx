@@ -72,6 +72,7 @@ interface Product {
   starting_price?: number;
   warranty_months?: number;
   warranty_type?: string;
+  external_link?: string;
 }
 
 const PAGE_SIZE_OPTIONS = [50, 100, 200] as const;
@@ -866,7 +867,58 @@ const ShopStorefront = () => {
               warranty_type: 'carry-in',
             },
           ];
-          setProducts([...staticProducts, ...(enriched as Product[])]);
+
+          // ───── UPC / EPC / CTN Series (16 รุ่น) — link ไปหน้า /upc-series ─────
+          type UpcSeed = {
+            id: string; model: string; tag: 'UPC' | 'EPC' | 'CTN';
+            cpu: string; highlight: string; feature: string; image: string; popular?: boolean;
+          };
+          const upcSeeds: UpcSeed[] = [
+            { id: 'epc-102b', model: 'EPC-102B', tag: 'EPC', cpu: '12th Gen Intel® Core™', highlight: 'Smart Fan • 4×LAN', feature: 'เหมาะกับงาน Network Edge และ Gateway ที่ต้องการพอร์ต LAN หลายช่อง', image: '/upc-images/2025_12_EPC-102B.jpg', popular: true },
+            { id: 'ctn-102c', model: 'CTN-102C', tag: 'CTN', cpu: '12th Gen Intel® Core™', highlight: '2×HDMI with EDID', feature: 'Dual HDMI output รองรับ EDID emulation สำหรับงาน Digital Signage', image: '/upc-images/2025_12_EPC-102C.jpg' },
+            { id: 'epc-202b', model: 'EPC-202B', tag: 'EPC', cpu: '12th Gen Intel® Core™', highlight: '8× COM Port', feature: 'Multi-serial port สำหรับงานควบคุมอุปกรณ์อุตสาหกรรมจำนวนมาก', image: '/upc-images/2025_12_WechatIMG3926.png', popular: true },
+            { id: 'epc-207b', model: 'EPC-207B', tag: 'EPC', cpu: 'Intel® Celeron® J6412', highlight: 'DB37 Multi-Serial', feature: 'Serial port ขยายผ่าน DB37 — ประหยัดพื้นที่ติดตั้ง', image: '/upc-images/2025_12_EPC-207B.jpg' },
+            { id: 'epc-309e', model: 'EPC-309E', tag: 'EPC', cpu: '10th Gen Intel® Core™', highlight: '4× Intel LAN', feature: 'Quad Intel Ethernet สำหรับงาน Firewall / Routing / Edge Computing', image: '/upc-images/2025_12_EPC-309E.jpg' },
+            { id: 'epc-302b', model: 'EPC-302B', tag: 'EPC', cpu: '12th Gen Intel® Core™', highlight: 'Smart Fan • 5×LAN', feature: 'Performance สูง พร้อม 5 พอร์ต LAN สำหรับงาน Network-intensive', image: '/upc-images/2025_12_EPC-302B.jpg' },
+            { id: 'upc-302d', model: 'UPC-302D', tag: 'UPC', cpu: '12th Gen Intel® Core™', highlight: '9×USB • 2×LAN', feature: 'Multi-USB สำหรับเชื่อมต่ออุปกรณ์ต่อพ่วงจำนวนมาก เช่น Scanner, Printer', image: '/upc-images/2025_12_UPC-302D.jpg', popular: true },
+            { id: 'upc-108h', model: 'UPC-108H', tag: 'UPC', cpu: '7th Gen Intel® Core™', highlight: 'Battery 4000mAh', feature: 'มีแบตเตอรี่สำรองในตัว เหมาะกับงานที่ต้องการ UPS ฝังตัว', image: '/upc-images/2025_12_UPC-108H.jpg' },
+            { id: 'upc-206e', model: 'UPC-206E', tag: 'UPC', cpu: 'Intel® Celeron® J1900', highlight: 'CAN BUS', feature: 'รองรับ CAN BUS สำหรับงานควบคุมยานยนต์และเครื่องจักรอุตสาหกรรม', image: '/upc-images/2025_12_UPC-206E.jpg' },
+            { id: 'upc-206f', model: 'UPC-206F', tag: 'UPC', cpu: 'Intel® Celeron® J1900', highlight: 'SIM / TF Card', feature: 'รองรับ 4G SIM และ TF Card สำหรับงาน Mobile / Remote Site', image: '/upc-images/2025_12_UPC-206F.jpg' },
+            { id: 'upc-209b', model: 'UPC-209B', tag: 'UPC', cpu: '10th Gen Intel® Core™', highlight: 'DI/DO • MOD BUS', feature: '4×Line in / 8×Line out + Modbus สำหรับ Factory Automation', image: '/upc-images/2025_12_UPC-209B.jpg' },
+            { id: 'upc-309c', model: 'UPC-309C', tag: 'UPC', cpu: '10th Gen Intel® Core™', highlight: 'SIM / TF / 4G', feature: 'Performance สูง พร้อม 4G สำหรับงาน Outdoor และ Telecom', image: '/upc-images/2025_12_UPC-309C.jpg' },
+            { id: 'upc-309r', model: 'UPC-309R', tag: 'UPC', cpu: '10th Gen Intel® Core™', highlight: 'Redundant DC Power', feature: 'ไฟเลี้ยงสำรองคู่ — เหมาะกับงาน Mission-critical ที่ห้ามดับ', image: '/upc-images/2025_12_UPC-309R.jpg', popular: true },
+            { id: 'upc-302f', model: 'UPC-302F', tag: 'UPC', cpu: '12th Gen Intel® Core™', highlight: '14×USB • 2×LAN', feature: 'USB ขยายสูงสุดในซีรีส์ — สำหรับงาน Multi-device Hub', image: '/upc-images/2025_12_UPC-302D-1.jpg' },
+            { id: 'epc-302e', model: 'EPC-302E', tag: 'EPC', cpu: '12th Gen Intel® Core™', highlight: '5× Intel LAN', feature: '5 LAN ports + ประสิทธิภาพ Gen 12 สำหรับ Network Appliance', image: '/upc-images/2025_12_IMG_6256-1.jpg' },
+            { id: 'epc-302a-upc', model: 'EPC-302A', tag: 'EPC', cpu: '12th Gen Intel® Core™', highlight: 'GPIO 12V/24V', feature: 'GPIO สำหรับงานควบคุม Sensor และ Actuator แบบ Embedded', image: '/upc-images/2025_10_IMG_7514.jpg' },
+          ];
+          const upcStaticProducts: Product[] = upcSeeds.map((m) => ({
+            id: `static-upc-${m.id}`,
+            sku: `${m.model}-MODULAR`,
+            model: m.model,
+            series: `${m.tag} Series`,
+            name: `${m.model} — Modular Industrial PC (${m.highlight})`,
+            description: `${m.cpu} • ${m.highlight} — ${m.feature}`,
+            category: 'Industrial PC (Modular LEGO MODE™)',
+            cpu: m.cpu,
+            ram_gb: null,
+            storage_gb: null,
+            storage_type: null,
+            unit_price: 0,
+            unit_price_vat: null,
+            image_url: m.image,
+            thumbnail_url: m.image,
+            gallery_urls: null,
+            stock_status: 'rfq',
+            is_active: true,
+            slug: `upc-series#${m.id}`,
+            tags: ['new', 'modular', 'fanless', 'industrial-pc', m.tag.toLowerCase(), ...(m.popular ? ['popular'] : [])],
+            is_featured: !!m.popular,
+            warranty_months: 24,
+            warranty_type: 'carry-in',
+            external_link: `/upc-series#${m.id}`,
+          }));
+
+          setProducts([...staticProducts, ...upcStaticProducts, ...(enriched as Product[])]);
         } else {
           setProducts(data as Product[]);
         }
@@ -1452,6 +1504,8 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
   const [imgSrc, setImgSrc] = useState<string>(p.thumbnail_url || p.image_url || '/placeholder.svg');
   const displayPrice = p.starting_price || p.unit_price;
   const bulkHint = Math.round(displayPrice * 0.93);
+  const detailHref = p.external_link || `/shop/${p.slug}`;
+  const rfqHref = p.external_link || `/shop/${p.slug}#rfq-form`;
 
   // Wishlist state — keep card UI in sync with localStorage
   const { wishlist } = useShopActivity();
@@ -1477,7 +1531,7 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
       <Card className="group hover:shadow-md hover:border-primary/30 transition-all border-border">
         <CardContent className="p-0">
           <div className="flex gap-0">
-            <Link to={`/shop/${p.slug}`} className="w-32 md:w-44 shrink-0 bg-white dark:bg-zinc-900 rounded-l-xl overflow-hidden border-r border-border">
+            <Link to={detailHref} className="w-32 md:w-44 shrink-0 bg-white dark:bg-zinc-900 rounded-l-xl overflow-hidden border-r border-border">
               <img
                 src={imgSrc}
                 alt={p.model}
@@ -1489,7 +1543,7 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
             <div className="flex-1 p-4 flex flex-col justify-between min-w-0">
               <div className="space-y-1">
                 <div className="flex items-start gap-2 flex-wrap">
-                  <Link to={`/shop/${p.slug}`}>
+                  <Link to={detailHref}>
                     <h3 className="font-bold text-base hover:text-primary transition-colors">{p.model}</h3>
                   </Link>
                   {isNew && <Badge className="text-[10px] bg-emerald-500 text-white">NEW</Badge>}
@@ -1526,10 +1580,10 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
                 </div>
                 <div className="flex gap-2 items-center">
                   <ChatNowButton productModel={p.model} productName={p.name} />
-                  <Link to={`/shop/${p.slug}#rfq-form`}>
+                  <Link to={rfqHref}>
                     <Button size="sm" variant="outline" className="text-xs"><FileSearch className="w-3.5 h-3.5 mr-1" /> RFQ</Button>
                   </Link>
-                  <Link to={`/shop/${p.slug}`}>
+                  <Link to={detailHref}>
                     <Button size="sm" className="text-xs">ดูสเปก</Button>
                   </Link>
                 </div>
@@ -1572,7 +1626,7 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
           )}
         </div>
 
-        <Link to={`/shop/${p.slug}`}>
+        <Link to={detailHref}>
           <div className="bg-white dark:bg-zinc-900 rounded-t-xl overflow-hidden border-b border-border/50 aspect-[4/3]">
             <img
               src={imgSrc}
@@ -1586,7 +1640,7 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
         <div className="p-3 space-y-2">
           <div>
             <div className="flex items-start justify-between gap-1">
-              <Link to={`/shop/${p.slug}`}>
+              <Link to={detailHref}>
                 <h3 className="font-bold text-sm hover:text-primary transition-colors leading-tight">{p.model}</h3>
               </Link>
               {p.series && <span className="text-[9px] bg-muted text-muted-foreground px-1.5 py-0.5 rounded shrink-0 font-mono">{p.series}</span>}
@@ -1626,10 +1680,10 @@ function ProductCard({ product: p, viewMode, isComparing, onToggleCompare }: {
           {/* CTA buttons */}
           <div className="flex gap-1.5 pt-0.5 items-center">
             <ChatNowButton productModel={p.model} productName={p.name} />
-            <Link to={`/shop/${p.slug}#rfq-form`} className="flex-1">
+            <Link to={rfqHref} className="flex-1">
               <Button size="sm" variant="outline" className="w-full text-xs h-8"><FileSearch className="w-3 h-3 mr-1" /> RFQ</Button>
             </Link>
-            <Link to={`/shop/${p.slug}`} className="flex-1">
+            <Link to={detailHref} className="flex-1">
               <Button size="sm" className="w-full text-xs h-8">ดูรายละเอียด</Button>
             </Link>
           </div>
