@@ -118,7 +118,7 @@ export default function ShopUpcDetail({ modelOverride }: { modelOverride?: strin
         <SiteNavbar />
         <div className="container mx-auto px-4 py-20 text-center flex-1">
           <h1 className="text-2xl font-bold mb-2">ไม่พบรุ่นสินค้า</h1>
-          <p className="text-muted-foreground mb-6">รุ่น "{modelParam}" ไม่อยู่ในรายการที่กำหนดสเปกได้</p>
+          <p className="text-muted-foreground mb-6">รุ่น "{effectiveParam}" ไม่อยู่ในรายการที่กำหนดสเปกได้</p>
           <Button onClick={() => navigate('/shop?series=UPC+Series')}>
             <ArrowLeft className="w-4 h-4 mr-2" /> กลับไปหน้า Shop
           </Button>
