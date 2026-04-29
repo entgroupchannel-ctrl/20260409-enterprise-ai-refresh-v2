@@ -923,6 +923,37 @@ const ShopStorefront = () => {
   const totalPages = Math.max(1, Math.ceil(filtered.length / effectivePageSize));
   const paged = pageSize === 0 ? filtered : filtered.slice((page - 1) * pageSize, page * pageSize);
 
+  // ── Progressive rendering (infinite scroll within current page) ──
+  const INITIAL_VISIBLE = 12;
+  const VISIBLE_STEP = 12;
+  const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE);
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
+
+  // Reset when the underlying paged list changes (filters/sort/page/pageSize)
+  useEffect(() => {
+    setVisibleCount(INITIAL_VISIBLE);
+  }, [page, pageSize, search, seriesFilter, categoryFilter, sortBy, priceRange, cpuFilter, ramFilter, storageFilter]);
+
+  // Observe sentinel and load more chunks as user scrolls
+  useEffect(() => {
+    if (loading) return;
+    if (visibleCount >= paged.length) return;
+    const node = sentinelRef.current;
+    if (!node) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setVisibleCount((c) => Math.min(c + VISIBLE_STEP, paged.length));
+        }
+      },
+      { rootMargin: '600px 0px' }
+    );
+    io.observe(node);
+    return () => io.disconnect();
+  }, [loading, visibleCount, paged.length]);
+
+  const visibleItems = paged.slice(0, visibleCount);
+
   const toggleCompare = (slug: string) => {
     let list = [...compareList];
     if (list.includes(slug)) list = list.filter(s => s !== slug);
