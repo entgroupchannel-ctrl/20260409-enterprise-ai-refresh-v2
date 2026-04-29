@@ -38,7 +38,8 @@ export interface CFFiberlinkModel {
   poe: boolean;
   badge?: string;
   image: string;
-  useCases: CFUseCase[];
+  /** Override use cases ต่อรุ่น (optional) — ถ้าไม่ใส่จะใช้ default ของ category */
+  useCases?: CFUseCase[];
 }
 
 export interface CFFiberlinkCategoryDef {
