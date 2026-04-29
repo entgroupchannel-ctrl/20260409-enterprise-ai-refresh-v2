@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { ExternalLink, Layers, Network, Zap, Globe, Cable, Activity, Radio, Wifi, Shield, Cpu, ArrowRight } from "lucide-react";
+import { ExternalLink, Layers, Network, Zap, Globe, Cable, Activity, Radio, Wifi, Shield, Cpu, ArrowRight, Eye } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AddToCartButton from "@/components/AddToCartButton";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import VolktekProductDialog from "@/components/volktek/VolktekProductDialog";
 import {
   volktekLayer3,
   volktekIndustrialPoe,
@@ -14,6 +15,8 @@ import {
   volktekEmsNms,
   volktekSfp,
   type VolktekCategory,
+  type VolktekProduct,
+  type VolktekSubCategory,
 } from "@/data/volktek-products";
 
 type TabMeta = {
@@ -122,6 +125,14 @@ const totalModels = (cat?: VolktekCategory) =>
 const VolktekMegaCatalog = () => {
   const [activeTab, setActiveTab] = useState(TABS[0].id);
   const [activeSub, setActiveSub] = useState<Record<string, string>>({});
+  const [selected, setSelected] = useState<{
+    product: VolktekProduct;
+    sub: VolktekSubCategory;
+    catTitle: string;
+  } | null>(null);
+
+  const openProduct = (product: VolktekProduct, sub: VolktekSubCategory, catTitle: string) =>
+    setSelected({ product, sub, catTitle });
 
   return (
     <section id="catalog" className="scroll-mt-24">
@@ -224,57 +235,72 @@ const VolktekMegaCatalog = () => {
                             {sub.products.map((p) => (
                               <div
                                 key={p.model}
-                                className="rounded-xl border border-border bg-background/40 overflow-hidden hover:border-primary/40 transition-colors group"
+                                className="rounded-xl border border-border bg-background/40 overflow-hidden hover:border-primary/40 hover:-translate-y-0.5 transition-all group flex flex-col"
                               >
-                                <div className="aspect-[4/3] bg-muted/30 flex items-center justify-center overflow-hidden">
-                                  <img
-                                    src={p.image}
-                                    alt={p.model}
-                                    loading="lazy"
-                                    className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
-                                  />
-                                </div>
-                                <div className="p-4">
-                                  <div className="font-mono text-sm font-bold text-foreground mb-1.5">
-                                    {p.model}
-                                  </div>
-                                  <p className="text-xs text-muted-foreground mb-3 leading-relaxed line-clamp-3">
-                                    {p.description}
-                                  </p>
-
-                                  <div className="flex flex-wrap gap-1 mb-3">
-                                    {p.features.map((f) => (
-                                      <span
-                                        key={f}
-                                        className="text-[10px] font-semibold px-1.5 py-0.5 rounded-md bg-primary/10 text-primary border border-primary/20"
-                                      >
-                                        {f}
+                                <button
+                                  type="button"
+                                  onClick={() => openProduct(p, sub, t.title)}
+                                  className="text-left flex-1 flex flex-col cursor-pointer"
+                                  aria-label={`ดูรายละเอียด ${p.model}`}
+                                >
+                                  <div className="aspect-[4/3] bg-muted/30 flex items-center justify-center overflow-hidden relative">
+                                    <img
+                                      src={p.image}
+                                      alt={p.model}
+                                      loading="lazy"
+                                      className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+                                    />
+                                    {p.details && (
+                                      <span className="absolute top-2 right-2 inline-flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-md bg-primary text-primary-foreground shadow-sm">
+                                        <Eye className="w-2.5 h-2.5" /> Detail
                                       </span>
-                                    ))}
+                                    )}
                                   </div>
+                                  <div className="p-4 flex-1 flex flex-col">
+                                    <div className="font-mono text-sm font-bold text-foreground mb-1.5 group-hover:text-primary transition-colors">
+                                      {p.model}
+                                    </div>
+                                    <p className="text-xs text-muted-foreground mb-3 leading-relaxed line-clamp-3">
+                                      {p.description}
+                                    </p>
 
-                                  <div className="flex gap-1.5 pt-3 border-t border-border">
-                                    <AddToCartButton
-                                      productModel={p.model}
-                                      productName={`Volktek ${p.model}`}
-                                      productDescription={p.description}
-                                      size="sm"
-                                      variant="outline"
-                                      iconOnly
-                                    />
-                                    <QuoteRequestButton
-                                      productModel={p.model}
-                                      productName={`Volktek ${p.model}`}
-                                      size="sm"
-                                      variant="outline"
-                                      iconOnly
-                                    />
-                                    <Button variant="ghost" size="sm" asChild className="ml-auto text-xs h-8">
-                                      <a href={p.sourceUrl} target="_blank" rel="noopener noreferrer">
-                                        ดู <ArrowRight className="w-3 h-3 ml-1" />
-                                      </a>
-                                    </Button>
+                                    <div className="flex flex-wrap gap-1 mb-3 mt-auto">
+                                      {p.features.map((f) => (
+                                        <span
+                                          key={f}
+                                          className="text-[10px] font-semibold px-1.5 py-0.5 rounded-md bg-primary/10 text-primary border border-primary/20"
+                                        >
+                                          {f}
+                                        </span>
+                                      ))}
+                                    </div>
                                   </div>
+                                </button>
+
+                                <div className="flex gap-1.5 px-4 pb-4 pt-3 border-t border-border">
+                                  <AddToCartButton
+                                    productModel={p.model}
+                                    productName={`Volktek ${p.model}`}
+                                    productDescription={p.description}
+                                    size="sm"
+                                    variant="outline"
+                                    iconOnly
+                                  />
+                                  <QuoteRequestButton
+                                    productModel={p.model}
+                                    productName={`Volktek ${p.model}`}
+                                    size="sm"
+                                    variant="outline"
+                                    iconOnly
+                                  />
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    onClick={() => openProduct(p, sub, t.title)}
+                                    className="ml-auto text-xs h-8"
+                                  >
+                                    ดูรายละเอียด <ArrowRight className="w-3 h-3 ml-1" />
+                                  </Button>
                                 </div>
                               </div>
                             ))}
