@@ -547,9 +547,9 @@ const UPCSeries = () => {
           <div className="mt-10">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-4">
               <div>
-                <Badge variant="outline" className="mb-2">Quick Compare</Badge>
-                <h3 className="text-xl md:text-2xl font-display font-bold">ตารางสรุปราคาทุกรุ่น</h3>
-                <p className="text-sm text-muted-foreground mt-1">เปรียบเทียบราคาเริ่มต้นและฟีเจอร์ — กดไอคอนเพื่อหยิบใส่ตะกร้าหรือขอใบเสนอราคาทันที</p>
+                <Badge variant="outline" className="mb-2 border-primary/40 text-primary bg-primary/10">Quick Compare</Badge>
+                <h3 className="text-xl md:text-2xl font-display font-bold text-white">ตารางสรุปราคาทุกรุ่น</h3>
+                <p className="text-sm text-slate-300 mt-1">เปรียบเทียบราคาเริ่มต้นและฟีเจอร์ — กดไอคอนเพื่อหยิบใส่ตะกร้าหรือขอใบเสนอราคาทันที</p>
               </div>
             </div>
             <UpcPricingTable models={filtered} onViewDetail={(m) => setSelected(m)} />
