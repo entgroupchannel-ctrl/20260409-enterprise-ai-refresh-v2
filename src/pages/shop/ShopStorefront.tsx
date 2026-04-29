@@ -953,12 +953,12 @@ const ShopStorefront = () => {
             gallery_urls: null,
             stock_status: 'rfq',
             is_active: true,
-            slug: m.href.replace(/^\//, ''),
+            slug: m.id, // 'epc-w15x2a' etc.
             tags: ['fanless', 'industrial-pc', m.series === 'EPC Panel PC' ? 'panel-pc' : 'box-pc', ...(m.popular ? ['popular'] : [])],
             is_featured: !!m.popular,
             warranty_months: 12,
             warranty_type: 'carry-in',
-            external_link: m.href,
+            external_link: `/shop/${m.id}`,
           }));
 
           setProducts([...staticProducts, ...upcStaticProducts, ...panelBoxStaticProducts, ...(enriched as Product[])]);
