@@ -72,6 +72,7 @@ interface Product {
   starting_price?: number;
   warranty_months?: number;
   warranty_type?: string;
+  external_link?: string;
 }
 
 const PAGE_SIZE_OPTIONS = [50, 100, 200] as const;
