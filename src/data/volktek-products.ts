@@ -1108,7 +1108,52 @@ export const volktekIndustrialPoe: VolktekCategory = {
       title: "DNV & LR Certified PoE+",
       blurb: "ผ่านการรับรอง DNV / Lloyd's Register สำหรับงานทางทะเลและโรงงานบนเรือ",
       products: [
-        { model: "SEN-9648PM-24V", description: "8x PoE+ + 4x GbE SFP — Managed, DNV Marine Approval", image: poeSen9648PM, features: ["DNV Marine", "Managed", "Fiber"], sourceUrl: detail(1654) },
+        {
+          model: "SEN-9648PM-24V",
+          description: "8x PoE+ + 4x GbE SFP — Managed, DNV Marine Approval",
+          image: poeSen9648PM,
+          features: ["DNV Marine", "Managed", "Fiber"],
+          sourceUrl: detail(1654),
+          details: {
+            overview:
+              "SEN-9648PM-24V เป็น L2 Managed Industrial PoE+ Switch 8 พอร์ต 10/100/1000 PoE+ downlink + 4 พอร์ต GbE SFP uplink ออกแบบเฉพาะสำหรับงาน Marine ที่ผ่านมาตรฐาน DNV Marine Approval และ Lloyd's Register Group Approval รองรับ Wide Input 24~57VDC เหมาะกับเรือที่มีระบบไฟหลากหลาย ทนการสั่นสะเทือน, การกระแทก, free-fall และอุณหภูมิ -40°C~75°C เคส Aluminum IP30 พร้อม Console RJ45 + USB Port สำหรับอัปเกรดเฟิร์มแวร์/บันทึก log files รองรับ EIP, PROFINET และ GOOSE packet prioritization สำหรับงานอุตสาหกรรม",
+            highlights: [
+              { title: "DNV Marine + LR Approval", desc: "ผ่าน DNV-CS-0339:2016, DNV-RU-SHIP-Pt4Ch9:2018, IEC-60945, IACS E10, LR ENV1/ENV2/ENV3" },
+              { title: "PoE+ 30W ต่อพอร์ต (802.3at)", desc: "8 พอร์ต PSE จ่ายไฟอุปกรณ์ Marine surveillance/communication" },
+              { title: "Power Budget 124W@24VDC / 240W@48VDC", desc: "ปรับได้ตามแรงดันไฟเข้าบนเรือ" },
+              { title: "Wide Input 24~57VDC", desc: "เหมาะกับระบบไฟหลายระดับบนเรือโดยไม่ต้องติดตั้ง outlet เพิ่ม" },
+              { title: "Redundant Power + Alarm Relay", desc: "ไฟเข้าซ้ำซ้อน + Relay 1A @ 24VDC แจ้งเตือนผ่าน Terminal Block" },
+              { title: "Industrial Protocol Prioritization", desc: "EtherNet/IP, PROFINET, GOOSE packet ผ่าน QoS" },
+              { title: "Console RJ45 + USB", desc: "USB ใช้บันทึก config, log files และอัปเกรดเฟิร์มแวร์ ลด downtime" },
+              { title: "Smart Topology Map + Cybersecurity", desc: "ค้นหาอุปกรณ์ third-party + รองรับ TACACS+/RADIUS/802.1X" },
+              { title: "ทนสภาพแวดล้อม Marine", desc: "Shock IEC 60068-2-27, Vibration IEC 60068-2-6, Free-fall IEC 60068-2-32" },
+            ],
+            ports: [
+              "8 x 10/100/1000BASE-T (PoE RJ45, IEEE 802.3at)",
+              "4 x GbE SFP Slots (uplink, fiber long-distance)",
+              "1 x RJ45 Console Port",
+              "1 x USB Port (firmware/config/log)",
+              "DIP Switch: Primary/Redundant Power Voltage Drop Alarm",
+              "LED: PWR, RPS, ALM, POST, PoE, 1000, LNK/ACT",
+            ],
+            power: {
+              input: "Primary 24~57VDC + Redundant 24~57VDC (Terminal Block)",
+              consumption: "System: 18W",
+              poeBudget: "124W @ 24VDC หรือ 240W @ 48VDC (PoE+ 30W ต่อพอร์ต)",
+            },
+            environment: {
+              tempOperating: "-40°C ~ 75°C (-40°F ~ 167°F) — DNV Class D: -25°C ~ 70°C",
+              tempStorage: "-40°C ~ 85°C (-40°F ~ 185°F)",
+              humidity: "5 ~ 95% RH (non-condensing)",
+              housing: "Aluminum (IP30 Protection), DIN-Rail Mounting",
+            },
+            physical: {
+              weight: "955 g (2.1 lb)",
+              dimension: "50 x 161.5 x 119.9 mm (1.97 x 6.35 x 4.72 in)",
+            },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/b9dd4d9f2eafe4cd206c184ebd0783bb.pdf",
+          },
+        },
       ],
     },
     {
