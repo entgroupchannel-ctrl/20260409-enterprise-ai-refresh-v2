@@ -11,6 +11,24 @@
 
 export type CFFiberlinkCategory = "l2-rtl" | "l2-vts" | "l3-10g" | "cctv-poe" | "rack-poe";
 
+/** Use case tag — แมปกับ Lucide icon ในหน้า component */
+export type CFUseCase =
+  | "cctv"        // กล้องวงจรปิด
+  | "wifi-ap"     // Wireless AP
+  | "factory"     // โรงงาน / PLC / SCADA
+  | "rail"        // รถไฟฟ้า / ระบบราง
+  | "traffic"     // Smart Traffic / ITS
+  | "power"       // Smart Grid / Substation
+  | "petrochem"   // ปิโตรเคมี / น้ำมัน
+  | "mining"      // เหมือง
+  | "marine"      // ท่าเรือ / Marine
+  | "smart-city"  // Smart City Backbone
+  | "campus"      // โรงเรียน / มหาวิทยาลัย
+  | "hotel"       // โรงแรม / รีสอร์ท
+  | "office"      // ออฟฟิศ / Enterprise
+  | "smb"         // SMB / ร้านค้า
+  | "green";      // พลังงานสะอาด / Solar
+
 export interface CFFiberlinkModel {
   model: string;
   ports: string;
@@ -20,6 +38,8 @@ export interface CFFiberlinkModel {
   poe: boolean;
   badge?: string;
   image: string;
+  /** Override use cases ต่อรุ่น (optional) — ถ้าไม่ใส่จะใช้ default ของ category */
+  useCases?: CFUseCase[];
 }
 
 export interface CFFiberlinkCategoryDef {
@@ -28,6 +48,8 @@ export interface CFFiberlinkCategoryDef {
   th: string;
   desc: string;
   software: string[];
+  /** Use cases เริ่มต้นของหมวด — model ที่ไม่ใส่ useCases เองจะใช้ค่านี้ */
+  defaultUseCases: CFUseCase[];
   models: CFFiberlinkModel[];
 }
 
@@ -75,6 +97,7 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
     th: "L2 จัดการได้ — โครงการอุตสาหกรรมทั่วไป",
     desc: "Switch L2 จัดการได้ ใช้ชิป Realtek แบบ Non-blocking — เหมาะกับงานโครงการอุตสาหกรรมทั่วไป รองรับ ERPS Ring < 20ms, 6KV Lightning, อุณหภูมิ -40~85°C",
     software: SW_L2,
+    defaultUseCases: ["factory", "traffic", "rail", "mining"],
     models: [
       { model: "CF-HY2004G-SFP", ports: "4× GbE RJ45 + 2× SFP + 1× Console", switchingCapacity: "12 Gbps", packetRate: "8.93 Mpps", size: "172×144×54.5", poe: false, image: IMG.smallL2 },
       { model: "CF-HY2004GP-SFP", ports: "4× GbE PoE + 2× SFP + 1× Console", switchingCapacity: "12 Gbps", packetRate: "8.93 Mpps", size: "172×144×54.5", poe: true, badge: "PoE+", image: IMG.smallPoE },
@@ -100,6 +123,7 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
     th: "L2+ ขั้นสูง — Smart Grid / ปิโตรเคมี",
     desc: "Switch L2+ ใช้ใน Smart Grid, ปิโตรเคมี, โครงการขนาดใหญ่ — Sensitivity สูง, Self-healing เร็ว รองรับ IPv4/IPv6 Static Routing",
     software: SW_L2_PLUS,
+    defaultUseCases: ["power", "petrochem", "rail", "green"],
     models: [
       { model: "CF-HY2004GV-SFP", ports: "4× GbE RJ45 + 2× SFP + 1× Console", switchingCapacity: "12 Gbps", packetRate: "8.93 Mpps", size: "172×144×54.5", poe: false, image: IMG.smallL2 },
       { model: "CF-HY2004GVP-SFP", ports: "4× GbE PoE + 2× SFP + 1× Console", switchingCapacity: "12 Gbps", packetRate: "8.93 Mpps", size: "172×144×54.5", poe: true, badge: "PoE+", image: IMG.smallPoE },
@@ -131,6 +155,7 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
     th: "Industrial 10G Core Switch — L3 Strong Layer",
     desc: "Industrial Grade 10G Core Switch (L3 Network Management) — รองรับ Dynamic Routing RIP/OSPF, IPv4/IPv6 Full Line-speed Forwarding เหมาะ Backbone โรงงาน / Smart City / รถไฟฟ้า",
     software: SW_L3,
+    defaultUseCases: ["smart-city", "factory", "rail", "power"],
     models: [
       { model: "CF-HY4T8016G-SFP+", ports: "16× GbE RJ45 + 8× SFP + 4× 10G SFP+", switchingCapacity: "56 Gbps", packetRate: "41.6 Mpps", size: "430×295×45 (Rack)", poe: false, badge: "10G Uplink", image: IMG.l3Core },
       { model: "CF-HY4T8016GP-SFP+", ports: "16× GbE PoE + 8× SFP + 4× 10G SFP+", switchingCapacity: "56 Gbps", packetRate: "41.6 Mpps", size: "430×295×45 (Rack)", poe: true, badge: "10G PoE+", image: IMG.l3Poe },
@@ -160,6 +185,7 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
       "VLAN ป้องกัน Network Storm",
       "Status LED ต่อพอร์ตชัดเจน",
     ],
+    defaultUseCases: ["cctv", "wifi-ap", "smb", "hotel"],
     models: [
       { model: "CF-PE204N", ports: "4× 100M PoE + 2× 100M Uplink", switchingCapacity: "1.2 Gbps", packetRate: "0.89 Mpps", size: "Desktop / Wall-mount", poe: true, badge: "4+2 PoE", image: IMG.cctv4 },
       { model: "CF-PE208N", ports: "8× 100M PoE + 2× 100M Uplink", switchingCapacity: "2.0 Gbps", packetRate: "1.49 Mpps", size: "Desktop / Wall-mount", poe: true, badge: "8+2 PoE 120W", image: IMG.cctv8 },
@@ -177,6 +203,7 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
     th: "L3 Rack PoE — โรงแรม / โรงเรียน / ออฟฟิศ",
     desc: "L3 Managed PoE Switch ระดับ Campus — มี 10G Uplink, Dynamic Routing (RIP/OSPF), เหมาะ Access/Aggregation/Core ของโรงแรม โรงเรียน ออฟฟิศที่ต้องจ่ายไฟ AP/กล้อง จำนวนมาก",
     software: SW_L3,
+    defaultUseCases: ["hotel", "campus", "office", "cctv"],
     models: [
       { model: "CF-S5328X-4X8S16P", ports: "16× GbE PoE + 8× SFP + 4× 10G SFP+", switchingCapacity: "168 Gbps", packetRate: "78 Mpps", size: "Rack 1U (440×220×44)", poe: true, badge: "Campus 10G PoE", image: IMG.l3Poe },
       { model: "CF-S5328X-4X24P", ports: "24× GbE PoE + 4× 10G SFP+", switchingCapacity: "128 Gbps", packetRate: "95 Mpps", size: "Rack 1U (440×220×44)", poe: true, badge: "24P PoE + 10G", image: IMG.l3Poe },

@@ -18,7 +18,17 @@ import {
   Cpu,
   CheckCircle2,
   ShoppingBag,
+  Wifi,
+  Pickaxe,
+  Building2,
+  GraduationCap,
+  Hotel,
+  Store,
+  Leaf,
+  FlaskConical,
+  Building,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import AddToCartButton from "@/components/AddToCartButton";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
@@ -28,7 +38,26 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import FooterCompact from "@/components/FooterCompact";
 import MiniNavbar from "@/components/MiniNavbar";
-import { cffiberlinkCatalog, type CFFiberlinkModel, type CFFiberlinkCategoryDef } from "@/data/cffiberlink-models";
+import { cffiberlinkCatalog, type CFFiberlinkModel, type CFFiberlinkCategoryDef, type CFUseCase } from "@/data/cffiberlink-models";
+
+// แมป use case → icon + label สั้น (ภาษาไทย) สำหรับแสดงในการ์ด
+const USE_CASE_META: Record<CFUseCase, { icon: LucideIcon; label: string }> = {
+  cctv:         { icon: Camera,         label: "CCTV" },
+  "wifi-ap":    { icon: Wifi,           label: "WiFi AP" },
+  factory:      { icon: Factory,        label: "โรงงาน" },
+  rail:         { icon: Train,          label: "ระบบราง" },
+  traffic:      { icon: TrafficCone,    label: "ITS" },
+  power:        { icon: Zap,            label: "Smart Grid" },
+  petrochem:    { icon: FlaskConical,   label: "ปิโตรเคมี" },
+  mining:       { icon: Pickaxe,        label: "เหมือง" },
+  marine:       { icon: Ship,           label: "Marine" },
+  "smart-city": { icon: Building2,      label: "Smart City" },
+  campus:       { icon: GraduationCap,  label: "โรงเรียน" },
+  hotel:        { icon: Hotel,          label: "โรงแรม" },
+  office:       { icon: Building,      label: "ออฟฟิศ" },
+  smb:          { icon: Store,          label: "SMB" },
+  green:        { icon: Leaf,           label: "Solar/Green" },
+};
 
 /**
  * CF Fiberlink — Authorized Partner page (TH)
@@ -383,8 +412,10 @@ const CFFiberlink = () => {
                     ไม่พบรุ่นที่ตรงกับเงื่อนไข — ลองปรับ filter
                   </p>
                 ) : (
-                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2.5">
-                  {filtered.map((m) => (
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                  {filtered.map((m) => {
+                    const useCases = (m.useCases && m.useCases.length > 0 ? m.useCases : cat.defaultUseCases).slice(0, 4);
+                    return (
                     <button
                       key={m.model}
                       type="button"
@@ -395,21 +426,39 @@ const CFFiberlink = () => {
                         <img
                           src={m.image}
                           alt={`CF Fiberlink ${m.model}`}
-                          className="w-full h-full object-contain p-1.5"
+                          className="w-full h-full object-contain p-2"
                           loading="lazy"
                         />
                         {m.badge && (
-                          <Badge className="absolute top-1 left-1 bg-primary/90 text-primary-foreground text-[8px] px-1 py-0 leading-tight">
+                          <Badge className="absolute top-1.5 left-1.5 bg-primary/90 text-primary-foreground text-[9px] px-1.5 py-0 leading-tight">
                             {m.badge}
                           </Badge>
                         )}
                       </div>
-                      <div className="p-1.5 flex flex-col flex-1">
-                        <p className="font-mono text-[10px] text-foreground font-semibold leading-tight mb-0.5 break-all">{m.model}</p>
-                        <p className="text-[9px] text-muted-foreground leading-snug line-clamp-2">{m.ports}</p>
+                      <div className="p-2 flex flex-col flex-1 gap-1">
+                        <p className="font-mono text-xs text-foreground font-semibold leading-tight break-all">{m.model}</p>
+                        <p className="text-[10px] text-muted-foreground leading-snug line-clamp-2">{m.ports}</p>
+                        {/* Use case icons — บอกลูกค้าว่ารุ่นนี้เหมาะกับงานไหน */}
+                        <div className="flex flex-wrap gap-1 mt-auto pt-1 border-t border-border/40">
+                          {useCases.map((uc) => {
+                            const meta = USE_CASE_META[uc];
+                            const Icon = meta.icon;
+                            return (
+                              <span
+                                key={uc}
+                                title={meta.label}
+                                className="inline-flex items-center gap-0.5 text-[9px] text-muted-foreground bg-secondary/50 rounded px-1 py-0.5"
+                              >
+                                <Icon className="w-2.5 h-2.5" />
+                                <span className="hidden sm:inline">{meta.label}</span>
+                              </span>
+                            );
+                          })}
+                        </div>
                       </div>
                     </button>
-                  ))}
+                    );
+                  })}
                 </div>
                 )}
               </TabsContent>
