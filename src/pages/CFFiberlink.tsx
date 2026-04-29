@@ -183,6 +183,11 @@ const industries: Array<{
 
 const allCatalogModels: CFFiberlinkModel[] = cffiberlinkCatalog.flatMap((c) => c.models);
 
+/** ⭐ รุ่นแนะนำเด่น (Hero Picks) — ดึงจาก catalog ตาม heroPick: true พร้อม cat ของรุ่นนั้น */
+const heroPicks: Array<{ model: CFFiberlinkModel; cat: CFFiberlinkCategoryDef }> = cffiberlinkCatalog.flatMap((c) =>
+  c.models.filter((m) => m.heroPick).map((m) => ({ model: m, cat: c }))
+);
+
 type PortFilter = "all" | "1-8" | "9-16" | "17-24" | "25+";
 type PoeFilter = "all" | "poe" | "no-poe";
 type FormFilter = "all" | "din" | "rack";
@@ -361,6 +366,84 @@ const CFFiberlink = () => {
           </div>
         </section>
 
+        {/* ⭐ Hero Picks Strip — รุ่นแนะนำเด่นที่เลือกมาให้ลูกค้าตัดสินใจง่ายขึ้น */}
+        {heroPicks.length > 0 && (
+          <section className="space-y-4">
+            <div className="flex items-end justify-between gap-4 flex-wrap">
+              <div>
+                <h2 className="text-2xl font-display font-bold text-foreground">
+                  ⭐ <span className="text-gradient">รุ่นแนะนำเด่น</span>
+                </h2>
+                <p className="text-sm text-muted-foreground mt-1">
+                  คัดมาให้แล้ว — ครอบคลุมทุกการใช้งานหลัก ตั้งแต่ Entry ไปจนถึง Flagship
+                </p>
+              </div>
+              <span className="text-xs text-muted-foreground">
+                คลิกการ์ดเพื่อดูสเปกเต็ม + ขอใบเสนอราคา
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+              {heroPicks.map(({ model: m, cat }) => (
+                <button
+                  key={m.model}
+                  type="button"
+                  onClick={() => setSelected({ model: m, cat })}
+                  className="group relative card-surface overflow-hidden flex flex-col text-left ring-2 ring-primary/30 hover:ring-primary hover:-translate-y-1 hover:shadow-xl transition-all"
+                >
+                  {/* Top ribbon */}
+                  <div className="absolute top-0 left-0 right-0 z-10 bg-gradient-to-r from-primary to-primary/70 text-primary-foreground text-[10px] font-bold tracking-wide uppercase px-2 py-1 text-center shadow">
+                    ⭐ Pick · {cat.title}
+                  </div>
+
+                  <div className="aspect-[4/3] overflow-hidden bg-gradient-to-br from-muted to-secondary/40 pt-6">
+                    <img
+                      src={m.image}
+                      alt={`CF Fiberlink ${m.model} — ${m.heroTitle ?? ""}`}
+                      className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                  </div>
+
+                  <div className="p-4 flex flex-col flex-1 gap-2">
+                    <div>
+                      <p className="text-xs text-primary font-bold mb-0.5">{m.heroTitle ?? m.badge}</p>
+                      <p className="font-mono text-sm text-foreground font-bold leading-tight break-all">
+                        {m.model}
+                      </p>
+                    </div>
+
+                    <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3 flex-1">
+                      {m.heroPitch ?? m.ports}
+                    </p>
+
+                    {/* Spotlight chips */}
+                    {m.spotlight && (
+                      <div className="flex flex-wrap gap-1 pt-1">
+                        {m.spotlight.slice(0, 4).map((s) => (
+                          <span
+                            key={s}
+                            className="inline-flex items-center text-[10px] font-semibold text-primary bg-primary/10 border border-primary/30 rounded px-1.5 py-0.5"
+                          >
+                            {s}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
+                    <div className="flex items-center justify-between text-[11px] text-muted-foreground pt-2 border-t border-border/50 mt-1">
+                      <span className="font-mono">{m.switchingCapacity}</span>
+                      <span className="text-primary font-semibold group-hover:underline">
+                        ดูสเปก →
+                      </span>
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* Full Catalog by Category */}
         <section>
           <h2 className="text-2xl font-display font-bold text-foreground mb-2">
@@ -494,6 +577,19 @@ const CFFiberlink = () => {
                       <div className="p-2 flex flex-col flex-1 gap-1">
                         <p className="font-mono text-xs text-foreground font-semibold leading-tight break-all">{m.model}</p>
                         <p className="text-[10px] text-muted-foreground leading-snug line-clamp-2">{m.ports}</p>
+                        {/* Spotlight chips — จุดขาย PR เด่นของรุ่นนี้ (เฉพาะรุ่นที่มี) */}
+                        {m.spotlight && m.spotlight.length > 0 && (
+                          <div className="flex flex-wrap gap-1">
+                            {m.spotlight.slice(0, 2).map((s) => (
+                              <span
+                                key={s}
+                                className="inline-flex items-center gap-0.5 text-[9px] font-semibold text-primary bg-primary/10 border border-primary/20 rounded px-1 py-0.5 leading-tight"
+                              >
+                                ⭐ {s}
+                              </span>
+                            ))}
+                          </div>
+                        )}
                         {/* Use case icons — บอกลูกค้าว่ารุ่นนี้เหมาะกับงานไหน */}
                         <div className="flex flex-wrap gap-1 mt-auto pt-1 border-t border-border/40">
                           {useCases.map((uc) => {

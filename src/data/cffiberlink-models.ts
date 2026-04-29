@@ -40,6 +40,14 @@ export interface CFFiberlinkModel {
   image: string;
   /** Override use cases ต่อรุ่น (optional) — ถ้าไม่ใส่จะใช้ default ของ category */
   useCases?: CFUseCase[];
+  /** PR Spotlight chips — แสดงบนการ์ดเป็นจุดขายเด่น (เช่น "One-Key CCTV", "Fiber 2km Built-in") */
+  spotlight?: string[];
+  /** ถ้า true จะถูกนำไปแสดงใน "รุ่นแนะนำเด่น" (Hero Picks Strip) */
+  heroPick?: boolean;
+  /** หัวข้อสั้น 1 บรรทัดสำหรับ Hero Card (เช่น "Flagship 10G L3 Core") */
+  heroTitle?: string;
+  /** คำอธิบายสั้นใน Hero Card */
+  heroPitch?: string;
 }
 
 export interface CFFiberlinkCategoryDef {
@@ -67,6 +75,12 @@ const IMG = {
   cctv4g: "/cffiberlink/cctv4g.jpg",
   cctv27: "/cffiberlink/cctv27.jpg",
   cctv27b: "/cffiberlink/cctv27b.jpg",
+  // Hero Picks — ภาพจริงของรุ่นเด่นจาก CDN ของโรงงาน
+  heroYE1005D: "/cffiberlink/hero-ye1005d.jpg",
+  heroPE204NT: "/cffiberlink/hero-pe204nt.jpg",
+  heroPE208N: "/cffiberlink/hero-pe208n.jpg",
+  heroHY2024M2: "/cffiberlink/hero-hy2024m2.jpg",
+  heroHY4T1608S: "/cffiberlink/hero-hy4t1608s.jpg",
 };
 
 const SW_L2 = [
@@ -99,6 +113,22 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
     software: SW_L2,
     defaultUseCases: ["factory", "traffic", "rail", "mining"],
     models: [
+      // ⭐ Hero Pick — Entry Unmanaged DIN-Rail สำหรับงานเริ่มต้นโรงงาน
+      {
+        model: "CF-YE1005D",
+        ports: "5× 10/100M RJ45 (Unmanaged)",
+        switchingCapacity: "1 Gbps",
+        packetRate: "Wire-speed",
+        size: "116×86.5×32.5 (DIN-Rail)",
+        poe: false,
+        badge: "Entry Fanless",
+        image: IMG.heroYE1005D,
+        useCases: ["factory", "rail", "power", "mining"],
+        spotlight: ["MTBF 35 ปี", "Fanless / IP40", "DIN-Rail", "-40~75°C"],
+        heroPick: true,
+        heroTitle: "เริ่มต้นโรงงาน — Fanless DIN-Rail",
+        heroPitch: "5 พอร์ต Unmanaged สำหรับ PLC/Sensor — ทนความร้อน -40~75°C ไร้พัดลม MTBF สูงสุด 35 ปี ติดตั้งง่ายบนราง DIN",
+      },
       { model: "CF-HY2004G-SFP", ports: "4× GbE RJ45 + 2× SFP + 1× Console", switchingCapacity: "12 Gbps", packetRate: "8.93 Mpps", size: "172×144×54.5", poe: false, image: IMG.smallL2 },
       { model: "CF-HY2004GP-SFP", ports: "4× GbE PoE + 2× SFP + 1× Console", switchingCapacity: "12 Gbps", packetRate: "8.93 Mpps", size: "172×144×54.5", poe: true, badge: "PoE+", image: IMG.smallPoE },
       { model: "CF-HY2008G-SFP", ports: "8× GbE RJ45 + 2× SFP + 1× Console", switchingCapacity: "20 Gbps", packetRate: "14.88 Mpps", size: "172×144×54.5", poe: false, image: IMG.smallL2 },
@@ -113,6 +143,22 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
       { model: "CF-HY8016GP-SFP", ports: "16× GbE PoE + 8× SFP + 1× Console", switchingCapacity: "32 Gbps", packetRate: "23.8 Mpps", size: "174×148×69.5", poe: true, badge: "PoE+", image: IMG.smallPoE },
       { model: "CF-HY1608G-SFP", ports: "8× GbE RJ45 + 16× SFP + 1× Console", switchingCapacity: "32 Gbps", packetRate: "23.8 Mpps", size: "174×148×69.5", poe: false, badge: "16 SFP", image: IMG.midL2 },
       { model: "CF-HY1608GP-SFP", ports: "8× GbE PoE + 16× SFP + 1× Console", switchingCapacity: "32 Gbps", packetRate: "23.8 Mpps", size: "174×148×69.5", poe: true, badge: "16 SFP PoE", image: IMG.smallPoE },
+      // ⭐ Hero Pick — L2 Web Managed + Multimode Fiber 2km Built-in
+      {
+        model: "CFW-HY2024M-2",
+        ports: "4× GbE RJ45 + 2× SC Multimode 2km (Built-in)",
+        switchingCapacity: "12 Gbps",
+        packetRate: "8.92 Mpps",
+        size: "142×101×42 (DIN-Rail)",
+        poe: false,
+        badge: "Fiber 2km Built-in",
+        image: IMG.heroHY2024M2,
+        useCases: ["factory", "campus", "rail", "traffic"],
+        spotlight: ["Multimode SC 2km มากับเครื่อง", "Web Managed", "MSTP <50ms", "ไม่ต้องซื้อ SFP เพิ่ม"],
+        heroPick: true,
+        heroTitle: "L2 Web Managed + ใยแก้ว 2km",
+        heroPitch: "มาพร้อม Multimode SC fiber 2km จากโรงงาน — ไม่ต้องซื้อ SFP module เพิ่ม จัดการผ่าน Web ได้ทันที เหมาะอาคารหลายชั้นหรือเชื่อมตู้คอนโทรลข้ามอาคาร",
+      },
     ],
   },
 
@@ -163,7 +209,21 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
       { model: "CF-HY4T8024GP-SFP+", ports: "24× GbE PoE + 8× SFP + 4× 10G SFP+", switchingCapacity: "72 Gbps", packetRate: "53.6 Mpps", size: "430×295×45 (Rack)", poe: true, badge: "24P PoE 10G", image: IMG.l3Poe },
       { model: "CF-HY4T024G-SFP+", ports: "24× GbE RJ45 + 4× 10G SFP+", switchingCapacity: "56 Gbps", packetRate: "41.7 Mpps", size: "430×295×45 (Rack)", poe: false, badge: "24P + 10G", image: IMG.l3Core },
       { model: "CF-HY4T024GP-SFP+", ports: "24× GbE PoE + 4× 10G SFP+", switchingCapacity: "56 Gbps", packetRate: "41.7 Mpps", size: "430×295×45 (Rack)", poe: true, badge: "24P PoE 10G", image: IMG.l3Poe },
-      { model: "CF-HY4T1608S-SFP+", ports: "8× GbE RJ45 + 16× SFP + 4× 10G SFP+", switchingCapacity: "56 Gbps", packetRate: "41.7 Mpps", size: "430×295×45 (Rack)", poe: false, badge: "16 SFP + 10G", image: IMG.l3Core },
+      // ⭐ Hero Pick — Flagship L3 10G Fiber-Heavy Aggregator
+      {
+        model: "CF-HY4T1608S-SFP+",
+        ports: "8× GbE RJ45 + 16× SFP + 4× 10G SFP+",
+        switchingCapacity: "128 Gbps",
+        packetRate: "96 Mpps",
+        size: "440×300×44 (Rack 1U)",
+        poe: false,
+        badge: "Flagship 10G",
+        image: IMG.heroHY4T1608S,
+        spotlight: ["16× SFP Fiber-Heavy", "4× 10G SFP+ Uplink", "ERPS <20ms", "IPv4/IPv6 Routing", "MTBF 35 ปี"],
+        heroPick: true,
+        heroTitle: "Flagship L3 10G Core — 16 Fiber + 10G Uplink",
+        heroPitch: "เรือธงของ CF Fiberlink — 128 Gbps / 96 Mpps พร้อม 16 SFP สำหรับเดินใยแก้วเข้าหลายอาคาร และ 4× 10G SFP+ สำหรับ uplink ขึ้น Backbone เหมาะ Smart City / โรงงานขนาดใหญ่ / รถไฟฟ้า",
+      },
       { model: "CF-HY4T2408S-SFP+", ports: "24× SFP (8 Combo) + 4× 10G SFP+", switchingCapacity: "72 Gbps", packetRate: "53.6 Mpps", size: "430×295×45 (Rack)", poe: false, badge: "24 SFP + 10G", image: IMG.l3Core },
       { model: "CF-HY4T048G-SFP+", ports: "48× GbE RJ45 + 4× 10G SFP+", switchingCapacity: "104 Gbps", packetRate: "77.4 Mpps", size: "430×295×45 (Rack)", poe: false, badge: "48P + 10G", image: IMG.l3Core },
       { model: "CF-HY4T048GP-SFP+", ports: "48× GbE PoE + 4× 10G SFP+", switchingCapacity: "104 Gbps", packetRate: "77.4 Mpps", size: "430×295×45 (Rack)", poe: true, badge: "48P PoE 10G", image: IMG.l3Poe },
@@ -187,8 +247,36 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
     ],
     defaultUseCases: ["cctv", "wifi-ap", "smb", "hotel"],
     models: [
-      { model: "CF-PE204N", ports: "4× 100M PoE + 2× 100M Uplink", switchingCapacity: "1.2 Gbps", packetRate: "0.89 Mpps", size: "Desktop / Wall-mount", poe: true, badge: "4+2 PoE", image: IMG.cctv4 },
-      { model: "CF-PE208N", ports: "8× 100M PoE + 2× 100M Uplink", switchingCapacity: "2.0 Gbps", packetRate: "1.49 Mpps", size: "Desktop / Wall-mount", poe: true, badge: "8+2 PoE 120W", image: IMG.cctv8 },
+      // ⭐ Hero Pick — CCTV "One-Key" PoE 4+2
+      {
+        model: "CF-PE204NT",
+        ports: "4× 100M PoE + 2× 100M Uplink",
+        switchingCapacity: "1.2 Gbps",
+        packetRate: "0.89 Mpps",
+        size: "141×117×40 (Desktop / Wall)",
+        poe: true,
+        badge: "One-Key CCTV",
+        image: IMG.heroPE204NT,
+        spotlight: ["One-Key CCTV Mode", "PoE+ 30W/พอร์ต รวม 65W", "Lightning 6KV", "ESD 6KV/8KV"],
+        heroPick: true,
+        heroTitle: "PoE 4+2 — One-Key CCTV Mode",
+        heroPitch: "ออกแบบเฉพาะกล้อง IP — กดปุ่มเดียวเปิดโหมด CCTV (Port Isolation กันสัญญาณรบกวนกล้อง) ป้องกันฟ้าผ่า 6KV ติดตั้งง่ายสำหรับช่างหน้างาน",
+      },
+      // ⭐ Hero Pick — CCTV PoE 8+2 พี่ใหญ่
+      {
+        model: "CF-PE208N",
+        ports: "8× 100M PoE + 2× 100M Uplink",
+        switchingCapacity: "2.0 Gbps",
+        packetRate: "1.49 Mpps",
+        size: "143×115×40 (Desktop / Wall)",
+        poe: true,
+        badge: "8+2 PoE 120W",
+        image: IMG.heroPE208N,
+        spotlight: ["PoE Budget 120W", "8 กล้องในตัวเดียว", "Lightning 6KV", "Plug & Play"],
+        heroPick: true,
+        heroTitle: "PoE 8+2 — รุ่นพี่ของไลน์ CCTV",
+        heroPitch: "8 พอร์ต PoE + 2 uplink พร้อม Budget 120W จ่ายไฟกล้อง IP/AP ได้ครบในตัวเดียว — โครง Metal กันกระแทก ใช้ได้ทั้งบ้าน อาคาร โกดัง",
+      },
       { model: "CF-PE2421G", ports: "24× 100M PoE + 2× GbE Uplink + 1× SFP", switchingCapacity: "8.8 Gbps", packetRate: "6.55 Mpps", size: "Rack 1U", poe: true, badge: "24+2+1 PoE 400W", image: IMG.cctv24 },
       { model: "CF-PE204G", ports: "4× GbE PoE + 2× GbE Uplink", switchingCapacity: "12 Gbps", packetRate: "8.93 Mpps", size: "Desktop / Wall-mount", poe: true, badge: "4+2 GbE PoE", image: IMG.cctv4g },
       { model: "CF-SE2724G-A", ports: "24× GbE + 2× GbE Uplink + 1× SFP", switchingCapacity: "56 Gbps", packetRate: "41.6 Mpps", size: "Rack 1U", poe: false, badge: "27P CCTV", image: IMG.cctv27 },
