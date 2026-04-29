@@ -402,12 +402,48 @@ export const volktekIndustrialEthernet: VolktekCategory = {
 };
 
 /* ============================================================
+ * Phase 5: Metro Ethernet Switches (2 sub-categories, 5 รุ่น)
+ * ============================================================ */
+import metro_MEN_6412 from "@/assets/volktek/products/metro/MEN-6412.jpg";
+import metro_6500_24GS4XS from "@/assets/volktek/products/metro/6500-24GS4XS.jpg";
+import metro_MEN_3406 from "@/assets/volktek/products/metro/MEN-3406.jpg";
+import metro_MEN_3410 from "@/assets/volktek/products/metro/MEN-3410.jpg";
+import metro_5100_24GT2GS from "@/assets/volktek/products/metro/5100-24GT2GS.jpg";
+
+export const volktekMetroEthernet: VolktekCategory = {
+  id: "metro-ethernet",
+  title: "Metro Ethernet Switches",
+  subCategories: [
+    {
+      id: "metro-aggregation",
+      title: "1G / 10G Aggregation",
+      blurb: "Aggregation Switch สำหรับ Service Provider และ Metro Network — รวม Traffic จาก Access Layer ขึ้น Core",
+      products: [
+        { model: "MEN-6412", description: "4x FX/GbE Combo RJ45/SFP + 4x FX/GbE SFP + 4x GbE SFP + Console — Managed Aggregation Switch", image: metro_MEN_6412, features: ["Managed", "Aggregation", "Fiber", "12-port"], sourceUrl: detail(68) },
+        { model: "6500-24GS4XS", description: "20x FX/GbE SFP + 4x FE/GbE Combo RJ45/SFP + 4x GbE/10G SFP+ + Console — L2+ Managed Aggregation", image: metro_6500_24GS4XS, features: ["L2+ Managed", "10G SFP+", "28-port", "Fiber"], sourceUrl: detail(188) },
+      ],
+    },
+    {
+      id: "metro-access",
+      title: "1G / 10G Access",
+      blurb: "Access Switch สำหรับ Metro Edge — เชื่อมต่อปลายทางเข้าเครือข่าย Service Provider",
+      products: [
+        { model: "MEN-3406", description: "4x 10/100/1000 RJ45 + 2x FX/GbE SFP — Managed Access Switch", image: metro_MEN_3406, features: ["Managed", "Access", "Fiber", "6-port"], sourceUrl: detail(175) },
+        { model: "MEN-3410", description: "8x 10/100/1000 RJ45 + 2x FX/GbE SFP + Console — Managed Access Switch", image: metro_MEN_3410, features: ["Managed", "Access", "Fiber", "10-port"], sourceUrl: detail(89) },
+        { model: "5100-24GT2GS", description: "24x 10/100/1000 RJ45 + 2x FX/GbE SFP + Console — Managed Access Switch", image: metro_5100_24GT2GS, features: ["Managed", "24-port", "Fiber"], sourceUrl: detail(1141) },
+      ],
+    },
+  ],
+};
+
+/* ============================================================
  * Master export — เพิ่ม category อื่นใน phase ถัดไป
  * ============================================================ */
 export const volktekCatalog: VolktekCategory[] = [
   volktekLayer3,
   volktekIndustrialPoe,
   volktekIndustrialEthernet,
-  // Phase 5+: metro-ethernet, media-converter, ems-nms, sfp, poe-injector, firewall, accessories
+  volktekMetroEthernet,
+  // Phase 6+: media-converter, ems-nms, sfp, poe-injector, firewall, accessories
 ];
 
