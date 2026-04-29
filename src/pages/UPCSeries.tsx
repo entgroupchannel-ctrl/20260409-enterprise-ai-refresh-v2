@@ -488,11 +488,11 @@ const UPCSeries = () => {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {filtered.map((m) => (
-              <Card key={m.id} className="group overflow-hidden border-border hover:border-primary/50 hover:shadow-lg transition-all flex flex-col">
+              <Card key={m.id} className="group overflow-hidden border-white/10 bg-slate-900/60 backdrop-blur hover:border-primary/60 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-1 transition-all flex flex-col">
                 <button
                   type="button"
                   onClick={() => setSelected(m)}
-                  className="relative bg-gradient-to-br from-secondary/40 to-background aspect-[4/3] flex items-center justify-center p-4 overflow-hidden text-left cursor-pointer"
+                  className="relative bg-gradient-to-br from-white via-slate-100 to-slate-200 aspect-[4/3] flex items-center justify-center p-5 overflow-hidden text-left cursor-pointer"
                   aria-label={`ดูรายละเอียด ${m.name}`}
                 >
                   <img
