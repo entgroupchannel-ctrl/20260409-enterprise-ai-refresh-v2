@@ -1,6 +1,16 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Cpu, ShoppingBag } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { epcModelDetails } from "@/data/epcModelDetails";
+
+// คืนค่า price range "เริ่มต้น ฿X,XXX" จาก configurator ของแต่ละรุ่น
+const fmtBaht = (n: number) => n.toLocaleString("en-US");
+const getPriceRange = (slug: string): { min: number; max: number } | null => {
+  const d = epcModelDetails[slug];
+  if (!d?.configurator?.cpus?.length) return null;
+  const prices = d.configurator.cpus.map((c) => c.basePrice);
+  return { min: Math.min(...prices), max: Math.max(...prices) };
+};
 
 // รุ่นแนะนำ 8 รุ่น: 4 EPC Panel PC (Wide) + 4 EPC Box Series
 // ใช้ข้อมูลตรงกับ src/pages/EPCSeries.tsx และ src/pages/EPCBoxSeries.tsx
