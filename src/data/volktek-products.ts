@@ -504,6 +504,35 @@ export const volktekMediaConverter: VolktekCategory = {
 };
 
 /* ============================================================
+ * Phase 7: EMS / NMS Software (2 sub-categories, 2 รุ่น)
+ * ============================================================ */
+import ems_LAMUNGAN from "@/assets/volktek/products/ems/LAMUNGAN.jpg";
+import ems_INDY from "@/assets/volktek/products/ems/INDY.jpg";
+
+export const volktekEmsNms: VolktekCategory = {
+  id: "ems-nms",
+  title: "EMS / NMS Software",
+  subCategories: [
+    {
+      id: "ems-lamungan",
+      title: "LAMUNGAN",
+      blurb: "แพลตฟอร์มจัดการอุปกรณ์เครือข่ายแบบรวมศูนย์ — Wizard, Topology Map, Real-time Dashboard",
+      products: [
+        { model: "LAMUNGAN", description: "Element Management System สำหรับ Volktek Switches — Auto-discovery, Topology Map, Wizard Configuration, SNMP Trap, Real-time Dashboard", image: ems_LAMUNGAN, features: ["EMS", "Topology Map", "Wizard", "Multi-vendor"], sourceUrl: detail(1716) },
+      ],
+    },
+    {
+      id: "ems-indy",
+      title: "INDY NMS",
+      blurb: "Network Management System Software — บริหารจัดการเครือข่ายระดับองค์กรแบบครบวงจร",
+      products: [
+        { model: "INDY", description: "Network Management System Software — บริหารจัดการอุปกรณ์เครือข่ายแบบรวมศูนย์ พร้อม SNMP Monitoring และ Configuration Management", image: ems_INDY, features: ["NMS", "SNMP", "Enterprise"], sourceUrl: detail(1637) },
+      ],
+    },
+  ],
+};
+
+/* ============================================================
  * Master export — เพิ่ม category อื่นใน phase ถัดไป
  * ============================================================ */
 export const volktekCatalog: VolktekCategory[] = [
@@ -512,6 +541,7 @@ export const volktekCatalog: VolktekCategory[] = [
   volktekIndustrialEthernet,
   volktekMetroEthernet,
   volktekMediaConverter,
-  // Phase 7+: ems-nms, sfp, poe-injector, firewall, accessories
+  volktekEmsNms,
+  // Phase 8+: sfp, poe-injector, firewall, accessories
 ];
 
