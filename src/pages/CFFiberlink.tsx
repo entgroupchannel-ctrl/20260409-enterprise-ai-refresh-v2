@@ -733,7 +733,7 @@ const CFFiberlink = () => {
                             productDescription={m.ports}
                             size="sm"
                             variant="outline"
-                            fullWidth
+                            className="flex-1"
                           />
                           <QuoteRequestButton
                             productModel={m.model}
