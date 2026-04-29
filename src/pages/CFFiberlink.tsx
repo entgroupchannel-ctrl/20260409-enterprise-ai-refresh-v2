@@ -787,9 +787,11 @@ const CFFiberlink = () => {
                 <ExternalLink className="w-4 h-4 mr-1.5" /> ดู Catalog เต็ม
               </a>
             </Button>
-          </div>
         </div>
       </div>
+
+      {/* Industrial Power Supply Section */}
+      <PowerSupplySection />
 
       {/* Product Detail Modal */}
       <Dialog open={!!selected} onOpenChange={(open) => !open && setSelected(null)}>
