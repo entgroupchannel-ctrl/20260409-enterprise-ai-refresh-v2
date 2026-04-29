@@ -915,7 +915,7 @@ const ShopStorefront = () => {
             is_featured: !!m.popular,
             warranty_months: 24,
             warranty_type: 'carry-in',
-            external_link: `/upc-series#${m.id}`,
+            external_link: `/shop/upc/${m.model.toLowerCase()}`,
           }));
 
           setProducts([...staticProducts, ...upcStaticProducts, ...(enriched as Product[])]);
