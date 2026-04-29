@@ -305,7 +305,16 @@ const CFFiberlink = () => {
 
       {/* Hero */}
       <div className="relative overflow-hidden border-b border-border">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-accent/5" />
+        <img
+          src={heroBgFactory}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover"
+          width={1920}
+          height={1080}
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0c2340]/90 via-[#0c2340]/75 to-[#1a4a6e]/60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
         <div className="container max-w-7xl mx-auto px-4 py-8 relative z-10">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
