@@ -783,7 +783,7 @@ const CFFiberlink = () => {
                     width={1024}
                     height={640}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                   <div className="absolute bottom-2 left-3 right-3 flex items-center gap-2">
                     <div className="p-1.5 rounded-md bg-primary text-primary-foreground shrink-0 shadow-lg">
                       <ind.icon className="w-4 h-4" />
