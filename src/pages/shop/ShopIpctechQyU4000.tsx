@@ -680,7 +680,7 @@ export default function ShopIpctechQyU4000() {
         </div>
 
         {/* Compact use-case list — กระชับ 2/4 คอลัมน์ */}
-        <div className="rounded-lg border border-border bg-muted/30 p-3">
+        <div className="rounded-lg border border-border bg-muted/30 p-3 bg-slate-200">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-2">
             {USE_CASES.map((u) => {
               const Icon = u.icon;
