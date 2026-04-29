@@ -643,9 +643,46 @@ export default function ShopIpctechQyU4000() {
         </div>
       </section>
 
-      {/* Use Cases */}
+      {/* Use Cases — Flagship Government Projects */}
       <section className="container max-w-7xl mx-auto px-4 py-6 lg:py-10">
         <SectionHeader icon={Sparkles} title="เหมาะกับงานโครงการภาครัฐ" subtitle="ตัวอย่างการใช้งานจริงในโครงการราชการและรัฐวิสาหกิจ" />
+
+        {/* Flagship project cards with imagery */}
+        <div className="grid md:grid-cols-2 gap-4 mb-6">
+          {FLAGSHIP_PROJECTS.map((p) => (
+            <Card key={p.title} className="overflow-hidden group hover:border-primary/60 hover:shadow-lg transition-all">
+              <div className="relative aspect-[16/9] bg-muted overflow-hidden">
+                <img
+                  src={p.img}
+                  alt={p.title}
+                  width={1280}
+                  height={720}
+                  loading="lazy"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/30 to-transparent" />
+                <Badge className="absolute top-3 left-3 bg-primary/90 backdrop-blur text-primary-foreground text-[10px] uppercase tracking-wider">
+                  {p.tag}
+                </Badge>
+                <div className="absolute bottom-3 left-3 right-3">
+                  <h3 className="text-white font-bold text-base drop-shadow-md">{p.title}</h3>
+                </div>
+              </div>
+              <CardContent className="p-4 space-y-3">
+                <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {p.metrics.map((m) => (
+                    <span key={m} className="inline-flex items-center gap-1 text-[11px] px-2 py-1 rounded-md bg-primary/10 border border-primary/20 text-primary font-semibold">
+                      <Check className="w-3 h-3" /> {m}
+                    </span>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* Compact use-case grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {USE_CASES.map((u) => {
             const Icon = u.icon;
@@ -662,6 +699,72 @@ export default function ShopIpctechQyU4000() {
             );
           })}
         </div>
+
+        {/* ENT Group Trust Block */}
+        <Card className="mt-8 border-primary/30 bg-gradient-to-br from-primary/5 via-background to-primary/10 overflow-hidden">
+          <CardContent className="p-6 lg:p-8">
+            <div className="grid lg:grid-cols-5 gap-6 items-center">
+              <div className="lg:col-span-3 space-y-4">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <Badge className="bg-primary text-primary-foreground"><ShieldCheck className="w-3 h-3 mr-1" />ENT GROUP</Badge>
+                  <Badge variant="outline">พันธมิตรธุรกิจที่คุณไว้วางใจ</Badge>
+                </div>
+                <h3 className="text-2xl lg:text-3xl font-bold text-foreground leading-tight">
+                  ทำไมโครงการภาครัฐ <span className="text-primary">เลือก ENT Group</span> เป็นผู้ส่งมอบ
+                </h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  ENT Group เป็นตัวแทนจำหน่ายอย่างเป็นทางการของ IPCTECH ในประเทศไทย — ส่งมอบ QY-U4000 ให้กับโครงการราชการ
+                  รัฐวิสาหกิจ และผู้รับเหมาระบบ ครอบคลุมทั้งงาน CCTV เมือง, ITS, SCADA และระบบรถไฟฟ้า ตามมาตรฐาน TOR
+                </p>
+                <div className="grid sm:grid-cols-2 gap-2.5 pt-2">
+                  {[
+                    { icon: FileText, t: 'เขียน TOR / วางสเปกฟรี', d: 'ทีมวิศวกรช่วยเขียนสเปกตามระเบียบพัสดุ' },
+                    { icon: Award, t: 'รับประกันสูงสุด 3 ปี', d: 'เคลมในไทย ไม่ต้องส่งกลับโรงงาน' },
+                    { icon: Wrench, t: 'Custom BIOS / Custom Label', d: 'ปรับแต่งตามมาตรฐานเฉพาะหน่วยงาน' },
+                    { icon: Phone, t: 'ทีมซัพพอร์ตในไทย 24/7', d: 'On-site service สำหรับโครงการขนาดใหญ่' },
+                  ].map((b) => (
+                    <div key={b.t} className="flex items-start gap-2.5 p-2.5 rounded-md bg-background/60 border border-border">
+                      <div className="w-8 h-8 rounded-md bg-primary/15 flex items-center justify-center shrink-0">
+                        <b.icon className="w-4 h-4 text-primary" />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-sm font-semibold text-foreground leading-tight">{b.t}</p>
+                        <p className="text-[11px] text-muted-foreground leading-snug mt-0.5">{b.d}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="lg:col-span-2 space-y-3">
+                <div className="grid grid-cols-3 gap-2 text-center">
+                  <div className="p-3 rounded-lg bg-background/70 border border-border">
+                    <p className="text-2xl font-bold text-primary">15+</p>
+                    <p className="text-[10px] text-muted-foreground uppercase tracking-wide mt-1">ปี ในวงการ</p>
+                  </div>
+                  <div className="p-3 rounded-lg bg-background/70 border border-border">
+                    <p className="text-2xl font-bold text-primary">500+</p>
+                    <p className="text-[10px] text-muted-foreground uppercase tracking-wide mt-1">โครงการ</p>
+                  </div>
+                  <div className="p-3 rounded-lg bg-background/70 border border-border">
+                    <p className="text-2xl font-bold text-primary">24/7</p>
+                    <p className="text-[10px] text-muted-foreground uppercase tracking-wide mt-1">ซัพพอร์ตไทย</p>
+                  </div>
+                </div>
+                <QuoteRequestButton
+                  productName={`IPCTECH ${MODEL} — ขอใบเสนอราคาโครงการภาครัฐ`}
+                  size="lg"
+                  className="w-full"
+                />
+                <Button asChild variant="outline" className="w-full">
+                  <Link to="/partners/ipctech">
+                    <ArrowLeft className="w-4 h-4 mr-2" /> ดูสินค้า IPCTECH ทั้งหมด
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </section>
 
       {/* Related IPCTECH */}
