@@ -58,7 +58,7 @@ export default function ShopEpcDetailBase({ slug }: Props) {
     return (
       <div className="min-h-screen bg-background flex flex-col">
         <SiteNavbar />
-        <div className="container mx-auto px-4 py-20 text-center flex-1">
+        <div className="container max-w-7xl mx-auto px-4 py-20 text-center flex-1">
           <h1 className="text-2xl font-bold mb-2">ไม่พบรุ่นสินค้า</h1>
           <Button onClick={() => navigate('/shop')}>
             <ArrowLeft className="w-4 h-4 mr-2" /> กลับไปหน้า Shop
@@ -174,7 +174,7 @@ export default function ShopEpcDetailBase({ slug }: Props) {
 
       {/* Breadcrumb */}
       <div className="border-b border-border bg-muted/30">
-        <div className="container mx-auto px-4 py-3 text-sm text-muted-foreground flex items-center gap-2 flex-wrap">
+        <div className="container max-w-7xl mx-auto px-4 py-3 text-sm text-muted-foreground flex items-center gap-2 flex-wrap">
           <Link to="/shop" className="hover:text-primary">Shop</Link>
           <span>›</span>
           <Link to={`/shop?series=${seriesParam}`} className="hover:text-primary">{detail.series}</Link>
@@ -192,7 +192,7 @@ export default function ShopEpcDetailBase({ slug }: Props) {
       </div>
 
       {/* HERO */}
-      <section className="container mx-auto px-4 py-6 lg:py-10">
+      <section className="container max-w-7xl mx-auto px-4 py-6 lg:py-10">
         <div className="grid lg:grid-cols-2 gap-8">
           <div>
             {(() => {
@@ -291,7 +291,7 @@ export default function ShopEpcDetailBase({ slug }: Props) {
 
       {/* CONFIGURATOR — only when cfg present (W24X2A) */}
       {cfg && cpuOpt && (
-        <section id="w24x2a-configurator" className="container mx-auto px-4 py-6 lg:py-10 scroll-mt-20">
+        <section id="w24x2a-configurator" className="container max-w-7xl mx-auto px-4 py-6 lg:py-10 scroll-mt-20">
           <div className="flex items-start gap-3 mb-4">
             <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
               <Wrench className="w-5 h-5 text-primary" />
@@ -588,7 +588,7 @@ export default function ShopEpcDetailBase({ slug }: Props) {
 
       {/* Certifications & Datasheet bar */}
       {(detail.certifications?.length || detail.datasheetUrl) && (
-        <section className="container mx-auto px-4 pt-2 pb-4">
+        <section className="container max-w-7xl mx-auto px-4 pt-2 pb-4">
           <Card className="bg-muted/30">
             <CardContent className="p-4 flex flex-wrap items-center gap-x-6 gap-y-3">
               {detail.certifications && detail.certifications.length > 0 && (
@@ -618,7 +618,7 @@ export default function ShopEpcDetailBase({ slug }: Props) {
 
       {/* Product Images & Sizes */}
       {detail.productImages && detail.productImages.length > 0 && (
-        <section className="container mx-auto px-4 py-6 lg:py-10">
+        <section className="container max-w-7xl mx-auto px-4 py-6 lg:py-10">
           <div className="flex items-start gap-3 mb-4">
             <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
               <Ruler className="w-5 h-5 text-primary" />
@@ -645,7 +645,7 @@ export default function ShopEpcDetailBase({ slug }: Props) {
       )}
 
       {/* Specs */}
-      <section className="container mx-auto px-4 py-6 lg:py-10">
+      <section className="container max-w-7xl mx-auto px-4 py-6 lg:py-10">
         <details className="group">
           <summary className="flex items-start gap-3 mb-4 cursor-pointer list-none select-none">
             <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
@@ -700,7 +700,7 @@ export default function ShopEpcDetailBase({ slug }: Props) {
 
       {/* Configurable Options */}
       {detail.options && detail.options.length > 0 && (
-        <section className="container mx-auto px-4 py-6 lg:py-10">
+        <section className="container max-w-7xl mx-auto px-4 py-6 lg:py-10">
           <div className="flex items-start gap-3 mb-4">
             <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
               <Settings2 className="w-5 h-5 text-primary" />
@@ -736,7 +736,7 @@ export default function ShopEpcDetailBase({ slug }: Props) {
 
       {/* Selection Table */}
       {detail.selectionTable && detail.selectionTable.length > 0 && (
-        <section className="container mx-auto px-4 py-6 lg:py-10">
+        <section className="container max-w-7xl mx-auto px-4 py-6 lg:py-10">
           <div className="flex items-start gap-3 mb-4">
             <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
               <ListChecks className="w-5 h-5 text-primary" />
@@ -779,7 +779,7 @@ export default function ShopEpcDetailBase({ slug }: Props) {
 
       {/* Applications */}
       {detail.applications && detail.applications.length > 0 && (
-        <section className="container mx-auto px-4 py-6 lg:py-10">
+        <section className="container max-w-7xl mx-auto px-4 py-6 lg:py-10">
           <div className="flex items-start gap-3 mb-4">
             <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
               <Factory className="w-5 h-5 text-primary" />
@@ -802,7 +802,7 @@ export default function ShopEpcDetailBase({ slug }: Props) {
 
       {/* Industries & Applications (S-Series only) — Visual showcase */}
       {typeof slug === 'string' && slug.startsWith('epc-s') && (
-        <section className="container mx-auto px-4 py-6 lg:py-10">
+        <section className="container max-w-7xl mx-auto px-4 py-6 lg:py-10">
           <div className="flex items-start gap-3 mb-6">
             <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
               <Factory className="w-5 h-5 text-primary" />
@@ -925,7 +925,7 @@ export default function ShopEpcDetailBase({ slug }: Props) {
 
       {/* Gallery */}
       {detail.gallery && detail.gallery.length > 0 && (
-        <section className="container mx-auto px-4 py-6 lg:py-10">
+        <section className="container max-w-7xl mx-auto px-4 py-6 lg:py-10">
           <div className="flex items-start gap-3 mb-4">
             <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
               <ImageIcon className="w-5 h-5 text-primary" />
@@ -953,7 +953,7 @@ export default function ShopEpcDetailBase({ slug }: Props) {
 
       {/* Related */}
       {related.length > 0 && (
-        <section className="container mx-auto px-4 py-6 lg:py-10">
+        <section className="container max-w-7xl mx-auto px-4 py-6 lg:py-10">
           <div className="flex items-start gap-3 mb-4">
             <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
               <Sparkles className="w-5 h-5 text-primary" />
