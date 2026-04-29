@@ -629,14 +629,14 @@ export default function ShopUpcDetail() {
       {related.length > 0 && (
         <section className="container mx-auto px-4 py-6 lg:py-10">
           <SectionHeader icon={Sparkles} title={`รุ่นอื่นใน ${tag} Series`} subtitle="สินค้าในตระกูลเดียวกันที่อาจเหมาะกับคุณ" />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
             {related.map((r) => {
               const rPricing = findPricing(r.id.toUpperCase());
               return (
                 <Link key={r.id} to={`/shop/upc/${r.id}`} className="group">
                   <Card className="h-full hover:border-primary transition-all hover:shadow-md">
-                    <div className="aspect-square bg-muted rounded-t-lg overflow-hidden">
-                      <img src={r.gallery[0]} alt={r.id} className="w-full h-full object-cover group-hover:scale-105 transition-transform" onError={(e) => { (e.target as HTMLImageElement).src = '/product-placeholder.svg'; }} />
+                    <div className="aspect-[4/3] bg-muted rounded-t-lg overflow-hidden flex items-center justify-center p-2">
+                      <img src={r.gallery[0]} alt={r.id} className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform" onError={(e) => { (e.target as HTMLImageElement).src = '/product-placeholder.svg'; }} />
                     </div>
                     <CardContent className="p-3">
                       <p className="font-bold text-sm">{r.id.toUpperCase()}</p>
