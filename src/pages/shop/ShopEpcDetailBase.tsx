@@ -14,9 +14,12 @@ import { savePendingQuote } from '@/hooks/usePendingQuote';
 import {
   ArrowLeft, Package, FileText, ShoppingCart, Sparkles, Check, ExternalLink, Phone,
   ShieldCheck, Settings2, Image as ImageIcon, Ruler, Cable, ListChecks, Download, Factory,
+  Cpu, MemoryStick, HardDrive, Wifi, MonitorCog, Thermometer, Zap, Wrench, Plus, MessageCircle, Gift, TrendingDown,
 } from 'lucide-react';
 import LineQRButton from '@/components/LineQRButton';
 import ProductImageGalleryZoom from '@/components/shop/ProductImageGalleryZoom';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { cn } from '@/lib/utils';
 import { epcModelDetails, epcModelList, type EpcModelDetail } from '@/data/epcModelDetails';
 
 interface Props {
@@ -32,6 +35,19 @@ export default function ShopEpcDetailBase({ slug }: Props) {
   const [adding, setAdding] = useState(false);
 
   const detail: EpcModelDetail | undefined = epcModelDetails[slug];
+  const cfg = detail?.configurator;
+  const fmt = (n: number) => n.toLocaleString('th-TH');
+
+  // Configurator state (only used when cfg present) — hooks must run unconditionally
+  const [cpuKey, setCpuKey] = useState<string>(cfg?.cpus[0]?.key ?? '');
+  const [ramKey, setRamKey] = useState<string>(cfg?.ram[0]?.key ?? '');
+  const [storageKey, setStorageKey] = useState<string>(cfg?.storage[0]?.key ?? '');
+  const [touchKey, setTouchKey] = useState<string>(cfg?.touch[0]?.key ?? '');
+  const [wirelessKey, setWirelessKey] = useState<string>(cfg?.wireless[0]?.key ?? '');
+  const [osKey, setOsKey] = useState<string>(cfg?.os[0]?.key ?? '');
+  const [tempKey, setTempKey] = useState<string>(cfg?.tempRange[0]?.key ?? '');
+  const [powerKey, setPowerKey] = useState<string>(cfg?.powerInput[0]?.key ?? '');
+  const [warrantyYears, setWarrantyYears] = useState<1 | 2 | 3>(1);
 
   const related = useMemo(
     () => epcModelList.filter((d) => d.series === detail?.series && d.slug !== slug).slice(0, 4),
@@ -55,16 +71,66 @@ export default function ShopEpcDetailBase({ slug }: Props) {
 
   const seriesParam = detail.series === 'EPC Panel PC' ? 'EPC+Panel+PC' : 'EPC+Box';
 
-  const buildDescription = () =>
-    `${detail.model} — ${detail.tagline}`;
+  // ── Configurator price calculation (only meaningful when cfg present) ──
+  const cpuOpt      = cfg?.cpus.find((c) => c.key === cpuKey)         ?? cfg?.cpus[0];
+  const ramOpt      = cfg?.ram.find((r) => r.key === ramKey)          ?? cfg?.ram[0];
+  const storageOpt  = cfg?.storage.find((s) => s.key === storageKey)  ?? cfg?.storage[0];
+  const touchOpt    = cfg?.touch.find((t) => t.key === touchKey)      ?? cfg?.touch[0];
+  const wirelessOpt = cfg?.wireless.find((w) => w.key === wirelessKey)?? cfg?.wireless[0];
+  const osOpt       = cfg?.os.find((o) => o.key === osKey)            ?? cfg?.os[0];
+  const tempOpt     = cfg?.tempRange.find((t) => t.key === tempKey)   ?? cfg?.tempRange[0];
+  const powerOpt    = cfg?.powerInput.find((p) => p.key === powerKey) ?? cfg?.powerInput[0];
+  const warrantyOpt = cfg?.warranty.find((w) => w.years === warrantyYears) ?? cfg?.warranty[0];
+
+  const baseUnit = (cpuOpt?.basePrice ?? 0)
+    + (ramOpt?.addPrice ?? 0)
+    + (storageOpt?.addPrice ?? 0)
+    + (touchOpt?.addPrice ?? 0)
+    + (wirelessOpt?.addPrice ?? 0)
+    + (osOpt?.addPrice ?? 0)
+    + (tempOpt?.addPrice ?? 0)
+    + (powerOpt?.addPrice ?? 0);
+  const warrantyCost = Math.round(baseUnit * (warrantyOpt?.multiplier ?? 0));
+  const tierRate  = qty >= 50 ? 0.08 : qty >= 10 ? 0.05 : qty >= 5 ? 0.03 : 0;
+  const tierLabel = qty >= 50 ? 'สั่ง 50+ ชิ้น' : qty >= 10 ? 'สั่ง 10+ ชิ้น' : qty >= 5 ? 'สั่ง 5+ ชิ้น' : '';
+  const unitBefore = baseUnit + warrantyCost;
+  const unitAfter  = Math.round(unitBefore * (1 - tierRate));
+  const totalPrice = unitAfter * qty;
+  const savings    = (unitBefore - unitAfter) * qty;
+
+  const buildDescription = () => {
+    if (!cfg || !cpuOpt) return `${detail.model} — ${detail.tagline}`;
+    const parts: string[] = [
+      detail.model,
+      cpuOpt.label,
+      `RAM ${ramOpt?.label}`,
+      storageOpt?.label,
+      `จอ ${touchOpt?.label}`,
+    ];
+    if (wirelessOpt && wirelessOpt.key !== 'none') parts.push(wirelessOpt.label);
+    if (osOpt && osOpt.key !== 'none') parts.push(`OS: ${osOpt.label}`);
+    if (tempOpt && tempOpt.key !== 'standard') parts.push(tempOpt.label);
+    if (powerOpt && powerOpt.key !== 'dc12') parts.push(powerOpt.label);
+    parts.push(warrantyOpt?.label ?? 'รับประกัน 1 ปี');
+    return parts.filter(Boolean).join(' • ');
+  };
 
   const handleQuickQuote = () => {
     savePendingQuote({
       customer_name: '', customer_email: user?.email ?? '', customer_phone: null, customer_company: null,
-      notes: `รุ่น ${detail.model} (${detail.series}) — กรุณาระบุสเปก CPU/RAM/SSD ที่ต้องการ`,
-      products: [{ model: detail.model, description: buildDescription(), qty, unit_price: 0, discount_percent: 0, line_total: 0 }],
+      notes: cfg
+        ? `รุ่น ${detail.model} ตามสเปก: ${buildDescription()}`
+        : `รุ่น ${detail.model} (${detail.series}) — กรุณาระบุสเปก CPU/RAM/SSD ที่ต้องการ`,
+      products: [{
+        model: detail.model, description: buildDescription(), qty,
+        unit_price: cfg ? unitAfter : 0, discount_percent: 0,
+        line_total: cfg ? totalPrice : 0,
+      }],
     });
-    toast({ title: 'พร้อมส่งคำขอใบเสนอราคา', description: `${detail.model} × ${qty} ชิ้น` });
+    toast({
+      title: 'พร้อมส่งคำขอใบเสนอราคา',
+      description: cfg ? `${detail.model} × ${qty} ชิ้น • ฿${fmt(totalPrice)}` : `${detail.model} × ${qty} ชิ้น`,
+    });
     navigate('/request-quote?action=continue');
   };
 
@@ -72,8 +138,12 @@ export default function ShopEpcDetailBase({ slug }: Props) {
     if (!user) {
       savePendingQuote({
         customer_name: '', customer_email: '', customer_phone: null, customer_company: null,
-        notes: `สนใจ ${detail.model} (${detail.series})`,
-        products: [{ model: detail.model, description: buildDescription(), qty, unit_price: 0, discount_percent: 0, line_total: 0 }],
+        notes: cfg ? `กำหนดสเปก: ${buildDescription()}` : `สนใจ ${detail.model} (${detail.series})`,
+        products: [{
+          model: detail.model, description: buildDescription(), qty,
+          unit_price: cfg ? unitAfter : 0, discount_percent: 0,
+          line_total: cfg ? totalPrice : 0,
+        }],
       });
       toast({ title: 'บันทึกรายการแล้ว', description: 'กรุณาเข้าสู่ระบบเพื่อเพิ่มลงตะกร้า' });
       navigate('/login?redirect=' + encodeURIComponent(window.location.pathname));
@@ -86,7 +156,7 @@ export default function ShopEpcDetailBase({ slug }: Props) {
         name: `${detail.model} — ${detail.series}`,
         description: buildDescription(),
         quantity: qty,
-        price: 0,
+        price: cfg ? unitAfter : 0,
       });
     } finally {
       setAdding(false);
@@ -162,45 +232,359 @@ export default function ShopEpcDetailBase({ slug }: Props) {
 
             <Separator />
 
-            {/* RFQ CTA */}
-            <Card className="border-primary/30 bg-primary/5">
-              <CardContent className="p-5 space-y-4">
-                <div className="flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-primary" />
-                  <h3 className="font-bold text-foreground">ขอใบเสนอราคา (RFQ)</h3>
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  รุ่นนี้กำหนดสเปก CPU / RAM / Storage / I/O ได้ตามต้องการ — ทีมงานจะติดต่อกลับภายใน 1 วันทำการ
-                </p>
-                <div className="flex items-center gap-2">
-                  <label className="text-sm text-muted-foreground">จำนวน</label>
-                  <input
-                    type="number" min={1} value={qty}
-                    onChange={(e) => setQty(Math.max(1, parseInt(e.target.value || '1', 10)))}
-                    className="w-20 h-9 px-2 rounded-md border border-border bg-background text-sm"
-                  />
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  <Button onClick={handleQuickQuote} className="gap-2">
-                    <FileText className="w-4 h-4" /> ขอใบเสนอราคา
-                  </Button>
-                  <Button onClick={handleAddToCart} variant="outline" disabled={adding} className="gap-2">
-                    <ShoppingCart className="w-4 h-4" /> {adding ? 'กำลังเพิ่ม…' : 'เพิ่มลงตะกร้า'}
-                  </Button>
-                </div>
-                <div className="flex items-center gap-2 pt-2 border-t border-border">
-                  <Button asChild size="sm" variant="ghost" className="gap-1.5 text-xs">
-                    <a href="tel:+66818268468"><Phone className="w-3.5 h-3.5" /> 081-826-8468</a>
-                  </Button>
-                  <LineQRButton className="inline-flex items-center gap-1.5 text-xs px-2 py-1 rounded-md hover:bg-muted">
-                    💬 LINE
-                  </LineQRButton>
-                </div>
-              </CardContent>
-            </Card>
+            {/* RFQ CTA / Quick price preview */}
+            {cfg && cpuOpt ? (
+              <Card className="border-primary/30 bg-primary/5">
+                <CardContent className="p-5 space-y-3">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <div>
+                      <p className="text-xs text-muted-foreground">เริ่มต้นที่</p>
+                      <p className="text-3xl font-bold text-primary">฿{fmt(cfg.cpus[0].basePrice)}</p>
+                      <p className="text-[11px] text-muted-foreground">ราคายังไม่รวม VAT 7% • กำหนดสเปกด้านล่าง</p>
+                    </div>
+                    <Button size="lg" onClick={() => document.getElementById('w24x2a-configurator')?.scrollIntoView({ behavior: 'smooth' })}>
+                      <Wrench className="w-4 h-4 mr-2" /> กำหนดสเปก
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ) : (
+              <Card className="border-primary/30 bg-primary/5">
+                <CardContent className="p-5 space-y-4">
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="w-5 h-5 text-primary" />
+                    <h3 className="font-bold text-foreground">ขอใบเสนอราคา (RFQ)</h3>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    รุ่นนี้กำหนดสเปก CPU / RAM / Storage / I/O ได้ตามต้องการ — ทีมงานจะติดต่อกลับภายใน 1 วันทำการ
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <label className="text-sm text-muted-foreground">จำนวน</label>
+                    <input
+                      type="number" min={1} value={qty}
+                      onChange={(e) => setQty(Math.max(1, parseInt(e.target.value || '1', 10)))}
+                      className="w-20 h-9 px-2 rounded-md border border-border bg-background text-sm"
+                    />
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <Button onClick={handleQuickQuote} className="gap-2">
+                      <FileText className="w-4 h-4" /> ขอใบเสนอราคา
+                    </Button>
+                    <Button onClick={handleAddToCart} variant="outline" disabled={adding} className="gap-2">
+                      <ShoppingCart className="w-4 h-4" /> {adding ? 'กำลังเพิ่ม…' : 'เพิ่มลงตะกร้า'}
+                    </Button>
+                  </div>
+                  <div className="flex items-center gap-2 pt-2 border-t border-border">
+                    <Button asChild size="sm" variant="ghost" className="gap-1.5 text-xs">
+                      <a href="tel:+66818268468"><Phone className="w-3.5 h-3.5" /> 081-826-8468</a>
+                    </Button>
+                    <LineQRButton className="inline-flex items-center gap-1.5 text-xs px-2 py-1 rounded-md hover:bg-muted">
+                      💬 LINE
+                    </LineQRButton>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
           </div>
         </div>
       </section>
+
+      {/* CONFIGURATOR — only when cfg present (W24X2A) */}
+      {cfg && cpuOpt && (
+        <section id="w24x2a-configurator" className="container mx-auto px-4 py-6 lg:py-10 scroll-mt-20">
+          <div className="flex items-start gap-3 mb-4">
+            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+              <Wrench className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-foreground">ปรับแต่งสเปก</h2>
+              <p className="text-sm text-muted-foreground">เลือก CPU / RAM / Storage / Wireless / OS / อุณหภูมิ / Power / รับประกัน — คำนวณราคาตามสเปกจริง</p>
+            </div>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-4">
+            {/* Left: build sheet */}
+            <Card className="lg:col-span-2">
+              <CardContent className="p-5 space-y-5">
+                {/* CPU */}
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 text-sm font-semibold">
+                    <Cpu className="w-4 h-4 text-primary" /> CPU / Processor
+                    <Badge variant="outline" className="text-[10px] ml-auto">{cfg.cpus.length} ตัวเลือก</Badge>
+                  </div>
+                  <Select value={cpuKey} onValueChange={setCpuKey}>
+                    <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      {cfg.cpus.map((c) => {
+                        const diff = c.basePrice - cfg.cpus[0].basePrice;
+                        return (
+                          <SelectItem key={c.key} value={c.key}>
+                            <span className="flex items-center justify-between gap-3 w-full">
+                              <span>{c.label}</span>
+                              <span className="text-xs text-muted-foreground">฿{fmt(c.basePrice)}{diff > 0 ? ` (+฿${fmt(diff)})` : ''}</span>
+                            </span>
+                          </SelectItem>
+                        );
+                      })}
+                    </SelectContent>
+                  </Select>
+                  {cpuOpt && (
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-2 text-[11px]">
+                      <div className="px-2 py-1 rounded bg-muted/40"><span className="text-muted-foreground">Cores/Threads:</span> <span className="font-medium">{cpuOpt.cores}/{cpuOpt.threads}</span></div>
+                      <div className="px-2 py-1 rounded bg-muted/40"><span className="text-muted-foreground">Freq:</span> <span className="font-medium">{cpuOpt.freq}</span></div>
+                      <div className="px-2 py-1 rounded bg-muted/40"><span className="text-muted-foreground">Cache:</span> <span className="font-medium">{cpuOpt.cache}</span></div>
+                      <div className="px-2 py-1 rounded bg-muted/40"><span className="text-muted-foreground">TDP:</span> <span className="font-medium">{cpuOpt.tdp}</span></div>
+                      <div className="px-2 py-1 rounded bg-muted/40 col-span-2"><span className="text-muted-foreground">GPU:</span> <span className="font-medium">{cpuOpt.graphics}</span></div>
+                      <div className="px-2 py-1 rounded bg-muted/40 col-span-2"><span className="text-muted-foreground">Factory Model:</span> <span className="font-medium">{cpuOpt.baseModel}</span></div>
+                    </div>
+                  )}
+                </div>
+
+                {/* RAM + Storage */}
+                <div className="grid sm:grid-cols-2 gap-4 pt-2 border-t border-border">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm font-semibold"><MemoryStick className="w-4 h-4 text-primary" /> RAM</div>
+                    <p className="text-[11px] text-muted-foreground">{cpuOpt.memorySupport}</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {cfg.ram.map((r) => (
+                        <button key={r.key} type="button" onClick={() => setRamKey(r.key)}
+                          className={cn('px-3 py-1.5 rounded-full text-xs font-medium border transition-all',
+                            ramKey === r.key ? 'bg-primary text-primary-foreground border-primary shadow-sm' : 'bg-background border-border hover:border-primary/50 text-foreground')}>
+                          {r.label}{r.addPrice > 0 && <span className={cn('ml-1.5', ramKey === r.key ? 'opacity-90' : 'text-muted-foreground')}>+฿{fmt(r.addPrice)}</span>}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm font-semibold"><HardDrive className="w-4 h-4 text-primary" /> Storage</div>
+                    <p className="text-[11px] text-muted-foreground">{cpuOpt.storageSupport}</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {cfg.storage.map((s) => (
+                        <button key={s.key} type="button" onClick={() => setStorageKey(s.key)}
+                          className={cn('px-3 py-1.5 rounded-full text-xs font-medium border transition-all',
+                            storageKey === s.key ? 'bg-primary text-primary-foreground border-primary shadow-sm' : 'bg-background border-border hover:border-primary/50 text-foreground')}>
+                          {s.label}{s.addPrice > 0 && <span className={cn('ml-1.5', storageKey === s.key ? 'opacity-90' : 'text-muted-foreground')}>+฿{fmt(s.addPrice)}</span>}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Touch + Wireless */}
+                <div className="grid sm:grid-cols-2 gap-4 pt-2 border-t border-border">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm font-semibold"><Settings2 className="w-4 h-4 text-primary" /> ชนิดจอสัมผัส</div>
+                    <div className="space-y-1">
+                      {cfg.touch.map((t) => (
+                        <button key={t.key} type="button" onClick={() => setTouchKey(t.key)}
+                          className={cn('w-full text-left p-2.5 rounded-md border text-xs transition-all',
+                            touchKey === t.key ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/50')}>
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="flex items-center gap-1.5">
+                              {touchKey === t.key && <Check className="w-3 h-3 text-primary" />}
+                              {t.label}
+                            </span>
+                            <span className="font-medium text-muted-foreground">{t.addPrice === 0 ? 'รวม' : `+฿${fmt(t.addPrice)}`}</span>
+                          </div>
+                          {t.note && <p className="text-[10px] text-muted-foreground mt-0.5">{t.note}</p>}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm font-semibold"><Wifi className="w-4 h-4 text-primary" /> Wireless / 4G</div>
+                    <div className="space-y-1">
+                      {cfg.wireless.map((w) => (
+                        <button key={w.key} type="button" onClick={() => setWirelessKey(w.key)}
+                          className={cn('w-full text-left p-2.5 rounded-md border text-xs transition-all',
+                            wirelessKey === w.key ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/50')}>
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="flex items-center gap-1.5">
+                              {wirelessKey === w.key && <Check className="w-3 h-3 text-primary" />}
+                              {w.label}
+                            </span>
+                            <span className="font-medium text-muted-foreground">{w.addPrice === 0 ? 'ฟรี' : `+฿${fmt(w.addPrice)}`}</span>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* OS + Temp */}
+                <div className="grid sm:grid-cols-2 gap-4 pt-2 border-t border-border">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm font-semibold"><MonitorCog className="w-4 h-4 text-primary" /> ระบบปฏิบัติการ</div>
+                    <div className="space-y-1">
+                      {cfg.os.map((o) => (
+                        <button key={o.key} type="button" onClick={() => setOsKey(o.key)}
+                          className={cn('w-full text-left p-2.5 rounded-md border text-xs transition-all',
+                            osKey === o.key ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/50')}>
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="flex items-center gap-1.5">
+                              {osKey === o.key && <Check className="w-3 h-3 text-primary" />}
+                              {o.label}
+                            </span>
+                            <span className="font-medium text-muted-foreground">{o.addPrice === 0 ? 'ฟรี' : `+฿${fmt(o.addPrice)}`}</span>
+                          </div>
+                          {o.note && <p className="text-[10px] text-muted-foreground mt-0.5">{o.note}</p>}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm font-semibold"><Thermometer className="w-4 h-4 text-primary" /> ช่วงอุณหภูมิใช้งาน</div>
+                    <div className="space-y-1">
+                      {cfg.tempRange.map((t) => (
+                        <button key={t.key} type="button" onClick={() => setTempKey(t.key)}
+                          className={cn('w-full text-left p-2.5 rounded-md border text-xs transition-all',
+                            tempKey === t.key ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/50')}>
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="flex items-center gap-1.5">
+                              {tempKey === t.key && <Check className="w-3 h-3 text-primary" />}
+                              {t.label}
+                            </span>
+                            <span className="font-medium text-muted-foreground">{t.addPrice === 0 ? 'รวม' : `+฿${fmt(t.addPrice)}`}</span>
+                          </div>
+                          {t.note && <p className="text-[10px] text-muted-foreground mt-0.5">{t.note}</p>}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Power + Warranty + Qty */}
+                <div className="grid sm:grid-cols-3 gap-4 pt-2 border-t border-border">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm font-semibold"><Zap className="w-4 h-4 text-primary" /> Power Input</div>
+                    <div className="space-y-1">
+                      {cfg.powerInput.map((p) => (
+                        <button key={p.key} type="button" onClick={() => setPowerKey(p.key)}
+                          className={cn('w-full text-left p-2 rounded-md border text-[11px] transition-all',
+                            powerKey === p.key ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/50')}>
+                          <div className="flex items-center justify-between gap-2">
+                            <span>{p.label}</span>
+                            <span className="font-medium text-muted-foreground">{p.addPrice === 0 ? 'รวม' : `+฿${fmt(p.addPrice)}`}</span>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm font-semibold"><ShieldCheck className="w-4 h-4 text-primary" /> รับประกัน</div>
+                    <div className="space-y-1">
+                      {cfg.warranty.map((w) => {
+                        const cost = Math.round(baseUnit * w.multiplier);
+                        return (
+                          <button key={w.years} type="button" onClick={() => setWarrantyYears(w.years)}
+                            className={cn('w-full flex items-center justify-between px-2 py-1.5 rounded-md border text-xs transition-all',
+                              warrantyYears === w.years ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/50')}>
+                            <span>{w.label}</span>
+                            <span className="font-medium">{cost === 0 ? 'รวม' : `+฿${fmt(cost)}`}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm font-semibold"><Sparkles className="w-4 h-4 text-primary" /> จำนวน</div>
+                    <div className="flex items-center border border-border rounded-md w-fit">
+                      <button type="button" onClick={() => setQty(Math.max(1, qty - 1))} className="px-3 py-1.5 hover:bg-muted text-sm font-bold">−</button>
+                      <input type="number" min={1} value={qty}
+                        onChange={(e) => setQty(Math.max(1, parseInt(e.target.value) || 1))}
+                        className="w-12 text-center text-sm font-semibold bg-transparent outline-none" />
+                      <button type="button" onClick={() => setQty(qty + 1)} className="px-3 py-1.5 hover:bg-muted text-sm font-bold">+</button>
+                    </div>
+                    <div className="flex gap-1 flex-wrap">
+                      {[5, 10, 50].map((q) => (
+                        <button key={q} type="button" onClick={() => setQty(q)}
+                          className={cn('text-[11px] px-2 py-1 rounded border transition-all',
+                            qty === q ? 'bg-primary text-primary-foreground border-primary' : 'border-border hover:border-primary/50')}>
+                          {q}+
+                        </button>
+                      ))}
+                    </div>
+                    {tierRate > 0 && (
+                      <p className="text-[11px] text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                        <TrendingDown className="w-3 h-3" /> {tierLabel} — ลด {(tierRate * 100).toFixed(0)}%
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Right: sticky price summary + contact */}
+            <div className="lg:sticky lg:top-20 lg:self-start space-y-3">
+              <Card className="border-primary/30 shadow-md">
+                <CardContent className="p-5 space-y-3">
+                  <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">สรุปราคา</div>
+                  <div className="space-y-1 text-xs">
+                    <div className="flex justify-between"><span className="text-muted-foreground truncate pr-2">{cpuOpt.label}</span><span>฿{fmt(cpuOpt.basePrice)}</span></div>
+                    {ramOpt && ramOpt.addPrice > 0 && <div className="flex justify-between"><span className="text-muted-foreground">+ RAM {ramOpt.label}</span><span>฿{fmt(ramOpt.addPrice)}</span></div>}
+                    {storageOpt && storageOpt.addPrice > 0 && <div className="flex justify-between"><span className="text-muted-foreground">+ {storageOpt.label}</span><span>฿{fmt(storageOpt.addPrice)}</span></div>}
+                    {wirelessOpt && wirelessOpt.addPrice > 0 && <div className="flex justify-between"><span className="text-muted-foreground truncate pr-2">+ {wirelessOpt.label}</span><span>฿{fmt(wirelessOpt.addPrice)}</span></div>}
+                    {osOpt && osOpt.addPrice > 0 && <div className="flex justify-between"><span className="text-muted-foreground truncate pr-2">+ {osOpt.label}</span><span>฿{fmt(osOpt.addPrice)}</span></div>}
+                    {tempOpt && tempOpt.addPrice > 0 && <div className="flex justify-between"><span className="text-muted-foreground truncate pr-2">+ {tempOpt.label}</span><span>฿{fmt(tempOpt.addPrice)}</span></div>}
+                    {powerOpt && powerOpt.addPrice > 0 && <div className="flex justify-between"><span className="text-muted-foreground truncate pr-2">+ {powerOpt.label}</span><span>฿{fmt(powerOpt.addPrice)}</span></div>}
+                    {warrantyCost > 0 && <div className="flex justify-between"><span className="text-muted-foreground">+ {warrantyOpt?.label}</span><span>฿{fmt(warrantyCost)}</span></div>}
+                  </div>
+                  <Separator />
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">ราคา/ชิ้น</span>
+                    <span className="font-semibold">฿{fmt(unitAfter)}</span>
+                  </div>
+                  <div className="flex justify-between text-2xl font-bold text-primary border-t border-border pt-2">
+                    <span>รวม × {qty}</span>
+                    <span>฿{fmt(totalPrice)}</span>
+                  </div>
+                  {savings > 0 && (
+                    <p className="text-xs text-center text-emerald-600 dark:text-emerald-400 font-medium">💰 ประหยัด ฿{fmt(savings)}</p>
+                  )}
+                  <p className="text-[10px] text-muted-foreground text-center">ราคายังไม่รวม VAT 7%</p>
+                  <div className="space-y-2 pt-2">
+                    <Button onClick={handleAddToCart} disabled={adding} variant="outline" className="w-full">
+                      <ShoppingCart className="w-4 h-4 mr-2" />
+                      {adding ? 'กำลังเพิ่ม...' : 'เพิ่มลงตะกร้า'}
+                    </Button>
+                    <Button onClick={handleQuickQuote} className="w-full">
+                      <FileText className="w-4 h-4 mr-2" /> ขอใบเสนอราคาเลย
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* PR Banner: สอบถามโปรโมชั่น (เหมือนหน้า /shop/upc/epc-102b) */}
+              <Card className="border-amber-400/40 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/20 shadow-sm">
+                <CardContent className="p-4 space-y-2.5">
+                  <div className="flex items-start gap-2">
+                    <div className="w-9 h-9 rounded-full bg-amber-500/20 flex items-center justify-center shrink-0">
+                      <Gift className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="text-sm font-bold text-foreground">สอบถามโปรโมชั่นพิเศษ</div>
+                      <p className="text-[11px] text-muted-foreground leading-snug">
+                        ส่วนลด • ของแถม • ข้อเสนอพิเศษสำหรับโครงการ — ติดต่อทีมแอดมินได้เลย
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-1.5 pt-1">
+                    <a href="tel:020456104" className="flex items-center gap-2 px-2.5 py-1.5 rounded-md bg-background/80 border border-border hover:border-primary/50 text-xs font-medium transition-colors">
+                      <Phone className="w-3.5 h-3.5 text-primary" /> 02-045-6104
+                    </a>
+                    <a href="tel:0957391053" className="flex items-center gap-2 px-2.5 py-1.5 rounded-md bg-background/80 border border-border hover:border-primary/50 text-xs font-medium transition-colors">
+                      <Phone className="w-3.5 h-3.5 text-primary" /> 095-739-1053
+                    </a>
+                    <LineQRButton className="inline-flex items-center justify-center gap-1.5 h-9 px-3 rounded-md text-xs font-semibold border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500/20 transition-colors">
+                      <MessageCircle className="w-4 h-4" /> เพิ่มเพื่อน LINE @entgroup
+                    </LineQRButton>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Certifications & Datasheet bar */}
       {(detail.certifications?.length || detail.datasheetUrl) && (

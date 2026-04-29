@@ -7,6 +7,34 @@ export type EpcGalleryImage = { src: string; alt: string; caption?: string };
 export type EpcSelectionRow = {
   no: string; model: string; partNumber: string; cpu: string; memory: string; storage: string;
 };
+// Configurator (W24X2A-style) — buyer-selectable options with price deltas
+export type EpcCpuOption = {
+  key: string;          // unique id, e.g. 'j1900'
+  label: string;        // display, e.g. 'Intel® Celeron® J1900'
+  cores: number;
+  threads: number;
+  freq: string;         // '2.0–2.4 GHz'
+  cache: string;        // '2MB'
+  tdp: string;          // '10W'
+  graphics: string;     // 'Intel® HD'
+  memorySupport: string; // '4–8GB DDR3L'
+  storageSupport: string; // '1× mSATA SSD'
+  baseModel: string;    // factory model code, e.g. 'EPC-W2462A'
+  basePrice: number;    // THB before VAT — base unit (CPU+min RAM+min SSD)
+};
+export type EpcChoiceOption = { key: string; label: string; addPrice: number; note?: string };
+export type EpcConfigurator = {
+  cpus: EpcCpuOption[];
+  ram: EpcChoiceOption[];        // delta vs base RAM
+  storage: EpcChoiceOption[];    // delta vs base SSD
+  touch: EpcChoiceOption[];      // P-CAP / Resistive
+  wireless: EpcChoiceOption[];   // None / Wi-Fi / 4G / both
+  os: EpcChoiceOption[];         // None / Win10 / Win11 / Ubuntu
+  tempRange: EpcChoiceOption[];  // 0~50°C / -40~70°C
+  powerInput: EpcChoiceOption[]; // 12V / 9-36V
+  warranty: { years: 1 | 2 | 3; label: string; multiplier: number }[];
+};
+
 export type EpcModelDetail = {
   slug: string;          // route slug, e.g. 'epc-w15x2a'
   model: string;         // display model, e.g. 'EPC-W15X2A'
@@ -24,6 +52,7 @@ export type EpcModelDetail = {
   productImages?: EpcGalleryImage[];     // ►Product images & sizes (dimensions, IO map)
   gallery?: EpcGalleryImage[];           // additional product photos
   selectionTable?: EpcSelectionRow[];    // factory part-number selection guide
+  configurator?: EpcConfigurator;        // buyer-selectable build (W24X2A-style)
   datasheetUrl?: string;                 // PDF datasheet link (factory)
   image: string;
   landingHref: string;   // landing page anchor on EPCSeries / EPCBoxSeries
@@ -299,6 +328,60 @@ export const epcModelDetails: Record<string, EpcModelDetail> = {
       { no: '7', model: 'EPC-W2422A', partNumber: 'C11.01.04.002', cpu: 'Intel® Core™ i5-1235U', memory: '8GB', storage: 'mSATA SSD 256GB' },
       { no: '8', model: 'EPC-W2422A', partNumber: 'C11.01.04.004', cpu: 'Intel® Core™ i7-1255U', memory: '8GB', storage: 'mSATA SSD 256GB' },
     ],
+    configurator: {
+      cpus: [
+        { key: 'j1900',    label: 'Intel® Celeron® J1900',     cores: 4,  threads: 4,  freq: '2.0–2.4 GHz', cache: '2MB',   tdp: '10W', graphics: 'Intel® HD',          memorySupport: '4–8GB DDR3L',  storageSupport: '1× mSATA SSD',           baseModel: 'EPC-W2462A', basePrice: 38900 },
+        { key: 'j6412',    label: 'Intel® Celeron® J6412',     cores: 4,  threads: 4,  freq: '2.0–2.6 GHz', cache: '1.5MB', tdp: '10W', graphics: 'Intel® UHD',         memorySupport: '4–16GB DDR4',  storageSupport: '1× mSATA / 1× M.2 SSD',  baseModel: 'EPC-W2472A', basePrice: 45900 },
+        { key: 'i3-10110u',label: 'Intel® Core™ i3-10110U',    cores: 2,  threads: 4,  freq: '2.1–4.1 GHz', cache: '4MB',   tdp: '15W', graphics: 'Intel® UHD',         memorySupport: '4–32GB DDR4',  storageSupport: '1× mSATA / 1× M.2 SSD',  baseModel: 'EPC-W2492A', basePrice: 56900 },
+        { key: 'i5-10210u',label: 'Intel® Core™ i5-10210U',    cores: 4,  threads: 8,  freq: '1.6–4.2 GHz', cache: '6MB',   tdp: '15W', graphics: 'Intel® UHD',         memorySupport: '4–32GB DDR4',  storageSupport: '1× mSATA / 1× M.2 SSD',  baseModel: 'EPC-W2492A', basePrice: 64900 },
+        { key: 'i7-10710u',label: 'Intel® Core™ i7-10710U',    cores: 4,  threads: 8,  freq: '1.8–4.9 GHz', cache: '8MB',   tdp: '15W', graphics: 'Intel® UHD',         memorySupport: '4–32GB DDR4',  storageSupport: '1× mSATA / 1× M.2 SSD',  baseModel: 'EPC-W2492A', basePrice: 74900 },
+        { key: 'i3-1215u', label: 'Intel® Core™ i3-1215U',     cores: 6,  threads: 8,  freq: '1.2–4.4 GHz', cache: '10MB',  tdp: '15W', graphics: 'Intel® UHD',         memorySupport: '8–32GB DDR5',  storageSupport: '2× M.2 SSD',             baseModel: 'EPC-W2422A', basePrice: 68900 },
+        { key: 'i5-1235u', label: 'Intel® Core™ i5-1235U',     cores: 10, threads: 12, freq: '1.3–4.4 GHz', cache: '12MB',  tdp: '15W', graphics: 'Intel® Iris® Xe',    memorySupport: '8–32GB DDR5',  storageSupport: '2× M.2 SSD',             baseModel: 'EPC-W2422A', basePrice: 79900 },
+        { key: 'i7-1255u', label: 'Intel® Core™ i7-1255U',     cores: 10, threads: 12, freq: '1.1–4.7 GHz', cache: '12MB',  tdp: '15W', graphics: 'Intel® Iris® Xe',    memorySupport: '8–32GB DDR5',  storageSupport: '2× M.2 SSD',             baseModel: 'EPC-W2422A', basePrice: 92900 },
+      ],
+      ram: [
+        { key: 'r4',  label: '4GB',  addPrice: 0,    note: 'รวมในราคาเริ่มต้น' },
+        { key: 'r8',  label: '8GB',  addPrice: 1500 },
+        { key: 'r16', label: '16GB', addPrice: 3500, note: 'แนะนำสำหรับ Gen10/Gen12' },
+        { key: 'r32', label: '32GB', addPrice: 7500, note: 'รองรับเฉพาะ Gen10/Gen12' },
+      ],
+      storage: [
+        { key: 's128',  label: 'SSD 128GB',  addPrice: 0,    note: 'รวมในราคาเริ่มต้น' },
+        { key: 's256',  label: 'SSD 256GB',  addPrice: 1200 },
+        { key: 's512',  label: 'SSD 512GB',  addPrice: 2800 },
+        { key: 's1024', label: 'SSD 1TB',    addPrice: 5500 },
+        { key: 's2048', label: 'SSD 2TB',    addPrice: 11500, note: 'รองรับเฉพาะรุ่นที่มี 2× M.2' },
+      ],
+      touch: [
+        { key: 'pcap',     label: 'P-CAP 10-point Multi-touch', addPrice: 0, note: 'มาตรฐาน — กระจกเต็มหน้า' },
+        { key: 'resistive',label: 'Resistive 5-wire Touch',     addPrice: 0, note: 'เหมาะกับงานสวมถุงมือ' },
+      ],
+      wireless: [
+        { key: 'none',  label: 'ไม่ต้องการโมดูลไร้สาย',                addPrice: 0 },
+        { key: 'wifi',  label: 'Wi-Fi: Intel® N6235 (2.4G/5G) + Antenna', addPrice: 1800 },
+        { key: '4g',    label: '4G LTE Full Netcom + SIM Slot',         addPrice: 3800 },
+        { key: 'both',  label: 'Wi-Fi + 4G LTE (รวม 2 โมดูล)',           addPrice: 5200 },
+      ],
+      os: [
+        { key: 'none',    label: 'ไม่ลง OS (ลูกค้าติดตั้งเอง)', addPrice: 0 },
+        { key: 'win10',   label: 'Windows 10 IoT Enterprise',     addPrice: 4500, note: 'License แท้ + Activation' },
+        { key: 'win11',   label: 'Windows 11 Pro',                addPrice: 4500, note: 'License แท้ + Activation' },
+        { key: 'ubuntu',  label: 'Ubuntu 22.04 LTS',              addPrice: 0,    note: 'ฟรี — Long-term support' },
+      ],
+      tempRange: [
+        { key: 'standard', label: 'อุณหภูมิใช้งาน 0 ~ 50°C',  addPrice: 0,    note: 'มาตรฐาน' },
+        { key: 'wide',     label: 'Wide-Temp -40 ~ 70°C',     addPrice: 4500, note: 'สำหรับโรงงานหนัก/Outdoor' },
+      ],
+      powerInput: [
+        { key: 'dc12',  label: 'DC 12V (3-pin Terminal Block)',  addPrice: 0, note: 'มาตรฐาน' },
+        { key: 'dc936', label: 'Wide DC 9–36V Input',            addPrice: 1500, note: 'รองรับยานพาหนะ/UPS' },
+      ],
+      warranty: [
+        { years: 1, label: 'รับประกัน 1 ปี', multiplier: 0     },
+        { years: 2, label: 'รับประกัน 2 ปี', multiplier: 0.06  },
+        { years: 3, label: 'รับประกัน 3 ปี', multiplier: 0.12  },
+      ],
+    },
     datasheetUrl: 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_899307542dca4df6b763b3a52e2af574.pdf',
     image: '/images/products/epc-w24x2a.jpg',
     landingHref: '/epc-series#wide',
