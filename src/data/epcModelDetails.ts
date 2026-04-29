@@ -290,7 +290,7 @@ export const epcModelDetails: Record<string, EpcModelDetail> = {
       { no: '7', model: 'EPC-W2422A', partNumber: 'C11.01.04.002', cpu: 'Intel® Core™ i5-1235U', memory: '8GB', storage: 'mSATA SSD 256GB' },
       { no: '8', model: 'EPC-W2422A', partNumber: 'C11.01.04.004', cpu: 'Intel® Core™ i7-1255U', memory: '8GB', storage: 'mSATA SSD 256GB' },
     ],
-    datasheetUrl: 'https://cesipc.com/wp-content/uploads/2025/08/EPC-W24X2A-EN.pdf',
+    datasheetUrl: 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_899307542dca4df6b763b3a52e2af574.pdf',
     image: '/images/products/epc-w24x2a.jpg',
     landingHref: '/epc-series#wide',
     popular: true,
