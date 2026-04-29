@@ -1437,6 +1437,7 @@ export const volktekIndustrialPoe: VolktekCategory = {
               humidity: "5 ~ 95% RH (non-condensing)",
               housing: "Aluminum (IP30)",
             },
+            physical: { weight: "869 g (1.9 lb)", dimension: "50 x 161.5 x 119.9 mm (W x H x D)" },
             datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/2a29a5f2c301509edf00d32d375dbfcb.pdf",
           },
         },
