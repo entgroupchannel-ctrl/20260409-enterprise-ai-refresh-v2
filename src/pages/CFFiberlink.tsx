@@ -502,7 +502,7 @@ const CFFiberlink = () => {
             </TabsList>
 
             {cffiberlinkCatalog.map((cat) => {
-              const filtered = cat.models.filter(filterModel);
+              const filtered = cat.models.filter((m) => filterModel(m, cat));
               const portChips: { v: PortFilter; label: string }[] = [
                 { v: "all", label: "ทุกขนาด" },
                 { v: "1-8", label: "1-8 พอร์ต" },
@@ -519,6 +519,12 @@ const CFFiberlink = () => {
                 { v: "all", label: "ทุกแบบ" },
                 { v: "din", label: "DIN-Rail" },
                 { v: "rack", label: "Rack 1U" },
+              ];
+              const tempChips: { v: TempFilter; label: string; emoji: string }[] = [
+                { v: "all", label: "ทุกระดับ", emoji: "🌡️" },
+                { v: "extreme", label: "ทนสุดขั้ว -40°C+", emoji: "🥶" },
+                { v: "industrial", label: "โรงงาน", emoji: "🏭" },
+                { v: "commercial", label: "ในอาคาร", emoji: "🏢" },
               ];
               return (
               <TabsContent key={cat.id} value={cat.id} className="mt-6">
