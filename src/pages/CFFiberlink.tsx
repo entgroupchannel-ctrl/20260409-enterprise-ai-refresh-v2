@@ -521,27 +521,61 @@ const CFFiberlink = () => {
         </section>
 
         {/* Industries */}
-        <section className="card-surface p-6 md:p-8">
-          <h2 className="text-xl md:text-2xl font-display font-bold text-foreground mb-1">
+        <section>
+          <h2 className="text-2xl font-display font-bold text-foreground mb-1">
             อุตสาหกรรมที่ใช้งานจริง
           </h2>
           <p className="text-sm text-muted-foreground mb-6">
-            สวิตช์ CF Fiberlink ใช้งานทั่วโลกในงาน Mission-Critical
+            สวิตช์ CF Fiberlink ใช้งานทั่วโลกในงาน Mission-Critical — แต่ละอุตสาหกรรมแนะนำรุ่นที่เหมาะสมที่สุด
           </p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {industries.map((ind, i) => (
-              <div
+              <article
                 key={i}
-                className="flex items-start gap-3 p-3 rounded-lg border border-border bg-muted/20 hover:bg-muted/40 transition-colors"
+                className="card-surface overflow-hidden flex flex-col hover:border-primary/40 hover:-translate-y-0.5 transition-all"
               >
-                <div className="p-2 rounded-md bg-primary/10 text-primary shrink-0">
-                  <ind.icon className="w-4 h-4" />
+                <div className="aspect-video overflow-hidden bg-muted relative">
+                  <img
+                    src={ind.image}
+                    alt={ind.label}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                    width={1024}
+                    height={640}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+                  <div className="absolute bottom-2 left-3 right-3 flex items-center gap-2">
+                    <div className="p-1.5 rounded-md bg-primary text-primary-foreground shrink-0 shadow-lg">
+                      <ind.icon className="w-4 h-4" />
+                    </div>
+                    <h3 className="font-display font-bold text-base text-foreground drop-shadow-sm">{ind.label}</h3>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-sm text-foreground">{ind.label}</h3>
-                  <p className="text-xs text-muted-foreground">{ind.desc}</p>
+                <div className="p-4 flex flex-col flex-1 gap-3">
+                  <p className="text-xs text-muted-foreground leading-relaxed">{ind.detail}</p>
+                  <div className="mt-auto">
+                    <p className="text-[10px] uppercase tracking-wide text-muted-foreground font-semibold mb-1.5">รุ่นที่แนะนำ</p>
+                    <div className="flex flex-wrap gap-1">
+                      {ind.recommended.map((code) => {
+                        const found = cffiberlinkCatalog
+                          .flatMap((c) => c.models.map((m) => ({ m, cat: c })))
+                          .find((x) => x.m.model === code);
+                        if (!found) return null;
+                        return (
+                          <button
+                            key={code}
+                            type="button"
+                            onClick={() => setSelected({ model: found.m, cat: found.cat })}
+                            className="font-mono text-[10px] px-2 py-1 rounded border border-primary/30 bg-primary/5 text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+                          >
+                            {code}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </section>
