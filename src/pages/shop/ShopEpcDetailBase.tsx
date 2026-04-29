@@ -950,6 +950,128 @@ export default function ShopEpcDetailBase({ slug }: Props) {
         </section>
       )}
 
+      {/* Industrial Grade Showcase (W-Series only) */}
+      {typeof slug === 'string' && slug.startsWith('epc-w') && (
+        <section className="container max-w-7xl mx-auto px-4 py-6 lg:py-10">
+          <div className="flex items-start gap-3 mb-6">
+            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+              <ShieldCheck className="w-5 h-5 text-primary" />
+            </div>
+            <div className="flex-1">
+              <h2 className="text-xl font-bold text-foreground">Industrial Grade · Certified · Globally Trusted</h2>
+              <p className="text-sm text-muted-foreground">
+                W-Series ผ่านการทดสอบมาตรฐานอุตสาหกรรมเต็มรูปแบบ และถูกใช้ในโครงการระดับโลก
+              </p>
+            </div>
+          </div>
+
+          {/* Differentiation badges */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-5">
+            <Card className="p-4 border-primary/30 bg-primary/5">
+              <div className="flex items-start gap-3">
+                <div className="w-9 h-9 rounded-md bg-primary text-primary-foreground flex items-center justify-center shrink-0">
+                  <ShieldCheck className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-sm font-bold text-foreground">Full Certification</div>
+                  <div className="text-xs text-muted-foreground mt-0.5">CE, FCC, IEC 60068-2, IP65, RoHS, REACH ครบทุกใบรับรอง</div>
+                </div>
+              </div>
+            </Card>
+            <Card className="p-4 border-primary/30 bg-primary/5">
+              <div className="flex items-start gap-3">
+                <div className="w-9 h-9 rounded-md bg-primary text-primary-foreground flex items-center justify-center shrink-0">
+                  <Zap className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-sm font-bold text-foreground">Mission-Critical Reliability</div>
+                  <div className="text-xs text-muted-foreground mt-0.5">MTBF 50,000+ ชม. · Wide Temp -20°C ถึง 60°C · ทำงาน 24/7</div>
+                </div>
+              </div>
+            </Card>
+            <Card className="p-4 border-primary/30 bg-primary/5">
+              <div className="flex items-start gap-3">
+                <div className="w-9 h-9 rounded-md bg-primary text-primary-foreground flex items-center justify-center shrink-0">
+                  <Sparkles className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-sm font-bold text-foreground">Global Mega-Projects</div>
+                  <div className="text-xs text-muted-foreground mt-0.5">ใช้งานจริงใน Oil & Gas, Semiconductor Fab, Airport, Metro ทั่วโลก</div>
+                </div>
+              </div>
+            </Card>
+          </div>
+
+          {/* Industry showcase grid — 4 ต่อแถว */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            {[
+              {
+                src: '/images/applications/w-certified-testing.jpg',
+                title: 'Certified Testing',
+                subtitle: 'EMC · Vibration · IP65',
+                desc: 'ผ่าน EMC Chamber, Vibration & Shock Test ตามมาตรฐาน IEC 60068',
+              },
+              {
+                src: '/images/applications/w-oil-gas.jpg',
+                title: 'Oil, Gas & Refinery',
+                subtitle: 'Offshore · Process Control',
+                desc: 'ใช้ในแท่นขุดเจาะและโรงกลั่นทั่วโลก ทนสภาพแวดล้อมหนัก ทนการกัดกร่อน',
+              },
+              {
+                src: '/images/applications/w-semiconductor.jpg',
+                title: 'Semiconductor Fab',
+                subtitle: 'Cleanroom · ESD-Safe',
+                desc: 'ใช้ในห้อง Cleanroom Class 100 สำหรับ Wafer Inspection และ Yield Analytics',
+              },
+              {
+                src: '/images/applications/w-global-infra.jpg',
+                title: 'Global Infrastructure',
+                subtitle: 'Airport · Metro · Port',
+                desc: 'ระบบ Operations Control ของสนามบิน รถไฟฟ้า และท่าเรือระดับโลก',
+              },
+            ].map((item) => (
+              <Card key={item.title} className="overflow-hidden group hover:shadow-lg transition-shadow">
+                <div className="aspect-video bg-muted overflow-hidden relative">
+                  <img
+                    src={item.src}
+                    alt={item.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/0 to-transparent pointer-events-none" />
+                  <div className="absolute bottom-2 left-2 right-2">
+                    <div className="text-sm font-bold text-foreground drop-shadow-sm leading-tight">{item.title}</div>
+                    <div className="text-[10px] text-foreground/80 mt-0.5">{item.subtitle}</div>
+                  </div>
+                </div>
+                <CardContent className="p-2.5">
+                  <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* Certification strip */}
+          <Card className="mt-5 p-4 bg-muted/30 border-dashed">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 justify-between">
+              <div className="flex items-start gap-3">
+                <ShieldCheck className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+                <div>
+                  <div className="text-xs font-bold text-foreground uppercase tracking-wide">Certifications & Standards</div>
+                  <div className="text-xs text-muted-foreground mt-0.5">มาตรฐานสากลที่ผ่านการทดสอบ</div>
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {['CE', 'FCC', 'IEC 60068-2', 'IP65', 'RoHS', 'REACH', 'ISO 9001'].map((c) => (
+                  <Badge key={c} variant="outline" className="text-[10px] font-mono">{c}</Badge>
+                ))}
+              </div>
+            </div>
+          </Card>
+        </section>
+      )}
+
 
       {/* Related */}
       {related.length > 0 && (
