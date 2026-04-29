@@ -18,7 +18,17 @@ import {
   Cpu,
   CheckCircle2,
   ShoppingBag,
+  Wifi,
+  Pickaxe,
+  Building2,
+  GraduationCap,
+  Hotel,
+  Store,
+  Leaf,
+  FlaskConical,
+  Buildings,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import AddToCartButton from "@/components/AddToCartButton";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
@@ -28,7 +38,26 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import FooterCompact from "@/components/FooterCompact";
 import MiniNavbar from "@/components/MiniNavbar";
-import { cffiberlinkCatalog, type CFFiberlinkModel, type CFFiberlinkCategoryDef } from "@/data/cffiberlink-models";
+import { cffiberlinkCatalog, type CFFiberlinkModel, type CFFiberlinkCategoryDef, type CFUseCase } from "@/data/cffiberlink-models";
+
+// แมป use case → icon + label สั้น (ภาษาไทย) สำหรับแสดงในการ์ด
+const USE_CASE_META: Record<CFUseCase, { icon: LucideIcon; label: string }> = {
+  cctv:         { icon: Camera,         label: "CCTV" },
+  "wifi-ap":    { icon: Wifi,           label: "WiFi AP" },
+  factory:      { icon: Factory,        label: "โรงงาน" },
+  rail:         { icon: Train,          label: "ระบบราง" },
+  traffic:      { icon: TrafficCone,    label: "ITS" },
+  power:        { icon: Zap,            label: "Smart Grid" },
+  petrochem:    { icon: FlaskConical,   label: "ปิโตรเคมี" },
+  mining:       { icon: Pickaxe,        label: "เหมือง" },
+  marine:       { icon: Ship,           label: "Marine" },
+  "smart-city": { icon: Building2,      label: "Smart City" },
+  campus:       { icon: GraduationCap,  label: "โรงเรียน" },
+  hotel:        { icon: Hotel,          label: "โรงแรม" },
+  office:       { icon: Buildings,      label: "ออฟฟิศ" },
+  smb:          { icon: Store,          label: "SMB" },
+  green:        { icon: Leaf,           label: "Solar/Green" },
+};
 
 /**
  * CF Fiberlink — Authorized Partner page (TH)
