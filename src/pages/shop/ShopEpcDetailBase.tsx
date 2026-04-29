@@ -852,32 +852,32 @@ export default function ShopEpcDetailBase({ slug }: Props) {
             </Card>
           </div>
 
-          {/* Industry showcase grid */}
-          <div className="grid md:grid-cols-2 gap-4">
+          {/* Industry showcase grid — 4 ต่อแถวบน desktop ประหยัดพื้นที่ */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
             {[
               {
                 src: '/images/applications/smart-factory.jpg',
-                title: 'Smart Factory & Production Line',
-                subtitle: 'HMI ข้างเครื่องจักร · SCADA · MES Dashboard',
-                desc: 'ติดตั้งบนแขนสแตนเลสข้างเครื่อง CNC, Robot, Conveyor — ติดตาม OEE, Production KPI แบบเรียลไทม์',
+                title: 'Smart Factory',
+                subtitle: 'HMI · SCADA · MES',
+                desc: 'ติดตั้งข้างเครื่อง CNC, Robot, Conveyor ติดตาม OEE แบบเรียลไทม์',
               },
               {
                 src: '/images/applications/food-pharma.jpg',
-                title: 'Food, Beverage & Pharma',
-                subtitle: 'IP65 Wash-down · Batch Control · Recipe Management',
-                desc: 'หน้าจอกันน้ำกันฝุ่น IP65 รองรับการล้างทำความสะอาดแรงดันสูง เหมาะสำหรับโรงงานอาหารและยา',
+                title: 'Food & Pharma',
+                subtitle: 'IP65 · Batch Control',
+                desc: 'หน้าจอ IP65 ทนการล้างแรงดันสูง เหมาะกับโรงงานอาหารและยา',
               },
               {
                 src: '/images/applications/logistics-wms.jpg',
-                title: 'Logistics & Warehouse (WMS)',
-                subtitle: 'Packing Station · Barcode · Inventory Tracking',
-                desc: 'ใช้คู่กับ Barcode Scanner ที่ Packing Station — บริหารสต็อก, Order Picking, Shipping ครบจบในจอเดียว',
+                title: 'Logistics / WMS',
+                subtitle: 'Packing · Barcode',
+                desc: 'ใช้กับ Barcode Scanner ที่ Packing Station บริหารสต็อก Order Picking',
               },
               {
                 src: '/images/applications/energy-utilities.jpg',
-                title: 'Energy, Oil & Gas, Utilities',
-                subtitle: 'Substation · Control Room · Grid Monitoring',
-                desc: 'ทนทานในสภาพแวดล้อมหนัก รองรับการมอนิเตอร์ Power Grid, Solar Farm, Substation 24/7',
+                title: 'Energy & Utilities',
+                subtitle: 'Substation · Grid',
+                desc: 'ทนทานในสภาพแวดล้อมหนัก มอนิเตอร์ Power Grid, Solar Farm 24/7',
               },
             ].map((item) => (
               <Card key={item.title} className="overflow-hidden group hover:shadow-lg transition-shadow">
@@ -889,14 +889,14 @@ export default function ShopEpcDetailBase({ slug }: Props) {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/0 to-transparent pointer-events-none" />
-                  <div className="absolute bottom-3 left-3 right-3">
-                    <div className="text-base font-bold text-foreground drop-shadow-sm">{item.title}</div>
-                    <div className="text-xs text-foreground/80 mt-0.5">{item.subtitle}</div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/0 to-transparent pointer-events-none" />
+                  <div className="absolute bottom-2 left-2 right-2">
+                    <div className="text-sm font-bold text-foreground drop-shadow-sm leading-tight">{item.title}</div>
+                    <div className="text-[10px] text-foreground/80 mt-0.5">{item.subtitle}</div>
                   </div>
                 </div>
-                <CardContent className="p-3">
-                  <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                <CardContent className="p-2.5">
+                  <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
                 </CardContent>
               </Card>
             ))}
