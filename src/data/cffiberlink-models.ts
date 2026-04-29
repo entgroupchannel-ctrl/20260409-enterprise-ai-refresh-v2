@@ -260,6 +260,7 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
         packetRate: "96 Mpps",
         size: "440×300×44 (Rack 1U)",
         poe: false,
+        tempRange: "-40~80°C", // ยืนยันจาก scrape (operating temp)
         badge: "Flagship 10G",
         image: IMG.heroHY4T1608S,
         spotlight: ["16× SFP Fiber-Heavy", "4× 10G SFP+ Uplink", "ERPS <20ms", "IPv4/IPv6 Routing", "MTBF 35 ปี"],
