@@ -1377,21 +1377,41 @@ const ShopStorefront = () => {
             ) : paged.length === 0 ? (
               <div className="text-center py-16 text-muted-foreground">ไม่พบสินค้าที่ตรงกับเงื่อนไข</div>
             ) : (
-              <div className={cn(
-                viewMode === 'grid'
-                  ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
-                  : "space-y-3"
-              )}>
-                {paged.map(p => (
-                  <ProductCard
-                    key={p.id}
-                    product={p}
-                    viewMode={viewMode}
-                    isComparing={compareList.includes(p.slug)}
-                    onToggleCompare={() => toggleCompare(p.slug)}
-                  />
-                ))}
-              </div>
+              <>
+                <div className={cn(
+                  viewMode === 'grid'
+                    ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+                    : "space-y-3"
+                )}>
+                  {visibleItems.map(p => (
+                    <ProductCard
+                      key={p.id}
+                      product={p}
+                      viewMode={viewMode}
+                      isComparing={compareList.includes(p.slug)}
+                      onToggleCompare={() => toggleCompare(p.slug)}
+                    />
+                  ))}
+                </div>
+
+                {/* Sentinel + skeletons for progressive loading */}
+                {visibleCount < paged.length && (
+                  <div ref={sentinelRef} className="mt-4">
+                    <div className={cn(
+                      viewMode === 'grid'
+                        ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+                        : "space-y-3"
+                    )}>
+                      {Array.from({ length: Math.min(VISIBLE_STEP, paged.length - visibleCount) }).map((_, i) => (
+                        <Card key={`more-${i}`} className="animate-pulse">
+                          <CardContent className="p-4 h-72" />
+                        </Card>
+                      ))}
+                    </div>
+                    <p className="text-center text-xs text-muted-foreground mt-3">กำลังโหลดสินค้าเพิ่มเติม...</p>
+                  </div>
+                )}
+              </>
             )}
 
             {/* Pagination */}
