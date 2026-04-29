@@ -42,7 +42,7 @@ const menuCategories = [
           { label: "iBox Series", href: "/ibox-series" },
           { label: "EPC Box Series", href: "/epc-box-series", new2026: true },
           { label: "UPC Series — LEGO Modular", href: "/upc-series", hot: true },
-          { label: "QY-U4000 — 4U Government Spec", href: "/shop/ipctech/qy-u4000", new2026: true },
+          { label: "QY-U4000 — 4U Government รองรับงานราชการ", href: "/shop/ipctech/qy-u4000", new2026: true },
         ],
       },
       {
