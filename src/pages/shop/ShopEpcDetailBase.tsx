@@ -13,6 +13,7 @@ import { useCart } from '@/hooks/useCart';
 import { savePendingQuote } from '@/hooks/usePendingQuote';
 import {
   ArrowLeft, Package, FileText, ShoppingCart, Sparkles, Check, ExternalLink, Phone,
+  ShieldCheck, Settings2, Image as ImageIcon, Ruler, Cable, ListChecks, Download, Factory,
 } from 'lucide-react';
 import LineQRButton from '@/components/LineQRButton';
 import { epcModelDetails, epcModelList, type EpcModelDetail } from '@/data/epcModelDetails';
