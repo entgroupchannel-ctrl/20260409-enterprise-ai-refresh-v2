@@ -49,6 +49,8 @@ import qyP5000 from "@/assets/ipctech/qy-p5000.jpg";
 import qyP5000Rack from "@/assets/ipctech/qy-p5000-rack.jpg";
 import qyP6000Vehicle from "@/assets/ipctech/qy-p6000-vehicle.jpg";
 import qyF5000 from "@/assets/ipctech/qy-f5000.jpg";
+import qyU4000Hero from "@/assets/ipctech/qy-u4000-hero.jpg";
+import qyU4000Dimensions from "@/assets/ipctech/qy-u4000-dimensions.jpg";
 
 const categories = [
   {
