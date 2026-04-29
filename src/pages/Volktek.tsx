@@ -15,6 +15,7 @@ import FooterCompact from "@/components/FooterCompact";
 import B2BPlatformInterfaceShowcase from "@/components/B2BPlatformInterfaceShowcase";
 import MiniNavbar from "@/components/MiniNavbar";
 import Layer3Section from "@/components/volktek/Layer3Section";
+import IndustrialPoeSection from "@/components/volktek/IndustrialPoeSection";
 
 // Official assets from volktek.com
 import heroSpe from "@/assets/volktek/hero-spe.png";
