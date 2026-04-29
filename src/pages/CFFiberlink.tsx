@@ -260,7 +260,7 @@ const CFFiberlink = () => {
                 <Badge variant="outline" className="text-xs">6KV Lightning</Badge>
                 <Badge variant="outline" className="text-xs">ERPS &lt;20ms</Badge>
                 <Badge variant="outline" className="text-xs">MTBF 35Y</Badge>
-                <Badge variant="outline" className="text-xs">รับประกัน 5 ปี</Badge>
+                <Badge variant="outline" className="text-xs">รับประกัน 2 ปี จากโรงงาน</Badge>
               </div>
               <div className="flex flex-wrap gap-3">
                 <QuoteRequestButton
@@ -368,11 +368,15 @@ const CFFiberlink = () => {
           </p>
 
           <Tabs defaultValue={cffiberlinkCatalog[0].id} className="w-full">
-            <TabsList className="w-full h-auto flex-wrap justify-start gap-1 bg-secondary/40 p-1">
+            <TabsList className="w-full h-auto flex-wrap justify-start gap-2 bg-transparent p-0 mb-2">
               {cffiberlinkCatalog.map((cat) => (
-                <TabsTrigger key={cat.id} value={cat.id} className="text-xs md:text-sm gap-2">
+                <TabsTrigger
+                  key={cat.id}
+                  value={cat.id}
+                  className="text-xs md:text-sm gap-2 px-4 py-2.5 rounded-lg border-2 border-border bg-card text-foreground/70 font-semibold shadow-sm hover:border-primary/50 hover:text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:shadow-md transition-all"
+                >
                   {cat.title}
-                  <Badge variant="outline" className="text-[10px] px-1.5 py-0">{cat.models.length}</Badge>
+                  <Badge variant="secondary" className="text-[10px] px-1.5 py-0 bg-background/20 text-current border-current/30">{cat.models.length}</Badge>
                 </TabsTrigger>
               ))}
             </TabsList>
@@ -615,7 +619,7 @@ const CFFiberlink = () => {
                     <Badge variant="outline" className="text-[10px]">-40~85°C</Badge>
                     <Badge variant="outline" className="text-[10px]">6KV Lightning</Badge>
                     <Badge variant="outline" className="text-[10px]">ERPS &lt;20ms</Badge>
-                    <Badge variant="outline" className="text-[10px]">รับประกัน 5 ปี</Badge>
+                    <Badge variant="outline" className="text-[10px]">รับประกัน 2 ปี จากโรงงาน</Badge>
                   </div>
                 </div>
               </div>
