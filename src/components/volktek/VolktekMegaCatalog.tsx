@@ -340,6 +340,17 @@ const VolktekMegaCatalog = () => {
           );
         })}
       </Tabs>
+
+      {/* Product Detail Dialog */}
+      <VolktekProductDialog
+        product={selected?.product ?? null}
+        subCategory={selected?.sub ?? null}
+        categoryTitle={selected?.catTitle ?? ""}
+        onClose={() => setSelected(null)}
+        onSelect={(p) =>
+          selected && setSelected({ ...selected, product: p })
+        }
+      />
     </section>
   );
 };
