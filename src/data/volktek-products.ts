@@ -228,11 +228,186 @@ export const volktekIndustrialPoe: VolktekCategory = {
 };
 
 /* ============================================================
+ * Phase 4: Industrial Ethernet Switches (11 sub-categories, 43 รุ่น)
+ * ============================================================ */
+import ie_INS_801E from "@/assets/volktek/products/ie/INS-801E.jpg";
+import ie_INS_802E from "@/assets/volktek/products/ie/INS-802E.jpg";
+import ie_INS_806E from "@/assets/volktek/products/ie/INS-806E.jpg";
+import ie_INS_8005E from "@/assets/volktek/products/ie/INS-8005E.jpg";
+import ie_INS_8008E from "@/assets/volktek/products/ie/INS-8008E.jpg";
+import ie_INS_8108E from "@/assets/volktek/products/ie/INS-8108E.jpg";
+import ie_INS_8405E from "@/assets/volktek/products/ie/INS-8405E.jpg";
+import ie_INS_8408E from "@/assets/volktek/products/ie/INS-8408E.jpg";
+import ie_INS_8005A from "@/assets/volktek/products/ie/INS-8005A.jpg";
+import ie_INS_8008A from "@/assets/volktek/products/ie/INS-8008A.jpg";
+import ie_INS_8405A from "@/assets/volktek/products/ie/INS-8405A.jpg";
+import ie_INS_8408A from "@/assets/volktek/products/ie/INS-8408A.jpg";
+import ie_INS_840G from "@/assets/volktek/products/ie/INS-840G.jpg";
+import ie_INS_8005M from "@/assets/volktek/products/ie/INS-8005M.jpg";
+import ie_INS_8405M from "@/assets/volktek/products/ie/INS-8405M.jpg";
+import ie_INS_8408AM from "@/assets/volktek/products/ie/INS-8408AM.jpg";
+import ie_IEN_840GL from "@/assets/volktek/products/ie/IEN-840GL.jpg";
+import ie_IEN_8415L from "@/assets/volktek/products/ie/IEN-8415L.jpg";
+import ie_IEN_8424L from "@/assets/volktek/products/ie/IEN-8424L.jpg";
+import ie_INS_8415 from "@/assets/volktek/products/ie/INS-8415.jpg";
+import ie_INS_8615 from "@/assets/volktek/products/ie/INS-8615.jpg";
+import ie_INS_8624 from "@/assets/volktek/products/ie/INS-8624.jpg";
+import ie_IEN_8608A from "@/assets/volktek/products/ie/IEN-8608A.jpg";
+import ie_IEN_8648A from "@/assets/volktek/products/ie/IEN-8648A.jpg";
+import ie_9015_8GT_I from "@/assets/volktek/products/ie/9015-8GT-I.jpg";
+import ie_9015_16GT_I from "@/assets/volktek/products/ie/9015-16GT-I.jpg";
+import ie_9015_8GT2GS_I from "@/assets/volktek/products/ie/9015-8GT2GS-I.jpg";
+import ie_9560_16GT4XS_I from "@/assets/volktek/products/ie/9560-16GT4XS-I.jpg";
+import ie_7013_16T_I from "@/assets/volktek/products/ie/7013-16T-I.jpg";
+import ie_7013_16GT_I from "@/assets/volktek/products/ie/7013-16GT-I.jpg";
+import ie_7015_8GT2GS_I from "@/assets/volktek/products/ie/7015-8GT2GS-I.jpg";
+import ie_IEN_9425_RW from "@/assets/volktek/products/ie/IEN-9425-RW.jpg";
+import ie_IEN_9428_RW from "@/assets/volktek/products/ie/IEN-9428-RW.jpg";
+import ie_IEN_9648_RW from "@/assets/volktek/products/ie/IEN-9648-RW.jpg";
+import ie_IEN_9425_SS from "@/assets/volktek/products/ie/IEN-9425-SS.jpg";
+import ie_IEN_9428_SS from "@/assets/volktek/products/ie/IEN-9428-SS.jpg";
+import ie_IEN_9648_SS from "@/assets/volktek/products/ie/IEN-9648-SS.jpg";
+import ie_IEN_9648M from "@/assets/volktek/products/ie/IEN-9648M.jpg";
+import ie_IEN_9648M_NEMA from "@/assets/volktek/products/ie/IEN-9648M_nema-ts2.jpg";
+import ie_IEN_9648_PN from "@/assets/volktek/products/ie/IEN-9648-PN.jpg";
+import ie_IEN_8648A_EIP from "@/assets/volktek/products/ie/IEN-8648A-EIP.jpg";
+import ie_7015_4U2T_T1L from "@/assets/volktek/products/ie/7015-4U2T-T1L.jpg";
+import ie_8015_Series from "@/assets/volktek/products/ie/8015_Series.jpg";
+
+export const volktekIndustrialEthernet: VolktekCategory = {
+  id: "industrial-ethernet",
+  title: "Industrial Ethernet Switches",
+  subCategories: [
+    {
+      id: "ie-unmanaged-basic",
+      title: "Unmanaged Basic",
+      blurb: "Unmanaged Industrial Ethernet — เสียบใช้ ไม่ต้องตั้งค่า เหมาะกับงาน Field-level ขนาดเล็ก",
+      products: [
+        { model: "INS-801E", description: "5x 10/100BASE-TX — Unmanaged Industrial Switch", image: ie_INS_801E, features: ["Unmanaged", "5-port", "Fast Ethernet"], sourceUrl: detail(54) },
+        { model: "INS-802E", description: "8x 10/100BASE-TX — Unmanaged Industrial Switch", image: ie_INS_802E, features: ["Unmanaged", "8-port", "Fast Ethernet"], sourceUrl: detail(55) },
+        { model: "INS-806E", description: "4x 10/100BASE-TX + 2x 100BASE-FX — Unmanaged Industrial", image: ie_INS_806E, features: ["Unmanaged", "Fiber", "6-port"], sourceUrl: detail(57) },
+        { model: "INS-8005E", description: "5x 10/100/1000BASE-T — Unmanaged Industrial Gigabit", image: ie_INS_8005E, features: ["Unmanaged", "5-port", "Gigabit"], sourceUrl: detail(58) },
+        { model: "INS-8008E", description: "8x 10/100/1000BASE-T — Unmanaged Industrial Gigabit", image: ie_INS_8008E, features: ["Unmanaged", "8-port", "Gigabit"], sourceUrl: detail(59) },
+        { model: "INS-8108E", description: "8x GbE + 1x 10G SFP+ — Unmanaged Industrial", image: ie_INS_8108E, features: ["Unmanaged", "10G SFP+", "8-port"], sourceUrl: detail(1731) },
+        { model: "INS-8405E", description: "4x GbE + 1x GbE SFP — Unmanaged Industrial", image: ie_INS_8405E, features: ["Unmanaged", "Fiber", "5-port"], sourceUrl: detail(60) },
+        { model: "INS-8408E", description: "8x GbE + 2x FX/GbE SFP — Unmanaged Industrial", image: ie_INS_8408E, features: ["Unmanaged", "Fiber", "10-port"], sourceUrl: detail(61) },
+      ],
+    },
+    {
+      id: "ie-unmanaged-premium",
+      title: "Unmanaged Premium",
+      blurb: "Premium Unmanaged Switch — ทนทานกว่ามาตรฐาน อายุการใช้งานยาวขึ้น เหมาะกับโครงการระยะยาว",
+      products: [
+        { model: "INS-8005A", description: "5x GbE — Premium Unmanaged Industrial Gigabit", image: ie_INS_8005A, features: ["Premium", "5-port", "Gigabit"], sourceUrl: detail(1622) },
+        { model: "INS-8008A", description: "8x GbE — Premium Unmanaged Industrial Gigabit", image: ie_INS_8008A, features: ["Premium", "8-port", "Gigabit"], sourceUrl: detail(1623) },
+        { model: "INS-8405A", description: "4x GbE + 1x GbE SFP — Premium Unmanaged Industrial", image: ie_INS_8405A, features: ["Premium", "Fiber", "5-port"], sourceUrl: detail(1624) },
+        { model: "INS-8408A", description: "8x GbE + 2x FX/GbE SFP — Premium Unmanaged Industrial", image: ie_INS_8408A, features: ["Premium", "Fiber", "10-port"], sourceUrl: detail(1625) },
+        { model: "INS-840G", description: "4x GbE + 1x GbE SFP + 1x GbE RJ45 — Premium Unmanaged", image: ie_INS_840G, features: ["Premium", "Fiber", "6-port"], sourceUrl: detail(1635) },
+      ],
+    },
+    {
+      id: "ie-lite-managed",
+      title: "Lite Managed",
+      blurb: "Lite Managed — VLAN/QoS/SNMP/IGMP เบื้องต้น ราคาคุ้มค่า",
+      products: [
+        { model: "INS-8005M", description: "5x GbE — Lite Managed Industrial Gigabit", image: ie_INS_8005M, features: ["Lite Managed", "5-port"], sourceUrl: detail(1591) },
+        { model: "INS-8405M", description: "4x GbE + 1x GbE SFP — Lite Managed Industrial", image: ie_INS_8405M, features: ["Lite Managed", "Fiber"], sourceUrl: detail(1592) },
+        { model: "INS-8408AM", description: "8x GbE + 2x FX/GbE SFP — Lite Managed Industrial", image: ie_INS_8408AM, features: ["Lite Managed", "Fiber", "10-port"], sourceUrl: detail(1593) },
+        { model: "IEN-840GL", description: "4x GbE + 1x GbE SFP + 1x GbE RJ45 — Lite Managed", image: ie_IEN_840GL, features: ["Lite Managed", "Fiber"], sourceUrl: detail(1636) },
+        { model: "IEN-8415L", description: "4x GbE + 1x GbE RJ45 + 1x FX/GbE SFP — Lite Managed", image: ie_IEN_8415L, features: ["Lite Managed", "Fiber"], sourceUrl: detail(1637) },
+        { model: "IEN-8424L", description: "4x GbE + 2x FX/GbE SFP — Lite Managed", image: ie_IEN_8424L, features: ["Lite Managed", "Fiber"], sourceUrl: detail(1638) },
+      ],
+    },
+    {
+      id: "ie-managed",
+      title: "Managed Switches",
+      blurb: "Full Managed — Ring Protection, ACL, IGMP, 802.1X เหมาะกับเครือข่ายซับซ้อน",
+      products: [
+        { model: "INS-8415", description: "4x GbE + 1x GbE RJ45 + 1x FX/GbE SFP — Managed", image: ie_INS_8415, features: ["Managed", "Fiber"], sourceUrl: detail(1594) },
+        { model: "INS-8615", description: "4x GbE + 1x GbE RJ45 + 1x FX/GbE SFP — Managed", image: ie_INS_8615, features: ["Managed", "Fiber"], sourceUrl: detail(1595) },
+        { model: "INS-8624", description: "4x GbE + 2x FX/GbE SFP — Managed Industrial", image: ie_INS_8624, features: ["Managed", "Fiber"], sourceUrl: detail(1596) },
+        { model: "IEN-8608A", description: "8x GbE + Combo Console — Managed Industrial", image: ie_IEN_8608A, features: ["Managed", "8-port", "Console"], sourceUrl: detail(1597) },
+        { model: "IEN-8648A", description: "8x GbE + 4x GbE SFP + Console — Managed Industrial", image: ie_IEN_8648A, features: ["Managed", "Fiber", "12-port"], sourceUrl: detail(1598) },
+        { model: "9015-8GT-I", description: "8x GbE — Managed Industrial Gigabit", image: ie_9015_8GT_I, features: ["Managed", "8-port", "Gigabit"], sourceUrl: detail(1656) },
+        { model: "9015-16GT-I", description: "16x GbE — Managed Industrial Gigabit", image: ie_9015_16GT_I, features: ["Managed", "16-port", "Gigabit"], sourceUrl: detail(1657) },
+        { model: "9015-8GT2GS-I", description: "8x GbE + 2x FX/GbE SFP — Managed Industrial", image: ie_9015_8GT2GS_I, features: ["Managed", "Fiber"], sourceUrl: detail(1658) },
+        { model: "9560-16GT4XS-I", description: "16x GbE + 4x 1G/10G SFP+ — Managed Industrial", image: ie_9560_16GT4XS_I, features: ["Managed", "16-port", "10G SFP+"], sourceUrl: detail(1616) },
+        { model: "7013-16T-I", description: "16x 10/100BASE-TX — Managed Industrial", image: ie_7013_16T_I, features: ["Managed", "16-port"], sourceUrl: detail(1641) },
+        { model: "7013-16GT-I", description: "16x GbE — Managed Industrial Gigabit", image: ie_7013_16GT_I, features: ["Managed", "16-port", "Gigabit"], sourceUrl: detail(1643) },
+        { model: "7015-8GT2GS-I", description: "8x GbE + 2x FX/GbE SFP — Managed Industrial", image: ie_7015_8GT2GS_I, features: ["Managed", "Fiber", "10-port"], sourceUrl: detail(1644) },
+      ],
+    },
+    {
+      id: "ie-dnv-lr",
+      title: "DNV & LR Marine",
+      blurb: "ผ่าน DNV / Lloyd's Register — สำหรับงานทางทะเลและเรือเดินสมุทร",
+      products: [
+        { model: "IEN-9648M", description: "8x GbE + 4x GbE SFP — Managed, DNV Marine Approval", image: ie_IEN_9648M, features: ["DNV Marine", "Managed", "Fiber"], sourceUrl: detail(1659) },
+      ],
+    },
+    {
+      id: "ie-nema-ts2",
+      title: "NEMA TS2",
+      blurb: "ผ่าน NEMA TS2 — สำหรับงานควบคุมไฟจราจรและ Intelligent Transportation System",
+      products: [
+        { model: "IEN-9648M (NEMA TS2)", description: "8x GbE + 4x GbE SFP — Managed, NEMA TS2", image: ie_IEN_9648M_NEMA, features: ["NEMA TS2", "Managed", "Fiber"], sourceUrl: detail(1709) },
+      ],
+    },
+    {
+      id: "ie-railway",
+      title: "Railway Certified",
+      blurb: "ผ่าน EN50155 / EN50121-4 — สำหรับสถานีและขบวนรถไฟ",
+      products: [
+        { model: "IEN-9425-RW", description: "4x GbE + 1x GbE RJ45 + 2x GbE SFP — Unmanaged, Railway", image: ie_IEN_9425_RW, features: ["Railway", "EN50155", "Fiber"], sourceUrl: detail(1646) },
+        { model: "IEN-9428-RW", description: "8x GbE + 2x FX/GbE SFP — Unmanaged, Railway", image: ie_IEN_9428_RW, features: ["Railway", "EN50155", "Fiber"], sourceUrl: detail(1647) },
+        { model: "IEN-9648-RW", description: "8x GbE + 4x GbE SFP — Managed, Railway", image: ie_IEN_9648_RW, features: ["Railway", "Managed", "Fiber"], sourceUrl: detail(1648) },
+      ],
+    },
+    {
+      id: "ie-substation",
+      title: "Substation Certified",
+      blurb: "ผ่าน IEC 61850-3 / IEEE 1613 — สำหรับสถานีไฟฟ้าและสภาพแวดล้อม EMI สูง",
+      products: [
+        { model: "IEN-9425-SS", description: "4x GbE + 1x GbE RJ45 + 2x GbE SFP — Unmanaged, Substation", image: ie_IEN_9425_SS, features: ["Substation", "IEC 61850"], sourceUrl: detail(1660) },
+        { model: "IEN-9428-SS", description: "8x GbE + 2x FX/GbE SFP — Unmanaged, Substation", image: ie_IEN_9428_SS, features: ["Substation", "8-port"], sourceUrl: detail(1661) },
+        { model: "IEN-9648-SS", description: "8x GbE + 4x GbE SFP — Managed, Substation", image: ie_IEN_9648_SS, features: ["Substation", "Managed", "Fiber"], sourceUrl: detail(1662) },
+      ],
+    },
+    {
+      id: "ie-profinet",
+      title: "PROFINET Certified",
+      blurb: "ผ่าน PROFINET — สำหรับระบบ Industrial Automation ที่ใช้โปรโตคอล PROFINET",
+      products: [
+        { model: "IEN-9648-PN", description: "8x GbE + 4x GbE SFP — Managed, PROFINET Certified", image: ie_IEN_9648_PN, features: ["PROFINET", "Managed", "Fiber"], sourceUrl: detail(1710) },
+      ],
+    },
+    {
+      id: "ie-ethernet-ip",
+      title: "EtherNet/IP Certified",
+      blurb: "ผ่าน EtherNet/IP (ODVA) — สำหรับระบบที่ใช้โปรโตคอล CIP",
+      products: [
+        { model: "IEN-8648A-EIP", description: "8x GbE + 4x GbE SFP — Managed, EtherNet/IP Certified", image: ie_IEN_8648A_EIP, features: ["EtherNet/IP", "Managed", "Fiber"], sourceUrl: detail(1711) },
+      ],
+    },
+    {
+      id: "ie-spe",
+      title: "Single-Pair Ethernet (SPE)",
+      blurb: "Long-Reach SPE — ลดสาย ลดต้นทุน เพิ่มความน่าเชื่อถือสำหรับ Field Network",
+      products: [
+        { model: "7015-4U2T-T1L", description: "4x 10BASE-T1L SPE + 2x GbE — Managed Industrial SPE", image: ie_7015_4U2T_T1L, features: ["SPE", "10BASE-T1L", "Managed"], sourceUrl: detail(1712) },
+        { model: "8015 Series", description: "Industrial SPE Switch Series — Long-Reach Single-Pair Ethernet", image: ie_8015_Series, features: ["SPE", "Long-Reach", "Industrial"], sourceUrl: detail(1713) },
+      ],
+    },
+  ],
+};
+
+/* ============================================================
  * Master export — เพิ่ม category อื่นใน phase ถัดไป
  * ============================================================ */
 export const volktekCatalog: VolktekCategory[] = [
   volktekLayer3,
   volktekIndustrialPoe,
-  // Phase 4+: industrial-ethernet, metro-ethernet, media-converter, ...
+  volktekIndustrialEthernet,
+  // Phase 5+: metro-ethernet, media-converter, ems-nms, sfp, poe-injector, firewall, accessories
 ];
 
