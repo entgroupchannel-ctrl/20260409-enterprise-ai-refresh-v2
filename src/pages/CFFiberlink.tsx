@@ -965,8 +965,8 @@ const CFFiberlink = () => {
                     const info = TEMP_INFO[klass];
                     return (
                       <div className="flex flex-wrap gap-1.5 pt-1">
-                        <Badge variant="outline" className={`text-[10px] ${info.badgeClass}`} title={info.useCase}>
-                          <span className="mr-0.5">{info.icon}</span>{range}
+                        <Badge variant="outline" className={`text-[10px] inline-flex items-center gap-1 ${info.badgeClass}`} title={info.useCase}>
+                          <info.icon className="w-3 h-3" />{range}
                         </Badge>
                         <Badge variant="outline" className="text-[10px]">6KV Lightning</Badge>
                         <Badge variant="outline" className="text-[10px]">ERPS &lt;20ms</Badge>
