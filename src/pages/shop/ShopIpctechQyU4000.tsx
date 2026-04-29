@@ -679,22 +679,24 @@ export default function ShopIpctechQyU4000() {
           ))}
         </div>
 
-        {/* Compact use-case grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {USE_CASES.map((u) => {
-            const Icon = u.icon;
-            return (
-              <Card key={u.label} className="hover:border-primary/50 transition-all">
-                <CardContent className="p-4 text-center space-y-2">
-                  <div className="w-10 h-10 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
-                    <Icon className="w-5 h-5 text-primary" />
+        {/* Compact use-case list — กระชับ 2/4 คอลัมน์ */}
+        <div className="rounded-lg border border-border bg-muted/30 p-3">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-2">
+            {USE_CASES.map((u) => {
+              const Icon = u.icon;
+              return (
+                <div key={u.label} className="flex items-center gap-2 py-1.5 border-b border-border/50 last:border-0 md:border-0">
+                  <div className="w-7 h-7 rounded-md bg-primary/10 flex items-center justify-center shrink-0">
+                    <Icon className="w-3.5 h-3.5 text-primary" />
                   </div>
-                  <p className="font-semibold text-sm">{u.label}</p>
-                  <p className="text-[11px] text-muted-foreground leading-snug">{u.desc}</p>
-                </CardContent>
-              </Card>
-            );
-          })}
+                  <div className="min-w-0">
+                    <p className="text-xs font-semibold text-foreground leading-tight truncate">{u.label}</p>
+                    <p className="text-[10px] text-muted-foreground leading-tight truncate">{u.desc}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
         {/* ENT Group Trust Block */}
