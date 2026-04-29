@@ -83,6 +83,180 @@ const BOX_COMMON_SPECS: EpcModelSpec[] = [
   { label: 'Warranty', value: '12 เดือน (ขยายได้)' },
 ];
 
+// ─────────────────────────────────────────────────────────────────────────────
+// EPC Box Series — Shared Helpers (CESIPC factory data)
+// ─────────────────────────────────────────────────────────────────────────────
+const BOX_SPEC_GROUPS = (m: { dimensions: string; weight: string; com: string; usb20: string; usb30: string }): EpcSpecGroup[] => [
+  {
+    title: 'System Core',
+    rows: [
+      { label: 'CPU (Celeron)', value: 'Intel® Celeron® J1900 (2.0–2.42GHz) / J6412 (2.0–2.6GHz)' },
+      { label: 'CPU (10th Gen)', value: 'Intel® Core™ i3-10110U / i5-10210U / i7-10710U' },
+      { label: 'CPU (12th Gen)', value: 'Intel® Core™ i3-1215U / i5-1235U / i5-1240P / i7-1255U' },
+      { label: 'Memory', value: '4–8GB DDR3L • 4–32GB DDR4 • 4–32GB DDR5 (ขึ้นกับรุ่น CPU)' },
+      { label: 'Storage', value: '1× mSATA SSD (Standard) • Dual M.2 2280 NVMe (Expansion)' },
+      { label: 'Cooling', value: 'Fanless — ระบายความร้อนผ่านครีบอลูมิเนียม 6061' },
+      { label: 'OS Support', value: 'Windows 10 / 11 • Linux Ubuntu' },
+      { label: 'Hardware Security', value: 'TPM 2.0' },
+    ],
+  },
+  {
+    title: 'I/O Ports',
+    rows: [
+      { label: 'USB 2.0', value: m.usb20 },
+      { label: 'USB 3.0', value: m.usb30 },
+      { label: 'COM (Serial)', value: m.com },
+      { label: 'Display', value: '1× HDMI + 1× VGA — Dual Independent Display' },
+      { label: 'Audio', value: '1× Audio Out + 1× Mic In' },
+      { label: 'Ethernet', value: '2× 10/100/1000 Mbps Intel® I210 LAN' },
+      { label: 'Expansion', value: '1× Mini PCIe • Dual M.2 2280 NVMe • M.2 2230 (Wi-Fi/BT)' },
+    ],
+  },
+  {
+    title: 'Wireless Communication',
+    rows: [
+      { label: 'Wi-Fi / Bluetooth', value: 'Wi-Fi + BT (M.2 2230 — Optional)' },
+      { label: 'Cellular', value: '4G LTE Full Network (Optional)' },
+    ],
+  },
+  {
+    title: 'Power Supply',
+    rows: [
+      { label: 'DC Input', value: '12V DC (Standard) • 9–36V DC Wide Input (Optional) — 3-pin Pluggable Terminal Block' },
+      { label: 'Booting', value: 'AT (Auto Power-on) / ATX (Power Button)' },
+      { label: 'Protection', value: 'CESIPC SafeCore™ Power-loss Protection + Auto Restart' },
+    ],
+  },
+  {
+    title: 'Mechanical',
+    rows: [
+      { label: 'Dimensions', value: m.dimensions },
+      { label: 'Weight', value: m.weight },
+      { label: 'Material', value: 'High-Strength 6061 Aluminum Alloy' },
+      { label: 'Mounting', value: 'Wall-mount / VESA Mount' },
+    ],
+  },
+  {
+    title: 'Environmental',
+    rows: [
+      { label: 'Operating Temp', value: '0 ~ 50°C (Standard) • -40 ~ 70°C (Wide-Temp Optional)' },
+      { label: 'Storage Temp', value: '-10 ~ 60°C' },
+      { label: 'Humidity', value: '10% ~ 90% RH, non-condensing' },
+    ],
+  },
+  {
+    title: 'Certifications & Services',
+    rows: [
+      { label: 'Certifications', value: 'CE • FCC • BIS (EN 55032 & EN 55035) • RoHS' },
+      { label: 'ODM / OEM', value: 'Custom BIOS • Boot Logo • OEM Branding • Custom I/O' },
+      { label: 'Warranty', value: '12 เดือน — ขยายเป็น 24/36 เดือนได้' },
+    ],
+  },
+];
+
+const BOX_OPTIONS: EpcOptionGroup[] = [
+  {
+    label: 'CPU',
+    choices: [
+      'Intel® Celeron® J1900 (Entry • 4-core 2.0GHz)',
+      'Intel® Celeron® J6412 (Elkhart Lake • 4-core 2.0GHz)',
+      'Intel® Core™ i3-10110U (10th Gen)',
+      'Intel® Core™ i5-10210U (10th Gen)',
+      'Intel® Core™ i7-10710U (10th Gen • 6-core)',
+      'Intel® Core™ i3-1215U (12th Gen)',
+      'Intel® Core™ i5-1235U (12th Gen)',
+      'Intel® Core™ i5-1240P (12th Gen • Performance)',
+      'Intel® Core™ i7-1255U (12th Gen • แนะนำ)',
+    ],
+  },
+  { label: 'Memory (RAM)', choices: ['4GB', '8GB', '16GB', '32GB'], note: 'ชนิด DDR3L / DDR4 / DDR5 ขึ้นกับรุ่น CPU' },
+  { label: 'Storage (SSD)', choices: ['mSATA SSD 128GB', 'mSATA SSD 256GB', 'M.2 NVMe 256GB', 'M.2 NVMe 512GB', 'M.2 NVMe 1TB', 'Dual SSD (RAID-0/1) — Optional'] },
+  { label: 'Wi-Fi / Bluetooth', choices: ['ไม่ติดตั้ง', 'Wi-Fi 5 + BT 5.0', 'Wi-Fi 6 + BT 5.2'] },
+  { label: 'Cellular (4G LTE)', choices: ['ไม่ติดตั้ง', '4G LTE Module + SIM Slot'] },
+  { label: 'Operating System', choices: ['ไม่ติดตั้ง OS', 'Windows 10 IoT Enterprise LTSC', 'Windows 11 Pro', 'Ubuntu 22.04 LTS'] },
+  { label: 'Power Input', choices: ['12V DC (Standard)', '9–36V DC Wide Input (Optional)'] },
+  { label: 'Operating Temperature', choices: ['0 ~ 50°C (Standard)', '-40 ~ 70°C (Wide-Temp Optional)'] },
+  { label: 'Mounting', choices: ['Wall-mount', 'VESA Mount', 'DIN-Rail (Optional)'] },
+  { label: 'Warranty', choices: ['12 เดือน (Standard)', '24 เดือน', '36 เดือน'] },
+];
+
+const BOX_CERTS: EpcCertification[] = [
+  { code: 'CE', description: 'European Conformity (EN 55032 & EN 55035)' },
+  { code: 'FCC', description: 'Federal Communications Commission (USA)' },
+  { code: 'BIS', description: 'Bureau of Indian Standards' },
+  { code: 'RoHS', description: 'Restriction of Hazardous Substances' },
+];
+
+const BOX_SELECTION = (prefix: string): EpcSelectionRow[] => {
+  const fp = prefix.split('.')[1][1]; // '1' | '2' | '3' | '4'
+  return [
+    { no: '1', model: `EPC-${fp}06A`, partNumber: `${prefix}.01.001`, cpu: 'Intel® Celeron® J1900',  memory: '4GB', storage: 'mSATA SSD 128GB' },
+    { no: '2', model: `EPC-${fp}07A`, partNumber: `${prefix}.05.001`, cpu: 'Intel® Celeron® J6412',  memory: '8GB', storage: 'mSATA SSD 256GB' },
+    { no: '3', model: `EPC-${fp}09A`, partNumber: `${prefix}.03.001`, cpu: 'Intel® Core™ i3-10110U', memory: '8GB', storage: 'mSATA SSD 256GB' },
+    { no: '4', model: `EPC-${fp}09A`, partNumber: `${prefix}.03.002`, cpu: 'Intel® Core™ i5-10210U', memory: '8GB', storage: 'mSATA SSD 256GB' },
+    { no: '5', model: `EPC-${fp}09A`, partNumber: `${prefix}.03.003`, cpu: 'Intel® Core™ i7-10710U', memory: '8GB', storage: 'mSATA SSD 256GB' },
+    { no: '6', model: `EPC-${fp}02A`, partNumber: `${prefix}.04.001`, cpu: 'Intel® Core™ i3-1215U',  memory: '8GB', storage: 'mSATA SSD 256GB' },
+    { no: '7', model: `EPC-${fp}02A`, partNumber: `${prefix}.04.002`, cpu: 'Intel® Core™ i5-1235U',  memory: '8GB', storage: 'mSATA SSD 256GB' },
+    { no: '8', model: `EPC-${fp}02A`, partNumber: `${prefix}.04.003`, cpu: 'Intel® Core™ i5-1240P',  memory: '8GB', storage: 'mSATA SSD 256GB' },
+    { no: '9', model: `EPC-${fp}02A`, partNumber: `${prefix}.04.004`, cpu: 'Intel® Core™ i7-1255U',  memory: '8GB', storage: 'mSATA SSD 256GB' },
+  ];
+};
+
+type BoxCpuKey = 'j1900' | 'j6412' | 'i3_10110u' | 'i5_10210u' | 'i7_10710u' | 'i3_1215u' | 'i5_1235u' | 'i7_1255u';
+const BOX_CONFIGURATOR = (cfg: { modelMap: Record<BoxCpuKey, string>; basePriceAdjust: number }): EpcConfigurator => ({
+  cpus: [
+    { key: 'j1900',     label: 'Intel® Celeron® J1900',  cores: 4,  threads: 4,  freq: '2.0–2.4 GHz', cache: '2MB',   tdp: '10W', graphics: 'Intel® HD',       memorySupport: '4–8GB DDR3L',  storageSupport: '1× mSATA SSD',          baseModel: cfg.modelMap.j1900,     basePrice: 24900 + cfg.basePriceAdjust },
+    { key: 'j6412',     label: 'Intel® Celeron® J6412',  cores: 4,  threads: 4,  freq: '2.0–2.6 GHz', cache: '1.5MB', tdp: '10W', graphics: 'Intel® UHD',      memorySupport: '4–16GB DDR4',  storageSupport: '1× mSATA / 1× M.2 SSD', baseModel: cfg.modelMap.j6412,     basePrice: 29900 + cfg.basePriceAdjust },
+    { key: 'i3-10110u', label: 'Intel® Core™ i3-10110U', cores: 2,  threads: 4,  freq: '2.1–4.1 GHz', cache: '4MB',   tdp: '15W', graphics: 'Intel® UHD',      memorySupport: '4–32GB DDR4',  storageSupport: '1× mSATA / 1× M.2 SSD', baseModel: cfg.modelMap.i3_10110u, basePrice: 38900 + cfg.basePriceAdjust },
+    { key: 'i5-10210u', label: 'Intel® Core™ i5-10210U', cores: 4,  threads: 8,  freq: '1.6–4.2 GHz', cache: '6MB',   tdp: '15W', graphics: 'Intel® UHD',      memorySupport: '4–32GB DDR4',  storageSupport: '1× mSATA / 1× M.2 SSD', baseModel: cfg.modelMap.i5_10210u, basePrice: 45900 + cfg.basePriceAdjust },
+    { key: 'i7-10710u', label: 'Intel® Core™ i7-10710U', cores: 6,  threads: 12, freq: '1.1–4.7 GHz', cache: '12MB',  tdp: '15W', graphics: 'Intel® UHD',      memorySupport: '4–32GB DDR4',  storageSupport: '1× mSATA / 1× M.2 SSD', baseModel: cfg.modelMap.i7_10710u, basePrice: 56900 + cfg.basePriceAdjust },
+    { key: 'i3-1215u',  label: 'Intel® Core™ i3-1215U',  cores: 6,  threads: 8,  freq: '1.2–4.4 GHz', cache: '10MB',  tdp: '15W', graphics: 'Intel® UHD',      memorySupport: '8–32GB DDR5',  storageSupport: '2× M.2 SSD',            baseModel: cfg.modelMap.i3_1215u,  basePrice: 49900 + cfg.basePriceAdjust },
+    { key: 'i5-1235u',  label: 'Intel® Core™ i5-1235U',  cores: 10, threads: 12, freq: '1.3–4.4 GHz', cache: '12MB',  tdp: '15W', graphics: 'Intel® Iris® Xe', memorySupport: '8–32GB DDR5',  storageSupport: '2× M.2 SSD',            baseModel: cfg.modelMap.i5_1235u,  basePrice: 59900 + cfg.basePriceAdjust },
+    { key: 'i7-1255u',  label: 'Intel® Core™ i7-1255U',  cores: 10, threads: 12, freq: '1.1–4.7 GHz', cache: '12MB',  tdp: '15W', graphics: 'Intel® Iris® Xe', memorySupport: '8–32GB DDR5',  storageSupport: '2× M.2 SSD',            baseModel: cfg.modelMap.i7_1255u,  basePrice: 72900 + cfg.basePriceAdjust },
+  ],
+  ram: [
+    { key: 'r4',  label: '4GB',  addPrice: 0,    note: 'รวมในราคาเริ่มต้น' },
+    { key: 'r8',  label: '8GB',  addPrice: 1500 },
+    { key: 'r16', label: '16GB', addPrice: 3500, note: 'แนะนำสำหรับ Gen10/Gen12' },
+    { key: 'r32', label: '32GB', addPrice: 7500, note: 'รองรับเฉพาะ Gen10/Gen12' },
+  ],
+  storage: [
+    { key: 's128',  label: 'mSATA SSD 128GB', addPrice: 0,     note: 'รวมในราคาเริ่มต้น' },
+    { key: 's256',  label: 'SSD 256GB',        addPrice: 1200 },
+    { key: 's512',  label: 'M.2 NVMe 512GB',   addPrice: 2800 },
+    { key: 's1024', label: 'M.2 NVMe 1TB',     addPrice: 5500 },
+    { key: 's2048', label: 'M.2 NVMe 2TB',     addPrice: 11500, note: 'ใช้ Dual M.2 Slot' },
+  ],
+  touch: [
+    { key: 'none', label: 'ไม่มี Touch (Box PC)', addPrice: 0, note: 'EPC Box ไม่มีจอในตัว — เชื่อมจอภายนอกผ่าน HDMI/VGA' },
+  ],
+  wireless: [
+    { key: 'none', label: 'ไม่ต้องการโมดูลไร้สาย',                 addPrice: 0 },
+    { key: 'wifi', label: 'Wi-Fi 5/6 + BT (M.2 2230) + Antenna',   addPrice: 1800 },
+    { key: '4g',   label: '4G LTE Full Netcom + SIM Slot',          addPrice: 3800 },
+    { key: 'both', label: 'Wi-Fi + 4G LTE (รวม 2 โมดูล)',           addPrice: 5200 },
+  ],
+  os: [
+    { key: 'none',   label: 'ไม่ลง OS (ลูกค้าติดตั้งเอง)',  addPrice: 0 },
+    { key: 'win10',  label: 'Windows 10 IoT Enterprise',     addPrice: 4500, note: 'License แท้ + Activation' },
+    { key: 'win11',  label: 'Windows 11 Pro',                addPrice: 4500, note: 'License แท้ + Activation' },
+    { key: 'ubuntu', label: 'Ubuntu 22.04 LTS',              addPrice: 0,    note: 'ฟรี — Long-term support' },
+  ],
+  tempRange: [
+    { key: 'standard', label: 'อุณหภูมิใช้งาน 0 ~ 50°C', addPrice: 0,    note: 'มาตรฐาน' },
+    { key: 'wide',     label: 'Wide-Temp -40 ~ 70°C',    addPrice: 4500, note: 'สำหรับโรงงานหนัก/Outdoor' },
+  ],
+  powerInput: [
+    { key: 'dc12',  label: 'DC 12V (3-pin Terminal Block)', addPrice: 0,    note: 'มาตรฐาน' },
+    { key: 'dc936', label: 'Wide DC 9–36V Input',           addPrice: 1500, note: 'รองรับยานพาหนะ/UPS' },
+  ],
+  warranty: [
+    { years: 1, label: 'รับประกัน 1 ปี', multiplier: 0    },
+    { years: 2, label: 'รับประกัน 2 ปี', multiplier: 0.06 },
+    { years: 3, label: 'รับประกัน 3 ปี', multiplier: 0.12 },
+  ],
+});
+
 export const epcModelDetails: Record<string, EpcModelDetail> = {
   'epc-w13x2a': {
     slug: 'epc-w13x2a', model: 'EPC-W13X2A', series: 'EPC Panel PC', category: 'Touch Panel PC',
@@ -1978,40 +2152,208 @@ export const epcModelDetails: Record<string, EpcModelDetail> = {
     image: '/images/products/s19x2a/front.webp',
     landingHref: '/epc-series#standard',
   },
+  // ─────────────────────────────────────────────────────────────────────────────
+  // EPC Box Series — Fanless Modular Industrial Box PC (CESIPC factory data)
+  // Shared CPU/RAM/Storage/OS across 10/20/30/40XA — differ in form-factor & I/O
+  // ─────────────────────────────────────────────────────────────────────────────
   'epc-10xa': {
     slug: 'epc-10xa', model: 'EPC-10XA', series: 'EPC Box', category: 'Box PC',
-    tagline: 'Compact 200mm Box PC — Edge / POS',
-    intro: 'EPC-10XA Box PC ขนาดเล็กเพียง 200mm — เหมาะกับ Edge Computing, POS, IoT Gateway และงานพื้นที่จำกัด',
-    highlights: ['Compact 200mm', 'Fanless 24/7', 'ใช้ไฟ DC ประหยัด', 'ติดตั้ง DIN Rail / VESA'],
-    specs: [{ label: 'Form Factor', value: '~200 × 150 × 50 mm' }, ...BOX_COMMON_SPECS],
+    tagline: 'Compact Fanless Box PC 229×160×47mm — Edge / IoT Gateway',
+    intro: 'EPC-10XA คอมพิวเตอร์อุตสาหกรรมแบบ Box ขนาดกะทัดรัด 229×160×47mm — ออกแบบ Fanless ด้วยเทคโนโลยี BlockCore™ ของ CESIPC โครงสร้าง 6061 Aluminum Alloy รองรับ Intel® Celeron® จนถึง 12th Gen Core™ i7 พร้อม TPM 2.0, SafeCore™ Power-loss Protection และ DC Wide Input 9–36V เหมาะกับงาน Edge Computing, IoT Gateway, POS, Machine Vision และ Embedded Control ในพื้นที่จำกัด',
+    highlights: [
+      'Compact 229 × 160 × 47 mm • น้ำหนักเพียง 1.48 kg',
+      'Fanless 24/7 — ไม่มีชิ้นส่วนเคลื่อนไหว',
+      'CPU เลือกได้ Celeron® J1900/J6412 ถึง 12th Gen Core™ i7-1255U',
+      '2× Intel® I210 Gigabit LAN',
+      '3× COM (2×RS-232 + 1×RS-485) • Dual Display HDMI+VGA',
+      'Dual M.2 2280 NVMe + M.2 2230 Wi-Fi',
+      'TPM 2.0 • SafeCore™ Power-loss Protection',
+      'DC 9–36V Wide Input • Auto Power-on',
+      'BlockCore™ Modular Design — เปลี่ยน CPU/RAM ได้',
+      'CE / FCC / BIS Certified',
+    ],
+    specs: [{ label: 'Form Factor', value: '229 × 160 × 47 mm' }, ...BOX_COMMON_SPECS],
+    specGroups: BOX_SPEC_GROUPS({
+      dimensions: '229.0 (W) × 160 (D) × 47 (H) mm',
+      weight: '1.48 kg',
+      com: '2× RS-232 + 1× RS-485 (DB9)',
+      usb20: '2× USB 2.0 (Core™) / 5× USB 2.0 (Celeron®)',
+      usb30: '4× USB 3.0 (Core™) / 1× USB 3.0 (Celeron®)',
+    }),
+    options: BOX_OPTIONS,
+    certifications: BOX_CERTS,
+    applications: [
+      'Edge Computing / IoT Gateway',
+      'POS / Self-service Kiosk',
+      'Machine Vision Controller',
+      'AGV / Mobile Robot Controller',
+      'Smart Building / Energy Monitoring',
+      'Digital Signage Player',
+      'CNC / Motion Control Interface',
+      'Edge AI Inference (เบา)',
+    ],
+    heroImages: ['/images/wix/0597a3_e66a5a6616b64254a920d2c6f05b93f8_48ed79f4.png'],
+    productImages: [
+      { src: 'https://cesipc.com/wp-content/uploads/2024/11/EPC-10XA%E5%B0%BA%E5%AF%B8%E5%9B%BE-1024x356.png', alt: 'EPC-10XA Dimensions Drawing', caption: 'Dimensions: 229 × 160 × 47 mm — Wall-mount / VESA Mount' },
+      { src: 'https://cesipc.com/wp-content/uploads/2024/11/EPC-10XAIO%E6%8E%A5%E5%8F%A3%E5%9B%BE-1024x262.png', alt: 'EPC-10XA I/O Layout', caption: 'I/O: HDMI · VGA · 2×LAN · USB 2.0/3.0 · 2×RS-232 + 1×RS-485 · Audio · Mic · DC 9–36V' },
+    ],
+    selectionTable: BOX_SELECTION('C10.01'),
+    configurator: BOX_CONFIGURATOR({
+      modelMap: { j1900: 'EPC-106A', j6412: 'EPC-107A', i3_10110u: 'EPC-109A', i5_10210u: 'EPC-109A', i7_10710u: 'EPC-109A', i3_1215u: 'EPC-102A', i5_1235u: 'EPC-102A', i7_1255u: 'EPC-102A' },
+      basePriceAdjust: 0,
+    }),
+    datasheetUrl: 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_7c5d5ac786764ef2b4fd3910060c41b6.pdf',
     image: '/images/wix/0597a3_e66a5a6616b64254a920d2c6f05b93f8_48ed79f4.png',
     landingHref: '/epc-box-series#10xa',
   },
   'epc-20xa': {
     slug: 'epc-20xa', model: 'EPC-20XA', series: 'EPC Box', category: 'Box PC',
-    tagline: 'Performance Box PC — ระบายความร้อนดีขึ้น 68%',
-    intro: 'EPC-20XA Box PC สมรรถนะสูง — โครงสร้างระบายความร้อนใหม่ ดีขึ้น 68% รองรับ CPU แรงทำงาน 24/7 เสถียร',
-    highlights: ['Cooling +68%', 'CPU ถึง i7/i9', 'PCIe / M.2 Expansion', 'รองรับงาน AI Inference เบา'],
-    specs: [{ label: 'Form Factor', value: 'Mid-size Industrial Box' }, ...BOX_COMMON_SPECS],
+    tagline: 'Performance Box PC 229×160×79.5mm — Cooling +68%',
+    intro: 'EPC-20XA คอมพิวเตอร์อุตสาหกรรม Box PC สมรรถนะสูง — เพิ่มความสูงเป็น 79.5mm เพื่อพื้นที่ระบายความร้อนที่ใหญ่ขึ้น 68% จาก EPC-10XA รองรับ CPU แรง Intel® Core™ ถึง 12th Gen i7-1255U ทำงาน 24/7 เสถียร พร้อม BlockCore™ Modular Design และ DC Wide Input 9–36V — เหมาะกับ Factory Automation, SCADA, Machine Vision และ AGV ที่ต้องการพลังประมวลผลสูง',
+    highlights: [
+      'Mid-size 229 × 160 × 79.5 mm — Cooling +68%',
+      'Fanless 24/7 — รองรับ CPU TDP 15W เต็มพิกัด',
+      'CPU เลือกได้ Celeron® J1900/J6412 ถึง 12th Gen Core™ i7-1255U',
+      '2× Intel® I210 Gigabit LAN',
+      '3× COM (2×RS-232 + 1×RS-485) • Dual Display HDMI+VGA',
+      'Dual M.2 2280 NVMe + M.2 2230 Wi-Fi',
+      'TPM 2.0 • SafeCore™ Power-loss Protection',
+      'DC 9–36V Wide Input • AT/ATX Boot',
+      'BlockCore™ Modular Design',
+      'CE / FCC / BIS Certified',
+    ],
+    specs: [{ label: 'Form Factor', value: '229 × 160 × 79.5 mm' }, ...BOX_COMMON_SPECS],
+    specGroups: BOX_SPEC_GROUPS({
+      dimensions: '229.0 (W) × 160 (D) × 79.5 (H) mm',
+      weight: '~2.2 kg',
+      com: '2× RS-232 + 1× RS-485 (DB9)',
+      usb20: '2× USB 2.0 (Core™) / 5× USB 2.0 (Celeron®)',
+      usb30: '4× USB 3.0 (Core™) / 1× USB 3.0 (Celeron®)',
+    }),
+    options: BOX_OPTIONS,
+    certifications: BOX_CERTS,
+    applications: [
+      'Factory Automation / SCADA',
+      'Machine Vision / AOI',
+      'AGV / AMR / Robotics Controller',
+      'CNC / Motion Control',
+      'Edge AI Inference',
+      'Semiconductor Equipment',
+      'Energy Monitoring / Substation',
+      'Digital Signage / Smart Retail',
+    ],
+    heroImages: ['/images/wix/0597a3_373c66cd76674aafb9d631325e3e3a26_258223ef.png'],
+    productImages: [
+      { src: 'https://cesipc.com/wp-content/uploads/2024/11/EPC-20XA%E5%B0%BA%E5%AF%B8%E5%9B%BE-1024x567.png', alt: 'EPC-20XA Dimensions Drawing', caption: 'Dimensions: 229 × 160 × 79.5 mm — Cooling Surface +68%' },
+      { src: 'https://cesipc.com/wp-content/uploads/2024/11/EPC-20XAIO%E6%8E%A5%E5%8F%A3%E5%9B%BE-1024x263.png', alt: 'EPC-20XA I/O Layout', caption: 'I/O: HDMI · VGA · 2×LAN · USB 2.0/3.0 · 2×RS-232 + 1×RS-485 · Audio · DC 9–36V' },
+    ],
+    selectionTable: BOX_SELECTION('C10.02'),
+    configurator: BOX_CONFIGURATOR({
+      modelMap: { j1900: 'EPC-206A', j6412: 'EPC-207A', i3_10110u: 'EPC-209A', i5_10210u: 'EPC-209A', i7_10710u: 'EPC-209A', i3_1215u: 'EPC-202A', i5_1235u: 'EPC-202A', i7_1255u: 'EPC-202A' },
+      basePriceAdjust: 2000,
+    }),
+    datasheetUrl: 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_88901736999d4c28bf68d683143988c3.pdf',
     image: '/images/wix/0597a3_373c66cd76674aafb9d631325e3e3a26_258223ef.png',
     landingHref: '/epc-box-series#20xa',
     popular: true,
   },
   'epc-30xa': {
     slug: 'epc-30xa', model: 'EPC-30XA', series: 'EPC Box', category: 'Box PC',
-    tagline: 'Rack/Panel Mount 337mm — Low Profile',
-    intro: 'EPC-30XA Box PC แบบ Low-profile ขนาด 337mm — ออกแบบให้ติดตั้งใน Rack/Panel ตู้คอนโทรลได้ลงตัว',
-    highlights: ['Low Profile 337mm', 'Rack/Panel Mount', 'รองรับ I/O หลากหลาย', 'งานสายการผลิต/SCADA'],
-    specs: [{ label: 'Form Factor', value: '337mm Rack/Panel Mount' }, ...BOX_COMMON_SPECS],
+    tagline: 'Low-Profile Wide Box PC 337×160×47.5mm — Rack/Panel Mount',
+    intro: 'EPC-30XA คอมพิวเตอร์อุตสาหกรรม Box PC แบบ Low-profile กว้าง 337mm หนาเพียง 47.5mm — เหมาะกับการติดตั้งใน Rack/Panel ตู้คอนโทรล รองรับ I/O ครบถ้วน 6× COM (4×RS-232 + 2×RS-485) สำหรับเชื่อม PLC/Sensor หลายตัวพร้อมกัน รองรับ Intel® Celeron® ถึง 12th Gen Core™ i7 — เหมาะกับ SCADA, Process Control, Aerospace Assembly, UAV Ground Station และ AGV Smart Logistics',
+    highlights: [
+      'Low Profile 337 × 160 × 47.5 mm — บางพิเศษ',
+      'พื้นที่ติดตั้ง Rack/Panel Mount ลงตัว',
+      '6× COM (4×RS-232 + 2×RS-485) — เชื่อม PLC/Sensor หลายตัว',
+      'CPU เลือกได้ Celeron® J1900/J6412 ถึง 12th Gen Core™ i7-1255U',
+      '2× Intel® I210 Gigabit LAN',
+      'Dual Display HDMI+VGA • Dual M.2 2280 NVMe',
+      'TPM 2.0 • SafeCore™ Power-loss Protection',
+      'DC 9–36V Wide Input',
+      'น้ำหนัก 3.7 kg • 6061 Aluminum Alloy',
+      'CE / FCC / BIS Certified',
+    ],
+    specs: [{ label: 'Form Factor', value: '337 × 160 × 47.5 mm Low-Profile' }, ...BOX_COMMON_SPECS],
+    specGroups: BOX_SPEC_GROUPS({
+      dimensions: '337.0 (W) × 160 (D) × 47.5 (H) mm',
+      weight: '3.7 kg',
+      com: '4× RS-232 + 2× RS-485 (DB9)',
+      usb20: '2× USB 2.0 (Core™) / 5× USB 2.0 (Celeron®)',
+      usb30: '4× USB 3.0 (Core™) / 1× USB 3.0 (Celeron®)',
+    }),
+    options: BOX_OPTIONS,
+    certifications: BOX_CERTS,
+    applications: [
+      'Aerospace Assembly Line',
+      'UAV / Drone Ground Station',
+      'AGV / AMR / Smart Logistics',
+      'CNC / Motion Control (Multi-axis)',
+      'SCADA / Process Control',
+      'Semiconductor Equipment',
+      'Machine Vision Multi-camera',
+      'Energy Monitoring / Substation',
+    ],
+    heroImages: ['/images/wix/0597a3_66f688e771804493b4e10e4daf7dd19a_e2ade35a.png'],
+    productImages: [
+      { src: 'https://cesipc.com/wp-content/uploads/2024/11/EPC-30XA%E5%B0%BA%E5%AF%B8%E5%9B%BE-1024x567.png', alt: 'EPC-30XA Dimensions Drawing', caption: 'Dimensions: 337 × 160 × 47.5 mm — Low-Profile Rack/Panel Mount' },
+      { src: 'https://cesipc.com/wp-content/uploads/2024/11/EPC-30XAIO%E6%8E%A5%E5%8F%A3%E5%9B%BE-1024x262.png', alt: 'EPC-30XA I/O Layout', caption: 'I/O: HDMI · VGA · 2×LAN · USB 2.0/3.0 · 4×RS-232 + 2×RS-485 · Audio · DC 9–36V' },
+    ],
+    selectionTable: BOX_SELECTION('C10.03'),
+    configurator: BOX_CONFIGURATOR({
+      modelMap: { j1900: 'EPC-306A', j6412: 'EPC-307A', i3_10110u: 'EPC-309A', i5_10210u: 'EPC-309A', i7_10710u: 'EPC-309A', i3_1215u: 'EPC-302A', i5_1235u: 'EPC-302A', i7_1255u: 'EPC-302A' },
+      basePriceAdjust: 4000,
+    }),
+    datasheetUrl: 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_95fc75ebfd0641c6be57dc1491e93f43.pdf',
     image: '/images/wix/0597a3_66f688e771804493b4e10e4daf7dd19a_e2ade35a.png',
     landingHref: '/epc-box-series#30xa',
   },
   'epc-40xa': {
     slug: 'epc-40xa', model: 'EPC-40XA', series: 'EPC Box', category: 'Box PC',
-    tagline: 'Mission-Critical Flagship — ระบายความร้อน +168%',
-    intro: 'EPC-40XA Box PC เรือธง — ระบายความร้อนดีขึ้น +168% รองรับงานหนัก Mission-Critical, AI Inference, Server-grade Edge',
-    highlights: ['Cooling +168%', 'รองรับ GPU / Accelerator', 'Expansion เต็มรูปแบบ', 'Server-grade reliability'],
-    specs: [{ label: 'Form Factor', value: 'Full-size Industrial Box' }, ...BOX_COMMON_SPECS],
+    tagline: 'Flagship Mission-Critical Box PC 337×160×79.5mm — Cooling +168%',
+    intro: 'EPC-40XA คอมพิวเตอร์อุตสาหกรรม Box PC เรือธง — ขนาดใหญ่ที่สุดในซีรีส์ 337×160×79.5mm รวมจุดเด่นของ EPC-20XA (สูง) + EPC-30XA (กว้าง) ให้พื้นที่ระบายความร้อน +168% จาก EPC-10XA รองรับงาน Mission-Critical, AI Inference, Server-grade Edge — รองรับ I/O เต็มรูปแบบ 6× COM, Dual M.2 NVMe, Mini PCIe Expansion พร้อมรองรับ CPU ถึง 12th Gen Core™ i7-1255U',
+    highlights: [
+      'Maximum 337 × 160 × 79.5 mm — Cooling +168%',
+      'Fanless รองรับงานหนัก 24/7 Mission-Critical',
+      'CPU เลือกได้ Celeron® J1900/J6412 ถึง 12th Gen Core™ i7-1255U',
+      '6× COM (4×RS-232 + 2×RS-485)',
+      '2× Intel® I210 Gigabit LAN',
+      'Dual Display HDMI+VGA • Dual M.2 2280 NVMe',
+      'Mini PCIe Expansion + M.2 2230 Wi-Fi',
+      'TPM 2.0 • SafeCore™ Power-loss Protection',
+      'DC 9–36V Wide Input • AT/ATX Boot',
+      'CE / FCC / BIS Certified',
+    ],
+    specs: [{ label: 'Form Factor', value: '337 × 160 × 79.5 mm Flagship' }, ...BOX_COMMON_SPECS],
+    specGroups: BOX_SPEC_GROUPS({
+      dimensions: '337.0 (W) × 160 (D) × 79.5 (H) mm',
+      weight: '4.0 kg',
+      com: '4× RS-232 + 2× RS-485 (DB9)',
+      usb20: '2× USB 2.0 (Core™) / 5× USB 2.0 (Celeron®)',
+      usb30: '4× USB 3.0 (Core™) / 1× USB 3.0 (Celeron®)',
+    }),
+    options: BOX_OPTIONS,
+    certifications: BOX_CERTS,
+    applications: [
+      'Mission-Critical Server-grade Edge',
+      'AI Inference / Edge GPU',
+      'Smart Manufacturing Hub',
+      'Multi-camera Machine Vision',
+      'Aerospace / Defense Control',
+      'Oil & Gas Field Computing',
+      'Semiconductor / Lithography',
+      'Robotics Multi-axis Controller',
+    ],
+    heroImages: ['/images/wix/0597a3_97f200930e3047dc887b96a9e8c48203_bc6a9156.png'],
+    productImages: [
+      { src: 'https://cesipc.com/wp-content/uploads/2025/05/image-1-1024x493.png', alt: 'EPC-40XA Dimensions Drawing', caption: 'Dimensions: 337 × 160 × 79.5 mm — Maximum Form Factor' },
+      { src: 'https://cesipc.com/wp-content/uploads/2025/05/image-1024x274.png', alt: 'EPC-40XA I/O Layout', caption: 'I/O: HDMI · VGA · 2×LAN · USB 2.0/3.0 · 4×RS-232 + 2×RS-485 · Audio · DC 9–36V' },
+    ],
+    selectionTable: BOX_SELECTION('C10.04'),
+    configurator: BOX_CONFIGURATOR({
+      modelMap: { j1900: 'EPC-406A', j6412: 'EPC-407A', i3_10110u: 'EPC-409A', i5_10210u: 'EPC-409A', i7_10710u: 'EPC-409A', i3_1215u: 'EPC-402A', i5_1235u: 'EPC-402A', i7_1255u: 'EPC-402A' },
+      basePriceAdjust: 6000,
+    }),
+    datasheetUrl: 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_d306bb34abe6432eba8b356ecbe755e1.pdf',
     image: '/images/wix/0597a3_97f200930e3047dc887b96a9e8c48203_bc6a9156.png',
     landingHref: '/epc-box-series#40xa',
     popular: true,
