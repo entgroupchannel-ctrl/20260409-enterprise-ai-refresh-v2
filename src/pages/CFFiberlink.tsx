@@ -459,8 +459,8 @@ const CFFiberlink = () => {
                   className="group relative card-surface overflow-hidden flex flex-col text-left ring-2 ring-primary/30 hover:ring-primary hover:-translate-y-1 hover:shadow-xl transition-all"
                 >
                   {/* Top ribbon */}
-                  <div className="absolute top-0 left-0 right-0 z-10 bg-gradient-to-r from-primary to-primary/70 text-primary-foreground text-[10px] font-bold tracking-wide uppercase px-2 py-1 text-center shadow">
-                    ⭐ Pick · {cat.title}
+                  <div className="absolute top-0 left-0 right-0 z-10 bg-gradient-to-r from-primary to-primary/70 text-primary-foreground text-[10px] font-bold tracking-wide uppercase px-2 py-1 text-center shadow inline-flex items-center justify-center gap-1">
+                    <Star className="w-3 h-3 fill-current" /> Pick · {cat.title}
                   </div>
 
                   <div className="aspect-[4/3] overflow-hidden bg-gradient-to-br from-muted to-secondary/40 pt-6 relative">
