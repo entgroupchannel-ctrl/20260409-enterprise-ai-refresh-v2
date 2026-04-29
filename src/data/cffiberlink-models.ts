@@ -31,20 +31,20 @@ export interface CFFiberlinkCategoryDef {
   models: CFFiberlinkModel[];
 }
 
-// Default representative images per port-class (จาก factory CDN)
+// Default representative images per port-class — local copy in /public/cffiberlink/
 const IMG = {
-  smallL2: "https://cdnus.globalso.com/cffiberlink/4107.jpg",
-  smallPoE: "https://cdnus.globalso.com/cffiberlink/afdsgn-tuya-tuya.jpg",
-  midL2: "https://cdnus.globalso.com/cffiberlink/55c2d925462b78fdb39e499ae32255f.jpg",
-  rack: "https://cdnus.globalso.com/cffiberlink/604b25fdafe0b0fe8dba3998bed93d0.jpg",
-  l3Core: "https://cdnus.globalso.com/cffiberlink/4%E4%B8%87%E5%85%86%E5%85%8916%E5%8D%83%E5%85%86%E7%94%B58%E4%B8%AA%E5%8D%83%E5%85%86%E5%85%89-CF-HY4T8016G-SFP-2.jpg",
-  l3Poe: "https://cdnus.globalso.com/cffiberlink/IMG_433110.jpg",
-  cctv24: "https://cdnus.globalso.com/cffiberlink/12.jpg",
-  cctv4: "https://cdnus.globalso.com/cffiberlink/poe1.jpg",
-  cctv8: "https://cdnus.globalso.com/cffiberlink/poe11.jpg",
-  cctv4g: "https://cdnus.globalso.com/cffiberlink/21.jpg",
-  cctv27: "https://cdnus.globalso.com/cffiberlink/IMG_3772.jpg",
-  cctv27b: "https://cdnus.globalso.com/cffiberlink/IMG_38642.jpg",
+  smallL2: "/cffiberlink/smallL2.jpg",
+  smallPoE: "/cffiberlink/smallPoE.jpg",
+  midL2: "/cffiberlink/midL2.jpg",
+  rack: "/cffiberlink/rack.jpg",
+  l3Core: "/cffiberlink/l3Core.jpg",
+  l3Poe: "/cffiberlink/l3Poe.jpg",
+  cctv24: "/cffiberlink/cctv24.jpg",
+  cctv4: "/cffiberlink/cctv4.jpg",
+  cctv8: "/cffiberlink/cctv8.jpg",
+  cctv4g: "/cffiberlink/cctv4g.jpg",
+  cctv27: "/cffiberlink/cctv27.jpg",
+  cctv27b: "/cffiberlink/cctv27b.jpg",
 };
 
 const SW_L2 = [
