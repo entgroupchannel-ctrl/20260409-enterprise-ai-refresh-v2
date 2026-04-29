@@ -1,5 +1,12 @@
 // EPC Panel PC + EPC Box Series — static spec data for /shop/<model> detail pages
 export type EpcModelSpec = { label: string; value: string };
+export type EpcSpecGroup = { title: string; rows: EpcModelSpec[] };
+export type EpcOptionGroup = { label: string; choices: string[]; note?: string };
+export type EpcCertification = { code: string; description?: string };
+export type EpcGalleryImage = { src: string; alt: string; caption?: string };
+export type EpcSelectionRow = {
+  no: string; model: string; partNumber: string; cpu: string; memory: string; storage: string;
+};
 export type EpcModelDetail = {
   slug: string;          // route slug, e.g. 'epc-w15x2a'
   model: string;         // display model, e.g. 'EPC-W15X2A'
@@ -8,9 +15,16 @@ export type EpcModelDetail = {
   tagline: string;
   intro: string;
   highlights: string[];
-  specs: EpcModelSpec[];
+  specs: EpcModelSpec[];                 // legacy flat specs (fallback)
+  specGroups?: EpcSpecGroup[];           // new grouped specs (factory-accurate)
+  options?: EpcOptionGroup[];            // configurable options for buyer
+  certifications?: EpcCertification[];   // CE / FCC / BIS …
+  applications?: string[];               // application industries / use cases
+  productImages?: EpcGalleryImage[];     // ►Product images & sizes (dimensions, IO map)
+  gallery?: EpcGalleryImage[];           // additional product photos
+  selectionTable?: EpcSelectionRow[];    // factory part-number selection guide
+  datasheetUrl?: string;                 // PDF datasheet link (factory)
   image: string;
-  gallery?: string[];
   landingHref: string;   // landing page anchor on EPCSeries / EPCBoxSeries
   popular?: boolean;
 };
@@ -80,12 +94,206 @@ export const epcModelDetails: Record<string, EpcModelDetail> = {
   },
   'epc-w24x2a': {
     slug: 'epc-w24x2a', model: 'EPC-W24X2A', series: 'EPC Panel PC', category: 'Touch Panel PC',
-    tagline: '23.6" Wide Touch Panel PC — จอใหญ่สุดของ Wide Series',
-    intro: 'EPC-W24X2A จอ 23.6" 16:9 Full HD ขนาดใหญ่สุดของซีรีส์ Wide — เหมาะกับ Control Room, Visualization, Andon Board และ Self-service Kiosk ระดับพรีเมียม',
-    highlights: ['จอ 23.6" Full HD', 'P-CAP Touch 10 จุด', 'รองรับ VESA 100', 'รุ่นใหญ่สุดของ Wide Series'],
+    tagline: '23.6" IP65 Fanless Industrial Panel PC — Flagship Wide Series',
+    intro: 'EPC-W24X2A คอมพิวเตอร์อุตสาหกรรมแบบจอสัมผัสฝังตัวขนาด 23.6" 16:9 Full HD — ออกแบบมาตามมาตรฐานโรงงาน CESIPC ด้วยโครงสร้าง 6061 Aluminum Alloy แบบ Fanless, IP65 ด้านหน้า, รองรับโปรเซสเซอร์ Intel® Celeron® จนถึง 12th Gen Intel® Core™ i7 พร้อมระบบป้องกันไฟฟ้าตก SafeCore™, TPM 2.0 และสถาปัตยกรรมโมดูลาร์ BlockCore™ ของ CESIPC เหมาะสำหรับงาน HMI, SCADA, MES, Control Room, Andon Board และ Self-service Kiosk ระดับพรีเมียมที่ต้องการความเสถียรสูงตลอด 24/7',
+    highlights: [
+      '23.6" Full HD (1920×1080) 350 cd/m²',
+      'P-CAP Touch 10 จุด • IP65 ด้านหน้า • 6H',
+      'Fanless • อุณหภูมิทำงาน 0–50°C (Optional -40~70°C)',
+      'CPU เลือกได้ Celeron® J1900/J6412 ถึง 12th Gen Core™ i7',
+      'Dual Intel® I210/I211 Gigabit LAN',
+      '6× COM (4×RS-232 + 2×RS-485) • Dual Display HDMI+VGA',
+      'Dual M.2 2280 NVMe + M.2 2230 Wi-Fi',
+      'TPM 2.0 • SafeCore™ Power-loss Protection',
+      'โครงสร้าง 6061 Aluminum Alloy • น้ำหนัก 12.1 kg',
+      'BlockCore™ Modular Design — เปลี่ยน CPU/RAM ได้ตลอดอายุการใช้งาน',
+    ],
     specs: [{ label: 'Display', value: '23.6" 16:9 Full HD (1920×1080)' }, ...PANEL_COMMON_SPECS],
+    specGroups: [
+      {
+        title: 'System Core',
+        rows: [
+          { label: 'CPU (Celeron)', value: 'Intel® Celeron® J1900 (2.0–2.42GHz) / J6412 (2.0–2.6GHz)' },
+          { label: 'CPU (10th Gen)', value: 'Intel® Core™ i3-10110U / i5-10210U / i7-10710U' },
+          { label: 'CPU (12th Gen)', value: 'Intel® Core™ i3-1215U / i5-1235U / i5-1240P / i7-1255U' },
+          { label: 'Memory', value: '4–8GB DDR3L • 4–32GB DDR4 • 4–32GB DDR5 (ขึ้นกับรุ่น CPU)' },
+          { label: 'Storage', value: 'mSATA / M.2 2280 NVMe SSD (สูงสุด 2 ชุด)' },
+          { label: 'Cooling', value: 'Fanless (ระบายความร้อนผ่านครีบอลูมิเนียม)' },
+          { label: 'OS Support', value: 'Windows 10 / 11 • Linux Ubuntu' },
+        ],
+      },
+      {
+        title: 'I/O Ports',
+        rows: [
+          { label: 'USB 2.0', value: '5× USB 2.0 (หรือ 2× USB 2.0 ขึ้นกับรุ่น CPU)' },
+          { label: 'USB 3.0', value: '1× USB 3.0 (หรือ 4× USB 3.0 ขึ้นกับรุ่น CPU)' },
+          { label: 'COM', value: '4× RS-232 + 2× RS-485 (DB9)' },
+          { label: 'Display', value: '1× HDMI + 1× VGA — Dual Display' },
+          { label: 'Audio', value: '1× Audio Out + 1× Mic In' },
+          { label: 'Ethernet', value: '2× 10/100/1000 Mbps Intel® I210/I211 LAN' },
+          { label: 'Expansion', value: '1× Mini PCIe • Dual M.2 2280 NVMe • M.2 2230 Wi-Fi' },
+        ],
+      },
+      {
+        title: 'LCD Display & Touch',
+        rows: [
+          { label: 'Panel Size', value: '23.6"' },
+          { label: 'Resolution', value: '1920×1080 (Full HD) 16:9' },
+          { label: 'Brightness', value: '350 cd/m²' },
+          { label: 'Contrast', value: '450:1' },
+          { label: 'Backlight Life', value: '> 50,000 ชั่วโมง' },
+          { label: 'Touch Panel', value: 'Multi-touch P-CAP 10-point • 6H Hardness' },
+          { label: 'Transmittance', value: '85%' },
+          { label: 'Touch Controller', value: 'USB' },
+        ],
+      },
+      {
+        title: 'Wireless Communication',
+        rows: [
+          { label: 'Wi-Fi / Bluetooth', value: 'Wi-Fi + BT (M.2 2230)' },
+          { label: 'Cellular', value: '4G LTE Full Network (Optional)' },
+        ],
+      },
+      {
+        title: 'Power Supply',
+        rows: [
+          { label: 'DC Input', value: '12V DC (รองรับ 9–36V Wide Input — Optional) ผ่าน 3-pin Pluggable Terminal' },
+          { label: 'Booting', value: 'AT / ATX • Auto Power-on after Power Recovery' },
+          { label: 'Protection', value: 'CESIPC SafeCore™ Power-loss Protection' },
+        ],
+      },
+      {
+        title: 'Mechanical',
+        rows: [
+          { label: 'Dimensions', value: '589.3 (W) × 361.2 (D) × 75.1 (H) mm' },
+          { label: 'Cutout', value: '562.7 × 338.4 mm' },
+          { label: 'Weight', value: '12.1 kg' },
+          { label: 'Material', value: 'High-Strength 6061 Aluminum Alloy' },
+          { label: 'Mounting', value: 'Wall Mount / VESA Mount / Panel Mount' },
+        ],
+      },
+      {
+        title: 'Environmental',
+        rows: [
+          { label: 'Operating Temp', value: '0 ~ 50°C (Optional -40 ~ 70°C)' },
+          { label: 'Storage Temp', value: '-10 ~ 60°C' },
+          { label: 'Front Protection', value: 'IP65' },
+        ],
+      },
+      {
+        title: 'Security & Services',
+        rows: [
+          { label: 'Hardware Security', value: 'TPM 2.0' },
+          { label: 'ODM Support', value: 'BIOS / Boot Logo / OEM Customization' },
+          { label: 'Warranty', value: '12 เดือน — ขยายเป็น 24/36 เดือนได้' },
+        ],
+      },
+    ],
+    options: [
+      {
+        label: 'CPU',
+        choices: [
+          'Intel® Celeron® J1900 (Entry • 4-core 2.0GHz)',
+          'Intel® Celeron® J6412 (Elkhart Lake • 4-core 2.0GHz)',
+          'Intel® Core™ i3-10110U (10th Gen)',
+          'Intel® Core™ i5-10210U (10th Gen)',
+          'Intel® Core™ i7-10710U (10th Gen • 6-core)',
+          'Intel® Core™ i3-1215U (12th Gen)',
+          'Intel® Core™ i5-1235U (12th Gen)',
+          'Intel® Core™ i5-1240P (12th Gen • Performance)',
+          'Intel® Core™ i7-1255U (12th Gen • แนะนำ)',
+        ],
+      },
+      {
+        label: 'Memory (RAM)',
+        choices: ['4GB', '8GB', '16GB', '32GB'],
+        note: 'ชนิด DDR3L / DDR4 / DDR5 ขึ้นกับรุ่น CPU ที่เลือก',
+      },
+      {
+        label: 'Storage (SSD)',
+        choices: [
+          'mSATA SSD 128GB',
+          'mSATA SSD 256GB',
+          'M.2 NVMe 256GB',
+          'M.2 NVMe 512GB',
+          'M.2 NVMe 1TB',
+          'Dual SSD (RAID-0/1) — Optional',
+        ],
+      },
+      {
+        label: 'Wi-Fi / Bluetooth',
+        choices: ['ไม่ติดตั้ง', 'Wi-Fi 5 + BT 5.0', 'Wi-Fi 6 + BT 5.2'],
+      },
+      {
+        label: 'Cellular (4G LTE)',
+        choices: ['ไม่ติดตั้ง', '4G LTE Module + SIM Slot'],
+      },
+      {
+        label: 'Operating System',
+        choices: [
+          'ไม่ติดตั้ง OS',
+          'Windows 10 IoT Enterprise LTSC',
+          'Windows 11 Pro',
+          'Ubuntu 22.04 LTS',
+        ],
+      },
+      {
+        label: 'Power Input',
+        choices: ['12V DC (Standard)', '9–36V DC Wide Input (Optional)'],
+      },
+      {
+        label: 'Operating Temperature',
+        choices: ['0 ~ 50°C (Standard)', '-40 ~ 70°C (Wide-Temp Optional)'],
+      },
+      {
+        label: 'Mounting',
+        choices: ['VESA Mount', 'Panel Mount', 'Wall Mount', 'Stand (Optional)'],
+      },
+      {
+        label: 'Warranty',
+        choices: ['12 เดือน (Standard)', '24 เดือน', '36 เดือน'],
+      },
+    ],
+    certifications: [
+      { code: 'CE', description: 'European Conformity (EN 55032 & EN 55035)' },
+      { code: 'FCC', description: 'Federal Communications Commission (USA)' },
+      { code: 'BIS', description: 'Bureau of Indian Standards' },
+      { code: 'CCC', description: 'China Compulsory Certification (S&E)' },
+    ],
+    applications: [
+      'HMI / SCADA — สถานีควบคุมสายการผลิต',
+      'MES Terminal — เก็บข้อมูลโรงงานแบบ Real-time',
+      'Food & Beverage — รองรับการล้างทำความสะอาด',
+      'Chemical / Pharmaceutical — Anti-corrosion (Optional)',
+      'Energy & Power — Substation Visualization',
+      'Smart Logistics — Warehouse / Andon Board',
+      'Self-service Kiosk ขนาดใหญ่',
+      'Robotics & Machine Vision Interface',
+    ],
+    productImages: [
+      { src: '/images/products/w24x2a/dimensions.png', alt: 'EPC-W24X2A Dimensions Drawing', caption: 'Dimensions: 589.3 × 361.2 × 75.1 mm • Cutout: 562.7 × 338.4 mm' },
+      { src: '/images/products/w24x2a/io-ports.png', alt: 'EPC-W24X2A I/O Layout', caption: 'I/O Layout: 6× COM, USB 2.0/3.0, Dual Display, 2× LAN, Audio' },
+    ],
+    gallery: [
+      { src: '/images/products/w24x2a/gallery-1.jpg', alt: 'EPC-W24X2A — Front View' },
+      { src: '/images/products/w24x2a/gallery-2.jpg', alt: 'EPC-W24X2A — Industrial Application' },
+      { src: '/images/products/w24x2a/gallery-3.jpg', alt: 'EPC-W24X2A — IP65 Front Panel Detail' },
+      { src: '/images/products/w24x2a/application-mes.jpg', alt: 'EPC-W24X2A — MES Factory Application' },
+    ],
+    selectionTable: [
+      { no: '1', model: 'EPC-W2462A', partNumber: 'C11.01.01.001', cpu: 'Intel® Celeron® J1900', memory: '4GB', storage: 'mSATA SSD 128GB' },
+      { no: '2', model: 'EPC-W2472A', partNumber: 'C11.01.05.001', cpu: 'Intel® Celeron® J6412', memory: '8GB', storage: 'mSATA SSD 256GB' },
+      { no: '3', model: 'EPC-W2492A', partNumber: 'C11.01.03.001', cpu: 'Intel® Core™ i3-10110U', memory: '8GB', storage: 'mSATA SSD 256GB' },
+      { no: '4', model: 'EPC-W2492A', partNumber: 'C11.01.03.002', cpu: 'Intel® Core™ i5-10210U', memory: '8GB', storage: 'mSATA SSD 256GB' },
+      { no: '5', model: 'EPC-W2492A', partNumber: 'C11.01.03.003', cpu: 'Intel® Core™ i7-10710U', memory: '8GB', storage: 'mSATA SSD 256GB' },
+      { no: '6', model: 'EPC-W2422A', partNumber: 'C11.01.04.001', cpu: 'Intel® Core™ i3-1215U', memory: '8GB', storage: 'mSATA SSD 256GB' },
+      { no: '7', model: 'EPC-W2422A', partNumber: 'C11.01.04.002', cpu: 'Intel® Core™ i5-1235U', memory: '8GB', storage: 'mSATA SSD 256GB' },
+      { no: '8', model: 'EPC-W2422A', partNumber: 'C11.01.04.004', cpu: 'Intel® Core™ i7-1255U', memory: '8GB', storage: 'mSATA SSD 256GB' },
+    ],
+    datasheetUrl: 'https://cesipc.com/wp-content/uploads/2025/08/EPC-W24X2A-EN.pdf',
     image: '/images/products/epc-w24x2a.jpg',
     landingHref: '/epc-series#wide',
+    popular: true,
   },
   'epc-10xa': {
     slug: 'epc-10xa', model: 'EPC-10XA', series: 'EPC Box', category: 'Box PC',
