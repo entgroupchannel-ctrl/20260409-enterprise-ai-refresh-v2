@@ -58,7 +58,7 @@ const VolktekCategorySection = ({ category, icon: Icon, phaseLabel, anchorId }: 
               {sub.blurb}
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
               {sub.products.map((p) => (
                 <div
                   key={p.model}
