@@ -145,6 +145,7 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
         packetRate: "Wire-speed",
         size: "116×86.5×32.5 (DIN-Rail)",
         poe: false,
+        tempRange: "-40~75°C", // ยืนยันจาก datasheet โรงงาน (scrape)
         badge: "Entry Fanless",
         image: IMG.heroYE1005D,
         useCases: ["factory", "rail", "power", "mining"],
