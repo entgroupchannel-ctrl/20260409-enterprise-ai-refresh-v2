@@ -914,7 +914,10 @@ export default function ShopEpcDetailBase({ slug }: Props) {
                   </div>
                 </div>
               </div>
-              <LineQRButton size="sm" />
+              <LineQRButton className="inline-flex items-center gap-2 rounded-md bg-[#06C755] hover:bg-[#05b34a] text-white px-4 py-2 text-sm font-medium shadow-sm transition-colors shrink-0">
+                <MessageCircle className="w-4 h-4" />
+                ปรึกษา LINE @entgroup
+              </LineQRButton>
             </div>
           </Card>
         </section>
