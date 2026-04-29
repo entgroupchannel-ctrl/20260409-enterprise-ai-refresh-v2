@@ -48,6 +48,8 @@ export interface CFFiberlinkModel {
   heroTitle?: string;
   /** คำอธิบายสั้นใน Hero Card */
   heroPitch?: string;
+  /** Gallery รูปเพิ่มเติมจากเว็บโรงงาน — ใช้แสดง thumbnail strip ใน Modal */
+  gallery?: string[];
 }
 
 export interface CFFiberlinkCategoryDef {
@@ -128,6 +130,14 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
         heroPick: true,
         heroTitle: "เริ่มต้นโรงงาน — Fanless DIN-Rail",
         heroPitch: "5 พอร์ต Unmanaged สำหรับ PLC/Sensor — ทนความร้อน -40~75°C ไร้พัดลม MTBF สูงสุด 35 ปี ติดตั้งง่ายบนราง DIN",
+        gallery: [
+          "/cffiberlink/gallery/cfye1005d-1.jpg",
+          "/cffiberlink/gallery/cfye1005d-2.jpg",
+          "/cffiberlink/gallery/cfye1005d-3.jpg",
+          "/cffiberlink/gallery/cfye1005d-4.jpg",
+          "/cffiberlink/gallery/cfye1005d-5.jpg",
+          "/cffiberlink/gallery/cfye1005d-6.jpg",
+        ],
       },
       { model: "CF-HY2004G-SFP", ports: "4× GbE RJ45 + 2× SFP + 1× Console", switchingCapacity: "12 Gbps", packetRate: "8.93 Mpps", size: "172×144×54.5", poe: false, image: IMG.smallL2 },
       { model: "CF-HY2004GP-SFP", ports: "4× GbE PoE + 2× SFP + 1× Console", switchingCapacity: "12 Gbps", packetRate: "8.93 Mpps", size: "172×144×54.5", poe: true, badge: "PoE+", image: IMG.smallPoE },
@@ -158,6 +168,14 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
         heroPick: true,
         heroTitle: "L2 Web Managed + ใยแก้ว 2km",
         heroPitch: "มาพร้อม Multimode SC fiber 2km จากโรงงาน — ไม่ต้องซื้อ SFP module เพิ่ม จัดการผ่าน Web ได้ทันที เหมาะอาคารหลายชั้นหรือเชื่อมตู้คอนโทรลข้ามอาคาร",
+        gallery: [
+          "/cffiberlink/gallery/cfwhy2024m2-1.jpg",
+          "/cffiberlink/gallery/cfwhy2024m2-2.jpg",
+          "/cffiberlink/gallery/cfwhy2024m2-3.jpg",
+          "/cffiberlink/gallery/cfwhy2024m2-4.jpg",
+          "/cffiberlink/gallery/cfwhy2024m2-5.jpg",
+          "/cffiberlink/gallery/cfwhy2024m2-6.jpg",
+        ],
       },
     ],
   },
@@ -223,6 +241,14 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
         heroPick: true,
         heroTitle: "Flagship L3 10G Core — 16 Fiber + 10G Uplink",
         heroPitch: "เรือธงของ CF Fiberlink — 128 Gbps / 96 Mpps พร้อม 16 SFP สำหรับเดินใยแก้วเข้าหลายอาคาร และ 4× 10G SFP+ สำหรับ uplink ขึ้น Backbone เหมาะ Smart City / โรงงานขนาดใหญ่ / รถไฟฟ้า",
+        gallery: [
+          "/cffiberlink/gallery/cfhy4t1608ssfp-1.jpg",
+          "/cffiberlink/gallery/cfhy4t1608ssfp-2.jpg",
+          "/cffiberlink/gallery/cfhy4t1608ssfp-3.jpg",
+          "/cffiberlink/gallery/cfhy4t1608ssfp-4.jpg",
+          "/cffiberlink/gallery/cfhy4t1608ssfp-5.jpg",
+          "/cffiberlink/gallery/cfhy4t1608ssfp-6.jpg",
+        ],
       },
       { model: "CF-HY4T2408S-SFP+", ports: "24× SFP (8 Combo) + 4× 10G SFP+", switchingCapacity: "72 Gbps", packetRate: "53.6 Mpps", size: "430×295×45 (Rack)", poe: false, badge: "24 SFP + 10G", image: IMG.l3Core },
       { model: "CF-HY4T048G-SFP+", ports: "48× GbE RJ45 + 4× 10G SFP+", switchingCapacity: "104 Gbps", packetRate: "77.4 Mpps", size: "430×295×45 (Rack)", poe: false, badge: "48P + 10G", image: IMG.l3Core },
@@ -261,6 +287,14 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
         heroPick: true,
         heroTitle: "PoE 4+2 — One-Key CCTV Mode",
         heroPitch: "ออกแบบเฉพาะกล้อง IP — กดปุ่มเดียวเปิดโหมด CCTV (Port Isolation กันสัญญาณรบกวนกล้อง) ป้องกันฟ้าผ่า 6KV ติดตั้งง่ายสำหรับช่างหน้างาน",
+        gallery: [
+          "/cffiberlink/gallery/cfpe204nt-1.jpg",
+          "/cffiberlink/gallery/cfpe204nt-2.jpg",
+          "/cffiberlink/gallery/cfpe204nt-3.jpg",
+          "/cffiberlink/gallery/cfpe204nt-4.jpg",
+          "/cffiberlink/gallery/cfpe204nt-5.jpg",
+          "/cffiberlink/gallery/cfpe204nt-6.jpg",
+        ],
       },
       // ⭐ Hero Pick — CCTV PoE 8+2 พี่ใหญ่
       {
@@ -276,6 +310,14 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
         heroPick: true,
         heroTitle: "PoE 8+2 — รุ่นพี่ของไลน์ CCTV",
         heroPitch: "8 พอร์ต PoE + 2 uplink พร้อม Budget 120W จ่ายไฟกล้อง IP/AP ได้ครบในตัวเดียว — โครง Metal กันกระแทก ใช้ได้ทั้งบ้าน อาคาร โกดัง",
+        gallery: [
+          "/cffiberlink/gallery/cfpe208n-1.jpg",
+          "/cffiberlink/gallery/cfpe208n-2.jpg",
+          "/cffiberlink/gallery/cfpe208n-3.jpg",
+          "/cffiberlink/gallery/cfpe208n-4.jpg",
+          "/cffiberlink/gallery/cfpe208n-5.jpg",
+          "/cffiberlink/gallery/cfpe208n-6.jpg",
+        ],
       },
       { model: "CF-PE2421G", ports: "24× 100M PoE + 2× GbE Uplink + 1× SFP", switchingCapacity: "8.8 Gbps", packetRate: "6.55 Mpps", size: "Rack 1U", poe: true, badge: "24+2+1 PoE 400W", image: IMG.cctv24 },
       { model: "CF-PE204G", ports: "4× GbE PoE + 2× GbE Uplink", switchingCapacity: "12 Gbps", packetRate: "8.93 Mpps", size: "Desktop / Wall-mount", poe: true, badge: "4+2 GbE PoE", image: IMG.cctv4g },
