@@ -24,6 +24,7 @@ import {
 } from '@/data/upcPricing';
 import { upcSeriesDetails } from '@/data/upcSeriesDetails';
 import { upcDimensionImages } from '@/data/upcDimensionImages';
+import EpcXaUseCases from '@/components/shop/EpcXaUseCases';
 
 const fmt = (n: number) => n.toLocaleString('th-TH');
 
