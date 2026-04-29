@@ -271,15 +271,8 @@ export const epcModelDetails: Record<string, EpcModelDetail> = {
       'Robotics & Machine Vision Interface',
     ],
     productImages: [
-      { src: '/images/products/w24x2a/banner.png', alt: 'EPC-W24X2A — 24" Industrial Embedded Panel PC Banner', caption: '24" Industrial Embedded Panel PC — Fanless / IP65 / Modular BlockCore™' },
-      { src: '/images/products/w24x2a/front.jpg', alt: 'EPC-W24X2A — Front View', caption: 'มุมมองด้านหน้า — จอสัมผัส 23.6" Wide IP65 ขอบอลูมิเนียม' },
-      { src: '/images/products/w24x2a/side-profile.jpg', alt: 'EPC-W24X2A — Side Profile View', caption: 'มุมมองด้านข้าง — โครงสร้าง BlockCore™ Modular แบบบาง Fanless' },
-      { src: '/images/products/w24x2a/side-io-rear.jpg', alt: 'EPC-W24X2A — Rear I/O Side View', caption: 'พอร์ต I/O ด้านหลัง — HDMI / VGA / 2× LAN / USB 3.0 / Audio / DC-IN' },
-      { src: '/images/products/w24x2a/side-io-com.jpg', alt: 'EPC-W24X2A — COM Ports Side View', caption: 'พอร์ต COM ด้านข้าง — 5× COM (RS-232) + USB 2.0 + Wi-Fi Antenna' },
-      { src: '/images/products/w24x2a/io-labels.png', alt: 'EPC-W24X2A I/O Labels Diagram', caption: 'แผนผัง I/O — COM1–6, USB1–6, HDMI, VGA, LAN1/LAN2, Audio, DC-IN' },
       { src: '/images/products/w24x2a/dimensions.png', alt: 'EPC-W24X2A Dimensions Drawing', caption: 'Dimensions: 589.3 × 361.2 × 75.1 mm • Cutout: 562.7 × 338.4 mm' },
       { src: '/images/products/w24x2a/dimensions-detail.png', alt: 'EPC-W24X2A Detailed Dimensions Drawing', caption: 'แบบมิติละเอียด — Front / Side / Rear / Mounting Holes 4-M4' },
-      { src: '/images/products/w24x2a/io-ports.png', alt: 'EPC-W24X2A I/O Layout', caption: 'I/O Layout: 6× COM, USB 2.0/3.0, Dual Display, 2× LAN, Audio' },
     ],
     gallery: [
       { src: '/images/products/w24x2a/app-mes-factory.jpg', alt: 'EPC-W24X2A — MES Factory Application', caption: 'MES Industry — Factory Application Case' },
