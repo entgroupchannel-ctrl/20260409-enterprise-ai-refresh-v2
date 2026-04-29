@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import SEOHead from '@/components/SEOHead';
@@ -74,9 +74,8 @@ interface Product {
   warranty_type?: string;
 }
 
-const PAGE_SIZE_OPTIONS = [50, 100, 200, 300, 0] as const; // 0 = ทั้งหมด
+const PAGE_SIZE_OPTIONS = [50, 100, 200] as const;
 const DEFAULT_PAGE_SIZE = 50;
-const pageSizeLabel = (n: number) => (n === 0 ? 'ทั้งหมด' : String(n));
 const COMPARE_KEY = 'shopCompareList';
 
 function fmt(n: number) { return n.toLocaleString('th-TH'); }
@@ -919,40 +918,8 @@ const ShopStorefront = () => {
     return result;
   }, [products, search, seriesFilter, categoryFilter, sortBy, priceRange, cpuFilter, ramFilter, storageFilter]);
 
-  const effectivePageSize = pageSize === 0 ? Math.max(1, filtered.length) : pageSize;
-  const totalPages = Math.max(1, Math.ceil(filtered.length / effectivePageSize));
-  const paged = pageSize === 0 ? filtered : filtered.slice((page - 1) * pageSize, page * pageSize);
-
-  // ── Progressive rendering (infinite scroll within current page) ──
-  const INITIAL_VISIBLE = 12;
-  const VISIBLE_STEP = 12;
-  const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE);
-  const sentinelRef = useRef<HTMLDivElement | null>(null);
-
-  // Reset when the underlying paged list changes (filters/sort/page/pageSize)
-  useEffect(() => {
-    setVisibleCount(INITIAL_VISIBLE);
-  }, [page, pageSize, search, seriesFilter, categoryFilter, sortBy, priceRange, cpuFilter, ramFilter, storageFilter]);
-
-  // Observe sentinel and load more chunks as user scrolls
-  useEffect(() => {
-    if (loading) return;
-    if (visibleCount >= paged.length) return;
-    const node = sentinelRef.current;
-    if (!node) return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          setVisibleCount((c) => Math.min(c + VISIBLE_STEP, paged.length));
-        }
-      },
-      { rootMargin: '600px 0px' }
-    );
-    io.observe(node);
-    return () => io.disconnect();
-  }, [loading, visibleCount, paged.length]);
-
-  const visibleItems = paged.slice(0, visibleCount);
+  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+  const paged = filtered.slice((page - 1) * pageSize, page * pageSize);
 
   const toggleCompare = (slug: string) => {
     let list = [...compareList];
@@ -1352,12 +1319,12 @@ const ShopStorefront = () => {
                   value={String(pageSize)}
                   onValueChange={(v) => { setPageSize(Number(v)); setPage(1); }}
                 >
-                  <SelectTrigger className="h-8 w-[110px]">
+                  <SelectTrigger className="h-8 w-[90px]">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
                     {PAGE_SIZE_OPTIONS.map((n) => (
-                      <SelectItem key={n} value={String(n)}>{pageSizeLabel(n)}</SelectItem>
+                      <SelectItem key={n} value={String(n)}>{n}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
@@ -1377,41 +1344,21 @@ const ShopStorefront = () => {
             ) : paged.length === 0 ? (
               <div className="text-center py-16 text-muted-foreground">ไม่พบสินค้าที่ตรงกับเงื่อนไข</div>
             ) : (
-              <>
-                <div className={cn(
-                  viewMode === 'grid'
-                    ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
-                    : "space-y-3"
-                )}>
-                  {visibleItems.map(p => (
-                    <ProductCard
-                      key={p.id}
-                      product={p}
-                      viewMode={viewMode}
-                      isComparing={compareList.includes(p.slug)}
-                      onToggleCompare={() => toggleCompare(p.slug)}
-                    />
-                  ))}
-                </div>
-
-                {/* Sentinel + skeletons for progressive loading */}
-                {visibleCount < paged.length && (
-                  <div ref={sentinelRef} className="mt-4">
-                    <div className={cn(
-                      viewMode === 'grid'
-                        ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
-                        : "space-y-3"
-                    )}>
-                      {Array.from({ length: Math.min(VISIBLE_STEP, paged.length - visibleCount) }).map((_, i) => (
-                        <Card key={`more-${i}`} className="animate-pulse">
-                          <CardContent className="p-4 h-72" />
-                        </Card>
-                      ))}
-                    </div>
-                    <p className="text-center text-xs text-muted-foreground mt-3">กำลังโหลดสินค้าเพิ่มเติม...</p>
-                  </div>
-                )}
-              </>
+              <div className={cn(
+                viewMode === 'grid'
+                  ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+                  : "space-y-3"
+              )}>
+                {paged.map(p => (
+                  <ProductCard
+                    key={p.id}
+                    product={p}
+                    viewMode={viewMode}
+                    isComparing={compareList.includes(p.slug)}
+                    onToggleCompare={() => toggleCompare(p.slug)}
+                  />
+                ))}
+              </div>
             )}
 
             {/* Pagination */}
