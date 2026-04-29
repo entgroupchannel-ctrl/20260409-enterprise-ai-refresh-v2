@@ -985,7 +985,7 @@ const CFFiberlink = () => {
                 return (
                   <div className={`mt-4 rounded-lg border p-3 ${info.badgeClass}`}>
                     <div className="flex items-start gap-2">
-                      <span className="text-xl leading-none">{info.icon}</span>
+                      <info.icon className="w-5 h-5 shrink-0 mt-0.5" />
                       <div className="flex-1 min-w-0">
                         <p className="text-xs font-semibold mb-0.5">
                           อุณหภูมิใช้งาน {range} · {info.label}
