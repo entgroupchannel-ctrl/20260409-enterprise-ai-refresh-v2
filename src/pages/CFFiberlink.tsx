@@ -687,7 +687,7 @@ const CFFiberlink = () => {
                           title={cardTempInfo.useCase}
                           className={`absolute top-1.5 right-1.5 inline-flex items-center gap-0.5 text-[9px] font-bold border rounded-full px-1.5 py-0.5 backdrop-blur-sm ${cardTempInfo.badgeClass}`}
                         >
-                          <span>{cardTempInfo.icon}</span>
+                          <cardTempInfo.icon className="w-2.5 h-2.5" />
                           <span className="font-mono">{cardRange}</span>
                         </span>
                       </div>
