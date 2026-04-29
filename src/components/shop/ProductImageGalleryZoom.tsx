@@ -47,8 +47,8 @@ export default function ProductImageGalleryZoom({ images, alt, enableZoom = true
       <div
         ref={mainRef}
         className="relative aspect-[4/3] bg-muted rounded-xl overflow-hidden cursor-crosshair group border border-border"
-        onMouseEnter={() => enableZoom && !isCurrentErrored && setIsZooming(true)}
-        onMouseLeave={() => setIsZooming(false)}
+        onMouseEnter={() => { setIsPaused(true); enableZoom && !isCurrentErrored && setIsZooming(true); }}
+        onMouseLeave={() => { setIsPaused(false); setIsZooming(false); }}
         onMouseMove={handleMouseMove}
       >
         {isCurrentErrored ? (
