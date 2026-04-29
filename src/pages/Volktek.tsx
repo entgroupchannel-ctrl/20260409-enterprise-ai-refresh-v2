@@ -14,6 +14,7 @@ import volktekCertifications from "@/assets/volktek-certifications.png";
 import FooterCompact from "@/components/FooterCompact";
 import B2BPlatformInterfaceShowcase from "@/components/B2BPlatformInterfaceShowcase";
 import MiniNavbar from "@/components/MiniNavbar";
+import Layer3Section from "@/components/volktek/Layer3Section";
 
 // Official assets from volktek.com
 import heroSpe from "@/assets/volktek/hero-spe.png";
@@ -396,6 +397,9 @@ const Volktek = () => {
             ))}
           </div>
         </section>
+
+        {/* Phase 1 — Layer 3 detailed catalog (รุ่นจริงจากโรงงาน) */}
+        <Layer3Section />
 
         {/* LAMUNGAN Platform — EMS spotlight */}
         <section className="card-surface overflow-hidden">
