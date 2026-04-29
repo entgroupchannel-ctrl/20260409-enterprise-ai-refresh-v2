@@ -584,6 +584,24 @@ const CFFiberlink = () => {
                       แสดง {filtered.length}/{cat.models.length} รุ่น
                     </span>
                   </div>
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <span className="text-[11px] font-semibold text-muted-foreground mr-1 min-w-[60px]">อุณหภูมิ:</span>
+                    {tempChips.map((c) => (
+                      <button
+                        key={c.v}
+                        type="button"
+                        onClick={() => setTempFilter(c.v)}
+                        className={`text-[11px] px-2 py-0.5 rounded-full border transition-colors ${
+                          tempFilter === c.v
+                            ? "bg-primary text-primary-foreground border-primary"
+                            : "bg-background text-foreground/70 border-border hover:border-primary/50"
+                        }`}
+                        title={c.v === "all" ? "แสดงทุกระดับอุณหภูมิ" : TEMP_INFO[c.v].useCase}
+                      >
+                        <span className="mr-0.5">{c.emoji}</span>{c.label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
                 {filtered.length === 0 ? (
