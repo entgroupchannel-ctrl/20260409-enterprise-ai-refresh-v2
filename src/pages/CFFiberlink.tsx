@@ -26,7 +26,7 @@ import {
   Store,
   Leaf,
   FlaskConical,
-  Buildings,
+  Building,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -54,7 +54,7 @@ const USE_CASE_META: Record<CFUseCase, { icon: LucideIcon; label: string }> = {
   "smart-city": { icon: Building2,      label: "Smart City" },
   campus:       { icon: GraduationCap,  label: "โรงเรียน" },
   hotel:        { icon: Hotel,          label: "โรงแรม" },
-  office:       { icon: Buildings,      label: "ออฟฟิศ" },
+  office:       { icon: Building,      label: "ออฟฟิศ" },
   smb:          { icon: Store,          label: "SMB" },
   green:        { icon: Leaf,           label: "Solar/Green" },
 };
