@@ -42,25 +42,16 @@ const PowerSupplySection = () => {
             <div key={series.id} className="card-surface overflow-hidden">
               {/* Series Header — รูปสินค้า + ข้อมูล */}
               <div className="border-b border-border bg-gradient-to-br from-muted/40 via-card to-card">
-                <div className="grid grid-cols-[auto,1fr] gap-3 p-4 items-center">
-                  {/* Product Photos */}
-                  <div className="relative w-28 sm:w-32 h-28 sm:h-32 shrink-0 flex items-center justify-center">
+                <div className="grid grid-cols-[auto,1fr] gap-4 p-4 items-center">
+                  {/* Product Photo */}
+                  <div className="relative w-32 sm:w-40 h-32 sm:h-40 shrink-0 flex items-center justify-center bg-white rounded-lg border border-border/50 overflow-hidden">
                     <img
-                      src={imgs.large}
+                      src={imgs.hero}
                       alt={imgs.alt}
-                      className="absolute inset-0 w-full h-full object-contain drop-shadow-md"
+                      className="w-full h-full object-contain"
                       loading="lazy"
-                      width={400}
-                      height={400}
-                    />
-                    <img
-                      src={imgs.small}
-                      alt=""
-                      aria-hidden="true"
-                      className="absolute -bottom-1 -right-1 w-12 sm:w-14 h-12 sm:h-14 object-contain drop-shadow-sm opacity-90"
-                      loading="lazy"
-                      width={200}
-                      height={200}
+                      width={1024}
+                      height={1024}
                     />
                   </div>
 
