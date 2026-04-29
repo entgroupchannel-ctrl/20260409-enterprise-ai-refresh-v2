@@ -8,7 +8,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 import MegaMenu, { MobileMegaMenu } from "@/components/MegaMenu";
 import { useAuth } from "@/hooks/useAuth";
 import { SHOP_STATIC_COMPARE_PRODUCTS } from "@/data/shop-static-products";
-import heroIndustrial from "@/assets/hero-industrial.jpg";
+import heroIndustrial from "@/assets/hero-industrial-lineup.jpg";
 import logo from "@/assets/logo-entgroup.avif";
 import teamSky from "@/assets/team-sky.png";
 import teamSom from "@/assets/team-som.png";
@@ -318,21 +318,21 @@ const HeroSection = () => {
         <div className="w-full flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10 py-16 md:py-0">
           <div className="max-w-2xl">
             <p className="text-sm md:text-base text-primary font-semibold tracking-widest uppercase mb-4 animate-fade-up">
-              B2B Industrial Platform — แพลตฟอร์มจัดซื้ออุตสาหกรรมแบบครบวงจร
+              B2B Industrial Platform — สต็อกพร้อมส่ง สำหรับงานโครงการทั่วไทย
             </p>
 
             <h1
               className="text-4xl md:text-6xl lg:text-7xl font-display font-black leading-[1.1] mb-6 animate-fade-up text-white"
               style={{ animationDelay: "0.1s" }}>
-              โซลูชัน <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-[hsl(var(--accent))]">Industrial Computing</span>
+              สินค้า <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-[hsl(var(--accent))]">Industrial Computing</span>
               <br />
-              สำหรับประเทศไทย
+              พร้อมเข้างานโครงการของคุณ
             </h1>
 
             <p
               className="text-lg md:text-xl text-white/70 max-w-xl mb-10 animate-fade-up leading-relaxed"
               style={{ animationDelay: "0.2s" }}>
-              พันธมิตรธุรกิจที่คุณไว้วางใจ — Mini PC, Panel PC, Rugged Device และซอฟต์แวร์ครบวงจร สำหรับงานโรงงาน งานประมูล และงานโครงการ
+              ENT GROUP รวมไลน์อัพ Mini PC, Panel PC, Rugged Device และ <strong className="text-white/90">Industrial Switch หลายสิบรุ่น</strong> ให้เลือกตรงสเปก — พร้อมใบเสนอราคา BOQ และจัดส่งทั่วประเทศ สำหรับงานประมูล งานราชการ และงานโครงการ
             </p>
 
             <div ref={searchRef} className="relative max-w-xl mb-8 animate-fade-up" style={{ animationDelay: "0.3s" }}>

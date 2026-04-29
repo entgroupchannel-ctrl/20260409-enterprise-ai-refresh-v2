@@ -322,7 +322,7 @@ const CFFiberlink = () => {
                 <Badge variant="outline" className="text-xs">IP40</Badge>
                 <Badge variant="outline" className="text-xs">6KV Lightning</Badge>
                 <Badge variant="outline" className="text-xs">ERPS &lt;20ms</Badge>
-                <Badge variant="outline" className="text-xs">MTBF 35Y</Badge>
+                
                 <Badge variant="outline" className="text-xs">รับประกัน 2 ปี จากโรงงาน</Badge>
               </div>
               <div className="flex flex-wrap gap-3">
