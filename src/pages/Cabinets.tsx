@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/dialog";
 import FooterCompact from "@/components/FooterCompact";
 import MiniNavbar from "@/components/MiniNavbar";
+import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import bannerCabinets from "@/assets/banner-cabinets.jpg";
@@ -175,6 +176,8 @@ const Cabinets = () => {
           </div>
         </div>
       </div>
+
+      <B2BWorkflowBanner variant="compact" />
 
       <div className="container max-w-6xl mx-auto px-4 py-10 space-y-16">
         {/* Intro */}
