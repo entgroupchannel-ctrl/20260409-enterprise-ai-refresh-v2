@@ -69,7 +69,7 @@ const models: Model[] = [
     id: "epc-202b",
     name: "EPC-202B",
     cpu: "12th Gen Intel® Core™",
-    highlight: "8× COM Port",
+    highlight: "7× COM Port",
     feature: "Multi-serial port สำหรับงานควบคุมอุปกรณ์อุตสาหกรรมจำนวนมาก",
     image: "/upc-images/2025_12_WechatIMG3926.png",
     datasheet: "/upc-datasheets/2025_08_EPC-202B-EN.pdf",

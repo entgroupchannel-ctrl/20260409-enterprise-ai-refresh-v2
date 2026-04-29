@@ -74,7 +74,7 @@ const cases: Array<{
     desc: "Industrial-grade ทนสภาพแวดล้อมในตู้ริมถนน + Multi-COM Port เชื่อมตู้ Signal Controller + Wide Voltage 9–36V",
     accent: "from-emerald-500/20 to-teal-500/5",
     models: [
-      { name: "EPC-202B", why: "8× COM Port คุมตู้ Signal" },
+      { name: "EPC-202B", why: "7× COM Port คุมตู้ Signal" },
       { name: "EPC-309E", why: "4× LAN + AI License Plate" },
     ],
   },
