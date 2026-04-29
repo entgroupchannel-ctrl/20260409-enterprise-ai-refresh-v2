@@ -50,6 +50,25 @@ export interface CFFiberlinkModel {
   heroPitch?: string;
   /** Gallery รูปเพิ่มเติมจากเว็บโรงงาน — ใช้แสดง thumbnail strip ใน Modal */
   gallery?: string[];
+  /** Operating temperature range (override per model) — ถ้าไม่ใส่ใช้ defaultTempRange ของหมวด
+   *  รูปแบบ: "-40~75°C" (ค่าเฉพาะที่ scrape มาจริง / มาตรฐาน datasheet โรงงาน) */
+  tempRange?: string;
+}
+
+/** ระดับความทนอุณหภูมิ — ใช้แสดง Badge สี + ใช้กรองในหน้า catalog */
+export type TempClass =
+  | "extreme"      // -40~75°C ขึ้นไป — โรงงาน, ราง, เหมือง, นอกอาคาร
+  | "industrial"   // -20~70°C — โรงงานในอาคาร / ตู้คอนโทรล
+  | "commercial";  // 0~50°C — สำนักงาน / Rack / CCTV ในอาคาร
+
+/** แปลง tempRange string → class — ใช้ใน UI badge และ filter */
+export function getTempClass(range: string): TempClass {
+  // ดึงตัวเลขขอบล่าง
+  const m = range.match(/(-?\d+)\s*[~–-]/);
+  const low = m ? parseInt(m[1], 10) : 0;
+  if (low <= -20) return "extreme";
+  if (low < 0) return "industrial";
+  return "commercial";
 }
 
 export interface CFFiberlinkCategoryDef {
@@ -60,6 +79,8 @@ export interface CFFiberlinkCategoryDef {
   software: string[];
   /** Use cases เริ่มต้นของหมวด — model ที่ไม่ใส่ useCases เองจะใช้ค่านี้ */
   defaultUseCases: CFUseCase[];
+  /** Operating temp range เริ่มต้นของหมวด — model ที่ไม่ใส่ tempRange เองจะใช้ค่านี้ */
+  defaultTempRange: string;
   models: CFFiberlinkModel[];
 }
 
@@ -114,6 +135,7 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
     desc: "Switch L2 จัดการได้ ใช้ชิป Realtek แบบ Non-blocking — เหมาะกับงานโครงการอุตสาหกรรมทั่วไป รองรับ ERPS Ring < 20ms, 6KV Lightning, อุณหภูมิ -40~85°C",
     software: SW_L2,
     defaultUseCases: ["factory", "traffic", "rail", "mining"],
+    defaultTempRange: "-40~75°C", // datasheet โรงงาน L2 RTL Industrial
     models: [
       // ⭐ Hero Pick — Entry Unmanaged DIN-Rail สำหรับงานเริ่มต้นโรงงาน
       {
@@ -123,6 +145,7 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
         packetRate: "Wire-speed",
         size: "116×86.5×32.5 (DIN-Rail)",
         poe: false,
+        tempRange: "-40~75°C", // ยืนยันจาก datasheet โรงงาน (scrape)
         badge: "Entry Fanless",
         image: IMG.heroYE1005D,
         useCases: ["factory", "rail", "power", "mining"],
@@ -161,7 +184,7 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
         packetRate: "8.92 Mpps",
         size: "142×101×42 (DIN-Rail)",
         poe: false,
-        badge: "Fiber 2km Built-in",
+        tempRange: "-40~75°C", // ยืนยันจาก scrape (working temp)
         image: IMG.heroHY2024M2,
         useCases: ["factory", "campus", "rail", "traffic"],
         spotlight: ["Multimode SC 2km มากับเครื่อง", "Web Managed", "MSTP <50ms", "ไม่ต้องซื้อ SFP เพิ่ม"],
@@ -188,6 +211,7 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
     desc: "Switch L2+ ใช้ใน Smart Grid, ปิโตรเคมี, โครงการขนาดใหญ่ — Sensitivity สูง, Self-healing เร็ว รองรับ IPv4/IPv6 Static Routing",
     software: SW_L2_PLUS,
     defaultUseCases: ["power", "petrochem", "rail", "green"],
+    defaultTempRange: "-40~75°C", // L2+ VTS — Smart Grid / Substation grade
     models: [
       { model: "CF-HY2004GV-SFP", ports: "4× GbE RJ45 + 2× SFP + 1× Console", switchingCapacity: "12 Gbps", packetRate: "8.93 Mpps", size: "172×144×54.5", poe: false, image: IMG.smallL2 },
       { model: "CF-HY2004GVP-SFP", ports: "4× GbE PoE + 2× SFP + 1× Console", switchingCapacity: "12 Gbps", packetRate: "8.93 Mpps", size: "172×144×54.5", poe: true, badge: "PoE+", image: IMG.smallPoE },
@@ -220,6 +244,7 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
     desc: "Industrial Grade 10G Core Switch (L3 Network Management) — รองรับ Dynamic Routing RIP/OSPF, IPv4/IPv6 Full Line-speed Forwarding เหมาะ Backbone โรงงาน / Smart City / รถไฟฟ้า",
     software: SW_L3,
     defaultUseCases: ["smart-city", "factory", "rail", "power"],
+    defaultTempRange: "-40~80°C", // L3 10G Core (scrape ยืนยัน HY4T1608S = -40~80°C)
     models: [
       { model: "CF-HY4T8016G-SFP+", ports: "16× GbE RJ45 + 8× SFP + 4× 10G SFP+", switchingCapacity: "56 Gbps", packetRate: "41.6 Mpps", size: "430×295×45 (Rack)", poe: false, badge: "10G Uplink", image: IMG.l3Core },
       { model: "CF-HY4T8016GP-SFP+", ports: "16× GbE PoE + 8× SFP + 4× 10G SFP+", switchingCapacity: "56 Gbps", packetRate: "41.6 Mpps", size: "430×295×45 (Rack)", poe: true, badge: "10G PoE+", image: IMG.l3Poe },
@@ -235,6 +260,7 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
         packetRate: "96 Mpps",
         size: "440×300×44 (Rack 1U)",
         poe: false,
+        tempRange: "-40~80°C", // ยืนยันจาก scrape (operating temp)
         badge: "Flagship 10G",
         image: IMG.heroHY4T1608S,
         spotlight: ["16× SFP Fiber-Heavy", "4× 10G SFP+ Uplink", "ERPS <20ms", "IPv4/IPv6 Routing", "MTBF 35 ปี"],
@@ -272,6 +298,7 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
       "Status LED ต่อพอร์ตชัดเจน",
     ],
     defaultUseCases: ["cctv", "wifi-ap", "smb", "hotel"],
+    defaultTempRange: "-10~50°C", // CCTV PoE Commercial — กล้อง/AP ในอาคาร
     models: [
       // ⭐ Hero Pick — CCTV "One-Key" PoE 4+2
       {
@@ -334,6 +361,7 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
     desc: "L3 Managed PoE Switch ระดับ Campus — มี 10G Uplink, Dynamic Routing (RIP/OSPF), เหมาะ Access/Aggregation/Core ของโรงแรม โรงเรียน ออฟฟิศที่ต้องจ่ายไฟ AP/กล้อง จำนวนมาก",
     software: SW_L3,
     defaultUseCases: ["hotel", "campus", "office", "cctv"],
+    defaultTempRange: "0~50°C", // Rack L3 PoE Campus — Office / Server room
     models: [
       { model: "CF-S5328X-4X8S16P", ports: "16× GbE PoE + 8× SFP + 4× 10G SFP+", switchingCapacity: "168 Gbps", packetRate: "78 Mpps", size: "Rack 1U (440×220×44)", poe: true, badge: "Campus 10G PoE", image: IMG.l3Poe },
       { model: "CF-S5328X-4X24P", ports: "24× GbE PoE + 4× 10G SFP+", switchingCapacity: "128 Gbps", packetRate: "95 Mpps", size: "Rack 1U (440×220×44)", poe: true, badge: "24P PoE + 10G", image: IMG.l3Poe },

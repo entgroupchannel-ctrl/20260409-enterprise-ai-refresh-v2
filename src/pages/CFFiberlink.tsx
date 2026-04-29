@@ -41,7 +41,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import FooterCompact from "@/components/FooterCompact";
 import MiniNavbar from "@/components/MiniNavbar";
-import { cffiberlinkCatalog, type CFFiberlinkModel, type CFFiberlinkCategoryDef, type CFUseCase } from "@/data/cffiberlink-models";
+import { cffiberlinkCatalog, getTempClass, type CFFiberlinkModel, type CFFiberlinkCategoryDef, type CFUseCase } from "@/data/cffiberlink-models";
 
 // แมป use case → icon + label สั้น (ภาษาไทย) สำหรับแสดงในการ์ด
 const USE_CASE_META: Record<CFUseCase, { icon: LucideIcon; label: string }> = {
@@ -191,6 +191,29 @@ const heroPicks: Array<{ model: CFFiberlinkModel; cat: CFFiberlinkCategoryDef }>
 type PortFilter = "all" | "1-8" | "9-16" | "17-24" | "25+";
 type PoeFilter = "all" | "poe" | "no-poe";
 type FormFilter = "all" | "din" | "rack";
+type TempFilter = "all" | "extreme" | "industrial" | "commercial";
+
+/** อธิบายสภาพการใช้งานต่อ TempClass — แสดงใน Modal และ tooltip */
+const TEMP_INFO: Record<"extreme" | "industrial" | "commercial", { icon: string; label: string; useCase: string; badgeClass: string }> = {
+  extreme: {
+    icon: "🥶",
+    label: "Extreme — ทนสุดขั้ว",
+    useCase: "ทนเย็นจัด/ร้อนจัด ตู้คอนโทรลกลางแดด, นอกอาคาร, โรงงานเหล็ก, ห้องเย็น, ระบบราง, เหมือง, สถานีไฟฟ้า, ปิโตรเคมี",
+    badgeClass: "bg-blue-500/10 text-blue-600 border-blue-500/30 dark:text-blue-400",
+  },
+  industrial: {
+    icon: "🏭",
+    label: "Industrial — โรงงานทั่วไป",
+    useCase: "เหมาะตู้คอนโทรลในโรงงาน, ไลน์ผลิต, คลังสินค้า, อาคารโรงงานที่ไม่มีแอร์ตลอด — ทนฝุ่นและการสั่นสะเทือน",
+    badgeClass: "bg-amber-500/10 text-amber-700 border-amber-500/30 dark:text-amber-400",
+  },
+  commercial: {
+    icon: "🏢",
+    label: "Commercial — ในอาคาร",
+    useCase: "ใช้ในออฟฟิศ ห้อง Server ตู้ Rack ติดผนังในร่ม โรงแรม คอนโด ห้างสรรพสินค้า — แนะนำมีแอร์/ระบายอากาศ",
+    badgeClass: "bg-emerald-500/10 text-emerald-700 border-emerald-500/30 dark:text-emerald-400",
+  },
+};
 
 const getPortCount = (ports: string): number => {
   const matches = ports.match(/(\d+)\s*[×x]/g) || [];
@@ -212,8 +235,9 @@ const CFFiberlink = () => {
   const [portFilter, setPortFilter] = useState<PortFilter>("all");
   const [poeFilter, setPoeFilter] = useState<PoeFilter>("all");
   const [formFilter, setFormFilter] = useState<FormFilter>("all");
+  const [tempFilter, setTempFilter] = useState<TempFilter>("all");
 
-  const filterModel = (m: CFFiberlinkModel): boolean => {
+  const filterModel = (m: CFFiberlinkModel, cat: CFFiberlinkCategoryDef): boolean => {
     if (poeFilter === "poe" && !m.poe) return false;
     if (poeFilter === "no-poe" && m.poe) return false;
     if (formFilter === "rack" && !isRack(m.size)) return false;
@@ -224,6 +248,10 @@ const CFFiberlink = () => {
       if (portFilter === "9-16" && !(n >= 9 && n <= 16)) return false;
       if (portFilter === "17-24" && !(n >= 17 && n <= 24)) return false;
       if (portFilter === "25+" && !(n >= 25)) return false;
+    }
+    if (tempFilter !== "all") {
+      const range = m.tempRange ?? cat.defaultTempRange;
+      if (getTempClass(range) !== tempFilter) return false;
     }
     return true;
   };
@@ -474,7 +502,7 @@ const CFFiberlink = () => {
             </TabsList>
 
             {cffiberlinkCatalog.map((cat) => {
-              const filtered = cat.models.filter(filterModel);
+              const filtered = cat.models.filter((m) => filterModel(m, cat));
               const portChips: { v: PortFilter; label: string }[] = [
                 { v: "all", label: "ทุกขนาด" },
                 { v: "1-8", label: "1-8 พอร์ต" },
@@ -491,6 +519,12 @@ const CFFiberlink = () => {
                 { v: "all", label: "ทุกแบบ" },
                 { v: "din", label: "DIN-Rail" },
                 { v: "rack", label: "Rack 1U" },
+              ];
+              const tempChips: { v: TempFilter; label: string; emoji: string }[] = [
+                { v: "all", label: "ทุกระดับ", emoji: "🌡️" },
+                { v: "extreme", label: "ทนสุดขั้ว -40°C+", emoji: "🥶" },
+                { v: "industrial", label: "โรงงาน", emoji: "🏭" },
+                { v: "commercial", label: "ในอาคาร", emoji: "🏢" },
               ];
               return (
               <TabsContent key={cat.id} value={cat.id} className="mt-6">
@@ -549,6 +583,24 @@ const CFFiberlink = () => {
                     <span className="text-[11px] text-muted-foreground ml-auto">
                       แสดง {filtered.length}/{cat.models.length} รุ่น
                     </span>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <span className="text-[11px] font-semibold text-muted-foreground mr-1 min-w-[60px]">อุณหภูมิ:</span>
+                    {tempChips.map((c) => (
+                      <button
+                        key={c.v}
+                        type="button"
+                        onClick={() => setTempFilter(c.v)}
+                        className={`text-[11px] px-2 py-0.5 rounded-full border transition-colors ${
+                          tempFilter === c.v
+                            ? "bg-primary text-primary-foreground border-primary"
+                            : "bg-background text-foreground/70 border-border hover:border-primary/50"
+                        }`}
+                        title={c.v === "all" ? "แสดงทุกระดับอุณหภูมิ" : TEMP_INFO[c.v].useCase}
+                      >
+                        <span className="mr-0.5">{c.emoji}</span>{c.label}
+                      </button>
+                    ))}
                   </div>
                 </div>
 
@@ -813,14 +865,45 @@ const CFFiberlink = () => {
                     <p className="text-[10px] uppercase tracking-wide text-muted-foreground font-semibold mb-0.5">ขนาด (mm)</p>
                     <p className="text-sm text-foreground">{selected.model.size}</p>
                   </div>
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    <Badge variant="outline" className="text-[10px]">-40~85°C</Badge>
-                    <Badge variant="outline" className="text-[10px]">6KV Lightning</Badge>
-                    <Badge variant="outline" className="text-[10px]">ERPS &lt;20ms</Badge>
-                    <Badge variant="outline" className="text-[10px]">รับประกัน 2 ปี จากโรงงาน</Badge>
-                  </div>
+                  {(() => {
+                    const range = selected.model.tempRange ?? selected.cat.defaultTempRange;
+                    const klass = getTempClass(range);
+                    const info = TEMP_INFO[klass];
+                    return (
+                      <div className="flex flex-wrap gap-1.5 pt-1">
+                        <Badge variant="outline" className={`text-[10px] ${info.badgeClass}`} title={info.useCase}>
+                          <span className="mr-0.5">{info.icon}</span>{range}
+                        </Badge>
+                        <Badge variant="outline" className="text-[10px]">6KV Lightning</Badge>
+                        <Badge variant="outline" className="text-[10px]">ERPS &lt;20ms</Badge>
+                        <Badge variant="outline" className="text-[10px]">รับประกัน 2 ปี จากโรงงาน</Badge>
+                      </div>
+                    );
+                  })()}
                 </div>
               </div>
+
+              {/* เหมาะกับงานสภาพไหน — Operating Environment */}
+              {(() => {
+                const range = selected.model.tempRange ?? selected.cat.defaultTempRange;
+                const klass = getTempClass(range);
+                const info = TEMP_INFO[klass];
+                return (
+                  <div className={`mt-4 rounded-lg border p-3 ${info.badgeClass}`}>
+                    <div className="flex items-start gap-2">
+                      <span className="text-xl leading-none">{info.icon}</span>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-semibold mb-0.5">
+                          อุณหภูมิใช้งาน {range} · {info.label}
+                        </p>
+                        <p className="text-[11px] leading-relaxed opacity-90">
+                          <span className="font-medium">เหมาะกับ:</span> {info.useCase}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
 
               <div className="mt-4 border-t border-border pt-4">
                 <p className="text-[10px] uppercase tracking-wide text-muted-foreground font-semibold mb-2">Software Features</p>
