@@ -137,7 +137,8 @@ const PowerSupplySection = () => {
                 </table>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Footer note */}
