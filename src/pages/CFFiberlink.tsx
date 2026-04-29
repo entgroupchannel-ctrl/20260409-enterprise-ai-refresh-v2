@@ -530,14 +530,13 @@ const CFFiberlink = () => {
                       className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
                     />
-                    {/* Temperature badge บนรูป Hero */}
-                    <span
+                    {/* Temperature heat bar บนรูป Hero */}
+                    <div
+                      className="absolute bottom-2 left-2 right-2 rounded-md bg-background/85 backdrop-blur-sm px-2 py-1 border border-border/50 shadow-sm"
                       title={heroTempInfo.useCase}
-                      className={`absolute bottom-2 right-2 inline-flex items-center gap-1 text-[10px] font-bold border rounded-full px-2 py-0.5 backdrop-blur-sm ${heroTempInfo.badgeClass}`}
                     >
-                      <heroTempInfo.icon className="w-3 h-3" />
-                      <span className="font-mono">{heroRange}</span>
-                    </span>
+                      <TempRangeBar range={heroRange} size="sm" />
+                    </div>
                   </div>
 
                   <div className="p-4 flex flex-col flex-1 gap-2">
