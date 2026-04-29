@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import SEOHead from '@/components/SEOHead';
+import SiteNavbar from '@/components/SiteNavbar';
+import Footer from '@/components/Footer';
 import {
   Cpu, MemoryStick, HardDrive, ShieldCheck, Sparkles, TrendingDown, Check,
   ShoppingCart, FileText, ChevronLeft, ChevronRight, ZoomIn, Wifi, Signal,
@@ -109,12 +111,16 @@ export default function ShopUpcDetail() {
   /* ── 404 if model not found in pricing ── */
   if (!pricing) {
     return (
-      <div className="container mx-auto px-4 py-20 text-center">
-        <h1 className="text-2xl font-bold mb-2">ไม่พบรุ่นสินค้า</h1>
-        <p className="text-muted-foreground mb-6">รุ่น "{modelParam}" ไม่อยู่ในรายการที่กำหนดสเปกได้</p>
-        <Button onClick={() => navigate('/shop?series=UPC+Series')}>
-          <ArrowLeft className="w-4 h-4 mr-2" /> กลับไปหน้า Shop
-        </Button>
+      <div className="min-h-screen bg-background flex flex-col">
+        <SiteNavbar />
+        <div className="container mx-auto px-4 py-20 text-center flex-1">
+          <h1 className="text-2xl font-bold mb-2">ไม่พบรุ่นสินค้า</h1>
+          <p className="text-muted-foreground mb-6">รุ่น "{modelParam}" ไม่อยู่ในรายการที่กำหนดสเปกได้</p>
+          <Button onClick={() => navigate('/shop?series=UPC+Series')}>
+            <ArrowLeft className="w-4 h-4 mr-2" /> กลับไปหน้า Shop
+          </Button>
+        </div>
+        <Footer />
       </div>
     );
   }
@@ -205,11 +211,13 @@ export default function ShopUpcDetail() {
     .slice(0, 4);
 
   return (
-    <div className="min-h-screen bg-background">
-      <Helmet>
-        <title>{pricing.model} — Industrial PC | ENT Group</title>
-        <meta name="description" content={detail?.intro?.slice(0, 155) ?? `${pricing.model} ${pricing.category} Industrial PC จาก ENT Group`} />
-      </Helmet>
+    <div className="min-h-screen bg-background flex flex-col">
+      <SEOHead
+        title={`${pricing.model} — ${pricing.category} Industrial PC`}
+        description={detail?.intro?.slice(0, 155) ?? `${pricing.model} ${pricing.category} Industrial PC จาก ENT Group — กำหนดสเปก CPU/RAM/SSD ได้ตามต้องการ`}
+        path={`/shop/upc/${detailKey}`}
+      />
+      <SiteNavbar />
 
       {/* Breadcrumb */}
       <div className="border-b border-border bg-muted/30">
@@ -634,6 +642,8 @@ export default function ShopUpcDetail() {
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/80 text-sm">{activeImg + 1} / {galleryImages.length}</div>
         </div>
       )}
+
+      <Footer />
     </div>
   );
 }
