@@ -48,6 +48,7 @@ import MiniNavbar from "@/components/MiniNavbar";
 import { cffiberlinkCatalog, getTempClass, type CFFiberlinkModel, type CFFiberlinkCategoryDef, type CFUseCase } from "@/data/cffiberlink-models";
 import { getCFPrice, formatTHB } from "@/data/cffiberlink-prices";
 import PowerSupplySection from "@/components/cffiberlink/PowerSupplySection";
+import heroBgFactory from "@/assets/cffiberlink/hero-cffiberlink-factory.jpg";
 
 // แมป use case → icon + label สั้น (ภาษาไทย) สำหรับแสดงในการ์ด
 const USE_CASE_META: Record<CFUseCase, { icon: LucideIcon; label: string }> = {
@@ -304,26 +305,35 @@ const CFFiberlink = () => {
 
       {/* Hero */}
       <div className="relative overflow-hidden border-b border-border">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-accent/5" />
+        <img
+          src={heroBgFactory}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover"
+          width={1920}
+          height={1080}
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0c2340]/90 via-[#0c2340]/75 to-[#1a4a6e]/60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
         <div className="container max-w-7xl mx-auto px-4 py-8 relative z-10">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
-              <Badge className="bg-primary/10 text-primary border-primary/20 mb-3">
+              <Badge className="bg-white/15 text-white border-white/30 backdrop-blur-sm mb-3">
                 Authorized Partner — Thailand
               </Badge>
-              <h1 className="text-3xl md:text-5xl font-display font-bold text-foreground mb-3">
-                CF Fiberlink <span className="text-gradient">Industrial Switch</span>
+              <h1 className="text-3xl md:text-5xl font-display font-bold text-white mb-3 drop-shadow-lg">
+                CF Fiberlink <span className="bg-gradient-to-r from-[#5cbdb9] to-[#2d8a9e] bg-clip-text text-transparent">Industrial Switch</span>
               </h1>
-              <p className="text-muted-foreground text-base leading-relaxed mb-4">
-                ผู้ผลิต Optical Communication ระดับโลกจาก Huizhou Changfei (ก่อตั้งปี 2009) — ผู้นำ Industrial Ethernet Switch, PoE, Cloud-Managed และ SFP Module ที่ใช้งานจริงใน Smart Grid, Rail Transit, Safe City กว่า <strong className="text-foreground">100 ประเทศ / 360+ ตัวแทน</strong>
+              <p className="text-slate-100/90 text-base leading-relaxed mb-4 drop-shadow">
+                ผู้ผลิต Optical Communication ระดับโลกจาก Huizhou Changfei (ก่อตั้งปี 2009) — ผู้นำ Industrial Ethernet Switch, PoE, Cloud-Managed และ SFP Module ที่ใช้งานจริงใน Smart Grid, Rail Transit, Safe City กว่า <strong className="text-white">100 ประเทศ / 360+ ตัวแทน</strong>
               </p>
               <div className="flex flex-wrap gap-2 mb-5">
-                <Badge variant="outline" className="text-xs">-40~85°C</Badge>
-                <Badge variant="outline" className="text-xs">IP40</Badge>
-                <Badge variant="outline" className="text-xs">6KV Lightning</Badge>
-                <Badge variant="outline" className="text-xs">ERPS &lt;20ms</Badge>
+                <Badge variant="outline" className="text-xs bg-white/10 text-white border-white/30 backdrop-blur-sm">-40~85°C</Badge>
+                <Badge variant="outline" className="text-xs bg-white/10 text-white border-white/30 backdrop-blur-sm">IP40</Badge>
+                <Badge variant="outline" className="text-xs bg-white/10 text-white border-white/30 backdrop-blur-sm">6KV Lightning</Badge>
+                <Badge variant="outline" className="text-xs bg-white/10 text-white border-white/30 backdrop-blur-sm">ERPS &lt;20ms</Badge>
                 
-                <Badge variant="outline" className="text-xs">รับประกัน 2 ปี จากโรงงาน</Badge>
+                <Badge variant="outline" className="text-xs bg-white/10 text-white border-white/30 backdrop-blur-sm">รับประกัน 2 ปี จากโรงงาน</Badge>
               </div>
               <div className="flex flex-wrap gap-3">
                 <QuoteRequestButton
