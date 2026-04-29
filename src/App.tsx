@@ -90,6 +90,14 @@ const ShopTouchworkJD133 = lazyRetry(() => import("./pages/shop/ShopTouchworkJD1
 const ShopTouchworkJD156B = lazyRetry(() => import("./pages/shop/ShopTouchworkJD156B"));
 const ShopTouchworkJD185B = lazyRetry(() => import("./pages/shop/ShopTouchworkJD185B"));
 const ShopTouchworkJD215B = lazyRetry(() => import("./pages/shop/ShopTouchworkJD215B"));
+const ShopEpcW13X2A = lazyRetry(() => import("./pages/shop/ShopEpcW13X2A"));
+const ShopEpcW15X2A = lazyRetry(() => import("./pages/shop/ShopEpcW15X2A"));
+const ShopEpcW18X2A = lazyRetry(() => import("./pages/shop/ShopEpcW18X2A"));
+const ShopEpcW21X2A = lazyRetry(() => import("./pages/shop/ShopEpcW21X2A"));
+const ShopEpc10XA = lazyRetry(() => import("./pages/shop/ShopEpc10XA"));
+const ShopEpc20XA = lazyRetry(() => import("./pages/shop/ShopEpc20XA"));
+const ShopEpc30XA = lazyRetry(() => import("./pages/shop/ShopEpc30XA"));
+const ShopEpc40XA = lazyRetry(() => import("./pages/shop/ShopEpc40XA"));
 const Unsubscribe = lazyRetry(() => import("./pages/Unsubscribe"));
 const Login = lazyRetry(() => import("./pages/auth/Login"));
 const Register = lazyRetry(() => import("./pages/auth/Register"));
@@ -404,6 +412,14 @@ const App = () => (
                     <Route path="/shop/jd185b" element={<ShopTouchworkJD185B />} />
                     <Route path="/shop/jd215b" element={<ShopTouchworkJD215B />} />
                     <Route path="/shop/upc/:model" element={<ShopUpcDetail />} />
+                    <Route path="/shop/epc-w13x2a" element={<ShopEpcW13X2A />} />
+                    <Route path="/shop/epc-w15x2a" element={<ShopEpcW15X2A />} />
+                    <Route path="/shop/epc-w18x2a" element={<ShopEpcW18X2A />} />
+                    <Route path="/shop/epc-w21x2a" element={<ShopEpcW21X2A />} />
+                    <Route path="/shop/epc-10xa" element={<ShopEpc10XA />} />
+                    <Route path="/shop/epc-20xa" element={<ShopEpc20XA />} />
+                    <Route path="/shop/epc-30xa" element={<ShopEpc30XA />} />
+                    <Route path="/shop/epc-40xa" element={<ShopEpc40XA />} />
                     <Route path="/shop/:slug" element={<ShopProductDetail />} />
                     <Route path="/unsubscribe" element={<Unsubscribe />} />
                     <Route path="/login" element={<Login />} />
