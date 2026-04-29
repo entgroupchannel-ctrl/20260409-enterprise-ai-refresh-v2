@@ -123,6 +123,7 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
     th: "L2+ ขั้นสูง — Smart Grid / ปิโตรเคมี",
     desc: "Switch L2+ ใช้ใน Smart Grid, ปิโตรเคมี, โครงการขนาดใหญ่ — Sensitivity สูง, Self-healing เร็ว รองรับ IPv4/IPv6 Static Routing",
     software: SW_L2_PLUS,
+    defaultUseCases: ["power", "petrochem", "rail", "green"],
     models: [
       { model: "CF-HY2004GV-SFP", ports: "4× GbE RJ45 + 2× SFP + 1× Console", switchingCapacity: "12 Gbps", packetRate: "8.93 Mpps", size: "172×144×54.5", poe: false, image: IMG.smallL2 },
       { model: "CF-HY2004GVP-SFP", ports: "4× GbE PoE + 2× SFP + 1× Console", switchingCapacity: "12 Gbps", packetRate: "8.93 Mpps", size: "172×144×54.5", poe: true, badge: "PoE+", image: IMG.smallPoE },
@@ -154,6 +155,7 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
     th: "Industrial 10G Core Switch — L3 Strong Layer",
     desc: "Industrial Grade 10G Core Switch (L3 Network Management) — รองรับ Dynamic Routing RIP/OSPF, IPv4/IPv6 Full Line-speed Forwarding เหมาะ Backbone โรงงาน / Smart City / รถไฟฟ้า",
     software: SW_L3,
+    defaultUseCases: ["smart-city", "factory", "rail", "power"],
     models: [
       { model: "CF-HY4T8016G-SFP+", ports: "16× GbE RJ45 + 8× SFP + 4× 10G SFP+", switchingCapacity: "56 Gbps", packetRate: "41.6 Mpps", size: "430×295×45 (Rack)", poe: false, badge: "10G Uplink", image: IMG.l3Core },
       { model: "CF-HY4T8016GP-SFP+", ports: "16× GbE PoE + 8× SFP + 4× 10G SFP+", switchingCapacity: "56 Gbps", packetRate: "41.6 Mpps", size: "430×295×45 (Rack)", poe: true, badge: "10G PoE+", image: IMG.l3Poe },
