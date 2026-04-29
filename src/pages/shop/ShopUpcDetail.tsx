@@ -103,7 +103,7 @@ export default function ShopUpcDetail({ modelOverride }: { modelOverride?: strin
   const [activeImg, setActiveImg] = useState(0);
   const [lightbox, setLightbox] = useState(false);
 
-  useEffect(() => { setActiveImg(0); }, [modelParam]);
+  useEffect(() => { setActiveImg(0); }, [effectiveParam]);
   // Auto rotate gallery
   useEffect(() => {
     if (lightbox || galleryImages.length <= 1) return;
