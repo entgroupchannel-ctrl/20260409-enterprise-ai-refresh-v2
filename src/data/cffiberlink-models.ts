@@ -50,6 +50,25 @@ export interface CFFiberlinkModel {
   heroPitch?: string;
   /** Gallery รูปเพิ่มเติมจากเว็บโรงงาน — ใช้แสดง thumbnail strip ใน Modal */
   gallery?: string[];
+  /** Operating temperature range (override per model) — ถ้าไม่ใส่ใช้ defaultTempRange ของหมวด
+   *  รูปแบบ: "-40~75°C" (ค่าเฉพาะที่ scrape มาจริง / มาตรฐาน datasheet โรงงาน) */
+  tempRange?: string;
+}
+
+/** ระดับความทนอุณหภูมิ — ใช้แสดง Badge สี + ใช้กรองในหน้า catalog */
+export type TempClass =
+  | "extreme"      // -40~75°C ขึ้นไป — โรงงาน, ราง, เหมือง, นอกอาคาร
+  | "industrial"   // -20~70°C — โรงงานในอาคาร / ตู้คอนโทรล
+  | "commercial";  // 0~50°C — สำนักงาน / Rack / CCTV ในอาคาร
+
+/** แปลง tempRange string → class — ใช้ใน UI badge และ filter */
+export function getTempClass(range: string): TempClass {
+  // ดึงตัวเลขขอบล่าง
+  const m = range.match(/(-?\d+)\s*[~–-]/);
+  const low = m ? parseInt(m[1], 10) : 0;
+  if (low <= -20) return "extreme";
+  if (low < 0) return "industrial";
+  return "commercial";
 }
 
 export interface CFFiberlinkCategoryDef {
@@ -60,6 +79,8 @@ export interface CFFiberlinkCategoryDef {
   software: string[];
   /** Use cases เริ่มต้นของหมวด — model ที่ไม่ใส่ useCases เองจะใช้ค่านี้ */
   defaultUseCases: CFUseCase[];
+  /** Operating temp range เริ่มต้นของหมวด — model ที่ไม่ใส่ tempRange เองจะใช้ค่านี้ */
+  defaultTempRange: string;
   models: CFFiberlinkModel[];
 }
 
