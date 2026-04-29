@@ -307,7 +307,6 @@ export const epcModelDetails: Record<string, EpcModelDetail> = {
       '/images/products/w24x2a/side-io-rear.jpg',
       '/images/products/w24x2a/side-io-com.jpg',
       '/images/products/w24x2a/io-labels.png',
-      '/images/products/w24x2a/banner.png',
     ],
     productImages: [
       { src: '/images/products/w24x2a/dimensions.png', alt: 'EPC-W24X2A Dimensions Drawing', caption: 'Dimensions: 589.3 × 361.2 × 75.1 mm • Cutout: 562.7 × 338.4 mm' },

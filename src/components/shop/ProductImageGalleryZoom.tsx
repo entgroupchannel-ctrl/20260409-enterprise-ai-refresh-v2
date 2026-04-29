@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, PackageSearch } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -13,6 +13,7 @@ export default function ProductImageGalleryZoom({ images, alt, enableZoom = true
   const [isZooming, setIsZooming] = useState(false);
   const [zoomPos, setZoomPos] = useState({ x: 50, y: 50 });
   const [erroredImages, setErroredImages] = useState<Set<number>>(new Set());
+  const [isPaused, setIsPaused] = useState(false);
   const mainRef = useRef<HTMLDivElement>(null);
 
   const validImages = images.filter(Boolean);
@@ -29,6 +30,15 @@ export default function ProductImageGalleryZoom({ images, alt, enableZoom = true
   const prev = () => setActiveIndex(i => (i - 1 + validImages.length) % validImages.length);
   const next = () => setActiveIndex(i => (i + 1) % validImages.length);
 
+  // Autoplay
+  useEffect(() => {
+    if (validImages.length <= 1 || isPaused || isZooming) return;
+    const id = setInterval(() => {
+      setActiveIndex(i => (i + 1) % validImages.length);
+    }, 4000);
+    return () => clearInterval(id);
+  }, [validImages.length, isPaused, isZooming]);
+
   const isCurrentErrored = erroredImages.has(activeIndex);
 
   return (
@@ -37,8 +47,8 @@ export default function ProductImageGalleryZoom({ images, alt, enableZoom = true
       <div
         ref={mainRef}
         className="relative aspect-[4/3] bg-muted rounded-xl overflow-hidden cursor-crosshair group border border-border"
-        onMouseEnter={() => enableZoom && !isCurrentErrored && setIsZooming(true)}
-        onMouseLeave={() => setIsZooming(false)}
+        onMouseEnter={() => { setIsPaused(true); enableZoom && !isCurrentErrored && setIsZooming(true); }}
+        onMouseLeave={() => { setIsPaused(false); setIsZooming(false); }}
         onMouseMove={handleMouseMove}
       >
         {isCurrentErrored ? (
@@ -80,6 +90,25 @@ export default function ProductImageGalleryZoom({ images, alt, enableZoom = true
         {!isCurrentErrored && (
           <div className="absolute bottom-2 right-2 bg-background/70 backdrop-blur text-xs px-2 py-0.5 rounded-full text-muted-foreground">
             {activeIndex + 1} / {validImages.length}
+          </div>
+        )}
+
+        {/* Dot indicators */}
+        {validImages.length > 1 && (
+          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 bg-background/60 backdrop-blur px-2 py-1 rounded-full">
+            {validImages.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveIndex(i)}
+                aria-label={`ไปยังภาพที่ ${i + 1}`}
+                className={cn(
+                  "transition-all rounded-full",
+                  i === activeIndex
+                    ? "w-5 h-1.5 bg-primary"
+                    : "w-1.5 h-1.5 bg-muted-foreground/40 hover:bg-muted-foreground/70"
+                )}
+              />
+            ))}
           </div>
         )}
       </div>
