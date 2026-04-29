@@ -14,13 +14,7 @@ import volktekCertifications from "@/assets/volktek-certifications.png";
 import FooterCompact from "@/components/FooterCompact";
 import B2BPlatformInterfaceShowcase from "@/components/B2BPlatformInterfaceShowcase";
 import MiniNavbar from "@/components/MiniNavbar";
-import Layer3Section from "@/components/volktek/Layer3Section";
-import IndustrialPoeSection from "@/components/volktek/IndustrialPoeSection";
-import IndustrialEthernetSection from "@/components/volktek/IndustrialEthernetSection";
-import MetroEthernetSection from "@/components/volktek/MetroEthernetSection";
-import MediaConverterSection from "@/components/volktek/MediaConverterSection";
-import EmsNmsSection from "@/components/volktek/EmsNmsSection";
-import SfpSection from "@/components/volktek/SfpSection";
+import VolktekMegaCatalog from "@/components/volktek/VolktekMegaCatalog";
 
 // Official assets from volktek.com
 import heroSpe from "@/assets/volktek/hero-spe.png";
@@ -343,87 +337,8 @@ const Volktek = () => {
           </div>
         </section>
 
-        {/* Product Categories — 10 หมวดจริงตาม Volktek catalog */}
-        <section>
-          <div className="text-center mb-8">
-            <span className="text-xs font-semibold tracking-widest uppercase text-primary mb-2 block">Product Catalog</span>
-            <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-2">
-              10 หมวดผลิตภัณฑ์ <span className="text-gradient">Volktek</span>
-            </h2>
-            <p className="text-muted-foreground text-sm">ครอบคลุมทุกความต้องการของเครือข่ายอุตสาหกรรม</p>
-          </div>
-
-          {/* Quick Nav */}
-          <div className="flex gap-2 overflow-x-auto pb-4 mb-6 scrollbar-hide">
-            {productCategories.map((cat) => (
-              <a
-                key={cat.id}
-                href={`#${cat.id}`}
-                className="shrink-0 px-3 py-2 rounded-lg text-xs font-medium bg-secondary/50 text-foreground/70 border border-border hover:border-primary/30 hover:text-foreground transition-all flex items-center gap-1.5">
-                <cat.icon className="w-3.5 h-3.5" />
-                {cat.title}
-              </a>
-            ))}
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {productCategories.map((cat) => (
-              <div key={cat.id} id={cat.id} className="card-surface overflow-hidden scroll-mt-24 group hover:border-primary/30 transition-colors">
-                <div className="relative aspect-[16/10] bg-muted overflow-hidden">
-                  <img src={cat.image} alt={cat.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
-                  <div className="absolute top-3 left-3">
-                    <div className="w-9 h-9 rounded-lg bg-background/90 backdrop-blur-sm border border-border flex items-center justify-center">
-                      <cat.icon className="w-4 h-4 text-primary" />
-                    </div>
-                  </div>
-                </div>
-                <div className="p-5">
-                  <h3 className="text-base font-display font-bold text-foreground mb-1.5">{cat.title}</h3>
-                  <p className="text-xs text-muted-foreground mb-3 leading-relaxed">{cat.desc}</p>
-                  <ul className="space-y-1 mb-4">
-                    {cat.items.map((item) => (
-                      <li key={item} className="flex items-start gap-2 text-xs text-foreground/80">
-                        <span className="text-primary shrink-0 mt-0.5">▸</span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="flex gap-2 pt-3 border-t border-border">
-                    <AddToCartButton productModel={cat.title} productName={`Volktek ${cat.title}`} productDescription={cat.desc} size="sm" variant="outline" iconOnly />
-                    <QuoteRequestButton productModel={cat.title} productName={`Volktek ${cat.title}`} size="sm" variant="outline" iconOnly />
-                    <Button variant="ghost" size="sm" asChild className="ml-auto text-xs">
-                      <a href={cat.href} target="_blank" rel="noopener noreferrer">
-                        Datasheet <ArrowRight className="w-3 h-3 ml-1" />
-                      </a>
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Phase 1 — Layer 3 detailed catalog (รุ่นจริงจากโรงงาน) */}
-        <Layer3Section />
-
-        {/* Phase 3 — Industrial PoE Switches detailed catalog */}
-        <IndustrialPoeSection />
-
-        {/* Phase 4 — Industrial Ethernet Switches detailed catalog */}
-        <IndustrialEthernetSection />
-
-        {/* Phase 5 — Metro Ethernet Switches detailed catalog */}
-        <MetroEthernetSection />
-
-        {/* Phase 6 — Media Converters detailed catalog */}
-        <MediaConverterSection />
-
-        {/* Phase 7 — EMS / NMS Software detailed catalog */}
-        <EmsNmsSection />
-
-        {/* Phase 8 — SFP Modules detailed catalog */}
-        <SfpSection />
+        {/* Mega Catalog — 10 หมวดในแท็บเดียว แทน card grid + 7 phase sections เดิม */}
+        <VolktekMegaCatalog />
 
         {/* LAMUNGAN Platform — EMS spotlight */}
         <section className="card-surface overflow-hidden">
