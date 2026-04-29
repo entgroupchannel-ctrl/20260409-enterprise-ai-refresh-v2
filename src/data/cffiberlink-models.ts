@@ -11,6 +11,24 @@
 
 export type CFFiberlinkCategory = "l2-rtl" | "l2-vts" | "l3-10g" | "cctv-poe" | "rack-poe";
 
+/** Use case tag — แมปกับ Lucide icon ในหน้า component */
+export type CFUseCase =
+  | "cctv"        // กล้องวงจรปิด
+  | "wifi-ap"     // Wireless AP
+  | "factory"     // โรงงาน / PLC / SCADA
+  | "rail"        // รถไฟฟ้า / ระบบราง
+  | "traffic"     // Smart Traffic / ITS
+  | "power"       // Smart Grid / Substation
+  | "petrochem"   // ปิโตรเคมี / น้ำมัน
+  | "mining"      // เหมือง
+  | "marine"      // ท่าเรือ / Marine
+  | "smart-city"  // Smart City Backbone
+  | "campus"      // โรงเรียน / มหาวิทยาลัย
+  | "hotel"       // โรงแรม / รีสอร์ท
+  | "office"      // ออฟฟิศ / Enterprise
+  | "smb"         // SMB / ร้านค้า
+  | "green";      // พลังงานสะอาด / Solar
+
 export interface CFFiberlinkModel {
   model: string;
   ports: string;
@@ -20,6 +38,7 @@ export interface CFFiberlinkModel {
   poe: boolean;
   badge?: string;
   image: string;
+  useCases: CFUseCase[];
 }
 
 export interface CFFiberlinkCategoryDef {
