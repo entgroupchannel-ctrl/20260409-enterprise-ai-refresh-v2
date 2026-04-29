@@ -437,6 +437,73 @@ export const volktekMetroEthernet: VolktekCategory = {
 };
 
 /* ============================================================
+ * Phase 6: Media Converters (4 sub-categories, 14 รุ่น)
+ * ============================================================ */
+import mc_IMC_661P from "@/assets/volktek/products/mc/IMC-661P.jpg";
+import mc_IMC_561P from "@/assets/volktek/products/mc/IMC-561P.jpg";
+import mc_IMC_563P from "@/assets/volktek/products/mc/IMC-563P.jpg";
+import mc_IMC_661 from "@/assets/volktek/products/mc/IMC-661.jpg";
+import mc_IMC_561 from "@/assets/volktek/products/mc/IMC-561.jpg";
+import mc_IMC_563 from "@/assets/volktek/products/mc/IMC-563.jpg";
+import mc_HMC_652E from "@/assets/volktek/products/mc/HMC-652E.jpg";
+import mc_HMC_672E from "@/assets/volktek/products/mc/HMC-672E.jpg";
+import mc_NXF_742E from "@/assets/volktek/products/mc/NXF-742E.jpg";
+import mc_NGF_763 from "@/assets/volktek/products/mc/NGF-763.jpg";
+import mc_NGF_762E from "@/assets/volktek/products/mc/NGF-762E.jpg";
+import mc_IRF_629 from "@/assets/volktek/products/mc/IRF-629.jpg";
+import mc_IRF_631 from "@/assets/volktek/products/mc/IRF-631.jpg";
+import mc_IMC_553 from "@/assets/volktek/products/mc/IMC-553.jpg";
+
+export const volktekMediaConverter: VolktekCategory = {
+  id: "media-converter",
+  title: "Media Converters",
+  subCategories: [
+    {
+      id: "mc-poe",
+      title: "PoE+ Converters",
+      blurb: "Media Converter รองรับ PoE+ — แปลง Copper ↔ Fiber พร้อมจ่ายไฟผ่านสาย LAN",
+      products: [
+        { model: "IMC-661P", description: "1x 10/100/1000 PoE+ + 1x FX/GbE SFP — Industrial Media Converter", image: mc_IMC_661P, features: ["PoE+", "Gigabit", "SFP"], sourceUrl: detail(1687) },
+        { model: "IMC-561P", description: "1x 10/100/1000 PoE+ + 1x FX/GbE SFP — Hardened Media Converter", image: mc_IMC_561P, features: ["PoE+", "Hardened", "SFP"], sourceUrl: detail(1659) },
+        { model: "IMC-563P", description: "1x 100/1000 PoE+ + 1x FX/GbE SFP — Industrial Mini Media Converter", image: mc_IMC_563P, features: ["PoE+", "Mini", "SFP"], sourceUrl: detail(1662) },
+      ],
+    },
+    {
+      id: "mc-copper-fiber",
+      title: "Copper to Fiber",
+      blurb: "Copper ↔ Fiber Converter — แปลงสัญญาณ RJ45 เป็น SFP/Fiber สำหรับขยายระยะทาง",
+      products: [
+        { model: "IMC-661", description: "1x 10/100/1000 RJ45 + 1x FX/GbE SFP — Industrial Media Converter", image: mc_IMC_661, features: ["Industrial", "Gigabit", "SFP"], sourceUrl: detail(1663) },
+        { model: "IMC-561", description: "1x 10/100/1000 RJ45 + 1x FX/GbE SFP — Hardened Media Converter", image: mc_IMC_561, features: ["Hardened", "Gigabit", "SFP"], sourceUrl: detail(1660) },
+        { model: "IMC-563", description: "1x 100/1000 RJ45 + 1x FX/GbE SFP — Industrial Media Converter", image: mc_IMC_563, features: ["Industrial", "Mini", "SFP"], sourceUrl: detail(1661) },
+        { model: "HMC-652E", description: "1x 10/100 RJ45 + 1x FX Fiber — Hardened Media Converter", image: mc_HMC_652E, features: ["Hardened", "Fast Ethernet", "Fiber"], sourceUrl: detail(1664) },
+        { model: "HMC-672E", description: "1x 10/100/1000 RJ45 + 1x FX/GbE Fiber — Hardened Media Converter", image: mc_HMC_672E, features: ["Hardened", "Gigabit", "Fiber"], sourceUrl: detail(1665) },
+        { model: "NXF-742E", description: "1x 10/100 RJ45 + 1x 100FX Fiber — Media Converter", image: mc_NXF_742E, features: ["Fast Ethernet", "Fiber"], sourceUrl: detail(1641) },
+        { model: "NGF-763", description: "1x 100/1000 RJ45 + 1x FX/GbE SFP — Media Converter", image: mc_NGF_763, features: ["Gigabit", "SFP"], sourceUrl: detail(1666) },
+        { model: "NGF-762E", description: "1x 10/100/1000 RJ45 + 1x FX/GbE Fiber — Media Converter", image: mc_NGF_762E, features: ["Gigabit", "Fiber"], sourceUrl: detail(1667) },
+      ],
+    },
+    {
+      id: "mc-serial-fiber",
+      title: "Serial to Fiber",
+      blurb: "Serial ↔ Fiber Converter — แปลง RS-232/422/485 เป็น Fiber สำหรับงาน Industrial Automation",
+      products: [
+        { model: "IRF-629", description: "RS-422/485 to Fiber Converter — Industrial Serial Converter", image: mc_IRF_629, features: ["RS-422/485", "Fiber"], sourceUrl: detail(1669) },
+        { model: "IRF-631", description: "RS-232 to Fiber Converter — Industrial Serial Converter", image: mc_IRF_631, features: ["RS-232", "Fiber"], sourceUrl: detail(1670) },
+      ],
+    },
+    {
+      id: "mc-spe",
+      title: "SPE Converters",
+      blurb: "Single-Pair Ethernet Converter — แปลง 10BASE-T ↔ 10BASE-T1L SPE สำหรับงาน Field Network",
+      products: [
+        { model: "IMC-553", description: "1x 10BASE-T1L SPE + 1x 10BASE-T — Unmanaged Industrial SPE Media Converter", image: mc_IMC_553, features: ["SPE", "10BASE-T1L", "Industrial"], sourceUrl: detail(1672) },
+      ],
+    },
+  ],
+};
+
+/* ============================================================
  * Master export — เพิ่ม category อื่นใน phase ถัดไป
  * ============================================================ */
 export const volktekCatalog: VolktekCategory[] = [
@@ -444,6 +511,7 @@ export const volktekCatalog: VolktekCategory[] = [
   volktekIndustrialPoe,
   volktekIndustrialEthernet,
   volktekMetroEthernet,
-  // Phase 6+: media-converter, ems-nms, sfp, poe-injector, firewall, accessories
+  volktekMediaConverter,
+  // Phase 7+: ems-nms, sfp, poe-injector, firewall, accessories
 ];
 
