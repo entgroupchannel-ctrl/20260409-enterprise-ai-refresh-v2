@@ -648,32 +648,29 @@ export default function ShopIpctechQyU4000() {
         <SectionHeader icon={Sparkles} title="เหมาะกับงานโครงการภาครัฐ" subtitle="ตัวอย่างการใช้งานจริงในโครงการราชการและรัฐวิสาหกิจ" />
 
         {/* Flagship project cards with imagery */}
-        <div className="grid md:grid-cols-2 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mb-6">
           {FLAGSHIP_PROJECTS.map((p) => (
-            <Card key={p.title} className="overflow-hidden group hover:border-primary/60 hover:shadow-lg transition-all">
-              <div className="relative aspect-[16/9] bg-muted overflow-hidden">
+            <Card key={p.title} className="overflow-hidden group hover:border-primary/60 hover:shadow-md transition-all">
+              <div className="relative aspect-[4/3] bg-muted overflow-hidden">
                 <img
                   src={p.img}
                   alt={p.title}
-                  width={1280}
-                  height={720}
+                  width={800}
+                  height={600}
                   loading="lazy"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/30 to-transparent" />
-                <Badge className="absolute top-3 left-3 bg-primary/90 backdrop-blur text-primary-foreground text-[10px] uppercase tracking-wider">
+                <Badge className="absolute top-2 left-2 bg-primary/90 backdrop-blur text-primary-foreground text-[10px] uppercase tracking-wider">
                   {p.tag}
                 </Badge>
-                <div className="absolute bottom-3 left-3 right-3">
-                  <h3 className="text-white font-bold text-base drop-shadow-md">{p.title}</h3>
-                </div>
               </div>
-              <CardContent className="p-4 space-y-3">
-                <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
-                <div className="flex flex-wrap gap-1.5">
+              <CardContent className="p-3 space-y-2">
+                <h3 className="font-bold text-sm text-foreground leading-tight">{p.title}</h3>
+                <p className="text-xs text-muted-foreground leading-snug line-clamp-2">{p.desc}</p>
+                <div className="flex flex-wrap gap-1">
                   {p.metrics.map((m) => (
-                    <span key={m} className="inline-flex items-center gap-1 text-[11px] px-2 py-1 rounded-md bg-primary/10 border border-primary/20 text-primary font-semibold">
-                      <Check className="w-3 h-3" /> {m}
+                    <span key={m} className="inline-flex items-center gap-0.5 text-[10px] px-1.5 py-0.5 rounded bg-primary/10 border border-primary/20 text-primary font-semibold">
+                      <Check className="w-2.5 h-2.5" /> {m}
                     </span>
                   ))}
                 </div>
