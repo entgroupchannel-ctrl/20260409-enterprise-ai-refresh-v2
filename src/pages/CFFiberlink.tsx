@@ -1,3 +1,4 @@
+import { useState } from "react";
 import SEOHead from "@/components/SEOHead";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
@@ -15,13 +16,16 @@ import {
   TrafficCone,
   Ship,
   Cpu,
+  CheckCircle2,
 } from "lucide-react";
 import AddToCartButton from "@/components/AddToCartButton";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import FooterCompact from "@/components/FooterCompact";
 import MiniNavbar from "@/components/MiniNavbar";
+import { cffiberlinkCatalog, type CFFiberlinkModel, type CFFiberlinkCategoryDef } from "@/data/cffiberlink-models";
 
 /**
  * CF Fiberlink — Authorized Partner page (TH)
@@ -74,93 +78,6 @@ const productCategories = [
   },
 ];
 
-// ───────────── Featured Models for Thailand ─────────────
-const featuredModels = [
-  // Industrial Managed
-  {
-    cat: "industrial-managed",
-    model: "CF-HY4T8016G-SFP",
-    name: "28-port 10G Uplink L3 Managed Industrial",
-    spec: "16× GbE RJ45 + 8× SFP + 4× 10G SFP+",
-    use: "Backbone โรงงาน / Smart City / รถไฟฟ้า",
-    image: "https://cdnus.globalso.com/cffiberlink/4%E4%B8%87%E5%85%86%E5%85%8916%E5%8D%83%E5%85%86%E7%94%B58%E4%B8%AA%E5%8D%83%E5%85%86%E5%85%89-CF-HY4T8016G-SFP-2.jpg",
-    badge: "L3 / 10G",
-  },
-  {
-    cat: "industrial-managed",
-    model: "CF-HY4T1608S-SFP",
-    name: "Full Gigabit 16 Optical 8 Electrical L3",
-    spec: "16× SFP + 8× GbE + 4× 10G SFP+ / 6KV Lightning",
-    use: "Smart Grid / โรงไฟฟ้า / สถานีสูบน้ำ",
-    image: "https://cdnus.globalso.com/cffiberlink/604b25fdafe0b0fe8dba3998bed93d0.jpg",
-    badge: "Lightning Protect",
-  },
-  {
-    cat: "industrial-managed",
-    model: "CF-HY4008GV-SFP",
-    name: "12-port L2+ Managed Industrial",
-    spec: "8× GbE + 4× SFP / Bypass Optical / IPv4 Static Route",
-    use: "ตู้ควบคุมโรงงาน / Substation",
-    image: "https://cdnus.globalso.com/cffiberlink/4107.jpg",
-    badge: "L2+",
-  },
-  {
-    cat: "industrial-managed",
-    model: "CFW-HY2008G-SFP",
-    name: "10-port L2 WEB Managed Gigabit",
-    spec: "8× GbE + 2× SFP / WEB GUI / Bypass",
-    use: "งาน ITS / ตู้ริมถนน",
-    image: "https://cdnus.globalso.com/cffiberlink/1105.jpg",
-    badge: "WEB Managed",
-  },
-  {
-    cat: "industrial-managed",
-    model: "CFW-HY2024M-2",
-    name: "6-port WEB Managed Multimode Dual Fiber",
-    spec: "4× GbE + 2× 100/1000 SC Multimode",
-    use: "Edge ตู้สวิตช์ขนาดเล็ก",
-    image: "https://cdnus.globalso.com/cffiberlink/55c2d925462b78fdb39e499ae32255f.jpg",
-    badge: "Compact",
-  },
-  // PoE
-  {
-    cat: "industrial-poe",
-    model: "CF-HY4016GP-SFP",
-    name: "20-port L2 Managed Industrial PoE",
-    spec: "16× GbE PoE+ (240W) + 4× SFP / 30W ต่อพอร์ต",
-    use: "ระบบกล้อง CCTV เมือง / โรงงาน",
-    image: "https://cdnus.globalso.com/cffiberlink/afdsgn-tuya-tuya.jpg",
-    badge: "PoE+ 240W",
-  },
-  {
-    cat: "industrial-poe",
-    model: "AI PoE 27-port",
-    name: "27-port 10/100/1000M PoE Switch",
-    spec: "AI PoE Self-healing / Metal Body",
-    use: "Wireless City / Surveillance",
-    image: "https://cdnus.globalso.com/cffiberlink/IMG_3772.jpg",
-    badge: "AI PoE",
-  },
-  // Unmanaged
-  {
-    cat: "unmanaged",
-    model: "CF-5P-100",
-    name: "5-port 10/100M Industrial Ethernet Switch",
-    spec: "Fanless / DIN-Rail / Wide Temp",
-    use: "PLC / Sensor Network",
-    image: "https://cdnus.globalso.com/cffiberlink/4102463c28550c4957093c1152bf171.jpg",
-    badge: "Plug & Play",
-  },
-  {
-    cat: "unmanaged",
-    model: "CF-10P-100-PoE",
-    name: "10-port 10/100M Ethernet Switch (8 PoE + 2)",
-    spec: "8× PoE + 2× Uplink",
-    use: "งาน CCTV ขนาดเล็ก",
-    image: "https://cdnus.globalso.com/cffiberlink/8dfe75d0299f4e25f01248d019fe5da.jpg",
-    badge: "8+2 PoE",
-  },
-];
 
 const features = [
   { icon: ThermometerSun, title: "Wide Temp -40~85°C", desc: "ทำงานในสภาพอากาศสุดขั้ว ไม่กลัวร้อน หนาว ฝุ่น" },
@@ -180,7 +97,11 @@ const industries = [
   { icon: Ship, label: "Marine & Petrochemical", desc: "ท่าเรือ ปิโตรเคมี เหมือง" },
 ];
 
+const allCatalogModels: CFFiberlinkModel[] = cffiberlinkCatalog.flatMap((c) => c.models);
+
 const CFFiberlink = () => {
+  const [selected, setSelected] = useState<{ model: CFFiberlinkModel; cat: CFFiberlinkCategoryDef } | null>(null);
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead
@@ -192,9 +113,9 @@ const CFFiberlink = () => {
         collectionName="CF Fiberlink Industrial Ethernet Switch"
         collectionDescription="CF Fiberlink Industrial Managed / PoE / Cloud Switch สำหรับงานอุตสาหกรรม Smart City และระบบราง"
         collectionUrl="/partners/cffiberlink"
-        products={featuredModels.map((m) => ({
-          name: `${m.model} — ${m.name}`,
-          description: m.spec,
+        products={allCatalogModels.map((m) => ({
+          name: `CF Fiberlink ${m.model}`,
+          description: `${m.ports} — Switching ${m.switchingCapacity}, ${m.packetRate}`,
           category: "Industrial Ethernet Switch",
         }))}
       />
@@ -320,54 +241,51 @@ const CFFiberlink = () => {
           </div>
         </section>
 
-        {/* Featured Models */}
+        {/* Full Catalog by Category */}
         <section>
           <h2 className="text-2xl font-display font-bold text-foreground mb-2">
-            รุ่นแนะนำสำหรับ<span className="text-gradient">ตลาดไทย</span>
+            แค็ตตาล็อก<span className="text-gradient">รุ่นทั้งหมด</span>
           </h2>
-          <p className="text-muted-foreground text-sm mb-5">
-            คัดเฉพาะรุ่นที่เหมาะกับงานโครงการในไทย — ราคาแจ้งหลังประเมินสเปก
+          <p className="text-muted-foreground text-sm mb-6">
+            ดึงสเปกจริงจากโรงงาน — แบ่งเป็น 3 หมวดตามระดับ Layer (L2 / L2+ / L3 10G) — คลิกที่รุ่นเพื่อดูสเปกและขอใบเสนอราคา
           </p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {featuredModels.map((m) => (
-              <div key={m.model} className="card-surface overflow-hidden flex flex-col">
-                <div className="aspect-square overflow-hidden bg-muted relative">
-                  <img
-                    src={m.image}
-                    alt={`${m.model} ${m.name}`}
-                    className="w-full h-full object-contain p-3"
-                    loading="lazy"
-                  />
-                  <Badge className="absolute top-2 left-2 bg-primary/90 text-primary-foreground text-[10px]">
-                    {m.badge}
-                  </Badge>
+
+          <div className="space-y-10">
+            {cffiberlinkCatalog.map((cat) => (
+              <div key={cat.id}>
+                <div className="flex items-baseline gap-3 mb-1 flex-wrap">
+                  <h3 className="text-lg font-display font-bold text-foreground">{cat.title}</h3>
+                  <Badge variant="outline" className="text-[10px]">{cat.models.length} รุ่น</Badge>
                 </div>
-                <div className="p-4 flex flex-col flex-1">
-                  <p className="text-xs text-muted-foreground font-mono mb-0.5">{m.model}</p>
-                  <h3 className="font-semibold text-foreground text-sm leading-snug mb-2">{m.name}</h3>
-                  <p className="text-xs text-muted-foreground mb-1">
-                    <span className="font-semibold text-foreground/80">สเปก:</span> {m.spec}
-                  </p>
-                  <p className="text-xs text-muted-foreground mb-3">
-                    <span className="font-semibold text-foreground/80">เหมาะกับ:</span> {m.use}
-                  </p>
-                  <div className="mt-auto flex gap-2">
-                    <QuoteRequestButton
-                      productModel={m.model}
-                      productName={`CF Fiberlink ${m.model} — ${m.name}`}
-                      size="sm"
-                      variant="outline"
-                      iconOnly
-                    />
-                    <AddToCartButton
-                      productModel={m.model}
-                      productName={`CF Fiberlink ${m.model}`}
-                      productDescription={m.spec}
-                      size="sm"
-                      variant="outline"
-                      iconOnly
-                    />
-                  </div>
+                <p className="text-sm text-muted-foreground mb-4">{cat.desc}</p>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                  {cat.models.map((m) => (
+                    <button
+                      key={m.model}
+                      type="button"
+                      onClick={() => setSelected({ model: m, cat })}
+                      className="card-surface overflow-hidden flex flex-col text-left hover:border-primary/50 hover:-translate-y-0.5 transition-all"
+                    >
+                      <div className="aspect-square overflow-hidden bg-muted relative">
+                        <img
+                          src={m.image}
+                          alt={`CF Fiberlink ${m.model}`}
+                          className="w-full h-full object-contain p-2"
+                          loading="lazy"
+                        />
+                        {m.badge && (
+                          <Badge className="absolute top-1.5 left-1.5 bg-primary/90 text-primary-foreground text-[9px] px-1.5 py-0">
+                            {m.badge}
+                          </Badge>
+                        )}
+                      </div>
+                      <div className="p-2.5 flex flex-col flex-1">
+                        <p className="font-mono text-[11px] text-foreground font-semibold leading-tight mb-1">{m.model}</p>
+                        <p className="text-[10px] text-muted-foreground leading-snug line-clamp-2">{m.ports}</p>
+                      </div>
+                    </button>
+                  ))}
                 </div>
               </div>
             ))}
@@ -421,6 +339,88 @@ const CFFiberlink = () => {
           </div>
         </div>
       </div>
+
+      {/* Product Detail Modal */}
+      <Dialog open={!!selected} onOpenChange={(open) => !open && setSelected(null)}>
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+          {selected && (
+            <>
+              <DialogHeader>
+                <div className="flex items-center gap-2 flex-wrap mb-1">
+                  <Badge variant="outline" className="text-[10px]">{selected.cat.title}</Badge>
+                  {selected.model.poe && <Badge className="bg-amber-500/15 text-amber-600 border-amber-500/30 text-[10px]">PoE+</Badge>}
+                  {selected.model.badge && <Badge className="bg-primary/15 text-primary border-primary/30 text-[10px]">{selected.model.badge}</Badge>}
+                </div>
+                <DialogTitle className="font-mono text-lg">CF Fiberlink {selected.model.model}</DialogTitle>
+                <DialogDescription className="text-sm">{selected.cat.th}</DialogDescription>
+              </DialogHeader>
+
+              <div className="grid md:grid-cols-2 gap-5 mt-2">
+                <div className="bg-muted rounded-lg overflow-hidden aspect-square">
+                  <img
+                    src={selected.model.image}
+                    alt={`CF Fiberlink ${selected.model.model}`}
+                    className="w-full h-full object-contain p-3"
+                  />
+                </div>
+                <div className="space-y-3">
+                  <div>
+                    <p className="text-[10px] uppercase tracking-wide text-muted-foreground font-semibold mb-1">พอร์ต</p>
+                    <p className="text-sm text-foreground font-medium">{selected.model.ports}</p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <p className="text-[10px] uppercase tracking-wide text-muted-foreground font-semibold mb-0.5">Switching Capacity</p>
+                      <p className="text-sm font-semibold text-foreground">{selected.model.switchingCapacity}</p>
+                    </div>
+                    <div>
+                      <p className="text-[10px] uppercase tracking-wide text-muted-foreground font-semibold mb-0.5">Packet Forwarding</p>
+                      <p className="text-sm font-semibold text-foreground">{selected.model.packetRate}</p>
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-[10px] uppercase tracking-wide text-muted-foreground font-semibold mb-0.5">ขนาด (mm)</p>
+                    <p className="text-sm text-foreground">{selected.model.size}</p>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    <Badge variant="outline" className="text-[10px]">-40~85°C</Badge>
+                    <Badge variant="outline" className="text-[10px]">6KV Lightning</Badge>
+                    <Badge variant="outline" className="text-[10px]">ERPS &lt;20ms</Badge>
+                    <Badge variant="outline" className="text-[10px]">รับประกัน 5 ปี</Badge>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-4 border-t border-border pt-4">
+                <p className="text-[10px] uppercase tracking-wide text-muted-foreground font-semibold mb-2">Software Features</p>
+                <div className="grid sm:grid-cols-2 gap-x-4 gap-y-1.5">
+                  {selected.cat.software.map((s, i) => (
+                    <div key={i} className="flex items-start gap-1.5 text-xs text-foreground/80">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-primary shrink-0 mt-0.5" />
+                      <span>{s}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-5 flex gap-2 flex-wrap">
+                <QuoteRequestButton
+                  productModel={selected.model.model}
+                  productName={`CF Fiberlink ${selected.model.model}`}
+                  size="sm"
+                />
+                <AddToCartButton
+                  productModel={selected.model.model}
+                  productName={`CF Fiberlink ${selected.model.model}`}
+                  productDescription={`${selected.model.ports} — ${selected.model.switchingCapacity}, ${selected.model.packetRate}`}
+                  size="sm"
+                  variant="outline"
+                />
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
 
       <FooterCompact />
     </div>
