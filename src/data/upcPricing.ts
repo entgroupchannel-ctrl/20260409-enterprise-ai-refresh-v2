@@ -184,11 +184,11 @@ export const UPC_PRICING: Record<string, ModelPricing> = {
   },
   'UPC-309C': {
     model: 'UPC-309C', category: '4G IoT Gateway', chassis: 'LARGE',
-    includedFeatures: ['SIM + TF Slot', '4G LTE Module'],
+    includedFeatures: ['SIM + TF Slot', '4G/5G LTE Module'],
     cpus: [
-      { cpu: 'i3-10110U', base: 35990, premium: 2000, total: 37990 },
-      { cpu: 'i5-10210U', base: 42990, premium: 2000, total: 44990 },
-      { cpu: 'i7-10510U', base: 45990, premium: 2000, total: 47990 },
+      { cpu: 'i3-10110U', base: 35990, premium: 6900, total: 42890 },
+      { cpu: 'i5-10210U', base: 42990, premium: 6900, total: 49890 },
+      { cpu: 'i7-10510U', base: 45990, premium: 6900, total: 52890 },
     ],
   },
   'UPC-309R': {
