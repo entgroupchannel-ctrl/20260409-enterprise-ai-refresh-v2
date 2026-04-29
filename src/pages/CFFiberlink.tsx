@@ -102,8 +102,39 @@ const industries = [
 
 const allCatalogModels: CFFiberlinkModel[] = cffiberlinkCatalog.flatMap((c) => c.models);
 
+type PortFilter = "all" | "1-8" | "9-16" | "17-24" | "25+";
+type PoeFilter = "all" | "poe" | "no-poe";
+type FormFilter = "all" | "din" | "rack";
+
+const getPortCount = (ports: string): number => {
+  const matches = ports.match(/(\d+)\s*[×x]/g) || [];
+  let sum = 0;
+  for (const t of matches) sum += parseInt(t, 10) || 0;
+  return sum;
+};
+
+const isRack = (size: string) => /rack/i.test(size);
+
 const CFFiberlink = () => {
   const [selected, setSelected] = useState<{ model: CFFiberlinkModel; cat: CFFiberlinkCategoryDef } | null>(null);
+  const [portFilter, setPortFilter] = useState<PortFilter>("all");
+  const [poeFilter, setPoeFilter] = useState<PoeFilter>("all");
+  const [formFilter, setFormFilter] = useState<FormFilter>("all");
+
+  const filterModel = (m: CFFiberlinkModel): boolean => {
+    if (poeFilter === "poe" && !m.poe) return false;
+    if (poeFilter === "no-poe" && m.poe) return false;
+    if (formFilter === "rack" && !isRack(m.size)) return false;
+    if (formFilter === "din" && isRack(m.size)) return false;
+    if (portFilter !== "all") {
+      const n = getPortCount(m.ports);
+      if (portFilter === "1-8" && !(n >= 1 && n <= 8)) return false;
+      if (portFilter === "9-16" && !(n >= 9 && n <= 16)) return false;
+      if (portFilter === "17-24" && !(n >= 17 && n <= 24)) return false;
+      if (portFilter === "25+" && !(n >= 25)) return false;
+    }
+    return true;
+  };
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -268,12 +299,92 @@ const CFFiberlink = () => {
               ))}
             </TabsList>
 
-            {cffiberlinkCatalog.map((cat) => (
+            {cffiberlinkCatalog.map((cat) => {
+              const filtered = cat.models.filter(filterModel);
+              const portChips: { v: PortFilter; label: string }[] = [
+                { v: "all", label: "ทุกขนาด" },
+                { v: "1-8", label: "1-8 พอร์ต" },
+                { v: "9-16", label: "9-16 พอร์ต" },
+                { v: "17-24", label: "17-24 พอร์ต" },
+                { v: "25+", label: "25+ พอร์ต" },
+              ];
+              const poeChips: { v: PoeFilter; label: string }[] = [
+                { v: "all", label: "ทั้งหมด" },
+                { v: "poe", label: "PoE" },
+                { v: "no-poe", label: "Non-PoE" },
+              ];
+              const formChips: { v: FormFilter; label: string }[] = [
+                { v: "all", label: "ทุกแบบ" },
+                { v: "din", label: "DIN-Rail" },
+                { v: "rack", label: "Rack 1U" },
+              ];
+              return (
               <TabsContent key={cat.id} value={cat.id} className="mt-6">
                 <p className="text-sm text-muted-foreground mb-4">{cat.desc}</p>
 
+                {/* Chip Filters */}
+                <div className="flex flex-col gap-2 mb-4 p-3 rounded-lg bg-secondary/30 border border-border/50">
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <span className="text-[11px] font-semibold text-muted-foreground mr-1 min-w-[60px]">จำนวนพอร์ต:</span>
+                    {portChips.map((c) => (
+                      <button
+                        key={c.v}
+                        type="button"
+                        onClick={() => setPortFilter(c.v)}
+                        className={`text-[11px] px-2 py-0.5 rounded-full border transition-colors ${
+                          portFilter === c.v
+                            ? "bg-primary text-primary-foreground border-primary"
+                            : "bg-background text-foreground/70 border-border hover:border-primary/50"
+                        }`}
+                      >
+                        {c.label}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <span className="text-[11px] font-semibold text-muted-foreground mr-1 min-w-[60px]">PoE:</span>
+                    {poeChips.map((c) => (
+                      <button
+                        key={c.v}
+                        type="button"
+                        onClick={() => setPoeFilter(c.v)}
+                        className={`text-[11px] px-2 py-0.5 rounded-full border transition-colors ${
+                          poeFilter === c.v
+                            ? "bg-primary text-primary-foreground border-primary"
+                            : "bg-background text-foreground/70 border-border hover:border-primary/50"
+                        }`}
+                      >
+                        {c.label}
+                      </button>
+                    ))}
+                    <span className="text-[11px] font-semibold text-muted-foreground mx-1 ml-3 min-w-[55px]">รูปแบบ:</span>
+                    {formChips.map((c) => (
+                      <button
+                        key={c.v}
+                        type="button"
+                        onClick={() => setFormFilter(c.v)}
+                        className={`text-[11px] px-2 py-0.5 rounded-full border transition-colors ${
+                          formFilter === c.v
+                            ? "bg-primary text-primary-foreground border-primary"
+                            : "bg-background text-foreground/70 border-border hover:border-primary/50"
+                        }`}
+                      >
+                        {c.label}
+                      </button>
+                    ))}
+                    <span className="text-[11px] text-muted-foreground ml-auto">
+                      แสดง {filtered.length}/{cat.models.length} รุ่น
+                    </span>
+                  </div>
+                </div>
+
+                {filtered.length === 0 ? (
+                  <p className="text-sm text-muted-foreground text-center py-8">
+                    ไม่พบรุ่นที่ตรงกับเงื่อนไข — ลองปรับ filter
+                  </p>
+                ) : (
                 <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2.5">
-                  {cat.models.map((m) => (
+                  {filtered.map((m) => (
                     <button
                       key={m.model}
                       type="button"
@@ -300,8 +411,10 @@ const CFFiberlink = () => {
                     </button>
                   ))}
                 </div>
+                )}
               </TabsContent>
-            ))}
+              );
+            })}
           </Tabs>
         </section>
 
