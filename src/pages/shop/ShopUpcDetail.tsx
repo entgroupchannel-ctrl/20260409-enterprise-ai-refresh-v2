@@ -28,10 +28,11 @@ import { upcDimensionImages } from '@/data/upcDimensionImages';
 const fmt = (n: number) => n.toLocaleString('th-TH');
 
 /* ── Add-on Catalog ── */
-type AddOnId = 'wifi-bt' | '4g-lte' | 'os-win11' | 'os-ubuntu';
+type AddOnId = 'wifi-bt' | '4g-lte' | '5g-nr' | 'os-win11' | 'os-ubuntu';
 const ADDONS: { id: AddOnId; label: string; price: number; group: 'wireless' | 'os'; icon: React.ElementType; desc: string }[] = [
   { id: 'wifi-bt', label: 'Wi-Fi 6 + Bluetooth 5.2 Module', price: 1500, group: 'wireless', icon: Wifi, desc: 'รองรับ Dual-band 2.4/5GHz + BT 5.2' },
-  { id: '4g-lte', label: '4G LTE Module + SIM Slot', price: 3500, group: 'wireless', icon: Signal, desc: 'รองรับ Nano-SIM, Cat.4 ความเร็ว 150Mbps' },
+  { id: '4g-lte', label: '4G LTE Module + SIM Slot', price: 5900, group: 'wireless', icon: Signal, desc: 'รองรับ Nano-SIM, Cat.4 150Mbps (เริ่มต้น ฿5,900)' },
+  { id: '5g-nr', label: '5G NR Module + SIM Slot', price: 5900, group: 'wireless', icon: Signal, desc: 'รองรับ Nano-SIM, 5G Sub-6GHz (เริ่มต้น ฿5,900)' },
   { id: 'os-win11', label: 'Windows 11 Pro Pre-installed', price: 4500, group: 'os', icon: MonitorCog, desc: 'License แท้ + Activation พร้อมใช้' },
   { id: 'os-ubuntu', label: 'Ubuntu 22.04 LTS Pre-installed', price: 0, group: 'os', icon: MonitorCog, desc: 'ฟรี — Long-term support ถึง 2027' },
 ];
