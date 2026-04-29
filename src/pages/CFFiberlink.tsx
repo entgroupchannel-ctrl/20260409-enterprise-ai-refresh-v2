@@ -41,7 +41,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import FooterCompact from "@/components/FooterCompact";
 import MiniNavbar from "@/components/MiniNavbar";
-import { cffiberlinkCatalog, type CFFiberlinkModel, type CFFiberlinkCategoryDef, type CFUseCase } from "@/data/cffiberlink-models";
+import { cffiberlinkCatalog, getTempClass, type CFFiberlinkModel, type CFFiberlinkCategoryDef, type CFUseCase } from "@/data/cffiberlink-models";
 
 // แมป use case → icon + label สั้น (ภาษาไทย) สำหรับแสดงในการ์ด
 const USE_CASE_META: Record<CFUseCase, { icon: LucideIcon; label: string }> = {
@@ -235,8 +235,9 @@ const CFFiberlink = () => {
   const [portFilter, setPortFilter] = useState<PortFilter>("all");
   const [poeFilter, setPoeFilter] = useState<PoeFilter>("all");
   const [formFilter, setFormFilter] = useState<FormFilter>("all");
+  const [tempFilter, setTempFilter] = useState<TempFilter>("all");
 
-  const filterModel = (m: CFFiberlinkModel): boolean => {
+  const filterModel = (m: CFFiberlinkModel, cat: CFFiberlinkCategoryDef): boolean => {
     if (poeFilter === "poe" && !m.poe) return false;
     if (poeFilter === "no-poe" && m.poe) return false;
     if (formFilter === "rack" && !isRack(m.size)) return false;
@@ -247,6 +248,10 @@ const CFFiberlink = () => {
       if (portFilter === "9-16" && !(n >= 9 && n <= 16)) return false;
       if (portFilter === "17-24" && !(n >= 17 && n <= 24)) return false;
       if (portFilter === "25+" && !(n >= 25)) return false;
+    }
+    if (tempFilter !== "all") {
+      const range = m.tempRange ?? cat.defaultTempRange;
+      if (getTempClass(range) !== tempFilter) return false;
     }
     return true;
   };
