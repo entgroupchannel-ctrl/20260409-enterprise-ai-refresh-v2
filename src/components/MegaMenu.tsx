@@ -93,8 +93,9 @@ const menuCategories = [
         heading: "Industrial Switch",
         links: [
           { label: "Volktek — Managed Switch", href: "/volktek" },
-          { label: "Unmanaged Switch", href: "/volktek" },
-          { label: "PoE Switch", href: "/volktek" },
+          { label: "CF Fiberlink — Industrial / PoE", href: "/partners/cffiberlink", hot: true },
+          { label: "Cloud Managed Switch", href: "/partners/cffiberlink" },
+          { label: "PoE Switch", href: "/partners/cffiberlink" },
         ],
       },
       {
