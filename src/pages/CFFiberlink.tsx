@@ -562,11 +562,11 @@ const CFFiberlink = () => {
                 { v: "din", label: "DIN-Rail" },
                 { v: "rack", label: "Rack 1U" },
               ];
-              const tempChips: { v: TempFilter; label: string; emoji: string }[] = [
-                { v: "all", label: "ทุกระดับ", emoji: "🌡️" },
-                { v: "extreme", label: "ทนสุดขั้ว -40°C+", emoji: "🥶" },
-                { v: "industrial", label: "โรงงาน", emoji: "🏭" },
-                { v: "commercial", label: "ในอาคาร", emoji: "🏢" },
+              const tempChips: { v: TempFilter; label: string; icon: LucideIcon }[] = [
+                { v: "all", label: "ทุกระดับ", icon: Thermometer },
+                { v: "extreme", label: "ทนสุดขั้ว -40°C+", icon: Snowflake },
+                { v: "industrial", label: "โรงงาน", icon: Factory },
+                { v: "commercial", label: "ในอาคาร", icon: Building },
               ];
               return (
               <TabsContent key={cat.id} value={cat.id} className="mt-6">
