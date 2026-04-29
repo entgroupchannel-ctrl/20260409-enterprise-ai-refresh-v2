@@ -107,9 +107,10 @@ type PoeFilter = "all" | "poe" | "no-poe";
 type FormFilter = "all" | "din" | "rack";
 
 const getPortCount = (ports: string): number => {
-  // Sum first 1-2 numeric tokens that look like port counts (e.g., "16× GbE PoE + 4× SFP")
   const matches = ports.match(/(\d+)\s*[×x]/g) || [];
-  return matches.reduce((sum, t) => sum + parseInt(t, 10), 0);
+  let sum = 0;
+  for (const t of matches) sum += parseInt(t, 10) || 0;
+  return sum;
 };
 
 const isRack = (size: string) => /rack/i.test(size);
