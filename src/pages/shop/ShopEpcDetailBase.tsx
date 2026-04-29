@@ -232,42 +232,59 @@ export default function ShopEpcDetailBase({ slug }: Props) {
 
             <Separator />
 
-            {/* RFQ CTA */}
-            <Card className="border-primary/30 bg-primary/5">
-              <CardContent className="p-5 space-y-4">
-                <div className="flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-primary" />
-                  <h3 className="font-bold text-foreground">ขอใบเสนอราคา (RFQ)</h3>
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  รุ่นนี้กำหนดสเปก CPU / RAM / Storage / I/O ได้ตามต้องการ — ทีมงานจะติดต่อกลับภายใน 1 วันทำการ
-                </p>
-                <div className="flex items-center gap-2">
-                  <label className="text-sm text-muted-foreground">จำนวน</label>
-                  <input
-                    type="number" min={1} value={qty}
-                    onChange={(e) => setQty(Math.max(1, parseInt(e.target.value || '1', 10)))}
-                    className="w-20 h-9 px-2 rounded-md border border-border bg-background text-sm"
-                  />
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  <Button onClick={handleQuickQuote} className="gap-2">
-                    <FileText className="w-4 h-4" /> ขอใบเสนอราคา
-                  </Button>
-                  <Button onClick={handleAddToCart} variant="outline" disabled={adding} className="gap-2">
-                    <ShoppingCart className="w-4 h-4" /> {adding ? 'กำลังเพิ่ม…' : 'เพิ่มลงตะกร้า'}
-                  </Button>
-                </div>
-                <div className="flex items-center gap-2 pt-2 border-t border-border">
-                  <Button asChild size="sm" variant="ghost" className="gap-1.5 text-xs">
-                    <a href="tel:+66818268468"><Phone className="w-3.5 h-3.5" /> 081-826-8468</a>
-                  </Button>
-                  <LineQRButton className="inline-flex items-center gap-1.5 text-xs px-2 py-1 rounded-md hover:bg-muted">
-                    💬 LINE
-                  </LineQRButton>
-                </div>
-              </CardContent>
-            </Card>
+            {/* RFQ CTA / Quick price preview */}
+            {cfg && cpuOpt ? (
+              <Card className="border-primary/30 bg-primary/5">
+                <CardContent className="p-5 space-y-3">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <div>
+                      <p className="text-xs text-muted-foreground">เริ่มต้นที่</p>
+                      <p className="text-3xl font-bold text-primary">฿{fmt(cfg.cpus[0].basePrice)}</p>
+                      <p className="text-[11px] text-muted-foreground">ราคายังไม่รวม VAT 7% • กำหนดสเปกด้านล่าง</p>
+                    </div>
+                    <Button size="lg" onClick={() => document.getElementById('w24x2a-configurator')?.scrollIntoView({ behavior: 'smooth' })}>
+                      <Wrench className="w-4 h-4 mr-2" /> กำหนดสเปก
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ) : (
+              <Card className="border-primary/30 bg-primary/5">
+                <CardContent className="p-5 space-y-4">
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="w-5 h-5 text-primary" />
+                    <h3 className="font-bold text-foreground">ขอใบเสนอราคา (RFQ)</h3>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    รุ่นนี้กำหนดสเปก CPU / RAM / Storage / I/O ได้ตามต้องการ — ทีมงานจะติดต่อกลับภายใน 1 วันทำการ
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <label className="text-sm text-muted-foreground">จำนวน</label>
+                    <input
+                      type="number" min={1} value={qty}
+                      onChange={(e) => setQty(Math.max(1, parseInt(e.target.value || '1', 10)))}
+                      className="w-20 h-9 px-2 rounded-md border border-border bg-background text-sm"
+                    />
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <Button onClick={handleQuickQuote} className="gap-2">
+                      <FileText className="w-4 h-4" /> ขอใบเสนอราคา
+                    </Button>
+                    <Button onClick={handleAddToCart} variant="outline" disabled={adding} className="gap-2">
+                      <ShoppingCart className="w-4 h-4" /> {adding ? 'กำลังเพิ่ม…' : 'เพิ่มลงตะกร้า'}
+                    </Button>
+                  </div>
+                  <div className="flex items-center gap-2 pt-2 border-t border-border">
+                    <Button asChild size="sm" variant="ghost" className="gap-1.5 text-xs">
+                      <a href="tel:+66818268468"><Phone className="w-3.5 h-3.5" /> 081-826-8468</a>
+                    </Button>
+                    <LineQRButton className="inline-flex items-center gap-1.5 text-xs px-2 py-1 rounded-md hover:bg-muted">
+                      💬 LINE
+                    </LineQRButton>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
           </div>
         </div>
       </section>
