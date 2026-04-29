@@ -213,9 +213,9 @@ const offices = [
 export default function IPCTech() {
   const breadcrumbs = useMemo(
     () => [
-      { name: "หน้าแรก", url: "https://www.entgroup.co.th/" },
-      { name: "พันธมิตร", url: "https://www.entgroup.co.th/partners" },
-      { name: "IPCTECH", url: "https://www.entgroup.co.th/partners/ipctech" },
+      { name: "หน้าแรก", path: "/" },
+      { name: "พันธมิตร", path: "/partners" },
+      { name: "IPCTECH", path: "/partners/ipctech" },
     ],
     []
   );
