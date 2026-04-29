@@ -918,7 +918,50 @@ const ShopStorefront = () => {
             external_link: `/shop/upc/${m.model.toLowerCase()}`,
           }));
 
-          setProducts([...staticProducts, ...upcStaticProducts, ...(enriched as Product[])]);
+          /* ── Static seeds: EPC Panel PC (Wide) + EPC Box Series ──
+             ใช้ตรงกับ src/components/EPCRecommendedRow.tsx */
+          type PanelBoxSeed = {
+            id: string; model: string; series: 'EPC Panel PC' | 'EPC Box';
+            desc: string; image: string; href: string; popular?: boolean;
+          };
+          const panelBoxSeeds: PanelBoxSeed[] = [
+            { id: 'epc-w13', model: 'EPC-W13X2A', series: 'EPC Panel PC', desc: '13.3" 16:9 — Compact Touch Panel PC', image: '/images/wix/0597a3_a24a2701c3274227be9a623a39fcad77_c5875973.png', href: '/epc-series#wide' },
+            { id: 'epc-w15', model: 'EPC-W15X2A', series: 'EPC Panel PC', desc: '15.6" 16:9 — Wide Touch Panel PC', image: '/images/wix/0597a3_f72a672e77bc413a90eaa099e8bcfe0e_679aa82e.png', href: '/epc-series#wide', popular: true },
+            { id: 'epc-w18', model: 'EPC-W18X2A', series: 'EPC Panel PC', desc: '18.5" 16:9 — Industrial Wide Display', image: '/images/wix/0597a3_1afba5b0dac84a259a2dd29c1fda6909_57745515.png', href: '/epc-series#wide' },
+            { id: 'epc-w21', model: 'EPC-W21X2A', series: 'EPC Panel PC', desc: '21.5" 16:9 — Full HD Touch Panel PC', image: '/images/wix/0597a3_cfe6c90e6ba44ef3ba3a0aa5a698f32d_2b0c00e1.png', href: '/epc-series#wide', popular: true },
+            { id: 'epc-10xa', model: 'EPC-10XA', series: 'EPC Box', desc: 'Compact 200mm — Edge / POS / งานทั่วไป', image: '/images/wix/0597a3_e66a5a6616b64254a920d2c6f05b93f8_48ed79f4.png', href: '/epc-box-series#10xa' },
+            { id: 'epc-20xa', model: 'EPC-20XA', series: 'EPC Box', desc: 'CPU แรง 24/7 — ระบายความร้อนดีขึ้น 68%', image: '/images/wix/0597a3_373c66cd76674aafb9d631325e3e3a26_258223ef.png', href: '/epc-box-series#20xa', popular: true },
+            { id: 'epc-30xa', model: 'EPC-30XA', series: 'EPC Box', desc: 'Rack/Panel Mount 337mm — Low Profile', image: '/images/wix/0597a3_66f688e771804493b4e10e4daf7dd19a_e2ade35a.png', href: '/epc-box-series#30xa' },
+            { id: 'epc-40xa', model: 'EPC-40XA', series: 'EPC Box', desc: 'Mission-Critical Flagship — ระบายความร้อน +168%', image: '/images/wix/0597a3_97f200930e3047dc887b96a9e8c48203_bc6a9156.png', href: '/epc-box-series#40xa', popular: true },
+          ];
+          const panelBoxStaticProducts: Product[] = panelBoxSeeds.map((m) => ({
+            id: `static-pb-${m.id}`,
+            sku: `${m.model}-STD`,
+            model: m.model,
+            series: m.series,
+            name: `${m.model} — ${m.series}`,
+            description: m.desc,
+            category: m.series === 'EPC Panel PC' ? 'Touch Panel PC' : 'Box PC',
+            cpu: 'Intel® Core™ (configurable)',
+            ram_gb: null,
+            storage_gb: null,
+            storage_type: null,
+            unit_price: 0,
+            unit_price_vat: null,
+            image_url: m.image,
+            thumbnail_url: m.image,
+            gallery_urls: null,
+            stock_status: 'rfq',
+            is_active: true,
+            slug: m.href.replace(/^\//, ''),
+            tags: ['fanless', 'industrial-pc', m.series === 'EPC Panel PC' ? 'panel-pc' : 'box-pc', ...(m.popular ? ['popular'] : [])],
+            is_featured: !!m.popular,
+            warranty_months: 12,
+            warranty_type: 'carry-in',
+            external_link: m.href,
+          }));
+
+          setProducts([...staticProducts, ...upcStaticProducts, ...panelBoxStaticProducts, ...(enriched as Product[])]);
         } else {
           setProducts(data as Product[]);
         }

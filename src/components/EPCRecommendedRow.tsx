@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Cpu } from "lucide-react";
+import { ArrowRight, Cpu, ShoppingBag } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 // รุ่นแนะนำ 8 รุ่น: 4 EPC Panel PC (Wide) + 4 EPC Box Series
@@ -106,36 +106,57 @@ const EPCRecommendedRow = () => {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
-          {RECOMMENDED.map((p) => (
-            <Link
-              key={p.id}
-              to={p.href}
-              className="group flex flex-col bg-card border border-border rounded-xl overflow-hidden hover:border-primary hover:shadow-lg transition-all duration-200"
-            >
-              <div className="relative aspect-square bg-muted overflow-hidden">
-                <img
-                  src={p.image}
-                  alt={p.name}
-                  loading="lazy"
-                  className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-300"
-                />
-                <Badge
-                  variant="secondary"
-                  className="absolute top-1.5 left-1.5 text-[9px] font-semibold"
-                >
-                  {p.series}
-                </Badge>
+          {RECOMMENDED.map((p) => {
+            const shopHref = `/shop?q=${encodeURIComponent(p.name)}`;
+            return (
+              <div
+                key={p.id}
+                className="group flex flex-col bg-card border border-border rounded-xl overflow-hidden hover:border-primary hover:shadow-lg transition-all duration-200"
+              >
+                <Link to={p.href} className="block" aria-label={`ดูรายละเอียด ${p.name}`}>
+                  <div className="relative aspect-square bg-muted overflow-hidden">
+                    <img
+                      src={p.image}
+                      alt={p.name}
+                      loading="lazy"
+                      className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <Badge
+                      variant="secondary"
+                      className="absolute top-1.5 left-1.5 text-[9px] font-semibold"
+                    >
+                      {p.series}
+                    </Badge>
+                  </div>
+                </Link>
+                <div className="flex-1 flex flex-col p-2">
+                  <Link to={p.href} className="block">
+                    <h4 className="text-xs font-bold leading-snug line-clamp-1 group-hover:text-primary transition-colors">
+                      {p.name}
+                    </h4>
+                    <p className="mt-1 text-[10px] text-muted-foreground line-clamp-2">
+                      {p.desc}
+                    </p>
+                  </Link>
+                  <div className="mt-2 flex items-center gap-2 text-[10px]">
+                    <Link
+                      to={p.href}
+                      className="flex-1 inline-flex items-center justify-center gap-1 px-1.5 py-1 rounded-md border border-border hover:border-primary hover:text-primary transition-colors"
+                    >
+                      หน้าสินค้า <ArrowRight className="w-3 h-3" />
+                    </Link>
+                    <Link
+                      to={shopHref}
+                      className="flex-1 inline-flex items-center justify-center gap-1 px-1.5 py-1 rounded-md bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+                      aria-label={`ดู ${p.name} ในร้านค้า`}
+                    >
+                      <ShoppingBag className="w-3 h-3" /> /shop
+                    </Link>
+                  </div>
+                </div>
               </div>
-              <div className="flex-1 flex flex-col p-2">
-                <h4 className="text-xs font-bold leading-snug line-clamp-1 group-hover:text-primary transition-colors">
-                  {p.name}
-                </h4>
-                <p className="mt-1 text-[10px] text-muted-foreground line-clamp-2">
-                  {p.desc}
-                </p>
-              </div>
-            </Link>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
