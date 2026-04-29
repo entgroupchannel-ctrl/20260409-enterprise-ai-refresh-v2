@@ -308,7 +308,7 @@ export default function ShopUpcDetail({ modelOverride }: { modelOverride?: strin
           </div>
 
           {/* Info */}
-          <div className="space-y-4">
+          <div className="space-y-4 lg:col-span-3">
             <div className="flex items-center gap-2 flex-wrap">
               <Badge variant="default">{tag} Series</Badge>
               <Badge variant="outline">{pricing.category}</Badge>
