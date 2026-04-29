@@ -83,6 +83,180 @@ const BOX_COMMON_SPECS: EpcModelSpec[] = [
   { label: 'Warranty', value: '12 เดือน (ขยายได้)' },
 ];
 
+// ─────────────────────────────────────────────────────────────────────────────
+// EPC Box Series — Shared Helpers (CESIPC factory data)
+// ─────────────────────────────────────────────────────────────────────────────
+const BOX_SPEC_GROUPS = (m: { dimensions: string; weight: string; com: string; usb20: string; usb30: string }): EpcSpecGroup[] => [
+  {
+    title: 'System Core',
+    rows: [
+      { label: 'CPU (Celeron)', value: 'Intel® Celeron® J1900 (2.0–2.42GHz) / J6412 (2.0–2.6GHz)' },
+      { label: 'CPU (10th Gen)', value: 'Intel® Core™ i3-10110U / i5-10210U / i7-10710U' },
+      { label: 'CPU (12th Gen)', value: 'Intel® Core™ i3-1215U / i5-1235U / i5-1240P / i7-1255U' },
+      { label: 'Memory', value: '4–8GB DDR3L • 4–32GB DDR4 • 4–32GB DDR5 (ขึ้นกับรุ่น CPU)' },
+      { label: 'Storage', value: '1× mSATA SSD (Standard) • Dual M.2 2280 NVMe (Expansion)' },
+      { label: 'Cooling', value: 'Fanless — ระบายความร้อนผ่านครีบอลูมิเนียม 6061' },
+      { label: 'OS Support', value: 'Windows 10 / 11 • Linux Ubuntu' },
+      { label: 'Hardware Security', value: 'TPM 2.0' },
+    ],
+  },
+  {
+    title: 'I/O Ports',
+    rows: [
+      { label: 'USB 2.0', value: m.usb20 },
+      { label: 'USB 3.0', value: m.usb30 },
+      { label: 'COM (Serial)', value: m.com },
+      { label: 'Display', value: '1× HDMI + 1× VGA — Dual Independent Display' },
+      { label: 'Audio', value: '1× Audio Out + 1× Mic In' },
+      { label: 'Ethernet', value: '2× 10/100/1000 Mbps Intel® I210 LAN' },
+      { label: 'Expansion', value: '1× Mini PCIe • Dual M.2 2280 NVMe • M.2 2230 (Wi-Fi/BT)' },
+    ],
+  },
+  {
+    title: 'Wireless Communication',
+    rows: [
+      { label: 'Wi-Fi / Bluetooth', value: 'Wi-Fi + BT (M.2 2230 — Optional)' },
+      { label: 'Cellular', value: '4G LTE Full Network (Optional)' },
+    ],
+  },
+  {
+    title: 'Power Supply',
+    rows: [
+      { label: 'DC Input', value: '12V DC (Standard) • 9–36V DC Wide Input (Optional) — 3-pin Pluggable Terminal Block' },
+      { label: 'Booting', value: 'AT (Auto Power-on) / ATX (Power Button)' },
+      { label: 'Protection', value: 'CESIPC SafeCore™ Power-loss Protection + Auto Restart' },
+    ],
+  },
+  {
+    title: 'Mechanical',
+    rows: [
+      { label: 'Dimensions', value: m.dimensions },
+      { label: 'Weight', value: m.weight },
+      { label: 'Material', value: 'High-Strength 6061 Aluminum Alloy' },
+      { label: 'Mounting', value: 'Wall-mount / VESA Mount' },
+    ],
+  },
+  {
+    title: 'Environmental',
+    rows: [
+      { label: 'Operating Temp', value: '0 ~ 50°C (Standard) • -40 ~ 70°C (Wide-Temp Optional)' },
+      { label: 'Storage Temp', value: '-10 ~ 60°C' },
+      { label: 'Humidity', value: '10% ~ 90% RH, non-condensing' },
+    ],
+  },
+  {
+    title: 'Certifications & Services',
+    rows: [
+      { label: 'Certifications', value: 'CE • FCC • BIS (EN 55032 & EN 55035) • RoHS' },
+      { label: 'ODM / OEM', value: 'Custom BIOS • Boot Logo • OEM Branding • Custom I/O' },
+      { label: 'Warranty', value: '12 เดือน — ขยายเป็น 24/36 เดือนได้' },
+    ],
+  },
+];
+
+const BOX_OPTIONS: EpcOptionGroup[] = [
+  {
+    label: 'CPU',
+    choices: [
+      'Intel® Celeron® J1900 (Entry • 4-core 2.0GHz)',
+      'Intel® Celeron® J6412 (Elkhart Lake • 4-core 2.0GHz)',
+      'Intel® Core™ i3-10110U (10th Gen)',
+      'Intel® Core™ i5-10210U (10th Gen)',
+      'Intel® Core™ i7-10710U (10th Gen • 6-core)',
+      'Intel® Core™ i3-1215U (12th Gen)',
+      'Intel® Core™ i5-1235U (12th Gen)',
+      'Intel® Core™ i5-1240P (12th Gen • Performance)',
+      'Intel® Core™ i7-1255U (12th Gen • แนะนำ)',
+    ],
+  },
+  { label: 'Memory (RAM)', choices: ['4GB', '8GB', '16GB', '32GB'], note: 'ชนิด DDR3L / DDR4 / DDR5 ขึ้นกับรุ่น CPU' },
+  { label: 'Storage (SSD)', choices: ['mSATA SSD 128GB', 'mSATA SSD 256GB', 'M.2 NVMe 256GB', 'M.2 NVMe 512GB', 'M.2 NVMe 1TB', 'Dual SSD (RAID-0/1) — Optional'] },
+  { label: 'Wi-Fi / Bluetooth', choices: ['ไม่ติดตั้ง', 'Wi-Fi 5 + BT 5.0', 'Wi-Fi 6 + BT 5.2'] },
+  { label: 'Cellular (4G LTE)', choices: ['ไม่ติดตั้ง', '4G LTE Module + SIM Slot'] },
+  { label: 'Operating System', choices: ['ไม่ติดตั้ง OS', 'Windows 10 IoT Enterprise LTSC', 'Windows 11 Pro', 'Ubuntu 22.04 LTS'] },
+  { label: 'Power Input', choices: ['12V DC (Standard)', '9–36V DC Wide Input (Optional)'] },
+  { label: 'Operating Temperature', choices: ['0 ~ 50°C (Standard)', '-40 ~ 70°C (Wide-Temp Optional)'] },
+  { label: 'Mounting', choices: ['Wall-mount', 'VESA Mount', 'DIN-Rail (Optional)'] },
+  { label: 'Warranty', choices: ['12 เดือน (Standard)', '24 เดือน', '36 เดือน'] },
+];
+
+const BOX_CERTS: EpcCertification[] = [
+  { code: 'CE', description: 'European Conformity (EN 55032 & EN 55035)' },
+  { code: 'FCC', description: 'Federal Communications Commission (USA)' },
+  { code: 'BIS', description: 'Bureau of Indian Standards' },
+  { code: 'RoHS', description: 'Restriction of Hazardous Substances' },
+];
+
+const BOX_SELECTION = (prefix: string): EpcSelectionRow[] => {
+  const fp = prefix.split('.')[1][1]; // '1' | '2' | '3' | '4'
+  return [
+    { no: '1', model: `EPC-${fp}06A`, partNumber: `${prefix}.01.001`, cpu: 'Intel® Celeron® J1900',  memory: '4GB', storage: 'mSATA SSD 128GB' },
+    { no: '2', model: `EPC-${fp}07A`, partNumber: `${prefix}.05.001`, cpu: 'Intel® Celeron® J6412',  memory: '8GB', storage: 'mSATA SSD 256GB' },
+    { no: '3', model: `EPC-${fp}09A`, partNumber: `${prefix}.03.001`, cpu: 'Intel® Core™ i3-10110U', memory: '8GB', storage: 'mSATA SSD 256GB' },
+    { no: '4', model: `EPC-${fp}09A`, partNumber: `${prefix}.03.002`, cpu: 'Intel® Core™ i5-10210U', memory: '8GB', storage: 'mSATA SSD 256GB' },
+    { no: '5', model: `EPC-${fp}09A`, partNumber: `${prefix}.03.003`, cpu: 'Intel® Core™ i7-10710U', memory: '8GB', storage: 'mSATA SSD 256GB' },
+    { no: '6', model: `EPC-${fp}02A`, partNumber: `${prefix}.04.001`, cpu: 'Intel® Core™ i3-1215U',  memory: '8GB', storage: 'mSATA SSD 256GB' },
+    { no: '7', model: `EPC-${fp}02A`, partNumber: `${prefix}.04.002`, cpu: 'Intel® Core™ i5-1235U',  memory: '8GB', storage: 'mSATA SSD 256GB' },
+    { no: '8', model: `EPC-${fp}02A`, partNumber: `${prefix}.04.003`, cpu: 'Intel® Core™ i5-1240P',  memory: '8GB', storage: 'mSATA SSD 256GB' },
+    { no: '9', model: `EPC-${fp}02A`, partNumber: `${prefix}.04.004`, cpu: 'Intel® Core™ i7-1255U',  memory: '8GB', storage: 'mSATA SSD 256GB' },
+  ];
+};
+
+type BoxCpuKey = 'j1900' | 'j6412' | 'i3_10110u' | 'i5_10210u' | 'i7_10710u' | 'i3_1215u' | 'i5_1235u' | 'i7_1255u';
+const BOX_CONFIGURATOR = (cfg: { modelMap: Record<BoxCpuKey, string>; basePriceAdjust: number }): EpcConfigurator => ({
+  cpus: [
+    { key: 'j1900',     label: 'Intel® Celeron® J1900',  cores: 4,  threads: 4,  freq: '2.0–2.4 GHz', cache: '2MB',   tdp: '10W', graphics: 'Intel® HD',       memorySupport: '4–8GB DDR3L',  storageSupport: '1× mSATA SSD',          baseModel: cfg.modelMap.j1900,     basePrice: 24900 + cfg.basePriceAdjust },
+    { key: 'j6412',     label: 'Intel® Celeron® J6412',  cores: 4,  threads: 4,  freq: '2.0–2.6 GHz', cache: '1.5MB', tdp: '10W', graphics: 'Intel® UHD',      memorySupport: '4–16GB DDR4',  storageSupport: '1× mSATA / 1× M.2 SSD', baseModel: cfg.modelMap.j6412,     basePrice: 29900 + cfg.basePriceAdjust },
+    { key: 'i3-10110u', label: 'Intel® Core™ i3-10110U', cores: 2,  threads: 4,  freq: '2.1–4.1 GHz', cache: '4MB',   tdp: '15W', graphics: 'Intel® UHD',      memorySupport: '4–32GB DDR4',  storageSupport: '1× mSATA / 1× M.2 SSD', baseModel: cfg.modelMap.i3_10110u, basePrice: 38900 + cfg.basePriceAdjust },
+    { key: 'i5-10210u', label: 'Intel® Core™ i5-10210U', cores: 4,  threads: 8,  freq: '1.6–4.2 GHz', cache: '6MB',   tdp: '15W', graphics: 'Intel® UHD',      memorySupport: '4–32GB DDR4',  storageSupport: '1× mSATA / 1× M.2 SSD', baseModel: cfg.modelMap.i5_10210u, basePrice: 45900 + cfg.basePriceAdjust },
+    { key: 'i7-10710u', label: 'Intel® Core™ i7-10710U', cores: 6,  threads: 12, freq: '1.1–4.7 GHz', cache: '12MB',  tdp: '15W', graphics: 'Intel® UHD',      memorySupport: '4–32GB DDR4',  storageSupport: '1× mSATA / 1× M.2 SSD', baseModel: cfg.modelMap.i7_10710u, basePrice: 56900 + cfg.basePriceAdjust },
+    { key: 'i3-1215u',  label: 'Intel® Core™ i3-1215U',  cores: 6,  threads: 8,  freq: '1.2–4.4 GHz', cache: '10MB',  tdp: '15W', graphics: 'Intel® UHD',      memorySupport: '8–32GB DDR5',  storageSupport: '2× M.2 SSD',            baseModel: cfg.modelMap.i3_1215u,  basePrice: 49900 + cfg.basePriceAdjust },
+    { key: 'i5-1235u',  label: 'Intel® Core™ i5-1235U',  cores: 10, threads: 12, freq: '1.3–4.4 GHz', cache: '12MB',  tdp: '15W', graphics: 'Intel® Iris® Xe', memorySupport: '8–32GB DDR5',  storageSupport: '2× M.2 SSD',            baseModel: cfg.modelMap.i5_1235u,  basePrice: 59900 + cfg.basePriceAdjust },
+    { key: 'i7-1255u',  label: 'Intel® Core™ i7-1255U',  cores: 10, threads: 12, freq: '1.1–4.7 GHz', cache: '12MB',  tdp: '15W', graphics: 'Intel® Iris® Xe', memorySupport: '8–32GB DDR5',  storageSupport: '2× M.2 SSD',            baseModel: cfg.modelMap.i7_1255u,  basePrice: 72900 + cfg.basePriceAdjust },
+  ],
+  ram: [
+    { key: 'r4',  label: '4GB',  addPrice: 0,    note: 'รวมในราคาเริ่มต้น' },
+    { key: 'r8',  label: '8GB',  addPrice: 1500 },
+    { key: 'r16', label: '16GB', addPrice: 3500, note: 'แนะนำสำหรับ Gen10/Gen12' },
+    { key: 'r32', label: '32GB', addPrice: 7500, note: 'รองรับเฉพาะ Gen10/Gen12' },
+  ],
+  storage: [
+    { key: 's128',  label: 'mSATA SSD 128GB', addPrice: 0,     note: 'รวมในราคาเริ่มต้น' },
+    { key: 's256',  label: 'SSD 256GB',        addPrice: 1200 },
+    { key: 's512',  label: 'M.2 NVMe 512GB',   addPrice: 2800 },
+    { key: 's1024', label: 'M.2 NVMe 1TB',     addPrice: 5500 },
+    { key: 's2048', label: 'M.2 NVMe 2TB',     addPrice: 11500, note: 'ใช้ Dual M.2 Slot' },
+  ],
+  touch: [
+    { key: 'none', label: 'ไม่มี Touch (Box PC)', addPrice: 0, note: 'EPC Box ไม่มีจอในตัว — เชื่อมจอภายนอกผ่าน HDMI/VGA' },
+  ],
+  wireless: [
+    { key: 'none', label: 'ไม่ต้องการโมดูลไร้สาย',                 addPrice: 0 },
+    { key: 'wifi', label: 'Wi-Fi 5/6 + BT (M.2 2230) + Antenna',   addPrice: 1800 },
+    { key: '4g',   label: '4G LTE Full Netcom + SIM Slot',          addPrice: 3800 },
+    { key: 'both', label: 'Wi-Fi + 4G LTE (รวม 2 โมดูล)',           addPrice: 5200 },
+  ],
+  os: [
+    { key: 'none',   label: 'ไม่ลง OS (ลูกค้าติดตั้งเอง)',  addPrice: 0 },
+    { key: 'win10',  label: 'Windows 10 IoT Enterprise',     addPrice: 4500, note: 'License แท้ + Activation' },
+    { key: 'win11',  label: 'Windows 11 Pro',                addPrice: 4500, note: 'License แท้ + Activation' },
+    { key: 'ubuntu', label: 'Ubuntu 22.04 LTS',              addPrice: 0,    note: 'ฟรี — Long-term support' },
+  ],
+  tempRange: [
+    { key: 'standard', label: 'อุณหภูมิใช้งาน 0 ~ 50°C', addPrice: 0,    note: 'มาตรฐาน' },
+    { key: 'wide',     label: 'Wide-Temp -40 ~ 70°C',    addPrice: 4500, note: 'สำหรับโรงงานหนัก/Outdoor' },
+  ],
+  powerInput: [
+    { key: 'dc12',  label: 'DC 12V (3-pin Terminal Block)', addPrice: 0,    note: 'มาตรฐาน' },
+    { key: 'dc936', label: 'Wide DC 9–36V Input',           addPrice: 1500, note: 'รองรับยานพาหนะ/UPS' },
+  ],
+  warranty: [
+    { years: 1, label: 'รับประกัน 1 ปี', multiplier: 0    },
+    { years: 2, label: 'รับประกัน 2 ปี', multiplier: 0.06 },
+    { years: 3, label: 'รับประกัน 3 ปี', multiplier: 0.12 },
+  ],
+});
+
 export const epcModelDetails: Record<string, EpcModelDetail> = {
   'epc-w13x2a': {
     slug: 'epc-w13x2a', model: 'EPC-W13X2A', series: 'EPC Panel PC', category: 'Touch Panel PC',
