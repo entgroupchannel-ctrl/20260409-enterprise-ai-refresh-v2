@@ -6,8 +6,9 @@ import Footer from '@/components/Footer';
 import {
   Cpu, MemoryStick, HardDrive, ShieldCheck, Sparkles, TrendingDown, Check,
   ShoppingCart, FileText, ChevronLeft, ChevronRight, ZoomIn, Wifi, Signal,
-  MonitorCog, Wrench, Plus, ArrowLeft, Package, Award, Cable,
+  MonitorCog, Wrench, Plus, ArrowLeft, Package, Award, Cable, Phone, MessageCircle, Gift,
 } from 'lucide-react';
+import LineQRButton from '@/components/LineQRButton';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -292,7 +293,7 @@ export default function ShopUpcDetail() {
             <div className="flex items-center gap-2 flex-wrap">
               <Badge variant="default">{tag} Series</Badge>
               <Badge variant="outline">{pricing.category}</Badge>
-              <Badge variant="secondary"><Award className="w-3 h-3 mr-1" />รับประกัน 2 ปี</Badge>
+              <Badge variant="secondary"><Award className="w-3 h-3 mr-1" />รับประกัน 1 ปี (เพิ่มได้)</Badge>
             </div>
             <h1 className="text-3xl lg:text-4xl font-bold text-foreground">{pricing.model}</h1>
             <p className="text-lg text-muted-foreground">{pricing.category} Industrial PC</p>
@@ -515,6 +516,34 @@ export default function ShopUpcDetail() {
                   <Button onClick={handleQuickQuote} className="w-full">
                     <FileText className="w-4 h-4 mr-2" /> ขอใบเสนอราคาเลย
                   </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* PR Banner: สอบถามโปรโมชั่น */}
+            <Card className="mt-3 border-amber-400/40 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/20 shadow-sm">
+              <CardContent className="p-4 space-y-2.5">
+                <div className="flex items-start gap-2">
+                  <div className="w-9 h-9 rounded-full bg-amber-500/20 flex items-center justify-center shrink-0">
+                    <Gift className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-sm font-bold text-foreground">สอบถามโปรโมชั่นพิเศษ</div>
+                    <p className="text-[11px] text-muted-foreground leading-snug">
+                      ส่วนลด • ของแถม • ข้อเสนอพิเศษสำหรับโครงการ — ติดต่อทีมแอดมินได้เลย
+                    </p>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-1.5 pt-1">
+                  <a href="tel:020456104" className="flex items-center gap-2 px-2.5 py-1.5 rounded-md bg-background/80 border border-border hover:border-primary/50 text-xs font-medium transition-colors">
+                    <Phone className="w-3.5 h-3.5 text-primary" /> 02-045-6104
+                  </a>
+                  <a href="tel:0957391053" className="flex items-center gap-2 px-2.5 py-1.5 rounded-md bg-background/80 border border-border hover:border-primary/50 text-xs font-medium transition-colors">
+                    <Phone className="w-3.5 h-3.5 text-primary" /> 095-739-1053
+                  </a>
+                  <LineQRButton className="inline-flex items-center justify-center gap-1.5 h-9 px-3 rounded-md text-xs font-semibold border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500/20 transition-colors">
+                    <MessageCircle className="w-4 h-4" /> เพิ่มเพื่อน LINE @entgroup
+                  </LineQRButton>
                 </div>
               </CardContent>
             </Card>
