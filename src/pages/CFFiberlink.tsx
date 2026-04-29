@@ -724,8 +724,8 @@ const CFFiberlink = () => {
             const related = catModels.filter((m) => m.model !== selected.model.model).slice(0, 6);
             return (
             <>
-              {/* Prev / Next navigator */}
-              <div className="flex items-center justify-between gap-2 -mt-2 mb-1">
+              {/* Prev / Next navigator — เว้นที่ขวาให้ปุ่มปิด (X) ของ Dialog */}
+              <div className="flex items-center justify-between gap-2 -mt-2 mb-1 pr-10">
                 <Button
                   variant="outline"
                   size="sm"
@@ -764,12 +764,35 @@ const CFFiberlink = () => {
               </DialogHeader>
 
               <div className="grid md:grid-cols-2 gap-5 mt-2">
-                <div className="bg-muted rounded-lg overflow-hidden aspect-square">
-                  <img
-                    src={selected.model.image}
-                    alt={`CF Fiberlink ${selected.model.model}`}
-                    className="w-full h-full object-contain p-3"
-                  />
+                <div className="space-y-2">
+                  <div className="bg-muted rounded-lg overflow-hidden aspect-square">
+                    <img
+                      src={activeImg ?? selected.model.image}
+                      alt={`CF Fiberlink ${selected.model.model}`}
+                      className="w-full h-full object-contain p-3"
+                    />
+                  </div>
+                  {/* Thumbnail Gallery Strip — ภาพจาก cffiberlink.com */}
+                  {selected.model.gallery && selected.model.gallery.length > 0 && (
+                    <div className="grid grid-cols-6 gap-1.5">
+                      {[selected.model.image, ...selected.model.gallery].map((src, i) => {
+                        const isActive = (activeImg ?? selected.model.image) === src;
+                        return (
+                          <button
+                            key={i}
+                            type="button"
+                            onClick={() => setActiveImg(src)}
+                            className={`bg-muted rounded-md overflow-hidden aspect-square border-2 transition-all hover:opacity-80 ${
+                              isActive ? "border-primary ring-1 ring-primary/40" : "border-transparent"
+                            }`}
+                            aria-label={`ดูภาพที่ ${i + 1}`}
+                          >
+                            <img src={src} alt="" className="w-full h-full object-contain p-0.5" loading="lazy" />
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
                 <div className="space-y-3">
                   <div>
