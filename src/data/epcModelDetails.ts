@@ -20,6 +20,7 @@ export type EpcModelDetail = {
   options?: EpcOptionGroup[];            // configurable options for buyer
   certifications?: EpcCertification[];   // CE / FCC / BIS …
   applications?: string[];               // application industries / use cases
+  heroImages?: string[];                 // photo slider in hero (top-left)
   productImages?: EpcGalleryImage[];     // ►Product images & sizes (dimensions, IO map)
   gallery?: EpcGalleryImage[];           // additional product photos
   selectionTable?: EpcSelectionRow[];    // factory part-number selection guide
@@ -269,6 +270,15 @@ export const epcModelDetails: Record<string, EpcModelDetail> = {
       'Smart Logistics — Warehouse / Andon Board',
       'Self-service Kiosk ขนาดใหญ่',
       'Robotics & Machine Vision Interface',
+    ],
+    heroImages: [
+      '/images/products/epc-w24x2a.jpg',
+      '/images/products/w24x2a/front.jpg',
+      '/images/products/w24x2a/side-profile.jpg',
+      '/images/products/w24x2a/side-io-rear.jpg',
+      '/images/products/w24x2a/side-io-com.jpg',
+      '/images/products/w24x2a/io-labels.png',
+      '/images/products/w24x2a/banner.png',
     ],
     productImages: [
       { src: '/images/products/w24x2a/dimensions.png', alt: 'EPC-W24X2A Dimensions Drawing', caption: 'Dimensions: 589.3 × 361.2 × 75.1 mm • Cutout: 562.7 × 338.4 mm' },
