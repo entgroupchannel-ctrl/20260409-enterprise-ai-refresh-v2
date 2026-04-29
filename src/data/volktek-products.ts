@@ -1507,12 +1507,16 @@ export const volktekIndustrialPoe: VolktekCategory = {
             ],
             power: {
               input: "Primary 24~57VDC + Redundant 24~57VDC",
+              consumption: "System: 19W",
               poeBudget: "240W @ 48VDC หรือ 124W @ 24VDC",
             },
             environment: {
               tempOperating: "-40°C ~ 75°C",
+              tempStorage: "-40°C ~ 85°C (-40°F ~ 185°F)",
+              humidity: "5 ~ 95% RH (non-condensing)",
               housing: "Aluminum (IP30)",
             },
+            physical: { weight: "1.5 kg (3.3 lb)", dimension: "74 x 161.5 x 124.5 mm (W x H x D)" },
             datasheetUrl: "https://www.volktek.com/productdetail_en.php?id=1655",
           },
         },
