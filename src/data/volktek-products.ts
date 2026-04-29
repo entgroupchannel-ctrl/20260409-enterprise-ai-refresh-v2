@@ -718,6 +718,28 @@ export const volktekSfp: VolktekCategory = {
 };
 
 /* ============================================================
+ * Slug-based sourceUrl rewrite
+ * เว็บ Volktek เปลี่ยนจาก productdetail_en.php?id=N เป็น slug pattern
+ * productdetail/<lowercased-model>.html ซึ่งเสถียรกว่าและไม่ redirect ไป homepage
+ * ============================================================ */
+const modelToSlug = (model: string) =>
+  model
+    .toLowerCase()
+    .replace(/\s*\(.*?\)\s*/g, "") // ตัดวงเล็บ เช่น "9060-4GP2GS (NEMA)" → "9060-4gp2gs"
+    .trim();
+
+const applySlugUrls = (cat: VolktekCategory): VolktekCategory => ({
+  ...cat,
+  subCategories: cat.subCategories.map((sub) => ({
+    ...sub,
+    products: sub.products.map((p) => ({
+      ...p,
+      sourceUrl: `https://www.volktek.com/productdetail/${modelToSlug(p.model)}.html`,
+    })),
+  })),
+});
+
+/* ============================================================
  * Master export — เพิ่ม category อื่นใน phase ถัดไป
  * ============================================================ */
 export const volktekCatalog: VolktekCategory[] = [
