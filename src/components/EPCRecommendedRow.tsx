@@ -120,6 +120,7 @@ const EPCRecommendedRow = () => {
             // Map row id (e.g. 'epc-w13') to shop detail slug (e.g. 'epc-w13x2a' / 'epc-10xa')
             const shopSlug = p.name.toLowerCase().replace(/\s+series$/, '');
             const shopHref = `/shop/${shopSlug}`;
+            const range = getPriceRange(shopSlug);
             return (
               <div
                 key={p.id}
@@ -150,6 +151,17 @@ const EPCRecommendedRow = () => {
                       {p.desc}
                     </p>
                   </Link>
+                  {range && (
+                    <div className="mt-1.5 flex items-baseline gap-1">
+                      <span className="text-[9px] text-muted-foreground">เริ่มต้น</span>
+                      <span className="text-xs font-bold text-primary leading-none">
+                        ฿{fmtBaht(range.min)}
+                      </span>
+                      <span className="text-[9px] text-muted-foreground">
+                        – ฿{fmtBaht(range.max)}
+                      </span>
+                    </div>
+                  )}
                   <div className="mt-2 flex items-center gap-2 text-[10px]">
                     <Link
                       to={p.href}
