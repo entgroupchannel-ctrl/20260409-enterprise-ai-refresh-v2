@@ -13,6 +13,7 @@ export default function ProductImageGalleryZoom({ images, alt, enableZoom = true
   const [isZooming, setIsZooming] = useState(false);
   const [zoomPos, setZoomPos] = useState({ x: 50, y: 50 });
   const [erroredImages, setErroredImages] = useState<Set<number>>(new Set());
+  const [isPaused, setIsPaused] = useState(false);
   const mainRef = useRef<HTMLDivElement>(null);
 
   const validImages = images.filter(Boolean);
