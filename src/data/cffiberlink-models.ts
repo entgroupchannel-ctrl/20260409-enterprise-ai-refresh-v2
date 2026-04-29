@@ -40,6 +40,14 @@ export interface CFFiberlinkModel {
   image: string;
   /** Override use cases ต่อรุ่น (optional) — ถ้าไม่ใส่จะใช้ default ของ category */
   useCases?: CFUseCase[];
+  /** PR Spotlight chips — แสดงบนการ์ดเป็นจุดขายเด่น (เช่น "One-Key CCTV", "Fiber 2km Built-in") */
+  spotlight?: string[];
+  /** ถ้า true จะถูกนำไปแสดงใน "รุ่นแนะนำเด่น" (Hero Picks Strip) */
+  heroPick?: boolean;
+  /** หัวข้อสั้น 1 บรรทัดสำหรับ Hero Card (เช่น "Flagship 10G L3 Core") */
+  heroTitle?: string;
+  /** คำอธิบายสั้นใน Hero Card */
+  heroPitch?: string;
 }
 
 export interface CFFiberlinkCategoryDef {
