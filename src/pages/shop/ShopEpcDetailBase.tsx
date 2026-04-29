@@ -183,7 +183,9 @@ export default function ShopEpcDetailBase({ slug }: Props) {
                   <Button asChild size="sm" variant="ghost" className="gap-1.5 text-xs">
                     <a href="tel:+66818268468"><Phone className="w-3.5 h-3.5" /> 081-826-8468</a>
                   </Button>
-                  <LineQRButton size="sm" variant="ghost" />
+                  <LineQRButton className="inline-flex items-center gap-1.5 text-xs px-2 py-1 rounded-md hover:bg-muted">
+                    💬 LINE
+                  </LineQRButton>
                 </div>
               </CardContent>
             </Card>
