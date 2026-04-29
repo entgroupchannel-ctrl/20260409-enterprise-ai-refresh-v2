@@ -183,6 +183,11 @@ const industries: Array<{
 
 const allCatalogModels: CFFiberlinkModel[] = cffiberlinkCatalog.flatMap((c) => c.models);
 
+/** ⭐ รุ่นแนะนำเด่น (Hero Picks) — ดึงจาก catalog ตาม heroPick: true พร้อม cat ของรุ่นนั้น */
+const heroPicks: Array<{ model: CFFiberlinkModel; cat: CFFiberlinkCategoryDef }> = cffiberlinkCatalog.flatMap((c) =>
+  c.models.filter((m) => m.heroPick).map((m) => ({ model: m, cat: c }))
+);
+
 type PortFilter = "all" | "1-8" | "9-16" | "17-24" | "25+";
 type PoeFilter = "all" | "poe" | "no-poe";
 type FormFilter = "all" | "din" | "rack";
