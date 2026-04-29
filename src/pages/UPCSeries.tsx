@@ -466,13 +466,15 @@ const UPCSeries = () => {
       </section>
 
       {/* Models Grid */}
-      <section id="models" className="py-12 md:py-14 bg-secondary/20">
-        <div className="container max-w-7xl mx-auto px-6">
+      <section id="models" className="py-12 md:py-14 bg-slate-950 dark:bg-background relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,hsl(var(--primary)/0.15),transparent_60%)]" aria-hidden />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,hsl(var(--primary)/0.08),transparent_50%)]" aria-hidden />
+        <div className="container max-w-7xl mx-auto px-6 relative">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
             <div>
-              <Badge variant="outline" className="mb-2">Product Lineup</Badge>
-              <h2 className="text-2xl md:text-3xl font-display font-bold">16 รุ่นในตระกูล UPC / EPC / CTN</h2>
-              <p className="text-muted-foreground mt-1">เลือกตามฟังก์ชันหลักที่ต้องการ — Multi-LAN, COM Port, USB, GPIO, CAN BUS, Battery, Redundant Power</p>
+              <Badge variant="outline" className="mb-2 border-primary/40 text-primary bg-primary/10">Product Lineup</Badge>
+              <h2 className="text-2xl md:text-3xl font-display font-bold text-white">16 รุ่นในตระกูล UPC / EPC / CTN</h2>
+              <p className="text-slate-300 mt-1">เลือกตามฟังก์ชันหลักที่ต้องการ — Multi-LAN, COM Port, USB, GPIO, CAN BUS, Battery, Redundant Power</p>
             </div>
             <Tabs value={filter} onValueChange={(v) => setFilter(v as typeof filter)}>
               <TabsList>
