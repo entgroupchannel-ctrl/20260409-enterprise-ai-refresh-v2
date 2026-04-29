@@ -17,6 +17,7 @@ import MiniNavbar from "@/components/MiniNavbar";
 import Layer3Section from "@/components/volktek/Layer3Section";
 import IndustrialPoeSection from "@/components/volktek/IndustrialPoeSection";
 import IndustrialEthernetSection from "@/components/volktek/IndustrialEthernetSection";
+import MetroEthernetSection from "@/components/volktek/MetroEthernetSection";
 
 // Official assets from volktek.com
 import heroSpe from "@/assets/volktek/hero-spe.png";
@@ -408,6 +409,9 @@ const Volktek = () => {
 
         {/* Phase 4 — Industrial Ethernet Switches detailed catalog */}
         <IndustrialEthernetSection />
+
+        {/* Phase 5 — Metro Ethernet Switches detailed catalog */}
+        <MetroEthernetSection />
 
         {/* LAMUNGAN Platform — EMS spotlight */}
         <section className="card-surface overflow-hidden">
