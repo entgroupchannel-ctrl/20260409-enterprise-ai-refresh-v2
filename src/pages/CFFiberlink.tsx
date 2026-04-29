@@ -1045,9 +1045,12 @@ const CFFiberlink = () => {
                     <div className="flex items-start gap-2">
                       <info.icon className="w-5 h-5 shrink-0 mt-0.5" />
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs font-semibold mb-0.5">
+                        <p className="text-xs font-semibold mb-1">
                           อุณหภูมิใช้งาน {range} · {info.label}
                         </p>
+                        <div className="mb-2">
+                          <TempRangeBar range={range} size="md" />
+                        </div>
                         <p className="text-[11px] leading-relaxed opacity-90">
                           <span className="font-medium">เหมาะกับ:</span> {info.useCase}
                         </p>
