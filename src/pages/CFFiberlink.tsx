@@ -427,6 +427,88 @@ const CFFiberlink = () => {
         </div>
       </div>
 
+      {/* Product Detail Modal */}
+      <Dialog open={!!selected} onOpenChange={(open) => !open && setSelected(null)}>
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+          {selected && (
+            <>
+              <DialogHeader>
+                <div className="flex items-center gap-2 flex-wrap mb-1">
+                  <Badge variant="outline" className="text-[10px]">{selected.cat.title}</Badge>
+                  {selected.model.poe && <Badge className="bg-amber-500/15 text-amber-600 border-amber-500/30 text-[10px]">PoE+</Badge>}
+                  {selected.model.badge && <Badge className="bg-primary/15 text-primary border-primary/30 text-[10px]">{selected.model.badge}</Badge>}
+                </div>
+                <DialogTitle className="font-mono text-lg">CF Fiberlink {selected.model.model}</DialogTitle>
+                <DialogDescription className="text-sm">{selected.cat.th}</DialogDescription>
+              </DialogHeader>
+
+              <div className="grid md:grid-cols-2 gap-5 mt-2">
+                <div className="bg-muted rounded-lg overflow-hidden aspect-square">
+                  <img
+                    src={selected.model.image}
+                    alt={`CF Fiberlink ${selected.model.model}`}
+                    className="w-full h-full object-contain p-3"
+                  />
+                </div>
+                <div className="space-y-3">
+                  <div>
+                    <p className="text-[10px] uppercase tracking-wide text-muted-foreground font-semibold mb-1">พอร์ต</p>
+                    <p className="text-sm text-foreground font-medium">{selected.model.ports}</p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <p className="text-[10px] uppercase tracking-wide text-muted-foreground font-semibold mb-0.5">Switching Capacity</p>
+                      <p className="text-sm font-semibold text-foreground">{selected.model.switchingCapacity}</p>
+                    </div>
+                    <div>
+                      <p className="text-[10px] uppercase tracking-wide text-muted-foreground font-semibold mb-0.5">Packet Forwarding</p>
+                      <p className="text-sm font-semibold text-foreground">{selected.model.packetRate}</p>
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-[10px] uppercase tracking-wide text-muted-foreground font-semibold mb-0.5">ขนาด (mm)</p>
+                    <p className="text-sm text-foreground">{selected.model.size}</p>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    <Badge variant="outline" className="text-[10px]">-40~85°C</Badge>
+                    <Badge variant="outline" className="text-[10px]">6KV Lightning</Badge>
+                    <Badge variant="outline" className="text-[10px]">ERPS &lt;20ms</Badge>
+                    <Badge variant="outline" className="text-[10px]">รับประกัน 5 ปี</Badge>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-4 border-t border-border pt-4">
+                <p className="text-[10px] uppercase tracking-wide text-muted-foreground font-semibold mb-2">Software Features</p>
+                <div className="grid sm:grid-cols-2 gap-x-4 gap-y-1.5">
+                  {selected.cat.software.map((s, i) => (
+                    <div key={i} className="flex items-start gap-1.5 text-xs text-foreground/80">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-primary shrink-0 mt-0.5" />
+                      <span>{s}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-5 flex gap-2 flex-wrap">
+                <QuoteRequestButton
+                  productModel={selected.model.model}
+                  productName={`CF Fiberlink ${selected.model.model}`}
+                  size="sm"
+                />
+                <AddToCartButton
+                  productModel={selected.model.model}
+                  productName={`CF Fiberlink ${selected.model.model}`}
+                  productDescription={`${selected.model.ports} — ${selected.model.switchingCapacity}, ${selected.model.packetRate}`}
+                  size="sm"
+                  variant="outline"
+                />
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
+
       <FooterCompact />
     </div>
   );
