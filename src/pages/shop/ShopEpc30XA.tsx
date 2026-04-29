@@ -1,2 +1,2 @@
-import ShopEpcDetailBase from './ShopEpcDetailBase';
-export default function ShopEpc30XA() { return <ShopEpcDetailBase slug="epc-30xa" />; }
+import ShopUpcDetail from './ShopUpcDetail';
+export default function ShopEpc30XA() { return <ShopUpcDetail modelOverride="epc-30xa" />; }

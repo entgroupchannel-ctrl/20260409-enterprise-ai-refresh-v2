@@ -69,16 +69,18 @@ function Chip({ active, onClick, children, sub }: { active: boolean; onClick: ()
   );
 }
 
-export default function ShopUpcDetail() {
+export default function ShopUpcDetail({ modelOverride }: { modelOverride?: string } = {}) {
   const { model: modelParam } = useParams<{ model: string }>();
   const navigate = useNavigate();
   const { toast } = useToast();
   const { user } = useAuth();
   const { addToCart } = useCart();
 
+  // Allow wrapper pages (e.g. /shop/epc-10xa) to force a model without URL param
+  const effectiveParam = modelOverride ?? modelParam ?? '';
   // Normalize: route uses lowercase (e.g. "epc-102b"), pricing uses uppercase ("EPC-102B")
-  const modelKey = useMemo(() => (modelParam || '').toUpperCase(), [modelParam]);
-  const detailKey = useMemo(() => (modelParam || '').toLowerCase(), [modelParam]);
+  const modelKey = useMemo(() => effectiveParam.toUpperCase(), [effectiveParam]);
+  const detailKey = useMemo(() => effectiveParam.toLowerCase(), [effectiveParam]);
 
   const pricing = useMemo(() => findPricing(modelKey), [modelKey]);
   const detail = upcSeriesDetails[detailKey];
@@ -101,7 +103,7 @@ export default function ShopUpcDetail() {
   const [activeImg, setActiveImg] = useState(0);
   const [lightbox, setLightbox] = useState(false);
 
-  useEffect(() => { setActiveImg(0); }, [modelParam]);
+  useEffect(() => { setActiveImg(0); }, [effectiveParam]);
   // Auto rotate gallery
   useEffect(() => {
     if (lightbox || galleryImages.length <= 1) return;
@@ -116,7 +118,7 @@ export default function ShopUpcDetail() {
         <SiteNavbar />
         <div className="container mx-auto px-4 py-20 text-center flex-1">
           <h1 className="text-2xl font-bold mb-2">ไม่พบรุ่นสินค้า</h1>
-          <p className="text-muted-foreground mb-6">รุ่น "{modelParam}" ไม่อยู่ในรายการที่กำหนดสเปกได้</p>
+          <p className="text-muted-foreground mb-6">รุ่น "{effectiveParam}" ไม่อยู่ในรายการที่กำหนดสเปกได้</p>
           <Button onClick={() => navigate('/shop?series=UPC+Series')}>
             <ArrowLeft className="w-4 h-4 mr-2" /> กลับไปหน้า Shop
           </Button>
