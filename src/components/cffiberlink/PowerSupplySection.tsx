@@ -1,6 +1,6 @@
 import { Plug, Zap } from "lucide-react";
 import { cfPowerSupplyCatalog, voltageBadgeClass, type PowerSupplyModel, type PowerSeries } from "@/data/cffiberlink-power";
-import { getCFPrice, formatTHB } from "@/data/cffiberlink-prices";
+
 import sgdHeroImg from "@/assets/cffiberlink/power-sgd-hero.jpg";
 import lgdHeroImg from "@/assets/cffiberlink/power-lgd-hero.jpg";
 
@@ -81,12 +81,11 @@ const PowerSupplySection = () => {
                       <th className="text-left font-semibold py-2 px-2">Power</th>
                       <th className="text-left font-semibold py-2 px-2">Output</th>
                       <th className="text-left font-semibold py-2 px-2 hidden sm:table-cell">Input</th>
-                      <th className="text-right font-semibold py-2 px-3">ราคา (THB)</th>
+                      <th className="text-right font-semibold py-2 px-3">ราคา</th>
                     </tr>
                   </thead>
                   <tbody>
                     {series.models.map((m: PowerSupplyModel, i) => {
-                      const price = getCFPrice(m.model);
                       return (
                       <tr
                         key={m.model}
@@ -113,11 +112,7 @@ const PowerSupplySection = () => {
                           {m.input} · {m.freq}
                         </td>
                         <td className="py-2 px-3 text-right whitespace-nowrap">
-                          {price ? (
-                            <span className="font-mono font-bold text-primary">{formatTHB(price)}</span>
-                          ) : (
-                            <span className="text-[10px] text-muted-foreground">สอบถาม</span>
-                          )}
+                          <span className="text-[10px] text-muted-foreground italic">สอบถามแอดมิน</span>
                         </td>
                       </tr>
                       );
