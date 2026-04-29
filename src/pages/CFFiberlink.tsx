@@ -508,8 +508,8 @@ const CFFiberlink = () => {
 
                     <div className="flex items-center justify-between text-[11px] text-muted-foreground pt-2 border-t border-border/50 mt-1">
                       <span className="font-mono">{m.switchingCapacity}</span>
-                      <span className="text-primary font-semibold group-hover:underline">
-                        ดูสเปก →
+                      <span className="text-primary font-semibold group-hover:underline inline-flex items-center gap-1">
+                        ดูสเปก <ArrowRight className="w-3 h-3" />
                       </span>
                     </div>
                   </div>
