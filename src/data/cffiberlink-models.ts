@@ -97,6 +97,7 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
     th: "L2 จัดการได้ — โครงการอุตสาหกรรมทั่วไป",
     desc: "Switch L2 จัดการได้ ใช้ชิป Realtek แบบ Non-blocking — เหมาะกับงานโครงการอุตสาหกรรมทั่วไป รองรับ ERPS Ring < 20ms, 6KV Lightning, อุณหภูมิ -40~85°C",
     software: SW_L2,
+    defaultUseCases: ["factory", "traffic", "rail", "mining"],
     models: [
       { model: "CF-HY2004G-SFP", ports: "4× GbE RJ45 + 2× SFP + 1× Console", switchingCapacity: "12 Gbps", packetRate: "8.93 Mpps", size: "172×144×54.5", poe: false, image: IMG.smallL2 },
       { model: "CF-HY2004GP-SFP", ports: "4× GbE PoE + 2× SFP + 1× Console", switchingCapacity: "12 Gbps", packetRate: "8.93 Mpps", size: "172×144×54.5", poe: true, badge: "PoE+", image: IMG.smallPoE },
