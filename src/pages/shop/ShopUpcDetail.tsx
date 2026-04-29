@@ -69,16 +69,18 @@ function Chip({ active, onClick, children, sub }: { active: boolean; onClick: ()
   );
 }
 
-export default function ShopUpcDetail() {
+export default function ShopUpcDetail({ modelOverride }: { modelOverride?: string } = {}) {
   const { model: modelParam } = useParams<{ model: string }>();
   const navigate = useNavigate();
   const { toast } = useToast();
   const { user } = useAuth();
   const { addToCart } = useCart();
 
+  // Allow wrapper pages (e.g. /shop/epc-10xa) to force a model without URL param
+  const effectiveParam = modelOverride ?? modelParam ?? '';
   // Normalize: route uses lowercase (e.g. "epc-102b"), pricing uses uppercase ("EPC-102B")
-  const modelKey = useMemo(() => (modelParam || '').toUpperCase(), [modelParam]);
-  const detailKey = useMemo(() => (modelParam || '').toLowerCase(), [modelParam]);
+  const modelKey = useMemo(() => effectiveParam.toUpperCase(), [effectiveParam]);
+  const detailKey = useMemo(() => effectiveParam.toLowerCase(), [effectiveParam]);
 
   const pricing = useMemo(() => findPricing(modelKey), [modelKey]);
   const detail = upcSeriesDetails[detailKey];
