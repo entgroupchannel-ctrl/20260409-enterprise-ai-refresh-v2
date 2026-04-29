@@ -16,6 +16,7 @@ import {
   ShieldCheck, Settings2, Image as ImageIcon, Ruler, Cable, ListChecks, Download, Factory,
 } from 'lucide-react';
 import LineQRButton from '@/components/LineQRButton';
+import ProductImageGalleryZoom from '@/components/shop/ProductImageGalleryZoom';
 import { epcModelDetails, epcModelList, type EpcModelDetail } from '@/data/epcModelDetails';
 
 interface Props {
@@ -123,13 +124,20 @@ export default function ShopEpcDetailBase({ slug }: Props) {
       {/* HERO */}
       <section className="container mx-auto px-4 py-6 lg:py-10">
         <div className="grid lg:grid-cols-2 gap-8">
-          <div className="aspect-[4/3] bg-muted rounded-xl overflow-hidden border border-border flex items-center justify-center p-6">
-            <img
-              src={detail.image}
-              alt={detail.model}
-              className="max-w-full max-h-full object-contain"
-              onError={(e) => { (e.target as HTMLImageElement).src = '/product-placeholder.svg'; }}
-            />
+          <div>
+            {(() => {
+              const heroImages = [
+                detail.image,
+                ...(detail.productImages?.map((p) => p.src) ?? []),
+              ].filter((src, i, arr) => !!src && arr.indexOf(src) === i);
+              return (
+                <ProductImageGalleryZoom
+                  images={heroImages}
+                  alt={detail.model}
+                  enableZoom
+                />
+              );
+            })()}
           </div>
 
           <div className="space-y-5">
