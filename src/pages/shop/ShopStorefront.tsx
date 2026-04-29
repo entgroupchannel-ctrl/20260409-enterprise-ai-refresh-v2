@@ -1094,19 +1094,37 @@ const ShopStorefront = () => {
       <div className="sticky top-16 z-30 bg-background/90 backdrop-blur border-b border-border">
         <div className="container max-w-7xl mx-auto px-4">
           {(() => {
+            // Group UPC/EPC/CTN Series together as a single "Industrial PC" category
+            const IPC_GROUP = ['UPC Series', 'EPC Series', 'CTN Series'];
+            const isIpcSeries = (s: string) => IPC_GROUP.includes(s);
+
             // Sort series by product count (most popular first)
             const seriesByCount = [...filterOptions.series]
+              .filter(s => !isIpcSeries(s)) // exclude grouped ones from individual list
               .map(s => ({ s, count: products.filter(p => p.series === s).length }))
               .sort((a, b) => b.count - a.count);
 
             // Show top N series + any selected series not in top N
             const TOP_N = 4;
             const topSeries = seriesByCount.slice(0, TOP_N).map(x => x.s);
-            const extraSelected = seriesFilter.filter(s => !topSeries.includes(s));
+            const extraSelected = seriesFilter.filter(s => !topSeries.includes(s) && !isIpcSeries(s));
             const visibleSeries = [...topSeries, ...extraSelected];
             const hiddenSeries = seriesByCount
               .map(x => x.s)
               .filter(s => !visibleSeries.includes(s));
+
+            // IPC group state
+            const ipcAvailable = filterOptions.series.filter(isIpcSeries);
+            const ipcCount = products.filter(p => p.series && isIpcSeries(p.series)).length;
+            const ipcActive = ipcAvailable.length > 0 && ipcAvailable.every(s => seriesFilter.includes(s));
+            const toggleIpcGroup = () => {
+              if (ipcActive) {
+                setSeriesFilter(prev => prev.filter(s => !isIpcSeries(s)));
+              } else {
+                setSeriesFilter(prev => [...prev.filter(s => !isIpcSeries(s)), ...ipcAvailable]);
+              }
+              setPage(1);
+            };
 
             const renderPill = (s: string) => {
               const nav = seriesNavItems.find(n => n.id === s);
@@ -1159,6 +1177,32 @@ const ShopStorefront = () => {
                     {copiedKey === 'all' ? <Check className="w-3.5 h-3.5 text-green-600" /> : <Link2 className="w-3.5 h-3.5" />}
                   </button>
                 </div>
+
+                {/* Industrial PC group (UPC + EPC + CTN รวม) */}
+                {ipcAvailable.length > 0 && (
+                  <div className="inline-flex items-stretch rounded-md overflow-hidden border border-border/60">
+                    <Button
+                      variant={ipcActive ? 'default' : 'ghost'}
+                      size="sm"
+                      className="h-8 text-xs gap-1.5 rounded-none border-0"
+                      onClick={toggleIpcGroup}
+                      title="UPC / EPC / CTN Series — Industrial PC ทั้งหมด"
+                    >
+                      Industrial PC
+                      <span className="opacity-70">(UPC/EPC/CTN)</span>
+                      <Badge variant="secondary" className="text-[9px] ml-0.5 h-4 px-1">{ipcCount}</Badge>
+                    </Button>
+                    <button
+                      type="button"
+                      title="คัดลอกลิงก์ไปยัง Industrial PC"
+                      aria-label="คัดลอกลิงก์ไปยัง Industrial PC"
+                      onClick={(e) => { e.stopPropagation(); copyShareLink('ipc-group', ipcAvailable); }}
+                      className="px-2 flex items-center justify-center bg-muted/40 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {copiedKey === 'ipc-group' ? <Check className="w-3.5 h-3.5 text-green-600" /> : <Link2 className="w-3.5 h-3.5" />}
+                    </button>
+                  </div>
+                )}
 
                 {/* Visible top series */}
                 {visibleSeries.map(renderPill)}
