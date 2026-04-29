@@ -155,14 +155,6 @@ export default function TouchWorkDetail() {
             <span>/</span>
             <span className="text-foreground font-medium">{product.model}</span>
           </div>
-          <Link
-            to="/touchwork"
-            className="group inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-primary/30 bg-primary/5 text-primary hover:bg-primary hover:text-primary-foreground transition-all text-sm font-bold"
-          >
-            <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-            ดูรุ่นอื่นใน TouchWork Series ทั้งหมด
-            <Monitor size={14} className="opacity-60" />
-          </Link>
         </div>
       </section>
 
@@ -663,10 +655,7 @@ export default function TouchWorkDetail() {
         </section>
       )}
 
-      {/* B2B Marketing Showcase — สื่อสารคุณค่าก่อน Configurator */}
-      <B2BMarketingShowcase variant="muted" />
-
-      {/* Product Configurator — ปิดท้ายด้วยตัวเลือกซื้อ/ขอใบเสนอราคา */}
+      {/* Product Configurator — ตัวเลือกซื้อ/ขอใบเสนอราคา */}
       <ProductConfigurator
         product={product}
         arch={selectedArch}
@@ -675,6 +664,23 @@ export default function TouchWorkDetail() {
         basePrice={variant.priceTHB}
         onArchChange={setSelectedArch}
       />
+
+      {/* B2B Marketing Showcase — ย้ายลงด้านล่างเพจ */}
+      <B2BMarketingShowcase variant="muted" />
+
+      {/* ปุ่มดูรุ่นอื่นใน Series — ย้ายลงด้านล่างเพจ */}
+      <section className="container max-w-7xl mx-auto px-6 pb-10">
+        <div className="flex justify-center">
+          <Link
+            to="/touchwork"
+            className="group inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-primary/30 bg-primary/5 text-primary hover:bg-primary hover:text-primary-foreground transition-all text-sm font-bold"
+          >
+            <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+            ดูรุ่นอื่นใน TouchWork Series ทั้งหมด
+            <Monitor size={14} className="opacity-60" />
+          </Link>
+        </div>
+      </section>
 
       <FooterCompact />
     </div>
