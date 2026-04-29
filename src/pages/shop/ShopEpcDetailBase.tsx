@@ -35,6 +35,19 @@ export default function ShopEpcDetailBase({ slug }: Props) {
   const [adding, setAdding] = useState(false);
 
   const detail: EpcModelDetail | undefined = epcModelDetails[slug];
+  const cfg = detail?.configurator;
+  const fmt = (n: number) => n.toLocaleString('th-TH');
+
+  // Configurator state (only used when cfg present) — hooks must run unconditionally
+  const [cpuKey, setCpuKey] = useState<string>(cfg?.cpus[0]?.key ?? '');
+  const [ramKey, setRamKey] = useState<string>(cfg?.ram[0]?.key ?? '');
+  const [storageKey, setStorageKey] = useState<string>(cfg?.storage[0]?.key ?? '');
+  const [touchKey, setTouchKey] = useState<string>(cfg?.touch[0]?.key ?? '');
+  const [wirelessKey, setWirelessKey] = useState<string>(cfg?.wireless[0]?.key ?? '');
+  const [osKey, setOsKey] = useState<string>(cfg?.os[0]?.key ?? '');
+  const [tempKey, setTempKey] = useState<string>(cfg?.tempRange[0]?.key ?? '');
+  const [powerKey, setPowerKey] = useState<string>(cfg?.powerInput[0]?.key ?? '');
+  const [warrantyYears, setWarrantyYears] = useState<1 | 2 | 3>(1);
 
   const related = useMemo(
     () => epcModelList.filter((d) => d.series === detail?.series && d.slug !== slug).slice(0, 4),
