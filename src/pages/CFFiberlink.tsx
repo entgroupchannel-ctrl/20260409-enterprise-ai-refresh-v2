@@ -203,6 +203,12 @@ const isRack = (size: string) => /rack/i.test(size);
 
 const CFFiberlink = () => {
   const [selected, setSelected] = useState<{ model: CFFiberlinkModel; cat: CFFiberlinkCategoryDef } | null>(null);
+  const [activeImg, setActiveImg] = useState<string | null>(null);
+
+  // Reset active image เมื่อเปลี่ยนรุ่น
+  useEffect(() => {
+    if (selected) setActiveImg(selected.model.image);
+  }, [selected?.model.model]);
   const [portFilter, setPortFilter] = useState<PortFilter>("all");
   const [poeFilter, setPoeFilter] = useState<PoeFilter>("all");
   const [formFilter, setFormFilter] = useState<FormFilter>("all");
