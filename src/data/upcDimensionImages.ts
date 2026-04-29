@@ -3,7 +3,7 @@ export const upcDimensionImages: Record<string, string[]> = {
   "epc-102b": [
     "/upc-dimensions/2025_08_image-12.png",
   ],
-  "epc-102c": [
+  "ctn-102c": [
     "/upc-dimensions/2025_08_image-21.png",
   ],
   "epc-202b": [
