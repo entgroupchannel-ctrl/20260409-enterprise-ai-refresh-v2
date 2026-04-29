@@ -52,6 +52,7 @@ import MiniNavbar from "@/components/MiniNavbar";
 import { cffiberlinkCatalog, getTempClass, type CFFiberlinkModel, type CFFiberlinkCategoryDef, type CFUseCase } from "@/data/cffiberlink-models";
 import { getCFPrice, formatTHB } from "@/data/cffiberlink-prices";
 import PowerSupplySection from "@/components/cffiberlink/PowerSupplySection";
+import B2BWorkflowBanner from "@/components/B2BWorkflowBanner";
 import heroBgFactory from "@/assets/cffiberlink/hero-cffiberlink-factory.jpg";
 
 // แมป use case → icon + label สั้น (ภาษาไทย) สำหรับแสดงในการ์ด
@@ -1153,6 +1154,11 @@ const CFFiberlink = () => {
           })()}
         </DialogContent>
       </Dialog>
+
+      {/* B2B Platform mini banner — ตกแต่งท้ายเพจ */}
+      <div className="bg-gradient-to-b from-background via-primary/5 to-background border-y border-primary/10">
+        <B2BWorkflowBanner variant="compact" className="container max-w-7xl mx-auto px-4 py-6" />
+      </div>
 
       <FooterCompact />
     </div>
