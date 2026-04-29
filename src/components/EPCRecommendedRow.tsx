@@ -11,7 +11,7 @@ const RECOMMENDED = [
     name: "EPC-W13X2A",
     desc: '13.3" 16:9 — Compact Touch Panel PC',
     image: "/images/wix/0597a3_a24a2701c3274227be9a623a39fcad77_c5875973.png",
-    href: "/epc-series#epc-w13",
+    href: "/epc-series#wide",
   },
   {
     id: "epc-w15",
@@ -19,7 +19,7 @@ const RECOMMENDED = [
     name: "EPC-W15X2A",
     desc: '15.6" 16:9 — Wide Touch Panel PC',
     image: "/images/wix/0597a3_f72a672e77bc413a90eaa099e8bcfe0e_679aa82e.png",
-    href: "/epc-series#epc-w15",
+    href: "/epc-series#wide",
   },
   {
     id: "epc-w18",
@@ -27,7 +27,7 @@ const RECOMMENDED = [
     name: "EPC-W18X2A",
     desc: '18.5" 16:9 — Industrial Wide Display',
     image: "/images/wix/0597a3_1afba5b0dac84a259a2dd29c1fda6909_57745515.png",
-    href: "/epc-series#epc-w18",
+    href: "/epc-series#wide",
   },
   {
     id: "epc-w21",
@@ -35,7 +35,7 @@ const RECOMMENDED = [
     name: "EPC-W21X2A",
     desc: '21.5" 16:9 — Full HD Touch Panel PC',
     image: "/images/wix/0597a3_cfe6c90e6ba44ef3ba3a0aa5a698f32d_2b0c00e1.png",
-    href: "/epc-series#epc-w21",
+    href: "/epc-series#wide",
   },
   {
     id: "epc-10xa",
