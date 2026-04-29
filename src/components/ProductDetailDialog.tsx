@@ -108,15 +108,29 @@ const ProductDetailDialog = ({
             >
               <div className="relative aspect-[4/3] rounded-xl bg-secondary/40 border border-border overflow-hidden flex items-center justify-center p-4 group">
                 {gallery[activeImage] ? (
-                  <img
-                    key={activeImage}
-                    src={gallery[activeImage]}
-                    alt={`${productName ?? productId} ${activeImage + 1}`}
-                    className="max-h-full max-w-full object-contain animate-in fade-in zoom-in-95 duration-500"
-                    loading="lazy"
-                  />
+                  <button
+                    type="button"
+                    onClick={() => setLightbox(gallery[activeImage])}
+                    className="w-full h-full flex items-center justify-center cursor-zoom-in"
+                    aria-label="ขยายภาพ"
+                  >
+                    <img
+                      key={activeImage}
+                      src={gallery[activeImage]}
+                      alt={`${productName ?? productId} ${activeImage + 1}`}
+                      className="max-h-full max-w-full object-contain animate-in fade-in zoom-in-95 duration-500 transition-transform group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </button>
                 ) : (
                   <div className="text-muted-foreground text-sm">ไม่มีรูป</div>
+                )}
+
+                {/* Zoom hint */}
+                {gallery[activeImage] && (
+                  <div className="absolute top-2 left-2 inline-flex items-center gap-1 px-2 py-1 rounded-full bg-background/80 backdrop-blur border border-border text-[11px] font-semibold text-foreground opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                    <Maximize2 className="w-3 h-3" /> คลิกเพื่อซูม
+                  </div>
                 )}
 
                 {gallery.length > 1 && (
