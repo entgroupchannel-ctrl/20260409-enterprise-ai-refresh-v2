@@ -646,50 +646,56 @@ export default function ShopEpcDetailBase({ slug }: Props) {
 
       {/* Specs */}
       <section className="container mx-auto px-4 py-6 lg:py-10">
-        <div className="flex items-start gap-3 mb-4">
-          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-            <Package className="w-5 h-5 text-primary" />
-          </div>
-          <div>
-            <h2 className="text-xl font-bold text-foreground">Specifications</h2>
-            <p className="text-sm text-muted-foreground">ข้อมูลตามสเปกโรงงาน — กำหนดได้ตามความต้องการ</p>
-          </div>
-        </div>
+        <details className="group">
+          <summary className="flex items-start gap-3 mb-4 cursor-pointer list-none select-none">
+            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+              <Package className="w-5 h-5 text-primary" />
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center gap-2 flex-wrap">
+                <h2 className="text-xl font-bold text-foreground">Specifications</h2>
+                <Badge variant="outline" className="text-[10px]">คลิกเพื่อดูสเปกโรงงานทั้งหมด</Badge>
+              </div>
+              <p className="text-sm text-muted-foreground">ข้อมูลตามสเปกโรงงาน — กำหนดได้ตามความต้องการ (ดูตัวเลือกที่ปรับแต่งได้ด้านบน)</p>
+            </div>
+            <ChevronDown className="w-5 h-5 text-muted-foreground transition-transform group-open:rotate-180 mt-2" />
+          </summary>
 
-        {detail.specGroups && detail.specGroups.length > 0 ? (
-          <div className="grid md:grid-cols-2 gap-4">
-            {detail.specGroups.map((g) => (
-              <Card key={g.title}>
-                <CardContent className="p-0">
-                  <div className="px-4 py-3 border-b border-border bg-muted/40">
-                    <h3 className="text-sm font-bold text-foreground">{g.title}</h3>
-                  </div>
-                  <dl className="divide-y divide-border">
-                    {g.rows.map((s) => (
-                      <div key={s.label} className="grid grid-cols-3 gap-3 p-3 text-sm">
-                        <dt className="text-muted-foreground col-span-1">{s.label}</dt>
-                        <dd className="col-span-2 font-medium">{s.value}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        ) : (
-          <Card>
-            <CardContent className="p-0 overflow-x-auto">
-              <dl className="divide-y divide-border">
-                {detail.specs.map((s) => (
-                  <div key={s.label} className="grid grid-cols-3 gap-3 p-3 text-sm">
-                    <dt className="text-muted-foreground col-span-1">{s.label}</dt>
-                    <dd className="col-span-2 font-medium">{s.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            </CardContent>
-          </Card>
-        )}
+          {detail.specGroups && detail.specGroups.length > 0 ? (
+            <div className="grid md:grid-cols-2 gap-4">
+              {detail.specGroups.map((g) => (
+                <Card key={g.title}>
+                  <CardContent className="p-0">
+                    <div className="px-4 py-3 border-b border-border bg-muted/40">
+                      <h3 className="text-sm font-bold text-foreground">{g.title}</h3>
+                    </div>
+                    <dl className="divide-y divide-border">
+                      {g.rows.map((s) => (
+                        <div key={s.label} className="grid grid-cols-3 gap-3 p-3 text-sm">
+                          <dt className="text-muted-foreground col-span-1">{s.label}</dt>
+                          <dd className="col-span-2 font-medium">{s.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <Card>
+              <CardContent className="p-0 overflow-x-auto">
+                <dl className="divide-y divide-border">
+                  {detail.specs.map((s) => (
+                    <div key={s.label} className="grid grid-cols-3 gap-3 p-3 text-sm">
+                      <dt className="text-muted-foreground col-span-1">{s.label}</dt>
+                      <dd className="col-span-2 font-medium">{s.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </CardContent>
+            </Card>
+          )}
+        </details>
       </section>
 
       {/* Configurable Options */}
