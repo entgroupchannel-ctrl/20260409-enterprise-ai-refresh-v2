@@ -1,14 +1,12 @@
 import { Plug, Zap } from "lucide-react";
 import { cfPowerSupplyCatalog, voltageBadgeClass, type PowerSupplyModel, type PowerSeries } from "@/data/cffiberlink-power";
 import { getCFPrice, formatTHB } from "@/data/cffiberlink-prices";
-import sgd75Img from "@/assets/cffiberlink/power-sgd-75.png";
-import sgd24Img from "@/assets/cffiberlink/power-sgd-24.png";
-import lgd75Img from "@/assets/cffiberlink/power-lgd-75.png";
-import lgd24Img from "@/assets/cffiberlink/power-lgd-24.png";
+import sgdHeroImg from "@/assets/cffiberlink/power-sgd-hero.jpg";
+import lgdHeroImg from "@/assets/cffiberlink/power-lgd-hero.jpg";
 
-const SERIES_IMAGES: Record<PowerSeries, { large: string; small: string; alt: string }> = {
-  SGD: { large: sgd75Img, small: sgd24Img, alt: "CF Fiberlink SGD Series — Plastic DIN-Rail Power Supply" },
-  LGD: { large: lgd75Img, small: lgd24Img, alt: "CF Fiberlink LGD Series — Aluminum Alloy DIN-Rail Power Supply" },
+const SERIES_IMAGES: Record<PowerSeries, { hero: string; alt: string }> = {
+  SGD: { hero: sgdHeroImg, alt: "CF Fiberlink SGD Series — Plastic DIN-Rail Power Supply" },
+  LGD: { hero: lgdHeroImg, alt: "CF Fiberlink LGD Series — Aluminum Alloy DIN-Rail Power Supply" },
 };
 
 /**
