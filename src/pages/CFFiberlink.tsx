@@ -226,6 +226,66 @@ const TEMP_INFO: Record<"extreme" | "industrial" | "commercial", { icon: LucideI
   },
 };
 
+/**
+ * แถบแสดงช่วงอุณหภูมิแบบ Heat Bar — มี gradient เย็น→ร้อน + ตัวเลข min/max
+ * สีของ marker = สีตาม TempClass; แถบจะเริ่ม/จบตามค่า min/max ของรุ่นนั้น
+ * scale อ้างอิง -50°C ถึง +90°C
+ */
+const TEMP_SCALE_MIN = -50;
+const TEMP_SCALE_MAX = 90;
+const parseTempRange = (range: string): { min: number; max: number } | null => {
+  const m = range.match(/(-?\d+)\s*[~\-–]\s*\+?(-?\d+)/);
+  if (!m) return null;
+  return { min: parseInt(m[1], 10), max: parseInt(m[2], 10) };
+};
+const TempRangeBar = ({
+  range,
+  size = "md",
+  className = "",
+}: {
+  range: string;
+  size?: "sm" | "md";
+  className?: string;
+}) => {
+  const parsed = parseTempRange(range);
+  if (!parsed) return <span className="font-mono text-xs">{range}</span>;
+  const span = TEMP_SCALE_MAX - TEMP_SCALE_MIN;
+  const leftPct = Math.max(0, ((parsed.min - TEMP_SCALE_MIN) / span) * 100);
+  const widthPct = Math.min(100 - leftPct, ((parsed.max - parsed.min) / span) * 100);
+  const isSm = size === "sm";
+  return (
+    <div className={`w-full ${className}`}>
+      <div
+        className={`relative w-full rounded-full overflow-hidden bg-muted ${isSm ? "h-1.5" : "h-2"}`}
+        title={`ช่วงอุณหภูมิใช้งาน ${range}`}
+      >
+        {/* Gradient scale background (เย็น → ร้อน) */}
+        <div
+          className="absolute inset-0 opacity-30"
+          style={{
+            background:
+              "linear-gradient(to right, hsl(217 91% 60%), hsl(199 89% 48%), hsl(142 71% 45%), hsl(48 96% 53%), hsl(25 95% 53%), hsl(0 84% 60%))",
+          }}
+        />
+        {/* Active range */}
+        <div
+          className="absolute top-0 bottom-0 rounded-full"
+          style={{
+            left: `${leftPct}%`,
+            width: `${widthPct}%`,
+            background:
+              "linear-gradient(to right, hsl(217 91% 60%), hsl(142 71% 45%), hsl(0 84% 60%))",
+          }}
+        />
+      </div>
+      <div className={`flex justify-between mt-0.5 font-mono ${isSm ? "text-[9px]" : "text-[10px]"} text-muted-foreground`}>
+        <span className="text-blue-600 dark:text-blue-400 font-semibold">{parsed.min}°C</span>
+        <span className="text-red-600 dark:text-red-400 font-semibold">+{parsed.max}°C</span>
+      </div>
+    </div>
+  );
+};
+
 const getPortCount = (ports: string): number => {
   // นับเฉพาะ access ports (RJ45 / PoE / GbE RJ45 / 100M PoE / Ethernet) ไม่รวม SFP / SFP+
   // ตัวอย่าง: "8× GbE RJ45 + 16× SFP + 4× 10G SFP+" → 8
@@ -470,14 +530,13 @@ const CFFiberlink = () => {
                       className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
                     />
-                    {/* Temperature badge บนรูป Hero */}
-                    <span
+                    {/* Temperature heat bar บนรูป Hero */}
+                    <div
+                      className="absolute bottom-2 left-2 right-2 rounded-md bg-background/85 backdrop-blur-sm px-2 py-1 border border-border/50 shadow-sm"
                       title={heroTempInfo.useCase}
-                      className={`absolute bottom-2 right-2 inline-flex items-center gap-1 text-[10px] font-bold border rounded-full px-2 py-0.5 backdrop-blur-sm ${heroTempInfo.badgeClass}`}
                     >
-                      <heroTempInfo.icon className="w-3 h-3" />
-                      <span className="font-mono">{heroRange}</span>
-                    </span>
+                      <TempRangeBar range={heroRange} size="sm" />
+                    </div>
                   </div>
 
                   <div className="p-4 flex flex-col flex-1 gap-2">
@@ -682,14 +741,13 @@ const CFFiberlink = () => {
                             {m.badge}
                           </Badge>
                         )}
-                        {/* Temperature badge — มุมขวาบน */}
-                        <span
+                        {/* Temperature heat bar — มุมขวาบน (compact) */}
+                        <div
+                          className="absolute top-1.5 right-1.5 left-1.5 rounded bg-background/85 backdrop-blur-sm px-1.5 py-0.5 border border-border/40 shadow-sm"
                           title={cardTempInfo.useCase}
-                          className={`absolute top-1.5 right-1.5 inline-flex items-center gap-0.5 text-[9px] font-bold border rounded-full px-1.5 py-0.5 backdrop-blur-sm ${cardTempInfo.badgeClass}`}
                         >
-                          <cardTempInfo.icon className="w-2.5 h-2.5" />
-                          <span className="font-mono">{cardRange}</span>
-                        </span>
+                          <TempRangeBar range={cardRange} size="sm" />
+                        </div>
                       </div>
                       <div className="p-2 flex flex-col flex-1 gap-1">
                         <p className="font-mono text-xs text-foreground font-semibold leading-tight break-all">{m.model}</p>
@@ -987,9 +1045,12 @@ const CFFiberlink = () => {
                     <div className="flex items-start gap-2">
                       <info.icon className="w-5 h-5 shrink-0 mt-0.5" />
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs font-semibold mb-0.5">
+                        <p className="text-xs font-semibold mb-1">
                           อุณหภูมิใช้งาน {range} · {info.label}
                         </p>
+                        <div className="mb-2">
+                          <TempRangeBar range={range} size="md" />
+                        </div>
                         <p className="text-[11px] leading-relaxed opacity-90">
                           <span className="font-medium">เหมาะกับ:</span> {info.useCase}
                         </p>
