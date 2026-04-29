@@ -339,6 +339,11 @@ const CFFiberlink = () => {
               productName="CF Fiberlink Industrial Switch"
             />
             <Button variant="outline" asChild>
+              <Link to="/shop">
+                <ShoppingBag className="w-4 h-4 mr-1.5" /> ดูสินค้าทั้งหมดในร้าน
+              </Link>
+            </Button>
+            <Button variant="outline" asChild>
               <a href="https://www.cffiberlink.com/" target="_blank" rel="noopener noreferrer">
                 <ExternalLink className="w-4 h-4 mr-1.5" /> ดู Catalog เต็ม
               </a>
