@@ -194,6 +194,64 @@ export default function ShopEpcDetailBase({ slug }: Props) {
         </div>
       </section>
 
+      {/* Certifications & Datasheet bar */}
+      {(detail.certifications?.length || detail.datasheetUrl) && (
+        <section className="container mx-auto px-4 pt-2 pb-4">
+          <Card className="bg-muted/30">
+            <CardContent className="p-4 flex flex-wrap items-center gap-x-6 gap-y-3">
+              {detail.certifications && detail.certifications.length > 0 && (
+                <div className="flex items-center gap-3 flex-wrap">
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-primary" />
+                    <span className="text-sm font-semibold text-foreground">Certifications:</span>
+                  </div>
+                  {detail.certifications.map((c) => (
+                    <Badge key={c.code} variant="outline" className="border-primary/30 text-foreground" title={c.description}>
+                      {c.code}
+                    </Badge>
+                  ))}
+                </div>
+              )}
+              {detail.datasheetUrl && (
+                <Button asChild size="sm" variant="outline" className="ml-auto gap-1.5">
+                  <a href={detail.datasheetUrl} target="_blank" rel="noopener noreferrer">
+                    <Download className="w-3.5 h-3.5" /> Datasheet (PDF)
+                  </a>
+                </Button>
+              )}
+            </CardContent>
+          </Card>
+        </section>
+      )}
+
+      {/* Product Images & Sizes */}
+      {detail.productImages && detail.productImages.length > 0 && (
+        <section className="container mx-auto px-4 py-6 lg:py-10">
+          <div className="flex items-start gap-3 mb-4">
+            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+              <Ruler className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-foreground">Product Images & Sizes</h2>
+              <p className="text-sm text-muted-foreground">มิติและตำแหน่ง I/O ของตัวเครื่องตามแบบโรงงาน</p>
+            </div>
+          </div>
+          <div className="grid md:grid-cols-2 gap-4">
+            {detail.productImages.map((img, i) => (
+              <Card key={i} className="overflow-hidden">
+                <div className="bg-white p-4 flex items-center justify-center min-h-[200px]">
+                  <img src={img.src} alt={img.alt} loading="lazy" className="max-w-full max-h-[280px] object-contain"
+                    onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                </div>
+                {img.caption && (
+                  <CardContent className="p-3 text-xs text-muted-foreground border-t border-border">{img.caption}</CardContent>
+                )}
+              </Card>
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* Specs */}
       <section className="container mx-auto px-4 py-6 lg:py-10">
         <div className="flex items-start gap-3 mb-4">
@@ -201,23 +259,176 @@ export default function ShopEpcDetailBase({ slug }: Props) {
             <Package className="w-5 h-5 text-primary" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-foreground">สเปคทั่วไป</h2>
-            <p className="text-sm text-muted-foreground">ข้อมูลเบื้องต้น — สามารถปรับสเปกได้ตามความต้องการ</p>
+            <h2 className="text-xl font-bold text-foreground">Specifications</h2>
+            <p className="text-sm text-muted-foreground">ข้อมูลตามสเปกโรงงาน — กำหนดได้ตามความต้องการ</p>
           </div>
         </div>
-        <Card>
-          <CardContent className="p-0 overflow-x-auto">
-            <dl className="divide-y divide-border">
-              {detail.specs.map((s) => (
-                <div key={s.label} className="grid grid-cols-3 gap-3 p-3 text-sm">
-                  <dt className="text-muted-foreground col-span-1">{s.label}</dt>
-                  <dd className="col-span-2 font-medium">{s.value}</dd>
-                </div>
-              ))}
-            </dl>
-          </CardContent>
-        </Card>
+
+        {detail.specGroups && detail.specGroups.length > 0 ? (
+          <div className="grid md:grid-cols-2 gap-4">
+            {detail.specGroups.map((g) => (
+              <Card key={g.title}>
+                <CardContent className="p-0">
+                  <div className="px-4 py-3 border-b border-border bg-muted/40">
+                    <h3 className="text-sm font-bold text-foreground">{g.title}</h3>
+                  </div>
+                  <dl className="divide-y divide-border">
+                    {g.rows.map((s) => (
+                      <div key={s.label} className="grid grid-cols-3 gap-3 p-3 text-sm">
+                        <dt className="text-muted-foreground col-span-1">{s.label}</dt>
+                        <dd className="col-span-2 font-medium">{s.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        ) : (
+          <Card>
+            <CardContent className="p-0 overflow-x-auto">
+              <dl className="divide-y divide-border">
+                {detail.specs.map((s) => (
+                  <div key={s.label} className="grid grid-cols-3 gap-3 p-3 text-sm">
+                    <dt className="text-muted-foreground col-span-1">{s.label}</dt>
+                    <dd className="col-span-2 font-medium">{s.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </CardContent>
+          </Card>
+        )}
       </section>
+
+      {/* Configurable Options */}
+      {detail.options && detail.options.length > 0 && (
+        <section className="container mx-auto px-4 py-6 lg:py-10">
+          <div className="flex items-start gap-3 mb-4">
+            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+              <Settings2 className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-foreground">ตัวเลือกที่ปรับแต่งได้</h2>
+              <p className="text-sm text-muted-foreground">เลือกสเปกที่ต้องการ แล้วระบุในใบขอใบเสนอราคา (RFQ)</p>
+            </div>
+          </div>
+          <div className="grid md:grid-cols-2 gap-4">
+            {detail.options.map((opt) => (
+              <Card key={opt.label}>
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-sm font-bold text-foreground">{opt.label}</h3>
+                    <Badge variant="secondary" className="text-[10px]">{opt.choices.length} ตัวเลือก</Badge>
+                  </div>
+                  {opt.note && <p className="text-xs text-muted-foreground mb-2">{opt.note}</p>}
+                  <ul className="space-y-1.5">
+                    {opt.choices.map((c) => (
+                      <li key={c} className="flex items-start gap-2 text-sm">
+                        <Check className="w-3.5 h-3.5 text-primary mt-1 shrink-0" />
+                        <span>{c}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Selection Table */}
+      {detail.selectionTable && detail.selectionTable.length > 0 && (
+        <section className="container mx-auto px-4 py-6 lg:py-10">
+          <div className="flex items-start gap-3 mb-4">
+            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+              <ListChecks className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-foreground">Product Selection Guide</h2>
+              <p className="text-sm text-muted-foreground">รหัสสินค้าตามรุ่น CPU — ใช้อ้างอิงเวลาขอใบเสนอราคา</p>
+            </div>
+          </div>
+          <Card>
+            <CardContent className="p-0 overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="bg-muted/40 border-b border-border">
+                  <tr className="text-left">
+                    <th className="px-3 py-2 font-semibold w-10">#</th>
+                    <th className="px-3 py-2 font-semibold">Model</th>
+                    <th className="px-3 py-2 font-semibold">Part Number</th>
+                    <th className="px-3 py-2 font-semibold">CPU</th>
+                    <th className="px-3 py-2 font-semibold">RAM</th>
+                    <th className="px-3 py-2 font-semibold">Storage</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border">
+                  {detail.selectionTable.map((r) => (
+                    <tr key={r.partNumber} className="hover:bg-muted/30">
+                      <td className="px-3 py-2 text-muted-foreground">{r.no}</td>
+                      <td className="px-3 py-2 font-medium">{r.model}</td>
+                      <td className="px-3 py-2 font-mono text-xs">{r.partNumber}</td>
+                      <td className="px-3 py-2">{r.cpu}</td>
+                      <td className="px-3 py-2">{r.memory}</td>
+                      <td className="px-3 py-2">{r.storage}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </CardContent>
+          </Card>
+        </section>
+      )}
+
+      {/* Applications */}
+      {detail.applications && detail.applications.length > 0 && (
+        <section className="container mx-auto px-4 py-6 lg:py-10">
+          <div className="flex items-start gap-3 mb-4">
+            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+              <Factory className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-foreground">Applications</h2>
+              <p className="text-sm text-muted-foreground">อุตสาหกรรมและการใช้งานที่เหมาะสม</p>
+            </div>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {detail.applications.map((a) => (
+              <Card key={a} className="p-3 flex items-start gap-2">
+                <Check className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                <span className="text-sm">{a}</span>
+              </Card>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Gallery */}
+      {detail.gallery && detail.gallery.length > 0 && (
+        <section className="container mx-auto px-4 py-6 lg:py-10">
+          <div className="flex items-start gap-3 mb-4">
+            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+              <ImageIcon className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-foreground">Gallery</h2>
+              <p className="text-sm text-muted-foreground">ภาพสินค้าและการใช้งานจริงในอุตสาหกรรม</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            {detail.gallery.map((g, i) => (
+              <Card key={i} className="overflow-hidden">
+                <div className="aspect-[4/3] bg-muted overflow-hidden">
+                  <img src={g.src} alt={g.alt} loading="lazy"
+                    className="w-full h-full object-cover hover:scale-105 transition-transform"
+                    onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                </div>
+                {g.caption && <CardContent className="p-2 text-xs text-muted-foreground">{g.caption}</CardContent>}
+              </Card>
+            ))}
+          </div>
+        </section>
+      )}
+
 
       {/* Related */}
       {related.length > 0 && (
