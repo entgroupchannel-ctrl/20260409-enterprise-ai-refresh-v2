@@ -533,6 +533,66 @@ export const volktekEmsNms: VolktekCategory = {
 };
 
 /* ============================================================
+ * Phase 8: SFP Modules (5 sub-categories, 7 รุ่น)
+ * ============================================================ */
+import sfp_FPM_107 from "@/assets/volktek/products/sfp/FPM-107.jpg";
+import sfp_GBM_132TS from "@/assets/volktek/products/sfp/GBM-132TS.jpg";
+import sfp_GBM_132RS from "@/assets/volktek/products/sfp/GBM-132RS.jpg";
+import sfp_GBM_104 from "@/assets/volktek/products/sfp/GBM-104.jpg";
+import sfp_GBM_123TS from "@/assets/volktek/products/sfp/GBM-123TS.jpg";
+import sfp_GBM_123RS from "@/assets/volktek/products/sfp/GBM-123RS.jpg";
+import sfp_GBM_162 from "@/assets/volktek/products/sfp/GBM-162.jpg";
+
+export const volktekSfp: VolktekCategory = {
+  id: "sfp",
+  title: "SFP Modules",
+  subCategories: [
+    {
+      id: "sfp-100base",
+      title: "100BASE SFP",
+      blurb: "100FX SFP Module — Duplex LC สำหรับ Fast Ethernet Fiber Link",
+      products: [
+        { model: "FPM-107", description: "100FX SFP Duplex LC — Fast Ethernet Fiber Module", image: sfp_FPM_107, features: ["100FX", "Duplex LC"], sourceUrl: detail(90) },
+      ],
+    },
+    {
+      id: "sfp-100base-bidi",
+      title: "100BASE Bi-Di SFP",
+      blurb: "100FX Bi-Directional SFP — Simplex LC ใช้สาย Fiber เส้นเดียว ส่ง-รับสองทาง",
+      products: [
+        { model: "GBM-132TS", description: "100FX Bi-Di SFP Simplex LC (TX) — Bi-Directional Fiber Module", image: sfp_GBM_132TS, features: ["100FX", "Bi-Di", "TX"], sourceUrl: detail(91) },
+        { model: "GBM-132RS", description: "100FX Bi-Di SFP Simplex LC (RX) — Bi-Directional Fiber Module", image: sfp_GBM_132RS, features: ["100FX", "Bi-Di", "RX"], sourceUrl: detail(92) },
+      ],
+    },
+    {
+      id: "sfp-gigabit",
+      title: "Gigabit SFP",
+      blurb: "1.25G SFP Module — Duplex LC สำหรับ Gigabit Fiber Link",
+      products: [
+        { model: "GBM-104", description: "1.25G SFP Duplex LC — Gigabit Fiber Module", image: sfp_GBM_104, features: ["1.25G", "Duplex LC"], sourceUrl: detail(93) },
+      ],
+    },
+    {
+      id: "sfp-gigabit-bidi",
+      title: "Gigabit Bi-Di SFP",
+      blurb: "1.25G Bi-Directional SFP — Simplex LC ใช้สาย Fiber เส้นเดียวประหยัดต้นทุน",
+      products: [
+        { model: "GBM-123TS", description: "1.25G Bi-Di SFP Simplex LC (TX) — Bi-Directional Gigabit Module", image: sfp_GBM_123TS, features: ["1.25G", "Bi-Di", "TX"], sourceUrl: detail(94) },
+        { model: "GBM-123RS", description: "1.25G Bi-Di SFP Simplex LC (RX) — Bi-Directional Gigabit Module", image: sfp_GBM_123RS, features: ["1.25G", "Bi-Di", "RX"], sourceUrl: detail(95) },
+      ],
+    },
+    {
+      id: "sfp-10g",
+      title: "10G SFP+",
+      blurb: "10G SFP+ Module — Duplex LC สำหรับ 10 Gigabit Fiber Uplink",
+      products: [
+        { model: "GBM-162", description: "10G SFP+ Duplex LC — 10 Gigabit Fiber Module", image: sfp_GBM_162, features: ["10G", "SFP+", "Duplex LC"], sourceUrl: detail(96) },
+      ],
+    },
+  ],
+};
+
+/* ============================================================
  * Master export — เพิ่ม category อื่นใน phase ถัดไป
  * ============================================================ */
 export const volktekCatalog: VolktekCategory[] = [
@@ -542,6 +602,7 @@ export const volktekCatalog: VolktekCategory[] = [
   volktekMetroEthernet,
   volktekMediaConverter,
   volktekEmsNms,
-  // Phase 8+: sfp, poe-injector, firewall, accessories
+  volktekSfp,
+  // Phase 9+: poe-injector, firewall, accessories
 ];
 

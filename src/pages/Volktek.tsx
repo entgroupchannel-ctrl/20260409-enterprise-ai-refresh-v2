@@ -20,6 +20,7 @@ import IndustrialEthernetSection from "@/components/volktek/IndustrialEthernetSe
 import MetroEthernetSection from "@/components/volktek/MetroEthernetSection";
 import MediaConverterSection from "@/components/volktek/MediaConverterSection";
 import EmsNmsSection from "@/components/volktek/EmsNmsSection";
+import SfpSection from "@/components/volktek/SfpSection";
 
 // Official assets from volktek.com
 import heroSpe from "@/assets/volktek/hero-spe.png";
@@ -420,6 +421,9 @@ const Volktek = () => {
 
         {/* Phase 7 — EMS / NMS Software detailed catalog */}
         <EmsNmsSection />
+
+        {/* Phase 8 — SFP Modules detailed catalog */}
+        <SfpSection />
 
         {/* LAMUNGAN Platform — EMS spotlight */}
         <section className="card-surface overflow-hidden">
