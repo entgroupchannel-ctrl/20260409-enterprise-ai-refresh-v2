@@ -328,54 +328,51 @@ const CFFiberlink = () => {
           </div>
         </section>
 
-        {/* Featured Models */}
+        {/* Full Catalog by Category */}
         <section>
           <h2 className="text-2xl font-display font-bold text-foreground mb-2">
-            รุ่นแนะนำสำหรับ<span className="text-gradient">ตลาดไทย</span>
+            แค็ตตาล็อก<span className="text-gradient">รุ่นทั้งหมด</span>
           </h2>
-          <p className="text-muted-foreground text-sm mb-5">
-            คัดเฉพาะรุ่นที่เหมาะกับงานโครงการในไทย — ราคาแจ้งหลังประเมินสเปก
+          <p className="text-muted-foreground text-sm mb-6">
+            ดึงสเปกจริงจากโรงงาน — แบ่งเป็น 3 หมวดตามระดับ Layer (L2 / L2+ / L3 10G) — คลิกที่รุ่นเพื่อดูสเปกและขอใบเสนอราคา
           </p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {featuredModels.map((m) => (
-              <div key={m.model} className="card-surface overflow-hidden flex flex-col">
-                <div className="aspect-square overflow-hidden bg-muted relative">
-                  <img
-                    src={m.image}
-                    alt={`${m.model} ${m.name}`}
-                    className="w-full h-full object-contain p-3"
-                    loading="lazy"
-                  />
-                  <Badge className="absolute top-2 left-2 bg-primary/90 text-primary-foreground text-[10px]">
-                    {m.badge}
-                  </Badge>
+
+          <div className="space-y-10">
+            {cffiberlinkCatalog.map((cat) => (
+              <div key={cat.id}>
+                <div className="flex items-baseline gap-3 mb-1 flex-wrap">
+                  <h3 className="text-lg font-display font-bold text-foreground">{cat.title}</h3>
+                  <Badge variant="outline" className="text-[10px]">{cat.models.length} รุ่น</Badge>
                 </div>
-                <div className="p-4 flex flex-col flex-1">
-                  <p className="text-xs text-muted-foreground font-mono mb-0.5">{m.model}</p>
-                  <h3 className="font-semibold text-foreground text-sm leading-snug mb-2">{m.name}</h3>
-                  <p className="text-xs text-muted-foreground mb-1">
-                    <span className="font-semibold text-foreground/80">สเปก:</span> {m.spec}
-                  </p>
-                  <p className="text-xs text-muted-foreground mb-3">
-                    <span className="font-semibold text-foreground/80">เหมาะกับ:</span> {m.use}
-                  </p>
-                  <div className="mt-auto flex gap-2">
-                    <QuoteRequestButton
-                      productModel={m.model}
-                      productName={`CF Fiberlink ${m.model} — ${m.name}`}
-                      size="sm"
-                      variant="outline"
-                      iconOnly
-                    />
-                    <AddToCartButton
-                      productModel={m.model}
-                      productName={`CF Fiberlink ${m.model}`}
-                      productDescription={m.spec}
-                      size="sm"
-                      variant="outline"
-                      iconOnly
-                    />
-                  </div>
+                <p className="text-sm text-muted-foreground mb-4">{cat.desc}</p>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                  {cat.models.map((m) => (
+                    <button
+                      key={m.model}
+                      type="button"
+                      onClick={() => setSelected({ model: m, cat })}
+                      className="card-surface overflow-hidden flex flex-col text-left hover:border-primary/50 hover:-translate-y-0.5 transition-all"
+                    >
+                      <div className="aspect-square overflow-hidden bg-muted relative">
+                        <img
+                          src={m.image}
+                          alt={`CF Fiberlink ${m.model}`}
+                          className="w-full h-full object-contain p-2"
+                          loading="lazy"
+                        />
+                        {m.badge && (
+                          <Badge className="absolute top-1.5 left-1.5 bg-primary/90 text-primary-foreground text-[9px] px-1.5 py-0">
+                            {m.badge}
+                          </Badge>
+                        )}
+                      </div>
+                      <div className="p-2.5 flex flex-col flex-1">
+                        <p className="font-mono text-[11px] text-foreground font-semibold leading-tight mb-1">{m.model}</p>
+                        <p className="text-[10px] text-muted-foreground leading-snug line-clamp-2">{m.ports}</p>
+                      </div>
+                    </button>
+                  ))}
                 </div>
               </div>
             ))}
