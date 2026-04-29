@@ -81,7 +81,7 @@ const PowerSupplySection = () => {
                       <th className="text-left font-semibold py-2 px-2">Power</th>
                       <th className="text-left font-semibold py-2 px-2">Output</th>
                       <th className="text-left font-semibold py-2 px-2 hidden sm:table-cell">Input</th>
-                      <th className="text-right font-semibold py-2 px-3">ราคา</th>
+                      
                     </tr>
                   </thead>
                   <tbody>
@@ -110,9 +110,6 @@ const PowerSupplySection = () => {
                         </td>
                         <td className="py-2 px-2 text-muted-foreground hidden sm:table-cell whitespace-nowrap">
                           {m.input} · {m.freq}
-                        </td>
-                        <td className="py-2 px-3 text-right whitespace-nowrap">
-                          <span className="text-[10px] text-muted-foreground italic">สอบถามแอดมิน</span>
                         </td>
                       </tr>
                       );
