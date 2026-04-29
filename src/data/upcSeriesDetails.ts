@@ -790,4 +790,387 @@ export const upcSeriesDetails: Record<string, ProductDetail> = {
       "/upc-images/2025_10_IMG_7515-1024x683.jpg",
     ],
   },
+
+  /* ───────────── EPC-10XA — Compact 229×160×47mm Edge Box PC ───────────── */
+  "epc-10xa": {
+    id: "epc-10xa",
+    intro:
+      "EPC-10XA Industrial Box PC ขนาดกะทัดรัด 229×160×47mm — Fanless Embedded Design ด้วยเทคโนโลยี BlockCore™ ของ CESIPC โครงสร้าง 6061 Aluminum Alloy รองรับ Intel® Celeron® จนถึง 12th Gen Core™ i7 พร้อม TPM 2.0, SafeCore™ Power-loss Protection และ DC Wide Input 9–36V — เหมาะกับงาน Edge Computing, IoT Gateway, POS, Machine Vision และ Embedded Control ในพื้นที่จำกัด",
+    highlights: COMMON_INTRO_BULLETS([
+      "Intel® Core™ i7/i5/i3 (รองรับ Celeron® ถึง 12th Gen Core™)",
+      "Fanless — โครงอลูมิเนียม 6061 ขนาดเพียง 229×160×47mm",
+      "2× Intel® I210 Gigabit Ethernet",
+      "I/O: USB 2.0 ×2 + USB 3.0 ×4, Audio, Mic, RS-232 ×2 + RS-485 ×1, HDMI, VGA",
+    ]),
+    specs: [
+      {
+        title: "System Core",
+        rows: [
+          { label: "CPU", value: "Intel® Celeron® J1900 (2.0~2.42GHz) / J6412 (2.0~2.6GHz) • 10th Gen i3-10110U / i5-10210U / i7-10710U • 12th Gen i3-1215U / i5-1235U / i5-1240P / i7-1255U" },
+          { label: "Memory", value: "4~8GB DDR3L / 4~32GB DDR4 / 4~32GB DDR5 (ขึ้นกับรุ่น CPU)" },
+          { label: "Storage", value: "1× mSATA SSD (Standard) + Dual M.2 2280 NVMe (Expansion)" },
+          { label: "Cooling", value: "Fanless — ระบายความร้อนผ่านครีบอลูมิเนียม" },
+          { label: "OS", value: "Windows 10 / 11, Linux Ubuntu" },
+          { label: "Hardware Security", value: "TPM 2.0" },
+        ],
+      },
+      {
+        title: "I/O Ports",
+        rows: [
+          { label: "USB 2.0", value: "2× USB 2.0 (Core™) / 5× USB 2.0 (Celeron®)" },
+          { label: "USB 3.0", value: "4× USB 3.0 (Core™) / 1× USB 3.0 (Celeron®)" },
+          { label: "COM (Serial)", value: "2× RS-232 + 1× RS-485 (DB9)" },
+          { label: "Display", value: "1× HDMI + 1× VGA — Dual Display" },
+          { label: "Audio", value: "1× Audio Out + 1× Mic In" },
+          { label: "Ethernet", value: "2× 10/100/1000M Intel® I210 LAN" },
+          { label: "Expansion", value: "1× Mini PCIe • Dual M.2 2280 NVMe • M.2 2230 (Wi-Fi/BT)" },
+        ],
+      },
+      {
+        title: "Wireless",
+        rows: [
+          { label: "Wi-Fi / Bluetooth", value: "Wi-Fi + BT (M.2 2230 — Optional)" },
+          { label: "Cellular", value: "4G LTE Full Network (Optional)" },
+        ],
+      },
+      {
+        title: "Power",
+        rows: [
+          { label: "DC Input", value: "12V DC (Standard) • 9–36V DC Wide Input (Optional) — 3-pin Pluggable Terminal Block" },
+          { label: "Booting", value: "AT (Auto Power-on) / ATX (Power Button)" },
+          { label: "Protection", value: "CESIPC SafeCore™ Power-loss Protection + Auto Restart" },
+        ],
+      },
+      {
+        title: "Environment",
+        rows: [
+          { label: "Operating Temp", value: "0~50°C (-40~70°C Optional)" },
+          { label: "Storage Temp", value: "-10~60°C" },
+          { label: "Humidity", value: "10–90% non-condensing" },
+        ],
+      },
+      {
+        title: "Mechanical",
+        rows: [
+          { label: "Dimension", value: "229.0 (W) × 160 (D) × 47 (H) mm" },
+          { label: "Weight", value: "1.48 kg" },
+          { label: "Material", value: "High-Strength 6061 Aluminum Alloy" },
+          { label: "Mounting", value: "Wall-mount / VESA Mount" },
+        ],
+      },
+      {
+        title: "Certifications",
+        rows: [
+          { label: "Certs", value: "CE / FCC / BIS (EN 55032, EN 55035) • RoHS" },
+          { label: "ODM", value: "Custom BIOS / Boot Logo / OEM Branding / Custom I/O" },
+        ],
+      },
+    ],
+    gallery: [
+      "/images/wix/0597a3_e66a5a6616b64254a920d2c6f05b93f8_48ed79f4.png",
+      "https://cesipc.com/wp-content/uploads/2024/11/EPC-102A-1-1024x683.jpg",
+      "https://cesipc.com/wp-content/uploads/2024/11/EPC-102A-2-1024x683.jpg",
+      "https://cesipc.com/wp-content/uploads/2024/11/EPC-102A-3-1024x683.jpg",
+      "https://cesipc.com/wp-content/uploads/2024/11/EPC-102A-4-1024x683.jpg",
+      "https://cesipc.com/wp-content/uploads/2024/11/EPC-10XA%E5%B0%BA%E5%AF%B8%E5%9B%BE-1024x356.png",
+      "https://cesipc.com/wp-content/uploads/2024/11/EPC-10XAIO%E6%8E%A5%E5%8F%A3%E5%9B%BE-1024x262.png",
+    ],
+    selection: [
+      { partNumber: "C10.01.01.001", cpu: "Intel® Celeron® J1900",  memory: "4GB", storage: "mSATA SSD 128GB" },
+      { partNumber: "C10.01.05.001", cpu: "Intel® Celeron® J6412",  memory: "8GB", storage: "mSATA SSD 256GB" },
+      { partNumber: "C10.01.03.001", cpu: "Intel® Core™ i3-10110U", memory: "8GB", storage: "mSATA SSD 256GB" },
+      { partNumber: "C10.01.03.002", cpu: "Intel® Core™ i5-10210U", memory: "8GB", storage: "mSATA SSD 256GB" },
+      { partNumber: "C10.01.03.003", cpu: "Intel® Core™ i7-10710U", memory: "8GB", storage: "mSATA SSD 256GB" },
+      { partNumber: "C10.01.04.001", cpu: "Intel® Core™ i3-1215U",  memory: "8GB", storage: "mSATA SSD 256GB" },
+      { partNumber: "C10.01.04.002", cpu: "Intel® Core™ i5-1235U",  memory: "8GB", storage: "mSATA SSD 256GB" },
+      { partNumber: "C10.01.04.004", cpu: "Intel® Core™ i7-1255U",  memory: "8GB", storage: "mSATA SSD 256GB" },
+    ],
+  },
+
+  /* ───────────── EPC-20XA — Performance 229×160×79.5mm (Cooling +68%) ───────────── */
+  "epc-20xa": {
+    id: "epc-20xa",
+    intro:
+      "EPC-20XA Industrial Box PC สมรรถนะสูง — เพิ่มความสูงเป็น 79.5mm ให้พื้นที่ระบายความร้อนใหญ่ขึ้น 68% จาก EPC-10XA รองรับ CPU แรง Intel® Core™ ถึง 12th Gen i7-1255U ทำงาน 24/7 เสถียร พร้อม BlockCore™ Modular Design และ DC Wide Input 9–36V — เหมาะกับ Factory Automation, SCADA, Machine Vision และ AGV ที่ต้องการพลังประมวลผลสูง",
+    highlights: COMMON_INTRO_BULLETS([
+      "Intel® Core™ i7/i5/i3 (รองรับ Celeron® ถึง 12th Gen Core™)",
+      "Cooling +68% — รองรับ CPU TDP 15W เต็มพิกัด 24/7",
+      "2× Intel® I210 Gigabit Ethernet",
+      "I/O: USB 2.0 ×2 + USB 3.0 ×4, Audio, Mic, RS-232 ×2 + RS-485 ×1, HDMI, VGA",
+    ]),
+    specs: [
+      {
+        title: "System Core",
+        rows: [
+          { label: "CPU", value: "Intel® Celeron® J1900 (2.0~2.42GHz) / J6412 (2.0~2.6GHz) • 10th Gen i3-10110U / i5-10210U / i7-10710U • 12th Gen i3-1215U / i5-1235U / i5-1240P / i7-1255U" },
+          { label: "Memory", value: "4~8GB DDR3L / 4~32GB DDR4 / 4~32GB DDR5" },
+          { label: "Storage", value: "1× mSATA SSD + Dual M.2 2280 NVMe (Expansion)" },
+          { label: "Cooling", value: "Fanless — Cooling Surface +68% จาก EPC-10XA" },
+          { label: "OS", value: "Windows 10 / 11, Linux Ubuntu" },
+          { label: "Hardware Security", value: "TPM 2.0" },
+        ],
+      },
+      {
+        title: "I/O Ports",
+        rows: [
+          { label: "USB 2.0", value: "2× USB 2.0 (Core™) / 5× USB 2.0 (Celeron®)" },
+          { label: "USB 3.0", value: "4× USB 3.0 (Core™) / 1× USB 3.0 (Celeron®)" },
+          { label: "COM (Serial)", value: "2× RS-232 + 1× RS-485 (DB9)" },
+          { label: "Display", value: "1× HDMI + 1× VGA — Dual Display" },
+          { label: "Audio", value: "1× Audio Out + 1× Mic In" },
+          { label: "Ethernet", value: "2× 10/100/1000M Intel® I210 LAN" },
+          { label: "Expansion", value: "1× Mini PCIe • Dual M.2 2280 NVMe • M.2 2230 (Wi-Fi/BT)" },
+        ],
+      },
+      {
+        title: "Wireless",
+        rows: [
+          { label: "Wi-Fi / Bluetooth", value: "Wi-Fi + BT (M.2 2230 — Optional)" },
+          { label: "Cellular", value: "4G LTE Full Network (Optional)" },
+        ],
+      },
+      {
+        title: "Power",
+        rows: [
+          { label: "DC Input", value: "12V DC (Standard) • 9–36V DC Wide Input (Optional)" },
+          { label: "Booting", value: "AT (Auto Power-on) / ATX (Power Button)" },
+          { label: "Protection", value: "CESIPC SafeCore™ Power-loss Protection + Auto Restart" },
+        ],
+      },
+      {
+        title: "Environment",
+        rows: [
+          { label: "Operating Temp", value: "0~50°C (-40~70°C Optional)" },
+          { label: "Storage Temp", value: "-10~60°C" },
+          { label: "Humidity", value: "10–90% non-condensing" },
+        ],
+      },
+      {
+        title: "Mechanical",
+        rows: [
+          { label: "Dimension", value: "229.0 (W) × 160 (D) × 79.5 (H) mm" },
+          { label: "Weight", value: "~2.2 kg" },
+          { label: "Material", value: "High-Strength 6061 Aluminum Alloy" },
+          { label: "Mounting", value: "Wall-mount / VESA Mount" },
+        ],
+      },
+      {
+        title: "Certifications",
+        rows: [
+          { label: "Certs", value: "CE / FCC / BIS (EN 55032, EN 55035) • RoHS" },
+          { label: "ODM", value: "Custom BIOS / Boot Logo / OEM Branding / Custom I/O" },
+        ],
+      },
+    ],
+    gallery: [
+      "/images/wix/0597a3_373c66cd76674aafb9d631325e3e3a26_258223ef.png",
+      "https://cesipc.com/wp-content/uploads/2024/11/EPC-202A-1-1024x683.jpg",
+      "https://cesipc.com/wp-content/uploads/2024/11/EPC-202A-2-1024x683.jpg",
+      "https://cesipc.com/wp-content/uploads/2024/11/EPC-20XA%E5%B0%BA%E5%AF%B8%E5%9B%BE-1024x567.png",
+      "https://cesipc.com/wp-content/uploads/2024/11/EPC-20XAIO%E6%8E%A5%E5%8F%A3%E5%9B%BE-1024x263.png",
+    ],
+    selection: [
+      { partNumber: "C10.02.01.001", cpu: "Intel® Celeron® J1900",  memory: "4GB", storage: "mSATA SSD 128GB" },
+      { partNumber: "C10.02.04.001", cpu: "Intel® Celeron® J6412",  memory: "8GB", storage: "mSATA SSD 256GB" },
+      { partNumber: "C10.02.03.001", cpu: "Intel® Core™ i3-10110U", memory: "8GB", storage: "mSATA SSD 256GB" },
+      { partNumber: "C10.02.03.002", cpu: "Intel® Core™ i5-10210U", memory: "8GB", storage: "mSATA SSD 256GB" },
+      { partNumber: "C10.02.03.003", cpu: "Intel® Core™ i7-10710U", memory: "8GB", storage: "mSATA SSD 256GB" },
+      { partNumber: "C10.02.04.001", cpu: "Intel® Core™ i3-1215U",  memory: "8GB", storage: "mSATA SSD 256GB" },
+      { partNumber: "C10.02.04.002", cpu: "Intel® Core™ i5-1235U",  memory: "8GB", storage: "mSATA SSD 256GB" },
+      { partNumber: "C10.02.04.003", cpu: "Intel® Core™ i5-1240P",  memory: "8GB", storage: "mSATA SSD 256GB" },
+      { partNumber: "C10.02.04.004", cpu: "Intel® Core™ i7-1255U",  memory: "8GB", storage: "mSATA SSD 256GB" },
+    ],
+  },
+
+  /* ───────────── EPC-30XA — Low-Profile Wide 337×160×47.5mm (6×COM) ───────────── */
+  "epc-30xa": {
+    id: "epc-30xa",
+    intro:
+      "EPC-30XA Industrial Box PC แบบ Low-profile กว้าง 337mm หนาเพียง 47.5mm — เหมาะกับการติดตั้งใน Rack/Panel ตู้คอนโทรล รองรับ I/O ครบ 6× COM (4×RS-232 + 2×RS-485) สำหรับเชื่อม PLC/Sensor หลายตัวพร้อมกัน รองรับ Intel® Celeron® ถึง 12th Gen Core™ i7 — เหมาะกับ SCADA, Process Control, Aerospace Assembly, UAV Ground Station และ AGV Smart Logistics",
+    highlights: COMMON_INTRO_BULLETS([
+      "Intel® Core™ i7/i5/i3 (รองรับ Celeron® ถึง 12th Gen Core™)",
+      "Low Profile 337×160×47.5mm — เหมาะกับ Rack/Panel Mount",
+      "6× COM (4×RS-232 + 2×RS-485) — เชื่อม PLC/Sensor หลายตัว",
+      "2× Intel® I210 Gigabit Ethernet",
+    ]),
+    specs: [
+      {
+        title: "System Core",
+        rows: [
+          { label: "CPU", value: "Intel® Celeron® J1900 (2.0~2.42GHz) / J6412 (2.0~2.6GHz) • 10th Gen i3-10110U / i5-10210U / i7-10710U • 12th Gen i3-1215U / i5-1235U / i5-1240P / i7-1255U" },
+          { label: "Memory", value: "4~8GB DDR3L / 4~32GB DDR4 / 4~32GB DDR5" },
+          { label: "Storage", value: "1× mSATA SSD + Dual M.2 2280 NVMe (Expansion)" },
+          { label: "Cooling", value: "Fanless — ครีบระบายความร้อนขนาดใหญ่" },
+          { label: "OS", value: "Windows 10 / 11, Linux Ubuntu" },
+          { label: "Hardware Security", value: "TPM 2.0" },
+        ],
+      },
+      {
+        title: "I/O Ports",
+        rows: [
+          { label: "USB 2.0", value: "2× USB 2.0 (Core™) / 5× USB 2.0 (Celeron®)" },
+          { label: "USB 3.0", value: "4× USB 3.0 (Core™) / 1× USB 3.0 (Celeron®)" },
+          { label: "COM (Serial)", value: "4× RS-232 + 2× RS-485 (DB9)" },
+          { label: "Display", value: "1× HDMI + 1× VGA — Dual Display" },
+          { label: "Audio", value: "1× Audio Out + 1× Mic In" },
+          { label: "Ethernet", value: "2× 10/100/1000M Intel® I210 LAN" },
+          { label: "Expansion", value: "1× Mini PCIe • Dual M.2 2280 NVMe • M.2 2230 (Wi-Fi/BT)" },
+        ],
+      },
+      {
+        title: "Wireless",
+        rows: [
+          { label: "Wi-Fi / Bluetooth", value: "Wi-Fi + BT (M.2 2230 — Optional)" },
+          { label: "Cellular", value: "4G LTE Full Network (Optional)" },
+        ],
+      },
+      {
+        title: "Power",
+        rows: [
+          { label: "DC Input", value: "12V DC (Standard) • 9–36V DC Wide Input (Optional)" },
+          { label: "Booting", value: "AT (Auto Power-on) / ATX (Power Button)" },
+          { label: "Protection", value: "CESIPC SafeCore™ Power-loss Protection + Auto Restart" },
+        ],
+      },
+      {
+        title: "Environment",
+        rows: [
+          { label: "Operating Temp", value: "0~50°C (-40~70°C Optional)" },
+          { label: "Storage Temp", value: "-10~60°C" },
+          { label: "Humidity", value: "10–90% non-condensing" },
+        ],
+      },
+      {
+        title: "Mechanical",
+        rows: [
+          { label: "Dimension", value: "337 (W) × 160 (D) × 47.5 (H) mm" },
+          { label: "Weight", value: "3.7 kg" },
+          { label: "Material", value: "High-Strength 6061 Aluminum Alloy" },
+          { label: "Mounting", value: "Wall-mount / VESA Mount / Rack / Panel Mount" },
+        ],
+      },
+      {
+        title: "Certifications",
+        rows: [
+          { label: "Certs", value: "CE / FCC / BIS (EN 55032, EN 55035) • RoHS" },
+          { label: "ODM", value: "Custom BIOS / Boot Logo / OEM Branding / Custom I/O" },
+        ],
+      },
+    ],
+    gallery: [
+      "/images/wix/0597a3_66f688e771804493b4e10e4daf7dd19a_e2ade35a.png",
+      "https://cesipc.com/wp-content/uploads/2024/11/IMG_0862-1024x683.jpg",
+      "https://cesipc.com/wp-content/uploads/2024/11/IMG_0855%E4%B8%AD%E6%80%A7-1024x683.jpg",
+      "https://cesipc.com/wp-content/uploads/2024/11/IMG_0858-1024x683.jpg",
+      "https://cesipc.com/wp-content/uploads/2024/11/EPC-30XA%E5%B0%BA%E5%AF%B8%E5%9B%BE-1024x567.png",
+      "https://cesipc.com/wp-content/uploads/2024/11/EPC-30XAIO%E6%8E%A5%E5%8F%A3%E5%9B%BE-1024x262.png",
+    ],
+    selection: [
+      { partNumber: "C10.03.01.001", cpu: "Intel® Celeron® J1900",  memory: "4GB", storage: "mSATA SSD 128GB" },
+      { partNumber: "C10.03.04.001", cpu: "Intel® Celeron® J6412",  memory: "8GB", storage: "mSATA SSD 256GB" },
+      { partNumber: "C10.03.03.001", cpu: "Intel® Core™ i3-10110U", memory: "8GB", storage: "mSATA SSD 256GB" },
+      { partNumber: "C10.03.03.002", cpu: "Intel® Core™ i5-10210U", memory: "8GB", storage: "mSATA SSD 256GB" },
+      { partNumber: "C10.03.03.003", cpu: "Intel® Core™ i7-10710U", memory: "8GB", storage: "mSATA SSD 256GB" },
+      { partNumber: "C10.03.04.001", cpu: "Intel® Core™ i3-1215U",  memory: "8GB", storage: "mSATA SSD 256GB" },
+      { partNumber: "C10.03.04.002", cpu: "Intel® Core™ i5-1235U",  memory: "8GB", storage: "mSATA SSD 256GB" },
+      { partNumber: "C10.03.04.004", cpu: "Intel® Core™ i7-1255U",  memory: "8GB", storage: "mSATA SSD 256GB" },
+    ],
+  },
+
+  /* ───────────── EPC-40XA — Flagship 337×160×79.5mm (Cooling +168%) ───────────── */
+  "epc-40xa": {
+    id: "epc-40xa",
+    intro:
+      "EPC-40XA Industrial Box PC เรือธง — ขนาดใหญ่ที่สุดในซีรีส์ 337×160×79.5mm รวมจุดเด่นของ EPC-20XA (สูง) + EPC-30XA (กว้าง) ให้พื้นที่ระบายความร้อน +168% จาก EPC-10XA รองรับงาน Mission-Critical, AI Inference, Server-grade Edge — รองรับ I/O เต็มรูปแบบ 6× COM, Dual M.2 NVMe, Mini PCIe Expansion พร้อม CPU ถึง 12th Gen Core™ i7-1255U",
+    highlights: COMMON_INTRO_BULLETS([
+      "Intel® Core™ i7/i5/i3 (รองรับ Celeron® ถึง 12th Gen Core™)",
+      "Maximum Form Factor 337×160×79.5mm — Cooling +168%",
+      "6× COM (4×RS-232 + 2×RS-485) — เชื่อม PLC/Sensor หลายตัว",
+      "2× Intel® I210 Gigabit Ethernet • Dual M.2 NVMe + Mini PCIe",
+    ]),
+    specs: [
+      {
+        title: "System Core",
+        rows: [
+          { label: "CPU", value: "Intel® Celeron® J1900 (2.0~2.42GHz) / J6412 (2.0~2.6GHz) • 10th Gen i3-10110U / i5-10210U / i7-10710U • 12th Gen i3-1215U / i5-1235U / i5-1240P / i7-1255U" },
+          { label: "Memory", value: "4~8GB DDR3L / 4~32GB DDR4 / 4~32GB DDR5" },
+          { label: "Storage", value: "1× mSATA SSD + Dual M.2 2280 NVMe (Expansion)" },
+          { label: "Cooling", value: "Fanless — Cooling Surface +168% จาก EPC-10XA" },
+          { label: "OS", value: "Windows 10 / 11, Linux Ubuntu" },
+          { label: "Hardware Security", value: "TPM 2.0" },
+        ],
+      },
+      {
+        title: "I/O Ports",
+        rows: [
+          { label: "USB 2.0", value: "2× USB 2.0 (Core™) / 5× USB 2.0 (Celeron®)" },
+          { label: "USB 3.0", value: "4× USB 3.0 (Core™) / 1× USB 3.0 (Celeron®)" },
+          { label: "COM (Serial)", value: "4× RS-232 + 2× RS-485 (DB9)" },
+          { label: "Display", value: "1× HDMI + 1× VGA — Dual Display" },
+          { label: "Audio", value: "1× Audio Out + 1× Mic In" },
+          { label: "Ethernet", value: "2× 10/100/1000M Intel® I210 LAN" },
+          { label: "Expansion", value: "1× Mini PCIe • Dual M.2 2280 NVMe • M.2 2230 (Wi-Fi/BT)" },
+        ],
+      },
+      {
+        title: "Wireless",
+        rows: [
+          { label: "Wi-Fi / Bluetooth", value: "Wi-Fi + BT (M.2 2230 — Optional)" },
+          { label: "Cellular", value: "4G LTE Full Network (Optional)" },
+        ],
+      },
+      {
+        title: "Power",
+        rows: [
+          { label: "DC Input", value: "12V DC (Standard) • 9–36V DC Wide Input (Optional)" },
+          { label: "Booting", value: "AT (Auto Power-on) / ATX (Power Button)" },
+          { label: "Protection", value: "CESIPC SafeCore™ Power-loss Protection + Auto Restart" },
+        ],
+      },
+      {
+        title: "Environment",
+        rows: [
+          { label: "Operating Temp", value: "0~50°C (-40~70°C Optional)" },
+          { label: "Storage Temp", value: "-10~60°C" },
+          { label: "Humidity", value: "10–90% non-condensing" },
+        ],
+      },
+      {
+        title: "Mechanical",
+        rows: [
+          { label: "Dimension", value: "337.0 (W) × 160.0 (D) × 79.5 (H) mm" },
+          { label: "Weight", value: "4.0 kg" },
+          { label: "Material", value: "High-Strength 6061 Aluminum Alloy" },
+          { label: "Mounting", value: "Wall-mount / VESA Mount" },
+        ],
+      },
+      {
+        title: "Certifications",
+        rows: [
+          { label: "Certs", value: "CE / FCC / BIS (EN 55032, EN 55035) • RoHS" },
+          { label: "ODM", value: "Custom BIOS / Boot Logo / OEM Branding / Custom I/O" },
+        ],
+      },
+    ],
+    gallery: [
+      "/images/wix/0597a3_97f200930e3047dc887b96a9e8c48203_bc6a9156.png",
+      "https://cesipc.com/wp-content/uploads/2025/05/EPC-40XA-2-1024x683.jpg",
+      "https://cesipc.com/wp-content/uploads/2025/05/EPC-40XA-1-1024x683.jpg",
+      "https://cesipc.com/wp-content/uploads/2025/05/EPC-402A-2-1024x683.jpg",
+      "https://cesipc.com/wp-content/uploads/2025/05/EPC-402A-1-1024x683.jpg",
+      "https://cesipc.com/wp-content/uploads/2025/05/image-1-1024x493.png",
+      "https://cesipc.com/wp-content/uploads/2025/05/image-1024x274.png",
+    ],
+    selection: [
+      { partNumber: "C10.04.01.001", cpu: "Intel® Celeron® J1900",  memory: "4GB", storage: "mSATA SSD 128GB" },
+      { partNumber: "C10.04.04.001", cpu: "Intel® Celeron® J6412",  memory: "8GB", storage: "mSATA SSD 256GB" },
+      { partNumber: "C10.04.03.001", cpu: "Intel® Core™ i3-10110U", memory: "8GB", storage: "mSATA SSD 256GB" },
+      { partNumber: "C10.04.03.002", cpu: "Intel® Core™ i5-10210U", memory: "8GB", storage: "mSATA SSD 256GB" },
+      { partNumber: "C10.04.03.003", cpu: "Intel® Core™ i7-10710U", memory: "8GB", storage: "mSATA SSD 256GB" },
+      { partNumber: "C10.04.04.001", cpu: "Intel® Core™ i3-1215U",  memory: "8GB", storage: "mSATA SSD 256GB" },
+      { partNumber: "C10.04.04.002", cpu: "Intel® Core™ i5-1235U",  memory: "8GB", storage: "mSATA SSD 256GB" },
+      { partNumber: "C10.04.04.003", cpu: "Intel® Core™ i5-1240P",  memory: "8GB", storage: "mSATA SSD 256GB" },
+      { partNumber: "C10.04.04.004", cpu: "Intel® Core™ i7-1255U",  memory: "8GB", storage: "mSATA SSD 256GB" },
+    ],
+  },
 };
