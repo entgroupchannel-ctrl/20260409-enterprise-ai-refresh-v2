@@ -926,9 +926,7 @@ const ShopStorefront = () => {
           };
           const panelBoxSeeds: PanelBoxSeed[] = [
             { id: 'epc-w13', model: 'EPC-W13X2A', series: 'EPC Panel PC', desc: '13.3" 16:9 — Compact Touch Panel PC', image: '/images/wix/0597a3_a24a2701c3274227be9a623a39fcad77_c5875973.png', href: '/epc-series#wide' },
-            { id: 'epc-w15', model: 'EPC-W15X2A', series: 'EPC Panel PC', desc: '15.6" 16:9 — Wide Touch Panel PC', image: '/images/wix/0597a3_f72a672e77bc413a90eaa099e8bcfe0e_679aa82e.png', href: '/epc-series#wide', popular: true },
             { id: 'epc-w18', model: 'EPC-W18X2A', series: 'EPC Panel PC', desc: '18.5" 16:9 — Industrial Wide Display', image: '/images/wix/0597a3_1afba5b0dac84a259a2dd29c1fda6909_57745515.png', href: '/epc-series#wide' },
-            { id: 'epc-w21', model: 'EPC-W21X2A', series: 'EPC Panel PC', desc: '21.5" 16:9 — Full HD Touch Panel PC', image: '/images/wix/0597a3_cfe6c90e6ba44ef3ba3a0aa5a698f32d_2b0c00e1.png', href: '/epc-series#wide', popular: true },
             { id: 'epc-w24x2a', model: 'EPC-W24X2A', series: 'EPC Panel PC', desc: '23.6" 16:9 — จอใหญ่สุดของ Wide Series', image: '/images/products/epc-w24x2a.jpg', href: '/epc-series#wide' },
             { id: 'epc-s10x2a', model: 'EPC-S10X2A', series: 'EPC Panel PC', desc: '10.4" 4:3 SXGA — Compact Standard Panel PC', image: '/images/products/s10x2a/front.webp', href: '/epc-series#standard' },
             { id: 'epc-s12x2a', model: 'EPC-S12X2A', series: 'EPC Panel PC', desc: '12.1" 4:3 SXGA — Standard Panel PC', image: '/images/products/s12x2a/front.webp', href: '/epc-series#standard' },
