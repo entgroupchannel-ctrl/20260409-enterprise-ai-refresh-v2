@@ -1050,7 +1050,7 @@ export const epcModelDetails: Record<string, EpcModelDetail> = {
     ],
     productImages: [
       { src: '/images/products/w24x2a/dimensions.png', alt: 'EPC-W24X2A Dimensions Drawing', caption: 'Dimensions: 589.3 × 361.2 × 75.1 mm • Cutout: 562.7 × 338.4 mm' },
-      { src: '/images/products/w24x2a/dimensions-detail.png', alt: 'EPC-W24X2A Detailed Dimensions Drawing', caption: 'แบบมิติละเอียด — Front / Side / Rear / Mounting Holes 4-M4' },
+      { src: '/images/products/w24x2a/io-labels-detail.png', alt: 'EPC-W24X2A I/O Layout Diagram — Bottom & Rear Ports', caption: 'I/O Layout — ด้านล่าง: Wi-Fi, COM1–5, USB1–2, On/Off · ด้านหลัง: HDMI, USB3–6, LAN1–2, Audio, VGA, COM1, DC IN, GND' },
     ],
     gallery: [
       { src: '/images/products/w24x2a/app-mes-factory.jpg', alt: 'EPC-W24X2A — MES Factory Application', caption: 'MES Industry — Factory Application Case' },
