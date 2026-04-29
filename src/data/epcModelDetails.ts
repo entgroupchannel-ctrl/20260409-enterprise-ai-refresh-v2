@@ -7,6 +7,34 @@ export type EpcGalleryImage = { src: string; alt: string; caption?: string };
 export type EpcSelectionRow = {
   no: string; model: string; partNumber: string; cpu: string; memory: string; storage: string;
 };
+// Configurator (W24X2A-style) — buyer-selectable options with price deltas
+export type EpcCpuOption = {
+  key: string;          // unique id, e.g. 'j1900'
+  label: string;        // display, e.g. 'Intel® Celeron® J1900'
+  cores: number;
+  threads: number;
+  freq: string;         // '2.0–2.4 GHz'
+  cache: string;        // '2MB'
+  tdp: string;          // '10W'
+  graphics: string;     // 'Intel® HD'
+  memorySupport: string; // '4–8GB DDR3L'
+  storageSupport: string; // '1× mSATA SSD'
+  baseModel: string;    // factory model code, e.g. 'EPC-W2462A'
+  basePrice: number;    // THB before VAT — base unit (CPU+min RAM+min SSD)
+};
+export type EpcChoiceOption = { key: string; label: string; addPrice: number; note?: string };
+export type EpcConfigurator = {
+  cpus: EpcCpuOption[];
+  ram: EpcChoiceOption[];        // delta vs base RAM
+  storage: EpcChoiceOption[];    // delta vs base SSD
+  touch: EpcChoiceOption[];      // P-CAP / Resistive
+  wireless: EpcChoiceOption[];   // None / Wi-Fi / 4G / both
+  os: EpcChoiceOption[];         // None / Win10 / Win11 / Ubuntu
+  tempRange: EpcChoiceOption[];  // 0~50°C / -40~70°C
+  powerInput: EpcChoiceOption[]; // 12V / 9-36V
+  warranty: { years: 1 | 2 | 3; label: string; multiplier: number }[];
+};
+
 export type EpcModelDetail = {
   slug: string;          // route slug, e.g. 'epc-w15x2a'
   model: string;         // display model, e.g. 'EPC-W15X2A'
@@ -24,6 +52,7 @@ export type EpcModelDetail = {
   productImages?: EpcGalleryImage[];     // ►Product images & sizes (dimensions, IO map)
   gallery?: EpcGalleryImage[];           // additional product photos
   selectionTable?: EpcSelectionRow[];    // factory part-number selection guide
+  configurator?: EpcConfigurator;        // buyer-selectable build (W24X2A-style)
   datasheetUrl?: string;                 // PDF datasheet link (factory)
   image: string;
   landingHref: string;   // landing page anchor on EPCSeries / EPCBoxSeries
