@@ -92,6 +92,25 @@ export default function ProductImageGalleryZoom({ images, alt, enableZoom = true
             {activeIndex + 1} / {validImages.length}
           </div>
         )}
+
+        {/* Dot indicators */}
+        {validImages.length > 1 && (
+          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 bg-background/60 backdrop-blur px-2 py-1 rounded-full">
+            {validImages.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveIndex(i)}
+                aria-label={`ไปยังภาพที่ ${i + 1}`}
+                className={cn(
+                  "transition-all rounded-full",
+                  i === activeIndex
+                    ? "w-5 h-1.5 bg-primary"
+                    : "w-1.5 h-1.5 bg-muted-foreground/40 hover:bg-muted-foreground/70"
+                )}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Thumbnails */}
