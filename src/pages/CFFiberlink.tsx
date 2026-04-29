@@ -33,6 +33,10 @@ import {
   Gift,
   Phone,
   MessageCircle,
+  Snowflake,
+  Thermometer,
+  ArrowRight,
+  Star,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
