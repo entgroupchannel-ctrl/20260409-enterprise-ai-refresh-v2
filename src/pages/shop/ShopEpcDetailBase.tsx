@@ -14,7 +14,7 @@ import { savePendingQuote } from '@/hooks/usePendingQuote';
 import {
   ArrowLeft, Package, FileText, ShoppingCart, Sparkles, Check, ExternalLink, Phone,
   ShieldCheck, Settings2, Image as ImageIcon, Ruler, Cable, ListChecks, Download, Factory,
-  Cpu, MemoryStick, HardDrive, Wifi, MonitorCog, Thermometer, Zap, Wrench, Plus, MessageCircle, Gift, TrendingDown,
+  Cpu, MemoryStick, HardDrive, Wifi, MonitorCog, Thermometer, Zap, Wrench, Plus, MessageCircle, Gift, TrendingDown, ChevronDown,
 } from 'lucide-react';
 import LineQRButton from '@/components/LineQRButton';
 import ProductImageGalleryZoom from '@/components/shop/ProductImageGalleryZoom';
