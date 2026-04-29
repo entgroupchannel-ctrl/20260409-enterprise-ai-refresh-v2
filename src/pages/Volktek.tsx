@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SEOHead from "@/components/SEOHead";
 import ProductJsonLd from "@/components/ProductJsonLd";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import { Link } from "react-router-dom";
-import { ArrowLeft, ExternalLink, Shield, Zap, Network, Server, ThermometerSun, Globe, FileText, Youtube, ThumbsUp, Play } from "lucide-react";
+import { ArrowLeft, ArrowRight, ExternalLink, Shield, Zap, Network, Server, ThermometerSun, Globe, FileText, Youtube, ThumbsUp, Play, MapPin, Cpu, Layers, Radio, Cable, Activity, Wifi } from "lucide-react";
 import AddToCartButton from "@/components/AddToCartButton";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
 import CartBadge from "@/components/CartBadge";
@@ -15,57 +15,150 @@ import FooterCompact from "@/components/FooterCompact";
 import B2BPlatformInterfaceShowcase from "@/components/B2BPlatformInterfaceShowcase";
 import MiniNavbar from "@/components/MiniNavbar";
 
+// Official assets from volktek.com
+import heroSpe from "@/assets/volktek/hero-spe.png";
+import heroBtPoe from "@/assets/volktek/hero-bt-poe.png";
+import heroFactory from "@/assets/volktek/hero-factory-automation.jpg";
+import heroLamungan from "@/assets/volktek/hero-lamungan.gif";
+import heroNms from "@/assets/volktek/hero-nms.png";
+import heroMadeInTaiwan from "@/assets/volktek/hero-made-in-taiwan.jpg";
+import heroPartner from "@/assets/volktek/hero-partner.png";
+import catLayer3 from "@/assets/volktek/cat-layer3.jpg";
+import catIndustrialEthernet from "@/assets/volktek/cat-industrial-ethernet.jpg";
+import catIndustrialPoe from "@/assets/volktek/cat-industrial-poe.jpg";
+import catMetroEthernet from "@/assets/volktek/cat-metro-ethernet.jpg";
+import catMediaConverter from "@/assets/volktek/cat-media-converter.jpg";
+import catEmsNms from "@/assets/volktek/cat-ems-nms.png";
+import catSfp from "@/assets/volktek/cat-sfp.jpg";
+import catPoeInjector from "@/assets/volktek/cat-poe-injector.jpg";
+import catFirewall from "@/assets/volktek/cat-firewall.jpg";
+import catAccessories from "@/assets/volktek/cat-accessories.jpg";
+
+// Hero rotator — official Volktek banners
+const heroSlides = [
+  {
+    image: heroSpe,
+    badge: "Long-Reach SPE",
+    title: "Connectivity Made Simple",
+    desc: "โซลูชั่น Single-Pair Ethernet ระยะไกล — ลดสาย ลดต้นทุน เพิ่มความน่าเชื่อถือ",
+  },
+  {
+    image: heroBtPoe,
+    badge: "BT PoE",
+    title: "High-Power PoE for High-Performance Network",
+    desc: "PoE++ จ่ายไฟ 90W ต่อพอร์ต รองรับกล้อง PTZ, AP Wi-Fi 6/7, อุปกรณ์ IoT",
+  },
+  {
+    image: heroFactory,
+    badge: "Factory Automation",
+    title: "Optimizing Connectivity",
+    desc: "Advantage Redefined — Excellence through Factory Automation",
+  },
+  {
+    image: heroLamungan,
+    badge: "LAMUNGAN Platform",
+    title: "Easy to manage with Wizard, Topology Map and Dashboard",
+    desc: "แพลตฟอร์มจัดการเครือข่ายแบบรวมศูนย์ ตั้งค่าง่ายผ่าน Web UI",
+  },
+  {
+    image: heroNms,
+    badge: "Network Management",
+    title: "Manage & Monitor Entire Network",
+    desc: "ดูแลอุปกรณ์หลากหลายประเภทและการเชื่อมต่อระหว่างกันในที่เดียว",
+  },
+];
+
+// 10 Product Categories — based on actual volktek.com catalog
 const productCategories = [
   {
-    id: "managed",
-    title: "Managed Switches",
-    desc: "สวิตช์อัจฉริยะควบคุมผ่าน SNMP, VLAN, QoS, Ring Protocol",
-    image: "/images/wix/0597a3_48bf9c799b124b9a9da5ef1e5a0681d9_d0c037c4.png",
-    modelImage: "/images/wix/0597a3_e4054080649041dabe0efc39aa2951c7_eb098d81.png",
+    id: "layer3",
+    icon: Layers,
+    title: "Layer 3 Industrial Switches",
+    desc: "L3 Managed Switches และ L3 Managed PoE++ สำหรับเครือข่ายอุตสาหกรรมขั้นสูงที่ต้องการ Routing",
+    image: catLayer3,
+    items: ["Layer 3 Managed Switches", "Layer 3 Managed PoE++ Switches"],
+    href: "https://www.volktek.com/product_en.php?id=663",
   },
   {
-    id: "unmanaged",
-    title: "Unmanaged Switches",
-    desc: "สวิตช์ Plug & Play ติดตั้งง่าย ใช้งานทันที เหมาะงานทั่วไป",
-    image: "/images/wix/0597a3_9cbf5fb4839349cf93e849292e728cd8_2ebdabea.png",
-    modelImage: "/images/wix/0597a3_d9937cea9cb147feaf1fe73f1e9d959b_38b90c50.png",
+    id: "industrial-ethernet",
+    icon: Network,
+    title: "Industrial Ethernet Switches",
+    desc: "ครอบคลุม Unmanaged, Lite Managed, Managed และ DNV/LR Certified สำหรับงานทางทะเล",
+    image: catIndustrialEthernet,
+    items: ["Unmanaged Basic / Premium", "Lite Managed", "Managed Switches", "DNV & LR Certified"],
+    href: "https://www.volktek.com/product_en.php?id=52",
   },
   {
-    id: "standard",
-    title: "Standard Switches",
-    desc: "สวิตช์มาตรฐานสำหรับเครือข่ายพื้นฐาน",
-    image: "/images/wix/0597a3_05c7f13bef77470f9deea1d2615dbeac_2fee225f.png",
+    id: "industrial-poe",
+    icon: Zap,
+    title: "Industrial PoE Switches",
+    desc: "PoE+, PoE++, BT PoE — จ่ายไฟผ่านสาย LAN ให้กล้อง IP, AP, IP Phone, อุปกรณ์ IoT",
+    image: catIndustrialPoe,
+    items: ["Unmanaged PoE+", "Lite Managed PoE+", "Managed PoE+", "Managed PoE++"],
+    href: "https://www.volktek.com/product_en.php?id=51",
   },
   {
-    id: "substation",
-    title: "Substation Certified Switches",
-    desc: "สวิตช์ที่ผ่านการรับรองสำหรับสถานีไฟฟ้า",
-    image: "/images/wix/0597a3_b83747428b3c4d8cabc421f12481a73b_410095fc.png",
-    modelImage: "/images/wix/0597a3_19127454a9974f01bb23f7c61e860a89_3c96d9ae.png",
+    id: "metro-ethernet",
+    icon: Globe,
+    title: "Metro Ethernet Switches",
+    desc: "1G / 10G Aggregation และ Access Switches สำหรับ Service Provider และ Metro Network",
+    image: catMetroEthernet,
+    items: ["1G / 10G Aggregation", "1G / 10G Access Switches"],
+    href: "https://www.volktek.com/product_en.php?id=50",
   },
   {
-    id: "railway",
-    title: "Railway Certified Switches",
-    desc: "สวิตช์ที่ผ่านมาตรฐานสำหรับระบบราง",
-    image: "/images/wix/0597a3_1de8b4b957214fb491d35bbfc6151c43_2f1323c5.png",
+    id: "media-converter",
+    icon: Cable,
+    title: "Media Converters",
+    desc: "แปลง Copper ↔ Fiber, Serial ↔ Fiber, SPE Converters พร้อมรุ่น PoE+",
+    image: catMediaConverter,
+    items: ["Copper to Fiber", "PoE+ Converters", "Serial to Fiber", "SPE Converters"],
+    href: "https://www.volktek.com/product_en.php?id=56",
   },
   {
-    id: "dnv",
-    title: "DNV Certified Switches",
-    desc: "สวิตช์ที่ผ่านมาตรฐาน DNV สำหรับงานทางทะเล",
-    image: "/images/wix/0597a3_18695496fbc24aa8b5a965d98a37ed8f_854a2b39.png",
+    id: "ems-nms",
+    icon: Activity,
+    title: "EMS / NMS Software",
+    desc: "LAMUNGAN และ INDY — แพลตฟอร์มจัดการอุปกรณ์เครือข่ายแบบรวมศูนย์",
+    image: catEmsNms,
+    items: ["LAMUNGAN Management", "INDY NMS"],
+    href: "https://www.volktek.com/product_en.php?id=609",
   },
   {
-    id: "profinet",
-    title: "Profinet Certified Switches",
-    desc: "สวิตช์ Profinet สำหรับระบบอัตโนมัติอุตสาหกรรม",
-    image: "/images/wix/0597a3_36b9080d86624aae8c54f11bf0603b16_95fc33af.png",
+    id: "sfp",
+    icon: Radio,
+    title: "SFP Modules",
+    desc: "100BASE, Gigabit, 10G SFP+ ทั้งแบบ Standard และ Bi-Di รองรับระยะหลายแบบ",
+    image: catSfp,
+    items: ["100BASE / 100BASE Bi-Di", "Gigabit / Gigabit Bi-Di", "10G SFP+"],
+    href: "https://www.volktek.com/product_en.php?id=73",
   },
   {
-    id: "ethernetip",
-    title: "EtherNet/IP Certified Switches",
-    desc: "สวิตช์ EtherNet/IP สำหรับ Industrial Protocol",
-    image: "/images/wix/0597a3_a12ee0f5c79f4d74a17f41fd57aacb30_bf7444aa.png",
+    id: "poe-injector",
+    icon: Wifi,
+    title: "PoE Injectors / Splitters",
+    desc: "PoE Injector สำหรับเพิ่มความสามารถจ่ายไฟ และ Splitter สำหรับอุปกรณ์ที่ไม่รองรับ PoE",
+    image: catPoeInjector,
+    items: ["PoE Injectors", "PoE Splitters"],
+    href: "https://www.volktek.com/product_en.php?id=108",
+  },
+  {
+    id: "firewall",
+    icon: Shield,
+    title: "Network Security Appliances",
+    desc: "Industrial Firewall — ปกป้องเครือข่าย OT/ICS จากภัยคุกคามไซเบอร์",
+    image: catFirewall,
+    items: ["Industrial Firewall"],
+    href: "https://www.volktek.com/product_en.php?id=672",
+  },
+  {
+    id: "accessories",
+    icon: Cpu,
+    title: "Accessories",
+    desc: "Industrial Power Supply DIN-Rail, อุปกรณ์เสริมสำหรับติดตั้งระบบเครือข่ายอุตสาหกรรม",
+    image: catAccessories,
+    items: ["Power Supply DIN-Rail"],
+    href: "https://www.volktek.com/product_en.php?id=100",
   },
 ];
 
@@ -102,56 +195,75 @@ const features = [
   },
 ];
 
-const productGallery = [
-  "/images/wix/0597a3_6ca4cc5c13dd494cae13b9496d742c13_5d6812aa.png",
-  "/images/wix/0597a3_bacbf34c36704fce95f1e0dd7c47a148_c5be366e.png",
-  "/images/wix/0597a3_9fa5509272ea4cd0af1809c12c3a6267_9f6b64cc.png",
-  "/images/wix/0597a3_f82fea86a23a4d368ac4dfe9530a8094_5c647f49.png",
-  "/images/wix/0597a3_2d85bf5136fc48debd9e6b4bee94ccdc_bc1ae1b9.png",
-  "/images/wix/0597a3_f1c99ab866a440538221428b13ba0903_20897a65.png",
-];
-
-const applicationGallery = [
-  "/images/wix/0597a3_4493b0eb74f24944ad49b9e2545e739b_a3fde505.png",
-  "/images/wix/0597a3_fe5e0b8b405145dc90e4fa4fa3b9adc0_fa0b4cc9.png",
-  "/images/wix/0597a3_067c41cc6f614e9a9787d4437cacafa3_774107fe.png",
-  "/images/wix/0597a3_ed37ee94be24498fb50ded257ef0443e_a44b8b8d.png",
-  "/images/wix/0597a3_ade08d50e1164d7bbcc2d37dc18e2387_02b5eb73.png",
-  "/images/wix/0597a3_4968fd66fa9a4ecf9d5090fd6151c434_0750959b.png",
-  "/images/wix/0597a3_cfd98f82e82845adbdbd09a0a8834698_f985bf04.png",
-  "/images/wix/0597a3_804332b8a4774899a1a14df53907b7c9_eb85a68c.png",
-];
-
 const Volktek = () => {
+  const [slideIndex, setSlideIndex] = useState(0);
+
+  // Auto rotate hero
+  useEffect(() => {
+    const t = setInterval(() => {
+      setSlideIndex((i) => (i + 1) % heroSlides.length);
+    }, 6000);
+    return () => clearInterval(t);
+  }, []);
+
+  const slide = heroSlides[slideIndex];
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="Volktek Industrial Ethernet Switch" description="Volktek Industrial Ethernet Switch Managed/Unmanaged PoE สำหรับโรงงาน ระบบกล้องวงจรปิด และโครงข่ายอุตสาหกรรม" path="/volktek" />
       <ProductJsonLd
         collectionName="Volktek Industrial Ethernet Switch"
-
         collectionDescription="Volktek Industrial Ethernet Switch Managed/Unmanaged PoE สำหรับโรงงานและระบบกล้องวงจรปิด"
-
         collectionUrl="/volktek"
-
         products={productCategories.map(c => ({ name: c.title, description: c.desc, category: "Industrial Ethernet Switch" }))}
       />
-
       <BreadcrumbJsonLd items={[{ name: "สินค้า", path: "/products" }, { name: "Volktek", path: "/volktek" }]} />
       <MiniNavbar />
-      {/* Hero */}
+
+      {/* Hero Rotator — Official Volktek Banners */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-accent/5" />
         <div className="container max-w-7xl mx-auto px-4 py-6 relative z-10">
-          <div className="card-surface overflow-hidden mb-8">
-            <img
-              src="/images/wix/0597a3_acc5fb9c15d549868644c80cf3d94d4f_1179ee4b.png"
-              alt="Volktek Industrial Ethernet"
-              className="w-full h-auto"
-            />
+          <div className="card-surface overflow-hidden mb-8 relative group">
+            <div className="relative aspect-[21/9] sm:aspect-[21/8] bg-muted overflow-hidden">
+              {heroSlides.map((s, i) => (
+                <img
+                  key={i}
+                  src={s.image}
+                  alt={s.title}
+                  loading={i === 0 ? "eager" : "lazy"}
+                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+                    i === slideIndex ? "opacity-100" : "opacity-0"
+                  }`}
+                />
+              ))}
+              <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/40 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-8">
+                <Badge className="bg-primary/20 text-primary border-primary/30 mb-2 backdrop-blur-sm">{slide.badge}</Badge>
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-display font-bold text-foreground mb-2 leading-tight max-w-3xl">
+                  {slide.title}
+                </h2>
+                <p className="text-sm text-muted-foreground max-w-2xl line-clamp-2">{slide.desc}</p>
+              </div>
+              {/* Slide indicators */}
+              <div className="absolute top-4 right-4 flex gap-1.5 bg-background/60 backdrop-blur-sm rounded-full px-2 py-1">
+                {heroSlides.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setSlideIndex(i)}
+                    aria-label={`Slide ${i + 1}`}
+                    className={`h-1.5 rounded-full transition-all ${
+                      i === slideIndex ? "w-6 bg-primary" : "w-1.5 bg-muted-foreground/40 hover:bg-muted-foreground/70"
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-2">
             <div>
-              <Badge className="bg-primary/10 text-primary border-primary/20 mb-3">Official Partner</Badge>
+              <Badge className="bg-primary/10 text-primary border-primary/20 mb-3">Official Partner · ตัวแทนจำหน่ายในประเทศไทย</Badge>
               <h1 className="text-3xl md:text-5xl font-display font-bold text-foreground mb-3">
                 Volktek <span className="text-gradient">Industrial Ethernet</span>
               </h1>
@@ -173,34 +285,31 @@ const Volktek = () => {
       </div>
 
       <div className="container max-w-7xl mx-auto px-4 py-10 space-y-16">
-        {/* About Cards */}
-        <section>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {[
-              {
-                image: "/images/wix/0597a3_0b5ba123241440f18f3216c8e81f0d16_20836036.jpg",
-                title: "Volktek Solutions",
-                desc: "โซลูชั่นที่ได้รับการพิสูจน์จากการใช้งานจริงทั่วโลก",
-              },
-              {
-                image: "/images/wix/0597a3_5a253786558044848ea83dbb340e88d1_7d83083b.jpg",
-                title: "Next Generation",
-                desc: "รองรับทั้ง Ethernet ปัจจุบันและ Next Generation Platform",
-              },
-              {
-                image: "/images/wix/0597a3_300d948b2d424bacafe7adbda7ed890e_43333d21.jpg",
-                title: "Certified Quality",
-                desc: "ได้รับการรับรอง DNV/GL, ISO, FCC, CE, VCCI ระดับสากล",
-              },
-            ].map((card, i) => (
-              <div key={i} className="card-surface overflow-hidden">
-                <img src={card.image} alt={card.title} className="w-full h-48 object-cover"/>
-                <div className="p-5">
-                  <h3 className="font-semibold text-foreground mb-1">{card.title}</h3>
-                  <p className="text-sm text-muted-foreground">{card.desc}</p>
-                </div>
+        {/* Made in Taiwan — Factory Credibility */}
+        <section className="card-surface overflow-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            <div className="relative aspect-video md:aspect-auto md:min-h-[320px]">
+              <img src={heroMadeInTaiwan} alt="Volktek — Made in Taiwan" loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
+            </div>
+            <div className="p-6 md:p-10 flex flex-col justify-center">
+              <div className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider uppercase text-primary mb-3">
+                <MapPin className="w-3.5 h-3.5" /> Made in Taiwan · Since 1994
               </div>
-            ))}
+              <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-3 leading-tight">
+                ผู้นำด้านการออกแบบและผลิต <span className="text-gradient">เครือข่ายอุตสาหกรรม</span>
+              </h2>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-5">
+                Volktek เป็น ODM/OEM ระดับโลก ออกแบบและผลิตอุปกรณ์เครือข่ายในไต้หวัน ส่งออกกว่า 60 ประเทศ
+                ด้วยประสบการณ์กว่า 30 ปี เราพัฒนาเทคโนโลยีและบริการระดับมืออาชีพเพื่อตอบโจทย์
+                Mission-Critical Network ในทุกอุตสาหกรรม
+              </p>
+              <div className="flex gap-2 flex-wrap">
+                <Badge variant="outline" className="border-primary/30">30+ Years</Badge>
+                <Badge variant="outline" className="border-primary/30">60+ Countries</Badge>
+                <Badge variant="outline" className="border-primary/30">ODM / OEM</Badge>
+                <Badge variant="outline" className="border-primary/30">Mission-Critical</Badge>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -211,7 +320,6 @@ const Volktek = () => {
           </h2>
           <img src={volktekCertifications} alt="Volktek Certifications - Profinet, Modbus, CE, FCC, RoHS, DNV GL" className="w-full max-w-4xl mx-auto h-auto" />
         </section>
-
 
         {/* Features */}
         <section>
@@ -228,33 +336,15 @@ const Volktek = () => {
           </div>
         </section>
 
-        {/* Factory Automation Use Case */}
-        <section className="card-surface p-6 md:p-8">
-          <h2 className="text-xl font-display font-bold text-foreground mb-4">Factory Automation — Use Case</h2>
-          <div className="flex flex-col md:flex-row gap-6">
-            <div className="md:w-1/2 space-y-4 text-sm text-muted-foreground">
-              <p>PLC และ RTU สื่อสารกับเครื่องจักร เซ็นเซอร์ และอุปกรณ์ปลายทาง จากนั้นส่งข้อมูลไปยังระบบ SCADA ผ่านสวิตช์เครือข่ายอุตสาหกรรม Volktek</p>
-              <ul className="space-y-2">
-                <li className="flex items-start gap-2"><span className="text-primary shrink-0">■</span> ทำงานที่อุณหภูมิวิกฤต -40°C ถึง 75°C</li>
-                <li className="flex items-start gap-2"><span className="text-primary shrink-0">■</span> ป้องกัน ESD + EMI/EMC Certified</li>
-                <li className="flex items-start gap-2"><span className="text-primary shrink-0">■</span> ทนทานสำหรับ Mission-Critical Applications</li>
-                <li className="flex items-start gap-2"><span className="text-primary shrink-0">■</span> SNMP Monitoring แจ้งเตือนเมื่อฮาร์ดแวร์ผิดปกติ</li>
-                <li className="flex items-start gap-2"><span className="text-primary shrink-0">■</span> รวมเข้ากับ SCADA แบบกระจายขนาดใหญ่ได้</li>
-              </ul>
-            </div>
-            <div className="md:w-1/2">
-              <img
-                src="/images/wix/0597a3_d5a5792c655647a392507ede27ec62a6_63339b10.png"
-                alt="Factory Automation Diagram"
-                className="w-full h-auto rounded-lg"/>
-            </div>
-          </div>
-        </section>
-
-        {/* Product Categories */}
+        {/* Product Categories — 10 หมวดจริงตาม Volktek catalog */}
         <section>
-          <h2 className="text-2xl font-display font-bold text-foreground mb-2">Product Introduction</h2>
-          <p className="text-muted-foreground mb-6">Powering Next Generation Automation Network Solutions</p>
+          <div className="text-center mb-8">
+            <span className="text-xs font-semibold tracking-widest uppercase text-primary mb-2 block">Product Catalog</span>
+            <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-2">
+              10 หมวดผลิตภัณฑ์ <span className="text-gradient">Volktek</span>
+            </h2>
+            <p className="text-muted-foreground text-sm">ครอบคลุมทุกความต้องการของเครือข่ายอุตสาหกรรม</p>
+          </div>
 
           {/* Quick Nav */}
           <div className="flex gap-2 overflow-x-auto pb-4 mb-6 scrollbar-hide">
@@ -262,29 +352,44 @@ const Volktek = () => {
               <a
                 key={cat.id}
                 href={`#${cat.id}`}
-                className="shrink-0 px-3 py-2 rounded-lg text-xs font-medium bg-secondary/50 text-foreground/70 border border-border hover:border-primary/30 transition-all">
+                className="shrink-0 px-3 py-2 rounded-lg text-xs font-medium bg-secondary/50 text-foreground/70 border border-border hover:border-primary/30 hover:text-foreground transition-all flex items-center gap-1.5">
+                <cat.icon className="w-3.5 h-3.5" />
                 {cat.title}
               </a>
             ))}
           </div>
 
-          <div className="space-y-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {productCategories.map((cat) => (
-              <div key={cat.id} id={cat.id} className="card-surface overflow-hidden scroll-mt-24">
-                <div className="p-6">
-                  <div className="flex items-center justify-between mb-1">
-                    <h3 className="text-lg font-display font-bold text-foreground">{cat.title}</h3>
+              <div key={cat.id} id={cat.id} className="card-surface overflow-hidden scroll-mt-24 group hover:border-primary/30 transition-colors">
+                <div className="relative aspect-[16/10] bg-muted overflow-hidden">
+                  <img src={cat.image} alt={cat.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+                  <div className="absolute top-3 left-3">
+                    <div className="w-9 h-9 rounded-lg bg-background/90 backdrop-blur-sm border border-border flex items-center justify-center">
+                      <cat.icon className="w-4 h-4 text-primary" />
+                    </div>
                   </div>
-                  <p className="text-sm text-muted-foreground mb-4">{cat.desc}</p>
-                  <div className="space-y-4">
-                    <img src={cat.image} alt={cat.title} className="w-full h-auto rounded-lg"/>
-                    {cat.modelImage && (
-                      <img src={`${cat.modelImage}`} alt={`${cat.title} models`} className="w-full h-auto rounded-lg"/>
-                    )}
-                  </div>
-                  <div className="flex gap-2 mt-4">
+                </div>
+                <div className="p-5">
+                  <h3 className="text-base font-display font-bold text-foreground mb-1.5">{cat.title}</h3>
+                  <p className="text-xs text-muted-foreground mb-3 leading-relaxed">{cat.desc}</p>
+                  <ul className="space-y-1 mb-4">
+                    {cat.items.map((item) => (
+                      <li key={item} className="flex items-start gap-2 text-xs text-foreground/80">
+                        <span className="text-primary shrink-0 mt-0.5">▸</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="flex gap-2 pt-3 border-t border-border">
                     <AddToCartButton productModel={cat.title} productName={`Volktek ${cat.title}`} productDescription={cat.desc} size="sm" variant="outline" iconOnly />
                     <QuoteRequestButton productModel={cat.title} productName={`Volktek ${cat.title}`} size="sm" variant="outline" iconOnly />
+                    <Button variant="ghost" size="sm" asChild className="ml-auto text-xs">
+                      <a href={cat.href} target="_blank" rel="noopener noreferrer">
+                        Datasheet <ArrowRight className="w-3 h-3 ml-1" />
+                      </a>
+                    </Button>
                   </div>
                 </div>
               </div>
@@ -292,32 +397,86 @@ const Volktek = () => {
           </div>
         </section>
 
-        {/* Product Gallery */}
-        <section>
-          <h2 className="text-2xl font-display font-bold text-foreground mb-6">ผลิตภัณฑ์ <span className="text-gradient">Volktek</span></h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-            {productGallery.map((img, i) => (
-              <div key={i} className="card-surface overflow-hidden">
-                <img src={img} alt={`Volktek Product ${i + 1}`} className="w-full h-auto object-contain"/>
-              </div>
-            ))}
+        {/* LAMUNGAN Platform — EMS spotlight */}
+        <section className="card-surface overflow-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-5">
+            <div className="md:col-span-3 relative bg-muted aspect-video md:aspect-auto md:min-h-[360px]">
+              <img src={heroLamungan} alt="LAMUNGAN Management Platform" loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
+            </div>
+            <div className="md:col-span-2 p-6 md:p-8 flex flex-col justify-center">
+              <span className="text-xs font-semibold tracking-widest uppercase text-primary mb-2">EMS Spotlight</span>
+              <h2 className="text-2xl font-display font-bold text-foreground mb-3">
+                LAMUNGAN <span className="text-gradient">Management Platform</span>
+              </h2>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                แพลตฟอร์มบริหารจัดการอุปกรณ์เครือข่ายแบบรวมศูนย์ ตั้งค่าง่ายผ่าน Wizard
+                พร้อม Topology Map และ Dashboard แบบ Real-time
+              </p>
+              <ul className="space-y-1.5 text-xs text-foreground/80 mb-5">
+                <li className="flex items-start gap-2"><span className="text-primary shrink-0">■</span> Auto-discovery & Topology Map</li>
+                <li className="flex items-start gap-2"><span className="text-primary shrink-0">■</span> Wizard-based Configuration</li>
+                <li className="flex items-start gap-2"><span className="text-primary shrink-0">■</span> SNMP Trap & Real-time Dashboard</li>
+                <li className="flex items-start gap-2"><span className="text-primary shrink-0">■</span> Multi-vendor Support</li>
+              </ul>
+              <Button variant="outline" size="sm" asChild className="self-start">
+                <a href="https://www.volktek.com/productdetail_en.php?id=1716" target="_blank" rel="noopener noreferrer">
+                  <ExternalLink className="w-3.5 h-3.5 mr-1.5" /> เรียนรู้เพิ่มเติม
+                </a>
+              </Button>
+            </div>
           </div>
         </section>
 
-        {/* Application Gallery */}
-        <section>
-          <h2 className="text-2xl font-display font-bold text-foreground mb-6">Application <span className="text-gradient">Gallery</span></h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {applicationGallery.map((img, i) => (
-              <div key={i} className="card-surface overflow-hidden">
-                <img src={img} alt={`Application ${i + 1}`} className="w-full h-auto object-contain"/>
-              </div>
-            ))}
+        {/* Factory Automation Use Case */}
+        <section className="card-surface overflow-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            <div className="p-6 md:p-8 flex flex-col justify-center">
+              <span className="text-xs font-semibold tracking-widest uppercase text-primary mb-2">Use Case</span>
+              <h2 className="text-2xl font-display font-bold text-foreground mb-4">Factory Automation</h2>
+              <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                PLC และ RTU สื่อสารกับเครื่องจักร เซ็นเซอร์ และอุปกรณ์ปลายทาง จากนั้นส่งข้อมูลไปยังระบบ SCADA ผ่านสวิตช์เครือข่ายอุตสาหกรรม Volktek
+              </p>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex items-start gap-2"><span className="text-primary shrink-0">■</span> ทำงานที่อุณหภูมิวิกฤต -40°C ถึง 75°C</li>
+                <li className="flex items-start gap-2"><span className="text-primary shrink-0">■</span> ป้องกัน ESD + EMI/EMC Certified</li>
+                <li className="flex items-start gap-2"><span className="text-primary shrink-0">■</span> ทนทานสำหรับ Mission-Critical Applications</li>
+                <li className="flex items-start gap-2"><span className="text-primary shrink-0">■</span> SNMP Monitoring แจ้งเตือนเมื่อฮาร์ดแวร์ผิดปกติ</li>
+                <li className="flex items-start gap-2"><span className="text-primary shrink-0">■</span> รวมเข้ากับ SCADA แบบกระจายขนาดใหญ่ได้</li>
+              </ul>
+            </div>
+            <div className="relative bg-muted aspect-video md:aspect-auto md:min-h-[360px]">
+              <img src={heroFactory} alt="Factory Automation" loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
+            </div>
+          </div>
+        </section>
+
+        {/* Partner CTA */}
+        <section className="card-surface overflow-hidden relative">
+          <div className="absolute inset-0">
+            <img src={heroPartner} alt="" loading="lazy" className="w-full h-full object-cover opacity-20" />
+            <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/60" />
+          </div>
+          <div className="relative p-8 md:p-12 text-center max-w-3xl mx-auto">
+            <span className="text-xs font-semibold tracking-widest uppercase text-primary mb-2 block">Partner with us</span>
+            <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-3">
+              สนใจผลิตภัณฑ์ <span className="text-gradient">Volktek</span>?
+            </h2>
+            <p className="text-muted-foreground mb-6">
+              ปรึกษาผู้เชี่ยวชาญของ ENT Group เพื่อเลือกสวิตช์ที่เหมาะกับเครือข่ายของคุณ — สนับสนุนทั้ง Distributor และ System Integrator
+            </p>
+            <div className="flex flex-wrap justify-center gap-3">
+              <Button variant="outline" asChild>
+                <a href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_888cab8832d1411582ecb607c1719677.pdf" target="_blank" rel="noopener noreferrer">
+                  <ExternalLink className="w-4 h-4 mr-1.5" /> ดาวน์โหลด Catalog
+                </a>
+              </Button>
+              <QuoteRequestButton productModel="Volktek Switch" productName="Volktek Industrial Switch" />
+            </div>
           </div>
         </section>
 
         {/* YouTube */}
-        <section className="py-12">
+        <section className="py-4">
           <div className="text-center mb-8">
             <span className="text-xs font-semibold tracking-widest uppercase text-primary mb-2 block">Media</span>
             <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground">
@@ -328,9 +487,7 @@ const Volktek = () => {
             <div className="relative aspect-video">
               <iframe
                 src="https://www.youtube.com/embed/6Y6eEitc-yQ"
-
                 title="Volktek Industrial Switch — รีวิวและแนะนำ"
-
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 className="absolute inset-0 w-full h-full"></iframe>
@@ -347,20 +504,6 @@ const Volktek = () => {
             </div>
           </div>
         </section>
-
-        {/* CTA */}
-        <div className="card-surface p-8 text-center">
-          <h2 className="text-2xl font-display font-bold text-foreground mb-3">สนใจผลิตภัณฑ์ Volktek?</h2>
-          <p className="text-muted-foreground mb-6">ปรึกษาผู้เชี่ยวชาญเพื่อเลือกสวิตช์ที่เหมาะกับเครือข่ายของคุณ</p>
-          <div className="flex justify-center gap-3">
-            <Button variant="outline" asChild>
-              <a href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_888cab8832d1411582ecb607c1719677.pdf" target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="w-4 h-4 mr-1.5" /> ดาวน์โหลด Catalog
-              </a>
-            </Button>
-              <QuoteRequestButton productModel="Volktek Switch" productName="Volktek Industrial Switch" />
-          </div>
-        </div>
       </div>
       <B2BPlatformInterfaceShowcase />
       <FooterCompact />
@@ -368,6 +511,4 @@ const Volktek = () => {
   );
 };
 
-
 export default Volktek;
-
