@@ -144,4 +144,44 @@ export const cffiberlinkCatalog: CFFiberlinkCategoryDef[] = [
       { model: "CF-HY4T048GP-SFP+", ports: "48× GbE PoE + 4× 10G SFP+", switchingCapacity: "104 Gbps", packetRate: "77.4 Mpps", size: "430×295×45 (Rack)", poe: true, badge: "48P PoE 10G", image: IMG.l3Poe },
     ],
   },
+
+  // ───────────── CCTV / Surveillance Unmanaged PoE ─────────────
+  {
+    id: "cctv-poe",
+    title: "CCTV / Surveillance PoE",
+    th: "PoE Switch สำหรับงานกล้องวงจรปิด",
+    desc: "Unmanaged PoE Switch ออกแบบเฉพาะงานกล้อง IP / NVR / Wireless AP — Plug & Play, มี CCTV mode (port isolation), ป้องกันฟ้าผ่า ESD ใช้งานง่ายสำหรับช่างหน้างาน",
+    software: [
+      "Plug & Play — ไม่ต้อง config",
+      "CCTV Mode — Port Isolation กันการชนของสัญญาณ",
+      "IEEE 802.3af/at PoE+ (สูงสุด 30W/พอร์ต)",
+      "Auto-detect อุปกรณ์ PoE / Non-PoE",
+      "ป้องกันฟ้าผ่า 6KV, ESD Protection",
+      "VLAN ป้องกัน Network Storm",
+      "Status LED ต่อพอร์ตชัดเจน",
+    ],
+    models: [
+      { model: "CF-PE204N", ports: "4× 100M PoE + 2× 100M Uplink", switchingCapacity: "1.2 Gbps", packetRate: "0.89 Mpps", size: "Desktop / Wall-mount", poe: true, badge: "4+2 PoE", image: IMG.cctv4 },
+      { model: "CF-PE208N", ports: "8× 100M PoE + 2× 100M Uplink", switchingCapacity: "2.0 Gbps", packetRate: "1.49 Mpps", size: "Desktop / Wall-mount", poe: true, badge: "8+2 PoE 120W", image: IMG.cctv8 },
+      { model: "CF-PE2421G", ports: "24× 100M PoE + 2× GbE Uplink + 1× SFP", switchingCapacity: "8.8 Gbps", packetRate: "6.55 Mpps", size: "Rack 1U", poe: true, badge: "24+2+1 PoE 400W", image: IMG.cctv24 },
+      { model: "CF-PE204G", ports: "4× GbE PoE + 2× GbE Uplink", switchingCapacity: "12 Gbps", packetRate: "8.93 Mpps", size: "Desktop / Wall-mount", poe: true, badge: "4+2 GbE PoE", image: IMG.cctv4g },
+      { model: "CF-SE2724G-A", ports: "24× GbE + 2× GbE Uplink + 1× SFP", switchingCapacity: "56 Gbps", packetRate: "41.6 Mpps", size: "Rack 1U", poe: false, badge: "27P CCTV", image: IMG.cctv27 },
+      { model: "CF-SE2724G-B", ports: "24× GbE PoE + 2× GbE Uplink + 1× SFP", switchingCapacity: "56 Gbps", packetRate: "41.6 Mpps", size: "Rack 1U", poe: true, badge: "27P CCTV PoE", image: IMG.cctv27b },
+    ],
+  },
+
+  // ───────────── Rack-mount L3 PoE Campus ─────────────
+  {
+    id: "rack-poe",
+    title: "Rack L3 PoE Campus",
+    th: "L3 Rack PoE — โรงแรม / โรงเรียน / ออฟฟิศ",
+    desc: "L3 Managed PoE Switch ระดับ Campus — มี 10G Uplink, Dynamic Routing (RIP/OSPF), เหมาะ Access/Aggregation/Core ของโรงแรม โรงเรียน ออฟฟิศที่ต้องจ่ายไฟ AP/กล้อง จำนวนมาก",
+    software: SW_L3,
+    models: [
+      { model: "CF-S5328X-4X8S16P", ports: "16× GbE PoE + 8× SFP + 4× 10G SFP+", switchingCapacity: "168 Gbps", packetRate: "78 Mpps", size: "Rack 1U (440×220×44)", poe: true, badge: "Campus 10G PoE", image: IMG.l3Poe },
+      { model: "CF-S5328X-4X24P", ports: "24× GbE PoE + 4× 10G SFP+", switchingCapacity: "128 Gbps", packetRate: "95 Mpps", size: "Rack 1U (440×220×44)", poe: true, badge: "24P PoE + 10G", image: IMG.l3Poe },
+      { model: "CF-S5352X-4X48P", ports: "48× GbE PoE + 4× 10G SFP+", switchingCapacity: "176 Gbps", packetRate: "131 Mpps", size: "Rack 1U (440×300×44)", poe: true, badge: "48P PoE Campus", image: IMG.l3Poe },
+      { model: "CF-S5328X-4X24G", ports: "24× GbE + 4× 10G SFP+ (Non-PoE)", switchingCapacity: "128 Gbps", packetRate: "95 Mpps", size: "Rack 1U (440×220×44)", poe: false, badge: "24P + 10G", image: IMG.rack },
+    ],
+  },
 ];
