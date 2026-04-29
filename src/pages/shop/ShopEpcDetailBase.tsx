@@ -126,10 +126,10 @@ export default function ShopEpcDetailBase({ slug }: Props) {
         <div className="grid lg:grid-cols-2 gap-8">
           <div>
             {(() => {
-              const heroImages = [
-                detail.image,
-                ...(detail.productImages?.map((p) => p.src) ?? []),
-              ].filter((src, i, arr) => !!src && arr.indexOf(src) === i);
+              const heroImages = (detail.heroImages && detail.heroImages.length > 0)
+                ? detail.heroImages
+                : [detail.image, ...(detail.productImages?.map((p) => p.src) ?? [])]
+                    .filter((src, i, arr) => !!src && arr.indexOf(src) === i);
               return (
                 <ProductImageGalleryZoom
                   images={heroImages}
