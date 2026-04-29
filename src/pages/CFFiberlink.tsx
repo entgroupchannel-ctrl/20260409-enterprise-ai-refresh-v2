@@ -435,8 +435,8 @@ const CFFiberlink = () => {
           <section className="space-y-4">
             <div className="flex items-end justify-between gap-4 flex-wrap">
               <div>
-                <h2 className="text-2xl font-display font-bold text-foreground">
-                  ⭐ <span className="text-gradient">รุ่นแนะนำเด่น</span>
+                <h2 className="text-2xl font-display font-bold text-foreground inline-flex items-center gap-2">
+                  <Star className="w-5 h-5 text-primary fill-primary" /> <span className="text-gradient">รุ่นแนะนำเด่น</span>
                 </h2>
                 <p className="text-sm text-muted-foreground mt-1">
                   คัดมาให้แล้ว — ครอบคลุมทุกการใช้งานหลัก ตั้งแต่ Entry ไปจนถึง Flagship
