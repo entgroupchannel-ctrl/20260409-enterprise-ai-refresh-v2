@@ -741,14 +741,13 @@ const CFFiberlink = () => {
                             {m.badge}
                           </Badge>
                         )}
-                        {/* Temperature badge — มุมขวาบน */}
-                        <span
+                        {/* Temperature heat bar — มุมขวาบน (compact) */}
+                        <div
+                          className="absolute top-1.5 right-1.5 left-1.5 rounded bg-background/85 backdrop-blur-sm px-1.5 py-0.5 border border-border/40 shadow-sm"
                           title={cardTempInfo.useCase}
-                          className={`absolute top-1.5 right-1.5 inline-flex items-center gap-0.5 text-[9px] font-bold border rounded-full px-1.5 py-0.5 backdrop-blur-sm ${cardTempInfo.badgeClass}`}
                         >
-                          <cardTempInfo.icon className="w-2.5 h-2.5" />
-                          <span className="font-mono">{cardRange}</span>
-                        </span>
+                          <TempRangeBar range={cardRange} size="sm" />
+                        </div>
                       </div>
                       <div className="p-2 flex flex-col flex-1 gap-1">
                         <p className="font-mono text-xs text-foreground font-semibold leading-tight break-all">{m.model}</p>
