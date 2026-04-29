@@ -25,6 +25,7 @@ import QuoteRequestButton from "@/components/QuoteRequestButton";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import FooterCompact from "@/components/FooterCompact";
 import MiniNavbar from "@/components/MiniNavbar";
 import { cffiberlinkCatalog, type CFFiberlinkModel, type CFFiberlinkCategoryDef } from "@/data/cffiberlink-models";
