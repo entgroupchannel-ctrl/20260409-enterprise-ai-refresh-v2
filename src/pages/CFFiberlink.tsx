@@ -346,11 +346,7 @@ const CFFiberlink = () => {
                     <ShoppingBag className="w-4 h-4 mr-1.5" /> เลือกซื้อสินค้าอื่นในร้าน
                   </Link>
                 </Button>
-                <Button variant="outline" asChild>
-                  <a href="https://www.cffiberlink.com/" target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="w-4 h-4 mr-1.5" /> เว็บโรงงาน
-                  </a>
-                </Button>
+              </div>
               </div>
             </div>
             <div className="card-surface overflow-hidden">
