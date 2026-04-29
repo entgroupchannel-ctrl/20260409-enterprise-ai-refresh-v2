@@ -184,6 +184,7 @@ const AffiliateApply = lazyRetry(() => import("./pages/AffiliateApply"));
 const AffiliateDashboard = lazyRetry(() => import("./pages/AffiliateDashboard"));
 const AffiliateRedirect = lazyRetry(() => import("./pages/AffiliateRedirect"));
 const Partner = lazyRetry(() => import("./pages/Partner"));
+const CFFiberlink = lazyRetry(() => import("./pages/CFFiberlink"));
 const PartnerApply = lazyRetry(() => import("./pages/PartnerApply"));
 const PartnerPortal = lazyRetry(() => import("./pages/PartnerPortal"));
 const Platform = lazyRetry(() => import("./pages/Platform"));
@@ -260,6 +261,8 @@ const App = () => (
                     <Route path="/volktek" element={<Volktek />} />
                     <Route path="/partners/ipctech" element={<IPCTech />} />
                     <Route path="/ipctech" element={<Navigate to="/partners/ipctech" replace />} />
+                    <Route path="/partners/cffiberlink" element={<CFFiberlink />} />
+                    <Route path="/cffiberlink" element={<Navigate to="/partners/cffiberlink" replace />} />
                     <Route path="/epc-series" element={<EPCSeries />} />
                     <Route path="/upc-series" element={<UPCSeries />} />
                     <Route path="/rugged-tablet" element={<RuggedTablet />} />
