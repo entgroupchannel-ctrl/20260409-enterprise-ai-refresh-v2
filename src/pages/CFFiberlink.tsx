@@ -205,21 +205,21 @@ type FormFilter = "all" | "din" | "rack";
 type TempFilter = "all" | "extreme" | "industrial" | "commercial";
 
 /** อธิบายสภาพการใช้งานต่อ TempClass — แสดงใน Modal และ tooltip */
-const TEMP_INFO: Record<"extreme" | "industrial" | "commercial", { icon: string; label: string; useCase: string; badgeClass: string }> = {
+const TEMP_INFO: Record<"extreme" | "industrial" | "commercial", { icon: LucideIcon; label: string; useCase: string; badgeClass: string }> = {
   extreme: {
-    icon: "🥶",
+    icon: Snowflake,
     label: "Extreme — ทนสุดขั้ว",
     useCase: "ทนเย็นจัด/ร้อนจัด ตู้คอนโทรลกลางแดด, นอกอาคาร, โรงงานเหล็ก, ห้องเย็น, ระบบราง, เหมือง, สถานีไฟฟ้า, ปิโตรเคมี",
     badgeClass: "bg-blue-500/10 text-blue-600 border-blue-500/30 dark:text-blue-400",
   },
   industrial: {
-    icon: "🏭",
+    icon: Factory,
     label: "Industrial — โรงงานทั่วไป",
     useCase: "เหมาะตู้คอนโทรลในโรงงาน, ไลน์ผลิต, คลังสินค้า, อาคารโรงงานที่ไม่มีแอร์ตลอด — ทนฝุ่นและการสั่นสะเทือน",
     badgeClass: "bg-amber-500/10 text-amber-700 border-amber-500/30 dark:text-amber-400",
   },
   commercial: {
-    icon: "🏢",
+    icon: Building,
     label: "Commercial — ในอาคาร",
     useCase: "ใช้ในออฟฟิศ ห้อง Server ตู้ Rack ติดผนังในร่ม โรงแรม คอนโด ห้างสรรพสินค้า — แนะนำมีแอร์/ระบายอากาศ",
     badgeClass: "bg-emerald-500/10 text-emerald-700 border-emerald-500/30 dark:text-emerald-400",
