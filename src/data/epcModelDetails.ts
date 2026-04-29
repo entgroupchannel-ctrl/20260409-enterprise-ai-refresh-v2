@@ -1,5 +1,12 @@
 // EPC Panel PC + EPC Box Series — static spec data for /shop/<model> detail pages
 export type EpcModelSpec = { label: string; value: string };
+export type EpcSpecGroup = { title: string; rows: EpcModelSpec[] };
+export type EpcOptionGroup = { label: string; choices: string[]; note?: string };
+export type EpcCertification = { code: string; description?: string };
+export type EpcGalleryImage = { src: string; alt: string; caption?: string };
+export type EpcSelectionRow = {
+  no: string; model: string; partNumber: string; cpu: string; memory: string; storage: string;
+};
 export type EpcModelDetail = {
   slug: string;          // route slug, e.g. 'epc-w15x2a'
   model: string;         // display model, e.g. 'EPC-W15X2A'
@@ -8,9 +15,16 @@ export type EpcModelDetail = {
   tagline: string;
   intro: string;
   highlights: string[];
-  specs: EpcModelSpec[];
+  specs: EpcModelSpec[];                 // legacy flat specs (fallback)
+  specGroups?: EpcSpecGroup[];           // new grouped specs (factory-accurate)
+  options?: EpcOptionGroup[];            // configurable options for buyer
+  certifications?: EpcCertification[];   // CE / FCC / BIS …
+  applications?: string[];               // application industries / use cases
+  productImages?: EpcGalleryImage[];     // ►Product images & sizes (dimensions, IO map)
+  gallery?: EpcGalleryImage[];           // additional product photos
+  selectionTable?: EpcSelectionRow[];    // factory part-number selection guide
+  datasheetUrl?: string;                 // PDF datasheet link (factory)
   image: string;
-  gallery?: string[];
   landingHref: string;   // landing page anchor on EPCSeries / EPCBoxSeries
   popular?: boolean;
 };
