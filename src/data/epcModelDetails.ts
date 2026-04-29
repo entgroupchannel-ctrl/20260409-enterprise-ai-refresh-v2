@@ -271,14 +271,14 @@ export const epcModelDetails: Record<string, EpcModelDetail> = {
       'Robotics & Machine Vision Interface',
     ],
     productImages: [
+      { src: '/images/products/w24x2a/banner.png', alt: 'EPC-W24X2A — 24" Industrial Embedded Panel PC Banner', caption: '24" Industrial Embedded Panel PC — Fanless / IP65 / Modular BlockCore™' },
       { src: '/images/products/w24x2a/dimensions.png', alt: 'EPC-W24X2A Dimensions Drawing', caption: 'Dimensions: 589.3 × 361.2 × 75.1 mm • Cutout: 562.7 × 338.4 mm' },
       { src: '/images/products/w24x2a/io-ports.png', alt: 'EPC-W24X2A I/O Layout', caption: 'I/O Layout: 6× COM, USB 2.0/3.0, Dual Display, 2× LAN, Audio' },
     ],
     gallery: [
-      { src: '/images/products/w24x2a/gallery-1.jpg', alt: 'EPC-W24X2A — Front View' },
-      { src: '/images/products/w24x2a/gallery-2.jpg', alt: 'EPC-W24X2A — Industrial Application' },
-      { src: '/images/products/w24x2a/gallery-3.jpg', alt: 'EPC-W24X2A — IP65 Front Panel Detail' },
-      { src: '/images/products/w24x2a/application-mes.jpg', alt: 'EPC-W24X2A — MES Factory Application' },
+      { src: '/images/products/w24x2a/app-mes-factory.jpg', alt: 'EPC-W24X2A — MES Factory Application', caption: 'MES Industry — Factory Application Case' },
+      { src: '/images/products/w24x2a/app-medical.jpg', alt: 'EPC-W24X2A — Medical Tablet Application', caption: 'Medical Tablet PC Application' },
+      { src: '/images/products/w24x2a/app-power.jpg', alt: 'EPC-W24X2A — Power & Energy Application', caption: 'Power & Energy Substation Visualization' },
     ],
     selectionTable: [
       { no: '1', model: 'EPC-W2462A', partNumber: 'C11.01.01.001', cpu: 'Intel® Celeron® J1900', memory: '4GB', storage: 'mSATA SSD 128GB' },
@@ -290,7 +290,7 @@ export const epcModelDetails: Record<string, EpcModelDetail> = {
       { no: '7', model: 'EPC-W2422A', partNumber: 'C11.01.04.002', cpu: 'Intel® Core™ i5-1235U', memory: '8GB', storage: 'mSATA SSD 256GB' },
       { no: '8', model: 'EPC-W2422A', partNumber: 'C11.01.04.004', cpu: 'Intel® Core™ i7-1255U', memory: '8GB', storage: 'mSATA SSD 256GB' },
     ],
-    datasheetUrl: 'https://cesipc.com/wp-content/uploads/2025/08/EPC-W24X2A-EN.pdf',
+    datasheetUrl: 'https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_899307542dca4df6b763b3a52e2af574.pdf',
     image: '/images/products/epc-w24x2a.jpg',
     landingHref: '/epc-series#wide',
     popular: true,
