@@ -116,17 +116,66 @@ const features = [
   { icon: Shield, title: "IP40 + 6KV Lightning", desc: "ป้องกันฟ้าผ่า + EMC4 EMI ป้องกันไฟกระชาก" },
   { icon: Network, title: "ERPS Ring < 20ms", desc: "Ring Protocol ความเร็วระดับมิลลิวินาที ป้องกันเครือข่ายล่ม" },
   { icon: Server, title: "Dual Power Redundancy", desc: "ไฟสำรองคู่ AC+DC พร้อม PoE Self-healing" },
-  { icon: Cpu, title: "MTBF สูงสุด 35 ปี", desc: "อายุการใช้งานยาวนาน รับประกัน 5 ปี" },
+  { icon: Cpu, title: "MTBF สูงสุด 35 ปี", desc: "อายุการใช้งานยาวนาน รับประกัน 2 ปี จากโรงงาน" },
   { icon: Globe, title: "OEM/ODM Service", desc: "สั่งผลิตตามสเปก ปรับแต่งฟังก์ชันได้" },
 ];
 
-const industries = [
-  { icon: TrafficCone, label: "Smart Traffic / ITS", desc: "สัญญาณไฟจราจร ANPR กล้องตรวจจับความเร็ว" },
-  { icon: Camera, label: "Safe City / CCTV", desc: "ระบบกล้องวงจรปิดเมือง โรงเรียน หน่วยราชการ" },
-  { icon: Factory, label: "Smart Manufacturing", desc: "PLC / SCADA / MES ในโรงงาน 24/7" },
-  { icon: Zap, label: "Smart Grid / Power", desc: "Substation / โรงไฟฟ้า / Solar Farm" },
-  { icon: Train, label: "Rail Transit", desc: "รถไฟฟ้า / สถานี / ระบบสัญญาณ" },
-  { icon: Ship, label: "Marine & Petrochemical", desc: "ท่าเรือ ปิโตรเคมี เหมือง" },
+const industries: Array<{
+  icon: LucideIcon;
+  label: string;
+  desc: string;
+  image: string;
+  detail: string;
+  recommended: string[]; // model codes ที่แนะนำสำหรับงานนี้
+}> = [
+  {
+    icon: TrafficCone,
+    label: "Smart Traffic / ITS",
+    desc: "สัญญาณไฟจราจร ANPR กล้องตรวจจับความเร็ว",
+    image: "/cffiberlink/industry-traffic.jpg",
+    detail: "ติดตั้งในตู้ริมถนนที่ร้อน 60°C+ — ต้องการ ERPS Ring เพื่อกันไฟเบอร์ขาด, PoE จ่ายไฟกล้อง ANPR และ 6KV กันฟ้าผ่า",
+    recommended: ["CF-HY2008GP-SFP", "CF-HY4008GP-SFP", "CF-HY2004GP-SFP"],
+  },
+  {
+    icon: Camera,
+    label: "Safe City / CCTV",
+    desc: "ระบบกล้องวงจรปิดเมือง โรงเรียน หน่วยราชการ",
+    image: "/cffiberlink/industry-cctv.jpg",
+    detail: "Aggregation จากกล้อง IP หลายร้อยตัว ส่งกลับศูนย์ควบคุมผ่าน 10G Uplink — ใช้ PoE Switch หน้างาน + Core L3 ที่ห้อง NOC",
+    recommended: ["CF-PE2421G", "CF-SE2724G-B", "CF-HY4T8024GP-SFP+"],
+  },
+  {
+    icon: Factory,
+    label: "Smart Manufacturing",
+    desc: "PLC / SCADA / MES ในโรงงาน 24/7",
+    image: "/cffiberlink/industry-factory.jpg",
+    detail: "เครือข่าย OT ที่ห้ามล่ม — ERPS <20ms self-healing, DIN-Rail mount ในตู้คอนโทรล, รองรับ Modbus/Profinet ผ่าน VLAN แยก",
+    recommended: ["CF-HY8008G-SFP", "CF-HY4016G-SFP", "CF-HY4T8016G-SFP+"],
+  },
+  {
+    icon: Zap,
+    label: "Smart Grid / Power",
+    desc: "Substation / โรงไฟฟ้า / Solar Farm",
+    image: "/cffiberlink/industry-power.jpg",
+    detail: "L2+ ขั้นสูง ทนสนามแม่เหล็กไฟฟ้าสูงใน Substation — IPv4/IPv6 routing สำหรับ Solar Inverter หลายพันตัว",
+    recommended: ["CF-HY4008GV-SFP", "CF-HY8016GV-SFP", "CF-HY4024GV-SFP"],
+  },
+  {
+    icon: Train,
+    label: "Rail Transit",
+    desc: "รถไฟฟ้า / สถานี / ระบบสัญญาณ",
+    image: "/cffiberlink/industry-rail.jpg",
+    detail: "ระบบสื่อสารระหว่างขบวน-สถานี-ศูนย์ควบคุม — ทนสั่นสะเทือน, redundant power, ERPS Ring backbone ตามแนวราง",
+    recommended: ["CF-HY4T8016GP-SFP+", "CF-HY8016GVP-SFP", "CF-HY4C024GP-SFP"],
+  },
+  {
+    icon: Ship,
+    label: "Marine & Petrochemical",
+    desc: "ท่าเรือ ปิโตรเคมี เหมือง",
+    image: "/cffiberlink/industry-marine.jpg",
+    detail: "ทนเค็ม ทนไอกรด ทนฝุ่นเหมือง — L2+ VTS รองรับ Bypass Optical กันไฟดับ, ใช้ใน Loading Arm และ Pipeline Monitoring",
+    recommended: ["CF-HY4008GVP-SFP", "CF-HY2008GVP-SFP", "CF-HY8008GVP-SFP"],
+  },
 ];
 
 const allCatalogModels: CFFiberlinkModel[] = cffiberlinkCatalog.flatMap((c) => c.models);
@@ -211,7 +260,7 @@ const CFFiberlink = () => {
                 <Badge variant="outline" className="text-xs">6KV Lightning</Badge>
                 <Badge variant="outline" className="text-xs">ERPS &lt;20ms</Badge>
                 <Badge variant="outline" className="text-xs">MTBF 35Y</Badge>
-                <Badge variant="outline" className="text-xs">รับประกัน 5 ปี</Badge>
+                <Badge variant="outline" className="text-xs">รับประกัน 2 ปี จากโรงงาน</Badge>
               </div>
               <div className="flex flex-wrap gap-3">
                 <QuoteRequestButton
@@ -319,11 +368,15 @@ const CFFiberlink = () => {
           </p>
 
           <Tabs defaultValue={cffiberlinkCatalog[0].id} className="w-full">
-            <TabsList className="w-full h-auto flex-wrap justify-start gap-1 bg-secondary/40 p-1">
+            <TabsList className="w-full h-auto flex-wrap justify-start gap-2 bg-transparent p-0 mb-2">
               {cffiberlinkCatalog.map((cat) => (
-                <TabsTrigger key={cat.id} value={cat.id} className="text-xs md:text-sm gap-2">
+                <TabsTrigger
+                  key={cat.id}
+                  value={cat.id}
+                  className="text-xs md:text-sm gap-2 px-4 py-2.5 rounded-lg border-2 border-border bg-card text-foreground/70 font-semibold shadow-sm hover:border-primary/50 hover:text-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:shadow-md transition-all"
+                >
                   {cat.title}
-                  <Badge variant="outline" className="text-[10px] px-1.5 py-0">{cat.models.length}</Badge>
+                  <Badge variant="secondary" className="text-[10px] px-1.5 py-0 bg-background/20 text-current border-current/30">{cat.models.length}</Badge>
                 </TabsTrigger>
               ))}
             </TabsList>
@@ -468,27 +521,61 @@ const CFFiberlink = () => {
         </section>
 
         {/* Industries */}
-        <section className="card-surface p-6 md:p-8">
-          <h2 className="text-xl md:text-2xl font-display font-bold text-foreground mb-1">
+        <section>
+          <h2 className="text-2xl font-display font-bold text-foreground mb-1">
             อุตสาหกรรมที่ใช้งานจริง
           </h2>
           <p className="text-sm text-muted-foreground mb-6">
-            สวิตช์ CF Fiberlink ใช้งานทั่วโลกในงาน Mission-Critical
+            สวิตช์ CF Fiberlink ใช้งานทั่วโลกในงาน Mission-Critical — แต่ละอุตสาหกรรมแนะนำรุ่นที่เหมาะสมที่สุด
           </p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {industries.map((ind, i) => (
-              <div
+              <article
                 key={i}
-                className="flex items-start gap-3 p-3 rounded-lg border border-border bg-muted/20 hover:bg-muted/40 transition-colors"
+                className="card-surface overflow-hidden flex flex-col hover:border-primary/40 hover:-translate-y-0.5 transition-all"
               >
-                <div className="p-2 rounded-md bg-primary/10 text-primary shrink-0">
-                  <ind.icon className="w-4 h-4" />
+                <div className="aspect-video overflow-hidden bg-muted relative">
+                  <img
+                    src={ind.image}
+                    alt={ind.label}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                    width={1024}
+                    height={640}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+                  <div className="absolute bottom-2 left-3 right-3 flex items-center gap-2">
+                    <div className="p-1.5 rounded-md bg-primary text-primary-foreground shrink-0 shadow-lg">
+                      <ind.icon className="w-4 h-4" />
+                    </div>
+                    <h3 className="font-display font-bold text-base text-foreground drop-shadow-sm">{ind.label}</h3>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-sm text-foreground">{ind.label}</h3>
-                  <p className="text-xs text-muted-foreground">{ind.desc}</p>
+                <div className="p-4 flex flex-col flex-1 gap-3">
+                  <p className="text-xs text-muted-foreground leading-relaxed">{ind.detail}</p>
+                  <div className="mt-auto">
+                    <p className="text-[10px] uppercase tracking-wide text-muted-foreground font-semibold mb-1.5">รุ่นที่แนะนำ</p>
+                    <div className="flex flex-wrap gap-1">
+                      {ind.recommended.map((code) => {
+                        const found = cffiberlinkCatalog
+                          .flatMap((c) => c.models.map((m) => ({ m, cat: c })))
+                          .find((x) => x.m.model === code);
+                        if (!found) return null;
+                        return (
+                          <button
+                            key={code}
+                            type="button"
+                            onClick={() => setSelected({ model: found.m, cat: found.cat })}
+                            className="font-mono text-[10px] px-2 py-1 rounded border border-primary/30 bg-primary/5 text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+                          >
+                            {code}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </section>
@@ -566,7 +653,7 @@ const CFFiberlink = () => {
                     <Badge variant="outline" className="text-[10px]">-40~85°C</Badge>
                     <Badge variant="outline" className="text-[10px]">6KV Lightning</Badge>
                     <Badge variant="outline" className="text-[10px]">ERPS &lt;20ms</Badge>
-                    <Badge variant="outline" className="text-[10px]">รับประกัน 5 ปี</Badge>
+                    <Badge variant="outline" className="text-[10px]">รับประกัน 2 ปี จากโรงงาน</Badge>
                   </div>
                 </div>
               </div>
