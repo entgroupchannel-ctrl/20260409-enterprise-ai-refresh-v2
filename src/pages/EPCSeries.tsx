@@ -322,11 +322,15 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
           <Checkbox checked={selected} className="h-5 w-5" />
         </button>
       )}
-      <img src={model.image} alt={model.name} className="max-h-44 object-contain group-hover:scale-105 transition-transform duration-300"/>
+      <Link to={`/shop/${model.name.toLowerCase()}`} aria-label={`ดูรายละเอียด ${model.name}`} className="block">
+        <img src={model.image} alt={model.name} className="max-h-44 object-contain group-hover:scale-105 transition-transform duration-300"/>
+      </Link>
     </div>
     <div className="p-5 space-y-3">
       <div className="flex items-center justify-between">
-        <h3 className="font-display font-bold text-foreground">{model.name}</h3>
+        <Link to={`/shop/${model.name.toLowerCase()}`} className="font-display font-bold text-foreground hover:text-primary transition-colors">
+          {model.name}
+        </Link>
         <Badge variant="secondary" className="text-xs">{model.size} ({model.ratio})</Badge>
       </div>
       <div className="flex gap-2">
@@ -335,8 +339,13 @@ const ModelCard = ({ model, onQuote, selected, onToggleSelect }: { model: typeof
             <Download className="w-3.5 h-3.5 mr-1.5" /> Datasheet
           </a>
         </Button>
-        <QuoteRequestButton productModel={model.name} productName={`EPC ${model.name} — Panel PC ${model.size}`} size="sm" className="flex-1" />
+        <Button variant="default" size="sm" asChild className="flex-1">
+          <Link to={`/shop/${model.name.toLowerCase()}`}>
+            <ExternalLink className="w-3.5 h-3.5 mr-1.5" /> ดูรายละเอียด
+          </Link>
+        </Button>
       </div>
+      <QuoteRequestButton productModel={model.name} productName={`EPC ${model.name} — Panel PC ${model.size}`} size="sm" className="w-full" />
       <div className="mt-2">
         <AddToCartButton
           productModel={model.name}
