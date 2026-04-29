@@ -27,6 +27,9 @@ import {
   Leaf,
   FlaskConical,
   Building,
+  ChevronLeft,
+  ChevronRight,
+  Sparkles,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -610,8 +613,44 @@ const CFFiberlink = () => {
       {/* Product Detail Modal */}
       <Dialog open={!!selected} onOpenChange={(open) => !open && setSelected(null)}>
         <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
-          {selected && (
+          {selected && (() => {
+            const catModels = selected.cat.models;
+            const idx = catModels.findIndex((m) => m.model === selected.model.model);
+            const prev = idx > 0 ? catModels[idx - 1] : catModels[catModels.length - 1];
+            const next = idx < catModels.length - 1 ? catModels[idx + 1] : catModels[0];
+            // Related: รุ่นอื่นๆ ในหมวดเดียวกัน (สูงสุด 6 ตัว ไม่รวมตัวปัจจุบัน)
+            const related = catModels.filter((m) => m.model !== selected.model.model).slice(0, 6);
+            return (
             <>
+              {/* Prev / Next navigator */}
+              <div className="flex items-center justify-between gap-2 -mt-2 mb-1">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setSelected({ model: prev, cat: selected.cat })}
+                  disabled={catModels.length < 2}
+                  className="gap-1 h-8"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                  <span className="hidden sm:inline">รุ่นก่อนหน้า</span>
+                  <span className="font-mono text-[10px] text-muted-foreground hidden md:inline">{prev.model}</span>
+                </Button>
+                <span className="text-[11px] text-muted-foreground">
+                  {idx + 1} / {catModels.length} ใน {selected.cat.title}
+                </span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setSelected({ model: next, cat: selected.cat })}
+                  disabled={catModels.length < 2}
+                  className="gap-1 h-8"
+                >
+                  <span className="font-mono text-[10px] text-muted-foreground hidden md:inline">{next.model}</span>
+                  <span className="hidden sm:inline">รุ่นถัดไป</span>
+                  <ChevronRight className="w-4 h-4" />
+                </Button>
+              </div>
+
               <DialogHeader>
                 <div className="flex items-center gap-2 flex-wrap mb-1">
                   <Badge variant="outline" className="text-[10px]">{selected.cat.title}</Badge>
@@ -684,8 +723,41 @@ const CFFiberlink = () => {
                   variant="outline"
                 />
               </div>
+
+              {/* Related / You may also like */}
+              {related.length > 0 && (
+                <div className="mt-6 border-t border-border pt-4">
+                  <div className="flex items-center gap-1.5 mb-3">
+                    <Sparkles className="w-4 h-4 text-primary" />
+                    <h4 className="text-sm font-semibold text-foreground">สินค้าที่เกี่ยวข้อง · คุณอาจชอบ</h4>
+                    <span className="text-[10px] text-muted-foreground ml-auto">ในหมวด {selected.cat.title}</span>
+                  </div>
+                  <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                    {related.map((m) => (
+                      <button
+                        key={m.model}
+                        type="button"
+                        onClick={() => setSelected({ model: m, cat: selected.cat })}
+                        className="group text-left card-surface p-2 hover:border-primary/40 hover:-translate-y-0.5 transition-all"
+                      >
+                        <div className="aspect-square bg-muted rounded overflow-hidden mb-1.5">
+                          <img
+                            src={m.image}
+                            alt={m.model}
+                            loading="lazy"
+                            className="w-full h-full object-contain p-1 group-hover:scale-105 transition-transform"
+                          />
+                        </div>
+                        <p className="font-mono text-[10px] font-semibold text-foreground truncate">{m.model}</p>
+                        <p className="text-[9px] text-muted-foreground truncate">{m.ports}</p>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </>
-          )}
+            );
+          })()}
         </DialogContent>
       </Dialog>
 
