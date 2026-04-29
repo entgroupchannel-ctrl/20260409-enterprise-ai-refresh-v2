@@ -645,6 +645,11 @@ export default function ShopUpcDetail({ modelOverride }: { modelOverride?: strin
         </section>
       )}
 
+      {/* Use Cases — เฉพาะ EPC-XA Series */}
+      {['epc-10xa','epc-20xa','epc-30xa','epc-40xa'].includes(detailKey) && (
+        <EpcXaUseCases model={pricing.model} />
+      )}
+
       {/* Related */}
       {related.length > 0 && (
         <section className="container max-w-7xl mx-auto px-4 py-6 lg:py-10">
