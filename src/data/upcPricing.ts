@@ -168,9 +168,9 @@ export const UPC_PRICING: Record<string, ModelPricing> = {
   },
   'UPC-206F': {
     model: 'UPC-206F', category: '4G / SIM + TF', chassis: 'SMALL',
-    includedFeatures: ['SIM + TF Card Slot', '4G LTE Module'],
+    includedFeatures: ['SIM + TF Card Slot', '4G/5G LTE Module'],
     cpus: [
-      { cpu: 'Celeron J1900', base: 19990, premium: 1500, total: 21490 },
+      { cpu: 'Celeron J1900', base: 19990, premium: 6900, total: 26890 },
     ],
   },
   'UPC-209B': {
