@@ -48,6 +48,8 @@ export interface CFFiberlinkCategoryDef {
   th: string;
   desc: string;
   software: string[];
+  /** Use cases เริ่มต้นของหมวด — model ที่ไม่ใส่ useCases เองจะใช้ค่านี้ */
+  defaultUseCases: CFUseCase[];
   models: CFFiberlinkModel[];
 }
 
