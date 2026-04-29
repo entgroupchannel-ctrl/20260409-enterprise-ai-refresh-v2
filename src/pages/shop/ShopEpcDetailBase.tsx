@@ -71,16 +71,66 @@ export default function ShopEpcDetailBase({ slug }: Props) {
 
   const seriesParam = detail.series === 'EPC Panel PC' ? 'EPC+Panel+PC' : 'EPC+Box';
 
-  const buildDescription = () =>
-    `${detail.model} — ${detail.tagline}`;
+  // ── Configurator price calculation (only meaningful when cfg present) ──
+  const cpuOpt      = cfg?.cpus.find((c) => c.key === cpuKey)         ?? cfg?.cpus[0];
+  const ramOpt      = cfg?.ram.find((r) => r.key === ramKey)          ?? cfg?.ram[0];
+  const storageOpt  = cfg?.storage.find((s) => s.key === storageKey)  ?? cfg?.storage[0];
+  const touchOpt    = cfg?.touch.find((t) => t.key === touchKey)      ?? cfg?.touch[0];
+  const wirelessOpt = cfg?.wireless.find((w) => w.key === wirelessKey)?? cfg?.wireless[0];
+  const osOpt       = cfg?.os.find((o) => o.key === osKey)            ?? cfg?.os[0];
+  const tempOpt     = cfg?.tempRange.find((t) => t.key === tempKey)   ?? cfg?.tempRange[0];
+  const powerOpt    = cfg?.powerInput.find((p) => p.key === powerKey) ?? cfg?.powerInput[0];
+  const warrantyOpt = cfg?.warranty.find((w) => w.years === warrantyYears) ?? cfg?.warranty[0];
+
+  const baseUnit = (cpuOpt?.basePrice ?? 0)
+    + (ramOpt?.addPrice ?? 0)
+    + (storageOpt?.addPrice ?? 0)
+    + (touchOpt?.addPrice ?? 0)
+    + (wirelessOpt?.addPrice ?? 0)
+    + (osOpt?.addPrice ?? 0)
+    + (tempOpt?.addPrice ?? 0)
+    + (powerOpt?.addPrice ?? 0);
+  const warrantyCost = Math.round(baseUnit * (warrantyOpt?.multiplier ?? 0));
+  const tierRate  = qty >= 50 ? 0.08 : qty >= 10 ? 0.05 : qty >= 5 ? 0.03 : 0;
+  const tierLabel = qty >= 50 ? 'สั่ง 50+ ชิ้น' : qty >= 10 ? 'สั่ง 10+ ชิ้น' : qty >= 5 ? 'สั่ง 5+ ชิ้น' : '';
+  const unitBefore = baseUnit + warrantyCost;
+  const unitAfter  = Math.round(unitBefore * (1 - tierRate));
+  const totalPrice = unitAfter * qty;
+  const savings    = (unitBefore - unitAfter) * qty;
+
+  const buildDescription = () => {
+    if (!cfg || !cpuOpt) return `${detail.model} — ${detail.tagline}`;
+    const parts: string[] = [
+      detail.model,
+      cpuOpt.label,
+      `RAM ${ramOpt?.label}`,
+      storageOpt?.label,
+      `จอ ${touchOpt?.label}`,
+    ];
+    if (wirelessOpt && wirelessOpt.key !== 'none') parts.push(wirelessOpt.label);
+    if (osOpt && osOpt.key !== 'none') parts.push(`OS: ${osOpt.label}`);
+    if (tempOpt && tempOpt.key !== 'standard') parts.push(tempOpt.label);
+    if (powerOpt && powerOpt.key !== 'dc12') parts.push(powerOpt.label);
+    parts.push(warrantyOpt?.label ?? 'รับประกัน 1 ปี');
+    return parts.filter(Boolean).join(' • ');
+  };
 
   const handleQuickQuote = () => {
     savePendingQuote({
       customer_name: '', customer_email: user?.email ?? '', customer_phone: null, customer_company: null,
-      notes: `รุ่น ${detail.model} (${detail.series}) — กรุณาระบุสเปก CPU/RAM/SSD ที่ต้องการ`,
-      products: [{ model: detail.model, description: buildDescription(), qty, unit_price: 0, discount_percent: 0, line_total: 0 }],
+      notes: cfg
+        ? `รุ่น ${detail.model} ตามสเปก: ${buildDescription()}`
+        : `รุ่น ${detail.model} (${detail.series}) — กรุณาระบุสเปก CPU/RAM/SSD ที่ต้องการ`,
+      products: [{
+        model: detail.model, description: buildDescription(), qty,
+        unit_price: cfg ? unitAfter : 0, discount_percent: 0,
+        line_total: cfg ? totalPrice : 0,
+      }],
     });
-    toast({ title: 'พร้อมส่งคำขอใบเสนอราคา', description: `${detail.model} × ${qty} ชิ้น` });
+    toast({
+      title: 'พร้อมส่งคำขอใบเสนอราคา',
+      description: cfg ? `${detail.model} × ${qty} ชิ้น • ฿${fmt(totalPrice)}` : `${detail.model} × ${qty} ชิ้น`,
+    });
     navigate('/request-quote?action=continue');
   };
 
@@ -88,8 +138,12 @@ export default function ShopEpcDetailBase({ slug }: Props) {
     if (!user) {
       savePendingQuote({
         customer_name: '', customer_email: '', customer_phone: null, customer_company: null,
-        notes: `สนใจ ${detail.model} (${detail.series})`,
-        products: [{ model: detail.model, description: buildDescription(), qty, unit_price: 0, discount_percent: 0, line_total: 0 }],
+        notes: cfg ? `กำหนดสเปก: ${buildDescription()}` : `สนใจ ${detail.model} (${detail.series})`,
+        products: [{
+          model: detail.model, description: buildDescription(), qty,
+          unit_price: cfg ? unitAfter : 0, discount_percent: 0,
+          line_total: cfg ? totalPrice : 0,
+        }],
       });
       toast({ title: 'บันทึกรายการแล้ว', description: 'กรุณาเข้าสู่ระบบเพื่อเพิ่มลงตะกร้า' });
       navigate('/login?redirect=' + encodeURIComponent(window.location.pathname));
@@ -102,7 +156,7 @@ export default function ShopEpcDetailBase({ slug }: Props) {
         name: `${detail.model} — ${detail.series}`,
         description: buildDescription(),
         quantity: qty,
-        price: 0,
+        price: cfg ? unitAfter : 0,
       });
     } finally {
       setAdding(false);
