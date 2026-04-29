@@ -664,8 +664,6 @@ export const upcSeriesDetails: Record<string, ProductDetail> = {
     gallery: [
       "/upc-images/2025_02_IMG_9867-1024x683.jpg",
       "/upc-images/2025_02_IMG_9857-1024x683.jpg",
-      "/upc-images/2025_02_IMG_9864-1024x683.jpg",
-      "/upc-images/2025_02_IMG_9866-1024x683.jpg",
     ],
   },
 
