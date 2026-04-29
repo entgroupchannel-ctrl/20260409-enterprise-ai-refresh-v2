@@ -751,5 +751,5 @@ export const volktekCatalog: VolktekCategory[] = [
   volktekEmsNms,
   volktekSfp,
   // Phase 9+: poe-injector, firewall, accessories
-];
+].map(applySlugUrls);
 
