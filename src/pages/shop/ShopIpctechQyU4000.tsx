@@ -198,6 +198,37 @@ const SPECS: { title: string; rows: { label: string; value: string }[] }[] = [
   },
 ];
 
+const FLAGSHIP_PROJECTS = [
+  {
+    img: useCctvCity,
+    tag: 'CCTV City / Safe City',
+    title: 'ศูนย์ควบคุมกล้องวงจรปิดระดับเมือง',
+    desc: 'ทำหน้าที่เป็น NVR / VMS ระดับองค์กร รองรับกล้อง IP หลายร้อยตัวพร้อมกัน บันทึก 24/7 พร้อม Hot-Swap Storage',
+    metrics: ['256+ Channels', '24/7 Recording', 'Dual PSU 800W'],
+  },
+  {
+    img: useItsTraffic,
+    tag: 'ITS / ANPR',
+    title: 'ระบบจราจรอัจฉริยะ & อ่านป้ายทะเบียน',
+    desc: 'ติดตั้งใน Roadside Cabinet ตาม TOR กรมทางหลวง / ทางพิเศษ ทำงานต่อเนื่องในอุณหภูมิ −30 ~ 70°C ป้องกันไฟกระชาก',
+    metrics: ['−30~70°C', 'Anti-Surge', 'RS-232/485'],
+  },
+  {
+    img: useScadaPower,
+    tag: 'SCADA / Utility',
+    title: 'สถานีไฟฟ้า & ระบบประปา',
+    desc: 'รัน SCADA/HMI สำหรับการไฟฟ้า / การประปา รองรับการ์ด I/O อุตสาหกรรมผ่าน PCIe / PCI หลายช่อง',
+    metrics: ['PCIe x16', '4× PCI Slots', '24/7 Operation'],
+  },
+  {
+    img: useRailEdge,
+    tag: 'Rail / Transit',
+    title: 'ระบบรถไฟฟ้า BTS / MRT / SRT',
+    desc: 'Edge Server ติดตั้งในห้อง Server ของสถานี รองรับงาน AFC, PIS, CCTV และระบบสัญญาณ พร้อม Custom BIOS ตามมาตรฐาน',
+    metrics: ['Custom BIOS', 'Dual LAN', '19" Rack'],
+  },
+];
+
 const USE_CASES = [
   { icon: Server, label: 'ศูนย์ข้อมูลราชการ', desc: 'Server room / Data center ภาครัฐ' },
   { icon: ShieldCheck, label: 'ระบบ CCTV เมือง', desc: 'NVR / VMS รองรับกล้องจำนวนมาก' },
