@@ -32,8 +32,8 @@ const TICK_MS = 100;                  // smooth countdown tick
 const FADE_OUT_MS = 600;              // gentle fade-out
 const INITIAL_DELAY_MS = 1500;        // wait for page to settle
 const SCROLL_SUPPRESS_PX = 200;       // don't interrupt active readers
-const PATH_COOLDOWN_MS = 7 * 24 * 60 * 60 * 1000;  // 7 days per path
-const GLOBAL_COOLDOWN_MS = 30 * 60 * 1000;          // 30 minutes across pages
+const PATH_COOLDOWN_MS = 24 * 60 * 60 * 1000;       // 1 ครั้ง/วัน ต่อ path
+const GLOBAL_COOLDOWN_MS = 24 * 60 * 60 * 1000;     // 1 ครั้ง/วัน รวมทุกหน้า
 
 const BENEFITS = [
   { icon: FileText, title: "ขอใบเสนอราคาออนไลน์", desc: "สร้าง/ติดตามใบเสนอราคาได้ทันที" },
