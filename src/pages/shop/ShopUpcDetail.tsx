@@ -252,9 +252,9 @@ export default function ShopUpcDetail({ modelOverride }: { modelOverride?: strin
 
       {/* HERO */}
       <section className="container max-w-7xl mx-auto px-4 py-6 lg:py-10">
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-5 gap-8">
           {/* Gallery */}
-          <div className="space-y-3">
+          <div className="space-y-3 lg:col-span-2 lg:max-w-[460px] w-full">
             <div
               className="relative aspect-[4/3] bg-muted rounded-xl overflow-hidden border border-border group cursor-zoom-in"
               onClick={() => setLightbox(true)}
