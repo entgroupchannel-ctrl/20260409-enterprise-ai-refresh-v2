@@ -865,14 +865,45 @@ const CFFiberlink = () => {
                     <p className="text-[10px] uppercase tracking-wide text-muted-foreground font-semibold mb-0.5">ขนาด (mm)</p>
                     <p className="text-sm text-foreground">{selected.model.size}</p>
                   </div>
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    <Badge variant="outline" className="text-[10px]">-40~85°C</Badge>
-                    <Badge variant="outline" className="text-[10px]">6KV Lightning</Badge>
-                    <Badge variant="outline" className="text-[10px]">ERPS &lt;20ms</Badge>
-                    <Badge variant="outline" className="text-[10px]">รับประกัน 2 ปี จากโรงงาน</Badge>
-                  </div>
+                  {(() => {
+                    const range = selected.model.tempRange ?? selected.cat.defaultTempRange;
+                    const klass = getTempClass(range);
+                    const info = TEMP_INFO[klass];
+                    return (
+                      <div className="flex flex-wrap gap-1.5 pt-1">
+                        <Badge variant="outline" className={`text-[10px] ${info.badgeClass}`} title={info.useCase}>
+                          <span className="mr-0.5">{info.icon}</span>{range}
+                        </Badge>
+                        <Badge variant="outline" className="text-[10px]">6KV Lightning</Badge>
+                        <Badge variant="outline" className="text-[10px]">ERPS &lt;20ms</Badge>
+                        <Badge variant="outline" className="text-[10px]">รับประกัน 2 ปี จากโรงงาน</Badge>
+                      </div>
+                    );
+                  })()}
                 </div>
               </div>
+
+              {/* เหมาะกับงานสภาพไหน — Operating Environment */}
+              {(() => {
+                const range = selected.model.tempRange ?? selected.cat.defaultTempRange;
+                const klass = getTempClass(range);
+                const info = TEMP_INFO[klass];
+                return (
+                  <div className={`mt-4 rounded-lg border p-3 ${info.badgeClass}`}>
+                    <div className="flex items-start gap-2">
+                      <span className="text-xl leading-none">{info.icon}</span>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-semibold mb-0.5">
+                          อุณหภูมิใช้งาน {range} · {info.label}
+                        </p>
+                        <p className="text-[11px] leading-relaxed opacity-90">
+                          <span className="font-medium">เหมาะกับ:</span> {info.useCase}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
 
               <div className="mt-4 border-t border-border pt-4">
                 <p className="text-[10px] uppercase tracking-wide text-muted-foreground font-semibold mb-2">Software Features</p>
