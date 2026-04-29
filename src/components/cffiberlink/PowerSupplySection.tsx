@@ -38,21 +38,49 @@ const PowerSupplySection = () => {
 
         {/* Series Cards */}
         <div className="grid gap-6 lg:grid-cols-2">
-          {cfPowerSupplyCatalog.map((series) => (
+          {cfPowerSupplyCatalog.map((series) => {
+            const imgs = SERIES_IMAGES[series.id];
+            return (
             <div key={series.id} className="card-surface overflow-hidden">
-              {/* Series Header */}
-              <div className="p-4 border-b border-border bg-card">
-                <div className="flex items-start justify-between gap-3 mb-1.5">
-                  <div className="flex items-center gap-2">
-                    <Zap className="w-4 h-4 text-primary" />
-                    <h3 className="font-bold text-foreground text-base">{series.title}</h3>
+              {/* Series Header — รูปสินค้า + ข้อมูล */}
+              <div className="border-b border-border bg-gradient-to-br from-muted/40 via-card to-card">
+                <div className="grid grid-cols-[auto,1fr] gap-3 p-4 items-center">
+                  {/* Product Photos */}
+                  <div className="relative w-28 sm:w-32 h-28 sm:h-32 shrink-0 flex items-center justify-center">
+                    <img
+                      src={imgs.large}
+                      alt={imgs.alt}
+                      className="absolute inset-0 w-full h-full object-contain drop-shadow-md"
+                      loading="lazy"
+                      width={400}
+                      height={400}
+                    />
+                    <img
+                      src={imgs.small}
+                      alt=""
+                      aria-hidden="true"
+                      className="absolute -bottom-1 -right-1 w-12 sm:w-14 h-12 sm:h-14 object-contain drop-shadow-sm opacity-90"
+                      loading="lazy"
+                      width={200}
+                      height={200}
+                    />
                   </div>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground border border-border">
-                    {series.models.length} รุ่น
-                  </span>
+
+                  {/* Series Info */}
+                  <div className="min-w-0">
+                    <div className="flex items-start justify-between gap-2 mb-1.5">
+                      <div className="flex items-center gap-1.5 min-w-0">
+                        <Zap className="w-4 h-4 text-primary shrink-0" />
+                        <h3 className="font-bold text-foreground text-sm sm:text-base leading-tight">{series.title}</h3>
+                      </div>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground border border-border whitespace-nowrap">
+                        {series.models.length} รุ่น
+                      </span>
+                    </div>
+                    <p className="text-xs font-semibold text-primary mb-1">{series.th}</p>
+                    <p className="text-[11px] text-muted-foreground leading-relaxed line-clamp-3">{series.desc}</p>
+                  </div>
                 </div>
-                <p className="text-xs font-semibold text-primary mb-1">{series.th}</p>
-                <p className="text-[11px] text-muted-foreground leading-relaxed">{series.desc}</p>
               </div>
 
               {/* Models Table */}
