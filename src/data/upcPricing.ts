@@ -131,15 +131,6 @@ export const UPC_PRICING: Record<string, ModelPricing> = {
       { cpu: 'i7-1250U', base: 45990, premium: 0, total: 45990 },
     ],
   },
-  'UPC-302B': {
-    model: 'UPC-302B', category: 'Multi-Display (3× HDMI)', chassis: 'LARGE',
-    includedFeatures: ['3× HDMI Display Output'],
-    cpus: [
-      { cpu: 'i3-1215U', base: 35990, premium: 0, total: 35990 },
-      { cpu: 'i5-1235U', base: 40990, premium: 0, total: 40990 },
-      { cpu: 'i7-1250U', base: 45990, premium: 0, total: 45990 },
-    ],
-  },
   'UPC-302D': {
     model: 'UPC-302D', category: 'Multi-USB (9× USB)', chassis: 'LARGE',
     includedFeatures: ['9× USB', '2× LAN'],
