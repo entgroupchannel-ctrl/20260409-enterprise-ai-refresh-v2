@@ -198,7 +198,7 @@ const advantages = [
 const industries = [
   { icon: Factory, label: "Factory Automation" },
   { icon: Train, label: "Railway / Transit" },
-  { icon: Truck, label: "Logistics / Forklift" },
+  { icon: Truck, label: "Logistics / AGV" },
   { icon: HardHat, label: "Smart Factory 4.0" },
   { icon: Microscope, label: "Lab / Inspection" },
   { icon: Box, label: "Warehouse / Kiosk" },
@@ -314,6 +314,179 @@ export default function IPCTech() {
                 <div className="font-bold">IPCTECH HQ · 启阳科技</div>
                 <div className="text-muted-foreground">Industrial Computing Manufacturer</div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============ NEW LAUNCH · QY-U4000 Government Spec ============ */}
+      <section className="relative py-14 md:py-20 bg-gradient-to-br from-primary/5 via-background to-primary/10 border-b border-border overflow-hidden">
+        <div className="absolute -top-24 -left-24 h-80 w-80 rounded-full bg-primary/15 blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-24 -right-24 h-96 w-96 rounded-full bg-primary/10 blur-3xl pointer-events-none" />
+
+        <div className="container max-w-7xl mx-auto px-4 relative">
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-5">
+            <Badge className="bg-primary text-primary-foreground font-bold tracking-wider uppercase text-[10px] px-3 py-1">
+              ★ NEW LAUNCH
+            </Badge>
+            <Badge variant="outline" className="border-primary/40 text-primary text-[10px]">
+              Government Spec
+            </Badge>
+            <Badge variant="outline" className="border-primary/40 text-primary text-[10px]">
+              งานโครงการภาครัฐ
+            </Badge>
+            <Badge variant="outline" className="border-primary/40 text-primary text-[10px]">
+              วางสเปก / TOR ราชการ
+            </Badge>
+          </div>
+
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-5xl font-display font-extrabold tracking-tight mb-3">
+              QY-U4000 <span className="text-primary">Industrial Computer 4U</span>
+            </h2>
+            <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              รุ่นเรือธงสำหรับ <span className="font-semibold text-foreground">งานโครงการภาครัฐ</span> และงานวางสเปกราชการ —
+              ปรับแต่งได้ตาม TOR ทุกข้อกำหนด รองรับ CPU Intel Desktop ตั้งแต่ Gen 4 ถึง 14
+              พร้อมการรับประกันคุณภาพระดับอุตสาหกรรม
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 via-primary/10 to-transparent rounded-3xl blur-3xl" />
+              <div className="relative bg-card border-2 border-primary/30 rounded-3xl p-6 md:p-10 shadow-2xl">
+                <img
+                  src={qyU4000Hero}
+                  alt="QY-U4000 4U Industrial Computer — รุ่นเปิดตัวใหม่สำหรับโครงการภาครัฐ"
+                  className="w-full h-auto object-contain mx-auto max-h-[420px]"
+                  loading="lazy"
+                />
+                <div className="absolute top-4 right-4 bg-primary text-primary-foreground rounded-full px-3 py-1 text-[10px] font-bold tracking-widest uppercase shadow-lg">
+                  Just Released
+                </div>
+                <div className="mt-5 grid grid-cols-3 gap-2 text-center">
+                  <div className="bg-background/60 rounded-lg p-2 border border-border">
+                    <div className="text-[10px] text-muted-foreground">Form Factor</div>
+                    <div className="font-bold text-sm">4U Rackmount</div>
+                  </div>
+                  <div className="bg-background/60 rounded-lg p-2 border border-border">
+                    <div className="text-[10px] text-muted-foreground">Dimensions (mm)</div>
+                    <div className="font-bold text-sm">481×445×173</div>
+                  </div>
+                  <div className="bg-background/60 rounded-lg p-2 border border-border">
+                    <div className="text-[10px] text-muted-foreground">Operating Temp</div>
+                    <div className="font-bold text-sm">−30 ~ 70°C</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div className="inline-flex items-center gap-2 mb-4 text-xs font-semibold text-primary uppercase tracking-wider">
+                <ShieldCheck size={16} /> เน้นคุณภาพ · ปรับแต่งพิเศษ
+              </div>
+              <h3 className="text-xl md:text-2xl font-display font-bold mb-5 leading-snug">
+                ออกแบบมาเพื่อ TOR ภาครัฐโดยเฉพาะ —<br />
+                <span className="text-primary">ครอบคลุม 9 ตัวเลือกเมนบอร์ด · CPU Intel Gen 4–14</span>
+              </h3>
+
+              <ul className="space-y-3 mb-6">
+                {[
+                  {
+                    title: "รองรับ CPU Intel Desktop Gen 4 → 14",
+                    desc: "i3 / i5 / i7 / i9 + Pentium / Celeron — เลือกชิปเซ็ตได้ 9 รุ่น (H81, B85, H110, Z390, Q170, H470, Q470, H610, Q670)",
+                  },
+                  {
+                    title: "Mainboard ATX / Micro-ATX / Mini-ITX",
+                    desc: "ขยาย PCIe 16x/4x/1x + PCI สูงสุด 4 ช่อง · M.2 NVMe + SATA 3.0 รองรับงาน Server / GPU / Capture Card",
+                  },
+                  {
+                    title: "Power Supply 300W ถึง 1300W",
+                    desc: "ATX Power Module เลือกได้ตามโหลด · Auto-Start · รองรับ Remote Power On/Off สำหรับศูนย์ข้อมูลภาครัฐ",
+                  },
+                  {
+                    title: "ทำงาน 24/7 ที่ −30°C ถึง 70°C",
+                    desc: "Anti-Static · Anti-Pulse · Anti-Surge · Anti-Radiation — เหมาะกับห้องควบคุม CCTV, ระบบจราจร, สถานีไฟฟ้า",
+                  },
+                  {
+                    title: "I/O ครบสำหรับงานราชการ",
+                    desc: "RS-232 / 422 / 485 สูงสุด 6 ช่อง · USB 3.2 / 2.0 · Dual Intel LAN (1 / 2.5 GbE) · DP / HDMI / DVI / VGA",
+                  },
+                  {
+                    title: "Customization & ODM/OEM",
+                    desc: "ปรับแต่ง RAM (DDR3/4/5 ถึง 64GB) · Storage NVMe/SATA · WiFi/4G Module · ฉลาก/บรรจุภัณฑ์ตามสเปก TOR",
+                  },
+                ].map((f) => (
+                  <li key={f.title} className="flex gap-3">
+                    <CheckCircle2 className="text-primary flex-shrink-0 mt-0.5" size={20} />
+                    <div>
+                      <div className="font-semibold text-sm md:text-base">{f.title}</div>
+                      <div className="text-xs md:text-sm text-muted-foreground leading-relaxed">{f.desc}</div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="bg-card border border-border rounded-xl p-4 mb-6">
+                <div className="text-[11px] text-muted-foreground uppercase tracking-wider font-semibold mb-2">
+                  เหมาะสำหรับงานโครงการ
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    "ศูนย์ข้อมูลราชการ",
+                    "ระบบ CCTV เมือง",
+                    "ระบบจราจรอัจฉริยะ (ITS)",
+                    "สถานีไฟฟ้า / น้ำประปา",
+                    "ห้องควบคุมโรงงาน",
+                    "ระบบรถไฟฟ้า / รถไฟ",
+                    "Defense / Security",
+                    "Smart City",
+                  ].map((t) => (
+                    <Badge key={t} variant="secondary" className="text-[11px]">
+                      {t}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-3">
+                <QuoteRequestButton
+                  productName="IPCTECH QY-U4000 — 4U Industrial Computer (Government Spec)"
+                  size="lg"
+                  className="shadow-lg"
+                />
+                <Button asChild variant="outline" size="lg">
+                  <a href="#products">
+                    <FileText className="mr-2" size={18} /> ดูรายละเอียดทั้งหมด
+                  </a>
+                </Button>
+              </div>
+
+              <p className="mt-4 text-xs text-muted-foreground">
+                * พร้อมให้คำปรึกษาการเขียน TOR / วางสเปก · ออกใบเสนอราคาในนามนิติบุคคล · จัดส่งทั่วประเทศไทย
+              </p>
+            </div>
+          </div>
+
+          {/* Dimensions strip */}
+          <div className="mt-10 bg-card border border-border rounded-2xl p-5 md:p-6 flex flex-col md:flex-row gap-5 items-center">
+            <img
+              src={qyU4000Dimensions}
+              alt="QY-U4000 dimensions diagram"
+              className="w-full md:w-72 h-auto object-contain rounded-lg bg-background p-2"
+              loading="lazy"
+            />
+            <div className="flex-1">
+              <div className="text-[11px] text-muted-foreground uppercase tracking-wider font-semibold mb-1">
+                Mechanical · Standard 19" Rack
+              </div>
+              <div className="text-lg md:text-xl font-bold mb-2">
+                4U Chassis · 481 × 445 × 173 mm
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                ติดตั้งได้ทั้งแบบ Desktop และ Embedded ในตู้ 19" Rack มาตรฐานราชการ
+                · รองรับ Mainboard ATX / Micro-ATX / Mini-ITX · Windows 7/10/11 และ Linux
+              </p>
             </div>
           </div>
         </div>
