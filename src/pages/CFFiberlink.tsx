@@ -17,7 +17,9 @@ import {
   Ship,
   Cpu,
   CheckCircle2,
+  ShoppingBag,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 import AddToCartButton from "@/components/AddToCartButton";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
 import { Badge } from "@/components/ui/badge";
