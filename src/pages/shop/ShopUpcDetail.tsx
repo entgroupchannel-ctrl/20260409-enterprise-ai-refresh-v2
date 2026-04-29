@@ -642,6 +642,8 @@ export default function ShopUpcDetail() {
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/80 text-sm">{activeImg + 1} / {galleryImages.length}</div>
         </div>
       )}
+
+      <Footer />
     </div>
   );
 }
