@@ -48,6 +48,8 @@ export interface CFFiberlinkModel {
   heroTitle?: string;
   /** คำอธิบายสั้นใน Hero Card */
   heroPitch?: string;
+  /** Gallery รูปเพิ่มเติมจากเว็บโรงงาน — ใช้แสดง thumbnail strip ใน Modal */
+  gallery?: string[];
 }
 
 export interface CFFiberlinkCategoryDef {
