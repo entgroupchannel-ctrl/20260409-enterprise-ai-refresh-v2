@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
@@ -39,9 +39,36 @@ const ProductDetailDialog = ({
   const gallery = detail?.gallery?.length ? detail.gallery : fallbackImage ? [fallbackImage] : [];
   const [activeImage, setActiveImage] = useState(0);
   const [lightbox, setLightbox] = useState<string | null>(null);
+  const [isPaused, setIsPaused] = useState(false);
+  const [progress, setProgress] = useState(0);
+
+  const SLIDE_INTERVAL_MS = 4000;
+  const TICK_MS = 50;
 
   // reset image index when product changes
-  useState(() => setActiveImage(0));
+  useEffect(() => {
+    setActiveImage(0);
+    setProgress(0);
+  }, [productId]);
+
+  // auto-advance slideshow + progress indicator
+  useEffect(() => {
+    if (!open || gallery.length <= 1 || isPaused || lightbox) {
+      return;
+    }
+    setProgress(0);
+    const tick = setInterval(() => {
+      setProgress((p) => {
+        const next = p + (TICK_MS / SLIDE_INTERVAL_MS) * 100;
+        if (next >= 100) {
+          setActiveImage((idx) => (idx + 1) % gallery.length);
+          return 0;
+        }
+        return next;
+      });
+    }, TICK_MS);
+    return () => clearInterval(tick);
+  }, [open, gallery.length, isPaused, lightbox, activeImage]);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
