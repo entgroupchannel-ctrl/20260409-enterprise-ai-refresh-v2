@@ -33,6 +33,10 @@ import {
   Gift,
   Phone,
   MessageCircle,
+  Snowflake,
+  Thermometer,
+  ArrowRight,
+  Star,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -201,21 +205,21 @@ type FormFilter = "all" | "din" | "rack";
 type TempFilter = "all" | "extreme" | "industrial" | "commercial";
 
 /** อธิบายสภาพการใช้งานต่อ TempClass — แสดงใน Modal และ tooltip */
-const TEMP_INFO: Record<"extreme" | "industrial" | "commercial", { icon: string; label: string; useCase: string; badgeClass: string }> = {
+const TEMP_INFO: Record<"extreme" | "industrial" | "commercial", { icon: LucideIcon; label: string; useCase: string; badgeClass: string }> = {
   extreme: {
-    icon: "🥶",
+    icon: Snowflake,
     label: "Extreme — ทนสุดขั้ว",
     useCase: "ทนเย็นจัด/ร้อนจัด ตู้คอนโทรลกลางแดด, นอกอาคาร, โรงงานเหล็ก, ห้องเย็น, ระบบราง, เหมือง, สถานีไฟฟ้า, ปิโตรเคมี",
     badgeClass: "bg-blue-500/10 text-blue-600 border-blue-500/30 dark:text-blue-400",
   },
   industrial: {
-    icon: "🏭",
+    icon: Factory,
     label: "Industrial — โรงงานทั่วไป",
     useCase: "เหมาะตู้คอนโทรลในโรงงาน, ไลน์ผลิต, คลังสินค้า, อาคารโรงงานที่ไม่มีแอร์ตลอด — ทนฝุ่นและการสั่นสะเทือน",
     badgeClass: "bg-amber-500/10 text-amber-700 border-amber-500/30 dark:text-amber-400",
   },
   commercial: {
-    icon: "🏢",
+    icon: Building,
     label: "Commercial — ในอาคาร",
     useCase: "ใช้ในออฟฟิศ ห้อง Server ตู้ Rack ติดผนังในร่ม โรงแรม คอนโด ห้างสรรพสินค้า — แนะนำมีแอร์/ระบายอากาศ",
     badgeClass: "bg-emerald-500/10 text-emerald-700 border-emerald-500/30 dark:text-emerald-400",
@@ -431,8 +435,8 @@ const CFFiberlink = () => {
           <section className="space-y-4">
             <div className="flex items-end justify-between gap-4 flex-wrap">
               <div>
-                <h2 className="text-2xl font-display font-bold text-foreground">
-                  ⭐ <span className="text-gradient">รุ่นแนะนำเด่น</span>
+                <h2 className="text-2xl font-display font-bold text-foreground inline-flex items-center gap-2">
+                  <Star className="w-5 h-5 text-primary fill-primary" /> <span className="text-gradient">รุ่นแนะนำเด่น</span>
                 </h2>
                 <p className="text-sm text-muted-foreground mt-1">
                   คัดมาให้แล้ว — ครอบคลุมทุกการใช้งานหลัก ตั้งแต่ Entry ไปจนถึง Flagship
@@ -455,8 +459,8 @@ const CFFiberlink = () => {
                   className="group relative card-surface overflow-hidden flex flex-col text-left ring-2 ring-primary/30 hover:ring-primary hover:-translate-y-1 hover:shadow-xl transition-all"
                 >
                   {/* Top ribbon */}
-                  <div className="absolute top-0 left-0 right-0 z-10 bg-gradient-to-r from-primary to-primary/70 text-primary-foreground text-[10px] font-bold tracking-wide uppercase px-2 py-1 text-center shadow">
-                    ⭐ Pick · {cat.title}
+                  <div className="absolute top-0 left-0 right-0 z-10 bg-gradient-to-r from-primary to-primary/70 text-primary-foreground text-[10px] font-bold tracking-wide uppercase px-2 py-1 text-center shadow inline-flex items-center justify-center gap-1">
+                    <Star className="w-3 h-3 fill-current" /> Pick · {cat.title}
                   </div>
 
                   <div className="aspect-[4/3] overflow-hidden bg-gradient-to-br from-muted to-secondary/40 pt-6 relative">
@@ -471,7 +475,7 @@ const CFFiberlink = () => {
                       title={heroTempInfo.useCase}
                       className={`absolute bottom-2 right-2 inline-flex items-center gap-1 text-[10px] font-bold border rounded-full px-2 py-0.5 backdrop-blur-sm ${heroTempInfo.badgeClass}`}
                     >
-                      <span>{heroTempInfo.icon}</span>
+                      <heroTempInfo.icon className="w-3 h-3" />
                       <span className="font-mono">{heroRange}</span>
                     </span>
                   </div>
@@ -504,8 +508,8 @@ const CFFiberlink = () => {
 
                     <div className="flex items-center justify-between text-[11px] text-muted-foreground pt-2 border-t border-border/50 mt-1">
                       <span className="font-mono">{m.switchingCapacity}</span>
-                      <span className="text-primary font-semibold group-hover:underline">
-                        ดูสเปก →
+                      <span className="text-primary font-semibold group-hover:underline inline-flex items-center gap-1">
+                        ดูสเปก <ArrowRight className="w-3 h-3" />
                       </span>
                     </div>
                   </div>
@@ -558,11 +562,11 @@ const CFFiberlink = () => {
                 { v: "din", label: "DIN-Rail" },
                 { v: "rack", label: "Rack 1U" },
               ];
-              const tempChips: { v: TempFilter; label: string; emoji: string }[] = [
-                { v: "all", label: "ทุกระดับ", emoji: "🌡️" },
-                { v: "extreme", label: "ทนสุดขั้ว -40°C+", emoji: "🥶" },
-                { v: "industrial", label: "โรงงาน", emoji: "🏭" },
-                { v: "commercial", label: "ในอาคาร", emoji: "🏢" },
+              const tempChips: { v: TempFilter; label: string; icon: LucideIcon }[] = [
+                { v: "all", label: "ทุกระดับ", icon: Thermometer },
+                { v: "extreme", label: "ทนสุดขั้ว -40°C+", icon: Snowflake },
+                { v: "industrial", label: "โรงงาน", icon: Factory },
+                { v: "commercial", label: "ในอาคาร", icon: Building },
               ];
               return (
               <TabsContent key={cat.id} value={cat.id} className="mt-6">
@@ -636,7 +640,7 @@ const CFFiberlink = () => {
                         }`}
                         title={c.v === "all" ? "แสดงทุกระดับอุณหภูมิ" : TEMP_INFO[c.v].useCase}
                       >
-                        <span className="mr-0.5">{c.emoji}</span>{c.label}
+                        <span className="inline-flex items-center gap-1"><c.icon className="w-3 h-3" />{c.label}</span>
                       </button>
                     ))}
                   </div>
@@ -683,7 +687,7 @@ const CFFiberlink = () => {
                           title={cardTempInfo.useCase}
                           className={`absolute top-1.5 right-1.5 inline-flex items-center gap-0.5 text-[9px] font-bold border rounded-full px-1.5 py-0.5 backdrop-blur-sm ${cardTempInfo.badgeClass}`}
                         >
-                          <span>{cardTempInfo.icon}</span>
+                          <cardTempInfo.icon className="w-2.5 h-2.5" />
                           <span className="font-mono">{cardRange}</span>
                         </span>
                       </div>
@@ -704,7 +708,7 @@ const CFFiberlink = () => {
                                 key={s}
                                 className="inline-flex items-center gap-0.5 text-[9px] font-semibold text-primary bg-primary/10 border border-primary/20 rounded px-1 py-0.5 leading-tight"
                               >
-                                ⭐ {s}
+                                <Star className="w-2.5 h-2.5 fill-current" /> {s}
                               </span>
                             ))}
                           </div>
@@ -961,8 +965,8 @@ const CFFiberlink = () => {
                     const info = TEMP_INFO[klass];
                     return (
                       <div className="flex flex-wrap gap-1.5 pt-1">
-                        <Badge variant="outline" className={`text-[10px] ${info.badgeClass}`} title={info.useCase}>
-                          <span className="mr-0.5">{info.icon}</span>{range}
+                        <Badge variant="outline" className={`text-[10px] inline-flex items-center gap-1 ${info.badgeClass}`} title={info.useCase}>
+                          <info.icon className="w-3 h-3" />{range}
                         </Badge>
                         <Badge variant="outline" className="text-[10px]">6KV Lightning</Badge>
                         <Badge variant="outline" className="text-[10px]">ERPS &lt;20ms</Badge>
@@ -981,7 +985,7 @@ const CFFiberlink = () => {
                 return (
                   <div className={`mt-4 rounded-lg border p-3 ${info.badgeClass}`}>
                     <div className="flex items-start gap-2">
-                      <span className="text-xl leading-none">{info.icon}</span>
+                      <info.icon className="w-5 h-5 shrink-0 mt-0.5" />
                       <div className="flex-1 min-w-0">
                         <p className="text-xs font-semibold mb-0.5">
                           อุณหภูมิใช้งาน {range} · {info.label}
