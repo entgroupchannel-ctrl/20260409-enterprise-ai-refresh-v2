@@ -13,12 +13,42 @@
  * Phase 1 (current): Layer 3 Industrial Ethernet Switches
  */
 
+/** Detailed spec block — แสดงใน Product Detail Dialog (ไม่ใช่ทุกรุ่นที่มี) */
+export type VolktekProductDetails = {
+  /** Overview 1-2 ย่อหน้าจากเว็บโรงงาน */
+  overview: string;
+  /** จุดเด่น 3-5 ข้อ — แต่ละข้อ {title, desc} */
+  highlights: { title: string; desc: string }[];
+  /** ลิสต์พอร์ตและ interface */
+  ports: string[];
+  /** LED Panel labels (optional) */
+  ledPanel?: string;
+  power: {
+    input: string;
+    consumption: string;
+    poeBudget?: string;
+  };
+  environment: {
+    tempOperating: string;
+    tempStorage: string;
+    humidity: string;
+    housing: string;
+  };
+  physical: {
+    weight: string;
+    dimension: string;
+  };
+  /** Datasheet PDF URL */
+  datasheetUrl?: string;
+};
+
 export type VolktekProduct = {
   model: string;
   description: string;
   image: string;
   features: string[];
   sourceUrl: string;
+  details?: VolktekProductDetails;
 };
 
 export type VolktekSubCategory = {
