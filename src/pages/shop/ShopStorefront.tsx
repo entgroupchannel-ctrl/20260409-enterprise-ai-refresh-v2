@@ -1321,12 +1321,12 @@ const ShopStorefront = () => {
                   value={String(pageSize)}
                   onValueChange={(v) => { setPageSize(Number(v)); setPage(1); }}
                 >
-                  <SelectTrigger className="h-8 w-[90px]">
+                  <SelectTrigger className="h-8 w-[110px]">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
                     {PAGE_SIZE_OPTIONS.map((n) => (
-                      <SelectItem key={n} value={String(n)}>{n}</SelectItem>
+                      <SelectItem key={n} value={String(n)}>{pageSizeLabel(n)}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
