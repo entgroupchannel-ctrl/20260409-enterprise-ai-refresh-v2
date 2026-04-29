@@ -221,9 +221,23 @@ const TEMP_INFO: Record<"extreme" | "industrial" | "commercial", { icon: string;
 };
 
 const getPortCount = (ports: string): number => {
-  const matches = ports.match(/(\d+)\s*[×x]/g) || [];
+  // นับเฉพาะ access ports (RJ45 / PoE / GbE RJ45 / 100M PoE / Ethernet) ไม่รวม SFP / SFP+
+  // ตัวอย่าง: "8× GbE RJ45 + 16× SFP + 4× 10G SFP+" → 8
+  //         "24× GbE PoE + 4× SFP + 1× Console" → 24
+  //         "5× 10/100M RJ45 (Unmanaged)" → 5
+  //         "24× SFP (8 Combo) + 4× 10G SFP+" → 0
   let sum = 0;
-  for (const t of matches) sum += parseInt(t, 10) || 0;
+  // จับ "<num>× <stuff ที่ไม่ใช่ SFP/Console>" — ใช้ heuristic: กลุ่มหลัง × ที่มีคำว่า RJ45 หรือ PoE หรือ Ethernet
+  const segments = ports.split(/\+/);
+  for (const seg of segments) {
+    const m = seg.match(/(\d+)\s*[×x]/);
+    if (!m) continue;
+    const n = parseInt(m[1], 10) || 0;
+    // ข้าม SFP / SFP+ / Console — เก็บเฉพาะ RJ45-class
+    const isAccess = /RJ45|PoE|Ethernet|10\/100M|GbE(?!\s*PoE)/i.test(seg) && !/SFP|Console|Combo only/i.test(seg);
+    // กรณีพิเศษ: "GbE PoE" / "100M PoE" = access; "SFP" = ข้าม
+    if (isAccess || (/PoE/i.test(seg) && !/SFP/i.test(seg))) sum += n;
+  }
   return sum;
 };
 
