@@ -1785,16 +1785,354 @@ export const volktekIndustrialEthernet: VolktekCategory = {
       title: "Unmanaged Premium",
       blurb: "Premium Unmanaged Switch — ทนทานกว่ามาตรฐาน อายุการใช้งานยาวขึ้น เหมาะกับโครงการระยะยาว",
       products: [
-        { model: "INS-801E", description: "5x 10/100 RJ45 — Premium Unmanaged Industrial Switch", image: ie_INS_801E, features: ["Premium", "5-port", "Fast Ethernet"], sourceUrl: detail(1598) },
-        { model: "INS-806E", description: "8x 10/100 RJ45 — Premium Unmanaged Industrial Switch", image: ie_INS_806E, features: ["Premium", "8-port", "Fast Ethernet"], sourceUrl: detail(1600) },
-        { model: "INS-802E", description: "8x 10/100 RJ45 + 2x FX/GbE SFP — Premium Unmanaged Industrial", image: ie_INS_802E, features: ["Premium", "Fiber", "10-port"], sourceUrl: detail(1599) },
-        { model: "INS-8005E", description: "5x 10/100 RJ45 — Premium Unmanaged Industrial Switch", image: ie_INS_8005E, features: ["Premium", "5-port", "Fast Ethernet"], sourceUrl: detail(1591) },
-        { model: "INS-8405E", description: "5x 10/100/1000 RJ45 — Premium Unmanaged Industrial Gigabit", image: ie_INS_8405E, features: ["Premium", "5-port", "Gigabit"], sourceUrl: detail(1586) },
-        { model: "INS-8415", description: "5x 10/100/1000 RJ45 + 1x GbE SFP — Premium Unmanaged Industrial", image: ie_INS_8415, features: ["Premium", "Fiber", "6-port"], sourceUrl: detail(1604) },
-        { model: "INS-8008E", description: "8x 10/100 RJ45 — Premium Unmanaged Industrial Switch", image: ie_INS_8008E, features: ["Premium", "8-port", "Fast Ethernet"], sourceUrl: detail(1592) },
-        { model: "INS-8408E", description: "8x 10/100/1000 RJ45 — Premium Unmanaged Industrial Gigabit", image: ie_INS_8408E, features: ["Premium", "8-port", "Gigabit"], sourceUrl: detail(1585) },
-        { model: "7015-8GT2GS-I", description: "8x 10/100/1000 RJ45 + 2x GbE SFP — Premium Unmanaged Industrial", image: ie_7015_8GT2GS_I, features: ["Premium", "Fiber", "10-port"], sourceUrl: detail(1601) },
-        { model: "INS-8108E", description: "8x 10/100 RJ45 — Premium Unmanaged Industrial Switch", image: ie_INS_8108E, features: ["Premium", "8-port", "Fast Ethernet"], sourceUrl: detail(1603) },
+        {
+          model: "INS-801E",
+          description: "5x 10/100 RJ45 — Premium Unmanaged Industrial Switch",
+          image: ie_INS_801E,
+          features: ["Premium", "5-port", "Fast Ethernet"],
+          sourceUrl: detail(1598),
+          details: {
+            overview:
+              "Premium Unmanaged Industrial Switch 5 พอร์ต 10/100Mbps — รองรับ Auto-negotiation, Flow & Storm Control, VLAN Pass-through และ Industrial QoS (EtherNet/IP, PROFINET, GOOSE) ตัวเครื่องอลูมิเนียม IP40 ทำงานช่วงอุณหภูมิ -40°C~75°C เหมาะกับ PLC, HMI และอุปกรณ์ Legacy ในสายการผลิต",
+            highlights: [
+              { title: "พอร์ตหลัก: 5 x 10/100BASE-TX", desc: "เชื่อมต่ออุปกรณ์อุตสาหกรรมได้หลากหลายในเครือข่ายเดียว" },
+              { title: "Auto-negotiation ทุกพอร์ต", desc: "ตรวจจับความเร็วและ Duplex อัตโนมัติ ติดตั้งง่าย ไม่ต้องตั้งค่าเพิ่ม" },
+              { title: "Flow & Storm Control", desc: "ควบคุม Traffic ป้องกัน Data Storm และ Buffer Overflow" },
+              { title: "VLAN Pass-through / Passthru", desc: "ส่งต่อ VLAN Tag โดยไม่ดัดแปลง ป้องกัน Packet Loss" },
+              { title: "Industrial QoS (iQoS)", desc: "จัดลำดับความสำคัญของ EtherNet/IP, PROFINET, GOOSE และ 802.1p Tag" },
+              { title: "Operating Temp -40°C~75°C", desc: "ทนอุณหภูมิสุดขั้วในโรงงาน ผ่าน UL Approved Temperature Range" },
+            ],
+            ports: [
+              "5 x 10/100BASE-TX (RJ45)",
+            ],
+            power: {
+              input: "Primary inputs 12~48VDC Redundant inputs 12~48VDC",
+              consumption: "3W (Max)",
+            },
+            environment: {
+              tempOperating: "-40°C~75°C (-40°F~167°F)",
+              housing: "Aluminum (IP40 protection)",
+            },
+            physical: {
+              weight: "400 g (0.88 lb)",
+              dimension: "57.3 x 131.2 x 100.9 mm (2.26 x 5.17 x 3.97 in) (DIN-Rail)",
+            },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/f386be67b05341ba971fe1fcd72ce062.pdf",
+          },
+        },
+        {
+          model: "INS-806E",
+          description: "8x 10/100 RJ45 — Premium Unmanaged Industrial Switch",
+          image: ie_INS_806E,
+          features: ["Premium", "8-port", "Fast Ethernet"],
+          sourceUrl: detail(1600),
+          details: {
+            overview:
+              "Premium Unmanaged Industrial Switch 8 พอร์ต 10/100Mbps — Auto-negotiation, iQoS สำหรับ EtherNet/IP/PROFINET/GOOSE และ Redundant Power 12~48VDC ตัวเครื่องอลูมิเนียม IP40 -40°C~75°C เหมาะสำหรับเครือข่ายโรงงานที่ต้องการเสถียรภาพระดับ Premium",
+            highlights: [
+              { title: "พอร์ตหลัก: 8 x 10/100BASE-TX", desc: "เชื่อมต่ออุปกรณ์อุตสาหกรรมได้หลากหลายในเครือข่ายเดียว" },
+              { title: "Auto-negotiation ทุกพอร์ต", desc: "ตรวจจับความเร็วและ Duplex อัตโนมัติ ติดตั้งง่าย ไม่ต้องตั้งค่าเพิ่ม" },
+              { title: "Flow & Storm Control", desc: "ควบคุม Traffic ป้องกัน Data Storm และ Buffer Overflow" },
+              { title: "VLAN Pass-through / Passthru", desc: "ส่งต่อ VLAN Tag โดยไม่ดัดแปลง ป้องกัน Packet Loss" },
+              { title: "Industrial QoS (iQoS)", desc: "จัดลำดับความสำคัญของ EtherNet/IP, PROFINET, GOOSE และ 802.1p Tag" },
+              { title: "Operating Temp -40°C~75°C", desc: "ทนอุณหภูมิสุดขั้วในโรงงาน ผ่าน UL Approved Temperature Range" },
+            ],
+            ports: [
+              "8 x 10/100BASE-TX (RJ45)",
+            ],
+            power: {
+              input: "Primary input 12~48VDC Redundant input 12~48VDC",
+              consumption: "3W",
+            },
+            environment: {
+              tempOperating: "-40°C~75°C (-40°F~167°F)",
+              housing: "Aluminum (IP40 protection)",
+            },
+            physical: {
+              weight: "480 g (1.0 lb)",
+              dimension: "57.3 x 131.2 x 100.9 mm (2.26 x 5.17 x 3.97 in) (DIN-Rail)",
+            },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/96db6f5c2d52f91ef093458a47a784ee.pdf",
+          },
+        },
+        {
+          model: "INS-802E",
+          description: "8x 10/100 RJ45 + 2x FX/GbE SFP — Premium Unmanaged Industrial",
+          image: ie_INS_802E,
+          features: ["Premium", "Fiber", "10-port"],
+          sourceUrl: detail(1599),
+          details: {
+            overview:
+              "Premium Unmanaged Industrial Switch 8 พอร์ต 10/100 RJ45 + 2 พอร์ต FX/GbE SFP — Dual Fiber Uplink, Redundant DC Input, Dry-contact Smart Alarm รองรับ iQoS และ VLAN Pass-through ตัวเครื่อง IP40 อลูมิเนียม -40°C~75°C เหมาะกับงาน Automation ที่ต้องเชื่อมต่อระยะไกลผ่าน Fiber",
+            highlights: [
+              { title: "พอร์ตหลัก: 8 x 10/100Base-TX (RJ45) + 2 x FX/GbE (SFP)", desc: "เชื่อมต่ออุปกรณ์อุตสาหกรรมได้หลากหลายในเครือข่ายเดียว" },
+              { title: "Auto-negotiation ทุกพอร์ต", desc: "ตรวจจับความเร็วและ Duplex อัตโนมัติ ติดตั้งง่าย ไม่ต้องตั้งค่าเพิ่ม" },
+              { title: "Flow & Storm Control", desc: "ควบคุม Traffic ป้องกัน Data Storm และ Buffer Overflow" },
+              { title: "VLAN Pass-through / Passthru", desc: "ส่งต่อ VLAN Tag โดยไม่ดัดแปลง ป้องกัน Packet Loss" },
+              { title: "Industrial QoS (iQoS)", desc: "จัดลำดับความสำคัญของ EtherNet/IP, PROFINET, GOOSE และ 802.1p Tag" },
+              { title: "Operating Temp -40°C~75°C", desc: "ทนอุณหภูมิสุดขั้วในโรงงาน ผ่าน UL Approved Temperature Range" },
+            ],
+            ports: [
+              "8 x 10/100Base-TX (RJ45)",
+              "2 x FX/GbE (SFP)",
+            ],
+            power: {
+              input: "Primary inputs: 12 ~ 48VDC Redundant inputs: 12 ~ 48VDC",
+              consumption: "6W (Max)",
+            },
+            environment: {
+              tempOperating: "-40°C to 75°C",
+              housing: "Aluminum (IP40 protection)",
+            },
+            physical: {
+              weight: "791 g (1.74 lb)",
+              dimension: "57.3 x 175 x 126.4 mm (2.26 x 6.89 x 4.98 in) (DIN-Rail)",
+            },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/57e96043c5007e79e1ce889c11ace67b.pdf",
+          },
+        },
+        {
+          model: "INS-8005E",
+          description: "5x 10/100 RJ45 — Premium Unmanaged Industrial Switch",
+          image: ie_INS_8005E,
+          features: ["Premium", "5-port", "Fast Ethernet"],
+          sourceUrl: detail(1591),
+          details: {
+            overview:
+              "Premium Unmanaged Industrial Switch ขนาดกะทัดรัด 5 พอร์ต 10/100Mbps — รองรับ iQoS, VLAN Passthru, Flow Control ตัวเครื่อง IP40 อลูมิเนียม น้ำหนักเพียง 183 กรัม ติดตั้งได้ทั้ง DIN-Rail และ Wall Mount เหมาะกับงาน Robot, PLC และ HMI ในพื้นที่จำกัด",
+            highlights: [
+              { title: "พอร์ตหลัก: 5 x 10/100BASE-TX", desc: "เชื่อมต่ออุปกรณ์อุตสาหกรรมได้หลากหลายในเครือข่ายเดียว" },
+              { title: "Auto-negotiation ทุกพอร์ต", desc: "ตรวจจับความเร็วและ Duplex อัตโนมัติ ติดตั้งง่าย ไม่ต้องตั้งค่าเพิ่ม" },
+              { title: "Flow & Storm Control", desc: "ควบคุม Traffic ป้องกัน Data Storm และ Buffer Overflow" },
+              { title: "VLAN Pass-through / Passthru", desc: "ส่งต่อ VLAN Tag โดยไม่ดัดแปลง ป้องกัน Packet Loss" },
+              { title: "Industrial QoS (iQoS)", desc: "จัดลำดับความสำคัญของ EtherNet/IP, PROFINET, GOOSE และ 802.1p Tag" },
+              { title: "Operating Temp -40°C~75°C", desc: "ทนอุณหภูมิสุดขั้วในโรงงาน ผ่าน UL Approved Temperature Range" },
+            ],
+            ports: [
+              "5 x 10/100BASE-TX (RJ45)",
+            ],
+            power: {
+              input: "12~48VDC",
+              consumption: "3W",
+            },
+            environment: {
+              tempOperating: "-40°C~75°C (-40°F~167°F)",
+              housing: "Aluminum (IP40 Protection)",
+            },
+            physical: {
+              weight: "183.4 g (0.4 lb)",
+              dimension: "23.6 x 109.2 x 73.8 mm (0.93 x 4.3 x 2.90 in) (DIN-Rail, Wall Mount)",
+            },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/74ff2e886f35e9e4547c406fcfe4429f.pdf",
+          },
+        },
+        {
+          model: "INS-8405E",
+          description: "5x 10/100/1000 RJ45 — Premium Unmanaged Industrial Gigabit",
+          image: ie_INS_8405E,
+          features: ["Premium", "5-port", "Gigabit"],
+          sourceUrl: detail(1586),
+          details: {
+            overview:
+              "Premium Unmanaged Industrial Gigabit Switch 5 พอร์ต 10/100/1000Mbps แบบ Slim — iQoS รองรับ EtherNet/IP/PROFINET/GOOSE, VLAN Passthru, Flow Control ตัวเครื่อง IP40 อลูมิเนียม -40°C~75°C น้ำหนักเบาเพียง 160 กรัม เหมาะกับการเชื่อมต่อ Gigabit ในตู้ควบคุมขนาดเล็ก",
+            highlights: [
+              { title: "พอร์ตหลัก: 5 x 10/100/1000BASE-T", desc: "เชื่อมต่ออุปกรณ์อุตสาหกรรมได้หลากหลายในเครือข่ายเดียว" },
+              { title: "Auto-negotiation ทุกพอร์ต", desc: "ตรวจจับความเร็วและ Duplex อัตโนมัติ ติดตั้งง่าย ไม่ต้องตั้งค่าเพิ่ม" },
+              { title: "Industrial QoS (iQoS)", desc: "จัดลำดับความสำคัญของ EtherNet/IP, PROFINET, GOOSE และ 802.1p Tag" },
+              { title: "Operating Temp -40°C~75°C", desc: "ทนอุณหภูมิสุดขั้วในโรงงาน ผ่าน UL Approved Temperature Range" },
+            ],
+            ports: [
+              "5 x 10/100/1000BASE-T (RJ45)",
+            ],
+            power: {
+              input: "Primary 12~48VDC + Redundant 12~48VDC",
+              consumption: "—",
+            },
+            environment: {
+              tempOperating: "-40°C ~ 75°C",
+              housing: "Aluminum (IP40 Protection)",
+            },
+            physical: {
+              weight: "160 g (0.3 lb)",
+              dimension: "23.6 x 109.2 x 73.8 mm (0.93 x 4.3 x 2.90 in) (DIN-Rail, Wall Mount)",
+            },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/117d217331db85738265393db6de65a6.pdf",
+          },
+        },
+        {
+          model: "INS-8415",
+          description: "5x 10/100/1000 RJ45 + 1x GbE SFP — Premium Unmanaged Industrial",
+          image: ie_INS_8415,
+          features: ["Premium", "Fiber", "6-port"],
+          sourceUrl: detail(1604),
+          details: {
+            overview:
+              "Premium Unmanaged Gigabit Industrial Switch 5 พอร์ต 10/100/1000 RJ45 + 1 พอร์ต GbE SFP — รองรับ Redundant Input 20~57VDC, Power Voltage Drop Alarm, iQoS, VLAN Passthru ตัวเครื่อง IP40 อลูมิเนียม เหมาะกับการเชื่อม Fiber ระยะไกลในเครือข่ายอุตสาหกรรม Gigabit",
+            highlights: [
+              { title: "พอร์ตหลัก: 5 x 10/100/1000BASE-T + 1 x GbE SFP Slot", desc: "เชื่อมต่ออุปกรณ์อุตสาหกรรมได้หลากหลายในเครือข่ายเดียว" },
+              { title: "Auto-negotiation ทุกพอร์ต", desc: "ตรวจจับความเร็วและ Duplex อัตโนมัติ ติดตั้งง่าย ไม่ต้องตั้งค่าเพิ่ม" },
+              { title: "Industrial QoS (iQoS)", desc: "จัดลำดับความสำคัญของ EtherNet/IP, PROFINET, GOOSE และ 802.1p Tag" },
+              { title: "Redundant Power Input", desc: "รับไฟ Primary + Redundant ป้องกัน Downtime จาก Power Failure" },
+              { title: "Operating Temp -40°C~75°C", desc: "ทนอุณหภูมิสุดขั้วในโรงงาน ผ่าน UL Approved Temperature Range" },
+            ],
+            ports: [
+              "5 x 10/100/1000BASE-T (RJ45)",
+              "1 x GbE SFP Slot",
+            ],
+            power: {
+              input: "Primary: 20~57V DC Redundant: 20~57V DC",
+              consumption: "—",
+            },
+            environment: {
+              tempOperating: "-40°C~75°C (-40°F~167°F)",
+              housing: "Metal (IP40 protection)",
+            },
+            physical: {
+              weight: "510 g (1.12 lb)",
+              dimension: "31 x 136.3 x 105 mm (1.22 x 5.37 x 4.13 in) (DIN-Rail, Wall Mount (Optional))",
+            },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/ac73f58678698b9959ddc13207c640bf.pdf",
+          },
+        },
+        {
+          model: "INS-8008E",
+          description: "8x 10/100 RJ45 — Premium Unmanaged Industrial Switch",
+          image: ie_INS_8008E,
+          features: ["Premium", "8-port", "Fast Ethernet"],
+          sourceUrl: detail(1592),
+          details: {
+            overview:
+              "Premium Unmanaged Industrial Switch 8 พอร์ต 10/100Mbps — รองรับ Redundant Power 12~48VDC, iQoS (EtherNet/IP, PROFINET, GOOSE), VLAN Pass-through, Flow & Storm Control ตัวเครื่อง IP40 อลูมิเนียม -40°C~75°C เหมาะกับโรงงานที่ต้องการสวิตช์ Premium 8 พอร์ตทนทาน",
+            highlights: [
+              { title: "พอร์ตหลัก: 8 x 10/100BASE-TX", desc: "เชื่อมต่ออุปกรณ์อุตสาหกรรมได้หลากหลายในเครือข่ายเดียว" },
+              { title: "Auto-negotiation ทุกพอร์ต", desc: "ตรวจจับความเร็วและ Duplex อัตโนมัติ ติดตั้งง่าย ไม่ต้องตั้งค่าเพิ่ม" },
+              { title: "Flow & Storm Control", desc: "ควบคุม Traffic ป้องกัน Data Storm และ Buffer Overflow" },
+              { title: "VLAN Pass-through / Passthru", desc: "ส่งต่อ VLAN Tag โดยไม่ดัดแปลง ป้องกัน Packet Loss" },
+              { title: "Industrial QoS (iQoS)", desc: "จัดลำดับความสำคัญของ EtherNet/IP, PROFINET, GOOSE และ 802.1p Tag" },
+              { title: "Operating Temp -40°C~75°C", desc: "ทนอุณหภูมิสุดขั้วในโรงงาน ผ่าน UL Approved Temperature Range" },
+            ],
+            ports: [
+              "8 x 10/100BASE-TX (RJ45)",
+            ],
+            power: {
+              input: "Primary input 12~48VDC Redundant input 12~48VDC",
+              consumption: "5W",
+            },
+            environment: {
+              tempOperating: "-40°C~75°C (-40°F~167°F)",
+              housing: "Metal (IP40 protection)",
+            },
+            physical: {
+              weight: "480 g (1.06 lb)",
+              dimension: "50 x 116 x 100 mm (1.97 x 4.57x 3.93 in) (DIN-Rail)",
+            },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/2142bbdc5bc8540221abc425c5f1ddc3.pdf",
+          },
+        },
+        {
+          model: "INS-8408E",
+          description: "8x 10/100/1000 RJ45 — Premium Unmanaged Industrial Gigabit",
+          image: ie_INS_8408E,
+          features: ["Premium", "8-port", "Gigabit"],
+          sourceUrl: detail(1585),
+          details: {
+            overview:
+              "Premium Unmanaged Gigabit Industrial Switch 8 พอร์ต 10/100/1000Mbps — Redundant Power 12~48VDC, iQoS รองรับ EtherNet/IP/PROFINET/GOOSE, VLAN Pass-through ตัวเครื่อง IP40 อลูมิเนียม -40°C~75°C ผ่านมาตรฐาน UL เหมาะกับ PLC, HMI, Printer ในระบบ Automation",
+            highlights: [
+              { title: "พอร์ตหลัก: 8 x 10/100/1000BASE-T", desc: "เชื่อมต่ออุปกรณ์อุตสาหกรรมได้หลากหลายในเครือข่ายเดียว" },
+              { title: "Flow & Storm Control", desc: "ควบคุม Traffic ป้องกัน Data Storm และ Buffer Overflow" },
+              { title: "VLAN Pass-through / Passthru", desc: "ส่งต่อ VLAN Tag โดยไม่ดัดแปลง ป้องกัน Packet Loss" },
+              { title: "Industrial QoS (iQoS)", desc: "จัดลำดับความสำคัญของ EtherNet/IP, PROFINET, GOOSE และ 802.1p Tag" },
+              { title: "Redundant Power Input", desc: "รับไฟ Primary + Redundant ป้องกัน Downtime จาก Power Failure" },
+              { title: "Operating Temp -40°C~75°C", desc: "ทนอุณหภูมิสุดขั้วในโรงงาน ผ่าน UL Approved Temperature Range" },
+            ],
+            ports: [
+              "8 x 10/100/1000BASE-T (RJ45)",
+            ],
+            power: {
+              input: "Primary input 12~48VDC Redundant input 12~48VDC",
+              consumption: "5W",
+            },
+            environment: {
+              tempOperating: "-40°C~75°C (-40°F~167°F)",
+              housing: "Metal (IP40 protection)",
+            },
+            physical: {
+              weight: "480 g (1.0 lb)",
+              dimension: "50 x 116 x 100 mm (1.97 x 4.57x 3.93 in) (Stainless steel DIN-Rail)",
+            },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/49a20b4106e78dfaa92cd06e584a729b.pdf",
+          },
+        },
+        {
+          model: "7015-8GT2GS-I",
+          description: "8x 10/100/1000 RJ45 + 2x GbE SFP — Premium Unmanaged Industrial",
+          image: ie_7015_8GT2GS_I,
+          features: ["Premium", "Fiber", "10-port"],
+          sourceUrl: detail(1601),
+          details: {
+            overview:
+              "Premium Unmanaged Industrial Gigabit Switch 8 พอร์ต 10/100/1000 RJ45 + 2 พอร์ต GbE SFP — Redundant DC Input 24~48VDC, System Power 11W, รองรับ iQoS และ VLAN Passthru ตัวเครื่อง IP40 อลูมิเนียม -40°C~75°C เหมาะกับงานเชื่อม Fiber ระยะไกลที่ต้องการความเสถียรสูง",
+            highlights: [
+              { title: "พอร์ตหลัก: 8 x 10/100/1000BASE-T + 2 x GbE SFP Slots", desc: "เชื่อมต่ออุปกรณ์อุตสาหกรรมได้หลากหลายในเครือข่ายเดียว" },
+              { title: "VLAN Pass-through / Passthru", desc: "ส่งต่อ VLAN Tag โดยไม่ดัดแปลง ป้องกัน Packet Loss" },
+              { title: "Industrial QoS (iQoS)", desc: "จัดลำดับความสำคัญของ EtherNet/IP, PROFINET, GOOSE และ 802.1p Tag" },
+              { title: "Operating Temp -40°C~75°C", desc: "ทนอุณหภูมิสุดขั้วในโรงงาน ผ่าน UL Approved Temperature Range" },
+            ],
+            ports: [
+              "8 x 10/100/1000BASE-T (RJ45)",
+              "2 x GbE SFP Slots",
+            ],
+            power: {
+              input: "Primary inputs: 24~48VDC Redundant Inputs: 24~48VDC",
+              consumption: "11W",
+            },
+            environment: {
+              tempOperating: "-40°C~75°C (-40°F~167°F)",
+              housing: "Metal (IP40 protection)",
+            },
+            physical: {
+              weight: "550 g (1.2 lb)",
+              dimension: "50 x 116 x 100 mm (1.97 x 4.57x 3.93 in) (DIN-Rail)",
+            },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/4c578b6ee0163c91020585245d3ca4d5.pdf",
+          },
+        },
+        {
+          model: "INS-8108E",
+          description: "8x 10/100 RJ45 — Premium Unmanaged Industrial Switch",
+          image: ie_INS_8108E,
+          features: ["Premium", "8-port", "Fast Ethernet"],
+          sourceUrl: detail(1603),
+          details: {
+            overview:
+              "Premium Unmanaged Industrial Switch แบบ Slim 8 พอร์ต 10/100Mbps — น้ำหนักเบาเพียง 145 กรัม รองรับ iQoS, VLAN Passthru, Flow Control ตัวเครื่อง IP40 อลูมิเนียม -40°C~75°C เหมาะกับการติดตั้งในตู้ควบคุมขนาดเล็กที่ต้องการสวิตช์ระดับ Premium",
+            highlights: [
+              { title: "พอร์ตหลัก: 8 x 10/100Base-TX (RJ45)", desc: "เชื่อมต่ออุปกรณ์อุตสาหกรรมได้หลากหลายในเครือข่ายเดียว" },
+              { title: "Auto-negotiation ทุกพอร์ต", desc: "ตรวจจับความเร็วและ Duplex อัตโนมัติ ติดตั้งง่าย ไม่ต้องตั้งค่าเพิ่ม" },
+              { title: "Flow & Storm Control", desc: "ควบคุม Traffic ป้องกัน Data Storm และ Buffer Overflow" },
+              { title: "VLAN Pass-through / Passthru", desc: "ส่งต่อ VLAN Tag โดยไม่ดัดแปลง ป้องกัน Packet Loss" },
+              { title: "Industrial QoS (iQoS)", desc: "จัดลำดับความสำคัญของ EtherNet/IP, PROFINET, GOOSE และ 802.1p Tag" },
+              { title: "Operating Temp -40°C~75°C", desc: "ทนอุณหภูมิสุดขั้วในโรงงาน ผ่าน UL Approved Temperature Range" },
+            ],
+            ports: [
+              "8 x 10/100Base-TX (RJ45)",
+            ],
+            power: {
+              input: "Primary 12~48VDC + Redundant 12~48VDC",
+              consumption: "—",
+            },
+            environment: {
+              tempOperating: "-40°C~75°C (-40°F~167°F)",
+              housing: "Aluminum (IP40 Protection)",
+            },
+            physical: {
+              weight: "145 g (0.32 lb)",
+              dimension: "109.2 x 73.8 x 28.4 mm (4.3 x 2.9 x 1.12 in) (DIN-Rail, Wall Mount (optional))",
+            },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/8432e3050d90633f1df611f40c27e6eb.pdf",
+          },
+        },
       ],
     },
     {
