@@ -30,8 +30,8 @@ export type VolktekProductDetails = {
   };
   environment: {
     tempOperating: string;
-    tempStorage: string;
-    humidity: string;
+    tempStorage?: string;
+    humidity?: string;
     housing: string;
   };
   physical: {
@@ -2153,13 +2153,196 @@ export const volktekIndustrialEthernet: VolktekCategory = {
       title: "Managed Switches",
       blurb: "Full Managed — Ring Protection, ACL, IGMP, 802.1X เหมาะกับเครือข่ายซับซ้อน",
       products: [
-        { model: "INS-8624", description: "4x 10/100/1000 RJ45 + 2x FX/GbE — Managed Industrial Switch", image: ie_INS_8624, features: ["Managed", "Fiber", "6-port"], sourceUrl: detail(1622) },
-        { model: "IEN-8608A", description: "8x 10/100/1000 RJ45 — Managed Industrial Switch", image: ie_IEN_8608A, features: ["Managed", "8-port"], sourceUrl: detail(1624) },
-        { model: "IEN-8648A", description: "8x 10/100/1000 RJ45 + 4x GbE SFP + 1x Console RJ45/USB — Managed Industrial Switch", image: ie_IEN_8648A, features: ["Managed", "Fiber", "12-port", "Console"], sourceUrl: detail(1625) },
-        { model: "9015-16GT-I", description: "16x 10/100/1000 RJ45 — Managed Industrial Gigabit", image: ie_9015_16GT_I, features: ["Managed", "16-port", "Gigabit"], sourceUrl: detail(1623) },
-        { model: "INS-8615", description: "5x 10/100/1000 RJ45 + 1x FX/GbE SFP — Managed Industrial Switch", image: ie_INS_8615, features: ["Managed", "Fiber", "6-port"], sourceUrl: detail(1617) },
-        { model: "9015-8GT-I", description: "8x 10/100/1000 RJ45 — Managed Industrial Gigabit", image: ie_9015_8GT_I, features: ["Managed", "8-port", "Gigabit"], sourceUrl: detail(1618) },
-        { model: "9015-8GT2GS-I", description: "8x 10/100/1000 RJ45 + 2x FX/GbE SFP — Managed Industrial", image: ie_9015_8GT2GS_I, features: ["Managed", "Fiber", "10-port"], sourceUrl: detail(1620) },
+        {
+          model: "INS-8624",
+          description: "4x 10/100/1000 RJ45 + 2x FX/GbE — Managed Industrial Switch",
+          image: ie_INS_8624,
+          features: ["Managed", "Fiber", "6-port"],
+          sourceUrl: detail(1622),
+          details: {
+            overview:
+              "Managed Industrial Switch 4 พอร์ต Gigabit RJ45 + 2 พอร์ต Multi-rate FX/GbE SFP Uplink — รองรับระยะไกลผ่านไฟเบอร์ปลอดสัญญาณรบกวน เหมาะกับ multi-axis robots, PLC, HMI และอุปกรณ์ Legacy ในงาน Automation — รองรับ Modbus TCP, Topology Map, Storm/Flow Control, QoS และ Cybersecurity — ตัวเครื่อง Aluminum IP40 ทำงาน -40°C~75°C พร้อม Redundant Power และ Alarm Relay",
+            highlights: [
+              { title: "พอร์ตหลัก: 4x GbE RJ45 + 2x FX/GbE SFP", desc: "SFP Multi-rate รองรับทั้ง 100M และ 1G สำหรับ Long-distance Fiber Uplink" },
+              { title: "Topology Map", desc: "มองเห็นภาพรวมเครือข่าย รองรับอุปกรณ์ third-party ผ่าน LLDP" },
+              { title: "Storm / Flow Control + QoS", desc: "จัดลำดับความสำคัญแพ็กเก็ตอุตสาหกรรม ป้องกัน Data Loss" },
+              { title: "Modbus TCP", desc: "รวมอุปกรณ์ Industrial Ethernet ได้ง่าย เชื่อม HMI/Legacy โดยตรง" },
+              { title: "Redundant Power + Alarm Relay", desc: "Dual Input 20~57VDC + แจ้งเตือนเมื่อไฟตก ป้องกัน Downtime" },
+              { title: "Aluminum IP40 + Operating -40°C~75°C", desc: "ทนสั่นสะเทือน ESD/EMI/Surge — เหมาะกับโรงงานหนัก" },
+            ],
+            ports: [
+              "4 x 10/100/1000BASE-T (RJ45)",
+              "2 x GbE SFP Slots (Multi-rate FX/GbE)",
+            ],
+            power: { input: "Primary inputs: 20~57VDC, Redundant inputs: 20~57VDC", consumption: "10W (System)" },
+            environment: { tempOperating: "-40°C~75°C (-40°F~167°F)", housing: "Aluminum (IP40 Protection)" },
+            physical: { weight: "795 g (1.75 lb)", dimension: "57.3 x 175 x 126.4 mm (DIN-Rail)" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/dcf787ffe84589542ae6d22ed9066e1f.pdf",
+          },
+        },
+        {
+          model: "IEN-8608A",
+          description: "8x 10/100/1000 RJ45 — Managed Industrial Switch",
+          image: ie_IEN_8608A,
+          features: ["Managed", "8-port"],
+          sourceUrl: detail(1624),
+          details: {
+            overview:
+              "Managed Industrial Switch 8 พอร์ต Gigabit RJ45 — มี Console RJ45 สำหรับ CLI Management และ USB Port สำหรับ Firmware Upgrade / Backup Config / Download Log Files — รองรับ Modbus TCP, Topology Map, Storm/Flow Control, QoS — ตัวเครื่อง Aluminum IP40 ทนอุณหภูมิ -40°C~75°C พร้อม Redundant Power และ Alarm Relay",
+            highlights: [
+              { title: "พอร์ตหลัก: 8x 10/100/1000 RJ45", desc: "เชื่อม PLC, HMI, Printer และอุปกรณ์อุตสาหกรรมในเครือข่ายเดียว" },
+              { title: "Console RJ45 + USB Port", desc: "CLI Management + Firmware Upgrade / Backup Config / Log Files" },
+              { title: "Topology Map", desc: "ติดตามสถานะอุปกรณ์ในเครือข่ายแบบ Visual" },
+              { title: "Modbus TCP", desc: "เชื่อม HMI/Legacy Devices ผ่าน Industrial Protocol โดยตรง" },
+              { title: "Storm / Flow Control + QoS", desc: "จัดลำดับความสำคัญแพ็กเก็ตอุตสาหกรรม ป้องกัน Data Loss" },
+              { title: "Redundant Power + Alarm Relay", desc: "Dual Input + แจ้งเตือนไฟดับ — Aluminum IP40, -40°C~75°C" },
+            ],
+            ports: [
+              "8 x 10/100/1000BASE-T (RJ45)",
+              "1 x RJ45 Console Port",
+              "1 x USB Port",
+            ],
+            power: { input: "Primary inputs: 12~60VDC, Redundant inputs: 12~60VDC", consumption: "12W (System)" },
+            environment: { tempOperating: "-40°C~75°C (-40°F~167°F)", housing: "Aluminum (IP40 Protection)" },
+            physical: { weight: "915 g (2.01 lb)", dimension: "57.3 x 175 x 126.4 mm (DIN-Rail)" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/8aaafb3fd11036a7281aa184b86fb33d.pdf",
+          },
+        },
+        {
+          model: "IEN-8648A",
+          description: "8x 10/100/1000 RJ45 + 4x GbE SFP + 1x Console RJ45/USB — Managed Industrial Switch",
+          image: ie_IEN_8648A,
+          features: ["Managed", "Fiber", "12-port", "Console"],
+          sourceUrl: detail(1625),
+          details: {
+            overview:
+              "Managed Industrial Switch 8 พอร์ต Gigabit RJ45 Downlink + 4 พอร์ต GbE SFP Uplink — สำหรับ Long-distance Fiber และ Daisy Chain Topology — มี Console RJ45 + USB Port + รองรับ IEEE 1588v2 PTP, MSTP, QinQ — ตัวเครื่อง Aluminum IP40 ทำงาน -40°C~75°C พร้อม Redundant Power และ Alarm Relay",
+            highlights: [
+              { title: "พอร์ตหลัก: 8x GbE RJ45 + 4x GbE SFP", desc: "8 Downlink + 4 SFP Uplink — รองรับ Long-distance Fiber + Daisy Chain" },
+              { title: "Console RJ45 + USB Port", desc: "CLI + Firmware Upgrade / Backup Config / Download Log Files" },
+              { title: "IEEE 1588v2 PTP + MSTP + QinQ", desc: "Precision Timing + Multi-instance STP + VLAN Stacking สำหรับเครือข่ายซับซ้อน" },
+              { title: "Topology Map", desc: "Visualize เครือข่าย + ตรวจ Cybersecurity Compliance" },
+              { title: "Storm / Flow Control + QoS", desc: "จัดลำดับความสำคัญแพ็กเก็ตอุตสาหกรรม ป้องกัน Data Loss" },
+              { title: "Redundant Power + Alarm Relay", desc: "Dual Input 12~60VDC — Aluminum IP40, -40°C~75°C" },
+            ],
+            ports: [
+              "8 x 10/100/1000BASE-T (RJ45)",
+              "4 x GbE SFP Slots",
+              "1 x RJ45 Console Port",
+              "1 x USB Port",
+            ],
+            power: { input: "Primary inputs: 12~60VDC, Redundant inputs: 12~60VDC", consumption: "18W (System)" },
+            environment: { tempOperating: "-40°C~75°C (-40°F~167°F)", housing: "Aluminum (IP40 Protection)" },
+            physical: { weight: "1,005 g (2.21 lb)", dimension: "57.3 x 175 x 126.4 mm (DIN-Rail)" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/1e32b49068006bea793a9f6d89d5f939.pdf",
+          },
+        },
+        {
+          model: "9015-16GT-I",
+          description: "16x 10/100/1000 RJ45 — Managed Industrial Gigabit",
+          image: ie_9015_16GT_I,
+          features: ["Managed", "16-port", "Gigabit"],
+          sourceUrl: detail(1623),
+          details: {
+            overview:
+              "Managed Industrial Switch 16 พอร์ต Gigabit RJ45 — สำหรับ Multi-axis Robots, PLC, HMI และ Printer ในงาน Automation — รองรับ Modbus TCP, Topology Map, Storm/Flow Control, QoS, QinQ และ 802.1X — ตัวเครื่อง Aluminum IP40 ทำงาน -40°C~75°C พร้อม Redundant Power และ Alarm Relay",
+            highlights: [
+              { title: "พอร์ตหลัก: 16x 10/100/1000 RJ45", desc: "ความหนาแน่นพอร์ตสูง — เชื่อม Multi-axis Robots / PLC / HMI ได้ในตัวเดียว" },
+              { title: "Topology Map", desc: "ติดตามสถานะอุปกรณ์ third-party ผ่าน LLDP" },
+              { title: "QinQ + 802.1X + MSTP", desc: "VLAN Stacking + Port Authentication + Multi-Spanning Tree" },
+              { title: "Modbus TCP", desc: "เชื่อม HMI / Legacy Devices ผ่าน Industrial Protocol โดยตรง" },
+              { title: "Storm / Flow Control + QoS", desc: "จัดลำดับความสำคัญแพ็กเก็ตอุตสาหกรรม" },
+              { title: "Redundant Power + Alarm Relay", desc: "Dual Input 12~60VDC — Aluminum IP40, -40°C~75°C" },
+            ],
+            ports: [
+              "16 x 10/100/1000BASE-T (RJ45)",
+            ],
+            power: { input: "Primary inputs: 12~60VDC, Redundant inputs: 12~60VDC", consumption: "18W (12V/1.5A)" },
+            environment: { tempOperating: "-40°C~75°C (-40°F~167°F)", housing: "Aluminum (IP40 Protection)" },
+            physical: { weight: "918 g (2.02 lb)", dimension: "57.3 x 175 x 126.4 mm (DIN-Rail)" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/59f5f7cf46084549c237b70f3ad670ef.pdf",
+          },
+        },
+        {
+          model: "INS-8615",
+          description: "5x 10/100/1000 RJ45 + 1x FX/GbE SFP — Managed Industrial Switch",
+          image: ie_INS_8615,
+          features: ["Managed", "Fiber", "6-port"],
+          sourceUrl: detail(1617),
+          details: {
+            overview:
+              "Managed Industrial Switch 5 พอร์ต Gigabit RJ45 + 1 พอร์ต Multi-rate FX/GbE SFP Uplink — รองรับ Long-distance Fiber, Modbus TCP, Topology Map, Storm/Flow Control, QoS, EEE 802.3az — ตัวเครื่อง Metal IP40 ทำงาน -40°C~75°C พร้อม Redundant Power และ Alarm Relay",
+            highlights: [
+              { title: "พอร์ตหลัก: 5x GbE RJ45 + 1x FX/GbE SFP", desc: "SFP Multi-rate รองรับทั้ง 100M และ 1G สำหรับ Long-distance Fiber Uplink" },
+              { title: "Topology Map", desc: "มองเห็นภาพรวมเครือข่ายและสถานะอุปกรณ์" },
+              { title: "EEE 802.3az", desc: "Energy Efficient Ethernet ลดการใช้พลังงานเมื่อ traffic ต่ำ" },
+              { title: "Modbus TCP + 802.1X", desc: "เชื่อม HMI/Legacy + Port Authentication" },
+              { title: "Storm / Flow Control + QoS", desc: "จัดลำดับความสำคัญแพ็กเก็ตอุตสาหกรรม" },
+              { title: "Metal IP40 + Operating -40°C~75°C", desc: "Redundant Power + Alarm Relay — Compact Form Factor" },
+            ],
+            ports: [
+              "5 x 10/100/1000BASE-T (RJ45)",
+              "1 x GbE SFP Slot (Multi-rate FX/GbE)",
+            ],
+            power: { input: "Primary inputs: 20~57VDC, Redundant inputs: 20~57VDC", consumption: "10W" },
+            environment: { tempOperating: "-40°C~75°C (-40°F~167°F)", housing: "Metal (IP40 Protection)" },
+            physical: { weight: "515 g (1.14 lb)", dimension: "31 x 136.3 x 105 mm (DIN-Rail)" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/dcd210871b0cc46e6aa127dc67c5f29f.pdf",
+          },
+        },
+        {
+          model: "9015-8GT-I",
+          description: "8x 10/100/1000 RJ45 — Managed Industrial Gigabit",
+          image: ie_9015_8GT_I,
+          features: ["Managed", "8-port", "Gigabit"],
+          sourceUrl: detail(1618),
+          details: {
+            overview:
+              "Managed Industrial Switch 8 พอร์ต Gigabit RJ45 — รองรับ Modbus TCP, Topology Map, Storm/Flow Control, QoS, QinQ และ 802.1X — ตัวเครื่อง Metal IP40 ทำงาน -40°C~75°C พร้อม Redundant Power และ Alarm Relay — Compact Form Factor เหมาะกับตู้ควบคุมพื้นที่จำกัด",
+            highlights: [
+              { title: "พอร์ตหลัก: 8x 10/100/1000 RJ45", desc: "เชื่อม PLC, HMI, Printer และอุปกรณ์อุตสาหกรรมในเครือข่ายเดียว" },
+              { title: "Topology Map", desc: "ติดตามสถานะอุปกรณ์ในเครือข่ายแบบ Visual" },
+              { title: "QinQ + 802.1X", desc: "VLAN Stacking + Port Authentication" },
+              { title: "Modbus TCP", desc: "เชื่อม HMI / Legacy Devices ผ่าน Industrial Protocol โดยตรง" },
+              { title: "Storm / Flow Control + QoS", desc: "จัดลำดับความสำคัญแพ็กเก็ตอุตสาหกรรม" },
+              { title: "Metal IP40 + Operating -40°C~75°C", desc: "Redundant Power + Alarm Relay — Compact 50x116x100mm" },
+            ],
+            ports: [
+              "8 x 10/100/1000BASE-T (RJ45)",
+            ],
+            power: { input: "Primary inputs: 24~48VDC, Redundant inputs: 24~48VDC", consumption: "Max. 10W (24VDC @ 0.35A)" },
+            environment: { tempOperating: "-40°C~75°C (-40°F~167°F)", housing: "Metal (IP40 Protection)" },
+            physical: { weight: "550 g (1.2 lb)", dimension: "50 x 116 x 100 mm (DIN-Rail)" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/41c174f359c97c4c1cea53f8ae320f37.pdf",
+          },
+        },
+        {
+          model: "9015-8GT2GS-I",
+          description: "8x 10/100/1000 RJ45 + 2x FX/GbE SFP — Managed Industrial",
+          image: ie_9015_8GT2GS_I,
+          features: ["Managed", "Fiber", "10-port"],
+          sourceUrl: detail(1620),
+          details: {
+            overview:
+              "Managed Industrial Switch 8 พอร์ต Gigabit RJ45 + 2 พอร์ต Multi-rate 100FX/GbE SFP Uplink — รองรับ Long-distance Fiber, Modbus TCP, Topology Map, Storm/Flow Control, QoS, QinQ, 802.1X — ตัวเครื่อง Metal IP40 ทำงาน -40°C~75°C พร้อม Redundant Power และ Alarm Relay",
+            highlights: [
+              { title: "พอร์ตหลัก: 8x GbE RJ45 + 2x 100FX/GbE SFP", desc: "SFP Multi-rate รองรับทั้ง 100M และ 1G สำหรับ Fiber Uplink/Cascading" },
+              { title: "Topology Map", desc: "ติดตามสถานะอุปกรณ์ third-party ผ่าน LLDP" },
+              { title: "QinQ + 802.1X + STP/RSTP", desc: "VLAN Stacking + Port Authentication + Network Redundancy" },
+              { title: "Modbus TCP", desc: "เชื่อม HMI / Legacy Devices ผ่าน Industrial Protocol" },
+              { title: "EEE 802.3az + QoS", desc: "Energy Efficient Ethernet + Class of Service สำหรับ Mission-critical" },
+              { title: "Metal IP40 + Operating -40°C~75°C", desc: "Redundant Power + Alarm Relay — Compact 50x116x100mm" },
+            ],
+            ports: [
+              "8 x 10/100/1000BASE-T (RJ45)",
+              "2 x 100FX/Gigabit SFP Slots (Multi-rate)",
+            ],
+            power: { input: "Primary inputs: 24~48VDC, Redundant inputs: 24~48VDC", consumption: "Max. 11W (24VDC @ 0.4A)" },
+            environment: { tempOperating: "-40°C~75°C (-40°F~167°F)", housing: "Metal (IP40 Protection)" },
+            physical: { weight: "550 g (1.2 lb)", dimension: "50 x 116 x 100 mm (DIN-Rail)" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/cb9e6b5612e3e44cf2d5a6f1db83b0a4.pdf",
+          },
+        },
       ],
     },
     {
