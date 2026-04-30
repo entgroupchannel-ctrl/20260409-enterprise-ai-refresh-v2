@@ -30,8 +30,8 @@ export type VolktekProductDetails = {
   };
   environment: {
     tempOperating: string;
-    tempStorage: string;
-    humidity: string;
+    tempStorage?: string;
+    humidity?: string;
     housing: string;
   };
   physical: {
