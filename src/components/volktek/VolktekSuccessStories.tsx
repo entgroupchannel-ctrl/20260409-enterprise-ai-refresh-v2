@@ -157,6 +157,7 @@ const stories: Story[] = [
     solution:
       "Deploy 6500-24GS4XS-C เป็น 10G Backbone ระหว่างสถานี + IEN-8648PA และ Hawkeye 9060-4GP2GS PoE++ ในสถานีย่อย สร้าง Ring Network",
     models: ["6500-24GS4XS-C", "IEN-8648PA", "Hawkeye 9060-4GP2GS"],
+    relatedModels: ["6500-24GS4XS", "9060-4GP2GS", "IEN-8648PA", "IEN-8648PA-24V", "9560-16GP4XS-I"],
     benefits: [
       "10G Backbone ลด Latency ระหว่างสถานี",
       "Ring Topology + LACP เพิ่มความน่าเชื่อถือ",
