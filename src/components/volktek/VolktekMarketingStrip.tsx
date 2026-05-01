@@ -63,7 +63,7 @@ export default function VolktekMarketingStrip() {
       </div>
 
       {/* Featured large image */}
-      <div className="relative bg-muted aspect-square sm:aspect-[16/9] md:aspect-[21/9] overflow-hidden">
+      <div className="relative bg-muted aspect-[16/9] sm:aspect-[21/9] md:aspect-[3/1] max-h-[45vh] md:max-h-[40vh] overflow-hidden">
         {ADS.map((ad, i) => (
           <img
             key={ad.src}
