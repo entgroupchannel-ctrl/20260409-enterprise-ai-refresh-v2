@@ -18,6 +18,7 @@ import VolktekMegaCatalog from "@/components/volktek/VolktekMegaCatalog";
 import VolktekMarketingStrip from "@/components/volktek/VolktekMarketingStrip";
 import VolktekSwitchFinder from "@/components/volktek/VolktekSwitchFinder";
 import VolktekSolutions from "@/components/volktek/VolktekSolutions";
+import VolktekSuccessStories from "@/components/volktek/VolktekSuccessStories";
 import SiteSurveyDialog from "@/components/volktek/SiteSurveyDialog";
 
 // Official assets from volktek.com
