@@ -313,6 +313,69 @@ const VolktekSuccessStories = () => {
           <p className="text-sm text-foreground font-medium leading-relaxed">{active.outcome}</p>
         </div>
 
+        {/* Related Products from ENT Catalog */}
+        {relatedProducts.length > 0 && (
+          <div className="rounded-lg bg-background/60 border border-border p-4 mb-5">
+            <div className="flex items-center justify-between mb-3 gap-2 flex-wrap">
+              <div className="flex items-center gap-2">
+                <Package className="w-4 h-4 text-primary" />
+                <div className="text-[11px] font-semibold tracking-wider uppercase text-primary">
+                  รุ่นที่เกี่ยวข้องในแคตตาล็อก ENT Group
+                </div>
+              </div>
+              <button
+                onClick={scrollToCatalog}
+                className="text-[11px] text-primary hover:underline inline-flex items-center gap-1 font-medium"
+              >
+                ดูทั้งหมด <ArrowRight className="w-3 h-3" />
+              </button>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {relatedProducts.map(({ requested, found }) => {
+                const isExact = found.product.model.toLowerCase() === requested.toLowerCase();
+                return (
+                  <button
+                    key={requested}
+                    onClick={scrollToCatalog}
+                    className="text-left rounded-lg border border-border bg-background hover:border-primary/50 hover:bg-primary/5 transition-all p-3 group"
+                  >
+                    <div className="flex items-start justify-between gap-2 mb-1">
+                      <div className="font-mono text-xs font-bold text-foreground group-hover:text-primary transition-colors">
+                        {found.product.model}
+                      </div>
+                      {isExact ? (
+                        <Badge className="bg-primary/15 text-primary border-primary/30 text-[9px] px-1.5 py-0 h-4">
+                          ใช้ใน Case
+                        </Badge>
+                      ) : (
+                        <Badge variant="outline" className="text-[9px] px-1.5 py-0 h-4">
+                          ใกล้เคียง
+                        </Badge>
+                      )}
+                    </div>
+                    <div className="text-[11px] text-muted-foreground line-clamp-2 leading-snug mb-1.5">
+                      {found.product.description}
+                    </div>
+                    <div className="flex flex-wrap gap-1">
+                      {(found.product.features ?? []).slice(0, 3).map((f) => (
+                        <span
+                          key={f}
+                          className="text-[9px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground"
+                        >
+                          {f}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="text-[10px] text-muted-foreground/70 mt-1.5 truncate">
+                      {found.categoryTitle} · {found.subTitle}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
         <div className="flex flex-wrap gap-3">
           <QuoteRequestButton
             productModel={active.models[0]}
