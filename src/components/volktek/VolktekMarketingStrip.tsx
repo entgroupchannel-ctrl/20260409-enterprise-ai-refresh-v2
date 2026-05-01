@@ -13,7 +13,9 @@ import {
   volktekMediaConverter,
   type VolktekProduct,
   type VolktekCategory,
+  type VolktekSubCategory,
 } from "@/data/volktek-products";
+import VolktekProductDialog from "@/components/volktek/VolktekProductDialog";
 
 /**
  * Marketing Strip — โชว์ภาพแอด 5 ภาพ + Featured Products 8 รุ่นเด่น
@@ -28,11 +30,14 @@ const ADS = [
   { src: ad05, alt: "โซลูชันเครือข่าย Volktek ครบวงจร", caption: "Complete Network Solutions" },
 ];
 
-/** Helper หา product ตาม model ใน category */
-function findProduct(cat: VolktekCategory, model: string): VolktekProduct | undefined {
+/** Helper หา product + subCategory + categoryTitle จาก model */
+function findProductWithCtx(
+  cat: VolktekCategory,
+  model: string,
+): { product: VolktekProduct; subCategory: VolktekSubCategory; categoryTitle: string } | undefined {
   for (const sub of cat.subCategories) {
     const p = sub.products.find((x) => x.model === model);
-    if (p) return p;
+    if (p) return { product: p, subCategory: sub, categoryTitle: cat.title };
   }
   return undefined;
 }
@@ -49,15 +54,18 @@ const FEATURED_PICKS: { category: string; model: string; tag: string; cat: Volkt
   { category: "Media Converter", model: "IMC-661P", tag: "PoE+ Gigabit", cat: volktekMediaConverter },
 ];
 
-const FEATURED = FEATURED_PICKS.map((pick) => ({
-  ...pick,
-  product: findProduct(pick.cat, pick.model),
-})).filter((x) => x.product) as Array<{
+const FEATURED = FEATURED_PICKS.map((pick) => {
+  const ctx = findProductWithCtx(pick.cat, pick.model);
+  return ctx ? { ...pick, ...ctx } : null;
+}).filter((x): x is {
   category: string;
   model: string;
   tag: string;
+  cat: VolktekCategory;
   product: VolktekProduct;
-}>;
+  subCategory: VolktekSubCategory;
+  categoryTitle: string;
+} => x !== null);
 
 export default function VolktekMarketingStrip() {
   const [active, setActive] = useState(0);
