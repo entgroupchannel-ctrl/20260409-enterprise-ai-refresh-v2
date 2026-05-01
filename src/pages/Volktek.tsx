@@ -18,6 +18,7 @@ import VolktekMegaCatalog from "@/components/volktek/VolktekMegaCatalog";
 import VolktekMarketingStrip from "@/components/volktek/VolktekMarketingStrip";
 import VolktekSwitchFinder from "@/components/volktek/VolktekSwitchFinder";
 import VolktekSolutions from "@/components/volktek/VolktekSolutions";
+import VolktekSuccessStories from "@/components/volktek/VolktekSuccessStories";
 import SiteSurveyDialog from "@/components/volktek/SiteSurveyDialog";
 
 // Official assets from volktek.com
@@ -353,6 +354,9 @@ const Volktek = () => {
 
         {/* Solutions — 8 application solutions แบบ Tabs (เรียบเรียงจาก volktek.com) */}
         <VolktekSolutions />
+
+        {/* Success Stories — case studies จริงจาก volktek.com สร้างความมั่นใจให้ลูกค้า */}
+        <VolktekSuccessStories />
 
         {/* LAMUNGAN Platform — EMS spotlight */}
         <section className="card-surface overflow-hidden">
