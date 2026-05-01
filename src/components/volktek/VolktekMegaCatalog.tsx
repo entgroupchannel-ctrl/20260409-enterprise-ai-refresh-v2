@@ -242,11 +242,44 @@ const VolktekMegaCatalog = () => {
                       )}
                     </TabsTrigger>
                   </TooltipTrigger>
-                  <TooltipContent side="bottom" className="max-w-[260px] text-xs">
-                    <div className="font-bold mb-1">{t.title}</div>
-                    <div className="text-[11px] opacity-90 leading-relaxed">{t.desc}</div>
+                  <TooltipContent side="bottom" className="max-w-[280px] text-xs p-3">
+                    <div className="font-bold text-sm mb-2 flex items-center gap-1.5">
+                      <t.icon className="w-3.5 h-3.5 text-primary" />
+                      {t.title}
+                    </div>
+
+                    <div className="mb-2">
+                      <div className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground mb-1">
+                        เหมาะกับ
+                      </div>
+                      <ul className="space-y-0.5">
+                        {t.useCases.map((u) => (
+                          <li key={u} className="text-[11px] leading-tight flex gap-1.5">
+                            <span className="text-primary">▸</span>
+                            <span>{u}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="mb-1">
+                      <div className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground mb-1">
+                        คุณสมบัติเด่น
+                      </div>
+                      <div className="flex flex-wrap gap-1">
+                        {t.keyFeatures.map((f) => (
+                          <span
+                            key={f}
+                            className="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-primary/15 text-primary border border-primary/25"
+                          >
+                            {f}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
                     {count > 0 && (
-                      <div className="mt-1.5 text-[10px] font-mono text-primary">
+                      <div className="mt-2 pt-2 border-t border-border text-[10px] font-mono text-primary">
                         มี {count} รุ่นในหมวดนี้
                       </div>
                     )}
