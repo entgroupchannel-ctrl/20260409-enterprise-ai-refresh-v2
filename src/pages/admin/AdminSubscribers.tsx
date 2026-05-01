@@ -27,6 +27,30 @@ interface Subscriber {
   is_active: boolean;
   unsubscribed_at: string | null;
   notes: string | null;
+  first_name?: string | null;
+  last_name?: string | null;
+  phone?: string | null;
+  phone_secondary?: string | null;
+  company?: string | null;
+  position?: string | null;
+  labels?: string | null;
+  language?: string | null;
+  address?: string | null;
+  city?: string | null;
+  state_region?: string | null;
+  zip?: string | null;
+  country?: string | null;
+  website?: string | null;
+  company_tax_id?: string | null;
+  branch?: string | null;
+  customer_type?: string | null;
+  email_subscriber_status?: string | null;
+  sms_subscriber_status?: string | null;
+  last_activity?: string | null;
+  last_activity_at?: string | null;
+  imported_from?: string | null;
+  imported_at?: string | null;
+  extra_data?: any;
 }
 
 const AdminSubscribers = () => {
@@ -96,18 +120,30 @@ const AdminSubscribers = () => {
   };
 
   const exportCSV = () => {
-    const rows = [
-      ['Email', 'Source', 'Status', 'Subscribed At', 'Notes'],
-      ...filtered.map((s) => [
-        s.email,
-        s.source || '',
-        s.is_active ? 'Active' : 'Inactive',
-        new Date(s.created_at).toLocaleString('th-TH'),
-        (s.notes || '').replace(/,/g, ' '),
-      ]),
+    const esc = (v: any) => {
+      const s = v == null ? '' : typeof v === 'object' ? JSON.stringify(v) : String(v);
+      return `"${s.replace(/"/g, '""')}"`;
+    };
+    const headers = [
+      'Email','First Name','Last Name','Phone','Phone 2','Company','Position',
+      'Address','City','State/Region','Zip','Country','Website',
+      'CompanyTaxId','Branch','Cus_type','Labels','Language',
+      'Source','Status','Notes',
+      'Email Subscriber Status','SMS Subscriber Status','Last Activity','Last Activity Date',
+      'Subscribed At','Unsubscribed At','Imported From','Imported At','Extra Data',
     ];
-    const csv = rows.map((r) => r.join(',')).join('\n');
-    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+    const lines = [headers.join(',')];
+    filtered.forEach((s) => {
+      lines.push([
+        s.email, s.first_name, s.last_name, s.phone, s.phone_secondary, s.company, s.position,
+        s.address, s.city, s.state_region, s.zip, s.country, s.website,
+        s.company_tax_id, s.branch, s.customer_type, s.labels, s.language,
+        s.source, s.is_active ? 'Active' : 'Inactive', s.notes,
+        s.email_subscriber_status, s.sms_subscriber_status, s.last_activity, s.last_activity_at,
+        s.created_at, s.unsubscribed_at, s.imported_from, s.imported_at, s.extra_data,
+      ].map(esc).join(','));
+    });
+    const blob = new Blob(['\uFEFF' + lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
