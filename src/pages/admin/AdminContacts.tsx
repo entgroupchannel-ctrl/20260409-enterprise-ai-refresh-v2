@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import AdminLayout from '@/layouts/AdminLayout';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
 import { Card, CardContent } from '@/components/ui/card';
@@ -63,7 +64,10 @@ export default function AdminContacts() {
   const { profile } = useAuth();
   const { toast } = useToast();
   const isAdmin = profile?.role === 'admin';
-  const [viewTab, setViewTab] = useState<'contacts' | 'submissions'>('contacts');
+  const location = useLocation();
+  const initialTab: 'contacts' | 'submissions' =
+    location.pathname.startsWith('/admin/contact-submissions') ? 'submissions' : 'contacts';
+  const [viewTab, setViewTab] = useState<'contacts' | 'submissions'>(initialTab);
 
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [loading, setLoading] = useState(true);

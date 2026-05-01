@@ -96,7 +96,8 @@ const navGroups: NavGroup[] = [
     grid: true,
     items: [
       { label: 'ลูกค้า (Members)', icon: Users, path: '/admin/customers' },
-      { label: 'ผู้ติดต่อ', icon: Users, path: '/admin/contacts' },
+      { label: 'สมุดรายชื่อ', icon: Users, path: '/admin/contacts' },
+      { label: '📩 ข้อความจากลูกค้า', icon: Mail, path: '/admin/contact-submissions' },
       { label: 'สมาชิกข่าวสาร', icon: Mail, path: '/admin/subscribers' },
       { label: 'Live Chat (Quote)', icon: MessageCircle, path: '/admin/live-chat' },
       { label: 'General Chat', icon: MessageCircle, path: '/admin/general-chat' },
