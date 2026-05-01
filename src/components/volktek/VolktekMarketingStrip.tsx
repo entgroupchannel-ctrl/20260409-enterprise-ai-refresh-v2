@@ -107,11 +107,11 @@ export default function VolktekMarketingStrip() {
         </div>
       </div>
 
-      {/* Two-column layout: Campaign Image (left) + Featured Products (right) */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
-        {/* Left column: Campaign image */}
-        <div className="flex flex-col border-b lg:border-b-0 lg:border-r border-border">
-          <div className="relative bg-muted aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3] xl:aspect-[16/10] overflow-hidden flex-1">
+      {/* Two-column layout: Campaign Image (left, 2/3) + Featured Products (right, 1/3) */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-0">
+        {/* Left column: Campaign image — กว้าง 2/3 */}
+        <div className="lg:col-span-2 flex flex-col border-b lg:border-b-0 lg:border-r border-border">
+          <div className="relative bg-muted aspect-[16/9] sm:aspect-[21/9] lg:aspect-[16/9] overflow-hidden flex-1">
             {ADS.map((ad, i) => (
               <img
                 key={ad.src}
@@ -156,52 +156,56 @@ export default function VolktekMarketingStrip() {
           </div>
         </div>
 
-        {/* Right column: Featured Products */}
-        <div className="p-4 md:p-5 bg-muted/20 flex flex-col">
-          <div className="flex items-center justify-between mb-3">
-            <div>
-              <span className="text-[10px] font-semibold tracking-widest uppercase text-primary block">
+        {/* Right column: Featured Products — กว้าง 1/3 compact list */}
+        <div className="lg:col-span-1 p-3 md:p-4 bg-muted/20 flex flex-col min-w-0">
+          <div className="flex items-center justify-between mb-2.5 gap-2">
+            <div className="min-w-0">
+              <span className="text-[9px] font-semibold tracking-widest uppercase text-primary block">
                 Top Picks
               </span>
-              <h3 className="text-sm md:text-base font-display font-bold text-foreground">
-                รุ่นเด่นแนะนำ {FEATURED.length} รุ่น
+              <h3 className="text-xs md:text-sm font-display font-bold text-foreground truncate">
+                รุ่นเด่น {FEATURED.length} รุ่น
               </h3>
             </div>
             <button
               onClick={scrollToCatalog}
-              className="text-[11px] font-semibold text-primary hover:underline inline-flex items-center gap-1"
+              className="text-[10px] font-semibold text-primary hover:underline inline-flex items-center gap-0.5 shrink-0"
             >
-              ดูทั้งหมด <ArrowRight size={12} />
+              ดูทั้งหมด <ArrowRight size={10} />
             </button>
           </div>
 
-          <div className="grid grid-cols-2 gap-2 md:gap-2.5 flex-1">
+          {/* Compact list — รุ่นเด่นเป็นแถวเล็ก ไม่ดันความสูงคอลัมน์ซ้าย */}
+          <div className="flex-1 overflow-y-auto -mx-1 px-1 space-y-1.5 max-h-[460px] lg:max-h-none">
             {FEATURED.map((f) => (
               <button
                 key={f.model}
                 onClick={scrollToCatalog}
-                className="group relative text-left rounded-lg border border-border bg-background overflow-hidden hover:border-primary/50 hover:shadow-md transition-all flex flex-col"
+                className="group w-full text-left rounded-md border border-border bg-background hover:border-primary/50 hover:shadow-sm transition-all flex items-center gap-2 p-1.5"
                 aria-label={`ดูรายละเอียด ${f.model}`}
               >
-                <div className="aspect-[4/3] bg-muted/40 overflow-hidden relative">
+                <div className="w-11 h-11 shrink-0 bg-muted/40 rounded overflow-hidden relative">
                   <img
                     src={f.product.image}
                     alt={f.model}
                     loading="lazy"
-                    className="absolute inset-0 w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-300"
+                    className="absolute inset-0 w-full h-full object-contain p-1 group-hover:scale-105 transition-transform duration-300"
                   />
-                  <span className="absolute top-1 left-1 inline-flex items-center text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-primary text-primary-foreground shadow-sm">
-                    {f.tag}
-                  </span>
                 </div>
-                <div className="p-2 border-t border-border">
-                  <div className="text-[10px] text-muted-foreground font-medium leading-tight mb-0.5">
-                    {f.category}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1 mb-0.5">
+                    <span className="text-[8px] font-bold uppercase tracking-wider px-1 py-0.5 rounded bg-primary/15 text-primary border border-primary/25 truncate">
+                      {f.tag}
+                    </span>
                   </div>
-                  <div className="font-mono text-[11px] md:text-xs font-bold text-foreground group-hover:text-primary transition-colors leading-tight truncate">
+                  <div className="font-mono text-[10px] md:text-[11px] font-bold text-foreground group-hover:text-primary transition-colors leading-tight truncate">
                     {f.model}
                   </div>
+                  <div className="text-[9px] text-muted-foreground leading-tight truncate">
+                    {f.category}
+                  </div>
                 </div>
+                <ArrowRight size={11} className="text-muted-foreground group-hover:text-primary shrink-0" />
               </button>
             ))}
           </div>
