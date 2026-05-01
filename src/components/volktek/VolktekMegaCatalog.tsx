@@ -239,7 +239,7 @@ const VolktekMegaCatalog = () => {
 
           return (
             <TabsContent key={t.id} value={t.id} className="mt-0">
-              <div className="card-surface p-5 md:p-7">
+              <div className="card-surface p-5 md:p-7 bg-slate-200">
                 {/* Category header */}
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-5 pb-5 border-b border-border">
                   <div className="flex items-start gap-3">
