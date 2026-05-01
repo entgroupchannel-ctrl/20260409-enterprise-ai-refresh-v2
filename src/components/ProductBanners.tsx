@@ -1,6 +1,7 @@
-import { Flame, ArrowRight } from "lucide-react";
+import { Flame, ArrowRight, Sparkles, Zap } from "lucide-react";
 import { Link } from "react-router-dom";
 import kioskBanner from "@/assets/kiosk-banner.jpg";
+import volktekHero from "@/assets/ads/volktek-ad-01-launch-hero.jpg";
 
 const productBanners = [
   {
@@ -104,6 +105,58 @@ const ProductBanners = () => {
             </div>
           ))}
         </div>
+
+        {/* Volktek Networks — Featured split banner */}
+        <Link
+          to="/volktek"
+          className="group relative mt-4 block overflow-hidden rounded-xl border border-primary/20 bg-[#0a0a1a] shadow-lg hover:shadow-2xl hover:border-primary/40 transition-all"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 items-stretch">
+            {/* Image */}
+            <div className="relative h-56 md:h-auto overflow-hidden">
+              <img
+                src={volktekHero}
+                alt="Volktek Networks Industrial Switch — เปิดตัวที่ ENT Group"
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#0a0a1a] md:via-[#0a0a1a]/40" />
+              <span className="absolute top-3 left-3 z-10 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary/90 text-primary-foreground text-[10px] font-bold uppercase tracking-wider backdrop-blur">
+                <Sparkles size={10} /> New Brand
+              </span>
+            </div>
+
+            {/* Content */}
+            <div className="relative p-6 md:p-8 flex flex-col justify-center text-white">
+              <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-indigo-300 mb-2">
+                Volktek Networks · Taiwan
+              </div>
+              <h3 className="text-xl md:text-2xl font-bold mb-2 leading-tight">
+                Industrial Network Switch <span className="text-indigo-400">มาใหม่!</span>
+              </h3>
+              <p className="text-sm text-white/70 mb-4 leading-relaxed">
+                L3 Metro Ethernet · Industrial DIN-rail · PoE+ · SFP / Media Converter — ครบไลน์สำหรับโรงงาน Smart City และ Data Center
+              </p>
+              <div className="flex flex-wrap gap-2 mb-5">
+                {["Layer 3", "PoE+ 30W", "-40°C ~ 75°C", "EMS Software"].map((tag) => (
+                  <span
+                    key={tag}
+                    className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-white/5 border border-white/10 text-[11px] text-white/80"
+                  >
+                    <Zap size={10} className="text-indigo-400" /> {tag}
+                  </span>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold group-hover:bg-primary/90 transition-colors">
+                  ดูสินค้า Volktek <ArrowRight size={12} />
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-white/20 text-white/80 text-xs font-medium">
+                  ขอใบเสนอราคา
+                </span>
+              </div>
+            </div>
+          </div>
+        </Link>
       </div>
     </section>
   );
