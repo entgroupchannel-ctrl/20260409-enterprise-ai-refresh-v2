@@ -62,6 +62,7 @@ const SOLUTIONS: Solution[] = [
       { area: "Security", feature: "DHCP Snooping, IP Source Guard, VLAN", benefit: "จำกัดทราฟฟิกขาเข้าและตรวจสอบ source ที่เชื่อถือได้" },
       { area: "Management", feature: "Email Alarm", benefit: "แจ้งเตือนเหตุการณ์สำคัญผ่านอีเมลทันที" },
     ],
+    recommendedModels: ["9561-8GT4XS-TSN", "9560-16GP4XS-I", "9005-24GP2GS", "MEN-6412"],
   },
   {
     id: "small-business",
@@ -86,6 +87,7 @@ const SOLUTIONS: Solution[] = [
       { area: "Security", feature: "Access Control List (ACL) + IP Source Guard", benefit: "ควบคุมทราฟฟิกอย่างละเอียด เพิ่มความปลอดภัย" },
       { area: "Management", feature: "Email Alarm", benefit: "แจ้งเตือนผ่านอีเมลเมื่อเกิดเหตุ" },
     ],
+    recommendedModels: ["MEN-3410", "MEN-3406", "INS-8424P", "IEN-8408P-24V"],
   },
   {
     id: "convenience-stores",
@@ -111,6 +113,7 @@ const SOLUTIONS: Solution[] = [
       { area: "Security", feature: "Port-Security + DHCP Snooping", benefit: "จำกัดทราฟฟิกขาเข้า ตรวจสอบ source ที่ไว้ใจได้" },
       { area: "Management", feature: "SNMP + TRAP", benefit: "Monitor เครือข่ายจากจุดเดียวกลางสำนักงาน" },
     ],
+    recommendedModels: ["MEN-3406", "INS-8424P", "IEN-8205P-24V", "HNS-8405P"],
   },
   {
     id: "high-rise",
@@ -136,6 +139,7 @@ const SOLUTIONS: Solution[] = [
       { area: "Security", feature: "Access Control List (ACL)", benefit: "ควบคุมทราฟฟิกได้ละเอียด" },
       { area: "Management", feature: "SNMP + TRAP", benefit: "Monitor จากศูนย์กลางได้ทันที" },
     ],
+    recommendedModels: ["9005-24GP2GS", "9005-16GP2GS", "MEN-6412", "INS-8624P"],
   },
   {
     id: "property-developers",
@@ -162,6 +166,7 @@ const SOLUTIONS: Solution[] = [
       { area: "Security", feature: "Access Control List (ACL)", benefit: "ควบคุมทราฟฟิกอย่างละเอียด" },
       { area: "Management", feature: "SNMP + TRAP", benefit: "Monitor จากจุดเดียว" },
     ],
+    recommendedModels: ["MEN-6412", "9005-24GP2GS", "INS-8624P", "MEN-3410"],
   },
   {
     id: "villas",
@@ -187,6 +192,7 @@ const SOLUTIONS: Solution[] = [
       { area: "Security", feature: "Access Control List (ACL)", benefit: "ควบคุมทราฟฟิกได้ละเอียด" },
       { area: "Management", feature: "SNMP + TRAP", benefit: "Monitor เครือข่ายจากศูนย์กลาง" },
     ],
+    recommendedModels: ["MEN-3406", "INS-840G", "INS-8005A", "INS-8405A"],
   },
   {
     id: "townhouses",
@@ -212,6 +218,7 @@ const SOLUTIONS: Solution[] = [
       { area: "Security", feature: "Port-Security, DHCP Snooping, Device Locking", benefit: "ป้องกันการเข้าถึงและขโมยอุปกรณ์ — last mile protection" },
       { area: "Management", feature: "SNMP + TRAP", benefit: "Monitor จากศูนย์กลาง" },
     ],
+    recommendedModels: ["MEN-3410", "MEN-3406", "IEN-8225P-24V", "INS-8424P"],
   },
   {
     id: "condos",
