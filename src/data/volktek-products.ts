@@ -3373,7 +3373,35 @@ export const volktekSfp: VolktekCategory = {
       title: "100BASE SFP",
       blurb: "100FX SFP Module — Duplex LC สำหรับ Fast Ethernet Fiber Link",
       products: [
-        { model: "FPM-107", description: "100FX SFP Duplex LC — Fast Ethernet Fiber Module", image: sfp_FPM_107, features: ["100FX", "Duplex LC"], sourceUrl: detail(90) },
+        {
+          model: "FPM-107",
+          description: "100FX SFP Duplex LC — Fast Ethernet Fiber Module",
+          image: sfp_FPM_107,
+          features: ["100FX", "Duplex LC"],
+          sourceUrl: detail(90),
+          details: {
+            overview:
+              "FPM-107 เป็น 100BASE-FX SFP Transceiver Module แบบ Duplex LC รองรับทั้ง Multi-mode (2 km) และ Single-mode (30/60/100 km) ใช้กระแสไฟ 3.3V และมีรุ่น Wide-Temp (-40°C ~ 85°C) สำหรับงาน Industrial Hot-pluggable, Class 1 Laser และเป็น Industry-standard SFP สามารถใช้ร่วมกับสวิตช์/Media Converter ที่มี SFP Slot ได้ทุกค่ายที่รองรับ MSA",
+            highlights: [
+              { title: "Fast Ethernet 100FX", desc: "Compliant กับมาตรฐาน Fast Ethernet (100BASE-FX)" },
+              { title: "Multi-mode 2km / Single-mode 30/60/100km", desc: "เลือกระยะส่งได้ตามความต้องการของโครงการ" },
+              { title: "Duplex LC Connector", desc: "ขั้วต่อ LC มาตรฐาน Industry สำหรับ Patch Cord ทั่วไป" },
+              { title: "Wide-Temp Option (-40~85°C)", desc: "รุ่น FPM-107I สำหรับงาน Industrial / Outdoor" },
+              { title: "3.3V Single Supply + Hot Pluggable", desc: "เสียบเปลี่ยนขณะใช้งานได้โดยไม่ต้อง Reboot" },
+              { title: "RoHS / Class 1 Laser", desc: "ปลอดภัยตามมาตรฐานสากล" },
+              { title: "TTL Signal Detect", desc: "สัญญาณ Detect แบบ TTL เพื่อ Monitoring สถานะ Fiber" },
+              { title: "Industry Standard SFP", desc: "ใช้ร่วมกับสวิตช์ที่รองรับ MSA SFP ได้หลากหลายยี่ห้อ" },
+            ],
+            ports: ["1 x 100BASE-FX SFP (Duplex LC)", "Wavelength: 1310nm (MM/SM 30-60km), 1550nm (SM 100km)"],
+            power: { input: "3.3V Single Supply", consumption: "Low Power (Hot Pluggable)" },
+            environment: {
+              tempOperating: "Standard: 0°C ~ 70°C / Wide-Temp: -40°C ~ 85°C",
+              housing: "Industry Standard SFP MSA",
+            },
+            physical: { weight: "≈ 25 g", dimension: "Standard SFP Form Factor" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/0efc22edb52d47cf63f96b20834f5951.pdf",
+          },
+        },
       ],
     },
     {
@@ -3381,8 +3409,64 @@ export const volktekSfp: VolktekCategory = {
       title: "100BASE Bi-Di SFP",
       blurb: "100FX Bi-Directional SFP — Simplex LC ใช้สาย Fiber เส้นเดียว ส่ง-รับสองทาง",
       products: [
-        { model: "GBM-132TS", description: "100FX Bi-Di SFP Simplex LC (TX) — Bi-Directional Fiber Module", image: sfp_GBM_132TS, features: ["100FX", "Bi-Di", "TX"], sourceUrl: detail(91) },
-        { model: "GBM-132RS", description: "100FX Bi-Di SFP Simplex LC (RX) — Bi-Directional Fiber Module", image: sfp_GBM_132RS, features: ["100FX", "Bi-Di", "RX"], sourceUrl: detail(92) },
+        {
+          model: "GBM-132TS",
+          description: "100FX Bi-Di SFP Simplex LC (TX) — Bi-Directional Fiber Module",
+          image: sfp_GBM_132TS,
+          features: ["100FX", "Bi-Di", "TX"],
+          sourceUrl: detail(91),
+          details: {
+            overview:
+              "GBM-132TS เป็น 100BASE-FX Bi-Directional SFP แบบ Single-mode Simplex LC ส่งข้อมูลด้วย Wavelength TX: 1310nm / RX: 1550nm ใช้คู่กับ GBM-132RS เพื่อรับ-ส่งสองทางบนสาย Fiber เส้นเดียว ระยะ 20 km ลดต้นทุนสาย Fiber ลงครึ่งหนึ่ง รองรับ SONET/SDH, IEEE 802.3ah 100Base-BX และ ITU-T G.985 class S มีรุ่น Wide-Temp (-40°C ~ 85°C) สำหรับงาน Industrial",
+            highlights: [
+              { title: "Bi-Directional Single Fiber", desc: "ใช้ Fiber เส้นเดียว — ลดสายและต้นทุนการเดินสาย Fiber ลงครึ่งหนึ่ง" },
+              { title: "TX 1310nm / RX 1550nm", desc: "ใช้คู่กับ GBM-132RS (TX 1550 / RX 1310) เป็น Pair" },
+              { title: "Single-mode 20km", desc: "เหมาะกับงาน Last Mile, Building-to-Building" },
+              { title: "Simplex LC Connector", desc: "ขั้วต่อ Simplex LC มาตรฐาน Industry" },
+              { title: "Compliant SONET/SDH + 802.3ah", desc: "ใช้กับเครือข่าย Telecom และ Carrier ได้" },
+              { title: "Wide-Temp Option (GBM-132ITS)", desc: "รุ่น Industrial -40°C ~ 85°C สำหรับ Outdoor / Cabinet" },
+              { title: "3.3V + Hot Pluggable", desc: "ประหยัดพลังงาน เสียบเปลี่ยนขณะใช้งานได้" },
+              { title: "RoHS / Class 1 Laser", desc: "ปลอดภัยตามมาตรฐานสากล" },
+            ],
+            ports: ["1 x 100BASE-FX Bi-Di SFP (Simplex LC)", "TX: 1310nm / RX: 1550nm — Single-mode 20km"],
+            power: { input: "3.3V Single Supply", consumption: "Low Power (Hot Pluggable)" },
+            environment: {
+              tempOperating: "Standard: 0°C ~ 70°C / Wide-Temp: -40°C ~ 85°C",
+              housing: "Industry Standard SFP MSA",
+            },
+            physical: { weight: "≈ 25 g", dimension: "Standard SFP Form Factor" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/02b56d67f01c585317b669c639212921.pdf",
+          },
+        },
+        {
+          model: "GBM-132RS",
+          description: "100FX Bi-Di SFP Simplex LC (RX) — Bi-Directional Fiber Module",
+          image: sfp_GBM_132RS,
+          features: ["100FX", "Bi-Di", "RX"],
+          sourceUrl: detail(92),
+          details: {
+            overview:
+              "GBM-132RS เป็น 100BASE-FX Bi-Directional SFP แบบ Single-mode Simplex LC คู่ตรงข้ามของ GBM-132TS — ส่ง TX: 1550nm / RX: 1310nm ระยะ 20 km บนสาย Fiber เส้นเดียว เหมาะกับงาน Last Mile ของ Service Provider, FTTx รองรับ SONET/SDH, IEEE 802.3ah 100Base-BX และ ITU-T G.985 class S มีรุ่น Wide-Temp (-40°C ~ 85°C) สำหรับงาน Industrial",
+            highlights: [
+              { title: "Bi-Directional Single Fiber", desc: "ใช้ Fiber เส้นเดียว — ลดสายและต้นทุนการเดินสาย Fiber" },
+              { title: "TX 1550nm / RX 1310nm", desc: "ใช้คู่กับ GBM-132TS เป็น Pair (Wavelength คู่กลับด้าน)" },
+              { title: "Single-mode 20km", desc: "เหมาะกับงาน Last Mile, FTTx, Carrier Network" },
+              { title: "Simplex LC Connector", desc: "ขั้วต่อ Simplex LC มาตรฐาน Industry" },
+              { title: "Compliant SONET/SDH + 802.3ah", desc: "ใช้กับเครือข่าย Telecom และ Carrier ได้" },
+              { title: "Wide-Temp Option (GBM-132IRS)", desc: "รุ่น Industrial -40°C ~ 85°C สำหรับ Outdoor / Cabinet" },
+              { title: "3.3V + Hot Pluggable", desc: "ประหยัดพลังงาน เสียบเปลี่ยนขณะใช้งานได้" },
+              { title: "RoHS / Class 1 Laser", desc: "ปลอดภัยตามมาตรฐานสากล" },
+            ],
+            ports: ["1 x 100BASE-FX Bi-Di SFP (Simplex LC)", "TX: 1550nm / RX: 1310nm — Single-mode 20km"],
+            power: { input: "3.3V Single Supply", consumption: "Low Power (Hot Pluggable)" },
+            environment: {
+              tempOperating: "Standard: 0°C ~ 70°C / Wide-Temp: -40°C ~ 85°C",
+              housing: "Industry Standard SFP MSA",
+            },
+            physical: { weight: "≈ 25 g", dimension: "Standard SFP Form Factor" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/7d4823be48bb6213aa7bb3672a454f7c.pdf",
+          },
+        },
       ],
     },
     {
@@ -3390,7 +3474,35 @@ export const volktekSfp: VolktekCategory = {
       title: "Gigabit SFP",
       blurb: "1.25G SFP Module — Duplex LC สำหรับ Gigabit Fiber Link",
       products: [
-        { model: "GBM-104", description: "1.25G SFP Duplex LC — Gigabit Fiber Module", image: sfp_GBM_104, features: ["1.25G", "Duplex LC"], sourceUrl: detail(93) },
+        {
+          model: "GBM-104",
+          description: "1.25G SFP Duplex LC — Gigabit Fiber Module",
+          image: sfp_GBM_104,
+          features: ["1.25G", "Duplex LC"],
+          sourceUrl: detail(93),
+          details: {
+            overview:
+              "GBM-104 เป็น 1.25 Gigabit SFP Transceiver แบบ Duplex LC รองรับทั้ง Multi-mode (550 m @ 850nm) และ Single-mode (10/20 km @ 1310nm) Compliant กับ IEEE 802.3z Gigabit Ethernet และ Fiber Channel 100-M5/M6-SN-I ทำงานที่ 3.3V พร้อม Hot Pluggable และมีรุ่น Wide-Temp (-40°C ~ 85°C) สำหรับงาน Industrial / Outdoor",
+            highlights: [
+              { title: "Gigabit 1000BASE-SX/LX", desc: "Compliant IEEE 802.3z Gigabit Ethernet" },
+              { title: "MM 550m / SM 10km / 20km", desc: "เลือกระยะได้ตาม Application" },
+              { title: "Duplex LC Connector", desc: "ขั้วต่อ LC มาตรฐาน Industry สำหรับ Patch Cord ทั่วไป" },
+              { title: "Wide-Temp Option (GBM-104I)", desc: "รุ่น Industrial -40°C ~ 85°C สำหรับ Outdoor" },
+              { title: "Fiber Channel Compliant", desc: "100-M5-SN-I / 100-M6-SN-I — ใช้กับ Storage Network ได้" },
+              { title: "3.3V Single Supply", desc: "ประหยัดพลังงาน ใช้กับ SFP Slot มาตรฐาน" },
+              { title: "Hot Pluggable", desc: "เสียบเปลี่ยนขณะใช้งานได้โดยไม่ต้อง Reboot" },
+              { title: "RoHS / Class 1 Laser", desc: "ปลอดภัยตามมาตรฐานสากล" },
+            ],
+            ports: ["1 x 1000BASE-SX/LX SFP (Duplex LC)", "Wavelength: 850nm (MM 550m), 1310nm (SM 10/20km)"],
+            power: { input: "3.3V Single Supply", consumption: "Low Power (Hot Pluggable)" },
+            environment: {
+              tempOperating: "Standard: 0°C ~ 70°C / Wide-Temp: -40°C ~ 85°C",
+              housing: "Industry Standard SFP MSA",
+            },
+            physical: { weight: "≈ 25 g", dimension: "Standard SFP Form Factor" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/985b1b1dabd1b532a2f04fe58be7939d.pdf",
+          },
+        },
       ],
     },
     {
@@ -3398,8 +3510,64 @@ export const volktekSfp: VolktekCategory = {
       title: "Gigabit Bi-Di SFP",
       blurb: "1.25G Bi-Directional SFP — Simplex LC ใช้สาย Fiber เส้นเดียวประหยัดต้นทุน",
       products: [
-        { model: "GBM-123TS", description: "1.25G Bi-Di SFP Simplex LC (TX) — Bi-Directional Gigabit Module", image: sfp_GBM_123TS, features: ["1.25G", "Bi-Di", "TX"], sourceUrl: detail(94) },
-        { model: "GBM-123RS", description: "1.25G Bi-Di SFP Simplex LC (RX) — Bi-Directional Gigabit Module", image: sfp_GBM_123RS, features: ["1.25G", "Bi-Di", "RX"], sourceUrl: detail(95) },
+        {
+          model: "GBM-123TS",
+          description: "1.25G Bi-Di SFP Simplex LC (TX) — Bi-Directional Gigabit Module",
+          image: sfp_GBM_123TS,
+          features: ["1.25G", "Bi-Di", "TX"],
+          sourceUrl: detail(94),
+          details: {
+            overview:
+              "GBM-123TS เป็น 1.25 Gigabit Bi-Directional SFP แบบ Single-mode Simplex LC ส่ง TX: 1310nm / RX: 1550nm ระยะ 10 km บนสาย Fiber เส้นเดียว ใช้คู่กับ GBM-123RS เพื่อรับ-ส่งสองทาง ลดต้นทุนสาย Fiber ลงครึ่งหนึ่ง Compliant กับ IEEE 802.3z Gigabit Ethernet และ Fiber Channel 100-SM-LC-L มีรุ่น Wide-Temp (-40°C ~ 85°C) สำหรับงาน Industrial",
+            highlights: [
+              { title: "Bi-Directional Gigabit", desc: "ใช้ Fiber เส้นเดียว ส่งข้อมูล 1.25G ได้สองทาง" },
+              { title: "TX 1310nm / RX 1550nm", desc: "ใช้คู่กับ GBM-123RS (Wavelength คู่กลับด้าน)" },
+              { title: "Single-mode 10km", desc: "เหมาะกับงาน Building-to-Building, Campus, Last Mile" },
+              { title: "Simplex LC Connector", desc: "ขั้วต่อ Simplex LC มาตรฐาน Industry" },
+              { title: "IEEE 802.3z Compliant", desc: "Gigabit Ethernet มาตรฐานสากล" },
+              { title: "Wide-Temp Option (GBM-123ITS)", desc: "รุ่น Industrial -40°C ~ 85°C สำหรับ Outdoor / Cabinet" },
+              { title: "3.3V + Hot Pluggable", desc: "ประหยัดพลังงาน เสียบเปลี่ยนขณะใช้งานได้" },
+              { title: "RoHS / Class 1 Laser", desc: "ปลอดภัยตามมาตรฐานสากล" },
+            ],
+            ports: ["1 x 1000BASE-LX Bi-Di SFP (Simplex LC)", "TX: 1310nm / RX: 1550nm — Single-mode 10km"],
+            power: { input: "3.3V Single Supply", consumption: "Low Power (Hot Pluggable)" },
+            environment: {
+              tempOperating: "Standard: 0°C ~ 70°C / Wide-Temp: -40°C ~ 85°C",
+              housing: "Industry Standard SFP MSA",
+            },
+            physical: { weight: "≈ 25 g", dimension: "Standard SFP Form Factor" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/69e813f3179f06b34241a0cf55cb9c87.pdf",
+          },
+        },
+        {
+          model: "GBM-123RS",
+          description: "1.25G Bi-Di SFP Simplex LC (RX) — Bi-Directional Gigabit Module",
+          image: sfp_GBM_123RS,
+          features: ["1.25G", "Bi-Di", "RX"],
+          sourceUrl: detail(95),
+          details: {
+            overview:
+              "GBM-123RS เป็น 1.25 Gigabit Bi-Directional SFP คู่ตรงข้ามของ GBM-123TS — ส่ง TX: 1550nm / RX: 1310nm ระยะ 10 km Single-mode บนสาย Fiber เส้นเดียว Compliant กับ IEEE 802.3z Gigabit Ethernet และ Fiber Channel 100-SM-LC-L เหมาะกับงาน Last Mile, Carrier Network, FTTB / FTTH และมีรุ่น Wide-Temp (-40°C ~ 85°C) สำหรับงาน Industrial",
+            highlights: [
+              { title: "Bi-Directional Gigabit", desc: "ใช้ Fiber เส้นเดียว ส่งข้อมูล 1.25G ได้สองทาง" },
+              { title: "TX 1550nm / RX 1310nm", desc: "ใช้คู่กับ GBM-123TS เป็น Pair" },
+              { title: "Single-mode 10km", desc: "เหมาะกับงาน Building-to-Building, Carrier, FTTx" },
+              { title: "Simplex LC Connector", desc: "ขั้วต่อ Simplex LC มาตรฐาน Industry" },
+              { title: "IEEE 802.3z Compliant", desc: "Gigabit Ethernet มาตรฐานสากล" },
+              { title: "Wide-Temp Option (GBM-123IRS)", desc: "รุ่น Industrial -40°C ~ 85°C สำหรับ Outdoor / Cabinet" },
+              { title: "3.3V + Hot Pluggable", desc: "ประหยัดพลังงาน เสียบเปลี่ยนขณะใช้งานได้" },
+              { title: "RoHS / Class 1 Laser", desc: "ปลอดภัยตามมาตรฐานสากล" },
+            ],
+            ports: ["1 x 1000BASE-LX Bi-Di SFP (Simplex LC)", "TX: 1550nm / RX: 1310nm — Single-mode 10km"],
+            power: { input: "3.3V Single Supply", consumption: "Low Power (Hot Pluggable)" },
+            environment: {
+              tempOperating: "Standard: 0°C ~ 70°C / Wide-Temp: -40°C ~ 85°C",
+              housing: "Industry Standard SFP MSA",
+            },
+            physical: { weight: "≈ 25 g", dimension: "Standard SFP Form Factor" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/69e813f3179f06b34241a0cf55cb9c87.pdf",
+          },
+        },
       ],
     },
     {
@@ -3407,7 +3575,35 @@ export const volktekSfp: VolktekCategory = {
       title: "10G SFP+",
       blurb: "10G SFP+ Module — Duplex LC สำหรับ 10 Gigabit Fiber Uplink",
       products: [
-        { model: "GBM-162", description: "10G SFP+ Duplex LC — 10 Gigabit Fiber Module", image: sfp_GBM_162, features: ["10G", "SFP+", "Duplex LC"], sourceUrl: detail(96) },
+        {
+          model: "GBM-162",
+          description: "10G SFP+ Duplex LC — 10 Gigabit Fiber Module",
+          image: sfp_GBM_162,
+          features: ["10G", "SFP+", "Duplex LC"],
+          sourceUrl: detail(96),
+          details: {
+            overview:
+              "GBM-162 เป็น 10 Gigabit SFP+ Transceiver แบบ Duplex LC ครอบคลุมระยะ 300 m (MM 850nm) / 10 km (SM 1310nm) / 40 km (SM 1550nm) / 80 km (SM 1550nm) พร้อม 2-wire Interface สำหรับ Diagnostic Monitoring (DDM) Compliant กับ IEEE 802.3ae 10GBase-ER, SFF8472 และ SFP+ MSA ใช้พลังงาน 3.3V Hot Pluggable เหมาะกับงาน 10G Backbone, Data Center Uplink, Metro Aggregation และ Long-Haul Fiber",
+            highlights: [
+              { title: "10 Gigabit SFP+", desc: "Compliant IEEE 802.3ae 10GBase-SR/LR/ER/ZR" },
+              { title: "ระยะ 300m / 10km / 40km / 80km", desc: "เลือกได้ตามโครงการ — รองรับทั้ง MM และ SM" },
+              { title: "DDM (Digital Diagnostic Monitor)", desc: "2-wire Interface สำหรับมอนิเตอร์ TX Power, RX Power, Temp" },
+              { title: "Duplex LC Connector", desc: "ขั้วต่อ LC มาตรฐาน Industry" },
+              { title: "EML / DFB Laser Transmitter", desc: "1550nm EML (40/80km) หรือ 1310nm DFB (10km) คุณภาพสูง" },
+              { title: "SFP+ MSA Compliant", desc: "ใช้ร่วมกับ Switch/Router ที่รองรับ SFP+ ได้ทุกค่าย" },
+              { title: "3.3V + Hot Pluggable", desc: "ประหยัดพลังงาน เสียบเปลี่ยนขณะใช้งานได้" },
+              { title: "RoHS Compliant", desc: "ปลอดภัยตามมาตรฐานสากล" },
+            ],
+            ports: ["1 x 10GBASE-SR/LR/ER/ZR SFP+ (Duplex LC)", "Wavelength: 850nm (MM 300m), 1310nm (SM 10km), 1550nm (SM 40/80km)"],
+            power: { input: "3.3V Single Supply", consumption: "Low Power (Hot Pluggable)" },
+            environment: {
+              tempOperating: "Standard: 0°C ~ 70°C / Wide-Temp: -40°C ~ 85°C",
+              housing: "Industry Standard SFP+ MSA",
+            },
+            physical: { weight: "≈ 30 g", dimension: "Standard SFP+ Form Factor" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/0d1e1419c35a41fb4c9f44e49991d691.pdf",
+          },
+        },
       ],
     },
   ],
