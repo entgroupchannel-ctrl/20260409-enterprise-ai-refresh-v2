@@ -329,7 +329,7 @@ export default function VolktekSolutions() {
                 </div>
 
                 <div className="flex flex-col gap-3">
-                  <div className="rounded-xl border border-border bg-muted/30 p-4 flex-1">
+                  <div className="rounded-xl border border-border bg-muted/30 p-4">
                     <div className="flex items-center gap-2 mb-2">
                       <Sparkles className="w-4 h-4 text-primary" />
                       <h4 className="text-xs font-bold uppercase tracking-wider text-primary">
@@ -338,6 +338,72 @@ export default function VolktekSolutions() {
                     </div>
                     <p className="text-sm text-foreground/85 leading-relaxed">{s.overview}</p>
                   </div>
+
+                  {/* Recommended Products — compact list ใต้ภาพรวม */}
+                  {(() => {
+                    const items = s.recommendedModels
+                      .map((m) => productLookup.get(m))
+                      .filter((x): x is { product: VolktekProduct; categoryTitle: string } => Boolean(x));
+                    if (items.length === 0) return null;
+                    return (
+                      <div className="rounded-xl border border-primary/30 bg-primary/[0.03] p-3 flex-1 flex flex-col">
+                        <div className="flex items-center gap-2 mb-2.5">
+                          <Package className="w-4 h-4 text-primary shrink-0" />
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-primary flex-1">
+                            รุ่นที่แนะนำ
+                          </h4>
+                          <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-primary text-primary-foreground">
+                            {items.length}
+                          </span>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2 flex-1">
+                          {items.map(({ product: p }) => (
+                            <div
+                              key={p.model}
+                              className="rounded-lg border border-border bg-background overflow-hidden hover:border-primary/50 transition-all flex flex-col group"
+                            >
+                              <div className="aspect-[4/3] bg-muted/30 flex items-center justify-center overflow-hidden">
+                                <img
+                                  src={p.image}
+                                  alt={p.model}
+                                  loading="lazy"
+                                  className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform"
+                                />
+                              </div>
+                              <div className="p-2 flex-1 flex flex-col gap-1.5">
+                                <div className="font-mono text-[11px] font-bold text-foreground leading-tight line-clamp-1">
+                                  {p.model}
+                                </div>
+                                <p className="text-[10px] text-muted-foreground leading-snug line-clamp-2 mb-1">
+                                  {p.description}
+                                </p>
+                                <div className="flex gap-1 mt-auto">
+                                  <AddToCartButton
+                                    productModel={p.model}
+                                    productName={`Volktek ${p.model}`}
+                                    productDescription={p.description}
+                                    size="sm"
+                                    variant="outline"
+                                    iconOnly
+                                  />
+                                  <QuoteRequestButton
+                                    productModel={p.model}
+                                    productName={`Volktek ${p.model}`}
+                                    size="sm"
+                                    variant="outline"
+                                    iconOnly
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        <p className="mt-2.5 text-[10px] text-muted-foreground text-center">
+                          คัดเลือกโดย ENT Group ตาม Application Diagram
+                        </p>
+                      </div>
+                    );
+                  })()}
                 </div>
               </div>
 
