@@ -210,59 +210,6 @@ export default function VolktekMarketingStrip() {
             ))}
           </div>
         </div>
-      </div>
-
-        {/* Right column: Featured Products */}
-        <div className="p-4 md:p-5 bg-muted/20 flex flex-col">
-          <div className="flex items-center justify-between mb-3">
-            <div>
-              <span className="text-[10px] font-semibold tracking-widest uppercase text-primary block">
-                Top Picks
-              </span>
-              <h3 className="text-sm md:text-base font-display font-bold text-foreground">
-                รุ่นเด่นแนะนำ {FEATURED.length} รุ่น
-              </h3>
-            </div>
-            <button
-              onClick={scrollToCatalog}
-              className="text-[11px] font-semibold text-primary hover:underline inline-flex items-center gap-1"
-            >
-              ดูทั้งหมด <ArrowRight size={12} />
-            </button>
-          </div>
-
-          <div className="grid grid-cols-2 gap-2 md:gap-2.5 flex-1">
-            {FEATURED.map((f) => (
-              <button
-                key={f.model}
-                onClick={scrollToCatalog}
-                className="group relative text-left rounded-lg border border-border bg-background overflow-hidden hover:border-primary/50 hover:shadow-md transition-all flex flex-col"
-                aria-label={`ดูรายละเอียด ${f.model}`}
-              >
-                <div className="aspect-[4/3] bg-muted/40 overflow-hidden relative">
-                  <img
-                    src={f.product.image}
-                    alt={f.model}
-                    loading="lazy"
-                    className="absolute inset-0 w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <span className="absolute top-1 left-1 inline-flex items-center text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-primary text-primary-foreground shadow-sm">
-                    {f.tag}
-                  </span>
-                </div>
-                <div className="p-2 border-t border-border">
-                  <div className="text-[10px] text-muted-foreground font-medium leading-tight mb-0.5">
-                    {f.category}
-                  </div>
-                  <div className="font-mono text-[11px] md:text-xs font-bold text-foreground group-hover:text-primary transition-colors leading-tight truncate">
-                    {f.model}
-                  </div>
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
     </section>
   );
 }
