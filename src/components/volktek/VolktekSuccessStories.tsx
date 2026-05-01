@@ -170,10 +170,48 @@ const stories: Story[] = [
   },
 ];
 
+/** ค้นหา product จริงจากแคตตาล็อก เทียบจาก model (case-insensitive, partial) */
+type FoundProduct = { product: VolktekProduct; categoryTitle: string; subTitle: string };
+
+const ALL_CATEGORIES: VolktekCategory[] = [
+  volktekLayer3,
+  volktekIndustrialPoe,
+  volktekIndustrialEthernet,
+  volktekMetroEthernet,
+];
+
+function findProductByModel(model: string): FoundProduct | null {
+  const needle = model.toLowerCase().replace(/\s+/g, "");
+  for (const cat of ALL_CATEGORIES) {
+    for (const sub of cat.subCategories) {
+      for (const p of sub.products) {
+        const hay = p.model.toLowerCase().replace(/\s+/g, "");
+        if (hay === needle || hay.includes(needle) || needle.includes(hay)) {
+          return { product: p, categoryTitle: cat.title, subTitle: sub.title };
+        }
+      }
+    }
+  }
+  return null;
+}
+
+const scrollToCatalog = () => {
+  const el = document.getElementById("catalog");
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+};
+
 const VolktekSuccessStories = () => {
   const [activeId, setActiveId] = useState<string>(stories[0].id);
   const active = stories.find((s) => s.id === activeId)!;
   const ActiveIcon = active.icon;
+
+  const relatedProducts = useMemo(
+    () =>
+      active.relatedModels
+        .map((m) => ({ requested: m, found: findProductByModel(m) }))
+        .filter((r) => r.found !== null) as { requested: string; found: FoundProduct }[],
+    [active]
+  );
 
   return (
     <section id="success-stories" className="card-surface p-6 md:p-8">
