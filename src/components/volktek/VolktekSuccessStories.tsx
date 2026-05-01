@@ -65,6 +65,7 @@ const stories: Story[] = [
     solution:
       "ใช้ SEN-8428PL-24V Managed PoE Switch สำหรับเสาอัจฉริยะ พร้อม Fiber Uplink เชื่อมศูนย์กลาง และ Ring Topology สำหรับ Redundancy",
     models: ["SEN-8428PL-24V"],
+    relatedModels: ["SEN-8428PL-24V", "SEN-8428PL", "SEN-8425PL-24V", "SEN-8424PL", "IEN-8648PA-24V"],
     benefits: [
       "8× PoE+ (30W/พอร์ต, รวม 240W) จ่ายไฟกล้อง/AP/IoT",
       "2× Fiber Uplink เชื่อมระยะไกลถึงศูนย์ควบคุม",
