@@ -1,6 +1,7 @@
-import { Flame, ArrowRight } from "lucide-react";
+import { Flame, ArrowRight, Sparkles, Zap } from "lucide-react";
 import { Link } from "react-router-dom";
 import kioskBanner from "@/assets/kiosk-banner.jpg";
+import volktekHero from "@/assets/ads/volktek-ad-01-launch-hero.jpg";
 
 const productBanners = [
   {
