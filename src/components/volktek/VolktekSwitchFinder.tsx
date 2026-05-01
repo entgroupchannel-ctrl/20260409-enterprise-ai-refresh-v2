@@ -484,7 +484,7 @@ const VolktekSwitchFinder = () => {
                 className={`group relative rounded-xl border-2 p-4 text-left transition-all hover:-translate-y-0.5 ${
                   isSelected
                     ? "border-primary bg-primary/5 shadow-md"
-                    : "border-border bg-background/40 hover:border-primary/40"
+                    : "border-border hover:border-primary/40 bg-slate-200"
                 }`}
               >
                 <div
