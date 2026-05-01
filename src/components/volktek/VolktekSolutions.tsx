@@ -329,7 +329,7 @@ export default function VolktekSolutions() {
                 </div>
 
                 <div className="flex flex-col gap-3">
-                  <div className="rounded-xl border border-border bg-muted/30 p-4 flex-1">
+                  <div className="rounded-xl border border-border bg-muted/30 p-4">
                     <div className="flex items-center gap-2 mb-2">
                       <Sparkles className="w-4 h-4 text-primary" />
                       <h4 className="text-xs font-bold uppercase tracking-wider text-primary">
@@ -338,6 +338,72 @@ export default function VolktekSolutions() {
                     </div>
                     <p className="text-sm text-foreground/85 leading-relaxed">{s.overview}</p>
                   </div>
+
+                  {/* Recommended Products — compact list ใต้ภาพรวม */}
+                  {(() => {
+                    const items = s.recommendedModels
+                      .map((m) => productLookup.get(m))
+                      .filter((x): x is { product: VolktekProduct; categoryTitle: string } => Boolean(x));
+                    if (items.length === 0) return null;
+                    return (
+                      <div className="rounded-xl border border-primary/30 bg-primary/[0.03] p-3 flex-1 flex flex-col">
+                        <div className="flex items-center gap-2 mb-2.5">
+                          <Package className="w-4 h-4 text-primary shrink-0" />
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-primary flex-1">
+                            รุ่นที่แนะนำ
+                          </h4>
+                          <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-primary text-primary-foreground">
+                            {items.length}
+                          </span>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2 flex-1">
+                          {items.map(({ product: p }) => (
+                            <div
+                              key={p.model}
+                              className="rounded-lg border border-border bg-background overflow-hidden hover:border-primary/50 transition-all flex flex-col group"
+                            >
+                              <div className="aspect-[4/3] bg-muted/30 flex items-center justify-center overflow-hidden">
+                                <img
+                                  src={p.image}
+                                  alt={p.model}
+                                  loading="lazy"
+                                  className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform"
+                                />
+                              </div>
+                              <div className="p-2 flex-1 flex flex-col gap-1.5">
+                                <div className="font-mono text-[11px] font-bold text-foreground leading-tight line-clamp-1">
+                                  {p.model}
+                                </div>
+                                <p className="text-[10px] text-muted-foreground leading-snug line-clamp-2 mb-1">
+                                  {p.description}
+                                </p>
+                                <div className="flex gap-1 mt-auto">
+                                  <AddToCartButton
+                                    productModel={p.model}
+                                    productName={`Volktek ${p.model}`}
+                                    productDescription={p.description}
+                                    size="sm"
+                                    variant="outline"
+                                    iconOnly
+                                  />
+                                  <QuoteRequestButton
+                                    productModel={p.model}
+                                    productName={`Volktek ${p.model}`}
+                                    size="sm"
+                                    variant="outline"
+                                    iconOnly
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        <p className="mt-2.5 text-[10px] text-muted-foreground text-center">
+                          คัดเลือกโดย ENT Group ตาม Application Diagram
+                        </p>
+                      </div>
+                    );
+                  })()}
                 </div>
               </div>
 
@@ -403,93 +469,6 @@ export default function VolktekSolutions() {
                   แตะค้างที่ภาพเพื่อซูมดูรายละเอียด
                 </p>
               </div>
-
-              {/* Recommended Products for this solution */}
-              {(() => {
-                const items = s.recommendedModels
-                  .map((m) => productLookup.get(m))
-                  .filter((x): x is { product: VolktekProduct; categoryTitle: string } => Boolean(x));
-                if (items.length === 0) return null;
-                return (
-                  <div className="mt-5 rounded-xl border border-primary/30 bg-primary/[0.03] p-3 sm:p-4 md:p-5">
-                    <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
-                      <div className="flex items-center gap-2">
-                        <Package className="w-4 h-4 text-primary shrink-0" />
-                        <h4 className="text-sm font-bold text-foreground">รุ่นที่แนะนำสำหรับโซลูชันนี้</h4>
-                        <span className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-primary text-primary-foreground">
-                          {items.length} รุ่น
-                        </span>
-                      </div>
-                      <span className="text-[10px] text-muted-foreground">
-                        คัดเลือกโดย ENT Group ตาม Application Diagram และความต้องการของงาน
-                      </span>
-                    </div>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-                      {items.map(({ product: p, categoryTitle }) => (
-                        <div
-                          key={p.model}
-                          className="rounded-lg border border-border bg-background overflow-hidden hover:border-primary/50 hover:-translate-y-0.5 transition-all flex flex-col"
-                        >
-                          <div className="aspect-[4/3] bg-muted/30 flex items-center justify-center overflow-hidden">
-                            <img
-                              src={p.image}
-                              alt={p.model}
-                              loading="lazy"
-                              className="w-full h-full object-contain p-3"
-                            />
-                          </div>
-                          <div className="p-3 flex-1 flex flex-col">
-                            <span className="text-[9px] font-semibold uppercase tracking-wider text-muted-foreground mb-1 line-clamp-1">
-                              {categoryTitle}
-                            </span>
-                            <div className="font-mono text-xs sm:text-sm font-bold text-foreground mb-1 leading-tight">
-                              {p.model}
-                            </div>
-                            <p className="text-[10px] sm:text-xs text-muted-foreground leading-snug line-clamp-2 mb-2">
-                              {p.description}
-                            </p>
-                            <div className="flex flex-wrap gap-1 mb-2.5 mt-auto">
-                              {p.features.slice(0, 3).map((f) => (
-                                <span
-                                  key={f}
-                                  className="text-[9px] font-semibold px-1.5 py-0.5 rounded-md bg-primary/10 text-primary border border-primary/20"
-                                >
-                                  {f}
-                                </span>
-                              ))}
-                            </div>
-                            <div className="flex gap-1.5 mt-auto">
-                              <AddToCartButton
-                                productModel={p.model}
-                                productName={`Volktek ${p.model}`}
-                                productDescription={p.description}
-                                size="sm"
-                                variant="outline"
-                                iconOnly
-                              />
-                              <QuoteRequestButton
-                                productModel={p.model}
-                                productName={`Volktek ${p.model}`}
-                                size="sm"
-                                variant="outline"
-                                iconOnly
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="mt-4 flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-border/60">
-                      <p className="text-[11px] text-muted-foreground">
-                        ต้องการคำแนะนำเพิ่มเติม? ทีมวิศวกร ENT Group ช่วยเลือกรุ่นที่เหมาะกับโครงการของคุณ
-                      </p>
-                      <Button asChild size="sm" variant="outline">
-                        <a href="#catalog">ดู Catalog ทั้งหมด</a>
-                      </Button>
-                    </div>
-                  </div>
-                );
-              })()}
             </TabsContent>
           ))}
         </Tabs>
