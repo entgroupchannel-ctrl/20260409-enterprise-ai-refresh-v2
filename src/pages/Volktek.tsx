@@ -16,6 +16,7 @@ import B2BPlatformInterfaceShowcase from "@/components/B2BPlatformInterfaceShowc
 import MiniNavbar from "@/components/MiniNavbar";
 import VolktekMegaCatalog from "@/components/volktek/VolktekMegaCatalog";
 import VolktekMarketingStrip from "@/components/volktek/VolktekMarketingStrip";
+import VolktekSwitchFinder from "@/components/volktek/VolktekSwitchFinder";
 
 // Official assets from volktek.com
 import heroSpe from "@/assets/volktek/hero-spe.png";
@@ -337,6 +338,9 @@ const Volktek = () => {
             ))}
           </div>
         </section>
+
+        {/* Switch Finder — wizard ช่วยลูกค้าเลือกรุ่นที่เหมาะ */}
+        <VolktekSwitchFinder />
 
         {/* Mega Catalog — 10 หมวดในแท็บเดียว แทน card grid + 7 phase sections เดิม */}
         <VolktekMegaCatalog />
