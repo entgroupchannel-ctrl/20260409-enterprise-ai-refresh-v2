@@ -168,9 +168,128 @@ const TABS: TabMeta[] = [
 const totalModels = (cat?: VolktekCategory) =>
   cat ? cat.subCategories.reduce((n, s) => n + s.products.length, 0) : 0;
 
+/* ============================================================
+ * Quick Filters — ตัวกรองสั้นๆ หลังเลือกหมวด
+ * ============================================================ */
+type FilterKey = "poe" | "temp" | "ports" | "fiber" | "managed";
+type FilterOption = { id: string; label: string };
+
+const FILTER_GROUPS: { key: FilterKey; label: string; options: FilterOption[] }[] = [
+  {
+    key: "poe",
+    label: "PoE",
+    options: [
+      { id: "any-poe", label: "มี PoE" },
+      { id: "poe-plus", label: "PoE+ 30W" },
+      { id: "poe-plus-plus", label: "PoE++ 60W+" },
+    ],
+  },
+  {
+    key: "temp",
+    label: "อุณหภูมิ",
+    options: [
+      { id: "industrial", label: "Industrial -40°C" },
+      { id: "wide", label: "Wide -20°C" },
+    ],
+  },
+  {
+    key: "ports",
+    label: "พอร์ต",
+    options: [
+      { id: "small", label: "≤ 8 พอร์ต" },
+      { id: "medium", label: "9–16 พอร์ต" },
+      { id: "large", label: "17+ พอร์ต" },
+    ],
+  },
+  {
+    key: "fiber",
+    label: "ไฟเบอร์",
+    options: [
+      { id: "sfp", label: "SFP" },
+      { id: "sfp-plus", label: "10G SFP+" },
+    ],
+  },
+  {
+    key: "managed",
+    label: "การจัดการ",
+    options: [
+      { id: "managed", label: "Managed" },
+      { id: "unmanaged", label: "Unmanaged" },
+    ],
+  },
+];
+
+/** ดึงข้อความรวมจาก product สำหรับ match filter */
+function productHaystack(p: VolktekProduct): string {
+  return [
+    p.model,
+    p.description,
+    ...(p.features ?? []),
+    p.details?.environment?.tempOperating ?? "",
+    p.details?.environment?.housing ?? "",
+    ...(p.details?.ports ?? []),
+  ]
+    .join(" ")
+    .toLowerCase();
+}
+
+/** นับจำนวนพอร์ตจาก description/features (รวมตัวเลขที่อยู่ก่อน "x" หรือ "port") */
+function extractPortCount(p: VolktekProduct): number {
+  const text = `${p.description} ${(p.features ?? []).join(" ")} ${(p.details?.ports ?? []).join(" ")}`;
+  let total = 0;
+  const matches = text.matchAll(/(\d+)\s*[xX]\s*(?:10\/100\/1000|1000|100|10G|GbE|Gigabit|SFP|RJ45|BASE)/g);
+  for (const m of matches) total += parseInt(m[1], 10);
+  if (total === 0) {
+    // fallback: หาเลขใน model "8GT4XS" → 8+4=12
+    const modelMatches = p.model.matchAll(/(\d+)(GT|GP|XS|GS|T)/gi);
+    for (const m of modelMatches) total += parseInt(m[1], 10);
+  }
+  return total;
+}
+
+function matchesFilter(p: VolktekProduct, active: Partial<Record<FilterKey, string>>): boolean {
+  const hay = productHaystack(p);
+
+  if (active.poe) {
+    const hasPoe = /poe/.test(hay);
+    if (active.poe === "any-poe" && !hasPoe) return false;
+    if (active.poe === "poe-plus" && !/poe\+|802\.3at|30w/.test(hay)) return false;
+    if (active.poe === "poe-plus-plus" && !/poe\+\+|bt poe|802\.3bt|60w|90w/.test(hay)) return false;
+  }
+
+  if (active.temp) {
+    const tempStr = (p.details?.environment?.tempOperating ?? "").toLowerCase();
+    const allTemp = `${tempStr} ${hay}`;
+    if (active.temp === "industrial" && !/-40/.test(allTemp)) return false;
+    if (active.temp === "wide" && !/-20|-40/.test(allTemp)) return false;
+  }
+
+  if (active.ports) {
+    const n = extractPortCount(p);
+    if (active.ports === "small" && !(n > 0 && n <= 8)) return false;
+    if (active.ports === "medium" && !(n >= 9 && n <= 16)) return false;
+    if (active.ports === "large" && !(n >= 17)) return false;
+  }
+
+  if (active.fiber) {
+    if (active.fiber === "sfp" && !/sfp|fiber|fx/.test(hay)) return false;
+    if (active.fiber === "sfp-plus" && !/sfp\+|10g/.test(hay)) return false;
+  }
+
+  if (active.managed) {
+    const isManaged = /managed/.test(hay) && !/unmanaged/.test(hay);
+    const isUnmanaged = /unmanaged/.test(hay);
+    if (active.managed === "managed" && !isManaged) return false;
+    if (active.managed === "unmanaged" && !isUnmanaged) return false;
+  }
+
+  return true;
+}
+
 const VolktekMegaCatalog = () => {
   const [activeTab, setActiveTab] = useState(TABS[0].id);
   const [activeSub, setActiveSub] = useState<Record<string, string>>({});
+  const [activeFilters, setActiveFilters] = useState<Record<string, Partial<Record<FilterKey, string>>>>({});
   const [selected, setSelected] = useState<{
     product: VolktekProduct;
     sub: VolktekSubCategory;
@@ -179,6 +298,20 @@ const VolktekMegaCatalog = () => {
 
   const openProduct = (product: VolktekProduct, sub: VolktekSubCategory, catTitle: string) =>
     setSelected({ product, sub, catTitle });
+
+  const toggleFilter = (tabId: string, key: FilterKey, optionId: string) => {
+    setActiveFilters((prev) => {
+      const tabFilters = { ...(prev[tabId] ?? {}) };
+      if (tabFilters[key] === optionId) delete tabFilters[key];
+      else tabFilters[key] = optionId;
+      return { ...prev, [tabId]: tabFilters };
+    });
+  };
+
+  const clearFilters = (tabId: string) => {
+    setActiveFilters((prev) => ({ ...prev, [tabId]: {} }));
+  };
+
 
   return (
     <section id="catalog" className="scroll-mt-24">
