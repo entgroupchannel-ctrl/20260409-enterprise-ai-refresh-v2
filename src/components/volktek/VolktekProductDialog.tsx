@@ -28,6 +28,7 @@ const VolktekProductDialog = ({ product, subCategory, categoryTitle, onClose, on
           const prev = idx > 0 ? list[idx - 1] : list[list.length - 1];
           const next = idx < list.length - 1 ? list[idx + 1] : list[0];
           const related = list.filter((m) => m.model !== product.model).slice(0, 6);
+          const relatedSolutions = getSolutionsForModel(product.model);
           const d = product.details;
 
           return (
