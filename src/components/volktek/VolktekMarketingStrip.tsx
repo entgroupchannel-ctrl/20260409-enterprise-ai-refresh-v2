@@ -210,6 +210,7 @@ export default function VolktekMarketingStrip() {
             ))}
           </div>
         </div>
+      </div>
     </section>
   );
 }
