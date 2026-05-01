@@ -3,9 +3,10 @@ import { Building2, Store, Building, Home, Hotel, Castle, Layers as LayersIcon, 
 import type { LucideIcon } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { volktekCatalog, type VolktekProduct } from "@/data/volktek-products";
+import { volktekCatalog, type VolktekProduct, type VolktekSubCategory } from "@/data/volktek-products";
 import AddToCartButton from "@/components/AddToCartButton";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
+import VolktekProductDialog from "@/components/volktek/VolktekProductDialog";
 
 /**
  * Volktek Solutions — เรียบเรียงจาก volktek.com/solutiondetail_en.php (id 2,4-10)
@@ -249,13 +250,15 @@ const SOLUTIONS: Solution[] = [
   },
 ];
 
-/** Build lookup map: model → { product, categoryTitle } จาก volktekCatalog */
-function buildProductLookup(): Map<string, { product: VolktekProduct; categoryTitle: string }> {
-  const map = new Map<string, { product: VolktekProduct; categoryTitle: string }>();
+type LookupEntry = { product: VolktekProduct; subCategory: VolktekSubCategory; categoryTitle: string };
+
+/** Build lookup map: model → { product, subCategory, categoryTitle } จาก volktekCatalog */
+function buildProductLookup(): Map<string, LookupEntry> {
+  const map = new Map<string, LookupEntry>();
   for (const cat of volktekCatalog) {
     for (const sub of cat.subCategories) {
       for (const p of sub.products) {
-        if (!map.has(p.model)) map.set(p.model, { product: p, categoryTitle: cat.title });
+        if (!map.has(p.model)) map.set(p.model, { product: p, subCategory: sub, categoryTitle: cat.title });
       }
     }
   }
@@ -265,6 +268,16 @@ function buildProductLookup(): Map<string, { product: VolktekProduct; categoryTi
 export default function VolktekSolutions() {
   const [activeTab, setActiveTab] = useState(SOLUTIONS[0].id);
   const productLookup = useMemo(() => buildProductLookup(), []);
+  const [dialogState, setDialogState] = useState<LookupEntry | null>(null);
+
+  const openProduct = (model: string) => {
+    const entry = productLookup.get(model);
+    if (entry) setDialogState(entry);
+  };
+  const selectFromDialog = (p: VolktekProduct) => {
+    const entry = productLookup.get(p.model);
+    if (entry) setDialogState(entry);
+  };
 
   return (
     <section id="solutions" className="scroll-mt-24">
