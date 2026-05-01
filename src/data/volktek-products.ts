@@ -67,6 +67,20 @@ export type VolktekCategory = {
 import l3Managed8GT4XS from "@/assets/volktek/products/layer3/9561-8GT4XS-TSN.jpg";
 import l3PoE8GP4XS from "@/assets/volktek/products/layer3/9561-8GP4XS-TSN.jpg";
 
+// Phase 9: PoE Injectors / Splitters, Industrial Firewall, Accessories (Power Supply)
+import imgIra90 from "@/assets/volktek/products/ira-90.jpg";
+import imgIra160 from "@/assets/volktek/products/ira-160.jpg";
+import imgSdr12048 from "@/assets/volktek/products/sdr-120-48.jpg";
+import imgSdr24048 from "@/assets/volktek/products/sdr-240-48.jpg";
+import imgSdr480p48 from "@/assets/volktek/products/sdr-480p-48.jpg";
+import imgIpi432P60I from "@/assets/volktek/products/ipi-432p-60-i.jpg";
+import imgIpi442P90I from "@/assets/volktek/products/ipi-442p-90-i.jpg";
+import imgGpi421 from "@/assets/volktek/products/gpi-421.jpg";
+import imgGpi431 from "@/assets/volktek/products/gpi-431.jpg";
+import imgGpi441 from "@/assets/volktek/products/gpi-441.jpg";
+import imgIps342P from "@/assets/volktek/products/ips-342p.jpg";
+import imgFw31006GTI from "@/assets/volktek/products/fw-3100-6gt-i.jpg";
+
 /* ============================================================
  * Phase 1: Layer 3 Industrial Ethernet Switches
  * ============================================================ */
@@ -3610,6 +3624,428 @@ export const volktekSfp: VolktekCategory = {
 };
 
 /* ============================================================
+ * Phase 9: PoE Injectors / PoE Splitters
+ * id ตรงกับ productCategories[].id ใน Volktek.tsx → "poe-injector"
+ * ============================================================ */
+export const volktekPoeInjector: VolktekCategory = {
+  id: "poe-injector",
+  title: "PoE Injectors / Splitters",
+  subCategories: [
+    {
+      id: "poe-injectors",
+      title: "PoE Injectors",
+      blurb:
+        "Power Injector สำหรับเพิ่มความสามารถจ่ายไฟ PoE/PoE+/PoE++ ให้กับอุปกรณ์ปลายทาง — มีทั้งรุ่น Industrial DIN-Rail (IPI series) สำหรับงานหนัก และรุ่น Desktop (GPI series) สำหรับงานทั่วไป",
+      products: [
+        {
+          model: "IPI-432P-60-I",
+          description: "60W PoE++ Industrial Power Injector — DIN-Rail, -40°C ~ 75°C",
+          image: imgIpi432P60I,
+          features: ["60W PoE++", "IEEE 802.3bt", "Industrial -40°C", "DIN-Rail", "IP30 Aluminum", "Redundant Power"],
+          sourceUrl: detail(1671),
+          details: {
+            overview:
+              "IPI-432P-60-I เป็น Single-Port PoE++ Industrial Power Injector ที่จ่ายไฟและข้อมูลให้ Powered Devices (PDs) ผ่านสาย Cat-5e/Cat-6 ด้วยความเร็ว 10/100/1000 Mbps และจ่ายไฟได้ถึง 60 Watts เหมาะกับ PoE Lighting System สำหรับ Smart Building และ IoT ทำงานแบบ Fanless ติดตั้งได้ทั้ง Ceiling และตู้ Outdoor มี LED แสดงปริมาณไฟที่ใช้และแจ้งเตือนเมื่อไฟเกินขีดปลอดภัย ตัวเครื่อง IP30 Aluminum housing ทนฝุ่นและการกระแทก ทำงานในช่วงอุณหภูมิกว้าง -40°C ~ 75°C พร้อม Redundant Power Supply และ Relay Alarm สำหรับแจ้งเตือนกรณีไฟดับ",
+            highlights: [
+              { title: "60W PoE++ (IEEE 802.3bt)", desc: "รองรับ 4PPoE Type 4 จ่ายไฟผ่าน 4-pair Cat-5e/Cat-6" },
+              { title: "Industrial Wide-Temp", desc: "ทำงาน -40°C ~ 75°C — UL Certified ถึง 70°C" },
+              { title: "Redundant Power + Relay Alarm", desc: "Dual 24~57V DC Terminal Block + แจ้งเตือนเมื่อไฟดับ" },
+              { title: "Power Usage LED", desc: "แสดงระดับไฟ 15W / 30W / 60W และเตือนเมื่อเกินขีดปลอดภัย" },
+              { title: "IP30 Aluminum Housing", desc: "Compact Fanless ติด DIN-Rail ในตู้อุตสาหกรรมได้" },
+            ],
+            ports: [
+              "1 x 10/100/1000 Base-T RJ45 (Data In)",
+              "1 x 10/100/1000 Base-T PSE Port (60W PoE Out)",
+              "DIP Switch: PWR, RPS, NBT, RSV",
+            ],
+            ledPanel: "PWR, RPS, ALM, PoE, NBT, PoE Usage (15/30/60W)",
+            power: { input: "Dual 24~57V DC, Terminal Block (Redundant)", consumption: "7W (System Only)", poeBudget: "60W" },
+            environment: {
+              tempOperating: "-40°C ~ 75°C (UL: -40°C ~ 70°C)",
+              tempStorage: "-40°C ~ 85°C",
+              humidity: "5 ~ 95% RH (non-condensing)",
+              housing: "Aluminum (IP30 Protection), DIN-Rail",
+            },
+            physical: { weight: "385 g (0.85 lb)", dimension: "25 x 115.8 x 100 mm" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/40038565ed93ccde31d659a1609ed9d3.pdf",
+          },
+        },
+        {
+          model: "IPI-442P-90-I",
+          description: "90W PoE++ Industrial Power Injector — DIN-Rail, -40°C ~ 75°C",
+          image: imgIpi442P90I,
+          features: ["90W PoE++", "IEEE 802.3bt", "Industrial -40°C", "DIN-Rail", "IP30 Aluminum", "Redundant Power"],
+          sourceUrl: detail(1656),
+          details: {
+            overview:
+              "IPI-442P-90-I เป็น Single-Port PoE++ Industrial Power Injector รุ่นจ่ายไฟสูงสุด 90 Watts สำหรับ Powered Devices ที่ต้องการพลังงานสูง เช่น PTZ Camera, AP กำลังสูง, Smart Lighting และ IoT Edge Device รองรับการสื่อสาร 10/100/1000 Mbps พร้อม Redundant Power Supply, Relay Alarm และ LED แสดงระดับไฟใช้งาน 15W / 30W / 60W / 90W ทำงานในตู้อุตสาหกรรมได้ตั้งแต่ -40°C ~ 75°C ตัวเครื่อง IP30 Aluminum Fanless ติดตั้งบน DIN-Rail",
+            highlights: [
+              { title: "90W PoE++ (IEEE 802.3bt)", desc: "Type 4 4PPoE จ่ายไฟสูงสุดในตระกูล Industrial Injector" },
+              { title: "Industrial Wide-Temp", desc: "ทำงาน -40°C ~ 75°C — UL Certified ถึง 70°C" },
+              { title: "Redundant Power + Relay Alarm", desc: "Dual 24~57V DC + แจ้งเตือนผ่าน Relay 1A@24VDC" },
+              { title: "Power Usage LED 4 ระดับ", desc: "แสดงไฟใช้งาน 15W / 30W / 60W / 90W ชัดเจน" },
+              { title: "Fanless IP30 Aluminum", desc: "ทนฝุ่น/ความร้อน เงียบ ไม่มีพัดลม" },
+            ],
+            ports: [
+              "1 x 10/100/1000 Base-T RJ45 (Data In)",
+              "1 x 10/100/1000 Base-T PSE Port (90W PoE Out)",
+              "DIP Switch: PWR, RPS, NBT, RSV",
+            ],
+            ledPanel: "PWR, RPS, ALM, PoE, NBT, PoE Usage (15/30/60/90W)",
+            power: { input: "Dual 24~57V DC, Terminal Block (Redundant)", consumption: "9W (System Only)", poeBudget: "90W" },
+            environment: {
+              tempOperating: "-40°C ~ 75°C (UL: -40°C ~ 70°C)",
+              tempStorage: "-40°C ~ 85°C",
+              humidity: "5 ~ 95% RH (non-condensing)",
+              housing: "Aluminum (IP30 Protection), DIN-Rail",
+            },
+            physical: { weight: "385 g (0.85 lb)", dimension: "25 x 115.8 x 100 mm" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/f8d3d923a6c86837d9e465bef4196465.pdf",
+          },
+        },
+        {
+          model: "GPI-421",
+          description: "30W PoE+ Power Injector (Desktop) — IEEE 802.3at",
+          image: imgGpi421,
+          features: ["30W PoE+", "IEEE 802.3at", "Desktop", "Fanless", "PD Detection"],
+          sourceUrl: detail(182),
+          details: {
+            overview:
+              "GPI-421 เป็น Single-Port 30W PoE+ Power Injector แบบ Desktop ราคาประหยัดสำหรับจ่ายไฟให้อุปกรณ์ในจุดที่ไม่มีไฟ PoE — เหมาะกับ Wireless AP, IP Camera แบบ PTZ, Video Phone ตัวเครื่อง Slide-in Installation มี LED แสดงสถานะ ทำงานที่ 0°C ~ 50°C จ่ายไฟผ่าน Internal Power Supply 100~240VAC",
+            highlights: [
+              { title: "30W PoE+ (IEEE 802.3at)", desc: "Backward compatible IEEE 802.3af / Legacy PoE" },
+              { title: "10/100/1000 Mbps", desc: "รองรับ Gigabit Ethernet เต็มความเร็ว" },
+              { title: "Auto Detect & Protect", desc: "ตรวจจับและปกป้อง Non-standard Ethernet Terminal" },
+              { title: "Full-Range AC Input", desc: "100~240VAC, 50/60 Hz ใช้ได้ทั่วโลก" },
+              { title: "Fanless Slide-in Design", desc: "เงียบ น้ำหนักเบา 350g ติดตั้งง่าย" },
+            ],
+            ports: ["1 x 10/100/1000 Mbps RJ45 (Data In)", "1 x 10/100/1000 Mbps RJ45 (30W PoE Out)"],
+            ledPanel: "PWR, PoE",
+            power: { input: "100~240VAC, 50/60 Hz (Internal PSU); Output 52V DC Max.", consumption: "—", poeBudget: "30W" },
+            environment: { tempOperating: "0°C ~ 50°C", housing: "Plastic Desktop, Fanless" },
+            physical: { weight: "350 g (0.77 lb)", dimension: "146 x 65 x 42 mm" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/84ddc0322cd083ea1dc003603aec5018.pdf",
+          },
+        },
+        {
+          model: "GPI-431",
+          description: "60W PoE++ Power Injector (Desktop) — 4-Pair PoE",
+          image: imgGpi431,
+          features: ["60W PoE++", "4-Pair", "Desktop", "Fanless", "PD Detection"],
+          sourceUrl: detail(183),
+          details: {
+            overview:
+              "GPI-431 เป็น Single-Port 60W Power Injector แบบ Desktop จ่ายไฟผ่านสาย 4-Pair (Power/Data) สำหรับ Powered Device รุ่นใหม่ เช่น Dome Surveillance Camera กำลังสูง, ระบบไฟ LED, Smart Kiosk รองรับ IEEE 802.3, 802.3u, 802.3ab, 802.3af, 802.3at มาตรฐานครบ พร้อม Internal Power Supply 100~240VAC ทำงานที่ 0°C ~ 40°C",
+            highlights: [
+              { title: "60W 4-Pair PoE", desc: "จ่ายไฟผ่านทั้ง 4 คู่สาย รองรับอุปกรณ์ใช้กระแสสูง" },
+              { title: "10/100/1000 Mbps Gigabit", desc: "Compliant IEEE 802.3 / 802.3u / 802.3ab" },
+              { title: "Auto PD Detection", desc: "ตรวจจับและจ่ายไฟตามชนิดอุปกรณ์อัตโนมัติ" },
+              { title: "Full-Range AC Input", desc: "100~240VAC, 50/60 Hz Internal PSU" },
+              { title: "Fanless Natural Cooling", desc: "เงียบ ไม่มีพัดลม เหมาะกับสภาพแวดล้อม Office" },
+              { title: "CE / FCC Compliant", desc: "ผ่านมาตรฐานสากล" },
+            ],
+            ports: ["1 x 10/100/1000 Base-T RJ45 (Data In)", "1 x 10/100/1000 Base-T PSE Port (60W PoE Out)"],
+            ledPanel: "Mode A, Mode B, Power",
+            power: { input: "100~240VAC, 50/60 Hz (Internal PSU); Output 56V DC Max.", consumption: "—", poeBudget: "60W" },
+            environment: { tempOperating: "0°C ~ 40°C", housing: "Plastic Desktop, Fanless" },
+            physical: { weight: "530 g (1.17 lb)", dimension: "180 x 71 x 37 mm" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/b2bd1d85a8eb209a8ae2f32fc0bc83b4.pdf",
+          },
+        },
+        {
+          model: "GPI-441",
+          description: "90W PoE++ Power Injector (Desktop) — 4-Pair PoE",
+          image: imgGpi441,
+          features: ["90W PoE++", "4-Pair", "Desktop", "Fanless", "PD Detection"],
+          sourceUrl: detail(184),
+          details: {
+            overview:
+              "GPI-441 เป็น Single-Port 90W Power Injector แบบ Desktop รุ่นจ่ายไฟสูงสุดของตระกูล GPI สำหรับอุปกรณ์กำลังสูง เช่น Dome Camera พร้อม Heater, Smart Kiosk, ไฟ LED กลางแจ้ง รองรับ IEEE 802.3, 802.3u, 802.3ab, 802.3af, 802.3at เต็มมาตรฐาน Internal Power Supply 100~240VAC ใช้งานที่ 0°C ~ 40°C",
+            highlights: [
+              { title: "90W 4-Pair PoE", desc: "จ่ายไฟสูงสุดในตระกูล GPI Desktop Injector" },
+              { title: "10/100/1000 Mbps Gigabit", desc: "รองรับ Gigabit Ethernet เต็มความเร็ว" },
+              { title: "Auto PD Detection", desc: "ตรวจจับและจ่ายไฟตามชนิดอุปกรณ์อัตโนมัติ" },
+              { title: "IEEE 802.3af/at Backward Compatible", desc: "ใช้กับ PoE/PoE+ Device รุ่นเก่าได้" },
+              { title: "Full-Range AC Input", desc: "100~240VAC, 50/60 Hz Internal PSU" },
+              { title: "Fanless Natural Cooling", desc: "เงียบ ไม่มีพัดลม CE/FCC Compliant" },
+            ],
+            ports: ["1 x 10/100/1000 Base-T RJ45 (Data In)", "1 x 10/100/1000 Base-T PSE Port (90W PoE Out)"],
+            ledPanel: "Mode A, Mode B, Power",
+            power: { input: "100~240VAC, 50/60 Hz (Internal PSU); Output 56V DC Max.", consumption: "—", poeBudget: "90W" },
+            environment: { tempOperating: "0°C ~ 40°C", housing: "Plastic Desktop, Fanless" },
+            physical: { weight: "530 g (1.17 lb)", dimension: "180 x 71 x 37 mm" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/03f1440ddc2c65850a0ae2fbcc23d814.pdf",
+          },
+        },
+      ],
+    },
+    {
+      id: "poe-splitters",
+      title: "PoE Splitters",
+      blurb:
+        "PoE Splitter สำหรับแยกพลังงานจากสาย PoE ออกเป็นไฟ DC ให้กับอุปกรณ์ที่ไม่รองรับ PoE — รุ่น Industrial รับ 802.3bt และจ่าย 24V DC",
+      products: [
+        {
+          model: "IPS-342P",
+          description: "1×10/100/1000 btPoE + 1×10/100/1000 RJ45 Industrial PoE Splitter",
+          image: imgIps342P,
+          features: ["btPoE Input", "24V DC Out", "Industrial -40°C", "DIN-Rail", "IP30 Aluminum", "Plug & Play"],
+          sourceUrl: detail(1690),
+          details: {
+            overview:
+              "IPS-342P เป็น Industrial PoE Splitter แบบ Unmanaged รับไฟ btPoE (IEEE 802.3bt Type 3/4) จาก PSE แล้วแยกเป็น 24V DC สำหรับจ่ายให้อุปกรณ์ที่ไม่รองรับ PoE เช่น IP Camera, Wireless AP, ไฟ LED, Building Automation และ Industrial Control System ตัวเครื่อง IP30 Aluminum รองรับ DIN-Rail/Wall Mount ทำงาน -40°C ~ 75°C ลดจำนวนสายและจุดจ่ายไฟในระบบ — Plug & Play ไม่ต้องตั้งค่า",
+            highlights: [
+              { title: "btPoE Input (802.3bt)", desc: "รับไฟสูงสุด Type 4 4PPoE — รองรับ PoE/PoE+/PoE++" },
+              { title: "24V DC Output × 2", desc: "แยกเป็น 2 จุดจ่ายไฟ DC พร้อม Power Isolation" },
+              { title: "Industrial Wide-Temp", desc: "-40°C ~ 75°C — UL Certified ถึง 60°C" },
+              { title: "SCP / OLP Protection", desc: "ป้องกันลัดวงจรและกระแสเกิน — ทนต่อสภาพแวดล้อมจริง" },
+              { title: "DIN-Rail / Wall Mount", desc: "เลือกติดตั้งได้สะดวกในตู้อุตสาหกรรม" },
+              { title: "Powered by ADI", desc: "ชิป Analog Devices คุณภาพอุตสาหกรรม" },
+            ],
+            ports: [
+              "1 x 10/100/1000 BASE-T btPoE (Power In + Data)",
+              "1 x 10/100/1000 BASE-T RJ45 (Data Pass-through)",
+              "DIP Switch: DC ON/OFF",
+            ],
+            ledPanel: "System: PWR, V1, V2 / Interface: 30W, 60W, 90W, 1000, LNK/ACT",
+            power: { input: "Power input via PoE Port (802.3bt)", consumption: "6W (System Only)" },
+            environment: {
+              tempOperating: "-40°C ~ 75°C (UL: -40°C ~ 60°C)",
+              tempStorage: "-40°C ~ 85°C",
+              humidity: "5 ~ 95% RH (non-condensing)",
+              housing: "Aluminum (IP30 Protection), DIN-Rail / Wall Mount",
+            },
+            physical: { weight: "262.2 g (0.64 lb)", dimension: "25 x 116 x 100 mm" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/d3a6a1679223d974146aed2a3ad824f9.pdf",
+          },
+        },
+      ],
+    },
+  ],
+};
+
+/* ============================================================
+ * Phase 9: Network Security Appliances — Industrial Firewall
+ * id ตรงกับ productCategories[].id ใน Volktek.tsx → "firewall"
+ * ============================================================ */
+export const volktekFirewall: VolktekCategory = {
+  id: "firewall",
+  title: "Network Security Appliances",
+  subCategories: [
+    {
+      id: "industrial-firewall",
+      title: "Industrial Firewall",
+      blurb:
+        "Industrial Control Firewall ออกแบบเฉพาะสำหรับ ICS/SCADA — รองรับ Modbus, DNP3, IEC-61850 พร้อม LAN Bypass, VPN, Anti-Virus, Deep Packet Inspection สำหรับ OT Network",
+      products: [
+        {
+          model: "3100-6GT-I",
+          description: "Managed 6×10/100/1000 RJ45 Industrial Firewall with LAN Bypass",
+          image: imgFw31006GTI,
+          features: ["1.8 Gbps FW", "200 Mbps VPN", "ICS/SCADA", "Modbus/DNP3/IEC-61850", "LAN Bypass", "Industrial -40°C", "Fanless"],
+          sourceUrl: detail(1676),
+          details: {
+            overview:
+              "3100-6GT-I เป็น Industrial Control Firewall ของ Volktek ที่ออกแบบเฉพาะสำหรับ Industrial Control System (ICS) และ SCADA — เหมาะกับโรงงานอัตโนมัติ, Manufacturing Plant, น้ำมันและก๊าซ, การไฟฟ้า/โทรคมนาคม/ประปา ออกแบบให้ทนต่ออุณหภูมิสุดขั้ว ความชื้น ฝุ่น และการสั่นสะเทือน มี Hardware Bypass ในตัว — เมื่อระบบ Firewall เสียหรือไฟดับ Network Traffic ยังส่งผ่านได้ทำให้ขยาย IT Security ไปสู่ OT Environment ได้อย่างปลอดภัย\n\nรองรับ Deep Packet Inspection สำหรับ Protocol อุตสาหกรรมโดยเฉพาะ เช่น Modbus, DNP3, IEC-61850 และ Citrix สามารถตรวจจับ Connection Packet, Traffic และ Isolate การโจมตีอันตรายได้",
+            highlights: [
+              { title: "1.8 Gbps Firewall Throughput", desc: "200,000 Sessions พร้อม OPC 480 Mbps / Anti-Virus 350 Mbps" },
+              { title: "LAN Bypass (Hardware)", desc: "Network ไม่ขาด แม้ Firewall ดับ — สำคัญมากสำหรับ OT Mission-Critical" },
+              { title: "ICS Protocol DPI", desc: "Modbus, DNP3, IEC-61850, OPC Intrusion Prevention, Citrix" },
+              { title: "VPN 200 Mbps (IPsec AES)", desc: "เข้ารหัสการสื่อสารระหว่างไซต์ปลอดภัย" },
+              { title: "Authentication & Allowlist", desc: "Application Allowlisting, Access Management, Anti-Virus" },
+              { title: "Industrial Wide-Temp Fanless", desc: "-40°C ~ 75°C, IP30 Metal, DIN-Rail / Wall Mount" },
+              { title: "Central Management", desc: "รองรับ CMS และ Cloud Management สำหรับหลายไซต์" },
+            ],
+            ports: [
+              "6 x 10/100/1000 Base-T RJ45 (1 Fixed + 5 Custom)",
+              "1 set LAN Bypass Port (LAN 3 & 4)",
+              "2 x RS-232 Serial Console Port",
+              "1 x VGA Port",
+              "2 x USB 3.0",
+              "64GB SATA DOM (SLC)",
+            ],
+            ledPanel: "PWR, SATA DOM, System, ByPass, LINK/ACT, 1000, 100",
+            power: { input: "9~36V DC", consumption: "—" },
+            environment: {
+              tempOperating: "-40°C ~ 75°C",
+              tempStorage: "-40°C ~ 85°C",
+              humidity: "10 ~ 80% (non-condensing)",
+              housing: "Metal (IP30 Protection), DIN-Rail / Wall Mount, Fanless",
+            },
+            physical: { weight: "1,310 g (2.89 lb)", dimension: "74.5 x 146 x 126 mm" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/0d1b2d2181fdc9c715037f31524e45c0.pdf",
+          },
+        },
+      ],
+    },
+  ],
+};
+
+/* ============================================================
+ * Phase 9: Accessories — Power Supply (DIN-Rail & AC Adapter)
+ * id ตรงกับ productCategories[].id ใน Volktek.tsx → "accessories"
+ * ============================================================ */
+export const volktekAccessories: VolktekCategory = {
+  id: "accessories",
+  title: "Accessories",
+  subCategories: [
+    {
+      id: "power-supply",
+      title: "Power Supply",
+      blurb:
+        "Industrial Power Supply สำหรับจ่ายไฟให้กับ Switch, AP, IP Camera และอุปกรณ์เครือข่าย — มีทั้งรุ่น AC Adapter (IRA series) สำหรับจ่ายโดยตรง และ DIN-Rail Power Supply (SDR series) สำหรับติดตู้อุตสาหกรรม",
+      products: [
+        {
+          model: "IRA-90",
+          description: "90W 48V AC to DC Industrial Power Adapter (4-pin mini-DIN)",
+          image: imgIra90,
+          features: ["90W", "48V DC", "AC Adapter", "Industrial -30°C", "Level VI Efficiency", "Fanless"],
+          sourceUrl: detail(103),
+          details: {
+            overview:
+              "IRA-90 เป็น 90W AC to DC 4-pin mini-DIN Industrial Power Adapter เข้ากันได้กับ PoE Switch ทำงานในอุณหภูมิ -30°C ~ 70°C สาย 120 cm จาก Adapter ถึง Connector — Class I มีระบบป้องกัน Short Circuit, Overload, Over-Voltage และ Over-Temperature ผ่านมาตรฐาน EISA 2007/DoE, NR Can, AU/NZ MEPS, EU ErP, CoC Version 5 — ระดับประสิทธิภาพพลังงานสูงสุด (Level VI)",
+            highlights: [
+              { title: "90W / 48V DC / 1.87A", desc: "Universal AC Input 90~264VAC, 47~63Hz" },
+              { title: "Industrial -30°C ~ 70°C", desc: "ทนอุณหภูมิกว้าง เหมาะกับงาน Outdoor Cabinet" },
+              { title: "Level VI Energy Efficiency", desc: "ระดับประสิทธิภาพสูงสุด ประหยัดไฟ" },
+              { title: "Built-in PFC", desc: "Power Factor Controller — No-load < 0.15W" },
+              { title: "4-Protection System", desc: "Short Circuit / Overload / Over-Voltage / Over-Temp" },
+              { title: "3-Pole IE320-C14 AC Inlet", desc: "ใช้สาย AC มาตรฐานสากล" },
+            ],
+            ports: ["AC Inlet: IE320-C14 (3-pole)", "DC Output: 4-pin mini-DIN (120 cm cable)"],
+            power: { input: "90~264 VAC / 127~370 VDC, 47~63 Hz; Output: 48V DC, 1.87A, 90W", consumption: "No-load < 0.15W" },
+            environment: {
+              tempOperating: "-30°C ~ 70°C",
+              tempStorage: "-40°C ~ 85°C",
+              humidity: "20 ~ 90% RH (non-condensing)",
+              housing: "Fanless, Plastic Adapter Enclosure",
+            },
+            physical: { weight: "0.45 kg", dimension: "60 x 32 x 145 mm" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/8b41a3af4f4f9d74d11f697e5fbc734d.pdf",
+          },
+        },
+        {
+          model: "IRA-160",
+          description: "160W 48V AC to DC Industrial Power Adapter (4-pin mini-DIN)",
+          image: imgIra160,
+          features: ["160W", "48V DC", "AC Adapter", "Industrial -30°C", "Level VI Efficiency", "Fanless"],
+          sourceUrl: detail(104),
+          details: {
+            overview:
+              "IRA-160 เป็น 160W AC to DC 4-pin mini-DIN Industrial Power Adapter รุ่นกำลังสูงของตระกูล IRA สำหรับ PoE Switch ที่ต้องจ่ายไฟอุปกรณ์ปลายทางหลายตัว ทำงาน -30°C ~ 70°C สาย 120 cm — Class I มีระบบป้องกัน 4 ชั้นและ Built-in PFC ผ่านมาตรฐาน EISA 2007/DoE, EU ErP, CoC V5 ระดับ Level VI Efficiency",
+            highlights: [
+              { title: "160W / 48V DC / 3.34A", desc: "Universal AC Input 85~264VAC, 47~63Hz" },
+              { title: "Industrial -30°C ~ 70°C", desc: "ทนอุณหภูมิกว้าง สำหรับงาน Industrial / Outdoor" },
+              { title: "Level VI Energy Efficiency", desc: "ระดับประสิทธิภาพพลังงานสูงสุด" },
+              { title: "Built-in PFC", desc: "Power Factor Controller — No-load < 0.15W" },
+              { title: "Over-Temperature Auto-Detect", desc: "ตรวจจับ 90°C±10°C ภายในเครื่อง — ป้องกันความเสียหาย" },
+              { title: "4-Protection System", desc: "Short Circuit / Overload / Over-Voltage / Over-Temp" },
+            ],
+            ports: ["AC Inlet: IE320-C14 (3-pole)", "DC Output: 4-pin mini-DIN (120 cm cable)"],
+            power: { input: "85~264 VAC / 120~370 VDC, 47~63 Hz; Output: 48V DC, 3.34A, 160W", consumption: "No-load < 0.15W" },
+            environment: {
+              tempOperating: "-30°C ~ 70°C",
+              tempStorage: "-20°C ~ 85°C",
+              humidity: "20 ~ 90% RH (non-condensing)",
+              housing: "Fanless, Plastic Adapter Enclosure",
+            },
+            physical: { weight: "0.66 kg", dimension: "72 x 35 x 175 mm" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/38a2268b91cbc6528860d5378825e7fd.pdf",
+          },
+        },
+        {
+          model: "SDR-120-48",
+          description: "120W 48V Single Output Industrial DIN-Rail Power Supply",
+          image: imgSdr12048,
+          features: ["120W", "48V DC", "DIN-Rail", "Industrial -25°C", "PFC > 0.93", "DC OK Relay"],
+          sourceUrl: detail(105),
+          details: {
+            overview:
+              "SDR-120-48 เป็น Industrial Power Supply 120W 48V 2.5A Single Output ใช้ Terminal Block จ่ายไฟให้ Ethernet Switch, WAP, Surveillance Camera ตัวเครื่องมี DIN-Rail Adapter ติดตั้ง In-Click ง่าย Passive Cooling พร้อมระบบป้องกัน Overload ทำงาน -25°C ~ 70°C — ใช้ในโรงงาน, Outdoor Cabinet ผ่าน UL 508, TUV EN60950-1, EN60204-1 และ DNV approved (Marine)",
+            highlights: [
+              { title: "120W / 48V DC / 2.5A", desc: "Peak Power 180W (3 sec.) Universal AC 88~264VAC" },
+              { title: "Active PFC > 0.93", desc: "Power Factor สูง ประหยัดไฟ และเป็นมิตรกับ Grid" },
+              { title: "DIN-Rail TS-35 Mount", desc: "ติด DIN-Rail 7.5 หรือ 15 ในตู้อุตสาหกรรม" },
+              { title: "DC OK Relay Contact", desc: "แจ้งเตือนสถานะไฟ DC ออกผ่าน Relay" },
+              { title: "DNV Approved", desc: "ผ่านมาตรฐาน Marine — ใช้บนเรือและงานชายฝั่งได้" },
+              { title: "Heavy Industry EMC", desc: "EN61000-4 / EN55024 / SEMI F47 (Voltage Sag Immunity)" },
+            ],
+            ports: ["Input: AC Terminal Block (L/N/PE)", "Output: 48V DC Terminal Block (V+/V-)", "DC OK Relay Contact"],
+            power: { input: "88~264 VAC / 124~370 VDC, 47~63 Hz; Output: 48V DC, 2.5A, 120W (Peak 180W)", consumption: "1.4A @ 115VAC, 0.7A @ 230VAC" },
+            environment: {
+              tempOperating: "-25°C ~ 70°C",
+              tempStorage: "-40°C ~ 85°C",
+              humidity: "20 ~ 90% RH (non-condensing)",
+              housing: "Metal, Fanless, DIN-Rail TS-35 / 7.5 / 15",
+            },
+            physical: { weight: "0.67 kg", dimension: "40 x 125.2 x 113.5 mm" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/a35f45c566174f99a71da3976e96d599.pdf",
+          },
+        },
+        {
+          model: "SDR-240-48",
+          description: "240W 48V Single Output Industrial DIN-Rail Power Supply",
+          image: imgSdr24048,
+          features: ["240W", "48V DC", "DIN-Rail", "Industrial -25°C", "PFC > 0.93", "DC OK Relay", "DNV Approved"],
+          sourceUrl: detail(106),
+          details: {
+            overview:
+              "SDR-240-48 เป็น Industrial Power Supply 240W 48V 5A Single Output ใช้ Terminal Block จ่ายไฟให้ Ethernet Switch, WAP, IP Camera หลายตัวพร้อมกัน DIN-Rail In-Click พร้อม Passive Cooling และ Overload Protection ทำงาน -25°C ~ 70°C ผ่าน UL 508, TUV EN60950-1, DNV (Marine) และ SEMI F47 — เหมาะกับโรงงาน, Substation, Outdoor Cabinet",
+            highlights: [
+              { title: "240W / 48V DC / 5A", desc: "Peak Power 360W (3 sec.) Universal AC 88~264VAC" },
+              { title: "Active PFC > 0.93", desc: "ประหยัดไฟและเป็นมิตรกับ Grid" },
+              { title: "DIN-Rail TS-35 Mount", desc: "ติด DIN-Rail ในตู้อุตสาหกรรม" },
+              { title: "DC OK Relay + 100% Burn-in", desc: "Built-in DC OK Relay Contact + 100% full load burn-in test" },
+              { title: "DNV / Marine Certified", desc: "ใช้บนเรือและงานชายฝั่งได้" },
+              { title: "Heavy Industry EMC + SEMI F47", desc: "ทนการรบกวนทางไฟฟ้าระดับ Heavy Industry" },
+            ],
+            ports: ["Input: AC Terminal Block (L/N/PE)", "Output: 48V DC Terminal Block (V+/V-)", "DC OK Relay Contact"],
+            power: { input: "88~264 VAC / 124~370 VDC, 47~63 Hz; Output: 48V DC, 5A, 240W (Peak 360W)", consumption: "2.6A @ 115VAC, 1.3A @ 230VAC" },
+            environment: {
+              tempOperating: "-25°C ~ 70°C",
+              tempStorage: "-40°C ~ 85°C",
+              humidity: "20 ~ 90% RH (non-condensing)",
+              housing: "Metal, Fanless, DIN-Rail TS-35 / 7.5 / 15",
+            },
+            physical: { weight: "1.03 kg", dimension: "63 x 125.2 x 113.5 mm" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/2085935b7e85f298c8fafc94e557ffae.pdf",
+          },
+        },
+        {
+          model: "SDR-480P-48",
+          description: "480W 48V Single Output Industrial DIN-Rail Power Supply with Parallel Function",
+          image: imgSdr480p48,
+          features: ["480W", "48V DC", "DIN-Rail", "Industrial -25°C", "PFC > 0.94", "Parallel Function", "DNV Approved"],
+          sourceUrl: detail(107),
+          details: {
+            overview:
+              "SDR-480P-48 เป็น Industrial Power Supply 480W 48V 10A Single Output รุ่นกำลังสูงสุดของตระกูล SDR — มี Built-in Parallel Function สำหรับต่อขนานเพิ่มกำลังหรือทำ Redundancy เหมาะกับงานที่ต้องการพลังงานสูง เช่น PoE Switch หลายตัว, ระบบ CCTV ขนาดใหญ่, Substation ทำงาน -25°C ~ 70°C ผ่าน UL 508, TUV EN60950-1, DNV และ SEMI F47",
+            highlights: [
+              { title: "480W / 48V DC / 10A", desc: "Peak Power 720W (3 sec.) สำหรับงานกำลังสูง" },
+              { title: "Built-in Parallel Function", desc: "ต่อขนานเพิ่มกำลังหรือทำ Redundancy ได้" },
+              { title: "Active PFC > 0.94", desc: "Power Factor สูงกว่ารุ่นเล็ก ประหยัดไฟดียิ่งขึ้น" },
+              { title: "DC OK Relay + 100% Burn-in", desc: "Built-in DC OK Relay + Full Load Burn-in Test" },
+              { title: "DNV / SEMI F47 Certified", desc: "ใช้บนเรือ, โรงงานเซมิคอนดักเตอร์ได้" },
+              { title: "DIN-Rail TS-35 Mount", desc: "ติดตั้งในตู้อุตสาหกรรมได้สะดวก" },
+            ],
+            ports: ["Input: AC Terminal Block (L/N/PE)", "Output: 48V DC Terminal Block (V+/V-)", "DC OK Relay + Parallel Connector"],
+            power: { input: "90~264 VAC / 127~370 VDC, 47~63 Hz; Output: 48V DC, 10A, 480W (Peak 720W)", consumption: "5A @ 115VAC, 2.5A @ 230VAC" },
+            environment: {
+              tempOperating: "-25°C ~ 70°C",
+              tempStorage: "-40°C ~ 85°C",
+              humidity: "20 ~ 95% RH (non-condensing)",
+              housing: "Metal, Fanless, DIN-Rail TS-35 / 7.5 / 15",
+            },
+            physical: { weight: "1.6 kg", dimension: "85.5 x 125.2 x 128.5 mm" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/06bc63aeb044a64829af1765a7835d8f.pdf",
+          },
+        },
+      ],
+    },
+  ],
+};
+
+/* ============================================================
  * Slug-based sourceUrl rewrite
  * เว็บ Volktek เปลี่ยนจาก productdetail_en.php?id=N เป็น slug pattern
  * productdetail/<lowercased-model>.html ซึ่งเสถียรกว่าและไม่ redirect ไป homepage
@@ -3642,6 +4078,8 @@ export const volktekCatalog: VolktekCategory[] = [
   volktekMediaConverter,
   volktekEmsNms,
   volktekSfp,
-  // Phase 9+: poe-injector, firewall, accessories
+  volktekPoeInjector,
+  volktekFirewall,
+  volktekAccessories,
 ].map(applySlugUrls);
 
