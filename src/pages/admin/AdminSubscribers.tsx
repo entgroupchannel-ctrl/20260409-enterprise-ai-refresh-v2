@@ -1,10 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import AdminLayout from '@/layouts/AdminLayout';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
+import { Checkbox } from '@/components/ui/checkbox';
+import {
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+} from '@/components/ui/select';
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import {
@@ -16,6 +24,7 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import {
   Search, Mail, UserCheck, UserX, Download, RefreshCw, Eye, Upload,
+  ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Trash2, Loader2,
 } from 'lucide-react';
 import SubscribersImportDialog from '@/components/admin/SubscribersImportDialog';
 
@@ -53,38 +62,113 @@ interface Subscriber {
   extra_data?: any;
 }
 
+type FilterStatus = 'all' | 'active' | 'inactive';
+
 const AdminSubscribers = () => {
+  const { toast } = useToast();
+
+  // data + pagination state
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
   const [loading, setLoading] = useState(true);
+  const [totalCount, setTotalCount] = useState(0);
+  const [activeCount, setActiveCount] = useState(0);
+  const [inactiveCount, setInactiveCount] = useState(0);
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(50);
+
+  // search + filter
+  const [searchInput, setSearchInput] = useState('');
   const [search, setSearch] = useState('');
-  const [filter, setFilter] = useState<'all' | 'active' | 'inactive'>('all');
+  const [filter, setFilter] = useState<FilterStatus>('all');
+
+  // selection / bulk
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [bulkAction, setBulkAction] = useState<'activate' | 'deactivate' | 'delete' | null>(null);
+  const [bulkRunning, setBulkRunning] = useState(false);
+
+  // detail dialog
   const [selected, setSelected] = useState<Subscriber | null>(null);
   const [noteText, setNoteText] = useState('');
   const [saving, setSaving] = useState(false);
+
+  // import dialog
   const [importOpen, setImportOpen] = useState(false);
-  const { toast } = useToast();
 
-  const fetchSubscribers = async () => {
+  // debounce search
+  useEffect(() => {
+    const t = setTimeout(() => { setSearch(searchInput.trim()); setPage(1); }, 350);
+    return () => clearTimeout(t);
+  }, [searchInput]);
+
+  const fetchCounts = useCallback(async () => {
+    const [{ count: total }, { count: active }] = await Promise.all([
+      supabase.from('subscribers').select('id', { count: 'exact', head: true }),
+      supabase.from('subscribers').select('id', { count: 'exact', head: true }).eq('is_active', true),
+    ]);
+    setTotalCount(total || 0);
+    setActiveCount(active || 0);
+    setInactiveCount((total || 0) - (active || 0));
+  }, []);
+
+  const fetchSubscribers = useCallback(async () => {
     setLoading(true);
-    const { data, error } = await supabase
+    const from = (page - 1) * pageSize;
+    const to = from + pageSize - 1;
+
+    let query = supabase
       .from('subscribers')
-      .select('*')
-      .order('created_at', { ascending: false });
-    if (!error && data) setSubscribers(data as Subscriber[]);
+      .select('*', { count: 'exact' })
+      .order('created_at', { ascending: false })
+      .range(from, to);
+
+    if (filter === 'active') query = query.eq('is_active', true);
+    else if (filter === 'inactive') query = query.eq('is_active', false);
+
+    if (search) {
+      // Escape commas/parentheses for PostgREST or() filter
+      const safe = search.replace(/[,()]/g, ' ');
+      const like = `%${safe}%`;
+      query = query.or(
+        [
+          `email.ilike.${like}`,
+          `first_name.ilike.${like}`,
+          `last_name.ilike.${like}`,
+          `company.ilike.${like}`,
+          `phone.ilike.${like}`,
+          `company_tax_id.ilike.${like}`,
+        ].join(','),
+      );
+    }
+
+    const { data, error, count } = await query;
+    if (error) {
+      toast({ title: 'โหลดข้อมูลล้มเหลว', description: error.message, variant: 'destructive' });
+    } else {
+      setSubscribers((data || []) as Subscriber[]);
+      if (typeof count === 'number') {
+        // when filter/search applied, count reflects filtered result;
+        // we still keep stat counts from fetchCounts() for the cards
+        setTotalCount((prev) => (filter === 'all' && !search ? count : prev));
+      }
+    }
     setLoading(false);
-  };
+  }, [page, pageSize, filter, search, toast]);
 
-  useEffect(() => { fetchSubscribers(); }, []);
+  useEffect(() => { fetchCounts(); }, [fetchCounts]);
+  useEffect(() => { fetchSubscribers(); }, [fetchSubscribers]);
 
-  const filtered = subscribers.filter((s) => {
-    const matchSearch = s.email.toLowerCase().includes(search.toLowerCase());
-    const matchFilter =
-      filter === 'all' ? true : filter === 'active' ? s.is_active : !s.is_active;
-    return matchSearch && matchFilter;
-  });
+  // reset selection when page/filter changes
+  useEffect(() => { setSelectedIds(new Set()); }, [page, pageSize, filter, search]);
 
-  const activeCount = subscribers.filter((s) => s.is_active).length;
-  const inactiveCount = subscribers.filter((s) => !s.is_active).length;
+  const refreshAll = () => { fetchCounts(); fetchSubscribers(); };
+
+  const totalPages = Math.max(1, Math.ceil(
+    (filter === 'all' && !search ? totalCount : (subscribers.length === pageSize ? page + 1 : page)) / pageSize,
+  ));
+  // For filtered queries we use a simpler "next page exists?" heuristic; for unfiltered we use totalCount.
+  const hasNext = filter === 'all' && !search
+    ? page < Math.ceil(totalCount / pageSize)
+    : subscribers.length === pageSize;
 
   const toggleStatus = async (sub: Subscriber) => {
     const newActive = !sub.is_active;
@@ -99,7 +183,7 @@ const AdminSubscribers = () => {
       toast({ title: 'เกิดข้อผิดพลาด', variant: 'destructive' });
     } else {
       toast({ title: newActive ? 'เปิดใช้งานแล้ว' : 'ยกเลิกการสมัครแล้ว' });
-      fetchSubscribers();
+      refreshAll();
       if (selected?.id === sub.id) setSelected({ ...sub, is_active: newActive });
     }
   };
@@ -119,7 +203,54 @@ const AdminSubscribers = () => {
     setSaving(false);
   };
 
-  const exportCSV = () => {
+  // ---------- Bulk actions ----------
+  const allOnPageSelected = subscribers.length > 0 && subscribers.every(s => selectedIds.has(s.id));
+  const someOnPageSelected = subscribers.some(s => selectedIds.has(s.id));
+  const togglePageSelect = (checked: boolean) => {
+    const next = new Set(selectedIds);
+    if (checked) subscribers.forEach(s => next.add(s.id));
+    else subscribers.forEach(s => next.delete(s.id));
+    setSelectedIds(next);
+  };
+  const toggleRowSelect = (id: string, checked: boolean) => {
+    const next = new Set(selectedIds);
+    if (checked) next.add(id); else next.delete(id);
+    setSelectedIds(next);
+  };
+
+  const runBulk = async () => {
+    if (!bulkAction || selectedIds.size === 0) return;
+    setBulkRunning(true);
+    const ids = Array.from(selectedIds);
+    const CHUNK = 200;
+    let ok = 0; let fail = 0;
+    for (let i = 0; i < ids.length; i += CHUNK) {
+      const chunk = ids.slice(i, i + CHUNK);
+      let q;
+      if (bulkAction === 'delete') {
+        q = supabase.from('subscribers').delete().in('id', chunk);
+      } else {
+        const newActive = bulkAction === 'activate';
+        q = supabase.from('subscribers').update({
+          is_active: newActive,
+          unsubscribed_at: newActive ? null : new Date().toISOString(),
+        } as any).in('id', chunk);
+      }
+      const { error } = await q;
+      if (error) fail += chunk.length; else ok += chunk.length;
+    }
+    setBulkRunning(false);
+    setBulkAction(null);
+    setSelectedIds(new Set());
+    toast({
+      title: '✅ ดำเนินการสำเร็จ',
+      description: `สำเร็จ ${ok} รายการ${fail ? ` • ผิดพลาด ${fail}` : ''}`,
+    });
+    refreshAll();
+  };
+
+  // ---------- Export (current page or all filtered) ----------
+  const exportCSV = async (mode: 'page' | 'all') => {
     const esc = (v: any) => {
       const s = v == null ? '' : typeof v === 'object' ? JSON.stringify(v) : String(v);
       return `"${s.replace(/"/g, '""')}"`;
@@ -132,8 +263,32 @@ const AdminSubscribers = () => {
       'Email Subscriber Status','SMS Subscriber Status','Last Activity','Last Activity Date',
       'Subscribed At','Unsubscribed At','Imported From','Imported At','Extra Data',
     ];
+    let rows: Subscriber[] = subscribers;
+    if (mode === 'all') {
+      const all: Subscriber[] = [];
+      const PAGE = 1000;
+      for (let i = 0 ; ; i += PAGE) {
+        let q = supabase.from('subscribers').select('*').order('created_at', { ascending: false }).range(i, i + PAGE - 1);
+        if (filter === 'active') q = q.eq('is_active', true);
+        else if (filter === 'inactive') q = q.eq('is_active', false);
+        if (search) {
+          const safe = search.replace(/[,()]/g, ' ');
+          const like = `%${safe}%`;
+          q = q.or([
+            `email.ilike.${like}`,`first_name.ilike.${like}`,`last_name.ilike.${like}`,
+            `company.ilike.${like}`,`phone.ilike.${like}`,`company_tax_id.ilike.${like}`,
+          ].join(','));
+        }
+        const { data } = await q;
+        const batch = (data || []) as Subscriber[];
+        all.push(...batch);
+        if (batch.length < PAGE) break;
+        if (all.length > 200000) break; // safety
+      }
+      rows = all;
+    }
     const lines = [headers.join(',')];
-    filtered.forEach((s) => {
+    rows.forEach((s) => {
       lines.push([
         s.email, s.first_name, s.last_name, s.phone, s.phone_secondary, s.company, s.position,
         s.address, s.city, s.state_region, s.zip, s.country, s.website,
@@ -147,39 +302,42 @@ const AdminSubscribers = () => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `subscribers_${new Date().toISOString().slice(0, 10)}.csv`;
+    a.download = `subscribers_${mode}_${new Date().toISOString().slice(0, 10)}.csv`;
     a.click();
     URL.revokeObjectURL(url);
   };
 
+  const fromIdx = (page - 1) * pageSize + 1;
+  const toIdx = (page - 1) * pageSize + subscribers.length;
+
   return (
     <AdminLayout>
-      <AdminPageLayout title="📧 สมาชิกรับข่าวสาร" description="จัดการรายชื่ออีเมลที่สมัครรับข่าวสาร">
+      <AdminPageLayout title="📧 สมาชิกรับข่าวสาร" description="จัดการรายชื่ออีเมลที่สมัครรับข่าวสาร (รองรับข้อมูลหลักหมื่น)">
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-        <Card className="cursor-pointer hover:border-primary transition-colors" onClick={() => setFilter('all')}>
+        <Card className={`cursor-pointer transition-colors ${filter === 'all' ? 'border-primary' : 'hover:border-primary'}`} onClick={() => { setFilter('all'); setPage(1); }}>
           <CardContent className="p-4 flex items-center gap-3">
             <Mail className="w-8 h-8 text-primary" />
             <div>
-              <p className="text-2xl font-bold">{subscribers.length}</p>
+              <p className="text-2xl font-bold">{totalCount.toLocaleString()}</p>
               <p className="text-xs text-muted-foreground">ทั้งหมด</p>
             </div>
           </CardContent>
         </Card>
-        <Card className="cursor-pointer hover:border-green-500 transition-colors" onClick={() => setFilter('active')}>
+        <Card className={`cursor-pointer transition-colors ${filter === 'active' ? 'border-green-500' : 'hover:border-green-500'}`} onClick={() => { setFilter('active'); setPage(1); }}>
           <CardContent className="p-4 flex items-center gap-3">
             <UserCheck className="w-8 h-8 text-green-500" />
             <div>
-              <p className="text-2xl font-bold">{activeCount}</p>
+              <p className="text-2xl font-bold">{activeCount.toLocaleString()}</p>
               <p className="text-xs text-muted-foreground">สมาชิกที่ใช้งาน</p>
             </div>
           </CardContent>
         </Card>
-        <Card className="cursor-pointer hover:border-red-500 transition-colors" onClick={() => setFilter('inactive')}>
+        <Card className={`cursor-pointer transition-colors ${filter === 'inactive' ? 'border-red-500' : 'hover:border-red-500'}`} onClick={() => { setFilter('inactive'); setPage(1); }}>
           <CardContent className="p-4 flex items-center gap-3">
             <UserX className="w-8 h-8 text-red-500" />
             <div>
-              <p className="text-2xl font-bold">{inactiveCount}</p>
+              <p className="text-2xl font-bold">{inactiveCount.toLocaleString()}</p>
               <p className="text-xs text-muted-foreground">ยกเลิกแล้ว</p>
             </div>
           </CardContent>
@@ -188,22 +346,36 @@ const AdminSubscribers = () => {
 
       {/* Toolbar */}
       <Card className="mb-4">
-        <CardContent className="p-4 flex flex-col sm:flex-row items-center gap-3">
+        <CardContent className="p-4 flex flex-col lg:flex-row items-stretch lg:items-center gap-3">
           <div className="relative flex-1 w-full">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
-              placeholder="ค้นหาอีเมล..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              placeholder="ค้นหา: อีเมล / ชื่อ / นามสกุล / บริษัท / เบอร์ / เลขผู้เสียภาษี..."
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
               className="pl-9"
             />
           </div>
-          <div className="flex gap-2">
-            <Button variant="outline" size="sm" onClick={fetchSubscribers}>
+          <div className="flex flex-wrap gap-2">
+            <Select value={String(pageSize)} onValueChange={(v) => { setPageSize(Number(v)); setPage(1); }}>
+              <SelectTrigger className="w-28 h-9">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="25">25 / หน้า</SelectItem>
+                <SelectItem value="50">50 / หน้า</SelectItem>
+                <SelectItem value="100">100 / หน้า</SelectItem>
+                <SelectItem value="200">200 / หน้า</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button variant="outline" size="sm" onClick={refreshAll}>
               <RefreshCw className="w-4 h-4 mr-1" /> รีเฟรช
             </Button>
-            <Button variant="outline" size="sm" onClick={exportCSV}>
-              <Download className="w-4 h-4 mr-1" /> Export CSV
+            <Button variant="outline" size="sm" onClick={() => exportCSV('page')}>
+              <Download className="w-4 h-4 mr-1" /> Export หน้านี้
+            </Button>
+            <Button variant="outline" size="sm" onClick={() => exportCSV('all')}>
+              <Download className="w-4 h-4 mr-1" /> Export ทั้งหมด
             </Button>
             <Button size="sm" onClick={() => setImportOpen(true)}>
               <Upload className="w-4 h-4 mr-1" /> Import CSV
@@ -212,65 +384,155 @@ const AdminSubscribers = () => {
         </CardContent>
       </Card>
 
+      {/* Bulk action bar */}
+      {selectedIds.size > 0 && (
+        <Card className="mb-4 border-primary">
+          <CardContent className="p-3 flex flex-wrap items-center gap-3">
+            <span className="text-sm font-medium">
+              เลือก <span className="text-primary">{selectedIds.size.toLocaleString()}</span> รายการ
+            </span>
+            <Button size="sm" variant="outline" onClick={() => setBulkAction('activate')}>
+              <UserCheck className="w-4 h-4 mr-1" /> เปิดใช้งาน
+            </Button>
+            <Button size="sm" variant="outline" onClick={() => setBulkAction('deactivate')}>
+              <UserX className="w-4 h-4 mr-1" /> ยกเลิกรับข่าว
+            </Button>
+            <Button size="sm" variant="destructive" onClick={() => setBulkAction('delete')}>
+              <Trash2 className="w-4 h-4 mr-1" /> ลบ
+            </Button>
+            <Button size="sm" variant="ghost" onClick={() => setSelectedIds(new Set())}>
+              ล้างการเลือก
+            </Button>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Table */}
       <Card>
         <CardContent className="p-0">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>อีเมล</TableHead>
-                <TableHead>แหล่งที่มา</TableHead>
+                <TableHead className="w-10">
+                  <Checkbox
+                    checked={allOnPageSelected ? true : someOnPageSelected ? 'indeterminate' : false}
+                    onCheckedChange={(c) => togglePageSelect(!!c)}
+                    aria-label="เลือกทั้งหน้า"
+                  />
+                </TableHead>
+                <TableHead>อีเมล / ชื่อ</TableHead>
+                <TableHead className="hidden md:table-cell">บริษัท</TableHead>
+                <TableHead className="hidden lg:table-cell">โทรศัพท์</TableHead>
+                <TableHead className="hidden xl:table-cell">แหล่งที่มา</TableHead>
                 <TableHead>สถานะ</TableHead>
-                <TableHead>วันที่สมัคร</TableHead>
+                <TableHead className="hidden md:table-cell">วันที่สมัคร</TableHead>
                 <TableHead className="text-right">จัดการ</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {loading ? (
                 <TableRow>
-                  <TableCell colSpan={5} className="text-center py-8 text-muted-foreground">
-                    กำลังโหลด...
+                  <TableCell colSpan={8} className="text-center py-8 text-muted-foreground">
+                    <Loader2 className="w-4 h-4 animate-spin inline mr-2" /> กำลังโหลด...
                   </TableCell>
                 </TableRow>
-              ) : filtered.length === 0 ? (
+              ) : subscribers.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={5} className="text-center py-8 text-muted-foreground">
+                  <TableCell colSpan={8} className="text-center py-8 text-muted-foreground">
                     ไม่พบข้อมูล
                   </TableCell>
                 </TableRow>
               ) : (
-                filtered.map((sub) => (
-                  <TableRow key={sub.id} className="cursor-pointer hover:bg-muted/50" onClick={() => { setSelected(sub); setNoteText(sub.notes || ''); }}>
-                    <TableCell className="font-medium">{sub.email}</TableCell>
-                    <TableCell>
-                      <Badge variant="outline" className="text-xs">{sub.source || 'website'}</Badge>
-                    </TableCell>
-                    <TableCell>
-                      {sub.is_active ? (
-                        <Badge className="bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">Active</Badge>
-                      ) : (
-                        <Badge variant="secondary">Inactive</Badge>
-                      )}
-                    </TableCell>
-                    <TableCell className="text-sm text-muted-foreground">
-                      {new Date(sub.created_at).toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' })}
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); setSelected(sub); setNoteText(sub.notes || ''); }}>
-                        <Eye className="w-4 h-4" />
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))
+                subscribers.map((sub) => {
+                  const checked = selectedIds.has(sub.id);
+                  const fullName = [sub.first_name, sub.last_name].filter(Boolean).join(' ');
+                  return (
+                    <TableRow
+                      key={sub.id}
+                      data-state={checked ? 'selected' : undefined}
+                      className="cursor-pointer hover:bg-muted/50"
+                      onClick={() => { setSelected(sub); setNoteText(sub.notes || ''); }}
+                    >
+                      <TableCell onClick={(e) => e.stopPropagation()}>
+                        <Checkbox
+                          checked={checked}
+                          onCheckedChange={(c) => toggleRowSelect(sub.id, !!c)}
+                          aria-label="เลือกแถว"
+                        />
+                      </TableCell>
+                      <TableCell>
+                        <div className="font-medium">{sub.email}</div>
+                        {fullName && <div className="text-xs text-muted-foreground">{fullName}</div>}
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell text-sm">
+                        {sub.company || <span className="text-muted-foreground">—</span>}
+                      </TableCell>
+                      <TableCell className="hidden lg:table-cell text-sm">
+                        {sub.phone || <span className="text-muted-foreground">—</span>}
+                      </TableCell>
+                      <TableCell className="hidden xl:table-cell">
+                        <Badge variant="outline" className="text-xs">{sub.source || 'website'}</Badge>
+                      </TableCell>
+                      <TableCell>
+                        {sub.is_active ? (
+                          <Badge className="bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">Active</Badge>
+                        ) : (
+                          <Badge variant="secondary">Inactive</Badge>
+                        )}
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell text-sm text-muted-foreground">
+                        {new Date(sub.created_at).toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' })}
+                      </TableCell>
+                      <TableCell className="text-right" onClick={(e) => e.stopPropagation()}>
+                        <Button variant="ghost" size="sm" onClick={() => { setSelected(sub); setNoteText(sub.notes || ''); }}>
+                          <Eye className="w-4 h-4" />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })
               )}
             </TableBody>
           </Table>
         </CardContent>
+
+        {/* Pagination */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-2 p-4 border-t">
+          <p className="text-xs text-muted-foreground">
+            {subscribers.length > 0
+              ? `แสดง ${fromIdx.toLocaleString()}–${toIdx.toLocaleString()}${filter === 'all' && !search ? ` จาก ${totalCount.toLocaleString()}` : ''}`
+              : 'ไม่มีข้อมูลในหน้านี้'}
+          </p>
+          <div className="flex items-center gap-1">
+            <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => setPage(1)} disabled={page === 1 || loading}>
+              <ChevronsLeft className="w-4 h-4" />
+            </Button>
+            <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1 || loading}>
+              <ChevronLeft className="w-4 h-4" />
+            </Button>
+            <span className="px-3 text-sm">
+              หน้า <strong>{page}</strong>
+              {filter === 'all' && !search && totalCount > 0 && ` / ${Math.max(1, Math.ceil(totalCount / pageSize)).toLocaleString()}`}
+            </span>
+            <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => setPage(p => p + 1)} disabled={!hasNext || loading}>
+              <ChevronRight className="w-4 h-4" />
+            </Button>
+            {filter === 'all' && !search && (
+              <Button
+                variant="outline" size="icon" className="h-8 w-8"
+                onClick={() => setPage(Math.max(1, Math.ceil(totalCount / pageSize)))}
+                disabled={!hasNext || loading}
+              >
+                <ChevronsRight className="w-4 h-4" />
+              </Button>
+            )}
+          </div>
+        </div>
       </Card>
 
       {/* Detail Dialog */}
       <Dialog open={!!selected} onOpenChange={(o) => { if (!o) setSelected(null); }}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>รายละเอียดสมาชิก</DialogTitle>
           </DialogHeader>
@@ -278,8 +540,32 @@ const AdminSubscribers = () => {
             <div className="space-y-4">
               <div>
                 <p className="text-sm text-muted-foreground">อีเมล</p>
-                <p className="font-medium">{selected.email}</p>
+                <p className="font-medium break-all">{selected.email}</p>
               </div>
+              {(selected.first_name || selected.last_name) && (
+                <div>
+                  <p className="text-sm text-muted-foreground">ชื่อ-นามสกุล</p>
+                  <p className="text-sm">{[selected.first_name, selected.last_name].filter(Boolean).join(' ')}</p>
+                </div>
+              )}
+              {selected.company && (
+                <div>
+                  <p className="text-sm text-muted-foreground">บริษัท</p>
+                  <p className="text-sm">{selected.company}{selected.position ? ` — ${selected.position}` : ''}</p>
+                </div>
+              )}
+              {(selected.phone || selected.phone_secondary) && (
+                <div>
+                  <p className="text-sm text-muted-foreground">โทรศัพท์</p>
+                  <p className="text-sm">{[selected.phone, selected.phone_secondary].filter(Boolean).join(' / ')}</p>
+                </div>
+              )}
+              {(selected.address || selected.city || selected.country) && (
+                <div>
+                  <p className="text-sm text-muted-foreground">ที่อยู่</p>
+                  <p className="text-sm">{[selected.address, selected.city, selected.state_region, selected.zip, selected.country].filter(Boolean).join(', ')}</p>
+                </div>
+              )}
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className="text-sm text-muted-foreground">แหล่งที่มา</p>
@@ -304,10 +590,22 @@ const AdminSubscribers = () => {
                   <p className="text-sm text-red-500">{new Date(selected.unsubscribed_at).toLocaleString('th-TH')}</p>
                 </div>
               )}
+              {selected.imported_from && (
+                <div>
+                  <p className="text-sm text-muted-foreground">นำเข้าจากไฟล์</p>
+                  <p className="text-xs font-mono break-all">{selected.imported_from}</p>
+                </div>
+              )}
               <div>
                 <p className="text-sm text-muted-foreground mb-1">บันทึก (Notes)</p>
                 <Textarea value={noteText} onChange={(e) => setNoteText(e.target.value)} placeholder="เพิ่มบันทึกเกี่ยวกับสมาชิก..." rows={3} />
               </div>
+              {selected.extra_data && Object.keys(selected.extra_data).length > 0 && (
+                <div>
+                  <p className="text-sm text-muted-foreground mb-1">ข้อมูลเพิ่มเติม (extra_data)</p>
+                  <pre className="text-xs bg-muted p-2 rounded max-h-40 overflow-auto">{JSON.stringify(selected.extra_data, null, 2)}</pre>
+                </div>
+              )}
             </div>
           )}
           <DialogFooter className="flex gap-2">
@@ -325,10 +623,33 @@ const AdminSubscribers = () => {
         </DialogContent>
       </Dialog>
 
+      {/* Bulk action confirm */}
+      <AlertDialog open={!!bulkAction} onOpenChange={(o) => { if (!o && !bulkRunning) setBulkAction(null); }}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>
+              {bulkAction === 'delete' && '🗑️ ลบสมาชิกที่เลือก?'}
+              {bulkAction === 'activate' && '✅ เปิดใช้งานสมาชิกที่เลือก?'}
+              {bulkAction === 'deactivate' && '⛔ ยกเลิกการรับข่าวสมาชิกที่เลือก?'}
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              จะดำเนินการกับ <strong>{selectedIds.size.toLocaleString()}</strong> รายการ
+              {bulkAction === 'delete' && ' — การลบไม่สามารถย้อนกลับได้'}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={bulkRunning}>ยกเลิก</AlertDialogCancel>
+            <AlertDialogAction onClick={(e) => { e.preventDefault(); runBulk(); }} disabled={bulkRunning}>
+              {bulkRunning ? <><Loader2 className="w-4 h-4 mr-1 animate-spin" /> กำลังดำเนินการ...</> : 'ยืนยัน'}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
       <SubscribersImportDialog
         open={importOpen}
         onOpenChange={setImportOpen}
-        onImported={fetchSubscribers}
+        onImported={refreshAll}
       />
     </AdminPageLayout>
     </AdminLayout>
