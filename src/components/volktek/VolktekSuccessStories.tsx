@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Quote, MapPin, CheckCircle2, Factory, Camera, Plane, Train, Building2, Cpu, Package, ArrowRight } from "lucide-react";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
+import VolktekProductDialog from "@/components/volktek/VolktekProductDialog";
 import {
   volktekLayer3,
   volktekIndustrialPoe,
@@ -10,6 +11,7 @@ import {
   volktekMetroEthernet,
   type VolktekProduct,
   type VolktekCategory,
+  type VolktekSubCategory,
 } from "@/data/volktek-products";
 
 type Story = {
@@ -171,7 +173,12 @@ const stories: Story[] = [
 ];
 
 /** ค้นหา product จริงจากแคตตาล็อก เทียบจาก model (case-insensitive, partial) */
-type FoundProduct = { product: VolktekProduct; categoryTitle: string; subTitle: string };
+type FoundProduct = {
+  product: VolktekProduct;
+  categoryTitle: string;
+  subTitle: string;
+  sub: VolktekSubCategory;
+};
 
 const ALL_CATEGORIES: VolktekCategory[] = [
   volktekLayer3,
@@ -187,7 +194,7 @@ function findProductByModel(model: string): FoundProduct | null {
       for (const p of sub.products) {
         const hay = p.model.toLowerCase().replace(/\s+/g, "");
         if (hay === needle || hay.includes(needle) || needle.includes(hay)) {
-          return { product: p, categoryTitle: cat.title, subTitle: sub.title };
+          return { product: p, categoryTitle: cat.title, subTitle: sub.title, sub };
         }
       }
     }
@@ -204,7 +211,11 @@ const VolktekSuccessStories = () => {
   const [activeId, setActiveId] = useState<string>(stories[0].id);
   const active = stories.find((s) => s.id === activeId)!;
   const ActiveIcon = active.icon;
-
+  const [selected, setSelected] = useState<{
+    product: VolktekProduct;
+    sub: VolktekSubCategory;
+    catTitle: string;
+  } | null>(null);
   const relatedProducts = useMemo(
     () =>
       active.relatedModels
@@ -336,7 +347,13 @@ const VolktekSuccessStories = () => {
                 return (
                   <button
                     key={requested}
-                    onClick={scrollToCatalog}
+                    onClick={() =>
+                      setSelected({
+                        product: found.product,
+                        sub: found.sub,
+                        catTitle: found.categoryTitle,
+                      })
+                    }
                     className="text-left rounded-lg border border-border bg-background hover:border-primary/50 hover:bg-primary/5 transition-all p-3 group"
                   >
                     <div className="flex items-start justify-between gap-2 mb-1">
@@ -409,6 +426,15 @@ const VolktekSuccessStories = () => {
           <div className="text-[11px] text-muted-foreground uppercase tracking-wider">ISO · CE · FCC</div>
         </div>
       </div>
+
+      {/* Product Detail Dialog */}
+      <VolktekProductDialog
+        product={selected?.product ?? null}
+        subCategory={selected?.sub ?? null}
+        categoryTitle={selected?.catTitle ?? ""}
+        onClose={() => setSelected(null)}
+        onSelect={(p) => selected && setSelected({ ...selected, product: p })}
+      />
     </section>
   );
 };
