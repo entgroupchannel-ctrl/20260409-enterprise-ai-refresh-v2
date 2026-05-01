@@ -380,7 +380,7 @@ function getTempStripe(p: VolktekProduct): TempStripe | null {
 }
 
 const VolktekMegaCatalog = () => {
-  const [activeTab, setActiveTab] = useState(TABS[0].id);
+  const [activeTab, setActiveTab] = useState("industrial-ethernet");
   const [activeSub, setActiveSub] = useState<Record<string, string>>({});
   const [activeFilters, setActiveFilters] = useState<Record<string, Partial<Record<FilterKey, string>>>>({});
   const [selected, setSelected] = useState<{
