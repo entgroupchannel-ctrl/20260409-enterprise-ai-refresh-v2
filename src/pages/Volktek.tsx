@@ -355,6 +355,9 @@ const Volktek = () => {
         {/* Solutions — 8 application solutions แบบ Tabs (เรียบเรียงจาก volktek.com) */}
         <VolktekSolutions />
 
+        {/* Success Stories — case studies จริงจาก volktek.com สร้างความมั่นใจให้ลูกค้า */}
+        <VolktekSuccessStories />
+
         {/* LAMUNGAN Platform — EMS spotlight */}
         <section className="card-surface overflow-hidden">
           <div className="grid grid-cols-1 md:grid-cols-5">
