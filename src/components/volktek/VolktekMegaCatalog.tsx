@@ -558,7 +558,7 @@ const VolktekMegaCatalog = () => {
                             onClick={() => setActiveSub({ ...activeSub, [t.id]: sub.id })}
                             className={`text-xs font-medium px-3 py-1.5 rounded-lg border transition-colors ${
                               subActive === sub.id
-                                ? "bg-primary/10 border-primary/40 text-primary"
+                                ? "border-primary/40 text-primary bg-border"
                                 : "bg-secondary/40 border-border text-foreground/70 hover:border-primary/30"
                             }`}
                           >
