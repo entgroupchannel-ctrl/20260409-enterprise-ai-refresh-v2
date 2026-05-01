@@ -35,6 +35,7 @@ type TabMeta = {
   shortTitle: string;
   icon: LucideIcon;
   desc: string;
+  image: string;
   category?: VolktekCategory;
   externalHref: string;
 };
@@ -46,6 +47,7 @@ const TABS: TabMeta[] = [
     shortTitle: "Layer 3",
     icon: Layers,
     desc: "L3 Managed Switches รองรับ Routing, TSN สำหรับเครือข่ายอุตสาหกรรมขั้นสูง",
+    image: catLayer3,
     category: volktekLayer3,
     externalHref: "https://www.volktek.com/product_en.php?id=663",
   },
@@ -55,6 +57,7 @@ const TABS: TabMeta[] = [
     shortTitle: "Industrial Ethernet",
     icon: Network,
     desc: "Unmanaged, Lite Managed, Managed และ DNV/LR Certified สำหรับงานทางทะเล",
+    image: catIndustrialEthernet,
     category: volktekIndustrialEthernet,
     externalHref: "https://www.volktek.com/product_en.php?id=52",
   },
@@ -64,6 +67,7 @@ const TABS: TabMeta[] = [
     shortTitle: "Industrial PoE",
     icon: Zap,
     desc: "PoE+, PoE++, BT PoE — จ่ายไฟผ่านสาย LAN ให้กล้อง IP, AP, IoT",
+    image: catIndustrialPoe,
     category: volktekIndustrialPoe,
     externalHref: "https://www.volktek.com/product_en.php?id=51",
   },
@@ -73,6 +77,7 @@ const TABS: TabMeta[] = [
     shortTitle: "Metro Ethernet",
     icon: Globe,
     desc: "1G / 10G Aggregation และ Access Switches สำหรับ Service Provider",
+    image: catMetroEthernet,
     category: volktekMetroEthernet,
     externalHref: "https://www.volktek.com/product_en.php?id=50",
   },
@@ -82,6 +87,7 @@ const TABS: TabMeta[] = [
     shortTitle: "Media Converter",
     icon: Cable,
     desc: "แปลง Copper ↔ Fiber, Serial ↔ Fiber, SPE Converters พร้อมรุ่น PoE+",
+    image: catMediaConverter,
     category: volktekMediaConverter,
     externalHref: "https://www.volktek.com/product_en.php?id=56",
   },
@@ -91,6 +97,7 @@ const TABS: TabMeta[] = [
     shortTitle: "EMS / NMS",
     icon: Activity,
     desc: "LAMUNGAN และ INDY — แพลตฟอร์มจัดการอุปกรณ์เครือข่ายแบบรวมศูนย์",
+    image: catEmsNms,
     category: volktekEmsNms,
     externalHref: "https://www.volktek.com/product_en.php?id=609",
   },
@@ -100,6 +107,7 @@ const TABS: TabMeta[] = [
     shortTitle: "SFP Modules",
     icon: Radio,
     desc: "100BASE, Gigabit, 10G SFP+ ทั้ง Standard และ Bi-Di รองรับหลายระยะ",
+    image: catSfp,
     category: volktekSfp,
     externalHref: "https://www.volktek.com/product_en.php?id=73",
   },
@@ -109,6 +117,7 @@ const TABS: TabMeta[] = [
     shortTitle: "PoE Injectors",
     icon: Wifi,
     desc: "PoE Injector เพิ่มความสามารถจ่ายไฟ และ Splitter สำหรับอุปกรณ์ที่ไม่รองรับ PoE",
+    image: catPoeInjector,
     externalHref: "https://www.volktek.com/product_en.php?id=108",
   },
   {
@@ -117,6 +126,7 @@ const TABS: TabMeta[] = [
     shortTitle: "Security",
     icon: Shield,
     desc: "Industrial Firewall — ปกป้องเครือข่าย OT/ICS จากภัยคุกคามไซเบอร์",
+    image: catFirewall,
     externalHref: "https://www.volktek.com/product_en.php?id=672",
   },
   {
@@ -125,6 +135,7 @@ const TABS: TabMeta[] = [
     shortTitle: "Accessories",
     icon: Cpu,
     desc: "Industrial Power Supply DIN-Rail และอุปกรณ์เสริมสำหรับติดตั้ง",
+    image: catAccessories,
     externalHref: "https://www.volktek.com/product_en.php?id=100",
   },
 ];
