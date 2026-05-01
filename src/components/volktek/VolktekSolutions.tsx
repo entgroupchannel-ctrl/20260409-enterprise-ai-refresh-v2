@@ -493,6 +493,14 @@ export default function VolktekSolutions() {
           ))}
         </Tabs>
       </div>
+
+      <VolktekProductDialog
+        product={dialogState?.product ?? null}
+        subCategory={dialogState?.subCategory ?? null}
+        categoryTitle={dialogState?.categoryTitle ?? ""}
+        onClose={() => setDialogState(null)}
+        onSelect={selectFromDialog}
+      />
     </section>
   );
 }
