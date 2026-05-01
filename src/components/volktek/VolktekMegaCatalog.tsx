@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import AddToCartButton from "@/components/AddToCartButton";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import VolktekProductDialog from "@/components/volktek/VolktekProductDialog";
 import {
   volktekLayer3,
