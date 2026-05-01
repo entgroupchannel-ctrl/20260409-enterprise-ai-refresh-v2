@@ -27,6 +27,30 @@ interface Subscriber {
   is_active: boolean;
   unsubscribed_at: string | null;
   notes: string | null;
+  first_name?: string | null;
+  last_name?: string | null;
+  phone?: string | null;
+  phone_secondary?: string | null;
+  company?: string | null;
+  position?: string | null;
+  labels?: string | null;
+  language?: string | null;
+  address?: string | null;
+  city?: string | null;
+  state_region?: string | null;
+  zip?: string | null;
+  country?: string | null;
+  website?: string | null;
+  company_tax_id?: string | null;
+  branch?: string | null;
+  customer_type?: string | null;
+  email_subscriber_status?: string | null;
+  sms_subscriber_status?: string | null;
+  last_activity?: string | null;
+  last_activity_at?: string | null;
+  imported_from?: string | null;
+  imported_at?: string | null;
+  extra_data?: any;
 }
 
 const AdminSubscribers = () => {
