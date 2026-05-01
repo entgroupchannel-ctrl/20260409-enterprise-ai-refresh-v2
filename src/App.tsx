@@ -454,6 +454,7 @@ const App = () => (
                     <Route path="/admin/trash" element={<ProtectedRoute requireSales><AdminTrash /></ProtectedRoute>} />
                     <Route path="/admin/quotes/:id" element={<ProtectedRoute requireSales><AdminQuoteDetail /></ProtectedRoute>} />
                     <Route path="/admin/contacts" element={<ProtectedRoute requireSales><AdminContacts /></ProtectedRoute>} />
+                    <Route path="/admin/contact-submissions" element={<ProtectedRoute requireSales><AdminContacts /></ProtectedRoute>} />
                     <Route path="/admin/documents" element={<ProtectedRoute allowedRoles={['super_admin','admin','sales','accountant','warehouse','viewer']}><AdminDocuments /></ProtectedRoute>} />
                     <Route path="/admin/permissions" element={<ProtectedRoute requireAdmin><AdminPermissions /></ProtectedRoute>} />
                     <Route path="/admin/employees" element={<ProtectedRoute allowedRoles={['super_admin', 'admin']}><AdminEmployees /></ProtectedRoute>} />
