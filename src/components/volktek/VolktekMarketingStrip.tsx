@@ -69,6 +69,11 @@ const FEATURED = FEATURED_PICKS.map((pick) => {
 
 export default function VolktekMarketingStrip() {
   const [active, setActive] = useState(0);
+  const [dialogState, setDialogState] = useState<{
+    product: VolktekProduct;
+    subCategory: VolktekSubCategory;
+    categoryTitle: string;
+  } | null>(null);
 
   const prev = () => setActive((i) => (i - 1 + ADS.length) % ADS.length);
   const next = () => setActive((i) => (i + 1) % ADS.length);
@@ -76,6 +81,20 @@ export default function VolktekMarketingStrip() {
   const scrollToCatalog = () => {
     const el = document.getElementById("catalog");
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const openProduct = (
+    product: VolktekProduct,
+    subCategory: VolktekSubCategory,
+    categoryTitle: string,
+  ) => {
+    setDialogState({ product, subCategory, categoryTitle });
+  };
+
+  const selectFromDialog = (p: VolktekProduct) => {
+    if (!dialogState) return;
+    const next = dialogState.subCategory.products.find((x) => x.model === p.model);
+    if (next) setDialogState({ ...dialogState, product: next });
   };
 
   return (
