@@ -1,8 +1,11 @@
-import { useState } from "react";
-import { Building2, Store, Building, Home, Hotel, Castle, Layers as LayersIcon, MapPin, CheckCircle2, AlertCircle, Sparkles, ImageIcon } from "lucide-react";
+import { useState, useMemo } from "react";
+import { Building2, Store, Building, Home, Hotel, Castle, Layers as LayersIcon, MapPin, CheckCircle2, AlertCircle, Sparkles, ImageIcon, Package } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
+import { volktekCatalog, type VolktekProduct } from "@/data/volktek-products";
+import AddToCartButton from "@/components/AddToCartButton";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 
 /**
  * Volktek Solutions — เรียบเรียงจาก volktek.com/solutiondetail_en.php (id 2,4-10)
