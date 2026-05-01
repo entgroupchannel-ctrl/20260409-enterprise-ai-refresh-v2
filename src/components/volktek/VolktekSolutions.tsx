@@ -245,6 +245,7 @@ const SOLUTIONS: Solution[] = [
       { area: "Security", feature: "Device Locking", benefit: "Last mile protection — อุปกรณ์ทำงานเฉพาะเครือข่ายที่ตั้งไว้" },
       { area: "Management", feature: "SNMP + TRAP", benefit: "Monitor เครือข่ายจากจุดเดียว" },
     ],
+    recommendedModels: ["MEN-6412", "9005-16GP2GS", "INS-8624P", "MEN-3410"],
   },
 ];
 
