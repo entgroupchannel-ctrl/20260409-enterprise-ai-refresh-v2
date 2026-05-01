@@ -286,6 +286,99 @@ function matchesFilter(p: VolktekProduct, active: Partial<Record<FilterKey, stri
   return true;
 }
 
+/* ============================================================
+ * Compatibility Icons + Temperature Stripe
+ * ============================================================ */
+
+type CompatIcon = { id: string; label: string; icon: LucideIcon };
+
+/** อนุมานอุปกรณ์/งานที่รุ่นนี้รองรับ จาก description + features + details */
+function getCompatibilityIcons(p: VolktekProduct): CompatIcon[] {
+  const hay = productHaystack(p);
+  const housing = (p.details?.environment?.housing ?? "").toLowerCase();
+  const tempStr = (p.details?.environment?.tempOperating ?? "").toLowerCase();
+  const out: CompatIcon[] = [];
+
+  // PoE — สำหรับกล้อง CCTV / AP / IP Phone
+  if (/poe/.test(hay)) {
+    out.push({ id: "cctv", label: "รองรับกล้อง CCTV / IP Camera (PoE)", icon: Camera });
+    out.push({ id: "wifi-ap", label: "จ่ายไฟ Wi-Fi Access Point (PoE)", icon: Wifi });
+  }
+
+  // Industrial / Factory — DIN-rail housing หรือทนอุณหภูมิอุตสาหกรรม
+  if (/-40/.test(`${tempStr} ${hay}`) || /din.?rail|industrial|ip30|ip40/.test(`${housing} ${hay}`)) {
+    out.push({ id: "factory", label: "งานโรงงาน / Industrial Automation", icon: Factory });
+  }
+
+  // Outdoor — IP65/IP67 หรือกล่องทนน้ำ
+  if (/ip6[5-9]|outdoor|weatherproof|ip54/.test(`${housing} ${hay}`)) {
+    out.push({ id: "outdoor", label: "ติดตั้งกลางแจ้ง / Outdoor", icon: Sun });
+  }
+
+  // Marine / Ship — EN50155 / E-Mark / IEC 60945 หรือ marine certified
+  if (/marine|en\s?50155|iec\s?60945|ship|onboard|รถไฟ|train/.test(hay)) {
+    out.push({ id: "marine", label: "งานเรือ / ระบบขนส่ง (Marine / Rail)", icon: Ship });
+  }
+
+  // Transportation / Vehicle
+  if (/automotive|vehicle|in.?vehicle|transportation|en\s?50155/.test(hay)) {
+    out.push({ id: "vehicle", label: "งานยานยนต์ / Transportation", icon: Car });
+  }
+
+  // Telecom / ISP — Metro Ethernet, Carrier
+  if (/metro|carrier|telecom|isp|ftt|epon|gpon/.test(hay)) {
+    out.push({ id: "telecom", label: "งาน Telecom / ISP / FTTx", icon: Antenna });
+  }
+
+  // Building / Smart Building / Hospitality
+  if (/hotel|building|condo|residential|commercial|enterprise/.test(hay)) {
+    out.push({ id: "building", label: "งานอาคาร / Enterprise / Hospitality", icon: Building2 });
+  }
+
+  // จำกัดที่ 5 icons เพื่อกันการ์ดล้น
+  return out.slice(0, 5);
+}
+
+type TempStripe = {
+  /** Tailwind classes สำหรับ background gradient */
+  bg: string;
+  label: string;
+  range: string;
+};
+
+/** อ่านช่วงอุณหภูมิและแมปเป็นแถบสี (ใช้ semantic-friendly utility classes) */
+function getTempStripe(p: VolktekProduct): TempStripe | null {
+  const tempStr = (p.details?.environment?.tempOperating ?? "").toLowerCase();
+  const fallback = productHaystack(p);
+  const all = `${tempStr} ${fallback}`;
+
+  // Industrial Extreme: -40°C
+  if (/-40/.test(all)) {
+    return {
+      bg: "bg-gradient-to-r from-blue-600 via-emerald-500 to-red-600",
+      label: "Industrial Extreme",
+      range: "-40°C ถึง 75°C",
+    };
+  }
+  // Wide: -20°C / -10°C
+  if (/-20|-10/.test(all)) {
+    return {
+      bg: "bg-gradient-to-r from-sky-500 via-emerald-500 to-orange-500",
+      label: "Wide Temperature",
+      range: "-20°C ถึง 70°C",
+    };
+  }
+  // Standard / Commercial: 0°C
+  if (/0\s?°?c|0\s?to|commercial/.test(all) || tempStr.length > 0) {
+    return {
+      bg: "bg-gradient-to-r from-emerald-400 to-amber-400",
+      label: "Standard",
+      range: "0°C ถึง 50°C",
+    };
+  }
+  return null;
+}
+
 const VolktekMegaCatalog = () => {
   const [activeTab, setActiveTab] = useState(TABS[0].id);
   const [activeSub, setActiveSub] = useState<Record<string, string>>({});
