@@ -18,6 +18,7 @@ import VolktekMegaCatalog from "@/components/volktek/VolktekMegaCatalog";
 import VolktekMarketingStrip from "@/components/volktek/VolktekMarketingStrip";
 import VolktekSwitchFinder from "@/components/volktek/VolktekSwitchFinder";
 import VolktekSolutions from "@/components/volktek/VolktekSolutions";
+import SiteSurveyDialog from "@/components/volktek/SiteSurveyDialog";
 
 // Official assets from volktek.com
 import heroSpe from "@/assets/volktek/hero-spe.png";
@@ -281,6 +282,7 @@ const Volktek = () => {
                   <ExternalLink className="w-3.5 h-3.5 mr-1.5" /> Datasheet
                 </a>
               </Button>
+              <SiteSurveyDialog triggerSize="sm" triggerLabel="ขอทีมเข้าสำรวจโครงการ" />
               <QuoteRequestButton productModel="Volktek Switch" productName="Volktek Industrial Switch" size="sm" />
               <AddToCartButton productModel="Volktek Switch" productName="Volktek Industrial Switch" productDescription="สวิตช์อุตสาหกรรม Volktek" size="sm" variant="outline" />
             </div>
@@ -423,6 +425,7 @@ const Volktek = () => {
               ปรึกษาผู้เชี่ยวชาญของ ENT Group เพื่อเลือกสวิตช์ที่เหมาะกับเครือข่ายของคุณ — สนับสนุนทั้ง Distributor และ System Integrator
             </p>
             <div className="flex flex-wrap justify-center gap-3">
+              <SiteSurveyDialog triggerLabel="ลงทะเบียนให้ทีมเข้าสำรวจโครงการ" />
               <Button variant="outline" asChild>
                 <a href="https://ugzdwmyylqmirrljtuej.supabase.co/storage/v1/object/public/datasheets/0597a3_888cab8832d1411582ecb607c1719677.pdf" target="_blank" rel="noopener noreferrer">
                   <ExternalLink className="w-4 h-4 mr-1.5" /> ดาวน์โหลด Catalog
