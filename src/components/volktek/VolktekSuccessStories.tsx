@@ -1,8 +1,16 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Quote, MapPin, CheckCircle2, Factory, Camera, Plane, Train, Building2, Cpu } from "lucide-react";
+import { ExternalLink, Quote, MapPin, CheckCircle2, Factory, Camera, Plane, Train, Building2, Cpu, Package, ArrowRight } from "lucide-react";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
+import {
+  volktekLayer3,
+  volktekIndustrialPoe,
+  volktekIndustrialEthernet,
+  volktekMetroEthernet,
+  type VolktekProduct,
+  type VolktekCategory,
+} from "@/data/volktek-products";
 
 type Story = {
   id: string;
@@ -14,6 +22,8 @@ type Story = {
   challenge: string;
   solution: string;
   models: string[];
+  /** รุ่นในแคตตาล็อก ENT (รุ่นจริงที่อ้างใน case + รุ่นใกล้เคียง) */
+  relatedModels: string[];
   benefits: string[];
   outcome: string;
   sourceUrl: string;
