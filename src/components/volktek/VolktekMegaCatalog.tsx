@@ -39,6 +39,10 @@ type TabMeta = {
   image: string;
   category?: VolktekCategory;
   externalHref: string;
+  /** กลุ่มการใช้งานที่เหมาะสม (เฉพาะหมวด) */
+  useCases: string[];
+  /** คุณสมบัติเด่นของหมวดนี้ (เช่น TSN, PoE++, 10G SFP+) */
+  keyFeatures: string[];
 };
 
 const TABS: TabMeta[] = [
@@ -51,6 +55,8 @@ const TABS: TabMeta[] = [
     image: catLayer3,
     category: volktekLayer3,
     externalHref: "https://www.volktek.com/product_en.php?id=663",
+    useCases: ["Smart Factory", "SCADA / PLC", "Robot & Motion Control"],
+    keyFeatures: ["TSN", "L3 Routing", "10G SFP+", "HSR/PRP", "-40~70°C"],
   },
   {
     id: "industrial-ethernet",
@@ -61,6 +67,8 @@ const TABS: TabMeta[] = [
     image: catIndustrialEthernet,
     category: volktekIndustrialEthernet,
     externalHref: "https://www.volktek.com/product_en.php?id=52",
+    useCases: ["โรงงาน / Automation", "Marine & Offshore", "Substation"],
+    keyFeatures: ["DIN-Rail", "DNV/LR", "Redundant Power", "IP30/IP40"],
   },
   {
     id: "industrial-poe",
@@ -71,6 +79,8 @@ const TABS: TabMeta[] = [
     image: catIndustrialPoe,
     category: volktekIndustrialPoe,
     externalHref: "https://www.volktek.com/product_en.php?id=51",
+    useCases: ["IP Camera / CCTV", "Wi-Fi AP", "IoT Sensor", "Smart City"],
+    keyFeatures: ["PoE+ 30W", "PoE++ 60W", "BT PoE 90W", "DI/DO", "Fiber Uplink"],
   },
   {
     id: "metro-ethernet",
@@ -81,6 +91,8 @@ const TABS: TabMeta[] = [
     image: catMetroEthernet,
     category: volktekMetroEthernet,
     externalHref: "https://www.volktek.com/product_en.php?id=50",
+    useCases: ["ISP / Service Provider", "Carrier Network", "FTTx / FTTH"],
+    keyFeatures: ["10G SFP+", "Aggregation", "Q-in-Q", "MPLS-Ready"],
   },
   {
     id: "media-converter",
@@ -91,6 +103,8 @@ const TABS: TabMeta[] = [
     image: catMediaConverter,
     category: volktekMediaConverter,
     externalHref: "https://www.volktek.com/product_en.php?id=56",
+    useCases: ["ขยายระยะสาย LAN", "เชื่อม Fiber ↔ Copper", "Serial over Fiber"],
+    keyFeatures: ["Gigabit", "PoE+", "SFP", "SPE 10BASE-T1L"],
   },
   {
     id: "ems-nms",
@@ -101,6 +115,8 @@ const TABS: TabMeta[] = [
     image: catEmsNms,
     category: volktekEmsNms,
     externalHref: "https://www.volktek.com/product_en.php?id=609",
+    useCases: ["Network Monitoring", "Centralized Config", "Bulk Firmware Update"],
+    keyFeatures: ["LAMUNGAN", "INDY", "SNMP", "Topology Map"],
   },
   {
     id: "sfp",
@@ -111,6 +127,8 @@ const TABS: TabMeta[] = [
     image: catSfp,
     category: volktekSfp,
     externalHref: "https://www.volktek.com/product_en.php?id=73",
+    useCases: ["Fiber Uplink", "Long-distance Link", "WDM / Bi-Di"],
+    keyFeatures: ["100BASE-FX", "1G SFP", "10G SFP+", "Bi-Di / Single-Strand"],
   },
   {
     id: "poe-injector",
@@ -120,6 +138,8 @@ const TABS: TabMeta[] = [
     desc: "PoE Injector เพิ่มความสามารถจ่ายไฟ และ Splitter สำหรับอุปกรณ์ที่ไม่รองรับ PoE",
     image: catPoeInjector,
     externalHref: "https://www.volktek.com/product_en.php?id=108",
+    useCases: ["เพิ่ม PoE ให้ Switch เดิม", "ใช้กับอุปกรณ์ที่ไม่รองรับ PoE"],
+    keyFeatures: ["PoE Injector", "PoE Splitter", "Single / Multi-port"],
   },
   {
     id: "firewall",
@@ -129,6 +149,8 @@ const TABS: TabMeta[] = [
     desc: "Industrial Firewall — ปกป้องเครือข่าย OT/ICS จากภัยคุกคามไซเบอร์",
     image: catFirewall,
     externalHref: "https://www.volktek.com/product_en.php?id=672",
+    useCases: ["OT / ICS Security", "Network Segmentation", "Zero Trust"],
+    keyFeatures: ["Industrial Firewall", "VPN", "DPI", "DIN-Rail"],
   },
   {
     id: "accessories",
@@ -138,6 +160,8 @@ const TABS: TabMeta[] = [
     desc: "Industrial Power Supply DIN-Rail และอุปกรณ์เสริมสำหรับติดตั้ง",
     image: catAccessories,
     externalHref: "https://www.volktek.com/product_en.php?id=100",
+    useCases: ["จ่ายไฟ DIN-Rail", "อุปกรณ์เสริมติดตั้ง"],
+    keyFeatures: ["Industrial PSU", "DIN-Rail Mount", "Redundancy"],
   },
 ];
 
