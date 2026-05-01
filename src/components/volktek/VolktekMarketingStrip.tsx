@@ -63,37 +63,37 @@ export default function VolktekMarketingStrip() {
       </div>
 
       {/* Featured large image */}
-      <div className="relative bg-muted aspect-square sm:aspect-[16/9] md:aspect-[21/9] overflow-hidden">
+      <div className="relative bg-muted aspect-[16/9] sm:aspect-[21/9] md:aspect-[3/1] max-h-[45vh] md:max-h-[40vh] overflow-hidden">
         {ADS.map((ad, i) => (
           <img
             key={ad.src}
             src={ad.src}
             alt={ad.alt}
             loading={i === 0 ? "eager" : "lazy"}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+            className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-500 ${
               i === active ? "opacity-100" : "opacity-0 pointer-events-none"
             }`}
           />
         ))}
-        <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
-          <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-background/90 backdrop-blur-sm border border-border text-xs font-semibold text-foreground shadow-sm">
+        <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between pointer-events-none">
+          <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-background/90 backdrop-blur-sm border border-border text-[11px] font-semibold text-foreground shadow-sm">
             {ADS[active].caption}
           </span>
         </div>
       </div>
 
       {/* Thumbnail row */}
-      <div className="p-4 md:p-6 bg-muted/30 border-t border-border">
-        <div className="grid grid-cols-5 gap-2 md:gap-3">
+      <div className="px-3 py-2.5 md:px-4 md:py-3 bg-muted/30 border-t border-border">
+        <div className="grid grid-cols-5 gap-1.5 md:gap-2 max-w-md mx-auto">
           {ADS.map((ad, i) => (
             <button
               key={ad.src}
               onClick={() => setActive(i)}
               aria-label={`ดู ${ad.caption}`}
-              className={`group relative aspect-square overflow-hidden rounded-lg border-2 transition-all ${
+              className={`group relative aspect-square overflow-hidden rounded-md border-2 transition-all ${
                 i === active
-                  ? "border-primary shadow-md scale-[1.02]"
-                  : "border-transparent hover:border-primary/40 opacity-70 hover:opacity-100"
+                  ? "border-primary shadow-sm scale-[1.04]"
+                  : "border-transparent hover:border-primary/40 opacity-60 hover:opacity-100"
               }`}
             >
               <img
