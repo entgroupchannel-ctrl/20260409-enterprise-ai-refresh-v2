@@ -2502,7 +2502,7 @@ export const volktekIndustrialEthernet: VolktekCategory = {
       title: "Single-Pair Ethernet (SPE)",
       blurb: "Long-Reach SPE — ลดสาย ลดต้นทุน เพิ่มความน่าเชื่อถือสำหรับ Field Network",
       products: [
-        { model: "7015-4U2T-T1L", description: "4x 10BASE-T1L SPE + 2x GbE — Managed Industrial SPE", image: ie_7015_4U2T_T1L, features: ["SPE", "10BASE-T1L", "Managed"], sourceUrl: detail(1712) },
+        { model: "7015-4U2T-T1L", description: "4x 10BASE-T1L SPE + 2x GbE — Managed Industrial SPE", image: ie_7015_4U2T_T1L, features: ["SPE", "10BASE-T1L", "Managed"], sourceUrl: detail(1682) },
         // (moved) 8015 Series ย้ายไปอยู่ Lite Managed sub-category — ไม่ใช่ SPE
       ],
     },
