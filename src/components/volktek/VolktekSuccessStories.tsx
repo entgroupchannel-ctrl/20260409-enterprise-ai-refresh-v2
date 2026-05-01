@@ -347,7 +347,13 @@ const VolktekSuccessStories = () => {
                 return (
                   <button
                     key={requested}
-                    onClick={scrollToCatalog}
+                    onClick={() =>
+                      setSelected({
+                        product: found.product,
+                        sub: found.sub,
+                        catTitle: found.categoryTitle,
+                      })
+                    }
                     className="text-left rounded-lg border border-border bg-background hover:border-primary/50 hover:bg-primary/5 transition-all p-3 group"
                   >
                     <div className="flex items-start justify-between gap-2 mb-1">
