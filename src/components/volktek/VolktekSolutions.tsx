@@ -3,9 +3,10 @@ import { Building2, Store, Building, Home, Hotel, Castle, Layers as LayersIcon, 
 import type { LucideIcon } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { volktekCatalog, type VolktekProduct } from "@/data/volktek-products";
+import { volktekCatalog, type VolktekProduct, type VolktekSubCategory } from "@/data/volktek-products";
 import AddToCartButton from "@/components/AddToCartButton";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
+import VolktekProductDialog from "@/components/volktek/VolktekProductDialog";
 
 /**
  * Volktek Solutions — เรียบเรียงจาก volktek.com/solutiondetail_en.php (id 2,4-10)
@@ -249,13 +250,15 @@ const SOLUTIONS: Solution[] = [
   },
 ];
 
-/** Build lookup map: model → { product, categoryTitle } จาก volktekCatalog */
-function buildProductLookup(): Map<string, { product: VolktekProduct; categoryTitle: string }> {
-  const map = new Map<string, { product: VolktekProduct; categoryTitle: string }>();
+type LookupEntry = { product: VolktekProduct; subCategory: VolktekSubCategory; categoryTitle: string };
+
+/** Build lookup map: model → { product, subCategory, categoryTitle } จาก volktekCatalog */
+function buildProductLookup(): Map<string, LookupEntry> {
+  const map = new Map<string, LookupEntry>();
   for (const cat of volktekCatalog) {
     for (const sub of cat.subCategories) {
       for (const p of sub.products) {
-        if (!map.has(p.model)) map.set(p.model, { product: p, categoryTitle: cat.title });
+        if (!map.has(p.model)) map.set(p.model, { product: p, subCategory: sub, categoryTitle: cat.title });
       }
     }
   }
@@ -265,6 +268,16 @@ function buildProductLookup(): Map<string, { product: VolktekProduct; categoryTi
 export default function VolktekSolutions() {
   const [activeTab, setActiveTab] = useState(SOLUTIONS[0].id);
   const productLookup = useMemo(() => buildProductLookup(), []);
+  const [dialogState, setDialogState] = useState<LookupEntry | null>(null);
+
+  const openProduct = (model: string) => {
+    const entry = productLookup.get(model);
+    if (entry) setDialogState(entry);
+  };
+  const selectFromDialog = (p: VolktekProduct) => {
+    const entry = productLookup.get(p.model);
+    if (entry) setDialogState(entry);
+  };
 
   return (
     <section id="solutions" className="scroll-mt-24">
@@ -343,7 +356,7 @@ export default function VolktekSolutions() {
                   {(() => {
                     const items = s.recommendedModels
                       .map((m) => productLookup.get(m))
-                      .filter((x): x is { product: VolktekProduct; categoryTitle: string } => Boolean(x));
+                      .filter((x): x is LookupEntry => Boolean(x));
                     if (items.length === 0) return null;
                     return (
                       <div className="rounded-xl border border-primary/30 bg-primary/[0.03] p-3 flex-1 flex flex-col">
@@ -360,46 +373,53 @@ export default function VolktekSolutions() {
                           {items.map(({ product: p }) => (
                             <div
                               key={p.model}
-                              className="rounded-lg border border-border bg-background overflow-hidden hover:border-primary/50 transition-all flex flex-col group"
+                              className="rounded-lg border border-border bg-background overflow-hidden hover:border-primary/50 hover:shadow-sm transition-all flex flex-col group"
                             >
-                              <div className="aspect-[4/3] bg-muted/30 flex items-center justify-center overflow-hidden">
-                                <img
-                                  src={p.image}
-                                  alt={p.model}
-                                  loading="lazy"
-                                  className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform"
+                              <button
+                                type="button"
+                                onClick={() => openProduct(p.model)}
+                                aria-label={`ดูรายละเอียด Volktek ${p.model}`}
+                                className="text-left flex flex-col flex-1 focus:outline-none focus:ring-2 focus:ring-primary/40 rounded-t-lg"
+                              >
+                                <div className="aspect-[4/3] bg-muted/30 flex items-center justify-center overflow-hidden">
+                                  <img
+                                    src={p.image}
+                                    alt={p.model}
+                                    loading="lazy"
+                                    className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform"
+                                  />
+                                </div>
+                                <div className="p-2 flex flex-col gap-1.5">
+                                  <div className="font-mono text-[11px] font-bold text-primary leading-tight line-clamp-1 group-hover:underline">
+                                    {p.model}
+                                  </div>
+                                  <p className="text-[10px] text-muted-foreground leading-snug line-clamp-2">
+                                    {p.description}
+                                  </p>
+                                </div>
+                              </button>
+                              <div className="px-2 pb-2 flex gap-1 mt-auto">
+                                <AddToCartButton
+                                  productModel={p.model}
+                                  productName={`Volktek ${p.model}`}
+                                  productDescription={p.description}
+                                  size="sm"
+                                  variant="outline"
+                                  iconOnly
                                 />
-                              </div>
-                              <div className="p-2 flex-1 flex flex-col gap-1.5">
-                                <div className="font-mono text-[11px] font-bold text-foreground leading-tight line-clamp-1">
-                                  {p.model}
-                                </div>
-                                <p className="text-[10px] text-muted-foreground leading-snug line-clamp-2 mb-1">
-                                  {p.description}
-                                </p>
-                                <div className="flex gap-1 mt-auto">
-                                  <AddToCartButton
-                                    productModel={p.model}
-                                    productName={`Volktek ${p.model}`}
-                                    productDescription={p.description}
-                                    size="sm"
-                                    variant="outline"
-                                    iconOnly
-                                  />
-                                  <QuoteRequestButton
-                                    productModel={p.model}
-                                    productName={`Volktek ${p.model}`}
-                                    size="sm"
-                                    variant="outline"
-                                    iconOnly
-                                  />
-                                </div>
+                                <QuoteRequestButton
+                                  productModel={p.model}
+                                  productName={`Volktek ${p.model}`}
+                                  size="sm"
+                                  variant="outline"
+                                  iconOnly
+                                />
                               </div>
                             </div>
                           ))}
                         </div>
                         <p className="mt-2.5 text-[10px] text-muted-foreground text-center">
-                          คัดเลือกโดย ENT Group ตาม Application Diagram
+                          คลิกที่รุ่นเพื่อดูสเปคแบบเต็ม
                         </p>
                       </div>
                     );
@@ -473,6 +493,14 @@ export default function VolktekSolutions() {
           ))}
         </Tabs>
       </div>
+
+      <VolktekProductDialog
+        product={dialogState?.product ?? null}
+        subCategory={dialogState?.subCategory ?? null}
+        categoryTitle={dialogState?.categoryTitle ?? ""}
+        onClose={() => setDialogState(null)}
+        onSelect={selectFromDialog}
+      />
     </section>
   );
 }
