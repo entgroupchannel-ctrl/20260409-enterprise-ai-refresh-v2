@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, CheckCircle2, Sparkles, Phone, MessageCircle, Gift, Cpu, Zap, ThermometerSun, Ruler, Plug, FileText } from "lucide-react";
+import { ChevronLeft, ChevronRight, CheckCircle2, Sparkles, Phone, MessageCircle, Gift, Cpu, Zap, ThermometerSun, Ruler, Plug, FileText, MapPin } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -6,6 +6,7 @@ import AddToCartButton from "@/components/AddToCartButton";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
 import LineQRButton from "@/components/LineQRButton";
 import type { VolktekProduct, VolktekSubCategory } from "@/data/volktek-products";
+import { getSolutionsForModel } from "@/data/volktek-solutions-map";
 
 type Props = {
   product: VolktekProduct | null;
