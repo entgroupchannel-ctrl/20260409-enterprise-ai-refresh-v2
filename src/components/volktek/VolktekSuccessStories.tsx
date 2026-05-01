@@ -426,6 +426,15 @@ const VolktekSuccessStories = () => {
           <div className="text-[11px] text-muted-foreground uppercase tracking-wider">ISO · CE · FCC</div>
         </div>
       </div>
+
+      {/* Product Detail Dialog */}
+      <VolktekProductDialog
+        product={selected?.product ?? null}
+        subCategory={selected?.sub ?? null}
+        categoryTitle={selected?.catTitle ?? ""}
+        onClose={() => setSelected(null)}
+        onSelect={(p) => selected && setSelected({ ...selected, product: p })}
+      />
     </section>
   );
 };
