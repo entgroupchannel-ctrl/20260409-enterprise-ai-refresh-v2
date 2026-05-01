@@ -225,15 +225,9 @@ const VolktekProductDialog = ({ product, subCategory, categoryTitle, onClose, on
               {/* No-detail fallback */}
               {!d && (
                 <div className="mt-5 rounded-lg border border-dashed border-border bg-background/30 p-4 text-center">
-                  <p className="text-xs text-muted-foreground mb-3">
-                    รายละเอียดเชิงลึกของรุ่นนี้กำลังจัดเตรียม — ดูสเปคฉบับเต็มที่เว็บโรงงาน หรือสอบถามทีมเรา
+                  <p className="text-xs text-muted-foreground">
+                    รายละเอียดเชิงลึกของรุ่นนี้กำลังจัดเตรียม — สอบถามสเปคฉบับเต็มและราคาจากทีมงาน ENT Group ได้ทันที
                   </p>
-                  <Button variant="outline" size="sm" asChild>
-                    <a href={product.sourceUrl} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="w-3.5 h-3.5 mr-1.5" />
-                      ดูที่ volktek.com
-                    </a>
-                  </Button>
                 </div>
               )}
 
@@ -258,11 +252,6 @@ const VolktekProductDialog = ({ product, subCategory, categoryTitle, onClose, on
                     </a>
                   </Button>
                 )}
-                <Button variant="ghost" size="sm" asChild>
-                  <a href={product.sourceUrl} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="w-3.5 h-3.5 mr-1.5" /> volktek.com
-                  </a>
-                </Button>
               </div>
 
               {/* PR Banner */}

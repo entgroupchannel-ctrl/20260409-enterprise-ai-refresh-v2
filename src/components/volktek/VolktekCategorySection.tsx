@@ -107,11 +107,6 @@ const VolktekCategorySection = ({ category, icon: Icon, phaseLabel, anchorId }: 
                         variant="outline"
                         iconOnly
                       />
-                      <Button variant="ghost" size="sm" asChild className="ml-auto text-xs h-8">
-                        <a href={p.sourceUrl} target="_blank" rel="noopener noreferrer">
-                          ดู <ArrowRight className="w-3 h-3 ml-1" />
-                        </a>
-                      </Button>
                     </div>
                   </div>
                 </div>
