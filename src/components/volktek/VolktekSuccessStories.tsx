@@ -354,7 +354,7 @@ const VolktekSuccessStories = () => {
                         catTitle: found.categoryTitle,
                       })
                     }
-                    className="text-left rounded-lg border border-border bg-background hover:border-primary/50 hover:bg-primary/5 transition-all p-3 group"
+                    className="text-left rounded-lg border border-border hover:border-primary/50 transition-all p-3 group bg-slate-200"
                   >
                     <div className="flex items-start justify-between gap-2 mb-1">
                       <div className="font-mono text-xs font-bold text-foreground group-hover:text-primary transition-colors">
