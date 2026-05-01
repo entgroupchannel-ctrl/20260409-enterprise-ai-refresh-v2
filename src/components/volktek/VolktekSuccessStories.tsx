@@ -134,6 +134,7 @@ const stories: Story[] = [
     solution:
       "ติดตั้ง IEN-8648PA Industrial PoE+ Switch ในตู้ควบคุมเสาไฟ และ Attis 5100-24GT2GS เป็น Aggregation ในศูนย์ควบคุม",
     models: ["IEN-8648PA", "Attis 5100-24GT2GS"],
+    relatedModels: ["IEN-8648PA", "IEN-8648PA-24V", "IEN-8608PA", "5100-24GT2GS", "SEN-8428PL-24V"],
     benefits: [
       "PoE+ จ่ายไฟกล้องผ่านสาย LAN ลดสายไฟแยก",
       "8× GbE Downlink + 4× SFP Uplink เพื่อ Backhaul",
