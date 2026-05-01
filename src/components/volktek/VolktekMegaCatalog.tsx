@@ -638,7 +638,10 @@ const VolktekMegaCatalog = () => {
                                 </div>
                               </div>
                             ))}
-                          </div>
+                                </div>
+                              </>
+                            );
+                          })()}
                         </div>
                       ) : null
                     )}
