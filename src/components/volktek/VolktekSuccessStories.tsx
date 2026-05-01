@@ -173,7 +173,12 @@ const stories: Story[] = [
 ];
 
 /** ค้นหา product จริงจากแคตตาล็อก เทียบจาก model (case-insensitive, partial) */
-type FoundProduct = { product: VolktekProduct; categoryTitle: string; subTitle: string };
+type FoundProduct = {
+  product: VolktekProduct;
+  categoryTitle: string;
+  subTitle: string;
+  sub: VolktekSubCategory;
+};
 
 const ALL_CATEGORIES: VolktekCategory[] = [
   volktekLayer3,
@@ -189,7 +194,7 @@ function findProductByModel(model: string): FoundProduct | null {
       for (const p of sub.products) {
         const hay = p.model.toLowerCase().replace(/\s+/g, "");
         if (hay === needle || hay.includes(needle) || needle.includes(hay)) {
-          return { product: p, categoryTitle: cat.title, subTitle: sub.title };
+          return { product: p, categoryTitle: cat.title, subTitle: sub.title, sub };
         }
       }
     }
