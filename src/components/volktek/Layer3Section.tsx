@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, Layers } from "lucide-react";
+import { Layers } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { volktekLayer3 } from "@/data/volktek-products";

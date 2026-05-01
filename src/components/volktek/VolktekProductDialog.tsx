@@ -1,4 +1,4 @@
-import { ExternalLink, ChevronLeft, ChevronRight, CheckCircle2, Sparkles, Phone, MessageCircle, Gift, Cpu, Zap, ThermometerSun, Ruler, Plug, FileText } from "lucide-react";
+import { ChevronLeft, ChevronRight, CheckCircle2, Sparkles, Phone, MessageCircle, Gift, Cpu, Zap, ThermometerSun, Ruler, Plug, FileText } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";

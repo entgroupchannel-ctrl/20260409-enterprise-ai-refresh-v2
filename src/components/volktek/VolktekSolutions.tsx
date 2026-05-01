@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Building2, Store, Building, Home, Hotel, Castle, Layers as LayersIcon, MapPin, CheckCircle2, AlertCircle, Sparkles, ExternalLink, ImageIcon } from "lucide-react";
+import { Building2, Store, Building, Home, Hotel, Castle, Layers as LayersIcon, MapPin, CheckCircle2, AlertCircle, Sparkles, ImageIcon } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
