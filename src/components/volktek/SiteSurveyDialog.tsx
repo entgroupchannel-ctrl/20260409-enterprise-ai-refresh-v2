@@ -93,7 +93,7 @@ const SiteSurveyDialog = ({
         form.requirements || "-",
       ].join("\n");
 
-      const { data: contactData, error } = await (supabase.from as any)("contact_submissions").insert({
+      const { error } = await (supabase.from as any)("contact_submissions").insert({
         name: form.name,
         email: form.email,
         phone: form.phone,
@@ -102,17 +102,22 @@ const SiteSurveyDialog = ({
         source: "volktek_site_survey",
         priority: "high",
         ...getAttributionFields(),
-      }).select().single();
+      });
       if (error) throw error;
 
-      if (contactData?.id) {
+      // Note: ไม่ใช้ .select() เพราะ RLS อนุญาต INSERT แบบ anonymous
+      // แต่ SELECT จำกัดเฉพาะ admin/sales — การเรียก RETURNING จะทำให้ fail
+      // affiliate lead จะไม่ link source_id แต่ข้อมูลลูกค้าครบถ้วนยังบันทึกไว้
+      try {
         await createAffiliateLead({
           source_type: "contact_submission",
-          source_id: contactData.id,
+          source_id: null as any,
           customer_name: form.name,
           customer_email: form.email,
           customer_company: form.company || null,
         });
+      } catch {
+        // affiliate tracking is best-effort
       }
 
       const origin = typeof window !== "undefined" ? window.location.origin : "";
@@ -126,9 +131,7 @@ const SiteSurveyDialog = ({
           actionUrl: "/admin/contacts",
           actionLabel: "ดูรายละเอียด",
           linkType: "contact",
-          linkId: contactData?.id,
           entityType: "contact",
-          entityId: contactData?.id,
           customerName: form.name,
           viewUrl: `${origin}/admin/contacts`,
         });
