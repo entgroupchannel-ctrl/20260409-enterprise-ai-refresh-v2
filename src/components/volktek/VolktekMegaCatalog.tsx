@@ -659,7 +659,7 @@ const VolktekMegaCatalog = () => {
                                     return (
                               <div
                                 key={p.model}
-                                className="rounded-xl border border-border bg-background/40 overflow-hidden hover:border-primary/40 hover:-translate-y-0.5 transition-all group flex flex-col"
+                                className="rounded-xl border border-border overflow-hidden hover:border-primary/40 hover:-translate-y-0.5 transition-all group flex flex-col bg-slate-200"
                               >
                                 {/* Temperature stripe */}
                                 {tempStripe && (
