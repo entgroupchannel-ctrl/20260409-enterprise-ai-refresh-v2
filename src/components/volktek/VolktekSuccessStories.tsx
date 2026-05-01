@@ -111,6 +111,7 @@ const stories: Story[] = [
     solution:
       "ใช้ Volktek Woodpecker 9015-8GT2GS-I Full-Managed Industrial Switch เป็น Backbone เชื่อมต่อ PLC, HMI, Radar, Wind Turbine และ SCADA",
     models: ["Woodpecker 9015-8GT2GS-I"],
+    relatedModels: ["9015-8GT2GS-I", "9015-8GT-I", "9015-16GT-I", "INS-8408E", "9560-16GP4XS-I"],
     benefits: [
       "ทำงานในอุณหภูมิ -40°C ถึง 75°C",
       "8× Gigabit RJ45 + 2× SFP Uplink ระยะไกล",
