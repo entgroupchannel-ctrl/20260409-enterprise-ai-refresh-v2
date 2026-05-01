@@ -18,6 +18,16 @@ import {
   type VolktekProduct,
   type VolktekSubCategory,
 } from "@/data/volktek-products";
+import catLayer3 from "@/assets/volktek/cat-layer3.jpg";
+import catIndustrialEthernet from "@/assets/volktek/cat-industrial-ethernet.jpg";
+import catIndustrialPoe from "@/assets/volktek/cat-industrial-poe.jpg";
+import catMetroEthernet from "@/assets/volktek/cat-metro-ethernet.jpg";
+import catMediaConverter from "@/assets/volktek/cat-media-converter.jpg";
+import catEmsNms from "@/assets/volktek/cat-ems-nms.png";
+import catSfp from "@/assets/volktek/cat-sfp.jpg";
+import catPoeInjector from "@/assets/volktek/cat-poe-injector.jpg";
+import catFirewall from "@/assets/volktek/cat-firewall.jpg";
+import catAccessories from "@/assets/volktek/cat-accessories.jpg";
 
 type TabMeta = {
   id: string;
