@@ -4045,7 +4045,8 @@ export const volktekAccessories: VolktekCategory = {
   ],
 };
 
-
+/* ============================================================
+ * Slug-based sourceUrl rewrite
  * เว็บ Volktek เปลี่ยนจาก productdetail_en.php?id=N เป็น slug pattern
  * productdetail/<lowercased-model>.html ซึ่งเสถียรกว่าและไม่ redirect ไป homepage
  * ============================================================ */
