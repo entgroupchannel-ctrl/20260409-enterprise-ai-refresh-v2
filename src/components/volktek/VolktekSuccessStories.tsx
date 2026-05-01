@@ -42,6 +42,7 @@ const stories: Story[] = [
     solution:
       "เลือก INS-8408E Industrial Ethernet Switch ที่ออกแบบมาเพื่อ Automation โดยเฉพาะ พร้อมเทคโนโลยี iQoS จัดลำดับ Traffic ควบคุมหุ่นยนต์ให้ Deterministic",
     models: ["INS-8408E"],
+    relatedModels: ["INS-8408E", "INS-8408A", "INS-8108E", "9561-8GT4XS-TSN", "9561-8GP4XS-TSN"],
     benefits: [
       "Multi-axis Synchronization แม่นยำระดับมิลลิวินาที",
       "8× Gigabit รองรับ Vision + Sensor พร้อมกัน",
