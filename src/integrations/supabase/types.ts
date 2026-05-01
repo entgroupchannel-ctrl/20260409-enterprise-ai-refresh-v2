@@ -1241,12 +1241,16 @@ export type Database = {
           affiliate_id: string | null
           assigned_to: string | null
           attribution_source: string | null
+          business_card_data: Json | null
+          callback_time: string | null
+          category: string | null
           company: string | null
           created_at: string
           email: string
           follow_up_date: string | null
           id: string
           lead_score: number | null
+          line_id: string | null
           message: string
           name: string
           notes: string | null
@@ -1255,18 +1259,23 @@ export type Database = {
           source: string | null
           status: string
           updated_at: string
+          whatsapp: string | null
         }
         Insert: {
           affiliate_code?: string | null
           affiliate_id?: string | null
           assigned_to?: string | null
           attribution_source?: string | null
+          business_card_data?: Json | null
+          callback_time?: string | null
+          category?: string | null
           company?: string | null
           created_at?: string
           email: string
           follow_up_date?: string | null
           id?: string
           lead_score?: number | null
+          line_id?: string | null
           message: string
           name: string
           notes?: string | null
@@ -1275,18 +1284,23 @@ export type Database = {
           source?: string | null
           status?: string
           updated_at?: string
+          whatsapp?: string | null
         }
         Update: {
           affiliate_code?: string | null
           affiliate_id?: string | null
           assigned_to?: string | null
           attribution_source?: string | null
+          business_card_data?: Json | null
+          callback_time?: string | null
+          category?: string | null
           company?: string | null
           created_at?: string
           email?: string
           follow_up_date?: string | null
           id?: string
           lead_score?: number | null
+          line_id?: string | null
           message?: string
           name?: string
           notes?: string | null
@@ -1295,6 +1309,7 @@ export type Database = {
           source?: string | null
           status?: string
           updated_at?: string
+          whatsapp?: string | null
         }
         Relationships: [
           {
