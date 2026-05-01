@@ -15,6 +15,7 @@ import FooterCompact from "@/components/FooterCompact";
 import B2BPlatformInterfaceShowcase from "@/components/B2BPlatformInterfaceShowcase";
 import MiniNavbar from "@/components/MiniNavbar";
 import VolktekMegaCatalog from "@/components/volktek/VolktekMegaCatalog";
+import VolktekMarketingStrip from "@/components/volktek/VolktekMarketingStrip";
 
 // Official assets from volktek.com
 import heroSpe from "@/assets/volktek/hero-spe.png";
@@ -339,6 +340,9 @@ const Volktek = () => {
 
         {/* Mega Catalog — 10 หมวดในแท็บเดียว แทน card grid + 7 phase sections เดิม */}
         <VolktekMegaCatalog />
+
+        {/* Marketing Strip — 5 featured campaign visuals */}
+        <VolktekMarketingStrip />
 
         {/* LAMUNGAN Platform — EMS spotlight */}
         <section className="card-surface overflow-hidden">
