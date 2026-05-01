@@ -113,26 +113,30 @@ const VolktekProductDialog = ({ product, subCategory, categoryTitle, onClose, on
                   </div>
 
                   {/* Power + Temp ที่สำคัญ */}
-                  {d && (
+                  {d && (d.power || d.environment) && (
                     <div className="grid grid-cols-2 gap-2.5">
-                      <div className="rounded-lg border border-border bg-background/40 p-2.5">
-                        <div className="flex items-center gap-1 mb-0.5">
-                          <Zap className="w-3 h-3 text-amber-500" />
-                          <span className="text-[10px] uppercase tracking-wide text-muted-foreground font-semibold">Power</span>
+                      {d.power && (
+                        <div className="rounded-lg border border-border bg-background/40 p-2.5">
+                          <div className="flex items-center gap-1 mb-0.5">
+                            <Zap className="w-3 h-3 text-amber-500" />
+                            <span className="text-[10px] uppercase tracking-wide text-muted-foreground font-semibold">Power</span>
+                          </div>
+                          <p className="text-xs font-semibold text-foreground leading-snug">{d.power.input}</p>
+                          {d.power.poeBudget && (
+                            <p className="text-[10px] text-amber-600 dark:text-amber-400 font-semibold mt-1">{d.power.poeBudget}</p>
+                          )}
                         </div>
-                        <p className="text-xs font-semibold text-foreground leading-snug">{d.power.input}</p>
-                        {d.power.poeBudget && (
-                          <p className="text-[10px] text-amber-600 dark:text-amber-400 font-semibold mt-1">{d.power.poeBudget}</p>
-                        )}
-                      </div>
-                      <div className="rounded-lg border border-border bg-background/40 p-2.5">
-                        <div className="flex items-center gap-1 mb-0.5">
-                          <ThermometerSun className="w-3 h-3 text-orange-500" />
-                          <span className="text-[10px] uppercase tracking-wide text-muted-foreground font-semibold">Operating Temp</span>
+                      )}
+                      {d.environment && (
+                        <div className="rounded-lg border border-border bg-background/40 p-2.5">
+                          <div className="flex items-center gap-1 mb-0.5">
+                            <ThermometerSun className="w-3 h-3 text-orange-500" />
+                            <span className="text-[10px] uppercase tracking-wide text-muted-foreground font-semibold">Operating Temp</span>
+                          </div>
+                          <p className="text-xs font-semibold text-foreground leading-snug">{d.environment.tempOperating}</p>
+                          <p className="text-[10px] text-muted-foreground mt-1">{d.environment.housing}</p>
                         </div>
-                        <p className="text-xs font-semibold text-foreground leading-snug">{d.environment.tempOperating}</p>
-                        <p className="text-[10px] text-muted-foreground mt-1">{d.environment.housing}</p>
-                      </div>
+                      )}
                     </div>
                   )}
 
