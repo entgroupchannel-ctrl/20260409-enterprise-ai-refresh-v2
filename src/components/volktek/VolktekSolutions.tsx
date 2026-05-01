@@ -357,20 +357,24 @@ export default function VolktekSolutions() {
               </div>
 
               {/* Application Diagram */}
-              <div className="rounded-xl border border-border bg-muted/20 p-4 md:p-5">
-                <div className="flex items-center gap-2 mb-3">
-                  <ImageIcon className="w-4 h-4 text-primary" />
+              <div className="rounded-xl border border-border bg-muted/20 p-3 sm:p-4 md:p-5">
+                <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mb-3">
+                  <ImageIcon className="w-4 h-4 text-primary shrink-0" />
                   <h4 className="text-sm font-bold text-foreground">Application Diagram</h4>
-                  <span className="text-[10px] text-muted-foreground">— ภาพการใช้งานจริงจาก Volktek</span>
+                  <span className="text-[10px] text-muted-foreground basis-full sm:basis-auto">— ภาพการใช้งานจริงจาก Volktek</span>
                 </div>
-                <div className="relative bg-background rounded-lg overflow-hidden border border-border">
+                <div className="relative bg-background rounded-lg overflow-hidden border border-border w-full">
                   <img
                     src={s.diagram}
                     alt={`${s.title} application diagram`}
                     loading="lazy"
-                    className="w-full h-auto object-contain max-h-[480px] mx-auto"
+                    decoding="async"
+                    className="block w-full h-auto max-w-full object-contain max-h-[260px] sm:max-h-[360px] md:max-h-[480px] mx-auto"
                   />
                 </div>
+                <p className="mt-2 text-[10px] text-muted-foreground text-center sm:hidden">
+                  แตะค้างที่ภาพเพื่อซูมดูรายละเอียด
+                </p>
               </div>
             </TabsContent>
           ))}
