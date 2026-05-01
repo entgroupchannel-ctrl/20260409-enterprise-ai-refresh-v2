@@ -3345,7 +3345,7 @@ export const volktekEmsNms: VolktekCategory = {
               { title: "Daily/Weekly Status Report", desc: "สร้างรายงานสถานะระบบอัตโนมัติเพื่อวิเคราะห์เชิงลึก" },
             ],
             ports: ["CPU: Intel Core i3 หรือสูงกว่า", "RAM: ขั้นต่ำ 8 GB (แนะนำ 16 GB)", "OS: Windows-based"],
-            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/" + "" + "",
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/d47dada46b3701aa5f6a73747b4d8d55.pdf",
           },
         },
       ],
