@@ -5698,31 +5698,103 @@ export type Database = {
       }
       subscribers: {
         Row: {
+          address: string | null
+          branch: string | null
+          city: string | null
+          company: string | null
+          company_tax_id: string | null
+          country: string | null
           created_at: string
+          customer_type: string | null
           email: string
+          email_subscriber_status: string | null
+          extra_data: Json | null
+          first_name: string | null
           id: string
+          imported_at: string | null
+          imported_from: string | null
           is_active: boolean
+          labels: string | null
+          language: string | null
+          last_activity: string | null
+          last_activity_at: string | null
+          last_name: string | null
           notes: string | null
+          phone: string | null
+          phone_secondary: string | null
+          position: string | null
+          sms_subscriber_status: string | null
           source: string | null
+          state_region: string | null
           unsubscribed_at: string | null
+          website: string | null
+          zip: string | null
         }
         Insert: {
+          address?: string | null
+          branch?: string | null
+          city?: string | null
+          company?: string | null
+          company_tax_id?: string | null
+          country?: string | null
           created_at?: string
+          customer_type?: string | null
           email: string
+          email_subscriber_status?: string | null
+          extra_data?: Json | null
+          first_name?: string | null
           id?: string
+          imported_at?: string | null
+          imported_from?: string | null
           is_active?: boolean
+          labels?: string | null
+          language?: string | null
+          last_activity?: string | null
+          last_activity_at?: string | null
+          last_name?: string | null
           notes?: string | null
+          phone?: string | null
+          phone_secondary?: string | null
+          position?: string | null
+          sms_subscriber_status?: string | null
           source?: string | null
+          state_region?: string | null
           unsubscribed_at?: string | null
+          website?: string | null
+          zip?: string | null
         }
         Update: {
+          address?: string | null
+          branch?: string | null
+          city?: string | null
+          company?: string | null
+          company_tax_id?: string | null
+          country?: string | null
           created_at?: string
+          customer_type?: string | null
           email?: string
+          email_subscriber_status?: string | null
+          extra_data?: Json | null
+          first_name?: string | null
           id?: string
+          imported_at?: string | null
+          imported_from?: string | null
           is_active?: boolean
+          labels?: string | null
+          language?: string | null
+          last_activity?: string | null
+          last_activity_at?: string | null
+          last_name?: string | null
           notes?: string | null
+          phone?: string | null
+          phone_secondary?: string | null
+          position?: string | null
+          sms_subscriber_status?: string | null
           source?: string | null
+          state_region?: string | null
           unsubscribed_at?: string | null
+          website?: string | null
+          zip?: string | null
         }
         Relationships: []
       }
