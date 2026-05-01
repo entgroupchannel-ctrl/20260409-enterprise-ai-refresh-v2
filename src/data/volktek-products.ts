@@ -3296,7 +3296,28 @@ export const volktekEmsNms: VolktekCategory = {
       title: "LAMUNGAN",
       blurb: "แพลตฟอร์มจัดการอุปกรณ์เครือข่ายแบบรวมศูนย์ — Wizard, Topology Map, Real-time Dashboard",
       products: [
-        { model: "LAMUNGAN", description: "Element Management System สำหรับ Volktek Switches — Auto-discovery, Topology Map, Wizard Configuration, SNMP Trap, Real-time Dashboard", image: ems_LAMUNGAN, features: ["EMS", "Topology Map", "Wizard", "Multi-vendor"], sourceUrl: detail(1716) },
+        {
+          model: "LAMUNGAN",
+          description: "Element Management System สำหรับ Volktek Switches — Auto-discovery, Topology Map, Wizard Configuration, SNMP Trap, Real-time Dashboard",
+          image: ems_LAMUNGAN,
+          features: ["EMS", "Topology Map", "Wizard", "Multi-vendor"],
+          sourceUrl: detail(1716),
+          details: {
+            overview:
+              "LAMUNGAN เป็น Industrial Switch Management System ของ Volktek ที่ให้ผู้ดูแลระบบมอนิเตอร์สถานะเครือข่ายได้ทุกที่ทุกเวลา ระบบส่ง Real-time Alert + Push Notification และแสดง Topology Map แบบ Tri-color (เขียว=ปกติ, เหลือง=Warning, แดง=Critical) ทำให้วิศวกรหา Fault ได้เร็ว แตะที่ไอคอนเพื่อดูข้อมูลเชิงลึก หรือสั่งงานช่างหน้างานได้ทันที ทลายข้อจำกัดของการนั่ง Control Room — รองรับการจัดการ Lite-Managed Switch แบบไม่ต้องติดตั้ง Software เพิ่ม และเชื่อมกับกล้อง IP มาตรฐาน ONVIF ทุกยี่ห้อได้",
+            highlights: [
+              { title: "Tri-color Topology Map", desc: "แสดงสถานะ Network / Link / Port ด้วย 3 สี เห็นภาพรวมทั้งระบบทันที" },
+              { title: "Real-time Traffic Alert", desc: "แจ้งเตือนทันทีเมื่อตรวจพบ Traffic ผิดปกติ" },
+              { title: "Unified Dashboard", desc: "Monitoring + Utilization Metrics ครบในหน้าเดียว" },
+              { title: "Link Change History", desc: "บันทึกประวัติการเปลี่ยนแปลง Link เพื่อ Diagnostic & Planning" },
+              { title: "Setup Wizard", desc: "Step-by-step สำหรับมือใหม่ ตั้งค่า Lite-Managed Switch ได้รวดเร็ว" },
+              { title: "ONVIF Camera Support", desc: "เชื่อมต่อกล้อง IP ONVIF ได้ทุกยี่ห้อ บริหารแบบรวมศูนย์" },
+              { title: "Push Notification", desc: "แจ้งเตือนผ่านมือถือ ตอบสนอง Incident ได้ทุกที่" },
+              { title: "No Software Install", desc: "ใช้ผ่าน Web Interface ไม่ต้องติดตั้งโปรแกรมเพิ่มที่เครื่องผู้ใช้" },
+            ],
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/dbd4df5315ad074f3967857b5f98be39.pdf",
+          },
+        },
       ],
     },
     {
@@ -3304,7 +3325,29 @@ export const volktekEmsNms: VolktekCategory = {
       title: "INDY NMS",
       blurb: "Network Management System Software — บริหารจัดการเครือข่ายระดับองค์กรแบบครบวงจร",
       products: [
-        { model: "INDY", description: "Network Management System Software — บริหารจัดการอุปกรณ์เครือข่ายแบบรวมศูนย์ พร้อม SNMP Monitoring และ Configuration Management", image: ems_INDY, features: ["NMS", "SNMP", "Enterprise"], sourceUrl: detail(1637) },
+        {
+          model: "INDY",
+          description: "Network Management System Software — บริหารจัดการอุปกรณ์เครือข่ายแบบรวมศูนย์ พร้อม SNMP Monitoring และ Configuration Management",
+          image: ems_INDY,
+          features: ["NMS", "SNMP", "Enterprise"],
+          sourceUrl: detail(1637),
+          details: {
+            overview:
+              "INDY เป็น Windows-based NMS ที่ออกแบบให้ครอบคลุม FCAPS (Fault / Configuration / Accounting / Performance / Security) ครบวงจร พร้อม UI ใช้งานง่ายสำหรับการ Configuration Management และ Firmware Upgrade ในไม่กี่คลิก รองรับ Auto-discovery อุปกรณ์ Volktek อัตโนมัติ พร้อมรองรับ SNMP และ Modbus TCP สำหรับงาน Industrial Automation มี Topology Map, Real-time Event Notification, Email Alert และ Xpress Ring Technology สำหรับ Network Stability เหมาะกับโรงงาน, Substation, Surveillance และ Smart Building ระดับองค์กร",
+            highlights: [
+              { title: "FCAPS Coverage", desc: "Fault / Configuration / Accounting / Performance / Security ครบในเครื่องเดียว" },
+              { title: "Auto-Discovery", desc: "ตรวจพบอุปกรณ์ Volktek + SNMP/Modbus TCP ใน subnet อัตโนมัติ" },
+              { title: "SNMP + Modbus TCP", desc: "รองรับทั้ง IT (SNMP) และ OT (Modbus TCP) เชื่อมเครือข่ายอุตสาหกรรมและสำนักงาน" },
+              { title: "Topology Map", desc: "แสดงโครงสร้างเครือข่ายเป็นภาพ เข้าใจง่าย" },
+              { title: "Xpress Ring Technology", desc: "Fast Replacement สำหรับ Network Redundancy ระหว่าง Maintenance" },
+              { title: "Real-time Event + Email Alert", desc: "แจ้งเตือนทันทีเมื่ออุปกรณ์ผิดปกติหรือ Disconnect" },
+              { title: "Configurable Thresholds", desc: "กำหนด Threshold การใช้งาน Resource ได้ยืดหยุ่น" },
+              { title: "Daily/Weekly Status Report", desc: "สร้างรายงานสถานะระบบอัตโนมัติเพื่อวิเคราะห์เชิงลึก" },
+            ],
+            ports: ["CPU: Intel Core i3 หรือสูงกว่า", "RAM: ขั้นต่ำ 8 GB (แนะนำ 16 GB)", "OS: Windows-based"],
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/" + "" + "",
+          },
+        },
       ],
     },
   ],
