@@ -653,11 +653,34 @@ const VolktekMegaCatalog = () => {
                                   </p>
                                 )}
                                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-                                  {filtered.map((p) => (
+                                  {filtered.map((p) => {
+                                    const compatIcons = getCompatibilityIcons(p);
+                                    const tempStripe = getTempStripe(p);
+                                    return (
                               <div
                                 key={p.model}
                                 className="rounded-xl border border-border bg-background/40 overflow-hidden hover:border-primary/40 hover:-translate-y-0.5 transition-all group flex flex-col"
                               >
+                                {/* Temperature stripe */}
+                                {tempStripe && (
+                                  <TooltipProvider delayDuration={150}>
+                                    <Tooltip>
+                                      <TooltipTrigger asChild>
+                                        <div
+                                          className={`h-1.5 w-full ${tempStripe.bg} cursor-help`}
+                                          aria-label={`${tempStripe.label} — ${tempStripe.range}`}
+                                        />
+                                      </TooltipTrigger>
+                                      <TooltipContent side="top" className="text-xs">
+                                        <div className="flex items-center gap-1.5">
+                                          <Thermometer className="w-3 h-3" />
+                                          <span className="font-bold">{tempStripe.label}</span>
+                                        </div>
+                                        <div className="text-[10px] opacity-80 mt-0.5">{tempStripe.range}</div>
+                                      </TooltipContent>
+                                    </Tooltip>
+                                  </TooltipProvider>
+                                )}
                                 <button
                                   type="button"
                                   onClick={() => openProduct(p, sub, t.title)}
@@ -675,6 +698,31 @@ const VolktekMegaCatalog = () => {
                                       <span className="absolute top-2 right-2 inline-flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-md bg-primary text-primary-foreground shadow-sm">
                                         <Eye className="w-2.5 h-2.5" /> Detail
                                       </span>
+                                    )}
+                                    {/* Compatibility icons (overlay bottom-left) */}
+                                    {compatIcons.length > 0 && (
+                                      <TooltipProvider delayDuration={150}>
+                                        <div className="absolute bottom-1.5 left-1.5 flex flex-wrap gap-1 max-w-[80%]">
+                                          {compatIcons.map((c) => {
+                                            const Icon = c.icon;
+                                            return (
+                                              <Tooltip key={c.id}>
+                                                <TooltipTrigger asChild>
+                                                  <span
+                                                    className="inline-flex items-center justify-center w-5 h-5 rounded-md bg-background/90 backdrop-blur border border-border shadow-sm text-foreground/80 hover:text-primary hover:border-primary/40 transition-colors"
+                                                    aria-label={c.label}
+                                                  >
+                                                    <Icon className="w-3 h-3" />
+                                                  </span>
+                                                </TooltipTrigger>
+                                                <TooltipContent side="top" className="text-xs">
+                                                  {c.label}
+                                                </TooltipContent>
+                                              </Tooltip>
+                                            );
+                                          })}
+                                        </div>
+                                      </TooltipProvider>
                                     )}
                                   </div>
                                   <div className="p-4 flex-1 flex flex-col">
