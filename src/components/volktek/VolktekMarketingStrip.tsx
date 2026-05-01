@@ -207,7 +207,7 @@ export default function VolktekMarketingStrip() {
             {FEATURED.map((f) => (
               <button
                 key={f.model}
-                onClick={scrollToCatalog}
+                onClick={() => openProduct(f.product, f.subCategory, f.categoryTitle)}
                 className="group w-full text-left rounded-md border border-border bg-background hover:border-primary/50 hover:shadow-sm transition-all flex items-center gap-2 p-1.5"
                 aria-label={`ดูรายละเอียด ${f.model}`}
               >
@@ -238,6 +238,13 @@ export default function VolktekMarketingStrip() {
           </div>
         </div>
       </div>
+      <VolktekProductDialog
+        product={dialogState?.product ?? null}
+        subCategory={dialogState?.subCategory ?? null}
+        categoryTitle={dialogState?.categoryTitle ?? ""}
+        onClose={() => setDialogState(null)}
+        onSelect={selectFromDialog}
+      />
     </section>
   );
 }
