@@ -319,6 +319,45 @@ const VolktekProductDialog = ({ product, subCategory, categoryTitle, onClose, on
                 </div>
               )}
 
+              {/* Related Solutions — รุ่นนี้เหมาะกับโซลูชันใดบ้าง */}
+              {relatedSolutions.length > 0 && (
+                <div className="mt-6 border-t border-border pt-4">
+                  <div className="flex items-center gap-1.5 mb-2">
+                    <MapPin className="w-4 h-4 text-primary" />
+                    <h4 className="text-sm font-semibold text-foreground">โซลูชันที่ใช้รุ่นนี้</h4>
+                    <span className="text-[10px] text-muted-foreground ml-auto">{relatedSolutions.length} โซลูชัน</span>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground mb-2.5">
+                    คลิกเพื่อดู Real-World Solution ที่ใช้ Volktek {product.model} จริง
+                  </p>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
+                    {relatedSolutions.map((sol) => (
+                      <a
+                        key={sol.id}
+                        href={`/volktek#solutions`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          onClose();
+                          // delay เล็กน้อยให้ Dialog ปิดก่อน scroll
+                          setTimeout(() => {
+                            const el = document.getElementById("solutions");
+                            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                          }, 150);
+                        }}
+                        className="group rounded-lg border border-primary/30 bg-primary/[0.04] hover:bg-primary/10 hover:border-primary/60 transition-all p-2.5 flex flex-col gap-0.5"
+                      >
+                        <span className="text-[9px] font-bold uppercase tracking-wider text-primary/70">
+                          {sol.category}
+                        </span>
+                        <span className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors leading-tight line-clamp-2">
+                          {sol.shortTitle}
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Prev/Next navigator — sticky bottom สำหรับ mobile-friendly */}
               <div className="sticky bottom-0 -mx-6 -mb-6 mt-6 px-4 py-3 bg-background/95 backdrop-blur border-t border-border flex items-center justify-between gap-2 z-10">
                 <Button
