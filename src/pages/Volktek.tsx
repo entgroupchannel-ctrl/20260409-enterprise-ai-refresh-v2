@@ -414,7 +414,7 @@ const Volktek = () => {
         <section className="card-surface overflow-hidden relative">
           <div className="absolute inset-0">
             <img src={heroPartner} alt="" loading="lazy" className="w-full h-full object-cover opacity-20" />
-            <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/60 bg-slate-100" />
+            <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/60 bg-slate-400" />
           </div>
           <div className="relative p-8 md:p-12 text-center max-w-3xl mx-auto">
             <span className="text-xs font-semibold tracking-widest uppercase text-primary mb-2 block">Partner with us</span>
