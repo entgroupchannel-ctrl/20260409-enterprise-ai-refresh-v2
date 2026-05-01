@@ -1,8 +1,11 @@
-import { useState } from "react";
-import { Building2, Store, Building, Home, Hotel, Castle, Layers as LayersIcon, MapPin, CheckCircle2, AlertCircle, Sparkles, ImageIcon } from "lucide-react";
+import { useState, useMemo } from "react";
+import { Building2, Store, Building, Home, Hotel, Castle, Layers as LayersIcon, MapPin, CheckCircle2, AlertCircle, Sparkles, ImageIcon, Package } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
+import { volktekCatalog, type VolktekProduct } from "@/data/volktek-products";
+import AddToCartButton from "@/components/AddToCartButton";
+import QuoteRequestButton from "@/components/QuoteRequestButton";
 
 /**
  * Volktek Solutions — เรียบเรียงจาก volktek.com/solutiondetail_en.php (id 2,4-10)
@@ -29,6 +32,8 @@ type Solution = {
   overview: string;
   considerations: string[];
   benefits: Benefit[];
+  /** รุ่นที่แนะนำสำหรับโซลูชันนี้ — ใช้ model ตรงกับใน volktekCatalog */
+  recommendedModels: string[];
 };
 
 const SOLUTIONS: Solution[] = [
@@ -57,6 +62,7 @@ const SOLUTIONS: Solution[] = [
       { area: "Security", feature: "DHCP Snooping, IP Source Guard, VLAN", benefit: "จำกัดทราฟฟิกขาเข้าและตรวจสอบ source ที่เชื่อถือได้" },
       { area: "Management", feature: "Email Alarm", benefit: "แจ้งเตือนเหตุการณ์สำคัญผ่านอีเมลทันที" },
     ],
+    recommendedModels: ["9561-8GT4XS-TSN", "9560-16GP4XS-I", "9005-24GP2GS", "MEN-6412"],
   },
   {
     id: "small-business",
@@ -81,6 +87,7 @@ const SOLUTIONS: Solution[] = [
       { area: "Security", feature: "Access Control List (ACL) + IP Source Guard", benefit: "ควบคุมทราฟฟิกอย่างละเอียด เพิ่มความปลอดภัย" },
       { area: "Management", feature: "Email Alarm", benefit: "แจ้งเตือนผ่านอีเมลเมื่อเกิดเหตุ" },
     ],
+    recommendedModels: ["MEN-3410", "MEN-3406", "INS-8424P", "IEN-8408P-24V"],
   },
   {
     id: "convenience-stores",
@@ -106,6 +113,7 @@ const SOLUTIONS: Solution[] = [
       { area: "Security", feature: "Port-Security + DHCP Snooping", benefit: "จำกัดทราฟฟิกขาเข้า ตรวจสอบ source ที่ไว้ใจได้" },
       { area: "Management", feature: "SNMP + TRAP", benefit: "Monitor เครือข่ายจากจุดเดียวกลางสำนักงาน" },
     ],
+    recommendedModels: ["MEN-3406", "INS-8424P", "IEN-8205P-24V", "HNS-8405P"],
   },
   {
     id: "high-rise",
@@ -131,6 +139,7 @@ const SOLUTIONS: Solution[] = [
       { area: "Security", feature: "Access Control List (ACL)", benefit: "ควบคุมทราฟฟิกได้ละเอียด" },
       { area: "Management", feature: "SNMP + TRAP", benefit: "Monitor จากศูนย์กลางได้ทันที" },
     ],
+    recommendedModels: ["9005-24GP2GS", "9005-16GP2GS", "MEN-6412", "INS-8624P"],
   },
   {
     id: "property-developers",
@@ -157,6 +166,7 @@ const SOLUTIONS: Solution[] = [
       { area: "Security", feature: "Access Control List (ACL)", benefit: "ควบคุมทราฟฟิกอย่างละเอียด" },
       { area: "Management", feature: "SNMP + TRAP", benefit: "Monitor จากจุดเดียว" },
     ],
+    recommendedModels: ["MEN-6412", "9005-24GP2GS", "INS-8624P", "MEN-3410"],
   },
   {
     id: "villas",
@@ -182,6 +192,7 @@ const SOLUTIONS: Solution[] = [
       { area: "Security", feature: "Access Control List (ACL)", benefit: "ควบคุมทราฟฟิกได้ละเอียด" },
       { area: "Management", feature: "SNMP + TRAP", benefit: "Monitor เครือข่ายจากศูนย์กลาง" },
     ],
+    recommendedModels: ["MEN-3406", "INS-840G", "INS-8005A", "INS-8405A"],
   },
   {
     id: "townhouses",
@@ -207,6 +218,7 @@ const SOLUTIONS: Solution[] = [
       { area: "Security", feature: "Port-Security, DHCP Snooping, Device Locking", benefit: "ป้องกันการเข้าถึงและขโมยอุปกรณ์ — last mile protection" },
       { area: "Management", feature: "SNMP + TRAP", benefit: "Monitor จากศูนย์กลาง" },
     ],
+    recommendedModels: ["MEN-3410", "MEN-3406", "IEN-8225P-24V", "INS-8424P"],
   },
   {
     id: "condos",
@@ -233,11 +245,26 @@ const SOLUTIONS: Solution[] = [
       { area: "Security", feature: "Device Locking", benefit: "Last mile protection — อุปกรณ์ทำงานเฉพาะเครือข่ายที่ตั้งไว้" },
       { area: "Management", feature: "SNMP + TRAP", benefit: "Monitor เครือข่ายจากจุดเดียว" },
     ],
+    recommendedModels: ["MEN-6412", "9005-16GP2GS", "INS-8624P", "MEN-3410"],
   },
 ];
 
+/** Build lookup map: model → { product, categoryTitle } จาก volktekCatalog */
+function buildProductLookup(): Map<string, { product: VolktekProduct; categoryTitle: string }> {
+  const map = new Map<string, { product: VolktekProduct; categoryTitle: string }>();
+  for (const cat of volktekCatalog) {
+    for (const sub of cat.subCategories) {
+      for (const p of sub.products) {
+        if (!map.has(p.model)) map.set(p.model, { product: p, categoryTitle: cat.title });
+      }
+    }
+  }
+  return map;
+}
+
 export default function VolktekSolutions() {
   const [activeTab, setActiveTab] = useState(SOLUTIONS[0].id);
+  const productLookup = useMemo(() => buildProductLookup(), []);
 
   return (
     <section id="solutions" className="scroll-mt-24">
@@ -376,6 +403,93 @@ export default function VolktekSolutions() {
                   แตะค้างที่ภาพเพื่อซูมดูรายละเอียด
                 </p>
               </div>
+
+              {/* Recommended Products for this solution */}
+              {(() => {
+                const items = s.recommendedModels
+                  .map((m) => productLookup.get(m))
+                  .filter((x): x is { product: VolktekProduct; categoryTitle: string } => Boolean(x));
+                if (items.length === 0) return null;
+                return (
+                  <div className="mt-5 rounded-xl border border-primary/30 bg-primary/[0.03] p-3 sm:p-4 md:p-5">
+                    <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+                      <div className="flex items-center gap-2">
+                        <Package className="w-4 h-4 text-primary shrink-0" />
+                        <h4 className="text-sm font-bold text-foreground">รุ่นที่แนะนำสำหรับโซลูชันนี้</h4>
+                        <span className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-primary text-primary-foreground">
+                          {items.length} รุ่น
+                        </span>
+                      </div>
+                      <span className="text-[10px] text-muted-foreground">
+                        คัดเลือกโดย ENT Group ตาม Application Diagram และความต้องการของงาน
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                      {items.map(({ product: p, categoryTitle }) => (
+                        <div
+                          key={p.model}
+                          className="rounded-lg border border-border bg-background overflow-hidden hover:border-primary/50 hover:-translate-y-0.5 transition-all flex flex-col"
+                        >
+                          <div className="aspect-[4/3] bg-muted/30 flex items-center justify-center overflow-hidden">
+                            <img
+                              src={p.image}
+                              alt={p.model}
+                              loading="lazy"
+                              className="w-full h-full object-contain p-3"
+                            />
+                          </div>
+                          <div className="p-3 flex-1 flex flex-col">
+                            <span className="text-[9px] font-semibold uppercase tracking-wider text-muted-foreground mb-1 line-clamp-1">
+                              {categoryTitle}
+                            </span>
+                            <div className="font-mono text-xs sm:text-sm font-bold text-foreground mb-1 leading-tight">
+                              {p.model}
+                            </div>
+                            <p className="text-[10px] sm:text-xs text-muted-foreground leading-snug line-clamp-2 mb-2">
+                              {p.description}
+                            </p>
+                            <div className="flex flex-wrap gap-1 mb-2.5 mt-auto">
+                              {p.features.slice(0, 3).map((f) => (
+                                <span
+                                  key={f}
+                                  className="text-[9px] font-semibold px-1.5 py-0.5 rounded-md bg-primary/10 text-primary border border-primary/20"
+                                >
+                                  {f}
+                                </span>
+                              ))}
+                            </div>
+                            <div className="flex gap-1.5 mt-auto">
+                              <AddToCartButton
+                                productModel={p.model}
+                                productName={`Volktek ${p.model}`}
+                                productDescription={p.description}
+                                size="sm"
+                                variant="outline"
+                                iconOnly
+                              />
+                              <QuoteRequestButton
+                                productModel={p.model}
+                                productName={`Volktek ${p.model}`}
+                                size="sm"
+                                variant="outline"
+                                iconOnly
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-4 flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-border/60">
+                      <p className="text-[11px] text-muted-foreground">
+                        ต้องการคำแนะนำเพิ่มเติม? ทีมวิศวกร ENT Group ช่วยเลือกรุ่นที่เหมาะกับโครงการของคุณ
+                      </p>
+                      <Button asChild size="sm" variant="outline">
+                        <a href="#catalog">ดู Catalog ทั้งหมด</a>
+                      </Button>
+                    </div>
+                  </div>
+                );
+              })()}
             </TabsContent>
           ))}
         </Tabs>
