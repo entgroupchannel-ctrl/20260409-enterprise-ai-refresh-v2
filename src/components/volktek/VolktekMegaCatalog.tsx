@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import AddToCartButton from "@/components/AddToCartButton";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import VolktekProductDialog from "@/components/volktek/VolktekProductDialog";
 import {
   volktekLayer3,
@@ -169,91 +170,68 @@ const VolktekMegaCatalog = () => {
         </p>
       </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab}>
-        {/* Visual category card grid — replaces flat tab strip for stronger visual hierarchy */}
-        <TabsList className="h-auto p-0 bg-transparent grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5 md:gap-3 mb-6 w-full">
-          {TABS.map((t) => {
-            const count = totalModels(t.category);
-            const isActive = activeTab === t.id;
-            return (
-              <TabsTrigger
-                key={t.id}
-                value={t.id}
-                className={`group relative h-auto p-0 overflow-hidden rounded-xl border transition-all duration-300 hover:-translate-y-0.5 data-[state=active]:shadow-lg ${
-                  isActive
-                    ? "border-primary shadow-lg ring-2 ring-primary/30"
-                    : "border-border hover:border-primary/40"
-                }`}
-                aria-label={t.title}
-              >
-                {/* Background image */}
-                <div className="absolute inset-0">
-                  <img
-                    src={t.image}
-                    alt=""
-                    aria-hidden="true"
-                    loading="lazy"
-                    className={`w-full h-full object-cover transition-all duration-500 ${
-                      isActive
-                        ? "scale-110 opacity-100"
-                        : "scale-100 opacity-60 group-hover:opacity-90 group-hover:scale-105"
-                    }`}
-                  />
-                  <div
-                    className={`absolute inset-0 transition-opacity duration-300 ${
-                      isActive
-                        ? "bg-gradient-to-br from-primary/90 via-primary/70 to-primary/50"
-                        : "bg-gradient-to-br from-background/95 via-background/85 to-background/70 group-hover:from-background/85 group-hover:via-background/70"
-                    }`}
-                  />
-                </div>
+      {/* Recommendation hint bar */}
+      <div className="mb-4 flex items-center justify-center gap-2 text-xs md:text-sm text-muted-foreground">
+        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary font-medium">
+          <ArrowRight className="w-3.5 h-3.5" />
+          ไม่แน่ใจเลือกหมวดไหน? ใช้ <span className="font-bold underline">Switch Finder</span> ด้านบน หรือเริ่มจาก Industrial PoE / Layer 3
+        </span>
+      </div>
 
-                {/* Content */}
-                <div className="relative z-10 flex flex-col items-start gap-2 p-3 md:p-4 w-full min-h-[110px] md:min-h-[125px]">
-                  <div className="flex items-center justify-between w-full">
-                    <div
-                      className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors ${
+      <Tabs value={activeTab} onValueChange={setActiveTab}>
+        {/* Compact text-based pill tabs — max 2 rows, dark surface, with tooltip hints */}
+        <TooltipProvider delayDuration={150}>
+          <TabsList className="h-auto p-2 md:p-2.5 bg-foreground/95 dark:bg-background/80 border border-foreground/90 dark:border-border rounded-2xl grid grid-cols-3 sm:grid-cols-5 gap-1.5 md:gap-2 mb-6 w-full shadow-lg">
+            {TABS.map((t) => {
+              const count = totalModels(t.category);
+              const isActive = activeTab === t.id;
+              return (
+                <Tooltip key={t.id}>
+                  <TooltipTrigger asChild>
+                    <TabsTrigger
+                      value={t.id}
+                      className={`group relative h-auto py-2 px-2.5 md:px-3 rounded-xl border transition-all duration-200 flex items-center justify-center gap-1.5 md:gap-2 ${
                         isActive
-                          ? "bg-primary-foreground/20 backdrop-blur-sm"
-                          : "bg-primary/10 border border-primary/30"
+                          ? "bg-primary text-primary-foreground border-primary shadow-md scale-[1.02]"
+                          : "bg-transparent text-background dark:text-foreground border-transparent hover:bg-background/10 dark:hover:bg-foreground/5 hover:border-primary/40"
                       }`}
+                      aria-label={t.title}
                     >
                       <t.icon
-                        className={`w-4 h-4 ${
+                        className={`w-3.5 h-3.5 md:w-4 md:h-4 shrink-0 ${
                           isActive ? "text-primary-foreground" : "text-primary"
                         }`}
                       />
-                    </div>
-                    {count > 0 && (
-                      <span
-                        className={`text-[10px] font-bold font-mono px-1.5 py-0.5 rounded-md ${
-                          isActive
-                            ? "bg-primary-foreground/20 text-primary-foreground"
-                            : "bg-primary/15 text-primary"
-                        }`}
-                      >
-                        {count} รุ่น
+                      <span className="text-[11px] md:text-xs font-bold leading-none truncate">
+                        {t.shortTitle}
                       </span>
+                      {count > 0 && (
+                        <span
+                          className={`hidden md:inline-flex text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-md ${
+                            isActive
+                              ? "bg-primary-foreground/25 text-primary-foreground"
+                              : "bg-primary/20 text-primary"
+                          }`}
+                        >
+                          {count}
+                        </span>
+                      )}
+                    </TabsTrigger>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom" className="max-w-[260px] text-xs">
+                    <div className="font-bold mb-1">{t.title}</div>
+                    <div className="text-[11px] opacity-90 leading-relaxed">{t.desc}</div>
+                    {count > 0 && (
+                      <div className="mt-1.5 text-[10px] font-mono text-primary">
+                        มี {count} รุ่นในหมวดนี้
+                      </div>
                     )}
-                  </div>
-
-                  <div
-                    className={`text-left text-xs md:text-sm font-bold leading-tight whitespace-normal mt-auto ${
-                      isActive ? "text-primary-foreground" : "text-foreground"
-                    }`}
-                  >
-                    {t.shortTitle}
-                  </div>
-                </div>
-
-                {/* Active indicator bar */}
-                {isActive && (
-                  <span className="absolute bottom-0 left-0 right-0 h-1 bg-primary-foreground/40" />
-                )}
-              </TabsTrigger>
-            );
-          })}
-        </TabsList>
+                  </TooltipContent>
+                </Tooltip>
+              );
+            })}
+          </TabsList>
+        </TooltipProvider>
 
         {TABS.map((t) => {
           const cat = t.category;
