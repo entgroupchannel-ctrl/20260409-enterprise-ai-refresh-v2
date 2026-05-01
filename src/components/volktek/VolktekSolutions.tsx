@@ -32,6 +32,8 @@ type Solution = {
   overview: string;
   considerations: string[];
   benefits: Benefit[];
+  /** รุ่นที่แนะนำสำหรับโซลูชันนี้ — ใช้ model ตรงกับใน volktekCatalog */
+  recommendedModels: string[];
 };
 
 const SOLUTIONS: Solution[] = [
