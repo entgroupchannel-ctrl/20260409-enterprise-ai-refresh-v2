@@ -356,7 +356,7 @@ export default function VolktekSolutions() {
                   {(() => {
                     const items = s.recommendedModels
                       .map((m) => productLookup.get(m))
-                      .filter((x): x is { product: VolktekProduct; categoryTitle: string } => Boolean(x));
+                      .filter((x): x is LookupEntry => Boolean(x));
                     if (items.length === 0) return null;
                     return (
                       <div className="rounded-xl border border-primary/30 bg-primary/[0.03] p-3 flex-1 flex flex-col">
@@ -373,46 +373,53 @@ export default function VolktekSolutions() {
                           {items.map(({ product: p }) => (
                             <div
                               key={p.model}
-                              className="rounded-lg border border-border bg-background overflow-hidden hover:border-primary/50 transition-all flex flex-col group"
+                              className="rounded-lg border border-border bg-background overflow-hidden hover:border-primary/50 hover:shadow-sm transition-all flex flex-col group"
                             >
-                              <div className="aspect-[4/3] bg-muted/30 flex items-center justify-center overflow-hidden">
-                                <img
-                                  src={p.image}
-                                  alt={p.model}
-                                  loading="lazy"
-                                  className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform"
+                              <button
+                                type="button"
+                                onClick={() => openProduct(p.model)}
+                                aria-label={`ดูรายละเอียด Volktek ${p.model}`}
+                                className="text-left flex flex-col flex-1 focus:outline-none focus:ring-2 focus:ring-primary/40 rounded-t-lg"
+                              >
+                                <div className="aspect-[4/3] bg-muted/30 flex items-center justify-center overflow-hidden">
+                                  <img
+                                    src={p.image}
+                                    alt={p.model}
+                                    loading="lazy"
+                                    className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform"
+                                  />
+                                </div>
+                                <div className="p-2 flex flex-col gap-1.5">
+                                  <div className="font-mono text-[11px] font-bold text-primary leading-tight line-clamp-1 group-hover:underline">
+                                    {p.model}
+                                  </div>
+                                  <p className="text-[10px] text-muted-foreground leading-snug line-clamp-2">
+                                    {p.description}
+                                  </p>
+                                </div>
+                              </button>
+                              <div className="px-2 pb-2 flex gap-1 mt-auto">
+                                <AddToCartButton
+                                  productModel={p.model}
+                                  productName={`Volktek ${p.model}`}
+                                  productDescription={p.description}
+                                  size="sm"
+                                  variant="outline"
+                                  iconOnly
                                 />
-                              </div>
-                              <div className="p-2 flex-1 flex flex-col gap-1.5">
-                                <div className="font-mono text-[11px] font-bold text-foreground leading-tight line-clamp-1">
-                                  {p.model}
-                                </div>
-                                <p className="text-[10px] text-muted-foreground leading-snug line-clamp-2 mb-1">
-                                  {p.description}
-                                </p>
-                                <div className="flex gap-1 mt-auto">
-                                  <AddToCartButton
-                                    productModel={p.model}
-                                    productName={`Volktek ${p.model}`}
-                                    productDescription={p.description}
-                                    size="sm"
-                                    variant="outline"
-                                    iconOnly
-                                  />
-                                  <QuoteRequestButton
-                                    productModel={p.model}
-                                    productName={`Volktek ${p.model}`}
-                                    size="sm"
-                                    variant="outline"
-                                    iconOnly
-                                  />
-                                </div>
+                                <QuoteRequestButton
+                                  productModel={p.model}
+                                  productName={`Volktek ${p.model}`}
+                                  size="sm"
+                                  variant="outline"
+                                  iconOnly
+                                />
                               </div>
                             </div>
                           ))}
                         </div>
                         <p className="mt-2.5 text-[10px] text-muted-foreground text-center">
-                          คัดเลือกโดย ENT Group ตาม Application Diagram
+                          คลิกที่รุ่นเพื่อดูสเปคแบบเต็ม
                         </p>
                       </div>
                     );
