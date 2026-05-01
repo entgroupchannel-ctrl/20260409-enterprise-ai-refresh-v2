@@ -15,8 +15,9 @@ import {
 } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 import {
-  Search, Mail, UserCheck, UserX, Download, RefreshCw, Eye,
+  Search, Mail, UserCheck, UserX, Download, RefreshCw, Eye, Upload,
 } from 'lucide-react';
+import SubscribersImportDialog from '@/components/admin/SubscribersImportDialog';
 
 interface Subscriber {
   id: string;
@@ -36,6 +37,7 @@ const AdminSubscribers = () => {
   const [selected, setSelected] = useState<Subscriber | null>(null);
   const [noteText, setNoteText] = useState('');
   const [saving, setSaving] = useState(false);
+  const [importOpen, setImportOpen] = useState(false);
   const { toast } = useToast();
 
   const fetchSubscribers = async () => {
@@ -167,6 +169,9 @@ const AdminSubscribers = () => {
             <Button variant="outline" size="sm" onClick={exportCSV}>
               <Download className="w-4 h-4 mr-1" /> Export CSV
             </Button>
+            <Button size="sm" onClick={() => setImportOpen(true)}>
+              <Upload className="w-4 h-4 mr-1" /> Import CSV
+            </Button>
           </div>
         </CardContent>
       </Card>
@@ -283,6 +288,12 @@ const AdminSubscribers = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      <SubscribersImportDialog
+        open={importOpen}
+        onOpenChange={setImportOpen}
+        onImported={fetchSubscribers}
+      />
     </AdminPageLayout>
     </AdminLayout>
   );
