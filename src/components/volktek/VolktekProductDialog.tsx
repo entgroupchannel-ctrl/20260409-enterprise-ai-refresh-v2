@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, CheckCircle2, Sparkles, Phone, MessageCircle, Gift, Cpu, Zap, ThermometerSun, Ruler, Plug, FileText } from "lucide-react";
+import { ChevronLeft, ChevronRight, CheckCircle2, Sparkles, Phone, MessageCircle, Gift, Cpu, Zap, ThermometerSun, Ruler, Plug, FileText, MapPin } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -6,6 +6,7 @@ import AddToCartButton from "@/components/AddToCartButton";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
 import LineQRButton from "@/components/LineQRButton";
 import type { VolktekProduct, VolktekSubCategory } from "@/data/volktek-products";
+import { getSolutionsForModel } from "@/data/volktek-solutions-map";
 
 type Props = {
   product: VolktekProduct | null;
@@ -27,6 +28,7 @@ const VolktekProductDialog = ({ product, subCategory, categoryTitle, onClose, on
           const prev = idx > 0 ? list[idx - 1] : list[list.length - 1];
           const next = idx < list.length - 1 ? list[idx + 1] : list[0];
           const related = list.filter((m) => m.model !== product.model).slice(0, 6);
+          const relatedSolutions = getSolutionsForModel(product.model);
           const d = product.details;
 
           return (
@@ -312,6 +314,45 @@ const VolktekProductDialog = ({ product, subCategory, categoryTitle, onClose, on
                         </div>
                         <p className="font-mono text-[10px] font-semibold text-foreground truncate">{m.model}</p>
                       </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Related Solutions — รุ่นนี้เหมาะกับโซลูชันใดบ้าง */}
+              {relatedSolutions.length > 0 && (
+                <div className="mt-6 border-t border-border pt-4">
+                  <div className="flex items-center gap-1.5 mb-2">
+                    <MapPin className="w-4 h-4 text-primary" />
+                    <h4 className="text-sm font-semibold text-foreground">โซลูชันที่ใช้รุ่นนี้</h4>
+                    <span className="text-[10px] text-muted-foreground ml-auto">{relatedSolutions.length} โซลูชัน</span>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground mb-2.5">
+                    คลิกเพื่อดู Real-World Solution ที่ใช้ Volktek {product.model} จริง
+                  </p>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
+                    {relatedSolutions.map((sol) => (
+                      <a
+                        key={sol.id}
+                        href={`/volktek#solutions`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          onClose();
+                          // delay เล็กน้อยให้ Dialog ปิดก่อน scroll
+                          setTimeout(() => {
+                            const el = document.getElementById("solutions");
+                            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                          }, 150);
+                        }}
+                        className="group rounded-lg border border-primary/30 bg-primary/[0.04] hover:bg-primary/10 hover:border-primary/60 transition-all p-2.5 flex flex-col gap-0.5"
+                      >
+                        <span className="text-[9px] font-bold uppercase tracking-wider text-primary/70">
+                          {sol.category}
+                        </span>
+                        <span className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors leading-tight line-clamp-2">
+                          {sol.shortTitle}
+                        </span>
+                      </a>
                     ))}
                   </div>
                 </div>
