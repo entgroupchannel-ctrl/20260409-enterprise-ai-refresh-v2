@@ -31,35 +31,6 @@ const VolktekProductDialog = ({ product, subCategory, categoryTitle, onClose, on
 
           return (
             <>
-              {/* Prev/Next navigator */}
-              <div className="flex items-center justify-between gap-2 -mt-2 mb-1 pr-10">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => onSelect(prev)}
-                  disabled={list.length < 2}
-                  className="gap-1 h-8"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                  <span className="hidden sm:inline">รุ่นก่อนหน้า</span>
-                  <span className="font-mono text-[10px] text-muted-foreground hidden md:inline">{prev.model}</span>
-                </Button>
-                <span className="text-[11px] text-muted-foreground">
-                  {idx + 1} / {list.length} ใน {subCategory.title}
-                </span>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => onSelect(next)}
-                  disabled={list.length < 2}
-                  className="gap-1 h-8"
-                >
-                  <span className="font-mono text-[10px] text-muted-foreground hidden md:inline">{next.model}</span>
-                  <span className="hidden sm:inline">รุ่นถัดไป</span>
-                  <ChevronRight className="w-4 h-4" />
-                </Button>
-              </div>
-
               <DialogHeader>
                 <div className="flex items-center gap-2 flex-wrap mb-1">
                   <Badge variant="outline" className="text-[10px]">{categoryTitle}</Badge>
