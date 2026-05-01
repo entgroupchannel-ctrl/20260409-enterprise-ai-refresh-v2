@@ -17,6 +17,7 @@ import MiniNavbar from "@/components/MiniNavbar";
 import VolktekMegaCatalog from "@/components/volktek/VolktekMegaCatalog";
 import VolktekMarketingStrip from "@/components/volktek/VolktekMarketingStrip";
 import VolktekSwitchFinder from "@/components/volktek/VolktekSwitchFinder";
+import VolktekSolutions from "@/components/volktek/VolktekSolutions";
 
 // Official assets from volktek.com
 import heroSpe from "@/assets/volktek/hero-spe.png";
@@ -347,6 +348,9 @@ const Volktek = () => {
 
         {/* Marketing Strip — 5 featured campaign visuals */}
         <VolktekMarketingStrip />
+
+        {/* Solutions — 8 application solutions แบบ Tabs (เรียบเรียงจาก volktek.com) */}
+        <VolktekSolutions />
 
         {/* LAMUNGAN Platform — EMS spotlight */}
         <section className="card-surface overflow-hidden">
