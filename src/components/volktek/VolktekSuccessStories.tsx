@@ -88,6 +88,7 @@ const stories: Story[] = [
     solution:
       "Tokyo Electron เลือก Volktek INS-8408A เป็น Backbone ของ Prexa™ MS เพราะความน่าเชื่อถือและประสิทธิภาพคงที่ในงาน High-Load",
     models: ["INS-8408A"],
+    relatedModels: ["INS-8408A", "INS-8408E", "INS-8108E", "INS-8624", "INS-8408P-24V"],
     benefits: [
       "Throughput สูง รับข้อมูลทดสอบ DRAM ปริมาณมาก",
       "เสถียรในงาน High-Load ตลอดสายการผลิต",
