@@ -113,26 +113,30 @@ const VolktekProductDialog = ({ product, subCategory, categoryTitle, onClose, on
                   </div>
 
                   {/* Power + Temp ที่สำคัญ */}
-                  {d && (
+                  {d && (d.power || d.environment) && (
                     <div className="grid grid-cols-2 gap-2.5">
-                      <div className="rounded-lg border border-border bg-background/40 p-2.5">
-                        <div className="flex items-center gap-1 mb-0.5">
-                          <Zap className="w-3 h-3 text-amber-500" />
-                          <span className="text-[10px] uppercase tracking-wide text-muted-foreground font-semibold">Power</span>
+                      {d.power && (
+                        <div className="rounded-lg border border-border bg-background/40 p-2.5">
+                          <div className="flex items-center gap-1 mb-0.5">
+                            <Zap className="w-3 h-3 text-amber-500" />
+                            <span className="text-[10px] uppercase tracking-wide text-muted-foreground font-semibold">Power</span>
+                          </div>
+                          <p className="text-xs font-semibold text-foreground leading-snug">{d.power.input}</p>
+                          {d.power.poeBudget && (
+                            <p className="text-[10px] text-amber-600 dark:text-amber-400 font-semibold mt-1">{d.power.poeBudget}</p>
+                          )}
                         </div>
-                        <p className="text-xs font-semibold text-foreground leading-snug">{d.power.input}</p>
-                        {d.power.poeBudget && (
-                          <p className="text-[10px] text-amber-600 dark:text-amber-400 font-semibold mt-1">{d.power.poeBudget}</p>
-                        )}
-                      </div>
-                      <div className="rounded-lg border border-border bg-background/40 p-2.5">
-                        <div className="flex items-center gap-1 mb-0.5">
-                          <ThermometerSun className="w-3 h-3 text-orange-500" />
-                          <span className="text-[10px] uppercase tracking-wide text-muted-foreground font-semibold">Operating Temp</span>
+                      )}
+                      {d.environment && (
+                        <div className="rounded-lg border border-border bg-background/40 p-2.5">
+                          <div className="flex items-center gap-1 mb-0.5">
+                            <ThermometerSun className="w-3 h-3 text-orange-500" />
+                            <span className="text-[10px] uppercase tracking-wide text-muted-foreground font-semibold">Operating Temp</span>
+                          </div>
+                          <p className="text-xs font-semibold text-foreground leading-snug">{d.environment.tempOperating}</p>
+                          <p className="text-[10px] text-muted-foreground mt-1">{d.environment.housing}</p>
                         </div>
-                        <p className="text-xs font-semibold text-foreground leading-snug">{d.environment.tempOperating}</p>
-                        <p className="text-[10px] text-muted-foreground mt-1">{d.environment.housing}</p>
-                      </div>
+                      )}
                     </div>
                   )}
 
@@ -180,7 +184,7 @@ const VolktekProductDialog = ({ product, subCategory, categoryTitle, onClose, on
                 <div className="mt-5 border-t border-border pt-4">
                   <p className="text-[10px] uppercase tracking-wide text-primary font-bold mb-3">สเปคโดยย่อ</p>
                   <dl className="grid sm:grid-cols-2 gap-x-5 gap-y-2 text-xs">
-                    {d.ports.length > 4 && (
+                    {d.ports && d.ports.length > 4 && (
                       <div className="sm:col-span-2 flex flex-col gap-0.5 pb-1.5 border-b border-border/40">
                         <dt className="text-[10px] uppercase text-muted-foreground font-semibold tracking-wide">Interface ครบ</dt>
                         <dd className="text-foreground">
@@ -199,30 +203,40 @@ const VolktekProductDialog = ({ product, subCategory, categoryTitle, onClose, on
                         <dd className="text-foreground font-mono text-[11px]">{d.ledPanel}</dd>
                       </div>
                     )}
-                    <div className="flex flex-col gap-0.5 pb-1.5 border-b border-border/40">
-                      <dt className="text-[10px] uppercase text-muted-foreground font-semibold tracking-wide">Power Consumption</dt>
-                      <dd className="text-foreground">{d.power.consumption}</dd>
-                    </div>
-                    <div className="flex flex-col gap-0.5 pb-1.5 border-b border-border/40">
-                      <dt className="text-[10px] uppercase text-muted-foreground font-semibold tracking-wide">Storage Temp</dt>
-                      <dd className="text-foreground">{d.environment.tempStorage}</dd>
-                    </div>
-                    <div className="flex flex-col gap-0.5 pb-1.5 border-b border-border/40">
-                      <dt className="text-[10px] uppercase text-muted-foreground font-semibold tracking-wide">Humidity</dt>
-                      <dd className="text-foreground">{d.environment.humidity}</dd>
-                    </div>
-                    <div className="flex flex-col gap-0.5 pb-1.5 border-b border-border/40">
-                      <dt className="text-[10px] uppercase text-muted-foreground font-semibold tracking-wide flex items-center gap-1">
-                        <Ruler className="w-3 h-3" /> Dimension
-                      </dt>
-                      <dd className="text-foreground">{d.physical.dimension}</dd>
-                    </div>
-                    <div className="flex flex-col gap-0.5 pb-1.5 border-b border-border/40">
-                      <dt className="text-[10px] uppercase text-muted-foreground font-semibold tracking-wide flex items-center gap-1">
-                        <Cpu className="w-3 h-3" /> Weight
-                      </dt>
-                      <dd className="text-foreground">{d.physical.weight}</dd>
-                    </div>
+                    {d.power && (
+                      <div className="flex flex-col gap-0.5 pb-1.5 border-b border-border/40">
+                        <dt className="text-[10px] uppercase text-muted-foreground font-semibold tracking-wide">Power Consumption</dt>
+                        <dd className="text-foreground">{d.power.consumption}</dd>
+                      </div>
+                    )}
+                    {d.environment?.tempStorage && (
+                      <div className="flex flex-col gap-0.5 pb-1.5 border-b border-border/40">
+                        <dt className="text-[10px] uppercase text-muted-foreground font-semibold tracking-wide">Storage Temp</dt>
+                        <dd className="text-foreground">{d.environment.tempStorage}</dd>
+                      </div>
+                    )}
+                    {d.environment?.humidity && (
+                      <div className="flex flex-col gap-0.5 pb-1.5 border-b border-border/40">
+                        <dt className="text-[10px] uppercase text-muted-foreground font-semibold tracking-wide">Humidity</dt>
+                        <dd className="text-foreground">{d.environment.humidity}</dd>
+                      </div>
+                    )}
+                    {d.physical && (
+                      <div className="flex flex-col gap-0.5 pb-1.5 border-b border-border/40">
+                        <dt className="text-[10px] uppercase text-muted-foreground font-semibold tracking-wide flex items-center gap-1">
+                          <Ruler className="w-3 h-3" /> Dimension
+                        </dt>
+                        <dd className="text-foreground">{d.physical.dimension}</dd>
+                      </div>
+                    )}
+                    {d.physical && (
+                      <div className="flex flex-col gap-0.5 pb-1.5 border-b border-border/40">
+                        <dt className="text-[10px] uppercase text-muted-foreground font-semibold tracking-wide flex items-center gap-1">
+                          <Cpu className="w-3 h-3" /> Weight
+                        </dt>
+                        <dd className="text-foreground">{d.physical.weight}</dd>
+                      </div>
+                    )}
                   </dl>
                   <p className="text-[10px] text-muted-foreground italic mt-3">
                     * รายละเอียดเชิงลึก (Standards / Software Features / Routing / Security ทั้งหมด) สอบถามทีมงานเพื่อเลือกรุ่นที่เหมาะกับโครงการของคุณ
