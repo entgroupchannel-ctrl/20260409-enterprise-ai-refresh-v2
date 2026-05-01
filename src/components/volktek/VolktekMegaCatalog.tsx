@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Layers, Network, Zap, Globe, Cable, Activity, Radio, Wifi, Shield, Cpu, ArrowRight, Eye, Filter, X } from "lucide-react";
+import { Layers, Network, Zap, Globe, Cable, Activity, Radio, Wifi, Shield, Cpu, ArrowRight, Eye, Filter, X, Camera, Ship, Sun, Factory, Antenna, Car, Building2, Thermometer } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AddToCartButton from "@/components/AddToCartButton";
