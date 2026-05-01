@@ -249,8 +249,22 @@ const SOLUTIONS: Solution[] = [
   },
 ];
 
+/** Build lookup map: model → { product, categoryTitle } จาก volktekCatalog */
+function buildProductLookup(): Map<string, { product: VolktekProduct; categoryTitle: string }> {
+  const map = new Map<string, { product: VolktekProduct; categoryTitle: string }>();
+  for (const cat of volktekCatalog) {
+    for (const sub of cat.subCategories) {
+      for (const p of sub.products) {
+        if (!map.has(p.model)) map.set(p.model, { product: p, categoryTitle: cat.title });
+      }
+    }
+  }
+  return map;
+}
+
 export default function VolktekSolutions() {
   const [activeTab, setActiveTab] = useState(SOLUTIONS[0].id);
+  const productLookup = useMemo(() => buildProductLookup(), []);
 
   return (
     <section id="solutions" className="scroll-mt-24">
