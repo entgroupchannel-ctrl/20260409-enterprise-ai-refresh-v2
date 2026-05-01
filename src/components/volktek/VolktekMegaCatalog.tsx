@@ -18,6 +18,16 @@ import {
   type VolktekProduct,
   type VolktekSubCategory,
 } from "@/data/volktek-products";
+import catLayer3 from "@/assets/volktek/cat-layer3.jpg";
+import catIndustrialEthernet from "@/assets/volktek/cat-industrial-ethernet.jpg";
+import catIndustrialPoe from "@/assets/volktek/cat-industrial-poe.jpg";
+import catMetroEthernet from "@/assets/volktek/cat-metro-ethernet.jpg";
+import catMediaConverter from "@/assets/volktek/cat-media-converter.jpg";
+import catEmsNms from "@/assets/volktek/cat-ems-nms.png";
+import catSfp from "@/assets/volktek/cat-sfp.jpg";
+import catPoeInjector from "@/assets/volktek/cat-poe-injector.jpg";
+import catFirewall from "@/assets/volktek/cat-firewall.jpg";
+import catAccessories from "@/assets/volktek/cat-accessories.jpg";
 
 type TabMeta = {
   id: string;
@@ -25,6 +35,7 @@ type TabMeta = {
   shortTitle: string;
   icon: LucideIcon;
   desc: string;
+  image: string;
   category?: VolktekCategory;
   externalHref: string;
 };
@@ -36,6 +47,7 @@ const TABS: TabMeta[] = [
     shortTitle: "Layer 3",
     icon: Layers,
     desc: "L3 Managed Switches รองรับ Routing, TSN สำหรับเครือข่ายอุตสาหกรรมขั้นสูง",
+    image: catLayer3,
     category: volktekLayer3,
     externalHref: "https://www.volktek.com/product_en.php?id=663",
   },
@@ -45,6 +57,7 @@ const TABS: TabMeta[] = [
     shortTitle: "Industrial Ethernet",
     icon: Network,
     desc: "Unmanaged, Lite Managed, Managed และ DNV/LR Certified สำหรับงานทางทะเล",
+    image: catIndustrialEthernet,
     category: volktekIndustrialEthernet,
     externalHref: "https://www.volktek.com/product_en.php?id=52",
   },
@@ -54,6 +67,7 @@ const TABS: TabMeta[] = [
     shortTitle: "Industrial PoE",
     icon: Zap,
     desc: "PoE+, PoE++, BT PoE — จ่ายไฟผ่านสาย LAN ให้กล้อง IP, AP, IoT",
+    image: catIndustrialPoe,
     category: volktekIndustrialPoe,
     externalHref: "https://www.volktek.com/product_en.php?id=51",
   },
@@ -63,6 +77,7 @@ const TABS: TabMeta[] = [
     shortTitle: "Metro Ethernet",
     icon: Globe,
     desc: "1G / 10G Aggregation และ Access Switches สำหรับ Service Provider",
+    image: catMetroEthernet,
     category: volktekMetroEthernet,
     externalHref: "https://www.volktek.com/product_en.php?id=50",
   },
@@ -72,6 +87,7 @@ const TABS: TabMeta[] = [
     shortTitle: "Media Converter",
     icon: Cable,
     desc: "แปลง Copper ↔ Fiber, Serial ↔ Fiber, SPE Converters พร้อมรุ่น PoE+",
+    image: catMediaConverter,
     category: volktekMediaConverter,
     externalHref: "https://www.volktek.com/product_en.php?id=56",
   },
@@ -81,6 +97,7 @@ const TABS: TabMeta[] = [
     shortTitle: "EMS / NMS",
     icon: Activity,
     desc: "LAMUNGAN และ INDY — แพลตฟอร์มจัดการอุปกรณ์เครือข่ายแบบรวมศูนย์",
+    image: catEmsNms,
     category: volktekEmsNms,
     externalHref: "https://www.volktek.com/product_en.php?id=609",
   },
@@ -90,6 +107,7 @@ const TABS: TabMeta[] = [
     shortTitle: "SFP Modules",
     icon: Radio,
     desc: "100BASE, Gigabit, 10G SFP+ ทั้ง Standard และ Bi-Di รองรับหลายระยะ",
+    image: catSfp,
     category: volktekSfp,
     externalHref: "https://www.volktek.com/product_en.php?id=73",
   },
@@ -99,6 +117,7 @@ const TABS: TabMeta[] = [
     shortTitle: "PoE Injectors",
     icon: Wifi,
     desc: "PoE Injector เพิ่มความสามารถจ่ายไฟ และ Splitter สำหรับอุปกรณ์ที่ไม่รองรับ PoE",
+    image: catPoeInjector,
     externalHref: "https://www.volktek.com/product_en.php?id=108",
   },
   {
@@ -107,6 +126,7 @@ const TABS: TabMeta[] = [
     shortTitle: "Security",
     icon: Shield,
     desc: "Industrial Firewall — ปกป้องเครือข่าย OT/ICS จากภัยคุกคามไซเบอร์",
+    image: catFirewall,
     externalHref: "https://www.volktek.com/product_en.php?id=672",
   },
   {
@@ -115,6 +135,7 @@ const TABS: TabMeta[] = [
     shortTitle: "Accessories",
     icon: Cpu,
     desc: "Industrial Power Supply DIN-Rail และอุปกรณ์เสริมสำหรับติดตั้ง",
+    image: catAccessories,
     externalHref: "https://www.volktek.com/product_en.php?id=100",
   },
 ];
@@ -149,20 +170,85 @@ const VolktekMegaCatalog = () => {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        {/* Tab strip — scrollable, icons + counts */}
-        <TabsList className="h-auto flex-wrap gap-1.5 bg-secondary/40 p-1.5 mb-6 justify-start w-full">
+        {/* Visual category card grid — replaces flat tab strip for stronger visual hierarchy */}
+        <TabsList className="h-auto p-0 bg-transparent grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5 md:gap-3 mb-6 w-full">
           {TABS.map((t) => {
             const count = totalModels(t.category);
+            const isActive = activeTab === t.id;
             return (
               <TabsTrigger
                 key={t.id}
                 value={t.id}
-                className="text-xs md:text-sm gap-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                className={`group relative h-auto p-0 overflow-hidden rounded-xl border transition-all duration-300 hover:-translate-y-0.5 data-[state=active]:shadow-lg ${
+                  isActive
+                    ? "border-primary shadow-lg ring-2 ring-primary/30"
+                    : "border-border hover:border-primary/40"
+                }`}
+                aria-label={t.title}
               >
-                <t.icon className="w-3.5 h-3.5" />
-                <span>{t.shortTitle}</span>
-                {count > 0 && (
-                  <span className="text-[10px] opacity-70 font-mono">({count})</span>
+                {/* Background image */}
+                <div className="absolute inset-0">
+                  <img
+                    src={t.image}
+                    alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                    className={`w-full h-full object-cover transition-all duration-500 ${
+                      isActive
+                        ? "scale-110 opacity-100"
+                        : "scale-100 opacity-60 group-hover:opacity-90 group-hover:scale-105"
+                    }`}
+                  />
+                  <div
+                    className={`absolute inset-0 transition-opacity duration-300 ${
+                      isActive
+                        ? "bg-gradient-to-br from-primary/90 via-primary/70 to-primary/50"
+                        : "bg-gradient-to-br from-background/95 via-background/85 to-background/70 group-hover:from-background/85 group-hover:via-background/70"
+                    }`}
+                  />
+                </div>
+
+                {/* Content */}
+                <div className="relative z-10 flex flex-col items-start gap-2 p-3 md:p-4 w-full min-h-[110px] md:min-h-[125px]">
+                  <div className="flex items-center justify-between w-full">
+                    <div
+                      className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors ${
+                        isActive
+                          ? "bg-primary-foreground/20 backdrop-blur-sm"
+                          : "bg-primary/10 border border-primary/30"
+                      }`}
+                    >
+                      <t.icon
+                        className={`w-4 h-4 ${
+                          isActive ? "text-primary-foreground" : "text-primary"
+                        }`}
+                      />
+                    </div>
+                    {count > 0 && (
+                      <span
+                        className={`text-[10px] font-bold font-mono px-1.5 py-0.5 rounded-md ${
+                          isActive
+                            ? "bg-primary-foreground/20 text-primary-foreground"
+                            : "bg-primary/15 text-primary"
+                        }`}
+                      >
+                        {count} รุ่น
+                      </span>
+                    )}
+                  </div>
+
+                  <div
+                    className={`text-left text-xs md:text-sm font-bold leading-tight whitespace-normal mt-auto ${
+                      isActive ? "text-primary-foreground" : "text-foreground"
+                    }`}
+                  >
+                    {t.shortTitle}
+                  </div>
+                </div>
+
+                {/* Active indicator bar */}
+                {isActive && (
+                  <span className="absolute bottom-0 left-0 right-0 h-1 bg-primary-foreground/40" />
                 )}
               </TabsTrigger>
             );
