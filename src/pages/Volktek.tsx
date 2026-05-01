@@ -373,11 +373,14 @@ const Volktek = () => {
                 <li className="flex items-start gap-2"><span className="text-primary shrink-0">■</span> SNMP Trap & Real-time Dashboard</li>
                 <li className="flex items-start gap-2"><span className="text-primary shrink-0">■</span> Multi-vendor Support</li>
               </ul>
-              <Button variant="outline" size="sm" asChild className="self-start">
-                <a href="https://www.volktek.com/productdetail_en.php?id=1716" target="_blank" rel="noopener noreferrer">
-                  <ExternalLink className="w-3.5 h-3.5 mr-1.5" /> เรียนรู้เพิ่มเติม
-                </a>
-              </Button>
+              <QuoteRequestButton
+                productModel="MegaVision NMS"
+                productName="Volktek MegaVision NMS"
+                size="sm"
+                variant="outline"
+                className="self-start"
+              />
+            
             </div>
           </div>
         </section>

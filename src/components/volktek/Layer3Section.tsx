@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, Layers } from "lucide-react";
+import { Layers } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { volktekLayer3 } from "@/data/volktek-products";
@@ -93,11 +93,6 @@ const Layer3Section = () => {
                         variant="outline"
                         iconOnly
                       />
-                      <Button variant="ghost" size="sm" asChild className="ml-auto text-xs">
-                        <a href={p.sourceUrl} target="_blank" rel="noopener noreferrer">
-                          รายละเอียด <ArrowRight className="w-3 h-3 ml-1" />
-                        </a>
-                      </Button>
                     </div>
                   </div>
                 </div>

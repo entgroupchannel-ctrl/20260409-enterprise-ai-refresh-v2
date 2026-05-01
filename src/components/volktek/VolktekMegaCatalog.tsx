@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ExternalLink, Layers, Network, Zap, Globe, Cable, Activity, Radio, Wifi, Shield, Cpu, ArrowRight, Eye, Filter, X } from "lucide-react";
+import { Layers, Network, Zap, Globe, Cable, Activity, Radio, Wifi, Shield, Cpu, ArrowRight, Eye, Filter, X } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AddToCartButton from "@/components/AddToCartButton";
@@ -445,12 +445,6 @@ const VolktekMegaCatalog = () => {
                       </p>
                     </div>
                   </div>
-                  <Button variant="outline" size="sm" asChild className="shrink-0 self-start md:self-auto">
-                    <a href={t.externalHref} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="w-3.5 h-3.5 mr-1.5" />
-                      ดูที่ volktek.com
-                    </a>
-                  </Button>
                 </div>
 
                 {/* Body */}
@@ -654,16 +648,9 @@ const VolktekMegaCatalog = () => {
                       รายละเอียดรุ่นกำลังจะมา
                     </h4>
                     <p className="text-xs text-muted-foreground max-w-md mx-auto mb-4 leading-relaxed">
-                      ทีมงานกำลังเตรียมข้อมูลรุ่นในหมวดนี้ ระหว่างนี้สามารถดูรายการรุ่นทั้งหมดได้จากเว็บโรงงาน
-                      หรือสอบถามราคาทีมเราได้ทันที
+                      ทีมงานกำลังเตรียมข้อมูลรุ่นในหมวดนี้ — สอบถามราคาและสเปคจากทีมเราได้ทันที
                     </p>
                     <div className="flex flex-wrap justify-center gap-2">
-                      <Button variant="outline" size="sm" asChild>
-                        <a href={t.externalHref} target="_blank" rel="noopener noreferrer">
-                          <ExternalLink className="w-3.5 h-3.5 mr-1.5" />
-                          ดูที่ volktek.com
-                        </a>
-                      </Button>
                       <QuoteRequestButton
                         productModel={t.title}
                         productName={`Volktek ${t.title}`}

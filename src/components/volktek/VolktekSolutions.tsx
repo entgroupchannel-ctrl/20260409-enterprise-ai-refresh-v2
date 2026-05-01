@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Building2, Store, Building, Home, Hotel, Castle, Layers as LayersIcon, MapPin, CheckCircle2, AlertCircle, Sparkles, ExternalLink, ImageIcon } from "lucide-react";
+import { Building2, Store, Building, Home, Hotel, Castle, Layers as LayersIcon, MapPin, CheckCircle2, AlertCircle, Sparkles, ImageIcon } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -311,16 +311,6 @@ export default function VolktekSolutions() {
                     </div>
                     <p className="text-sm text-foreground/85 leading-relaxed">{s.overview}</p>
                   </div>
-                  <Button variant="outline" size="sm" asChild className="self-start">
-                    <a
-                      href={`https://www.volktek.com/solutiondetail_en.php?id=${s.externalId}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <ExternalLink className="w-3.5 h-3.5 mr-1.5" />
-                      ดูต้นฉบับที่ volktek.com
-                    </a>
-                  </Button>
                 </div>
               </div>
 
