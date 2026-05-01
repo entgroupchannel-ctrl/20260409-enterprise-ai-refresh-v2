@@ -181,6 +181,13 @@ const VolktekProductDialog = ({ product, subCategory, categoryTitle, onClose, on
 
               {/* Spec table — มินิมอล แสดงเฉพาะที่สำคัญ */}
               {d && (
+                (d.ports && d.ports.length > 4) ||
+                d.ledPanel ||
+                d.power ||
+                d.environment?.tempStorage ||
+                d.environment?.humidity ||
+                d.physical
+              ) && (
                 <div className="mt-5 border-t border-border pt-4">
                   <p className="text-[10px] uppercase tracking-wide text-primary font-bold mb-3">สเปคโดยย่อ</p>
                   <dl className="grid sm:grid-cols-2 gap-x-5 gap-y-2 text-xs">
