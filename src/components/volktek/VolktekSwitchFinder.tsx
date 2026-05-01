@@ -331,7 +331,7 @@ const VolktekSwitchFinder = () => {
             {ranked.map(({ fp, score }, i) => (
               <div
                 key={fp.product.model}
-                className="rounded-xl border border-border bg-background/40 overflow-hidden hover:border-primary/40 hover:-translate-y-0.5 transition-all group flex flex-col relative"
+                className="rounded-xl border border-border overflow-hidden hover:border-primary/40 hover:-translate-y-0.5 transition-all group flex flex-col relative bg-slate-200"
               >
                 {i < 3 && score > 0 && (
                   <span className="absolute top-2 left-2 z-10 inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-primary text-primary-foreground shadow-sm">
