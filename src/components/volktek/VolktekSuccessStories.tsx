@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Quote, MapPin, CheckCircle2, Factory, Camera, Plane, Train, Building2, Cpu, Package, ArrowRight } from "lucide-react";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
+import VolktekProductDialog from "@/components/volktek/VolktekProductDialog";
 import {
   volktekLayer3,
   volktekIndustrialPoe,
@@ -10,6 +11,7 @@ import {
   volktekMetroEthernet,
   type VolktekProduct,
   type VolktekCategory,
+  type VolktekSubCategory,
 } from "@/data/volktek-products";
 
 type Story = {
@@ -204,7 +206,11 @@ const VolktekSuccessStories = () => {
   const [activeId, setActiveId] = useState<string>(stories[0].id);
   const active = stories.find((s) => s.id === activeId)!;
   const ActiveIcon = active.icon;
-
+  const [selected, setSelected] = useState<{
+    product: VolktekProduct;
+    sub: VolktekSubCategory;
+    catTitle: string;
+  } | null>(null);
   const relatedProducts = useMemo(
     () =>
       active.relatedModels
