@@ -2136,14 +2136,115 @@ export const volktekIndustrialEthernet: VolktekCategory = {
     {
       id: "ie-lite-managed",
       title: "Lite Managed",
-      blurb: "Lite Managed — VLAN/QoS/SNMP/IGMP เบื้องต้น ราคาคุ้มค่า",
+      blurb: "Lite Managed — VLAN/QoS/SNMP/IGMP เบื้องต้น พร้อม LAMUNGAN Platform (Wizard 3 ขั้นตอน 3 นาที + Topology Map + Dashboard)",
       products: [
-        { model: "INS-8005M", description: "5x GbE — Lite Managed Industrial Gigabit", image: ie_INS_8005M, features: ["Lite Managed", "5-port"], sourceUrl: detail(1591) },
-        { model: "INS-8405M", description: "4x GbE + 1x GbE SFP — Lite Managed Industrial", image: ie_INS_8405M, features: ["Lite Managed", "Fiber"], sourceUrl: detail(1592) },
-        { model: "INS-8408AM", description: "8x GbE + 2x FX/GbE SFP — Lite Managed Industrial", image: ie_INS_8408AM, features: ["Lite Managed", "Fiber", "10-port"], sourceUrl: detail(1593) },
-        { model: "IEN-840GL", description: "4x GbE + 1x GbE SFP + 1x GbE RJ45 — Lite Managed", image: ie_IEN_840GL, features: ["Lite Managed", "Fiber"], sourceUrl: detail(1636) },
-        { model: "IEN-8415L", description: "4x GbE + 1x GbE RJ45 + 1x FX/GbE SFP — Lite Managed", image: ie_IEN_8415L, features: ["Lite Managed", "Fiber"], sourceUrl: detail(1637) },
-        { model: "IEN-8424L", description: "4x GbE + 2x FX/GbE SFP — Lite Managed", image: ie_IEN_8424L, features: ["Lite Managed", "Fiber"], sourceUrl: detail(1638) },
+        {
+          model: "8015 Series",
+          description: "8x GbE RJ45 (+ 2x FX/GbE SFP option) — Lite Managed Industrial Switch (8015-8GT-I / 8015-8GT2GS-I)",
+          image: ie_8015_Series,
+          features: ["Lite Managed", "8-port", "Fiber Option", "-40°C~75°C"],
+          sourceUrl: detail(1583),
+          details: {
+            overview:
+              "8015 Series เป็น Lite Managed Industrial Switch 8 พอร์ต Gigabit RJ45 — มี 2 รุ่นย่อย: 8015-8GT-I (Copper-only) และ 8015-8GT2GS-I (เพิ่ม 2 พอร์ต FX/GbE Multi-rate SFP สำหรับ Long-distance Uplink + Cascading) — มาพร้อม LAMUNGAN Platform (Wizard 3 ขั้นตอน 3 นาที + Topology Map + Dashboard) — รองรับ Modbus TCP เชื่อม PLC / HMI / Legacy Devices — ตัวเครื่อง Metal IP40 ทำงาน -40°C~75°C — UL Certified ถึง -40°C~70°C",
+            highlights: [
+              { title: "8x GbE + 2x SFP (รุ่น 8015-8GT2GS-I)", desc: "Multi-rate SFP รองรับทั้ง 100M/1G — Long-distance Fiber + Cascading" },
+              { title: "LAMUNGAN Platform", desc: "Wizard ตั้งค่า 3 ขั้นตอน 3 นาที + Topology Map + Dashboard ดูสถานะ Real-time" },
+              { title: "Modbus TCP + LLDP", desc: "เชื่อม PLC / HMI / Legacy ผ่าน Industrial Protocol โดยตรง" },
+              { title: "Port Authentication 802.1X + QoS", desc: "เพิ่มความปลอดภัย + จัดลำดับความสำคัญแพ็กเก็ตอุตสาหกรรม" },
+              { title: "Redundant Power + Alarm Relay", desc: "Dual Input 24~48VDC + แจ้งเตือนไฟตกผ่าน Relay 1A @ 24VDC" },
+              { title: "Metal IP40 + UL -40°C~70°C", desc: "ทำงานจริง -40°C~75°C — ทนสั่นสะเทือน, ESD, Surge สำหรับโรงงานหนัก" },
+            ],
+            ports: [
+              "8015-8GT-I: 8 x 10/100/1000BASE-T (RJ45)",
+              "8015-8GT2GS-I: 8 x 10/100/1000BASE-T + 2 x 100FX/GbE SFP",
+            ],
+            power: { input: "Primary inputs: 24~48VDC, Redundant inputs: 24~48VDC", consumption: "8GT2GS-I: Max. 11W / 8GT-I: Max. 10W (24VDC)" },
+            environment: { tempOperating: "-40°C~75°C (-40°F~167°F)", tempStorage: "-40°C~85°C (-40°F~185°F)", humidity: "5~95% RH (non-condensing)", housing: "Metal (IP40 Protection)" },
+            physical: { weight: "8GT-I: 500g / 8GT2GS-I: 550g", dimension: "50 x 116 x 100 mm (DIN-Rail)" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/49f3eb2113ba1b1cd93976962c3fb3f0.pdf",
+          },
+        },
+        {
+          model: "IEN-8415L",
+          description: "5x GbE RJ45 + 1x FX/GbE SFP — Lite Managed Industrial Switch",
+          image: ie_IEN_8415L,
+          features: ["Lite Managed", "Fiber", "6-port"],
+          sourceUrl: detail(1606),
+          details: {
+            overview:
+              "IEN-8415L เป็น Lite Managed Industrial Switch 5 พอร์ต Gigabit RJ45 + 1 พอร์ต FX/GbE Multi-rate SFP Uplink — สำหรับ Long-distance Fast-speed Connectivity ผ่าน Fiber — มาพร้อม LAMUNGAN Platform (Wizard 3 ขั้นตอน + Topology Map + Dashboard) — รองรับ Modbus TCP เชื่อม PLC/HMI/Legacy — ตัวเครื่อง Metal IP40 ทำงาน -10°C~60°C",
+            highlights: [
+              { title: "5x GbE + 1x Multi-rate SFP", desc: "SFP Uplink รองรับทั้ง 100M และ 1G สำหรับ Long-distance Fiber" },
+              { title: "LAMUNGAN Platform", desc: "Wizard ตั้งค่า 3 ขั้นตอน 3 นาที + Topology Map + Dashboard" },
+              { title: "Modbus TCP + LLDP", desc: "เชื่อม PLC / HMI / Legacy ผ่าน Industrial Protocol โดยตรง" },
+              { title: "Port Authentication 802.1X + QoS", desc: "ความปลอดภัย + Flow Control + Class of Service" },
+              { title: "Redundant Power + Alarm Relay", desc: "Dual Input 20~57VDC + แจ้งเตือนไฟตก" },
+              { title: "Metal IP40 + Compact 31mm", desc: "DIN-Rail ขนาดเล็ก 31mm — เหมาะกับตู้คอนโทรลพื้นที่จำกัด" },
+            ],
+            ports: [
+              "5 x 10/100/1000BASE-T (RJ45)",
+              "1 x 100FX/GbE SFP Slot",
+            ],
+            power: { input: "Primary inputs: 20~57VDC, Redundant inputs: 20~57VDC", consumption: "10W (System)" },
+            environment: { tempOperating: "-10°C~60°C (14°F~140°F)", tempStorage: "-40°C~85°C (-40°F~185°F)", humidity: "5~95% RH (non-condensing)", housing: "Metal (IP40 Protection)" },
+            physical: { weight: "280 g (0.62 lb)", dimension: "31 x 136.3 x 105 mm (DIN-Rail)" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/49d62cb302c3eea3152751112bcff4d9.pdf",
+          },
+        },
+        {
+          model: "IEN-8424L",
+          description: "4x GbE RJ45 + 2x FX/GbE SFP — Lite Managed Industrial Switch",
+          image: ie_IEN_8424L,
+          features: ["Lite Managed", "Fiber", "6-port"],
+          sourceUrl: detail(1607),
+          details: {
+            overview:
+              "IEN-8424L เป็น Lite Managed Industrial Switch 4 พอร์ต Gigabit RJ45 + 2 พอร์ต FX/GbE Multi-rate SFP Uplink — รองรับ Long-distance Fiber Connectivity และ Cascading Topology — มาพร้อม LAMUNGAN Platform — รองรับ Modbus TCP เชื่อม PLC/HMI/Legacy — ตัวเครื่อง Metal IP40 ทำงาน -10°C~60°C",
+            highlights: [
+              { title: "4x GbE + 2x Multi-rate SFP", desc: "Dual SFP Uplink รองรับ 100M/1G — Long-distance + Cascading" },
+              { title: "LAMUNGAN Platform", desc: "Wizard 3 ขั้นตอน + Topology Map + Dashboard" },
+              { title: "Modbus TCP + LLDP", desc: "เชื่อม PLC / HMI / Legacy ผ่าน Industrial Protocol" },
+              { title: "Port Authentication 802.1X + QoS", desc: "Flow Control + Class of Service + EEE" },
+              { title: "Redundant Power + Alarm Relay", desc: "Dual Input 20~60VDC + แจ้งเตือนไฟตก 1A @ 24VDC" },
+              { title: "Metal IP40 + DIN-Rail", desc: "ทนต่อสภาพแวดล้อมโรงงานทั่วไป — ESD, Surge Protection" },
+            ],
+            ports: [
+              "4 x 10/100/1000BASE-T (RJ45)",
+              "2 x 100FX/GbE SFP Slots",
+            ],
+            power: { input: "Primary inputs: 20~60VDC, Redundant inputs: 20~60VDC", consumption: "10W (System)" },
+            environment: { tempOperating: "-10°C~60°C (14°F~140°F)", tempStorage: "-40°C~85°C (-40°F~185°F)", humidity: "5~95% RH (non-condensing)", housing: "Metal (IP40 Protection)" },
+            physical: { weight: "430 g (0.95 lb)", dimension: "50 x 160 x 120 mm (DIN-Rail)" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/6de54a837c0df700daa96e564e5ca86d.pdf",
+          },
+        },
+        {
+          model: "IEN-840GL",
+          description: "16x GbE RJ45 — High-Density Lite Managed Industrial Switch",
+          image: ie_IEN_840GL,
+          features: ["Lite Managed", "16-port", "High-Density"],
+          sourceUrl: detail(1584),
+          details: {
+            overview:
+              "IEN-840GL เป็น Lite Managed Industrial Switch 16 พอร์ต Gigabit RJ45 ความหนาแน่นพอร์ตสูง — สำหรับ Multi-axis Robots และ Peripherals (PLC, HMI, Printer) ในงาน Automation — มาพร้อม LAMUNGAN Platform — รองรับ Modbus TCP — ตัวเครื่อง Metal IP40 ทำงาน -10°C~60°C — UL Certified",
+            highlights: [
+              { title: "16x GbE RJ45 ความหนาแน่นสูง", desc: "เชื่อม Multi-axis Robots + PLC + HMI + Printer ในตัวเดียว" },
+              { title: "LAMUNGAN Platform", desc: "Wizard 3 ขั้นตอน + Topology Map + Dashboard" },
+              { title: "Modbus TCP + LLDP", desc: "ประหยัดต้นทุน — เชื่อม Legacy + Advanced Devices ผ่าน Protocol เดียว" },
+              { title: "Port Authentication 802.1X + QoS", desc: "Flow Control + Class of Service + EEE" },
+              { title: "Redundant Power + Alarm Relay + Reverse Polarity", desc: "Dual Input 12~60VDC + Reverse Polarity Protection" },
+              { title: "Metal IP40 + UL Certified + Wall Mount", desc: "DIN-Rail หรือ Wall Mount (Optional) — UL Certified -10°C~60°C" },
+            ],
+            ports: [
+              "16 x 10/100/1000BASE-T (RJ45)",
+            ],
+            power: { input: "Primary inputs: 12~60VDC, Redundant inputs: 12~60VDC", consumption: "18W (12V/1.5A)" },
+            environment: { tempOperating: "-10°C~60°C (14°F~140°F)", tempStorage: "-40°C~85°C (-40°F~185°F)", humidity: "5~95% RH (non-condensing)", housing: "Metal (IP40 Protection)" },
+            physical: { weight: "880 g (1.94 lb)", dimension: "50 x 160 x 120 mm (DIN-Rail / Wall Mount Optional)" },
+            datasheetUrl: "https://www.volktek.com/_i/assets/file/productdownload/a96f1bb28cc732cc6c635f79abd94cf3.pdf",
+          },
+        },
       ],
     },
     {
