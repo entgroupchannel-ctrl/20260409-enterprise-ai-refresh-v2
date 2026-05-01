@@ -19,22 +19,22 @@ export type VolktekProductDetails = {
   overview: string;
   /** จุดเด่น 3-5 ข้อ — แต่ละข้อ {title, desc} */
   highlights: { title: string; desc: string }[];
-  /** ลิสต์พอร์ตและ interface */
-  ports: string[];
+  /** ลิสต์พอร์ตและ interface (optional — Software products ไม่มีพอร์ต) */
+  ports?: string[];
   /** LED Panel labels (optional) */
   ledPanel?: string;
-  power: {
+  power?: {
     input: string;
     consumption: string;
     poeBudget?: string;
   };
-  environment: {
+  environment?: {
     tempOperating: string;
     tempStorage?: string;
     humidity?: string;
     housing: string;
   };
-  physical: {
+  physical?: {
     weight: string;
     dimension: string;
   };
