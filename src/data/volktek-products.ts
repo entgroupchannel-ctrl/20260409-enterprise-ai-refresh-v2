@@ -1542,9 +1542,7 @@ import ie_INS_8008A from "@/assets/volktek/products/ie/INS-8008A.jpg";
 import ie_INS_8405A from "@/assets/volktek/products/ie/INS-8405A.jpg";
 import ie_INS_8408A from "@/assets/volktek/products/ie/INS-8408A.jpg";
 import ie_INS_840G from "@/assets/volktek/products/ie/INS-840G.jpg";
-import ie_INS_8005M from "@/assets/volktek/products/ie/INS-8005M.jpg";
-import ie_INS_8405M from "@/assets/volktek/products/ie/INS-8405M.jpg";
-import ie_INS_8408AM from "@/assets/volktek/products/ie/INS-8408AM.jpg";
+// (removed) INS-8005M / INS-8405M / INS-8408AM — ไม่มีอยู่จริงในหน้า Lite Managed ของ Volktek
 import ie_IEN_840GL from "@/assets/volktek/products/ie/IEN-840GL.jpg";
 import ie_IEN_8415L from "@/assets/volktek/products/ie/IEN-8415L.jpg";
 import ie_IEN_8424L from "@/assets/volktek/products/ie/IEN-8424L.jpg";
