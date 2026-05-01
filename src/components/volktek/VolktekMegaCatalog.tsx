@@ -772,7 +772,8 @@ const VolktekMegaCatalog = () => {
                                   </Button>
                                 </div>
                               </div>
-                            ))}
+                            );
+                            })}
                                 </div>
                               </>
                             );
