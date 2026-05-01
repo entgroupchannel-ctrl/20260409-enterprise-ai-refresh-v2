@@ -1,8 +1,16 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Quote, MapPin, CheckCircle2, Factory, Camera, Plane, Train, Building2, Cpu } from "lucide-react";
+import { ExternalLink, Quote, MapPin, CheckCircle2, Factory, Camera, Plane, Train, Building2, Cpu, Package, ArrowRight } from "lucide-react";
 import QuoteRequestButton from "@/components/QuoteRequestButton";
+import {
+  volktekLayer3,
+  volktekIndustrialPoe,
+  volktekIndustrialEthernet,
+  volktekMetroEthernet,
+  type VolktekProduct,
+  type VolktekCategory,
+} from "@/data/volktek-products";
 
 type Story = {
   id: string;
@@ -14,6 +22,8 @@ type Story = {
   challenge: string;
   solution: string;
   models: string[];
+  /** รุ่นในแคตตาล็อก ENT (รุ่นจริงที่อ้างใน case + รุ่นใกล้เคียง) */
+  relatedModels: string[];
   benefits: string[];
   outcome: string;
   sourceUrl: string;
@@ -32,6 +42,7 @@ const stories: Story[] = [
     solution:
       "เลือก INS-8408E Industrial Ethernet Switch ที่ออกแบบมาเพื่อ Automation โดยเฉพาะ พร้อมเทคโนโลยี iQoS จัดลำดับ Traffic ควบคุมหุ่นยนต์ให้ Deterministic",
     models: ["INS-8408E"],
+    relatedModels: ["INS-8408E", "INS-8408A", "INS-8108E", "9561-8GT4XS-TSN", "9561-8GP4XS-TSN"],
     benefits: [
       "Multi-axis Synchronization แม่นยำระดับมิลลิวินาที",
       "8× Gigabit รองรับ Vision + Sensor พร้อมกัน",
@@ -54,6 +65,7 @@ const stories: Story[] = [
     solution:
       "ใช้ SEN-8428PL-24V Managed PoE Switch สำหรับเสาอัจฉริยะ พร้อม Fiber Uplink เชื่อมศูนย์กลาง และ Ring Topology สำหรับ Redundancy",
     models: ["SEN-8428PL-24V"],
+    relatedModels: ["SEN-8428PL-24V", "SEN-8428PL", "SEN-8425PL-24V", "SEN-8424PL", "IEN-8648PA-24V"],
     benefits: [
       "8× PoE+ (30W/พอร์ต, รวม 240W) จ่ายไฟกล้อง/AP/IoT",
       "2× Fiber Uplink เชื่อมระยะไกลถึงศูนย์ควบคุม",
@@ -76,6 +88,7 @@ const stories: Story[] = [
     solution:
       "Tokyo Electron เลือก Volktek INS-8408A เป็น Backbone ของ Prexa™ MS เพราะความน่าเชื่อถือและประสิทธิภาพคงที่ในงาน High-Load",
     models: ["INS-8408A"],
+    relatedModels: ["INS-8408A", "INS-8408E", "INS-8108E", "INS-8624", "INS-8408P-24V"],
     benefits: [
       "Throughput สูง รับข้อมูลทดสอบ DRAM ปริมาณมาก",
       "เสถียรในงาน High-Load ตลอดสายการผลิต",
@@ -98,6 +111,7 @@ const stories: Story[] = [
     solution:
       "ใช้ Volktek Woodpecker 9015-8GT2GS-I Full-Managed Industrial Switch เป็น Backbone เชื่อมต่อ PLC, HMI, Radar, Wind Turbine และ SCADA",
     models: ["Woodpecker 9015-8GT2GS-I"],
+    relatedModels: ["9015-8GT2GS-I", "9015-8GT-I", "9015-16GT-I", "INS-8408E", "9560-16GP4XS-I"],
     benefits: [
       "ทำงานในอุณหภูมิ -40°C ถึง 75°C",
       "8× Gigabit RJ45 + 2× SFP Uplink ระยะไกล",
@@ -120,6 +134,7 @@ const stories: Story[] = [
     solution:
       "ติดตั้ง IEN-8648PA Industrial PoE+ Switch ในตู้ควบคุมเสาไฟ และ Attis 5100-24GT2GS เป็น Aggregation ในศูนย์ควบคุม",
     models: ["IEN-8648PA", "Attis 5100-24GT2GS"],
+    relatedModels: ["IEN-8648PA", "IEN-8648PA-24V", "IEN-8608PA", "5100-24GT2GS", "SEN-8428PL-24V"],
     benefits: [
       "PoE+ จ่ายไฟกล้องผ่านสาย LAN ลดสายไฟแยก",
       "8× GbE Downlink + 4× SFP Uplink เพื่อ Backhaul",
@@ -142,6 +157,7 @@ const stories: Story[] = [
     solution:
       "Deploy 6500-24GS4XS-C เป็น 10G Backbone ระหว่างสถานี + IEN-8648PA และ Hawkeye 9060-4GP2GS PoE++ ในสถานีย่อย สร้าง Ring Network",
     models: ["6500-24GS4XS-C", "IEN-8648PA", "Hawkeye 9060-4GP2GS"],
+    relatedModels: ["6500-24GS4XS", "9060-4GP2GS", "IEN-8648PA", "IEN-8648PA-24V", "9560-16GP4XS-I"],
     benefits: [
       "10G Backbone ลด Latency ระหว่างสถานี",
       "Ring Topology + LACP เพิ่มความน่าเชื่อถือ",
@@ -154,10 +170,48 @@ const stories: Story[] = [
   },
 ];
 
+/** ค้นหา product จริงจากแคตตาล็อก เทียบจาก model (case-insensitive, partial) */
+type FoundProduct = { product: VolktekProduct; categoryTitle: string; subTitle: string };
+
+const ALL_CATEGORIES: VolktekCategory[] = [
+  volktekLayer3,
+  volktekIndustrialPoe,
+  volktekIndustrialEthernet,
+  volktekMetroEthernet,
+];
+
+function findProductByModel(model: string): FoundProduct | null {
+  const needle = model.toLowerCase().replace(/\s+/g, "");
+  for (const cat of ALL_CATEGORIES) {
+    for (const sub of cat.subCategories) {
+      for (const p of sub.products) {
+        const hay = p.model.toLowerCase().replace(/\s+/g, "");
+        if (hay === needle || hay.includes(needle) || needle.includes(hay)) {
+          return { product: p, categoryTitle: cat.title, subTitle: sub.title };
+        }
+      }
+    }
+  }
+  return null;
+}
+
+const scrollToCatalog = () => {
+  const el = document.getElementById("catalog");
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+};
+
 const VolktekSuccessStories = () => {
   const [activeId, setActiveId] = useState<string>(stories[0].id);
   const active = stories.find((s) => s.id === activeId)!;
   const ActiveIcon = active.icon;
+
+  const relatedProducts = useMemo(
+    () =>
+      active.relatedModels
+        .map((m) => ({ requested: m, found: findProductByModel(m) }))
+        .filter((r) => r.found !== null) as { requested: string; found: FoundProduct }[],
+    [active]
+  );
 
   return (
     <section id="success-stories" className="card-surface p-6 md:p-8">
@@ -258,6 +312,69 @@ const VolktekSuccessStories = () => {
           </div>
           <p className="text-sm text-foreground font-medium leading-relaxed">{active.outcome}</p>
         </div>
+
+        {/* Related Products from ENT Catalog */}
+        {relatedProducts.length > 0 && (
+          <div className="rounded-lg bg-background/60 border border-border p-4 mb-5">
+            <div className="flex items-center justify-between mb-3 gap-2 flex-wrap">
+              <div className="flex items-center gap-2">
+                <Package className="w-4 h-4 text-primary" />
+                <div className="text-[11px] font-semibold tracking-wider uppercase text-primary">
+                  รุ่นที่เกี่ยวข้องในแคตตาล็อก ENT Group
+                </div>
+              </div>
+              <button
+                onClick={scrollToCatalog}
+                className="text-[11px] text-primary hover:underline inline-flex items-center gap-1 font-medium"
+              >
+                ดูทั้งหมด <ArrowRight className="w-3 h-3" />
+              </button>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {relatedProducts.map(({ requested, found }) => {
+                const isExact = found.product.model.toLowerCase() === requested.toLowerCase();
+                return (
+                  <button
+                    key={requested}
+                    onClick={scrollToCatalog}
+                    className="text-left rounded-lg border border-border bg-background hover:border-primary/50 hover:bg-primary/5 transition-all p-3 group"
+                  >
+                    <div className="flex items-start justify-between gap-2 mb-1">
+                      <div className="font-mono text-xs font-bold text-foreground group-hover:text-primary transition-colors">
+                        {found.product.model}
+                      </div>
+                      {isExact ? (
+                        <Badge className="bg-primary/15 text-primary border-primary/30 text-[9px] px-1.5 py-0 h-4">
+                          ใช้ใน Case
+                        </Badge>
+                      ) : (
+                        <Badge variant="outline" className="text-[9px] px-1.5 py-0 h-4">
+                          ใกล้เคียง
+                        </Badge>
+                      )}
+                    </div>
+                    <div className="text-[11px] text-muted-foreground line-clamp-2 leading-snug mb-1.5">
+                      {found.product.description}
+                    </div>
+                    <div className="flex flex-wrap gap-1">
+                      {(found.product.features ?? []).slice(0, 3).map((f) => (
+                        <span
+                          key={f}
+                          className="text-[9px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground"
+                        >
+                          {f}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="text-[10px] text-muted-foreground/70 mt-1.5 truncate">
+                      {found.categoryTitle} · {found.subTitle}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         <div className="flex flex-wrap gap-3">
           <QuoteRequestButton
