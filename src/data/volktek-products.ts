@@ -67,6 +67,20 @@ export type VolktekCategory = {
 import l3Managed8GT4XS from "@/assets/volktek/products/layer3/9561-8GT4XS-TSN.jpg";
 import l3PoE8GP4XS from "@/assets/volktek/products/layer3/9561-8GP4XS-TSN.jpg";
 
+// Phase 9: PoE Injectors / Splitters, Industrial Firewall, Accessories (Power Supply)
+import imgIra90 from "@/assets/volktek/products/ira-90.jpg";
+import imgIra160 from "@/assets/volktek/products/ira-160.jpg";
+import imgSdr12048 from "@/assets/volktek/products/sdr-120-48.jpg";
+import imgSdr24048 from "@/assets/volktek/products/sdr-240-48.jpg";
+import imgSdr480p48 from "@/assets/volktek/products/sdr-480p-48.jpg";
+import imgIpi432P60I from "@/assets/volktek/products/ipi-432p-60-i.jpg";
+import imgIpi442P90I from "@/assets/volktek/products/ipi-442p-90-i.jpg";
+import imgGpi421 from "@/assets/volktek/products/gpi-421.jpg";
+import imgGpi431 from "@/assets/volktek/products/gpi-431.jpg";
+import imgGpi441 from "@/assets/volktek/products/gpi-441.jpg";
+import imgIps342P from "@/assets/volktek/products/ips-342p.jpg";
+import imgFw31006GTI from "@/assets/volktek/products/fw-3100-6gt-i.jpg";
+
 /* ============================================================
  * Phase 1: Layer 3 Industrial Ethernet Switches
  * ============================================================ */
