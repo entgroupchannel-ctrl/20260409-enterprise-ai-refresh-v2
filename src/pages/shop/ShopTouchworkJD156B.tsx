@@ -284,7 +284,7 @@ export default function ShopTouchworkJD156B() {
       notes: `รุ่น: JD156B — ${variantLabel}\nสเปก: ${buildConfigSummary()}\nจำนวน: ${qty} ชิ้น`,
       products: [product],
     });
-    navigate(user ? "/my-account/quotes/new" : "/login?redirect=/my-account/quotes/new");
+    navigate(user ? "/request-quote?action=continue" : "/login?redirect=/request-quote");
   };
 
   const toggleAddon = (key: string) => {
