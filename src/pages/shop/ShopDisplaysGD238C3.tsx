@@ -270,7 +270,7 @@ export default function ShopDisplaysGD238C3() {
       notes: `รุ่น: ${variant?.label}\nสเปก: ${buildConfigSummary()}\nจำนวน: ${qty} ชิ้น`,
       products: [product],
     });
-    navigate(user ? "/my-account/quotes/new" : "/login?redirect=/my-account/quotes/new");
+    navigate(user ? "/request-quote?action=continue" : "/login?redirect=/request-quote");
   };
 
   const toggleAddon = (key: string) => {
