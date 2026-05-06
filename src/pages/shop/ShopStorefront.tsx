@@ -110,11 +110,18 @@ const ShopStorefront = () => {
     return raw.split(',').map(s => s.trim()).filter(Boolean);
   })();
 
+  // Optional URL ?cats=... → categoryFilter (comma-separated category names)
+  const initialCategoriesFromUrl = (() => {
+    const raw = searchParams.get('cats');
+    if (!raw) return [];
+    return raw.split(',').map(s => s.trim()).filter(Boolean);
+  })();
+
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState(searchParams.get('q') || '');
   const [seriesFilter, setSeriesFilter] = useState<string[]>(initialSeriesFromUrl);
-  const [categoryFilter, setCategoryFilter] = useState<string[]>([]);
+  const [categoryFilter, setCategoryFilter] = useState<string[]>(initialCategoriesFromUrl);
   const [sortBy, setSortBy] = useState(searchParams.get('sort') || 'featured');
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState<number>(DEFAULT_PAGE_SIZE);
