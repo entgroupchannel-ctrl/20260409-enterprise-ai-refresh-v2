@@ -45,6 +45,9 @@ import firewallGT194LImg from "@/assets/ads/firewall-ad-2-gt194l.jpg";
 import firewallIPC068Img from "@/assets/ads/firewall-ad-3-ipc068.jpg";
 import firewallIPC090Img from "@/assets/ads/firewall-ad-4-ipc090.jpg";
 import firewallSecurityImg from "@/assets/ads/firewall-ad-5-security.jpg";
+import ipcAdRugged from "@/assets/ads/industrialpc-ad-2-rugged.jpg";
+import ipcAdIO from "@/assets/ads/industrialpc-ad-3-io.jpg";
+import IndustrialPCWarranty from "@/components/IndustrialPCWarranty";
 
 /* ═══════ Product Data ═══════ */
 const iboxModels = [
