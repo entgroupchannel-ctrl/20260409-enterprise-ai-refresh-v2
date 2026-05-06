@@ -1,14 +1,20 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, ShieldCheck, Factory, Monitor, Droplets, Cpu, Tv2, Sparkles, TrendingDown, Zap } from "lucide-react";
-import economyMaster from "@/assets/ads/economy2026-ad-master.jpg";
+import economyMaster from "@/assets/ads/economy2026-hero-clean.jpg";
+import imgFirewall from "@/assets/hero-firewall.jpg";
+import imgPanelPC from "@/assets/product-panel-pc.jpg";
+import imgVCloud from "@/assets/product-vcloudpoint.jpg";
+import imgWaterproof from "@/assets/waterproof-pc-banner.jpg";
+import imgJetson from "@/assets/jetson-hero-ai.jpg";
+import imgKiosk from "@/assets/kiosk-banner.jpg";
 
 const solutions = [
-  { icon: ShieldCheck, label: "Firewall SME", desc: "หยุด Ransomware ตั้งแต่ขอบเครือข่าย", to: "/mini-pc-firewall", accent: "from-emerald-500/30 to-emerald-500/5" },
-  { icon: Factory, label: "Panel PC โรงงาน", desc: "ทัชสกรีน IP65 ทนฝุ่นทนน้ำ", to: "/panel-pc-gtg", accent: "from-sky-500/30 to-sky-500/5" },
-  { icon: Monitor, label: "vCloudPoint", desc: "ลด PC 70% รวมศูนย์ง่าย", to: "/vcloudpoint", accent: "from-violet-500/30 to-violet-500/5" },
-  { icon: Droplets, label: "Waterproof PC", desc: "IP69K ล้างน้ำได้ ครัว/อาหาร", to: "/waterproof-pc", accent: "from-cyan-500/30 to-cyan-500/5" },
-  { icon: Cpu, label: "Jetson AI", desc: "Edge AI สำหรับ Vision/IoT", to: "/jetson-ai", accent: "from-amber-500/30 to-amber-500/5" },
-  { icon: Tv2, label: "KIOSK Self-Service", desc: "ลดคิว ลดต้นทุนแรงงาน", to: "/interactive-display", accent: "from-rose-500/30 to-rose-500/5" },
+  { icon: ShieldCheck, img: imgFirewall, label: "Firewall SME", desc: "หยุด Ransomware ตั้งแต่ขอบเครือข่าย", to: "/mini-pc-firewall", accent: "from-emerald-500/30 to-emerald-500/5" },
+  { icon: Factory, img: imgPanelPC, label: "Panel PC โรงงาน", desc: "ทัชสกรีน IP65 ทนฝุ่นทนน้ำ", to: "/panel-pc-gtg", accent: "from-sky-500/30 to-sky-500/5" },
+  { icon: Monitor, img: imgVCloud, label: "vCloudPoint", desc: "ลด PC 70% รวมศูนย์ง่าย", to: "/vcloudpoint", accent: "from-violet-500/30 to-violet-500/5" },
+  { icon: Droplets, img: imgWaterproof, label: "Waterproof PC", desc: "IP69K ล้างน้ำได้ ครัว/อาหาร", to: "/waterproof-pc", accent: "from-cyan-500/30 to-cyan-500/5" },
+  { icon: Cpu, img: imgJetson, label: "Jetson AI", desc: "Edge AI สำหรับ Vision/IoT", to: "/jetson-ai", accent: "from-amber-500/30 to-amber-500/5" },
+  { icon: Tv2, img: imgKiosk, label: "KIOSK Self-Service", desc: "ลดคิว ลดต้นทุนแรงงาน", to: "/interactive-display", accent: "from-rose-500/30 to-rose-500/5" },
 ];
 
 const Economy2026Banner = () => {
