@@ -279,7 +279,10 @@ const VCloudPoint = () => {
     const elecOld = users * 150 * kwhPerYear * calcElecRate;
     const elecNew = users * 5 * kwhPerYear * calcElecRate + host.blocks * 200 * kwhPerYear * calcElecRate;
     const elecSave = Math.round(elecOld - elecNew);
-    const elecSavePct = elecOld > 0 ? Math.round((elecSave / elecOld)
+    const elecSavePct = elecOld > 0 ? Math.round((elecSave / elecOld) * 100) : 0;
+    return { traditional, vcloudLow, vcloudHigh, vcloudMid, save, savePct, elecOld: Math.round(elecOld), elecNew: Math.round(elecNew), elecSave, elecSavePct, host, zcUnit, terminalCost };
+  })();
+  const fmt = (n: number) => n.toLocaleString("th-TH", { maximumFractionDigits: 0 });
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead title="vCloudPoint Zero Client — Thin Client ประหยัดต้นทุน" description="vCloudPoint Zero Client ลดต้นทุนฮาร์ดแวร์ ประหยัดไฟ 80% ใช้คอมเครื่องเดียวแชร์ได้หลายจุด สำหรับสำนักงาน โรงเรียน โรงแรม" path="/vcloudpoint" />
