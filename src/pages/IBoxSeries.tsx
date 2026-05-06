@@ -32,13 +32,19 @@ import IBoxProductCard from "@/components/ibox/IBoxProductCard";
 import IBoxProductFilter, { type IBoxFilterState, defaultFilters, portFilters } from "@/components/ibox/IBoxProductFilter";
 import ActiveFilterChips from "@/components/ibox/ActiveFilterChips";
 import { iboxProducts } from "@/data/ibox-products";
-import bannerIBox from "@/assets/banner-ibox-series.jpg";
+import bannerIBox from "@/assets/ads/firewall-ad-master.jpg";
 import usecaseAutomation from "@/assets/ibox-usecase-automation.jpg";
 import usecaseMedical from "@/assets/ibox-usecase-medical.jpg";
 import usecaseLogistics from "@/assets/ibox-usecase-logistics.jpg";
 import usecaseWarehouse from "@/assets/ibox-usecase-warehouse.jpg";
 import usecaseVision from "@/assets/ibox-usecase-vision.jpg";
 import usecaseSignage from "@/assets/ibox-usecase-signage.jpg";
+import firewallMiniPcImg from "@/assets/ads/firewall-ad-1-minipc.jpg";
+import firewallGT196LImg from "@/assets/ads/firewall-ad-1-gt196l.jpg";
+import firewallGT194LImg from "@/assets/ads/firewall-ad-2-gt194l.jpg";
+import firewallIPC068Img from "@/assets/ads/firewall-ad-3-ipc068.jpg";
+import firewallIPC090Img from "@/assets/ads/firewall-ad-4-ipc090.jpg";
+import firewallSecurityImg from "@/assets/ads/firewall-ad-5-security.jpg";
 
 /* ═══════ Product Data ═══════ */
 const iboxModels = [
