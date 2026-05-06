@@ -127,8 +127,9 @@ const IndustrialAvengersBanner = () => {
                   <img
                     src={h.img}
                     alt={`${h.name} — ${h.title}`}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700"
                     loading="lazy"
+                    decoding="async"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#05080f] via-[#05080f]/30 to-transparent" />
                   <div className={`absolute top-2 left-2 inline-flex items-center justify-center w-9 h-9 rounded-xl border ${h.border} ${h.badge} backdrop-blur-md`}>
