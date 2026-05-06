@@ -56,7 +56,7 @@ const VCloudPointLearnMore = () => {
               value="industries"
               className="text-xs md:text-sm gap-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg rounded-xl px-4 py-2.5 font-semibold"
             >
-              <Building2 className="w-4 h-4" /> 4 อุตสาหกรรมเด่น
+              <Building2 className="w-4 h-4" /> 5 อุตสาหกรรมเด่น
             </TabsTrigger>
             <TabsTrigger
               value="why"
@@ -292,6 +292,7 @@ const VCloudPointLearnMore = () => {
                   { v: "office", icon: Building2, label: "Office" },
                   { v: "mfg", icon: Factory, label: "Manufacturing" },
                   { v: "cc", icon: HeadphonesIcon, label: "Call Center" },
+                  { v: "pub", icon: Library, label: "Public Spaces" },
                 ].map((t) => (
                   <TabsTrigger
                     key={t.v}
