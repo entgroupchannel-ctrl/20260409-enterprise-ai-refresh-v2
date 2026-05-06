@@ -468,19 +468,165 @@ const VCloudPointLearnMore = () => {
               </TabsContent>
 
               {/* Office sub-tab */}
-              <TabsContent value="office" className="mt-0">
-                <div className="card-surface p-6 md:p-8 rounded-2xl">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
-                      <Building2 className="w-6 h-6 text-primary" />
-                    </div>
+              <TabsContent value="office" className="mt-0 space-y-6">
+                {/* Hero banner */}
+                <div className="relative overflow-hidden rounded-2xl card-surface bg-gradient-to-br from-primary/15 via-accent/10 to-transparent p-6 md:p-8">
+                  <div className="absolute -right-10 -top-10 w-48 h-48 bg-primary/20 rounded-full blur-3xl pointer-events-none" />
+                  <div className="relative grid md:grid-cols-[1fr_auto] gap-4 items-center">
                     <div>
-                      <h3 className="text-lg md:text-xl font-display font-bold text-foreground mb-2">Office Workspace</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        Workspace มาตรฐานเดียวกันทุกโต๊ะ — IT ดูแลรวมศูนย์ ลดค่าไฟลง 80% เพิ่ม Productivity ของพนักงาน
-                        ข้อมูลทั้งหมดอยู่บน Host ปลอดภัย ไม่กลัวพนักงานก๊อปไฟล์ออกไปกับเครื่องส่วนตัว
+                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-wider mb-3 shadow-md">
+                        <Building2 className="w-3 h-3" /> Zero Client for Office
+                      </div>
+                      <h3 className="text-xl md:text-2xl font-display font-black text-foreground mb-2">
+                        ออฟฟิศยุคใหม่ — Workspace มาตรฐาน ดูแลรวมศูนย์
+                      </h3>
+                      <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                        จากบริษัทกฎหมาย บัญชี ไปจนถึงบริษัทยา — vCloudPoint ถูกเลือกใช้ในออฟฟิศทั่วโลก เพราะ
+                        <strong className="text-foreground"> ข้อมูลอยู่บน Host ปลอดภัย</strong>
+                        {" "}IT จัดเตรียมเครื่องใหม่ใน 5 นาที พนักงานเข้าใช้งานได้จากทุกโต๊ะด้วย Account ของตัวเอง
                       </p>
                     </div>
+                    <div className="hidden md:flex flex-col items-center gap-1 px-4 py-3 rounded-xl bg-background/60 border border-primary/30">
+                      <span className="text-3xl font-black text-primary">9+</span>
+                      <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Office case studies</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Office case studies */}
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {[
+                    {
+                      img: "https://www.vcloudpoint.com/wp-content/uploads/Eureka-Information-Technology-in-Pakistan2-320x180.jpg",
+                      title: "Eureka Information Technology",
+                      type: "บริษัท IT · ปากีสถาน",
+                      flag: "🇵🇰",
+                      story: "บริษัทไอทีติดตั้ง vCloudPoint ทั้งออฟฟิศ — ลดค่า PC ลงครึ่ง พนักงานเข้าทำงานจากเครื่องไหนก็ได้",
+                      tag: "IT Office",
+                    },
+                    {
+                      img: "https://www.vcloudpoint.com/wp-content/uploads/Barret-Hodgson-Company-in-Pakistan1-320x180.jpg",
+                      title: "Barret Hodgson Company",
+                      type: "บริษัทยา · ปากีสถาน",
+                      flag: "🇵🇰",
+                      story: "บริษัทยาขนาดใหญ่ — ต้องการ Workspace มาตรฐานเดียวกันทุกแผนก ข้อมูลคนไข้ปลอดภัยบน Host",
+                      tag: "Pharma",
+                    },
+                    {
+                      img: "https://www.vcloudpoint.com/wp-content/uploads/Sukhtian-Group-Company-in-Jordan3-320x180.png",
+                      title: "Sukhtian Group",
+                      type: "Holding Group · จอร์แดน",
+                      flag: "🇯🇴",
+                      story: "กลุ่มบริษัทขนาดใหญ่หลาย Subsidiary — บริหาร Desktop รวมศูนย์ จัด Policy เดียวใช้ได้ทั้งเครือ",
+                      tag: "Enterprise",
+                    },
+                    {
+                      img: "https://www.vcloudpoint.com/wp-content/uploads/AFKAR-for-Cooling-Systems-and-Decorations-in-Jordan2-320x180.png",
+                      title: "AFKAR Cooling Systems",
+                      type: "บริษัทระบบทำความเย็น · จอร์แดน",
+                      flag: "🇯🇴",
+                      story: "ออฟฟิศและโชว์รูม — Zero Client กะทัดรัด ติดหลังจอ ประหยัดพื้นที่ ดูเรียบร้อยมืออาชีพ",
+                      tag: "Showroom",
+                    },
+                    {
+                      img: "https://www.vcloudpoint.com/wp-content/uploads/Travel-and-Media-Company-in-Vietnam-1-320x180.jpg",
+                      title: "Travel & Media Company",
+                      type: "บริษัทท่องเที่ยว–มีเดีย · เวียดนาม",
+                      flag: "🇻🇳",
+                      story: "ทีมเซลส์ + กราฟิก ใช้งานพร้อมกัน — DDP รองรับ Full HD Video ลื่นไหล ทำงานสื่อได้สบาย",
+                      tag: "Media",
+                    },
+                    {
+                      img: "https://www.vcloudpoint.com/wp-content/uploads/Law-Company-in-Malaysia-1-320x180.jpg",
+                      title: "Law Firm",
+                      type: "สำนักกฎหมาย · มาเลเซีย",
+                      flag: "🇲🇾",
+                      story: "เอกสารลูกความลับเก็บบน Host ส่วนกลาง — ทนายเข้าใช้งานได้จากทุกโต๊ะ ไม่มีไฟล์อยู่บนเครื่อง",
+                      tag: "Confidential",
+                    },
+                    {
+                      img: "https://www.vcloudpoint.com/wp-content/uploads/Accountant-Company-in-Malaysia-2-320x180.jpg",
+                      title: "Accounting Firm",
+                      type: "สำนักงานบัญชี · มาเลเซีย",
+                      flag: "🇲🇾",
+                      story: "หลายผู้ช่วยบัญชีแชร์ Software บัญชีตัวเดียว — License เดียวพอ ไม่ต้องซื้อแยกทุกเครื่อง",
+                      tag: "License-Save",
+                    },
+                    {
+                      img: "https://www.vcloudpoint.com/wp-content/uploads/Furnishing-Design-Company-in-Malaysia-1-320x180.jpg",
+                      title: "Furnishing Design",
+                      type: "บริษัทออกแบบเฟอร์นิเจอร์ · มาเลเซีย",
+                      flag: "🇲🇾",
+                      story: "นักออกแบบใช้ CAD เบื้องต้นและงานสำนักงาน — Host แรงพอ ทำงานพร้อมกันได้ทั้งทีม",
+                      tag: "Design Office",
+                    },
+                    {
+                      img: "https://www.vcloudpoint.com/wp-content/uploads/102-320x180.jpg",
+                      title: "Healthcare Pharmaceuticals Ltd.",
+                      type: "บริษัทยา · บังกลาเทศ",
+                      flag: "🇧🇩",
+                      story: "ลดต้นทุน IT ขององค์กรขนาดใหญ่ — ดูแลโดยทีม IT ส่วนกลาง ไม่ต้องส่งช่างไปทุกสาขา",
+                      tag: "Healthcare",
+                    },
+                  ].map((c) => (
+                    <a
+                      key={c.title}
+                      href="https://www.vcloudpoint.com/work-category/zero-client-for-office/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group card-surface rounded-2xl overflow-hidden hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 flex flex-col"
+                    >
+                      <div className="relative aspect-video overflow-hidden bg-secondary">
+                        <img
+                          src={c.img}
+                          alt={c.title}
+                          loading="lazy"
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+                        <div className="absolute top-2 left-2 inline-flex items-center gap-1 px-2 py-1 rounded-full bg-primary/90 text-primary-foreground text-[10px] font-bold backdrop-blur">
+                          <Sparkles className="w-3 h-3" /> {c.tag}
+                        </div>
+                        <div className="absolute bottom-2 left-3 right-3 flex items-center gap-1.5 text-xs text-foreground">
+                          <span className="text-base">{c.flag}</span>
+                          <MapPin className="w-3 h-3 text-primary" />
+                          <span className="font-semibold truncate">{c.type}</span>
+                        </div>
+                      </div>
+                      <div className="p-4 flex-1 flex flex-col">
+                        <h4 className="font-display font-bold text-foreground text-sm mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                          {c.title}
+                        </h4>
+                        <p className="text-xs text-muted-foreground leading-relaxed flex-1">{c.story}</p>
+                        <div className="mt-3 inline-flex items-center gap-1 text-[11px] font-bold text-primary group-hover:gap-2 transition-all">
+                          อ่านเรื่องเต็ม <ArrowRight className="w-3 h-3" />
+                        </div>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+
+                {/* Why office */}
+                <div className="card-surface p-6 md:p-8 rounded-2xl bg-gradient-to-r from-primary/10 via-accent/10 to-primary/10 border-primary/30">
+                  <h4 className="font-display font-bold text-foreground text-lg mb-4 flex items-center gap-2">
+                    <Award className="w-5 h-5 text-primary" />
+                    ทำไมออฟฟิศทั่วโลกเลือก vCloudPoint?
+                  </h4>
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+                    {[
+                      { icon: ShieldCheck, t: "ข้อมูลปลอดภัยบน Host", d: "พนักงานก๊อปไฟล์ออกไม่ได้ ลดความเสี่ยงข้อมูลรั่ว" },
+                      { icon: Smile, t: "Provision 5 นาที", d: "พนักงานใหม่เข้างาน — เปิดเครื่องล็อกอินใช้ได้ทันที" },
+                      { icon: DollarSign, t: "ลดต้นทุน IT 50%+", d: "ฮาร์ดแวร์ + License + ค่าไฟ + ค่าดูแล รวมประหยัดมาก" },
+                      { icon: Zap, t: "Hot-desking ได้", d: "พนักงานนั่งโต๊ะไหนก็ได้ Desktop ตามไปทุกที่" },
+                    ].map((b) => (
+                      <div key={b.t} className="flex flex-col gap-2">
+                        <div className="w-9 h-9 rounded-lg bg-primary/15 border border-primary/30 flex items-center justify-center">
+                          <b.icon className="w-4 h-4 text-primary" />
+                        </div>
+                        <div className="font-bold text-foreground text-sm">{b.t}</div>
+                        <p className="text-xs text-muted-foreground leading-relaxed">{b.d}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </TabsContent>
