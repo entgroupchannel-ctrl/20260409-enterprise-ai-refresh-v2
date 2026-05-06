@@ -7,6 +7,8 @@ import { ArrowLeft, ExternalLink, Cpu, Thermometer, Wind, Shield, Zap, Server, L
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ThemeToggle from "@/components/ThemeToggle";
 import logo from "@/assets/logo-entgroup.avif";
+import ipcAdApplication from "@/assets/ads/industrialpc-ad-4-application.jpg";
+import IndustrialPCWarranty from "@/components/IndustrialPCWarranty";
 import FooterCompact from "@/components/FooterCompact";
 import B2BPlatformInterfaceShowcase from "@/components/B2BPlatformInterfaceShowcase";
 import PartnerLogos from "@/components/PartnerLogos";
