@@ -316,6 +316,59 @@ const Handheld = () => {
         </div>
       </section>
 
+      {/* Visual Showcase Gallery */}
+      <section className="container max-w-7xl mx-auto px-4 pb-12">
+        <div className="text-center mb-6">
+          <Badge className="bg-primary/10 text-primary border-primary/20 mb-3">Use Cases & Highlights</Badge>
+          <h2 className="text-2xl font-display font-bold text-foreground">
+            ครบทุกการใช้งาน <span className="text-gradient">คลัง · E-Commerce · ภาคสนาม</span>
+          </h2>
+        </div>
+
+        {/* Row 1: Featured (1 ใหญ่ + 2 เล็ก) */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mb-3">
+          <div className="md:col-span-2 card-surface overflow-hidden group">
+            <div className="aspect-[16/9] md:aspect-auto md:h-full overflow-hidden">
+              <img src={handheldLineup} alt="Handheld Series Lineup ครบทุกขนาด"
+                loading="lazy"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            </div>
+          </div>
+          <div className="card-surface overflow-hidden group">
+            <div className="aspect-square md:aspect-[4/5] overflow-hidden">
+              <img src={handheldW65G} alt="W65G เรือธง"
+                loading="lazy"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            </div>
+          </div>
+          <div className="card-surface overflow-hidden group">
+            <div className="aspect-square md:aspect-[4/5] overflow-hidden">
+              <img src={handheldA55GT} alt="A55GT รุ่นคุ้มค่า"
+                loading="lazy"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            </div>
+          </div>
+        </div>
+
+        {/* Row 2: 4 ภาพต่อแถว */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {[
+            { src: handheldRFID, alt: "UHF RFID Reader" },
+            { src: handheldPainpoint, alt: "Pain Point คลังสินค้า" },
+            { src: handheldSquare, alt: "Handheld Highlight" },
+            { src: handheldHero, alt: "Handheld Master Showcase" },
+          ].map((g, i) => (
+            <div key={i} className="card-surface overflow-hidden group">
+              <div className="aspect-square overflow-hidden">
+                <img src={g.src} alt={g.alt}
+                  loading="lazy"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Related Categories */}
       <section className="container max-w-7xl mx-auto px-4 pb-10 space-y-3">
         <h2 className="text-lg font-display font-bold text-foreground mb-2">หมวดหมู่ที่เกี่ยวข้อง</h2>
