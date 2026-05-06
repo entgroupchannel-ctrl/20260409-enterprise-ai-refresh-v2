@@ -867,7 +867,7 @@ const VCloudPoint = () => {
           <p className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-4">มาตรฐานและการรับรอง</p>
           <div className="flex flex-wrap justify-center gap-4">
             {["FCC Class A&B", "CE", "CCC", "RoHS", "BIS", "NOM", "ISO 9001:2015", "ISO 14001:2015"].map((cert) => (
-              <span key={cert} className="px-3 py-1.5 rounded-lg text-xs font-medium bg-secondary text-secondary-foreground border border-border">
+              <span key={cert} className="px-3 py-1.5 rounded-lg text-xs font-medium bg-secondary text-secondary-foreground border border-border bg-gray-400">
                 {cert}
               </span>
             ))}
